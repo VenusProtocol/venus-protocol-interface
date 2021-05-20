@@ -1,0 +1,224 @@
+@import 'assets/styles/Global.scss';
+
+body {
+    /* width */
+    &::-webkit-scrollbar {
+        width: 2px;
+        height: 5px;
+    }
+    
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #F6F6F6; 
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: gray;
+    }
+    
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+    }
+}
+.switch-wrapper {
+    position: relative;
+}
+
+.highlight {
+    &:hover { 
+        font-weight: bold;
+        color: var(--color-orange) !important;
+    }
+}
+// .switch-wrapper > div {
+//     position: absolute;
+// }
+
+
+.Toastify__toast-container {
+    left: 0;
+    top: 0;
+    margin-left: 0px;
+    padding: 0;
+
+    .Toastify__toast {
+        width: 100vw;
+        min-height: 52px;
+        padding: 0;
+        box-shadow: 0 12px 30px rgba(79, 75, 108, 0.159282);
+        .Toastify__toast-body {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            color: var(--color-text-main);
+
+            .toast_container_wrapper {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding-left: 25px;
+                .title {
+                    color: var(--color-text-main);
+                    font-weight: bold;
+                    margin-bottom: 0px;
+                    margin-right: 10px;
+                }
+            }
+
+            .success {
+                background: var(--color-green);
+            }
+            .error {
+                background: var(--color-red);
+            }
+            
+            .info {
+                background: var(--color-yellow);
+            }
+        }
+
+        .Toastify__close-button {
+            position: absolute;
+            right: 0;
+            color: var(--color-text-main);
+            opacity: 1;
+            top: 15px;
+            right: 25px;
+        }
+    }
+}
+
+.connect-modal,
+.collateral-confirm-modal {
+    .ant-modal-content {
+        border-radius: 20px;
+        background-color: var(--color-bg-primary);
+        .ant-modal-body {
+            padding: 0;
+            border-radius: 20px;
+        }
+    }
+}
+
+.scrollbar {
+    /* width */
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 3px;
+        background-color: var(--color-primary);
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #e53d52;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+}
+
+button:disabled,
+button[disabled] {
+    color: rgba(0, 0, 0, 0.25) !important;
+    background-color: #D3D3D3 !important;
+    background-image: linear-gradient(to right, #D3D3D3, #D3D3D3) !important;
+    border-color: #d9d9d9 !important;
+    box-shadow: none !important;
+}
+
+.ant-select-dropdown-menu-item {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-main);
+
+    &:hover {
+        background-color: var(--color-bg-active) !important;
+    }
+}
+
+.ant-select-dropdown-menu-item-selected {
+    color: var(--color-text-main);
+    font-weight: 600;
+    background-color: var(--color-bg-primary) !important;
+}
+
+input {
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        padding-right: 22px;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+        padding-right: 22px;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+        padding-right: 22px;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+        padding-right: 22px;
+    }
+}
+
+.proposal-detail {
+    table {
+        border: 1px solid #ccc;
+    }
+
+    td, th {
+        border-top-width: 1px;
+        border-top-style: solid; /* double, dashed, dotted... */
+        border-top-color: #ccc;
+        border-right-width: 1px;
+        border-right-style: solid; /* double, dashed, dotted... */
+        border-right-color: #ccc;
+    }
+
+    a {
+        color: #09d395;
+    }
+}
+// Common CSS
+
+.flex {
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.align-center {
+    align-items: center;
+}
+.just-center {
+    justify-content: center;
+}
+.just-between {
+    justify-content: space-between;
+}
+.just-around {
+    justify-content: space-around;
+}
+.just-end {
+    justify-content: flex-end;
+}
+.center {
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
+.left {
+    text-align: left;
+}
+.pointer {
+    cursor: pointer;
+}
+.full {
+    width: 100%;
+}

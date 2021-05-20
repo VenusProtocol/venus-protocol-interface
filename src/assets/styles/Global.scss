@@ -1,0 +1,51 @@
+:root {
+    /* Common styles */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-orange: #ff4a21;
+    --color-yellow: #f8b94b;
+    --color-purple: #906DE5;
+    --color-red: #f9053e;
+    --color-green: #9dd562;
+    --color-blue: #039BE5;
+    --color-dark-green: #09d395;
+    --color-dark-grey: #666771;
+    /* Background colors */
+    --color-bg-main: #090d27;
+    --color-bg-primary: #181c3a;
+    --color-bg-active: #252a4a;
+    /* Typography colors */
+    --color-text-main: #ffffff;
+    --color-text-secondary: #a1a1a1;
+    --color-text-inactive: #5e5f6a;
+    --color-text-red: #f9053e;
+    --color-text-green: #9dd562;
+    --color-text-blue: #2fe29b;
+    --color-input: #252a4a;
+    --color-text-footer: #42434e;
+    --color-border-main: #EAEAEA;
+    --color-primary: #FF481C;
+    --color-secondary: #D3D3D3;
+}
+
+@font-face {
+    font-family: AvenirNext;
+    src: url("../font/Avenir-next/AvenirNextLTPro-Regular.otf") format("opentype");
+}
+
+body * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: "AvenirNext";
+    font-stretch: normal;
+    font-style: normal;
+}
+
+a, span, p, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0px;
+}
+
+.input-error {
+    color: var(--color-red);
+    font-size: 18px;
+}
