@@ -76,7 +76,7 @@ function Dashboard({ settings, setSetting }) {
       ]);
 
       let totalBorrowLimit = new BigNumber(0);
-      let totalBorrowBalance = new BigNumber(0);
+      let totalBorrowBalance = new BigNumber(userVaiMinted);
       
       const assetList = await Promise.all(Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(async (item, index) => {
         if (!settings.decimals[item.id]) {
