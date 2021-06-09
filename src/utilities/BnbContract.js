@@ -1,8 +1,9 @@
 import Web3 from 'web3'; // eslint-disable-line import/no-unresolved
 import * as constants from 'utilities/constants';
+import { getWeb3 } from './ContractService';
 
 export const sendSupply = async (from, amount, callback) => {
-  const web3 = new Web3(window.web3.currentProvider);
+  const web3 = getWeb3();
   try {
     const contract = new web3.eth.Contract(
       JSON.parse(constants.CONTRACT_VBNB_ABI),
@@ -16,7 +17,7 @@ export const sendSupply = async (from, amount, callback) => {
       value: amount,
       data: contractData
     };
-    // // Send transaction
+
     await web3.eth.sendTransaction(tx, err => {
       if (!err) {
         callback(true);

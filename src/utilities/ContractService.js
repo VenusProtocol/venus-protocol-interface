@@ -1,9 +1,24 @@
 import Web3 from 'web3';
 import * as constants from './constants';
 
-const instance = new Web3(
-  JSON.parse(localStorage.getItem('state')) && JSON.parse(localStorage.getItem('state')).account.setting.walletType === 'binance' ? (process.env.REACT_APP_ENV === 'dev' ? 'https://data-seed-prebsc-1-s1.binance.org:8545' : 'https://bsc-dataseed.binance.org') : window.ethereum
-);
+export const getWeb3 = () => {
+  const providerUrl =
+    process.env.REACT_APP_ENV === 'dev'
+      ? 'https://data-seed-prebsc-1-s1.binance.org:8545'
+      : 'https://bsc-dataseed.binance.org';
+
+  return new Web3(
+    JSON.parse(localStorage.getItem('state')) &&
+    JSON.parse(localStorage.getItem('state')).account.setting.walletType ===
+      'binance'
+      ? window.BinanceChain
+        ? window.BinanceChain
+        : providerUrl
+      : window.ethereum
+      ? window.ethereum
+      : providerUrl
+  );
+};
 
 // const instance = new Web3(window.ethereum);
 
@@ -54,6 +69,7 @@ const send = (method, params, from) => {
 };
 
 export const getVaiTokenContract = () => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_VAI_TOKEN_ABI),
     constants.CONTRACT_VAI_TOKEN_ADDRESS
@@ -61,6 +77,7 @@ export const getVaiTokenContract = () => {
 };
 
 export const getVaiControllerContract = () => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_VAI_CONTROLLER_ABI),
     constants.CONTRACT_VAI_UNITROLLER_ADDRESS
@@ -68,6 +85,7 @@ export const getVaiControllerContract = () => {
 };
 
 export const getVaiVaultContract = () => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_VAI_VAULT_ABI),
     constants.CONTRACT_VAI_VAULT_ADDRESS
@@ -75,6 +93,7 @@ export const getVaiVaultContract = () => {
 };
 
 export const getTokenContract = name => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(TOKEN_ABI[name]),
     constants.CONTRACT_TOKEN_ADDRESS[name || 'usdc']
@@ -84,6 +103,7 @@ export const getTokenContract = name => {
 };
 
 export const getVbepContract = name => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(
       name !== 'bnb' ? constants.CONTRACT_VBEP_ABI : constants.CONTRACT_VBNB_ABI
@@ -95,6 +115,7 @@ export const getVbepContract = name => {
 };
 
 export const getComptrollerContract = () => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_COMPTROLLER_ABI),
     constants.CONTRACT_COMPTROLLER_ADDRESS
@@ -104,6 +125,7 @@ export const getComptrollerContract = () => {
 export const getPriceOracleContract = (
   address = constants.CONTRACT_PRICE_ORACLE_ADDRESS
 ) => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_PRICE_ORACLE_ABI),
     address
@@ -111,6 +133,7 @@ export const getPriceOracleContract = (
 };
 
 export const getVoteContract = () => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_VOTE_ABI),
     constants.CONTRACT_VOTE_ADDRESS
@@ -118,6 +141,7 @@ export const getVoteContract = () => {
 };
 
 export const getInterestModelContract = address => {
+  const instance = getWeb3();
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_INTEREST_MODEL_ABI),
     address
