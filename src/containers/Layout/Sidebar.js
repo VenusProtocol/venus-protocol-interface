@@ -279,6 +279,7 @@ const { Option } = Select;
 let metamask = null;
 let accounts = [];
 let metamaskWatcher = null;
+let walletType = 'metamask';
 const abortController = new AbortController();
 
 const format = commaNumber.bindWith(',', '.');
@@ -331,12 +332,12 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   };
 
   useEffect(() => {
-    if (window.ethereum) {
+    if (window.ethereum || window.BinanceChain) {
       window.addEventListener('load', () => {
         checkNetwork();
       });
     }
-  }, [window.ethereum]);
+  }, [window.ethereum, window.BinanceChain]);
 
   // ---------------------------------MetaMask connect-------------------------------------
   const withTimeoutRejection = async (promise, timeout) => {
@@ -367,15 +368,15 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       const isLocked = error && error.message === constants.LOCKED;
       if (!metamask || isLocked) {
         metamask = await withTimeoutRejection(
-          MetaMaskClass.initialize(undefined), // if option is existed, add it
+          MetaMaskClass.initialize(undefined, walletType), // if option is existed, add it
           20 * 1000 // timeout
         );
       }
 
-      let [tempWeb3, tempAccounts, latestBlockNumber] = await Promise.all([
+      const [tempWeb3, tempAccounts, latestBlockNumber] = await Promise.all([
         metamask.getWeb3(),
-        metamask.getAccounts(),
-        metamask.getLatestBlockNumber(),
+        metamask.getAccounts(walletType),
+        metamask.getLatestBlockNumber()
       ]);
       accounts = tempAccounts;
       setWeb3(tempWeb3);
@@ -399,11 +400,19 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, [error, web3]);
 
   const handleMetaMask = () => {
+    walletType = 'metamask';
     setSetting({ walletType: 'metamask' });
     setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
     handleWatch();
   };
   // -------------------------------------------------------------------------------------
+  // --------------------Binance Wallet Connect---------------------------------
+  const handleBinance = () => {
+    walletType = 'binance';
+    setSetting({ walletType: 'binance' });
+    setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+    handleWatch();
+  };
 
   const setDecimals = async () => {
     const decimals = {};
@@ -451,7 +460,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     return function cleanup() {
       abortController.abort();
     };
-  }, [handleWatch, settings.accounts]);
+  }, [handleWatch, settings.selectedAddress]);
 
   useEffect(() => {
     handleWatch();
@@ -510,7 +519,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, [settings.markets]);
 
   useEffect(() => {
-    if (window.ethereum) {
+    if (window.ethereum || window.BinanceChain) {
       if (
         !settings.accountLoading &&
         checkIsValidNetwork(settings.walletType)
@@ -533,6 +542,13 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       checkIsValidNetwork(settings.walletType)
     ) {
       window.ethereum.on('accountsChanged', accs => {
+        setSetting({
+          selectedAddress: accs[0],
+          accountLoading: true
+        });
+      });
+    } else if (window.BinanceChain && settings.walletType === 'binance') {
+      window.BinanceChain.on('accountsChanged', accs => {
         setSetting({
           selectedAddress: accs[0],
           accountLoading: true
@@ -693,16 +709,22 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         </TotalValue>
       )}
       <ConnectButton>
-        {!settings.selectedAddress && (
-          <Button
-            className="connect-btn"
-            onClick={() => {
-              setIsOpenModal(true);
-            }}
-          >
-            Connect
-          </Button>
-        )}
+        <Button
+          className="connect-btn"
+          onClick={() => {
+            setIsOpenModal(true);
+          }}
+        >
+          {!settings.selectedAddress
+          ? 'Connect'
+          : `${settings.selectedAddress.substr(
+              0,
+              6
+            )}...${settings.selectedAddress.substr(
+              settings.selectedAddress.length - 4,
+              4
+            )}`}
+        </Button>
       </ConnectButton>
       <MobileMenu id="main-menu">
         <Select
@@ -757,6 +779,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         awaiting={awaiting}
         onCancel={() => setIsOpenModal(false)}
         onConnectMetaMask={handleMetaMask}
+        onConnectBinance={handleBinance}
         onBack={() => setWcUri(null)}
       />
     </SidebarWrapper>

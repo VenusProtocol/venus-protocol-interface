@@ -64,7 +64,7 @@ function CoinInfo({ settings }) {
   const [balance, setBalance] = useState('');
 
   const updateBalance = useCallback(async () => {
-    if (window.ethereum && checkIsValidNetwork() && settings.selectedAddress) {
+    if ((window.ethereum || window.BinanceChain) && checkIsValidNetwork() && settings.selectedAddress) {
       const xvsTokenContract = getTokenContract('xvs');
       let temp = await methods.call(xvsTokenContract.methods.balanceOf, [
         settings.selectedAddress

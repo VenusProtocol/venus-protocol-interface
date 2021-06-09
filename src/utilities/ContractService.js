@@ -1,11 +1,11 @@
 import Web3 from 'web3';
 import * as constants from './constants';
 
-// const instance = new Web3(
-//   JSON.parse(localStorage.getItem('state')) && JSON.parse(localStorage.getItem('state')).account.setting.walletType === 'binance' ? (process.env.REACT_APP_ENV === 'dev' ? 'https://data-seed-prebsc-1-s1.binance.org:8545' : 'https://bsc-dataseed.binance.org') : window.ethereum
-// );
+const instance = new Web3(
+  JSON.parse(localStorage.getItem('state')) && JSON.parse(localStorage.getItem('state')).account.setting.walletType === 'binance' ? (process.env.REACT_APP_ENV === 'dev' ? 'https://data-seed-prebsc-1-s1.binance.org:8545' : 'https://bsc-dataseed.binance.org') : window.ethereum
+);
 
-const instance = new Web3(window.ethereum);
+// const instance = new Web3(window.ethereum);
 
 const TOKEN_ABI = {
   sxp: constants.CONTRACT_SXP_TOKEN_ABI,

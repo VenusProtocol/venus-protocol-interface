@@ -147,7 +147,7 @@ function Dashboard({ settings, setSetting }) {
           const [snapshot, balance, walletBalance] = await Promise.all([
             methods.call(vBepContract.methods.getAccountSnapshot, [accountAddress]),
             methods.call(vBepContract.methods.balanceOf, [accountAddress]),
-            window.ethereum && window.web3.eth.getBalance(accountAddress)
+            (window.ethereum || window.BinanceChain) && window.web3.eth.getBalance(accountAddress)
           ]);
           supplyBalance = new BigNumber(snapshot[1]).times(new BigNumber(snapshot[3])).div(
             new BigNumber(10).pow(18)
@@ -155,7 +155,7 @@ function Dashboard({ settings, setSetting }) {
           borrowBalance = snapshot[2];
           totalBalance = balance;
 
-          if (window.ethereum) {
+          if (window.ethereum || window.BinanceChain) {
             asset.isEnabled = true;
             asset.walletBalance = new BigNumber(walletBalance).div(
               new BigNumber(10).pow(tokenDecimal)
