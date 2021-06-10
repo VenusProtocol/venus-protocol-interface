@@ -279,7 +279,7 @@ const { Option } = Select;
 let metamask = null;
 let accounts = [];
 let metamaskWatcher = null;
-let walletType = 'metamask';
+let walletType = null;
 const abortController = new AbortController();
 
 const format = commaNumber.bindWith(',', '.');
@@ -295,9 +295,16 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const [wcUri, setWcUri] = useState(null);
 
   const defaultPath = history.location.pathname.split('/')[1];
+
+  useEffect(() => {
+    if (settings.walletType) {
+      walletType = settings.walletType;
+    }
+  }, [settings.walletType])
+
   const checkNetwork = () => {
     let netId;
-    if (settings.walletType === 'binance') {
+    if (window.BinanceChain && settings.walletType === 'binance') {
       netId = +window.BinanceChain.chainId;
     } else {
       netId = window.ethereum.networkVersion
@@ -348,6 +355,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   };
 
   const handleWatch = useCallback(async () => {
+    if (!walletType) return;
     if (window.ethereum) {
       const accs = await window.ethereum.request({ method: 'eth_accounts' });
       if (!accs[0]) {
@@ -372,7 +380,6 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           20 * 1000 // timeout
         );
       }
-
       const [tempWeb3, tempAccounts, latestBlockNumber] = await Promise.all([
         metamask.getWeb3(),
         metamask.getAccounts(walletType),
@@ -400,20 +407,21 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, [error, web3]);
 
   const handleMetaMask = () => {
-    walletType = 'metamask';
-    setSetting({ walletType: 'metamask' });
-    setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
-    handleWatch();
+    if (window.ethereum) {
+      setSetting({ walletType: 'metamask' });
+      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+      handleWatch();
+    }
   };
   // -------------------------------------------------------------------------------------
   // --------------------Binance Wallet Connect---------------------------------
   const handleBinance = () => {
-    walletType = 'binance';
-    setSetting({ walletType: 'binance' });
-    setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
-    handleWatch();
+    if (window.BinanceChain) {
+      setSetting({ walletType: 'binance' });
+      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+      handleWatch();
+    }
   };
-
   const setDecimals = async () => {
     const decimals = {};
     Object.values(constants.CONTRACT_TOKEN_ADDRESS).forEach(async item => {
@@ -533,7 +541,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, [settings.accountLoading]);
 
   useEffect(() => {
-    if (!settings.selectedAddress) {
+    if (!settings.selectedAddress || !walletType) {
       return;
     }
     if (
@@ -547,7 +555,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           accountLoading: true
         });
       });
-    } else if (window.BinanceChain && settings.walletType === 'binance') {
+    } else if (window.BinanceChain && settings.walletType === 'binance' && checkIsValidNetwork(settings.walletType)) {
       window.BinanceChain.on('accountsChanged', accs => {
         setSetting({
           selectedAddress: accs[0],
@@ -555,7 +563,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         });
       });
     }
-  }, [window.ethereum, settings.selectedAddress]);
+  }, [window.ethereum, window.BinanceChain, settings.selectedAddress]);
 
   const updateMarketInfo = async () => {
     const accountAddress = settings.selectedAddress;

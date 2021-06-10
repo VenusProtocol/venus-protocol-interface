@@ -9,7 +9,7 @@ export default class MetaMask {
   ) {
     const instance = await MetaMask.getWeb3(walletType);
     const provider = instance.currentProvider;
-    provider.setMaxListeners(maxListeners);
+    // provider.setMaxListeners(maxListeners);
     return new MetaMask(provider);
   }
 
@@ -18,22 +18,26 @@ export default class MetaMask {
   }
 
   static async getWeb3(walletType) {
-    if (window.ethereum && walletType !== 'binance') {
-      // Modern dapp browsers
+    const providerUrl =
+    process.env.REACT_APP_ENV === 'dev'
+      ? 'https://data-seed-prebsc-1-s1.binance.org:8545'
+      : 'https://bsc-dataseed.binance.org';
+    window.web3 = new Web3(
+      walletType && walletType === 'binance'
+          ? window.BinanceChain
+            ? window.BinanceChain
+            : providerUrl
+          : window.ethereum
+          ? window.ethereum
+          : providerUrl);
 
-      window.web3 = new Web3(window.ethereum);
-      window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-      });
-      await window.ethereum.enable();
-      return window.web3;
-    }
-    if (window.BinanceChain && walletType === 'binance') {
-      window.web3 = new Web3(
-        process.env.REACT_APP_ENV === 'dev'
-          ? 'https://data-seed-prebsc-1-s1.binance.org:8545'
-          : 'https://bsc-dataseed.binance.org'
-      );
+    if (window.ethereum || window.BinanceChain) {
+      if (window.ethereum)       {
+        window.ethereum.on('chainChanged', () => {
+          window.location.reload();
+        });
+        await window.ethereum.enable();
+      }
       return window.web3;
     }
     throw new Error(constants.NOT_INSTALLED);
@@ -62,7 +66,7 @@ export default class MetaMask {
             resolve(accounts);
           }
         });
-      } else {
+      } else if (window.BinanceChain) {
         window.BinanceChain.request({ method: 'eth_requestAccounts' })
           .then(accounts => {
             if (accounts.length === 0) {

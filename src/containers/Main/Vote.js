@@ -87,7 +87,7 @@ function Vote({ settings, getProposals, setSetting }) {
   };
 
   const updateBalance = async () => {
-    if (settings.selectedAddress && checkIsValidNetwork()) {
+    if (settings.selectedAddress && checkIsValidNetwork(settings.walletType)) {
       const xvsTokenContract = getTokenContract('xvs');
       await methods
         .call(xvsTokenContract.methods.getCurrentVotes, [
