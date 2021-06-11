@@ -110,7 +110,7 @@ function Vault({ settings }) {
   };
 
   useEffect(() => {
-    if (checkIsValidNetwork()) {
+    if (checkIsValidNetwork(settings.walletType)) {
       updateTotalInfo();
     }
   }, [settings.markets]);

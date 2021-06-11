@@ -279,6 +279,7 @@ const { Option } = Select;
 let metamask = null;
 let accounts = [];
 let metamaskWatcher = null;
+let walletType = null;
 const abortController = new AbortController();
 
 const format = commaNumber.bindWith(',', '.');
@@ -294,9 +295,16 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const [wcUri, setWcUri] = useState(null);
 
   const defaultPath = history.location.pathname.split('/')[1];
+
+  useEffect(() => {
+    if (settings.walletType) {
+      walletType = settings.walletType;
+    }
+  }, [settings.walletType])
+
   const checkNetwork = () => {
     let netId;
-    if (settings.walletType === 'binance') {
+    if (window.BinanceChain && settings.walletType === 'binance') {
       netId = +window.BinanceChain.chainId;
     } else {
       netId = window.ethereum.networkVersion
@@ -331,12 +339,12 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   };
 
   useEffect(() => {
-    if (window.ethereum) {
+    if (window.ethereum || window.BinanceChain) {
       window.addEventListener('load', () => {
         checkNetwork();
       });
     }
-  }, [window.ethereum]);
+  }, [window.ethereum, window.BinanceChain]);
 
   // ---------------------------------MetaMask connect-------------------------------------
   const withTimeoutRejection = async (promise, timeout) => {
@@ -347,6 +355,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   };
 
   const handleWatch = useCallback(async () => {
+    if (!walletType) return;
     if (window.ethereum) {
       const accs = await window.ethereum.request({ method: 'eth_accounts' });
       if (!accs[0]) {
@@ -367,15 +376,14 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       const isLocked = error && error.message === constants.LOCKED;
       if (!metamask || isLocked) {
         metamask = await withTimeoutRejection(
-          MetaMaskClass.initialize(undefined), // if option is existed, add it
+          MetaMaskClass.initialize(undefined, walletType), // if option is existed, add it
           20 * 1000 // timeout
         );
       }
-
-      let [tempWeb3, tempAccounts, latestBlockNumber] = await Promise.all([
+      const [tempWeb3, tempAccounts, latestBlockNumber] = await Promise.all([
         metamask.getWeb3(),
-        metamask.getAccounts(),
-        metamask.getLatestBlockNumber(),
+        metamask.getAccounts(walletType),
+        metamask.getLatestBlockNumber()
       ]);
       accounts = tempAccounts;
       setWeb3(tempWeb3);
@@ -399,12 +407,21 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, [error, web3]);
 
   const handleMetaMask = () => {
-    setSetting({ walletType: 'metamask' });
-    setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
-    handleWatch();
+    if (window.ethereum) {
+      setSetting({ walletType: 'metamask' });
+      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+      handleWatch();
+    }
   };
   // -------------------------------------------------------------------------------------
-
+  // --------------------Binance Wallet Connect---------------------------------
+  const handleBinance = () => {
+    if (window.BinanceChain) {
+      setSetting({ walletType: 'binance' });
+      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+      handleWatch();
+    }
+  };
   const setDecimals = async () => {
     const decimals = {};
     Object.values(constants.CONTRACT_TOKEN_ADDRESS).forEach(async item => {
@@ -451,7 +468,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     return function cleanup() {
       abortController.abort();
     };
-  }, [handleWatch, settings.accounts]);
+  }, [handleWatch, settings.selectedAddress]);
 
   useEffect(() => {
     handleWatch();
@@ -510,7 +527,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, [settings.markets]);
 
   useEffect(() => {
-    if (window.ethereum) {
+    if (window.ethereum || window.BinanceChain) {
       if (
         !settings.accountLoading &&
         checkIsValidNetwork(settings.walletType)
@@ -524,7 +541,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, [settings.accountLoading]);
 
   useEffect(() => {
-    if (!settings.selectedAddress) {
+    if (!settings.selectedAddress || !walletType) {
       return;
     }
     if (
@@ -538,8 +555,15 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           accountLoading: true
         });
       });
+    } else if (window.BinanceChain && settings.walletType === 'binance' && checkIsValidNetwork(settings.walletType)) {
+      window.BinanceChain.on('accountsChanged', accs => {
+        setSetting({
+          selectedAddress: accs[0],
+          accountLoading: true
+        });
+      });
     }
-  }, [window.ethereum, settings.selectedAddress]);
+  }, [window.ethereum, window.BinanceChain, settings.selectedAddress]);
 
   const updateMarketInfo = async () => {
     const accountAddress = settings.selectedAddress;
@@ -693,16 +717,22 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         </TotalValue>
       )}
       <ConnectButton>
-        {!settings.selectedAddress && (
-          <Button
-            className="connect-btn"
-            onClick={() => {
-              setIsOpenModal(true);
-            }}
-          >
-            Connect
-          </Button>
-        )}
+        <Button
+          className="connect-btn"
+          onClick={() => {
+            setIsOpenModal(true);
+          }}
+        >
+          {!settings.selectedAddress
+          ? 'Connect'
+          : `${settings.selectedAddress.substr(
+              0,
+              6
+            )}...${settings.selectedAddress.substr(
+              settings.selectedAddress.length - 4,
+              4
+            )}`}
+        </Button>
       </ConnectButton>
       <MobileMenu id="main-menu">
         <Select
@@ -755,8 +785,10 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         error={error}
         wcUri={wcUri}
         awaiting={awaiting}
+        walletType={walletType}
         onCancel={() => setIsOpenModal(false)}
         onConnectMetaMask={handleMetaMask}
+        onConnectBinance={handleBinance}
         onBack={() => setWcUri(null)}
       />
     </SidebarWrapper>

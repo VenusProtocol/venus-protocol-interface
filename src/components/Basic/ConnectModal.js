@@ -7,6 +7,7 @@ import * as constants from 'utilities/constants';
 import metamaskImg from 'assets/img/metamask.png';
 import coinbaseImg from 'assets/img/coinbase.png';
 import ledgerImg from 'assets/img/ledger.png';
+import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import logoImg from 'assets/img/logo.png';
@@ -111,8 +112,10 @@ function ConnectModal({
   wcUri,
   error,
   awaiting,
+  walletType,
   onCancel,
   onConnectMetaMask,
+  onConnectBinance,
   onBack
 }) {
   const MetaMaskStatus = () => {
@@ -211,12 +214,7 @@ function ConnectModal({
                 </div>
                 <img src={arrowRightImg} alt="arrow" />
               </div>
-              {(error || !web3) && (
-                <div className="metamask-status">
-                  <MetaMaskStatus />
-                </div>
-              )}
-              {/* <div
+              <div
                 className="flex align-center just-between metamask-connect-btn"
                 onClick={onConnectBinance}
               >
@@ -225,7 +223,12 @@ function ConnectModal({
                   <span>Binance smart chain</span>
                 </div>
                 <img src={arrowRightImg} alt="arrow" />
-              </div> */}
+              </div>
+              {(error || !web3) && walletType && walletType === 'metamask' && (
+                <div className="metamask-status">
+                  <MetaMaskStatus />
+                </div>
+              )}
             </>
           )}
           {wcUri && (
@@ -250,9 +253,11 @@ ConnectModal.propTypes = {
   web3: PropTypes.object,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   awaiting: PropTypes.bool,
+  walletType: PropTypes.string,
   wcUri: PropTypes.string,
   onCancel: PropTypes.func,
   onConnectMetaMask: PropTypes.func.isRequired,
+  onConnectBinance: PropTypes.func.isRequired,
   onBack: PropTypes.func.isRequired
 };
 
@@ -262,6 +267,7 @@ ConnectModal.defaultProps = {
   error: '',
   wcUri: null,
   awaiting: false,
+  walletType: '',
   onCancel: () => {}
 };
 

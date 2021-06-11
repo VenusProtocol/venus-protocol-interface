@@ -102,7 +102,7 @@ function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
   };
 
   useEffect(() => {
-    if (checkIsValidNetwork()) {
+    if (checkIsValidNetwork(settings.walletType)) {
       updateBalance();
     }
     return function cleanup() {

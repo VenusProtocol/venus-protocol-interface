@@ -83,7 +83,7 @@ function VaiInfo({ settings }) {
             )}{' '}
             VAI{' '}
           </p>
-          {window.ethereum && (
+          {(window.ethereum || window.BinanceChain) && (
             <Icon
               className="add-vai-token"
               type="plus-circle"

@@ -232,7 +232,7 @@ function InterestRateModel({ settings, currentAsset }) {
       settings.markets &&
       settings.markets.length > 0 &&
       settings.decimals &&
-      checkIsValidNetwork() &&
+      checkIsValidNetwork(settings.walletType) &&
       !flag
     ) {
       getGraphData(currentAsset);

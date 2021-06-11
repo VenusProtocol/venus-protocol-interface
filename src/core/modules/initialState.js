@@ -13,6 +13,7 @@ const account = {
     assetList: [],
     totalBorrowBalance: '0',
     totalBorrowLimit: '0',
+    walletType: 'metamask',
     pendingInfo: {
       type: '',
       status: false,
