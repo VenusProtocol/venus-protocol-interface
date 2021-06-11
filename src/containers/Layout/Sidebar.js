@@ -785,6 +785,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         error={error}
         wcUri={wcUri}
         awaiting={awaiting}
+        walletType={walletType}
         onCancel={() => setIsOpenModal(false)}
         onConnectMetaMask={handleMetaMask}
         onConnectBinance={handleBinance}

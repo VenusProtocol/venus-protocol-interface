@@ -112,6 +112,7 @@ function ConnectModal({
   wcUri,
   error,
   awaiting,
+  walletType,
   onCancel,
   onConnectMetaMask,
   onConnectBinance,
@@ -223,7 +224,7 @@ function ConnectModal({
                 </div>
                 <img src={arrowRightImg} alt="arrow" />
               </div>
-              {(error || !web3) && (
+              {(error || !web3) && walletType && walletType === 'metamask' && (
                 <div className="metamask-status">
                   <MetaMaskStatus />
                 </div>
@@ -252,6 +253,7 @@ ConnectModal.propTypes = {
   web3: PropTypes.object,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   awaiting: PropTypes.bool,
+  walletType: PropTypes.string,
   wcUri: PropTypes.string,
   onCancel: PropTypes.func,
   onConnectMetaMask: PropTypes.func.isRequired,
@@ -265,6 +267,7 @@ ConnectModal.defaultProps = {
   error: '',
   wcUri: null,
   awaiting: false,
+  walletType: '',
   onCancel: () => {}
 };
 

@@ -76,7 +76,7 @@ function CoinInfo({ settings }) {
       setBalance(temp);
       setAddress(settings.selectedAddress);
     }
-  }, [window.ethereum, settings.markets]);
+  }, [window.ethereum, window.BinanceChain, settings.markets]);
 
   const handleLink = () => {
     window.open(
@@ -98,7 +98,7 @@ function CoinInfo({ settings }) {
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
           <p>{format(balance)} XVS</p>
-          {window.ethereum && (
+          {(window.ethereum && settings.walletType === 'metamask') && (
             <Icon
               className="add-xvs-token"
               type="plus-circle"

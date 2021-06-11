@@ -258,7 +258,7 @@ function Overview({ settings, getMarketHistory }) {
               </Select>
               <div className="value">Overview</div>
             </AssetSelectWrapper>
-            {window.ethereum && window.ethereum.networkVersion && (
+            {window.ethereum && window.ethereum.networkVersion && settings.walletType === 'metamask' && (
               <div className="flex align-center add-token-wrapper">
                 {currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
