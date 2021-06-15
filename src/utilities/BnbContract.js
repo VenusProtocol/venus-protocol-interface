@@ -31,7 +31,7 @@ export const sendSupply = async (from, amount, callback) => {
 };
 
 export const sendRepay = async (from, amount, callback) => {
-  const web3 = new Web3(window.web3.currentProvider);
+  const web3 = getWeb3();
   try {
     const contract = new web3.eth.Contract(
       JSON.parse(constants.CONTRACT_VBNB_ABI),
