@@ -32,7 +32,7 @@ export default class MetaMask {
           : providerUrl);
 
     if (window.ethereum || window.BinanceChain) {
-      if (window.ethereum)       {
+      if (window.ethereum && walletType === 'metamask') {
         window.ethereum.on('chainChanged', () => {
           window.location.reload();
         });

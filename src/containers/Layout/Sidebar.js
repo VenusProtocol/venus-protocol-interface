@@ -28,7 +28,6 @@ import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 
 const SidebarWrapper = styled.div`
-  height: 100vh;
   min-width: 108px;
   border-radius: 25px;
   background-color: var(--color-bg-primary);
