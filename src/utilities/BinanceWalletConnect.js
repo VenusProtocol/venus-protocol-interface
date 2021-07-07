@@ -13,13 +13,7 @@ export default class BinanceWalletConnectClass {
         ? 'https://data-seed-prebsc-1-s1.binance.org:8545'
         : 'https://bsc-dataseed.binance.org'
     );
-    this.TOKEN_ABI = {
-      sxp: constants.CONTRACT_SXP_TOKEN_ABI,
-      usdc: constants.CONTRACT_USDC_TOKEN_ABI,
-      usdt: constants.CONTRACT_USDT_TOKEN_ABI,
-      busd: constants.CONTRACT_BUSD_TOKEN_ABI,
-      xvs: constants.CONTRACT_XVS_TOKEN_ABI
-    };
+    this.TOKEN_ABI = constants.CONTRACT_BEP20_TOKEN_ABI;
   }
 
   static initialize() {
@@ -28,7 +22,7 @@ export default class BinanceWalletConnectClass {
 
   getTokenContract = name => {
     return new this.web3.eth.Contract(
-      JSON.parse(this.TOKEN_ABI[name]),
+      JSON.parse(this.TOKEN_ABI),
       constants.CONTRACT_TOKEN_ADDRESS[name || 'usdc']
         ? constants.CONTRACT_TOKEN_ADDRESS[name || 'usdc'].address
         : constants.CONTRACT_TOKEN_ADDRESS.usdc.address
