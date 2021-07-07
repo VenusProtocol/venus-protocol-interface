@@ -73,7 +73,11 @@ export const getVaiVaultContract = () => {
 export const getTokenContract = name => {
   const instance = getWeb3();
   return new instance.eth.Contract(
-    JSON.parse(constants.CONTRACT_BEP20_TOKEN_ABI),
+    JSON.parse(
+      name === 'xvs'
+        ? constants.CONTRACT_XVS_ABI
+        : constants.CONTRACT_BEP20_TOKEN_ABI
+    ),
     constants.CONTRACT_TOKEN_ADDRESS[name || 'usdc']
       ? constants.CONTRACT_TOKEN_ADDRESS[name || 'usdc'].address
       : constants.CONTRACT_TOKEN_ADDRESS.usdc.address

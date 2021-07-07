@@ -12,7 +12,7 @@ const MainLayoutWrapper = styled.div`
   background-color: var(--color-bg-main);
 
   .main {
-    min-height: 100vh;
+    height: 100vh;
     overflow: auto;
     overflow-x: hidden;
 

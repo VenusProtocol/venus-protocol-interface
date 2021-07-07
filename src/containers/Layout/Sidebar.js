@@ -28,6 +28,7 @@ import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 
 const SidebarWrapper = styled.div`
+  height: 100vh;
   min-width: 108px;
   border-radius: 25px;
   background-color: var(--color-bg-primary);
@@ -72,7 +73,7 @@ const Logo = styled.div`
 `;
 
 const MainMenu = styled.div`
-  margin-top: 140px;
+  margin-top: 100px;
 
   @media only screen and (max-width: 768px) {
     margin: 0 20px;
@@ -111,7 +112,7 @@ const MainMenu = styled.div`
       }
     }
     &:not(:last-child) {
-      margin-bottom: 48px;
+      margin-bottom: 30px;
     }
 
     &:hover {
@@ -299,7 +300,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     if (settings.walletType) {
       walletType = settings.walletType;
     }
-  }, [settings.walletType])
+  }, [settings.walletType]);
 
   const checkNetwork = () => {
     let netId;
@@ -388,10 +389,10 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       setWeb3(tempWeb3);
       setError(null);
       setAwaiting(false);
-      setSetting({ 
+      setSetting({
         selectedAddress: tempAccounts[0],
-        latestBlockNumber,
-       });
+        latestBlockNumber
+      });
       metamaskWatcher = setTimeout(() => {
         clearTimeout(metamaskWatcher);
         handleWatch();
@@ -408,7 +409,9 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const handleMetaMask = () => {
     if (window.ethereum) {
       setSetting({ walletType: 'metamask' });
-      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+      setError(
+        MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED)
+      );
       handleWatch();
     }
   };
@@ -417,7 +420,9 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const handleBinance = () => {
     if (window.BinanceChain) {
       setSetting({ walletType: 'binance' });
-      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+      setError(
+        MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED)
+      );
       handleWatch();
     }
   };
@@ -488,10 +493,12 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     }
 
     const markets = Object.keys(constants.CONTRACT_VBEP_ADDRESS)
-      .map(item => res.data.markets.find(market => market.underlyingSymbol.toLowerCase() === item.toLowerCase()))
-      .filter(item => !!item)
-    ;
-
+      .map(item =>
+        res.data.markets.find(
+          market => market.underlyingSymbol.toLowerCase() === item.toLowerCase()
+        )
+      )
+      .filter(item => !!item);
     setSetting({
       markets,
       dailyVenus: res.data.dailyVenus
@@ -554,7 +561,11 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           accountLoading: true
         });
       });
-    } else if (window.BinanceChain && settings.walletType === 'binance' && checkIsValidNetwork(settings.walletType)) {
+    } else if (
+      window.BinanceChain &&
+      settings.walletType === 'binance' &&
+      checkIsValidNetwork(settings.walletType)
+    ) {
       window.BinanceChain.on('accountsChanged', accs => {
         setSetting({
           selectedAddress: accs[0],
@@ -566,7 +577,12 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
 
   const updateMarketInfo = async () => {
     const accountAddress = settings.selectedAddress;
-    if (!accountAddress || !settings.decimals || !settings.markets || isMarketInfoUpdating) {
+    if (
+      !accountAddress ||
+      !settings.decimals ||
+      !settings.markets ||
+      isMarketInfoUpdating
+    ) {
       return;
     }
     const appContract = getComptrollerContract();
@@ -575,16 +591,19 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     setMarketInfoUpdating(true);
 
     try {
-
       let [vaultVaiStaked, venusVAIVaultRate] = await Promise.all([
-        methods.call(vaiContract.methods.balanceOf, [constants.CONTRACT_VAI_VAULT_ADDRESS]),
+        methods.call(vaiContract.methods.balanceOf, [
+          constants.CONTRACT_VAI_VAULT_ADDRESS
+        ]),
         methods.call(appContract.methods.venusVAIVaultRate, [])
       ]);
       // Total Vai Staked
       vaultVaiStaked = new BigNumber(vaultVaiStaked).div(1e18);
 
       // venus vai vault rate
-      venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
+      venusVAIVaultRate = new BigNumber(venusVAIVaultRate)
+        .div(1e18)
+        .times(20 * 60 * 24);
 
       // VAI APY
       const xvsMarket = settings.markets.find(
@@ -597,14 +616,17 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         .dp(2, 1)
         .toString(10);
 
-      const totalLiquidity = (settings.markets || []).reduce((accumulator, market) => {
-        return new BigNumber(accumulator).plus(
-          new BigNumber(market.totalSupplyUsd)
-        );
-      }, vaultVaiStaked);
+      const totalLiquidity = (settings.markets || []).reduce(
+        (accumulator, market) => {
+          return new BigNumber(accumulator).plus(
+            new BigNumber(market.totalSupplyUsd)
+          );
+        },
+        vaultVaiStaked
+      );
       setSetting({
         vaiAPY,
-        vaultVaiStaked,
+        vaultVaiStaked
       });
 
       setTVL(totalLiquidity);
@@ -723,14 +745,14 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           }}
         >
           {!settings.selectedAddress
-          ? 'Connect'
-          : `${settings.selectedAddress.substr(
-              0,
-              6
-            )}...${settings.selectedAddress.substr(
-              settings.selectedAddress.length - 4,
-              4
-            )}`}
+            ? 'Connect'
+            : `${settings.selectedAddress.substr(
+                0,
+                6
+              )}...${settings.selectedAddress.substr(
+                settings.selectedAddress.length - 4,
+                4
+              )}`}
         </Button>
       </ConnectButton>
       <MobileMenu id="main-menu">
