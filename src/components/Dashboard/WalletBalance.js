@@ -114,6 +114,7 @@ function WalletBalance({ settings, setSetting }) {
     let totalBorrowed = new BigNumber(settings.userVaiMinted);
     const { assetList } = settings;
     assetList.forEach(asset => {
+      if (!asset) return;
       const {
         supplyBalance,
         borrowBalance,
