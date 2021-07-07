@@ -20,28 +20,6 @@ export const getWeb3 = () => {
   );
 };
 
-// const instance = new Web3(window.ethereum);
-
-const TOKEN_ABI = {
-  sxp: constants.CONTRACT_SXP_TOKEN_ABI,
-  usdc: constants.CONTRACT_USDC_TOKEN_ABI,
-  usdt: constants.CONTRACT_USDT_TOKEN_ABI,
-  busd: constants.CONTRACT_BUSD_TOKEN_ABI,
-  xvs: constants.CONTRACT_XVS_TOKEN_ABI,
-  btcb: constants.CONTRACT_BTCB_TOKEN_ABI,
-  eth: constants.CONTRACT_ETH_TOKEN_ABI,
-  ltc: constants.CONTRACT_LTC_TOKEN_ABI,
-  xrp: constants.CONTRACT_XRP_TOKEN_ABI,
-  bch: constants.CONTRACT_BCH_TOKEN_ABI,
-  dot: constants.CONTRACT_DOT_TOKEN_ABI,
-  link: constants.CONTRACT_LINK_TOKEN_ABI,
-  dai: constants.CONTRACT_DAI_TOKEN_ABI,
-  fil: constants.CONTRACT_FIL_TOKEN_ABI,
-  beth: constants.CONTRACT_BETH_TOKEN_ABI,
-  ada: constants.CONTRACT_ADA_TOKEN_ABI,
-  doge: constants.CONTRACT_DOGE_TOKEN_ABI
-};
-
 const call = (method, params) => {
   return new Promise((resolve, reject) => {
     method(...params)
@@ -95,7 +73,7 @@ export const getVaiVaultContract = () => {
 export const getTokenContract = name => {
   const instance = getWeb3();
   return new instance.eth.Contract(
-    JSON.parse(TOKEN_ABI[name]),
+    JSON.parse(constants.CONTRACT_BEP20_TOKEN_ABI),
     constants.CONTRACT_TOKEN_ADDRESS[name || 'usdc']
       ? constants.CONTRACT_TOKEN_ADDRESS[name || 'usdc'].address
       : constants.CONTRACT_TOKEN_ADDRESS.usdc.address
