@@ -49,6 +49,7 @@ export default {
       beth : '0x250632378E573c6Be1AC2f97Fcdf00515d0Aa91B',
       ada : '0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47',
       doge : '0xbA2aE424d960c26247Dd6c32edC70B295c744C43',
+      matic : '0xcc42724c6683b7e57334c4e856f4c9965ed682bd',
     },
     VBEP: {
       sxp : '0x2fF3d0F6990a40261c66E1ff2017aCBc282EB6d0',
@@ -69,6 +70,7 @@ export default {
       beth : '0x972207A639CC1B374B893cc33Fa251b55CEB7c07',
       ada : '0x9A0AF7FDb2065Ce470D72664DE73cAE409dA28Ec',
       doge: '0xec3422Ef92B2fb59e84c8B02Ba73F1fE84Ed8D71',
+      matic: '0x5c9476fcd6a4f9a3654139721c949c2233bbbbc8',
     },
   },
 };

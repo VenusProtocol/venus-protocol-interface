@@ -298,6 +298,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.MAIN.TOKEN.doge,
           asset: doge,
           vasset: vdoge
+        },
+        matic: {
+          id: 'matic',
+          symbol: 'MATIC',
+          address: contracts.MAIN.TOKEN.matic,
+          asset: matic,
+          vasset: vmatic
         }
       };
 
@@ -466,6 +473,11 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'doge',
           symbol: 'vDOGE',
           address: contracts.MAIN.VBEP.doge
+        },
+        matic: {
+          id: 'matic',
+          symbol: 'vMATIC',
+          address: contracts.MAIN.VBEP.matic
         }
       };
 export const CONTRACT_VBEP_ABI =
