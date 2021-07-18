@@ -4,7 +4,7 @@
   "deploy" : {
     "testnet" : {
       "user" : "ubuntu",
-      "host" : "3.10.133.254",
+      "host" : "20.0.0.149",
       "ref"  : "origin/master",
       "repo" : "git@github.com:VenusProtocol/venus-protocol-interface.git",
       "path" : "/home/ubuntu/repos/venus-protocol-ui",
@@ -12,7 +12,7 @@
     },
     "mainnet" : {
       "user" : "ubuntu",
-      "host" : "3.10.7.59",
+      "host" : "20.0.0.10",
       "ref"  : "origin/master",
       "repo" : "git@github.com:VenusProtocol/venus-protocol-interface.git",
       "path" : "/home/ubuntu/repos/venus-protocol-ui",
