@@ -192,7 +192,7 @@ function Overview({ settings, getMarketHistory }) {
     if (settings.assetList && settings.assetList.length > 0) {
       const currentMarketInfo =
         settings.assetList.filter(s => s && s.id === currentAsset).length !== 0
-          ? settings.assetList.filter(s => s.id === currentAsset)[0]
+          ? settings.assetList.filter(s => s && s.id === currentAsset)[0]
           : {};
       const supplyApy = getBigNumber(currentMarketInfo.supplyApy);
       const borrowApy = getBigNumber(currentMarketInfo.borrowApy);
