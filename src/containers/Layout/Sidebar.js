@@ -518,7 +518,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         clearInterval(updateTimer);
       }
     };
-  }, []);
+  }, [settings.selectedAddress]);
 
   const onChangePage = value => {
     history.push(`/${value}`);
@@ -608,7 +608,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         ele => ele.underlyingSymbol === 'XVS'
       );
       const vaiAPY = new BigNumber(venusVAIVaultRate)
-        .times(xvsMarket.tokenPrice)
+        .times(xvsMarket ? xvsMarket.tokenPrice : 0)
         .times(365 * 100)
         .div(vaultVaiStaked)
         .dp(2, 1)
