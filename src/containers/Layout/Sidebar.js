@@ -507,20 +507,18 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
 
   useEffect(() => {
     let updateTimer;
-    if (settings.selectedAddress) {
-      updateTimer = setInterval(() => {
-        if (checkIsValidNetwork(settings.walletType)) {
-          getMarkets();
-        }
-      }, 5000);
-    }
+    updateTimer = setInterval(() => {
+      if (settings.selectedAddress) {
+        getMarkets();
+      }
+    }, 5000);
     return function cleanup() {
       abortController.abort();
       if (updateTimer) {
         clearInterval(updateTimer);
       }
     };
-  }, [settings.selectedAddress, settings.accountLoading]);
+  }, []);
 
   const onChangePage = value => {
     history.push(`/${value}`);

@@ -96,7 +96,6 @@ function Dashboard({ settings, setSetting }) {
       const assetList = await Promise.all(
         Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
           async (item, index) => {
-
             let market = settings.markets.find(
               ele => ele.underlyingSymbol === item.symbol
             );
