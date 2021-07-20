@@ -65,6 +65,7 @@ const Market = ({ settings, setSetting }) => {
   const updateMarketTable = async () => {
     const tempArr = [];
     settings.assetList.forEach(item => {
+      if (!item) return;
       const temp = {
         ...item,
         supplyApy: getBigNumber(item.supplyApy),

@@ -96,9 +96,6 @@ function Dashboard({ settings, setSetting }) {
       const assetList = await Promise.all(
         Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
           async (item, index) => {
-            if (!settings.decimals[item.id]) {
-              return;
-            }
 
             let market = settings.markets.find(
               ele => ele.underlyingSymbol === item.symbol
@@ -133,7 +130,7 @@ function Dashboard({ settings, setSetting }) {
               percentOfLimit: '0'
             };
 
-            const tokenDecimal = settings.decimals[item.id].token;
+            const tokenDecimal = settings.decimals[item.id] ? settings.decimals[item.id].token : 18;
             const vBepContract = getVbepContract(item.id);
             asset.collateral = assetsIn
               .map(item => item.toLowerCase())
