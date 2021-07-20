@@ -168,7 +168,7 @@ function InterestRateModel({ settings, currentAsset }) {
     cash = new BigNumber(cash).div(new BigNumber(10).pow(18));
     const borrows = new BigNumber(marketInfo.totalBorrows2);
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
-      new BigNumber(10).pow(settings.decimals[asset].token)
+      new BigNumber(10).pow(settings.decimals[asset] ? settings.decimals[asset].token : 18)
     );
     const currentUtilizationRate = borrows.div(
       cash.plus(borrows).minus(reserves)

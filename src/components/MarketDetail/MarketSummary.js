@@ -44,7 +44,11 @@ const MarketSummaryWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 function MarketSummary({ marketInfo, currentAsset, settings }) {
-  if (!settings.decimals[currentAsset].token) return null;
+  if (
+    !settings.decimals[currentAsset] ||
+    !settings.decimals[currentAsset].token
+  )
+    return null;
 
   return (
     <MarketSummaryWrapper>
