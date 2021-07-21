@@ -30,7 +30,7 @@ export const getArgs = func => {
 };
 
 export const checkIsValidNetwork = (walletType) => {
-  if (walletType && (window.ethereum || window.BinanceChain)) {
+  if (window.ethereum || window.BinanceChain) {
     let netId;
     if (walletType === 'binance' && window.BinanceChain) {
       netId = +window.BinanceChain.chainId;

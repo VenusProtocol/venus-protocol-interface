@@ -391,6 +391,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       setAwaiting(false);
       setSetting({
         selectedAddress: tempAccounts[0],
+        walletType: 'metamask',
         latestBlockNumber
       });
       metamaskWatcher = setTimeout(() => {
