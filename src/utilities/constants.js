@@ -17,6 +17,7 @@ import beth from 'assets/img/coins/beth.png';
 import ada from 'assets/img/coins/ada.png';
 import doge from 'assets/img/coins/doge.png';
 import matic from 'assets/img/coins/matic.png';
+import cake from 'assets/img/coins/cake.png';
 
 import vsxp from 'assets/img/coins/vsxp.png';
 import vusdc from 'assets/img/coins/vusdc.png';
@@ -37,6 +38,7 @@ import vbeth from 'assets/img/coins/vbeth.png';
 import vada from 'assets/img/coins/vada.png';
 import vdoge from 'assets/img/coins/vdoge.png';
 import vmatic from 'assets/img/coins/vmatic.png';
+import vcake from 'assets/img/coins/vcake.png';
 import contracts from './contracts';
 
 export const NOT_INSTALLED = 'MetaMask not installed';
@@ -171,6 +173,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.TEST.TOKEN.matic,
           asset: matic,
           vasset: vmatic
+        },
+        cake: {
+          id: 'cake',
+          symbol: 'CAKE',
+          address: contracts.TEST.TOKEN.cake,
+          asset: cake,
+          vasset: vcake
         }
       }
     : {
@@ -381,6 +390,11 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'matic',
           symbol: 'vMATIC',
           address: contracts.TEST.VBEP.matic
+        },
+        cake: {
+          id: 'cake',
+          symbol: 'vCAKE',
+          address: contracts.TEST.VBEP.cake
         }
       }
     : {
