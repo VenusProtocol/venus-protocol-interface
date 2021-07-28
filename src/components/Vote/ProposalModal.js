@@ -216,7 +216,7 @@ function ProposalModal({
                 );
               } else if (callDataTypes[j].includes('[]')) {
                 callDataValues.push(
-                  formValues[`calldata_${i}_${j}`].split(',')
+                  formValues[`calldata_${i}_${j}`].slice(1, -1).split(',')
                 );
               } else {
                 callDataValues.push(formValues[`calldata_${i}_${j}`]);
