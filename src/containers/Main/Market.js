@@ -340,19 +340,21 @@ function Market({ history, settings }) {
                           .toString(10);
                   }
                   if (sortInfo.field === 'borrow_apy') {
-                    const aAPY = new BigNumber(a.borrowApy)
-                      .plus(new BigNumber(a.borrowVenusApy))
+                    const aAPY = new BigNumber(a.borrowVenusApy)
+                      .minus(new BigNumber(a.borrowApy))
+                      .abs()
                       .isLessThan(0.01)
                       ? '0.01'
-                      : new BigNumber(a.borrowApy).plus(
-                          new BigNumber(a.borrowVenusApy)
+                      : new BigNumber(a.borrowVenusApy).minus(
+                          new BigNumber(a.borrowApy)
                         );
-                    const bAPY = new BigNumber(b.borrowApy)
-                      .plus(new BigNumber(b.borrowVenusApy))
+                    const bAPY = new BigNumber(b.borrowVenusApy)
+                      .minus(new BigNumber(b.borrowApy))
+                      .abs()
                       .isLessThan(0.01)
                       ? '0.01'
-                      : new BigNumber(b.borrowApy).plus(
-                          new BigNumber(b.borrowVenusApy)
+                      : new BigNumber(b.borrowVenusApy).minus(
+                          new BigNumber(b.borrowApy)
                         );
                     return sortInfo.sort === 'desc'
                       ? +bAPY.minus(aAPY).toString(10)
@@ -475,12 +477,13 @@ function Market({ history, settings }) {
                     >
                       <p className="mobile-label">Borrow APY</p>
                       <p className="item-title">
-                        {new BigNumber(item.borrowApy)
-                          .plus(new BigNumber(item.borrowVenusApy))
+                        {new BigNumber(item.borrowVenusApy)
+                          .minus(new BigNumber(item.borrowApy))
+                          .abs()
                           .isLessThan(0.01)
                           ? '0.01'
-                          : new BigNumber(item.borrowApy)
-                              .plus(new BigNumber(item.borrowVenusApy))
+                          : new BigNumber(item.borrowVenusApy)
+                              .minus(new BigNumber(item.borrowApy))
                               .dp(2, 1)
                               .toString(10)}
                         %
