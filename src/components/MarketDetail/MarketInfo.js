@@ -82,7 +82,7 @@ function MarketInfo({ marketInfo, marketType }) {
                     .dp(2, 1)
                     .toString(10)
                 : new BigNumber(
-                    +marketInfo.borrowApy < 0.01 ? 0.01 : marketInfo.borrowApy
+                    Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy
                   )
                     .plus(
                       new BigNumber(
@@ -108,7 +108,7 @@ function MarketInfo({ marketInfo, marketType }) {
                     .dp(2, 1)
                     .toString(10)
                 : new BigNumber(
-                    +marketInfo.borrowApy < 0.01 ? 0.01 : marketInfo.borrowApy
+                    Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy
                   )
                     .dp(2, 1)
                     .toString(10)}
