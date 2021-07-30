@@ -59,7 +59,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       key: 'borrowApy',
       render(borrowApy, asset) {
         const apy = settings.withXVS
-          ? getBigNumber(asset.xvsBorrowApy).minus(borrowApy)
+          ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
           : borrowApy;
         return {
           children: (
@@ -74,7 +74,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
               >
                 {apy.absoluteValue().isGreaterThan(100000000)
                   ? 'Infinity'
-                  : `${apy.absoluteValue().dp(2, 1).toString(10)}%`}
+                  : `${apy.dp(2, 1).toString(10)}%`}
               </div>
             </div>
           )
@@ -140,7 +140,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       key: 'borrowApy',
       render(borrowApy, asset) {
         const apy = settings.withXVS
-          ? getBigNumber(asset.xvsBorrowApy).minus(borrowApy)
+          ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
           : borrowApy;
         return {
           children: (
@@ -155,7 +155,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
               >
                 {apy.absoluteValue().isGreaterThan(100000000)
                   ? 'Infinity'
-                  : `${apy.absoluteValue().dp(2, 1).toString(10)}%`}
+                  : `${apy.dp(2, 1).toString(10)}%`}
               </div>
             </div>
           )

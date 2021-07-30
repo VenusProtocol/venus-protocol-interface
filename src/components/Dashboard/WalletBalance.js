@@ -137,8 +137,8 @@ function WalletBalance({ settings, setSetting }) {
         ? getBigNumber(supplyApy).plus(getBigNumber(xvsSupplyApy))
         : getBigNumber(supplyApy);
       const borrowApyWithXVS = withXVS
-        ? getBigNumber(xvsBorrowApy).minus(getBigNumber(borrowApy))
-        : getBigNumber(borrowApy).times(-1);
+        ? getBigNumber(xvsBorrowApy).plus(getBigNumber(borrowApy))
+        : getBigNumber(borrowApy);
 
       // const supplyApyWithXVS = getBigNumber(supplyApy);
       // const borrowApyWithXVS = getBigNumber(borrowApy).times(-1);

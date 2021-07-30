@@ -310,7 +310,7 @@ function Market({ history, settings }) {
                     totalSupplyApy: new BigNumber(market.supplyApy).plus(
                       new BigNumber(market.supplyVenusApy)
                     ),
-                    totalBorrowApy: new BigNumber(market.borrowVenusApy).minus(
+                    totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
                       new BigNumber(market.borrowApy)
                     )
                   };

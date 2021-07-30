@@ -200,7 +200,7 @@ function Overview({ settings, getMarketHistory }) {
         ? supplyApy.plus(currentMarketInfo.xvsSupplyApy)
         : supplyApy;
       const borrowApyWithXVS = settings.withXVS
-        ? getBigNumber(currentMarketInfo.xvsBorrowApy).minus(borrowApy)
+        ? getBigNumber(currentMarketInfo.xvsBorrowApy).plus(borrowApy)
         : borrowApy;
       setCurrentAPY(
         (settings.marketType || 'supply') === 'supply'
