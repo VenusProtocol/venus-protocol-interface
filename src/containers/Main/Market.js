@@ -126,6 +126,14 @@ const TableWrapper = styled.div`
         font-weight: 600;
         font-size: 16px;
         color: var(--color-white);
+
+        &.green {
+          color: #9dd562;
+        }
+
+        &.red {
+          color: #f9053e;
+        }
       }
       .item-value {
         font-weight: 600;
@@ -296,6 +304,17 @@ function Market({ history, settings }) {
           <div className="table_content">
             {settings.markets &&
               (settings.markets || [])
+                .map(market => {
+                  return {
+                    ...market,
+                    totalSupplyApy: new BigNumber(market.supplyApy).plus(
+                      new BigNumber(market.supplyVenusApy)
+                    ),
+                    totalBorrowApy: new BigNumber(market.borrowVenusApy).minus(
+                      new BigNumber(market.borrowApy)
+                    )
+                  };
+                })
                 .sort((a, b) => {
                   if (!sortInfo.field) {
                     return +new BigNumber(b.totalBorrowsUsd)
@@ -312,23 +331,9 @@ function Market({ history, settings }) {
                           .toString(10);
                   }
                   if (sortInfo.field === 'supply_apy') {
-                    const aAPY = new BigNumber(a.supplyApy)
-                      .plus(new BigNumber(a.supplyVenusApy))
-                      .isLessThan(0.01)
-                      ? '0.01'
-                      : new BigNumber(a.supplyApy).plus(
-                          new BigNumber(a.supplyVenusApy)
-                        );
-                    const bAPY = new BigNumber(b.supplyApy)
-                      .plus(new BigNumber(b.supplyVenusApy))
-                      .isLessThan(0.01)
-                      ? '0.01'
-                      : new BigNumber(b.supplyApy).plus(
-                          new BigNumber(b.supplyVenusApy)
-                        );
                     return sortInfo.sort === 'desc'
-                      ? +bAPY.minus(aAPY).toString(10)
-                      : +aAPY.minus(bAPY).toString(10);
+                      ? b.totalSupplyApy.minus(a.totalSupplyApy).toNumber()
+                      : a.totalSupplyApy.minus(b.totalSupplyApy).toNumber();
                   }
                   if (sortInfo.field === 'total_borrow') {
                     return sortInfo.sort === 'desc'
@@ -340,25 +345,9 @@ function Market({ history, settings }) {
                           .toString(10);
                   }
                   if (sortInfo.field === 'borrow_apy') {
-                    const aAPY = new BigNumber(a.borrowVenusApy)
-                      .minus(new BigNumber(a.borrowApy))
-                      .abs()
-                      .isLessThan(0.01)
-                      ? '0.01'
-                      : new BigNumber(a.borrowVenusApy).minus(
-                          new BigNumber(a.borrowApy)
-                        );
-                    const bAPY = new BigNumber(b.borrowVenusApy)
-                      .minus(new BigNumber(b.borrowApy))
-                      .abs()
-                      .isLessThan(0.01)
-                      ? '0.01'
-                      : new BigNumber(b.borrowVenusApy).minus(
-                          new BigNumber(b.borrowApy)
-                        );
                     return sortInfo.sort === 'desc'
-                      ? +bAPY.minus(aAPY).toString(10)
-                      : +aAPY.minus(bAPY).toString(10);
+                      ? b.totalBorrowApy.minus(a.totalBorrowApy).toNumber()
+                      : a.totalBorrowApy.minus(b.totalBorrowApy).toNumber();
                   }
                   if (sortInfo.field === 'liquidity') {
                     return sortInfo.sort === 'desc'
@@ -433,22 +422,11 @@ function Market({ history, settings }) {
                       className="supply-apy right"
                     >
                       <p className="mobile-label">Supply APY</p>
-                      <p className="item-title">
-                        {new BigNumber(item.supplyApy)
-                          .plus(new BigNumber(item.supplyVenusApy))
-                          .isLessThan(0.01)
-                          ? '0.01'
-                          : new BigNumber(item.supplyApy)
-                              .plus(new BigNumber(item.supplyVenusApy))
-                              .dp(2, 1)
-                              .toString(10)}
-                        %
+                      <p className="item-title green">
+                        {item.totalSupplyApy.toFormat(2)}%
                       </p>
                       <p className="item-value">
-                        {new BigNumber(item.supplyVenusApy)
-                          .dp(2, 1)
-                          .toString(10)}
-                        %
+                        {new BigNumber(item.supplyVenusApy).toFormat(2)}%
                       </p>
                     </Col>
                     <Col
@@ -476,23 +454,11 @@ function Market({ history, settings }) {
                       className="borrow-apy right"
                     >
                       <p className="mobile-label">Borrow APY</p>
-                      <p className="item-title">
-                        {new BigNumber(item.borrowVenusApy)
-                          .minus(new BigNumber(item.borrowApy))
-                          .abs()
-                          .isLessThan(0.01)
-                          ? '0.01'
-                          : new BigNumber(item.borrowVenusApy)
-                              .minus(new BigNumber(item.borrowApy))
-                              .dp(2, 1)
-                              .toString(10)}
-                        %
+                      <p className={`item-title${item.totalBorrowApy.lt(0) ? ' red': ' green'}`}>
+                        {item.totalBorrowApy.toFormat(2)}%
                       </p>
                       <p className="item-value">
-                        {new BigNumber(item.borrowVenusApy)
-                          .dp(2, 1)
-                          .toString(10)}
-                        %
+                        {new BigNumber(item.borrowVenusApy).toFormat(2)}%
                       </p>
                     </Col>
                     <Col
