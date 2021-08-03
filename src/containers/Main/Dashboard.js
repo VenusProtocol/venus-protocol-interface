@@ -97,7 +97,7 @@ function Dashboard({ settings, setSetting }) {
         Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
           async (item, index) => {
             let market = settings.markets.find(
-              ele => ele.underlyingSymbol === item.symbol
+              ele => ele.underlyingSymbol.toLowerCase() === item.symbol.toLowerCase()
             );
             if (!market) market = {};
             const asset = {

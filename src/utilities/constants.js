@@ -314,6 +314,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.MAIN.TOKEN.matic,
           asset: matic,
           vasset: vmatic
+        },
+        cake: {
+          id: 'cake',
+          symbol: 'CAKE',
+          address: contracts.MAIN.TOKEN.cake,
+          asset: cake,
+          vasset: vcake
         }
       };
 
@@ -492,6 +499,11 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'matic',
           symbol: 'vMATIC',
           address: contracts.MAIN.VBEP.matic
+        },
+        cake: {
+          id: 'cake',
+          symbol: 'vCAKE',
+          address: contracts.MAIN.VBEP.cake
         }
       };
 export const CONTRACT_VBEP_ABI =
