@@ -317,7 +317,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         },
         cake: {
           id: 'cake',
-          symbol: 'CAKE',
+          symbol: 'Cake',
           address: contracts.MAIN.TOKEN.cake,
           asset: cake,
           vasset: vcake

@@ -262,7 +262,7 @@ function Overview({ settings, getMarketHistory }) {
               <div className="flex align-center add-token-wrapper">
                 {currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
-                    {currentAsset.toUpperCase()}
+                    {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
                     <Icon
                       className="add-token"
                       type="plus-circle"

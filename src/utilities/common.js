@@ -72,7 +72,7 @@ export const addToken = async (asset = 'vai', decimal, type) => {
         : constants.CONTRACT_VBEP_ADDRESS[asset].address;
     tokenSymbol =
       type === 'token'
-        ? asset.toUpperCase()
+        ? constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
         : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
     tokenDecimals = decimal || (type === 'token' ? 18 : 8);
     tokenImage = `${window.location.origin}/coins/${
