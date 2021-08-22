@@ -18,6 +18,7 @@ import MarketDetail from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
+import Transaction from 'containers/Main/Transaction';
 import Theme from './Theme';
 
 import 'assets/styles/App.scss';
@@ -62,6 +63,7 @@ class App extends React.Component {
                 <Route exact path="/vote" component={Vote} />
                 <Route exact path="/xvs" component={XVS} />
                 <Route exact path="/market" component={Market} />
+                <Route exact path="/transaction" component={Transaction} />
                 <Route exact path="/vault" component={Vault} />
                 <Route exact path="/market/:asset" component={MarketDetail} />
                 <Route

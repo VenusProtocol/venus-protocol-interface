@@ -93,6 +93,10 @@ const MainMenu = styled.div`
         fill: var(--color-text-main);
       }
     }
+    .transaction {
+      width: 14%;
+      margin: 0 4% 0 12%;
+    }
     img {
       width: 10%;
       margin: 0 13%;
@@ -119,6 +123,9 @@ const MainMenu = styled.div`
       svg {
         fill: var(--color-yellow);
       }
+      path {
+        fill: var(--color-yellow);
+      }
       span {
         color: var(--color-yellow);
       }
@@ -138,6 +145,9 @@ const MainMenu = styled.div`
     }
     span {
       color: var(--color-yellow);
+    }
+    path {
+      fill: var(--color-yellow);
     }
     .xvs-icon {
       display: none;
@@ -699,6 +709,31 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         >
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
+        </NavLink>
+        <NavLink
+          className="flex flex-start align-center"
+          to="/transaction"
+          activeClassName="active"
+        >
+          <svg
+            className="transaction"
+            width="12"
+            height="16"
+            viewBox="0 0 12 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0 0H7.488L12 4.20571V16H0V0ZM1.92 14.1714H10.08V5.02857H6.72V1.82857H1.92V14.1714ZM3.84703 8.62036H8.16703V6.79179H3.84703V8.62036ZM3.84703 12.2775H8.16703V10.449H3.84703V12.2775Z"
+              fill="white"
+            />
+          </svg>
+          <div className="flex flex-column align-center">
+            <Label primary>Transaction</Label>
+            <Label primary>History</Label>
+          </div>
         </NavLink>
       </MainMenu>
       <FaucetMenu>

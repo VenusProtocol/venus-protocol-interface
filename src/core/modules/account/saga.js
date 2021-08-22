@@ -11,6 +11,7 @@ import {
   GET_VOTER_DETAIL_REQUEST,
   GET_VOTER_HISTORY_REQUEST,
   GET_VOTER_ACCOUNTS_REQUEST,
+  GET_TRANSACTION_HISTORY_REQUEST,
   accountActionCreators
 } from 'core/modules/account/actions';
 
@@ -176,6 +177,29 @@ export function* asyncGetVoterAccountsRequest({ payload, resolve, reject }) {
     reject(e);
   }
 }
+export function* asyncGetTransactionHistoryRequest({
+  payload,
+  resolve,
+  reject
+}) {
+  const { offset, event, type } = payload;
+  console.log('offset :>> ', offset);
+  try {
+    const response = yield call(restService, {
+      api: `/transactions?page=${offset || 0}${event !== 'All' ?
+        '&event=' + event : ''}`,
+      method: 'GET',
+      params: {}
+    });
+    if (response.status === 200) {
+      resolve(response.data);
+    } else {
+      reject(response);
+    }
+  } catch (e) {
+    reject(e);
+  }
+}
 
 export function* watchGetMarketHistoryRequest() {
   while (true) {
@@ -233,6 +257,12 @@ export function* watchGetVoterAccountsRequest() {
     yield* asyncGetVoterAccountsRequest(action);
   }
 }
+export function* watchGetTransactionHistoryRequest() {
+  while (true) {
+    const action = yield take(GET_TRANSACTION_HISTORY_REQUEST);
+    yield* asyncGetTransactionHistoryRequest(action);
+  }
+}
 
 export default function*() {
   yield all([
@@ -244,6 +274,7 @@ export default function*() {
     fork(watchGetVotersRequest),
     fork(watchGetVoterDetailRequest),
     fork(watchGetVoterHistoryRequest),
-    fork(watchGetVoterAccountsRequest)
+    fork(watchGetVoterAccountsRequest),
+    fork(watchGetTransactionHistoryRequest)
   ]);
 }

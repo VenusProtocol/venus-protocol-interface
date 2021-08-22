@@ -23,6 +23,7 @@ export const GET_VOTER_DETAIL_REQUEST = '@account/GET_VOTER_DETAIL_REQUEST';
 export const GET_VOTER_HISTORY_REQUEST = '@account/GET_VOTER_HISTORY_REQUEST';
 
 export const GET_VOTER_ACCOUNTS_REQUEST = '@account/GET_VOTER_ACCOUNTS_REQUEST';
+export const GET_TRANSACTION_HISTORY_REQUEST = '@account/GET_TRANSACTION_HISTORY_REQUEST';
 
 /**
  * Action Creators
@@ -40,5 +41,6 @@ export const accountActionCreators = {
   getVoters: createPromiseAction(GET_VOTERS_REQUEST),
   getVoterDetail: createPromiseAction(GET_VOTER_DETAIL_REQUEST),
   getVoterHistory: createPromiseAction(GET_VOTER_HISTORY_REQUEST),
-  getVoterAccounts: createPromiseAction(GET_VOTER_ACCOUNTS_REQUEST)
+  getVoterAccounts: createPromiseAction(GET_VOTER_ACCOUNTS_REQUEST),
+  getTransactionHistory: createPromiseAction(GET_TRANSACTION_HISTORY_REQUEST),
 };
