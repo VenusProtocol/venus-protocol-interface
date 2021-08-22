@@ -825,6 +825,11 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
               Vault
             </Label>
           </Option>
+          <Option className="flex align-center just-center" value="transaction">
+            <Label size={14} primary>
+              Transaction History
+            </Label>
+          </Option>
           {process.env.REACT_APP_ENV === 'dev' && (
             <Option className="flex align-center just-center" value="faucet">
               <Label size={14} primary>
