@@ -272,6 +272,7 @@ function Transaction({ getTransactionHistory, settings }) {
   const [pageSize, setPageSize] = useState(20);
   const [total, setTotal] = useState(0);
   const [event, setEvent] = useState('All');
+  const current = new Date();
 
   const loadTransactionHistory = useCallback(async () => {
     await promisify(getTransactionHistory, { offset, event })
@@ -298,6 +299,22 @@ function Transaction({ getTransactionHistory, settings }) {
 
   const onPrev = () => {
     handleChangePage(offset - 1, 20);
+  };
+
+  const diffFormat = secs => {
+    let minutes = Math.floor(secs / 60);
+    const sec = secs % 60;
+    let hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    hours %= 24;
+    minutes %= 60;
+    if (days > 0) {
+      return `${days} days ago`;
+    } else if (hours > 0) {
+      return `${hours} hours ago`;
+    } else {
+      return `${minutes} mins ago`;
+    }
   };
 
   return (
@@ -437,12 +454,18 @@ function Transaction({ getTransactionHistory, settings }) {
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 3 }} className="amount">
                     <p className="mobile-label">Amount</p>
-                    <p className="item-title">{item.amount}</p>
+                    <p className="item-title">
+                      {item.amount < 0.00001 && item.amount > 0
+                        ? '< 0.00001'
+                        : format(item.amount)}
+                    </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="date">
                     <p className="mobile-label">Created At</p>
                     <p className="item-title">
-                      {moment(item.createdAt).format('YYYY/MM/DD hh:mm:ss')}
+                      {diffFormat(
+                        moment(current).diff(moment(item.createdAt), 'seconds')
+                      )}
                     </p>
                   </Col>
                 </Row>
