@@ -60,6 +60,7 @@ function Dashboard({ settings, setSetting }) {
     setMarketInfoUpdating(true);
 
     try {
+      let xvsBalance = new BigNumber(0);
       let [
         userVaiBalance,
         userVaiMinted,
@@ -97,7 +98,8 @@ function Dashboard({ settings, setSetting }) {
         Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
           async (item, index) => {
             let market = settings.markets.find(
-              ele => ele.underlyingSymbol.toLowerCase() === item.symbol.toLowerCase()
+              ele =>
+                ele.underlyingSymbol.toLowerCase() === item.symbol.toLowerCase()
             );
             if (!market) market = {};
             const asset = {
@@ -129,7 +131,9 @@ function Dashboard({ settings, setSetting }) {
               percentOfLimit: '0'
             };
 
-            const tokenDecimal = settings.decimals[item.id] ? settings.decimals[item.id].token : 18;
+            const tokenDecimal = settings.decimals[item.id]
+              ? settings.decimals[item.id].token
+              : 18;
             const vBepContract = getVbepContract(item.id);
             asset.collateral = assetsIn
               .map(item => item.toLowerCase())
@@ -165,6 +169,10 @@ function Dashboard({ settings, setSetting }) {
               asset.walletBalance = new BigNumber(walletBalance).div(
                 new BigNumber(10).pow(tokenDecimal)
               );
+
+              if (asset.id === 'xvs') {
+                xvsBalance = asset.walletBalance;
+              }
 
               // allowance
               asset.isEnabled = new BigNumber(allowBalance)
@@ -249,6 +257,7 @@ function Dashboard({ settings, setSetting }) {
         totalBorrowBalance,
         userVaiBalance,
         userVaiEnabled,
+        userXVSBalance: xvsBalance,
         mintableVai
       });
     } catch (error) {

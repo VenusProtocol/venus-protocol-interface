@@ -51,6 +51,7 @@ export const checkIsValidNetwork = (walletType) => {
       }
       return false;
     }
+    return false;
   }
   return false;
 };

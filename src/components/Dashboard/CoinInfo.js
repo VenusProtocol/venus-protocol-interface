@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
-import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { getTokenContract, methods } from 'utilities/ContractService';
 import * as constants from 'utilities/constants';
-import { checkIsValidNetwork, addToken } from 'utilities/common';
+import { addToken, getBigNumber } from 'utilities/common';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
 
@@ -60,45 +58,27 @@ const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
 function CoinInfo({ settings }) {
-  const [address, setAddress] = useState('');
-  const [balance, setBalance] = useState('');
-
-  const updateBalance = useCallback(async () => {
-    if ((window.ethereum || window.BinanceChain) && checkIsValidNetwork(settings.walletType) && settings.selectedAddress) {
-      const xvsTokenContract = getTokenContract('xvs');
-      let temp = await methods.call(xvsTokenContract.methods.balanceOf, [
-        settings.selectedAddress
-      ]);
-      temp = new BigNumber(temp)
-        .dividedBy(new BigNumber(10).pow(18))
-        .dp(4, 1)
-        .toString(10);
-      setBalance(temp);
-      setAddress(settings.selectedAddress);
-    }
-  }, [window.ethereum, window.BinanceChain, settings.markets]);
-
   const handleLink = () => {
     window.open(
-      `${process.env.REACT_APP_BSC_EXPLORER}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${address}`,
+      `${process.env.REACT_APP_BSC_EXPLORER}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${settings.selectedAddress}`,
       '_blank'
     );
   };
-
-  useEffect(() => {
-    updateBalance();
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [settings.selectedAddress, updateBalance]);
 
   return (
     <Card>
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(balance)} XVS</p>
-          {(window.ethereum && settings.walletType === 'metamask') && (
+          <p>
+            {format(
+              getBigNumber(settings.userXVSBalance)
+                .dp(2, 1)
+                .toString(10)
+            )}{' '}
+            XVS
+          </p>
+          {window.ethereum && settings.walletType === 'metamask' && (
             <Icon
               className="add-xvs-token"
               type="plus-circle"
@@ -112,10 +92,14 @@ function CoinInfo({ settings }) {
           onClick={() => handleLink()}
         >
           <p className="highlight">
-            {`${address.substr(0, 4)}...${address.substr(
-              address.length - 4,
-              4
-            )}`}
+            {settings.selectedAddress &&
+              `${settings.selectedAddress.substr(
+                0,
+                4
+              )}...${settings.selectedAddress.substr(
+                settings.selectedAddress.length - 4,
+                4
+              )}`}
           </p>
           <div className="flex align-center just-center copy-btn">
             <Icon type="arrow-right" />

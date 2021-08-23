@@ -116,7 +116,7 @@ const MainMenu = styled.div`
       }
     }
     &:not(:last-child) {
-      margin-bottom: 30px;
+      margin-bottom: 15px;
     }
 
     &:hover {
@@ -268,7 +268,7 @@ const ConnectButton = styled.div`
     background-image: linear-gradient(to right, #f2c265, #f7b44f);
 
     @media only screen and (max-width: 768px) {
-      width: 60px;
+      width: 100px;
     }
 
     .MuiButton-label {
@@ -345,6 +345,10 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       setSetting({
         wrongNetwork: true
       });
+    } else {
+      toast.error({
+        title: `Venus is only supported on Binance Smart Chain Network. Please confirm you installed Metamask and selected Binance Smart Chain Network`
+      });
     }
   };
 
@@ -384,6 +388,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
 
     try {
       const isLocked = error && error.message === constants.LOCKED;
+
       if (!metamask || isLocked) {
         metamask = await withTimeoutRejection(
           MetaMaskClass.initialize(undefined, walletType), // if option is existed, add it
@@ -395,15 +400,15 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         metamask.getAccounts(walletType),
         metamask.getLatestBlockNumber()
       ]);
+
       accounts = tempAccounts;
       setWeb3(tempWeb3);
       setError(null);
       setAwaiting(false);
-      setSetting({
+      setSetting({ 
         selectedAddress: tempAccounts[0],
-        walletType: 'metamask',
-        latestBlockNumber
-      });
+        latestBlockNumber,
+       });
       metamaskWatcher = setTimeout(() => {
         clearTimeout(metamaskWatcher);
         handleWatch();
@@ -417,26 +422,25 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     }
   }, [error, web3]);
 
-  const handleMetaMask = () => {
-    if (window.ethereum) {
-      setSetting({ walletType: 'metamask' });
-      setError(
-        MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED)
-      );
-      handleWatch();
-    }
-  };
-  // -------------------------------------------------------------------------------------
   // --------------------Binance Wallet Connect---------------------------------
   const handleBinance = () => {
     if (window.BinanceChain) {
+      clearTimeout(metamaskWatcher);
+      walletType = 'binance';
       setSetting({ walletType: 'binance' });
-      setError(
-        MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED)
-      );
+      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
       handleWatch();
     }
   };
+
+  const handleMetaMask = () => {
+    clearTimeout(metamaskWatcher);
+    walletType = 'metamask';
+    setSetting({ walletType: 'metamask' });
+    setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
+    handleWatch();
+  };
+
   const setDecimals = async () => {
     const decimals = {};
     Object.values(constants.CONTRACT_TOKEN_ADDRESS).forEach(async item => {
@@ -565,20 +569,20 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       checkIsValidNetwork(settings.walletType)
     ) {
       window.ethereum.on('accountsChanged', accs => {
+        walletType = 'metamask'
         setSetting({
           selectedAddress: accs[0],
-          accountLoading: true
+          accountLoading: true,
+          walletType: 'metamask'
         });
       });
-    } else if (
-      window.BinanceChain &&
-      settings.walletType === 'binance' &&
-      checkIsValidNetwork(settings.walletType)
-    ) {
+    } else if (window.BinanceChain && settings.walletType === 'binance' && checkIsValidNetwork(settings.walletType)) {
       window.BinanceChain.on('accountsChanged', accs => {
+        walletType = 'binance'
         setSetting({
           selectedAddress: accs[0],
-          accountLoading: true
+          accountLoading: true,
+          walletType: 'binance'
         });
       });
     }

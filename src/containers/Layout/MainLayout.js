@@ -13,34 +13,34 @@ const MainLayoutWrapper = styled.div`
 
   .main {
     height: 100vh;
-    overflow: auto;
-    overflow-x: hidden;
 
     .main-content {
       display: flex;
       flex-direction: column;
-      min-height: calc(100vh - 150px);
-      background-color: var(--color-bg-main);
-    }
+      height: calc(100vh - 122px);
+      overflow: auto;
+      overflow-x: hidden;
 
-    /* width */
-    &::-webkit-scrollbar {
-      width: 7px;
-    }
+      /* width */
+      &::-webkit-scrollbar {
+        width: 7px;
+      }
 
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-      -webkit-border-radius: 3px;
-      background-color: var(--color-primary);
-    }
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 3px;
+        background-color: var(--color-primary);
+      }
 
-    /* Handle on hover */
-    &::-webkit-scrollbar-thumb:hover {
-      background: #e53d52;
-    }
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #f7c408cc;
+      }
 
-    ::-webkit-scrollbar-corner {
-      background-color: transparent;
+      ::-webkit-scrollbar-corner {
+        background-color: transparent;
+      }
+
     }
 
     @media only screen and (max-width: 768px) {
