@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
@@ -6,9 +6,11 @@ import { compose } from 'recompose';
 import commaNumber from 'comma-number';
 import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
-import { connectAccount } from 'core';
+import { bindActionCreators } from 'redux';
+import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { getVaiTokenContract, methods } from 'utilities/ContractService';
+import { promisify } from 'utilities';
 
 import * as constants from 'utilities/constants';
 import { currencyFormatter } from 'utilities/common';
@@ -59,8 +61,11 @@ const TableWrapper = styled.div`
     }
 
     .total-item {
+      margin: 10px;
+      width: 50%;
+      
       @media (max-width: 992px) {
-        margin: 10px;
+        width: 100%;
       }
 
       .prop {
@@ -157,11 +162,27 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Market({ history, settings }) {
+function Market({ history, settings, getTreasuryBalance }) {
   const [totalSupply, setTotalSupply] = useState('0');
   const [totalBorrow, setTotalBorrow] = useState('0');
   const [availableLiquidity, setAvailableLiquidity] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
+  const [totalTreasury, setTotalTreasury] = useState(0);
+
+  const loadTreasuryBalance = useCallback(async () => {
+    await promisify(getTreasuryBalance, {})
+      .then(res => {
+        const total = (res.data || []).reduce((accumulator, asset) => {
+          return accumulator + Number(asset.balance) * Number(asset.price);
+        }, 0);
+        setTotalTreasury(total.toFixed(2));
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    loadTreasuryBalance();
+  }, [settings.markets]);
 
   const getTotalInfo = async () => {
     const vaiContract = getVaiTokenContract();
@@ -225,6 +246,10 @@ function Market({ history, settings }) {
             <div className="total-item">
               <div className="prop">Available Liquidity</div>
               <div className="value">${format(availableLiquidity)}</div>
+            </div>
+            <div className="total-item">
+              <div className="prop">Total Treasury</div>
+              <div className="value">${format(totalTreasury)}</div>
             </div>
           </div>
           {settings.vaiAPY && (
@@ -505,7 +530,18 @@ const mapStateToProps = ({ account }) => ({
   settings: account.setting
 });
 
+const mapDispatchToProps = dispatch => {
+  const { getTreasuryBalance } = accountActionCreators;
+
+  return bindActionCreators(
+    {
+      getTreasuryBalance
+    },
+    dispatch
+  );
+};
+
 export default compose(
   withRouter,
-  connectAccount(mapStateToProps, undefined)
+  connectAccount(mapStateToProps, mapDispatchToProps)
 )(Market);

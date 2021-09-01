@@ -12,6 +12,7 @@ import {
   GET_VOTER_HISTORY_REQUEST,
   GET_VOTER_ACCOUNTS_REQUEST,
   GET_TRANSACTION_HISTORY_REQUEST,
+  GET_TREASURY_BALANCE_REQUEST,
   accountActionCreators
 } from 'core/modules/account/actions';
 
@@ -199,6 +200,26 @@ export function* asyncGetTransactionHistoryRequest({
     reject(e);
   }
 }
+export function* asyncGetTreasuryBalanceRequest({
+  payload,
+  resolve,
+  reject
+}) {
+  try {
+    const response = yield call(restService, {
+      api: `/treasury/balance`,
+      method: 'GET',
+      params: {}
+    });
+    if (response.status === 200) {
+      resolve(response.data);
+    } else {
+      reject(response);
+    }
+  } catch (e) {
+    reject(e);
+  }
+}
 
 export function* watchGetMarketHistoryRequest() {
   while (true) {
@@ -262,6 +283,12 @@ export function* watchGetTransactionHistoryRequest() {
     yield* asyncGetTransactionHistoryRequest(action);
   }
 }
+export function* watchGetTreasuryBalanceRequest() {
+  while (true) {
+    const action = yield take(GET_TREASURY_BALANCE_REQUEST);
+    yield* asyncGetTreasuryBalanceRequest(action);
+  }
+}
 
 export default function*() {
   yield all([
@@ -274,6 +301,7 @@ export default function*() {
     fork(watchGetVoterDetailRequest),
     fork(watchGetVoterHistoryRequest),
     fork(watchGetVoterAccountsRequest),
-    fork(watchGetTransactionHistoryRequest)
+    fork(watchGetTransactionHistoryRequest),
+    fork(watchGetTreasuryBalanceRequest),
   ]);
 }
