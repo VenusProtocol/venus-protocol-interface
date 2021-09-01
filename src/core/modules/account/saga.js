@@ -183,7 +183,6 @@ export function* asyncGetTransactionHistoryRequest({
   reject
 }) {
   const { offset, event, type } = payload;
-  console.log('offset :>> ', offset);
   try {
     const response = yield call(restService, {
       api: `/transactions?page=${offset || 0}${event !== 'All' ?

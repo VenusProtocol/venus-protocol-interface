@@ -277,7 +277,6 @@ function Transaction({ getTransactionHistory, settings }) {
   const loadTransactionHistory = useCallback(async () => {
     await promisify(getTransactionHistory, { offset, event })
       .then(res => {
-        console.log('res :>> ', res);
         setData(res.data.result);
         setTotal(res.data.total);
       })
