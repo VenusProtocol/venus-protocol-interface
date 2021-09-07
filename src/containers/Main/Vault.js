@@ -8,20 +8,23 @@ import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
 import * as constants from 'utilities/constants';
 import MainLayout from 'containers/Layout/MainLayout';
-import TotalInfo from 'components/Vault/TotalInfo';
-import UserInfo from 'components/Vault/UserInfo';
-import Staking from 'components/Vault/Staking';
+import VaiTotalInfo from 'components/Vault/VAI/TotalInfo';
+import VaiStaking from 'components/Vault/VAI/Staking';
+import XVSTotalInfo from 'components/Vault/XVS/TotalInfo';
+import XVSStaking from 'components/Vault/XVS/Staking';
 import { connectAccount, accountActionCreators } from 'core';
 import {
   getVaiTokenContract,
   getComptrollerContract,
   getVaiVaultContract,
+  getXvsVaultContract,
   getTokenContract,
   methods
 } from 'utilities/ContractService';
 import { checkIsValidNetwork } from 'utilities/common';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
+
 
 const MarketWrapper = styled.div`
   width: 100%;
@@ -54,6 +57,7 @@ function Vault({ settings }) {
   const [vaiStaked, setVaiStaked] = useState(new BigNumber(0));
   const [vaiReward, setVaiReward] = useState('0');
   const [isEnabled, setIsEnabled] = useState(false);
+  const [xvsBalance, setXVSBalance] = useState('');
 
   const updateTotalInfo = async () => {
     const compContract = getComptrollerContract();
@@ -64,6 +68,7 @@ function Vault({ settings }) {
     const [
       venusVAIVaultRate,
       pendingRewards,
+      userXvsBalance,
       availableAmount,
       { 0: staked },
       vaiReward,
@@ -72,6 +77,9 @@ function Vault({ settings }) {
       methods.call(compContract.methods.venusVAIVaultRate, []),
       methods.call(xvsTokenContract.methods.balanceOf, [
         constants.CONTRACT_VAI_VAULT_ADDRESS
+      ]),
+      methods.call(xvsTokenContract.methods.balanceOf, [
+        settings.selectedAddress
       ]),
       methods.call(tokenContract.methods.balanceOf, [settings.selectedAddress]),
       methods.call(vaultContract.methods.userInfo, [settings.selectedAddress]),
@@ -83,6 +91,12 @@ function Vault({ settings }) {
         constants.CONTRACT_VAI_VAULT_ADDRESS
       ])
     ]);
+    setXVSBalance(
+      new BigNumber(userXvsBalance)
+        .div(1e18)
+        .dp(4, 1)
+        .toString(10)
+    );
 
     // total info
     setEmission(
@@ -125,30 +139,41 @@ function Vault({ settings }) {
             </SpinnerWrapper>
           ) : (
             <Row>
-              <Column xs="12">
-                <TotalInfo
-                  emission={emission}
-                  pendingRewards={pendingRewards}
-                />
+              <Column xs="12" sm="6">
+                <Column xs="12">
+                  <VaiTotalInfo
+                    emission={emission}
+                    pendingRewards={pendingRewards}
+                  />
+                </Column>
+                <Column xs="12">
+                  <VaiStaking
+                    isEnabled={isEnabled}
+                    availableVai={availableVai}
+                    vaiStaked={vaiStaked}
+                    vaiReward={vaiReward}
+                    xvsBalance={xvsBalance}
+                    updateTotalInfo={updateTotalInfo}
+                  />
+                </Column>
               </Column>
-              <Column xs="12">
-                <Row>
-                  <Column xs="12" sm="12" md="5">
-                    <UserInfo
-                      availableVai={availableVai}
-                      vaiStaked={vaiStaked}
-                      vaiReward={vaiReward}
-                    />
-                  </Column>
-                  <Column xs="12" sm="12" md="7">
-                    <Staking
-                      isEnabled={isEnabled}
-                      availableVai={availableVai}
-                      vaiStaked={vaiStaked}
-                      updateTotalInfo={updateTotalInfo}
-                    />
-                  </Column>
-                </Row>
+              <Column xs="12" sm="6">
+                <Column xs="12">
+                  <XVSTotalInfo
+                    emission={emission}
+                    pendingRewards={pendingRewards}
+                  />
+                </Column>
+                <Column xs="12">
+                  <XVSStaking
+                    isEnabled={isEnabled}
+                    availableVai={availableVai}
+                    vaiStaked={vaiStaked}
+                    vaiReward={vaiReward}
+                    xvsBalance={xvsBalance}
+                    updateTotalInfo={updateTotalInfo}
+                  />
+                </Column>
               </Column>
             </Row>
           )}
