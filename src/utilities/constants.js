@@ -331,6 +331,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.MAIN.TOKEN.cake,
           asset: cake,
           vasset: vcake
+        },
+        aave: {
+          id: 'aave',
+          symbol: 'AAVE',
+          address: contracts.MAIN.TOKEN.aave,
+          asset: aave,
+          vasset: vaave
         }
       };
 
@@ -519,6 +526,11 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'cake',
           symbol: 'vCAKE',
           address: contracts.MAIN.VBEP.cake
+        },
+        aave: {
+          id: 'aave',
+          symbol: 'vAAVE',
+          address: contracts.MAIN.VBEP.aave
         }
       };
 export const CONTRACT_VBEP_ABI =
