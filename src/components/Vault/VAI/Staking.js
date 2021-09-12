@@ -15,10 +15,10 @@ import { Card } from 'components/Basic/Card';
 import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import * as constants from 'utilities/constants';
+import xvsImg from 'assets/img/venus_32.png';
 
 const StakingWrapper = styled.div`
   width: 100%;
-  height: 520px;
   border-radius: 25px;
   background-color: var(--color-bg-primary);
   padding: 20px;
@@ -31,7 +31,6 @@ const StakingWrapper = styled.div`
     padding: 30px 0;
     border-radius: 20px;
     background-color: var(--color-bg-main);
-    height: 200px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -44,6 +43,7 @@ const StakingWrapper = styled.div`
     }
 
     .stake-warning {
+      margin-top: 43px;
       font-size: 15px;
       color: var(--color-text-secondary);
     }
@@ -53,6 +53,7 @@ const StakingWrapper = styled.div`
       position: relative;
       display: flex;
       align-items: center;
+      margin-top: 15px;
 
       input {
         width: 65%;
@@ -85,12 +86,41 @@ const StakingWrapper = styled.div`
       height: 41px;
       border-radius: 5px;
       background-image: linear-gradient(to right, #f2c265, #f7b44f);
+      margin-top: 15px;
 
       .MuiButton-label {
         font-size: 16px;
         font-weight: 500;
         color: var(--color-text-main);
         text-transform: capitalize;
+      }
+    }
+
+    .prop {
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--color-text-secondary);
+    }
+
+    .value {
+      font-weight: 600;
+      font-size: 24px;
+      color: var(--color-white);
+      margin-top: 15px;
+
+      img {
+        width: 24px;
+        margin-right: 10px;
+      }
+
+      .claim-btn {
+        font-size: 18px;
+        font-weight: bold;
+        color: var(--color-orange);
+        margin-left: 30px;
+      }
+      .disable-btn {
+        color: var(--color-text-secondary);
       }
     }
   }
@@ -103,8 +133,11 @@ function Staking({
   isEnabled,
   availableVai,
   vaiStaked,
+  vaiReward,
+  xvsBalance,
   updateTotalInfo
 }) {
+  const [isClaimLoading, setIsClaimLoading] = useState(false);
   const [isStakeLoading, setIsStakeLoading] = useState(false);
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
@@ -185,6 +218,20 @@ function Staking({
       })
       .catch(() => {
         setIsStakeLoading(false);
+      });
+  };
+
+  const handleClaimReward = async () => {
+    if (isClaimLoading || vaiReward === '0') return;
+    const appContract = getVaiVaultContract();
+    setIsClaimLoading(true);
+    await methods
+      .send(appContract.methods.claim, [], settings.selectedAddress)
+      .then(() => {
+        setIsClaimLoading(false);
+      })
+      .catch(() => {
+        setIsClaimLoading(false);
       });
   };
 
@@ -276,6 +323,32 @@ function Staking({
             {isWithdrawLoading && <Icon type="loading" />} Withdraw
           </Button>
         </div>
+        <div className="stake-section">
+          <div className="stake-info">
+            Available VAI rewards:
+          </div>
+          <div className="flex align-center just-between value">
+            <p>
+              <img src={xvsImg} alt="xvs" />
+              <span>{format(vaiReward)} XVS</span>
+            </p>
+            <p
+              className={`pointer claim-btn ${
+                isClaimLoading || vaiReward === '0' ? 'disable-btn' : ''
+              }`}
+              onClick={handleClaimReward}
+            >
+              {isClaimLoading && <Icon type="loading" />} Claim
+            </p>
+          </div>
+        </div>
+        <div className="stake-section">
+          <div className="stake-info">Venus Balance:</div>
+          <div className="flex align-center just-between value">
+            <img src={xvsImg} alt="xvs" />
+            <span>{format(xvsBalance)} XVS</span>
+          </div>
+        </div>
       </StakingWrapper>
     </Card>
   );
@@ -286,7 +359,9 @@ Staking.propTypes = {
   isEnabled: PropTypes.bool.isRequired,
   availableVai: PropTypes.object.isRequired,
   vaiStaked: PropTypes.object.isRequired,
-  updateTotalInfo: PropTypes.func.isRequired
+  vaiReward: PropTypes.object.isRequired,
+  updateTotalInfo: PropTypes.func.isRequired,
+  xvsBalance: PropTypes.string.isRequired
 };
 
 Staking.defaultProps = {

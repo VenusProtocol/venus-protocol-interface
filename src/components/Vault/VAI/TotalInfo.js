@@ -14,27 +14,29 @@ const TotalInfoWrapper = styled.div`
   background-color: var(--color-bg-primary);
   display: flex;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 20px;
+  flex-wrap: wrap;
 
   @media (max-width: 992px) {
-    padding: 20px;
     flex-direction: column;
   }
 
   .total-item {
+    padding: 10px;
+    width: 50%;
     @media (max-width: 992px) {
-      margin: 10px;
+      width: 100%;
     }
 
     .prop {
       font-weight: 600;
-      font-size: 20px;
+      font-size: 18px;
       color: var(--color-text-secondary);
     }
 
     .value {
       font-weight: 600;
-      font-size: 24px;
+      font-size: 20px;
       color: var(--color-white);
       margin-top: 10px;
     }
@@ -48,7 +50,7 @@ function TotalInfo({ settings, emission, pendingRewards }) {
     <Card>
       <TotalInfoWrapper>
         <div className="total-item">
-          <div className="prop">Total emission per day</div>
+          <div className="prop">VAI emission per day</div>
           <div className="value">{format(emission)} XVS</div>
         </div>
         <div className="total-item">

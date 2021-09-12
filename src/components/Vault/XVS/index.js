@@ -1,0 +1,155 @@
+/* eslint-disable no-useless-escape */
+import React, { useEffect, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { compose } from 'recompose';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import BigNumber from 'bignumber.js';
+import * as constants from 'utilities/constants';
+import XVSTotalInfo from 'components/Vault/XVS/TotalInfo';
+import XVSStaking from 'components/Vault/XVS/Staking';
+import { connectAccount, accountActionCreators } from 'core';
+import {
+  getVaultContract,
+  getTokenContract,
+  methods
+} from 'utilities/ContractService';
+import { checkIsValidNetwork } from 'utilities/common';
+import { Row, Column } from 'components/Basic/Style';
+
+function Vault({ settings }) {
+  const [refresh, setRefresh] = useState(false);
+  const [vaultInfo, setVaultInfo] = useState({
+    totalStaked: new BigNumber(0),
+    dailyEmission: new BigNumber(0),
+    apy: new BigNumber(0),
+    totalPendingRewards: new BigNumber(0)
+  });
+  const [userInfo, setUserInfo] = useState({
+    walletBalance: new BigNumber(0),
+    stakedAmount: new BigNumber(0),
+    enabled: false,
+    pendingReward: new BigNumber(0),
+  });
+
+  const xvsTokenContract = getTokenContract('xvs');
+  const vaultContract = getVaultContract();
+  const vaultAddress = constants.CONTRACT_VAULT_ADDRESS;
+  const xvsAddress = constants.CONTRACT_TOKEN_ADDRESS['xvs'].address;
+  const xvsStoreAddress = '0xEA44f8511f1e08Dd5fBE94F522Ac1B0ECB1d216E';
+
+  const fetchVaults = useCallback(async () => {
+    const [
+      totalStaked,
+      rewardPerBlock,
+      totalAllocPoints,
+      { 1: allocPoint },
+      totalPendingRewards
+    ] = await Promise.all([
+      methods.call(xvsTokenContract.methods.balanceOf, [vaultAddress]),
+      methods.call(vaultContract.methods.rewardTokenAmountsPerBlock, [
+        xvsAddress
+      ]),
+      methods.call(vaultContract.methods.totalAllocPoints, [xvsAddress]),
+      methods.call(vaultContract.methods.poolInfos, [xvsAddress, 0]),
+      methods.call(xvsTokenContract.methods.balanceOf, [xvsStoreAddress])
+    ]);
+
+    const rewardPerVault = new BigNumber(rewardPerBlock)
+      .times(allocPoint)
+      .div(totalAllocPoints);
+    setVaultInfo({
+      totalStaked: new BigNumber(totalStaked).div(1e18),
+      dailyEmission: rewardPerVault.div(1e18).times(20 * 60 * 24),
+      apy: rewardPerVault.times(20 * 60 * 24 * 365).div(totalStaked),
+      totalPendingRewards: new BigNumber(totalPendingRewards).div(1e18)
+    });
+  }, [refresh]);
+
+  const fetchVaultsUser = useCallback(async () => {
+    const accountAddress = settings.selectedAddress;
+    const [
+      walletBalance,
+      allowance,
+      { 0: stakedAmount },
+      pendingReward
+    ] = await Promise.all([
+      methods.call(xvsTokenContract.methods.balanceOf, [accountAddress]),
+      methods.call(xvsTokenContract.methods.allowance, [
+        accountAddress,
+        vaultAddress
+      ]),
+      methods.call(vaultContract.methods.getUserInfo, [
+        xvsAddress,
+        0,
+        accountAddress
+      ]),
+      methods.call(vaultContract.methods.pendingReward, [
+        xvsAddress,
+        0,
+        accountAddress
+      ])
+    ]);
+    setUserInfo({
+      walletBalance: new BigNumber(walletBalance).div(1e18),
+      stakedAmount: new BigNumber(stakedAmount).div(1e18),
+      enabled: !new BigNumber(allowance).isZero(),
+      pendingReward: new BigNumber(pendingReward).div(1e18)
+    });
+  }, [settings.selectedAddress, refresh]);
+
+  useEffect(() => {
+    if (checkIsValidNetwork(settings.walletType)) {
+      fetchVaults();
+
+      if (settings.selectedAddress) {
+        fetchVaultsUser();
+      }
+    }
+  }, [settings.markets]);
+
+  return (
+    <Row>
+      <Column xs="12">
+        <XVSTotalInfo vaultInfo={vaultInfo} />
+      </Column>
+      <Column xs="12">
+        <XVSStaking
+          userInfo={userInfo}
+          refresh={refresh}
+          rewardAddress={xvsAddress}
+          setRefresh={setRefresh}
+        />
+      </Column>
+    </Row>
+  );
+}
+
+Vault.propTypes = {
+  settings: PropTypes.object
+};
+
+Vault.defaultProps = {
+  settings: {}
+};
+
+const mapStateToProps = ({ account }) => ({
+  settings: account.setting
+});
+
+const mapDispatchToProps = dispatch => {
+  const { setSetting } = accountActionCreators;
+
+  return bindActionCreators(
+    {
+      setSetting
+    },
+    dispatch
+  );
+};
+
+export default compose(
+  withRouter,
+  connectAccount(mapStateToProps, mapDispatchToProps)
+)(Vault);
