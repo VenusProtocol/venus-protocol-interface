@@ -7,8 +7,8 @@ import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import {
-  getVaiVaultContract,
-  getVaiTokenContract,
+  getVaultContract,
+  getTokenContract,
   methods
 } from 'utilities/ContractService';
 import { Card } from 'components/Basic/Card';
@@ -43,6 +43,7 @@ const StakingWrapper = styled.div`
     }
 
     .stake-warning {
+      margin-top: 43px;
       font-size: 15px;
       color: var(--color-text-secondary);
     }
@@ -127,31 +128,27 @@ const StakingWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Staking({
-  settings,
-  isEnabled,
-  availableVai,
-  vaiStaked,
-  vaiReward,
-  xvsBalance,
-  updateTotalInfo
-}) {
+function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
   const [isClaimLoading, setIsClaimLoading] = useState(false);
   const [isStakeLoading, setIsStakeLoading] = useState(false);
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
 
+  const { walletBalance, stakedAmount, enabled, pendingReward } = userInfo;
+
   /**
-   * Stake VAI
+   * Stake
    */
-  const handleStakeVAI = () => {
-    const appContract = getVaiVaultContract();
+  const handleStake = () => {
+    const vaultContract = getVaultContract();
     setIsStakeLoading(true);
     methods
       .send(
-        appContract.methods.deposit,
+        vaultContract.methods.deposit,
         [
+          rewardAddress,
+          0,
           stakeAmount
             .times(1e18)
             .integerValue()
@@ -160,7 +157,7 @@ function Staking({
         settings.selectedAddress
       )
       .then(() => {
-        updateTotalInfo();
+        setRefresh(!refresh);
         setStakeAmount(new BigNumber(0));
         setIsStakeLoading(false);
       })
@@ -170,15 +167,17 @@ function Staking({
   };
 
   /**
-   * Withdraw VAI
+   * Withdraw
    */
-  const handleWithdrawVAI = () => {
-    const appContract = getVaiVaultContract();
+  const handleWithdraw = () => {
+    const vaultContract = getVaultContract();
     setIsWithdrawLoading(true);
     methods
       .send(
-        appContract.methods.withdraw,
+        vaultContract.methods.withdraw,
         [
+          rewardAddress,
+          0,
           withdrawAmount
             .times(1e18)
             .integerValue()
@@ -187,7 +186,7 @@ function Staking({
         settings.selectedAddress
       )
       .then(() => {
-        updateTotalInfo();
+        setRefresh(!refresh);
         setWithdrawAmount(new BigNumber(0));
         setIsWithdrawLoading(false);
       })
@@ -198,12 +197,12 @@ function Staking({
 
   const onApprove = async () => {
     setIsStakeLoading(true);
-    const vaiContract = getVaiTokenContract();
+    const xvsContract = getTokenContract('xvs');
     methods
       .send(
-        vaiContract.methods.approve,
+        xvsContract.methods.approve,
         [
-          constants.CONTRACT_VAI_VAULT_ADDRESS,
+          constants.CONTRACT_VAULT_ADDRESS,
           new BigNumber(2)
             .pow(256)
             .minus(1)
@@ -212,7 +211,7 @@ function Staking({
         settings.selectedAddress
       )
       .then(() => {
-        updateTotalInfo();
+        setRefresh(!refresh);
         setIsStakeLoading(false);
       })
       .catch(() => {
@@ -221,12 +220,17 @@ function Staking({
   };
 
   const handleClaimReward = async () => {
-    if (isClaimLoading || vaiReward === '0') return;
-    const appContract = getVaiVaultContract();
+    if (isClaimLoading || pendingReward.isZero()) return;
+    const vaultContract = getVaultContract();
     setIsClaimLoading(true);
-    await methods
-      .send(appContract.methods.claim, [], settings.selectedAddress)
+    methods
+      .send(
+        vaultContract.methods.deposit,
+        [rewardAddress, 0, 0],
+        settings.selectedAddress
+      )
       .then(() => {
+        setRefresh(!refresh);
         setIsClaimLoading(false);
       })
       .catch(() => {
@@ -239,9 +243,9 @@ function Staking({
       <StakingWrapper>
         <div className="stake-section">
           <div className="stake-info">
-            Available XVS to stake: {format(xvsBalance)} XVS
+            Available XVS to stake: {format(walletBalance.toFormat(2))} XVS
           </div>
-          {!isEnabled ? (
+          {!enabled ? (
             <p className="stake-warning">
               To stake XVS, you need to approve it first.
             </p>
@@ -254,16 +258,16 @@ function Staking({
                   setStakeAmount(new BigNumber(value));
                 }}
                 isAllowed={({ value }) => {
-                  return new BigNumber(value || 0).lte(availableVai);
+                  return new BigNumber(value || 0).lte(walletBalance);
                 }}
                 thousandSeparator
                 allowNegative={false}
                 placeholder="0"
               />
-              <span onClick={() => setStakeAmount(availableVai)}>MAX</span>
+              <span onClick={() => setStakeAmount(walletBalance)}>MAX</span>
             </div>
           )}
-          {!isEnabled ? (
+          {!enabled ? (
             <Button
               className="button"
               disabled={isStakeLoading}
@@ -280,9 +284,9 @@ function Staking({
                 isStakeLoading ||
                 stakeAmount.isZero() ||
                 stakeAmount.isNaN() ||
-                stakeAmount.isGreaterThan(availableVai)
+                stakeAmount.isGreaterThan(walletBalance)
               }
-              onClick={handleStakeVAI}
+              onClick={handleStake}
             >
               {isStakeLoading && <Icon type="loading" />} Stake
             </Button>
@@ -290,7 +294,7 @@ function Staking({
         </div>
         <div className="stake-section">
           <div className="stake-info">
-            XVS staked: {format(vaiStaked.dp(4, 1).toString(10))} XVS
+            XVS staked: {format(stakedAmount.dp(4, 1).toString(10))} XVS
           </div>
           <div className="stake-input">
             <NumberFormat
@@ -300,22 +304,22 @@ function Staking({
                 setWithdrawAmount(new BigNumber(value));
               }}
               isAllowed={({ value }) => {
-                return new BigNumber(value || 0).lte(vaiStaked);
+                return new BigNumber(value || 0).lte(stakedAmount);
               }}
               thousandSeparator
               allowNegative={false}
               placeholder="0"
             />
-            <span onClick={() => setWithdrawAmount(vaiStaked)}>MAX</span>
+            <span onClick={() => setWithdrawAmount(stakedAmount)}>MAX</span>
           </div>
           <Button
             className="button"
-            onClick={() => handleWithdrawVAI()}
+            onClick={() => handleWithdraw()}
             disabled={
               isWithdrawLoading ||
               withdrawAmount.isZero() ||
               withdrawAmount.isNaN() ||
-              withdrawAmount.isGreaterThan(vaiStaked)
+              withdrawAmount.isGreaterThan(stakedAmount)
             }
           >
             {isWithdrawLoading && <Icon type="loading" />} Withdraw
@@ -326,11 +330,11 @@ function Staking({
           <div className="flex align-center just-between value">
             <p>
               <img src={xvsImg} alt="xvs" />
-              <span>{format(vaiReward)} XVS</span>
+              <span>{format(pendingReward.toFormat(2))} XVS</span>
             </p>
             <p
               className={`pointer claim-btn ${
-                isClaimLoading || vaiReward === '0' ? 'disable-btn' : ''
+                isClaimLoading || pendingReward.isZero() ? 'disable-btn' : ''
               }`}
               onClick={handleClaimReward}
             >
@@ -342,7 +346,7 @@ function Staking({
           <div className="stake-info">Venus Balance:</div>
           <div className="flex align-center just-between value">
             <img src={xvsImg} alt="xvs" />
-            <span>{format(xvsBalance)} XVS</span>
+            <span>{format(walletBalance.toFormat(2))} XVS</span>
           </div>
         </div>
       </StakingWrapper>
@@ -352,12 +356,10 @@ function Staking({
 
 Staking.propTypes = {
   settings: PropTypes.object,
-  isEnabled: PropTypes.bool.isRequired,
-  availableVai: PropTypes.object.isRequired,
-  vaiStaked: PropTypes.object.isRequired,
-  vaiReward: PropTypes.object.isRequired,
-  updateTotalInfo: PropTypes.func.isRequired,
-  xvsBalance: PropTypes.string.isRequired
+  userInfo: PropTypes.object,
+  refresh: PropTypes.bool.isRequired,
+  setRefresh: PropTypes.func.isRequired,
+  rewardAddress: PropTypes.string.isRequired
 };
 
 Staking.defaultProps = {

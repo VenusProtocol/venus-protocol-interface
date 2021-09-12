@@ -43,6 +43,7 @@ const StakingWrapper = styled.div`
     }
 
     .stake-warning {
+      margin-top: 43px;
       font-size: 15px;
       color: var(--color-text-secondary);
     }

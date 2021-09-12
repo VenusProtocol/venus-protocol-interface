@@ -10,8 +10,7 @@ import * as constants from 'utilities/constants';
 import MainLayout from 'containers/Layout/MainLayout';
 import VaiTotalInfo from 'components/Vault/VAI/TotalInfo';
 import VaiStaking from 'components/Vault/VAI/Staking';
-import XVSTotalInfo from 'components/Vault/XVS/TotalInfo';
-import XVSStaking from 'components/Vault/XVS/Staking';
+import XVSVault from 'components/Vault/XVS';
 import { connectAccount, accountActionCreators } from 'core';
 import {
   getVaiTokenContract,
@@ -158,22 +157,7 @@ function Vault({ settings }) {
                 </Column>
               </Column>
               <Column xs="12" sm="6">
-                <Column xs="12">
-                  <XVSTotalInfo
-                    emission={emission}
-                    pendingRewards={pendingRewards}
-                  />
-                </Column>
-                <Column xs="12">
-                  <XVSStaking
-                    isEnabled={isEnabled}
-                    availableVai={availableVai}
-                    vaiStaked={vaiStaked}
-                    vaiReward={vaiReward}
-                    xvsBalance={xvsBalance}
-                    updateTotalInfo={updateTotalInfo}
-                  />
-                </Column>
+                <XVSVault />
               </Column>
             </Row>
           )}

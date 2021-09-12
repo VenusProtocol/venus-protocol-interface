@@ -70,11 +70,11 @@ export const getVaiVaultContract = () => {
   );
 };
 
-export const getXvsVaultContract = () => {
+export const getVaultContract = () => {
   const instance = getWeb3();
   return new instance.eth.Contract(
-    JSON.parse(constants.CONTRACT_XVS_VAULT_ABI),
-    constants.CONTRACT_XVS_VAULT_ADDRESS
+    JSON.parse(constants.CONTRACT_VAULT_ABI),
+    constants.CONTRACT_VAULT_ADDRESS
   );
 };
 

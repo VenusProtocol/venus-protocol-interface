@@ -22,9 +22,10 @@ const TotalInfoWrapper = styled.div`
   }
 
   .total-item {
-    margin: 10px;
+    padding: 10px;
+    width: 50%;
     @media (max-width: 992px) {
-      margin: 10px;
+      width: 100%;
     }
 
     .prop {

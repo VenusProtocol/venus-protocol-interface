@@ -22,9 +22,10 @@ const TotalInfoWrapper = styled.div`
   }
 
   .total-item {
-    margin: 10px;
+    padding: 10px;
+    width: 50%;
     @media (max-width: 992px) {
-      margin: 10px;
+      width: 100%;
     }
 
     .prop {
@@ -44,25 +45,25 @@ const TotalInfoWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function TotalInfo({ settings, emission, pendingRewards }) {
+function TotalInfo({ vaultInfo }) {
   return (
     <Card>
       <TotalInfoWrapper>
         <div className="total-item">
           <div className="prop">XVS emission per day</div>
-          <div className="value">{format(emission)} XVS</div>
+          <div className="value">{format(vaultInfo.dailyEmission.toFormat(2))} XVS</div>
         </div>
         <div className="total-item">
           <div className="prop">Total XVS Staked</div>
-          <div className="value">{settings.vaultVaiStaked ? format(new BigNumber(settings.vaultVaiStaked).dp(4, 1).toString(10)) : 0} XVS</div>
+          <div className="value">{format(vaultInfo.totalStaked.toFormat(2))} XVS</div>
         </div>
         <div className="total-item">
           <div className="prop">XVS Staking APY</div>
-          <div className="value">{settings.vaiAPY}%</div>
+          <div className="value">{format(vaultInfo.apy.toFormat(2))}%</div>
         </div>
         <div className="total-item">
           <div className="prop">XVS Vault Reward Pool</div>
-          <div className="value">{format(pendingRewards)} XVS</div>
+          <div className="value">{format(vaultInfo.totalPendingRewards.toFormat(2))} XVS</div>
         </div>
       </TotalInfoWrapper>
     </Card>
