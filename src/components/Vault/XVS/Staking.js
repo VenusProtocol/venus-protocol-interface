@@ -81,6 +81,25 @@ const StakingWrapper = styled.div`
       }
     }
 
+    .pending-info {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .pending-label {
+        color: var(--color-text-main);
+        font-size: 24px;
+        margin-top: 20px;
+      }
+
+      .pending-amount {
+        color: var(--color-text-secondary);
+        font-size: 20px;
+        margin: 5px 0;
+      }
+    }
+
     .button {
       width: 248px;
       height: 41px;
@@ -135,7 +154,14 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
 
-  const { walletBalance, stakedAmount, enabled, pendingReward } = userInfo;
+  const {
+    walletBalance,
+    stakedAmount,
+    enabled,
+    pendingReward,
+    withdrawableAmount,
+    requestedAmount
+  } = userInfo;
 
   /**
    * Stake
@@ -167,14 +193,14 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
   };
 
   /**
-   * Withdraw
+   * Request Withdrawal
    */
-  const handleWithdraw = () => {
+  const handleRequestWithdrawal = () => {
     const vaultContract = getVaultContract();
     setIsWithdrawLoading(true);
     methods
       .send(
-        vaultContract.methods.withdraw,
+        vaultContract.methods.RequestWithdrawal,
         [
           rewardAddress,
           0,
@@ -183,6 +209,28 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
             .integerValue()
             .toString(10)
         ],
+        settings.selectedAddress
+      )
+      .then(() => {
+        setRefresh(!refresh);
+        setWithdrawAmount(new BigNumber(0));
+        setIsWithdrawLoading(false);
+      })
+      .catch(() => {
+        setIsWithdrawLoading(false);
+      });
+  };
+
+  /**
+   * Execute Withdrawal
+   */
+  const handleExecuteWithdrawal = () => {
+    const vaultContract = getVaultContract();
+    setIsWithdrawLoading(true);
+    methods
+      .send(
+        vaultContract.methods.ExecuteWithdrawal,
+        [rewardAddress, 0],
         settings.selectedAddress
       )
       .then(() => {
@@ -296,34 +344,62 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
           <div className="stake-info">
             XVS staked: {format(stakedAmount.dp(4, 1).toString(10))} XVS
           </div>
-          <div className="stake-input">
-            <NumberFormat
-              autoFocus
-              value={withdrawAmount.isZero() ? '' : withdrawAmount.toString(10)}
-              onValueChange={({ value }) => {
-                setWithdrawAmount(new BigNumber(value));
-              }}
-              isAllowed={({ value }) => {
-                return new BigNumber(value || 0).lte(stakedAmount);
-              }}
-              thousandSeparator
-              allowNegative={false}
-              placeholder="0"
-            />
-            <span onClick={() => setWithdrawAmount(stakedAmount)}>MAX</span>
-          </div>
-          <Button
-            className="button"
-            onClick={() => handleWithdraw()}
-            disabled={
-              isWithdrawLoading ||
-              withdrawAmount.isZero() ||
-              withdrawAmount.isNaN() ||
-              withdrawAmount.isGreaterThan(stakedAmount)
-            }
-          >
-            {isWithdrawLoading && <Icon type="loading" />} Withdraw
-          </Button>
+          {!withdrawableAmount.isZero() ? (
+            <div className="pending-info">
+              <div className="pending-amount">
+                Withdrawable Amount: {requestedAmount.toFormat(2)} XVS
+              </div>
+              <Button
+                className="button"
+                onClick={() => handleExecuteWithdrawal()}
+                disabled={isWithdrawLoading}
+              >
+                {isWithdrawLoading && <Icon type="loading" />} Execute
+                Withdrawal
+              </Button>
+            </div>
+          ) : requestedAmount.isZero() ? (
+            <>
+              <div className="stake-input">
+                <NumberFormat
+                  autoFocus
+                  value={
+                    withdrawAmount.isZero() ? '' : withdrawAmount.toString(10)
+                  }
+                  onValueChange={({ value }) => {
+                    setWithdrawAmount(new BigNumber(value));
+                  }}
+                  isAllowed={({ value }) => {
+                    return new BigNumber(value || 0).lte(stakedAmount);
+                  }}
+                  thousandSeparator
+                  allowNegative={false}
+                  placeholder="0"
+                />
+                <span onClick={() => setWithdrawAmount(stakedAmount)}>MAX</span>
+              </div>
+              <Button
+                className="button"
+                onClick={() => handleRequestWithdrawal()}
+                disabled={
+                  isWithdrawLoading ||
+                  withdrawAmount.isZero() ||
+                  withdrawAmount.isNaN() ||
+                  withdrawAmount.isGreaterThan(stakedAmount)
+                }
+              >
+                {isWithdrawLoading && <Icon type="loading" />} Request
+                Withdrawal
+              </Button>
+            </>
+          ) : (
+            <div className="pending-info">
+              <div className="pending-amount">Withdrawal Pending</div>
+              <div className="pending-label">
+                {requestedAmount.toFormat(2)} XVS
+              </div>
+            </div>
+          )}
         </div>
         <div className="stake-section">
           <div className="stake-info">Available XVS rewards:</div>

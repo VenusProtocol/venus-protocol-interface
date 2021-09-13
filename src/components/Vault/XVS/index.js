@@ -31,13 +31,15 @@ function Vault({ settings }) {
     stakedAmount: new BigNumber(0),
     enabled: false,
     pendingReward: new BigNumber(0),
+    withdrawableAmount: new BigNumber(0),
+    requestedAmount: new BigNumber(0),
   });
 
   const xvsTokenContract = getTokenContract('xvs');
   const vaultContract = getVaultContract();
   const vaultAddress = constants.CONTRACT_VAULT_ADDRESS;
   const xvsAddress = constants.CONTRACT_TOKEN_ADDRESS['xvs'].address;
-  const xvsStoreAddress = '0xEA44f8511f1e08Dd5fBE94F522Ac1B0ECB1d216E';
+  const xvsStoreAddress = constants.CONTRACT_XVS_STORE_ADDRESS;
 
   const fetchVaults = useCallback(async () => {
     const [
@@ -62,18 +64,21 @@ function Vault({ settings }) {
     setVaultInfo({
       totalStaked: new BigNumber(totalStaked).div(1e18),
       dailyEmission: rewardPerVault.div(1e18).times(20 * 60 * 24),
-      apy: rewardPerVault.times(20 * 60 * 24 * 365).div(totalStaked),
+      apy: new BigNumber(totalStaked).isZero() ? new BigNumber(0) : rewardPerVault.times(20 * 60 * 24 * 365).div(totalStaked),
       totalPendingRewards: new BigNumber(totalPendingRewards).div(1e18)
     });
   }, [refresh]);
 
   const fetchVaultsUser = useCallback(async () => {
     const accountAddress = settings.selectedAddress;
+    const rewardAddress = xvsAddress;
     const [
       walletBalance,
       allowance,
       { 0: stakedAmount },
-      pendingReward
+      pendingReward,
+      withdrawableAmount,
+      requestedAmount,
     ] = await Promise.all([
       methods.call(xvsTokenContract.methods.balanceOf, [accountAddress]),
       methods.call(xvsTokenContract.methods.allowance, [
@@ -81,21 +86,34 @@ function Vault({ settings }) {
         vaultAddress
       ]),
       methods.call(vaultContract.methods.getUserInfo, [
-        xvsAddress,
+        rewardAddress,
         0,
         accountAddress
       ]),
       methods.call(vaultContract.methods.pendingReward, [
-        xvsAddress,
+        rewardAddress,
         0,
         accountAddress
+      ]),
+      methods.call(vaultContract.methods.getEligibleWithdrawalAmount, [
+        rewardAddress,
+        0,
+        accountAddress,
+      ]),
+      methods.call(vaultContract.methods.getRequestedAmount, [
+        rewardAddress,
+        0,
+        accountAddress,
       ])
     ]);
+
     setUserInfo({
       walletBalance: new BigNumber(walletBalance).div(1e18),
       stakedAmount: new BigNumber(stakedAmount).div(1e18),
       enabled: !new BigNumber(allowance).isZero(),
-      pendingReward: new BigNumber(pendingReward).div(1e18)
+      pendingReward: new BigNumber(pendingReward).div(1e18),
+      withdrawableAmount: new BigNumber(withdrawableAmount).div(1e18),
+      requestedAmount: new BigNumber(requestedAmount).div(1e18),
     });
   }, [settings.selectedAddress, refresh]);
 

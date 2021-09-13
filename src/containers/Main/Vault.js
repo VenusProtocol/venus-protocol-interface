@@ -16,7 +16,6 @@ import {
   getVaiTokenContract,
   getComptrollerContract,
   getVaiVaultContract,
-  getXvsVaultContract,
   getTokenContract,
   methods
 } from 'utilities/ContractService';
