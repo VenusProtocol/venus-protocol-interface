@@ -11,6 +11,9 @@ import MainLayout from 'containers/Layout/MainLayout';
 import VaiTotalInfo from 'components/Vault/VAI/TotalInfo';
 import VaiStaking from 'components/Vault/VAI/Staking';
 import XVSVault from 'components/Vault/XVS';
+import TotalInfo from 'components/Vault/TotalInfo';
+import UserInfo from 'components/Vault/UserInfo';
+import Staking from 'components/Vault/Staking';
 import { connectAccount, accountActionCreators } from 'core';
 import {
   getVaiTokenContract,
@@ -22,7 +25,6 @@ import {
 import { checkIsValidNetwork } from 'utilities/common';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
-
 
 const MarketWrapper = styled.div`
   width: 100%;
@@ -135,7 +137,7 @@ function Vault({ settings }) {
             <SpinnerWrapper>
               <LoadingSpinner />
             </SpinnerWrapper>
-          ) : (
+          ) : process.env.REACT_APP_ENV === 'dev' ? (
             <Row>
               <Column xs="12" sm="6">
                 <Column xs="12">
@@ -157,6 +159,34 @@ function Vault({ settings }) {
               </Column>
               <Column xs="12" sm="6">
                 <XVSVault />
+              </Column>
+            </Row>
+          ) : (
+            <Row>
+              <Column xs="12">
+                <TotalInfo
+                  emission={emission}
+                  pendingRewards={pendingRewards}
+                />
+              </Column>
+              <Column xs="12">
+                <Row>
+                  <Column xs="12" sm="12" md="5">
+                    <UserInfo
+                      availableVai={availableVai}
+                      vaiStaked={vaiStaked}
+                      vaiReward={vaiReward}
+                    />
+                  </Column>
+                  <Column xs="12" sm="12" md="7">
+                    <Staking
+                      isEnabled={isEnabled}
+                      availableVai={availableVai}
+                      vaiStaked={vaiStaked}
+                      updateTotalInfo={updateTotalInfo}
+                    />
+                  </Column>
+                </Row>
               </Column>
             </Row>
           )}
