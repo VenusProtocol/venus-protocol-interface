@@ -15,6 +15,7 @@ export default {
       matic: '0xcfeb0103d4BEfa041EA4c2dACce7B3E83E1aE7E3',
       cake: '0xe8bd7cCC165FAEb9b81569B05424771B9A20cbEF',
       aave: '0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144',
+      tusd: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
     },
     VBEP: {
       sxp : '0x74469281310195A04840Daf6EdF576F559a3dE80',
@@ -32,6 +33,7 @@ export default {
       matic: '0x3619bdDc61189F33365CC572DF3a68FB3b316516',
       cake: '0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6',
       aave: '0x714db6c38A17883964B68a07d56cE331501d9eb6',
+      tusd: '0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0',
     },
   },
   MAIN: {
