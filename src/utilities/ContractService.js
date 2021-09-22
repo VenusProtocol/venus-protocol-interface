@@ -1,23 +1,22 @@
 import Web3 from 'web3';
 import * as constants from './constants';
 
+// singleton instance
+let web3Instance = null;
 export const getWeb3 = () => {
-  const providerUrl =
-    process.env.REACT_APP_ENV === 'dev'
-      ? 'https://data-seed-prebsc-1-s1.binance.org:8545'
-      : 'https://bsc-dataseed.binance.org';
+  if (!web3Instance) {
+    const bscRpcUrl =
+      process.env.REACT_APP_ENV === 'dev'
+        ? 'https://data-seed-prebsc-1-s1.binance.org:8545'
+        : 'https://bsc-dataseed.binance.org';
 
-  return new Web3(
-    JSON.parse(localStorage.getItem('state')) &&
-    JSON.parse(localStorage.getItem('state')).account.setting.walletType ===
-      'binance'
-      ? window.BinanceChain
-        ? window.BinanceChain
-        : providerUrl
-      : window.ethereum
-      ? window.ethereum
-      : providerUrl
-  );
+    const storage = JSON.parse(localStorage.getItem('state'));
+    const walletType = storage && storage.account.setting.walletType;
+    const provider =
+      walletType === 'binance' ? window.BinanceChain : window.ethereum;
+    web3Instance = new Web3(provider || bscRpcUrl);
+  }
+  return web3Instance;
 };
 
 const call = (method, params) => {
@@ -135,6 +134,14 @@ export const getInterestModelContract = address => {
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_INTEREST_MODEL_ABI),
     address
+  );
+};
+
+export const getVenusLensContract = () => {
+  const instance = getWeb3();
+  return new instance.eth.Contract(
+    JSON.parse(constants.CONTRACT_VENUS_LENS_ABI),
+    constants.CONTRACT_VENUS_LENS_ADDRESS
   );
 };
 
