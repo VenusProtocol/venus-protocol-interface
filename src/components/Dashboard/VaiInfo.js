@@ -9,6 +9,7 @@ import * as constants from 'utilities/constants';
 import coinImg from 'assets/img/coins/vai.svg';
 import { Card } from 'components/Basic/Card';
 import { addToken, getBigNumber } from 'utilities/common';
+import { BASE_BSC_SCAN_URL } from '../../config';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -65,7 +66,7 @@ const format = commaNumber.bindWith(',', '.');
 function VaiInfo({ settings }) {
   const handleLink = () => {
     window.open(
-      `${process.env.REACT_APP_BSC_EXPLORER}/token/${constants.CONTRACT_VAI_TOKEN_ADDRESS}?a=${settings.selectedAddress}`,
+      `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_VAI_TOKEN_ADDRESS}?a=${settings.selectedAddress}`,
       '_blank'
     );
   };

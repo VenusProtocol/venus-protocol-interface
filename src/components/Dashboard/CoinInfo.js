@@ -9,6 +9,7 @@ import * as constants from 'utilities/constants';
 import { addToken, getBigNumber } from 'utilities/common';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
+import { BASE_BSC_SCAN_URL } from '../../config';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -60,7 +61,7 @@ const abortController = new AbortController();
 function CoinInfo({ settings }) {
   const handleLink = () => {
     window.open(
-      `${process.env.REACT_APP_BSC_EXPLORER}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${settings.selectedAddress}`,
+      `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${settings.selectedAddress}`,
       '_blank'
     );
   };

@@ -11,6 +11,7 @@ import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
+import { BASE_BSC_SCAN_URL } from '../../config';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -224,7 +225,7 @@ function VotingWallet({
               <div className="flex align-center">
                 <a
                   className="content-value"
-                  href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${delegateAddress}`}
+                  href={`${BASE_BSC_SCAN_URL}/address/${delegateAddress}`}
                   target="_blank"
                   rel="noreferrer"
                 >

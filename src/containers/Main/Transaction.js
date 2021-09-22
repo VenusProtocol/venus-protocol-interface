@@ -16,6 +16,7 @@ import coinImg from 'assets/img/coins/vai.svg';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import xvsImg from 'assets/img/coins/xvs.png';
+import { BASE_BSC_SCAN_URL } from '../../config';
 
 const TransactionWrapper = styled.div`
   width: 100%;
@@ -398,7 +399,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/tx/${item.transactionHash}`,
+                          `${BASE_BSC_SCAN_URL}/tx/${item.transactionHash}`,
                           '_blank'
                         );
                       }}
@@ -417,7 +418,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/address/${item.from}`,
+                          `${BASE_BSC_SCAN_URL}/address/${item.from}`,
                           '_blank'
                         );
                       }}
@@ -431,7 +432,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="mobile-label"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/address/${item.to}`,
+                          `${BASE_BSC_SCAN_URL}/address/${item.to}`,
                           '_blank'
                         );
                       }}
@@ -442,7 +443,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/address/${item.to}`,
+                          `${BASE_BSC_SCAN_URL}/address/${item.to}`,
                           '_blank'
                         );
                       }}

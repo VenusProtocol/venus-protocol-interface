@@ -87,21 +87,6 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const onApprove = async () => {
     if (asset.id && settings.selectedAddress && asset.id !== 'bnb') {
       setIsLoading(true);
-      // const binanceConnect = BinanceWalletConnectClass.initialize();
-      // binanceConnect.sendApprove(
-      //   asset.id,
-      //   settings.selectedAddress,
-      //   asset.vtokenAddress,
-      //   new BigNumber(2)
-      //     .pow(256)
-      //     .minus(1)
-      //     .toString(10),
-      //   () => {
-      //     setAmount(new BigNumber(0));
-      //     setIsLoading(false);
-      //     onCancel();
-      //   }
-      // );
       const tokenContract = getTokenContract(asset.id);
       methods
         .send(
@@ -130,19 +115,6 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
    */
   const handleSupply = () => {
     const appContract = getVbepContract(asset.id);
-    // const binanceConnect = BinanceWalletConnectClass.initialize();
-    // binanceConnect.sendSupply(
-    //   asset.id,
-    //   settings.selectedAddress,
-    //   amount
-    //     .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-    //     .toString(10),
-    //   () => {
-    //     setAmount(new BigNumber(0));
-    //     setIsLoading(false);
-    //     onCancel();
-    //   }
-    // );
 
     if (asset.id && settings.selectedAddress) {
       setIsLoading(true);

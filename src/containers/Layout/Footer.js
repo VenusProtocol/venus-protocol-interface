@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import * as constants from 'utilities/constants';
+import { BASE_BSC_SCAN_URL } from '../../config';
 
 const FooterWrapper = styled.div`
   height: 50px;
@@ -43,16 +44,12 @@ function Footer({ settings }) {
     <FooterWrapper>
       <div className="flex align-center">
         <div className="status-circle" target="_blank" rel="noreferrer" />
-        <a
-          href={process.env.REACT_APP_BSC_EXPLORER}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href={BASE_BSC_SCAN_URL} target="_blank" rel="noreferrer">
           Latest Block: {settings.latestBlockNumber || 0}
         </a>
       </div>
       <a
-        href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
+        href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
         target="_blank"
         rel="noreferrer"
       >
