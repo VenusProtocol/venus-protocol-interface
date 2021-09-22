@@ -14,6 +14,7 @@ import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber } from 'utilities/common';
+import { useWeb3React } from '@web3-react/core';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
@@ -25,6 +26,7 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   const updateInfo = useCallback(() => {
     const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
@@ -53,26 +55,26 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         setNewBorrowPercent(temp.div(totalBorrowLimit).times(100));
       }
     }
-  }, [settings.selectedAddress, amount, asset]);
+  }, [account, amount, asset]);
 
   /**
    * Get Allowed amount
    */
   useEffect(() => {
-    if (asset.vtokenAddress && settings.selectedAddress) {
+    if (asset.vtokenAddress && account) {
       updateInfo();
     }
     return function cleanup() {
       abortController.abort();
     };
-  }, [settings.selectedAddress, updateInfo, asset]);
+  }, [account, updateInfo, asset]);
 
   /**
    * Borrow
    */
   const handleBorrow = () => {
     const appContract = getVbepContract(asset.id);
-    if (asset && settings.selectedAddress) {
+    if (asset && account) {
       setIsLoading(true);
       setSetting({
         pendingInfo: {
@@ -91,7 +93,7 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               .integerValue()
               .toString(10)
           ],
-          settings.selectedAddress
+          account
         )
         .then(() => {
           setAmount(new BigNumber(0));

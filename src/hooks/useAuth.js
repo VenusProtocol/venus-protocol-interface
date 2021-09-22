@@ -51,7 +51,7 @@ const useAuth = () => {
         toast.error({ title: 'The connector config is wrong' });
       }
     },
-    [activate, toastError]
+    []
   );
 
   const logout = useCallback(() => {

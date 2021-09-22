@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "bignumber.js": "^9.0.0",
     "comma-number": "^2.0.1",
+    "copy-to-clipboard": "^3.3.1",
     "ethers": "^5.0.17",
     "i": "^0.3.6",
     "lodash": "^4.17.21",

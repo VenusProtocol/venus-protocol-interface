@@ -9,7 +9,7 @@ const REACT_APP_TEST_NODE_2 = 'https://data-seed-prebsc-2-s1.binance.org:8545';
 const REACT_APP_TEST_NODE_3 = 'https://data-seed-prebsc-1-s2.binance.org:8545';
 
 // Array of available nodes to connect to
-const nodes = {
+export const nodes = {
   56: [REACT_APP_NODE_1, REACT_APP_NODE_2, REACT_APP_NODE_3],
   97: [REACT_APP_TEST_NODE_1, REACT_APP_TEST_NODE_2, REACT_APP_TEST_NODE_3]
 };

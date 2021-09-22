@@ -26,6 +26,7 @@ import { checkIsValidNetwork, getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
+import { useWeb3React } from '@web3-react/core';
 
 const SidebarWrapper = styled.div`
   height: 100vh;
@@ -285,11 +286,6 @@ const ConnectButton = styled.div`
 `;
 
 const { Option } = Select;
-
-let metamask = null;
-let accounts = [];
-let metamaskWatcher = null;
-let walletType = null;
 const abortController = new AbortController();
 
 const format = commaNumber.bindWith(',', '.');
@@ -297,149 +293,19 @@ const format = commaNumber.bindWith(',', '.');
 function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
-  const [error, setError] = useState('');
-  const [web3, setWeb3] = useState(null);
-  const [awaiting, setAwaiting] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
-  const [wcUri, setWcUri] = useState(null);
 
   const defaultPath = history.location.pathname.split('/')[1];
+  const { chainId } = useWeb3React();
 
   useEffect(() => {
-    if (settings.walletType) {
-      walletType = settings.walletType;
-    }
-  }, [settings.walletType]);
-
-  const checkNetwork = () => {
-    let netId;
-    if (window.BinanceChain && settings.walletType === 'binance') {
-      netId = +window.BinanceChain.chainId;
-    } else {
-      netId = window.ethereum.networkVersion
-        ? +window.ethereum.networkVersion
-        : +window.ethereum.chainId;
-    }
-    if (netId) {
-      if (netId === 97 || netId === 56) {
-        if (netId === 97 && process.env.REACT_APP_ENV === 'prod') {
-          toast.error({
-            title: `You are currently visiting the Binance Testnet Smart Chain Network. Please change your metamask to access the Binance Smart Chain Main Network`
-          });
-        } else if (netId === 56 && process.env.REACT_APP_ENV === 'dev') {
-          toast.error({
-            title: `You are currently visiting the Binance Smart Chain Main Network. Please change your metamask to access the Binance Testnet Smart Chain Network`
-          });
-        } else {
-          setSetting({
-            wrongNetwork: false
-          });
-          return;
-        }
-      } else {
-        toast.error({
-          title: `Venus is only supported on Binance Smart Chain Network. Please confirm you installed Metamask and selected Binance Smart Chain Network`
-        });
-      }
-      setSetting({
-        wrongNetwork: true
-      });
-    } else {
+    if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
       toast.error({
-        title: `Venus is only supported on Binance Smart Chain Network. Please confirm you installed Metamask and selected Binance Smart Chain Network`
+        title: `Please change your network to access the Binance Smart Chain Main Network`
       });
     }
-  };
-
-  useEffect(() => {
-    if (window.ethereum || window.BinanceChain) {
-      window.addEventListener('load', () => {
-        checkNetwork();
-      });
-    }
-  }, [window.ethereum, window.BinanceChain]);
-
-  // ---------------------------------MetaMask connect-------------------------------------
-  const withTimeoutRejection = async (promise, timeout) => {
-    const sleep = new Promise((resolve, reject) =>
-      setTimeout(() => reject(new Error(constants.TIMEOUT)), timeout)
-    );
-    return Promise.race([promise, sleep]);
-  };
-
-  const handleWatch = useCallback(async () => {
-    if (!walletType) return;
-    if (window.ethereum) {
-      const accs = await window.ethereum.request({ method: 'eth_accounts' });
-      if (!accs[0]) {
-        accounts = [];
-        clearTimeout(metamaskWatcher);
-        setSetting({ selectedAddress: null });
-      }
-    }
-    if (metamaskWatcher) {
-      clearTimeout(metamaskWatcher);
-    }
-
-    if (!web3 || !accounts.length) {
-      setAwaiting(true);
-    }
-
-    try {
-      const isLocked = error && error.message === constants.LOCKED;
-
-      if (!metamask || isLocked) {
-        metamask = await withTimeoutRejection(
-          MetaMaskClass.initialize(undefined, walletType), // if option is existed, add it
-          20 * 1000 // timeout
-        );
-      }
-      const [tempWeb3, tempAccounts, latestBlockNumber] = await Promise.all([
-        metamask.getWeb3(),
-        metamask.getAccounts(walletType),
-        metamask.getLatestBlockNumber()
-      ]);
-
-      accounts = tempAccounts;
-      setWeb3(tempWeb3);
-      setError(null);
-      setAwaiting(false);
-      setSetting({ 
-        selectedAddress: tempAccounts[0],
-        latestBlockNumber,
-       });
-      metamaskWatcher = setTimeout(() => {
-        clearTimeout(metamaskWatcher);
-        handleWatch();
-      }, 3000);
-    } catch (err) {
-      setSetting({ selectedAddress: null });
-      accounts = [];
-      setWeb3(null);
-      setError(err);
-      setAwaiting(false);
-    }
-  }, [error, web3]);
-
-  // --------------------Binance Wallet Connect---------------------------------
-  const handleBinance = () => {
-    if (window.BinanceChain) {
-      clearTimeout(metamaskWatcher);
-      walletType = 'binance';
-      setSetting({ walletType: 'binance' });
-      setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
-      handleWatch();
-    }
-  };
-
-  const handleMetaMask = () => {
-    clearTimeout(metamaskWatcher);
-    walletType = 'metamask';
-    setSetting({ walletType: 'metamask' });
-    setError(MetaMaskClass.hasWeb3() ? '' : new Error(constants.NOT_INSTALLED));
-    handleWatch();
-  };
+  }, [chainId]);
 
   const setDecimals = async () => {
     const decimals = {};
@@ -480,19 +346,6 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     });
   };
 
-  useEffect(() => {
-    if (accounts.length !== 0) {
-      setIsOpenModal(false);
-    }
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [handleWatch, settings.selectedAddress]);
-
-  useEffect(() => {
-    handleWatch();
-  }, [window, history]);
-
   const getTotalVaiMinted = async () => {
     // total vai minted
     const vaiContract = getVaiTokenContract();
@@ -521,11 +374,8 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   };
 
   useEffect(() => {
-    let updateTimer;
-    updateTimer = setInterval(() => {
-      if (settings.selectedAddress) {
-        getMarkets();
-      }
+    let updateTimer = setInterval(() => {
+      getMarkets();
     }, 5000);
     return function cleanup() {
       abortController.abort();
@@ -533,60 +383,19 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         clearInterval(updateTimer);
       }
     };
-  }, [settings.selectedAddress]);
+  }, []);
 
   const onChangePage = value => {
     history.push(`/${value}`);
   };
 
   useEffect(() => {
-    if (checkIsValidNetwork(settings.walletType)) {
-      getTotalVaiMinted();
-    }
+    getTotalVaiMinted();
   }, [settings.markets]);
 
   useEffect(() => {
-    if (window.ethereum || window.BinanceChain) {
-      if (
-        !settings.accountLoading &&
-        checkIsValidNetwork(settings.walletType)
-      ) {
-        initSettings();
-      }
-    }
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [settings.accountLoading]);
-
-  useEffect(() => {
-    if (!settings.selectedAddress || !walletType) {
-      return;
-    }
-    if (
-      window.ethereum &&
-      settings.walletType !== 'binance' &&
-      checkIsValidNetwork(settings.walletType)
-    ) {
-      window.ethereum.on('accountsChanged', accs => {
-        walletType = 'metamask'
-        setSetting({
-          selectedAddress: accs[0],
-          accountLoading: true,
-          walletType: 'metamask'
-        });
-      });
-    } else if (window.BinanceChain && settings.walletType === 'binance' && checkIsValidNetwork(settings.walletType)) {
-      window.BinanceChain.on('accountsChanged', accs => {
-        walletType = 'binance'
-        setSetting({
-          selectedAddress: accs[0],
-          accountLoading: true,
-          walletType: 'binance'
-        });
-      });
-    }
-  }, [window.ethereum, window.BinanceChain, settings.selectedAddress]);
+    initSettings();
+  }, []);
 
   const updateMarketInfo = async () => {
     const accountAddress = settings.selectedAddress;
@@ -650,21 +459,10 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     }
   };
 
-  const handleAccountChange = async () => {
-    await updateMarketInfo();
-    setSetting({
-      accountLoading: false
-    });
-  };
-
   useEffect(() => {
     updateMarketInfo();
   }, [settings.markets]);
 
-  useEffect(() => {
-    if (!settings.selectedAddress) return;
-    handleAccountChange();
-  }, [settings.selectedAddress]);
   return (
     <SidebarWrapper>
       <Logo>
@@ -845,15 +643,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
       </MobileMenu>
       <ConnectModal
         visible={isOpenModal}
-        web3={web3}
-        error={error}
-        wcUri={wcUri}
-        awaiting={awaiting}
-        walletType={walletType}
         onCancel={() => setIsOpenModal(false)}
-        onConnectMetaMask={handleMetaMask}
-        onConnectBinance={handleBinance}
-        onBack={() => setWcUri(null)}
       />
     </SidebarWrapper>
   );
