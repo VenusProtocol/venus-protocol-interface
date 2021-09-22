@@ -360,6 +360,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.MAIN.TOKEN.aave,
           asset: aave,
           vasset: vaave
+        },
+        tusd: {
+          id: 'tusd',
+          symbol: 'TUSD',
+          address: contracts.MAIN.TOKEN.tusd,
+          asset: tusd,
+          vasset: vtusd
         }
       };
 
@@ -558,6 +565,11 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'aave',
           symbol: 'vAAVE',
           address: contracts.MAIN.VBEP.aave
+        },
+        tusd: {
+          id: 'tusd',
+          symbol: 'vTUSD',
+          address: contracts.MAIN.VBEP.tusd
         }
       };
 export const CONTRACT_VBEP_ABI =
