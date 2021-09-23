@@ -179,7 +179,6 @@ function VotingWallet({
           setIsLoading(false);
         })
         .catch(e => {
-          console.log('error', e);
           setIsLoading(false);
         });
     }
