@@ -11,6 +11,8 @@ import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
+import { getVenusLensContract } from '../../utilities/ContractService';
+import BigNumber from 'bignumber.js';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -148,20 +150,35 @@ function VotingWallet({
     return position !== -1 ? value.slice(position + 5) : null;
   };
 
-  const handleCollect = () => {
+  const handleCollect = async () => {
+    const { assetList } = settings;
+
+    // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
+    const venusLensContract = getVenusLensContract();
+    const vTokensBalanceInfos = await methods.call(
+      venusLensContract.methods.vTokenBalancesAll,
+      [assetList.map(asset => asset.vtokenAddress), settings.selectedAddress]
+    );
+
+    const outstandingVTokens = vTokensBalanceInfos.filter(info => {
+      // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
+      return new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0);
+    });
+
+    // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
       setIsLoading(true);
       const appContract = getComptrollerContract();
       methods
         .send(
           appContract.methods.claimVenus,
-          [settings.selectedAddress],
+          [settings.selectedAddress, outstandingVTokens.map(token => token[0])],
           settings.selectedAddress
         )
         .then(() => {
           setIsLoading(false);
         })
-        .catch(() => {
+        .catch(e => {
           setIsLoading(false);
         });
     }
