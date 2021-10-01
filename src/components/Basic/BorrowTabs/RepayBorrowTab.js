@@ -6,6 +6,7 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
+import { useWeb3React } from '@web3-react/core';
 import {
   getTokenContract,
   getVbepContract,
@@ -31,6 +32,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   const updateInfo = useCallback(() => {
     const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
@@ -59,22 +61,19 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         setNewBorrowPercent(temp.div(totalBorrowLimit).times(100));
       }
     }
-  }, [settings.selectedAddress, amount, asset]);
+  }, [amount, asset]);
 
   useEffect(() => {
-    if (asset.vtokenAddress && settings.selectedAddress) {
+    if (account) {
       updateInfo();
     }
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [settings.selectedAddress, updateInfo, asset]);
+  }, [account, updateInfo, asset]);
 
   /**
    * Approve underlying token
    */
   const onApprove = async () => {
-    if (asset && settings.selectedAddress && asset.id !== 'bnb') {
+    if (asset && account && asset.id !== 'bnb') {
       setIsLoading(true);
       const tokenContract = getTokenContract(asset.id);
       methods
@@ -87,7 +86,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               .minus(1)
               .toString(10)
           ],
-          settings.selectedAddress
+          account
         )
         .then(() => {
           setIsEnabled(true);
@@ -103,7 +102,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
    */
   const handleRepayBorrow = async () => {
     const appContract = getVbepContract(asset.id);
-    if (asset && settings.selectedAddress) {
+    if (asset && account) {
       setIsLoading(true);
       setSetting({
         pendingInfo: {
@@ -123,7 +122,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
                 .minus(1)
                 .toString(10)
             ],
-            settings.selectedAddress
+            account
           );
         } else {
           await methods.send(
@@ -134,7 +133,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
                 .integerValue()
                 .toString(10)
             ],
-            settings.selectedAddress
+            account
           );
         }
         setAmount(new BigNumber(0));
@@ -150,7 +149,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         });
       } else {
         sendRepay(
-          settings.selectedAddress,
+          account,
           amount
             .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
             .integerValue()

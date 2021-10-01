@@ -15,6 +15,7 @@ import { Card } from 'components/Basic/Card';
 import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import * as constants from 'utilities/constants';
+import { useWeb3React } from '@web3-react/core';
 
 const StakingWrapper = styled.div`
   width: 100%;
@@ -101,6 +102,7 @@ function Staking({
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   /**
    * Stake VAI
@@ -117,7 +119,7 @@ function Staking({
             .integerValue()
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         updateTotalInfo();
@@ -144,7 +146,7 @@ function Staking({
             .integerValue()
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         updateTotalInfo();
@@ -169,7 +171,7 @@ function Staking({
             .minus(1)
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         updateTotalInfo();
@@ -213,7 +215,7 @@ function Staking({
           {!isEnabled ? (
             <Button
               className="button"
-              disabled={isStakeLoading}
+              disabled={isStakeLoading || !account}
               onClick={() => {
                 onApprove();
               }}
@@ -225,6 +227,7 @@ function Staking({
               className="button"
               disabled={
                 isStakeLoading ||
+                !account ||
                 stakeAmount.isZero() ||
                 stakeAmount.isNaN() ||
                 stakeAmount.isGreaterThan(availableVai)
@@ -260,6 +263,7 @@ function Staking({
             onClick={() => handleWithdrawVAI()}
             disabled={
               isWithdrawLoading ||
+              !account ||
               withdrawAmount.isZero() ||
               withdrawAmount.isNaN() ||
               withdrawAmount.isGreaterThan(vaiStaked)

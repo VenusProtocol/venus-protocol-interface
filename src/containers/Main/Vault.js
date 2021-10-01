@@ -25,6 +25,7 @@ import {
 import { checkIsValidNetwork } from 'utilities/common';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
+import { useWeb3React } from '@web3-react/core';
 
 const MarketWrapper = styled.div`
   width: 100%;
@@ -58,6 +59,7 @@ function Vault({ settings }) {
   const [vaiReward, setVaiReward] = useState('0');
   const [isEnabled, setIsEnabled] = useState(false);
   const [xvsBalance, setXVSBalance] = useState('');
+  const { account } = useWeb3React();
 
   const updateTotalInfo = async () => {
     const compContract = getComptrollerContract();
@@ -78,16 +80,12 @@ function Vault({ settings }) {
       methods.call(xvsTokenContract.methods.balanceOf, [
         constants.CONTRACT_VAI_VAULT_ADDRESS
       ]),
-      methods.call(xvsTokenContract.methods.balanceOf, [
-        settings.selectedAddress
-      ]),
-      methods.call(tokenContract.methods.balanceOf, [settings.selectedAddress]),
-      methods.call(vaultContract.methods.userInfo, [settings.selectedAddress]),
-      methods.call(vaultContract.methods.pendingXVS, [
-        settings.selectedAddress
-      ]),
+      methods.call(xvsTokenContract.methods.balanceOf, [account]),
+      methods.call(tokenContract.methods.balanceOf, [account]),
+      methods.call(vaultContract.methods.userInfo, [account]),
+      methods.call(vaultContract.methods.pendingXVS, [account]),
       methods.call(tokenContract.methods.allowance, [
-        settings.selectedAddress,
+        account,
         constants.CONTRACT_VAI_VAULT_ADDRESS
       ])
     ]);
@@ -133,7 +131,7 @@ function Vault({ settings }) {
     <MainLayout title="Vault">
       <MarketWrapper>
         <VaultWrapper className="flex">
-          {!settings.selectedAddress ? (
+          {!account ? (
             <SpinnerWrapper>
               <LoadingSpinner />
             </SpinnerWrapper>

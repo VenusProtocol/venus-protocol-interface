@@ -24,6 +24,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { checkIsValidNetwork } from 'utilities/common';
 import { Row, Column } from 'components/Basic/Style';
 import * as constants from 'utilities/constants';
+import { useWeb3React } from '@web3-react/core';
 
 const VoteWrapper = styled.div`
   height: 100%;
@@ -50,6 +51,7 @@ function Vote({ settings, getProposals, setSetting }) {
   const [vaiMint, setVaiMint] = useState('0.00000000');
   const [delegateAddress, setDelegateAddress] = useState('');
   const [delegateStatus, setDelegateStatus] = useState('');
+  const { account } = useWeb3React();
 
   const loadInitialData = useCallback(async () => {
     setIsLoadingPropoasl(true);
@@ -87,12 +89,10 @@ function Vote({ settings, getProposals, setSetting }) {
   };
 
   const updateBalance = async () => {
-    if (settings.selectedAddress && checkIsValidNetwork(settings.walletType)) {
+    if (account && checkIsValidNetwork(settings.walletType)) {
       const xvsTokenContract = getTokenContract('xvs');
       await methods
-        .call(xvsTokenContract.methods.getCurrentVotes, [
-          settings.selectedAddress
-        ])
+        .call(xvsTokenContract.methods.getCurrentVotes, [account])
         .then(res => {
           const weight = new BigNumber(res)
             .div(new BigNumber(10).pow(18))
@@ -100,7 +100,7 @@ function Vote({ settings, getProposals, setSetting }) {
           setVotingWeight(weight);
         });
       let temp = await methods.call(xvsTokenContract.methods.balanceOf, [
-        settings.selectedAddress
+        account
       ]);
       temp = new BigNumber(temp)
         .dividedBy(new BigNumber(10).pow(18))
@@ -111,50 +111,76 @@ function Vote({ settings, getProposals, setSetting }) {
   };
 
   const getVoteInfo = async () => {
-    const myAddress = settings.selectedAddress;
+    const myAddress = account;
     if (!myAddress) return;
     const appContract = getComptrollerContract();
     const vaiContract = getVaiControllerContract();
 
-    let [venusInitialIndex, venusAccrued, venusVAIState, vaiMinterIndex, vaiMinterAmount] = await Promise.all([
+    let [
+      venusInitialIndex,
+      venusAccrued,
+      venusVAIState,
+      vaiMinterIndex,
+      vaiMinterAmount
+    ] = await Promise.all([
       methods.call(appContract.methods.venusInitialIndex, []),
       methods.call(appContract.methods.venusAccrued, [myAddress]),
       methods.call(vaiContract.methods.venusVAIState, []),
       methods.call(vaiContract.methods.venusVAIMinterIndex, [myAddress]),
-      methods.call(appContract.methods.mintedVAIs, [myAddress]),
+      methods.call(appContract.methods.mintedVAIs, [myAddress])
     ]);
     let venusEarned = new BigNumber(0);
-    await Promise.all(Object.values(constants.CONTRACT_VBEP_ADDRESS).map(async (item, index) => {
-      const vBepContract = getVbepContract(item.id);
-      let [supplyState, supplierIndex, supplierTokens, borrowState, borrowerIndex, borrowBalanceStored, borrowIndex] = await Promise.all([
-        methods.call(appContract.methods.venusSupplyState, [item.address]),
-        methods.call(appContract.methods.venusSupplierIndex, [item.address, myAddress]),
-        methods.call(vBepContract.methods.balanceOf, [myAddress]),
-        methods.call(appContract.methods.venusBorrowState, [item.address]),
-        methods.call(appContract.methods.venusBorrowerIndex, [item.address, myAddress]),
-        methods.call(vBepContract.methods.borrowBalanceStored, [myAddress]),
-        methods.call(vBepContract.methods.borrowIndex, []),
-      ]);
-      const supplyIndex = supplyState.index;
-      if (+supplierIndex === 0 && +supplyIndex > 0) {
-        supplierIndex = venusInitialIndex;
-      }
-      let deltaIndex = new BigNumber(supplyIndex).minus(supplierIndex);
+    await Promise.all(
+      Object.values(constants.CONTRACT_VBEP_ADDRESS).map(
+        async (item, index) => {
+          const vBepContract = getVbepContract(item.id);
+          let [
+            supplyState,
+            supplierIndex,
+            supplierTokens,
+            borrowState,
+            borrowerIndex,
+            borrowBalanceStored,
+            borrowIndex
+          ] = await Promise.all([
+            methods.call(appContract.methods.venusSupplyState, [item.address]),
+            methods.call(appContract.methods.venusSupplierIndex, [
+              item.address,
+              myAddress
+            ]),
+            methods.call(vBepContract.methods.balanceOf, [myAddress]),
+            methods.call(appContract.methods.venusBorrowState, [item.address]),
+            methods.call(appContract.methods.venusBorrowerIndex, [
+              item.address,
+              myAddress
+            ]),
+            methods.call(vBepContract.methods.borrowBalanceStored, [myAddress]),
+            methods.call(vBepContract.methods.borrowIndex, [])
+          ]);
+          const supplyIndex = supplyState.index;
+          if (+supplierIndex === 0 && +supplyIndex > 0) {
+            supplierIndex = venusInitialIndex;
+          }
+          let deltaIndex = new BigNumber(supplyIndex).minus(supplierIndex);
 
-      const supplierDelta = new BigNumber(supplierTokens)
-        .multipliedBy(deltaIndex)
-        .dividedBy(1e36);
+          const supplierDelta = new BigNumber(supplierTokens)
+            .multipliedBy(deltaIndex)
+            .dividedBy(1e36);
 
-      venusEarned = venusEarned.plus(supplierDelta);
-      if (+borrowerIndex > 0) {
-        deltaIndex = new BigNumber(borrowState.index).minus(borrowerIndex);
-        const borrowerAmount = new BigNumber(borrowBalanceStored)
-          .multipliedBy(1e18)
-          .dividedBy(borrowIndex);
-        const borrowerDelta = borrowerAmount.times(deltaIndex).dividedBy(1e36);
-        venusEarned = venusEarned.plus(borrowerDelta);
-      }
-    }));
+          venusEarned = venusEarned.plus(supplierDelta);
+          if (+borrowerIndex > 0) {
+            deltaIndex = new BigNumber(borrowState.index).minus(borrowerIndex);
+            const borrowerAmount = new BigNumber(borrowBalanceStored)
+              .multipliedBy(1e18)
+              .dividedBy(borrowIndex);
+            const borrowerDelta = borrowerAmount
+              .times(deltaIndex)
+              .dividedBy(1e36);
+            venusEarned = venusEarned.plus(borrowerDelta);
+          }
+        }
+      )
+    );
 
     venusEarned = venusEarned
       .plus(venusAccrued)
@@ -185,16 +211,14 @@ function Vote({ settings, getProposals, setSetting }) {
   };
 
   const updateDelegate = async () => {
-    if (settings.selectedAddress && timeStamp % 3 === 0) {
+    if (account && timeStamp % 3 === 0) {
       const tokenContract = getTokenContract('xvs');
       methods
-        .call(tokenContract.methods.delegates, [settings.selectedAddress])
+        .call(tokenContract.methods.delegates, [account])
         .then(res => {
           setDelegateAddress(res);
           if (res !== '0x0000000000000000000000000000000000000000') {
-            setDelegateStatus(
-              res === settings.selectedAddress ? 'self' : 'delegate'
-            );
+            setDelegateStatus(res === account ? 'self' : 'delegate');
           } else {
             setDelegateStatus('');
           }
@@ -227,21 +251,19 @@ function Vote({ settings, getProposals, setSetting }) {
   return (
     <MainLayout title="Vote">
       <VoteWrapper className="flex">
-        {(!settings.selectedAddress || settings.accountLoading || settings.wrongNetwork) && (
+        {(!account || settings.accountLoading || settings.wrongNetwork) && (
           <SpinnerWrapper>
             <LoadingSpinner />
           </SpinnerWrapper>
         )}
-        {settings.selectedAddress && !settings.accountLoading && !settings.wrongNetwork && (
+        {account && !settings.accountLoading && !settings.wrongNetwork && (
           <Row>
             <Column xs="12" sm="12" md="5">
               <Row>
                 <Column xs="12">
                   <CoinInfo
                     balance={balance !== '0' ? `${balance}` : '0.00000000'}
-                    address={
-                      settings.selectedAddress ? settings.selectedAddress : ''
-                    }
+                    address={account ? account : ''}
                   />
                 </Column>
                 <Column xs="12">
@@ -268,9 +290,7 @@ function Vote({ settings, getProposals, setSetting }) {
                 </Column>
                 <Column xs="12">
                   <Proposals
-                    address={
-                      settings.selectedAddress ? settings.selectedAddress : ''
-                    }
+                    address={account ? account : ''}
                     isLoadingProposal={isLoadingProposal}
                     pageNumber={current}
                     proposals={proposals.result}

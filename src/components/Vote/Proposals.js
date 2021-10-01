@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Web3 from 'web3';
-import { compose } from 'recompose';
 import { Pagination, Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import {
@@ -10,13 +9,13 @@ import {
   getVoteContract,
   methods
 } from 'utilities/ContractService';
-import { connectAccount } from 'core';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
 import toast from 'components/Basic/Toast';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
+import { useWeb3React } from '@web3-react/core';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
@@ -129,7 +128,6 @@ const NoProposalWrapper = styled.div`
 function Proposals({
   address,
   isLoadingProposal,
-  settings,
   votingWeight,
   pageNumber,
   proposals,
@@ -144,6 +142,7 @@ function Proposals({
   const [proposalThreshold, setProposalThreshold] = useState(0);
   const [maxOperation, setMaxOperation] = useState(0);
   const [delegateAddress, setDelegateAddress] = useState('');
+  const { account } = useWeb3React();
 
   useEffect(() => {
     if (address) {
@@ -159,7 +158,7 @@ function Proposals({
 
   useEffect(() => {
     if (
-      settings.selectedAddress &&
+      account &&
       (delegateAddress === '' ||
         delegateAddress === '0x0000000000000000000000000000000000000000')
     ) {
@@ -171,7 +170,7 @@ function Proposals({
         })
         .catch(() => {});
     }
-  }, [settings.selectedAddress, address, delegateAddress]);
+  }, [account, address, delegateAddress]);
 
   const handleChangePage = (page, size) => {
     setCurrent(page);
@@ -306,8 +305,4 @@ Proposals.defaultProps = {
   total: 0
 };
 
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
-
-export default compose(connectAccount(mapStateToProps, undefined))(Proposals);
+export default Proposals;

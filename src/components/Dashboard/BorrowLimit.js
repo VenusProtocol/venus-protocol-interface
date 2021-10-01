@@ -8,6 +8,7 @@ import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import { Card } from 'components/Basic/Card';
 import { getBigNumber } from 'utilities/common';
+import { useWeb3React } from '@web3-react/core';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -30,14 +31,14 @@ const CardWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
 
 function BorrowLimit({ settings }) {
   const [available, setAvailable] = useState('0');
   const [borrowPercent, setBorrowPercent] = useState(0);
+  const { account } = useWeb3React();
 
   useEffect(() => {
-    if (settings.selectedAddress) {
+    if (account) {
       const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
       const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
       const total = BigNumber.maximum(totalBorrowLimit, 0);
@@ -52,9 +53,6 @@ function BorrowLimit({ settings }) {
               .toNumber()
       );
     }
-    return function cleanup() {
-      abortController.abort();
-    };
   }, [settings.totalBorrowBalance, settings.totalBorrowLimit]);
 
   return (

@@ -182,7 +182,7 @@ function Overview({ settings, getMarketHistory }) {
     return function cleanup() {
       abortController.abort();
     };
-  }, [settings.selectedAddress, currentAsset]);
+  }, [currentAsset]);
 
   useEffect(() => {
     setCurrentAsset('sxp');

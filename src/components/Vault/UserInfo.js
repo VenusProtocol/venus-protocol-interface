@@ -15,6 +15,7 @@ import { checkIsValidNetwork } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import vaiImg from 'assets/img/coins/vai.svg';
 import xvsImg from 'assets/img/venus_32.png';
+import { useWeb3React } from '@web3-react/core';
 
 const UserInfoWrapper = styled.div`
   width: 100%;
@@ -72,12 +73,13 @@ const abortController = new AbortController();
 function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
   const [isLoading, setIsLoading] = useState(false);
   const [balance, setBalance] = useState('');
+  const { account } = useWeb3React();
 
   const updateBalance = useCallback(async () => {
-    if (settings.selectedAddress) {
+    if (account) {
       const xvsTokenContract = getTokenContract('xvs');
       let temp = await methods.call(xvsTokenContract.methods.balanceOf, [
-        settings.selectedAddress
+        account
       ]);
       temp = new BigNumber(temp)
         .dividedBy(new BigNumber(10).pow(18))
@@ -92,7 +94,7 @@ function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
     const appContract = getVaiVaultContract();
     setIsLoading(true);
     await methods
-      .send(appContract.methods.claim, [], settings.selectedAddress)
+      .send(appContract.methods.claim, [], account)
       .then(() => {
         setIsLoading(false);
       })
@@ -108,7 +110,7 @@ function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
     return function cleanup() {
       abortController.abort();
     };
-  }, [settings.selectedAddress, updateBalance]);
+  }, [account, updateBalance]);
 
   return (
     <Card>

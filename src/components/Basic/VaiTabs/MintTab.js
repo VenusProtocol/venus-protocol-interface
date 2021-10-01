@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
+import { useWeb3React } from '@web3-react/core';
 import { connectAccount } from 'core';
 import { getVaiControllerContract, methods } from 'utilities/ContractService';
 import commaNumber from 'comma-number';
@@ -20,6 +21,7 @@ function MintTab({ settings }) {
   const [amount, setAmount] = useState(new BigNumber(0));
   const [mintableVai, setMintableVai] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   const getFeePercent = async () => {
     const appContract = getVaiControllerContract();
@@ -57,25 +59,26 @@ function MintTab({ settings }) {
    * Mint
    */
   const handleMintVAI = () => {
-    if (settings.selectedAddress) {
-      const appContract = getVaiControllerContract();
-      setIsLoading(true);
-      methods
-        .send(
-          appContract.methods.mintVAI,
-          [
-            amount.times(new BigNumber(10).pow(18)).dp(0).toString(10)
-          ],
-          settings.selectedAddress
-        )
-        .then(() => {
-          setAmount(new BigNumber(0));
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
-    }
+    const appContract = getVaiControllerContract();
+    setIsLoading(true);
+    methods
+      .send(
+        appContract.methods.mintVAI,
+        [
+          amount
+            .times(new BigNumber(10).pow(18))
+            .dp(0)
+            .toString(10)
+        ],
+        account
+      )
+      .then(() => {
+        setAmount(new BigNumber(0));
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -134,6 +137,7 @@ function MintTab({ settings }) {
           className="button vai-auto"
           disabled={
             isLoading ||
+            !account ||
             amount.isNaN() ||
             amount.isZero() ||
             amount.isGreaterThan(mintableVai)

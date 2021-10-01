@@ -16,6 +16,7 @@ import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import * as constants from 'utilities/constants';
 import xvsImg from 'assets/img/venus_32.png';
+import { useWeb3React } from '@web3-react/core';
 
 const StakingWrapper = styled.div`
   width: 100%;
@@ -153,6 +154,7 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   const {
     walletBalance,
@@ -180,7 +182,7 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
             .integerValue()
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         setRefresh(!refresh);
@@ -209,7 +211,7 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
             .integerValue()
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         setRefresh(!refresh);
@@ -231,7 +233,7 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
       .send(
         vaultContract.methods.ExecuteWithdrawal,
         [rewardAddress, 0],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         setRefresh(!refresh);
@@ -256,7 +258,7 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
             .minus(1)
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         setRefresh(!refresh);
@@ -272,11 +274,7 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
     const vaultContract = getVaultContract();
     setIsClaimLoading(true);
     methods
-      .send(
-        vaultContract.methods.deposit,
-        [rewardAddress, 0, 0],
-        settings.selectedAddress
-      )
+      .send(vaultContract.methods.deposit, [rewardAddress, 0, 0], account)
       .then(() => {
         setRefresh(!refresh);
         setIsClaimLoading(false);

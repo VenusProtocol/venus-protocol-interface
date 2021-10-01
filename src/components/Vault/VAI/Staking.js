@@ -16,6 +16,7 @@ import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import * as constants from 'utilities/constants';
 import xvsImg from 'assets/img/venus_32.png';
+import { useWeb3React } from '@web3-react/core';
 
 const StakingWrapper = styled.div`
   width: 100%;
@@ -142,6 +143,7 @@ function Staking({
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   /**
    * Stake VAI
@@ -158,7 +160,7 @@ function Staking({
             .integerValue()
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         updateTotalInfo();
@@ -185,7 +187,7 @@ function Staking({
             .integerValue()
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         updateTotalInfo();
@@ -210,7 +212,7 @@ function Staking({
             .minus(1)
             .toString(10)
         ],
-        settings.selectedAddress
+        account
       )
       .then(() => {
         updateTotalInfo();
@@ -226,7 +228,7 @@ function Staking({
     const appContract = getVaiVaultContract();
     setIsClaimLoading(true);
     await methods
-      .send(appContract.methods.claim, [], settings.selectedAddress)
+      .send(appContract.methods.claim, [], account)
       .then(() => {
         setIsClaimLoading(false);
       })
@@ -324,9 +326,7 @@ function Staking({
           </Button>
         </div>
         <div className="stake-section">
-          <div className="stake-info">
-            Available VAI rewards:
-          </div>
+          <div className="stake-info">Available VAI rewards:</div>
           <div className="flex align-center just-between value">
             <p>
               <img src={xvsImg} alt="xvs" />

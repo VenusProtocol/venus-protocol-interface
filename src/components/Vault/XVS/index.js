@@ -17,6 +17,7 @@ import {
 } from 'utilities/ContractService';
 import { checkIsValidNetwork } from 'utilities/common';
 import { Row, Column } from 'components/Basic/Style';
+import { useWeb3React } from '@web3-react/core';
 
 function Vault({ settings }) {
   const [refresh, setRefresh] = useState(false);
@@ -32,8 +33,9 @@ function Vault({ settings }) {
     enabled: false,
     pendingReward: new BigNumber(0),
     withdrawableAmount: new BigNumber(0),
-    requestedAmount: new BigNumber(0),
+    requestedAmount: new BigNumber(0)
   });
+  const { account } = useWeb3React();
 
   const xvsTokenContract = getTokenContract('xvs');
   const vaultContract = getVaultContract();
@@ -64,13 +66,14 @@ function Vault({ settings }) {
     setVaultInfo({
       totalStaked: new BigNumber(totalStaked).div(1e18),
       dailyEmission: rewardPerVault.div(1e18).times(20 * 60 * 24),
-      apy: new BigNumber(totalStaked).isZero() ? new BigNumber(0) : rewardPerVault.times(20 * 60 * 24 * 365).div(totalStaked),
+      apy: new BigNumber(totalStaked).isZero()
+        ? new BigNumber(0)
+        : rewardPerVault.times(20 * 60 * 24 * 365).div(totalStaked),
       totalPendingRewards: new BigNumber(totalPendingRewards).div(1e18)
     });
   }, [refresh]);
 
   const fetchVaultsUser = useCallback(async () => {
-    const accountAddress = settings.selectedAddress;
     const rewardAddress = xvsAddress;
     const [
       walletBalance,
@@ -78,32 +81,29 @@ function Vault({ settings }) {
       { 0: stakedAmount },
       pendingReward,
       withdrawableAmount,
-      requestedAmount,
+      requestedAmount
     ] = await Promise.all([
-      methods.call(xvsTokenContract.methods.balanceOf, [accountAddress]),
-      methods.call(xvsTokenContract.methods.allowance, [
-        accountAddress,
-        vaultAddress
-      ]),
+      methods.call(xvsTokenContract.methods.balanceOf, [account]),
+      methods.call(xvsTokenContract.methods.allowance, [account, vaultAddress]),
       methods.call(vaultContract.methods.getUserInfo, [
         rewardAddress,
         0,
-        accountAddress
+        account
       ]),
       methods.call(vaultContract.methods.pendingReward, [
         rewardAddress,
         0,
-        accountAddress
+        account
       ]),
       methods.call(vaultContract.methods.getEligibleWithdrawalAmount, [
         rewardAddress,
         0,
-        accountAddress,
+        account
       ]),
       methods.call(vaultContract.methods.getRequestedAmount, [
         rewardAddress,
         0,
-        accountAddress,
+        account
       ])
     ]);
 
@@ -113,15 +113,15 @@ function Vault({ settings }) {
       enabled: !new BigNumber(allowance).isZero(),
       pendingReward: new BigNumber(pendingReward).div(1e18),
       withdrawableAmount: new BigNumber(withdrawableAmount).div(1e18),
-      requestedAmount: new BigNumber(requestedAmount).div(1e18),
+      requestedAmount: new BigNumber(requestedAmount).div(1e18)
     });
-  }, [settings.selectedAddress, refresh]);
+  }, [account, refresh]);
 
   useEffect(() => {
     if (checkIsValidNetwork(settings.walletType)) {
       fetchVaults();
 
-      if (settings.selectedAddress) {
+      if (account) {
         fetchVaultsUser();
       }
     }

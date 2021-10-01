@@ -12,6 +12,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
 import { BASE_BSC_SCAN_URL } from '../../config';
+import { useWeb3React } from '@web3-react/core';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -130,6 +131,7 @@ function VotingWallet({
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
+  const { account } = useWeb3React();
 
   useEffect(() => {
     if (!earnedBalance) {
@@ -154,11 +156,7 @@ function VotingWallet({
       setIsLoading(true);
       const appContract = getComptrollerContract();
       methods
-        .send(
-          appContract.methods.claimVenus,
-          [settings.selectedAddress],
-          settings.selectedAddress
-        )
+        .send(appContract.methods.claimVenus, [account], account)
         .then(() => {
           setIsLoading(false);
         })
@@ -208,7 +206,7 @@ function VotingWallet({
                   </p>
                 </div>
               </div>
-              {settings.selectedAddress && (
+              {account && (
                 <div className="flex align-center">
                   <p className="pointer" onClick={handleCollect}>
                     {isLoading && <Icon type="loading" />} Collect
@@ -251,7 +249,7 @@ function VotingWallet({
             </div>
           </div>
         )}
-        {settings.selectedAddress && !delegateStatus && (
+        {account && !delegateStatus && (
           <div className="flex flex-column setup">
             <p className="setup-header">Setup Voting</p>
             <p className="setup-content">
@@ -262,7 +260,7 @@ function VotingWallet({
             </p>
           </div>
         )}
-        {settings.selectedAddress && !delegateStatus && (
+        {account && !delegateStatus && (
           <div className="center footer">
             <Button
               className="started-btn"
@@ -276,7 +274,7 @@ function VotingWallet({
           visible={isOpenModal}
           balance={balance}
           delegateStatus={delegateStatus}
-          address={settings.selectedAddress ? settings.selectedAddress : ''}
+          address={account ? account : ''}
           onCancel={() => setIsOpenModal(false)}
         />
       </VotingWalletWrapper>

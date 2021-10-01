@@ -25,6 +25,7 @@ import ProposalHistory from 'components/Vote/VoteOverview/ProposalHistory';
 import { promisify } from 'utilities';
 import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
+import { useWeb3React } from '@web3-react/core';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
@@ -101,9 +102,10 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
   const [proposerVotingWeight, setProposerVotingWeight] = useState(0);
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
   const [excuteEta, setExcuteEta] = useState('');
+  const { account } = useWeb3React();
 
   const updateBalance = useCallback(async () => {
-    if (settings.selectedAddress && proposalInfo.id) {
+    if (account && proposalInfo.id) {
       const xvsTokenContract = getTokenContract('xvs');
       const voteContract = getVoteContract();
       await methods
@@ -117,12 +119,12 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
           setProposerVotingWeight(+Web3.utils.fromWei(res, 'ether'));
         });
     }
-  }, [settings.selectedAddress, proposalInfo]);
+  }, [account, proposalInfo]);
   useEffect(() => {
-    if (settings.selectedAddress) {
+    if (account) {
       updateBalance();
     }
-  }, [settings.selectedAddress, updateBalance]);
+  }, [account, updateBalance]);
 
   useEffect(() => {
     if (match.params && match.params.id) {
@@ -209,11 +211,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     if (statusType === 'Queue') {
       setIsLoading(true);
       methods
-        .send(
-          appContract.methods.queue,
-          [proposalInfo.id],
-          settings.selectedAddress
-        )
+        .send(appContract.methods.queue, [proposalInfo.id], account)
         .then(() => {
           setIsLoading(false);
           setStatus('success');
@@ -228,11 +226,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     } else if (statusType === 'Execute') {
       setIsLoading(true);
       methods
-        .send(
-          appContract.methods.execute,
-          [proposalInfo.id],
-          settings.selectedAddress
-        )
+        .send(appContract.methods.execute, [proposalInfo.id], account)
         .then(() => {
           setIsLoading(false);
           setStatus('success');
@@ -247,11 +241,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     } else if (statusType === 'Cancel') {
       setIsCancelLoading(true);
       methods
-        .send(
-          appContract.methods.cancel,
-          [proposalInfo.id],
-          settings.selectedAddress
-        )
+        .send(appContract.methods.cancel, [proposalInfo.id], account)
         .then(() => {
           setIsCancelLoading(false);
           setCancelStatus('success');

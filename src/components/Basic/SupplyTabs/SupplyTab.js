@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
+import { useWeb3React } from '@web3-react/core';
 import {
   getTokenContract,
   getVbepContract,
@@ -31,6 +32,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowLimit, setNewBorrowLimit] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   const updateInfo = useCallback(async () => {
     const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
@@ -64,7 +66,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
         );
       }
     }
-  }, [settings.selectedAddress, amount]);
+  }, [amount]);
 
   useEffect(() => {
     setIsEnabled(asset.isEnabled);
@@ -74,18 +76,18 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
    * Get Allowed amount
    */
   useEffect(() => {
-    if (asset.vtokenAddress && settings.selectedAddress) {
+    if (asset.vtokenAddress && account) {
       updateInfo();
     }
     return function cleanup() {
       abortController.abort();
     };
-  }, [settings.selectedAddress, updateInfo]);
+  }, [account, updateInfo]);
   /**
    * Approve underlying token
    */
   const onApprove = async () => {
-    if (asset.id && settings.selectedAddress && asset.id !== 'bnb') {
+    if (asset.id && asset.id !== 'bnb') {
       setIsLoading(true);
       const tokenContract = getTokenContract(asset.id);
       methods
@@ -98,7 +100,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
               .minus(1)
               .toString(10)
           ],
-          settings.selectedAddress
+          account
         )
         .then(() => {
           setIsEnabled(true);
@@ -116,7 +118,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const handleSupply = () => {
     const appContract = getVbepContract(asset.id);
 
-    if (asset.id && settings.selectedAddress) {
+    if (asset.id) {
       setIsLoading(true);
       setSetting({
         pendingInfo: {
@@ -135,7 +137,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
                 .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
                 .toString(10)
             ],
-            settings.selectedAddress
+            account
           )
           .then(() => {
             setAmount(new BigNumber(0));
@@ -163,7 +165,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
           });
       } else {
         sendSupply(
-          settings.selectedAddress,
+          account,
           amount
             .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
             .toString(10),
@@ -340,7 +342,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
         {!isEnabled && asset.id !== 'bnb' ? (
           <Button
             className="button"
-            disabled={isLoading}
+            disabled={isLoading || !account}
             onClick={() => {
               onApprove();
             }}
@@ -352,6 +354,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
             className="button"
             disabled={
               isLoading ||
+              !account ||
               amount.isNaN() ||
               amount.isZero() ||
               amount.isGreaterThan(asset.walletBalance)

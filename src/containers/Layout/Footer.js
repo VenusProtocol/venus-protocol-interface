@@ -37,9 +37,6 @@ const FooterWrapper = styled.div`
 `;
 
 function Footer({ settings }) {
-  if (!settings.selectedAddress) {
-    return null;
-  }
   return (
     <FooterWrapper>
       <div className="flex align-center">

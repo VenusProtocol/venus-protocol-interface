@@ -15,7 +15,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
-// import { getBigNumber } from 'utilities/common';
+import { useWeb3React } from '@web3-react/core';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
@@ -118,6 +118,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
+  const { account } = useWeb3React();
 
   useEffect(() => {
     if (match.params && match.params.asset) {
@@ -173,7 +174,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
     return function cleanup() {
       abortController.abort();
     };
-  }, [settings.selectedAddress, currentAsset, getGraphData]);
+  }, [account, currentAsset, getGraphData]);
 
   useEffect(() => {
     if (currentAsset) {
@@ -188,7 +189,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   return (
     <MainLayout title="Market">
       <MarketDetailWrapper className="flex">
-        {(!settings.selectedAddress ||
+        {(!account ||
           !settings.markets ||
           !currentAsset ||
           settings.accountLoading ||
@@ -197,7 +198,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
             <LoadingSpinner />
           </SpinnerWrapper>
         )}
-        {settings.selectedAddress &&
+        {account &&
           settings.markets &&
           settings.decimals &&
           currentAsset &&

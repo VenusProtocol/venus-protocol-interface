@@ -15,6 +15,7 @@ import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import BigNumber from 'bignumber.js';
+import { useWeb3React } from '@web3-react/core';
 
 const SupplyMarketWrapper = styled.div`
   width: 100%;
@@ -29,19 +30,16 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
   const [record, setRecord] = useState({});
   const [isCollateralEnalbe, setIsCollateralEnable] = useState(true);
+  const { account } = useWeb3React();
 
   const handleToggleCollateral = r => {
     const appContract = getComptrollerContract();
-    if (r && settings.selectedAddress && r.borrowBalance.isZero()) {
+    if (r && account && r.borrowBalance.isZero()) {
       if (!r.collateral) {
         setIsCollateralEnable(false);
         setIsCollateralConfirm(true);
         methods
-          .send(
-            appContract.methods.enterMarkets,
-            [[r.vtokenAddress]],
-            settings.selectedAddress
-          )
+          .send(appContract.methods.enterMarkets, [[r.vtokenAddress]], account)
           .then(() => {
             setIsCollateralConfirm(false);
           })
@@ -55,11 +53,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
         setIsCollateralEnable(true);
         setIsCollateralConfirm(true);
         methods
-          .send(
-            appContract.methods.exitMarket,
-            [r.vtokenAddress],
-            settings.selectedAddress
-          )
+          .send(appContract.methods.exitMarket, [r.vtokenAddress], account)
           .then(() => {
             setIsCollateralConfirm(false);
           })

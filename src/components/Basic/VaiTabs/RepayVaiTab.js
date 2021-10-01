@@ -16,6 +16,7 @@ import * as constants from 'utilities/constants';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber } from 'utilities/common';
+import { useWeb3React } from '@web3-react/core';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -24,6 +25,7 @@ function RepayVaiTab({ settings }) {
   const [amount, setAmount] = useState(new BigNumber(0));
   const [userVaiMinted, setUserVaiMinted] = useState(new BigNumber(0));
   const [vaiBalance, setVaiBalance] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   useEffect(() => {
     setUserVaiMinted(getBigNumber(settings.userVaiMinted));
@@ -44,53 +46,52 @@ function RepayVaiTab({ settings }) {
    * Approve VAI token
    */
   const onVaiApprove = async () => {
-    if (settings.selectedAddress) {
-      setIsLoading(true);
-      const vaiContract = getVaiTokenContract();
-      methods
-        .send(
-          vaiContract.methods.approve,
-          [
-            constants.CONTRACT_VAI_UNITROLLER_ADDRESS,
-            new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10)
-          ],
-          settings.selectedAddress
-        )
-        .then(() => {
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
-    }
+    setIsLoading(true);
+    const vaiContract = getVaiTokenContract();
+    methods
+      .send(
+        vaiContract.methods.approve,
+        [
+          constants.CONTRACT_VAI_UNITROLLER_ADDRESS,
+          new BigNumber(2)
+            .pow(256)
+            .minus(1)
+            .toString(10)
+        ],
+        account
+      )
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   /**
    * Repay VAI
    */
   const handleRepayVAI = () => {
-    if (settings.selectedAddress) {
-      const appContract = getVaiControllerContract();
-      setIsLoading(true);
-      methods
-        .send(
-          appContract.methods.repayVAI,
-          [
-            amount.times(new BigNumber(10).pow(18)).dp(0).toString(10)
-          ],
-          settings.selectedAddress
-        )
-        .then(() => {
-          setAmount(new BigNumber(0));
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
-    }
+    const appContract = getVaiControllerContract();
+    setIsLoading(true);
+    methods
+      .send(
+        appContract.methods.repayVAI,
+        [
+          amount
+            .times(new BigNumber(10).pow(18))
+            .dp(0)
+            .toString(10)
+        ],
+        account
+      )
+      .then(() => {
+        setAmount(new BigNumber(0));
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -145,7 +146,7 @@ function RepayVaiTab({ settings }) {
         {!settings.userVaiEnabled ? (
           <Button
             className="button"
-            disabled={isLoading || vaiBalance.isZero()}
+            disabled={isLoading || vaiBalance.isZero() || !account}
             onClick={() => {
               onVaiApprove();
             }}
@@ -157,6 +158,7 @@ function RepayVaiTab({ settings }) {
             className="button vai-auto"
             disabled={
               isLoading ||
+              !account ||
               amount.isNaN() ||
               amount.isZero() ||
               amount.isGreaterThan(userVaiMinted) ||

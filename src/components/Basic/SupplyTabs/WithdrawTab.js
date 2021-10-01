@@ -6,6 +6,7 @@ import { Icon, Progress } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
+import { useWeb3React } from '@web3-react/core';
 import { connectAccount, accountActionCreators } from 'core';
 import {
   getVbepContract,
@@ -21,7 +22,6 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
 
 function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +32,7 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
   const [safeMaxBalance, setSafeMaxBalance] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
 
   const getFeePercent = async () => {
     const appContract = getComptrollerContract();
@@ -92,16 +93,13 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
         );
       }
     }
-  }, [settings.selectedAddress, amount]);
+  }, [amount]);
 
   useEffect(() => {
-    if (asset.vtokenAddress && settings.selectedAddress) {
+    if (asset.vtokenAddress && account) {
       updateInfo();
     }
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [settings.selectedAddress, updateInfo]);
+  }, [account, updateInfo]);
 
   /**
    * Withdraw
@@ -109,7 +107,7 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const handleWithdraw = async () => {
     const { id: assetId } = asset;
     const appContract = getVbepContract(assetId);
-    if (assetId && settings.selectedAddress) {
+    if (assetId) {
       setIsLoading(true);
       setSetting({
         pendingInfo: {
@@ -123,12 +121,12 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
         if (amount.eq(asset.supplyBalance)) {
           const vTokenBalance = await methods.call(
             appContract.methods.balanceOf,
-            [settings.selectedAddress]
+            [account]
           );
           await methods.send(
             appContract.methods.redeem,
             [vTokenBalance],
-            settings.selectedAddress
+            account
           );
         } else {
           await methods.send(
@@ -139,7 +137,7 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
                 .integerValue()
                 .toString(10)
             ],
-            settings.selectedAddress
+            account
           );
         }
         setAmount(new BigNumber(0));
@@ -348,6 +346,7 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
           className="button"
           disabled={
             isLoading ||
+            !account ||
             amount.isNaN() ||
             amount.isZero() ||
             amount.isGreaterThan(asset.supplyBalance) ||

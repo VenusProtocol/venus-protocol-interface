@@ -26,6 +26,7 @@ import {
 import BigNumber from 'bignumber.js';
 import * as constants from 'utilities/constants';
 import { getWeb3 } from 'utilities/ContractService';
+import { useWeb3React } from '@web3-react/core';
 
 const DashboardWrapper = styled.div`
   height: 100%;
@@ -42,11 +43,11 @@ const SpinnerWrapper = styled.div`
 
 function Dashboard({ settings, setSetting }) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
+  const { account } = useWeb3React();
 
   const updateMarketInfo = async () => {
-    const accountAddress = settings.selectedAddress;
     if (
-      !accountAddress ||
+      !account ||
       !settings.decimals ||
       !settings.markets ||
       isMarketInfoUpdating
@@ -67,13 +68,11 @@ function Dashboard({ settings, setSetting }) {
         { 1: mintableVai },
         allowBalance
       ] = await Promise.all([
-        methods.call(vaiContract.methods.balanceOf, [accountAddress]),
-        methods.call(appContract.methods.mintedVAIs, [accountAddress]),
-        methods.call(vaiControllerContract.methods.getMintableVAI, [
-          accountAddress
-        ]),
+        methods.call(vaiContract.methods.balanceOf, [account]),
+        methods.call(appContract.methods.mintedVAIs, [account]),
+        methods.call(vaiControllerContract.methods.getMintableVAI, [account]),
         methods.call(vaiContract.methods.allowance, [
-          accountAddress,
+          account,
           constants.CONTRACT_VAI_UNITROLLER_ADDRESS
         ])
       ]);
@@ -88,7 +87,7 @@ function Dashboard({ settings, setSetting }) {
 
       const userVaiEnabled = allowBalance.isGreaterThanOrEqualTo(userVaiMinted);
       const assetsIn = await methods.call(appContract.methods.getAssetsIn, [
-        accountAddress
+        account
       ]);
 
       let totalBorrowLimit = new BigNumber(0);
@@ -150,15 +149,15 @@ function Dashboard({ settings, setSetting }) {
                 snapshot,
                 balance
               ] = await Promise.all([
-                methods.call(tokenContract.methods.balanceOf, [accountAddress]),
+                methods.call(tokenContract.methods.balanceOf, [account]),
                 methods.call(tokenContract.methods.allowance, [
-                  accountAddress,
+                  account,
                   asset.vtokenAddress
                 ]),
                 methods.call(vBepContract.methods.getAccountSnapshot, [
-                  accountAddress
+                  account
                 ]),
-                methods.call(vBepContract.methods.balanceOf, [accountAddress])
+                methods.call(vBepContract.methods.balanceOf, [account])
               ]);
               supplyBalance = new BigNumber(snapshot[1])
                 .times(new BigNumber(snapshot[3]))
@@ -182,10 +181,10 @@ function Dashboard({ settings, setSetting }) {
               const web3 = getWeb3();
               const [snapshot, balance, walletBalance] = await Promise.all([
                 methods.call(vBepContract.methods.getAccountSnapshot, [
-                  accountAddress
+                  account
                 ]),
-                methods.call(vBepContract.methods.balanceOf, [accountAddress]),
-                web3.eth.getBalance(accountAddress)
+                methods.call(vBepContract.methods.balanceOf, [account]),
+                web3.eth.getBalance(account)
               ]);
               supplyBalance = new BigNumber(snapshot[1])
                 .times(new BigNumber(snapshot[3]))
@@ -226,7 +225,7 @@ function Dashboard({ settings, setSetting }) {
             // hypotheticalLiquidity
             asset.hypotheticalLiquidity = await methods.call(
               appContract.methods.getHypotheticalAccountLiquidity,
-              [accountAddress, asset.vtokenAddress, totalBalance, 0]
+              [account, asset.vtokenAddress, totalBalance, 0]
             );
 
             const supplyBalanceUSD = asset.supplyBalance.times(
@@ -275,7 +274,7 @@ function Dashboard({ settings, setSetting }) {
 
   useEffect(() => {
     updateMarketInfo();
-  }, [settings.markets, settings.selectedAddress]);
+  }, [settings.markets, account]);
 
   useEffect(() => {
     if (settings.accountLoading) {
@@ -286,45 +285,41 @@ function Dashboard({ settings, setSetting }) {
   return (
     <MainLayout title="Dashboard">
       <DashboardWrapper className="flex">
-        {(!settings.selectedAddress ||
-          settings.accountLoading ||
-          settings.wrongNetwork) && (
+        {(!account || settings.accountLoading || settings.wrongNetwork) && (
           <SpinnerWrapper>
             <LoadingSpinner />
           </SpinnerWrapper>
         )}
-        {settings.selectedAddress &&
-          !settings.accountLoading &&
-          !settings.wrongNetwork && (
-            <Row>
-              <Column xs="12" sm="12" md="5">
-                <Row>
-                  <Column xs="12">
-                    <CoinInfo />
-                  </Column>
-                  <Column xs="12">
-                    <VaiInfo />
-                  </Column>
-                  <Column xs="12">
-                    <BorrowLimit />
-                  </Column>
-                  <Column xs="12">
-                    <Overview />
-                  </Column>
-                </Row>
-              </Column>
-              <Column xs="12" sm="12" md="7">
-                <Row>
-                  <Column xs="12">
-                    <WalletBalance />
-                  </Column>
-                  <Column xs="12">
-                    <Market />
-                  </Column>
-                </Row>
-              </Column>
-            </Row>
-          )}
+        {account && !settings.accountLoading && !settings.wrongNetwork && (
+          <Row>
+            <Column xs="12" sm="12" md="5">
+              <Row>
+                <Column xs="12">
+                  <CoinInfo />
+                </Column>
+                <Column xs="12">
+                  <VaiInfo />
+                </Column>
+                <Column xs="12">
+                  <BorrowLimit />
+                </Column>
+                <Column xs="12">
+                  <Overview />
+                </Column>
+              </Row>
+            </Column>
+            <Column xs="12" sm="12" md="7">
+              <Row>
+                <Column xs="12">
+                  <WalletBalance />
+                </Column>
+                <Column xs="12">
+                  <Market />
+                </Column>
+              </Row>
+            </Column>
+          </Row>
+        )}
       </DashboardWrapper>
     </MainLayout>
   );

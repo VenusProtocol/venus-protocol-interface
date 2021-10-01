@@ -6,6 +6,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
+import { useWeb3React } from '@web3-react/core';
 import {
   getTokenContract,
   getVbepContract,
@@ -26,7 +27,6 @@ import { checkIsValidNetwork, getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
-import { useWeb3React } from '@web3-react/core';
 
 const SidebarWrapper = styled.div`
   height: 100vh;
@@ -297,7 +297,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const [tvl, setTVL] = useState(new BigNumber(0));
 
   const defaultPath = history.location.pathname.split('/')[1];
-  const { chainId } = useWeb3React();
+  const { account, chainId } = useWeb3React();
 
   useEffect(() => {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
@@ -398,9 +398,8 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, []);
 
   const updateMarketInfo = async () => {
-    const accountAddress = settings.selectedAddress;
     if (
-      !accountAddress ||
+      !account ||
       !settings.decimals ||
       !settings.markets ||
       isMarketInfoUpdating
@@ -549,7 +548,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           </NavLink>
         )}
       </FaucetMenu>
-      {settings.selectedAddress && (
+      {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
             <Label primary>
@@ -559,7 +558,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           </div>
         </TotalValue>
       )}
-      {settings.selectedAddress && (
+      {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
             <Label primary>
@@ -580,13 +579,10 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
             setIsOpenModal(true);
           }}
         >
-          {!settings.selectedAddress
+          {!account
             ? 'Connect'
-            : `${settings.selectedAddress.substr(
-                0,
-                6
-              )}...${settings.selectedAddress.substr(
-                settings.selectedAddress.length - 4,
+            : `${account.substr(0, 6)}...${account.substr(
+                account.length - 4,
                 4
               )}`}
         </Button>

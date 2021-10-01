@@ -10,6 +10,7 @@ import coinImg from 'assets/img/coins/vai.svg';
 import { Card } from 'components/Basic/Card';
 import { addToken, getBigNumber } from 'utilities/common';
 import { BASE_BSC_SCAN_URL } from '../../config';
+import { useWeb3React } from '@web3-react/core';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -64,9 +65,10 @@ const CardWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 function VaiInfo({ settings }) {
+  const { account } = useWeb3React();
   const handleLink = () => {
     window.open(
-      `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_VAI_TOKEN_ADDRESS}?a=${settings.selectedAddress}`,
+      `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_VAI_TOKEN_ADDRESS}?a=${account}`,
       '_blank'
     );
   };
@@ -101,11 +103,8 @@ function VaiInfo({ settings }) {
           onClick={() => handleLink()}
         >
           <p className="highlight">
-            {`${settings.selectedAddress.substr(
-              0,
-              4
-            )}...${settings.selectedAddress.substr(
-              settings.selectedAddress.length - 4,
+            {`${account.substr(0, 4)}...${account.substr(
+              account.length - 4,
               4
             )}`}
           </p>

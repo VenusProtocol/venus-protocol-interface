@@ -4,7 +4,6 @@ const auth = {
 
 const account = {
   setting: {
-    selectedAddress: null,
     marketType: 'supply',
     borrowMarket: [],
     supplyMarket: [],
