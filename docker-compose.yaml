@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  venus-ui:
+    build: .
+    ports:
+      - 3001:3001
+    restart: always
