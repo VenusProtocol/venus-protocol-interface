@@ -1,8 +1,9 @@
-FROM node:12.19.0-alpine3.12
+FROM node:12.19.0-alpine3.12 as builder
 
-# must use development so that "npm run build" works
 ENV NODE_ENV development
 ENV NODE_PATH=src/
+
+RUN apk add --update --no-cache python3
 
 WORKDIR /usr/app
 
@@ -10,6 +11,6 @@ COPY . .
 
 RUN npm install && npm run build
 
-EXPOSE 3001
+FROM nginx:1.21.3-alpine
 
-CMD ["npm", "run", "start"]
+COPY --from=builder /usr/app/build /usr/share/nginx/html

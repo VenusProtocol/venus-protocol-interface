@@ -1,8 +1,24 @@
 version: "3.9"
 
 services:
-  venus-ui:
-    build: .
+  venus-ui-dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile.local
+    command: 
+      - sh
+      - -c
+      - |
+        npm install
+        npm start
     ports:
       - 3001:3001
+    volumes:
+      - ./:/usr/app
+    restart: always
+  
+  venus-ui-prod:
+    build: .
+    ports:
+      - 3001:80
     restart: always
