@@ -9,7 +9,9 @@ WORKDIR /usr/app
 
 COPY . .
 
-RUN npm install && npm run build
+RUN cat .env || true && \
+    npm install && \
+    npm run build
 
 FROM nginx:1.21.3-alpine
 
