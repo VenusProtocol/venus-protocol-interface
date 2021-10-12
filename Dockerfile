@@ -7,10 +7,13 @@ RUN apk add --update --no-cache python3
 
 WORKDIR /usr/app
 
+COPY package.json package-lock.json ./
+
+RUN npm install
+
 COPY . .
 
 RUN cat .env || true && \
-    npm install && \
     npm run build
 
 FROM nginx:1.21.3-alpine
