@@ -148,7 +148,7 @@ const StakingWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
+function Staking({ settings, userInfo, rewardAddress }) {
   const [isClaimLoading, setIsClaimLoading] = useState(false);
   const [isStakeLoading, setIsStakeLoading] = useState(false);
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
@@ -185,7 +185,6 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
         account
       )
       .then(() => {
-        setRefresh(!refresh);
         setStakeAmount(new BigNumber(0));
         setIsStakeLoading(false);
       })
@@ -214,7 +213,6 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
         account
       )
       .then(() => {
-        setRefresh(!refresh);
         setWithdrawAmount(new BigNumber(0));
         setIsWithdrawLoading(false);
       })
@@ -236,7 +234,6 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
         account
       )
       .then(() => {
-        setRefresh(!refresh);
         setWithdrawAmount(new BigNumber(0));
         setIsWithdrawLoading(false);
       })
@@ -261,7 +258,6 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
         account
       )
       .then(() => {
-        setRefresh(!refresh);
         setIsStakeLoading(false);
       })
       .catch(() => {
@@ -276,7 +272,6 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
     methods
       .send(vaultContract.methods.deposit, [rewardAddress, 0, 0], account)
       .then(() => {
-        setRefresh(!refresh);
         setIsClaimLoading(false);
       })
       .catch(() => {
@@ -431,8 +426,6 @@ function Staking({ settings, userInfo, rewardAddress, refresh, setRefresh }) {
 Staking.propTypes = {
   settings: PropTypes.object,
   userInfo: PropTypes.object,
-  refresh: PropTypes.bool.isRequired,
-  setRefresh: PropTypes.func.isRequired,
   rewardAddress: PropTypes.string.isRequired
 };
 

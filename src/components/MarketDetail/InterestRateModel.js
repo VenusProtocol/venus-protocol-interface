@@ -19,7 +19,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
-import { checkIsValidNetwork } from 'utilities/common';
+import { useMarkets } from '../../hooks/useMarkets';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -127,6 +127,8 @@ function InterestRateModel({ settings, currentAsset }) {
   const [currentPos, setCurrentPos] = useState(30);
   const [maxY, setMaxY] = useState(0);
 
+  const { markets } = useMarkets();
+
   const CustomizedAxisTick = ({ x, y }) => {
     return (
       <g transform={`translate(${x},${y})`}>
@@ -151,7 +153,7 @@ function InterestRateModel({ settings, currentAsset }) {
     const interestModelContract = getInterestModelContract(interestRateModel);
     const cashValue = await methods.call(vbepContract.methods.getCash, []);
     const data = [];
-    const marketInfo = settings.markets.find(
+    const marketInfo = markets.find(
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase()
     );
     // Get Current Utilization Rate
@@ -240,15 +242,14 @@ function InterestRateModel({ settings, currentAsset }) {
   useEffect(() => {
     if (
       currentAsset &&
-      settings.markets &&
-      settings.markets.length > 0 &&
+      markets &&
+      markets.length > 0 &&
       settings.decimals &&
-      checkIsValidNetwork(settings.walletType) &&
       !flag
     ) {
       getGraphData(currentAsset);
     }
-  }, [settings.markets, currentAsset]);
+  }, [markets, currentAsset]);
 
   useEffect(() => {
     flag = false;

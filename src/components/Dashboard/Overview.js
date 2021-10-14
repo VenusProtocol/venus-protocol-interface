@@ -12,6 +12,7 @@ import * as constants from 'utilities/constants';
 import commaNumber from 'comma-number';
 import { addToken, getBigNumber } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
+import { useMarkets } from '../../hooks/useMarkets';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -142,6 +143,8 @@ function Overview({ settings, getMarketHistory }) {
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   const [currentAPY, setCurrentAPY] = useState(0);
+  const { markets } = useMarkets();
+
   const getGraphData = async (asset, type, limit) => {
     let tempData = [];
     const res = await promisify(getMarketHistory, { asset, type, limit });
@@ -157,19 +160,15 @@ function Overview({ settings, getMarketHistory }) {
     setData([...tempData]);
   };
 
-  const getGovernanceData = useCallback(async () => {
+  useEffect(() => {
     if (!currentAsset) return;
-    if (settings.markets && settings.markets.length > 0) {
-      const info = settings.markets.find(
+    if (markets && markets.length > 0) {
+      const info = markets.find(
         item => item.underlyingSymbol.toLowerCase() === currentAsset
       );
       setMarketInfo(info || {});
     }
-  }, [settings.markets, currentAsset]);
-
-  useEffect(() => {
-    getGovernanceData();
-  }, [getGovernanceData]);
+  }, [markets, currentAsset]);
 
   useEffect(() => {
     if (currentAsset) {
@@ -258,33 +257,11 @@ function Overview({ settings, getMarketHistory }) {
               </Select>
               <div className="value">Overview</div>
             </AssetSelectWrapper>
-            {window.ethereum &&
-              window.ethereum.networkVersion &&
-              settings.walletType === 'metamask' && (
-                <div className="flex align-center add-token-wrapper">
-                  {currentAsset !== 'bnb' && (
-                    <div className="flex align-center underlying-asset">
-                      {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
-                      <Icon
-                        className="add-token"
-                        type="plus-circle"
-                        theme="filled"
-                        onClick={() =>
-                          addToken(
-                            currentAsset,
-                            settings.decimals[currentAsset].token,
-                            'token'
-                          )
-                        }
-                      />
-                    </div>
-                  )}
-                  <div className="flex align-center vtoken-asset">
-                    {`v${
-                      currentAsset === 'btcb'
-                        ? 'BTC'
-                        : currentAsset.toUpperCase()
-                    }`}
+            {window.ethereum && window.ethereum.networkVersion && (
+              <div className="flex align-center add-token-wrapper">
+                {currentAsset !== 'bnb' && (
+                  <div className="flex align-center underlying-asset">
+                    {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
                     <Icon
                       className="add-token"
                       type="plus-circle"
@@ -292,15 +269,33 @@ function Overview({ settings, getMarketHistory }) {
                       onClick={() =>
                         addToken(
                           currentAsset,
-                          settings.decimals[currentAsset].vtoken,
-                          'vtoken'
+                          settings.decimals[currentAsset].token,
+                          'token'
                         )
                       }
                     />
                   </div>
-                  <p className="destination">To MetaMask</p>
+                )}
+                <div className="flex align-center vtoken-asset">
+                  {`v${
+                    currentAsset === 'btcb' ? 'BTC' : currentAsset.toUpperCase()
+                  }`}
+                  <Icon
+                    className="add-token"
+                    type="plus-circle"
+                    theme="filled"
+                    onClick={() =>
+                      addToken(
+                        currentAsset,
+                        settings.decimals[currentAsset].vtoken,
+                        'vtoken'
+                      )
+                    }
+                  />
                 </div>
-              )}
+                <p className="destination">To MetaMask</p>
+              </div>
+            )}
           </div>
           {/* <p className="value">{`$${
               (settings.marketType || 'supply') === 'supply'

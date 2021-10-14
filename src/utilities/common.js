@@ -29,33 +29,6 @@ export const getArgs = func => {
     });
 };
 
-export const checkIsValidNetwork = (walletType) => {
-  if (window.ethereum || window.BinanceChain) {
-    let netId;
-    if (walletType === 'binance' && window.BinanceChain) {
-      netId = +window.BinanceChain.chainId;
-    } else if (window.ethereum) {
-      netId = window.ethereum.networkVersion
-        ? +window.ethereum.networkVersion
-        : +window.ethereum.chainId;
-    }
-    if (netId) {
-      if (netId === 97 || netId === 56) {
-        if (netId === 97 && process.env.REACT_APP_ENV === 'prod') {
-          return false;
-        }
-        if (netId === 56 && process.env.REACT_APP_ENV === 'dev') {
-          return false;
-        }
-        return true;
-      }
-      return false;
-    }
-    return false;
-  }
-  return false;
-};
-
 export const addToken = async (asset = 'vai', decimal, type) => {
   let tokenAddress = '';
   let tokenSymbol = '';

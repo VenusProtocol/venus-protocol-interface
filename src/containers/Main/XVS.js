@@ -21,6 +21,7 @@ import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
+import { useMarkets } from '../../hooks/useMarkets';
 
 const XVSLayout = styled.div`
   .main-content {
@@ -201,18 +202,19 @@ const SpinnerWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 function XVS({ settings }) {
-  const [markets, setMarkets] = useState([]);
+  const [totalMarkets, setTotalMarkets] = useState([]);
   const [dailyDistribution, setDailyDistribution] = useState('0');
   const [totalDistributed, setTotalDistributed] = useState('0');
   const [remainAmount, setRemainAmount] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
   const { account } = useWeb3React();
+  const { markets, dailyVenus } = useMarkets();
 
   const mintedAmount = '23700000';
 
   const getXVSInfo = async () => {
     const tempMarkets = [];
-    const sum = (settings.markets || []).reduce((accumulator, market) => {
+    const sum = (markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(
         new BigNumber(market.totalDistributed)
       );
@@ -232,7 +234,7 @@ function XVS({ settings }) {
       constants.CONTRACT_COMPTROLLER_ADDRESS
     ]);
     setDailyDistribution(
-      new BigNumber(settings.dailyVenus)
+      new BigNumber(dailyVenus)
         .div(new BigNumber(10).pow(18))
         .plus(venusVAIVaultRate)
         .dp(2, 1)
@@ -245,28 +247,20 @@ function XVS({ settings }) {
         .dp(2, 1)
         .toString(10)
     );
-    for (let i = 0; i < settings.markets.length; i += 1) {
+    for (let i = 0; i < markets.length; i += 1) {
       tempMarkets.push({
-        underlyingSymbol: settings.markets[i].underlyingSymbol,
-        perDay: +new BigNumber(settings.markets[i].supplierDailyVenus)
-          .plus(new BigNumber(settings.markets[i].borrowerDailyVenus))
+        underlyingSymbol: markets[i].underlyingSymbol,
+        perDay: +new BigNumber(markets[i].supplierDailyVenus)
+          .plus(new BigNumber(markets[i].borrowerDailyVenus))
           .div(new BigNumber(10).pow(18))
           .dp(2, 1)
           .toString(10),
-        supplyAPY: +(new BigNumber(
-          settings.markets[i].supplyVenusApy
-        ).isLessThan(0.01)
+        supplyAPY: +(new BigNumber(markets[i].supplyVenusApy).isLessThan(0.01)
           ? '0.01'
-          : new BigNumber(settings.markets[i].supplyVenusApy)
-              .dp(2, 1)
-              .toString(10)),
-        borrowAPY: +(new BigNumber(
-          settings.markets[i].borrowVenusApy
-        ).isLessThan(0.01)
+          : new BigNumber(markets[i].supplyVenusApy).dp(2, 1).toString(10)),
+        borrowAPY: +(new BigNumber(markets[i].borrowVenusApy).isLessThan(0.01)
           ? '0.01'
-          : new BigNumber(settings.markets[i].borrowVenusApy)
-              .dp(2, 1)
-              .toString(10))
+          : new BigNumber(markets[i].borrowVenusApy).dp(2, 1).toString(10))
       });
     }
     tempMarkets.push({
@@ -275,14 +269,14 @@ function XVS({ settings }) {
       supplyAPY: settings.vaiAPY || 0,
       borrowAPY: 0
     });
-    setMarkets(tempMarkets);
+    setTotalMarkets(tempMarkets);
   };
 
   useEffect(() => {
-    if (settings.markets && settings.dailyVenus) {
+    if (markets) {
       getXVSInfo();
     }
-  }, [settings.markets]);
+  }, [markets]);
 
   const handleSort = field => {
     setSortInfo({
@@ -410,8 +404,8 @@ function XVS({ settings }) {
                   </Col> */}
                 </Row>
                 <div className="table_content">
-                  {markets &&
-                    (markets || [])
+                  {totalMarkets &&
+                    (totalMarkets || [])
                       .sort((a, b) => {
                         if (sortInfo.field) {
                           if (sortInfo.field === 'perDay') {

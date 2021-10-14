@@ -5,14 +5,11 @@ const auth = {
 const account = {
   setting: {
     marketType: 'supply',
-    borrowMarket: [],
-    supplyMarket: [],
     latestBlockNumber: '',
     decimals: {},
     assetList: [],
     totalBorrowBalance: '0',
     totalBorrowLimit: '0',
-    walletType: 'metamask',
     pendingInfo: {
       type: '',
       status: false,
@@ -21,7 +18,6 @@ const account = {
     },
     vaultVaiStaked: null,
     withXVS: true,
-    markets: []
   }
 };
 export const initialState = {

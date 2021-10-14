@@ -21,10 +21,10 @@ import VotingPower from 'components/Vote/VotingPower';
 import Proposals from 'components/Vote/Proposals';
 import { promisify } from 'utilities';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import { checkIsValidNetwork } from 'utilities/common';
 import { Row, Column } from 'components/Basic/Style';
 import * as constants from 'utilities/constants';
 import { useWeb3React } from '@web3-react/core';
+import useRefresh from '../../hooks/useRefresh';
 
 const VoteWrapper = styled.div`
   height: 100%;
@@ -52,6 +52,7 @@ function Vote({ settings, getProposals, setSetting }) {
   const [delegateAddress, setDelegateAddress] = useState('');
   const [delegateStatus, setDelegateStatus] = useState('');
   const { account } = useWeb3React();
+  const { fastRefresh } = useRefresh();
 
   const loadInitialData = useCallback(async () => {
     setIsLoadingPropoasl(true);
@@ -89,7 +90,7 @@ function Vote({ settings, getProposals, setSetting }) {
   };
 
   const updateBalance = async () => {
-    if (account && checkIsValidNetwork(settings.walletType)) {
+    if (account) {
       const xvsTokenContract = getTokenContract('xvs');
       await methods
         .call(xvsTokenContract.methods.getCurrentVotes, [account])
@@ -232,7 +233,7 @@ function Vote({ settings, getProposals, setSetting }) {
     getVoteInfo();
     updateBalance();
     updateDelegate();
-  }, [settings.markets]);
+  }, [fastRefresh]);
 
   const handleAccountChange = async () => {
     await getVoteInfo();

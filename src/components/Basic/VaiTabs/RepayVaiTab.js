@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'recompose';
+import React, { useState } from 'react';
 import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
-import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import {
   getVaiControllerContract,
@@ -12,34 +9,25 @@ import {
   methods
 } from 'utilities/ContractService';
 import commaNumber from 'comma-number';
-import * as constants from 'utilities/constants';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
-import { getBigNumber } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
+import { useVaiUser } from '../../../hooks/useVaiUser';
+import { getVaiUnitrollerAddress } from '../../../utilities/addressHelpers';
 
 const format = commaNumber.bindWith(',', '.');
 
-function RepayVaiTab({ settings }) {
+function RepayVaiTab() {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
-  const [userVaiMinted, setUserVaiMinted] = useState(new BigNumber(0));
-  const [vaiBalance, setVaiBalance] = useState(new BigNumber(0));
   const { account } = useWeb3React();
-
-  useEffect(() => {
-    setUserVaiMinted(getBigNumber(settings.userVaiMinted));
-  }, [settings.userVaiMinted]);
-
-  useEffect(() => {
-    setVaiBalance(getBigNumber(settings.userVaiBalance));
-  }, [settings.userVaiBalance]);
+  const { userVaiMinted, userVaiBalance, userVaiEnabled } = useVaiUser();
 
   /**
    * Max amount
    */
   const handleMaxAmount = () => {
-    setAmount(BigNumber.minimum(userVaiMinted, vaiBalance));
+    setAmount(BigNumber.minimum(userVaiMinted, userVaiBalance));
   };
 
   /**
@@ -52,7 +40,7 @@ function RepayVaiTab({ settings }) {
       .send(
         vaiContract.methods.approve,
         [
-          constants.CONTRACT_VAI_UNITROLLER_ADDRESS,
+          getVaiUnitrollerAddress(),
           new BigNumber(2)
             .pow(256)
             .minus(1)
@@ -97,7 +85,7 @@ function RepayVaiTab({ settings }) {
   return (
     <TabSection>
       <div className="flex flex-column align-center just-center body-content repay-vai-content">
-        {settings.userVaiEnabled ? (
+        {userVaiEnabled ? (
           <div className="flex align-center input-wrapper">
             <NumberFormat
               autoFocus
@@ -107,7 +95,7 @@ function RepayVaiTab({ settings }) {
               }}
               isAllowed={({ value }) => {
                 return new BigNumber(value || 0).isLessThanOrEqualTo(
-                  BigNumber.minimum(vaiBalance, userVaiMinted)
+                  BigNumber.minimum(userVaiBalance, userVaiMinted)
                 );
               }}
               thousandSeparator
@@ -140,13 +128,13 @@ function RepayVaiTab({ settings }) {
             <span>{format(userVaiMinted.dp(2, 1).toString(10))} VAI</span>
           </div>
         </div>
-        {(vaiBalance.isZero() || amount.isGreaterThan(vaiBalance)) && (
+        {(userVaiBalance.isZero() || amount.isGreaterThan(userVaiBalance)) && (
           <p className="center warning-label">Your balance is not enough.</p>
         )}
-        {!settings.userVaiEnabled ? (
+        {!userVaiEnabled ? (
           <Button
             className="button"
-            disabled={isLoading || vaiBalance.isZero() || !account}
+            disabled={isLoading || userVaiBalance.isZero() || !account}
             onClick={() => {
               onVaiApprove();
             }}
@@ -162,7 +150,7 @@ function RepayVaiTab({ settings }) {
               amount.isNaN() ||
               amount.isZero() ||
               amount.isGreaterThan(userVaiMinted) ||
-              amount.isGreaterThan(vaiBalance)
+              amount.isGreaterThan(userVaiBalance)
             }
             onClick={handleRepayVAI}
           >
@@ -171,23 +159,11 @@ function RepayVaiTab({ settings }) {
         )}
         <div className="description">
           <span>VAI Balance</span>
-          <span>{format(vaiBalance.dp(2, 1).toString(10))} VAI</span>
+          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
         </div>
       </TabContent>
     </TabSection>
   );
 }
 
-RepayVaiTab.propTypes = {
-  settings: PropTypes.object
-};
-
-RepayVaiTab.defaultProps = {
-  settings: {}
-};
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
-
-export default compose(connectAccount(mapStateToProps, undefined))(RepayVaiTab);
+export default RepayVaiTab;

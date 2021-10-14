@@ -15,12 +15,11 @@ import {
   getTokenContract,
   methods
 } from 'utilities/ContractService';
-import { checkIsValidNetwork } from 'utilities/common';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
+import useRefresh from '../../../hooks/useRefresh';
 
 function Vault({ settings }) {
-  const [refresh, setRefresh] = useState(false);
   const [vaultInfo, setVaultInfo] = useState({
     totalStaked: new BigNumber(0),
     dailyEmission: new BigNumber(0),
@@ -36,6 +35,7 @@ function Vault({ settings }) {
     requestedAmount: new BigNumber(0)
   });
   const { account } = useWeb3React();
+  const { fastRefresh } = useRefresh();
 
   const xvsTokenContract = getTokenContract('xvs');
   const vaultContract = getVaultContract();
@@ -71,7 +71,7 @@ function Vault({ settings }) {
         : rewardPerVault.times(20 * 60 * 24 * 365).div(totalStaked),
       totalPendingRewards: new BigNumber(totalPendingRewards).div(1e18)
     });
-  }, [refresh]);
+  }, [fastRefresh]);
 
   const fetchVaultsUser = useCallback(async () => {
     const rewardAddress = xvsAddress;
@@ -115,17 +115,15 @@ function Vault({ settings }) {
       withdrawableAmount: new BigNumber(withdrawableAmount).div(1e18),
       requestedAmount: new BigNumber(requestedAmount).div(1e18)
     });
-  }, [account, refresh]);
+  }, [account, fastRefresh]);
 
   useEffect(() => {
-    if (checkIsValidNetwork(settings.walletType)) {
-      fetchVaults();
+    fetchVaults();
 
-      if (account) {
-        fetchVaultsUser();
-      }
+    if (account) {
+      fetchVaultsUser();
     }
-  }, [settings.markets]);
+  }, [fastRefresh]);
 
   return (
     <Row>
@@ -133,12 +131,7 @@ function Vault({ settings }) {
         <XVSTotalInfo vaultInfo={vaultInfo} />
       </Column>
       <Column xs="12">
-        <XVSStaking
-          userInfo={userInfo}
-          refresh={refresh}
-          rewardAddress={xvsAddress}
-          setRefresh={setRefresh}
-        />
+        <XVSStaking userInfo={userInfo} rewardAddress={xvsAddress} />
       </Column>
     </Row>
   );

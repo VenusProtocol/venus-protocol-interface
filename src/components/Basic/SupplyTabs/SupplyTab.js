@@ -20,6 +20,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
+import { useToken, useVbep } from '../../../hooks/useContract';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
@@ -33,6 +34,8 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [newBorrowLimit, setNewBorrowLimit] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
+  const vbepContract = useVbep(asset.id);
+  const tokenContract = useToken(asset.id);
 
   const updateInfo = useCallback(async () => {
     const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
@@ -86,106 +89,82 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   /**
    * Approve underlying token
    */
-  const onApprove = async () => {
-    if (asset.id && asset.id !== 'bnb') {
-      setIsLoading(true);
-      const tokenContract = getTokenContract(asset.id);
-      methods
-        .send(
-          tokenContract.methods.approve,
-          [
-            asset.vtokenAddress,
-            new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10)
-          ],
-          account
+  const onApprove = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await tokenContract.methods
+        .approve(
+          asset.vtokenAddress,
+          new BigNumber(2)
+            .pow(256)
+            .minus(1)
+            .toString(10)
         )
-        .then(() => {
-          setIsEnabled(true);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
+        .send({ from: account });
+      setIsEnabled(true);
+    } catch (error) {
+      console.log('approve error :>> ', error);
     }
-  };
+    setIsLoading(false);
+  }, [tokenContract, asset, account]);
 
   /**
    * Supply
    */
-  const handleSupply = () => {
-    const appContract = getVbepContract(asset.id);
-
-    if (asset.id) {
-      setIsLoading(true);
+  const handleSupply = useCallback(async () => {
+    setIsLoading(true);
+    setSetting({
+      pendingInfo: {
+        type: 'Supply',
+        status: true,
+        amount: amount.dp(8, 1).toString(10),
+        symbol: asset.symbol
+      }
+    });
+    if (asset.id !== 'bnb') {
+      try {
+        await vbepContract.methods
+          .mint(
+            amount
+              .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
+              .toString(10)
+          )
+          .send({ from: account });
+        setAmount(new BigNumber(0));
+      } catch (error) {
+        console.log('supply error :>> ', error);
+      }
+      setIsLoading(false);
       setSetting({
         pendingInfo: {
-          type: 'Supply',
-          status: true,
-          amount: amount.dp(8, 1).toString(10),
-          symbol: asset.symbol
+          type: '',
+          status: false,
+          amount: 0,
+          symbol: ''
         }
       });
-      if (asset.id !== 'bnb') {
-        methods
-          .send(
-            appContract.methods.mint,
-            [
-              amount
-                .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-                .toString(10)
-            ],
-            account
-          )
-          .then(() => {
-            setAmount(new BigNumber(0));
-            setIsLoading(false);
-            setSetting({
-              pendingInfo: {
-                type: '',
-                status: false,
-                amount: 0,
-                symbol: ''
-              }
-            });
-            onCancel();
-          })
-          .catch(() => {
-            setIsLoading(false);
-            setSetting({
-              pendingInfo: {
-                type: '',
-                status: false,
-                amount: 0,
-                symbol: ''
-              }
-            });
+    } else {
+      sendSupply(
+        account,
+        amount
+          .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
+          .toString(10),
+        () => {
+          setAmount(new BigNumber(0));
+          setIsLoading(false);
+          setSetting({
+            pendingInfo: {
+              type: '',
+              status: false,
+              amount: 0,
+              symbol: ''
+            }
           });
-      } else {
-        sendSupply(
-          account,
-          amount
-            .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-            .toString(10),
-          () => {
-            setAmount(new BigNumber(0));
-            setIsLoading(false);
-            setSetting({
-              pendingInfo: {
-                type: '',
-                status: false,
-                amount: 0,
-                symbol: ''
-              }
-            });
-            onCancel();
-          }
-        );
-      }
+          onCancel();
+        }
+      );
     }
-  };
+  }, [vbepContract, amount, account, asset]);
   /**
    * Max amount
    */

@@ -15,6 +15,7 @@ import { getVaiVaultContract, methods } from 'utilities/ContractService';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
 import { useWeb3React } from '@web3-react/core';
+import { useVaiUser } from '../../hooks/useVaiUser';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -84,6 +85,7 @@ const abortController = new AbortController();
 function WalletBalance({ settings, setSetting }) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
+  const { userVaiMinted } = useVaiUser();
 
   const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
   const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
@@ -113,7 +115,7 @@ function WalletBalance({ settings, setSetting }) {
   const updateNetAPY = useCallback(async () => {
     let totalSum = new BigNumber(0);
     let totalSupplied = new BigNumber(0);
-    let totalBorrowed = new BigNumber(settings.userVaiMinted);
+    let totalBorrowed = userVaiMinted;
     const { assetList } = settings;
     assetList.forEach(asset => {
       if (!asset) return;

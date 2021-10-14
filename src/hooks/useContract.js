@@ -5,6 +5,7 @@ import {
   getPriceOracleContract,
   getTokenContract,
   getVaiTokenContract,
+  getVaiUnitrollerContract,
   getVaiVaultContract,
   getVaultContract,
   getVbepContract,
@@ -39,7 +40,7 @@ export const useVault = () => {
 
 export const useVbep = name => {
   const web3 = useWeb3();
-  return useMemo(() => getVbepContract(web3, name), [web3]);
+  return useMemo(() => getVbepContract(web3, name), [web3, name]);
 };
 
 export const useComptroller = () => {

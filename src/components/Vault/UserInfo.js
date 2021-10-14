@@ -11,11 +11,11 @@ import {
   getVaiVaultContract,
   methods
 } from 'utilities/ContractService';
-import { checkIsValidNetwork } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import vaiImg from 'assets/img/coins/vai.svg';
 import xvsImg from 'assets/img/venus_32.png';
 import { useWeb3React } from '@web3-react/core';
+import useRefresh from '../../hooks/useRefresh';
 
 const UserInfoWrapper = styled.div`
   width: 100%;
@@ -74,6 +74,7 @@ function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
   const [isLoading, setIsLoading] = useState(false);
   const [balance, setBalance] = useState('');
   const { account } = useWeb3React();
+  const { fastRefresh } = useRefresh();
 
   const updateBalance = useCallback(async () => {
     if (account) {
@@ -87,7 +88,7 @@ function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
         .toString(10);
       setBalance(temp);
     }
-  }, [settings.markets]);
+  }, [fastRefresh, account]);
 
   const handleClaimReward = async () => {
     if (isLoading || vaiReward === '0') return;
@@ -104,13 +105,8 @@ function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
   };
 
   useEffect(() => {
-    if (checkIsValidNetwork(settings.walletType)) {
-      updateBalance();
-    }
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [account, updateBalance]);
+    updateBalance();
+  }, [updateBalance]);
 
   return (
     <Card>

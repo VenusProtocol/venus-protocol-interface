@@ -82,7 +82,7 @@ function CoinInfo({ settings }) {
             )}{' '}
             XVS
           </p>
-          {window.ethereum && settings.walletType === 'metamask' && (
+          {window.ethereum && (
             <Icon
               className="add-xvs-token"
               type="plus-circle"

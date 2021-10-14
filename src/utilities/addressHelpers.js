@@ -33,5 +33,3 @@ export const getOracleAddress = () => {
 export const getVoteAddress = () => {
   return addresses.vote[chainId];
 };
-
-export default contracts;

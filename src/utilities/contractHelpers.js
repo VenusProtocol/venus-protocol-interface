@@ -39,10 +39,6 @@ export const getVaiVaultContract = web3 => {
   return getContract(vaiVaultAbi, getVaiVaultAddress(), web3);
 };
 
-export const getVaiVaultContract = web3 => {
-  return getContract(vaiVaultAbi, getVaiVaultAddress(), web3);
-};
-
 export const getVaultContract = web3 => {
   return getContract(vaultAbi, getVaultAddress(), web3);
 };
@@ -50,7 +46,7 @@ export const getVaultContract = web3 => {
 export const getTokenContract = (web3, name) => {
   return getContract(
     name === 'xvs' ? xvsAbi : bep20Abi,
-    constants.CONTRACT_TOKEN_ADDRESS[name],
+    constants.CONTRACT_TOKEN_ADDRESS[name].address,
     web3
   );
 };
@@ -58,7 +54,7 @@ export const getTokenContract = (web3, name) => {
 export const getVbepContract = (web3, name) => {
   return getContract(
     name === 'bnb' ? vbnbAbi : vbepAbi,
-    constants.CONTRACT_VBEP_ADDRESS[name],
+    constants.CONTRACT_VBEP_ADDRESS[name].address,
     web3
   );
 };

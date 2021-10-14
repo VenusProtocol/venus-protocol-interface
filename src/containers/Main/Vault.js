@@ -22,10 +22,10 @@ import {
   getTokenContract,
   methods
 } from 'utilities/ContractService';
-import { checkIsValidNetwork } from 'utilities/common';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
+import useRefresh from '../../hooks/useRefresh';
 
 const MarketWrapper = styled.div`
   width: 100%;
@@ -60,6 +60,7 @@ function Vault({ settings }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [xvsBalance, setXVSBalance] = useState('');
   const { account } = useWeb3React();
+  const { fastRefresh } = useRefresh();
 
   const updateTotalInfo = async () => {
     const compContract = getComptrollerContract();
@@ -122,10 +123,8 @@ function Vault({ settings }) {
   };
 
   useEffect(() => {
-    if (checkIsValidNetwork(settings.walletType)) {
-      updateTotalInfo();
-    }
-  }, [settings.markets]);
+    updateTotalInfo();
+  }, [fastRefresh]);
 
   return (
     <MainLayout title="Vault">

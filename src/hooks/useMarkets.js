@@ -1,30 +1,33 @@
 import { useEffect, useState } from 'react';
+import { fetchMarkets } from '../utilities/api';
 import useRefresh from './useRefresh';
-import { getETHPrice } from '../utils/utils';
+import * as constants from '../utilities/constants';
 
 export const useMarkets = () => {
   const [markets, setMarkets] = useState([]);
+  const [dailyVenus, setDailyVenus] = useState(0);
   const { fastRefresh } = useRefresh();
 
   useEffect(() => {
     const getMarkets = async () => {
-      const res = await promisify(getGovernanceVenus, {});
+      const res = await fetchMarkets();
       if (!res.status) {
         return;
       }
 
-      const res = Object.keys(constants.CONTRACT_VBEP_ADDRESS)
+      const data = Object.keys(constants.CONTRACT_VBEP_ADDRESS)
         .map(item =>
-          res.data.markets.find(
+          res.data.data.markets.find(
             market =>
               market.underlyingSymbol.toLowerCase() === item.toLowerCase()
           )
         )
         .filter(item => !!item);
-      setMarkets(res);
+      setMarkets(data);
+      setDailyVenus(res.data.data.dailyVenus);
     };
     getMarkets();
   }, [fastRefresh]);
 
-  return markets;
+  return { markets, dailyVenus };
 };

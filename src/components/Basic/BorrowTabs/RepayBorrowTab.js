@@ -20,6 +20,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { Icon, Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber } from 'utilities/common';
+import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
@@ -33,6 +34,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
+  const { userVaiMinted } = useVaiUser();
 
   const updateInfo = useCallback(() => {
     const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
@@ -280,12 +282,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>
-              {getBigNumber(settings.userVaiMinted)
-                .dp(2, 1)
-                .toString(10)}{' '}
-              VAI
-            </span>
+            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
           </div>
         </div>
         {isEnabled && (

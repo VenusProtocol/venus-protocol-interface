@@ -20,6 +20,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
+import { useComptroller } from '../../../hooks/useContract';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -33,13 +34,10 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [safeMaxBalance, setSafeMaxBalance] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
+  const comptrollerContract = useComptroller();
 
   const getFeePercent = async () => {
-    const appContract = getComptrollerContract();
-    const treasuryPercent = await methods.call(
-      appContract.methods.treasuryPercent,
-      []
-    );
+    const treasuryPercent = await comptrollerContract.methods.treasuryPercent().call();
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
   };
 
@@ -106,7 +104,7 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
    */
   const handleWithdraw = async () => {
     const { id: assetId } = asset;
-    const appContract = getVbepContract(assetId);
+    const vbepContract = getVbepContract(assetId);
     if (assetId) {
       setIsLoading(true);
       setSetting({
@@ -120,17 +118,17 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
       try {
         if (amount.eq(asset.supplyBalance)) {
           const vTokenBalance = await methods.call(
-            appContract.methods.balanceOf,
+            vbepContract.methods.balanceOf,
             [account]
           );
           await methods.send(
-            appContract.methods.redeem,
+            vbepContract.methods.redeem,
             [vTokenBalance],
             account
           );
         } else {
           await methods.send(
-            appContract.methods.redeemUnderlying,
+            vbepContract.methods.redeemUnderlying,
             [
               amount
                 .times(new BigNumber(10).pow(settings.decimals[assetId].token))

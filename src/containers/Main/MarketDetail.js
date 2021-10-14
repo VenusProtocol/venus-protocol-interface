@@ -16,6 +16,7 @@ import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3React } from '@web3-react/core';
+import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
@@ -119,6 +120,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
   const { account } = useWeb3React();
+  const { markets } = useMarkets();
 
   useEffect(() => {
     if (match.params && match.params.asset) {
@@ -150,13 +152,13 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   );
 
   const getGovernanceData = useCallback(async () => {
-    if (settings.markets && settings.markets.length > 0 && currentAsset) {
-      const info = settings.markets.find(
+    if (markets && markets.length > 0 && currentAsset) {
+      const info = markets.find(
         item => item.underlyingSymbol.toLowerCase() === currentAsset
       );
       setMarketInfo(info || {});
     }
-  }, [settings.markets, currentAsset]);
+  }, [markets, currentAsset]);
 
   useEffect(() => {
     getGovernanceData();
@@ -190,7 +192,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
     <MainLayout title="Market">
       <MarketDetailWrapper className="flex">
         {(!account ||
-          !settings.markets ||
+          !markets ||
           !currentAsset ||
           settings.accountLoading ||
           settings.wrongNetwork) && (
@@ -199,7 +201,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
           </SpinnerWrapper>
         )}
         {account &&
-          settings.markets &&
+          markets &&
           settings.decimals &&
           currentAsset &&
           !settings.accountLoading &&

@@ -14,19 +14,18 @@ import {
   getVaiTokenContract,
   methods
 } from 'utilities/ContractService';
-import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
 import ConnectModal from 'components/Basic/ConnectModal';
 import { Label } from 'components/Basic/Label';
 import Button from '@material-ui/core/Button';
 import { connectAccount, accountActionCreators } from 'core';
-import MetaMaskClass from 'utilities/MetaMask';
 import logoImg from 'assets/img/logo.png';
 import commaNumber from 'comma-number';
-import { checkIsValidNetwork, getBigNumber } from 'utilities/common';
+import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
+import { useMarkets } from '../../hooks/useMarkets';
 
 const SidebarWrapper = styled.div`
   height: 100vh;
@@ -295,6 +294,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
+  const { markets } = useMarkets();
 
   const defaultPath = history.location.pathname.split('/')[1];
   const { account, chainId } = useWeb3React();
@@ -354,44 +354,13 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     setTotalVaiMinted(tvm);
   };
 
-  const getMarkets = async () => {
-    const res = await promisify(getGovernanceVenus, {});
-    if (!res.status) {
-      return;
-    }
-
-    const markets = Object.keys(constants.CONTRACT_VBEP_ADDRESS)
-      .map(item =>
-        res.data.markets.find(
-          market => market.underlyingSymbol.toLowerCase() === item.toLowerCase()
-        )
-      )
-      .filter(item => !!item);
-    setSetting({
-      markets,
-      dailyVenus: res.data.dailyVenus
-    });
-  };
-
-  useEffect(() => {
-    let updateTimer = setInterval(() => {
-      getMarkets();
-    }, 5000);
-    return function cleanup() {
-      abortController.abort();
-      if (updateTimer) {
-        clearInterval(updateTimer);
-      }
-    };
-  }, []);
-
   const onChangePage = value => {
     history.push(`/${value}`);
   };
 
   useEffect(() => {
     getTotalVaiMinted();
-  }, [settings.markets]);
+  }, [markets]);
 
   useEffect(() => {
     initSettings();
@@ -401,7 +370,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     if (
       !account ||
       !settings.decimals ||
-      !settings.markets ||
+      !markets ||
       isMarketInfoUpdating
     ) {
       return;
@@ -427,7 +396,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         .times(20 * 60 * 24);
 
       // VAI APY
-      const xvsMarket = settings.markets.find(
+      const xvsMarket = markets.find(
         ele => ele.underlyingSymbol === 'XVS'
       );
       const vaiAPY = new BigNumber(venusVAIVaultRate)
@@ -437,7 +406,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         .dp(2, 1)
         .toString(10);
 
-      const totalLiquidity = (settings.markets || []).reduce(
+      const totalLiquidity = (markets || []).reduce(
         (accumulator, market) => {
           return new BigNumber(accumulator).plus(
             new BigNumber(market.totalSupplyUsd)
@@ -460,7 +429,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
 
   useEffect(() => {
     updateMarketInfo();
-  }, [settings.markets]);
+  }, [markets]);
 
   return (
     <SidebarWrapper>

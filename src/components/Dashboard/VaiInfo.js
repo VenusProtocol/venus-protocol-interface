@@ -11,6 +11,7 @@ import { Card } from 'components/Basic/Card';
 import { addToken, getBigNumber } from 'utilities/common';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
+import { useVaiUser } from '../../hooks/useVaiUser';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -66,6 +67,7 @@ const format = commaNumber.bindWith(',', '.');
 
 function VaiInfo({ settings }) {
   const { account } = useWeb3React();
+  const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
     window.open(
       `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_VAI_TOKEN_ADDRESS}?a=${account}`,
@@ -78,14 +80,7 @@ function VaiInfo({ settings }) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>
-            {format(
-              getBigNumber(settings.userVaiBalance)
-                .dp(2, 1)
-                .toString(10)
-            )}{' '}
-            VAI{' '}
-          </p>
+          <p>{format(userVaiBalance.dp(2, 1).toString(10))} VAI </p>
           {(window.ethereum || window.BinanceChain) && (
             <Icon
               className="add-vai-token"

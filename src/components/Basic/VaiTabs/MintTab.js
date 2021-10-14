@@ -13,6 +13,7 @@ import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
+import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -22,6 +23,7 @@ function MintTab({ settings }) {
   const [mintableVai, setMintableVai] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
+  const { userVaiBalance } = useVaiUser();
 
   const getFeePercent = async () => {
     const appContract = getVaiControllerContract();
@@ -148,14 +150,7 @@ function MintTab({ settings }) {
         </Button>
         <div className="description">
           <span>VAI Balance</span>
-          <span>
-            {format(
-              getBigNumber(settings.userVaiBalance)
-                .dp(2, 1)
-                .toString(10)
-            )}{' '}
-            VAI
-          </span>
+          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
         </div>
       </TabContent>
     </TabSection>

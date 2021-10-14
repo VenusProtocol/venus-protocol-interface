@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { compose } from 'recompose';
@@ -27,6 +27,8 @@ import BigNumber from 'bignumber.js';
 import * as constants from 'utilities/constants';
 import { getWeb3 } from 'utilities/ContractService';
 import { useWeb3React } from '@web3-react/core';
+import { useMarkets } from '../../hooks/useMarkets';
+import { useVaiUser } from '../../hooks/useVaiUser';
 
 const DashboardWrapper = styled.div`
   height: 100%;
@@ -42,61 +44,29 @@ const SpinnerWrapper = styled.div`
 `;
 
 function Dashboard({ settings, setSetting }) {
-  const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const { account } = useWeb3React();
+  const { markets } = useMarkets();
+  const { userVaiMinted } = useVaiUser();
 
-  const updateMarketInfo = async () => {
-    if (
-      !account ||
-      !settings.decimals ||
-      !settings.markets ||
-      isMarketInfoUpdating
-    ) {
+  const updateMarketInfo = useCallback(async () => {
+    if (!account || !settings.decimals || !markets) {
       return;
     }
     const appContract = getComptrollerContract();
-    const vaiControllerContract = getVaiControllerContract();
-    const vaiContract = getVaiTokenContract();
-
-    setMarketInfoUpdating(true);
 
     try {
       let xvsBalance = new BigNumber(0);
-      let [
-        userVaiBalance,
-        userVaiMinted,
-        { 1: mintableVai },
-        allowBalance
-      ] = await Promise.all([
-        methods.call(vaiContract.methods.balanceOf, [account]),
-        methods.call(appContract.methods.mintedVAIs, [account]),
-        methods.call(vaiControllerContract.methods.getMintableVAI, [account]),
-        methods.call(vaiContract.methods.allowance, [
-          account,
-          constants.CONTRACT_VAI_UNITROLLER_ADDRESS
-        ])
-      ]);
-      userVaiBalance = new BigNumber(userVaiBalance).div(
-        new BigNumber(10).pow(18)
-      );
-      userVaiMinted = new BigNumber(userVaiMinted).div(
-        new BigNumber(10).pow(18)
-      );
-      mintableVai = new BigNumber(mintableVai).div(new BigNumber(10).pow(18));
-      allowBalance = new BigNumber(allowBalance).div(new BigNumber(10).pow(18));
-
-      const userVaiEnabled = allowBalance.isGreaterThanOrEqualTo(userVaiMinted);
       const assetsIn = await methods.call(appContract.methods.getAssetsIn, [
         account
       ]);
 
       let totalBorrowLimit = new BigNumber(0);
-      let totalBorrowBalance = new BigNumber(userVaiMinted);
+      let totalBorrowBalance = userVaiMinted;
 
       const assetList = await Promise.all(
         Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
           async (item, index) => {
-            let market = settings.markets.find(
+            let market = markets.find(
               ele =>
                 ele.underlyingSymbol.toLowerCase() === item.symbol.toLowerCase()
             );
@@ -247,40 +217,20 @@ function Dashboard({ settings, setSetting }) {
         )
       );
 
-      setMarketInfoUpdating(false);
-
       setSetting({
         assetList,
-        userVaiMinted,
         totalBorrowLimit: totalBorrowLimit.toString(10),
         totalBorrowBalance,
-        userVaiBalance,
-        userVaiEnabled,
-        userXVSBalance: xvsBalance,
-        mintableVai
+        userXVSBalance: xvsBalance
       });
     } catch (error) {
       console.log(error);
-      setMarketInfoUpdating(false);
     }
-  };
-
-  const handleAccountChange = async () => {
-    await updateMarketInfo();
-    setSetting({
-      accountLoading: false
-    });
-  };
+  }, [markets, account]);
 
   useEffect(() => {
     updateMarketInfo();
-  }, [settings.markets, account]);
-
-  useEffect(() => {
-    if (settings.accountLoading) {
-      handleAccountChange();
-    }
-  }, [settings.accountLoading]);
+  }, [updateMarketInfo]);
 
   return (
     <MainLayout title="Dashboard">

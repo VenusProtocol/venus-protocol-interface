@@ -7,17 +7,7 @@ export const getWeb3 = () => {
       ? 'https://data-seed-prebsc-1-s1.binance.org:8545'
       : 'https://bsc-dataseed.binance.org';
 
-  return new Web3(
-    JSON.parse(localStorage.getItem('state')) &&
-    JSON.parse(localStorage.getItem('state')).account.setting.walletType ===
-      'binance'
-      ? window.BinanceChain
-        ? window.BinanceChain
-        : providerUrl
-      : window.ethereum
-      ? window.ethereum
-      : providerUrl
-  );
+  return new Web3(window.ethereum ? window.ethereum : providerUrl);
 };
 
 const call = (method, params) => {
