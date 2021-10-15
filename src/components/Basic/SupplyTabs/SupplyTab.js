@@ -21,6 +21,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
 import { useToken, useVbep } from '../../../hooks/useContract';
+import { useMarketsUser } from '../../../hooks/useMarketsUser';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
@@ -36,36 +37,39 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const { account } = useWeb3React();
   const vbepContract = useVbep(asset.id);
   const tokenContract = useToken(asset.id);
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
 
   const updateInfo = useCallback(async () => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     const collateralFactor = getBigNumber(asset.collateralFactor);
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
-      const temp = totalBorrowLimit.plus(
+      const temp = userTotalBorrowLimit.plus(
         amount.times(tokenPrice).times(collateralFactor)
       );
       setNewBorrowLimit(BigNumber.maximum(temp, 0));
-      setNewBorrowPercent(totalBorrowBalance.div(temp).times(100));
-      if (totalBorrowLimit.isZero()) {
+      setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowLimit(new BigNumber(0));
         setBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowLimit(totalBorrowLimit);
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowLimit(userTotalBorrowLimit);
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
       }
-    } else if (BigNumber.isBigNumber(totalBorrowLimit)) {
-      setBorrowLimit(totalBorrowLimit);
-      setNewBorrowLimit(totalBorrowLimit);
-      if (totalBorrowLimit.isZero()) {
+    } else if (BigNumber.isBigNumber(userTotalBorrowLimit)) {
+      setBorrowLimit(userTotalBorrowLimit);
+      setNewBorrowLimit(userTotalBorrowLimit);
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
         setNewBorrowPercent(
-          totalBorrowBalance.div(totalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
         );
       }
     }
@@ -125,9 +129,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
       try {
         await vbepContract.methods
           .mint(
-            amount
-              .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-              .toString(10)
+            amount.times(new BigNumber(10).pow(asset.decimals)).toString(10)
           )
           .send({ from: account });
         setAmount(new BigNumber(0));
@@ -146,9 +148,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
     } else {
       sendSupply(
         account,
-        amount
-          .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-          .toString(10),
+        amount.times(new BigNumber(10).pow(asset.decimals)).toString(10),
         () => {
           setAmount(new BigNumber(0));
           setIsLoading(false);

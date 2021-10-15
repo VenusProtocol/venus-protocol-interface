@@ -16,6 +16,7 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiUser } from '../../../hooks/useVaiUser';
+import { useMarketsUser } from '../../../hooks/useMarketsUser';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
@@ -29,35 +30,38 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
   const { userVaiMinted } = useVaiUser();
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
 
   const updateInfo = useCallback(() => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     if (amount.isZero() || amount.isNaN()) {
-      setBorrowBalance(totalBorrowBalance);
-      if (totalBorrowLimit.isZero()) {
+      setBorrowBalance(userTotalBorrowBalance);
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
         setNewBorrowPercent(
-          totalBorrowBalance.div(totalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
         );
       }
     } else {
-      const temp = totalBorrowBalance.plus(amount.times(tokenPrice));
-      setBorrowBalance(totalBorrowBalance);
+      const temp = userTotalBorrowBalance.plus(amount.times(tokenPrice));
+      setBorrowBalance(userTotalBorrowBalance);
       setNewBorrowBalance(temp);
-      if (totalBorrowLimit.isZero()) {
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
-        setNewBorrowPercent(temp.div(totalBorrowLimit).times(100));
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
+        setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
     }
-  }, [account, amount, asset]);
+  }, [account, amount, asset, userTotalBorrowBalance]);
 
   /**
    * Get Allowed amount
@@ -91,7 +95,7 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
           appContract.methods.borrow,
           [
             amount
-              .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
+              .times(new BigNumber(10).pow(asset.decimals))
               .integerValue()
               .toString(10)
           ],
@@ -127,14 +131,12 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
    * Max amount
    */
   const handleMaxAmount = () => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     const safeMax = BigNumber.maximum(
-      totalBorrowLimit
+      userTotalBorrowLimit
         .times(40)
         .div(100)
-        .minus(totalBorrowBalance),
+        .minus(userTotalBorrowBalance),
       new BigNumber(0)
     );
     setAmount(BigNumber.minimum(safeMax, asset.liquidity).div(tokenPrice));
@@ -152,13 +154,9 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               setAmount(new BigNumber(value));
             }}
             isAllowed={({ value }) => {
-              const totalBorrowBalance = getBigNumber(
-                settings.totalBorrowBalance
-              );
-              const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
               return new BigNumber(value || 0)
-                .plus(totalBorrowBalance)
-                .isLessThanOrEqualTo(totalBorrowLimit);
+                .plus(userTotalBorrowBalance)
+                .isLessThanOrEqualTo(userTotalBorrowLimit);
             }}
             thousandSeparator
             allowNegative={false}

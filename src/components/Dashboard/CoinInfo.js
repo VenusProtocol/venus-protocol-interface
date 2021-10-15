@@ -11,6 +11,7 @@ import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -61,6 +62,7 @@ const abortController = new AbortController();
 
 function CoinInfo({ settings }) {
   const { account } = useWeb3React();
+  const { userXVSBalance } = useMarketsUser();
 
   const handleLink = () => {
     window.open(
@@ -74,14 +76,7 @@ function CoinInfo({ settings }) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>
-            {format(
-              getBigNumber(settings.userXVSBalance)
-                .dp(2, 1)
-                .toString(10)
-            )}{' '}
-            XVS
-          </p>
+          <p>{format(userXVSBalance.dp(2, 1).toString(10))} XVS</p>
           {window.ethereum && (
             <Icon
               className="add-xvs-token"

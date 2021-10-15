@@ -16,6 +16,7 @@ import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiUser } from '../../hooks/useVaiUser';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -86,6 +87,7 @@ function WalletBalance({ settings, setSetting }) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
   const { userVaiMinted } = useVaiUser();
+  const { userMarketInfo } = useMarketsUser();
 
   const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
   const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
@@ -116,8 +118,7 @@ function WalletBalance({ settings, setSetting }) {
     let totalSum = new BigNumber(0);
     let totalSupplied = new BigNumber(0);
     let totalBorrowed = userVaiMinted;
-    const { assetList } = settings;
-    assetList.forEach(asset => {
+    userMarketInfo.forEach(asset => {
       if (!asset) return;
       const {
         supplyBalance,
@@ -165,10 +166,10 @@ function WalletBalance({ settings, setSetting }) {
     setTotalSupply(totalSupplied);
     setTotalBorrow(totalBorrowed);
     addVAIApy(apy);
-  }, [settings.assetList, withXVS]);
+  }, [userMarketInfo, withXVS]);
 
   useEffect(() => {
-    if (account && settings.assetList && settings.assetList.length > 0) {
+    if (account && userMarketInfo && userMarketInfo.length > 0) {
       updateNetAPY();
     }
     return function cleanup() {

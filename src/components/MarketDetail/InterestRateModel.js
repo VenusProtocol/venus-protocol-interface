@@ -20,6 +20,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import { useMarkets } from '../../hooks/useMarkets';
+import * as constants from 'utilities/constants';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -160,9 +161,7 @@ function InterestRateModel({ settings, currentAsset }) {
     const cash = new BigNumber(cashValue).div(1e18);
     const borrows = new BigNumber(marketInfo.totalBorrows2);
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
-      new BigNumber(10).pow(
-        settings.decimals[asset] ? settings.decimals[asset].token : 18
-      )
+      new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS[asset].decimals)
     );
     const currentUtilizationRate = borrows.div(
       cash.plus(borrows).minus(reserves)
@@ -240,13 +239,7 @@ function InterestRateModel({ settings, currentAsset }) {
   };
 
   useEffect(() => {
-    if (
-      currentAsset &&
-      markets &&
-      markets.length > 0 &&
-      settings.decimals &&
-      !flag
-    ) {
+    if (currentAsset && markets && markets.length > 0 && !flag) {
       getGraphData(currentAsset);
     }
   }, [markets, currentAsset]);

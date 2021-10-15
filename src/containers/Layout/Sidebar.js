@@ -307,35 +307,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     }
   }, [chainId]);
 
-  const setDecimals = async () => {
-    const decimals = {};
-    Object.values(constants.CONTRACT_TOKEN_ADDRESS).forEach(async item => {
-      decimals[`${item.id}`] = {};
-      if (item.id !== 'bnb') {
-        const tokenContract = getTokenContract(item.id);
-        const tokenDecimals = await methods.call(
-          tokenContract.methods.decimals,
-          []
-        );
-        const vBepContract = getVbepContract(item.id);
-        const vtokenDecimals = await methods.call(
-          vBepContract.methods.decimals,
-          []
-        );
-        decimals[`${item.id}`].token = Number(tokenDecimals);
-        decimals[`${item.id}`].vtoken = Number(vtokenDecimals);
-        decimals[`${item.id}`].price = 18 + 18 - Number(tokenDecimals);
-      } else {
-        decimals[`${item.id}`].token = 18;
-        decimals[`${item.id}`].vtoken = 8;
-        decimals[`${item.id}`].price = 18;
-      }
-    });
-    setSetting({ decimals });
-  };
-
   const initSettings = async () => {
-    await setDecimals();
     setSetting({
       pendingInfo: {
         type: '',
@@ -367,12 +339,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   }, []);
 
   const updateMarketInfo = async () => {
-    if (
-      !account ||
-      !settings.decimals ||
-      !markets ||
-      isMarketInfoUpdating
-    ) {
+    if (!account || !markets || isMarketInfoUpdating) {
       return;
     }
     const appContract = getComptrollerContract();
@@ -396,9 +363,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         .times(20 * 60 * 24);
 
       // VAI APY
-      const xvsMarket = markets.find(
-        ele => ele.underlyingSymbol === 'XVS'
-      );
+      const xvsMarket = markets.find(ele => ele.underlyingSymbol === 'XVS');
       const vaiAPY = new BigNumber(venusVAIVaultRate)
         .times(xvsMarket ? xvsMarket.tokenPrice : 0)
         .times(365 * 100)
@@ -406,14 +371,11 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         .dp(2, 1)
         .toString(10);
 
-      const totalLiquidity = (markets || []).reduce(
-        (accumulator, market) => {
-          return new BigNumber(accumulator).plus(
-            new BigNumber(market.totalSupplyUsd)
-          );
-        },
-        vaultVaiStaked
-      );
+      const totalLiquidity = (markets || []).reduce((accumulator, market) => {
+        return new BigNumber(accumulator).plus(
+          new BigNumber(market.totalSupplyUsd)
+        );
+      }, vaultVaiStaked);
       setSetting({
         vaiAPY,
         vaultVaiStaked

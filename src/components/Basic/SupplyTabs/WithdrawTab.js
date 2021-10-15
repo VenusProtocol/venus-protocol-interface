@@ -21,6 +21,7 @@ import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
 import { useComptroller } from '../../../hooks/useContract';
+import { useMarketsUser } from '../../../hooks/useMarketsUser';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -35,9 +36,12 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
   const comptrollerContract = useComptroller();
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
 
   const getFeePercent = async () => {
-    const treasuryPercent = await comptrollerContract.methods.treasuryPercent().call();
+    const treasuryPercent = await comptrollerContract.methods
+      .treasuryPercent()
+      .call();
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
   };
 
@@ -46,8 +50,6 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
   }, []);
 
   const updateInfo = useCallback(async () => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     const { collateral } = asset;
     const supplyBalance = getBigNumber(asset.supplyBalance);
@@ -57,8 +59,8 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
       return;
     }
     const safeMax = BigNumber.maximum(
-      totalBorrowLimit
-        .minus(totalBorrowBalance.div(40).times(100))
+      userTotalBorrowLimit
+        .minus(userTotalBorrowBalance.div(40).times(100))
         .div(collateralFactor)
         .div(tokenPrice),
       new BigNumber(0)
@@ -66,28 +68,32 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
     setSafeMaxBalance(BigNumber.minimum(safeMax, supplyBalance));
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
-      const temp = totalBorrowLimit.minus(
+      const temp = userTotalBorrowLimit.minus(
         amount.times(tokenPrice).times(collateralFactor)
       );
       setNewBorrowLimit(temp);
-      setNewBorrowPercent(totalBorrowBalance.div(temp).times(100));
-      if (totalBorrowLimit.isZero()) {
+      setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowLimit(new BigNumber(0));
         setBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowLimit(totalBorrowLimit);
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowLimit(userTotalBorrowLimit);
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
       }
     } else {
-      setBorrowLimit(totalBorrowLimit);
-      setNewBorrowLimit(totalBorrowLimit);
-      if (totalBorrowLimit.isZero()) {
+      setBorrowLimit(userTotalBorrowLimit);
+      setNewBorrowLimit(userTotalBorrowLimit);
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
         setNewBorrowPercent(
-          totalBorrowBalance.div(totalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
         );
       }
     }
@@ -131,7 +137,7 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
             vbepContract.methods.redeemUnderlying,
             [
               amount
-                .times(new BigNumber(10).pow(settings.decimals[assetId].token))
+                .times(new BigNumber(10).pow(asset.decimals))
                 .integerValue()
                 .toString(10)
             ],
@@ -181,11 +187,10 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
             }}
             isAllowed={({ value }) => {
               const temp = new BigNumber(value || 0);
-              const { totalBorrowLimit } = settings;
               const { tokenPrice, collateralFactor } = asset;
               return (
                 temp.isLessThanOrEqualTo(asset.supplyBalance) &&
-                getBigNumber(totalBorrowLimit).isGreaterThanOrEqualTo(
+                userTotalBorrowLimit.gte(
                   temp.times(tokenPrice).times(collateralFactor)
                 )
               );

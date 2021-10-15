@@ -14,6 +14,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
+import { useMarketsUser } from '../../../hooks/useMarketsUser';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -24,6 +25,7 @@ function MintTab({ settings }) {
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
   const { userVaiBalance } = useVaiUser();
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
 
   const getFeePercent = async () => {
     const appContract = getVaiControllerContract();
@@ -46,13 +48,11 @@ function MintTab({ settings }) {
    * Max amount
    */
   const handleMaxAmount = () => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const safeMax = BigNumber.maximum(
-      totalBorrowLimit
+      userTotalBorrowLimit
         .times(40)
         .div(100)
-        .minus(totalBorrowBalance),
+        .minus(userTotalBorrowBalance),
       new BigNumber(0)
     );
     setAmount(BigNumber.minimum(mintableVai, safeMax));

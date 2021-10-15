@@ -1,25 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
+import BigNumber from 'bignumber.js';
 import useRefresh from './useRefresh';
 import * as constants from '../utilities/constants';
 import { useComptroller } from './useContract';
-import { useWeb3React } from '@web3-react/core';
 import useWeb3 from './useWeb3';
 import { getTokenContract } from '../utilities/contractHelpers';
-import BigNumber from 'bignumber.js';
-import { methods } from '../utilities/ContractService';
-import { useVaiUser } from '../../../hooks/useVaiUser';
+import { methods, getVbepContract } from '../utilities/ContractService';
+import { useVaiUser } from './useVaiUser';
+import { useMarkets } from './useMarkets';
 
 export const useMarketsUser = () => {
-  const [marketInfo, setMarketInfo] = useState({});
+  const [userMarketInfo, setUserMarketInfo] = useState({});
+  const [userTotalBorrowLimit, setUserTotalBorrowLimit] = useState(
+    new BigNumber(0)
+  );
+  const [userTotalBorrowBalance, setUserTotalBorrowBalance] = useState(
+    new BigNumber(0)
+  );
+  const [userXVSBalance, setUserXVSBalance] = useState(new BigNumber(0));
   const { fastRefresh } = useRefresh();
   const comptrollerContract = useComptroller();
   const { account } = useWeb3React();
-  const { markets } = useMarketsUser();
+  const { markets } = useMarkets();
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
 
   const updateMarketInfo = useCallback(async () => {
-    if (!account || !settings.decimals || !markets) {
+    if (!account || !markets) {
       return;
     }
 
@@ -48,6 +56,7 @@ export const useMarketsUser = () => {
               vimg: item.vasset,
               name: market.underlyingSymbol || '',
               symbol: market.underlyingSymbol || '',
+              decimals: item.decimals,
               tokenAddress: market.underlyingAddress,
               vsymbol: market.symbol,
               vtokenAddress: constants.CONTRACT_VBEP_ADDRESS[item.id].address,
@@ -69,10 +78,6 @@ export const useMarketsUser = () => {
               collateral: false,
               percentOfLimit: '0'
             };
-
-            const tokenDecimal = settings.decimals[item.id]
-              ? settings.decimals[item.id].token
-              : 18;
             const vBepContract = getVbepContract(item.id);
             asset.collateral = assetsIn
               .map(item => item.toLowerCase())
@@ -106,7 +111,7 @@ export const useMarketsUser = () => {
               totalBalance = balance;
 
               asset.walletBalance = new BigNumber(walletBalance).div(
-                new BigNumber(10).pow(tokenDecimal)
+                new BigNumber(10).pow(item.decimals)
               );
 
               if (asset.id === 'xvs') {
@@ -115,7 +120,7 @@ export const useMarketsUser = () => {
 
               // allowance
               asset.isEnabled = new BigNumber(allowBalance)
-                .div(new BigNumber(10).pow(tokenDecimal))
+                .div(new BigNumber(10).pow(item.decimals))
                 .isGreaterThan(asset.walletBalance);
             } else {
               const [snapshot, balance, walletBalance] = await Promise.all([
@@ -134,32 +139,20 @@ export const useMarketsUser = () => {
               if (window.ethereum || window.BinanceChain) {
                 asset.isEnabled = true;
                 asset.walletBalance = new BigNumber(walletBalance).div(
-                  new BigNumber(10).pow(tokenDecimal)
+                  new BigNumber(10).pow(item.decimals)
                 );
               }
             }
 
             // supply balance
             asset.supplyBalance = new BigNumber(supplyBalance).div(
-              new BigNumber(10).pow(tokenDecimal)
+              new BigNumber(10).pow(item.decimals)
             );
 
             // borrow balance
             asset.borrowBalance = new BigNumber(borrowBalance).div(
-              new BigNumber(10).pow(tokenDecimal)
+              new BigNumber(10).pow(item.decimals)
             );
-
-            // percent of limit
-            asset.percentOfLimit = new BigNumber(
-              settings.totalBorrowLimit
-            ).isZero()
-              ? '0'
-              : asset.borrowBalance
-                  .times(asset.tokenPrice)
-                  .div(settings.totalBorrowLimit)
-                  .times(100)
-                  .dp(0, 1)
-                  .toString(10);
 
             // hypotheticalLiquidity
             asset.hypotheticalLiquidity = await methods.call(
@@ -186,12 +179,25 @@ export const useMarketsUser = () => {
         )
       );
 
-      setSetting({
-        assetList,
-        totalBorrowLimit: totalBorrowLimit.toString(10),
-        totalBorrowBalance,
-        userXVSBalance: xvsBalance,
+      // percent of limit
+      const tempAssetList = assetList.map(item => {
+        return {
+          ...item,
+          percentOfLimit: new BigNumber(totalBorrowLimit).isZero()
+            ? '0'
+            : item.borrowBalance
+                .times(item.tokenPrice)
+                .div(totalBorrowLimit)
+                .times(100)
+                .dp(0, 1)
+                .toString(10)
+        };
       });
+
+      setUserMarketInfo(tempAssetList);
+      setUserTotalBorrowLimit(totalBorrowLimit);
+      setUserTotalBorrowBalance(totalBorrowBalance);
+      setUserXVSBalance(xvsBalance);
     } catch (error) {
       console.log(error);
     }
@@ -199,7 +205,12 @@ export const useMarketsUser = () => {
 
   useEffect(() => {
     updateMarketInfo();
-  }, [fastRefresh]);
+  }, [fastRefresh, updateMarketInfo]);
 
-  return { marketInfo };
+  return {
+    userMarketInfo,
+    userTotalBorrowLimit,
+    userTotalBorrowBalance,
+    userXVSBalance
+  };
 };

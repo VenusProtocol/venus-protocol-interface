@@ -202,7 +202,6 @@ function MarketDetail({ match, settings, getMarketHistory }) {
         )}
         {account &&
           markets &&
-          settings.decimals &&
           currentAsset &&
           !settings.accountLoading &&
           !settings.wrongNetwork && (

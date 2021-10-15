@@ -105,6 +105,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         sxp: {
           id: 'sxp',
           symbol: 'SXP',
+          decimals: 18,
           address: contracts.TEST.TOKEN.sxp,
           asset: sxp,
           vasset: vsxp
@@ -112,6 +113,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         usdc: {
           id: 'usdc',
           symbol: 'USDC',
+          decimals: 6,
           address: contracts.TEST.TOKEN.usdc,
           asset: usdc,
           vasset: vusdc
@@ -119,6 +121,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         usdt: {
           id: 'usdt',
           symbol: 'USDT',
+          decimals: 6,
           address: contracts.TEST.TOKEN.usdt,
           asset: usdt,
           vasset: vusdt
@@ -126,6 +129,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         busd: {
           id: 'busd',
           symbol: 'BUSD',
+          decimals: 18,
           address: contracts.TEST.TOKEN.busd,
           asset: busd,
           vasset: vbusd
@@ -133,12 +137,14 @@ export const CONTRACT_TOKEN_ADDRESS =
         bnb: {
           id: 'bnb',
           symbol: 'BNB',
+          decimals: 18,
           asset: bnb,
           vasset: vbnb
         },
         xvs: {
           id: 'xvs',
           symbol: 'XVS',
+          decimals: 18,
           address: contracts.TEST.TOKEN.xvs,
           asset: xvs,
           vasset: vxvs
@@ -146,6 +152,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         btcb: {
           id: 'btcb',
           symbol: 'BTCB',
+          decimals: 18,
           address: contracts.TEST.TOKEN.btcb,
           asset: btc,
           vasset: vbtc
@@ -153,6 +160,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         eth: {
           id: 'eth',
           symbol: 'ETH',
+          decimals: 18,
           address: contracts.TEST.TOKEN.eth,
           asset: eth,
           vasset: veth
@@ -160,6 +168,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         ltc: {
           id: 'ltc',
           symbol: 'LTC',
+          decimals: 18,
           address: contracts.TEST.TOKEN.ltc,
           asset: ltc,
           vasset: vltc
@@ -167,6 +176,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         xrp: {
           id: 'xrp',
           symbol: 'XRP',
+          decimals: 18,
           address: contracts.TEST.TOKEN.xrp,
           asset: xrp,
           vasset: vxrp
@@ -174,6 +184,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         ada: {
           id: 'ada',
           symbol: 'ADA',
+          decimals: 18,
           address: contracts.TEST.TOKEN.ada,
           asset: ada,
           vasset: vada
@@ -181,6 +192,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         doge: {
           id: 'doge',
           symbol: 'DOGE',
+          decimals: 8,
           address: contracts.TEST.TOKEN.doge,
           asset: doge,
           vasset: vdoge
@@ -188,6 +200,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         matic: {
           id: 'matic',
           symbol: 'MATIC',
+          decimals: 18,
           address: contracts.TEST.TOKEN.matic,
           asset: matic,
           vasset: vmatic
@@ -195,6 +208,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         cake: {
           id: 'cake',
           symbol: 'CAKE',
+          decimals: 18,
           address: contracts.TEST.TOKEN.cake,
           asset: cake,
           vasset: vcake
@@ -202,6 +216,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         aave: {
           id: 'aave',
           symbol: 'AAVE',
+          decimals: 18,
           address: contracts.TEST.TOKEN.aave,
           asset: aave,
           vasset: vaave
@@ -209,6 +224,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         tusd: {
           id: 'tusd',
           symbol: 'TUSD',
+          decimals: 18,
           address: contracts.TEST.TOKEN.tusd,
           asset: tusd,
           vasset: vtusd
@@ -218,6 +234,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         sxp: {
           id: 'sxp',
           symbol: 'SXP',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.sxp,
           asset: sxp,
           vasset: vsxp
@@ -225,6 +242,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         usdc: {
           id: 'usdc',
           symbol: 'USDC',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.usdc,
           asset: usdc,
           vasset: vusdc
@@ -232,6 +250,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         usdt: {
           id: 'usdt',
           symbol: 'USDT',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.usdt,
           asset: usdt,
           vasset: vusdt
@@ -239,6 +258,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         busd: {
           id: 'busd',
           symbol: 'BUSD',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.busd,
           asset: busd,
           vasset: vbusd
@@ -246,12 +266,14 @@ export const CONTRACT_TOKEN_ADDRESS =
         bnb: {
           id: 'bnb',
           symbol: 'BNB',
+          decimals: 18,
           asset: bnb,
           vasset: vbnb
         },
         xvs: {
           id: 'xvs',
           symbol: 'XVS',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.xvs,
           asset: xvs,
           vasset: vxvs
@@ -259,6 +281,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         btcb: {
           id: 'btcb',
           symbol: 'BTCB',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.btcb,
           asset: btc,
           vasset: vbtc
@@ -266,6 +289,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         eth: {
           id: 'eth',
           symbol: 'ETH',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.eth,
           asset: eth,
           vasset: veth
@@ -273,6 +297,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         ltc: {
           id: 'ltc',
           symbol: 'LTC',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.ltc,
           asset: ltc,
           vasset: vltc
@@ -280,6 +305,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         xrp: {
           id: 'xrp',
           symbol: 'XRP',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.xrp,
           asset: xrp,
           vasset: vxrp
@@ -287,6 +313,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         bch: {
           id: 'bch',
           symbol: 'BCH',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.bch,
           asset: bch,
           vasset: vbch
@@ -294,6 +321,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         dot: {
           id: 'dot',
           symbol: 'DOT',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.dot,
           asset: dot,
           vasset: vdot
@@ -301,6 +329,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         link: {
           id: 'link',
           symbol: 'LINK',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.link,
           asset: link,
           vasset: vlink
@@ -308,6 +337,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         dai: {
           id: 'dai',
           symbol: 'DAI',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.dai,
           asset: dai,
           vasset: vdai
@@ -315,6 +345,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         fil: {
           id: 'fil',
           symbol: 'FIL',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.fil,
           asset: fil,
           vasset: vfil
@@ -322,6 +353,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         beth: {
           id: 'beth',
           symbol: 'BETH',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.beth,
           asset: beth,
           vasset: vbeth
@@ -329,6 +361,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         ada: {
           id: 'ada',
           symbol: 'ADA',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.ada,
           asset: ada,
           vasset: vada
@@ -336,6 +369,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         doge: {
           id: 'doge',
           symbol: 'DOGE',
+          decimals: 8,
           address: contracts.MAIN.TOKEN.doge,
           asset: doge,
           vasset: vdoge
@@ -343,6 +377,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         matic: {
           id: 'matic',
           symbol: 'MATIC',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.matic,
           asset: matic,
           vasset: vmatic
@@ -350,6 +385,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         cake: {
           id: 'cake',
           symbol: 'Cake',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.cake,
           asset: cake,
           vasset: vcake
@@ -357,6 +393,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         aave: {
           id: 'aave',
           symbol: 'AAVE',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.aave,
           asset: aave,
           vasset: vaave
@@ -364,6 +401,7 @@ export const CONTRACT_TOKEN_ADDRESS =
         tusd: {
           id: 'tusd',
           symbol: 'TUSD',
+          decimals: 18,
           address: contracts.MAIN.TOKEN.tusd,
           asset: tusd,
           vasset: vtusd

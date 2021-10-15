@@ -49,8 +49,10 @@ export const useVaiUser = () => {
   }, [vaiControllerContract, vaiContract, comptrollerContract, account]);
 
   useEffect(() => {
-    updateVaiInfo();
-  }, [fastRefresh]);
+    if (account) {
+      updateVaiInfo();
+    }
+  }, [fastRefresh, account]);
 
   return { userVaiMinted,
     userVaiBalance,

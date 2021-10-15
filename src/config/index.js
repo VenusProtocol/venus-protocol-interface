@@ -15,3 +15,5 @@ export const API_ENDPOINT_URL =
   API_ENDPOINT_URLS[process.env.REACT_APP_CHAIN_ID];
 
 export const connectorLocalStorageKey = 'venus-local-key';
+
+export const vtokenDecimals = 8;

@@ -10,6 +10,7 @@ import { Card } from 'components/Basic/Card';
 import MintTab from 'components/Basic/VaiTabs/MintTab';
 import RepayVaiTab from 'components/Basic/VaiTabs/RepayVaiTab';
 import { getBigNumber } from 'utilities/common';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
   position: relative;
@@ -61,31 +62,14 @@ const Market = ({ settings, setSetting }) => {
   const [nonSuppliedAssets, setNonSuppliedAssets] = useState([]);
   const [borrowedAssets, setBorrowedAssets] = useState([]);
   const [nonBorrowedAssets, setNonBorrowedAssets] = useState([]);
+  const { userMarketInfo } = useMarketsUser();
 
-  const updateMarketTable = async () => {
-    const tempArr = [];
-    settings.assetList.forEach(item => {
-      if (!item) return;
-      const temp = {
-        ...item,
-        supplyApy: getBigNumber(item.supplyApy),
-        borrowApy: getBigNumber(item.borrowApy),
-        walletBalance: getBigNumber(item.walletBalance),
-        supplyBalance: getBigNumber(item.supplyBalance),
-        vTokenBalance: getBigNumber(item.vTokenBalance),
-        borrowBalance: getBigNumber(item.borrowBalance),
-        collateralFactor: getBigNumber(item.collateralFactor),
-        tokenPrice: getBigNumber(item.tokenPrice),
-        liquidity: getBigNumber(item.liquidity)
-      };
-      tempArr.push(temp);
-    });
-
+  const updateMarketTable = () => {
     const tempSuppliedData = [];
     const tempNonSuppliableData = [];
     const tempBorrowedData = [];
     const tempNonBorrowedData = [];
-    tempArr.forEach(element => {
+    userMarketInfo.forEach(element => {
       if (element.supplyBalance.isZero()) {
         tempNonSuppliableData.push(element);
       } else {
@@ -105,10 +89,11 @@ const Market = ({ settings, setSetting }) => {
   };
 
   useEffect(() => {
-    if (settings.assetList && settings.assetList.length > 0) {
+    console.log('userMarketInfo :>> ', userMarketInfo);
+    if (userMarketInfo && userMarketInfo.length > 0) {
       updateMarketTable();
     }
-  }, [settings.assetList]);
+  }, [userMarketInfo]);
 
   useEffect(() => {
     if (currentTab !== 'vai') {

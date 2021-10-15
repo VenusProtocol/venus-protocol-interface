@@ -13,6 +13,8 @@ import commaNumber from 'comma-number';
 import { addToken, getBigNumber } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { useMarkets } from '../../hooks/useMarkets';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
+import { vtokenDecimals } from '../../config';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -139,11 +141,13 @@ const abortController = new AbortController();
 const format = commaNumber.bindWith(',', '.');
 
 function Overview({ settings, getMarketHistory }) {
-  const [currentAsset, setCurrentAsset] = useState(null);
+  const [currentAsset, setCurrentAsset] = useState('sxp');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   const [currentAPY, setCurrentAPY] = useState(0);
+  const [decimals, setDecimals] = useState(18);
   const { markets } = useMarkets();
+  const { userMarketInfo } = useMarketsUser();
 
   const getGraphData = async (asset, type, limit) => {
     let tempData = [];
@@ -184,14 +188,10 @@ function Overview({ settings, getMarketHistory }) {
   }, [currentAsset]);
 
   useEffect(() => {
-    setCurrentAsset('sxp');
-  }, []);
-
-  useEffect(() => {
-    if (settings.assetList && settings.assetList.length > 0) {
+    if (userMarketInfo && userMarketInfo.length > 0) {
       const currentMarketInfo =
-        settings.assetList.filter(s => s && s.id === currentAsset).length !== 0
-          ? settings.assetList.filter(s => s && s.id === currentAsset)[0]
+        userMarketInfo.filter(s => s && s.id === currentAsset).length !== 0
+          ? userMarketInfo.filter(s => s && s.id === currentAsset)[0]
           : {};
       const supplyApy = getBigNumber(currentMarketInfo.supplyApy);
       const borrowApy = getBigNumber(currentMarketInfo.borrowApy);
@@ -201,21 +201,18 @@ function Overview({ settings, getMarketHistory }) {
       const borrowApyWithXVS = settings.withXVS
         ? getBigNumber(currentMarketInfo.xvsBorrowApy).plus(borrowApy)
         : borrowApy;
+      setDecimals(currentMarketInfo.decimals);
       setCurrentAPY(
         (settings.marketType || 'supply') === 'supply'
           ? supplyApyWithXVS.dp(2, 1).toString(10)
           : borrowApyWithXVS.dp(2, 1).toString(10)
       );
     }
-  }, [currentAsset, settings.marketType, settings.assetList, settings.withXVS]);
+  }, [currentAsset, settings.marketType, userMarketInfo, settings.withXVS]);
 
   const handleChangeAsset = value => {
     setCurrentAsset(value);
   };
-
-  if (!settings.decimals[currentAsset]) {
-    return null;
-  }
 
   return (
     <Card>
@@ -259,20 +256,14 @@ function Overview({ settings, getMarketHistory }) {
             </AssetSelectWrapper>
             {window.ethereum && window.ethereum.networkVersion && (
               <div className="flex align-center add-token-wrapper">
-                {currentAsset !== 'bnb' && (
+                {currentAsset && currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
                     {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
                     <Icon
                       className="add-token"
                       type="plus-circle"
                       theme="filled"
-                      onClick={() =>
-                        addToken(
-                          currentAsset,
-                          settings.decimals[currentAsset].token,
-                          'token'
-                        )
-                      }
+                      onClick={() => addToken(currentAsset, decimals, 'token')}
                     />
                   </div>
                 )}
@@ -285,11 +276,7 @@ function Overview({ settings, getMarketHistory }) {
                     type="plus-circle"
                     theme="filled"
                     onClick={() =>
-                      addToken(
-                        currentAsset,
-                        settings.decimals[currentAsset].vtoken,
-                        'vtoken'
-                      )
+                      addToken(currentAsset, vtokenDecimals, 'vtoken')
                     }
                   />
                 </div>
@@ -299,8 +286,8 @@ function Overview({ settings, getMarketHistory }) {
           </div>
           {/* <p className="value">{`$${
               (settings.marketType || 'supply') === 'supply'
-                ? new BigNumber(marketInfo.totalSupply || 0).div(new BigNumber(10).pow(settings.decimals[currentAsset].vtoken)).dp(2, 1).toString(10)
-                : new BigNumber(marketInfo.totalBorrows || 0).div(new BigNumber(10).pow(settings.decimals[currentAsset].token)).dp(2, 1).toString(10)
+                ? new BigNumber(marketInfo.totalSupply || 0).div(new BigNumber(10).pow(vtokenDecimals)).dp(2, 1).toString(10)
+                : new BigNumber(marketInfo.totalBorrows || 0).div(new BigNumber(10).pow(decimals)).dp(2, 1).toString(10)
             }`}
           </p> */}
         </div>
@@ -329,11 +316,7 @@ function Overview({ settings, getMarketHistory }) {
           <p className="label">Price</p>
           <p className="value">
             {`$${new BigNumber(marketInfo.underlyingPrice || 0)
-              .div(
-                new BigNumber(10).pow(
-                  18 + 18 - parseInt(settings.decimals[currentAsset].token, 10)
-                )
-              )
+              .div(new BigNumber(10).pow(18 + 18 - decimals))
               .dp(8, 1)
               .toString(10)}`}
           </p>
@@ -343,9 +326,7 @@ function Overview({ settings, getMarketHistory }) {
           <p className="value">
             {`${format(
               new BigNumber(marketInfo.cash || 0)
-                .div(
-                  new BigNumber(10).pow(settings.decimals[currentAsset].token)
-                )
+                .div(new BigNumber(10).pow(decimals))
                 .dp(8, 1)
                 .toString(10)
             )} ${marketInfo.underlyingSymbol || ''}`}
@@ -363,7 +344,7 @@ function Overview({ settings, getMarketHistory }) {
           <p className="label">Reserves</p>
           <p className="value">
             {`${new BigNumber(marketInfo.totalReserves || 0)
-              .div(new BigNumber(10).pow(settings.decimals[currentAsset].token))
+              .div(new BigNumber(10).pow(decimals))
               .dp(8, 1)
               .toString(10)} ${marketInfo.underlyingSymbol || ''}`}
           </p>
@@ -415,17 +396,7 @@ function Overview({ settings, getMarketHistory }) {
               new BigNumber(1)
                 .div(
                   new BigNumber(marketInfo.exchangeRate).div(
-                    new BigNumber(10).pow(
-                      18 +
-                        +parseInt(
-                          settings.decimals[currentAsset || 'sxp'].token,
-                          10
-                        ) -
-                        +parseInt(
-                          settings.decimals[currentAsset || 'sxp'].vtoken,
-                          10
-                        )
-                    )
+                    new BigNumber(10).pow(18 + decimals - vtokenDecimals)
                   )
                 )
                 .toString(10)
