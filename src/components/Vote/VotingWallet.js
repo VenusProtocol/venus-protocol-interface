@@ -13,6 +13,9 @@ import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
+import { getVenusLensContract } from '../../utilities/ContractService';
+import BigNumber from 'bignumber.js';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -132,6 +135,7 @@ function VotingWallet({
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
   const { account } = useWeb3React();
+  const { userMarketInfo } = useMarketsUser();
 
   useEffect(() => {
     if (!earnedBalance) {
@@ -151,16 +155,33 @@ function VotingWallet({
     return position !== -1 ? value.slice(position + 5) : null;
   };
 
-  const handleCollect = () => {
+  const handleCollect = async () => {
+    // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
+    const venusLensContract = getVenusLensContract();
+    const vTokensBalanceInfos = await methods.call(
+      venusLensContract.methods.vTokenBalancesAll,
+      [userMarketInfo.map(asset => asset.vtokenAddress), account]
+    );
+
+    const outstandingVTokens = vTokensBalanceInfos.filter(info => {
+      // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
+      return new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0);
+    });
+
+    // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
       setIsLoading(true);
       const appContract = getComptrollerContract();
       methods
-        .send(appContract.methods.claimVenus, [account], account)
+        .send(
+          appContract.methods.claimVenus,
+          [account, outstandingVTokens.map(token => token[0])],
+          account
+        )
         .then(() => {
           setIsLoading(false);
         })
-        .catch(() => {
+        .catch(e => {
           setIsLoading(false);
         });
     }

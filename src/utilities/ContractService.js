@@ -1,6 +1,8 @@
 import Web3 from 'web3';
 import * as constants from './constants';
 
+// singleton instance
+let web3Instance = null;
 export const getWeb3 = () => {
   const providerUrl =
     process.env.REACT_APP_ENV === 'dev'
@@ -125,6 +127,14 @@ export const getInterestModelContract = address => {
   return new instance.eth.Contract(
     JSON.parse(constants.CONTRACT_INTEREST_MODEL_ABI),
     address
+  );
+};
+
+export const getVenusLensContract = () => {
+  const instance = getWeb3();
+  return new instance.eth.Contract(
+    JSON.parse(constants.CONTRACT_VENUS_LENS_ABI),
+    constants.CONTRACT_VENUS_LENS_ADDRESS
   );
 };
 
