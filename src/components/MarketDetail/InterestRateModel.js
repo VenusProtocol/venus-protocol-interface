@@ -6,11 +6,6 @@ import BigNumber from 'bignumber.js';
 import { withRouter } from 'react-router-dom';
 import { connectAccount } from 'core';
 import {
-  getVbepContract,
-  getInterestModelContract,
-  methods
-} from 'utilities/ContractService';
-import {
   LineChart,
   Line,
   XAxis,
@@ -21,6 +16,11 @@ import {
 } from 'recharts';
 import { useMarkets } from '../../hooks/useMarkets';
 import * as constants from 'utilities/constants';
+import useWeb3 from '../../hooks/useWeb3';
+import {
+  getInterestModelContract,
+  getVbepContract
+} from '../../utilities/contractHelpers';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -129,6 +129,7 @@ function InterestRateModel({ settings, currentAsset }) {
   const [maxY, setMaxY] = useState(0);
 
   const { markets } = useMarkets();
+  const web3 = useWeb3();
 
   const CustomizedAxisTick = ({ x, y }) => {
     return (
@@ -146,13 +147,15 @@ function InterestRateModel({ settings, currentAsset }) {
 
   const getGraphData = async asset => {
     flag = true;
-    const vbepContract = getVbepContract(asset);
-    const interestRateModel = await methods.call(
-      vbepContract.methods.interestRateModel,
-      []
+    const vbepContract = getVbepContract(web3, asset);
+    const interestRateModel = await vbepContract.methods
+      .interestRateModel()
+      .call();
+    const interestModelContract = getInterestModelContract(
+      web3,
+      interestRateModel
     );
-    const interestModelContract = getInterestModelContract(interestRateModel);
-    const cashValue = await methods.call(vbepContract.methods.getCash, []);
+    const cashValue = await vbepContract.methods.getCash().call();
     const data = [];
     const marketInfo = markets.find(
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase()
@@ -182,27 +185,31 @@ function InterestRateModel({ settings, currentAsset }) {
     }
     const borrowRes = await Promise.all(
       urArray.map(ur =>
-        methods.call(interestModelContract.methods.getBorrowRate, [
-          new BigNumber(1 / ur - 1)
-            .times(1e4)
-            .dp(0)
-            .toString(10),
-          1e4,
-          0
-        ])
+        interestModelContract.methods
+          .getBorrowRate(
+            new BigNumber(1 / ur - 1)
+              .times(1e4)
+              .dp(0)
+              .toString(10),
+            1e4,
+            0
+          )
+          .call()
       )
     );
     const supplyRes = await Promise.all(
       urArray.map(ur =>
-        methods.call(interestModelContract.methods.getSupplyRate, [
-          new BigNumber(1 / ur - 1)
-            .times(1e4)
-            .dp(0)
-            .toString(10),
-          1e4,
-          0,
-          marketInfo.reserveFactor.toString(10)
-        ])
+        interestModelContract.methods
+          .getSupplyRate(
+            new BigNumber(1 / ur - 1)
+              .times(1e4)
+              .dp(0)
+              .toString(10),
+            1e4,
+            0,
+            marketInfo.reserveFactor.toString(10)
+          )
+          .call()
       )
     );
     urArray.forEach((ur, index) => {

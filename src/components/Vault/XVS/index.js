@@ -1,25 +1,16 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
 import * as constants from 'utilities/constants';
 import XVSTotalInfo from 'components/Vault/XVS/TotalInfo';
 import XVSStaking from 'components/Vault/XVS/Staking';
-import { connectAccount, accountActionCreators } from 'core';
-import {
-  getVaultContract,
-  getTokenContract,
-  methods
-} from 'utilities/ContractService';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../../../hooks/useRefresh';
+import { useToken, useVault } from '../../../hooks/useContract';
+import { getVaultAddress, getXvsStoreAddress } from '../../../utilities/addressHelpers';
 
-function Vault({ settings }) {
+function Vault() {
   const [vaultInfo, setVaultInfo] = useState({
     totalStaked: new BigNumber(0),
     dailyEmission: new BigNumber(0),
@@ -37,11 +28,11 @@ function Vault({ settings }) {
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
 
-  const xvsTokenContract = getTokenContract('xvs');
-  const vaultContract = getVaultContract();
-  const vaultAddress = constants.CONTRACT_VAULT_ADDRESS;
+  const xvsTokenContract = useToken('xvs');
+  const vaultContract = useVault();
+  const vaultAddress = getVaultAddress();
   const xvsAddress = constants.CONTRACT_TOKEN_ADDRESS['xvs'].address;
-  const xvsStoreAddress = constants.CONTRACT_XVS_STORE_ADDRESS;
+  const xvsStoreAddress = getXvsStoreAddress();
 
   const fetchVaults = useCallback(async () => {
     const [
@@ -51,13 +42,11 @@ function Vault({ settings }) {
       { 1: allocPoint },
       totalPendingRewards
     ] = await Promise.all([
-      methods.call(xvsTokenContract.methods.balanceOf, [vaultAddress]),
-      methods.call(vaultContract.methods.rewardTokenAmountsPerBlock, [
-        xvsAddress
-      ]),
-      methods.call(vaultContract.methods.totalAllocPoints, [xvsAddress]),
-      methods.call(vaultContract.methods.poolInfos, [xvsAddress, 0]),
-      methods.call(xvsTokenContract.methods.balanceOf, [xvsStoreAddress])
+      xvsTokenContract.methods.balanceOf(vaultAddress).call(),
+      vaultContract.methods.rewardTokenAmountsPerBlock(xvsAddress).call(),
+      vaultContract.methods.totalAllocPoints(xvsAddress).call(),
+      vaultContract.methods.poolInfos(xvsAddress, 0).call(),
+      xvsTokenContract.methods.balanceOf(xvsStoreAddress).call()
     ]);
 
     const rewardPerVault = new BigNumber(rewardPerBlock)
@@ -83,28 +72,14 @@ function Vault({ settings }) {
       withdrawableAmount,
       requestedAmount
     ] = await Promise.all([
-      methods.call(xvsTokenContract.methods.balanceOf, [account]),
-      methods.call(xvsTokenContract.methods.allowance, [account, vaultAddress]),
-      methods.call(vaultContract.methods.getUserInfo, [
-        rewardAddress,
-        0,
-        account
-      ]),
-      methods.call(vaultContract.methods.pendingReward, [
-        rewardAddress,
-        0,
-        account
-      ]),
-      methods.call(vaultContract.methods.getEligibleWithdrawalAmount, [
-        rewardAddress,
-        0,
-        account
-      ]),
-      methods.call(vaultContract.methods.getRequestedAmount, [
-        rewardAddress,
-        0,
-        account
-      ])
+      xvsTokenContract.methods.balanceOf(account).call(),
+      xvsTokenContract.methods.allowance(account, vaultAddress).call(),
+      vaultContract.methods.getUserInfo(rewardAddress, 0, account).call(),
+      vaultContract.methods.pendingReward(rewardAddress, 0, account).call(),
+      vaultContract.methods
+        .getEligibleWithdrawalAmount(rewardAddress, 0, account)
+        .call(),
+      vaultContract.methods.getRequestedAmount(rewardAddress, 0, account).call()
     ]);
 
     setUserInfo({
@@ -137,30 +112,4 @@ function Vault({ settings }) {
   );
 }
 
-Vault.propTypes = {
-  settings: PropTypes.object
-};
-
-Vault.defaultProps = {
-  settings: {}
-};
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
-
-const mapDispatchToProps = dispatch => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting
-    },
-    dispatch
-  );
-};
-
-export default compose(
-  withRouter,
-  connectAccount(mapStateToProps, mapDispatchToProps)
-)(Vault);
+export default Vault;

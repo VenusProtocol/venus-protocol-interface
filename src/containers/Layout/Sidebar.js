@@ -7,13 +7,6 @@ import { bindActionCreators } from 'redux';
 import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
-import {
-  getTokenContract,
-  getVbepContract,
-  getComptrollerContract,
-  getVaiTokenContract,
-  methods
-} from 'utilities/ContractService';
 import * as constants from 'utilities/constants';
 import ConnectModal from 'components/Basic/ConnectModal';
 import { Label } from 'components/Basic/Label';
@@ -26,6 +19,8 @@ import toast from 'components/Basic/Toast';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { useMarkets } from '../../hooks/useMarkets';
+import { useComptroller, useVaiToken } from '../../hooks/useContract';
+import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const SidebarWrapper = styled.div`
   height: 100vh;
@@ -295,6 +290,8 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
   const { markets } = useMarkets();
+  const comptrollerContract = useComptroller();
+  const vaiTokenContract = useVaiToken();
 
   const defaultPath = history.location.pathname.split('/')[1];
   const { account, chainId } = useWeb3React();
@@ -320,8 +317,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
 
   const getTotalVaiMinted = async () => {
     // total vai minted
-    const vaiContract = getVaiTokenContract();
-    let tvm = await methods.call(vaiContract.methods.totalSupply, []);
+    let tvm = await vaiTokenContract.methods.totalSupply().call();
     tvm = new BigNumber(tvm).div(new BigNumber(10).pow(18));
     setTotalVaiMinted(tvm);
   };
@@ -342,17 +338,13 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     if (!account || !markets || isMarketInfoUpdating) {
       return;
     }
-    const appContract = getComptrollerContract();
-    const vaiContract = getVaiTokenContract();
 
     setMarketInfoUpdating(true);
 
     try {
       let [vaultVaiStaked, venusVAIVaultRate] = await Promise.all([
-        methods.call(vaiContract.methods.balanceOf, [
-          constants.CONTRACT_VAI_VAULT_ADDRESS
-        ]),
-        methods.call(appContract.methods.venusVAIVaultRate, [])
+        vaiTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
+        comptrollerContract.methods.venusVAIVaultRate().call()
       ]);
       // Total Vai Staked
       vaultVaiStaked = new BigNumber(vaultVaiStaked).div(1e18);

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { Icon } from 'antd';
-import { connectAccount } from 'core';
 import Button from '@material-ui/core/Button';
 import commaNumber from 'comma-number';
-import { getComptrollerContract, methods } from 'utilities/ContractService';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
-import { getVenusLensContract } from '../../utilities/ContractService';
 import BigNumber from 'bignumber.js';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
+import { useComptroller, useVenusLens } from '../../hooks/useContract';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -125,7 +122,6 @@ const format = commaNumber.bindWith(',', '.');
 
 function VotingWallet({
   balance,
-  settings,
   earnedBalance,
   vaiMint,
   delegateAddress,
@@ -136,6 +132,8 @@ function VotingWallet({
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
   const { account } = useWeb3React();
   const { userMarketInfo } = useMarketsUser();
+  const comptrollerContract = useComptroller();
+  const venusLensContract = useVenusLens();
 
   useEffect(() => {
     if (!earnedBalance) {
@@ -157,10 +155,9 @@ function VotingWallet({
 
   const handleCollect = async () => {
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
-    const venusLensContract = getVenusLensContract();
-    const vTokensBalanceInfos = await methods.call(
-      venusLensContract.methods.vTokenBalancesAll,
-      [userMarketInfo.map(asset => asset.vtokenAddress), account]
+    const vTokensBalanceInfos = await venusLensContract.methods.vTokenBalancesAll(
+      userMarketInfo.map(asset => asset.vtokenAddress),
+      account
     );
 
     const outstandingVTokens = vTokensBalanceInfos.filter(info => {
@@ -171,19 +168,17 @@ function VotingWallet({
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
       setIsLoading(true);
-      const appContract = getComptrollerContract();
-      methods
-        .send(
-          appContract.methods.claimVenus,
-          [account, outstandingVTokens.map(token => token[0])],
-          account
-        )
-        .then(() => {
-          setIsLoading(false);
-        })
-        .catch(e => {
-          setIsLoading(false);
-        });
+      try {
+        await comptrollerContract.methods
+          .claimVenus(
+            account,
+            outstandingVTokens.map(token => token[0])
+          )
+          .send({ from: account });
+      } catch (error) {
+        console.log('claim venus error :>> ', error);
+      }
+      setIsLoading(false);
     }
   };
 
@@ -307,15 +302,8 @@ VotingWallet.propTypes = {
   balance: PropTypes.string.isRequired,
   earnedBalance: PropTypes.string.isRequired,
   vaiMint: PropTypes.string.isRequired,
-  settings: PropTypes.object.isRequired,
   delegateAddress: PropTypes.string.isRequired,
   delegateStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
-
-export default compose(connectAccount(mapStateToProps, undefined))(
-  VotingWallet
-);
+export default VotingWallet;

@@ -9,9 +9,9 @@ import { connectAccount, accountActionCreators } from 'core';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import { getVoteContract, methods } from 'utilities/ContractService';
 import { encodeParameters, getArgs } from 'utilities/common';
 import closeImg from 'assets/img/close.png';
+import { useVote } from '../../hooks/useContract';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -170,6 +170,7 @@ function ProposalModal({
     }
   ]);
   const [activePanelKey, setActivePanelKey] = useState(['0']);
+  const voteContract = useVote();
 
   useEffect(() => {
     if (!visible) {
@@ -199,7 +200,7 @@ function ProposalModal({
     } else {
       setErrorMsg('');
     }
-    form.validateFields((err, formValues) => {
+    form.validateFields(async (err, formValues) => {
       if (!err) {
         try {
           for (let i = 0; i < formData.length; i += 1) {
@@ -229,22 +230,23 @@ function ProposalModal({
           return;
         }
         setIsLoading(true);
-        const appContract = getVoteContract();
-        methods
-          .send(
-            appContract.methods.propose,
-            [targetAddresses, values, signatures, callDatas, description],
-            address
-          )
-          .then(() => {
-            setErrorMsg('');
-            setIsLoading(false);
-            onCancel();
-          })
-          .catch(() => {
-            setErrorMsg('Creating proposal is failed!');
-            setIsLoading(false);
-          });
+        try {
+          await voteContract.methods
+            .propose(
+              targetAddresses,
+              values,
+              signatures,
+              callDatas,
+              description
+            )
+            .send({ from: address });
+          setErrorMsg('');
+          onCancel();
+        } catch (error) {
+          setErrorMsg('Creating proposal is failed!');
+          console.log('create proposal error :>> ', error);
+        }
+        setIsLoading(false);
       }
     });
   };

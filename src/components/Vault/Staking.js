@@ -6,16 +6,13 @@ import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import {
-  getVaiVaultContract,
-  getVaiTokenContract,
-  methods
-} from 'utilities/ContractService';
 import { Card } from 'components/Basic/Card';
 import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import * as constants from 'utilities/constants';
 import { useWeb3React } from '@web3-react/core';
+import { useVaiToken, useVaiVault } from '../../hooks/useContract';
+import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const StakingWrapper = styled.div`
   width: 100%;
@@ -91,95 +88,73 @@ const StakingWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Staking({
-  settings,
-  isEnabled,
-  availableVai,
-  vaiStaked,
-  updateTotalInfo
-}) {
+function Staking({ settings, isEnabled, availableVai, vaiStaked }) {
   const [isStakeLoading, setIsStakeLoading] = useState(false);
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
   const { account } = useWeb3React();
+  const vaiVaultContract = useVaiVault();
+  const vaiTokenContract = useVaiToken();
 
   /**
    * Stake VAI
    */
-  const handleStakeVAI = () => {
-    const appContract = getVaiVaultContract();
+  const handleStakeVAI = async () => {
     setIsStakeLoading(true);
-    methods
-      .send(
-        appContract.methods.deposit,
-        [
+    try {
+      vaiVaultContract.methods
+        .deposit(
           stakeAmount
             .times(1e18)
             .integerValue()
             .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        updateTotalInfo();
-        setStakeAmount(new BigNumber(0));
-        setIsStakeLoading(false);
-      })
-      .catch(() => {
-        setIsStakeLoading(false);
-      });
+        )
+        .send({ from: account });
+      setStakeAmount(new BigNumber(0));
+    } catch (error) {
+      console.log('vai stake error :>> ', error);
+    }
+    setIsStakeLoading(false);
   };
 
   /**
    * Withdraw VAI
    */
-  const handleWithdrawVAI = () => {
-    const appContract = getVaiVaultContract();
+  const handleWithdrawVAI = async () => {
     setIsWithdrawLoading(true);
-    methods
-      .send(
-        appContract.methods.withdraw,
-        [
+    try {
+      await vaiVaultContract.methods
+        .withdraw(
           withdrawAmount
             .times(1e18)
             .integerValue()
             .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        updateTotalInfo();
-        setWithdrawAmount(new BigNumber(0));
-        setIsWithdrawLoading(false);
-      })
-      .catch(() => {
-        setIsWithdrawLoading(false);
-      });
+        )
+        .send({ from: account });
+      setWithdrawAmount(new BigNumber(0));
+    } catch (error) {
+      console.log('vai withdraw error :>> ', error);
+    }
+    setIsWithdrawLoading(false);
   };
 
   const onApprove = async () => {
     setIsStakeLoading(true);
-    const vaiContract = getVaiTokenContract();
-    methods
-      .send(
-        vaiContract.methods.approve,
-        [
-          constants.CONTRACT_VAI_VAULT_ADDRESS,
+    try {
+      await vaiTokenContract.methods
+        .approve(
+          getVaiVaultAddress(),
           new BigNumber(2)
             .pow(256)
             .minus(1)
             .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        updateTotalInfo();
-        setIsStakeLoading(false);
-      })
-      .catch(() => {
-        setIsStakeLoading(false);
-      });
+        )
+        .send({ from: account });
+    } catch (error) {
+      console.log('vai token approve :>> ', error);
+    }
+    setIsStakeLoading(false);
   };
 
   return (
@@ -281,8 +256,7 @@ Staking.propTypes = {
   settings: PropTypes.object,
   isEnabled: PropTypes.bool.isRequired,
   availableVai: PropTypes.object.isRequired,
-  vaiStaked: PropTypes.object.isRequired,
-  updateTotalInfo: PropTypes.func.isRequired
+  vaiStaked: PropTypes.object.isRequired
 };
 
 Staking.defaultProps = {

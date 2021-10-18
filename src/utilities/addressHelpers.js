@@ -33,3 +33,7 @@ export const getOracleAddress = () => {
 export const getVoteAddress = () => {
   return addresses.vote[chainId];
 };
+
+export const getVenusLensAddress = () => {
+  return addresses.venusLens[chainId];
+};

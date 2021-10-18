@@ -11,6 +11,7 @@ import vbepAbi from '../config/abis/vbep.json';
 import vbnbAbi from '../config/abis/vbnb.json';
 import voteAbi from '../config/abis/vote.json';
 import xvsAbi from '../config/abis/xvs.json';
+import venusLensAbi from '../config/abis/venusLens.json';
 import {
   getComptrollerAddress,
   getOracleAddress,
@@ -18,7 +19,8 @@ import {
   getVaiUnitrollerAddress,
   getVaiVaultAddress,
   getVaultAddress,
-  getVoteAddress
+  getVoteAddress,
+  getVenusLensAddress
 } from './addressHelpers';
 import * as constants from './constants';
 
@@ -73,4 +75,8 @@ export const getVoteContract = web3 => {
 
 export const getInterestModelContract = (web3, address) => {
   return getContract(interestModelAbi, address, web3);
+};
+
+export const getVenusLensContract = web3 => {
+  return getContract(venusLensAbi, getVenusLensAddress(), web3);
 };

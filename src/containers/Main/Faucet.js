@@ -14,6 +14,7 @@ import toast from 'components/Basic/Toast';
 import * as constants from 'utilities/constants';
 import { Row, Column } from 'components/Basic/Style';
 import { BASE_BSC_SCAN_URL } from '../../config';
+import { getVaiTokenAddress } from '../../utilities/addressHelpers';
 
 const FaucetWrapper = styled.div`
   width: 100%;
@@ -380,7 +381,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_VAI_TOKEN_ADDRESS}`}
+                href={`${BASE_BSC_SCAN_URL}/address/${getVaiTokenAddress()}`}
                 target="_blank"
                 rel="noreferrer"
               >

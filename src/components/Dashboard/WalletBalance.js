@@ -11,12 +11,12 @@ import AnimatedNumber from 'animated-number-react';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import { getBigNumber } from 'utilities/common';
-import { getVaiVaultContract, methods } from 'utilities/ContractService';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
+import { useVaiVault } from '../../hooks/useContract';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -92,13 +92,13 @@ function WalletBalance({ settings, setSetting }) {
   const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
   const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
   const { account } = useWeb3React();
+  const vaultContract = useVaiVault();
 
   const addVAIApy = useCallback(
     async apy => {
-      const vaultContract = getVaiVaultContract();
-      const { 0: staked } = await methods.call(vaultContract.methods.userInfo, [
-        account
-      ]);
+      const { 0: staked } = await vaultContract.methods
+        .userInfo(account)
+        .call();
       const amount = new BigNumber(staked).div(1e18);
       if (amount.isNaN() || amount.isZero()) {
         setNetAPY(apy.dp(2, 1).toNumber());

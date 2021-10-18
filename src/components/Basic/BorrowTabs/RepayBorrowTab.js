@@ -7,11 +7,6 @@ import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
-import {
-  getTokenContract,
-  getVbepContract,
-  methods
-} from 'utilities/ContractService';
 import { sendRepay } from 'utilities/BnbContract';
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -22,9 +17,10 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
+import { useToken, useVbep } from '../../../hooks/useContract';
+import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
 
 function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +33,9 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const { account } = useWeb3React();
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
+  const tokenContract = useToken(asset.id);
+  const vbepContract = useVbep(asset.id);
+  const web3 = useWeb3();
 
   const updateInfo = useCallback(() => {
     const tokenPrice = getBigNumber(asset.tokenPrice);
@@ -81,33 +80,27 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const onApprove = async () => {
     if (asset && account && asset.id !== 'bnb') {
       setIsLoading(true);
-      const tokenContract = getTokenContract(asset.id);
-      methods
-        .send(
-          tokenContract.methods.approve,
-          [
+      try {
+        await tokenContract.methods
+          .approve(
             asset.vtokenAddress,
             new BigNumber(2)
               .pow(256)
               .minus(1)
               .toString(10)
-          ],
-          account
-        )
-        .then(() => {
-          setIsEnabled(true);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
+          )
+          .send({ from: account });
+        setIsEnabled(true);
+      } catch (error) {
+        console.log('approve error :>> ', error);
+      }
+      setIsLoading(false);
     }
   };
   /**
    * Repay Borrow
    */
   const handleRepayBorrow = async () => {
-    const appContract = getVbepContract(asset.id);
     if (asset && account) {
       setIsLoading(true);
       setSetting({
@@ -119,29 +112,18 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         }
       });
       if (asset.id !== 'bnb') {
-        if (amount.eq(asset.borrowBalance)) {
-          await methods.send(
-            appContract.methods.repayBorrow,
-            [
-              new BigNumber(2)
-                .pow(256)
-                .minus(1)
-                .toString(10)
-            ],
-            account
-          );
-        } else {
-          await methods.send(
-            appContract.methods.repayBorrow,
-            [
-              amount
-                .times(new BigNumber(10).pow(asset.decimals))
-                .integerValue()
-                .toString(10)
-            ],
-            account
-          );
-        }
+        const repayAmount = amount.eq(asset.borrowBalance)
+          ? new BigNumber(2)
+              .pow(256)
+              .minus(1)
+              .toString(10)
+          : amount
+              .times(new BigNumber(10).pow(asset.decimals))
+              .integerValue()
+              .toString(10);
+        await vbepContract.methods
+          .repayBorrow(repayAmount)
+          .send({ from: account });
         setAmount(new BigNumber(0));
         onCancel();
         setIsLoading(false);
@@ -155,6 +137,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         });
       } else {
         sendRepay(
+          web3,
           account,
           amount
             .times(new BigNumber(10).pow(asset.decimals))

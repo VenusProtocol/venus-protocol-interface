@@ -8,11 +8,6 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { useWeb3React } from '@web3-react/core';
 import { connectAccount, accountActionCreators } from 'core';
-import {
-  getVbepContract,
-  getComptrollerContract,
-  methods
-} from 'utilities/ContractService';
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/venus_32.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -20,12 +15,13 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
-import { useComptroller } from '../../../hooks/useContract';
+import { useComptroller, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
+import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 
-function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
+function WithdrawTab({ asset, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowLimit, setBorrowLimit] = useState(new BigNumber(0));
@@ -36,7 +32,9 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
   const { account } = useWeb3React();
   const comptrollerContract = useComptroller();
+  const vbepContract = useVbep(asset.id);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
+  const { mintableVai } = useVaiUser();
 
   const getFeePercent = async () => {
     const treasuryPercent = await comptrollerContract.methods
@@ -109,63 +107,54 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
    * Withdraw
    */
   const handleWithdraw = async () => {
-    const { id: assetId } = asset;
-    const vbepContract = getVbepContract(assetId);
-    if (assetId) {
-      setIsLoading(true);
+    setIsLoading(true);
+    setSetting({
+      pendingInfo: {
+        type: 'Withdraw',
+        status: true,
+        amount: amount.dp(8, 1).toString(10),
+        symbol: asset.symbol
+      }
+    });
+    try {
+      if (amount.eq(asset.supplyBalance)) {
+        const vTokenBalance = await vbepContract.methods
+          .balanceOf(account)
+          .call();
+        await vbepContract.methods
+          .redeem(vTokenBalance)
+          .send({ from: account });
+      } else {
+        await vbepContract.methods
+          .redeemUnderlying(
+            amount
+              .times(new BigNumber(10).pow(asset.decimals))
+              .integerValue()
+              .toString(10)
+          )
+          .send({ from: account });
+      }
+      setAmount(new BigNumber(0));
+      setIsLoading(false);
+      onCancel();
       setSetting({
         pendingInfo: {
-          type: 'Withdraw',
-          status: true,
-          amount: amount.dp(8, 1).toString(10),
-          symbol: asset.symbol
+          type: '',
+          status: false,
+          amount: 0,
+          symbol: ''
         }
       });
-      try {
-        if (amount.eq(asset.supplyBalance)) {
-          const vTokenBalance = await methods.call(
-            vbepContract.methods.balanceOf,
-            [account]
-          );
-          await methods.send(
-            vbepContract.methods.redeem,
-            [vTokenBalance],
-            account
-          );
-        } else {
-          await methods.send(
-            vbepContract.methods.redeemUnderlying,
-            [
-              amount
-                .times(new BigNumber(10).pow(asset.decimals))
-                .integerValue()
-                .toString(10)
-            ],
-            account
-          );
+    } catch (error) {
+      setIsLoading(false);
+      setSetting({
+        pendingInfo: {
+          type: '',
+          status: false,
+          amount: 0,
+          symbol: ''
         }
-        setAmount(new BigNumber(0));
-        setIsLoading(false);
-        onCancel();
-        setSetting({
-          pendingInfo: {
-            type: '',
-            status: false,
-            amount: 0,
-            symbol: ''
-          }
-        });
-      } catch (error) {
-        setIsLoading(false);
-        setSetting({
-          pendingInfo: {
-            type: '',
-            status: false,
-            amount: 0,
-            symbol: ''
-          }
-        });
-      }
+      });
     }
   };
   /**
@@ -270,12 +259,7 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>
-              {getBigNumber(settings.mintableVai)
-                .dp(2, 1)
-                .toString(10)}{' '}
-              VAI
-            </span>
+            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
           </div>
           {asset.symbol !== 'BNB' && (
             <div className="description">
@@ -372,7 +356,6 @@ function WithdrawTab({ asset, settings, changeTab, onCancel, setSetting }) {
 
 WithdrawTab.propTypes = {
   asset: PropTypes.object,
-  settings: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
   setSetting: PropTypes.func.isRequired
@@ -380,14 +363,9 @@ WithdrawTab.propTypes = {
 
 WithdrawTab.defaultProps = {
   asset: {},
-  settings: {},
   changeTab: () => {},
   onCancel: () => {}
 };
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
 
 const mapDispatchToProps = dispatch => {
   const { setSetting } = accountActionCreators;
@@ -400,6 +378,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  WithdrawTab
-);
+export default compose(connectAccount(null, mapDispatchToProps))(WithdrawTab);

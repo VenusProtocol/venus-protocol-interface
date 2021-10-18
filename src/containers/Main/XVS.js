@@ -9,11 +9,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { connectAccount, accountActionCreators } from 'core';
-import {
-  getTokenContract,
-  getComptrollerContract,
-  methods
-} from 'utilities/ContractService';
 import MainLayout from 'containers/Layout/MainLayout';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import * as constants from 'utilities/constants';
@@ -22,6 +17,8 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
 import { useMarkets } from '../../hooks/useMarkets';
+import { useComptroller, useToken } from '../../hooks/useContract';
+import { getComptrollerAddress } from '../../utilities/addressHelpers';
 
 const XVSLayout = styled.div`
   .main-content {
@@ -209,6 +206,8 @@ function XVS({ settings }) {
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
   const { account } = useWeb3React();
   const { markets, dailyVenus } = useMarkets();
+  const xvsTokenContract = useToken('xvs');
+  const comptrollerContract = useComptroller();
 
   const mintedAmount = '23700000';
 
@@ -219,20 +218,17 @@ function XVS({ settings }) {
         new BigNumber(market.totalDistributed)
       );
     }, 0);
-    const compContract = getComptrollerContract();
 
     // total info
-    let venusVAIVaultRate = await methods.call(
-      compContract.methods.venusVAIVaultRate,
-      []
-    );
+    let venusVAIVaultRate = await comptrollerContract.methods
+      .venusVAIVaultRate()
+      .call();
     venusVAIVaultRate = new BigNumber(venusVAIVaultRate)
       .div(1e18)
       .times(20 * 60 * 24);
-    const tokenContract = getTokenContract('xvs');
-    const remainedAmount = await methods.call(tokenContract.methods.balanceOf, [
-      constants.CONTRACT_COMPTROLLER_ADDRESS
-    ]);
+    const remainedAmount = await xvsTokenContract.methods
+      .balanceOf(getComptrollerAddress())
+      .call();
     setDailyDistribution(
       new BigNumber(dailyVenus)
         .div(new BigNumber(10).pow(18))
@@ -290,12 +286,12 @@ function XVS({ settings }) {
     <XVSLayout>
       <MainLayout title="User Distribution">
         <XVSWrapper>
-          {(!account || settings.accountLoading || settings.wrongNetwork) && (
+          {!account && (
             <SpinnerWrapper>
               <LoadingSpinner />
             </SpinnerWrapper>
           )}
-          {account && !settings.accountLoading && !settings.wrongNetwork && (
+          {account && (
             <>
               <XVSInfoWrapper className="flex align-center just-between">
                 <div className="flex align-center xvs-info">

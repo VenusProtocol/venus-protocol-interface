@@ -12,6 +12,7 @@ import { addToken, getBigNumber } from 'utilities/common';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiUser } from '../../hooks/useVaiUser';
+import { getVaiTokenAddress } from '../../utilities/addressHelpers';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -70,7 +71,7 @@ function VaiInfo({ settings }) {
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
     window.open(
-      `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_VAI_TOKEN_ADDRESS}?a=${account}`,
+      `${BASE_BSC_SCAN_URL}/token/${getVaiTokenAddress()}?a=${account}`,
       '_blank'
     );
   };

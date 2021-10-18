@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
-import { getTokenContract, methods } from 'utilities/ContractService';
 import greenCheckImg from 'assets/img/green-check.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import DelegationVoting from './DelegationVoting';
 import ManualVoting from './ManualVoting';
+import { useToken } from '../../hooks/useContract';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -81,19 +81,19 @@ function DelegationTypeModal({
 }) {
   const [child, setChild] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const xvsContract = useToken('xvs');
 
-  const handleVoting = dAddress => {
+  const handleVoting = async dAddress => {
     setIsLoading(true);
-    const tokenContract = getTokenContract('xvs');
-    methods
-      .send(tokenContract.methods.delegate, [dAddress || address], address)
-      .then(() => {
-        setIsLoading(false);
-        onCancel();
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    try {
+      await xvsContract.methods
+        .delegate(dAddress || address)
+        .send({ from: address });
+      onCancel();
+    } catch (error) {
+      console.log('delegate error :>> ', error);
+    }
+    setIsLoading(false);
   };
 
   return (

@@ -4,7 +4,6 @@ import { useComptroller, useVaiToken, useVaiUnitroller } from './useContract';
 import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
 import { getVaiUnitrollerAddress } from '../utilities/addressHelpers';
-import { methods } from '../utilities/ContractService';
 
 export const useVaiUser = () => {
   const [userVaiMinted, setMintedAmount] = useState(new BigNumber(0));
@@ -25,22 +24,15 @@ export const useVaiUser = () => {
       { 1: mintableVai },
       allowBalance
     ] = await Promise.all([
-      methods.call(vaiContract.methods.balanceOf, [account]),
-      methods.call(comptrollerContract.methods.mintedVAIs, [account]),
-      methods.call(vaiControllerContract.methods.getMintableVAI, [account]),
-      methods.call(vaiContract.methods.allowance, [
-        account,
-        getVaiUnitrollerAddress()
-      ])
+      vaiContract.methods.balanceOf(account).call(),
+      comptrollerContract.methods.mintedVAIs(account).call(),
+      vaiControllerContract.methods.getMintableVAI(account).call(),
+      vaiContract.methods.allowance(account, getVaiUnitrollerAddress()).call()
     ]);
-    userVaiBalance = new BigNumber(userVaiBalance).div(
-      new BigNumber(10).pow(18)
-    );
-    userVaiMinted = new BigNumber(userVaiMinted).div(
-      new BigNumber(10).pow(18)
-    );
-    mintableVai = new BigNumber(mintableVai).div(new BigNumber(10).pow(18));
-    allowBalance = new BigNumber(allowBalance).div(new BigNumber(10).pow(18));
+    userVaiBalance = new BigNumber(userVaiBalance).div(1e18);
+    userVaiMinted = new BigNumber(userVaiMinted).div(1e18);
+    mintableVai = new BigNumber(mintableVai).div(1e18);
+    allowBalance = new BigNumber(allowBalance).div(1e18);
 
     setMintedAmount(userVaiMinted);
     setWalletAmount(userVaiBalance);
@@ -54,8 +46,5 @@ export const useVaiUser = () => {
     }
   }, [fastRefresh, account]);
 
-  return { userVaiMinted,
-    userVaiBalance,
-    userVaiEnabled,
-    mintableVai };
+  return { userVaiMinted, userVaiBalance, userVaiEnabled, mintableVai };
 };

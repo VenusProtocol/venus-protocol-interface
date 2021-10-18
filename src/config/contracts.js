@@ -30,6 +30,10 @@ const contracts = {
   vote: {
     56: '0x406f48f47D25E9caa29f17e7Cfbd1dc6878F078f',
     97: '0x7Df10B2118EB04d9806B15198019F83741A9f8F4'
+  },
+  venusLens: {
+    56: '0x595e9DDfEbd47B54b996c839Ef3Dd97db3ED19bA',
+    97: '0x40e42Ad74AA4c61B577387821e845a8892E65002'
   }
 };
 

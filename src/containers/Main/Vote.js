@@ -7,13 +7,6 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
-import {
-  getTokenContract,
-  getVbepContract,
-  getComptrollerContract,
-  getVaiControllerContract,
-  methods
-} from 'utilities/ContractService';
 import MainLayout from 'containers/Layout/MainLayout';
 import CoinInfo from 'components/Vote/CoinInfo';
 import VotingWallet from 'components/Vote/VotingWallet';
@@ -25,6 +18,13 @@ import { Row, Column } from 'components/Basic/Style';
 import * as constants from 'utilities/constants';
 import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../../hooks/useRefresh';
+import {
+  useComptroller,
+  useToken,
+  useVaiUnitroller
+} from '../../hooks/useContract';
+import useWeb3 from '../../hooks/useWeb3';
+import { getVbepContract } from '../../utilities/contractHelpers';
 
 const VoteWrapper = styled.div`
   height: 100%;
@@ -53,6 +53,10 @@ function Vote({ settings, getProposals, setSetting }) {
   const [delegateStatus, setDelegateStatus] = useState('');
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
+  const xvsTokenContract = useToken('xvs');
+  const comptrollerContract = useComptroller();
+  const vaiUnitrollerContract = useVaiUnitroller();
+  const web3 = useWeb3();
 
   const loadInitialData = useCallback(async () => {
     setIsLoadingPropoasl(true);
@@ -91,31 +95,23 @@ function Vote({ settings, getProposals, setSetting }) {
 
   const updateBalance = async () => {
     if (account) {
-      const xvsTokenContract = getTokenContract('xvs');
-      await methods
-        .call(xvsTokenContract.methods.getCurrentVotes, [account])
-        .then(res => {
-          const weight = new BigNumber(res)
-            .div(new BigNumber(10).pow(18))
-            .toString(10);
-          setVotingWeight(weight);
-        });
-      let temp = await methods.call(xvsTokenContract.methods.balanceOf, [
-        account
+      const [currentVotes, balance] = await Promise.all([
+        xvsTokenContract.methods.getCurrentVotes(account).call(),
+        xvsTokenContract.methods.balanceOf(account).call()
       ]);
-      temp = new BigNumber(temp)
-        .dividedBy(new BigNumber(10).pow(18))
-        .dp(4, 1)
-        .toString(10);
-      setBalance(temp);
+      setVotingWeight(new BigNumber(currentVotes).div(1e18).toString(10));
+      setBalance(
+        new BigNumber(balance)
+          .div(1e18)
+          .dp(4, 1)
+          .toString(10)
+      );
     }
   };
 
   const getVoteInfo = async () => {
     const myAddress = account;
     if (!myAddress) return;
-    const appContract = getComptrollerContract();
-    const vaiContract = getVaiControllerContract();
 
     let [
       venusInitialIndex,
@@ -124,17 +120,17 @@ function Vote({ settings, getProposals, setSetting }) {
       vaiMinterIndex,
       vaiMinterAmount
     ] = await Promise.all([
-      methods.call(appContract.methods.venusInitialIndex, []),
-      methods.call(appContract.methods.venusAccrued, [myAddress]),
-      methods.call(vaiContract.methods.venusVAIState, []),
-      methods.call(vaiContract.methods.venusVAIMinterIndex, [myAddress]),
-      methods.call(appContract.methods.mintedVAIs, [myAddress])
+      comptrollerContract.methods.venusInitialIndex().call(),
+      comptrollerContract.methods.venusAccrued(myAddress).call(),
+      vaiUnitrollerContract.methods.venusVAIState().call(),
+      vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call(),
+      comptrollerContract.methods.mintedVAIs(myAddress).call()
     ]);
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(constants.CONTRACT_VBEP_ADDRESS).map(
         async (item, index) => {
-          const vBepContract = getVbepContract(item.id);
+          const vBepContract = getVbepContract(web3, item.id);
           let [
             supplyState,
             supplierIndex,
@@ -144,19 +140,17 @@ function Vote({ settings, getProposals, setSetting }) {
             borrowBalanceStored,
             borrowIndex
           ] = await Promise.all([
-            methods.call(appContract.methods.venusSupplyState, [item.address]),
-            methods.call(appContract.methods.venusSupplierIndex, [
-              item.address,
-              myAddress
-            ]),
-            methods.call(vBepContract.methods.balanceOf, [myAddress]),
-            methods.call(appContract.methods.venusBorrowState, [item.address]),
-            methods.call(appContract.methods.venusBorrowerIndex, [
-              item.address,
-              myAddress
-            ]),
-            methods.call(vBepContract.methods.borrowBalanceStored, [myAddress]),
-            methods.call(vBepContract.methods.borrowIndex, [])
+            comptrollerContract.methods.venusSupplyState(item.address).call(),
+            comptrollerContract.methods
+              .venusSupplierIndex(item.address, myAddress)
+              .call(),
+            vBepContract.methods.balanceOf(myAddress).call(),
+            comptrollerContract.methods.venusBorrowState(item.address).call(),
+            comptrollerContract.methods
+              .venusBorrowerIndex(item.address, myAddress)
+              .call(),
+            vBepContract.methods.borrowBalanceStored(myAddress).call(),
+            vBepContract.methods.borrowIndex().call()
           ]);
           const supplyIndex = supplyState.index;
           if (+supplierIndex === 0 && +supplyIndex > 0) {
@@ -212,52 +206,32 @@ function Vote({ settings, getProposals, setSetting }) {
   };
 
   const updateDelegate = async () => {
-    if (account && timeStamp % 3 === 0) {
-      const tokenContract = getTokenContract('xvs');
-      methods
-        .call(tokenContract.methods.delegates, [account])
-        .then(res => {
-          setDelegateAddress(res);
-          if (res !== '0x0000000000000000000000000000000000000000') {
-            setDelegateStatus(res === account ? 'self' : 'delegate');
-          } else {
-            setDelegateStatus('');
-          }
-        })
-        .catch(() => {});
+    if (account) {
+      const res = await xvsTokenContract.methods.delegates(account).call();
+      setDelegateAddress(res);
+      if (res !== '0x0000000000000000000000000000000000000000') {
+        setDelegateStatus(res === account ? 'self' : 'delegate');
+      } else {
+        setDelegateStatus('');
+      }
     }
-    timeStamp = Date.now();
   };
 
   useEffect(() => {
     getVoteInfo();
     updateBalance();
     updateDelegate();
-  }, [fastRefresh]);
-
-  const handleAccountChange = async () => {
-    await getVoteInfo();
-    await updateBalance();
-    setSetting({
-      accountLoading: false
-    });
-  };
-
-  useEffect(() => {
-    if (settings.accountLoading) {
-      handleAccountChange();
-    }
-  }, [settings.accountLoading]);
+  }, [fastRefresh, account]);
 
   return (
     <MainLayout title="Vote">
       <VoteWrapper className="flex">
-        {(!account || settings.accountLoading || settings.wrongNetwork) && (
+        {!account && (
           <SpinnerWrapper>
             <LoadingSpinner />
           </SpinnerWrapper>
         )}
-        {account && !settings.accountLoading && !settings.wrongNetwork && (
+        {account && (
           <Row>
             <Column xs="12" sm="12" md="5">
               <Row>

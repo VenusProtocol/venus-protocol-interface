@@ -3,17 +3,13 @@ import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import BigNumber from 'bignumber.js';
-import {
-  getVaiControllerContract,
-  getVaiTokenContract,
-  methods
-} from 'utilities/ContractService';
 import commaNumber from 'comma-number';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { getVaiUnitrollerAddress } from '../../../utilities/addressHelpers';
+import { useVaiToken, useVaiUnitroller } from '../../../hooks/useContract';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -22,6 +18,8 @@ function RepayVaiTab() {
   const [amount, setAmount] = useState(new BigNumber(0));
   const { account } = useWeb3React();
   const { userVaiMinted, userVaiBalance, userVaiEnabled } = useVaiUser();
+  const vaiContract = useVaiToken();
+  const vaiControllerContract = useVaiUnitroller();
 
   /**
    * Max amount
@@ -35,51 +33,39 @@ function RepayVaiTab() {
    */
   const onVaiApprove = async () => {
     setIsLoading(true);
-    const vaiContract = getVaiTokenContract();
-    methods
-      .send(
-        vaiContract.methods.approve,
-        [
-          getVaiUnitrollerAddress(),
-          new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    try {
+      await vaiContract.methods.approve(
+        getVaiUnitrollerAddress(),
+        new BigNumber(2)
+          .pow(256)
+          .minus(1)
+          .toString(10)
+      );
+    } catch (error) {
+      console.log('vai approve error :>> ', error);
+    }
+    setIsLoading(false);
   };
 
   /**
    * Repay VAI
    */
-  const handleRepayVAI = () => {
-    const appContract = getVaiControllerContract();
+  const handleRepayVAI = async () => {
     setIsLoading(true);
-    methods
-      .send(
-        appContract.methods.repayVAI,
-        [
+    try {
+      await vaiControllerContract.methods
+        .repayVAI(
           amount
             .times(new BigNumber(10).pow(18))
             .dp(0)
             .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        setAmount(new BigNumber(0));
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+        )
+        .send({ from: account });
+      setAmount(new BigNumber(0));
+    } catch (error) {
+      console.log('repay vai error :>> ', error);
+    }
+    setIsLoading(false);
   };
 
   return (

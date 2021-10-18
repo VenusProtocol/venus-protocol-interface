@@ -8,11 +8,6 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import { useWeb3React } from '@web3-react/core';
-import {
-  getTokenContract,
-  getVbepContract,
-  methods
-} from 'utilities/ContractService';
 import commaNumber from 'comma-number';
 import { sendSupply } from 'utilities/BnbContract';
 import coinImg from 'assets/img/venus_32.png';
@@ -22,11 +17,13 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
+import { useVaiUser } from '../../../hooks/useVaiUser';
+import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
-function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
+function SupplyTab({ asset, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -38,6 +35,8 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const vbepContract = useVbep(asset.id);
   const tokenContract = useToken(asset.id);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
+  const { mintableVai } = useVaiUser();
+  const web3 = useWeb3();
 
   const updateInfo = useCallback(async () => {
     const tokenPrice = getBigNumber(asset.tokenPrice);
@@ -133,6 +132,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
           )
           .send({ from: account });
         setAmount(new BigNumber(0));
+        onCancel();
       } catch (error) {
         console.log('supply error :>> ', error);
       }
@@ -147,6 +147,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
       });
     } else {
       sendSupply(
+        web3,
         account,
         amount.times(new BigNumber(10).pow(asset.decimals)).toString(10),
         () => {
@@ -268,12 +269,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>
-              {getBigNumber(settings.mintableVai)
-                .dp(2, 1)
-                .toString(10)}{' '}
-              VAI
-            </span>
+            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
           </div>
         </div>
         {isEnabled && (
@@ -356,7 +352,6 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
 
 SupplyTab.propTypes = {
   asset: PropTypes.object,
-  settings: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
   setSetting: PropTypes.func.isRequired
@@ -364,14 +359,9 @@ SupplyTab.propTypes = {
 
 SupplyTab.defaultProps = {
   asset: {},
-  settings: {},
   changeTab: () => {},
   onCancel: () => {}
 };
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
 
 const mapDispatchToProps = dispatch => {
   const { setSetting } = accountActionCreators;
@@ -384,6 +374,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  SupplyTab
-);
+export default compose(connectAccount(null, mapDispatchToProps))(SupplyTab);

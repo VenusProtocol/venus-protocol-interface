@@ -7,7 +7,6 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
-import { getVbepContract, methods } from 'utilities/ContractService';
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
@@ -17,11 +16,12 @@ import { getBigNumber } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
+import { useVbep } from '../../../hooks/useContract';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
-function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
+function BorrowTab({ asset, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowBalance, setBorrowBalance] = useState(new BigNumber(0));
@@ -31,6 +31,7 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const { account } = useWeb3React();
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
+  const vbepContract = useVbep(asset.id);
 
   const updateInfo = useCallback(() => {
     const tokenPrice = getBigNumber(asset.tokenPrice);
@@ -78,8 +79,7 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   /**
    * Borrow
    */
-  const handleBorrow = () => {
-    const appContract = getVbepContract(asset.id);
+  const handleBorrow = async () => {
     if (asset && account) {
       setIsLoading(true);
       setSetting({
@@ -90,41 +90,28 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
           symbol: asset.symbol
         }
       });
-      methods
-        .send(
-          appContract.methods.borrow,
-          [
+      try {
+        await vbepContract.methods
+          .borrow(
             amount
               .times(new BigNumber(10).pow(asset.decimals))
               .integerValue()
               .toString(10)
-          ],
-          account
-        )
-        .then(() => {
-          setAmount(new BigNumber(0));
-          setIsLoading(false);
-          setSetting({
-            pendingInfo: {
-              type: '',
-              status: false,
-              amount: 0,
-              symbol: ''
-            }
-          });
-          onCancel();
-        })
-        .catch(() => {
-          setIsLoading(false);
-          setSetting({
-            pendingInfo: {
-              type: '',
-              status: false,
-              amount: 0,
-              symbol: ''
-            }
-          });
-        });
+          )
+          .send({ from: account });
+        setAmount(new BigNumber(0));
+        onCancel();
+      } catch (error) {
+        console.log('borrow error :>> ', error);
+      }
+      setSetting({
+        pendingInfo: {
+          type: '',
+          status: false,
+          amount: 0,
+          symbol: ''
+        }
+      });
     }
   };
   /**
@@ -324,7 +311,6 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
 
 BorrowTab.propTypes = {
   asset: PropTypes.object,
-  settings: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
   setSetting: PropTypes.func.isRequired
@@ -332,14 +318,9 @@ BorrowTab.propTypes = {
 
 BorrowTab.defaultProps = {
   asset: {},
-  settings: {},
   changeTab: () => {},
   onCancel: () => {}
 };
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
 
 const mapDispatchToProps = dispatch => {
   const { setSetting } = accountActionCreators;
@@ -352,6 +333,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  BorrowTab
-);
+export default compose(connectAccount(null, mapDispatchToProps))(BorrowTab);

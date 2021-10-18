@@ -6,17 +6,14 @@ import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import {
-  getVaultContract,
-  getTokenContract,
-  methods
-} from 'utilities/ContractService';
 import { Card } from 'components/Basic/Card';
 import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import * as constants from 'utilities/constants';
 import xvsImg from 'assets/img/venus_32.png';
 import { useWeb3React } from '@web3-react/core';
+import { useToken, useVault } from '../../../hooks/useContract';
+import { getVaultAddress } from '../../../utilities/addressHelpers';
 
 const StakingWrapper = styled.div`
   width: 100%;
@@ -155,6 +152,8 @@ function Staking({ settings, userInfo, rewardAddress }) {
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
   const { account } = useWeb3React();
+  const vaultContract = useVault();
+  const xvsContract = useToken('xvs');
 
   const {
     walletBalance,
@@ -168,115 +167,94 @@ function Staking({ settings, userInfo, rewardAddress }) {
   /**
    * Stake
    */
-  const handleStake = () => {
-    const vaultContract = getVaultContract();
+  const handleStake = async () => {
     setIsStakeLoading(true);
-    methods
-      .send(
-        vaultContract.methods.deposit,
-        [
+    try {
+      await vaultContract.methods
+        .deposit(
           rewardAddress,
           0,
           stakeAmount
             .times(1e18)
             .integerValue()
             .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        setStakeAmount(new BigNumber(0));
-        setIsStakeLoading(false);
-      })
-      .catch(() => {
-        setIsStakeLoading(false);
-      });
+        )
+        .send({ from: account });
+      setStakeAmount(new BigNumber(0));
+    } catch (error) {
+      console.log('stake error :>> ', error);
+    }
+    setIsStakeLoading(false);
   };
 
   /**
    * Request Withdrawal
    */
-  const handleRequestWithdrawal = () => {
-    const vaultContract = getVaultContract();
+  const handleRequestWithdrawal = async () => {
     setIsWithdrawLoading(true);
-    methods
-      .send(
-        vaultContract.methods.RequestWithdrawal,
-        [
+    try {
+      await vaultContract.methods
+        .RequestWithdrawal(
           rewardAddress,
           0,
           withdrawAmount
             .times(1e18)
             .integerValue()
             .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        setWithdrawAmount(new BigNumber(0));
-        setIsWithdrawLoading(false);
-      })
-      .catch(() => {
-        setIsWithdrawLoading(false);
-      });
+        )
+        .send({ from: account });
+      setWithdrawAmount(new BigNumber(0));
+    } catch (error) {
+      console.log('request withdrawal error :>> ', error);
+    }
+    setIsWithdrawLoading(false);
   };
 
   /**
    * Execute Withdrawal
    */
-  const handleExecuteWithdrawal = () => {
-    const vaultContract = getVaultContract();
+  const handleExecuteWithdrawal = async () => {
     setIsWithdrawLoading(true);
-    methods
-      .send(
-        vaultContract.methods.ExecuteWithdrawal,
-        [rewardAddress, 0],
-        account
-      )
-      .then(() => {
-        setWithdrawAmount(new BigNumber(0));
-        setIsWithdrawLoading(false);
-      })
-      .catch(() => {
-        setIsWithdrawLoading(false);
-      });
+    try {
+      await vaultContract.methods
+        .ExecuteWithdrawal(rewardAddress, 0)
+        .send({ from: account });
+      setWithdrawAmount(new BigNumber(0));
+    } catch (error) {
+      console.log('execute withdrawal error :>> ', error);
+    }
+    setIsWithdrawLoading(false);
   };
 
   const onApprove = async () => {
     setIsStakeLoading(true);
-    const xvsContract = getTokenContract('xvs');
-    methods
-      .send(
-        xvsContract.methods.approve,
-        [
-          constants.CONTRACT_VAULT_ADDRESS,
+    try {
+      await xvsContract.methods
+        .approve(
+          getVaultAddress(),
           new BigNumber(2)
             .pow(256)
             .minus(1)
             .toString(10)
-        ],
-        account
-      )
-      .then(() => {
-        setIsStakeLoading(false);
-      })
-      .catch(() => {
-        setIsStakeLoading(false);
-      });
+        )
+        .send({ from: account });
+    } catch (error) {
+      console.log('xvs approve error :>> ', error);
+    }
+    setIsStakeLoading(false);
   };
 
   const handleClaimReward = async () => {
     if (isClaimLoading || pendingReward.isZero()) return;
-    const vaultContract = getVaultContract();
     setIsClaimLoading(true);
-    methods
-      .send(vaultContract.methods.deposit, [rewardAddress, 0, 0], account)
-      .then(() => {
-        setIsClaimLoading(false);
-      })
-      .catch(() => {
-        setIsClaimLoading(false);
-      });
+    try {
+      await vaultContract.methods
+        .deposit(rewardAddress, 0, 0)
+        .send({ from: account });
+    } catch (error) {
+      console.log('claim reward error :>> ', error);
+    }
+    setIsClaimLoading(false);
   };
 
   return (

@@ -1,5 +1,6 @@
 import * as constants from 'utilities/constants';
 import BigNumber from 'bignumber.js';
+import { getVaiTokenAddress } from './addressHelpers';
 
 const ethers = require('ethers');
 const commaNumber = require('comma-number');
@@ -35,7 +36,7 @@ export const addToken = async (asset = 'vai', decimal, type) => {
   let tokenDecimals = 18;
   let tokenImage = '';
   if (asset === 'vai') {
-    tokenAddress = constants.CONTRACT_VAI_TOKEN_ADDRESS;
+    tokenAddress = getVaiTokenAddress();
     tokenSymbol = 'VAI';
     tokenDecimals = 18;
     tokenImage = `${window.location.origin}/coins/vai.svg`;

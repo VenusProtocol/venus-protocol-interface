@@ -7,10 +7,10 @@ import { withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
-import { getVoteContract, methods } from 'utilities/ContractService';
 import dashImg from 'assets/img/dash.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Label } from './Label';
+import { useVote } from '../../hooks/useContract';
 
 const ProposalWrapper = styled.div`
   width: 100%;
@@ -97,16 +97,11 @@ const ProposalWrapper = styled.div`
   }
 `;
 
-function Proposal({
-  address,
-  delegateAddress,
-  proposal,
-  votingWeight,
-  history
-}) {
+function Proposal({ address, proposal, votingWeight, history }) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState('like');
   const [voteStatus, setVoteStatus] = useState('');
+  const voteContract = useVote();
 
   const getStatus = p => {
     if (p.state === 'Executed') {
@@ -157,12 +152,10 @@ function Proposal({
   };
 
   const getIsHasVoted = useCallback(async () => {
-    const voteContract = getVoteContract();
-    await methods
-      .call(voteContract.methods.getReceipt, [proposal.id, address])
-      .then(res => {
-        setVoteStatus(res.hasVoted ? 'voted' : 'novoted');
-      });
+    const res = await voteContract.methods
+      .getReceipt(proposal.id, address)
+      .call();
+    setVoteStatus(res.hasVoted ? 'voted' : 'novoted');
   }, [address, proposal]);
 
   useEffect(() => {
@@ -171,22 +164,17 @@ function Proposal({
     }
   }, [address, proposal, getIsHasVoted]);
 
-  const handleVote = support => {
+  const handleVote = async support => {
     setIsLoading(true);
     setVoteType(support);
-    const appContract = getVoteContract();
-    methods
-      .send(
-        appContract.methods.castVote,
-        [proposal.id, support === 'like'],
-        address
-      )
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    try {
+      await voteContract.methods
+        .castVote(proposal.id, support === 'like')
+        .send({ from: address });
+    } catch (error) {
+      console.log('cast vote error :>> ', error);
+    }
+    setIsLoading(false);
   };
 
   const getTitle = descs => {
@@ -239,7 +227,7 @@ function Proposal({
           )}
           {voteStatus &&
             voteStatus === 'novoted' &&
-            proposal.state === 'Active'&& (
+            proposal.state === 'Active' && (
               <div
                 className="flex align-center"
                 onClick={e => e.stopPropagation()}

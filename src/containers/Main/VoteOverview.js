@@ -10,11 +10,6 @@ import BigNumber from 'bignumber.js';
 import { withRouter } from 'react-router-dom';
 import { Icon, Tooltip } from 'antd';
 import Button from '@material-ui/core/Button';
-import {
-  methods,
-  getVoteContract,
-  getTokenContract
-} from 'utilities/ContractService';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import ProposalInfo from 'components/Vote/VoteOverview/ProposalInfo';
@@ -26,6 +21,7 @@ import { promisify } from 'utilities';
 import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
+import { useToken, useVote } from '../../hooks/useContract';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
@@ -103,21 +99,17 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
   const [excuteEta, setExcuteEta] = useState('');
   const { account } = useWeb3React();
+  const xvsTokenContract = useToken('xvs');
+  const voteContract = useVote();
 
   const updateBalance = useCallback(async () => {
     if (account && proposalInfo.id) {
-      const xvsTokenContract = getTokenContract('xvs');
-      const voteContract = getVoteContract();
-      await methods
-        .call(voteContract.methods.proposalThreshold, [])
-        .then(res => {
-          setProposalThreshold(+Web3.utils.fromWei(res, 'ether'));
-        });
-      await methods
-        .call(xvsTokenContract.methods.getCurrentVotes, [proposalInfo.proposer])
-        .then(res => {
-          setProposerVotingWeight(+Web3.utils.fromWei(res, 'ether'));
-        });
+      const threshold = await voteContract.methods.proposalThreshold().call();
+      setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
+      const weight = await xvsTokenContract.methods
+        .getCurrentVotes(proposalInfo.proposer)
+        .call();
+      setProposerVotingWeight(+Web3.utils.fromWei(weight, 'ether'));
     }
   }, [account, proposalInfo]);
   useEffect(() => {
@@ -162,14 +154,12 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     [getVoters, proposalInfo]
   );
 
-  const getIsPossibleExcuted = () => {
-    const voteContract = getVoteContract();
-    methods
-      .call(voteContract.methods.proposals, [proposalInfo.id])
-      .then(res => {
-        setIsPossibleExcuted(res && res.eta <= Date.now() / 1000);
-        setExcuteEta(moment(res.eta * 1000).format('LLLL'));
-      });
+  const getIsPossibleExcuted = async () => {
+    const proposalsRes = await voteContract.methods
+      .proposals(proposalInfo.id)
+      .call();
+    setIsPossibleExcuted(proposalsRes && proposalsRes.eta <= Date.now() / 1000);
+    setExcuteEta(moment(proposalsRes.eta * 1000).format('LLLL'));
   };
 
   useEffect(() => {
@@ -206,53 +196,51 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     }
   };
 
-  const handleUpdateProposal = statusType => {
-    const appContract = getVoteContract();
+  const handleUpdateProposal = async statusType => {
     if (statusType === 'Queue') {
       setIsLoading(true);
-      methods
-        .send(appContract.methods.queue, [proposalInfo.id], account)
-        .then(() => {
-          setIsLoading(false);
-          setStatus('success');
-          toast.success({
-            title: `Proposal list will be updated within a few seconds`
-          });
-        })
-        .catch(() => {
-          setIsLoading(false);
-          setStatus('failure');
+      try {
+        await voteContract.methods
+          .queue(proposalInfo.id)
+          .send({ from: account });
+        setStatus('success');
+        toast.success({
+          title: `Proposal list will be updated within a few seconds`
         });
+      } catch (error) {
+        setStatus('failure');
+        console.log('queue error :>> ', error);
+      }
+      setIsLoading(false);
     } else if (statusType === 'Execute') {
       setIsLoading(true);
-      methods
-        .send(appContract.methods.execute, [proposalInfo.id], account)
-        .then(() => {
-          setIsLoading(false);
-          setStatus('success');
-          toast.success({
-            title: `Proposal list will be updated within a few seconds`
-          });
-        })
-        .catch(() => {
-          setIsLoading(false);
-          setStatus('failure');
+      try {
+        await voteContract.methods
+          .execute(proposalInfo.id)
+          .send({ from: account });
+        setStatus('success');
+        toast.success({
+          title: `Proposal list will be updated within a few seconds`
         });
+      } catch (error) {
+        setStatus('failure');
+        console.log('queue error :>> ', error);
+      }
+      setIsLoading(false);
     } else if (statusType === 'Cancel') {
       setIsCancelLoading(true);
-      methods
-        .send(appContract.methods.cancel, [proposalInfo.id], account)
-        .then(() => {
-          setIsCancelLoading(false);
-          setCancelStatus('success');
-          toast.success({
-            title: `Current proposal is cancelled successfully. Proposal list will be updated within a few seconds`
-          });
-        })
-        .catch(() => {
-          setIsCancelLoading(false);
-          setCancelStatus('failure');
+      try {
+        await voteContract.methods
+          .cancel(proposalInfo.id)
+          .send({ from: account });
+        setCancelStatus('success');
+        toast.success({
+          title: `Current proposal is cancelled successfully. Proposal list will be updated within a few seconds`
         });
+      } catch (error) {
+        setCancelStatus('failure');
+        console.log('queue error :>> ', error);
+      }
     }
   };
 

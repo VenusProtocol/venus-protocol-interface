@@ -9,7 +9,8 @@ import {
   getVaiVaultContract,
   getVaultContract,
   getVbepContract,
-  getVoteContract
+  getVoteContract,
+  getVenusLensContract
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
 
@@ -61,4 +62,9 @@ export const useVote = () => {
 export const useInterestModel = address => {
   const web3 = useWeb3();
   return useMemo(() => getInterestModelContract(web3), [web3]);
+};
+
+export const useVenusLens = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getVenusLensContract(web3), [web3]);
 };

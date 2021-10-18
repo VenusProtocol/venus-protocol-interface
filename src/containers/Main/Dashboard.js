@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { compose } from 'recompose';
@@ -15,21 +15,7 @@ import Market from 'components/Dashboard/Market';
 import { connectAccount, accountActionCreators } from 'core';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
-import {
-  getTokenContract,
-  getVbepContract,
-  getComptrollerContract,
-  getVaiControllerContract,
-  getVaiTokenContract,
-  methods
-} from 'utilities/ContractService';
-import BigNumber from 'bignumber.js';
-import * as constants from 'utilities/constants';
-import { getWeb3 } from 'utilities/ContractService';
 import { useWeb3React } from '@web3-react/core';
-import { useMarkets } from '../../hooks/useMarkets';
-import { useVaiUser } from '../../hooks/useVaiUser';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const DashboardWrapper = styled.div`
   height: 100%;
@@ -50,12 +36,12 @@ function Dashboard({ settings, setSetting }) {
   return (
     <MainLayout title="Dashboard">
       <DashboardWrapper className="flex">
-        {(!account || settings.accountLoading || settings.wrongNetwork) && (
+        {!account && (
           <SpinnerWrapper>
             <LoadingSpinner />
           </SpinnerWrapper>
         )}
-        {account && !settings.accountLoading && !settings.wrongNetwork && (
+        {account && (
           <Row>
             <Column xs="12" sm="12" md="5">
               <Row>

@@ -89,7 +89,6 @@ const Market = ({ settings, setSetting }) => {
   };
 
   useEffect(() => {
-    console.log('userMarketInfo :>> ', userMarketInfo);
     if (userMarketInfo && userMarketInfo.length > 0) {
       updateMarketTable();
     }

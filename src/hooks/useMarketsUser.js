@@ -5,8 +5,10 @@ import useRefresh from './useRefresh';
 import * as constants from '../utilities/constants';
 import { useComptroller } from './useContract';
 import useWeb3 from './useWeb3';
-import { getTokenContract } from '../utilities/contractHelpers';
-import { methods, getVbepContract } from '../utilities/ContractService';
+import {
+  getTokenContract,
+  getVbepContract
+} from '../utilities/contractHelpers';
 import { useVaiUser } from './useVaiUser';
 import { useMarkets } from './useMarkets';
 
@@ -33,10 +35,9 @@ export const useMarketsUser = () => {
 
     try {
       let xvsBalance = new BigNumber(0);
-      const assetsIn = await methods.call(
-        comptrollerContract.methods.getAssetsIn,
-        [account]
-      );
+      const assetsIn = await comptrollerContract.methods
+        .getAssetsIn(account)
+        .call();
 
       let totalBorrowLimit = new BigNumber(0);
       let totalBorrowBalance = userVaiMinted;
@@ -78,7 +79,7 @@ export const useMarketsUser = () => {
               collateral: false,
               percentOfLimit: '0'
             };
-            const vBepContract = getVbepContract(item.id);
+            const vBepContract = getVbepContract(web3, item.id);
             asset.collateral = assetsIn
               .map(item => item.toLowerCase())
               .includes(asset.vtokenAddress.toLowerCase());
@@ -94,15 +95,12 @@ export const useMarketsUser = () => {
                 snapshot,
                 balance
               ] = await Promise.all([
-                methods.call(tokenContract.methods.balanceOf, [account]),
-                methods.call(tokenContract.methods.allowance, [
-                  account,
-                  asset.vtokenAddress
-                ]),
-                methods.call(vBepContract.methods.getAccountSnapshot, [
-                  account
-                ]),
-                methods.call(vBepContract.methods.balanceOf, [account])
+                tokenContract.methods.balanceOf(account).call(),
+                tokenContract.methods
+                  .allowance(account, asset.vtokenAddress)
+                  .call(),
+                vBepContract.methods.getAccountSnapshot(account).call(),
+                vBepContract.methods.balanceOf(account).call()
               ]);
               supplyBalance = new BigNumber(snapshot[1])
                 .times(new BigNumber(snapshot[3]))
@@ -124,10 +122,8 @@ export const useMarketsUser = () => {
                 .isGreaterThan(asset.walletBalance);
             } else {
               const [snapshot, balance, walletBalance] = await Promise.all([
-                methods.call(vBepContract.methods.getAccountSnapshot, [
-                  account
-                ]),
-                methods.call(vBepContract.methods.balanceOf, [account]),
+                vBepContract.methods.getAccountSnapshot(account).call(),
+                vBepContract.methods.balanceOf(account).call(),
                 web3.eth.getBalance(account)
               ]);
               supplyBalance = new BigNumber(snapshot[1])
@@ -155,10 +151,14 @@ export const useMarketsUser = () => {
             );
 
             // hypotheticalLiquidity
-            asset.hypotheticalLiquidity = await methods.call(
-              comptrollerContract.methods.getHypotheticalAccountLiquidity,
-              [account, asset.vtokenAddress, totalBalance, 0]
-            );
+            asset.hypotheticalLiquidity = await comptrollerContract.methods
+              .getHypotheticalAccountLiquidity(
+                account,
+                asset.vtokenAddress,
+                totalBalance,
+                0
+              )
+              .call();
 
             const supplyBalanceUSD = asset.supplyBalance.times(
               asset.tokenPrice
@@ -201,11 +201,11 @@ export const useMarketsUser = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [markets, account, web3]);
+  }, [markets, account, web3, fastRefresh]);
 
   useEffect(() => {
     updateMarketInfo();
-  }, [fastRefresh, updateMarketInfo]);
+  }, [updateMarketInfo]);
 
   return {
     userMarketInfo,

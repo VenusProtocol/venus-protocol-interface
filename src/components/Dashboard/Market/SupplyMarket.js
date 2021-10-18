@@ -6,7 +6,6 @@ import { Icon } from 'antd';
 import { compose } from 'recompose';
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
-import { getComptrollerContract, methods } from 'utilities/ContractService';
 import toast from 'components/Basic/Toast';
 import { Label } from 'components/Basic/Label';
 import CollateralConfirmModal from 'components/Basic/CollateralConfirmModal';
@@ -16,6 +15,7 @@ import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
+import { useComptroller } from '../../../hooks/useContract';
 
 const SupplyMarketWrapper = styled.div`
   width: 100%;
@@ -31,35 +31,31 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
   const [record, setRecord] = useState({});
   const [isCollateralEnalbe, setIsCollateralEnable] = useState(true);
   const { account } = useWeb3React();
+  const comptrollerContract = useComptroller();
 
-  const handleToggleCollateral = r => {
-    const appContract = getComptrollerContract();
+  const handleToggleCollateral = async r => {
     if (r && account && r.borrowBalance.isZero()) {
       if (!r.collateral) {
         setIsCollateralEnable(false);
         setIsCollateralConfirm(true);
-        methods
-          .send(appContract.methods.enterMarkets, [[r.vtokenAddress]], account)
-          .then(() => {
-            setIsCollateralConfirm(false);
-          })
-          .catch(() => {
-            setIsCollateralConfirm(false);
-          });
+        try {
+          await comptrollerContract.methods
+            .enterMarkets([r.vtokenAddress])
+            .send({ from: account });
+        } catch (error) {
+          console.log('enter markets error :>> ', error);
+        }
+        setIsCollateralConfirm(false);
       } else if (
         +r.hypotheticalLiquidity['1'] > 0 ||
         +r.hypotheticalLiquidity['2'] === 0
       ) {
         setIsCollateralEnable(true);
         setIsCollateralConfirm(true);
-        methods
-          .send(appContract.methods.exitMarket, [r.vtokenAddress], account)
-          .then(() => {
-            setIsCollateralConfirm(false);
-          })
-          .catch(() => {
-            setIsCollateralConfirm(false);
-          });
+        await comptrollerContract.methods
+          .exitMarket([r.vtokenAddress])
+          .send({ from: account });
+        setIsCollateralConfirm(false);
       } else {
         toast.error({
           title: `Collateral Required`,

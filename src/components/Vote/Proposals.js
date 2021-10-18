@@ -4,11 +4,6 @@ import styled from 'styled-components';
 import Web3 from 'web3';
 import { Pagination, Icon } from 'antd';
 import Button from '@material-ui/core/Button';
-import {
-  getTokenContract,
-  getVoteContract,
-  methods
-} from 'utilities/ContractService';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
 import toast from 'components/Basic/Toast';
@@ -16,6 +11,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
 import { useWeb3React } from '@web3-react/core';
+import { useToken, useVote } from '../../hooks/useContract';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
@@ -143,18 +139,28 @@ function Proposals({
   const [maxOperation, setMaxOperation] = useState(0);
   const [delegateAddress, setDelegateAddress] = useState('');
   const { account } = useWeb3React();
+  const tokenContract = useToken('xvs');
+  const voteContract = useVote();
+
+  const getVoteProposalInfo = async () => {
+    const [threshold, maxOpeartion] = await Promise.all([
+      voteContract.methods.proposalThreshold().call(),
+      voteContract.methods.proposalMaxOperations().call()
+    ]);
+    setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
+    setMaxOperation(Number(maxOpeartion));
+  };
 
   useEffect(() => {
     if (address) {
-      const voteContract = getVoteContract();
-      methods.call(voteContract.methods.proposalThreshold, []).then(res => {
-        setProposalThreshold(+Web3.utils.fromWei(res, 'ether'));
-      });
-      methods.call(voteContract.methods.proposalMaxOperations, []).then(res => {
-        setMaxOperation(Number(res));
-      });
+      getVoteProposalInfo();
     }
   }, [address]);
+
+  const getDelegatedAddress = async () => {
+    const res = await tokenContract.methods.delegates(address).call();
+    setDelegateAddress(res);
+  };
 
   useEffect(() => {
     if (
@@ -162,13 +168,7 @@ function Proposals({
       (delegateAddress === '' ||
         delegateAddress === '0x0000000000000000000000000000000000000000')
     ) {
-      const tokenContract = getTokenContract('xvs');
-      methods
-        .call(tokenContract.methods.delegates, [address])
-        .then(res => {
-          setDelegateAddress(res);
-        })
-        .catch(() => {});
+      getDelegatedAddress();
     }
   }, [account, address, delegateAddress]);
 
@@ -186,34 +186,28 @@ function Proposals({
     handleChangePage(current - 1, 5);
   };
 
-  const handleShowProposalModal = () => {
+  const handleShowProposalModal = async () => {
     if (+votingWeight < +proposalThreshold) {
       toast.error({
         title: `You can't create proposal. Your voting power should be ${proposalThreshold} XVS at least`
       });
       return;
     }
-    const voteContract = getVoteContract();
     setIsLoading(true);
-    methods
-      .call(voteContract.methods.latestProposalIds, [address])
-      .then(pId => {
-        if (pId !== '0') {
-          methods.call(voteContract.methods.state, [pId]).then(status => {
-            if (status === '0' || status === '1') {
-              toast.error({
-                title: `You can't create proposal. there is proposal in progress!`
-              });
-            } else {
-              setProposalModal(true);
-            }
-            setIsLoading(false);
-          });
-        } else {
-          setProposalModal(true);
-          setIsLoading(false);
-        }
-      });
+    const pId = await voteContract.methods.latestProposalIds(address).call();
+    if (pId !== '0') {
+      const status = await voteContract.methods.state(pId).call();
+      if (status === '0' || status === '1') {
+        toast.error({
+          title: `You can't create proposal. there is proposal in progress!`
+        });
+      } else {
+        setProposalModal(true);
+      }
+    } else {
+      setProposalModal(true);
+    }
+    setIsLoading(false);
   };
 
   return (
