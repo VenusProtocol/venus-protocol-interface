@@ -128,7 +128,7 @@ function Vault({ settings }) {
             <SpinnerWrapper>
               <LoadingSpinner />
             </SpinnerWrapper>
-          ) : process.env.REACT_APP_ENV === 'dev' ? (
+          ) : process.env.REACT_APP_CHAIN_ID === '97' ? (
             <Row>
               <Column xs="12" sm="6">
                 <Column xs="12">

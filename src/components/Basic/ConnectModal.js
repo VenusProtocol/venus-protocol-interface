@@ -142,7 +142,7 @@ function ConnectModal({ visible, onCancel }) {
         <div className="connect-wallet-content">
           <div
             className={`flex align-center just-between wallet-connect-btn ${
-              process.env.REACT_APP_ENV === 'dev' ? 'disabled' : ''
+              process.env.REACT_APP_CHAIN_ID === '97' ? 'disabled' : ''
             }`}
           >
             <div className="flex align-center">

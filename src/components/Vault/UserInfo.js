@@ -118,7 +118,7 @@ function UserInfo({ availableVai, vaiStaked, vaiReward }) {
           <div className="flex align-center just-between value">
             <p>
               <img src={xvsImg} alt="xvs" />
-              {format(userXVSBalance)} XVS
+              {format(userXVSBalance.toFormat(4))} XVS
             </p>
           </div>
         </div>

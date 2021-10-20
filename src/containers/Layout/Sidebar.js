@@ -461,7 +461,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         </NavLink>
       </MainMenu>
       <FaucetMenu>
-        {process.env.REACT_APP_ENV === 'dev' && (
+        {process.env.REACT_APP_CHAIN_ID === '97' && (
           <NavLink
             className="flex just-center"
             to="/faucet"
@@ -551,7 +551,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
               Transaction History
             </Label>
           </Option>
-          {process.env.REACT_APP_ENV === 'dev' && (
+          {process.env.REACT_APP_CHAIN_ID === '97' && (
             <Option className="flex align-center just-center" value="faucet">
               <Label size={14} primary>
                 Faucet
