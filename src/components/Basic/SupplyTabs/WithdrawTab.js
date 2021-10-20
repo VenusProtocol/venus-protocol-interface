@@ -36,16 +36,16 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }) {
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const { mintableVai } = useVaiUser();
 
-  const getFeePercent = async () => {
+  const getFeePercent = useCallback(async () => {
     const treasuryPercent = await comptrollerContract.methods
       .treasuryPercent()
       .call();
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
-  };
+  }, [comptrollerContract]);
 
   useEffect(() => {
     getFeePercent();
-  }, []);
+  }, [getFeePercent]);
 
   const updateInfo = useCallback(async () => {
     const tokenPrice = getBigNumber(asset.tokenPrice);
@@ -95,13 +95,13 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }) {
         );
       }
     }
-  }, [amount]);
+  }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
 
   useEffect(() => {
     if (asset.vtokenAddress && account) {
       updateInfo();
     }
-  }, [account, updateInfo]);
+  }, [updateInfo]);
 
   /**
    * Withdraw

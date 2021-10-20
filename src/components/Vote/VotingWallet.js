@@ -155,10 +155,12 @@ function VotingWallet({
 
   const handleCollect = async () => {
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
-    const vTokensBalanceInfos = await venusLensContract.methods.vTokenBalancesAll(
-      userMarketInfo.map(asset => asset.vtokenAddress),
-      account
-    );
+    const vTokensBalanceInfos = await venusLensContract.methods
+      .vTokenBalancesAll(
+        userMarketInfo.map(asset => asset.vtokenAddress),
+        account
+      )
+      .call();
 
     const outstandingVTokens = vTokensBalanceInfos.filter(info => {
       // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying

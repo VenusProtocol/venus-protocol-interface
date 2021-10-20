@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
-import { addToken, getBigNumber } from 'utilities/common';
+import { addToken } from 'utilities/common';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
 import { BASE_BSC_SCAN_URL } from '../../config';
@@ -58,7 +58,6 @@ const CardWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
 
 function CoinInfo({ settings }) {
   const { account } = useWeb3React();

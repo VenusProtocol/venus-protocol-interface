@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
 import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
-import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';
@@ -26,16 +23,16 @@ function MintTab() {
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const vaiControllerContract = useVaiUnitroller();
 
-  const getFeePercent = async () => {
+  const getFeePercent = useCallback(async () => {
     const treasuryPercent = await vaiControllerContract.methods
       .treasuryPercent()
       .call();
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
-  };
+  }, [vaiControllerContract]);
 
   useEffect(() => {
     getFeePercent();
-  }, []);
+  }, [getFeePercent]);
 
   /**
    * Max amount

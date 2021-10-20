@@ -62,7 +62,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }) {
         setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
     }
-  }, [account, amount, asset, userTotalBorrowBalance]);
+  }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
 
   /**
    * Get Allowed amount
@@ -104,6 +104,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }) {
       } catch (error) {
         console.log('borrow error :>> ', error);
       }
+      setIsLoading(false);
       setSetting({
         pendingInfo: {
           type: '',

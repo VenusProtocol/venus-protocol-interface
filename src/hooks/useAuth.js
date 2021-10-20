@@ -51,7 +51,7 @@ const useAuth = () => {
         toast.error({ title: 'The connector config is wrong' });
       }
     },
-    []
+    [activate]
   );
 
   const logout = useCallback(() => {
@@ -62,7 +62,7 @@ const useAuth = () => {
       connectorsByName.walletconnect.walletConnectProvider = null;
     }
     window.localStorage.removeItem(connectorLocalStorageKey);
-  }, [deactivate, chainId]);
+  }, [deactivate]);
 
   return { login, logout };
 };

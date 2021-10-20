@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import LineProgressBar from 'components/Basic/LineProgressBar';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { compose } from 'recompose';
-import { connectAccount } from 'core';
 import { Card } from 'components/Basic/Card';
-import { getBigNumber } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 

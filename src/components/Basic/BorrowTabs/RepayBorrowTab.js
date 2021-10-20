@@ -66,7 +66,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
     }
-  }, [amount, asset]);
+  }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
 
   useEffect(() => {
     if (account) {
@@ -121,11 +121,15 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               .times(new BigNumber(10).pow(asset.decimals))
               .integerValue()
               .toString(10);
-        await vbepContract.methods
-          .repayBorrow(repayAmount)
-          .send({ from: account });
-        setAmount(new BigNumber(0));
-        onCancel();
+        try {
+          await vbepContract.methods
+            .repayBorrow(repayAmount)
+            .send({ from: account });
+          setAmount(new BigNumber(0));
+          onCancel();
+        } catch (error) {
+          console.log('repay borrow error :>> ', error);
+        }
         setIsLoading(false);
         setSetting({
           pendingInfo: {

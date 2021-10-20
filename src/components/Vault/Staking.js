@@ -9,7 +9,6 @@ import commaNumber from 'comma-number';
 import { Card } from 'components/Basic/Card';
 import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
-import * as constants from 'utilities/constants';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiToken, useVaiVault } from '../../hooks/useContract';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';

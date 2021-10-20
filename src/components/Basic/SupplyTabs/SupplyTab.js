@@ -21,7 +21,6 @@ import { useVaiUser } from '../../../hooks/useVaiUser';
 import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
 
 function SupplyTab({ asset, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +71,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }) {
         );
       }
     }
-  }, [amount]);
+  }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
 
   useEffect(() => {
     setIsEnabled(asset.isEnabled);
@@ -85,9 +84,6 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }) {
     if (asset.vtokenAddress && account) {
       updateInfo();
     }
-    return function cleanup() {
-      abortController.abort();
-    };
   }, [account, updateInfo]);
   /**
    * Approve underlying token

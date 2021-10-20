@@ -18,6 +18,9 @@ export const useVaiUser = () => {
   const { account } = useWeb3React();
 
   const updateVaiInfo = useCallback(async () => {
+    if (!account) {
+      return;
+    }
     let [
       userVaiBalance,
       userVaiMinted,
@@ -41,10 +44,8 @@ export const useVaiUser = () => {
   }, [vaiControllerContract, vaiContract, comptrollerContract, account]);
 
   useEffect(() => {
-    if (account) {
-      updateVaiInfo();
-    }
-  }, [fastRefresh, account]);
+    updateVaiInfo();
+  }, [fastRefresh, updateVaiInfo]);
 
   return { userVaiMinted, userVaiBalance, userVaiEnabled, mintableVai };
 };
