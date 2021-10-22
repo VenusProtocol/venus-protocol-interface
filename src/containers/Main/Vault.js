@@ -117,8 +117,10 @@ function Vault({ settings }) {
   };
 
   useEffect(() => {
-    updateTotalInfo();
-  }, [fastRefresh]);
+    if (account) {
+      updateTotalInfo();
+    }
+  }, [fastRefresh, account]);
 
   return (
     <MainLayout title="Vault">
