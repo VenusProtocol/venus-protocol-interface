@@ -11,7 +11,7 @@ export const useMarkets = () => {
   useEffect(() => {
     const getMarkets = async () => {
       const res = await fetchMarkets();
-      if (!res.status) {
+      if (!res.data.status) {
         return;
       }
 

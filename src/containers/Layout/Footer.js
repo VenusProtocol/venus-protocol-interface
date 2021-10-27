@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
-import { connectAccount } from 'core';
 import * as constants from 'utilities/constants';
 import { BASE_BSC_SCAN_URL } from '../../config';
+import { useBlock } from '../../hooks/useBlock';
 
 const FooterWrapper = styled.div`
   height: 50px;
@@ -36,13 +34,14 @@ const FooterWrapper = styled.div`
   }
 `;
 
-function Footer({ settings }) {
+function Footer() {
+  const blockNumber = useBlock();
   return (
     <FooterWrapper>
       <div className="flex align-center">
         <div className="status-circle" target="_blank" rel="noreferrer" />
         <a href={BASE_BSC_SCAN_URL} target="_blank" rel="noreferrer">
-          Latest Block: {settings.latestBlockNumber || 0}
+          Latest Block: {blockNumber}
         </a>
       </div>
       <a
@@ -66,16 +65,4 @@ function Footer({ settings }) {
   );
 }
 
-Footer.propTypes = {
-  settings: PropTypes.object
-};
-
-Footer.defaultProps = {
-  settings: {}
-};
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
-
-export default compose(connectAccount(mapStateToProps, undefined))(Footer);
+export default Footer;
