@@ -1,7 +1,6 @@
 const account = {
   setting: {
     marketType: 'supply',
-    latestBlockNumber: '',
     pendingInfo: {
       type: '',
       status: false,
