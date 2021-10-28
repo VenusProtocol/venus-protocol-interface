@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from 'core/modules/auth/actions';
-import { auth, account } from 'core/modules';
+import { account } from 'core/modules';
 import { resetReducer } from 'core/modules/reset';
 
 const appReducer = combineReducers({
-  auth,
   account
 });
 

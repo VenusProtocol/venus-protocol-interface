@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import BigNumber from 'bignumber.js';
 import { compose } from 'recompose';
 import commaNumber from 'comma-number';
 import { Row, Col, Pagination } from 'antd';
@@ -12,10 +11,10 @@ import MainLayout from 'containers/Layout/MainLayout';
 import { Label } from 'components/Basic/Label';
 import { Select } from 'antd';
 import { promisify } from 'utilities';
-import coinImg from 'assets/img/coins/vai.svg';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import xvsImg from 'assets/img/coins/xvs.png';
+import { BASE_BSC_SCAN_URL } from '../../config';
 
 const TransactionWrapper = styled.div`
   width: 100%;
@@ -266,7 +265,7 @@ const eventTypes = [
 const { Option } = Select;
 const format = commaNumber.bindWith(',', '.');
 
-function Transaction({ getTransactionHistory, settings }) {
+function Transaction({ getTransactionHistory }) {
   const [data, setData] = useState([]);
   const [offset, setOffset] = useState(1);
   const [pageSize, setPageSize] = useState(20);
@@ -398,7 +397,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/tx/${item.transactionHash}`,
+                          `${BASE_BSC_SCAN_URL}/tx/${item.transactionHash}`,
                           '_blank'
                         );
                       }}
@@ -417,7 +416,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/address/${item.from}`,
+                          `${BASE_BSC_SCAN_URL}/address/${item.from}`,
                           '_blank'
                         );
                       }}
@@ -431,7 +430,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="mobile-label"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/address/${item.to}`,
+                          `${BASE_BSC_SCAN_URL}/address/${item.to}`,
                           '_blank'
                         );
                       }}
@@ -442,7 +441,7 @@ function Transaction({ getTransactionHistory, settings }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
-                          `${process.env.REACT_APP_BSC_EXPLORER}/address/${item.to}`,
+                          `${BASE_BSC_SCAN_URL}/address/${item.to}`,
                           '_blank'
                         );
                       }}
@@ -512,18 +511,12 @@ function Transaction({ getTransactionHistory, settings }) {
 }
 
 Transaction.propTypes = {
-  history: PropTypes.object,
-  settings: PropTypes.object
+  history: PropTypes.object
 };
 
 Transaction.defaultProps = {
-  history: {},
-  settings: {}
+  history: {}
 };
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
 
 const mapDispatchToProps = dispatch => {
   const { getTransactionHistory } = accountActionCreators;
@@ -538,5 +531,5 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(null, mapDispatchToProps)
 )(Transaction);

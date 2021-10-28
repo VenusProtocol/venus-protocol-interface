@@ -5,7 +5,6 @@ import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import { Card } from 'components/Basic/Card';
-import BigNumber from 'bignumber.js';
 
 const TotalInfoWrapper = styled.div`
   width: 100%;

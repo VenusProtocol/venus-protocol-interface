@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import LineProgressBar from 'components/Basic/LineProgressBar';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { compose } from 'recompose';
-import { connectAccount } from 'core';
 import { Card } from 'components/Basic/Card';
-import { getBigNumber } from 'utilities/common';
+import { useWeb3React } from '@web3-react/core';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -30,32 +28,28 @@ const CardWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
 
 function BorrowLimit({ settings }) {
   const [available, setAvailable] = useState('0');
   const [borrowPercent, setBorrowPercent] = useState(0);
+  const { account } = useWeb3React();
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
 
   useEffect(() => {
-    if (settings.selectedAddress) {
-      const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-      const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
-      const total = BigNumber.maximum(totalBorrowLimit, 0);
+    if (account) {
+      const total = BigNumber.maximum(userTotalBorrowLimit, 0);
       setAvailable(total.dp(2, 1).toString(10));
       setBorrowPercent(
         total.isZero() || total.isNaN()
           ? 0
-          : totalBorrowBalance
+          : userTotalBorrowBalance
               .div(total)
               .times(100)
               .dp(0, 1)
               .toNumber()
       );
     }
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [settings.totalBorrowBalance, settings.totalBorrowLimit]);
+  }, [userTotalBorrowBalance, userTotalBorrowLimit]);
 
   return (
     <Card>
@@ -68,16 +62,4 @@ function BorrowLimit({ settings }) {
   );
 }
 
-BorrowLimit.propTypes = {
-  settings: PropTypes.object
-};
-
-BorrowLimit.defaultProps = {
-  settings: {}
-};
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
-
-export default compose(connectAccount(mapStateToProps, undefined))(BorrowLimit);
+export default BorrowLimit;

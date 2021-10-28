@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { Icon } from 'antd';
-import { connectAccount } from 'core';
 import Button from '@material-ui/core/Button';
 import commaNumber from 'comma-number';
-import { getComptrollerContract, methods } from 'utilities/ContractService';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
-import { getVenusLensContract } from '../../utilities/ContractService';
+import { BASE_BSC_SCAN_URL } from '../../config';
+import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
+import { useComptroller, useVenusLens } from '../../hooks/useContract';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -122,7 +122,6 @@ const format = commaNumber.bindWith(',', '.');
 
 function VotingWallet({
   balance,
-  settings,
   earnedBalance,
   vaiMint,
   delegateAddress,
@@ -131,6 +130,10 @@ function VotingWallet({
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
+  const { account } = useWeb3React();
+  const { userMarketInfo } = useMarketsUser();
+  const comptrollerContract = useComptroller();
+  const venusLensContract = useVenusLens();
 
   useEffect(() => {
     if (!earnedBalance) {
@@ -151,14 +154,13 @@ function VotingWallet({
   };
 
   const handleCollect = async () => {
-    const { assetList } = settings;
-
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
-    const venusLensContract = getVenusLensContract();
-    const vTokensBalanceInfos = await methods.call(
-      venusLensContract.methods.vTokenBalancesAll,
-      [assetList.map(asset => asset.vtokenAddress), settings.selectedAddress]
-    );
+    const vTokensBalanceInfos = await venusLensContract.methods
+      .vTokenBalancesAll(
+        userMarketInfo.map(asset => asset.vtokenAddress),
+        account
+      )
+      .call();
 
     const outstandingVTokens = vTokensBalanceInfos.filter(info => {
       // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
@@ -168,19 +170,17 @@ function VotingWallet({
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
       setIsLoading(true);
-      const appContract = getComptrollerContract();
-      methods
-        .send(
-          appContract.methods.claimVenus,
-          [settings.selectedAddress, outstandingVTokens.map(token => token[0])],
-          settings.selectedAddress
-        )
-        .then(() => {
-          setIsLoading(false);
-        })
-        .catch(e => {
-          setIsLoading(false);
-        });
+      try {
+        await comptrollerContract.methods
+          .claimVenus(
+            account,
+            outstandingVTokens.map(token => token[0])
+          )
+          .send({ from: account });
+      } catch (error) {
+        console.log('claim venus error :>> ', error);
+      }
+      setIsLoading(false);
     }
   };
 
@@ -224,7 +224,7 @@ function VotingWallet({
                   </p>
                 </div>
               </div>
-              {settings.selectedAddress && (
+              {account && (
                 <div className="flex align-center">
                   <p className="pointer" onClick={handleCollect}>
                     {isLoading && <Icon type="loading" />} Collect
@@ -241,7 +241,7 @@ function VotingWallet({
               <div className="flex align-center">
                 <a
                   className="content-value"
-                  href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${delegateAddress}`}
+                  href={`${BASE_BSC_SCAN_URL}/address/${delegateAddress}`}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -267,7 +267,7 @@ function VotingWallet({
             </div>
           </div>
         )}
-        {settings.selectedAddress && !delegateStatus && (
+        {account && !delegateStatus && (
           <div className="flex flex-column setup">
             <p className="setup-header">Setup Voting</p>
             <p className="setup-content">
@@ -278,7 +278,7 @@ function VotingWallet({
             </p>
           </div>
         )}
-        {settings.selectedAddress && !delegateStatus && (
+        {account && !delegateStatus && (
           <div className="center footer">
             <Button
               className="started-btn"
@@ -292,7 +292,7 @@ function VotingWallet({
           visible={isOpenModal}
           balance={balance}
           delegateStatus={delegateStatus}
-          address={settings.selectedAddress ? settings.selectedAddress : ''}
+          address={account ? account : ''}
           onCancel={() => setIsOpenModal(false)}
         />
       </VotingWalletWrapper>
@@ -304,15 +304,8 @@ VotingWallet.propTypes = {
   balance: PropTypes.string.isRequired,
   earnedBalance: PropTypes.string.isRequired,
   vaiMint: PropTypes.string.isRequired,
-  settings: PropTypes.object.isRequired,
   delegateAddress: PropTypes.string.isRequired,
   delegateStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
-
-export default compose(connectAccount(mapStateToProps, undefined))(
-  VotingWallet
-);
+export default VotingWallet;

@@ -7,72 +7,80 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
-import { getVbepContract, methods } from 'utilities/ContractService';
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber } from 'utilities/common';
+import { useWeb3React } from '@web3-react/core';
+import { useVaiUser } from '../../../hooks/useVaiUser';
+import { useMarketsUser } from '../../../hooks/useMarketsUser';
+import { useVbep } from '../../../hooks/useContract';
 
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
-function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
+function BorrowTab({ asset, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowBalance, setBorrowBalance] = useState(new BigNumber(0));
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
+  const { userVaiMinted } = useVaiUser();
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
+  const vbepContract = useVbep(asset.id);
 
   const updateInfo = useCallback(() => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     if (amount.isZero() || amount.isNaN()) {
-      setBorrowBalance(totalBorrowBalance);
-      if (totalBorrowLimit.isZero()) {
+      setBorrowBalance(userTotalBorrowBalance);
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
         setNewBorrowPercent(
-          totalBorrowBalance.div(totalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
         );
       }
     } else {
-      const temp = totalBorrowBalance.plus(amount.times(tokenPrice));
-      setBorrowBalance(totalBorrowBalance);
+      const temp = userTotalBorrowBalance.plus(amount.times(tokenPrice));
+      setBorrowBalance(userTotalBorrowBalance);
       setNewBorrowBalance(temp);
-      if (totalBorrowLimit.isZero()) {
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
-        setNewBorrowPercent(temp.div(totalBorrowLimit).times(100));
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
+        setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
     }
-  }, [settings.selectedAddress, amount, asset]);
+  }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
 
   /**
    * Get Allowed amount
    */
   useEffect(() => {
-    if (asset.vtokenAddress && settings.selectedAddress) {
+    if (asset.vtokenAddress && account) {
       updateInfo();
     }
     return function cleanup() {
       abortController.abort();
     };
-  }, [settings.selectedAddress, updateInfo, asset]);
+  }, [account, updateInfo, asset]);
 
   /**
    * Borrow
    */
-  const handleBorrow = () => {
-    const appContract = getVbepContract(asset.id);
-    if (asset && settings.selectedAddress) {
+  const handleBorrow = async () => {
+    if (asset && account) {
       setIsLoading(true);
       setSetting({
         pendingInfo: {
@@ -82,55 +90,41 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
           symbol: asset.symbol
         }
       });
-      methods
-        .send(
-          appContract.methods.borrow,
-          [
+      try {
+        await vbepContract.methods
+          .borrow(
             amount
-              .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
+              .times(new BigNumber(10).pow(asset.decimals))
               .integerValue()
               .toString(10)
-          ],
-          settings.selectedAddress
-        )
-        .then(() => {
-          setAmount(new BigNumber(0));
-          setIsLoading(false);
-          setSetting({
-            pendingInfo: {
-              type: '',
-              status: false,
-              amount: 0,
-              symbol: ''
-            }
-          });
-          onCancel();
-        })
-        .catch(() => {
-          setIsLoading(false);
-          setSetting({
-            pendingInfo: {
-              type: '',
-              status: false,
-              amount: 0,
-              symbol: ''
-            }
-          });
-        });
+          )
+          .send({ from: account });
+        setAmount(new BigNumber(0));
+        onCancel();
+      } catch (error) {
+        console.log('borrow error :>> ', error);
+      }
+      setIsLoading(false);
+      setSetting({
+        pendingInfo: {
+          type: '',
+          status: false,
+          amount: 0,
+          symbol: ''
+        }
+      });
     }
   };
   /**
    * Max amount
    */
   const handleMaxAmount = () => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     const safeMax = BigNumber.maximum(
-      totalBorrowLimit
+      userTotalBorrowLimit
         .times(40)
         .div(100)
-        .minus(totalBorrowBalance),
+        .minus(userTotalBorrowBalance),
       new BigNumber(0)
     );
     setAmount(BigNumber.minimum(safeMax, asset.liquidity).div(tokenPrice));
@@ -148,13 +142,9 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               setAmount(new BigNumber(value));
             }}
             isAllowed={({ value }) => {
-              const totalBorrowBalance = getBigNumber(
-                settings.totalBorrowBalance
-              );
-              const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
               return new BigNumber(value || 0)
-                .plus(totalBorrowBalance)
-                .isLessThanOrEqualTo(totalBorrowLimit);
+                .plus(userTotalBorrowBalance)
+                .isLessThanOrEqualTo(userTotalBorrowLimit);
             }}
             thousandSeparator
             allowNegative={false}
@@ -227,12 +217,7 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>
-              {getBigNumber(settings.userVaiMinted)
-                .dp(2, 1)
-                .toString(10)}{' '}
-              VAI
-            </span>
+            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
           </div>
           {!new BigNumber(asset.borrowCaps || 0).isZero() && (
             <div className="description borrow-caps">
@@ -327,7 +312,6 @@ function BorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
 
 BorrowTab.propTypes = {
   asset: PropTypes.object,
-  settings: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
   setSetting: PropTypes.func.isRequired
@@ -335,14 +319,9 @@ BorrowTab.propTypes = {
 
 BorrowTab.defaultProps = {
   asset: {},
-  settings: {},
   changeTab: () => {},
   onCancel: () => {}
 };
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
 
 const mapDispatchToProps = dispatch => {
   const { setSetting } = accountActionCreators;
@@ -355,6 +334,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  BorrowTab
-);
+export default compose(connectAccount(null, mapDispatchToProps))(BorrowTab);

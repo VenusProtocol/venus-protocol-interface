@@ -9,16 +9,15 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { connectAccount, accountActionCreators } from 'core';
-import {
-  getTokenContract,
-  getComptrollerContract,
-  methods
-} from 'utilities/ContractService';
 import MainLayout from 'containers/Layout/MainLayout';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import * as constants from 'utilities/constants';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
+import { BASE_BSC_SCAN_URL } from '../../config';
+import { useWeb3React } from '@web3-react/core';
+import { useMarkets } from '../../hooks/useMarkets';
+import { useComptroller, useToken } from '../../hooks/useContract';
+import { getComptrollerAddress } from '../../utilities/addressHelpers';
 
 const XVSLayout = styled.div`
   .main-content {
@@ -199,37 +198,38 @@ const SpinnerWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 function XVS({ settings }) {
-  const [markets, setMarkets] = useState([]);
+  const [totalMarkets, setTotalMarkets] = useState([]);
   const [dailyDistribution, setDailyDistribution] = useState('0');
   const [totalDistributed, setTotalDistributed] = useState('0');
   const [remainAmount, setRemainAmount] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
+  const { account } = useWeb3React();
+  const { markets, dailyVenus } = useMarkets();
+  const xvsTokenContract = useToken('xvs');
+  const comptrollerContract = useComptroller();
 
   const mintedAmount = '23700000';
 
   const getXVSInfo = async () => {
     const tempMarkets = [];
-    const sum = (settings.markets || []).reduce((accumulator, market) => {
+    const sum = (markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(
         new BigNumber(market.totalDistributed)
       );
     }, 0);
-    const compContract = getComptrollerContract();
 
     // total info
-    let venusVAIVaultRate = await methods.call(
-      compContract.methods.venusVAIVaultRate,
-      []
-    );
+    let venusVAIVaultRate = await comptrollerContract.methods
+      .venusVAIVaultRate()
+      .call();
     venusVAIVaultRate = new BigNumber(venusVAIVaultRate)
       .div(1e18)
       .times(20 * 60 * 24);
-    const tokenContract = getTokenContract('xvs');
-    const remainedAmount = await methods.call(tokenContract.methods.balanceOf, [
-      constants.CONTRACT_COMPTROLLER_ADDRESS
-    ]);
+    const remainedAmount = await xvsTokenContract.methods
+      .balanceOf(getComptrollerAddress())
+      .call();
     setDailyDistribution(
-      new BigNumber(settings.dailyVenus)
+      new BigNumber(dailyVenus)
         .div(new BigNumber(10).pow(18))
         .plus(venusVAIVaultRate)
         .dp(2, 1)
@@ -242,28 +242,20 @@ function XVS({ settings }) {
         .dp(2, 1)
         .toString(10)
     );
-    for (let i = 0; i < settings.markets.length; i += 1) {
+    for (let i = 0; i < markets.length; i += 1) {
       tempMarkets.push({
-        underlyingSymbol: settings.markets[i].underlyingSymbol,
-        perDay: +new BigNumber(settings.markets[i].supplierDailyVenus)
-          .plus(new BigNumber(settings.markets[i].borrowerDailyVenus))
+        underlyingSymbol: markets[i].underlyingSymbol,
+        perDay: +new BigNumber(markets[i].supplierDailyVenus)
+          .plus(new BigNumber(markets[i].borrowerDailyVenus))
           .div(new BigNumber(10).pow(18))
           .dp(2, 1)
           .toString(10),
-        supplyAPY: +(new BigNumber(
-          settings.markets[i].supplyVenusApy
-        ).isLessThan(0.01)
+        supplyAPY: +(new BigNumber(markets[i].supplyVenusApy).isLessThan(0.01)
           ? '0.01'
-          : new BigNumber(settings.markets[i].supplyVenusApy)
-              .dp(2, 1)
-              .toString(10)),
-        borrowAPY: +(new BigNumber(
-          settings.markets[i].borrowVenusApy
-        ).isLessThan(0.01)
+          : new BigNumber(markets[i].supplyVenusApy).dp(2, 1).toString(10)),
+        borrowAPY: +(new BigNumber(markets[i].borrowVenusApy).isLessThan(0.01)
           ? '0.01'
-          : new BigNumber(settings.markets[i].borrowVenusApy)
-              .dp(2, 1)
-              .toString(10))
+          : new BigNumber(markets[i].borrowVenusApy).dp(2, 1).toString(10))
       });
     }
     tempMarkets.push({
@@ -272,14 +264,14 @@ function XVS({ settings }) {
       supplyAPY: settings.vaiAPY || 0,
       borrowAPY: 0
     });
-    setMarkets(tempMarkets);
+    setTotalMarkets(tempMarkets);
   };
 
   useEffect(() => {
-    if (settings.markets && settings.dailyVenus) {
+    if (markets) {
       getXVSInfo();
     }
-  }, [settings.markets]);
+  }, [markets]);
 
   const handleSort = field => {
     setSortInfo({
@@ -293,221 +285,199 @@ function XVS({ settings }) {
     <XVSLayout>
       <MainLayout title="User Distribution">
         <XVSWrapper>
-          {(!settings.selectedAddress || settings.accountLoading || settings.wrongNetwork) && (
-            <SpinnerWrapper>
-              <LoadingSpinner />
-            </SpinnerWrapper>
-          )}
-          {settings.selectedAddress && !settings.accountLoading && !settings.wrongNetwork && (
-            <>
-              <XVSInfoWrapper className="flex align-center just-between">
-                <div className="flex align-center xvs-info">
-                  <img src={coinImg} alt="xvs" />
-                  <a
-                    className="highlight"
-                    href={`${process.env.REACT_APP_BSC_EXPLORER}/token/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {constants.CONTRACT_XVS_TOKEN_ADDRESS}
-                  </a>
-                  <CopyToClipboard
-                    text={constants.CONTRACT_XVS_TOKEN_ADDRESS}
-                    onCopy={() => {}}
-                  >
-                    <Icon className="pointer copy-btn" type="copy" />
-                  </CopyToClipboard>
+          <XVSInfoWrapper className="flex align-center just-between">
+            <div className="flex align-center xvs-info">
+              <img src={coinImg} alt="xvs" />
+              <a
+                className="highlight"
+                href={`${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {constants.CONTRACT_XVS_TOKEN_ADDRESS}
+              </a>
+              <CopyToClipboard
+                text={constants.CONTRACT_XVS_TOKEN_ADDRESS}
+                onCopy={() => {}}
+              >
+                <Icon className="pointer copy-btn" type="copy" />
+              </CopyToClipboard>
+            </div>
+            <div className="flex flex-column distribution-wrapper">
+              <div className="flex align-center just-around info-wrapper">
+                <div className="info-item">
+                  <p className="title">Daily Distribution</p>
+                  <p className="value">{format(dailyDistribution)}</p>
                 </div>
-                <div className="flex flex-column distribution-wrapper">
-                  <div className="flex align-center just-around info-wrapper">
-                    <div className="info-item">
-                      <p className="title">Daily Distribution</p>
-                      <p className="value">{format(dailyDistribution)}</p>
-                    </div>
-                    {/* <div className="info-item">
+                {/* <div className="info-item">
                       <p className="title">Total Distributed</p>
                       <p className="value">{format(totalDistributed)}</p>
                     </div> */}
-                    <div className="info-item">
-                      <p className="title">Remaining</p>
-                      <p className="value">{format(remainAmount)}</p>
-                    </div>
-                  </div>
-                  <Progress
-                    percent={new BigNumber(totalDistributed)
-                      .dividedBy(new BigNumber(mintedAmount))
-                      .multipliedBy(100)
-                      .toNumber()
-                    }
-                    strokeColor="#f8b94b"
-                    strokeWidth={7}
-                    showInfo={false}
-                  />
+                <div className="info-item">
+                  <p className="title">Remaining</p>
+                  <p className="value">{format(remainAmount)}</p>
                 </div>
-              </XVSInfoWrapper>
-              <TableWrapper>
-                <p className="header-title">Market Distribution</p>
-                <Row className="table_header">
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} className="market">
-                    Market
-                  </Col>
-                  <Col
-                    xs={{ span: 8 }}
-                    lg={{ span: 6 }}
-                    className="per-day right"
-                  >
-                    <span onClick={() => handleSort('perDay')}>
-                      <img src={coinImg} alt="xvs" /> Per Day{' '}
-                      {sortInfo.field === 'perDay' && (
-                        <Icon
-                          type={
-                            sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'
-                          }
-                        />
-                      )}
-                    </span>
-                  </Col>
-                  <Col
-                    xs={{ span: 8 }}
-                    lg={{ span: 6 }}
-                    className="supply-apy right"
-                  >
-                    <span onClick={() => handleSort('supplyAPY')}>
-                      Supply
-                      <img src={coinImg} alt="xvs" />
-                      APY{' '}
-                      {sortInfo.field === 'supplyAPY' && (
-                        <Icon
-                          type={
-                            sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'
-                          }
-                        />
-                      )}
-                    </span>
-                  </Col>
-                  <Col
-                    xs={{ span: 8 }}
-                    lg={{ span: 6 }}
-                    className="borrow-apy right"
-                  >
-                    <span onClick={() => handleSort('borrowAPY')}>
-                      Borrow
-                      <img src={coinImg} alt="xvs" />
-                      APY{' '}
-                      {sortInfo.field === 'borrowAPY' && (
-                        <Icon
-                          type={
-                            sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'
-                          }
-                        />
-                      )}
-                    </span>
-                  </Col>
-                  {/* <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-distributed right">
+              </div>
+              <Progress
+                percent={new BigNumber(totalDistributed)
+                  .dividedBy(new BigNumber(mintedAmount))
+                  .multipliedBy(100)
+                  .toNumber()}
+                strokeColor="#f8b94b"
+                strokeWidth={7}
+                showInfo={false}
+              />
+            </div>
+          </XVSInfoWrapper>
+          <TableWrapper>
+            <p className="header-title">Market Distribution</p>
+            <Row className="table_header">
+              <Col xs={{ span: 24 }} lg={{ span: 6 }} className="market">
+                Market
+              </Col>
+              <Col xs={{ span: 8 }} lg={{ span: 6 }} className="per-day right">
+                <span onClick={() => handleSort('perDay')}>
+                  <img src={coinImg} alt="xvs" /> Per Day{' '}
+                  {sortInfo.field === 'perDay' && (
+                    <Icon
+                      type={
+                        sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'
+                      }
+                    />
+                  )}
+                </span>
+              </Col>
+              <Col
+                xs={{ span: 8 }}
+                lg={{ span: 6 }}
+                className="supply-apy right"
+              >
+                <span onClick={() => handleSort('supplyAPY')}>
+                  Supply
+                  <img src={coinImg} alt="xvs" />
+                  APY{' '}
+                  {sortInfo.field === 'supplyAPY' && (
+                    <Icon
+                      type={
+                        sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'
+                      }
+                    />
+                  )}
+                </span>
+              </Col>
+              <Col
+                xs={{ span: 8 }}
+                lg={{ span: 6 }}
+                className="borrow-apy right"
+              >
+                <span onClick={() => handleSort('borrowAPY')}>
+                  Borrow
+                  <img src={coinImg} alt="xvs" />
+                  APY{' '}
+                  {sortInfo.field === 'borrowAPY' && (
+                    <Icon
+                      type={
+                        sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'
+                      }
+                    />
+                  )}
+                </span>
+              </Col>
+              {/* <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-distributed right">
                     Total Distributed
                   </Col> */}
-                </Row>
-                <div className="table_content">
-                  {markets &&
-                    (markets || [])
-                      .sort((a, b) => {
-                        if (sortInfo.field) {
-                          if (sortInfo.field === 'perDay') {
-                            return sortInfo.sort === 'desc'
-                              ? +new BigNumber(b.perDay)
-                                  .minus(new BigNumber(a.perDay))
-                                  .toString(10)
-                              : +new BigNumber(a.perDay)
-                                  .minus(new BigNumber(b.perDay))
-                                  .toString(10);
-                          }
-                          if (sortInfo.field === 'supplyAPY') {
-                            return sortInfo.sort === 'desc'
-                              ? +new BigNumber(b.supplyAPY)
-                                  .minus(new BigNumber(a.supplyAPY))
-                                  .toString(10)
-                              : +new BigNumber(a.supplyAPY)
-                                  .minus(new BigNumber(b.supplyAPY))
-                                  .toString(10);
-                          }
-                          if (sortInfo.field === 'borrowAPY') {
-                            return sortInfo.sort === 'desc'
-                              ? +new BigNumber(b.borrowAPY)
-                                  .minus(new BigNumber(a.borrowAPY))
-                                  .toString(10)
-                              : +new BigNumber(a.borrowAPY)
-                                  .minus(new BigNumber(b.borrowAPY))
-                                  .toString(10);
-                          }
-                        }
-                        return +new BigNumber(b.perDay)
-                          .minus(new BigNumber(a.perDay))
-                          .toString(10);
-                      })
-                      .map((item, index) => (
-                        <Row className="table_item pointer" key={index}>
-                          <Col
-                            xs={{ span: 24 }}
-                            lg={{ span: 6 }}
-                            className="flex align-center market"
-                          >
-                            {item.underlyingSymbol !== 'VAI' ? (
-                              <img
-                                className="asset-img"
-                                src={
-                                  constants.CONTRACT_TOKEN_ADDRESS[
-                                    item.underlyingSymbol.toLowerCase()
-                                  ].asset
-                                }
-                                alt="asset"
-                              />
-                            ) : (
-                              <img
-                                className="vai-img"
-                                src={vaiImg}
-                                alt="asset"
-                              />
-                            )}
-                            <p>{item.underlyingSymbol}</p>
-                          </Col>
-                          <Col
-                            xs={{ span: 24 }}
-                            lg={{ span: 6 }}
-                            className="per-day right"
-                          >
-                            <p className="mobile-label">Per day</p>
-                            <p>{item.perDay}</p>
-                          </Col>
-                          <Col
-                            xs={{ span: 24 }}
-                            lg={{ span: 6 }}
-                            className="supply-apy right"
-                          >
-                            <p className="mobile-label">Supply APY</p>
-                            <p>{item.supplyAPY}%</p>
-                          </Col>
-                          <Col
-                            xs={{ span: 24 }}
-                            lg={{ span: 6 }}
-                            className="borrow-apy right"
-                          >
-                            <p className="mobile-label">Borrow APY</p>
-                            {item.underlyingSymbol !== 'VAI' ? (
-                              <p>{item.borrowAPY}%</p>
-                            ) : (
-                              <p>-</p>
-                            )}
-                          </Col>
-                          {/* <Col xs={{ span: 24 }} lg={{ span: 4 }} className="total-distributed right">
-                            <p className="mobile-label">Total Distributed</p>
-                            <p>{format(item.totalDistributed.toString())}</p>
-                          </Col> */}
-                        </Row>
-                      ))}
-                </div>
-              </TableWrapper>
-            </>
-          )}
+            </Row>
+            <div className="table_content">
+              {totalMarkets &&
+                (totalMarkets || [])
+                  .sort((a, b) => {
+                    if (sortInfo.field) {
+                      if (sortInfo.field === 'perDay') {
+                        return sortInfo.sort === 'desc'
+                          ? +new BigNumber(b.perDay)
+                              .minus(new BigNumber(a.perDay))
+                              .toString(10)
+                          : +new BigNumber(a.perDay)
+                              .minus(new BigNumber(b.perDay))
+                              .toString(10);
+                      }
+                      if (sortInfo.field === 'supplyAPY') {
+                        return sortInfo.sort === 'desc'
+                          ? +new BigNumber(b.supplyAPY)
+                              .minus(new BigNumber(a.supplyAPY))
+                              .toString(10)
+                          : +new BigNumber(a.supplyAPY)
+                              .minus(new BigNumber(b.supplyAPY))
+                              .toString(10);
+                      }
+                      if (sortInfo.field === 'borrowAPY') {
+                        return sortInfo.sort === 'desc'
+                          ? +new BigNumber(b.borrowAPY)
+                              .minus(new BigNumber(a.borrowAPY))
+                              .toString(10)
+                          : +new BigNumber(a.borrowAPY)
+                              .minus(new BigNumber(b.borrowAPY))
+                              .toString(10);
+                      }
+                    }
+                    return +new BigNumber(b.perDay)
+                      .minus(new BigNumber(a.perDay))
+                      .toString(10);
+                  })
+                  .map((item, index) => (
+                    <Row className="table_item pointer" key={index}>
+                      <Col
+                        xs={{ span: 24 }}
+                        lg={{ span: 6 }}
+                        className="flex align-center market"
+                      >
+                        {item.underlyingSymbol !== 'VAI' ? (
+                          <img
+                            className="asset-img"
+                            src={
+                              constants.CONTRACT_TOKEN_ADDRESS[
+                                item.underlyingSymbol.toLowerCase()
+                              ].asset
+                            }
+                            alt="asset"
+                          />
+                        ) : (
+                          <img className="vai-img" src={vaiImg} alt="asset" />
+                        )}
+                        <p>{item.underlyingSymbol}</p>
+                      </Col>
+                      <Col
+                        xs={{ span: 24 }}
+                        lg={{ span: 6 }}
+                        className="per-day right"
+                      >
+                        <p className="mobile-label">Per day</p>
+                        <p>{item.perDay}</p>
+                      </Col>
+                      <Col
+                        xs={{ span: 24 }}
+                        lg={{ span: 6 }}
+                        className="supply-apy right"
+                      >
+                        <p className="mobile-label">Supply APY</p>
+                        <p>{item.supplyAPY}%</p>
+                      </Col>
+                      <Col
+                        xs={{ span: 24 }}
+                        lg={{ span: 6 }}
+                        className="borrow-apy right"
+                      >
+                        <p className="mobile-label">Borrow APY</p>
+                        {item.underlyingSymbol !== 'VAI' ? (
+                          <p>{item.borrowAPY}%</p>
+                        ) : (
+                          <p>-</p>
+                        )}
+                      </Col>
+                    </Row>
+                  ))}
+            </div>
+          </TableWrapper>
         </XVSWrapper>
       </MainLayout>
     </XVSLayout>

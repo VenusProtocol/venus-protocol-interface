@@ -11,9 +11,12 @@ import AnimatedNumber from 'animated-number-react';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import { getBigNumber } from 'utilities/common';
-import { getVaiVaultContract, methods } from 'utilities/ContractService';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
+import { useWeb3React } from '@web3-react/core';
+import { useVaiUser } from '../../hooks/useVaiUser';
+import { useMarketsUser } from '../../hooks/useMarketsUser';
+import { useVaiVault } from '../../hooks/useContract';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -83,16 +86,19 @@ const abortController = new AbortController();
 function WalletBalance({ settings, setSetting }) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
+  const { userVaiMinted } = useVaiUser();
+  const { userMarketInfo } = useMarketsUser();
 
   const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
   const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
+  const vaultContract = useVaiVault();
 
   const addVAIApy = useCallback(
     async apy => {
-      const vaultContract = getVaiVaultContract();
-      const { 0: staked } = await methods.call(vaultContract.methods.userInfo, [
-        settings.selectedAddress
-      ]);
+      const { 0: staked } = await vaultContract.methods
+        .userInfo(account)
+        .call();
       const amount = new BigNumber(staked).div(1e18);
       if (amount.isNaN() || amount.isZero()) {
         setNetAPY(apy.dp(2, 1).toNumber());
@@ -111,9 +117,8 @@ function WalletBalance({ settings, setSetting }) {
   const updateNetAPY = useCallback(async () => {
     let totalSum = new BigNumber(0);
     let totalSupplied = new BigNumber(0);
-    let totalBorrowed = new BigNumber(settings.userVaiMinted);
-    const { assetList } = settings;
-    assetList.forEach(asset => {
+    let totalBorrowed = userVaiMinted;
+    userMarketInfo.forEach(asset => {
       if (!asset) return;
       const {
         supplyBalance,
@@ -161,20 +166,16 @@ function WalletBalance({ settings, setSetting }) {
     setTotalSupply(totalSupplied);
     setTotalBorrow(totalBorrowed);
     addVAIApy(apy);
-  }, [settings.assetList, withXVS]);
+  }, [userMarketInfo, withXVS]);
 
   useEffect(() => {
-    if (
-      settings.selectedAddress &&
-      settings.assetList &&
-      settings.assetList.length > 0
-    ) {
+    if (account && userMarketInfo && userMarketInfo.length > 0) {
       updateNetAPY();
     }
     return function cleanup() {
       abortController.abort();
     };
-  }, [settings.selectedAddress, updateNetAPY]);
+  }, [account, updateNetAPY]);
 
   useEffect(() => {
     setSetting({

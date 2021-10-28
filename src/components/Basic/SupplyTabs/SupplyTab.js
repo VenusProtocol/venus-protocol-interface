@@ -7,11 +7,7 @@ import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
-import {
-  getTokenContract,
-  getVbepContract,
-  methods
-} from 'utilities/ContractService';
+import { useWeb3React } from '@web3-react/core';
 import commaNumber from 'comma-number';
 import { sendSupply } from 'utilities/BnbContract';
 import coinImg from 'assets/img/venus_32.png';
@@ -19,11 +15,14 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
+import { useToken, useVbep } from '../../../hooks/useContract';
+import { useMarketsUser } from '../../../hooks/useMarketsUser';
+import { useVaiUser } from '../../../hooks/useVaiUser';
+import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
 
-function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
+function SupplyTab({ asset, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -31,40 +30,48 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowLimit, setNewBorrowLimit] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
+  const { account } = useWeb3React();
+  const vbepContract = useVbep(asset.id);
+  const tokenContract = useToken(asset.id);
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
+  const { mintableVai } = useVaiUser();
+  const web3 = useWeb3();
 
   const updateInfo = useCallback(async () => {
-    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
-    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     const collateralFactor = getBigNumber(asset.collateralFactor);
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
-      const temp = totalBorrowLimit.plus(
+      const temp = userTotalBorrowLimit.plus(
         amount.times(tokenPrice).times(collateralFactor)
       );
       setNewBorrowLimit(BigNumber.maximum(temp, 0));
-      setNewBorrowPercent(totalBorrowBalance.div(temp).times(100));
-      if (totalBorrowLimit.isZero()) {
+      setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowLimit(new BigNumber(0));
         setBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowLimit(totalBorrowLimit);
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowLimit(userTotalBorrowLimit);
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
       }
-    } else if (BigNumber.isBigNumber(totalBorrowLimit)) {
-      setBorrowLimit(totalBorrowLimit);
-      setNewBorrowLimit(totalBorrowLimit);
-      if (totalBorrowLimit.isZero()) {
+    } else if (BigNumber.isBigNumber(userTotalBorrowLimit)) {
+      setBorrowLimit(userTotalBorrowLimit);
+      setNewBorrowLimit(userTotalBorrowLimit);
+      if (userTotalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setBorrowPercent(
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+        );
         setNewBorrowPercent(
-          totalBorrowBalance.div(totalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
         );
       }
     }
-  }, [settings.selectedAddress, amount]);
+  }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
 
   useEffect(() => {
     setIsEnabled(asset.isEnabled);
@@ -74,144 +81,87 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
    * Get Allowed amount
    */
   useEffect(() => {
-    if (asset.vtokenAddress && settings.selectedAddress) {
+    if (asset.vtokenAddress && account) {
       updateInfo();
     }
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [settings.selectedAddress, updateInfo]);
+  }, [account, updateInfo]);
   /**
    * Approve underlying token
    */
-  const onApprove = async () => {
-    if (asset.id && settings.selectedAddress && asset.id !== 'bnb') {
-      setIsLoading(true);
-      // const binanceConnect = BinanceWalletConnectClass.initialize();
-      // binanceConnect.sendApprove(
-      //   asset.id,
-      //   settings.selectedAddress,
-      //   asset.vtokenAddress,
-      //   new BigNumber(2)
-      //     .pow(256)
-      //     .minus(1)
-      //     .toString(10),
-      //   () => {
-      //     setAmount(new BigNumber(0));
-      //     setIsLoading(false);
-      //     onCancel();
-      //   }
-      // );
-      const tokenContract = getTokenContract(asset.id);
-      methods
-        .send(
-          tokenContract.methods.approve,
-          [
-            asset.vtokenAddress,
-            new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10)
-          ],
-          settings.selectedAddress
+  const onApprove = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await tokenContract.methods
+        .approve(
+          asset.vtokenAddress,
+          new BigNumber(2)
+            .pow(256)
+            .minus(1)
+            .toString(10)
         )
-        .then(() => {
-          setIsEnabled(true);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
+        .send({ from: account });
+      setIsEnabled(true);
+    } catch (error) {
+      console.log('approve error :>> ', error);
     }
-  };
+    setIsLoading(false);
+  }, [tokenContract, asset, account]);
 
   /**
    * Supply
    */
-  const handleSupply = () => {
-    const appContract = getVbepContract(asset.id);
-    // const binanceConnect = BinanceWalletConnectClass.initialize();
-    // binanceConnect.sendSupply(
-    //   asset.id,
-    //   settings.selectedAddress,
-    //   amount
-    //     .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-    //     .toString(10),
-    //   () => {
-    //     setAmount(new BigNumber(0));
-    //     setIsLoading(false);
-    //     onCancel();
-    //   }
-    // );
-
-    if (asset.id && settings.selectedAddress) {
-      setIsLoading(true);
+  const handleSupply = useCallback(async () => {
+    setIsLoading(true);
+    setSetting({
+      pendingInfo: {
+        type: 'Supply',
+        status: true,
+        amount: amount.dp(8, 1).toString(10),
+        symbol: asset.symbol
+      }
+    });
+    if (asset.id !== 'bnb') {
+      try {
+        await vbepContract.methods
+          .mint(
+            amount.times(new BigNumber(10).pow(asset.decimals)).toString(10)
+          )
+          .send({ from: account });
+        setAmount(new BigNumber(0));
+        onCancel();
+      } catch (error) {
+        console.log('supply error :>> ', error);
+      }
+      setIsLoading(false);
       setSetting({
         pendingInfo: {
-          type: 'Supply',
-          status: true,
-          amount: amount.dp(8, 1).toString(10),
-          symbol: asset.symbol
+          type: '',
+          status: false,
+          amount: 0,
+          symbol: ''
         }
       });
-      if (asset.id !== 'bnb') {
-        methods
-          .send(
-            appContract.methods.mint,
-            [
-              amount
-                .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-                .toString(10)
-            ],
-            settings.selectedAddress
-          )
-          .then(() => {
-            setAmount(new BigNumber(0));
-            setIsLoading(false);
-            setSetting({
-              pendingInfo: {
-                type: '',
-                status: false,
-                amount: 0,
-                symbol: ''
-              }
-            });
-            onCancel();
-          })
-          .catch(() => {
-            setIsLoading(false);
-            setSetting({
-              pendingInfo: {
-                type: '',
-                status: false,
-                amount: 0,
-                symbol: ''
-              }
-            });
+    } else {
+      sendSupply(
+        web3,
+        account,
+        amount.times(new BigNumber(10).pow(asset.decimals)).toString(10),
+        () => {
+          setAmount(new BigNumber(0));
+          setIsLoading(false);
+          setSetting({
+            pendingInfo: {
+              type: '',
+              status: false,
+              amount: 0,
+              symbol: ''
+            }
           });
-      } else {
-        sendSupply(
-          settings.selectedAddress,
-          amount
-            .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
-            .toString(10),
-          () => {
-            setAmount(new BigNumber(0));
-            setIsLoading(false);
-            setSetting({
-              pendingInfo: {
-                type: '',
-                status: false,
-                amount: 0,
-                symbol: ''
-              }
-            });
-            onCancel();
-          }
-        );
-      }
+          onCancel();
+        }
+      );
     }
-  };
+  }, [vbepContract, amount, account, asset]);
   /**
    * Max amount
    */
@@ -315,12 +265,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>
-              {getBigNumber(settings.mintableVai)
-                .dp(2, 1)
-                .toString(10)}{' '}
-              VAI
-            </span>
+            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
           </div>
         </div>
         {isEnabled && (
@@ -368,7 +313,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
         {!isEnabled && asset.id !== 'bnb' ? (
           <Button
             className="button"
-            disabled={isLoading}
+            disabled={isLoading || !account}
             onClick={() => {
               onApprove();
             }}
@@ -380,6 +325,7 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
             className="button"
             disabled={
               isLoading ||
+              !account ||
               amount.isNaN() ||
               amount.isZero() ||
               amount.isGreaterThan(asset.walletBalance)
@@ -402,7 +348,6 @@ function SupplyTab({ asset, settings, changeTab, onCancel, setSetting }) {
 
 SupplyTab.propTypes = {
   asset: PropTypes.object,
-  settings: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
   setSetting: PropTypes.func.isRequired
@@ -410,14 +355,9 @@ SupplyTab.propTypes = {
 
 SupplyTab.defaultProps = {
   asset: {},
-  settings: {},
   changeTab: () => {},
   onCancel: () => {}
 };
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
 
 const mapDispatchToProps = dispatch => {
   const { setSetting } = accountActionCreators;
@@ -430,6 +370,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  SupplyTab
-);
+export default compose(connectAccount(null, mapDispatchToProps))(SupplyTab);
