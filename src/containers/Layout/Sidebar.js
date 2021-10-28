@@ -17,6 +17,8 @@ import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
+import CareerIcon from 'assets/img/career.png';
+
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useVaiToken } from '../../hooks/useContract';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';
@@ -442,6 +444,14 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           <img src={prdtImg} alt="prdt" className="prdt-logo" />
           <Label primary>XVS Prediction</Label>
         </a>
+        <NavLink
+          className="flex flex-start align-center"
+          to="/career"
+          activeClassName="active"
+        >
+          <img className="career-icon" src={CareerIcon} alt="career" />
+          <Label primary>Career</Label>
+        </NavLink>
       </MainMenu>
       <FaucetMenu>
         {process.env.REACT_APP_CHAIN_ID === '97' && (

@@ -12,6 +12,7 @@ import Dashboard from 'containers/Main/Dashboard';
 import Faucet from 'containers/Main/Faucet';
 import Vote from 'containers/Main/Vote';
 import XVS from 'containers/Main/XVS';
+import Career from 'containers/Main/Career';
 import Market from 'containers/Main/Market';
 import Vault from 'containers/Main/Vault';
 import MarketDetail from 'containers/Main/MarketDetail';
