@@ -12,9 +12,6 @@ import * as constants from 'utilities/constants';
 import commaNumber from 'comma-number';
 import { addToken, getBigNumber } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
-import { useMarkets } from '../../hooks/useMarkets';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { vtokenDecimals } from '../../config';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -141,14 +138,10 @@ const abortController = new AbortController();
 const format = commaNumber.bindWith(',', '.');
 
 function Overview({ settings, getMarketHistory }) {
-  const [currentAsset, setCurrentAsset] = useState('sxp');
+  const [currentAsset, setCurrentAsset] = useState(null);
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   const [currentAPY, setCurrentAPY] = useState(0);
-  const [decimals, setDecimals] = useState(18);
-  const { markets } = useMarkets();
-  const { userMarketInfo } = useMarketsUser();
-
   const getGraphData = async (asset, type, limit) => {
     let tempData = [];
     const res = await promisify(getMarketHistory, { asset, type, limit });
@@ -164,34 +157,42 @@ function Overview({ settings, getMarketHistory }) {
     setData([...tempData]);
   };
 
-  useEffect(() => {
+  const getGovernanceData = useCallback(async () => {
     if (!currentAsset) return;
-    if (markets && markets.length > 0) {
-      const info = markets.find(
+    if (settings.markets && settings.markets.length > 0) {
+      const info = settings.markets.find(
         item => item.underlyingSymbol.toLowerCase() === currentAsset
       );
       setMarketInfo(info || {});
     }
-  }, [markets, currentAsset]);
+  }, [settings.markets, currentAsset]);
+
+  useEffect(() => {
+    getGovernanceData();
+  }, [getGovernanceData]);
 
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
         constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
-        '1hr',
+        process.env.REACT_APP_GRAPH_TICKER || null,
         24 * 7 // 1 week
       );
     }
     return function cleanup() {
       abortController.abort();
     };
-  }, [currentAsset]);
+  }, [settings.selectedAddress, currentAsset]);
 
   useEffect(() => {
-    if (userMarketInfo && userMarketInfo.length > 0) {
+    setCurrentAsset('sxp');
+  }, []);
+
+  useEffect(() => {
+    if (settings.assetList && settings.assetList.length > 0) {
       const currentMarketInfo =
-        userMarketInfo.filter(s => s && s.id === currentAsset).length !== 0
-          ? userMarketInfo.filter(s => s && s.id === currentAsset)[0]
+        settings.assetList.filter(s => s && s.id === currentAsset).length !== 0
+          ? settings.assetList.filter(s => s && s.id === currentAsset)[0]
           : {};
       const supplyApy = getBigNumber(currentMarketInfo.supplyApy);
       const borrowApy = getBigNumber(currentMarketInfo.borrowApy);
@@ -201,18 +202,21 @@ function Overview({ settings, getMarketHistory }) {
       const borrowApyWithXVS = settings.withXVS
         ? getBigNumber(currentMarketInfo.xvsBorrowApy).plus(borrowApy)
         : borrowApy;
-      setDecimals(currentMarketInfo.decimals);
       setCurrentAPY(
         (settings.marketType || 'supply') === 'supply'
           ? supplyApyWithXVS.dp(2, 1).toString(10)
           : borrowApyWithXVS.dp(2, 1).toString(10)
       );
     }
-  }, [currentAsset, settings.marketType, userMarketInfo, settings.withXVS]);
+  }, [currentAsset, settings.marketType, settings.assetList, settings.withXVS]);
 
   const handleChangeAsset = value => {
     setCurrentAsset(value);
   };
+
+  if (!settings.decimals[currentAsset]) {
+    return null;
+  }
 
   return (
     <Card>
@@ -254,16 +258,22 @@ function Overview({ settings, getMarketHistory }) {
               </Select>
               <div className="value">Overview</div>
             </AssetSelectWrapper>
-            {window.ethereum && window.ethereum.networkVersion && (
+            {window.ethereum && window.ethereum.networkVersion && settings.walletType === 'metamask' && (
               <div className="flex align-center add-token-wrapper">
-                {currentAsset && currentAsset !== 'bnb' && (
+                {currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
                     {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
                     <Icon
                       className="add-token"
                       type="plus-circle"
                       theme="filled"
-                      onClick={() => addToken(currentAsset, decimals, 'token')}
+                      onClick={() =>
+                        addToken(
+                          currentAsset,
+                          settings.decimals[currentAsset].token,
+                          'token'
+                        )
+                      }
                     />
                   </div>
                 )}
@@ -276,7 +286,11 @@ function Overview({ settings, getMarketHistory }) {
                     type="plus-circle"
                     theme="filled"
                     onClick={() =>
-                      addToken(currentAsset, vtokenDecimals, 'vtoken')
+                      addToken(
+                        currentAsset,
+                        settings.decimals[currentAsset].vtoken,
+                        'vtoken'
+                      )
                     }
                   />
                 </div>
@@ -286,20 +300,14 @@ function Overview({ settings, getMarketHistory }) {
           </div>
           {/* <p className="value">{`$${
               (settings.marketType || 'supply') === 'supply'
-                ? new BigNumber(marketInfo.totalSupply || 0).div(new BigNumber(10).pow(vtokenDecimals)).dp(2, 1).toString(10)
-                : new BigNumber(marketInfo.totalBorrows || 0).div(new BigNumber(10).pow(decimals)).dp(2, 1).toString(10)
+                ? new BigNumber(marketInfo.totalSupply || 0).div(new BigNumber(10).pow(settings.decimals[currentAsset].vtoken)).dp(2, 1).toString(10)
+                : new BigNumber(marketInfo.totalBorrows || 0).div(new BigNumber(10).pow(settings.decimals[currentAsset].token)).dp(2, 1).toString(10)
             }`}
           </p> */}
         </div>
         <div className="historic-label">Historical rates</div>
         <div className="flex flex-column flex-end">
-          <p
-            className={
-              (settings.marketType || 'supply') === 'supply' || currentAPY >= 0
-                ? 'apy-value'
-                : 'apy-value-red'
-            }
-          >
+          <p className={(settings.marketType || 'supply') === 'supply' || currentAPY >= 0  ? "apy-value" : "apy-value-red"}>
             {currentAPY}%
           </p>
           <p className="apy-label">
@@ -316,7 +324,11 @@ function Overview({ settings, getMarketHistory }) {
           <p className="label">Price</p>
           <p className="value">
             {`$${new BigNumber(marketInfo.underlyingPrice || 0)
-              .div(new BigNumber(10).pow(18 + 18 - decimals))
+              .div(
+                new BigNumber(10).pow(
+                  18 + 18 - parseInt(settings.decimals[currentAsset].token, 10)
+                )
+              )
               .dp(8, 1)
               .toString(10)}`}
           </p>
@@ -326,7 +338,9 @@ function Overview({ settings, getMarketHistory }) {
           <p className="value">
             {`${format(
               new BigNumber(marketInfo.cash || 0)
-                .div(new BigNumber(10).pow(decimals))
+                .div(
+                  new BigNumber(10).pow(settings.decimals[currentAsset].token)
+                )
                 .dp(8, 1)
                 .toString(10)
             )} ${marketInfo.underlyingSymbol || ''}`}
@@ -344,7 +358,7 @@ function Overview({ settings, getMarketHistory }) {
           <p className="label">Reserves</p>
           <p className="value">
             {`${new BigNumber(marketInfo.totalReserves || 0)
-              .div(new BigNumber(10).pow(decimals))
+              .div(new BigNumber(10).pow(settings.decimals[currentAsset].token))
               .dp(8, 1)
               .toString(10)} ${marketInfo.underlyingSymbol || ''}`}
           </p>
@@ -396,7 +410,17 @@ function Overview({ settings, getMarketHistory }) {
               new BigNumber(1)
                 .div(
                   new BigNumber(marketInfo.exchangeRate).div(
-                    new BigNumber(10).pow(18 + decimals - vtokenDecimals)
+                    new BigNumber(10).pow(
+                      18 +
+                        +parseInt(
+                          settings.decimals[currentAsset || 'sxp'].token,
+                          10
+                        ) -
+                        +parseInt(
+                          settings.decimals[currentAsset || 'sxp'].vtoken,
+                          10
+                        )
+                    )
                   )
                 )
                 .toString(10)

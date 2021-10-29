@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
-import { BASE_BSC_SCAN_URL } from '../../../config';
 
 const ProposalUserWrapper = styled.div`
   width: 100%;
@@ -37,7 +36,9 @@ const ProposalUserWrapper = styled.div`
 function ProposalUser({ proposalInfo }) {
   const handleAddLink = (linkType, v) => {
     window.open(
-      `${BASE_BSC_SCAN_URL}/${linkType === 'address' ? 'address' : 'tx'}/${v}`,
+      `${process.env.REACT_APP_BSC_EXPLORER}/${
+        linkType === 'address' ? 'address' : 'tx'
+      }/${v}`,
       '_blank'
     );
   };

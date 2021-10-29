@@ -1,7 +1,6 @@
 // @flow
 
 import { set, isEmpty } from 'lodash';
-import { API_ENDPOINT_URL } from '../config';
 
 export async function restService({
   api,
@@ -12,7 +11,13 @@ export async function restService({
   token = null
 }) {
   const headers = {};
-  let path = `${API_ENDPOINT_URL}${api}`;
+  let path;
+
+  if (process.env.REACT_APP_ENV !== 'prod') {
+    path = `${process.env.REACT_APP_DEVELOPMENT_API}${api}`;
+  } else {
+    path = `${process.env.REACT_APP_PRODUCTION_API}${api}`;
+  }
 
   if (third_party) {
     path = api;

@@ -6,6 +6,11 @@ import BigNumber from 'bignumber.js';
 import { withRouter } from 'react-router-dom';
 import { connectAccount } from 'core';
 import {
+  getVbepContract,
+  getInterestModelContract,
+  methods
+} from 'utilities/ContractService';
+import {
   LineChart,
   Line,
   XAxis,
@@ -14,13 +19,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
-import { useMarkets } from '../../hooks/useMarkets';
-import * as constants from 'utilities/constants';
-import useWeb3 from '../../hooks/useWeb3';
-import {
-  getInterestModelContract,
-  getVbepContract
-} from '../../utilities/contractHelpers';
+import { checkIsValidNetwork } from 'utilities/common';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -128,9 +127,6 @@ function InterestRateModel({ settings, currentAsset }) {
   const [currentPos, setCurrentPos] = useState(30);
   const [maxY, setMaxY] = useState(0);
 
-  const { markets } = useMarkets();
-  const web3 = useWeb3();
-
   const CustomizedAxisTick = ({ x, y }) => {
     return (
       <g transform={`translate(${x},${y})`}>
@@ -147,24 +143,24 @@ function InterestRateModel({ settings, currentAsset }) {
 
   const getGraphData = async asset => {
     flag = true;
-    const vbepContract = getVbepContract(web3, asset);
-    const interestRateModel = await vbepContract.methods
-      .interestRateModel()
-      .call();
-    const interestModelContract = getInterestModelContract(
-      web3,
-      interestRateModel
+    const vbepContract = getVbepContract(asset);
+    const interestRateModel = await methods.call(
+      vbepContract.methods.interestRateModel,
+      []
     );
-    const cashValue = await vbepContract.methods.getCash().call();
+    const interestModelContract = getInterestModelContract(interestRateModel);
+    const cashValue = await methods.call(vbepContract.methods.getCash, []);
     const data = [];
-    const marketInfo = markets.find(
+    const marketInfo = settings.markets.find(
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase()
     );
     // Get Current Utilization Rate
     const cash = new BigNumber(cashValue).div(1e18);
     const borrows = new BigNumber(marketInfo.totalBorrows2);
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
-      new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS[asset].decimals)
+      new BigNumber(10).pow(
+        settings.decimals[asset] ? settings.decimals[asset].token : 18
+      )
     );
     const currentUtilizationRate = borrows.div(
       cash.plus(borrows).minus(reserves)
@@ -185,31 +181,27 @@ function InterestRateModel({ settings, currentAsset }) {
     }
     const borrowRes = await Promise.all(
       urArray.map(ur =>
-        interestModelContract.methods
-          .getBorrowRate(
-            new BigNumber(1 / ur - 1)
-              .times(1e4)
-              .dp(0)
-              .toString(10),
-            1e4,
-            0
-          )
-          .call()
+        methods.call(interestModelContract.methods.getBorrowRate, [
+          new BigNumber(1 / ur - 1)
+            .times(1e4)
+            .dp(0)
+            .toString(10),
+          1e4,
+          0
+        ])
       )
     );
     const supplyRes = await Promise.all(
       urArray.map(ur =>
-        interestModelContract.methods
-          .getSupplyRate(
-            new BigNumber(1 / ur - 1)
-              .times(1e4)
-              .dp(0)
-              .toString(10),
-            1e4,
-            0,
-            marketInfo.reserveFactor.toString(10)
-          )
-          .call()
+        methods.call(interestModelContract.methods.getSupplyRate, [
+          new BigNumber(1 / ur - 1)
+            .times(1e4)
+            .dp(0)
+            .toString(10),
+          1e4,
+          0,
+          marketInfo.reserveFactor.toString(10)
+        ])
       )
     );
     urArray.forEach((ur, index) => {
@@ -246,10 +238,17 @@ function InterestRateModel({ settings, currentAsset }) {
   };
 
   useEffect(() => {
-    if (currentAsset && markets && markets.length > 0 && !flag) {
+    if (
+      currentAsset &&
+      settings.markets &&
+      settings.markets.length > 0 &&
+      settings.decimals &&
+      checkIsValidNetwork(settings.walletType) &&
+      !flag
+    ) {
       getGraphData(currentAsset);
     }
-  }, [markets, currentAsset]);
+  }, [settings.markets, currentAsset]);
 
   useEffect(() => {
     flag = false;

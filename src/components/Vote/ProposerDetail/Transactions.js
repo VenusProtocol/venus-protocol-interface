@@ -9,7 +9,6 @@ import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import moment from 'moment';
 import { Card } from 'components/Basic/Card';
-import { BASE_BSC_SCAN_URL } from '../../../config';
 
 const TransactionsWrapper = styled.div`
   width: 100%;
@@ -128,7 +127,10 @@ function Transactions({ address, transactions }) {
   }, [transactions, address]);
 
   const handleLink = () => {
-    window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
+    window.open(
+      `${process.env.REACT_APP_BSC_EXPLORER}/address/${address}`,
+      '_blank'
+    );
   };
   return (
     <Card>

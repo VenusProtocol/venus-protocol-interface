@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { compose } from 'recompose';
 import { Icon } from 'antd';
+import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
+import { connectAccount } from 'core';
+import {
+  getTokenContract,
+  getVaiVaultContract,
+  methods
+} from 'utilities/ContractService';
+import { checkIsValidNetwork } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import vaiImg from 'assets/img/coins/vai.svg';
 import xvsImg from 'assets/img/venus_32.png';
-import { useWeb3React } from '@web3-react/core';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useVaiVault } from '../../hooks/useContract';
 
 const UserInfoWrapper = styled.div`
   width: 100%;
@@ -61,23 +67,48 @@ const UserInfoWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
+const abortController = new AbortController();
 
-function UserInfo({ availableVai, vaiStaked, vaiReward }) {
+function UserInfo({ settings, availableVai, vaiStaked, vaiReward }) {
   const [isLoading, setIsLoading] = useState(false);
-  const { account } = useWeb3React();
-  const { userXVSBalance } = useMarketsUser();
-  const vaiVaultContract = useVaiVault();
+  const [balance, setBalance] = useState('');
+
+  const updateBalance = useCallback(async () => {
+    if (settings.selectedAddress) {
+      const xvsTokenContract = getTokenContract('xvs');
+      let temp = await methods.call(xvsTokenContract.methods.balanceOf, [
+        settings.selectedAddress
+      ]);
+      temp = new BigNumber(temp)
+        .dividedBy(new BigNumber(10).pow(18))
+        .dp(4, 1)
+        .toString(10);
+      setBalance(temp);
+    }
+  }, [settings.markets]);
 
   const handleClaimReward = async () => {
     if (isLoading || vaiReward === '0') return;
+    const appContract = getVaiVaultContract();
     setIsLoading(true);
-    try {
-      await vaiVaultContract.methods.claim().send({ from: account });
-    } catch (error) {
-      console.log('claim error :>> ', error);
-    }
-    setIsLoading(false);
+    await methods
+      .send(appContract.methods.claim, [], settings.selectedAddress)
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
+
+  useEffect(() => {
+    if (checkIsValidNetwork(settings.walletType)) {
+      updateBalance();
+    }
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, [settings.selectedAddress, updateBalance]);
 
   return (
     <Card>
@@ -118,7 +149,7 @@ function UserInfo({ availableVai, vaiStaked, vaiReward }) {
           <div className="flex align-center just-between value">
             <p>
               <img src={xvsImg} alt="xvs" />
-              {format(userXVSBalance.toFormat(4))} XVS
+              {format(balance)} XVS
             </p>
           </div>
         </div>
@@ -128,9 +159,21 @@ function UserInfo({ availableVai, vaiStaked, vaiReward }) {
 }
 
 UserInfo.propTypes = {
+  settings: PropTypes.object
+};
+
+UserInfo.defaultProps = {
+  settings: {}
+};
+
+UserInfo.propTypes = {
   availableVai: PropTypes.object.isRequired,
   vaiStaked: PropTypes.object.isRequired,
   vaiReward: PropTypes.string.isRequired
 };
 
-export default UserInfo;
+const mapStateToProps = ({ account }) => ({
+  settings: account.setting
+});
+
+export default compose(connectAccount(mapStateToProps, undefined))(UserInfo);

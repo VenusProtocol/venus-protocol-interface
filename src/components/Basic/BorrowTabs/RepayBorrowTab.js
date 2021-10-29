@@ -6,7 +6,11 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
+import {
+  getTokenContract,
+  getVbepContract,
+  methods
+} from 'utilities/ContractService';
 import { sendRepay } from 'utilities/BnbContract';
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -15,12 +19,9 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { Icon, Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber } from 'utilities/common';
-import { useVaiUser } from '../../../hooks/useVaiUser';
-import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useToken, useVbep } from '../../../hooks/useContract';
-import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
+const abortController = new AbortController();
 
 function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,78 +31,79 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
-  const { userVaiMinted } = useVaiUser();
-  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
-  const tokenContract = useToken(asset.id);
-  const vbepContract = useVbep(asset.id);
-  const web3 = useWeb3();
 
   const updateInfo = useCallback(() => {
+    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
+    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const tokenPrice = getBigNumber(asset.tokenPrice);
     if (amount.isZero() || amount.isNaN()) {
-      setBorrowBalance(userTotalBorrowBalance);
-      if (userTotalBorrowLimit.isZero()) {
+      setBorrowBalance(totalBorrowBalance);
+      if (totalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
-        );
+        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
         setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          totalBorrowBalance.div(totalBorrowLimit).times(100)
         );
       }
     } else {
-      const temp = userTotalBorrowBalance.minus(amount.times(tokenPrice));
-      setBorrowBalance(userTotalBorrowBalance);
+      const temp = totalBorrowBalance.minus(amount.times(tokenPrice));
+      setBorrowBalance(totalBorrowBalance);
       setNewBorrowBalance(temp);
-      if (userTotalBorrowLimit.isZero()) {
+      if (totalBorrowLimit.isZero()) {
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
-        );
-        setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
+        setBorrowPercent(totalBorrowBalance.div(totalBorrowLimit).times(100));
+        setNewBorrowPercent(temp.div(totalBorrowLimit).times(100));
       }
     }
-  }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
+  }, [settings.selectedAddress, amount, asset]);
 
   useEffect(() => {
-    if (account) {
+    if (asset.vtokenAddress && settings.selectedAddress) {
       updateInfo();
     }
-  }, [account, updateInfo, asset]);
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, [settings.selectedAddress, updateInfo, asset]);
 
   /**
    * Approve underlying token
    */
   const onApprove = async () => {
-    if (asset && account && asset.id !== 'bnb') {
+    if (asset && settings.selectedAddress && asset.id !== 'bnb') {
       setIsLoading(true);
-      try {
-        await tokenContract.methods
-          .approve(
+      const tokenContract = getTokenContract(asset.id);
+      methods
+        .send(
+          tokenContract.methods.approve,
+          [
             asset.vtokenAddress,
             new BigNumber(2)
               .pow(256)
               .minus(1)
               .toString(10)
-          )
-          .send({ from: account });
-        setIsEnabled(true);
-      } catch (error) {
-        console.log('approve error :>> ', error);
-      }
-      setIsLoading(false);
+          ],
+          settings.selectedAddress
+        )
+        .then(() => {
+          setIsEnabled(true);
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
     }
   };
   /**
    * Repay Borrow
    */
   const handleRepayBorrow = async () => {
-    if (asset && account) {
+    const appContract = getVbepContract(asset.id);
+    if (asset && settings.selectedAddress) {
       setIsLoading(true);
       setSetting({
         pendingInfo: {
@@ -112,24 +114,31 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         }
       });
       if (asset.id !== 'bnb') {
-        const repayAmount = amount.eq(asset.borrowBalance)
-          ? new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10)
-          : amount
-              .times(new BigNumber(10).pow(asset.decimals))
-              .integerValue()
-              .toString(10);
-        try {
-          await vbepContract.methods
-            .repayBorrow(repayAmount)
-            .send({ from: account });
-          setAmount(new BigNumber(0));
-          onCancel();
-        } catch (error) {
-          console.log('repay borrow error :>> ', error);
+        if (amount.eq(asset.borrowBalance)) {
+          await methods.send(
+            appContract.methods.repayBorrow,
+            [
+              new BigNumber(2)
+                .pow(256)
+                .minus(1)
+                .toString(10)
+            ],
+            settings.selectedAddress
+          );
+        } else {
+          await methods.send(
+            appContract.methods.repayBorrow,
+            [
+              amount
+                .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
+                .integerValue()
+                .toString(10)
+            ],
+            settings.selectedAddress
+          );
         }
+        setAmount(new BigNumber(0));
+        onCancel();
         setIsLoading(false);
         setSetting({
           pendingInfo: {
@@ -141,10 +150,9 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
         });
       } else {
         sendRepay(
-          web3,
-          account,
+          settings.selectedAddress,
           amount
-            .times(new BigNumber(10).pow(asset.decimals))
+            .times(new BigNumber(10).pow(settings.decimals[asset.id].token))
             .integerValue()
             .toString(10),
           () => {
@@ -273,7 +281,12 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
+            <span>
+              {getBigNumber(settings.userVaiMinted)
+                .dp(2, 1)
+                .toString(10)}{' '}
+              VAI
+            </span>
           </div>
         </div>
         {isEnabled && (

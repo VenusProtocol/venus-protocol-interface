@@ -9,11 +9,11 @@ import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
+import { getVaiTokenContract, methods } from 'utilities/ContractService';
 import { promisify } from 'utilities';
 
 import * as constants from 'utilities/constants';
 import { currencyFormatter } from 'utilities/common';
-import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketWrapper = styled.div`
   width: 100%;
@@ -63,7 +63,7 @@ const TableWrapper = styled.div`
     .total-item {
       margin: 10px;
       width: 50%;
-
+      
       @media (max-width: 992px) {
         width: 100%;
       }
@@ -168,7 +168,6 @@ function Market({ history, settings, getTreasuryBalance }) {
   const [availableLiquidity, setAvailableLiquidity] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
   const [totalTreasury, setTotalTreasury] = useState(0);
-  const { markets } = useMarkets();
 
   const loadTreasuryBalance = useCallback(async () => {
     await promisify(getTreasuryBalance, {})
@@ -183,22 +182,24 @@ function Market({ history, settings, getTreasuryBalance }) {
 
   useEffect(() => {
     loadTreasuryBalance();
-  }, [markets]);
+  }, [settings.markets]);
 
   const getTotalInfo = async () => {
-    const tempTS = (markets || []).reduce((accumulator, market) => {
+    const vaiContract = getVaiTokenContract();
+
+    const tempTS = (settings.markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(
         new BigNumber(market.totalSupplyUsd)
       );
-    }, new BigNumber(0));
-    const tempTB = (markets || []).reduce((accumulator, market) => {
+    }, 0);
+    const tempTB = (settings.markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(
         new BigNumber(market.totalBorrowsUsd)
       );
-    }, new BigNumber(0));
-    const tempAL = (markets || []).reduce((accumulator, market) => {
+    }, 0);
+    const tempAL = (settings.markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(new BigNumber(market.liquidity));
-    }, new BigNumber(0));
+    }, 0);
 
     setTotalSupply(
       tempTS
@@ -216,10 +217,10 @@ function Market({ history, settings, getTreasuryBalance }) {
   };
 
   useEffect(() => {
-    if (markets) {
+    if (settings.markets && settings.dailyVenus) {
       getTotalInfo();
     }
-  }, [markets]);
+  }, [settings.markets]);
 
   const handleSort = field => {
     setSortInfo({
@@ -326,8 +327,8 @@ function Market({ history, settings, getTreasuryBalance }) {
             </Col>
           </Row>
           <div className="table_content">
-            {markets &&
-              (markets || [])
+            {settings.markets &&
+              (settings.markets || [])
                 .map(market => {
                   return {
                     ...market,
@@ -478,11 +479,7 @@ function Market({ history, settings, getTreasuryBalance }) {
                       className="borrow-apy right"
                     >
                       <p className="mobile-label">Borrow APY</p>
-                      <p
-                        className={`item-title${
-                          item.totalBorrowApy.lt(0) ? ' red' : ' green'
-                        }`}
-                      >
+                      <p className={`item-title${item.totalBorrowApy.lt(0) ? ' red': ' green'}`}>
                         {item.totalBorrowApy.toFormat(2)}%
                       </p>
                       <p className="item-value">

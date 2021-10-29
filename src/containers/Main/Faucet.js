@@ -13,8 +13,6 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import toast from 'components/Basic/Toast';
 import * as constants from 'utilities/constants';
 import { Row, Column } from 'components/Basic/Style';
-import { BASE_BSC_SCAN_URL } from '../../config';
-import { getVaiTokenAddress } from '../../utilities/addressHelpers';
 
 const FaucetWrapper = styled.div`
   width: 100%;
@@ -341,7 +339,7 @@ function Faucet({ form, getFromFaucet }) {
             <p className="title">How does this work?</p>
             <p className="description">
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.sxp.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.sxp.address}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -349,7 +347,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -357,7 +355,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.busd.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.busd.address}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -365,7 +363,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdc.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdc.address}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -373,7 +371,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdt.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdt.address}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -381,7 +379,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${getVaiTokenAddress()}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_VAI_TOKEN_ADDRESS}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -389,7 +387,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.btcb.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.btcb.address}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -397,7 +395,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.eth.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.eth.address}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -405,7 +403,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.ltc.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.ltc.address}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -413,7 +411,7 @@ function Faucet({ form, getFromFaucet }) {
               </a>
               {`, `}
               <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.xrp.address}`}
+                href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_TOKEN_ADDRESS.xrp.address}`}
                 target="_blank"
                 rel="noreferrer"
               >

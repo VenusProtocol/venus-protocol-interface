@@ -15,8 +15,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
-import { useWeb3React } from '@web3-react/core';
-import { useMarkets } from '../../hooks/useMarkets';
+// import { getBigNumber } from 'utilities/common';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
@@ -119,8 +118,6 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
-  const { account } = useWeb3React();
-  const { markets } = useMarkets();
 
   useEffect(() => {
     if (match.params && match.params.asset) {
@@ -152,13 +149,13 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   );
 
   const getGovernanceData = useCallback(async () => {
-    if (markets && markets.length > 0 && currentAsset) {
-      const info = markets.find(
+    if (settings.markets && settings.markets.length > 0 && currentAsset) {
+      const info = settings.markets.find(
         item => item.underlyingSymbol.toLowerCase() === currentAsset
       );
       setMarketInfo(info || {});
     }
-  }, [markets, currentAsset]);
+  }, [settings.markets, currentAsset]);
 
   useEffect(() => {
     getGovernanceData();
@@ -176,7 +173,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
     return function cleanup() {
       abortController.abort();
     };
-  }, [account, currentAsset, getGraphData]);
+  }, [settings.selectedAddress, currentAsset, getGraphData]);
 
   useEffect(() => {
     if (currentAsset) {
@@ -191,60 +188,69 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   return (
     <MainLayout title="Market">
       <MarketDetailWrapper className="flex">
-        {(!account || !markets || !currentAsset) && (
+        {(!settings.selectedAddress ||
+          !settings.markets ||
+          !currentAsset ||
+          settings.accountLoading ||
+          settings.wrongNetwork) && (
           <SpinnerWrapper>
             <LoadingSpinner />
           </SpinnerWrapper>
         )}
-        {account && markets && currentAsset && (
-          <div className="flex market-detail-content">
-            <div className="column1">
-              <CardWrapper>
-                <MarketInfo marketInfo={marketInfo} marketType={marketType} />
-              </CardWrapper>
-            </div>
-            <div className="column2">
-              <div className="row1">
+        {settings.selectedAddress &&
+          settings.markets &&
+          settings.decimals &&
+          currentAsset &&
+          !settings.accountLoading &&
+          !settings.wrongNetwork && (
+            <div className="flex market-detail-content">
+              <div className="column1">
                 <CardWrapper>
-                  <div className="flex align-center market-tab-wrapper">
-                    <div
-                      className={`tab-item pointer ${
-                        marketType === 'supply' ? 'tab-active' : ''
-                      }`}
-                      onClick={() => setMarketType('supply')}
-                    >
-                      Supply
-                    </div>
-                    <div
-                      className={`tab-item pointer ${
-                        marketType === 'borrow' ? 'tab-active' : ''
-                      }`}
-                      onClick={() => setMarketType('borrow')}
-                    >
-                      Borrow
-                    </div>
-                  </div>
-                  <OverviewChart
-                    marketType={marketType}
-                    graphType="composed"
-                    data={data}
-                  />
+                  <MarketInfo marketInfo={marketInfo} marketType={marketType} />
                 </CardWrapper>
               </div>
-              <div className="flex row2">
-                <CardWrapper className="interest-rate-modal">
-                  <InterestRateModel currentAsset={currentAsset} />
-                </CardWrapper>
-                <CardWrapper className="market-summary">
-                  <MarketSummary
-                    marketInfo={marketInfo}
-                    currentAsset={currentAsset}
-                  />
-                </CardWrapper>
+              <div className="column2">
+                <div className="row1">
+                  <CardWrapper>
+                    <div className="flex align-center market-tab-wrapper">
+                      <div
+                        className={`tab-item pointer ${
+                          marketType === 'supply' ? 'tab-active' : ''
+                        }`}
+                        onClick={() => setMarketType('supply')}
+                      >
+                        Supply
+                      </div>
+                      <div
+                        className={`tab-item pointer ${
+                          marketType === 'borrow' ? 'tab-active' : ''
+                        }`}
+                        onClick={() => setMarketType('borrow')}
+                      >
+                        Borrow
+                      </div>
+                    </div>
+                    <OverviewChart
+                      marketType={marketType}
+                      graphType="composed"
+                      data={data}
+                    />
+                  </CardWrapper>
+                </div>
+                <div className="flex row2">
+                  <CardWrapper className="interest-rate-modal">
+                    <InterestRateModel currentAsset={currentAsset} />
+                  </CardWrapper>
+                  <CardWrapper className="market-summary">
+                    <MarketSummary
+                      marketInfo={marketInfo}
+                      currentAsset={currentAsset}
+                    />
+                  </CardWrapper>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
       </MarketDetailWrapper>
     </MainLayout>
   );

@@ -6,8 +6,6 @@ import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
-import { vtokenDecimals } from '../../config';
-import * as constants from 'utilities/constants';
 
 const MarketSummaryWrapper = styled.div`
   .label {
@@ -46,6 +44,12 @@ const MarketSummaryWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 function MarketSummary({ marketInfo, currentAsset, settings }) {
+  if (
+    !settings.decimals[currentAsset] ||
+    !settings.decimals[currentAsset].token
+  )
+    return null;
+
   return (
     <MarketSummaryWrapper>
       <div className="description">
@@ -54,7 +58,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
           {`$${new BigNumber(marketInfo.underlyingPrice || 0)
             .div(
               new BigNumber(10).pow(
-                36 - constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
+                18 + 18 - parseInt(settings.decimals[currentAsset].token, 10)
               )
             )
             .dp(8, 1)
@@ -66,11 +70,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
         <p className="value">
           {`${format(
             new BigNumber(marketInfo.cash || 0)
-              .div(
-                new BigNumber(10).pow(
-                  constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
-                )
-              )
+              .div(new BigNumber(10).pow(settings.decimals[currentAsset].token))
               .dp(8, 1)
               .toString(10)
           )} ${marketInfo.underlyingSymbol || ''}`}
@@ -111,11 +111,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
         <p className="label">Reserves</p>
         <p className="value">
           {`${new BigNumber(marketInfo.totalReserves || 0)
-            .div(
-              new BigNumber(10).pow(
-                constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
-              )
-            )
+            .div(new BigNumber(10).pow(settings.decimals[currentAsset].token))
             .dp(8, 1)
             .toString(10)} ${marketInfo.underlyingSymbol || ''}`}
         </p>
@@ -169,8 +165,14 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
                 new BigNumber(marketInfo.exchangeRate).div(
                   new BigNumber(10).pow(
                     18 +
-                      constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals -
-                      vtokenDecimals
+                      +parseInt(
+                        settings.decimals[currentAsset || 'sxp'].token,
+                        10
+                      ) -
+                      +parseInt(
+                        settings.decimals[currentAsset || 'sxp'].vtoken,
+                        10
+                      )
                   )
                 )
               )

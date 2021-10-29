@@ -6,12 +6,9 @@ import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
-import { addToken } from 'utilities/common';
+import { addToken, getBigNumber } from 'utilities/common';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
-import { BASE_BSC_SCAN_URL } from '../../config';
-import { useWeb3React } from '@web3-react/core';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -58,14 +55,12 @@ const CardWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
+const abortController = new AbortController();
 
 function CoinInfo({ settings }) {
-  const { account } = useWeb3React();
-  const { userXVSBalance } = useMarketsUser();
-
   const handleLink = () => {
     window.open(
-      `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${account}`,
+      `${process.env.REACT_APP_BSC_EXPLORER}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${settings.selectedAddress}`,
       '_blank'
     );
   };
@@ -75,8 +70,15 @@ function CoinInfo({ settings }) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(userXVSBalance.dp(2, 1).toString(10))} XVS</p>
-          {window.ethereum && (
+          <p>
+            {format(
+              getBigNumber(settings.userXVSBalance)
+                .dp(2, 1)
+                .toString(10)
+            )}{' '}
+            XVS
+          </p>
+          {window.ethereum && settings.walletType === 'metamask' && (
             <Icon
               className="add-xvs-token"
               type="plus-circle"
@@ -90,9 +92,12 @@ function CoinInfo({ settings }) {
           onClick={() => handleLink()}
         >
           <p className="highlight">
-            {account &&
-              `${account.substr(0, 4)}...${account.substr(
-                account.length - 4,
+            {settings.selectedAddress &&
+              `${settings.selectedAddress.substr(
+                0,
+                4
+              )}...${settings.selectedAddress.substr(
+                settings.selectedAddress.length - 4,
                 4
               )}`}
           </p>

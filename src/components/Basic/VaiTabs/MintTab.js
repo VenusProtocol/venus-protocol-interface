@@ -1,48 +1,54 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
+import { compose } from 'recompose';
 import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
-import { useWeb3React } from '@web3-react/core';
+import { connectAccount } from 'core';
+import { getVaiControllerContract, methods } from 'utilities/ContractService';
 import commaNumber from 'comma-number';
 import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/SupplyModal';
-import { useVaiUser } from '../../../hooks/useVaiUser';
-import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVaiUnitroller } from '../../../hooks/useContract';
+import { getBigNumber } from 'utilities/common';
 
 const format = commaNumber.bindWith(',', '.');
 
-function MintTab() {
+function MintTab({ settings }) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
+  const [mintableVai, setMintableVai] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
-  const { userVaiBalance, mintableVai } = useVaiUser();
-  const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
-  const vaiControllerContract = useVaiUnitroller();
 
-  const getFeePercent = useCallback(async () => {
-    const treasuryPercent = await vaiControllerContract.methods
-      .treasuryPercent()
-      .call();
+  const getFeePercent = async () => {
+    const appContract = getVaiControllerContract();
+    const treasuryPercent = await methods.call(
+      appContract.methods.treasuryPercent,
+      []
+    );
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
-  }, [vaiControllerContract]);
+  };
 
   useEffect(() => {
     getFeePercent();
-  }, [getFeePercent]);
+  }, []);
+
+  useEffect(() => {
+    setMintableVai(getBigNumber(settings.mintableVai));
+  }, [settings.mintableVai]);
 
   /**
    * Max amount
    */
   const handleMaxAmount = () => {
+    const totalBorrowBalance = getBigNumber(settings.totalBorrowBalance);
+    const totalBorrowLimit = getBigNumber(settings.totalBorrowLimit);
     const safeMax = BigNumber.maximum(
-      userTotalBorrowLimit
+      totalBorrowLimit
         .times(40)
         .div(100)
-        .minus(userTotalBorrowBalance),
+        .minus(totalBorrowBalance),
       new BigNumber(0)
     );
     setAmount(BigNumber.minimum(mintableVai, safeMax));
@@ -50,22 +56,26 @@ function MintTab() {
   /**
    * Mint
    */
-  const handleMintVAI = async () => {
-    setIsLoading(true);
-    try {
-      await vaiControllerContract.methods
-        .mintVAI(
-          amount
-            .times(new BigNumber(10).pow(18))
-            .dp(0)
-            .toString(10)
+  const handleMintVAI = () => {
+    if (settings.selectedAddress) {
+      const appContract = getVaiControllerContract();
+      setIsLoading(true);
+      methods
+        .send(
+          appContract.methods.mintVAI,
+          [
+            amount.times(new BigNumber(10).pow(18)).dp(0).toString(10)
+          ],
+          settings.selectedAddress
         )
-        .send({ from: account });
-      setAmount(new BigNumber(0));
-    } catch (error) {
-      console.log('mint vai error :>> ', error);
+        .then(() => {
+          setAmount(new BigNumber(0));
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
     }
-    setIsLoading(false);
   };
 
   return (
@@ -124,7 +134,6 @@ function MintTab() {
           className="button vai-auto"
           disabled={
             isLoading ||
-            !account ||
             amount.isNaN() ||
             amount.isZero() ||
             amount.isGreaterThan(mintableVai)
@@ -135,11 +144,30 @@ function MintTab() {
         </Button>
         <div className="description">
           <span>VAI Balance</span>
-          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
+          <span>
+            {format(
+              getBigNumber(settings.userVaiBalance)
+                .dp(2, 1)
+                .toString(10)
+            )}{' '}
+            VAI
+          </span>
         </div>
       </TabContent>
     </TabSection>
   );
 }
 
-export default MintTab;
+MintTab.propTypes = {
+  settings: PropTypes.object
+};
+
+MintTab.defaultProps = {
+  settings: {}
+};
+
+const mapStateToProps = ({ account }) => ({
+  settings: account.setting
+});
+
+export default compose(connectAccount(mapStateToProps, undefined))(MintTab);

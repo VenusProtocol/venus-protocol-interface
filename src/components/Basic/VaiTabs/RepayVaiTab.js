@@ -1,77 +1,102 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'recompose';
 import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
+import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
+import {
+  getVaiControllerContract,
+  getVaiTokenContract,
+  methods
+} from 'utilities/ContractService';
 import commaNumber from 'comma-number';
+import * as constants from 'utilities/constants';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
-import { useWeb3React } from '@web3-react/core';
-import { useVaiUser } from '../../../hooks/useVaiUser';
-import { getVaiUnitrollerAddress } from '../../../utilities/addressHelpers';
-import { useVaiToken, useVaiUnitroller } from '../../../hooks/useContract';
+import { getBigNumber } from 'utilities/common';
 
 const format = commaNumber.bindWith(',', '.');
 
-function RepayVaiTab() {
+function RepayVaiTab({ settings }) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
-  const { userVaiMinted, userVaiBalance, userVaiEnabled } = useVaiUser();
-  const vaiContract = useVaiToken();
-  const vaiControllerContract = useVaiUnitroller();
+  const [userVaiMinted, setUserVaiMinted] = useState(new BigNumber(0));
+  const [vaiBalance, setVaiBalance] = useState(new BigNumber(0));
+
+  useEffect(() => {
+    setUserVaiMinted(getBigNumber(settings.userVaiMinted));
+  }, [settings.userVaiMinted]);
+
+  useEffect(() => {
+    setVaiBalance(getBigNumber(settings.userVaiBalance));
+  }, [settings.userVaiBalance]);
 
   /**
    * Max amount
    */
   const handleMaxAmount = () => {
-    setAmount(BigNumber.minimum(userVaiMinted, userVaiBalance));
+    setAmount(BigNumber.minimum(userVaiMinted, vaiBalance));
   };
 
   /**
    * Approve VAI token
    */
   const onVaiApprove = async () => {
-    setIsLoading(true);
-    try {
-      await vaiContract.methods.approve(
-        getVaiUnitrollerAddress(),
-        new BigNumber(2)
-          .pow(256)
-          .minus(1)
-          .toString(10)
-      );
-    } catch (error) {
-      console.log('vai approve error :>> ', error);
+    if (settings.selectedAddress) {
+      setIsLoading(true);
+      const vaiContract = getVaiTokenContract();
+      methods
+        .send(
+          vaiContract.methods.approve,
+          [
+            constants.CONTRACT_VAI_UNITROLLER_ADDRESS,
+            new BigNumber(2)
+              .pow(256)
+              .minus(1)
+              .toString(10)
+          ],
+          settings.selectedAddress
+        )
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
     }
-    setIsLoading(false);
   };
 
   /**
    * Repay VAI
    */
-  const handleRepayVAI = async () => {
-    setIsLoading(true);
-    try {
-      await vaiControllerContract.methods
-        .repayVAI(
-          amount
-            .times(new BigNumber(10).pow(18))
-            .dp(0)
-            .toString(10)
+  const handleRepayVAI = () => {
+    if (settings.selectedAddress) {
+      const appContract = getVaiControllerContract();
+      setIsLoading(true);
+      methods
+        .send(
+          appContract.methods.repayVAI,
+          [
+            amount.times(new BigNumber(10).pow(18)).dp(0).toString(10)
+          ],
+          settings.selectedAddress
         )
-        .send({ from: account });
-      setAmount(new BigNumber(0));
-    } catch (error) {
-      console.log('repay vai error :>> ', error);
+        .then(() => {
+          setAmount(new BigNumber(0));
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
     }
-    setIsLoading(false);
   };
 
   return (
     <TabSection>
       <div className="flex flex-column align-center just-center body-content repay-vai-content">
-        {userVaiEnabled ? (
+        {settings.userVaiEnabled ? (
           <div className="flex align-center input-wrapper">
             <NumberFormat
               autoFocus
@@ -81,7 +106,7 @@ function RepayVaiTab() {
               }}
               isAllowed={({ value }) => {
                 return new BigNumber(value || 0).isLessThanOrEqualTo(
-                  BigNumber.minimum(userVaiBalance, userVaiMinted)
+                  BigNumber.minimum(vaiBalance, userVaiMinted)
                 );
               }}
               thousandSeparator
@@ -114,13 +139,13 @@ function RepayVaiTab() {
             <span>{format(userVaiMinted.dp(2, 1).toString(10))} VAI</span>
           </div>
         </div>
-        {(userVaiBalance.isZero() || amount.isGreaterThan(userVaiBalance)) && (
+        {(vaiBalance.isZero() || amount.isGreaterThan(vaiBalance)) && (
           <p className="center warning-label">Your balance is not enough.</p>
         )}
-        {!userVaiEnabled ? (
+        {!settings.userVaiEnabled ? (
           <Button
             className="button"
-            disabled={isLoading || userVaiBalance.isZero() || !account}
+            disabled={isLoading || vaiBalance.isZero()}
             onClick={() => {
               onVaiApprove();
             }}
@@ -132,11 +157,10 @@ function RepayVaiTab() {
             className="button vai-auto"
             disabled={
               isLoading ||
-              !account ||
               amount.isNaN() ||
               amount.isZero() ||
               amount.isGreaterThan(userVaiMinted) ||
-              amount.isGreaterThan(userVaiBalance)
+              amount.isGreaterThan(vaiBalance)
             }
             onClick={handleRepayVAI}
           >
@@ -145,11 +169,23 @@ function RepayVaiTab() {
         )}
         <div className="description">
           <span>VAI Balance</span>
-          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
+          <span>{format(vaiBalance.dp(2, 1).toString(10))} VAI</span>
         </div>
       </TabContent>
     </TabSection>
   );
 }
 
-export default RepayVaiTab;
+RepayVaiTab.propTypes = {
+  settings: PropTypes.object
+};
+
+RepayVaiTab.defaultProps = {
+  settings: {}
+};
+
+const mapStateToProps = ({ account }) => ({
+  settings: account.setting
+});
+
+export default compose(connectAccount(mapStateToProps, undefined))(RepayVaiTab);

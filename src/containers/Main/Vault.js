@@ -15,17 +15,16 @@ import TotalInfo from 'components/Vault/TotalInfo';
 import UserInfo from 'components/Vault/UserInfo';
 import Staking from 'components/Vault/Staking';
 import { connectAccount, accountActionCreators } from 'core';
+import {
+  getVaiTokenContract,
+  getComptrollerContract,
+  getVaiVaultContract,
+  getTokenContract,
+  methods
+} from 'utilities/ContractService';
+import { checkIsValidNetwork } from 'utilities/common';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
-import { useWeb3React } from '@web3-react/core';
-import useRefresh from '../../hooks/useRefresh';
-import {
-  useComptroller,
-  useToken,
-  useVaiToken,
-  useVaiVault
-} from '../../hooks/useContract';
-import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const MarketWrapper = styled.div`
   width: 100%;
@@ -59,14 +58,13 @@ function Vault({ settings }) {
   const [vaiReward, setVaiReward] = useState('0');
   const [isEnabled, setIsEnabled] = useState(false);
   const [xvsBalance, setXVSBalance] = useState('');
-  const { account } = useWeb3React();
-  const { fastRefresh } = useRefresh();
-  const compContract = useComptroller();
-  const xvsTokenContract = useToken('xvs');
-  const tokenContract = useVaiToken();
-  const vaultContract = useVaiVault();
 
   const updateTotalInfo = async () => {
+    const compContract = getComptrollerContract();
+    const xvsTokenContract = getTokenContract('xvs');
+    const tokenContract = getVaiTokenContract();
+    const vaultContract = getVaiVaultContract();
+
     const [
       venusVAIVaultRate,
       pendingRewards,
@@ -76,13 +74,22 @@ function Vault({ settings }) {
       vaiReward,
       allowBalance
     ] = await Promise.all([
-      compContract.methods.venusVAIVaultRate().call(),
-      xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
-      xvsTokenContract.methods.balanceOf(account).call(),
-      tokenContract.methods.balanceOf(account).call(),
-      vaultContract.methods.userInfo(account).call(),
-      vaultContract.methods.pendingXVS(account).call(),
-      tokenContract.methods.allowance(account, getVaiVaultAddress()).call()
+      methods.call(compContract.methods.venusVAIVaultRate, []),
+      methods.call(xvsTokenContract.methods.balanceOf, [
+        constants.CONTRACT_VAI_VAULT_ADDRESS
+      ]),
+      methods.call(xvsTokenContract.methods.balanceOf, [
+        settings.selectedAddress
+      ]),
+      methods.call(tokenContract.methods.balanceOf, [settings.selectedAddress]),
+      methods.call(vaultContract.methods.userInfo, [settings.selectedAddress]),
+      methods.call(vaultContract.methods.pendingXVS, [
+        settings.selectedAddress
+      ]),
+      methods.call(tokenContract.methods.allowance, [
+        settings.selectedAddress,
+        constants.CONTRACT_VAI_VAULT_ADDRESS
+      ])
     ]);
     setXVSBalance(
       new BigNumber(userXvsBalance)
@@ -117,20 +124,20 @@ function Vault({ settings }) {
   };
 
   useEffect(() => {
-    if (account) {
+    if (checkIsValidNetwork(settings.walletType)) {
       updateTotalInfo();
     }
-  }, [fastRefresh, account]);
+  }, [settings.markets]);
 
   return (
     <MainLayout title="Vault">
       <MarketWrapper>
         <VaultWrapper className="flex">
-          {!account ? (
+          {!settings.selectedAddress ? (
             <SpinnerWrapper>
               <LoadingSpinner />
             </SpinnerWrapper>
-          ) : process.env.REACT_APP_CHAIN_ID === '97' ? (
+          ) : process.env.REACT_APP_ENV === 'dev' ? (
             <Row>
               <Column xs="12" sm="6">
                 <Column xs="12">
@@ -146,6 +153,7 @@ function Vault({ settings }) {
                     vaiStaked={vaiStaked}
                     vaiReward={vaiReward}
                     xvsBalance={xvsBalance}
+                    updateTotalInfo={updateTotalInfo}
                   />
                 </Column>
               </Column>
@@ -175,6 +183,7 @@ function Vault({ settings }) {
                       isEnabled={isEnabled}
                       availableVai={availableVai}
                       vaiStaked={vaiStaked}
+                      updateTotalInfo={updateTotalInfo}
                     />
                   </Column>
                 </Row>

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { compose } from 'recompose';
+import { connectAccount } from 'core';
 import * as constants from 'utilities/constants';
-import { BASE_BSC_SCAN_URL } from '../../config';
-import { useBlock } from '../../hooks/useBlock';
 
 const FooterWrapper = styled.div`
   height: 50px;
@@ -34,18 +35,24 @@ const FooterWrapper = styled.div`
   }
 `;
 
-function Footer() {
-  const blockNumber = useBlock();
+function Footer({ settings }) {
+  if (!settings.selectedAddress) {
+    return null;
+  }
   return (
     <FooterWrapper>
       <div className="flex align-center">
         <div className="status-circle" target="_blank" rel="noreferrer" />
-        <a href={BASE_BSC_SCAN_URL} target="_blank" rel="noreferrer">
-          Latest Block: {blockNumber}
+        <a
+          href={process.env.REACT_APP_BSC_EXPLORER}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Latest Block: {settings.latestBlockNumber || 0}
         </a>
       </div>
       <a
-        href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
+        href={`${process.env.REACT_APP_BSC_EXPLORER}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
         target="_blank"
         rel="noreferrer"
       >
@@ -65,4 +72,16 @@ function Footer() {
   );
 }
 
-export default Footer;
+Footer.propTypes = {
+  settings: PropTypes.object
+};
+
+Footer.defaultProps = {
+  settings: {}
+};
+
+const mapStateToProps = ({ account }) => ({
+  settings: account.setting
+});
+
+export default compose(connectAccount(mapStateToProps, undefined))(Footer);

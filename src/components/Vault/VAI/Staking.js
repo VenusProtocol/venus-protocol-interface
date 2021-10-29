@@ -6,14 +6,16 @@ import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
+import {
+  getVaiVaultContract,
+  getVaiTokenContract,
+  methods
+} from 'utilities/ContractService';
 import { Card } from 'components/Basic/Card';
 import NumberFormat from 'react-number-format';
 import Button from '@material-ui/core/Button';
 import * as constants from 'utilities/constants';
 import xvsImg from 'assets/img/venus_32.png';
-import { useWeb3React } from '@web3-react/core';
-import { useVaiToken, useVaiVault } from '../../../hooks/useContract';
-import { getVaiVaultAddress } from '../../../utilities/addressHelpers';
 
 const StakingWrapper = styled.div`
   width: 100%;
@@ -132,86 +134,105 @@ function Staking({
   availableVai,
   vaiStaked,
   vaiReward,
-  xvsBalance
+  xvsBalance,
+  updateTotalInfo
 }) {
   const [isClaimLoading, setIsClaimLoading] = useState(false);
   const [isStakeLoading, setIsStakeLoading] = useState(false);
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
-  const vaiVaultContract = useVaiVault();
-  const vaiTokenContract = useVaiToken();
 
   /**
    * Stake VAI
    */
-  const handleStakeVAI = async () => {
+  const handleStakeVAI = () => {
+    const appContract = getVaiVaultContract();
     setIsStakeLoading(true);
-    try {
-      await vaiVaultContract.methods
-        .deposit(
+    methods
+      .send(
+        appContract.methods.deposit,
+        [
           stakeAmount
             .times(1e18)
             .integerValue()
             .toString(10)
-        )
-        .send({ from: account });
-      setStakeAmount(new BigNumber(0));
-    } catch (error) {
-      console.log('vai stake error :>> ', error);
-    }
-    setIsStakeLoading(false);
+        ],
+        settings.selectedAddress
+      )
+      .then(() => {
+        updateTotalInfo();
+        setStakeAmount(new BigNumber(0));
+        setIsStakeLoading(false);
+      })
+      .catch(() => {
+        setIsStakeLoading(false);
+      });
   };
 
   /**
    * Withdraw VAI
    */
-  const handleWithdrawVAI = async () => {
+  const handleWithdrawVAI = () => {
+    const appContract = getVaiVaultContract();
     setIsWithdrawLoading(true);
-    try {
-      await vaiVaultContract.methods
-        .withdraw(
+    methods
+      .send(
+        appContract.methods.withdraw,
+        [
           withdrawAmount
             .times(1e18)
             .integerValue()
             .toString(10)
-        )
-        .send({ from: account });
-      setWithdrawAmount(new BigNumber(0));
-    } catch (error) {
-      console.log('vai withdraw error :>> ', error);
-    }
-    setIsWithdrawLoading(false);
+        ],
+        settings.selectedAddress
+      )
+      .then(() => {
+        updateTotalInfo();
+        setWithdrawAmount(new BigNumber(0));
+        setIsWithdrawLoading(false);
+      })
+      .catch(() => {
+        setIsWithdrawLoading(false);
+      });
   };
 
   const onApprove = async () => {
     setIsStakeLoading(true);
-    try {
-      await vaiTokenContract.methods
-        .approve(
-          getVaiVaultAddress(),
+    const vaiContract = getVaiTokenContract();
+    methods
+      .send(
+        vaiContract.methods.approve,
+        [
+          constants.CONTRACT_VAI_VAULT_ADDRESS,
           new BigNumber(2)
             .pow(256)
             .minus(1)
             .toString(10)
-        )
-        .send({ from: account });
-    } catch (error) {
-      console.log('vai approve error :>> ', error);
-    }
-    setIsStakeLoading(false);
+        ],
+        settings.selectedAddress
+      )
+      .then(() => {
+        updateTotalInfo();
+        setIsStakeLoading(false);
+      })
+      .catch(() => {
+        setIsStakeLoading(false);
+      });
   };
 
   const handleClaimReward = async () => {
     if (isClaimLoading || vaiReward === '0') return;
+    const appContract = getVaiVaultContract();
     setIsClaimLoading(true);
-    try {
-      await vaiVaultContract.methods.claim().send({ from: account });
-    } catch (error) {
-      console.log('claim reward error :>> ', error);
-    }
-    setIsClaimLoading(false);
+    await methods
+      .send(appContract.methods.claim, [], settings.selectedAddress)
+      .then(() => {
+        setIsClaimLoading(false);
+      })
+      .catch(() => {
+        setIsClaimLoading(false);
+      });
   };
 
   return (
@@ -303,7 +324,9 @@ function Staking({
           </Button>
         </div>
         <div className="stake-section">
-          <div className="stake-info">Available VAI rewards:</div>
+          <div className="stake-info">
+            Available VAI rewards:
+          </div>
           <div className="flex align-center just-between value">
             <p>
               <img src={xvsImg} alt="xvs" />
@@ -337,6 +360,7 @@ Staking.propTypes = {
   availableVai: PropTypes.object.isRequired,
   vaiStaked: PropTypes.object.isRequired,
   vaiReward: PropTypes.object.isRequired,
+  updateTotalInfo: PropTypes.func.isRequired,
   xvsBalance: PropTypes.string.isRequired
 };
 
