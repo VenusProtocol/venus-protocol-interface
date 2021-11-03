@@ -60,6 +60,25 @@ const JobCardModalWrapper = styled.div`
   .responsibilities {
     margin-top: 24px;
   }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .apply-button {
+    min-width: 300px;
+    background: #ebbf6e;
+    border-radius: 8px;
+    line-height: 16px;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    padding: 9px 16px;
+  }
 `;
 
 export default function JobCardModal({
@@ -69,7 +88,8 @@ export default function JobCardModal({
   responsibilities,
   skills,
   visible,
-  onClose
+  onClose,
+  onClickApplyButton
 }) {
   return (
     <Modal
@@ -133,7 +153,10 @@ export default function JobCardModal({
                       <ul>
                         {skill.items.map((item, j) => {
                           return (
-                            <li key={`${i}${j}`} className="skill-item skill-subitem">
+                            <li
+                              key={`${i}${j}`}
+                              className="skill-item skill-subitem"
+                            >
                               {item}
                             </li>
                           );
@@ -143,6 +166,9 @@ export default function JobCardModal({
                   );
                 })}
               </ul>
+            </div>
+            <div className="footer" onClick={() => onClickApplyButton()}>
+              <div className="apply-button">Apply for this job</div>
             </div>
           </div>
         </div>
@@ -158,5 +184,6 @@ JobCardModal.propTypes = {
   generalInfos: PropTypes.arrayOf(PropTypes.string).isRequired,
   skills: PropTypes.arrayOf(PropTypes.any).isRequired,
   visible: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  onClickApplyButton: PropTypes.func.isRequired
 };

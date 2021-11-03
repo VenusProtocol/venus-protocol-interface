@@ -63,20 +63,39 @@ const JobCardWrapper = styled.div`
     width: 100%;
     background-color: #181d38;
     color: #a1a1a1;
-    font-size: 14px;
-    line-height: 16px;
+    display: flex;
+    padding: 24px;
 
     .view-more {
-      margin: 24px;
+      background: #262b48;
+      margin-left: 16px;
+    }
+
+    .apply-job {
       background: #ebbf6e;
+    }
+
+    .footer-button {
+      flex: 1;
       border-radius: 8px;
-      line-height: 36px;
+      line-height: 16px;
+      font-size: 14px;
       text-align: center;
       color: #fff;
       cursor: pointer;
+      padding: 9px 16px;
+    }
+
+    @media (max-width: 1200px) {
+      flex-wrap: wrap;
     }
   }
 `;
+
+// send mails
+function onClickApplyButton() {
+  window.location.href = 'mailto:career@venus.io';
+}
 
 export default function JobCard({
   icon,
@@ -115,7 +134,16 @@ export default function JobCard({
           </div>
         </div>
         <div className="footer">
-          <div className="view-more" onClick={() => setOpenModal(true)}>
+          <div
+            className="footer-button apply-job"
+            onClick={() => onClickApplyButton()}
+          >
+            Apply for this job
+          </div>
+          <div
+            className="footer-button view-more"
+            onClick={() => setOpenModal(true)}
+          >
             View More
           </div>
         </div>
@@ -123,6 +151,7 @@ export default function JobCard({
       <JobCardModal
         visible={openModal}
         onClose={() => setOpenModal(false)}
+        onClickApplyButton={() => onClickApplyButton()}
         icon={icon}
         title={title}
         generalInfos={generalInfos}
