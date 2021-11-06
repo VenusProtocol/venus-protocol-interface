@@ -7,7 +7,7 @@ RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 

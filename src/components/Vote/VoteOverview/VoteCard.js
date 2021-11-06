@@ -7,6 +7,8 @@ import commaNumber from 'comma-number';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
+import { Modal } from 'antd';
+import closeImg from 'assets/img/close.png';
 
 const VoteCardWrapper = styled.div`
   width: 100%;
@@ -28,11 +30,14 @@ const VoteCardWrapper = styled.div`
       border-radius: 27px;
       margin-top: 19px;
     }
-    .agree {
+    .for {
       background: var(--color-dark-green);
     }
     .against {
       background: var(--color-purple);
+    }
+    .abstain {
+      background: var(--color-dark-grey);
     }
   }
 `;
@@ -68,6 +73,10 @@ const VoteList = styled.div`
           color: var(--color-orange);
         }
       }
+      .reason-text {
+        cursor: pointer;
+        color: var(--color-orange);
+      }
     }
     .empty-item {
       span {
@@ -89,36 +98,42 @@ const VoteList = styled.div`
   }
 `;
 
+const ModalContentWrapper = styled.div`
+  border-radius: 20px;
+  background-color: var(--color-bg-primary);
+  height: 200px;
+
+  .close-btn {
+    position: absolute;
+    top: 30px;
+    right: 23px;
+  }
+`;
+
 const format = commaNumber.bindWith(',', '.');
 
 function VoteCard({
+  type,
   history,
   label,
-  forNumber,
-  againstNumber,
-  type,
+  voteNumber,
+  totalNumber,
   addressNumber,
   emptyNumber,
   list,
   onViewAll
 }) {
   const [isViewAll, setIsViewAll] = useState(true);
-  const [forPercent, setForPercent] = useState(0);
-  const [againstPercent, setAgainstPercent] = useState(0);
+  const [percent, setPercent] = useState(0);
+  const [reasonForShow, setReasonForShow] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const total = new BigNumber(forNumber).plus(new BigNumber(againstNumber));
-    setForPercent(
-      new BigNumber(forNumber * 100).div(total).isNaN()
-        ? '0'
-        : new BigNumber(forNumber * 100).div(total).toString(10)
-    );
-    setAgainstPercent(
-      new BigNumber(againstNumber * 100).div(total).isNaN()
-        ? '0'
-        : new BigNumber(againstNumber * 100).div(total).toString(10)
-    );
-  }, [forNumber, againstNumber]);
+    const percentTmp = new BigNumber(voteNumber)
+      .multipliedBy(100)
+      .div(totalNumber);
+    setPercent(percentTmp.isNaN() ? '0' : percentTmp.toString(10));
+  }, [voteNumber]);
 
   const handleAddLink = v => {
     history.push(`/vote/address/${v}`);
@@ -140,7 +155,7 @@ function VoteCard({
               {format(
                 new BigNumber(
                   Web3.utils.fromWei(
-                    type === 'agree' ? forNumber : againstNumber,
+                    voteNumber.isNaN() ? '' : voteNumber.toString(10),
                     'ether'
                   )
                 )
@@ -150,9 +165,9 @@ function VoteCard({
             </span>
           </div>
           <div
-            className={`status-bar ${type === 'agree' ? 'agree' : 'against'}`}
+            className={`status-bar ${type}`}
             style={{
-              width: `${type === 'agree' ? forPercent : againstPercent}%`
+              width: `${percent}%`
             }}
           />
         </div>
@@ -160,6 +175,7 @@ function VoteCard({
           <div className="flex align-center just-between header">
             <span>{addressNumber} addresses</span>
             <span>Votes</span>
+            <span>Reason</span>
           </div>
           <div className="vote-list scrollbar">
             {list.map((l, index) => (
@@ -181,6 +197,15 @@ function VoteCard({
                       .dp(8, 1)
                       .toString(10)
                   )}
+                </span>
+                <span
+                  className="reason-text"
+                  onClick={() => {
+                    setReasonForShow(l.reason);
+                    setModalVisible(true);
+                  }}
+                >
+                  Reason
                 </span>
               </div>
             ))}
@@ -206,17 +231,37 @@ function VoteCard({
             </div>
           )}
         </VoteList>
+        <Modal
+          className="connect-modal"
+          visible={modalVisible}
+          footer={null}
+          closable={false}
+          width={450}
+          maskClosable
+          centered
+          onCancel={() => setModalVisible(false)}
+        >
+          <ModalContentWrapper>
+            <img
+              className="close-btn pointer"
+              src={closeImg}
+              alt="close"
+              onClick={() => setModalVisible(false)}
+            />
+            <div>{reasonForShow}</div>
+          </ModalContentWrapper>
+        </Modal>
       </VoteCardWrapper>
     </Card>
   );
 }
 
 VoteCard.propTypes = {
+  type: PropTypes.string,
   history: PropTypes.object,
   label: PropTypes.string,
-  forNumber: PropTypes.string,
-  againstNumber: PropTypes.string,
-  type: PropTypes.string,
+  voteNumber: PropTypes.object,
+  totalNumber: PropTypes.object,
   addressNumber: PropTypes.number,
   emptyNumber: PropTypes.number,
   list: PropTypes.array,
@@ -224,11 +269,11 @@ VoteCard.propTypes = {
 };
 
 VoteCard.defaultProps = {
+  type: '',
   history: {},
   label: '',
-  forNumber: '0',
-  againstNumber: '0',
-  type: 'agree',
+  voteNumber: new BigNumber(0),
+  totalNumber: new BigNumber(0),
   addressNumber: 0,
   emptyNumber: 0,
   list: []

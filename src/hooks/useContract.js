@@ -12,7 +12,8 @@ import {
   getVenusLensContract,
   getXvsVaultProxyContract,
   getXvsVaultContract,
-  getTokenContractByAddress
+  getTokenContractByAddress,
+  getGovernorBravoContract
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
 
@@ -82,4 +83,9 @@ export const useXvsVault = () => {
 export const useXvsVaultProxy = () => {
   const web3 = useWeb3();
   return useMemo(() => getXvsVaultProxyContract(web3), [web3]);
+};
+
+export const useGovernorBravo = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getGovernorBravoContract(web3), [web3]);
 };

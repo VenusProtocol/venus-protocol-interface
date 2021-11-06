@@ -71,6 +71,19 @@ const ProposalWrapper = styled.div`
       border-radius: 50%;
       margin-right: 40px;
     }
+
+    @media only screen and (max-width: 768px) {
+      img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 40px;
+      }
+    }
+  }
+
+  .vote-actions {
+    margin-top: 10px;
     button {
       height: 32px;
       border-radius: 5px;
@@ -85,21 +98,18 @@ const ProposalWrapper = styled.div`
         margin-right: 5px;
       }
     }
-
-    @media only screen and (max-width: 768px) {
-      img {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        margin-right: 40px;
-      }
-    }
   }
 `;
 
+const VOTE_TYPE = {
+  AGAINST: 0,
+  FOR: 1,
+  ABSTAIN: 2
+};
+
 function Proposal({ address, proposal, votingWeight, history }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [voteType, setVoteType] = useState('like');
+  const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
   const [voteStatus, setVoteStatus] = useState('');
   const voteContract = useVote();
 
@@ -164,12 +174,12 @@ function Proposal({ address, proposal, votingWeight, history }) {
     }
   }, [address, proposal, getIsHasVoted]);
 
-  const handleVote = async support => {
+  const handleVote = async type => {
     setIsLoading(true);
-    setVoteType(support);
+    setVoteType(type);
     try {
       await voteContract.methods
-        .castVote(proposal.id, support === 'like')
+        .castVote(proposal.id, type)
         .send({ from: address });
     } catch (error) {
       console.log('cast vote error :>> ', error);
@@ -225,42 +235,30 @@ function Proposal({ address, proposal, votingWeight, history }) {
               <p className="orange-text">VOTED</p>
             </div>
           )}
-          {voteStatus &&
-            voteStatus === 'novoted' &&
-            proposal.state === 'Active' && (
-              <div
-                className="flex align-center"
-                onClick={e => e.stopPropagation()}
-              >
-                <Button
-                  className="vote-btn"
-                  disabled={
-                    votingWeight === '0' ||
-                    !proposal ||
-                    (proposal && proposal.state !== 'Active')
-                  }
-                  onClick={() => handleVote('like')}
-                >
-                  {isLoading && voteType === 'like' && <Icon type="loading" />}{' '}
-                  For
-                </Button>
-                <Button
-                  className="vote-btn"
-                  disabled={
-                    votingWeight === '0' ||
-                    !proposal ||
-                    (proposal && proposal.state !== 'Active')
-                  }
-                  onClick={() => handleVote('dislike')}
-                >
-                  {isLoading && voteType === 'dislike' && (
-                    <Icon type="loading" />
-                  )}{' '}
-                  Against
-                </Button>
-              </div>
-            )}
         </Column>
+      </Row>
+      <Row className="vote-actions">
+        {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
+          <div className="flex align-center" onClick={e => e.stopPropagation()}>
+            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => {
+              return (
+                <Button
+                  key={type}
+                  className="vote-btn"
+                  disabled={
+                    votingWeight === '0' ||
+                    !proposal ||
+                    (proposal && proposal.state !== 'Active')
+                  }
+                  onClick={() => handleVote(type)}
+                >
+                  {isLoading && voteType === type && <Icon type="loading" />}{' '}
+                  {['For', 'Against', 'Abstain'][type]}
+                </Button>
+              );
+            })}
+          </div>
+        )}
       </Row>
     </ProposalWrapper>
   );

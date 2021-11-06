@@ -86,10 +86,11 @@ const VoteOverviewWrapper = styled.div`
   }
 `;
 
-function VoteOverview({ settings, getVoters, getProposalById, match }) {
+function VoteOverview({ getVoters, getProposalById, match }) {
   const [proposalInfo, setProposalInfo] = useState({});
   const [agreeVotes, setAgreeVotes] = useState({});
   const [againstVotes, setAgainstVotes] = useState({});
+  const [abstainVotes, setAbstainVotes] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isCancelLoading, setIsCancelLoading] = useState(false);
   const [status, setStatus] = useState('pending');
@@ -130,6 +131,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
   const loadVotes = useCallback(
     async limit => {
       if (proposalInfo.id) {
+        // @todo: can we request all proposals once?
         await promisify(getVoters, {
           id: proposalInfo.id,
           limit,
@@ -147,6 +149,15 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
           .then(res => setAgainstVotes(res.data || {}))
           .catch(() => {
             setAgainstVotes({});
+          });
+        await promisify(getVoters, {
+          id: proposalInfo.id,
+          limit,
+          filter: 'abstain'
+        })
+          .then(res => setAbstainVotes(res.data || {}))
+          .catch(() => {
+            setAbstainVotes({});
           });
       }
     },
@@ -243,6 +254,10 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     }
   };
 
+  const totalVotes = new BigNumber(agreeVotes.sumVotes || '0')
+    .plus(new BigNumber(againstVotes.sumVotes || '0'))
+    .plus(new BigNumber(abstainVotes.sumVotes || '0'));
+
   return (
     <MainLayout title="Overview">
       <VoteOverviewWrapper className="flex">
@@ -257,76 +272,50 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
               </Column>
             </Row>
             <Row>
-              <Column xs="12" sm="6">
-                <VoteCard
-                  label="For"
-                  forNumber={
-                    new BigNumber(agreeVotes.sumVotes).isNaN()
-                      ? '0'
-                      : agreeVotes.sumVotes
-                  }
-                  againstNumber={
-                    new BigNumber(againstVotes.sumVotes).isNaN()
-                      ? '0'
-                      : againstVotes.sumVotes
-                  }
-                  type="agree"
-                  addressNumber={
-                    new BigNumber(agreeVotes.total).isNaN()
-                      ? 0
-                      : agreeVotes.total
-                  }
-                  emptyNumber={
-                    4 -
-                    (new BigNumber(agreeVotes.total).isNaN()
-                      ? 0
-                      : agreeVotes.total)
-                  }
-                  list={
-                    agreeVotes.result &&
-                    agreeVotes.result.map(v => ({
-                      label: v.address,
-                      value: v.votes
-                    }))
-                  }
-                  onViewAll={() => loadMore('for')}
-                />
-              </Column>
-              <Column xs="12" sm="6">
-                <VoteCard
-                  label="Against"
-                  forNumber={
-                    new BigNumber(agreeVotes.sumVotes).isNaN()
-                      ? '0'
-                      : agreeVotes.sumVotes
-                  }
-                  againstNumber={
-                    new BigNumber(againstVotes.sumVotes).isNaN()
-                      ? '0'
-                      : againstVotes.sumVotes
-                  }
-                  type="against"
-                  addressNumber={
-                    new BigNumber(againstVotes.total).isNaN()
-                      ? 0
-                      : againstVotes.total
-                  }
-                  emptyNumber={
-                    4 -
-                    (new BigNumber(againstVotes.total).isNaN()
-                      ? 0
-                      : againstVotes.total)
-                  }
-                  list={
-                    againstVotes.result &&
-                    againstVotes.result.map(v => ({
-                      label: v.address,
-                      value: v.votes
-                    }))
-                  }
-                  onViewAll={() => loadMore('against')}
-                />
-              </Column>
+              {[
+                {
+                  label: 'For',
+                  votes: agreeVotes,
+                  filterType: 'for'
+                },
+                {
+                  label: 'Against',
+                  votes: againstVotes,
+                  filterType: 'against'
+                },
+                { label: 'Abstain', votes: abstainVotes, filterType: 'abstain' }
+              ].map((data, i) => {
+                return (
+                  <Column key={i} xs="12" sm="12" md="12" lg="6">
+                    <VoteCard
+                      type={data.filterType}
+                      label={data.label}
+                      voteNumber={new BigNumber(data.votes.sumVotes)}
+                      totalNumber={totalVotes}
+                      addressNumber={
+                        new BigNumber(data.votes.total).isNaN()
+                          ? 0
+                          : data.votes.total
+                      }
+                      emptyNumber={
+                        4 -
+                        (new BigNumber(data.votes.total).isNaN()
+                          ? 0
+                          : data.votes.total)
+                      }
+                      list={
+                        data.votes.result &&
+                        data.votes.result.map(v => ({
+                          label: v.address,
+                          value: v.votes,
+                          reason: "I've voted cuz i care"
+                        }))
+                      }
+                      onViewAll={() => loadMore(data.filterType)}
+                    />
+                  </Column>
+                );
+              })}
             </Row>
             <div className="vote-status-update">
               {proposalInfo.state !== 'Executed' &&
