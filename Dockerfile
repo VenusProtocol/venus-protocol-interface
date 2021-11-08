@@ -3,11 +3,13 @@ FROM node:12.19.0-alpine3.12 as builder
 ENV NODE_ENV development
 ENV NODE_PATH=src/
 
-RUN apk add --update --no-cache python3
+RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
 
-COPY package.json package-lock.json ./
+COPY package.json ./
+
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 RUN npm install
 
