@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
-import * as constants from 'utilities/constants';
 import MainLayout from 'containers/Layout/MainLayout';
 import VaiTotalInfo from 'components/Vault/VAI/TotalInfo';
 import VaiStaking from 'components/Vault/VAI/Staking';
@@ -15,7 +14,6 @@ import TotalInfo from 'components/Vault/TotalInfo';
 import UserInfo from 'components/Vault/UserInfo';
 import Staking from 'components/Vault/Staking';
 import { connectAccount, accountActionCreators } from 'core';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../../hooks/useRefresh';
@@ -42,15 +40,6 @@ const VaultWrapper = styled.div`
   max-width: 1200px;
 `;
 
-const SpinnerWrapper = styled.div`
-  height: 80vh;
-  width: 100%;
-
-  @media only screen and (max-width: 1440px) {
-    height: 70vh;
-  }
-`;
-
 function Vault({ settings }) {
   const [emission, setEmission] = useState('0');
   const [pendingRewards, setPendingRewards] = useState('0');
@@ -69,11 +58,11 @@ function Vault({ settings }) {
   const updateTotalInfo = async () => {
     const [
       venusVAIVaultRate,
-      pendingRewards,
+      pendingRewardsTemp,
       userXvsBalance,
       availableAmount,
       { 0: staked },
-      vaiReward,
+      vaiRewardTemp,
       allowBalance
     ] = await Promise.all([
       compContract.methods.venusVAIVaultRate().call(),
@@ -100,7 +89,7 @@ function Vault({ settings }) {
         .toString(10)
     );
     setPendingRewards(
-      new BigNumber(pendingRewards)
+      new BigNumber(pendingRewardsTemp)
         .div(1e18)
         .dp(4, 1)
         .toString(10)
@@ -108,7 +97,7 @@ function Vault({ settings }) {
     setAvailableVai(new BigNumber(availableAmount).div(1e18));
     setVaiStaked(new BigNumber(staked).div(1e18));
     setVaiReward(
-      new BigNumber(vaiReward)
+      new BigNumber(vaiRewardTemp)
         .div(1e18)
         .dp(4, 1)
         .toString(10)
@@ -126,11 +115,7 @@ function Vault({ settings }) {
     <MainLayout title="Vault">
       <MarketWrapper>
         <VaultWrapper className="flex">
-          {!account ? (
-            <SpinnerWrapper>
-              <LoadingSpinner />
-            </SpinnerWrapper>
-          ) : process.env.REACT_APP_CHAIN_ID === '97' ? (
+          {process.env.REACT_APP_CHAIN_ID === '97' ? (
             <Row>
               <Column xs="12" sm="6">
                 <Column xs="12">

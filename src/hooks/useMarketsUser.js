@@ -29,15 +29,15 @@ export const useMarketsUser = () => {
   const { userVaiMinted } = useVaiUser();
 
   const updateMarketInfo = useCallback(async () => {
-    if (!account || !markets) {
+    if (!markets) {
       return;
     }
 
     try {
       let xvsBalance = new BigNumber(0);
-      const assetsIn = await comptrollerContract.methods
-        .getAssetsIn(account)
-        .call();
+      const assetsIn = account
+        ? await comptrollerContract.methods.getAssetsIn(account).call()
+        : [];
 
       let totalBorrowLimit = new BigNumber(0);
       let totalBorrowBalance = userVaiMinted;
@@ -84,24 +84,35 @@ export const useMarketsUser = () => {
               .map(item => item.toLowerCase())
               .includes(asset.vtokenAddress.toLowerCase());
 
-            let borrowBalance, supplyBalance, totalBalance;
+            let borrowBalance;
+            let supplyBalance;
+            let totalBalance;
 
             // wallet balance
             if (item.id !== 'bnb') {
               const tokenContract = getTokenContract(web3, item.id);
-              const [
-                walletBalance,
-                allowBalance,
-                snapshot,
-                balance
-              ] = await Promise.all([
-                tokenContract.methods.balanceOf(account).call(),
-                tokenContract.methods
-                  .allowance(account, asset.vtokenAddress)
-                  .call(),
-                vBepContract.methods.getAccountSnapshot(account).call(),
-                vBepContract.methods.balanceOf(account).call()
-              ]);
+              let [walletBalance, allowBalance, snapshot, balance] = [
+                '0',
+                '0',
+                // snapshot return data type: (uint(Error.NO_ERROR), vTokenBalance, borrowBalance, exchangeRateMantissa);
+                ['0', '0', '0', '0'],
+                '0'
+              ];
+              if (account) {
+                [
+                  walletBalance,
+                  allowBalance,
+                  snapshot,
+                  balance
+                ] = await Promise.all([
+                  tokenContract.methods.balanceOf(account).call(),
+                  tokenContract.methods
+                    .allowance(account, asset.vtokenAddress)
+                    .call(),
+                  vBepContract.methods.getAccountSnapshot(account).call(),
+                  vBepContract.methods.balanceOf(account).call()
+                ]);
+              }
               supplyBalance = new BigNumber(snapshot[1])
                 .times(new BigNumber(snapshot[3]))
                 .div(new BigNumber(10).pow(18));
@@ -121,11 +132,18 @@ export const useMarketsUser = () => {
                 .div(new BigNumber(10).pow(item.decimals))
                 .isGreaterThan(asset.walletBalance);
             } else {
-              const [snapshot, balance, walletBalance] = await Promise.all([
-                vBepContract.methods.getAccountSnapshot(account).call(),
-                vBepContract.methods.balanceOf(account).call(),
-                web3.eth.getBalance(account)
-              ]);
+              let [snapshot, balance, walletBalance] = [
+                ['0', '0', '0', '0'],
+                '0',
+                '0'
+              ];
+              if (account) {
+                [snapshot, balance, walletBalance] = await Promise.all([
+                  vBepContract.methods.getAccountSnapshot(account).call(),
+                  vBepContract.methods.balanceOf(account).call(),
+                  web3.eth.getBalance(account)
+                ]);
+              }
               supplyBalance = new BigNumber(snapshot[1])
                 .times(new BigNumber(snapshot[3]))
                 .div(new BigNumber(10).pow(18));
@@ -151,14 +169,17 @@ export const useMarketsUser = () => {
             );
 
             // hypotheticalLiquidity
-            asset.hypotheticalLiquidity = await comptrollerContract.methods
-              .getHypotheticalAccountLiquidity(
-                account,
-                asset.vtokenAddress,
-                totalBalance,
-                0
-              )
-              .call();
+            // return data type: (uint(err), liquidity, shortfall);
+            asset.hypotheticalLiquidity = account
+              ? await comptrollerContract.methods
+                  .getHypotheticalAccountLiquidity(
+                    account,
+                    asset.vtokenAddress,
+                    totalBalance,
+                    0
+                  )
+                  .call()
+              : ['0', '0', '0'];
 
             const supplyBalanceUSD = asset.supplyBalance.times(
               asset.tokenPrice

@@ -59,20 +59,24 @@ function CoinInfo({ address, balance }) {
           <img src={coinImg} alt="coin" />
           <p>{format(balance)}</p>
         </div>
-        <div
-          className="flex align-center just-center pointer"
-          onClick={() => handleLink()}
-        >
-          <p className="highlight">
-            {`${address.substr(0, 4)}...${address.substr(
-              address.length - 4,
-              4
-            )}`}
-          </p>
-          <div className="flex align-center just-center copy-btn">
-            <Icon type="arrow-right" />
+        {address ? (
+          <div
+            className="flex align-center just-center pointer"
+            onClick={() => handleLink()}
+          >
+            <p className="highlight">
+              {`${address.substr(0, 4)}...${address.substr(
+                address.length - 4,
+                4
+              )}`}
+            </p>
+            <div className="flex align-center just-center copy-btn">
+              <Icon type="arrow-right" />
+            </div>
           </div>
-        </div>
+        ) : (
+          ''
+        )}
       </CardWrapper>
     </Card>
   );

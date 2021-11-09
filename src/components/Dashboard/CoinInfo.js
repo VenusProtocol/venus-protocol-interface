@@ -9,8 +9,8 @@ import * as constants from 'utilities/constants';
 import { addToken } from 'utilities/common';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
-import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
+import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
@@ -90,11 +90,12 @@ function CoinInfo({ settings }) {
           onClick={() => handleLink()}
         >
           <p className="highlight">
-            {account &&
-              `${account.substr(0, 4)}...${account.substr(
-                account.length - 4,
-                4
-              )}`}
+            {account
+              ? `${account.substr(0, 4)}...${account.substr(
+                  account.length - 4,
+                  4
+                )}`
+              : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
             <Icon type="arrow-right" />

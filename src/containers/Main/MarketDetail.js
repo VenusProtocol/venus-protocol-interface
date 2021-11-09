@@ -101,15 +101,6 @@ const CardWrapper = styled.div`
   padding: 25px 32px;
 `;
 
-const SpinnerWrapper = styled.div`
-  height: 85vh;
-  width: 100%;
-
-  @media only screen and (max-width: 1440px) {
-    height: 70vh;
-  }
-`;
-
 let timeStamp = 0;
 const abortController = new AbortController();
 
@@ -191,12 +182,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   return (
     <MainLayout title="Market">
       <MarketDetailWrapper className="flex">
-        {(!account || !markets || !currentAsset) && (
-          <SpinnerWrapper>
-            <LoadingSpinner />
-          </SpinnerWrapper>
-        )}
-        {account && markets && currentAsset && (
+        {currentAsset && (
           <div className="flex market-detail-content">
             <div className="column1">
               <CardWrapper>

@@ -247,7 +247,7 @@ function Staking({
           {!isEnabled ? (
             <Button
               className="button"
-              disabled={isStakeLoading}
+              disabled={isStakeLoading || !account}
               onClick={() => {
                 onApprove();
               }}
@@ -258,6 +258,7 @@ function Staking({
             <Button
               className="button"
               disabled={
+                !account ||
                 isStakeLoading ||
                 stakeAmount.isZero() ||
                 stakeAmount.isNaN() ||
