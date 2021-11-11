@@ -311,7 +311,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               )}
             </div>
             <Progress
-              percent={newBorrowPercent.toNumber(10)}
+              percent={newBorrowPercent.toNumber()}
               strokeColor="#d99d43"
               strokeWidth={7}
               showInfo={false}

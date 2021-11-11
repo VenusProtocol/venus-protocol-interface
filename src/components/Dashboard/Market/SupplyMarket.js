@@ -60,14 +60,14 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
         toast.error({
           title: `Collateral Required`,
           description:
-            'Please repay all borrowed asset or set other assets as collateral.'
+            'Please repay all borrowed assets or set other assets as collateral.'
         });
       }
     } else {
       toast.error({
         title: `Collateral Required`,
         description:
-          'Please repay all borrowed asset or set other assets as collateral.'
+          'Please repay all borrowed assets or set other assets as collateral.'
       });
     }
   };

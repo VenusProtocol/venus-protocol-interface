@@ -309,7 +309,7 @@ function ConnectButton() {
                 >
                   <div className="flex align-center">
                     <img src={walletconnectImg} alt="coinbase wallet" />
-                    <span>Wallet Connect</span>
+                    <span>WalletConnect</span>
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
