@@ -286,7 +286,6 @@ Proposals.propTypes = {
   address: PropTypes.string.isRequired,
   isLoadingProposal: PropTypes.bool.isRequired,
   votingWeight: PropTypes.string.isRequired,
-  settings: PropTypes.object.isRequired,
   proposals: PropTypes.array,
   pageNumber: PropTypes.number,
   total: PropTypes.number,

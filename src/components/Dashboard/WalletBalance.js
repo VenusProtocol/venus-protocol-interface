@@ -96,6 +96,9 @@ function WalletBalance({ settings, setSetting }) {
 
   const addVAIApy = useCallback(
     async apy => {
+      if (!account) {
+        return;
+      }
       const { 0: staked } = await vaultContract.methods
         .userInfo(account)
         .call();

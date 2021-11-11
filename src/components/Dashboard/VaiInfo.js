@@ -8,8 +8,8 @@ import commaNumber from 'comma-number';
 import coinImg from 'assets/img/coins/vai.svg';
 import { Card } from 'components/Basic/Card';
 import { addToken } from 'utilities/common';
-import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
+import { BASE_BSC_SCAN_URL } from '../../config';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { getVaiTokenAddress } from '../../utilities/addressHelpers';
 
@@ -98,10 +98,12 @@ function VaiInfo({ settings }) {
           onClick={() => handleLink()}
         >
           <p className="highlight">
-            {`${account.substr(0, 4)}...${account.substr(
-              account.length - 4,
-              4
-            )}`}
+            {account
+              ? `${account.substr(0, 4)}...${account.substr(
+                  account.length - 4,
+                  4
+                )}`
+              : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
             <Icon type="arrow-right" />

@@ -30,60 +30,42 @@ const SpinnerWrapper = styled.div`
   }
 `;
 
-function Dashboard({ settings, setSetting }) {
-  const { account } = useWeb3React();
-
+function Dashboard() {
   return (
     <MainLayout title="Dashboard">
       <DashboardWrapper className="flex">
-        {!account && (
-          <SpinnerWrapper>
-            <LoadingSpinner />
-          </SpinnerWrapper>
-        )}
-        {account && (
-          <Row>
-            <Column xs="12" sm="12" md="5">
-              <Row>
-                <Column xs="12">
-                  <CoinInfo />
-                </Column>
-                <Column xs="12">
-                  <VaiInfo />
-                </Column>
-                <Column xs="12">
-                  <BorrowLimit />
-                </Column>
-                <Column xs="12">
-                  <Overview />
-                </Column>
-              </Row>
-            </Column>
-            <Column xs="12" sm="12" md="7">
-              <Row>
-                <Column xs="12">
-                  <WalletBalance />
-                </Column>
-                <Column xs="12">
-                  <Market />
-                </Column>
-              </Row>
-            </Column>
-          </Row>
-        )}
+        <Row>
+          <Column xs="12" sm="12" md="5">
+            <Row>
+              <Column xs="12">
+                <CoinInfo />
+              </Column>
+              <Column xs="12">
+                <VaiInfo />
+              </Column>
+              <Column xs="12">
+                <BorrowLimit />
+              </Column>
+              <Column xs="12">
+                <Overview />
+              </Column>
+            </Row>
+          </Column>
+          <Column xs="12" sm="12" md="7">
+            <Row>
+              <Column xs="12">
+                <WalletBalance />
+              </Column>
+              <Column xs="12">
+                <Market />
+              </Column>
+            </Row>
+          </Column>
+        </Row>
       </DashboardWrapper>
     </MainLayout>
   );
 }
-
-Dashboard.propTypes = {
-  settings: PropTypes.object,
-  setSetting: PropTypes.func.isRequired
-};
-
-Dashboard.defaultProps = {
-  settings: {}
-};
 
 const mapStateToProps = ({ account }) => ({
   settings: account.setting

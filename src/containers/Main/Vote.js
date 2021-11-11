@@ -13,7 +13,6 @@ import VotingWallet from 'components/Vote/VotingWallet';
 import VotingPower from 'components/Vote/VotingPower';
 import Proposals from 'components/Vote/Proposals';
 import { promisify } from 'utilities';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
 import * as constants from 'utilities/constants';
 import { useWeb3React } from '@web3-react/core';
@@ -28,15 +27,6 @@ import { getVbepContract } from '../../utilities/contractHelpers';
 
 const VoteWrapper = styled.div`
   height: 100%;
-`;
-
-const SpinnerWrapper = styled.div`
-  height: 85vh;
-  width: 100%;
-
-  @media only screen and (max-width: 1440px) {
-    height: 70vh;
-  }
 `;
 
 function Vote({ settings, getProposals, setSetting }) {
@@ -126,53 +116,51 @@ function Vote({ settings, getProposals, setSetting }) {
     ]);
     let venusEarned = new BigNumber(0);
     await Promise.all(
-      Object.values(constants.CONTRACT_VBEP_ADDRESS).map(
-        async (item, index) => {
-          const vBepContract = getVbepContract(web3, item.id);
-          let [
-            supplyState,
-            supplierIndex,
-            supplierTokens,
-            borrowState,
-            borrowerIndex,
-            borrowBalanceStored,
-            borrowIndex
-          ] = await Promise.all([
-            comptrollerContract.methods.venusSupplyState(item.address).call(),
-            comptrollerContract.methods
-              .venusSupplierIndex(item.address, myAddress)
-              .call(),
-            vBepContract.methods.balanceOf(myAddress).call(),
-            comptrollerContract.methods.venusBorrowState(item.address).call(),
-            comptrollerContract.methods
-              .venusBorrowerIndex(item.address, myAddress)
-              .call(),
-            vBepContract.methods.borrowBalanceStored(myAddress).call(),
-            vBepContract.methods.borrowIndex().call()
-          ]);
-          const supplyIndex = supplyState.index;
-          if (+supplierIndex === 0 && +supplyIndex > 0) {
-            supplierIndex = venusInitialIndex;
-          }
-          let deltaIndex = new BigNumber(supplyIndex).minus(supplierIndex);
-
-          const supplierDelta = new BigNumber(supplierTokens)
-            .multipliedBy(deltaIndex)
-            .dividedBy(1e36);
-
-          venusEarned = venusEarned.plus(supplierDelta);
-          if (+borrowerIndex > 0) {
-            deltaIndex = new BigNumber(borrowState.index).minus(borrowerIndex);
-            const borrowerAmount = new BigNumber(borrowBalanceStored)
-              .multipliedBy(1e18)
-              .dividedBy(borrowIndex);
-            const borrowerDelta = borrowerAmount
-              .times(deltaIndex)
-              .dividedBy(1e36);
-            venusEarned = venusEarned.plus(borrowerDelta);
-          }
+      Object.values(constants.CONTRACT_VBEP_ADDRESS).map(async item => {
+        const vBepContract = getVbepContract(web3, item.id);
+        let [
+          supplyState,
+          supplierIndex,
+          supplierTokens,
+          borrowState,
+          borrowerIndex,
+          borrowBalanceStored,
+          borrowIndex
+        ] = await Promise.all([
+          comptrollerContract.methods.venusSupplyState(item.address).call(),
+          comptrollerContract.methods
+            .venusSupplierIndex(item.address, myAddress)
+            .call(),
+          vBepContract.methods.balanceOf(myAddress).call(),
+          comptrollerContract.methods.venusBorrowState(item.address).call(),
+          comptrollerContract.methods
+            .venusBorrowerIndex(item.address, myAddress)
+            .call(),
+          vBepContract.methods.borrowBalanceStored(myAddress).call(),
+          vBepContract.methods.borrowIndex().call()
+        ]);
+        const supplyIndex = supplyState.index;
+        if (+supplierIndex === 0 && +supplyIndex > 0) {
+          supplierIndex = venusInitialIndex;
         }
-      )
+        let deltaIndex = new BigNumber(supplyIndex).minus(supplierIndex);
+
+        const supplierDelta = new BigNumber(supplierTokens)
+          .multipliedBy(deltaIndex)
+          .dividedBy(1e36);
+
+        venusEarned = venusEarned.plus(supplierDelta);
+        if (+borrowerIndex > 0) {
+          deltaIndex = new BigNumber(borrowState.index).minus(borrowerIndex);
+          const borrowerAmount = new BigNumber(borrowBalanceStored)
+            .multipliedBy(1e18)
+            .dividedBy(borrowIndex);
+          const borrowerDelta = borrowerAmount
+            .times(deltaIndex)
+            .dividedBy(1e36);
+          venusEarned = venusEarned.plus(borrowerDelta);
+        }
+      })
     );
 
     venusEarned = venusEarned
@@ -224,58 +212,51 @@ function Vote({ settings, getProposals, setSetting }) {
   return (
     <MainLayout title="Vote">
       <VoteWrapper className="flex">
-        {!account && (
-          <SpinnerWrapper>
-            <LoadingSpinner />
-          </SpinnerWrapper>
-        )}
-        {account && (
-          <Row>
-            <Column xs="12" sm="12" md="5">
-              <Row>
-                <Column xs="12">
-                  <CoinInfo
-                    balance={balance !== '0' ? `${balance}` : '0.00000000'}
-                    address={account ? account : ''}
-                  />
-                </Column>
-                <Column xs="12">
-                  <VotingWallet
-                    balance={balance !== '0' ? `${balance}` : '0.00000000'}
-                    earnedBalance={earnedBalance}
-                    vaiMint={vaiMint}
-                    delegateAddress={delegateAddress}
-                    delegateStatus={delegateStatus}
-                  />
-                </Column>
-              </Row>
-            </Column>
-            <Column xs="12" sm="12" md="7">
-              <Row>
-                <Column xs="12">
-                  <VotingPower
-                    power={
-                      votingWeight !== '0'
-                        ? `${new BigNumber(votingWeight).dp(8, 1).toString(10)}`
-                        : '0.00000000'
-                    }
-                  />
-                </Column>
-                <Column xs="12">
-                  <Proposals
-                    address={account ? account : ''}
-                    isLoadingProposal={isLoadingProposal}
-                    pageNumber={current}
-                    proposals={proposals.result}
-                    total={proposals.total || 0}
-                    votingWeight={votingWeight}
-                    onChangePage={handleChangePage}
-                  />
-                </Column>
-              </Row>
-            </Column>
-          </Row>
-        )}
+        <Row>
+          <Column xs="12" sm="12" md="5">
+            <Row>
+              <Column xs="12">
+                <CoinInfo
+                  balance={balance !== '0' ? `${balance}` : '0.00000000'}
+                  address={account || ''}
+                />
+              </Column>
+              <Column xs="12">
+                <VotingWallet
+                  balance={balance !== '0' ? `${balance}` : '0.00000000'}
+                  earnedBalance={earnedBalance}
+                  vaiMint={vaiMint}
+                  delegateAddress={delegateAddress}
+                  delegateStatus={delegateStatus}
+                />
+              </Column>
+            </Row>
+          </Column>
+          <Column xs="12" sm="12" md="7">
+            <Row>
+              <Column xs="12">
+                <VotingPower
+                  power={
+                    votingWeight !== '0'
+                      ? `${new BigNumber(votingWeight).dp(8, 1).toString(10)}`
+                      : '0.00000000'
+                  }
+                />
+              </Column>
+              <Column xs="12">
+                <Proposals
+                  address={account || ''}
+                  isLoadingProposal={isLoadingProposal}
+                  pageNumber={current}
+                  proposals={proposals.result}
+                  total={proposals.total || 0}
+                  votingWeight={votingWeight}
+                  onChangePage={handleChangePage}
+                />
+              </Column>
+            </Row>
+          </Column>
+        </Row>
       </VoteWrapper>
     </MainLayout>
   );

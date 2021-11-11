@@ -103,7 +103,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
   const voteContract = useVote();
 
   const updateBalance = useCallback(async () => {
-    if (account && proposalInfo.id) {
+    if (proposalInfo.id) {
       const threshold = await voteContract.methods.proposalThreshold().call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
       const weight = await xvsTokenContract.methods
@@ -111,12 +111,11 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
         .call();
       setProposerVotingWeight(+Web3.utils.fromWei(weight, 'ether'));
     }
-  }, [account, proposalInfo]);
+  }, [proposalInfo]);
+
   useEffect(() => {
-    if (account) {
-      updateBalance();
-    }
-  }, [account, updateBalance]);
+    updateBalance();
+  }, [updateBalance]);
 
   useEffect(() => {
     if (match.params && match.params.id) {
@@ -337,6 +336,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
                     <Button
                       className="cancel-btn"
                       disabled={
+                        !account ||
                         isCancelLoading ||
                         proposerVotingWeight >= proposalThreshold ||
                         cancelStatus === 'success'
@@ -350,8 +350,8 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
                     </Button>
                     {proposalInfo.state === 'Succeeded' && (
                       <Button
-                        className="queud-btn"
-                        disabled={isLoading || status === 'success'}
+                        className="queue-btn"
+                        disabled={!account || isLoading || status === 'success'}
                         onClick={() => handleUpdateProposal('Queue')}
                       >
                         {isLoading && <Icon type="loading" />}{' '}
@@ -364,6 +364,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
                       <Button
                         className="execute-btn"
                         disabled={
+                          !account ||
                           isLoading ||
                           status === 'success' ||
                           !isPossibleExcuted

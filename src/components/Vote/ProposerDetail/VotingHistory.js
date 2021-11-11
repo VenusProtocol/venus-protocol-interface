@@ -161,10 +161,9 @@ function VotingHistory({ data, pageNumber, total, onChangePage }) {
 VotingHistory.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      proposalId: PropTypes.string,
+      proposalId: PropTypes.number,
       description: PropTypes.string,
-      state: PropTypes.string,
-      updatedAt: PropTypes.instanceOf(Date)
+      state: PropTypes.string
     })
   ),
   pageNumber: PropTypes.number,

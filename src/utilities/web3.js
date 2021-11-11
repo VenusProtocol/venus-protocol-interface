@@ -3,6 +3,10 @@ import getNodeUrl from './getRpcUrl';
 
 const RPC_URL = getNodeUrl();
 
+// @todo: we will get the "No 'Access-Control-Allow-Origin' header is present on the requested resource"
+// error on the frontend in testnet when the wallet is unconnected, because the bsc official testnet endpoints
+// don't support CORS request right now, and we didn't find any working testnet endpoints for
+// HTTPProvider or WebSocketProvider neither.
 const getWeb3NoAccount = () => {
   const httpProvider = new Web3.providers.HttpProvider(RPC_URL, {
     timeout: 10000

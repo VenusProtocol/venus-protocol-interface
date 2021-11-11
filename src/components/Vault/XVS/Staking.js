@@ -289,7 +289,7 @@ function Staking({ settings, userInfo, rewardAddress }) {
           {!enabled ? (
             <Button
               className="button"
-              disabled={isStakeLoading}
+              disabled={isStakeLoading || !account}
               onClick={() => {
                 onApprove();
               }}
@@ -300,6 +300,7 @@ function Staking({ settings, userInfo, rewardAddress }) {
             <Button
               className="button"
               disabled={
+                !account ||
                 isStakeLoading ||
                 stakeAmount.isZero() ||
                 stakeAmount.isNaN() ||
@@ -323,7 +324,7 @@ function Staking({ settings, userInfo, rewardAddress }) {
               <Button
                 className="button"
                 onClick={() => handleExecuteWithdrawal()}
-                disabled={isWithdrawLoading}
+                disabled={isWithdrawLoading || !account}
               >
                 {isWithdrawLoading && <Icon type="loading" />} Execute
                 Withdrawal
@@ -353,6 +354,7 @@ function Staking({ settings, userInfo, rewardAddress }) {
                 className="button"
                 onClick={() => handleRequestWithdrawal()}
                 disabled={
+                  !account ||
                   isWithdrawLoading ||
                   withdrawAmount.isZero() ||
                   withdrawAmount.isNaN() ||
@@ -403,7 +405,7 @@ function Staking({ settings, userInfo, rewardAddress }) {
 
 Staking.propTypes = {
   settings: PropTypes.object,
-  userInfo: PropTypes.object,
+  userInfo: PropTypes.object.isRequired,
   rewardAddress: PropTypes.string.isRequired
 };
 
