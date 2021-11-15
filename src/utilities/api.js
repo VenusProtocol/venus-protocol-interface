@@ -7,5 +7,3 @@ export const fetchMarkets = async () => {
     params: {}
   });
 };
-
-export const fetchMarketsUser = async (web3, chainId = 250) => {};

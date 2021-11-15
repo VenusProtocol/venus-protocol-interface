@@ -11,7 +11,7 @@ import {
 } from '@web3-react/walletconnect-connector';
 import toast from 'components/Basic/Toast';
 import { connectorLocalStorageKey } from '../config';
-import { connectorsByName } from '../utilities/connectors';
+import { connectorsByName, ConnectorNames } from '../utilities/connectors';
 import { setupNetwork } from '../utilities/wallet';
 
 const useAuth = () => {
@@ -58,8 +58,10 @@ const useAuth = () => {
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector
     if (window.localStorage.getItem('walletconnect')) {
-      connectorsByName.walletconnect.close();
-      connectorsByName.walletconnect.walletConnectProvider = null;
+      connectorsByName[ConnectorNames.WalletConnect].close();
+      connectorsByName[
+        ConnectorNames.WalletConnect
+      ].walletConnectProvider = null;
     }
     window.localStorage.removeItem(connectorLocalStorageKey);
   }, [deactivate]);

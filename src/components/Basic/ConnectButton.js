@@ -53,6 +53,7 @@ const ModalContent = styled.div`
   border-radius: 20px;
   background-color: var(--color-bg-primary);
 
+
   .close-btn {
     position: absolute;
     top: 23px;
@@ -98,7 +99,6 @@ const ModalContent = styled.div`
       cursor: pointer;
       padding: 10px;
       height: 65px;
-      border: 1px solid var(--color-bg-active);
       margin: 15px 0;
 
       & > div {
@@ -111,6 +111,12 @@ const ModalContent = styled.div`
           font-weight: normal;
           font-size: 17px;
         }
+        .beta-flag {
+          display: inline-block;
+          margin-left: 4px;
+          font-size: 14px;
+          color: #aaa;
+        }
       }
 
       span {
@@ -118,6 +124,12 @@ const ModalContent = styled.div`
         font-weight: normal;
         font-size: 17px;
       }
+    }
+
+    .line {
+      width: 100%auto;
+      height: 1px;
+      background-color: var(--color-bg-active);
     }
 
     .metamask-status {
@@ -293,6 +305,21 @@ function ConnectButton() {
                 <p className="title">Connect to start using Venus</p>
               </div>
               <div className="connect-wallet-content">
+                <div className="flex align-center just-between metamask-connect-btn">
+                  <div className="flex align-center">
+                    <img src={ledgerImg} alt="ledger" />
+                    <span>Ledger</span>
+                  </div>
+                  <span>Coming...</span>
+                </div>
+                <div className="flex align-center just-between metamask-connect-btn">
+                  <div className="flex align-center">
+                    <img src={safepalImg} alt="safepal" />
+                    <span>SafePal</span>
+                  </div>
+                  <span>Coming...</span>
+                </div>
+                <div className="line" />
                 <div
                   className="flex align-center just-between metamask-connect-btn"
                   onClick={() => onConnect(ConnectorNames.Injected)}
@@ -320,26 +347,6 @@ function ConnectButton() {
                   <div className="flex align-center">
                     <img src={binanceImg} alt="binance" />
                     <span>Binance Chain Wallet</span>
-                  </div>
-                  <img src={arrowRightImg} alt="arrow" />
-                </div>
-                <div
-                  className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.Ledger)}
-                >
-                  <div className="flex align-center">
-                    <img src={ledgerImg} alt="ledger" />
-                    <span>Ledger</span>
-                  </div>
-                  <img src={arrowRightImg} alt="arrow" />
-                </div>
-                <div
-                  className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.Injected)}
-                >
-                  <div className="flex align-center">
-                    <img src={safepalImg} alt="safepal" />
-                    <span>SafePal</span>
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
