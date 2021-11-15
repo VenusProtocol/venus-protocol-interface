@@ -111,12 +111,6 @@ const ModalContent = styled.div`
           font-weight: normal;
           font-size: 17px;
         }
-        .beta-flag {
-          display: inline-block;
-          margin-left: 4px;
-          font-size: 14px;
-          color: #aaa;
-        }
       }
 
       span {
@@ -124,6 +118,10 @@ const ModalContent = styled.div`
         font-weight: normal;
         font-size: 17px;
       }
+    }
+
+    .coming-soon {
+      cursor: auto;
     }
 
     .line {
@@ -213,7 +211,7 @@ const ModalContent = styled.div`
 
     .wallet-footer {
       display: flex;
-      justify-content: center
+      justify-content: center;
       margin: 30px 0;
 
       .logout-btn {
@@ -221,17 +219,17 @@ const ModalContent = styled.div`
         height: 30px;
         border-radius: 5px;
         background-image: linear-gradient(to right, #f2c265, #f7b44f);
-    
+
         @media only screen and (max-width: 768px) {
           width: 100px;
         }
-    
+
         .MuiButton-label {
           font-size: 13px;
           font-weight: 500;
           color: var(--color-text-main);
           text-transform: capitalize;
-    
+
           @media only screen and (max-width: 768px) {
             font-size: 12px;
           }
@@ -305,19 +303,19 @@ function ConnectButton() {
                 <p className="title">Connect to start using Venus</p>
               </div>
               <div className="connect-wallet-content">
-                <div className="flex align-center just-between metamask-connect-btn">
+                <div className="flex align-center just-between metamask-connect-btn coming-soon">
                   <div className="flex align-center">
                     <img src={ledgerImg} alt="ledger" />
                     <span>Ledger</span>
                   </div>
-                  <span>Coming...</span>
+                  <span>Coming soon...</span>
                 </div>
-                <div className="flex align-center just-between metamask-connect-btn">
+                <div className="flex align-center just-between metamask-connect-btn coming-soon">
                   <div className="flex align-center">
                     <img src={safepalImg} alt="safepal" />
                     <span>SafePal</span>
                   </div>
-                  <span>Coming...</span>
+                  <span>Coming soon...</span>
                 </div>
                 <div className="line" />
                 <div
