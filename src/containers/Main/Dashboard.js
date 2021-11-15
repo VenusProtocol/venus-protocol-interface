@@ -13,21 +13,10 @@ import Overview from 'components/Dashboard/Overview';
 import WalletBalance from 'components/Dashboard/WalletBalance';
 import Market from 'components/Dashboard/Market';
 import { connectAccount, accountActionCreators } from 'core';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Row, Column } from 'components/Basic/Style';
-import { useWeb3React } from '@web3-react/core';
 
 const DashboardWrapper = styled.div`
   height: 100%;
-`;
-
-const SpinnerWrapper = styled.div`
-  height: 85vh;
-  width: 100%;
-
-  @media only screen and (max-width: 1440px) {
-    height: 70vh;
-  }
 `;
 
 function Dashboard() {

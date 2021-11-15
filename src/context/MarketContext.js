@@ -43,6 +43,7 @@ const MarketContextProvider = ({ children }) => {
   const { fastRefresh } = useRefresh();
 
   useEffect(() => {
+    let isMounted = true;
     const getMarkets = async () => {
       const res = await fetchMarkets();
       if (!res.data || !res.data.status) {
@@ -57,13 +58,22 @@ const MarketContextProvider = ({ children }) => {
           )
         )
         .filter(item => !!item);
+
+      if (!isMounted) {
+        return;
+      }
+
       setMarkets(data);
       setDailyVenus(res.data.data.dailyVenus);
     };
     getMarkets();
+    return () => {
+      isMounted = false;
+    };
   }, [fastRefresh]);
 
   useEffect(() => {
+    let isMounted = true;
     const updateMarketUserInfo = async () => {
       if (!markets) {
         return;
@@ -251,6 +261,11 @@ const MarketContextProvider = ({ children }) => {
                   .toString(10)
           };
         });
+
+        if (!isMounted) {
+          return;
+        }
+
         setUserMarketInfo(tempAssetList);
         setUserTotalBorrowLimit(totalBorrowLimit);
         setUserTotalBorrowBalance(totalBorrowBalance);
@@ -260,6 +275,9 @@ const MarketContextProvider = ({ children }) => {
       }
     };
     updateMarketUserInfo();
+    return () => {
+      isMounted = false;
+    };
   }, [markets, account, web3, fastRefresh]);
 
   return (
