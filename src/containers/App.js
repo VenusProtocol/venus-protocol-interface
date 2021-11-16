@@ -23,6 +23,8 @@ import Theme from './Theme';
 
 import 'assets/styles/App.scss';
 import { RefreshContextProvider } from '../context/RefreshContext';
+import { MarketContextProvider } from '../context/MarketContext';
+import { VaiContextProvider } from '../context/VaiContext';
 
 addLocaleData([...en]);
 const initialLang = 'en';
@@ -47,48 +49,60 @@ class App extends React.Component {
         <IntlProvider locale={lang} messages={message}>
           <Provider store={store}>
             <RefreshContextProvider>
-              <BrowserRouter>
-                <ToastContainer
-                  autoClose={8000}
-                  transition={Slide}
-                  hideProgressBar
-                  newestOnTop
-                  position={toast.POSITION.TOP_LEFT}
-                />
-                <Switch
-                  atEnter={{ opacity: 0 }}
-                  atLeave={{ opacity: 0.5 }}
-                  atActive={{ opacity: 1 }}
-                  className="switch-wrapper"
-                >
-                  <Route exact path="/dashboard" component={Dashboard} />
-                  <Route exact path="/vote" component={Vote} />
-                  <Route exact path="/xvs" component={XVS} />
-                  <Route exact path="/market" component={Market} />
-                  <Route exact path="/transaction" component={Transaction} />
-                  <Route exact path="/vault" component={Vault} />
-                  <Route exact path="/market/:asset" component={MarketDetail} />
-                  <Route
-                    exact
-                    path="/vote/leaderboard"
-                    component={VoterLeaderboard}
-                  />
-                  <Route
-                    exact
-                    path="/vote/proposal/:id"
-                    component={VoteOverview}
-                  />
-                  <Route
-                    exact
-                    path="/vote/address/:address"
-                    component={ProposerDetail}
-                  />
-                  {process.env.REACT_APP_CHAIN_ID === '97' && (
-                    <Route exact path="/faucet" component={Faucet} />
-                  )}
-                  <Redirect from="/" to="/dashboard" />
-                </Switch>
-              </BrowserRouter>
+              <MarketContextProvider>
+                <VaiContextProvider>
+                  <BrowserRouter>
+                    <ToastContainer
+                      autoClose={8000}
+                      transition={Slide}
+                      hideProgressBar
+                      newestOnTop
+                      position={toast.POSITION.TOP_LEFT}
+                    />
+                    <Switch
+                      atEnter={{ opacity: 0 }}
+                      atLeave={{ opacity: 0.5 }}
+                      atActive={{ opacity: 1 }}
+                      className="switch-wrapper"
+                    >
+                      <Route exact path="/dashboard" component={Dashboard} />
+                      <Route exact path="/vote" component={Vote} />
+                      <Route exact path="/xvs" component={XVS} />
+                      <Route exact path="/market" component={Market} />
+                      <Route
+                        exact
+                        path="/transaction"
+                        component={Transaction}
+                      />
+                      <Route exact path="/vault" component={Vault} />
+                      <Route
+                        exact
+                        path="/market/:asset"
+                        component={MarketDetail}
+                      />
+                      <Route
+                        exact
+                        path="/vote/leaderboard"
+                        component={VoterLeaderboard}
+                      />
+                      <Route
+                        exact
+                        path="/vote/proposal/:id"
+                        component={VoteOverview}
+                      />
+                      <Route
+                        exact
+                        path="/vote/address/:address"
+                        component={ProposerDetail}
+                      />
+                      {process.env.REACT_APP_CHAIN_ID === '97' && (
+                        <Route exact path="/faucet" component={Faucet} />
+                      )}
+                      <Redirect from="/" to="/dashboard" />
+                    </Switch>
+                  </BrowserRouter>
+                </VaiContextProvider>
+              </MarketContextProvider>
             </RefreshContextProvider>
           </Provider>
         </IntlProvider>

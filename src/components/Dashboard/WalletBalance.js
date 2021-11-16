@@ -81,8 +81,6 @@ const BalancerWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
-const abortController = new AbortController();
-
 function WalletBalance({ settings, setSetting }) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
@@ -94,6 +92,8 @@ function WalletBalance({ settings, setSetting }) {
   const { account } = useWeb3React();
   const vaultContract = useVaiVault();
 
+  let isMounted = true;
+
   const addVAIApy = useCallback(
     async apy => {
       if (!account) {
@@ -103,6 +103,11 @@ function WalletBalance({ settings, setSetting }) {
         .userInfo(account)
         .call();
       const amount = new BigNumber(staked).div(1e18);
+
+      if (!isMounted) {
+        return;
+      }
+
       if (amount.isNaN() || amount.isZero()) {
         setNetAPY(apy.dp(2, 1).toNumber());
       } else {
@@ -166,6 +171,9 @@ function WalletBalance({ settings, setSetting }) {
     } else {
       apy = totalBorrowed.isZero() ? 0 : totalSum.div(totalBorrowed).times(100);
     }
+    if (!isMounted) {
+      return;
+    }
     setTotalSupply(totalSupplied);
     setTotalBorrow(totalBorrowed);
     addVAIApy(apy);
@@ -175,15 +183,20 @@ function WalletBalance({ settings, setSetting }) {
     if (account && userMarketInfo && userMarketInfo.length > 0) {
       updateNetAPY();
     }
-    return function cleanup() {
-      abortController.abort();
+    return () => {
+      isMounted = false;
     };
   }, [account, updateNetAPY]);
 
   useEffect(() => {
-    setSetting({
-      withXVS
-    });
+    if (isMounted) {
+      setSetting({
+        withXVS
+      });
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [withXVS]);
 
   const formatValue = value => {
