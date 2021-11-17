@@ -53,7 +53,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
         setIsCollateralEnable(true);
         setIsCollateralConfirm(true);
         await comptrollerContract.methods
-          .exitMarket([r.vtokenAddress])
+          .exitMarket(r.vtokenAddress)
           .send({ from: account });
         setIsCollateralConfirm(false);
       } else {
