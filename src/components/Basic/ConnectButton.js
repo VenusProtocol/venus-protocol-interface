@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { Modal, Icon } from 'antd';
 import metamaskImg from 'assets/img/metamask.png';
+import trustwalletImg from 'assets/img/trustwallet.svg';
 import safepalImg from 'assets/img/safepal.svg';
 import walletconnectImg from 'assets/img/walletconnect.svg';
 import ledgerImg from 'assets/img/ledger.png';
@@ -325,6 +326,16 @@ function ConnectButton() {
                   <div className="flex align-center">
                     <img src={metamaskImg} alt="metamask" />
                     <span>MetaMask</span>
+                  </div>
+                  <img src={arrowRightImg} alt="arrow" />
+                </div>
+                <div
+                  className="flex align-center just-between metamask-connect-btn"
+                  onClick={() => onConnect(ConnectorNames.Injected)}
+                >
+                  <div className="flex align-center">
+                    <img src={trustwalletImg} alt="trustwallet" />
+                    <span>Trust Wallet</span>
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
