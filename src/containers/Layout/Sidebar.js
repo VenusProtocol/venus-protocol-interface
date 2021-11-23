@@ -293,7 +293,11 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   };
 
   const onChangePage = value => {
-    history.push(`/${value}`);
+    if (value === 'prediction') {
+      window.open('https://prdt.finance/XVS');
+    } else {
+      history.push(`/${value}`);
+    }
   };
 
   useEffect(() => {
