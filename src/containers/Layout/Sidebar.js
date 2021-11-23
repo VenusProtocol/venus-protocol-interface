@@ -11,6 +11,7 @@ import ConnectButton from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
 import { connectAccount, accountActionCreators } from 'core';
 import logoImg from 'assets/img/logo.png';
+import prdtImg from 'assets/img/prdt.png';
 import commaNumber from 'comma-number';
 import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
@@ -74,6 +75,11 @@ const MainMenu = styled.div`
 
   .xvs-active-icon {
     display: none;
+  }
+
+  .prdt-logo {
+    width: 16px;
+    margin-left: 10%;
   }
 
   a {
@@ -246,12 +252,10 @@ const MobileMenu = styled.div`
 `;
 
 const { Option } = Select;
-const abortController = new AbortController();
 
 const format = commaNumber.bindWith(',', '.');
 
 function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
@@ -425,6 +429,16 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
             <Label primary>History</Label>
           </div>
         </NavLink>
+        <a
+          // eslint-disable-next-line react/jsx-no-target-blank
+          target="_blank"
+          className="flex flex-start align-center"
+          href="https://prdt.finance/XVS"
+          activeClassName="active"
+        >
+          <img src={prdtImg} alt="prdt" className="prdt-logo" />
+          <Label primary>XVS Prediction</Label>
+        </a>
       </MainMenu>
       <FaucetMenu>
         {process.env.REACT_APP_CHAIN_ID === '97' && (
@@ -501,6 +515,11 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
               Transaction History
+            </Label>
+          </Option>
+          <Option className="flex align-center just-center" value="transaction">
+            <Label size={14} primary>
+              XVS Predition
             </Label>
           </Option>
           {process.env.REACT_APP_CHAIN_ID === '97' && (
