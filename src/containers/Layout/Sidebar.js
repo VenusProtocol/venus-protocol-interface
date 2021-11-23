@@ -517,7 +517,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
               Transaction History
             </Label>
           </Option>
-          <Option className="flex align-center just-center" value="transaction">
+          <Option className="flex align-center just-center" value="prediction">
             <Label size={14} primary>
               XVS Prediction
             </Label>
