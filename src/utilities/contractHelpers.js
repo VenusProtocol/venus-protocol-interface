@@ -6,7 +6,8 @@ import oracleAbi from '../config/abis/oracle.json';
 import vaiTokenAbi from '../config/abis/vaiToken.json';
 import vaiUnitrollerAbi from '../config/abis/vaiUnitroller.json';
 import vaiVaultAbi from '../config/abis/vaiVault.json';
-import vaultAbi from '../config/abis/vault.json';
+import xvsVaultStoreAbi from '../config/abis/xvsVaultStore.json';
+import xvsVaultAbi from '../config/abis/xvsVault.json';
 import vbepAbi from '../config/abis/vbep.json';
 import vbnbAbi from '../config/abis/vbnb.json';
 import voteAbi from '../config/abis/vote.json';
@@ -18,7 +19,8 @@ import {
   getVaiTokenAddress,
   getVaiUnitrollerAddress,
   getVaiVaultAddress,
-  getVaultAddress,
+  getXvsVaultAddress,
+  getXvsVaultProxyAddress,
   getVoteAddress,
   getVenusLensAddress
 } from './addressHelpers';
@@ -41,8 +43,16 @@ export const getVaiVaultContract = web3 => {
   return getContract(vaiVaultAbi, getVaiVaultAddress(), web3);
 };
 
-export const getVaultContract = web3 => {
-  return getContract(vaultAbi, getVaultAddress(), web3);
+export const getXvsVaultContract = web3 => {
+  return getContract(xvsVaultAbi, getXvsVaultAddress(), web3);
+};
+
+export const getXvsVaultProxyContract = web3 => {
+  return getContract(xvsVaultAbi, getXvsVaultProxyAddress(), web3);
+};
+
+export const getXvsVaultStoreContract = web3 => {
+  return getContract(xvsVaultStoreAbi, getXvsVaultAddress(), web3);
 };
 
 export const getTokenContract = (web3, name) => {
@@ -51,6 +61,10 @@ export const getTokenContract = (web3, name) => {
     constants.CONTRACT_TOKEN_ADDRESS[name].address,
     web3
   );
+};
+
+export const getTokenContractByAddress = (web3, address) => {
+  return getContract(vaiTokenAbi, address, web3);
 };
 
 export const getVbepContract = (web3, name) => {
@@ -80,3 +94,4 @@ export const getInterestModelContract = (web3, address) => {
 export const getVenusLensContract = web3 => {
   return getContract(venusLensAbi, getVenusLensAddress(), web3);
 };
+

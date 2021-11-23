@@ -7,167 +7,190 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
 import MainLayout from 'containers/Layout/MainLayout';
-import VaiTotalInfo from 'components/Vault/VAI/TotalInfo';
-import VaiStaking from 'components/Vault/VAI/Staking';
-import XVSVault from 'components/Vault/XVS';
-import TotalInfo from 'components/Vault/TotalInfo';
-import UserInfo from 'components/Vault/UserInfo';
-import Staking from 'components/Vault/Staking';
 import { connectAccount, accountActionCreators } from 'core';
-import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
+import LoadingSpinner from '../../components/Basic/LoadingSpinner';
+import useWeb3 from '../../hooks/useWeb3';
 import useRefresh from '../../hooks/useRefresh';
 import {
   useComptroller,
   useToken,
   useVaiToken,
-  useVaiVault
+  useVaiVault,
+  useXvsVault,
+  useTokenByAddress
 } from '../../hooks/useContract';
-import { getVaiVaultAddress } from '../../utilities/addressHelpers';
+import * as constants from '../../utilities/constants';
+import VaultCard from '../../components/Vault/VaultCard';
+import { getTokenContractByAddress } from '../../utilities/contractHelpers';
 
-const MarketWrapper = styled.div`
+const VaultWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 24px;
 `;
 
-const VaultWrapper = styled.div`
-  padding-top: 30px;
-  height: 100%;
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-`;
+// fast search token name by address
+const tokenAddressNameMap = Object.keys(
+  constants.CONTRACT_TOKEN_ADDRESS
+).reduce((target, token) => {
+  return {
+    ...target,
+    [constants.CONTRACT_TOKEN_ADDRESS[token].address]: token
+  };
+}, {});
 
 function Vault({ settings }) {
-  const [emission, setEmission] = useState('0');
-  const [pendingRewards, setPendingRewards] = useState('0');
-  const [availableVai, setAvailableVai] = useState(new BigNumber(0));
-  const [vaiStaked, setVaiStaked] = useState(new BigNumber(0));
-  const [vaiReward, setVaiReward] = useState('0');
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [xvsBalance, setXVSBalance] = useState('');
+  // todo: test
+  const [poolInfos, setPoolInfos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const { account } = useWeb3React();
+  const web3 = useWeb3();
   const { fastRefresh } = useRefresh();
-  const compContract = useComptroller();
-  const xvsTokenContract = useToken('xvs');
-  const tokenContract = useVaiToken();
-  const vaultContract = useVaiVault();
+  const vaiVaultContract = useVaiVault();
+  const xvsVaultContract = useXvsVault();
 
-  const updateTotalInfo = async () => {
-    const [
-      venusVAIVaultRate,
-      pendingRewardsTemp,
-      userXvsBalance,
-      availableAmount,
-      { 0: staked },
-      vaiRewardTemp,
-      allowBalance
-    ] = await Promise.all([
-      compContract.methods.venusVAIVaultRate().call(),
-      xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
-      xvsTokenContract.methods.balanceOf(account).call(),
-      tokenContract.methods.balanceOf(account).call(),
-      vaultContract.methods.userInfo(account).call(),
-      vaultContract.methods.pendingXVS(account).call(),
-      tokenContract.methods.allowance(account, getVaiVaultAddress()).call()
-    ]);
-    setXVSBalance(
-      new BigNumber(userXvsBalance)
-        .div(1e18)
-        .dp(4, 1)
-        .toString(10)
-    );
+  // total info
+  useEffect(async () => {
+    let mounted = true;
+    // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
+    const xvsTokenAddress = constants.CONTRACT_TOKEN_ADDRESS.xvs.address;
+    const vaiTokenAddress = constants.CONTRACT_TOKEN_ADDRESS.vai.address;
 
-    // total info
-    setEmission(
-      new BigNumber(venusVAIVaultRate)
-        .div(1e18)
-        .times(20 * 60 * 24)
-        .dp(2, 1)
-        .toString(10)
-    );
-    setPendingRewards(
-      new BigNumber(pendingRewardsTemp)
-        .div(1e18)
-        .dp(4, 1)
-        .toString(10)
-    );
-    setAvailableVai(new BigNumber(availableAmount).div(1e18));
-    setVaiStaked(new BigNumber(staked).div(1e18));
-    setVaiReward(
-      new BigNumber(vaiRewardTemp)
-        .div(1e18)
-        .dp(4, 1)
-        .toString(10)
-    );
-    setIsEnabled(new BigNumber(allowBalance).div(1e18).gt(availableAmount));
-  };
+    // here we just simply list the pool parameters, instead of fetching the pools
+    // by past events, which should be appeared but didn't info.token is the STAKED token
+    // parameter: rewardToken, stakedToken, pid
+    // @todo: maybe we can make a backend api to improve this.
+    const fetchPoolParameters = [
+      { rewardToken: xvsTokenAddress, stakedToken: xvsTokenAddress, pid: 0 },
+      { rewardToken: xvsTokenAddress, stakedToken: vaiTokenAddress, pid: 1 }
+      // [vrtTokenAddress, vrtTokenAddress, 0]
+    ];
 
-  useEffect(() => {
-    if (account) {
-      updateTotalInfo();
+    async function fetchOnePool(param) {
+      const [
+        poolInfo,
+        rewardPerBlock,
+        totalStaked,
+        totalAllocPoints
+      ] = await Promise.all([
+        xvsVaultContract.methods.poolInfos(param.rewardToken, param.pid).call(),
+        xvsVaultContract.methods
+          .rewardTokenAmountsPerBlock(param.rewardToken)
+          .call(),
+
+        getTokenContractByAddress(web3, param.stakedToken)
+          .methods.balanceOf(xvsVaultContract.options.address)
+          .call(),
+
+        xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call()
+      ]);
+
+      let [userPendingRewards, userInfo, pendingWithdrawals] = [
+        new BigNumber(0),
+        new BigNumber(0),
+        {
+          amount: new BigNumber(0)
+        },
+        []
+      ];
+
+      if (account) {
+        [userPendingRewards, userInfo] = await Promise.all([
+          !account
+            ? '0'
+            : xvsVaultContract.methods
+                .pendingReward(param.rewardToken, param.pid, account)
+                .call(),
+          !account
+            ? '0'
+            : xvsVaultContract.methods
+                .getUserInfo(param.stakedToken, param.pid, account)
+                .call()
+        ]);
+      }
+
+      setLoading(false);
+      const rewardPerBlockOfPool = new BigNumber(rewardPerBlock)
+        .multipliedBy(poolInfo.allocPoint)
+        .div(totalAllocPoints);
+      const blockPerDay = 86400 / 3; // per 3 seconds for a block
+      const dailyEmission = new BigNumber(rewardPerBlockOfPool).multipliedBy(
+        blockPerDay
+      );
+      // console.log(
+      //   '========================= poolinfo',
+      //   poolInfo,
+      //   '>>>>> rewardPerBlock',
+      //   rewardPerBlock,
+      //   rewardPerBlockOfPool.toFixed(2),
+      //   '>>>>> stakedTokenAllowance',
+      //   stakedTokenAllowance,
+      //   '>>>>> userPendingRewards',
+      //   userPendingRewards,
+      //   '>>>>> userInfo',
+      //   userInfo,
+      //   '>>>>> totalStaked',
+      //   totalStaked,
+      //   '>>>>> pendingWithdrawals',
+      //   pendingWithdrawals,
+      //   '>>>>> totalAllocPoints',
+      //   totalAllocPoints
+      // );
+
+      return {
+        poolId: new BigNumber(param.pid),
+        stakedToken: tokenAddressNameMap[param.stakedToken],
+        rewardToken: tokenAddressNameMap[param.rewardToken],
+        pendingReward: new BigNumber(userPendingRewards),
+        userStakedAmount: new BigNumber(userInfo.amount),
+        lockPeriodSecond: new BigNumber(poolInfo.lockPeriod),
+        apr: new BigNumber(dailyEmission).multipliedBy(365).div(totalStaked),
+        totalStaked: new BigNumber(totalStaked),
+        dailyEmission
+      };
     }
+
+    const patchedPoolInfos = await Promise.all(
+      fetchPoolParameters.map(param => fetchOnePool(param))
+    );
+
+    if (mounted) {
+      setPoolInfos(patchedPoolInfos);
+    }
+
+    return () => {
+      mounted = false;
+    };
   }, [fastRefresh, account]);
 
   return (
     <MainLayout title="Vault">
-      <MarketWrapper>
-        <VaultWrapper className="flex">
-          {process.env.REACT_APP_CHAIN_ID === '97' ? (
-            <Row>
-              <Column xs="12" sm="6">
-                <Column xs="12">
-                  <VaiTotalInfo
-                    emission={emission}
-                    pendingRewards={pendingRewards}
-                  />
-                </Column>
-                <Column xs="12">
-                  <VaiStaking
-                    isEnabled={isEnabled}
-                    availableVai={availableVai}
-                    vaiStaked={vaiStaked}
-                    vaiReward={vaiReward}
-                    xvsBalance={xvsBalance}
-                  />
-                </Column>
-              </Column>
-              <Column xs="12" sm="6">
-                <XVSVault />
-              </Column>
-            </Row>
-          ) : (
-            <Row>
-              <Column xs="12">
-                <TotalInfo
-                  emission={emission}
-                  pendingRewards={pendingRewards}
-                />
-              </Column>
-              <Column xs="12">
-                <Row>
-                  <Column xs="12" sm="12" md="5">
-                    <UserInfo
-                      availableVai={availableVai}
-                      vaiStaked={vaiStaked}
-                      vaiReward={vaiReward}
-                    />
-                  </Column>
-                  <Column xs="12" sm="12" md="7">
-                    <Staking
-                      isEnabled={isEnabled}
-                      availableVai={availableVai}
-                      vaiStaked={vaiStaked}
-                    />
-                  </Column>
-                </Row>
-              </Column>
-            </Row>
-          )}
+      {loading && <LoadingSpinner />}
+      {!loading && (
+        <VaultWrapper>
+          {poolInfos.map((poolInfo, index) => {
+            return (
+              <VaultCard
+                key={index}
+                poolId={poolInfo.poolId}
+                stakedToken={poolInfo.stakedToken}
+                rewardToken={poolInfo.rewardToken}
+                userStakedAmount={poolInfo.userStakedAmount}
+                pendingReward={poolInfo.pendingReward}
+                lockPeriodSecond={poolInfo.lockPeriodSecond}
+                apy={poolInfo.apy}
+                totalStaked={poolInfo.totalStaked}
+                dailyEmission={poolInfo.dailyEmission}
+              />
+            );
+          })}
         </VaultWrapper>
-      </MarketWrapper>
+      )}
     </MainLayout>
   );
 }

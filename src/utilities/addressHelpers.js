@@ -10,14 +10,6 @@ export const getVaiVaultAddress = () => {
   return addresses.vaiVault[chainId];
 };
 
-export const getVaultAddress = () => {
-  return addresses.vault[chainId];
-};
-
-export const getXvsStoreAddress = () => {
-  return addresses.xvsStore[chainId];
-};
-
 export const getVaiUnitrollerAddress = () => {
   return addresses.vaiUnitroller[chainId];
 };
@@ -37,3 +29,17 @@ export const getVoteAddress = () => {
 export const getVenusLensAddress = () => {
   return addresses.venusLens[chainId];
 };
+
+export const getXvsVaultAddress = () => {
+  return addresses.xvsVault[chainId];
+};
+
+export const getXvsVaultProxyAddress = () => {
+  return addresses.xvsVaultProxy[chainId];
+};
+
+export const getXvsVaultStoreAddress = () => {
+  return addresses.xvsVaultStore[chainId];
+};
+
+

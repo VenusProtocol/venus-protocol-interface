@@ -9,7 +9,8 @@ import {
   getVbepContract
 } from '../utilities/contractHelpers';
 import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptroller } from '../hooks/useContract';
+import { useComptroller, useVenusLens } from '../hooks/useContract';
+
 
 import * as constants from '../utilities/constants';
 
@@ -145,7 +146,7 @@ const MarketContextProvider = ({ children }) => {
                   ['0', '0', '0', '0'],
                   '0'
                 ];
-                if (account) {
+                if (false) {
                   [
                     walletBalance,
                     allowBalance,
@@ -184,7 +185,7 @@ const MarketContextProvider = ({ children }) => {
                   '0',
                   '0'
                 ];
-                if (account) {
+                if (false) {
                   [snapshot, balance, walletBalance] = await Promise.all([
                     vBepContract.methods.getAccountSnapshot(account).call(),
                     vBepContract.methods.balanceOf(account).call(),
@@ -217,16 +218,16 @@ const MarketContextProvider = ({ children }) => {
 
               // hypotheticalLiquidity
               // return data type: (uint(err), liquidity, shortfall);
-              asset.hypotheticalLiquidity = account
-                ? await comptrollerContract.methods
-                    .getHypotheticalAccountLiquidity(
-                      account,
-                      asset.vtokenAddress,
-                      totalBalance,
-                      0
-                    )
-                    .call()
-                : ['0', '0', '0'];
+              // asset.hypotheticalLiquidity = account
+              //   ? await comptrollerContract.methods
+              //       .getHypotheticalAccountLiquidity(
+              //         account,
+              //         asset.vtokenAddress,
+              //         totalBalance,
+              //         0
+              //       )
+              //       .call()
+              //   : ['0', '0', '0'];
 
               const supplyBalanceUSD = asset.supplyBalance.times(
                 asset.tokenPrice
