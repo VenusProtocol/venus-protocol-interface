@@ -519,7 +519,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           </Option>
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
-              XVS Predition
+              XVS Prediction
             </Label>
           </Option>
           {process.env.REACT_APP_CHAIN_ID === '97' && (
