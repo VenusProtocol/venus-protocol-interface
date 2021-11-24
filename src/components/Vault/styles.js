@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const VaultCardWrapper = styled.div`
   width: 100%;
-  margin-top: 16px;
-  margin-right: 16px;
+  margin: 16px;
+  margin-bottom: 0;
   background-color: #181d38;
   border-radius: 8px;
 

@@ -24,11 +24,10 @@ import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 const SidebarWrapper = styled.div`
   height: 100vh;
   min-width: 108px;
-  border-radius: 25px;
+  border-radius: 0 16px 16px 0;
   background-color: var(--color-bg-primary);
   display: flex;
   flex-direction: column;
-  margin-right: 30px;
 
   @media only screen and (max-width: 768px) {
     display: flex;
