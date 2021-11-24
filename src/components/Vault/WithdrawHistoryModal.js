@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Row, Col, Icon, Modal } from 'antd';
+import { Modal } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
 import closeImg from 'assets/img/close.png';

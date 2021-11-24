@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
-import VaultCardContent from './VaultCardContent';
+import VaultCardContent from './CardContent';
 
 import vaiImg from '../../assets/img/coins/vai.svg';
 import xvsImg from '../../assets/img/coins/xvs.png';

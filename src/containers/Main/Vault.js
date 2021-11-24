@@ -21,7 +21,7 @@ import {
   useTokenByAddress
 } from '../../hooks/useContract';
 import * as constants from '../../utilities/constants';
-import VaultCard from '../../components/Vault/VaultCard';
+import VaultCard from '../../components/Vault/Card';
 import { getTokenContractByAddress } from '../../utilities/contractHelpers';
 
 const VaultWrapper = styled.div`
