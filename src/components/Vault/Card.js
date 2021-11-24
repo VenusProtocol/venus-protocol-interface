@@ -1,75 +1,17 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
 import VaultCardContent from './CardContent';
+import { VaultCardWrapper } from './styles';
 
 import vaiImg from '../../assets/img/coins/vai.svg';
 import xvsImg from '../../assets/img/coins/xvs.png';
 import arrowDownImg from '../../assets/img/arrow-down.png';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
-
-const VaultCardWrapper = styled.div`
-  width: 100%;
-  margin-top: 16px;
-  margin-right: 16px;
-  background-color: #181d38;
-  border-radius: 8px;
-
-  .header-container {
-    padding: 16px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid #262b48;
-  }
-
-  .header {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .col-item {
-    margin-bottom: 12px;
-    text-align: center;
-  }
-
-  @media only screen and (min-width: 992px) {
-    .col-item {
-      text-align: left;
-    }
-  }
-
-  .title {
-    font-size: 14px;
-    line-height: 16px;
-    color: #a1a1a1;
-    margin-bottom: 4px;
-  }
-
-  .content {
-    color: #fff;
-    font-size: 14px;
-    line-height: 16px;
-    img {
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
-    }
-  }
-  .expand-icon-wrapper {
-    text-align: center;
-    cursor: pointer;
-  }
-  .expand-icon {
-    width: 14px;
-    height: 8px;
-    margin-top: 15px;
-    margin-left: 8px;
-  }
-`;
 
 function getTokenImg(name) {
   return {
@@ -132,7 +74,7 @@ function VaultCard({
           >
             <div className="title">Available Rewards</div>
             <div className="content">
-              {commaFormatter(pendingReward.div(rewardTokenDecimal).toFixed(6))}
+              {commaFormatter(pendingReward.div(rewardTokenDecimal).toFixed(4))}
             </div>
           </Col>
           <Col
@@ -151,7 +93,7 @@ function VaultCard({
             xs={{ span: 12 }}
           >
             <div className="title">
-              Total Staked {stakedToken.toUpperCase()}
+              Total {stakedToken.toUpperCase()} Staked
             </div>
             <div className="content">
               {commaFormatter(totalStaked.div(stakedTokenDecimal).toFixed(2))}

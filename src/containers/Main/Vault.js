@@ -12,16 +12,10 @@ import { useWeb3React } from '@web3-react/core';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useWeb3 from '../../hooks/useWeb3';
 import useRefresh from '../../hooks/useRefresh';
-import {
-  useComptroller,
-  useToken,
-  useVaiToken,
-  useVaiVault,
-  useXvsVault,
-  useTokenByAddress
-} from '../../hooks/useContract';
+import { useXvsVault } from '../../hooks/useContract';
 import * as constants from '../../utilities/constants';
-import VaultCard from '../../components/Vault/Card';
+import GeneralVaultPoolCard from '../../components/Vault/Card';
+import VaiPoolCard from '../../components/Vault/VaiCard';
 import { getTokenContractByAddress } from '../../utilities/contractHelpers';
 
 const VaultWrapper = styled.div`
@@ -51,7 +45,6 @@ function Vault({ settings }) {
   const { account } = useWeb3React();
   const web3 = useWeb3();
   const { fastRefresh } = useRefresh();
-  const vaiVaultContract = useVaiVault();
   const xvsVaultContract = useXvsVault();
 
   // total info
@@ -90,14 +83,7 @@ function Vault({ settings }) {
         xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call()
       ]);
 
-      let [userPendingRewards, userInfo, pendingWithdrawals] = [
-        new BigNumber(0),
-        new BigNumber(0),
-        {
-          amount: new BigNumber(0)
-        },
-        []
-      ];
+      let [userPendingRewards, userInfo] = [new BigNumber(0), new BigNumber(0)];
 
       if (account) {
         [userPendingRewards, userInfo] = await Promise.all([
@@ -128,16 +114,12 @@ function Vault({ settings }) {
       //   '>>>>> rewardPerBlock',
       //   rewardPerBlock,
       //   rewardPerBlockOfPool.toFixed(2),
-      //   '>>>>> stakedTokenAllowance',
-      //   stakedTokenAllowance,
       //   '>>>>> userPendingRewards',
       //   userPendingRewards,
       //   '>>>>> userInfo',
       //   userInfo,
       //   '>>>>> totalStaked',
       //   totalStaked,
-      //   '>>>>> pendingWithdrawals',
-      //   pendingWithdrawals,
       //   '>>>>> totalAllocPoints',
       //   totalAllocPoints
       // );
@@ -159,6 +141,8 @@ function Vault({ settings }) {
       fetchPoolParameters.map(param => fetchOnePool(param))
     );
 
+    // fetch the special VAI pool, good old pool
+
     if (mounted) {
       setPoolInfos(patchedPoolInfos);
     }
@@ -173,9 +157,10 @@ function Vault({ settings }) {
       {loading && <LoadingSpinner />}
       {!loading && (
         <VaultWrapper>
+          <VaiPoolCard />
           {poolInfos.map((poolInfo, index) => {
             return (
-              <VaultCard
+              <GeneralVaultPoolCard
                 key={index}
                 poolId={poolInfo.poolId}
                 stakedToken={poolInfo.stakedToken}

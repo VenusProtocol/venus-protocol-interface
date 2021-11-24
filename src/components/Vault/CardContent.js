@@ -55,11 +55,6 @@ function CardContent({
   );
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
 
-  // button related
-  const [claimable, setClaimable] = useState(false);
-  const [stakable, setStakable] = useState(false);
-
-  // loading
   const [loading, setLoading] = useState(true);
 
   const stakedTokenAddress =
@@ -72,10 +67,6 @@ function CardContent({
     web3,
     stakedTokenAddress
   );
-
-  useEffect(() => {
-    setStakable(userStakedTokenAllowance.gt(0) && account && stakeAmount.gt(0));
-  }, [stakeAmount, userStakedTokenAllowance, account]);
 
   useEffect(async () => {
     let isMounted = true;
@@ -140,8 +131,6 @@ function CardContent({
       setUserEligibleStakedAmount(
         userStakedAmount.minus(pendWithdrawalTotalTemp)
       );
-      // set button related statues
-      setClaimable(pendingReward.gt(0) && account);
     }
     return () => {
       isMounted = false;
@@ -161,21 +150,21 @@ function CardContent({
             <div className="card-item claim-rewards">
               <div className="card-title">Available Rewards</div>
               <div className="center-amount">
-                {pendingReward.div(rewardTokenDecimal).toFixed(6)}{' '}
+                {pendingReward.div(rewardTokenDecimal).toFixed(4)}{' '}
                 {rewardToken.toUpperCase()}
               </div>
-              <div
-                className={`button claim-button ${claimable ? '' : 'disabled'}`}
+              <button
+                type="button"
+                className="button claim-button"
+                disabled={!pendingReward.gt(0) || !account}
                 onClick={() => {
-                  if (claimable) {
-                    xvsVaultContract.methods
-                      .deposit(rewardTokenAddress, poolId, 0)
-                      .send({ from: account });
-                  }
+                  xvsVaultContract.methods
+                    .deposit(rewardTokenAddress, poolId, 0)
+                    .send({ from: account });
                 }}
               >
                 Claim
-              </div>
+              </button>
             </div>
           </CardItemWrapper>
         </Col>
@@ -202,7 +191,7 @@ function CardContent({
               <div className="withdraw-request">
                 <div className="card-title">
                   Available {stakedToken.toUpperCase()} to stake:{' '}
-                  {userStakedTokenBalance.div(stakedTokenDecimal).toFixed(6)}
+                  {userStakedTokenBalance.div(stakedTokenDecimal).toFixed(4)}
                 </div>
                 <div className="input-wrapper">
                   <NumberFormat
@@ -234,12 +223,24 @@ function CardContent({
                     MAX
                   </span>
                 </div>
-                <div
-                  className={`button stake-button ${
-                    stakable ? '' : 'disabled'
-                  }`}
+                <button
+                  type="button"
+                  className="button stake-button"
+                  disabled={!account || !stakeAmount.gt(0)}
                   onClick={() => {
-                    if (stakable) {
+                    if (!userStakedTokenAllowance.gt(0)) {
+                      stakedTokenContract.methods
+                        .approve(
+                          xvsVaultContract.options.address,
+                          new BigNumber(2)
+                            .pow(256)
+                            .minus(1)
+                            .toString(10)
+                        )
+                        .send({
+                          from: account
+                        });
+                    } else {
                       xvsVaultContract.methods
                         .deposit(
                           rewardTokenAddress,
@@ -251,7 +252,7 @@ function CardContent({
                   }}
                 >
                   {userStakedTokenAllowance.gt(0) ? 'Stake' : 'Enable'}
-                </div>
+                </button>
               </div>
             </div>
           </CardItemWrapper>

@@ -1,5 +1,63 @@
 import styled from 'styled-components';
 
+export const VaultCardWrapper = styled.div`
+  width: 100%;
+  margin-top: 16px;
+  margin-right: 16px;
+  background-color: #181d38;
+  border-radius: 8px;
+
+  .header-container {
+    padding: 16px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #262b48;
+  }
+
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col-item {
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  @media only screen and (min-width: 992px) {
+    .col-item {
+      text-align: left;
+    }
+  }
+
+  .title {
+    font-size: 14px;
+    line-height: 16px;
+    color: #a1a1a1;
+    margin-bottom: 4px;
+  }
+
+  .content {
+    color: #fff;
+    font-size: 14px;
+    line-height: 16px;
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+  }
+  .expand-icon-wrapper {
+    text-align: center;
+    cursor: pointer;
+  }
+  .expand-icon {
+    width: 14px;
+    height: 8px;
+    margin-top: 15px;
+    margin-left: 8px;
+  }
+`;
+
 export const CardItemWrapper = styled.div`
   .card-title {
     display: flex;
@@ -27,20 +85,23 @@ export const CardItemWrapper = styled.div`
 
   .button {
     position: absolute;
+    width: calc(100% - 32px);
+    color: #fff;
     bottom: 16px;
     left: 16px;
     right: 16px;
     border-radius: 8px;
+    border: none;
     font-size: 14px;
     line-height: 36px;
     background: #ebbf6e;
     text-align: center;
     cursor: pointer;
+  }
 
-    &.disabled {
-      background: #d3d3d3;
-      cursor: not-allowed;
-    }
+  button:disabled {
+    background: #d3d3d3;
+    cursor: not-allowed;
   }
 
   .input-wrapper {
