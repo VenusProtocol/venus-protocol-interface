@@ -199,7 +199,7 @@ function VaiCardContent({
               <div className="withdraw-request">
                 <div className="card-title">
                   Available VAI to stake:{' '}
-                  {userVaiStakedAmount
+                  {userVaiBalance
                     .div(1e18)
                     .dp(4, 1)
                     .toString(10)}

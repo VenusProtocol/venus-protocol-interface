@@ -8,9 +8,9 @@ import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
+import { useWeb3React } from '@web3-react/core';
 import VAICardContent from './VaiCardContent';
 import { VaultCardWrapper } from './styles';
-import useWeb3 from '../../hooks/useWeb3';
 import useRefresh from '../../hooks/useRefresh';
 import {
   useComptroller,
@@ -27,7 +27,7 @@ import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 const commaFormatter = commaNumber.bindWith(',', '.');
 
 function VaultCard({ settings }) {
-  const { account } = useWeb3();
+  const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
 
   const compContract = useComptroller();

@@ -11,7 +11,6 @@ import {
 import { useVaiUser } from '../hooks/useVaiUser';
 import { useComptroller, useVenusLens } from '../hooks/useContract';
 
-
 import * as constants from '../utilities/constants';
 
 const MarketContext = React.createContext({
@@ -97,7 +96,14 @@ const MarketContextProvider = ({ children }) => {
                   ele.underlyingSymbol.toLowerCase() ===
                   item.symbol.toLowerCase()
               );
-              if (!market) market = {};
+              // if no corresponding vassets, skip
+              if (!constants.CONTRACT_VBEP_ADDRESS[item.id]) {
+                return null;
+              }
+
+              if (!market) {
+                market = {};
+              }
               const asset = {
                 key: index,
                 id: item.id,
@@ -146,7 +152,7 @@ const MarketContextProvider = ({ children }) => {
                   ['0', '0', '0', '0'],
                   '0'
                 ];
-                if (false) {
+                if (account) {
                   [
                     walletBalance,
                     allowBalance,
@@ -185,7 +191,7 @@ const MarketContextProvider = ({ children }) => {
                   '0',
                   '0'
                 ];
-                if (false) {
+                if (account) {
                   [snapshot, balance, walletBalance] = await Promise.all([
                     vBepContract.methods.getAccountSnapshot(account).call(),
                     vBepContract.methods.balanceOf(account).call(),
@@ -218,16 +224,16 @@ const MarketContextProvider = ({ children }) => {
 
               // hypotheticalLiquidity
               // return data type: (uint(err), liquidity, shortfall);
-              // asset.hypotheticalLiquidity = account
-              //   ? await comptrollerContract.methods
-              //       .getHypotheticalAccountLiquidity(
-              //         account,
-              //         asset.vtokenAddress,
-              //         totalBalance,
-              //         0
-              //       )
-              //       .call()
-              //   : ['0', '0', '0'];
+              asset.hypotheticalLiquidity = account
+                ? await comptrollerContract.methods
+                    .getHypotheticalAccountLiquidity(
+                      account,
+                      asset.vtokenAddress,
+                      totalBalance,
+                      0
+                    )
+                    .call()
+                : ['0', '0', '0'];
 
               const supplyBalanceUSD = asset.supplyBalance.times(
                 asset.tokenPrice
@@ -249,19 +255,21 @@ const MarketContextProvider = ({ children }) => {
         );
 
         // percent of limit
-        const tempAssetList = assetList.map(item => {
-          return {
-            ...item,
-            percentOfLimit: new BigNumber(totalBorrowLimit).isZero()
-              ? '0'
-              : item.borrowBalance
-                  .times(item.tokenPrice)
-                  .div(totalBorrowLimit)
-                  .times(100)
-                  .dp(0, 1)
-                  .toString(10)
-          };
-        });
+        const tempAssetList = assetList
+          .filter(item => !!item)
+          .map(item => {
+            return {
+              ...item,
+              percentOfLimit: new BigNumber(totalBorrowLimit).isZero()
+                ? '0'
+                : item.borrowBalance
+                    .times(item.tokenPrice)
+                    .div(totalBorrowLimit)
+                    .times(100)
+                    .dp(0, 1)
+                    .toString(10)
+            };
+          });
 
         if (!isMounted) {
           return;
@@ -272,7 +280,7 @@ const MarketContextProvider = ({ children }) => {
         setUserTotalBorrowBalance(totalBorrowBalance);
         setUserXVSBalance(xvsBalance);
       } catch (error) {
-        //
+        console.log('error when get market data', error);
       }
     };
     updateMarketUserInfo();

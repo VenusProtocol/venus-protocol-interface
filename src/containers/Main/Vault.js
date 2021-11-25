@@ -137,9 +137,12 @@ function Vault({ settings }) {
       };
     }
 
-    const patchedPoolInfos = await Promise.all(
-      fetchPoolParameters.map(param => fetchOnePool(param))
-    );
+    // const patchedPoolInfos = await Promise.all(
+    //   fetchPoolParameters.map(param => fetchOnePool(param))
+    // );
+    const patchedPoolInfos = [];
+    setLoading(false);
+
 
     // fetch the special VAI pool, good old pool
 
@@ -151,6 +154,7 @@ function Vault({ settings }) {
       mounted = false;
     };
   }, [fastRefresh, account]);
+
 
   return (
     <MainLayout title="Vault">
