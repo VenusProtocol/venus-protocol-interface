@@ -152,7 +152,7 @@ const MarketContextProvider = ({ children }) => {
                   ['0', '0', '0', '0'],
                   '0'
                 ];
-                if (account) {
+                if (false) {
                   [
                     walletBalance,
                     allowBalance,
@@ -191,7 +191,7 @@ const MarketContextProvider = ({ children }) => {
                   '0',
                   '0'
                 ];
-                if (account) {
+                if (false) {
                   [snapshot, balance, walletBalance] = await Promise.all([
                     vBepContract.methods.getAccountSnapshot(account).call(),
                     vBepContract.methods.balanceOf(account).call(),

@@ -139,7 +139,7 @@ function WithdrawCard({
                   xvsVaultContract.methods
                     .requestWithdrawal(
                       rewardTokenAddress,
-                      poolId,
+                      poolId.toNumber(),
                       withdrawAmount.multipliedBy(stakedTokenDecimal)
                     )
                     .send({
@@ -163,7 +163,7 @@ function WithdrawCard({
                 disabled={!withdrawableAmount.gt(0) || !account}
                 onClick={() => {
                   xvsVaultContract.methods
-                    .executeWithdrawal(rewardTokenAddress, poolId)
+                    .executeWithdrawal(rewardTokenAddress, poolId.toNumber())
                     .send({ from: account });
                 }}
               >

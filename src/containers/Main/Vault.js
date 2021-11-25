@@ -100,7 +100,6 @@ function Vault({ settings }) {
         ]);
       }
 
-      setLoading(false);
       const rewardPerBlockOfPool = new BigNumber(rewardPerBlock)
         .multipliedBy(poolInfo.allocPoint)
         .div(totalAllocPoints);
@@ -141,7 +140,7 @@ function Vault({ settings }) {
       fetchPoolParameters.map(param => fetchOnePool(param))
     );
 
-    // fetch the special VAI pool, good old pool
+    setLoading(false);
 
     if (mounted) {
       setPoolInfos(patchedPoolInfos);

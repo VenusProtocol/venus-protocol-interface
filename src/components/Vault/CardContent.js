@@ -18,6 +18,9 @@ import { CardItemWrapper } from './styles';
 const CardContentWrapper = styled.div`
   color: #fff;
   padding: 16px 40px 0 24px;
+  .loading-spinner {
+    margin: 16px 0;
+  }
 `;
 
 function CardContent({
@@ -82,7 +85,7 @@ function CardContent({
           .allowance(account, xvsVaultContract.options.address)
           .call(),
         xvsVaultContract.methods
-          .getWithdrawalRequests(rewardTokenAddress, poolId, account)
+          .getWithdrawalRequests(rewardTokenAddress, poolId.toNumber(), account)
           .call()
       ]);
     }
@@ -138,7 +141,11 @@ function CardContent({
   }, [fastRefresh, account]);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return (
+      <CardContentWrapper>
+        <LoadingSpinner className="loading-spinner" />;
+      </CardContentWrapper>
+    );
   }
 
   return (
@@ -159,7 +166,7 @@ function CardContent({
                 disabled={!pendingReward.gt(0) || !account}
                 onClick={() => {
                   xvsVaultContract.methods
-                    .deposit(rewardTokenAddress, poolId, 0)
+                    .deposit(rewardTokenAddress, poolId.toNumber(), 0)
                     .send({ from: account });
                 }}
               >
@@ -244,7 +251,7 @@ function CardContent({
                       xvsVaultContract.methods
                         .deposit(
                           rewardTokenAddress,
-                          poolId,
+                          poolId.toNumber(),
                           stakeAmount.multipliedBy(1e18).toString(10)
                         )
                         .send({ from: account });
