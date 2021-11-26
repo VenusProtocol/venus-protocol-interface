@@ -40,7 +40,7 @@ function VaultCard({
   const [expanded, setExpanded] = useState(false);
   return (
     <VaultCardWrapper>
-      <div className="header-container">
+      <div className={`header-container ${expanded ? '' : 'fold'}`}>
         <Row className="header">
           <Col
             className="col-item"
@@ -123,9 +123,10 @@ function VaultCard({
           </Col>
         </Row>
       </div>
-      <div className="content-container">
+      <div>
         {expanded ? (
           <VaultCardContent
+            className="content-container"
             poolId={poolId}
             stakedToken={stakedToken}
             rewardToken={rewardToken}

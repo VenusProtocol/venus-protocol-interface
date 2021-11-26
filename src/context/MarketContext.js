@@ -4,6 +4,7 @@ import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
 import useWeb3 from '../hooks/useWeb3';
+import useBatchRequest from '../hooks/useBatchRequest';
 import {
   getTokenContract,
   getVbepContract
@@ -39,6 +40,7 @@ const MarketContextProvider = ({ children }) => {
   const { account } = useWeb3React();
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
+  const batch = useBatchRequest();
 
   const { fastRefresh } = useRefresh();
 
@@ -152,7 +154,7 @@ const MarketContextProvider = ({ children }) => {
                   ['0', '0', '0', '0'],
                   '0'
                 ];
-                if (false) {
+                if (account) {
                   [
                     walletBalance,
                     allowBalance,
@@ -191,7 +193,7 @@ const MarketContextProvider = ({ children }) => {
                   '0',
                   '0'
                 ];
-                if (false) {
+                if (account) {
                   [snapshot, balance, walletBalance] = await Promise.all([
                     vBepContract.methods.getAccountSnapshot(account).call(),
                     vBepContract.methods.balanceOf(account).call(),

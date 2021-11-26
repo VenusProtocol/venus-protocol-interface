@@ -151,12 +151,10 @@ function VaiCardContent({
                           : withdrawAmount.toString(10)
                       }
                       onValueChange={values => {
-                        const { value } = values;
-                        setWithdrawAmount(new BigNumber(value));
-                      }}
-                      isAllowed={({ value }) => {
-                        return new BigNumber(value || 0).isLessThanOrEqualTo(
-                          userVaiBalance.div(1e18)
+                        const value = new BigNumber(values.value || 0);
+                        const maxValue = userVaiStakedAmount.div(1e18).dp(4, 1);
+                        setWithdrawAmount(
+                          value.gt(maxValue) ? maxValue : value
                         );
                       }}
                       thousandSeparator
@@ -166,7 +164,7 @@ function VaiCardContent({
                     <span
                       className="pointer max"
                       onClick={() => {
-                        setWithdrawAmount(userVaiBalance.div(1e18));
+                        setWithdrawAmount(userVaiStakedAmount.div(1e18));
                       }}
                     >
                       MAX
@@ -211,13 +209,9 @@ function VaiCardContent({
                       stakeAmount.isZero() ? '0' : stakeAmount.toString(10)
                     }
                     onValueChange={values => {
-                      const { value } = values;
-                      setStakeAmount(new BigNumber(value));
-                    }}
-                    isAllowed={({ value }) => {
-                      return new BigNumber(value || 0)
-                        .multipliedBy(1e18)
-                        .isLessThanOrEqualTo(userVaiBalance);
+                      const value = new BigNumber(values.value || 0);
+                      const maxValue = userVaiBalance.div(1e18).dp(4, 1);
+                      setStakeAmount(value.gt(maxValue) ? maxValue : value);
                     }}
                     thousandSeparator
                     allowNegative={false}

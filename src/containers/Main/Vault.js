@@ -87,16 +87,12 @@ function Vault({ settings }) {
 
       if (account) {
         [userPendingRewards, userInfo] = await Promise.all([
-          !account
-            ? '0'
-            : xvsVaultContract.methods
-                .pendingReward(param.rewardToken, param.pid, account)
-                .call(),
-          !account
-            ? '0'
-            : xvsVaultContract.methods
-                .getUserInfo(param.stakedToken, param.pid, account)
-                .call()
+          xvsVaultContract.methods
+            .pendingReward(param.rewardToken, param.pid, account)
+            .call(),
+          xvsVaultContract.methods
+            .getUserInfo(param.stakedToken, param.pid, account)
+            .call()
         ]);
       }
 
@@ -107,21 +103,6 @@ function Vault({ settings }) {
       const dailyEmission = new BigNumber(rewardPerBlockOfPool).multipliedBy(
         blockPerDay
       );
-      // console.log(
-      //   '========================= poolinfo',
-      //   poolInfo,
-      //   '>>>>> rewardPerBlock',
-      //   rewardPerBlock,
-      //   rewardPerBlockOfPool.toFixed(2),
-      //   '>>>>> userPendingRewards',
-      //   userPendingRewards,
-      //   '>>>>> userInfo',
-      //   userInfo,
-      //   '>>>>> totalStaked',
-      //   totalStaked,
-      //   '>>>>> totalAllocPoints',
-      //   totalAllocPoints
-      // );
 
       return {
         poolId: new BigNumber(param.pid),

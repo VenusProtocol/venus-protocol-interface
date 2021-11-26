@@ -99,13 +99,11 @@ function WithdrawCard({
                         : withdrawAmount.toString(10)
                     }
                     onValueChange={values => {
-                      const { value } = values;
-                      setWithdrawAmount(new BigNumber(value));
-                    }}
-                    isAllowed={({ value }) => {
-                      return new BigNumber(value || 0)
-                        .multipliedBy(stakedTokenDecimal)
-                        .isLessThanOrEqualTo(userEligibleStakedAmount);
+                      const value = new BigNumber(values.value || 0);
+                      const maxValue = userEligibleStakedAmount
+                        .div(stakedTokenDecimal)
+                        .dp(4, 1);
+                      setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
                     }}
                     thousandSeparator
                     allowNegative={false}

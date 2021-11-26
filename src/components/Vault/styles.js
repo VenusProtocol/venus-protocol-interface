@@ -11,6 +11,9 @@ export const VaultCardWrapper = styled.div`
     padding: 16px;
     padding-bottom: 4px;
     border-bottom: 1px solid #262b48;
+    &.fold {
+      border: none;
+    }
   }
 
   .header {

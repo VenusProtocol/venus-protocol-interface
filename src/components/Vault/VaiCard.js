@@ -98,7 +98,7 @@ function VaultCard({ settings }) {
 
   return (
     <VaultCardWrapper>
-      <div className="header-container">
+      <div className={`header-container ${expanded ? '' : 'fold'}`}>
         <Row className="header">
           <Col
             className="col-item"
