@@ -27,7 +27,7 @@ function VaultCard({
   userStakedAmount,
   pendingReward,
   lockPeriodSecond,
-  apy,
+  apr,
   totalStaked,
   dailyEmission
 }) {
@@ -83,8 +83,16 @@ function VaultCard({
             md={{ span: 6 }}
             xs={{ span: 12 }}
           >
-            <div className="title">{stakedToken.toUpperCase()} Staking APY</div>
-            <div className="content">{commaFormatter(apy.toFixed(2))}%</div>
+            <div className="title">{stakedToken.toUpperCase()} Staking APR</div>
+            <div className="content">
+              {commaFormatter(
+                apr
+                  .multipliedBy(100)
+                  .dp(4, 1)
+                  .toString()
+              )}
+              %
+            </div>
           </Col>
           <Col
             className="col-item"
@@ -147,7 +155,7 @@ VaultCard.propTypes = {
   userStakedAmount: PropTypes.instanceOf(BigNumber),
   pendingReward: PropTypes.instanceOf(BigNumber),
   lockPeriodSecond: PropTypes.instanceOf(BigNumber),
-  apy: PropTypes.instanceOf(BigNumber),
+  apr: PropTypes.instanceOf(BigNumber),
   totalStaked: PropTypes.instanceOf(BigNumber),
   dailyEmission: PropTypes.instanceOf(BigNumber)
 };
@@ -159,7 +167,7 @@ VaultCard.defaultProps = {
   userStakedAmount: new BigNumber(0),
   pendingReward: new BigNumber(0),
   lockPeriodSecond: new BigNumber(0),
-  apy: new BigNumber(0),
+  apr: new BigNumber(0),
   totalStaked: new BigNumber(0),
   dailyEmission: new BigNumber(0)
 };

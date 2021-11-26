@@ -147,7 +147,7 @@ function Vault({ settings }) {
                 userStakedAmount={poolInfo.userStakedAmount}
                 pendingReward={poolInfo.pendingReward}
                 lockPeriodSecond={poolInfo.lockPeriodSecond}
-                apy={poolInfo.apy}
+                apr={poolInfo.apr}
                 totalStaked={poolInfo.totalStaked}
                 dailyEmission={poolInfo.dailyEmission}
               />

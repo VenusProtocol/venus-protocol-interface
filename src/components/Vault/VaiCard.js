@@ -147,7 +147,7 @@ function VaultCard({ settings }) {
             md={{ span: 6 }}
             xs={{ span: 12 }}
           >
-            <div className="title">VAI Staking APY</div>
+            <div className="title">VAI Staking APR</div>
             <div className="content">{settings.vaiAPY}%</div>
           </Col>
           <Col
