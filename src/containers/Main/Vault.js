@@ -12,7 +12,7 @@ import { useWeb3React } from '@web3-react/core';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useWeb3 from '../../hooks/useWeb3';
 import useRefresh from '../../hooks/useRefresh';
-import { useXvsVault } from '../../hooks/useContract';
+import { useXvsVaultProxy } from '../../hooks/useContract';
 import * as constants from '../../utilities/constants';
 import GeneralVaultPoolCard from '../../components/Vault/Card';
 import VaiPoolCard from '../../components/Vault/VaiCard';
@@ -45,7 +45,7 @@ function Vault({ settings }) {
   const { account } = useWeb3React();
   const web3 = useWeb3();
   const { fastRefresh } = useRefresh();
-  const xvsVaultContract = useXvsVault();
+  const xvsVaultContract = useXvsVaultProxy();
 
   // total info
   useEffect(async () => {
@@ -59,8 +59,7 @@ function Vault({ settings }) {
     // parameter: rewardToken, stakedToken, pid
     // @todo: maybe we can make a backend api to improve this.
     const fetchPoolParameters = [
-      { rewardToken: xvsTokenAddress, stakedToken: xvsTokenAddress, pid: 0 },
-      { rewardToken: xvsTokenAddress, stakedToken: vaiTokenAddress, pid: 1 }
+      { rewardToken: xvsTokenAddress, stakedToken: xvsTokenAddress, pid: 0 }
       // [vrtTokenAddress, vrtTokenAddress, 0]
     ];
 

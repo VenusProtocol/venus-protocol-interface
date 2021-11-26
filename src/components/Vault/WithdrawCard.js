@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
 import * as constants from '../../utilities/constants';
-import { useXvsVault } from '../../hooks/useContract';
+import { useXvsVaultProxy } from '../../hooks/useContract';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import { CardItemWrapper } from './styles';
 
@@ -66,7 +66,7 @@ function WithdrawCard({
   );
 
   const { account } = useWeb3React();
-  const xvsVaultContract = useXvsVault();
+  const xvsVaultContract = useXvsVaultProxy();
 
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));

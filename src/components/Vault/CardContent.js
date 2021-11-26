@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
 import * as constants from '../../utilities/constants';
-import { useXvsVault } from '../../hooks/useContract';
+import { useXvsVaultProxy } from '../../hooks/useContract';
 import useRefresh from '../../hooks/useRefresh';
 import useWeb3 from '../../hooks/useWeb3';
 import { getTokenContractByAddress } from '../../utilities/contractHelpers';
@@ -65,7 +65,7 @@ function CardContent({
   const rewardTokenAddress =
     constants.CONTRACT_TOKEN_ADDRESS[rewardToken].address;
 
-  const xvsVaultContract = useXvsVault();
+  const xvsVaultContract = useXvsVaultProxy();
   const stakedTokenContract = getTokenContractByAddress(
     web3,
     stakedTokenAddress
