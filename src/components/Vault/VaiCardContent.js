@@ -111,7 +111,11 @@ function VaiCardContent({
             <div className="card-item claim-rewards">
               <div className="card-title">Available Rewards</div>
               <div className="center-amount">
-                {userPendingReward.div(1e18).toFixed(4)} XVS
+                {userPendingReward
+                  .div(1e18)
+                  .dp(6, 1)
+                  .toString(10)}{' '}
+                XVS
               </div>
               <button
                 type="button"

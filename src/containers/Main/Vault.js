@@ -52,7 +52,6 @@ function Vault({ settings }) {
     let mounted = true;
     // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
     const xvsTokenAddress = constants.CONTRACT_TOKEN_ADDRESS.xvs.address;
-    const vaiTokenAddress = constants.CONTRACT_TOKEN_ADDRESS.vai.address;
 
     // here we just simply list the pool parameters, instead of fetching the pools
     // by past events, which should be appeared but didn't info.token is the STAKED token

@@ -138,7 +138,7 @@ function CardContent({
     return () => {
       isMounted = false;
     };
-  }, [fastRefresh, account]);
+  }, [fastRefresh, account, userStakedAmount]);
 
   if (loading) {
     return (
@@ -157,7 +157,10 @@ function CardContent({
             <div className="card-item claim-rewards">
               <div className="card-title">Available Rewards</div>
               <div className="center-amount">
-                {pendingReward.div(rewardTokenDecimal).toFixed(4)}{' '}
+                {pendingReward
+                  .div(rewardTokenDecimal)
+                  .dp(6, 1)
+                  .toString(10)}{' '}
                 {rewardToken.toUpperCase()}
               </div>
               <button
@@ -288,21 +291,12 @@ function CardContent({
 }
 
 CardContent.propTypes = {
-  poolId: PropTypes.instanceOf(BigNumber),
-  stakedToken: PropTypes.string,
-  rewardToken: PropTypes.string,
-  userStakedAmount: PropTypes.instanceOf(BigNumber),
-  pendingReward: PropTypes.instanceOf(BigNumber),
-  lockPeriodSecond: PropTypes.instanceOf(BigNumber)
-};
-
-CardContent.defaultProps = {
-  poolId: new BigNumber(0),
-  stakedToken: '',
-  rewardToken: '',
-  userStakedAmount: new BigNumber(0),
-  pendingReward: new BigNumber(0),
-  lockPeriodSecond: new BigNumber(0)
+  poolId: PropTypes.instanceOf(BigNumber).isRequired,
+  stakedToken: PropTypes.string.isRequired,
+  rewardToken: PropTypes.string.isRequired,
+  userStakedAmount: PropTypes.instanceOf(BigNumber).isRequired,
+  pendingReward: PropTypes.instanceOf(BigNumber).isRequired,
+  lockPeriodSecond: PropTypes.instanceOf(BigNumber).isRequired
 };
 
 export default CardContent;

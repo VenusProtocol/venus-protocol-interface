@@ -88,7 +88,7 @@ function VaultCard({
               {commaFormatter(
                 apr
                   .multipliedBy(100)
-                  .dp(4, 1)
+                  .dp(6, 1)
                   .toString()
               )}
               %
@@ -159,27 +159,15 @@ function VaultCard({
 }
 
 VaultCard.propTypes = {
-  poolId: PropTypes.instanceOf(BigNumber),
-  stakedToken: PropTypes.string,
-  rewardToken: PropTypes.string,
-  userStakedAmount: PropTypes.instanceOf(BigNumber),
-  pendingReward: PropTypes.instanceOf(BigNumber),
-  lockPeriodSecond: PropTypes.instanceOf(BigNumber),
-  apr: PropTypes.instanceOf(BigNumber),
-  totalStaked: PropTypes.instanceOf(BigNumber),
-  dailyEmission: PropTypes.instanceOf(BigNumber)
-};
-
-VaultCard.defaultProps = {
-  poolId: new BigNumber(0),
-  stakedToken: '',
-  rewardToken: '',
-  userStakedAmount: new BigNumber(0),
-  pendingReward: new BigNumber(0),
-  lockPeriodSecond: new BigNumber(0),
-  apr: new BigNumber(0),
-  totalStaked: new BigNumber(0),
-  dailyEmission: new BigNumber(0)
+  poolId: PropTypes.instanceOf(BigNumber).isRequired,
+  stakedToken: PropTypes.string.isRequired,
+  rewardToken: PropTypes.string.isRequired,
+  userStakedAmount: PropTypes.instanceOf(BigNumber).isRequired,
+  pendingReward: PropTypes.instanceOf(BigNumber).isRequired,
+  lockPeriodSecond: PropTypes.instanceOf(BigNumber).isRequired,
+  apr: PropTypes.instanceOf(BigNumber).isRequired,
+  totalStaked: PropTypes.instanceOf(BigNumber).isRequired,
+  dailyEmission: PropTypes.instanceOf(BigNumber).isRequired
 };
 
 export default VaultCard;
