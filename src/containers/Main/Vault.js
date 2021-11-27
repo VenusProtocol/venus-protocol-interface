@@ -82,7 +82,14 @@ function Vault({ settings }) {
         xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call()
       ]);
 
-      let [userPendingRewards, userInfo] = [new BigNumber(0), new BigNumber(0)];
+      let [userPendingRewards, userInfo] = [
+        '0',
+        {
+          amount: '0',
+          pendingWithdrawals: [],
+          rewardDebt: '0'
+        }
+      ];
 
       if (account) {
         [userPendingRewards, userInfo] = await Promise.all([

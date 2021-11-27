@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Row, Col } from 'antd';
+import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
 import { useWeb3React } from '@web3-react/core';
@@ -60,6 +60,10 @@ function CardContent({
 
   const [loading, setLoading] = useState(true);
 
+  // button loading status
+  const [claimLoading, setClaimLoading] = useState(false);
+  const [stakeLoading, setStakeLoading] = useState(false); // also applies to enabling
+
   const stakedTokenAddress =
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].address;
   const rewardTokenAddress =
@@ -73,11 +77,7 @@ function CardContent({
 
   useEffect(async () => {
     let isMounted = true;
-    let [balance, allowance, withdrawals] = [
-      new BigNumber(0),
-      new BigNumber(0),
-      []
-    ];
+    let [balance, allowance, withdrawals] = ['0', '0', []];
     if (account) {
       [balance, allowance, withdrawals] = await Promise.all([
         stakedTokenContract.methods.balanceOf(account).call(),
@@ -163,14 +163,20 @@ function CardContent({
               <button
                 type="button"
                 className="button claim-button"
-                disabled={!pendingReward.gt(0) || !account}
-                onClick={() => {
-                  xvsVaultContract.methods
-                    .deposit(rewardTokenAddress, poolId.toNumber(), 0)
-                    .send({ from: account });
+                disabled={!pendingReward.gt(0) || !account || claimLoading}
+                onClick={async () => {
+                  setClaimLoading(true);
+                  try {
+                    await xvsVaultContract.methods
+                      .deposit(rewardTokenAddress, poolId.toNumber(), 0)
+                      .send({ from: account });
+                  } catch (e) {
+                    console.log('>> claim reward error:  ', e);
+                  }
+                  setClaimLoading(false);
                 }}
               >
-                Claim
+                {claimLoading && <Icon type="loading" />} Claim
               </button>
             </div>
           </CardItemWrapper>
@@ -231,31 +237,38 @@ function CardContent({
                 <button
                   type="button"
                   className="button stake-button"
-                  disabled={!account || !stakeAmount.gt(0)}
-                  onClick={() => {
-                    if (!userStakedTokenAllowance.gt(0)) {
-                      stakedTokenContract.methods
-                        .approve(
-                          xvsVaultContract.options.address,
-                          new BigNumber(2)
-                            .pow(256)
-                            .minus(1)
-                            .toString(10)
-                        )
-                        .send({
-                          from: account
-                        });
-                    } else {
-                      xvsVaultContract.methods
-                        .deposit(
-                          rewardTokenAddress,
-                          poolId.toNumber(),
-                          stakeAmount.multipliedBy(1e18).toString(10)
-                        )
-                        .send({ from: account });
+                  disabled={!account || !stakeAmount.gt(0) || stakeLoading}
+                  onClick={async () => {
+                    setStakeLoading(true);
+                    try {
+                      if (!userStakedTokenAllowance.gt(0)) {
+                        await stakedTokenContract.methods
+                          .approve(
+                            xvsVaultContract.options.address,
+                            new BigNumber(2)
+                              .pow(256)
+                              .minus(1)
+                              .toString(10)
+                          )
+                          .send({
+                            from: account
+                          });
+                      } else {
+                        await xvsVaultContract.methods
+                          .deposit(
+                            rewardTokenAddress,
+                            poolId.toNumber(),
+                            stakeAmount.multipliedBy(1e18).toString(10)
+                          )
+                          .send({ from: account });
+                      }
+                    } catch (e) {
+                      console.log('>> stake error:', e);
                     }
+                    setStakeLoading(false);
                   }}
                 >
+                  {stakeLoading && <Icon type="loading" />}{' '}
                   {userStakedTokenAllowance.gt(0) ? 'Stake' : 'Enable'}
                 </button>
               </div>

@@ -104,7 +104,12 @@ function VaultCard({
               Total {stakedToken.toUpperCase()} Staked
             </div>
             <div className="content">
-              {commaFormatter(totalStaked.div(stakedTokenDecimal).toFixed(2))}
+              {commaFormatter(
+                totalStaked
+                  .div(stakedTokenDecimal)
+                  .dp(4, 1)
+                  .toString(10)
+              )}
             </div>
           </Col>
           <Col
@@ -117,7 +122,12 @@ function VaultCard({
               {rewardToken.toUpperCase()} Daily Emission
             </div>
             <div className="content">
-              {commaFormatter(dailyEmission.div(rewardTokenDecimal).toFixed(2))}{' '}
+              {commaFormatter(
+                dailyEmission
+                  .div(rewardTokenDecimal)
+                  .dp(4, 1)
+                  .toString(10)
+              )}{' '}
               {rewardToken.toUpperCase()}
             </div>
           </Col>

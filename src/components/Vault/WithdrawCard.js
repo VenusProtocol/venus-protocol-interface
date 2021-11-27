@@ -71,6 +71,9 @@ function WithdrawCard({
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
 
+  const [requestWithdrawLoading, setRequestWithdrawLoading] = useState(false);
+  const [executeWithdrawLoading, setExecuteWithdrawLoading] = useState(false);
+
   return (
     <WithdrawCardWrapper>
       <CardItemWrapper>
@@ -131,21 +134,29 @@ function WithdrawCard({
                 disabled={
                   !userEligibleStakedAmount.gt(0) ||
                   !withdrawAmount.gt(0) ||
-                  !account
+                  !account ||
+                  requestWithdrawLoading
                 }
-                onClick={() => {
-                  xvsVaultContract.methods
-                    .requestWithdrawal(
-                      rewardTokenAddress,
-                      poolId.toNumber(),
-                      withdrawAmount.multipliedBy(stakedTokenDecimal)
-                    )
-                    .send({
-                      from: account
-                    });
+                onClick={async () => {
+                  setRequestWithdrawLoading(true);
+                  try {
+                    await xvsVaultContract.methods
+                      .requestWithdrawal(
+                        rewardTokenAddress,
+                        poolId.toNumber(),
+                        withdrawAmount.multipliedBy(stakedTokenDecimal)
+                      )
+                      .send({
+                        from: account
+                      });
+                  } catch (e) {
+                    console.log('>> request withdraw error: ', e);
+                  }
+                  setRequestWithdrawLoading(false);
                 }}
               >
-                Request Withdraw
+                {requestWithdrawLoading && <Icon type="loading" />} Request
+                Withdraw
               </button>
             </div>
             {/* !left */}
@@ -158,14 +169,24 @@ function WithdrawCard({
               <button
                 type="button"
                 className="button execute-withdraw-button"
-                disabled={!withdrawableAmount.gt(0) || !account}
-                onClick={() => {
-                  xvsVaultContract.methods
-                    .executeWithdrawal(rewardTokenAddress, poolId.toNumber())
-                    .send({ from: account });
+                disabled={
+                  !withdrawableAmount.gt(0) ||
+                  !account ||
+                  executeWithdrawLoading
+                }
+                onClick={async () => {
+                  setExecuteWithdrawLoading(true);
+                  try {
+                    await xvsVaultContract.methods
+                      .executeWithdrawal(rewardTokenAddress, poolId.toNumber())
+                      .send({ from: account });
+                  } catch (e) {
+                    console.log('>> execute withdraw error:', e);
+                  }
+                  setExecuteWithdrawLoading(false);
                 }}
               >
-                Withdraw
+                {executeWithdrawLoading && <Icon type="loading" />} Withdraw
               </button>
             </div>
           </Row>

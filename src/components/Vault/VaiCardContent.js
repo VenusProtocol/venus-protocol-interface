@@ -38,7 +38,7 @@ function VaiCardContent({
     try {
       await vaiVaultContract.methods.claim().send({ from: account });
     } catch (error) {
-      console.log('claim error :>> ', error);
+      console.log('>> claim error: ', error);
     }
     setIsClaimLoading(false);
   };
@@ -57,7 +57,7 @@ function VaiCardContent({
         .send({ from: account });
       setStakeAmount(new BigNumber(0));
     } catch (error) {
-      console.log('vai stake error :>> ', error);
+      console.log('>> vai stake error: ', error);
     }
     setIsStakeLoading(false);
   };
@@ -76,7 +76,7 @@ function VaiCardContent({
         )
         .send({ from: account });
     } catch (error) {
-      console.log('vai token approve :>> ', error);
+      console.log('>> vai token approve: ', error);
     }
     setIsStakeLoading(false);
   };
@@ -97,7 +97,7 @@ function VaiCardContent({
         .send({ from: account });
       setWithdrawAmount(new BigNumber(0));
     } catch (error) {
-      console.log('vai withdraw error :>> ', error);
+      console.log('>> vai withdraw error: ', error);
     }
     setIsWithdrawLoading(false);
   };
