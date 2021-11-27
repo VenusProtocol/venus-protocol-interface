@@ -144,7 +144,9 @@ function WithdrawCard({
                       .requestWithdrawal(
                         rewardTokenAddress,
                         poolId.toNumber(),
-                        withdrawAmount.multipliedBy(stakedTokenDecimal)
+                        withdrawAmount
+                          .multipliedBy(stakedTokenDecimal)
+                          .toString()
                       )
                       .send({
                         from: account
