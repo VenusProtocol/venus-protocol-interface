@@ -24,11 +24,10 @@ import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 const SidebarWrapper = styled.div`
   height: 100vh;
   min-width: 108px;
-  border-radius: 25px;
+  border-radius: 0 16px 16px 0;
   background-color: var(--color-bg-primary);
   display: flex;
   flex-direction: column;
-  margin-right: 30px;
 
   @media only screen and (max-width: 768px) {
     display: flex;
@@ -362,7 +361,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   return (
     <SidebarWrapper>
       <Logo>
-        <NavLink to="/" activeClassName="active">
+        <NavLink to="/" active-class-name="active">
           <img src={logoImg} alt="logo" className="logo-text" />
         </NavLink>
       </Logo>
@@ -370,7 +369,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         <NavLink
           className="flex flex-start align-center"
           to="/dashboard"
-          activeClassName="active"
+          active-class-name="active"
         >
           <Icon type="home" theme="filled" />
           <Label primary>Dashboard</Label>
@@ -378,7 +377,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         <NavLink
           className="flex flex-start align-center"
           to="/vote"
-          activeClassName="active"
+          active-class-name="active"
         >
           <Icon type="appstore" />
           <Label primary>Vote</Label>
@@ -386,7 +385,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         <NavLink
           className="flex flex-start align-center"
           to="/xvs"
-          activeClassName="active"
+          active-class-name="active"
         >
           <img className="xvs-icon" src={XVSIcon} alt="xvs" />
           <img className="xvs-active-icon" src={XVSActiveIcon} alt="xvs" />
@@ -395,7 +394,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         <NavLink
           className="flex flex-start align-center"
           to="/market"
-          activeClassName="active"
+          active-class-name="active"
         >
           <Icon type="area-chart" />
           <Label primary>Market</Label>
@@ -403,7 +402,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         <NavLink
           className="flex flex-start align-center"
           to="/vault"
-          activeClassName="active"
+          active-class-name="active"
         >
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
@@ -411,7 +410,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         <NavLink
           className="flex flex-start align-center"
           to="/transaction"
-          activeClassName="active"
+          active-class-name="active"
         >
           <svg
             className="transaction"
@@ -438,7 +437,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           target="_blank"
           className="flex flex-start align-center"
           href="https://prdt.finance/XVS"
-          activeClassName="active"
+          active-class-name="active"
         >
           <img src={prdtImg} alt="prdt" className="prdt-logo" />
           <Label primary>XVS Prediction</Label>
@@ -449,7 +448,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           <NavLink
             className="flex just-center"
             to="/faucet"
-            activeClassName="active"
+            active-class-name="active"
           >
             <Label primary>Faucet</Label>
           </NavLink>

@@ -7,16 +7,26 @@ import {
   getVaiTokenContract,
   getVaiUnitrollerContract,
   getVaiVaultContract,
-  getVaultContract,
   getVbepContract,
   getVoteContract,
-  getVenusLensContract
+  getVenusLensContract,
+  getXvsVaultProxyContract,
+  getXvsVaultContract,
+  getTokenContractByAddress
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
 
 export const useToken = name => {
   const web3 = useWeb3();
   return useMemo(() => getTokenContract(web3, name), [web3, name]);
+};
+
+export const useTokenByAddress = address => {
+  const web3 = useWeb3();
+  return useMemo(() => getTokenContractByAddress(web3, address), [
+    web3,
+    address
+  ]);
 };
 
 export const useVaiToken = () => {
@@ -32,11 +42,6 @@ export const useVaiUnitroller = () => {
 export const useVaiVault = () => {
   const web3 = useWeb3();
   return useMemo(() => getVaiVaultContract(web3), [web3]);
-};
-
-export const useVault = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVaultContract(web3), [web3]);
 };
 
 export const useVbep = name => {
@@ -59,7 +64,7 @@ export const useVote = () => {
   return useMemo(() => getVoteContract(web3), [web3]);
 };
 
-export const useInterestModel = address => {
+export const useInterestModel = () => {
   const web3 = useWeb3();
   return useMemo(() => getInterestModelContract(web3), [web3]);
 };
@@ -67,4 +72,14 @@ export const useInterestModel = address => {
 export const useVenusLens = () => {
   const web3 = useWeb3();
   return useMemo(() => getVenusLensContract(web3), [web3]);
+};
+
+export const useXvsVault = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getXvsVaultContract(web3), [web3]);
+};
+
+export const useXvsVaultProxy = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getXvsVaultProxyContract(web3), [web3]);
 };

@@ -20,6 +20,7 @@ import matic from 'assets/img/coins/matic.png';
 import cake from 'assets/img/coins/cake.png';
 import aave from 'assets/img/coins/aave.png';
 import tusd from 'assets/img/coins/tusd.png';
+import vai from 'assets/img/coins/vai.svg';
 
 import vsxp from 'assets/img/coins/vsxp.png';
 import vusdc from 'assets/img/coins/vusdc.png';
@@ -181,6 +182,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.TEST.TOKEN.tusd,
           asset: tusd,
           vasset: vtusd
+        },
+        vai: {
+          id: 'vai',
+          symbol: 'VAI',
+          decimals: 18,
+          address: contracts.TEST.TOKEN.vai,
+          asset: vai
         }
       }
     : {
@@ -358,6 +366,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.MAIN.TOKEN.tusd,
           asset: tusd,
           vasset: vtusd
+        },
+        vai: {
+          id: 'vai',
+          symbol: 'VAI',
+          decimals: 18,
+          address: contracts.MAIN.TOKEN.vai,
+          asset: vai
         }
       };
 

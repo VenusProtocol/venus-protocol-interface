@@ -4,12 +4,13 @@ import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
 import useWeb3 from '../hooks/useWeb3';
+import useBatchRequest from '../hooks/useBatchRequest';
 import {
   getTokenContract,
   getVbepContract
 } from '../utilities/contractHelpers';
 import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptroller } from '../hooks/useContract';
+import { useComptroller, useVenusLens } from '../hooks/useContract';
 
 import * as constants from '../utilities/constants';
 
@@ -39,6 +40,7 @@ const MarketContextProvider = ({ children }) => {
   const { account } = useWeb3React();
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
+  const batch = useBatchRequest();
 
   const { fastRefresh } = useRefresh();
 
@@ -96,7 +98,14 @@ const MarketContextProvider = ({ children }) => {
                   ele.underlyingSymbol.toLowerCase() ===
                   item.symbol.toLowerCase()
               );
-              if (!market) market = {};
+              // if no corresponding vassets, skip
+              if (!constants.CONTRACT_VBEP_ADDRESS[item.id]) {
+                return null;
+              }
+
+              if (!market) {
+                market = {};
+              }
               const asset = {
                 key: index,
                 id: item.id,
@@ -248,19 +257,21 @@ const MarketContextProvider = ({ children }) => {
         );
 
         // percent of limit
-        const tempAssetList = assetList.map(item => {
-          return {
-            ...item,
-            percentOfLimit: new BigNumber(totalBorrowLimit).isZero()
-              ? '0'
-              : item.borrowBalance
-                  .times(item.tokenPrice)
-                  .div(totalBorrowLimit)
-                  .times(100)
-                  .dp(0, 1)
-                  .toString(10)
-          };
-        });
+        const tempAssetList = assetList
+          .filter(item => !!item)
+          .map(item => {
+            return {
+              ...item,
+              percentOfLimit: new BigNumber(totalBorrowLimit).isZero()
+                ? '0'
+                : item.borrowBalance
+                    .times(item.tokenPrice)
+                    .div(totalBorrowLimit)
+                    .times(100)
+                    .dp(0, 1)
+                    .toString(10)
+            };
+          });
 
         if (!isMounted) {
           return;
@@ -271,7 +282,7 @@ const MarketContextProvider = ({ children }) => {
         setUserTotalBorrowBalance(totalBorrowBalance);
         setUserXVSBalance(xvsBalance);
       } catch (error) {
-        //
+        console.log('error when get market data', error);
       }
     };
     updateMarketUserInfo();

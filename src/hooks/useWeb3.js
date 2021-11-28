@@ -6,7 +6,9 @@ import { getWeb3NoAccount } from '../utilities/web3';
 const useWeb3 = () => {
   const { library } = useWeb3React();
   const refEth = useRef(library);
-  const [web3, setWeb3] = useState(library ? new Web3(library) : getWeb3NoAccount());
+  const [web3, setWeb3] = useState(
+    library ? new Web3(library) : getWeb3NoAccount()
+  );
 
   useEffect(() => {
     if (library !== refEth.current) {
