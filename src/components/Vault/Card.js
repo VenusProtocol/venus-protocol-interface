@@ -89,7 +89,7 @@ function VaultCard({
                 apr
                   .multipliedBy(100)
                   .dp(6, 1)
-                  .toString()
+                  .toString(10)
               )}
               %
             </div>
