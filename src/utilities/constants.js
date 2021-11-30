@@ -20,6 +20,7 @@ import matic from 'assets/img/coins/matic.png';
 import cake from 'assets/img/coins/cake.png';
 import aave from 'assets/img/coins/aave.png';
 import tusd from 'assets/img/coins/tusd.png';
+import trx from 'assets/img/coins/trx.png';
 import vai from 'assets/img/coins/vai.svg';
 
 import vsxp from 'assets/img/coins/vsxp.png';
@@ -44,6 +45,7 @@ import vmatic from 'assets/img/coins/vmatic.png';
 import vcake from 'assets/img/coins/vcake.png';
 import vaave from 'assets/img/coins/vaave.png';
 import vtusd from 'assets/img/coins/vtusd.png';
+import vtrx from 'assets/img/coins/vtrx.png';
 
 import contracts from './contracts';
 
@@ -182,6 +184,14 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.TEST.TOKEN.tusd,
           asset: tusd,
           vasset: vtusd
+        },
+        trx: {
+          id: 'trx',
+          symbol: 'TRX',
+          decimals: 18,
+          address: contracts.TEST.TOKEN.trx,
+          asset: trx,
+          vasset: vtrx
         },
         vai: {
           id: 'vai',
@@ -367,6 +377,14 @@ export const CONTRACT_TOKEN_ADDRESS =
           asset: tusd,
           vasset: vtusd
         },
+        trx: {
+          id: 'trx',
+          symbol: 'TRX',
+          decimals: 18,
+          address: contracts.MAIN.TOKEN.trx,
+          asset: trx,
+          vasset: vtrx
+        },
         vai: {
           id: 'vai',
           symbol: 'VAI',
@@ -458,7 +476,12 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'tusd',
           symbol: 'vTUSD',
           address: contracts.TEST.VBEP.tusd
-        }
+        },
+        trx: {
+          id: 'trx',
+          symbol: 'vTRX',
+          address: contracts.TEST.VBEP.trx
+        },
       }
     : {
         sxp: {
@@ -570,5 +593,10 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'tusd',
           symbol: 'vTUSD',
           address: contracts.MAIN.VBEP.tusd
-        }
+        },
+        trx: {
+          id: 'trx',
+          symbol: 'vTRX',
+          address: contracts.MAIN.VBEP.trx
+        },
       };

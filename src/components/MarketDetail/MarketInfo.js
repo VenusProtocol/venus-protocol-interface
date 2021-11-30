@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
+import { formatApy } from 'utilities/common';
 import * as constants from 'utilities/constants';
 
 const MarketInfoWrapper = styled.div`
@@ -69,9 +70,10 @@ function MarketInfo({ marketInfo, marketType }) {
             <p className="label">Net Rate</p>
             <p className="value">
               {marketType === 'supply'
-                ? new BigNumber(
-                    +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy
-                  )
+                ? formatApy(
+                    new BigNumber(
+                      +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy
+                    )
                     .plus(
                       new BigNumber(
                         +marketInfo.supplyVenusApy < 0.01
@@ -79,11 +81,11 @@ function MarketInfo({ marketInfo, marketType }) {
                           : marketInfo.supplyVenusApy
                       )
                     )
-                    .dp(2, 1)
-                    .toString(10)
-                : new BigNumber(
-                    Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy
                   )
+                : formatApy(
+                    new BigNumber(
+                      Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy
+                    )
                     .plus(
                       new BigNumber(
                         marketInfo.borrowVenusApy < 0.01
@@ -91,9 +93,7 @@ function MarketInfo({ marketInfo, marketType }) {
                           : marketInfo.borrowVenusApy
                       )
                     )
-                    .dp(2, 1)
-                    .toString(10)}
-              %
+                  )}
             </p>
           </div>
           <div className="supply-apy">
@@ -121,21 +121,16 @@ function MarketInfo({ marketInfo, marketType }) {
             <p className="label">Distribution APY</p>
             <p className="value">
               {marketType === 'supply'
-                ? new BigNumber(
+                ? formatApy(
                     +marketInfo.supplyVenusApy < 0.01
                       ? 0.01
                       : marketInfo.supplyVenusApy
                   )
-                    .dp(2, 1)
-                    .toString(10)
-                : new BigNumber(
+                : formatApy(
                     marketInfo.borrowVenusApy < 0.01
                       ? 0.01
                       : marketInfo.borrowVenusApy
-                  )
-                    .dp(2, 1)
-                    .toString(10)}
-              %
+                  )}
             </p>
           </div>
           <div className="total-supply">

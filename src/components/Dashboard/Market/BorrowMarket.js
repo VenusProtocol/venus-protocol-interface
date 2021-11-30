@@ -10,8 +10,7 @@ import { Label } from 'components/Basic/Label';
 import BorrowModal from 'components/Basic/BorrowModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
-import { getBigNumber } from 'utilities/common';
-import BigNumber from 'bignumber.js';
+import { getBigNumber, formatApy } from 'utilities/common';
 
 const BorrowMarketWrapper = styled.div`
   width: 100%;
@@ -72,9 +71,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
               <div
                 className={!settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'}
               >
-                {apy.absoluteValue().isGreaterThan(100000000)
-                  ? 'Infinity'
-                  : `${apy.dp(2, 1).toString(10)}%`}
+                {formatApy(apy)}
               </div>
             </div>
           )
@@ -153,9 +150,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
               <div
                 className={!settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'}
               >
-                {apy.absoluteValue().isGreaterThan(100000000)
-                  ? 'Infinity'
-                  : `${apy.dp(2, 1).toString(10)}%`}
+                {formatApy(apy)}
               </div>
             </div>
           )

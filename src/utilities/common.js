@@ -125,3 +125,12 @@ export const currencyFormatter = labelValue => {
   //     )}K`
   //   : `$${format(new BigNumber(`${Math.abs(Number(labelValue))}`).dp(2, 1))}`;
 };
+
+export const formatApy = apy => {
+  let apyBN = getBigNumber(apy);
+  if (apyBN.absoluteValue().isLessThan(100000000)) {
+    return `${apyBN.dp(2, 1).toString(10)}%`;
+  } else {
+    return 'Infinity';
+  }
+}

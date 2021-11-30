@@ -12,7 +12,7 @@ import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
 
 import * as constants from 'utilities/constants';
-import { currencyFormatter } from 'utilities/common';
+import { currencyFormatter, formatApy } from 'utilities/common';
 import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketWrapper = styled.div`
@@ -447,10 +447,10 @@ function Market({ history, settings, getTreasuryBalance }) {
                     >
                       <p className="mobile-label">Supply APY</p>
                       <p className="item-title green">
-                        {item.totalSupplyApy.toFormat(2)}%
+                        {formatApy(item.totalSupplyApy)}
                       </p>
                       <p className="item-value">
-                        {new BigNumber(item.supplyVenusApy).toFormat(2)}%
+                        {formatApy(item.supplyVenusApy)}
                       </p>
                     </Col>
                     <Col
@@ -483,10 +483,10 @@ function Market({ history, settings, getTreasuryBalance }) {
                           item.totalBorrowApy.lt(0) ? ' red' : ' green'
                         }`}
                       >
-                        {item.totalBorrowApy.toFormat(2)}%
+                        {formatApy(item.totalBorrowApy)}
                       </p>
                       <p className="item-value">
-                        {new BigNumber(item.borrowVenusApy).toFormat(2)}%
+                        {formatApy(item.borrowVenusApy)}
                       </p>
                     </Col>
                     <Col

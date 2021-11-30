@@ -14,7 +14,7 @@ import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { Icon, Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
-import { getBigNumber } from 'utilities/common';
+import { getBigNumber, formatApy } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useToken, useVbep } from '../../../hooks/useContract';
@@ -253,10 +253,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               <span>Distribution APY</span>
             </div>
             <span>
-              {getBigNumber(asset.xvsBorrowApy)
-                .dp(2, 1)
-                .toString(10)}
-              %
+              {formatApy(asset.xvsBorrowApy)}
             </span>
           </div>
           <div className="description">

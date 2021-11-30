@@ -14,7 +14,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
-import { getBigNumber } from 'utilities/common';
+import { getBigNumber, formatApy } from 'utilities/common';
 import { useComptroller, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
@@ -239,10 +239,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }) {
               <span>Distribution APY</span>
             </div>
             <span>
-              {getBigNumber(asset.xvsSupplyApy)
-                .dp(2, 1)
-                .toString(10)}
-              %
+              {formatApy(asset.xvsSupplyApy)}
             </span>
           </div>
           <div className="description">

@@ -12,7 +12,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
-import { getBigNumber } from 'utilities/common';
+import { getBigNumber, formatApy } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
@@ -197,10 +197,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }) {
               <span>Distribution APY</span>
             </div>
             <span>
-              {getBigNumber(asset.xvsBorrowApy)
-                .dp(2, 1)
-                .toString(10)}
-              %
+              {formatApy(asset.xvsBorrowApy)}
             </span>
           </div>
           <div className="description">
