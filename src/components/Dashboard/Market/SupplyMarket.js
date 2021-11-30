@@ -13,6 +13,7 @@ import Toggle from 'components/Basic/Toggle';
 import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
+import { formatApy } from 'utilities/common';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { useComptroller } from '../../../hooks/useContract';
@@ -109,9 +110,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
             <div className="apy-content">
               <Icon type="arrow-up" />
               <div className="apy-green-label">
-                {new BigNumber(apy).isGreaterThan(100000000)
-                  ? 'Infinity'
-                  : `${apy.dp(2, 1).toString(10)}%`}
+                {formatApy(apy)}
               </div>
             </div>
           )
@@ -185,9 +184,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
             <div className="apy-content">
               <Icon type="arrow-up" />
               <div className="apy-green-label">
-                {new BigNumber(apy).isGreaterThan(100000000)
-                  ? 'Infinity'
-                  : `${apy.dp(2, 1).toString(10)}%`}
+                {formatApy(apy)}
               </div>
             </div>
           )

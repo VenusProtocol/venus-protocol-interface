@@ -10,7 +10,7 @@ import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
 import commaNumber from 'comma-number';
-import { addToken, getBigNumber } from 'utilities/common';
+import { addToken, getBigNumber, formatApy } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
@@ -300,7 +300,7 @@ function Overview({ settings, getMarketHistory }) {
                 : 'apy-value-red'
             }
           >
-            {currentAPY}%
+            {formatApy(currentAPY)}
           </p>
           <p className="apy-label">
             {(settings.marketType || 'supply') === 'supply'
