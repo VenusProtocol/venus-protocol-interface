@@ -34,13 +34,17 @@ function RepayVaiTab() {
   const onVaiApprove = async () => {
     setIsLoading(true);
     try {
-      await vaiContract.methods.approve(
-        getVaiUnitrollerAddress(),
-        new BigNumber(2)
-          .pow(256)
-          .minus(1)
-          .toString(10)
-      );
+      await vaiContract.methods
+        .approve(
+          getVaiUnitrollerAddress(),
+          new BigNumber(2)
+            .pow(256)
+            .minus(1)
+            .toString(10)
+        )
+        .send({
+          from: account
+        });
     } catch (error) {
       console.log('vai approve error :>> ', error);
     }
