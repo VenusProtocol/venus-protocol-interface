@@ -11,7 +11,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
 import { useWeb3React } from '@web3-react/core';
-import { useToken, useVote } from '../../hooks/useContract';
+import { useToken, useGovernorBravo } from '../../hooks/useContract';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
@@ -140,12 +140,12 @@ function Proposals({
   const [delegateAddress, setDelegateAddress] = useState('');
   const { account } = useWeb3React();
   const tokenContract = useToken('xvs');
-  const voteContract = useVote();
+  const governorBravoContract = useGovernorBravo();
 
   const getVoteProposalInfo = async () => {
     const [threshold, maxOpeartion] = await Promise.all([
-      voteContract.methods.proposalThreshold().call(),
-      voteContract.methods.proposalMaxOperations().call()
+      governorBravoContract.methods.proposalThreshold().call(),
+      governorBravoContract.methods.proposalMaxOperations().call()
     ]);
     setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
     setMaxOperation(Number(maxOpeartion));
@@ -194,9 +194,11 @@ function Proposals({
       return;
     }
     setIsLoading(true);
-    const pId = await voteContract.methods.latestProposalIds(address).call();
+    const pId = await governorBravoContract.methods
+      .latestProposalIds(address)
+      .call();
     if (pId !== '0') {
-      const status = await voteContract.methods.state(pId).call();
+      const status = await governorBravoContract.methods.state(pId).call();
       if (status === '0' || status === '1') {
         toast.error({
           title: `You can't create proposal. there is proposal in progress!`

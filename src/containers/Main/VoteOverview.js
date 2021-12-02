@@ -21,7 +21,7 @@ import { promisify } from 'utilities';
 import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
-import { useToken, useVote } from '../../hooks/useContract';
+import { useToken, useGovernorBravo } from '../../hooks/useContract';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
@@ -101,11 +101,11 @@ function VoteOverview({ getVoters, getProposalById, match }) {
   const [excuteEta, setExcuteEta] = useState('');
   const { account } = useWeb3React();
   const xvsTokenContract = useToken('xvs');
-  const voteContract = useVote();
+  const governorBravoContract = useGovernorBravo();
 
   const updateBalance = useCallback(async () => {
     if (proposalInfo.id) {
-      const threshold = await voteContract.methods.proposalThreshold().call();
+      const threshold = await governorBravoContract.methods.proposalThreshold().call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
       const weight = await xvsTokenContract.methods
         .getCurrentVotes(proposalInfo.proposer)
@@ -131,33 +131,28 @@ function VoteOverview({ getVoters, getProposalById, match }) {
   const loadVotes = useCallback(
     async limit => {
       if (proposalInfo.id) {
-        // @todo: can we request all proposals once?
         await promisify(getVoters, {
           id: proposalInfo.id,
-          limit,
-          filter: 'for'
+          limit
         })
-          .then(res => setAgreeVotes(res.data || {}))
-          .catch(() => {
-            setAgreeVotes({});
-          });
-        await promisify(getVoters, {
-          id: proposalInfo.id,
-          limit,
-          filter: 'against'
-        })
-          .then(res => setAgainstVotes(res.data || {}))
-          .catch(() => {
-            setAgainstVotes({});
-          });
-        await promisify(getVoters, {
-          id: proposalInfo.id,
-          limit,
-          filter: 'abstain'
-        })
-          .then(res => setAbstainVotes(res.data || {}))
-          .catch(() => {
-            setAbstainVotes({});
+          .then(res => {
+            // support:  0=against, 1=for, 2=abstain
+            const voters = res.data;
+            setAgainstVotes({
+              sumVotes: voters.against || '0',
+              result: voters.result.filter(item => item.support === 0)
+            });
+            setAgreeVotes({
+              sumVotes: voters.for || '0',
+              result: voters.result.filter(item => item.support === 1)
+            });
+            setAbstainVotes({
+              sumVotes: voters.abstain || '0',
+              result: voters.result.filter(item => item.support === 2)
+            });
+          })
+          .catch(e => {
+            console.log(`>> error getting voters`, e);
           });
       }
     },
@@ -165,7 +160,7 @@ function VoteOverview({ getVoters, getProposalById, match }) {
   );
 
   const getIsPossibleExcuted = async () => {
-    const proposalsRes = await voteContract.methods
+    const proposalsRes = await governorBravoContract.methods
       .proposals(proposalInfo.id)
       .call();
     setIsPossibleExcuted(proposalsRes && proposalsRes.eta <= Date.now() / 1000);
@@ -182,35 +177,37 @@ function VoteOverview({ getVoters, getProposalById, match }) {
     }
   }, [proposalInfo]);
 
-  const loadMore = type => {
-    if (type === 'for' && agreeVotes.total) {
-      promisify(getVoters, {
-        id: proposalInfo.id,
-        limit: agreeVotes.total,
-        filter: 'for'
-      })
-        .then(res => setAgreeVotes(res.data || {}))
-        .catch(() => {
-          setAgreeVotes({});
-        });
-    } else if (againstVotes.total) {
-      promisify(getVoters, {
-        id: proposalInfo.id,
-        limit: againstVotes.total,
-        filter: 'against'
-      })
-        .then(res => setAgainstVotes(res.data || {}))
-        .catch(() => {
-          setAgainstVotes({});
-        });
-    }
+  const loadMore = filter => {
+    // By getting rid of limit we can retrieve all the votes
+    promisify(getVoters, {
+      id: proposalInfo.id,
+      filter
+    }).then(res => {
+      switch (filter) {
+        case 0: {
+          setAgainstVotes(res.data || {});
+          break;
+        }
+        case 1: {
+          setAgreeVotes(res.data || {});
+          break;
+        }
+        case 2: {
+          setAbstainVotes(res.data || {});
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   };
 
   const handleUpdateProposal = async statusType => {
     if (statusType === 'Queue') {
       setIsLoading(true);
       try {
-        await voteContract.methods
+        await governorBravoContract.methods
           .queue(proposalInfo.id)
           .send({ from: account });
         setStatus('success');
@@ -225,7 +222,7 @@ function VoteOverview({ getVoters, getProposalById, match }) {
     } else if (statusType === 'Execute') {
       setIsLoading(true);
       try {
-        await voteContract.methods
+        await governorBravoContract.methods
           .execute(proposalInfo.id)
           .send({ from: account });
         setStatus('success');
@@ -240,7 +237,7 @@ function VoteOverview({ getVoters, getProposalById, match }) {
     } else if (statusType === 'Cancel') {
       setIsCancelLoading(true);
       try {
-        await voteContract.methods
+        await governorBravoContract.methods
           .cancel(proposalInfo.id)
           .send({ from: account });
         setCancelStatus('success');
@@ -273,17 +270,9 @@ function VoteOverview({ getVoters, getProposalById, match }) {
             </Row>
             <Row>
               {[
-                {
-                  label: 'For',
-                  votes: agreeVotes,
-                  filterType: 'for'
-                },
-                {
-                  label: 'Against',
-                  votes: againstVotes,
-                  filterType: 'against'
-                },
-                { label: 'Abstain', votes: abstainVotes, filterType: 'abstain' }
+                { label: 'For', votes: agreeVotes, filterType: 1 },
+                { label: 'Against', votes: againstVotes, filterType: 0 },
+                { label: 'Abstain', votes: abstainVotes, filterType: 2 }
               ].map((data, i) => {
                 return (
                   <Column key={i} xs="12" sm="12" md="12" lg="6">
@@ -308,7 +297,7 @@ function VoteOverview({ getVoters, getProposalById, match }) {
                         data.votes.result.map(v => ({
                           label: v.address,
                           value: v.votes,
-                          reason: "I've voted cuz i care"
+                          reason: v.reason
                         }))
                       }
                       onViewAll={() => loadMore(data.filterType)}

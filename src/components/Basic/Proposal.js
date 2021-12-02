@@ -10,7 +10,7 @@ import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Label } from './Label';
-import { useVote } from '../../hooks/useContract';
+import { useGovernorBravo } from '../../hooks/useContract';
 
 const ProposalWrapper = styled.div`
   width: 100%;
@@ -111,7 +111,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
   const [voteStatus, setVoteStatus] = useState('');
-  const voteContract = useVote();
+  const governorBravoContract = useGovernorBravo();
 
   const getStatus = p => {
     if (p.state === 'Executed') {
@@ -162,7 +162,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
   };
 
   const getIsHasVoted = useCallback(async () => {
-    const res = await voteContract.methods
+    const res = await governorBravoContract.methods
       .getReceipt(proposal.id, address)
       .call();
     setVoteStatus(res.hasVoted ? 'voted' : 'novoted');
@@ -178,7 +178,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
     setIsLoading(true);
     setVoteType(type);
     try {
-      await voteContract.methods
+      await governorBravoContract.methods
         .castVote(proposal.id, type)
         .send({ from: address });
     } catch (error) {

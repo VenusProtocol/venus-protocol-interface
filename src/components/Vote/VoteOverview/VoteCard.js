@@ -7,8 +7,7 @@ import commaNumber from 'comma-number';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
-import { Modal } from 'antd';
-import closeImg from 'assets/img/close.png';
+import { Icon, Tooltip } from 'antd';
 
 const VoteCardWrapper = styled.div`
   width: 100%;
@@ -52,6 +51,17 @@ const VoteList = styled.div`
       color: var(--color-text-secondary);
     }
   }
+
+  .reason-icon {
+    font-size: 15px;
+    color: #a1a1a1;
+    cursor: pointer;
+    margin-left: 8px;
+    &:hover {
+      color: #ebbf6e;
+    }
+  }
+
   .vote-list {
     width: 100%;
     max-height: 400px;
@@ -72,10 +82,6 @@ const VoteList = styled.div`
           font-weight: bold;
           color: var(--color-orange);
         }
-      }
-      .reason-text {
-        cursor: pointer;
-        color: var(--color-orange);
       }
     }
     .empty-item {
@@ -98,18 +104,6 @@ const VoteList = styled.div`
   }
 `;
 
-const ModalContentWrapper = styled.div`
-  border-radius: 20px;
-  background-color: var(--color-bg-primary);
-  height: 200px;
-
-  .close-btn {
-    position: absolute;
-    top: 30px;
-    right: 23px;
-  }
-`;
-
 const format = commaNumber.bindWith(',', '.');
 
 function VoteCard({
@@ -125,8 +119,6 @@ function VoteCard({
 }) {
   const [isViewAll, setIsViewAll] = useState(true);
   const [percent, setPercent] = useState(0);
-  const [reasonForShow, setReasonForShow] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const percentTmp = new BigNumber(voteNumber)
@@ -165,7 +157,7 @@ function VoteCard({
             </span>
           </div>
           <div
-            className={`status-bar ${type}`}
+            className={`status-bar ${['against', 'for', 'abstain'][type]}`}
             style={{
               width: `${percent}%`
             }}
@@ -175,7 +167,6 @@ function VoteCard({
           <div className="flex align-center just-between header">
             <span>{addressNumber} addresses</span>
             <span>Votes</span>
-            <span>Reason</span>
           </div>
           <div className="vote-list scrollbar">
             {list.map((l, index) => (
@@ -191,22 +182,27 @@ function VoteCard({
                     ? `${l.label.substr(0, 5)}...${l.label.substr(-4, 4)}`
                     : ''}
                 </span>
-                <span>
-                  {format(
-                    new BigNumber(Web3.utils.fromWei(l.value, 'ether'))
-                      .dp(8, 1)
-                      .toString(10)
-                  )}
-                </span>
-                <span
-                  className="reason-text"
-                  onClick={() => {
-                    setReasonForShow(l.reason);
-                    setModalVisible(true);
-                  }}
-                >
-                  Reason
-                </span>
+                <div>
+                  <span>
+                    {format(
+                      new BigNumber(Web3.utils.fromWei(l.value, 'ether'))
+                        .dp(8, 1)
+                        .toString(10)
+                    )}
+                  </span>
+                  <Tooltip
+                    placement="top"
+                    title={l.reason}
+                    mouseEnterDelay={0}
+                    mouseLeaveDelay={0}
+                  >
+                    <Icon
+                      className="reason-icon"
+                      type="exclamation-circle"
+                      theme="filled"
+                    />
+                  </Tooltip>
+                </div>
               </div>
             ))}
             {emptyList.map(v => (
@@ -231,33 +227,13 @@ function VoteCard({
             </div>
           )}
         </VoteList>
-        <Modal
-          className="connect-modal"
-          visible={modalVisible}
-          footer={null}
-          closable={false}
-          width={450}
-          maskClosable
-          centered
-          onCancel={() => setModalVisible(false)}
-        >
-          <ModalContentWrapper>
-            <img
-              className="close-btn pointer"
-              src={closeImg}
-              alt="close"
-              onClick={() => setModalVisible(false)}
-            />
-            <div>{reasonForShow}</div>
-          </ModalContentWrapper>
-        </Modal>
       </VoteCardWrapper>
     </Card>
   );
 }
 
 VoteCard.propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.number,
   history: PropTypes.object,
   label: PropTypes.string,
   voteNumber: PropTypes.object,
@@ -269,7 +245,7 @@ VoteCard.propTypes = {
 };
 
 VoteCard.defaultProps = {
-  type: '',
+  type: 0,
   history: {},
   label: '',
   voteNumber: new BigNumber(0),
