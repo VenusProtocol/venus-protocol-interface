@@ -105,7 +105,9 @@ function VoteOverview({ getVoters, getProposalById, match }) {
 
   const updateBalance = useCallback(async () => {
     if (proposalInfo.id) {
-      const threshold = await governorBravoContract.methods.proposalThreshold().call();
+      const threshold = await governorBravoContract.methods
+        .proposalThreshold()
+        .call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
       const weight = await xvsTokenContract.methods
         .getCurrentVotes(proposalInfo.proposer)
@@ -275,7 +277,7 @@ function VoteOverview({ getVoters, getProposalById, match }) {
                 { label: 'Abstain', votes: abstainVotes, filterType: 2 }
               ].map((data, i) => {
                 return (
-                  <Column key={i} xs="12" sm="12" md="12" lg="6">
+                  <Column key={i} xs="12" md="12" lg="4">
                     <VoteCard
                       type={data.filterType}
                       label={data.label}

@@ -7,10 +7,6 @@ const contracts = {
     56: '0x0667Eed0a0aAb930af74a3dfeDD263A73994f216',
     97: '0x7Db4f5cC3bBA3e12FF1F528D2e3417afb0a57118'
   },
-  vault: {
-    56: '',
-    97: '0x3B07a61E1Fb663659cB032Cbb9cAc67721B7a477'
-  },
   xvsStore: {
     56: '',
     97: '0x081De61d3223A92C1aE34c0d8e7a0379391681A9'
@@ -38,6 +34,18 @@ const contracts = {
   venusLens: {
     56: '0x595e9DDfEbd47B54b996c839Ef3Dd97db3ED19bA',
     97: '0x40e42Ad74AA4c61B577387821e845a8892E65002'
+  },
+  xvsVault: {
+    56: '0x6eF49b4e0772Fe78128F981d42D54172b55eCF9F',
+    97: '0xa4Fd54cACdA379FB7CaA783B83Cc846f8ac0Faa6'
+  },
+  xvsVaultProxy: {
+    56: '0x051100480289e704d20e9DB4804837068f3f9204',
+    97: '0x09902c65729Bc245d2D3133B3C8Cc0DA93518ED3'
+  },
+  xvsVaultStore: {
+    56: '0x1e25CF968f12850003Db17E0Dba32108509C4359',
+    97: '0x7B4dba3b320E7D421A213e1a73bB9858bb6839F8'
   }
 };
 

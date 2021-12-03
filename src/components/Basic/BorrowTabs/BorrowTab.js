@@ -196,9 +196,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }) {
               />
               <span>Distribution APY</span>
             </div>
-            <span>
-              {formatApy(asset.xvsBorrowApy)}
-            </span>
+            <span>{formatApy(asset.xvsBorrowApy)}</span>
           </div>
           <div className="description">
             <div className="flex align-center">

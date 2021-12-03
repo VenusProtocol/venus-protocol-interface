@@ -307,7 +307,7 @@ function ProposalModal({
   };
   return (
     <Modal
-      className="connect-modal"
+      className="venus-modal"
       {...props}
       width={900}
       visible={visible}

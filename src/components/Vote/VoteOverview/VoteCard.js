@@ -190,18 +190,20 @@ function VoteCard({
                         .toString(10)
                     )}
                   </span>
-                  <Tooltip
-                    placement="top"
-                    title={l.reason}
-                    mouseEnterDelay={0}
-                    mouseLeaveDelay={0}
-                  >
-                    <Icon
-                      className="reason-icon"
-                      type="exclamation-circle"
-                      theme="filled"
-                    />
-                  </Tooltip>
+                  {l.reason && (
+                    <Tooltip
+                      placement="top"
+                      title={l.reason}
+                      mouseEnterDelay={0}
+                      mouseLeaveDelay={0}
+                    >
+                      <Icon
+                        className="reason-icon"
+                        type="exclamation-circle"
+                        theme="filled"
+                      />
+                    </Tooltip>
+                  )}
                 </div>
               </div>
             ))}

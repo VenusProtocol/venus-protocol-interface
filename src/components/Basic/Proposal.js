@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import { Icon } from 'antd';
+import { Icon, Modal, Input } from 'antd';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
+import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Label } from './Label';
 import { useGovernorBravo } from '../../hooks/useContract';
@@ -101,16 +102,107 @@ const ProposalWrapper = styled.div`
   }
 `;
 
+const ModalContentWrapper = styled.div`
+  border-radius: 20px;
+  background-color: var(--color-bg-primary);
+  color: #fff;
+
+  .close-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 24px;
+  }
+
+  .header {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid var(--color-bg-active);
+    padding: 24px;
+
+    .title {
+      font-size: 24px;
+      line-height: 24px;
+      color: var(--color-text-main);
+    }
+  }
+
+  .input-wrapper {
+    width: 100%;
+    padding: 24px;
+    .input-caption {
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 32px;
+      margin: 8px 0;
+    }
+  }
+
+  .confirm-button {
+    text-align: center;
+    min-width: 200px;
+    background: #ebbf6e;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+
+  button:disabled {
+    background: #d3d3d3;
+    cursor: not-allowed;
+  }
+`;
+
 const VOTE_TYPE = {
   AGAINST: 0,
   FOR: 1,
   ABSTAIN: 2
 };
 
+const getRemainTime = item => {
+  if (item.state === 'Active') {
+    const diffBlock = item.endBlock - item.blockNumber;
+    const duration = moment.duration(
+      diffBlock < 0 ? 0 : diffBlock * 3,
+      'seconds'
+    );
+    const days = Math.floor(duration.asDays());
+    const hours = Math.floor(duration.asHours()) - days * 24;
+    const minutes =
+      Math.floor(duration.asMinutes()) - days * 24 * 60 - hours * 60;
+    return `${
+      days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''
+    } ${hours} ${hours > 1 ? 'hrs' : 'hr'} ${
+      days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''
+    } left`;
+  }
+  if (item.state === 'Pending') {
+    return `${moment(item.createdTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Active') {
+    return `${moment(item.startTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Canceled' || item.state === 'Defeated') {
+    return `${moment(item.endTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Queued') {
+    return `${moment(item.queuedTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Expired' || item.state === 'Executed') {
+    return `${moment(item.executedTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  return `${moment(item.updatedAt).format('MMMM DD, YYYY')}`;
+};
+
 function Proposal({ address, proposal, votingWeight, history }) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
   const [voteStatus, setVoteStatus] = useState('');
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [voteReason, setVoteReason] = useState('');
   const governorBravoContract = useGovernorBravo();
 
   const getStatus = p => {
@@ -126,41 +218,6 @@ function Proposal({ address, proposal, votingWeight, history }) {
     return p.state;
   };
 
-  const getRemainTime = item => {
-    if (item.state === 'Active') {
-      const diffBlock = item.endBlock - item.blockNumber;
-      const duration = moment.duration(
-        diffBlock < 0 ? 0 : diffBlock * 3,
-        'seconds'
-      );
-      const days = Math.floor(duration.asDays());
-      const hours = Math.floor(duration.asHours()) - days * 24;
-      const minutes =
-        Math.floor(duration.asMinutes()) - days * 24 * 60 - hours * 60;
-      return `${
-        days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''
-      } ${hours} ${hours > 1 ? 'hrs' : 'hr'} ${
-        days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''
-      } left`;
-    }
-    if (item.state === 'Pending') {
-      return `${moment(item.createdTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Active') {
-      return `${moment(item.startTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Canceled' || item.state === 'Defeated') {
-      return `${moment(item.endTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Queued') {
-      return `${moment(item.queuedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Expired' || item.state === 'Executed') {
-      return `${moment(item.executedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    return `${moment(item.updatedAt).format('MMMM DD, YYYY')}`;
-  };
-
   const getIsHasVoted = useCallback(async () => {
     const res = await governorBravoContract.methods
       .getReceipt(proposal.id, address)
@@ -174,17 +231,28 @@ function Proposal({ address, proposal, votingWeight, history }) {
     }
   }, [address, proposal, getIsHasVoted]);
 
-  const handleVote = async type => {
-    setIsLoading(true);
+  const handleOpenVoteConfirmModal = type => {
     setVoteType(type);
+    setConfirmModalVisible(true);
+  };
+
+  const handleVote = async () => {
+    setIsLoading(true);
     try {
-      await governorBravoContract.methods
-        .castVote(proposal.id, type)
-        .send({ from: address });
+      if (voteReason) {
+        await governorBravoContract.methods
+          .castVoteWithReason(proposal.id, voteType, voteReason)
+          .send({ from: address });
+      } else {
+        await governorBravoContract.methods
+          .castVote(proposal.id, voteType)
+          .send({ from: address });
+      }
     } catch (error) {
       console.log('cast vote error :>> ', error);
     }
     setIsLoading(false);
+    setConfirmModalVisible(false);
   };
 
   const getTitle = descs => {
@@ -195,15 +263,16 @@ function Proposal({ address, proposal, votingWeight, history }) {
     return '';
   };
 
+  const goToProposal = () => {
+    history.push(`/vote/proposal/${proposal.id}`);
+  };
+
   return (
-    <ProposalWrapper
-      className="flex flex-column pointer"
-      onClick={() => history.push(`/vote/proposal/${proposal.id}`)}
-    >
-      <div className="title">
+    <ProposalWrapper className="flex flex-column pointer">
+      <div className="title" onClick={goToProposal}>
         <ReactMarkdown source={getTitle(proposal.description.split('\n'))} />
       </div>
-      <Row className="detail">
+      <Row className="detail" onClick={goToProposal}>
         <Column xs="12" sm="9">
           <Row>
             <Column xs="12" sm="7" className="description">
@@ -240,7 +309,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
       <Row className="vote-actions">
         {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
           <div className="flex align-center" onClick={e => e.stopPropagation()}>
-            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => {
+            {[0, 1, 2].map(type => {
               return (
                 <Button
                   key={type}
@@ -250,7 +319,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
                     !proposal ||
                     (proposal && proposal.state !== 'Active')
                   }
-                  onClick={() => handleVote(type)}
+                  onClick={() => handleOpenVoteConfirmModal(type)}
                 >
                   {isLoading && voteType === type && <Icon type="loading" />}{' '}
                   {['For', 'Against', 'Abstain'][type]}
@@ -260,13 +329,55 @@ function Proposal({ address, proposal, votingWeight, history }) {
           </div>
         )}
       </Row>
+      <Modal
+        className="venus-modal"
+        width={450}
+        height={300}
+        visible={confirmModalVisible}
+        onCancel={() => {
+          setConfirmModalVisible(false);
+        }}
+        footer={null}
+        closable={false}
+        maskClosable
+        centered
+      >
+        <ModalContentWrapper className="flex flex-column align-center just-center">
+          <img
+            className="close-btn pointer"
+            src={closeImg}
+            alt="close"
+            onClick={() => setConfirmModalVisible(false)}
+          />
+          <div className="header">
+            <span className="title">
+              Your vote: {['For', 'Against', 'Abstain'][voteType]}
+            </span>
+          </div>
+          <div className="input-wrapper">
+            <div className="input-caption">Why do you vote this option</div>
+            <Input
+              value={voteReason}
+              placeholder="Enter your reason"
+              onChange={e => setVoteReason(e.target.value)}
+            />
+          </div>
+          <button
+            type="button"
+            className="confirm-button"
+            disabled={isLoading}
+            onClick={() => handleVote()}
+          >
+            {isLoading && <Icon type="loading" />} Confirm
+          </button>
+        </ModalContentWrapper>
+      </Modal>
     </ProposalWrapper>
   );
 }
 
 Proposal.propTypes = {
   address: PropTypes.string,
-  delegateAddress: PropTypes.string.isRequired,
   votingWeight: PropTypes.string.isRequired,
   proposal: PropTypes.shape({
     id: PropTypes.number,

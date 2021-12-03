@@ -20,7 +20,8 @@ import useRefresh from '../../hooks/useRefresh';
 import {
   useComptroller,
   useToken,
-  useVaiUnitroller
+  useVaiUnitroller,
+  useXvsVaultProxy
 } from '../../hooks/useContract';
 import useWeb3 from '../../hooks/useWeb3';
 import { getVbepContract } from '../../utilities/contractHelpers';
@@ -44,6 +45,7 @@ function Vote({ settings, getProposals, setSetting }) {
   const xvsTokenContract = useToken('xvs');
   const comptrollerContract = useComptroller();
   const vaiUnitrollerContract = useVaiUnitroller();
+  const xvsVaultProxyContract = useXvsVaultProxy();
   const web3 = useWeb3();
 
   const loadInitialData = useCallback(async () => {
@@ -84,7 +86,8 @@ function Vote({ settings, getProposals, setSetting }) {
   const updateBalance = async () => {
     if (account) {
       const [currentVotes, balance] = await Promise.all([
-        xvsTokenContract.methods.getCurrentVotes(account).call(),
+        // voting power is calculated from user's amount of XVS staked in the XVS vault
+        xvsVaultProxyContract.methods.getCurrentVotes(account).call(),
         xvsTokenContract.methods.balanceOf(account).call()
       ]);
       setVotingWeight(new BigNumber(currentVotes).div(1e18).toString(10));
@@ -193,7 +196,7 @@ function Vote({ settings, getProposals, setSetting }) {
 
   const updateDelegate = async () => {
     if (account) {
-      const res = await xvsTokenContract.methods.delegates(account).call();
+      const res = await xvsVaultProxyContract.methods.delegates(account).call();
       setDelegateAddress(res);
       if (res !== '0x0000000000000000000000000000000000000000') {
         setDelegateStatus(res === account ? 'self' : 'delegate');

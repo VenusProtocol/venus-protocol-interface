@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input, Icon } from 'antd';
 import Button from '@material-ui/core/Button';
+import { useWeb3React } from '@web3-react/core';
 
 const VotingWrapper = styled.div`
   .close-btn {
@@ -56,13 +57,29 @@ const VotingWrapper = styled.div`
     }
 
     .ant-input {
-      margin-top: 35px;
       height: 48px;
       background-color: #1b2040;
       border: 1px solid #797979;
       font-size: 13.5px;
       text-align: center;
       color: var(--color-text-main);
+      margin-right: 8px;
+    }
+
+    .ant-input-group-addon {
+      background: none;
+      border: none;
+      color: #a1a1a1;
+      cursor: pointer;
+    }
+
+    .input-wrapper {
+      margin-top: 35px;
+      .self-button {
+        font-size: 16px;
+        color: var(--color-orange);
+        cursor: pointer;
+      }
     }
 
     .vote-btn {
@@ -79,10 +96,12 @@ const VotingWrapper = styled.div`
       }
     }
   }
+
 `;
 
 function DelegationVoting({ history, isLoading, onDelegate }) {
   const [delegateAddress, setDelegateAddress] = useState('');
+  const { account } = useWeb3React();
   return (
     <VotingWrapper>
       <div className="flex align-center just-center header-content">
@@ -108,11 +127,23 @@ function DelegationVoting({ history, isLoading, onDelegate }) {
             Delegate Leaderboard
           </span>
         </div>
-        <Input
-          value={delegateAddress}
-          placeholder="Enter a 0x address"
-          onChange={e => setDelegateAddress(e.target.value)}
-        />
+        <div className="input-wrapper flex just-between align-center">
+          <Input
+            value={delegateAddress}
+            placeholder="Enter a 0x address"
+            onChange={e => setDelegateAddress(e.target.value)}
+          />
+          <span
+            className="self-button"
+            onClick={() => {
+              if (account) {
+                setDelegateAddress(account);
+              }
+            }}
+          >
+            self
+          </span>
+        </div>
         <Button
           className="vote-btn"
           disabled={isLoading}
