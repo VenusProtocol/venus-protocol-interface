@@ -52,7 +52,13 @@ const JobCardWrapper = styled.div`
     }
   }
 
-  .responsibilities {
+  p {
+    font-size: 14px;
+    line-height: 16px;
+    color: #a1a1a1;
+  }
+
+  .skills {
     margin-top: 24px;
   }
 
@@ -102,7 +108,8 @@ export default function JobCard({
   title,
   generalInfos,
   responsibilities,
-  skills
+  skills,
+  excerpt
 }) {
   const [openModal, setOpenModal] = useState(false);
   return (
@@ -114,22 +121,21 @@ export default function JobCard({
         </div>
         <div className="content">
           <div className="general">
-            <div className="section-title">General Infomations</div>
-            <ul className="general-infos">
-              {generalInfos.map((info, i) => {
+            <div className="section-title">About the role</div>
+            <p>
+              {excerpt.description}
+            </p>
+          </div>
+          <div className="skills">
+            <div className="section-title">Join us if you</div>
+            <ul className="skills-items">
+              {excerpt.skills.map((resp, i) => {
                 return (
-                  <li key={i} className="general-infos-item">
-                    {info}
+                  <li key={i} className="skills-item">
+                    {resp}
                   </li>
                 );
               })}
-            </ul>
-          </div>
-          <div className="responsibilities">
-            <div className="section-title">Your Responsibilities</div>
-            <ul className="responsibilities-items">
-              <li className="responsibilities-item">{responsibilities[0]}</li>
-              <li>...</li>
             </ul>
           </div>
         </div>
@@ -167,5 +173,6 @@ JobCard.propTypes = {
   title: PropTypes.string.isRequired,
   responsibilities: PropTypes.arrayOf(PropTypes.string).isRequired,
   generalInfos: PropTypes.arrayOf(PropTypes.string).isRequired,
-  skills: PropTypes.arrayOf(PropTypes.any).isRequired
+  skills: PropTypes.arrayOf(PropTypes.any).isRequired,
+  excerpt: PropTypes.arrayOf(PropTypes.any).isRequired
 };

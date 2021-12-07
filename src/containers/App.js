@@ -70,6 +70,7 @@ class App extends React.Component {
                       <Route exact path="/vote" component={Vote} />
                       <Route exact path="/xvs" component={XVS} />
                       <Route exact path="/market" component={Market} />
+                      <Route exact path="/career" component={Career} />
                       <Route
                         exact
                         path="/transaction"
