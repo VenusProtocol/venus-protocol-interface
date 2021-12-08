@@ -112,7 +112,7 @@ function WithdrawHistoryModal({
                   <span className="right">
                     {moment(
                       new Date(withdraw.lockedUntil.toNumber(10) * 1000)
-                    ).format('DD/MM/YYYY hh:mm:ss')}{' '}
+                    ).format('DD/MM/YYYY HH:mm:ss')}{' '}
                   </span>
                 </div>
               );
