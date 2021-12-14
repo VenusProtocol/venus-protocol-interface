@@ -119,6 +119,7 @@ const ModalContentWrapper = styled.div`
     width: 100%;
     border-bottom: 1px solid var(--color-bg-active);
     padding: 24px;
+    padding-bottom: 12px;
 
     .title {
       font-size: 24px;
@@ -136,6 +137,12 @@ const ModalContentWrapper = styled.div`
       line-height: 32px;
       margin: 8px 0;
     }
+  }
+
+  .input-remaining {
+    text-align: right;
+    color: #a1a1a1;
+    margin-top: 8px;
   }
 
   .confirm-button {
@@ -156,10 +163,16 @@ const ModalContentWrapper = styled.div`
   }
 `;
 
+const MAX_INPUT_LENGTH = 1000;
+
 const VOTE_TYPE = {
   AGAINST: 0,
   FOR: 1,
   ABSTAIN: 2
+};
+
+const getVoteTypeStringFromValue = type => {
+  return ['Against', 'For', 'Abstain'][type];
 };
 
 const getRemainTime = item => {
@@ -238,6 +251,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
 
   const handleVote = async () => {
     setIsLoading(true);
+    console.log(voteType);
     try {
       if (voteReason) {
         await governorBravoContract.methods
@@ -309,7 +323,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
       <Row className="vote-actions">
         {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
           <div className="flex align-center" onClick={e => e.stopPropagation()}>
-            {[0, 1, 2].map(type => {
+            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => {
               return (
                 <Button
                   key={type}
@@ -322,7 +336,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
                   onClick={() => handleOpenVoteConfirmModal(type)}
                 >
                   {isLoading && voteType === type && <Icon type="loading" />}{' '}
-                  {['For', 'Against', 'Abstain'][type]}
+                  {getVoteTypeStringFromValue(type)}
                 </Button>
               );
             })}
@@ -351,21 +365,25 @@ function Proposal({ address, proposal, votingWeight, history }) {
           />
           <div className="header">
             <span className="title">
-              Your vote: {['For', 'Against', 'Abstain'][voteType]}
+              Your vote: {getVoteTypeStringFromValue(voteType)}
             </span>
           </div>
           <div className="input-wrapper">
             <div className="input-caption">Why do you vote this option</div>
-            <Input
+            <Input.TextArea
               value={voteReason}
               placeholder="Enter your reason"
               onChange={e => setVoteReason(e.target.value)}
+              maxLength={MAX_INPUT_LENGTH}
             />
+            <div className="input-remaining">
+              {MAX_INPUT_LENGTH - voteReason.length}
+            </div>
           </div>
           <button
             type="button"
             className="confirm-button"
-            disabled={isLoading}
+            disabled={isLoading || voteReason.length > MAX_INPUT_LENGTH}
             onClick={() => handleVote()}
           >
             {isLoading && <Icon type="loading" />} Confirm

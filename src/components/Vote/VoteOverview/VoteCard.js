@@ -194,8 +194,11 @@ function VoteCard({
                     <Tooltip
                       placement="top"
                       title={l.reason}
-                      mouseEnterDelay={0}
-                      mouseLeaveDelay={0}
+                      trigger={['click']}
+                      overlayStyle={{
+                        maxHeight: '500px',
+                        overflowY: 'scroll',
+                      }}
                     >
                       <Icon
                         className="reason-icon"
