@@ -42,10 +42,16 @@ const VotingPowerWrapper = styled.div`
     padding: 12px 24px;
     background-color: var(--color-bg-primary);
     color: #fff;
+
+    @media only screen and (max-width: 992px) {
+      &-left {
+        margin-bottom: 12px;
+      }
+    }
+
     &-left {
       font-size: 20px;
       line-height: 24px;
-      margin-bottom: 12px;
       .info-circle {
         font-size: 24px;
         color: var(--color-gold);
@@ -132,16 +138,12 @@ function VotingPower({
                     <span>{getAfter(format(power))}</span>
                   </p>
                 </Column>
-                <Column
-                  xs="12"
-                  sm="12"
-                  md="7"
-                  className="flex flex-wrap align-center voting-hint"
-                >
-                  <Row>
+                <Column xs="12" sm="12" md="7" className=" voting-hint">
+                  <Row className="flex flex-wrap align-center">
                     <Column
                       xs="12"
-                      md="4"
+                      md="5"
+                      lg="4"
                       className="voting-hint-left flex align-center"
                     >
                       <Icon className="info-circle" type="info-circle" />
@@ -149,7 +151,8 @@ function VotingPower({
                     </Column>
                     <Column
                       xs="12"
-                      md="8"
+                      md="7"
+                      lg="8"
                       className="voting-hint-right just-between"
                     >
                       <div className="flex align-center voting-hint-right-l1">
