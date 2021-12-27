@@ -37,7 +37,7 @@ const VotingPowerWrapper = styled.div`
   }
 
   .voting-hint {
-    height: 84px;
+    min-height: 84px;
     border-radius: 20px;
     padding: 12px 24px;
     background-color: var(--color-bg-primary);
@@ -45,7 +45,7 @@ const VotingPowerWrapper = styled.div`
     &-left {
       font-size: 20px;
       line-height: 24px;
-      margin-right: 24px;
+      margin-bottom: 12px;
       .info-circle {
         font-size: 24px;
         color: var(--color-gold);
@@ -136,56 +136,66 @@ function VotingPower({
                   xs="12"
                   sm="12"
                   md="7"
-                  className="flex align-center voting-hint"
+                  className="flex flex-wrap align-center voting-hint"
                 >
-                  <div className="voting-hint-left flex align-center">
-                    <Icon className="info-circle" type="info-circle" />
-                    <span>To vote you should:</span>
-                  </div>
-                  <div className="voting-hint-right just-between">
-                    <div className="flex align-center voting-hint-right-l1">
-                      <div className="connect-line" />
-                      {!new BigNumber(stakedAmount).gt(0) ? (
-                        <span className="step-number">1</span>
-                      ) : (
-                        <Icon
-                          className="check-circle-icon"
-                          type="check-circle"
-                          theme="filled"
-                        />
-                      )}
-                      <span className="step-text">
-                        <i
-                          onClick={() => {
-                            history.push('/vault');
-                          }}
-                        >
-                          Lock your tokens
-                        </i>{' '}
-                        to the XVS Vault
-                      </span>
-                    </div>
-                    <div className="flex align-center">
-                      {!delegateStatus ? (
-                        <span className="step-number">2</span>
-                      ) : (
-                        <Icon
-                          className="check-circle-icon"
-                          type="check-circle"
-                          theme="filled"
-                        />
-                      )}
-                      <span className="step-text">
-                        <i
-                          onClick={() => {
-                            setIsOpenDelegationModal(true);
-                          }}
-                        >
-                          Delegate your voting power
-                        </i>
-                      </span>
-                    </div>
-                  </div>
+                  <Row>
+                    <Column
+                      xs="12"
+                      md="4"
+                      className="voting-hint-left flex align-center"
+                    >
+                      <Icon className="info-circle" type="info-circle" />
+                      <span>To vote you should:</span>
+                    </Column>
+                    <Column
+                      xs="12"
+                      md="8"
+                      className="voting-hint-right just-between"
+                    >
+                      <div className="flex align-center voting-hint-right-l1">
+                        <div className="connect-line" />
+                        {!new BigNumber(stakedAmount).gt(0) ? (
+                          <span className="step-number">1</span>
+                        ) : (
+                          <Icon
+                            className="check-circle-icon"
+                            type="check-circle"
+                            theme="filled"
+                          />
+                        )}
+                        <span className="step-text">
+                          <i
+                            onClick={() => {
+                              history.push('/vault');
+                            }}
+                          >
+                            Lock your tokens
+                          </i>{' '}
+                          to the XVS Vault
+                        </span>
+                      </div>
+                      <div className="flex align-center">
+                        {!delegateStatus ? (
+                          <span className="step-number">2</span>
+                        ) : (
+                          <Icon
+                            className="check-circle-icon"
+                            type="check-circle"
+                            theme="filled"
+                          />
+                        )}
+                        <span className="step-text">
+                          <i
+                            onClick={() => {
+                              setIsOpenDelegationModal(true);
+                            }}
+                          >
+                            Delegate your voting power
+                          </i>
+                        </span>
+                      </div>
+                    </Column>
+                  </Row>
                 </Column>
               </Row>
             </VotingPowerWrapper>
