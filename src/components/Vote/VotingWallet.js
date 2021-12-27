@@ -18,7 +18,7 @@ const VotingWalletWrapper = styled.div`
   width: 100%;
   border-radius: 25px;
   background-color: var(--color-bg-primary);
-  padding: 36px 22px 48px 15px;
+  padding: 36px 18px 16px 18px;
 
   .header {
     padding-left: 35px;
@@ -30,9 +30,12 @@ const VotingWalletWrapper = styled.div`
     }
   }
 
+  .content-border-bottom {
+    border-bottom: 1px solid var(--color-bg-active);
+  }
+
   .content {
     padding: 20px 0px;
-    border-bottom: 1px solid var(--color-bg-active);
 
     img {
       width: 25px;
@@ -69,39 +72,6 @@ const VotingWalletWrapper = styled.div`
       font-size: 16px;
       font-weight: bold;
       color: var(--color-orange);
-    }
-  }
-  .setup {
-    padding: 30px 35px 0px;
-
-    .setup-header {
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--color-text-main);
-    }
-
-    .setup-content {
-      margin-top: 32px;
-      font-size: 16px;
-      color: var(--color-text-secondary);
-
-      a {
-        color: var(--color-orange);
-      }
-    }
-  }
-
-  .started-btn {
-    margin-top: 30px;
-    width: 50%;
-    height: 46px;
-    border-radius: 5px;
-    background-image: linear-gradient(to right, #f2c265, #f7b44f);
-    .MuiButton-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-text-main);
-      text-transform: capitalize;
     }
   }
 
@@ -190,7 +160,7 @@ function VotingWallet({
         <div className="flex align-center header">
           <p className="title">Voting Wallet</p>
         </div>
-        <div className="flex flex-column content">
+        <div className="flex flex-column content content-border-bottom">
           <p className="content-label">Venus Balance</p>
           <div className="flex align-center just-between">
             <div className="flex align-center">
@@ -267,34 +237,6 @@ function VotingWallet({
             </div>
           </div>
         )}
-        {account && !delegateStatus && (
-          <div className="flex flex-column setup">
-            <p className="setup-header">Setup Voting</p>
-            <p className="setup-content">
-              You can either vote on each proposal yourself or delegate your
-              votes to a third party. Venus Governance puts you in charge of the
-              future of Venus.
-              {/* <a href="/#">Learn more.</a> */}
-            </p>
-          </div>
-        )}
-        {account && !delegateStatus && (
-          <div className="center footer">
-            <Button
-              className="started-btn"
-              onClick={() => setIsOpenModal(true)}
-            >
-              Get Started
-            </Button>
-          </div>
-        )}
-        <DelegationTypeModal
-          visible={isOpenModal}
-          balance={balance}
-          delegateStatus={delegateStatus}
-          address={account ? account : ''}
-          onCancel={() => setIsOpenModal(false)}
-        />
       </VotingWalletWrapper>
     </Card>
   );

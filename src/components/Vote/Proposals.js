@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Web3 from 'web3';
-import { Pagination, Icon } from 'antd';
-import Button from '@material-ui/core/Button';
+import BigNumber from 'bignumber.js';
+import { Pagination, Icon, Tooltip, Button } from 'antd';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
 import toast from 'components/Basic/Toast';
@@ -27,10 +27,10 @@ const ProposalsWrapper = styled.div`
       color: var(--color-text-main);
     }
     .create-proposal-btn {
-      width: 150px;
-      height: 40px;
       border-radius: 5px;
-      background-image: linear-gradient(to right, #f2c265, #f7b44f);
+      background-color: var(--color-gold);
+      border: none;
+      color: #fff;
       .MuiButton-label {
         font-size: 14px;
         font-weight: 500;
@@ -72,6 +72,7 @@ const ProposalsWrapper = styled.div`
     .button {
       width: 200px;
       flex-direction: row-reverse;
+      border: none;
       span {
         font-size: 16px;
         font-weight: 900;
@@ -138,6 +139,9 @@ function Proposals({
   const [proposalThreshold, setProposalThreshold] = useState(0);
   const [maxOperation, setMaxOperation] = useState(0);
   const [delegateAddress, setDelegateAddress] = useState('');
+
+  const [notProposable, setNotProposable] = useState(false);
+
   const { account } = useWeb3React();
   const tokenContract = useToken('xvs');
   const governorBravoContract = useGovernorBravo();
@@ -150,6 +154,18 @@ function Proposals({
     setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
     setMaxOperation(Number(maxOpeartion));
   };
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      setNotProposable(
+        new BigNumber(votingWeight).lt(new BigNumber(proposalThreshold))
+      );
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [votingWeight, proposalThreshold]);
 
   useEffect(() => {
     if (address) {
@@ -187,12 +203,6 @@ function Proposals({
   };
 
   const handleShowProposalModal = async () => {
-    if (+votingWeight < +proposalThreshold) {
-      toast.error({
-        title: `You can't create proposal. Your voting power should be ${proposalThreshold} XVS at least`
-      });
-      return;
-    }
     setIsLoading(true);
     const pId = await governorBravoContract.methods
       .latestProposalIds(address)
@@ -218,12 +228,24 @@ function Proposals({
         <div className="flex align-center just-between proposal-head">
           <p className="header">Governance Proposals</p>
           {address && (
-            <Button
-              className="create-proposal-btn"
-              onClick={handleShowProposalModal}
+            <Tooltip
+              overlayStyle={{
+                backgroundColor: '#090D27',
+                borderRadius: '12px'
+              }}
+              placement="top"
+              title="You must have the voting power of at least 300K XVS to propose"
             >
-              {isLoading && <Icon type="loading" />} Create Proposal
-            </Button>
+              <Button
+                width={150}
+                height={40}
+                className="button create-proposal-btn"
+                onClick={handleShowProposalModal}
+                disabled={notProposable}
+              >
+                {isLoading && <Icon type="loading" />} Create Proposal
+              </Button>
+            </Tooltip>
           )}
         </div>
         <div className="body">
