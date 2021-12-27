@@ -109,20 +109,20 @@ const ModalContentWrapper = styled.div`
 
   .close-btn {
     position: absolute;
-    top: 24px;
-    right: 24px;
-    width: 24px;
+    top: 16px;
+    right: 16px;
+    width: 16px;
   }
 
   .header {
     text-align: center;
     width: 100%;
     border-bottom: 1px solid var(--color-bg-active);
-    padding: 24px;
-    padding-bottom: 12px;
+    padding: 16px;
+    margin-bottom: 32px;
 
     .title {
-      font-size: 24px;
+      font-size: 16px;
       line-height: 24px;
       color: var(--color-text-main);
     }
@@ -130,12 +130,16 @@ const ModalContentWrapper = styled.div`
 
   .input-wrapper {
     width: 100%;
-    padding: 24px;
+    padding: 12px;
     .input-caption {
       cursor: pointer;
-      font-size: 16px;
-      line-height: 32px;
-      margin: 8px 0;
+      font-size: 14px;
+      line-height: 21px;
+      margin-bottom: 8px;
+      color: var(--color-secondary);
+      span {
+        color: var(--color-gold);
+      }
     }
   }
 
@@ -145,10 +149,14 @@ const ModalContentWrapper = styled.div`
     margin-top: 8px;
   }
 
+  .confirm-button-wrapper {
+    padding: 0 12px;
+    width: 100%;
+  }
+
   .confirm-button {
     text-align: center;
-    min-width: 200px;
-    background: #ebbf6e;
+    background: var(--color-gold);
     border-radius: 8px;
     color: #fff;
     font-size: 14px;
@@ -172,7 +180,11 @@ const VOTE_TYPE = {
 };
 
 const getVoteTypeStringFromValue = type => {
-  return ['Against', 'For', 'Abstain'][type];
+  return [
+    ['👎', 'Against'],
+    ['👍', 'For'],
+    ['🤔️', 'Abstain']
+  ][type];
 };
 
 const getRemainTime = item => {
@@ -336,7 +348,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
                   onClick={() => handleOpenVoteConfirmModal(type)}
                 >
                   {isLoading && voteType === type && <Icon type="loading" />}{' '}
-                  {getVoteTypeStringFromValue(type)}
+                  {getVoteTypeStringFromValue(type)[1]}
                 </Button>
               );
             })}
@@ -345,8 +357,8 @@ function Proposal({ address, proposal, votingWeight, history }) {
       </Row>
       <Modal
         className="venus-modal"
-        width={450}
-        height={300}
+        width={360}
+        height={326}
         visible={confirmModalVisible}
         onCancel={() => {
           setConfirmModalVisible(false);
@@ -365,11 +377,14 @@ function Proposal({ address, proposal, votingWeight, history }) {
           />
           <div className="header">
             <span className="title">
-              Your vote: {getVoteTypeStringFromValue(voteType)}
+              {getVoteTypeStringFromValue(voteType)[0]} I vote:{' '}
+              {getVoteTypeStringFromValue(voteType)[1]}
             </span>
           </div>
           <div className="input-wrapper">
-            <div className="input-caption">Why do you vote this option</div>
+            <div className="input-caption">
+              Why do you vote <span>{getVoteTypeStringFromValue(voteType)[1]}</span>
+            </div>
             <Input.TextArea
               value={voteReason}
               placeholder="Enter your reason"
@@ -380,14 +395,16 @@ function Proposal({ address, proposal, votingWeight, history }) {
               {MAX_INPUT_LENGTH - voteReason.length}
             </div>
           </div>
-          <button
-            type="button"
-            className="confirm-button"
-            disabled={isLoading || voteReason.length > MAX_INPUT_LENGTH}
-            onClick={() => handleVote()}
-          >
-            {isLoading && <Icon type="loading" />} Confirm
-          </button>
+          <div className="confirm-button-wrapper">
+            <button
+              type="button"
+              className="confirm-button"
+              disabled={isLoading || voteReason.length > MAX_INPUT_LENGTH}
+              onClick={() => handleVote()}
+            >
+              {isLoading && <Icon type="loading" />} Confirm
+            </button>
+          </div>
         </ModalContentWrapper>
       </Modal>
     </ProposalWrapper>

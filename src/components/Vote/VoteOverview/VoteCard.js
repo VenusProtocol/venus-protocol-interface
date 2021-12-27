@@ -58,7 +58,7 @@ const VoteList = styled.div`
     cursor: pointer;
     margin-left: 8px;
     &:hover {
-      color: #ebbf6e;
+      color: var(--color-gold);
     }
   }
 
@@ -197,7 +197,7 @@ function VoteCard({
                       trigger={['click']}
                       overlayStyle={{
                         maxHeight: '500px',
-                        overflowY: 'scroll',
+                        overflowY: 'scroll'
                       }}
                     >
                       <Icon
