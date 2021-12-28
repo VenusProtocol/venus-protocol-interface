@@ -28,7 +28,7 @@ const contracts = {
     97: '0x7116894ed34FC4B27D5b84f46B70Af48397a6C24'
   },
   governorBravoDelegate: {
-    56: '',
+    56: '0x2d56dC077072B53571b8252008C60e945108c75a',
     97: '0xD6Bd8aE3f9b073488194d723CBed342AEeaDFE23'
   },
   venusLens: {
