@@ -38,7 +38,6 @@ const tokenAddressNameMap = Object.keys(
 }, {});
 
 function Vault({ settings }) {
-  // todo: test
   const [poolInfos, setPoolInfos] = useState([]);
   const [loading, setLoading] = useState(true);
 

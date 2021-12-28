@@ -86,6 +86,7 @@ const VoteOverviewWrapper = styled.div`
   }
 `;
 
+const VOTE_DISPLAY_ROWS = 4;
 function VoteOverview({ getVoters, getProposalById, match }) {
   const [proposalInfo, setProposalInfo] = useState({});
   const [agreeVotes, setAgreeVotes] = useState({});
@@ -289,7 +290,7 @@ function VoteOverview({ getVoters, getProposalById, match }) {
                           : data.votes.total
                       }
                       emptyNumber={
-                        4 -
+                        VOTE_DISPLAY_ROWS -
                         (new BigNumber(data.votes.total).isNaN()
                           ? 0
                           : data.votes.total)

@@ -82,7 +82,6 @@ export const useXvsVault = () => {
 
 export const useXvsVaultProxy = () => {
   const web3 = useWeb3();
-  // todo
   return useMemo(() => getXvsVaultContract(web3), [web3]);
 };
 

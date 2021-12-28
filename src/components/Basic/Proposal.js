@@ -263,7 +263,6 @@ function Proposal({ address, proposal, votingWeight, history }) {
 
   const handleVote = async () => {
     setIsLoading(true);
-    console.log(voteType);
     try {
       if (voteReason) {
         await governorBravoContract.methods
