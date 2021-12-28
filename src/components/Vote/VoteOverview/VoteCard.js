@@ -7,6 +7,7 @@ import commaNumber from 'comma-number';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
+import { Icon, Tooltip } from 'antd';
 
 const VoteCardWrapper = styled.div`
   width: 100%;
@@ -28,11 +29,14 @@ const VoteCardWrapper = styled.div`
       border-radius: 27px;
       margin-top: 19px;
     }
-    .agree {
+    .for {
       background: var(--color-dark-green);
     }
     .against {
       background: var(--color-purple);
+    }
+    .abstain {
+      background: var(--color-dark-grey);
     }
   }
 `;
@@ -47,6 +51,17 @@ const VoteList = styled.div`
       color: var(--color-text-secondary);
     }
   }
+
+  .reason-icon {
+    font-size: 15px;
+    color: #a1a1a1;
+    cursor: pointer;
+    margin-left: 8px;
+    &:hover {
+      color: var(--color-gold);
+    }
+  }
+
   .vote-list {
     width: 100%;
     max-height: 400px;
@@ -92,33 +107,25 @@ const VoteList = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 function VoteCard({
+  type,
   history,
   label,
-  forNumber,
-  againstNumber,
-  type,
+  voteNumber,
+  totalNumber,
   addressNumber,
   emptyNumber,
   list,
   onViewAll
 }) {
   const [isViewAll, setIsViewAll] = useState(true);
-  const [forPercent, setForPercent] = useState(0);
-  const [againstPercent, setAgainstPercent] = useState(0);
+  const [percent, setPercent] = useState(0);
 
   useEffect(() => {
-    const total = new BigNumber(forNumber).plus(new BigNumber(againstNumber));
-    setForPercent(
-      new BigNumber(forNumber * 100).div(total).isNaN()
-        ? '0'
-        : new BigNumber(forNumber * 100).div(total).toString(10)
-    );
-    setAgainstPercent(
-      new BigNumber(againstNumber * 100).div(total).isNaN()
-        ? '0'
-        : new BigNumber(againstNumber * 100).div(total).toString(10)
-    );
-  }, [forNumber, againstNumber]);
+    const percentTmp = new BigNumber(voteNumber)
+      .multipliedBy(100)
+      .div(totalNumber);
+    setPercent(percentTmp.isNaN() ? '0' : percentTmp.toString(10));
+  }, [voteNumber]);
 
   const handleAddLink = v => {
     history.push(`/vote/address/${v}`);
@@ -140,7 +147,7 @@ function VoteCard({
               {format(
                 new BigNumber(
                   Web3.utils.fromWei(
-                    type === 'agree' ? forNumber : againstNumber,
+                    voteNumber.isNaN() ? '' : voteNumber.toString(10),
                     'ether'
                   )
                 )
@@ -150,9 +157,9 @@ function VoteCard({
             </span>
           </div>
           <div
-            className={`status-bar ${type === 'agree' ? 'agree' : 'against'}`}
+            className={`status-bar ${['against', 'for', 'abstain'][type]}`}
             style={{
-              width: `${type === 'agree' ? forPercent : againstPercent}%`
+              width: `${percent}%`
             }}
           />
         </div>
@@ -175,13 +182,32 @@ function VoteCard({
                     ? `${l.label.substr(0, 5)}...${l.label.substr(-4, 4)}`
                     : ''}
                 </span>
-                <span>
-                  {format(
-                    new BigNumber(Web3.utils.fromWei(l.value, 'ether'))
-                      .dp(8, 1)
-                      .toString(10)
+                <div>
+                  <span>
+                    {format(
+                      new BigNumber(Web3.utils.fromWei(l.value, 'ether'))
+                        .dp(8, 1)
+                        .toString(10)
+                    )}
+                  </span>
+                  {l.reason && (
+                    <Tooltip
+                      placement="top"
+                      title={l.reason}
+                      trigger={['click']}
+                      overlayStyle={{
+                        maxHeight: '500px',
+                        overflowY: 'scroll'
+                      }}
+                    >
+                      <Icon
+                        className="reason-icon"
+                        type="exclamation-circle"
+                        theme="filled"
+                      />
+                    </Tooltip>
                   )}
-                </span>
+                </div>
               </div>
             ))}
             {emptyList.map(v => (
@@ -212,11 +238,11 @@ function VoteCard({
 }
 
 VoteCard.propTypes = {
+  type: PropTypes.number,
   history: PropTypes.object,
   label: PropTypes.string,
-  forNumber: PropTypes.string,
-  againstNumber: PropTypes.string,
-  type: PropTypes.string,
+  voteNumber: PropTypes.object,
+  totalNumber: PropTypes.object,
   addressNumber: PropTypes.number,
   emptyNumber: PropTypes.number,
   list: PropTypes.array,
@@ -224,11 +250,11 @@ VoteCard.propTypes = {
 };
 
 VoteCard.defaultProps = {
+  type: 0,
   history: {},
   label: '',
-  forNumber: '0',
-  againstNumber: '0',
-  type: 'agree',
+  voteNumber: new BigNumber(0),
+  totalNumber: new BigNumber(0),
   addressNumber: 0,
   emptyNumber: 0,
   list: []

@@ -28,6 +28,7 @@ const SidebarWrapper = styled.div`
   background-color: var(--color-bg-primary);
   display: flex;
   flex-direction: column;
+  margin-right: 8px;
 
   @media only screen and (max-width: 768px) {
     display: flex;

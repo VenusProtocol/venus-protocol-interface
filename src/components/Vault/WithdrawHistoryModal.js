@@ -68,7 +68,7 @@ function WithdrawHistoryModal({
   );
   return (
     <Modal
-      className="connect-modal"
+      className="venus-modal"
       width={448}
       visible={visible}
       onCancel={onCancel}

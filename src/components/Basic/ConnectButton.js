@@ -54,7 +54,6 @@ const ModalContent = styled.div`
   border-radius: 20px;
   background-color: var(--color-bg-primary);
 
-
   .close-btn {
     position: absolute;
     top: 23px;
@@ -281,7 +280,7 @@ function ConnectButton() {
             )}`}
       </Button>
       <Modal
-        className="connect-modal"
+        className="venus-modal"
         width={532}
         visible={showConnect}
         onCancel={onClose}

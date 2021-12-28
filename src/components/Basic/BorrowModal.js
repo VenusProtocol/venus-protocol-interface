@@ -219,7 +219,7 @@ function BorrowModal({ visible, asset, onCancel }) {
   }
   return (
     <Modal
-      className="connect-modal"
+      className="venus-modal"
       width={450}
       visible={visible}
       onCancel={onCancel}

@@ -11,7 +11,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { encodeParameters, getArgs } from 'utilities/common';
 import closeImg from 'assets/img/close.png';
-import { useVote } from '../../hooks/useContract';
+import { useGovernorBravo } from '../../hooks/useContract';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -170,7 +170,7 @@ function ProposalModal({
     }
   ]);
   const [activePanelKey, setActivePanelKey] = useState(['0']);
-  const voteContract = useVote();
+  const governorBravoContract = useGovernorBravo();
 
   useEffect(() => {
     if (!visible) {
@@ -231,7 +231,7 @@ function ProposalModal({
         }
         setIsLoading(true);
         try {
-          await voteContract.methods
+          await governorBravoContract.methods
             .propose(
               targetAddresses,
               values,
@@ -307,7 +307,7 @@ function ProposalModal({
   };
   return (
     <Modal
-      className="connect-modal"
+      className="venus-modal"
       {...props}
       width={900}
       visible={visible}

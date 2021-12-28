@@ -97,7 +97,7 @@ export const CardItemWrapper = styled.div`
     border: none;
     font-size: 14px;
     line-height: 36px;
-    background: #ebbf6e;
+    background: var(--color-gold);
     text-align: center;
     cursor: pointer;
   }
@@ -126,7 +126,7 @@ export const CardItemWrapper = styled.div`
     .max {
       font-size: 14px;
       line-height: 16px;
-      color: #ebbf6e;
+      color: var(--color-gold);
     }
   }
 

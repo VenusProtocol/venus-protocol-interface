@@ -91,7 +91,7 @@ body {
     }
 }
 
-.connect-modal,
+.venus-modal,
 .collateral-confirm-modal {
     .ant-modal-content {
         border-radius: 20px;
@@ -188,6 +188,9 @@ input {
 
 .flex {
     display: flex;
+}
+.flex-wrap {
+    flex-wrap: wrap;
 }
 .flex-column {
     flex-direction: column;

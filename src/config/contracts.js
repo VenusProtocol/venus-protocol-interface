@@ -7,9 +7,9 @@ const contracts = {
     56: '0x0667Eed0a0aAb930af74a3dfeDD263A73994f216',
     97: '0x7Db4f5cC3bBA3e12FF1F528D2e3417afb0a57118'
   },
-  vault: {
+  xvsStore: {
     56: '',
-    97: '0x3B07a61E1Fb663659cB032Cbb9cAc67721B7a477'
+    97: '0x081De61d3223A92C1aE34c0d8e7a0379391681A9'
   },
   vaiUnitroller: {
     56: '0x004065D34C6b18cE4370ced1CeBDE94865DbFAFE',
@@ -26,6 +26,10 @@ const contracts = {
   vote: {
     56: '0x388313BfEFEE8ddfeAD55b585F62812293Cf3A60',
     97: '0x7116894ed34FC4B27D5b84f46B70Af48397a6C24'
+  },
+  governorBravoDelegate: {
+    56: '0x2d56dC077072B53571b8252008C60e945108c75a',
+    97: '0xD6Bd8aE3f9b073488194d723CBed342AEeaDFE23'
   },
   venusLens: {
     56: '0x595e9DDfEbd47B54b996c839Ef3Dd97db3ED19bA',

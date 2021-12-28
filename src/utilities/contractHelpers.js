@@ -13,6 +13,7 @@ import vbnbAbi from '../config/abis/vbnb.json';
 import voteAbi from '../config/abis/vote.json';
 import xvsAbi from '../config/abis/xvs.json';
 import venusLensAbi from '../config/abis/venusLens.json';
+import governorBravoAbi from '../config/abis/governorBravoDelegate.json';
 import {
   getComptrollerAddress,
   getOracleAddress,
@@ -22,7 +23,8 @@ import {
   getXvsVaultAddress,
   getXvsVaultProxyAddress,
   getVoteAddress,
-  getVenusLensAddress
+  getVenusLensAddress,
+  getGovernorBravoAddress
 } from './addressHelpers';
 import * as constants from './constants';
 
@@ -95,3 +97,6 @@ export const getVenusLensContract = web3 => {
   return getContract(venusLensAbi, getVenusLensAddress(), web3);
 };
 
+export const getGovernorBravoContract = web3 => {
+  return getContract(governorBravoAbi, getGovernorBravoAddress(), web3);
+};

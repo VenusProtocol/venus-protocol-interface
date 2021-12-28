@@ -114,7 +114,7 @@ export function* asyncGetVotersRequest({ payload, resolve, reject }) {
   const { limit, filter, id } = payload;
   try {
     const response = yield call(restService, {
-      api: `/voters/${id}?limit=${limit || 3}&filter=${filter}`,
+      api: `/voters/${id}?limit=${limit || 3}`,
       method: 'GET',
       params: {}
     });

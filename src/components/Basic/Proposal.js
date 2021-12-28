@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import { Icon } from 'antd';
+import { Icon, Modal, Input } from 'antd';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
+import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Label } from './Label';
-import { useVote } from '../../hooks/useContract';
+import { useGovernorBravo } from '../../hooks/useContract';
 
 const ProposalWrapper = styled.div`
   width: 100%;
@@ -71,6 +72,19 @@ const ProposalWrapper = styled.div`
       border-radius: 50%;
       margin-right: 40px;
     }
+
+    @media only screen and (max-width: 768px) {
+      img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 40px;
+      }
+    }
+  }
+
+  .vote-actions {
+    margin-top: 10px;
     button {
       height: 32px;
       border-radius: 5px;
@@ -85,23 +99,136 @@ const ProposalWrapper = styled.div`
         margin-right: 5px;
       }
     }
-
-    @media only screen and (max-width: 768px) {
-      img {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        margin-right: 40px;
-      }
-    }
   }
 `;
 
+const ModalContentWrapper = styled.div`
+  border-radius: 20px;
+  background-color: var(--color-bg-primary);
+  color: #fff;
+
+  .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 16px;
+  }
+
+  .header {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid var(--color-bg-active);
+    padding: 16px;
+    margin-bottom: 32px;
+
+    .title {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-main);
+    }
+  }
+
+  .input-wrapper {
+    width: 100%;
+    padding: 12px;
+    .input-caption {
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 21px;
+      margin-bottom: 8px;
+      color: var(--color-secondary);
+      span {
+        color: var(--color-gold);
+      }
+    }
+  }
+
+  .input-remaining {
+    text-align: right;
+    color: #a1a1a1;
+    margin-top: 8px;
+  }
+
+  .confirm-button-wrapper {
+    padding: 0 12px;
+    width: 100%;
+  }
+
+  .confirm-button {
+    text-align: center;
+    background: var(--color-gold);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+
+  button:disabled {
+    background: #d3d3d3;
+    cursor: not-allowed;
+  }
+`;
+
+const MAX_INPUT_LENGTH = 1000;
+
+const VOTE_TYPE = {
+  AGAINST: 0,
+  FOR: 1,
+  ABSTAIN: 2
+};
+
+const getVoteTypeStringFromValue = type => {
+  return [
+    ['👎', 'Against'],
+    ['👍', 'For'],
+    ['🤔️', 'Abstain']
+  ][type];
+};
+
+const getRemainTime = item => {
+  if (item.state === 'Active') {
+    const diffBlock = item.endBlock - item.blockNumber;
+    const duration = moment.duration(
+      diffBlock < 0 ? 0 : diffBlock * 3,
+      'seconds'
+    );
+    const days = Math.floor(duration.asDays());
+    const hours = Math.floor(duration.asHours()) - days * 24;
+    const minutes =
+      Math.floor(duration.asMinutes()) - days * 24 * 60 - hours * 60;
+    return `${
+      days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''
+    } ${hours} ${hours > 1 ? 'hrs' : 'hr'} ${
+      days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''
+    } left`;
+  }
+  if (item.state === 'Pending') {
+    return `${moment(item.createdTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Active') {
+    return `${moment(item.startTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Canceled' || item.state === 'Defeated') {
+    return `${moment(item.endTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Queued') {
+    return `${moment(item.queuedTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  if (item.state === 'Expired' || item.state === 'Executed') {
+    return `${moment(item.executedTimestamp * 1000).format('MMMM DD, YYYY')}`;
+  }
+  return `${moment(item.updatedAt).format('MMMM DD, YYYY')}`;
+};
+
 function Proposal({ address, proposal, votingWeight, history }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [voteType, setVoteType] = useState('like');
+  const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
   const [voteStatus, setVoteStatus] = useState('');
-  const voteContract = useVote();
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [voteReason, setVoteReason] = useState('');
+  const governorBravoContract = useGovernorBravo();
 
   const getStatus = p => {
     if (p.state === 'Executed') {
@@ -116,43 +243,8 @@ function Proposal({ address, proposal, votingWeight, history }) {
     return p.state;
   };
 
-  const getRemainTime = item => {
-    if (item.state === 'Active') {
-      const diffBlock = item.endBlock - item.blockNumber;
-      const duration = moment.duration(
-        diffBlock < 0 ? 0 : diffBlock * 3,
-        'seconds'
-      );
-      const days = Math.floor(duration.asDays());
-      const hours = Math.floor(duration.asHours()) - days * 24;
-      const minutes =
-        Math.floor(duration.asMinutes()) - days * 24 * 60 - hours * 60;
-      return `${
-        days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''
-      } ${hours} ${hours > 1 ? 'hrs' : 'hr'} ${
-        days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''
-      } left`;
-    }
-    if (item.state === 'Pending') {
-      return `${moment(item.createdTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Active') {
-      return `${moment(item.startTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Canceled' || item.state === 'Defeated') {
-      return `${moment(item.endTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Queued') {
-      return `${moment(item.queuedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Expired' || item.state === 'Executed') {
-      return `${moment(item.executedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    return `${moment(item.updatedAt).format('MMMM DD, YYYY')}`;
-  };
-
   const getIsHasVoted = useCallback(async () => {
-    const res = await voteContract.methods
+    const res = await governorBravoContract.methods
       .getReceipt(proposal.id, address)
       .call();
     setVoteStatus(res.hasVoted ? 'voted' : 'novoted');
@@ -164,17 +256,28 @@ function Proposal({ address, proposal, votingWeight, history }) {
     }
   }, [address, proposal, getIsHasVoted]);
 
-  const handleVote = async support => {
+  const handleOpenVoteConfirmModal = type => {
+    setVoteType(type);
+    setConfirmModalVisible(true);
+  };
+
+  const handleVote = async () => {
     setIsLoading(true);
-    setVoteType(support);
     try {
-      await voteContract.methods
-        .castVote(proposal.id, support === 'like')
-        .send({ from: address });
+      if (voteReason) {
+        await governorBravoContract.methods
+          .castVoteWithReason(proposal.id, voteType, voteReason)
+          .send({ from: address });
+      } else {
+        await governorBravoContract.methods
+          .castVote(proposal.id, voteType)
+          .send({ from: address });
+      }
     } catch (error) {
       console.log('cast vote error :>> ', error);
     }
     setIsLoading(false);
+    setConfirmModalVisible(false);
   };
 
   const getTitle = descs => {
@@ -185,15 +288,16 @@ function Proposal({ address, proposal, votingWeight, history }) {
     return '';
   };
 
+  const goToProposal = () => {
+    history.push(`/vote/proposal/${proposal.id}`);
+  };
+
   return (
-    <ProposalWrapper
-      className="flex flex-column pointer"
-      onClick={() => history.push(`/vote/proposal/${proposal.id}`)}
-    >
-      <div className="title">
+    <ProposalWrapper className="flex flex-column pointer">
+      <div className="title" onClick={goToProposal}>
         <ReactMarkdown source={getTitle(proposal.description.split('\n'))} />
       </div>
-      <Row className="detail">
+      <Row className="detail" onClick={goToProposal}>
         <Column xs="12" sm="9">
           <Row>
             <Column xs="12" sm="7" className="description">
@@ -225,50 +329,89 @@ function Proposal({ address, proposal, votingWeight, history }) {
               <p className="orange-text">VOTED</p>
             </div>
           )}
-          {voteStatus &&
-            voteStatus === 'novoted' &&
-            proposal.state === 'Active' && (
-              <div
-                className="flex align-center"
-                onClick={e => e.stopPropagation()}
-              >
-                <Button
-                  className="vote-btn"
-                  disabled={
-                    votingWeight === '0' ||
-                    !proposal ||
-                    (proposal && proposal.state !== 'Active')
-                  }
-                  onClick={() => handleVote('like')}
-                >
-                  {isLoading && voteType === 'like' && <Icon type="loading" />}{' '}
-                  For
-                </Button>
-                <Button
-                  className="vote-btn"
-                  disabled={
-                    votingWeight === '0' ||
-                    !proposal ||
-                    (proposal && proposal.state !== 'Active')
-                  }
-                  onClick={() => handleVote('dislike')}
-                >
-                  {isLoading && voteType === 'dislike' && (
-                    <Icon type="loading" />
-                  )}{' '}
-                  Against
-                </Button>
-              </div>
-            )}
         </Column>
       </Row>
+      <Row className="vote-actions">
+        {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
+          <div className="flex align-center" onClick={e => e.stopPropagation()}>
+            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => {
+              return (
+                <Button
+                  key={type}
+                  className="vote-btn"
+                  disabled={
+                    votingWeight === '0' ||
+                    !proposal ||
+                    (proposal && proposal.state !== 'Active')
+                  }
+                  onClick={() => handleOpenVoteConfirmModal(type)}
+                >
+                  {isLoading && voteType === type && <Icon type="loading" />}{' '}
+                  {getVoteTypeStringFromValue(type)[1]}
+                </Button>
+              );
+            })}
+          </div>
+        )}
+      </Row>
+      <Modal
+        className="venus-modal"
+        width={360}
+        height={326}
+        visible={confirmModalVisible}
+        onCancel={() => {
+          setConfirmModalVisible(false);
+        }}
+        footer={null}
+        closable={false}
+        maskClosable
+        centered
+      >
+        <ModalContentWrapper className="flex flex-column align-center just-center">
+          <img
+            className="close-btn pointer"
+            src={closeImg}
+            alt="close"
+            onClick={() => setConfirmModalVisible(false)}
+          />
+          <div className="header">
+            <span className="title">
+              {getVoteTypeStringFromValue(voteType)[0]} I vote:{' '}
+              {getVoteTypeStringFromValue(voteType)[1]}
+            </span>
+          </div>
+          <div className="input-wrapper">
+            <div className="input-caption">
+              Why do you vote <span>{getVoteTypeStringFromValue(voteType)[1]}</span>
+            </div>
+            <Input.TextArea
+              value={voteReason}
+              placeholder="Enter your reason"
+              onChange={e => setVoteReason(e.target.value)}
+              maxLength={MAX_INPUT_LENGTH}
+            />
+            <div className="input-remaining">
+              {MAX_INPUT_LENGTH - voteReason.length}
+            </div>
+          </div>
+          <div className="confirm-button-wrapper">
+            <button
+              type="button"
+              className="confirm-button"
+              disabled={isLoading || voteReason.length > MAX_INPUT_LENGTH}
+              onClick={() => handleVote()}
+            >
+              {isLoading && <Icon type="loading" />} Confirm
+            </button>
+          </div>
+        </ModalContentWrapper>
+      </Modal>
     </ProposalWrapper>
   );
 }
 
 Proposal.propTypes = {
   address: PropTypes.string,
-  delegateAddress: PropTypes.string.isRequired,
   votingWeight: PropTypes.string.isRequired,
   proposal: PropTypes.shape({
     id: PropTypes.number,

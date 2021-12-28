@@ -21,7 +21,7 @@ import { promisify } from 'utilities';
 import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
-import { useToken, useVote } from '../../hooks/useContract';
+import { useToken, useGovernorBravo } from '../../hooks/useContract';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
@@ -86,10 +86,12 @@ const VoteOverviewWrapper = styled.div`
   }
 `;
 
-function VoteOverview({ settings, getVoters, getProposalById, match }) {
+const VOTE_DISPLAY_ROWS = 4;
+function VoteOverview({ getVoters, getProposalById, match }) {
   const [proposalInfo, setProposalInfo] = useState({});
   const [agreeVotes, setAgreeVotes] = useState({});
   const [againstVotes, setAgainstVotes] = useState({});
+  const [abstainVotes, setAbstainVotes] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isCancelLoading, setIsCancelLoading] = useState(false);
   const [status, setStatus] = useState('pending');
@@ -100,11 +102,13 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
   const [excuteEta, setExcuteEta] = useState('');
   const { account } = useWeb3React();
   const xvsTokenContract = useToken('xvs');
-  const voteContract = useVote();
+  const governorBravoContract = useGovernorBravo();
 
   const updateBalance = useCallback(async () => {
     if (proposalInfo.id) {
-      const threshold = await voteContract.methods.proposalThreshold().call();
+      const threshold = await governorBravoContract.methods
+        .proposalThreshold()
+        .call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
       const weight = await xvsTokenContract.methods
         .getCurrentVotes(proposalInfo.proposer)
@@ -132,21 +136,26 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
       if (proposalInfo.id) {
         await promisify(getVoters, {
           id: proposalInfo.id,
-          limit,
-          filter: 'for'
+          limit
         })
-          .then(res => setAgreeVotes(res.data || {}))
-          .catch(() => {
-            setAgreeVotes({});
-          });
-        await promisify(getVoters, {
-          id: proposalInfo.id,
-          limit,
-          filter: 'against'
-        })
-          .then(res => setAgainstVotes(res.data || {}))
-          .catch(() => {
-            setAgainstVotes({});
+          .then(res => {
+            // support:  0=against, 1=for, 2=abstain
+            const voters = res.data;
+            setAgainstVotes({
+              sumVotes: voters.against || '0',
+              result: voters.result.filter(item => item.support === 0)
+            });
+            setAgreeVotes({
+              sumVotes: voters.for || '0',
+              result: voters.result.filter(item => item.support === 1)
+            });
+            setAbstainVotes({
+              sumVotes: voters.abstain || '0',
+              result: voters.result.filter(item => item.support === 2)
+            });
+          })
+          .catch(e => {
+            console.log(`>> error getting voters`, e);
           });
       }
     },
@@ -154,7 +163,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
   );
 
   const getIsPossibleExcuted = async () => {
-    const proposalsRes = await voteContract.methods
+    const proposalsRes = await governorBravoContract.methods
       .proposals(proposalInfo.id)
       .call();
     setIsPossibleExcuted(proposalsRes && proposalsRes.eta <= Date.now() / 1000);
@@ -171,35 +180,37 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     }
   }, [proposalInfo]);
 
-  const loadMore = type => {
-    if (type === 'for' && agreeVotes.total) {
-      promisify(getVoters, {
-        id: proposalInfo.id,
-        limit: agreeVotes.total,
-        filter: 'for'
-      })
-        .then(res => setAgreeVotes(res.data || {}))
-        .catch(() => {
-          setAgreeVotes({});
-        });
-    } else if (againstVotes.total) {
-      promisify(getVoters, {
-        id: proposalInfo.id,
-        limit: againstVotes.total,
-        filter: 'against'
-      })
-        .then(res => setAgainstVotes(res.data || {}))
-        .catch(() => {
-          setAgainstVotes({});
-        });
-    }
+  const loadMore = filter => {
+    // By getting rid of limit we can retrieve all the votes
+    promisify(getVoters, {
+      id: proposalInfo.id,
+      filter
+    }).then(res => {
+      switch (filter) {
+        case 0: {
+          setAgainstVotes(res.data || {});
+          break;
+        }
+        case 1: {
+          setAgreeVotes(res.data || {});
+          break;
+        }
+        case 2: {
+          setAbstainVotes(res.data || {});
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   };
 
   const handleUpdateProposal = async statusType => {
     if (statusType === 'Queue') {
       setIsLoading(true);
       try {
-        await voteContract.methods
+        await governorBravoContract.methods
           .queue(proposalInfo.id)
           .send({ from: account });
         setStatus('success');
@@ -214,7 +225,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     } else if (statusType === 'Execute') {
       setIsLoading(true);
       try {
-        await voteContract.methods
+        await governorBravoContract.methods
           .execute(proposalInfo.id)
           .send({ from: account });
         setStatus('success');
@@ -229,7 +240,7 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
     } else if (statusType === 'Cancel') {
       setIsCancelLoading(true);
       try {
-        await voteContract.methods
+        await governorBravoContract.methods
           .cancel(proposalInfo.id)
           .send({ from: account });
         setCancelStatus('success');
@@ -242,6 +253,10 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
       }
     }
   };
+
+  const totalVotes = new BigNumber(agreeVotes.sumVotes || '0')
+    .plus(new BigNumber(againstVotes.sumVotes || '0'))
+    .plus(new BigNumber(abstainVotes.sumVotes || '0'));
 
   return (
     <MainLayout title="Overview">
@@ -257,76 +272,42 @@ function VoteOverview({ settings, getVoters, getProposalById, match }) {
               </Column>
             </Row>
             <Row>
-              <Column xs="12" sm="6">
-                <VoteCard
-                  label="For"
-                  forNumber={
-                    new BigNumber(agreeVotes.sumVotes).isNaN()
-                      ? '0'
-                      : agreeVotes.sumVotes
-                  }
-                  againstNumber={
-                    new BigNumber(againstVotes.sumVotes).isNaN()
-                      ? '0'
-                      : againstVotes.sumVotes
-                  }
-                  type="agree"
-                  addressNumber={
-                    new BigNumber(agreeVotes.total).isNaN()
-                      ? 0
-                      : agreeVotes.total
-                  }
-                  emptyNumber={
-                    4 -
-                    (new BigNumber(agreeVotes.total).isNaN()
-                      ? 0
-                      : agreeVotes.total)
-                  }
-                  list={
-                    agreeVotes.result &&
-                    agreeVotes.result.map(v => ({
-                      label: v.address,
-                      value: v.votes
-                    }))
-                  }
-                  onViewAll={() => loadMore('for')}
-                />
-              </Column>
-              <Column xs="12" sm="6">
-                <VoteCard
-                  label="Against"
-                  forNumber={
-                    new BigNumber(agreeVotes.sumVotes).isNaN()
-                      ? '0'
-                      : agreeVotes.sumVotes
-                  }
-                  againstNumber={
-                    new BigNumber(againstVotes.sumVotes).isNaN()
-                      ? '0'
-                      : againstVotes.sumVotes
-                  }
-                  type="against"
-                  addressNumber={
-                    new BigNumber(againstVotes.total).isNaN()
-                      ? 0
-                      : againstVotes.total
-                  }
-                  emptyNumber={
-                    4 -
-                    (new BigNumber(againstVotes.total).isNaN()
-                      ? 0
-                      : againstVotes.total)
-                  }
-                  list={
-                    againstVotes.result &&
-                    againstVotes.result.map(v => ({
-                      label: v.address,
-                      value: v.votes
-                    }))
-                  }
-                  onViewAll={() => loadMore('against')}
-                />
-              </Column>
+              {[
+                { label: 'For', votes: agreeVotes, filterType: 1 },
+                { label: 'Against', votes: againstVotes, filterType: 0 },
+                { label: 'Abstain', votes: abstainVotes, filterType: 2 }
+              ].map((data, i) => {
+                return (
+                  <Column key={i} xs="12" md="12" lg="4">
+                    <VoteCard
+                      type={data.filterType}
+                      label={data.label}
+                      voteNumber={new BigNumber(data.votes.sumVotes)}
+                      totalNumber={totalVotes}
+                      addressNumber={
+                        new BigNumber(data.votes.total).isNaN()
+                          ? 0
+                          : data.votes.total
+                      }
+                      emptyNumber={
+                        VOTE_DISPLAY_ROWS -
+                        (new BigNumber(data.votes.total).isNaN()
+                          ? 0
+                          : data.votes.total)
+                      }
+                      list={
+                        data.votes.result &&
+                        data.votes.result.map(v => ({
+                          label: v.address,
+                          value: v.votes,
+                          reason: v.reason
+                        }))
+                      }
+                      onViewAll={() => loadMore(data.filterType)}
+                    />
+                  </Column>
+                );
+              })}
             </Row>
             <div className="vote-status-update">
               {proposalInfo.state !== 'Executed' &&
