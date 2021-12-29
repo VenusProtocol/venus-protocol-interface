@@ -4,6 +4,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Steps, Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
+import { FORMAT_STRING } from '../../../utilities/time';
 
 const ProposalHistoryWrapper = styled.div`
   width: 100%;
@@ -110,7 +111,9 @@ function ProposalHistory({ proposalInfo }) {
               title="Created"
               description={
                 proposalInfo.createdTimestamp
-                  ? moment(proposalInfo.createdTimestamp * 1000).format('LLL')
+                  ? moment(proposalInfo.createdTimestamp * 1000).format(
+                      FORMAT_STRING
+                    )
                   : ''
               }
               icon={
@@ -125,7 +128,9 @@ function ProposalHistory({ proposalInfo }) {
               title="Active"
               description={
                 proposalInfo.startTimestamp
-                  ? moment(proposalInfo.startTimestamp * 1000).format('LLL')
+                  ? moment(proposalInfo.startTimestamp * 1000).format(
+                      FORMAT_STRING
+                    )
                   : ''
               }
               icon={
@@ -151,11 +156,13 @@ function ProposalHistory({ proposalInfo }) {
               }
               description={
                 proposalInfo.endTimestamp
-                  ? moment(proposalInfo.endTimestamp * 1000).format('LLL')
+                  ? moment(proposalInfo.endTimestamp * 1000).format(
+                      FORMAT_STRING
+                    )
                   : `${
                       proposalInfo.cancelTimestamp
                         ? moment(proposalInfo.cancelTimestamp * 1000).format(
-                            'LLL'
+                            FORMAT_STRING
                           )
                         : ''
                     }`
@@ -182,7 +189,7 @@ function ProposalHistory({ proposalInfo }) {
                   description={
                     proposalInfo.queuedTimestamp
                       ? moment(proposalInfo.queuedTimestamp * 1000).format(
-                          'LLL'
+                          FORMAT_STRING
                         )
                       : ''
                   }
@@ -210,7 +217,7 @@ function ProposalHistory({ proposalInfo }) {
                   description={
                     proposalInfo.executedTimestamp
                       ? moment(proposalInfo.executedTimestamp * 1000).format(
-                          'LLL'
+                          FORMAT_STRING
                         )
                       : ''
                   }

@@ -8,9 +8,9 @@ import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
-import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
+import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useComptroller, useVenusLens } from '../../hooks/useContract';
 
@@ -165,10 +165,7 @@ function VotingWallet({
           <div className="flex align-center just-between">
             <div className="flex align-center">
               <img src={coinImg} alt="coin" />
-              <p className="content-value">
-                {getBefore(format(balance))}
-                <span>{getAfter(format(balance))}</span>
-              </p>
+              <p className="content-value">{format(balance)}</p>
             </div>
           </div>
         </div>
@@ -180,18 +177,12 @@ function VotingWallet({
                 <p className="content-label">Venus Earned</p>
                 <div className="flex align-center">
                   <img src={coinImg} alt="coin" />
-                  <p className="content-value">
-                    {getBefore(format(earnedBalance))}
-                    <span>{getAfter(format(earnedBalance))}</span>
-                  </p>
+                  <p className="content-value">{format(earnedBalance)}</p>
                 </div>
                 <div className="mint-content-label">VAI Mint Earned</div>
                 <div className="flex align-center">
                   <img src={coinImg} alt="coin" />
-                  <p className="content-value">
-                    {getBefore(format(vaiMint))}
-                    <span>{getAfter(format(vaiMint))}</span>
-                  </p>
+                  <p className="content-value">{format(vaiMint)}</p>
                 </div>
               </div>
               {account && (

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Markdown from 'react-remarkable';
 import moment from 'moment';
+import Markdown from 'react-remarkable';
 import { Card } from 'components/Basic/Card';
+import { getRemainingTime, FORMAT_STRING } from '../../../utilities/time';
 
 const ProposalInfoWrapper = styled.div`
   width: 100%;
@@ -73,42 +74,6 @@ function ProposalInfo({ proposalInfo }) {
     return proposal.state;
   };
 
-  const getRemainTime = item => {
-    if (item.state === 'Active') {
-      const diffBlock = item.endBlock - item.blockNumber;
-      const duration = moment.duration(
-        diffBlock < 0 ? 0 : diffBlock * 3,
-        'seconds'
-      );
-      const days = Math.floor(duration.asDays());
-      const hours = Math.floor(duration.asHours()) - days * 24;
-      const minutes =
-        Math.floor(duration.asMinutes()) - days * 24 * 60 - hours * 60;
-
-      return `${
-        days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''
-      } ${hours} ${hours > 1 ? 'hrs' : 'hr'} ${
-        days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''
-      } left`;
-    }
-    if (item.state === 'Pending') {
-      return `${moment(item.createdTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Active') {
-      return `${moment(item.startTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Canceled' || item.state === 'Defeated') {
-      return `${moment(item.endTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Queued') {
-      return `${moment(item.queuedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    if (item.state === 'Expired' || item.state === 'Executed') {
-      return `${moment(item.executedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-    }
-    return `${moment(item.updatedAt).format('MMMM DD, YYYY')}`;
-  };
-
   return (
     <Card>
       <ProposalInfoWrapper>
@@ -122,7 +87,7 @@ function ProposalInfo({ proposalInfo }) {
           <p>
             {`${proposalInfo.id} ${getStatus(proposalInfo)} ${moment(
               proposalInfo.updatedAt
-            ).format('MMMM DD, YYYY')}`}
+            ).format(FORMAT_STRING)}`}
           </p>
           <div
             className={`flex align-center just-center status ${getStatus(
@@ -131,7 +96,7 @@ function ProposalInfo({ proposalInfo }) {
           >
             {getStatus(proposalInfo)}
           </div>
-          <div className="left-time">{getRemainTime(proposalInfo)}</div>
+          <div className="left-time">{getRemainingTime(proposalInfo)}</div>
         </div>
       </ProposalInfoWrapper>
     </Card>
