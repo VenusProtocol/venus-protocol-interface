@@ -12,6 +12,7 @@ import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Label } from './Label';
 import { useGovernorBravo } from '../../hooks/useContract';
+import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';
 
 const ProposalWrapper = styled.div`
   width: 100%;
@@ -37,6 +38,10 @@ const ProposalWrapper = styled.div`
     @media only screen and (max-width: 768px) {
       flex-direction: column;
     }
+  }
+
+  .description-item {
+    margin-right: 4px;
   }
 
   .orange-text {
@@ -187,41 +192,6 @@ const getVoteTypeStringFromValue = type => {
   ][type];
 };
 
-const getRemainTime = item => {
-  if (item.state === 'Active') {
-    const diffBlock = item.endBlock - item.blockNumber;
-    const duration = moment.duration(
-      diffBlock < 0 ? 0 : diffBlock * 3,
-      'seconds'
-    );
-    const days = Math.floor(duration.asDays());
-    const hours = Math.floor(duration.asHours()) - days * 24;
-    const minutes =
-      Math.floor(duration.asMinutes()) - days * 24 * 60 - hours * 60;
-    return `${
-      days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''
-    } ${hours} ${hours > 1 ? 'hrs' : 'hr'} ${
-      days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''
-    } left`;
-  }
-  if (item.state === 'Pending') {
-    return `${moment(item.createdTimestamp * 1000).format('MMMM DD, YYYY')}`;
-  }
-  if (item.state === 'Active') {
-    return `${moment(item.startTimestamp * 1000).format('MMMM DD, YYYY')}`;
-  }
-  if (item.state === 'Canceled' || item.state === 'Defeated') {
-    return `${moment(item.endTimestamp * 1000).format('MMMM DD, YYYY')}`;
-  }
-  if (item.state === 'Queued') {
-    return `${moment(item.queuedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-  }
-  if (item.state === 'Expired' || item.state === 'Executed') {
-    return `${moment(item.executedTimestamp * 1000).format('MMMM DD, YYYY')}`;
-  }
-  return `${moment(item.updatedAt).format('MMMM DD, YYYY')}`;
-};
-
 function Proposal({ address, proposal, votingWeight, history }) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
@@ -301,17 +271,25 @@ function Proposal({ address, proposal, votingWeight, history }) {
         <Column xs="12" sm="9">
           <Row>
             <Column xs="12" sm="7" className="description">
-              <Label size="16">{proposal.id}</Label>
-              <Label size="16">{proposal.state}</Label>
-              <Label size="16">
-                {moment(proposal.createdAt).format('MMMM Do, YYYY')}
+              <Label className="description-item" size="16">
+                {proposal.id}
+              </Label>
+              <Label className="description-item" size="16">
+                {proposal.state}
+              </Label>
+              <Label className="description-item" size="16">
+                {moment(proposal.createdAt).format(FORMAT_STRING)}
               </Label>
             </Column>
             <Column xs="12" sm="5" className="description">
-              <div className={`orange-text ${getStatus(proposal)}-btn`}>
+              <div
+                className={`description-item orange-text ${getStatus(
+                  proposal
+                )}-btn`}
+              >
                 {getStatus(proposal)}
               </div>
-              <Label size="16">{getRemainTime(proposal)}</Label>
+              <Label size="16">{getRemainingTime(proposal)}</Label>
             </Column>
           </Row>
         </Column>
@@ -382,7 +360,8 @@ function Proposal({ address, proposal, votingWeight, history }) {
           </div>
           <div className="input-wrapper">
             <div className="input-caption">
-              Why do you vote <span>{getVoteTypeStringFromValue(voteType)[1]}</span>
+              Why do you vote{' '}
+              <span>{getVoteTypeStringFromValue(voteType)[1]}</span>
             </div>
             <Input.TextArea
               value={voteReason}

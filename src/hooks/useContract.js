@@ -82,7 +82,7 @@ export const useXvsVault = () => {
 
 export const useXvsVaultProxy = () => {
   const web3 = useWeb3();
-  return useMemo(() => getXvsVaultContract(web3), [web3]);
+  return useMemo(() => getXvsVaultProxyContract(web3), [web3]);
 };
 
 export const useGovernorBravo = () => {

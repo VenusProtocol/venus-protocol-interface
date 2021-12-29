@@ -87,11 +87,21 @@ const VoteOverviewWrapper = styled.div`
 `;
 
 const VOTE_DISPLAY_ROWS = 4;
+
 function VoteOverview({ getVoters, getProposalById, match }) {
   const [proposalInfo, setProposalInfo] = useState({});
-  const [agreeVotes, setAgreeVotes] = useState({});
-  const [againstVotes, setAgainstVotes] = useState({});
-  const [abstainVotes, setAbstainVotes] = useState({});
+  const [agreeVotes, setAgreeVotes] = useState({
+    sumVotes: 0,
+    result: []
+  });
+  const [againstVotes, setAgainstVotes] = useState({
+    sumVotes: 0,
+    result: []
+  });
+  const [abstainVotes, setAbstainVotes] = useState({
+    sumVotes: 0,
+    result: []
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [isCancelLoading, setIsCancelLoading] = useState(false);
   const [status, setStatus] = useState('pending');
@@ -131,36 +141,58 @@ function VoteOverview({ getVoters, getProposalById, match }) {
     }
   }, [match, getProposalById]);
 
-  const loadVotes = useCallback(
-    async limit => {
-      if (proposalInfo.id) {
-        await promisify(getVoters, {
-          id: proposalInfo.id,
-          limit
+  const loadVotes = async ({ limit, filter, offset }) => {
+    if (proposalInfo.id) {
+      await promisify(getVoters, {
+        id: proposalInfo.id,
+        limit,
+        filter,
+        offset
+      })
+        .then(res => {
+          // support: 0=against, 1=for, 2=abstain
+          const { sumVotes, result, total } = res.data;
+          switch (filter) {
+            case 0: {
+              setAgainstVotes({
+                sumVotes: sumVotes.against,
+                result,
+                total
+              });
+              break;
+            }
+            case 1: {
+              setAgreeVotes({
+                sumVotes: sumVotes.for,
+                result,
+                total
+              });
+              break;
+            }
+            case 2: {
+              setAbstainVotes({
+                sumVotes: sumVotes.abstain,
+                result,
+                total
+              });
+              break;
+            }
+            default: {
+              break;
+            }
+          }
         })
-          .then(res => {
-            // support:  0=against, 1=for, 2=abstain
-            const voters = res.data;
-            setAgainstVotes({
-              sumVotes: voters.against || '0',
-              result: voters.result.filter(item => item.support === 0)
-            });
-            setAgreeVotes({
-              sumVotes: voters.for || '0',
-              result: voters.result.filter(item => item.support === 1)
-            });
-            setAbstainVotes({
-              sumVotes: voters.abstain || '0',
-              result: voters.result.filter(item => item.support === 2)
-            });
-          })
-          .catch(e => {
-            console.log(`>> error getting voters`, e);
-          });
-      }
-    },
-    [getVoters, proposalInfo]
-  );
+        .catch(e => {
+          console.log(`>> error getting voters`, e);
+        });
+    }
+  };
+
+  useEffect(async () => {
+    await loadVotes({ limit: VOTE_DISPLAY_ROWS, filter: 0 });
+    await loadVotes({ limit: VOTE_DISPLAY_ROWS, filter: 1 });
+    await loadVotes({ limit: VOTE_DISPLAY_ROWS, filter: 2 });
+  }, [getVoters, proposalInfo]);
 
   const getIsPossibleExcuted = async () => {
     const proposalsRes = await governorBravoContract.methods
@@ -171,40 +203,10 @@ function VoteOverview({ getVoters, getProposalById, match }) {
   };
 
   useEffect(() => {
-    loadVotes(4);
-  }, [loadVotes]);
-
-  useEffect(() => {
     if (proposalInfo.id) {
       getIsPossibleExcuted();
     }
   }, [proposalInfo]);
-
-  const loadMore = filter => {
-    // By getting rid of limit we can retrieve all the votes
-    promisify(getVoters, {
-      id: proposalInfo.id,
-      filter
-    }).then(res => {
-      switch (filter) {
-        case 0: {
-          setAgainstVotes(res.data || {});
-          break;
-        }
-        case 1: {
-          setAgreeVotes(res.data || {});
-          break;
-        }
-        case 2: {
-          setAbstainVotes(res.data || {});
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-    });
-  };
 
   const handleUpdateProposal = async statusType => {
     if (statusType === 'Queue') {
@@ -254,9 +256,9 @@ function VoteOverview({ getVoters, getProposalById, match }) {
     }
   };
 
-  const totalVotes = new BigNumber(agreeVotes.sumVotes || '0')
-    .plus(new BigNumber(againstVotes.sumVotes || '0'))
-    .plus(new BigNumber(abstainVotes.sumVotes || '0'));
+  const totalVotes = new BigNumber(agreeVotes.sumVotes || 0)
+    .plus(new BigNumber(againstVotes.sumVotes || 0))
+    .plus(new BigNumber(abstainVotes.sumVotes || 0));
 
   return (
     <MainLayout title="Overview">
@@ -277,33 +279,22 @@ function VoteOverview({ getVoters, getProposalById, match }) {
                 { label: 'Against', votes: againstVotes, filterType: 0 },
                 { label: 'Abstain', votes: abstainVotes, filterType: 2 }
               ].map((data, i) => {
+                const { sumVotes, result, total } = data.votes;
                 return (
                   <Column key={i} xs="12" md="12" lg="4">
                     <VoteCard
                       type={data.filterType}
                       label={data.label}
-                      voteNumber={new BigNumber(data.votes.sumVotes)}
+                      voteNumber={new BigNumber(sumVotes)}
                       totalNumber={totalVotes}
-                      addressNumber={
-                        new BigNumber(data.votes.total).isNaN()
-                          ? 0
-                          : data.votes.total
-                      }
-                      emptyNumber={
-                        VOTE_DISPLAY_ROWS -
-                        (new BigNumber(data.votes.total).isNaN()
-                          ? 0
-                          : data.votes.total)
-                      }
-                      list={
-                        data.votes.result &&
-                        data.votes.result.map(v => ({
-                          label: v.address,
-                          value: v.votes,
-                          reason: v.reason
-                        }))
-                      }
-                      onViewAll={() => loadMore(data.filterType)}
+                      addressNumber={total}
+                      emptyNumber={VOTE_DISPLAY_ROWS - total}
+                      list={result.map(v => ({
+                        label: v.address,
+                        value: v.votes,
+                        reason: v.reason
+                      }))}
+                      onViewAll={() => loadVotes({ filter: data.filterType })}
                     />
                   </Column>
                 );
@@ -396,19 +387,13 @@ function VoteOverview({ getVoters, getProposalById, match }) {
 
 VoteOverview.propTypes = {
   match: PropTypes.object,
-  settings: PropTypes.object,
   getProposalById: PropTypes.func.isRequired,
   getVoters: PropTypes.func.isRequired
 };
 
 VoteOverview.defaultProps = {
-  match: {},
-  settings: {}
+  match: {}
 };
-
-const mapStateToProps = ({ account }) => ({
-  settings: account.setting
-});
 
 const mapDispatchToProps = dispatch => {
   const { getProposalById, getVoters } = accountActionCreators;
@@ -424,5 +409,5 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(mapDispatchToProps)
 )(VoteOverview);

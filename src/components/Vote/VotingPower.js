@@ -114,16 +114,6 @@ function VotingPower({
 
   const [isOpenDelegationModal, setIsOpenDelegationModal] = useState(false);
 
-  const getBefore = value => {
-    const position = value.indexOf('.');
-    return position !== -1 ? value.slice(0, position + 5) : value;
-  };
-
-  const getAfter = value => {
-    const position = value.indexOf('.');
-    return position !== -1 ? value.slice(position + 5) : null;
-  };
-
   return (
     <>
       <Row>
@@ -133,10 +123,7 @@ function VotingPower({
               <Row className="flex align-center flex-wrap">
                 <Column className="voting-weight" xs="12" sm="12" md="5">
                   <p className="title">Voting Weight</p>
-                  <p className="content">
-                    {getBefore(format(power))}
-                    <span>{getAfter(format(power))}</span>
-                  </p>
+                  <p className="content">{format(power)}</p>
                 </Column>
                 <Column xs="12" sm="12" md="7" className=" voting-hint">
                   <Row className="flex flex-wrap align-center">

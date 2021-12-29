@@ -28,8 +28,11 @@ const HeaderWrapper = styled.div`
 
 function Header({ title, history }) {
   const handleRoute = () => {
-    if (title === 'Overview' || title === 'Details') {
+    if (title === 'Details') {
       history.go(-1);
+    }
+    if (title === 'Overview') {
+      history.push('/vote');
     }
     if (title === 'Market') {
       history.push('/market');

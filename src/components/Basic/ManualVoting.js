@@ -47,15 +47,6 @@ const ManualVotingWrapper = styled.div`
 
 function ManualVoting({ address, balance, isLoading }) {
   const antIcon = <Icon type="loading" style={{ fontSize: 64 }} spin />;
-  const getBefore = value => {
-    const position = value.indexOf('.');
-    return position !== -1 ? value.slice(0, position + 5) : value;
-  };
-
-  const getAfter = value => {
-    const position = value.indexOf('.');
-    return position !== -1 ? value.slice(position + 5) : null;
-  };
 
   return (
     <ManualVotingWrapper>
@@ -63,12 +54,7 @@ function ManualVoting({ address, balance, isLoading }) {
         <p>Confirm Transaction</p>
       </div>
       <div className="flex flex-column align-center just-center manual-voting-section">
-        <p className="voting-count">
-          {getBefore(balance)}
-          <span>{getAfter(balance)}</span>
-          {` `}
-          Votes
-        </p>
+        <p className="voting-count">{balance} Votes</p>
         <span className="voting-address">
           Manual Voting from{' '}
           {`${address.substr(0, 4)}...${address.substr(address.length - 4, 4)}`}
