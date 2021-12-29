@@ -280,7 +280,6 @@ function VoteOverview({ getVoters, getProposalById, match }) {
                 { label: 'Abstain', votes: abstainVotes, filterType: 2 }
               ].map((data, i) => {
                 const { sumVotes, result, total } = data.votes;
-                const currentVoters = result.length;
                 return (
                   <Column key={i} xs="12" md="12" lg="4">
                     <VoteCard
@@ -288,7 +287,7 @@ function VoteOverview({ getVoters, getProposalById, match }) {
                       label={data.label}
                       voteNumber={new BigNumber(sumVotes)}
                       totalNumber={totalVotes}
-                      addressNumber={currentVoters}
+                      addressNumber={total}
                       emptyNumber={VOTE_DISPLAY_ROWS - total}
                       list={result.map(v => ({
                         label: v.address,

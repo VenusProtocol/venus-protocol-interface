@@ -13,7 +13,7 @@ const VoteCardWrapper = styled.div`
   width: 100%;
   background-color: var(--color-bg-primary);
   border-radius: 20px;
-  padding: 38px 41px;
+  padding: 24px;
 
   .header-card {
     width: 100%;
@@ -93,7 +93,6 @@ const VoteList = styled.div`
 
   .view-all {
     width: 100%;
-    padding: 15px 0;
     margin-top: 21px;
 
     p {
@@ -101,6 +100,13 @@ const VoteList = styled.div`
       font-weight: bold;
       color: var(--color-text-main);
     }
+  }
+
+  .loading-icon {
+    color: #fff;
+    font-size: 36px;
+    padding-top: 15px;
+    width: 100%;
   }
 `;
 
@@ -119,6 +125,8 @@ function VoteCard({
 }) {
   const [isViewAll, setIsViewAll] = useState(true);
   const [percent, setPercent] = useState(0);
+  
+  const remainingToLoad = addressNumber - list.length;
 
   useEffect(() => {
     const percentTmp = new BigNumber(voteNumber)
@@ -220,7 +228,11 @@ function VoteCard({
               </div>
             ))}
           </div>
-          {isViewAll && addressNumber > 3 && (
+          {/* view all is clicked and there are still empty lines to fill up */}
+          {!isViewAll && remainingToLoad > 0 && (
+            <Icon className="loading-icon" type="loading" />
+          )}
+          {isViewAll && addressNumber > 3 && remainingToLoad > 0 && (
             <div
               className="flex align-center just-center view-all pointer"
               onClick={() => {
