@@ -3,6 +3,9 @@ import moment from 'moment';
 export const FORMAT_STRING = 'lll';
 
 export const formatTimeInSeconds = sec => {
+  if (!sec) {
+    return '-';
+  }
   return `${moment(sec * 1000).format(FORMAT_STRING)}`;
 };
 

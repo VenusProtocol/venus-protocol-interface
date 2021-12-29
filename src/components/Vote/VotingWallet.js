@@ -113,16 +113,6 @@ function VotingWallet({
     setIsLoadingEarn(false);
   }, [earnedBalance]);
 
-  const getBefore = value => {
-    const position = value.indexOf('.');
-    return position !== -1 ? value.slice(0, position + 5) : value;
-  };
-
-  const getAfter = value => {
-    const position = value.indexOf('.');
-    return position !== -1 ? value.slice(position + 5) : null;
-  };
-
   const handleCollect = async () => {
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
     const vTokensBalanceInfos = await venusLensContract.methods

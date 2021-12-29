@@ -125,7 +125,7 @@ function VoteCard({
 }) {
   const [isViewAll, setIsViewAll] = useState(true);
   const [percent, setPercent] = useState(0);
-  
+
   const remainingToLoad = addressNumber - list.length;
 
   useEffect(() => {
@@ -232,7 +232,7 @@ function VoteCard({
           {!isViewAll && remainingToLoad > 0 && (
             <Icon className="loading-icon" type="loading" />
           )}
-          {isViewAll && addressNumber > 3 && remainingToLoad > 0 && (
+          {isViewAll && remainingToLoad > 0 && (
             <div
               className="flex align-center just-center view-all pointer"
               onClick={() => {
