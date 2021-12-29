@@ -170,14 +170,17 @@ function DelegationTypeModal({
               )}
             </div>
             <div className="description">
-              This option allows you to delegate your votes to another Ethereum
-              address. You never send Venus, only your voting rights, and can
-              undelegate at any time.
+              This Option allows you to delegate your votes to another trusted
+              BSC address. You are not sending your XVS Tokens, you are only
+              passing your voting power and you can undelegate at any time.
             </div>
           </div>
         </div>
         {child === 'delegate' && (
-          <DelegationVoting isLoading={isLoading} onDelegate={handleDelegateVoting} />
+          <DelegationVoting
+            isLoading={isLoading}
+            onDelegate={handleDelegateVoting}
+          />
         )}
         {child === 'manual' && (
           <ManualVoting
