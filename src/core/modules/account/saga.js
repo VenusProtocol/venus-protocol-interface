@@ -111,10 +111,17 @@ export function* asyncGetProposalByIdRequest({ payload, resolve, reject }) {
   }
 }
 export function* asyncGetVotersRequest({ payload, resolve, reject }) {
-  const { limit, filter, id } = payload;
+  const { limit, filter, id, offset } = payload;
   try {
+    let api = `/voters/${id}?filter=${filter}`;
+    if (limit) {
+      api += `&limit=${limit}`;
+    }
+    if (offset) {
+      api += `&offset=${offset}`;
+    }
     const response = yield call(restService, {
-      api: `/voters/${id}?limit=${limit || 3}`,
+      api,
       method: 'GET',
       params: {}
     });
