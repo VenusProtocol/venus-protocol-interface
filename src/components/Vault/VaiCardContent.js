@@ -109,13 +109,15 @@ function VaiCardContent({
         <Col lg={{ span: 6 }} xs={{ span: 24 }}>
           <CardItemWrapper>
             <div className="card-item claim-rewards">
-              <div className="card-title">Available Rewards</div>
-              <div className="center-amount">
-                {userPendingReward
-                  .div(1e18)
-                  .dp(6, 1)
-                  .toString(10)}{' '}
-                XVS
+              <div>
+                <div className="card-title">Available Rewards</div>
+                <div className="center-amount">
+                  {userPendingReward
+                    .div(1e18)
+                    .dp(6, 1)
+                    .toString(10)}{' '}
+                  XVS
+                </div>
               </div>
               <button
                 type="button"
@@ -175,21 +177,21 @@ function VaiCardContent({
                     </span>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="button claim-button"
-                  disabled={
-                    !withdrawAmount.gt(0) ||
-                    !userVaiStakedAmount.gt(0) ||
-                    !account
-                  }
-                  onClick={() => {
-                    handleWithdrawVAI();
-                  }}
-                >
-                  {isWithdrawLoading && <Icon type="loading" />} Withdraw
-                </button>
               </div>
+              <button
+                type="button"
+                className="button claim-button"
+                disabled={
+                  !withdrawAmount.gt(0) ||
+                  !userVaiStakedAmount.gt(0) ||
+                  !account
+                }
+                onClick={() => {
+                  handleWithdrawVAI();
+                }}
+              >
+                {isWithdrawLoading && <Icon type="loading" />} Withdraw
+              </button>
             </div>
           </CardItemWrapper>
         </Col>
@@ -230,22 +232,22 @@ function VaiCardContent({
                     MAX
                   </span>
                 </div>
-                <button
-                  type="button"
-                  disabled={!stakeAmount.gt(0) || !account}
-                  className="button stake-button"
-                  onClick={() => {
-                    if (userVaiAllowance.gt(0)) {
-                      handleStakeVAI();
-                    } else {
-                      handleApprove();
-                    }
-                  }}
-                >
-                  {isStakeLoading && <Icon type="loading" />}
-                  {userVaiAllowance.gt(0) ? 'Stake' : 'Enable'}
-                </button>
               </div>
+              <button
+                type="button"
+                disabled={!stakeAmount.gt(0) || !account}
+                className="button stake-button"
+                onClick={() => {
+                  if (userVaiAllowance.gt(0)) {
+                    handleStakeVAI();
+                  } else {
+                    handleApprove();
+                  }
+                }}
+              >
+                {isStakeLoading && <Icon type="loading" />}
+                {userVaiAllowance.gt(0) ? 'Stake' : 'Enable'}
+              </button>
             </div>
           </CardItemWrapper>
         </Col>
