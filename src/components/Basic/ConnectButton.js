@@ -47,7 +47,6 @@ const ConnectButtonWrapper = styled.div`
       font-size: 13px;
       font-weight: 500;
       color: var(--color-text-main);
-      text-transform: capitalize;
 
       @media only screen and (max-width: 768px) {
         font-size: 12px;
