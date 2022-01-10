@@ -49,8 +49,8 @@ class App extends React.Component {
         <IntlProvider locale={lang} messages={message}>
           <Provider store={store}>
             <RefreshContextProvider>
-              <MarketContextProvider>
-                <VaiContextProvider>
+              <VaiContextProvider>
+                <MarketContextProvider>
                   <BrowserRouter>
                     <ToastContainer
                       autoClose={8000}
@@ -101,8 +101,8 @@ class App extends React.Component {
                       <Redirect from="/" to="/dashboard" />
                     </Switch>
                   </BrowserRouter>
-                </VaiContextProvider>
-              </MarketContextProvider>
+                </MarketContextProvider>
+              </VaiContextProvider>
             </RefreshContextProvider>
           </Provider>
         </IntlProvider>
