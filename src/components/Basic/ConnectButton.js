@@ -12,11 +12,14 @@ import closeImg from 'assets/img/close.png';
 import logoImg from 'assets/img/logo.png';
 import { useWeb3React } from '@web3-react/core';
 import Button from '@material-ui/core/Button';
+import Davatar from '@davatar/react';
 import toast from 'components/Basic/Toast';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { ConnectorNames } from '../../utilities/connectors';
 import useAuth from '../../hooks/useAuth';
+import { shortenAddress } from '../../utilities/addressHelpers';
+import { useENS } from '../../hooks/useENS';
 
 const ConnectButtonWrapper = styled.div`
   display: flex;
@@ -28,6 +31,9 @@ const ConnectButtonWrapper = styled.div`
   }
 
   .connect-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 114px;
     height: 30px;
     border-radius: 5px;
@@ -243,6 +249,7 @@ function ConnectButton() {
   const { login, logout } = useAuth();
   const { account } = useWeb3React();
   const [showConnect, setShowConnect] = useState(false);
+  const { ensName } = useENS(account);
 
   const onClose = () => {
     setShowConnect(false);
@@ -272,12 +279,8 @@ function ConnectButton() {
           onOpen();
         }}
       >
-        {!account
-          ? 'Connect'
-          : `${account.substr(0, 6)}...${account.substr(
-              account.length - 4,
-              4
-            )}`}
+        <Davatar size={20} address={account} />{' '}
+        <span>{!account ? 'Connect' : ensName || shortenAddress(account)}</span>
       </Button>
       <Modal
         className="venus-modal"
