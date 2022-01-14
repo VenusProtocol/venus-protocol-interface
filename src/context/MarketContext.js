@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
+import { indexBy } from '../utilities/common';
 import useWeb3 from '../hooks/useWeb3';
 import { useVaiUser } from '../hooks/useVaiUser';
 import { useComptroller, useVenusLens } from '../hooks/useContract';
@@ -71,13 +72,6 @@ const MarketContextProvider = ({ children }) => {
 
   useEffect(() => {
     let isMounted = true;
-
-    const indexBy = (indexFn, arr) => {
-      return arr.reduce((result, item) => {
-        result[indexFn(item)] = item;
-        return result;
-      }, {});
-    }
 
     const getXvsBalance = balances => {
       const vxvs = constants.CONTRACT_VBEP_ADDRESS['xvs'].address.toLowerCase();
@@ -154,7 +148,7 @@ const MarketContextProvider = ({ children }) => {
               }
             }
 
-            const asset = {
+            return {
               key: index,
               id: item.id,
               img: item.asset,
@@ -183,8 +177,6 @@ const MarketContextProvider = ({ children }) => {
               collateral,
               percentOfLimit
             };
-
-            return asset;
           }
         )
 
