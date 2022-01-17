@@ -111,19 +111,6 @@ export const currencyFormatter = labelValue => {
     unit = 1.0e3;
   }
   return `$${format(new BigNumber(`${abs / unit}`).dp(2, 1))}${suffix}`;
-  // return Math.abs(Number(labelValue)) >= 1.0e9
-  //   ? `$${format(
-  //       new BigNumber(`${Math.abs(Number(labelValue)) / 1.0e9}`).dp(2, 1)
-  //     )}B`
-  //   : Math.abs(Number(labelValue)) >= 1.0e6
-  //   ? `$${format(
-  //       new BigNumber(`${Math.abs(Number(labelValue)) / 1.0e6}`).dp(2, 1)
-  //     )}M`
-  //   : Math.abs(Number(labelValue)) >= 1.0e3
-  //   ? `$${format(
-  //       new BigNumber(`${Math.abs(Number(labelValue)) / 1.0e3}`).dp(2, 1)
-  //     )}K`
-  //   : `$${format(new BigNumber(`${Math.abs(Number(labelValue))}`).dp(2, 1))}`;
 };
 
 export const formatApy = apy => {
@@ -133,4 +120,19 @@ export const formatApy = apy => {
   } else {
     return 'Infinity';
   }
-}
+};
+
+/**
+ * Takes an index function and an array and returns an object with indexFn(item)
+ * as keys and array items as values.
+ *
+ * @param {object => string} indexFn
+ * @param {array} arr
+ * @returns An object with the keys derived as indexFn(array item)
+ */
+export const indexBy = (indexFn, arr) => {
+  return arr.reduce((result, item) => {
+    result[indexFn(item)] = item;
+    return result;
+  }, {});
+};

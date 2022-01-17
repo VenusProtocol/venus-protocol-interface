@@ -3,12 +3,8 @@ import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
+import { indexBy } from '../utilities/common';
 import useWeb3 from '../hooks/useWeb3';
-import useBatchRequest from '../hooks/useBatchRequest';
-import {
-  getTokenContract,
-  getVbepContract
-} from '../utilities/contractHelpers';
 import { useVaiUser } from '../hooks/useVaiUser';
 import { useComptroller, useVenusLens } from '../hooks/useContract';
 
@@ -37,10 +33,10 @@ const MarketContextProvider = ({ children }) => {
   );
   const [userXVSBalance, setUserXVSBalance] = useState(new BigNumber(0));
   const comptrollerContract = useComptroller();
+  const lens = useVenusLens();
   const { account } = useWeb3React();
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
-  const batch = useBatchRequest();
 
   const { fastRefresh } = useRefresh();
 
@@ -76,6 +72,13 @@ const MarketContextProvider = ({ children }) => {
 
   useEffect(() => {
     let isMounted = true;
+
+    const getXvsBalance = balances => {
+      const vxvs = constants.CONTRACT_VBEP_ADDRESS['xvs'].address.toLowerCase();
+      const xvsDecimals = constants.CONTRACT_TOKEN_ADDRESS['xvs'].decimals;
+      return new BigNumber(balances[vxvs].tokenBalance).shiftedBy(-xvsDecimals);
+    }
+
     const updateMarketUserInfo = async () => {
       if (!markets) {
         return;
@@ -87,178 +90,141 @@ const MarketContextProvider = ({ children }) => {
           ? await comptrollerContract.methods.getAssetsIn(account).call()
           : [];
 
-        let totalBorrowLimit = new BigNumber(0);
-        let totalBorrowBalance = userVaiMinted;
+        const vtAddresses = Object.values(constants.CONTRACT_VBEP_ADDRESS)
+          .filter(item => item.address)
+          .map(item => item.address);
 
-        const assetList = await Promise.all(
-          Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
-            async (item, index) => {
-              let market = markets.find(
-                ele =>
-                  ele.underlyingSymbol.toLowerCase() ===
-                  item.symbol.toLowerCase()
-              );
-              // if no corresponding vassets, skip
-              if (!constants.CONTRACT_VBEP_ADDRESS[item.id]) {
-                return null;
-              }
+        let balances = {};
+        if (account) {
+          balances = indexBy(
+            item => item.vToken.toLowerCase(),  // index by vToken address
+            await lens.methods.vTokenBalancesAll(vtAddresses, account).call()
+          );
+          xvsBalance = getXvsBalance(balances);
+        }
 
-              if (!market) {
-                market = {};
-              }
-              const asset = {
-                key: index,
-                id: item.id,
-                img: item.asset,
-                vimg: item.vasset,
-                name: market.underlyingSymbol || '',
-                symbol: market.underlyingSymbol || '',
-                decimals: item.decimals,
-                tokenAddress: market.underlyingAddress,
-                vsymbol: market.symbol,
-                vtokenAddress: constants.CONTRACT_VBEP_ADDRESS[item.id].address,
-                supplyApy: new BigNumber(market.supplyApy || 0),
-                borrowApy: new BigNumber(market.borrowApy || 0),
-                xvsSupplyApy: new BigNumber(market.supplyVenusApy || 0),
-                xvsBorrowApy: new BigNumber(market.borrowVenusApy || 0),
-                collateralFactor: new BigNumber(
-                  market.collateralFactor || 0
-                ).div(1e18),
-                tokenPrice: new BigNumber(market.tokenPrice || 0),
-                liquidity: new BigNumber(market.liquidity || 0),
-                borrowCaps: new BigNumber(market.borrowCaps || 0),
-                totalBorrows: new BigNumber(market.totalBorrows2 || 0),
-                walletBalance: new BigNumber(0),
-                supplyBalance: new BigNumber(0),
-                borrowBalance: new BigNumber(0),
-                isEnabled: false,
-                collateral: false,
-                percentOfLimit: '0'
-              };
-              const vBepContract = getVbepContract(web3, item.id);
-              asset.collateral = assetsIn
-                .map(item => item.toLowerCase())
-                .includes(asset.vtokenAddress.toLowerCase());
+        const marketsMap = indexBy(
+          item => item.underlyingSymbol.toLowerCase(),
+          markets
+        );
 
-              let borrowBalance;
-              let supplyBalance;
-              let totalBalance;
-
-              // wallet balance
-              if (item.id !== 'bnb') {
-                const tokenContract = getTokenContract(web3, item.id);
-                let [walletBalance, allowBalance, snapshot, balance] = [
-                  '0',
-                  '0',
-                  // snapshot return data type: (uint(Error.NO_ERROR), vTokenBalance, borrowBalance, exchangeRateMantissa);
-                  ['0', '0', '0', '0'],
-                  '0'
-                ];
-                if (account) {
-                  [
-                    walletBalance,
-                    allowBalance,
-                    snapshot,
-                    balance
-                  ] = await Promise.all([
-                    tokenContract.methods.balanceOf(account).call(),
-                    tokenContract.methods
-                      .allowance(account, asset.vtokenAddress)
-                      .call(),
-                    vBepContract.methods.getAccountSnapshot(account).call(),
-                    vBepContract.methods.balanceOf(account).call()
-                  ]);
-                }
-                supplyBalance = new BigNumber(snapshot[1])
-                  .times(new BigNumber(snapshot[3]))
-                  .div(new BigNumber(10).pow(18));
-                borrowBalance = snapshot[2];
-                totalBalance = balance;
-
-                asset.walletBalance = new BigNumber(walletBalance).div(
-                  new BigNumber(10).pow(item.decimals)
-                );
-
-                if (asset.id === 'xvs') {
-                  xvsBalance = asset.walletBalance;
-                }
-
-                // allowance
-                asset.isEnabled = new BigNumber(allowBalance)
-                  .div(new BigNumber(10).pow(item.decimals))
-                  .isGreaterThan(asset.walletBalance);
-              } else {
-                let [snapshot, balance, walletBalance] = [
-                  ['0', '0', '0', '0'],
-                  '0',
-                  '0'
-                ];
-                if (account) {
-                  [snapshot, balance, walletBalance] = await Promise.all([
-                    vBepContract.methods.getAccountSnapshot(account).call(),
-                    vBepContract.methods.balanceOf(account).call(),
-                    web3.eth.getBalance(account)
-                  ]);
-                }
-                supplyBalance = new BigNumber(snapshot[1])
-                  .times(new BigNumber(snapshot[3]))
-                  .div(new BigNumber(10).pow(18));
-                borrowBalance = snapshot[2];
-                totalBalance = balance;
-
-                if (window.ethereum || window.BinanceChain) {
-                  asset.isEnabled = true;
-                  asset.walletBalance = new BigNumber(walletBalance).div(
-                    new BigNumber(10).pow(item.decimals)
-                  );
-                }
-              }
-
-              // supply balance
-              asset.supplyBalance = new BigNumber(supplyBalance).div(
-                new BigNumber(10).pow(item.decimals)
-              );
-
-              // borrow balance
-              asset.borrowBalance = new BigNumber(borrowBalance).div(
-                new BigNumber(10).pow(item.decimals)
-              );
-
-              // hypotheticalLiquidity
-              // return data type: (uint(err), liquidity, shortfall);
-              asset.hypotheticalLiquidity = account
-                ? await comptrollerContract.methods
-                    .getHypotheticalAccountLiquidity(
-                      account,
-                      asset.vtokenAddress,
-                      totalBalance,
-                      0
-                    )
-                    .call()
-                : ['0', '0', '0'];
-
-              const supplyBalanceUSD = asset.supplyBalance.times(
-                asset.tokenPrice
-              );
-              const borrowBalanceUSD = asset.borrowBalance.times(
-                asset.tokenPrice
-              );
-
-              totalBorrowBalance = totalBorrowBalance.plus(borrowBalanceUSD);
-              if (asset.collateral) {
-                totalBorrowLimit = totalBorrowLimit.plus(
-                  supplyBalanceUSD.times(asset.collateralFactor)
-                );
-              }
-
-              return asset;
+        let assetList = Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
+          (item, index) => {
+            const toDecimalAmount = mantissa => {
+              return new BigNumber(mantissa).shiftedBy(-item.decimals);
             }
-          )
+
+            // if no corresponding vassets, skip
+            if (!constants.CONTRACT_VBEP_ADDRESS[item.id]) {
+              return null;
+            }
+
+            let market = marketsMap[item.symbol.toLowerCase()];
+            if (!market) {
+              market = {};
+            }
+
+            const vtokenAddress = constants.CONTRACT_VBEP_ADDRESS[item.id].address.toLowerCase();
+            const collateral = assetsIn
+              .map(address => address.toLowerCase())
+              .includes(vtokenAddress);
+
+            let walletBalance = new BigNumber(0);
+            let supplyBalance = new BigNumber(0);
+            let borrowBalance = new BigNumber(0);
+            let isEnabled = false;
+            let percentOfLimit = new BigNumber(0);
+
+            if (account) {
+              const wallet = balances[vtokenAddress];
+
+              walletBalance = toDecimalAmount(wallet.tokenBalance);
+              supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
+              borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
+              if (item.id === 'bnb') {
+                isEnabled = true;
+              } else {
+                isEnabled = toDecimalAmount(wallet.tokenAllowance).isGreaterThan(walletBalance);
+              }
+            }
+
+            return {
+              key: index,
+              id: item.id,
+              img: item.asset,
+              vimg: item.vasset,
+              name: market.underlyingSymbol || '',
+              symbol: market.underlyingSymbol || '',
+              decimals: item.decimals,
+              tokenAddress: market.underlyingAddress,
+              vsymbol: market.symbol,
+              vtokenAddress,
+              supplyApy: new BigNumber(market.supplyApy || 0),
+              borrowApy: new BigNumber(market.borrowApy || 0),
+              xvsSupplyApy: new BigNumber(market.supplyVenusApy || 0),
+              xvsBorrowApy: new BigNumber(market.borrowVenusApy || 0),
+              collateralFactor: new BigNumber(
+                market.collateralFactor || 0
+              ).div(1e18),
+              tokenPrice: new BigNumber(market.tokenPrice || 0),
+              liquidity: new BigNumber(market.liquidity || 0),
+              borrowCaps: new BigNumber(market.borrowCaps || 0),
+              totalBorrows: new BigNumber(market.totalBorrows2 || 0),
+              walletBalance,
+              supplyBalance,
+              borrowBalance,
+              isEnabled,
+              collateral,
+              percentOfLimit
+            };
+          }
+        )
+
+        assetList = assetList.filter(item => !!item);
+
+        // We use "hypothetical liquidity upon exiting a market" to disable the "exit market"
+        // toggle. Sadly, the current VenusLens contract does not provide this info, so we
+        // still have to query each market.
+        assetList = await Promise.all(assetList.map(
+          async asset => {
+            const getHypotheticalLiquidity = () => {
+              return comptrollerContract.methods
+                .getHypotheticalAccountLiquidity(
+                  account,
+                  asset.vtokenAddress,
+                  balances[asset.vtokenAddress.toLowerCase()].balanceOf,
+                  0
+                )
+                .call()
+            }
+            return {
+              ...asset,
+              hypotheticalLiquidity: account ? await getHypotheticalLiquidity() : ['0', '0', '0']
+            }
+          }
+        ));
+
+        const totalBorrowBalance = assetList.reduce(
+          (acc, asset) => {
+            const borrowBalanceUSD = asset.borrowBalance.times(asset.tokenPrice);
+            return acc.plus(borrowBalanceUSD);
+          },
+          new BigNumber(0)
+        ).plus(userVaiMinted);
+
+        const totalBorrowLimit = assetList.reduce(
+          (acc, asset) => {
+            if (asset.collateral) {
+              const supplyBalanceUSD = asset.supplyBalance.times(asset.tokenPrice);
+              return acc.plus(supplyBalanceUSD.times(asset.collateralFactor));
+            }
+            return acc;
+          },
+          new BigNumber(0)
         );
 
         // percent of limit
-        const tempAssetList = assetList
-          .filter(item => !!item)
+        assetList = assetList
           .map(item => {
             return {
               ...item,
@@ -277,7 +243,7 @@ const MarketContextProvider = ({ children }) => {
           return;
         }
 
-        setUserMarketInfo(tempAssetList);
+        setUserMarketInfo(assetList);
         setUserTotalBorrowLimit(totalBorrowLimit);
         setUserTotalBorrowBalance(totalBorrowBalance);
         setUserXVSBalance(xvsBalance);
