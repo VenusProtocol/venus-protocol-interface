@@ -80,21 +80,21 @@ export const CardItemWrapper = styled.div`
     position: relative;
     background: #090e25;
     border-radius: 8px;
-    height: 165px;
     margin-left: 16px;
     margin-bottom: 16px;
     padding: 16px;
+    min-height: 165px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .button {
-    position: absolute;
-    width: calc(100% - 32px);
+    width: 100%;
     color: #fff;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
     border-radius: 8px;
     border: none;
+    box-sizing: border-box;
     font-size: 14px;
     line-height: 36px;
     background: var(--color-gold);

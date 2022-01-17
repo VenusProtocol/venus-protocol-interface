@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Row, Icon } from 'antd';
+import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
 import { useWeb3React } from '@web3-react/core';
@@ -14,18 +14,23 @@ const WithdrawCardWrapper = styled.div`
   .card-item {
     padding: 0;
   }
+
   .request-withdraw {
-    display: flex;
     .left {
-      flex: 1;
       position: relative;
-      border-right: 1px solid #262b48;
+      border-right: none;
+      border-bottom: 1px solid #262b48;
       padding: 16px;
     }
     .right {
       position: relative;
       padding: 16px;
-      width: 40%;
+    }
+    .column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 165px;
     }
   }
 
@@ -33,8 +38,14 @@ const WithdrawCardWrapper = styled.div`
     font-size: 12px;
     line-height: 16px;
   }
-  .inner-row {
-    width: 100%;
+
+  @media only screen and (min-width: 992px) {
+    .request-withdraw {
+      .left {
+        border-right: 1px solid #262b48;
+        border-bottom: none;
+      }
+    }
   }
 `;
 
@@ -79,53 +90,55 @@ function WithdrawCard({
       <CardItemWrapper>
         {/* withdraw area */}
         <div className="card-item request-withdraw">
-          <Row className="inner-row" justify="end" type="flex">
-            <div className="left">
-              <div className="card-title">
-                <span>
-                  {stakedToken.toUpperCase()} Staked:{' '}
-                  {userEligibleStakedAmount.div(stakedTokenDecimal).toFixed(4)}
-                </span>
-                <Icon
-                  type="history"
-                  className="icon"
-                  onClick={() => setHistoryModalVisible(!historyModalVisible)}
-                />
-              </div>
-              <div className="card-body">
-                <div className="input-wrapper">
-                  <NumberFormat
-                    autoFocus
-                    value={
-                      withdrawAmount.isZero()
-                        ? '0'
-                        : withdrawAmount.toString(10)
-                    }
-                    onValueChange={values => {
-                      const value = new BigNumber(values.value || 0);
-                      const maxValue = userEligibleStakedAmount
-                        .div(stakedTokenDecimal)
-                        .dp(4, 1);
-                      setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
-                    }}
-                    thousandSeparator
-                    allowNegative={false}
-                    placeholder="0"
-                  />
-                  <span
-                    className="pointer max"
-                    onClick={() => {
-                      setWithdrawAmount(
-                        userEligibleStakedAmount.div(stakedTokenDecimal)
-                      );
-                    }}
-                  >
-                    MAX
+          <Row type="flex">
+            <Col xs={{ span: 24 }} lg={{ span: 15 }} className="left column">
+              <div className="card-content">
+                <div className="card-title">
+                  <span>
+                    {stakedToken.toUpperCase()} Staked:{' '}
+                    {userEligibleStakedAmount.div(stakedTokenDecimal).toFixed(4)}
                   </span>
+                  <Icon
+                    type="history"
+                    className="icon"
+                    onClick={() => setHistoryModalVisible(!historyModalVisible)}
+                  />
                 </div>
-                <div className="lock-period">
-                  Locking period:{' '}
-                  {formatTimeToLockPeriodString(lockPeriodSecond)}
+                <div className="card-body">
+                  <div className="input-wrapper">
+                    <NumberFormat
+                      autoFocus
+                      value={
+                        withdrawAmount.isZero()
+                          ? '0'
+                          : withdrawAmount.toString(10)
+                      }
+                      onValueChange={values => {
+                        const value = new BigNumber(values.value || 0);
+                        const maxValue = userEligibleStakedAmount
+                          .div(stakedTokenDecimal)
+                          .dp(4, 1);
+                        setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
+                      }}
+                      thousandSeparator
+                      allowNegative={false}
+                      placeholder="0"
+                    />
+                    <span
+                      className="pointer max"
+                      onClick={() => {
+                        setWithdrawAmount(
+                          userEligibleStakedAmount.div(stakedTokenDecimal)
+                        );
+                      }}
+                    >
+                      MAX
+                    </span>
+                  </div>
+                  <div className="lock-period">
+                    Locking period:{' '}
+                    {formatTimeToLockPeriodString(lockPeriodSecond)}
+                  </div>
                 </div>
               </div>
               <button
@@ -160,13 +173,15 @@ function WithdrawCard({
                 {requestWithdrawLoading && <Icon type="loading" />} Request
                 Withdraw
               </button>
-            </div>
+            </Col>
             {/* !left */}
-            <div className="right">
-              <div className="card-title">Withdrawable amount</div>
-              <div className="center-amount">
-                {withdrawableAmount.div(stakedTokenDecimal).toFixed(4)}{' '}
-                {stakedToken.toUpperCase()}
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} className="right column">
+              <div className="card-content">
+                <div className="card-title">Withdrawable amount</div>
+                <div className="center-amount">
+                  {withdrawableAmount.div(stakedTokenDecimal).toFixed(4)}{' '}
+                  {stakedToken.toUpperCase()}
+                </div>
               </div>
               <button
                 type="button"
@@ -190,7 +205,7 @@ function WithdrawCard({
               >
                 {executeWithdrawLoading && <Icon type="loading" />} Withdraw
               </button>
-            </div>
+            </Col>
           </Row>
         </div>
         <WithdrawHistoryModal

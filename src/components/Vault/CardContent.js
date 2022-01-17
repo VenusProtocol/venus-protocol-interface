@@ -155,13 +155,15 @@ function CardContent({
         <Col lg={{ span: 6 }} xs={{ span: 24 }}>
           <CardItemWrapper>
             <div className="card-item claim-rewards">
-              <div className="card-title">Available Rewards</div>
-              <div className="center-amount">
-                {pendingReward
-                  .div(rewardTokenDecimal)
-                  .dp(6, 1)
-                  .toString(10)}{' '}
-                {rewardToken.toUpperCase()}
+              <div>
+                <div className="card-title">Available Rewards</div>
+                <div className="center-amount">
+                  {pendingReward
+                    .div(rewardTokenDecimal)
+                    .dp(6, 1)
+                    .toString(10)}{' '}
+                  {rewardToken.toUpperCase()}
+                </div>
               </div>
               <button
                 type="button"
@@ -237,44 +239,44 @@ function CardContent({
                     MAX
                   </span>
                 </div>
-                <button
-                  type="button"
-                  className="button stake-button"
-                  disabled={!account || !stakeAmount.gt(0) || stakeLoading}
-                  onClick={async () => {
-                    setStakeLoading(true);
-                    try {
-                      if (!userStakedTokenAllowance.gt(0)) {
-                        await stakedTokenContract.methods
-                          .approve(
-                            xvsVaultContract.options.address,
-                            new BigNumber(2)
-                              .pow(256)
-                              .minus(1)
-                              .toString(10)
-                          )
-                          .send({
-                            from: account
-                          });
-                      } else {
-                        await xvsVaultContract.methods
-                          .deposit(
-                            rewardTokenAddress,
-                            poolId.toNumber(),
-                            stakeAmount.multipliedBy(1e18).toString(10)
-                          )
-                          .send({ from: account });
-                      }
-                    } catch (e) {
-                      console.log('>> stake error:', e);
-                    }
-                    setStakeLoading(false);
-                  }}
-                >
-                  {stakeLoading && <Icon type="loading" />}{' '}
-                  {userStakedTokenAllowance.gt(0) ? 'Stake' : 'Enable'}
-                </button>
               </div>
+              <button
+                type="button"
+                className="button stake-button"
+                disabled={!account || !stakeAmount.gt(0) || stakeLoading}
+                onClick={async () => {
+                  setStakeLoading(true);
+                  try {
+                    if (!userStakedTokenAllowance.gt(0)) {
+                      await stakedTokenContract.methods
+                        .approve(
+                          xvsVaultContract.options.address,
+                          new BigNumber(2)
+                            .pow(256)
+                            .minus(1)
+                            .toString(10)
+                        )
+                        .send({
+                          from: account
+                        });
+                    } else {
+                      await xvsVaultContract.methods
+                        .deposit(
+                          rewardTokenAddress,
+                          poolId.toNumber(),
+                          stakeAmount.multipliedBy(1e18).toString(10)
+                        )
+                        .send({ from: account });
+                    }
+                  } catch (e) {
+                    console.log('>> stake error:', e);
+                  }
+                  setStakeLoading(false);
+                }}
+              >
+                {stakeLoading && <Icon type="loading" />}{' '}
+                {userStakedTokenAllowance.gt(0) ? 'Stake' : 'Enable'}
+              </button>
             </div>
           </CardItemWrapper>
         </Col>
