@@ -296,6 +296,8 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const onChangePage = value => {
     if (value === 'prediction') {
       window.open('https://prdt.finance/XVS');
+    } else if (value === 'forum') {
+      window.open('https://community.venus.io');
     } else {
       history.push(`/${value}`);
     }
@@ -535,6 +537,11 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           <Option className="flex align-center just-center" value="prediction">
             <Label size={14} primary>
               XVS Prediction
+            </Label>
+          </Option>
+          <Option className="flex align-center just-center" value="forum">
+            <Label size={14} primary>
+              Forum
             </Label>
           </Option>
           {process.env.REACT_APP_CHAIN_ID === '97' && (
