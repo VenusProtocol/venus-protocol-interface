@@ -432,8 +432,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
             />
           </svg>
           <div className="flex flex-column align-center">
-            <Label primary>Transaction</Label>
-            <Label primary>History</Label>
+            <Label primary>Transactions</Label>
           </div>
         </NavLink>
         <a
@@ -531,7 +530,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           </Option>
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
-              Transaction History
+              Transactions
             </Label>
           </Option>
           <Option className="flex align-center just-center" value="prediction">
