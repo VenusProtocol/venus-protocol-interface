@@ -77,9 +77,10 @@ const MainMenu = styled.div`
     display: none;
   }
 
-  .prdt-logo {
+  .outlink-icon {
     width: 16px;
-    margin-left: 10%;
+    margin-left: 11%;
+    margin-right: 12%;
   }
 
   a {
@@ -295,6 +296,8 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
   const onChangePage = value => {
     if (value === 'prediction') {
       window.open('https://prdt.finance/XVS');
+    } else if (value === 'forum') {
+      window.open('https://community.venus.io');
     } else {
       history.push(`/${value}`);
     }
@@ -429,8 +432,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
             />
           </svg>
           <div className="flex flex-column align-center">
-            <Label primary>Transaction</Label>
-            <Label primary>History</Label>
+            <Label primary>Transactions</Label>
           </div>
         </NavLink>
         <a
@@ -440,8 +442,18 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           href="https://prdt.finance/XVS"
           active-class-name="active"
         >
-          <img src={prdtImg} alt="prdt" className="prdt-logo" />
+          <img src={prdtImg} alt="prdt" className="outlink-icon" />
           <Label primary>XVS Prediction</Label>
+        </a>
+        <a
+          // eslint-disable-next-line react/jsx-no-target-blank
+          target="_blank"
+          className="flex flex-start align-center"
+          href="https://community.venus.io"
+          active-class-name="active"
+        >
+          <Icon type="team" className="outlink-icon" />
+          <Label primary>Forum</Label>
         </a>
       </MainMenu>
       <FaucetMenu>
@@ -518,12 +530,17 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
           </Option>
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
-              Transaction History
+              Transactions
             </Label>
           </Option>
           <Option className="flex align-center just-center" value="prediction">
             <Label size={14} primary>
               XVS Prediction
+            </Label>
+          </Option>
+          <Option className="flex align-center just-center" value="forum">
+            <Label size={14} primary>
+              Forum
             </Label>
           </Option>
           {process.env.REACT_APP_CHAIN_ID === '97' && (
