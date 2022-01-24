@@ -22,7 +22,6 @@ import {
   getVaiVaultAddress,
   getXvsVaultAddress,
   getXvsVaultProxyAddress,
-  getVoteAddress,
   getVenusLensAddress,
   getGovernorBravoAddress
 } from './addressHelpers';
@@ -83,10 +82,6 @@ export const getComptrollerContract = web3 => {
 
 export const getPriceOracleContract = web3 => {
   return getContract(oracleAbi, getOracleAddress(), web3);
-};
-
-export const getVoteContract = web3 => {
-  return getContract(voteAbi, getVoteAddress(), web3);
 };
 
 export const getInterestModelContract = (web3, address) => {

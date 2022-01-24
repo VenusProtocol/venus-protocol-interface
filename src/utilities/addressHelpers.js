@@ -22,10 +22,6 @@ export const getOracleAddress = () => {
   return addresses.oracle[chainId];
 };
 
-export const getVoteAddress = () => {
-  return addresses.vote[chainId];
-};
-
 export const getVenusLensAddress = () => {
   return addresses.venusLens[chainId];
 };

@@ -52,33 +52,29 @@ function Vault({ settings }) {
     // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
     const xvsTokenAddress = constants.CONTRACT_TOKEN_ADDRESS.xvs.address;
 
-    // here we just simply list the pool parameters, instead of fetching the pools
-    // by past events, which should be appeared but didn't info.token is the STAKED token
-    // parameter: rewardToken, stakedToken, pid
-    // @todo: maybe we can make a backend api to improve this.
-    const fetchPoolParameters = [
-      { rewardToken: xvsTokenAddress, stakedToken: xvsTokenAddress, pid: 0 }
-      // [vrtTokenAddress, vrtTokenAddress, 0]
-    ];
+    const xvsTokenPoolLength = await xvsVaultContract.methods
+      .poolLength(xvsTokenAddress)
+      .call();
+
+    const fetchPoolParameters = Array.from({ length: xvsTokenPoolLength }).map(
+      (_, index) => {
+        return { rewardToken: xvsTokenAddress, pid: index };
+      }
+    );
 
     async function fetchOnePool(param) {
-      const [
-        poolInfo,
-        rewardPerBlock,
-        totalStaked,
-        totalAllocPoints
-      ] = await Promise.all([
+      const [poolInfo, rewardPerBlock, totalAllocPoints] = await Promise.all([
         xvsVaultContract.methods.poolInfos(param.rewardToken, param.pid).call(),
         xvsVaultContract.methods
           .rewardTokenAmountsPerBlock(param.rewardToken)
           .call(),
 
-        getTokenContractByAddress(web3, param.stakedToken)
-          .methods.balanceOf(xvsVaultContract.options.address)
-          .call(),
-
         xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call()
       ]);
+
+      const totalStaked = await getTokenContractByAddress(web3, poolInfo.token)
+        .methods.balanceOf(xvsVaultContract.options.address)
+        .call();
 
       let [userPendingRewards, userInfo] = [
         '0',
@@ -95,7 +91,7 @@ function Vault({ settings }) {
             .pendingReward(param.rewardToken, param.pid, account)
             .call(),
           xvsVaultContract.methods
-            .getUserInfo(param.stakedToken, param.pid, account)
+            .getUserInfo(param.rewardToken, param.pid, account)
             .call()
         ]);
       }
@@ -110,7 +106,7 @@ function Vault({ settings }) {
 
       return {
         poolId: new BigNumber(param.pid),
-        stakedToken: tokenAddressNameMap[param.stakedToken],
+        stakedToken: tokenAddressNameMap[poolInfo.token],
         rewardToken: tokenAddressNameMap[param.rewardToken],
         pendingReward: new BigNumber(userPendingRewards),
         userStakedAmount: new BigNumber(userInfo.amount),
