@@ -10,7 +10,6 @@ import xvsVaultStoreAbi from '../config/abis/xvsVaultStore.json';
 import xvsVaultAbi from '../config/abis/xvsVault.json';
 import vbepAbi from '../config/abis/vbep.json';
 import vbnbAbi from '../config/abis/vbnb.json';
-import voteAbi from '../config/abis/vote.json';
 import xvsAbi from '../config/abis/xvs.json';
 import venusLensAbi from '../config/abis/venusLens.json';
 import governorBravoAbi from '../config/abis/governorBravoDelegate.json';
@@ -28,6 +27,7 @@ import {
 import * as constants from './constants';
 
 const getContract = (abi, address, web3) => {
+  // eslint-disable-next-line no-underscore-dangle
   const _web3 = web3 ?? getWeb3NoAccount();
   return new _web3.eth.Contract(abi, address);
 };

@@ -23,7 +23,7 @@ const contracts = {
     56: '0xd8B6dA2bfEC71D684D3E2a2FC9492dDad5C3787F',
     97: '0x570FcC5e7E92066225e0dCAF64932A964Ecf3600'
   },
-  governorBravoDelegate: {
+  governorBravoDelegator: {
     56: '0x2d56dC077072B53571b8252008C60e945108c75a',
     97: '0x5573422A1a59385C247ec3a66B93B7C08eC2f8f2'
   },

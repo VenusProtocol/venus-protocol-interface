@@ -39,5 +39,5 @@ export const getXvsVaultStoreAddress = () => {
 };
 
 export const getGovernorBravoAddress = () => {
-  return addresses.governorBravoDelegate[chainId];
+  return addresses.governorBravoDelegator[chainId];
 };

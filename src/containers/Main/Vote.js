@@ -108,7 +108,8 @@ function Vote({ history, getProposals }) {
 
       // find xvs vault pid
       const xvsVaultIndex = xvsPoolInfos.findIndex(
-        info => info.token === CONTRACT_XVS_TOKEN_ADDRESS
+        info =>
+          info.token.toLowerCase() === CONTRACT_XVS_TOKEN_ADDRESS.toLowerCase()
       );
       if (xvsVaultIndex < 0) {
         throw new Error('xvs vault not found!');
