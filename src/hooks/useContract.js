@@ -8,7 +8,6 @@ import {
   getVaiUnitrollerContract,
   getVaiVaultContract,
   getVbepContract,
-  getVoteContract,
   getVenusLensContract,
   getXvsVaultProxyContract,
   getXvsVaultContract,
@@ -58,11 +57,6 @@ export const useComptroller = () => {
 export const usePriceOracle = () => {
   const web3 = useWeb3();
   return useMemo(() => getPriceOracleContract(web3), [web3]);
-};
-
-export const useVote = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVoteContract(web3), [web3]);
 };
 
 export const useInterestModel = () => {

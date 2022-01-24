@@ -14,12 +14,12 @@ import VotingPower from 'components/Vote/VotingPower';
 import Proposals from 'components/Vote/Proposals';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
+import { useWeb3React } from '@web3-react/core';
+import useRefresh from '../../hooks/useRefresh';
 import {
   CONTRACT_XVS_TOKEN_ADDRESS,
   CONTRACT_VBEP_ADDRESS
-} from 'utilities/constants';
-import { useWeb3React } from '@web3-react/core';
-import useRefresh from '../../hooks/useRefresh';
+} from '../../utilities/constants';
 import {
   useComptroller,
   useToken,
@@ -89,14 +89,32 @@ function Vote({ history, getProposals }) {
 
   const updateBalance = async () => {
     if (account) {
-      const [currentVotes, balanceTemp, userInfo] = await Promise.all([
+      // find the pid of xvs vault, which users get voting powers from
+      const length = await xvsVaultProxyContract.methods
+        .poolLength(CONTRACT_XVS_TOKEN_ADDRESS)
+        .call();
+
+      const [currentVotes, balanceTemp, ...xvsPoolInfos] = await Promise.all([
         // voting power is calculated from user's amount of XVS staked in the XVS vault
         xvsVaultProxyContract.methods.getCurrentVotes(account).call(),
         xvsTokenContract.methods.balanceOf(account).call(),
-        xvsVaultProxyContract.methods
-          .getUserInfo(CONTRACT_XVS_TOKEN_ADDRESS, 0, account)
-          .call()
+        // query all xvs pool infos
+        ...Array.from({ length }).map((_, index) => {
+          return xvsVaultProxyContract.methods
+            .poolInfos(CONTRACT_XVS_TOKEN_ADDRESS, index)
+            .call();
+        })
       ]);
+
+      // find xvs vault pid
+      const xvsVaultIndex = xvsPoolInfos.findIndex(
+        info =>
+          info.token.toLowerCase() === CONTRACT_XVS_TOKEN_ADDRESS.toLowerCase()
+      );
+      if (xvsVaultIndex < 0) {
+        throw new Error('xvs vault not found!');
+      }
+
       setVotingWeight(new BigNumber(currentVotes).div(1e18).toString(10));
       setBalance(
         new BigNumber(balanceTemp)
@@ -104,6 +122,10 @@ function Vote({ history, getProposals }) {
           .dp(4, 1)
           .toString(10)
       );
+
+      const userInfo = await xvsVaultProxyContract.methods
+        .getUserInfo(CONTRACT_XVS_TOKEN_ADDRESS, xvsVaultIndex, account)
+        .call();
       setStakedAmount(userInfo.amount);
     }
   };
