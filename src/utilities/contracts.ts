@@ -18,6 +18,7 @@ export default {
       tusd: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
       trx: '0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F',
       vai: '0x5fFbE5302BadED40941A403228E6AD03f93752d9',
+      vrt: '0x331F639B4F3CF6E391CD244e0b5027C5968Ec325'
     },
     VBEP: {
       sxp: '0x74469281310195A04840Daf6EdF576F559a3dE80',
@@ -64,6 +65,7 @@ export default {
       tusd: '0x14016e85a25aeb13065688cafb43044c2ef86784',
       trx: '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B',
       vai: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
+      vrt: ''
     },
     VBEP: {
       sxp: '0x2fF3d0F6990a40261c66E1ff2017aCBc282EB6d0',
