@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
@@ -15,7 +16,7 @@ import {
   useVrtConverter,
   useVrtToken,
   useXvsVesting,
-  useToken,
+  useToken
 } from '../../hooks/useContract';
 
 const VrtConversionWrapper = styled.div`
@@ -35,23 +36,27 @@ const VrtConversionWrapper = styled.div`
 `;
 
 const VRT_DECIMAL = new BigNumber(10).pow(
-  constants.CONTRACT_TOKEN_ADDRESS.vrt.decimals,
+  constants.CONTRACT_TOKEN_ADDRESS.vrt.decimals
 );
 const XVS_DECIMAL = new BigNumber(10).pow(
-  constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals,
+  constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals
 );
 const CONVERSION_RATIO_DECIMAL = new BigNumber(10).pow(18);
 
-export default () => {
+export function VrtConversion() {
   // contract data
   const [redeemableAmount, setRedeemableAmount] = useState(new BigNumber(0));
   const [dailyUtilisation, setDailyUtilisation] = useState(new BigNumber(0));
   const [vrtDailyLimit, setVrtDailyLimit] = useState(new BigNumber(0));
+  // eslint-disable-next-line no-unused-vars
+  const [numberOfDaysSinceStart, setMumberOfDaysSinceStart] = useState(
+    new BigNumber(0)
+  );
   const [conversionRatio, setConversionRatio] = useState(new BigNumber(0));
   const [conversionEndTime, setConversionEndTime] = useState(new BigNumber(0));
   const [userVrtBalance, setUserVrtBalance] = useState(new BigNumber(0));
   const [vrtConverterXvsBalance, setVrtConverterXvsBalance] = useState(
-    new BigNumber(0),
+    new BigNumber(0)
   );
   // user's allowance to VRT converter contracr
   const [userEnabled, setUserEnabled] = useState(false);
@@ -69,57 +74,57 @@ export default () => {
   const vrtTokenContract = useVrtToken();
   const xvsTokenContract = useToken('xvs');
 
-  useEffect(() => {
+  useEffect(async () => {
     let mounted = true;
-    const update = async () => {
-      const [
-        {
-          redeemableAmount: redeemableAmountTemp,
-          dailyUtilisation: dailyUtilisationTemp,
-          vrtDailyLimit: vrtDailyLimitTemp,
-        },
-        conversionRatioTemp,
-        conversionEndTimeTemp,
-        userVrtBalanceTemp,
-        userVrtAllowanceTemp,
-        vrtConverterXvsBalanceTemp,
-      ] = await Promise.all([
-        vrtConverterContract.methods
-          .computeRedeemableAmountAndDailyUtilisation()
-          .call(),
-        // fetch infos
-        vrtConverterContract.methods.conversionRatio().call(),
-        vrtConverterContract.methods.conversionEndTime().call(),
-        account
-          ? vrtTokenContract.methods.balanceOf(account).call()
-          : Promise.resolve(0),
-        account
-          ? vrtTokenContract.methods
+
+    // fetch infos
+    const [
+      {
+        redeemableAmount: redeemableAmountTemp,
+        dailyUtilisation: dailyUtilisationTemp,
+        vrtDailyLimit: vrtDailyLimitTemp,
+        numberOfDaysSinceStart: numberOfDaysSinceStartTemp
+      },
+      conversionRatioTemp,
+      conversionEndTimeTemp,
+      userVrtBalanceTemp,
+      userVrtAllowanceTemp,
+      vrtConverterXvsBalanceTemp
+    ] = await Promise.all([
+      vrtConverterContract.methods
+        .computeRedeemableAmountAndDailyUtilisation()
+        .call(),
+      vrtConverterContract.methods.conversionRatio().call(),
+      vrtConverterContract.methods.conversionEndTime().call(),
+      account
+        ? vrtTokenContract.methods.balanceOf(account).call()
+        : Promise.resolve(0),
+      account
+        ? vrtTokenContract.methods
             .allowance(account, getVrtConverterAddress())
             .call()
-          : Promise.resolve(0),
-        xvsTokenContract.methods
-          .balanceOf(vrtConverterContract.options.address)
-          .call(),
-      ]);
-      if (mounted) {
-        setLoading(false);
-        setRedeemableAmount(new BigNumber(redeemableAmountTemp).div(VRT_DECIMAL));
-        setDailyUtilisation(new BigNumber(dailyUtilisationTemp).div(VRT_DECIMAL));
-        setVrtDailyLimit(new BigNumber(vrtDailyLimitTemp).div(VRT_DECIMAL));
-        setConversionRatio(
-          new BigNumber(conversionRatioTemp).div(CONVERSION_RATIO_DECIMAL),
-        );
-        setConversionEndTime(new BigNumber(conversionEndTimeTemp)); // in seconds
-        setUserVrtBalance(new BigNumber(userVrtBalanceTemp).div(VRT_DECIMAL));
-        setUserEnabled(new BigNumber(userVrtAllowanceTemp).gt(0));
-        setVrtConverterXvsBalance(
-          new BigNumber(vrtConverterXvsBalanceTemp).div(XVS_DECIMAL),
-        );
-      }
-    };
+        : Promise.resolve(0),
+      xvsTokenContract.methods
+        .balanceOf(vrtConverterContract.options.address)
+        .call()
+    ]);
 
-    update();
+    if (mounted) {
+      setLoading(false);
+      setRedeemableAmount(new BigNumber(redeemableAmountTemp).div(VRT_DECIMAL));
+      setDailyUtilisation(new BigNumber(dailyUtilisationTemp).div(VRT_DECIMAL));
+      setVrtDailyLimit(new BigNumber(vrtDailyLimitTemp).div(VRT_DECIMAL));
+      setMumberOfDaysSinceStart(new BigNumber(numberOfDaysSinceStartTemp));
+      setConversionRatio(
+        new BigNumber(conversionRatioTemp).div(CONVERSION_RATIO_DECIMAL)
+      );
+      setConversionEndTime(new BigNumber(conversionEndTimeTemp)); // in seconds
+      setUserVrtBalance(new BigNumber(userVrtBalanceTemp).div(VRT_DECIMAL));
+      setUserEnabled(new BigNumber(userVrtAllowanceTemp).gt(0));
+      setVrtConverterXvsBalance(
+        new BigNumber(vrtConverterXvsBalanceTemp).div(XVS_DECIMAL)
+      );
+    }
 
     return () => {
       mounted = false;
@@ -128,7 +133,8 @@ export default () => {
 
   return (
     <MainLayout title="Redeem VRT">
-      {loading ? <LoadingSpinner /> : (
+      {loading && <LoadingSpinner />}
+      {!loading && (
         <VrtConversionWrapper>
           <Row className="vrt-conversion-container">
             <Col
@@ -139,7 +145,13 @@ export default () => {
               xs={{ span: 24 }}
             >
               <div className="container">
-                <TabContainer titles={['Redeem', 'Withdraw']}>
+                <TabContainer
+                  styles={{
+                    padding: `10%`,
+                    marginTop: '24px'
+                  }}
+                  titles={['Redeem', 'Withdraw']}
+                >
                   <Redeem
                     vrtConverterXvsBalance={vrtConverterXvsBalance}
                     redeemableAmount={redeemableAmount}
@@ -159,30 +171,29 @@ export default () => {
                               new BigNumber(2)
                                 .pow(256)
                                 .minus(1)
-                                .toFixed(),
+                                .toFixed()
                             )
                             .send({
-                              from: account,
+                              from: account
                             });
                         } else {
                           await vrtConverterContract.methods
                             .convert(redeemAmount.times(VRT_DECIMAL).toFixed())
                             .send({
-                              from: account,
+                              from: account
                             });
                         }
                       } catch (e) {
                         console.log('>> redeem error', e);
                       }
                     }}
-                    account={account || ''}
+                    account={account}
                   />
                   <Withdraw
                     withdrawableAmount={new BigNumber(0)}
                     handleClickWithdraw={() => {
                       xvsVestingContract.methods.withdraw(account);
                     }}
-                    account={account || ''}
                   />
                 </TabContainer>
               </div>
@@ -192,4 +203,4 @@ export default () => {
       )}
     </MainLayout>
   );
-};
+}

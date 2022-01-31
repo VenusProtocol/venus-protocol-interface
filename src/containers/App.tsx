@@ -17,9 +17,11 @@ import MarketDetail from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
+import VrtConversion from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from './Theme';
 
+import 'assets/styles/App.scss';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';
@@ -72,6 +74,7 @@ class App extends React.Component {
                         <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
                         <Route exact path="/vote/proposal/:id" component={VoteOverview} />
                         <Route exact path="/vote/address/:address" component={ProposerDetail} />
+                        <Route exact path="/redeem-vrt" component={VrtConversion}/>
                         {process.env.REACT_APP_CHAIN_ID === '97' && (
                           <Route exact path="/faucet" component={Faucet} />
                         )}

@@ -197,7 +197,7 @@ export const CONTRACT_TOKEN_ADDRESS =
           symbol: 'VAI',
           decimals: 18,
           address: contracts.TEST.TOKEN.vai,
-          asset: vai,
+          asset: vai
         },
         vrt: {
           id: 'vrt',
@@ -396,7 +396,7 @@ export const CONTRACT_TOKEN_ADDRESS =
           symbol: 'VAI',
           decimals: 18,
           address: contracts.MAIN.TOKEN.vai,
-          asset: vai,
+          asset: vai
         },
         vrt: {
           id: 'vrt',

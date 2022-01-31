@@ -41,7 +41,7 @@ const contracts = {
   },
   xvsVaultStore: {
     56: '0x1e25CF968f12850003Db17E0Dba32108509C4359',
-    97: '0x7B4dba3b320E7D421A213e1a73bB9858bb6839F8',
+    97: '0x7B4dba3b320E7D421A213e1a73bB9858bb6839F8'
   },
   xvsVesting: {
     56: '',
