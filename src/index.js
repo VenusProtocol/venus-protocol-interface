@@ -8,7 +8,7 @@ import Web3ReactManager from './utilities/Web3ReactManager';
 import { getLibrary } from './utilities/connectors';
 
 import 'antd/dist/antd.css';
-import 'assets/styles/index.scss';
+import 'assets/styles/index.css';
 
 ReactDOM.render(
   <BrowserRouter>
