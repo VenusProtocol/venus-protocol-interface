@@ -8,9 +8,7 @@ npm run start
 
 ## Requirements and Configuration
 
-You’ll need to have Node v14.19.0 on your local development machine
-
-And add .env file from template `cp .env.template .env`
+You’ll need to have Node 8.16.0 or Node 10.16.0 or later version on your local development machine
 
 ## Creating an App
 
