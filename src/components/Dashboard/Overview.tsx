@@ -143,7 +143,7 @@ const { Option } = Select;
 const abortController = new AbortController();
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Overview({ settings, getMarketHistory }: $TSFixMe) {
   const [currentAsset, setCurrentAsset] = useState('sxp');
   const [data, setData] = useState([]);
@@ -154,18 +154,18 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
   const { userMarketInfo } = useMarketsUser();
 
   const getGraphData = async (
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     asset: $TSFixMe,
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     type: $TSFixMe,
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     limit: $TSFixMe
   ) => {
     let tempData = [];
     const res = await promisify(getMarketHistory, { asset, type, limit });
     // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     tempData = res.data.result
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       .map((m: $TSFixMe) => {
         return {
           createdAt: m.createdAt,
@@ -212,7 +212,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
           .length !== 0
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type '{}'.
           ? userMarketInfo.filter(
-              // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+              
               (s: $TSFixMe) => s && s.id === currentAsset
             )[0]
           : {};
@@ -234,7 +234,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
     }
   }, [currentAsset, settings.marketType, userMarketInfo, settings.withXVS]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleChangeAsset = (value: $TSFixMe) => {
     setCurrentAsset(value);
   };
@@ -462,12 +462,12 @@ Overview.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getMarketHistory } = accountActionCreators;
 

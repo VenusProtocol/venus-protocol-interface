@@ -28,10 +28,10 @@ const ToggleWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Toggle({ checked, onChecked }: $TSFixMe) {
   return (
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     <ToggleWrapper onClick={(e: $TSFixMe) => e.stopPropagation()}>
       <Switch checked={checked} onChange={onChecked} />
     </ToggleWrapper>

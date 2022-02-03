@@ -31,7 +31,7 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function BorrowLimit({ settings }: $TSFixMe) {
   const [available, setAvailable] = useState('0');
   const [borrowPercent, setBorrowPercent] = useState(0);

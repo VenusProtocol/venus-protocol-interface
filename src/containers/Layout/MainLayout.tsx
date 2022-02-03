@@ -51,7 +51,7 @@ const MainLayoutWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function MainLayout({ title, isHeader, children }: $TSFixMe) {
   return (
     <MainLayoutWrapper>

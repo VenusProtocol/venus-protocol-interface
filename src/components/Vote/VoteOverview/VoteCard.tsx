@@ -126,7 +126,7 @@ function VoteCard({
   emptyNumber,
   list,
   onViewAll
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const [isViewAll, setIsViewAll] = useState(true);
   const [percent, setPercent] = useState(0);
@@ -141,7 +141,7 @@ $TSFixMe) {
     setPercent(percentTmp.isNaN() ? '0' : percentTmp.toString(10));
   }, [voteNumber]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleAddLink = (v: $TSFixMe) => {
     history.push(`/vote/address/${v}`);
   };
@@ -184,7 +184,7 @@ $TSFixMe) {
             <span>Votes</span>
           </div>
           <div className="vote-list scrollbar">
-            {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
+            {/**/}
             {list.map((l: $TSFixMe, index: $TSFixMe) => (
               <div
                 className="flex align-center just-between vote-item"

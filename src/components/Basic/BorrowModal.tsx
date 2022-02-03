@@ -208,7 +208,7 @@ export const TabContent = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function BorrowModal({ visible, asset, onCancel }: $TSFixMe) {
   const [currentTab, setCurrentTab] = useState('borrow');
 

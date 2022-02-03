@@ -28,7 +28,7 @@ const isLocalhost = Boolean(
     )
 );
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export function register(config: $TSFixMe) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -78,7 +78,7 @@ export function register(config: $TSFixMe) {
   }
 }
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function registerValidSW(swUrl: $TSFixMe, config: $TSFixMe) {
   navigator.serviceWorker
 
@@ -136,7 +136,7 @@ function registerValidSW(swUrl: $TSFixMe, config: $TSFixMe) {
     });
 }
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function checkValidServiceWorker(swUrl: $TSFixMe, config: $TSFixMe) {
   // Check if the service worker can be found. If it can't reload the page.
 

@@ -98,7 +98,7 @@ function VotingWallet({
   vaiMint,
   delegateAddress,
   delegateStatus
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -126,7 +126,7 @@ $TSFixMe) {
       )
       .call();
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const outstandingVTokens = vTokensBalanceInfos.filter((info: $TSFixMe) => {
       // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
       return new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0);
@@ -139,7 +139,7 @@ $TSFixMe) {
         await comptrollerContract.methods
           .claimVenus(
             account,
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+            
             outstandingVTokens.map((token: $TSFixMe) => token[0])
           )
           .send({ from: account });

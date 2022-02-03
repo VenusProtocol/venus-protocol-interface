@@ -40,7 +40,7 @@ const ProposerInfoWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function ProposerInfo({ address }: $TSFixMe) {
   const handleLink = () => {
     window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');

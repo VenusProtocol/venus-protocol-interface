@@ -44,7 +44,7 @@ function CollateralConfirmModal({
   visible,
   isCollateralEnalbe,
   onCancel
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   return (
     <Modal

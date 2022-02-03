@@ -107,7 +107,7 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
   const [marketType, setMarketType] = useState('supply');
   const [currentAsset, setCurrentAsset] = useState('');
@@ -125,7 +125,7 @@ function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
 
   const getGraphData = useCallback(
     async (asset, type, limit) => {
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       const tempData: $TSFixMe = [];
       await promisify(getMarketHistory, { asset, type, limit }).then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
@@ -257,12 +257,12 @@ MarketDetail.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getMarketHistory } = accountActionCreators;
 

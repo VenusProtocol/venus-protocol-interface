@@ -25,7 +25,7 @@ PrivateRoute.defaultProps = {
   user: PropTypes.object
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ auth }: $TSFixMe) => ({
   user: auth.user
 });

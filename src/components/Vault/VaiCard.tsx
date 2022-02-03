@@ -28,7 +28,7 @@ import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function VaultCard({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
@@ -211,7 +211,7 @@ VaultCard.propTypes = {
 
 VaultCard.defaultProps = {};
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });

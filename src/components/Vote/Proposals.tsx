@@ -131,7 +131,7 @@ function Proposals({
   proposals,
   total,
   onChangePage
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
@@ -190,7 +190,7 @@ $TSFixMe) {
     }
   }, [account, address, delegateAddress]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setCurrent(page);
     setPageSize(size);
@@ -256,7 +256,7 @@ $TSFixMe) {
         <div className="body">
           {isLoadingProposal && <LoadingSpinner />}
           {!isLoadingProposal && proposals && proposals.length !== 0 ? (
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+            
             proposals.map((item: $TSFixMe) => {
               return (
                 <Proposal

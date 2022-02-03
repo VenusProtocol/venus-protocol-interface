@@ -29,7 +29,7 @@ const SupplyMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
@@ -38,7 +38,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
   const { account } = useWeb3React();
   const comptrollerContract = useComptroller();
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleToggleCollateral = async (r: $TSFixMe) => {
     if (r && account && r.borrowBalance.isZero()) {
       if (!r.collateral) {
@@ -85,7 +85,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Asset',
       dataIndex: 'asset',
       key: 'asset',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -108,7 +108,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'APY',
       dataIndex: 'supplyApy',
       key: 'supplyApy',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(supplyApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? supplyApy.plus(asset.xvsSupplyApy)
@@ -128,7 +128,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Wallet',
       dataIndex: 'walletBalance',
       key: 'walletBalance',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(walletBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -143,7 +143,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Collateral',
       dataIndex: 'collateral',
       key: 'collateral',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor.toString() ? (
@@ -162,7 +162,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Asset',
       dataIndex: 'asset',
       key: 'asset',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -185,7 +185,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'APY / Earned',
       dataIndex: 'supplyApy',
       key: 'supplyApy',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(supplyApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? supplyApy.plus(asset.xvsSupplyApy)
@@ -204,7 +204,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Balance',
       dataIndex: 'supplyBalance',
       key: 'supplyBalance',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(supplyBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -230,7 +230,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Collateral',
       dataIndex: 'collateral',
       key: 'collateral',
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor ? (
@@ -244,7 +244,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
     }
   ];
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleClickRow = (row: $TSFixMe) => {
     setRecord(row);
     setIsOpenModal(true);
@@ -301,7 +301,7 @@ SupplyMarket.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });

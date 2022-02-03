@@ -39,7 +39,7 @@ export const connectorsByName = {
   [ConnectorNames.Ledger]: ledger
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export const getLibrary = (provider: $TSFixMe) => {
   return provider;
 };

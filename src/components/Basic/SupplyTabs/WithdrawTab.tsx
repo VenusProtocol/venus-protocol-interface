@@ -23,7 +23,7 @@ import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -366,7 +366,7 @@ WithdrawTab.defaultProps = {
   onCancel: () => {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 

@@ -96,14 +96,14 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Faucet({ form, getFromFaucet }: $TSFixMe) {
   const { getFieldDecorator } = form;
   const [isLoading, setIsLoading] = useState(false);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleMenuClick = (e: $TSFixMe, symbol: $TSFixMe) => {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     form.validateFields((err: $TSFixMe, values: $TSFixMe) => {
       if (!err) {
         setIsLoading(true);
@@ -452,7 +452,7 @@ Faucet.propTypes = {
   getFromFaucet: PropTypes.func.isRequired
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getFromFaucet } = accountActionCreators;
 

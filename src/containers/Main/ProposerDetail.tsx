@@ -62,7 +62,7 @@ const ProposerDetailWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
   const [holdingInfo, setHoldingInfo] = useState({});
   const [transactions, setTransactions] = useState([]);
@@ -109,11 +109,11 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
   };
 
   const handleChangePage = (
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     pageNumber: $TSFixMe,
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     offset: $TSFixMe,
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     limit: $TSFixMe
   ) => {
     setCurrent(pageNumber);
@@ -185,12 +185,12 @@ ProposerDetail.defaultProps = {
   match: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getVoterDetail, getVoterHistory } = accountActionCreators;
 

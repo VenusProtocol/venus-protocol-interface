@@ -124,7 +124,7 @@ const InterestRateModelWrapper = styled.div`
 
 let flag = false;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
   const [graphData, setGraphData] = useState([]);
   const [tickerPos, setTickerPos] = useState(null);
@@ -136,7 +136,7 @@ function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
   const { markets } = useMarkets();
   const web3 = useWeb3();
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const CustomizedAxisTick = ({ x, y }: $TSFixMe) => {
     return (
       <g transform={`translate(${x},${y})`}>
@@ -151,7 +151,7 @@ function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
     y: PropTypes.number.isRequired
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const getGraphData = async (asset: $TSFixMe) => {
     flag = true;
     const vbepContract = getVbepContract(web3, asset);
@@ -163,7 +163,7 @@ function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
       interestRateModel
     );
     const cashValue = await vbepContract.methods.getCash().call();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const data: $TSFixMe = [];
     const marketInfo = markets.find(
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
@@ -269,7 +269,7 @@ function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
     flag = false;
   }, [currentAsset]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const CustomTooltip = ({ active, payload }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
@@ -290,7 +290,7 @@ function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
     payload: PropTypes.array.isRequired
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleMouseMove = (e: $TSFixMe) => {
     const graphElement = document.getElementById('percent-wrapper');
     const lineElement = document.getElementById('line');
@@ -402,7 +402,7 @@ InterestRateModel.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });

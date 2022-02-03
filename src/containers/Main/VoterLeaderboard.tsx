@@ -99,7 +99,7 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
   const [voterAccounts, setVoterAccounts] = useState([]);
 
@@ -210,7 +210,7 @@ VoterLeaderboard.defaultProps = {
   history: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getVoterAccounts } = accountActionCreators;
 

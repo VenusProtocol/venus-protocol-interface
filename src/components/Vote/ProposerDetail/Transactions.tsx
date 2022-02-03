@@ -84,10 +84,10 @@ const TransactionsWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Transactions({ address, transactions }: $TSFixMe) {
   const [data, setData] = useState([]);
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const getDate = (timestamp: $TSFixMe) => {
     const startDate = moment(timestamp * 1000);
     const curDate = moment(new Date());
@@ -99,9 +99,9 @@ function Transactions({ address, transactions }: $TSFixMe) {
   };
 
   useEffect(() => {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const tempData: $TSFixMe = [];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     transactions.forEach((tx: $TSFixMe) => {
       if (tx.type === 'vote') {
         tempData.push({

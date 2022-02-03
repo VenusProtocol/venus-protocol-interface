@@ -6,7 +6,7 @@ const SLOW_INTERVAL = 60000;
 const RefreshContext = React.createContext({ slow: 0, fast: 0 });
 
 // This context maintain 2 counters that can be used as a dependencies on other hooks to force a periodic refresh
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const RefreshContextProvider = ({ children }: $TSFixMe) => {
   const [slow, setSlow] = useState(0);
   const [fast, setFast] = useState(0);

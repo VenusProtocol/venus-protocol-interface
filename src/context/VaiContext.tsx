@@ -18,7 +18,7 @@ const VaiContext = React.createContext({
 
 // This context provide a way for all the components to share the market data, thus avoid
 // duplicated requests
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const VaiContextProvider = ({ children }: $TSFixMe) => {
   const [userVaiMinted, setMintedAmount] = useState(new BigNumber(0));
   const [userVaiBalance, setWalletAmount] = useState(new BigNumber(0));

@@ -187,7 +187,7 @@ const VOTE_TYPE = {
   ABSTAIN: 2
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const getVoteTypeStringFromValue = (type: $TSFixMe) => {
   return [
     ['👎', 'Against'],
@@ -196,7 +196,7 @@ const getVoteTypeStringFromValue = (type: $TSFixMe) => {
   ][type];
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
@@ -205,7 +205,7 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
   const [voteReason, setVoteReason] = useState('');
   const governorBravoContract = useGovernorBravo();
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const getStatus = (p: $TSFixMe) => {
     if (p.state === 'Executed') {
       return 'Passed';
@@ -232,7 +232,7 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
     }
   }, [address, proposal, getIsHasVoted]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleOpenVoteConfirmModal = (type: $TSFixMe) => {
     setVoteType(type);
     setConfirmModalVisible(true);
@@ -257,9 +257,9 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
     setConfirmModalVisible(false);
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const getTitle = (descs: $TSFixMe) => {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const index = descs.findIndex((d: $TSFixMe) => d !== '');
     if (index !== -1) {
       return descs[index];

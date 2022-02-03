@@ -68,7 +68,7 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function VaiInfo({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { userVaiBalance } = useVaiUser();
@@ -127,7 +127,7 @@ VaiInfo.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });

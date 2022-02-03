@@ -23,7 +23,7 @@ import { useVbep } from '../../../hooks/useContract';
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -321,7 +321,7 @@ BorrowTab.defaultProps = {
   onCancel: () => {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
