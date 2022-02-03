@@ -1,7 +1,6 @@
 FROM node:12.19.0-alpine3.12 as builder
 
 ENV NODE_ENV development
-ENV NODE_PATH=src/
 
 RUN apk add --update --no-cache python3 git openssh
 
