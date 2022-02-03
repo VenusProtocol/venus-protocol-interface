@@ -4,10 +4,11 @@ module.exports = {
       "es6": true,
       "jasmine": true,
     },
-    "parser": "babel-eslint",
+    "parser": "@typescript-esLint/parser",
     "extends": ["airbnb", "plugin:prettier/recommended"],
     "plugins": ["jsx-a11y",  "prettier"],
     "rules": {
+      "prettier/prettier": 2,
       "import/extensions": 0,
       "import/prefer-default-export": 0,
       "import/no-extraneous-dependencies": 0,
