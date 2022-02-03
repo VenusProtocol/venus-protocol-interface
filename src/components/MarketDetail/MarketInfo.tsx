@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { formatApy } from 'utilities/common';
 import * as constants from 'utilities/constants';
@@ -46,17 +50,20 @@ const MarketInfoContent = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function MarketInfo({ marketInfo, marketType }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
   if (!marketInfo.underlyingSymbol) return null;
   return (
     <MarketInfoWrapper>
       <img
         className="asset-img"
         src={
+          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           constants.CONTRACT_TOKEN_ADDRESS[
             marketInfo.underlyingSymbol.toLowerCase()
           ]
-            ? constants.CONTRACT_TOKEN_ADDRESS[
+            ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+              constants.CONTRACT_TOKEN_ADDRESS[
                 marketInfo.underlyingSymbol.toLowerCase()
               ].asset
             : null
@@ -73,8 +80,7 @@ function MarketInfo({ marketInfo, marketType }) {
                 ? formatApy(
                     new BigNumber(
                       +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy
-                    )
-                    .plus(
+                    ).plus(
                       new BigNumber(
                         +marketInfo.supplyVenusApy < 0.01
                           ? 0.01
@@ -84,9 +90,10 @@ function MarketInfo({ marketInfo, marketType }) {
                   )
                 : formatApy(
                     new BigNumber(
-                      Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy
-                    )
-                    .plus(
+                      Math.abs(+marketInfo.borrowApy) < 0.01
+                        ? 0.01
+                        : marketInfo.borrowApy
+                    ).plus(
                       new BigNumber(
                         marketInfo.borrowVenusApy < 0.01
                           ? 0.01
@@ -98,7 +105,7 @@ function MarketInfo({ marketInfo, marketType }) {
           </div>
           <div className="supply-apy">
             <p className="label right">
-              {marketType === 'supply'? "Supply APY" : "Borrow Apy"}
+              {marketType === 'supply' ? 'Supply APY' : 'Borrow Apy'}
             </p>
             <p className="value right">
               {marketType === 'supply'
@@ -108,7 +115,9 @@ function MarketInfo({ marketInfo, marketType }) {
                     .dp(2, 1)
                     .toString(10)
                 : new BigNumber(
-                    Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy
+                    Math.abs(+marketInfo.borrowApy) < 0.01
+                      ? 0.01
+                      : marketInfo.borrowApy
                   )
                     .dp(2, 1)
                     .toString(10)}
@@ -135,7 +144,7 @@ function MarketInfo({ marketInfo, marketType }) {
           </div>
           <div className="total-supply">
             <p className="label right">
-              {marketType === 'supply'? "Total Supply" : "Total Borrow"}
+              {marketType === 'supply' ? 'Total Supply' : 'Total Borrow'}
             </p>
             <p className="value right">
               $

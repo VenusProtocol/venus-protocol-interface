@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/coins/vai.svg';
 import { Card } from 'components/Basic/Card';
@@ -65,7 +68,8 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function VaiInfo({ settings }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function VaiInfo({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
@@ -81,6 +85,9 @@ function VaiInfo({ settings }) {
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
           <p>{format(userVaiBalance.dp(2, 1).toString(10))} VAI </p>
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does
+          not exist on type 'Window... Remove this comment to see the full error
+          message
           {(window.ethereum || window.BinanceChain) && (
             <Icon
               className="add-vai-token"
@@ -122,8 +129,10 @@ VaiInfo.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(VaiInfo);

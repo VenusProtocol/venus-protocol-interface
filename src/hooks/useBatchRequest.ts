@@ -7,9 +7,11 @@ export default () => {
   const callFunc = useCallback(
     async calls => {
       const batch = new web3.BatchRequest();
-      const promises = calls.map(call => {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      const promises = calls.map((call: $TSFixMe) => {
         return new Promise((res, rej) => {
-          const req = call.request((err, data) => {
+          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+          const req = call.request((err: $TSFixMe, data: $TSFixMe) => {
             if (err) {
               rej(err);
             } else {

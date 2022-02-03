@@ -18,7 +18,7 @@ export function useEagerConnect() {
       }
     });
   }, []); //eslint-disable-line
-  //intentionally only running on mount(make sure it's only mounted once :))
+  // intentionally only running on mount(make sure it's only mounted once :))
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
   useEffect(() => {
@@ -34,6 +34,7 @@ export function useInactiveListener(suppress = false) {
   const { active, error, activate } = useWeb3React();
 
   useEffect(() => {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
     const { ethereum } = window;
 
     if (ethereum && ethereum.on && !active && !error && !suppress) {
@@ -44,7 +45,8 @@ export function useInactiveListener(suppress = false) {
         });
       };
 
-      const handleAccountsChanged = accounts => {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      const handleAccountsChanged = (accounts: $TSFixMe) => {
         if (accounts.length > 0) {
           // eat errors
           activate(injected, undefined, true).catch(error => {

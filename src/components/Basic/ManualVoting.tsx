@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Spin, Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 
 const ManualVotingWrapper = styled.div`
@@ -45,7 +46,8 @@ const ManualVotingWrapper = styled.div`
   }
 `;
 
-function ManualVoting({ address, balance, isLoading }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
   const antIcon = <Icon type="loading" style={{ fontSize: 64 }} spin />;
 
   return (

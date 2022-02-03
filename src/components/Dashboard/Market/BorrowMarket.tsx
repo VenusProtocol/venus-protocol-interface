@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { Label } from 'components/Basic/Label';
 import BorrowModal from 'components/Basic/BorrowModal';
@@ -20,11 +23,13 @@ const BorrowMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [record, setRecord] = useState({});
 
-  const handleClickRow = row => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleClickRow = (row: $TSFixMe) => {
     setRecord(row);
     setIsOpenModal(true);
   };
@@ -34,7 +39,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: 'Asset',
       dataIndex: 'img',
       key: 'img',
-      render(img, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <div className="flex align-center">
@@ -56,20 +62,25 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: 'APY',
       dataIndex: 'borrowApy',
       key: 'borrowApy',
-      render(borrowApy, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(borrowApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
           : borrowApy;
         return {
           children: (
             <div className="apy-content">
-              {!settings.withXVS || apy.isNegative() ?
+              {!settings.withXVS || apy.isNegative() ? (
                 <Icon type="arrow-down" style={{ color: '#f9053e' }} />
-                :
+              ) : (
                 <Icon type="arrow-up" />
-              }
+              )}
               <div
-                className={!settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'}
+                className={
+                  !settings.withXVS || apy.isNegative()
+                    ? 'apy-red-label'
+                    : 'apy-green-label'
+                }
               >
                 {formatApy(apy)}
               </div>
@@ -82,7 +93,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: 'Wallet',
       dataIndex: 'walletBalance',
       key: 'walletBalance',
-      render(walletBalance, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(walletBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <Label size="14" primary>
@@ -96,7 +108,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: 'Liquidity',
       dataIndex: 'liquidity',
       key: 'liquidity',
-      render(liquidity) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(liquidity: $TSFixMe) {
         return {
           children: (
             <Label size="14" primary>
@@ -113,7 +126,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: 'Asset',
       dataIndex: 'img',
       key: 'img',
-      render(img, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <div className="flex align-center">
@@ -135,20 +149,25 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: 'APY / Accrued',
       dataIndex: 'borrowApy',
       key: 'borrowApy',
-      render(borrowApy, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(borrowApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
           : borrowApy;
         return {
           children: (
             <div className="apy-content">
-              {!settings.withXVS || apy.isNegative() ?
+              {!settings.withXVS || apy.isNegative() ? (
                 <Icon type="arrow-down" style={{ color: '#f9053e' }} />
-                :
+              ) : (
                 <Icon type="arrow-up" />
-              }
+              )}
               <div
-                className={!settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'}
+                className={
+                  !settings.withXVS || apy.isNegative()
+                    ? 'apy-red-label'
+                    : 'apy-green-label'
+                }
               >
                 {formatApy(apy)}
               </div>
@@ -161,7 +180,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: 'Balance',
       dataIndex: 'borrowBalance',
       key: 'borrowBalance',
-      render(borrowBalance, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(borrowBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <div className="wallet-label flex flex-column">
@@ -186,7 +206,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }) {
       title: '% Of Limit',
       dataIndex: 'percentOfLimit',
       key: 'percentOfLimit',
-      render(percentOfLimit) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(percentOfLimit: $TSFixMe) {
         return {
           children: <Label size="14">{percentOfLimit}%</Label>
         };
@@ -240,10 +261,12 @@ BorrowMarket.defaultProps = {
   remainAssets: []
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
   BorrowMarket
 );

@@ -7,8 +7,10 @@ import { nodes } from './getRpcUrl';
  * @returns {boolean} true if the setup succeeded, false otherwise
  */
 export const setupNetwork = async () => {
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
   const provider = window.ethereum;
   if (provider) {
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string | undefined' is not assig... Remove this comment to see the full error message
     const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10);
     try {
       await provider.request({
@@ -25,6 +27,7 @@ export const setupNetwork = async () => {
               symbol: 'bnb',
               decimals: 18
             },
+            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             rpcUrls: nodes[chainId],
             blockExplorerUrls: [`${BASE_BSC_SCAN_URL}/`]
           }

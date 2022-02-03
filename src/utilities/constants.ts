@@ -481,7 +481,7 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'trx',
           symbol: 'vTRX',
           address: contracts.TEST.VBEP.trx
-        },
+        }
       }
     : {
         sxp: {
@@ -598,5 +598,5 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'trx',
           symbol: 'vTRX',
           address: contracts.MAIN.VBEP.trx
-        },
+        }
       };

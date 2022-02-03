@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { useWeb3React } from '@web3-react/core';
 import { Card } from 'components/Basic/Card';
@@ -109,7 +111,8 @@ function VotingPower({
   balance,
   delegateStatus,
   stakedAmount
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const { account } = useWeb3React();
 
   const [isOpenDelegationModal, setIsOpenDelegationModal] = useState(false);

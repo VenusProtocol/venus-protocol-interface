@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { Row, Column } from './Style';
@@ -108,7 +111,8 @@ const VotingWrapper = styled.div`
   }
 `;
 
-function Voting({ proposal, support, history }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Voting({ proposal, support, history }: $TSFixMe) {
   const [forPercent, setForPercent] = useState(0);
   const [againstPercent, setAgainstPercent] = useState(0);
 
@@ -117,18 +121,21 @@ function Voting({ proposal, support, history }) {
       new BigNumber(proposal.againstVotes)
     );
     setForPercent(
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
       new BigNumber(proposal.forVotes * 100).div(total).isNaN()
         ? '0'
         : new BigNumber(proposal.forVotes * 100).div(total).toString()
     );
     setAgainstPercent(
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
       new BigNumber(proposal.againstVotes * 100).div(total).isNaN()
         ? '0'
         : new BigNumber(proposal.againstVotes * 100).div(total).toString()
     );
   }, [proposal]);
 
-  const getStatus = p => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const getStatus = (p: $TSFixMe) => {
     if (p.state === 'Executed') {
       return 'Passed';
     }

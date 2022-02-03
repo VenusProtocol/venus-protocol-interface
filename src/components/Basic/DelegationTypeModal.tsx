@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
@@ -78,12 +79,14 @@ function DelegationTypeModal({
   delegateStatus,
   visible,
   onCancel
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const [child, setChild] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const xvsVaultProxyContract = useXvsVaultProxy();
 
-  const handleDelegateVoting = async dAddress => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleDelegateVoting = async (dAddress: $TSFixMe) => {
     setIsLoading(true);
     try {
       await xvsVaultProxyContract.methods

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { Row, Col } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
@@ -95,12 +99,14 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function VoterLeaderboard({ history, getVoterAccounts }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
   const [voterAccounts, setVoterAccounts] = useState([]);
 
   useEffect(() => {
     promisify(getVoterAccounts, { limit: 100, offset: 0 })
       .then(res => {
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setVoterAccounts(res.data.result || []);
       })
       .catch(() => {
@@ -141,6 +147,7 @@ function VoterLeaderboard({ history, getVoterAccounts }) {
                 <Row
                   className="table_item pointer"
                   key={index}
+                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
                   onClick={() => history.push(`/vote/address/${item.address}`)}
                 >
                   <Col
@@ -149,6 +156,8 @@ function VoterLeaderboard({ history, getVoterAccounts }) {
                     className="flex align-center rank"
                   >
                     <div className="rank-number">{index + 1}</div>
+                    // @ts-expect-error ts-migrate(2339) FIXME: Property
+                    'address' does not exist on type 'never'.
                     <p>{item.address}</p>
                   </Col>
                   <Col
@@ -159,6 +168,7 @@ function VoterLeaderboard({ history, getVoterAccounts }) {
                     <p className="mobile-label">Votes</p>
                     <p>
                       {format(
+                        // @ts-expect-error ts-migrate(2348) FIXME: Value of type 'typeof BigNumber' is not callable. ... Remove this comment to see the full error message
                         BigNumber(Web3.utils.fromWei(item.votes, 'ether'))
                           .dp(8, 1)
                           .toString(10)
@@ -171,6 +181,9 @@ function VoterLeaderboard({ history, getVoterAccounts }) {
                     className="vote-weight right"
                   >
                     <p className="mobile-label">Vote Weight</p>
+                    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type
+                    'number' is not assignable to par... Remove this comment to
+                    see the full error message
                     <p>{parseFloat(item.voteWeight * 100).toFixed(2)}%</p>
                   </Col>
                   <Col
@@ -179,6 +192,9 @@ function VoterLeaderboard({ history, getVoterAccounts }) {
                     className="proposals right"
                   >
                     <p className="mobile-label">Proposals Voted</p>
+                    // @ts-expect-error ts-migrate(2339) FIXME: Property
+                    'proposalsVoted' does not exist on type '... Remove this
+                    comment to see the full error message
                     <p>{item.proposalsVoted}</p>
                   </Col>
                 </Row>
@@ -199,7 +215,8 @@ VoterLeaderboard.defaultProps = {
   history: {}
 };
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getVoterAccounts } = accountActionCreators;
 
   return bindActionCreators(
@@ -212,5 +229,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(undefined, mapDispatchToProps)
 )(VoterLeaderboard);

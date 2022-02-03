@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import { Icon, Modal, Input } from 'antd';
 import Button from '@material-ui/core/Button';
@@ -184,7 +187,8 @@ const VOTE_TYPE = {
   ABSTAIN: 2
 };
 
-const getVoteTypeStringFromValue = type => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const getVoteTypeStringFromValue = (type: $TSFixMe) => {
   return [
     ['👎', 'Against'],
     ['👍', 'For'],
@@ -192,7 +196,8 @@ const getVoteTypeStringFromValue = type => {
   ][type];
 };
 
-function Proposal({ address, proposal, votingWeight, history }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
   const [voteStatus, setVoteStatus] = useState('');
@@ -200,7 +205,8 @@ function Proposal({ address, proposal, votingWeight, history }) {
   const [voteReason, setVoteReason] = useState('');
   const governorBravoContract = useGovernorBravo();
 
-  const getStatus = p => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const getStatus = (p: $TSFixMe) => {
     if (p.state === 'Executed') {
       return 'Passed';
     }
@@ -226,7 +232,8 @@ function Proposal({ address, proposal, votingWeight, history }) {
     }
   }, [address, proposal, getIsHasVoted]);
 
-  const handleOpenVoteConfirmModal = type => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleOpenVoteConfirmModal = (type: $TSFixMe) => {
     setVoteType(type);
     setConfirmModalVisible(true);
   };
@@ -250,8 +257,10 @@ function Proposal({ address, proposal, votingWeight, history }) {
     setConfirmModalVisible(false);
   };
 
-  const getTitle = descs => {
-    const index = descs.findIndex(d => d !== '');
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const getTitle = (descs: $TSFixMe) => {
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const index = descs.findIndex((d: $TSFixMe) => d !== '');
     if (index !== -1) {
       return descs[index];
     }
@@ -335,6 +344,7 @@ function Proposal({ address, proposal, votingWeight, history }) {
       <Modal
         className="venus-modal"
         width={360}
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         height={326}
         visible={confirmModalVisible}
         onCancel={() => {

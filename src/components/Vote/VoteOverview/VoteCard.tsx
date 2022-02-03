@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
@@ -122,7 +126,8 @@ function VoteCard({
   emptyNumber,
   list,
   onViewAll
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const [isViewAll, setIsViewAll] = useState(true);
   const [percent, setPercent] = useState(0);
 
@@ -132,10 +137,12 @@ function VoteCard({
     const percentTmp = new BigNumber(voteNumber)
       .multipliedBy(100)
       .div(totalNumber);
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
     setPercent(percentTmp.isNaN() ? '0' : percentTmp.toString(10));
   }, [voteNumber]);
 
-  const handleAddLink = v => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleAddLink = (v: $TSFixMe) => {
     history.push(`/vote/address/${v}`);
   };
 
@@ -177,7 +184,9 @@ function VoteCard({
             <span>Votes</span>
           </div>
           <div className="vote-list scrollbar">
-            {list.map((l, index) => (
+            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
+            '$TSFixMe'.
+            {list.map((l: $TSFixMe, index: $TSFixMe) => (
               <div
                 className="flex align-center just-between vote-item"
                 key={index}
@@ -202,6 +211,7 @@ function VoteCard({
                     <Tooltip
                       placement="top"
                       title={l.reason}
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type 'string[]' is not assignable to type 'Tooltip... Remove this comment to see the full error message
                       trigger={['click']}
                       overlayStyle={{
                         maxHeight: '500px',

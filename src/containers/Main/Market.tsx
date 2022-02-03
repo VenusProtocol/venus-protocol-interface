@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { Row, Col, Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
@@ -162,7 +166,8 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Market({ history, settings, getTreasuryBalance }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
   const [totalSupply, setTotalSupply] = useState('0');
   const [totalBorrow, setTotalBorrow] = useState('0');
   const [availableLiquidity, setAvailableLiquidity] = useState('0');
@@ -173,9 +178,14 @@ function Market({ history, settings, getTreasuryBalance }) {
   const loadTreasuryBalance = useCallback(async () => {
     await promisify(getTreasuryBalance, {})
       .then(res => {
-        const total = (res.data || []).reduce((accumulator, asset) => {
-          return accumulator + Number(asset.balance) * Number(asset.price);
-        }, 0);
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
+        const total = (res.data || []).reduce(
+          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+          (accumulator: $TSFixMe, asset: $TSFixMe) => {
+            return accumulator + Number(asset.balance) * Number(asset.price);
+          },
+          0
+        );
         setTotalTreasury(total.toFixed(2));
       })
       .catch(() => {});
@@ -188,15 +198,18 @@ function Market({ history, settings, getTreasuryBalance }) {
   const getTotalInfo = async () => {
     const tempTS = (markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
         new BigNumber(market.totalSupplyUsd)
       );
     }, new BigNumber(0));
     const tempTB = (markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
         new BigNumber(market.totalBorrowsUsd)
       );
     }, new BigNumber(0));
     const tempAL = (markets || []).reduce((accumulator, market) => {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'liquidity' does not exist on type 'never... Remove this comment to see the full error message
       return new BigNumber(accumulator).plus(new BigNumber(market.liquidity));
     }, new BigNumber(0));
 
@@ -221,7 +234,8 @@ function Market({ history, settings, getTreasuryBalance }) {
     }
   }, [markets]);
 
-  const handleSort = field => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleSort = (field: $TSFixMe) => {
     setSortInfo({
       field,
       sort:
@@ -330,6 +344,7 @@ function Market({ history, settings, getTreasuryBalance }) {
               (markets || [])
                 .map(market => {
                   return {
+                    // @ts-expect-error ts-migrate(2698) FIXME: Spread types may only be created from object types... Remove this comment to see the full error message
                     ...market,
                     totalSupplyApy: new BigNumber(market.supplyApy).plus(
                       new BigNumber(market.supplyVenusApy)
@@ -409,10 +424,12 @@ function Market({ history, settings, getTreasuryBalance }) {
                       <img
                         className="asset-img"
                         src={
+                          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                           constants.CONTRACT_TOKEN_ADDRESS[
                             item.underlyingSymbol.toLowerCase()
                           ]
-                            ? constants.CONTRACT_TOKEN_ADDRESS[
+                            ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                              constants.CONTRACT_TOKEN_ADDRESS[
                                 item.underlyingSymbol.toLowerCase()
                               ].asset
                             : null
@@ -529,11 +546,13 @@ Market.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getTreasuryBalance } = accountActionCreators;
 
   return bindActionCreators(
@@ -546,5 +565,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps)
 )(Market);

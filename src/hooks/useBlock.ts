@@ -9,7 +9,7 @@ export const useBlock = () => {
 
   useEffect(() => {
     const getBlockNumber = async () => {
-      const bn = await web3.eth.getBlockNumber()
+      const bn = await web3.eth.getBlockNumber();
       setBlockNumber(bn);
     };
     getBlockNumber();

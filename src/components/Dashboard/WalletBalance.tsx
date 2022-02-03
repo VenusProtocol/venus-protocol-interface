@@ -1,12 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import CircleProgressBar from 'components/Basic/CircleProgressBar';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'anim... Remove this comment to see the full error message
 import AnimatedNumber from 'animated-number-react';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
@@ -81,7 +85,8 @@ const BalancerWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
-function WalletBalance({ settings, setSetting }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function WalletBalance({ settings, setSetting }: $TSFixMe) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
   const { userVaiMinted } = useVaiUser();
@@ -126,7 +131,8 @@ function WalletBalance({ settings, setSetting }) {
     let totalSum = new BigNumber(0);
     let totalSupplied = new BigNumber(0);
     let totalBorrowed = userVaiMinted;
-    userMarketInfo.forEach(asset => {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
+    userMarketInfo.forEach((asset: $TSFixMe) => {
       if (!asset) return;
       const {
         supplyBalance,
@@ -180,6 +186,7 @@ function WalletBalance({ settings, setSetting }) {
   }, [userMarketInfo, withXVS]);
 
   useEffect(() => {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'length' does not exist on type '{}'.
     if (account && userMarketInfo && userMarketInfo.length > 0) {
       updateNetAPY();
     }
@@ -199,7 +206,8 @@ function WalletBalance({ settings, setSetting }) {
     };
   }, [withXVS]);
 
-  const formatValue = value => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const formatValue = (value: $TSFixMe) => {
     return `$${format(
       getBigNumber(value)
         .dp(2, 1)
@@ -271,11 +279,13 @@ WalletBalance.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
@@ -286,6 +296,7 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
   WalletBalance
 );

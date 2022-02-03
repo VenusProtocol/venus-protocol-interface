@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
 import VaultCardContent from './CardContent';
@@ -13,7 +14,9 @@ import arrowDownImg from '../../assets/img/arrow-down.png';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
-function getTokenImg(name) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function getTokenImg(name: $TSFixMe) {
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   return {
     xvs: xvsImg,
     vai: vaiImg
@@ -30,11 +33,14 @@ function VaultCard({
   apr,
   totalStaked,
   dailyEmission
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
   );
   const rewardTokenDecimal = new BigNumber(10).pow(
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals
   );
   const [expanded, setExpanded] = useState(false);
@@ -144,6 +150,7 @@ function VaultCard({
       <div>
         {expanded ? (
           <VaultCardContent
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; poolId: any; stakedToke... Remove this comment to see the full error message
             className="content-container"
             poolId={poolId}
             stakedToken={stakedToken}

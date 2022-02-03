@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
@@ -49,7 +50,8 @@ const WithdrawCardWrapper = styled.div`
   }
 `;
 
-function formatTimeToLockPeriodString(seconds) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function formatTimeToLockPeriodString(seconds: $TSFixMe) {
   let remaining = 0;
   const days = Math.floor(seconds / 86400);
   remaining = seconds - days * 86400;
@@ -71,8 +73,10 @@ function WithdrawCard({
   withdrawableAmount,
   pendingWithdrawals,
   userEligibleStakedAmount
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
   );
 
@@ -96,7 +100,9 @@ function WithdrawCard({
                 <div className="card-title">
                   <span>
                     {stakedToken.toUpperCase()} Staked:{' '}
-                    {userEligibleStakedAmount.div(stakedTokenDecimal).toFixed(4)}
+                    {userEligibleStakedAmount
+                      .div(stakedTokenDecimal)
+                      .toFixed(4)}
                   </span>
                   <Icon
                     type="history"
@@ -118,7 +124,9 @@ function WithdrawCard({
                         const maxValue = userEligibleStakedAmount
                           .div(stakedTokenDecimal)
                           .dp(4, 1);
-                        setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
+                        setWithdrawAmount(
+                          value.gt(maxValue) ? maxValue : value
+                        );
                       }}
                       thousandSeparator
                       allowNegative={false}

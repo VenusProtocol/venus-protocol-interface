@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BorrowTab from 'components/Basic/BorrowTabs/BorrowTab';
@@ -207,7 +208,8 @@ export const TabContent = styled.div`
   }
 `;
 
-function BorrowModal({ visible, asset, onCancel }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function BorrowModal({ visible, asset, onCancel }: $TSFixMe) {
   const [currentTab, setCurrentTab] = useState('borrow');
 
   useEffect(() => {

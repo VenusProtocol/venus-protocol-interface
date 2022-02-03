@@ -11,10 +11,16 @@ import {
 
 import { restService } from 'utilities';
 
-export function* handleAuthErrorRequest({ payload, resolve, reject }) {
+export function* handleAuthErrorRequest({
+  payload,
+  resolve,
+  reject
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const { response } = payload;
   try {
     if (response.data && response.status === 401) {
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       yield put(authActionCreators.logOut({}));
     }
   } catch (e) {
@@ -23,10 +29,12 @@ export function* handleAuthErrorRequest({ payload, resolve, reject }) {
   }
 }
 
-export function* asyncLoginRequest({ payload, resolve, reject }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export function* asyncLoginRequest({ payload, resolve, reject }: $TSFixMe) {
   const { email, password } = payload;
 
   try {
+    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
       api: ``,
       method: 'POST',
@@ -46,10 +54,12 @@ export function* asyncLoginRequest({ payload, resolve, reject }) {
   }
 }
 
-export function* asyncRegisterRequest({ payload, resolve, reject }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export function* asyncRegisterRequest({ payload, resolve, reject }: $TSFixMe) {
   const { email, password } = payload;
 
   try {
+    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
       api: ``,
       method: 'POST',
@@ -62,6 +72,7 @@ export function* asyncRegisterRequest({ payload, resolve, reject }) {
       yield put(authActionCreators.registerSuccess({ user: response.data }));
       resolve(response.data);
     } else {
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 1.
       yield put(authActionCreators.handleAuthError({ response }));
       reject(response);
     }
@@ -70,7 +81,8 @@ export function* asyncRegisterRequest({ payload, resolve, reject }) {
   }
 }
 
-export function* asyncLogoutRequest({ payload, resolve, reject }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export function* asyncLogoutRequest({ payload, resolve, reject }: $TSFixMe) {
   try {
     // const response = yield call(restService, {
     //   api: `/auth/logout`,
@@ -88,24 +100,28 @@ export function* asyncLogoutRequest({ payload, resolve, reject }) {
 
 export function* watchHandleAuthErrorRequest() {
   while (true) {
+    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const action = yield take(HANDLE_AUTH_ERROR_REQUEST);
     yield* handleAuthErrorRequest(action);
   }
 }
 export function* watchLoginRequest() {
   while (true) {
+    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const action = yield take(LOGIN_REQUEST);
     yield* asyncLoginRequest(action);
   }
 }
 export function* watchRegisterRequest() {
   while (true) {
+    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const action = yield take(REGISTER_REQUEST);
     yield* asyncRegisterRequest(action);
   }
 }
 export function* watchLogoutRequest() {
   while (true) {
+    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const action = yield take(LOGOUT_REQUEST);
     yield* asyncLogoutRequest(action);
   }

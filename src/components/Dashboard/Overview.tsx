@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import BigNumber from 'bignumber.js';
 import { bindActionCreators } from 'redux';
@@ -9,6 +11,7 @@ import { connectAccount, accountActionCreators } from 'core';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { addToken, getBigNumber, formatApy } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
@@ -140,7 +143,8 @@ const { Option } = Select;
 const abortController = new AbortController();
 const format = commaNumber.bindWith(',', '.');
 
-function Overview({ settings, getMarketHistory }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Overview({ settings, getMarketHistory }: $TSFixMe) {
   const [currentAsset, setCurrentAsset] = useState('sxp');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
@@ -149,11 +153,20 @@ function Overview({ settings, getMarketHistory }) {
   const { markets } = useMarkets();
   const { userMarketInfo } = useMarketsUser();
 
-  const getGraphData = async (asset, type, limit) => {
+  const getGraphData = async (
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    asset: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    type: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    limit: $TSFixMe
+  ) => {
     let tempData = [];
     const res = await promisify(getMarketHistory, { asset, type, limit });
+    // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     tempData = res.data.result
-      .map(m => {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      .map((m: $TSFixMe) => {
         return {
           createdAt: m.createdAt,
           supplyApy: +new BigNumber(m.supplyApy || 0).dp(8, 1).toString(10),
@@ -161,6 +174,7 @@ function Overview({ settings, getMarketHistory }) {
         };
       })
       .reverse();
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
     setData([...tempData]);
   };
 
@@ -168,6 +182,7 @@ function Overview({ settings, getMarketHistory }) {
     if (!currentAsset) return;
     if (markets && markets.length > 0) {
       const info = markets.find(
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
         item => item.underlyingSymbol.toLowerCase() === currentAsset
       );
       setMarketInfo(info || {});
@@ -177,6 +192,7 @@ function Overview({ settings, getMarketHistory }) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
         '1hr',
         24 * 7 // 1 week
@@ -188,10 +204,17 @@ function Overview({ settings, getMarketHistory }) {
   }, [currentAsset]);
 
   useEffect(() => {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'length' does not exist on type '{}'.
     if (userMarketInfo && userMarketInfo.length > 0) {
       const currentMarketInfo =
-        userMarketInfo.filter(s => s && s.id === currentAsset).length !== 0
-          ? userMarketInfo.filter(s => s && s.id === currentAsset)[0]
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type '{}'.
+        userMarketInfo.filter((s: $TSFixMe) => s && s.id === currentAsset)
+          .length !== 0
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type '{}'.
+          ? userMarketInfo.filter(
+              // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+              (s: $TSFixMe) => s && s.id === currentAsset
+            )[0]
           : {};
       const supplyApy = getBigNumber(currentMarketInfo.supplyApy);
       const borrowApy = getBigNumber(currentMarketInfo.borrowApy);
@@ -203,6 +226,7 @@ function Overview({ settings, getMarketHistory }) {
         : borrowApy;
       setDecimals(currentMarketInfo.decimals);
       setCurrentAPY(
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
         (settings.marketType || 'supply') === 'supply'
           ? supplyApyWithXVS.dp(2, 1).toString(10)
           : borrowApyWithXVS.dp(2, 1).toString(10)
@@ -210,7 +234,8 @@ function Overview({ settings, getMarketHistory }) {
     }
   }, [currentAsset, settings.marketType, userMarketInfo, settings.withXVS]);
 
-  const handleChangeAsset = value => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleChangeAsset = (value: $TSFixMe) => {
     setCurrentAsset(value);
   };
 
@@ -226,6 +251,7 @@ function Overview({ settings, getMarketHistory }) {
               <Select
                 defaultValue="sxp"
                 style={{ width: 150, marginRight: 10 }}
+                // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
                 getPopupContainer={() => document.getElementById('asset')}
                 dropdownMenuStyle={{
                   backgroundColor: '#090d27'
@@ -237,15 +263,18 @@ function Overview({ settings, getMarketHistory }) {
                   (key, index) => (
                     <Option
                       className="flex align-center just-between"
+                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                       value={constants.CONTRACT_VBEP_ADDRESS[key].id}
                       key={index}
                     >
                       <img
                         className="asset-img"
+                        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                         src={constants.CONTRACT_TOKEN_ADDRESS[key].asset}
                         alt="asset"
                       />{' '}
                       <span>
+                        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                         {constants.CONTRACT_TOKEN_ADDRESS[key].symbol}
                       </span>
                     </Option>
@@ -254,10 +283,12 @@ function Overview({ settings, getMarketHistory }) {
               </Select>
               <div className="value">Overview</div>
             </AssetSelectWrapper>
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
             {window.ethereum && window.ethereum.networkVersion && (
               <div className="flex align-center add-token-wrapper">
                 {currentAsset && currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
+                    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                     {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
                     <Icon
                       className="add-token"
@@ -315,6 +346,7 @@ function Overview({ settings, getMarketHistory }) {
         <div className="description">
           <p className="label">Price</p>
           <p className="value">
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingPrice' does not exist on type ... Remove this comment to see the full error message
             {`$${new BigNumber(marketInfo.underlyingPrice || 0)
               .div(new BigNumber(10).pow(18 + 18 - decimals))
               .dp(8, 1)
@@ -325,33 +357,40 @@ function Overview({ settings, getMarketHistory }) {
           <p className="label">Market Liquidity</p>
           <p className="value">
             {`${format(
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'cash' does not exist on type '{}'.
               new BigNumber(marketInfo.cash || 0)
                 .div(new BigNumber(10).pow(decimals))
                 .dp(8, 1)
                 .toString(10)
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
             )} ${marketInfo.underlyingSymbol || ''}`}
           </p>
         </div>
         <div className="description">
           <p className="label"># of Suppliers</p>
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplierCount' does not exist on type '{... Remove this comment to see the full error message
           <p className="value">{format(marketInfo.supplierCount)}</p>
         </div>
         <div className="description">
           <p className="label"># of Borrowers</p>
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowerCount' does not exist on type '{... Remove this comment to see the full error message
           <p className="value">{format(marketInfo.borrowerCount)}</p>
         </div>
         <div className="description">
           <p className="label">Reserves</p>
           <p className="value">
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalReserves' does not exist on type '{... Remove this comment to see the full error message
             {`${new BigNumber(marketInfo.totalReserves || 0)
               .div(new BigNumber(10).pow(decimals))
               .dp(8, 1)
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
               .toString(10)} ${marketInfo.underlyingSymbol || ''}`}
           </p>
         </div>
         <div className="description">
           <p className="label">Reserve Factor</p>
           <p className="value">
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'reserveFactor' does not exist on type '{... Remove this comment to see the full error message
             {`${new BigNumber(marketInfo.reserveFactor || 0)
               .div(new BigNumber(10).pow(18))
               .multipliedBy(100)
@@ -362,6 +401,7 @@ function Overview({ settings, getMarketHistory }) {
         <div className="description">
           <p className="label">Collateral Factor</p>
           <p className="value">
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'collateralFactor' does not exist on type... Remove this comment to see the full error message
             {`${new BigNumber(marketInfo.collateralFactor || 0)
               .div(new BigNumber(10).pow(18))
               .times(100)
@@ -373,6 +413,7 @@ function Overview({ settings, getMarketHistory }) {
           <p className="label">Total Supply</p>
           <p className="value">
             {`$${format(
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
               new BigNumber(marketInfo.totalSupplyUsd || 0)
                 .dp(2, 1)
                 .toString(10)
@@ -383,6 +424,7 @@ function Overview({ settings, getMarketHistory }) {
           <p className="label">Total Borrow</p>
           <p className="value">
             {`$${format(
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
               new BigNumber(marketInfo.totalBorrowsUsd || 0)
                 .dp(2, 1)
                 .toString(10)
@@ -392,14 +434,17 @@ function Overview({ settings, getMarketHistory }) {
         <div className="description">
           <p className="label">Exchange Rate</p>
           <p className="value">
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
             {`1 ${marketInfo.underlyingSymbol || ''} = ${Number(
               new BigNumber(1)
                 .div(
+                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'exchangeRate' does not exist on type '{}... Remove this comment to see the full error message
                   new BigNumber(marketInfo.exchangeRate).div(
                     new BigNumber(10).pow(18 + decimals - vtokenDecimals)
                   )
                 )
                 .toString(10)
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'symbol' does not exist on type '{}'.
             ).toFixed(6)} ${marketInfo.symbol || ''}`}
           </p>
         </div>
@@ -417,11 +462,13 @@ Overview.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getMarketHistory } = accountActionCreators;
 
   return bindActionCreators(
@@ -432,6 +479,7 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
   Overview
 );

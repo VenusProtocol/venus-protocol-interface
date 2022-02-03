@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
@@ -34,8 +35,10 @@ const ProposalUserWrapper = styled.div`
   }
 `;
 
-function ProposalUser({ proposalInfo }) {
-  const handleAddLink = (linkType, v) => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function ProposalUser({ proposalInfo }: $TSFixMe) {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleAddLink = (linkType: $TSFixMe, v: $TSFixMe) => {
     window.open(
       `${BASE_BSC_SCAN_URL}/${linkType === 'address' ? 'address' : 'tx'}/${v}`,
       '_blank'

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
 import toast from 'components/Basic/Toast';
@@ -26,7 +29,8 @@ const SupplyMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
   const [record, setRecord] = useState({});
@@ -34,7 +38,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
   const { account } = useWeb3React();
   const comptrollerContract = useComptroller();
 
-  const handleToggleCollateral = async r => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleToggleCollateral = async (r: $TSFixMe) => {
     if (r && account && r.borrowBalance.isZero()) {
       if (!r.collateral) {
         setIsCollateralEnable(false);
@@ -58,6 +63,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
           .send({ from: account });
         setIsCollateralConfirm(false);
       } else {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
           title: `Collateral Required`,
           description:
@@ -65,6 +71,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
         });
       }
     } else {
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
         title: `Collateral Required`,
         description:
@@ -78,7 +85,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'Asset',
       dataIndex: 'asset',
       key: 'asset',
-      render(img, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <div className="flex align-center">
@@ -100,7 +108,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'APY',
       dataIndex: 'supplyApy',
       key: 'supplyApy',
-      render(supplyApy, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(supplyApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? supplyApy.plus(asset.xvsSupplyApy)
           : supplyApy;
@@ -109,9 +118,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
           children: (
             <div className="apy-content">
               <Icon type="arrow-up" />
-              <div className="apy-green-label">
-                {formatApy(apy)}
-              </div>
+              <div className="apy-green-label">{formatApy(apy)}</div>
             </div>
           )
         };
@@ -121,7 +128,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'Wallet',
       dataIndex: 'walletBalance',
       key: 'walletBalance',
-      render(walletBalance, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(walletBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <Label size="14" primary>
@@ -135,7 +143,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'Collateral',
       dataIndex: 'collateral',
       key: 'collateral',
-      render(collateral, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor.toString() ? (
             <Toggle
@@ -153,7 +162,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'Asset',
       dataIndex: 'asset',
       key: 'asset',
-      render(img, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <div className="flex align-center">
@@ -175,7 +185,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'APY / Earned',
       dataIndex: 'supplyApy',
       key: 'supplyApy',
-      render(supplyApy, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(supplyApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? supplyApy.plus(asset.xvsSupplyApy)
           : supplyApy;
@@ -183,9 +194,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
           children: (
             <div className="apy-content">
               <Icon type="arrow-up" />
-              <div className="apy-green-label">
-                {formatApy(apy)}
-              </div>
+              <div className="apy-green-label">{formatApy(apy)}</div>
             </div>
           )
         };
@@ -195,7 +204,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'Balance',
       dataIndex: 'supplyBalance',
       key: 'supplyBalance',
-      render(supplyBalance, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(supplyBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <div className="wallet-label flex flex-column">
@@ -220,7 +230,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
       title: 'Collateral',
       dataIndex: 'collateral',
       key: 'collateral',
-      render(collateral, asset) {
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor ? (
             <Toggle
@@ -233,7 +244,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }) {
     }
   ];
 
-  const handleClickRow = row => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleClickRow = (row: $TSFixMe) => {
     setRecord(row);
     setIsOpenModal(true);
   };
@@ -289,10 +301,12 @@ SupplyMarket.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
   SupplyMarket
 );

@@ -1,11 +1,16 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import en from 'react-intl/locale-data/en';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'lang/en' or its corresponding ... Remove this comment to see the full error message
 import enMessages from 'lang/en';
 import { store } from 'core';
 import Dashboard from 'containers/Main/Dashboard';
@@ -34,7 +39,8 @@ const messages = {
 };
 
 class App extends React.Component {
-  constructor(props) {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  constructor(props: $TSFixMe) {
     super(props);
     this.state = {
       lang: initialLang
@@ -42,7 +48,9 @@ class App extends React.Component {
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'lang' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { lang } = this.state;
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const message = messages[lang];
     return (
       <Theme>

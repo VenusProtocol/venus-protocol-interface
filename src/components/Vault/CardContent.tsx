@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
@@ -30,11 +31,14 @@ function CardContent({
   userStakedAmount,
   pendingReward,
   lockPeriodSecond
-}) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: $TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
   );
   const rewardTokenDecimal = new BigNumber(10).pow(
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals
   );
   const { account } = useWeb3React();
@@ -65,8 +69,10 @@ function CardContent({
   const [stakeLoading, setStakeLoading] = useState(false); // also applies to enabling
 
   const stakedTokenAddress =
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].address;
   const rewardTokenAddress =
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[rewardToken].address;
 
   const xvsVaultContract = useXvsVaultProxy();
@@ -75,6 +81,7 @@ function CardContent({
     stakedTokenAddress
   );
 
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
     let isMounted = true;
     let [balance, allowance, withdrawals] = ['0', '0', []];
@@ -97,7 +104,9 @@ function CardContent({
       setUserStakedTokenAllowance(new BigNumber(allowance));
 
       const pendingWithdrawalsTemp = withdrawals.map(withdrawal => ({
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'.
         amount: new BigNumber(withdrawal.amount),
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'lockedUntil' does not exist on type 'nev... Remove this comment to see the full error message
         lockedUntil: new BigNumber(withdrawal.lockedUntil),
         eligible: false
       }));
@@ -107,6 +116,7 @@ function CardContent({
       setWithdrawableAmount(
         withdrawals.reduce((target, widthdrawal, i) => {
           if (
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'lockedUntil' does not exist on type 'nev... Remove this comment to see the full error message
             new BigNumber(widthdrawal.lockedUntil)
               .multipliedBy(1000)
               .lt(Date.now())
@@ -114,12 +124,14 @@ function CardContent({
             // we assign the eligible check result for later usage
             // eslint-disable-next-line no-param-reassign
             pendingWithdrawalsTemp[i].eligible = true;
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'.
             return target.plus(new BigNumber(widthdrawal.amount));
           }
           return target;
         }, new BigNumber(0))
       );
 
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ amount: BigNumber; lockedUntil... Remove this comment to see the full error message
       setPendingWithdrawals(pendingWithdrawalsTemp);
 
       // the amount of all the withdrawals user requested, eligible or not
@@ -143,6 +155,7 @@ function CardContent({
   if (loading) {
     return (
       <CardContentWrapper>
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; }' is not assignable to... Remove this comment to see the full error message
         <LoadingSpinner className="loading-spinner" />;
       </CardContentWrapper>
     );
@@ -192,6 +205,7 @@ function CardContent({
           <WithdrawCard
             poolId={poolId}
             stakedToken={stakedToken}
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ poolId: any; stakedToken: any; stakedToken... Remove this comment to see the full error message
             stakedTokenAddress={stakedTokenAddress}
             rewardToken={rewardToken}
             rewardTokenAddress={rewardTokenAddress}

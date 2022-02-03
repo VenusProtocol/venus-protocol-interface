@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Input, Icon } from 'antd';
 import Button from '@material-ui/core/Button';
@@ -96,10 +99,10 @@ const VotingWrapper = styled.div`
       }
     }
   }
-
 `;
 
-function DelegationVoting({ history, isLoading, onDelegate }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function DelegationVoting({ history, isLoading, onDelegate }: $TSFixMe) {
   const [delegateAddress, setDelegateAddress] = useState('');
   const { account } = useWeb3React();
   return (

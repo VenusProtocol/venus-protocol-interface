@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
@@ -130,7 +131,8 @@ function Proposals({
   proposals,
   total,
   onChangePage
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
 
@@ -188,7 +190,8 @@ function Proposals({
     }
   }, [account, address, delegateAddress]);
 
-  const handleChangePage = (page, size) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setCurrent(page);
     setPageSize(size);
     onChangePage(page, (page - 1) * size, size);
@@ -210,6 +213,7 @@ function Proposals({
     if (pId !== '0') {
       const status = await governorBravoContract.methods.state(pId).call();
       if (status === '0' || status === '1') {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
           title: `You can't create proposal. there is proposal in progress!`
         });
@@ -237,6 +241,7 @@ function Proposals({
               title="You must have the voting power of at least 300K XVS to propose"
             >
               <Button
+                // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: (string | false | Element)[]; wi... Remove this comment to see the full error message
                 width={150}
                 height={40}
                 className="button create-proposal-btn"
@@ -251,7 +256,8 @@ function Proposals({
         <div className="body">
           {isLoadingProposal && <LoadingSpinner />}
           {!isLoadingProposal && proposals && proposals.length !== 0 ? (
-            proposals.map(item => {
+            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+            proposals.map((item: $TSFixMe) => {
               return (
                 <Proposal
                   proposal={item}

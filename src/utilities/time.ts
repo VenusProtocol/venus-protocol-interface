@@ -2,14 +2,16 @@ import moment from 'moment';
 
 export const FORMAT_STRING = 'lll';
 
-export const formatTimeInSeconds = sec => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const formatTimeInSeconds = (sec: $TSFixMe) => {
   if (!sec) {
     return '-';
   }
   return `${moment(sec * 1000).format(FORMAT_STRING)}`;
 };
 
-export const getRemainingTime = item => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const getRemainingTime = (item: $TSFixMe) => {
   if (item.state === 'Active') {
     const diffBlock = item.endBlock - item.blockNumber;
     const duration = moment.duration(

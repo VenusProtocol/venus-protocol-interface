@@ -1,15 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
-import { Row, Col, Pagination } from 'antd';
+import { Row, Col, Pagination, Select } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { Label } from 'components/Basic/Label';
-import { Select } from 'antd';
+
 import { promisify } from 'utilities';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -265,7 +269,8 @@ const eventTypes = [
 const { Option } = Select;
 const format = commaNumber.bindWith(',', '.');
 
-function Transaction({ getTransactionHistory }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Transaction({ getTransactionHistory }: $TSFixMe) {
   const [data, setData] = useState([]);
   const [offset, setOffset] = useState(1);
   const [pageSize, setPageSize] = useState(20);
@@ -276,7 +281,9 @@ function Transaction({ getTransactionHistory }) {
   const loadTransactionHistory = useCallback(async () => {
     await promisify(getTransactionHistory, { offset, event })
       .then(res => {
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data.result);
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setTotal(res.data.total);
       })
       .catch(() => {});
@@ -286,7 +293,8 @@ function Transaction({ getTransactionHistory }) {
     loadTransactionHistory();
   }, [loadTransactionHistory]);
 
-  const handleChangePage = (page, size) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setOffset(page);
     setPageSize(size);
   };
@@ -299,7 +307,8 @@ function Transaction({ getTransactionHistory }) {
     handleChangePage(offset - 1, 20);
   };
 
-  const diffFormat = secs => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const diffFormat = (secs: $TSFixMe) => {
     let minutes = Math.floor(secs / 60);
     const sec = secs % 60;
     let hours = Math.floor(minutes / 60);
@@ -308,11 +317,11 @@ function Transaction({ getTransactionHistory }) {
     minutes %= 60;
     if (days > 0) {
       return `${days} days ago`;
-    } else if (hours > 0) {
-      return `${hours} hours ago`;
-    } else {
-      return `${minutes} mins ago`;
     }
+    if (hours > 0) {
+      return `${hours} hours ago`;
+    }
+    return `${minutes} mins ago`;
   };
 
   return (
@@ -330,6 +339,7 @@ function Transaction({ getTransactionHistory }) {
             <Select
               defaultValue="All"
               style={{ width: 200, marginRight: 10 }}
+              // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
               getPopupContainer={() => document.getElementById('event-type')}
               dropdownMenuStyle={{
                 backgroundColor: '#090d27'
@@ -384,11 +394,15 @@ function Transaction({ getTransactionHistory }) {
                 <Row className="table_item" key={index}>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
                     <p className="mobile-label">ID</p>
+                    // @ts-expect-error ts-migrate(2339) FIXME: Property 'id'
+                    does not exist on type 'never'.
                     <p className="item-title">{item.id}</p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} className="type">
                     <p className="mobile-label">Type</p>
                     <img className="asset-img" src={xvsImg} alt="asset" />
+                    // @ts-expect-error ts-migrate(2339) FIXME: Property 'event'
+                    does not exist on type 'never'.
                     <p className="item-title">{item.event}</p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 3 }} className="hash">
@@ -397,17 +411,27 @@ function Transaction({ getTransactionHistory }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
+                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message
                           `${BASE_BSC_SCAN_URL}/tx/${item.transactionHash}`,
                           '_blank'
                         );
                       }}
-                    >{`${item.transactionHash.slice(
-                      0,
-                      6
-                    )}...${item.transactionHash.slice(-6)}`}</p>
+                    >
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property
+                      'transactionHash' does not exist on type ... Remove this
+                      comment to see the full error message
+                      {`${item.transactionHash.slice(
+                        0,
+                        6
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message
+                      )}...${item.transactionHash.slice(-6)}`}
+                    </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="block">
                     <p className="mobile-label">Block</p>
+                    // @ts-expect-error ts-migrate(2339) FIXME: Property
+                    'blockNumber' does not exist on type 'nev... Remove this
+                    comment to see the full error message
                     <p className="item-title">{item.blockNumber}</p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} className="from">
@@ -416,12 +440,16 @@ function Transaction({ getTransactionHistory }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
+                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'.
                           `${BASE_BSC_SCAN_URL}/address/${item.from}`,
                           '_blank'
                         );
                       }}
                     >
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property
+                      'from' does not exist on type 'never'.
                       {item.from &&
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'.
                         `${item.from.slice(0, 6)}...${item.from.slice(-6)}`}
                     </p>
                   </Col>
@@ -430,6 +458,7 @@ function Transaction({ getTransactionHistory }) {
                       className="mobile-label"
                       onClick={() => {
                         window.open(
+                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
                           `${BASE_BSC_SCAN_URL}/address/${item.to}`,
                           '_blank'
                         );
@@ -441,27 +470,35 @@ function Transaction({ getTransactionHistory }) {
                       className="item-title"
                       onClick={() => {
                         window.open(
+                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
                           `${BASE_BSC_SCAN_URL}/address/${item.to}`,
                           '_blank'
                         );
                       }}
                     >
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'to'
+                      does not exist on type 'never'.
                       {item.to &&
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
                         `${item.to.slice(0, 6)}...${item.to.slice(-6)}`}
                     </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 3 }} className="amount">
                     <p className="mobile-label">Amount</p>
                     <p className="item-title">
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property
+                      'amount' does not exist on type 'never'.
                       {item.amount < 0.00001 && item.amount > 0
                         ? '< 0.00001'
-                        : format(item.amount)}
+                        : // @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'.
+                          format(item.amount)}
                     </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="date">
                     <p className="mobile-label">Created At</p>
                     <p className="item-title">
                       {diffFormat(
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'createdAt' does not exist on type 'never... Remove this comment to see the full error message
                         moment(current).diff(moment(item.createdAt), 'seconds')
                       )}
                     </p>
@@ -518,7 +555,8 @@ Transaction.defaultProps = {
   history: {}
 };
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getTransactionHistory } = accountActionCreators;
 
   return bindActionCreators(
@@ -531,5 +569,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(null, mapDispatchToProps)
 )(Transaction);

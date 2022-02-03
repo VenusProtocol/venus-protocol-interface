@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
@@ -96,7 +98,8 @@ function VotingWallet({
   vaiMint,
   delegateAddress,
   delegateStatus
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
@@ -117,12 +120,14 @@ function VotingWallet({
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
     const vTokensBalanceInfos = await venusLensContract.methods
       .vTokenBalancesAll(
-        userMarketInfo.map(asset => asset.vtokenAddress),
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'map' does not exist on type '{}'.
+        userMarketInfo.map((asset: $TSFixMe) => asset.vtokenAddress),
         account
       )
       .call();
 
-    const outstandingVTokens = vTokensBalanceInfos.filter(info => {
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const outstandingVTokens = vTokensBalanceInfos.filter((info: $TSFixMe) => {
       // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
       return new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0);
     });
@@ -134,7 +139,8 @@ function VotingWallet({
         await comptrollerContract.methods
           .claimVenus(
             account,
-            outstandingVTokens.map(token => token[0])
+            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+            outstandingVTokens.map((token: $TSFixMe) => token[0])
           )
           .send({ from: account });
       } catch (error) {

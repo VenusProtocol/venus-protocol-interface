@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Modal, Icon } from 'antd';
 import metamaskImg from 'assets/img/metamask.png';
@@ -13,6 +14,7 @@ import logoImg from 'assets/img/logo.png';
 import { useWeb3React } from '@web3-react/core';
 import Button from '@material-ui/core/Button';
 import toast from 'components/Basic/Toast';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { ConnectorNames } from '../../utilities/connectors';
@@ -398,6 +400,7 @@ function ConnectButton() {
                   <CopyToClipboard
                     text={account}
                     onCopy={() => {
+                      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
                       toast.success({
                         title: `Copied address`
                       });

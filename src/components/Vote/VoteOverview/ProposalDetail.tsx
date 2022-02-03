@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Card } from 'components/Basic/Card';
 import { Label } from 'components/Basic/Label';
@@ -32,7 +33,8 @@ const ProposalDetailWrapper = styled.div`
   }
 `;
 
-function ProposalDetail({ proposalInfo }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function ProposalDetail({ proposalInfo }: $TSFixMe) {
   return (
     <Card>
       <ProposalDetailWrapper className="flex flex-column">
@@ -41,8 +43,14 @@ function ProposalDetail({ proposalInfo }) {
             Operation
           </Label>
           <Label size="14">
-            {(proposalInfo.actions || []).map((s, idx) => (
-              <ReactMarkdown className="proposal-detail" source={s.title} key={idx} />
+            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
+            '$TSFixMe'.
+            {(proposalInfo.actions || []).map((s: $TSFixMe, idx: $TSFixMe) => (
+              <ReactMarkdown
+                className="proposal-detail"
+                source={s.title}
+                key={idx}
+              />
             ))}
           </Label>
         </div>

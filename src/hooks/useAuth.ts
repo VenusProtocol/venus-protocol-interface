@@ -32,6 +32,7 @@ const useAuth = () => {
               error instanceof NoEthereumProviderError ||
               error instanceof NoBscProviderError
             ) {
+              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'No provider was found' });
             } else if (
               error instanceof UserRejectedRequestErrorInjected ||
@@ -41,13 +42,16 @@ const useAuth = () => {
                 const walletConnector = connector;
                 walletConnector.walletConnectProvider = null;
               }
+              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'Please authorize to access your account' });
             } else {
+              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: error.message });
             }
           }
         });
       } else {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({ title: 'The connector config is wrong' });
       }
     },
@@ -58,9 +62,11 @@ const useAuth = () => {
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector
     if (window.localStorage.getItem('walletconnect')) {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'close' does not exist on type 'InjectedC... Remove this comment to see the full error message
       connectorsByName[ConnectorNames.WalletConnect].close();
       connectorsByName[
         ConnectorNames.WalletConnect
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'walletConnectProvider' does not exist on... Remove this comment to see the full error message
       ].walletConnectProvider = null;
     }
     window.localStorage.removeItem(connectorLocalStorageKey);

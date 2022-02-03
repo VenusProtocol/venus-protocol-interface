@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled, { withTheme } from 'styled-components';
 import Sidebar from 'containers/Layout/Sidebar';
 import Header from 'containers/Layout/Header';
@@ -40,7 +41,6 @@ const MainLayoutWrapper = styled.div`
       ::-webkit-scrollbar-corner {
         background-color: transparent;
       }
-
     }
 
     @media only screen and (max-width: 768px) {
@@ -51,7 +51,8 @@ const MainLayoutWrapper = styled.div`
   }
 `;
 
-function MainLayout({ title, isHeader, children }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function MainLayout({ title, isHeader, children }: $TSFixMe) {
   return (
     <MainLayoutWrapper>
       <Row>
