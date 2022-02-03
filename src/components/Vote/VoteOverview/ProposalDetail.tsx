@@ -43,8 +43,7 @@ function ProposalDetail({ proposalInfo }: $TSFixMe) {
             Operation
           </Label>
           <Label size="14">
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
-            '$TSFixMe'.
+            {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
             {(proposalInfo.actions || []).map((s: $TSFixMe, idx: $TSFixMe) => (
               <ReactMarkdown
                 className="proposal-detail"

@@ -123,8 +123,7 @@ function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
       <VotingHistoryWrapper className="flex flex-column">
         <div className="header">Voting History</div>
         <div className="body">
-          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
-          '$TSFixMe'.
+          {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
           {data.map((item: $TSFixMe, index: $TSFixMe) => (
             <Voting
               proposal={item.proposal}

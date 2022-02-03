@@ -85,9 +85,7 @@ function VaiInfo({ settings }: $TSFixMe) {
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
           <p>{format(userVaiBalance.dp(2, 1).toString(10))} VAI </p>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does
-          not exist on type 'Window... Remove this comment to see the full error
-          message
+          {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message*/}
           {(window.ethereum || window.BinanceChain) && (
             <Icon
               className="add-vai-token"

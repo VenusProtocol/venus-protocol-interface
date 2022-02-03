@@ -164,7 +164,6 @@ function Vote({ history, getProposals }: $TSFixMe) {
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(CONTRACT_VBEP_ADDRESS).map(async item => {
-        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         const vBepContract = getVbepContract(web3, item.id);
         let [
           supplyState,
@@ -175,17 +174,13 @@ function Vote({ history, getProposals }: $TSFixMe) {
           borrowBalanceStored,
           borrowIndex
         ] = await Promise.all([
-          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           comptrollerContract.methods.venusSupplyState(item.address).call(),
           comptrollerContract.methods
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             .venusSupplierIndex(item.address, myAddress)
             .call(),
           vBepContract.methods.balanceOf(myAddress).call(),
-          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           comptrollerContract.methods.venusBorrowState(item.address).call(),
           comptrollerContract.methods
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             .venusBorrowerIndex(item.address, myAddress)
             .call(),
           vBepContract.methods.borrowBalanceStored(myAddress).call(),
