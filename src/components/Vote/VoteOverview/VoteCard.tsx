@@ -184,8 +184,7 @@ $TSFixMe) {
             <span>Votes</span>
           </div>
           <div className="vote-list scrollbar">
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
-            '$TSFixMe'.
+            {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
             {list.map((l: $TSFixMe, index: $TSFixMe) => (
               <div
                 className="flex align-center just-between vote-item"

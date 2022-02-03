@@ -102,8 +102,7 @@ $TSFixMe) {
             <span className="right">Locked Until</span>
           </div>
           <div className="list-items">
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
-            '$TSFixMe'.
+            {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
             {pendingWithdrawals.map((withdraw: $TSFixMe, i: $TSFixMe) => {
               return (
                 <div key={i} className="table-line">

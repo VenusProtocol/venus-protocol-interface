@@ -463,9 +463,7 @@ function XVS({ settings }: $TSFixMe) {
                         lg={{ span: 6 }}
                         className="flex align-center market"
                       >
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property
-                        'underlyingSymbol' does not exist on type... Remove this
-                        comment to see the full error message
+                        {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message*/}
                         {item.underlyingSymbol !== 'VAI' ? (
                           <img
                             className="asset-img"
@@ -481,9 +479,7 @@ function XVS({ settings }: $TSFixMe) {
                         ) : (
                           <img className="vai-img" src={vaiImg} alt="asset" />
                         )}
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property
-                        'underlyingSymbol' does not exist on type... Remove this
-                        comment to see the full error message
+                        {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message*/}
                         <p>{item.underlyingSymbol}</p>
                       </Col>
                       <Col
@@ -492,8 +488,7 @@ function XVS({ settings }: $TSFixMe) {
                         className="per-day right"
                       >
                         <p className="mobile-label">Per day</p>
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property
-                        'perDay' does not exist on type 'never'.
+                        {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.*/}
                         <p>{item.perDay}</p>
                       </Col>
                       <Col
@@ -502,9 +497,7 @@ function XVS({ settings }: $TSFixMe) {
                         className="supply-apy right"
                       >
                         <p className="mobile-label">Supply APY</p>
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property
-                        'supplyAPY' does not exist on type 'never... Remove this
-                        comment to see the full error message
+                        {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message*/}
                         <p>{item.supplyAPY}%</p>
                       </Col>
                       <Col
@@ -513,9 +506,7 @@ function XVS({ settings }: $TSFixMe) {
                         className="borrow-apy right"
                       >
                         <p className="mobile-label">Borrow APY</p>
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property
-                        'underlyingSymbol' does not exist on type... Remove this
-                        comment to see the full error message
+                        {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message*/}
                         {item.underlyingSymbol !== 'VAI' ? (
                           // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
                           <p>{item.borrowAPY}%</p>

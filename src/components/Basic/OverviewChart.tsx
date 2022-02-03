@@ -213,9 +213,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                 tick={<CustomizedAxisTick />}
               />
               <YAxis hide />
-              // @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing
-              the following properties from... Remove this comment to see the
-              full error message
+              {/*// @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the following properties from... Remove this comment to see the full error message*/}
               <Tooltip cursor={false} content={<CustomChart2Tooltip />} />
               <Bar
                 isAnimationActive
@@ -224,8 +222,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                 }
                 onMouseMove={handleMouseMove}
               >
-                // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
-                '$TSFixMe'.
+                {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
                 {data.map((entry: $TSFixMe, index: $TSFixMe) => (
                   <Cell
                     cursor="pointer"

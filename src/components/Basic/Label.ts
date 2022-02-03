@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 export const Label = styled.span`
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
-  font-size: ${({ size }: $TSFixMe) => size || 16}px;
+  font-size: ${({ size }: any) => size || 16}px;
   font-weight: 900;
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
-  color: ${({ primary }: $TSFixMe) =>
+  color: ${({ primary }: any) =>
     primary ? 'var(--color-text-main)' : 'var(--color-text-secondary)'};
 `;

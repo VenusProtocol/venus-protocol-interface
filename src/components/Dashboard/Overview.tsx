@@ -274,7 +274,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
                         alt="asset"
                       />{' '}
                       <span>
-                        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                        {/*// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message*/}
                         {constants.CONTRACT_TOKEN_ADDRESS[key].symbol}
                       </span>
                     </Option>
@@ -283,12 +283,12 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
               </Select>
               <div className="value">Overview</div>
             </AssetSelectWrapper>
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
+            {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message*/}
             {window.ethereum && window.ethereum.networkVersion && (
               <div className="flex align-center add-token-wrapper">
                 {currentAsset && currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
-                    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                    {/*// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message*/}
                     {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
                     <Icon
                       className="add-token"
@@ -346,7 +346,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
         <div className="description">
           <p className="label">Price</p>
           <p className="value">
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingPrice' does not exist on type ... Remove this comment to see the full error message
+            {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingPrice' does not exist on type ... Remove this comment to see the full error message*/}
             {`$${new BigNumber(marketInfo.underlyingPrice || 0)
               .div(new BigNumber(10).pow(18 + 18 - decimals))
               .dp(8, 1)
@@ -368,18 +368,18 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
         </div>
         <div className="description">
           <p className="label"># of Suppliers</p>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplierCount' does not exist on type '{... Remove this comment to see the full error message
+          {/*//@ts-expect-error ts-migrate(2339) FIXME: Property 'supplierCount' does not exist on type '{... Remove this comment to see the full error message*/}
           <p className="value">{format(marketInfo.supplierCount)}</p>
         </div>
         <div className="description">
           <p className="label"># of Borrowers</p>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowerCount' does not exist on type '{... Remove this comment to see the full error message
+          {/*@ts-expect-error ts-migrate(2339) FIXME: Property 'borrowerCount' does not exist on type '{... Remove this comment to see the full error message*/}
           <p className="value">{format(marketInfo.borrowerCount)}</p>
         </div>
         <div className="description">
           <p className="label">Reserves</p>
           <p className="value">
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalReserves' does not exist on type '{... Remove this comment to see the full error message
+          {/*@ts-expect-error ts-migrate(2339) FIXME: Property 'totalReserves' does not exist on type '{... Remove this comment to see the full error message*/}
             {`${new BigNumber(marketInfo.totalReserves || 0)
               .div(new BigNumber(10).pow(decimals))
               .dp(8, 1)
@@ -390,7 +390,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
         <div className="description">
           <p className="label">Reserve Factor</p>
           <p className="value">
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'reserveFactor' does not exist on type '{... Remove this comment to see the full error message
+            {/*@ts-expect-error ts-migrate(2339) FIXME: Property 'reserveFactor' does not exist on type '{... Remove this comment to see the full error message*/}
             {`${new BigNumber(marketInfo.reserveFactor || 0)
               .div(new BigNumber(10).pow(18))
               .multipliedBy(100)
@@ -401,7 +401,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
         <div className="description">
           <p className="label">Collateral Factor</p>
           <p className="value">
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'collateralFactor' does not exist on type... Remove this comment to see the full error message
+          {/*@ts-expect-error ts-migrate(2339) FIXME: Property 'collateralFactor' does not exist on type... Remove this comment to see the full error message*/}
             {`${new BigNumber(marketInfo.collateralFactor || 0)
               .div(new BigNumber(10).pow(18))
               .times(100)
@@ -434,7 +434,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
         <div className="description">
           <p className="label">Exchange Rate</p>
           <p className="value">
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
+          {/*@ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message*/}
             {`1 ${marketInfo.underlyingSymbol || ''} = ${Number(
               new BigNumber(1)
                 .div(

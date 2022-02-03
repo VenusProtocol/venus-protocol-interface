@@ -156,8 +156,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
                     className="flex align-center rank"
                   >
                     <div className="rank-number">{index + 1}</div>
-                    // @ts-expect-error ts-migrate(2339) FIXME: Property
-                    'address' does not exist on type 'never'.
+                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.*/}
                     <p>{item.address}</p>
                   </Col>
                   <Col
@@ -181,9 +180,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
                     className="vote-weight right"
                   >
                     <p className="mobile-label">Vote Weight</p>
-                    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type
-                    'number' is not assignable to par... Remove this comment to
-                    see the full error message
+                    {/*// @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message*/}
                     <p>{parseFloat(item.voteWeight * 100).toFixed(2)}%</p>
                   </Col>
                   <Col
@@ -192,9 +189,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
                     className="proposals right"
                   >
                     <p className="mobile-label">Proposals Voted</p>
-                    // @ts-expect-error ts-migrate(2339) FIXME: Property
-                    'proposalsVoted' does not exist on type '... Remove this
-                    comment to see the full error message
+                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'proposalsVoted' does not exist on type '... Remove this comment to see the full error message*/}
                     <p>{item.proposalsVoted}</p>
                   </Col>
                 </Row>

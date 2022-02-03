@@ -329,8 +329,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
               })}
             </Row>
             <div className="vote-status-update">
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does
-              not exist on type '{}'.
+              {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
               {proposalInfo.state !== 'Executed' &&
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.
                 proposalInfo.state !== 'Defeated' &&
@@ -352,8 +351,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                         ? 'Cancel'
                         : 'Cancelled'}
                     </Button>
-                    // @ts-expect-error ts-migrate(2339) FIXME: Property 'state'
-                    does not exist on type '{}'.
+                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
                     {proposalInfo.state === 'Succeeded' && (
                       <Button
                         className="queue-btn"
@@ -366,8 +364,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                           : 'Queued'}
                       </Button>
                     )}
-                    // @ts-expect-error ts-migrate(2339) FIXME: Property 'state'
-                    does not exist on type '{}'.
+                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
                     {proposalInfo.state === 'Queued' && (
                       <Button
                         className="execute-btn"
@@ -385,8 +382,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                           : 'Executed'}
                       </Button>
                     )}
-                    // @ts-expect-error ts-migrate(2339) FIXME: Property 'state'
-                    does not exist on type '{}'.
+                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
                     {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
                       <Tooltip title={`You are able to excute at ${excuteEta}`}>
                         <Icon
@@ -398,8 +394,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                     )}
                   </div>
                 )}
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does
-              not exist on type '{}'.
+              {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
               {proposalInfo.state !== 'Executed' &&
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.
                 proposalInfo.state !== 'Defeated' &&

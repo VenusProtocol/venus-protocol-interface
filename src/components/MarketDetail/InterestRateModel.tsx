@@ -369,9 +369,7 @@ function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
               tick={<CustomizedAxisTick />}
             />
             <YAxis domain={[0, maxY]} hide />
-            // @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the
-            following properties from... Remove this comment to see the full
-            error message
+            {/*// @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the following properties from... Remove this comment to see the full error message*/}
             <Tooltip cursor={false} content={<CustomTooltip />} />
             <Line
               type="monotone"

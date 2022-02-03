@@ -98,9 +98,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           : [];
 
         const vtAddresses = Object.values(constants.CONTRACT_VBEP_ADDRESS)
-          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           .filter(item => item.address)
-          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           .map(item => item.address);
 
         let balances = {};
@@ -123,7 +121,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           (item, index) => {
             // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
             const toDecimalAmount = (mantissa: $TSFixMe) => {
-              // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
               return new BigNumber(mantissa).shiftedBy(-item.decimals);
             };
 
@@ -133,7 +130,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
               return null;
             }
 
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             let market = marketsMap[item.symbol.toLowerCase()];
             if (!market) {
               market = {};
@@ -141,7 +137,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
 
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
             const vtokenAddress = constants.CONTRACT_VBEP_ADDRESS[
-              // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
               item.id
             ].address.toLowerCase();
             const collateral = assetsIn
@@ -162,7 +157,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
               walletBalance = toDecimalAmount(wallet.tokenBalance);
               supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
               borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
-              // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
               if (item.id === 'bnb') {
                 isEnabled = true;
               } else {
@@ -174,15 +168,11 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
 
             return {
               key: index,
-              // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
               id: item.id,
-              // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
               img: item.asset,
-              // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
               vimg: item.vasset,
               name: market.underlyingSymbol || '',
               symbol: market.underlyingSymbol || '',
-              // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
               decimals: item.decimals,
               tokenAddress: market.underlyingAddress,
               vsymbol: market.symbol,

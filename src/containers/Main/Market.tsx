@@ -346,10 +346,14 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                   return {
                     // @ts-expect-error ts-migrate(2698) FIXME: Spread types may only be created from object types... Remove this comment to see the full error message
                     ...market,
+                    // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                     totalSupplyApy: new BigNumber(market.supplyApy).plus(
+                      // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                       new BigNumber(market.supplyVenusApy)
                     ),
+                    // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                     totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
+                      // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                       new BigNumber(market.borrowApy)
                     )
                   };

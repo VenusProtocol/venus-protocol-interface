@@ -152,19 +152,14 @@ function Transactions({ address, transactions }: $TSFixMe) {
           {data &&
             data.map((item, index) => (
               <div className="flex align-center row-text" key={index}>
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'action'
-                does not exist on type 'never'.
+                {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'action' does not exist on type 'never'.*/}
                 <div className="action-column">{item.action}</div>
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'age' does
-                not exist on type 'never'.
+                {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'age' does not exist on type 'never'.*/}
                 <div className="age-column">{item.age}</div>
                 <div className="result-column">
-                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'result'
-                  does not exist on type 'never'.
+                  {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type 'never'.*/}
                   <span>{item.result}</span>
-                  // @ts-expect-error ts-migrate(2339) FIXME: Property
-                  'isReceived' does not exist on type 'neve... Remove this
-                  comment to see the full error message
+                  {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'isReceived' does not exist on type 'neve... Remove this comment to see the full error message*/}
                   {item.isReceived ? (
                     <Icon type="arrow-up" className="green-color" />
                   ) : (
