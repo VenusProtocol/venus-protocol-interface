@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 // import { Input } from 'antd';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -26,7 +29,8 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ title, history }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Header({ title, history }: $TSFixMe) {
   const handleRoute = () => {
     if (title === 'Details') {
       history.go(-1);

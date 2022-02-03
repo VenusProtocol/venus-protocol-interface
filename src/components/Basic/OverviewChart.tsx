@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import {
   Area,
@@ -15,6 +17,7 @@ import {
   ComposedChart,
   BarChart,
   ResponsiveContainer
+  // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'rech... Remove this comment to see the full error message
 } from 'recharts';
 import moment from 'moment';
 import { connectAccount } from 'core';
@@ -44,7 +47,8 @@ const ChartWrapper = styled.div`
   }
 `;
 
-function OverviewChart({ marketType, graphType, data }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   useEffect(() => {
@@ -61,7 +65,8 @@ function OverviewChart({ marketType, graphType, data }) {
     );
   };
 
-  const CustomChart1Tooltip = ({ active, payload, label }) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const CustomChart1Tooltip = ({ active, payload, label }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
         <div className="custom-tooltip">
@@ -78,7 +83,8 @@ function OverviewChart({ marketType, graphType, data }) {
     }
     return null;
   };
-  const CustomChart2Tooltip = ({ active, payload }) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const CustomChart2Tooltip = ({ active, payload }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
         <div className="custom-tooltip">
@@ -97,7 +103,8 @@ function OverviewChart({ marketType, graphType, data }) {
     payload: PropTypes.array.isRequired
   };
 
-  const handleMouseMove = index => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleMouseMove = (index: $TSFixMe) => {
     setActiveIndex(index);
   };
 
@@ -206,6 +213,9 @@ function OverviewChart({ marketType, graphType, data }) {
                 tick={<CustomizedAxisTick />}
               />
               <YAxis hide />
+              // @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing
+              the following properties from... Remove this comment to see the
+              full error message
               <Tooltip cursor={false} content={<CustomChart2Tooltip />} />
               <Bar
                 isAnimationActive
@@ -214,7 +224,9 @@ function OverviewChart({ marketType, graphType, data }) {
                 }
                 onMouseMove={handleMouseMove}
               >
-                {data.map((entry, index) => (
+                // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
+                '$TSFixMe'.
+                {data.map((entry: $TSFixMe, index: $TSFixMe) => (
                   <Cell
                     cursor="pointer"
                     fill={
@@ -255,10 +267,12 @@ OverviewChart.defaultProps = {
   data: []
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
   OverviewChart
 );

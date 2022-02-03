@@ -1,8 +1,11 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
@@ -104,7 +107,8 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-function MarketDetail({ match, settings, getMarketHistory }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
   const [marketType, setMarketType] = useState('supply');
   const [currentAsset, setCurrentAsset] = useState('');
   const [data, setData] = useState([]);
@@ -121,9 +125,11 @@ function MarketDetail({ match, settings, getMarketHistory }) {
 
   const getGraphData = useCallback(
     async (asset, type, limit) => {
-      const tempData = [];
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      const tempData: $TSFixMe = [];
       await promisify(getMarketHistory, { asset, type, limit }).then(res => {
-        res.data.result.forEach(m => {
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
+        res.data.result.forEach((m: $TSFixMe) => {
           tempData.push({
             createdAt: m.createdAt,
             supplyApy: +new BigNumber(m.supplyApy || 0).dp(8, 1).toString(10),
@@ -136,6 +142,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
               .toString(10)
           });
         });
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
         setData([...tempData.reverse()]);
       });
     },
@@ -145,6 +152,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   const getGovernanceData = useCallback(async () => {
     if (markets && markets.length > 0 && currentAsset) {
       const info = markets.find(
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
         item => item.underlyingSymbol.toLowerCase() === currentAsset
       );
       setMarketInfo(info || {});
@@ -158,6 +166,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   useEffect(() => {
     if (timeStamp % 60 === 0 && currentAsset) {
       getGraphData(
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
         '1day',
         30 // 1 month
@@ -172,6 +181,7 @@ function MarketDetail({ match, settings, getMarketHistory }) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
         '1day',
         30 // 1 month
@@ -247,11 +257,13 @@ MarketDetail.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getMarketHistory } = accountActionCreators;
 
   return bindActionCreators(
@@ -264,5 +276,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps)
 )(MarketDetail);

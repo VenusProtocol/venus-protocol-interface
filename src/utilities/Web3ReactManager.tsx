@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useEagerConnect, useInactiveListener } from '../hooks/wallet';
 
-export default function Web3ReactManager({ children }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export default function Web3ReactManager({ children }: $TSFixMe) {
   const context = useWeb3React();
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'networkError' does not exist on type 'We... Remove this comment to see the full error message
   const { connector, chainId, active, networkError } = context;
   const triedEager = useEagerConnect();
 

@@ -1,5 +1,6 @@
 // @flow
 
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import { set, isEmpty } from 'lodash';
 import { API_ENDPOINT_URL } from '../config';
 
@@ -10,7 +11,8 @@ export async function restService({
   params,
   contentType = 'json',
   token = null
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const headers = {};
   let path = `${API_ENDPOINT_URL}${api}`;
 
@@ -38,10 +40,13 @@ export async function restService({
     headers
   };
   if (contentType === 'multi-form') {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
     reqBody.body = formData;
   } else if (!isEmpty(params)) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
     reqBody.body = JSON.stringify(params);
   } else if (Array.isArray(params)) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
     reqBody.body = JSON.stringify([]);
   }
 

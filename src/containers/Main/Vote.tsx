@@ -1,9 +1,12 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
@@ -33,7 +36,8 @@ const VoteWrapper = styled.div`
   height: 100%;
 `;
 
-function Vote({ history, getProposals }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Vote({ history, getProposals }: $TSFixMe) {
   const [balance, setBalance] = useState(0);
   const [votingWeight, setVotingWeight] = useState('0');
   const [proposals, setProposals] = useState({});
@@ -60,6 +64,7 @@ function Vote({ history, getProposals }) {
     })
       .then(res => {
         setIsLoadingPropoasl(false);
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setProposals(res.data);
       })
       .catch(() => {
@@ -71,7 +76,14 @@ function Vote({ history, getProposals }) {
     loadInitialData();
   }, [loadInitialData]);
 
-  const handleChangePage = (pageNumber, offset, limit) => {
+  const handleChangePage = (
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    pageNumber: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    offset: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    limit: $TSFixMe
+  ) => {
     setCurrent(pageNumber);
     setIsLoadingPropoasl(true);
     promisify(getProposals, {
@@ -79,6 +91,7 @@ function Vote({ history, getProposals }) {
       limit
     })
       .then(res => {
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setProposals(res.data);
         setIsLoadingPropoasl(false);
       })
@@ -117,6 +130,7 @@ function Vote({ history, getProposals }) {
 
       setVotingWeight(new BigNumber(currentVotes).div(1e18).toString(10));
       setBalance(
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
         new BigNumber(balanceTemp)
           .div(1e18)
           .dp(4, 1)
@@ -150,6 +164,7 @@ function Vote({ history, getProposals }) {
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(CONTRACT_VBEP_ADDRESS).map(async item => {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         const vBepContract = getVbepContract(web3, item.id);
         let [
           supplyState,
@@ -160,13 +175,17 @@ function Vote({ history, getProposals }) {
           borrowBalanceStored,
           borrowIndex
         ] = await Promise.all([
+          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           comptrollerContract.methods.venusSupplyState(item.address).call(),
           comptrollerContract.methods
+            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             .venusSupplierIndex(item.address, myAddress)
             .call(),
           vBepContract.methods.balanceOf(myAddress).call(),
+          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           comptrollerContract.methods.venusBorrowState(item.address).call(),
           comptrollerContract.methods
+            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             .venusBorrowerIndex(item.address, myAddress)
             .call(),
           vBepContract.methods.borrowBalanceStored(myAddress).call(),
@@ -196,6 +215,7 @@ function Vote({ history, getProposals }) {
       })
     );
 
+    // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'BigNumber... Remove this comment to see the full error message
     venusEarned = venusEarned
       .plus(venusAccrued)
       .dividedBy(1e18)
@@ -215,6 +235,7 @@ function Vote({ history, getProposals }) {
       .dp(8, 1)
       .toString(10);
     setEarnedBalance(
+      // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
       venusEarned && venusEarned !== '0' ? `${venusEarned}` : '0.00000000'
     );
     setVaiMint(
@@ -250,7 +271,9 @@ function Vote({ history, getProposals }) {
             <VotingPower
               history={history}
               stakedAmount={stakedAmount}
+              // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
               balance={balance !== '0' ? `${balance}` : '0.00000000'}
+              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ history: any; stakedAmount: string; balanc... Remove this comment to see the full error message
               delegateAddress={delegateAddress}
               delegateStatus={delegateStatus}
               power={
@@ -264,12 +287,14 @@ function Vote({ history, getProposals }) {
             <Row>
               <Column xs="12">
                 <CoinInfo
+                  // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
                   balance={balance !== '0' ? `${balance}` : '0.00000000'}
                   address={account || ''}
                 />
               </Column>
               <Column xs="12">
                 <VotingWallet
+                  // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
                   balance={balance !== '0' ? `${balance}` : '0.00000000'}
                   earnedBalance={earnedBalance}
                   vaiMint={vaiMint}
@@ -286,7 +311,9 @@ function Vote({ history, getProposals }) {
                   address={account || ''}
                   isLoadingProposal={isLoadingProposal}
                   pageNumber={current}
+                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type '{}'.
                   proposals={proposals.result}
+                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{}'.
                   total={proposals.total || 0}
                   votingWeight={votingWeight}
                   onChangePage={handleChangePage}
@@ -307,11 +334,13 @@ Vote.propTypes = {
 
 Vote.defaultProps = {};
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getProposals, setSetting } = accountActionCreators;
 
   return bindActionCreators(
@@ -325,5 +354,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps)
 )(Vote);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
@@ -18,7 +19,8 @@ function VaiCardContent({
   userVaiBalance,
   userVaiAllowance,
   userVaiStakedAmount
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const { account } = useWeb3React();
   const vaiTokenContract = useVaiToken();
   const vaiVaultContract = useVaiVault();

@@ -9,9 +9,11 @@ const API_ENDPOINT_URLS = {
 };
 
 export const BASE_BSC_SCAN_URL =
+  // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   BASE_BSC_SCAN_URLS[process.env.REACT_APP_CHAIN_ID];
 
 export const API_ENDPOINT_URL =
+  // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   API_ENDPOINT_URLS[process.env.REACT_APP_CHAIN_ID];
 
 export const connectorLocalStorageKey = 'venus-local-key';

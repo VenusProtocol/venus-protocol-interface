@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import moment from 'moment';
@@ -40,7 +42,8 @@ const PendingTransactionWrapper = styled.div`
   }
 `;
 
-function PendingTransaction({ settings }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function PendingTransaction({ settings }: $TSFixMe) {
   const [curTime, setCurTime] = useState('');
   useEffect(() => {
     const dateTime = new Date();
@@ -75,10 +78,12 @@ PendingTransaction.propTypes = {
   settings: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
   PendingTransaction
 );

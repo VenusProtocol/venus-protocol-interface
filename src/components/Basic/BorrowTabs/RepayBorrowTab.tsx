@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
@@ -8,6 +9,7 @@ import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { sendRepay } from 'utilities/BnbContract';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
@@ -22,7 +24,14 @@ import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
 
-function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
+function RepayBorrowTab({
+  asset,
+  settings,
+  changeTab,
+  onCancel,
+  setSetting
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -252,9 +261,7 @@ function RepayBorrowTab({ asset, settings, changeTab, onCancel, setSetting }) {
               />
               <span>Distribution APY</span>
             </div>
-            <span>
-              {formatApy(asset.xvsBorrowApy)}
-            </span>
+            <span>{formatApy(asset.xvsBorrowApy)}</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -367,11 +374,13 @@ RepayBorrowTab.defaultProps = {
   onCancel: () => {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
@@ -382,6 +391,7 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
   RepayBorrowTab
 );

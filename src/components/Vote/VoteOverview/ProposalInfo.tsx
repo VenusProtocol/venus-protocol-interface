@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import moment from 'moment';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Markdown from 'react-remarkable';
 import { Card } from 'components/Basic/Card';
 import { getRemainingTime, FORMAT_STRING } from '../../../utilities/time';
@@ -60,8 +62,10 @@ const ProposalInfoWrapper = styled.div`
   }
 `;
 
-function ProposalInfo({ proposalInfo }) {
-  const getStatus = proposal => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function ProposalInfo({ proposalInfo }: $TSFixMe) {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const getStatus = (proposal: $TSFixMe) => {
     if (proposal.state === 'Executed') {
       return 'Passed';
     }

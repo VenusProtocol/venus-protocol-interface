@@ -2,10 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import moment from 'moment';
 import { Card } from 'components/Basic/Card';
@@ -80,9 +84,11 @@ const TransactionsWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Transactions({ address, transactions }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Transactions({ address, transactions }: $TSFixMe) {
   const [data, setData] = useState([]);
-  const getDate = timestamp => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const getDate = (timestamp: $TSFixMe) => {
     const startDate = moment(timestamp * 1000);
     const curDate = moment(new Date());
     const duration = moment.duration(curDate.diff(startDate));
@@ -93,8 +99,10 @@ function Transactions({ address, transactions }) {
   };
 
   useEffect(() => {
-    const tempData = [];
-    transactions.forEach(tx => {
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const tempData: $TSFixMe = [];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    transactions.forEach((tx: $TSFixMe) => {
       if (tx.type === 'vote') {
         tempData.push({
           action: tx.support ? 'Received Votes' : 'Lost Votes',
@@ -124,6 +132,7 @@ function Transactions({ address, transactions }) {
         });
       }
     });
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
     setData([...tempData]);
   }, [transactions, address]);
 
@@ -143,10 +152,19 @@ function Transactions({ address, transactions }) {
           {data &&
             data.map((item, index) => (
               <div className="flex align-center row-text" key={index}>
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'action'
+                does not exist on type 'never'.
                 <div className="action-column">{item.action}</div>
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'age' does
+                not exist on type 'never'.
                 <div className="age-column">{item.age}</div>
                 <div className="result-column">
+                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'result'
+                  does not exist on type 'never'.
                   <span>{item.result}</span>
+                  // @ts-expect-error ts-migrate(2339) FIXME: Property
+                  'isReceived' does not exist on type 'neve... Remove this
+                  comment to see the full error message
                   {item.isReceived ? (
                     <Icon type="arrow-up" className="green-color" />
                   ) : (

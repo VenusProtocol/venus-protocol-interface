@@ -7,30 +7,42 @@ const commaNumber = require('comma-number');
 
 const format = commaNumber.bindWith(',', '.');
 
-export const encodeParameters = (types, values) => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const encodeParameters = (types: $TSFixMe, values: $TSFixMe) => {
   const abi = new ethers.utils.AbiCoder();
   return abi.encode(types, values);
 };
 
-export const getArgs = func => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const getArgs = (func: $TSFixMe) => {
   // First match everything inside the function argument parens.
   const args = func.toString().match(/.*?\(([^)]*)\)/)
     ? func.toString().match(/.*?\(([^)]*)\)/)[1]
     : '';
   // Split the arguments string into an array comma delimited.
-  return args
-    .split(',')
-    .map(arg => {
-      // Ensure no inline comments are parsed and trim the whitespace.
-      return arg.replace(/\/\*.*\*\//, '').trim();
-    })
-    .filter(arg => {
-      // Ensure no undefined values are added.
-      return arg;
-    });
+  return (
+    args
+      .split(',')
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      .map((arg: $TSFixMe) => {
+        // Ensure no inline comments are parsed and trim the whitespace.
+        return arg.replace(/\/\*.*\*\//, '').trim();
+      })
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      .filter((arg: $TSFixMe) => {
+        // Ensure no undefined values are added.
+        return arg;
+      })
+  );
 };
 
-export const addToken = async (asset = 'vai', decimal, type) => {
+export const addToken = async (
+  asset = 'vai',
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  decimal: $TSFixMe,
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  type: $TSFixMe
+) => {
   let tokenAddress = '';
   let tokenSymbol = '';
   let tokenDecimals = 18;
@@ -43,11 +55,14 @@ export const addToken = async (asset = 'vai', decimal, type) => {
   } else {
     tokenAddress =
       type === 'token'
-        ? constants.CONTRACT_TOKEN_ADDRESS[asset].address
-        : constants.CONTRACT_VBEP_ADDRESS[asset].address;
+        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          constants.CONTRACT_TOKEN_ADDRESS[asset].address
+        : // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          constants.CONTRACT_VBEP_ADDRESS[asset].address;
     tokenSymbol =
       type === 'token'
-        ? constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
+        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
         : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
     tokenDecimals = decimal || (type === 'token' ? 18 : 8);
     tokenImage = `${window.location.origin}/coins/${
@@ -57,6 +72,7 @@ export const addToken = async (asset = 'vai', decimal, type) => {
 
   try {
     // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
     const wasAdded = await window.ethereum.request({
       method: 'wallet_watchAsset',
       params: {
@@ -83,7 +99,8 @@ export const addToken = async (asset = 'vai', decimal, type) => {
   }
 };
 
-export const getBigNumber = value => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const getBigNumber = (value: $TSFixMe) => {
   if (!value) {
     return new BigNumber(0);
   }
@@ -93,7 +110,8 @@ export const getBigNumber = value => {
   return new BigNumber(value);
 };
 
-export const currencyFormatter = labelValue => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const currencyFormatter = (labelValue: $TSFixMe) => {
   let suffix = '';
   let unit = 1;
   const abs = Math.abs(Number(labelValue));
@@ -113,13 +131,13 @@ export const currencyFormatter = labelValue => {
   return `$${format(new BigNumber(`${abs / unit}`).dp(2, 1))}${suffix}`;
 };
 
-export const formatApy = apy => {
-  let apyBN = getBigNumber(apy);
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const formatApy = (apy: $TSFixMe) => {
+  const apyBN = getBigNumber(apy);
   if (apyBN.absoluteValue().isLessThan(100000000)) {
     return `${apyBN.dp(2, 1).toString(10)}%`;
-  } else {
-    return 'Infinity';
   }
+  return 'Infinity';
 };
 
 /**
@@ -130,8 +148,10 @@ export const formatApy = apy => {
  * @param {array} arr
  * @returns An object with the keys derived as indexFn(array item)
  */
-export const indexBy = (indexFn, arr) => {
-  return arr.reduce((result, item) => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export const indexBy = (indexFn: $TSFixMe, arr: $TSFixMe) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  return arr.reduce((result: $TSFixMe, item: $TSFixMe) => {
     result[indexFn(item)] = item;
     return result;
   }, {});

@@ -1,9 +1,12 @@
 /* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { Pagination } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import Voting from 'components/Basic/Voting';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -95,11 +98,13 @@ const VotingHistoryWrapper = styled.div`
   }
 `;
 
-function VotingHistory({ data, pageNumber, total, onChangePage }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
 
-  const handleChangePage = (page, size) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setCurrent(page);
     setPageSize(size);
     onChangePage(page, (page - 1) * size, size);
@@ -118,7 +123,9 @@ function VotingHistory({ data, pageNumber, total, onChangePage }) {
       <VotingHistoryWrapper className="flex flex-column">
         <div className="header">Voting History</div>
         <div className="body">
-          {data.map((item, index) => (
+          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
+          '$TSFixMe'.
+          {data.map((item: $TSFixMe, index: $TSFixMe) => (
             <Voting
               proposal={item.proposal}
               support={item.support}

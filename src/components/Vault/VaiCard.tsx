@@ -2,10 +2,12 @@
 // file, instead of merging its logic into general pool UI which is in `./Card.js` thus we can easily
 // remove this VAI pool code in the future when it's about to be deprecated
 import React, { useState, useEffect } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
 import { useWeb3React } from '@web3-react/core';
@@ -26,7 +28,8 @@ import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
-function VaultCard({ settings }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function VaultCard({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
 
@@ -47,6 +50,7 @@ function VaultCard({ settings }) {
   const [userVaiBalance, setUserVaiBalance] = useState(new BigNumber(0));
   const [userPendingReward, setUserPendingReward] = useState(new BigNumber(0));
 
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
     let isMounted = true;
 
@@ -207,8 +211,10 @@ VaultCard.propTypes = {
 
 VaultCard.defaultProps = {};
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(VaultCard);

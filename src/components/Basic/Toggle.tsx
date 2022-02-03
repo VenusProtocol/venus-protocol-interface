@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Switch } from 'antd';
 
@@ -27,9 +28,11 @@ const ToggleWrapper = styled.div`
   }
 `;
 
-function Toggle({ checked, onChecked }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Toggle({ checked, onChecked }: $TSFixMe) {
   return (
-    <ToggleWrapper onClick={e => e.stopPropagation()}>
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    <ToggleWrapper onClick={(e: $TSFixMe) => e.stopPropagation()}>
       <Switch checked={checked} onChange={onChecked} />
     </ToggleWrapper>
   );

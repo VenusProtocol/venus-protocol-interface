@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
 import { addToken } from 'utilities/common';
@@ -59,7 +62,8 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function CoinInfo({ settings }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function CoinInfo({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { userXVSBalance } = useMarketsUser();
 
@@ -76,6 +80,9 @@ function CoinInfo({ settings }) {
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
           <p>{format(userXVSBalance.dp(2, 1).toString(10))} XVS</p>
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does
+          not exist on type 'Window... Remove this comment to see the full error
+          message
           {window.ethereum && (
             <Icon
               className="add-xvs-token"
@@ -114,8 +121,10 @@ CoinInfo.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(CoinInfo);

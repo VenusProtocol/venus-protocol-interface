@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Row, Col, Icon, Progress } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import * as constants from 'utilities/constants';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
-import { BASE_BSC_SCAN_URL } from '../../config';
 import { useWeb3React } from '@web3-react/core';
+import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useToken } from '../../hooks/useContract';
 import { getComptrollerAddress } from '../../utilities/addressHelpers';
@@ -197,7 +202,8 @@ const SpinnerWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function XVS({ settings }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function XVS({ settings }: $TSFixMe) {
   const [totalMarkets, setTotalMarkets] = useState([]);
   const [dailyDistribution, setDailyDistribution] = useState('0');
   const [totalDistributed, setTotalDistributed] = useState('0');
@@ -212,8 +218,10 @@ function XVS({ settings }) {
 
   const getXVSInfo = async () => {
     const tempMarkets = [];
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const sum = (markets || []).reduce((accumulator, market) => {
       return new BigNumber(accumulator).plus(
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalDistributed' does not exist on type... Remove this comment to see the full error message
         new BigNumber(market.totalDistributed)
       );
     }, 0);
@@ -235,6 +243,7 @@ function XVS({ settings }) {
         .dp(2, 1)
         .toString(10)
     );
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'toString' does not exist on type 'never'... Remove this comment to see the full error message
     setTotalDistributed(sum.toString(10));
     setRemainAmount(
       new BigNumber(remainedAmount)
@@ -244,18 +253,25 @@ function XVS({ settings }) {
     );
     for (let i = 0; i < markets.length; i += 1) {
       tempMarkets.push({
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
         underlyingSymbol: markets[i].underlyingSymbol,
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplierDailyVenus' does not exist on ty... Remove this comment to see the full error message
         perDay: +new BigNumber(markets[i].supplierDailyVenus)
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowerDailyVenus' does not exist on ty... Remove this comment to see the full error message
           .plus(new BigNumber(markets[i].borrowerDailyVenus))
           .div(new BigNumber(10).pow(18))
           .dp(2, 1)
           .toString(10),
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyVenusApy' does not exist on type '... Remove this comment to see the full error message
         supplyAPY: +(new BigNumber(markets[i].supplyVenusApy).isLessThan(0.01)
           ? '0.01'
-          : new BigNumber(markets[i].supplyVenusApy).dp(2, 1).toString(10)),
+          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyVenusApy' does not exist on type '... Remove this comment to see the full error message
+            new BigNumber(markets[i].supplyVenusApy).dp(2, 1).toString(10)),
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowVenusApy' does not exist on type '... Remove this comment to see the full error message
         borrowAPY: +(new BigNumber(markets[i].borrowVenusApy).isLessThan(0.01)
           ? '0.01'
-          : new BigNumber(markets[i].borrowVenusApy).dp(2, 1).toString(10))
+          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowVenusApy' does not exist on type '... Remove this comment to see the full error message
+            new BigNumber(markets[i].borrowVenusApy).dp(2, 1).toString(10))
       });
     }
     tempMarkets.push({
@@ -264,6 +280,7 @@ function XVS({ settings }) {
       supplyAPY: settings.vaiAPY || 0,
       borrowAPY: 0
     });
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '({ underlyingSymbol: any; perDay... Remove this comment to see the full error message
     setTotalMarkets(tempMarkets);
   };
 
@@ -273,7 +290,8 @@ function XVS({ settings }) {
     }
   }, [markets]);
 
-  const handleSort = field => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleSort = (field: $TSFixMe) => {
     setSortInfo({
       field,
       sort:
@@ -394,33 +412,47 @@ function XVS({ settings }) {
                     if (sortInfo.field) {
                       if (sortInfo.field === 'perDay') {
                         return sortInfo.sort === 'desc'
-                          ? +new BigNumber(b.perDay)
+                          ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
+                            +new BigNumber(b.perDay)
+                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
                               .minus(new BigNumber(a.perDay))
                               .toString(10)
-                          : +new BigNumber(a.perDay)
+                          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
+                            +new BigNumber(a.perDay)
+                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
                               .minus(new BigNumber(b.perDay))
                               .toString(10);
                       }
                       if (sortInfo.field === 'supplyAPY') {
                         return sortInfo.sort === 'desc'
-                          ? +new BigNumber(b.supplyAPY)
+                          ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            +new BigNumber(b.supplyAPY)
+                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
                               .minus(new BigNumber(a.supplyAPY))
                               .toString(10)
-                          : +new BigNumber(a.supplyAPY)
+                          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            +new BigNumber(a.supplyAPY)
+                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
                               .minus(new BigNumber(b.supplyAPY))
                               .toString(10);
                       }
                       if (sortInfo.field === 'borrowAPY') {
                         return sortInfo.sort === 'desc'
-                          ? +new BigNumber(b.borrowAPY)
+                          ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            +new BigNumber(b.borrowAPY)
+                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
                               .minus(new BigNumber(a.borrowAPY))
                               .toString(10)
-                          : +new BigNumber(a.borrowAPY)
+                          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            +new BigNumber(a.borrowAPY)
+                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
                               .minus(new BigNumber(b.borrowAPY))
                               .toString(10);
                       }
                     }
+                    // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
                     return +new BigNumber(b.perDay)
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
                       .minus(new BigNumber(a.perDay))
                       .toString(10);
                   })
@@ -431,11 +463,16 @@ function XVS({ settings }) {
                         lg={{ span: 6 }}
                         className="flex align-center market"
                       >
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property
+                        'underlyingSymbol' does not exist on type... Remove this
+                        comment to see the full error message
                         {item.underlyingSymbol !== 'VAI' ? (
                           <img
                             className="asset-img"
                             src={
+                              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                               constants.CONTRACT_TOKEN_ADDRESS[
+                                // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
                                 item.underlyingSymbol.toLowerCase()
                               ].asset
                             }
@@ -444,6 +481,9 @@ function XVS({ settings }) {
                         ) : (
                           <img className="vai-img" src={vaiImg} alt="asset" />
                         )}
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property
+                        'underlyingSymbol' does not exist on type... Remove this
+                        comment to see the full error message
                         <p>{item.underlyingSymbol}</p>
                       </Col>
                       <Col
@@ -452,6 +492,8 @@ function XVS({ settings }) {
                         className="per-day right"
                       >
                         <p className="mobile-label">Per day</p>
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property
+                        'perDay' does not exist on type 'never'.
                         <p>{item.perDay}</p>
                       </Col>
                       <Col
@@ -460,6 +502,9 @@ function XVS({ settings }) {
                         className="supply-apy right"
                       >
                         <p className="mobile-label">Supply APY</p>
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property
+                        'supplyAPY' does not exist on type 'never... Remove this
+                        comment to see the full error message
                         <p>{item.supplyAPY}%</p>
                       </Col>
                       <Col
@@ -468,7 +513,11 @@ function XVS({ settings }) {
                         className="borrow-apy right"
                       >
                         <p className="mobile-label">Borrow APY</p>
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property
+                        'underlyingSymbol' does not exist on type... Remove this
+                        comment to see the full error message
                         {item.underlyingSymbol !== 'VAI' ? (
+                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
                           <p>{item.borrowAPY}%</p>
                         ) : (
                           <p>-</p>
@@ -492,11 +541,13 @@ XVS.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getVoterAccounts } = accountActionCreators;
 
   return bindActionCreators(
@@ -509,5 +560,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps)
 )(XVS);

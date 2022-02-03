@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
-import { vtokenDecimals } from '../../config';
 import * as constants from 'utilities/constants';
+import { vtokenDecimals } from '../../config';
 
 const MarketSummaryWrapper = styled.div`
   .label {
@@ -45,7 +49,8 @@ const MarketSummaryWrapper = styled.div`
 `;
 const format = commaNumber.bindWith(',', '.');
 
-function MarketSummary({ marketInfo, currentAsset, settings }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
   return (
     <MarketSummaryWrapper>
       <div className="description">
@@ -54,6 +59,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
           {`$${new BigNumber(marketInfo.underlyingPrice || 0)
             .div(
               new BigNumber(10).pow(
+                // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                 36 - constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
               )
             )
@@ -68,6 +74,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
             new BigNumber(marketInfo.cash || 0)
               .div(
                 new BigNumber(10).pow(
+                  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                   constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
                 )
               )
@@ -113,6 +120,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
           {`${new BigNumber(marketInfo.totalReserves || 0)
             .div(
               new BigNumber(10).pow(
+                // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                 constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
               )
             )
@@ -169,6 +177,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }) {
                 new BigNumber(marketInfo.exchangeRate).div(
                   new BigNumber(10).pow(
                     18 +
+                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                       constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals -
                       vtokenDecimals
                   )
@@ -194,11 +203,13 @@ MarketSummary.defaultProps = {
   currentAsset: ''
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, undefined)
 )(MarketSummary);

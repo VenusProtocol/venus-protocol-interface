@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import { connectAccount } from 'core';
 import {
@@ -13,9 +16,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer
+  // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'rech... Remove this comment to see the full error message
 } from 'recharts';
-import { useMarkets } from '../../hooks/useMarkets';
 import * as constants from 'utilities/constants';
+import { useMarkets } from '../../hooks/useMarkets';
 import useWeb3 from '../../hooks/useWeb3';
 import {
   getInterestModelContract,
@@ -120,7 +124,8 @@ const InterestRateModelWrapper = styled.div`
 
 let flag = false;
 
-function InterestRateModel({ settings, currentAsset }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
   const [graphData, setGraphData] = useState([]);
   const [tickerPos, setTickerPos] = useState(null);
   const [percent, setPercent] = useState(null);
@@ -131,7 +136,8 @@ function InterestRateModel({ settings, currentAsset }) {
   const { markets } = useMarkets();
   const web3 = useWeb3();
 
-  const CustomizedAxisTick = ({ x, y }) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const CustomizedAxisTick = ({ x, y }: $TSFixMe) => {
     return (
       <g transform={`translate(${x},${y})`}>
         <text x={0} y={0} dy={16}>
@@ -145,7 +151,8 @@ function InterestRateModel({ settings, currentAsset }) {
     y: PropTypes.number.isRequired
   };
 
-  const getGraphData = async asset => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const getGraphData = async (asset: $TSFixMe) => {
     flag = true;
     const vbepContract = getVbepContract(web3, asset);
     const interestRateModel = await vbepContract.methods
@@ -156,14 +163,19 @@ function InterestRateModel({ settings, currentAsset }) {
       interestRateModel
     );
     const cashValue = await vbepContract.methods.getCash().call();
-    const data = [];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const data: $TSFixMe = [];
     const marketInfo = markets.find(
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase()
     );
     // Get Current Utilization Rate
     const cash = new BigNumber(cashValue).div(1e18);
+    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const borrows = new BigNumber(marketInfo.totalBorrows2);
+    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS[asset].decimals)
     );
     const currentUtilizationRate = borrows.div(
@@ -171,6 +183,7 @@ function InterestRateModel({ settings, currentAsset }) {
     );
 
     const tempCurrentPercent = parseInt(
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message
       +currentUtilizationRate.toString(10) * 100,
       10
     );
@@ -207,6 +220,7 @@ function InterestRateModel({ settings, currentAsset }) {
               .toString(10),
             1e4,
             0,
+            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             marketInfo.reserveFactor.toString(10)
           )
           .call()
@@ -255,7 +269,8 @@ function InterestRateModel({ settings, currentAsset }) {
     flag = false;
   }, [currentAsset]);
 
-  const CustomTooltip = ({ active, payload }) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const CustomTooltip = ({ active, payload }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
         <div className="custom-tooltip">
@@ -275,18 +290,23 @@ function InterestRateModel({ settings, currentAsset }) {
     payload: PropTypes.array.isRequired
   };
 
-  const handleMouseMove = e => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleMouseMove = (e: $TSFixMe) => {
     const graphElement = document.getElementById('percent-wrapper');
     const lineElement = document.getElementById('line');
     if (graphElement && lineElement) {
       const x = e.pageX - graphElement.offsetLeft - 30;
       const tempPercent = (x * 100) / lineElement.clientWidth;
       if (tempPercent >= 0 && tempPercent <= 100) {
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message
         setPercent(parseInt(tempPercent, 10));
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message
         setTickerPos(e.pageX - graphElement.offsetLeft);
       } else if (tempPercent < 0) {
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '0' is not assignable to paramete... Remove this comment to see the full error message
         setPercent(0);
       } else if (tempPercent >= 100) {
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '100' is not assignable to parame... Remove this comment to see the full error message
         setPercent(100);
       }
       setCurrentPos(30 + (lineElement.clientWidth * currentPercent) / 100);
@@ -345,9 +365,13 @@ function InterestRateModel({ settings, currentAsset }) {
               dataKey="percent"
               tickLine={false}
               axisLine={false}
+              // @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the following properties from... Remove this comment to see the full error message
               tick={<CustomizedAxisTick />}
             />
             <YAxis domain={[0, maxY]} hide />
+            // @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the
+            following properties from... Remove this comment to see the full
+            error message
             <Tooltip cursor={false} content={<CustomTooltip />} />
             <Line
               type="monotone"
@@ -380,11 +404,13 @@ InterestRateModel.defaultProps = {
   settings: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, undefined)
 )(InterestRateModel);

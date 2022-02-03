@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { Form, Input, Modal, Icon, Collapse } from 'antd';
 import Button from '@material-ui/core/Button';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'mark... Remove this comment to see the full error message
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
@@ -156,7 +159,8 @@ function ProposalModal({
   onCancel,
   getProposals,
   ...props
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -189,18 +193,24 @@ function ProposalModal({
     }
   }, [visible, form]);
 
-  const handleSubmit = e => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleSubmit = (e: $TSFixMe) => {
     e.preventDefault();
-    const targetAddresses = [];
-    const values = [];
-    const signatures = [];
-    const callDatas = [];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const targetAddresses: $TSFixMe = [];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const values: $TSFixMe = [];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const signatures: $TSFixMe = [];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    const callDatas: $TSFixMe = [];
     if (description.trim().length === 0) {
       setErrorMsg('Description is required');
     } else {
       setErrorMsg('');
     }
-    form.validateFields(async (err, formValues) => {
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    form.validateFields(async (err: $TSFixMe, formValues: $TSFixMe) => {
       if (!err) {
         try {
           for (let i = 0; i < formData.length; i += 1) {
@@ -251,11 +261,13 @@ function ProposalModal({
     });
   };
 
-  const handleEditorChange = ({ text }) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleEditorChange = ({ text }: $TSFixMe) => {
     setDescription(text);
   };
 
-  const handleAdd = (type, index) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleAdd = (type: $TSFixMe, index: $TSFixMe) => {
     form.resetFields();
     if (type === 'next') {
       formData.splice(index + 1, 0, {
@@ -276,14 +288,16 @@ function ProposalModal({
     setActivePanelKey(type === 'next' ? index + 1 : index);
   };
 
-  const handleRemove = idx => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleRemove = (idx: $TSFixMe) => {
     setFormData([
       ...formData.filter((_f, index) => index < idx),
       ...formData.filter((_f, index) => index > idx)
     ]);
   };
 
-  const handleParseFunc = (funcStr, idx) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleParseFunc = (funcStr: $TSFixMe, idx: $TSFixMe) => {
     if (
       (form.getFieldValue(`signature${idx}`) || '')
         .trim()
@@ -291,16 +305,27 @@ function ProposalModal({
     ) {
       const parsedStr = getArgs(funcStr);
       formData[idx].signature = funcStr;
+      // @ts-expect-error ts-migrate(2322) FIXME: Type 'any[]' is not assignable to type 'never[]'.
       formData[idx].callData = [...parsedStr];
       setFormData([...formData]);
     }
   };
-  const handleKeyUp = (type, idx, subIdx, v) => {
+  const handleKeyUp = (
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    type: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    idx: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    subIdx: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    v: $TSFixMe
+  ) => {
     if (type === 'targetAddress') {
       formData[idx].targetAddress = v;
     } else if (type === 'value') {
       formData[idx].value = v;
     } else if (type === 'calldata') {
+      // @ts-expect-error ts-migrate(2322) FIXME: Type 'any' is not assignable to type 'never'.
       formData[idx].callData[subIdx] = v;
     }
     setFormData([...formData]);
@@ -337,6 +362,7 @@ function ProposalModal({
             <Collapse
               defaultActiveKey={['0']}
               activeKey={activePanelKey}
+              // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string | string[]' is not assign... Remove this comment to see the full error message
               onChange={key => setActivePanelKey(key)}
               accordion
             >
@@ -513,7 +539,8 @@ ProposalModal.defaultProps = {
   onCancel: () => {}
 };
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getProposals } = accountActionCreators;
 
   return bindActionCreators(
@@ -525,6 +552,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default compose(
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(undefined, mapDispatchToProps),
   Form.create({ name: 'proposal_form' })
 )(ProposalModal);

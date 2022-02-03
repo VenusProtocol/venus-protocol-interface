@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toast as toastify } from 'react-toastify';
 
-export function Toast({ title, description, type, ...props }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+export function Toast({ title, description, type, ...props }: $TSFixMe) {
   return (
     <div {...props} className={`toast_container_wrapper ${type}`}>
       {title && <p className="title">{title}</p>}
@@ -24,7 +25,8 @@ Toast.defaultProps = {
 };
 
 function toast(
-  { title, description, type = 'success', ...props },
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  { title, description, type = 'success', ...props }: $TSFixMe,
   options = {}
 ) {
   return toastify(
@@ -33,10 +35,14 @@ function toast(
   );
 }
 
-toast.info = (content, options) => toast({ ...content, type: 'info' }, options);
-toast.error = (content, options) =>
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+toast.info = (content: $TSFixMe, options: $TSFixMe) =>
+  toast({ ...content, type: 'info' }, options);
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+toast.error = (content: $TSFixMe, options: $TSFixMe) =>
   toast({ ...content, type: 'error' }, options);
-toast.success = (content, options) =>
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+toast.success = (content: $TSFixMe, options: $TSFixMe) =>
   toast({ ...content, type: 'success' }, options);
 toast.update = toastify.update;
 

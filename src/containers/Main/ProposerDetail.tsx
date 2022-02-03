@@ -1,9 +1,12 @@
 /* eslint-disable no-useless-escape */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
@@ -59,7 +62,8 @@ const ProposerDetailWrapper = styled.div`
   }
 `;
 
-function ProposerDetail({ match, getVoterDetail, getVoterHistory }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
   const [holdingInfo, setHoldingInfo] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [data, setData] = useState({});
@@ -68,19 +72,25 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }) {
   const loadVoterDetail = async () => {
     await promisify(getVoterDetail, { address: match.params.address })
       .then(res => {
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         if (res.data) {
           setHoldingInfo({
+            // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
             balance: new BigNumber(res.data.balance)
               .div(new BigNumber(10).pow(18))
               .dp(4, 1)
               .toString(10),
+            // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
             delegates: res.data.delegates.toLowerCase(),
+            // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
             delegateCount: res.data.delegateCount || 0,
+            // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
             votes: new BigNumber(res.data.votes)
               .div(new BigNumber(10).pow(18))
               .dp(4, 1)
               .toString(10)
           });
+          // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
           setTransactions(res.data.txs);
         }
       })
@@ -92,12 +102,20 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }) {
   const loadVoterHistory = async () => {
     await promisify(getVoterHistory, { address: match.params.address })
       .then(res => {
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
       .catch(() => {});
   };
 
-  const handleChangePage = (pageNumber, offset, limit) => {
+  const handleChangePage = (
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    pageNumber: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    offset: $TSFixMe,
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    limit: $TSFixMe
+  ) => {
     setCurrent(pageNumber);
     promisify(getVoterHistory, {
       address: match.params.address,
@@ -105,6 +123,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }) {
       limit
     })
       .then(res => {
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
       .catch(() => {});
@@ -142,8 +161,10 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }) {
         <Row>
           <Column xs="12" sm="12">
             <VotingHistory
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type '{}'.
               data={data.result}
               pageNumber={current}
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{}'.
               total={data.total || 0}
               onChangePage={handleChangePage}
             />
@@ -164,11 +185,13 @@ ProposerDetail.defaultProps = {
   match: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getVoterDetail, getVoterHistory } = accountActionCreators;
 
   return bindActionCreators(
@@ -182,5 +205,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps)
 )(ProposerDetail);

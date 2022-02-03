@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Input, Form, Dropdown, Menu } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
@@ -93,12 +96,15 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-function Faucet({ form, getFromFaucet }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function Faucet({ form, getFromFaucet }: $TSFixMe) {
   const { getFieldDecorator } = form;
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleMenuClick = (e, symbol) => {
-    form.validateFields((err, values) => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const handleMenuClick = (e: $TSFixMe, symbol: $TSFixMe) => {
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    form.validateFields((err: $TSFixMe, values: $TSFixMe) => {
       if (!err) {
         setIsLoading(true);
         promisify(getFromFaucet, {
@@ -114,14 +120,17 @@ function Faucet({ form, getFromFaucet }) {
             } else if (symbol === 'bnb') {
               fromAddress = constants.CONTRACT_XVS_TOKEN_ADDRESS;
             } else {
+              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               fromAddress = constants.CONTRACT_TOKEN_ADDRESS[symbol].address;
             }
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             toast.success({
               title: `Funding request for ${fromAddress} into ${values.address}`
             });
           })
           .catch(error => {
             if (error.data && error.data.message) {
+              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({
                 title: error.data.message
               });
@@ -443,7 +452,8 @@ Faucet.propTypes = {
   getFromFaucet: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getFromFaucet } = accountActionCreators;
 
   return bindActionCreators(
@@ -457,5 +467,6 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   withRouter,
   Form.create({ name: 'faucet-form' }),
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(undefined, mapDispatchToProps)
 )(Faucet);

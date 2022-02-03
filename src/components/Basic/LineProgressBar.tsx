@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Progress } from 'antd';
 
@@ -25,7 +26,8 @@ const LineProgressBarWrapper = styled.div`
   }
 `;
 
-function LineProgressBar({ label, percent }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function LineProgressBar({ label, percent }: $TSFixMe) {
   return (
     <LineProgressBarWrapper>
       <div className="flex align-center just-between">

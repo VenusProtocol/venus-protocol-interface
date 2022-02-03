@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import SupplyTab from 'components/Basic/SupplyTabs/SupplyTab';
 import WithdrawTab from 'components/Basic/SupplyTabs/WithdrawTab';
 import closeImg from 'assets/img/close.png';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 
 const ModalContent = styled.div`
@@ -199,7 +200,8 @@ export const TabContent = styled.div`
   }
 `;
 
-function SupplyModal({ visible, asset, onCancel }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
   const [currentTab, setCurrentTab] = useState('supply');
 
   useEffect(() => {

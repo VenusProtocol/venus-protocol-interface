@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'redu... Remove this comment to see the full error message
 import { createAction } from 'redux-actions';
 import { createPromiseAction } from 'core/modules/utils';
 
@@ -23,8 +24,10 @@ export const GET_VOTER_DETAIL_REQUEST = '@account/GET_VOTER_DETAIL_REQUEST';
 export const GET_VOTER_HISTORY_REQUEST = '@account/GET_VOTER_HISTORY_REQUEST';
 
 export const GET_VOTER_ACCOUNTS_REQUEST = '@account/GET_VOTER_ACCOUNTS_REQUEST';
-export const GET_TRANSACTION_HISTORY_REQUEST = '@account/GET_TRANSACTION_HISTORY_REQUEST';
-export const GET_TREASURY_BALANCE_REQUEST = '@account/GET_TREASURY_BALANCE_REQUEST';
+export const GET_TRANSACTION_HISTORY_REQUEST =
+  '@account/GET_TRANSACTION_HISTORY_REQUEST';
+export const GET_TREASURY_BALANCE_REQUEST =
+  '@account/GET_TREASURY_BALANCE_REQUEST';
 
 /**
  * Action Creators
@@ -44,5 +47,5 @@ export const accountActionCreators = {
   getVoterHistory: createPromiseAction(GET_VOTER_HISTORY_REQUEST),
   getVoterAccounts: createPromiseAction(GET_VOTER_ACCOUNTS_REQUEST),
   getTransactionHistory: createPromiseAction(GET_TRANSACTION_HISTORY_REQUEST),
-  getTreasuryBalance: createPromiseAction(GET_TREASURY_BALANCE_REQUEST),
+  getTreasuryBalance: createPromiseAction(GET_TREASURY_BALANCE_REQUEST)
 };

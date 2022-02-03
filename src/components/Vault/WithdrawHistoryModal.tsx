@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Modal } from 'antd';
 import BigNumber from 'bignumber.js';
@@ -62,8 +63,10 @@ function WithdrawHistoryModal({
   pendingWithdrawals,
   withdrawableAmount,
   stakedToken
-}) {
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
   );
   return (
@@ -99,7 +102,9 @@ function WithdrawHistoryModal({
             <span className="right">Locked Until</span>
           </div>
           <div className="list-items">
-            {pendingWithdrawals.map((withdraw, i) => {
+            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name
+            '$TSFixMe'.
+            {pendingWithdrawals.map((withdraw: $TSFixMe, i: $TSFixMe) => {
               return (
                 <div key={i} className="table-line">
                   <span className="left">

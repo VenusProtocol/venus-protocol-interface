@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Steps, Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
@@ -85,7 +86,8 @@ const { Step } = Steps;
 
 const STATUSES = ['Pending', 'Active', 'Succeeded', 'Queued', 'Executed'];
 
-function ProposalHistory({ proposalInfo }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function ProposalHistory({ proposalInfo }: $TSFixMe) {
   const getStepNumber = () => {
     if (proposalInfo.state === 'Defeated' || proposalInfo.state === 'Canceled')
       return 2;

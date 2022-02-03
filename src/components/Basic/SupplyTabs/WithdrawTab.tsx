@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { Icon, Progress } from 'antd';
 import Button from '@material-ui/core/Button';
@@ -8,6 +9,7 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { useWeb3React } from '@web3-react/core';
 import { connectAccount, accountActionCreators } from 'core';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/venus_32.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -21,7 +23,8 @@ import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 
-function WithdrawTab({ asset, changeTab, onCancel, setSetting }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowLimit, setBorrowLimit] = useState(new BigNumber(0));
@@ -238,9 +241,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }) {
               />
               <span>Distribution APY</span>
             </div>
-            <span>
-              {formatApy(asset.xvsSupplyApy)}
-            </span>
+            <span>{formatApy(asset.xvsSupplyApy)}</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -276,6 +277,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }) {
               <span>
                 {!amount.isNaN()
                   ? new BigNumber(amount)
+                      // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
                       .times(feePercent / 100)
                       .dp(4)
                       .toString(10)
@@ -364,7 +366,8 @@ WithdrawTab.defaultProps = {
   onCancel: () => {}
 };
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
@@ -375,4 +378,5 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(null, mapDispatchToProps))(WithdrawTab);

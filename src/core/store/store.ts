@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import sagas from 'core/store/sagas';
 import { loadState, saveState } from 'utilities/localStorage';
 import rootReducer from 'core/store/reducers';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import { throttle } from 'lodash';
 
 const persistedState = loadState();
@@ -21,8 +22,10 @@ const enhancers = [
 const composeEnhancers =
   process.env.NODE_ENV !== 'production' &&
   typeof window === 'object' &&
+  // @ts-expect-error ts-migrate(2339) FIXME: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' do... Remove this comment to see the full error message
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? // @ts-expect-error ts-migrate(2339) FIXME: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' do... Remove this comment to see the full error message
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 /* eslint-enable */
 

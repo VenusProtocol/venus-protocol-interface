@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Spin, Icon } from 'antd';
 import PropTypes from 'prop-types';
@@ -12,7 +13,8 @@ const LoadingSpinnerWrapper = styled.div`
   }
 `;
 
-function LoadingSpinner({ size }) {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+function LoadingSpinner({ size }: $TSFixMe) {
   const antIcon = <Icon type="loading" style={{ fontSize: size }} spin />;
   return (
     <LoadingSpinnerWrapper className="flex align-center just-center">

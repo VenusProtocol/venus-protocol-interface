@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { NavLink, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Select, Icon } from 'antd';
@@ -12,6 +15,7 @@ import { Label } from 'components/Basic/Label';
 import { connectAccount, accountActionCreators } from 'core';
 import logoImg from 'assets/img/logo.png';
 import prdtImg from 'assets/img/prdt.png';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
@@ -256,7 +260,13 @@ const { Option } = Select;
 
 const format = commaNumber.bindWith(',', '.');
 
-function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
+function Sidebar({
+  history,
+  settings,
+  setSetting,
+  getGovernanceVenus
+}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+$TSFixMe) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
@@ -269,6 +279,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
 
   useEffect(() => {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
         title: `Please change your network to access the Binance Smart Chain Main Network`
       });
@@ -293,7 +304,8 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
     setTotalVaiMinted(tvm);
   };
 
-  const onChangePage = value => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  const onChangePage = (value: $TSFixMe) => {
     if (value === 'prediction') {
       window.open('https://prdt.finance/XVS');
     } else if (value === 'forum') {
@@ -332,8 +344,10 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         .times(20 * 60 * 24);
 
       // VAI APY
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
       const xvsMarket = markets.find(ele => ele.underlyingSymbol === 'XVS');
       const vaiAPY = new BigNumber(venusVAIVaultRate)
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'tokenPrice' does not exist on type 'neve... Remove this comment to see the full error message
         .times(xvsMarket ? xvsMarket.tokenPrice : 0)
         .times(365 * 100)
         .div(vaultVaiStaked)
@@ -342,6 +356,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
 
       const totalLiquidity = (markets || []).reduce((accumulator, market) => {
         return new BigNumber(accumulator).plus(
+          // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
           new BigNumber(market.totalSupplyUsd)
         );
       }, vaultVaiStaked);
@@ -496,6 +511,7 @@ function Sidebar({ history, settings, setSetting, getGovernanceVenus }) {
         <Select
           defaultValue={defaultPath}
           style={{ width: 120, marginRight: 10 }}
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
           getPopupContainer={() => document.getElementById('main-menu')}
           dropdownMenuStyle={{
             backgroundColor: '#090d27'
@@ -568,11 +584,13 @@ Sidebar.defaultProps = {
   history: {}
 };
 
-const mapStateToProps = ({ account }) => ({
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-const mapDispatchToProps = dispatch => {
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting, getGovernanceVenus } = accountActionCreators;
 
   return bindActionCreators(
@@ -586,5 +604,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withRouter,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps)
 )(Sidebar);
