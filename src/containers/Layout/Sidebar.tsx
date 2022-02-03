@@ -265,7 +265,7 @@ function Sidebar({
   settings,
   setSetting,
   getGovernanceVenus
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
@@ -304,7 +304,7 @@ $TSFixMe) {
     setTotalVaiMinted(tvm);
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const onChangePage = (value: $TSFixMe) => {
     if (value === 'prediction') {
       window.open('https://prdt.finance/XVS');
@@ -584,12 +584,12 @@ Sidebar.defaultProps = {
   history: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting, getGovernanceVenus } = accountActionCreators;
 

@@ -46,7 +46,7 @@ const ManualVotingWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
   const antIcon = <Icon type="loading" style={{ fontSize: 64 }} spin />;
 

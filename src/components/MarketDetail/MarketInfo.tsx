@@ -50,7 +50,7 @@ const MarketInfoContent = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
   if (!marketInfo.underlyingSymbol) return null;
   return (

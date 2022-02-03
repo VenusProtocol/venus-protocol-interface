@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 const theme = {};
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const Theme = ({ children }: $TSFixMe) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>
 );

@@ -111,7 +111,7 @@ function VotingPower({
   balance,
   delegateStatus,
   stakedAmount
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { account } = useWeb3React();
 

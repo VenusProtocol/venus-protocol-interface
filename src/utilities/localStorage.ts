@@ -11,7 +11,7 @@ export const loadState = () => {
   }
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export const saveState = (state: $TSFixMe) => {
   try {
     const serializedState = JSON.stringify(state);

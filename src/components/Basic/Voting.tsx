@@ -111,7 +111,7 @@ const VotingWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Voting({ proposal, support, history }: $TSFixMe) {
   const [forPercent, setForPercent] = useState(0);
   const [againstPercent, setAgainstPercent] = useState(0);
@@ -134,7 +134,7 @@ function Voting({ proposal, support, history }: $TSFixMe) {
     );
   }, [proposal]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const getStatus = (p: $TSFixMe) => {
     if (p.state === 'Executed') {
       return 'Passed';

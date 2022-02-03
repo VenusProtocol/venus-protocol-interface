@@ -91,7 +91,7 @@ const VoteOverviewWrapper = styled.div`
 
 const VOTE_DISPLAY_ROWS = 4;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
   const [proposalInfo, setProposalInfo] = useState({});
   const [agreeVotes, setAgreeVotes] = useState({
@@ -148,7 +148,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
     }
   }, [match, getProposalById]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const loadVotes = async ({ limit, filter, offset }: $TSFixMe) => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'id' does not exist on type '{}'.
     if (proposalInfo.id) {
@@ -225,7 +225,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
     }
   }, [proposalInfo]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleUpdateProposal = async (statusType: $TSFixMe) => {
     if (statusType === 'Queue') {
       setIsLoading(true);
@@ -432,7 +432,7 @@ VoteOverview.defaultProps = {
   match: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getProposalById, getVoters } = accountActionCreators;
 

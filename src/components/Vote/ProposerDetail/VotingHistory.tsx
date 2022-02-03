@@ -98,12 +98,12 @@ const VotingHistoryWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setCurrent(page);
     setPageSize(size);
@@ -123,7 +123,7 @@ function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
       <VotingHistoryWrapper className="flex flex-column">
         <div className="header">Voting History</div>
         <div className="body">
-          {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
+          {/**/}
           {data.map((item: $TSFixMe, index: $TSFixMe) => (
             <Voting
               proposal={item.proposal}

@@ -159,7 +159,7 @@ function ProposalModal({
   onCancel,
   getProposals,
   ...props
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState('');
@@ -193,23 +193,23 @@ $TSFixMe) {
     }
   }, [visible, form]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleSubmit = (e: $TSFixMe) => {
     e.preventDefault();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const targetAddresses: $TSFixMe = [];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const values: $TSFixMe = [];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const signatures: $TSFixMe = [];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const callDatas: $TSFixMe = [];
     if (description.trim().length === 0) {
       setErrorMsg('Description is required');
     } else {
       setErrorMsg('');
     }
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     form.validateFields(async (err: $TSFixMe, formValues: $TSFixMe) => {
       if (!err) {
         try {
@@ -261,12 +261,12 @@ $TSFixMe) {
     });
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleEditorChange = ({ text }: $TSFixMe) => {
     setDescription(text);
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleAdd = (type: $TSFixMe, index: $TSFixMe) => {
     form.resetFields();
     if (type === 'next') {
@@ -288,7 +288,7 @@ $TSFixMe) {
     setActivePanelKey(type === 'next' ? index + 1 : index);
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleRemove = (idx: $TSFixMe) => {
     setFormData([
       ...formData.filter((_f, index) => index < idx),
@@ -296,7 +296,7 @@ $TSFixMe) {
     ]);
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleParseFunc = (funcStr: $TSFixMe, idx: $TSFixMe) => {
     if (
       (form.getFieldValue(`signature${idx}`) || '')
@@ -311,13 +311,13 @@ $TSFixMe) {
     }
   };
   const handleKeyUp = (
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     type: $TSFixMe,
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     idx: $TSFixMe,
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     subIdx: $TSFixMe,
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     v: $TSFixMe
   ) => {
     if (type === 'targetAddress') {
@@ -539,7 +539,7 @@ ProposalModal.defaultProps = {
   onCancel: () => {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getProposals } = accountActionCreators;
 

@@ -41,7 +41,7 @@ const tokenAddressNameMap = Object.keys(
   };
 }, {});
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Vault({ settings }: $TSFixMe) {
   const [poolInfos, setPoolInfos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -68,7 +68,7 @@ function Vault({ settings }: $TSFixMe) {
       }
     );
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     async function fetchOnePool(param: $TSFixMe) {
       const [poolInfo, rewardPerBlock, totalAllocPoints] = await Promise.all([
         xvsVaultContract.methods.poolInfos(param.rewardToken, param.pid).call(),
@@ -187,12 +187,12 @@ Vault.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 

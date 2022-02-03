@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { authActionCreators } from 'core/modules/auth/actions';
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function mapStateToProps({ auth }: $TSFixMe) {
   return {
     auth

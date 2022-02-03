@@ -85,7 +85,7 @@ const BalancerWrapper = styled.div`
 `;
 
 const format = commaNumber.bindWith(',', '.');
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function WalletBalance({ settings, setSetting }: $TSFixMe) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
@@ -206,7 +206,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
     };
   }, [withXVS]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const formatValue = (value: $TSFixMe) => {
     return `$${format(
       getBigNumber(value)
@@ -279,12 +279,12 @@ WalletBalance.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 

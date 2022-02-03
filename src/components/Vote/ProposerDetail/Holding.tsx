@@ -59,7 +59,7 @@ const HoldingWrapper = styled.div`
 `;
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Holding({ address, holdingInfo }: $TSFixMe) {
   return (
     <Card>

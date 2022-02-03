@@ -42,7 +42,7 @@ const PendingTransactionWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function PendingTransaction({ settings }: $TSFixMe) {
   const [curTime, setCurTime] = useState('');
   useEffect(() => {
@@ -78,7 +78,7 @@ PendingTransaction.propTypes = {
   settings: PropTypes.object.isRequired
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });

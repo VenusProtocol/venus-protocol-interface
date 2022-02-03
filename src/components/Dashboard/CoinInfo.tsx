@@ -62,7 +62,7 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function CoinInfo({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { userXVSBalance } = useMarketsUser();
@@ -119,7 +119,7 @@ CoinInfo.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });

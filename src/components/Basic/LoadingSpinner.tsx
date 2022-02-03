@@ -13,7 +13,7 @@ const LoadingSpinnerWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function LoadingSpinner({ size }: $TSFixMe) {
   const antIcon = <Icon type="loading" style={{ fontSize: size }} spin />;
   return (

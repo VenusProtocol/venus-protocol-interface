@@ -15,7 +15,7 @@ export function* handleAuthErrorRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { response } = payload;
   try {
@@ -29,7 +29,7 @@ $TSFixMe) {
   }
 }
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export function* asyncLoginRequest({ payload, resolve, reject }: $TSFixMe) {
   const { email, password } = payload;
 
@@ -54,7 +54,7 @@ export function* asyncLoginRequest({ payload, resolve, reject }: $TSFixMe) {
   }
 }
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export function* asyncRegisterRequest({ payload, resolve, reject }: $TSFixMe) {
   const { email, password } = payload;
 
@@ -81,7 +81,7 @@ export function* asyncRegisterRequest({ payload, resolve, reject }: $TSFixMe) {
   }
 }
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export function* asyncLogoutRequest({ payload, resolve, reject }: $TSFixMe) {
   try {
     // const response = yield call(restService, {

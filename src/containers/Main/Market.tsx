@@ -166,7 +166,7 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
   const [totalSupply, setTotalSupply] = useState('0');
   const [totalBorrow, setTotalBorrow] = useState('0');
@@ -180,7 +180,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
       .then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         const total = (res.data || []).reduce(
-          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+          
           (accumulator: $TSFixMe, asset: $TSFixMe) => {
             return accumulator + Number(asset.balance) * Number(asset.price);
           },
@@ -234,7 +234,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
     }
   }, [markets]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleSort = (field: $TSFixMe) => {
     setSortInfo({
       field,
@@ -550,12 +550,12 @@ Market.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getTreasuryBalance } = accountActionCreators;
 

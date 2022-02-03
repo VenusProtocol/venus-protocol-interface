@@ -35,9 +35,9 @@ const ProposalUserWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function ProposalUser({ proposalInfo }: $TSFixMe) {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleAddLink = (linkType: $TSFixMe, v: $TSFixMe) => {
     window.open(
       `${BASE_BSC_SCAN_URL}/${linkType === 'address' ? 'address' : 'tx'}/${v}`,

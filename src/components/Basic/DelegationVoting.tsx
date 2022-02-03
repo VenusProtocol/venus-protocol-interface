@@ -101,7 +101,7 @@ const VotingWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function DelegationVoting({ history, isLoading, onDelegate }: $TSFixMe) {
   const [delegateAddress, setDelegateAddress] = useState('');
   const { account } = useWeb3React();

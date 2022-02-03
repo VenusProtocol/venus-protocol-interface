@@ -14,7 +14,7 @@ import arrowDownImg from '../../assets/img/arrow-down.png';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function getTokenImg(name: $TSFixMe) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   return {
@@ -33,7 +33,7 @@ function VaultCard({
   apr,
   totalStaked,
   dailyEmission
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message

@@ -19,7 +19,7 @@ function VaiCardContent({
   userVaiBalance,
   userVaiAllowance,
   userVaiStakedAmount
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { account } = useWeb3React();
   const vaiTokenContract = useVaiToken();

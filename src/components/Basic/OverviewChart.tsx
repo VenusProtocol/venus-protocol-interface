@@ -47,7 +47,7 @@ const ChartWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -65,7 +65,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
     );
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const CustomChart1Tooltip = ({ active, payload, label }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
@@ -83,7 +83,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
     }
     return null;
   };
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const CustomChart2Tooltip = ({ active, payload }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
@@ -103,7 +103,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
     payload: PropTypes.array.isRequired
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleMouseMove = (index: $TSFixMe) => {
     setActiveIndex(index);
   };
@@ -222,7 +222,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                 }
                 onMouseMove={handleMouseMove}
               >
-                {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
+                {/**/}
                 {data.map((entry: $TSFixMe, index: $TSFixMe) => (
                   <Cell
                     cursor="pointer"
@@ -264,7 +264,7 @@ OverviewChart.defaultProps = {
   data: []
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });

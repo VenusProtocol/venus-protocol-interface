@@ -58,7 +58,7 @@ const MintRepayVai = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const Market = ({ settings, setSetting }: $TSFixMe) => {
   const [currentTab, setCurrentTab] = useState('supply');
   const [suppliedAssets, setSuppliedAssets] = useState([]);
@@ -68,13 +68,13 @@ const Market = ({ settings, setSetting }: $TSFixMe) => {
   const { userMarketInfo } = useMarketsUser();
 
   const updateMarketTable = () => {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const tempSuppliedData: $TSFixMe = [];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const tempNonSuppliableData: $TSFixMe = [];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const tempBorrowedData: $TSFixMe = [];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const tempNonBorrowedData: $TSFixMe = [];
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
     userMarketInfo.forEach((element: $TSFixMe) => {
@@ -182,12 +182,12 @@ Market.defaultProps = {
   settings: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 

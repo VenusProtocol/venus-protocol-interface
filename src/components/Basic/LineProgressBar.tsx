@@ -26,7 +26,7 @@ const LineProgressBarWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function LineProgressBar({ label, percent }: $TSFixMe) {
   return (
     <LineProgressBarWrapper>

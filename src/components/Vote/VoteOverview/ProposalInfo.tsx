@@ -62,9 +62,9 @@ const ProposalInfoWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function ProposalInfo({ proposalInfo }: $TSFixMe) {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const getStatus = (proposal: $TSFixMe) => {
     if (proposal.state === 'Executed') {
       return 'Passed';

@@ -63,7 +63,7 @@ function WithdrawHistoryModal({
   pendingWithdrawals,
   withdrawableAmount,
   stakedToken
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}:
 $TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -102,7 +102,7 @@ $TSFixMe) {
             <span className="right">Locked Until</span>
           </div>
           <div className="list-items">
-            {/*// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.*/}
+            {/**/}
             {pendingWithdrawals.map((withdraw: $TSFixMe, i: $TSFixMe) => {
               return (
                 <div key={i} className="table-line">

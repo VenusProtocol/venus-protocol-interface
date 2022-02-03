@@ -39,7 +39,7 @@ const messages = {
 };
 
 class App extends React.Component {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   constructor(props: $TSFixMe) {
     super(props);
     this.state = {

@@ -16,13 +16,13 @@ import {
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export const useToken = (name: $TSFixMe) => {
   const web3 = useWeb3();
   return useMemo(() => getTokenContract(web3, name), [web3, name]);
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export const useTokenByAddress = (address: $TSFixMe) => {
   const web3 = useWeb3();
   return useMemo(() => getTokenContractByAddress(web3, address), [
@@ -46,7 +46,7 @@ export const useVaiVault = () => {
   return useMemo(() => getVaiVaultContract(web3), [web3]);
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export const useVbep = (name: $TSFixMe) => {
   const web3 = useWeb3();
   return useMemo(() => getVbepContract(web3, name), [web3, name]);

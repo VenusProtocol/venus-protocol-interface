@@ -7,7 +7,7 @@ const appReducer = combineReducers({
   account
 });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export default function rootReducer(state: $TSFixMe, action: $TSFixMe) {
   let finalState = appReducer(state, action);
   if (action.type === LOGOUT_SUCCESS) {

@@ -29,7 +29,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Header({ title, history }: $TSFixMe) {
   const handleRoute = () => {
     if (title === 'Details') {

@@ -47,7 +47,7 @@ const CircleProgressBarWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function CircleProgressBar({ label, percent, width }: $TSFixMe) {
   return (
     <CircleProgressBarWrapper>

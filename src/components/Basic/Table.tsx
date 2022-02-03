@@ -153,7 +153,7 @@ const MarketTableWrapper = styled.div`
   }
 `;
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function MarketTable({ columns, data, title, handleClickRow }: $TSFixMe) {
   return (
     <MarketTableWrapper>

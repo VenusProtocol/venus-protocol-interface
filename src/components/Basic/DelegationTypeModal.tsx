@@ -79,13 +79,13 @@ function DelegationTypeModal({
   delegateStatus,
   visible,
   onCancel
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const [child, setChild] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const xvsVaultProxyContract = useXvsVaultProxy();
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleDelegateVoting = async (dAddress: $TSFixMe) => {
     setIsLoading(true);
     try {

@@ -45,7 +45,7 @@ export function useInactiveListener(suppress = false) {
         });
       };
 
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+      
       const handleAccountsChanged = (accounts: $TSFixMe) => {
         if (accounts.length > 0) {
           // eat errors

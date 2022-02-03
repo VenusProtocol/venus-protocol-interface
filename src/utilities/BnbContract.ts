@@ -1,15 +1,14 @@
 import * as constants from 'utilities/constants';
-// @ts-expect-error ts-migrate(2732) FIXME: Cannot find module '../config/abis/vbnb.json'. Con... Remove this comment to see the full error message
 import vbnbAbi from '../config/abis/vbnb.json';
 
 export const sendSupply = async (
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   web3: $TSFixMe,
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   from: $TSFixMe,
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   amount: $TSFixMe,
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   callback: $TSFixMe
 ) => {
   try {
@@ -26,7 +25,7 @@ export const sendSupply = async (
       data: contractData
     };
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     await web3.eth.sendTransaction(tx, (err: $TSFixMe) => {
       if (!err) {
         callback(true);
@@ -40,13 +39,13 @@ export const sendSupply = async (
 };
 
 export const sendRepay = async (
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   web3: $TSFixMe,
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   from: $TSFixMe,
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   amount: $TSFixMe,
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   callback: $TSFixMe
 ) => {
   try {
@@ -63,7 +62,7 @@ export const sendRepay = async (
       data: contractData
     };
     // Send transaction
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     await web3.eth.sendTransaction(tx, (err: $TSFixMe) => {
       if (!err) {
         callback(true);

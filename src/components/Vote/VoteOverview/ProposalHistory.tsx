@@ -86,7 +86,7 @@ const { Step } = Steps;
 
 const STATUSES = ['Pending', 'Active', 'Succeeded', 'Queued', 'Executed'];
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function ProposalHistory({ proposalInfo }: $TSFixMe) {
   const getStepNumber = () => {
     if (proposalInfo.state === 'Defeated' || proposalInfo.state === 'Canceled')

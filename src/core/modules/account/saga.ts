@@ -22,7 +22,7 @@ export function* asyncGetMarketHistoryRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { asset, limit, type } = payload;
   let api = `/market_history/graph?asset=${asset}&type=${type}`;
@@ -46,7 +46,7 @@ export function* asyncGetGovernanceVenusRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
@@ -67,7 +67,7 @@ export function* asyncGetProposalsRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { limit, offset } = payload;
   try {
@@ -87,7 +87,7 @@ $TSFixMe) {
   }
 }
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export function* asyncGetFaucetRequest({ payload, resolve, reject }: $TSFixMe) {
   const { address, asset, amountType } = payload;
 
@@ -117,7 +117,7 @@ export function* asyncGetProposalByIdRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { id } = payload;
   try {
@@ -136,7 +136,7 @@ $TSFixMe) {
     reject(e);
   }
 }
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 export function* asyncGetVotersRequest({ payload, resolve, reject }: $TSFixMe) {
   const { limit, filter, id, offset } = payload;
   try {
@@ -166,7 +166,7 @@ export function* asyncGetVoterDetailRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { address } = payload;
   try {
@@ -189,7 +189,7 @@ export function* asyncGetVoterHistoryRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { offset, limit, address } = payload;
   try {
@@ -213,7 +213,7 @@ export function* asyncGetVoterAccountsRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { limit, offset } = payload;
 
@@ -235,7 +235,7 @@ export function* asyncGetTransactionHistoryRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const { offset, event, type } = payload;
   try {
@@ -260,7 +260,7 @@ export function* asyncGetTreasuryBalanceRequest({
   payload,
   resolve,
   reject
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message

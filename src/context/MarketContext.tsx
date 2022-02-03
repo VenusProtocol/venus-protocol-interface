@@ -21,7 +21,7 @@ const MarketContext = React.createContext({
 
 // This context provide a way for all the components to share the market data, thus avoid
 // duplicated requests
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [markets, setMarkets] = useState([]);
   const [dailyVenus, setDailyVenus] = useState(0);
@@ -54,7 +54,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         .map(item =>
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
           res.data.data.markets.find(
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+            
             (market: $TSFixMe) =>
               market.underlyingSymbol.toLowerCase() === item.toLowerCase()
           )
@@ -79,7 +79,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
   useEffect(() => {
     let isMounted = true;
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+    
     const getXvsBalance = (balances: $TSFixMe) => {
       const vxvs = constants.CONTRACT_VBEP_ADDRESS.xvs.address.toLowerCase();
       const xvsDecimals = constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals;
@@ -104,7 +104,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         let balances = {};
         if (account) {
           balances = indexBy(
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+            
             (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
             await lens.methods.vTokenBalancesAll(vtAddresses, account).call()
           );
@@ -112,14 +112,14 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         }
 
         const marketsMap = indexBy(
-          // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+          
           (item: $TSFixMe) => item.underlyingSymbol.toLowerCase(),
           markets
         );
 
         let assetList = Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
           (item, index) => {
-            // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+            
             const toDecimalAmount = (mantissa: $TSFixMe) => {
               return new BigNumber(mantissa).shiftedBy(-item.decimals);
             };
@@ -140,7 +140,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
               item.id
             ].address.toLowerCase();
             const collateral = assetsIn
-              // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+              
               .map((address: $TSFixMe) => address.toLowerCase())
               .includes(vtokenAddress);
 

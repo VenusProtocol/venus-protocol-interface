@@ -11,7 +11,7 @@ export async function restService({
   params,
   contentType = 'json',
   token = null
-}: // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+}: 
 $TSFixMe) {
   const headers = {};
   let path = `${API_ENDPOINT_URL}${api}`;

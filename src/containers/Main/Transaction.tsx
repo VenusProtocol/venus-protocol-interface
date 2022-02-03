@@ -269,7 +269,7 @@ const eventTypes = [
 const { Option } = Select;
 const format = commaNumber.bindWith(',', '.');
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 function Transaction({ getTransactionHistory }: $TSFixMe) {
   const [data, setData] = useState([]);
   const [offset, setOffset] = useState(1);
@@ -293,7 +293,7 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
     loadTransactionHistory();
   }, [loadTransactionHistory]);
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setOffset(page);
     setPageSize(size);
@@ -307,7 +307,7 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
     handleChangePage(offset - 1, 20);
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+  
   const diffFormat = (secs: $TSFixMe) => {
     let minutes = Math.floor(secs / 60);
     const sec = secs % 60;
@@ -546,7 +546,7 @@ Transaction.defaultProps = {
   history: {}
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name '$TSFixMe'.
+
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getTransactionHistory } = accountActionCreators;
 
