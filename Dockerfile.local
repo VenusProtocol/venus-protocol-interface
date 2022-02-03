@@ -4,7 +4,7 @@ FROM node:12.19.0-alpine3.12
 ENV NODE_ENV development
 ENV NODE_PATH=src/
 
-RUN apk add --update --no-cache python3
+RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
 
