@@ -1,0 +1,20 @@
+name: Tests and Checks
+
+on: [push]
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - name: Install deps
+        run: npm i
+
+      - name: TSC
+        run: npm run typecheck
