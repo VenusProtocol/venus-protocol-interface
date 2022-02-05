@@ -66,12 +66,7 @@ class App extends React.Component {
                       newestOnTop
                       position={toast.POSITION.TOP_LEFT}
                     />
-                    <Switch
-                      atEnter={{ opacity: 0 }}
-                      atLeave={{ opacity: 0.5 }}
-                      atActive={{ opacity: 1 }}
-                      className="switch-wrapper"
-                    >
+                    <Switch>
                       <Route exact path="/dashboard" component={Dashboard} />
                       <Route exact path="/vote" component={Vote} />
                       <Route exact path="/xvs" component={XVS} />
