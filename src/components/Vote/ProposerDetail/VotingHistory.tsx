@@ -6,7 +6,6 @@ import styled from 'styled-components';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { Pagination } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { withRouter } from 'react-router-dom';
 import Voting from 'components/Basic/Voting';
 import arrowRightImg from 'assets/img/arrow-right.png';
