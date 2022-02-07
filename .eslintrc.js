@@ -10,7 +10,6 @@ module.exports = {
     project: './tsconfig.eslint.json',
   },
   rules: {
-    'react/jsx-filename-extension': [2, {extensions: ['.ts', '.tsx']}],
     '@typescript-eslint/no-unused-vars': 0,
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-use-before-define': 0,
