@@ -9,10 +9,7 @@ import { bindActionCreators } from 'redux';
 import commaNumber from 'comma-number';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import {
-  Row, Col, Icon, Progress,
-} from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
+import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
