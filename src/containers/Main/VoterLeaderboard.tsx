@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
 import commaNumber from 'comma-number';

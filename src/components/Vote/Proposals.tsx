@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
@@ -14,6 +13,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
 import { useWeb3React } from '@web3-react/core';
 import { useToken, useGovernorBravo } from '../../hooks/useContract';
+import { Proposal as ProposalObject } from 'types';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
@@ -124,6 +124,17 @@ const NoProposalWrapper = styled.div`
     color: var(--color-text-main);
   }
 `;
+
+interface Props {
+  address: string
+  isLoadingProposal: boolean,
+  votingWeight: string,
+  proposals: Array<ProposalObject>,
+  pageNumber: number,
+  total: number,
+  onChangePage: (page: number, total: number, size: number) => void,
+}
+
 function Proposals({
   address,
   isLoadingProposal,
@@ -132,7 +143,7 @@ function Proposals({
   proposals,
   total,
   onChangePage,
-}: $TSFixMe) {
+}: Props) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
 
@@ -261,7 +272,6 @@ function Proposals({
               <Proposal
                 proposal={item}
                 votingWeight={votingWeight}
-                delegateAddress={delegateAddress}
                 address={address}
                 key={item.id}
               />
@@ -299,6 +309,7 @@ function Proposals({
             </div>
           </div>
         )}
+        {/* @ts-expect-error Property 'form' is missing in type */}
         <ProposalModal
           address={address}
           visible={proposalModal}
@@ -309,16 +320,6 @@ function Proposals({
     </Card>
   );
 }
-
-Proposals.propTypes = {
-  address: PropTypes.string.isRequired,
-  isLoadingProposal: PropTypes.bool.isRequired,
-  votingWeight: PropTypes.string.isRequired,
-  proposals: PropTypes.array,
-  pageNumber: PropTypes.number,
-  total: PropTypes.number,
-  onChangePage: PropTypes.func.isRequired,
-};
 
 Proposals.defaultProps = {
   proposals: [],

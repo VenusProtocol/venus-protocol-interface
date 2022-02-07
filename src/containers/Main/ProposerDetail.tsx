@@ -1,11 +1,9 @@
 /* eslint-disable no-useless-escape */
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import ProposerInfo from 'components/Vote/ProposerDetail/ProposerInfo';
@@ -60,7 +58,12 @@ const ProposerDetailWrapper = styled.div`
   }
 `;
 
-function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
+interface Props extends RouteComponentProps<{ address: string }> {
+  getVoterDetail: () => void,
+  getVoterHistory: () => void,
+}
+
+function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
   const [holdingInfo, setHoldingInfo] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [data, setData] = useState({});
@@ -102,7 +105,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   const handleChangePage = (
@@ -122,7 +125,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   useEffect(() => {
@@ -171,16 +174,6 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
   );
 }
 
-ProposerDetail.propTypes = {
-  match: PropTypes.object,
-  getVoterDetail: PropTypes.func.isRequired,
-  getVoterHistory: PropTypes.func.isRequired,
-};
-
-ProposerDetail.defaultProps = {
-  match: {},
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
@@ -197,7 +190,7 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   );
 };
 
-export default compose(
+export default compose<Props, Props>(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps),

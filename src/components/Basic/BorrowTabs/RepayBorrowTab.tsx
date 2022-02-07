@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
@@ -20,15 +18,26 @@ import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import useWeb3 from '../../../hooks/useWeb3';
+import { Asset, Setting } from 'types';
 
 const format = commaNumber.bindWith(',', '.');
+
+interface DispatchProps {
+  setSetting: (setting: Setting | undefined) => void
+}
+
+interface Props {
+  asset: Asset
+  changeTab: (tab: 'borrow' | 'repayBorrow') => void
+  onCancel: () => void
+}
 
 function RepayBorrowTab({
   asset,
   changeTab,
   onCancel,
   setSetting,
-}: $TSFixMe) {
+}: Props & DispatchProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -141,7 +150,7 @@ function RepayBorrowTab({
           pendingInfo: {
             type: '',
             status: false,
-            amount: 0,
+            amount: '0',
             symbol: '',
           },
         });
@@ -161,7 +170,7 @@ function RepayBorrowTab({
               pendingInfo: {
                 type: '',
                 status: false,
-                amount: 0,
+                amount: '0',
                 symbol: '',
               },
             });
@@ -389,26 +398,17 @@ function RepayBorrowTab({
   );
 }
 
-RepayBorrowTab.propTypes = {
-  asset: PropTypes.object,
-  settings: PropTypes.object,
-  changeTab: PropTypes.func,
-  onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired,
-};
-
 RepayBorrowTab.defaultProps = {
-  asset: {},
   settings: {},
-  changeTab: () => {},
-  onCancel: () => {},
+  changeTab: () => { },
+  onCancel: () => { },
 };
 
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
@@ -420,6 +420,6 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
 };
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
+export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, mapDispatchToProps))(
   RepayBorrowTab,
 );

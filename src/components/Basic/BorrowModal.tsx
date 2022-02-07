@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import BorrowTab from 'components/Basic/BorrowTabs/BorrowTab';
 import RepayBorrowTab from 'components/Basic/BorrowTabs/RepayBorrowTab';
 import { Modal } from 'antd';
 import closeImg from 'assets/img/close.png';
+import { Asset } from 'types';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -207,7 +207,13 @@ export const TabContent = styled.div`
   }
 `;
 
-function BorrowModal({ visible, asset, onCancel }: $TSFixMe) {
+interface Props {
+  asset: Asset
+  visible: boolean,
+  onCancel: () => void,
+}
+
+function BorrowModal({ visible, asset, onCancel }: Props) {
   const [currentTab, setCurrentTab] = useState('borrow');
 
   useEffect(() => {
@@ -258,15 +264,8 @@ function BorrowModal({ visible, asset, onCancel }: $TSFixMe) {
   );
 }
 
-BorrowModal.propTypes = {
-  visible: PropTypes.bool,
-  asset: PropTypes.object,
-  onCancel: PropTypes.func,
-};
-
 BorrowModal.defaultProps = {
   visible: false,
-  asset: {},
   onCancel: () => {},
 };
 

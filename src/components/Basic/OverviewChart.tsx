@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import styled from 'styled-components';
 import {
@@ -45,7 +44,13 @@ const ChartWrapper = styled.div`
   }
 `;
 
-function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
+interface Props {
+  marketType: string,
+  graphType?: string,
+  data: Array<Record<string, { name: string, apy: number }>>,
+}
+
+function OverviewChart({ marketType, graphType, data }: Props) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   useEffect(() => {
@@ -68,8 +73,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
             {`${moment(label).format('LLL')}`}
           </p>
           <p className="label" style={{ color: 'white' }}>
-            {`${
-              marketType === 'supply' ? 'Supply APY' : 'Borrow APY'
+            {`${marketType === 'supply' ? 'Supply APY' : 'Borrow APY'
             } : ${new BigNumber(payload[0].value).dp(8, 1)}%`}
           </p>
         </div>
@@ -83,8 +87,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
       return (
         <div className="custom-tooltip">
           <p className="label" style={{ color: 'white' }}>
-            {`${
-              marketType === 'supply' ? 'Total Supply' : 'Total Borrow'
+            {`${marketType === 'supply' ? 'Total Supply' : 'Total Borrow'
             } : ${currencyFormatter(payload[0].value ? payload[0].value : 0)}`}
           </p>
         </div>
@@ -148,16 +151,14 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                 type="monotone"
                 isAnimationActive
                 dataKey={marketType === 'supply' ? 'supplyApy' : 'borrowApy'}
-                stroke={`${
-                  marketType !== 'supply'
-                    ? 'url(#barRedColor)'
-                    : 'url(#barGreenColor)'
+                stroke={`${marketType !== 'supply'
+                  ? 'url(#barRedColor)'
+                  : 'url(#barGreenColor)'
                 }`}
                 strokeWidth={2}
-                fill={`${
-                  marketType !== 'supply'
-                    ? 'url(#areaRedColor)'
-                    : 'url(#areaGreenColor)'
+                fill={`${marketType !== 'supply'
+                  ? 'url(#areaRedColor)'
+                  : 'url(#areaGreenColor)'
                 }`}
               />
             )}
@@ -167,10 +168,9 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                 dot={false}
                 isAnimationActive
                 dataKey={marketType === 'supply' ? 'supplyApy' : 'borrowApy'}
-                stroke={`${
-                  marketType !== 'supply'
-                    ? 'url(#barRedColor)'
-                    : 'url(#barGreenColor)'
+                stroke={`${marketType !== 'supply'
+                  ? 'url(#barRedColor)'
+                  : 'url(#barGreenColor)'
                 }`}
                 strokeWidth={2}
               />
@@ -221,10 +221,9 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                     cursor="pointer"
                     fill={
                       index === activeIndex
-                        ? `${
-                          marketType !== 'supply'
-                            ? 'url(#barRedColor)'
-                            : 'url(#barGreenColor)'
+                        ? `${marketType !== 'supply'
+                          ? 'url(#barRedColor)'
+                          : 'url(#barGreenColor)'
                         }`
                         : '#252a4a'
                     }
@@ -240,17 +239,6 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
   );
 }
 
-OverviewChart.propTypes = {
-  marketType: PropTypes.string,
-  graphType: PropTypes.string,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      apy: PropTypes.number,
-    }),
-  ),
-};
-
 OverviewChart.defaultProps = {
   marketType: 'supply',
   graphType: 'area',
@@ -262,6 +250,6 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(
+export default compose<Props, Props>(connectAccount(mapStateToProps, undefined))(
   OverviewChart,
 );

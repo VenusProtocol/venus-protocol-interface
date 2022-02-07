@@ -233,6 +233,7 @@ function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
         </div>
         {currentTab === 'supply' && (
           <SupplyTab
+            // @ts-expect-error asset needs better validation
             asset={asset}
             changeTab={setCurrentTab}
             onCancel={onCancel}
@@ -240,6 +241,7 @@ function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
         )}
         {currentTab === 'withdraw' && (
           <WithdrawTab
+            // @ts-expect-error asset needs better validation
             asset={asset}
             changeTab={setCurrentTab}
             onCancel={onCancel}

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
@@ -17,6 +15,7 @@ import PendingTransaction from 'components/Basic/PendingTransaction';
 import { formatApy } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { useComptroller } from '../../../hooks/useContract';
+import { Asset, Setting } from 'types';
 
 const SupplyMarketWrapper = styled.div`
   width: 100%;
@@ -26,7 +25,15 @@ const SupplyMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
+interface DispatchProps {
+  settings: Setting,
+}
+interface Props {
+  suppliedAssets: Asset[],
+  remainAssets: Asset[],
+}
+
+function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & DispatchProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
   const [record, setRecord] = useState({});
@@ -288,24 +295,11 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
     </SupplyMarketWrapper>
   );
 }
-
-SupplyMarket.propTypes = {
-  suppliedAssets: PropTypes.array,
-  remainAssets: PropTypes.array,
-  settings: PropTypes.object,
-};
-
-SupplyMarket.defaultProps = {
-  suppliedAssets: [],
-  remainAssets: [],
-  settings: {},
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(
+export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, undefined))(
   SupplyMarket,
 );

@@ -1,12 +1,9 @@
 /* eslint-disable no-useless-escape */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Progress, Icon } from 'antd';
 import commaNumber from 'comma-number';
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Card } from 'components/Basic/Card';
 
 const HoldingWrapper = styled.div`
@@ -56,7 +53,17 @@ const HoldingWrapper = styled.div`
 `;
 const format = commaNumber.bindWith(',', '.');
 
-function Holding({ address, holdingInfo }: $TSFixMe) {
+interface Props extends RouteComponentProps {
+  address: string, 
+  holdingInfo: {
+    balance?: string,
+    delegateCount?: string,
+    votes?: string,
+    delegates?: string,
+  }
+}
+
+function Holding({ address, holdingInfo }: Props) {
   return (
     <Card>
       <HoldingWrapper className="flex flex-column">
@@ -96,14 +103,9 @@ function Holding({ address, holdingInfo }: $TSFixMe) {
   );
 }
 
-Holding.propTypes = {
-  address: PropTypes.string,
-  holdingInfo: PropTypes.object,
-};
-
 Holding.defaultProps = {
   address: '',
   holdingInfo: {},
 };
 
-export default compose(withRouter)(Holding);
+export default withRouter(Holding);

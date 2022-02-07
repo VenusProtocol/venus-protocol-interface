@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { Icon, Progress } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
+import { Asset, Setting } from 'types';
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
@@ -22,9 +22,19 @@ import { useVbep } from '../../../hooks/useContract';
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
+interface DispatchProps {
+  setSetting: (setting: Setting | undefined) => void
+}
+
+interface Props {
+  asset: Asset
+  changeTab: (tab: 'borrow' | 'repayBorrow') => void
+  onCancel: () => void
+}
+
 function BorrowTab({
   asset, changeTab, onCancel, setSetting,
-}: $TSFixMe) {
+}: Props & DispatchProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowBalance, setBorrowBalance] = useState(new BigNumber(0));
@@ -112,7 +122,7 @@ function BorrowTab({
         pendingInfo: {
           type: '',
           status: false,
-          amount: 0,
+          amount: '0',
           symbol: '',
         },
       });
@@ -347,7 +357,7 @@ BorrowTab.defaultProps = {
   onCancel: () => {},
 };
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
@@ -359,4 +369,4 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
 };
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(null, mapDispatchToProps))(BorrowTab);
+export default compose<Props & DispatchProps, Props>(connectAccount(null, mapDispatchToProps))(BorrowTab);
