@@ -7,8 +7,9 @@
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "pretty": "yarn prettier src/**/** public/**/*.html --check",
     "lint": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "yarn lint --fix && yarn pretty --write",
     "typecheck": "tsc"
   },
   "dependencies": {
