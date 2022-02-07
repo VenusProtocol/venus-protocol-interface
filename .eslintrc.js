@@ -4,17 +4,13 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'jsx-a11y', 'prettier'],
-  extends: [
-    'airbnb-typescript',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-  ],
+  plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
+  extends: ['airbnb-typescript', 'eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   parserOptions: {
     project: './tsconfig.eslint.json',
   },
   rules: {
-    'react/jsx-filename-extension': 0,
+    'react/jsx-filename-extension': [2, {extensions: ['.ts', '.tsx']}],
     '@typescript-eslint/no-unused-vars': 0,
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-use-before-define': 0,
