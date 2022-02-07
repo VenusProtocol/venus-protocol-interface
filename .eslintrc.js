@@ -12,7 +12,6 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': 0,
     '@typescript-eslint/no-var-requires': 0,
-    '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-redeclare': 0,
     '@typescript-eslint/no-shadow': 0,
     '@typescript-eslint/default-param-last': 0,
