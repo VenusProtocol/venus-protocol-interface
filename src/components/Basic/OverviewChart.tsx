@@ -17,7 +17,6 @@ import {
   ComposedChart,
   BarChart,
   ResponsiveContainer,
-  // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'rech... Remove this comment to see the full error message
 } from 'recharts';
 import moment from 'moment';
 import { connectAccount } from 'core';
