@@ -40,16 +40,16 @@ export function useInactiveListener(suppress = false) {
     if (ethereum && ethereum.on && !active && !error && !suppress) {
       const handleChainChanged = () => {
         // eat errors
-        activate(injected, undefined, true).catch((error) => {
-          console.error('Failed to activate after chain changed', error);
+        activate(injected, undefined, true).catch((err) => {
+          console.error('Failed to activate after chain changed', err);
         });
       };
 
       const handleAccountsChanged = (accounts: $TSFixMe) => {
         if (accounts.length > 0) {
           // eat errors
-          activate(injected, undefined, true).catch((error) => {
-            console.error('Failed to activate after accounts changed', error);
+          activate(injected, undefined, true).catch((err) => {
+            console.error('Failed to activate after accounts changed', err);
           });
         }
       };
