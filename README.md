@@ -39,6 +39,8 @@ To deploy, raise a PR to update image and config at: https://github.com/VenusPro
 
 ## Local Development
 
+Install husky globally to use pre-commit and prepush hooks
+
 To run dev environment:
 
 ```
