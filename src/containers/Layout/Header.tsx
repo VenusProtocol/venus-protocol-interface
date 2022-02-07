@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 // import { Input } from 'antd';
 import arrowRightImg from 'assets/img/arrow-right.png';
 
@@ -27,7 +25,11 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ title, history }: $TSFixMe) {
+interface Props extends RouteComponentProps {
+  title: string,
+}
+
+function Header({ title, history }: Props) {
   const handleRoute = () => {
     if (title === 'Details') {
       history.go(-1);
@@ -61,13 +63,8 @@ function Header({ title, history }: $TSFixMe) {
   );
 }
 
-Header.propTypes = {
-  title: PropTypes.string,
-  history: PropTypes.object,
-};
-
 Header.defaultProps = {
   title: '',
-  history: {},
 };
-export default compose(withRouter)(Header);
+
+export default withRouter(Header);

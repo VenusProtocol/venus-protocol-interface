@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
@@ -46,7 +44,12 @@ const MarketSummaryWrapper = styled.div`
 `;
 const format = commaNumber.bindWith(',', '.');
 
-function MarketSummary({ marketInfo, currentAsset }: $TSFixMe) {
+interface Props extends RouteComponentProps {
+  marketInfo: Partial<$TSFixMe>,
+  currentAsset: string,
+}
+
+function MarketSummary({ marketInfo, currentAsset }: Props) {
   return (
     <MarketSummaryWrapper>
       <div className="description">
@@ -192,12 +195,6 @@ function MarketSummary({ marketInfo, currentAsset }: $TSFixMe) {
   );
 }
 
-MarketSummary.propTypes = {
-  marketInfo: PropTypes.object,
-  settings: PropTypes.object,
-  currentAsset: PropTypes.string,
-};
-
 MarketSummary.defaultProps = {
   marketInfo: {},
   settings: {},
@@ -208,8 +205,7 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default compose(
-  withRouter,
+export default withRouter(compose<Props, Props>(
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, undefined),
-)(MarketSummary);
+)(MarketSummary));

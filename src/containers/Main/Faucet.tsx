@@ -5,7 +5,6 @@ import {
   Input, Form, Dropdown, Menu,
 } from 'antd';
 import { withRouter } from 'react-router-dom';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';

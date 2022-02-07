@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import {
   Form, Input, Modal, Icon, Collapse,
 } from 'antd';
+import { FormComponentProps } from 'antd/lib/form/Form';
 import Button from '@material-ui/core/Button';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'mark... Remove this comment to see the full error message
 import MarkdownIt from 'markdown-it';
@@ -152,6 +151,17 @@ const ModalContent = styled.div`
 const mdParser = new MarkdownIt();
 const { Panel } = Collapse;
 
+interface Props extends FormComponentProps {
+  address: string,
+  visible: boolean,
+  maxOperation: number,
+  onCancel: () => void,
+}
+
+interface DispatchProps {
+  getProposals: () => void,
+}
+
 function ProposalModal({
   form,
   address,
@@ -160,7 +170,7 @@ function ProposalModal({
   onCancel,
   getProposals,
   ...props
-}: $TSFixMe) {
+}: Props & DispatchProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -522,24 +532,14 @@ function ProposalModal({
   );
 }
 
-ProposalModal.propTypes = {
-  visible: PropTypes.bool,
-  address: PropTypes.string,
-  form: PropTypes.object,
-  maxOperation: PropTypes.number,
-  onCancel: PropTypes.func,
-  getProposals: PropTypes.func.isRequired,
-};
-
 ProposalModal.defaultProps = {
   visible: false,
   address: '',
-  form: {},
   maxOperation: 0,
   onCancel: () => {},
 };
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   const { getProposals } = accountActionCreators;
 
   return bindActionCreators(
@@ -550,7 +550,7 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   );
 };
 
-export default compose(
+export default compose<Props & DispatchProps, Props>(
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(undefined, mapDispatchToProps),
   Form.create({ name: 'proposal_form' }),
