@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
 import useRefresh from '../hooks/useRefresh';
-import {
-  useComptroller,
-  useVaiToken,
-  useVaiUnitroller,
-} from '../hooks/useContract';
+import { useComptroller, useVaiToken, useVaiUnitroller } from '../hooks/useContract';
 import { getVaiUnitrollerAddress } from '../utilities/addressHelpers';
 
 const VaiContext = React.createContext({
@@ -53,22 +49,14 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
       }
       setMintedAmount(new BigNumber(userVaiMintedTemp).div(1e18));
       setWalletAmount(new BigNumber(userVaiBalanceTemp).div(1e18));
-      setEnabled(
-        new BigNumber(allowBalanceTemp).gte(new BigNumber(userVaiMintedTemp)),
-      );
+      setEnabled(new BigNumber(allowBalanceTemp).gte(new BigNumber(userVaiMintedTemp)));
       setMintableAmount(new BigNumber(mintableVaiTemp).div(1e18));
     };
     update();
     return () => {
       isMounted = false;
     };
-  }, [
-    fastRefresh,
-    vaiControllerContract,
-    vaiContract,
-    comptrollerContract,
-    account,
-  ]);
+  }, [fastRefresh, vaiControllerContract, vaiContract, comptrollerContract, account]);
 
   return (
     <VaiContext.Provider

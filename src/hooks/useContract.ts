@@ -23,10 +23,7 @@ export const useToken = (name: $TSFixMe) => {
 
 export const useTokenByAddress = (address: $TSFixMe) => {
   const web3 = useWeb3();
-  return useMemo(() => getTokenContractByAddress(web3, address), [
-    web3,
-    address,
-  ]);
+  return useMemo(() => getTokenContractByAddress(web3, address), [web3, address]);
 };
 
 export const useVaiToken = () => {

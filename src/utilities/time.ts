@@ -12,19 +12,14 @@ export const formatTimeInSeconds = (sec: $TSFixMe) => {
 export const getRemainingTime = (item: $TSFixMe) => {
   if (item.state === 'Active') {
     const diffBlock = item.endBlock - item.blockNumber;
-    const duration = moment.duration(
-      diffBlock < 0 ? 0 : diffBlock * 3,
-      'seconds',
-    );
+    const duration = moment.duration(diffBlock < 0 ? 0 : diffBlock * 3, 'seconds');
     const days = Math.floor(duration.asDays());
     const hours = Math.floor(duration.asHours()) - days * 24;
     const minutes = Math.floor(duration.asMinutes()) - days * 24 * 60 - hours * 60;
 
-    return `${
-      days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''
-    } ${hours} ${hours > 1 ? 'hrs' : 'hr'} ${
-      days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''
-    } left`;
+    return `${days > 0 ? `${days} ${days > 1 ? 'days' : 'day'},` : ''} ${hours} ${
+      hours > 1 ? 'hrs' : 'hr'
+    } ${days === 0 ? `, ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}` : ''} left`;
   }
   if (item.state === 'Pending') {
     return formatTimeInSeconds(item.createdTimestamp);

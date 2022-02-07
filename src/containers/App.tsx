@@ -1,8 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import {
-  BrowserRouter, Route, Redirect, Switch,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
@@ -69,32 +67,12 @@ class App extends React.Component {
                       <Route exact path="/vote" component={Vote} />
                       <Route exact path="/xvs" component={XVS} />
                       <Route exact path="/market" component={Market} />
-                      <Route
-                        exact
-                        path="/transaction"
-                        component={Transaction}
-                      />
+                      <Route exact path="/transaction" component={Transaction} />
                       <Route exact path="/vault" component={Vault} />
-                      <Route
-                        exact
-                        path="/market/:asset"
-                        component={MarketDetail}
-                      />
-                      <Route
-                        exact
-                        path="/vote/leaderboard"
-                        component={VoterLeaderboard}
-                      />
-                      <Route
-                        exact
-                        path="/vote/proposal/:id"
-                        component={VoteOverview}
-                      />
-                      <Route
-                        exact
-                        path="/vote/address/:address"
-                        component={ProposerDetail}
-                      />
+                      <Route exact path="/market/:asset" component={MarketDetail} />
+                      <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
+                      <Route exact path="/vote/proposal/:id" component={VoteOverview} />
+                      <Route exact path="/vote/address/:address" component={ProposerDetail} />
                       {process.env.REACT_APP_CHAIN_ID === '97' && (
                         <Route exact path="/faucet" component={Faucet} />
                       )}

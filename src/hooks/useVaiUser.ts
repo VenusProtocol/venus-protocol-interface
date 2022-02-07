@@ -2,13 +2,11 @@ import { useContext } from 'react';
 import { VaiContext } from '../context/VaiContext';
 
 export const useVaiUser = () => {
-  const {
+  const { userVaiMinted, userVaiBalance, userVaiEnabled, mintableVai } = useContext(VaiContext);
+  return {
     userVaiMinted,
     userVaiBalance,
     userVaiEnabled,
     mintableVai,
-  } = useContext(VaiContext);
-  return {
-    userVaiMinted, userVaiBalance, userVaiEnabled, mintableVai,
   };
 };

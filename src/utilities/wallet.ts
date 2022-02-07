@@ -19,9 +19,7 @@ export const setupNetwork = async () => {
           {
             chainId: `0x${chainId.toString(16)}`,
             chainName:
-              chainId === 56
-                ? 'Binance Smart Chain Mainnet'
-                : 'Binance Smart Chain Testnet',
+              chainId === 56 ? 'Binance Smart Chain Mainnet' : 'Binance Smart Chain Testnet',
             nativeCurrency: {
               name: 'BNB',
               symbol: 'bnb',
@@ -39,9 +37,7 @@ export const setupNetwork = async () => {
       return false;
     }
   } else {
-    console.error(
-      "Can't setup the BSC network on metamask because window.ethereum is undefined",
-    );
+    console.error("Can't setup the BSC network on metamask because window.ethereum is undefined");
     return false;
   }
 };

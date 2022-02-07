@@ -5,8 +5,11 @@ import { useEagerConnect, useInactiveListener } from '../hooks/wallet';
 export default function Web3ReactManager({ children }: $TSFixMe) {
   const context = useWeb3React();
   const {
+    connector,
+    chainId,
+    active,
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'networkError' does not exist on type 'We... Remove this comment to see the full error message
-    connector, chainId, active, networkError,
+    networkError,
   } = context;
   const triedEager = useEagerConnect();
 

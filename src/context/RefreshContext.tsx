@@ -24,11 +24,7 @@ const RefreshContextProvider = ({ children }: $TSFixMe) => {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <RefreshContext.Provider value={{ slow, fast }}>
-      {children}
-    </RefreshContext.Provider>
-  );
+  return <RefreshContext.Provider value={{ slow, fast }}>{children}</RefreshContext.Provider>;
 };
 
 export { RefreshContext, RefreshContextProvider };
