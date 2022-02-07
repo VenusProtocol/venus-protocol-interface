@@ -89,7 +89,11 @@ function CoinInfo({ settings }: $TSFixMe) {
               className="add-xvs-token"
               type="plus-circle"
               theme="filled"
-              onClick={() => addToken('xvs', 18, 'token')}
+              onClick={() => addToken({
+                asset: 'xvs',
+                decimal: 18,
+                type: 'token',
+              })}
             />
           )}
         </div>

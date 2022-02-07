@@ -20,7 +20,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-redeclare': 0,
     '@typescript-eslint/no-shadow': 0,
-    '@typescript-eslint/default-param-last': 0,
     '@typescript-eslint/naming-convention': 0,
     'prefer-const': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,

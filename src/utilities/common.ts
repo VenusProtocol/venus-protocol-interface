@@ -30,13 +30,15 @@ export const getArgs = (func: $TSFixMe) => {
       arg);
 };
 
-export const addToken = async (
+export const addToken = async ({
   asset = 'vai',
-
-  decimal: $TSFixMe,
-
-  type: $TSFixMe,
-) => {
+  decimal,
+  type,
+}: {
+  asset: string,
+  decimal: number,
+  type: string,
+}) => {
   let tokenAddress = '';
   let tokenSymbol = '';
   let tokenDecimals = 18;
