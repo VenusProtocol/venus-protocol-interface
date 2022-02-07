@@ -11,7 +11,6 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-var-requires': 0,
-    '@typescript-eslint/naming-convention': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     // handled by prettier
     '@typescript-eslint/indent': 0,
