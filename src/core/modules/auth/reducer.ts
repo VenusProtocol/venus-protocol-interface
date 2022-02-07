@@ -10,13 +10,13 @@ export default function auth(state = initialState.auth, action = {}) {
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        user: payload.user
+        user: payload.user,
       };
     }
     case REGISTER_SUCCESS: {
       return {
         ...state,
-        user: payload.user
+        user: payload.user,
       };
     }
     default: {

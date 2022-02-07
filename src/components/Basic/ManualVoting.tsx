@@ -46,7 +46,6 @@ const ManualVotingWrapper = styled.div`
   }
 `;
 
-
 function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
   const antIcon = <Icon type="loading" style={{ fontSize: 64 }} spin />;
 
@@ -56,9 +55,14 @@ function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
         <p>Confirm Transaction</p>
       </div>
       <div className="flex flex-column align-center just-center manual-voting-section">
-        <p className="voting-count">{balance} Votes</p>
+        <p className="voting-count">
+          {balance}
+          {' '}
+          Votes
+        </p>
         <span className="voting-address">
-          Manual Voting from{' '}
+          Manual Voting from
+          {' '}
           {`${address.substr(0, 4)}...${address.substr(address.length - 4, 4)}`}
         </span>
         {isLoading && <Spin className="voting-spinner" indicator={antIcon} />}
@@ -71,7 +75,7 @@ function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
 ManualVoting.propTypes = {
   address: PropTypes.bool.isRequired,
   balance: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default ManualVoting;

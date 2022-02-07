@@ -7,7 +7,7 @@ export const Card = styled.div`
   border-radius: 24px;
   margin: 8px;
   padding: 0px;
-  
+
   flex-direction: ${({ direction }: any) => direction};
   justify-content: center;
 `;

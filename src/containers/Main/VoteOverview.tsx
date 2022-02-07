@@ -90,20 +90,19 @@ const VoteOverviewWrapper = styled.div`
 
 const VOTE_DISPLAY_ROWS = 4;
 
-
 function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
   const [proposalInfo, setProposalInfo] = useState({});
   const [agreeVotes, setAgreeVotes] = useState({
     sumVotes: 0,
-    result: []
+    result: [],
   });
   const [againstVotes, setAgainstVotes] = useState({
     sumVotes: 0,
-    result: []
+    result: [],
   });
   const [abstainVotes, setAbstainVotes] = useState({
     sumVotes: 0,
-    result: []
+    result: [],
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isCancelLoading, setIsCancelLoading] = useState(false);
@@ -139,15 +138,14 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
   useEffect(() => {
     if (match.params && match.params.id) {
       promisify(getProposalById, {
-        id: match.params.id
-      }).then(res => {
+        id: match.params.id,
+      }).then((res) => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setProposalInfo(res.data);
       });
     }
   }, [match, getProposalById]);
 
-  
   const loadVotes = async ({ limit, filter, offset }: $TSFixMe) => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'id' does not exist on type '{}'.
     if (proposalInfo.id) {
@@ -156,9 +154,9 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
         id: proposalInfo.id,
         limit,
         filter,
-        offset
+        offset,
       })
-        .then(res => {
+        .then((res) => {
           // support: 0=against, 1=for, 2=abstain
           // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
           const { sumVotes, result, total } = res.data;
@@ -168,7 +166,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                 sumVotes: sumVotes.against,
                 result,
                 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ sumVotes: any; result: any; to... Remove this comment to see the full error message
-                total
+                total,
               });
               break;
             }
@@ -177,7 +175,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                 sumVotes: sumVotes.for,
                 result,
                 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ sumVotes: any; result: any; to... Remove this comment to see the full error message
-                total
+                total,
               });
               break;
             }
@@ -186,7 +184,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                 sumVotes: sumVotes.abstain,
                 result,
                 // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ sumVotes: any; result: any; to... Remove this comment to see the full error message
-                total
+                total,
               });
               break;
             }
@@ -195,8 +193,8 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
             }
           }
         })
-        .catch(e => {
-          console.log(`>> error getting voters`, e);
+        .catch((e) => {
+          console.log('>> error getting voters', e);
         });
     }
   };
@@ -224,7 +222,6 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
     }
   }, [proposalInfo]);
 
-  
   const handleUpdateProposal = async (statusType: $TSFixMe) => {
     if (statusType === 'Queue') {
       setIsLoading(true);
@@ -236,7 +233,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
         setStatus('success');
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.success({
-          title: `Proposal list will be updated within a few seconds`
+          title: 'Proposal list will be updated within a few seconds',
         });
       } catch (error) {
         setStatus('failure');
@@ -253,7 +250,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
         setStatus('success');
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.success({
-          title: `Proposal list will be updated within a few seconds`
+          title: 'Proposal list will be updated within a few seconds',
         });
       } catch (error) {
         setStatus('failure');
@@ -270,7 +267,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
         setCancelStatus('success');
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.success({
-          title: `Current proposal is cancelled successfully. Proposal list will be updated within a few seconds`
+          title: 'Current proposal is cancelled successfully. Proposal list will be updated within a few seconds',
         });
       } catch (error) {
         setCancelStatus('failure');
@@ -300,7 +297,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
               {[
                 { label: 'For', votes: agreeVotes, filterType: 1 },
                 { label: 'Against', votes: againstVotes, filterType: 0 },
-                { label: 'Abstain', votes: abstainVotes, filterType: 2 }
+                { label: 'Abstain', votes: abstainVotes, filterType: 2 },
               ].map((data, i) => {
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{ sumVote... Remove this comment to see the full error message
                 const { sumVotes, result, total } = data.votes;
@@ -319,7 +316,7 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                         // @ts-expect-error ts-migrate(2339) FIXME: Property 'votes' does not exist on type 'never'.
                         value: v.votes,
                         // @ts-expect-error ts-migrate(2339) FIXME: Property 'reason' does not exist on type 'never'.
-                        reason: v.reason
+                        reason: v.reason,
                       }))}
                       onViewAll={() => loadVotes({ filter: data.filterType })}
                     />
@@ -328,60 +325,63 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
               })}
             </Row>
             <div className="vote-status-update">
-              {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
-              {proposalInfo.state !== 'Executed' &&
+              {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'. */}
+              {proposalInfo.state !== 'Executed'
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.
-                proposalInfo.state !== 'Defeated' &&
+                && proposalInfo.state !== 'Defeated'
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.
-                proposalInfo.state !== 'Canceled' && (
+                && proposalInfo.state !== 'Canceled' && (
                   <div className="flex align-center just-center update-proposal-status">
                     <Button
                       className="cancel-btn"
                       disabled={
-                        !account ||
-                        isCancelLoading ||
-                        proposerVotingWeight >= proposalThreshold ||
-                        cancelStatus === 'success'
+                        !account
+                        || isCancelLoading
+                        || proposerVotingWeight >= proposalThreshold
+                        || cancelStatus === 'success'
                       }
                       onClick={() => handleUpdateProposal('Cancel')}
                     >
-                      {isCancelLoading && <Icon type="loading" />}{' '}
+                      {isCancelLoading && <Icon type="loading" />}
+                      {' '}
                       {cancelStatus === 'pending' || cancelStatus === 'failure'
                         ? 'Cancel'
                         : 'Cancelled'}
                     </Button>
-                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
+                    {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'. */}
                     {proposalInfo.state === 'Succeeded' && (
                       <Button
                         className="queue-btn"
                         disabled={!account || isLoading || status === 'success'}
                         onClick={() => handleUpdateProposal('Queue')}
                       >
-                        {isLoading && <Icon type="loading" />}{' '}
+                        {isLoading && <Icon type="loading" />}
+                        {' '}
                         {status === 'pending' || status === 'failure'
                           ? 'Queue'
                           : 'Queued'}
                       </Button>
                     )}
-                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
+                    {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'. */}
                     {proposalInfo.state === 'Queued' && (
                       <Button
                         className="execute-btn"
                         disabled={
-                          !account ||
-                          isLoading ||
-                          status === 'success' ||
-                          !isPossibleExcuted
+                          !account
+                          || isLoading
+                          || status === 'success'
+                          || !isPossibleExcuted
                         }
                         onClick={() => handleUpdateProposal('Execute')}
                       >
-                        {isLoading && <Icon type="loading" />}{' '}
+                        {isLoading && <Icon type="loading" />}
+                        {' '}
                         {status === 'pending' || status === 'failure'
                           ? 'Execute'
                           : 'Executed'}
                       </Button>
                     )}
-                    {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
+                    {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'. */}
                     {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
                       <Tooltip title={`You are able to excute at ${excuteEta}`}>
                         <Icon
@@ -392,19 +392,19 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
                       </Tooltip>
                     )}
                   </div>
-                )}
-              {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.*/}
-              {proposalInfo.state !== 'Executed' &&
+              )}
+              {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'. */}
+              {proposalInfo.state !== 'Executed'
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.
-                proposalInfo.state !== 'Defeated' &&
+                && proposalInfo.state !== 'Defeated'
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'state' does not exist on type '{}'.
-                proposalInfo.state !== 'Canceled' &&
-                proposerVotingWeight >= proposalThreshold && (
+                && proposalInfo.state !== 'Canceled'
+                && proposerVotingWeight >= proposalThreshold && (
                   <p className="center warning">
                     You can&apos;t cancel the proposal while the proposer voting
                     weight meets proposal threshold
                   </p>
-                )}
+              )}
             </div>
             <Row>
               <Column xs="12">
@@ -424,13 +424,12 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
 VoteOverview.propTypes = {
   match: PropTypes.object,
   getProposalById: PropTypes.func.isRequired,
-  getVoters: PropTypes.func.isRequired
+  getVoters: PropTypes.func.isRequired,
 };
 
 VoteOverview.defaultProps = {
-  match: {}
+  match: {},
 };
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getProposalById, getVoters } = accountActionCreators;
@@ -438,14 +437,14 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   return bindActionCreators(
     {
       getProposalById,
-      getVoters
+      getVoters,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => { getProposal... Remove this comment to see the full error message
-  connectAccount(mapDispatchToProps)
+  connectAccount(mapDispatchToProps),
 )(VoteOverview);

@@ -62,7 +62,6 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function CoinInfo({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { userXVSBalance } = useMarketsUser();
@@ -70,7 +69,7 @@ function CoinInfo({ settings }: $TSFixMe) {
   const handleLink = () => {
     window.open(
       `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${account}`,
-      '_blank'
+      '_blank',
     );
   };
 
@@ -79,8 +78,12 @@ function CoinInfo({ settings }: $TSFixMe) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(userXVSBalance.dp(2, 1).toString(10))} XVS</p>
-          {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message*/}
+          <p>
+            {format(userXVSBalance.dp(2, 1).toString(10))}
+            {' '}
+            XVS
+          </p>
+          {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message */}
           {window.ethereum && (
             <Icon
               className="add-xvs-token"
@@ -97,9 +100,9 @@ function CoinInfo({ settings }: $TSFixMe) {
           <p className="highlight">
             {account
               ? `${account.substr(0, 4)}...${account.substr(
-                  account.length - 4,
-                  4
-                )}`
+                account.length - 4,
+                4,
+              )}`
               : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
@@ -112,16 +115,15 @@ function CoinInfo({ settings }: $TSFixMe) {
 }
 
 CoinInfo.propTypes = {
-  settings: PropTypes.object
+  settings: PropTypes.object,
 };
 
 CoinInfo.defaultProps = {
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.

@@ -26,13 +26,15 @@ const LineProgressBarWrapper = styled.div`
   }
 `;
 
-
 function LineProgressBar({ label, percent }: $TSFixMe) {
   return (
     <LineProgressBarWrapper>
       <div className="flex align-center just-between">
         <p className="label">{label}</p>
-        <p className="percent">{percent}%</p>
+        <p className="percent">
+          {percent}
+          %
+        </p>
       </div>
       <Progress
         percent={percent}
@@ -46,12 +48,12 @@ function LineProgressBar({ label, percent }: $TSFixMe) {
 
 LineProgressBar.propTypes = {
   label: PropTypes.string,
-  percent: PropTypes.number
+  percent: PropTypes.number,
 };
 
 LineProgressBar.defaultProps = {
   label: 'Borrow Limit',
-  percent: 0.0
+  percent: 0.0,
 };
 
 export default LineProgressBar;

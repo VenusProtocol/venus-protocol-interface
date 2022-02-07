@@ -24,8 +24,9 @@ import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
 
-
-function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
+function SupplyTab({
+  asset, changeTab, onCancel, setSetting,
+}: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -46,7 +47,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
       const temp = userTotalBorrowLimit.plus(
-        amount.times(tokenPrice).times(collateralFactor)
+        amount.times(tokenPrice).times(collateralFactor),
       );
       setNewBorrowLimit(BigNumber.maximum(temp, 0));
       setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
@@ -56,7 +57,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
       } else {
         setBorrowLimit(userTotalBorrowLimit);
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
       }
     } else if (BigNumber.isBigNumber(userTotalBorrowLimit)) {
@@ -67,10 +68,10 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         setNewBorrowPercent(new BigNumber(0));
       } else {
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
         setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
       }
     }
@@ -100,7 +101,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           new BigNumber(2)
             .pow(256)
             .minus(1)
-            .toString(10)
+            .toString(10),
         )
         .send({ from: account });
       setIsEnabled(true);
@@ -120,14 +121,14 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         type: 'Supply',
         status: true,
         amount: amount.dp(8, 1).toString(10),
-        symbol: asset.symbol
-      }
+        symbol: asset.symbol,
+      },
     });
     if (asset.id !== 'bnb') {
       try {
         await vbepContract.methods
           .mint(
-            amount.times(new BigNumber(10).pow(asset.decimals)).toString(10)
+            amount.times(new BigNumber(10).pow(asset.decimals)).toString(10),
           )
           .send({ from: account });
         setAmount(new BigNumber(0));
@@ -141,8 +142,8 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           type: '',
           status: false,
           amount: 0,
-          symbol: ''
-        }
+          symbol: '',
+        },
       });
     } else {
       sendSupply(
@@ -157,11 +158,11 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               type: '',
               status: false,
               amount: 0,
-              symbol: ''
-            }
+              symbol: '',
+            },
           });
           onCancel();
-        }
+        },
       );
     }
   }, [vbepContract, amount, account, asset]);
@@ -183,11 +184,9 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               onValueChange={({ value }) => {
                 setAmount(new BigNumber(value));
               }}
-              isAllowed={({ value }) => {
-                return new BigNumber(value || 0).isLessThanOrEqualTo(
-                  asset.walletBalance
-                );
-              }}
+              isAllowed={({ value }) => new BigNumber(value || 0).isLessThanOrEqualTo(
+                asset.walletBalance,
+              )}
               thousandSeparator
               allowNegative={false}
               placeholder="0"
@@ -200,7 +199,11 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Supply {asset.name} to the Venus Protocol, you need to approve
+              To Supply
+              {' '}
+              {asset.name}
+              {' '}
+              to the Venus Protocol, you need to approve
               it first.
             </p>
           </>
@@ -231,7 +234,10 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Supply APY</span>
             </div>
-            <span>{asset.supplyApy.dp(2, 1).toString(10)}%</span>
+            <span>
+              {asset.supplyApy.dp(2, 1).toString(10)}
+              %
+            </span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -240,7 +246,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={coinImg}
                 alt="asset"
@@ -261,14 +267,18 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={vaiImg}
                 alt="asset"
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
+            <span>
+              {mintableVai.dp(2, 1).toString(10)}
+              {' '}
+              VAI
+            </span>
           </div>
         </div>
         {isEnabled && (
@@ -276,32 +286,50 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
             <div className="borrow-limit">
               <span>Borrow Limit</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+                <span>
+                  $
+                  {format(borrowLimit.dp(2, 1).toString(10))}
+                </span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+                  <span>
+                    $
+                    {format(borrowLimit.dp(2, 1).toString(10))}
+                  </span>
                   <img
                     className="arrow-right-img"
                     src={arrowRightImg}
                     alt="arrow"
                   />
-                  <span>${format(newBorrowLimit.dp(2, 1).toString(10))}</span>
+                  <span>
+                    $
+                    {format(newBorrowLimit.dp(2, 1).toString(10))}
+                  </span>
                 </div>
               )}
             </div>
             <div className="flex align-center just-between borrow-limit-used">
               <span>Borrow Limit Used</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                <span>
+                  {borrowPercent.dp(2, 1).toString(10)}
+                  %
+                </span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                  <span>
+                    {borrowPercent.dp(2, 1).toString(10)}
+                    %
+                  </span>
                   <img
                     className="arrow-right-img"
                     src={arrowRightImg}
                     alt="arrow"
                   />
-                  <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
+                  <span>
+                    {newBorrowPercent.dp(2, 1).toString(10)}
+                    %
+                  </span>
                 </div>
               )}
             </div>
@@ -321,27 +349,33 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               onApprove();
             }}
           >
-            {isLoading && <Icon type="loading" />} Enable
+            {isLoading && <Icon type="loading" />}
+            {' '}
+            Enable
           </Button>
         ) : (
           <Button
             className="button"
             disabled={
-              isLoading ||
-              !account ||
-              amount.isNaN() ||
-              amount.isZero() ||
-              amount.isGreaterThan(asset.walletBalance)
+              isLoading
+              || !account
+              || amount.isNaN()
+              || amount.isZero()
+              || amount.isGreaterThan(asset.walletBalance)
             }
             onClick={handleSupply}
           >
-            {isLoading && <Icon type="loading" />} Supply
+            {isLoading && <Icon type="loading" />}
+            {' '}
+            Supply
           </Button>
         )}
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+            {format(asset.walletBalance.dp(2, 1).toString(10))}
+            {' '}
+            {asset.symbol}
           </span>
         </div>
       </TabContent>
@@ -353,24 +387,23 @@ SupplyTab.propTypes = {
   asset: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired
+  setSetting: PropTypes.func.isRequired,
 };
 
 SupplyTab.defaultProps = {
   asset: {},
   changeTab: () => {},
-  onCancel: () => {}
+  onCancel: () => {},
 };
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
     {
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 

@@ -1,11 +1,11 @@
-version: "3.9"
+version: '3.9'
 
 services:
   venus-ui-dev:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.local
-    command: 
+    command:
       - sh
       - -c
       - |
@@ -16,7 +16,7 @@ services:
     volumes:
       - ./:/usr/app
     restart: always
-  
+
   venus-ui-prod:
     build: .
     ports:

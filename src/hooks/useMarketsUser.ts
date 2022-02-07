@@ -6,12 +6,12 @@ export const useMarketsUser = () => {
     userMarketInfo,
     userTotalBorrowLimit,
     userTotalBorrowBalance,
-    userXVSBalance
+    userXVSBalance,
   } = useContext(MarketContext);
   return {
     userMarketInfo,
     userTotalBorrowLimit,
     userTotalBorrowBalance,
-    userXVSBalance
+    userXVSBalance,
   };
 };

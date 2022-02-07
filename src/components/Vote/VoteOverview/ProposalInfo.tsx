@@ -62,9 +62,7 @@ const ProposalInfoWrapper = styled.div`
   }
 `;
 
-
 function ProposalInfo({ proposalInfo }: $TSFixMe) {
-  
   const getStatus = (proposal: $TSFixMe) => {
     if (proposal.state === 'Executed') {
       return 'Passed';
@@ -90,12 +88,12 @@ function ProposalInfo({ proposalInfo }: $TSFixMe) {
         <div className="flex align-center just-start proposal-status">
           <p>
             {`${proposalInfo.id} ${getStatus(proposalInfo)} ${moment(
-              proposalInfo.updatedAt
+              proposalInfo.updatedAt,
             ).format(FORMAT_STRING)}`}
           </p>
           <div
             className={`flex align-center just-center status ${getStatus(
-              proposalInfo
+              proposalInfo,
             )}`}
           >
             {getStatus(proposalInfo)}
@@ -108,9 +106,9 @@ function ProposalInfo({ proposalInfo }: $TSFixMe) {
 }
 
 ProposalInfo.propTypes = {
-  proposalInfo: PropTypes.object
+  proposalInfo: PropTypes.object,
 };
 ProposalInfo.defaultProps = {
-  proposalInfo: {}
+  proposalInfo: {},
 };
 export default ProposalInfo;

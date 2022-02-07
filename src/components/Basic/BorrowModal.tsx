@@ -168,7 +168,7 @@ export const TabSection = styled.div`
   }
 
   .warning-label {
-    width: 100%
+    width: 100%;
     font-size: 15px;
     color: var(--color-text-secondary);
     padding: 10px 25px;
@@ -207,7 +207,6 @@ export const TabContent = styled.div`
     flex-direction: column;
   }
 `;
-
 
 function BorrowModal({ visible, asset, onCancel }: $TSFixMe) {
   const [currentTab, setCurrentTab] = useState('borrow');
@@ -263,13 +262,13 @@ function BorrowModal({ visible, asset, onCancel }: $TSFixMe) {
 BorrowModal.propTypes = {
   visible: PropTypes.bool,
   asset: PropTypes.object,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
 };
 
 BorrowModal.defaultProps = {
   visible: false,
   asset: {},
-  onCancel: () => {}
+  onCancel: () => {},
 };
 
 export default BorrowModal;

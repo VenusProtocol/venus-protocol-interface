@@ -23,12 +23,10 @@ const BorrowMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [record, setRecord] = useState({});
 
-  
   const handleClickRow = (row: $TSFixMe) => {
     setRecord(row);
     setIsOpenModal(true);
@@ -39,7 +37,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
       title: 'Asset',
       dataIndex: 'img',
       key: 'img',
-      
+
       render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -50,19 +48,20 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
                   {asset.name}
                 </Label>
                 <Label size="14">
-                  {asset.borrowApy.dp(2, 1).toString(10)}%
+                  {asset.borrowApy.dp(2, 1).toString(10)}
+                  %
                 </Label>
               </div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'APY',
       dataIndex: 'borrowApy',
       key: 'borrowApy',
-      
+
       render(borrowApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
@@ -85,40 +84,43 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
                 {formatApy(apy)}
               </div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'Wallet',
       dataIndex: 'walletBalance',
       key: 'walletBalance',
-      
+
       render(walletBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <Label size="14" primary>
-              {format(walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+              {format(walletBalance.dp(2, 1).toString(10))}
+              {' '}
+              {asset.symbol}
             </Label>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'Liquidity',
       dataIndex: 'liquidity',
       key: 'liquidity',
-      
+
       render(liquidity: $TSFixMe) {
         return {
           children: (
             <Label size="14" primary>
-              ${format(liquidity.dp(2, 1).toString(10))}
+              $
+              {format(liquidity.dp(2, 1).toString(10))}
             </Label>
-          )
+          ),
         };
-      }
-    }
+      },
+    },
   ];
 
   const borrowColumns = [
@@ -126,7 +128,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
       title: 'Asset',
       dataIndex: 'img',
       key: 'img',
-      
+
       render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -137,19 +139,20 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
                   {asset.name}
                 </Label>
                 <Label size="14">
-                  {asset.borrowApy.dp(2, 1).toString(10)}%
+                  {asset.borrowApy.dp(2, 1).toString(10)}
+                  %
                 </Label>
               </div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'APY / Accrued',
       dataIndex: 'borrowApy',
       key: 'borrowApy',
-      
+
       render(borrowApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
@@ -172,15 +175,15 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
                 {formatApy(apy)}
               </div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'Balance',
       dataIndex: 'borrowBalance',
       key: 'borrowBalance',
-      
+
       render(borrowBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -191,28 +194,33 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
                   borrowBalance
                     .times(asset.tokenPrice)
                     .dp(2, 1)
-                    .toString(10)
+                    .toString(10),
                 )}
               </Label>
               <Label size="14">
-                {format(borrowBalance.dp(4, 1).toString(10))} {asset.symbol}
+                {format(borrowBalance.dp(4, 1).toString(10))}
+                {' '}
+                {asset.symbol}
               </Label>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: '% Of Limit',
       dataIndex: 'percentOfLimit',
       key: 'percentOfLimit',
-      
+
       render(percentOfLimit: $TSFixMe) {
         return {
-          children: <Label size="14">{percentOfLimit}%</Label>
+          children: <Label size="14">
+            {percentOfLimit}
+            %
+                    </Label>,
         };
-      }
-    }
+      },
+    },
   ];
 
   return (
@@ -228,11 +236,11 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
           handleClickRow={handleClickRow}
         />
       )}
-      {settings.pendingInfo &&
-        settings.pendingInfo.status &&
-        ['Borrow', 'Repay Borrow'].includes(settings.pendingInfo.type) && (
+      {settings.pendingInfo
+        && settings.pendingInfo.status
+        && ['Borrow', 'Repay Borrow'].includes(settings.pendingInfo.type) && (
           <PendingTransaction />
-        )}
+      )}
       {remainAssets.length > 0 && (
         <MarketTable
           columns={remainColumns}
@@ -253,20 +261,19 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
 BorrowMarket.propTypes = {
   borrowedAssets: PropTypes.array,
   remainAssets: PropTypes.array,
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
 };
 
 BorrowMarket.defaultProps = {
   borrowedAssets: [],
-  remainAssets: []
+  remainAssets: [],
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
-  BorrowMarket
+  BorrowMarket,
 );

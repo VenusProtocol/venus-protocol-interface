@@ -106,7 +106,6 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-
 function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
   const [marketType, setMarketType] = useState('supply');
   const [currentAsset, setCurrentAsset] = useState('');
@@ -124,9 +123,8 @@ function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
 
   const getGraphData = useCallback(
     async (asset, type, limit) => {
-      
       const tempData: $TSFixMe = [];
-      await promisify(getMarketHistory, { asset, type, limit }).then(res => {
+      await promisify(getMarketHistory, { asset, type, limit }).then((res) => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         res.data.result.forEach((m: $TSFixMe) => {
           tempData.push({
@@ -138,21 +136,21 @@ function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
               .toString(10),
             totalBorrow: +new BigNumber(m.totalBorrow || 0)
               .dp(8, 1)
-              .toString(10)
+              .toString(10),
           });
         });
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
         setData([...tempData.reverse()]);
       });
     },
-    [getMarketHistory]
+    [getMarketHistory],
   );
 
   const getGovernanceData = useCallback(async () => {
     if (markets && markets.length > 0 && currentAsset) {
       const info = markets.find(
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
-        item => item.underlyingSymbol.toLowerCase() === currentAsset
+        item => item.underlyingSymbol.toLowerCase() === currentAsset,
       );
       setMarketInfo(info || {});
     }
@@ -168,7 +166,7 @@ function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
         '1day',
-        30 // 1 month
+        30, // 1 month
       );
     }
     timeStamp = Date.now();
@@ -183,7 +181,7 @@ function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
         '1day',
-        30 // 1 month
+        30, // 1 month
       );
     }
   }, [currentAsset]);
@@ -248,33 +246,31 @@ function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
 MarketDetail.propTypes = {
   match: PropTypes.object,
   settings: PropTypes.object,
-  getMarketHistory: PropTypes.func.isRequired
+  getMarketHistory: PropTypes.func.isRequired,
 };
 
 MarketDetail.defaultProps = {
   match: {},
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getMarketHistory } = accountActionCreators;
 
   return bindActionCreators(
     {
-      getMarketHistory
+      getMarketHistory,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(mapStateToProps, mapDispatchToProps),
 )(MarketDetail);

@@ -27,5 +27,5 @@ export const authActionCreators = {
   loginSuccess: createAction(LOGIN_SUCCESS),
   loginFailure: createAction(LOGIN_FAILURE),
   logOut: createPromiseAction(LOGOUT_REQUEST),
-  logOutSuccess: createAction(LOGOUT_SUCCESS)
+  logOutSuccess: createAction(LOGOUT_SUCCESS),
 };

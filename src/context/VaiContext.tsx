@@ -5,7 +5,7 @@ import useRefresh from '../hooks/useRefresh';
 import {
   useComptroller,
   useVaiToken,
-  useVaiUnitroller
+  useVaiUnitroller,
 } from '../hooks/useContract';
 import { getVaiUnitrollerAddress } from '../utilities/addressHelpers';
 
@@ -13,7 +13,7 @@ const VaiContext = React.createContext({
   userVaiMinted: new BigNumber(0),
   userVaiBalance: new BigNumber(0),
   userVaiEnabled: false,
-  mintableVai: new BigNumber(0)
+  mintableVai: new BigNumber(0),
 });
 
 // This context provide a way for all the components to share the market data, thus avoid
@@ -41,12 +41,12 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
         userVaiBalanceTemp,
         userVaiMintedTemp,
         { 1: mintableVaiTemp },
-        allowBalanceTemp
+        allowBalanceTemp,
       ] = await Promise.all([
         vaiContract.methods.balanceOf(account).call(),
         comptrollerContract.methods.mintedVAIs(account).call(),
         vaiControllerContract.methods.getMintableVAI(account).call(),
-        vaiContract.methods.allowance(account, getVaiUnitrollerAddress()).call()
+        vaiContract.methods.allowance(account, getVaiUnitrollerAddress()).call(),
       ]);
       if (!isMounted) {
         return;
@@ -54,7 +54,7 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
       setMintedAmount(new BigNumber(userVaiMintedTemp).div(1e18));
       setWalletAmount(new BigNumber(userVaiBalanceTemp).div(1e18));
       setEnabled(
-        new BigNumber(allowBalanceTemp).gte(new BigNumber(userVaiMintedTemp))
+        new BigNumber(allowBalanceTemp).gte(new BigNumber(userVaiMintedTemp)),
       );
       setMintableAmount(new BigNumber(mintableVaiTemp).div(1e18));
     };
@@ -67,7 +67,7 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
     vaiControllerContract,
     vaiContract,
     comptrollerContract,
-    account
+    account,
   ]);
 
   return (
@@ -76,7 +76,7 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
         userVaiMinted,
         userVaiBalance,
         userVaiEnabled,
-        mintableVai
+        mintableVai,
       }}
     >
       {children}

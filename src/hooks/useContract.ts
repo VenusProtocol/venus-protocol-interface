@@ -12,22 +12,20 @@ import {
   getXvsVaultProxyContract,
   getXvsVaultContract,
   getTokenContractByAddress,
-  getGovernorBravoContract
+  getGovernorBravoContract,
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
-
 
 export const useToken = (name: $TSFixMe) => {
   const web3 = useWeb3();
   return useMemo(() => getTokenContract(web3, name), [web3, name]);
 };
 
-
 export const useTokenByAddress = (address: $TSFixMe) => {
   const web3 = useWeb3();
   return useMemo(() => getTokenContractByAddress(web3, address), [
     web3,
-    address
+    address,
   ]);
 };
 
@@ -45,7 +43,6 @@ export const useVaiVault = () => {
   const web3 = useWeb3();
   return useMemo(() => getVaiVaultContract(web3), [web3]);
 };
-
 
 export const useVbep = (name: $TSFixMe) => {
   const web3 = useWeb3();

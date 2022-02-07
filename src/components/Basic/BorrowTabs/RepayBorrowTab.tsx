@@ -29,9 +29,8 @@ function RepayBorrowTab({
   settings,
   changeTab,
   onCancel,
-  setSetting
-}: 
-$TSFixMe) {
+  setSetting,
+}: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -55,10 +54,10 @@ $TSFixMe) {
         setNewBorrowPercent(new BigNumber(0));
       } else {
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
         setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
       }
     } else {
@@ -70,7 +69,7 @@ $TSFixMe) {
         setNewBorrowPercent(new BigNumber(0));
       } else {
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
         setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
@@ -96,7 +95,7 @@ $TSFixMe) {
             new BigNumber(2)
               .pow(256)
               .minus(1)
-              .toString(10)
+              .toString(10),
           )
           .send({ from: account });
         setIsEnabled(true);
@@ -117,19 +116,19 @@ $TSFixMe) {
           type: 'Repay Borrow',
           status: true,
           amount: amount.dp(8, 1).toString(10),
-          symbol: asset.symbol
-        }
+          symbol: asset.symbol,
+        },
       });
       if (asset.id !== 'bnb') {
         const repayAmount = amount.eq(asset.borrowBalance)
           ? new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10)
+            .pow(256)
+            .minus(1)
+            .toString(10)
           : amount
-              .times(new BigNumber(10).pow(asset.decimals))
-              .integerValue()
-              .toString(10);
+            .times(new BigNumber(10).pow(asset.decimals))
+            .integerValue()
+            .toString(10);
         try {
           await vbepContract.methods
             .repayBorrow(repayAmount)
@@ -145,8 +144,8 @@ $TSFixMe) {
             type: '',
             status: false,
             amount: 0,
-            symbol: ''
-          }
+            symbol: '',
+          },
         });
       } else {
         sendRepay(
@@ -165,10 +164,10 @@ $TSFixMe) {
                 type: '',
                 status: false,
                 amount: 0,
-                symbol: ''
-              }
+                symbol: '',
+              },
             });
-          }
+          },
         );
       }
     }
@@ -193,15 +192,13 @@ $TSFixMe) {
             <NumberFormat
               autoFocus
               value={amount.isZero() ? '0' : amount.toString(10)}
-              onValueChange={values => {
+              onValueChange={(values) => {
                 const { value } = values;
                 setAmount(new BigNumber(value));
               }}
-              isAllowed={({ value }) => {
-                return new BigNumber(value || 0).isLessThanOrEqualTo(
-                  BigNumber.minimum(asset.walletBalance, asset.borrowBalance)
-                );
-              }}
+              isAllowed={({ value }) => new BigNumber(value || 0).isLessThanOrEqualTo(
+                BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
+              )}
               thousandSeparator
               allowNegative={false}
               placeholder="0"
@@ -214,7 +211,11 @@ $TSFixMe) {
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Repay {asset.name} to the Venus Protocol, you need to enable it
+              To Repay
+              {' '}
+              {asset.name}
+              {' '}
+              to the Venus Protocol, you need to enable it
               first.
             </p>
           </>
@@ -245,7 +246,10 @@ $TSFixMe) {
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Borrow APY</span>
             </div>
-            <span>{asset.borrowApy.dp(2, 1).toString(10)}%</span>
+            <span>
+              {asset.borrowApy.dp(2, 1).toString(10)}
+              %
+            </span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -254,7 +258,7 @@ $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={coinImg}
                 alt="asset"
@@ -270,14 +274,18 @@ $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={vaiImg}
                 alt="asset"
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
+            <span>
+              {userVaiMinted.dp(2, 1).toString(10)}
+              {' '}
+              VAI
+            </span>
           </div>
         </div>
         {isEnabled && (
@@ -285,32 +293,50 @@ $TSFixMe) {
             <div className="borrow-balance">
               <span>Borrow Balance</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>${borrowBalance.dp(2, 1).toString(10)}</span>
+                <span>
+                  $
+                  {borrowBalance.dp(2, 1).toString(10)}
+                </span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>${borrowBalance.dp(2, 1).toString(10)}</span>
+                  <span>
+                    $
+                    {borrowBalance.dp(2, 1).toString(10)}
+                  </span>
                   <img
                     className="arrow-right-img"
                     src={arrowRightImg}
                     alt="arrow"
                   />
-                  <span>${newBorrowBalance.dp(2, 1).toString(10)}</span>
+                  <span>
+                    $
+                    {newBorrowBalance.dp(2, 1).toString(10)}
+                  </span>
                 </div>
               )}
             </div>
             <div className="borrow-limit">
               <span>Borrow Limit Used</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                <span>
+                  {borrowPercent.dp(2, 1).toString(10)}
+                  %
+                </span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                  <span>
+                    {borrowPercent.dp(2, 1).toString(10)}
+                    %
+                  </span>
                   <img
                     className="arrow-right-img"
                     src={arrowRightImg}
                     alt="arrow"
                   />
-                  <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
+                  <span>
+                    {newBorrowPercent.dp(2, 1).toString(10)}
+                    %
+                  </span>
                 </div>
               )}
             </div>
@@ -330,28 +356,34 @@ $TSFixMe) {
               onApprove();
             }}
           >
-            {isLoading && <Icon type="loading" />} Enable
+            {isLoading && <Icon type="loading" />}
+            {' '}
+            Enable
           </Button>
         ) : (
           <Button
             className="button"
             disabled={
-              isLoading ||
-              amount.isZero() ||
-              amount.isNaN() ||
-              amount.isGreaterThan(
-                BigNumber.minimum(asset.walletBalance, asset.borrowBalance)
+              isLoading
+              || amount.isZero()
+              || amount.isNaN()
+              || amount.isGreaterThan(
+                BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
               )
             }
             onClick={handleRepayBorrow}
           >
-            {isLoading && <Icon type="loading" />} Repay Borrow
+            {isLoading && <Icon type="loading" />}
+            {' '}
+            Repay Borrow
           </Button>
         )}
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+            {format(asset.walletBalance.dp(2, 1).toString(10))}
+            {' '}
+            {asset.symbol}
           </span>
         </div>
       </TabContent>
@@ -364,34 +396,32 @@ RepayBorrowTab.propTypes = {
   settings: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired
+  setSetting: PropTypes.func.isRequired,
 };
 
 RepayBorrowTab.defaultProps = {
   asset: {},
   settings: {},
   changeTab: () => {},
-  onCancel: () => {}
+  onCancel: () => {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
     {
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  RepayBorrowTab
+  RepayBorrowTab,
 );

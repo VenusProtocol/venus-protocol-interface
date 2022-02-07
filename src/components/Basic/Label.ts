@@ -2,10 +2,8 @@
 import styled from 'styled-components';
 
 export const Label = styled.span`
-  
   font-size: ${({ size }: any) => size || 16}px;
   font-weight: 900;
-  
-  color: ${({ primary }: any) =>
-    primary ? 'var(--color-text-main)' : 'var(--color-text-secondary)'};
+
+  color: ${({ primary }: any) => (primary ? 'var(--color-text-main)' : 'var(--color-text-secondary)')};
 `;

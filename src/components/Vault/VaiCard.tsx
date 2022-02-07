@@ -18,7 +18,7 @@ import {
   useComptroller,
   useToken,
   useVaiToken,
-  useVaiVault
+  useVaiVault,
 } from '../../hooks/useContract';
 
 import vaiImg from '../../assets/img/coins/vai.svg';
@@ -27,7 +27,6 @@ import arrowDownImg from '../../assets/img/arrow-down.png';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
-
 
 function VaultCard({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
@@ -41,11 +40,11 @@ function VaultCard({ settings }: $TSFixMe) {
   const [expanded, setExpanded] = useState(false);
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
   const [totalPendingRewards, setTotalPendingRewards] = useState(
-    new BigNumber(0)
+    new BigNumber(0),
   );
   const [userVaiAllowance, setUserVaiAllowance] = useState(new BigNumber(0));
   const [userVaiStakedAmount, setUserVaiStakedAmount] = useState(
-    new BigNumber(0)
+    new BigNumber(0),
   );
   const [userVaiBalance, setUserVaiBalance] = useState(new BigNumber(0));
   const [userPendingReward, setUserPendingReward] = useState(new BigNumber(0));
@@ -61,7 +60,7 @@ function VaultCard({ settings }: $TSFixMe) {
 
     const [venusVAIVaultRateTemp, totalPendingRewardsTemp] = await Promise.all([
       compContract.methods.venusVAIVaultRate().call(),
-      xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call()
+      xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
     ]);
 
     if (account) {
@@ -69,12 +68,12 @@ function VaultCard({ settings }: $TSFixMe) {
         userVaiBalanceTemp,
         { 0: userVaiStakedAmountTemp },
         userPendingRewardTemp,
-        userVaiAllowanceTemp
+        userVaiAllowanceTemp,
       ] = await Promise.all([
         vaiTokenContract.methods.balanceOf(account).call(),
         vaultContract.methods.userInfo(account).call(),
         vaultContract.methods.pendingXVS(account).call(),
-        vaiTokenContract.methods.allowance(account, getVaiVaultAddress()).call()
+        vaiTokenContract.methods.allowance(account, getVaiVaultAddress()).call(),
       ]);
     }
 
@@ -86,7 +85,7 @@ function VaultCard({ settings }: $TSFixMe) {
         new BigNumber(venusVAIVaultRateTemp)
           .div(1e18)
           .multipliedBy(blockPerDay)
-          .dp(2, 1)
+          .dp(2, 1),
       );
       setTotalPendingRewards(new BigNumber(totalPendingRewardsTemp));
       setUserVaiBalance(new BigNumber(userVaiBalanceTemp));
@@ -140,8 +139,9 @@ function VaultCard({ settings }: $TSFixMe) {
                 totalPendingRewards
                   .div(1e18)
                   .dp(4, 1)
-                  .toString(10)
-              )}{' '}
+                  .toString(10),
+              )}
+              {' '}
               XVS
             </div>
           </Col>
@@ -152,7 +152,10 @@ function VaultCard({ settings }: $TSFixMe) {
             xs={{ span: 12 }}
           >
             <div className="title">VAI Staking APR</div>
-            <div className="content">{settings.vaiAPY}%</div>
+            <div className="content">
+              {settings.vaiAPY}
+              %
+            </div>
           </Col>
           <Col
             className="col-item"
@@ -164,9 +167,10 @@ function VaultCard({ settings }: $TSFixMe) {
             <div className="content">
               {settings.vaultVaiStaked
                 ? commaFormatter(
-                    new BigNumber(settings.vaultVaiStaked).dp(4, 1).toString(10)
-                  )
-                : 0}{' '}
+                  new BigNumber(settings.vaultVaiStaked).dp(4, 1).toString(10),
+                )
+                : 0}
+              {' '}
               VAI
             </div>
           </Col>
@@ -178,7 +182,9 @@ function VaultCard({ settings }: $TSFixMe) {
           >
             <div className="title">XVS Daily Emission</div>
             <div className="content">
-              {commaFormatter(dailyEmission.toString(10))} XVS
+              {commaFormatter(dailyEmission.toString(10))}
+              {' '}
+              XVS
             </div>
           </Col>
           <Col
@@ -206,14 +212,13 @@ function VaultCard({ settings }: $TSFixMe) {
 }
 
 VaultCard.propTypes = {
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
 };
 
 VaultCard.defaultProps = {};
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.

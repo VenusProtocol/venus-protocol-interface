@@ -14,12 +14,11 @@ import arrowDownImg from '../../assets/img/arrow-down.png';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
-
 function getTokenImg(name: $TSFixMe) {
   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   return {
     xvs: xvsImg,
-    vai: vaiImg
+    vai: vaiImg,
   }[name];
 }
 
@@ -32,16 +31,15 @@ function VaultCard({
   lockPeriodSecond,
   apr,
   totalStaked,
-  dailyEmission
-}: 
-$TSFixMe) {
+  dailyEmission,
+}: $TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
+    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
   );
   const rewardTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals
+    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals,
   );
   const [expanded, setExpanded] = useState(false);
   return (
@@ -89,13 +87,17 @@ $TSFixMe) {
             md={{ span: 6 }}
             xs={{ span: 12 }}
           >
-            <div className="title">{stakedToken.toUpperCase()} Staking APR</div>
+            <div className="title">
+              {stakedToken.toUpperCase()}
+              {' '}
+              Staking APR
+            </div>
             <div className="content">
               {commaFormatter(
                 apr
                   .multipliedBy(100)
                   .dp(6, 1)
-                  .toString(10)
+                  .toString(10),
               )}
               %
             </div>
@@ -107,14 +109,18 @@ $TSFixMe) {
             xs={{ span: 12 }}
           >
             <div className="title">
-              Total {stakedToken.toUpperCase()} Staked
+              Total
+              {' '}
+              {stakedToken.toUpperCase()}
+              {' '}
+              Staked
             </div>
             <div className="content">
               {commaFormatter(
                 totalStaked
                   .div(stakedTokenDecimal)
                   .dp(4, 1)
-                  .toString(10)
+                  .toString(10),
               )}
             </div>
           </Col>
@@ -125,15 +131,18 @@ $TSFixMe) {
             xs={{ span: 12 }}
           >
             <div className="title">
-              {rewardToken.toUpperCase()} Daily Emission
+              {rewardToken.toUpperCase()}
+              {' '}
+              Daily Emission
             </div>
             <div className="content">
               {commaFormatter(
                 dailyEmission
                   .div(rewardTokenDecimal)
                   .dp(4, 1)
-                  .toString(10)
-              )}{' '}
+                  .toString(10),
+              )}
+              {' '}
               {rewardToken.toUpperCase()}
             </div>
           </Col>
@@ -174,7 +183,7 @@ VaultCard.propTypes = {
   lockPeriodSecond: PropTypes.instanceOf(BigNumber).isRequired,
   apr: PropTypes.instanceOf(BigNumber).isRequired,
   totalStaked: PropTypes.instanceOf(BigNumber).isRequired,
-  dailyEmission: PropTypes.instanceOf(BigNumber).isRequired
+  dailyEmission: PropTypes.instanceOf(BigNumber).isRequired,
 };
 
 export default VaultCard;

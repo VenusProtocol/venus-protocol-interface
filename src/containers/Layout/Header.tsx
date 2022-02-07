@@ -28,7 +28,6 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-
 function Header({ title, history }: $TSFixMe) {
   const handleRoute = () => {
     if (title === 'Details') {
@@ -48,9 +47,9 @@ function Header({ title, history }: $TSFixMe) {
         className="flex align-center pointer title-wrapper"
         onClick={handleRoute}
       >
-        {(title === 'Overview' ||
-          title === 'Details' ||
-          title === 'Market') && <img src={arrowRightImg} alt="arrow-left" />}
+        {(title === 'Overview'
+          || title === 'Details'
+          || title === 'Market') && <img src={arrowRightImg} alt="arrow-left" />}
         <p
           className={`${
             title === 'Overview' || title === 'Details' ? 'highlight' : ''
@@ -65,11 +64,11 @@ function Header({ title, history }: $TSFixMe) {
 
 Header.propTypes = {
   title: PropTypes.string,
-  history: PropTypes.object
+  history: PropTypes.object,
 };
 
 Header.defaultProps = {
   title: '',
-  history: {}
+  history: {},
 };
 export default compose(withRouter)(Header);

@@ -259,11 +259,11 @@ function ConnectButton() {
   };
 
   const onConnect = useCallback(
-    type => {
+    (type) => {
       onClose();
       login(type);
     },
-    [login, setShowConnect]
+    [login, setShowConnect],
   );
 
   return (
@@ -277,9 +277,9 @@ function ConnectButton() {
         {!account
           ? 'Connect'
           : `${account.substr(0, 6)}...${account.substr(
-              account.length - 4,
-              4
-            )}`}
+            account.length - 4,
+            4,
+          )}`}
       </Button>
       <Modal
         className="venus-modal"
@@ -383,7 +383,7 @@ function ConnectButton() {
                     onClick={() => {
                       window.open(
                         `${BASE_BSC_SCAN_URL}/address/${account}`,
-                        '_blank'
+                        '_blank',
                       );
                     }}
                   >
@@ -402,7 +402,7 @@ function ConnectButton() {
                     onCopy={() => {
                       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
                       toast.success({
-                        title: `Copied address`
+                        title: 'Copied address',
                       });
                     }}
                   >

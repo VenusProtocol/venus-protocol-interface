@@ -68,14 +68,13 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function VaiInfo({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
     window.open(
       `${BASE_BSC_SCAN_URL}/token/${getVaiTokenAddress()}?a=${account}`,
-      '_blank'
+      '_blank',
     );
   };
 
@@ -84,8 +83,13 @@ function VaiInfo({ settings }: $TSFixMe) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(userVaiBalance.dp(2, 1).toString(10))} VAI </p>
-          {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message*/}
+          <p>
+            {format(userVaiBalance.dp(2, 1).toString(10))}
+            {' '}
+            VAI
+            {' '}
+          </p>
+          {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message */}
           {(window.ethereum || window.BinanceChain) && (
             <Icon
               className="add-vai-token"
@@ -95,7 +99,11 @@ function VaiInfo({ settings }: $TSFixMe) {
             />
           )}
           {settings.vaiAPY && (
-            <p className="vai-apy">APY: {settings.vaiAPY}%</p>
+            <p className="vai-apy">
+              APY:
+              {settings.vaiAPY}
+              %
+            </p>
           )}
         </div>
         <div
@@ -105,9 +113,9 @@ function VaiInfo({ settings }: $TSFixMe) {
           <p className="highlight">
             {account
               ? `${account.substr(0, 4)}...${account.substr(
-                  account.length - 4,
-                  4
-                )}`
+                account.length - 4,
+                4,
+              )}`
               : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
@@ -120,16 +128,15 @@ function VaiInfo({ settings }: $TSFixMe) {
 }
 
 VaiInfo.propTypes = {
-  settings: PropTypes.object
+  settings: PropTypes.object,
 };
 
 VaiInfo.defaultProps = {
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.

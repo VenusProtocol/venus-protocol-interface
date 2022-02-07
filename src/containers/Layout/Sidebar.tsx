@@ -263,9 +263,8 @@ function Sidebar({
   history,
   settings,
   setSetting,
-  getGovernanceVenus
-}: 
-$TSFixMe) {
+  getGovernanceVenus,
+}: $TSFixMe) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
@@ -280,7 +279,7 @@ $TSFixMe) {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
-        title: `Please change your network to access the Binance Smart Chain Main Network`
+        title: 'Please change your network to access the Binance Smart Chain Main Network',
       });
     }
   }, [chainId]);
@@ -291,8 +290,8 @@ $TSFixMe) {
         type: '',
         status: false,
         amount: 0,
-        symbol: ''
-      }
+        symbol: '',
+      },
     });
   };
 
@@ -303,7 +302,6 @@ $TSFixMe) {
     setTotalVaiMinted(tvm);
   };
 
-  
   const onChangePage = (value: $TSFixMe) => {
     if (value === 'prediction') {
       window.open('https://prdt.finance/XVS');
@@ -332,7 +330,7 @@ $TSFixMe) {
     try {
       let [vaultVaiStaked, venusVAIVaultRate] = await Promise.all([
         vaiTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
-        comptrollerContract.methods.venusVAIVaultRate().call()
+        comptrollerContract.methods.venusVAIVaultRate().call(),
       ]);
       // Total Vai Staked
       vaultVaiStaked = new BigNumber(vaultVaiStaked).div(1e18);
@@ -353,15 +351,13 @@ $TSFixMe) {
         .dp(2, 1)
         .toString(10);
 
-      const totalLiquidity = (markets || []).reduce((accumulator, market) => {
-        return new BigNumber(accumulator).plus(
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-          new BigNumber(market.totalSupplyUsd)
-        );
-      }, vaultVaiStaked);
+      const totalLiquidity = (markets || []).reduce((accumulator, market) => new BigNumber(accumulator).plus(
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
+        new BigNumber(market.totalSupplyUsd),
+      ), vaultVaiStaked);
       setSetting({
         vaiAPY,
-        vaultVaiStaked
+        vaultVaiStaked,
       });
 
       setTVL(totalLiquidity);
@@ -450,7 +446,6 @@ $TSFixMe) {
           </div>
         </NavLink>
         <a
-          // eslint-disable-next-line react/jsx-no-target-blank
           target="_blank"
           className="flex flex-start align-center"
           href="https://prdt.finance/XVS"
@@ -460,7 +455,6 @@ $TSFixMe) {
           <Label primary>XVS Prediction</Label>
         </a>
         <a
-          // eslint-disable-next-line react/jsx-no-target-blank
           target="_blank"
           className="flex flex-start align-center"
           href="https://community.venus.io"
@@ -485,7 +479,8 @@ $TSFixMe) {
         <TotalValue>
           <div className="flex flex-column align-center just-center">
             <Label primary>
-              ${format(new BigNumber(tvl).dp(2, 1).toString(10))}
+              $
+              {format(new BigNumber(tvl).dp(2, 1).toString(10))}
             </Label>
             <Label className="center">Total Value Locked</Label>
           </div>
@@ -498,7 +493,7 @@ $TSFixMe) {
               {format(
                 getBigNumber(totalVaiMinted)
                   .dp(0, 1)
-                  .toString(10)
+                  .toString(10),
               )}
             </Label>
             <Label className="center">Total VAI Minted</Label>
@@ -513,7 +508,7 @@ $TSFixMe) {
           // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
           getPopupContainer={() => document.getElementById('main-menu')}
           dropdownMenuStyle={{
-            backgroundColor: '#090d27'
+            backgroundColor: '#090d27',
           }}
           dropdownClassName="asset-select"
           onChange={onChangePage}
@@ -575,19 +570,17 @@ Sidebar.propTypes = {
   history: PropTypes.object,
   settings: PropTypes.object,
   setSetting: PropTypes.func.isRequired,
-  getGovernanceVenus: PropTypes.func.isRequired
+  getGovernanceVenus: PropTypes.func.isRequired,
 };
 
 Sidebar.defaultProps = {
   settings: {},
-  history: {}
+  history: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting, getGovernanceVenus } = accountActionCreators;
@@ -595,14 +588,14 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   return bindActionCreators(
     {
       setSetting,
-      getGovernanceVenus
+      getGovernanceVenus,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(mapStateToProps, mapDispatchToProps),
 )(Sidebar);

@@ -5,12 +5,12 @@ const account = {
       type: '',
       status: false,
       amount: 0,
-      symbol: ''
+      symbol: '',
     },
     vaultVaiStaked: null,
-    withXVS: true
-  }
+    withXVS: true,
+  },
 };
 export const initialState = {
-  account
+  account,
 };

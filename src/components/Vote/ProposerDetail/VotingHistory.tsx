@@ -97,12 +97,12 @@ const VotingHistoryWrapper = styled.div`
   }
 `;
 
-
-function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
+function VotingHistory({
+  data, pageNumber, total, onChangePage,
+}: $TSFixMe) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
 
-  
   const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setCurrent(page);
     setPageSize(size);
@@ -168,18 +168,18 @@ VotingHistory.propTypes = {
     PropTypes.shape({
       proposalId: PropTypes.number,
       description: PropTypes.string,
-      state: PropTypes.string
-    })
+      state: PropTypes.string,
+    }),
   ),
   pageNumber: PropTypes.number,
   total: PropTypes.number,
-  onChangePage: PropTypes.func.isRequired
+  onChangePage: PropTypes.func.isRequired,
 };
 
 VotingHistory.defaultProps = {
   data: [],
   pageNumber: 1,
-  total: 0
+  total: 0,
 };
 
 export default compose(withRouter)(VotingHistory);

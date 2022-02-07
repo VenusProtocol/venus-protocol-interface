@@ -183,20 +183,18 @@ const MAX_INPUT_LENGTH = 1000;
 const VOTE_TYPE = {
   AGAINST: 0,
   FOR: 1,
-  ABSTAIN: 2
+  ABSTAIN: 2,
 };
 
+const getVoteTypeStringFromValue = (type: $TSFixMe) => [
+  ['👎', 'Against'],
+  ['👍', 'For'],
+  ['🤔️', 'Abstain'],
+][type];
 
-const getVoteTypeStringFromValue = (type: $TSFixMe) => {
-  return [
-    ['👎', 'Against'],
-    ['👍', 'For'],
-    ['🤔️', 'Abstain']
-  ][type];
-};
-
-
-function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
+function Proposal({
+  address, proposal, votingWeight, history,
+}: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
   const [voteStatus, setVoteStatus] = useState('');
@@ -204,7 +202,6 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
   const [voteReason, setVoteReason] = useState('');
   const governorBravoContract = useGovernorBravo();
 
-  
   const getStatus = (p: $TSFixMe) => {
     if (p.state === 'Executed') {
       return 'Passed';
@@ -231,7 +228,6 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
     }
   }, [address, proposal, getIsHasVoted]);
 
-  
   const handleOpenVoteConfirmModal = (type: $TSFixMe) => {
     setVoteType(type);
     setConfirmModalVisible(true);
@@ -256,9 +252,7 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
     setConfirmModalVisible(false);
   };
 
-  
   const getTitle = (descs: $TSFixMe) => {
-    
     const index = descs.findIndex((d: $TSFixMe) => d !== '');
     if (index !== -1) {
       return descs[index];
@@ -292,7 +286,7 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
             <Column xs="12" sm="5" className="description">
               <div
                 className={`description-item orange-text ${getStatus(
-                  proposal
+                  proposal,
                 )}-btn`}
               >
                 {getStatus(proposal)}
@@ -302,14 +296,14 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
           </Row>
         </Column>
         <Column xs="12" sm="3" className="vote-status">
-          {voteStatus &&
-            voteStatus === 'novoted' &&
-            proposal.state !== 'Active' && (
+          {voteStatus
+            && voteStatus === 'novoted'
+            && proposal.state !== 'Active' && (
               <div className="flex align-center">
                 <img src={dashImg} alt="dash" />
                 <p className="orange-text">NO VOTE</p>
               </div>
-            )}
+          )}
           {voteStatus && voteStatus === 'voted' && (
             <div className="flex align-center">
               <p className="orange-text">VOTED</p>
@@ -320,23 +314,22 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
       <Row className="vote-actions">
         {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
           <div className="flex align-center" onClick={e => e.stopPropagation()}>
-            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => {
-              return (
-                <Button
-                  key={type}
-                  className="vote-btn"
-                  disabled={
-                    votingWeight === '0' ||
-                    !proposal ||
-                    (proposal && proposal.state !== 'Active')
+            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => (
+              <Button
+                key={type}
+                className="vote-btn"
+                disabled={
+                    votingWeight === '0'
+                    || !proposal
+                    || (proposal && proposal.state !== 'Active')
                   }
-                  onClick={() => handleOpenVoteConfirmModal(type)}
-                >
-                  {isLoading && voteType === type && <Icon type="loading" />}{' '}
-                  {getVoteTypeStringFromValue(type)[1]}
-                </Button>
-              );
-            })}
+                onClick={() => handleOpenVoteConfirmModal(type)}
+              >
+                {isLoading && voteType === type && <Icon type="loading" />}
+                {' '}
+                {getVoteTypeStringFromValue(type)[1]}
+              </Button>
+            ))}
           </div>
         )}
       </Row>
@@ -363,13 +356,17 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
           />
           <div className="header">
             <span className="title">
-              {getVoteTypeStringFromValue(voteType)[0]} I vote:{' '}
+              {getVoteTypeStringFromValue(voteType)[0]}
+              {' '}
+              I vote:
+              {' '}
               {getVoteTypeStringFromValue(voteType)[1]}
             </span>
           </div>
           <div className="input-wrapper">
             <div className="input-caption">
-              Why do you vote{' '}
+              Why do you vote
+              {' '}
               <span>{getVoteTypeStringFromValue(voteType)[1]}</span>
             </div>
             <Input.TextArea
@@ -389,7 +386,9 @@ function Proposal({ address, proposal, votingWeight, history }: $TSFixMe) {
               disabled={isLoading || voteReason.length > MAX_INPUT_LENGTH}
               onClick={() => handleVote()}
             >
-              {isLoading && <Icon type="loading" />} Confirm
+              {isLoading && <Icon type="loading" />}
+              {' '}
+              Confirm
             </button>
           </div>
         </ModalContentWrapper>
@@ -408,15 +407,15 @@ Proposal.propTypes = {
     forVotes: PropTypes.string,
     againstVotes: PropTypes.string,
     voted: PropTypes.bool,
-    createdAt: PropTypes.string
+    createdAt: PropTypes.string,
   }),
-  history: PropTypes.object
+  history: PropTypes.object,
 };
 
 Proposal.defaultProps = {
   address: '',
   proposal: {},
-  history: {}
+  history: {},
 };
 
 export default compose(withRouter)(Proposal);

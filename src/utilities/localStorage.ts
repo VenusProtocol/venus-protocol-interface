@@ -11,7 +11,6 @@ export const loadState = () => {
   }
 };
 
-
 export const saveState = (state: $TSFixMe) => {
   try {
     const serializedState = JSON.stringify(state);

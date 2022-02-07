@@ -39,7 +39,6 @@ const ProposerInfoWrapper = styled.div`
   }
 `;
 
-
 function ProposerInfo({ address }: $TSFixMe) {
   const handleLink = () => {
     window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
@@ -59,7 +58,7 @@ function ProposerInfo({ address }: $TSFixMe) {
             onCopy={() => {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.success({
-                title: `Copied address`
+                title: 'Copied address',
               });
             }}
           >
@@ -72,11 +71,11 @@ function ProposerInfo({ address }: $TSFixMe) {
 }
 
 ProposerInfo.propTypes = {
-  address: PropTypes.string
+  address: PropTypes.string,
 };
 
 ProposerInfo.defaultProps = {
-  address: ''
+  address: '',
 };
 
 export default compose(withRouter)(ProposerInfo);

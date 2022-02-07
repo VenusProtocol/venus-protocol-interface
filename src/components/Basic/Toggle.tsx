@@ -28,10 +28,8 @@ const ToggleWrapper = styled.div`
   }
 `;
 
-
 function Toggle({ checked, onChecked }: $TSFixMe) {
   return (
-    
     <ToggleWrapper onClick={(e: $TSFixMe) => e.stopPropagation()}>
       <Switch checked={checked} onChange={onChecked} />
     </ToggleWrapper>
@@ -40,12 +38,12 @@ function Toggle({ checked, onChecked }: $TSFixMe) {
 
 Toggle.propTypes = {
   checked: PropTypes.bool,
-  onChecked: PropTypes.func
+  onChecked: PropTypes.func,
 };
 
 Toggle.defaultProps = {
   checked: true,
-  onChecked: () => {}
+  onChecked: () => {},
 };
 
 export default Toggle;

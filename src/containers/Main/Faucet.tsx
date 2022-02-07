@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-import { Input, Form, Dropdown, Menu } from 'antd';
+import {
+  Input, Form, Dropdown, Menu,
+} from 'antd';
 import { withRouter } from 'react-router-dom';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
@@ -95,21 +97,18 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-
 function Faucet({ form, getFromFaucet }: $TSFixMe) {
   const { getFieldDecorator } = form;
   const [isLoading, setIsLoading] = useState(false);
 
-  
   const handleMenuClick = (e: $TSFixMe, symbol: $TSFixMe) => {
-    
     form.validateFields((err: $TSFixMe, values: $TSFixMe) => {
       if (!err) {
         setIsLoading(true);
         promisify(getFromFaucet, {
           address: values.address,
           asset: symbol,
-          amountType: e.key
+          amountType: e.key,
         })
           .then(() => {
             setIsLoading(false);
@@ -124,14 +123,14 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
             }
             // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             toast.success({
-              title: `Funding request for ${fromAddress} into ${values.address}`
+              title: `Funding request for ${fromAddress} into ${values.address}`,
             });
           })
-          .catch(error => {
+          .catch((error) => {
             if (error.data && error.data.message) {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({
-                title: error.data.message
+                title: error.data.message,
               });
             }
             setIsLoading(false);
@@ -231,11 +230,11 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
                 rules: [
                   {
                     required: true,
-                    message: 'Address is required!'
-                  }
-                ]
+                    message: 'Address is required!',
+                  },
+                ],
               })(
-                <Input placeholder="Input your Binance Smart Chain address..." />
+                <Input placeholder="Input your Binance Smart Chain address..." />,
               )}
             </Form.Item>
             {isLoading ? (
@@ -355,7 +354,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 SXP
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
                 target="_blank"
@@ -363,7 +362,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 XVS
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.busd.address}`}
                 target="_blank"
@@ -371,7 +370,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 BUSD
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdc.address}`}
                 target="_blank"
@@ -379,7 +378,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 USDC
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdt.address}`}
                 target="_blank"
@@ -387,7 +386,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 USDT
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${getVaiTokenAddress()}`}
                 target="_blank"
@@ -395,7 +394,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 VAI
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.btcb.address}`}
                 target="_blank"
@@ -403,7 +402,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 BTCB
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.eth.address}`}
                 target="_blank"
@@ -411,7 +410,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 ETH
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.ltc.address}`}
                 target="_blank"
@@ -419,7 +418,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 LTC
               </a>
-              {`, `}
+              {', '}
               <a
                 href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.xrp.address}`}
                 target="_blank"
@@ -427,10 +426,11 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               >
                 XRP
               </a>
-              {` are issued as BEP20 token.`}
+              {' are issued as BEP20 token.'}
             </p>
             <p className="description">
-              Click to get detail about{' '}
+              Click to get detail about
+              {' '}
               <a
                 href="https://github.com/binance-chain/BEPs/blob/master/BEP20.md"
                 target="_blank"
@@ -448,18 +448,17 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
 
 Faucet.propTypes = {
   form: PropTypes.object.isRequired,
-  getFromFaucet: PropTypes.func.isRequired
+  getFromFaucet: PropTypes.func.isRequired,
 };
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getFromFaucet } = accountActionCreators;
 
   return bindActionCreators(
     {
-      getFromFaucet
+      getFromFaucet,
     },
-    dispatch
+    dispatch,
   );
 };
 
@@ -467,5 +466,5 @@ export default compose(
   withRouter,
   Form.create({ name: 'faucet-form' }),
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(undefined, mapDispatchToProps)
+  connectAccount(undefined, mapDispatchToProps),
 )(Faucet);

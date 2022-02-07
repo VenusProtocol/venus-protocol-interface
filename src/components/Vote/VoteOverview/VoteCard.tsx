@@ -124,9 +124,8 @@ function VoteCard({
   addressNumber,
   emptyNumber,
   list,
-  onViewAll
-}: 
-$TSFixMe) {
+  onViewAll,
+}: $TSFixMe) {
   const [isViewAll, setIsViewAll] = useState(true);
   const [percent, setPercent] = useState(0);
 
@@ -140,7 +139,6 @@ $TSFixMe) {
     setPercent(percentTmp.isNaN() ? '0' : percentTmp.toString(10));
   }, [voteNumber]);
 
-  
   const handleAddLink = (v: $TSFixMe) => {
     history.push(`/vote/address/${v}`);
   };
@@ -162,24 +160,28 @@ $TSFixMe) {
                 new BigNumber(
                   Web3.utils.fromWei(
                     voteNumber.isNaN() ? '' : voteNumber.toString(10),
-                    'ether'
-                  )
+                    'ether',
+                  ),
                 )
                   .dp(8, 1)
-                  .toString(10)
+                  .toString(10),
               )}
             </span>
           </div>
           <div
             className={`status-bar ${['against', 'for', 'abstain'][type]}`}
             style={{
-              width: `${percent}%`
+              width: `${percent}%`,
             }}
           />
         </div>
         <VoteList>
           <div className="flex align-center just-between header">
-            <span>{addressNumber} addresses</span>
+            <span>
+              {addressNumber}
+              {' '}
+              addresses
+            </span>
             <span>Votes</span>
           </div>
           <div className="vote-list scrollbar">
@@ -202,7 +204,7 @@ $TSFixMe) {
                     {format(
                       new BigNumber(Web3.utils.fromWei(l.value, 'ether'))
                         .dp(8, 1)
-                        .toString(10)
+                        .toString(10),
                     )}
                   </span>
                   {l.reason && (
@@ -213,7 +215,7 @@ $TSFixMe) {
                       trigger={['click']}
                       overlayStyle={{
                         maxHeight: '500px',
-                        overflowY: 'scroll'
+                        overflowY: 'scroll',
                       }}
                     >
                       <Icon
@@ -266,7 +268,7 @@ VoteCard.propTypes = {
   addressNumber: PropTypes.number,
   emptyNumber: PropTypes.number,
   list: PropTypes.array,
-  onViewAll: PropTypes.func.isRequired
+  onViewAll: PropTypes.func.isRequired,
 };
 
 VoteCard.defaultProps = {
@@ -277,7 +279,7 @@ VoteCard.defaultProps = {
   totalNumber: new BigNumber(0),
   addressNumber: 0,
   emptyNumber: 0,
-  list: []
+  list: [],
 };
 
 export default compose(withRouter)(VoteCard);

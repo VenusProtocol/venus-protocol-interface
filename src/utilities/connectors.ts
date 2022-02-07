@@ -14,7 +14,7 @@ export const injected = new InjectedConnector({ supportedChainIds: [chainId] });
 const walletconnect = new WalletConnectConnector({
   rpc: { [chainId]: rpcUrl },
   qrcode: true,
-  pollingInterval: POLLING_INTERVAL
+  pollingInterval: POLLING_INTERVAL,
 });
 
 const bscConnector = new BscConnector({ supportedChainIds: [chainId] });
@@ -22,24 +22,21 @@ const bscConnector = new BscConnector({ supportedChainIds: [chainId] });
 const ledger = new LedgerConnector({
   chainId,
   url: rpcUrl,
-  pollingInterval: POLLING_INTERVAL
+  pollingInterval: POLLING_INTERVAL,
 });
 
 export const ConnectorNames = {
   Injected: 'MetaMask',
   WalletConnect: 'WalletConnect',
   BSC: 'BSC',
-  Ledger: 'Ledger'
+  Ledger: 'Ledger',
 };
 
 export const connectorsByName = {
   [ConnectorNames.Injected]: injected,
   [ConnectorNames.WalletConnect]: walletconnect,
   [ConnectorNames.BSC]: bscConnector,
-  [ConnectorNames.Ledger]: ledger
+  [ConnectorNames.Ledger]: ledger,
 };
 
-
-export const getLibrary = (provider: $TSFixMe) => {
-  return provider;
-};
+export const getLibrary = (provider: $TSFixMe) => provider;

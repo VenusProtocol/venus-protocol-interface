@@ -61,7 +61,6 @@ const ProposerDetailWrapper = styled.div`
   }
 `;
 
-
 function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
   const [holdingInfo, setHoldingInfo] = useState({});
   const [transactions, setTransactions] = useState([]);
@@ -70,7 +69,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
 
   const loadVoterDetail = async () => {
     await promisify(getVoterDetail, { address: match.params.address })
-      .then(res => {
+      .then((res) => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         if (res.data) {
           setHoldingInfo({
@@ -87,7 +86,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
             votes: new BigNumber(res.data.votes)
               .div(new BigNumber(10).pow(18))
               .dp(4, 1)
-              .toString(10)
+              .toString(10),
           });
           // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
           setTransactions(res.data.txs);
@@ -100,7 +99,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
 
   const loadVoterHistory = async () => {
     await promisify(getVoterHistory, { address: match.params.address })
-      .then(res => {
+      .then((res) => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
@@ -108,20 +107,19 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
   };
 
   const handleChangePage = (
-    
     pageNumber: $TSFixMe,
-    
+
     offset: $TSFixMe,
-    
-    limit: $TSFixMe
+
+    limit: $TSFixMe,
   ) => {
     setCurrent(pageNumber);
     promisify(getVoterHistory, {
       address: match.params.address,
       offset,
-      limit
+      limit,
     })
-      .then(res => {
+      .then((res) => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
@@ -177,18 +175,16 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: $TSFixMe) {
 ProposerDetail.propTypes = {
   match: PropTypes.object,
   getVoterDetail: PropTypes.func.isRequired,
-  getVoterHistory: PropTypes.func.isRequired
+  getVoterHistory: PropTypes.func.isRequired,
 };
 
 ProposerDetail.defaultProps = {
-  match: {}
+  match: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getVoterDetail, getVoterHistory } = accountActionCreators;
@@ -196,14 +192,14 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   return bindActionCreators(
     {
       getVoterDetail,
-      getVoterHistory
+      getVoterHistory,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(mapStateToProps, mapDispatchToProps),
 )(ProposerDetail);

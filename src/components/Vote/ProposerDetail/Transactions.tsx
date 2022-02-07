@@ -83,10 +83,9 @@ const TransactionsWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function Transactions({ address, transactions }: $TSFixMe) {
   const [data, setData] = useState([]);
-  
+
   const getDate = (timestamp: $TSFixMe) => {
     const startDate = moment(timestamp * 1000);
     const curDate = moment(new Date());
@@ -98,9 +97,8 @@ function Transactions({ address, transactions }: $TSFixMe) {
   };
 
   useEffect(() => {
-    
     const tempData: $TSFixMe = [];
-    
+
     transactions.forEach((tx: $TSFixMe) => {
       if (tx.type === 'vote') {
         tempData.push({
@@ -110,9 +108,9 @@ function Transactions({ address, transactions }: $TSFixMe) {
             new BigNumber(tx.votes)
               .div(new BigNumber(10).pow(18))
               .dp(4, 1)
-              .toString(10)
+              .toString(10),
           ),
-          isReceived: tx.support
+          isReceived: tx.support,
         });
       } else {
         tempData.push({
@@ -125,9 +123,9 @@ function Transactions({ address, transactions }: $TSFixMe) {
             new BigNumber(tx.amount)
               .div(new BigNumber(10).pow(18))
               .dp(4, 1)
-              .toString(10)
+              .toString(10),
           ),
-          isReceived: tx.to.toLowerCase() === address.toLowerCase()
+          isReceived: tx.to.toLowerCase() === address.toLowerCase(),
         });
       }
     });
@@ -148,17 +146,17 @@ function Transactions({ address, transactions }: $TSFixMe) {
           <div className="result-column">Result</div>
         </div>
         <div className="flex flex-column data-list">
-          {data &&
-            data.map((item, index) => (
+          {data
+            && data.map((item, index) => (
               <div className="flex align-center row-text" key={index}>
-                {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'action' does not exist on type 'never'.*/}
+                {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'action' does not exist on type 'never'. */}
                 <div className="action-column">{item.action}</div>
-                {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'age' does not exist on type 'never'.*/}
+                {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'age' does not exist on type 'never'. */}
                 <div className="age-column">{item.age}</div>
                 <div className="result-column">
-                  {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type 'never'.*/}
+                  {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type 'never'. */}
                   <span>{item.result}</span>
-                  {/*// @ts-expect-error ts-migrate(2339) FIXME: Property 'isReceived' does not exist on type 'neve... Remove this comment to see the full error message*/}
+                  {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'isReceived' does not exist on type 'neve... Remove this comment to see the full error message */}
                   {item.isReceived ? (
                     <Icon type="arrow-up" className="green-color" />
                   ) : (
@@ -181,12 +179,12 @@ function Transactions({ address, transactions }: $TSFixMe) {
 
 Transactions.propTypes = {
   address: PropTypes.string,
-  transactions: PropTypes.array
+  transactions: PropTypes.array,
 };
 
 Transactions.defaultProps = {
   address: '',
-  transactions: []
+  transactions: [],
 };
 
 export default compose(withRouter)(Transactions);

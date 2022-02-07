@@ -153,8 +153,9 @@ const MarketTableWrapper = styled.div`
   }
 `;
 
-
-function MarketTable({ columns, data, title, handleClickRow }: $TSFixMe) {
+function MarketTable({
+  columns, data, title, handleClickRow,
+}: $TSFixMe) {
   return (
     <MarketTableWrapper>
       <div className="all-title">{title}</div>
@@ -162,11 +163,9 @@ function MarketTable({ columns, data, title, handleClickRow }: $TSFixMe) {
         columns={columns}
         dataSource={data}
         pagination={false}
-        onRow={row => {
-          return {
-            onClick: () => handleClickRow(row) // click row
-          };
-        }}
+        onRow={row => ({
+          onClick: () => handleClickRow(row), // click row
+        })}
       />
     </MarketTableWrapper>
   );
@@ -176,13 +175,13 @@ MarketTable.propTypes = {
   data: PropTypes.array,
   columns: PropTypes.array,
   title: PropTypes.string,
-  handleClickRow: PropTypes.func.isRequired
+  handleClickRow: PropTypes.func.isRequired,
 };
 
 MarketTable.defaultProps = {
   data: [],
   columns: [],
-  title: ''
+  title: '',
 };
 
 export default MarketTable;

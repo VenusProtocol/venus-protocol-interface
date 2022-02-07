@@ -58,7 +58,6 @@ const HoldingWrapper = styled.div`
 `;
 const format = commaNumber.bindWith(',', '.');
 
-
 function Holding({ address, holdingInfo }: $TSFixMe) {
   return (
     <Card>
@@ -87,9 +86,9 @@ function Holding({ address, holdingInfo }: $TSFixMe) {
         <div className="flex flex-column holding-section">
           <div className="label">Delegating To</div>
           <div className="value">
-            {holdingInfo.delegates !==
-              '0x0000000000000000000000000000000000000000' &&
-            holdingInfo.delegates !== address.toLowerCase()
+            {holdingInfo.delegates
+              !== '0x0000000000000000000000000000000000000000'
+            && holdingInfo.delegates !== address.toLowerCase()
               ? 'Delegated'
               : 'Undelegated'}
           </div>
@@ -101,12 +100,12 @@ function Holding({ address, holdingInfo }: $TSFixMe) {
 
 Holding.propTypes = {
   address: PropTypes.string,
-  holdingInfo: PropTypes.object
+  holdingInfo: PropTypes.object,
 };
 
 Holding.defaultProps = {
   address: '',
-  holdingInfo: {}
+  holdingInfo: {},
 };
 
 export default compose(withRouter)(Holding);

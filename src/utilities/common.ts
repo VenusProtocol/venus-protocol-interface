@@ -7,12 +7,10 @@ const commaNumber = require('comma-number');
 
 const format = commaNumber.bindWith(',', '.');
 
-
 export const encodeParameters = (types: $TSFixMe, values: $TSFixMe) => {
   const abi = new ethers.utils.AbiCoder();
   return abi.encode(types, values);
 };
-
 
 export const getArgs = (func: $TSFixMe) => {
   // First match everything inside the function argument parens.
@@ -20,28 +18,24 @@ export const getArgs = (func: $TSFixMe) => {
     ? func.toString().match(/.*?\(([^)]*)\)/)[1]
     : '';
   // Split the arguments string into an array comma delimited.
-  return (
-    args
-      .split(',')
-      
-      .map((arg: $TSFixMe) => {
-        // Ensure no inline comments are parsed and trim the whitespace.
-        return arg.replace(/\/\*.*\*\//, '').trim();
-      })
-      
-      .filter((arg: $TSFixMe) => {
-        // Ensure no undefined values are added.
-        return arg;
-      })
-  );
+  return args
+    .split(',')
+
+    .map((arg: $TSFixMe) =>
+      // Ensure no inline comments are parsed and trim the whitespace.
+      arg.replace(/\/\*.*\*\//, '').trim())
+
+    .filter((arg: $TSFixMe) =>
+      // Ensure no undefined values are added.
+      arg);
 };
 
 export const addToken = async (
   asset = 'vai',
-  
+
   decimal: $TSFixMe,
-  
-  type: $TSFixMe
+
+  type: $TSFixMe,
 ) => {
   let tokenAddress = '';
   let tokenSymbol = '';
@@ -53,17 +47,15 @@ export const addToken = async (
     tokenDecimals = 18;
     tokenImage = `${window.location.origin}/coins/vai.svg`;
   } else {
-    tokenAddress =
-      type === 'token'
-        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].address
-        : // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_VBEP_ADDRESS[asset].address;
-    tokenSymbol =
-      type === 'token'
-        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
-        : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
+    tokenAddress = type === 'token'
+      ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      constants.CONTRACT_TOKEN_ADDRESS[asset].address
+      : // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      constants.CONTRACT_VBEP_ADDRESS[asset].address;
+    tokenSymbol = type === 'token'
+      ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+      constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
+      : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
     tokenDecimals = decimal || (type === 'token' ? 18 : 8);
     tokenImage = `${window.location.origin}/coins/${
       type === 'token' ? asset : `v${asset === 'btcb' ? 'btc' : asset}`
@@ -81,9 +73,9 @@ export const addToken = async (
           address: tokenAddress, // The address that the token is at.
           symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
           decimals: tokenDecimals, // The number of decimals in the token
-          image: tokenImage // A string url of the token logo
-        }
-      }
+          image: tokenImage, // A string url of the token logo
+        },
+      },
     });
 
     if (wasAdded) {
@@ -99,7 +91,6 @@ export const addToken = async (
   }
 };
 
-
 export const getBigNumber = (value: $TSFixMe) => {
   if (!value) {
     return new BigNumber(0);
@@ -109,7 +100,6 @@ export const getBigNumber = (value: $TSFixMe) => {
   }
   return new BigNumber(value);
 };
-
 
 export const currencyFormatter = (labelValue: $TSFixMe) => {
   let suffix = '';
@@ -131,7 +121,6 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
   return `$${format(new BigNumber(`${abs / unit}`).dp(2, 1))}${suffix}`;
 };
 
-
 export const formatApy = (apy: $TSFixMe) => {
   const apyBN = getBigNumber(apy);
   if (apyBN.absoluteValue().isLessThan(100000000)) {
@@ -149,10 +138,7 @@ export const formatApy = (apy: $TSFixMe) => {
  * @returns An object with the keys derived as indexFn(array item)
  */
 
-export const indexBy = (indexFn: $TSFixMe, arr: $TSFixMe) => {
-  
-  return arr.reduce((result: $TSFixMe, item: $TSFixMe) => {
-    result[indexFn(item)] = item;
-    return result;
-  }, {});
-};
+export const indexBy = (indexFn: $TSFixMe, arr: $TSFixMe) => arr.reduce((result: $TSFixMe, item: $TSFixMe) => {
+  result[indexFn(item)] = item;
+  return result;
+}, {});

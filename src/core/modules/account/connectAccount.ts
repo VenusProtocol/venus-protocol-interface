@@ -2,10 +2,9 @@
 import { connect } from 'react-redux';
 import { accountActionCreators } from 'core/modules/account/actions';
 
-
 function mapStateToProps({ account }: $TSFixMe) {
   return {
-    account
+    account,
   };
 }
 

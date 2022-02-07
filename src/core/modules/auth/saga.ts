@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { put, call, fork, all, take } from 'redux-saga/effects';
+import {
+  put, call, fork, all, take,
+} from 'redux-saga/effects';
 
 import {
   HANDLE_AUTH_ERROR_REQUEST,
   LOGIN_REQUEST,
   REGISTER_REQUEST,
   LOGOUT_REQUEST,
-  authActionCreators
+  authActionCreators,
 } from 'core/modules/auth/actions';
 
 import { restService } from 'utilities';
@@ -14,9 +16,8 @@ import { restService } from 'utilities';
 export function* handleAuthErrorRequest({
   payload,
   resolve,
-  reject
-}: 
-$TSFixMe) {
+  reject,
+}: $TSFixMe) {
   const { response } = payload;
   try {
     if (response.data && response.status === 401) {
@@ -29,19 +30,18 @@ $TSFixMe) {
   }
 }
 
-
 export function* asyncLoginRequest({ payload, resolve, reject }: $TSFixMe) {
   const { email, password } = payload;
 
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
-      api: ``,
+      api: '',
       method: 'POST',
       params: {
         Username: email,
-        Password: password
-      }
+        Password: password,
+      },
     });
     if (response.status === 200) {
       yield put(authActionCreators.loginSuccess({ user: response.data }));
@@ -54,19 +54,18 @@ export function* asyncLoginRequest({ payload, resolve, reject }: $TSFixMe) {
   }
 }
 
-
 export function* asyncRegisterRequest({ payload, resolve, reject }: $TSFixMe) {
   const { email, password } = payload;
 
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
-      api: ``,
+      api: '',
       method: 'POST',
       params: {
         username: email,
-        password
-      }
+        password,
+      },
     });
     if (response.status === 200) {
       yield put(authActionCreators.registerSuccess({ user: response.data }));
@@ -80,7 +79,6 @@ export function* asyncRegisterRequest({ payload, resolve, reject }: $TSFixMe) {
     reject(e);
   }
 }
-
 
 export function* asyncLogoutRequest({ payload, resolve, reject }: $TSFixMe) {
   try {
@@ -127,11 +125,11 @@ export function* watchLogoutRequest() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield all([
     fork(watchHandleAuthErrorRequest),
     fork(watchLoginRequest),
     fork(watchRegisterRequest),
-    fork(watchLogoutRequest)
+    fork(watchLogoutRequest),
   ]);
 }

@@ -51,7 +51,6 @@ const MainLayoutWrapper = styled.div`
   }
 `;
 
-
 function MainLayout({ title, isHeader, children }: $TSFixMe) {
   return (
     <MainLayoutWrapper>
@@ -84,14 +83,14 @@ MainLayout.propTypes = {
   isHeader: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+    PropTypes.node,
+  ]),
 };
 
 MainLayout.defaultProps = {
   title: '',
   isHeader: true,
-  children: null
+  children: null,
 };
 
 export default withTheme(MainLayout);

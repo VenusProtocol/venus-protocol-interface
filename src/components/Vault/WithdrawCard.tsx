@@ -50,7 +50,6 @@ const WithdrawCardWrapper = styled.div`
   }
 `;
 
-
 function formatTimeToLockPeriodString(seconds: $TSFixMe) {
   let remaining = 0;
   const days = Math.floor(seconds / 86400);
@@ -72,12 +71,11 @@ function WithdrawCard({
   lockPeriodSecond,
   withdrawableAmount,
   pendingWithdrawals,
-  userEligibleStakedAmount
-}: 
-$TSFixMe) {
+  userEligibleStakedAmount,
+}: $TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
+    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
   );
 
   const { account } = useWeb3React();
@@ -99,7 +97,10 @@ $TSFixMe) {
               <div className="card-content">
                 <div className="card-title">
                   <span>
-                    {stakedToken.toUpperCase()} Staked:{' '}
+                    {stakedToken.toUpperCase()}
+                    {' '}
+                    Staked:
+                    {' '}
                     {userEligibleStakedAmount
                       .div(stakedTokenDecimal)
                       .toFixed(4)}
@@ -119,13 +120,13 @@ $TSFixMe) {
                           ? '0'
                           : withdrawAmount.toString(10)
                       }
-                      onValueChange={values => {
+                      onValueChange={(values) => {
                         const value = new BigNumber(values.value || 0);
                         const maxValue = userEligibleStakedAmount
                           .div(stakedTokenDecimal)
                           .dp(4, 1);
                         setWithdrawAmount(
-                          value.gt(maxValue) ? maxValue : value
+                          value.gt(maxValue) ? maxValue : value,
                         );
                       }}
                       thousandSeparator
@@ -136,7 +137,7 @@ $TSFixMe) {
                       className="pointer max"
                       onClick={() => {
                         setWithdrawAmount(
-                          userEligibleStakedAmount.div(stakedTokenDecimal)
+                          userEligibleStakedAmount.div(stakedTokenDecimal),
                         );
                       }}
                     >
@@ -144,7 +145,8 @@ $TSFixMe) {
                     </span>
                   </div>
                   <div className="lock-period">
-                    Locking period:{' '}
+                    Locking period:
+                    {' '}
                     {formatTimeToLockPeriodString(lockPeriodSecond)}
                   </div>
                 </div>
@@ -153,10 +155,10 @@ $TSFixMe) {
                 type="button"
                 className="button claim-button"
                 disabled={
-                  !userEligibleStakedAmount.gt(0) ||
-                  !withdrawAmount.gt(0) ||
-                  !account ||
-                  requestWithdrawLoading
+                  !userEligibleStakedAmount.gt(0)
+                  || !withdrawAmount.gt(0)
+                  || !account
+                  || requestWithdrawLoading
                 }
                 onClick={async () => {
                   setRequestWithdrawLoading(true);
@@ -167,10 +169,10 @@ $TSFixMe) {
                         poolId.toNumber(),
                         withdrawAmount
                           .multipliedBy(stakedTokenDecimal)
-                          .toString(10)
+                          .toString(10),
                       )
                       .send({
-                        from: account
+                        from: account,
                       });
                   } catch (e) {
                     console.log('>> request withdraw error: ', e);
@@ -178,7 +180,9 @@ $TSFixMe) {
                   setRequestWithdrawLoading(false);
                 }}
               >
-                {requestWithdrawLoading && <Icon type="loading" />} Request
+                {requestWithdrawLoading && <Icon type="loading" />}
+                {' '}
+                Request
                 Withdraw
               </button>
             </Col>
@@ -187,7 +191,8 @@ $TSFixMe) {
               <div className="card-content">
                 <div className="card-title">Withdrawable amount</div>
                 <div className="center-amount">
-                  {withdrawableAmount.div(stakedTokenDecimal).toFixed(4)}{' '}
+                  {withdrawableAmount.div(stakedTokenDecimal).toFixed(4)}
+                  {' '}
                   {stakedToken.toUpperCase()}
                 </div>
               </div>
@@ -195,9 +200,9 @@ $TSFixMe) {
                 type="button"
                 className="button execute-withdraw-button"
                 disabled={
-                  !withdrawableAmount.gt(0) ||
-                  !account ||
-                  executeWithdrawLoading
+                  !withdrawableAmount.gt(0)
+                  || !account
+                  || executeWithdrawLoading
                 }
                 onClick={async () => {
                   setExecuteWithdrawLoading(true);
@@ -211,7 +216,9 @@ $TSFixMe) {
                   setExecuteWithdrawLoading(false);
                 }}
               >
-                {executeWithdrawLoading && <Icon type="loading" />} Withdraw
+                {executeWithdrawLoading && <Icon type="loading" />}
+                {' '}
+                Withdraw
               </button>
             </Col>
           </Row>
@@ -235,7 +242,7 @@ WithdrawCard.propTypes = {
   lockPeriodSecond: PropTypes.instanceOf(BigNumber).isRequired,
   withdrawableAmount: PropTypes.instanceOf(BigNumber).isRequired,
   pendingWithdrawals: PropTypes.array.isRequired,
-  userEligibleStakedAmount: PropTypes.instanceOf(BigNumber).isRequired
+  userEligibleStakedAmount: PropTypes.instanceOf(BigNumber).isRequired,
 };
 
 export default WithdrawCard;

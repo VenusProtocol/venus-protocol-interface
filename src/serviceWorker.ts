@@ -17,22 +17,22 @@
 // opt-in, read https://bit.ly/CRA-PWA
 
 const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
+  window.location.hostname === 'localhost'
+  // [::1] is the IPv6 localhost address.
 
-    window.location.hostname === '[::1]' ||
+    || window.location.hostname === '[::1]'
     // 127.0.0.1/8 is considered localhost for IPv4.
 
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
+    || window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/,
+    ),
 );
-
 
 export function register(config: $TSFixMe) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
 
+    // @ts-expect-error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string | URL'. Type 'undefined' is not assignable to type 'string | URL'.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
 
     if (publicUrl.origin !== window.location.origin) {
@@ -59,8 +59,8 @@ export function register(config: $TSFixMe) {
 
         navigator.serviceWorker.ready.then(() => {
           console.log(
-            'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://bit.ly/CRA-PWA'
+            'This web app is being served cache-first by a service '
+              + 'worker. To learn more, visit https://bit.ly/CRA-PWA',
           );
         });
       } else {
@@ -70,7 +70,7 @@ export function register(config: $TSFixMe) {
       }
     });
 
-    window.addEventListener('beforeinstallprompt', e => {
+    window.addEventListener('beforeinstallprompt', (e) => {
       // Prevent the mini-infobar from appearing on mobile
 
       e.preventDefault();
@@ -78,13 +78,12 @@ export function register(config: $TSFixMe) {
   }
 }
 
-
 function registerValidSW(swUrl: $TSFixMe, config: $TSFixMe) {
   navigator.serviceWorker
 
     .register(swUrl)
 
-    .then(registration => {
+    .then((registration) => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
 
@@ -102,8 +101,8 @@ function registerValidSW(swUrl: $TSFixMe, config: $TSFixMe) {
               // content until all client tabs are closed.
 
               console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+                'New content is available and will be used when all '
+                  + 'tabs for this page are closed. See https://bit.ly/CRA-PWA.',
               );
 
               // Execute callback
@@ -131,28 +130,27 @@ function registerValidSW(swUrl: $TSFixMe, config: $TSFixMe) {
       };
     })
 
-    .catch(error => {
+    .catch((error) => {
       console.error('Error during service worker registration:', error);
     });
 }
-
 
 function checkValidServiceWorker(swUrl: $TSFixMe, config: $TSFixMe) {
   // Check if the service worker can be found. If it can't reload the page.
 
   fetch(swUrl)
-    .then(response => {
+    .then((response) => {
       // Ensure service worker exists, and that we really are getting a JS file.
 
       const contentType = response.headers.get('content-type');
 
       if (
-        response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
+        response.status === 404
+        || (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.
 
-        navigator.serviceWorker.ready.then(registration => {
+        navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
             window.location.reload();
           });
@@ -166,14 +164,14 @@ function checkValidServiceWorker(swUrl: $TSFixMe, config: $TSFixMe) {
 
     .catch(() => {
       console.log(
-        'No internet connection found. App is running in offline mode.'
+        'No internet connection found. App is running in offline mode.',
       );
     });
 }
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
+    navigator.serviceWorker.ready.then((registration) => {
       registration.unregister();
     });
   }

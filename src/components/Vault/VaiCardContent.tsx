@@ -18,9 +18,8 @@ function VaiCardContent({
   userPendingReward,
   userVaiBalance,
   userVaiAllowance,
-  userVaiStakedAmount
-}: 
-$TSFixMe) {
+  userVaiStakedAmount,
+}: $TSFixMe) {
   const { account } = useWeb3React();
   const vaiTokenContract = useVaiToken();
   const vaiVaultContract = useVaiVault();
@@ -54,7 +53,7 @@ $TSFixMe) {
           stakeAmount
             .multipliedBy(1e18)
             .integerValue()
-            .toString(10)
+            .toString(10),
         )
         .send({ from: account });
       setStakeAmount(new BigNumber(0));
@@ -74,7 +73,7 @@ $TSFixMe) {
           new BigNumber(2)
             .pow(256)
             .minus(1)
-            .toString(10)
+            .toString(10),
         )
         .send({ from: account });
     } catch (error) {
@@ -94,7 +93,7 @@ $TSFixMe) {
           withdrawAmount
             .multipliedBy(1e18)
             .integerValue()
-            .toString(10)
+            .toString(10),
         )
         .send({ from: account });
       setWithdrawAmount(new BigNumber(0));
@@ -117,7 +116,8 @@ $TSFixMe) {
                   {userPendingReward
                     .div(1e18)
                     .dp(6, 1)
-                    .toString(10)}{' '}
+                    .toString(10)}
+                  {' '}
                   XVS
                 </div>
               </div>
@@ -129,7 +129,9 @@ $TSFixMe) {
                   handleClaimReward();
                 }}
               >
-                {isClaimLoading && <Icon type="loading" />} Claim
+                {isClaimLoading && <Icon type="loading" />}
+                {' '}
+                Claim
               </button>
             </div>
           </CardItemWrapper>
@@ -142,7 +144,8 @@ $TSFixMe) {
               <div className="left">
                 <div className="card-title">
                   <span>
-                    VAI Staked:{' '}
+                    VAI Staked:
+                    {' '}
                     {userVaiStakedAmount
                       .div(1e18)
                       .dp(4, 1)
@@ -158,11 +161,11 @@ $TSFixMe) {
                           ? '0'
                           : withdrawAmount.toString(10)
                       }
-                      onValueChange={values => {
+                      onValueChange={(values) => {
                         const value = new BigNumber(values.value || 0);
                         const maxValue = userVaiStakedAmount.div(1e18).dp(4, 1);
                         setWithdrawAmount(
-                          value.gt(maxValue) ? maxValue : value
+                          value.gt(maxValue) ? maxValue : value,
                         );
                       }}
                       thousandSeparator
@@ -184,15 +187,17 @@ $TSFixMe) {
                 type="button"
                 className="button claim-button"
                 disabled={
-                  !withdrawAmount.gt(0) ||
-                  !userVaiStakedAmount.gt(0) ||
-                  !account
+                  !withdrawAmount.gt(0)
+                  || !userVaiStakedAmount.gt(0)
+                  || !account
                 }
                 onClick={() => {
                   handleWithdrawVAI();
                 }}
               >
-                {isWithdrawLoading && <Icon type="loading" />} Withdraw
+                {isWithdrawLoading && <Icon type="loading" />}
+                {' '}
+                Withdraw
               </button>
             </div>
           </CardItemWrapper>
@@ -204,7 +209,8 @@ $TSFixMe) {
             <div className="card-item stake">
               <div className="withdraw-request">
                 <div className="card-title">
-                  Available VAI to stake:{' '}
+                  Available VAI to stake:
+                  {' '}
                   {userVaiBalance
                     .div(1e18)
                     .dp(4, 1)
@@ -216,7 +222,7 @@ $TSFixMe) {
                     value={
                       stakeAmount.isZero() ? '0' : stakeAmount.toString(10)
                     }
-                    onValueChange={values => {
+                    onValueChange={(values) => {
                       const value = new BigNumber(values.value || 0);
                       const maxValue = userVaiBalance.div(1e18).dp(4, 1);
                       setStakeAmount(value.gt(maxValue) ? maxValue : value);
@@ -262,7 +268,7 @@ VaiCardContent.propTypes = {
   userPendingReward: PropTypes.instanceOf(BigNumber).isRequired,
   userVaiBalance: PropTypes.instanceOf(BigNumber).isRequired,
   userVaiAllowance: PropTypes.instanceOf(BigNumber).isRequired,
-  userVaiStakedAmount: PropTypes.instanceOf(BigNumber).isRequired
+  userVaiStakedAmount: PropTypes.instanceOf(BigNumber).isRequired,
 };
 
 export default VaiCardContent;

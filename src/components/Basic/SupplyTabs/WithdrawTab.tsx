@@ -23,8 +23,9 @@ import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 
-
-function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
+function WithdrawTab({
+  asset, changeTab, onCancel, setSetting,
+}: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowLimit, setBorrowLimit] = useState(new BigNumber(0));
@@ -64,13 +65,13 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         .minus(userTotalBorrowBalance.div(40).times(100))
         .div(collateralFactor)
         .div(tokenPrice),
-      new BigNumber(0)
+      new BigNumber(0),
     );
     setSafeMaxBalance(BigNumber.minimum(safeMax, supplyBalance));
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
       const temp = userTotalBorrowLimit.minus(
-        amount.times(tokenPrice).times(collateralFactor)
+        amount.times(tokenPrice).times(collateralFactor),
       );
       setNewBorrowLimit(temp);
       setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
@@ -80,7 +81,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
       } else {
         setBorrowLimit(userTotalBorrowLimit);
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
       }
     } else {
@@ -91,10 +92,10 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         setNewBorrowPercent(new BigNumber(0));
       } else {
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
         setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
       }
     }
@@ -116,8 +117,8 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         type: 'Withdraw',
         status: true,
         amount: amount.dp(8, 1).toString(10),
-        symbol: asset.symbol
-      }
+        symbol: asset.symbol,
+      },
     });
     try {
       if (amount.eq(asset.supplyBalance)) {
@@ -133,7 +134,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
             amount
               .times(new BigNumber(10).pow(asset.decimals))
               .integerValue()
-              .toString(10)
+              .toString(10),
           )
           .send({ from: account });
       }
@@ -145,8 +146,8 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           type: '',
           status: false,
           amount: 0,
-          symbol: ''
-        }
+          symbol: '',
+        },
       });
     } catch (error) {
       setIsLoading(false);
@@ -155,8 +156,8 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           type: '',
           status: false,
           amount: 0,
-          symbol: ''
-        }
+          symbol: '',
+        },
       });
     }
   };
@@ -181,9 +182,9 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               const temp = new BigNumber(value || 0);
               const { tokenPrice, collateralFactor } = asset;
               return (
-                temp.isLessThanOrEqualTo(asset.supplyBalance) &&
-                userTotalBorrowLimit.gte(
-                  temp.times(tokenPrice).times(collateralFactor)
+                temp.isLessThanOrEqualTo(asset.supplyBalance)
+                && userTotalBorrowLimit.gte(
+                  temp.times(tokenPrice).times(collateralFactor),
                 )
               );
             }}
@@ -225,7 +226,10 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Supply APY</span>
             </div>
-            <span>{asset.supplyApy.dp(2, 1).toString(10)}%</span>
+            <span>
+              {asset.supplyApy.dp(2, 1).toString(10)}
+              %
+            </span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -234,7 +238,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={coinImg}
                 alt="asset"
@@ -250,14 +254,18 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={vaiImg}
                 alt="asset"
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
+            <span>
+              {mintableVai.dp(2, 1).toString(10)}
+              {' '}
+              VAI
+            </span>
           </div>
           {asset.symbol !== 'BNB' && (
             <div className="description">
@@ -268,7 +276,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                     width: 25,
                     height: 25,
                     marginLeft: 2,
-                    marginRight: 16
+                    marginRight: 16,
                   }}
                   alt="fee"
                 />
@@ -277,12 +285,17 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               <span>
                 {!amount.isNaN()
                   ? new BigNumber(amount)
-                      // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
-                      .times(feePercent / 100)
-                      .dp(4)
-                      .toString(10)
-                  : 0}{' '}
-                {asset.symbol} ({feePercent.toString(10)}%)
+                  // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
+                    .times(feePercent / 100)
+                    .dp(4)
+                    .toString(10)
+                  : 0}
+                {' '}
+                {asset.symbol}
+                {' '}
+                (
+                {feePercent.toString(10)}
+                %)
               </span>
             </div>
           )}
@@ -291,32 +304,50 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           <div className="borrow-limit">
             <span>Borrow Limit</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+              <span>
+                $
+                {format(borrowLimit.dp(2, 1).toString(10))}
+              </span>
             ) : (
               <div className="flex align-center just-between">
-                <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+                <span>
+                  $
+                  {format(borrowLimit.dp(2, 1).toString(10))}
+                </span>
                 <img
                   className="arrow-right-img"
                   src={arrowRightImg}
                   alt="arrow"
                 />
-                <span>${format(newBorrowLimit.dp(2, 1).toString(10))}</span>
+                <span>
+                  $
+                  {format(newBorrowLimit.dp(2, 1).toString(10))}
+                </span>
               </div>
             )}
           </div>
           <div className="flex align-center just-between borrow-limit-used">
             <span>Borrow Limit Used</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+              <span>
+                {borrowPercent.dp(2, 1).toString(10)}
+                %
+              </span>
             ) : (
               <div className="flex align-center just-between">
-                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                <span>
+                  {borrowPercent.dp(2, 1).toString(10)}
+                  %
+                </span>
                 <img
                   className="arrow-right-img"
                   src={arrowRightImg}
                   alt="arrow"
                 />
-                <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
+                <span>
+                  {newBorrowPercent.dp(2, 1).toString(10)}
+                  %
+                </span>
               </div>
             )}
           </div>
@@ -331,21 +362,25 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         <Button
           className="button"
           disabled={
-            isLoading ||
-            !account ||
-            amount.isNaN() ||
-            amount.isZero() ||
-            amount.isGreaterThan(asset.supplyBalance) ||
-            newBorrowPercent.isGreaterThan(new BigNumber(100))
+            isLoading
+            || !account
+            || amount.isNaN()
+            || amount.isZero()
+            || amount.isGreaterThan(asset.supplyBalance)
+            || newBorrowPercent.isGreaterThan(new BigNumber(100))
           }
           onClick={handleWithdraw}
         >
-          {isLoading && <Icon type="loading" />} Withdraw
+          {isLoading && <Icon type="loading" />}
+          {' '}
+          Withdraw
         </Button>
         <div className="description">
           <span>Protocol Balance</span>
           <span>
-            {format(asset.supplyBalance.dp(2, 1).toString(10))} {asset.symbol}
+            {format(asset.supplyBalance.dp(2, 1).toString(10))}
+            {' '}
+            {asset.symbol}
           </span>
         </div>
       </TabContent>
@@ -357,24 +392,23 @@ WithdrawTab.propTypes = {
   asset: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired
+  setSetting: PropTypes.func.isRequired,
 };
 
 WithdrawTab.defaultProps = {
   asset: {},
   changeTab: () => {},
-  onCancel: () => {}
+  onCancel: () => {},
 };
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
     {
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 

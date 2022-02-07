@@ -16,7 +16,7 @@ import {
   Tooltip,
   ComposedChart,
   BarChart,
-  ResponsiveContainer
+  ResponsiveContainer,
   // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'rech... Remove this comment to see the full error message
 } from 'recharts';
 import moment from 'moment';
@@ -47,7 +47,6 @@ const ChartWrapper = styled.div`
   }
 `;
 
-
 function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -55,17 +54,14 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
     setActiveIndex(-1);
   }, [marketType]);
 
-  const CustomizedAxisTick = () => {
-    return (
-      <g>
-        <text x={0} y={0} dy={16}>
-          {/* {moment(payload.value).format('LLLL')} */}
-        </text>
-      </g>
-    );
-  };
+  const CustomizedAxisTick = () => (
+    <g>
+      <text x={0} y={0} dy={16}>
+        {/* {moment(payload.value).format('LLLL')} */}
+      </text>
+    </g>
+  );
 
-  
   const CustomChart1Tooltip = ({ active, payload, label }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
@@ -83,7 +79,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
     }
     return null;
   };
-  
+
   const CustomChart2Tooltip = ({ active, payload }: $TSFixMe) => {
     if (active && payload && payload.length !== 0) {
       return (
@@ -100,10 +96,9 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
   };
   CustomChart2Tooltip.propTypes = {
     active: PropTypes.bool.isRequired,
-    payload: PropTypes.array.isRequired
+    payload: PropTypes.array.isRequired,
   };
 
-  
   const handleMouseMove = (index: $TSFixMe) => {
     setActiveIndex(index);
   };
@@ -120,7 +115,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
               top: 10,
               right: 30,
               left: 30,
-              bottom: 0
+              bottom: 0,
             }}
           >
             <defs>
@@ -195,7 +190,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                 top: 10,
                 right: 30,
                 left: 30,
-                bottom: 0
+                bottom: 0,
               }}
             >
               <linearGradient id="areaRedColor" x1="0" y1="0" x2="0" y2="1">
@@ -213,7 +208,7 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                 tick={<CustomizedAxisTick />}
               />
               <YAxis hide />
-              {/*// @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the following properties from... Remove this comment to see the full error message*/}
+              {/* @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the following properties from... Remove this comment to see the full error message */}
               <Tooltip cursor={false} content={<CustomChart2Tooltip />} />
               <Bar
                 isAnimationActive
@@ -229,10 +224,10 @@ function OverviewChart({ marketType, graphType, data }: $TSFixMe) {
                     fill={
                       index === activeIndex
                         ? `${
-                            marketType !== 'supply'
-                              ? 'url(#barRedColor)'
-                              : 'url(#barGreenColor)'
-                          }`
+                          marketType !== 'supply'
+                            ? 'url(#barRedColor)'
+                            : 'url(#barGreenColor)'
+                        }`
                         : '#252a4a'
                     }
                     key={`cell-${index}`}
@@ -253,23 +248,22 @@ OverviewChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
-      apy: PropTypes.number
-    })
-  )
+      apy: PropTypes.number,
+    }),
+  ),
 };
 
 OverviewChart.defaultProps = {
   marketType: 'supply',
   graphType: 'area',
-  data: []
+  data: [],
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
-  OverviewChart
+  OverviewChart,
 );

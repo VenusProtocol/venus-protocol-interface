@@ -31,15 +31,12 @@ const VaultWrapper = styled.div`
 
 // fast search token name by address
 const tokenAddressNameMap = Object.keys(
-  constants.CONTRACT_TOKEN_ADDRESS
-).reduce((target, token) => {
-  return {
-    ...target,
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    [constants.CONTRACT_TOKEN_ADDRESS[token].address]: token
-  };
-}, {});
-
+  constants.CONTRACT_TOKEN_ADDRESS,
+).reduce((target, token) => ({
+  ...target,
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  [constants.CONTRACT_TOKEN_ADDRESS[token].address]: token,
+}), {});
 
 function Vault({ settings }: $TSFixMe) {
   const [poolInfos, setPoolInfos] = useState([]);
@@ -62,12 +59,9 @@ function Vault({ settings }: $TSFixMe) {
       .call();
 
     const fetchPoolParameters = Array.from({ length: xvsTokenPoolLength }).map(
-      (_, index) => {
-        return { rewardToken: xvsTokenAddress, pid: index };
-      }
+      (_, index) => ({ rewardToken: xvsTokenAddress, pid: index }),
     );
 
-    
     async function fetchOnePool(param: $TSFixMe) {
       const [poolInfo, rewardPerBlock, totalAllocPoints] = await Promise.all([
         xvsVaultContract.methods.poolInfos(param.rewardToken, param.pid).call(),
@@ -75,7 +69,7 @@ function Vault({ settings }: $TSFixMe) {
           .rewardTokenAmountsPerBlock(param.rewardToken)
           .call(),
 
-        xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call()
+        xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call(),
       ]);
 
       const totalStaked = await getTokenContractByAddress(web3, poolInfo.token)
@@ -87,8 +81,8 @@ function Vault({ settings }: $TSFixMe) {
         {
           amount: '0',
           pendingWithdrawals: [],
-          rewardDebt: '0'
-        }
+          rewardDebt: '0',
+        },
       ];
 
       if (account) {
@@ -98,7 +92,7 @@ function Vault({ settings }: $TSFixMe) {
             .call(),
           xvsVaultContract.methods
             .getUserInfo(param.rewardToken, param.pid, account)
-            .call()
+            .call(),
         ]);
       }
 
@@ -107,7 +101,7 @@ function Vault({ settings }: $TSFixMe) {
         .div(totalAllocPoints);
       const blockPerDay = 86400 / 3; // per 3 seconds for a block
       const dailyEmission = new BigNumber(rewardPerBlockOfPool).multipliedBy(
-        blockPerDay
+        blockPerDay,
       );
 
       return {
@@ -121,12 +115,12 @@ function Vault({ settings }: $TSFixMe) {
         lockPeriodSecond: new BigNumber(poolInfo.lockPeriod),
         apr: new BigNumber(dailyEmission).multipliedBy(365).div(totalStaked),
         totalStaked: new BigNumber(totalStaked),
-        dailyEmission
+        dailyEmission,
       };
     }
 
     const patchedPoolInfos = await Promise.all(
-      fetchPoolParameters.map(param => fetchOnePool(param))
+      fetchPoolParameters.map(param => fetchOnePool(param)),
     );
 
     setLoading(false);
@@ -147,31 +141,29 @@ function Vault({ settings }: $TSFixMe) {
       {!loading && (
         <VaultWrapper>
           <VaiPoolCard />
-          {poolInfos.map((poolInfo, index) => {
-            return (
-              <GeneralVaultPoolCard
-                key={index}
+          {poolInfos.map((poolInfo, index) => (
+            <GeneralVaultPoolCard
+              key={index}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'poolId' does not exist on type 'never'.
-                poolId={poolInfo.poolId}
+              poolId={poolInfo.poolId}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'stakedToken' does not exist on type 'nev... Remove this comment to see the full error message
-                stakedToken={poolInfo.stakedToken}
+              stakedToken={poolInfo.stakedToken}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'rewardToken' does not exist on type 'nev... Remove this comment to see the full error message
-                rewardToken={poolInfo.rewardToken}
+              rewardToken={poolInfo.rewardToken}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'userStakedAmount' does not exist on type... Remove this comment to see the full error message
-                userStakedAmount={poolInfo.userStakedAmount}
+              userStakedAmount={poolInfo.userStakedAmount}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'pendingReward' does not exist on type 'n... Remove this comment to see the full error message
-                pendingReward={poolInfo.pendingReward}
+              pendingReward={poolInfo.pendingReward}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'lockPeriodSecond' does not exist on type... Remove this comment to see the full error message
-                lockPeriodSecond={poolInfo.lockPeriodSecond}
+              lockPeriodSecond={poolInfo.lockPeriodSecond}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'apr' does not exist on type 'never'.
-                apr={poolInfo.apr}
+              apr={poolInfo.apr}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalStaked' does not exist on type 'nev... Remove this comment to see the full error message
-                totalStaked={poolInfo.totalStaked}
+              totalStaked={poolInfo.totalStaked}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'dailyEmission' does not exist on type 'n... Remove this comment to see the full error message
-                dailyEmission={poolInfo.dailyEmission}
-              />
-            );
-          })}
+              dailyEmission={poolInfo.dailyEmission}
+            />
+          ))}
         </VaultWrapper>
       )}
     </MainLayout>
@@ -179,32 +171,30 @@ function Vault({ settings }: $TSFixMe) {
 }
 
 Vault.propTypes = {
-  settings: PropTypes.object
+  settings: PropTypes.object,
 };
 
 Vault.defaultProps = {
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
     {
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(mapStateToProps, mapDispatchToProps),
 )(Vault);

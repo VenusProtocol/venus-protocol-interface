@@ -10,8 +10,8 @@ export default function account(state = initialState.account, action = {}) {
         ...state,
         setting: {
           ...state.setting,
-          ...payload
-        }
+          ...payload,
+        },
       };
     }
     default: {
