@@ -38,9 +38,9 @@ export const addToken = async ({
   decimal,
   type,
 }: {
-  asset: string,
-  decimal: number,
-  type: string,
+  asset: string;
+  decimal: number;
+  type: string;
 }) => {
   let tokenAddress = '';
   let tokenSymbol = '';
