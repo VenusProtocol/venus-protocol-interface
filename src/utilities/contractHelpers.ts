@@ -27,7 +27,7 @@ import {
 import * as constants from './constants';
 
 const getContract = (abi: $TSFixMe, address: $TSFixMe, web3: $TSFixMe) => {
-  // eslint-disable-next-line no-underscore-dangle
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const _web3 = web3 ?? getWeb3NoAccount();
   return new _web3.eth.Contract(abi, address);
 };
