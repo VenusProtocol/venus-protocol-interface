@@ -95,7 +95,11 @@ function VaiInfo({ settings }: $TSFixMe) {
               className="add-vai-token"
               type="plus-circle"
               theme="filled"
-              onClick={() => addToken('vai', 18, 'token')}
+              onClick={() => addToken({
+                asset: 'vai',
+                decimal: 18,
+                type: 'token',
+              })}
             />
           )}
           {settings.vaiAPY && (

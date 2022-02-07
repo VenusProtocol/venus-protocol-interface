@@ -289,7 +289,11 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
                       className="add-token"
                       type="plus-circle"
                       theme="filled"
-                      onClick={() => addToken(currentAsset, decimals, 'token')}
+                      onClick={() => addToken({
+                        asset: currentAsset,
+                        decimal: decimals,
+                        type: 'token',
+                      })}
                     />
                   </div>
                 )}
@@ -301,7 +305,11 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
                     className="add-token"
                     type="plus-circle"
                     theme="filled"
-                    onClick={() => addToken(currentAsset, vtokenDecimals, 'vtoken')
+                    onClick={() => addToken({
+                      asset: currentAsset,
+                      decimal: vtokenDecimals,
+                      type: 'vtoken',
+                    })
                     }
                   />
                 </div>
