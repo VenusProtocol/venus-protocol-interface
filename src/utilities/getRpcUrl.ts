@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import sample from 'lodash/sample';
 
 const REACT_APP_NODE_1 = 'https://bsc-dataseed1.ninicoin.io';
