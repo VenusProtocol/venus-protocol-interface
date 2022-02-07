@@ -44,7 +44,6 @@ export function* asyncGetMarketHistoryRequest({
 }
 
 export function* asyncGetGovernanceVenusRequest({
-  payload,
   resolve,
   reject,
 }: $TSFixMe) {
@@ -232,7 +231,7 @@ export function* asyncGetTransactionHistoryRequest({
   resolve,
   reject,
 }: $TSFixMe) {
-  const { offset, event, type } = payload;
+  const { offset, event } = payload;
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
@@ -252,7 +251,6 @@ export function* asyncGetTransactionHistoryRequest({
   }
 }
 export function* asyncGetTreasuryBalanceRequest({
-  payload,
   resolve,
   reject,
 }: $TSFixMe) {

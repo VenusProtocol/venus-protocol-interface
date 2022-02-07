@@ -15,7 +15,7 @@ import { connectorsByName, ConnectorNames } from '../utilities/connectors';
 import { setupNetwork } from '../utilities/wallet';
 
 const useAuth = () => {
-  const { chainId, activate, deactivate } = useWeb3React();
+  const { activate, deactivate } = useWeb3React();
   const login = useCallback(
     (connectorID) => {
       const connector = connectorsByName[connectorID];

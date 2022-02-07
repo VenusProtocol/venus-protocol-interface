@@ -261,9 +261,7 @@ const format = commaNumber.bindWith(',', '.');
 
 function Sidebar({
   history,
-  settings,
   setSetting,
-  getGovernanceVenus,
 }: $TSFixMe) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');

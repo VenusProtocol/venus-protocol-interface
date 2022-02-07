@@ -17,7 +17,6 @@ import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import { formatApy } from 'utilities/common';
-import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { useComptroller } from '../../../hooks/useContract';
 

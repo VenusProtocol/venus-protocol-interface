@@ -308,7 +308,6 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
 
   const diffFormat = (secs: $TSFixMe) => {
     let minutes = Math.floor(secs / 60);
-    const sec = secs % 60;
     let hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
     hours %= 24;

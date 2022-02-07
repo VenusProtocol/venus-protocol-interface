@@ -13,7 +13,6 @@ import { connectAccount, accountActionCreators } from 'core';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
 import OverviewChart from 'components/Basic/OverviewChart';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
@@ -106,7 +105,7 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-function MarketDetail({ match, settings, getMarketHistory }: $TSFixMe) {
+function MarketDetail({ match, getMarketHistory }: $TSFixMe) {
   const [marketType, setMarketType] = useState('supply');
   const [currentAsset, setCurrentAsset] = useState('');
   const [data, setData] = useState([]);

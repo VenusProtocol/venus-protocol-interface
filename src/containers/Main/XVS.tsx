@@ -19,7 +19,6 @@ import MainLayout from 'containers/Layout/MainLayout';
 import * as constants from 'utilities/constants';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
-import { useWeb3React } from '@web3-react/core';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useToken } from '../../hooks/useContract';
@@ -192,15 +191,6 @@ const TableWrapper = styled.div`
   }
 `;
 
-const SpinnerWrapper = styled.div`
-  height: 85vh;
-  width: 100%;
-
-  @media only screen and (max-width: 1440px) {
-    height: 70vh;
-  }
-`;
-
 const format = commaNumber.bindWith(',', '.');
 
 function XVS({ settings }: $TSFixMe) {
@@ -209,7 +199,6 @@ function XVS({ settings }: $TSFixMe) {
   const [totalDistributed, setTotalDistributed] = useState('0');
   const [remainAmount, setRemainAmount] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
-  const { account } = useWeb3React();
   const { markets, dailyVenus } = useMarkets();
   const xvsTokenContract = useToken('xvs');
   const comptrollerContract = useComptroller();

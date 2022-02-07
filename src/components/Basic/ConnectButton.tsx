@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-import { Modal, Icon } from 'antd';
+import { Modal } from 'antd';
 import metamaskImg from 'assets/img/metamask.png';
 import trustwalletImg from 'assets/img/trustwallet.svg';
 import safepalImg from 'assets/img/safepal.svg';

@@ -15,8 +15,6 @@ import { restService } from 'utilities';
 
 export function* handleAuthErrorRequest({
   payload,
-  resolve,
-  reject,
 }: $TSFixMe) {
   const { response } = payload;
   try {
@@ -80,7 +78,7 @@ export function* asyncRegisterRequest({ payload, resolve, reject }: $TSFixMe) {
   }
 }
 
-export function* asyncLogoutRequest({ payload, resolve, reject }: $TSFixMe) {
+export function* asyncLogoutRequest({ reject }: $TSFixMe) {
   try {
     // const response = yield call(restService, {
     //   api: `/auth/logout`,

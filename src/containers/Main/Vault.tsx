@@ -38,7 +38,7 @@ const tokenAddressNameMap = Object.keys(
   [constants.CONTRACT_TOKEN_ADDRESS[token].address]: token,
 }), {});
 
-function Vault({ settings }: $TSFixMe) {
+function Vault() {
   const [poolInfos, setPoolInfos] = useState([]);
   const [loading, setLoading] = useState(true);
 

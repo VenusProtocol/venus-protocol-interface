@@ -48,7 +48,7 @@ const MarketSummaryWrapper = styled.div`
 `;
 const format = commaNumber.bindWith(',', '.');
 
-function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
+function MarketSummary({ marketInfo, currentAsset }: $TSFixMe) {
   return (
     <MarketSummaryWrapper>
       <div className="description">

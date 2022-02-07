@@ -62,7 +62,7 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function CoinInfo({ settings }: $TSFixMe) {
+function CoinInfo() {
   const { account } = useWeb3React();
   const { userXVSBalance } = useMarketsUser();
 

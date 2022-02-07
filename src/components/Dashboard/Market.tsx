@@ -11,7 +11,6 @@ import BorrowMarket from 'components/Dashboard/Market/BorrowMarket';
 import { Card } from 'components/Basic/Card';
 import MintTab from 'components/Basic/VaiTabs/MintTab';
 import RepayVaiTab from 'components/Basic/VaiTabs/RepayVaiTab';
-import { getBigNumber } from 'utilities/common';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
@@ -58,7 +57,7 @@ const MintRepayVai = styled.div`
   }
 `;
 
-const Market = ({ settings, setSetting }: $TSFixMe) => {
+const Market = ({ setSetting }: $TSFixMe) => {
   const [currentTab, setCurrentTab] = useState('supply');
   const [suppliedAssets, setSuppliedAssets] = useState([]);
   const [nonSuppliedAssets, setNonSuppliedAssets] = useState([]);
