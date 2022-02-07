@@ -8,7 +8,6 @@ import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
 import commaNumber from 'comma-number';
 import { Row, Col } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';

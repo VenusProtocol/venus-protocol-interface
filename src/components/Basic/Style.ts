@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 
 export const Row = styled.div`
@@ -17,19 +16,26 @@ function getWidthString(span: $TSFixMe) {
   return `width: ${width}%;`;
 }
 
+interface Props {
+  xs?: string,
+  sm?: string,
+  md?: string,
+  lg?: string,
+}
+
 export const Column = styled.div`
   float: left;
-  ${({ xs }: $TSFixMe) => (xs ? getWidthString(xs) : 'width: 100%')};
+  ${({ xs }: Props) => (xs ? getWidthString(xs) : 'width: 100%')};
 
   @media only screen and (min-width: 768px) {
-    ${({ sm }: $TSFixMe) => sm && getWidthString(sm)};
+    ${({ sm }: Props) => sm && getWidthString(sm)};
   }
 
   @media only screen and (min-width: 992px) {
-    ${({ md }: $TSFixMe) => md && getWidthString(md)};
+    ${({ md }: Props) => md && getWidthString(md)};
   }
 
   @media only screen and (min-width: 1200px) {
-    ${({ lg }: $TSFixMe) => lg && getWidthString(lg)};
+    ${({ lg }: Props) => lg && getWidthString(lg)};
   }
 `;

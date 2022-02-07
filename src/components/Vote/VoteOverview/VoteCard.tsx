@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import commaNumber from 'comma-number';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';

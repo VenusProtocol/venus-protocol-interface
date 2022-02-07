@@ -4,10 +4,7 @@ import { withRouter } from 'react-router-dom';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import commaNumber from 'comma-number';
-import {
-  Row, Col, Pagination, Select,
-} from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
+import { Row, Col, Pagination, Select } from 'antd';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
