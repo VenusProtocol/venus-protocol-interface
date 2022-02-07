@@ -347,13 +347,13 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
                 setEvent(val);
               }}
             >
-              {eventTypes.map((event, index) => (
+              {eventTypes.map((eventType, index) => (
                 <Option
                   className="flex align-center just-between"
-                  value={event}
-                  key={`${event}-${index}`}
+                  value={eventType}
+                  key={`${eventType}-${index}`}
                 >
-                  <span>{event}</span>
+                  <span>{eventType}</span>
                 </Option>
               ))}
             </Select>
