@@ -29,7 +29,6 @@ const SupplyMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
@@ -38,7 +37,6 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
   const { account } = useWeb3React();
   const comptrollerContract = useComptroller();
 
-  
   const handleToggleCollateral = async (r: $TSFixMe) => {
     if (r && account && r.borrowBalance.isZero()) {
       if (!r.collateral) {
@@ -53,8 +51,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
         }
         setIsCollateralConfirm(false);
       } else if (
-        +r.hypotheticalLiquidity['1'] > 0 ||
-        +r.hypotheticalLiquidity['2'] === 0
+        +r.hypotheticalLiquidity['1'] > 0
+        || +r.hypotheticalLiquidity['2'] === 0
       ) {
         setIsCollateralEnable(true);
         setIsCollateralConfirm(true);
@@ -65,17 +63,17 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       } else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
-          title: `Collateral Required`,
+          title: 'Collateral Required',
           description:
-            'Please repay all borrowed assets or set other assets as collateral.'
+            'Please repay all borrowed assets or set other assets as collateral.',
         });
       }
     } else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
-        title: `Collateral Required`,
+        title: 'Collateral Required',
         description:
-          'Please repay all borrowed assets or set other assets as collateral.'
+          'Please repay all borrowed assets or set other assets as collateral.',
       });
     }
   };
@@ -85,7 +83,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Asset',
       dataIndex: 'asset',
       key: 'asset',
-      
+
       render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -96,19 +94,20 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
                   {asset.name}
                 </Label>
                 <Label size="14">
-                  {asset.supplyApy.dp(2, 1).toString(10)}%
+                  {asset.supplyApy.dp(2, 1).toString(10)}
+                  %
                 </Label>
               </div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'APY',
       dataIndex: 'supplyApy',
       key: 'supplyApy',
-      
+
       render(supplyApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? supplyApy.plus(asset.xvsSupplyApy)
@@ -120,30 +119,32 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
               <Icon type="arrow-up" />
               <div className="apy-green-label">{formatApy(apy)}</div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'Wallet',
       dataIndex: 'walletBalance',
       key: 'walletBalance',
-      
+
       render(walletBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
             <Label size="14" primary>
-              {format(walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+              {format(walletBalance.dp(2, 1).toString(10))}
+              {' '}
+              {asset.symbol}
             </Label>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'Collateral',
       dataIndex: 'collateral',
       key: 'collateral',
-      
+
       render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor.toString() ? (
@@ -151,10 +152,10 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
               checked={collateral}
               onChecked={() => handleToggleCollateral(asset)}
             />
-          ) : null
+          ) : null,
         };
-      }
-    }
+      },
+    },
   ];
 
   const suppliedColumns = [
@@ -162,7 +163,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
       title: 'Asset',
       dataIndex: 'asset',
       key: 'asset',
-      
+
       render(img: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -173,19 +174,20 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
                   {asset.name}
                 </Label>
                 <Label size="14">
-                  {asset.supplyApy.dp(2, 1).toString(10)}%
+                  {asset.supplyApy.dp(2, 1).toString(10)}
+                  %
                 </Label>
               </div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'APY / Earned',
       dataIndex: 'supplyApy',
       key: 'supplyApy',
-      
+
       render(supplyApy: $TSFixMe, asset: $TSFixMe) {
         const apy = settings.withXVS
           ? supplyApy.plus(asset.xvsSupplyApy)
@@ -196,15 +198,15 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
               <Icon type="arrow-up" />
               <div className="apy-green-label">{formatApy(apy)}</div>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'Balance',
       dataIndex: 'supplyBalance',
       key: 'supplyBalance',
-      
+
       render(supplyBalance: $TSFixMe, asset: $TSFixMe) {
         return {
           children: (
@@ -215,22 +217,24 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
                   supplyBalance
                     .times(asset.tokenPrice)
                     .dp(2, 1)
-                    .toString(10)
+                    .toString(10),
                 )}
               </Label>
               <Label size="14">
-                {format(supplyBalance.dp(4, 1).toString(10))} {asset.symbol}
+                {format(supplyBalance.dp(4, 1).toString(10))}
+                {' '}
+                {asset.symbol}
               </Label>
             </div>
-          )
+          ),
         };
-      }
+      },
     },
     {
       title: 'Collateral',
       dataIndex: 'collateral',
       key: 'collateral',
-      
+
       render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor ? (
@@ -238,13 +242,12 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
               checked={collateral}
               onChecked={() => handleToggleCollateral(asset)}
             />
-          ) : null
+          ) : null,
         };
-      }
-    }
+      },
+    },
   ];
 
-  
   const handleClickRow = (row: $TSFixMe) => {
     setRecord(row);
     setIsOpenModal(true);
@@ -262,11 +265,11 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
           handleClickRow={handleClickRow}
         />
       )}
-      {settings.pendingInfo &&
-        settings.pendingInfo.status &&
-        ['Supply', 'Withdraw'].includes(settings.pendingInfo.type) && (
+      {settings.pendingInfo
+        && settings.pendingInfo.status
+        && ['Supply', 'Withdraw'].includes(settings.pendingInfo.type) && (
           <PendingTransaction />
-        )}
+      )}
       {remainAssets.length > 0 && (
         <MarketTable
           columns={supplyColumns}
@@ -292,21 +295,20 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: $TSFixMe) {
 SupplyMarket.propTypes = {
   suppliedAssets: PropTypes.array,
   remainAssets: PropTypes.array,
-  settings: PropTypes.object
+  settings: PropTypes.object,
 };
 
 SupplyMarket.defaultProps = {
   suppliedAssets: [],
   remainAssets: [],
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
-  SupplyMarket
+  SupplyMarket,
 );

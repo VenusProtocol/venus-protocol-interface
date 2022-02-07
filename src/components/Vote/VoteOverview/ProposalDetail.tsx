@@ -33,7 +33,6 @@ const ProposalDetailWrapper = styled.div`
   }
 `;
 
-
 function ProposalDetail({ proposalInfo }: $TSFixMe) {
   return (
     <Card>
@@ -67,9 +66,9 @@ function ProposalDetail({ proposalInfo }: $TSFixMe) {
 }
 
 ProposalDetail.propTypes = {
-  proposalInfo: PropTypes.object
+  proposalInfo: PropTypes.object,
 };
 ProposalDetail.defaultProps = {
-  proposalInfo: {}
+  proposalInfo: {},
 };
 export default ProposalDetail;

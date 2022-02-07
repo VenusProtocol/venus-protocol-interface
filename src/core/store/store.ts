@@ -14,25 +14,24 @@ const sagaMiddleware = createSagaMiddleware();
 const middlewares = [thunk, sagaMiddleware];
 
 const enhancers = [
-  applyMiddleware(...middlewares) // empty for now;
+  applyMiddleware(...middlewares), // empty for now;
 ];
 
 // If Redux DevTools Extension is installed use it, otherwise use Redux compose
 /* eslint-disable no-underscore-dangle */
-const composeEnhancers =
-  process.env.NODE_ENV !== 'production' &&
-  typeof window === 'object' &&
+const composeEnhancers = process.env.NODE_ENV !== 'production'
+  && typeof window === 'object'
   // @ts-expect-error ts-migrate(2339) FIXME: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' do... Remove this comment to see the full error message
+  && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? // @ts-expect-error ts-migrate(2339) FIXME: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' do... Remove this comment to see the full error message
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? // @ts-expect-error ts-migrate(2339) FIXME: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' do... Remove this comment to see the full error message
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose;
+  : compose;
 /* eslint-enable */
 
 const store = createStore(
   rootReducer,
   persistedState,
-  composeEnhancers(...enhancers)
+  composeEnhancers(...enhancers),
 );
 
 sagaMiddleware.run(sagas);

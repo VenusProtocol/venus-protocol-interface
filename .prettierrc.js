@@ -1,3 +1,3 @@
 module.exports = {
-    singleQuote: true
+  ...require('prettier-airbnb-config')
 };

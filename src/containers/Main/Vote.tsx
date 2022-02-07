@@ -20,13 +20,13 @@ import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../../hooks/useRefresh';
 import {
   CONTRACT_XVS_TOKEN_ADDRESS,
-  CONTRACT_VBEP_ADDRESS
+  CONTRACT_VBEP_ADDRESS,
 } from '../../utilities/constants';
 import {
   useComptroller,
   useToken,
   useVaiUnitroller,
-  useXvsVaultProxy
+  useXvsVaultProxy,
 } from '../../hooks/useContract';
 import useWeb3 from '../../hooks/useWeb3';
 import { getVbepContract } from '../../utilities/contractHelpers';
@@ -34,7 +34,6 @@ import { getVbepContract } from '../../utilities/contractHelpers';
 const VoteWrapper = styled.div`
   height: 100%;
 `;
-
 
 function Vote({ history, getProposals }: $TSFixMe) {
   const [balance, setBalance] = useState(0);
@@ -59,9 +58,9 @@ function Vote({ history, getProposals }: $TSFixMe) {
     setIsLoadingPropoasl(true);
     await promisify(getProposals, {
       offset: 0,
-      limit: 5
+      limit: 5,
     })
-      .then(res => {
+      .then((res) => {
         setIsLoadingPropoasl(false);
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setProposals(res.data);
@@ -76,20 +75,19 @@ function Vote({ history, getProposals }: $TSFixMe) {
   }, [loadInitialData]);
 
   const handleChangePage = (
-    
     pageNumber: $TSFixMe,
-    
+
     offset: $TSFixMe,
-    
-    limit: $TSFixMe
+
+    limit: $TSFixMe,
   ) => {
     setCurrent(pageNumber);
     setIsLoadingPropoasl(true);
     promisify(getProposals, {
       offset,
-      limit
+      limit,
     })
-      .then(res => {
+      .then((res) => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setProposals(res.data);
         setIsLoadingPropoasl(false);
@@ -111,17 +109,14 @@ function Vote({ history, getProposals }: $TSFixMe) {
         xvsVaultProxyContract.methods.getCurrentVotes(account).call(),
         xvsTokenContract.methods.balanceOf(account).call(),
         // query all xvs pool infos
-        ...Array.from({ length }).map((_, index) => {
-          return xvsVaultProxyContract.methods
-            .poolInfos(CONTRACT_XVS_TOKEN_ADDRESS, index)
-            .call();
-        })
+        ...Array.from({ length }).map((_, index) => xvsVaultProxyContract.methods
+          .poolInfos(CONTRACT_XVS_TOKEN_ADDRESS, index)
+          .call()),
       ]);
 
       // find xvs vault pid
       const xvsVaultIndex = xvsPoolInfos.findIndex(
-        info =>
-          info.token.toLowerCase() === CONTRACT_XVS_TOKEN_ADDRESS.toLowerCase()
+        info => info.token.toLowerCase() === CONTRACT_XVS_TOKEN_ADDRESS.toLowerCase(),
       );
       if (xvsVaultIndex < 0) {
         throw new Error('xvs vault not found!');
@@ -133,7 +128,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
         new BigNumber(balanceTemp)
           .div(1e18)
           .dp(4, 1)
-          .toString(10)
+          .toString(10),
       );
 
       const userInfo = await xvsVaultProxyContract.methods
@@ -152,17 +147,17 @@ function Vote({ history, getProposals }: $TSFixMe) {
       venusAccrued,
       venusVAIState,
       vaiMinterIndex,
-      vaiMinterAmount
+      vaiMinterAmount,
     ] = await Promise.all([
       comptrollerContract.methods.venusInitialIndex().call(),
       comptrollerContract.methods.venusAccrued(myAddress).call(),
       vaiUnitrollerContract.methods.venusVAIState().call(),
       vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call(),
-      comptrollerContract.methods.mintedVAIs(myAddress).call()
+      comptrollerContract.methods.mintedVAIs(myAddress).call(),
     ]);
     let venusEarned = new BigNumber(0);
     await Promise.all(
-      Object.values(CONTRACT_VBEP_ADDRESS).map(async item => {
+      Object.values(CONTRACT_VBEP_ADDRESS).map(async (item) => {
         const vBepContract = getVbepContract(web3, item.id);
         let [
           supplyState,
@@ -171,7 +166,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
           borrowState,
           borrowerIndex,
           borrowBalanceStored,
-          borrowIndex
+          borrowIndex,
         ] = await Promise.all([
           comptrollerContract.methods.venusSupplyState(item.address).call(),
           comptrollerContract.methods
@@ -183,7 +178,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
             .venusBorrowerIndex(item.address, myAddress)
             .call(),
           vBepContract.methods.borrowBalanceStored(myAddress).call(),
-          vBepContract.methods.borrowIndex().call()
+          vBepContract.methods.borrowIndex().call(),
         ]);
         const supplyIndex = supplyState.index;
         if (+supplierIndex === 0 && +supplyIndex > 0) {
@@ -206,7 +201,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
             .dividedBy(1e36);
           venusEarned = venusEarned.plus(borrowerDelta);
         }
-      })
+      }),
     );
 
     // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'BigNumber... Remove this comment to see the full error message
@@ -221,7 +216,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
       vaiMinterIndex = venusInitialIndex;
     }
     const deltaIndex = new BigNumber(vaiMintIndex).minus(
-      new BigNumber(vaiMinterIndex)
+      new BigNumber(vaiMinterIndex),
     );
     const vaiMinterDelta = new BigNumber(vaiMinterAmount)
       .times(deltaIndex)
@@ -230,12 +225,12 @@ function Vote({ history, getProposals }: $TSFixMe) {
       .toString(10);
     setEarnedBalance(
       // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
-      venusEarned && venusEarned !== '0' ? `${venusEarned}` : '0.00000000'
+      venusEarned && venusEarned !== '0' ? `${venusEarned}` : '0.00000000',
     );
     setVaiMint(
       vaiMinterDelta && vaiMinterDelta !== '0'
         ? `${vaiMinterDelta}`
-        : '0.00000000'
+        : '0.00000000',
     );
   };
 
@@ -323,16 +318,14 @@ function Vote({ history, getProposals }: $TSFixMe) {
 
 Vote.propTypes = {
   getProposals: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
 Vote.defaultProps = {};
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getProposals, setSetting } = accountActionCreators;
@@ -340,14 +333,14 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   return bindActionCreators(
     {
       getProposals,
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(mapStateToProps, mapDispatchToProps),
 )(Vote);

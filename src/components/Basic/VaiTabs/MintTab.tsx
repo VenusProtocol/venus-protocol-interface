@@ -44,7 +44,7 @@ function MintTab() {
         .times(40)
         .div(100)
         .minus(userTotalBorrowBalance),
-      new BigNumber(0)
+      new BigNumber(0),
     );
     setAmount(BigNumber.minimum(mintableVai, safeMax));
   };
@@ -59,7 +59,7 @@ function MintTab() {
           amount
             .times(new BigNumber(10).pow(18))
             .dp(0)
-            .toString(10)
+            .toString(10),
         )
         .send({ from: account });
       setAmount(new BigNumber(0));
@@ -79,9 +79,7 @@ function MintTab() {
             onValueChange={({ value }) => {
               setAmount(new BigNumber(value));
             }}
-            isAllowed={({ value }) => {
-              return new BigNumber(value || 0).isLessThanOrEqualTo(mintableVai);
-            }}
+            isAllowed={({ value }) => new BigNumber(value || 0).isLessThanOrEqualTo(mintableVai)}
             thousandSeparator
             allowNegative={false}
             placeholder="0"
@@ -101,7 +99,11 @@ function MintTab() {
                 <span>Limit</span>
               </div>
             </div>
-            <span>{format(mintableVai.dp(2, 1).toString(10))} VAI</span>
+            <span>
+              {format(mintableVai.dp(2, 1).toString(10))}
+              {' '}
+              VAI
+            </span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -113,31 +115,40 @@ function MintTab() {
             <span>
               {!amount.isNaN()
                 ? new BigNumber(amount)
-                    // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
-                    .times(feePercent / 100)
-                    .dp(4)
-                    .toString(10)
-                : 0}{' '}
-              VAI ({feePercent.toString(10)}%)
+                // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
+                  .times(feePercent / 100)
+                  .dp(4)
+                  .toString(10)
+                : 0}
+              {' '}
+              VAI (
+              {feePercent.toString(10)}
+              %)
             </span>
           </div>
         </div>
         <Button
           className="button vai-auto"
           disabled={
-            isLoading ||
-            !account ||
-            amount.isNaN() ||
-            amount.isZero() ||
-            amount.isGreaterThan(mintableVai)
+            isLoading
+            || !account
+            || amount.isNaN()
+            || amount.isZero()
+            || amount.isGreaterThan(mintableVai)
           }
           onClick={handleMintVAI}
         >
-          {isLoading && <Icon type="loading" />} Mint VAI
+          {isLoading && <Icon type="loading" />}
+          {' '}
+          Mint VAI
         </Button>
         <div className="description">
           <span>VAI Balance</span>
-          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
+          <span>
+            {format(userVaiBalance.dp(2, 1).toString(10))}
+            {' '}
+            VAI
+          </span>
         </div>
       </TabContent>
     </TabSection>

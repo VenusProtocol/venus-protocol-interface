@@ -10,9 +10,8 @@ export async function restService({
   method,
   params,
   contentType = 'json',
-  token = null
-}: 
-$TSFixMe) {
+  token = null,
+}: $TSFixMe) {
   const headers = {};
   let path = `${API_ENDPOINT_URL}${api}`;
 
@@ -22,7 +21,7 @@ $TSFixMe) {
 
   const formData = new FormData();
   if (contentType === 'multi-form') {
-    Object.keys(params).forEach(key => {
+    Object.keys(params).forEach((key) => {
       if (params[key] !== null && key !== 'token') {
         formData.append(key, params[key]);
       }
@@ -37,7 +36,7 @@ $TSFixMe) {
   }
   const reqBody = {
     method,
-    headers
+    headers,
   };
   if (contentType === 'multi-form') {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
@@ -51,17 +50,11 @@ $TSFixMe) {
   }
 
   return fetch(path, reqBody)
-    .then(response => {
-      return response.text().then(text => {
-        return text
-          ? { status: response.status, data: JSON.parse(text) }
-          : { status: response.status };
-      });
-    })
-    .catch(error => {
-      return {
-        result: 'error',
-        message: error
-      };
-    });
+    .then(response => response.text().then(text => (text
+      ? { status: response.status, data: JSON.parse(text) }
+      : { status: response.status })))
+    .catch(error => ({
+      result: 'error',
+      message: error,
+    }));
 }

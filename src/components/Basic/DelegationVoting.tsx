@@ -100,7 +100,6 @@ const VotingWrapper = styled.div`
   }
 `;
 
-
 function DelegationVoting({ history, isLoading, onDelegate }: $TSFixMe) {
   const [delegateAddress, setDelegateAddress] = useState('');
   const { account } = useWeb3React();
@@ -151,7 +150,9 @@ function DelegationVoting({ history, isLoading, onDelegate }: $TSFixMe) {
           disabled={isLoading}
           onClick={() => onDelegate(delegateAddress)}
         >
-          {isLoading && <Icon type="loading" />} Delegate Votes
+          {isLoading && <Icon type="loading" />}
+          {' '}
+          Delegate Votes
         </Button>
       </div>
     </VotingWrapper>
@@ -161,7 +162,7 @@ function DelegationVoting({ history, isLoading, onDelegate }: $TSFixMe) {
 DelegationVoting.propTypes = {
   history: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onDelegate: PropTypes.func.isRequired
+  onDelegate: PropTypes.func.isRequired,
 };
 
 export default compose(withRouter)(DelegationVoting);

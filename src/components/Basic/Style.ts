@@ -10,7 +10,7 @@ export const Row = styled.div`
   }
 `;
 
-function getWidthString(span: any) {
+function getWidthString(span: $TSFixMe) {
   if (!span) return '';
 
   const width = (span / 12) * 100;
@@ -19,21 +19,17 @@ function getWidthString(span: any) {
 
 export const Column = styled.div`
   float: left;
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'any'.
-  ${({ xs }: any) => (xs ? getWidthString(xs) : 'width: 100%')};
+  ${({ xs }: $TSFixMe) => (xs ? getWidthString(xs) : 'width: 100%')};
 
   @media only screen and (min-width: 768px) {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'any'.
-    ${({ sm }: any) => sm && getWidthString(sm)};
+    ${({ sm }: $TSFixMe) => sm && getWidthString(sm)};
   }
 
   @media only screen and (min-width: 992px) {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'any'.
-    ${({ md }: any) => md && getWidthString(md)};
+    ${({ md }: $TSFixMe) => md && getWidthString(md)};
   }
 
   @media only screen and (min-width: 1200px) {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'any'.
-    ${({ lg }: any) => lg && getWidthString(lg)};
+    ${({ lg }: $TSFixMe) => lg && getWidthString(lg)};
   }
 `;

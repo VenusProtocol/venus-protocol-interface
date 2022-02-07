@@ -6,7 +6,9 @@ export const useVaiUser = () => {
     userVaiMinted,
     userVaiBalance,
     userVaiEnabled,
-    mintableVai
+    mintableVai,
   } = useContext(VaiContext);
-  return { userVaiMinted, userVaiBalance, userVaiEnabled, mintableVai };
+  return {
+    userVaiMinted, userVaiBalance, userVaiEnabled, mintableVai,
+  };
 };

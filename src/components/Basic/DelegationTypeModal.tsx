@@ -78,14 +78,12 @@ function DelegationTypeModal({
   balance,
   delegateStatus,
   visible,
-  onCancel
-}: 
-$TSFixMe) {
+  onCancel,
+}: $TSFixMe) {
   const [child, setChild] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const xvsVaultProxyContract = useXvsVaultProxy();
 
-  
   const handleDelegateVoting = async (dAddress: $TSFixMe) => {
     setIsLoading(true);
     try {
@@ -130,7 +128,7 @@ $TSFixMe) {
           </div>
           <div
             className="flex flex-column section"
-            onClick={e => {
+            onClick={(e) => {
               if (delegateStatus === 'self') {
                 e.preventDefault();
                 return;
@@ -202,7 +200,7 @@ DelegationTypeModal.propTypes = {
   balance: PropTypes.string,
   visible: PropTypes.bool,
   delegateStatus: PropTypes.string,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
 };
 
 DelegationTypeModal.defaultProps = {
@@ -210,7 +208,7 @@ DelegationTypeModal.defaultProps = {
   balance: PropTypes.string,
   visible: false,
   delegateStatus: '',
-  onCancel: () => {}
+  onCancel: () => {},
 };
 
 export default DelegationTypeModal;

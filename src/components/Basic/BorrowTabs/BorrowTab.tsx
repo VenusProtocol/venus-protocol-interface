@@ -23,8 +23,9 @@ import { useVbep } from '../../../hooks/useContract';
 const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
-
-function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
+function BorrowTab({
+  asset, changeTab, onCancel, setSetting,
+}: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowBalance, setBorrowBalance] = useState(new BigNumber(0));
@@ -45,10 +46,10 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         setNewBorrowPercent(new BigNumber(0));
       } else {
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
         setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
       }
     } else {
@@ -60,7 +61,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         setNewBorrowPercent(new BigNumber(0));
       } else {
         setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100)
+          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
         );
         setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
@@ -90,8 +91,8 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           type: 'Borrow',
           status: true,
           amount: amount.dp(8, 1).toString(10),
-          symbol: asset.symbol
-        }
+          symbol: asset.symbol,
+        },
       });
       try {
         await vbepContract.methods
@@ -99,7 +100,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
             amount
               .times(new BigNumber(10).pow(asset.decimals))
               .integerValue()
-              .toString(10)
+              .toString(10),
           )
           .send({ from: account });
         setAmount(new BigNumber(0));
@@ -113,8 +114,8 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           type: '',
           status: false,
           amount: 0,
-          symbol: ''
-        }
+          symbol: '',
+        },
       });
     }
   };
@@ -128,7 +129,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         .times(40)
         .div(100)
         .minus(userTotalBorrowBalance),
-      new BigNumber(0)
+      new BigNumber(0),
     );
     setAmount(BigNumber.minimum(safeMax, asset.liquidity).div(tokenPrice));
   };
@@ -140,15 +141,13 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           <NumberFormat
             autoFocus
             value={amount.isZero() ? '0' : amount.toString(10)}
-            onValueChange={values => {
+            onValueChange={(values) => {
               const { value } = values;
               setAmount(new BigNumber(value));
             }}
-            isAllowed={({ value }) => {
-              return new BigNumber(value || 0)
-                .plus(userTotalBorrowBalance)
-                .isLessThanOrEqualTo(userTotalBorrowLimit);
-            }}
+            isAllowed={({ value }) => new BigNumber(value || 0)
+              .plus(userTotalBorrowBalance)
+              .isLessThanOrEqualTo(userTotalBorrowLimit)}
             thousandSeparator
             allowNegative={false}
             placeholder="0"
@@ -183,7 +182,10 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Borrow APY</span>
             </div>
-            <span>{asset.borrowApy.dp(2, 1).toString(10)}%</span>
+            <span>
+              {asset.borrowApy.dp(2, 1).toString(10)}
+              %
+            </span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -192,7 +194,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={coinImg}
                 alt="asset"
@@ -208,14 +210,18 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                   width: 25,
                   height: 25,
                   marginLeft: 2,
-                  marginRight: 16
+                  marginRight: 16,
                 }}
                 src={vaiImg}
                 alt="asset"
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
+            <span>
+              {userVaiMinted.dp(2, 1).toString(10)}
+              {' '}
+              VAI
+            </span>
           </div>
           {!new BigNumber(asset.borrowCaps || 0).isZero() && (
             <div className="description borrow-caps">
@@ -225,7 +231,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                     width: 25,
                     height: 25,
                     marginLeft: 2,
-                    marginRight: 16
+                    marginRight: 16,
                   }}
                   src={coinImg}
                   alt="asset"
@@ -234,7 +240,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               </div>
               <span>
                 {format(
-                  new BigNumber(asset.borrowCaps || 0).dp(2, 1).toString(10)
+                  new BigNumber(asset.borrowCaps || 0).dp(2, 1).toString(10),
                 )}
               </span>
             </div>
@@ -244,32 +250,50 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           <div className="borrow-balance">
             <span>Borrow Balance</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>${borrowBalance.dp(2, 1).toString(10)}</span>
+              <span>
+                $
+                {borrowBalance.dp(2, 1).toString(10)}
+              </span>
             ) : (
               <div className="flex align-center just-between">
-                <span>${borrowBalance.dp(2, 1).toString(10)}</span>
+                <span>
+                  $
+                  {borrowBalance.dp(2, 1).toString(10)}
+                </span>
                 <img
                   className="arrow-right-img"
                   src={arrowRightImg}
                   alt="arrow"
                 />
-                <span>${newBorrowBalance.dp(2, 1).toString(10)}</span>
+                <span>
+                  $
+                  {newBorrowBalance.dp(2, 1).toString(10)}
+                </span>
               </div>
             )}
           </div>
           <div className="borrow-limit">
             <span>Borrow Limit Used</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+              <span>
+                {borrowPercent.dp(2, 1).toString(10)}
+                %
+              </span>
             ) : (
               <div className="flex align-center just-between">
-                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                <span>
+                  {borrowPercent.dp(2, 1).toString(10)}
+                  %
+                </span>
                 <img
                   className="arrow-right-img"
                   src={arrowRightImg}
                   alt="arrow"
                 />
-                <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
+                <span>
+                  {newBorrowPercent.dp(2, 1).toString(10)}
+                  %
+                </span>
               </div>
             )}
           </div>
@@ -283,23 +307,26 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
         <Button
           className="button"
           disabled={
-            isLoading ||
-            amount.isZero() ||
-            amount.isNaN() ||
-            amount.isGreaterThan(asset.liquidity.div(asset.tokenPrice)) ||
-            newBorrowPercent.isGreaterThan(100) ||
-            (!new BigNumber(asset.borrowCaps || 0).isZero() &&
-              amount.plus(asset.totalBorrows).isGreaterThan(asset.borrowCaps))
+            isLoading
+            || amount.isZero()
+            || amount.isNaN()
+            || amount.isGreaterThan(asset.liquidity.div(asset.tokenPrice))
+            || newBorrowPercent.isGreaterThan(100)
+            || (!new BigNumber(asset.borrowCaps || 0).isZero()
+              && amount.plus(asset.totalBorrows).isGreaterThan(asset.borrowCaps))
           }
           onClick={handleBorrow}
         >
-          {isLoading && <Icon type="loading" />} Borrow
+          {isLoading && <Icon type="loading" />}
+          {' '}
+          Borrow
         </Button>
         <div className="description">
           <span>Protocol Balance</span>
           <span>
-            {asset.borrowBalance &&
-              format(asset.borrowBalance.dp(2, 1).toString(10))}{' '}
+            {asset.borrowBalance
+              && format(asset.borrowBalance.dp(2, 1).toString(10))}
+            {' '}
             {asset.symbol}
           </span>
         </div>
@@ -312,24 +339,23 @@ BorrowTab.propTypes = {
   asset: PropTypes.object,
   changeTab: PropTypes.func,
   onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired
+  setSetting: PropTypes.func.isRequired,
 };
 
 BorrowTab.defaultProps = {
   asset: {},
   changeTab: () => {},
-  onCancel: () => {}
+  onCancel: () => {},
 };
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
     {
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 

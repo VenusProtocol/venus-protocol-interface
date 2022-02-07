@@ -7,7 +7,7 @@ const useWeb3 = () => {
   const { library } = useWeb3React();
   const refEth = useRef(library);
   const [web3, setWeb3] = useState(
-    library ? new Web3(library) : getWeb3NoAccount()
+    library ? new Web3(library) : getWeb3NoAccount(),
   );
 
   useEffect(() => {

@@ -16,17 +16,16 @@ class PrivateRoute extends React.PureComponent {
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 PrivateRoute.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 PrivateRoute.defaultProps = {
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
-
 const mapStateToProps = ({ auth }: $TSFixMe) => ({
-  user: auth.user
+  user: auth.user,
 });
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default connectAuth(mapStateToProps, {})(PrivateRoute);

@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
-import { Form, Input, Modal, Icon, Collapse } from 'antd';
+import {
+  Form, Input, Modal, Icon, Collapse,
+} from 'antd';
 import Button from '@material-ui/core/Button';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
@@ -159,8 +161,7 @@ function ProposalModal({
   onCancel,
   getProposals,
   ...props
-}: 
-$TSFixMe) {
+}: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -170,8 +171,8 @@ $TSFixMe) {
       targetAddress: '',
       value: '',
       signature: '',
-      callData: []
-    }
+      callData: [],
+    },
   ]);
   const [activePanelKey, setActivePanelKey] = useState(['0']);
   const governorBravoContract = useGovernorBravo();
@@ -187,29 +188,28 @@ $TSFixMe) {
           targetAddress: '',
           value: '',
           signature: '',
-          callData: []
-        }
+          callData: [],
+        },
       ]);
     }
   }, [visible, form]);
 
-  
   const handleSubmit = (e: $TSFixMe) => {
     e.preventDefault();
-    
+
     const targetAddresses: $TSFixMe = [];
-    
+
     const values: $TSFixMe = [];
-    
+
     const signatures: $TSFixMe = [];
-    
+
     const callDatas: $TSFixMe = [];
     if (description.trim().length === 0) {
       setErrorMsg('Description is required');
     } else {
       setErrorMsg('');
     }
-    
+
     form.validateFields(async (err: $TSFixMe, formValues: $TSFixMe) => {
       if (!err) {
         try {
@@ -223,11 +223,11 @@ $TSFixMe) {
             for (let j = 0; j < formData[i].callData.length; j += 1) {
               if (callDataTypes[j].toLowerCase() === 'bool') {
                 callDataValues.push(
-                  formValues[`calldata_${i}_${j}`].toLowerCase() === 'true'
+                  formValues[`calldata_${i}_${j}`].toLowerCase() === 'true',
                 );
               } else if (callDataTypes[j].includes('[]')) {
                 callDataValues.push(
-                  formValues[`calldata_${i}_${j}`].slice(1, -1).split(',')
+                  formValues[`calldata_${i}_${j}`].slice(1, -1).split(','),
                 );
               } else {
                 callDataValues.push(formValues[`calldata_${i}_${j}`]);
@@ -247,7 +247,7 @@ $TSFixMe) {
               values,
               signatures,
               callDatas,
-              description
+              description,
             )
             .send({ from: address });
           setErrorMsg('');
@@ -261,12 +261,10 @@ $TSFixMe) {
     });
   };
 
-  
   const handleEditorChange = ({ text }: $TSFixMe) => {
     setDescription(text);
   };
 
-  
   const handleAdd = (type: $TSFixMe, index: $TSFixMe) => {
     form.resetFields();
     if (type === 'next') {
@@ -274,29 +272,27 @@ $TSFixMe) {
         targetAddress: '',
         value: '',
         signature: '',
-        callData: []
+        callData: [],
       });
     } else {
       formData.splice(index, 0, {
         targetAddress: '',
         value: '',
         signature: '',
-        callData: []
+        callData: [],
       });
     }
     setFormData([...JSON.parse(JSON.stringify(formData))]);
     setActivePanelKey(type === 'next' ? index + 1 : index);
   };
 
-  
   const handleRemove = (idx: $TSFixMe) => {
     setFormData([
       ...formData.filter((_f, index) => index < idx),
-      ...formData.filter((_f, index) => index > idx)
+      ...formData.filter((_f, index) => index > idx),
     ]);
   };
 
-  
   const handleParseFunc = (funcStr: $TSFixMe, idx: $TSFixMe) => {
     if (
       (form.getFieldValue(`signature${idx}`) || '')
@@ -311,14 +307,13 @@ $TSFixMe) {
     }
   };
   const handleKeyUp = (
-    
     type: $TSFixMe,
-    
+
     idx: $TSFixMe,
-    
+
     subIdx: $TSFixMe,
-    
-    v: $TSFixMe
+
+    v: $TSFixMe,
   ) => {
     if (type === 'targetAddress') {
       formData[idx].targetAddress = v;
@@ -354,7 +349,11 @@ $TSFixMe) {
         </div>
         {maxOperation && (
           <p className="max-operations center">
-            You can add {maxOperation} actions as maximum
+            You can add
+            {' '}
+            {maxOperation}
+            {' '}
+            actions as maximum
           </p>
         )}
         <Form onSubmit={handleSubmit} className="proposal_form">
@@ -373,7 +372,10 @@ $TSFixMe) {
                       'Action 1'
                     ) : (
                       <div className="flex align-center just-between">
-                        <span>Action {index + 1}</span>
+                        <span>
+                          Action
+                          {index + 1}
+                        </span>
                         <Icon
                           type="close"
                           onClick={() => handleRemove(index)}
@@ -390,22 +392,21 @@ $TSFixMe) {
                           { required: true, message: 'Address is required!' },
                           {
                             whitespace: true,
-                            message: 'This field can not empty'
-                          }
+                            message: 'This field can not empty',
+                          },
                         ],
-                        initialValue: f.targetAddress
+                        initialValue: f.targetAddress,
                       })(
                         <Input
                           placeholder="Address"
-                          onKeyUp={() =>
-                            handleKeyUp(
-                              'targetAddress',
-                              index,
-                              null,
-                              form.getFieldValue(`targetAddress${index}`)
-                            )
+                          onKeyUp={() => handleKeyUp(
+                            'targetAddress',
+                            index,
+                            null,
+                            form.getFieldValue(`targetAddress${index}`),
+                          )
                           }
-                        />
+                        />,
                       )}
                     </Form.Item>
                     {/* <Form.Item>
@@ -426,20 +427,19 @@ $TSFixMe) {
                           { required: true, message: 'Signature is required!' },
                           {
                             whitespace: true,
-                            message: 'This field can not empty'
-                          }
+                            message: 'This field can not empty',
+                          },
                         ],
-                        initialValue: f.signature
+                        initialValue: f.signature,
                       })(
                         <Input
                           placeholder="assumeOwnership(address,string,uint256)"
-                          onKeyUp={() =>
-                            handleParseFunc(
-                              form.getFieldValue(`signature${index}`),
-                              index
-                            )
+                          onKeyUp={() => handleParseFunc(
+                            form.getFieldValue(`signature${index}`),
+                            index,
+                          )
                           }
-                        />
+                        />,
                       )}
                     </Form.Item>
                     {f.callData.map((c, cIdx) => (
@@ -448,26 +448,25 @@ $TSFixMe) {
                           rules: [
                             {
                               required: true,
-                              message: 'Calldata is required!'
+                              message: 'Calldata is required!',
                             },
                             {
                               whitespace: true,
-                              message: 'This field can not empty'
-                            }
+                              message: 'This field can not empty',
+                            },
                           ],
-                          initialValue: c
+                          initialValue: c,
                         })(
                           <Input
                             placeholder={`${c}(calldata)`}
-                            onKeyUp={() =>
-                              handleKeyUp(
-                                'calldata',
-                                index,
-                                cIdx,
-                                form.getFieldValue(`calldata_${index}_${cIdx}`)
-                              )
+                            onKeyUp={() => handleKeyUp(
+                              'calldata',
+                              index,
+                              cIdx,
+                              form.getFieldValue(`calldata_${index}_${cIdx}`),
+                            )
                             }
-                          />
+                          />,
                         )}
                       </Form.Item>
                     ))}
@@ -508,12 +507,14 @@ $TSFixMe) {
               type="submit"
               className="proposal-btn"
               disabled={
-                isLoading ||
-                formData.length > maxOperation ||
-                description.trim().length === 0
+                isLoading
+                || formData.length > maxOperation
+                || description.trim().length === 0
               }
             >
-              {isLoading && <Icon type="loading" />} Create
+              {isLoading && <Icon type="loading" />}
+              {' '}
+              Create
             </Button>
           </div>
         </Form>
@@ -528,7 +529,7 @@ ProposalModal.propTypes = {
   form: PropTypes.object,
   maxOperation: PropTypes.number,
   onCancel: PropTypes.func,
-  getProposals: PropTypes.func.isRequired
+  getProposals: PropTypes.func.isRequired,
 };
 
 ProposalModal.defaultProps = {
@@ -536,23 +537,22 @@ ProposalModal.defaultProps = {
   address: '',
   form: {},
   maxOperation: 0,
-  onCancel: () => {}
+  onCancel: () => {},
 };
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getProposals } = accountActionCreators;
 
   return bindActionCreators(
     {
-      getProposals
+      getProposals,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(undefined, mapDispatchToProps),
-  Form.create({ name: 'proposal_form' })
+  Form.create({ name: 'proposal_form' }),
 )(ProposalModal);

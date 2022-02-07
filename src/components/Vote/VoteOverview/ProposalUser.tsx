@@ -35,13 +35,11 @@ const ProposalUserWrapper = styled.div`
   }
 `;
 
-
 function ProposalUser({ proposalInfo }: $TSFixMe) {
-  
   const handleAddLink = (linkType: $TSFixMe, v: $TSFixMe) => {
     window.open(
       `${BASE_BSC_SCAN_URL}/${linkType === 'address' ? 'address' : 'tx'}/${v}`,
-      '_blank'
+      '_blank',
     );
   };
 
@@ -55,9 +53,9 @@ function ProposalUser({ proposalInfo }: $TSFixMe) {
           <p className="highlight">
             {proposalInfo.proposer
               ? `${proposalInfo.proposer.substr(
-                  0,
-                  5
-                )}...${proposalInfo.proposer.substr(-4, 4)}`
+                0,
+                5,
+              )}...${proposalInfo.proposer.substr(-4, 4)}`
               : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
@@ -70,9 +68,9 @@ function ProposalUser({ proposalInfo }: $TSFixMe) {
 }
 
 ProposalUser.propTypes = {
-  proposalInfo: PropTypes.object
+  proposalInfo: PropTypes.object,
 };
 ProposalUser.defaultProps = {
-  proposalInfo: {}
+  proposalInfo: {},
 };
 export default ProposalUser;

@@ -48,7 +48,6 @@ const MarketSummaryWrapper = styled.div`
 `;
 const format = commaNumber.bindWith(',', '.');
 
-
 function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
   return (
     <MarketSummaryWrapper>
@@ -59,8 +58,8 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
             .div(
               new BigNumber(10).pow(
                 // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                36 - constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
-              )
+                36 - constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals,
+              ),
             )
             .dp(8, 1)
             .toString(10)}`}
@@ -74,11 +73,11 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
               .div(
                 new BigNumber(10).pow(
                   // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                  constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
-                )
+                  constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals,
+                ),
               )
               .dp(8, 1)
-              .toString(10)
+              .toString(10),
           )} ${marketInfo.underlyingSymbol || ''}`}
         </p>
       </div>
@@ -95,7 +94,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
         <p className="value">
           $
           {format(
-            new BigNumber(marketInfo.totalBorrowsUsd).dp(2, 1).toString(10)
+            new BigNumber(marketInfo.totalBorrowsUsd).dp(2, 1).toString(10),
           )}
         </p>
       </div>
@@ -109,7 +108,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
               .div(new BigNumber(10).pow(18))
               .multipliedBy(marketInfo.tokenPrice)
               .dp(2, 1)
-              .toString(10)
+              .toString(10),
           )}
         </p>
       </div>
@@ -120,8 +119,8 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
             .div(
               new BigNumber(10).pow(
                 // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
-              )
+                constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals,
+              ),
             )
             .dp(8, 1)
             .toString(10)} ${marketInfo.underlyingSymbol || ''}`}
@@ -151,7 +150,7 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
         <p className="label">Total Supply</p>
         <p className="value">
           {`$${format(
-            new BigNumber(marketInfo.totalSupplyUsd || 0).dp(2, 1).toString(10)
+            new BigNumber(marketInfo.totalSupplyUsd || 0).dp(2, 1).toString(10),
           )}`}
         </p>
       </div>
@@ -159,12 +158,17 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
         <p className="label">Total Borrow</p>
         <p className="value">
           {`$${format(
-            new BigNumber(marketInfo.totalBorrowsUsd || 0).dp(2, 1).toString(10)
+            new BigNumber(marketInfo.totalBorrowsUsd || 0).dp(2, 1).toString(10),
           )}`}
         </p>
       </div>
       <div className="description">
-        <p className="label">v{marketInfo.underlyingSymbol} Minted</p>
+        <p className="label">
+          v
+          {marketInfo.underlyingSymbol}
+          {' '}
+          Minted
+        </p>
         <p className="value">{format(marketInfo.totalSupply2)}</p>
       </div>
       <div className="description">
@@ -175,14 +179,14 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
               .div(
                 new BigNumber(marketInfo.exchangeRate).div(
                   new BigNumber(10).pow(
-                    18 +
+                    18
                       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                      constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals -
-                      vtokenDecimals
-                  )
-                )
+                      + constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
+                      - vtokenDecimals,
+                  ),
+                ),
               )
-              .toString(10)
+              .toString(10),
           ).toFixed(6)} ${marketInfo.symbol || ''}`}
         </p>
       </div>
@@ -193,22 +197,21 @@ function MarketSummary({ marketInfo, currentAsset, settings }: $TSFixMe) {
 MarketSummary.propTypes = {
   marketInfo: PropTypes.object,
   settings: PropTypes.object,
-  currentAsset: PropTypes.string
+  currentAsset: PropTypes.string,
 };
 
 MarketSummary.defaultProps = {
   marketInfo: {},
   settings: {},
-  currentAsset: ''
+  currentAsset: '',
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, undefined)
+  connectAccount(mapStateToProps, undefined),
 )(MarketSummary);

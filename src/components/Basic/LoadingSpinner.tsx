@@ -13,7 +13,6 @@ const LoadingSpinnerWrapper = styled.div`
   }
 `;
 
-
 function LoadingSpinner({ size }: $TSFixMe) {
   const antIcon = <Icon type="loading" style={{ fontSize: size }} spin />;
   return (
@@ -24,11 +23,11 @@ function LoadingSpinner({ size }: $TSFixMe) {
 }
 
 LoadingSpinner.propTypes = {
-  size: PropTypes.number
+  size: PropTypes.number,
 };
 
 LoadingSpinner.defaultProps = {
-  size: 64
+  size: 64,
 };
 
 export default LoadingSpinner;

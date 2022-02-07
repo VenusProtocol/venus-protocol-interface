@@ -40,10 +40,12 @@ function Footer() {
   return (
     <FooterWrapper>
       <div className="flex align-center">
-        {/*// @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; target: string; rel: st... Remove this comment to see the full error message*/}
+        {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; target: string; rel: st... Remove this comment to see the full error message */}
         <div className="status-circle" target="_blank" rel="noreferrer" />
         <a href={BASE_BSC_SCAN_URL} target="_blank" rel="noreferrer">
-          Latest Block: {blockNumber}
+          Latest Block:
+          {' '}
+          {blockNumber}
         </a>
       </div>
       <a

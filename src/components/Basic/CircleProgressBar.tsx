@@ -47,7 +47,6 @@ const CircleProgressBarWrapper = styled.div`
   }
 `;
 
-
 function CircleProgressBar({ label, percent, width }: $TSFixMe) {
   return (
     <CircleProgressBarWrapper>
@@ -55,7 +54,7 @@ function CircleProgressBar({ label, percent, width }: $TSFixMe) {
         type="circle"
         strokeColor={{
           '0%': '#f2c265',
-          '100%': '#f7b44f'
+          '100%': '#f7b44f',
         }}
         strokeWidth={4}
         strokeLinecap="square"
@@ -65,7 +64,10 @@ function CircleProgressBar({ label, percent, width }: $TSFixMe) {
         showInfo={false}
       />
       <div className="circle-label">
-        <p className={percent < 0 ? 'percent-red' : 'percent'}>{percent}%</p>
+        <p className={percent < 0 ? 'percent-red' : 'percent'}>
+          {percent}
+          %
+        </p>
         <p className="label">{label}</p>
       </div>
     </CircleProgressBarWrapper>
@@ -75,13 +77,13 @@ function CircleProgressBar({ label, percent, width }: $TSFixMe) {
 CircleProgressBar.propTypes = {
   label: PropTypes.string,
   percent: PropTypes.number,
-  width: PropTypes.number
+  width: PropTypes.number,
 };
 
 CircleProgressBar.defaultProps = {
   label: 'Default Label',
   percent: 0.0,
-  width: 120
+  width: 120,
 };
 
 export default CircleProgressBar;

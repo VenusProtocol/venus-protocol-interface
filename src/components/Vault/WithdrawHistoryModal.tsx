@@ -62,12 +62,11 @@ function WithdrawHistoryModal({
   onCancel,
   pendingWithdrawals,
   withdrawableAmount,
-  stakedToken
-}:
-$TSFixMe) {
+  stakedToken,
+}: $TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
+    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
   );
   return (
     <Modal
@@ -89,11 +88,13 @@ $TSFixMe) {
         />
         <div className="title">Request Withdrawal List</div>
         <div className="subtitle">
-          Withdrawable amount:{' '}
+          Withdrawable amount:
+          {' '}
           {withdrawableAmount
             .div(stakedTokenDecimal)
             .dp(4, 1)
-            .toString(10)}{' '}
+            .toString(10)}
+          {' '}
           {stakedToken.toUpperCase()}
         </div>
         <div className="list">
@@ -103,24 +104,24 @@ $TSFixMe) {
           </div>
           <div className="list-items">
             {/**/}
-            {pendingWithdrawals.map((withdraw: $TSFixMe, i: $TSFixMe) => {
-              return (
-                <div key={i} className="table-line">
-                  <span className="left">
-                    {withdraw.amount
-                      .div(stakedTokenDecimal)
-                      .dp(4, 1)
-                      .toString(10)}{' '}
-                    {stakedToken.toUpperCase()}
-                  </span>
-                  <span className="right">
-                    {moment(
-                      new Date(withdraw.lockedUntil.toNumber(10) * 1000)
-                    ).format('DD/MM/YYYY HH:mm:ss')}{' '}
-                  </span>
-                </div>
-              );
-            })}
+            {pendingWithdrawals.map((withdraw: $TSFixMe, i: $TSFixMe) => (
+              <div key={i} className="table-line">
+                <span className="left">
+                  {withdraw.amount
+                    .div(stakedTokenDecimal)
+                    .dp(4, 1)
+                    .toString(10)}
+                  {' '}
+                  {stakedToken.toUpperCase()}
+                </span>
+                <span className="right">
+                  {moment(
+                    new Date(withdraw.lockedUntil.toNumber(10) * 1000),
+                  ).format('DD/MM/YYYY HH:mm:ss')}
+                  {' '}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </WithdrawHistoryModalWrapper>
@@ -133,7 +134,7 @@ WithdrawHistoryModal.propTypes = {
   onCancel: PropTypes.func.isRequired,
   pendingWithdrawals: PropTypes.array.isRequired,
   withdrawableAmount: PropTypes.instanceOf(BigNumber).isRequired,
-  stakedToken: PropTypes.string.isRequired
+  stakedToken: PropTypes.string.isRequired,
 };
 
 export default WithdrawHistoryModal;

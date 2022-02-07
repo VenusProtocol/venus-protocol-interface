@@ -97,9 +97,8 @@ function VotingWallet({
   earnedBalance,
   vaiMint,
   delegateAddress,
-  delegateStatus
-}: 
-$TSFixMe) {
+  delegateStatus,
+}: $TSFixMe) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
@@ -122,15 +121,13 @@ $TSFixMe) {
       .vTokenBalancesAll(
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'map' does not exist on type '{}'.
         userMarketInfo.map((asset: $TSFixMe) => asset.vtokenAddress),
-        account
+        account,
       )
       .call();
 
-    
-    const outstandingVTokens = vTokensBalanceInfos.filter((info: $TSFixMe) => {
+    const outstandingVTokens = vTokensBalanceInfos.filter((info: $TSFixMe) =>
       // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
-      return new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0);
-    });
+      new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0));
 
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
@@ -139,8 +136,8 @@ $TSFixMe) {
         await comptrollerContract.methods
           .claimVenus(
             account,
-            
-            outstandingVTokens.map((token: $TSFixMe) => token[0])
+
+            outstandingVTokens.map((token: $TSFixMe) => token[0]),
           )
           .send({ from: account });
       } catch (error) {
@@ -184,7 +181,9 @@ $TSFixMe) {
               {account && (
                 <div className="flex align-center">
                   <p className="pointer" onClick={handleCollect}>
-                    {isLoading && <Icon type="loading" />} Collect
+                    {isLoading && <Icon type="loading" />}
+                    {' '}
+                    Collect
                   </p>
                 </div>
               )}
@@ -205,12 +204,12 @@ $TSFixMe) {
                   {delegateStatus === 'self'
                     ? 'Self'
                     : `${delegateAddress.substr(
-                        0,
-                        4
-                      )}...${delegateAddress.substr(
-                        delegateAddress.length - 4,
-                        4
-                      )}`}
+                      0,
+                      4,
+                    )}...${delegateAddress.substr(
+                      delegateAddress.length - 4,
+                      4,
+                    )}`}
                 </a>
               </div>
               <div className="flex align-center">
@@ -234,7 +233,7 @@ VotingWallet.propTypes = {
   earnedBalance: PropTypes.string.isRequired,
   vaiMint: PropTypes.string.isRequired,
   delegateAddress: PropTypes.string.isRequired,
-  delegateStatus: PropTypes.string.isRequired
+  delegateStatus: PropTypes.string.isRequired,
 };
 
 export default VotingWallet;

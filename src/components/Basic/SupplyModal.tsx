@@ -200,7 +200,6 @@ export const TabContent = styled.div`
   }
 `;
 
-
 function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
   const [currentTab, setCurrentTab] = useState('supply');
 
@@ -255,13 +254,13 @@ function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
 SupplyModal.propTypes = {
   visible: PropTypes.bool,
   asset: PropTypes.object,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
 };
 
 SupplyModal.defaultProps = {
   visible: false,
   asset: {},
-  onCancel: () => {}
+  onCancel: () => {},
 };
 
 export default SupplyModal;

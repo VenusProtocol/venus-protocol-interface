@@ -18,7 +18,7 @@ ReactDOM.render(
       </Web3ReactManager>
     </Web3ReactProvider>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // serviceWorker.register();

@@ -30,16 +30,15 @@ function CardContent({
   rewardToken,
   userStakedAmount,
   pendingReward,
-  lockPeriodSecond
-
+  lockPeriodSecond,
 }: $TSFixMe) {
   const stakedTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals
+    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
   );
   const rewardTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals
+    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals,
   );
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
@@ -48,17 +47,17 @@ function CardContent({
   // user info
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));
   const [userStakedTokenBalance, setUserStakedTokenBalance] = useState(
-    new BigNumber(0)
+    new BigNumber(0),
   );
   const [userStakedTokenAllowance, setUserStakedTokenAllowance] = useState(
-    new BigNumber(0)
+    new BigNumber(0),
   );
   const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
   const [withdrawableAmount, setWithdrawableAmount] = useState(
-    new BigNumber(0)
+    new BigNumber(0),
   );
   const [userEligibleStakedAmount, setUserEligibleStakedAmount] = useState(
-    new BigNumber(0)
+    new BigNumber(0),
   );
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
 
@@ -78,7 +77,7 @@ function CardContent({
   const xvsVaultContract = useXvsVaultProxy();
   const stakedTokenContract = getTokenContractByAddress(
     web3,
-    stakedTokenAddress
+    stakedTokenAddress,
   );
 
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
@@ -93,7 +92,7 @@ function CardContent({
           .call(),
         xvsVaultContract.methods
           .getWithdrawalRequests(rewardTokenAddress, poolId.toNumber(), account)
-          .call()
+          .call(),
       ]);
     }
     // finish loading
@@ -108,7 +107,7 @@ function CardContent({
         amount: new BigNumber(withdrawal.amount),
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'lockedUntil' does not exist on type 'nev... Remove this comment to see the full error message
         lockedUntil: new BigNumber(withdrawal.lockedUntil),
-        eligible: false
+        eligible: false,
       }));
 
       // the amount of all the eligible withdrawals,
@@ -128,7 +127,7 @@ function CardContent({
             return target.plus(new BigNumber(widthdrawal.amount));
           }
           return target;
-        }, new BigNumber(0))
+        }, new BigNumber(0)),
       );
 
       // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ amount: BigNumber; lockedUntil... Remove this comment to see the full error message
@@ -136,15 +135,13 @@ function CardContent({
 
       // the amount of all the withdrawals user requested, eligible or not
       const pendWithdrawalTotalTemp = pendingWithdrawalsTemp.reduce(
-        (target, widthdrawal) => {
-          return target.plus(widthdrawal.amount);
-        },
-        new BigNumber(0)
+        (target, widthdrawal) => target.plus(widthdrawal.amount),
+        new BigNumber(0),
       );
 
       // pending withdrawals should not be accounted into staked amount
       setUserEligibleStakedAmount(
-        userStakedAmount.minus(pendWithdrawalTotalTemp)
+        userStakedAmount.minus(pendWithdrawalTotalTemp),
       );
     }
     return () => {
@@ -155,8 +152,9 @@ function CardContent({
   if (loading) {
     return (
       <CardContentWrapper>
-        {/*// @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; }' is not assignable to... Remove this comment to see the full error message*/}
-        <LoadingSpinner className="loading-spinner" />;
+        {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; }' is not assignable to... Remove this comment to see the full error message */}
+        <LoadingSpinner className="loading-spinner" />
+        ;
       </CardContentWrapper>
     );
   }
@@ -174,7 +172,8 @@ function CardContent({
                   {pendingReward
                     .div(rewardTokenDecimal)
                     .dp(6, 1)
-                    .toString(10)}{' '}
+                    .toString(10)}
+                  {' '}
                   {rewardToken.toUpperCase()}
                 </div>
               </div>
@@ -194,7 +193,9 @@ function CardContent({
                   setClaimLoading(false);
                 }}
               >
-                {claimLoading && <Icon type="loading" />} Claim
+                {claimLoading && <Icon type="loading" />}
+                {' '}
+                Claim
               </button>
             </div>
           </CardItemWrapper>
@@ -222,7 +223,12 @@ function CardContent({
             <div className="card-item stake">
               <div className="withdraw-request">
                 <div className="card-title">
-                  Available {stakedToken.toUpperCase()} to stake:{' '}
+                  Available
+                  {' '}
+                  {stakedToken.toUpperCase()}
+                  {' '}
+                  to stake:
+                  {' '}
                   {userStakedTokenBalance.div(stakedTokenDecimal).toFixed(4)}
                 </div>
                 <div className="input-wrapper">
@@ -231,7 +237,7 @@ function CardContent({
                     value={
                       stakeAmount.isZero() ? '0' : stakeAmount.toString(10)
                     }
-                    onValueChange={values => {
+                    onValueChange={(values) => {
                       const value = new BigNumber(values.value || 0);
                       const maxValue = userStakedTokenBalance
                         .div(stakedTokenDecimal)
@@ -246,7 +252,7 @@ function CardContent({
                     className="pointer max"
                     onClick={() => {
                       setStakeAmount(
-                        userStakedTokenBalance.div(stakedTokenDecimal)
+                        userStakedTokenBalance.div(stakedTokenDecimal),
                       );
                     }}
                   >
@@ -268,17 +274,17 @@ function CardContent({
                           new BigNumber(2)
                             .pow(256)
                             .minus(1)
-                            .toString(10)
+                            .toString(10),
                         )
                         .send({
-                          from: account
+                          from: account,
                         });
                     } else {
                       await xvsVaultContract.methods
                         .deposit(
                           rewardTokenAddress,
                           poolId.toNumber(),
-                          stakeAmount.multipliedBy(1e18).toString(10)
+                          stakeAmount.multipliedBy(1e18).toString(10),
                         )
                         .send({ from: account });
                     }
@@ -288,7 +294,8 @@ function CardContent({
                   setStakeLoading(false);
                 }}
               >
-                {stakeLoading && <Icon type="loading" />}{' '}
+                {stakeLoading && <Icon type="loading" />}
+                {' '}
                 {userStakedTokenAllowance.gt(0) ? 'Stake' : 'Enable'}
               </button>
             </div>
@@ -312,7 +319,7 @@ CardContent.propTypes = {
   rewardToken: PropTypes.string.isRequired,
   userStakedAmount: PropTypes.instanceOf(BigNumber).isRequired,
   pendingReward: PropTypes.instanceOf(BigNumber).isRequired,
-  lockPeriodSecond: PropTypes.instanceOf(BigNumber).isRequired
+  lockPeriodSecond: PropTypes.instanceOf(BigNumber).isRequired,
 };
 
 export default CardContent;

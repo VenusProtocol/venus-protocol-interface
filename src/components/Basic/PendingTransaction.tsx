@@ -42,7 +42,6 @@ const PendingTransactionWrapper = styled.div`
   }
 `;
 
-
 function PendingTransaction({ settings }: $TSFixMe) {
   const [curTime, setCurTime] = useState('');
   useEffect(() => {
@@ -75,15 +74,14 @@ function PendingTransaction({ settings }: $TSFixMe) {
 }
 
 PendingTransaction.propTypes = {
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, undefined))(
-  PendingTransaction
+  PendingTransaction,
 );

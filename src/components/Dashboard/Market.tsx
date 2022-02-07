@@ -58,7 +58,6 @@ const MintRepayVai = styled.div`
   }
 `;
 
-
 const Market = ({ settings, setSetting }: $TSFixMe) => {
   const [currentTab, setCurrentTab] = useState('supply');
   const [suppliedAssets, setSuppliedAssets] = useState([]);
@@ -68,13 +67,12 @@ const Market = ({ settings, setSetting }: $TSFixMe) => {
   const { userMarketInfo } = useMarketsUser();
 
   const updateMarketTable = () => {
-    
     const tempSuppliedData: $TSFixMe = [];
-    
+
     const tempNonSuppliableData: $TSFixMe = [];
-    
+
     const tempBorrowedData: $TSFixMe = [];
-    
+
     const tempNonBorrowedData: $TSFixMe = [];
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
     userMarketInfo.forEach((element: $TSFixMe) => {
@@ -175,31 +173,29 @@ const Market = ({ settings, setSetting }: $TSFixMe) => {
 
 Market.propTypes = {
   settings: PropTypes.object,
-  setSetting: PropTypes.func.isRequired
+  setSetting: PropTypes.func.isRequired,
 };
 
 Market.defaultProps = {
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
     {
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  Market
+  Market,
 );

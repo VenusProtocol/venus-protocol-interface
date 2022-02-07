@@ -1,15 +1,16 @@
 import React from 'react';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import {
+  BrowserRouter, Route, Redirect, Switch,
+} from 'react-router-dom';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import en from 'react-intl/locale-data/en';
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'lang/en' or its corresponding ... Remove this comment to see the full error message
-import enMessages from 'lang/en';
+import enMessages from 'lang/en.json';
 import { store } from 'core';
 import Dashboard from 'containers/Main/Dashboard';
 import Faucet from 'containers/Main/Faucet';
@@ -33,15 +34,14 @@ addLocaleData([...en]);
 const initialLang = 'en';
 
 const messages = {
-  en: enMessages
+  en: enMessages,
 };
 
 class App extends React.Component {
-  
   constructor(props: $TSFixMe) {
     super(props);
     this.state = {
-      lang: initialLang
+      lang: initialLang,
     };
   }
 

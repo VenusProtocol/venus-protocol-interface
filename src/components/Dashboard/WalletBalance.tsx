@@ -100,7 +100,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
   let isMounted = true;
 
   const addVAIApy = useCallback(
-    async apy => {
+    async (apy) => {
       if (!account) {
         return;
       }
@@ -120,11 +120,11 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
           apy
             .plus(settings.vaiAPY)
             .dp(2, 1)
-            .toNumber()
+            .toNumber(),
         );
       }
     },
-    [settings]
+    [settings],
   );
 
   const updateNetAPY = useCallback(async () => {
@@ -141,13 +141,13 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
         supplyApy,
         borrowApy,
         xvsSupplyApy,
-        xvsBorrowApy
+        xvsBorrowApy,
       } = asset;
       const supplyBalanceUSD = getBigNumber(supplyBalance).times(
-        getBigNumber(tokenPrice)
+        getBigNumber(tokenPrice),
       );
       const borrowBalanceUSD = getBigNumber(borrowBalance).times(
-        getBigNumber(tokenPrice)
+        getBigNumber(tokenPrice),
       );
       totalSupplied = totalSupplied.plus(supplyBalanceUSD);
       totalBorrowed = totalBorrowed.plus(borrowBalanceUSD);
@@ -164,7 +164,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
       totalSum = totalSum.plus(
         supplyBalanceUSD
           .times(supplyApyWithXVS.div(100))
-          .plus(borrowBalanceUSD.times(borrowApyWithXVS.div(100)))
+          .plus(borrowBalanceUSD.times(borrowApyWithXVS.div(100))),
       );
     });
 
@@ -198,7 +198,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
   useEffect(() => {
     if (isMounted) {
       setSetting({
-        withXVS
+        withXVS,
       });
     }
     return () => {
@@ -206,14 +206,11 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
     };
   }, [withXVS]);
 
-  
-  const formatValue = (value: $TSFixMe) => {
-    return `$${format(
-      getBigNumber(value)
-        .dp(2, 1)
-        .toString(10)
-    )}`;
-  };
+  const formatValue = (value: $TSFixMe) => `$${format(
+    getBigNumber(value)
+      .dp(2, 1)
+      .toString(10),
+  )}`;
 
   return (
     <Card>
@@ -272,31 +269,29 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
 
 WalletBalance.propTypes = {
   settings: PropTypes.object,
-  setSetting: PropTypes.func.isRequired
+  setSetting: PropTypes.func.isRequired,
 };
 
 WalletBalance.defaultProps = {
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { setSetting } = accountActionCreators;
 
   return bindActionCreators(
     {
-      setSetting
+      setSetting,
     },
-    dispatch
+    dispatch,
   );
 };
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
 export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  WalletBalance
+  WalletBalance,
 );

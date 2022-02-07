@@ -110,9 +110,8 @@ function VotingPower({
   power,
   balance,
   delegateStatus,
-  stakedAmount
-}: 
-$TSFixMe) {
+  stakedAmount,
+}: $TSFixMe) {
   const { account } = useWeb3React();
 
   const [isOpenDelegationModal, setIsOpenDelegationModal] = useState(false);
@@ -163,7 +162,8 @@ $TSFixMe) {
                             }}
                           >
                             Lock your tokens
-                          </i>{' '}
+                          </i>
+                          {' '}
                           to the XVS Vault
                         </span>
                       </div>
@@ -211,11 +211,11 @@ VotingPower.propTypes = {
   history: PropTypes.object.isRequired,
   balance: PropTypes.string.isRequired,
   delegateStatus: PropTypes.string.isRequired,
-  stakedAmount: PropTypes.string.isRequired
+  stakedAmount: PropTypes.string.isRequired,
 };
 
 VotingPower.defaultProps = {
-  power: '0.00000000'
+  power: '0.00000000',
 };
 
 export default VotingPower;

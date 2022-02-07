@@ -165,7 +165,6 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
   const [totalSupply, setTotalSupply] = useState('0');
   const [totalBorrow, setTotalBorrow] = useState('0');
@@ -176,14 +175,11 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
 
   const loadTreasuryBalance = useCallback(async () => {
     await promisify(getTreasuryBalance, {})
-      .then(res => {
+      .then((res) => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         const total = (res.data || []).reduce(
-          
-          (accumulator: $TSFixMe, asset: $TSFixMe) => {
-            return accumulator + Number(asset.balance) * Number(asset.price);
-          },
-          0
+          (accumulator: $TSFixMe, asset: $TSFixMe) => accumulator + Number(asset.balance) * Number(asset.price),
+          0,
         );
         setTotalTreasury(total.toFixed(2));
       })
@@ -195,35 +191,31 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
   }, [markets]);
 
   const getTotalInfo = async () => {
-    const tempTS = (markets || []).reduce((accumulator, market) => {
-      return new BigNumber(accumulator).plus(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-        new BigNumber(market.totalSupplyUsd)
-      );
-    }, new BigNumber(0));
-    const tempTB = (markets || []).reduce((accumulator, market) => {
-      return new BigNumber(accumulator).plus(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
-        new BigNumber(market.totalBorrowsUsd)
-      );
-    }, new BigNumber(0));
-    const tempAL = (markets || []).reduce((accumulator, market) => {
+    const tempTS = (markets || []).reduce((accumulator, market) => new BigNumber(accumulator).plus(
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
+      new BigNumber(market.totalSupplyUsd),
+    ), new BigNumber(0));
+    const tempTB = (markets || []).reduce((accumulator, market) => new BigNumber(accumulator).plus(
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
+      new BigNumber(market.totalBorrowsUsd),
+    ), new BigNumber(0));
+    const tempAL = (markets || []).reduce((accumulator, market) =>
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'liquidity' does not exist on type 'never... Remove this comment to see the full error message
-      return new BigNumber(accumulator).plus(new BigNumber(market.liquidity));
-    }, new BigNumber(0));
+      new BigNumber(accumulator).plus(new BigNumber(market.liquidity)),
+    new BigNumber(0));
 
     setTotalSupply(
       tempTS
         .plus(settings.vaultVaiStaked)
         .dp(2, 1)
-        .toString(10)
+        .toString(10),
     );
     setTotalBorrow(tempTB.dp(2, 1).toString(10));
     setAvailableLiquidity(
       tempAL
         .plus(settings.vaultVaiStaked)
         .dp(2, 1)
-        .toString(10)
+        .toString(10),
     );
   };
 
@@ -233,12 +225,11 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
     }
   }, [markets]);
 
-  
   const handleSort = (field: $TSFixMe) => {
     setSortInfo({
       field,
       sort:
-        sortInfo.field === field && sortInfo.sort === 'desc' ? 'asc' : 'desc'
+        sortInfo.field === field && sortInfo.sort === 'desc' ? 'asc' : 'desc',
     });
   };
 
@@ -249,23 +240,39 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
           <div className="total-info">
             <div className="total-item">
               <div className="prop">Total Supply</div>
-              <div className="value">${format(totalSupply)}</div>
+              <div className="value">
+                $
+                {format(totalSupply)}
+              </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Borrow</div>
-              <div className="value">${format(totalBorrow)}</div>
+              <div className="value">
+                $
+                {format(totalBorrow)}
+              </div>
             </div>
             <div className="total-item">
               <div className="prop">Available Liquidity</div>
-              <div className="value">${format(availableLiquidity)}</div>
+              <div className="value">
+                $
+                {format(availableLiquidity)}
+              </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
-              <div className="value">${format(totalTreasury)}</div>
+              <div className="value">
+                $
+                {format(totalTreasury)}
+              </div>
             </div>
           </div>
           {settings.vaiAPY && (
-            <div className="vai-apy">VAI Staking APY: {settings.vaiAPY}%</div>
+            <div className="vai-apy">
+              VAI Staking APY:
+              {settings.vaiAPY}
+              %
+            </div>
           )}
           <Row className="table_header">
             <Col xs={{ span: 24 }} lg={{ span: 2 }} className="market" />
@@ -275,7 +282,8 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
               className="total-supply right"
             >
               <span onClick={() => handleSort('total_supply')}>
-                Total Supply{' '}
+                Total Supply
+                {' '}
                 {sortInfo.field === 'total_supply' && (
                   <Icon
                     type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'}
@@ -285,7 +293,8 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 3 }} className="supply-apy right">
               <span onClick={() => handleSort('supply_apy')}>
-                Supply APY{' '}
+                Supply APY
+                {' '}
                 {sortInfo.field === 'supply_apy' && (
                   <Icon
                     type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'}
@@ -299,7 +308,8 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
               className="total-borrow right"
             >
               <span onClick={() => handleSort('total_borrow')}>
-                Total Borrow{' '}
+                Total Borrow
+                {' '}
                 {sortInfo.field === 'total_borrow' && (
                   <Icon
                     type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'}
@@ -309,7 +319,8 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 3 }} className="borrow-apy right">
               <span onClick={() => handleSort('borrow_apy')}>
-                Borrow APY{' '}
+                Borrow APY
+                {' '}
                 {sortInfo.field === 'borrow_apy' && (
                   <Icon
                     type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'}
@@ -319,7 +330,8 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 4 }} className="liquidity right">
               <span onClick={() => handleSort('liquidity')}>
-                Liquidity{' '}
+                Liquidity
+                {' '}
                 {sortInfo.field === 'liquidity' && (
                   <Icon
                     type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'}
@@ -329,7 +341,8 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 4 }} className="price right">
               <span onClick={() => handleSort('price')}>
-                Price{' '}
+                Price
+                {' '}
                 {sortInfo.field === 'price' && (
                   <Icon
                     type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'}
@@ -339,24 +352,22 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
           </Row>
           <div className="table_content">
-            {markets &&
-              (markets || [])
-                .map(market => {
-                  return {
-                    // @ts-expect-error ts-migrate(2698) FIXME: Spread types may only be created from object types... Remove this comment to see the full error message
-                    ...market,
+            {markets
+              && (markets || [])
+                .map(market => ({
+                  // @ts-expect-error ts-migrate(2698) FIXME: Spread types may only be created from object types... Remove this comment to see the full error message
+                  ...market,
+                  // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
+                  totalSupplyApy: new BigNumber(market.supplyApy).plus(
                     // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
-                    totalSupplyApy: new BigNumber(market.supplyApy).plus(
-                      // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
-                      new BigNumber(market.supplyVenusApy)
-                    ),
+                    new BigNumber(market.supplyVenusApy),
+                  ),
+                  // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
+                  totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
                     // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
-                    totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
-                      // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
-                      new BigNumber(market.borrowApy)
-                    )
-                  };
-                })
+                    new BigNumber(market.borrowApy),
+                  ),
+                }))
                 .sort((a, b) => {
                   if (!sortInfo.field) {
                     return +new BigNumber(b.totalBorrowsUsd)
@@ -366,11 +377,11 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                   if (sortInfo.field === 'total_supply') {
                     return sortInfo.sort === 'desc'
                       ? +new BigNumber(b.totalSupplyUsd)
-                          .minus(new BigNumber(a.totalSupplyUsd))
-                          .toString(10)
+                        .minus(new BigNumber(a.totalSupplyUsd))
+                        .toString(10)
                       : +new BigNumber(a.totalSupplyUsd)
-                          .minus(new BigNumber(b.totalSupplyUsd))
-                          .toString(10);
+                        .minus(new BigNumber(b.totalSupplyUsd))
+                        .toString(10);
                   }
                   if (sortInfo.field === 'supply_apy') {
                     return sortInfo.sort === 'desc'
@@ -380,11 +391,11 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                   if (sortInfo.field === 'total_borrow') {
                     return sortInfo.sort === 'desc'
                       ? +new BigNumber(b.totalBorrowsUsd)
-                          .minus(new BigNumber(a.totalBorrowsUsd))
-                          .toString(10)
+                        .minus(new BigNumber(a.totalBorrowsUsd))
+                        .toString(10)
                       : +new BigNumber(a.totalBorrowsUsd)
-                          .minus(new BigNumber(b.totalBorrowsUsd))
-                          .toString(10);
+                        .minus(new BigNumber(b.totalBorrowsUsd))
+                        .toString(10);
                   }
                   if (sortInfo.field === 'borrow_apy') {
                     return sortInfo.sort === 'desc'
@@ -394,20 +405,20 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                   if (sortInfo.field === 'liquidity') {
                     return sortInfo.sort === 'desc'
                       ? +new BigNumber(b.liquidity)
-                          .minus(new BigNumber(a.liquidity))
-                          .toString(10)
+                        .minus(new BigNumber(a.liquidity))
+                        .toString(10)
                       : +new BigNumber(a.liquidity)
-                          .minus(new BigNumber(b.liquidity))
-                          .toString(10);
+                        .minus(new BigNumber(b.liquidity))
+                        .toString(10);
                   }
                   if (sortInfo.field === 'price') {
                     return sortInfo.sort === 'desc'
                       ? +new BigNumber(b.tokenPrice)
-                          .minus(new BigNumber(a.tokenPrice))
-                          .toString(10)
+                        .minus(new BigNumber(a.tokenPrice))
+                        .toString(10)
                       : +new BigNumber(a.tokenPrice)
-                          .minus(new BigNumber(b.tokenPrice))
-                          .toString(10);
+                        .minus(new BigNumber(b.tokenPrice))
+                        .toString(10);
                   }
                   return 0;
                 })
@@ -415,8 +426,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                   <Row
                     className="table_item pointer"
                     key={index}
-                    onClick={() =>
-                      history.push(`/market/${item.underlyingSymbol}`)
+                    onClick={() => history.push(`/market/${item.underlyingSymbol}`)
                     }
                   >
                     <Col
@@ -432,9 +442,9 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                             item.underlyingSymbol.toLowerCase()
                           ]
                             ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                              constants.CONTRACT_TOKEN_ADDRESS[
-                                item.underlyingSymbol.toLowerCase()
-                              ].asset
+                            constants.CONTRACT_TOKEN_ADDRESS[
+                              item.underlyingSymbol.toLowerCase()
+                            ].asset
                             : null
                         }
                         alt="asset"
@@ -455,8 +465,9 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                           new BigNumber(item.totalSupplyUsd)
                             .div(new BigNumber(item.tokenPrice))
                             .dp(0, 1)
-                            .toString(10)
-                        )}{' '}
+                            .toString(10),
+                        )}
+                        {' '}
                         {item.underlyingSymbol}
                       </p>
                     </Col>
@@ -487,8 +498,9 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                           new BigNumber(item.totalBorrowsUsd)
                             .div(new BigNumber(item.tokenPrice))
                             .dp(0, 1)
-                            .toString(10)
-                        )}{' '}
+                            .toString(10),
+                        )}
+                        {' '}
                         {item.underlyingSymbol}
                       </p>
                     </Col>
@@ -541,33 +553,31 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
 
 Market.propTypes = {
   history: PropTypes.object,
-  settings: PropTypes.object
+  settings: PropTypes.object,
 };
 
 Market.defaultProps = {
   history: {},
-  settings: {}
+  settings: {},
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
-
 
 const mapDispatchToProps = (dispatch: $TSFixMe) => {
   const { getTreasuryBalance } = accountActionCreators;
 
   return bindActionCreators(
     {
-      getTreasuryBalance
+      getTreasuryBalance,
     },
-    dispatch
+    dispatch,
   );
 };
 
 export default compose(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps)
+  connectAccount(mapStateToProps, mapDispatchToProps),
 )(Market);

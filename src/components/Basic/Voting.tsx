@@ -110,30 +110,28 @@ const VotingWrapper = styled.div`
   }
 `;
 
-
 function Voting({ proposal, support, history }: $TSFixMe) {
   const [forPercent, setForPercent] = useState(0);
   const [againstPercent, setAgainstPercent] = useState(0);
 
   useEffect(() => {
     const total = new BigNumber(proposal.forVotes).plus(
-      new BigNumber(proposal.againstVotes)
+      new BigNumber(proposal.againstVotes),
     );
     setForPercent(
       // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
       new BigNumber(proposal.forVotes * 100).div(total).isNaN()
         ? '0'
-        : new BigNumber(proposal.forVotes * 100).div(total).toString()
+        : new BigNumber(proposal.forVotes * 100).div(total).toString(),
     );
     setAgainstPercent(
       // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
       new BigNumber(proposal.againstVotes * 100).div(total).isNaN()
         ? '0'
-        : new BigNumber(proposal.againstVotes * 100).div(total).toString()
+        : new BigNumber(proposal.againstVotes * 100).div(total).toString(),
     );
   }, [proposal]);
 
-  
   const getStatus = (p: $TSFixMe) => {
     if (p.state === 'Executed') {
       return 'Passed';
@@ -179,13 +177,13 @@ function Voting({ proposal, support, history }: $TSFixMe) {
                 <div
                   className="status-bar agree"
                   style={{
-                    width: `${forPercent}%`
+                    width: `${forPercent}%`,
                   }}
                 />
                 <div
                   className="status-bar against"
                   style={{
-                    width: `${againstPercent}%`
+                    width: `${againstPercent}%`,
                   }}
                 />
               </div>
@@ -210,13 +208,13 @@ function Voting({ proposal, support, history }: $TSFixMe) {
 Voting.propTypes = {
   proposal: PropTypes.object,
   support: PropTypes.bool,
-  history: PropTypes.object
+  history: PropTypes.object,
 };
 
 Voting.defaultProps = {
   proposal: {},
   support: false,
-  history: {}
+  history: {},
 };
 
 export default compose(withRouter)(Voting);

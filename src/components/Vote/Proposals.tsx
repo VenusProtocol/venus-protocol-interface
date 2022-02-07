@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { Pagination, Icon, Tooltip, Button } from 'antd';
+import {
+  Pagination, Icon, Tooltip, Button,
+} from 'antd';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
 import toast from 'components/Basic/Toast';
@@ -130,9 +132,8 @@ function Proposals({
   pageNumber,
   proposals,
   total,
-  onChangePage
-}: 
-$TSFixMe) {
+  onChangePage,
+}: $TSFixMe) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
 
@@ -151,7 +152,7 @@ $TSFixMe) {
   const getVoteProposalInfo = async () => {
     const [threshold, maxOpeartion] = await Promise.all([
       governorBravoContract.methods.proposalThreshold().call(),
-      governorBravoContract.methods.proposalMaxOperations().call()
+      governorBravoContract.methods.proposalMaxOperations().call(),
     ]);
     setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
     setMaxOperation(Number(maxOpeartion));
@@ -161,7 +162,7 @@ $TSFixMe) {
     let isMounted = true;
     if (isMounted) {
       setNotProposable(
-        new BigNumber(votingWeight).lt(new BigNumber(proposalThreshold))
+        new BigNumber(votingWeight).lt(new BigNumber(proposalThreshold)),
       );
     }
     return () => {
@@ -182,15 +183,14 @@ $TSFixMe) {
 
   useEffect(() => {
     if (
-      account &&
-      (delegateAddress === '' ||
-        delegateAddress === '0x0000000000000000000000000000000000000000')
+      account
+      && (delegateAddress === ''
+        || delegateAddress === '0x0000000000000000000000000000000000000000')
     ) {
       getDelegatedAddress();
     }
   }, [account, address, delegateAddress]);
 
-  
   const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
     setCurrent(page);
     setPageSize(size);
@@ -215,7 +215,7 @@ $TSFixMe) {
       if (status === '0' || status === '1') {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
-          title: `You can't create proposal. there is proposal in progress!`
+          title: 'You can\'t create proposal. there is proposal in progress!',
         });
       } else {
         setProposalModal(true);
@@ -235,7 +235,7 @@ $TSFixMe) {
             <Tooltip
               overlayStyle={{
                 backgroundColor: '#090D27',
-                borderRadius: '12px'
+                borderRadius: '12px',
               }}
               placement="top"
               title="You must have the voting power of at least 300K XVS to propose"
@@ -248,7 +248,9 @@ $TSFixMe) {
                 onClick={handleShowProposalModal}
                 disabled={notProposable}
               >
-                {isLoading && <Icon type="loading" />} Create Proposal
+                {isLoading && <Icon type="loading" />}
+                {' '}
+                Create Proposal
               </Button>
             </Tooltip>
           )}
@@ -256,18 +258,15 @@ $TSFixMe) {
         <div className="body">
           {isLoadingProposal && <LoadingSpinner />}
           {!isLoadingProposal && proposals && proposals.length !== 0 ? (
-            
-            proposals.map((item: $TSFixMe) => {
-              return (
-                <Proposal
-                  proposal={item}
-                  votingWeight={votingWeight}
-                  delegateAddress={delegateAddress}
-                  address={address}
-                  key={item.id}
-                />
-              );
-            })
+            proposals.map((item: $TSFixMe) => (
+              <Proposal
+                proposal={item}
+                votingWeight={votingWeight}
+                delegateAddress={delegateAddress}
+                address={address}
+                key={item.id}
+              />
+            ))
           ) : (
             <NoProposalWrapper className="flex just-center align-center">
               <div className="title">No Proposals</div>
@@ -319,13 +318,13 @@ Proposals.propTypes = {
   proposals: PropTypes.array,
   pageNumber: PropTypes.number,
   total: PropTypes.number,
-  onChangePage: PropTypes.func.isRequired
+  onChangePage: PropTypes.func.isRequired,
 };
 
 Proposals.defaultProps = {
   proposals: [],
   pageNumber: 1,
-  total: 0
+  total: 0,
 };
 
 export default Proposals;

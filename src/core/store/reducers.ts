@@ -4,9 +4,8 @@ import { account } from 'core/modules';
 import { resetReducer } from 'core/modules/reset';
 
 const appReducer = combineReducers({
-  account
+  account,
 });
-
 
 export default function rootReducer(state: $TSFixMe, action: $TSFixMe) {
   let finalState = appReducer(state, action);

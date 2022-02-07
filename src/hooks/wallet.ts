@@ -8,7 +8,7 @@ export function useEagerConnect() {
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
-    injected.isAuthorized().then(isAuthorized => {
+    injected.isAuthorized().then((isAuthorized) => {
       if (isAuthorized) {
         activate(injected, undefined, true).catch(() => {
           setTried(true);
@@ -40,16 +40,15 @@ export function useInactiveListener(suppress = false) {
     if (ethereum && ethereum.on && !active && !error && !suppress) {
       const handleChainChanged = () => {
         // eat errors
-        activate(injected, undefined, true).catch(error => {
+        activate(injected, undefined, true).catch((error) => {
           console.error('Failed to activate after chain changed', error);
         });
       };
 
-      
       const handleAccountsChanged = (accounts: $TSFixMe) => {
         if (accounts.length > 0) {
           // eat errors
-          activate(injected, undefined, true).catch(error => {
+          activate(injected, undefined, true).catch((error) => {
             console.error('Failed to activate after accounts changed', error);
           });
         }

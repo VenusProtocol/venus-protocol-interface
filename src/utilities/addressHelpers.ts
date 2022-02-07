@@ -2,52 +2,33 @@ import addresses from '../config/contracts';
 
 const chainId = process.env.REACT_APP_CHAIN_ID;
 
-export const getVaiTokenAddress = () => {
+export const getVaiTokenAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.vaiToken[chainId];
-};
-
-export const getVaiVaultAddress = () => {
+  addresses.vaiToken[chainId];
+export const getVaiVaultAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.vaiVault[chainId];
-};
-
-export const getVaiUnitrollerAddress = () => {
+  addresses.vaiVault[chainId];
+export const getVaiUnitrollerAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.vaiUnitroller[chainId];
-};
-
-export const getComptrollerAddress = () => {
+  addresses.vaiUnitroller[chainId];
+export const getComptrollerAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.comptroller[chainId];
-};
-
-export const getOracleAddress = () => {
+  addresses.comptroller[chainId];
+export const getOracleAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.oracle[chainId];
-};
-
-export const getVenusLensAddress = () => {
+  addresses.oracle[chainId];
+export const getVenusLensAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.venusLens[chainId];
-};
-
-export const getXvsVaultAddress = () => {
+  addresses.venusLens[chainId];
+export const getXvsVaultAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.xvsVault[chainId];
-};
-
-export const getXvsVaultProxyAddress = () => {
+  addresses.xvsVault[chainId];
+export const getXvsVaultProxyAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.xvsVaultProxy[chainId];
-};
-
-export const getXvsVaultStoreAddress = () => {
+  addresses.xvsVaultProxy[chainId];
+export const getXvsVaultStoreAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.xvsVaultStore[chainId];
-};
-
-export const getGovernorBravoAddress = () => {
+  addresses.xvsVaultStore[chainId];
+export const getGovernorBravoAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  return addresses.governorBravoDelegator[chainId];
-};
+  addresses.governorBravoDelegator[chainId];

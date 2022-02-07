@@ -49,7 +49,6 @@ const MarketInfoContent = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
   if (!marketInfo.underlyingSymbol) return null;
   return (
@@ -62,9 +61,9 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
             marketInfo.underlyingSymbol.toLowerCase()
           ]
             ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-              constants.CONTRACT_TOKEN_ADDRESS[
-                marketInfo.underlyingSymbol.toLowerCase()
-              ].asset
+            constants.CONTRACT_TOKEN_ADDRESS[
+              marketInfo.underlyingSymbol.toLowerCase()
+            ].asset
             : null
         }
         alt="asset"
@@ -77,29 +76,29 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
             <p className="value">
               {marketType === 'supply'
                 ? formatApy(
+                  new BigNumber(
+                    +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
+                  ).plus(
                     new BigNumber(
-                      +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy
-                    ).plus(
-                      new BigNumber(
-                        +marketInfo.supplyVenusApy < 0.01
-                          ? 0.01
-                          : marketInfo.supplyVenusApy
-                      )
-                    )
-                  )
-                : formatApy(
-                    new BigNumber(
-                      Math.abs(+marketInfo.borrowApy) < 0.01
+                      +marketInfo.supplyVenusApy < 0.01
                         ? 0.01
-                        : marketInfo.borrowApy
-                    ).plus(
-                      new BigNumber(
-                        marketInfo.borrowVenusApy < 0.01
-                          ? 0.01
-                          : marketInfo.borrowVenusApy
-                      )
-                    )
-                  )}
+                        : marketInfo.supplyVenusApy,
+                    ),
+                  ),
+                )
+                : formatApy(
+                  new BigNumber(
+                    Math.abs(+marketInfo.borrowApy) < 0.01
+                      ? 0.01
+                      : marketInfo.borrowApy,
+                  ).plus(
+                    new BigNumber(
+                      marketInfo.borrowVenusApy < 0.01
+                        ? 0.01
+                        : marketInfo.borrowVenusApy,
+                    ),
+                  ),
+                )}
             </p>
           </div>
           <div className="supply-apy">
@@ -109,17 +108,17 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
             <p className="value right">
               {marketType === 'supply'
                 ? new BigNumber(
-                    +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy
-                  )
-                    .dp(2, 1)
-                    .toString(10)
+                  +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
+                )
+                  .dp(2, 1)
+                  .toString(10)
                 : new BigNumber(
-                    Math.abs(+marketInfo.borrowApy) < 0.01
-                      ? 0.01
-                      : marketInfo.borrowApy
-                  )
-                    .dp(2, 1)
-                    .toString(10)}
+                  Math.abs(+marketInfo.borrowApy) < 0.01
+                    ? 0.01
+                    : marketInfo.borrowApy,
+                )
+                  .dp(2, 1)
+                  .toString(10)}
               %
             </p>
           </div>
@@ -130,15 +129,15 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
             <p className="value">
               {marketType === 'supply'
                 ? formatApy(
-                    +marketInfo.supplyVenusApy < 0.01
-                      ? 0.01
-                      : marketInfo.supplyVenusApy
-                  )
+                  +marketInfo.supplyVenusApy < 0.01
+                    ? 0.01
+                    : marketInfo.supplyVenusApy,
+                )
                 : formatApy(
-                    marketInfo.borrowVenusApy < 0.01
-                      ? 0.01
-                      : marketInfo.borrowVenusApy
-                  )}
+                  marketInfo.borrowVenusApy < 0.01
+                    ? 0.01
+                    : marketInfo.borrowVenusApy,
+                )}
             </p>
           </div>
           <div className="total-supply">
@@ -151,10 +150,10 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
                 new BigNumber(
                   marketType === 'supply'
                     ? marketInfo.totalSupplyUsd
-                    : marketInfo.totalBorrowsUsd
+                    : marketInfo.totalBorrowsUsd,
                 )
                   .dp(2, 1)
-                  .toString(10)
+                  .toString(10),
               )}
             </p>
           </div>
@@ -166,11 +165,11 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
 
 MarketInfo.propTypes = {
   marketInfo: PropTypes.object,
-  marketType: PropTypes.string
+  marketType: PropTypes.string,
 };
 
 MarketInfo.defaultProps = {
   marketInfo: {},
-  marketType: 'supply'
+  marketType: 'supply',
 };
 export default compose(withRouter)(MarketInfo);

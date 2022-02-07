@@ -43,9 +43,8 @@ const antIcon = <Icon type="loading" style={{ fontSize: 64 }} spin />;
 function CollateralConfirmModal({
   visible,
   isCollateralEnalbe,
-  onCancel
-}: 
-$TSFixMe) {
+  onCancel,
+}: $TSFixMe) {
   return (
     <Modal
       className="collateral-confirm-modal"
@@ -78,13 +77,13 @@ $TSFixMe) {
 CollateralConfirmModal.propTypes = {
   visible: PropTypes.bool,
   isCollateralEnalbe: PropTypes.bool,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
 };
 
 CollateralConfirmModal.defaultProps = {
   visible: false,
   isCollateralEnalbe: true,
-  onCancel: () => {}
+  onCancel: () => {},
 };
 
 export default CollateralConfirmModal;

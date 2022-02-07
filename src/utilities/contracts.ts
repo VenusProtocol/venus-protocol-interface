@@ -17,7 +17,7 @@ export default {
       aave: '0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144',
       tusd: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
       trx: '0x19E7215abF8B2716EE807c9f4b83Af0e7f92653F',
-      vai: '0x5fFbE5302BadED40941A403228E6AD03f93752d9'
+      vai: '0x5fFbE5302BadED40941A403228E6AD03f93752d9',
     },
     VBEP: {
       sxp: '0x74469281310195A04840Daf6EdF576F559a3dE80',
@@ -36,8 +36,8 @@ export default {
       cake: '0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6',
       aave: '0x714db6c38A17883964B68a07d56cE331501d9eb6',
       tusd: '0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0',
-      trx: '0x369Fea97f6fB7510755DCA389088d9E2e2819278'
-    }
+      trx: '0x369Fea97f6fB7510755DCA389088d9E2e2819278',
+    },
   },
   MAIN: {
     TOKEN: {
@@ -63,7 +63,7 @@ export default {
       aave: '0xfb6115445Bff7b52FeB98650C87f44907E58f802',
       tusd: '0x14016e85a25aeb13065688cafb43044c2ef86784',
       trx: '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B',
-      vai: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7'
+      vai: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
     },
     VBEP: {
       sxp: '0x2fF3d0F6990a40261c66E1ff2017aCBc282EB6d0',
@@ -88,7 +88,7 @@ export default {
       cake: '0x86aC3974e2BD0d60825230fa6F355fF11409df5c',
       aave: '0x26DA28954763B92139ED49283625ceCAf52C6f94',
       tusd: '0x08ceb3f4a7ed3500ca0982bcd0fc7816688084c3',
-      trx: '0x61eDcFe8Dd6bA3c891CB9bEc2dc7657B3B422E93'
-    }
-  }
+      trx: '0x61eDcFe8Dd6bA3c891CB9bEc2dc7657B3B422E93',
+    },
+  },
 };

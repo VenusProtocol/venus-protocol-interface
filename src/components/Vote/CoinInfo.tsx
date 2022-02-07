@@ -50,7 +50,6 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-
 function CoinInfo({ address, balance }: $TSFixMe) {
   const handleLink = () => {
     window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
@@ -71,7 +70,7 @@ function CoinInfo({ address, balance }: $TSFixMe) {
             <p className="highlight">
               {`${address.substr(0, 4)}...${address.substr(
                 address.length - 4,
-                4
+                4,
               )}`}
             </p>
             <div className="flex align-center just-center copy-btn">
@@ -88,17 +87,16 @@ function CoinInfo({ address, balance }: $TSFixMe) {
 
 CoinInfo.propTypes = {
   address: PropTypes.string,
-  balance: PropTypes.string
+  balance: PropTypes.string,
 };
 
 CoinInfo.defaultProps = {
   address: '',
-  balance: '0.0000'
+  balance: '0.0000',
 };
 
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting
+  settings: account.setting,
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
