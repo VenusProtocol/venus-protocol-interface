@@ -31,7 +31,7 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function BorrowLimit({ settings }: $TSFixMe) {
+function BorrowLimit() {
   const [available, setAvailable] = useState('0');
   const [borrowPercent, setBorrowPercent] = useState(0);
   const { account } = useWeb3React();

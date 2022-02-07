@@ -10,7 +10,6 @@ module.exports = {
     project: './tsconfig.eslint.json',
   },
   rules: {
-    '@typescript-eslint/no-unused-vars': 0,
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-redeclare': 0,

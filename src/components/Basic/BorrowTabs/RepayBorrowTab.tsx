@@ -26,7 +26,6 @@ const format = commaNumber.bindWith(',', '.');
 
 function RepayBorrowTab({
   asset,
-  settings,
   changeTab,
   onCancel,
   setSetting,

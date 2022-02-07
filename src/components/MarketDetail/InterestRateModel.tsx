@@ -123,7 +123,7 @@ const InterestRateModelWrapper = styled.div`
 
 let flag = false;
 
-function InterestRateModel({ settings, currentAsset }: $TSFixMe) {
+function InterestRateModel({ currentAsset }: $TSFixMe) {
   const [graphData, setGraphData] = useState([]);
   const [tickerPos, setTickerPos] = useState(null);
   const [percent, setPercent] = useState(null);
