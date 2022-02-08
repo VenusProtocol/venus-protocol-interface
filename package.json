@@ -14,7 +14,11 @@
     "lint": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint .",
     "lint:fix": "yarn lint --fix && yarn pretty --write && yarn lint-styles --fix",
     "lint-styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "loki": "loki update --reactUri file:./storybook-static",
+    "regression": "reg-suit run"
   },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
@@ -43,6 +47,7 @@
     "react-number-format": "^4.4.1",
     "react-redux": "^7.1.0",
     "react-remarkable": "^1.1.3",
+    "react-router": "^5.2.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "4.0.3",
     "react-toastify": "^6.0.9",
@@ -58,6 +63,12 @@
     "web3": "^1.3.1"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/node-logger": "^6.4.9",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.4.9",
     "@types/lodash": "^4.14.178",
     "@types/markdown-it": "^12.2.3",
     "@types/react-copy-to-clipboard": "^5.0.2",
@@ -80,6 +91,11 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.3.3",
     "postcss-syntax": "^0.36.2",
+    "loki": "^0.25.1",
+    "reg-keygen-git-hash-plugin": "^0.11.1",
+    "reg-notify-github-plugin": "^0.11.1",
+    "reg-publish-s3-plugin": "^0.11.0",
+    "reg-suit": "^0.11.1",
     "prettier": "^1.19.1",
     "prettier-airbnb-config": "^1.0.0",
     "react-error-overlay": "6.0.9",
@@ -104,5 +120,28 @@
   "resolutions": {
     "//": "See https://github.com/facebook/create-react-app/issues/11773",
     "react-error-overlay": "6.0.9"
+  },
+  "loki": {
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.app",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false,
+        "fitWindow": false
+      },
+      "chrome.iphone7": {
+        "target": "chrome.app",
+        "preset": "iPhone 7"
+      },
+      "chrome.ipad": {
+        "target": "chrome.app",
+        "width": 960,
+        "height": 640,
+        "deviceScaleFactor": 1,
+        "mobile": true
+      }
+    }
   }
 }
