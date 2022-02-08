@@ -124,7 +124,7 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
     suffix = 'K';
     unit = 1.0e3;
   }
-  return `$${format(new BigNumber(`${abs / unit}`).dp(2, 1))}${suffix}`;
+  return `$${format(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
 };
 
 export const formatApy = (apy: $TSFixMe) => {
