@@ -14,7 +14,6 @@ import { Label } from 'components/Basic/Label';
 import { connectAccount, accountActionCreators } from 'core';
 import logoImg from 'assets/img/logo.png';
 import prdtImg from 'assets/img/prdt.png';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';

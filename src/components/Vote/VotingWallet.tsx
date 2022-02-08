@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';

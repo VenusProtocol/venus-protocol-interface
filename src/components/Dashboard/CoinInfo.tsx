@@ -6,7 +6,6 @@ import { Icon } from 'antd';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
 import { addToken } from 'utilities/common';

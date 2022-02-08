@@ -4,7 +4,6 @@ import { Icon } from 'antd';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';

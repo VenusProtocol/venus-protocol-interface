@@ -9,7 +9,6 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { useWeb3React } from '@web3-react/core';
 import { connectAccount, accountActionCreators } from 'core';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/venus_32.png';
 import arrowRightImg from 'assets/img/arrow-right.png';

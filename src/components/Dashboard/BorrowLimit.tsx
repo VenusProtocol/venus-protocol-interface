@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LineProgressBar from 'components/Basic/LineProgressBar';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { Card } from 'components/Basic/Card';
 import { useWeb3React } from '@web3-react/core';

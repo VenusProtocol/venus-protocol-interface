@@ -5759,7 +5759,7 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-comma-number@^2.0.1:
+comma-number@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/comma-number/-/comma-number-2.1.0.tgz#0f38eef7293fe5ba4a0de6d1ffd3ea70a5e3e288"
   integrity sha512-fRcu1c+4yFLFp3tgranEkKPPWRlnkWQXr4p0KBL0WW9Kd2wmbKAoQ2R4rluFm4ubXCtXGybEaFB7r6YgPOnahQ==
