@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { formatApy } from 'utilities/common';
 import * as constants from 'utilities/constants';

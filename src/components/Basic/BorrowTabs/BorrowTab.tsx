@@ -8,7 +8,6 @@ import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';

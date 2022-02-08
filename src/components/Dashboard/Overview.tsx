@@ -11,7 +11,6 @@ import { connectAccount, accountActionCreators } from 'core';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { addToken, getBigNumber, formatApy } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
