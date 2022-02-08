@@ -78,6 +78,7 @@
     "eslint-plugin-react": "^7.28.0",
     "prettier": "^1.19.1",
     "prettier-airbnb-config": "^1.0.0",
+    "react-error-overlay": "6.0.9",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-scss": "^3.9.2",
