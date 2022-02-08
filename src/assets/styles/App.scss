@@ -32,14 +32,11 @@ body {
     color: var(--color-orange) !important;
   }
 }
-// .switch-wrapper > div {
-//     position: absolute;
-// }
 
 .Toastify__toast-container {
   left: 0;
   top: 0;
-  margin-left: 0px;
+  margin-left: 0;
   padding: 0;
 
   .Toastify__toast {
@@ -62,7 +59,7 @@ body {
         .title {
           color: var(--color-text-main);
           font-weight: bold;
-          margin-bottom: 0px;
+          margin-bottom: 0;
           margin-right: 10px;
         }
       }
@@ -81,7 +78,6 @@ body {
 
     .Toastify__close-button {
       position: absolute;
-      right: 0;
       color: var(--color-text-main);
       opacity: 1;
       top: 15px;
@@ -177,10 +173,14 @@ input {
   td,
   th {
     border-top-width: 1px;
-    border-top-style: solid; /* double, dashed, dotted... */
     border-top-color: #ccc;
+
+    /* double, dashed, dotted... */
+    border-top-style: solid;
     border-right-width: 1px;
-    border-right-style: solid; /* double, dashed, dotted... */
+
+    /* double, dashed, dotted... */
+    border-right-style: solid;
     border-right-color: #ccc;
   }
 
@@ -188,7 +188,8 @@ input {
     color: #09d395;
   }
 }
-// Common CSS
+
+/* Common CSS */
 
 .flex {
   display: flex;

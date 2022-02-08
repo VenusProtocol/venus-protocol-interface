@@ -1,7 +1,7 @@
 :root {
   /* Common styles */
-  --color-white: #ffffff;
-  --color-black: #000000;
+  --color-white: #fff;
+  --color-black: #000;
   --color-orange: #ff4a21;
   --color-yellow: #f8b94b;
   --color-gold: #ebbf6e;
@@ -11,12 +11,14 @@
   --color-blue: #039be5;
   --color-dark-green: #09d395;
   --color-dark-grey: #666771;
+
   /* Background colors */
   --color-bg-main: #090d27;
   --color-bg-primary: #181c3a;
   --color-bg-active: #252a4a;
+
   /* Typography colors */
-  --color-text-main: #ffffff;
+  --color-text-main: #fff;
   --color-text-secondary: #a1a1a1;
   --color-text-inactive: #5e5f6a;
   --color-text-red: #f9053e;
@@ -37,7 +39,7 @@
 body * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  font-family: 'AvenirNext';
+  font-family: 'AvenirNext', sans-serif;
   font-stretch: normal;
   font-style: normal;
 }
@@ -51,7 +53,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .input-error {
