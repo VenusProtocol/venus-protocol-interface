@@ -9,7 +9,8 @@
     "eject": "react-scripts eject",
     "pretty": "yarn prettier src/**/** public/**/*.html --check",
     "lint": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint .",
-    "lint:fix": "yarn lint --fix && yarn pretty --write",
+    "lint:fix": "yarn lint --fix && yarn pretty --write && yarn lint-styles --fix",
+    "lint-styles": "stylelint 'src/**/*.scss'",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -80,7 +81,8 @@
     "prettier": "^1.19.1",
     "prettier-airbnb-config": "^1.0.0",
     "react-error-overlay": "6.0.9",
-    "stylelint": "^10.1.0",
+    "stylelint": "^14.3.0",
+    "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-scss": "^3.9.2",
     "typescript": "^4.5.5"
