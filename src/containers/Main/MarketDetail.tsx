@@ -14,6 +14,7 @@ import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3React } from '@web3-react/core';
+import { Setting } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketDetailWrapper = styled.div`
@@ -103,8 +104,8 @@ let timeStamp = 0;
 const abortController = new AbortController();
 
 interface Props extends RouteComponentProps<{ asset: string }> {
-  settings: Record<string, unknown>,
-  getMarketHistory: () => void,
+  settings: Setting;
+  getMarketHistory: () => void;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
@@ -125,19 +126,15 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   const getGraphData = useCallback(
     async (asset, type, limit) => {
       const tempData: $TSFixMe = [];
-      await promisify(getMarketHistory, { asset, type, limit }).then((res) => {
+      await promisify(getMarketHistory, { asset, type, limit }).then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         res.data.result.forEach((m: $TSFixMe) => {
           tempData.push({
             createdAt: m.createdAt,
             supplyApy: +new BigNumber(m.supplyApy || 0).dp(8, 1).toString(10),
             borrowApy: +new BigNumber(m.borrowApy || 0).dp(8, 1).toString(10),
-            totalSupply: +new BigNumber(m.totalSupply || 0)
-              .dp(8, 1)
-              .toString(10),
-            totalBorrow: +new BigNumber(m.totalBorrow || 0)
-              .dp(8, 1)
-              .toString(10),
+            totalSupply: +new BigNumber(m.totalSupply || 0).dp(8, 1).toString(10),
+            totalBorrow: +new BigNumber(m.totalBorrow || 0).dp(8, 1).toString(10),
           });
         });
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
@@ -202,25 +199,19 @@ function MarketDetail({ match, getMarketHistory }: Props) {
                 <CardWrapper>
                   <div className="flex align-center market-tab-wrapper">
                     <div
-                      className={`tab-item pointer ${marketType === 'supply' ? 'tab-active' : ''
-                      }`}
+                      className={`tab-item pointer ${marketType === 'supply' ? 'tab-active' : ''}`}
                       onClick={() => setMarketType('supply')}
                     >
                       Supply
                     </div>
                     <div
-                      className={`tab-item pointer ${marketType === 'borrow' ? 'tab-active' : ''
-                      }`}
+                      className={`tab-item pointer ${marketType === 'borrow' ? 'tab-active' : ''}`}
                       onClick={() => setMarketType('borrow')}
                     >
                       Borrow
                     </div>
                   </div>
-                  <OverviewChart
-                    marketType={marketType}
-                    graphType="composed"
-                    data={data}
-                  />
+                  <OverviewChart marketType={marketType} graphType="composed" data={data} />
                 </CardWrapper>
               </div>
               <div className="flex row2">
@@ -228,10 +219,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
                   <InterestRateModel currentAsset={currentAsset} />
                 </CardWrapper>
                 <CardWrapper className="market-summary">
-                  <MarketSummary
-                    marketInfo={marketInfo}
-                    currentAsset={currentAsset}
-                  />
+                  <MarketSummary marketInfo={marketInfo} currentAsset={currentAsset} />
                 </CardWrapper>
               </div>
             </div>
@@ -241,10 +229,6 @@ function MarketDetail({ match, getMarketHistory }: Props) {
     </MainLayout>
   );
 }
-
-MarketDetail.defaultProps = {
-  settings: {},
-};
 
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
