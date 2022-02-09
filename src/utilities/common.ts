@@ -1,7 +1,7 @@
 import * as constants from 'utilities/constants';
 import BigNumber from 'bignumber.js';
 import { getVaiTokenAddress } from './addressHelpers';
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 
 const format = commaNumber.bindWith(',', '.');
@@ -54,18 +54,17 @@ export const addToken = async ({
     tokenAddress =
       type === 'token'
         ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].address
+        constants.CONTRACT_TOKEN_ADDRESS[asset].address
         : // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_VBEP_ADDRESS[asset].address;
+        constants.CONTRACT_VBEP_ADDRESS[asset].address;
     tokenSymbol =
       type === 'token'
         ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
+        constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
         : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
     tokenDecimals = decimal || (type === 'token' ? 18 : 8);
-    tokenImage = `${window.location.origin}/coins/${
-      type === 'token' ? asset : `v${asset === 'btcb' ? 'btc' : asset}`
-    }.png`;
+    tokenImage = `${window.location.origin}/coins/${type === 'token' ? asset : `v${asset === 'btcb' ? 'btc' : asset}`
+      }.png`;
   }
 
   try {
