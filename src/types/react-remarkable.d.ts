@@ -1,5 +1,5 @@
-/// <reference types="react" />
-/// <reference types="remarkable" />
+// / <reference types="react" />
+// / <reference types="remarkable" />
 
 declare module 'react-remarkable' {
   interface RemarkableProps {

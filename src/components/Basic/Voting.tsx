@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { Icon } from 'antd';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import moment from 'moment';
-import { Row, Column } from './Style';
 import { Proposal as ProposalObject } from 'types';
+import { Row, Column } from './Style';
 
 const VotingWrapper = styled.div`
   width: 100%;

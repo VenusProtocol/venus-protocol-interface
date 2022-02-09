@@ -103,7 +103,7 @@ let timeStamp = 0;
 const abortController = new AbortController();
 
 interface Props extends RouteComponentProps<{ asset: string }> {
-  settings: object,
+  settings: Record<string, unknown>,
   getMarketHistory: () => void,
 }
 

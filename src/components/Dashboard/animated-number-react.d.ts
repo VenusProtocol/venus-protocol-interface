@@ -1,4 +1,4 @@
-/// <reference types="react" />
+// / <reference types="react" />
 
 declare module 'animated-number-react' {
     interface AnimatedNumberReactProps {
@@ -13,8 +13,8 @@ declare module 'animated-number-react' {
         easing?: string,
         className?: string,
     }
-  
+
     declare class AnimatedNumberReact extends React.Component<AnimatedNumberReactProps> {}
-  
+
     export default AnimatedNumberReact;
   }
