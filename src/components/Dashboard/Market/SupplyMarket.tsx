@@ -14,8 +14,8 @@ import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import { formatApy } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
-import { useComptroller } from '../../../hooks/useContract';
 import { Asset, Setting } from 'types';
+import { useComptroller } from '../../../hooks/useContract';
 
 const SupplyMarketWrapper = styled.div`
   width: 100%;

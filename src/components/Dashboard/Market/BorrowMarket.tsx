@@ -219,11 +219,14 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       key: 'percentOfLimit',
 
       render(percentOfLimit: $TSFixMe) {
-        return {
-          children: <Label size="14">
+        const children = (
+          <Label size="14">
             {percentOfLimit}
             %
-                    </Label>,
+          </Label>
+        );
+        return {
+          children,
         };
       },
     },

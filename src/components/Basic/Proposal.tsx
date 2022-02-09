@@ -8,10 +8,10 @@ import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
 import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
+import { Proposal as ProposalObject } from 'types';
 import { Label } from './Label';
 import { useGovernorBravo } from '../../hooks/useContract';
 import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';
-import { Proposal as ProposalObject } from 'types';
 
 const ProposalWrapper = styled.div`
   width: 100%;

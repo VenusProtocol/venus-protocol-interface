@@ -54,7 +54,7 @@ const HoldingWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 interface Props extends RouteComponentProps {
-  address: string, 
+  address: string,
   holdingInfo: {
     balance?: string,
     delegateCount?: string,

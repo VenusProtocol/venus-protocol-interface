@@ -12,8 +12,8 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
 import { useWeb3React } from '@web3-react/core';
-import { useToken, useGovernorBravo } from '../../hooks/useContract';
 import { Proposal as ProposalObject } from 'types';
+import { useToken, useGovernorBravo } from '../../hooks/useContract';
 
 const ProposalsWrapper = styled.div`
   width: 100%;

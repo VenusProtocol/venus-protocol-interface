@@ -14,11 +14,11 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { Icon, Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';
+import { Asset, Setting } from 'types';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import useWeb3 from '../../../hooks/useWeb3';
-import { Asset, Setting } from 'types';
 
 const format = commaNumber.bindWith(',', '.');
 
