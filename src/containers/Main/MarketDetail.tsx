@@ -16,6 +16,7 @@ import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
+import { Setting } from 'types';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
