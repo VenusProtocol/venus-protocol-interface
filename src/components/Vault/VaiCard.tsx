@@ -2,12 +2,10 @@
 // file, instead of merging its logic into general pool UI which is in `./Card.js` thus we can easily
 // remove this VAI pool code in the future when it's about to be deprecated
 import React, { useState, useEffect } from 'react';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
 import { useWeb3React } from '@web3-react/core';

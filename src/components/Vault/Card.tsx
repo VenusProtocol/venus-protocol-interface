@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
 import VaultCardContent from './CardContent';

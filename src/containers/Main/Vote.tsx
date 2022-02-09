@@ -1,10 +1,8 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -142,26 +140,25 @@ function Vote({ history, getProposals }: $TSFixMe) {
     const myAddress = account;
     if (!myAddress) return;
 
-    let [
+    const [
       venusInitialIndex,
       venusAccrued,
       venusVAIState,
-      vaiMinterIndex,
       vaiMinterAmount,
     ] = await Promise.all([
       comptrollerContract.methods.venusInitialIndex().call(),
       comptrollerContract.methods.venusAccrued(myAddress).call(),
       vaiUnitrollerContract.methods.venusVAIState().call(),
-      vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call(),
       comptrollerContract.methods.mintedVAIs(myAddress).call(),
     ]);
+    let vaiMinterIndex =
+      await Promise.resolve(vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call());
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(CONTRACT_VBEP_ADDRESS).map(async (item) => {
         const vBepContract = getVbepContract(web3, item.id);
-        let [
+        const [
           supplyState,
-          supplierIndex,
           supplierTokens,
           borrowState,
           borrowerIndex,
@@ -169,9 +166,6 @@ function Vote({ history, getProposals }: $TSFixMe) {
           borrowIndex,
         ] = await Promise.all([
           comptrollerContract.methods.venusSupplyState(item.address).call(),
-          comptrollerContract.methods
-            .venusSupplierIndex(item.address, myAddress)
-            .call(),
           vBepContract.methods.balanceOf(myAddress).call(),
           comptrollerContract.methods.venusBorrowState(item.address).call(),
           comptrollerContract.methods
@@ -180,6 +174,9 @@ function Vote({ history, getProposals }: $TSFixMe) {
           vBepContract.methods.borrowBalanceStored(myAddress).call(),
           vBepContract.methods.borrowIndex().call(),
         ]);
+        let supplierIndex = await Promise.resolve(
+          comptrollerContract.methods.venusSupplierIndex(item.address, myAddress).call(),
+        );
         const supplyIndex = supplyState.index;
         if (+supplierIndex === 0 && +supplyIndex > 0) {
           supplierIndex = venusInitialIndex;

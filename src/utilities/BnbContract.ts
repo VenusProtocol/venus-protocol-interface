@@ -11,10 +11,7 @@ export const sendSupply = async (
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = new web3.eth.Contract(
-      vbnbAbi,
-      constants.CONTRACT_VBEP_ADDRESS.bnb.address,
-    );
+    const contract = new web3.eth.Contract(vbnbAbi, constants.CONTRACT_VBEP_ADDRESS.bnb.address);
     const contractData = contract.methods.mint().encodeABI();
 
     const tx = {
@@ -46,10 +43,7 @@ export const sendRepay = async (
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = new web3.eth.Contract(
-      vbnbAbi,
-      constants.CONTRACT_VBEP_ADDRESS.bnb.address,
-    );
+    const contract = new web3.eth.Contract(vbnbAbi, constants.CONTRACT_VBEP_ADDRESS.bnb.address);
     const contractData = contract.methods.repayBorrow().encodeABI();
 
     const tx = {

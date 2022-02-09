@@ -1,11 +1,8 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
 import MainLayout from 'containers/Layout/MainLayout';
@@ -105,7 +102,12 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-function MarketDetail({ match, getMarketHistory }: $TSFixMe) {
+interface Props extends RouteComponentProps<{ asset: string }> {
+  settings: object,
+  getMarketHistory: () => void,
+}
+
+function MarketDetail({ match, getMarketHistory }: Props) {
   const [marketType, setMarketType] = useState('supply');
   const [currentAsset, setCurrentAsset] = useState('');
   const [data, setData] = useState([]);
@@ -200,16 +202,14 @@ function MarketDetail({ match, getMarketHistory }: $TSFixMe) {
                 <CardWrapper>
                   <div className="flex align-center market-tab-wrapper">
                     <div
-                      className={`tab-item pointer ${
-                        marketType === 'supply' ? 'tab-active' : ''
+                      className={`tab-item pointer ${marketType === 'supply' ? 'tab-active' : ''
                       }`}
                       onClick={() => setMarketType('supply')}
                     >
                       Supply
                     </div>
                     <div
-                      className={`tab-item pointer ${
-                        marketType === 'borrow' ? 'tab-active' : ''
+                      className={`tab-item pointer ${marketType === 'borrow' ? 'tab-active' : ''
                       }`}
                       onClick={() => setMarketType('borrow')}
                     >
@@ -242,14 +242,7 @@ function MarketDetail({ match, getMarketHistory }: $TSFixMe) {
   );
 }
 
-MarketDetail.propTypes = {
-  match: PropTypes.object,
-  settings: PropTypes.object,
-  getMarketHistory: PropTypes.func.isRequired,
-};
-
 MarketDetail.defaultProps = {
-  match: {},
   settings: {},
 };
 
@@ -268,7 +261,7 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   );
 };
 
-export default compose(
+export default compose<Props, Props>(
   withRouter,
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, mapDispatchToProps),

@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled, { withTheme } from 'styled-components';
 import Sidebar from 'containers/Layout/Sidebar';
 import Header from 'containers/Layout/Header';
@@ -51,7 +49,14 @@ const MainLayoutWrapper = styled.div`
   }
 `;
 
-function MainLayout({ title, isHeader, children }: $TSFixMe) {
+
+interface Props {
+  title?: string,
+  isHeader?: boolean,
+  children: JSX.Element | JSX.Element[],
+}
+
+function MainLayout({ title = '', isHeader, children }: Props) {
   return (
     <MainLayoutWrapper>
       <Row>
@@ -78,19 +83,10 @@ function MainLayout({ title, isHeader, children }: $TSFixMe) {
   );
 }
 
-MainLayout.propTypes = {
-  title: PropTypes.string,
-  isHeader: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-};
-
 MainLayout.defaultProps = {
   title: '',
   isHeader: true,
   children: null,
 };
-
+// @ts-expect-error Argument of type 'typeof MainLayout' is not assignable to parameter of type 'never'.ts(2345)
 export default withTheme(MainLayout);

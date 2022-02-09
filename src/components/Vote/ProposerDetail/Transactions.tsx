@@ -1,14 +1,9 @@
 /* eslint-disable no-useless-escape */
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Icon } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import moment from 'moment';
 import { Card } from 'components/Basic/Card';
@@ -83,7 +78,18 @@ const TransactionsWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Transactions({ address, transactions }: $TSFixMe) {
+interface Transaction {
+  support: boolean,
+  type: 'vote',
+  blockTimestamp: string,
+}
+
+interface Props extends RouteComponentProps {
+  address: string,
+  transactions: Transaction[],
+}
+
+function Transactions({ address, transactions }: Props) {
   const [data, setData] = useState([]);
 
   const getDate = (timestamp: $TSFixMe) => {
@@ -177,14 +183,9 @@ function Transactions({ address, transactions }: $TSFixMe) {
   );
 }
 
-Transactions.propTypes = {
-  address: PropTypes.string,
-  transactions: PropTypes.array,
-};
-
 Transactions.defaultProps = {
   address: '',
   transactions: [],
 };
 
-export default compose(withRouter)(Transactions);
+export default withRouter(Transactions);

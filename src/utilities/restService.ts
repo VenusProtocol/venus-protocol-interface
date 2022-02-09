@@ -18,7 +18,7 @@ export async function restService({
 
   const formData = new FormData();
   if (contentType === 'multi-form') {
-    Object.keys(params).forEach((key) => {
+    Object.keys(params).forEach(key => {
       if (params[key] !== null && key !== 'token') {
         formData.append(key, params[key]);
       }
@@ -47,9 +47,13 @@ export async function restService({
   }
 
   return fetch(path, reqBody)
-    .then(response => response.text().then(text => (text
-      ? { status: response.status, data: JSON.parse(text) }
-      : { status: response.status })))
+    .then(response =>
+      response
+        .text()
+        .then(text =>
+          text ? { status: response.status, data: JSON.parse(text) } : { status: response.status },
+        ),
+    )
     .catch(error => ({
       result: 'error',
       message: error,

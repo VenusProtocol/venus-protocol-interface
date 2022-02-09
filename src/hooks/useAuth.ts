@@ -17,10 +17,10 @@ import { setupNetwork } from '../utilities/wallet';
 const useAuth = () => {
   const { activate, deactivate } = useWeb3React();
   const login = useCallback(
-    (connectorID) => {
+    connectorID => {
       const connector = connectorsByName[connectorID];
       if (connector) {
-        activate(connector, async (error) => {
+        activate(connector, async error => {
           if (error instanceof UnsupportedChainIdError) {
             const hasSetup = await setupNetwork();
             if (hasSetup) {
@@ -28,15 +28,12 @@ const useAuth = () => {
             }
           } else {
             window.localStorage.removeItem(connectorLocalStorageKey);
-            if (
-              error instanceof NoEthereumProviderError
-              || error instanceof NoBscProviderError
-            ) {
+            if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'No provider was found' });
             } else if (
-              error instanceof UserRejectedRequestErrorInjected
-              || error instanceof UserRejectedRequestErrorWalletConnect
+              error instanceof UserRejectedRequestErrorInjected ||
+              error instanceof UserRejectedRequestErrorWalletConnect
             ) {
               if (connector instanceof WalletConnectConnector) {
                 const walletConnector = connector;

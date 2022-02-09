@@ -1,9 +1,7 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -137,8 +135,7 @@ function Vault() {
 
   return (
     <MainLayout title="Vault">
-      {loading && <LoadingSpinner />}
-      {!loading && (
+      {loading ? <LoadingSpinner /> : (
         <VaultWrapper>
           <VaiPoolCard />
           {poolInfos.map((poolInfo, index) => (

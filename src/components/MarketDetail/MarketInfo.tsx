@@ -1,12 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { formatApy } from 'utilities/common';
 import * as constants from 'utilities/constants';
@@ -49,7 +44,23 @@ const MarketInfoContent = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
+interface MarketInfoObjectType {
+  underlyingSymbol: string,
+  supplyApy: number,
+  supplyVenusApy: number,
+  borrowApy: number,
+  borrowVenusApy: number,
+  totalSupplyUsd: number,
+  totalBorrowsUsd: number,
+}
+
+interface Props extends RouteComponentProps {
+  marketInfo: Partial<MarketInfoObjectType>,
+  marketType: string,
+}
+
+function MarketInfo({ marketInfo, marketType }: Props) {
+  // marketInfo gets passed around as an empty object this seems to be checking for that
   if (!marketInfo.underlyingSymbol) return null;
   return (
     <MarketInfoWrapper>
@@ -77,9 +88,11 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
               {marketType === 'supply'
                 ? formatApy(
                   new BigNumber(
+                    // @ts-expect-error marketInfo gets passed around as an empty object
                     +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
                   ).plus(
                     new BigNumber(
+                      // @ts-expect-error marketInfo gets passed around as an empty object
                       +marketInfo.supplyVenusApy < 0.01
                         ? 0.01
                         : marketInfo.supplyVenusApy,
@@ -88,11 +101,13 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
                 )
                 : formatApy(
                   new BigNumber(
+                    // @ts-expect-error marketInfo gets passed around as an empty object
                     Math.abs(+marketInfo.borrowApy) < 0.01
                       ? 0.01
                       : marketInfo.borrowApy,
                   ).plus(
                     new BigNumber(
+                      // @ts-expect-error marketInfo gets passed around as an empty object
                       marketInfo.borrowVenusApy < 0.01
                         ? 0.01
                         : marketInfo.borrowVenusApy,
@@ -108,11 +123,13 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
             <p className="value right">
               {marketType === 'supply'
                 ? new BigNumber(
+                  // @ts-expect-error marketInfo gets passed around as an empty object
                   +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
                 )
                   .dp(2, 1)
                   .toString(10)
                 : new BigNumber(
+                  // @ts-expect-error marketInfo gets passed around as an empty object
                   Math.abs(+marketInfo.borrowApy) < 0.01
                     ? 0.01
                     : marketInfo.borrowApy,
@@ -129,11 +146,13 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
             <p className="value">
               {marketType === 'supply'
                 ? formatApy(
+                  // @ts-expect-error marketInfo gets passed around as an empty object
                   +marketInfo.supplyVenusApy < 0.01
                     ? 0.01
                     : marketInfo.supplyVenusApy,
                 )
                 : formatApy(
+                  // @ts-expect-error marketInfo gets passed around as an empty object
                   marketInfo.borrowVenusApy < 0.01
                     ? 0.01
                     : marketInfo.borrowVenusApy,
@@ -148,6 +167,7 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
               $
               {format(
                 new BigNumber(
+                  // @ts-expect-error marketInfo gets passed around as an empty object
                   marketType === 'supply'
                     ? marketInfo.totalSupplyUsd
                     : marketInfo.totalBorrowsUsd,
@@ -163,13 +183,8 @@ function MarketInfo({ marketInfo, marketType }: $TSFixMe) {
   );
 }
 
-MarketInfo.propTypes = {
-  marketInfo: PropTypes.object,
-  marketType: PropTypes.string,
-};
-
 MarketInfo.defaultProps = {
-  marketInfo: {},
   marketType: 'supply',
 };
-export default compose(withRouter)(MarketInfo);
+
+export default withRouter(MarketInfo);

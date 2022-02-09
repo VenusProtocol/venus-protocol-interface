@@ -1,12 +1,9 @@
 /* eslint-disable no-useless-escape */
-import React, { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
+import React, { useState, useEffect, useCallback, ReactChildren } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { withRouter } from 'react-router-dom';
@@ -90,7 +87,14 @@ const VoteOverviewWrapper = styled.div`
 
 const VOTE_DISPLAY_ROWS = 4;
 
-function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
+interface Props {
+  match: { params?: { id?: string } },
+  getProposalById: () => void,
+  getVoters: () => void,
+  children: React.ReactChild | ReactChildren
+}
+
+function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [proposalInfo, setProposalInfo] = useState({});
   const [agreeVotes, setAgreeVotes] = useState({
     sumVotes: 0,
@@ -421,17 +425,11 @@ function VoteOverview({ getVoters, getProposalById, match }: $TSFixMe) {
   );
 }
 
-VoteOverview.propTypes = {
-  match: PropTypes.object,
-  getProposalById: PropTypes.func.isRequired,
-  getVoters: PropTypes.func.isRequired,
-};
-
 VoteOverview.defaultProps = {
   match: {},
 };
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   const { getProposalById, getVoters } = accountActionCreators;
 
   return bindActionCreators(
@@ -443,7 +441,7 @@ const mapDispatchToProps = (dispatch: $TSFixMe) => {
   );
 };
 
-export default compose(
+export default compose<Props, Props>(
   withRouter,
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(dispatch: any) => { getProposal... Remove this comment to see the full error message
   connectAccount(mapDispatchToProps),

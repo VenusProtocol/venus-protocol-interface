@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { connectAccount } from 'core';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { Label } from 'components/Basic/Label';
 import BorrowModal from 'components/Basic/BorrowModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import { getBigNumber, formatApy } from 'utilities/common';
+import { Asset, Setting } from 'types';
 
 const BorrowMarketWrapper = styled.div`
   width: 100%;
@@ -23,7 +20,16 @@ const BorrowMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
+interface DispatchProps {
+  settings: Setting,
+}
+
+interface Props {
+  borrowedAssets: Asset[],
+  remainAssets: Asset[],
+}
+
+function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & DispatchProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [record, setRecord] = useState({});
 
@@ -251,18 +257,13 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: $TSFixMe) {
       )}
       <BorrowModal
         visible={isOpenModal}
+        // @ts-expect-error This is set as an empty object in state
         asset={record}
         onCancel={() => setIsOpenModal(false)}
       />
     </BorrowMarketWrapper>
   );
 }
-
-BorrowMarket.propTypes = {
-  borrowedAssets: PropTypes.array,
-  remainAssets: PropTypes.array,
-  settings: PropTypes.object.isRequired,
-};
 
 BorrowMarket.defaultProps = {
   borrowedAssets: [],
@@ -274,6 +275,6 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
 });
 
 // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(
+export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, undefined))(
   BorrowMarket,
 );

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import BigNumber from 'bignumber.js';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { connectAccount } from 'core';
 import {
   LineChart,
@@ -122,7 +120,11 @@ const InterestRateModelWrapper = styled.div`
 
 let flag = false;
 
-function InterestRateModel({ currentAsset }: $TSFixMe) {
+interface Props extends RouteComponentProps {
+  currentAsset: string,
+}
+
+function InterestRateModel({ currentAsset }: Props) {
   const [graphData, setGraphData] = useState([]);
   const [tickerPos, setTickerPos] = useState(null);
   const [percent, setPercent] = useState(null);
@@ -381,11 +383,6 @@ function InterestRateModel({ currentAsset }: $TSFixMe) {
   );
 }
 
-InterestRateModel.propTypes = {
-  currentAsset: PropTypes.string,
-  settings: PropTypes.object,
-};
-
 InterestRateModel.defaultProps = {
   currentAsset: '',
   settings: {},
@@ -395,8 +392,7 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default compose(
-  withRouter,
+export default withRouter(compose<Props, Props>(
   // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
   connectAccount(mapStateToProps, undefined),
-)(InterestRateModel);
+)(InterestRateModel));

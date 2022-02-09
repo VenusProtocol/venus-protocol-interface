@@ -1,12 +1,7 @@
 /* eslint-disable no-useless-escape */
 import React from 'react';
-import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
@@ -39,7 +34,11 @@ const ProposerInfoWrapper = styled.div`
   }
 `;
 
-function ProposerInfo({ address }: $TSFixMe) {
+interface Props extends RouteComponentProps {
+  address: string,
+}
+
+function ProposerInfo({ address }: Props) {
   const handleLink = () => {
     window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
   };
@@ -70,12 +69,8 @@ function ProposerInfo({ address }: $TSFixMe) {
   );
 }
 
-ProposerInfo.propTypes = {
-  address: PropTypes.string,
-};
-
 ProposerInfo.defaultProps = {
   address: '',
 };
 
-export default compose(withRouter)(ProposerInfo);
+export default withRouter(ProposerInfo);

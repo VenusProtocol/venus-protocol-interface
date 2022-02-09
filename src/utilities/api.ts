@@ -1,7 +1,8 @@
 import { restService } from './restService';
 
-export const fetchMarkets = async () => restService({
-  api: '/governance/venus',
-  method: 'GET',
-  params: {},
-});
+export const fetchMarkets = async () =>
+  restService({
+    api: '/governance/venus',
+    method: 'GET',
+    params: {},
+  });

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
 import { compose } from 'recompose';
 import { NavLink, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -14,7 +12,6 @@ import { Label } from 'components/Basic/Label';
 import { connectAccount, accountActionCreators } from 'core';
 import logoImg from 'assets/img/logo.png';
 import prdtImg from 'assets/img/prdt.png';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
 import commaNumber from 'comma-number';
 import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';

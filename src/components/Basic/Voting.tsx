@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import { Icon } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { Row, Column } from './Style';
+import { Proposal as ProposalObject } from 'types';
 
 const VotingWrapper = styled.div`
   width: 100%;
@@ -110,7 +107,12 @@ const VotingWrapper = styled.div`
   }
 `;
 
-function Voting({ proposal, support, history }: $TSFixMe) {
+interface Props extends RouteComponentProps {
+  proposal: ProposalObject
+  support: boolean
+}
+
+function Voting({ proposal, support, history }: Props) {
   const [forPercent, setForPercent] = useState(0);
   const [againstPercent, setAgainstPercent] = useState(0);
 
@@ -205,16 +207,8 @@ function Voting({ proposal, support, history }: $TSFixMe) {
   );
 }
 
-Voting.propTypes = {
-  proposal: PropTypes.object,
-  support: PropTypes.bool,
-  history: PropTypes.object,
-};
-
 Voting.defaultProps = {
-  proposal: {},
   support: false,
-  history: {},
 };
 
-export default compose(withRouter)(Voting);
+export default withRouter(Voting);

@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
-import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Modal, Input } from 'antd';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
@@ -15,6 +11,7 @@ import { Row, Column } from 'components/Basic/Style';
 import { Label } from './Label';
 import { useGovernorBravo } from '../../hooks/useContract';
 import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';
+import { Proposal as ProposalObject } from 'types';
 
 const ProposalWrapper = styled.div`
   width: 100%;
@@ -192,9 +189,15 @@ const getVoteTypeStringFromValue = (type: $TSFixMe) => [
   ['🤔️', 'Abstain'],
 ][type];
 
+interface Props extends RouteComponentProps {
+  address: string,
+  proposal: ProposalObject,
+  votingWeight: string,
+}
+
 function Proposal({
   address, proposal, votingWeight, history,
-}: $TSFixMe) {
+}: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
   const [voteStatus, setVoteStatus] = useState('');
@@ -397,25 +400,8 @@ function Proposal({
   );
 }
 
-Proposal.propTypes = {
-  address: PropTypes.string,
-  votingWeight: PropTypes.string.isRequired,
-  proposal: PropTypes.shape({
-    id: PropTypes.number,
-    description: PropTypes.string,
-    state: PropTypes.string,
-    forVotes: PropTypes.string,
-    againstVotes: PropTypes.string,
-    voted: PropTypes.bool,
-    createdAt: PropTypes.string,
-  }),
-  history: PropTypes.object,
-};
-
 Proposal.defaultProps = {
   address: '',
-  proposal: {},
-  history: {},
 };
 
-export default compose(withRouter)(Proposal);
+export default withRouter(Proposal);

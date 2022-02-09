@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reco... Remove this comment to see the full error message
-import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'comm... Remove this comment to see the full error message
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import commaNumber from 'comma-number';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'styl... Remove this comment to see the full error message
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
@@ -113,6 +108,17 @@ const VoteList = styled.div`
   }
 `;
 
+interface Props extends RouteComponentProps {
+  type: number,
+  label: string,
+  voteNumber: BigNumber,
+  totalNumber: BigNumber,
+  addressNumber: number,
+  emptyNumber: number,
+  list: Array<{ label: string, value: string, reason: string }>,
+  onViewAll: () => void,
+}
+
 const format = commaNumber.bindWith(',', '.');
 
 function VoteCard({
@@ -125,7 +131,7 @@ function VoteCard({
   emptyNumber,
   list,
   onViewAll,
-}: $TSFixMe) {
+}: Props) {
   const [isViewAll, setIsViewAll] = useState(true);
   const [percent, setPercent] = useState(0);
 
@@ -259,21 +265,8 @@ function VoteCard({
   );
 }
 
-VoteCard.propTypes = {
-  type: PropTypes.number,
-  history: PropTypes.object,
-  label: PropTypes.string,
-  voteNumber: PropTypes.object,
-  totalNumber: PropTypes.object,
-  addressNumber: PropTypes.number,
-  emptyNumber: PropTypes.number,
-  list: PropTypes.array,
-  onViewAll: PropTypes.func.isRequired,
-};
-
 VoteCard.defaultProps = {
   type: 0,
-  history: {},
   label: '',
   voteNumber: new BigNumber(0),
   totalNumber: new BigNumber(0),
@@ -282,4 +275,4 @@ VoteCard.defaultProps = {
   list: [],
 };
 
-export default compose(withRouter)(VoteCard);
+export default withRouter(VoteCard);
