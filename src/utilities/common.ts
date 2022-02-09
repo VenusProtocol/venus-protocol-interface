@@ -1,8 +1,8 @@
 import * as constants from 'utilities/constants';
 import BigNumber from 'bignumber.js';
-import { getVaiTokenAddress } from './addressHelpers';
 import ethers from 'ethers';
 import commaNumber from 'comma-number';
+import { getVaiTokenAddress } from './addressHelpers';
 
 const format = commaNumber.bindWith(',', '.');
 
