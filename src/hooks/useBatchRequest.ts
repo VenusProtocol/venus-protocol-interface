@@ -9,8 +9,7 @@ export default () => {
       const batch = new web3.BatchRequest();
 
       const promises = calls.map(
-        (call: $TSFixMe) =>
-          new Promise((res, rej) => {
+        (call: $TSFixMe) => new Promise((res, rej) => {
             const req = call.request((err: $TSFixMe, data: $TSFixMe) => {
               if (err) {
                 rej(err);

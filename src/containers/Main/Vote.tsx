@@ -151,8 +151,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
       vaiUnitrollerContract.methods.venusVAIState().call(),
       comptrollerContract.methods.mintedVAIs(myAddress).call(),
     ]);
-    let vaiMinterIndex =
-      await Promise.resolve(vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call());
+    let vaiMinterIndex = await Promise.resolve(vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call());
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(CONTRACT_VBEP_ADDRESS).map(async (item) => {

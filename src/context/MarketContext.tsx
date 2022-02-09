@@ -51,8 +51,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
           res.data.data.markets.find(
             (market: $TSFixMe) => market.underlyingSymbol.toLowerCase() === item.toLowerCase(),
-          ),
-        )
+          ))
         .filter(item => !!item);
 
       if (!isMounted) {
@@ -109,8 +108,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         );
 
         let assetList = Object.values(constants.CONTRACT_TOKEN_ADDRESS).map((item, index) => {
-          const toDecimalAmount = (mantissa: $TSFixMe) =>
-            new BigNumber(mantissa).shiftedBy(-item.decimals);
+          const toDecimalAmount = (mantissa: $TSFixMe) => new BigNumber(mantissa).shiftedBy(-item.decimals);
 
           // if no corresponding vassets, skip
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -187,8 +185,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         // @ts-expect-error ts-migrate(2322) FIXME: Type '{ hypotheticalLiquidity: any; key?: number |... Remove this comment to see the full error message
         assetList = await Promise.all(
           assetList.map(async asset => {
-            const getHypotheticalLiquidity = () =>
-              comptrollerContract.methods
+            const getHypotheticalLiquidity = () => comptrollerContract.methods
                 .getHypotheticalAccountLiquidity(
                   account,
                   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

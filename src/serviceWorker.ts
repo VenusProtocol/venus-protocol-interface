@@ -17,13 +17,13 @@
 // opt-in, read https://bit.ly/CRA-PWA
 
 const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' ||
+  window.location.hostname === 'localhost'
   // [::1] is the IPv6 localhost address.
 
-    window.location.hostname === '[::1]' ||
+    || window.location.hostname === '[::1]'
   // 127.0.0.1/8 is considered localhost for IPv4.
 
-    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/),
+    || window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/),
 );
 
 function registerValidSW(swUrl: $TSFixMe, config: $TSFixMe) {
@@ -93,8 +93,8 @@ function checkValidServiceWorker(swUrl: $TSFixMe, config: $TSFixMe) {
       const contentType = response.headers.get('content-type');
 
       if (
-        response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
+        response.status === 404
+        || (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.
 

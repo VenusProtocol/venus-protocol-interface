@@ -32,8 +32,8 @@ const useAuth = () => {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'No provider was found' });
             } else if (
-              error instanceof UserRejectedRequestErrorInjected ||
-              error instanceof UserRejectedRequestErrorWalletConnect
+              error instanceof UserRejectedRequestErrorInjected
+              || error instanceof UserRejectedRequestErrorWalletConnect
             ) {
               if (connector instanceof WalletConnectConnector) {
                 const walletConnector = connector;

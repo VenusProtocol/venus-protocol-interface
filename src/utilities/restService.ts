@@ -47,13 +47,9 @@ export async function restService({
   }
 
   return fetch(path, reqBody)
-    .then(response =>
-      response
+    .then(response => response
         .text()
-        .then(text =>
-          text ? { status: response.status, data: JSON.parse(text) } : { status: response.status },
-        ),
-    )
+        .then(text => text ? { status: response.status, data: JSON.parse(text) } : { status: response.status }))
     .catch(error => ({
       result: 'error',
       message: error,
