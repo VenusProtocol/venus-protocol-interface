@@ -26,10 +26,9 @@ import {
 } from './addressHelpers';
 import * as constants from './constants';
 
-const getContract = (abi: $TSFixMe, address: $TSFixMe, web3: $TSFixMe) => {
-  // eslint-disable-next-line no-underscore-dangle
-  const _web3 = web3 ?? getWeb3NoAccount();
-  return new _web3.eth.Contract(abi, address);
+const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: $TSFixMe) => {
+  const web3 = web3Contract ?? getWeb3NoAccount();
+  return new web3.eth.Contract(abi, address);
 };
 
 export const getVaiTokenContract = (web3: $TSFixMe) =>

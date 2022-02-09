@@ -16,7 +16,6 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-var-requires': 0,
-    '@typescript-eslint/naming-convention': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     // handled by prettier
     '@typescript-eslint/indent': 0,
@@ -44,6 +43,7 @@ module.exports = {
     'react/forbid-prop-types': 0,
     'react/no-array-index-key': 0,
     'react/no-unused-prop-types': 0,
+    'react/prefer-stateless-function': 0,
     'react/require-default-props': 0,
   },
   settings: {

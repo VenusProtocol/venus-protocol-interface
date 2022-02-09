@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import CircleProgressBar from 'components/Basic/CircleProgressBar';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'anim... Remove this comment to see the full error message
 import AnimatedNumber from 'animated-number-react';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';

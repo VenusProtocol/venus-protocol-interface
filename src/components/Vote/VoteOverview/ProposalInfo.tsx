@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Markdown from 'react-remarkable';
 import { Card } from 'components/Basic/Card';
 import { getRemainingTime, FORMAT_STRING } from '../../../utilities/time';
