@@ -15,6 +15,7 @@ import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3React } from '@web3-react/core';
 import { useMarkets } from '../../hooks/useMarkets';
+import { Setting } from 'types';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
@@ -103,7 +104,7 @@ let timeStamp = 0;
 const abortController = new AbortController();
 
 interface Props extends RouteComponentProps<{ asset: string }> {
-  settings: Record<string, unknown>,
+  settings: Setting,
   getMarketHistory: () => void,
 }
 
@@ -241,10 +242,6 @@ function MarketDetail({ match, getMarketHistory }: Props) {
     </MainLayout>
   );
 }
-
-MarketDetail.defaultProps = {
-  settings: {},
-};
 
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
