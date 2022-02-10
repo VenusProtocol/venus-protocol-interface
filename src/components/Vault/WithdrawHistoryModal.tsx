@@ -103,7 +103,6 @@ function WithdrawHistoryModal({
             <span className="right">Locked Until</span>
           </div>
           <div className="list-items">
-            {/**/}
             {pendingWithdrawals.map((withdraw: $TSFixMe) => (
               <div key={uid(withdraw)} className="table-line">
                 <span className="left">
