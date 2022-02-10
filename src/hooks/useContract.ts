@@ -15,7 +15,7 @@ import {
   getGovernorBravoContract,
   getVrtConverterContract,
   getXvsVestingContract,
-  getVrtTokenContract
+  getVrtTokenContract,
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
 

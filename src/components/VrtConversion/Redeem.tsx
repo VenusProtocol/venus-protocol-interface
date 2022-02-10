@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Progress, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
 
 import { ButtonWrapper, RedeemWrapper } from './styles';
@@ -16,7 +15,7 @@ const SECONDS_PER_MINUTE = 60;
 // format the remaining time, if there is more than 1 day, only show
 // how many days left. If there is less than 1 day, we should display
 // the detail time
-function formatCountdownInSeconds(seconds) {
+function formatCountdownInSeconds(seconds: number) {
   if (seconds >= SECONDS_PER_DAY) {
     return `${Math.floor(seconds / SECONDS_PER_DAY)} days`;
   }
@@ -29,7 +28,21 @@ function formatCountdownInSeconds(seconds) {
   return `${hours} hours, ${minutes} minutes, ${remainingSeconds} seconds`;
 }
 
-function Redeem({
+
+export type RedeemPropsType = {
+  vrtConverterXvsBalance: BigNumber,
+  redeemableAmount: BigNumber,
+  vrtConversionDailyLimit: BigNumber,
+  vrtDailyUtilised: BigNumber,
+  userVrtBalance: BigNumber,
+  userEnabled: boolean,
+  conversionEndTime: BigNumber,
+  conversionRatio: BigNumber,
+  account: string,
+  handleClickRedeem: (redeemAmount: BigNumber) => void,
+};
+
+export default ({
   vrtConverterXvsBalance,
   redeemableAmount,
   vrtConversionDailyLimit,
@@ -39,23 +52,38 @@ function Redeem({
   conversionEndTime,
   conversionRatio,
   account,
-  handleClickRedeem
-}) {
+  handleClickRedeem,
+}: RedeemPropsType) => {
   const [redeemInputAmount, setRedeemInputAmount] = useState(new BigNumber(0));
   const [redeemLoading, setRedeemLoading] = useState(false);
   const maxRedeemableAmountRegardingXvsBalance = vrtConverterXvsBalance.div(
-    conversionRatio
+    conversionRatio,
   );
+
+  let confirmButtonText = '';
+  if (!account) {
+    confirmButtonText = 'Connect';
+  } else if (userEnabled) {
+    confirmButtonText = 'Redeem';
+  } else {
+    confirmButtonText = 'Enable';
+  }
+
   return (
     <RedeemWrapper>
       {/* text about redeem ratio */}
       <div className="ratio-text">
-        Redeem 1 VRT for {conversionRatio.toFixed(6)} XVS
+        Redeem 1 VRT for
+        {conversionRatio.toFixed(6)}
+        {' '}
+        XVS
       </div>
       {/* display available XVS in pool */}
       <div className="xvs-pool">
         <div className="xvs-pool-line-1">
-          {vrtConverterXvsBalance.toFixed(4)} XVS
+          {vrtConverterXvsBalance.toFixed(4)}
+          {' '}
+          XVS
         </div>
         <div className="xvs-pool-line-2">Current available</div>
       </div>
@@ -65,7 +93,9 @@ function Redeem({
         <div className="redeem-daily-progress-title">
           <span>Daily limit</span>
           <span>
-            {vrtDailyUtilised.toFixed(4)} / {vrtConversionDailyLimit.toFixed(4)}{' '}
+            {vrtDailyUtilised.toFixed(4)}
+            /
+            {vrtConversionDailyLimit.toFixed(4)}
             VRT
           </span>
         </div>
@@ -98,8 +128,8 @@ function Redeem({
                   new BigNumber(value),
                   userVrtBalance,
                   redeemableAmount,
-                  maxRedeemableAmountRegardingXvsBalance
-                )
+                  maxRedeemableAmountRegardingXvsBalance,
+                ),
               );
             }}
             thousandSeparator
@@ -114,8 +144,8 @@ function Redeem({
                   BigNumber.min(
                     userVrtBalance,
                     redeemableAmount,
-                    maxRedeemableAmountRegardingXvsBalance
-                  )
+                    maxRedeemableAmountRegardingXvsBalance,
+                  ),
                 );
               }}
             >
@@ -125,7 +155,10 @@ function Redeem({
           </ButtonWrapper>
         </div>
         <div className="user-vrt-balance">
-          Balance: {account ? userVrtBalance.toFixed(4) : '-'} VRT
+          Balance:
+          {account ? userVrtBalance.toFixed(4) : '-'}
+          {' '}
+          VRT
         </div>
       </div>
       {/* recieve section */}
@@ -161,7 +194,7 @@ function Redeem({
         >
           {redeemLoading && <Icon type="loading" />}
           {'  '}
-          {!account ? 'Connect' : userEnabled ? 'Redeem' : 'Enable'}
+          {confirmButtonText}
         </button>
       </ButtonWrapper>
       <div className="remaining-days">
@@ -169,29 +202,11 @@ function Redeem({
         <span className="remaining-cap-text">Remaining time: </span>
         <span className="remaining-time-text">
           {formatCountdownInSeconds(
-            Math.floor(conversionEndTime.minus(Date.now() / 1000))
-          )}{' '}
+            Math.floor(Number(conversionEndTime.minus(Date.now() / 1000))),
+          )}
+          {' '}
         </span>
       </div>
     </RedeemWrapper>
   );
-}
-
-Redeem.propTypes = {
-  vrtConverterXvsBalance: PropTypes.instanceOf(BigNumber).isRequired,
-  redeemableAmount: PropTypes.instanceOf(BigNumber).isRequired,
-  vrtConversionDailyLimit: PropTypes.instanceOf(BigNumber).isRequired,
-  vrtDailyUtilised: PropTypes.instanceOf(BigNumber).isRequired,
-  userVrtBalance: PropTypes.instanceOf(BigNumber).isRequired,
-  userEnabled: PropTypes.bool.isRequired,
-  conversionEndTime: PropTypes.instanceOf(BigNumber).isRequired,
-  conversionRatio: PropTypes.instanceOf(BigNumber).isRequired,
-  account: PropTypes.string,
-  handleClickRedeem: PropTypes.func.isRequired
 };
-
-Redeem.defaultProps = {
-  account: ''
-};
-
-export default Redeem;

@@ -197,15 +197,15 @@ export const CONTRACT_TOKEN_ADDRESS =
           symbol: 'VAI',
           decimals: 18,
           address: contracts.TEST.TOKEN.vai,
-          asset: vai
+          asset: vai,
         },
         vrt: {
           id: 'vrt',
           symbol: 'VRT',
           decimals: 18,
           address: contracts.TEST.TOKEN.vrt,
-          asset: vrt
-        }
+          asset: vrt,
+        },
       }
     : {
         sxp: {
@@ -396,15 +396,15 @@ export const CONTRACT_TOKEN_ADDRESS =
           symbol: 'VAI',
           decimals: 18,
           address: contracts.MAIN.TOKEN.vai,
-          asset: vai
+          asset: vai,
         },
         vrt: {
           id: 'vrt',
           symbol: 'VRT',
           decimals: 18,
           address: contracts.MAIN.TOKEN.vrt,
-          asset: vrt
-        }
+          asset: vrt,
+        },
       };
 
 export const CONTRACT_VBEP_ADDRESS =
