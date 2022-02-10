@@ -5,7 +5,7 @@ import {
   Form, Input, Modal, Icon, Collapse,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import Button from '@material-ui/core/Button';
+import { Button } from 'components/v2/Button';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import MarkdownIt from 'markdown-it';

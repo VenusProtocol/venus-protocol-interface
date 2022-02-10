@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input, Icon } from 'antd';
-import Button from '@material-ui/core/Button';
+import { Button } from 'components/v2/Button';
 import { useWeb3React } from '@web3-react/core';
 
 const VotingWrapper = styled.div`

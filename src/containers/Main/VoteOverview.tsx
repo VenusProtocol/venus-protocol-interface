@@ -8,7 +8,7 @@ import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { withRouter } from 'react-router-dom';
 import { Icon, Tooltip } from 'antd';
-import Button from '@material-ui/core/Button';
+import { Button } from 'components/v2/Button';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import ProposalInfo from 'components/Vote/VoteOverview/ProposalInfo';

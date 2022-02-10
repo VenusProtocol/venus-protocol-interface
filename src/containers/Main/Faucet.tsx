@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
-import Button from '@material-ui/core/Button';
+import { Button } from 'components/v2/Button';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import toast from 'components/Basic/Toast';
 import * as constants from 'utilities/constants';
