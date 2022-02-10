@@ -21,9 +21,7 @@ import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 
-function WithdrawTab({
-  asset, changeTab, onCancel, setSetting,
-}: $TSFixMe) {
+function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowLimit, setBorrowLimit] = useState(new BigNumber(0));
@@ -39,9 +37,7 @@ function WithdrawTab({
   const { mintableVai } = useVaiUser();
 
   const getFeePercent = useCallback(async () => {
-    const treasuryPercent = await comptrollerContract.methods
-      .treasuryPercent()
-      .call();
+    const treasuryPercent = await comptrollerContract.methods.treasuryPercent().call();
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
   }, [comptrollerContract]);
 
@@ -68,9 +64,7 @@ function WithdrawTab({
     setSafeMaxBalance(BigNumber.minimum(safeMax, supplyBalance));
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
-      const temp = userTotalBorrowLimit.minus(
-        amount.times(tokenPrice).times(collateralFactor),
-      );
+      const temp = userTotalBorrowLimit.minus(amount.times(tokenPrice).times(collateralFactor));
       setNewBorrowLimit(temp);
       setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
       if (userTotalBorrowLimit.isZero()) {
@@ -78,9 +72,7 @@ function WithdrawTab({
         setBorrowPercent(new BigNumber(0));
       } else {
         setBorrowLimit(userTotalBorrowLimit);
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
       }
     } else {
       setBorrowLimit(userTotalBorrowLimit);
@@ -89,12 +81,8 @@ function WithdrawTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
-        setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
+        setNewBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
       }
     }
   }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
@@ -120,12 +108,8 @@ function WithdrawTab({
     });
     try {
       if (amount.eq(asset.supplyBalance)) {
-        const vTokenBalance = await vbepContract.methods
-          .balanceOf(account)
-          .call();
-        await vbepContract.methods
-          .redeem(vTokenBalance)
-          .send({ from: account });
+        const vTokenBalance = await vbepContract.methods.balanceOf(account).call();
+        await vbepContract.methods.redeem(vTokenBalance).send({ from: account });
       } else {
         await vbepContract.methods
           .redeemUnderlying(
@@ -178,12 +162,11 @@ function WithdrawTab({
             }}
             isAllowed={({ value }) => {
               const temp = new BigNumber(value || 0);
-              const { tokenPrice, collateralFactor } = asset;
+              const { tokenPrice, collateralFactor, collateral } = asset;
               return (
-                temp.isLessThanOrEqualTo(asset.supplyBalance)
-                && userTotalBorrowLimit.gte(
-                  temp.times(tokenPrice).times(collateralFactor),
-                )
+                temp.isLessThanOrEqualTo(asset.supplyBalance) &&
+                (!collateral ||
+                  userTotalBorrowLimit.gte(temp.times(tokenPrice).times(collateralFactor)))
               );
             }}
             thousandSeparator
@@ -195,8 +178,7 @@ function WithdrawTab({
           </span>
         </div>
         <p className="warning-label center">
-          Your available withdraw amount = Total Supply Amount - VAI Mint Amount
-          - Borrowed Amount
+          Your available withdraw amount = Total Supply Amount - VAI Mint Amount - Borrowed Amount
         </p>
       </div>
       <Tabs className="flex align-center">
@@ -283,10 +265,10 @@ function WithdrawTab({
               <span>
                 {!amount.isNaN()
                   ? new BigNumber(amount)
-                  // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
-                    .times(feePercent / 100)
-                    .dp(4)
-                    .toString(10)
+                      // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
+                      .times(feePercent / 100)
+                      .dp(4)
+                      .toString(10)
                   : 0}
                 {' '}
                 {asset.symbol}
@@ -312,11 +294,7 @@ function WithdrawTab({
                   $
                   {format(borrowLimit.dp(2, 1).toString(10))}
                 </span>
-                <img
-                  className="arrow-right-img"
-                  src={arrowRightImg}
-                  alt="arrow"
-                />
+                <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
                 <span>
                   $
                   {format(newBorrowLimit.dp(2, 1).toString(10))}
@@ -337,11 +315,7 @@ function WithdrawTab({
                   {borrowPercent.dp(2, 1).toString(10)}
                   %
                 </span>
-                <img
-                  className="arrow-right-img"
-                  src={arrowRightImg}
-                  alt="arrow"
-                />
+                <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
                 <span>
                   {newBorrowPercent.dp(2, 1).toString(10)}
                   %
@@ -360,12 +334,12 @@ function WithdrawTab({
         <Button
           className="button"
           disabled={
-            isLoading
-            || !account
-            || amount.isNaN()
-            || amount.isZero()
-            || amount.isGreaterThan(asset.supplyBalance)
-            || newBorrowPercent.isGreaterThan(new BigNumber(100))
+            isLoading ||
+            !account ||
+            amount.isNaN() ||
+            amount.isZero() ||
+            amount.isGreaterThan(asset.supplyBalance) ||
+            newBorrowPercent.isGreaterThan(new BigNumber(100))
           }
           onClick={handleWithdraw}
         >

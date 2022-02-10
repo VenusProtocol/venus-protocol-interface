@@ -16,7 +16,6 @@ import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
-import { Setting } from 'types';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
@@ -105,8 +104,8 @@ let timeStamp = 0;
 const abortController = new AbortController();
 
 interface Props extends RouteComponentProps<{ asset: string }> {
-  settings: Setting,
-  getMarketHistory: () => void,
+  settings: Setting;
+  getMarketHistory: () => void;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
