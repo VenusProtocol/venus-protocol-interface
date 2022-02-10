@@ -513,7 +513,7 @@ function ProposalModal({
           {errorMsg && <p className="invalid_msg center">{errorMsg}</p>}
           <div className="flex align-center just-center btn-wrapper">
             <Button
-              type="submit"
+              htmlType="submit"
               className="proposal-btn"
               disabled={
                 isLoading
