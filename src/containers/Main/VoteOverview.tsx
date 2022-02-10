@@ -20,6 +20,7 @@ import { promisify } from 'utilities';
 import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
+import { uid } from 'react-uid';
 import { useToken, useGovernorBravo } from '../../hooks/useContract';
 
 const VoteOverviewWrapper = styled.div`
@@ -302,11 +303,11 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                 { label: 'For', votes: agreeVotes, filterType: 1 },
                 { label: 'Against', votes: againstVotes, filterType: 0 },
                 { label: 'Abstain', votes: abstainVotes, filterType: 2 },
-              ].map((data, i) => {
+              ].map((data) => {
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{ sumVote... Remove this comment to see the full error message
                 const { sumVotes, result, total } = data.votes;
                 return (
-                  <Column key={i} xs="12" md="12" lg="4">
+                  <Column key={uid(data)} xs="12" md="12" lg="4">
                     <VoteCard
                       type={data.filterType}
                       label={data.label}

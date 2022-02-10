@@ -12,6 +12,7 @@ import * as constants from 'utilities/constants';
 import commaNumber from 'comma-number';
 import { addToken, getBigNumber, formatApy } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
+import { uid } from 'react-uid';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { vtokenDecimals } from '../../config';
@@ -251,12 +252,12 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
                 onChange={handleChangeAsset}
               >
                 {Object.keys(constants.CONTRACT_VBEP_ADDRESS).map(
-                  (key, index) => (
+                  (key) => (
                     <Option
                       className="flex align-center just-between"
                       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                       value={constants.CONTRACT_VBEP_ADDRESS[key].id}
-                      key={index}
+                      key={uid(key)}
                     >
                       <img
                         className="asset-img"

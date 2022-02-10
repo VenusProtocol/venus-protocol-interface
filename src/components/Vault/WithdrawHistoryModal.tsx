@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js';
 import PropTypes from 'prop-types';
 import closeImg from 'assets/img/close.png';
 import moment from 'moment';
+import { uid } from 'react-uid';
 import * as constants from '../../utilities/constants';
 
 const WithdrawHistoryModalWrapper = styled.div`
@@ -103,8 +104,8 @@ function WithdrawHistoryModal({
           </div>
           <div className="list-items">
             {/**/}
-            {pendingWithdrawals.map((withdraw: $TSFixMe, i: $TSFixMe) => (
-              <div key={i} className="table-line">
+            {pendingWithdrawals.map((withdraw: $TSFixMe) => (
+              <div key={uid(withdraw)} className="table-line">
                 <span className="left">
                   {withdraw.amount
                     .div(stakedTokenDecimal)

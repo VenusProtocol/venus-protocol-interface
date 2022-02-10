@@ -9,6 +9,7 @@ import BigNumber from 'bignumber.js';
 import MainLayout from 'containers/Layout/MainLayout';
 import { connectAccount, accountActionCreators } from 'core';
 import { useWeb3React } from '@web3-react/core';
+import { uid } from 'react-uid';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useWeb3 from '../../hooks/useWeb3';
 import useRefresh from '../../hooks/useRefresh';
@@ -140,7 +141,7 @@ function Vault() {
           <VaiPoolCard />
           {poolInfos.map((poolInfo, index) => (
             <GeneralVaultPoolCard
-              key={index}
+              key={uid(poolInfo)}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'poolId' does not exist on type 'never'.
               poolId={poolInfo.poolId}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'stakedToken' does not exist on type 'nev... Remove this comment to see the full error message

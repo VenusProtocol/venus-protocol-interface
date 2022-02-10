@@ -19,6 +19,7 @@ import {
 import moment from 'moment';
 import { connectAccount } from 'core';
 import { currencyFormatter } from 'utilities/common';
+import { uid } from 'react-uid';
 
 const ChartWrapper = styled.div`
   width: 100% + 40px;
@@ -215,8 +216,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
                 }
                 onMouseMove={handleMouseMove}
               >
-                {/**/}
-                {data.map((entry: $TSFixMe, index: $TSFixMe) => (
+                {data.map((entry: $TSFixMe, index: number) => (
                   <Cell
                     cursor="pointer"
                     fill={
@@ -227,7 +227,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
                         }`
                         : '#252a4a'
                     }
-                    key={`cell-${index}`}
+                    key={uid(entry)}
                   />
                 ))}
               </Bar>
