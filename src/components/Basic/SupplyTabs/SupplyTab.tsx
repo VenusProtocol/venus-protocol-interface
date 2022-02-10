@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
 import { compose } from 'recompose';
 import { Icon, Progress } from 'antd';
-import Button from '@material-ui/core/Button';
+import { Button } from 'components/v2/Button';
 import NumberFormat from 'react-number-format';
 import { bindActionCreators } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';

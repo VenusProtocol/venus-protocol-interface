@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { compose } from 'recompose';
-import Button from '@material-ui/core/Button';
+import { Button } from 'components/v2/Button';
 import NumberFormat from 'react-number-format';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connectAccount, accountActionCreators } from 'core';
