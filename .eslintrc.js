@@ -15,7 +15,6 @@ module.exports = {
     project: './tsconfig.eslint.json',
   },
   rules: {
-    '@typescript-eslint/explicit-module-boundary-types': 0,
     // handled by prettier
     '@typescript-eslint/indent': 0,
     'arrow-parens': 0,

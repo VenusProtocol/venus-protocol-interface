@@ -1,6 +1,6 @@
 import * as constants from 'utilities/constants';
 import BigNumber from 'bignumber.js';
-import ethers from 'ethers';
+import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 import { getVaiTokenAddress } from './addressHelpers';
 
