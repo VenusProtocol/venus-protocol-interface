@@ -33,7 +33,7 @@ const ProposalsWrapper = styled.div`
       background-color: var(--color-gold);
       border: none;
       color: #fff;
-      .MuiButton-label {
+      span {
         font-size: 14px;
         font-weight: 500;
         color: var(--color-text-main);

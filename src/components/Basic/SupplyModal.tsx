@@ -141,7 +141,7 @@ export const TabSection = styled.div`
     border-radius: 5px;
     background-image: linear-gradient(to right, #f2c265, #f7b44f);
 
-    .MuiButton-label {
+    span {
       font-size: 16px;
       font-weight: 500;
       color: var(--color-text-main);
