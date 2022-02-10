@@ -403,7 +403,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           to="/redeem-vrt"
           active-class-name="active"
         >
-          <Icon type="swap"/>
+          <Icon type="swap" />
           <Label primary>Redeem VRT</Label>
         </NavLink>
         <NavLink
