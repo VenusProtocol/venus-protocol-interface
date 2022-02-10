@@ -412,14 +412,6 @@ function Sidebar({
         </NavLink>
         <NavLink
           className="flex flex-start align-center"
-          to="/redeem-vrt"
-          active-class-name="active"
-        >
-          <Icon type="swap" />
-          <Label primary>Redeem VRT</Label>
-        </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
           to="/transaction"
           active-class-name="active"
         >
