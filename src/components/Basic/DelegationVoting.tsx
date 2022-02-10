@@ -86,7 +86,7 @@ const VotingWrapper = styled.div`
       height: 48px;
       border-radius: 5px;
       background-image: linear-gradient(to right, #f2c265, #f7b44f);
-      .MuiButton-label {
+      span {
         font-size: 13px;
         font-weight: 500;
         color: var(--color-text-main);

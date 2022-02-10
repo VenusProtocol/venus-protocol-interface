@@ -20,7 +20,6 @@ import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import Transaction from 'containers/Main/Transaction';
 import Theme from './Theme';
 
-import 'assets/styles/App.scss';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';

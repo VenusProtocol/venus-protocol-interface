@@ -37,7 +37,7 @@ const ConnectButtonWrapper = styled.div`
       width: 100px;
     }
 
-    .MuiButton-label {
+    span {
       font-size: 13px;
       font-weight: 500;
       color: var(--color-text-main);
@@ -224,7 +224,7 @@ const ModalContent = styled.div`
           width: 100px;
         }
 
-        .MuiButton-label {
+        span {
           font-size: 13px;
           font-weight: 500;
           color: var(--color-text-main);

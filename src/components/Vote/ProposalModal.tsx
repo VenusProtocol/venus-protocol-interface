@@ -100,7 +100,7 @@ const ModalContent = styled.div`
             height: 40px;
             background-image: linear-gradient(to right, #f2c265, #f7b44f);
             border-radius: 10px;
-            .MuiButton-label {
+            span {
               font-size: 16px;
               font-weight: bold;
               color: var(--color-text-main);
@@ -111,7 +111,7 @@ const ModalContent = styled.div`
             }
 
             @media only screen and (max-width: 768px) {
-              .MuiButton-label {
+              span {
                 font-size: 12px;
               }
             }
@@ -131,7 +131,7 @@ const ModalContent = styled.div`
         height: 52px;
         background-image: linear-gradient(to right, #f2c265, #f7b44f);
         border-radius: 10px;
-        .MuiButton-label {
+        span {
           font-size: 16px;
           font-weight: bold;
           color: var(--color-text-main);

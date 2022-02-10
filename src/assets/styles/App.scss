@@ -1,4 +1,4 @@
-@import 'assets/styles/Global.scss';
+@import './Global.scss';
 
 body {
   /* width */
@@ -229,4 +229,15 @@ input {
 }
 .full {
   width: 100%;
+}
+
+.ant-btn {
+  border: none;
+  background-color: var(--color-yellow);
+  color: white;
+
+  &:hover, &:focus {
+    background-color: var(--color-gold);
+    color: white;
+  }
 }
