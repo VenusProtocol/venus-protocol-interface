@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
 import { Icon, Tooltip } from 'antd';
+import { uid } from 'react-uid';
 
 const VoteCardWrapper = styled.div`
   width: 100%;
@@ -192,10 +193,10 @@ function VoteCard({
           </div>
           <div className="vote-list scrollbar">
             {/**/}
-            {list.map((l: $TSFixMe, index: $TSFixMe) => (
+            {list.map((l: $TSFixMe) => (
               <div
                 className="flex align-center just-between vote-item"
-                key={index}
+                key={uid(l)}
               >
                 <span
                   className="pointer"

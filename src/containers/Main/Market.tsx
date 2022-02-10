@@ -13,6 +13,7 @@ import { promisify } from 'utilities';
 
 import * as constants from 'utilities/constants';
 import { currencyFormatter, formatApy } from 'utilities/common';
+import { uid } from 'react-uid';
 import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketWrapper = styled.div`
@@ -419,10 +420,10 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                   }
                   return 0;
                 })
-                .map((item, index) => (
+                .map((item) => (
                   <Row
                     className="table_item pointer"
-                    key={index}
+                    key={uid(item)}
                     onClick={() => history.push(`/market/${item.underlyingSymbol}`)
                     }
                   >

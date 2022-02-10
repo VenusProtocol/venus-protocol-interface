@@ -7,6 +7,7 @@ import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import moment from 'moment';
 import { Card } from 'components/Basic/Card';
+import { uid } from 'react-uid';
 import { BASE_BSC_SCAN_URL } from '../../../config';
 
 const TransactionsWrapper = styled.div`
@@ -153,8 +154,8 @@ function Transactions({ address, transactions }: Props) {
         </div>
         <div className="flex flex-column data-list">
           {data
-            && data.map((item, index) => (
-              <div className="flex align-center row-text" key={index}>
+            && data.map((item) => (
+              <div className="flex align-center row-text" key={uid(item)}>
                 {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'action' does not exist on type 'never'. */}
                 <div className="action-column">{item.action}</div>
                 {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'age' does not exist on type 'never'. */}

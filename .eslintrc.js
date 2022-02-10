@@ -39,7 +39,6 @@ module.exports = {
     'operator-linebreak': 0,
     'react/default-props-match-prop-types': 0,
     'react/forbid-prop-types': 0,
-    'react/no-array-index-key': 0,
     'react/no-unused-prop-types': 0,
     'react/prefer-stateless-function': 0,
     'react/require-default-props': 0,

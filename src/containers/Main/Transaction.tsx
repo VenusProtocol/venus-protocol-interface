@@ -14,6 +14,7 @@ import { promisify } from 'utilities';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import xvsImg from 'assets/img/coins/xvs.png';
+import { uid } from 'react-uid';
 import { BASE_BSC_SCAN_URL } from '../../config';
 
 const TransactionWrapper = styled.div`
@@ -346,7 +347,7 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
                 <Option
                   className="flex align-center just-between"
                   value={eventType}
-                  key={`${eventType}-${index}`}
+                  key={uid(`${eventType}-${index}`)}
                 >
                   <span>{eventType}</span>
                 </Option>
@@ -382,8 +383,8 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
           <div className="table_content">
             {data
               && data.length > 0
-              && data.map((item, index) => (
-                <Row className="table_item" key={index}>
+              && data.map((item) => (
+                <Row className="table_item" key={uid(item)}>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
                     <p className="mobile-label">ID</p>
                     {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'id' does not exist on type 'never'. */}

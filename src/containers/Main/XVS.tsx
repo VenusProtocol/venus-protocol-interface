@@ -13,6 +13,7 @@ import MainLayout from 'containers/Layout/MainLayout';
 import * as constants from 'utilities/constants';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
+import { uid } from 'react-uid';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useToken } from '../../hooks/useContract';
@@ -441,8 +442,8 @@ function XVS({ settings }: $TSFixMe) {
                       .minus(new BigNumber(a.perDay))
                       .toString(10);
                   })
-                  .map((item, index) => (
-                    <Row className="table_item pointer" key={index}>
+                  .map((item) => (
+                    <Row className="table_item pointer" key={uid(item)}>
                       <Col
                         xs={{ span: 24 }}
                         lg={{ span: 6 }}

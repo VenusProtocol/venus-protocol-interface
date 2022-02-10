@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { connectAccount, accountActionCreators } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
+import { uid } from 'react-uid';
 
 const LeaderboardWrapper = styled.div`
   width: 100%;
@@ -141,7 +142,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
               && voterAccounts.map((item, index) => (
                 <Row
                   className="table_item pointer"
-                  key={index}
+                  key={uid(item)}
                   // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
                   onClick={() => history.push(`/vote/address/${item.address}`)}
                 >

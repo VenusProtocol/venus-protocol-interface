@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import Voting from 'components/Basic/Voting';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
+import { uid } from 'react-uid';
 
 const VotingHistoryWrapper = styled.div`
   width: 100%;
@@ -121,11 +122,11 @@ function VotingHistory({
         <div className="header">Voting History</div>
         <div className="body">
           {/**/}
-          {data.map((item: $TSFixMe, index: $TSFixMe) => (
+          {data.map((item: $TSFixMe) => (
             <Voting
               proposal={item.proposal}
               support={item.support}
-              key={index}
+              key={uid(item)}
             />
           ))}
         </div>

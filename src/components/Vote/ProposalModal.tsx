@@ -13,6 +13,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { encodeParameters, getArgs } from 'utilities/common';
 import closeImg from 'assets/img/close.png';
+import { uid } from 'react-uid';
 import { useGovernorBravo } from '../../hooks/useContract';
 
 const ModalContent = styled.div`
@@ -391,7 +392,7 @@ function ProposalModal({
                       </div>
                     )
                   }
-                  key={index}
+                  key={uid(f)}
                 >
                   <div className="proposal-content">
                     <Form.Item>
@@ -451,7 +452,7 @@ function ProposalModal({
                       )}
                     </Form.Item>
                     {f.callData.map((c, cIdx) => (
-                      <Form.Item key={cIdx}>
+                      <Form.Item key={uid(c)}>
                         {getFieldDecorator(`calldata_${index}_${cIdx}`, {
                           rules: [
                             {
