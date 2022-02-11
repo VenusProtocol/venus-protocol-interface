@@ -24,8 +24,8 @@
       "prettier --write",
       "git add"
     ],
-    "*.{html,css,less,ejs}": [
-      "lint-styles --fix",
+    "*.{html,css,scss,less,ejs}": [
+      "yarn lint-styles --fix",
       "prettier --write",
       "git add"
     ]
