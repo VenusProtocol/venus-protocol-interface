@@ -13,7 +13,7 @@
     "pretty": "yarn prettier src/**/** public/**/*.html --check",
     "lint": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint .",
     "lint:fix": "yarn lint --fix && yarn pretty --write && yarn lint-styles --fix",
-    "lint-styles": "stylelint 'src/**/*.scss'",
+    "lint-styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "typecheck": "tsc"
   },
   "dependencies": {
