@@ -13,6 +13,23 @@
     "lint-styles": "stylelint 'src/**/*.scss'",
     "typecheck": "tsc"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{html,css,less,ejs}": [
+      "lint-styles --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
     "@web3-react/core": "^6.1.9",
