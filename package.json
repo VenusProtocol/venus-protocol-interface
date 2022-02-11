@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
+    "@stylelint/postcss-css-in-js": "^0.37.2",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/ledger-connector": "^6.1.9",
@@ -78,6 +79,7 @@
     "eslint-plugin-react": "^7.28.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.3",
+    "postcss-syntax": "^0.36.2",
     "prettier": "^1.19.1",
     "prettier-airbnb-config": "^1.0.0",
     "react-error-overlay": "6.0.9",
