@@ -11,7 +11,7 @@ const TabContainerWrapper = styled.div`
   background-color: var(--color-bg-primary);
   padding: 10%;
   margin-top: 24px;
-  
+
   /* customized tab */
   .tab-header {
     display: flex;
@@ -72,7 +72,7 @@ export default ({ onChange, children, titles }: TabContainerPropsType) => {
       >
         {children.map((child, i) =>
           (
-            <TabPane key={`${i}`} tab={titles[i]}>
+            <TabPane key={uid(child)} tab={titles[i]}>
               {child}
             </TabPane>
           ),
