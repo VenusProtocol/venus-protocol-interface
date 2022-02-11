@@ -1,6 +1,7 @@
 // a tab component with Venus style based on antd
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { uid } from 'react-uid';
 
 import { Tabs } from 'antd';
 
@@ -8,6 +9,9 @@ const { TabPane } = Tabs;
 
 const TabContainerWrapper = styled.div`
   background-color: var(--color-bg-primary);
+  padding: 10%;
+  margin-top: 24px;
+  
   /* customized tab */
   .tab-header {
     display: flex;
@@ -29,16 +33,15 @@ const TabContainerWrapper = styled.div`
 `;
 
 export type TabContainerPropsType = {
-  styles?: React.CSSProperties;
   onChange?: (tabIndex: string) => void;
   children: React.ReactElement[];
   titles: string[];
 };
 
-export default ({ styles, onChange, children, titles }: TabContainerPropsType) => {
+export default ({ onChange, children, titles }: TabContainerPropsType) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   return (
-    <TabContainerWrapper style={styles}>
+    <TabContainerWrapper>
       <Tabs
         activeKey={`${activeTabIndex}`}
         renderTabBar={props =>
@@ -47,7 +50,7 @@ export default ({ styles, onChange, children, titles }: TabContainerPropsType) =
             {titles.map((title, i) =>
               (
                 <div
-                  key={i}
+                  key={uid(title)}
                   className={`tab ${activeTabIndex === i ? 'active' : ''}`}
                   onClick={() => {
                     setActiveTabIndex(i);

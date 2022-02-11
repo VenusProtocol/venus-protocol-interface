@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
@@ -48,10 +47,6 @@ export default function VrtConversion() {
   const [redeemableAmount, setRedeemableAmount] = useState(new BigNumber(0));
   const [dailyUtilisation, setDailyUtilisation] = useState(new BigNumber(0));
   const [vrtDailyLimit, setVrtDailyLimit] = useState(new BigNumber(0));
-  // eslint-disable-next-line no-unused-vars
-  const [numberOfDaysSinceStart, setMumberOfDaysSinceStart] = useState(
-    new BigNumber(0),
-  );
   const [conversionRatio, setConversionRatio] = useState(new BigNumber(0));
   const [conversionEndTime, setConversionEndTime] = useState(new BigNumber(0));
   const [userVrtBalance, setUserVrtBalance] = useState(new BigNumber(0));
@@ -82,7 +77,6 @@ export default function VrtConversion() {
           redeemableAmount: redeemableAmountTemp,
           dailyUtilisation: dailyUtilisationTemp,
           vrtDailyLimit: vrtDailyLimitTemp,
-          numberOfDaysSinceStart: numberOfDaysSinceStartTemp,
         },
         conversionRatioTemp,
         conversionEndTimeTemp,
@@ -113,7 +107,6 @@ export default function VrtConversion() {
         setRedeemableAmount(new BigNumber(redeemableAmountTemp).div(VRT_DECIMAL));
         setDailyUtilisation(new BigNumber(dailyUtilisationTemp).div(VRT_DECIMAL));
         setVrtDailyLimit(new BigNumber(vrtDailyLimitTemp).div(VRT_DECIMAL));
-        setMumberOfDaysSinceStart(new BigNumber(numberOfDaysSinceStartTemp));
         setConversionRatio(
           new BigNumber(conversionRatioTemp).div(CONVERSION_RATIO_DECIMAL),
         );
@@ -146,13 +139,7 @@ export default function VrtConversion() {
               xs={{ span: 24 }}
             >
               <div className="container">
-                <TabContainer
-                  styles={{
-                    padding: '10%',
-                    marginTop: '24px',
-                  }}
-                  titles={['Redeem', 'Withdraw']}
-                >
+                <TabContainer titles={['Redeem', 'Withdraw']}>
                   <Redeem
                     vrtConverterXvsBalance={vrtConverterXvsBalance}
                     redeemableAmount={redeemableAmount}
