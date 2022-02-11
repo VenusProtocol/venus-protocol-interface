@@ -23,7 +23,7 @@ import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const SidebarWrapper = styled.div`
   height: 100vh;
-  min-width: 108px;
+  min-width: 116px;
   border-radius: 0 16px 16px 0;
   background-color: var(--color-bg-primary);
   display: flex;
@@ -75,12 +75,6 @@ const MainMenu = styled.div`
 
   .xvs-active-icon {
     display: none;
-  }
-
-  .outlink-icon {
-    width: 16px;
-    margin-left: 11%;
-    margin-right: 12%;
   }
 
   a {
@@ -448,7 +442,7 @@ function Sidebar({
           rel="noreferrer"
         >
           <img src={prdtImg} alt="prdt" className="outlink-icon" />
-          <Label primary>XVS Prediction</Label>
+          <Label primary>Prediction</Label>
         </a>
         <a
           target="_blank"
@@ -533,6 +527,11 @@ function Sidebar({
           <Option className="flex align-center just-center" value="vault">
             <Label size={14} primary>
               Vault
+            </Label>
+          </Option>
+          <Option className="flex align-center just-center" value="redeem-vrt">
+            <Label size={14} primary>
+              Redeem VRT
             </Label>
           </Option>
           <Option className="flex align-center just-center" value="transaction">

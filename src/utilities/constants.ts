@@ -22,6 +22,7 @@ import aave from 'assets/img/coins/aave.png';
 import tusd from 'assets/img/coins/tusd.png';
 import trx from 'assets/img/coins/trx.png';
 import vai from 'assets/img/coins/vai.svg';
+import vrt from 'assets/img/coins/vrt.svg';
 
 import vsxp from 'assets/img/coins/vsxp.png';
 import vusdc from 'assets/img/coins/vusdc.png';
@@ -197,6 +198,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           decimals: 18,
           address: contracts.TEST.TOKEN.vai,
           asset: vai,
+        },
+        vrt: {
+          id: 'vrt',
+          symbol: 'VRT',
+          decimals: 18,
+          address: contracts.TEST.TOKEN.vrt,
+          asset: vrt,
         },
       }
     : {
@@ -389,6 +397,13 @@ export const CONTRACT_TOKEN_ADDRESS =
           decimals: 18,
           address: contracts.MAIN.TOKEN.vai,
           asset: vai,
+        },
+        vrt: {
+          id: 'vrt',
+          symbol: 'VRT',
+          decimals: 18,
+          address: contracts.MAIN.TOKEN.vrt,
+          asset: vrt,
         },
       };
 
