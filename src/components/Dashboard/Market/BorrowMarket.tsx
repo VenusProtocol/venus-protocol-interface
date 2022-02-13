@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
-import { compose } from 'recompose';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import commaNumber from 'comma-number';
 import { Label } from 'components/Basic/Label';
 import BorrowModal from 'components/Basic/BorrowModal';
@@ -11,6 +10,7 @@ import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import { getBigNumber, formatApy } from 'utilities/common';
 import { Asset, Setting } from 'types';
+import { State } from 'core/modules/initialState';
 
 const BorrowMarketWrapper = styled.div`
   width: 100%;
@@ -20,16 +20,16 @@ const BorrowMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-interface DispatchProps {
-  settings: Setting,
+interface StateProps {
+  settings: Setting;
 }
 
 interface Props {
-  borrowedAssets: Asset[],
-  remainAssets: Asset[],
+  borrowedAssets: Asset[];
+  remainAssets: Asset[];
 }
 
-function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & DispatchProps) {
+function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [record, setRecord] = useState({});
 
@@ -69,9 +69,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       key: 'borrowApy',
 
       render(borrowApy: $TSFixMe, asset: $TSFixMe) {
-        const apy = settings.withXVS
-          ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
-          : borrowApy;
+        const apy = settings.withXVS ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy) : borrowApy;
         return {
           children: (
             <div className="apy-content">
@@ -82,9 +80,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
               )}
               <div
                 className={
-                  !settings.withXVS || apy.isNegative()
-                    ? 'apy-red-label'
-                    : 'apy-green-label'
+                  !settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'
                 }
               >
                 {formatApy(apy)}
@@ -160,9 +156,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       key: 'borrowApy',
 
       render(borrowApy: $TSFixMe, asset: $TSFixMe) {
-        const apy = settings.withXVS
-          ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
-          : borrowApy;
+        const apy = settings.withXVS ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy) : borrowApy;
         return {
           children: (
             <div className="apy-content">
@@ -173,9 +167,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
               )}
               <div
                 className={
-                  !settings.withXVS || apy.isNegative()
-                    ? 'apy-red-label'
-                    : 'apy-green-label'
+                  !settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'
                 }
               >
                 {formatApy(apy)}
@@ -224,7 +216,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
             {percentOfLimit}
             %
           </Label>
-        );
+);
         return {
           children,
         };
@@ -234,9 +226,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
 
   return (
     <BorrowMarketWrapper>
-      {borrowedAssets.length === 0 && remainAssets.length === 0 && (
-        <LoadingSpinner />
-      )}
+      {borrowedAssets.length === 0 && remainAssets.length === 0 && <LoadingSpinner />}
       {borrowedAssets.length > 0 && (
         <MarketTable
           columns={borrowColumns}
@@ -245,11 +235,9 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
           handleClickRow={handleClickRow}
         />
       )}
-      {settings.pendingInfo
-        && settings.pendingInfo.status
-        && ['Borrow', 'Repay Borrow'].includes(settings.pendingInfo.type) && (
-          <PendingTransaction />
-      )}
+      {settings.pendingInfo &&
+        settings.pendingInfo.status &&
+        ['Borrow', 'Repay Borrow'].includes(settings.pendingInfo.type) && <PendingTransaction />}
       {remainAssets.length > 0 && (
         <MarketTable
           columns={remainColumns}
@@ -268,16 +256,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
   );
 }
 
-BorrowMarket.defaultProps = {
-  borrowedAssets: [],
-  remainAssets: [],
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State): StateProps => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, undefined))(
-  BorrowMarket,
-);
+export default connect(mapStateToProps)(BorrowMarket);

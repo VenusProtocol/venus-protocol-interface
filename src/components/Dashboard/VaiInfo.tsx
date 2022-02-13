@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
-import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/coins/vai.svg';
@@ -69,10 +67,7 @@ function VaiInfo({ settings }: $TSFixMe) {
   const { account } = useWeb3React();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
-    window.open(
-      `${BASE_BSC_SCAN_URL}/token/${getVaiTokenAddress()}?a=${account}`,
-      '_blank',
-    );
+    window.open(`${BASE_BSC_SCAN_URL}/token/${getVaiTokenAddress()}?a=${account}`, '_blank');
   };
 
   return (
@@ -92,11 +87,13 @@ function VaiInfo({ settings }: $TSFixMe) {
               className="add-vai-token"
               type="plus-circle"
               theme="filled"
-              onClick={() => addToken({
-                asset: 'vai',
-                decimal: 18,
-                type: 'token',
-              })}
+              onClick={() =>
+                addToken({
+                  asset: 'vai',
+                  decimal: 18,
+                  type: 'token',
+                })
+              }
             />
           )}
           {settings.vaiAPY && (
@@ -107,17 +104,9 @@ function VaiInfo({ settings }: $TSFixMe) {
             </p>
           )}
         </div>
-        <div
-          className="flex align-center just-center pointer"
-          onClick={() => handleLink()}
-        >
+        <div className="flex align-center just-center pointer" onClick={() => handleLink()}>
           <p className="highlight">
-            {account
-              ? `${account.substr(0, 4)}...${account.substr(
-                account.length - 4,
-                4,
-              )}`
-              : ''}
+            {account ? `${account.substr(0, 4)}...${account.substr(account.length - 4, 4)}` : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
             <Icon type="arrow-right" />
@@ -128,17 +117,8 @@ function VaiInfo({ settings }: $TSFixMe) {
   );
 }
 
-VaiInfo.propTypes = {
-  settings: PropTypes.object,
-};
-
-VaiInfo.defaultProps = {
-  settings: {},
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(VaiInfo);
+export default connectAccount(mapStateToProps)(VaiInfo);

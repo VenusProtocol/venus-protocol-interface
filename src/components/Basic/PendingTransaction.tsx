@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import moment from 'moment';
 import { Label } from './Label';
@@ -71,15 +69,8 @@ function PendingTransaction({ settings }: $TSFixMe) {
   );
 }
 
-PendingTransaction.propTypes = {
-  settings: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(
-  PendingTransaction,
-);
+export default connectAccount(mapStateToProps)(PendingTransaction);

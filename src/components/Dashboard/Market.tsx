@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'recompose';
 import styled from 'styled-components';
-import { bindActionCreators } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import SupplyMarket from 'components/Dashboard/Market/SupplyMarket';
 import BorrowMarket from 'components/Dashboard/Market/BorrowMarket';
 import { Card } from 'components/Basic/Card';
 import MintTab from 'components/Basic/VaiTabs/MintTab';
 import RepayVaiTab from 'components/Basic/VaiTabs/RepayVaiTab';
+import { State } from 'core/modules/initialState';
+import { Setting } from 'types';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
@@ -55,7 +54,11 @@ const MintRepayVai = styled.div`
   }
 `;
 
-const Market = ({ setSetting }: $TSFixMe) => {
+interface Props {
+  setSetting: (setting: Partial<Setting> | undefined) => void;
+}
+
+const Market = ({ setSetting }: Props) => {
   const [currentTab, setCurrentTab] = useState('supply');
   const [suppliedAssets, setSuppliedAssets] = useState([]);
   const [nonSuppliedAssets, setNonSuppliedAssets] = useState([]);
@@ -113,9 +116,7 @@ const Market = ({ setSetting }: $TSFixMe) => {
       <CardWrapper>
         <Tabs>
           <div
-            className={`tab-item center ${
-              currentTab === 'supply' ? 'tab-active' : ''
-            }`}
+            className={`tab-item center ${currentTab === 'supply' ? 'tab-active' : ''}`}
             onClick={() => {
               setCurrentTab('supply');
             }}
@@ -123,9 +124,7 @@ const Market = ({ setSetting }: $TSFixMe) => {
             Supply Market
           </div>
           <div
-            className={`tab-item center ${
-              currentTab === 'borrow' ? 'tab-active' : ''
-            }`}
+            className={`tab-item center ${currentTab === 'borrow' ? 'tab-active' : ''}`}
             onClick={() => {
               setCurrentTab('borrow');
             }}
@@ -133,9 +132,7 @@ const Market = ({ setSetting }: $TSFixMe) => {
             Borrow Market
           </div>
           <div
-            className={`tab-item center ${
-              currentTab === 'vai' ? 'tab-active' : ''
-            }`}
+            className={`tab-item center ${currentTab === 'vai' ? 'tab-active' : ''}`}
             onClick={() => {
               setCurrentTab('vai');
             }}
@@ -145,16 +142,10 @@ const Market = ({ setSetting }: $TSFixMe) => {
         </Tabs>
         <TabContent>
           {currentTab === 'supply' && (
-            <SupplyMarket
-              suppliedAssets={suppliedAssets}
-              remainAssets={nonSuppliedAssets}
-            />
+            <SupplyMarket suppliedAssets={suppliedAssets} remainAssets={nonSuppliedAssets} />
           )}
           {currentTab === 'borrow' && (
-            <BorrowMarket
-              borrowedAssets={borrowedAssets}
-              remainAssets={nonBorrowedAssets}
-            />
+            <BorrowMarket borrowedAssets={borrowedAssets} remainAssets={nonBorrowedAssets} />
           )}
           {currentTab === 'vai' && (
             <MintRepayVai className="flex align-center">
@@ -168,31 +159,8 @@ const Market = ({ setSetting }: $TSFixMe) => {
   );
 };
 
-Market.propTypes = {
-  settings: PropTypes.object,
-  setSetting: PropTypes.func.isRequired,
-};
-
-Market.defaultProps = {
-  settings: {},
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  Market,
-);
+export default connectAccount(mapStateToProps)(Market);

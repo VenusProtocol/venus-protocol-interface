@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import {
-  Pagination, Icon, Tooltip, Button,
-} from 'antd';
+import { Pagination, Icon, Tooltip, Button } from 'antd';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
 import toast from 'components/Basic/Toast';
@@ -126,13 +124,13 @@ const NoProposalWrapper = styled.div`
 `;
 
 interface Props {
-  address: string
-  isLoadingProposal: boolean,
-  votingWeight: string,
-  proposals: Array<ProposalObject>,
-  pageNumber: number,
-  total: number,
-  onChangePage: (page: number, total: number, size: number) => void,
+  address: string;
+  isLoadingProposal: boolean;
+  votingWeight: string;
+  proposals: Array<ProposalObject>;
+  pageNumber: number;
+  total: number;
+  onChangePage: (page: number, total: number, size: number) => void;
 }
 
 function Proposals({
@@ -171,9 +169,7 @@ function Proposals({
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      setNotProposable(
-        new BigNumber(votingWeight).lt(new BigNumber(proposalThreshold)),
-      );
+      setNotProposable(new BigNumber(votingWeight).lt(new BigNumber(proposalThreshold)));
     }
     return () => {
       isMounted = false;
@@ -193,9 +189,8 @@ function Proposals({
 
   useEffect(() => {
     if (
-      account
-      && (delegateAddress === ''
-        || delegateAddress === '0x0000000000000000000000000000000000000000')
+      account &&
+      (delegateAddress === '' || delegateAddress === '0x0000000000000000000000000000000000000000')
     ) {
       getDelegatedAddress();
     }
@@ -217,15 +212,13 @@ function Proposals({
 
   const handleShowProposalModal = async () => {
     setIsLoading(true);
-    const pId = await governorBravoContract.methods
-      .latestProposalIds(address)
-      .call();
+    const pId = await governorBravoContract.methods.latestProposalIds(address).call();
     if (pId !== '0') {
       const status = await governorBravoContract.methods.state(pId).call();
       if (status === '0' || status === '1') {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
-          title: 'You can\'t create proposal. there is proposal in progress!',
+          title: "You can't create proposal. there is proposal in progress!",
         });
       } else {
         setProposalModal(true);
@@ -309,7 +302,6 @@ function Proposals({
             </div>
           </div>
         )}
-        {/* @ts-expect-error Property 'form' is missing in type */}
         <ProposalModal
           address={address}
           visible={proposalModal}

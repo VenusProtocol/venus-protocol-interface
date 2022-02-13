@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { compose } from 'recompose';
-import {
-  Form, Input, Modal, Icon, Collapse,
-} from 'antd';
+import { Form, Input, Modal, Icon, Collapse } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { Button } from 'components/v2/Button';
-import { bindActionCreators, Dispatch } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
@@ -152,14 +148,14 @@ const mdParser = new MarkdownIt();
 const { Panel } = Collapse;
 
 interface Props extends FormComponentProps {
-  address: string,
-  visible: boolean,
-  maxOperation: number,
-  onCancel: () => void,
+  address: string;
+  visible: boolean;
+  maxOperation: number;
+  onCancel: () => void;
 }
 
 interface DispatchProps {
-  getProposals: () => void,
+  getProposals: () => void;
 }
 
 function ProposalModal({
@@ -231,13 +227,9 @@ function ProposalModal({
             callDataTypes = getArgs(formValues[`signature${i}`]);
             for (let j = 0; j < formData[i].callData.length; j += 1) {
               if (callDataTypes[j].toLowerCase() === 'bool') {
-                callDataValues.push(
-                  formValues[`calldata_${i}_${j}`].toLowerCase() === 'true',
-                );
+                callDataValues.push(formValues[`calldata_${i}_${j}`].toLowerCase() === 'true');
               } else if (callDataTypes[j].includes('[]')) {
-                callDataValues.push(
-                  formValues[`calldata_${i}_${j}`].slice(1, -1).split(','),
-                );
+                callDataValues.push(formValues[`calldata_${i}_${j}`].slice(1, -1).split(','));
               } else {
                 callDataValues.push(formValues[`calldata_${i}_${j}`]);
               }
@@ -251,13 +243,7 @@ function ProposalModal({
         setIsLoading(true);
         try {
           await governorBravoContract.methods
-            .propose(
-              targetAddresses,
-              values,
-              signatures,
-              callDatas,
-              description,
-            )
+            .propose(targetAddresses, values, signatures, callDatas, description)
             .send({ from: address });
           setErrorMsg('');
           onCancel();
@@ -303,11 +289,7 @@ function ProposalModal({
   };
 
   const handleParseFunc = (funcStr: $TSFixMe, idx: $TSFixMe) => {
-    if (
-      (form.getFieldValue(`signature${idx}`) || '')
-        .trim()
-        .replace(/^s+|s+$/g, '')
-    ) {
+    if ((form.getFieldValue(`signature${idx}`) || '').trim().replace(/^s+|s+$/g, '')) {
       const parsedStr = getArgs(funcStr);
       formData[idx].signature = funcStr;
       // @ts-expect-error ts-migrate(2322) FIXME: Type 'any[]' is not assignable to type 'never[]'.
@@ -347,19 +329,11 @@ function ProposalModal({
       centered
     >
       <ModalContent className="flex flex-column align-center just-center">
-        <img
-          className="close-btn pointer"
-          src={closeImg}
-          alt="close"
-          onClick={onCancel}
-        />
-        <div className="flex align-center just-center header-content">
-          Create Proposal
-        </div>
+        <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
+        <div className="flex align-center just-center header-content">Create Proposal</div>
         {maxOperation && (
           <p className="max-operations center">
             You can add
-            {' '}
             {maxOperation}
             {' '}
             actions as maximum
@@ -385,10 +359,7 @@ function ProposalModal({
                           Action
                           {index + 1}
                         </span>
-                        <Icon
-                          type="close"
-                          onClick={() => handleRemove(index)}
-                        />
+                        <Icon type="close" onClick={() => handleRemove(index)} />
                       </div>
                     )
                   }
@@ -408,12 +379,13 @@ function ProposalModal({
                       })(
                         <Input
                           placeholder="Address"
-                          onKeyUp={() => handleKeyUp(
-                            'targetAddress',
-                            index,
-                            null,
-                            form.getFieldValue(`targetAddress${index}`),
-                          )
+                          onKeyUp={() =>
+                            handleKeyUp(
+                              'targetAddress',
+                              index,
+                              null,
+                              form.getFieldValue(`targetAddress${index}`),
+                            )
                           }
                         />,
                       )}
@@ -443,10 +415,8 @@ function ProposalModal({
                       })(
                         <Input
                           placeholder="assumeOwnership(address,string,uint256)"
-                          onKeyUp={() => handleParseFunc(
-                            form.getFieldValue(`signature${index}`),
-                            index,
-                          )
+                          onKeyUp={() =>
+                            handleParseFunc(form.getFieldValue(`signature${index}`), index)
                           }
                         />,
                       )}
@@ -468,12 +438,13 @@ function ProposalModal({
                         })(
                           <Input
                             placeholder={`${c}(calldata)`}
-                            onKeyUp={() => handleKeyUp(
-                              'calldata',
-                              index,
-                              cIdx,
-                              form.getFieldValue(`calldata_${index}_${cIdx}`),
-                            )
+                            onKeyUp={() =>
+                              handleKeyUp(
+                                'calldata',
+                                index,
+                                cIdx,
+                                form.getFieldValue(`calldata_${index}_${cIdx}`),
+                              )
                             }
                           />,
                         )}
@@ -482,17 +453,11 @@ function ProposalModal({
                     {formData.length < +maxOperation && (
                       <div className="flex align-center just-end add-btn-wrapper">
                         {index !== 0 && (
-                          <Button
-                            className="add-btn"
-                            onClick={() => handleAdd('previous', index)}
-                          >
+                          <Button className="add-btn" onClick={() => handleAdd('previous', index)}>
                             Add to previous
                           </Button>
                         )}
-                        <Button
-                          className="add-btn"
-                          onClick={() => handleAdd('next', index)}
-                        >
+                        <Button className="add-btn" onClick={() => handleAdd('next', index)}>
                           Add to next
                         </Button>
                       </div>
@@ -516,9 +481,7 @@ function ProposalModal({
               htmlType="submit"
               className="proposal-btn"
               disabled={
-                isLoading
-                || formData.length > maxOperation
-                || description.trim().length === 0
+                isLoading || formData.length > maxOperation || description.trim().length === 0
               }
             >
               {isLoading && <Icon type="loading" />}
@@ -539,19 +502,4 @@ ProposalModal.defaultProps = {
   onCancel: () => {},
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { getProposals } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getProposals,
-    },
-    dispatch,
-  );
-};
-
-export default compose<Props & DispatchProps, Props>(
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(undefined, mapDispatchToProps),
-  Form.create({ name: 'proposal_form' }),
-)(ProposalModal);
+export default connectAccount()(Form.create({ name: 'proposal_form' })(ProposalModal));

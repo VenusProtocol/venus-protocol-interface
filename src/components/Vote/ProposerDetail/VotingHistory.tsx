@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { Pagination } from 'antd';
 import { withRouter } from 'react-router-dom';
 import Voting from 'components/Basic/Voting';
@@ -96,9 +95,7 @@ const VotingHistoryWrapper = styled.div`
   }
 `;
 
-function VotingHistory({
-  data, pageNumber, total, onChangePage,
-}: $TSFixMe) {
+function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
   const [current, setCurrent] = useState(pageNumber);
   const [pageSize, setPageSize] = useState(5);
 
@@ -123,11 +120,7 @@ function VotingHistory({
         <div className="body">
           {/**/}
           {data.map((item: $TSFixMe) => (
-            <Voting
-              proposal={item.proposal}
-              support={item.support}
-              key={uid(item)}
-            />
+            <Voting proposal={item.proposal} support={item.support} key={uid(item)} />
           ))}
         </div>
         {data && data.length !== 0 && (
@@ -181,4 +174,4 @@ VotingHistory.defaultProps = {
   total: 0,
 };
 
-export default compose(withRouter)(VotingHistory);
+export default withRouter(VotingHistory);

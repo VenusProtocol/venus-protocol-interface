@@ -2,22 +2,16 @@
 // file, instead of merging its logic into general pool UI which is in `./Card.js` thus we can easily
 // remove this VAI pool code in the future when it's about to be deprecated
 import React, { useState, useEffect } from 'react';
-import { compose } from 'recompose';
+
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
-import PropTypes from 'prop-types';
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
 import { useWeb3React } from '@web3-react/core';
 import VAICardContent from './VaiCardContent';
 import { VaultCardWrapper } from './styles';
 import useRefresh from '../../hooks/useRefresh';
-import {
-  useComptroller,
-  useToken,
-  useVaiToken,
-  useVaiVault,
-} from '../../hooks/useContract';
+import { useComptroller, useToken, useVaiToken, useVaiVault } from '../../hooks/useContract';
 
 import vaiImg from '../../assets/img/coins/vai.svg';
 import xvsImg from '../../assets/img/coins/xvs.png';
@@ -37,13 +31,9 @@ function VaultCard({ settings }: $TSFixMe) {
 
   const [expanded, setExpanded] = useState(false);
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
-  const [totalPendingRewards, setTotalPendingRewards] = useState(
-    new BigNumber(0),
-  );
+  const [totalPendingRewards, setTotalPendingRewards] = useState(new BigNumber(0));
   const [userVaiAllowance, setUserVaiAllowance] = useState(new BigNumber(0));
-  const [userVaiStakedAmount, setUserVaiStakedAmount] = useState(
-    new BigNumber(0),
-  );
+  const [userVaiStakedAmount, setUserVaiStakedAmount] = useState(new BigNumber(0));
   const [userVaiBalance, setUserVaiBalance] = useState(new BigNumber(0));
   const [userPendingReward, setUserPendingReward] = useState(new BigNumber(0));
 
@@ -101,36 +91,21 @@ function VaultCard({ settings }: $TSFixMe) {
     <VaultCardWrapper>
       <div className={`header-container ${expanded ? '' : 'fold'}`}>
         <Row className="header">
-          <Col
-            className="col-item"
-            lg={{ span: 3 }}
-            md={{ span: 6 }}
-            xs={{ span: 12 }}
-          >
+          <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Stake</div>
             <div className="content">
               <img src={vaiImg} alt="Vai" />
               <span>VAI</span>
             </div>
           </Col>
-          <Col
-            className="col-item"
-            lg={{ span: 3 }}
-            md={{ span: 6 }}
-            xs={{ span: 12 }}
-          >
+          <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Earn</div>
             <div className="content">
               <img src={xvsImg} alt="rewardToken" />
               <span>XVS</span>
             </div>
           </Col>
-          <Col
-            className="col-item"
-            lg={{ span: 4 }}
-            md={{ span: 6 }}
-            xs={{ span: 12 }}
-          >
+          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Reward Pool</div>
             <div className="content">
               {commaFormatter(
@@ -143,41 +118,24 @@ function VaultCard({ settings }: $TSFixMe) {
               XVS
             </div>
           </Col>
-          <Col
-            className="col-item"
-            lg={{ span: 4 }}
-            md={{ span: 6 }}
-            xs={{ span: 12 }}
-          >
+          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">VAI Staking APR</div>
             <div className="content">
               {settings.vaiAPY}
               %
             </div>
           </Col>
-          <Col
-            className="col-item"
-            lg={{ span: 4 }}
-            md={{ span: 6 }}
-            xs={{ span: 12 }}
-          >
+          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Total VAI Staked</div>
             <div className="content">
               {settings.vaultVaiStaked
-                ? commaFormatter(
-                  new BigNumber(settings.vaultVaiStaked).dp(4, 1).toString(10),
-                )
+                ? commaFormatter(new BigNumber(settings.vaultVaiStaked).dp(4, 1).toString(10))
                 : 0}
               {' '}
               VAI
             </div>
           </Col>
-          <Col
-            className="col-item"
-            lg={{ span: 4 }}
-            md={{ span: 6 }}
-            xs={{ span: 12 }}
-          >
+          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">XVS Daily Emission</div>
             <div className="content">
               {commaFormatter(dailyEmission.toString(10))}
@@ -209,15 +167,10 @@ function VaultCard({ settings }: $TSFixMe) {
   );
 }
 
-VaultCard.propTypes = {
-  settings: PropTypes.object.isRequired,
-};
-
 VaultCard.defaultProps = {};
 
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(VaultCard);
+export default connectAccount(mapStateToProps)(VaultCard);

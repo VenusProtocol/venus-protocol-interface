@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {
-  Input, Form, Dropdown, Menu,
-} from 'antd';
+import { Input, Form, Dropdown, Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
-import { bindActionCreators } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
 import { Button } from 'components/v2/Button';
@@ -124,7 +120,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               title: `Funding request for ${fromAddress} into ${values.address}`,
             });
           })
-          .catch((error) => {
+          .catch(error => {
             if (error.data && error.data.message) {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({
@@ -231,9 +227,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
                     message: 'Address is required!',
                   },
                 ],
-              })(
-                <Input placeholder="Input your Binance Smart Chain address..." />,
-              )}
+              })(<Input placeholder="Input your Binance Smart Chain address..." />)}
             </Form.Item>
             {isLoading ? (
               <div className="flex flex-column">
@@ -245,81 +239,63 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={bnbMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me BNB
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me BNB</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={sxpMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me SXP
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me SXP</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={xvsMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me XVS
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me XVS</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={busdMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me BUSD
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me BUSD</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={usdtMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me USDT
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me USDT</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={usdcMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me USDC
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me USDC</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={btcbMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me BTCB
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me BTCB</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={ethMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me ETH
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me ETH</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={ltcMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me LTC
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me LTC</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
@@ -329,9 +305,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
                   <Column xs="6" sm="4">
                     <ButtonWrapper>
                       <Dropdown overlay={xrpMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">
-                          Give Me XRP
-                        </Button>
+                        <Button className="fill-btn next-btn button">Give Me XRP</Button>
                       </Dropdown>
                     </ButtonWrapper>
                   </Column>
@@ -449,20 +423,4 @@ Faucet.propTypes = {
   getFromFaucet: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getFromFaucet } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getFromFaucet,
-    },
-    dispatch,
-  );
-};
-
-export default compose(
-  withRouter,
-  Form.create({ name: 'faucet-form' }),
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(undefined, mapDispatchToProps),
-)(Faucet);
+export default Form.create({ name: 'faucet-form' })(connectAccount(undefined)(withRouter(Faucet)));

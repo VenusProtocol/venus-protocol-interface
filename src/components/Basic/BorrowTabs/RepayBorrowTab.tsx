@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { compose } from 'recompose';
 import { Button } from 'components/v2/Button';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators, Dispatch } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { sendRepay } from 'utilities/BnbContract';
@@ -23,21 +21,16 @@ import useWeb3 from '../../../hooks/useWeb3';
 const format = commaNumber.bindWith(',', '.');
 
 interface DispatchProps {
-  setSetting: (setting: Setting | undefined) => void
+  setSetting: (setting: Setting | undefined) => void;
 }
 
 interface Props {
-  asset: Asset
-  changeTab: (tab: 'borrow' | 'repayBorrow') => void
-  onCancel: () => void
+  asset: Asset;
+  changeTab: (tab: 'borrow' | 'repayBorrow') => void;
+  onCancel: () => void;
 }
 
-function RepayBorrowTab({
-  asset,
-  changeTab,
-  onCancel,
-  setSetting,
-}: Props & DispatchProps) {
+function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -60,12 +53,8 @@ function RepayBorrowTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
-        setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
+        setNewBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
       }
     } else {
       const temp = userTotalBorrowBalance.minus(amount.times(tokenPrice));
@@ -75,9 +64,7 @@ function RepayBorrowTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
         setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
     }
@@ -129,17 +116,15 @@ function RepayBorrowTab({
       if (asset.id !== 'bnb') {
         const repayAmount = amount.eq(asset.borrowBalance)
           ? new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10)
+              .pow(256)
+              .minus(1)
+              .toString(10)
           : amount
-            .times(new BigNumber(10).pow(asset.decimals))
-            .integerValue()
-            .toString(10);
+              .times(new BigNumber(10).pow(asset.decimals))
+              .integerValue()
+              .toString(10);
         try {
-          await vbepContract.methods
-            .repayBorrow(repayAmount)
-            .send({ from: account });
+          await vbepContract.methods.repayBorrow(repayAmount).send({ from: account });
           setAmount(new BigNumber(0));
           onCancel();
         } catch (error) {
@@ -199,13 +184,15 @@ function RepayBorrowTab({
             <NumberFormat
               autoFocus
               value={amount.isZero() ? '0' : amount.toString(10)}
-              onValueChange={(values) => {
+              onValueChange={values => {
                 const { value } = values;
                 setAmount(new BigNumber(value));
               }}
-              isAllowed={({ value }) => new BigNumber(value || 0).isLessThanOrEqualTo(
-                BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
-              )}
+              isAllowed={({ value }) =>
+                new BigNumber(value || 0).isLessThanOrEqualTo(
+                  BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
+                )
+              }
               thousandSeparator
               allowNegative={false}
               placeholder="0"
@@ -222,8 +209,7 @@ function RepayBorrowTab({
               {' '}
               {asset.name}
               {' '}
-              to the Venus Protocol, you need to enable it
-              first.
+              to the Venus Protocol, you need to enable it first.
             </p>
           </>
         )}
@@ -310,11 +296,7 @@ function RepayBorrowTab({
                     $
                     {borrowBalance.dp(2, 1).toString(10)}
                   </span>
-                  <img
-                    className="arrow-right-img"
-                    src={arrowRightImg}
-                    alt="arrow"
-                  />
+                  <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
                   <span>
                     $
                     {newBorrowBalance.dp(2, 1).toString(10)}
@@ -335,11 +317,7 @@ function RepayBorrowTab({
                     {borrowPercent.dp(2, 1).toString(10)}
                     %
                   </span>
-                  <img
-                    className="arrow-right-img"
-                    src={arrowRightImg}
-                    alt="arrow"
-                  />
+                  <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
                   <span>
                     {newBorrowPercent.dp(2, 1).toString(10)}
                     %
@@ -371,12 +349,10 @@ function RepayBorrowTab({
           <Button
             className="button"
             disabled={
-              isLoading
-              || amount.isZero()
-              || amount.isNaN()
-              || amount.isGreaterThan(
-                BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
-              )
+              isLoading ||
+              amount.isZero() ||
+              amount.isNaN() ||
+              amount.isGreaterThan(BigNumber.minimum(asset.walletBalance, asset.borrowBalance))
             }
             onClick={handleRepayBorrow}
           >
@@ -399,27 +375,12 @@ function RepayBorrowTab({
 }
 
 RepayBorrowTab.defaultProps = {
-  settings: {},
-  changeTab: () => { },
-  onCancel: () => { },
+  changeTab: () => {},
+  onCancel: () => {},
 };
 
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, mapDispatchToProps))(
-  RepayBorrowTab,
-);
+export default connectAccount(mapStateToProps)(RepayBorrowTab);

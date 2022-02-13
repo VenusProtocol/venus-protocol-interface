@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
 import styled from 'styled-components';
 import {
   Area,
@@ -20,6 +19,7 @@ import moment from 'moment';
 import { connectAccount } from 'core';
 import { currencyFormatter } from 'utilities/common';
 import { uid } from 'react-uid';
+import { State } from 'core/modules/initialState';
 
 const ChartWrapper = styled.div`
   width: 100% + 40px;
@@ -46,9 +46,9 @@ const ChartWrapper = styled.div`
 `;
 
 interface Props {
-  marketType: string,
-  graphType?: string,
-  data: Array<Record<string, { name: string, apy: number }>>,
+  marketType: string;
+  graphType?: string;
+  data: Array<Record<string, { name: string; apy: number }>>;
 }
 
 function OverviewChart({ marketType, graphType, data }: Props) {
@@ -74,8 +74,9 @@ function OverviewChart({ marketType, graphType, data }: Props) {
             {`${moment(label).format('LLL')}`}
           </p>
           <p className="label" style={{ color: 'white' }}>
-            {`${marketType === 'supply' ? 'Supply APY' : 'Borrow APY'
-            } : ${new BigNumber(payload[0].value).dp(8, 1)}%`}
+            {`${marketType === 'supply' ? 'Supply APY' : 'Borrow APY'} : ${new BigNumber(
+              payload[0].value,
+            ).dp(8, 1)}%`}
           </p>
         </div>
       );
@@ -88,8 +89,9 @@ function OverviewChart({ marketType, graphType, data }: Props) {
       return (
         <div className="custom-tooltip">
           <p className="label" style={{ color: 'white' }}>
-            {`${marketType === 'supply' ? 'Total Supply' : 'Total Borrow'
-            } : ${currencyFormatter(payload[0].value ? payload[0].value : 0)}`}
+            {`${marketType === 'supply' ? 'Total Supply' : 'Total Borrow'} : ${currencyFormatter(
+              payload[0].value ? payload[0].value : 0,
+            )}`}
           </p>
         </div>
       );
@@ -152,15 +154,9 @@ function OverviewChart({ marketType, graphType, data }: Props) {
                 type="monotone"
                 isAnimationActive
                 dataKey={marketType === 'supply' ? 'supplyApy' : 'borrowApy'}
-                stroke={`${marketType !== 'supply'
-                  ? 'url(#barRedColor)'
-                  : 'url(#barGreenColor)'
-                }`}
+                stroke={`${marketType !== 'supply' ? 'url(#barRedColor)' : 'url(#barGreenColor)'}`}
                 strokeWidth={2}
-                fill={`${marketType !== 'supply'
-                  ? 'url(#areaRedColor)'
-                  : 'url(#areaGreenColor)'
-                }`}
+                fill={`${marketType !== 'supply' ? 'url(#areaRedColor)' : 'url(#areaGreenColor)'}`}
               />
             )}
             {graphType === 'composed' && (
@@ -169,10 +165,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
                 dot={false}
                 isAnimationActive
                 dataKey={marketType === 'supply' ? 'supplyApy' : 'borrowApy'}
-                stroke={`${marketType !== 'supply'
-                  ? 'url(#barRedColor)'
-                  : 'url(#barGreenColor)'
-                }`}
+                stroke={`${marketType !== 'supply' ? 'url(#barRedColor)' : 'url(#barGreenColor)'}`}
                 strokeWidth={2}
               />
             )}
@@ -211,9 +204,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
               <Tooltip cursor={false} content={<CustomChart2Tooltip />} />
               <Bar
                 isAnimationActive
-                dataKey={
-                  marketType === 'supply' ? 'totalSupply' : 'totalBorrow'
-                }
+                dataKey={marketType === 'supply' ? 'totalSupply' : 'totalBorrow'}
                 onMouseMove={handleMouseMove}
               >
                 {data.map((entry: $TSFixMe, index: number) => (
@@ -221,10 +212,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
                     cursor="pointer"
                     fill={
                       index === activeIndex
-                        ? `${marketType !== 'supply'
-                          ? 'url(#barRedColor)'
-                          : 'url(#barGreenColor)'
-                        }`
+                        ? `${marketType !== 'supply' ? 'url(#barRedColor)' : 'url(#barGreenColor)'}`
                         : '#252a4a'
                     }
                     key={uid(entry)}
@@ -245,11 +233,8 @@ OverviewChart.defaultProps = {
   data: [],
 };
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose<Props, Props>(connectAccount(mapStateToProps, undefined))(
-  OverviewChart,
-);
+export default connectAccount(mapStateToProps)(OverviewChart);

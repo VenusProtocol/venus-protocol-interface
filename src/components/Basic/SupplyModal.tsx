@@ -221,31 +221,16 @@ function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
       centered
     >
       <ModalContent className="flex flex-column align-center just-center">
-        <img
-          className="close-btn pointer"
-          src={closeImg}
-          alt="close"
-          onClick={onCancel}
-        />
+        <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
         <div className="flex align-center just-center header-content">
           <img src={asset.img} alt="asset" />
           <p className="title">{asset.name}</p>
         </div>
         {currentTab === 'supply' && (
-          <SupplyTab
-            // @ts-expect-error asset needs better validation
-            asset={asset}
-            changeTab={setCurrentTab}
-            onCancel={onCancel}
-          />
+          <SupplyTab asset={asset} changeTab={setCurrentTab} onCancel={onCancel} />
         )}
         {currentTab === 'withdraw' && (
-          <WithdrawTab
-            // @ts-expect-error asset needs better validation
-            asset={asset}
-            changeTab={setCurrentTab}
-            onCancel={onCancel}
-          />
+          <WithdrawTab asset={asset} changeTab={setCurrentTab} onCancel={onCancel} />
         )}
       </ModalContent>
     </Modal>

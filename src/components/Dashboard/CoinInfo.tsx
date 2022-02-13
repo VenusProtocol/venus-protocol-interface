@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
-import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
@@ -86,25 +84,19 @@ function CoinInfo() {
               className="add-xvs-token"
               type="plus-circle"
               theme="filled"
-              onClick={() => addToken({
-                asset: 'xvs',
-                decimal: 18,
-                type: 'token',
-              })}
+              onClick={() =>
+                addToken({
+                  asset: 'xvs',
+                  decimal: 18,
+                  type: 'token',
+                })
+              }
             />
           )}
         </div>
-        <div
-          className="flex align-center just-center pointer"
-          onClick={() => handleLink()}
-        >
+        <div className="flex align-center just-center pointer" onClick={() => handleLink()}>
           <p className="highlight">
-            {account
-              ? `${account.substr(0, 4)}...${account.substr(
-                account.length - 4,
-                4,
-              )}`
-              : ''}
+            {account ? `${account.substr(0, 4)}...${account.substr(account.length - 4, 4)}` : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
             <Icon type="arrow-right" />
@@ -115,17 +107,4 @@ function CoinInfo() {
   );
 }
 
-CoinInfo.propTypes = {
-  settings: PropTypes.object,
-};
-
-CoinInfo.defaultProps = {
-  settings: {},
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
-  settings: account.setting,
-});
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(CoinInfo);
+export default connectAccount()(CoinInfo);

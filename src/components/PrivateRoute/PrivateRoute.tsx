@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connectAuth } from 'core';
+import { State } from 'core/modules/initialState';
 
 class PrivateRoute extends React.PureComponent {
   render() {
@@ -24,8 +25,8 @@ PrivateRoute.defaultProps = {
   user: PropTypes.object,
 };
 
-const mapStateToProps = ({ auth }: $TSFixMe) => ({
+const mapStateToProps = ({ auth }: State) => ({
   user: auth.user,
 });
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default connectAuth(mapStateToProps, {})(PrivateRoute);
+
+export default connectAuth(mapStateToProps)(PrivateRoute);

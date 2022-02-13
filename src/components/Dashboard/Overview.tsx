@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import BigNumber from 'bignumber.js';
-import { bindActionCreators } from 'redux';
 import { Select, Icon } from 'antd';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
@@ -202,12 +200,9 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
     if (userMarketInfo && userMarketInfo.length > 0) {
       const currentMarketInfo =
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type '{}'.
-        userMarketInfo.filter((s: $TSFixMe) => s && s.id === currentAsset)
-          .length !== 0
+        userMarketInfo.filter((s: $TSFixMe) => s && s.id === currentAsset).length !== 0
           ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type '{}'.
-          userMarketInfo.filter(
-            (s: $TSFixMe) => s && s.id === currentAsset,
-          )[0]
+            userMarketInfo.filter((s: $TSFixMe) => s && s.id === currentAsset)[0]
           : {};
       const supplyApy = getBigNumber(currentMarketInfo.supplyApy);
       const borrowApy = getBigNumber(currentMarketInfo.borrowApy);
@@ -236,10 +231,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
       <CardWrapper>
         <div className="flex align-center just-between">
           <div className="flex align-center just-between asset-select-wrapper">
-            <AssetSelectWrapper
-              className="flex align-center just-end"
-              id="asset"
-            >
+            <AssetSelectWrapper className="flex align-center just-end" id="asset">
               <Select
                 defaultValue="sxp"
                 style={{ width: 150, marginRight: 10 }}
@@ -251,28 +243,26 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
                 dropdownClassName="asset-select"
                 onChange={handleChangeAsset}
               >
-                {Object.keys(constants.CONTRACT_VBEP_ADDRESS).map(
-                  (key) => (
-                    <Option
-                      className="flex align-center just-between"
+                {Object.keys(constants.CONTRACT_VBEP_ADDRESS).map(key => (
+                  <Option
+                    className="flex align-center just-between"
+                    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                    value={constants.CONTRACT_VBEP_ADDRESS[key].id}
+                    key={uid(key)}
+                  >
+                    <img
+                      className="asset-img"
                       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                      value={constants.CONTRACT_VBEP_ADDRESS[key].id}
-                      key={uid(key)}
-                    >
-                      <img
-                        className="asset-img"
-                        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                        src={constants.CONTRACT_TOKEN_ADDRESS[key].asset}
-                        alt="asset"
-                      />
-                      {' '}
-                      <span>
-                        {/* @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message */}
-                        {constants.CONTRACT_TOKEN_ADDRESS[key].symbol}
-                      </span>
-                    </Option>
-                  ),
-                )}
+                      src={constants.CONTRACT_TOKEN_ADDRESS[key].asset}
+                      alt="asset"
+                    />
+                    {' '}
+                    <span>
+                      {/* @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message */}
+                      {constants.CONTRACT_TOKEN_ADDRESS[key].symbol}
+                    </span>
+                  </Option>
+                ))}
               </Select>
               <div className="value">Overview</div>
             </AssetSelectWrapper>
@@ -287,27 +277,28 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
                       className="add-token"
                       type="plus-circle"
                       theme="filled"
-                      onClick={() => addToken({
-                        asset: currentAsset,
-                        decimal: decimals,
-                        type: 'token',
-                      })}
+                      onClick={() =>
+                        addToken({
+                          asset: currentAsset,
+                          decimal: decimals,
+                          type: 'token',
+                        })
+                      }
                     />
                   </div>
                 )}
                 <div className="flex align-center vtoken-asset">
-                  {`v${
-                    currentAsset === 'btcb' ? 'BTC' : currentAsset.toUpperCase()
-                  }`}
+                  {`v${currentAsset === 'btcb' ? 'BTC' : currentAsset.toUpperCase()}`}
                   <Icon
                     className="add-token"
                     type="plus-circle"
                     theme="filled"
-                    onClick={() => addToken({
-                      asset: currentAsset,
-                      decimal: vtokenDecimals,
-                      type: 'vtoken',
-                    })
+                    onClick={() =>
+                      addToken({
+                        asset: currentAsset,
+                        decimal: vtokenDecimals,
+                        type: 'vtoken',
+                      })
                     }
                   />
                 </div>
@@ -334,15 +325,10 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
             {formatApy(currentAPY)}
           </p>
           <p className="apy-label">
-            {(settings.marketType || 'supply') === 'supply'
-              ? 'Supply APY'
-              : 'Borrow APY'}
+            {(settings.marketType || 'supply') === 'supply' ? 'Supply APY' : 'Borrow APY'}
           </p>
         </div>
-        <OverviewChart
-          marketType={settings.marketType || 'supply'}
-          data={data}
-        />
+        <OverviewChart marketType={settings.marketType || 'supply'} data={data} />
         <div className="description">
           <p className="label">Price</p>
           <p className="value">
@@ -414,9 +400,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
           <p className="value">
             {`$${format(
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-              new BigNumber(marketInfo.totalSupplyUsd || 0)
-                .dp(2, 1)
-                .toString(10),
+              new BigNumber(marketInfo.totalSupplyUsd || 0).dp(2, 1).toString(10),
             )}`}
           </p>
         </div>
@@ -425,9 +409,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
           <p className="value">
             {`$${format(
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
-              new BigNumber(marketInfo.totalBorrowsUsd || 0)
-                .dp(2, 1)
-                .toString(10),
+              new BigNumber(marketInfo.totalBorrowsUsd || 0).dp(2, 1).toString(10),
             )}`}
           </p>
         </div>
@@ -454,30 +436,11 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
 }
 
 Overview.propTypes = {
-  settings: PropTypes.object,
   getMarketHistory: PropTypes.func.isRequired,
-};
-
-Overview.defaultProps = {
-  settings: {},
 };
 
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getMarketHistory } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getMarketHistory,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  Overview,
-);
+export default connectAccount(mapStateToProps)(Overview);
