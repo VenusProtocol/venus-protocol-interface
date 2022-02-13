@@ -3,10 +3,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
+
 import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import CoinInfo from 'components/Vote/CoinInfo';
 import VotingWallet from 'components/Vote/VotingWallet';
@@ -16,10 +15,7 @@ import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
 import useRefresh from '../../hooks/useRefresh';
-import {
-  CONTRACT_XVS_TOKEN_ADDRESS,
-  CONTRACT_VBEP_ADDRESS,
-} from '../../utilities/constants';
+import { CONTRACT_XVS_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from '../../utilities/constants';
 import {
   useComptroller,
   useToken,
@@ -58,7 +54,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
       offset: 0,
       limit: 5,
     })
-      .then((res) => {
+      .then(res => {
         setIsLoadingPropoasl(false);
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setProposals(res.data);
@@ -85,7 +81,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
       offset,
       limit,
     })
-      .then((res) => {
+      .then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setProposals(res.data);
         setIsLoadingPropoasl(false);
@@ -107,9 +103,9 @@ function Vote({ history, getProposals }: $TSFixMe) {
         xvsVaultProxyContract.methods.getCurrentVotes(account).call(),
         xvsTokenContract.methods.balanceOf(account).call(),
         // query all xvs pool infos
-        ...Array.from({ length }).map((_, index) => xvsVaultProxyContract.methods
-          .poolInfos(CONTRACT_XVS_TOKEN_ADDRESS, index)
-          .call()),
+        ...Array.from({ length }).map((_, index) =>
+          xvsVaultProxyContract.methods.poolInfos(CONTRACT_XVS_TOKEN_ADDRESS, index).call(),
+        ),
       ]);
 
       // find xvs vault pid
@@ -140,22 +136,18 @@ function Vote({ history, getProposals }: $TSFixMe) {
     const myAddress = account;
     if (!myAddress) return;
 
-    const [
-      venusInitialIndex,
-      venusAccrued,
-      venusVAIState,
-      vaiMinterAmount,
-    ] = await Promise.all([
+    const [venusInitialIndex, venusAccrued, venusVAIState, vaiMinterAmount] = await Promise.all([
       comptrollerContract.methods.venusInitialIndex().call(),
       comptrollerContract.methods.venusAccrued(myAddress).call(),
       vaiUnitrollerContract.methods.venusVAIState().call(),
       comptrollerContract.methods.mintedVAIs(myAddress).call(),
     ]);
-    let vaiMinterIndex =
-      await Promise.resolve(vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call());
+    let vaiMinterIndex = await Promise.resolve(
+      vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call(),
+    );
     let venusEarned = new BigNumber(0);
     await Promise.all(
-      Object.values(CONTRACT_VBEP_ADDRESS).map(async (item) => {
+      Object.values(CONTRACT_VBEP_ADDRESS).map(async item => {
         const vBepContract = getVbepContract(web3, item.id);
         const [
           supplyState,
@@ -168,9 +160,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
           comptrollerContract.methods.venusSupplyState(item.address).call(),
           vBepContract.methods.balanceOf(myAddress).call(),
           comptrollerContract.methods.venusBorrowState(item.address).call(),
-          comptrollerContract.methods
-            .venusBorrowerIndex(item.address, myAddress)
-            .call(),
+          comptrollerContract.methods.venusBorrowerIndex(item.address, myAddress).call(),
           vBepContract.methods.borrowBalanceStored(myAddress).call(),
           vBepContract.methods.borrowIndex().call(),
         ]);
@@ -193,9 +183,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
           const borrowerAmount = new BigNumber(borrowBalanceStored)
             .multipliedBy(1e18)
             .dividedBy(borrowIndex);
-          const borrowerDelta = borrowerAmount
-            .times(deltaIndex)
-            .dividedBy(1e36);
+          const borrowerDelta = borrowerAmount.times(deltaIndex).dividedBy(1e36);
           venusEarned = venusEarned.plus(borrowerDelta);
         }
       }),
@@ -212,9 +200,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
     if (+vaiMinterIndex === 0 && +vaiMintIndex > 0) {
       vaiMinterIndex = venusInitialIndex;
     }
-    const deltaIndex = new BigNumber(vaiMintIndex).minus(
-      new BigNumber(vaiMinterIndex),
-    );
+    const deltaIndex = new BigNumber(vaiMintIndex).minus(new BigNumber(vaiMinterIndex));
     const vaiMinterDelta = new BigNumber(vaiMinterAmount)
       .times(deltaIndex)
       .div(1e54)
@@ -224,11 +210,7 @@ function Vote({ history, getProposals }: $TSFixMe) {
       // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
       venusEarned && venusEarned !== '0' ? `${venusEarned}` : '0.00000000',
     );
-    setVaiMint(
-      vaiMinterDelta && vaiMinterDelta !== '0'
-        ? `${vaiMinterDelta}`
-        : '0.00000000',
-    );
+    setVaiMint(vaiMinterDelta && vaiMinterDelta !== '0' ? `${vaiMinterDelta}` : '0.00000000');
   };
 
   const updateDelegate = async () => {
@@ -324,20 +306,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getProposals, setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getProposals,
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-export default compose(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps),
-)(Vote);
+export default connectAccount(mapStateToProps)(withRouter(Vote));

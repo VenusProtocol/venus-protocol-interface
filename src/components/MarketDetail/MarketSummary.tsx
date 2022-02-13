@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
@@ -45,8 +44,8 @@ const MarketSummaryWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 interface Props extends RouteComponentProps {
-  marketInfo: Partial<$TSFixMe>,
-  currentAsset: string,
+  marketInfo: Partial<$TSFixMe>;
+  currentAsset: string;
 }
 
 function MarketSummary({ marketInfo, currentAsset }: Props) {
@@ -94,9 +93,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
         <p className="label">Borrow Cap</p>
         <p className="value">
           $
-          {format(
-            new BigNumber(marketInfo.totalBorrowsUsd).dp(2, 1).toString(10),
-          )}
+          {format(new BigNumber(marketInfo.totalBorrowsUsd).dp(2, 1).toString(10))}
         </p>
       </div>
       <div className="description">
@@ -150,17 +147,13 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
       <div className="description">
         <p className="label">Total Supply</p>
         <p className="value">
-          {`$${format(
-            new BigNumber(marketInfo.totalSupplyUsd || 0).dp(2, 1).toString(10),
-          )}`}
+          {`$${format(new BigNumber(marketInfo.totalSupplyUsd || 0).dp(2, 1).toString(10))}`}
         </p>
       </div>
       <div className="description">
         <p className="label">Total Borrow</p>
         <p className="value">
-          {`$${format(
-            new BigNumber(marketInfo.totalBorrowsUsd || 0).dp(2, 1).toString(10),
-          )}`}
+          {`$${format(new BigNumber(marketInfo.totalBorrowsUsd || 0).dp(2, 1).toString(10))}`}
         </p>
       </div>
       <div className="description">
@@ -180,10 +173,10 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
               .div(
                 new BigNumber(marketInfo.exchangeRate).div(
                   new BigNumber(10).pow(
-                    18
+                    18 +
                       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                      + constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals
-                      - vtokenDecimals,
+                      constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals -
+                      vtokenDecimals,
                   ),
                 ),
               )
@@ -197,7 +190,6 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
 
 MarketSummary.defaultProps = {
   marketInfo: {},
-  settings: {},
   currentAsset: '',
 };
 
@@ -205,7 +197,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default withRouter(compose<Props, Props>(
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, undefined),
-)(MarketSummary));
+export default connectAccount(mapStateToProps)(withRouter(MarketSummary));

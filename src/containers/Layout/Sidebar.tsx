@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { NavLink, withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import ConnectButton from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import logoImg from 'assets/img/logo.png';
 import prdtImg from 'assets/img/prdt.png';
 import commaNumber from 'comma-number';
@@ -250,10 +248,7 @@ const { Option } = Select;
 
 const format = commaNumber.bindWith(',', '.');
 
-function Sidebar({
-  history,
-  setSetting,
-}: $TSFixMe) {
+function Sidebar({ history, setSetting }: $TSFixMe) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
@@ -325,9 +320,7 @@ function Sidebar({
       vaultVaiStaked = new BigNumber(vaultVaiStaked).div(1e18);
 
       // venus vai vault rate
-      venusVAIVaultRate = new BigNumber(venusVAIVaultRate)
-        .div(1e18)
-        .times(20 * 60 * 24);
+      venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
 
       // VAI APY
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
@@ -340,10 +333,14 @@ function Sidebar({
         .dp(2, 1)
         .toString(10);
 
-      const totalLiquidity = (markets || []).reduce((accumulator, market) => new BigNumber(accumulator).plus(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-        new BigNumber(market.totalSupplyUsd),
-      ), vaultVaiStaked);
+      const totalLiquidity = (markets || []).reduce(
+        (accumulator, market) =>
+          new BigNumber(accumulator).plus(
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
+            new BigNumber(market.totalSupplyUsd),
+          ),
+        vaultVaiStaked,
+      );
       setSetting({
         vaiAPY,
         vaultVaiStaked,
@@ -377,36 +374,20 @@ function Sidebar({
           <Icon type="home" theme="filled" />
           <Label primary>Dashboard</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/vote"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/vote" active-class-name="active">
           <Icon type="appstore" />
           <Label primary>Vote</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/xvs"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/xvs" active-class-name="active">
           <img className="xvs-icon" src={XVSIcon} alt="xvs" />
           <img className="xvs-active-icon" src={XVSActiveIcon} alt="xvs" />
           <Label primary>XVS</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/market"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/market" active-class-name="active">
           <Icon type="area-chart" />
           <Label primary>Market</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/vault"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/vault" active-class-name="active">
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
         </NavLink>
@@ -457,11 +438,7 @@ function Sidebar({
       </MainMenu>
       <FaucetMenu>
         {process.env.REACT_APP_CHAIN_ID === '97' && (
-          <NavLink
-            className="flex just-center"
-            to="/faucet"
-            active-class-name="active"
-          >
+          <NavLink className="flex just-center" to="/faucet" active-class-name="active">
             <Label primary>Faucet</Label>
           </NavLink>
         )}
@@ -564,13 +541,11 @@ function Sidebar({
 
 Sidebar.propTypes = {
   history: PropTypes.object,
-  settings: PropTypes.object,
   setSetting: PropTypes.func.isRequired,
   getGovernanceVenus: PropTypes.func.isRequired,
 };
 
 Sidebar.defaultProps = {
-  settings: {},
   history: {},
 };
 
@@ -578,20 +553,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting, getGovernanceVenus } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-      getGovernanceVenus,
-    },
-    dispatch,
-  );
-};
-
-export default compose(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps),
-)(Sidebar);
+export default connectAccount(mapStateToProps)(withRouter(Sidebar));

@@ -1,12 +1,10 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
 import MainLayout from 'containers/Layout/MainLayout';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
 import OverviewChart from 'components/Basic/OverviewChart';
@@ -105,7 +103,7 @@ const abortController = new AbortController();
 
 interface Props extends RouteComponentProps<{ asset: string }> {
   settings: Setting;
-  getMarketHistory: () => void;
+  getMarketHistory: $TSFixMe;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
@@ -234,19 +232,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getMarketHistory } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getMarketHistory,
-    },
-    dispatch,
-  );
-};
-
-export default compose<Props, Props>(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps),
-)(MarketDetail);
+export default connectAccount(mapStateToProps)(withRouter(MarketDetail));

@@ -1,13 +1,15 @@
+import { initialState } from 'core/modules/initialState';
+
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
 
     if (serializedState === null) {
-      return undefined;
+      return initialState;
     }
     return JSON.parse(serializedState);
   } catch (err) {
-    return undefined;
+    return initialState;
   }
 };
 

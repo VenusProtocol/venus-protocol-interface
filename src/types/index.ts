@@ -19,13 +19,15 @@ export interface Asset {
 }
 
 export interface Setting {
+  marketType?: string; // 'supply'
   withXVS?: boolean;
   pendingInfo: {
-    type: string;
+    type: string; // 'Borrow'
     status: boolean;
     symbol: string;
     amount: string;
   };
+  vaultVaiStaked?: null;
 }
 
 export interface Proposal {

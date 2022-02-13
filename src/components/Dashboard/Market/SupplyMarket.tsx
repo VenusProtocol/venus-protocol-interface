@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
-import { compose } from 'recompose';
 import commaNumber from 'comma-number';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import toast from 'components/Basic/Toast';
 import { Label } from 'components/Basic/Label';
 import CollateralConfirmModal from 'components/Basic/CollateralConfirmModal';
@@ -15,6 +14,7 @@ import PendingTransaction from 'components/Basic/PendingTransaction';
 import { formatApy } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { Asset, Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { useComptroller } from '../../../hooks/useContract';
 
 const SupplyMarketWrapper = styled.div`
@@ -25,15 +25,15 @@ const SupplyMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-interface DispatchProps {
-  settings: Setting,
+interface StateProps {
+  settings: Setting;
 }
 interface Props {
-  suppliedAssets: Asset[],
-  remainAssets: Asset[],
+  suppliedAssets: Asset[];
+  remainAssets: Asset[];
 }
 
-function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & DispatchProps) {
+function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
   const [record, setRecord] = useState({});
@@ -47,37 +47,28 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
         setIsCollateralEnable(false);
         setIsCollateralConfirm(true);
         try {
-          await comptrollerContract.methods
-            .enterMarkets([r.vtokenAddress])
-            .send({ from: account });
+          await comptrollerContract.methods.enterMarkets([r.vtokenAddress]).send({ from: account });
         } catch (error) {
           console.log('enter markets error :>> ', error);
         }
         setIsCollateralConfirm(false);
-      } else if (
-        +r.hypotheticalLiquidity['1'] > 0
-        || +r.hypotheticalLiquidity['2'] === 0
-      ) {
+      } else if (+r.hypotheticalLiquidity['1'] > 0 || +r.hypotheticalLiquidity['2'] === 0) {
         setIsCollateralEnable(true);
         setIsCollateralConfirm(true);
-        await comptrollerContract.methods
-          .exitMarket(r.vtokenAddress)
-          .send({ from: account });
+        await comptrollerContract.methods.exitMarket(r.vtokenAddress).send({ from: account });
         setIsCollateralConfirm(false);
       } else {
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
           title: 'Collateral Required',
-          description:
-            'Please repay all borrowed assets or set other assets as collateral.',
+          description: 'Please repay all borrowed assets or set other assets as collateral.',
         });
       }
     } else {
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
         title: 'Collateral Required',
-        description:
-          'Please repay all borrowed assets or set other assets as collateral.',
+        description: 'Please repay all borrowed assets or set other assets as collateral.',
       });
     }
   };
@@ -113,9 +104,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
       key: 'supplyApy',
 
       render(supplyApy: $TSFixMe, asset: $TSFixMe) {
-        const apy = settings.withXVS
-          ? supplyApy.plus(asset.xvsSupplyApy)
-          : supplyApy;
+        const apy = settings.withXVS ? supplyApy.plus(asset.xvsSupplyApy) : supplyApy;
 
         return {
           children: (
@@ -152,10 +141,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
       render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor.toString() ? (
-            <Toggle
-              checked={collateral}
-              onChecked={() => handleToggleCollateral(asset)}
-            />
+            <Toggle checked={collateral} onChecked={() => handleToggleCollateral(asset)} />
           ) : null,
         };
       },
@@ -193,9 +179,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
       key: 'supplyApy',
 
       render(supplyApy: $TSFixMe, asset: $TSFixMe) {
-        const apy = settings.withXVS
-          ? supplyApy.plus(asset.xvsSupplyApy)
-          : supplyApy;
+        const apy = settings.withXVS ? supplyApy.plus(asset.xvsSupplyApy) : supplyApy;
         return {
           children: (
             <div className="apy-content">
@@ -242,10 +226,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
       render(collateral: $TSFixMe, asset: $TSFixMe) {
         return {
           children: +asset.collateralFactor ? (
-            <Toggle
-              checked={collateral}
-              onChecked={() => handleToggleCollateral(asset)}
-            />
+            <Toggle checked={collateral} onChecked={() => handleToggleCollateral(asset)} />
           ) : null,
         };
       },
@@ -258,9 +239,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
   };
   return (
     <SupplyMarketWrapper>
-      {suppliedAssets.length === 0 && remainAssets.length === 0 && (
-        <LoadingSpinner />
-      )}
+      {suppliedAssets.length === 0 && remainAssets.length === 0 && <LoadingSpinner />}
       {suppliedAssets.length > 0 && (
         <MarketTable
           columns={suppliedColumns}
@@ -269,11 +248,9 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
           handleClickRow={handleClickRow}
         />
       )}
-      {settings.pendingInfo
-        && settings.pendingInfo.status
-        && ['Supply', 'Withdraw'].includes(settings.pendingInfo.type) && (
-          <PendingTransaction />
-      )}
+      {settings.pendingInfo &&
+        settings.pendingInfo.status &&
+        ['Supply', 'Withdraw'].includes(settings.pendingInfo.type) && <PendingTransaction />}
       {remainAssets.length > 0 && (
         <MarketTable
           columns={supplyColumns}
@@ -282,11 +259,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
           handleClickRow={handleClickRow}
         />
       )}
-      <SupplyModal
-        visible={isOpenModal}
-        asset={record}
-        onCancel={() => setIsOpenModal(false)}
-      />
+      <SupplyModal visible={isOpenModal} asset={record} onCancel={() => setIsOpenModal(false)} />
       <CollateralConfirmModal
         visible={isOpenCollateralConfirm}
         isCollateralEnalbe={isCollateralEnalbe}
@@ -295,11 +268,8 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & Dispat
     </SupplyMarketWrapper>
   );
 }
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State): StateProps => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, undefined))(
-  SupplyMarket,
-);
+export default connect(mapStateToProps)(SupplyMarket);

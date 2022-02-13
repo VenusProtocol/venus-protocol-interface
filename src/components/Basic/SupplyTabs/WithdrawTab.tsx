@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
+
 import { Icon, Progress } from 'antd';
 import { Button } from 'components/v2/Button';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators } from 'redux';
 import { useWeb3React } from '@web3-react/core';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/venus_32.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -373,16 +372,4 @@ WithdrawTab.defaultProps = {
   onCancel: () => {},
 };
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(null, mapDispatchToProps))(WithdrawTab);
+export default connectAccount(null)(WithdrawTab);

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
-import { bindActionCreators } from 'redux';
 import commaNumber from 'comma-number';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
 import { uid } from 'react-uid';
@@ -101,7 +99,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
 
   useEffect(() => {
     promisify(getVoterAccounts, { limit: 100, offset: 0 })
-      .then((res) => {
+      .then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setVoterAccounts(res.data.result || []);
       })
@@ -122,11 +120,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
             <Col xs={{ span: 8 }} lg={{ span: 4 }} className="votes right">
               Votes
             </Col>
-            <Col
-              xs={{ span: 8 }}
-              lg={{ span: 4 }}
-              className="vote-weight right"
-            >
+            <Col xs={{ span: 8 }} lg={{ span: 4 }} className="vote-weight right">
               Vote Weight
             </Col>
             <Col xs={{ span: 8 }} lg={{ span: 4 }} className="proposals right">
@@ -134,32 +128,23 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
             </Col>
           </Row>
           <div className="table_content">
-            {(!voterAccounts
-              || (voterAccounts && voterAccounts.length === 0)) && (
+            {(!voterAccounts || (voterAccounts && voterAccounts.length === 0)) && (
               <p className="empty-voter center">No voters</p>
             )}
-            {voterAccounts
-              && voterAccounts.map((item, index) => (
+            {voterAccounts &&
+              voterAccounts.map((item, index) => (
                 <Row
                   className="table_item pointer"
                   key={uid(item)}
                   // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
                   onClick={() => history.push(`/vote/address/${item.address}`)}
                 >
-                  <Col
-                    xs={{ span: 24 }}
-                    lg={{ span: 12 }}
-                    className="flex align-center rank"
-                  >
+                  <Col xs={{ span: 24 }} lg={{ span: 12 }} className="flex align-center rank">
                     <div className="rank-number">{index + 1}</div>
                     {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'. */}
                     <p>{item.address}</p>
                   </Col>
-                  <Col
-                    xs={{ span: 24 }}
-                    lg={{ span: 4 }}
-                    className="votes right"
-                  >
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="votes right">
                     <p className="mobile-label">Votes</p>
                     <p>
                       {format(
@@ -170,11 +155,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
                       )}
                     </p>
                   </Col>
-                  <Col
-                    xs={{ span: 24 }}
-                    lg={{ span: 4 }}
-                    className="vote-weight right"
-                  >
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="vote-weight right">
                     <p className="mobile-label">Vote Weight</p>
                     <p>
                       {/* @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message */}
@@ -182,11 +163,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
                       %
                     </p>
                   </Col>
-                  <Col
-                    xs={{ span: 24 }}
-                    lg={{ span: 4 }}
-                    className="proposals right"
-                  >
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="proposals right">
                     <p className="mobile-label">Proposals Voted</p>
                     {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'proposalsVoted' does not exist on type '... Remove this comment to see the full error message */}
                     <p>{item.proposalsVoted}</p>
@@ -209,19 +186,4 @@ VoterLeaderboard.defaultProps = {
   history: {},
 };
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getVoterAccounts } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getVoterAccounts,
-    },
-    dispatch,
-  );
-};
-
-export default compose(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(undefined, mapDispatchToProps),
-)(VoterLeaderboard);
+export default connectAccount()(withRouter(VoterLeaderboard));

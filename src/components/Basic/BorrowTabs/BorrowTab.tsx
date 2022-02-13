@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'recompose';
 import { Icon, Progress } from 'antd';
 import { Button } from 'components/v2/Button';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators, Dispatch } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import { Asset, Setting } from 'types';
 import commaNumber from 'comma-number';
@@ -23,18 +20,16 @@ const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
 interface DispatchProps {
-  setSetting: (setting: Setting | undefined) => void
+  setSetting: (setting: Setting | undefined) => void;
 }
 
 interface Props {
-  asset: Asset
-  changeTab: (tab: 'borrow' | 'repayBorrow') => void
-  onCancel: () => void
+  asset: Asset;
+  changeTab: (tab: 'borrow' | 'repayBorrow') => void;
+  onCancel: () => void;
 }
 
-function BorrowTab({
-  asset, changeTab, onCancel, setSetting,
-}: Props & DispatchProps) {
+function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowBalance, setBorrowBalance] = useState(new BigNumber(0));
@@ -54,12 +49,8 @@ function BorrowTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
-        setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
+        setNewBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
       }
     } else {
       const temp = userTotalBorrowBalance.plus(amount.times(tokenPrice));
@@ -69,9 +60,7 @@ function BorrowTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
         setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
     }
@@ -150,13 +139,15 @@ function BorrowTab({
           <NumberFormat
             autoFocus
             value={amount.isZero() ? '0' : amount.toString(10)}
-            onValueChange={(values) => {
+            onValueChange={values => {
               const { value } = values;
               setAmount(new BigNumber(value));
             }}
-            isAllowed={({ value }) => new BigNumber(value || 0)
-              .plus(userTotalBorrowBalance)
-              .isLessThanOrEqualTo(userTotalBorrowLimit)}
+            isAllowed={({ value }) =>
+              new BigNumber(value || 0)
+                .plus(userTotalBorrowBalance)
+                .isLessThanOrEqualTo(userTotalBorrowLimit)
+            }
             thousandSeparator
             allowNegative={false}
             placeholder="0"
@@ -247,11 +238,7 @@ function BorrowTab({
                 />
                 <span>Borrow Caps</span>
               </div>
-              <span>
-                {format(
-                  new BigNumber(asset.borrowCaps || 0).dp(2, 1).toString(10),
-                )}
-              </span>
+              <span>{format(new BigNumber(asset.borrowCaps || 0).dp(2, 1).toString(10))}</span>
             </div>
           )}
         </div>
@@ -269,11 +256,7 @@ function BorrowTab({
                   $
                   {borrowBalance.dp(2, 1).toString(10)}
                 </span>
-                <img
-                  className="arrow-right-img"
-                  src={arrowRightImg}
-                  alt="arrow"
-                />
+                <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
                 <span>
                   $
                   {newBorrowBalance.dp(2, 1).toString(10)}
@@ -294,11 +277,7 @@ function BorrowTab({
                   {borrowPercent.dp(2, 1).toString(10)}
                   %
                 </span>
-                <img
-                  className="arrow-right-img"
-                  src={arrowRightImg}
-                  alt="arrow"
-                />
+                <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
                 <span>
                   {newBorrowPercent.dp(2, 1).toString(10)}
                   %
@@ -316,13 +295,13 @@ function BorrowTab({
         <Button
           className="button"
           disabled={
-            isLoading
-            || amount.isZero()
-            || amount.isNaN()
-            || amount.isGreaterThan(asset.liquidity.div(asset.tokenPrice))
-            || newBorrowPercent.isGreaterThan(100)
-            || (!new BigNumber(asset.borrowCaps || 0).isZero()
-              && amount.plus(asset.totalBorrows).isGreaterThan(asset.borrowCaps))
+            isLoading ||
+            amount.isZero() ||
+            amount.isNaN() ||
+            amount.isGreaterThan(asset.liquidity.div(asset.tokenPrice)) ||
+            newBorrowPercent.isGreaterThan(100) ||
+            (!new BigNumber(asset.borrowCaps || 0).isZero() &&
+              amount.plus(asset.totalBorrows).isGreaterThan(asset.borrowCaps))
           }
           onClick={handleBorrow}
         >
@@ -333,8 +312,7 @@ function BorrowTab({
         <div className="description">
           <span>Protocol Balance</span>
           <span>
-            {asset.borrowBalance
-              && format(asset.borrowBalance.dp(2, 1).toString(10))}
+            {asset.borrowBalance && format(asset.borrowBalance.dp(2, 1).toString(10))}
             {' '}
             {asset.symbol}
           </span>
@@ -344,29 +322,4 @@ function BorrowTab({
   );
 }
 
-BorrowTab.propTypes = {
-  asset: PropTypes.object,
-  changeTab: PropTypes.func,
-  onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired,
-};
-
-BorrowTab.defaultProps = {
-  asset: {},
-  changeTab: () => {},
-  onCancel: () => {},
-};
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose<Props & DispatchProps, Props>(connectAccount(null, mapDispatchToProps))(BorrowTab);
+export default connectAccount()(BorrowTab);

@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
+
 import commaNumber from 'comma-number';
 import { Row, Col, Pagination, Select } from 'antd';
 import styled from 'styled-components';
-import { bindActionCreators } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { Label } from 'components/Basic/Label';
 
@@ -276,7 +274,7 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
 
   const loadTransactionHistory = useCallback(async () => {
     await promisify(getTransactionHistory, { offset, event })
-      .then((res) => {
+      .then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data.result);
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
@@ -321,10 +319,7 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
     <MainLayout title="Transaction History">
       <TransactionWrapper>
         <TableWrapper>
-          <AssetSelectWrapper
-            className="flex align-center just-end"
-            id="event-type"
-          >
+          <AssetSelectWrapper className="flex align-center just-end" id="event-type">
             <Label size="16" primary>
               Type:
             </Label>
@@ -338,7 +333,7 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
                 backgroundColor: '#090d27',
               }}
               dropdownClassName="asset-select"
-              onChange={(val) => {
+              onChange={val => {
                 setOffset(1);
                 setEvent(val);
               }}
@@ -381,9 +376,9 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
             </Col>
           </Row>
           <div className="table_content">
-            {data
-              && data.length > 0
-              && data.map((item) => (
+            {data &&
+              data.length > 0 &&
+              data.map(item => (
                 <Row className="table_item" key={uid(item)}>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
                     <p className="mobile-label">ID</p>
@@ -434,9 +429,9 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
                       }}
                     >
                       {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'. */}
-                      {item.from
+                      {item.from &&
                         // @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'.
-                        && `${item.from.slice(0, 6)}...${item.from.slice(-6)}`}
+                        `${item.from.slice(0, 6)}...${item.from.slice(-6)}`}
                     </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} className="to">
@@ -463,9 +458,9 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
                       }}
                     >
                       {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'. */}
-                      {item.to
+                      {item.to &&
                         // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
-                        && `${item.to.slice(0, 6)}...${item.to.slice(-6)}`}
+                        `${item.to.slice(0, 6)}...${item.to.slice(-6)}`}
                     </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 3 }} className="amount">
@@ -475,7 +470,7 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
                       {item.amount < 0.00001 && item.amount > 0
                         ? '< 0.00001'
                         : // @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'.
-                        format(item.amount)}
+                          format(item.amount)}
                     </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="date">
@@ -503,19 +498,13 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
               />
               <div className="flex just-between align-center button">
                 {offset * pageSize < total && (
-                  <div
-                    className="flex align-center button-next"
-                    onClick={onNext}
-                  >
+                  <div className="flex align-center button-next" onClick={onNext}>
                     <span>Next</span>
                     <img src={arrowRightImg} alt="arrow" />
                   </div>
                 )}
                 {offset > 1 && (
-                  <div
-                    className="flex align-center button-prev"
-                    onClick={onPrev}
-                  >
+                  <div className="flex align-center button-prev" onClick={onPrev}>
                     <img src={arrowRightImg} alt="arrow" />
                     <span>Prev</span>
                   </div>
@@ -531,27 +520,4 @@ function Transaction({ getTransactionHistory }: $TSFixMe) {
   );
 }
 
-Transaction.propTypes = {
-  history: PropTypes.object,
-};
-
-Transaction.defaultProps = {
-  history: {},
-};
-
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getTransactionHistory } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getTransactionHistory,
-    },
-    dispatch,
-  );
-};
-
-export default compose(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(null, mapDispatchToProps),
-)(Transaction);
+export default connectAccount(null)(withRouter(Transaction));

@@ -2,10 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import ProposerInfo from 'components/Vote/ProposerDetail/ProposerInfo';
 import Holding from 'components/Vote/ProposerDetail/Holding';
 import Transactions from 'components/Vote/ProposerDetail/Transactions';
@@ -59,8 +57,8 @@ const ProposerDetailWrapper = styled.div`
 `;
 
 interface Props extends RouteComponentProps<{ address: string }> {
-  getVoterDetail: () => void,
-  getVoterHistory: () => void,
+  getVoterDetail: $TSFixMe;
+  getVoterHistory: $TSFixMe;
 }
 
 function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
@@ -71,7 +69,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
 
   const loadVoterDetail = async () => {
     await promisify(getVoterDetail, { address: match.params.address })
-      .then((res) => {
+      .then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         if (res.data) {
           setHoldingInfo({
@@ -101,11 +99,11 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
 
   const loadVoterHistory = async () => {
     await promisify(getVoterHistory, { address: match.params.address })
-      .then((res) => {
+      .then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const handleChangePage = (
@@ -121,11 +119,11 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
       offset,
       limit,
     })
-      .then((res) => {
+      .then(res => {
         // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         setData(res.data);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -145,10 +143,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
         </Row>
         <Row>
           <Column xs="12" sm="5">
-            <Holding
-              address={match.params ? match.params.address : ''}
-              holdingInfo={holdingInfo}
-            />
+            <Holding address={match.params ? match.params.address : ''} holdingInfo={holdingInfo} />
           </Column>
           <Column xs="12" sm="7">
             <Transactions
@@ -178,20 +173,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getVoterDetail, getVoterHistory } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getVoterDetail,
-      getVoterHistory,
-    },
-    dispatch,
-  );
-};
-
-export default compose<Props, Props>(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps),
-)(ProposerDetail);
+export default connectAccount(mapStateToProps)(withRouter(ProposerDetail));

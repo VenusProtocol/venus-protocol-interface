@@ -1,13 +1,10 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
 import MainLayout from 'containers/Layout/MainLayout';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import { useWeb3React } from '@web3-react/core';
 import { uid } from 'react-uid';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
@@ -162,31 +159,8 @@ function Vault() {
   );
 }
 
-Vault.propTypes = {
-  settings: PropTypes.object,
-};
-
-Vault.defaultProps = {
-  settings: {},
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-export default compose(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps),
-)(Vault);
+export default connectAccount(mapStateToProps)(withRouter(Vault));

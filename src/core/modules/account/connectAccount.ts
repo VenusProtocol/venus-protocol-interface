@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { accountActionCreators } from 'core/modules/account/actions';
+import { State } from 'core/modules/initialState';
 
-function mapStateToProps({ account }: $TSFixMe) {
+function mapStateToProps({ account }: State) {
   return {
     account,
   };
@@ -9,6 +10,8 @@ function mapStateToProps({ account }: $TSFixMe) {
 
 const mapDispatchToProps = accountActionCreators;
 
-export function connectAccount(configMapStateToProps = mapStateToProps) {
+export function connectAccount(
+  configMapStateToProps: ((state: State) => unknown) | null = mapStateToProps,
+) {
   return connect(configMapStateToProps, mapDispatchToProps);
 }
