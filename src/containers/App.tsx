@@ -17,11 +17,9 @@ import MarketDetail from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
-import VrtConversion from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from './Theme';
 
-import 'assets/styles/App.scss';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';

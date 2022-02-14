@@ -29,13 +29,14 @@ const VaultWrapper = styled.div`
 `;
 
 // fast search token name by address
-const tokenAddressNameMap = Object.keys(
-  constants.CONTRACT_TOKEN_ADDRESS,
-).reduce((target, token) => ({
-  ...target,
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  [constants.CONTRACT_TOKEN_ADDRESS[token].address]: token,
-}), {});
+const tokenAddressNameMap = Object.keys(constants.CONTRACT_TOKEN_ADDRESS).reduce(
+  (target, token) => ({
+    ...target,
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    [constants.CONTRACT_TOKEN_ADDRESS[token].address]: token,
+  }),
+  {},
+);
 
 function Vault() {
   const [poolInfos, setPoolInfos] = useState([]);
@@ -53,20 +54,17 @@ function Vault() {
     // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
     const xvsTokenAddress = constants.CONTRACT_TOKEN_ADDRESS.xvs.address;
 
-    const xvsTokenPoolLength = await xvsVaultContract.methods
-      .poolLength(xvsTokenAddress)
-      .call();
+    const xvsTokenPoolLength = await xvsVaultContract.methods.poolLength(xvsTokenAddress).call();
 
-    const fetchPoolParameters = Array.from({ length: xvsTokenPoolLength }).map(
-      (_, index) => ({ rewardToken: xvsTokenAddress, pid: index }),
-    );
+    const fetchPoolParameters = Array.from({ length: xvsTokenPoolLength }).map((_, index) => ({
+      rewardToken: xvsTokenAddress,
+      pid: index,
+    }));
 
     async function fetchOnePool(param: $TSFixMe) {
       const [poolInfo, rewardPerBlock, totalAllocPoints] = await Promise.all([
         xvsVaultContract.methods.poolInfos(param.rewardToken, param.pid).call(),
-        xvsVaultContract.methods
-          .rewardTokenAmountsPerBlock(param.rewardToken)
-          .call(),
+        xvsVaultContract.methods.rewardTokenAmountsPerBlock(param.rewardToken).call(),
 
         xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call(),
       ]);
@@ -86,12 +84,8 @@ function Vault() {
 
       if (account) {
         [userPendingRewards, userInfo] = await Promise.all([
-          xvsVaultContract.methods
-            .pendingReward(param.rewardToken, param.pid, account)
-            .call(),
-          xvsVaultContract.methods
-            .getUserInfo(param.rewardToken, param.pid, account)
-            .call(),
+          xvsVaultContract.methods.pendingReward(param.rewardToken, param.pid, account).call(),
+          xvsVaultContract.methods.getUserInfo(param.rewardToken, param.pid, account).call(),
         ]);
       }
 
@@ -99,9 +93,7 @@ function Vault() {
         .multipliedBy(poolInfo.allocPoint)
         .div(totalAllocPoints);
       const blockPerDay = 86400 / 3; // per 3 seconds for a block
-      const dailyEmission = new BigNumber(rewardPerBlockOfPool).multipliedBy(
-        blockPerDay,
-      );
+      const dailyEmission = new BigNumber(rewardPerBlockOfPool).multipliedBy(blockPerDay);
 
       return {
         poolId: new BigNumber(param.pid),
@@ -136,29 +128,31 @@ function Vault() {
 
   return (
     <MainLayout title="Vault">
-      {loading ? <LoadingSpinner /> : (
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
         <VaultWrapper>
           <VaiPoolCard />
-          {poolInfos.map((poolInfo, index) => (
+          {poolInfos.map(poolInfo => (
             <GeneralVaultPoolCard
               key={uid(poolInfo)}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'poolId' does not exist on type 'never'.
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'poolId' does not exist on type 'never'.
               poolId={poolInfo.poolId}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'stakedToken' does not exist on type 'nev... Remove this comment to see the full error message
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'stakedToken' does not exist on type 'nev... Remove this comment to see the full error message
               stakedToken={poolInfo.stakedToken}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'rewardToken' does not exist on type 'nev... Remove this comment to see the full error message
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'rewardToken' does not exist on type 'nev... Remove this comment to see the full error message
               rewardToken={poolInfo.rewardToken}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'userStakedAmount' does not exist on type... Remove this comment to see the full error message
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'userStakedAmount' does not exist on type... Remove this comment to see the full error message
               userStakedAmount={poolInfo.userStakedAmount}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'pendingReward' does not exist on type 'n... Remove this comment to see the full error message
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'pendingReward' does not exist on type 'n... Remove this comment to see the full error message
               pendingReward={poolInfo.pendingReward}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'lockPeriodSecond' does not exist on type... Remove this comment to see the full error message
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'lockPeriodSecond' does not exist on type... Remove this comment to see the full error message
               lockPeriodSecond={poolInfo.lockPeriodSecond}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'apr' does not exist on type 'never'.
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'apr' does not exist on type 'never'.
               apr={poolInfo.apr}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalStaked' does not exist on type 'nev... Remove this comment to see the full error message
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalStaked' does not exist on type 'nev... Remove this comment to see the full error message
               totalStaked={poolInfo.totalStaked}
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'dailyEmission' does not exist on type 'n... Remove this comment to see the full error message
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'dailyEmission' does not exist on type 'n... Remove this comment to see the full error message
               dailyEmission={poolInfo.dailyEmission}
             />
           ))}
