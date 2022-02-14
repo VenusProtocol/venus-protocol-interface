@@ -5,12 +5,7 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
-  extends: [
-    'airbnb',
-    'airbnb-typescript',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-  ],
+  extends: ['airbnb', 'airbnb-typescript', 'plugin:@typescript-eslint/recommended'],
   parserOptions: {
     project: './tsconfig.eslint.json',
   },
@@ -28,14 +23,15 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'jsx-a11y/no-static-element-interactions': 0,
-    'max-len': [0,
+    'max-len': [
+      0,
       {
         code: 100,
         ignoreComments: true,
       },
     ],
     'no-param-reassign': 0,
-    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'operator-linebreak': 0,
     'react/default-props-match-prop-types': 0,
     'react/forbid-prop-types': 0,
