@@ -153,7 +153,6 @@ function CardContent({
       <CardContentWrapper>
         {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; }' is not assignable to... Remove this comment to see the full error message */}
         <LoadingSpinner className="loading-spinner" />
-        ;
       </CardContentWrapper>
     );
   }
