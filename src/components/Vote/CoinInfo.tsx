@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
@@ -46,7 +45,12 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function CoinInfo({ address, balance }: $TSFixMe) {
+interface CoinInfoProps {
+  address: string;
+  balance: string;
+}
+
+function CoinInfo({ address, balance }: CoinInfoProps) {
   const handleLink = () => {
     window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
   };
@@ -74,11 +78,6 @@ function CoinInfo({ address, balance }: $TSFixMe) {
     </Card>
   );
 }
-
-CoinInfo.propTypes = {
-  address: PropTypes.string,
-  balance: PropTypes.string,
-};
 
 CoinInfo.defaultProps = {
   address: '',

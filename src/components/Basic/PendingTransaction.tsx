@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import moment from 'moment';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import { Setting } from 'types';
 import { Label } from './Label';
 
 const PendingTransactionWrapper = styled.div`
@@ -38,7 +39,11 @@ const PendingTransactionWrapper = styled.div`
   }
 `;
 
-function PendingTransaction({ settings }: $TSFixMe) {
+interface PendingTransactionProps {
+  settings: Setting;
+}
+
+function PendingTransaction({ settings }: PendingTransactionProps) {
   const [curTime, setCurTime] = useState('');
   useEffect(() => {
     const dateTime = new Date();
@@ -73,4 +78,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(PendingTransaction);
+export default connect(mapStateToProps)(PendingTransaction);

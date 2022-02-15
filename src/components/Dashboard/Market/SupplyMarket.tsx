@@ -36,7 +36,7 @@ interface Props {
 function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
-  const [record, setRecord] = useState({});
+  const [record, setRecord] = useState({} as Asset);
   const [isCollateralEnalbe, setIsCollateralEnable] = useState(true);
   const { account } = useWeb3React();
   const comptrollerContract = useComptroller();
@@ -88,10 +88,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
                 <Label size="14" primary>
                   {asset.name}
                 </Label>
-                <Label size="14">
-                  {asset.supplyApy.dp(2, 1).toString(10)}
-                  %
-                </Label>
+                <Label size="14">{asset.supplyApy.dp(2, 1).toString(10)}%</Label>
               </div>
             </div>
           ),
@@ -125,9 +122,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
         return {
           children: (
             <Label size="14" primary>
-              {format(walletBalance.dp(2, 1).toString(10))}
-              {' '}
-              {asset.symbol}
+              {format(walletBalance.dp(2, 1).toString(10))} {asset.symbol}
             </Label>
           ),
         };
@@ -163,10 +158,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
                 <Label size="14" primary>
                   {asset.name}
                 </Label>
-                <Label size="14">
-                  {asset.supplyApy.dp(2, 1).toString(10)}
-                  %
-                </Label>
+                <Label size="14">{asset.supplyApy.dp(2, 1).toString(10)}%</Label>
               </div>
             </div>
           ),
@@ -209,9 +201,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
                 )}
               </Label>
               <Label size="14">
-                {format(supplyBalance.dp(4, 1).toString(10))}
-                {' '}
-                {asset.symbol}
+                {format(supplyBalance.dp(4, 1).toString(10))} {asset.symbol}
               </Label>
             </div>
           ),

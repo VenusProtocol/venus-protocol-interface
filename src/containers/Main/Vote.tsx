@@ -1,10 +1,7 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-
-import { withRouter } from 'react-router-dom';
 import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import CoinInfo from 'components/Vote/CoinInfo';
@@ -29,7 +26,11 @@ const VoteWrapper = styled.div`
   height: 100%;
 `;
 
-function Vote({ history, getProposals }: $TSFixMe) {
+interface VoteProps {
+  getProposals: $TSFixMe;
+}
+
+function Vote({ getProposals }: VoteProps) {
   const [balance, setBalance] = useState(0);
   const [votingWeight, setVotingWeight] = useState('0');
   const [proposals, setProposals] = useState({});
@@ -237,7 +238,6 @@ function Vote({ history, getProposals }: $TSFixMe) {
         <Row>
           <Column xs="12" sm="12" md="12">
             <VotingPower
-              history={history}
               stakedAmount={stakedAmount}
               // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
               balance={balance !== '0' ? `${balance}` : '0.00000000'}
@@ -295,15 +295,8 @@ function Vote({ history, getProposals }: $TSFixMe) {
   );
 }
 
-Vote.propTypes = {
-  getProposals: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-};
-
-Vote.defaultProps = {};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(withRouter(Vote));
+export default connectAccount(mapStateToProps)(Vote);

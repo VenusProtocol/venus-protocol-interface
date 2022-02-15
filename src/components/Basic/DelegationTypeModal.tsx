@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import greenCheckImg from 'assets/img/green-check.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -72,13 +71,21 @@ const ModalContent = styled.div`
   }
 `;
 
+interface DelegationTypeModalProps {
+  address: string;
+  balance: string;
+  visible: boolean;
+  delegateStatus: string;
+  onCancel: () => void;
+}
+
 function DelegationTypeModal({
   address,
   balance,
   delegateStatus,
   visible,
   onCancel,
-}: $TSFixMe) {
+}: DelegationTypeModalProps) {
   const [child, setChild] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const xvsVaultProxyContract = useXvsVaultProxy();
@@ -86,9 +93,7 @@ function DelegationTypeModal({
   const handleDelegateVoting = async (dAddress: $TSFixMe) => {
     setIsLoading(true);
     try {
-      await xvsVaultProxyContract.methods
-        .delegate(dAddress || address)
-        .send({ from: address });
+      await xvsVaultProxyContract.methods.delegate(dAddress || address).send({ from: address });
       onCancel();
     } catch (error) {
       console.log('delegate error :>> ', error);
@@ -115,19 +120,14 @@ function DelegationTypeModal({
           alt="left arrow"
           onClick={() => setChild('')}
         />
-        <img
-          className="close-btn pointer"
-          src={closeImg}
-          alt="close"
-          onClick={onCancel}
-        />
+        <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
         <div className={`${child ? 'hidden' : ''}`}>
           <div className="flex align-center just-center header-content">
             <p>Choose Delegation Type</p>
           </div>
           <div
             className="flex flex-column section"
-            onClick={(e) => {
+            onClick={e => {
               if (delegateStatus === 'self') {
                 e.preventDefault();
                 return;
@@ -148,8 +148,7 @@ function DelegationTypeModal({
               )}
             </div>
             <div className="description">
-              This option allows you to vote on proposals directly from your
-              connected wallet.
+              This option allows you to vote on proposals directly from your connected wallet.
             </div>
           </div>
           <div
@@ -170,44 +169,21 @@ function DelegationTypeModal({
               )}
             </div>
             <div className="description">
-              This Option allows you to delegate your votes to another trusted
-              BSC address. You are not sending your XVS Tokens, you are only
-              passing your voting power and you can undelegate at any time.
+              This Option allows you to delegate your votes to another trusted BSC address. You are
+              not sending your XVS Tokens, you are only passing your voting power and you can
+              undelegate at any time.
             </div>
           </div>
         </div>
         {child === 'delegate' && (
-          <DelegationVoting
-            isLoading={isLoading}
-            onDelegate={handleDelegateVoting}
-          />
+          <DelegationVoting isLoading={isLoading} onDelegate={handleDelegateVoting} />
         )}
         {child === 'manual' && (
-          <ManualVoting
-            isLoading={isLoading}
-            balance={balance}
-            address={address}
-          />
+          <ManualVoting isLoading={isLoading} balance={balance} address={address} />
         )}
       </ModalContent>
     </Modal>
   );
 }
-
-DelegationTypeModal.propTypes = {
-  address: PropTypes.string,
-  balance: PropTypes.string,
-  visible: PropTypes.bool,
-  delegateStatus: PropTypes.string,
-  onCancel: PropTypes.func,
-};
-
-DelegationTypeModal.defaultProps = {
-  address: '',
-  balance: PropTypes.string,
-  visible: false,
-  delegateStatus: '',
-  onCancel: () => {},
-};
 
 export default DelegationTypeModal;

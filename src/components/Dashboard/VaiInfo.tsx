@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/coins/vai.svg';
 import { Card } from 'components/Basic/Card';
 import { addToken } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
+import { Setting } from 'types';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { getVaiTokenAddress } from '../../utilities/addressHelpers';
@@ -63,7 +64,11 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function VaiInfo({ settings }: $TSFixMe) {
+interface VaiInfoProps {
+  settings: Setting;
+}
+
+function VaiInfo({ settings }: VaiInfoProps) {
   const { account } = useWeb3React();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
@@ -75,12 +80,7 @@ function VaiInfo({ settings }: $TSFixMe) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>
-            {format(userVaiBalance.dp(2, 1).toString(10))}
-            {' '}
-            VAI
-            {' '}
-          </p>
+          <p>{format(userVaiBalance.dp(2, 1).toString(10))} VAI </p>
           {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message */}
           {(window.ethereum || window.BinanceChain) && (
             <Icon
@@ -99,8 +99,7 @@ function VaiInfo({ settings }: $TSFixMe) {
           {settings.vaiAPY && (
             <p className="vai-apy">
               APY:
-              {settings.vaiAPY}
-              %
+              {settings.vaiAPY}%
             </p>
           )}
         </div>
@@ -121,4 +120,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(VaiInfo);
+export default connect(mapStateToProps)(VaiInfo);

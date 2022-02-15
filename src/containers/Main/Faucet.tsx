@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Input, Form, Dropdown, Menu } from 'antd';
-import { withRouter } from 'react-router-dom';
+import { FormComponentProps } from 'antd/lib/form';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
@@ -91,7 +91,12 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-function Faucet({ form, getFromFaucet }: $TSFixMe) {
+type HOCProps = FormComponentProps & RouteComponentProps;
+interface FaucetProps extends HOCProps {
+  getFromFaucet: $TSFixMe;
+}
+
+function Faucet({ form, getFromFaucet }: FaucetProps) {
   const { getFieldDecorator } = form;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -401,8 +406,7 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
               {' are issued as BEP20 token.'}
             </p>
             <p className="description">
-              Click to get detail about
-              {' '}
+              Click to get detail about{' '}
               <a
                 href="https://github.com/binance-chain/BEPs/blob/master/BEP20.md"
                 target="_blank"
@@ -417,10 +421,5 @@ function Faucet({ form, getFromFaucet }: $TSFixMe) {
     </MainLayout>
   );
 }
-
-Faucet.propTypes = {
-  form: PropTypes.object.isRequired,
-  getFromFaucet: PropTypes.func.isRequired,
-};
 
 export default Form.create({ name: 'faucet-form' })(connectAccount(undefined)(withRouter(Faucet)));

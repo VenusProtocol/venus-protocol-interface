@@ -1,9 +1,8 @@
 /* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Pagination } from 'antd';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Voting from 'components/Basic/Voting';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
@@ -95,8 +94,19 @@ const VotingHistoryWrapper = styled.div`
   }
 `;
 
-function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
-  const [current, setCurrent] = useState(pageNumber);
+interface VotingHistoryProps extends RouteComponentProps {
+  data: {
+    proposalId?: number;
+    description?: string;
+    state?: string;
+  }[];
+  pageNumber?: number;
+  total: number;
+  onChangePage: (page: number, prev: number, size: number) => void;
+}
+
+function VotingHistory({ data, pageNumber, total, onChangePage }: VotingHistoryProps) {
+  const [current, setCurrent] = useState(pageNumber || 1);
   const [pageSize, setPageSize] = useState(5);
 
   const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
@@ -154,19 +164,6 @@ function VotingHistory({ data, pageNumber, total, onChangePage }: $TSFixMe) {
     </Card>
   );
 }
-
-VotingHistory.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      proposalId: PropTypes.number,
-      description: PropTypes.string,
-      state: PropTypes.string,
-    }),
-  ),
-  pageNumber: PropTypes.number,
-  total: PropTypes.number,
-  onChangePage: PropTypes.func.isRequired,
-};
 
 VotingHistory.defaultProps = {
   data: [],

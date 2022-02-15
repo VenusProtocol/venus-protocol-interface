@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
+import { accountActionCreators } from 'core/modules/account/actions';
 import ConnectButton from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
-import { connectAccount } from 'core';
 import logoImg from 'assets/img/logo.png';
 import prdtImg from 'assets/img/prdt.png';
 import commaNumber from 'comma-number';
 import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
+import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { useMarkets } from '../../hooks/useMarkets';
@@ -248,7 +249,13 @@ const { Option } = Select;
 
 const format = commaNumber.bindWith(',', '.');
 
-function Sidebar({ history, setSetting }: $TSFixMe) {
+interface SidebarProps extends RouteComponentProps {
+  settings: Setting;
+  setSetting: (setting: Partial<Setting> | undefined) => void;
+  getGovernanceVenus: $TSFixMe;
+}
+
+function Sidebar({ history, setSetting }: SidebarProps) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
@@ -446,10 +453,7 @@ function Sidebar({ history, setSetting }: $TSFixMe) {
       {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
-            <Label primary>
-              $
-              {format(new BigNumber(tvl).dp(2, 1).toString(10))}
-            </Label>
+            <Label primary>${format(new BigNumber(tvl).dp(2, 1).toString(10))}</Label>
             <Label className="center">Total Value Locked</Label>
           </div>
         </TotalValue>
@@ -539,18 +543,8 @@ function Sidebar({ history, setSetting }: $TSFixMe) {
   );
 }
 
-Sidebar.propTypes = {
-  history: PropTypes.object,
-  setSetting: PropTypes.func.isRequired,
-  getGovernanceVenus: PropTypes.func.isRequired,
-};
-
-Sidebar.defaultProps = {
-  history: {},
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(withRouter(Sidebar));
+export default connect(mapStateToProps, accountActionCreators)(withRouter(Sidebar));

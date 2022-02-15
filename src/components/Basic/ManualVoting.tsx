@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Spin, Icon } from 'antd';
 import styled from 'styled-components';
 
@@ -45,7 +44,13 @@ const ManualVotingWrapper = styled.div`
   }
 `;
 
-function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
+interface ManualVotingProps {
+  address: string;
+  balance: string;
+  isLoading: boolean;
+}
+
+function ManualVoting({ address, balance, isLoading }: ManualVotingProps) {
   const antIcon = <Icon type="loading" style={{ fontSize: 64 }} spin />;
 
   return (
@@ -54,15 +59,9 @@ function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
         <p>Confirm Transaction</p>
       </div>
       <div className="flex flex-column align-center just-center manual-voting-section">
-        <p className="voting-count">
-          {balance}
-          {' '}
-          Votes
-        </p>
+        <p className="voting-count">{balance} Votes</p>
         <span className="voting-address">
-          Manual Voting from
-          {' '}
-          {`${address.substr(0, 4)}...${address.substr(address.length - 4, 4)}`}
+          Manual Voting from {`${address.substr(0, 4)}...${address.substr(address.length - 4, 4)}`}
         </span>
         {isLoading && <Spin className="voting-spinner" indicator={antIcon} />}
         <span className="voting-confirm">Confirm the transaction.</span>
@@ -70,11 +69,5 @@ function ManualVoting({ address, balance, isLoading }: $TSFixMe) {
     </ManualVotingWrapper>
   );
 }
-
-ManualVoting.propTypes = {
-  address: PropTypes.bool.isRequired,
-  balance: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
 
 export default ManualVoting;

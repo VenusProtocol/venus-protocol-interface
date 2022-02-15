@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
@@ -8,6 +7,7 @@ import { useWeb3React } from '@web3-react/core';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 const VotingPowerWrapper = styled.div`
   width: 100%;
@@ -103,13 +103,14 @@ const VotingPowerWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function VotingPower({
-  history,
-  power,
-  balance,
-  delegateStatus,
-  stakedAmount,
-}: $TSFixMe) {
+interface VotingPowerProps extends RouteComponentProps {
+  power: string;
+  balance: string;
+  delegateStatus: string;
+  stakedAmount: string;
+}
+
+function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: VotingPowerProps) {
   const { account } = useWeb3React();
 
   const [isOpenDelegationModal, setIsOpenDelegationModal] = useState(false);
@@ -127,31 +128,17 @@ function VotingPower({
                 </Column>
                 <Column xs="12" sm="12" md="7" className=" voting-hint">
                   <Row className="flex flex-wrap align-center">
-                    <Column
-                      xs="12"
-                      md="5"
-                      lg="4"
-                      className="voting-hint-left flex align-center"
-                    >
+                    <Column xs="12" md="5" lg="4" className="voting-hint-left flex align-center">
                       <Icon className="info-circle" type="info-circle" />
                       <span>To vote you should:</span>
                     </Column>
-                    <Column
-                      xs="12"
-                      md="7"
-                      lg="8"
-                      className="voting-hint-right just-between"
-                    >
+                    <Column xs="12" md="7" lg="8" className="voting-hint-right just-between">
                       <div className="flex align-center voting-hint-right-l1">
                         <div className="connect-line" />
                         {!new BigNumber(stakedAmount).gt(0) ? (
                           <span className="step-number">1</span>
                         ) : (
-                          <Icon
-                            className="check-circle-icon"
-                            type="check-circle"
-                            theme="filled"
-                          />
+                          <Icon className="check-circle-icon" type="check-circle" theme="filled" />
                         )}
                         <span className="step-text">
                           <i
@@ -160,8 +147,7 @@ function VotingPower({
                             }}
                           >
                             Lock your tokens
-                          </i>
-                          {' '}
+                          </i>{' '}
                           to the XVS Vault
                         </span>
                       </div>
@@ -169,11 +155,7 @@ function VotingPower({
                         {!delegateStatus ? (
                           <span className="step-number">2</span>
                         ) : (
-                          <Icon
-                            className="check-circle-icon"
-                            type="check-circle"
-                            theme="filled"
-                          />
+                          <Icon className="check-circle-icon" type="check-circle" theme="filled" />
                         )}
                         <span className="step-text">
                           <i
@@ -204,16 +186,8 @@ function VotingPower({
   );
 }
 
-VotingPower.propTypes = {
-  power: PropTypes.string,
-  history: PropTypes.object.isRequired,
-  balance: PropTypes.string.isRequired,
-  delegateStatus: PropTypes.string.isRequired,
-  stakedAmount: PropTypes.string.isRequired,
-};
-
 VotingPower.defaultProps = {
   power: '0.00000000',
 };
 
-export default VotingPower;
+export default withRouter(VotingPower);

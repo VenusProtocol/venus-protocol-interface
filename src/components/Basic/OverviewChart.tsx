@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
 import {
@@ -51,6 +50,11 @@ interface Props {
   data: Array<Record<string, { name: string; apy: number }>>;
 }
 
+interface CustomChart2TooltipProps {
+  active: boolean;
+  payload: Array<{ value: BigNumber.Value }>;
+}
+
 function OverviewChart({ marketType, graphType, data }: Props) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -84,7 +88,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
     return null;
   };
 
-  const CustomChart2Tooltip = ({ active, payload }: $TSFixMe) => {
+  const CustomChart2Tooltip = ({ active, payload }: CustomChart2TooltipProps) => {
     if (active && payload && payload.length !== 0) {
       return (
         <div className="custom-tooltip">
@@ -97,10 +101,6 @@ function OverviewChart({ marketType, graphType, data }: Props) {
       );
     }
     return null;
-  };
-  CustomChart2Tooltip.propTypes = {
-    active: PropTypes.bool.isRequired,
-    payload: PropTypes.array.isRequired,
   };
 
   const handleMouseMove = (index: $TSFixMe) => {

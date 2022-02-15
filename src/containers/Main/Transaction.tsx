@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import commaNumber from 'comma-number';
 import { Row, Col, Pagination, Select } from 'antd';
@@ -264,7 +264,11 @@ const eventTypes = [
 const { Option } = Select;
 const format = commaNumber.bindWith(',', '.');
 
-function Transaction({ getTransactionHistory }: $TSFixMe) {
+interface TransactionProps extends RouteComponentProps {
+  getTransactionHistory: $TSFixMe;
+}
+
+function Transaction({ getTransactionHistory }: TransactionProps) {
   const [data, setData] = useState([]);
   const [offset, setOffset] = useState(1);
   const [pageSize, setPageSize] = useState(20);

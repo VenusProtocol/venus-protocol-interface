@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js';
 
+export interface User {
+  Token: string;
+}
+
 export interface Asset {
   id: string;
   name: string;
@@ -16,6 +20,11 @@ export interface Asset {
   borrowCaps: BigNumber;
   totalBorrows: BigNumber;
   liquidity: BigNumber;
+  xvsSupplyApy: BigNumber;
+  supplyApy: BigNumber;
+  collateralFactor: number;
+  collateral: boolean;
+  supplyBalance: BigNumber;
 }
 
 export interface Setting {
@@ -25,9 +34,39 @@ export interface Setting {
     type: string; // 'Borrow'
     status: boolean;
     symbol: string;
-    amount: string;
+    amount: string | number;
   };
-  vaultVaiStaked?: null;
+  vaultVaiStaked?: BigNumber.Value | null;
+  vaiAPY?: number | string;
+}
+
+export interface Action {
+  title: string;
+}
+
+enum ProposalState {
+  pending = 'Pending',
+  active = 'Active',
+  succeeded = 'Succeeded',
+  queued = 'Queued',
+  executed = 'Executed',
+  canceled = 'Canceled',
+  defeated = 'Defeated',
+  expired = 'Expired',
+}
+export interface ProposalInfo {
+  id: string;
+  description: string;
+  actions: Action[];
+  startTimestamp?: number;
+  createdTimestamp?: number;
+  queuedTimestamp?: number;
+  executedTimestamp?: number;
+  endTimestamp?: number;
+  cancelTimestamp?: number;
+  updatedAt?: number;
+  state: ProposalState;
+  proposer: string;
 }
 
 export interface Proposal {

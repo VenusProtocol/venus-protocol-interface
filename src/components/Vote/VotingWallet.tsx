@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import commaNumber from 'comma-number';
@@ -88,13 +87,21 @@ const VotingWalletWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
+interface VotingWalletProps {
+  balance: string;
+  earnedBalance: string;
+  vaiMint: string;
+  delegateAddress: string;
+  delegateStatus: string;
+}
+
 function VotingWallet({
   balance,
   earnedBalance,
   vaiMint,
   delegateAddress,
   delegateStatus,
-}: $TSFixMe) {
+}: VotingWalletProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
   const { account } = useWeb3React();
@@ -120,9 +127,11 @@ function VotingWallet({
       )
       .call();
 
-    const outstandingVTokens = vTokensBalanceInfos.filter((info: $TSFixMe) =>
-      // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
-      new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0));
+    const outstandingVTokens = vTokensBalanceInfos.filter(
+      (info: $TSFixMe) =>
+        // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
+        new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0),
+    );
 
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
@@ -176,9 +185,7 @@ function VotingWallet({
               {account && (
                 <div className="flex align-center">
                   <p className="pointer" onClick={handleCollect}>
-                    {isLoading && <Icon type="loading" />}
-                    {' '}
-                    Collect
+                    {isLoading && <Icon type="loading" />} Collect
                   </p>
                 </div>
               )}
@@ -198,21 +205,14 @@ function VotingWallet({
                 >
                   {delegateStatus === 'self'
                     ? 'Self'
-                    : `${delegateAddress.substr(
-                      0,
-                      4,
-                    )}...${delegateAddress.substr(
-                      delegateAddress.length - 4,
-                      4,
-                    )}`}
+                    : `${delegateAddress.substr(0, 4)}...${delegateAddress.substr(
+                        delegateAddress.length - 4,
+                        4,
+                      )}`}
                 </a>
               </div>
               <div className="flex align-center">
-                <p
-                  className="change pointer"
-                >
-                  Change
-                </p>
+                <p className="change pointer">Change</p>
               </div>
             </div>
           </div>
@@ -221,13 +221,5 @@ function VotingWallet({
     </Card>
   );
 }
-
-VotingWallet.propTypes = {
-  balance: PropTypes.string.isRequired,
-  earnedBalance: PropTypes.string.isRequired,
-  vaiMint: PropTypes.string.isRequired,
-  delegateAddress: PropTypes.string.isRequired,
-  delegateStatus: PropTypes.string.isRequired,
-};
 
 export default VotingWallet;

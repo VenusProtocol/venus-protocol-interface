@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import PropTypes from 'prop-types';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
 import * as constants from '../../utilities/constants';
@@ -63,6 +62,16 @@ function formatTimeToLockPeriodString(seconds: $TSFixMe) {
   }${second ? `${second} seconds` : ''}`;
 }
 
+interface WithdrawCardProps {
+  poolId: BigNumber;
+  stakedToken: string;
+  rewardTokenAddress: string;
+  lockPeriodSecond: BigNumber;
+  withdrawableAmount: BigNumber;
+  pendingWithdrawals: unknown[];
+  userEligibleStakedAmount: BigNumber;
+}
+
 function WithdrawCard({
   poolId,
   stakedToken,
@@ -71,7 +80,7 @@ function WithdrawCard({
   withdrawableAmount,
   pendingWithdrawals,
   userEligibleStakedAmount,
-}: $TSFixMe) {
+}: WithdrawCardProps) {
   const stakedTokenDecimal = new BigNumber(10).pow(
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
@@ -96,13 +105,8 @@ function WithdrawCard({
               <div className="card-content">
                 <div className="card-title">
                   <span>
-                    {stakedToken.toUpperCase()}
-                    {' '}
-                    Staked:
-                    {' '}
-                    {userEligibleStakedAmount
-                      .div(stakedTokenDecimal)
-                      .toFixed(4)}
+                    {stakedToken.toUpperCase()} Staked:{' '}
+                    {userEligibleStakedAmount.div(stakedTokenDecimal).toFixed(4)}
                   </span>
                   <Icon
                     type="history"
@@ -114,19 +118,11 @@ function WithdrawCard({
                   <div className="input-wrapper">
                     <NumberFormat
                       autoFocus
-                      value={
-                        withdrawAmount.isZero()
-                          ? '0'
-                          : withdrawAmount.toString(10)
-                      }
-                      onValueChange={(values) => {
+                      value={withdrawAmount.isZero() ? '0' : withdrawAmount.toString(10)}
+                      onValueChange={values => {
                         const value = new BigNumber(values.value || 0);
-                        const maxValue = userEligibleStakedAmount
-                          .div(stakedTokenDecimal)
-                          .dp(4, 1);
-                        setWithdrawAmount(
-                          value.gt(maxValue) ? maxValue : value,
-                        );
+                        const maxValue = userEligibleStakedAmount.div(stakedTokenDecimal).dp(4, 1);
+                        setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
                       }}
                       thousandSeparator
                       allowNegative={false}
@@ -135,18 +131,14 @@ function WithdrawCard({
                     <span
                       className="pointer max"
                       onClick={() => {
-                        setWithdrawAmount(
-                          userEligibleStakedAmount.div(stakedTokenDecimal),
-                        );
+                        setWithdrawAmount(userEligibleStakedAmount.div(stakedTokenDecimal));
                       }}
                     >
                       MAX
                     </span>
                   </div>
                   <div className="lock-period">
-                    Locking period:
-                    {' '}
-                    {formatTimeToLockPeriodString(lockPeriodSecond)}
+                    Locking period: {formatTimeToLockPeriodString(lockPeriodSecond)}
                   </div>
                 </div>
               </div>
@@ -154,10 +146,10 @@ function WithdrawCard({
                 type="button"
                 className="button claim-button"
                 disabled={
-                  !userEligibleStakedAmount.gt(0)
-                  || !withdrawAmount.gt(0)
-                  || !account
-                  || requestWithdrawLoading
+                  !userEligibleStakedAmount.gt(0) ||
+                  !withdrawAmount.gt(0) ||
+                  !account ||
+                  requestWithdrawLoading
                 }
                 onClick={async () => {
                   setRequestWithdrawLoading(true);
@@ -166,9 +158,7 @@ function WithdrawCard({
                       .requestWithdrawal(
                         rewardTokenAddress,
                         poolId.toNumber(),
-                        withdrawAmount
-                          .multipliedBy(stakedTokenDecimal)
-                          .toString(10),
+                        withdrawAmount.multipliedBy(stakedTokenDecimal).toString(10),
                       )
                       .send({
                         from: account,
@@ -179,10 +169,7 @@ function WithdrawCard({
                   setRequestWithdrawLoading(false);
                 }}
               >
-                {requestWithdrawLoading && <Icon type="loading" />}
-                {' '}
-                Request
-                Withdraw
+                {requestWithdrawLoading && <Icon type="loading" />} Request Withdraw
               </button>
             </Col>
             {/* !left */}
@@ -190,19 +177,14 @@ function WithdrawCard({
               <div className="card-content">
                 <div className="card-title">Withdrawable amount</div>
                 <div className="center-amount">
-                  {withdrawableAmount.div(stakedTokenDecimal).toFixed(4)}
-                  {' '}
+                  {withdrawableAmount.div(stakedTokenDecimal).toFixed(4)}{' '}
                   {stakedToken.toUpperCase()}
                 </div>
               </div>
               <button
                 type="button"
                 className="button execute-withdraw-button"
-                disabled={
-                  !withdrawableAmount.gt(0)
-                  || !account
-                  || executeWithdrawLoading
-                }
+                disabled={!withdrawableAmount.gt(0) || !account || executeWithdrawLoading}
                 onClick={async () => {
                   setExecuteWithdrawLoading(true);
                   try {
@@ -215,9 +197,7 @@ function WithdrawCard({
                   setExecuteWithdrawLoading(false);
                 }}
               >
-                {executeWithdrawLoading && <Icon type="loading" />}
-                {' '}
-                Withdraw
+                {executeWithdrawLoading && <Icon type="loading" />} Withdraw
               </button>
             </Col>
           </Row>
@@ -233,15 +213,5 @@ function WithdrawCard({
     </WithdrawCardWrapper>
   );
 }
-
-WithdrawCard.propTypes = {
-  poolId: PropTypes.instanceOf(BigNumber).isRequired,
-  stakedToken: PropTypes.string.isRequired,
-  rewardTokenAddress: PropTypes.string.isRequired,
-  lockPeriodSecond: PropTypes.instanceOf(BigNumber).isRequired,
-  withdrawableAmount: PropTypes.instanceOf(BigNumber).isRequired,
-  pendingWithdrawals: PropTypes.array.isRequired,
-  userEligibleStakedAmount: PropTypes.instanceOf(BigNumber).isRequired,
-};
 
 export default WithdrawCard;

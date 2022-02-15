@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -12,6 +12,7 @@ import * as constants from 'utilities/constants';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
+import { Setting } from 'types';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useToken } from '../../hooks/useContract';
@@ -186,7 +187,11 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function XVS({ settings }: $TSFixMe) {
+interface XVSProps extends RouteComponentProps {
+  settings: Setting;
+}
+
+function XVS({ settings }: XVSProps) {
   const [totalMarkets, setTotalMarkets] = useState([]);
   const [dailyDistribution, setDailyDistribution] = useState('0');
   const [totalDistributed, setTotalDistributed] = useState('0');
@@ -328,10 +333,7 @@ function XVS({ settings }: $TSFixMe) {
               </Col>
               <Col xs={{ span: 8 }} lg={{ span: 6 }} className="per-day right">
                 <span onClick={() => handleSort('perDay')}>
-                  <img src={coinImg} alt="xvs" />
-                  {' '}
-                  Per Day
-                  {' '}
+                  <img src={coinImg} alt="xvs" /> Per Day{' '}
                   {sortInfo.field === 'perDay' && (
                     <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                   )}
@@ -341,8 +343,7 @@ function XVS({ settings }: $TSFixMe) {
                 <span onClick={() => handleSort('supplyAPY')}>
                   Supply
                   <img src={coinImg} alt="xvs" />
-                  APY
-                  {' '}
+                  APY{' '}
                   {sortInfo.field === 'supplyAPY' && (
                     <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                   )}
@@ -352,8 +353,7 @@ function XVS({ settings }: $TSFixMe) {
                 <span onClick={() => handleSort('borrowAPY')}>
                   Borrow
                   <img src={coinImg} alt="xvs" />
-                  APY
-                  {' '}
+                  APY{' '}
                   {sortInfo.field === 'borrowAPY' && (
                     <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                   )}
@@ -445,8 +445,7 @@ function XVS({ settings }: $TSFixMe) {
                         <p className="mobile-label">Supply APY</p>
                         <p>
                           {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message */}
-                          {item.supplyAPY}
-                          %
+                          {item.supplyAPY}%
                         </p>
                       </Col>
                       <Col xs={{ span: 24 }} lg={{ span: 6 }} className="borrow-apy right">
@@ -455,8 +454,7 @@ function XVS({ settings }: $TSFixMe) {
                         {item.underlyingSymbol !== 'VAI' ? (
                           <p>
                             {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message */}
-                            {item.borrowAPY}
-                            %
+                            {item.borrowAPY}%
                           </p>
                         ) : (
                           <p>-</p>

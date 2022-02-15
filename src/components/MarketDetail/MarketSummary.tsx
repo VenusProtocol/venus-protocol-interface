@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
+import { State } from 'core/modules/initialState';
 import * as constants from 'utilities/constants';
 import { vtokenDecimals } from '../../config';
 
@@ -92,8 +93,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
       <div className="description">
         <p className="label">Borrow Cap</p>
         <p className="value">
-          $
-          {format(new BigNumber(marketInfo.totalBorrowsUsd).dp(2, 1).toString(10))}
+          ${format(new BigNumber(marketInfo.totalBorrowsUsd).dp(2, 1).toString(10))}
         </p>
       </div>
       <div className="description">
@@ -157,12 +157,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
         </p>
       </div>
       <div className="description">
-        <p className="label">
-          v
-          {marketInfo.underlyingSymbol}
-          {' '}
-          Minted
-        </p>
+        <p className="label">v{marketInfo.underlyingSymbol} Minted</p>
         <p className="value">{format(marketInfo.totalSupply2)}</p>
       </div>
       <div className="description">
@@ -188,12 +183,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
   );
 }
 
-MarketSummary.defaultProps = {
-  marketInfo: {},
-  currentAsset: '',
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
