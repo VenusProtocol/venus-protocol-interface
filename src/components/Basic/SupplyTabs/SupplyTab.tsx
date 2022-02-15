@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
 import { Icon, Progress } from 'antd';
 import { Button } from 'components/v2/Button';
@@ -13,6 +12,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
+import { Asset, Setting } from 'types';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
@@ -20,7 +20,14 @@ import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
 
-function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
+interface SupplyTabProps {
+  asset: Asset;
+  changeTab: (tab: 'supply' | 'withdraw') => void;
+  onCancel: () => void;
+  setSetting: (setting: Partial<Setting> | undefined) => void;
+}
+
+function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -183,11 +190,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Supply
-              {' '}
-              {asset.name}
-              {' '}
-              to the Venus Protocol, you need to approve it first.
+              To Supply {asset.name} to the Venus Protocol, you need to approve it first.
             </p>
           </>
         )}
@@ -217,10 +220,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Supply APY</span>
             </div>
-            <span>
-              {asset.supplyApy.dp(2, 1).toString(10)}
-              %
-            </span>
+            <span>{asset.supplyApy.dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -257,11 +257,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>
-              {mintableVai.dp(2, 1).toString(10)}
-              {' '}
-              VAI
-            </span>
+            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
           </div>
         </div>
         {isEnabled && (
@@ -269,42 +265,24 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
             <div className="borrow-limit">
               <span>Borrow Limit</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  $
-                  {format(borrowLimit.dp(2, 1).toString(10))}
-                </span>
+                <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    $
-                    {format(borrowLimit.dp(2, 1).toString(10))}
-                  </span>
+                  <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
                   <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                  <span>
-                    $
-                    {format(newBorrowLimit.dp(2, 1).toString(10))}
-                  </span>
+                  <span>${format(newBorrowLimit.dp(2, 1).toString(10))}</span>
                 </div>
               )}
             </div>
             <div className="flex align-center just-between borrow-limit-used">
               <span>Borrow Limit Used</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  {borrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    {borrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
+                  <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
                   <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                  <span>
-                    {newBorrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
+                  <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
                 </div>
               )}
             </div>
@@ -324,9 +302,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               onApprove();
             }}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Enable
+            {isLoading && <Icon type="loading" />} Enable
           </Button>
         ) : (
           <Button
@@ -340,35 +316,18 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
             }
             onClick={handleSupply}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Supply
+            {isLoading && <Icon type="loading" />} Supply
           </Button>
         )}
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))}
-            {' '}
-            {asset.symbol}
+            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
           </span>
         </div>
       </TabContent>
     </TabSection>
   );
 }
-
-SupplyTab.propTypes = {
-  asset: PropTypes.object,
-  changeTab: PropTypes.func,
-  onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired,
-};
-
-SupplyTab.defaultProps = {
-  asset: {},
-  changeTab: () => {},
-  onCancel: () => {},
-};
 
 export default connectAccount()(SupplyTab);

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import PropTypes from 'prop-types';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
 import { useVaiToken, useVaiVault } from '../../hooks/useContract';
@@ -13,12 +12,19 @@ const VaiCardContentWrapper = styled.div`
   padding: 16px 40px 0 24px;
 `;
 
+interface VaiCardContentProps {
+  userPendingReward: BigNumber;
+  userVaiBalance: BigNumber;
+  userVaiAllowance: BigNumber;
+  userVaiStakedAmount: BigNumber;
+}
+
 function VaiCardContent({
   userPendingReward,
   userVaiBalance,
   userVaiAllowance,
   userVaiStakedAmount,
-}: $TSFixMe) {
+}: VaiCardContentProps) {
   const { account } = useWeb3React();
   const vaiTokenContract = useVaiToken();
   const vaiVaultContract = useVaiVault();
@@ -115,8 +121,7 @@ function VaiCardContent({
                   {userPendingReward
                     .div(1e18)
                     .dp(6, 1)
-                    .toString(10)}
-                  {' '}
+                    .toString(10)}{' '}
                   XVS
                 </div>
               </div>
@@ -128,9 +133,7 @@ function VaiCardContent({
                   handleClaimReward();
                 }}
               >
-                {isClaimLoading && <Icon type="loading" />}
-                {' '}
-                Claim
+                {isClaimLoading && <Icon type="loading" />} Claim
               </button>
             </div>
           </CardItemWrapper>
@@ -143,8 +146,7 @@ function VaiCardContent({
               <div className="left">
                 <div className="card-title">
                   <span>
-                    VAI Staked:
-                    {' '}
+                    VAI Staked:{' '}
                     {userVaiStakedAmount
                       .div(1e18)
                       .dp(4, 1)
@@ -155,17 +157,11 @@ function VaiCardContent({
                   <div className="input-wrapper">
                     <NumberFormat
                       autoFocus
-                      value={
-                        withdrawAmount.isZero()
-                          ? '0'
-                          : withdrawAmount.toString(10)
-                      }
-                      onValueChange={(values) => {
+                      value={withdrawAmount.isZero() ? '0' : withdrawAmount.toString(10)}
+                      onValueChange={values => {
                         const value = new BigNumber(values.value || 0);
                         const maxValue = userVaiStakedAmount.div(1e18).dp(4, 1);
-                        setWithdrawAmount(
-                          value.gt(maxValue) ? maxValue : value,
-                        );
+                        setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
                       }}
                       thousandSeparator
                       allowNegative={false}
@@ -185,18 +181,12 @@ function VaiCardContent({
               <button
                 type="button"
                 className="button claim-button"
-                disabled={
-                  !withdrawAmount.gt(0)
-                  || !userVaiStakedAmount.gt(0)
-                  || !account
-                }
+                disabled={!withdrawAmount.gt(0) || !userVaiStakedAmount.gt(0) || !account}
                 onClick={() => {
                   handleWithdrawVAI();
                 }}
               >
-                {isWithdrawLoading && <Icon type="loading" />}
-                {' '}
-                Withdraw
+                {isWithdrawLoading && <Icon type="loading" />} Withdraw
               </button>
             </div>
           </CardItemWrapper>
@@ -208,8 +198,7 @@ function VaiCardContent({
             <div className="card-item stake">
               <div className="withdraw-request">
                 <div className="card-title">
-                  Available VAI to stake:
-                  {' '}
+                  Available VAI to stake:{' '}
                   {userVaiBalance
                     .div(1e18)
                     .dp(4, 1)
@@ -218,10 +207,8 @@ function VaiCardContent({
                 <div className="input-wrapper">
                   <NumberFormat
                     autoFocus
-                    value={
-                      stakeAmount.isZero() ? '0' : stakeAmount.toString(10)
-                    }
-                    onValueChange={(values) => {
+                    value={stakeAmount.isZero() ? '0' : stakeAmount.toString(10)}
+                    onValueChange={values => {
                       const value = new BigNumber(values.value || 0);
                       const maxValue = userVaiBalance.div(1e18).dp(4, 1);
                       setStakeAmount(value.gt(maxValue) ? maxValue : value);
@@ -262,12 +249,5 @@ function VaiCardContent({
     </VaiCardContentWrapper>
   );
 }
-
-VaiCardContent.propTypes = {
-  userPendingReward: PropTypes.instanceOf(BigNumber).isRequired,
-  userVaiBalance: PropTypes.instanceOf(BigNumber).isRequired,
-  userVaiAllowance: PropTypes.instanceOf(BigNumber).isRequired,
-  userVaiStakedAmount: PropTypes.instanceOf(BigNumber).isRequired,
-};
 
 export default VaiCardContent;

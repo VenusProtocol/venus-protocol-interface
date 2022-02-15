@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import SupplyTab from 'components/Basic/SupplyTabs/SupplyTab';
 import WithdrawTab from 'components/Basic/SupplyTabs/WithdrawTab';
 import closeImg from 'assets/img/close.png';
+import { Asset } from 'types';
 import styled from 'styled-components';
 
 const ModalContent = styled.div`
@@ -199,7 +199,13 @@ export const TabContent = styled.div`
   }
 `;
 
-function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
+interface SupplyModalProps {
+  visible: boolean;
+  asset: Asset;
+  onCancel: () => void;
+}
+
+function SupplyModal({ visible, asset, onCancel }: SupplyModalProps) {
   const [currentTab, setCurrentTab] = useState('supply');
 
   useEffect(() => {
@@ -236,17 +242,5 @@ function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
     </Modal>
   );
 }
-
-SupplyModal.propTypes = {
-  visible: PropTypes.bool,
-  asset: PropTypes.object,
-  onCancel: PropTypes.func,
-};
-
-SupplyModal.defaultProps = {
-  visible: false,
-  asset: {},
-  onCancel: () => {},
-};
 
 export default SupplyModal;

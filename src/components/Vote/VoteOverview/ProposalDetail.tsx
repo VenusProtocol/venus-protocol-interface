@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import { Card } from 'components/Basic/Card';
 import { Label } from 'components/Basic/Label';
 import { uid } from 'react-uid';
+import { ProposalInfo } from 'types';
 
 const ProposalDetailWrapper = styled.div`
   width: 100%;
@@ -33,7 +33,11 @@ const ProposalDetailWrapper = styled.div`
   }
 `;
 
-function ProposalDetail({ proposalInfo }: $TSFixMe) {
+interface ProposalDetailProps {
+  proposalInfo: Partial<ProposalInfo>;
+}
+
+function ProposalDetail({ proposalInfo }: ProposalDetailProps) {
   return (
     <Card>
       <ProposalDetailWrapper className="flex flex-column">
@@ -44,11 +48,7 @@ function ProposalDetail({ proposalInfo }: $TSFixMe) {
           <Label size="14">
             {/**/}
             {(proposalInfo.actions || []).map((s: $TSFixMe) => (
-              <ReactMarkdown
-                className="proposal-detail"
-                source={s.title}
-                key={uid(s)}
-              />
+              <ReactMarkdown className="proposal-detail" source={s.title} key={uid(s)} />
             ))}
           </Label>
         </div>
@@ -65,9 +65,6 @@ function ProposalDetail({ proposalInfo }: $TSFixMe) {
   );
 }
 
-ProposalDetail.propTypes = {
-  proposalInfo: PropTypes.object,
-};
 ProposalDetail.defaultProps = {
   proposalInfo: {},
 };

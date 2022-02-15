@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { Select, Icon } from 'antd';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
+import { accountActionCreators } from 'core/modules/account/actions';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
@@ -11,6 +11,7 @@ import commaNumber from 'comma-number';
 import { addToken, getBigNumber, formatApy } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
+import { Setting } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { vtokenDecimals } from '../../config';
@@ -139,7 +140,12 @@ const { Option } = Select;
 const abortController = new AbortController();
 const format = commaNumber.bindWith(',', '.');
 
-function Overview({ settings, getMarketHistory }: $TSFixMe) {
+interface OverviewProps {
+  settings: Setting;
+  getMarketHistory: $TSFixMe;
+}
+
+function Overview({ settings, getMarketHistory }: OverviewProps) {
   const [currentAsset, setCurrentAsset] = useState('sxp');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
@@ -255,8 +261,7 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
                       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                       src={constants.CONTRACT_TOKEN_ADDRESS[key].asset}
                       alt="asset"
-                    />
-                    {' '}
+                    />{' '}
                     <span>
                       {/* @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message */}
                       {constants.CONTRACT_TOKEN_ADDRESS[key].symbol}
@@ -435,12 +440,8 @@ function Overview({ settings, getMarketHistory }: $TSFixMe) {
   );
 }
 
-Overview.propTypes = {
-  getMarketHistory: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(Overview);
+export default connect(mapStateToProps, accountActionCreators)(Overview);

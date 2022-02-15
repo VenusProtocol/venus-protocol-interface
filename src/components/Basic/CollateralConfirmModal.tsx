@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { Modal, Spin, Icon } from 'antd';
 import closeImg from 'assets/img/close.png';
 import logoImg from 'assets/img/logo.png';
@@ -39,11 +38,18 @@ const ModalContent = styled.div`
 `;
 
 const antIcon = <Icon type="loading" style={{ fontSize: 64 }} spin />;
+
+interface CollateralConfirmModalProps {
+  visible: boolean;
+  isCollateralEnalbe?: boolean;
+  onCancel: () => void;
+}
+
 function CollateralConfirmModal({
   visible,
   isCollateralEnalbe,
   onCancel,
-}: $TSFixMe) {
+}: CollateralConfirmModalProps) {
   return (
     <Modal
       className="collateral-confirm-modal"
@@ -56,33 +62,14 @@ function CollateralConfirmModal({
       centered
     >
       <ModalContent className="flex flex-column align-center just-center">
-        <img
-          className="close-btn pointer"
-          src={closeImg}
-          alt="close"
-          onClick={onCancel}
-        />
+        <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
         <img src={logoImg} alt="logo" className="logo-text" />
-        <p className="title">
-          {`${isCollateralEnalbe ? 'Disable' : 'Enable'} as collateral`}
-        </p>
+        <p className="title">{`${isCollateralEnalbe ? 'Disable' : 'Enable'} as collateral`}</p>
         <Spin className="voting-spinner" indicator={antIcon} />
         <p className="confirm-text">Confirm the transaction</p>
       </ModalContent>
     </Modal>
   );
 }
-
-CollateralConfirmModal.propTypes = {
-  visible: PropTypes.bool,
-  isCollateralEnalbe: PropTypes.bool,
-  onCancel: PropTypes.func,
-};
-
-CollateralConfirmModal.defaultProps = {
-  visible: false,
-  isCollateralEnalbe: true,
-  onCancel: () => {},
-};
 
 export default CollateralConfirmModal;

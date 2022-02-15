@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
-
 import * as constants from 'utilities/constants';
 import { currencyFormatter, formatApy } from 'utilities/common';
 import { uid } from 'react-uid';
+import { Setting } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketWrapper = styled.div`
@@ -160,7 +160,12 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
+interface MarketProps extends RouteComponentProps {
+  settings: Setting;
+  getTreasuryBalance: () => void;
+}
+
+function Market({ history, settings, getTreasuryBalance }: MarketProps) {
   const [totalSupply, setTotalSupply] = useState('0');
   const [totalBorrow, setTotalBorrow] = useState('0');
   const [availableLiquidity, setAvailableLiquidity] = useState('0');
@@ -212,14 +217,14 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
 
     setTotalSupply(
       tempTS
-        .plus(settings.vaultVaiStaked)
+        .plus(settings.vaultVaiStaked || new BigNumber(0))
         .dp(2, 1)
         .toString(10),
     );
     setTotalBorrow(tempTB.dp(2, 1).toString(10));
     setAvailableLiquidity(
       tempAL
-        .plus(settings.vaultVaiStaked)
+        .plus(settings.vaultVaiStaked || new BigNumber(0))
         .dp(2, 1)
         .toString(10),
     );
@@ -245,46 +250,32 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
           <div className="total-info">
             <div className="total-item">
               <div className="prop">Total Supply</div>
-              <div className="value">
-                $
-                {format(totalSupply)}
-              </div>
+              <div className="value">${format(totalSupply)}</div>
             </div>
             <div className="total-item">
               <div className="prop">Total Borrow</div>
-              <div className="value">
-                $
-                {format(totalBorrow)}
-              </div>
+              <div className="value">${format(totalBorrow)}</div>
             </div>
             <div className="total-item">
               <div className="prop">Available Liquidity</div>
-              <div className="value">
-                $
-                {format(availableLiquidity)}
-              </div>
+              <div className="value">${format(availableLiquidity)}</div>
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
-              <div className="value">
-                $
-                {format(totalTreasury)}
-              </div>
+              <div className="value">${format(totalTreasury)}</div>
             </div>
           </div>
           {settings.vaiAPY && (
             <div className="vai-apy">
               VAI Staking APY:
-              {settings.vaiAPY}
-              %
+              {settings.vaiAPY}%
             </div>
           )}
           <Row className="table_header">
             <Col xs={{ span: 24 }} lg={{ span: 2 }} className="market" />
             <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-supply right">
               <span onClick={() => handleSort('total_supply')}>
-                Total Supply
-                {' '}
+                Total Supply{' '}
                 {sortInfo.field === 'total_supply' && (
                   <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                 )}
@@ -292,8 +283,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 3 }} className="supply-apy right">
               <span onClick={() => handleSort('supply_apy')}>
-                Supply APY
-                {' '}
+                Supply APY{' '}
                 {sortInfo.field === 'supply_apy' && (
                   <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                 )}
@@ -301,8 +291,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-borrow right">
               <span onClick={() => handleSort('total_borrow')}>
-                Total Borrow
-                {' '}
+                Total Borrow{' '}
                 {sortInfo.field === 'total_borrow' && (
                   <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                 )}
@@ -310,8 +299,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 3 }} className="borrow-apy right">
               <span onClick={() => handleSort('borrow_apy')}>
-                Borrow APY
-                {' '}
+                Borrow APY{' '}
                 {sortInfo.field === 'borrow_apy' && (
                   <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                 )}
@@ -319,8 +307,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 4 }} className="liquidity right">
               <span onClick={() => handleSort('liquidity')}>
-                Liquidity
-                {' '}
+                Liquidity{' '}
                 {sortInfo.field === 'liquidity' && (
                   <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                 )}
@@ -328,8 +315,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
             </Col>
             <Col xs={{ span: 6 }} lg={{ span: 4 }} className="price right">
               <span onClick={() => handleSort('price')}>
-                Price
-                {' '}
+                Price{' '}
                 {sortInfo.field === 'price' && (
                   <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
                 )}
@@ -431,8 +417,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                             .div(new BigNumber(item.tokenPrice))
                             .dp(0, 1)
                             .toString(10),
-                        )}
-                        {' '}
+                        )}{' '}
                         {item.underlyingSymbol}
                       </p>
                     </Col>
@@ -450,8 +435,7 @@ function Market({ history, settings, getTreasuryBalance }: $TSFixMe) {
                             .div(new BigNumber(item.tokenPrice))
                             .dp(0, 1)
                             .toString(10),
-                        )}
-                        {' '}
+                        )}{' '}
                         {item.underlyingSymbol}
                       </p>
                     </Col>
@@ -484,4 +468,4 @@ const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(withRouter(Market));
+export default connect(mapStateToProps)(withRouter(Market));

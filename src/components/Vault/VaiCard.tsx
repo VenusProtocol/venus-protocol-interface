@@ -6,8 +6,10 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
+import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import VAICardContent from './VaiCardContent';
 import { VaultCardWrapper } from './styles';
 import useRefresh from '../../hooks/useRefresh';
@@ -20,7 +22,11 @@ import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
-function VaultCard({ settings }: $TSFixMe) {
+interface VaultCardProps {
+  settings: Setting;
+}
+
+function VaultCard({ settings }: VaultCardProps) {
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
 
@@ -113,35 +119,26 @@ function VaultCard({ settings }: $TSFixMe) {
                   .div(1e18)
                   .dp(4, 1)
                   .toString(10),
-              )}
-              {' '}
+              )}{' '}
               XVS
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">VAI Staking APR</div>
-            <div className="content">
-              {settings.vaiAPY}
-              %
-            </div>
+            <div className="content">{settings.vaiAPY}%</div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Total VAI Staked</div>
             <div className="content">
               {settings.vaultVaiStaked
                 ? commaFormatter(new BigNumber(settings.vaultVaiStaked).dp(4, 1).toString(10))
-                : 0}
-              {' '}
+                : 0}{' '}
               VAI
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">XVS Daily Emission</div>
-            <div className="content">
-              {commaFormatter(dailyEmission.toString(10))}
-              {' '}
-              XVS
-            </div>
+            <div className="content">{commaFormatter(dailyEmission.toString(10))} XVS</div>
           </Col>
           <Col
             className="col-item expand-icon-wrapper"
@@ -167,10 +164,8 @@ function VaultCard({ settings }: $TSFixMe) {
   );
 }
 
-VaultCard.defaultProps = {};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(VaultCard);
+export default connect(mapStateToProps)(VaultCard);

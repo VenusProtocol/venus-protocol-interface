@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import BigNumber from 'bignumber.js';
@@ -121,6 +120,16 @@ interface Props extends RouteComponentProps {
   currentAsset: string;
 }
 
+interface CustomizedAxisTickProps {
+  x: number;
+  y: number;
+}
+
+interface CustomTooltipProps {
+  active: boolean;
+  payload: Array<{ value: BigNumber.Value }>;
+}
+
 function InterestRateModel({ currentAsset }: Props) {
   const [graphData, setGraphData] = useState([]);
   const [tickerPos, setTickerPos] = useState(null);
@@ -132,17 +141,13 @@ function InterestRateModel({ currentAsset }: Props) {
   const { markets } = useMarkets();
   const web3 = useWeb3();
 
-  const CustomizedAxisTick = ({ x, y }: $TSFixMe) => (
+  const CustomizedAxisTick = ({ x, y }: CustomizedAxisTickProps) => (
     <g transform={`translate(${x},${y})`}>
       <text x={0} y={0} dy={16}>
         {/* {moment(payload.value).format('LLLL')} */}
       </text>
     </g>
   );
-  CustomizedAxisTick.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  };
 
   const getGraphData = async (asset: $TSFixMe) => {
     flag = true;
@@ -254,7 +259,7 @@ function InterestRateModel({ currentAsset }: Props) {
     flag = false;
   }, [currentAsset]);
 
-  const CustomTooltip = ({ active, payload }: $TSFixMe) => {
+  const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
     if (active && payload && payload.length !== 0) {
       return (
         <div className="custom-tooltip">
@@ -268,10 +273,6 @@ function InterestRateModel({ currentAsset }: Props) {
       );
     }
     return null;
-  };
-  CustomTooltip.propTypes = {
-    active: PropTypes.bool.isRequired,
-    payload: PropTypes.array.isRequired,
   };
 
   const handleMouseMove = (e: $TSFixMe) => {
@@ -308,9 +309,7 @@ function InterestRateModel({ currentAsset }: Props) {
           </div>
         )}
         <div className="ticker-percent" style={{ left: tickerPos || currentPos }}>
-          {percent === null ? currentPercent : percent}
-          {' '}
-          %
+          {percent === null ? currentPercent : percent} %
         </div>
         <div
           id="ticker-line"

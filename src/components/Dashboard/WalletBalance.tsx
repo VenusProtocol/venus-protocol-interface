@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import CircleProgressBar from 'components/Basic/CircleProgressBar';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import AnimatedNumber from 'animated-number-react';
+import { useWeb3React } from '@web3-react/core';
+import { accountActionCreators } from 'core/modules/account/actions';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import { getBigNumber } from 'utilities/common';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
-import { useWeb3React } from '@web3-react/core';
+import { Setting } from 'types';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useVaiVault } from '../../hooks/useContract';
@@ -80,7 +81,12 @@ const BalancerWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function WalletBalance({ settings, setSetting }: $TSFixMe) {
+interface WalletBalanceProps {
+  settings: Setting;
+  setSetting: (setting: Partial<Setting> | undefined) => void;
+}
+
+function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
   const { userVaiMinted } = useVaiUser();
@@ -253,12 +259,8 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
   );
 }
 
-WalletBalance.propTypes = {
-  setSetting: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = ({ account }: $TSFixMe) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(WalletBalance);
+export default connect(mapStateToProps, accountActionCreators)(WalletBalance);

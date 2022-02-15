@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import PropTypes from 'prop-types';
+import { ColumnProps } from 'antd/lib/table';
 import styled from 'styled-components';
 
 const MarketTableWrapper = styled.div`
@@ -152,9 +152,14 @@ const MarketTableWrapper = styled.div`
   }
 `;
 
-function MarketTable({
-  columns, data, title, handleClickRow,
-}: $TSFixMe) {
+interface MarketTableProps {
+  data: unknown[];
+  columns: ColumnProps<unknown>[];
+  title: string;
+  handleClickRow: (row: unknown) => void;
+}
+
+function MarketTable({ columns, data, title, handleClickRow }: MarketTableProps) {
   return (
     <MarketTableWrapper>
       <div className="all-title">{title}</div>
@@ -169,18 +174,5 @@ function MarketTable({
     </MarketTableWrapper>
   );
 }
-
-MarketTable.propTypes = {
-  data: PropTypes.array,
-  columns: PropTypes.array,
-  title: PropTypes.string,
-  handleClickRow: PropTypes.func.isRequired,
-};
-
-MarketTable.defaultProps = {
-  data: [],
-  columns: [],
-  title: '',
-};
 
 export default MarketTable;

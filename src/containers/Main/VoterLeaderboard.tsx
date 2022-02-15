@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
@@ -94,7 +93,11 @@ const TableWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
+interface VoterLeaderboardProps extends RouteComponentProps {
+  getVoterAccounts: $TSFixMe;
+}
+
+function VoterLeaderboard({ history, getVoterAccounts }: VoterLeaderboardProps) {
   const [voterAccounts, setVoterAccounts] = useState([]);
 
   useEffect(() => {
@@ -159,8 +162,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
                     <p className="mobile-label">Vote Weight</p>
                     <p>
                       {/* @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message */}
-                      {parseFloat(item.voteWeight * 100).toFixed(2)}
-                      %
+                      {parseFloat(item.voteWeight * 100).toFixed(2)}%
                     </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} className="proposals right">
@@ -176,14 +178,5 @@ function VoterLeaderboard({ history, getVoterAccounts }: $TSFixMe) {
     </MainLayout>
   );
 }
-
-VoterLeaderboard.propTypes = {
-  history: PropTypes.object,
-  getVoterAccounts: PropTypes.func.isRequired,
-};
-
-VoterLeaderboard.defaultProps = {
-  history: {},
-};
 
 export default connectAccount()(withRouter(VoterLeaderboard));

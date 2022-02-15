@@ -1,10 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { toast as toastify } from 'react-toastify';
 
-export function Toast({
-  title, description, type, ...props
-}: $TSFixMe) {
+interface ToastProps {
+  title: string;
+  description: string;
+  type: 'success' | 'info' | 'error';
+}
+
+export function Toast({ title, description, type, ...props }: ToastProps) {
   return (
     <div {...props} className={`toast_container_wrapper ${type}`}>
       {title && <p className="title">{title}</p>}
@@ -13,24 +16,13 @@ export function Toast({
   );
 }
 
-Toast.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  type: PropTypes.oneOf(['success', 'info', 'error']),
-};
-
 Toast.defaultProps = {
   title: '',
   description: '',
   type: 'success',
 };
 
-function toast(
-  {
-    title, description, type = 'success', ...props
-  }: $TSFixMe,
-  options = {},
-) {
+function toast({ title, description, type = 'success', ...props }: $TSFixMe, options = {}) {
   return toastify(
     <Toast title={title} description={description} type={type} {...props} />,
     options,
@@ -39,9 +31,11 @@ function toast(
 
 toast.info = (content: $TSFixMe, options: $TSFixMe) => toast({ ...content, type: 'info' }, options);
 
-toast.error = (content: $TSFixMe, options: $TSFixMe) => toast({ ...content, type: 'error' }, options);
+toast.error = (content: $TSFixMe, options: $TSFixMe) =>
+  toast({ ...content, type: 'error' }, options);
 
-toast.success = (content: $TSFixMe, options: $TSFixMe) => toast({ ...content, type: 'success' }, options);
+toast.success = (content: $TSFixMe, options: $TSFixMe) =>
+  toast({ ...content, type: 'success' }, options);
 toast.update = toastify.update;
 
 export default toast;

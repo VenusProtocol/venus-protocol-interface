@@ -27,6 +27,7 @@ interface Props {
   asset: Asset;
   changeTab: (tab: 'borrow' | 'repayBorrow') => void;
   onCancel: () => void;
+  setSetting: () => void;
 }
 
 function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchProps) {
@@ -182,10 +183,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Borrow APY</span>
             </div>
-            <span>
-              {asset.borrowApy.dp(2, 1).toString(10)}
-              %
-            </span>
+            <span>{asset.borrowApy.dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -217,11 +215,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>
-              {userVaiMinted.dp(2, 1).toString(10)}
-              {' '}
-              VAI
-            </span>
+            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
           </div>
           {!new BigNumber(asset.borrowCaps || 0).isZero() && (
             <div className="description borrow-caps">
@@ -246,42 +240,24 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
           <div className="borrow-balance">
             <span>Borrow Balance</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>
-                $
-                {borrowBalance.dp(2, 1).toString(10)}
-              </span>
+              <span>${borrowBalance.dp(2, 1).toString(10)}</span>
             ) : (
               <div className="flex align-center just-between">
-                <span>
-                  $
-                  {borrowBalance.dp(2, 1).toString(10)}
-                </span>
+                <span>${borrowBalance.dp(2, 1).toString(10)}</span>
                 <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                <span>
-                  $
-                  {newBorrowBalance.dp(2, 1).toString(10)}
-                </span>
+                <span>${newBorrowBalance.dp(2, 1).toString(10)}</span>
               </div>
             )}
           </div>
           <div className="borrow-limit">
             <span>Borrow Limit Used</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>
-                {borrowPercent.dp(2, 1).toString(10)}
-                %
-              </span>
+              <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
             ) : (
               <div className="flex align-center just-between">
-                <span>
-                  {borrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
                 <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                <span>
-                  {newBorrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
               </div>
             )}
           </div>
@@ -305,15 +281,12 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
           }
           onClick={handleBorrow}
         >
-          {isLoading && <Icon type="loading" />}
-          {' '}
-          Borrow
+          {isLoading && <Icon type="loading" />} Borrow
         </Button>
         <div className="description">
           <span>Protocol Balance</span>
           <span>
-            {asset.borrowBalance && format(asset.borrowBalance.dp(2, 1).toString(10))}
-            {' '}
+            {asset.borrowBalance && format(asset.borrowBalance.dp(2, 1).toString(10))}{' '}
             {asset.symbol}
           </span>
         </div>

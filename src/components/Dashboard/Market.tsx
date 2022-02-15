@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import SupplyMarket from 'components/Dashboard/Market/SupplyMarket';
 import BorrowMarket from 'components/Dashboard/Market/BorrowMarket';
 import { Card } from 'components/Basic/Card';
 import MintTab from 'components/Basic/VaiTabs/MintTab';
 import RepayVaiTab from 'components/Basic/VaiTabs/RepayVaiTab';
 import { State } from 'core/modules/initialState';
+import { accountActionCreators } from 'core/modules/account/actions';
 import { Setting } from 'types';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
@@ -54,11 +55,12 @@ const MintRepayVai = styled.div`
   }
 `;
 
-interface Props {
+interface MarketProps {
+  settings: Setting;
   setSetting: (setting: Partial<Setting> | undefined) => void;
 }
 
-const Market = ({ setSetting }: Props) => {
+const Market = ({ setSetting }: MarketProps) => {
   const [currentTab, setCurrentTab] = useState('supply');
   const [suppliedAssets, setSuppliedAssets] = useState([]);
   const [nonSuppliedAssets, setNonSuppliedAssets] = useState([]);
@@ -163,4 +165,4 @@ const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-export default connectAccount(mapStateToProps)(Market);
+export default connect(mapStateToProps, accountActionCreators)(Market);
