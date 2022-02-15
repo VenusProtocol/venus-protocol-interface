@@ -1,3 +1,5 @@
 module.exports = {
-    singleQuote: true
+  ...require('prettier-airbnb-config'),
+  "trailingComma": "all",
+  "bracketSpacing": true,
 };

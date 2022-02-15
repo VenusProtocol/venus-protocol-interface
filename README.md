@@ -1,4 +1,5 @@
 # Venus Protocol
+
 ## Quick Installation & Start
 
 ```sh
@@ -8,7 +9,7 @@ npm run start
 
 ## Requirements and Configuration
 
-You’ll need to have Node 8.16.0 or Node 10.16.0 or later version on your local development machine
+You’ll need to have Node >12.19 or later version on your local development machine
 
 ## Creating an App
 
@@ -37,6 +38,8 @@ venus-protocol-ui
 To deploy, raise a PR to update image and config at: https://github.com/VenusProtocol/venus-k8s-app
 
 ## Local Development
+
+Install husky globally to use pre-commit and prepush hooks
 
 To run dev environment:
 

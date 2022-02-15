@@ -9,6 +9,7 @@
 # dependencies
 /node_modules
 /build
+yarn-error.log
 # IDEs and editors
 /.idea
 .project
