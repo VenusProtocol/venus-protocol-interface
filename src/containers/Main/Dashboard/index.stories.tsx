@@ -1,11 +1,17 @@
 import { ComponentMeta } from '@storybook/react';
-import { withRouter, withProvider } from 'stories/decorators';
+import {
+  withRouter,
+  withProvider,
+  withWeb3Provider,
+  withMarketContext,
+  withVaiContext,
+} from 'stories/decorators';
 import Dashboard from '.';
 
 export default {
   title: 'Dashboard',
   component: Dashboard,
-  decorators: [withRouter, withProvider],
+  decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
 } as ComponentMeta<typeof Dashboard>;
 
 export { Dashboard };
