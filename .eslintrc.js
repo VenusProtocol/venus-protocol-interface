@@ -15,6 +15,7 @@ module.exports = {
     'arrow-parens': 0,
     'object-curly-newline': 0,
     'no-confusing-arrow': 0,
+    'react/jsx-one-expression-per-line': 0,
 
     /* airbnb rules */
     'implicit-arrow-linebreak': 0,
