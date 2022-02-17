@@ -45,6 +45,8 @@ jobs:
 
   storybooks:
     runs-on: self-hosted
+    container:
+      image: node:12
     steps:
       - name: Checkout
         uses: actions/checkout@v2
