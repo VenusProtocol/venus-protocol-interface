@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { StyledEngineProvider } from '@mui/material/styles';
 import en from 'react-intl/locale-data/en';
 import enMessages from 'lang/en.json';
 import { store } from 'core';
@@ -46,41 +47,43 @@ class App extends React.Component {
     const message = messages[lang];
     return (
       <Theme>
-        <IntlProvider locale={lang} messages={message}>
-          <Provider store={store}>
-            <RefreshContextProvider>
-              <VaiContextProvider>
-                <MarketContextProvider>
-                  <BrowserRouter>
-                    <ToastContainer
-                      autoClose={8000}
-                      transition={Slide}
-                      hideProgressBar
-                      newestOnTop
-                      position={toast.POSITION.TOP_LEFT}
-                    />
-                    <Switch>
-                      <Route exact path="/dashboard" component={Dashboard} />
-                      <Route exact path="/vote" component={Vote} />
-                      <Route exact path="/xvs" component={XVS} />
-                      <Route exact path="/market" component={Market} />
-                      <Route exact path="/transaction" component={Transaction} />
-                      <Route exact path="/vault" component={Vault} />
-                      <Route exact path="/market/:asset" component={MarketDetail} />
-                      <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
-                      <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                      <Route exact path="/vote/address/:address" component={ProposerDetail} />
-                      {process.env.REACT_APP_CHAIN_ID === '97' && (
-                        <Route exact path="/faucet" component={Faucet} />
-                      )}
-                      <Redirect from="/" to="/dashboard" />
-                    </Switch>
-                  </BrowserRouter>
-                </MarketContextProvider>
-              </VaiContextProvider>
-            </RefreshContextProvider>
-          </Provider>
-        </IntlProvider>
+        <StyledEngineProvider injectFirst>
+          <IntlProvider locale={lang} messages={message}>
+            <Provider store={store}>
+              <RefreshContextProvider>
+                <VaiContextProvider>
+                  <MarketContextProvider>
+                    <BrowserRouter>
+                      <ToastContainer
+                        autoClose={8000}
+                        transition={Slide}
+                        hideProgressBar
+                        newestOnTop
+                        position={toast.POSITION.TOP_LEFT}
+                      />
+                      <Switch>
+                        <Route exact path="/dashboard" component={Dashboard} />
+                        <Route exact path="/vote" component={Vote} />
+                        <Route exact path="/xvs" component={XVS} />
+                        <Route exact path="/market" component={Market} />
+                        <Route exact path="/transaction" component={Transaction} />
+                        <Route exact path="/vault" component={Vault} />
+                        <Route exact path="/market/:asset" component={MarketDetail} />
+                        <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
+                        <Route exact path="/vote/proposal/:id" component={VoteOverview} />
+                        <Route exact path="/vote/address/:address" component={ProposerDetail} />
+                        {process.env.REACT_APP_CHAIN_ID === '97' && (
+                          <Route exact path="/faucet" component={Faucet} />
+                        )}
+                        <Redirect from="/" to="/dashboard" />
+                      </Switch>
+                    </BrowserRouter>
+                  </MarketContextProvider>
+                </VaiContextProvider>
+              </RefreshContextProvider>
+            </Provider>
+          </IntlProvider>
+        </StyledEngineProvider>
       </Theme>
     );
   }
