@@ -15,8 +15,8 @@
     "lint:fix": "yarn lint --fix && yarn pretty --write && yarn lint-styles --fix",
     "lint-styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "typecheck": "tsc",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
+    "storybook": "STORYBOOK=true start-storybook -p 6006 -s public",
+    "build-storybook": "STORYBOOK=true build-storybook -s public",
     "loki": "loki update --reactUri file:./storybook-static",
     "regression": "reg-suit run"
   },
