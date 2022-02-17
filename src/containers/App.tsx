@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { StyledEngineProvider } from '@mui/material/styles';
 import en from 'react-intl/locale-data/en';
 import enMessages from 'lang/en.json';
 import { store } from 'core';
@@ -24,6 +23,7 @@ import Theme from './Theme';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';
+import { MuiThemeProvider } from './MuiThemeProvider/MuiThemeProvider';
 
 addLocaleData([...en]);
 const initialLang = 'en';
@@ -47,12 +47,12 @@ class App extends React.Component {
     const message = messages[lang];
     return (
       <Theme>
-        <StyledEngineProvider injectFirst>
-          <IntlProvider locale={lang} messages={message}>
-            <Provider store={store}>
-              <RefreshContextProvider>
-                <VaiContextProvider>
-                  <MarketContextProvider>
+        <IntlProvider locale={lang} messages={message}>
+          <Provider store={store}>
+            <RefreshContextProvider>
+              <VaiContextProvider>
+                <MarketContextProvider>
+                  <MuiThemeProvider>
                     <BrowserRouter>
                       <ToastContainer
                         autoClose={8000}
@@ -78,12 +78,12 @@ class App extends React.Component {
                         <Redirect from="/" to="/dashboard" />
                       </Switch>
                     </BrowserRouter>
-                  </MarketContextProvider>
-                </VaiContextProvider>
-              </RefreshContextProvider>
-            </Provider>
-          </IntlProvider>
-        </StyledEngineProvider>
+                  </MuiThemeProvider>
+                </MarketContextProvider>
+              </VaiContextProvider>
+            </RefreshContextProvider>
+          </Provider>
+        </IntlProvider>
       </Theme>
     );
   }
