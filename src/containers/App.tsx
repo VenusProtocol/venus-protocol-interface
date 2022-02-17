@@ -23,7 +23,7 @@ import Theme from './Theme';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';
-import { MuiThemeProvider } from './MuiThemeProvider/MuiThemeProvider';
+import { MuiThemeProvider } from '../theme/MuiThemeProvider/MuiThemeProvider';
 
 addLocaleData([...en]);
 const initialLang = 'en';
