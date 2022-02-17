@@ -1,13 +1,12 @@
 import React from 'react';
-import { Button as AntdButton } from 'antd';
-import { ButtonProps } from 'antd/lib/button';
+import { Button as MuiButton, ButtonProps } from '@mui/material';
 
 interface IButtonProps extends ButtonProps {
   className?: string;
 }
 
 export const Button = ({ className, children, ...restProps }: IButtonProps) => (
-  <AntdButton className={className} {...restProps}>
+  <MuiButton className={className} {...restProps}>
     {children}
-  </AntdButton>
-  );
+  </MuiButton>
+);

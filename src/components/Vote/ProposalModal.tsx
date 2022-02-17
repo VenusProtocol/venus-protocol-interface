@@ -334,9 +334,7 @@ function ProposalModal({
         {maxOperation && (
           <p className="max-operations center">
             You can add
-            {maxOperation}
-            {' '}
-            actions as maximum
+            {maxOperation} actions as maximum
           </p>
         )}
         <Form onSubmit={handleSubmit} className="proposal_form">
@@ -478,15 +476,13 @@ function ProposalModal({
           {errorMsg && <p className="invalid_msg center">{errorMsg}</p>}
           <div className="flex align-center just-center btn-wrapper">
             <Button
-              htmlType="submit"
+              type="submit"
               className="proposal-btn"
               disabled={
                 isLoading || formData.length > maxOperation || description.trim().length === 0
               }
             >
-              {isLoading && <Icon type="loading" />}
-              {' '}
-              Create
+              {isLoading && <Icon type="loading" />} Create
             </Button>
           </div>
         </Form>
