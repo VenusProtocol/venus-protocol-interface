@@ -46,7 +46,7 @@ jobs:
   storybooks:
     runs-on: self-hosted
     container:
-      image: node:12
+      image: node:14.15.1-buster
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -58,12 +58,6 @@ jobs:
           node-version: 12
           cache: 'yarn'
 
-      - run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
-          sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-          apt-get update -y
-          apt-get install google-chrome-stable -y
-
       - name: Install deps
         run: yarn
 
@@ -71,7 +65,7 @@ jobs:
         run: yarn build-storybook
 
       - name: Snapshot
-        run: yarn loki --chromeFlags="--headless --no-sandbox"
+        run: yarn loki
 
       - name: Reg-suit
         run: yarn regression
