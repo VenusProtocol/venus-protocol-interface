@@ -18,12 +18,14 @@ import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import Transaction from 'containers/Main/Transaction';
+import { Dev } from 'containers/Main/Dev/Dev';
 import Theme from './Theme';
 
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';
 import { MuiThemeProvider } from '../theme/MuiThemeProvider/MuiThemeProvider';
+import { isDevEnvironment } from '../utilities/isDevEnvironment';
 
 addLocaleData([...en]);
 const initialLang = 'en';
@@ -75,6 +77,7 @@ class App extends React.Component {
                         {process.env.REACT_APP_CHAIN_ID === '97' && (
                           <Route exact path="/faucet" component={Faucet} />
                         )}
+                        {isDevEnvironment() && <Route exact path="/dev" component={Dev} />}
                         <Redirect from="/" to="/dashboard" />
                       </Switch>
                     </BrowserRouter>
