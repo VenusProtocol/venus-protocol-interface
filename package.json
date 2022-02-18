@@ -90,15 +90,17 @@
     "eslint-plugin-react": "^7.28.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.3",
-    "postcss-syntax": "^0.36.2",
     "loki": "^0.25.1",
+    "msw": "^0.36.8",
+    "msw-storybook-addon": "^1.6.0",
+    "postcss-syntax": "^0.36.2",
+    "prettier": "^1.19.1",
+    "prettier-airbnb-config": "^1.0.0",
+    "react-error-overlay": "6.0.9",
     "reg-keygen-git-hash-plugin": "^0.11.1",
     "reg-notify-github-plugin": "^0.11.1",
     "reg-publish-s3-plugin": "^0.11.0",
     "reg-suit": "^0.11.1",
-    "prettier": "^1.19.1",
-    "prettier-airbnb-config": "^1.0.0",
-    "react-error-overlay": "6.0.9",
     "stylelint": "^14.3.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^18.3.0",
@@ -144,5 +146,8 @@
         "mobile": true
       }
     }
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
