@@ -54,11 +54,11 @@ export const defaultTheme = createTheme({
 
 export default createTheme({
   spacing: 8,
-  palette: PALETTE as PaletteOptions,
+  palette: defaultTheme.palette,
   breakpoints: BREAKPOINTS,
   typography: {
     fontFamily: FONTS.primary,
-    color: PALETTE.text.primary,
+    color: defaultTheme.palette.text.primary,
     h1: {
       fontSize: '28px',
       lineHeight: '42px',
@@ -111,6 +111,34 @@ export default createTheme({
         },
         contained: {
           color: defaultTheme.palette.text.primary,
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: defaultTheme.palette.background.default,
+          backgroundImage: 'none',
+          boxShadow: 'none',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '0 16px 16px 0',
+          border: 'none',
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          paddingTop: defaultTheme.spacing(3),
+          paddingBottom: defaultTheme.spacing(3),
+          [defaultTheme.breakpoints.up('md')]: {
+            minHeight: 96,
+          },
         },
       },
     },
