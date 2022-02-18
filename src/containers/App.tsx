@@ -77,7 +77,7 @@ class App extends React.Component {
                         {process.env.REACT_APP_CHAIN_ID === '97' && (
                           <Route exact path="/faucet" component={Faucet} />
                         )}
-                        {isDevEnvironment() && <Route exact path="/dev" component={Dev} />}
+                        {isDevEnvironment && <Route exact path="/dev" component={Dev} />}
                         <Redirect from="/" to="/dashboard" />
                       </Switch>
                     </BrowserRouter>
