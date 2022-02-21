@@ -4,6 +4,7 @@ import 'loki/configure-react';
 import 'antd/dist/antd.css';
 import '../src/assets/styles/index.scss';
 import { withThemeProvider } from '../src/stories/decorators';
+import GovernanceResponse from '../src/__mocks__/api/governance.json';
 
 initialize({
   onUnhandledRequest: 'bypass',
@@ -25,7 +26,7 @@ export const parameters = {
           return res(ctx.json({}));
         }),
         rest.get('https://testnetapi.venus.io/api/governance/venus', (req, res, ctx) => {
-          return res(ctx.json({}));
+          return res(ctx.json(GovernanceResponse));
         }),
         rest.get(
           'https://testnetapi.venus.io/api/market_history/graph?asset=0x74469281310195A04840Daf6EdF576F559a3dE80&type=1hr&limit=168',
