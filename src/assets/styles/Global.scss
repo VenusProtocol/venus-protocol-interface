@@ -29,6 +29,13 @@
   --color-border-main: #eaeaea;
   --color-primary: #ff481c;
   --color-secondary: #d3d3d3;
+
+  /* Layout sizes */
+  --sidebar-width: 180px;
+  --layout-offset-width: calc(100% - var(--sidebar-width));
+
+  /* mui color palette */
+  --theme-palette-primary-main: #EBBF6E;
 }
 
 @font-face {
@@ -36,12 +43,14 @@
   src: url('../font/Avenir-next/AvenirNextLTPro-Regular.otf') format('opentype');
 }
 
-body * {
+body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   font-family: 'AvenirNext', sans-serif;
   font-stretch: normal;
   font-style: normal;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
 }
 
 a,
@@ -59,4 +68,10 @@ h6 {
 .input-error {
   color: var(--color-red);
   font-size: 18px;
+}
+
+/* offset for main layout blocks */
+.layoutOffset {
+  width: var(--layout-offset-width);
+  margin-left: var(--sidebar-width);
 }

@@ -1,0 +1,39 @@
+.drawer {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+}
+
+.paper {
+  width: var(--sidebar-width);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.list {
+  padding-top: 10px;
+}
+
+.listItem {
+  transition: color .3s;
+  color: inherit;
+  padding-left: 24px;
+  padding-right: 24px;
+  &+& {
+  margin-top: 16px;
+  }
+  &:hover {
+    color: var(--theme-palette-primary-main);
+  }
+}
+
+.listItemActive {
+  color: var(--theme-palette-primary-main);
+}
+
+.listItemIcon {
+  min-width: 40px;
+  color: inherit;
+}

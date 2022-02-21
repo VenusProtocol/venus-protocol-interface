@@ -3,17 +3,17 @@ import Box from '@mui/material/Box';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { PageContainer } from './PageContainer';
+import styles from './Layout.module.scss';
 
-/* sidebar width */
-const drawerWidth = 180;
+interface IProps {
+  children: ReactNode;
+  pageTitle: string;
+}
 
-export const Layout = ({ children }: { children: ReactNode }) => {
-  const offsetStyles = { width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` };
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <Header offsetStyles={offsetStyles} pageTitle="Dashboard" />
-      <Sidebar drawerWidth={drawerWidth} />
-      <PageContainer offsetStyles={offsetStyles}>{children}</PageContainer>
-    </Box>
-  );
-};
+export const Layout = ({ children, pageTitle }: IProps) => (
+  <Box className={styles.root}>
+    <Header pageTitle={pageTitle} />
+    <Sidebar />
+    <PageContainer>{children}</PageContainer>
+  </Box>
+);

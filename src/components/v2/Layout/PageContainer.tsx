@@ -2,27 +2,19 @@ import React, { ReactNode } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Footer from '../../../containers/Layout/Footer';
+import styles from './PageContainer.module.scss';
 
 interface IPageContainerProps {
   children: ReactNode;
-  offsetStyles: Record<string, string>;
 }
 
-export const PageContainer = ({ children, offsetStyles }: IPageContainerProps) => (
-  <Box
-    component="main"
-    sx={{
-      flexGrow: 1,
-      p: 3,
-      pb: 6,
-      minHeight: '100vh',
-    }}
-  >
+export const PageContainer = ({ children }: IPageContainerProps) => (
+  <Box component="main" className={styles.main}>
     <Toolbar />
 
     {children}
 
-    <Box component="footer" sx={{ position: 'fixed', bottom: 0, left: 0, ...offsetStyles }}>
+    <Box component="footer" className={styles.footer}>
       <Footer />
     </Box>
   </Box>

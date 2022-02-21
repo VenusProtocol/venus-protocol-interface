@@ -7,9 +7,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
 import { uid } from 'react-uid';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material';
 import { ReactComponent as XVSIcon } from '../../../assets/img/xvs.svg';
 import { ReactComponent as Logo } from './assets/logo.svg';
+import styles from './Sidebar.module.scss';
 
 const menuItems = [
   {
@@ -49,57 +49,35 @@ const menuItems = [
   },
 ];
 
-interface IProps {
-  drawerWidth: number;
-}
+export const Sidebar = () => (
+  <Drawer
+    className={styles.drawer}
+    classes={{
+      paper: styles.paper,
+    }}
+    variant="permanent"
+    anchor="left"
+  >
+    <Toolbar className={styles.toolbar}>
+      <NavLink to="/">
+        <Logo />
+      </NavLink>
+    </Toolbar>
 
-export const Sidebar = ({ drawerWidth }: IProps) => {
-  const theme = useTheme();
-  return (
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
-      <Toolbar sx={{ display: 'flex', justifyContent: 'center' }}>
-        <NavLink to="/">
-          <Logo />
-        </NavLink>
-      </Toolbar>
-
-      <List sx={{ paddingTop: 10 }}>
-        {menuItems.map(({ href, icon, text }) => (
-          <ListItem
-            key={uid(text)}
-            button
-            component={NavLink}
-            to={href}
-            activeStyle={{ color: theme.palette.primary.main }}
-            sx={{
-              transition: 'color .3s',
-              color: 'inherit',
-              pl: 3,
-              pr: 3,
-              '&+&': {
-                mt: 2,
-              },
-              '&:hover': {
-                color: theme.palette.primary.main,
-              },
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>{icon}</ListItemIcon>
-            <Typography variant="caption">{text}</Typography>
-          </ListItem>
-        ))}
-      </List>
-    </Drawer>
-  );
-};
+    <List className={styles.list}>
+      {menuItems.map(({ href, icon, text }) => (
+        <ListItem
+          key={uid(text)}
+          button
+          component={NavLink}
+          to={href}
+          activeClassName={styles.listItemActive}
+          className={styles.listItem}
+        >
+          <ListItemIcon className={styles.listItemIcon}>{icon}</ListItemIcon>
+          <Typography variant="caption">{text}</Typography>
+        </ListItem>
+      ))}
+    </List>
+  </Drawer>
+);

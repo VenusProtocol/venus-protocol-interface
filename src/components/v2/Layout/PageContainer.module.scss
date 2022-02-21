@@ -1,0 +1,13 @@
+.main {
+  flex-grow: 1;
+  padding: 24px;
+  /*padding bottom for footer offset*/
+  paddingBottom: 48px;
+}
+
+.footer {
+  composes: layoutOffset from '../../../assets/styles/Global.scss';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
