@@ -13,10 +13,10 @@ import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
-import { BASE_BSC_SCAN_URL } from '../../config';
-import { useMarkets } from '../../hooks/useMarkets';
-import { useComptroller, useToken } from '../../hooks/useContract';
-import { getComptrollerAddress } from '../../utilities/addressHelpers';
+import { BASE_BSC_SCAN_URL } from 'config';
+import { useMarkets } from 'hooks/useMarkets';
+import { useComptroller, useToken } from 'hooks/useContract';
+import { getComptrollerAddress } from 'utilities/addressHelpers';
 
 const XVSLayout = styled.div`
   .main-content {
