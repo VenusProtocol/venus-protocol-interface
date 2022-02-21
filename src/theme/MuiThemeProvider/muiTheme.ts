@@ -47,6 +47,9 @@ const BREAKPOINTS = {
   },
 };
 
+const SIDEBAR_WIDTH = 180;
+export const layoutOffset = { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` };
+
 export const defaultTheme = createTheme({
   breakpoints: BREAKPOINTS,
   palette: PALETTE as PaletteOptions,
@@ -117,6 +120,7 @@ export default createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
+          ...layoutOffset,
           backgroundColor: defaultTheme.palette.background.default,
           backgroundImage: 'none',
           boxShadow: 'none',
@@ -125,7 +129,12 @@ export default createTheme({
     },
     MuiDrawer: {
       styleOverrides: {
+        root: {
+          width: SIDEBAR_WIDTH,
+          flexShrink: 0,
+        },
         paper: {
+          width: SIDEBAR_WIDTH,
           borderRadius: '0 16px 16px 0',
           border: 'none',
         },

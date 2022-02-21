@@ -49,25 +49,10 @@ const menuItems = [
   },
 ];
 
-interface IProps {
-  drawerWidth: number;
-}
-
-export const Sidebar = ({ drawerWidth }: IProps) => {
+export const Sidebar = () => {
   const theme = useTheme();
   return (
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
+    <Drawer variant="permanent" anchor="left">
       <Toolbar sx={{ display: 'flex', justifyContent: 'center' }}>
         <NavLink to="/">
           <Logo />
