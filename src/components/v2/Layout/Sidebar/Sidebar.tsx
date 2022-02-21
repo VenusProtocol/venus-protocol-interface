@@ -7,9 +7,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
 import { uid } from 'react-uid';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material';
-import { ReactComponent as XVSIcon } from '../../../assets/img/xvs.svg';
-import { ReactComponent as Logo } from './assets/logo.svg';
+import { ReactComponent as XVSIcon } from '../../../../assets/img/xvs.svg';
+import { ReactComponent as Logo } from '../assets/logo.svg';
+import { useStyles } from './SidebarStyles';
 
 const menuItems = [
   {
@@ -50,37 +50,26 @@ const menuItems = [
 ];
 
 export const Sidebar = () => {
-  const theme = useTheme();
+  const styles = useStyles();
   return (
     <Drawer variant="permanent" anchor="left">
-      <Toolbar sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Toolbar sx={styles.toolbar}>
         <NavLink to="/">
           <Logo />
         </NavLink>
       </Toolbar>
 
-      <List sx={{ paddingTop: 10 }}>
+      <List sx={styles.list}>
         {menuItems.map(({ href, icon, text }) => (
           <ListItem
             key={uid(text)}
             button
             component={NavLink}
             to={href}
-            activeStyle={{ color: theme.palette.primary.main }}
-            sx={{
-              transition: 'color .3s',
-              color: 'inherit',
-              pl: 3,
-              pr: 3,
-              '&+&': {
-                mt: 2,
-              },
-              '&:hover': {
-                color: theme.palette.primary.main,
-              },
-            }}
+            activeStyle={styles.activeMenuItem}
+            sx={styles.listItem}
           >
-            <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>{icon}</ListItemIcon>
+            <ListItemIcon sx={styles.listItemIcon}>{icon}</ListItemIcon>
             <Typography variant="caption">{text}</Typography>
           </ListItem>
         ))}
