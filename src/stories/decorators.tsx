@@ -8,6 +8,8 @@ import { getLibrary } from 'utilities/connectors';
 import Web3ReactManager from 'utilities/Web3ReactManager';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
+import Theme from 'containers/Theme';
+import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 
 type DecoratorFunction = Parameters<typeof addDecorator>[0];
 
@@ -41,4 +43,12 @@ export const withVaiContext: DecoratorFunction = Story => (
   <VaiContextProvider>
     <Story />
   </VaiContextProvider>
+);
+
+export const withThemeProvider: DecoratorFunction = Story => (
+  <Theme>
+    <MuiThemeProvider>
+      <Story />
+    </MuiThemeProvider>
+  </Theme>
 );

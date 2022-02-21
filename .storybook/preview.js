@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import 'loki/configure-react';
 import 'antd/dist/antd.css';
 import '../src/assets/styles/index.scss';
+import { withThemeProvider } from '../src/stories/decorators';
 
 initialize({
   onUnhandledRequest: 'bypass',
@@ -43,4 +44,4 @@ export const parameters = {
   },
 };
 
-export const decorators = [mswDecorator];
+export const decorators = [mswDecorator, withThemeProvider];
