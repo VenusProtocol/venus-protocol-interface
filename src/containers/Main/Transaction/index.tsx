@@ -13,7 +13,7 @@ import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import xvsImg from 'assets/img/coins/xvs.png';
 import { uid } from 'react-uid';
-import { BASE_BSC_SCAN_URL } from '../../config';
+import { BASE_BSC_SCAN_URL } from 'config';
 
 const TransactionWrapper = styled.div`
   width: 100%;
