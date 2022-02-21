@@ -11,7 +11,7 @@ import * as constants from 'utilities/constants';
 import { currencyFormatter, formatApy } from 'utilities/common';
 import { uid } from 'react-uid';
 import { Setting } from 'types';
-import { useMarkets } from '../../hooks/useMarkets';
+import { useMarkets } from 'hooks/useMarkets';
 
 const MarketWrapper = styled.div`
   width: 100%;
