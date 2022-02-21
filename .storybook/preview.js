@@ -6,6 +6,7 @@ import '../src/assets/styles/index.scss';
 import { withThemeProvider } from '../src/stories/decorators';
 import GovernanceResponse from '../src/__mocks__/api/governance.json';
 import VoteReponse from '../src/__mocks__/api/vote.json';
+import TransactionResponse from '../src/__mocks__/api/transactions.json';
 
 initialize({
   onUnhandledRequest: 'bypass',
@@ -31,6 +32,9 @@ export const parameters = {
         }),
         rest.get('https://testnetapi.venus.io/api/proposals', (req, res, ctx) => {
           return res(ctx.json(VoteReponse));
+        }),
+        rest.get('https://testnetapi.venus.io/api/transactions?page=1', (req, res, ctx) => {
+          return res(ctx.json(TransactionResponse));
         }),
         rest.get(
           'https://testnetapi.venus.io/api/market_history/graph?asset=0x74469281310195A04840Daf6EdF576F559a3dE80&type=1hr&limit=168',
