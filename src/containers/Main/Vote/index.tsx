@@ -11,16 +11,11 @@ import Proposals from 'components/Vote/Proposals';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import { useWeb3React } from '@web3-react/core';
-import useRefresh from '../../hooks/useRefresh';
-import { CONTRACT_XVS_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from '../../utilities/constants';
-import {
-  useComptroller,
-  useToken,
-  useVaiUnitroller,
-  useXvsVaultProxy,
-} from '../../hooks/useContract';
-import useWeb3 from '../../hooks/useWeb3';
-import { getVbepContract } from '../../utilities/contractHelpers';
+import useRefresh from 'hooks/useRefresh';
+import { CONTRACT_XVS_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from 'utilities/constants';
+import { useComptroller, useToken, useVaiUnitroller, useXvsVaultProxy } from 'hooks/useContract';
+import useWeb3 from 'hooks/useWeb3';
+import { getVbepContract } from 'utilities/contractHelpers';
 
 const VoteWrapper = styled.div`
   height: 100%;
