@@ -7,14 +7,14 @@ import MainLayout from 'containers/Layout/MainLayout';
 import { connectAccount } from 'core';
 import { useWeb3React } from '@web3-react/core';
 import { uid } from 'react-uid';
-import LoadingSpinner from '../../components/Basic/LoadingSpinner';
-import useWeb3 from '../../hooks/useWeb3';
-import useRefresh from '../../hooks/useRefresh';
-import { useXvsVaultProxy } from '../../hooks/useContract';
-import * as constants from '../../utilities/constants';
-import GeneralVaultPoolCard from '../../components/Vault/Card';
-import VaiPoolCard from '../../components/Vault/VaiCard';
-import { getTokenContractByAddress } from '../../utilities/contractHelpers';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import useWeb3 from 'hooks/useWeb3';
+import useRefresh from 'hooks/useRefresh';
+import { useXvsVaultProxy } from 'hooks/useContract';
+import * as constants from 'utilities/constants';
+import GeneralVaultPoolCard from 'components/Vault/Card';
+import VaiPoolCard from 'components/Vault/VaiCard';
+import { getTokenContractByAddress } from 'utilities/contractHelpers';
 
 const VaultWrapper = styled.div`
   width: 100%;
