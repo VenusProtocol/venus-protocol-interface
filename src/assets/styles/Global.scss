@@ -36,12 +36,14 @@
   src: url('../font/Avenir-next/AvenirNextLTPro-Regular.otf') format('opentype');
 }
 
-body * {
+body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   font-family: 'AvenirNext', sans-serif;
   font-stretch: normal;
   font-style: normal;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
 }
 
 a,
