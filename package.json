@@ -127,7 +127,7 @@
   "loki": {
     "configurations": {
       "chrome.laptop": {
-        "target": "chrome.docker",
+        "target": "chrome.app",
         "width": 1366,
         "height": 768,
         "deviceScaleFactor": 1,
@@ -135,11 +135,11 @@
         "fitWindow": false
       },
       "chrome.iphone7": {
-        "target": "chrome.docker",
+        "target": "chrome.app",
         "preset": "iPhone 7"
       },
       "chrome.ipad": {
-        "target": "chrome.docker",
+        "target": "chrome.app",
         "width": 960,
         "height": 640,
         "deviceScaleFactor": 1,
