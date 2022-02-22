@@ -9,6 +9,9 @@ import Web3ReactManager from 'utilities/Web3ReactManager';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import Theme from 'containers/Theme';
+// resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989
+import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
+import mainTheme from 'theme/MuiThemeProvider/muiTheme';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 
 type DecoratorFunction = Parameters<typeof addDecorator>[0];
@@ -47,8 +50,11 @@ export const withVaiContext: DecoratorFunction = Story => (
 
 export const withThemeProvider: DecoratorFunction = Story => (
   <Theme>
-    <MuiThemeProvider>
-      <Story />
-    </MuiThemeProvider>
+    {/* resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989 */}
+    <EmotionThemeProvider theme={mainTheme}>
+      <MuiThemeProvider>
+        <Story />
+      </MuiThemeProvider>
+    </EmotionThemeProvider>
   </Theme>
 );
