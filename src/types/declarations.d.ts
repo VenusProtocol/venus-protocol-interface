@@ -23,4 +23,4 @@ declare module '*.scss' {
   export default content;
 }
 
-declare module 'emotion-theming'
+declare module 'emotion-theming';
