@@ -4,8 +4,8 @@ import { injected } from '../utilities/connectors';
 
 export function useEagerConnect() {
   const { activate, active } = useWeb3React();
-
-  const [tried, setTried] = useState(false);
+  // Only try to connect if we are not running the storybook
+  const [tried, setTried] = useState(!process.env.STORYBOOK);
 
   useEffect(() => {
     injected.isAuthorized().then(isAuthorized => {
@@ -37,7 +37,7 @@ export function useInactiveListener(suppress = false) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
     const { ethereum } = window;
 
-    if (ethereum && ethereum.on && !active && !error && !suppress) {
+    if (ethereum && ethereum.on && !active && !error && !suppress && !process.env.STORYBOOK) {
       const handleChainChanged = () => {
         // eat errors
         activate(injected, undefined, true).catch(err => {
