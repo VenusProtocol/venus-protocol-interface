@@ -71,7 +71,7 @@ jobs:
         run: yarn build-storybook
 
       - name: Snapshot
-        run: yarn loki --chromeFlags="--no-sandbox"
+        run: yarn loki --chromeFlags="--headless"
 
       - name: Reg-suit
         run: yarn regression
