@@ -52,3 +52,18 @@ To run prod environment:
 ```
 docker compose build && docker compose up venus-ui-prod
 ```
+
+
+## Testing
+Tests run in CI on push using Github actions. They are all required to pass.
+
+### Typescript
+Types are checked by running `tsc`.
+
+### Code Styles
+We are enforcing codestyles using eslint and prettier.
+
+### Visual Regression Tests
+Visual regressions tests are run by snapshoting storybooks and running diffs against the previous baseline and the new snapshots. A unique story is required to test visual regressions on different prop variations.
+
+If regressions are detected or a new story is added on a PR a review is required after the last commit is pushed. If a new commit is pushed after the PR is approved, it will reset the approval for the new baseline and a new review will be required in order for it to be accepted.
