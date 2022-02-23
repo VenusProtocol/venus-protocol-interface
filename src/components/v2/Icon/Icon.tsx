@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material';
 import React from 'react';
 import * as icons from './icons';
 
@@ -6,16 +7,23 @@ export type IconName = keyof typeof icons;
 export interface IIconProps {
   name: IconName;
   size?: number;
-  // TODO: add color
+  color?: string;
   className?: string;
 }
 
-export const Icon: React.FC<IIconProps> = ({
-  name,
-  size = 16, // TODO: get from theme
-  ...otherProps
-}) => {
+export const Icon: React.FC<IIconProps> = ({ name, size, color, ...otherProps }) => {
+  const theme = useTheme();
+  const sanitizedSize = size ?? theme.spacing(2);
+  const sanitizedColor = color ?? theme.palette.text.secondary;
+
   const Component = icons[name];
 
-  return <Component width={size} height={size} {...otherProps} />;
+  return (
+    <Component
+      width={sanitizedSize}
+      height={sanitizedSize}
+      color={sanitizedColor}
+      {...otherProps}
+    />
+  );
 };

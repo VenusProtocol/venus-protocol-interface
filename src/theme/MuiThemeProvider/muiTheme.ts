@@ -26,7 +26,7 @@ export const PALETTE = {
   },
   text: {
     primary: '#FFFFFF',
-    secondary: '#A1A1A1',
+    secondary: '#9597A1',
   },
   success: {
     main: '#9DD562',
