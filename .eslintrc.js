@@ -39,15 +39,17 @@ module.exports = {
     'react/no-unused-prop-types': 0,
     'react/prefer-stateless-function': 0,
     'react/require-default-props': 0,
-    "import/no-extraneous-dependencies": [
-      "error",
+    'import/no-extraneous-dependencies': [
+      'error',
       {
-        "devDependencies": [
-          "**/*.stories.tsx",
-          "**/*.stories.ts",
-          "src/stories/**"
-        ]
-      }
+        devDependencies: [
+          '**/*.stories.tsx',
+          '**/*.stories.ts',
+          'src/stories/**',
+          '**/*.spec.tsx',
+          'src/**/*.spec.ts',
+        ],
+      },
     ],
   },
   settings: {
