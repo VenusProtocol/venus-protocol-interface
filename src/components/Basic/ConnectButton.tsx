@@ -314,7 +314,7 @@ function ConnectButton() {
                 <div className="line" />
                 <div
                   className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.Injected)}
+                  onClick={() => onConnect(ConnectorNames.MetaMask)}
                 >
                   <div className="flex align-center">
                     <img src={metamaskImg} alt="metamask" />
@@ -324,7 +324,7 @@ function ConnectButton() {
                 </div>
                 <div
                   className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.Injected)}
+                  onClick={() => onConnect(ConnectorNames.MetaMask)}
                 >
                   <div className="flex align-center">
                     <img src={trustwalletImg} alt="trustwallet" />
