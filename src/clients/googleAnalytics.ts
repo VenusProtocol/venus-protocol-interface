@@ -1,5 +1,11 @@
 type EventParameters = Parameters<(eventName: string, parameters?: Record<string, string>) => void>;
 
+export type ButtonEventMap = {
+  connect: Record<string, string>;
+};
+
+export type ButtonEventName = keyof ButtonEventMap;
+
 const googleAnalytics = () => {
   let gtag: Gtag.Gtag;
   const loadGTag = (callback: (...args: EventParameters) => void) => (...args: EventParameters) => {
@@ -18,9 +24,12 @@ const googleAnalytics = () => {
     gtag('event', eventName, parameters);
   });
 
-  const buttonPressed = (buttonName: string, parameters: Record<string, string> = {}) => {
+  function buttonPressed<E extends ButtonEventName>(
+    buttonName: E,
+    parameters?: ButtonEventMap[E] extends undefined ? never : ButtonEventMap[E],
+  ): void {
     sendEvent('button_pressed', { button_name: buttonName, ...parameters });
-  };
+  }
 
   return {
     buttonPressed,
