@@ -25,12 +25,12 @@ const ledger = new LedgerConnector({
   pollingInterval: POLLING_INTERVAL,
 });
 
-export const ConnectorNames = {
-  Injected: 'MetaMask',
-  WalletConnect: 'WalletConnect',
-  BSC: 'BSC',
-  Ledger: 'Ledger',
-};
+export enum ConnectorNames {
+  Injected = 'MetaMask',
+  WalletConnect = 'WalletConnect',
+  BSC = 'BSC',
+  Ledger = 'Ledger',
+}
 
 export const connectorsByName = {
   [ConnectorNames.Injected]: injected,
