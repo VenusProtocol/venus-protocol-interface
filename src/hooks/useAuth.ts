@@ -17,7 +17,7 @@ import { setupNetwork } from '../utilities/wallet';
 const useAuth = () => {
   const { activate, deactivate } = useWeb3React();
   const login = useCallback(
-    connectorID => {
+    (connectorID: ConnectorNames) => {
       const connector = connectorsByName[connectorID];
       if (connector) {
         activate(connector, async error => {
@@ -59,12 +59,8 @@ const useAuth = () => {
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector
     if (window.localStorage.getItem('walletconnect')) {
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'close' does not exist on type 'InjectedC... Remove this comment to see the full error message
       connectorsByName[ConnectorNames.WalletConnect].close();
-      connectorsByName[
-        ConnectorNames.WalletConnect
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'walletConnectProvider' does not exist on... Remove this comment to see the full error message
-      ].walletConnectProvider = null;
+      connectorsByName[ConnectorNames.WalletConnect].walletConnectProvider = null;
     }
     window.localStorage.removeItem(connectorLocalStorageKey);
   }, [deactivate]);
