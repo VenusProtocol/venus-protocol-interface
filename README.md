@@ -42,7 +42,7 @@ To deploy, raise a PR to update image and config at: https://github.com/VenusPro
 Install husky globally to use pre-commit and prepush hooks:
 
 ```
-npm install -g husky
+npm install -g husky && husky install
 ```
 
 To prepare local environment:
