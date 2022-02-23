@@ -151,5 +151,43 @@ export default createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        hiddenLabel: {
+          /* fix for andtd base styles override. TODO: can be deleted when global antd styles will be removed */
+          '& legend': {
+            display: 'none',
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          lineHeight: '24px',
+          borderRadius: 8,
+          height: 32,
+          boxSizing: 'border-box',
+        },
+        select: {
+          paddingTop: 4,
+          paddingBottom: 4,
+          paddingLeft: 12,
+          backgroundColor: defaultTheme.palette.background.paper,
+          borderRadius: 8,
+        },
+        icon: {
+          transition: 'transform .3s',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          top: 0,
+          border: 'none',
+        },
+      },
+    },
   },
 } as ThemeOptions);
