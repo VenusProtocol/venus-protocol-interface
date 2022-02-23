@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentMeta } from '@storybook/react';
+import { ComponentMeta, Story } from '@storybook/react';
 import { withThemeProvider } from 'stories/decorators';
-import { Icon, IconName } from '.';
+import { Icon, IconName, IIconProps } from '.';
 
 export default {
   title: 'Icon',
@@ -25,4 +25,11 @@ export const IconDefault = () => {
   );
 };
 
-export const IconWithCustomColorAndSize = () => <Icon name="mask" size={32} color="#345345" />;
+const IconWithCustomColorAndSizeTemplate: Story<IIconProps> = args => <Icon {...args} />;
+
+export const IconWithCustomColorAndSize = IconWithCustomColorAndSizeTemplate.bind({});
+IconWithCustomColorAndSize.args = {
+  name: 'mask',
+  size: 32,
+  color: '#345345',
+};
