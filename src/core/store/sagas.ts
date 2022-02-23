@@ -1,5 +1,3 @@
-// @flow
-
 import { fork, all } from 'redux-saga/effects';
 import { authSaga, accountSaga } from 'core/modules';
 
