@@ -71,6 +71,7 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.4.9",
     "@types/gtag.js": "^0.0.8",
+    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",
     "@types/markdown-it": "^12.2.3",
     "@types/react-copy-to-clipboard": "^5.0.2",
