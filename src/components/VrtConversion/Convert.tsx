@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Progress, Icon } from 'antd';
+import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 
-import { ButtonWrapper, RedeemWrapper } from './styles';
+import { ButtonWrapper, ConvertWrapper } from './styles';
 
 import vrtImg from '../../assets/img/coins/vrt.svg';
 import xvsImg from '../../assets/img/coins/xvs.png';
@@ -29,34 +29,28 @@ function formatCountdownInSeconds(seconds: number) {
 }
 
 
-export type RedeemPropsType = {
-  vrtConverterXvsBalance: BigNumber,
-  redeemableAmount: BigNumber,
-  vrtConversionDailyLimit: BigNumber,
-  vrtDailyUtilised: BigNumber,
+export type ConvertPropsType = {
+  xvsVestingXvsBalance: BigNumber,
   userVrtBalance: BigNumber,
   userEnabled: boolean,
   conversionEndTime: BigNumber,
   conversionRatio: BigNumber,
   account: string,
-  handleClickRedeem: (redeemAmount: BigNumber) => void,
+  handleClickConvert: (convertAmount: BigNumber) => void,
 };
 
 export default ({
-  vrtConverterXvsBalance,
-  redeemableAmount,
-  vrtConversionDailyLimit,
-  vrtDailyUtilised,
+  xvsVestingXvsBalance,
   userVrtBalance,
   userEnabled,
   conversionEndTime,
   conversionRatio,
   account,
-  handleClickRedeem,
-}: RedeemPropsType) => {
-  const [redeemInputAmount, setRedeemInputAmount] = useState(new BigNumber(0));
-  const [redeemLoading, setRedeemLoading] = useState(false);
-  const maxRedeemableAmountRegardingXvsBalance = vrtConverterXvsBalance.div(
+  handleClickConvert,
+}: ConvertPropsType) => {
+  const [convertInputAmount, setConvertInputAmount] = useState(new BigNumber(0));
+  const [convertLoading, setConvertLoading] = useState(false);
+  const maxConvertAmountRegardingXvsBalance = xvsVestingXvsBalance.div(
     conversionRatio,
   );
 
@@ -64,71 +58,42 @@ export default ({
   if (!account) {
     confirmButtonText = 'Connect';
   } else if (userEnabled) {
-    confirmButtonText = 'Redeem';
+    confirmButtonText = 'Convert';
   } else {
     confirmButtonText = 'Enable';
   }
 
   return (
-    <RedeemWrapper>
-      {/* text about redeem ratio */}
+    <ConvertWrapper>
+      {/* text about convert ratio */}
       <div className="ratio-text">
-        Redeem 1 VRT for
-        {conversionRatio.toFixed(6)}
-        {' '}
-        XVS
+        Convert <span>1</span> VRT for <span>{conversionRatio.toFixed(6)}</span> XVS
       </div>
       {/* display available XVS in pool */}
       <div className="xvs-pool">
         <div className="xvs-pool-line-1">
-          {vrtConverterXvsBalance.toFixed(4)}
+          {xvsVestingXvsBalance.toFixed(4)}
           {' '}
           XVS
         </div>
         <div className="xvs-pool-line-2">Current available</div>
       </div>
-
-      {/* show the daily redeem limit */}
-      <div className="redeem-daily-progress">
-        <div className="redeem-daily-progress-title">
-          <span>Daily limit</span>
-          <span>
-            {vrtDailyUtilised.toFixed(4)}
-            /
-            {vrtConversionDailyLimit.toFixed(4)}
-            VRT
-          </span>
-        </div>
-        <div className="redeem-daily-progress-bar">
-          <Progress
-            showInfo={false}
-            strokeLinecap="square"
-            trailColor="#090d27" // this doesn't work, idk why, have to put the style in CSS
-            strokeColor="#ebbf6e"
-            percent={vrtDailyUtilised
-              .div(vrtConversionDailyLimit)
-              .times(100)
-              .toNumber()}
-          />
-        </div>
-      </div>
-      {/* redeem section */}
-      <div className="redeem-vrt">
-        <div className="input-title">Redeem VRT</div>
+      {/* convert section */}
+      <div className="convert-vrt">
+        <div className="input-title">Convert VRT</div>
         <div className="input-wrapper">
           <img src={vrtImg} alt="vrt-icon" />
           <NumberFormat
-            className="input redeem-vrt-input"
+            className="input convert-vrt-input"
             autoFocus
-            value={redeemInputAmount.toFixed(4)}
+            value={convertInputAmount.toFixed(4)}
             onValueChange={values => {
               const { value } = values;
-              setRedeemInputAmount(
+              setConvertInputAmount(
                 BigNumber.min(
                   new BigNumber(value),
                   userVrtBalance,
-                  redeemableAmount,
-                  maxRedeemableAmountRegardingXvsBalance,
+                  maxConvertAmountRegardingXvsBalance,
                 ),
               );
             }}
@@ -140,11 +105,10 @@ export default ({
             <div
               className="button max-button"
               onClick={() => {
-                setRedeemInputAmount(
+                setConvertInputAmount(
                   BigNumber.min(
                     userVrtBalance,
-                    redeemableAmount,
-                    maxRedeemableAmountRegardingXvsBalance,
+                    maxConvertAmountRegardingXvsBalance,
                   ),
                 );
               }}
@@ -168,7 +132,7 @@ export default ({
           <img src={xvsImg} alt="xvs-icon" />
           <NumberFormat
             className="input recieve-xvs-input"
-            value={redeemInputAmount.times(conversionRatio).toFixed(4)}
+            value={convertInputAmount.times(conversionRatio).toFixed(4)}
             disabled
             thousandSeparator
             placeholder="0"
@@ -181,18 +145,18 @@ export default ({
           type="button"
           className="button confirm-button"
           disabled={
-            !redeemInputAmount.gt(0) ||
+            !convertInputAmount.gt(0) ||
             conversionEndTime.lt(Date.now() / 1000) ||
             !account ||
-            redeemLoading
+            convertLoading
           }
           onClick={async () => {
-            setRedeemLoading(true);
-            await handleClickRedeem(redeemInputAmount);
-            setRedeemLoading(false);
+            setConvertLoading(true);
+            await handleClickConvert(convertInputAmount);
+            setConvertLoading(false);
           }}
         >
-          {redeemLoading && <Icon type="loading" />}
+          {convertLoading && <Icon type="loading" />}
           {'  '}
           {confirmButtonText}
         </button>
@@ -207,6 +171,6 @@ export default ({
           {' '}
         </span>
       </div>
-    </RedeemWrapper>
+    </ConvertWrapper>
   );
 };

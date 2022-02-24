@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Icon } from 'antd';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
@@ -37,26 +38,34 @@ export type WithdrawPropsType = {
   handleClickWithdraw: () => void;
 };
 
-export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPropsType) =>
-(
-  <WithdrawWrapper>
-    <div className="withdraw-title">
-      <div className="withdraw-title-line-1">Withdrawable amount</div>
-      <div className="withdraw-title-line-2">
-        {commaFormatter(withdrawableAmount.toFixed(4))}
-        {' '}
-        XVS
+export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPropsType) => {
+  const [withdrawLoading, setWithdrawLoading] = useState(false);
+  return (
+    <WithdrawWrapper>
+      <div className="withdraw-title">
+        <div className="withdraw-title-line-1">Withdrawable amount</div>
+        <div className="withdraw-title-line-2">
+          {commaFormatter(withdrawableAmount.toFixed(6))}
+          {' '}
+          XVS
+        </div>
       </div>
-    </div>
-    <ButtonWrapper>
-      <button
-        type="button"
-        className="button withdraw-button"
-        disabled={!account}
-        onClick={handleClickWithdraw}
-      >
-        {!account ? 'Connect' : 'Withdraw'}
-      </button>
-    </ButtonWrapper>
-  </WithdrawWrapper>
-);
+      <ButtonWrapper>
+        <button
+          type="button"
+          className="button withdraw-button"
+          disabled={!account || !withdrawableAmount.gt(0)}
+          onClick={async () => {
+            setWithdrawLoading(true);
+            await handleClickWithdraw();
+            setWithdrawLoading(false);
+          }}
+        >
+          {withdrawLoading && <Icon type="loading" />}
+          {'  '}
+          {!account ? 'Connect' : 'Withdraw'}
+        </button>
+      </ButtonWrapper>
+    </WithdrawWrapper>
+  );
+};

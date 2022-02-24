@@ -1,5 +1,5 @@
 // a tab component with Venus style based on antd
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { uid } from 'react-uid';
 
@@ -39,10 +39,17 @@ export type TabContainerPropsType = {
 
 export default ({ onChange, children, titles }: TabContainerPropsType) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [tabKeys, setTabKeys] = useState(['0', '1']);
+
+  // only need to calculate tabkeys for once, otherwise re
+  useEffect(() => {
+    setTabKeys(children.map(uid));
+  }, []);
+
   return (
     <TabContainerWrapper>
       <Tabs
-        activeKey={`${activeTabIndex}`}
+        activeKey={tabKeys[activeTabIndex]}
         renderTabBar={props =>
         (
           <div className="tab-header">
@@ -66,12 +73,12 @@ export default ({ onChange, children, titles }: TabContainerPropsType) => {
         )
         }
         animated={false}
-        defaultActiveKey="0"
+        defaultActiveKey={tabKeys[0]}
         onChange={onChange}
       >
         {children.map((child, i) =>
           (
-            <TabPane key={uid(child)} tab={titles[i]}>
+            <TabPane key={tabKeys[i]} tab={titles[i]}>
               {child}
             </TabPane>
           ),

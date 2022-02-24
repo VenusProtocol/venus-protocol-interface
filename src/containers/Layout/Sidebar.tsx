@@ -400,6 +400,14 @@ function Sidebar({ history, setSetting }: SidebarProps) {
         </NavLink>
         <NavLink
           className="flex flex-start align-center"
+          to="/convert-vrt"
+          active-class-name="active"
+        >
+          <Icon type="swap" />
+          <Label primary>Convert VRT</Label>
+        </NavLink>
+        <NavLink
+          className="flex flex-start align-center"
           to="/transaction"
           active-class-name="active"
         >
@@ -510,9 +518,9 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Vault
             </Label>
           </Option>
-          <Option className="flex align-center just-center" value="redeem-vrt">
+          <Option className="flex align-center just-center" value="Convert-vrt">
             <Label size={14} primary>
-              Redeem VRT
+              Convert VRT
             </Label>
           </Option>
           <Option className="flex align-center just-center" value="transaction">
