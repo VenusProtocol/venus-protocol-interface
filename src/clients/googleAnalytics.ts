@@ -16,6 +16,7 @@ export type EventMap = {
       | 'proposal_submission_failed';
   };
   delegate_voting: { type: 'delegate' | 'manual' };
+  collect_rewards: { tokens: string };
 };
 
 export type EventName = keyof EventMap;
