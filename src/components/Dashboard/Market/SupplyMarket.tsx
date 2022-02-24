@@ -11,6 +11,7 @@ import Toggle from 'components/Basic/Toggle';
 import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
+import ga from 'clients/googleAnalytics';
 import { formatApy } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { Asset, Setting } from 'types';
@@ -46,6 +47,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       if (!r.collateral) {
         setIsCollateralEnable(false);
         setIsCollateralConfirm(true);
+        ga.buttonPressed('collateral_toggle', { status: 'enter', market: r.market });
         try {
           await comptrollerContract.methods.enterMarkets([r.vtokenAddress]).send({ from: account });
         } catch (error) {
@@ -53,11 +55,13 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
         }
         setIsCollateralConfirm(false);
       } else if (+r.hypotheticalLiquidity['1'] > 0 || +r.hypotheticalLiquidity['2'] === 0) {
+        ga.buttonPressed('collateral_toggle', { status: 'exit', market: r.market });
         setIsCollateralEnable(true);
         setIsCollateralConfirm(true);
         await comptrollerContract.methods.exitMarket(r.vtokenAddress).send({ from: account });
         setIsCollateralConfirm(false);
       } else {
+        ga.error('collateral_toggle', { status: 'in_repayment', market: r.market });
         // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
           title: 'Collateral Required',
@@ -65,6 +69,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
         });
       }
     } else {
+      ga.error('collateral_toggle', { status: 'in_repayment', market: r.market });
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
         title: 'Collateral Required',
