@@ -7,6 +7,7 @@ import { connectAccount } from 'core';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
+import ga from 'clients/googleAnalytics';
 import { encodeParameters, getArgs } from 'utilities/common';
 import closeImg from 'assets/img/close.png';
 import { uid } from 'react-uid';
@@ -214,7 +215,7 @@ function ProposalModal({
     } else {
       setErrorMsg('');
     }
-
+    ga.buttonPressed('create_proposal', { status: 'submit' });
     form.validateFields(async (err: $TSFixMe, formValues: $TSFixMe) => {
       if (!err) {
         try {
@@ -237,6 +238,7 @@ function ProposalModal({
             callDatas.push(encodeParameters(callDataTypes, callDataValues));
           }
         } catch (error) {
+          ga.error('create_proposal', { status: 'submitted_with_invalid_parameters' });
           setErrorMsg('Proposal parameters are invalid!');
           return;
         }
@@ -248,6 +250,7 @@ function ProposalModal({
           setErrorMsg('');
           onCancel();
         } catch (error) {
+          ga.error('create_proposal', { status: 'proposal_submission_failed' });
           setErrorMsg('Creating proposal is failed!');
           console.log('create proposal error :>> ', error);
         }

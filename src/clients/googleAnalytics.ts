@@ -7,6 +7,14 @@ export type EventMap = {
   mint_vai: { amount: string };
   repay_vai: { amount: string };
   collateral_toggle: { status: 'enter' | 'exit' | 'in_repayment'; market: string };
+  create_proposal: {
+    status:
+      | 'show_modal'
+      | 'proposal_in_progress'
+      | 'submit'
+      | 'submitted_with_invalid_parameters'
+      | 'proposal_submission_failed';
+  };
 };
 
 export type EventName = keyof EventMap;
