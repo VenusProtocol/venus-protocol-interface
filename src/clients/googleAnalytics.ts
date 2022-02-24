@@ -4,6 +4,8 @@ type EventParameters = Parameters<(eventName: string, parameters?: Record<string
 
 export type EventMap = {
   connect_wallet: { type: ConnectorNames; code?: string };
+  mint_vai: { amount: string };
+  repay_vai: { amount: string };
 };
 
 export type EventName = keyof EventMap;
