@@ -75,3 +75,7 @@ jobs:
 
       - name: Reg-suit
         run: yarn regression
+
+      - name: Deploy
+        if: github.ref == 'refs/heads/develop'
+        run: yarn deploy-storybook
