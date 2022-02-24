@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-  put, call, fork, all, take,
-} from 'redux-saga/effects';
+import { put, call, fork, all, take } from 'redux-saga/effects';
 
 import {
   GET_MARKET_HISTORY_REQUEST,
@@ -14,17 +12,12 @@ import {
   GET_VOTER_HISTORY_REQUEST,
   GET_VOTER_ACCOUNTS_REQUEST,
   GET_TRANSACTION_HISTORY_REQUEST,
-  GET_TREASURY_BALANCE_REQUEST,
   accountActionCreators,
 } from 'core/modules/account/actions';
 
 import { restService } from 'utilities';
 
-export function* asyncGetMarketHistoryRequest({
-  payload,
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetMarketHistoryRequest({ payload, resolve, reject }: $TSFixMe) {
   const { asset, limit, type } = payload;
   let api = `/market_history/graph?asset=${asset}&type=${type}`;
   if (limit) api += `&limit=${limit}`;
@@ -43,10 +36,7 @@ export function* asyncGetMarketHistoryRequest({
   }
 }
 
-export function* asyncGetGovernanceVenusRequest({
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetGovernanceVenusRequest({ resolve, reject }: $TSFixMe) {
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
@@ -62,11 +52,7 @@ export function* asyncGetGovernanceVenusRequest({
   }
 }
 
-export function* asyncGetProposalsRequest({
-  payload,
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetProposalsRequest({ payload, resolve, reject }: $TSFixMe) {
   const { limit, offset } = payload;
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
@@ -110,11 +96,7 @@ export function* asyncGetFaucetRequest({ payload, resolve, reject }: $TSFixMe) {
   }
 }
 
-export function* asyncGetProposalByIdRequest({
-  payload,
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetProposalByIdRequest({ payload, resolve, reject }: $TSFixMe) {
   const { id } = payload;
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
@@ -134,9 +116,7 @@ export function* asyncGetProposalByIdRequest({
 }
 
 export function* asyncGetVotersRequest({ payload, resolve, reject }: $TSFixMe) {
-  const {
-    limit, filter, id, offset,
-  } = payload;
+  const { limit, filter, id, offset } = payload;
   try {
     let api = `/voters/${id}?filter=${filter}`;
     if (limit) {
@@ -160,11 +140,7 @@ export function* asyncGetVotersRequest({ payload, resolve, reject }: $TSFixMe) {
     reject(e);
   }
 }
-export function* asyncGetVoterDetailRequest({
-  payload,
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetVoterDetailRequest({ payload, resolve, reject }: $TSFixMe) {
   const { address } = payload;
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
@@ -182,17 +158,12 @@ export function* asyncGetVoterDetailRequest({
     reject(e);
   }
 }
-export function* asyncGetVoterHistoryRequest({
-  payload,
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetVoterHistoryRequest({ payload, resolve, reject }: $TSFixMe) {
   const { offset, limit, address } = payload;
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
-      api: `/voters/history/${address}?offset=${offset || 0}&limit=${limit
-        || 5}`,
+      api: `/voters/history/${address}?offset=${offset || 0}&limit=${limit || 5}`,
       method: 'GET',
       params: {},
     });
@@ -205,11 +176,7 @@ export function* asyncGetVoterHistoryRequest({
     reject(e);
   }
 }
-export function* asyncGetVoterAccountsRequest({
-  payload,
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetVoterAccountsRequest({ payload, resolve, reject }: $TSFixMe) {
   const { limit, offset } = payload;
 
   try {
@@ -226,38 +193,12 @@ export function* asyncGetVoterAccountsRequest({
     reject(e);
   }
 }
-export function* asyncGetTransactionHistoryRequest({
-  payload,
-  resolve,
-  reject,
-}: $TSFixMe) {
+export function* asyncGetTransactionHistoryRequest({ payload, resolve, reject }: $TSFixMe) {
   const { offset, event } = payload;
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
-      api: `/transactions?page=${offset || 0}${
-        event !== 'All' ? `&event=${event}` : ''
-      }`,
-      method: 'GET',
-      params: {},
-    });
-    if (response.status === 200) {
-      resolve(response.data);
-    } else {
-      reject(response);
-    }
-  } catch (e) {
-    reject(e);
-  }
-}
-export function* asyncGetTreasuryBalanceRequest({
-  resolve,
-  reject,
-}: $TSFixMe) {
-  try {
-    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
-    const response = yield call(restService, {
-      api: '/treasury/balance',
+      api: `/transactions?page=${offset || 0}${event !== 'All' ? `&event=${event}` : ''}`,
       method: 'GET',
       params: {},
     });
@@ -343,15 +284,8 @@ export function* watchGetTransactionHistoryRequest() {
     yield* asyncGetTransactionHistoryRequest(action);
   }
 }
-export function* watchGetTreasuryBalanceRequest() {
-  while (true) {
-    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
-    const action = yield take(GET_TREASURY_BALANCE_REQUEST);
-    yield* asyncGetTreasuryBalanceRequest(action);
-  }
-}
 
-export default function* () {
+export default function* saga() {
   yield all([
     fork(watchGetMarketHistoryRequest),
     fork(watchGetGovernanceVenusRequest),
@@ -363,6 +297,5 @@ export default function* () {
     fork(watchGetVoterHistoryRequest),
     fork(watchGetVoterAccountsRequest),
     fork(watchGetTransactionHistoryRequest),
-    fork(watchGetTreasuryBalanceRequest),
   ]);
 }

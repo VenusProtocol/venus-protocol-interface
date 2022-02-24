@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
@@ -6,7 +6,6 @@ import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MainLayout from 'containers/Layout/MainLayout';
-import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
 import { currencyFormatter, formatApy } from 'utilities/common';
 import { uid } from 'react-uid';
@@ -162,34 +161,14 @@ const format = commaNumber.bindWith(',', '.');
 
 interface MarketProps extends RouteComponentProps {
   settings: Setting;
-  getTreasuryBalance: () => void;
 }
 
-function Market({ history, settings, getTreasuryBalance }: MarketProps) {
+function Market({ history, settings }: MarketProps) {
   const [totalSupply, setTotalSupply] = useState('0');
   const [totalBorrow, setTotalBorrow] = useState('0');
   const [availableLiquidity, setAvailableLiquidity] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
-  const [totalTreasury, setTotalTreasury] = useState(0);
   const { markets } = useMarkets();
-
-  const loadTreasuryBalance = useCallback(async () => {
-    await promisify(getTreasuryBalance, {})
-      .then(res => {
-        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
-        const total = (res.data || []).reduce(
-          (accumulator: $TSFixMe, asset: $TSFixMe) =>
-            accumulator + Number(asset.balance) * Number(asset.price),
-          0,
-        );
-        setTotalTreasury(total.toFixed(2));
-      })
-      .catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    loadTreasuryBalance();
-  }, [markets]);
 
   const getTotalInfo = async () => {
     const tempTS = (markets || []).reduce(
@@ -262,7 +241,8 @@ function Market({ history, settings, getTreasuryBalance }: MarketProps) {
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
-              <div className="value">${format(totalTreasury)}</div>
+              {/* TODO: update with actual total treasury value, calculated using data from contract */}
+              <div className="value">${format(0)}</div>
             </div>
           </div>
           {settings.vaiAPY && (
