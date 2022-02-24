@@ -6,6 +6,7 @@ export type EventMap = {
   connect_wallet: { type: ConnectorNames; code?: string };
   mint_vai: { amount: string };
   repay_vai: { amount: string };
+  collateral_toggle: { status: 'enter' | 'exit' | 'in_repayment'; market: string };
 };
 
 export type EventName = keyof EventMap;
