@@ -245,6 +245,7 @@ function CardContent({
                   setStakeLoading(true);
                   try {
                     if (!userStakedTokenAllowance.gt(0)) {
+                      ga.buttonPressed('vault_stake', { token: stakedToken, status: 'enable' });
                       await stakedTokenContract.methods
                         .approve(
                           xvsVaultContract.options.address,
@@ -257,12 +258,14 @@ function CardContent({
                           from: account,
                         });
                     } else {
+                      const amount = stakeAmount.multipliedBy(1e18).toString(10);
+                      ga.buttonPressed('vault_stake', {
+                        token: stakedToken,
+                        status: 'stake',
+                        amount,
+                      });
                       await xvsVaultContract.methods
-                        .deposit(
-                          rewardTokenAddress,
-                          poolId.toNumber(),
-                          stakeAmount.multipliedBy(1e18).toString(10),
-                        )
+                        .deposit(rewardTokenAddress, poolId.toNumber(), amount)
                         .send({ from: account });
                     }
                   } catch (e) {
