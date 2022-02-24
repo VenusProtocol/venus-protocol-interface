@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import greenCheckImg from 'assets/img/green-check.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
+import ga from 'clients/googleAnalytics';
 import DelegationVoting from './DelegationVoting';
 import ManualVoting from './ManualVoting';
 import { useXvsVaultProxy } from '../../hooks/useContract';
@@ -93,6 +94,7 @@ function DelegationTypeModal({
   const handleDelegateVoting = async (dAddress: $TSFixMe) => {
     setIsLoading(true);
     try {
+      ga.buttonPressed('delegate_voting', { type: 'delegate' });
       await xvsVaultProxyContract.methods.delegate(dAddress || address).send({ from: address });
       onCancel();
     } catch (error) {
@@ -132,6 +134,7 @@ function DelegationTypeModal({
                 e.preventDefault();
                 return;
               }
+              ga.buttonPressed('delegate_voting', { type: 'manual' });
               setChild('manual');
               handleDelegateVoting('');
             }}
