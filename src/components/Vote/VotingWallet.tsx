@@ -7,6 +7,7 @@ import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
 import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
+import ga from 'clients/googleAnalytics';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useComptroller, useVenusLens } from '../../hooks/useContract';
@@ -134,15 +135,13 @@ function VotingWallet({
     );
 
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
+    const outstandingVtokenAddresses = outstandingVTokens.map((token: $TSFixMe) => token[0]);
+    ga.buttonPressed('collect_rewards', { tokens: JSON.stringify(outstandingVtokenAddresses) });
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
       setIsLoading(true);
       try {
         await comptrollerContract.methods
-          .claimVenus(
-            account,
-
-            outstandingVTokens.map((token: $TSFixMe) => token[0]),
-          )
+          .claimVenus(account, outstandingVtokenAddresses)
           .send({ from: account });
       } catch (error) {
         console.log('claim venus error :>> ', error);
