@@ -34,6 +34,7 @@ module.exports = {
     'no-param-reassign': 0,
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'operator-linebreak': 0,
+    'react/prop-types': 0,
     'react/default-props-match-prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/no-unused-prop-types': 0,
