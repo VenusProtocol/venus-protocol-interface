@@ -4,6 +4,7 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
+import ga from 'clients/googleAnalytics';
 import * as constants from '../../utilities/constants';
 import { useXvsVaultProxy } from '../../hooks/useContract';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
@@ -154,12 +155,10 @@ function WithdrawCard({
                 onClick={async () => {
                   setRequestWithdrawLoading(true);
                   try {
+                    const amount = withdrawAmount.multipliedBy(stakedTokenDecimal).toString(10);
+                    ga.buttonPressed('vault_withdraw', { token: stakedToken, amount });
                     await xvsVaultContract.methods
-                      .requestWithdrawal(
-                        rewardTokenAddress,
-                        poolId.toNumber(),
-                        withdrawAmount.multipliedBy(stakedTokenDecimal).toString(10),
-                      )
+                      .requestWithdrawal(rewardTokenAddress, poolId.toNumber(), amount)
                       .send({
                         from: account,
                       });
