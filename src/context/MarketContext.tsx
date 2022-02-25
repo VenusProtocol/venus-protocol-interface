@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
+import { TREASURY_ADDRESS } from 'config';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy } from '../utilities/common';
@@ -102,6 +103,12 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           xvsBalance = getXvsBalance(balances);
         }
 
+        // Fetch treasury balances
+        const treasuryBalances = indexBy(
+          (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
+          await lens.methods.vTokenBalancesAll(vtAddresses, TREASURY_ADDRESS).call(),
+        );
+
         const marketsMap = indexBy(
           (item: $TSFixMe) => item.underlyingSymbol.toLowerCase(),
           markets,
@@ -125,9 +132,10 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const vtokenAddress = constants.CONTRACT_VBEP_ADDRESS[item.id].address.toLowerCase();
           const collateral = assetsIn
-
             .map((address: $TSFixMe) => address.toLowerCase())
             .includes(vtokenAddress);
+
+          const treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
 
           let walletBalance = new BigNumber(0);
           let supplyBalance = new BigNumber(0);
@@ -169,6 +177,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             liquidity: new BigNumber(market.liquidity || 0),
             borrowCaps: new BigNumber(market.borrowCaps || 0),
             totalBorrows: new BigNumber(market.totalBorrows2 || 0),
+            treasuryBalance,
             walletBalance,
             supplyBalance,
             borrowBalance,
@@ -248,6 +257,9 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         if (!isMounted) {
           return;
         }
+
+        // TODO: calculate total treasury value in USD
+        console.log(assetList);
 
         setUserMarketInfo(assetList);
         setUserTotalBorrowLimit(totalBorrowLimit);
