@@ -25,6 +25,9 @@ const VrtConversionWrapper = styled.div`
   .vrt-conversion-container {
     width: 100%;
   }
+  .vrt-conversion-tab-container {
+    border-radius: 8px;
+  }
   .title {
     font-size: 40px;
     line-height: 47px;
@@ -139,7 +142,7 @@ export default () => {
               xs={{ span: 24 }}
             >
               <div className="container">
-                <TabContainer titles={['Convert', 'Withdraw']}>
+                <TabContainer className="vrt-conversion-tab-container" titles={['Convert', 'Withdraw']}>
                   <Convert
                     xvsVestingXvsBalance={xvsVestingXvsBalance}
                     userVrtBalance={userVrtBalance}
@@ -176,8 +179,8 @@ export default () => {
                   />
                   <Withdraw
                     withdrawableAmount={withdrawableAmount}
-                    handleClickWithdraw={() => {
-                      xvsVestingContract.methods.withdraw().send({
+                    handleClickWithdraw={async () => {
+                      await xvsVestingContract.methods.withdraw().send({
                         from: account,
                       });
                     }}

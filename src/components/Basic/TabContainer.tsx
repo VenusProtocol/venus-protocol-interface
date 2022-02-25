@@ -35,9 +35,10 @@ export type TabContainerPropsType = {
   onChange?: (tabIndex: string) => void;
   children: React.ReactElement[];
   titles: string[];
+  className?: string;
 };
 
-export default ({ onChange, children, titles }: TabContainerPropsType) => {
+export default ({ onChange, children, titles, className }: TabContainerPropsType) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabKeys, setTabKeys] = useState(['0', '1']);
 
@@ -47,7 +48,7 @@ export default ({ onChange, children, titles }: TabContainerPropsType) => {
   }, []);
 
   return (
-    <TabContainerWrapper>
+    <TabContainerWrapper className={className}>
       <Tabs
         activeKey={tabKeys[activeTabIndex]}
         renderTabBar={props =>

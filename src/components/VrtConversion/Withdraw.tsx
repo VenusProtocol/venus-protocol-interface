@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Icon } from 'antd';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
+import { Button } from 'components/v2';
 import { ButtonWrapper } from './styles';
 
 const WithdrawWrapper = styled.div`
@@ -51,20 +51,20 @@ export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPr
         </div>
       </div>
       <ButtonWrapper>
-        <button
+        <Button
           type="button"
+          loading={withdrawLoading}
+          loadingIconSize={28}
           className="button withdraw-button"
-          disabled={!account || !withdrawableAmount.gt(0)}
+          disabled={!account || !withdrawableAmount.gt(0) || withdrawLoading}
           onClick={async () => {
             setWithdrawLoading(true);
             await handleClickWithdraw();
             setWithdrawLoading(false);
           }}
         >
-          {withdrawLoading && <Icon type="loading" />}
-          {'  '}
           {!account ? 'Connect' : 'Withdraw'}
-        </button>
+        </Button>
       </ButtonWrapper>
     </WithdrawWrapper>
   );

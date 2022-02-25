@@ -142,6 +142,9 @@ export const ConvertWrapper = styled.div`
 
   /* remaining days */
   .remaining-days {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     margin-top: 16px;
   }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
+import { Button, Icon } from 'components/v2';
 
 import { ButtonWrapper, ConvertWrapper } from './styles';
 
@@ -141,9 +141,11 @@ export default ({
         </div>
       </div>
       <ButtonWrapper>
-        <button
+        <Button
           type="button"
           className="button confirm-button"
+          loading={convertLoading}
+          loadingIconSize={28}
           disabled={
             !convertInputAmount.gt(0) ||
             conversionEndTime.lt(Date.now() / 1000) ||
@@ -156,13 +158,11 @@ export default ({
             setConvertLoading(false);
           }}
         >
-          {convertLoading && <Icon type="loading" />}
-          {'  '}
           {confirmButtonText}
-        </button>
+        </Button>
       </ButtonWrapper>
       <div className="remaining-days">
-        <Icon className="clock-icon" type="clock-circle" />
+        <Icon className="clock-icon" name="countdown" />
         <span className="remaining-cap-text">Remaining time: </span>
         <span className="remaining-time-text">
           {formatCountdownInSeconds(
