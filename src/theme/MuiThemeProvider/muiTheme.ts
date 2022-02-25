@@ -13,6 +13,7 @@ export const PALETTE = {
   background: {
     default: '#090D27',
     paper: '#181C3A',
+    black: '#1F2028',
   },
   primary: {
     light: '#EBBF6E',
@@ -30,9 +31,11 @@ export const PALETTE = {
   },
   success: {
     main: '#9DD562',
+    slider: '#18DF8B',
   },
   error: {
     main: '#F9053E',
+    slider: 'rgba(233, 61, 68, 0.5)',
   },
 };
 
