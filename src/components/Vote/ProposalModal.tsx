@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Form, Input, Modal, Icon, Collapse } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import { connectAccount } from 'core';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';

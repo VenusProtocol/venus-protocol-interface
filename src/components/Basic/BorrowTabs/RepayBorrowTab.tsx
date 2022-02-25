@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
@@ -205,11 +205,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Repay
-              {' '}
-              {asset.name}
-              {' '}
-              to the Venus Protocol, you need to enable it first.
+              To Repay {asset.name} to the Venus Protocol, you need to enable it first.
             </p>
           </>
         )}
@@ -239,10 +235,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Borrow APY</span>
             </div>
-            <span>
-              {asset.borrowApy.dp(2, 1).toString(10)}
-              %
-            </span>
+            <span>{asset.borrowApy.dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -274,11 +267,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>
-              {userVaiMinted.dp(2, 1).toString(10)}
-              {' '}
-              VAI
-            </span>
+            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
           </div>
         </div>
         {isEnabled && (
@@ -286,42 +275,24 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
             <div className="borrow-balance">
               <span>Borrow Balance</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  $
-                  {borrowBalance.dp(2, 1).toString(10)}
-                </span>
+                <span>${borrowBalance.dp(2, 1).toString(10)}</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    $
-                    {borrowBalance.dp(2, 1).toString(10)}
-                  </span>
+                  <span>${borrowBalance.dp(2, 1).toString(10)}</span>
                   <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                  <span>
-                    $
-                    {newBorrowBalance.dp(2, 1).toString(10)}
-                  </span>
+                  <span>${newBorrowBalance.dp(2, 1).toString(10)}</span>
                 </div>
               )}
             </div>
             <div className="borrow-limit">
               <span>Borrow Limit Used</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  {borrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    {borrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
+                  <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
                   <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                  <span>
-                    {newBorrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
+                  <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
                 </div>
               )}
             </div>
@@ -341,9 +312,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
               onApprove();
             }}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Enable
+            {isLoading && <Icon type="loading" />} Enable
           </Button>
         ) : (
           <Button
@@ -356,17 +325,13 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
             }
             onClick={handleRepayBorrow}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Repay Borrow
+            {isLoading && <Icon type="loading" />} Repay Borrow
           </Button>
         )}
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))}
-            {' '}
-            {asset.symbol}
+            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
           </span>
         </div>
       </TabContent>

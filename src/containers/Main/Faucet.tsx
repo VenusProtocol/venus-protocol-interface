@@ -6,7 +6,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import toast from 'components/Basic/Toast';
 import * as constants from 'utilities/constants';
