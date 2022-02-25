@@ -11,7 +11,7 @@ import { useComptroller, useVenusLens } from '../hooks/useContract';
 import * as constants from '../utilities/constants';
 
 const MarketContext = React.createContext({
-  markets: [],
+  markets: [] as any[],
   dailyVenus: 0,
   userMarketInfo: {},
   userTotalBorrowLimit: new BigNumber(0),
@@ -23,7 +23,7 @@ const MarketContext = React.createContext({
 // duplicated requests
 
 const MarketContextProvider = ({ children }: $TSFixMe) => {
-  const [markets, setMarkets] = useState([]);
+  const [markets, setMarkets] = useState<$TSFixMe[]>([]);
   const [dailyVenus, setDailyVenus] = useState(0);
   const [userMarketInfo, setUserMarketInfo] = useState({});
   const [userTotalBorrowLimit, setUserTotalBorrowLimit] = useState(new BigNumber(0));
@@ -59,7 +59,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         return;
       }
 
-      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
       setMarkets(data);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
       setDailyVenus(res.data.data.dailyVenus);

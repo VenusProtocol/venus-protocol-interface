@@ -173,24 +173,16 @@ function Market({ history, settings }: MarketProps) {
   const getTotalInfo = async () => {
     const tempTS = (markets || []).reduce(
       (accumulator, market) =>
-        new BigNumber(accumulator).plus(
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-          new BigNumber(market.totalSupplyUsd),
-        ),
+        new BigNumber(accumulator).plus(new BigNumber(market.totalSupplyUsd)),
       new BigNumber(0),
     );
     const tempTB = (markets || []).reduce(
       (accumulator, market) =>
-        new BigNumber(accumulator).plus(
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
-          new BigNumber(market.totalBorrowsUsd),
-        ),
+        new BigNumber(accumulator).plus(new BigNumber(market.totalBorrowsUsd)),
       new BigNumber(0),
     );
     const tempAL = (markets || []).reduce(
-      (accumulator, market) =>
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'liquidity' does not exist on type 'never... Remove this comment to see the full error message
-        new BigNumber(accumulator).plus(new BigNumber(market.liquidity)),
+      (accumulator, market) => new BigNumber(accumulator).plus(new BigNumber(market.liquidity)),
       new BigNumber(0),
     );
 
@@ -306,16 +298,11 @@ function Market({ history, settings }: MarketProps) {
             {markets &&
               (markets || [])
                 .map(market => ({
-                  // @ts-expect-error ts-migrate(2698) FIXME: Spread types may only be created from object types... Remove this comment to see the full error message
                   ...market,
-                  // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                   totalSupplyApy: new BigNumber(market.supplyApy).plus(
-                    // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                     new BigNumber(market.supplyVenusApy),
                   ),
-                  // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                   totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
-                    // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                     new BigNumber(market.borrowApy),
                   ),
                 }))
