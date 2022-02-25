@@ -45,7 +45,7 @@ const contracts = {
   },
   xvsVesting: {
     56: '',
-    97: '0x4cd15c0c950a5fd80a114d4f9cae165c0dc0ebe0',
+    97: '0x42836a5B809a1D1415390Ae956f528e15296464d',
   },
   vrtToken: {
     56: '',
@@ -53,7 +53,7 @@ const contracts = {
   },
   vrtConverter: {
     56: '',
-    97: '0xe67c6118C15b7fB8e670dc322CCD3eE0DC263066',
+    97: '0x6d693e9a6c1360489e26a7f76f13e3cf0e0747cf',
   },
 };
 
