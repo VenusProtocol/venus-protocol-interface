@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import { Icon } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
 import commaNumber from 'comma-number';

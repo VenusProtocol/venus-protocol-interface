@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { Button } from 'components/v2';
+import { Button } from 'components';
 import { ButtonWrapper } from './styles';
 
 const WithdrawWrapper = styled.div`
@@ -45,9 +45,7 @@ export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPr
       <div className="withdraw-title">
         <div className="withdraw-title-line-1">Withdrawable amount</div>
         <div className="withdraw-title-line-2">
-          {commaFormatter(withdrawableAmount.toFixed(6))}
-          {' '}
-          XVS
+          {commaFormatter(withdrawableAmount.toFixed(6))} XVS
         </div>
       </div>
       <ButtonWrapper>

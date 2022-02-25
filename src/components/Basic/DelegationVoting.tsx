@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input, Icon } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import { useWeb3React } from '@web3-react/core';
 
 const VotingWrapper = styled.div`
@@ -97,8 +97,8 @@ const VotingWrapper = styled.div`
 `;
 
 interface Props extends RouteComponentProps {
-  isLoading: boolean,
-  onDelegate: (address: string) => void,
+  isLoading: boolean;
+  onDelegate: (address: string) => void;
 }
 
 function DelegationVoting({ history, isLoading, onDelegate }: Props) {
@@ -114,18 +114,14 @@ function DelegationVoting({ history, isLoading, onDelegate }: Props) {
           <span className="address">Select and Address</span>
         </div>
         <div className="detail">
-          If you know the address you wish to delegate to, enter it below. If
-          not, you can view the Delegate Leaderboard to find a political party
-          you wish to support.
+          If you know the address you wish to delegate to, enter it below. If not, you can view the
+          Delegate Leaderboard to find a political party you wish to support.
         </div>
       </div>
       <div className="flex flex-column voting-selection">
         <div className="flex align-center just-between">
           <span className="address">Delegate Address</span>
-          <span
-            className="leaderboard pointer"
-            onClick={() => history.push('/vote/leaderboard')}
-          >
+          <span className="leaderboard pointer" onClick={() => history.push('/vote/leaderboard')}>
             Delegate Leaderboard
           </span>
         </div>
@@ -151,9 +147,7 @@ function DelegationVoting({ history, isLoading, onDelegate }: Props) {
           disabled={isLoading}
           onClick={() => onDelegate(delegateAddress)}
         >
-          {isLoading && <Icon type="loading" />}
-          {' '}
-          Delegate Votes
+          {isLoading && <Icon type="loading" />} Delegate Votes
         </Button>
       </div>
     </VotingWrapper>

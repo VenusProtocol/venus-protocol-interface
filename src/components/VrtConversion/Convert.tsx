@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
-import { Button, Icon } from 'components/v2';
+import { Button, Icon } from 'components';
 
 import { ButtonWrapper, ConvertWrapper } from './styles';
 
@@ -28,15 +28,14 @@ function formatCountdownInSeconds(seconds: number) {
   return `${hours} hours, ${minutes} minutes, ${remainingSeconds} seconds`;
 }
 
-
 export type ConvertPropsType = {
-  xvsVestingXvsBalance: BigNumber,
-  userVrtBalance: BigNumber,
-  userEnabled: boolean,
-  conversionEndTime: BigNumber,
-  conversionRatio: BigNumber,
-  account: string,
-  handleClickConvert: (convertAmount: BigNumber) => void,
+  xvsVestingXvsBalance: BigNumber;
+  userVrtBalance: BigNumber;
+  userEnabled: boolean;
+  conversionEndTime: BigNumber;
+  conversionRatio: BigNumber;
+  account: string;
+  handleClickConvert: (convertAmount: BigNumber) => void;
 };
 
 export default ({
@@ -50,9 +49,7 @@ export default ({
 }: ConvertPropsType) => {
   const [convertInputAmount, setConvertInputAmount] = useState(new BigNumber(0));
   const [convertLoading, setConvertLoading] = useState(false);
-  const maxConvertAmountRegardingXvsBalance = xvsVestingXvsBalance.div(
-    conversionRatio,
-  );
+  const maxConvertAmountRegardingXvsBalance = xvsVestingXvsBalance.div(conversionRatio);
 
   let confirmButtonText = '';
   if (!account) {
@@ -71,11 +68,7 @@ export default ({
       </div>
       {/* display available XVS in pool */}
       <div className="xvs-pool">
-        <div className="xvs-pool-line-1">
-          {xvsVestingXvsBalance.toFixed(4)}
-          {' '}
-          XVS
-        </div>
+        <div className="xvs-pool-line-1">{xvsVestingXvsBalance.toFixed(4)} XVS</div>
         <div className="xvs-pool-line-2">Current available</div>
       </div>
       {/* convert section */}
@@ -106,10 +99,7 @@ export default ({
               className="button max-button"
               onClick={() => {
                 setConvertInputAmount(
-                  BigNumber.min(
-                    userVrtBalance,
-                    maxConvertAmountRegardingXvsBalance,
-                  ),
+                  BigNumber.min(userVrtBalance, maxConvertAmountRegardingXvsBalance),
                 );
               }}
             >
@@ -120,9 +110,7 @@ export default ({
         </div>
         <div className="user-vrt-balance">
           Balance:
-          {account ? userVrtBalance.toFixed(4) : '-'}
-          {' '}
-          VRT
+          {account ? userVrtBalance.toFixed(4) : '-'} VRT
         </div>
       </div>
       {/* recieve section */}
@@ -165,10 +153,7 @@ export default ({
         <Icon className="clock-icon" name="countdown" />
         <span className="remaining-cap-text">Remaining time: </span>
         <span className="remaining-time-text">
-          {formatCountdownInSeconds(
-            Math.floor(Number(conversionEndTime.minus(Date.now() / 1000))),
-          )}
-          {' '}
+          {formatCountdownInSeconds(Math.floor(Number(conversionEndTime.minus(Date.now() / 1000))))}{' '}
         </span>
       </div>
     </ConvertWrapper>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { Icon, Progress } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
 import { connectAccount } from 'core';

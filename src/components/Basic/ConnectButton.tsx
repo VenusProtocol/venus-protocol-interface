@@ -11,7 +11,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import logoImg from 'assets/img/logo.png';
 import { useWeb3React } from '@web3-react/core';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import toast from 'components/Basic/Toast';
 import ga from 'clients/googleAnalytics';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
