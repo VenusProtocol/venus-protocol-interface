@@ -180,9 +180,13 @@ export default () => {
                   <Withdraw
                     withdrawableAmount={withdrawableAmount}
                     handleClickWithdraw={async () => {
-                      await xvsVestingContract.methods.withdraw().send({
-                        from: account,
-                      });
+                      try {
+                        await xvsVestingContract.methods.withdraw().send({
+                          from: account,
+                        });
+                      } catch (e) {
+                        console.log('>> withdraw error', e);
+                      }
                     }}
                     account={account || ''}
                   />
