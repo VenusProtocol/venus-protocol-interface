@@ -168,7 +168,7 @@ function Market({ history, settings }: MarketProps) {
   const [totalBorrow, setTotalBorrow] = useState('0');
   const [availableLiquidity, setAvailableLiquidity] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
-  const { markets } = useMarkets();
+  const { markets, treasuryTotalUSDBalance } = useMarkets();
 
   const getTotalInfo = async () => {
     const tempTS = (markets || []).reduce(
@@ -233,8 +233,7 @@ function Market({ history, settings }: MarketProps) {
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
-              {/* TODO: update with actual total treasury value, calculated using data from contract */}
-              <div className="value">${format(0)}</div>
+              <div className="value">${format(treasuryTotalUSDBalance.dp(2).toString())}</div>
             </div>
           </div>
           {settings.vaiAPY && (

@@ -12,8 +12,9 @@ import { useComptroller, useVenusLens } from '../hooks/useContract';
 import * as constants from '../utilities/constants';
 
 const MarketContext = React.createContext({
-  markets: [] as any[],
+  markets: [] as $TSFixMe[],
   dailyVenus: 0,
+  treasuryTotalUSDBalance: new BigNumber(0),
   userMarketInfo: {},
   userTotalBorrowLimit: new BigNumber(0),
   userTotalBorrowBalance: new BigNumber(0),
@@ -30,6 +31,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [userTotalBorrowLimit, setUserTotalBorrowLimit] = useState(new BigNumber(0));
   const [userTotalBorrowBalance, setUserTotalBorrowBalance] = useState(new BigNumber(0));
   const [userXVSBalance, setUserXVSBalance] = useState(new BigNumber(0));
+  const [treasuryTotalUSDBalance, setTreasuryTotalUSDBalance] = useState(new BigNumber(0));
   const comptrollerContract = useComptroller();
   const lens = useVenusLens();
   const { account } = useWeb3React();
@@ -258,9 +260,14 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           return;
         }
 
-        // TODO: calculate total treasury value in USD
-        console.log(assetList);
+        // Calculate total treasury balance in USD
+        const updatedTreasuryTotalUSDBalance = assetList.reduce((accumulator, asset) => {
+          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+          const treasuryUSDBalance = asset.treasuryBalance.multipliedBy(asset.tokenPrice);
+          return accumulator.plus(treasuryUSDBalance);
+        }, new BigNumber(0));
 
+        setTreasuryTotalUSDBalance(updatedTreasuryTotalUSDBalance);
         setUserMarketInfo(assetList);
         setUserTotalBorrowLimit(totalBorrowLimit);
         setUserTotalBorrowBalance(totalBorrowBalance);
@@ -280,6 +287,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
       value={{
         markets,
         dailyVenus,
+        treasuryTotalUSDBalance,
         userMarketInfo,
         userTotalBorrowLimit,
         userTotalBorrowBalance,
