@@ -9,7 +9,7 @@ import {
 import Transaction from '.';
 
 export default {
-  title: 'Transaction',
+  title: 'Pages/Transaction',
   component: Transaction,
   decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
 } as ComponentMeta<typeof Transaction>;

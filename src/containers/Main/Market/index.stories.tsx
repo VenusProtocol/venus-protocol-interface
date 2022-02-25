@@ -9,7 +9,7 @@ import {
 import Market from '.';
 
 export default {
-  title: 'Market',
+  title: 'Pages/Market',
   component: Market,
   decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
 } as ComponentMeta<typeof Market>;

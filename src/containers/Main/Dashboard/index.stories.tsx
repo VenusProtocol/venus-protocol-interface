@@ -9,7 +9,7 @@ import {
 import Dashboard from '.';
 
 export default {
-  title: 'Dashboard',
+  title: 'Pages/Dashboard',
   component: Dashboard,
   decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
 } as ComponentMeta<typeof Dashboard>;

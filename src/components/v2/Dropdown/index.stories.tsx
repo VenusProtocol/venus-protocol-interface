@@ -13,7 +13,7 @@ import { CONTRACT_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from 'utilities/constan
 import { Dropdown } from '.';
 
 export default {
-  title: 'Dropdown',
+  title: 'Components/Dropdown',
   component: Dropdown,
   decorators: [
     withRouter,
@@ -27,8 +27,8 @@ export default {
 
 const assets = Object.keys(CONTRACT_VBEP_ADDRESS).map(id => ({
   value: id,
-  label: CONTRACT_TOKEN_ADDRESS[id as (keyof typeof CONTRACT_TOKEN_ADDRESS)]?.symbol || id,
-  img: CONTRACT_TOKEN_ADDRESS[id as (keyof typeof CONTRACT_TOKEN_ADDRESS)]?.asset,
+  label: CONTRACT_TOKEN_ADDRESS[id as keyof typeof CONTRACT_TOKEN_ADDRESS]?.symbol || id,
+  img: CONTRACT_TOKEN_ADDRESS[id as keyof typeof CONTRACT_TOKEN_ADDRESS]?.asset,
 }));
 
 export const DropdownDefault = () => (
