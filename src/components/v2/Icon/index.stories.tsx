@@ -4,7 +4,7 @@ import { withThemeProvider } from 'stories/decorators';
 import { Icon, IconName, IIconProps } from '.';
 
 export default {
-  title: 'Icon',
+  title: 'Components/Icon',
   component: Icon,
   decorators: [withThemeProvider],
 } as ComponentMeta<typeof Icon>;

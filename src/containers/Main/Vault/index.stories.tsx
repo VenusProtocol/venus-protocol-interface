@@ -9,7 +9,7 @@ import {
 import Vault from '.';
 
 export default {
-  title: 'Vault',
+  title: 'Pages/Vault',
   component: Vault,
   decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
 } as ComponentMeta<typeof Vault>;

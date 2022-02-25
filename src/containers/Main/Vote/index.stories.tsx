@@ -9,7 +9,7 @@ import {
 import Vote from '.';
 
 export default {
-  title: 'Vote',
+  title: 'Pages/Vote',
   component: Vote,
   decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
 } as ComponentMeta<typeof Vote>;

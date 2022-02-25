@@ -9,7 +9,7 @@ import {
 import XVS from '.';
 
 export default {
-  title: 'XVS',
+  title: 'Pages/XVS',
   component: XVS,
   decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
 } as ComponentMeta<typeof XVS>;
