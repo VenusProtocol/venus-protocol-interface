@@ -1,13 +1,6 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import {
-  withRouter,
-  withProvider,
-  withWeb3Provider,
-  withMarketContext,
-  withVaiContext,
-  withThemeProvider,
-} from 'stories/decorators';
+import { withThemeProvider } from 'stories/decorators';
 import Box from '@mui/material/Box';
 import { CONTRACT_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from 'utilities/constants';
 import { Dropdown } from '.';
@@ -15,14 +8,7 @@ import { Dropdown } from '.';
 export default {
   title: 'Components/Dropdown',
   component: Dropdown,
-  decorators: [
-    withRouter,
-    withProvider,
-    withWeb3Provider,
-    withMarketContext,
-    withVaiContext,
-    withThemeProvider,
-  ],
+  decorators: [withThemeProvider],
 } as ComponentMeta<typeof Dropdown>;
 
 const assets = Object.keys(CONTRACT_VBEP_ADDRESS).map(id => ({
