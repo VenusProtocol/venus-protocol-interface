@@ -35,7 +35,7 @@ const SidebarWrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-right: 0px;
+    margin-right: 0;
   }
 `;
 
@@ -74,6 +74,25 @@ const MainMenu = styled.div`
 
   .xvs-active-icon {
     display: none;
+  }
+
+  .active {
+    background-color: var(--color-bg-active);
+    svg {
+      fill: var(--color-yellow);
+    }
+    span {
+      color: var(--color-yellow);
+    }
+    path {
+      fill: var(--color-yellow);
+    }
+    .xvs-icon {
+      display: none;
+    }
+    .xvs-active-icon {
+      display: block;
+    }
   }
 
   a {
@@ -131,25 +150,6 @@ const MainMenu = styled.div`
     }
   }
 
-  .active {
-    background-color: var(--color-bg-active);
-    svg {
-      fill: var(--color-yellow);
-    }
-    span {
-      color: var(--color-yellow);
-    }
-    path {
-      fill: var(--color-yellow);
-    }
-    .xvs-icon {
-      display: none;
-    }
-    .xvs-active-icon {
-      display: block;
-    }
-  }
-
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -160,7 +160,7 @@ const FaucetMenu = styled.div`
   margin-top: auto;
   margin-bottom: 20px;
   a {
-    padding: 7px 0px;
+    padding: 7px 0;
     svg {
       fill: var(--color-text-main);
       margin-left: 34px;
@@ -235,7 +235,6 @@ const MobileMenu = styled.div`
         color: var(--color-text-main);
         font-size: 17px;
         font-weight: 900;
-        color: var(--color-text-main);
         margin-top: 4px;
         i {
           color: var(--color-text-main);

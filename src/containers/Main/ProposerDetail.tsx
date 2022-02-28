@@ -15,6 +15,16 @@ import { Row, Column } from 'components/Basic/Style';
 const ProposerDetailWrapper = styled.div`
   width: 100%;
 
+  .middle-section {
+    width: 100%;
+    height: 406px;
+    margin-bottom: 39px;
+
+    .holding {
+      width: 40%;
+    }
+  }
+
   .header-section {
     margin-bottom: 40px;
 
@@ -26,9 +36,6 @@ const ProposerDetailWrapper = styled.div`
         height: 102px;
         margin-bottom: 39px;
       }
-
-      .holding {
-      }
     }
 
     .column-2 {
@@ -38,16 +45,6 @@ const ProposerDetailWrapper = styled.div`
       .transactions {
         margin-top: 141px;
       }
-    }
-  }
-
-  .middle-section {
-    width: 100%;
-    height: 406px;
-    margin-bottom: 39px;
-
-    .holding {
-      width: 40%;
     }
   }
 

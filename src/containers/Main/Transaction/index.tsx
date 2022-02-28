@@ -28,7 +28,7 @@ const TableWrapper = styled.div`
   background: var(--color-bg-primary);
   border: 1px solid var(--color-bg-primary);
   box-sizing: content-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
   border-radius: 8px;
   margin: 20px 0;
   max-width: 1200px;
@@ -166,17 +166,17 @@ const TableWrapper = styled.div`
       color: var(--color-text-main);
     }
 
-    .ant-pagination-item:focus a,
-    .ant-pagination-item:hover a {
-      color: var(--color-orange);
-    }
-
     .ant-pagination-item-active {
       background: transparent;
       border-color: transparent;
       a {
         color: var(--color-orange);
       }
+    }
+
+    .ant-pagination-item:focus a,
+    .ant-pagination-item:hover a {
+      color: var(--color-orange);
     }
 
     .button {
@@ -229,7 +229,6 @@ const AssetSelectWrapper = styled.div`
       margin-left: 8px;
       border: 2px solid #20345e;
       background-color: transparent;
-      color: var(--color-text-main);
       font-size: 17px;
       font-weight: 900;
       color: var(--color-text-main);

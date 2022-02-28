@@ -42,18 +42,16 @@ const MainLayoutWrapper = styled.div`
     }
 
     @media only screen and (max-width: 768px) {
-      // height: calc(100% - 60px);
       height: unset;
       overflow: unset;
     }
   }
 `;
 
-
 interface Props {
-  title?: string,
-  isHeader?: boolean,
-  children: JSX.Element | JSX.Element[],
+  title?: string;
+  isHeader?: boolean;
+  children: JSX.Element | JSX.Element[];
 }
 
 function MainLayout({ title = '', isHeader, children }: Props) {

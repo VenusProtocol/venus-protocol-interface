@@ -8,7 +8,7 @@ import { ButtonWrapper } from './styles';
 const WithdrawWrapper = styled.div`
   .withdraw-title {
     text-align: center;
-    color: #ffffff;
+    color: #fff;
     &-line-1 {
       font-size: 16px;
       line-height: 24px;

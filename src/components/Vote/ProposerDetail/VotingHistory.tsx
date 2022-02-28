@@ -39,17 +39,17 @@ const VotingHistoryWrapper = styled.div`
       color: var(--color-text-main);
     }
 
-    .ant-pagination-item:focus a,
-    .ant-pagination-item:hover a {
-      color: var(--color-orange);
-    }
-
     .ant-pagination-item-active {
       background: transparent;
       border-color: transparent;
       a {
         color: var(--color-orange);
       }
+    }
+
+    .ant-pagination-item:focus a,
+    .ant-pagination-item:hover a {
+      color: var(--color-orange);
     }
 
     .button {

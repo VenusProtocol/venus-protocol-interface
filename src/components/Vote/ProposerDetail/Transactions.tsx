@@ -46,7 +46,7 @@ const TransactionsWrapper = styled.div`
   .header-text {
     font-size: 16px;
     font-weight: normal;
-    padding: 15px 0px;
+    padding: 15px 0;
     color: var(--color-text-secondary);
     border-bottom: 1px solid var(--color-bg-active);
     border-top: 1px solid var(--color-bg-active);
@@ -55,7 +55,7 @@ const TransactionsWrapper = styled.div`
   .row-text {
     font-size: 17px;
     font-weight: 500;
-    padding: 15px 0px;
+    padding: 15px 0;
     color: var(--color-text-main);
     border-bottom: 1px solid var(--color-bg-active);
   }

@@ -41,6 +41,7 @@ const MarketTableWrapper = styled.div`
     .ant-table-scroll {
       .ant-table-header {
         background: var(--color-bg-primary);
+
         /* width */
         &::-webkit-scrollbar {
           display: none;
@@ -83,7 +84,7 @@ const MarketTableWrapper = styled.div`
         font-size: 16px;
         font-weight: normal;
         background: var(--color-bg-primary);
-        border-bottom: 0px;
+        border-bottom: 0;
         -webkit-transition: background 0.3s ease;
         transition: background 0.3s ease;
         text-align: right;
@@ -110,7 +111,7 @@ const MarketTableWrapper = styled.div`
   .ant-table-tbody {
     tr {
       td {
-        border-bottom: 0px;
+        border-bottom: 0;
         background: var(--color-bg-primary);
         text-align: right;
         width: 28%;

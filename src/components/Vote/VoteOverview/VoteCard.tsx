@@ -70,7 +70,7 @@ const VoteList = styled.div`
       width: 100%;
       border-top: 1px solid var(--color-bg-active);
       border-bottom: 1px solid var(--color-bg-active);
-      padding: 10px 0px;
+      padding: 10px 0;
       span {
         font-weight: 600;
         font-size: 16px;
