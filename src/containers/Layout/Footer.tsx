@@ -6,7 +6,7 @@ import { useBlock } from '../../hooks/useBlock';
 
 const FooterWrapper = styled.div`
   height: 50px;
-  padding: 26px 0px;
+  padding: 26px 0;
   background-color: var(--color-bg-main);
   display: flex;
   justify-content: flex-end;
@@ -42,9 +42,7 @@ function Footer() {
         {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; target: string; rel: st... Remove this comment to see the full error message */}
         <div className="status-circle" target="_blank" rel="noreferrer" />
         <a href={BASE_BSC_SCAN_URL} target="_blank" rel="noreferrer">
-          Latest Block:
-          {' '}
-          {blockNumber}
+          Latest Block: {blockNumber}
         </a>
       </div>
       <a
@@ -57,11 +55,7 @@ function Footer() {
       <a href="https://t.me/VenusProtocol" target="_blank" rel="noreferrer">
         Support
       </a>
-      <a
-        href="https://venus.io/Whitepaper.pdf"
-        target="_blank"
-        rel="noreferrer"
-      >
+      <a href="https://venus.io/Whitepaper.pdf" target="_blank" rel="noreferrer">
         Whitepaper
       </a>
     </FooterWrapper>

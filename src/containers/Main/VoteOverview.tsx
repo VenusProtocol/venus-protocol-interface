@@ -45,7 +45,7 @@ const VoteOverviewWrapper = styled.div`
 
     .warning {
       color: var(--color-orange);
-      margin: 20px 0px;
+      margin: 20px 0;
     }
 
     i {

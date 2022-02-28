@@ -12,7 +12,7 @@ export const ButtonWrapper = styled.div`
     cursor: pointer;
   }
 
-  .button:disable {
+  .button:disabled {
     background: #d3d3d3;
     cursor: not-allowed;
   }
@@ -74,7 +74,7 @@ export const ConvertWrapper = styled.div`
   .input-title {
     font-size: 12px;
     line-height: 14px;
-    color: #ffffff;
+    color: #fff;
     margin-bottom: 6px;
   }
 
@@ -168,6 +168,6 @@ export const ConvertWrapper = styled.div`
   .remaining-time-text {
     font-size: 14px;
     line-height: 21px;
-    color: #ffffff;
+    color: #fff;
   }
 `;

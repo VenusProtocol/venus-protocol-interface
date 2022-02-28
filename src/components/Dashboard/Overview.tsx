@@ -95,7 +95,7 @@ const CardWrapper = styled.div`
 
       @media only screen and (max-width: 1496px) {
         width: 100%;
-        margin-left: 0px;
+        margin-left: 0;
         margin-top: 10px;
         justify-content: flex-end;
       }
@@ -127,7 +127,6 @@ const AssetSelectWrapper = styled.div`
       color: var(--color-text-main);
       font-size: 17px;
       font-weight: 900;
-      color: var(--color-text-main);
       margin-top: 4px;
       i {
         color: var(--color-text-main);

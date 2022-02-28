@@ -87,6 +87,17 @@ const ModalContent = styled.div`
       }
     }
   }
+
+  .terms-of-use {
+    font-size: 13.5px;
+    color: var(--color-text-secondary);
+    margin-bottom: 32px;
+    a {
+      color: var(--color-orange);
+      margin-left: 11px;
+    }
+  }
+
   .connect-wallet-content {
     width: 100%;
     padding: 30px 60px;
@@ -102,6 +113,12 @@ const ModalContent = styled.div`
       height: 65px;
       margin: 15px 0;
 
+      span {
+        color: var(--color-text-secondary);
+        font-weight: normal;
+        font-size: 17px;
+      }
+
       & > div {
         img {
           width: 45px;
@@ -113,12 +130,6 @@ const ModalContent = styled.div`
           font-size: 17px;
         }
       }
-
-      span {
-        color: var(--color-text-secondary);
-        font-weight: normal;
-        font-size: 17px;
-      }
     }
 
     .coming-soon {
@@ -126,7 +137,7 @@ const ModalContent = styled.div`
     }
 
     .line {
-      width: 100%auto;
+      width: 100% auto;
       height: 1px;
       background-color: var(--color-bg-active);
     }
@@ -140,16 +151,6 @@ const ModalContent = styled.div`
       a {
         margin-left: 5px;
       }
-    }
-  }
-
-  .terms-of-use {
-    font-size: 13.5px;
-    color: var(--color-text-secondary);
-    margin-bottom: 32px;
-    a {
-      color: var(--color-orange);
-      margin-left: 11px;
     }
   }
 

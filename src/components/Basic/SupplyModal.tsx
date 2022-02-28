@@ -73,7 +73,7 @@ export const TabSection = styled.div`
     }
 
     .warning-label {
-      width: 100%
+      width: 100%;
       font-size: 15px;
       color: var(--color-text-secondary);
       padding: 0 25px;

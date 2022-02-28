@@ -11,6 +11,7 @@ const TabContainerWrapper = styled.div`
   background-color: var(--color-bg-primary);
   padding: 10%;
   margin-top: 24px;
+
   /* customized tab */
   .tab-header {
     display: flex;

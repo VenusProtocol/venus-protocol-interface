@@ -20,7 +20,7 @@ const MarketDetailWrapper = styled.div`
 
   .market-detail-content {
     width: 100%;
-    padding: 20px 40px 20px 0px;
+    padding: 20px 40px 20px 0;
 
     @media only screen and (max-width: 1440px) {
       flex-direction: column;
@@ -36,7 +36,7 @@ const MarketDetailWrapper = styled.div`
       @media only screen and (max-width: 1440px) {
         width: 100%;
         min-width: unset;
-        margin-right: 0px;
+        margin-right: 0;
         margin-bottom: 20px;
       }
     }
@@ -47,7 +47,7 @@ const MarketDetailWrapper = styled.div`
       margin-left: 10px;
       @media only screen and (max-width: 1440px) {
         width: 100%;
-        margin-left: 0px;
+        margin-left: 0;
       }
       .row1 {
         margin-bottom: 20px;
@@ -74,7 +74,7 @@ const MarketDetailWrapper = styled.div`
           flex: 1;
           margin-right: 10px;
           @media only screen and (max-width: 768px) {
-            margin-right: 0px;
+            margin-right: 0;
             margin-bottom: 20px;
           }
         }
@@ -82,7 +82,7 @@ const MarketDetailWrapper = styled.div`
           flex: 1;
           margin-left: 10px;
           @media only screen and (max-width: 768px) {
-            margin-left: 0px;
+            margin-left: 0;
           }
         }
       }

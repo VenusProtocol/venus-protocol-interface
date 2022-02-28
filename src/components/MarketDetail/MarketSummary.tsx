@@ -39,9 +39,8 @@ const MarketSummaryWrapper = styled.div`
       margin-bottom: 10px;
     }
   }
-  @media only screen and (max-width: 768px) {
-  }
 `;
+
 const format = commaNumber.bindWith(',', '.');
 
 interface Props extends RouteComponentProps {

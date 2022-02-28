@@ -33,7 +33,7 @@ const VotingWalletWrapper = styled.div`
   }
 
   .content {
-    padding: 20px 0px;
+    padding: 20px 0;
 
     img {
       width: 25px;
@@ -64,7 +64,7 @@ const VotingWalletWrapper = styled.div`
   .delegate-change {
     padding-left: 35px;
     .content-label {
-      padding-left: 0px;
+      padding-left: 0;
     }
     .change {
       font-size: 16px;

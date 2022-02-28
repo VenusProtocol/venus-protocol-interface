@@ -105,13 +105,6 @@ const InterestRateModelWrapper = styled.div`
   .recharts-cartesian-grid {
     opacity: 0;
   }
-  .recharts-responsive-container {
-    .recharts-surface {
-      // margin-top: 40px;
-    }
-  }
-  @media only screen and (max-width: 768px) {
-  }
 `;
 
 let flag = false;

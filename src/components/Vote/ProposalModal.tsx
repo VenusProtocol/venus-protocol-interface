@@ -51,11 +51,6 @@ const ModalContent = styled.div`
     background-color: var(--color-bg-main);
     color: var(--color-text-main) !important;
   }
-  .ant-collapse > .ant-collapse-item:last-child,
-  .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header,
-  .ant-collapse-item:last-child > .ant-collapse-content {
-    border-radius: 0px;
-  }
 
   .ant-collapse,
   .ant-collapse-content,
@@ -65,9 +60,37 @@ const ModalContent = styled.div`
     border-color: var(--color-bg-main);
   }
 
+  .ant-collapse > .ant-collapse-item:last-child,
+  .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header,
+  .ant-collapse-item:last-child > .ant-collapse-content {
+    border-radius: 0;
+  }
+
   .proposal_form {
     width: 100%;
     margin-top: 20px;
+
+    .btn-wrapper {
+      margin-top: 47px;
+      margin-bottom: 40px;
+      .proposal-btn {
+        width: 210px;
+        height: 52px;
+        background-image: linear-gradient(to right, #f2c265, #f7b44f);
+        border-radius: 10px;
+        span {
+          font-size: 16px;
+          font-weight: bold;
+          color: var(--color-text-main);
+          text-transform: capitalize;
+        }
+      }
+      .ant-btn[disabled] {
+        color: var(--color-text-secondary);
+        background-color: rgba(0, 145, 255, 0.05);
+        box-shadow: unset;
+      }
+    }
 
     .proposal-data-list {
       max-height: 300px;
@@ -77,7 +100,7 @@ const ModalContent = styled.div`
 
       .proposal-content {
         width: 100%;
-        padding: 0px 20px;
+        padding: 0 20px;
         .input-wrapper {
           input {
             width: 350px;
@@ -119,28 +142,7 @@ const ModalContent = styled.div`
     }
 
     .description-wrapper {
-      padding: 0px 20px;
-    }
-    .btn-wrapper {
-      margin-top: 47px;
-      margin-bottom: 40px;
-      .proposal-btn {
-        width: 210px;
-        height: 52px;
-        background-image: linear-gradient(to right, #f2c265, #f7b44f);
-        border-radius: 10px;
-        span {
-          font-size: 16px;
-          font-weight: bold;
-          color: var(--color-text-main);
-          text-transform: capitalize;
-        }
-      }
-      .ant-btn[disabled] {
-        color: var(--color-text-secondary);
-        background-color: rgba(0, 145, 255, 0.05);
-        box-shadow: unset;
-      }
+      padding: 0 20px;
     }
   }
 `;
