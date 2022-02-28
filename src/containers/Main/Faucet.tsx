@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Input, Form, Dropdown, Menu } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { connectAccount } from 'core';
+import useRequestFaucetFunds from 'hooks/useRequestFaucetFunds';
 import MainLayout from 'containers/Layout/MainLayout';
-import { promisify } from 'utilities';
 import { Button } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import toast from 'components/Basic/Toast';
@@ -92,48 +91,44 @@ const ButtonWrapper = styled.div`
 `;
 
 type HOCProps = FormComponentProps & RouteComponentProps;
-interface FaucetProps extends HOCProps {
-  getFromFaucet: $TSFixMe;
-}
+type FaucetProps = HOCProps;
 
-function Faucet({ form, getFromFaucet }: FaucetProps) {
+function Faucet({ form }: FaucetProps) {
   const { getFieldDecorator } = form;
-  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    mutate: requestFaucetFunds,
+    isLoading: isRequestFaucetFundsLoading,
+  } = useRequestFaucetFunds({
+    onSuccess: (_data, variables) => {
+      let fromAddress;
+      if (variables.asset === 'xvs') {
+        fromAddress = constants.CONTRACT_XVS_TOKEN_ADDRESS;
+      } else if (variables.asset === 'bnb') {
+        fromAddress = constants.CONTRACT_XVS_TOKEN_ADDRESS;
+      } else {
+        fromAddress = constants.CONTRACT_TOKEN_ADDRESS[variables.asset].address;
+      }
+
+      toast.success({
+        title: `Funding request for ${fromAddress} into ${variables.address}`,
+      });
+    },
+    onError: error => {
+      toast.error({
+        title: error.message,
+      });
+    },
+  });
 
   const handleMenuClick = (e: $TSFixMe, symbol: $TSFixMe) => {
     form.validateFields((err: $TSFixMe, values: $TSFixMe) => {
       if (!err) {
-        setIsLoading(true);
-        promisify(getFromFaucet, {
+        requestFaucetFunds({
           address: values.address,
           asset: symbol,
           amountType: e.key,
-        })
-          .then(() => {
-            setIsLoading(false);
-            let fromAddress;
-            if (symbol === 'xvs') {
-              fromAddress = constants.CONTRACT_XVS_TOKEN_ADDRESS;
-            } else if (symbol === 'bnb') {
-              fromAddress = constants.CONTRACT_XVS_TOKEN_ADDRESS;
-            } else {
-              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-              fromAddress = constants.CONTRACT_TOKEN_ADDRESS[symbol].address;
-            }
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-            toast.success({
-              title: `Funding request for ${fromAddress} into ${values.address}`,
-            });
-          })
-          .catch(error => {
-            if (error.data && error.data.message) {
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-              toast.error({
-                title: error.data.message,
-              });
-            }
-            setIsLoading(false);
-          });
+        });
       }
     });
   };
@@ -234,7 +229,7 @@ function Faucet({ form, getFromFaucet }: FaucetProps) {
                 ],
               })(<Input placeholder="Input your Binance Smart Chain address..." />)}
             </Form.Item>
-            {isLoading ? (
+            {isRequestFaucetFundsLoading ? (
               <div className="flex flex-column">
                 <LoadingSpinner size={60} />
               </div>
@@ -422,4 +417,4 @@ function Faucet({ form, getFromFaucet }: FaucetProps) {
   );
 }
 
-export default Form.create({ name: 'faucet-form' })(connectAccount(undefined)(withRouter(Faucet)));
+export default Form.create({ name: 'faucet-form' })(withRouter(Faucet));

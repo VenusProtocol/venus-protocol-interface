@@ -219,7 +219,6 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
       try {
         await governorBravoContract.methods.queue(proposalInfo.id).send({ from: account });
         setStatus('success');
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.success({
           title: 'Proposal list will be updated within a few seconds',
         });
@@ -233,7 +232,6 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
       try {
         await governorBravoContract.methods.execute(proposalInfo.id).send({ from: account });
         setStatus('success');
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.success({
           title: 'Proposal list will be updated within a few seconds',
         });
@@ -247,7 +245,6 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
       try {
         await governorBravoContract.methods.cancel(proposalInfo.id).send({ from: account });
         setCancelStatus('success');
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.success({
           title:
             'Current proposal is cancelled successfully. Proposal list will be updated within a few seconds',
