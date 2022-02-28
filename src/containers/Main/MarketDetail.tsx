@@ -144,10 +144,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
 
   const getGovernanceData = useCallback(async () => {
     if (markets && markets.length > 0 && currentAsset) {
-      const info = markets.find(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
-        item => item.underlyingSymbol.toLowerCase() === currentAsset,
-      );
+      const info = markets.find(item => item.underlyingSymbol.toLowerCase() === currentAsset);
       setMarketInfo(info || {});
     }
   }, [markets, currentAsset]);

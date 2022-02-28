@@ -158,14 +158,11 @@ function InterestRateModel({ currentAsset }: Props) {
 
     const data: $TSFixMe = [];
     const marketInfo = markets.find(
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase(),
     );
     // Get Current Utilization Rate
     const cash = new BigNumber(cashValue).div(1e18);
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const borrows = new BigNumber(marketInfo.totalBorrows2);
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS[asset].decimals),
@@ -210,7 +207,6 @@ function InterestRateModel({ currentAsset }: Props) {
               .toString(10),
             1e4,
             0,
-            // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
             marketInfo.reserveFactor.toString(10),
           )
           .call(),

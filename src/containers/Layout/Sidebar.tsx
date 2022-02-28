@@ -330,10 +330,8 @@ function Sidebar({ history, setSetting }: SidebarProps) {
       venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
 
       // VAI APY
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
       const xvsMarket = markets.find(ele => ele.underlyingSymbol === 'XVS');
       const vaiAPY = new BigNumber(venusVAIVaultRate)
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'tokenPrice' does not exist on type 'neve... Remove this comment to see the full error message
         .times(xvsMarket ? xvsMarket.tokenPrice : 0)
         .times(365 * 100)
         .div(vaultVaiStaked)
@@ -342,10 +340,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
 
       const totalLiquidity = (markets || []).reduce(
         (accumulator, market) =>
-          new BigNumber(accumulator).plus(
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-            new BigNumber(market.totalSupplyUsd),
-          ),
+          new BigNumber(accumulator).plus(new BigNumber(market.totalSupplyUsd)),
         vaultVaiStaked,
       );
       setSetting({

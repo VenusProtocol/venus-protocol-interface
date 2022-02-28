@@ -207,11 +207,7 @@ function XVS({ settings }: XVSProps) {
     const tempMarkets = [];
     const sum = (markets || []).reduce(
       (accumulator, market) =>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-        new BigNumber(accumulator).plus(
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalDistributed' does not exist on type... Remove this comment to see the full error message
-          new BigNumber(market.totalDistributed),
-        ),
+        new BigNumber(accumulator).plus(new BigNumber(market.totalDistributed)),
       0,
     );
 
@@ -226,7 +222,6 @@ function XVS({ settings }: XVSProps) {
         .dp(2, 1)
         .toString(10),
     );
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'toString' does not exist on type 'never'... Remove this comment to see the full error message
     setTotalDistributed(sum.toString(10));
     setRemainAmount(
       new BigNumber(remainedAmount)
@@ -236,25 +231,18 @@ function XVS({ settings }: XVSProps) {
     );
     for (let i = 0; i < markets.length; i += 1) {
       tempMarkets.push({
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
         underlyingSymbol: markets[i].underlyingSymbol,
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplierDailyVenus' does not exist on ty... Remove this comment to see the full error message
         perDay: +new BigNumber(markets[i].supplierDailyVenus)
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowerDailyVenus' does not exist on ty... Remove this comment to see the full error message
           .plus(new BigNumber(markets[i].borrowerDailyVenus))
           .div(new BigNumber(10).pow(18))
           .dp(2, 1)
           .toString(10),
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyVenusApy' does not exist on type '... Remove this comment to see the full error message
         supplyAPY: +(new BigNumber(markets[i].supplyVenusApy).isLessThan(0.01)
           ? '0.01'
-          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyVenusApy' does not exist on type '... Remove this comment to see the full error message
-            new BigNumber(markets[i].supplyVenusApy).dp(2, 1).toString(10)),
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowVenusApy' does not exist on type '... Remove this comment to see the full error message
+          : new BigNumber(markets[i].supplyVenusApy).dp(2, 1).toString(10)),
         borrowAPY: +(new BigNumber(markets[i].borrowVenusApy).isLessThan(0.01)
           ? '0.01'
-          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowVenusApy' does not exist on type '... Remove this comment to see the full error message
-            new BigNumber(markets[i].borrowVenusApy).dp(2, 1).toString(10)),
+          : new BigNumber(markets[i].borrowVenusApy).dp(2, 1).toString(10)),
       });
     }
     tempMarkets.push({

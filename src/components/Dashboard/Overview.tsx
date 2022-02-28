@@ -179,10 +179,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   useEffect(() => {
     if (!currentAsset) return;
     if (markets && markets.length > 0) {
-      const info = markets.find(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
-        item => item.underlyingSymbol.toLowerCase() === currentAsset,
-      );
+      const info = markets.find(item => item.underlyingSymbol.toLowerCase() === currentAsset);
       setMarketInfo(info || {});
     }
   }, [markets, currentAsset]);

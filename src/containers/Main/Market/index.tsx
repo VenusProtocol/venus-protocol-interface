@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
@@ -6,7 +6,6 @@ import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MainLayout from 'containers/Layout/MainLayout';
-import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
 import { currencyFormatter, formatApy } from 'utilities/common';
 import { uid } from 'react-uid';
@@ -162,56 +161,28 @@ const format = commaNumber.bindWith(',', '.');
 
 interface MarketProps extends RouteComponentProps {
   settings: Setting;
-  getTreasuryBalance: () => void;
 }
 
-function Market({ history, settings, getTreasuryBalance }: MarketProps) {
+function Market({ history, settings }: MarketProps) {
   const [totalSupply, setTotalSupply] = useState('0');
   const [totalBorrow, setTotalBorrow] = useState('0');
   const [availableLiquidity, setAvailableLiquidity] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
-  const [totalTreasury, setTotalTreasury] = useState(0);
-  const { markets } = useMarkets();
-
-  const loadTreasuryBalance = useCallback(async () => {
-    await promisify(getTreasuryBalance, {})
-      .then(res => {
-        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
-        const total = (res.data || []).reduce(
-          (accumulator: $TSFixMe, asset: $TSFixMe) =>
-            accumulator + Number(asset.balance) * Number(asset.price),
-          0,
-        );
-        setTotalTreasury(total.toFixed(2));
-      })
-      .catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    loadTreasuryBalance();
-  }, [markets]);
+  const { markets, treasuryTotalUSDBalance } = useMarkets();
 
   const getTotalInfo = async () => {
     const tempTS = (markets || []).reduce(
       (accumulator, market) =>
-        new BigNumber(accumulator).plus(
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-          new BigNumber(market.totalSupplyUsd),
-        ),
+        new BigNumber(accumulator).plus(new BigNumber(market.totalSupplyUsd)),
       new BigNumber(0),
     );
     const tempTB = (markets || []).reduce(
       (accumulator, market) =>
-        new BigNumber(accumulator).plus(
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
-          new BigNumber(market.totalBorrowsUsd),
-        ),
+        new BigNumber(accumulator).plus(new BigNumber(market.totalBorrowsUsd)),
       new BigNumber(0),
     );
     const tempAL = (markets || []).reduce(
-      (accumulator, market) =>
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'liquidity' does not exist on type 'never... Remove this comment to see the full error message
-        new BigNumber(accumulator).plus(new BigNumber(market.liquidity)),
+      (accumulator, market) => new BigNumber(accumulator).plus(new BigNumber(market.liquidity)),
       new BigNumber(0),
     );
 
@@ -262,7 +233,7 @@ function Market({ history, settings, getTreasuryBalance }: MarketProps) {
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
-              <div className="value">${format(totalTreasury)}</div>
+              <div className="value">${format(treasuryTotalUSDBalance.dp(2).toString())}</div>
             </div>
           </div>
           {settings.vaiAPY && (
@@ -326,16 +297,11 @@ function Market({ history, settings, getTreasuryBalance }: MarketProps) {
             {markets &&
               (markets || [])
                 .map(market => ({
-                  // @ts-expect-error ts-migrate(2698) FIXME: Spread types may only be created from object types... Remove this comment to see the full error message
                   ...market,
-                  // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                   totalSupplyApy: new BigNumber(market.supplyApy).plus(
-                    // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                     new BigNumber(market.supplyVenusApy),
                   ),
-                  // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                   totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
-                    // @ts-expect-error ts-migrate(manual) FIXME: Remove this comment to see the full error message
                     new BigNumber(market.borrowApy),
                   ),
                 }))
