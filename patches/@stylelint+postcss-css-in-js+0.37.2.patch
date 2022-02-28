@@ -1,0 +1,27 @@
+diff --git a/node_modules/@stylelint/postcss-css-in-js/extract.js b/node_modules/@stylelint/postcss-css-in-js/extract.js
+index 042580e..9e24e7f 100644
+--- a/node_modules/@stylelint/postcss-css-in-js/extract.js
++++ b/node_modules/@stylelint/postcss-css-in-js/extract.js
+@@ -87,7 +87,6 @@ const plugins = [
+ 	'jsx',
+ 	'typescript',
+ 	'objectRestSpread',
+-	['decorators', { decoratorsBeforeExport: false }],
+ 	'classProperties',
+ 	'exportExtensions',
+ 	'asyncGenerators',
+@@ -134,14 +133,6 @@ function loadBabelOpts(opts) {
+ 		}
+ 
+ 		opts[key] = fileOpts[key];
+-
+-		if (Array.isArray(fileOpts[key]) && Array.isArray(opts.parserOpts[key])) {
+-			// combine arrays for plugins
+-			opts.parserOpts[key] = opts.parserOpts[key].concat(fileOpts[key]);
+-		} else {
+-			// because some options need to be passed to parser also
+-			opts.parserOpts[key] = fileOpts[key];
+-		}
+ 	}
+ 
+ 	return opts;
