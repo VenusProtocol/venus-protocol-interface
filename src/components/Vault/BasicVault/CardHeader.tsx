@@ -6,9 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import vaiImg from 'assets/img/coins/vai.svg';
-import xvsImg from 'assets/img/coins/xvs.png';
-import arrowDownImg from 'assets/img/arrow-down.png';
+import { Icon, IconName } from 'components/v2/Icon';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
@@ -38,14 +36,14 @@ const CardHeader = ({
           <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Stake</div>
             <div className="content">
-              <img src={vaiImg} alt={stakedToken} />
+              <Icon size={16} name={(stakedToken.toLowerCase() as IconName)} />
               <span>{stakedToken}</span>
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Earn</div>
             <div className="content">
-              <img src={xvsImg} alt="rewardToken" />
+              <Icon size={16} name={(rewardToken.toLowerCase() as IconName)} />
               <span>{rewardToken}</span>
             </div>
           </Col>
@@ -58,7 +56,7 @@ const CardHeader = ({
               .dp(4, 1)
               .toString(10),
           )}{' '}
-              XVS
+              {rewardToken}
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
@@ -74,7 +72,7 @@ const CardHeader = ({
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">{rewardToken} Daily Emission</div>
-            <div className="content">{commaFormatter(dailyEmission.toString(10))} XVS</div>
+            <div className="content">{commaFormatter(dailyEmission.toString(10))} {rewardToken}</div>
           </Col>
           <Col
             className="col-item expand-icon-wrapper"
@@ -85,7 +83,7 @@ const CardHeader = ({
                 onExpand();
             }}
           >
-            <img className="expand-icon" alt="open" src={arrowDownImg} />
+            <Icon className="expand-icon" size={16} name="arrowDown" />
           </Col>
         </Row>
       </div>

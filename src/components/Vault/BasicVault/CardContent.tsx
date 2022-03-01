@@ -49,9 +49,6 @@ function CardContent({
   const [isStakeLoading, setIsStakeLoading] = useState(false);
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false);
 
-  // ui
-  const [expanded, setExpanded] = useState(false);
-
   //
   const handleClaimReward = async () => {
     setIsClaimLoading(true);
