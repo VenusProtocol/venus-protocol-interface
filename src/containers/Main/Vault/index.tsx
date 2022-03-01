@@ -12,8 +12,8 @@ import useWeb3 from 'hooks/useWeb3';
 import useRefresh from 'hooks/useRefresh';
 import { useXvsVaultProxy } from 'hooks/useContract';
 import * as constants from 'utilities/constants';
-import GeneralVaultPoolCard from 'components/Vault/Card';
-import VaiPoolCard from 'components/Vault/VaiCard';
+import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
+import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
 import { getTokenContractByAddress } from 'utilities/contractHelpers';
 
 const VaultWrapper = styled.div`

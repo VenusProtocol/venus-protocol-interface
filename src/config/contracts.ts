@@ -55,6 +55,10 @@ const contracts = {
     56: '',
     97: '0x6d693e9a6c1360489e26a7f76f13e3cf0e0747cf',
   },
+  vrtVaultProxy: {
+    56: '',
+    97: '0x4ba62B58a5D2DeE9E236B943a5a370a1BA3763Df',
+  },
 };
 
 export default contracts;

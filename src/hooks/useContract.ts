@@ -16,6 +16,7 @@ import {
   getVrtConverterContract,
   getXvsVestingContract,
   getVrtTokenContract,
+  getVrtVaultProxyContract,
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
 
@@ -99,4 +100,9 @@ export const useXvsVesting = () => {
 export const useVrtToken = () => {
   const web3 = useWeb3();
   return useMemo(() => getVrtTokenContract(web3), [web3]);
+};
+
+export const useVrtVaultProxy = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getVrtVaultProxyContract(web3), [web3]);
 };

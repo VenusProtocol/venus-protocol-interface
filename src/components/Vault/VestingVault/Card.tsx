@@ -3,12 +3,13 @@ import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
-import VaultCardContent from './CardContent';
-import { VaultCardWrapper } from './styles';
+import vaiImg from 'assets/img/coins/vai.svg';
+import xvsImg from 'assets/img/coins/xvs.png';
+import arrowDownImg from 'assets/img/arrow-down.png';
 
-import vaiImg from '../../assets/img/coins/vai.svg';
-import xvsImg from '../../assets/img/coins/xvs.png';
-import arrowDownImg from '../../assets/img/arrow-down.png';
+import VaultCardContent from './CardContent';
+import { VaultCardWrapper } from '../styles';
+
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
@@ -85,6 +86,7 @@ function VaultCard({
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">
               Total
+              {' '}
               {stakedToken.toUpperCase()} Staked
             </div>
             <div className="content">

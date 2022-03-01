@@ -16,6 +16,8 @@ import governorBravoAbi from '../config/abis/governorBravoDelegate.json';
 import xvsVestingAbi from '../config/abis/xvsVesting.json';
 import vrtConverterAbi from '../config/abis/vrtConverter.json';
 import vrtTokenAbi from '../config/abis/vrtToken.json';
+import vrtVaultAbi from '../config/abis/vrtVault.json';
+
 import {
   getComptrollerAddress,
   getOracleAddress,
@@ -29,6 +31,7 @@ import {
   getXvsVestingAddress,
   getVrtConverterAddress,
   getVrtTokenAddress,
+  getVrtVaultProxyAddress,
 } from './addressHelpers';
 import * as constants from './constants';
 
@@ -101,3 +104,7 @@ export const getVrtConverterContract = (web3: $TSFixMe) =>
 
 export const getVrtTokenContract = (web3: $TSFixMe) =>
   getContract(vrtTokenAbi, getVrtTokenAddress(), web3);
+
+// VRT vault
+export const getVrtVaultProxyContract = (web3: $TSFixMe) =>
+  getContract(vrtVaultAbi, getVrtVaultProxyAddress(), web3);

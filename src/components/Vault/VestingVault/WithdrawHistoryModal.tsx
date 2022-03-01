@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import closeImg from 'assets/img/close.png';
 import moment from 'moment';
 import { uid } from 'react-uid';
-import * as constants from '../../utilities/constants';
+import * as constants from 'utilities/constants';
 
 const WithdrawHistoryModalWrapper = styled.div`
   color: #fff;

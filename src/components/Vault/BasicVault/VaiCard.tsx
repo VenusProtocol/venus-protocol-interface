@@ -11,14 +11,14 @@ import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import VAICardContent from './VaiCardContent';
-import { VaultCardWrapper } from './styles';
-import useRefresh from '../../hooks/useRefresh';
-import { useComptroller, useToken, useVaiToken, useVaiVault } from '../../hooks/useContract';
+import { VaultCardWrapper } from '../styles';
+import useRefresh from '../../../hooks/useRefresh';
+import { useComptroller, useToken, useVaiToken, useVaiVault } from '../../../hooks/useContract';
 
-import vaiImg from '../../assets/img/coins/vai.svg';
-import xvsImg from '../../assets/img/coins/xvs.png';
-import arrowDownImg from '../../assets/img/arrow-down.png';
-import { getVaiVaultAddress } from '../../utilities/addressHelpers';
+import vaiImg from '../../../assets/img/coins/vai.svg';
+import xvsImg from '../../../assets/img/coins/xvs.png';
+import arrowDownImg from '../../../assets/img/arrow-down.png';
+import { getVaiVaultAddress } from '../../../utilities/addressHelpers';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 
