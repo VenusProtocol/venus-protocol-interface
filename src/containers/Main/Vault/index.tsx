@@ -44,7 +44,7 @@ function Vault() {
   const { fastRefresh } = useRefresh();
   const xvsVaultContract = useXvsVaultProxy();
 
-  // total info
+  // fetch XVS vault pools info
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
     let mounted = true;
@@ -122,6 +122,8 @@ function Vault() {
       mounted = false;
     };
   }, [fastRefresh, account]);
+
+  //
 
   return (
     <MainLayout title="Vault">

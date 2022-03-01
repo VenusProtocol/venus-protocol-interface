@@ -1,4 +1,4 @@
-import { getWeb3NoAccount } from './web3';
+import { getWeb3NoAccount, Web3 } from './web3';
 import bep20Abi from '../config/abis/bep20.json';
 import comptrollerAbi from '../config/abis/comptroller.json';
 import interestModelAbi from '../config/abis/interestModel.json';
@@ -35,7 +35,7 @@ import {
 } from './addressHelpers';
 import * as constants from './constants';
 
-const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: $TSFixMe) => {
+const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: Web3) => {
   const web3 = web3Contract ?? getWeb3NoAccount();
   return new web3.eth.Contract(abi, address);
 };
