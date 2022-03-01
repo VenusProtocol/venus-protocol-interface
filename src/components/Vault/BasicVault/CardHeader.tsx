@@ -1,7 +1,7 @@
 // We put the code of UI of old VAI pool (which will be live for quite some time) into this seperated
 // file, instead of merging its logic into general pool UI which is in `./Card.js` thus we can easily
 // remove this VAI pool code in the future when it's about to be deprecated
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
@@ -50,13 +50,7 @@ const CardHeader = ({
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Reward Pool</div>
             <div className="content">
-              {commaFormatter(
-            totalPendingRewards
-              .div(1e18)
-              .dp(4, 1)
-              .toString(10),
-          )}{' '}
-              {rewardToken}
+              {commaFormatter(totalPendingRewards.dp(4, 1).toFixed())} {rewardToken}
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
@@ -66,13 +60,12 @@ const CardHeader = ({
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Total {stakedToken} Staked</div>
             <div className="content">
-              {commaFormatter(totalStakedAmount.dp(4, 1).toString(10))}
-              {stakedToken}
+              {commaFormatter(totalStakedAmount.dp(4, 1).toFixed())} {stakedToken}
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">{rewardToken} Daily Emission</div>
-            <div className="content">{commaFormatter(dailyEmission.toString(10))} {rewardToken}</div>
+            <div className="content">{commaFormatter(dailyEmission.toFixed())} {rewardToken}</div>
           </Col>
           <Col
             className="col-item expand-icon-wrapper"

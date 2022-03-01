@@ -4,7 +4,6 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
-// import { useVaiToken, useVaiVault } from 'hooks/useContract';
 
 import { CardItemWrapper } from '../styles';
 

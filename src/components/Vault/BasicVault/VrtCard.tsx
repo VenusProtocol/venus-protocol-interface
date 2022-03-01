@@ -9,8 +9,8 @@ import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import useRefresh from 'hooks/useRefresh';
-import { useComptroller, useToken, useVaiToken, useVaiVault } from 'hooks/useContract';
-import { getVaiVaultAddress } from 'utilities/addressHelpers';
+import { useToken, useVrtVaultProxy } from 'hooks/useContract';
+import { getVrtVaultProxyAddress } from 'utilities/addressHelpers';
 
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
@@ -20,20 +20,23 @@ interface VaultCardProps {
   settings: Setting;
 }
 
+const DAYS_OF_YEAR = 365;
+const BLOCK_PER_MINUTE = 60 / 3;
+const BLOCK_PER_DAY = BLOCK_PER_MINUTE * 60 * 24;
+
 function VaultCard({ settings }: VaultCardProps) {
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
 
-  const compContract = useComptroller();
-  const xvsTokenContract = useToken('xvs');
-  const vaiTokenContract = useVaiToken();
-  const vaiVaultContract = useVaiVault();
+  const vrtTokenContract = useToken('vrt');
+  const vrtVaultProxyContract = useVrtVaultProxy();
 
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
-  const [totalPendingRewards, setTotalPendingRewards] = useState(new BigNumber(0));
-  const [userVaiAllowance, setUserVaiAllowance] = useState(new BigNumber(0));
-  const [userVaiStakedAmount, setUserVaiStakedAmount] = useState(new BigNumber(0));
-  const [userVaiBalance, setUserVaiBalance] = useState(new BigNumber(0));
+  const [interestRatePerBlock, setInterestRatePerBlock] = useState(new BigNumber(0));
+  const [vaultVrtBalance, setVaultVrtBalance] = useState(new BigNumber(0));
+  const [userVrtAllowance, setUserVrtAllowance] = useState(new BigNumber(0));
+  const [userVrtStakedAmount, setUserVrtStakedAmount] = useState(new BigNumber(0));
+  const [userVrtBalance, setUserVrtBalance] = useState(new BigNumber(0));
   const [userPendingReward, setUserPendingReward] = useState(new BigNumber(0));
 
   const [expanded, setExpanded] = useState(false);
@@ -42,45 +45,46 @@ function VaultCard({ settings }: VaultCardProps) {
   useEffect(async () => {
     let isMounted = true;
 
-    let userVaiBalanceTemp = new BigNumber(0);
-    let userVaiStakedAmountTemp = new BigNumber(0);
+    let userVrtBalanceTemp = new BigNumber(0);
+    let userVrtStakedAmountTemp = new BigNumber(0);
     let userPendingRewardTemp = new BigNumber(0);
-    let userVaiAllowanceTemp = new BigNumber(0);
+    let userVrtAllowanceTemp = new BigNumber(0);
 
-    const [venusVAIVaultRateTemp, totalPendingRewardsTemp] = await Promise.all([
-      compContract.methods.venusVAIVaultRate().call(),
-      xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
+    const [interestRatePerBlockTemp, vaultVrtBalanceTemp] = await Promise.all([
+      vrtVaultProxyContract.methods.interestRatePerBlock().call(),
+      vrtTokenContract.methods.balanceOf(getVrtVaultProxyAddress()).call(),
     ]);
 
     if (account) {
       [
-        userVaiBalanceTemp,
-        { 0: userVaiStakedAmountTemp },
+        userVrtBalanceTemp,
+        { totalPrincipalAmount: userVrtStakedAmountTemp },
         userPendingRewardTemp,
-        userVaiAllowanceTemp,
+        userVrtAllowanceTemp,
       ] = await Promise.all([
-        vaiTokenContract.methods.balanceOf(account).call(),
-        vaiVaultContract.methods.userInfo(account).call(),
-        vaiVaultContract.methods.pendingXVS(account).call(),
-        vaiTokenContract.methods.allowance(account, getVaiVaultAddress()).call(),
+        vrtTokenContract.methods.balanceOf(account).call(),
+        vrtVaultProxyContract.methods.userInfo(account).call(),
+        vrtVaultProxyContract.methods.getAccruedInterest(account).call(),
+        vrtTokenContract.methods.allowance(account, getVrtVaultProxyAddress()).call(),
       ]);
     }
 
     if (isMounted) {
       // total info
-      const blockPerMinute = 60 / 3;
-      const blockPerDay = blockPerMinute * 60 * 24;
       setDailyEmission(
-        new BigNumber(venusVAIVaultRateTemp)
+        new BigNumber(interestRatePerBlockTemp)
           .div(1e18)
-          .multipliedBy(blockPerDay)
+          .multipliedBy(BLOCK_PER_DAY)
+          .multipliedBy(vaultVrtBalance)
+          .div(1e18)
           .dp(2, 1),
       );
-      setTotalPendingRewards(new BigNumber(totalPendingRewardsTemp));
-      setUserVaiBalance(new BigNumber(userVaiBalanceTemp));
-      setUserVaiStakedAmount(new BigNumber(userVaiStakedAmountTemp));
+      setInterestRatePerBlock(new BigNumber(interestRatePerBlockTemp));
+      setVaultVrtBalance(new BigNumber(vaultVrtBalanceTemp));
+      setUserVrtBalance(new BigNumber(userVrtBalanceTemp));
+      setUserVrtStakedAmount(new BigNumber(userVrtStakedAmountTemp));
       setUserPendingReward(new BigNumber(userPendingRewardTemp));
-      setUserVaiAllowance(new BigNumber(userVaiAllowanceTemp));
+      setUserVrtAllowance(new BigNumber(userVrtAllowanceTemp));
     }
 
     return () => {
@@ -91,11 +95,11 @@ function VaultCard({ settings }: VaultCardProps) {
   return (
     <VaultCardWrapper>
       <CardHeader
-        stakedToken="VAI"
-        rewardToken="XVS"
-        apy={settings.vaiAPY || 0}
-        totalStakedAmount={new BigNumber(settings.vaultVaiStaked || 0)}
-        totalPendingRewards={totalPendingRewards}
+        stakedToken="VRT"
+        rewardToken="VRT"
+        apy={interestRatePerBlock.multipliedBy(DAYS_OF_YEAR * BLOCK_PER_DAY).div(1e18).multipliedBy(100).toFixed(2)}
+        totalStakedAmount={vaultVrtBalance.div(1e18)}
+        totalPendingRewards={vaultVrtBalance.div(1e18)}
         dailyEmission={dailyEmission}
         onExpand={() => {
           setExpanded(!expanded);
@@ -105,24 +109,24 @@ function VaultCard({ settings }: VaultCardProps) {
         {expanded ? (
           <CardContent
             userPendingReward={userPendingReward}
-            userStakedTokenBalance={userVaiBalance}
-            userStakedAllowance={userVaiAllowance}
-            userStakedAmount={userVaiStakedAmount}
-            stakedToken="VAI"
-            rewardToken="XVS"
-            onClaimReward={async () => vaiVaultContract.methods.claim().send({ from: account })}
-            onStake={async (stakeAmount) => vaiVaultContract.methods
+            userStakedTokenBalance={userVrtBalance}
+            userStakedAllowance={userVrtAllowance}
+            userStakedAmount={userVrtStakedAmount}
+            stakedToken="VRT"
+            rewardToken="VRT"
+            onClaimReward={async () => vrtVaultProxyContract.methods.claim().send({ from: account })}
+            onStake={async (stakeAmount) => vrtVaultProxyContract.methods
               .deposit(
                 stakeAmount.toFixed(0),
               )
               .send({ from: account })}
-            onApprove={async (amt) => vaiTokenContract.methods
+            onApprove={async (amt) => vrtTokenContract.methods
               .approve(
-                vaiVaultContract.options.address,
+                vrtVaultProxyContract.options.address,
                 amt.toFixed(10),
               )
               .send({ from: account })}
-            onWithdraw={async (amt) => vaiVaultContract.methods
+            onWithdraw={async (amt) => vrtVaultProxyContract.methods
               .withdraw(
                 amt.toFixed(0),
               )

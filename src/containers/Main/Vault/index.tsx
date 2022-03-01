@@ -14,6 +14,7 @@ import { useXvsVaultProxy } from 'hooks/useContract';
 import * as constants from 'utilities/constants';
 import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
 import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
+import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
 import { getTokenContractByAddress } from 'utilities/contractHelpers';
 
 const VaultWrapper = styled.div`
@@ -123,7 +124,6 @@ function Vault() {
     };
   }, [fastRefresh, account]);
 
-  //
 
   return (
     <MainLayout title="Vault">
@@ -132,6 +132,7 @@ function Vault() {
       ) : (
         <VaultWrapper>
           <VaiPoolCard />
+          <VrtPoolCard />
           {poolInfos.map(poolInfo => (
             <GeneralVaultPoolCard
               key={uid(poolInfo)}

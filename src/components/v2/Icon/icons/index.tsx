@@ -12,6 +12,7 @@ export { ReactComponent as vai } from './vai.svg';
 export { ReactComponent as vault } from './vault.svg';
 export { ReactComponent as vote } from './vote.svg';
 export { ReactComponent as xvs } from './xvs.svg';
+export { ReactComponent as vrt } from './vrt.svg';
 export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
 export { ReactComponent as countdown } from './countDown.svg';
 export { ReactComponent as loading } from './loading.svg';

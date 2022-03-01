@@ -1,3 +1,4 @@
+// Vesting vaults have a vesting time for users to withdraw their rewards after unstaking
 import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
