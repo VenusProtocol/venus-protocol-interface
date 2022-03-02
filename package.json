@@ -70,7 +70,6 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.4.9",
     "@stylelint/postcss-css-in-js": "^0.37.2",
-    "@types/gtag.js": "^0.0.8",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",
     "@types/markdown-it": "^12.2.3",
