@@ -35,7 +35,7 @@ const ProposerInfoWrapper = styled.div`
 `;
 
 interface Props extends RouteComponentProps {
-  address: string,
+  address: string;
 }
 
 function ProposerInfo({ address }: Props) {

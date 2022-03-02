@@ -54,13 +54,13 @@ const HoldingWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 interface Props extends RouteComponentProps {
-  address: string,
+  address: string;
   holdingInfo: {
-    balance?: string,
-    delegateCount?: string,
-    votes?: string,
-    delegates?: string,
-  }
+    balance?: string;
+    delegateCount?: string;
+    votes?: string;
+    delegates?: string;
+  };
 }
 
 function Holding({ address, holdingInfo }: Props) {
@@ -81,19 +81,13 @@ function Holding({ address, holdingInfo }: Props) {
             </div>
           </div>
           <div className="value">{format(holdingInfo.votes || '0.0000')}</div>
-          <Progress
-            percent={100}
-            strokeColor="#d99d43"
-            strokeWidth={7}
-            showInfo={false}
-          />
+          <Progress percent={100} strokeColor="#d99d43" strokeWidth={7} showInfo={false} />
         </div>
         <div className="flex flex-column holding-section">
           <div className="label">Delegating To</div>
           <div className="value">
-            {holdingInfo.delegates
-              !== '0x0000000000000000000000000000000000000000'
-            && holdingInfo.delegates !== address.toLowerCase()
+            {holdingInfo.delegates !== '0x0000000000000000000000000000000000000000' &&
+            holdingInfo.delegates !== address.toLowerCase()
               ? 'Delegated'
               : 'Undelegated'}
           </div>
