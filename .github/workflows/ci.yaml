@@ -94,5 +94,5 @@ jobs:
       - name: Install deps
         run: yarn
 
-      - name: Lint
+      - name: Run tests
         run: yarn test
