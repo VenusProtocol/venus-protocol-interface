@@ -66,6 +66,8 @@ module.exports = {
         },
       },
     ],
+    'react/jsx-wrap-multilines': 0,
+    'generator-star-spacing': 0,
   },
   settings: {
     'import/resolver': {
