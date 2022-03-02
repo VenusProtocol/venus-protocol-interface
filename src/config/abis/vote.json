@@ -216,9 +216,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "proposalId", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "proposalId", "type": "uint256" }],
     "name": "cancel",
     "outputs": [],
     "payable": false,
@@ -254,9 +252,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "proposalId", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "proposalId", "type": "uint256" }],
     "name": "execute",
     "outputs": [],
     "payable": true,
@@ -265,9 +261,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "uint256", "name": "proposalId", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "proposalId", "type": "uint256" }],
     "name": "getActions",
     "outputs": [
       { "internalType": "address[]", "name": "targets", "type": "address[]" },
@@ -392,9 +386,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "proposalId", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "proposalId", "type": "uint256" }],
     "name": "queue",
     "outputs": [],
     "payable": false,
@@ -412,9 +404,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "uint256", "name": "proposalId", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "proposalId", "type": "uint256" }],
     "name": "state",
     "outputs": [
       {
@@ -464,9 +454,7 @@
     "constant": true,
     "inputs": [],
     "name": "xvs",
-    "outputs": [
-      { "internalType": "contract XVSInterface", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract XVSInterface", "name": "", "type": "address" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"

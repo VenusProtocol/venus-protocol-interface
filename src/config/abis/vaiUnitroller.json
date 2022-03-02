@@ -217,9 +217,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "blockNumber", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "blockNumber", "type": "uint256" }],
     "name": "_initializeVenusVAIState",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "payable": false,
@@ -277,9 +275,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "vaiMinter", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "vaiMinter", "type": "address" }],
     "name": "calcDistributeVAIMinterVenus",
     "outputs": [
       { "internalType": "uint256", "name": "", "type": "uint256" },
@@ -317,9 +313,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "address", "name": "minter", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "minter", "type": "address" }],
     "name": "getMintableVAI",
     "outputs": [
       { "internalType": "uint256", "name": "", "type": "uint256" },
@@ -378,9 +372,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "mintVAIAmount", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "mintVAIAmount", "type": "uint256" }],
     "name": "mintVAI",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "payable": false,
@@ -407,9 +399,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "repayVAIAmount", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "repayVAIAmount", "type": "uint256" }],
     "name": "repayVAI",
     "outputs": [
       { "internalType": "uint256", "name": "", "type": "uint256" },

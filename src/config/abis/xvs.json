@@ -1,8 +1,6 @@
 [
   {
-    "inputs": [
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -172,9 +170,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
     "name": "balanceOf",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "payable": false,
@@ -207,9 +203,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "delegatee", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "delegatee", "type": "address" }],
     "name": "delegate",
     "outputs": [],
     "payable": false,
@@ -252,9 +246,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "address", "name": "account", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
     "name": "getCurrentVotes",
     "outputs": [{ "internalType": "uint96", "name": "", "type": "uint96" }],
     "payable": false,
@@ -354,9 +346,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
     "name": "transferOwnership",
     "outputs": [],
     "payable": false,

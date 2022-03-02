@@ -53,10 +53,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
                 <Label size="14" primary>
                   {asset.name}
                 </Label>
-                <Label size="14">
-                  {asset.borrowApy.dp(2, 1).toString(10)}
-                  %
-                </Label>
+                <Label size="14">{asset.borrowApy.dp(2, 1).toString(10)}%</Label>
               </div>
             </div>
           ),
@@ -99,9 +96,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
         return {
           children: (
             <Label size="14" primary>
-              {format(walletBalance.dp(2, 1).toString(10))}
-              {' '}
-              {asset.symbol}
+              {format(walletBalance.dp(2, 1).toString(10))} {asset.symbol}
             </Label>
           ),
         };
@@ -116,8 +111,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
         return {
           children: (
             <Label size="14" primary>
-              $
-              {format(liquidity.dp(2, 1).toString(10))}
+              ${format(liquidity.dp(2, 1).toString(10))}
             </Label>
           ),
         };
@@ -140,10 +134,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
                 <Label size="14" primary>
                   {asset.name}
                 </Label>
-                <Label size="14">
-                  {asset.borrowApy.dp(2, 1).toString(10)}
-                  %
-                </Label>
+                <Label size="14">{asset.borrowApy.dp(2, 1).toString(10)}%</Label>
               </div>
             </div>
           ),
@@ -196,9 +187,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
                 )}
               </Label>
               <Label size="14">
-                {format(borrowBalance.dp(4, 1).toString(10))}
-                {' '}
-                {asset.symbol}
+                {format(borrowBalance.dp(4, 1).toString(10))} {asset.symbol}
               </Label>
             </div>
           ),
@@ -211,12 +200,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
       key: 'percentOfLimit',
 
       render(percentOfLimit: $TSFixMe) {
-        const children = (
-          <Label size="14">
-            {percentOfLimit}
-            %
-          </Label>
-);
+        const children = <Label size="14">{percentOfLimit}%</Label>;
         return {
           children,
         };

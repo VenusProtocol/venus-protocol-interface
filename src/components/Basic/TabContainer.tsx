@@ -52,39 +52,33 @@ export default ({ onChange, children, titles, className }: TabContainerPropsType
     <TabContainerWrapper className={className}>
       <Tabs
         activeKey={tabKeys[activeTabIndex]}
-        renderTabBar={props =>
-        (
+        renderTabBar={props => (
           <div className="tab-header">
-            {titles.map((title, i) =>
-              (
-                <div
-                  key={uid(title)}
-                  className={`tab ${activeTabIndex === i ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTabIndex(i);
-                    if (props.onChange) {
-                      props.onChange(`${i}`);
-                    }
-                  }}
-                >
-                  {title}
-                </div>
-              ),
-            )}
+            {titles.map((title, i) => (
+              <div
+                key={uid(title)}
+                className={`tab ${activeTabIndex === i ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTabIndex(i);
+                  if (props.onChange) {
+                    props.onChange(`${i}`);
+                  }
+                }}
+              >
+                {title}
+              </div>
+            ))}
           </div>
-        )
-        }
+        )}
         animated={false}
         defaultActiveKey={tabKeys[0]}
         onChange={onChange}
       >
-        {children.map((child, i) =>
-          (
-            <TabPane key={tabKeys[i]} tab={titles[i]}>
-              {child}
-            </TabPane>
-          ),
-        )}
+        {children.map((child, i) => (
+          <TabPane key={tabKeys[i]} tab={titles[i]}>
+            {child}
+          </TabPane>
+        ))}
       </Tabs>
     </TabContainerWrapper>
   );
