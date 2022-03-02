@@ -26,7 +26,7 @@ const HeaderWrapper = styled.div`
 `;
 
 interface Props extends RouteComponentProps {
-  title: string,
+  title: string;
 }
 
 function Header({ title, history }: Props) {
@@ -44,18 +44,11 @@ function Header({ title, history }: Props) {
 
   return (
     <HeaderWrapper className="flex align-center just-between">
-      <div
-        className="flex align-center pointer title-wrapper"
-        onClick={handleRoute}
-      >
-        {(title === 'Overview'
-          || title === 'Details'
-          || title === 'Market') && <img src={arrowRightImg} alt="arrow-left" />}
-        <p
-          className={`${
-            title === 'Overview' || title === 'Details' ? 'highlight' : ''
-          }`}
-        >
+      <div className="flex align-center pointer title-wrapper" onClick={handleRoute}>
+        {(title === 'Overview' || title === 'Details' || title === 'Market') && (
+          <img src={arrowRightImg} alt="arrow-left" />
+        )}
+        <p className={`${title === 'Overview' || title === 'Details' ? 'highlight' : ''}`}>
           {title}
         </p>
       </div>

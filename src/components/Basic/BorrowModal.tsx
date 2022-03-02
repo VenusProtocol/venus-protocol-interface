@@ -208,9 +208,9 @@ export const TabContent = styled.div`
 `;
 
 interface Props {
-  asset: Asset
-  visible: boolean,
-  onCancel: () => void,
+  asset: Asset;
+  visible: boolean;
+  onCancel: () => void;
 }
 
 function BorrowModal({ visible, asset, onCancel }: Props) {
@@ -235,29 +235,16 @@ function BorrowModal({ visible, asset, onCancel }: Props) {
       centered
     >
       <ModalContent className="flex flex-column align-center just-center">
-        <img
-          className="close-btn pointer"
-          src={closeImg}
-          alt="close"
-          onClick={onCancel}
-        />
+        <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
         <div className="flex align-center just-center header-content">
           <img src={asset.img} alt="asset" />
           <p className="title">{asset.name}</p>
         </div>
         {currentTab === 'borrow' && (
-          <BorrowTab
-            asset={asset}
-            changeTab={setCurrentTab}
-            onCancel={onCancel}
-          />
+          <BorrowTab asset={asset} changeTab={setCurrentTab} onCancel={onCancel} />
         )}
         {currentTab === 'repayBorrow' && (
-          <RepayBorrowTab
-            asset={asset}
-            changeTab={setCurrentTab}
-            onCancel={onCancel}
-          />
+          <RepayBorrowTab asset={asset} changeTab={setCurrentTab} onCancel={onCancel} />
         )}
       </ModalContent>
     </Modal>

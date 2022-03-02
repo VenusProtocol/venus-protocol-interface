@@ -17,10 +17,10 @@ function getWidthString(span: $TSFixMe) {
 }
 
 interface Props {
-  xs?: string,
-  sm?: string,
-  md?: string,
-  lg?: string,
+  xs?: string;
+  sm?: string;
+  md?: string;
+  lg?: string;
 }
 
 export const Column = styled.div`

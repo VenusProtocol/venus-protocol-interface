@@ -80,14 +80,14 @@ const TransactionsWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 interface Transaction {
-  support: boolean,
-  type: 'vote',
-  blockTimestamp: string,
+  support: boolean;
+  type: 'vote';
+  blockTimestamp: string;
 }
 
 interface Props extends RouteComponentProps {
-  address: string,
-  transactions: Transaction[],
+  address: string;
+  transactions: Transaction[];
 }
 
 function Transactions({ address, transactions }: Props) {
@@ -121,10 +121,7 @@ function Transactions({ address, transactions }: Props) {
         });
       } else {
         tempData.push({
-          action:
-            tx.to.toLowerCase() === address.toLowerCase()
-              ? 'Received XVS'
-              : 'Sent XVS',
+          action: tx.to.toLowerCase() === address.toLowerCase() ? 'Received XVS' : 'Sent XVS',
           age: getDate(tx.blockTimestamp),
           result: format(
             new BigNumber(tx.amount)
@@ -153,8 +150,8 @@ function Transactions({ address, transactions }: Props) {
           <div className="result-column">Result</div>
         </div>
         <div className="flex flex-column data-list">
-          {data
-            && data.map((item) => (
+          {data &&
+            data.map(item => (
               <div className="flex align-center row-text" key={uid(item)}>
                 {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'action' does not exist on type 'never'. */}
                 <div className="action-column">{item.action}</div>
