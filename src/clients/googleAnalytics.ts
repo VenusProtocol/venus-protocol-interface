@@ -15,7 +15,6 @@ export type EventMap = {
       | 'submitted_with_invalid_parameters'
       | 'proposal_submission_failed';
   };
-  delegate_voting: { type: 'delegate' | 'manual' };
 };
 
 export type EventName = keyof EventMap;
