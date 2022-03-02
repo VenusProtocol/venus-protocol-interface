@@ -135,7 +135,7 @@ function ProposalHistory({ proposalInfo }: ProposalHistoryProps) {
                         : ''
                     }`
               }
-              icon={(
+              icon={
                 <Icon
                   type={
                     proposalInfo.state === 'Canceled' || proposalInfo.state === 'Defeated'
@@ -144,7 +144,7 @@ function ProposalHistory({ proposalInfo }: ProposalHistoryProps) {
                   }
                   style={{ fontSize: '10px', color: 'white' }}
                 />
-              )}
+              }
               disabled
             />
             {proposalInfo.state !== 'Defeated' && proposalInfo.state !== 'Canceled' && (

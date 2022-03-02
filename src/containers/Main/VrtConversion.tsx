@@ -11,12 +11,7 @@ import { getVrtConverterAddress } from '../../utilities/addressHelpers';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';
 import TabContainer from '../../components/Basic/TabContainer';
-import {
-  useVrtConverter,
-  useVrtToken,
-  useXvsVesting,
-  useToken,
-} from '../../hooks/useContract';
+import { useVrtConverter, useVrtToken, useXvsVesting, useToken } from '../../hooks/useContract';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -37,12 +32,8 @@ const VrtConversionWrapper = styled.div`
   }
 `;
 
-const VRT_DECIMAL = new BigNumber(10).pow(
-  constants.CONTRACT_TOKEN_ADDRESS.vrt.decimals,
-);
-const XVS_DECIMAL = new BigNumber(10).pow(
-  constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals,
-);
+const VRT_DECIMAL = new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS.vrt.decimals);
+const XVS_DECIMAL = new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals);
 const CONVERSION_RATIO_DECIMAL = new BigNumber(10).pow(18);
 
 export default () => {
@@ -51,9 +42,7 @@ export default () => {
   const [conversionRatio, setConversionRatio] = useState(new BigNumber(0));
   const [conversionEndTime, setConversionEndTime] = useState(new BigNumber(0));
   const [userVrtBalance, setUserVrtBalance] = useState(new BigNumber(0));
-  const [xvsVestingXvsBalance, setXvsVestingXvsBalance] = useState(
-    new BigNumber(0),
-  );
+  const [xvsVestingXvsBalance, setXvsVestingXvsBalance] = useState(new BigNumber(0));
   // user's allowance to VRT converter contracr
   const [userEnabled, setUserEnabled] = useState(false);
 
@@ -88,37 +77,27 @@ export default () => {
         account
           ? xvsVestingContract.methods.getWithdrawableAmount(account).call()
           : Promise.resolve({
-            totalWithdrawableAmount: '0',
-            totalVestedAmount: '0',
-            totalWithdrawnAmount: '0',
-          }),
+              totalWithdrawableAmount: '0',
+              totalVestedAmount: '0',
+              totalWithdrawnAmount: '0',
+            }),
         // fetch infos
         vrtConverterContract.methods.conversionRatio().call(),
         vrtConverterContract.methods.conversionEndTime().call(),
+        account ? vrtTokenContract.methods.balanceOf(account).call() : Promise.resolve(0),
         account
-          ? vrtTokenContract.methods.balanceOf(account).call()
+          ? vrtTokenContract.methods.allowance(account, getVrtConverterAddress()).call()
           : Promise.resolve(0),
-        account
-          ? vrtTokenContract.methods
-            .allowance(account, getVrtConverterAddress())
-            .call()
-          : Promise.resolve(0),
-        xvsTokenContract.methods
-          .balanceOf(xvsVestingContract.options.address)
-          .call(),
+        xvsTokenContract.methods.balanceOf(xvsVestingContract.options.address).call(),
       ]);
       if (mounted) {
         setLoading(false);
         setWithdrawableAmount(new BigNumber(totalWithdrawableAmountTemp).div(VRT_DECIMAL));
-        setConversionRatio(
-          new BigNumber(conversionRatioTemp).div(CONVERSION_RATIO_DECIMAL),
-        );
+        setConversionRatio(new BigNumber(conversionRatioTemp).div(CONVERSION_RATIO_DECIMAL));
         setConversionEndTime(new BigNumber(conversionEndTimeTemp)); // in seconds
         setUserVrtBalance(new BigNumber(userVrtBalanceTemp).div(VRT_DECIMAL));
         setUserEnabled(new BigNumber(userVrtAllowanceTemp).gt(0));
-        setXvsVestingXvsBalance(
-          new BigNumber(xvsVestingXvsBalanceTemp).div(XVS_DECIMAL),
-        );
+        setXvsVestingXvsBalance(new BigNumber(xvsVestingXvsBalanceTemp).div(XVS_DECIMAL));
       }
     };
 
@@ -131,7 +110,9 @@ export default () => {
 
   return (
     <MainLayout title="Convert VRT">
-      {loading ? <LoadingSpinner /> : (
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
         <VrtConversionWrapper>
           <Row className="vrt-conversion-container">
             <Col
@@ -142,7 +123,10 @@ export default () => {
               xs={{ span: 24 }}
             >
               <div className="container">
-                <TabContainer className="vrt-conversion-tab-container" titles={['Convert', 'Withdraw']}>
+                <TabContainer
+                  className="vrt-conversion-tab-container"
+                  titles={['Convert', 'Withdraw']}
+                >
                   <Convert
                     xvsVestingXvsBalance={xvsVestingXvsBalance}
                     userVrtBalance={userVrtBalance}

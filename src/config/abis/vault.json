@@ -285,9 +285,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "_rewardToken", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_rewardToken", "type": "address" }],
     "name": "massUpdatePools",
     "outputs": [],
     "payable": false,
@@ -352,9 +350,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "address", "name": "rewardToken", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "rewardToken", "type": "address" }],
     "name": "poolLength",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "payable": false,
@@ -386,9 +382,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "newAdmin", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "newAdmin", "type": "address" }],
     "name": "setNewAdmin",
     "outputs": [],
     "payable": false,
@@ -409,9 +403,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "_newPeriod", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "_newPeriod", "type": "uint256" }],
     "name": "setWithdrawalLockingPeriod",
     "outputs": [],
     "payable": false,

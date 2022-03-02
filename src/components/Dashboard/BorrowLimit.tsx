@@ -43,10 +43,10 @@ function BorrowLimit() {
         total.isZero() || total.isNaN()
           ? 0
           : userTotalBorrowBalance
-            .div(total)
-            .times(100)
-            .dp(0, 1)
-            .toNumber(),
+              .div(total)
+              .times(100)
+              .dp(0, 1)
+              .toNumber(),
       );
     }
   }, [userTotalBorrowBalance, userTotalBorrowLimit]);
@@ -54,10 +54,7 @@ function BorrowLimit() {
   return (
     <Card>
       <CardWrapper>
-        <p className="usd-price">
-          $
-          {format(available)}
-        </p>
+        <p className="usd-price">${format(available)}</p>
         <p className="credit-text">Available Credit</p>
         <LineProgressBar label="Borrow Limit" percent={borrowPercent} />
       </CardWrapper>
