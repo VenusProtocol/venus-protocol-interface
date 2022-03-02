@@ -29,7 +29,6 @@ const useAuth = () => {
           } else {
             window.localStorage.removeItem(connectorLocalStorageKey);
             if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'No provider was found' });
             } else if (
               error instanceof UserRejectedRequestErrorInjected ||
@@ -39,16 +38,13 @@ const useAuth = () => {
                 const walletConnector = connector;
                 walletConnector.walletConnectProvider = null;
               }
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'Please authorize to access your account' });
             } else {
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: error.message });
             }
           }
         });
       } else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({ title: 'The connector config is wrong' });
       }
     },

@@ -267,7 +267,6 @@ function Sidebar({ history, setSetting }: SidebarProps) {
 
   useEffect(() => {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
         title: 'Please change your network to access the Binance Smart Chain Main Network',
       });

@@ -216,7 +216,6 @@ function Proposals({
     if (pId !== '0') {
       const status = await governorBravoContract.methods.state(pId).call();
       if (status === '0' || status === '1') {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
           title: "You can't create proposal. there is proposal in progress!",
         });
@@ -251,9 +250,7 @@ function Proposals({
                 onClick={handleShowProposalModal}
                 disabled={notProposable}
               >
-                {isLoading && <Icon type="loading" />}
-                {' '}
-                Create Proposal
+                {isLoading && <Icon type="loading" />} Create Proposal
               </Button>
             </Tooltip>
           )}

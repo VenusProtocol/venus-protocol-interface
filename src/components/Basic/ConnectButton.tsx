@@ -399,7 +399,6 @@ function ConnectButton() {
                   <CopyToClipboard
                     text={account}
                     onCopy={() => {
-                      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
                       toast.success({
                         title: 'Copied address',
                       });

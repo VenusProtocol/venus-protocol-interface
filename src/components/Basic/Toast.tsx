@@ -29,12 +29,13 @@ function toast({ title, description, type = 'success', ...props }: $TSFixMe, opt
   );
 }
 
-toast.info = (content: $TSFixMe, options: $TSFixMe) => toast({ ...content, type: 'info' }, options);
+toast.info = (content: $TSFixMe, options?: $TSFixMe) =>
+  toast({ ...content, type: 'info' }, options);
 
-toast.error = (content: $TSFixMe, options: $TSFixMe) =>
+toast.error = (content: $TSFixMe, options?: $TSFixMe) =>
   toast({ ...content, type: 'error' }, options);
 
-toast.success = (content: $TSFixMe, options: $TSFixMe) =>
+toast.success = (content: $TSFixMe, options?: $TSFixMe) =>
   toast({ ...content, type: 'success' }, options);
 toast.update = toastify.update;
 
