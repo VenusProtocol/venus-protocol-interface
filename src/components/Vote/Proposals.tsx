@@ -216,11 +216,6 @@ function Proposals({
     if (pId !== '0') {
       const status = await governorBravoContract.methods.state(pId).call();
       if (status === '0' || status === '1') {
-<<<<<<< HEAD
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-=======
-        ga.error('create_proposal', { status: 'proposal_in_progress' });
->>>>>>> fd418b8 (add support for React Query + refactor Faucet container to use React Query)
         toast.error({
           title: "You can't create proposal. there is proposal in progress!",
         });
@@ -255,9 +250,7 @@ function Proposals({
                 onClick={handleShowProposalModal}
                 disabled={notProposable}
               >
-                {isLoading && <Icon type="loading" />}
-                {' '}
-                Create Proposal
+                {isLoading && <Icon type="loading" />} Create Proposal
               </Button>
             </Tooltip>
           )}

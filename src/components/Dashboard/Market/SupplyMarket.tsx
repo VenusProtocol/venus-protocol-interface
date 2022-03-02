@@ -58,14 +58,12 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
         await comptrollerContract.methods.exitMarket(r.vtokenAddress).send({ from: account });
         setIsCollateralConfirm(false);
       } else {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         toast.error({
           title: 'Collateral Required',
           description: 'Please repay all borrowed assets or set other assets as collateral.',
         });
       }
     } else {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
         title: 'Collateral Required',
         description: 'Please repay all borrowed assets or set other assets as collateral.',
