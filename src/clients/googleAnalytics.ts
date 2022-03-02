@@ -19,9 +19,6 @@ export type EventMap = {
   collect_rewards: { tokens: string };
   vault_claim: { token: string };
   vault_withdraw: { token: string; amount: string };
-  vault_stake:
-    | { token: string; amount: string; status: 'stake' }
-    | { token: string; status: 'enable' };
 };
 
 export type EventName = keyof EventMap;
