@@ -10,7 +10,6 @@ import {
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
 import toast from 'components/Basic/Toast';
-import ga from 'clients/googleAnalytics';
 import { connectorLocalStorageKey } from '../config';
 import { connectorsByName, ConnectorNames } from '../utilities/connectors';
 import { setupNetwork } from '../utilities/wallet';
@@ -32,7 +31,6 @@ const useAuth = () => {
             if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'No provider was found' });
-              ga.error('connect_wallet', { type: connectorID, code: 'No provider was found' });
             } else if (
               error instanceof UserRejectedRequestErrorInjected ||
               error instanceof UserRejectedRequestErrorWalletConnect
@@ -43,11 +41,9 @@ const useAuth = () => {
               }
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: 'Please authorize to access your account' });
-              ga.error('connect_wallet', { type: connectorID, code: 'User Rejected Request' });
             } else {
               // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.error({ title: error.message });
-              ga.error('connect_wallet', { type: connectorID, code: error.message });
             }
           }
         });

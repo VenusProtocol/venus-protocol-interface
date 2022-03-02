@@ -1,12 +1,10 @@
-import { ConnectorNames } from 'utilities/connectors';
-
 type EventParameters = Parameters<(eventName: string, parameters?: Record<string, string>) => void>;
 
-export type EventMap = {
-  connect_wallet: { type: ConnectorNames; code?: string };
+export type ButtonEventMap = {
+  connect: Record<string, string>;
 };
 
-export type EventName = keyof EventMap;
+export type ButtonEventName = keyof ButtonEventMap;
 
 const googleAnalytics = () => {
   let gtag: Gtag.Gtag;
@@ -26,23 +24,15 @@ const googleAnalytics = () => {
     gtag('event', eventName, parameters);
   });
 
-  function buttonPressed<E extends EventName>(
+  function buttonPressed<E extends ButtonEventName>(
     buttonName: E,
-    parameters?: EventMap[E] extends undefined ? never : EventMap[E],
+    parameters?: ButtonEventMap[E] extends undefined ? never : ButtonEventMap[E],
   ): void {
     sendEvent('button_pressed', { button_name: buttonName, ...parameters });
   }
 
-  function error<E extends EventName>(
-    errorName: E,
-    parameters?: EventMap[E] extends undefined ? never : EventMap[E],
-  ): void {
-    sendEvent('error', { error_name: errorName, ...parameters });
-  }
-
   return {
     buttonPressed,
-    error,
   };
 };
 
