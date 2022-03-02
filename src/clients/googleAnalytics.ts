@@ -17,7 +17,6 @@ export type EventMap = {
   };
   delegate_voting: { type: 'delegate' | 'manual' };
   collect_rewards: { tokens: string };
-  vault_claim: { token: string };
 };
 
 export type EventName = keyof EventMap;

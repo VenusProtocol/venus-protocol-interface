@@ -4,7 +4,6 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
-import ga from 'clients/googleAnalytics';
 import * as constants from '../../utilities/constants';
 import { useXvsVaultProxy } from '../../hooks/useContract';
 import useRefresh from '../../hooks/useRefresh';
@@ -172,7 +171,6 @@ function CardContent({
                 disabled={!pendingReward.gt(0) || !account || claimLoading}
                 onClick={async () => {
                   setClaimLoading(true);
-                  ga.buttonPressed('vault_claim', { token: rewardToken });
                   try {
                     await xvsVaultContract.methods
                       .deposit(rewardTokenAddress, poolId.toNumber(), 0)
