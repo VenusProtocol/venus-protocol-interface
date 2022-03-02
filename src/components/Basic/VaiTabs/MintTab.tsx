@@ -8,7 +8,6 @@ import commaNumber from 'comma-number';
 import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/SupplyModal';
-import ga from 'clients/googleAnalytics';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUnitroller } from '../../../hooks/useContract';
@@ -25,7 +24,9 @@ function MintTab() {
   const vaiControllerContract = useVaiUnitroller();
 
   const getFeePercent = useCallback(async () => {
-    const treasuryPercent = await vaiControllerContract.methods.treasuryPercent().call();
+    const treasuryPercent = await vaiControllerContract.methods
+      .treasuryPercent()
+      .call();
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
   }, [vaiControllerContract]);
 
@@ -52,7 +53,6 @@ function MintTab() {
   const handleMintVAI = async () => {
     setIsLoading(true);
     try {
-      ga.buttonPressed('mint_vai', { amount: amount.toString() });
       await vaiControllerContract.methods
         .mintVAI(
           amount
@@ -98,7 +98,11 @@ function MintTab() {
                 <span>Limit</span>
               </div>
             </div>
-            <span>{format(mintableVai.dp(2, 1).toString(10))} VAI</span>
+            <span>
+              {format(mintableVai.dp(2, 1).toString(10))}
+              {' '}
+              VAI
+            </span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -110,12 +114,14 @@ function MintTab() {
             <span>
               {!amount.isNaN()
                 ? new BigNumber(amount)
-                    // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
-                    .times(feePercent / 100)
-                    .dp(4)
-                    .toString(10)
-                : 0}{' '}
-              VAI ({feePercent.toString(10)}
+                // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
+                  .times(feePercent / 100)
+                  .dp(4)
+                  .toString(10)
+                : 0}
+              {' '}
+              VAI (
+              {feePercent.toString(10)}
               %)
             </span>
           </div>
@@ -123,19 +129,25 @@ function MintTab() {
         <Button
           className="button vai-auto"
           disabled={
-            isLoading ||
-            !account ||
-            amount.isNaN() ||
-            amount.isZero() ||
-            amount.isGreaterThan(mintableVai)
+            isLoading
+            || !account
+            || amount.isNaN()
+            || amount.isZero()
+            || amount.isGreaterThan(mintableVai)
           }
           onClick={handleMintVAI}
         >
-          {isLoading && <Icon type="loading" />} Mint VAI
+          {isLoading && <Icon type="loading" />}
+          {' '}
+          Mint VAI
         </Button>
         <div className="description">
           <span>VAI Balance</span>
-          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
+          <span>
+            {format(userVaiBalance.dp(2, 1).toString(10))}
+            {' '}
+            VAI
+          </span>
         </div>
       </TabContent>
     </TabSection>
