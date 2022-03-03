@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { Slider } from '.';
 
 export default {
-  title: 'Slider',
+  title: 'Components/Slider',
   component: Slider,
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof Slider>;
