@@ -224,10 +224,7 @@ function XVS({ settings }: XVSProps) {
     );
     setTotalDistributed(sum.toString(10));
     setRemainAmount(
-      new BigNumber(remainedAmount)
-        .div(new BigNumber(10).pow(18))
-        .dp(2, 1)
-        .toString(10),
+      new BigNumber(remainedAmount).div(new BigNumber(10).pow(18)).dp(2, 1).toString(10),
     );
     for (let i = 0; i < markets.length; i += 1) {
       tempMarkets.push({

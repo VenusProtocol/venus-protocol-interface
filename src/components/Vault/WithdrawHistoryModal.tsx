@@ -90,11 +90,7 @@ function WithdrawHistoryModal({
         <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
         <div className="title">Request Withdrawal List</div>
         <div className="subtitle">
-          Withdrawable amount:{' '}
-          {withdrawableAmount
-            .div(stakedTokenDecimal)
-            .dp(4, 1)
-            .toString(10)}{' '}
+          Withdrawable amount: {withdrawableAmount.div(stakedTokenDecimal).dp(4, 1).toString(10)}{' '}
           {stakedToken.toUpperCase()}
         </div>
         <div className="list">
@@ -106,10 +102,7 @@ function WithdrawHistoryModal({
             {pendingWithdrawals.map((withdraw: $TSFixMe) => (
               <div key={uid(withdraw)} className="table-line">
                 <span className="left">
-                  {withdraw.amount
-                    .div(stakedTokenDecimal)
-                    .dp(4, 1)
-                    .toString(10)}{' '}
+                  {withdraw.amount.div(stakedTokenDecimal).dp(4, 1).toString(10)}{' '}
                   {stakedToken.toUpperCase()}
                 </span>
                 <span className="right">

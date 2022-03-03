@@ -119,7 +119,7 @@ export function* watchLogoutRequest() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield all([
     fork(watchHandleAuthErrorRequest),
     fork(watchLoginRequest),
