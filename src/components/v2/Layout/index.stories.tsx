@@ -4,7 +4,7 @@ import { withRouter, withThemeProvider } from 'stories/decorators';
 import { Layout } from '.';
 
 export default {
-  title: 'Layout',
+  title: 'Components/Layout/Layout',
   component: Layout,
   decorators: [withRouter, withThemeProvider],
 } as ComponentMeta<typeof Layout>;
