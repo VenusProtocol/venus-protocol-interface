@@ -84,13 +84,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
       setIsLoading(true);
       try {
         await tokenContract.methods
-          .approve(
-            asset.vtokenAddress,
-            new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10),
-          )
+          .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
           .send({ from: account });
         setIsEnabled(true);
       } catch (error) {
@@ -115,14 +109,8 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
       });
       if (asset.id !== 'bnb') {
         const repayAmount = amount.eq(asset.borrowBalance)
-          ? new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10)
-          : amount
-              .times(new BigNumber(10).pow(asset.decimals))
-              .integerValue()
-              .toString(10);
+          ? new BigNumber(2).pow(256).minus(1).toString(10)
+          : amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10);
         try {
           await vbepContract.methods.repayBorrow(repayAmount).send({ from: account });
           setAmount(new BigNumber(0));
@@ -143,10 +131,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
         sendRepay(
           web3,
           account,
-          amount
-            .times(new BigNumber(10).pow(asset.decimals))
-            .integerValue()
-            .toString(10),
+          amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10),
           () => {
             setAmount(new BigNumber(0));
             setIsLoading(false);

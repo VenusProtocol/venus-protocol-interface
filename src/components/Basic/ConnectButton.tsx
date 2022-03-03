@@ -258,7 +258,7 @@ function ConnectButton() {
   };
 
   const onConnect = useCallback(
-    (type) => {
+    type => {
       onClose();
       login(type);
     },
@@ -275,10 +275,7 @@ function ConnectButton() {
       >
         {!account
           ? 'Connect'
-          : `${account.substr(0, 6)}...${account.substr(
-            account.length - 4,
-            4,
-          )}`}
+          : `${account.substr(0, 6)}...${account.substr(account.length - 4, 4)}`}
       </Button>
       <Modal
         className="venus-modal"
@@ -291,12 +288,7 @@ function ConnectButton() {
         centered
       >
         <ModalContent className="flex flex-column align-center just-center">
-          <img
-            className="close-btn pointer"
-            src={closeImg}
-            alt="close"
-            onClick={onClose}
-          />
+          <img className="close-btn pointer" src={closeImg} alt="close" onClick={onClose} />
           {!account ? (
             <>
               <div className="flex flex-column align-center just-center header-content">
@@ -362,11 +354,7 @@ function ConnectButton() {
               </div>
               <p className="center terms-of-use">
                 <span>By connecting, I accept Venus&lsquo;s</span>
-                <a
-                  href="https://www.swipe.io/terms"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href="https://www.swipe.io/terms" target="_blank" rel="noreferrer">
                   Terms of Service
                 </a>
               </p>
@@ -380,10 +368,7 @@ function ConnectButton() {
                   <div
                     className="wallet-link-scan"
                     onClick={() => {
-                      window.open(
-                        `${BASE_BSC_SCAN_URL}/address/${account}`,
-                        '_blank',
-                      );
+                      window.open(`${BASE_BSC_SCAN_URL}/address/${account}`, '_blank');
                     }}
                   >
                     <span>View on BscScan</span>

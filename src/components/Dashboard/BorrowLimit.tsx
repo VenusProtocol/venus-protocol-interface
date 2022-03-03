@@ -42,11 +42,7 @@ function BorrowLimit() {
       setBorrowPercent(
         total.isZero() || total.isNaN()
           ? 0
-          : userTotalBorrowBalance
-              .div(total)
-              .times(100)
-              .dp(0, 1)
-              .toNumber(),
+          : userTotalBorrowBalance.div(total).times(100).dp(0, 1).toNumber(),
       );
     }
   }, [userTotalBorrowBalance, userTotalBorrowLimit]);

@@ -115,10 +115,7 @@ function Vote({ getProposals }: VoteProps) {
       setVotingWeight(new BigNumber(currentVotes).div(1e18).toString(10));
       setBalance(
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
-        new BigNumber(balanceTemp)
-          .div(1e18)
-          .dp(4, 1)
-          .toString(10),
+        new BigNumber(balanceTemp).div(1e18).dp(4, 1).toString(10),
       );
 
       const userInfo = await xvsVaultProxyContract.methods
@@ -186,11 +183,7 @@ function Vote({ getProposals }: VoteProps) {
     );
 
     // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'BigNumber... Remove this comment to see the full error message
-    venusEarned = venusEarned
-      .plus(venusAccrued)
-      .dividedBy(1e18)
-      .dp(8, 1)
-      .toString(10);
+    venusEarned = venusEarned.plus(venusAccrued).dividedBy(1e18).dp(8, 1).toString(10);
 
     const vaiMintIndex = venusVAIState.index;
     if (+vaiMinterIndex === 0 && +vaiMintIndex > 0) {

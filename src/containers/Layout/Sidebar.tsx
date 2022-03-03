@@ -462,13 +462,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
       {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
-            <Label primary>
-              {format(
-                getBigNumber(totalVaiMinted)
-                  .dp(0, 1)
-                  .toString(10),
-              )}
-            </Label>
+            <Label primary>{format(getBigNumber(totalVaiMinted).dp(0, 1).toString(10))}</Label>
             <Label className="center">Total VAI Minted</Label>
           </div>
         </TotalValue>

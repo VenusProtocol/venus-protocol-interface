@@ -152,9 +152,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: VoterLeaderboardProps) 
                     <p>
                       {format(
                         // @ts-expect-error ts-migrate(2348) FIXME: Value of type 'typeof BigNumber' is not callable. ... Remove this comment to see the full error message
-                        BigNumber(Web3.utils.fromWei(item.votes, 'ether'))
-                          .dp(8, 1)
-                          .toString(10),
+                        BigNumber(Web3.utils.fromWei(item.votes, 'ether')).dp(8, 1).toString(10),
                       )}
                     </p>
                   </Col>

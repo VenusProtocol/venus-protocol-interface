@@ -99,7 +99,7 @@
     "msw": "^0.36.8",
     "msw-storybook-addon": "^1.6.0",
     "postcss-syntax": "^0.36.2",
-    "prettier": "^1.19.1",
+    "prettier": "^2.5.1",
     "prettier-airbnb-config": "^1.0.0",
     "react-error-overlay": "6.0.9",
     "reg-keygen-git-hash-plugin": "^0.11.1",

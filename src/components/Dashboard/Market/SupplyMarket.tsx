@@ -190,13 +190,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
           children: (
             <div className="wallet-label flex flex-column">
               <Label size="14" primary>
-                $
-                {format(
-                  supplyBalance
-                    .times(asset.tokenPrice)
-                    .dp(2, 1)
-                    .toString(10),
-                )}
+                ${format(supplyBalance.times(asset.tokenPrice).dp(2, 1).toString(10))}
               </Label>
               <Label size="14">
                 {format(supplyBalance.dp(4, 1).toString(10))} {asset.symbol}

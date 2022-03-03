@@ -89,13 +89,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
     setIsLoading(true);
     try {
       await tokenContract.methods
-        .approve(
-          asset.vtokenAddress,
-          new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10),
-        )
+        .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
         .send({ from: account });
       setIsEnabled(true);
     } catch (error) {
@@ -236,12 +230,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
               />
               <span>Distribution APY</span>
             </div>
-            <span>
-              {getBigNumber(asset.xvsSupplyApy)
-                .dp(2, 1)
-                .toString(10)}
-              %
-            </span>
+            <span>{getBigNumber(asset.xvsSupplyApy).dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">

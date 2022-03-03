@@ -112,10 +112,7 @@ function Transactions({ address, transactions }: Props) {
           action: tx.support ? 'Received Votes' : 'Lost Votes',
           age: getDate(tx.blockTimestamp),
           result: format(
-            new BigNumber(tx.votes)
-              .div(new BigNumber(10).pow(18))
-              .dp(4, 1)
-              .toString(10),
+            new BigNumber(tx.votes).div(new BigNumber(10).pow(18)).dp(4, 1).toString(10),
           ),
           isReceived: tx.support,
         });
@@ -124,10 +121,7 @@ function Transactions({ address, transactions }: Props) {
           action: tx.to.toLowerCase() === address.toLowerCase() ? 'Received XVS' : 'Sent XVS',
           age: getDate(tx.blockTimestamp),
           result: format(
-            new BigNumber(tx.amount)
-              .div(new BigNumber(10).pow(18))
-              .dp(4, 1)
-              .toString(10),
+            new BigNumber(tx.amount).div(new BigNumber(10).pow(18)).dp(4, 1).toString(10),
           ),
           isReceived: tx.to.toLowerCase() === address.toLowerCase(),
         });
