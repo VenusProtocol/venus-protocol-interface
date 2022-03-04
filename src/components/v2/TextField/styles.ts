@@ -13,13 +13,18 @@ export const useStyles = () => {
 
   const getInputContainer = ({ hasError }: { hasError: boolean }) => css`
     display: flex;
-    padding: ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(2)};
+    align-items: center;
+    padding: ${theme.spacing(1, 1, 1, 2)};
     border-radius: 12px;
     border: 2px solid transparent;
 
     &:focus-within {
       border-color: ${hasError ? theme.palette.error.main : theme.palette.text.secondary};
     }
+  `;
+
+  const leftIcon = css`
+    margin-right: ${theme.spacing(1)};
   `;
 
   const input = css`
@@ -41,5 +46,5 @@ export const useStyles = () => {
     margin-top: 4px;
   `;
 
-  return { getLabel, getInputContainer, input, description };
+  return { getLabel, getInputContainer, leftIcon, input, description, theme };
 };

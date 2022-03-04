@@ -11,6 +11,8 @@ export default {
 
 export const DefaultTextField = () => <TextField />;
 
+export const WithLeftIcon = () => <TextField leftIconName="xvs" />;
+
 export const WithLabelTextField = () => <TextField label="Label" />;
 
 export const WithLabelAndDescriptionTextField = () => (
