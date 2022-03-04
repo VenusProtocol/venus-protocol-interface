@@ -4,19 +4,21 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
 
-  const label = css`
+  const getLabel = ({ hasError }: { hasError: boolean }) => css`
     display: block;
     margin-bottom: 4px;
+
+    ${hasError && `color: ${theme.palette.error.main};`};
   `;
 
-  const inputContainer = css`
+  const getInputContainer = ({ hasError }: { hasError: boolean }) => css`
     display: flex;
     padding: ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(2)};
     border-radius: 12px;
     border: 2px solid transparent;
 
     &:focus-within {
-      border-color: ${theme.palette.text.secondary};
+      border-color: ${hasError ? theme.palette.error.main : theme.palette.text.secondary};
     }
   `;
 
@@ -39,5 +41,5 @@ export const useStyles = () => {
     margin-top: 4px;
   `;
 
-  return { label, inputContainer, input, description };
+  return { getLabel, getInputContainer, input, description };
 };

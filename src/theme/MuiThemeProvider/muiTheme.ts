@@ -34,7 +34,7 @@ export const PALETTE = {
     slider: '#18DF8B',
   },
   error: {
-    main: '#F9053E',
+    main: 'rgba(233, 61, 68, 1)',
     slider: 'rgba(233, 61, 68, 0.5)',
   },
 };
