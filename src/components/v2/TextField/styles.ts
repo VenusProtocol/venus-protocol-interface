@@ -17,6 +17,7 @@ export const useStyles = () => {
     padding: ${theme.spacing(1, 1, 1, 2)};
     border-radius: 12px;
     border: 2px solid transparent;
+    background-color: ${theme.palette.background.default};
 
     &:focus-within {
       border-color: ${hasError ? theme.palette.error.main : theme.palette.text.secondary};
@@ -40,11 +41,15 @@ export const useStyles = () => {
     }
   `;
 
+  const rightButton = css`
+    margin-right: ${theme.spacing(1)};
+  `;
+
   const description = css`
     display: block;
     color: ${theme.palette.text.secondary};
     margin-top: 4px;
   `;
 
-  return { getLabel, getInputContainer, leftIcon, input, description, theme };
+  return { getLabel, getInputContainer, leftIcon, input, rightButton, description, theme };
 };
