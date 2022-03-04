@@ -11,4 +11,22 @@ declare module '@mui/material/styles' {
   interface TypeBackground extends MuiTypeBackground {
     black?: string;
   }
+
+  interface TypographyVariants {
+    small1: React.CSSProperties;
+    small2: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    small1?: React.CSSProperties;
+    small2?: React.CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    small1: true;
+    small2: true;
+  }
 }

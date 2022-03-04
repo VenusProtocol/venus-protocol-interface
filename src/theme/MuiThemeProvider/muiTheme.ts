@@ -95,6 +95,11 @@ export default createTheme({
       lineHeight: '1.5',
       fontWeight: 600,
     },
+    small2: {
+      fontSize: '0.875rem',
+      lineHeight: '1.5',
+      fontWeight: 400,
+    },
     button: {
       fontSize: '14px',
       lineHeight: '21px',

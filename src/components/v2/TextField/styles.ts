@@ -11,7 +11,7 @@ export const useStyles = () => {
 
   const inputContainer = css`
     display: flex;
-    padding: ${theme.spacing(1)};
+    padding: ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(2)};
     border-radius: 12px;
     border: 2px solid transparent;
 
@@ -33,5 +33,11 @@ export const useStyles = () => {
     }
   `;
 
-  return { label, inputContainer, input };
+  const description = css`
+    display: block;
+    color: ${theme.palette.text.secondary};
+    margin-top: 4px;
+  `;
+
+  return { label, inputContainer, input, description };
 };

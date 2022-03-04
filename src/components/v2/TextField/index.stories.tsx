@@ -12,3 +12,7 @@ export default {
 export const DefaultTextField = () => <TextField />;
 
 export const WithLabelTextField = () => <TextField label="Label" />;
+
+export const WithLabelAndDescriptionTextField = () => (
+  <TextField label="Label" description="This is a fake description" />
+);
