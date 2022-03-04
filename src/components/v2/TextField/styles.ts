@@ -4,8 +4,9 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
 
-  const container = css`
+  const label = css`
     display: block;
+    margin-bottom: 4px;
   `;
 
   const inputContainer = css`
@@ -32,5 +33,5 @@ export const useStyles = () => {
     }
   `;
 
-  return { container, inputContainer, input };
+  return { label, inputContainer, input };
 };

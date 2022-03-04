@@ -1,15 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 import { useStyles } from './styles';
 
-export const TextField: React.FC = () => {
+export interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+}
+
+export const TextField: React.FC<ITextFieldProps> = ({ label, ...inputProps }) => {
   const styles = useStyles();
 
   return (
-    <Box css={styles.container}>
+    <Box css={inputProps.css}>
+      {!!label && (
+        <Typography variant="small1" component="label" for={inputProps.name} css={styles.label}>
+          {label}
+        </Typography>
+      )}
+
       <Box css={styles.inputContainer}>
-        <input css={styles.input} />
+        <input css={styles.input} {...inputProps} />
       </Box>
     </Box>
   );

@@ -90,9 +90,10 @@ export default createTheme({
       lineHeight: '24px',
     },
     body2: {},
-    caption: {
-      fontSize: '14px',
-      lineHeight: '21px',
+    small1: {
+      fontSize: '0.875rem',
+      lineHeight: '1.5',
+      fontWeight: 600,
     },
     button: {
       fontSize: '14px',

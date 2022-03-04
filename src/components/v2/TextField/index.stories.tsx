@@ -10,3 +10,5 @@ export default {
 } as ComponentMeta<typeof TextField>;
 
 export const DefaultTextField = () => <TextField />;
+
+export const WithLabelTextField = () => <TextField label="Label" />;
