@@ -37,10 +37,7 @@ function MintTab() {
    */
   const handleMaxAmount = () => {
     const safeMax = BigNumber.maximum(
-      userTotalBorrowLimit
-        .times(40)
-        .div(100)
-        .minus(userTotalBorrowBalance),
+      userTotalBorrowLimit.times(40).div(100).minus(userTotalBorrowBalance),
       new BigNumber(0),
     );
     setAmount(BigNumber.minimum(mintableVai, safeMax));
@@ -52,12 +49,7 @@ function MintTab() {
     setIsLoading(true);
     try {
       await vaiControllerContract.methods
-        .mintVAI(
-          amount
-            .times(new BigNumber(10).pow(18))
-            .dp(0)
-            .toString(10),
-        )
+        .mintVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
         .send({ from: account });
       setAmount(new BigNumber(0));
     } catch (error) {

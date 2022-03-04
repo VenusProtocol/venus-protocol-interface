@@ -95,12 +95,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
       });
       try {
         await vbepContract.methods
-          .borrow(
-            amount
-              .times(new BigNumber(10).pow(asset.decimals))
-              .integerValue()
-              .toString(10),
-          )
+          .borrow(amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10))
           .send({ from: account });
         setAmount(new BigNumber(0));
         onCancel();
@@ -124,10 +119,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
   const handleMaxAmount = () => {
     const tokenPrice = getBigNumber(asset.tokenPrice);
     const safeMax = BigNumber.maximum(
-      userTotalBorrowLimit
-        .times(40)
-        .div(100)
-        .minus(userTotalBorrowBalance),
+      userTotalBorrowLimit.times(40).div(100).minus(userTotalBorrowBalance),
       new BigNumber(0),
     );
     setAmount(BigNumber.minimum(safeMax, asset.liquidity).div(tokenPrice));

@@ -54,12 +54,7 @@ function VaiCardContent({
     setIsStakeLoading(true);
     try {
       vaiVaultContract.methods
-        .deposit(
-          stakeAmount
-            .multipliedBy(1e18)
-            .integerValue()
-            .toString(10),
-        )
+        .deposit(stakeAmount.multipliedBy(1e18).integerValue().toString(10))
         .send({ from: account });
       setStakeAmount(new BigNumber(0));
     } catch (error) {
@@ -73,13 +68,7 @@ function VaiCardContent({
     setIsStakeLoading(true);
     try {
       await vaiTokenContract.methods
-        .approve(
-          vaiVaultContract.options.address,
-          new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10),
-        )
+        .approve(vaiVaultContract.options.address, new BigNumber(2).pow(256).minus(1).toString(10))
         .send({ from: account });
     } catch (error) {
       console.log('>> vai token approve: ', error);
@@ -94,12 +83,7 @@ function VaiCardContent({
     setIsWithdrawLoading(true);
     try {
       await vaiVaultContract.methods
-        .withdraw(
-          withdrawAmount
-            .multipliedBy(1e18)
-            .integerValue()
-            .toString(10),
-        )
+        .withdraw(withdrawAmount.multipliedBy(1e18).integerValue().toString(10))
         .send({ from: account });
       setWithdrawAmount(new BigNumber(0));
     } catch (error) {
@@ -118,11 +102,7 @@ function VaiCardContent({
               <div>
                 <div className="card-title">Available Rewards</div>
                 <div className="center-amount">
-                  {userPendingReward
-                    .div(1e18)
-                    .dp(6, 1)
-                    .toString(10)}{' '}
-                  XVS
+                  {userPendingReward.div(1e18).dp(6, 1).toString(10)} XVS
                 </div>
               </div>
               <button
@@ -145,13 +125,7 @@ function VaiCardContent({
             <div className="card-item request-withdraw">
               <div className="left">
                 <div className="card-title">
-                  <span>
-                    VAI Staked:{' '}
-                    {userVaiStakedAmount
-                      .div(1e18)
-                      .dp(4, 1)
-                      .toString(10)}
-                  </span>
+                  <span>VAI Staked: {userVaiStakedAmount.div(1e18).dp(4, 1).toString(10)}</span>
                 </div>
                 <div className="card-body">
                   <div className="input-wrapper">
@@ -198,11 +172,7 @@ function VaiCardContent({
             <div className="card-item stake">
               <div className="withdraw-request">
                 <div className="card-title">
-                  Available VAI to stake:{' '}
-                  {userVaiBalance
-                    .div(1e18)
-                    .dp(4, 1)
-                    .toString(10)}
+                  Available VAI to stake: {userVaiBalance.div(1e18).dp(4, 1).toString(10)}
                 </div>
                 <div className="input-wrapper">
                   <NumberFormat

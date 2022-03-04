@@ -76,10 +76,7 @@ function VaultCard({ settings }: VaultCardProps) {
       const blockPerMinute = 60 / 3;
       const blockPerDay = blockPerMinute * 60 * 24;
       setDailyEmission(
-        new BigNumber(venusVAIVaultRateTemp)
-          .div(1e18)
-          .multipliedBy(blockPerDay)
-          .dp(2, 1),
+        new BigNumber(venusVAIVaultRateTemp).div(1e18).multipliedBy(blockPerDay).dp(2, 1),
       );
       setTotalPendingRewards(new BigNumber(totalPendingRewardsTemp));
       setUserVaiBalance(new BigNumber(userVaiBalanceTemp));
@@ -114,13 +111,7 @@ function VaultCard({ settings }: VaultCardProps) {
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Reward Pool</div>
             <div className="content">
-              {commaFormatter(
-                totalPendingRewards
-                  .div(1e18)
-                  .dp(4, 1)
-                  .toString(10),
-              )}{' '}
-              XVS
+              {commaFormatter(totalPendingRewards.div(1e18).dp(4, 1).toString(10))} XVS
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>

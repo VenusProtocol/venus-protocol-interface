@@ -1,14 +1,13 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider } from 'stories/decorators';
-import Box from '@mui/material/Box';
+import { withThemeProvider, withCenterStory } from 'stories/decorators';
 import { CONTRACT_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from 'utilities/constants';
 import { Dropdown } from '.';
 
 export default {
   title: 'Components/Dropdown',
   component: Dropdown,
-  decorators: [withThemeProvider],
+  decorators: [withThemeProvider, withCenterStory({ width: 137 })],
 } as ComponentMeta<typeof Dropdown>;
 
 const assets = Object.keys(CONTRACT_VBEP_ADDRESS).map(id => ({
@@ -18,17 +17,5 @@ const assets = Object.keys(CONTRACT_VBEP_ADDRESS).map(id => ({
 }));
 
 export const DropdownDefault = () => (
-  <Box
-    sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100vh',
-    }}
-  >
-    <Box sx={{ flexShrink: 0, width: 137 }}>
-      <Dropdown options={assets} defaultValue={assets[0]} onSelect={console.log} />
-    </Box>
-  </Box>
+  <Dropdown options={assets} defaultValue={assets[0]} onSelect={console.log} />
 );

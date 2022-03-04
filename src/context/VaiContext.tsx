@@ -33,17 +33,13 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
       if (!account) {
         return;
       }
-      const [
-        userVaiBalanceTemp,
-        userVaiMintedTemp,
-        { 1: mintableVaiTemp },
-        allowBalanceTemp,
-      ] = await Promise.all([
-        vaiContract.methods.balanceOf(account).call(),
-        comptrollerContract.methods.mintedVAIs(account).call(),
-        vaiControllerContract.methods.getMintableVAI(account).call(),
-        vaiContract.methods.allowance(account, getVaiUnitrollerAddress()).call(),
-      ]);
+      const [userVaiBalanceTemp, userVaiMintedTemp, { 1: mintableVaiTemp }, allowBalanceTemp] =
+        await Promise.all([
+          vaiContract.methods.balanceOf(account).call(),
+          comptrollerContract.methods.mintedVAIs(account).call(),
+          vaiControllerContract.methods.getMintableVAI(account).call(),
+          vaiContract.methods.allowance(account, getVaiUnitrollerAddress()).call(),
+        ]);
       if (!isMounted) {
         return;
       }

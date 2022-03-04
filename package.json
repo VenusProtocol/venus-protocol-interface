@@ -7,6 +7,7 @@
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
+    "prepare": "git apply patches/@stylelint+postcss-css-in-js+0.37.2.patch",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -99,7 +100,7 @@
     "msw": "^0.36.8",
     "msw-storybook-addon": "^1.6.0",
     "postcss-syntax": "^0.36.2",
-    "prettier": "^1.19.1",
+    "prettier": "^2.5.1",
     "prettier-airbnb-config": "^1.0.0",
     "react-error-overlay": "6.0.9",
     "reg-keygen-git-hash-plugin": "^0.11.1",

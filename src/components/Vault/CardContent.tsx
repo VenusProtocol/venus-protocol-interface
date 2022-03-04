@@ -158,10 +158,7 @@ function CardContent({
               <div>
                 <div className="card-title">Available Rewards</div>
                 <div className="center-amount">
-                  {pendingReward
-                    .div(rewardTokenDecimal)
-                    .dp(6, 1)
-                    .toString(10)}{' '}
+                  {pendingReward.div(rewardTokenDecimal).dp(6, 1).toString(10)}{' '}
                   {rewardToken.toUpperCase()}
                 </div>
               </div>
@@ -246,10 +243,7 @@ function CardContent({
                       await stakedTokenContract.methods
                         .approve(
                           xvsVaultContract.options.address,
-                          new BigNumber(2)
-                            .pow(256)
-                            .minus(1)
-                            .toString(10),
+                          new BigNumber(2).pow(256).minus(1).toString(10),
                         )
                         .send({
                           from: account,

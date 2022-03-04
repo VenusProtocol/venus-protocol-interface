@@ -35,13 +35,7 @@ function RepayVaiTab() {
     setIsLoading(true);
     try {
       await vaiContract.methods
-        .approve(
-          getVaiUnitrollerAddress(),
-          new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10),
-        )
+        .approve(getVaiUnitrollerAddress(), new BigNumber(2).pow(256).minus(1).toString(10))
         .send({
           from: account,
         });
@@ -58,12 +52,7 @@ function RepayVaiTab() {
     setIsLoading(true);
     try {
       await vaiControllerContract.methods
-        .repayVAI(
-          amount
-            .times(new BigNumber(10).pow(18))
-            .dp(0)
-            .toString(10),
-        )
+        .repayVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
         .send({ from: account });
       setAmount(new BigNumber(0));
     } catch (error) {

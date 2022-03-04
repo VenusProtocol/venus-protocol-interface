@@ -119,10 +119,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
       } else {
         await vbepContract.methods
           .redeemUnderlying(
-            amount
-              .times(new BigNumber(10).pow(asset.decimals))
-              .integerValue()
-              .toString(10),
+            amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10),
           )
           .send({ from: account });
       }

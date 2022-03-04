@@ -178,13 +178,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
           children: (
             <div className="wallet-label flex flex-column">
               <Label size="14" primary>
-                $
-                {format(
-                  borrowBalance
-                    .times(asset.tokenPrice)
-                    .dp(2, 1)
-                    .toString(10),
-                )}
+                ${format(borrowBalance.times(asset.tokenPrice).dp(2, 1).toString(10))}
               </Label>
               <Label size="14">
                 {format(borrowBalance.dp(4, 1).toString(10))} {asset.symbol}

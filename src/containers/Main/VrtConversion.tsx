@@ -140,10 +140,7 @@ export default () => {
                           await vrtTokenContract.methods
                             .approve(
                               vrtConverterContract.options.address,
-                              new BigNumber(2)
-                                .pow(256)
-                                .minus(1)
-                                .toFixed(),
+                              new BigNumber(2).pow(256).minus(1).toFixed(),
                             )
                             .send({
                               from: account,
