@@ -17,7 +17,6 @@ declare module '@mui/material/styles' {
     small2: React.CSSProperties;
   }
 
-  // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     small1?: React.CSSProperties;
     small2?: React.CSSProperties;
