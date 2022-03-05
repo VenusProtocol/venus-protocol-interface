@@ -13,7 +13,9 @@ export const PALETTE = {
   background: {
     default: '#090D27',
     paper: '#181C3A',
-    black: '#1F2028',
+    black: 'rgba(31, 32, 40, 1)',
+    asphaltGrey: 'rgba(40, 41, 49, 1)',
+    offWhite: 'rgba(255, 255, 255, 1)',
   },
   primary: {
     light: '#EBBF6E',

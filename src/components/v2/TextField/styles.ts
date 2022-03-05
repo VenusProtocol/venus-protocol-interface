@@ -17,7 +17,7 @@ export const useStyles = () => {
     padding: ${theme.spacing(1, 1, 1, 2)};
     border-radius: 12px;
     border: 2px solid transparent;
-    background-color: ${theme.palette.background.default};
+    background-color: ${theme.palette.background.black};
 
     &:focus-within {
       border-color: ${hasError ? theme.palette.error.main : theme.palette.text.secondary};

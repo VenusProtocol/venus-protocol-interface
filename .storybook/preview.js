@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import 'loki/configure-react';
 import 'antd/dist/antd.css';
 import '../src/assets/styles/index.scss';
+import { PALETTE } from '../src/theme/MuiThemeProvider/muiTheme';
 import { withThemeProvider } from '../src/stories/decorators';
 import GovernanceResponse from '../src/__mocks__/api/governance.json';
 import VoteReponse from '../src/__mocks__/api/vote.json';
@@ -15,6 +16,23 @@ initialize({
 export const parameters = {
   layout: 'fullscreen',
   actions: { argTypesRegex: '^on[A-Z].*' },
+  backgrounds: {
+    default: 'Asphalt grey',
+    values: [
+      {
+        name: 'Asphalt grey',
+        value: PALETTE.background.asphaltGrey,
+      },
+      {
+        name: 'Black',
+        value: PALETTE.background.black,
+      },
+      {
+        name: 'Off white',
+        value: PALETTE.background.offWhite,
+      },
+    ],
+  },
   controls: {
     matchers: {
       color: /(background|color)$/i,
