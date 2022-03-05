@@ -1,6 +1,6 @@
 import React from 'react';
 import MuiButton, { ButtonProps } from '@mui/material/Button';
-import { Icon } from 'components';
+import { Icon } from 'components/v2/Icon';
 
 export interface IButtonProps extends ButtonProps {
   className?: string;

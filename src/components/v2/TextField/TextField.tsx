@@ -2,7 +2,7 @@
 import React, { InputHTMLAttributes, HTMLAttributes } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Icon, IconName } from 'components';
+import { Icon, IconName } from 'components/v2/Icon';
 
 import { useStyles } from './styles';
 
