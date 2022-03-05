@@ -29,13 +29,20 @@ export const TextField: React.FC<ITextFieldProps> = ({
   return (
     <Box css={css}>
       {!!label && (
-        <Typography variant="small1" component="label" css={styles.getLabel({ hasError })}>
+        <Typography
+          variant="small1"
+          component="label"
+          css={styles.getLabel({ hasError })}
+          htmlFor={inputProps.id}
+        >
           {label}
         </Typography>
       )}
 
       <Box css={styles.getInputContainer({ hasError })}>
-        {!!leftIconName && <Icon name={leftIconName} size={22} css={styles.leftIcon} />}
+        {!!leftIconName && (
+          <Icon name={leftIconName} size={styles.theme.spacing(3)} css={styles.leftIcon} />
+        )}
 
         <input css={styles.getInput({ hasRightAdornment: !!rightAdornment })} {...inputProps} />
 

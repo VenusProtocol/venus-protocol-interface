@@ -30,6 +30,6 @@ const IconWithCustomColorAndSizeTemplate: Story<IIconProps> = args => <Icon {...
 export const IconWithCustomColorAndSize = IconWithCustomColorAndSizeTemplate.bind({});
 IconWithCustomColorAndSize.args = {
   name: 'mask',
-  size: 32,
+  size: '32px',
   color: '#345345',
 };
