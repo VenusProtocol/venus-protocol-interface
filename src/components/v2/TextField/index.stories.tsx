@@ -10,14 +10,22 @@ export default {
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof TextField>;
 
-export const Default = () => <TextField />;
+export const Default = () => <TextField placeholder="0.0" type="number" min={0} />;
 
-export const WithLabel = () => <TextField label="Label" />;
+export const WithLabel = () => <TextField label="Label" placeholder="0.0" type="number" min={0} />;
 
-export const WithDescription = () => <TextField description="This is a fake description" />;
+export const WithDescription = () => (
+  <TextField description="This is a fake description" placeholder="0.0" type="number" min={0} />
+);
 
-export const WithLeftIcon = () => <TextField leftIconName="xvs" />;
+export const WithLeftIcon = () => (
+  <TextField leftIconName="xvs" placeholder="0.0" type="number" min={0} />
+);
 
-export const WithRightAdornment = () => <TextField rightAdornment={<Button>Safe max</Button>} />;
+export const WithRightAdornment = () => (
+  <TextField rightAdornment={<Button>Safe max</Button>} placeholder="0.0" type="number" min={0} />
+);
 
-export const WithHasError = () => <TextField label="Label" hasError />;
+export const WithHasError = () => (
+  <TextField label="Label" placeholder="0.0" type="number" min={0} hasError />
+);
