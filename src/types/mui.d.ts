@@ -8,10 +8,14 @@ declare module '@mui/material/styles' {
     slider?: string;
   }
 
+  // Add custom backgrounds
   interface TypeBackground extends MuiTypeBackground {
     black?: string;
+    asphaltGrey?: string;
+    offWhite?: string;
   }
 
+  // Add custom typography variants
   interface TypographyVariants {
     small1: React.CSSProperties;
     small2: React.CSSProperties;
