@@ -28,13 +28,15 @@ export const useStyles = () => {
     margin-right: ${theme.spacing(1)};
   `;
 
-  const input = css`
+  const getInput = ({ hasRightAdornment }: { hasRightAdornment: boolean }) => css`
     background-color: transparent;
     flex: 1;
     font-weight: 600;
     line-height: ${theme.spacing(3)};
     height: ${theme.spacing(5)};
     border: 0;
+
+    ${hasRightAdornment && `margin-right: ${theme.spacing(1)}`};
 
     &:focus {
       outline: 0;
@@ -51,5 +53,5 @@ export const useStyles = () => {
     margin-top: 4px;
   `;
 
-  return { getLabel, getInputContainer, leftIcon, input, rightButton, description, theme };
+  return { getLabel, getInputContainer, leftIcon, getInput, rightButton, description, theme };
 };

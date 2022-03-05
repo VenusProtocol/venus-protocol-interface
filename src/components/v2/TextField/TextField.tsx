@@ -2,8 +2,7 @@
 import React, { InputHTMLAttributes, HTMLAttributes } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Icon, IconName } from 'components/v2/Icon';
-import { Button, IButtonProps } from 'components/v2/Button';
+import { Icon, IconName } from 'components';
 
 import { useStyles } from './styles';
 
@@ -13,9 +12,7 @@ export interface ITextFieldProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   description?: string;
   hasError?: boolean;
   leftIconName?: IconName;
-  rightButtonProps?: Omit<IButtonProps, 'variant'> & {
-    label: string;
-  };
+  rightAdornment?: React.ReactElement;
 }
 
 export const TextField: React.FC<ITextFieldProps> = ({
@@ -24,7 +21,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
   description,
   hasError = false,
   leftIconName,
-  rightButtonProps: { label: rightButtonLabel, ...rightButtonProps } = {},
+  rightAdornment,
   ...inputProps
 }) => {
   const styles = useStyles();
@@ -40,13 +37,9 @@ export const TextField: React.FC<ITextFieldProps> = ({
       <Box css={styles.getInputContainer({ hasError })}>
         {!!leftIconName && <Icon name={leftIconName} size={22} css={styles.leftIcon} />}
 
-        <input css={styles.input} {...inputProps} />
+        <input css={styles.getInput({ hasRightAdornment: !!rightAdornment })} {...inputProps} />
 
-        {rightButtonProps && (
-          <Button variant="text" {...rightButtonProps} css={styles.rightButton}>
-            {rightButtonLabel}
-          </Button>
-        )}
+        {rightAdornment}
       </Box>
 
       {!!description && (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { Button } from 'components';
 import { TextField } from '.';
 
 export default {
@@ -17,12 +18,6 @@ export const WithDescription = () => <TextField description="This is a fake desc
 
 export const WithLeftIcon = () => <TextField leftIconName="xvs" />;
 
-export const WithRightButton = () => (
-  <TextField
-    rightButtonProps={{
-      label: 'Safe max',
-    }}
-  />
-);
+export const WithRightAdornment = () => <TextField rightAdornment={<Button>Safe max</Button>} />;
 
 export const WithHasError = () => <TextField label="Label" hasError />;
