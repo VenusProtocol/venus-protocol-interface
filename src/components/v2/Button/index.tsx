@@ -5,7 +5,7 @@ import { Icon } from 'components/v2/Icon';
 export interface IButtonProps extends ButtonProps {
   className?: string;
   loading?: boolean;
-  loadingIconSize?: number;
+  loadingIconSize?: string;
   loadingIconColor?: string;
 }
 
