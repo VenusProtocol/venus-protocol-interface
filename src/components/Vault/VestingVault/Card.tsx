@@ -97,7 +97,7 @@ function VaultCard({
         </Row>
       </div>
       <div>
-        {expanded ? (
+        {expanded && (
           <VaultCardContent
             // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; poolId: any; stakedToke... Remove this comment to see the full error message
             className="content-container"
@@ -108,7 +108,7 @@ function VaultCard({
             pendingReward={pendingReward}
             lockPeriodSecond={lockPeriodSecond}
           />
-        ) : null}
+        )}
       </div>
     </VaultCardWrapper>
   );

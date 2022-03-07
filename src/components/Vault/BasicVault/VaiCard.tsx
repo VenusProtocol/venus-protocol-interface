@@ -99,7 +99,7 @@ function VaultCard({ settings }: VaultCardProps) {
         }}
       />
       <div className="content-container">
-        {expanded ? (
+        {expanded && (
           <CardContent
             userPendingReward={userPendingReward}
             userStakedTokenBalance={userVaiBalance}
@@ -107,20 +107,20 @@ function VaultCard({ settings }: VaultCardProps) {
             userStakedAmount={userVaiStakedAmount}
             stakedToken="VAI"
             rewardToken="XVS"
-            onClaimReward={async () => vaiVaultContract.methods.claim().send({ from: account })}
-            onStake={async stakeAmount =>
+            onClaimReward={() => vaiVaultContract.methods.claim().send({ from: account })}
+            onStake={stakeAmount =>
               vaiVaultContract.methods.deposit(stakeAmount.toFixed(0)).send({ from: account })
             }
-            onApprove={async amt =>
+            onApprove={amt =>
               vaiTokenContract.methods
                 .approve(vaiVaultContract.options.address, amt.toFixed(10))
                 .send({ from: account })
             }
-            onWithdraw={async amt =>
+            onWithdraw={amt =>
               vaiVaultContract.methods.withdraw(amt.toFixed(0)).send({ from: account })
             }
           />
-        ) : null}
+        )}
       </div>
     </VaultCardWrapper>
   );

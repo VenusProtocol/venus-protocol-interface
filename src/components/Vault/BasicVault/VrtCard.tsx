@@ -4,10 +4,7 @@
 import React, { useState, useEffect } from 'react';
 
 import BigNumber from 'bignumber.js';
-import { connect } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
-import { Setting } from 'types';
-import { State } from 'core/modules/initialState';
 import useRefresh from 'hooks/useRefresh';
 import { useToken, useVrtVaultProxy } from 'hooks/useContract';
 import { getVrtVaultProxyAddress } from 'utilities/addressHelpers';
@@ -16,15 +13,11 @@ import CardContent from './CardContent';
 import CardHeader from './CardHeader';
 import { VaultCardWrapper } from '../styles';
 
-interface VaultCardProps {
-  settings: Setting;
-}
-
 const DAYS_OF_YEAR = 365;
 const BLOCK_PER_MINUTE = 60 / 3;
 const BLOCK_PER_DAY = BLOCK_PER_MINUTE * 60 * 24;
 
-function VaultCard({ settings }: VaultCardProps) {
+export default function VaultCard() {
   const { account } = useWeb3React();
   const { fastRefresh } = useRefresh();
 
@@ -110,7 +103,7 @@ function VaultCard({ settings }: VaultCardProps) {
         }}
       />
       <div className="content-container">
-        {expanded ? (
+        {expanded && (
           <CardContent
             userPendingReward={userPendingReward}
             userStakedTokenBalance={userVrtBalance}
@@ -119,29 +112,19 @@ function VaultCard({ settings }: VaultCardProps) {
             stakedToken="VRT"
             rewardToken="VRT"
             fullWithdraw
-            onClaimReward={async () =>
-              vrtVaultProxyContract.methods.claim().send({ from: account })
-            }
-            onStake={async stakeAmount =>
+            onClaimReward={() => vrtVaultProxyContract.methods.claim().send({ from: account })}
+            onStake={stakeAmount =>
               vrtVaultProxyContract.methods.deposit(stakeAmount.toFixed(0)).send({ from: account })
             }
-            onApprove={async amt =>
+            onApprove={amt =>
               vrtTokenContract.methods
                 .approve(vrtVaultProxyContract.options.address, amt.toFixed(10))
                 .send({ from: account })
             }
-            onWithdraw={async () =>
-              vrtVaultProxyContract.methods.withdraw().send({ from: account })
-            }
+            onWithdraw={() => vrtVaultProxyContract.methods.withdraw().send({ from: account })}
           />
-        ) : null}
+        )}
       </div>
     </VaultCardWrapper>
   );
 }
-
-const mapStateToProps = ({ account }: State) => ({
-  settings: account.setting,
-});
-
-export default connect(mapStateToProps)(VaultCard);
