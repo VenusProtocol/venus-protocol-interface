@@ -1,9 +1,11 @@
 import React from 'react';
-import { toast as toastify } from 'react-toastify';
+import { toast as toastify, ToastOptions } from 'react-toastify';
 
-interface ToastProps {
+interface ToastArgs {
   title: string;
-  description: string;
+  description?: string;
+}
+interface ToastProps extends ToastArgs {
   type: 'success' | 'info' | 'error';
 }
 
@@ -22,20 +24,20 @@ Toast.defaultProps = {
   type: 'success',
 };
 
-function toast({ title, description, type = 'success', ...props }: $TSFixMe, options = {}) {
+function toast({ title, description, type = 'success', ...props }: ToastProps, options = {}) {
   return toastify(
     <Toast title={title} description={description} type={type} {...props} />,
     options,
   );
 }
 
-toast.info = (content: $TSFixMe, options?: $TSFixMe) =>
+toast.info = (content: ToastArgs, options?: ToastOptions) =>
   toast({ ...content, type: 'info' }, options);
 
-toast.error = (content: $TSFixMe, options?: $TSFixMe) =>
+toast.error = (content: ToastArgs, options?: ToastOptions) =>
   toast({ ...content, type: 'error' }, options);
 
-toast.success = (content: $TSFixMe, options?: $TSFixMe) =>
+toast.success = (content: ToastArgs, options?: ToastOptions) =>
   toast({ ...content, type: 'success' }, options);
 toast.update = toastify.update;
 
