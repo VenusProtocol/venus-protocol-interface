@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { Label } from './Label';
 
 const PendingTransactionWrapper = styled.div`
@@ -74,7 +75,7 @@ function PendingTransaction({ settings }: PendingTransactionProps) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

@@ -12,6 +12,7 @@ import { addToken, getBigNumber, formatApy } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
 import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { vtokenDecimals } from '../../config';
@@ -436,7 +437,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

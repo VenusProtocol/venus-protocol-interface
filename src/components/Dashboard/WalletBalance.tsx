@@ -13,6 +13,7 @@ import { getBigNumber } from 'utilities/common';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
 import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useVaiVault } from '../../hooks/useContract';
@@ -114,7 +115,12 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
       if (amount.isNaN() || amount.isZero()) {
         setNetAPY(apy.dp(2, 1).toNumber());
       } else {
-        setNetAPY(apy.plus(settings.vaiAPY).dp(2, 1).toNumber());
+        setNetAPY(
+          apy
+            .plus(settings.vaiAPY)
+            .dp(2, 1)
+            .toNumber(),
+        );
       }
     },
     [settings],
@@ -195,7 +201,12 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
     };
   }, [withXVS]);
 
-  const formatValue = (value: $TSFixMe) => `$${format(getBigNumber(value).dp(2, 1).toString(10))}`;
+  const formatValue = (value: $TSFixMe) =>
+    `$${format(
+      getBigNumber(value)
+        .dp(2, 1)
+        .toString(10),
+    )}`;
 
   return (
     <Card>
@@ -249,7 +260,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
