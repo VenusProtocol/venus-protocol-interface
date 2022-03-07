@@ -1,24 +1,15 @@
+// Vesting vaults have a vesting time for users to withdraw their rewards after unstaking
 import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
-import VaultCardContent from './CardContent';
-import { VaultCardWrapper } from './styles';
+import { Icon, IconName } from 'components/v2/Icon';
 
-import vaiImg from '../../assets/img/coins/vai.svg';
-import xvsImg from '../../assets/img/coins/xvs.png';
-import arrowDownImg from '../../assets/img/arrow-down.png';
+import VaultCardContent from './CardContent';
+import { VaultCardWrapper } from '../styles';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
-
-function getTokenImg(name: $TSFixMe) {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-  return {
-    xvs: xvsImg,
-    vai: vaiImg,
-  }[name];
-}
 
 interface VaultCardProps {
   poolId: BigNumber;
@@ -59,14 +50,14 @@ function VaultCard({
           <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Stake</div>
             <div className="content">
-              <img src={getTokenImg(stakedToken)} alt="stakedToken" />
+              <Icon size={16} name={stakedToken.toLowerCase() as IconName} />
               <span>{stakedToken.toUpperCase()}</span>
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Earn</div>
             <div className="content">
-              <img src={getTokenImg(rewardToken)} alt="rewardToken" />
+              <Icon size={16} name={rewardToken.toLowerCase() as IconName} />
               <span>{rewardToken.toUpperCase()}</span>
             </div>
           </Col>
@@ -83,10 +74,7 @@ function VaultCard({
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">
-              Total
-              {stakedToken.toUpperCase()} Staked
-            </div>
+            <div className="title">Total {stakedToken.toUpperCase()} Staked</div>
             <div className="content">
               {commaFormatter(totalStaked.div(stakedTokenDecimal).dp(4, 1).toString(10))}
             </div>
@@ -104,12 +92,12 @@ function VaultCard({
             xs={{ span: 24 }}
             onClick={() => setExpanded(!expanded)}
           >
-            <img className="expand-icon" alt="open" src={arrowDownImg} />
+            <Icon className="expand-icon" size={16} name="arrowDown" />
           </Col>
         </Row>
       </div>
       <div>
-        {expanded ? (
+        {expanded && (
           <VaultCardContent
             // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; poolId: any; stakedToke... Remove this comment to see the full error message
             className="content-container"
@@ -120,7 +108,7 @@ function VaultCard({
             pendingReward={pendingReward}
             lockPeriodSecond={lockPeriodSecond}
           />
-        ) : null}
+        )}
       </div>
     </VaultCardWrapper>
   );

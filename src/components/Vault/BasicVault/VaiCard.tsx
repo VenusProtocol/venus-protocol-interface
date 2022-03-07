@@ -3,24 +3,18 @@
 // remove this VAI pool code in the future when it's about to be deprecated
 import React, { useState, useEffect } from 'react';
 
-import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import { connect } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import VAICardContent from './VaiCardContent';
-import { VaultCardWrapper } from './styles';
-import useRefresh from '../../hooks/useRefresh';
-import { useComptroller, useToken, useVaiToken, useVaiVault } from '../../hooks/useContract';
+import useRefresh from 'hooks/useRefresh';
+import { useComptroller, useToken, useVaiToken, useVaiVault } from 'hooks/useContract';
+import { getVaiVaultAddress } from 'utilities/addressHelpers';
 
-import vaiImg from '../../assets/img/coins/vai.svg';
-import xvsImg from '../../assets/img/coins/xvs.png';
-import arrowDownImg from '../../assets/img/arrow-down.png';
-import { getVaiVaultAddress } from '../../utilities/addressHelpers';
-
-const commaFormatter = commaNumber.bindWith(',', '.');
+import CardContent from './CardContent';
+import CardHeader from './CardHeader';
+import { VaultCardWrapper } from '../styles';
 
 interface VaultCardProps {
   settings: Setting;
@@ -33,15 +27,16 @@ function VaultCard({ settings }: VaultCardProps) {
   const compContract = useComptroller();
   const xvsTokenContract = useToken('xvs');
   const vaiTokenContract = useVaiToken();
-  const vaultContract = useVaiVault();
+  const vaiVaultContract = useVaiVault();
 
-  const [expanded, setExpanded] = useState(false);
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
   const [totalPendingRewards, setTotalPendingRewards] = useState(new BigNumber(0));
   const [userVaiAllowance, setUserVaiAllowance] = useState(new BigNumber(0));
   const [userVaiStakedAmount, setUserVaiStakedAmount] = useState(new BigNumber(0));
   const [userVaiBalance, setUserVaiBalance] = useState(new BigNumber(0));
   const [userPendingReward, setUserPendingReward] = useState(new BigNumber(0));
+
+  const [expanded, setExpanded] = useState(false);
 
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
@@ -65,8 +60,8 @@ function VaultCard({ settings }: VaultCardProps) {
         userVaiAllowanceTemp,
       ] = await Promise.all([
         vaiTokenContract.methods.balanceOf(account).call(),
-        vaultContract.methods.userInfo(account).call(),
-        vaultContract.methods.pendingXVS(account).call(),
+        vaiVaultContract.methods.userInfo(account).call(),
+        vaiVaultContract.methods.pendingXVS(account).call(),
         vaiTokenContract.methods.allowance(account, getVaiVaultAddress()).call(),
       ]);
     }
@@ -92,64 +87,40 @@ function VaultCard({ settings }: VaultCardProps) {
 
   return (
     <VaultCardWrapper>
-      <div className={`header-container ${expanded ? '' : 'fold'}`}>
-        <Row className="header">
-          <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">Stake</div>
-            <div className="content">
-              <img src={vaiImg} alt="Vai" />
-              <span>VAI</span>
-            </div>
-          </Col>
-          <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">Earn</div>
-            <div className="content">
-              <img src={xvsImg} alt="rewardToken" />
-              <span>XVS</span>
-            </div>
-          </Col>
-          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">Reward Pool</div>
-            <div className="content">
-              {commaFormatter(totalPendingRewards.div(1e18).dp(4, 1).toString(10))} XVS
-            </div>
-          </Col>
-          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">VAI Staking APR</div>
-            <div className="content">{settings.vaiAPY}%</div>
-          </Col>
-          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">Total VAI Staked</div>
-            <div className="content">
-              {settings.vaultVaiStaked
-                ? commaFormatter(new BigNumber(settings.vaultVaiStaked).dp(4, 1).toString(10))
-                : 0}{' '}
-              VAI
-            </div>
-          </Col>
-          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">XVS Daily Emission</div>
-            <div className="content">{commaFormatter(dailyEmission.toString(10))} XVS</div>
-          </Col>
-          <Col
-            className="col-item expand-icon-wrapper"
-            lg={{ span: 2 }}
-            xs={{ span: 24 }}
-            onClick={() => setExpanded(!expanded)}
-          >
-            <img className="expand-icon" alt="open" src={arrowDownImg} />
-          </Col>
-        </Row>
-      </div>
+      <CardHeader
+        stakedToken="VAI"
+        rewardToken="XVS"
+        apy={settings.vaiAPY || 0}
+        totalStakedAmount={new BigNumber(settings.vaultVaiStaked || 0)}
+        totalPendingRewards={totalPendingRewards.div(1e18)}
+        dailyEmission={dailyEmission}
+        onExpand={() => {
+          setExpanded(!expanded);
+        }}
+      />
       <div className="content-container">
-        {expanded ? (
-          <VAICardContent
+        {expanded && (
+          <CardContent
             userPendingReward={userPendingReward}
-            userVaiBalance={userVaiBalance}
-            userVaiAllowance={userVaiAllowance}
-            userVaiStakedAmount={userVaiStakedAmount}
+            userStakedTokenBalance={userVaiBalance}
+            userStakedAllowance={userVaiAllowance}
+            userStakedAmount={userVaiStakedAmount}
+            stakedToken="VAI"
+            rewardToken="XVS"
+            onClaimReward={() => vaiVaultContract.methods.claim().send({ from: account })}
+            onStake={stakeAmount =>
+              vaiVaultContract.methods.deposit(stakeAmount.toFixed(0)).send({ from: account })
+            }
+            onApprove={amt =>
+              vaiTokenContract.methods
+                .approve(vaiVaultContract.options.address, amt.toFixed(10))
+                .send({ from: account })
+            }
+            onWithdraw={amt =>
+              vaiVaultContract.methods.withdraw(amt.toFixed(0)).send({ from: account })
+            }
           />
-        ) : null}
+        )}
       </div>
     </VaultCardWrapper>
   );

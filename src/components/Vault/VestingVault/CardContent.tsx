@@ -4,15 +4,15 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
-import * as constants from '../../utilities/constants';
-import { useXvsVaultProxy } from '../../hooks/useContract';
-import useRefresh from '../../hooks/useRefresh';
-import useWeb3 from '../../hooks/useWeb3';
-import { getTokenContractByAddress } from '../../utilities/contractHelpers';
+import * as constants from 'utilities/constants';
+import { useXvsVaultProxy } from 'hooks/useContract';
+import useRefresh from 'hooks/useRefresh';
+import useWeb3 from 'hooks/useWeb3';
+import { getTokenContractByAddress } from 'utilities/contractHelpers';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import WithdrawCard from './WithdrawCard';
-import LoadingSpinner from '../Basic/LoadingSpinner';
-import { CardItemWrapper } from './styles';
+import LoadingSpinner from '../../Basic/LoadingSpinner';
+import { CardItemWrapper } from '../styles';
 
 const CardContentWrapper = styled.div`
   color: #fff;

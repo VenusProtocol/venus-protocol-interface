@@ -15,4 +15,4 @@ const getWeb3NoAccount = () => {
   return web3NoAccount;
 };
 
-export { getWeb3NoAccount };
+export { getWeb3NoAccount, Web3 };

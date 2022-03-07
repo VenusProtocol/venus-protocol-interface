@@ -41,3 +41,6 @@ export const getVrtConverterAddress = () =>
 export const getVrtTokenAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   addresses.vrtToken[chainId];
+export const getVrtVaultProxyAddress = () =>
+  // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
+  addresses.vrtVaultProxy[chainId];

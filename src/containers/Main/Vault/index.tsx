@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
@@ -12,8 +11,9 @@ import useWeb3 from 'hooks/useWeb3';
 import useRefresh from 'hooks/useRefresh';
 import { useXvsVaultProxy } from 'hooks/useContract';
 import * as constants from 'utilities/constants';
-import GeneralVaultPoolCard from 'components/Vault/Card';
-import VaiPoolCard from 'components/Vault/VaiCard';
+import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
+import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
+import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
 import { getTokenContractByAddress } from 'utilities/contractHelpers';
 
 const VaultWrapper = styled.div`
@@ -44,7 +44,7 @@ function Vault() {
   const { fastRefresh } = useRefresh();
   const xvsVaultContract = useXvsVaultProxy();
 
-  // total info
+  // fetch XVS vault pools info
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
     let mounted = true;
@@ -130,6 +130,7 @@ function Vault() {
       ) : (
         <VaultWrapper>
           <VaiPoolCard />
+          <VrtPoolCard />
           {poolInfos.map(poolInfo => (
             <GeneralVaultPoolCard
               key={uid(poolInfo)}

@@ -4,10 +4,11 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
-import * as constants from '../../utilities/constants';
-import { useXvsVaultProxy } from '../../hooks/useContract';
+import * as constants from 'utilities/constants';
+import { useXvsVaultProxy } from 'hooks/useContract';
+
 import WithdrawHistoryModal from './WithdrawHistoryModal';
-import { CardItemWrapper } from './styles';
+import { CardItemWrapper } from '../styles';
 
 const WithdrawCardWrapper = styled.div`
   .card-item {
