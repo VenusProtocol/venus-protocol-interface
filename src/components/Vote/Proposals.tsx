@@ -196,10 +196,12 @@ function Proposals({
     }
   }, [account, address, delegateAddress]);
 
-  const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
+  const handleChangePage = (page: number, size?: number) => {
     setCurrent(page);
-    setPageSize(size);
-    onChangePage(page, (page - 1) * size, size);
+    if (size) {
+      setPageSize(size);
+      onChangePage(page, (page - 1) * size, size);
+    }
   };
 
   const onNext = () => {

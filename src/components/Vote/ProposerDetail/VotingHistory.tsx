@@ -109,10 +109,12 @@ function VotingHistory({ data, pageNumber, total, onChangePage }: VotingHistoryP
   const [current, setCurrent] = useState(pageNumber || 1);
   const [pageSize, setPageSize] = useState(5);
 
-  const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
+  const handleChangePage = (page: number, size?: number) => {
     setCurrent(page);
-    setPageSize(size);
-    onChangePage(page, (page - 1) * size, size);
+    if (size) {
+      setPageSize(size);
+      onChangePage(page, (page - 1) * size, size);
+    }
   };
 
   const onNext = () => {

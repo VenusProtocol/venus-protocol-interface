@@ -290,9 +290,11 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
     loadTransactionHistory();
   }, [loadTransactionHistory]);
 
-  const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
+  const handleChangePage = (page: number, size?: number) => {
     setOffset(page);
-    setPageSize(size);
+    if (size) {
+      setPageSize(size);
+    }
   };
 
   const onNext = () => {
