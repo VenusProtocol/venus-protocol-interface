@@ -77,3 +77,15 @@ export interface Proposal {
   state: string;
   createdAt: string;
 }
+
+export interface IPool {
+  poolId: BigNumber;
+  stakedToken: string;
+  rewardToken: string;
+  userStakedAmount: BigNumber;
+  pendingReward: BigNumber;
+  lockPeriodSecond: BigNumber;
+  apr: BigNumber;
+  totalStaked: BigNumber;
+  dailyEmission: BigNumber;
+}
