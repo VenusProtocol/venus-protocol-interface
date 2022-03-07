@@ -13,6 +13,8 @@ export const PALETTE = {
   background: {
     default: 'rgba(31, 32, 40, 1)',
     paper: 'rgba(40, 41, 49, 1)',
+    black: '#1F2028',
+    grey: '#383944',
   },
   primary: {
     light: '#EBBF6E',
@@ -194,6 +196,22 @@ export default createTheme({
           '&.Mui-checked+.MuiSwitch-track': {
             backgroundColor: PALETTE.background.default,
           },
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          // TODO: add proper color after theme update
+          // backgroundColor: defaultTheme.palette.background.grey,
+          borderRadius: 12,
+          fontSize: 14,
+          lineHeight: '21px',
+          padding: 12,
+        },
+        arrow: {
+          // TODO: add proper color after theme update
+          // color: defaultTheme.palette.background.grey,
         },
       },
     },
