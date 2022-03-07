@@ -90,7 +90,7 @@ function DelegationTypeModal({
   const [isLoading, setIsLoading] = useState(false);
   const xvsVaultProxyContract = useXvsVaultProxy();
 
-  const handleDelegateVoting = async (dAddress: $TSFixMe) => {
+  const handleDelegateVoting = async (dAddress: string) => {
     setIsLoading(true);
     try {
       await xvsVaultProxyContract.methods.delegate(dAddress || address).send({ from: address });
