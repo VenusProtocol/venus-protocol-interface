@@ -8,7 +8,7 @@ import MintTab from 'components/Basic/VaiTabs/MintTab';
 import RepayVaiTab from 'components/Basic/VaiTabs/RepayVaiTab';
 import { State } from 'core/modules/initialState';
 import { accountActionCreators } from 'core/modules/account/actions';
-import { Setting } from 'types';
+import { Asset, Setting } from 'types';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
@@ -62,22 +62,22 @@ interface MarketProps {
 
 const Market = ({ setSetting }: MarketProps) => {
   const [currentTab, setCurrentTab] = useState('supply');
-  const [suppliedAssets, setSuppliedAssets] = useState([]);
-  const [nonSuppliedAssets, setNonSuppliedAssets] = useState([]);
-  const [borrowedAssets, setBorrowedAssets] = useState([]);
-  const [nonBorrowedAssets, setNonBorrowedAssets] = useState([]);
+  const [suppliedAssets, setSuppliedAssets] = useState<Asset[]>([]);
+  const [nonSuppliedAssets, setNonSuppliedAssets] = useState<Asset[]>([]);
+  const [borrowedAssets, setBorrowedAssets] = useState<Asset[]>([]);
+  const [nonBorrowedAssets, setNonBorrowedAssets] = useState<Asset[]>([]);
   const { userMarketInfo } = useMarketsUser();
 
   const updateMarketTable = () => {
-    const tempSuppliedData: $TSFixMe = [];
+    const tempSuppliedData: Asset[] = [];
 
-    const tempNonSuppliableData: $TSFixMe = [];
+    const tempNonSuppliableData: Asset[] = [];
 
-    const tempBorrowedData: $TSFixMe = [];
+    const tempBorrowedData: Asset[] = [];
 
-    const tempNonBorrowedData: $TSFixMe = [];
+    const tempNonBorrowedData: Asset[] = [];
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
-    userMarketInfo.forEach((element: $TSFixMe) => {
+    userMarketInfo.forEach((element: Asset) => {
       if (element.supplyBalance.isZero()) {
         tempNonSuppliableData.push(element);
       } else {
@@ -90,13 +90,9 @@ const Market = ({ setSetting }: MarketProps) => {
         tempBorrowedData.push(element);
       }
     });
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
     setSuppliedAssets([...tempSuppliedData]);
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
     setNonSuppliedAssets([...tempNonSuppliableData]);
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
     setBorrowedAssets([...tempBorrowedData]);
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
     setNonBorrowedAssets([...tempNonBorrowedData]);
   };
 
