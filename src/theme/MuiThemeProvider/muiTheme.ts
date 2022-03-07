@@ -13,7 +13,9 @@ export const PALETTE = {
   background: {
     default: '#090D27',
     paper: '#181C3A',
-    black: '#1F2028',
+    black: 'rgba(31, 32, 40, 1)',
+    asphaltGrey: 'rgba(40, 41, 49, 1)',
+    offWhite: 'rgba(255, 255, 255, 1)',
   },
   primary: {
     light: '#EBBF6E',
@@ -34,7 +36,7 @@ export const PALETTE = {
     slider: '#18DF8B',
   },
   error: {
-    main: '#F9053E',
+    main: 'rgba(233, 61, 68, 1)',
     slider: 'rgba(233, 61, 68, 0.5)',
   },
 };
@@ -90,9 +92,15 @@ export default createTheme({
       lineHeight: '24px',
     },
     body2: {},
-    caption: {
-      fontSize: '14px',
-      lineHeight: '21px',
+    small1: {
+      fontSize: '0.875rem',
+      lineHeight: '1.5',
+      fontWeight: 600,
+    },
+    small2: {
+      fontSize: '0.875rem',
+      lineHeight: '1.5',
+      fontWeight: 400,
     },
     button: {
       fontSize: '14px',

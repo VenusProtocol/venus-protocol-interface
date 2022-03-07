@@ -52,7 +52,7 @@ export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPr
         <Button
           type="button"
           loading={withdrawLoading}
-          loadingIconSize={28}
+          loadingIconSize="28px"
           className="button withdraw-button"
           disabled={!account || !withdrawableAmount.gt(0) || withdrawLoading}
           onClick={async () => {

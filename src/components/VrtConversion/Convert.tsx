@@ -133,7 +133,7 @@ export default ({
           type="button"
           className="button confirm-button"
           loading={convertLoading}
-          loadingIconSize={28}
+          loadingIconSize="28px"
           disabled={
             !convertInputAmount.gt(0) ||
             conversionEndTime.lt(Date.now() / 1000) ||

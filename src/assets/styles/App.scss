@@ -163,6 +163,19 @@ input {
     /* Firefox 18- */
     padding-right: 22px;
   }
+
+  /* Hide arrows from input number */
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
 }
 
 .proposal-detail {
@@ -236,7 +249,8 @@ input {
   background-color: var(--color-yellow);
   color: white;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: var(--color-gold);
     color: white;
   }
