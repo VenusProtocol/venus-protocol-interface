@@ -1,12 +1,14 @@
 import React from 'react';
 import { Input, Form, Dropdown, Menu } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
+import { ClickParam } from 'antd/lib/menu';
 import MainLayout from 'containers/Layout/MainLayout';
 import { Button } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import * as constants from 'utilities/constants';
 import { Row, Column } from 'components/Basic/Style';
 import { IRequestFaucetFundsInput } from 'clients/api';
+import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { getVaiTokenAddress } from '../../utilities/addressHelpers';
 import * as Styles from './styles';
@@ -23,13 +25,13 @@ const Faucet: React.FC<IFaucetProps> = ({
 }) => {
   const { getFieldDecorator } = form;
 
-  const handleMenuClick = (e: $TSFixMe, symbol: $TSFixMe) => {
+  const handleMenuClick = (e: ClickParam, symbol: AssetTicker) => {
     form.validateFields((err: $TSFixMe, values: $TSFixMe) => {
       if (!err) {
         requestFaucetFunds({
           address: values.address,
           asset: symbol,
-          amountType: e.key,
+          amountType: e.key as 'low' | 'medium' | 'high',
         });
       }
     });
