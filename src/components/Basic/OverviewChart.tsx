@@ -51,8 +51,8 @@ interface Props {
 }
 
 interface CustomChart2TooltipProps {
-  active: boolean;
-  payload: Array<{ value: BigNumber.Value }>;
+  active?: boolean;
+  payload?: Array<{ value: BigNumber.Value }>;
 }
 
 function OverviewChart({ marketType, graphType, data }: Props) {
@@ -70,7 +70,15 @@ function OverviewChart({ marketType, graphType, data }: Props) {
     </g>
   );
 
-  const CustomChart1Tooltip = ({ active, payload, label }: $TSFixMe) => {
+  const CustomChart1Tooltip = ({
+    active,
+    payload,
+    label,
+  }: {
+    active?: boolean;
+    payload?: Array<{ value: BigNumber.Value }>;
+    label?: string;
+  }) => {
     if (active && payload && payload.length !== 0) {
       return (
         <div className="custom-tooltip">
@@ -103,7 +111,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
     return null;
   };
 
-  const handleMouseMove = (index: $TSFixMe) => {
+  const handleMouseMove = (index: number) => {
     setActiveIndex(index);
   };
 
@@ -200,14 +208,13 @@ function OverviewChart({ marketType, graphType, data }: Props) {
                 tick={<CustomizedAxisTick />}
               />
               <YAxis hide />
-              {/* @ts-expect-error ts-migrate(2739) FIXME: Type '{}' is missing the following properties from... Remove this comment to see the full error message */}
               <Tooltip cursor={false} content={<CustomChart2Tooltip />} />
               <Bar
                 isAnimationActive
                 dataKey={marketType === 'supply' ? 'totalSupply' : 'totalBorrow'}
                 onMouseMove={handleMouseMove}
               >
-                {data.map((entry: $TSFixMe, index: number) => (
+                {data.map((entry: Record<string, { name: string; apy: number }>, index: number) => (
                   <Cell
                     cursor="pointer"
                     fill={
