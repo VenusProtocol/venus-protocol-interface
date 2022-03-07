@@ -8,6 +8,7 @@ import commaNumber from 'comma-number';
 import moment from 'moment';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
+import { Transaction } from 'types';
 import { BASE_BSC_SCAN_URL } from '../../../config';
 
 const TransactionsWrapper = styled.div`
@@ -79,21 +80,22 @@ const TransactionsWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-interface Transaction {
-  support: boolean;
-  type: 'vote';
-  blockTimestamp: string;
-}
-
 interface Props extends RouteComponentProps {
   address: string;
   transactions: Transaction[];
 }
 
-function Transactions({ address, transactions }: Props) {
-  const [data, setData] = useState([]);
+interface FormatTransaction {
+  action: 'Received Votes' | 'Lost Votes' | 'Received XVS' | 'Sent XVS';
+  age: string;
+  result: string;
+  isReceived: boolean;
+}
 
-  const getDate = (timestamp: $TSFixMe) => {
+function Transactions({ address, transactions }: Props) {
+  const [data, setData] = useState<FormatTransaction[]>([]);
+
+  const getDate = (timestamp: number) => {
     const startDate = moment(timestamp * 1000);
     const curDate = moment(new Date());
     const duration = moment.duration(curDate.diff(startDate));
@@ -104,9 +106,9 @@ function Transactions({ address, transactions }: Props) {
   };
 
   useEffect(() => {
-    const tempData: $TSFixMe = [];
+    const tempData: FormatTransaction[] = [];
 
-    transactions.forEach((tx: $TSFixMe) => {
+    transactions.forEach((tx: Transaction) => {
       if (tx.type === 'vote') {
         tempData.push({
           action: tx.support ? 'Received Votes' : 'Lost Votes',
@@ -127,7 +129,6 @@ function Transactions({ address, transactions }: Props) {
         });
       }
     });
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
     setData([...tempData]);
   }, [transactions, address]);
 
@@ -147,14 +148,10 @@ function Transactions({ address, transactions }: Props) {
           {data &&
             data.map(item => (
               <div className="flex align-center row-text" key={uid(item)}>
-                {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'action' does not exist on type 'never'. */}
                 <div className="action-column">{item.action}</div>
-                {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'age' does not exist on type 'never'. */}
                 <div className="age-column">{item.age}</div>
                 <div className="result-column">
-                  {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type 'never'. */}
                   <span>{item.result}</span>
-                  {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'isReceived' does not exist on type 'neve... Remove this comment to see the full error message */}
                   {item.isReceived ? (
                     <Icon type="arrow-up" className="green-color" />
                   ) : (

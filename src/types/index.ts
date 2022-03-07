@@ -89,3 +89,12 @@ export interface IPool {
   totalStaked: BigNumber;
   dailyEmission: BigNumber;
 }
+
+export interface Transaction {
+  support: boolean;
+  type: 'vote';
+  blockTimestamp: number;
+  amount: string;
+  to: string;
+  votes: string;
+}
