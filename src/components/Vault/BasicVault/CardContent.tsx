@@ -23,6 +23,7 @@ interface CardContentProps {
   onStake: (amt: BigNumber) => Promise<void>;
   onApprove: (amt: BigNumber) => Promise<void>;
   onWithdraw: (amt: BigNumber) => Promise<void>;
+  fullWithdraw?: boolean;
 }
 
 function CardContent({
@@ -36,6 +37,7 @@ function CardContent({
   onStake,
   onApprove,
   onWithdraw,
+  fullWithdraw,
 }: CardContentProps) {
   const { account } = useWeb3React();
 
@@ -91,7 +93,7 @@ function CardContent({
     setIsWithdrawLoading(true);
     try {
       await onWithdraw(withdrawAmount
-              .multipliedBy(1e18));
+        .multipliedBy(1e18));
       setWithdrawAmount(new BigNumber(0));
     } catch (error) {
       console.log('>> withdraw error: ', error);
@@ -145,34 +147,37 @@ function CardContent({
                   </span>
                 </div>
                 <div className="card-body">
-                  <div className="input-wrapper">
-                    <NumberFormat
-                      autoFocus
-                      value={withdrawAmount.isZero() ? '0' : withdrawAmount.toString(10)}
-                      onValueChange={values => {
+                  {fullWithdraw ? null : (
+                    <div className="input-wrapper">
+                      <NumberFormat
+                        autoFocus
+                        value={withdrawAmount.isZero() ? '0' : withdrawAmount.toString(10)}
+                        onValueChange={values => {
                         const value = new BigNumber(values.value || 0);
                         const maxValue = userStakedAmount.div(1e18).dp(4, 1);
                         setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
                       }}
-                      thousandSeparator
-                      allowNegative={false}
-                      placeholder="0"
-                    />
-                    <span
-                      className="pointer max"
-                      onClick={() => {
+                        thousandSeparator
+                        allowNegative={false}
+                        placeholder="0"
+                      />
+                      <span
+                        className="pointer max"
+                        onClick={() => {
                         setWithdrawAmount(userStakedAmount.div(1e18));
                       }}
-                    >
-                      MAX
-                    </span>
-                  </div>
+                      >
+                        MAX
+                      </span>
+                    </div>)
+                }
+
                 </div>
               </div>
               <button
                 type="button"
                 className="button claim-button"
-                disabled={!withdrawAmount.gt(0) || !userStakedAmount.gt(0) || !account}
+                disabled={(!fullWithdraw && !withdrawAmount.gt(0)) || !userStakedAmount.gt(0) || !account}
                 onClick={() => {
                   handleWithdraw();
                 }}

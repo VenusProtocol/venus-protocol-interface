@@ -4,7 +4,6 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
-import ga from 'clients/googleAnalytics';
 import * as constants from 'utilities/constants';
 import { useXvsVaultProxy } from 'hooks/useContract';
 import useRefresh from 'hooks/useRefresh';

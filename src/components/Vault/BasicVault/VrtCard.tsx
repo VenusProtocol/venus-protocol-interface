@@ -114,6 +114,7 @@ function VaultCard({ settings }: VaultCardProps) {
             userStakedAmount={userVrtStakedAmount}
             stakedToken="VRT"
             rewardToken="VRT"
+            fullWithdraw
             onClaimReward={async () => vrtVaultProxyContract.methods.claim().send({ from: account })}
             onStake={async (stakeAmount) => vrtVaultProxyContract.methods
               .deposit(
@@ -126,11 +127,7 @@ function VaultCard({ settings }: VaultCardProps) {
                 amt.toFixed(10),
               )
               .send({ from: account })}
-            onWithdraw={async (amt) => vrtVaultProxyContract.methods
-              .withdraw(
-                amt.toFixed(0),
-              )
-              .send({ from: account })}
+            onWithdraw={async () => vrtVaultProxyContract.methods.withdraw().send({ from: account })}
           />
         ) : null}
       </div>
