@@ -33,7 +33,7 @@ interface ToggleProps {
 
 function Toggle({ checked, onChecked }: ToggleProps) {
   return (
-    <ToggleWrapper onClick={(e: $TSFixMe) => e.stopPropagation()}>
+    <ToggleWrapper onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
       <Switch checked={checked} onChange={onChecked} />
     </ToggleWrapper>
   );

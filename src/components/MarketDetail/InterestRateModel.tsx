@@ -180,14 +180,7 @@ function InterestRateModel({ currentAsset }: Props) {
     const borrowRes = await Promise.all(
       urArray.map(ur =>
         interestModelContract.methods
-          .getBorrowRate(
-            new BigNumber(1 / ur - 1)
-              .times(1e4)
-              .dp(0)
-              .toString(10),
-            1e4,
-            0,
-          )
+          .getBorrowRate(new BigNumber(1 / ur - 1).times(1e4).dp(0).toString(10), 1e4, 0)
           .call(),
       ),
     );
@@ -195,10 +188,7 @@ function InterestRateModel({ currentAsset }: Props) {
       urArray.map(ur =>
         interestModelContract.methods
           .getSupplyRate(
-            new BigNumber(1 / ur - 1)
-              .times(1e4)
-              .dp(0)
-              .toString(10),
+            new BigNumber(1 / ur - 1).times(1e4).dp(0).toString(10),
             1e4,
             0,
             marketInfo.reserveFactor.toString(10),
@@ -211,14 +201,8 @@ function InterestRateModel({ currentAsset }: Props) {
       const blocksPerDay = 20 * 60 * 24;
       const daysPerYear = 365;
       const mantissa = 1e18;
-      const supplyBase = new BigNumber(supplyRes[index])
-        .div(mantissa)
-        .times(blocksPerDay)
-        .plus(1);
-      const borrowBase = new BigNumber(borrowRes[index])
-        .div(mantissa)
-        .times(blocksPerDay)
-        .plus(1);
+      const supplyBase = new BigNumber(supplyRes[index]).div(mantissa).times(blocksPerDay).plus(1);
+      const borrowBase = new BigNumber(borrowRes[index]).div(mantissa).times(blocksPerDay).plus(1);
       const supplyApy = supplyBase
         .pow(daysPerYear - 1)
         .minus(1)
@@ -265,7 +249,7 @@ function InterestRateModel({ currentAsset }: Props) {
     return null;
   };
 
-  const handleMouseMove = (e: $TSFixMe) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const graphElement = document.getElementById('percent-wrapper');
     const lineElement = document.getElementById('line');
     if (graphElement && lineElement) {

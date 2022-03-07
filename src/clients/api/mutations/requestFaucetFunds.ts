@@ -1,6 +1,6 @@
 import { restService } from 'utilities';
 
-export type Asset =
+export type AssetTicker =
   | 'usdc'
   | 'usdt'
   | 'busd'
@@ -14,7 +14,7 @@ export type Asset =
 
 export interface IRequestFaucetFundsInput {
   address: string;
-  asset: Asset;
+  asset: AssetTicker;
   amountType: 'low' | 'medium' | 'high';
 }
 

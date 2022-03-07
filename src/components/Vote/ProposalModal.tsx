@@ -201,7 +201,7 @@ function ProposalModal({
     }
   }, [visible, form]);
 
-  const handleSubmit = (e: $TSFixMe) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const targetAddresses: $TSFixMe = [];
