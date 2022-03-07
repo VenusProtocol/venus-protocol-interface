@@ -153,14 +153,14 @@ const MarketTableWrapper = styled.div`
   }
 `;
 
-interface MarketTableProps {
-  data: unknown[];
-  columns: ColumnProps<unknown>[];
+interface MarketTableProps<D> {
+  data: D[];
+  columns: ColumnProps<D>[];
   title: string;
   handleClickRow: (row: unknown) => void;
 }
 
-function MarketTable({ columns, data, title, handleClickRow }: MarketTableProps) {
+function MarketTable<D>({ columns, data, title, handleClickRow }: MarketTableProps<D>) {
   return (
     <MarketTableWrapper>
       <div className="all-title">{title}</div>

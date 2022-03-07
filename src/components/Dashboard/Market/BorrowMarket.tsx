@@ -44,7 +44,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
       dataIndex: 'img',
       key: 'img',
 
-      render(img: $TSFixMe, asset: $TSFixMe) {
+      render(img: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="flex align-center">
@@ -65,7 +65,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
       dataIndex: 'borrowApy',
       key: 'borrowApy',
 
-      render(borrowApy: $TSFixMe, asset: $TSFixMe) {
+      render(borrowApy: $TSFixMe, asset: Asset) {
         const apy = settings.withXVS ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy) : borrowApy;
         return {
           children: (
@@ -92,7 +92,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
       dataIndex: 'walletBalance',
       key: 'walletBalance',
 
-      render(walletBalance: $TSFixMe, asset: $TSFixMe) {
+      render(walletBalance: $TSFixMe, asset: Asset) {
         return {
           children: (
             <Label size="14" primary>
@@ -125,7 +125,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
       dataIndex: 'img',
       key: 'img',
 
-      render(img: $TSFixMe, asset: $TSFixMe) {
+      render(img: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="flex align-center">
@@ -146,7 +146,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
       dataIndex: 'borrowApy',
       key: 'borrowApy',
 
-      render(borrowApy: $TSFixMe, asset: $TSFixMe) {
+      render(borrowApy: $TSFixMe, asset: Asset) {
         const apy = settings.withXVS ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy) : borrowApy;
         return {
           children: (
@@ -173,7 +173,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
       dataIndex: 'borrowBalance',
       key: 'borrowBalance',
 
-      render(borrowBalance: $TSFixMe, asset: $TSFixMe) {
+      render(borrowBalance: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="wallet-label flex flex-column">

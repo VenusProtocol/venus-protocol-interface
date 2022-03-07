@@ -143,7 +143,7 @@ function InterestRateModel({ currentAsset }: Props) {
     </g>
   );
 
-  const getGraphData = async (asset: $TSFixMe) => {
+  const getGraphData = async (asset: string) => {
     flag = true;
     const vbepContract = getVbepContract(web3, asset);
     const interestRateModel = await vbepContract.methods.interestRateModel().call();

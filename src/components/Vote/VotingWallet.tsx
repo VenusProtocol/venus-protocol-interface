@@ -7,6 +7,7 @@ import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
 import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
+import { Asset } from 'types';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useComptroller, useVenusLens } from '../../hooks/useContract';
@@ -122,7 +123,7 @@ function VotingWallet({
     const vTokensBalanceInfos = await venusLensContract.methods
       .vTokenBalancesAll(
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'map' does not exist on type '{}'.
-        userMarketInfo.map((asset: $TSFixMe) => asset.vtokenAddress),
+        userMarketInfo.map((asset: Asset) => asset.vtokenAddress),
         account,
       )
       .call();
