@@ -77,7 +77,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'asset',
       key: 'asset',
 
-      render(img: $TSFixMe, asset: $TSFixMe) {
+      render(img: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="flex align-center">
@@ -98,7 +98,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'supplyApy',
       key: 'supplyApy',
 
-      render(supplyApy: $TSFixMe, asset: $TSFixMe) {
+      render(supplyApy: $TSFixMe, asset: Asset) {
         const apy = settings.withXVS ? supplyApy.plus(asset.xvsSupplyApy) : supplyApy;
 
         return {
@@ -116,7 +116,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'walletBalance',
       key: 'walletBalance',
 
-      render(walletBalance: $TSFixMe, asset: $TSFixMe) {
+      render(walletBalance: $TSFixMe, asset: Asset) {
         return {
           children: (
             <Label size="14" primary>
@@ -131,7 +131,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'collateral',
       key: 'collateral',
 
-      render(collateral: $TSFixMe, asset: $TSFixMe) {
+      render(collateral: $TSFixMe, asset: Asset) {
         return {
           children: +asset.collateralFactor.toString() ? (
             <Toggle checked={collateral} onChecked={() => handleToggleCollateral(asset)} />
@@ -147,7 +147,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'asset',
       key: 'asset',
 
-      render(img: $TSFixMe, asset: $TSFixMe) {
+      render(img: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="flex align-center">
@@ -168,7 +168,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'supplyApy',
       key: 'supplyApy',
 
-      render(supplyApy: $TSFixMe, asset: $TSFixMe) {
+      render(supplyApy: $TSFixMe, asset: Asset) {
         const apy = settings.withXVS ? supplyApy.plus(asset.xvsSupplyApy) : supplyApy;
         return {
           children: (
@@ -185,7 +185,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'supplyBalance',
       key: 'supplyBalance',
 
-      render(supplyBalance: $TSFixMe, asset: $TSFixMe) {
+      render(supplyBalance: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="wallet-label flex flex-column">
@@ -205,7 +205,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       dataIndex: 'collateral',
       key: 'collateral',
 
-      render(collateral: $TSFixMe, asset: $TSFixMe) {
+      render(collateral: $TSFixMe, asset: Asset) {
         return {
           children: +asset.collateralFactor ? (
             <Toggle checked={collateral} onChecked={() => handleToggleCollateral(asset)} />

@@ -115,12 +115,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
       if (amount.isNaN() || amount.isZero()) {
         setNetAPY(apy.dp(2, 1).toNumber());
       } else {
-        setNetAPY(
-          apy
-            .plus(settings.vaiAPY)
-            .dp(2, 1)
-            .toNumber(),
-        );
+        setNetAPY(apy.plus(settings.vaiAPY).dp(2, 1).toNumber());
       }
     },
     [settings],
@@ -131,7 +126,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
     let totalSupplied = new BigNumber(0);
     let totalBorrowed = userVaiMinted;
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
-    userMarketInfo.forEach((asset: $TSFixMe) => {
+    userMarketInfo.forEach((asset: Asset) => {
       if (!asset) return;
       const {
         supplyBalance,
@@ -201,12 +196,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
     };
   }, [withXVS]);
 
-  const formatValue = (value: $TSFixMe) =>
-    `$${format(
-      getBigNumber(value)
-        .dp(2, 1)
-        .toString(10),
-    )}`;
+  const formatValue = (value: $TSFixMe) => `$${format(getBigNumber(value).dp(2, 1).toString(10))}`;
 
   return (
     <Card>
