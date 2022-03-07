@@ -9,7 +9,6 @@ import { Icon, IconName } from 'components/v2/Icon';
 import VaultCardContent from './CardContent';
 import { VaultCardWrapper } from '../styles';
 
-
 const commaFormatter = commaNumber.bindWith(',', '.');
 
 interface VaultCardProps {
@@ -51,14 +50,14 @@ function VaultCard({
           <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Stake</div>
             <div className="content">
-              <Icon size={16} name={(stakedToken.toLowerCase() as IconName)} />
+              <Icon size={16} name={stakedToken.toLowerCase() as IconName} />
               <span>{stakedToken.toUpperCase()}</span>
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Earn</div>
             <div className="content">
-              <Icon size={16} name={(rewardToken.toLowerCase() as IconName)} />
+              <Icon size={16} name={rewardToken.toLowerCase() as IconName} />
               <span>{rewardToken.toUpperCase()}</span>
             </div>
           </Col>
@@ -75,11 +74,7 @@ function VaultCard({
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
-            <div className="title">
-              Total
-              {' '}
-              {stakedToken.toUpperCase()} Staked
-            </div>
+            <div className="title">Total {stakedToken.toUpperCase()} Staked</div>
             <div className="content">
               {commaFormatter(totalStaked.div(stakedTokenDecimal).dp(4, 1).toString(10))}
             </div>

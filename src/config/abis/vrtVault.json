@@ -1,135 +1,169 @@
-[{
+[
+  {
     "inputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"
-}, {
+  },
+  {
     "anonymous": false,
-    "inputs": [{
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "oldAdmin",
         "type": "address"
-    }, {
+      },
+      {
         "indexed": true,
         "internalType": "address",
         "name": "newAdmin",
         "type": "address"
-    }],
+      }
+    ],
     "name": "AdminTransfered",
     "type": "event"
-}, {
+  },
+  {
     "anonymous": false,
-    "inputs": [{
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "user",
         "type": "address"
-    }, {
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "interestAmount",
         "type": "uint256"
-    }],
+      }
+    ],
     "name": "Claim",
     "type": "event"
-}, {
+  },
+  {
     "anonymous": false,
-    "inputs": [{
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "user",
         "type": "address"
-    }, {
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
-    }],
+      }
+    ],
     "name": "Deposit",
     "type": "event"
-}, {
+  },
+  {
     "anonymous": false,
-    "inputs": [{
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "user",
         "type": "address"
-    }, {
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "withdrawnAmount",
         "type": "uint256"
-    }, {
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "totalPrincipalAmount",
         "type": "uint256"
-    }, {
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "accruedInterest",
         "type": "uint256"
-    }],
+      }
+    ],
     "name": "Withdraw",
     "type": "event"
-}, {
+  },
+  {
     "anonymous": false,
-    "inputs": [{
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "tokenAddress",
         "type": "address"
-    }, {
+      },
+      {
         "indexed": true,
         "internalType": "address",
         "name": "receiver",
         "type": "address"
-    }, {
+      },
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
-    }],
+      }
+    ],
     "name": "WithdrawToken",
     "type": "event"
-}, {
+  },
+  {
     "constant": false,
-    "inputs": [{
+    "inputs": [
+      {
         "internalType": "contract VRTVaultProxy",
         "name": "vrtVaultProxy",
         "type": "address"
-    }],
+      }
+    ],
     "name": "_become",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "_notEntered",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "bool",
         "name": "",
         "type": "bool"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "admin",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": false,
     "inputs": [],
     "name": "claim",
@@ -137,159 +171,200 @@
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-}, {
+  },
+  {
     "constant": false,
-    "inputs": [{
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "depositAmount",
         "type": "uint256"
-    }],
+      }
+    ],
     "name": "deposit",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
-    "inputs": [{
+    "inputs": [
+      {
         "internalType": "address",
         "name": "userAddress",
         "type": "address"
-    }],
+      }
+    ],
     "name": "getAccruedInterest",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "getBlockNumber",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "implementation",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": false,
-    "inputs": [{
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_vrtAddress",
         "type": "address"
-    }, {
+      },
+      {
         "internalType": "uint256",
         "name": "_interestRatePerBlock",
         "type": "uint256"
-    }],
+      }
+    ],
     "name": "initialize",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "interestRatePerBlock",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "pendingAdmin",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "pendingImplementation",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
-    "inputs": [{
+    "inputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
-    }],
+      }
+    ],
     "name": "userInfo",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "address",
         "name": "userAddress",
         "type": "address"
-    }, {
+      },
+      {
         "internalType": "uint256",
         "name": "accrualStartBlockNumber",
         "type": "uint256"
-    }, {
+      },
+      {
         "internalType": "uint256",
         "name": "totalInterestAmount",
         "type": "uint256"
-    }, {
+      },
+      {
         "internalType": "uint256",
         "name": "totalPrincipalAmount",
         "type": "uint256"
-    }, {
+      },
+      {
         "internalType": "uint256",
         "name": "totalWithdrawnAmount",
         "type": "uint256"
-    }, {
+      },
+      {
         "internalType": "uint256",
         "name": "lastWithdrawnBlockNumber",
         "type": "uint256"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "vrt",
-    "outputs": [{
+    "outputs": [
+      {
         "internalType": "contract IBEP20",
         "name": "",
         "type": "address"
-    }],
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
-}, {
+  },
+  {
     "constant": false,
     "inputs": [],
     "name": "withdraw",
@@ -297,24 +372,30 @@
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-}, {
+  },
+  {
     "constant": false,
-    "inputs": [{
+    "inputs": [
+      {
         "internalType": "address",
         "name": "tokenAddress",
         "type": "address"
-    }, {
+      },
+      {
         "internalType": "address",
         "name": "receiver",
         "type": "address"
-    }, {
+      },
+      {
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
-    }],
+      }
+    ],
     "name": "withdrawBep20",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-}]
+  }
+]

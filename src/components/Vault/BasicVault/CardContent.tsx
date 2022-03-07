@@ -77,9 +77,7 @@ function CardContent({
   const handleApprove = async () => {
     setIsStakeLoading(true);
     try {
-      await onApprove(new BigNumber(2)
-        .pow(256)
-        .minus(1));
+      await onApprove(new BigNumber(2).pow(256).minus(1));
     } catch (error) {
       console.log('>> token approve: ', error);
     }
@@ -92,8 +90,7 @@ function CardContent({
   const handleWithdraw = async () => {
     setIsWithdrawLoading(true);
     try {
-      await onWithdraw(withdrawAmount
-        .multipliedBy(1e18));
+      await onWithdraw(withdrawAmount.multipliedBy(1e18));
       setWithdrawAmount(new BigNumber(0));
     } catch (error) {
       console.log('>> withdraw error: ', error);
@@ -111,11 +108,7 @@ function CardContent({
               <div>
                 <div className="card-title">Available Rewards</div>
                 <div className="center-amount">
-                  {userPendingReward
-                    .div(1e18)
-                    .dp(6, 1)
-                    .toString(10)}{' '}
-                  {rewardToken}
+                  {userPendingReward.div(1e18).dp(6, 1).toString(10)} {rewardToken}
                 </div>
               </div>
               <button
@@ -139,11 +132,7 @@ function CardContent({
               <div className="left">
                 <div className="card-title">
                   <span>
-                    {stakedToken} Staked:{' '}
-                    {userStakedAmount
-                      .div(1e18)
-                      .dp(4, 1)
-                      .toString(10)}
+                    {stakedToken} Staked: {userStakedAmount.div(1e18).dp(4, 1).toString(10)}
                   </span>
                 </div>
                 <div className="card-body">
@@ -153,10 +142,10 @@ function CardContent({
                         autoFocus
                         value={withdrawAmount.isZero() ? '0' : withdrawAmount.toString(10)}
                         onValueChange={values => {
-                        const value = new BigNumber(values.value || 0);
-                        const maxValue = userStakedAmount.div(1e18).dp(4, 1);
-                        setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
-                      }}
+                          const value = new BigNumber(values.value || 0);
+                          const maxValue = userStakedAmount.div(1e18).dp(4, 1);
+                          setWithdrawAmount(value.gt(maxValue) ? maxValue : value);
+                        }}
                         thousandSeparator
                         allowNegative={false}
                         placeholder="0"
@@ -164,20 +153,21 @@ function CardContent({
                       <span
                         className="pointer max"
                         onClick={() => {
-                        setWithdrawAmount(userStakedAmount.div(1e18));
-                      }}
+                          setWithdrawAmount(userStakedAmount.div(1e18));
+                        }}
                       >
                         MAX
                       </span>
-                    </div>)
-                }
-
+                    </div>
+                  )}
                 </div>
               </div>
               <button
                 type="button"
                 className="button claim-button"
-                disabled={(!fullWithdraw && !withdrawAmount.gt(0)) || !userStakedAmount.gt(0) || !account}
+                disabled={
+                  (!fullWithdraw && !withdrawAmount.gt(0)) || !userStakedAmount.gt(0) || !account
+                }
                 onClick={() => {
                   handleWithdraw();
                 }}
@@ -195,10 +185,7 @@ function CardContent({
               <div className="withdraw-request">
                 <div className="card-title">
                   Available {stakedToken} to stake:{' '}
-                  {userStakedTokenBalance
-                    .div(1e18)
-                    .dp(4, 1)
-                    .toString(10)}
+                  {userStakedTokenBalance.div(1e18).dp(4, 1).toString(10)}
                 </div>
                 <div className="input-wrapper">
                   <NumberFormat

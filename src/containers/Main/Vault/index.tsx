@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
@@ -123,7 +122,6 @@ function Vault() {
       mounted = false;
     };
   }, [fastRefresh, account]);
-
 
   return (
     <MainLayout title="Vault">

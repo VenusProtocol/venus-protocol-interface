@@ -108,22 +108,17 @@ function VaultCard({ settings }: VaultCardProps) {
             stakedToken="VAI"
             rewardToken="XVS"
             onClaimReward={async () => vaiVaultContract.methods.claim().send({ from: account })}
-            onStake={async (stakeAmount) => vaiVaultContract.methods
-              .deposit(
-                stakeAmount.toFixed(0),
-              )
-              .send({ from: account })}
-            onApprove={async (amt) => vaiTokenContract.methods
-              .approve(
-                vaiVaultContract.options.address,
-                amt.toFixed(10),
-              )
-              .send({ from: account })}
-            onWithdraw={async (amt) => vaiVaultContract.methods
-              .withdraw(
-                amt.toFixed(0),
-              )
-              .send({ from: account })}
+            onStake={async stakeAmount =>
+              vaiVaultContract.methods.deposit(stakeAmount.toFixed(0)).send({ from: account })
+            }
+            onApprove={async amt =>
+              vaiTokenContract.methods
+                .approve(vaiVaultContract.options.address, amt.toFixed(10))
+                .send({ from: account })
+            }
+            onWithdraw={async amt =>
+              vaiVaultContract.methods.withdraw(amt.toFixed(0)).send({ from: account })
+            }
           />
         ) : null}
       </div>

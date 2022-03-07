@@ -97,7 +97,11 @@ function VaultCard({ settings }: VaultCardProps) {
       <CardHeader
         stakedToken="VRT"
         rewardToken="VRT"
-        apy={interestRatePerBlock.multipliedBy(DAYS_OF_YEAR * BLOCK_PER_DAY).div(1e18).multipliedBy(100).toFixed(2)}
+        apy={interestRatePerBlock
+          .multipliedBy(DAYS_OF_YEAR * BLOCK_PER_DAY)
+          .div(1e18)
+          .multipliedBy(100)
+          .toFixed(2)}
         totalStakedAmount={vaultVrtBalance.div(1e18)}
         totalPendingRewards={vaultVrtBalance.div(1e18)}
         dailyEmission={dailyEmission}
@@ -115,19 +119,20 @@ function VaultCard({ settings }: VaultCardProps) {
             stakedToken="VRT"
             rewardToken="VRT"
             fullWithdraw
-            onClaimReward={async () => vrtVaultProxyContract.methods.claim().send({ from: account })}
-            onStake={async (stakeAmount) => vrtVaultProxyContract.methods
-              .deposit(
-                stakeAmount.toFixed(0),
-              )
-              .send({ from: account })}
-            onApprove={async (amt) => vrtTokenContract.methods
-              .approve(
-                vrtVaultProxyContract.options.address,
-                amt.toFixed(10),
-              )
-              .send({ from: account })}
-            onWithdraw={async () => vrtVaultProxyContract.methods.withdraw().send({ from: account })}
+            onClaimReward={async () =>
+              vrtVaultProxyContract.methods.claim().send({ from: account })
+            }
+            onStake={async stakeAmount =>
+              vrtVaultProxyContract.methods.deposit(stakeAmount.toFixed(0)).send({ from: account })
+            }
+            onApprove={async amt =>
+              vrtTokenContract.methods
+                .approve(vrtVaultProxyContract.options.address, amt.toFixed(10))
+                .send({ from: account })
+            }
+            onWithdraw={async () =>
+              vrtVaultProxyContract.methods.withdraw().send({ from: account })
+            }
           />
         ) : null}
       </div>
