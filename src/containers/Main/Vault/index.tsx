@@ -11,7 +11,7 @@ import useWeb3 from 'hooks/useWeb3';
 import useRefresh from 'hooks/useRefresh';
 import { useXvsVaultProxy } from 'hooks/useContract';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
-import GeneralVaultPoolCard from 'components/Vault/Card';
+import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
 import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
 import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
 import { getTokenContractByAddress } from 'utilities/contractHelpers';

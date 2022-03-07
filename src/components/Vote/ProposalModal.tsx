@@ -181,7 +181,7 @@ function ProposalModal({
       callData: [],
     },
   ]);
-  const [activePanelKey, setActivePanelKey] = useState(['0']);
+  const [activePanelKey, setActivePanelKey] = useState<number | string[]>(['0']);
   const governorBravoContract = useGovernorBravo();
 
   useEffect(() => {
@@ -204,13 +204,13 @@ function ProposalModal({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const targetAddresses: $TSFixMe = [];
+    const targetAddresses: string[] = [];
 
-    const values: $TSFixMe = [];
+    const values: number[] = [];
 
-    const signatures: $TSFixMe = [];
+    const signatures: string[] = [];
 
-    const callDatas: $TSFixMe = [];
+    const callDatas: string[] = [];
     if (description.trim().length === 0) {
       setErrorMsg('Description is required');
     } else {
@@ -258,11 +258,11 @@ function ProposalModal({
     });
   };
 
-  const handleEditorChange = ({ text }: $TSFixMe) => {
+  const handleEditorChange = ({ text }: { text: string }) => {
     setDescription(text);
   };
 
-  const handleAdd = (type: $TSFixMe, index: $TSFixMe) => {
+  const handleAdd = (type: 'next' | 'previous', index: number) => {
     form.resetFields();
     if (type === 'next') {
       formData.splice(index + 1, 0, {
@@ -283,14 +283,14 @@ function ProposalModal({
     setActivePanelKey(type === 'next' ? index + 1 : index);
   };
 
-  const handleRemove = (idx: $TSFixMe) => {
+  const handleRemove = (idx: number) => {
     setFormData([
       ...formData.filter((_f, index) => index < idx),
       ...formData.filter((_f, index) => index > idx),
     ]);
   };
 
-  const handleParseFunc = (funcStr: $TSFixMe, idx: $TSFixMe) => {
+  const handleParseFunc = (funcStr: $TSFixMe, idx: number) => {
     if ((form.getFieldValue(`signature${idx}`) || '').trim().replace(/^s+|s+$/g, '')) {
       const parsedStr = getArgs(funcStr);
       formData[idx].signature = funcStr;
@@ -300,13 +300,13 @@ function ProposalModal({
     }
   };
   const handleKeyUp = (
-    type: $TSFixMe,
+    type: 'value' | 'targetAddress' | 'signature' | 'calldata',
 
-    idx: $TSFixMe,
+    idx: number,
 
-    subIdx: $TSFixMe,
+    subIdx: number | null,
 
-    v: $TSFixMe,
+    v: string,
   ) => {
     if (type === 'targetAddress') {
       formData[idx].targetAddress = v;
