@@ -11,6 +11,7 @@ import Overview from 'components/Dashboard/Overview';
 import WalletBalance from 'components/Dashboard/WalletBalance';
 import Market from 'components/Dashboard/Market';
 import { Row, Column } from 'components/Basic/Style';
+import { State } from 'core/modules/initialState';
 
 const DashboardWrapper = styled.div`
   height: 100%;
@@ -53,7 +54,7 @@ function Dashboard() {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

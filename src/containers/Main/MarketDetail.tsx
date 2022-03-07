@@ -13,6 +13,7 @@ import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketDetailWrapper = styled.div`
@@ -225,7 +226,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

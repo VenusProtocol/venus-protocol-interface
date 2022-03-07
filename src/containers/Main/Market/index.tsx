@@ -11,6 +11,7 @@ import { currencyFormatter, formatApy } from 'utilities/common';
 import { uid } from 'react-uid';
 import { Setting } from 'types';
 import { useMarkets } from 'hooks/useMarkets';
+import { State } from 'core/modules/initialState';
 
 const MarketWrapper = styled.div`
   width: 100%;
@@ -430,7 +431,7 @@ function Market({ history, settings }: MarketProps) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

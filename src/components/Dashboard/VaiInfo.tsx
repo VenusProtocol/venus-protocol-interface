@@ -8,6 +8,7 @@ import { Card } from 'components/Basic/Card';
 import { addToken } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { getVaiTokenAddress } from '../../utilities/addressHelpers';
@@ -116,7 +117,7 @@ function VaiInfo({ settings }: VaiInfoProps) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

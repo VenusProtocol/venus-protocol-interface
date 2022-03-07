@@ -5,6 +5,7 @@ import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
+import { State } from 'core/modules/initialState';
 import { BASE_BSC_SCAN_URL } from '../../config';
 
 const CardWrapper = styled.div`
@@ -84,7 +85,7 @@ CoinInfo.defaultProps = {
   balance: '0.0000',
 };
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

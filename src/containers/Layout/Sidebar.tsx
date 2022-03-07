@@ -16,6 +16,7 @@ import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
+import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useVaiToken } from '../../hooks/useContract';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';
@@ -462,7 +463,13 @@ function Sidebar({ history, setSetting }: SidebarProps) {
       {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
-            <Label primary>{format(getBigNumber(totalVaiMinted).dp(0, 1).toString(10))}</Label>
+            <Label primary>
+              {format(
+                getBigNumber(totalVaiMinted)
+                  .dp(0, 1)
+                  .toString(10),
+              )}
+            </Label>
             <Label className="center">Total VAI Minted</Label>
           </div>
         </TotalValue>
@@ -538,7 +545,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 

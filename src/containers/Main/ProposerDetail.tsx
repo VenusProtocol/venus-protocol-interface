@@ -11,6 +11,7 @@ import VotingHistory from 'components/Vote/ProposerDetail/VotingHistory';
 import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
+import { State } from 'core/modules/initialState';
 
 const ProposerDetailWrapper = styled.div`
   width: 100%;
@@ -166,7 +167,7 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
