@@ -9,10 +9,10 @@ export const Row = styled.div`
   }
 `;
 
-function getWidthString(span: $TSFixMe) {
+function getWidthString(span: string) {
   if (!span) return '';
 
-  const width = (span / 12) * 100;
+  const width = (parseInt(span, 10) / 12) * 100;
   return `width: ${width}%;`;
 }
 
