@@ -177,13 +177,13 @@ const ModalContentWrapper = styled.div`
 
 const MAX_INPUT_LENGTH = 1000;
 
-const VOTE_TYPE = {
-  AGAINST: 0,
-  FOR: 1,
-  ABSTAIN: 2,
-};
+enum VoteType {
+  AGAINST = 0,
+  FOR = 1,
+  ABSTAIN = 2,
+}
 
-const getVoteTypeStringFromValue = (type: $TSFixMe) =>
+const getVoteTypeStringFromValue = (type: VoteType) =>
   [
     ['👎', 'Against'],
     ['👍', 'For'],
@@ -198,13 +198,13 @@ interface Props extends RouteComponentProps {
 
 function Proposal({ address, proposal, votingWeight, history }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
+  const [voteType, setVoteType] = useState<0 | 1 | 2>(VoteType.FOR);
   const [voteStatus, setVoteStatus] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [voteReason, setVoteReason] = useState('');
   const governorBravoContract = useGovernorBravo();
 
-  const getStatus = (p: $TSFixMe) => {
+  const getStatus = (p: ProposalObject) => {
     if (p.state === 'Executed') {
       return 'Passed';
     }
@@ -228,7 +228,7 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
     }
   }, [address, proposal, getIsHasVoted]);
 
-  const handleOpenVoteConfirmModal = (type: $TSFixMe) => {
+  const handleOpenVoteConfirmModal = (type: VoteType) => {
     setVoteType(type);
     setConfirmModalVisible(true);
   };
@@ -250,8 +250,8 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
     setConfirmModalVisible(false);
   };
 
-  const getTitle = (descs: $TSFixMe) => {
-    const index = descs.findIndex((d: $TSFixMe) => d !== '');
+  const getTitle = (descs: string[]) => {
+    const index = descs.findIndex((d: string) => d !== '');
     if (index !== -1) {
       return descs[index];
     }
@@ -306,7 +306,7 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
       <Row className="vote-actions">
         {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
           <div className="flex align-center" onClick={e => e.stopPropagation()}>
-            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => (
+            {[VoteType.FOR, VoteType.AGAINST, VoteType.ABSTAIN].map(type => (
               <Button
                 key={type}
                 className="vote-btn"
