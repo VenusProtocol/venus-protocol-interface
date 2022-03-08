@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withRouter, withThemeProvider } from 'stories/decorators';
+import { withThemeProvider } from 'stories/decorators';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { Toggle } from '.';
@@ -8,7 +8,7 @@ import { Toggle } from '.';
 export default {
   title: 'Components/Toggle',
   component: Toggle,
-  decorators: [withRouter, withThemeProvider],
+  decorators: [withThemeProvider],
 } as ComponentMeta<typeof Toggle>;
 
 export const ToggleDefault = () => (
