@@ -36,14 +36,14 @@ const CardHeader = ({
         <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Stake</div>
           <div className="content">
-            <Icon size={16} name={stakedToken.toLowerCase() as IconName} />
+            <Icon size="16" name={stakedToken.toLowerCase() as IconName} />
             <span>{stakedToken}</span>
           </div>
         </Col>
         <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Earn</div>
           <div className="content">
-            <Icon size={16} name={rewardToken.toLowerCase() as IconName} />
+            <Icon size="16" name={rewardToken.toLowerCase() as IconName} />
             <span>{rewardToken}</span>
           </div>
         </Col>
@@ -78,7 +78,7 @@ const CardHeader = ({
             onExpand();
           }}
         >
-          <Icon className="expand-icon" size={16} name="arrowDown" />
+          <Icon className="expand-icon" size="16" name="arrowDown" />
         </Col>
       </Row>
     </div>
