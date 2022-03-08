@@ -16,7 +16,7 @@ import { useToken, useGovernorBravo } from '../../hooks/useContract';
 const ProposalsWrapper = styled.div`
   width: 100%;
   border-radius: 25px;
-  background-color: #181c3a;
+  background-color: var(--color-bg-primary);
   padding: 20px 30px;
 
   .proposal-head {

@@ -79,7 +79,7 @@ export const ConvertWrapper = styled.div`
   }
 
   .input-wrapper {
-    background-color: #090e25;
+    background-color: var(--color-bg-active);
     border-radius: 8px;
     display: flex;
     height: 40px;

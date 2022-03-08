@@ -150,7 +150,7 @@ const TableWrapper = styled.div`
   .footer {
     margin-top: 20px;
     padding: 20px;
-    border-top: 1px solid #262b48;
+    border-top: 1px solid var(--color-bg-main);
 
     .pages {
       font-size: 16px;
@@ -227,7 +227,7 @@ const AssetSelectWrapper = styled.div`
   .ant-select {
     .ant-select-selection {
       margin-left: 8px;
-      border: 2px solid #20345e;
+      border: 2px solid var(--color-bg-active);
       background-color: transparent;
       font-size: 17px;
       font-weight: 900;
@@ -335,7 +335,7 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
               // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
               getPopupContainer={() => document.getElementById('event-type')}
               dropdownMenuStyle={{
-                backgroundColor: '#090d27',
+                backgroundColor: 'var(--color-bg-main)',
               }}
               dropdownClassName="asset-select"
               onChange={val => {

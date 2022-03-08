@@ -20,7 +20,7 @@ import { vtokenDecimals } from '../../config';
 const CardWrapper = styled.div`
   width: 100%;
   border-radius: 25px;
-  background-color: #181c3a;
+  background-color: var(--color-bg-primary);
   padding: 28px 25px 27px 25px;
 
   .asset-img {
@@ -241,7 +241,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                 // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
                 getPopupContainer={() => document.getElementById('asset')}
                 dropdownMenuStyle={{
-                  backgroundColor: '#090d27',
+                  backgroundColor: 'var(--color-bg-main)',
                 }}
                 dropdownClassName="asset-select"
                 onChange={handleChangeAsset}
