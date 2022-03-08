@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Toggle } from '.';
 
 export default {
-  title: 'Toggle',
+  title: 'Components/Toggle',
   component: Toggle,
   decorators: [withRouter, withThemeProvider],
 } as ComponentMeta<typeof Toggle>;
