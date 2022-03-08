@@ -119,6 +119,7 @@ export function* watchLogoutRequest() {
   }
 }
 
+// prettier-ignore
 export default function* () {
   yield all([
     fork(watchHandleAuthErrorRequest),

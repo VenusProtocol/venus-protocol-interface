@@ -30,6 +30,7 @@ export const PALETTE = {
   text: {
     primary: '#FFFFFF',
     secondary: '#9597A1',
+    disabled: '#A1A1A1',
   },
   success: {
     main: '#9DD562',
@@ -197,6 +198,22 @@ export default createTheme({
         notchedOutline: {
           top: 0,
           border: 'none',
+        },
+      },
+    },
+    MuiSwitch: {
+      styleOverrides: {
+        switchBase: {
+          color: defaultTheme.palette.text.disabled,
+          '&.Mui-checked': {
+            color: defaultTheme.palette.error.main,
+          },
+          '&+.MuiSwitch-track': {
+            backgroundColor: defaultTheme.palette.background.default,
+          },
+          '&.Mui-checked+.MuiSwitch-track': {
+            backgroundColor: defaultTheme.palette.background.default,
+          },
         },
       },
     },
