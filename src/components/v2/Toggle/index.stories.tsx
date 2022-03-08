@@ -11,8 +11,4 @@ export default {
   decorators: [withThemeProvider],
 } as ComponentMeta<typeof Toggle>;
 
-export const ToggleDefault = () => (
-  <Box sx={{ width: '200px', m: 5, p: 5 }} component={Paper}>
-    <Toggle onChange={console.log} />
-  </Box>
-);
+export const Default = () => <Toggle onChange={console.log} />;

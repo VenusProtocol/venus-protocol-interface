@@ -17,19 +17,16 @@ export const useStyles = () => {
           opacity: 0.5,
         },
         '& .MuiSwitch-thumb': {
-          backgroundImage: 'linear-gradient(180deg, #EF9037 20.59%, #E93E44 85.35%)',
+          backgroundColor: theme.palette.v2.interactive.primary,
         },
       },
       '&.Mui-focusVisible .MuiSwitch-thumb': {
-        color: '#33cf4d',
+        color: theme.palette.v2.interactive.success,
         border: '6px solid #fff',
-      },
-      '&.Mui-disabled .MuiSwitch-thumb': {
-        color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[600],
       },
     },
     '& .MuiSwitch-thumb': {
-      backgroundImage: 'linear-gradient(180deg, #484E56 17.71%, #3B4048 90.44%)',
+      backgroundColor: theme.palette.v2.text.secondary,
       boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.35)',
       boxSizing: 'border-box',
       width: 22,
@@ -40,7 +37,7 @@ export const useStyles = () => {
     },
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
-      backgroundImage: 'linear-gradient(180deg, #282B30 0%, #1E2124 100%)',
+      backgroundColor: theme.palette.v2.background.primary,
       boxShadow: 'inset 0px 3px 20px rgba(0, 0, 0, 0.15)',
       opacity: 1,
     },
