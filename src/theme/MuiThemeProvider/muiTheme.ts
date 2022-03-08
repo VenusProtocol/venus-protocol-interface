@@ -13,9 +13,6 @@ export const PALETTE = {
   background: {
     default: '#090D27',
     paper: '#181C3A',
-    black: 'rgba(31, 32, 40, 1)',
-    asphaltGrey: 'rgba(40, 41, 49, 1)',
-    offWhite: 'rgba(255, 255, 255, 1)',
   },
   primary: {
     light: '#EBBF6E',
@@ -39,6 +36,23 @@ export const PALETTE = {
   error: {
     main: 'rgba(233, 61, 68, 1)',
     slider: 'rgba(233, 61, 68, 0.5)',
+  },
+  v2: {
+    background: {
+      primary: 'rgba(31, 32, 40, 1)',
+      secondary: 'rgba(40, 41, 49, 1)',
+      tertiary: 'rgba(56, 57, 68, 1)',
+    },
+    text: {
+      primary: 'rgba(255, 255, 255, 1)',
+      secondary: 'rgba(149, 151, 161, 1)',
+    },
+    interactive: {
+      primary: 'rgba(58, 120, 255, 1)',
+      success: 'rgba(24, 223, 139, 1)',
+      error: 'rgba(233, 61, 68, 1)',
+      error50: 'rgba(233, 61, 68, 0.5)',
+    },
   },
 };
 
