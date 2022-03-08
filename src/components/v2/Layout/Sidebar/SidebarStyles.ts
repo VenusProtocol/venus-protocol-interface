@@ -7,17 +7,17 @@ export const useStyles = () => {
     list: { paddingTop: 10 },
     listItem: {
       transition: 'color .3s',
-      color: 'inherit',
+      color: theme.palette.v2.text.secondary,
       pl: 3,
       pr: 3,
       '&+&': {
         mt: 2,
       },
       '&:hover': {
-        color: theme.palette.primary.main,
+        color: theme.palette.v2.text.primary,
       },
     },
-    activeMenuItem: { color: theme.palette.primary.main },
+    activeMenuItem: { color: theme.palette.v2.text.primary },
     listItemIcon: { minWidth: 40, color: 'inherit' },
   };
 };

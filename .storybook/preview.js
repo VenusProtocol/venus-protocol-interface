@@ -17,19 +17,15 @@ export const parameters = {
   layout: 'fullscreen',
   actions: { argTypesRegex: '^on[A-Z].*' },
   backgrounds: {
-    default: 'Asphalt grey',
+    default: 'Secondary',
     values: [
       {
-        name: 'Asphalt grey',
-        value: PALETTE.background.asphaltGrey,
+        name: 'Primary',
+        value: PALETTE.v2.background.primary,
       },
       {
-        name: 'Black',
-        value: PALETTE.background.black,
-      },
-      {
-        name: 'Off white',
-        value: PALETTE.background.offWhite,
+        name: 'Secondary',
+        value: PALETTE.v2.background.secondary,
       },
     ],
   },

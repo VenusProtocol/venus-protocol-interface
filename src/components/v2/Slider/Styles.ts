@@ -4,8 +4,8 @@ import { useTheme } from '@mui/material';
 export const styles = ({ over }: { over: boolean }) => {
   const theme = useTheme();
   return css`
-    color: ${over ? theme.palette.error.slider : theme.palette.success.slider};
-    background-color: ${theme.palette.background.black};
+    color: ${over ? theme.palette.v2.interactive.error50 : theme.palette.v2.interactive.success};
+    background-color: ${theme.palette.v2.background.primary};
     height: 8px;
     padding: 0;
     .MuiSlider-track {
@@ -13,12 +13,12 @@ export const styles = ({ over }: { over: boolean }) => {
     }
     .MuiSlider-rail {
       height: 8px;
-      color: ${theme.palette.background.black};
+      color: ${theme.palette.v2.background.primary};
     }
     .MuiSlider-mark {
       width: 4px;
       height: 8px;
-      color: ${theme.palette.error.slider};
+      color: ${theme.palette.v2.interactive.error};
     }
   `;
 };
