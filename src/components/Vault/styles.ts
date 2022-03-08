@@ -4,7 +4,7 @@ export const VaultCardWrapper = styled.div`
   width: 100%;
   margin: 16px;
   margin-bottom: 0;
-  background-color: #181d38;
+  background-color: var(--color-bg-primary);
   border-radius: 8px;
 
   .header-container {
@@ -85,7 +85,7 @@ export const CardItemWrapper = styled.div`
 
   .card-item {
     position: relative;
-    background: #090e25;
+    background: var(--color-bg-active);
     border-radius: 8px;
     margin-left: 16px;
     margin-bottom: 16px;

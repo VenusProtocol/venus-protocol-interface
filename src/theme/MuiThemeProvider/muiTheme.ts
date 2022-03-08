@@ -11,8 +11,8 @@ export const FONTS = {
 export const PALETTE = {
   mode: 'dark',
   background: {
-    default: '#090D27',
-    paper: '#181C3A',
+    default: 'rgba(31, 32, 40, 1)',
+    paper: 'rgba(40, 41, 49, 1)',
   },
   primary: {
     light: '#EBBF6E',
@@ -20,9 +20,9 @@ export const PALETTE = {
     dark: '#D99D43',
   },
   secondary: {
-    light: '#252A4A',
-    main: '#181C3A',
-    dark: '#090D27',
+    light: 'rgba(56, 57, 68, 1)',
+    main: 'rgba(40, 41, 49, 1)',
+    dark: 'rgba(31, 32, 40, 1)',
   },
   text: {
     primary: '#FFFFFF',
