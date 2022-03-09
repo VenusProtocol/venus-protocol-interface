@@ -63,7 +63,7 @@ export const ButtonWrapper = styled.div`
     width: 150px;
     height: 40px;
     border-radius: 5px;
-    background-image: linear-gradient(to right, #f2c265, #f7b44f);
+    background-color: #3a78ff;
     span {
       font-size: 15px;
       font-weight: 500;

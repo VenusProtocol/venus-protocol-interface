@@ -17,7 +17,7 @@ export const PALETTE = {
   primary: {
     light: '#EBBF6E',
     main: '#EBBF6E',
-    dark: '#D99D43',
+    dark: 'var(--color-blue-hover)',
   },
   secondary: {
     light: 'rgba(56, 57, 68, 1)',

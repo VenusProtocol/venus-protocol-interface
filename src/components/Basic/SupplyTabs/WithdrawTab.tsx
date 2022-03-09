@@ -299,7 +299,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
           </div>
           <Progress
             percent={newBorrowPercent.toNumber()}
-            strokeColor="#d99d43"
+            strokeColor="var(--color-blue-hover)"
             strokeWidth={7}
             showInfo={false}
           />

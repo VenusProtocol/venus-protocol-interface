@@ -14,6 +14,7 @@ const MainLayoutWrapper = styled.div`
     height: 100vh;
 
     .main-content {
+      padding-top: 20px;
       display: flex;
       flex-direction: column;
       height: calc(100vh - 122px);

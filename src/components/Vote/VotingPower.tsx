@@ -14,7 +14,7 @@ const VotingPowerWrapper = styled.div`
   height: 100%;
   padding: 8px;
   border-radius: 20px;
-  background-image: linear-gradient(to right, #f2c265, #f7b44f);
+  background-color: var(--color-bg-primary);
 
   .title {
     font-size: 20px;
@@ -40,7 +40,7 @@ const VotingPowerWrapper = styled.div`
     min-height: 84px;
     border-radius: 20px;
     padding: 12px 24px;
-    background-color: var(--color-bg-primary);
+    background-color: var(--color-bg-main);
     color: #fff;
 
     @media only screen and (max-width: 992px) {
@@ -54,7 +54,7 @@ const VotingPowerWrapper = styled.div`
       line-height: 24px;
       .info-circle {
         font-size: 24px;
-        color: var(--color-gold);
+        color: var(--color-white);
         margin-right: 16px;
       }
     }
