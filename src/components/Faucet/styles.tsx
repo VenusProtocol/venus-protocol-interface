@@ -63,7 +63,7 @@ export const ButtonWrapper = styled.div`
     width: 150px;
     height: 40px;
     border-radius: 5px;
-    background-color: #3a78ff;
+    background-color: var(--color-yellow);
     span {
       font-size: 15px;
       font-weight: 500;

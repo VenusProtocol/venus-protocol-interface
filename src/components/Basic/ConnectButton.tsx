@@ -31,7 +31,7 @@ const ConnectButtonWrapper = styled.div`
     width: 114px;
     height: 30px;
     border-radius: 5px;
-    background-color: #3a78ff;
+    background-color: var(--color-yellow);
 
     @media only screen and (max-width: 768px) {
       width: 100px;
@@ -219,7 +219,7 @@ const ModalContent = styled.div`
         width: 114px;
         height: 30px;
         border-radius: 5px;
-        background-color: #3a78ff;
+        background-color: var(--color-yellow);
 
         @media only screen and (max-width: 768px) {
           width: 100px;
