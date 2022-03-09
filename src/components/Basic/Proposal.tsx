@@ -92,7 +92,7 @@ const ProposalWrapper = styled.div`
     button {
       height: 32px;
       border-radius: 5px;
-      background-color: #3a78ff;
+      background-color: var(--color-yellow);
       span {
         font-size: 12px;
         font-weight: 500;

@@ -140,7 +140,7 @@ export const TabSection = styled.div`
     width: 248px;
     height: 41px;
     border-radius: 5px;
-    background-color: #3a78ff;
+    background-color: var(--color-yellow);
 
     span {
       font-size: 16px;
