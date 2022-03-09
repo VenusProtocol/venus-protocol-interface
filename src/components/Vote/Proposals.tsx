@@ -238,7 +238,7 @@ function Proposals({
           {address && (
             <Tooltip
               overlayStyle={{
-                backgroundColor: '#090D27',
+                backgroundColor: 'var(--color-bg-main)',
                 borderRadius: '12px',
               }}
               placement="top"
