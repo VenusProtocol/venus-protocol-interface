@@ -152,7 +152,7 @@ const TableWrapper = styled.div`
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       &:hover {
         background-color: var(--color-bg-active);
-        border-left: 2px solid var(--color-orange);
+        border-left: 2px solid var(--color-yellow);
       }
       div {
         color: var(--color-white);
@@ -304,7 +304,7 @@ function XVS({ settings }: XVSProps) {
                   .dividedBy(new BigNumber(mintedAmount))
                   .multipliedBy(100)
                   .toNumber()}
-                strokeColor="#f8b94b"
+                strokeColor="var(--color-green)"
                 strokeWidth={7}
                 showInfo={false}
               />

@@ -81,7 +81,7 @@ const TableWrapper = styled.div`
       border-left: 2px solid transparent;
       &:hover {
         background-color: var(--color-bg-active);
-        border-left: 2px solid var(--color-orange);
+        border-left: 2px solid var(--color-yellow);
       }
       div {
         color: var(--color-white);
