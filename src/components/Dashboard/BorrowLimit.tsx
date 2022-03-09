@@ -11,7 +11,7 @@ const CardWrapper = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 25px;
-  background-color: #181c3a;
+  background-color: #282931;
   background-image: linear-gradient(to right, #f2c265, #f7b44f);
   padding: 20px 30px;
 

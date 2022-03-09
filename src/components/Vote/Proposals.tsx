@@ -16,7 +16,7 @@ import { useToken, useGovernorBravo } from '../../hooks/useContract';
 const ProposalsWrapper = styled.div`
   width: 100%;
   border-radius: 25px;
-  background-color: #181c3a;
+  background-color: #282931;
   padding: 20px 30px;
 
   .proposal-head {
@@ -238,7 +238,7 @@ function Proposals({
           {address && (
             <Tooltip
               overlayStyle={{
-                backgroundColor: '#090D27',
+                backgroundColor: '#1F2028',
                 borderRadius: '12px',
               }}
               placement="top"

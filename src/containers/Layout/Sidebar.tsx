@@ -476,7 +476,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
           getPopupContainer={() => document.getElementById('main-menu')}
           dropdownMenuStyle={{
-            backgroundColor: '#090d27',
+            backgroundColor: '#1F2028',
           }}
           dropdownClassName="asset-select"
           onChange={onChangePage}

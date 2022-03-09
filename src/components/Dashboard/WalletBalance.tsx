@@ -22,7 +22,7 @@ const CardWrapper = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 25px;
-  background-color: #181c3a;
+  background-color: #282931;
   padding: 35px;
 
   .label {
