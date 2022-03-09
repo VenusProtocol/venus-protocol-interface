@@ -135,7 +135,7 @@ function Vault() {
       ) : (
         <VaultWrapper>
           <VaiPoolCard />
-          {process.env.REACT_APP_CHAIN_ID === '97' && <VrtPoolCard />}
+          {process.env.REACT_APP_CHAIN_ID === '97' && (<VrtPoolCard />)}
           {poolInfos.map(poolInfo => (
             <GeneralVaultPoolCard
               key={uid(poolInfo)}

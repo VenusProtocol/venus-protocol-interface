@@ -513,8 +513,8 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               <Label size={14} primary>
                 Convert VRT
               </Label>
-            </Option>)
-          }
+            </Option>
+          )}
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
               Transactions

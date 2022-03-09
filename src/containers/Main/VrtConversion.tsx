@@ -11,7 +11,12 @@ import { getVrtConverterProxyAddress } from '../../utilities/addressHelpers';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';
 import TabContainer from '../../components/Basic/TabContainer';
-import { useVrtConverterProxy, useVrtToken, useXvsVestingProxy, useToken } from '../../hooks/useContract';
+import {
+  useVrtConverterProxy,
+  useVrtToken,
+  useXvsVestingProxy,
+  useToken,
+} from '../../hooks/useContract';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -64,9 +69,8 @@ export default () => {
     const update = async () => {
       if (account) {
         try {
-          const {
-            totalWithdrawableAmount: totalWithdrawableAmountTemp,
-          } = await xvsVestingContract.methods.getWithdrawableAmount(account).call();
+          const { totalWithdrawableAmount: totalWithdrawableAmountTemp } =
+            await xvsVestingContract.methods.getWithdrawableAmount(account).call();
           setWithdrawableAmount(new BigNumber(totalWithdrawableAmountTemp).div(VRT_DECIMAL));
         } catch (e) {
           console.log('no vestings');

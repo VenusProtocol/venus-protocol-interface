@@ -32,9 +32,9 @@ export const getXvsVaultStoreAddress = () =>
 export const getGovernorBravoAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   addresses.governorBravoDelegator[chainId];
-  export const getVrtTokenAddress = () =>
-    // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-    addresses.vrtToken[chainId];
+export const getVrtTokenAddress = () =>
+  // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
+  addresses.vrtToken[chainId];
 export const getXvsVestingProxyAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   addresses.xvsVestingProxy[chainId];
