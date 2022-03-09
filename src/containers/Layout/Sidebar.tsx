@@ -392,14 +392,16 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/convert-vrt"
-          active-class-name="active"
-        >
-          <Icon type="swap" />
-          <Label primary>Convert VRT</Label>
-        </NavLink>
+        {process.env.REACT_APP_CHAIN_ID === '97' && (
+          <NavLink
+            className="flex flex-start align-center"
+            to="/convert-vrt"
+            active-class-name="active"
+          >
+            <Icon type="swap" />
+            <Label primary>Convert VRT</Label>
+          </NavLink>
+        )}
         <NavLink
           className="flex flex-start align-center"
           to="/transaction"
@@ -506,11 +508,13 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Vault
             </Label>
           </Option>
-          <Option className="flex align-center just-center" value="Convert-vrt">
-            <Label size={14} primary>
-              Convert VRT
-            </Label>
-          </Option>
+          {process.env.REACT_APP_CHAIN_ID === '97' && (
+            <Option className="flex align-center just-center" value="Convert-vrt">
+              <Label size={14} primary>
+                Convert VRT
+              </Label>
+            </Option>)
+          }
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
               Transactions
