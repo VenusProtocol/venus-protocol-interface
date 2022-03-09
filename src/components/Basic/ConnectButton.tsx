@@ -31,7 +31,7 @@ const ConnectButtonWrapper = styled.div`
     width: 114px;
     height: 30px;
     border-radius: 5px;
-    background-image: linear-gradient(to right, #f2c265, #f7b44f);
+    background-color: #3a78ff;
 
     @media only screen and (max-width: 768px) {
       width: 100px;
@@ -219,7 +219,7 @@ const ModalContent = styled.div`
         width: 114px;
         height: 30px;
         border-radius: 5px;
-        background-image: linear-gradient(to right, #f2c265, #f7b44f);
+        background-color: #3a78ff;
 
         @media only screen and (max-width: 768px) {
           width: 100px;

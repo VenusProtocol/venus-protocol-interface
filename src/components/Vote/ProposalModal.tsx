@@ -75,7 +75,7 @@ const ModalContent = styled.div`
       .proposal-btn {
         width: 210px;
         height: 52px;
-        background-image: linear-gradient(to right, #f2c265, #f7b44f);
+        background-color: #3a78ff;
         border-radius: 10px;
         span {
           font-size: 16px;
@@ -118,7 +118,7 @@ const ModalContent = styled.div`
           width: 100%;
           .add-btn {
             height: 40px;
-            background-image: linear-gradient(to right, #f2c265, #f7b44f);
+            background-color: #3a78ff;
             border-radius: 10px;
             span {
               font-size: 16px;

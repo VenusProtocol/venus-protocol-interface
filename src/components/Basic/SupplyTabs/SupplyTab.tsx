@@ -277,7 +277,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
             </div>
             <Progress
               percent={newBorrowPercent.toNumber()}
-              strokeColor="#d99d43"
+              strokeColor="var(--color-blue-hover)"
               strokeWidth={7}
               showInfo={false}
             />

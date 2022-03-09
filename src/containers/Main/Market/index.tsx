@@ -60,7 +60,7 @@ const TableWrapper = styled.div`
 
     .total-item {
       margin: 10px;
-      width: 50%;
+      width: 23%;
 
       @media (max-width: 992px) {
         width: 100%;
@@ -77,6 +77,8 @@ const TableWrapper = styled.div`
         font-size: 24px;
         color: var(--color-white);
         margin-top: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -112,7 +114,7 @@ const TableWrapper = styled.div`
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       &:hover {
         background-color: var(--color-bg-active);
-        border-left: 2px solid var(--color-orange);
+        border-left: 2px solid var(--color-yellow);
       }
       div {
         color: var(--color-white);
@@ -222,19 +224,27 @@ function Market({ history, settings }: MarketProps) {
           <div className="total-info">
             <div className="total-item">
               <div className="prop">Total Supply</div>
-              <div className="value">${format(totalSupply)}</div>
+              <div className="value" title={format(totalSupply)}>
+                ${format(totalSupply)}
+              </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Borrow</div>
-              <div className="value">${format(totalBorrow)}</div>
+              <div className="value" title={format(totalBorrow)}>
+                ${format(totalBorrow)}
+              </div>
             </div>
             <div className="total-item">
               <div className="prop">Available Liquidity</div>
-              <div className="value">${format(availableLiquidity)}</div>
+              <div className="value" title={format(availableLiquidity)}>
+                ${format(availableLiquidity)}
+              </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
-              <div className="value">${format(treasuryTotalUSDBalance.dp(2).toString())}</div>
+              <div className="value" title={format(treasuryTotalUSDBalance.dp(2).toString())}>
+                ${format(treasuryTotalUSDBalance.dp(2).toString())}
+              </div>
             </div>
           </div>
           {settings.vaiAPY && (

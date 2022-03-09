@@ -85,7 +85,7 @@ const VotingWrapper = styled.div`
       width: 100%;
       height: 48px;
       border-radius: 5px;
-      background-image: linear-gradient(to right, #f2c265, #f7b44f);
+      background-color: #3a78ff;
       span {
         font-size: 13px;
         font-weight: 500;

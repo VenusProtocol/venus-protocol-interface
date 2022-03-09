@@ -139,7 +139,7 @@ export const TabSection = styled.div`
     width: 248px;
     height: 41px;
     border-radius: 5px;
-    background-image: linear-gradient(to right, #f2c265, #f7b44f);
+    background-color: #3a78ff;
 
     span {
       font-size: 16px;
