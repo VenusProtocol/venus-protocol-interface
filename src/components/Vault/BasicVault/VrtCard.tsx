@@ -118,7 +118,7 @@ export default function VaultCard() {
             }
             onApprove={amt =>
               vrtTokenContract.methods
-                .approve(vrtVaultProxyContract.options.address, amt.toFixed(10))
+                .approve(vrtVaultProxyContract.options.address, amt.toFixed(0))
                 .send({ from: account })
             }
             onWithdraw={() => vrtVaultProxyContract.methods.withdraw().send({ from: account })}

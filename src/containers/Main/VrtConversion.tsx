@@ -7,11 +7,11 @@ import { Row, Col } from 'antd';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useRefresh from '../../hooks/useRefresh';
 import * as constants from '../../utilities/constants';
-import { getVrtConverterAddress } from '../../utilities/addressHelpers';
+import { getVrtConverterProxyAddress } from '../../utilities/addressHelpers';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';
 import TabContainer from '../../components/Basic/TabContainer';
-import { useVrtConverter, useVrtToken, useXvsVesting, useToken } from '../../hooks/useContract';
+import { useVrtConverterProxy, useVrtToken, useXvsVestingProxy, useToken } from '../../hooks/useContract';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -54,45 +54,41 @@ export default () => {
   const { fastRefresh } = useRefresh();
 
   // contracts
-  const vrtConverterContract = useVrtConverter();
-  const xvsVestingContract = useXvsVesting();
+  const vrtConverterContract = useVrtConverterProxy();
+  const xvsVestingContract = useXvsVestingProxy();
   const vrtTokenContract = useVrtToken();
   const xvsTokenContract = useToken('xvs');
 
   useEffect(() => {
     let mounted = true;
     const update = async () => {
+      if (account) {
+        try {
+          const {
+            totalWithdrawableAmount: totalWithdrawableAmountTemp,
+          } = await xvsVestingContract.methods.getWithdrawableAmount(account).call();
+          setWithdrawableAmount(new BigNumber(totalWithdrawableAmountTemp).div(VRT_DECIMAL));
+        } catch (e) {
+          console.log('no vestings');
+        }
+      }
       const [
-        {
-          totalWithdrawableAmount: totalWithdrawableAmountTemp,
-          totalVestedAmount: totalVestedAmountTemp,
-          totalWithdrawnAmount: totalWithdrawnAmountTemp,
-        },
         conversionRatioTemp,
         conversionEndTimeTemp,
         userVrtBalanceTemp,
         userVrtAllowanceTemp,
         xvsVestingXvsBalanceTemp,
       ] = await Promise.all([
-        account
-          ? xvsVestingContract.methods.getWithdrawableAmount(account).call()
-          : Promise.resolve({
-              totalWithdrawableAmount: '0',
-              totalVestedAmount: '0',
-              totalWithdrawnAmount: '0',
-            }),
-        // fetch infos
         vrtConverterContract.methods.conversionRatio().call(),
         vrtConverterContract.methods.conversionEndTime().call(),
         account ? vrtTokenContract.methods.balanceOf(account).call() : Promise.resolve(0),
         account
-          ? vrtTokenContract.methods.allowance(account, getVrtConverterAddress()).call()
+          ? vrtTokenContract.methods.allowance(account, getVrtConverterProxyAddress()).call()
           : Promise.resolve(0),
         xvsTokenContract.methods.balanceOf(xvsVestingContract.options.address).call(),
       ]);
       if (mounted) {
         setLoading(false);
-        setWithdrawableAmount(new BigNumber(totalWithdrawableAmountTemp).div(VRT_DECIMAL));
         setConversionRatio(new BigNumber(conversionRatioTemp).div(CONVERSION_RATIO_DECIMAL));
         setConversionEndTime(new BigNumber(conversionEndTimeTemp)); // in seconds
         setUserVrtBalance(new BigNumber(userVrtBalanceTemp).div(VRT_DECIMAL));

@@ -28,9 +28,9 @@ import {
   getXvsVaultProxyAddress,
   getVenusLensAddress,
   getGovernorBravoAddress,
-  getXvsVestingAddress,
-  getVrtConverterAddress,
   getVrtTokenAddress,
+  getXvsVestingProxyAddress,
+  getVrtConverterProxyAddress,
   getVrtVaultProxyAddress,
 } from './addressHelpers';
 import * as constants from './constants';
@@ -96,11 +96,11 @@ export const getGovernorBravoContract = (web3: $TSFixMe) =>
   getContract(governorBravoAbi, getGovernorBravoAddress(), web3);
 
 // VRT conversion
-export const getXvsVestingContract = (web3: $TSFixMe) =>
-  getContract(xvsVestingAbi, getXvsVestingAddress(), web3);
+export const getXvsVestingProxyContract = (web3: $TSFixMe) =>
+  getContract(xvsVestingAbi, getXvsVestingProxyAddress(), web3);
 
-export const getVrtConverterContract = (web3: $TSFixMe) =>
-  getContract(vrtConverterAbi, getVrtConverterAddress(), web3);
+export const getVrtConverterProxyContract = (web3: $TSFixMe) =>
+  getContract(vrtConverterAbi, getVrtConverterProxyAddress(), web3);
 
 export const getVrtTokenContract = (web3: $TSFixMe) =>
   getContract(vrtTokenAbi, getVrtTokenAddress(), web3);
