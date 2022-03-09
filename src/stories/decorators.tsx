@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { addDecorator } from '@storybook/react';
 import { Provider } from 'react-redux';
@@ -77,4 +77,12 @@ export const withCenterStory: (props: { width: number }) => DecoratorFunction = 
       </Box>
     </Box>
   );
+};
+
+export const withState: DecoratorFunction = (Story, options) => {
+  const [v, onChange] = useState(options.parameters.args.value);
+  options.parameters.args.value = v;
+  options.parameters.args.onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    onChange(event.target.checked);
+  return Story(options);
 };

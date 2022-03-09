@@ -2,13 +2,14 @@ import React from 'react';
 import Switch from '@mui/material/Switch';
 import { useStyles } from './ToggleStyles';
 
-interface IToggleProps {
+export interface IToggleProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  value: boolean;
 }
 
 const label = { inputProps: { 'aria-label': 'Switch' } };
 
-export const Toggle = ({ onChange }: IToggleProps) => {
+export const Toggle = ({ onChange, value }: IToggleProps) => {
   const styles = useStyles();
   return (
     <Switch
@@ -16,6 +17,7 @@ export const Toggle = ({ onChange }: IToggleProps) => {
       focusVisibleClassName=".Mui-focusVisible"
       disableRipple
       onChange={onChange}
+      checked={value}
       {...label}
     />
   );
