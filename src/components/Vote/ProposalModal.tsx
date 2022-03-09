@@ -75,7 +75,7 @@ const ModalContent = styled.div`
       .proposal-btn {
         width: 210px;
         height: 52px;
-        background-color: #3a78ff;
+        background-color: var(--color-yellow);
         border-radius: 10px;
         span {
           font-size: 16px;
@@ -118,7 +118,7 @@ const ModalContent = styled.div`
           width: 100%;
           .add-btn {
             height: 40px;
-            background-color: #3a78ff;
+            background-color: var(--color-yellow);
             border-radius: 10px;
             span {
               font-size: 16px;

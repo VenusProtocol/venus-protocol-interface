@@ -30,7 +30,7 @@ const VoteOverviewWrapper = styled.div`
     button {
       width: 120px;
       height: 40px;
-      background-color: #3a78ff;
+      background-color: var(--color-yellow);
       border-radius: 10px;
       span {
         font-size: 16px;
