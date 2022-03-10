@@ -132,7 +132,7 @@ export const formatApy = (apy?: BigNumber | string | number): string => {
   if (apyBN.absoluteValue().isLessThan(100000000)) {
     return `${apyBN.dp(2, 1).toString(10)}%`;
   }
-  return 'Infinity';
+  return `${apyBN.toExponential(2, 1)}%`;
 };
 
 /**
