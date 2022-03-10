@@ -97,7 +97,7 @@ export const addToken = async ({
   }
 };
 
-export const getBigNumber = (value: $TSFixMe) => {
+export const getBigNumber = (value?: BigNumber | string | number): BigNumber => {
   if (!value) {
     return new BigNumber(0);
   }
@@ -127,7 +127,7 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
   return `$${format(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
 };
 
-export const formatApy = (apy: $TSFixMe) => {
+export const formatApy = (apy?: BigNumber | string | number): string => {
   const apyBN = getBigNumber(apy);
   if (apyBN.absoluteValue().isLessThan(100000000)) {
     return `${apyBN.dp(2, 1).toString(10)}%`;
