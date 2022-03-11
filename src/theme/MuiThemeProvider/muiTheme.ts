@@ -70,42 +70,50 @@ export default createTheme({
     color: defaultTheme.palette.text.primary,
     h1: {
       fontSize: '28px',
-      lineHeight: '42px',
+      // line height is defined globally and has default value 1.5
+      // lineHeight: 1.5,
     },
     h2: {
       fontSize: '25px',
-      lineHeight: '37px',
+      // line height is defined globally and has default value 1.5
+      // lineHeight: 1.5,
     },
     h3: {
       fontSize: '20px',
-      lineHeight: '30px',
+      // line height is defined globally and has default value 1.5
+      // lineHeight: 1.5,
     },
     h4: {},
     h5: {},
     h6: {},
     subtitle1: {
       fontSize: '17px',
-      lineHeight: '25px',
+      // line height is defined globally and has default value 1.5
+      // lineHeight: 1.5,
     },
     subtitle2: {},
     body1: {
       fontSize: '16px',
-      lineHeight: '24px',
+      // line height is defined globally and has default value 1.5
+      // lineHeight: 1.5,
     },
     body2: {},
     small1: {
       fontSize: '0.875rem',
-      lineHeight: '1.5',
+      // line height is defined globally and has default value 1.5',
+      // lineHeight: 1.5,
       fontWeight: 600,
     },
     small2: {
       fontSize: '0.875rem',
-      lineHeight: '1.5',
+      // line height is defined globally and has default value 1.5',
+      // lineHeight: 1.5,
       fontWeight: 400,
     },
     button: {
       fontSize: '14px',
-      lineHeight: '21px',
+      // line height is defined globally and has default value 1.5
+      // lineHeight: 1.5,
       fontWeight: 400,
     },
     overline: {},
