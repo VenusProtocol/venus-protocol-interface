@@ -1,7 +1,7 @@
 /* https://mui.com/customization/theming/ */
 import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles';
 
-const fontFamily = ['AvenirNext', 'Arial', 'sans-serif'].join(',');
+const fontFamily = ['ProximaNova', 'Arial', 'sans-serif'].join(',');
 
 export const FONTS = {
   primary: fontFamily,
