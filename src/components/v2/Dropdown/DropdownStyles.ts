@@ -7,12 +7,12 @@ export const useDropdownStyles = ({ isOpened }: { isOpened: boolean }) => {
   return {
     select: {
       transition: 'box-shadow .3s',
-      boxShadow: isOpened ? `0px 0px 0px 2px ${theme.palette.v2.background.secondary}` : 'none',
+      boxShadow: isOpened ? `0px 0px 0px 2px ${theme.palette.background.paper}` : 'none',
     },
     menuPaper: {
       marginTop: 4,
       borderRadius: 0,
-      backgroundColor: theme.palette.v2.background.primary,
+      backgroundColor: theme.palette.background.default,
       backgroundImage: 'none',
     },
     menuList: {
@@ -25,12 +25,12 @@ export const useDropdownStyles = ({ isOpened }: { isOpened: boolean }) => {
       height: MENU_ITEM_HEIGHT,
       transition: 'background-color .3s',
       '&:hover, &:focus': {
-        backgroundColor: theme.palette.v2.background.secondary,
+        backgroundColor: theme.palette.background.paper,
       },
       [`&.${SELECTED_MENU_ITEM_CLASSNAME}`]: {
-        backgroundColor: theme.palette.v2.background.secondary,
+        backgroundColor: theme.palette.background.paper,
         '&:hover': {
-          backgroundColor: theme.palette.v2.background.secondary,
+          backgroundColor: theme.palette.background.paper,
         },
       },
     },

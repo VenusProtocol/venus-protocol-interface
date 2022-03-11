@@ -10,22 +10,11 @@ declare module '@mui/material/styles' {
 
   // Add v2 colors
   interface Palette {
-    v2: {
-      background: {
-        primary: React.CSSProperties['color'];
-        secondary: React.CSSProperties['color'];
-        tertiary: React.CSSProperties['color'];
-      };
-      text: {
-        primary: React.CSSProperties['color'];
-        secondary: React.CSSProperties['color'];
-      };
-      interactive: {
-        primary: React.CSSProperties['color'];
-        success: React.CSSProperties['color'];
-        error: React.CSSProperties['color'];
-        error50: React.CSSProperties['color'];
-      };
+    interactive: {
+      primary: React.CSSProperties['color'];
+      success: React.CSSProperties['color'];
+      error: React.CSSProperties['color'];
+      error50: React.CSSProperties['color'];
     };
   }
 

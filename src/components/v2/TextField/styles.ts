@@ -17,10 +17,10 @@ export const useStyles = () => {
     padding: ${theme.spacing(1, 1, 1, 2)};
     border-radius: 12px;
     border: 2px solid transparent;
-    background-color: ${theme.palette.v2.background.primary};
+    background-color: ${theme.palette.background.default};
 
     &:focus-within {
-      border-color: ${hasError ? theme.palette.error.main : theme.palette.text.secondary};
+      border-color: ${hasError ? theme.palette.interactive.error : theme.palette.text.secondary};
     }
   `;
 

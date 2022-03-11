@@ -17,16 +17,16 @@ export const useStyles = () => {
           opacity: 0.5,
         },
         '& .MuiSwitch-thumb': {
-          backgroundColor: theme.palette.v2.interactive.primary,
+          backgroundColor: theme.palette.interactive.primary,
         },
       },
       '&.Mui-focusVisible .MuiSwitch-thumb': {
-        color: theme.palette.v2.interactive.success,
+        color: theme.palette.interactive.success,
         border: '6px solid #fff',
       },
     },
     '& .MuiSwitch-thumb': {
-      backgroundColor: theme.palette.v2.text.secondary,
+      backgroundColor: theme.palette.text.secondary,
       boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.35)',
       boxSizing: 'border-box',
       width: 22,
@@ -37,7 +37,7 @@ export const useStyles = () => {
     },
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
-      backgroundColor: theme.palette.v2.background.primary,
+      backgroundColor: theme.palette.background.default,
       boxShadow: 'inset 0px 3px 20px rgba(0, 0, 0, 0.15)',
       opacity: 1,
     },
