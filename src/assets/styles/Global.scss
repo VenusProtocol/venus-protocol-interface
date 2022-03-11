@@ -34,14 +34,69 @@
 }
 
 @font-face {
-  font-family: AvenirNext;
-  src: url('../font/Avenir-next/AvenirNextLTPro-Regular.otf') format('opentype');
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaRegularIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaRegular.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegular.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaSemiboldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaSemibold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemibold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaBold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaBoldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
 }
 
 body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  font-family: 'AvenirNext', sans-serif;
+  font-family: 'ProximaNova', sans-serif;
   font-stretch: normal;
   font-style: normal;
   background-color: var(--color-bg-main);
