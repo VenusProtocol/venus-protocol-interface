@@ -22,6 +22,13 @@ const VotingWrapper = styled.div`
     }
   }
 
+  .agree {
+    color: var(--color-dark-green);
+  }
+  .against {
+    color: var(--color-purple);
+  }
+
   .title {
     margin-bottom: 10px;
     * {
@@ -91,13 +98,6 @@ const VotingWrapper = styled.div`
     font-size: 28px;
   }
 
-  .agree {
-    color: var(--color-dark-green);
-  }
-  .against {
-    color: var(--color-purple);
-  }
-
   span {
     margin-left: 70px;
     margin-right: 45px;
@@ -108,8 +108,8 @@ const VotingWrapper = styled.div`
 `;
 
 interface Props extends RouteComponentProps {
-  proposal: ProposalObject
-  support: boolean
+  proposal: ProposalObject;
+  support: boolean;
 }
 
 function Voting({ proposal, support, history }: Props) {
@@ -117,9 +117,7 @@ function Voting({ proposal, support, history }: Props) {
   const [againstPercent, setAgainstPercent] = useState(0);
 
   useEffect(() => {
-    const total = new BigNumber(proposal.forVotes).plus(
-      new BigNumber(proposal.againstVotes),
-    );
+    const total = new BigNumber(proposal.forVotes).plus(new BigNumber(proposal.againstVotes));
     setForPercent(
       // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
       new BigNumber(proposal.forVotes * 100).div(total).isNaN()
@@ -194,11 +192,7 @@ function Voting({ proposal, support, history }: Props) {
         </Column>
         <Column xs="12" sm="4">
           <div className="flex align-center just-center">
-            <Icon
-              className={support ? 'agree' : 'against'}
-              type="check-circle"
-              theme="filled"
-            />
+            <Icon className={support ? 'agree' : 'against'} type="check-circle" theme="filled" />
             <span>{support ? 'For' : 'Against'}</span>
           </div>
         </Column>

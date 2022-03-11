@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
-import { NavLink, withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
+import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
+import { accountActionCreators } from 'core/modules/account/actions';
 import ConnectButton from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
-import { connectAccount, accountActionCreators } from 'core';
 import logoImg from 'assets/img/logo.png';
 import prdtImg from 'assets/img/prdt.png';
 import commaNumber from 'comma-number';
 import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
+import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
+import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useVaiToken } from '../../hooks/useContract';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';
@@ -36,7 +36,7 @@ const SidebarWrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-right: 0px;
+    margin-right: 0;
   }
 `;
 
@@ -75,6 +75,25 @@ const MainMenu = styled.div`
 
   .xvs-active-icon {
     display: none;
+  }
+
+  .active {
+    background-color: var(--color-bg-active);
+    svg {
+      fill: var(--color-yellow);
+    }
+    span {
+      color: var(--color-yellow);
+    }
+    path {
+      fill: var(--color-yellow);
+    }
+    .xvs-icon {
+      display: none;
+    }
+    .xvs-active-icon {
+      display: block;
+    }
   }
 
   a {
@@ -132,25 +151,6 @@ const MainMenu = styled.div`
     }
   }
 
-  .active {
-    background-color: var(--color-bg-active);
-    svg {
-      fill: var(--color-yellow);
-    }
-    span {
-      color: var(--color-yellow);
-    }
-    path {
-      fill: var(--color-yellow);
-    }
-    .xvs-icon {
-      display: none;
-    }
-    .xvs-active-icon {
-      display: block;
-    }
-  }
-
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -161,7 +161,7 @@ const FaucetMenu = styled.div`
   margin-top: auto;
   margin-bottom: 20px;
   a {
-    padding: 7px 0px;
+    padding: 7px 0;
     svg {
       fill: var(--color-text-main);
       margin-left: 34px;
@@ -236,7 +236,6 @@ const MobileMenu = styled.div`
         color: var(--color-text-main);
         font-size: 17px;
         font-weight: 900;
-        color: var(--color-text-main);
         margin-top: 4px;
         i {
           color: var(--color-text-main);
@@ -250,10 +249,13 @@ const { Option } = Select;
 
 const format = commaNumber.bindWith(',', '.');
 
-function Sidebar({
-  history,
-  setSetting,
-}: $TSFixMe) {
+interface SidebarProps extends RouteComponentProps {
+  settings: Setting;
+  setSetting: (setting: Partial<Setting> | undefined) => void;
+  getGovernanceVenus: $TSFixMe;
+}
+
+function Sidebar({ history, setSetting }: SidebarProps) {
   const [isMarketInfoUpdating, setMarketInfoUpdating] = useState(false);
   const [totalVaiMinted, setTotalVaiMinted] = useState('0');
   const [tvl, setTVL] = useState(new BigNumber(0));
@@ -266,7 +268,6 @@ function Sidebar({
 
   useEffect(() => {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       toast.error({
         title: 'Please change your network to access the Binance Smart Chain Main Network',
       });
@@ -325,25 +326,22 @@ function Sidebar({
       vaultVaiStaked = new BigNumber(vaultVaiStaked).div(1e18);
 
       // venus vai vault rate
-      venusVAIVaultRate = new BigNumber(venusVAIVaultRate)
-        .div(1e18)
-        .times(20 * 60 * 24);
+      venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
 
       // VAI APY
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
       const xvsMarket = markets.find(ele => ele.underlyingSymbol === 'XVS');
       const vaiAPY = new BigNumber(venusVAIVaultRate)
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'tokenPrice' does not exist on type 'neve... Remove this comment to see the full error message
         .times(xvsMarket ? xvsMarket.tokenPrice : 0)
         .times(365 * 100)
         .div(vaultVaiStaked)
         .dp(2, 1)
         .toString(10);
 
-      const totalLiquidity = (markets || []).reduce((accumulator, market) => new BigNumber(accumulator).plus(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-        new BigNumber(market.totalSupplyUsd),
-      ), vaultVaiStaked);
+      const totalLiquidity = (markets || []).reduce(
+        (accumulator, market) =>
+          new BigNumber(accumulator).plus(new BigNumber(market.totalSupplyUsd)),
+        vaultVaiStaked,
+      );
       setSetting({
         vaiAPY,
         vaultVaiStaked,
@@ -377,39 +375,33 @@ function Sidebar({
           <Icon type="home" theme="filled" />
           <Label primary>Dashboard</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/vote"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/vote" active-class-name="active">
           <Icon type="appstore" />
           <Label primary>Vote</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/xvs"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/xvs" active-class-name="active">
           <img className="xvs-icon" src={XVSIcon} alt="xvs" />
           <img className="xvs-active-icon" src={XVSActiveIcon} alt="xvs" />
           <Label primary>XVS</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/market"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/market" active-class-name="active">
           <Icon type="area-chart" />
           <Label primary>Market</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/vault"
-          active-class-name="active"
-        >
+        <NavLink className="flex flex-start align-center" to="/vault" active-class-name="active">
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
         </NavLink>
+        {process.env.REACT_APP_CHAIN_ID === '97' && (
+          <NavLink
+            className="flex flex-start align-center"
+            to="/convert-vrt"
+            active-class-name="active"
+          >
+            <Icon type="swap" />
+            <Label primary>Convert VRT</Label>
+          </NavLink>
+        )}
         <NavLink
           className="flex flex-start align-center"
           to="/transaction"
@@ -457,11 +449,7 @@ function Sidebar({
       </MainMenu>
       <FaucetMenu>
         {process.env.REACT_APP_CHAIN_ID === '97' && (
-          <NavLink
-            className="flex just-center"
-            to="/faucet"
-            active-class-name="active"
-          >
+          <NavLink className="flex just-center" to="/faucet" active-class-name="active">
             <Label primary>Faucet</Label>
           </NavLink>
         )}
@@ -469,10 +457,7 @@ function Sidebar({
       {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
-            <Label primary>
-              $
-              {format(new BigNumber(tvl).dp(2, 1).toString(10))}
-            </Label>
+            <Label primary>${format(new BigNumber(tvl).dp(2, 1).toString(10))}</Label>
             <Label className="center">Total Value Locked</Label>
           </div>
         </TotalValue>
@@ -480,13 +465,7 @@ function Sidebar({
       {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
-            <Label primary>
-              {format(
-                getBigNumber(totalVaiMinted)
-                  .dp(0, 1)
-                  .toString(10),
-              )}
-            </Label>
+            <Label primary>{format(getBigNumber(totalVaiMinted).dp(0, 1).toString(10))}</Label>
             <Label className="center">Total VAI Minted</Label>
           </div>
         </TotalValue>
@@ -529,11 +508,13 @@ function Sidebar({
               Vault
             </Label>
           </Option>
-          <Option className="flex align-center just-center" value="redeem-vrt">
-            <Label size={14} primary>
-              Redeem VRT
-            </Label>
-          </Option>
+          {process.env.REACT_APP_CHAIN_ID === '97' && (
+            <Option className="flex align-center just-center" value="Convert-vrt">
+              <Label size={14} primary>
+                Convert VRT
+              </Label>
+            </Option>
+          )}
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
               Transactions
@@ -562,36 +543,8 @@ function Sidebar({
   );
 }
 
-Sidebar.propTypes = {
-  history: PropTypes.object,
-  settings: PropTypes.object,
-  setSetting: PropTypes.func.isRequired,
-  getGovernanceVenus: PropTypes.func.isRequired,
-};
-
-Sidebar.defaultProps = {
-  settings: {},
-  history: {},
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting, getGovernanceVenus } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-      getGovernanceVenus,
-    },
-    dispatch,
-  );
-};
-
-export default compose(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps),
-)(Sidebar);
+export default connect(mapStateToProps, accountActionCreators)(withRouter(Sidebar));

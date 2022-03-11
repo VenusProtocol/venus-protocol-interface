@@ -1,5 +1,5 @@
 // a tab component with Venus style based on antd
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { uid } from 'react-uid';
 
@@ -36,47 +36,49 @@ export type TabContainerPropsType = {
   onChange?: (tabIndex: string) => void;
   children: React.ReactElement[];
   titles: string[];
+  className?: string;
 };
 
-export default ({ onChange, children, titles }: TabContainerPropsType) => {
+export default ({ onChange, children, titles, className }: TabContainerPropsType) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [tabKeys, setTabKeys] = useState(['0', '1']);
+
+  // only need to calculate tabkeys for once, otherwise re
+  useEffect(() => {
+    setTabKeys(children.map(uid));
+  }, []);
+
   return (
-    <TabContainerWrapper>
+    <TabContainerWrapper className={className}>
       <Tabs
-        activeKey={`${activeTabIndex}`}
-        renderTabBar={props =>
-        (
+        activeKey={tabKeys[activeTabIndex]}
+        renderTabBar={props => (
           <div className="tab-header">
-            {titles.map((title, i) =>
-              (
-                <div
-                  key={uid(title)}
-                  className={`tab ${activeTabIndex === i ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTabIndex(i);
-                    if (props.onChange) {
-                      props.onChange(`${i}`);
-                    }
-                  }}
-                >
-                  {title}
-                </div>
-              ),
-            )}
+            {titles.map((title, i) => (
+              <div
+                key={uid(title)}
+                className={`tab ${activeTabIndex === i ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTabIndex(i);
+                  if (props.onChange) {
+                    props.onChange(`${i}`);
+                  }
+                }}
+              >
+                {title}
+              </div>
+            ))}
           </div>
-        )
-        }
+        )}
         animated={false}
-        defaultActiveKey="0"
+        defaultActiveKey={tabKeys[0]}
         onChange={onChange}
       >
-        {children.map((child, i) =>
-          (
-            <TabPane key={uid(child)} tab={titles[i]}>
-              {child}
-            </TabPane>
-          ),
-        )}
+        {children.map((child, i) => (
+          <TabPane key={tabKeys[i]} tab={titles[i]}>
+            {child}
+          </TabPane>
+        ))}
       </Tabs>
     </TabContainerWrapper>
   );

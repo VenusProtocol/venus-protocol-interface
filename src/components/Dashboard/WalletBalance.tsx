@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'recompose';
-import { bindActionCreators } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import CircleProgressBar from 'components/Basic/CircleProgressBar';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import AnimatedNumber from 'animated-number-react';
+import { useWeb3React } from '@web3-react/core';
+import { accountActionCreators } from 'core/modules/account/actions';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import { getBigNumber } from 'utilities/common';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
-import { useWeb3React } from '@web3-react/core';
+import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useVaiVault } from '../../hooks/useContract';
@@ -82,7 +82,12 @@ const BalancerWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function WalletBalance({ settings, setSetting }: $TSFixMe) {
+interface WalletBalanceProps {
+  settings: Setting;
+  setSetting: (setting: Partial<Setting> | undefined) => void;
+}
+
+function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
   const [netAPY, setNetAPY] = useState(0);
   const [withXVS, setWithXVS] = useState(true);
   const { userVaiMinted } = useVaiUser();
@@ -96,13 +101,11 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
   let isMounted = true;
 
   const addVAIApy = useCallback(
-    async (apy) => {
+    async apy => {
       if (!account) {
         return;
       }
-      const { 0: staked } = await vaultContract.methods
-        .userInfo(account)
-        .call();
+      const { 0: staked } = await vaultContract.methods.userInfo(account).call();
       const amount = new BigNumber(staked).div(1e18);
 
       if (!isMounted) {
@@ -112,12 +115,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
       if (amount.isNaN() || amount.isZero()) {
         setNetAPY(apy.dp(2, 1).toNumber());
       } else {
-        setNetAPY(
-          apy
-            .plus(settings.vaiAPY)
-            .dp(2, 1)
-            .toNumber(),
-        );
+        setNetAPY(apy.plus(settings.vaiAPY).dp(2, 1).toNumber());
       }
     },
     [settings],
@@ -128,7 +126,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
     let totalSupplied = new BigNumber(0);
     let totalBorrowed = userVaiMinted;
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
-    userMarketInfo.forEach((asset: $TSFixMe) => {
+    userMarketInfo.forEach((asset: Asset) => {
       if (!asset) return;
       const {
         supplyBalance,
@@ -139,12 +137,8 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
         xvsSupplyApy,
         xvsBorrowApy,
       } = asset;
-      const supplyBalanceUSD = getBigNumber(supplyBalance).times(
-        getBigNumber(tokenPrice),
-      );
-      const borrowBalanceUSD = getBigNumber(borrowBalance).times(
-        getBigNumber(tokenPrice),
-      );
+      const supplyBalanceUSD = getBigNumber(supplyBalance).times(getBigNumber(tokenPrice));
+      const borrowBalanceUSD = getBigNumber(borrowBalance).times(getBigNumber(tokenPrice));
       totalSupplied = totalSupplied.plus(supplyBalanceUSD);
       totalBorrowed = totalBorrowed.plus(borrowBalanceUSD);
 
@@ -202,11 +196,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
     };
   }, [withXVS]);
 
-  const formatValue = (value: $TSFixMe) => `$${format(
-    getBigNumber(value)
-      .dp(2, 1)
-      .toString(10),
-  )}`;
+  const formatValue = (value: $TSFixMe) => `$${format(getBigNumber(value).dp(2, 1).toString(10))}`;
 
   return (
     <Card>
@@ -227,10 +217,7 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
           <Column xs="12" sm="4">
             <CircleProgressBar percent={netAPY} width={150} label="Net APY" />
             <div className="apy-toggle">
-              <Toggle
-                checked={withXVS}
-                onChecked={() => setWithXVS(!withXVS)}
-              />
+              <Toggle checked={withXVS} onChecked={() => setWithXVS(!withXVS)} />
               <Label size="14" primary className="toggel-label">
                 {withXVS ? (
                   '🔥 APY with XVS'
@@ -263,31 +250,8 @@ function WalletBalance({ settings, setSetting }: $TSFixMe) {
   );
 }
 
-WalletBalance.propTypes = {
-  settings: PropTypes.object,
-  setSetting: PropTypes.func.isRequired,
-};
-
-WalletBalance.defaultProps = {
-  settings: {},
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, mapDispatchToProps))(
-  WalletBalance,
-);
+export default connect(mapStateToProps, accountActionCreators)(WalletBalance);

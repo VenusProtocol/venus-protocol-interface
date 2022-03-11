@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
+import { TREASURY_ADDRESS } from 'config';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy } from '../utilities/common';
@@ -11,8 +12,9 @@ import { useComptroller, useVenusLens } from '../hooks/useContract';
 import * as constants from '../utilities/constants';
 
 const MarketContext = React.createContext({
-  markets: [],
+  markets: [] as $TSFixMe[],
   dailyVenus: 0,
+  treasuryTotalUSDBalance: new BigNumber(0),
   userMarketInfo: {},
   userTotalBorrowLimit: new BigNumber(0),
   userTotalBorrowBalance: new BigNumber(0),
@@ -23,12 +25,13 @@ const MarketContext = React.createContext({
 // duplicated requests
 
 const MarketContextProvider = ({ children }: $TSFixMe) => {
-  const [markets, setMarkets] = useState([]);
+  const [markets, setMarkets] = useState<$TSFixMe[]>([]);
   const [dailyVenus, setDailyVenus] = useState(0);
   const [userMarketInfo, setUserMarketInfo] = useState({});
   const [userTotalBorrowLimit, setUserTotalBorrowLimit] = useState(new BigNumber(0));
   const [userTotalBorrowBalance, setUserTotalBorrowBalance] = useState(new BigNumber(0));
   const [userXVSBalance, setUserXVSBalance] = useState(new BigNumber(0));
+  const [treasuryTotalUSDBalance, setTreasuryTotalUSDBalance] = useState(new BigNumber(0));
   const comptrollerContract = useComptroller();
   const lens = useVenusLens();
   const { account } = useWeb3React();
@@ -59,7 +62,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         return;
       }
 
-      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
       setMarkets(data);
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
       setDailyVenus(res.data.data.dailyVenus);
@@ -103,6 +105,12 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           xvsBalance = getXvsBalance(balances);
         }
 
+        // Fetch treasury balances
+        const treasuryBalances = indexBy(
+          (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
+          await lens.methods.vTokenBalancesAll(vtAddresses, TREASURY_ADDRESS).call(),
+        );
+
         const marketsMap = indexBy(
           (item: $TSFixMe) => item.underlyingSymbol.toLowerCase(),
           markets,
@@ -126,9 +134,10 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           const vtokenAddress = constants.CONTRACT_VBEP_ADDRESS[item.id].address.toLowerCase();
           const collateral = assetsIn
-
             .map((address: $TSFixMe) => address.toLowerCase())
             .includes(vtokenAddress);
+
+          const treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
 
           let walletBalance = new BigNumber(0);
           let supplyBalance = new BigNumber(0);
@@ -170,6 +179,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             liquidity: new BigNumber(market.liquidity || 0),
             borrowCaps: new BigNumber(market.borrowCaps || 0),
             totalBorrows: new BigNumber(market.totalBorrows2 || 0),
+            treasuryBalance,
             walletBalance,
             supplyBalance,
             borrowBalance,
@@ -250,6 +260,14 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           return;
         }
 
+        // Calculate total treasury balance in USD
+        const updatedTreasuryTotalUSDBalance = assetList.reduce((accumulator, asset) => {
+          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+          const treasuryUSDBalance = asset.treasuryBalance.multipliedBy(asset.tokenPrice);
+          return accumulator.plus(treasuryUSDBalance);
+        }, new BigNumber(0));
+
+        setTreasuryTotalUSDBalance(updatedTreasuryTotalUSDBalance);
         setUserMarketInfo(assetList);
         setUserTotalBorrowLimit(totalBorrowLimit);
         setUserTotalBorrowBalance(totalBorrowBalance);
@@ -269,6 +287,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
       value={{
         markets,
         dailyVenus,
+        treasuryTotalUSDBalance,
         userMarketInfo,
         userTotalBorrowLimit,
         userTotalBorrowBalance,

@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import Markdown from 'react-remarkable';
 import { Card } from 'components/Basic/Card';
+import { ProposalInfo as ProposalInfoType } from 'types';
 import { getRemainingTime, FORMAT_STRING } from '../../../utilities/time';
 
 const ProposalInfoWrapper = styled.div`
@@ -60,7 +60,11 @@ const ProposalInfoWrapper = styled.div`
   }
 `;
 
-function ProposalInfo({ proposalInfo }: $TSFixMe) {
+interface ProposalInfoProps {
+  proposalInfo: Partial<ProposalInfoType>;
+}
+
+function ProposalInfo({ proposalInfo }: ProposalInfoProps) {
   const getStatus = (proposal: $TSFixMe) => {
     if (proposal.state === 'Executed') {
       return 'Passed';
@@ -85,15 +89,11 @@ function ProposalInfo({ proposalInfo }: $TSFixMe) {
         )}
         <div className="flex align-center just-start proposal-status">
           <p>
-            {`${proposalInfo.id} ${getStatus(proposalInfo)} ${moment(
-              proposalInfo.updatedAt,
-            ).format(FORMAT_STRING)}`}
-          </p>
-          <div
-            className={`flex align-center just-center status ${getStatus(
-              proposalInfo,
+            {`${proposalInfo.id} ${getStatus(proposalInfo)} ${moment(proposalInfo.updatedAt).format(
+              FORMAT_STRING,
             )}`}
-          >
+          </p>
+          <div className={`flex align-center just-center status ${getStatus(proposalInfo)}`}>
             {getStatus(proposalInfo)}
           </div>
           <div className="left-time">{getRemainingTime(proposalInfo)}</div>
@@ -103,10 +103,4 @@ function ProposalInfo({ proposalInfo }: $TSFixMe) {
   );
 }
 
-ProposalInfo.propTypes = {
-  proposalInfo: PropTypes.object,
-};
-ProposalInfo.defaultProps = {
-  proposalInfo: {},
-};
 export default ProposalInfo;

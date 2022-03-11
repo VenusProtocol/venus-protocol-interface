@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import SupplyTab from 'components/Basic/SupplyTabs/SupplyTab';
 import WithdrawTab from 'components/Basic/SupplyTabs/WithdrawTab';
 import closeImg from 'assets/img/close.png';
+import { Asset } from 'types';
 import styled from 'styled-components';
 
 const ModalContent = styled.div`
@@ -73,7 +73,7 @@ export const TabSection = styled.div`
     }
 
     .warning-label {
-      width: 100%
+      width: 100%;
       font-size: 15px;
       color: var(--color-text-secondary);
       padding: 0 25px;
@@ -199,7 +199,13 @@ export const TabContent = styled.div`
   }
 `;
 
-function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
+interface SupplyModalProps {
+  visible: boolean;
+  asset: Asset;
+  onCancel: () => void;
+}
+
+function SupplyModal({ visible, asset, onCancel }: SupplyModalProps) {
   const [currentTab, setCurrentTab] = useState('supply');
 
   useEffect(() => {
@@ -221,47 +227,20 @@ function SupplyModal({ visible, asset, onCancel }: $TSFixMe) {
       centered
     >
       <ModalContent className="flex flex-column align-center just-center">
-        <img
-          className="close-btn pointer"
-          src={closeImg}
-          alt="close"
-          onClick={onCancel}
-        />
+        <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
         <div className="flex align-center just-center header-content">
           <img src={asset.img} alt="asset" />
           <p className="title">{asset.name}</p>
         </div>
         {currentTab === 'supply' && (
-          <SupplyTab
-            // @ts-expect-error asset needs better validation
-            asset={asset}
-            changeTab={setCurrentTab}
-            onCancel={onCancel}
-          />
+          <SupplyTab asset={asset} changeTab={setCurrentTab} onCancel={onCancel} />
         )}
         {currentTab === 'withdraw' && (
-          <WithdrawTab
-            // @ts-expect-error asset needs better validation
-            asset={asset}
-            changeTab={setCurrentTab}
-            onCancel={onCancel}
-          />
+          <WithdrawTab asset={asset} changeTab={setCurrentTab} onCancel={onCancel} />
         )}
       </ModalContent>
     </Modal>
   );
 }
-
-SupplyModal.propTypes = {
-  visible: PropTypes.bool,
-  asset: PropTypes.object,
-  onCancel: PropTypes.func,
-};
-
-SupplyModal.defaultProps = {
-  visible: false,
-  asset: {},
-  onCancel: () => {},
-};
 
 export default SupplyModal;

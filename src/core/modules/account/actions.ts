@@ -23,7 +23,6 @@ export const GET_VOTER_HISTORY_REQUEST = '@account/GET_VOTER_HISTORY_REQUEST';
 
 export const GET_VOTER_ACCOUNTS_REQUEST = '@account/GET_VOTER_ACCOUNTS_REQUEST';
 export const GET_TRANSACTION_HISTORY_REQUEST = '@account/GET_TRANSACTION_HISTORY_REQUEST';
-export const GET_TREASURY_BALANCE_REQUEST = '@account/GET_TREASURY_BALANCE_REQUEST';
 
 /**
  * Action Creators
@@ -43,5 +42,4 @@ export const accountActionCreators = {
   getVoterHistory: createPromiseAction(GET_VOTER_HISTORY_REQUEST),
   getVoterAccounts: createPromiseAction(GET_VOTER_ACCOUNTS_REQUEST),
   getTransactionHistory: createPromiseAction(GET_TRANSACTION_HISTORY_REQUEST),
-  getTreasuryBalance: createPromiseAction(GET_TREASURY_BALANCE_REQUEST),
 };

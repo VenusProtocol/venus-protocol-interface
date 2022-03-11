@@ -70,7 +70,7 @@ const VoteList = styled.div`
       width: 100%;
       border-top: 1px solid var(--color-bg-active);
       border-bottom: 1px solid var(--color-bg-active);
-      padding: 10px 0px;
+      padding: 10px 0;
       span {
         font-weight: 600;
         font-size: 16px;
@@ -110,14 +110,14 @@ const VoteList = styled.div`
 `;
 
 interface Props extends RouteComponentProps {
-  type: number,
-  label: string,
-  voteNumber: BigNumber,
-  totalNumber: BigNumber,
-  addressNumber: number,
-  emptyNumber: number,
-  list: Array<{ label: string, value: string, reason: string }>,
-  onViewAll: () => void,
+  type: number;
+  label: string;
+  voteNumber: BigNumber;
+  totalNumber: BigNumber;
+  addressNumber: number;
+  emptyNumber: number;
+  list: Array<{ label: string; value: string; reason: string }>;
+  onViewAll: () => void;
 }
 
 const format = commaNumber.bindWith(',', '.');
@@ -139,9 +139,7 @@ function VoteCard({
   const remainingToLoad = addressNumber - list.length;
 
   useEffect(() => {
-    const percentTmp = new BigNumber(voteNumber)
-      .multipliedBy(100)
-      .div(totalNumber);
+    const percentTmp = new BigNumber(voteNumber).multipliedBy(100).div(totalNumber);
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
     setPercent(percentTmp.isNaN() ? '0' : percentTmp.toString(10));
   }, [voteNumber]);
@@ -165,10 +163,7 @@ function VoteCard({
             <span>
               {format(
                 new BigNumber(
-                  Web3.utils.fromWei(
-                    voteNumber.isNaN() ? '' : voteNumber.toString(10),
-                    'ether',
-                  ),
+                  Web3.utils.fromWei(voteNumber.isNaN() ? '' : voteNumber.toString(10), 'ether'),
                 )
                   .dp(8, 1)
                   .toString(10),
@@ -184,34 +179,20 @@ function VoteCard({
         </div>
         <VoteList>
           <div className="flex align-center just-between header">
-            <span>
-              {addressNumber}
-              {' '}
-              addresses
-            </span>
+            <span>{addressNumber} addresses</span>
             <span>Votes</span>
           </div>
           <div className="vote-list scrollbar">
             {/**/}
             {list.map((l: $TSFixMe) => (
-              <div
-                className="flex align-center just-between vote-item"
-                key={uid(l)}
-              >
-                <span
-                  className="pointer"
-                  onClick={() => handleAddLink(l.label)}
-                >
-                  {l.label
-                    ? `${l.label.substr(0, 5)}...${l.label.substr(-4, 4)}`
-                    : ''}
+              <div className="flex align-center just-between vote-item" key={uid(l)}>
+                <span className="pointer" onClick={() => handleAddLink(l.label)}>
+                  {l.label ? `${l.label.substr(0, 5)}...${l.label.substr(-4, 4)}` : ''}
                 </span>
                 <div>
                   <span>
                     {format(
-                      new BigNumber(Web3.utils.fromWei(l.value, 'ether'))
-                        .dp(8, 1)
-                        .toString(10),
+                      new BigNumber(Web3.utils.fromWei(l.value, 'ether')).dp(8, 1).toString(10),
                     )}
                   </span>
                   {l.reason && (
@@ -225,30 +206,21 @@ function VoteCard({
                         overflowY: 'scroll',
                       }}
                     >
-                      <Icon
-                        className="reason-icon"
-                        type="exclamation-circle"
-                        theme="filled"
-                      />
+                      <Icon className="reason-icon" type="exclamation-circle" theme="filled" />
                     </Tooltip>
                   )}
                 </div>
               </div>
             ))}
             {emptyList.map(v => (
-              <div
-                className="flex align-center just-between vote-item empty-item"
-                key={v}
-              >
+              <div className="flex align-center just-between vote-item empty-item" key={v}>
                 <span>—</span>
                 <span>—</span>
               </div>
             ))}
           </div>
           {/* view all is clicked and there are still empty lines to fill up */}
-          {!isViewAll && remainingToLoad > 0 && (
-            <Icon className="loading-icon" type="loading" />
-          )}
+          {!isViewAll && remainingToLoad > 0 && <Icon className="loading-icon" type="loading" />}
           {isViewAll && remainingToLoad > 0 && (
             <div
               className="flex align-center just-center view-all pointer"

@@ -9,18 +9,18 @@ export const Row = styled.div`
   }
 `;
 
-function getWidthString(span: $TSFixMe) {
+function getWidthString(span: string) {
   if (!span) return '';
 
-  const width = (span / 12) * 100;
+  const width = (Number(span) / 12) * 100;
   return `width: ${width}%;`;
 }
 
 interface Props {
-  xs?: string,
-  sm?: string,
-  md?: string,
-  lg?: string,
+  xs?: string;
+  sm?: string;
+  md?: string;
+  lg?: string;
 }
 
 export const Column = styled.div`

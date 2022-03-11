@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
+
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { connectAccount } from 'core';
@@ -14,13 +13,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import { State } from 'core/modules/initialState';
 import * as constants from 'utilities/constants';
 import { useMarkets } from '../../hooks/useMarkets';
 import useWeb3 from '../../hooks/useWeb3';
-import {
-  getInterestModelContract,
-  getVbepContract,
-} from '../../utilities/contractHelpers';
+import { getInterestModelContract, getVbepContract } from '../../utilities/contractHelpers';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -109,19 +106,22 @@ const InterestRateModelWrapper = styled.div`
   .recharts-cartesian-grid {
     opacity: 0;
   }
-  .recharts-responsive-container {
-    .recharts-surface {
-      // margin-top: 40px;
-    }
-  }
-  @media only screen and (max-width: 768px) {
-  }
 `;
 
 let flag = false;
 
 interface Props extends RouteComponentProps {
-  currentAsset: string,
+  currentAsset: string;
+}
+
+interface CustomizedAxisTickProps {
+  x: number;
+  y: number;
+}
+
+interface CustomTooltipProps {
+  active: boolean;
+  payload: Array<{ value: BigNumber.Value }>;
 }
 
 function InterestRateModel({ currentAsset }: Props) {
@@ -135,47 +135,33 @@ function InterestRateModel({ currentAsset }: Props) {
   const { markets } = useMarkets();
   const web3 = useWeb3();
 
-  const CustomizedAxisTick = ({ x, y }: $TSFixMe) => (
+  const CustomizedAxisTick = ({ x, y }: CustomizedAxisTickProps) => (
     <g transform={`translate(${x},${y})`}>
       <text x={0} y={0} dy={16}>
         {/* {moment(payload.value).format('LLLL')} */}
       </text>
     </g>
   );
-  CustomizedAxisTick.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  };
 
-  const getGraphData = async (asset: $TSFixMe) => {
+  const getGraphData = async (asset: string) => {
     flag = true;
     const vbepContract = getVbepContract(web3, asset);
-    const interestRateModel = await vbepContract.methods
-      .interestRateModel()
-      .call();
-    const interestModelContract = getInterestModelContract(
-      web3,
-      interestRateModel,
-    );
+    const interestRateModel = await vbepContract.methods.interestRateModel().call();
+    const interestModelContract = getInterestModelContract(web3, interestRateModel);
     const cashValue = await vbepContract.methods.getCash().call();
 
     const data: $TSFixMe = [];
     const marketInfo = markets.find(
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase(),
     );
     // Get Current Utilization Rate
     const cash = new BigNumber(cashValue).div(1e18);
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const borrows = new BigNumber(marketInfo.totalBorrows2);
-    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS[asset].decimals),
     );
-    const currentUtilizationRate = borrows.div(
-      cash.plus(borrows).minus(reserves),
-    );
+    const currentUtilizationRate = borrows.div(cash.plus(borrows).minus(reserves));
 
     const tempCurrentPercent = parseInt(
       // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message
@@ -192,44 +178,31 @@ function InterestRateModel({ currentAsset }: Props) {
       urArray.push(i / 100);
     }
     const borrowRes = await Promise.all(
-      urArray.map(ur => interestModelContract.methods
-        .getBorrowRate(
-          new BigNumber(1 / ur - 1)
-            .times(1e4)
-            .dp(0)
-            .toString(10),
-          1e4,
-          0,
-        )
-        .call()),
+      urArray.map(ur =>
+        interestModelContract.methods
+          .getBorrowRate(new BigNumber(1 / ur - 1).times(1e4).dp(0).toString(10), 1e4, 0)
+          .call(),
+      ),
     );
     const supplyRes = await Promise.all(
-      urArray.map(ur => interestModelContract.methods
-        .getSupplyRate(
-          new BigNumber(1 / ur - 1)
-            .times(1e4)
-            .dp(0)
-            .toString(10),
-          1e4,
-          0,
-          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
-          marketInfo.reserveFactor.toString(10),
-        )
-        .call()),
+      urArray.map(ur =>
+        interestModelContract.methods
+          .getSupplyRate(
+            new BigNumber(1 / ur - 1).times(1e4).dp(0).toString(10),
+            1e4,
+            0,
+            marketInfo.reserveFactor.toString(10),
+          )
+          .call(),
+      ),
     );
     urArray.forEach((ur, index) => {
       // supply apy, borrow apy
       const blocksPerDay = 20 * 60 * 24;
       const daysPerYear = 365;
       const mantissa = 1e18;
-      const supplyBase = new BigNumber(supplyRes[index])
-        .div(mantissa)
-        .times(blocksPerDay)
-        .plus(1);
-      const borrowBase = new BigNumber(borrowRes[index])
-        .div(mantissa)
-        .times(blocksPerDay)
-        .plus(1);
+      const supplyBase = new BigNumber(supplyRes[index]).div(mantissa).times(blocksPerDay).plus(1);
+      const borrowBase = new BigNumber(borrowRes[index]).div(mantissa).times(blocksPerDay).plus(1);
       const supplyApy = supplyBase
         .pow(daysPerYear - 1)
         .minus(1)
@@ -260,7 +233,7 @@ function InterestRateModel({ currentAsset }: Props) {
     flag = false;
   }, [currentAsset]);
 
-  const CustomTooltip = ({ active, payload }: $TSFixMe) => {
+  const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
     if (active && payload && payload.length !== 0) {
       return (
         <div className="custom-tooltip">
@@ -275,12 +248,8 @@ function InterestRateModel({ currentAsset }: Props) {
     }
     return null;
   };
-  CustomTooltip.propTypes = {
-    active: PropTypes.bool.isRequired,
-    payload: PropTypes.array.isRequired,
-  };
 
-  const handleMouseMove = (e: $TSFixMe) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const graphElement = document.getElementById('percent-wrapper');
     const lineElement = document.getElementById('line');
     if (graphElement && lineElement) {
@@ -306,24 +275,15 @@ function InterestRateModel({ currentAsset }: Props) {
     <InterestRateModelWrapper>
       <p className="title">Interest Rate Model</p>
       <p className="description">Utilization vs. APY</p>
-      <div
-        id="percent-wrapper"
-        className="percent-wrapper"
-        onMouseMove={handleMouseMove}
-      >
+      <div id="percent-wrapper" className="percent-wrapper" onMouseMove={handleMouseMove}>
         <div id="line" className="line" />
         {graphData.length !== 0 && (
           <div className="current-percent" style={{ left: currentPos || 30 }}>
             <p>Current</p>
           </div>
         )}
-        <div
-          className="ticker-percent"
-          style={{ left: tickerPos || currentPos }}
-        >
-          {percent === null ? currentPercent : percent}
-          {' '}
-          %
+        <div className="ticker-percent" style={{ left: tickerPos || currentPos }}>
+          {percent === null ? currentPercent : percent} %
         </div>
         <div
           id="ticker-line"
@@ -385,14 +345,10 @@ function InterestRateModel({ currentAsset }: Props) {
 
 InterestRateModel.defaultProps = {
   currentAsset: '',
-  settings: {},
 };
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-export default withRouter(compose<Props, Props>(
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, undefined),
-)(InterestRateModel));
+export default connectAccount(mapStateToProps)(withRouter(InterestRateModel));

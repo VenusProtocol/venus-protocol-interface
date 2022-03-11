@@ -1,4 +1,4 @@
-import { getWeb3NoAccount } from './web3';
+import { getWeb3NoAccount, Web3 } from './web3';
 import bep20Abi from '../config/abis/bep20.json';
 import comptrollerAbi from '../config/abis/comptroller.json';
 import interestModelAbi from '../config/abis/interestModel.json';
@@ -16,6 +16,8 @@ import governorBravoAbi from '../config/abis/governorBravoDelegate.json';
 import xvsVestingAbi from '../config/abis/xvsVesting.json';
 import vrtConverterAbi from '../config/abis/vrtConverter.json';
 import vrtTokenAbi from '../config/abis/vrtToken.json';
+import vrtVaultAbi from '../config/abis/vrtVault.json';
+
 import {
   getComptrollerAddress,
   getOracleAddress,
@@ -26,13 +28,14 @@ import {
   getXvsVaultProxyAddress,
   getVenusLensAddress,
   getGovernorBravoAddress,
-  getXvsVestingAddress,
-  getVrtConverterAddress,
   getVrtTokenAddress,
+  getXvsVestingProxyAddress,
+  getVrtConverterProxyAddress,
+  getVrtVaultProxyAddress,
 } from './addressHelpers';
 import * as constants from './constants';
 
-const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: $TSFixMe) => {
+const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: Web3) => {
   const web3 = web3Contract ?? getWeb3NoAccount();
   return new web3.eth.Contract(abi, address);
 };
@@ -93,11 +96,15 @@ export const getGovernorBravoContract = (web3: $TSFixMe) =>
   getContract(governorBravoAbi, getGovernorBravoAddress(), web3);
 
 // VRT conversion
-export const getXvsVestingContract = (web3: $TSFixMe) =>
-  getContract(xvsVestingAbi, getXvsVestingAddress(), web3);
+export const getXvsVestingProxyContract = (web3: $TSFixMe) =>
+  getContract(xvsVestingAbi, getXvsVestingProxyAddress(), web3);
 
-export const getVrtConverterContract = (web3: $TSFixMe) =>
-  getContract(vrtConverterAbi, getVrtConverterAddress(), web3);
+export const getVrtConverterProxyContract = (web3: $TSFixMe) =>
+  getContract(vrtConverterAbi, getVrtConverterProxyAddress(), web3);
 
 export const getVrtTokenContract = (web3: $TSFixMe) =>
   getContract(vrtTokenAbi, getVrtTokenAddress(), web3);
+
+// VRT vault
+export const getVrtVaultProxyContract = (web3: $TSFixMe) =>
+  getContract(vrtVaultAbi, getVrtVaultProxyAddress(), web3);

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
+import { Button } from 'components';
 import { ButtonWrapper } from './styles';
 
 const WithdrawWrapper = styled.div`
   .withdraw-title {
     text-align: center;
-    color: #ffffff;
+    color: #fff;
     &-line-1 {
       font-size: 16px;
       line-height: 24px;
@@ -37,26 +38,32 @@ export type WithdrawPropsType = {
   handleClickWithdraw: () => void;
 };
 
-export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPropsType) =>
-(
-  <WithdrawWrapper>
-    <div className="withdraw-title">
-      <div className="withdraw-title-line-1">Withdrawable amount</div>
-      <div className="withdraw-title-line-2">
-        {commaFormatter(withdrawableAmount.toFixed(4))}
-        {' '}
-        XVS
+export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPropsType) => {
+  const [withdrawLoading, setWithdrawLoading] = useState(false);
+  return (
+    <WithdrawWrapper>
+      <div className="withdraw-title">
+        <div className="withdraw-title-line-1">Withdrawable amount</div>
+        <div className="withdraw-title-line-2">
+          {commaFormatter(withdrawableAmount.toFixed(6))} XVS
+        </div>
       </div>
-    </div>
-    <ButtonWrapper>
-      <button
-        type="button"
-        className="button withdraw-button"
-        disabled={!account}
-        onClick={handleClickWithdraw}
-      >
-        {!account ? 'Connect' : 'Withdraw'}
-      </button>
-    </ButtonWrapper>
-  </WithdrawWrapper>
-);
+      <ButtonWrapper>
+        <Button
+          type="button"
+          loading={withdrawLoading}
+          loadingIconSize="28px"
+          className="button withdraw-button"
+          disabled={!account || !withdrawableAmount.gt(0) || withdrawLoading}
+          onClick={async () => {
+            setWithdrawLoading(true);
+            await handleClickWithdraw();
+            setWithdrawLoading(false);
+          }}
+        >
+          {!account ? 'Connect' : 'Withdraw'}
+        </Button>
+      </ButtonWrapper>
+    </WithdrawWrapper>
+  );
+};

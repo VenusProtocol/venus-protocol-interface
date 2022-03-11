@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { compose } from 'recompose';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators, Dispatch } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { sendRepay } from 'utilities/BnbContract';
@@ -15,6 +13,7 @@ import { Icon, Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';
 import { Asset, Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useToken, useVbep } from '../../../hooks/useContract';
@@ -23,21 +22,16 @@ import useWeb3 from '../../../hooks/useWeb3';
 const format = commaNumber.bindWith(',', '.');
 
 interface DispatchProps {
-  setSetting: (setting: Setting | undefined) => void
+  setSetting: (setting: Setting | undefined) => void;
 }
 
 interface Props {
-  asset: Asset
-  changeTab: (tab: 'borrow' | 'repayBorrow') => void
-  onCancel: () => void
+  asset: Asset;
+  changeTab: (tab: 'borrow' | 'repayBorrow') => void;
+  onCancel: () => void;
 }
 
-function RepayBorrowTab({
-  asset,
-  changeTab,
-  onCancel,
-  setSetting,
-}: Props & DispatchProps) {
+function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -60,12 +54,8 @@ function RepayBorrowTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
-        setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
+        setNewBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
       }
     } else {
       const temp = userTotalBorrowBalance.minus(amount.times(tokenPrice));
@@ -75,9 +65,7 @@ function RepayBorrowTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
         setNewBorrowPercent(temp.div(userTotalBorrowLimit).times(100));
       }
     }
@@ -97,13 +85,7 @@ function RepayBorrowTab({
       setIsLoading(true);
       try {
         await tokenContract.methods
-          .approve(
-            asset.vtokenAddress,
-            new BigNumber(2)
-              .pow(256)
-              .minus(1)
-              .toString(10),
-          )
+          .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
           .send({ from: account });
         setIsEnabled(true);
       } catch (error) {
@@ -128,18 +110,10 @@ function RepayBorrowTab({
       });
       if (asset.id !== 'bnb') {
         const repayAmount = amount.eq(asset.borrowBalance)
-          ? new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10)
-          : amount
-            .times(new BigNumber(10).pow(asset.decimals))
-            .integerValue()
-            .toString(10);
+          ? new BigNumber(2).pow(256).minus(1).toString(10)
+          : amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10);
         try {
-          await vbepContract.methods
-            .repayBorrow(repayAmount)
-            .send({ from: account });
+          await vbepContract.methods.repayBorrow(repayAmount).send({ from: account });
           setAmount(new BigNumber(0));
           onCancel();
         } catch (error) {
@@ -158,10 +132,7 @@ function RepayBorrowTab({
         sendRepay(
           web3,
           account,
-          amount
-            .times(new BigNumber(10).pow(asset.decimals))
-            .integerValue()
-            .toString(10),
+          amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10),
           () => {
             setAmount(new BigNumber(0));
             setIsLoading(false);
@@ -199,13 +170,15 @@ function RepayBorrowTab({
             <NumberFormat
               autoFocus
               value={amount.isZero() ? '0' : amount.toString(10)}
-              onValueChange={(values) => {
+              onValueChange={values => {
                 const { value } = values;
                 setAmount(new BigNumber(value));
               }}
-              isAllowed={({ value }) => new BigNumber(value || 0).isLessThanOrEqualTo(
-                BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
-              )}
+              isAllowed={({ value }) =>
+                new BigNumber(value || 0).isLessThanOrEqualTo(
+                  BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
+                )
+              }
               thousandSeparator
               allowNegative={false}
               placeholder="0"
@@ -218,12 +191,7 @@ function RepayBorrowTab({
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Repay
-              {' '}
-              {asset.name}
-              {' '}
-              to the Venus Protocol, you need to enable it
-              first.
+              To Repay {asset.name} to the Venus Protocol, you need to enable it first.
             </p>
           </>
         )}
@@ -253,10 +221,7 @@ function RepayBorrowTab({
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Borrow APY</span>
             </div>
-            <span>
-              {asset.borrowApy.dp(2, 1).toString(10)}
-              %
-            </span>
+            <span>{asset.borrowApy.dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -288,11 +253,7 @@ function RepayBorrowTab({
               />
               <span>Repay VAI Balance</span>
             </div>
-            <span>
-              {userVaiMinted.dp(2, 1).toString(10)}
-              {' '}
-              VAI
-            </span>
+            <span>{userVaiMinted.dp(2, 1).toString(10)} VAI</span>
           </div>
         </div>
         {isEnabled && (
@@ -300,50 +261,24 @@ function RepayBorrowTab({
             <div className="borrow-balance">
               <span>Borrow Balance</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  $
-                  {borrowBalance.dp(2, 1).toString(10)}
-                </span>
+                <span>${borrowBalance.dp(2, 1).toString(10)}</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    $
-                    {borrowBalance.dp(2, 1).toString(10)}
-                  </span>
-                  <img
-                    className="arrow-right-img"
-                    src={arrowRightImg}
-                    alt="arrow"
-                  />
-                  <span>
-                    $
-                    {newBorrowBalance.dp(2, 1).toString(10)}
-                  </span>
+                  <span>${borrowBalance.dp(2, 1).toString(10)}</span>
+                  <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
+                  <span>${newBorrowBalance.dp(2, 1).toString(10)}</span>
                 </div>
               )}
             </div>
             <div className="borrow-limit">
               <span>Borrow Limit Used</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  {borrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    {borrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
-                  <img
-                    className="arrow-right-img"
-                    src={arrowRightImg}
-                    alt="arrow"
-                  />
-                  <span>
-                    {newBorrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
+                  <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                  <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
+                  <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
                 </div>
               )}
             </div>
@@ -363,34 +298,26 @@ function RepayBorrowTab({
               onApprove();
             }}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Enable
+            {isLoading && <Icon type="loading" />} Enable
           </Button>
         ) : (
           <Button
             className="button"
             disabled={
-              isLoading
-              || amount.isZero()
-              || amount.isNaN()
-              || amount.isGreaterThan(
-                BigNumber.minimum(asset.walletBalance, asset.borrowBalance),
-              )
+              isLoading ||
+              amount.isZero() ||
+              amount.isNaN() ||
+              amount.isGreaterThan(BigNumber.minimum(asset.walletBalance, asset.borrowBalance))
             }
             onClick={handleRepayBorrow}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Repay Borrow
+            {isLoading && <Icon type="loading" />} Repay Borrow
           </Button>
         )}
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))}
-            {' '}
-            {asset.symbol}
+            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
           </span>
         </div>
       </TabContent>
@@ -399,27 +326,12 @@ function RepayBorrowTab({
 }
 
 RepayBorrowTab.defaultProps = {
-  settings: {},
-  changeTab: () => { },
-  onCancel: () => { },
+  changeTab: () => {},
+  onCancel: () => {},
 };
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, mapDispatchToProps))(
-  RepayBorrowTab,
-);
+export default connectAccount(mapStateToProps)(RepayBorrowTab);

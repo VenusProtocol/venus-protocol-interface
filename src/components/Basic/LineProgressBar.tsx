@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Progress } from 'antd';
 
@@ -25,30 +24,22 @@ const LineProgressBarWrapper = styled.div`
   }
 `;
 
-function LineProgressBar({ label, percent }: $TSFixMe) {
+interface LineProgressBarProps {
+  label?: string;
+  percent?: number;
+}
+
+function LineProgressBar({ label, percent }: LineProgressBarProps) {
   return (
     <LineProgressBarWrapper>
       <div className="flex align-center just-between">
         <p className="label">{label}</p>
-        <p className="percent">
-          {percent}
-          %
-        </p>
+        <p className="percent">{percent}%</p>
       </div>
-      <Progress
-        percent={percent}
-        strokeColor="#ffffff"
-        strokeWidth={7}
-        showInfo={false}
-      />
+      <Progress percent={percent} strokeColor="#ffffff" strokeWidth={7} showInfo={false} />
     </LineProgressBarWrapper>
   );
 }
-
-LineProgressBar.propTypes = {
-  label: PropTypes.string,
-  percent: PropTypes.number,
-};
 
 LineProgressBar.defaultProps = {
   label: 'Borrow Limit',

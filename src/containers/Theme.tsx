@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 
 const theme = {};
 
-const Theme = ({ children }: $TSFixMe) => <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+interface ThemeProps {
+  children: React.ReactNode;
+}
 
-Theme.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const Theme = ({ children }: ThemeProps) => <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 
 export default Theme;

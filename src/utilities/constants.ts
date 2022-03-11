@@ -21,6 +21,8 @@ import cake from 'assets/img/coins/cake.png';
 import aave from 'assets/img/coins/aave.png';
 import tusd from 'assets/img/coins/tusd.png';
 import trx from 'assets/img/coins/trx.png';
+import ust from 'assets/img/coins/ust.png';
+import luna from 'assets/img/coins/luna.png';
 import vai from 'assets/img/coins/vai.svg';
 import vrt from 'assets/img/coins/vrt.svg';
 
@@ -47,6 +49,8 @@ import vcake from 'assets/img/coins/vcake.png';
 import vaave from 'assets/img/coins/vaave.png';
 import vtusd from 'assets/img/coins/vtusd.png';
 import vtrx from 'assets/img/coins/vtrx.png';
+import vust from 'assets/img/coins/vust.png';
+import vluna from 'assets/img/coins/vluna.png';
 
 import contracts from './contracts';
 
@@ -93,6 +97,7 @@ export const CONTRACT_TOKEN_ADDRESS =
           id: 'bnb',
           symbol: 'BNB',
           decimals: 18,
+          address: undefined,
           asset: bnb,
           vasset: vbnb,
         },
@@ -192,6 +197,22 @@ export const CONTRACT_TOKEN_ADDRESS =
           asset: trx,
           vasset: vtrx,
         },
+        ust: {
+          id: 'ust',
+          symbol: 'UST',
+          decimals: 18,
+          address: contracts.TEST.TOKEN.ust,
+          asset: ust,
+          vasset: vust,
+        },
+        luna: {
+          id: 'luna',
+          symbol: 'LUNA',
+          decimals: 6,
+          address: contracts.TEST.TOKEN.luna,
+          asset: luna,
+          vasset: vluna,
+        },
         vai: {
           id: 'vai',
           symbol: 'VAI',
@@ -244,6 +265,7 @@ export const CONTRACT_TOKEN_ADDRESS =
           id: 'bnb',
           symbol: 'BNB',
           decimals: 18,
+          address: undefined,
           asset: bnb,
           vasset: vbnb,
         },
@@ -494,6 +516,16 @@ export const CONTRACT_VBEP_ADDRESS =
           id: 'trx',
           symbol: 'vTRX',
           address: contracts.TEST.VBEP.trx,
+        },
+        ust: {
+          id: 'ust',
+          symbol: 'vUST',
+          address: contracts.TEST.VBEP.ust,
+        },
+        luna: {
+          id: 'luna',
+          symbol: 'vLUNA',
+          address: contracts.TEST.VBEP.luna,
         },
       }
     : {

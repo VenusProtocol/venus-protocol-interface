@@ -1,10 +1,8 @@
 /* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { Pagination } from 'antd';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Voting from 'components/Basic/Voting';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
@@ -41,17 +39,17 @@ const VotingHistoryWrapper = styled.div`
       color: var(--color-text-main);
     }
 
-    .ant-pagination-item:focus a,
-    .ant-pagination-item:hover a {
-      color: var(--color-orange);
-    }
-
     .ant-pagination-item-active {
       background: transparent;
       border-color: transparent;
       a {
         color: var(--color-orange);
       }
+    }
+
+    .ant-pagination-item:focus a,
+    .ant-pagination-item:hover a {
+      color: var(--color-orange);
     }
 
     .button {
@@ -96,16 +94,27 @@ const VotingHistoryWrapper = styled.div`
   }
 `;
 
-function VotingHistory({
-  data, pageNumber, total, onChangePage,
-}: $TSFixMe) {
-  const [current, setCurrent] = useState(pageNumber);
+interface VotingHistoryProps extends RouteComponentProps {
+  data: {
+    proposalId?: number;
+    description?: string;
+    state?: string;
+  }[];
+  pageNumber?: number;
+  total: number;
+  onChangePage: (page: number, prev: number, size: number) => void;
+}
+
+function VotingHistory({ data, pageNumber, total, onChangePage }: VotingHistoryProps) {
+  const [current, setCurrent] = useState(pageNumber || 1);
   const [pageSize, setPageSize] = useState(5);
 
-  const handleChangePage = (page: $TSFixMe, size: $TSFixMe) => {
+  const handleChangePage = (page: number, size?: number) => {
     setCurrent(page);
-    setPageSize(size);
-    onChangePage(page, (page - 1) * size, size);
+    if (size) {
+      setPageSize(size);
+      onChangePage(page, (page - 1) * size, size);
+    }
   };
 
   const onNext = () => {
@@ -123,11 +132,7 @@ function VotingHistory({
         <div className="body">
           {/**/}
           {data.map((item: $TSFixMe) => (
-            <Voting
-              proposal={item.proposal}
-              support={item.support}
-              key={uid(item)}
-            />
+            <Voting proposal={item.proposal} support={item.support} key={uid(item)} />
           ))}
         </div>
         {data && data.length !== 0 && (
@@ -162,23 +167,10 @@ function VotingHistory({
   );
 }
 
-VotingHistory.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      proposalId: PropTypes.number,
-      description: PropTypes.string,
-      state: PropTypes.string,
-    }),
-  ),
-  pageNumber: PropTypes.number,
-  total: PropTypes.number,
-  onChangePage: PropTypes.func.isRequired,
-};
-
 VotingHistory.defaultProps = {
   data: [],
   pageNumber: 1,
   total: 0,
 };
 
-export default compose(withRouter)(VotingHistory);
+export default withRouter(VotingHistory);

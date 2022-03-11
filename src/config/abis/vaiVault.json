@@ -115,9 +115,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
     "name": "deposit",
     "outputs": [],
     "payable": false,
@@ -162,9 +160,7 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "address", "name": "_user", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_user", "type": "address" }],
     "name": "pendingXVS",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "payable": false,
@@ -173,9 +169,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "newAdmin", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "newAdmin", "type": "address" }],
     "name": "setNewAdmin",
     "outputs": [],
     "payable": false,
@@ -219,9 +213,7 @@
     "constant": true,
     "inputs": [],
     "name": "vai",
-    "outputs": [
-      { "internalType": "contract IBEP20", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract IBEP20", "name": "", "type": "address" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -237,9 +229,7 @@
   },
   {
     "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
     "name": "withdraw",
     "outputs": [],
     "payable": false,
@@ -250,9 +240,7 @@
     "constant": true,
     "inputs": [],
     "name": "xvs",
-    "outputs": [
-      { "internalType": "contract IBEP20", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract IBEP20", "name": "", "type": "address" }],
     "payable": false,
     "stateMutability": "view",
     "type": "function"

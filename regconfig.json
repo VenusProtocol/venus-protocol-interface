@@ -1,0 +1,22 @@
+{
+    "core": {
+      "workingDir": ".reg",
+      "actualDir": ".loki/reference",
+      "thresholdRate": 0.5,
+      "addIgnore": true,
+      "ximgdiff": {
+        "invocationType": "client"
+      }
+    },
+    "plugins": {
+      "reg-keygen-git-hash-plugin": true,
+      "reg-notify-github-plugin": {
+        "prComment": true,
+        "prCommentBehavior": "default",
+        "clientId": "MzazNDSzNDM11y9LzSst1i0oyi/JT87P0c3MK0ktSktMTtU3MjYEqjE21w8DqQiAKgAA"
+      },
+      "reg-publish-s3-plugin": {
+        "bucketName": "tf-venus-prod-vizreg"
+      }
+    }
+  }

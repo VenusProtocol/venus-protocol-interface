@@ -43,17 +43,22 @@ const contracts = {
     56: '0x1e25CF968f12850003Db17E0Dba32108509C4359',
     97: '0x7B4dba3b320E7D421A213e1a73bB9858bb6839F8',
   },
-  xvsVesting: {
-    56: '',
-    97: '0x4cd15c0c950a5fd80a114d4f9cae165c0dc0ebe0',
-  },
   vrtToken: {
     56: '',
     97: '0x331F639B4F3CF6E391CD244e0b5027C5968Ec325',
   },
-  vrtConverter: {
+  // vrt conversion
+  xvsVestingProxy: {
     56: '',
-    97: '0xe67c6118C15b7fB8e670dc322CCD3eE0DC263066',
+    97: '0x8e3C47924Abdd3fAf418B25edA08B6278F723Cd7',
+  },
+  vrtConverterProxy: {
+    56: '',
+    97: '0x09e6cfe9F05De73C02F1b172c273087594A4bCc6',
+  },
+  vrtVaultProxy: {
+    56: '',
+    97: '0x4DFf5578114a1fB6cF4a07E31AFe85a7BafB962a',
   },
 };
 

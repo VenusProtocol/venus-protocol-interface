@@ -35,7 +35,7 @@ const ProposerInfoWrapper = styled.div`
 `;
 
 interface Props extends RouteComponentProps {
-  address: string,
+  address: string;
 }
 
 function ProposerInfo({ address }: Props) {
@@ -55,7 +55,6 @@ function ProposerInfo({ address }: Props) {
           <CopyToClipboard
             text={address}
             onCopy={() => {
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
               toast.success({
                 title: 'Copied address',
               });

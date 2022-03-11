@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import PropTypes from 'prop-types';
+import { ColumnProps } from 'antd/lib/table';
 import styled from 'styled-components';
 
 const MarketTableWrapper = styled.div`
@@ -41,6 +41,7 @@ const MarketTableWrapper = styled.div`
     .ant-table-scroll {
       .ant-table-header {
         background: var(--color-bg-primary);
+
         /* width */
         &::-webkit-scrollbar {
           display: none;
@@ -83,7 +84,7 @@ const MarketTableWrapper = styled.div`
         font-size: 16px;
         font-weight: normal;
         background: var(--color-bg-primary);
-        border-bottom: 0px;
+        border-bottom: 0;
         -webkit-transition: background 0.3s ease;
         transition: background 0.3s ease;
         text-align: right;
@@ -110,7 +111,7 @@ const MarketTableWrapper = styled.div`
   .ant-table-tbody {
     tr {
       td {
-        border-bottom: 0px;
+        border-bottom: 0;
         background: var(--color-bg-primary);
         text-align: right;
         width: 28%;
@@ -152,9 +153,14 @@ const MarketTableWrapper = styled.div`
   }
 `;
 
-function MarketTable({
-  columns, data, title, handleClickRow,
-}: $TSFixMe) {
+interface MarketTableProps<D> {
+  data: D[];
+  columns: ColumnProps<D>[];
+  title: string;
+  handleClickRow: (row: unknown) => void;
+}
+
+function MarketTable<D>({ columns, data, title, handleClickRow }: MarketTableProps<D>) {
   return (
     <MarketTableWrapper>
       <div className="all-title">{title}</div>
@@ -169,18 +175,5 @@ function MarketTable({
     </MarketTableWrapper>
   );
 }
-
-MarketTable.propTypes = {
-  data: PropTypes.array,
-  columns: PropTypes.array,
-  title: PropTypes.string,
-  handleClickRow: PropTypes.func.isRequired,
-};
-
-MarketTable.defaultProps = {
-  data: [],
-  columns: [],
-  title: '',
-};
 
 export default MarketTable;

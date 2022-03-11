@@ -12,13 +12,13 @@ export const ButtonWrapper = styled.div`
     cursor: pointer;
   }
 
-  .button:disable {
+  .button:disabled {
     background: #d3d3d3;
     cursor: not-allowed;
   }
 `;
 
-export const RedeemWrapper = styled.div`
+export const ConvertWrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: #fff;
@@ -33,6 +33,10 @@ export const RedeemWrapper = styled.div`
     line-height: 19px;
     text-align: center;
     margin-bottom: 32px;
+    .span {
+      display: inline-block;
+      margin: 0 4px;
+    }
   }
 
   /* xvs pool */
@@ -51,10 +55,10 @@ export const RedeemWrapper = styled.div`
     }
   }
 
-  /* redeem section */
-  .redeem-daily-progress {
+  /* convert section */
+  .convert-daily-progress {
     margin-bottom: 32px;
-    .redeem-daily-progress-title {
+    .convert-daily-progress-title {
       font-size: 14px;
       line-height: 21px;
       display: flex;
@@ -62,7 +66,7 @@ export const RedeemWrapper = styled.div`
     }
   }
 
-  .redeem-vrt {
+  .convert-vrt {
     margin-bottom: 32px;
   }
 
@@ -70,7 +74,7 @@ export const RedeemWrapper = styled.div`
   .input-title {
     font-size: 12px;
     line-height: 14px;
-    color: #ffffff;
+    color: #fff;
     margin-bottom: 6px;
   }
 
@@ -138,6 +142,9 @@ export const RedeemWrapper = styled.div`
 
   /* remaining days */
   .remaining-days {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     margin-top: 16px;
   }
@@ -161,6 +168,6 @@ export const RedeemWrapper = styled.div`
   .remaining-time-text {
     font-size: 14px;
     line-height: 21px;
-    color: #ffffff;
+    color: #fff;
   }
 `;

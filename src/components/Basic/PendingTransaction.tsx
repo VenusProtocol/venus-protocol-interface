@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import { compose } from 'recompose';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import moment from 'moment';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { Label } from './Label';
 
 const PendingTransactionWrapper = styled.div`
@@ -40,7 +40,11 @@ const PendingTransactionWrapper = styled.div`
   }
 `;
 
-function PendingTransaction({ settings }: $TSFixMe) {
+interface PendingTransactionProps {
+  settings: Setting;
+}
+
+function PendingTransaction({ settings }: PendingTransactionProps) {
   const [curTime, setCurTime] = useState('');
   useEffect(() => {
     const dateTime = new Date();
@@ -71,15 +75,8 @@ function PendingTransaction({ settings }: $TSFixMe) {
   );
 }
 
-PendingTransaction.propTypes = {
-  settings: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(
-  PendingTransaction,
-);
+export default connect(mapStateToProps)(PendingTransaction);

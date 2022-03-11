@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Icon } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
@@ -35,13 +35,7 @@ function RepayVaiTab() {
     setIsLoading(true);
     try {
       await vaiContract.methods
-        .approve(
-          getVaiUnitrollerAddress(),
-          new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10),
-        )
+        .approve(getVaiUnitrollerAddress(), new BigNumber(2).pow(256).minus(1).toString(10))
         .send({
           from: account,
         });
@@ -58,12 +52,7 @@ function RepayVaiTab() {
     setIsLoading(true);
     try {
       await vaiControllerContract.methods
-        .repayVAI(
-          amount
-            .times(new BigNumber(10).pow(18))
-            .dp(0)
-            .toString(10),
-        )
+        .repayVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
         .send({ from: account });
       setAmount(new BigNumber(0));
     } catch (error) {
@@ -83,9 +72,11 @@ function RepayVaiTab() {
               onValueChange={({ value }) => {
                 setAmount(new BigNumber(value));
               }}
-              isAllowed={({ value }) => new BigNumber(value || 0).isLessThanOrEqualTo(
-                BigNumber.minimum(userVaiBalance, userVaiMinted),
-              )}
+              isAllowed={({ value }) =>
+                new BigNumber(value || 0).isLessThanOrEqualTo(
+                  BigNumber.minimum(userVaiBalance, userVaiMinted),
+                )
+              }
               thousandSeparator
               allowNegative={false}
               placeholder="0"
@@ -113,11 +104,7 @@ function RepayVaiTab() {
                 <span>Balance</span>
               </div>
             </div>
-            <span>
-              {format(userVaiMinted.dp(2, 1).toString(10))}
-              {' '}
-              VAI
-            </span>
+            <span>{format(userVaiMinted.dp(2, 1).toString(10))} VAI</span>
           </div>
         </div>
         {(userVaiBalance.isZero() || amount.isGreaterThan(userVaiBalance)) && (
@@ -131,35 +118,27 @@ function RepayVaiTab() {
               onVaiApprove();
             }}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Enable
+            {isLoading && <Icon type="loading" />} Enable
           </Button>
         ) : (
           <Button
             className="button vai-auto"
             disabled={
-              isLoading
-              || !account
-              || amount.isNaN()
-              || amount.isZero()
-              || amount.isGreaterThan(userVaiMinted)
-              || amount.isGreaterThan(userVaiBalance)
+              isLoading ||
+              !account ||
+              amount.isNaN() ||
+              amount.isZero() ||
+              amount.isGreaterThan(userVaiMinted) ||
+              amount.isGreaterThan(userVaiBalance)
             }
             onClick={handleRepayVAI}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Repay VAI
+            {isLoading && <Icon type="loading" />} Repay VAI
           </Button>
         )}
         <div className="description">
           <span>VAI Balance</span>
-          <span>
-            {format(userVaiBalance.dp(2, 1).toString(10))}
-            {' '}
-            VAI
-          </span>
+          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
         </div>
       </TabContent>
     </TabSection>

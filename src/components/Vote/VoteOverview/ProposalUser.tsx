@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
+import { ProposalInfo } from 'types';
 import { BASE_BSC_SCAN_URL } from '../../../config';
 
 const ProposalUserWrapper = styled.div`
@@ -34,12 +34,13 @@ const ProposalUserWrapper = styled.div`
   }
 `;
 
-function ProposalUser({ proposalInfo }: $TSFixMe) {
+interface ProposalUserProps {
+  proposalInfo: Partial<ProposalInfo>;
+}
+
+function ProposalUser({ proposalInfo }: ProposalUserProps) {
   const handleAddLink = (linkType: $TSFixMe, v: $TSFixMe) => {
-    window.open(
-      `${BASE_BSC_SCAN_URL}/${linkType === 'address' ? 'address' : 'tx'}/${v}`,
-      '_blank',
-    );
+    window.open(`${BASE_BSC_SCAN_URL}/${linkType === 'address' ? 'address' : 'tx'}/${v}`, '_blank');
   };
 
   return (
@@ -51,10 +52,7 @@ function ProposalUser({ proposalInfo }: $TSFixMe) {
         >
           <p className="highlight">
             {proposalInfo.proposer
-              ? `${proposalInfo.proposer.substr(
-                0,
-                5,
-              )}...${proposalInfo.proposer.substr(-4, 4)}`
+              ? `${proposalInfo.proposer.substr(0, 5)}...${proposalInfo.proposer.substr(-4, 4)}`
               : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
@@ -66,10 +64,4 @@ function ProposalUser({ proposalInfo }: $TSFixMe) {
   );
 }
 
-ProposalUser.propTypes = {
-  proposalInfo: PropTypes.object,
-};
-ProposalUser.defaultProps = {
-  proposalInfo: {},
-};
 export default ProposalUser;

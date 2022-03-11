@@ -1,12 +1,10 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { compose } from 'recompose';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import BigNumber from 'bignumber.js';
 import MainLayout from 'containers/Layout/MainLayout';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
 import OverviewChart from 'components/Basic/OverviewChart';
@@ -15,6 +13,7 @@ import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3React } from '@web3-react/core';
 import { Setting } from 'types';
+import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 
 const MarketDetailWrapper = styled.div`
@@ -22,7 +21,7 @@ const MarketDetailWrapper = styled.div`
 
   .market-detail-content {
     width: 100%;
-    padding: 20px 40px 20px 0px;
+    padding: 20px 40px 20px 0;
 
     @media only screen and (max-width: 1440px) {
       flex-direction: column;
@@ -38,7 +37,7 @@ const MarketDetailWrapper = styled.div`
       @media only screen and (max-width: 1440px) {
         width: 100%;
         min-width: unset;
-        margin-right: 0px;
+        margin-right: 0;
         margin-bottom: 20px;
       }
     }
@@ -49,7 +48,7 @@ const MarketDetailWrapper = styled.div`
       margin-left: 10px;
       @media only screen and (max-width: 1440px) {
         width: 100%;
-        margin-left: 0px;
+        margin-left: 0;
       }
       .row1 {
         margin-bottom: 20px;
@@ -76,7 +75,7 @@ const MarketDetailWrapper = styled.div`
           flex: 1;
           margin-right: 10px;
           @media only screen and (max-width: 768px) {
-            margin-right: 0px;
+            margin-right: 0;
             margin-bottom: 20px;
           }
         }
@@ -84,7 +83,7 @@ const MarketDetailWrapper = styled.div`
           flex: 1;
           margin-left: 10px;
           @media only screen and (max-width: 768px) {
-            margin-left: 0px;
+            margin-left: 0;
           }
         }
       }
@@ -105,7 +104,7 @@ const abortController = new AbortController();
 
 interface Props extends RouteComponentProps<{ asset: string }> {
   settings: Setting;
-  getMarketHistory: () => void;
+  getMarketHistory: $TSFixMe;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
@@ -146,10 +145,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
 
   const getGovernanceData = useCallback(async () => {
     if (markets && markets.length > 0 && currentAsset) {
-      const info = markets.find(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
-        item => item.underlyingSymbol.toLowerCase() === currentAsset,
-      );
+      const info = markets.find(item => item.underlyingSymbol.toLowerCase() === currentAsset);
       setMarketInfo(info || {});
     }
   }, [markets, currentAsset]);
@@ -230,23 +226,8 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   );
 }
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { getMarketHistory } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      getMarketHistory,
-    },
-    dispatch,
-  );
-};
-
-export default compose<Props, Props>(
-  withRouter,
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-  connectAccount(mapStateToProps, mapDispatchToProps),
-)(MarketDetail);
+export default connectAccount(mapStateToProps)(withRouter(MarketDetail));

@@ -19,9 +19,6 @@ const MarketInfoWrapper = styled.div`
     font-weight: 900;
     color: var(--color-text-main);
   }
-
-  @media only screen and (max-width: 768px) {
-  }
 `;
 
 const MarketInfoContent = styled.div`
@@ -42,21 +39,22 @@ const MarketInfoContent = styled.div`
   }
 `;
 
+// stylelint-disable-next-line
 const format = commaNumber.bindWith(',', '.');
 
 interface MarketInfoObjectType {
-  underlyingSymbol: string,
-  supplyApy: number,
-  supplyVenusApy: number,
-  borrowApy: number,
-  borrowVenusApy: number,
-  totalSupplyUsd: number,
-  totalBorrowsUsd: number,
+  underlyingSymbol: string;
+  supplyApy: number;
+  supplyVenusApy: number;
+  borrowApy: number;
+  borrowVenusApy: number;
+  totalSupplyUsd: number;
+  totalBorrowsUsd: number;
 }
 
 interface Props extends RouteComponentProps {
-  marketInfo: Partial<MarketInfoObjectType>,
-  marketType: string,
+  marketInfo: Partial<MarketInfoObjectType>;
+  marketType: string;
 }
 
 function MarketInfo({ marketInfo, marketType }: Props) {
@@ -68,13 +66,9 @@ function MarketInfo({ marketInfo, marketType }: Props) {
         className="asset-img"
         src={
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[
-            marketInfo.underlyingSymbol.toLowerCase()
-          ]
+          constants.CONTRACT_TOKEN_ADDRESS[marketInfo.underlyingSymbol.toLowerCase()]
             ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            constants.CONTRACT_TOKEN_ADDRESS[
-              marketInfo.underlyingSymbol.toLowerCase()
-            ].asset
+              constants.CONTRACT_TOKEN_ADDRESS[marketInfo.underlyingSymbol.toLowerCase()].asset
             : null
         }
         alt="asset"
@@ -87,55 +81,45 @@ function MarketInfo({ marketInfo, marketType }: Props) {
             <p className="value">
               {marketType === 'supply'
                 ? formatApy(
-                  new BigNumber(
-                    // @ts-expect-error marketInfo gets passed around as an empty object
-                    +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
-                  ).plus(
                     new BigNumber(
                       // @ts-expect-error marketInfo gets passed around as an empty object
-                      +marketInfo.supplyVenusApy < 0.01
-                        ? 0.01
-                        : marketInfo.supplyVenusApy,
+                      +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
+                    ).plus(
+                      new BigNumber(
+                        // @ts-expect-error marketInfo gets passed around as an empty object
+                        +marketInfo.supplyVenusApy < 0.01 ? 0.01 : marketInfo.supplyVenusApy,
+                      ),
                     ),
-                  ),
-                )
+                  )
                 : formatApy(
-                  new BigNumber(
-                    // @ts-expect-error marketInfo gets passed around as an empty object
-                    Math.abs(+marketInfo.borrowApy) < 0.01
-                      ? 0.01
-                      : marketInfo.borrowApy,
-                  ).plus(
                     new BigNumber(
                       // @ts-expect-error marketInfo gets passed around as an empty object
-                      marketInfo.borrowVenusApy < 0.01
-                        ? 0.01
-                        : marketInfo.borrowVenusApy,
+                      Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy,
+                    ).plus(
+                      new BigNumber(
+                        // @ts-expect-error marketInfo gets passed around as an empty object
+                        marketInfo.borrowVenusApy < 0.01 ? 0.01 : marketInfo.borrowVenusApy,
+                      ),
                     ),
-                  ),
-                )}
+                  )}
             </p>
           </div>
           <div className="supply-apy">
-            <p className="label right">
-              {marketType === 'supply' ? 'Supply APY' : 'Borrow Apy'}
-            </p>
+            <p className="label right">{marketType === 'supply' ? 'Supply APY' : 'Borrow Apy'}</p>
             <p className="value right">
               {marketType === 'supply'
                 ? new BigNumber(
-                  // @ts-expect-error marketInfo gets passed around as an empty object
-                  +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
-                )
-                  .dp(2, 1)
-                  .toString(10)
+                    // @ts-expect-error marketInfo gets passed around as an empty object
+                    +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
+                  )
+                    .dp(2, 1)
+                    .toString(10)
                 : new BigNumber(
-                  // @ts-expect-error marketInfo gets passed around as an empty object
-                  Math.abs(+marketInfo.borrowApy) < 0.01
-                    ? 0.01
-                    : marketInfo.borrowApy,
-                )
-                  .dp(2, 1)
-                  .toString(10)}
+                    // @ts-expect-error marketInfo gets passed around as an empty object
+                    Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy,
+                  )
+                    .dp(2, 1)
+                    .toString(10)}
               %
             </p>
           </div>
@@ -146,17 +130,13 @@ function MarketInfo({ marketInfo, marketType }: Props) {
             <p className="value">
               {marketType === 'supply'
                 ? formatApy(
-                  // @ts-expect-error marketInfo gets passed around as an empty object
-                  +marketInfo.supplyVenusApy < 0.01
-                    ? 0.01
-                    : marketInfo.supplyVenusApy,
-                )
+                    // @ts-expect-error marketInfo gets passed around as an empty object
+                    +marketInfo.supplyVenusApy < 0.01 ? 0.01 : marketInfo.supplyVenusApy,
+                  )
                 : formatApy(
-                  // @ts-expect-error marketInfo gets passed around as an empty object
-                  marketInfo.borrowVenusApy < 0.01
-                    ? 0.01
-                    : marketInfo.borrowVenusApy,
-                )}
+                    // @ts-expect-error marketInfo gets passed around as an empty object
+                    marketInfo.borrowVenusApy < 0.01 ? 0.01 : marketInfo.borrowVenusApy,
+                  )}
             </p>
           </div>
           <div className="total-supply">
@@ -168,9 +148,7 @@ function MarketInfo({ marketInfo, marketType }: Props) {
               {format(
                 new BigNumber(
                   // @ts-expect-error marketInfo gets passed around as an empty object
-                  marketType === 'supply'
-                    ? marketInfo.totalSupplyUsd
-                    : marketInfo.totalBorrowsUsd,
+                  marketType === 'supply' ? marketInfo.totalSupplyUsd : marketInfo.totalBorrowsUsd,
                 )
                   .dp(2, 1)
                   .toString(10),

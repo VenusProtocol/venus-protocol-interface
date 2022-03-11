@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
 import { Icon, Progress } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators } from 'redux';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import { useWeb3React } from '@web3-react/core';
 import commaNumber from 'comma-number';
 import { sendSupply } from 'utilities/BnbContract';
@@ -15,6 +12,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
+import { Asset, Setting } from 'types';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
@@ -22,9 +20,14 @@ import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
 
-function SupplyTab({
-  asset, changeTab, onCancel, setSetting,
-}: $TSFixMe) {
+interface SupplyTabProps {
+  asset: Asset;
+  changeTab: (tab: 'supply' | 'withdraw') => void;
+  onCancel: () => void;
+  setSetting: (setting: Partial<Setting> | undefined) => void;
+}
+
+function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
@@ -44,9 +47,7 @@ function SupplyTab({
     const collateralFactor = getBigNumber(asset.collateralFactor);
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
-      const temp = userTotalBorrowLimit.plus(
-        amount.times(tokenPrice).times(collateralFactor),
-      );
+      const temp = userTotalBorrowLimit.plus(amount.times(tokenPrice).times(collateralFactor));
       setNewBorrowLimit(BigNumber.maximum(temp, 0));
       setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
       if (userTotalBorrowLimit.isZero()) {
@@ -54,9 +55,7 @@ function SupplyTab({
         setBorrowPercent(new BigNumber(0));
       } else {
         setBorrowLimit(userTotalBorrowLimit);
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
       }
     } else if (BigNumber.isBigNumber(userTotalBorrowLimit)) {
       setBorrowLimit(userTotalBorrowLimit);
@@ -65,12 +64,8 @@ function SupplyTab({
         setBorrowPercent(new BigNumber(0));
         setNewBorrowPercent(new BigNumber(0));
       } else {
-        setBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
-        setNewBorrowPercent(
-          userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-        );
+        setBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
+        setNewBorrowPercent(userTotalBorrowBalance.div(userTotalBorrowLimit).times(100));
       }
     }
   }, [amount, asset, userTotalBorrowBalance, userTotalBorrowLimit]);
@@ -94,13 +89,7 @@ function SupplyTab({
     setIsLoading(true);
     try {
       await tokenContract.methods
-        .approve(
-          asset.vtokenAddress,
-          new BigNumber(2)
-            .pow(256)
-            .minus(1)
-            .toString(10),
-        )
+        .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
         .send({ from: account });
       setIsEnabled(true);
     } catch (error) {
@@ -125,9 +114,7 @@ function SupplyTab({
     if (asset.id !== 'bnb') {
       try {
         await vbepContract.methods
-          .mint(
-            amount.times(new BigNumber(10).pow(asset.decimals)).toString(10),
-          )
+          .mint(amount.times(new BigNumber(10).pow(asset.decimals)).toString(10))
           .send({ from: account });
         setAmount(new BigNumber(0));
         onCancel();
@@ -182,9 +169,9 @@ function SupplyTab({
               onValueChange={({ value }) => {
                 setAmount(new BigNumber(value));
               }}
-              isAllowed={({ value }) => new BigNumber(value || 0).isLessThanOrEqualTo(
-                asset.walletBalance,
-              )}
+              isAllowed={({ value }) =>
+                new BigNumber(value || 0).isLessThanOrEqualTo(asset.walletBalance)
+              }
               thousandSeparator
               allowNegative={false}
               placeholder="0"
@@ -197,12 +184,7 @@ function SupplyTab({
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Supply
-              {' '}
-              {asset.name}
-              {' '}
-              to the Venus Protocol, you need to approve
-              it first.
+              To Supply {asset.name} to the Venus Protocol, you need to approve it first.
             </p>
           </>
         )}
@@ -232,10 +214,7 @@ function SupplyTab({
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Supply APY</span>
             </div>
-            <span>
-              {asset.supplyApy.dp(2, 1).toString(10)}
-              %
-            </span>
+            <span>{asset.supplyApy.dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -251,12 +230,7 @@ function SupplyTab({
               />
               <span>Distribution APY</span>
             </div>
-            <span>
-              {getBigNumber(asset.xvsSupplyApy)
-                .dp(2, 1)
-                .toString(10)}
-              %
-            </span>
+            <span>{getBigNumber(asset.xvsSupplyApy).dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -272,11 +246,7 @@ function SupplyTab({
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>
-              {mintableVai.dp(2, 1).toString(10)}
-              {' '}
-              VAI
-            </span>
+            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
           </div>
         </div>
         {isEnabled && (
@@ -284,50 +254,24 @@ function SupplyTab({
             <div className="borrow-limit">
               <span>Borrow Limit</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  $
-                  {format(borrowLimit.dp(2, 1).toString(10))}
-                </span>
+                <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    $
-                    {format(borrowLimit.dp(2, 1).toString(10))}
-                  </span>
-                  <img
-                    className="arrow-right-img"
-                    src={arrowRightImg}
-                    alt="arrow"
-                  />
-                  <span>
-                    $
-                    {format(newBorrowLimit.dp(2, 1).toString(10))}
-                  </span>
+                  <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+                  <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
+                  <span>${format(newBorrowLimit.dp(2, 1).toString(10))}</span>
                 </div>
               )}
             </div>
             <div className="flex align-center just-between borrow-limit-used">
               <span>Borrow Limit Used</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>
-                  {borrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>
-                    {borrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
-                  <img
-                    className="arrow-right-img"
-                    src={arrowRightImg}
-                    alt="arrow"
-                  />
-                  <span>
-                    {newBorrowPercent.dp(2, 1).toString(10)}
-                    %
-                  </span>
+                  <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
+                  <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
+                  <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
                 </div>
               )}
             </div>
@@ -347,33 +291,27 @@ function SupplyTab({
               onApprove();
             }}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Enable
+            {isLoading && <Icon type="loading" />} Enable
           </Button>
         ) : (
           <Button
             className="button"
             disabled={
-              isLoading
-              || !account
-              || amount.isNaN()
-              || amount.isZero()
-              || amount.isGreaterThan(asset.walletBalance)
+              isLoading ||
+              !account ||
+              amount.isNaN() ||
+              amount.isZero() ||
+              amount.isGreaterThan(asset.walletBalance)
             }
             onClick={handleSupply}
           >
-            {isLoading && <Icon type="loading" />}
-            {' '}
-            Supply
+            {isLoading && <Icon type="loading" />} Supply
           </Button>
         )}
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))}
-            {' '}
-            {asset.symbol}
+            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
           </span>
         </div>
       </TabContent>
@@ -381,29 +319,4 @@ function SupplyTab({
   );
 }
 
-SupplyTab.propTypes = {
-  asset: PropTypes.object,
-  changeTab: PropTypes.func,
-  onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired,
-};
-
-SupplyTab.defaultProps = {
-  asset: {},
-  changeTab: () => {},
-  onCancel: () => {},
-};
-
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(null, mapDispatchToProps))(SupplyTab);
+export default connectAccount()(SupplyTab);

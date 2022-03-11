@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Steps, Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
+import { ProposalInfo } from 'types';
 import { FORMAT_STRING } from '../../../utilities/time';
 
 const ProposalHistoryWrapper = styled.div`
@@ -74,18 +74,13 @@ const ProposalHistoryWrapper = styled.div`
 
 const { Step } = Steps;
 
-// Pending,
-// Active,
-// Canceled,
-// Defeated,
-// Succeeded,
-// Queued,
-// Expired,
-// Executed
-
 const STATUSES = ['Pending', 'Active', 'Succeeded', 'Queued', 'Executed'];
 
-function ProposalHistory({ proposalInfo }: $TSFixMe) {
+interface ProposalHistoryProps {
+  proposalInfo: Partial<ProposalInfo>;
+}
+
+function ProposalHistory({ proposalInfo }: ProposalHistoryProps) {
   const getStepNumber = () => {
     if (proposalInfo.state === 'Defeated' || proposalInfo.state === 'Canceled') return 2;
     return STATUSES.findIndex(s => s === proposalInfo.state);
@@ -100,8 +95,7 @@ function ProposalHistory({ proposalInfo }: $TSFixMe) {
             direction="vertical"
             current={getStepNumber()}
             status={
-              proposalInfo.state === 'Canceled'
-              || proposalInfo.state === 'Defeated'
+              proposalInfo.state === 'Canceled' || proposalInfo.state === 'Defeated'
                 ? 'error'
                 : 'finish'
             }
@@ -110,124 +104,76 @@ function ProposalHistory({ proposalInfo }: $TSFixMe) {
               title="Created"
               description={
                 proposalInfo.createdTimestamp
-                  ? moment(proposalInfo.createdTimestamp * 1000).format(
-                    FORMAT_STRING,
-                  )
+                  ? moment(proposalInfo.createdTimestamp * 1000).format(FORMAT_STRING)
                   : ''
               }
-              icon={(
-                <Icon
-                  type="check"
-                  style={{ fontSize: '10px', color: 'white' }}
-                />
-              )}
+              icon={<Icon type="check" style={{ fontSize: '10px', color: 'white' }} />}
               disabled
             />
             <Step
               title="Active"
               description={
                 proposalInfo.startTimestamp
-                  ? moment(proposalInfo.startTimestamp * 1000).format(
-                    FORMAT_STRING,
-                  )
+                  ? moment(proposalInfo.startTimestamp * 1000).format(FORMAT_STRING)
                   : ''
               }
-              icon={(
-                <Icon
-                  type="check"
-                  style={{ fontSize: '10px', color: 'white' }}
-                />
-              )}
+              icon={<Icon type="check" style={{ fontSize: '10px', color: 'white' }} />}
               disabled
             />
             <Step
               title={
-                proposalInfo.state === 'Canceled'
-                || proposalInfo.state === 'Defeated'
-                  ? `${
-                    proposalInfo.state === 'Defeated' ? 'Failed' : 'Canceled'
-                  }`
-                  : `${
-                    proposalInfo.state === 'Succeeded'
-                      ? 'Succeeded'
-                      : 'Succeed'
-                  }`
+                proposalInfo.state === 'Canceled' || proposalInfo.state === 'Defeated'
+                  ? `${proposalInfo.state === 'Defeated' ? 'Failed' : 'Canceled'}`
+                  : `${proposalInfo.state === 'Succeeded' ? 'Succeeded' : 'Succeed'}`
               }
               description={
                 proposalInfo.endTimestamp
-                  ? moment(proposalInfo.endTimestamp * 1000).format(
-                    FORMAT_STRING,
-                  )
+                  ? moment(proposalInfo.endTimestamp * 1000).format(FORMAT_STRING)
                   : `${
-                    proposalInfo.cancelTimestamp
-                      ? moment(proposalInfo.cancelTimestamp * 1000).format(
-                        FORMAT_STRING,
-                      )
-                      : ''
-                  }`
+                      proposalInfo.cancelTimestamp
+                        ? moment(proposalInfo.cancelTimestamp * 1000).format(FORMAT_STRING)
+                        : ''
+                    }`
               }
-              icon={(
+              icon={
                 <Icon
                   type={
-                    proposalInfo.state === 'Canceled'
-                    || proposalInfo.state === 'Defeated'
+                    proposalInfo.state === 'Canceled' || proposalInfo.state === 'Defeated'
                       ? 'close'
                       : 'check'
                   }
                   style={{ fontSize: '10px', color: 'white' }}
                 />
-              )}
+              }
               disabled
             />
-            {proposalInfo.state !== 'Defeated'
-              && proposalInfo.state !== 'Canceled' && (
-                <Step
-                  title={`${
-                    proposalInfo.state === 'Queued' ? 'Queued' : 'Queue'
-                  }`}
-                  description={
-                    proposalInfo.queuedTimestamp
-                      ? moment(proposalInfo.queuedTimestamp * 1000).format(
-                        FORMAT_STRING,
-                      )
-                      : ''
-                  }
-                  icon={(
-                    <Icon
-                      type="check"
-                      style={{ fontSize: '10px', color: 'white' }}
-                    />
-                  )}
-                  disabled
-                />
+            {proposalInfo.state !== 'Defeated' && proposalInfo.state !== 'Canceled' && (
+              <Step
+                title={`${proposalInfo.state === 'Queued' ? 'Queued' : 'Queue'}`}
+                description={
+                  proposalInfo.queuedTimestamp
+                    ? moment(proposalInfo.queuedTimestamp * 1000).format(FORMAT_STRING)
+                    : ''
+                }
+                icon={<Icon type="check" style={{ fontSize: '10px', color: 'white' }} />}
+                disabled
+              />
             )}
-            {proposalInfo.state !== 'Defeated'
-              && proposalInfo.state !== 'Canceled' && (
-                <Step
-                  title={
-                    proposalInfo.state === 'Expired'
-                      ? proposalInfo.state
-                      : `${
-                        proposalInfo.state === 'Executed'
-                          ? 'Executed'
-                          : 'Execute'
-                      }`
-                  }
-                  description={
-                    proposalInfo.executedTimestamp
-                      ? moment(proposalInfo.executedTimestamp * 1000).format(
-                        FORMAT_STRING,
-                      )
-                      : ''
-                  }
-                  icon={(
-                    <Icon
-                      type="check"
-                      style={{ fontSize: '10px', color: 'white' }}
-                    />
-                  )}
-                  disabled
-                />
+            {proposalInfo.state !== 'Defeated' && proposalInfo.state !== 'Canceled' && (
+              <Step
+                title={
+                  proposalInfo.state === 'Expired'
+                    ? proposalInfo.state
+                    : `${proposalInfo.state === 'Executed' ? 'Executed' : 'Execute'}`
+                }
+                description={
+                  proposalInfo.executedTimestamp
+                    ? moment(proposalInfo.executedTimestamp * 1000).format(FORMAT_STRING)
+                    : ''
+                }
+                icon={<Icon type="check" style={{ fontSize: '10px', color: 'white' }} />}
+                disabled
+              />
             )}
           </Steps>
         </div>
@@ -236,10 +182,4 @@ function ProposalHistory({ proposalInfo }: $TSFixMe) {
   );
 }
 
-ProposalHistory.propTypes = {
-  proposalInfo: PropTypes.object,
-};
-ProposalHistory.defaultProps = {
-  proposalInfo: {},
-};
 export default ProposalHistory;

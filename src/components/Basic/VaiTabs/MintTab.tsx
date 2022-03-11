@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import { Icon } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
 import commaNumber from 'comma-number';
@@ -24,9 +24,7 @@ function MintTab() {
   const vaiControllerContract = useVaiUnitroller();
 
   const getFeePercent = useCallback(async () => {
-    const treasuryPercent = await vaiControllerContract.methods
-      .treasuryPercent()
-      .call();
+    const treasuryPercent = await vaiControllerContract.methods.treasuryPercent().call();
     setFeePercent(new BigNumber(treasuryPercent).times(100).div(1e18));
   }, [vaiControllerContract]);
 
@@ -39,10 +37,7 @@ function MintTab() {
    */
   const handleMaxAmount = () => {
     const safeMax = BigNumber.maximum(
-      userTotalBorrowLimit
-        .times(40)
-        .div(100)
-        .minus(userTotalBorrowBalance),
+      userTotalBorrowLimit.times(40).div(100).minus(userTotalBorrowBalance),
       new BigNumber(0),
     );
     setAmount(BigNumber.minimum(mintableVai, safeMax));
@@ -54,12 +49,7 @@ function MintTab() {
     setIsLoading(true);
     try {
       await vaiControllerContract.methods
-        .mintVAI(
-          amount
-            .times(new BigNumber(10).pow(18))
-            .dp(0)
-            .toString(10),
-        )
+        .mintVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
         .send({ from: account });
       setAmount(new BigNumber(0));
     } catch (error) {
@@ -98,11 +88,7 @@ function MintTab() {
                 <span>Limit</span>
               </div>
             </div>
-            <span>
-              {format(mintableVai.dp(2, 1).toString(10))}
-              {' '}
-              VAI
-            </span>
+            <span>{format(mintableVai.dp(2, 1).toString(10))} VAI</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -114,14 +100,12 @@ function MintTab() {
             <span>
               {!amount.isNaN()
                 ? new BigNumber(amount)
-                // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
-                  .times(feePercent / 100)
-                  .dp(4)
-                  .toString(10)
-                : 0}
-              {' '}
-              VAI (
-              {feePercent.toString(10)}
+                    // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
+                    .times(feePercent / 100)
+                    .dp(4)
+                    .toString(10)
+                : 0}{' '}
+              VAI ({feePercent.toString(10)}
               %)
             </span>
           </div>
@@ -129,25 +113,19 @@ function MintTab() {
         <Button
           className="button vai-auto"
           disabled={
-            isLoading
-            || !account
-            || amount.isNaN()
-            || amount.isZero()
-            || amount.isGreaterThan(mintableVai)
+            isLoading ||
+            !account ||
+            amount.isNaN() ||
+            amount.isZero() ||
+            amount.isGreaterThan(mintableVai)
           }
           onClick={handleMintVAI}
         >
-          {isLoading && <Icon type="loading" />}
-          {' '}
-          Mint VAI
+          {isLoading && <Icon type="loading" />} Mint VAI
         </Button>
         <div className="description">
           <span>VAI Balance</span>
-          <span>
-            {format(userVaiBalance.dp(2, 1).toString(10))}
-            {' '}
-            VAI
-          </span>
+          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
         </div>
       </TabContent>
     </TabSection>

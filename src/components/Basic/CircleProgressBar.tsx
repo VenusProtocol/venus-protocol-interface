@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Progress } from 'antd';
 
@@ -46,7 +45,13 @@ const CircleProgressBarWrapper = styled.div`
   }
 `;
 
-function CircleProgressBar({ label, percent, width }: $TSFixMe) {
+interface CircleProgressBarProps {
+  label: string;
+  percent: number;
+  width?: number;
+}
+
+function CircleProgressBar({ label, percent, width }: CircleProgressBarProps) {
   return (
     <CircleProgressBarWrapper>
       <Progress
@@ -63,21 +68,12 @@ function CircleProgressBar({ label, percent, width }: $TSFixMe) {
         showInfo={false}
       />
       <div className="circle-label">
-        <p className={percent < 0 ? 'percent-red' : 'percent'}>
-          {percent}
-          %
-        </p>
+        <p className={percent < 0 ? 'percent-red' : 'percent'}>{percent}%</p>
         <p className="label">{label}</p>
       </div>
     </CircleProgressBarWrapper>
   );
 }
-
-CircleProgressBar.propTypes = {
-  label: PropTypes.string,
-  percent: PropTypes.number,
-  width: PropTypes.number,
-};
 
 CircleProgressBar.defaultProps = {
   label: 'Default Label',

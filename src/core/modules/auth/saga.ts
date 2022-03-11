@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-  put, call, fork, all, take,
-} from 'redux-saga/effects';
+import { put, call, fork, all, take } from 'redux-saga/effects';
 
 import {
   HANDLE_AUTH_ERROR_REQUEST,
@@ -13,9 +11,7 @@ import {
 
 import { restService } from 'utilities';
 
-export function* handleAuthErrorRequest({
-  payload,
-}: $TSFixMe) {
+export function* handleAuthErrorRequest({ payload }: $TSFixMe) {
   const { response } = payload;
   try {
     if (response.data && response.status === 401) {
@@ -123,6 +119,7 @@ export function* watchLogoutRequest() {
   }
 }
 
+// prettier-ignore
 export default function* () {
   yield all([
     fork(watchHandleAuthErrorRequest),

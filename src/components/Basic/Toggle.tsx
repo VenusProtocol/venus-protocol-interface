@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Switch } from 'antd';
 
@@ -27,18 +26,18 @@ const ToggleWrapper = styled.div`
   }
 `;
 
-function Toggle({ checked, onChecked }: $TSFixMe) {
+interface ToggleProps {
+  checked: boolean;
+  onChecked: () => void;
+}
+
+function Toggle({ checked, onChecked }: ToggleProps) {
   return (
-    <ToggleWrapper onClick={(e: $TSFixMe) => e.stopPropagation()}>
+    <ToggleWrapper onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
       <Switch checked={checked} onChange={onChecked} />
     </ToggleWrapper>
   );
 }
-
-Toggle.propTypes = {
-  checked: PropTypes.bool,
-  onChecked: PropTypes.func,
-};
 
 Toggle.defaultProps = {
   checked: true,

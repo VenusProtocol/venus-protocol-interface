@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Spin, Icon } from 'antd';
-import PropTypes from 'prop-types';
 
 const LoadingSpinnerWrapper = styled.div`
   width: 100%;
@@ -12,7 +11,11 @@ const LoadingSpinnerWrapper = styled.div`
   }
 `;
 
-function LoadingSpinner({ size }: $TSFixMe) {
+interface LoadingSpinnerProps {
+  size?: number;
+}
+
+function LoadingSpinner({ size }: LoadingSpinnerProps) {
   const antIcon = <Icon type="loading" style={{ fontSize: size }} spin />;
   return (
     <LoadingSpinnerWrapper className="flex align-center just-center">
@@ -20,10 +23,6 @@ function LoadingSpinner({ size }: $TSFixMe) {
     </LoadingSpinnerWrapper>
   );
 }
-
-LoadingSpinner.propTypes = {
-  size: PropTypes.number,
-};
 
 LoadingSpinner.defaultProps = {
   size: 64,

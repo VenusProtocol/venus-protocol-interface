@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Modal, Input } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
 import closeImg from 'assets/img/close.png';
@@ -177,35 +177,34 @@ const ModalContentWrapper = styled.div`
 
 const MAX_INPUT_LENGTH = 1000;
 
-const VOTE_TYPE = {
-  AGAINST: 0,
-  FOR: 1,
-  ABSTAIN: 2,
-};
-
-const getVoteTypeStringFromValue = (type: $TSFixMe) => [
-  ['👎', 'Against'],
-  ['👍', 'For'],
-  ['🤔️', 'Abstain'],
-][type];
-
-interface Props extends RouteComponentProps {
-  address: string,
-  proposal: ProposalObject,
-  votingWeight: string,
+enum VoteType {
+  AGAINST = 0,
+  FOR = 1,
+  ABSTAIN = 2,
 }
 
-function Proposal({
-  address, proposal, votingWeight, history,
-}: Props) {
+const getVoteTypeStringFromValue = (type: VoteType) =>
+  [
+    ['👎', 'Against'],
+    ['👍', 'For'],
+    ['🤔️', 'Abstain'],
+  ][type];
+
+interface Props extends RouteComponentProps {
+  address: string;
+  proposal: ProposalObject;
+  votingWeight: string;
+}
+
+function Proposal({ address, proposal, votingWeight, history }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [voteType, setVoteType] = useState(VOTE_TYPE.FOR);
+  const [voteType, setVoteType] = useState<0 | 1 | 2>(VoteType.FOR);
   const [voteStatus, setVoteStatus] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [voteReason, setVoteReason] = useState('');
   const governorBravoContract = useGovernorBravo();
 
-  const getStatus = (p: $TSFixMe) => {
+  const getStatus = (p: ProposalObject) => {
     if (p.state === 'Executed') {
       return 'Passed';
     }
@@ -219,9 +218,7 @@ function Proposal({
   };
 
   const getIsHasVoted = useCallback(async () => {
-    const res = await governorBravoContract.methods
-      .getReceipt(proposal.id, address)
-      .call();
+    const res = await governorBravoContract.methods.getReceipt(proposal.id, address).call();
     setVoteStatus(res.hasVoted ? 'voted' : 'novoted');
   }, [address, proposal]);
 
@@ -231,7 +228,7 @@ function Proposal({
     }
   }, [address, proposal, getIsHasVoted]);
 
-  const handleOpenVoteConfirmModal = (type: $TSFixMe) => {
+  const handleOpenVoteConfirmModal = (type: VoteType) => {
     setVoteType(type);
     setConfirmModalVisible(true);
   };
@@ -244,9 +241,7 @@ function Proposal({
           .castVoteWithReason(proposal.id, voteType, voteReason)
           .send({ from: address });
       } else {
-        await governorBravoContract.methods
-          .castVote(proposal.id, voteType)
-          .send({ from: address });
+        await governorBravoContract.methods.castVote(proposal.id, voteType).send({ from: address });
       }
     } catch (error) {
       console.log('cast vote error :>> ', error);
@@ -255,8 +250,8 @@ function Proposal({
     setConfirmModalVisible(false);
   };
 
-  const getTitle = (descs: $TSFixMe) => {
-    const index = descs.findIndex((d: $TSFixMe) => d !== '');
+  const getTitle = (descs: string[]) => {
+    const index = descs.findIndex((d: string) => d !== '');
     if (index !== -1) {
       return descs[index];
     }
@@ -287,11 +282,7 @@ function Proposal({
               </Label>
             </Column>
             <Column xs="12" sm="5" className="description">
-              <div
-                className={`description-item orange-text ${getStatus(
-                  proposal,
-                )}-btn`}
-              >
+              <div className={`description-item orange-text ${getStatus(proposal)}-btn`}>
                 {getStatus(proposal)}
               </div>
               <Label size="16">{getRemainingTime(proposal)}</Label>
@@ -299,13 +290,11 @@ function Proposal({
           </Row>
         </Column>
         <Column xs="12" sm="3" className="vote-status">
-          {voteStatus
-            && voteStatus === 'novoted'
-            && proposal.state !== 'Active' && (
-              <div className="flex align-center">
-                <img src={dashImg} alt="dash" />
-                <p className="orange-text">NO VOTE</p>
-              </div>
+          {voteStatus && voteStatus === 'novoted' && proposal.state !== 'Active' && (
+            <div className="flex align-center">
+              <img src={dashImg} alt="dash" />
+              <p className="orange-text">NO VOTE</p>
+            </div>
           )}
           {voteStatus && voteStatus === 'voted' && (
             <div className="flex align-center">
@@ -317,19 +306,16 @@ function Proposal({
       <Row className="vote-actions">
         {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
           <div className="flex align-center" onClick={e => e.stopPropagation()}>
-            {[VOTE_TYPE.FOR, VOTE_TYPE.AGAINST, VOTE_TYPE.ABSTAIN].map(type => (
+            {[VoteType.FOR, VoteType.AGAINST, VoteType.ABSTAIN].map(type => (
               <Button
                 key={type}
                 className="vote-btn"
                 disabled={
-                    votingWeight === '0'
-                    || !proposal
-                    || (proposal && proposal.state !== 'Active')
-                  }
+                  votingWeight === '0' || !proposal || (proposal && proposal.state !== 'Active')
+                }
                 onClick={() => handleOpenVoteConfirmModal(type)}
               >
-                {isLoading && voteType === type && <Icon type="loading" />}
-                {' '}
+                {isLoading && voteType === type && <Icon type="loading" />}{' '}
                 {getVoteTypeStringFromValue(type)[1]}
               </Button>
             ))}
@@ -359,18 +345,13 @@ function Proposal({
           />
           <div className="header">
             <span className="title">
-              {getVoteTypeStringFromValue(voteType)[0]}
-              {' '}
-              I vote:
-              {' '}
+              {getVoteTypeStringFromValue(voteType)[0]} I vote:{' '}
               {getVoteTypeStringFromValue(voteType)[1]}
             </span>
           </div>
           <div className="input-wrapper">
             <div className="input-caption">
-              Why do you vote
-              {' '}
-              <span>{getVoteTypeStringFromValue(voteType)[1]}</span>
+              Why do you vote <span>{getVoteTypeStringFromValue(voteType)[1]}</span>
             </div>
             <Input.TextArea
               value={voteReason}
@@ -378,9 +359,7 @@ function Proposal({
               onChange={e => setVoteReason(e.target.value)}
               maxLength={MAX_INPUT_LENGTH}
             />
-            <div className="input-remaining">
-              {MAX_INPUT_LENGTH - voteReason.length}
-            </div>
+            <div className="input-remaining">{MAX_INPUT_LENGTH - voteReason.length}</div>
           </div>
           <div className="confirm-button-wrapper">
             <button
@@ -389,9 +368,7 @@ function Proposal({
               disabled={isLoading || voteReason.length > MAX_INPUT_LENGTH}
               onClick={() => handleVote()}
             >
-              {isLoading && <Icon type="loading" />}
-              {' '}
-              Confirm
+              {isLoading && <Icon type="loading" />} Confirm
             </button>
           </div>
         </ModalContentWrapper>

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
-import { compose } from 'recompose';
-import { connectAccount } from 'core';
+import { connect } from 'react-redux';
 import commaNumber from 'comma-number';
 import { Label } from 'components/Basic/Label';
 import BorrowModal from 'components/Basic/BorrowModal';
@@ -11,6 +10,7 @@ import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import { getBigNumber, formatApy } from 'utilities/common';
 import { Asset, Setting } from 'types';
+import { State } from 'core/modules/initialState';
 
 const BorrowMarketWrapper = styled.div`
   width: 100%;
@@ -20,16 +20,16 @@ const BorrowMarketWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-interface DispatchProps {
-  settings: Setting,
+interface StateProps {
+  settings: Setting;
 }
 
 interface Props {
-  borrowedAssets: Asset[],
-  remainAssets: Asset[],
+  borrowedAssets: Asset[];
+  remainAssets: Asset[];
 }
 
-function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & DispatchProps) {
+function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [record, setRecord] = useState({});
 
@@ -44,7 +44,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       dataIndex: 'img',
       key: 'img',
 
-      render(img: $TSFixMe, asset: $TSFixMe) {
+      render(img: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="flex align-center">
@@ -53,10 +53,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
                 <Label size="14" primary>
                   {asset.name}
                 </Label>
-                <Label size="14">
-                  {asset.borrowApy.dp(2, 1).toString(10)}
-                  %
-                </Label>
+                <Label size="14">{asset.borrowApy.dp(2, 1).toString(10)}%</Label>
               </div>
             </div>
           ),
@@ -68,10 +65,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       dataIndex: 'borrowApy',
       key: 'borrowApy',
 
-      render(borrowApy: $TSFixMe, asset: $TSFixMe) {
-        const apy = settings.withXVS
-          ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
-          : borrowApy;
+      render(borrowApy: $TSFixMe, asset: Asset) {
+        const apy = settings.withXVS ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy) : borrowApy;
         return {
           children: (
             <div className="apy-content">
@@ -82,9 +77,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
               )}
               <div
                 className={
-                  !settings.withXVS || apy.isNegative()
-                    ? 'apy-red-label'
-                    : 'apy-green-label'
+                  !settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'
                 }
               >
                 {formatApy(apy)}
@@ -99,13 +92,11 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       dataIndex: 'walletBalance',
       key: 'walletBalance',
 
-      render(walletBalance: $TSFixMe, asset: $TSFixMe) {
+      render(walletBalance: $TSFixMe, asset: Asset) {
         return {
           children: (
             <Label size="14" primary>
-              {format(walletBalance.dp(2, 1).toString(10))}
-              {' '}
-              {asset.symbol}
+              {format(walletBalance.dp(2, 1).toString(10))} {asset.symbol}
             </Label>
           ),
         };
@@ -120,8 +111,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
         return {
           children: (
             <Label size="14" primary>
-              $
-              {format(liquidity.dp(2, 1).toString(10))}
+              ${format(liquidity.dp(2, 1).toString(10))}
             </Label>
           ),
         };
@@ -135,7 +125,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       dataIndex: 'img',
       key: 'img',
 
-      render(img: $TSFixMe, asset: $TSFixMe) {
+      render(img: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="flex align-center">
@@ -144,10 +134,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
                 <Label size="14" primary>
                   {asset.name}
                 </Label>
-                <Label size="14">
-                  {asset.borrowApy.dp(2, 1).toString(10)}
-                  %
-                </Label>
+                <Label size="14">{asset.borrowApy.dp(2, 1).toString(10)}%</Label>
               </div>
             </div>
           ),
@@ -159,10 +146,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       dataIndex: 'borrowApy',
       key: 'borrowApy',
 
-      render(borrowApy: $TSFixMe, asset: $TSFixMe) {
-        const apy = settings.withXVS
-          ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy)
-          : borrowApy;
+      render(borrowApy: $TSFixMe, asset: Asset) {
+        const apy = settings.withXVS ? getBigNumber(asset.xvsBorrowApy).plus(borrowApy) : borrowApy;
         return {
           children: (
             <div className="apy-content">
@@ -173,9 +158,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
               )}
               <div
                 className={
-                  !settings.withXVS || apy.isNegative()
-                    ? 'apy-red-label'
-                    : 'apy-green-label'
+                  !settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'
                 }
               >
                 {formatApy(apy)}
@@ -190,23 +173,15 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       dataIndex: 'borrowBalance',
       key: 'borrowBalance',
 
-      render(borrowBalance: $TSFixMe, asset: $TSFixMe) {
+      render(borrowBalance: $TSFixMe, asset: Asset) {
         return {
           children: (
             <div className="wallet-label flex flex-column">
               <Label size="14" primary>
-                $
-                {format(
-                  borrowBalance
-                    .times(asset.tokenPrice)
-                    .dp(2, 1)
-                    .toString(10),
-                )}
+                ${format(borrowBalance.times(asset.tokenPrice).dp(2, 1).toString(10))}
               </Label>
               <Label size="14">
-                {format(borrowBalance.dp(4, 1).toString(10))}
-                {' '}
-                {asset.symbol}
+                {format(borrowBalance.dp(4, 1).toString(10))} {asset.symbol}
               </Label>
             </div>
           ),
@@ -219,12 +194,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
       key: 'percentOfLimit',
 
       render(percentOfLimit: $TSFixMe) {
-        const children = (
-          <Label size="14">
-            {percentOfLimit}
-            %
-          </Label>
-        );
+        const children = <Label size="14">{percentOfLimit}%</Label>;
         return {
           children,
         };
@@ -234,9 +204,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
 
   return (
     <BorrowMarketWrapper>
-      {borrowedAssets.length === 0 && remainAssets.length === 0 && (
-        <LoadingSpinner />
-      )}
+      {borrowedAssets.length === 0 && remainAssets.length === 0 && <LoadingSpinner />}
       {borrowedAssets.length > 0 && (
         <MarketTable
           columns={borrowColumns}
@@ -245,11 +213,9 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
           handleClickRow={handleClickRow}
         />
       )}
-      {settings.pendingInfo
-        && settings.pendingInfo.status
-        && ['Borrow', 'Repay Borrow'].includes(settings.pendingInfo.type) && (
-          <PendingTransaction />
-      )}
+      {settings.pendingInfo &&
+        settings.pendingInfo.status &&
+        ['Borrow', 'Repay Borrow'].includes(settings.pendingInfo.type) && <PendingTransaction />}
       {remainAssets.length > 0 && (
         <MarketTable
           columns={remainColumns}
@@ -268,16 +234,8 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & Dispat
   );
 }
 
-BorrowMarket.defaultProps = {
-  borrowedAssets: [],
-  remainAssets: [],
-};
-
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State): StateProps => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose<Props & DispatchProps, Props>(connectAccount(mapStateToProps, undefined))(
-  BorrowMarket,
-);
+export default connect(mapStateToProps)(BorrowMarket);

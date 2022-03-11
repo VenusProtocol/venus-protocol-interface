@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
-import { compose } from 'recompose';
+
 import { Icon, Progress } from 'antd';
-import { Button } from 'components/v2/Button';
+import { Button } from 'components';
 import NumberFormat from 'react-number-format';
-import { bindActionCreators } from 'redux';
 import { useWeb3React } from '@web3-react/core';
-import { connectAccount, accountActionCreators } from 'core';
+import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
+import { Asset, Setting } from 'types';
 import coinImg from 'assets/img/venus_32.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
@@ -21,7 +20,14 @@ import { useVaiUser } from '../../../hooks/useVaiUser';
 
 const format = commaNumber.bindWith(',', '.');
 
-function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
+interface WithdrawTabProps {
+  asset: Asset;
+  changeTab: (tab: 'supply' | 'withdraw') => void;
+  onCancel: () => void;
+  setSetting: (setting: Setting | undefined) => void;
+}
+
+function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [borrowLimit, setBorrowLimit] = useState(new BigNumber(0));
@@ -113,10 +119,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
       } else {
         await vbepContract.methods
           .redeemUnderlying(
-            amount
-              .times(new BigNumber(10).pow(asset.decimals))
-              .integerValue()
-              .toString(10),
+            amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10),
           )
           .send({ from: account });
       }
@@ -206,10 +209,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Supply APY</span>
             </div>
-            <span>
-              {asset.supplyApy.dp(2, 1).toString(10)}
-              %
-            </span>
+            <span>{asset.supplyApy.dp(2, 1).toString(10)}%</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -241,11 +241,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
               />
               <span>Available VAI Limit</span>
             </div>
-            <span>
-              {mintableVai.dp(2, 1).toString(10)}
-              {' '}
-              VAI
-            </span>
+            <span>{mintableVai.dp(2, 1).toString(10)} VAI</span>
           </div>
           {asset.symbol !== 'BNB' && (
             <div className="description">
@@ -269,12 +265,8 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
                       .times(feePercent / 100)
                       .dp(4)
                       .toString(10)
-                  : 0}
-                {' '}
-                {asset.symbol}
-                {' '}
-                (
-                {feePercent.toString(10)}
+                  : 0}{' '}
+                {asset.symbol} ({feePercent.toString(10)}
                 %)
               </span>
             </div>
@@ -284,42 +276,24 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           <div className="borrow-limit">
             <span>Borrow Limit</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>
-                $
-                {format(borrowLimit.dp(2, 1).toString(10))}
-              </span>
+              <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
             ) : (
               <div className="flex align-center just-between">
-                <span>
-                  $
-                  {format(borrowLimit.dp(2, 1).toString(10))}
-                </span>
+                <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
                 <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                <span>
-                  $
-                  {format(newBorrowLimit.dp(2, 1).toString(10))}
-                </span>
+                <span>${format(newBorrowLimit.dp(2, 1).toString(10))}</span>
               </div>
             )}
           </div>
           <div className="flex align-center just-between borrow-limit-used">
             <span>Borrow Limit Used</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>
-                {borrowPercent.dp(2, 1).toString(10)}
-                %
-              </span>
+              <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
             ) : (
               <div className="flex align-center just-between">
-                <span>
-                  {borrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{borrowPercent.dp(2, 1).toString(10)}%</span>
                 <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                <span>
-                  {newBorrowPercent.dp(2, 1).toString(10)}
-                  %
-                </span>
+                <span>{newBorrowPercent.dp(2, 1).toString(10)}%</span>
               </div>
             )}
           </div>
@@ -343,16 +317,12 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
           }
           onClick={handleWithdraw}
         >
-          {isLoading && <Icon type="loading" />}
-          {' '}
-          Withdraw
+          {isLoading && <Icon type="loading" />} Withdraw
         </Button>
         <div className="description">
           <span>Protocol Balance</span>
           <span>
-            {format(asset.supplyBalance.dp(2, 1).toString(10))}
-            {' '}
-            {asset.symbol}
+            {format(asset.supplyBalance.dp(2, 1).toString(10))} {asset.symbol}
           </span>
         </div>
       </TabContent>
@@ -360,29 +330,4 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: $TSFixMe) {
   );
 }
 
-WithdrawTab.propTypes = {
-  asset: PropTypes.object,
-  changeTab: PropTypes.func,
-  onCancel: PropTypes.func,
-  setSetting: PropTypes.func.isRequired,
-};
-
-WithdrawTab.defaultProps = {
-  asset: {},
-  changeTab: () => {},
-  onCancel: () => {},
-};
-
-const mapDispatchToProps = (dispatch: $TSFixMe) => {
-  const { setSetting } = accountActionCreators;
-
-  return bindActionCreators(
-    {
-      setSetting,
-    },
-    dispatch,
-  );
-};
-
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(null, mapDispatchToProps))(WithdrawTab);
+export default connectAccount(null)(WithdrawTab);

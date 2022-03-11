@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'antd';
-import { compose } from 'recompose';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
+import { State } from 'core/modules/initialState';
 import { BASE_BSC_SCAN_URL } from '../../config';
 
 const CardWrapper = styled.div`
@@ -47,7 +46,12 @@ const CardWrapper = styled.div`
 
 const format = commaNumber.bindWith(',', '.');
 
-function CoinInfo({ address, balance }: $TSFixMe) {
+interface CoinInfoProps {
+  address: string;
+  balance: string;
+}
+
+function CoinInfo({ address, balance }: CoinInfoProps) {
   const handleLink = () => {
     window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
   };
@@ -60,15 +64,9 @@ function CoinInfo({ address, balance }: $TSFixMe) {
           <p>{format(balance)}</p>
         </div>
         {address ? (
-          <div
-            className="flex align-center just-center pointer"
-            onClick={() => handleLink()}
-          >
+          <div className="flex align-center just-center pointer" onClick={() => handleLink()}>
             <p className="highlight">
-              {`${address.substr(0, 4)}...${address.substr(
-                address.length - 4,
-                4,
-              )}`}
+              {`${address.substr(0, 4)}...${address.substr(address.length - 4, 4)}`}
             </p>
             <div className="flex align-center just-center copy-btn">
               <Icon type="arrow-right" />
@@ -82,19 +80,13 @@ function CoinInfo({ address, balance }: $TSFixMe) {
   );
 }
 
-CoinInfo.propTypes = {
-  address: PropTypes.string,
-  balance: PropTypes.string,
-};
-
 CoinInfo.defaultProps = {
   address: '',
   balance: '0.0000',
 };
 
-const mapStateToProps = ({ account }: $TSFixMe) => ({
+const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,
 });
 
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
-export default compose(connectAccount(mapStateToProps, undefined))(CoinInfo);
+export default connectAccount(mapStateToProps)(CoinInfo);

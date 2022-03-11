@@ -19,6 +19,13 @@ export const VaultCardWrapper = styled.div`
   .header {
     display: flex;
     flex-wrap: wrap;
+    .content {
+      display: flex;
+      align-items: center;
+    }
+    svg {
+      margin-right: 4px;
+    }
   }
 
   .col-item {
