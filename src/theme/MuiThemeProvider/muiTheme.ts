@@ -64,54 +64,39 @@ export default createTheme({
     fontFamily: FONTS.primary,
     color: defaultTheme.palette.text.primary,
     h1: {
-      fontSize: '28px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '2.5rem',
+      fontWeight: 600,
     },
     h2: {
-      fontSize: '25px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '2rem',
+      fontWeight: 600,
     },
     h3: {
-      fontSize: '20px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '1.5rem',
+      fontWeight: 700,
     },
-    h4: {},
-    h5: {},
-    h6: {},
-    subtitle1: {
-      fontSize: '17px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+    h4: {
+      fontSize: '1.25rem',
+      fontWeight: 600,
     },
-    subtitle2: {},
     body1: {
-      fontSize: '16px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '1rem',
+      fontWeight: 600,
     },
-    body2: {},
+    body2: {
+      fontSize: '1rem',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+      letterSpacing: '0.3px',
+    },
     small1: {
       fontSize: '0.875rem',
-      // line height is defined globally and has default value 1.5',
-      // lineHeight: 1.5,
       fontWeight: 600,
     },
     small2: {
       fontSize: '0.875rem',
-      // line height is defined globally and has default value 1.5',
-      // lineHeight: 1.5,
       fontWeight: 400,
     },
-    button: {
-      fontSize: '14px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
-      fontWeight: 400,
-    },
-    overline: {},
   },
   components: {
     MuiButton: {
