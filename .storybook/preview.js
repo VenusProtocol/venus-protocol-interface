@@ -21,11 +21,11 @@ export const parameters = {
     values: [
       {
         name: 'Primary',
-        value: PALETTE.v2.background.primary,
+        value: PALETTE.background.default,
       },
       {
-        name: 'Secondary',
-        value: PALETTE.v2.background.secondary,
+        name: 'Paper',
+        value: PALETTE.background.paper,
       },
     ],
   },

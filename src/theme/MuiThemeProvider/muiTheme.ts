@@ -25,34 +25,15 @@ export const PALETTE = {
     dark: 'rgba(31, 32, 40, 1)',
   },
   text: {
-    primary: '#FFFFFF',
-    secondary: '#9597A1',
-    disabled: '#A1A1A1',
+    primary: 'rgba(255, 255, 255, 1)',
+    secondary: 'rgba(149, 151, 161, 1)',
+    disabled: 'rgba(161, 161, 161, 1)',
   },
-  success: {
-    main: '#9DD562',
-    slider: '#18DF8B',
-  },
-  error: {
-    main: 'rgba(233, 61, 68, 1)',
-    slider: 'rgba(233, 61, 68, 0.5)',
-  },
-  v2: {
-    background: {
-      primary: 'rgba(31, 32, 40, 1)',
-      secondary: 'rgba(40, 41, 49, 1)',
-      tertiary: 'rgba(56, 57, 68, 1)',
-    },
-    text: {
-      primary: 'rgba(255, 255, 255, 1)',
-      secondary: 'rgba(149, 151, 161, 1)',
-    },
-    interactive: {
-      primary: 'rgba(58, 120, 255, 1)',
-      success: 'rgba(24, 223, 139, 1)',
-      error: 'rgba(233, 61, 68, 1)',
-      error50: 'rgba(233, 61, 68, 0.5)',
-    },
+  interactive: {
+    primary: 'rgba(58, 120, 255, 1)',
+    success: 'rgba(24, 223, 139, 1)',
+    error: 'rgba(233, 61, 68, 1)',
+    error50: 'rgba(233, 61, 68, 0.5)',
   },
 };
 
