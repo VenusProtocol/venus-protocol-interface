@@ -20,7 +20,9 @@ export const useStyles = () => {
     background-color: ${theme.palette.background.default};
 
     &:focus-within {
-      border-color: ${hasError ? theme.palette.interactive.error : theme.palette.text.secondary};
+      border-color: ${hasError
+        ? theme.palette.interactive.error
+        : theme.palette.interactive.primary};
     }
   `;
 
