@@ -1,6 +1,6 @@
 import React from 'react';
 import Switch from '@mui/material/Switch';
-import { useStyles } from './ToggleStyles';
+import { useStyles } from './styles';
 
 export interface IToggleProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
