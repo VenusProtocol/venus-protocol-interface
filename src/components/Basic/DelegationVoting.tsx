@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { Input, Icon } from 'antd';
+import { Input } from 'antd';
 import { Button } from 'components';
 import { useWeb3React } from '@web3-react/core';
 
@@ -146,8 +146,9 @@ function DelegationVoting({ history, isLoading, onDelegate }: Props) {
           className="vote-btn"
           disabled={isLoading}
           onClick={() => onDelegate(delegateAddress)}
+          loading={isLoading}
         >
-          {isLoading && <Icon type="loading" />} Delegate Votes
+          Delegate Votes
         </Button>
       </div>
     </VotingWrapper>

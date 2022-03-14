@@ -31,6 +31,8 @@ const ProposalsWrapper = styled.div`
       background-color: var(--color-gold);
       border: none;
       color: #fff;
+      width: 150px;
+      height: 40px;
       span {
         font-size: 14px;
         font-weight: 500;
@@ -245,9 +247,6 @@ function Proposals({
               title="You must have the voting power of at least 300K XVS to propose"
             >
               <Button
-                // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: (string | false | Element)[]; wi... Remove this comment to see the full error message
-                width={150}
-                height={40}
                 className="button create-proposal-btn"
                 onClick={handleShowProposalModal}
                 disabled={notProposable}

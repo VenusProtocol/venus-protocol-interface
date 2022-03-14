@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { Button } from 'components';
+import { Button, Icon } from 'components';
 import { ButtonWrapper } from './styles';
 
 const WithdrawWrapper = styled.div`
@@ -52,7 +52,6 @@ export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPr
         <Button
           type="button"
           loading={withdrawLoading}
-          loadingIconSize="28px"
           className="button withdraw-button"
           disabled={!account || !withdrawableAmount.gt(0) || withdrawLoading}
           onClick={async () => {

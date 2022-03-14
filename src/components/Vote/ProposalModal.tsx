@@ -483,8 +483,9 @@ function ProposalModal({
               disabled={
                 isLoading || formData.length > maxOperation || description.trim().length === 0
               }
+              loading={isLoading}
             >
-              {isLoading && <Icon type="loading" />} Create
+              Create
             </Button>
           </div>
         </Form>

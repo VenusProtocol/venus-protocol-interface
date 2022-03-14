@@ -7,15 +7,13 @@ import useStyles from './styles';
 export interface IButtonProps extends ButtonProps {
   className?: string;
   loading?: boolean;
-  loadingIcon?: JSX.Element;
 }
 
 export const Button = ({
   className,
   loading,
   disabled,
-  loadingIcon = <Icon name="loading" />,
-  startIcon,
+  startIcon = null,
   ...restProps
 }: IButtonProps) => {
   const styles = useStyles();
@@ -23,7 +21,7 @@ export const Button = ({
     <MuiButton
       css={styles}
       className={className}
-      startIcon={(loading && loadingIcon) || startIcon}
+      startIcon={loading ? <Icon name="loading" size="28px" /> : startIcon}
       disabled={loading || disabled}
       disableRipple
       {...restProps}
