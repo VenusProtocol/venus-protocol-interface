@@ -120,15 +120,6 @@ body {
   }
 }
 
-button:disabled,
-button[disabled] {
-  color: rgba(0, 0, 0, 0.25) !important;
-  background-color: #d3d3d3 !important;
-  background-image: linear-gradient(to right, #d3d3d3, #d3d3d3) !important;
-  border-color: #d9d9d9 !important;
-  box-shadow: none !important;
-}
-
 .ant-select-dropdown-menu-item {
   text-align: center;
   font-size: 15px;
