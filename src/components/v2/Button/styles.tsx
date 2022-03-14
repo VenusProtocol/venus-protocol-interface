@@ -9,6 +9,7 @@ export const styles = () => {
     font-size: ${theme.typography.body1.fontSize};
     color: ${theme.palette.text.primary};
     min-width: 150px;
+    text-transform: none;
     :active {
       background-color: ${theme.palette.button.light};
     }
@@ -23,6 +24,8 @@ export const styles = () => {
     &.Mui-disabled[disabled] {
       background-color: ${theme.palette.secondary.light};
       color: ${theme.palette.text.primary};
+      cursor: not-allowed;
+      pointer-events: auto;
     }
 
     &.MuiButton-text {
