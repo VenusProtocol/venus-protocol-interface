@@ -29,6 +29,11 @@ export const PALETTE = {
     secondary: 'rgba(149, 151, 161, 1)',
     disabled: 'rgba(161, 161, 161, 1)',
   },
+  button: {
+    main: 'rgba(58, 120, 255, 1)',
+    dark: 'rgba(38, 90, 204, 1)',
+    light: 'rgba(27, 67, 152, 1)',
+  },
   interactive: {
     primary: 'rgba(58, 120, 255, 1)',
     success: 'rgba(24, 223, 139, 1)',
@@ -58,6 +63,9 @@ export const defaultTheme = createTheme({
 
 export default createTheme({
   spacing: 8,
+  shape: {
+    borderRadius: 8,
+  },
   palette: PALETTE,
   breakpoints: BREAKPOINTS,
   typography: {
