@@ -109,24 +109,6 @@ export default createTheme({
     },
   },
   components: {
-    MuiButton: {
-      defaultProps: {
-        variant: 'contained',
-      },
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          borderRadius: 8,
-          '&.Mui-disabled': {
-            cursor: 'not-allowed',
-            pointerEvents: 'auto',
-          },
-        },
-        contained: {
-          color: PALETTE.text.primary,
-        },
-      },
-    },
     MuiAppBar: {
       styleOverrides: {
         root: {
