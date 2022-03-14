@@ -10,9 +10,10 @@ export const useStyles = () => {
       padding: 0,
       margin: 0,
       transitionDuration: '300ms',
+      color: theme.palette.text.disabled,
       '&.Mui-checked': {
         transform: 'translateX(22px)',
-        color: '#fff',
+        color: theme.palette.error.main,
         '&.Mui-disabled + .MuiSwitch-track': {
           opacity: 0.5,
         },
@@ -38,8 +39,12 @@ export const useStyles = () => {
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
       backgroundColor: theme.palette.background.default,
+      // backgroundColor: defaultTheme.palette.background.default,
       boxShadow: 'inset 0px 3px 20px rgba(0, 0, 0, 0.15)',
       opacity: 1,
+    },
+    '&.Mui-checked+.MuiSwitch-track': {
+      backgroundColor: theme.palette.background.default,
     },
   };
 };
