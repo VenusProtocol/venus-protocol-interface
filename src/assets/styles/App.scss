@@ -286,3 +286,15 @@ h4 {
 p {
   color: var(--color-text-secondary);
 }
+
+a {
+  color: var(--color-text-secondary);
+
+  &:hover {
+    color: var(--color-text-main);
+  }
+
+  &:active {
+    color: var(--color-text-inactive);
+  }
+}
