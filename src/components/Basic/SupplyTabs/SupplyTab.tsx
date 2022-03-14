@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import { Icon, Progress } from 'antd';
+import { Progress } from 'antd';
 import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
@@ -290,8 +290,9 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
             onClick={() => {
               onApprove();
             }}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Enable
+            Enable
           </Button>
         ) : (
           <Button
@@ -304,8 +305,9 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
               amount.isGreaterThan(asset.walletBalance)
             }
             onClick={handleSupply}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Supply
+            Supply
           </Button>
         )}
         <div className="description">

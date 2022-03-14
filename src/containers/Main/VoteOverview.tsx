@@ -329,8 +329,8 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                         className="queue-btn"
                         disabled={!account || isLoading || status === 'success'}
                         onClick={() => handleUpdateProposal('Queue')}
+                        loading={isLoading}
                       >
-                        {isLoading && <Icon type="loading" />}{' '}
                         {status === 'pending' || status === 'failure' ? 'Queue' : 'Queued'}
                       </Button>
                     )}
@@ -341,8 +341,8 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                           !account || isLoading || status === 'success' || !isPossibleExcuted
                         }
                         onClick={() => handleUpdateProposal('Execute')}
+                        loading={isLoading}
                       >
-                        {isLoading && <Icon type="loading" />}{' '}
                         {status === 'pending' || status === 'failure' ? 'Execute' : 'Executed'}
                       </Button>
                     )}

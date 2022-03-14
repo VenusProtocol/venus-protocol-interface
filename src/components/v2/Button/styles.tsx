@@ -34,6 +34,7 @@ export const styles = () => {
     }
     &.MuiButton-text:active {
       color: ${theme.palette.button.light};
+      background-color: transparent;
     }
   `;
 };

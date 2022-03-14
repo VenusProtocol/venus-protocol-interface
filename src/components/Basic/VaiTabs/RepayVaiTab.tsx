@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Icon } from 'antd';
 import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import BigNumber from 'bignumber.js';
@@ -117,8 +116,9 @@ function RepayVaiTab() {
             onClick={() => {
               onVaiApprove();
             }}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Enable
+            Enable
           </Button>
         ) : (
           <Button
@@ -132,8 +132,9 @@ function RepayVaiTab() {
               amount.isGreaterThan(userVaiBalance)
             }
             onClick={handleRepayVAI}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Repay VAI
+            Repay VAI
           </Button>
         )}
         <div className="description">

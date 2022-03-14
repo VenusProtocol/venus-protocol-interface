@@ -9,7 +9,7 @@ import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
-import { Icon, Progress } from 'antd';
+import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';
 import { Asset, Setting } from 'types';
@@ -297,8 +297,9 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
             onClick={() => {
               onApprove();
             }}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Enable
+            Enable
           </Button>
         ) : (
           <Button
@@ -310,8 +311,9 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
               amount.isGreaterThan(BigNumber.minimum(asset.walletBalance, asset.borrowBalance))
             }
             onClick={handleRepayBorrow}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Repay Borrow
+            Repay Borrow
           </Button>
         )}
         <div className="description">

@@ -314,8 +314,8 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
                   votingWeight === '0' || !proposal || (proposal && proposal.state !== 'Active')
                 }
                 onClick={() => handleOpenVoteConfirmModal(type)}
+                loading={isLoading && voteType === type}
               >
-                {isLoading && voteType === type && <Icon type="loading" />}{' '}
                 {getVoteTypeStringFromValue(type)[1]}
               </Button>
             ))}

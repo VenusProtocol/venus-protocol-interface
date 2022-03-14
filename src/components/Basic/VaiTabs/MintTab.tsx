@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import { Icon } from 'antd';
 import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
@@ -120,8 +119,9 @@ function MintTab() {
             amount.isGreaterThan(mintableVai)
           }
           onClick={handleMintVAI}
+          loading={isLoading}
         >
-          {isLoading && <Icon type="loading" />} Mint VAI
+          Mint VAI
         </Button>
         <div className="description">
           <span>VAI Balance</span>

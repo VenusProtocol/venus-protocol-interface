@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Icon, Progress } from 'antd';
+import { Progress } from 'antd';
 import { Button } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
@@ -272,8 +272,9 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
               amount.plus(asset.totalBorrows).isGreaterThan(asset.borrowCaps))
           }
           onClick={handleBorrow}
+          loading={isLoading}
         >
-          {isLoading && <Icon type="loading" />} Borrow
+          Borrow
         </Button>
         <div className="description">
           <span>Protocol Balance</span>
