@@ -58,11 +58,11 @@ export const defaultTheme = createTheme({
 
 export default createTheme({
   spacing: 8,
-  palette: defaultTheme.palette,
+  palette: PALETTE,
   breakpoints: BREAKPOINTS,
   typography: {
     fontFamily: FONTS.primary,
-    color: defaultTheme.palette.text.primary,
+    color: PALETTE.text.primary,
     h1: {
       fontSize: '2.5rem',
       fontWeight: 600,
@@ -92,10 +92,12 @@ export default createTheme({
     small1: {
       fontSize: '0.875rem',
       fontWeight: 600,
+      color: PALETTE.text.secondary,
     },
     small2: {
       fontSize: '0.875rem',
       fontWeight: 400,
+      color: PALETTE.text.secondary,
     },
   },
   components: {
@@ -113,7 +115,7 @@ export default createTheme({
           },
         },
         contained: {
-          color: defaultTheme.palette.text.primary,
+          color: PALETTE.text.primary,
         },
       },
     },
@@ -121,7 +123,7 @@ export default createTheme({
       styleOverrides: {
         root: {
           ...layoutOffset,
-          backgroundColor: defaultTheme.palette.background.default,
+          backgroundColor: PALETTE.background.default,
           backgroundImage: 'none',
           boxShadow: 'none',
         },
@@ -173,7 +175,7 @@ export default createTheme({
           paddingTop: 4,
           paddingBottom: 4,
           paddingLeft: 12,
-          backgroundColor: defaultTheme.palette.background.paper,
+          backgroundColor: PALETTE.background.paper,
           borderRadius: 8,
         },
         icon: {
@@ -192,15 +194,15 @@ export default createTheme({
     MuiSwitch: {
       styleOverrides: {
         switchBase: {
-          color: defaultTheme.palette.text.disabled,
+          color: PALETTE.text.disabled,
           '&.Mui-checked': {
-            color: defaultTheme.palette.error.main,
+            color: PALETTE.interactive.error,
           },
           '&+.MuiSwitch-track': {
-            backgroundColor: defaultTheme.palette.background.default,
+            backgroundColor: PALETTE.background.default,
           },
           '&.Mui-checked+.MuiSwitch-track': {
-            backgroundColor: defaultTheme.palette.background.default,
+            backgroundColor: PALETTE.background.default,
           },
         },
       },

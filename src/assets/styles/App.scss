@@ -256,6 +256,13 @@ input {
   }
 }
 
+h1,
+h2,
+h3,
+h4 {
+  color: inherit;
+}
+
 h1 {
   font-size: 2.5rem;
   font-weight: 600;
@@ -274,4 +281,8 @@ h3 {
 h4 {
   font-size: 1.25rem;
   font-weight: 600;
+}
+
+p {
+  color: var(--color-text-secondary);
 }
