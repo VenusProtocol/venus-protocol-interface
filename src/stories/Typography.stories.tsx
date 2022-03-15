@@ -41,6 +41,8 @@ const Typography: React.FC = () => (
       Small 2 - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac dapibus nulla,
       sed consectetur turpis. Donec ultricies purus est, at pulvinar magna consequat eu.
     </MUITypography>
+
+    <a href="https://google.com">External link</a>
   </>
 );
 
