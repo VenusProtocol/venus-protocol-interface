@@ -25,7 +25,7 @@ export const API_ENDPOINT_URL =
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   API_ENDPOINT_URLS[process.env.REACT_APP_CHAIN_ID];
 
-export const connectorLocalStorageKey = 'venus-local-key';
+export const LS_KEY_IS_USER_LOGGED_IN = 'is-user-logged-in';
 
 export const vtokenDecimals = 8;
 
