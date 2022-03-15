@@ -10,42 +10,65 @@ import {
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
 import toast from 'components/Basic/Toast';
-import { connectorLocalStorageKey } from '../config';
+import { LS_KEY_IS_USER_LOGGED_IN } from '../config';
 import { connectorsByName, ConnectorNames } from '../utilities/connectors';
 import { setupNetwork } from '../utilities/wallet';
 
 const useAuth = () => {
   const { activate, deactivate } = useWeb3React();
   const login = useCallback(
-    (connectorID: ConnectorNames) => {
+    async (connectorID: ConnectorNames) => {
       const connector = connectorsByName[connectorID];
-      if (connector) {
-        activate(connector, async error => {
-          if (error instanceof UnsupportedChainIdError) {
-            const hasSetup = await setupNetwork();
-            if (hasSetup) {
-              activate(connector);
-            }
-          } else {
-            window.localStorage.removeItem(connectorLocalStorageKey);
-            if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
-              toast.error({ title: 'No provider was found' });
-            } else if (
-              error instanceof UserRejectedRequestErrorInjected ||
-              error instanceof UserRejectedRequestErrorWalletConnect
-            ) {
-              if (connector instanceof WalletConnectConnector) {
-                const walletConnector = connector;
-                walletConnector.walletConnectProvider = undefined;
-              }
-              toast.error({ title: 'Please authorize to access your account' });
-            } else {
-              toast.error({ title: error.message });
-            }
-          }
+      if (!connector) {
+        toast.error({
+          title: 'An internal error occurred: wrong connector config. Please try again later',
         });
-      } else {
-        toast.error({ title: 'The connector config is wrong' });
+        return;
+      }
+
+      try {
+        // Log user in
+        await activate(connector, undefined, true);
+
+        // Mark user as logged in
+        window.localStorage.setItem(LS_KEY_IS_USER_LOGGED_IN, 'true');
+      } catch (error) {
+        if (error instanceof UnsupportedChainIdError) {
+          const hasSetup = await setupNetwork();
+          if (hasSetup) {
+            await activate(connector);
+          }
+
+          return;
+        }
+
+        // Reset wallet connect provider if user denied access to their account
+        if (
+          (error instanceof UserRejectedRequestErrorInjected ||
+            error instanceof UserRejectedRequestErrorWalletConnect) &&
+          connector instanceof WalletConnectConnector
+        ) {
+          connector.walletConnectProvider = undefined;
+        }
+
+        // Display error message
+        let errorMessage;
+
+        if (
+          error instanceof UserRejectedRequestErrorInjected ||
+          error instanceof UserRejectedRequestErrorWalletConnect
+        ) {
+          errorMessage = 'You need to authorize access to your account';
+        } else if (
+          error instanceof NoEthereumProviderError ||
+          error instanceof NoBscProviderError
+        ) {
+          errorMessage = 'An internal error occurred: no provider found. Please try again later';
+        } else {
+          errorMessage = (error as Error).message;
+        }
+
+        toast.error({ title: errorMessage });
       }
     },
     [activate],
@@ -58,7 +81,9 @@ const useAuth = () => {
       connectorsByName[ConnectorNames.WalletConnect].close();
       connectorsByName[ConnectorNames.WalletConnect].walletConnectProvider = undefined;
     }
-    window.localStorage.removeItem(connectorLocalStorageKey);
+
+    // Remove flag indicating user is logged in
+    window.localStorage.removeItem(LS_KEY_IS_USER_LOGGED_IN);
   }, [deactivate]);
 
   return { login, logout };
