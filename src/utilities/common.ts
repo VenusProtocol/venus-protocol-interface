@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 import { getVaiTokenAddress } from './addressHelpers';
 
-const format = commaNumber.bindWith(',', '.');
+export const commaFormat = commaNumber.bindWith(',', '.');
 
 export const encodeParameters = (types: $TSFixMe, values: $TSFixMe) => {
   const abi = new ethers.utils.AbiCoder();
@@ -124,7 +124,7 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
     suffix = 'K';
     unit = 1.0e3;
   }
-  return `$${format(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
+  return `$${commaFormat(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
 };
 
 export const formatApy = (apy?: BigNumber | string | number): string => {

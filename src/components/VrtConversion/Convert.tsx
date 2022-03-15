@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 import { Button, Icon } from 'components';
+import { commaFormat } from 'utilities/common';
 
 import { ButtonWrapper, ConvertWrapper } from './styles';
 
@@ -94,7 +95,7 @@ export default ({
         </div>
         <div className="user-vrt-balance">
           Balance:
-          {account ? userVrtBalance.toFixed(4) : '-'} VRT
+          {account ? commaFormat(userVrtBalance.toFixed(4)) : '-'} VRT
         </div>
       </div>
       {/* recieve section */}
@@ -104,7 +105,7 @@ export default ({
           <img src={xvsImg} alt="xvs-icon" />
           <NumberFormat
             className="input recieve-xvs-input"
-            value={convertInputAmount.times(conversionRatio).toFixed(4)}
+            value={convertInputAmount.times(conversionRatio).toFixed(6)}
             disabled
             thousandSeparator
             placeholder="0"
@@ -128,6 +129,7 @@ export default ({
             setConvertLoading(true);
             await handleClickConvert(convertInputAmount);
             setConvertLoading(false);
+            setConvertInputAmount(new BigNumber(0));
           }}
         >
           {confirmButtonText}
