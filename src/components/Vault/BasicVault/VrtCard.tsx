@@ -62,6 +62,8 @@ export default function VaultCard() {
       ]);
     }
 
+    console.log('interestRatePerBlockTemp', interestRatePerBlockTemp);
+
     if (isMounted) {
       // total info
       setDailyEmission(

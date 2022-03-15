@@ -29,7 +29,6 @@ function formatCountdownInSeconds(seconds: number) {
 }
 
 export type ConvertPropsType = {
-  xvsVestingXvsBalance: BigNumber;
   userVrtBalance: BigNumber;
   userEnabled: boolean;
   conversionEndTime: BigNumber;
@@ -39,7 +38,6 @@ export type ConvertPropsType = {
 };
 
 export default ({
-  xvsVestingXvsBalance,
   userVrtBalance,
   userEnabled,
   conversionEndTime,
@@ -49,7 +47,6 @@ export default ({
 }: ConvertPropsType) => {
   const [convertInputAmount, setConvertInputAmount] = useState(new BigNumber(0));
   const [convertLoading, setConvertLoading] = useState(false);
-  const maxConvertAmountRegardingXvsBalance = xvsVestingXvsBalance.div(conversionRatio);
 
   let confirmButtonText = '';
   if (!account) {
@@ -66,11 +63,6 @@ export default ({
       <div className="ratio-text">
         Convert <span>1</span> VRT for <span>{conversionRatio.toFixed(6)}</span> XVS
       </div>
-      {/* display available XVS in pool */}
-      <div className="xvs-pool">
-        <div className="xvs-pool-line-1">{xvsVestingXvsBalance.toFixed(4)} XVS</div>
-        <div className="xvs-pool-line-2">Current available</div>
-      </div>
       {/* convert section */}
       <div className="convert-vrt">
         <div className="input-title">Convert VRT</div>
@@ -82,13 +74,7 @@ export default ({
             value={convertInputAmount.toFixed(4)}
             onValueChange={values => {
               const { value } = values;
-              setConvertInputAmount(
-                BigNumber.min(
-                  new BigNumber(value),
-                  userVrtBalance,
-                  maxConvertAmountRegardingXvsBalance,
-                ),
-              );
+              setConvertInputAmount(BigNumber.min(new BigNumber(value), userVrtBalance));
             }}
             thousandSeparator
             allowNegative={false}
@@ -98,9 +84,7 @@ export default ({
             <div
               className="button max-button"
               onClick={() => {
-                setConvertInputAmount(
-                  BigNumber.min(userVrtBalance, maxConvertAmountRegardingXvsBalance),
-                );
+                setConvertInputAmount(userVrtBalance);
               }}
             >
               {' '}
