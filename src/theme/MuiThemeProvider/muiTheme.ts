@@ -130,17 +130,6 @@ export default createTheme({
         },
       },
     },
-    MuiToolbar: {
-      styleOverrides: {
-        root: {
-          paddingTop: defaultTheme.spacing(3),
-          paddingBottom: defaultTheme.spacing(3),
-          [defaultTheme.breakpoints.up('md')]: {
-            minHeight: 96,
-          },
-        },
-      },
-    },
     MuiInputBase: {
       styleOverrides: {
         hiddenLabel: {
