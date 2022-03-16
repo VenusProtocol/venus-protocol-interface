@@ -2,7 +2,6 @@ import {
   PaletteColor as MuiPaletteColor,
   TypeBackground as MuiTypeBackground,
 } from '@mui/material/styles/createPalette';
-import { Shape as MuiShape } from '@mui/system/createTheme/shape';
 
 declare module '@mui/material/styles' {
   interface PaletteColor extends MuiPaletteColor {
@@ -35,7 +34,8 @@ declare module '@mui/material/styles' {
     small2?: React.CSSProperties;
   }
 
-  interface Shape extends MuiShape {
+  interface Shape {
+    borderRadius?: number;
     layoutOffset: {
       width: number;
       ml: number;
