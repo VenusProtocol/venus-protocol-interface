@@ -1,22 +1,26 @@
+/** @jsxImportSource @emotion/react */
 import React, { ReactNode } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import { Footer, IFooterProps } from 'components/v2/Layout/Footer';
-import { styles } from './PageContainerStyles';
+import { useStyles } from './PageContainerStyles';
 
 interface IPageContainerProps {
   children: ReactNode;
   currentBlockNumber: IFooterProps['currentBlockNumber'];
 }
 
-export const PageContainer = ({ children, currentBlockNumber }: IPageContainerProps) => (
-  <Box component="main" sx={styles.main}>
-    <Toolbar />
+export const PageContainer = ({ children, currentBlockNumber }: IPageContainerProps) => {
+  const styles = useStyles();
+  return (
+    <Box component="main" css={styles.main}>
+      <Toolbar />
 
-    {children}
+      {children}
 
-    <Box component="footer" sx={styles.footer}>
-      <Footer currentBlockNumber={currentBlockNumber} />
+      <Box component="footer" css={styles.footer}>
+        <Footer currentBlockNumber={currentBlockNumber} />
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};
