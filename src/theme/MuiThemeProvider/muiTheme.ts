@@ -54,7 +54,6 @@ const BREAKPOINTS = {
 };
 
 const SIDEBAR_WIDTH = 180;
-export const layoutOffset = { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` };
 
 export const defaultTheme = createTheme({
   breakpoints: BREAKPOINTS,
@@ -112,13 +111,21 @@ export default createTheme({
     },
   },
   components: {
-    MuiAppBar: {
+    MuiButton: {
+      defaultProps: {
+        variant: 'contained',
+      },
       styleOverrides: {
         root: {
-          ...layoutOffset,
-          backgroundColor: PALETTE.background.default,
-          backgroundImage: 'none',
-          boxShadow: 'none',
+          textTransform: 'none',
+          borderRadius: 8,
+          '&.Mui-disabled': {
+            cursor: 'not-allowed',
+            pointerEvents: 'auto',
+          },
+        },
+        contained: {
+          color: PALETTE.text.primary,
         },
       },
     },
