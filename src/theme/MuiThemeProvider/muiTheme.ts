@@ -68,6 +68,9 @@ export default createTheme({
   },
   palette: PALETTE,
   breakpoints: BREAKPOINTS,
+  shape: {
+    layoutOffset: { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` },
+  },
   typography: {
     fontFamily: FONTS.primary,
     color: PALETTE.text.primary,
