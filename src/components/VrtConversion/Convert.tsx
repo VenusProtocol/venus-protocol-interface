@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
-import { Button, Icon } from 'components';
+import { PrimaryButton, Icon } from 'components';
 import { commaFormat } from 'utilities/common';
 
-import { ButtonWrapper, ConvertWrapper } from './styles';
+import { ConvertWrapper } from './styles';
 
 import vrtImg from '../../assets/img/coins/vrt.svg';
 import xvsImg from '../../assets/img/coins/xvs.png';
@@ -81,17 +81,15 @@ export default ({
             allowNegative={false}
             placeholder="0"
           />
-          <ButtonWrapper>
-            <div
-              className="button max-button"
-              onClick={() => {
-                setConvertInputAmount(userVrtBalance);
-              }}
-            >
-              {' '}
-              Max
-            </div>
-          </ButtonWrapper>
+          <PrimaryButton
+            className="button max-button"
+            onClick={() => {
+              setConvertInputAmount(userVrtBalance);
+            }}
+          >
+            {' '}
+            Max
+          </PrimaryButton>
         </div>
         <div className="user-vrt-balance">
           Balance:
@@ -113,27 +111,25 @@ export default ({
           <span className="recieve-xvs-symbol">XVS</span>
         </div>
       </div>
-      <ButtonWrapper>
-        <Button
-          type="button"
-          className="button confirm-button"
-          loading={convertLoading}
-          disabled={
-            !convertInputAmount.gt(0) ||
-            conversionEndTime.lt(Date.now() / 1000) ||
-            !account ||
-            convertLoading
-          }
-          onClick={async () => {
-            setConvertLoading(true);
-            await handleClickConvert(convertInputAmount);
-            setConvertLoading(false);
-            setConvertInputAmount(new BigNumber(0));
-          }}
-        >
-          {confirmButtonText}
-        </Button>
-      </ButtonWrapper>
+      <PrimaryButton
+        type="button"
+        fullWidth
+        loading={convertLoading}
+        disabled={
+          !convertInputAmount.gt(0) ||
+          conversionEndTime.lt(Date.now() / 1000) ||
+          !account ||
+          convertLoading
+        }
+        onClick={async () => {
+          setConvertLoading(true);
+          await handleClickConvert(convertInputAmount);
+          setConvertLoading(false);
+          setConvertInputAmount(new BigNumber(0));
+        }}
+      >
+        {confirmButtonText}
+      </PrimaryButton>
       <div className="remaining-days">
         <Icon className="clock-icon" name="countdown" />
         <span className="remaining-cap-text">Remaining time: </span>

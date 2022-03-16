@@ -1,23 +1,5 @@
 import styled from 'styled-components';
 
-export const ButtonWrapper = styled.div`
-  .button {
-    background: var(--color-gold);
-    border-radius: 8px;
-    border: none;
-    text-align: center;
-  }
-
-  .button:hover {
-    cursor: pointer;
-  }
-
-  .button:disabled {
-    background: #d3d3d3;
-    cursor: not-allowed;
-  }
-`;
-
 export const ConvertWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,10 +80,6 @@ export const ConvertWrapper = styled.div`
       height: 24px;
       line-height: 24px;
       font-size: 12px;
-      text-align: center;
-      color: #fff;
-      background: var(--color-gold);
-      border-radius: 4px;
     }
     img {
       width: 16px;
@@ -130,14 +108,6 @@ export const ConvertWrapper = styled.div`
     .recieve-xvs-input {
       cursor: not-allowed;
     }
-  }
-
-  .confirm-button {
-    width: 100%;
-    border-radius: 8px;
-    height: 36px;
-    line-height: 36px;
-    font-size: 14px;
   }
 
   /* remaining days */

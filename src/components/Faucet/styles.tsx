@@ -62,17 +62,6 @@ export const ButtonWrapper = styled.div`
   .button {
     width: 150px;
     height: 40px;
-    border-radius: 5px;
-    background-color: var(--color-yellow);
-    span {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--color-text-main);
-      text-transform: capitalize;
-
-      @media only screen and (max-width: 1440px) {
-        font-size: 12px;
-      }
-    }
+    font-size: 15px;
   }
 `;

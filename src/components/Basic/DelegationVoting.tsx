@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input } from 'antd';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import { useWeb3React } from '@web3-react/core';
 
 const VotingWrapper = styled.div`
@@ -84,14 +84,6 @@ const VotingWrapper = styled.div`
       margin-top: 45px;
       width: 100%;
       height: 48px;
-      border-radius: 5px;
-      background-color: var(--color-yellow);
-      span {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--color-text-main);
-        text-transform: capitalize;
-      }
     }
   }
 `;
@@ -142,14 +134,14 @@ function DelegationVoting({ history, isLoading, onDelegate }: Props) {
             self
           </span>
         </div>
-        <Button
+        <PrimaryButton
           className="vote-btn"
           disabled={isLoading}
           onClick={() => onDelegate(delegateAddress)}
           loading={isLoading}
         >
           Delegate Votes
-        </Button>
+        </PrimaryButton>
       </div>
     </VotingWrapper>
   );
