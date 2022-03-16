@@ -11,29 +11,29 @@ export const FONTS = {
 export const PALETTE = {
   mode: 'dark',
   background: {
-    default: 'rgba(31, 32, 40, 1)',
-    paper: 'rgba(40, 41, 49, 1)',
+    default: 'green',
+    paper: 'green',
   },
   primary: {
-    light: '#EBBF6E',
-    main: '#EBBF6E',
-    dark: 'var(--color-blue-hover)',
+    light: 'green',
+    main: 'green',
+    dark: 'green',
   },
   secondary: {
-    light: 'rgba(56, 57, 68, 1)',
-    main: 'rgba(40, 41, 49, 1)',
-    dark: 'rgba(31, 32, 40, 1)',
+    light: 'green',
+    main: 'green',
+    dark: 'green',
   },
   text: {
-    primary: 'rgba(255, 255, 255, 1)',
-    secondary: 'rgba(149, 151, 161, 1)',
-    disabled: 'rgba(161, 161, 161, 1)',
+    primary: 'green',
+    secondary: 'green',
+    disabled: 'green',
   },
   interactive: {
-    primary: 'rgba(58, 120, 255, 1)',
-    success: 'rgba(24, 223, 139, 1)',
-    error: 'rgba(233, 61, 68, 1)',
-    error50: 'rgba(233, 61, 68, 0.5)',
+    primary: 'green',
+    success: 'green',
+    error: 'green',
+    error50: 'green',
   },
 };
 
