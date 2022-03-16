@@ -8,7 +8,8 @@ import { useWeb3React } from '@web3-react/core';
 import { accountActionCreators } from 'core/modules/account/actions';
 import ConnectButton from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
-import logoImg from 'assets/img/logo.png';
+import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
+import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoPure.svg';
 import prdtImg from 'assets/img/prdt.png';
 import commaNumber from 'comma-number';
 import { getBigNumber } from 'utilities/common';
@@ -44,9 +45,28 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 54px;
+  padding-top: 26px;
   i {
     font-size: 18px;
+  }
+
+  .logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-text {
+    @media only screen and (max-width: 375px) {
+      display: none;
+    }
+  }
+
+  .logo-text__mobile {
+    display: none;
+    @media only screen and (max-width: 375px) {
+      display: block;
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -67,7 +87,7 @@ const Logo = styled.div`
 `;
 
 const MainMenu = styled.div`
-  margin-top: 100px;
+  margin-top: 40px;
 
   @media only screen and (max-width: 768px) {
     margin: 0 20px;
@@ -81,9 +101,6 @@ const MainMenu = styled.div`
     background-color: var(--color-bg-active);
     svg {
       fill: var(--color-yellow);
-    }
-    span {
-      color: var(--color-yellow);
     }
     path {
       fill: var(--color-yellow);
@@ -133,14 +150,12 @@ const MainMenu = styled.div`
     }
 
     &:hover {
+      background-color: var(--color-bg-active);
       svg {
         fill: var(--color-yellow);
       }
       path {
         fill: var(--color-yellow);
-      }
-      span {
-        color: var(--color-yellow);
       }
       .xvs-icon {
         display: none;
@@ -362,8 +377,9 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   return (
     <SidebarWrapper>
       <Logo>
-        <NavLink to="/" active-class-name="active">
-          <img src={logoImg} alt="logo" className="logo-text" />
+        <NavLink className="logo-wrapper" to="/" active-class-name="active">
+          <LogoDesktop className="logo-text" width="80%" />
+          <LogoMobile className="logo-text__mobile" />
         </NavLink>
       </Logo>
       <MainMenu>
@@ -478,7 +494,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
           getPopupContainer={() => document.getElementById('main-menu')}
           dropdownMenuStyle={{
-            backgroundColor: '#090d27',
+            backgroundColor: 'var(--color-bg-main)',
           }}
           dropdownClassName="asset-select"
           onChange={onChangePage}

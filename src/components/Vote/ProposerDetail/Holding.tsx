@@ -81,7 +81,12 @@ function Holding({ address, holdingInfo }: Props) {
             </div>
           </div>
           <div className="value">{format(holdingInfo.votes || '0.0000')}</div>
-          <Progress percent={100} strokeColor="#d99d43" strokeWidth={7} showInfo={false} />
+          <Progress
+            percent={100}
+            strokeColor="var(--color-blue-hover)"
+            strokeWidth={7}
+            showInfo={false}
+          />
         </div>
         <div className="flex flex-column holding-section">
           <div className="label">Delegating To</div>

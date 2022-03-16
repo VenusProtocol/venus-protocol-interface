@@ -92,7 +92,7 @@ const ProposalWrapper = styled.div`
     button {
       height: 32px;
       border-radius: 5px;
-      background-image: linear-gradient(to right, #f2c265, #f7b44f);
+      background-color: var(--color-yellow);
       span {
         font-size: 12px;
         font-weight: 500;

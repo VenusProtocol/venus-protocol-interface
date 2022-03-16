@@ -47,7 +47,6 @@ export default () => {
   const [conversionRatio, setConversionRatio] = useState(new BigNumber(0));
   const [conversionEndTime, setConversionEndTime] = useState(new BigNumber(0));
   const [userVrtBalance, setUserVrtBalance] = useState(new BigNumber(0));
-  const [xvsVestingXvsBalance, setXvsVestingXvsBalance] = useState(new BigNumber(0));
   // user's allowance to VRT converter contracr
   const [userEnabled, setUserEnabled] = useState(false);
 
@@ -76,28 +75,22 @@ export default () => {
           console.log('no vestings');
         }
       }
-      const [
-        conversionRatioTemp,
-        conversionEndTimeTemp,
-        userVrtBalanceTemp,
-        userVrtAllowanceTemp,
-        xvsVestingXvsBalanceTemp,
-      ] = await Promise.all([
-        vrtConverterContract.methods.conversionRatio().call(),
-        vrtConverterContract.methods.conversionEndTime().call(),
-        account ? vrtTokenContract.methods.balanceOf(account).call() : Promise.resolve(0),
-        account
-          ? vrtTokenContract.methods.allowance(account, getVrtConverterProxyAddress()).call()
-          : Promise.resolve(0),
-        xvsTokenContract.methods.balanceOf(xvsVestingContract.options.address).call(),
-      ]);
+      const [conversionRatioTemp, conversionEndTimeTemp, userVrtBalanceTemp, userVrtAllowanceTemp] =
+        await Promise.all([
+          vrtConverterContract.methods.conversionRatio().call(),
+          vrtConverterContract.methods.conversionEndTime().call(),
+          account ? vrtTokenContract.methods.balanceOf(account).call() : Promise.resolve(0),
+          account
+            ? vrtTokenContract.methods.allowance(account, getVrtConverterProxyAddress()).call()
+            : Promise.resolve(0),
+          xvsTokenContract.methods.balanceOf(xvsVestingContract.options.address).call(),
+        ]);
       if (mounted) {
         setLoading(false);
         setConversionRatio(new BigNumber(conversionRatioTemp).div(CONVERSION_RATIO_DECIMAL));
         setConversionEndTime(new BigNumber(conversionEndTimeTemp)); // in seconds
         setUserVrtBalance(new BigNumber(userVrtBalanceTemp).div(VRT_DECIMAL));
         setUserEnabled(new BigNumber(userVrtAllowanceTemp).gt(0));
-        setXvsVestingXvsBalance(new BigNumber(xvsVestingXvsBalanceTemp).div(XVS_DECIMAL));
       }
     };
 
@@ -128,7 +121,6 @@ export default () => {
                   titles={['Convert', 'Withdraw']}
                 >
                   <Convert
-                    xvsVestingXvsBalance={xvsVestingXvsBalance}
                     userVrtBalance={userVrtBalance}
                     userEnabled={userEnabled}
                     conversionEndTime={conversionEndTime}

@@ -1,18 +1,25 @@
 import React from 'react';
-import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider } from 'stories/decorators';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
+import { ComponentMeta, Story } from '@storybook/react';
+import { withCenterStory, withThemeProvider, withState } from 'stories/decorators';
 import { Toggle } from '.';
+import type { IToggleProps } from './Toggle';
 
 export default {
   title: 'Components/Toggle',
   component: Toggle,
-  decorators: [withThemeProvider],
+  decorators: [withCenterStory({ width: 200 }), withThemeProvider, withState],
 } as ComponentMeta<typeof Toggle>;
 
-export const ToggleDefault = () => (
-  <Box sx={{ width: '200px', m: 5, p: 5 }} component={Paper}>
-    <Toggle onChange={console.log} />
-  </Box>
-);
+const Template: Story<IToggleProps> = (args: IToggleProps) => <Toggle {...args} />;
+
+export const ToggleOn = Template.bind({});
+ToggleOn.args = {
+  onChange: console.log,
+  value: true,
+};
+
+export const ToggleOff = Template.bind({});
+ToggleOff.args = {
+  onChange: console.log,
+  value: false,
+};

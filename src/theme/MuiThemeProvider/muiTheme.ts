@@ -1,7 +1,7 @@
 /* https://mui.com/customization/theming/ */
 import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles';
 
-const fontFamily = ['AvenirNext', 'Arial', 'sans-serif'].join(',');
+const fontFamily = ['ProximaNova', 'Arial', 'sans-serif'].join(',');
 
 export const FONTS = {
   primary: fontFamily,
@@ -11,34 +11,29 @@ export const FONTS = {
 export const PALETTE = {
   mode: 'dark',
   background: {
-    default: '#090D27',
-    paper: '#181C3A',
-    black: 'rgba(31, 32, 40, 1)',
-    asphaltGrey: 'rgba(40, 41, 49, 1)',
-    offWhite: 'rgba(255, 255, 255, 1)',
+    default: 'rgba(31, 32, 40, 1)',
+    paper: 'rgba(40, 41, 49, 1)',
   },
   primary: {
     light: '#EBBF6E',
     main: '#EBBF6E',
-    dark: '#D99D43',
+    dark: 'var(--color-blue-hover)',
   },
   secondary: {
-    light: '#252A4A',
-    main: '#181C3A',
-    dark: '#090D27',
+    light: 'rgba(56, 57, 68, 1)',
+    main: 'rgba(40, 41, 49, 1)',
+    dark: 'rgba(31, 32, 40, 1)',
   },
   text: {
-    primary: '#FFFFFF',
-    secondary: '#9597A1',
-    disabled: '#A1A1A1',
+    primary: 'rgba(255, 255, 255, 1)',
+    secondary: 'rgba(149, 151, 161, 1)',
+    disabled: 'rgba(161, 161, 161, 1)',
   },
-  success: {
-    main: '#9DD562',
-    slider: '#18DF8B',
-  },
-  error: {
-    main: 'rgba(233, 61, 68, 1)',
-    slider: 'rgba(233, 61, 68, 0.5)',
+  interactive: {
+    primary: 'rgba(58, 120, 255, 1)',
+    success: 'rgba(24, 223, 139, 1)',
+    error: 'rgba(233, 61, 68, 1)',
+    error50: 'rgba(233, 61, 68, 0.5)',
   },
 };
 
@@ -63,60 +58,47 @@ export const defaultTheme = createTheme({
 
 export default createTheme({
   spacing: 8,
-  palette: defaultTheme.palette,
+  palette: PALETTE,
   breakpoints: BREAKPOINTS,
   typography: {
     fontFamily: FONTS.primary,
-    color: defaultTheme.palette.text.primary,
+    color: PALETTE.text.primary,
     h1: {
-      fontSize: '28px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '2.5rem',
+      fontWeight: 600,
     },
     h2: {
-      fontSize: '25px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '2rem',
+      fontWeight: 600,
     },
     h3: {
-      fontSize: '20px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '1.5rem',
+      fontWeight: 700,
     },
-    h4: {},
-    h5: {},
-    h6: {},
-    subtitle1: {
-      fontSize: '17px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+    h4: {
+      fontSize: '1.25rem',
+      fontWeight: 600,
     },
-    subtitle2: {},
     body1: {
-      fontSize: '16px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
+      fontSize: '1rem',
+      fontWeight: 600,
     },
-    body2: {},
+    body2: {
+      fontSize: '1rem',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+      letterSpacing: '0.3px',
+    },
     small1: {
       fontSize: '0.875rem',
-      // line height is defined globally and has default value 1.5',
-      // lineHeight: 1.5,
       fontWeight: 600,
+      color: PALETTE.text.secondary,
     },
     small2: {
       fontSize: '0.875rem',
-      // line height is defined globally and has default value 1.5',
-      // lineHeight: 1.5,
       fontWeight: 400,
+      color: PALETTE.text.secondary,
     },
-    button: {
-      fontSize: '14px',
-      // line height is defined globally and has default value 1.5
-      // lineHeight: 1.5,
-      fontWeight: 400,
-    },
-    overline: {},
   },
   components: {
     MuiButton: {
@@ -133,7 +115,7 @@ export default createTheme({
           },
         },
         contained: {
-          color: defaultTheme.palette.text.primary,
+          color: PALETTE.text.primary,
         },
       },
     },
@@ -141,7 +123,7 @@ export default createTheme({
       styleOverrides: {
         root: {
           ...layoutOffset,
-          backgroundColor: defaultTheme.palette.background.default,
+          backgroundColor: PALETTE.background.default,
           backgroundImage: 'none',
           boxShadow: 'none',
         },
@@ -193,7 +175,7 @@ export default createTheme({
           paddingTop: 4,
           paddingBottom: 4,
           paddingLeft: 12,
-          backgroundColor: defaultTheme.palette.background.paper,
+          backgroundColor: PALETTE.background.paper,
           borderRadius: 8,
         },
         icon: {
@@ -212,15 +194,15 @@ export default createTheme({
     MuiSwitch: {
       styleOverrides: {
         switchBase: {
-          color: defaultTheme.palette.text.disabled,
+          color: PALETTE.text.disabled,
           '&.Mui-checked': {
-            color: defaultTheme.palette.error.main,
+            color: PALETTE.interactive.error,
           },
           '&+.MuiSwitch-track': {
-            backgroundColor: defaultTheme.palette.background.default,
+            backgroundColor: PALETTE.background.default,
           },
           '&.Mui-checked+.MuiSwitch-track': {
-            backgroundColor: defaultTheme.palette.background.default,
+            backgroundColor: PALETTE.background.default,
           },
         },
       },

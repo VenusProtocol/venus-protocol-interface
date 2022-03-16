@@ -4,6 +4,7 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
+import { commaFormat } from 'utilities/common';
 
 import { CardItemWrapper } from '../styles';
 
@@ -185,7 +186,7 @@ function CardContent({
               <div className="withdraw-request">
                 <div className="card-title">
                   Available {stakedToken} to stake:{' '}
-                  {userStakedTokenBalance.div(1e18).dp(4, 1).toString(10)}
+                  {commaFormat(userStakedTokenBalance.div(1e18).dp(4, 1).toString(10))}
                 </div>
                 <div className="input-wrapper">
                   <NumberFormat

@@ -7,7 +7,7 @@ export const useDropdownStyles = ({ isOpened }: { isOpened: boolean }) => {
   return {
     select: {
       transition: 'box-shadow .3s',
-      boxShadow: isOpened ? '0px 0px 0px 2px rgba(24, 144, 255, 0.2)' : 'none',
+      boxShadow: isOpened ? `0px 0px 0px 2px ${theme.palette.background.paper}` : 'none',
     },
     menuPaper: {
       marginTop: 4,
@@ -28,7 +28,7 @@ export const useDropdownStyles = ({ isOpened }: { isOpened: boolean }) => {
         backgroundColor: theme.palette.background.paper,
       },
       [`&.${SELECTED_MENU_ITEM_CLASSNAME}`]: {
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.background.paper,
         '&:hover': {
           backgroundColor: theme.palette.background.paper,
         },

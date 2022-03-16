@@ -2,9 +2,9 @@
   /* Common styles */
   --color-white: #fff;
   --color-black: #000;
-  --color-orange: #ff4a21;
-  --color-yellow: #f8b94b;
-  --color-gold: #ebbf6e;
+  --color-orange: var(--color-yellow);
+  --color-yellow: #3a78ff;
+  --color-gold: var(--color-yellow);
   --color-purple: #906de5;
   --color-red: #f9053e;
   --color-green: #9dd562;
@@ -12,34 +12,91 @@
   --color-dark-green: #09d395;
   --color-dark-grey: #666771;
 
+  --color-blue-hover: #265acc;
+
   /* Background colors */
-  --color-bg-main: #090d27;
-  --color-bg-primary: #181c3a;
-  --color-bg-active: #252a4a;
+  --color-bg-main: rgba(31, 32, 40, 1);
+  --color-bg-primary: rgba(40, 41, 49, 1);
+  --color-bg-active: rgba(56, 57, 68, 1);
 
   /* Typography colors */
   --color-text-main: #fff;
-  --color-text-secondary: #a1a1a1;
-  --color-text-inactive: #5e5f6a;
+  --color-text-secondary: #9597a1;
+  --color-text-inactive: #383944;
   --color-text-red: #f9053e;
   --color-text-green: #9dd562;
   --color-text-blue: #2fe29b;
-  --color-input: #252a4a;
+  --color-input: rgba(56, 57, 68, 1);
   --color-text-footer: #42434e;
   --color-border-main: #eaeaea;
-  --color-primary: #ff481c;
+  --color-primary: var(--color-yellow);
   --color-secondary: #d3d3d3;
 }
 
 @font-face {
-  font-family: AvenirNext;
-  src: url('../font/Avenir-next/AvenirNextLTPro-Regular.otf') format('opentype');
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaRegularIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegularIt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaRegular.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaRegular.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaSemiboldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemiboldIt.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaSemibold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaSemibold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaSemibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaBold.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBold.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('../fonts/proximaNova/proximaNovaBoldIt.woff2') format('woff2'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.woff') format('woff'),
+    url('../fonts/proximaNova/proximaNovaBoldIt.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
 }
 
 body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  font-family: 'AvenirNext', sans-serif;
+  font-family: 'ProximaNova', sans-serif;
   font-stretch: normal;
   font-style: normal;
   background-color: var(--color-bg-main);
@@ -56,6 +113,10 @@ h4,
 h5,
 h6 {
   margin-bottom: 0;
+}
+
+i {
+  font-style: normal;
 }
 
 .input-error {

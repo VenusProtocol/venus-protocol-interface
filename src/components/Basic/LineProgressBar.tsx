@@ -19,8 +19,12 @@ const LineProgressBarWrapper = styled.div`
 
   .ant-progress {
     .ant-progress-inner {
-      background-color: #d99d43;
+      background-color: var(--color-bg-main);
     }
+  }
+  .ant-progress-success-bg,
+  .ant-progress-bg {
+    background-color: var(--color-text-green) !important;
   }
 `;
 

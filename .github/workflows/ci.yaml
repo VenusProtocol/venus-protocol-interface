@@ -78,7 +78,9 @@ jobs:
 
       - name: Deploy
         if: github.ref == 'refs/heads/develop'
-        run: yarn deploy-storybook
+        run: yarn deploy-storybook --ci
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-20.04

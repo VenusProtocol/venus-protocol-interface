@@ -30,7 +30,7 @@ const VoteOverviewWrapper = styled.div`
     button {
       width: 120px;
       height: 40px;
-      background-image: linear-gradient(to right, #f2c265, #f7b44f);
+      background-color: var(--color-yellow);
       border-radius: 10px;
       span {
         font-size: 16px;

@@ -220,7 +220,7 @@ function OverviewChart({ marketType, graphType, data }: Props) {
                     fill={
                       index === activeIndex
                         ? `${marketType !== 'supply' ? 'url(#barRedColor)' : 'url(#barGreenColor)'}`
-                        : '#252a4a'
+                        : 'var(--color-bg-active)'
                     }
                     key={uid(entry)}
                   />
