@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Toolbar from '@mui/material/Toolbar';
 import { NavLink } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -8,6 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
 import { uid } from 'react-uid';
 import Typography from '@mui/material/Typography';
+import { Toolbar } from '../Toolbar';
 import { ReactComponent as XVSIcon } from '../../../../assets/img/xvs.svg';
 import { ReactComponent as Logo } from '../assets/logo.svg';
 import { useStyles } from './styles';
