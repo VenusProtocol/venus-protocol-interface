@@ -1,14 +1,29 @@
+import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
 const MENU_ITEM_HEIGHT = 32;
 export const SELECTED_MENU_ITEM_CLASSNAME = 'selected';
-export const useDropdownStyles = ({ isOpened }: { isOpened: boolean }) => {
+export const useStyles = ({ isOpened }: { isOpened: boolean }) => {
   const theme = useTheme();
   return {
-    select: {
-      transition: 'box-shadow .3s',
-      boxShadow: isOpened ? `0px 0px 0px 2px ${theme.palette.background.paper}` : 'none',
-    },
+    select: css`
+      transition: box-shadow 0.3s;
+      box-shadow: ${isOpened ? `0px 0 0 2px ${theme.palette.background.paper}` : 'none'};
+      line-height: 24px;
+      border-radius: ${theme.shape.borderRadius}px;
+      height: 32px;
+      box-sizing: border-box;
+      .MuiSelect-icon {
+        transition: transform 0.3s;
+      }
+      .MuiSelect-select {
+        padding-top: ${theme.spacing(0.5)};
+        padding-bottom: ${theme.spacing(0.5)};
+        padding-left: ${theme.spacing(1.5)};
+        background-color: ${theme.palette.background.paper};
+        border-radius: ${theme.shape.borderRadius}px;
+      }
+    `,
     menuPaper: {
       marginTop: 4,
       borderRadius: 0,
