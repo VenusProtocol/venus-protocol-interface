@@ -69,6 +69,7 @@ export default createTheme({
   breakpoints: BREAKPOINTS,
   shape: {
     layoutOffset: { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` },
+    sidebarWidth: SIDEBAR_WIDTH,
   },
   typography: {
     fontFamily: FONTS.primary,
@@ -126,19 +127,6 @@ export default createTheme({
         },
         contained: {
           color: PALETTE.text.primary,
-        },
-      },
-    },
-    MuiDrawer: {
-      styleOverrides: {
-        root: {
-          width: SIDEBAR_WIDTH,
-          flexShrink: 0,
-        },
-        paper: {
-          width: SIDEBAR_WIDTH,
-          borderRadius: '0 16px 16px 0',
-          border: 'none',
         },
       },
     },
