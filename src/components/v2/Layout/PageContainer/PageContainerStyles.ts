@@ -1,11 +1,20 @@
-import { layoutOffset } from '../../../../theme/MuiThemeProvider/muiTheme';
+import { css } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
-export const styles = {
-  main: {
-    flexGrow: 1,
-    p: 3,
-    pb: 6,
-    minHeight: '100vh',
-  },
-  footer: { position: 'fixed', bottom: 0, left: 0, ...layoutOffset },
+export const useStyles = () => {
+  const theme = useTheme();
+  return {
+    main: css`
+      flex-grow: 1;
+      padding: 3px 3px 6px 3px;
+      min-height: 100vh;
+    `,
+    footer: css`
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: ${theme.shape.layoutOffset.width};
+      margin-left: ${theme.shape.layoutOffset.ml};
+    `,
+  };
 };
