@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
@@ -291,7 +291,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
           </div>
         )}
         {!isEnabled && asset.id !== 'bnb' ? (
-          <Button
+          <PrimaryButton
             className="button"
             disabled={isLoading}
             onClick={() => {
@@ -300,9 +300,9 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
             loading={isLoading}
           >
             Enable
-          </Button>
+          </PrimaryButton>
         ) : (
-          <Button
+          <PrimaryButton
             className="button"
             disabled={
               isLoading ||
@@ -314,7 +314,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
             loading={isLoading}
           >
             Repay Borrow
-          </Button>
+          </PrimaryButton>
         )}
         <div className="description">
           <span>Wallet Balance</span>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { Progress } from 'antd';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
 import { connectAccount } from 'core';
@@ -305,7 +305,8 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
           />
         </div>
 
-        <Button
+        <PrimaryButton
+          fullWidth
           className="button"
           disabled={
             isLoading ||
@@ -319,7 +320,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
           loading={isLoading}
         >
           Withdraw
-        </Button>
+        </PrimaryButton>
         <div className="description">
           <span>Protocol Balance</span>
           <span>

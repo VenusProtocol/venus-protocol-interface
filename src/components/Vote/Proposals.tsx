@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { Pagination, Icon, Tooltip, Button } from 'antd';
+import { Pagination, Icon, Tooltip } from 'antd';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
 import toast from 'components/Basic/Toast';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
+import { PrimaryButton } from 'components';
 import { useWeb3React } from '@web3-react/core';
 import { Proposal as ProposalObject } from 'types';
 import { useToken, useGovernorBravo } from '../../hooks/useContract';
@@ -25,20 +26,6 @@ const ProposalsWrapper = styled.div`
       font-size: 17px;
       font-weight: 900;
       color: var(--color-text-main);
-    }
-    .create-proposal-btn {
-      border-radius: 5px;
-      background-color: var(--color-gold);
-      border: none;
-      color: #fff;
-      width: 150px;
-      height: 40px;
-      span {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--color-text-main);
-        text-transform: capitalize;
-      }
     }
   }
 
@@ -72,14 +59,7 @@ const ProposalsWrapper = styled.div`
     }
 
     .button {
-      width: 200px;
       flex-direction: row-reverse;
-      border: none;
-      span {
-        font-size: 16px;
-        font-weight: 900;
-        color: var(--color-text-main);
-      }
 
       img {
         width: 26px;
@@ -246,13 +226,14 @@ function Proposals({
               placement="top"
               title="You must have the voting power of at least 300K XVS to propose"
             >
-              <Button
-                className="button create-proposal-btn"
+              <PrimaryButton
+                className="button"
                 onClick={handleShowProposalModal}
                 disabled={notProposable}
+                loading={isLoading}
               >
-                {isLoading && <Icon type="loading" />} Create Proposal
-              </Button>
+                Create Proposal
+              </PrimaryButton>
             </Tooltip>
           )}
         </div>

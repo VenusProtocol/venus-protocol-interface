@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { Button, Icon } from 'components';
-import { ButtonWrapper } from './styles';
+import { PrimaryButton } from 'components';
 
 const WithdrawWrapper = styled.div`
   .withdraw-title {
@@ -20,13 +19,6 @@ const WithdrawWrapper = styled.div`
       line-height: 28px;
       margin-bottom: 32px;
     }
-  }
-
-  .withdraw-button {
-    width: 100%;
-    height: 36px;
-    line-height: 36px;
-    font-size: 14px;
   }
 `;
 
@@ -48,21 +40,19 @@ export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPr
           {commaFormatter(withdrawableAmount.toFixed(6))} XVS
         </div>
       </div>
-      <ButtonWrapper>
-        <Button
-          type="button"
-          loading={withdrawLoading}
-          className="button withdraw-button"
-          disabled={!account || !withdrawableAmount.gt(0) || withdrawLoading}
-          onClick={async () => {
-            setWithdrawLoading(true);
-            await handleClickWithdraw();
-            setWithdrawLoading(false);
-          }}
-        >
-          {!account ? 'Connect' : 'Withdraw'}
-        </Button>
-      </ButtonWrapper>
+      <PrimaryButton
+        type="button"
+        fullWidth
+        loading={withdrawLoading}
+        disabled={!account || !withdrawableAmount.gt(0) || withdrawLoading}
+        onClick={async () => {
+          setWithdrawLoading(true);
+          await handleClickWithdraw();
+          setWithdrawLoading(false);
+        }}
+      >
+        {!account ? 'Connect' : 'Withdraw'}
+      </PrimaryButton>
     </WithdrawWrapper>
   );
 };
