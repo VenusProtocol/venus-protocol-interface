@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import { NavLink } from 'react-router-dom';
@@ -9,7 +10,7 @@ import { uid } from 'react-uid';
 import Typography from '@mui/material/Typography';
 import { ReactComponent as XVSIcon } from '../../../../assets/img/xvs.svg';
 import { ReactComponent as Logo } from '../assets/logo.svg';
-import { useStyles } from './SidebarStyles';
+import { useStyles } from './styles';
 
 const menuItems = [
   {
@@ -52,14 +53,14 @@ const menuItems = [
 export const Sidebar = () => {
   const styles = useStyles();
   return (
-    <Drawer variant="permanent" anchor="left">
-      <Toolbar sx={styles.toolbar}>
+    <Drawer css={styles.drawer} variant="permanent" anchor="left">
+      <Toolbar css={styles.toolbar}>
         <NavLink to="/">
           <Logo />
         </NavLink>
       </Toolbar>
 
-      <List sx={styles.list}>
+      <List css={styles.list}>
         {menuItems.map(({ href, icon, text }) => (
           <ListItem
             key={uid(text)}
@@ -67,9 +68,9 @@ export const Sidebar = () => {
             component={NavLink}
             to={href}
             activeStyle={styles.activeMenuItem}
-            sx={styles.listItem}
+            css={styles.listItem}
           >
-            <ListItemIcon sx={styles.listItemIcon}>{icon}</ListItemIcon>
+            <ListItemIcon css={styles.listItemIcon}>{icon}</ListItemIcon>
             <Typography variant="caption">{text}</Typography>
           </ListItem>
         ))}
