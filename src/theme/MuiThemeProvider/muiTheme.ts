@@ -62,14 +62,12 @@ export const defaultTheme = createTheme({
 
 export default createTheme({
   spacing: 8,
-  shape: {
-    borderRadius: 8,
-  },
   palette: PALETTE,
   breakpoints: BREAKPOINTS,
   shape: {
     layoutOffset: { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` },
     sidebarWidth: SIDEBAR_WIDTH,
+    borderRadius: 8,
   },
   typography: {
     fontFamily: FONTS.primary,
@@ -137,26 +135,6 @@ export default createTheme({
           '& legend': {
             display: 'none',
           },
-        },
-      },
-    },
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          lineHeight: '24px',
-          borderRadius: 8,
-          height: 32,
-          boxSizing: 'border-box',
-        },
-        select: {
-          paddingTop: 4,
-          paddingBottom: 4,
-          paddingLeft: 12,
-          backgroundColor: PALETTE.background.paper,
-          borderRadius: 8,
-        },
-        icon: {
-          transition: 'transform .3s',
         },
       },
     },
