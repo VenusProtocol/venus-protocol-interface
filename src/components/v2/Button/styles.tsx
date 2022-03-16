@@ -1,15 +1,15 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-export const styles = () => {
+export const styles = ({ fullWidth }: { fullWidth: boolean }) => {
   const theme = useTheme();
   return css`
     padding: ${theme.spacing(1.5)} ${theme.spacing(3)};
     border-radius: ${theme.shape.borderRadius};
     font-size: ${theme.typography.body1.fontSize};
     color: ${theme.palette.text.primary};
-    min-width: 150px;
     text-transform: none;
+    ${fullWidth ? 'width: 100%;' : ''}
     :active {
       background-color: ${theme.palette.button.light};
     }

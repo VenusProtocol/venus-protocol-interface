@@ -11,6 +11,12 @@ export default {
 
 export const Primary = () => <PrimaryButton onClick={console.log}>Primary</PrimaryButton>;
 
+export const PrimaryDisabled = () => (
+  <PrimaryButton onClick={console.log} disabled>
+    Primary
+  </PrimaryButton>
+);
+
 export const Loading = () => (
   <PrimaryButton onClick={console.log} loading>
     Loading

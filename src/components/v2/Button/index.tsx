@@ -7,6 +7,7 @@ import useStyles from './styles';
 export interface IButtonProps extends ButtonProps {
   className?: string;
   loading?: boolean;
+  fillWidth?: boolean;
 }
 
 export const Button = ({
@@ -14,9 +15,10 @@ export const Button = ({
   loading,
   disabled,
   startIcon = null,
+  fullWidth = false,
   ...restProps
 }: IButtonProps) => {
-  const styles = useStyles();
+  const styles = useStyles({ fullWidth });
   return (
     <MuiButton
       css={styles}
