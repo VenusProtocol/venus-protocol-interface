@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { ReactNode } from 'react';
-import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import { Footer, IFooterProps } from 'components/v2/Layout/Footer';
+import { Toolbar } from '../Toolbar';
 import { useStyles } from './PageContainerStyles';
 
 interface IPageContainerProps {
