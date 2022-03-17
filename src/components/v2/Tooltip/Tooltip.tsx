@@ -1,16 +1,18 @@
 import React from 'react';
-
+import { Global } from '@emotion/react';
 import MuiTooltip, { TooltipProps } from '@mui/material/Tooltip';
-import { useTooltipStyles as useStyles } from './TooltipStyles';
+import { useStyles } from './styles';
 
 type ITooltipProps = TooltipProps;
 
-export const Tooltip = (props: ITooltipProps) => {
+export const Tooltip = ({ children, ...rest }: ITooltipProps) => {
   const styles = useStyles();
-  const { children } = props;
   return (
-    <MuiTooltip sx={styles} arrow placement="top" {...props} open>
-      {children}
-    </MuiTooltip>
+    <>
+      <Global styles={styles} />
+      <MuiTooltip arrow placement="top" {...rest}>
+        {children}
+      </MuiTooltip>
+    </>
   );
 };

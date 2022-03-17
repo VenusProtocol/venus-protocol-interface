@@ -17,7 +17,7 @@ export const parameters = {
   layout: 'fullscreen',
   actions: { argTypesRegex: '^on[A-Z].*' },
   backgrounds: {
-    default: 'Secondary',
+    default: 'Paper',
     values: [
       {
         name: 'Primary',
@@ -26,6 +26,10 @@ export const parameters = {
       {
         name: 'Paper',
         value: PALETTE.background.paper,
+      },
+      {
+        name: 'White',
+        value: 'rgba(255, 255, 255, 1)',
       },
     ],
   },
