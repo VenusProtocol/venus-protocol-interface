@@ -1,13 +1,17 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { PageContainer } from './PageContainer';
 
-export const Layout = ({ children }: { children: ReactNode }) => (
+export interface ILayoutProps {
+  currentBlockNumber: number;
+}
+
+export const Layout: React.FC<ILayoutProps> = ({ children, currentBlockNumber }) => (
   <Box display="flex">
     <Header pageTitle="Dashboard" />
     <Sidebar />
-    <PageContainer>{children}</PageContainer>
+    <PageContainer currentBlockNumber={currentBlockNumber}>{children}</PageContainer>
   </Box>
 );

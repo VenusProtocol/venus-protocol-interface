@@ -23,4 +23,6 @@ export default {
   ],
 } as ComponentMeta<typeof PageContainer>;
 
-export const PageContainerDefault = () => <PageContainer>Hello from storybook</PageContainer>;
+export const PageContainerDefault = () => (
+  <PageContainer currentBlockNumber={123456789}>Hello from storybook</PageContainer>
+);
