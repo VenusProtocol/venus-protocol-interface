@@ -11,13 +11,14 @@ import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import { ReactComponent as VenusLogo } from 'assets/img/v2/venusLogoWithText.svg';
-import { PrimaryButton } from 'components';
+import { PrimaryButton, SecondaryButton } from 'components/v2/Button';
 import toast from 'components/Basic/Toast';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useAuth, Connector, useWeb3Account } from 'clients/web3';
 import { BASE_BSC_SCAN_URL } from 'config';
 
-const ConnectButtonWrapper = styled.div`
+/* Deprecated */
+export const ConnectButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
@@ -233,8 +234,8 @@ function ConnectButton() {
   );
 
   return (
-    <ConnectButtonWrapper>
-      <PrimaryButton
+    <>
+      <SecondaryButton
         className="connect-btn"
         onClick={() => {
           onOpen();
@@ -243,7 +244,7 @@ function ConnectButton() {
         {!account
           ? 'Connect'
           : `${account.substr(0, 6)}...${account.substr(account.length - 4, 4)}`}
-      </PrimaryButton>
+      </SecondaryButton>
       <Modal
         className="venus-modal"
         width={532}
@@ -399,7 +400,7 @@ function ConnectButton() {
           )}
         </ModalContent>
       </Modal>
-    </ConnectButtonWrapper>
+    </>
   );
 }
 

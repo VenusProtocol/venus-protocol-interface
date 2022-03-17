@@ -17,7 +17,7 @@ const MarketContext = React.createContext({
   userMarketInfo: {},
   userTotalBorrowLimit: new BigNumber(0),
   userTotalBorrowBalance: new BigNumber(0),
-  userXVSBalance: new BigNumber(0),
+  userXvsBalance: new BigNumber(0),
 });
 
 // This context provide a way for all the components to share the market data, thus avoid
@@ -29,7 +29,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [userMarketInfo, setUserMarketInfo] = useState({});
   const [userTotalBorrowLimit, setUserTotalBorrowLimit] = useState(new BigNumber(0));
   const [userTotalBorrowBalance, setUserTotalBorrowBalance] = useState(new BigNumber(0));
-  const [userXVSBalance, setUserXVSBalance] = useState(new BigNumber(0));
+  const [userXvsBalance, setUserXvsBalance] = useState(new BigNumber(0));
   const [treasuryTotalUSDBalance, setTreasuryTotalUSDBalance] = useState(new BigNumber(0));
   const comptrollerContract = useComptroller();
   const lens = useVenusLens();
@@ -270,7 +270,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         setUserMarketInfo(assetList);
         setUserTotalBorrowLimit(totalBorrowLimit);
         setUserTotalBorrowBalance(totalBorrowBalance);
-        setUserXVSBalance(xvsBalance);
+        setUserXvsBalance(xvsBalance);
       } catch (error) {
         console.log('error when get market data', error);
       }
@@ -290,7 +290,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         userMarketInfo,
         userTotalBorrowLimit,
         userTotalBorrowBalance,
-        userXVSBalance,
+        userXvsBalance,
       }}
     >
       {children}
