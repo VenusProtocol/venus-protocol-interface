@@ -1,4 +1,5 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 import { withRouter, withThemeProvider } from 'stories/decorators';
 import { Layout } from '.';

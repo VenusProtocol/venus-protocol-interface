@@ -6,7 +6,7 @@ import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import { accountActionCreators } from 'core/modules/account/actions';
-import ConnectButton from 'components/Basic/ConnectButton';
+import ConnectButton, { ConnectButtonWrapper } from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoPure.svg';
@@ -491,7 +491,9 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           </div>
         </TotalValue>
       )}
-      <ConnectButton />
+      <ConnectButtonWrapper>
+        <ConnectButton />
+      </ConnectButtonWrapper>
       <MobileMenu id="main-menu">
         <Select
           defaultValue={defaultPath}

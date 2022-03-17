@@ -59,7 +59,7 @@ const format = commaNumber.bindWith(',', '.');
 
 function CoinInfo() {
   const { account } = useWeb3Account();
-  const { userXVSBalance } = useMarketsUser();
+  const { userXvsBalance } = useMarketsUser();
 
   const handleLink = () => {
     window.open(
@@ -73,7 +73,7 @@ function CoinInfo() {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(userXVSBalance.dp(2, 1).toString(10))} XVS</p>
+          <p>{format(userXvsBalance.dp(2, 1).toString(10))} XVS</p>
           {window.ethereum && (
             <Icon
               className="add-xvs-token"
