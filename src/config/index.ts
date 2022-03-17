@@ -31,3 +31,8 @@ export const vtokenDecimals = 8;
 
 // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
 export const TREASURY_ADDRESS = TREASURY_ADDRESSES[process.env.REACT_APP_CHAIN_ID];
+
+export const VENUS_MEDIUM_URL = 'https://medium.com/@Venus_protocol';
+export const VENUS_DISCORD_URL = 'https://discord.com/invite/pTQ9EBHYtF';
+export const VENUS_TWITTER_URL = 'https://twitter.com/VenusProtocol';
+export const VENUS_GITHUB_URL = 'https://github.com/VenusProtocol/';
