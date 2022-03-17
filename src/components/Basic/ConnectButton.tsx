@@ -5,6 +5,7 @@ import metamaskImg from 'assets/img/metamask.png';
 import trustwalletImg from 'assets/img/trustwallet.svg';
 import safepalImg from 'assets/img/safepal.svg';
 import walletconnectImg from 'assets/img/walletconnect.svg';
+import coinbaseWalletImg from 'assets/img/v2/coinbaseWalletLogo.svg';
 import ledgerImg from 'assets/img/ledger.png';
 import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -258,11 +259,11 @@ function ConnectButton() {
   };
 
   const onConnect = useCallback(
-    type => {
+    (connectorName: ConnectorNames) => {
+      login(connectorName);
       onClose();
-      login(type);
     },
-    [login, setShowConnect],
+    [login],
   );
 
   return (
@@ -318,6 +319,16 @@ function ConnectButton() {
                   <div className="flex align-center">
                     <img src={metamaskImg} alt="metamask" />
                     <span>MetaMask</span>
+                  </div>
+                  <img src={arrowRightImg} alt="arrow" />
+                </div>
+                <div
+                  className="flex align-center just-between metamask-connect-btn"
+                  onClick={() => onConnect(ConnectorNames.CoinbaseWallet)}
+                >
+                  <div className="flex align-center">
+                    <img src={coinbaseWalletImg} alt="coinbaseWallet" />
+                    <span>Coinbase Wallet</span>
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
