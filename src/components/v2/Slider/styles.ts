@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-export const styles = ({ over }: { over: boolean }) => {
+export const useStyles = ({ over }: { over: boolean }) => {
   const theme = useTheme();
   return css`
     color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
@@ -23,4 +23,4 @@ export const styles = ({ over }: { over: boolean }) => {
   `;
 };
 
-export default styles;
+export default useStyles;
