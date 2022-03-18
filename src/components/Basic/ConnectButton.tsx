@@ -9,7 +9,7 @@ import ledgerImg from 'assets/img/ledger.png';
 import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
-import logoImg from 'assets/img/logo.png';
+import { ReactComponent as VenusLogo } from 'assets/img/v2/venusLogoWithText.svg';
 import { useWeb3React } from '@web3-react/core';
 import { PrimaryButton } from 'components';
 import toast from 'components/Basic/Toast';
@@ -51,8 +51,6 @@ const ModalContent = styled.div`
     width: 100%;
     margin-top: 60px;
     .logo-image {
-      width: 153px;
-      height: 34px;
       margin-bottom: 43px;
     }
     .title {
@@ -266,7 +264,7 @@ function ConnectButton() {
           {!account ? (
             <>
               <div className="flex flex-column align-center just-center header-content">
-                <img src={logoImg} alt="logo" className="logo-image" />
+                <VenusLogo className="logo-image" />
                 <p className="title">Connect to start using Venus</p>
               </div>
               <div className="connect-wallet-content">
