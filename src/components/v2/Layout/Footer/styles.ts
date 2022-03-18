@@ -33,6 +33,7 @@ export const useStyles = () => {
     links: css`
       color: ${theme.palette.text.primary};
       display: flex;
+      margin-left: ${theme.spacing(1)};
     `,
     link: css`
       background-color: ${theme.palette.secondary.light};
