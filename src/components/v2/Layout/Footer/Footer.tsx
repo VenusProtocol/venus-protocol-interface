@@ -21,36 +21,36 @@ export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
   const styles = useStyles();
 
   return (
-    <div css={styles.Container}>
+    <div css={styles.container}>
       <Typography
         component="a"
         variant="small2"
-        css={styles.Status}
+        css={styles.status}
         href={BASE_BSC_SCAN_URL}
         target="_blank"
         rel="noreferrer"
       >
-        Latest Block:&nbsp;<span css={styles.StatusBlockNumber}>{currentBlockNumber}</span>
+        Latest Block:&nbsp;<span css={styles.statusBlockNumber}>{currentBlockNumber}</span>
       </Typography>
 
-      <div css={styles.Links}>
-        <a css={styles.Link} href={ETHERSCAN_XVS_URL} target="_blank" rel="noreferrer">
+      <div css={styles.links}>
+        <a css={styles.link} href={ETHERSCAN_XVS_URL} target="_blank" rel="noreferrer">
           <Icon name="venus" color={styles.theme.palette.text.primary} size="12px" />
         </a>
 
-        <a css={styles.Link} href={VENUS_MEDIUM_URL} target="_blank" rel="noreferrer">
+        <a css={styles.link} href={VENUS_MEDIUM_URL} target="_blank" rel="noreferrer">
           <Icon name="medium" color={styles.theme.palette.text.primary} size="12px" />
         </a>
 
-        <a css={styles.Link} href={VENUS_DISCORD_URL} target="_blank" rel="noreferrer">
+        <a css={styles.link} href={VENUS_DISCORD_URL} target="_blank" rel="noreferrer">
           <Icon name="discord" color={styles.theme.palette.text.primary} size="12px" />
         </a>
 
-        <a css={styles.Link} href={VENUS_TWITTER_URL} target="_blank" rel="noreferrer">
+        <a css={styles.link} href={VENUS_TWITTER_URL} target="_blank" rel="noreferrer">
           <Icon name="twitter" color={styles.theme.palette.text.primary} size="12px" />
         </a>
 
-        <a css={styles.Link} href={VENUS_GITHUB_URL} target="_blank" rel="noreferrer">
+        <a css={styles.link} href={VENUS_GITHUB_URL} target="_blank" rel="noreferrer">
           <Icon name="github" color={styles.theme.palette.text.primary} size="12px" />
         </a>
       </div>
