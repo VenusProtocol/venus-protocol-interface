@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Modal, Spin, Icon } from 'antd';
 import closeImg from 'assets/img/close.png';
-import logoImg from 'assets/img/logo.png';
+import { ReactComponent as VenusLogo } from 'assets/img/v2/venusLogoWithText.svg';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -14,7 +14,7 @@ const ModalContent = styled.div`
     right: 23px;
   }
 
-  .logo-text {
+  .logo {
     width: 110px;
     margin-top: 84px;
     margin-bottom: 48px;
@@ -25,7 +25,7 @@ const ModalContent = styled.div`
   }
 
   .voting-spinner {
-    color: #f2c265;
+    color: var(--color-yellow);
     margin-top: 54px;
     margin-bottom: 40px;
   }
@@ -63,7 +63,7 @@ function CollateralConfirmModal({
     >
       <ModalContent className="flex flex-column align-center just-center">
         <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
-        <img src={logoImg} alt="logo" className="logo-text" />
+        <VenusLogo className="logo" />
         <p className="title">{`${isCollateralEnalbe ? 'Disable' : 'Enable'} as collateral`}</p>
         <Spin className="voting-spinner" indicator={antIcon} />
         <p className="confirm-text">Confirm the transaction</p>
