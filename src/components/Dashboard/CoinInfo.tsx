@@ -20,7 +20,7 @@ const CardWrapper = styled.div`
 
   .add-xvs-token {
     font-size: 18px;
-    color: var(--color-yellow);
+    color: rgba(223, 177, 85, 1);
     margin-left: 10px;
     margin-bottom: 3px;
   }
