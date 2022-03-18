@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { ReactComponent as IconArrow } from './assets/arrow.svg';
+import { Icon } from '../Icon';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
 interface Option {
@@ -46,7 +46,7 @@ export const Dropdown = ({ options, defaultValue, onSelect }: ISelectProps) => {
         onChange={handleChange}
         displayEmpty
         inputProps={{ 'aria-label': 'Without label', disableUnderline: true }}
-        IconComponent={IconArrow}
+        IconComponent={() => <Icon name="arrowDown" />}
         MenuProps={{
           autoFocus: false,
           PaperProps: {

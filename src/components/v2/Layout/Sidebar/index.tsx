@@ -7,9 +7,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
 import { uid } from 'react-uid';
 import Typography from '@mui/material/Typography';
+import { ReactComponent as XVSIcon } from 'assets/img/xvs.svg';
+import { ReactComponent as Logo } from 'assets/img/logo.svg';
 import { Toolbar } from '../Toolbar';
-import { ReactComponent as XVSIcon } from '../../../../assets/img/xvs.svg';
-import { ReactComponent as Logo } from '../assets/logo.svg';
 import { useStyles } from './styles';
 
 const menuItems = [
