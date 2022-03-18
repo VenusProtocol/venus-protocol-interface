@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import MuiButton, { ButtonProps } from '@mui/material/Button';
-import { Icon } from 'components/v2/Icon';
+import { Icon } from '../Icon';
 import useStyles from './styles';
 
 export interface IButtonProps extends ButtonProps {

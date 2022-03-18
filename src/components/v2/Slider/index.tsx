@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import MaterialSlider from '@mui/material/Slider';
-import { styles } from './Styles';
+import { useStyles } from './styles';
 
 interface ISliderProps {
   defaultValue: number;
@@ -28,9 +28,12 @@ export const Slider = ({
     setOver(value > mark);
     onChange(value);
   };
+
+  const styles = useStyles({ over });
+
   return (
     <MaterialSlider
-      css={styles({ over })}
+      css={styles}
       onChange={wrappedOnChange}
       components={{ Thumb: undefined }}
       defaultValue={defaultValue}
