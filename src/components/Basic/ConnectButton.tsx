@@ -30,10 +30,6 @@ const ConnectButtonWrapper = styled.div`
   .connect-btn {
     width: 114px;
     height: 30px;
-
-    @media only screen and (max-width: 768px) {
-      width: 100px;
-    }
   }
 `;
 
