@@ -32,7 +32,7 @@ export const useStyles = () => {
     color: ${theme.palette.text.primary};
   `;
 
-  const SocialMediaLinks = css`
+  const Links = css`
     display: flex;
     align-items: center;
     margin-left: ${theme.spacing(1)};
@@ -42,7 +42,7 @@ export const useStyles = () => {
     }
   `;
 
-  const SocialMediaLink = css`
+  const Link = css`
     background-color: ${theme.palette.secondary.light};
     transition: background-color 0.3s;
     margin-left: ${theme.spacing(2)};
@@ -66,8 +66,8 @@ export const useStyles = () => {
     Container,
     Status,
     StatusBlockNumber,
-    SocialMediaLinks,
-    SocialMediaLink,
+    Links,
+    Link,
     theme,
   };
 };
