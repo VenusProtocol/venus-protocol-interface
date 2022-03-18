@@ -9,9 +9,9 @@ import ledgerImg from 'assets/img/ledger.png';
 import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
-import logoImg from 'assets/img/logo.png';
+import { ReactComponent as VenusLogo } from 'assets/img/v2/venusLogoWithText.svg';
 import { useWeb3React } from '@web3-react/core';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import toast from 'components/Basic/Toast';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { BASE_BSC_SCAN_URL } from '../../config';
@@ -30,23 +30,6 @@ const ConnectButtonWrapper = styled.div`
   .connect-btn {
     width: 114px;
     height: 30px;
-    border-radius: 5px;
-    background-color: var(--color-yellow);
-
-    @media only screen and (max-width: 768px) {
-      width: 100px;
-    }
-
-    span {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-text-main);
-      text-transform: capitalize;
-
-      @media only screen and (max-width: 768px) {
-        font-size: 12px;
-      }
-    }
   }
 `;
 
@@ -64,8 +47,6 @@ const ModalContent = styled.div`
     width: 100%;
     margin-top: 60px;
     .logo-image {
-      width: 153px;
-      height: 34px;
       margin-bottom: 43px;
     }
     .title {
@@ -218,22 +199,9 @@ const ModalContent = styled.div`
       .logout-btn {
         width: 114px;
         height: 30px;
-        border-radius: 5px;
-        background-color: var(--color-yellow);
 
         @media only screen and (max-width: 768px) {
           width: 100px;
-        }
-
-        span {
-          font-size: 13px;
-          font-weight: 500;
-          color: var(--color-text-main);
-          text-transform: capitalize;
-
-          @media only screen and (max-width: 768px) {
-            font-size: 12px;
-          }
         }
       }
     }
@@ -267,7 +235,7 @@ function ConnectButton() {
 
   return (
     <ConnectButtonWrapper>
-      <Button
+      <PrimaryButton
         className="connect-btn"
         onClick={() => {
           onOpen();
@@ -276,7 +244,7 @@ function ConnectButton() {
         {!account
           ? 'Connect'
           : `${account.substr(0, 6)}...${account.substr(account.length - 4, 4)}`}
-      </Button>
+      </PrimaryButton>
       <Modal
         className="venus-modal"
         width={532}
@@ -292,7 +260,7 @@ function ConnectButton() {
           {!account ? (
             <>
               <div className="flex flex-column align-center just-center header-content">
-                <img src={logoImg} alt="logo" className="logo-image" />
+                <VenusLogo className="logo-image" />
                 <p className="title">Connect to start using Venus</p>
               </div>
               <div className="connect-wallet-content">
@@ -405,9 +373,9 @@ function ConnectButton() {
                 </div>
               </div>
               <div className="wallet-footer">
-                <Button className="logout-btn" onClick={onLogout}>
+                <PrimaryButton className="logout-btn" onClick={onLogout}>
                   Logout
-                </Button>
+                </PrimaryButton>
               </div>
             </div>
           )}

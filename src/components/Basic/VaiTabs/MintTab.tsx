@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import { Icon } from 'antd';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
 import commaNumber from 'comma-number';
@@ -110,7 +109,7 @@ function MintTab() {
             </span>
           </div>
         </div>
-        <Button
+        <PrimaryButton
           className="button vai-auto"
           disabled={
             isLoading ||
@@ -120,9 +119,10 @@ function MintTab() {
             amount.isGreaterThan(mintableVai)
           }
           onClick={handleMintVAI}
+          loading={isLoading}
         >
-          {isLoading && <Icon type="loading" />} Mint VAI
-        </Button>
+          Mint VAI
+        </PrimaryButton>
         <div className="description">
           <span>VAI Balance</span>
           <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>

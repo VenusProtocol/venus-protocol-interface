@@ -138,15 +138,6 @@ export const TabSection = styled.div`
     margin: 20px 0;
     width: 248px;
     height: 41px;
-    border-radius: 5px;
-    background-color: var(--color-yellow);
-
-    span {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--color-text-main);
-      text-transform: capitalize;
-    }
 
     &.vai-auto {
       margin-top: auto;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import { Icon, Progress } from 'antd';
-import { Button } from 'components';
+import { Progress } from 'antd';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import { useWeb3React } from '@web3-react/core';
@@ -284,17 +284,20 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
           </div>
         )}
         {!isEnabled && asset.id !== 'bnb' ? (
-          <Button
+          <PrimaryButton
             className="button"
+            fullWidth
             disabled={isLoading || !account}
             onClick={() => {
               onApprove();
             }}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Enable
-          </Button>
+            Enable
+          </PrimaryButton>
         ) : (
-          <Button
+          <PrimaryButton
+            fullWidth
             className="button"
             disabled={
               isLoading ||
@@ -304,9 +307,10 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
               amount.isGreaterThan(asset.walletBalance)
             }
             onClick={handleSupply}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Supply
-          </Button>
+            Supply
+          </PrimaryButton>
         )}
         <div className="description">
           <span>Wallet Balance</span>

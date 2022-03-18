@@ -6,7 +6,7 @@ import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Tooltip } from 'antd';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import ProposalInfo from 'components/Vote/VoteOverview/ProposalInfo';
@@ -309,8 +309,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                 proposalInfo.state !== 'Defeated' &&
                 proposalInfo.state !== 'Canceled' && (
                   <div className="flex align-center just-center update-proposal-status">
-                    <Button
-                      className="cancel-btn"
+                    <PrimaryButton
                       disabled={
                         !account ||
                         isCancelLoading ||
@@ -323,28 +322,26 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                       {cancelStatus === 'pending' || cancelStatus === 'failure'
                         ? 'Cancel'
                         : 'Cancelled'}
-                    </Button>
+                    </PrimaryButton>
                     {proposalInfo.state === 'Succeeded' && (
-                      <Button
-                        className="queue-btn"
+                      <PrimaryButton
                         disabled={!account || isLoading || status === 'success'}
                         onClick={() => handleUpdateProposal('Queue')}
+                        loading={isLoading}
                       >
-                        {isLoading && <Icon type="loading" />}{' '}
                         {status === 'pending' || status === 'failure' ? 'Queue' : 'Queued'}
-                      </Button>
+                      </PrimaryButton>
                     )}
                     {proposalInfo.state === 'Queued' && (
-                      <Button
-                        className="execute-btn"
+                      <PrimaryButton
                         disabled={
                           !account || isLoading || status === 'success' || !isPossibleExcuted
                         }
                         onClick={() => handleUpdateProposal('Execute')}
+                        loading={isLoading}
                       >
-                        {isLoading && <Icon type="loading" />}{' '}
                         {status === 'pending' || status === 'failure' ? 'Execute' : 'Executed'}
-                      </Button>
+                      </PrimaryButton>
                     )}
                     {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
                       <Tooltip title={`You are able to excute at ${excuteEta}`}>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 
-import { Icon, Progress } from 'antd';
-import { Button } from 'components';
+import { Progress } from 'antd';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3React } from '@web3-react/core';
 import { connectAccount } from 'core';
@@ -305,7 +305,8 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
           />
         </div>
 
-        <Button
+        <PrimaryButton
+          fullWidth
           className="button"
           disabled={
             isLoading ||
@@ -316,9 +317,10 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
             newBorrowPercent.isGreaterThan(new BigNumber(100))
           }
           onClick={handleWithdraw}
+          loading={isLoading}
         >
-          {isLoading && <Icon type="loading" />} Withdraw
-        </Button>
+          Withdraw
+        </PrimaryButton>
         <div className="description">
           <span>Protocol Balance</span>
           <span>

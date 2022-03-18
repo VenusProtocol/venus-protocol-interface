@@ -10,6 +10,11 @@ declare module '@mui/material/styles' {
 
   // Add v2 colors
   interface Palette {
+    button: {
+      light: React.CSSProperties['color'];
+      main: React.CSSProperties['color'];
+      dark: React.CSSProperties['color'];
+    };
     interactive: {
       primary: React.CSSProperties['color'];
       success: React.CSSProperties['color'];
@@ -34,5 +39,11 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     small1: true;
     small2: true;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    button: true;
   }
 }

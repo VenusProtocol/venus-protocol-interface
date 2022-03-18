@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Icon, Progress } from 'antd';
-import { Button } from 'components';
+import { Progress } from 'antd';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
@@ -260,7 +260,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
             showInfo={false}
           />
         </div>
-        <Button
+        <PrimaryButton
           className="button"
           disabled={
             isLoading ||
@@ -272,9 +272,10 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
               amount.plus(asset.totalBorrows).isGreaterThan(asset.borrowCaps))
           }
           onClick={handleBorrow}
+          loading={isLoading}
         >
-          {isLoading && <Icon type="loading" />} Borrow
-        </Button>
+          Borrow
+        </PrimaryButton>
         <div className="description">
           <span>Protocol Balance</span>
           <span>

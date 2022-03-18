@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Icon } from 'antd';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
@@ -111,17 +110,18 @@ function RepayVaiTab() {
           <p className="center warning-label">Your balance is not enough.</p>
         )}
         {!userVaiEnabled ? (
-          <Button
+          <PrimaryButton
             className="button"
             disabled={isLoading || userVaiBalance.isZero() || !account}
             onClick={() => {
               onVaiApprove();
             }}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Enable
-          </Button>
+            Enable
+          </PrimaryButton>
         ) : (
-          <Button
+          <PrimaryButton
             className="button vai-auto"
             disabled={
               isLoading ||
@@ -132,9 +132,10 @@ function RepayVaiTab() {
               amount.isGreaterThan(userVaiBalance)
             }
             onClick={handleRepayVAI}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Repay VAI
-          </Button>
+            Repay VAI
+          </PrimaryButton>
         )}
         <div className="description">
           <span>VAI Balance</span>

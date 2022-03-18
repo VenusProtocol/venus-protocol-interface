@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Form, Input, Modal, Icon, Collapse } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { Button } from 'components';
 import { connectAccount } from 'core';
+import { PrimaryButton } from 'components';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
@@ -72,23 +72,6 @@ const ModalContent = styled.div`
     .btn-wrapper {
       margin-top: 47px;
       margin-bottom: 40px;
-      .proposal-btn {
-        width: 210px;
-        height: 52px;
-        background-color: var(--color-yellow);
-        border-radius: 10px;
-        span {
-          font-size: 16px;
-          font-weight: bold;
-          color: var(--color-text-main);
-          text-transform: capitalize;
-        }
-      }
-      .ant-btn[disabled] {
-        color: var(--color-text-secondary);
-        background-color: rgba(0, 145, 255, 0.05);
-        box-shadow: unset;
-      }
     }
 
     .proposal-data-list {
@@ -453,13 +436,16 @@ function ProposalModal({
                     {formData.length < +maxOperation && (
                       <div className="flex align-center just-end add-btn-wrapper">
                         {index !== 0 && (
-                          <Button className="add-btn" onClick={() => handleAdd('previous', index)}>
+                          <PrimaryButton
+                            className="add-btn"
+                            onClick={() => handleAdd('previous', index)}
+                          >
                             Add to previous
-                          </Button>
+                          </PrimaryButton>
                         )}
-                        <Button className="add-btn" onClick={() => handleAdd('next', index)}>
+                        <PrimaryButton className="add-btn" onClick={() => handleAdd('next', index)}>
                           Add to next
-                        </Button>
+                        </PrimaryButton>
                       </div>
                     )}
                   </div>
@@ -477,15 +463,16 @@ function ProposalModal({
           </div>
           {errorMsg && <p className="invalid_msg center">{errorMsg}</p>}
           <div className="flex align-center just-center btn-wrapper">
-            <Button
+            <PrimaryButton
               type="submit"
               className="proposal-btn"
               disabled={
                 isLoading || formData.length > maxOperation || description.trim().length === 0
               }
+              loading={isLoading}
             >
-              {isLoading && <Icon type="loading" />} Create
-            </Button>
+              Create
+            </PrimaryButton>
           </div>
         </Form>
       </ModalContent>

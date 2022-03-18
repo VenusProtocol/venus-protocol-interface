@@ -43,6 +43,7 @@ const tokenAddressNameMap = Object.keys(CONTRACT_TOKEN_ADDRESS).reduce<Record<st
 );
 
 function Vault() {
+  const isMountedRef = React.useRef(false);
   const [poolInfos, setPoolInfos] = useState<IPool[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,7 +54,8 @@ function Vault() {
 
   // fetch XVS vault pools info
   useEffect(() => {
-    let mounted = true;
+    isMountedRef.current = true;
+
     const fetchPools = async () => {
       // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
       const xvsTokenAddress = CONTRACT_TOKEN_ADDRESS.xvs.address;
@@ -118,13 +120,15 @@ function Vault() {
 
       setLoading(false);
 
-      if (mounted) {
+      if (isMountedRef.current) {
         setPoolInfos(patchedPoolInfos);
       }
     };
+
     fetchPools();
+
     return () => {
-      mounted = false;
+      isMountedRef.current = false;
     };
   }, [fastRefresh, account]);
 
@@ -138,7 +142,7 @@ function Vault() {
           {process.env.REACT_APP_CHAIN_ID === '97' && <VrtPoolCard />}
           {poolInfos.map(poolInfo => (
             <GeneralVaultPoolCard
-              key={uid(poolInfo)}
+              key={poolInfo.poolId.toString()}
               poolId={poolInfo.poolId}
               stakedToken={poolInfo.stakedToken}
               rewardToken={poolInfo.rewardToken}

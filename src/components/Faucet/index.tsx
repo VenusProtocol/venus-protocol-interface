@@ -3,7 +3,7 @@ import { Input, Form, Dropdown, Menu } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { ClickParam } from 'antd/lib/menu';
 import MainLayout from 'containers/Layout/MainLayout';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import * as constants from 'utilities/constants';
 import { Row, Column } from 'components/Basic/Style';
@@ -143,63 +143,63 @@ const Faucet: React.FC<IFaucetProps> = ({
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={bnbMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me BNB</Button>
+                        <PrimaryButton className="button">Give Me BNB</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={sxpMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me SXP</Button>
+                        <PrimaryButton className="button">Give Me SXP</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={xvsMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me XVS</Button>
+                        <PrimaryButton className="button">Give Me XVS</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={busdMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me BUSD</Button>
+                        <PrimaryButton className="button">Give Me BUSD</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={usdtMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me USDT</Button>
+                        <PrimaryButton className="button">Give Me USDT</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={usdcMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me USDC</Button>
+                        <PrimaryButton className="button">Give Me USDC</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={btcbMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me BTCB</Button>
+                        <PrimaryButton className="button">Give Me BTCB</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={ethMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me ETH</Button>
+                        <PrimaryButton className="button">Give Me ETH</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={ltcMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me LTC</Button>
+                        <PrimaryButton className="button">Give Me LTC</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>
@@ -209,7 +209,7 @@ const Faucet: React.FC<IFaucetProps> = ({
                   <Column xs="6" sm="4">
                     <Styles.ButtonWrapper>
                       <Dropdown overlay={xrpMenu} placement="bottomCenter">
-                        <Button className="fill-btn next-btn button">Give Me XRP</Button>
+                        <PrimaryButton className="button">Give Me XRP</PrimaryButton>
                       </Dropdown>
                     </Styles.ButtonWrapper>
                   </Column>

@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Modal, Input } from 'antd';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
 import closeImg from 'assets/img/close.png';
@@ -307,17 +307,17 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
         {voteStatus && voteStatus === 'novoted' && proposal.state === 'Active' && (
           <div className="flex align-center" onClick={e => e.stopPropagation()}>
             {[VoteType.FOR, VoteType.AGAINST, VoteType.ABSTAIN].map(type => (
-              <Button
+              <PrimaryButton
                 key={type}
                 className="vote-btn"
                 disabled={
                   votingWeight === '0' || !proposal || (proposal && proposal.state !== 'Active')
                 }
                 onClick={() => handleOpenVoteConfirmModal(type)}
+                loading={isLoading && voteType === type}
               >
-                {isLoading && voteType === type && <Icon type="loading" />}{' '}
                 {getVoteTypeStringFromValue(type)[1]}
-              </Button>
+              </PrimaryButton>
             ))}
           </div>
         )}

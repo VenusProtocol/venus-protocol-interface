@@ -58,7 +58,12 @@ const Logo = styled.div`
 
   .logo-text {
     @media only screen and (max-width: 375px) {
-      display: none;
+      /* Temporary fix: because the SVG file uses an ID and is reused in the
+      connect modal, we can not apply "display: none" to it, otherwise it hides
+      all instances of it on the website */
+      opacity: 0;
+      width: 0;
+      height: 0;
     }
   }
 

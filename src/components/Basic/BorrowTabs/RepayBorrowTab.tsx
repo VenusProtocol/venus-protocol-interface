@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Button } from 'components';
+import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
@@ -9,7 +9,7 @@ import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
-import { Icon, Progress } from 'antd';
+import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';
 import { Asset, Setting } from 'types';
@@ -291,17 +291,18 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
           </div>
         )}
         {!isEnabled && asset.id !== 'bnb' ? (
-          <Button
+          <PrimaryButton
             className="button"
             disabled={isLoading}
             onClick={() => {
               onApprove();
             }}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Enable
-          </Button>
+            Enable
+          </PrimaryButton>
         ) : (
-          <Button
+          <PrimaryButton
             className="button"
             disabled={
               isLoading ||
@@ -310,9 +311,10 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
               amount.isGreaterThan(BigNumber.minimum(asset.walletBalance, asset.borrowBalance))
             }
             onClick={handleRepayBorrow}
+            loading={isLoading}
           >
-            {isLoading && <Icon type="loading" />} Repay Borrow
-          </Button>
+            Repay Borrow
+          </PrimaryButton>
         )}
         <div className="description">
           <span>Wallet Balance</span>

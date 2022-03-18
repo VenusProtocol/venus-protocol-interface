@@ -2,8 +2,9 @@ import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import Sidebar from 'containers/Layout/Sidebar';
 import Header from 'containers/Layout/Header';
-import Footer from 'containers/Layout/Footer';
+import { Footer } from 'components/v2/Layout/Footer';
 import { Row, Column } from 'components/Basic/Style';
+import { useBlock } from '../../hooks/useBlock';
 
 const MainLayoutWrapper = styled.div`
   width: 100%;
@@ -17,7 +18,7 @@ const MainLayoutWrapper = styled.div`
       padding-top: 20px;
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 122px);
+      height: calc(100vh - 125px);
       overflow: auto;
       overflow-x: hidden;
 
@@ -56,6 +57,8 @@ interface Props {
 }
 
 function MainLayout({ title = '', isHeader, children }: Props) {
+  const currentBlockNumber = useBlock();
+
   return (
     <MainLayoutWrapper>
       <Row>
@@ -73,7 +76,7 @@ function MainLayout({ title = '', isHeader, children }: Props) {
               <div className="main-content">{children}</div>
             </Column>
             <Column xs="12">
-              <Footer />
+              <Footer currentBlockNumber={currentBlockNumber} />
             </Column>
           </Row>
         </Column>
