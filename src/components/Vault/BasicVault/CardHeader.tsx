@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { Icon, IconName } from 'components/v2/Icon';
+import { Icon, IconName } from 'components';
 
 const commaFormatter = commaNumber.bindWith(',', '.');
 

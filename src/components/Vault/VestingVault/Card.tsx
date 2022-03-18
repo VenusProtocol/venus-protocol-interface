@@ -4,7 +4,7 @@ import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
-import { Icon, IconName } from 'components/v2/Icon';
+import { Icon, IconName } from 'components';
 
 import VaultCardContent from './CardContent';
 import { VaultCardWrapper } from '../styles';
