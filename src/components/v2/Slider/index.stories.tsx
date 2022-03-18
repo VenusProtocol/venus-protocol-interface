@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import Box from '@mui/material/Box';
 import { Slider } from '.';
 
 export default {

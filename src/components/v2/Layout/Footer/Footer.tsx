@@ -10,7 +10,7 @@ import {
   VENUS_GITHUB_URL,
   ETHERSCAN_XVS_URL,
 } from 'config';
-import { Icon } from 'components/v2/Icon';
+import { Icon } from '../../Icon';
 import { useStyles } from './styles';
 
 export interface IFooterProps {
