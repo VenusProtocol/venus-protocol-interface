@@ -13,7 +13,7 @@ export const useStyles = () => {
       justify-content: flex-end;
       align-items: center;
 
-      @media only screen and (max-width: 768px) {
+      ${theme.breakpoints.down('md')} {
         height: auto;
         padding: ${theme.spacing(3)} ${theme.spacing(2)};
         flex-direction: column;
@@ -23,7 +23,7 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
 
-      @media only screen and (max-width: 768px) {
+      ${theme.breakpoints.down('md')} {
         margin-bottom: ${theme.spacing(2)};
       }
     `,
