@@ -32,6 +32,7 @@ export const useStyles = () => {
     `,
     links: css`
       color: ${theme.palette.text.primary};
+      display: flex;
     `,
     link: css`
       background-color: ${theme.palette.secondary.light};
