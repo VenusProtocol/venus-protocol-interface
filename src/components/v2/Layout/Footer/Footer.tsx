@@ -25,12 +25,14 @@ export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
       <Typography
         component="a"
         variant="small2"
-        css={styles.status}
+        css={styles.blockInfo}
         href={BASE_BSC_SCAN_URL}
         target="_blank"
         rel="noreferrer"
       >
-        Latest Block:&nbsp;<span css={styles.statusBlockNumber}>{currentBlockNumber}</span>
+        Latest Block:&nbsp;
+        <br css={styles.blockInfoMobileLineBreak} />
+        <span css={styles.blockInfoNumber}>{currentBlockNumber}</span>
       </Typography>
 
       <div css={styles.links}>
