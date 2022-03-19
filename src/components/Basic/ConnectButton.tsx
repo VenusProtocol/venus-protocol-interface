@@ -15,9 +15,9 @@ import { useWeb3React } from '@web3-react/core';
 import { PrimaryButton } from 'components';
 import toast from 'components/Basic/Toast';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { BASE_BSC_SCAN_URL } from '../../config';
-import { ConnectorNames } from '../../utilities/connectors';
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from 'hooks/wallet';
+import { BASE_BSC_SCAN_URL } from 'config';
+import { ConnectorNames } from 'utilities/connectors';
 
 const ConnectButtonWrapper = styled.div`
   display: flex;
