@@ -60,7 +60,7 @@ export const withThemeProvider: DecoratorFunction = Story => (
   </Theme>
 );
 
-export const withCenterStory: (props: { width: number }) => DecoratorFunction = props => {
+export const withCenterStory: (props: { width: number | string }) => DecoratorFunction = props => {
   const { width } = props;
   return Story => (
     <Box
