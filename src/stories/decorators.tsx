@@ -3,10 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { addDecorator } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { store } from 'core/store';
-import { Web3ReactProvider } from '@web3-react/core';
 import Box from '@mui/material/Box';
-import { getLibrary } from 'utilities/connectors';
-import Web3ReactManager from 'utilities/Web3ReactManager';
+import Web3Wrapper from 'containers/Web3Wrapper';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import Theme from 'containers/Theme';
@@ -30,11 +28,9 @@ export const withProvider: DecoratorFunction = Story => (
 );
 
 export const withWeb3Provider: DecoratorFunction = Story => (
-  <Web3ReactProvider getLibrary={getLibrary}>
-    <Web3ReactManager>
-      <Story />
-    </Web3ReactManager>
-  </Web3ReactProvider>
+  <Web3Wrapper>
+    <Story />
+  </Web3Wrapper>
 );
 
 export const withMarketContext: DecoratorFunction = Story => (
