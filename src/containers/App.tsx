@@ -23,12 +23,12 @@ import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import VrtConversion from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from './Theme';
-
-import 'assets/styles/App.scss';
+import Web3Wrapper from './Web3Wrapper';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';
 import { MuiThemeProvider } from '../theme/MuiThemeProvider/MuiThemeProvider';
+import 'assets/styles/App.scss';
 
 addLocaleData([...en]);
 const initialLang = 'en';
@@ -53,46 +53,48 @@ class App extends React.Component {
     return (
       <Theme>
         <IntlProvider locale={lang} messages={message}>
-          <QueryClientProvider client={queryClient}>
-            <Provider store={store}>
-              <RefreshContextProvider>
-                <VaiContextProvider>
-                  <MarketContextProvider>
-                    <MuiThemeProvider>
-                      <BrowserRouter>
-                        <ToastContainer
-                          autoClose={8000}
-                          transition={Slide}
-                          hideProgressBar
-                          newestOnTop
-                          position={toast.POSITION.TOP_LEFT}
-                        />
-                        <Switch>
-                          <Route exact path="/dashboard" component={Dashboard} />
-                          <Route exact path="/vote" component={Vote} />
-                          <Route exact path="/xvs" component={XVS} />
-                          <Route exact path="/market" component={Market} />
-                          <Route exact path="/transaction" component={Transaction} />
-                          <Route exact path="/vault" component={Vault} />
-                          <Route exact path="/market/:asset" component={MarketDetail} />
-                          <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
-                          <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                          <Route exact path="/vote/address/:address" component={ProposerDetail} />
-                          {process.env.REACT_APP_CHAIN_ID === '97' && (
-                            <Route exact path="/convert-vrt" component={VrtConversion} />
-                          )}
-                          {process.env.REACT_APP_CHAIN_ID === '97' && (
-                            <Route exact path="/faucet" component={Faucet} />
-                          )}
-                          <Redirect from="/" to="/dashboard" />
-                        </Switch>
-                      </BrowserRouter>
-                    </MuiThemeProvider>
-                  </MarketContextProvider>
-                </VaiContextProvider>
-              </RefreshContextProvider>
-            </Provider>
-          </QueryClientProvider>
+          <Web3Wrapper>
+            <QueryClientProvider client={queryClient}>
+              <Provider store={store}>
+                <RefreshContextProvider>
+                  <VaiContextProvider>
+                    <MarketContextProvider>
+                      <MuiThemeProvider>
+                        <BrowserRouter>
+                          <ToastContainer
+                            autoClose={8000}
+                            transition={Slide}
+                            hideProgressBar
+                            newestOnTop
+                            position={toast.POSITION.TOP_LEFT}
+                          />
+                          <Switch>
+                            <Route exact path="/dashboard" component={Dashboard} />
+                            <Route exact path="/vote" component={Vote} />
+                            <Route exact path="/xvs" component={XVS} />
+                            <Route exact path="/market" component={Market} />
+                            <Route exact path="/transaction" component={Transaction} />
+                            <Route exact path="/vault" component={Vault} />
+                            <Route exact path="/market/:asset" component={MarketDetail} />
+                            <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
+                            <Route exact path="/vote/proposal/:id" component={VoteOverview} />
+                            <Route exact path="/vote/address/:address" component={ProposerDetail} />
+                            {process.env.REACT_APP_CHAIN_ID === '97' && (
+                              <Route exact path="/convert-vrt" component={VrtConversion} />
+                            )}
+                            {process.env.REACT_APP_CHAIN_ID === '97' && (
+                              <Route exact path="/faucet" component={Faucet} />
+                            )}
+                            <Redirect from="/" to="/dashboard" />
+                          </Switch>
+                        </BrowserRouter>
+                      </MuiThemeProvider>
+                    </MarketContextProvider>
+                  </VaiContextProvider>
+                </RefreshContextProvider>
+              </Provider>
+            </QueryClientProvider>
+          </Web3Wrapper>
         </IntlProvider>
       </Theme>
     );
