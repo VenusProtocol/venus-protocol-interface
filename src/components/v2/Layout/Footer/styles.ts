@@ -7,33 +7,39 @@ export const useStyles = () => {
   return {
     container: css`
       height: 56px;
-      padding: 0 ${theme.spacing(2)};
+      padding: 0 ${theme.spacing(3)};
       background-color: var(--color-bg-main);
       display: flex;
       justify-content: flex-end;
       align-items: center;
 
       ${theme.breakpoints.down('md')} {
-        height: auto;
-        padding: ${theme.spacing(3)} ${theme.spacing(2)};
-        flex-direction: column;
+        justify-content: space-between;
       }
     `,
-    status: css`
-      display: flex;
-      align-items: center;
+    blockInfo: css`
+      ${theme.breakpoints.down('md')} {
+        flex: 1;
+      }
+    `,
+    blockInfoMobileLineBreak: css`
+      display: none;
 
       ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(2)};
+        display: block;
       }
     `,
-    statusBlockNumber: css`
+    blockInfoNumber: css`
       color: ${theme.palette.text.primary};
     `,
     links: css`
       color: ${theme.palette.text.primary};
       display: flex;
       margin-left: ${theme.spacing(1)};
+
+      ${theme.breakpoints.down('md')} {
+        margin-left: 0;
+      }
     `,
     link: css`
       background-color: ${theme.palette.secondary.light};
