@@ -9,6 +9,7 @@ export const styles = ({ fullWidth }: { fullWidth: boolean }) => {
     font-size: ${theme.typography.body1.fontSize};
     color: ${theme.palette.text.primary};
     text-transform: none;
+
     ${fullWidth ? 'width: 100%;' : ''}
     :active {
       background-color: ${theme.palette.button.light};
