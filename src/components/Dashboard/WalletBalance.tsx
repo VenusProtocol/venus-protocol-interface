@@ -5,7 +5,7 @@ import CircleProgressBar from 'components/Basic/CircleProgressBar';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import AnimatedNumber from 'animated-number-react';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { accountActionCreators } from 'core/modules/account/actions';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
@@ -95,7 +95,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
 
   const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
   const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const vaultContract = useVaiVault();
 
   let isMounted = true;

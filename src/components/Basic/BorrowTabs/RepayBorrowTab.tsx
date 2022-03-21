@@ -3,7 +3,6 @@ import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
 import { sendRepay } from 'utilities/BnbContract';
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -15,10 +14,10 @@ import { getBigNumber, formatApy } from 'utilities/common';
 import { isAssetDisabled } from 'utilities';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
+import { useWeb3, useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useToken, useVbep } from '../../../hooks/useContract';
-import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -40,7 +39,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const tokenContract = useToken(asset.id);
