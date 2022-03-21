@@ -1,3 +1,5 @@
+import sample from 'lodash/sample';
+
 const BASE_BSC_SCAN_URLS = {
   56: 'https://bscscan.com',
   97: 'https://testnet.bscscan.com',
@@ -7,6 +9,23 @@ const API_ENDPOINT_URLS = {
   56: 'https://api.venus.io/api',
   97: 'https://testnetapi.venus.io/api',
 };
+
+export const RPC_URLS: {
+  [key: string]: string[];
+} = {
+  56: [
+    'https://bsc-dataseed1.ninicoin.io',
+    'https://bsc-dataseed1.defibit.io',
+    'https://bsc-dataseed.binance.org',
+  ],
+  97: [
+    'https://data-seed-prebsc-1-s1.binance.org:8545',
+    'https://data-seed-prebsc-2-s1.binance.org:8545',
+    'https://data-seed-prebsc-1-s2.binance.org:8545',
+  ],
+};
+
+export const RPC_URL = sample(RPC_URLS[process.env.REACT_APP_CHAIN_ID || '96']) as string;
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
 // probably fetch the treasury address using the Comptroller contract
