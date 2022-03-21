@@ -20,5 +20,4 @@ export { ReactComponent as discord } from './discord.svg';
 export { ReactComponent as twitter } from './twitter.svg';
 export { ReactComponent as github } from './github.svg';
 export { ReactComponent as venus } from './venus.svg';
-export { ReactComponent as attention } from './attention.svg';
-export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
+export { ReactComponent as convert } from './convert.svg';
