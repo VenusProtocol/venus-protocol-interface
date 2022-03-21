@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import commaNumber from 'comma-number';
 import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';
@@ -17,7 +17,7 @@ function MintTab() {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userVaiBalance, mintableVai } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const vaiControllerContract = useVaiUnitroller();

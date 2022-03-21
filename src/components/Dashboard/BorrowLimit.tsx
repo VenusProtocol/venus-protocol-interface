@@ -4,7 +4,7 @@ import LineProgressBar from 'components/Basic/LineProgressBar';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import { Card } from 'components/Basic/Card';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
@@ -31,7 +31,7 @@ const format = commaNumber.bindWith(',', '.');
 function BorrowLimit() {
   const [available, setAvailable] = useState('0');
   const [borrowPercent, setBorrowPercent] = useState(0);
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
 
   useEffect(() => {

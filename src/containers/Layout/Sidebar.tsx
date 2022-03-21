@@ -4,7 +4,7 @@ import { NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { accountActionCreators } from 'core/modules/account/actions';
 import ConnectButton from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
@@ -284,7 +284,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   const vaiTokenContract = useVaiToken();
 
   const defaultPath = history.location.pathname.split('/')[1];
-  const { account, chainId } = useWeb3React();
+  const { account, chainId } = useWeb3Account();
 
   useEffect(() => {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {

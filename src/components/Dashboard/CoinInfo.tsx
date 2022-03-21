@@ -7,7 +7,7 @@ import * as constants from 'utilities/constants';
 import { addToken } from 'utilities/common';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
@@ -58,7 +58,7 @@ const CardWrapper = styled.div`
 const format = commaNumber.bindWith(',', '.');
 
 function CoinInfo() {
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userXVSBalance } = useMarketsUser();
 
   const handleLink = () => {

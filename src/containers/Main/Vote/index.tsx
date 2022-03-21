@@ -10,11 +10,10 @@ import VotingPower from 'components/Vote/VotingPower';
 import Proposals from 'components/Vote/Proposals';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
-import { useWeb3React } from '@web3-react/core';
 import useRefresh from 'hooks/useRefresh';
 import { CONTRACT_XVS_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from 'utilities/constants';
 import { useComptroller, useToken, useVaiUnitroller, useXvsVaultProxy } from 'hooks/useContract';
-import useWeb3 from 'hooks/useWeb3';
+import { useWeb3, useWeb3Account } from 'clients/web3';
 import { getVbepContract } from 'utilities/contractHelpers';
 import { State } from 'core/modules/initialState';
 
@@ -37,7 +36,7 @@ function Vote({ getProposals }: VoteProps) {
   const [delegateAddress, setDelegateAddress] = useState('');
   const [delegateStatus, setDelegateStatus] = useState('');
   const [stakedAmount, setStakedAmount] = useState('');
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
   const xvsTokenContract = useToken('xvs');
   const comptrollerContract = useComptroller();

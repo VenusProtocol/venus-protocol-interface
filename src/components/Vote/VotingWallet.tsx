@@ -5,7 +5,7 @@ import commaNumber from 'comma-number';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/venus_32.png';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 import { BASE_BSC_SCAN_URL } from '../../config';
@@ -105,7 +105,7 @@ function VotingWallet({
 }: VotingWalletProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userMarketInfo } = useMarketsUser();
   const comptrollerContract = useComptroller();
   const venusLensContract = useVenusLens();
