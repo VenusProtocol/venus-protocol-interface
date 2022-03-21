@@ -1,5 +1,4 @@
-import { BASE_BSC_SCAN_URL } from 'config';
-import { nodes } from '../getRpcUrl';
+import { BASE_BSC_SCAN_URL, RPC_URLS } from 'config';
 
 // Prompt the user to add BSC as a network, or switch to BSC if the wallet is on
 // a different network
@@ -31,8 +30,7 @@ const setUpNetwork = async () => {
             symbol: 'bnb',
             decimals: 18,
           },
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          rpcUrls: nodes[chainId],
+          rpcUrls: RPC_URLS[chainId],
           blockExplorerUrls: [`${BASE_BSC_SCAN_URL}/`],
         },
       ],
