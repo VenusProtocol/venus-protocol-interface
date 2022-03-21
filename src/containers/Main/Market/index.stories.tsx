@@ -1,17 +1,11 @@
 import { ComponentMeta } from '@storybook/react';
-import {
-  withRouter,
-  withProvider,
-  withWeb3Provider,
-  withMarketContext,
-  withVaiContext,
-} from 'stories/decorators';
+import { withRouter, withProvider } from 'stories/decorators';
 import Market from '.';
 
 export default {
   title: 'Pages/Market',
   component: Market,
-  decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
+  decorators: [withRouter, withProvider],
 } as ComponentMeta<typeof Market>;
 
 export { Market };
