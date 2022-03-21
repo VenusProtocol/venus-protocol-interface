@@ -11,8 +11,9 @@ const setUpNetwork = async () => {
   }
 
   if (!process.env.REACT_APP_CHAIN_ID) {
-    console.error('Missing environment variable: REACT_APP_CHAIN_ID');
+    // TODO: send error to Sentry
 
+    console.error('Missing environment variable: REACT_APP_CHAIN_ID');
     return false;
   }
 
