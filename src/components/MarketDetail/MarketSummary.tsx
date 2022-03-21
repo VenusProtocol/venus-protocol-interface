@@ -6,7 +6,7 @@ import commaNumber from 'comma-number';
 import { connectAccount } from 'core';
 import { State } from 'core/modules/initialState';
 import * as constants from 'utilities/constants';
-import { vtokenDecimals } from '../../config';
+import { VTOKEN_DECIMALS } from 'config';
 
 const MarketSummaryWrapper = styled.div`
   .label {
@@ -170,7 +170,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
                     18 +
                       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                       constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals -
-                      vtokenDecimals,
+                      VTOKEN_DECIMALS,
                   ),
                 ),
               )
