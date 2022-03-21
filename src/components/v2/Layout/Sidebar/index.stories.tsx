@@ -9,4 +9,8 @@ export default {
   decorators: [withRouter, withProvider],
 } as ComponentMeta<typeof Sidebar>;
 
-export const SidebarDefault = () => <Sidebar />;
+export const SidebarDefault = () => (
+  <div style={{ height: '100vh' }}>
+    <Sidebar />
+  </div>
+);
