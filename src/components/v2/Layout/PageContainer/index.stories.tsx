@@ -1,26 +1,12 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import {
-  withRouter,
-  withProvider,
-  withWeb3Provider,
-  withMarketContext,
-  withVaiContext,
-  withThemeProvider,
-} from 'stories/decorators';
+import { withRouter, withProvider } from 'stories/decorators';
 import { PageContainer } from '.';
 
 export default {
   title: 'Components/Layout/PageContainer',
   component: PageContainer,
-  decorators: [
-    withRouter,
-    withProvider,
-    withWeb3Provider,
-    withMarketContext,
-    withVaiContext,
-    withThemeProvider,
-  ],
+  decorators: [withRouter, withProvider],
 } as ComponentMeta<typeof PageContainer>;
 
 export const PageContainerDefault = () => (
