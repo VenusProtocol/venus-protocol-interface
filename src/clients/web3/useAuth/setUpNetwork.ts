@@ -1,4 +1,4 @@
-import { BASE_BSC_SCAN_URL, RPC_URLS } from 'config';
+import { BASE_BSC_SCAN_URL, CHAIN_ID, BscChainId, RPC_URLS } from 'config';
 
 // Prompt the user to add BSC as a network, or switch to BSC if the wallet is on
 // a different network
@@ -16,21 +16,22 @@ const setUpNetwork = async () => {
     return false;
   }
 
-  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10);
-
   try {
     await window.ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [
         {
-          chainId: `0x${chainId.toString(16)}`,
-          chainName: chainId === 56 ? 'Binance Smart Chain Mainnet' : 'Binance Smart Chain Testnet',
+          chainId: `0x${CHAIN_ID.toString(16)}`,
+          chainName:
+            CHAIN_ID === BscChainId.MAINNET
+              ? 'Binance Smart Chain Mainnet'
+              : 'Binance Smart Chain Testnet',
           nativeCurrency: {
             name: 'BNB',
             symbol: 'bnb',
             decimals: 18,
           },
-          rpcUrls: RPC_URLS[chainId],
+          rpcUrls: RPC_URLS[CHAIN_ID],
           blockExplorerUrls: [`${BASE_BSC_SCAN_URL}/`],
         },
       ],
