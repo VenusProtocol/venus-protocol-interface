@@ -69,9 +69,7 @@ export const addToken = async ({
   }
 
   try {
-    // wasAdded is a boolean. Like any RPC method, an error may be thrown.
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
-    const wasAdded = await window.ethereum.request({
+    await window.ethereum?.request({
       method: 'wallet_watchAsset',
       params: {
         type: 'ERC20', // Initially only supports ERC20, but eventually more!
@@ -83,15 +81,9 @@ export const addToken = async ({
         },
       },
     });
-
-    if (wasAdded) {
-      // eslint-disable-next-line no-console
-      console.log('Thanks for your interest!');
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('Your loss!');
-    }
   } catch (error) {
+    // TODO: send error to Sentry
+
     // eslint-disable-next-line no-console
     console.log(error);
   }
