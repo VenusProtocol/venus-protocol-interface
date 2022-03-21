@@ -74,7 +74,6 @@ function CoinInfo() {
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
           <p>{format(userXVSBalance.dp(2, 1).toString(10))} XVS</p>
-          {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message */}
           {window.ethereum && (
             <Icon
               className="add-xvs-token"

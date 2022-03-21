@@ -10,9 +10,9 @@ import {
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
 import toast from 'components/Basic/Toast';
-import { LS_KEY_IS_USER_LOGGED_IN } from '../../config';
-import { connectorsByName, ConnectorNames } from '../../utilities/connectors';
-import { setupNetwork } from '../../utilities/wallet';
+import { LS_KEY_IS_USER_LOGGED_IN } from '../../../config';
+import { connectorsByName, ConnectorNames } from '../../../utilities/connectors';
+import setupNetwork from './setUpNetwork';
 
 export default function useAuth() {
   const { activate, deactivate } = useWeb3React();

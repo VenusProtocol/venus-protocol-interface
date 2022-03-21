@@ -268,7 +268,6 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
               </Select>
               <div className="value">Overview</div>
             </AssetSelectWrapper>
-            {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message */}
             {window.ethereum && window.ethereum.networkVersion && (
               <div className="flex align-center add-token-wrapper">
                 {currentAsset && currentAsset !== 'bnb' && (
