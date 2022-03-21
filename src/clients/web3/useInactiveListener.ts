@@ -3,7 +3,7 @@ import { useWeb3Account } from 'clients/web3';
 
 import { injected } from './connectors';
 
-export default function useInactiveListener(suppress = false) {
+const useInactiveListener = (suppress = false) => {
   const { active, error, activate } = useWeb3Account();
 
   useEffect(() => {
@@ -38,4 +38,6 @@ export default function useInactiveListener(suppress = false) {
     }
     return undefined;
   }, [active, error, suppress, activate]);
-}
+};
+
+export default useInactiveListener;
