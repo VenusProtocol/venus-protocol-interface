@@ -15,7 +15,7 @@ import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
 
-export default function useAuth() {
+const useAuth = () => {
   const { activate, deactivate } = useWeb3React();
 
   const login = useCallback(
@@ -94,4 +94,6 @@ export default function useAuth() {
   }, [deactivate]);
 
   return { login, logout };
-}
+};
+
+export default useAuth;
