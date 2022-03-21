@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 
-import { useEagerConnect, useInactiveListener } from 'hooks/wallet';
+import useEagerConnect from '../useEagerConnect';
+import useInactiveListener from '../useInactiveListener';
 
 const Web3ReactManager: React.FC = ({ children }) => {
-  const context = useWeb3React();
+  const context = useWeb3Account();
   const {
     connector,
     chainId,

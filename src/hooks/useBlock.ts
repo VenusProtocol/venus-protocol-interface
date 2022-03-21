@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+
+import { useWeb3 } from 'clients/web3';
 import useRefresh from './useRefresh';
-import useWeb3 from './useWeb3';
 
 export const useBlock = () => {
   const [blockNumber, setBlockNumber] = useState(0);

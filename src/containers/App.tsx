@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import en from 'react-intl/locale-data/en';
 
 import { queryClient } from 'clients/api';
+import { Web3Wrapper } from 'clients/web3';
 import enMessages from 'lang/en.json';
 import { store } from 'core';
 import Dashboard from 'containers/Main/Dashboard';
@@ -23,7 +24,6 @@ import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import VrtConversion from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from './Theme';
-import Web3Wrapper from './Web3Wrapper';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import useWeb3 from './useWeb3';
+import { useWeb3 } from 'clients/web3';
 
 export default () => {
   const web3 = useWeb3();

@@ -1,5 +1,5 @@
 import { BASE_BSC_SCAN_URL } from 'config';
-import { nodes } from '../../../utilities/getRpcUrl';
+import { nodes } from '../getRpcUrl';
 
 // Prompt the user to add BSC as a network, or switch to BSC if the wallet is on
 // a different network
@@ -7,9 +7,7 @@ const setUpNetwork = async () => {
   if (!window.ethereum) {
     // TODO: send error to Sentry
 
-    console.error(
-      "Can't set up the BSC network on browser wallet because window.ethereum is undefined",
-    );
+    console.error("Can't set up the BSC network on wallet because window.ethereum is undefined");
     return false;
   }
 
@@ -44,7 +42,7 @@ const setUpNetwork = async () => {
   } catch (error) {
     // TODO: send error to Sentry
 
-    console.error('Failed to set up network on browser wallet:', error);
+    console.error('Failed to set up network on wallet:', error);
     return false;
   }
 };

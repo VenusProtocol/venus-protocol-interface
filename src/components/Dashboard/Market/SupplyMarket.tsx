@@ -12,7 +12,7 @@ import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import { formatApy } from 'utilities/common';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useComptroller } from '../../../hooks/useContract';
@@ -38,7 +38,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
   const [record, setRecord] = useState({} as Asset);
   const [isCollateralEnalbe, setIsCollateralEnable] = useState(true);
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const comptrollerContract = useComptroller();
 
   const handleToggleCollateral = async (r: $TSFixMe) => {

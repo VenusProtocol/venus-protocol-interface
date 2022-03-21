@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Progress } from 'antd';
 import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import { Asset, Setting } from 'types';
@@ -36,7 +36,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
   const [safeMaxBalance, setSafeMaxBalance] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const comptrollerContract = useComptroller();
   const vbepContract = useVbep(asset.id);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();

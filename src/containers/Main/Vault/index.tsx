@@ -4,10 +4,8 @@ import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import MainLayout from 'containers/Layout/MainLayout';
 import { connectAccount } from 'core';
-import { useWeb3React } from '@web3-react/core';
-import { uid } from 'react-uid';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import useWeb3 from 'hooks/useWeb3';
+import { useWeb3, useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
 import { useXvsVaultProxy } from 'hooks/useContract';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
@@ -47,7 +45,7 @@ function Vault() {
   const [poolInfos, setPoolInfos] = useState<IPool[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const web3 = useWeb3();
   const { fastRefresh } = useRefresh();
   const xvsVaultContract = useXvsVaultProxy();

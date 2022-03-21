@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+
 import getNodeUrl from './getRpcUrl';
 
 const RPC_URL = getNodeUrl();
@@ -7,12 +8,10 @@ const RPC_URL = getNodeUrl();
 // error on the frontend in testnet when the wallet is unconnected, because the bsc official testnet endpoints
 // don't support CORS request right now, and we didn't find any working testnet endpoints for
 // HTTPProvider or WebSocketProvider neither.
-const getWeb3NoAccount = () => {
+export default function getWeb3NoAccount() {
   const httpProvider = new Web3.providers.HttpProvider(RPC_URL, {
     timeout: 10000,
   });
   const web3NoAccount = new Web3(httpProvider);
   return web3NoAccount;
-};
-
-export { getWeb3NoAccount, Web3 };
+}

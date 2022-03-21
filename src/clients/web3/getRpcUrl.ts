@@ -1,5 +1,6 @@
 import sample from 'lodash/sample';
 
+// TODO: refactor
 const REACT_APP_NODE_1 = 'https://bsc-dataseed1.ninicoin.io';
 const REACT_APP_NODE_2 = 'https://bsc-dataseed1.defibit.io';
 const REACT_APP_NODE_3 = 'https://bsc-dataseed.binance.org';
@@ -17,4 +18,5 @@ export const nodes = {
 const getNodeUrl = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   sample(nodes[process.env.REACT_APP_CHAIN_ID]);
+
 export default getNodeUrl;

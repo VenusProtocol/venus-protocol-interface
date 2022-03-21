@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
 import { useToken, useVrtVaultProxy } from 'hooks/useContract';
 import { getVrtVaultProxyAddress } from 'utilities/addressHelpers';
@@ -18,7 +18,7 @@ const BLOCK_PER_MINUTE = 60 / 3;
 const BLOCK_PER_DAY = BLOCK_PER_MINUTE * 60 * 24;
 
 export default function VaultCard() {
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
 
   const vrtTokenContract = useToken('vrt');
