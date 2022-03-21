@@ -6,7 +6,7 @@ import commaNumber from 'comma-number';
 import coinImg from 'assets/img/coins/vai.svg';
 import { Card } from 'components/Basic/Card';
 import { addToken } from 'utilities/common';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { BASE_BSC_SCAN_URL } from '../../config';
@@ -70,7 +70,7 @@ interface VaiInfoProps {
 }
 
 function VaiInfo({ settings }: VaiInfoProps) {
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
     window.open(`${BASE_BSC_SCAN_URL}/token/${getVaiTokenAddress()}?a=${account}`, '_blank');

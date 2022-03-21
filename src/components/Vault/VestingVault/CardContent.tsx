@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
 import * as constants from 'utilities/constants';
 import { useXvsVaultProxy } from 'hooks/useContract';
 import useRefresh from 'hooks/useRefresh';
-import useWeb3 from 'hooks/useWeb3';
 import { getTokenContractByAddress } from 'utilities/contractHelpers';
+import { useWeb3, useWeb3Account } from 'clients/web3';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import WithdrawCard from './WithdrawCard';
 import LoadingSpinner from '../../Basic/LoadingSpinner';
@@ -47,7 +46,7 @@ function CardContent({
     // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals,
   );
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
   const web3 = useWeb3();
 

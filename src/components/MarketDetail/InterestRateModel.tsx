@@ -15,8 +15,8 @@ import {
 } from 'recharts';
 import { State } from 'core/modules/initialState';
 import * as constants from 'utilities/constants';
+import { useWeb3 } from 'clients/web3';
 import { useMarkets } from '../../hooks/useMarkets';
-import useWeb3 from '../../hooks/useWeb3';
 import { getInterestModelContract, getVbepContract } from '../../utilities/contractHelpers';
 
 const InterestRateModelWrapper = styled.div`

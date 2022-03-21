@@ -11,13 +11,11 @@ import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import { ReactComponent as VenusLogo } from 'assets/img/v2/venusLogoWithText.svg';
-import { useWeb3React } from '@web3-react/core';
 import { PrimaryButton } from 'components';
 import toast from 'components/Basic/Toast';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useAuth } from 'hooks/wallet';
+import { useAuth, Connector, useWeb3Account } from 'clients/web3';
 import { BASE_BSC_SCAN_URL } from 'config';
-import { ConnectorNames } from 'utilities/connectors';
 
 const ConnectButtonWrapper = styled.div`
   display: flex;
@@ -211,7 +209,7 @@ const ModalContent = styled.div`
 
 function ConnectButton() {
   const { login, logout } = useAuth();
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const [showConnect, setShowConnect] = useState(false);
 
   const onClose = () => {
@@ -286,7 +284,7 @@ function ConnectButton() {
 
                 <div
                   className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.MetaMask)}
+                  onClick={() => onConnect(Connector.MetaMask)}
                 >
                   <div className="flex align-center">
                     <img src={metamaskImg} alt="metamask" />
@@ -310,7 +308,7 @@ function ConnectButton() {
 
                 <div
                   className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.MetaMask)}
+                  onClick={() => onConnect(Connector.MetaMask)}
                 >
                   <div className="flex align-center">
                     <img src={trustwalletImg} alt="trustwallet" />
@@ -318,23 +316,19 @@ function ConnectButton() {
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
-
-                {process.env.REACT_APP_CHAIN_ID === '56' && (
-                  <div
-                    className="flex align-center just-between metamask-connect-btn"
-                    onClick={() => onConnect(ConnectorNames.WalletConnect)}
-                  >
-                    <div className="flex align-center">
-                      <img src={walletconnectImg} alt="coinbase wallet" />
-                      <span>WalletConnect</span>
-                    </div>
-                    <img src={arrowRightImg} alt="arrow" />
+                <div
+                  className="flex align-center just-between metamask-connect-btn"
+                  onClick={() => onConnect(Connector.WalletConnect)}
+                >
+                  <div className="flex align-center">
+                    <img src={walletconnectImg} alt="coinbase wallet" />
+                    <span>WalletConnect</span>
                   </div>
                 )}
 
                 <div
                   className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.BSC)}
+                  onClick={() => onConnect(Connector.BSC)}
                 >
                   <div className="flex align-center">
                     <img src={binanceImg} alt="binance" />

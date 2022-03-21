@@ -3,13 +3,13 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { BscConnector } from '@binance-chain/bsc-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
+
+import { Connector } from './types';
 import getNodeUrl from './getRpcUrl';
 
 const POLLING_INTERVAL = 12000;
 const rpcUrl = getNodeUrl();
-const chainId = parseInt(process.env.REACT_APP_CHAIN_ID || '97', 10);
-
-export const injected = new InjectedConnector({ supportedChainIds: [chainId] });
+const chainId = parseInt(process.env.REACT_APP_CHAIN_ID || '', 10);
 
 const walletconnect = new WalletConnectConnector({
   rpc: { 56: rpcUrl },
@@ -26,25 +26,11 @@ const ledger = new LedgerConnector({
   pollingInterval: POLLING_INTERVAL,
 });
 
-const coinbaseWallet = new WalletLinkConnector({
-  url: rpcUrl,
-  appName: 'Venus',
-});
-
-export enum ConnectorNames {
-  MetaMask = 'MetaMask',
-  WalletConnect = 'WalletConnect',
-  BSC = 'BSC',
-  Ledger = 'Ledger',
-  CoinbaseWallet = 'CoinbaseWallet',
-}
+export const injected = new InjectedConnector({ supportedChainIds: [chainId] });
 
 export const connectorsByName = {
-  [ConnectorNames.MetaMask]: injected,
-  [ConnectorNames.WalletConnect]: walletconnect,
-  [ConnectorNames.BSC]: bscConnector,
-  [ConnectorNames.Ledger]: ledger,
-  [ConnectorNames.CoinbaseWallet]: coinbaseWallet,
+  [Connector.MetaMask]: injected,
+  [Connector.WalletConnect]: walletconnect,
+  [Connector.BSC]: bscConnector,
+  [Connector.Ledger]: ledger,
 };
-
-export const getLibrary = (provider: $TSFixMe) => provider;

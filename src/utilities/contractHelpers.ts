@@ -1,4 +1,6 @@
-import { getWeb3NoAccount, Web3 } from './web3';
+import Web3 from 'web3';
+
+import { getWeb3NoAccount } from 'clients/web3';
 import bep20Abi from '../config/abis/bep20.json';
 import comptrollerAbi from '../config/abis/comptroller.json';
 import interestModelAbi from '../config/abis/interestModel.json';
