@@ -1,17 +1,11 @@
 import { ComponentMeta } from '@storybook/react';
-import {
-  withRouter,
-  withProvider,
-  withWeb3Provider,
-  withMarketContext,
-  withVaiContext,
-} from 'stories/decorators';
+import { withRouter, withProvider } from 'stories/decorators';
 import Transaction from '.';
 
 export default {
   title: 'Pages/Transaction',
   component: Transaction,
-  decorators: [withRouter, withProvider, withWeb3Provider, withMarketContext, withVaiContext],
+  decorators: [withRouter, withProvider],
 } as ComponentMeta<typeof Transaction>;
 
 export { Transaction };

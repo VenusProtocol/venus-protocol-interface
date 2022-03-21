@@ -1,26 +1,12 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import {
-  withRouter,
-  withProvider,
-  withWeb3Provider,
-  withMarketContext,
-  withVaiContext,
-  withThemeProvider,
-} from 'stories/decorators';
+import { withRouter, withProvider } from 'stories/decorators';
 import { Sidebar } from '.';
 
 export default {
   title: 'Components/Layout/Sidebar',
   component: Sidebar,
-  decorators: [
-    withRouter,
-    withProvider,
-    withWeb3Provider,
-    withMarketContext,
-    withVaiContext,
-    withThemeProvider,
-  ],
+  decorators: [withRouter, withProvider],
 } as ComponentMeta<typeof Sidebar>;
 
 export const SidebarDefault = () => <Sidebar />;
