@@ -68,6 +68,8 @@ export default {
       aave: '0xfb6115445Bff7b52FeB98650C87f44907E58f802',
       tusd: '0x14016e85a25aeb13065688cafb43044c2ef86784',
       trx: '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B',
+      ust: '0x3d4350cD54aeF9f9b2C29435e0fa809957B3F30a',
+      luna: '0x156ab3346823B651294766e23e6Cf87254d68962',
       vai: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
       vrt: '',
     },
@@ -95,6 +97,8 @@ export default {
       aave: '0x26DA28954763B92139ED49283625ceCAf52C6f94',
       tusd: '0x08ceb3f4a7ed3500ca0982bcd0fc7816688084c3',
       trx: '0x61eDcFe8Dd6bA3c891CB9bEc2dc7657B3B422E93',
+      ust: '0x78366446547D062f45b4C0f320cDaa6d710D87bb',
+      luna: '0xb91A659E88B51474767CD97EF3196A3e7cEDD2c8',
     },
   },
 };

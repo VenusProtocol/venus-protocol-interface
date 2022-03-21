@@ -644,4 +644,20 @@ export const CONTRACT_VBEP_ADDRESS =
           symbol: 'vTRX',
           address: contracts.MAIN.VBEP.trx,
         },
+        ust: {
+          id: 'ust',
+          symbol: 'UST',
+          decimals: 6,
+          address: contracts.MAIN.TOKEN.ust,
+          asset: ust,
+          vasset: vust,
+        },
+        luna: {
+          id: 'luna',
+          symbol: 'LUNA',
+          decimals: 6,
+          address: contracts.MAIN.TOKEN.luna,
+          asset: luna,
+          vasset: vluna,
+        },
       };
