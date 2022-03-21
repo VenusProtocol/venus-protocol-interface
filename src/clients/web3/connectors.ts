@@ -3,15 +3,14 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { BscConnector } from '@binance-chain/bsc-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
 
+import { RPC_URL } from 'config';
 import { Connector } from './types';
-import getNodeUrl from './getRpcUrl';
 
 const POLLING_INTERVAL = 12000;
-const rpcUrl = getNodeUrl();
 const chainId = parseInt(process.env.REACT_APP_CHAIN_ID || '', 10);
 
 const walletconnect = new WalletConnectConnector({
-  rpc: { [chainId]: rpcUrl },
+  rpc: { [chainId]: RPC_URL },
   qrcode: true,
   // pollingInterval: POLLING_INTERVAL,
 });
@@ -20,7 +19,7 @@ const bscConnector = new BscConnector({ supportedChainIds: [chainId] });
 
 const ledger = new LedgerConnector({
   chainId,
-  url: rpcUrl,
+  url: RPC_URL,
   pollingInterval: POLLING_INTERVAL,
 });
 
