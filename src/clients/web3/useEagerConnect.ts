@@ -4,7 +4,7 @@ import { useWeb3Account } from 'clients/web3';
 import { LS_KEY_IS_USER_LOGGED_IN } from 'config';
 import { injected } from './connectors';
 
-export default function useEagerConnect() {
+const useEagerConnect = () => {
   const { activate, active } = useWeb3Account();
   // Only try to connect if we are not running the storybook
   const [tried, setTried] = useState(!process.env.STORYBOOK);
@@ -45,4 +45,6 @@ export default function useEagerConnect() {
   }, [tried, active]);
 
   return tried;
-}
+};
+
+export default useEagerConnect;
