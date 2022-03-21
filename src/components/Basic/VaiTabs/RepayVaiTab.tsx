@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { getVaiUnitrollerAddress } from '../../../utilities/addressHelpers';
 import { useVaiToken, useVaiUnitroller } from '../../../hooks/useContract';
@@ -15,7 +15,7 @@ const format = commaNumber.bindWith(',', '.');
 function RepayVaiTab() {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userVaiMinted, userVaiBalance, userVaiEnabled } = useVaiUser();
   const vaiContract = useVaiToken();
   const vaiControllerContract = useVaiUnitroller();

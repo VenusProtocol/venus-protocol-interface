@@ -10,7 +10,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
 import { PrimaryButton } from 'components';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { Proposal as ProposalObject } from 'types';
 import { useToken, useGovernorBravo } from '../../hooks/useContract';
 
@@ -135,7 +135,7 @@ function Proposals({
 
   const [notProposable, setNotProposable] = useState(false);
 
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const tokenContract = useToken('xvs');
   const governorBravoContract = useGovernorBravo();
 

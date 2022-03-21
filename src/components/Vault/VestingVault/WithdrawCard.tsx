@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import NumberFormat from 'react-number-format';
 import * as constants from 'utilities/constants';
 import { useXvsVaultProxy } from 'hooks/useContract';
@@ -87,7 +87,7 @@ function WithdrawCard({
     constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
   );
 
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const xvsVaultContract = useXvsVaultProxy();
 
   const [historyModalVisible, setHistoryModalVisible] = useState(false);

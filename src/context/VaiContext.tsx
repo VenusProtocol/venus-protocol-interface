@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import BigNumber from 'bignumber.js';
 import useRefresh from '../hooks/useRefresh';
 import { useComptroller, useVaiToken, useVaiUnitroller } from '../hooks/useContract';
@@ -25,7 +25,7 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
   const comptrollerContract = useComptroller();
   const vaiControllerContract = useVaiUnitroller();
   const vaiContract = useVaiToken();
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
 
   useEffect(() => {
     let isMounted = true;

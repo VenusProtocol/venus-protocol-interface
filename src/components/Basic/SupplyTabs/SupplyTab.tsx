@@ -4,7 +4,7 @@ import { Progress } from 'antd';
 import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3, useWeb3Account } from 'clients/web3';
 import commaNumber from 'comma-number';
 import { sendSupply } from 'utilities/BnbContract';
 import coinImg from 'assets/img/coins/xvs.svg';
@@ -16,7 +16,6 @@ import { Asset, Setting } from 'types';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
-import useWeb3 from '../../../hooks/useWeb3';
 
 const format = commaNumber.bindWith(',', '.');
 
@@ -35,7 +34,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowLimit, setNewBorrowLimit] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const vbepContract = useVbep(asset.id);
   const tokenContract = useToken(asset.id);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();

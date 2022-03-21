@@ -11,7 +11,7 @@ import OverviewChart from 'components/Basic/OverviewChart';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
@@ -113,7 +113,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { markets } = useMarkets();
 
   useEffect(() => {
