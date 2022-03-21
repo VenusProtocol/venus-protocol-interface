@@ -1,78 +1,46 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
-import { uid } from 'react-uid';
 import Typography from '@mui/material/Typography';
-import { ReactComponent as XVSIcon } from 'assets/img/xvs.svg';
-import { ReactComponent as Logo } from 'assets/img/logo.svg';
+import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
+import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoPure.svg';
+import { TextButton } from '../../Button';
 import { Toolbar } from '../Toolbar';
+import { Icon } from '../../Icon';
 import { useStyles } from './styles';
-
-const menuItems = [
-  {
-    href: '/dashboard',
-    text: 'Dashboard',
-    icon: <XVSIcon width={20} height={20} />,
-  },
-  {
-    href: '/vote',
-    text: 'Vote',
-    icon: <XVSIcon width={20} height={20} />,
-  },
-  {
-    href: '/xvs',
-    text: 'XVS',
-    icon: <XVSIcon width={20} height={20} />,
-  },
-  {
-    href: '/market',
-    text: 'Market',
-    icon: <XVSIcon width={20} height={20} />,
-  },
-  {
-    href: '/vault',
-    text: 'Vault',
-    icon: <XVSIcon width={20} height={20} />,
-  },
-  {
-    href: '/transaction',
-    text: 'Transaction history',
-    icon: <XVSIcon width={20} height={20} />,
-  },
-  {
-    href: '/dev',
-    text: 'Dev',
-    icon: <XVSIcon width={20} height={20} />,
-  },
-];
+import { menuItems } from '../constants';
 
 export const Sidebar = () => {
-  const styles = useStyles();
+  const [expanded, setExpanded] = useState(true);
+  const styles = useStyles({ expanded });
   return (
-    <Drawer css={styles.drawer} variant="permanent" anchor="left">
+    <Drawer variant="permanent" anchor="left" css={styles.drawer}>
       <Toolbar css={styles.toolbar}>
-        <NavLink to="/">
-          <Logo />
-        </NavLink>
+        <TextButton onClick={() => setExpanded(!expanded)}>
+          <LogoDesktop css={styles.logo} />
+          <LogoMobile css={styles.logoMobile} />
+        </TextButton>
       </Toolbar>
 
       <List css={styles.list}>
         {menuItems.map(({ href, icon, text }) => (
-          <ListItem
-            key={uid(text)}
-            button
-            component={NavLink}
-            to={href}
-            activeStyle={styles.activeMenuItem}
-            css={styles.listItem}
-          >
-            <ListItemIcon css={styles.listItemIcon}>{icon}</ListItemIcon>
-            <Typography variant="caption">{text}</Typography>
-          </ListItem>
+          <ListItemButton key={text} component="li" css={styles.listItem} disableRipple>
+            <NavLink to={href} activeClassName="active-menu-item">
+              <ListItemIcon css={styles.listItemIcon}>
+                <Icon name={icon} />
+              </ListItemIcon>
+              {expanded ? (
+                <Typography variant="body2" css={styles.listItemText}>
+                  {text}
+                </Typography>
+              ) : null}
+              <div className="left-border" />
+            </NavLink>
+          </ListItemButton>
         ))}
       </List>
     </Drawer>
