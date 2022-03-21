@@ -15,7 +15,7 @@ import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { vtokenDecimals } from '../../config';
+import { VTOKEN_DECIMALS } from '../../config';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -297,7 +297,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                     onClick={() =>
                       addToken({
                         asset: currentAsset,
-                        decimal: vtokenDecimals,
+                        decimal: VTOKEN_DECIMALS,
                         type: 'vtoken',
                       })
                     }
@@ -309,7 +309,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
           </div>
           {/* <p className="value">{`$${
               (settings.marketType || 'supply') === 'supply'
-                ? new BigNumber(marketInfo.totalSupply || 0).div(new BigNumber(10).pow(vtokenDecimals)).dp(2, 1).toString(10)
+                ? new BigNumber(marketInfo.totalSupply || 0).div(new BigNumber(10).pow(VTOKEN_DECIMALS)).dp(2, 1).toString(10)
                 : new BigNumber(marketInfo.totalBorrows || 0).div(new BigNumber(10).pow(decimals)).dp(2, 1).toString(10)
             }`}
           </p> */}
@@ -423,7 +423,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                 .div(
                   // @ts-expect-error ts-migrate(2339) FIXME: Property 'exchangeRate' does not exist on type '{}... Remove this comment to see the full error message
                   new BigNumber(marketInfo.exchangeRate).div(
-                    new BigNumber(10).pow(18 + decimals - vtokenDecimals),
+                    new BigNumber(10).pow(18 + decimals - VTOKEN_DECIMALS),
                   ),
                 )
                 .toString(10),

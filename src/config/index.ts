@@ -1,31 +1,48 @@
 import sample from 'lodash/sample';
 
+export enum BscChainId {
+  'MAINNET' = 56,
+  'TESTNET' = 97,
+}
+
+export const CHAIN_ID: BscChainId = process.env.REACT_APP_CHAIN_ID
+  ? parseInt(process.env.REACT_APP_CHAIN_ID, 10)
+  : BscChainId.MAINNET;
+
 const BASE_BSC_SCAN_URLS = {
-  56: 'https://bscscan.com',
-  97: 'https://testnet.bscscan.com',
+  [BscChainId.MAINNET]: 'https://bscscan.com',
+  [BscChainId.TESTNET]: 'https://testnet.bscscan.com',
 };
 
 const API_ENDPOINT_URLS = {
-  56: 'https://api.venus.io/api',
-  97: 'https://testnetapi.venus.io/api',
+  [BscChainId.MAINNET]: 'https://api.venus.io/api',
+  [BscChainId.TESTNET]: 'https://testnetapi.venus.io/api',
 };
 
 export const RPC_URLS: {
   [key: string]: string[];
 } = {
-  56: [
+  [BscChainId.MAINNET]: [
     'https://bsc-dataseed1.ninicoin.io',
     'https://bsc-dataseed1.defibit.io',
     'https://bsc-dataseed.binance.org',
   ],
-  97: [
+  [BscChainId.TESTNET]: [
     'https://data-seed-prebsc-1-s1.binance.org:8545',
     'https://data-seed-prebsc-2-s1.binance.org:8545',
     'https://data-seed-prebsc-1-s2.binance.org:8545',
   ],
 };
 
-export const RPC_URL = sample(RPC_URLS[process.env.REACT_APP_CHAIN_ID || '96']) as string;
+export const RPC_URL = sample(RPC_URLS[CHAIN_ID]) as string;
+
+export const BASE_BSC_SCAN_URL = BASE_BSC_SCAN_URLS[CHAIN_ID];
+
+export const API_ENDPOINT_URL = API_ENDPOINT_URLS[CHAIN_ID];
+
+export const LS_KEY_IS_USER_LOGGED_IN = 'is-user-logged-in';
+
+export const VTOKEN_DECIMALS = 8;
 
 // Note: this is a temporary fix. Once we start refactoring this part we should
 // probably fetch the treasury address using the Comptroller contract
@@ -36,20 +53,7 @@ const TREASURY_ADDRESSES = {
   97: '0x0000000000000000000000000000000000000000',
 };
 
-export const BASE_BSC_SCAN_URL =
-  // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  BASE_BSC_SCAN_URLS[process.env.REACT_APP_CHAIN_ID];
-
-export const API_ENDPOINT_URL =
-  // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-  API_ENDPOINT_URLS[process.env.REACT_APP_CHAIN_ID];
-
-export const LS_KEY_IS_USER_LOGGED_IN = 'is-user-logged-in';
-
-export const vtokenDecimals = 8;
-
-// @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
-export const TREASURY_ADDRESS = TREASURY_ADDRESSES[process.env.REACT_APP_CHAIN_ID];
+export const TREASURY_ADDRESS = TREASURY_ADDRESSES[CHAIN_ID];
 
 export const ETHERSCAN_XVS_URL =
   'https://bscscan.com/address/0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63';
