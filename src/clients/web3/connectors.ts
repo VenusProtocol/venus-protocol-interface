@@ -4,30 +4,29 @@ import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { BscConnector } from '@binance-chain/bsc-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
 
-import { RPC_URL } from 'config';
+import { RPC_URL, CHAIN_ID } from 'config';
 import { Connector } from './types';
 
 const POLLING_INTERVAL = 12000;
-const chainId = parseInt(process.env.REACT_APP_CHAIN_ID || '', 10);
 
-const walletconnect = new WalletConnectConnector({
-  rpc: { [chainId]: RPC_URL },
+const walletConnect = new WalletConnectConnector({
+  rpc: { [CHAIN_ID]: RPC_URL },
   qrcode: true,
 });
 
-const bscConnector = new BscConnector({ supportedChainIds: [chainId] });
+const bscConnector = new BscConnector({ supportedChainIds: [CHAIN_ID] });
 
 const ledger = new LedgerConnector({
-  chainId,
+  chainId: CHAIN_ID,
   url: RPC_URL,
   pollingInterval: POLLING_INTERVAL,
 });
 
-export const injected = new InjectedConnector({ supportedChainIds: [chainId] });
+export const injected = new InjectedConnector({ supportedChainIds: [CHAIN_ID] });
 
 export const connectorsByName = {
   [Connector.MetaMask]: injected,
-  [Connector.WalletConnect]: walletconnect,
+  [Connector.WalletConnect]: walletConnect,
   [Connector.BSC]: bscConnector,
   [Connector.Ledger]: ledger,
 };
