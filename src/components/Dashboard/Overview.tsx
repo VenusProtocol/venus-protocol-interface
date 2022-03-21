@@ -307,12 +307,6 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
               </div>
             )}
           </div>
-          {/* <p className="value">{`$${
-              (settings.marketType || 'supply') === 'supply'
-                ? new BigNumber(marketInfo.totalSupply || 0).div(new BigNumber(10).pow(VTOKEN_DECIMALS)).dp(2, 1).toString(10)
-                : new BigNumber(marketInfo.totalBorrows || 0).div(new BigNumber(10).pow(decimals)).dp(2, 1).toString(10)
-            }`}
-          </p> */}
         </div>
         <div className="historic-label">Historical rates</div>
         <div className="flex flex-column flex-end">
