@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import commaNumber from 'comma-number';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
@@ -111,7 +111,7 @@ interface VotingPowerProps extends RouteComponentProps {
 }
 
 function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: VotingPowerProps) {
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
 
   const [isOpenDelegationModal, setIsOpenDelegationModal] = useState(false);
 

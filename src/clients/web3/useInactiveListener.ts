@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { useWeb3React } from '@web3-react/core';
-import { injected } from '../../utilities/connectors';
+import { useWeb3Account } from 'clients/web3';
+
+import { injected } from './connectors';
 
 export default function useInactiveListener(suppress = false) {
-  const { active, error, activate } = useWeb3React();
+  const { active, error, activate } = useWeb3Account();
 
   useEffect(() => {
     const { ethereum } = window;

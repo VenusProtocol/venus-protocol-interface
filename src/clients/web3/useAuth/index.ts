@@ -10,14 +10,16 @@ import {
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
 import toast from 'components/Basic/Toast';
-import { LS_KEY_IS_USER_LOGGED_IN } from '../../../config';
-import { connectorsByName, ConnectorNames } from '../../../utilities/connectors';
+import { LS_KEY_IS_USER_LOGGED_IN } from 'config';
+import { connectorsByName } from '../connectors';
+import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
 
 export default function useAuth() {
   const { activate, deactivate } = useWeb3React();
+
   const login = useCallback(
-    async (connectorID: ConnectorNames) => {
+    async (connectorID: Connector) => {
       const connector = connectorsByName[connectorID];
       if (!connector) {
         // TODO: log error to Sentry (this case should never happen, as it means
@@ -83,8 +85,8 @@ export default function useAuth() {
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector
     if (window.localStorage.getItem('walletconnect')) {
-      connectorsByName[ConnectorNames.WalletConnect].close();
-      connectorsByName[ConnectorNames.WalletConnect].walletConnectProvider = undefined;
+      connectorsByName[Connector.WalletConnect].close();
+      connectorsByName[Connector.WalletConnect].walletConnectProvider = undefined;
     }
 
     // Remove flag indicating user is logged in

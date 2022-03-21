@@ -17,7 +17,7 @@ import ProposalHistory from 'components/Vote/VoteOverview/ProposalHistory';
 import { promisify } from 'utilities';
 import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
 import { useToken, useGovernorBravo } from '../../hooks/useContract';
@@ -115,7 +115,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [proposerVotingWeight, setProposerVotingWeight] = useState(0);
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
   const [excuteEta, setExcuteEta] = useState('');
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const xvsTokenContract = useToken('xvs');
   const governorBravoContract = useGovernorBravo();
 

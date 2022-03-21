@@ -4,7 +4,7 @@ import { addDecorator } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { store } from 'core/store';
 import Box from '@mui/material/Box';
-import Web3Wrapper from 'containers/Web3Wrapper';
+import { Web3Wrapper } from 'clients/web3';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import Theme from 'containers/Theme';

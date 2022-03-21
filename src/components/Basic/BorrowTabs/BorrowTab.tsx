@@ -11,8 +11,7 @@ import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';
-import { useWeb3React } from '@web3-react/core';
-import { isAssetDisabled } from 'utilities';
+import { useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVbep } from '../../../hooks/useContract';
@@ -38,7 +37,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const vbepContract = useVbep(asset.id);

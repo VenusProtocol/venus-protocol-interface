@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+
+import { useWeb3 } from 'clients/web3';
 import {
   getComptrollerContract,
   getInterestModelContract,
@@ -19,7 +21,6 @@ import {
   getVrtVaultProxyContract,
   getComptrollerLensContract,
 } from '../utilities/contractHelpers';
-import useWeb3 from './useWeb3';
 
 export const useToken = (name: $TSFixMe) => {
   const web3 = useWeb3();

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 
 import BigNumber from 'bignumber.js';
 import { connect } from 'react-redux';
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import useRefresh from 'hooks/useRefresh';
@@ -21,7 +21,7 @@ interface VaultCardProps {
 }
 
 function VaultCard({ settings }: VaultCardProps) {
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
 
   const compContract = useComptroller();

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
+
 import { TREASURY_ADDRESS } from 'config';
-import { getComptrollerAddress } from 'utilities/addressHelpers';
+import { useWeb3, useWeb3Account } from 'clients/web3';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy } from '../utilities/common';
-import useWeb3 from '../hooks/useWeb3';
 import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptroller, useVenusLens, useComptrollerLens } from '../hooks/useContract';
-
+import { useComptroller, useVenusLens } from '../hooks/useContract';
 import * as constants from '../utilities/constants';
 
 const MarketContext = React.createContext({
@@ -36,7 +34,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
   const comptrollerContract = useComptroller();
   const comptrollerLensContract = useComptrollerLens();
   const lens = useVenusLens();
-  const { account } = useWeb3React();
+  const { account } = useWeb3Account();
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
 
