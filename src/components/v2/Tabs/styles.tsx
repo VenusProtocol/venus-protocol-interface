@@ -22,6 +22,12 @@ export const styles = () => {
       last: boolean;
       fullWidth: boolean;
     }) => css`
+      :hover:not(:disabled),
+      :active:not(:disabled) {
+        background-color: ${theme.palette.secondary.light};
+        border-color: ${theme.palette.secondary.light};
+      }
+
       ${!last &&
       css`
         margin-right: ${theme.spacing(1)};
@@ -33,6 +39,10 @@ export const styles = () => {
         border-color: transparent;
 
         :not(:hover, :active) {
+          color: ${theme.palette.text.secondary};
+        }
+
+        :hover {
           color: ${theme.palette.text.secondary};
         }
       `};
