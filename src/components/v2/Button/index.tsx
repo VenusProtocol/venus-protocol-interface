@@ -7,7 +7,6 @@ import useStyles from './styles';
 import { Variant } from './types';
 
 export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
   loading?: boolean;
   fullWidth?: boolean;
   small?: boolean;
@@ -21,17 +20,23 @@ export const Button = ({
   fullWidth = false,
   small = false,
   variant = 'primary',
-  label,
+  children,
   ...otherProps
 }: IButtonProps) => {
   const styles = useStyles({ fullWidth, variant, small });
 
   return (
-    <button css={styles.button} disabled={loading || disabled} type="button" {...otherProps}>
+    <button
+      css={styles.button}
+      className={className}
+      disabled={loading || disabled}
+      type="button"
+      {...otherProps}
+    >
       {loading && <Icon name="loading" size="28px" css={styles.loadingIcon} />}
 
       <Typography css={styles.label} component="span" variant={small ? 'small1' : 'body1'}>
-        {label}
+        {children}
       </Typography>
     </button>
   );
