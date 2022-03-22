@@ -1,26 +1,45 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { SerializedStyles } from '@emotion/react';
 
-import { Button } from '../Button';
+import { TertiaryButton } from '../Button';
 import useStyles from './styles';
 
 export interface ITabsProps {
-  options: string[];
-  activeOptionIndex: number;
+  tabTitles: string[];
+  activeTabIndex: number;
   onChange: (newIndex: number) => void;
-  css?: SerializedStyles;
+  className?: string;
+  fullWidth?: boolean;
 }
 
-export const Tabs = ({ options, onChange, css }: ITabsProps) => {
+export const Tabs = ({
+  tabTitles,
+  activeTabIndex,
+  onChange,
+  className,
+  fullWidth = false,
+}: ITabsProps) => {
   const styles = useStyles();
 
   return (
-    <div css={[styles.container, css]}>
-      {options.map((option, index) => (
-        <Button key={option} onClick={() => onChange(index)} css={styles.button}>
-          {option}
-        </Button>
+    <div css={styles.getContainer({ fullWidth })} className={className}>
+      {tabTitles.map((tabTitle, index) => (
+        <TertiaryButton
+          key={tabTitle}
+          onClick={() => {
+            // Only call onChange callback if tab clicked isn't currently active
+            if (index !== activeTabIndex) {
+              onChange(index);
+            }
+          }}
+          css={styles.getButton({
+            active: index === activeTabIndex,
+            last: index === tabTitles.length - 1,
+            fullWidth,
+          })}
+        >
+          {tabTitle}
+        </TertiaryButton>
       ))}
     </div>
   );
