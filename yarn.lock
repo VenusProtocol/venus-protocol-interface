@@ -18620,6 +18620,13 @@ react-popper@^2.2.4:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
+react-powerplug@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-powerplug/-/react-powerplug-1.0.0.tgz#f9c10a761ece115661b8fd10920c4e573ea95909"
+  integrity sha512-H7U+1sNiOqlaPgZpfciVZ3BMHtXHsd0tkXrOmrwV7ZTpK+YGRddK7+Um1RT2OTe+4G+1muXfyFMAwcnasABMtA==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+
 react-query@^3.34.16:
   version "3.34.16"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.34.16.tgz#279ea180bcaeaec49c7864b29d1711ee9f152594"
