@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
 import { State } from 'core/modules/initialState';
 import { BASE_BSC_SCAN_URL } from '../../config';

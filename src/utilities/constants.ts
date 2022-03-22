@@ -3,7 +3,7 @@ import usdc from 'assets/img/coins/usdc.png';
 import usdt from 'assets/img/coins/usdt.png';
 import busd from 'assets/img/coins/busd.png';
 import bnb from 'assets/img/coins/bnb.png';
-import xvs from 'assets/img/coins/xvs.png';
+import xvs from 'assets/img/coins/xvs.svg';
 import btc from 'assets/img/coins/btc.png';
 import eth from 'assets/img/coins/eth.png';
 import ltc from 'assets/img/coins/ltc.png';

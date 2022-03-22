@@ -5,7 +5,7 @@ import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
 import { addToken } from 'utilities/common';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
 import { useWeb3React } from '@web3-react/core';
 import { BASE_BSC_SCAN_URL } from '../../config';
@@ -20,7 +20,7 @@ const CardWrapper = styled.div`
 
   .add-xvs-token {
     font-size: 18px;
-    color: rgba(223, 177, 85, 1);
+    color: var(--color-yellow);
     margin-left: 10px;
     margin-bottom: 3px;
   }

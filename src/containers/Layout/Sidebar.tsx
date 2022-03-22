@@ -16,7 +16,7 @@ import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
-import XVSActiveIcon from 'assets/img/venus_active.svg';
+import XVSActiveIcon from 'assets/img/venusActive.svg';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useVaiToken } from '../../hooks/useContract';

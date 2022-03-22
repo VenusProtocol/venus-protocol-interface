@@ -7,7 +7,7 @@ import { commaFormat } from 'utilities/common';
 import { ConvertWrapper } from './styles';
 
 import vrtImg from '../../assets/img/coins/vrt.svg';
-import xvsImg from '../../assets/img/coins/xvs.png';
+import xvsImg from '../../assets/img/coins/xvs.svg';
 
 const SECONDS_PER_DAY = 86400;
 const SECONDS_PER_HOUR = 3600;
