@@ -32,8 +32,8 @@ export const PALETTE = {
   },
   button: {
     main: 'rgba(58, 120, 255, 1)',
-    dark: 'rgba(38, 90, 204, 1)',
-    light: 'rgba(27, 67, 152, 1)',
+    medium: 'rgba(38, 90, 204, 1)',
+    dark: 'rgba(27, 67, 152, 1)',
   },
   interactive: {
     primary: 'rgba(58, 120, 255, 1)',
