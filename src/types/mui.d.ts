@@ -11,8 +11,8 @@ declare module '@mui/material/styles' {
   // Add v2 colors
   interface Palette {
     button: {
-      light: React.CSSProperties['color'];
       main: React.CSSProperties['color'];
+      medium: React.CSSProperties['color'];
       dark: React.CSSProperties['color'];
     };
     interactive: {
