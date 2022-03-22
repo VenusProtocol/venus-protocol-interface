@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js';
 import { Asset, Setting } from 'types';
 import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';

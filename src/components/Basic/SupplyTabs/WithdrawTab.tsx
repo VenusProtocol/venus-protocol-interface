@@ -8,7 +8,7 @@ import { useWeb3React } from '@web3-react/core';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import { Asset, Setting } from 'types';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
