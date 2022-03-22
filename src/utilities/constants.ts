@@ -427,6 +427,22 @@ export const CONTRACT_TOKEN_ADDRESS =
           address: contracts.MAIN.TOKEN.vrt,
           asset: vrt,
         },
+        ust: {
+          id: 'ust',
+          symbol: 'UST',
+          decimals: 6,
+          address: contracts.MAIN.TOKEN.ust,
+          asset: ust,
+          vasset: vust,
+        },
+        luna: {
+          id: 'luna',
+          symbol: 'LUNA',
+          decimals: 6,
+          address: contracts.MAIN.TOKEN.luna,
+          asset: luna,
+          vasset: vluna,
+        },
       };
 
 export const CONTRACT_VBEP_ADDRESS =
@@ -646,18 +662,12 @@ export const CONTRACT_VBEP_ADDRESS =
         },
         ust: {
           id: 'ust',
-          symbol: 'UST',
-          decimals: 6,
-          address: contracts.MAIN.TOKEN.ust,
-          asset: ust,
-          vasset: vust,
+          symbol: 'vUST',
+          address: contracts.MAIN.VBEP.ust,
         },
         luna: {
           id: 'luna',
-          symbol: 'LUNA',
-          decimals: 6,
-          address: contracts.MAIN.TOKEN.luna,
-          asset: luna,
-          vasset: vluna,
+          symbol: 'vLUNA',
+          address: contracts.MAIN.VBEP.luna,
         },
       };
