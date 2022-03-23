@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import { Label } from 'components/Basic/Label';
-
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { promisify } from 'utilities';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -472,7 +472,7 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
                       {item.amount < 0.00001 && item.amount > 0
                         ? '< 0.00001'
                         : // @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'.
-                          format(item.amount)}
+                          formatCommaThousandsPeriodDecimal(item.amount)}
                     </p>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="date">

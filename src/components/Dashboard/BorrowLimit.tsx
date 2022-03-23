@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LineProgressBar from 'components/Basic/LineProgressBar';
 import BigNumber from 'bignumber.js';
-import { boundCommaNumber } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { useWeb3Account } from 'clients/web3';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
@@ -47,7 +47,7 @@ function BorrowLimit() {
   return (
     <Card>
       <CardWrapper>
-        <p className="usd-price">${boundCommaNumber(available)}</p>
+        <p className="usd-price">${formatCommaThousandsPeriodDecimal(available)}</p>
         <p className="credit-text">Available Credit</p>
         <LineProgressBar label="Borrow Limit" percent={borrowPercent} />
       </CardWrapper>
