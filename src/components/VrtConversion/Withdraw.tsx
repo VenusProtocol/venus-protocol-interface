@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
-import { boundCommaNumber } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const WithdrawWrapper = styled.div`
   .withdraw-title {
@@ -35,7 +35,7 @@ export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPr
       <div className="withdraw-title">
         <div className="withdraw-title-line-1">Withdrawable amount</div>
         <div className="withdraw-title-line-2">
-          {boundCommaNumber(withdrawableAmount.toFixed(6))} XVS
+          {formatCommaThousandsPeriodDecimal(withdrawableAmount.toFixed(6))} XVS
         </div>
       </div>
       <PrimaryButton
