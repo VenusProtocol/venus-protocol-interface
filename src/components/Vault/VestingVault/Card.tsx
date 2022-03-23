@@ -4,7 +4,7 @@ import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import * as constants from 'utilities/constants';
 import { Icon, IconName } from 'components';
-import { boundCommaNumber, format } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal, format } from 'utilities/common';
 import VaultCardContent from './CardContent';
 import { VaultCardWrapper } from '../styles';
 
@@ -61,7 +61,7 @@ function VaultCard({
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Available Rewards</div>
             <div className="content">
-              {boundCommaNumber(pendingReward.div(rewardTokenDecimal).toFixed(4))}
+              {formatCommaThousandsPeriodDecimal(pendingReward.div(rewardTokenDecimal).toFixed(4))}
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>

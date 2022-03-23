@@ -5,7 +5,7 @@ import { connectAccount } from 'core';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
 import { State } from 'core/modules/initialState';
-import { boundCommaNumber } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { BASE_BSC_SCAN_URL } from '../../config';
 
 const CardWrapper = styled.div`
@@ -59,7 +59,7 @@ function CoinInfo({ address, balance }: CoinInfoProps) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{boundCommaNumber(balance)}</p>
+          <p>{formatCommaThousandsPeriodDecimal(balance)}</p>
         </div>
         {address ? (
           <div className="flex align-center just-center pointer" onClick={() => handleLink()}>
