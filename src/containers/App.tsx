@@ -56,12 +56,12 @@ class App extends React.Component {
         <IntlProvider locale={lang} messages={message}>
           <Web3Wrapper>
             <QueryClientProvider client={queryClient}>
-              <AuthProvider>
-                <Provider store={store}>
-                  <RefreshContextProvider>
-                    <VaiContextProvider>
-                      <MarketContextProvider>
-                        <MuiThemeProvider>
+              <Provider store={store}>
+                <RefreshContextProvider>
+                  <VaiContextProvider>
+                    <MarketContextProvider>
+                      <MuiThemeProvider>
+                        <AuthProvider>
                           <BrowserRouter>
                             <ToastContainer
                               autoClose={8000}
@@ -94,12 +94,12 @@ class App extends React.Component {
                               <Redirect from="/" to="/dashboard" />
                             </Switch>
                           </BrowserRouter>
-                        </MuiThemeProvider>
-                      </MarketContextProvider>
-                    </VaiContextProvider>
-                  </RefreshContextProvider>
-                </Provider>
-              </AuthProvider>
+                        </AuthProvider>
+                      </MuiThemeProvider>
+                    </MarketContextProvider>
+                  </VaiContextProvider>
+                </RefreshContextProvider>
+              </Provider>
             </QueryClientProvider>
           </Web3Wrapper>
         </IntlProvider>
