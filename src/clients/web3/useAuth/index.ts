@@ -16,7 +16,7 @@ import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
 
 const useAuth = () => {
-  const { activate, deactivate } = useWeb3React();
+  const { activate, deactivate, account } = useWeb3React();
 
   const login = useCallback(
     async (connectorID: Connector) => {
@@ -81,7 +81,7 @@ const useAuth = () => {
     [activate],
   );
 
-  const logout = useCallback(() => {
+  const logOut = useCallback(() => {
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector
     if (window.localStorage.getItem('walletconnect')) {
@@ -93,7 +93,7 @@ const useAuth = () => {
     window.localStorage.removeItem(LS_KEY_IS_USER_LOGGED_IN);
   }, [deactivate]);
 
-  return { login, logout };
+  return { login, logOut, account };
 };
 
 export default useAuth;
