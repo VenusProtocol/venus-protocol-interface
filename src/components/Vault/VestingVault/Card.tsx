@@ -2,14 +2,11 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
 import { Icon, IconName } from 'components';
-
+import { boundCommaNumber, format } from 'utilities/common';
 import VaultCardContent from './CardContent';
 import { VaultCardWrapper } from '../styles';
-
-const commaFormatter = commaNumber.bindWith(',', '.');
 
 interface VaultCardProps {
   poolId: BigNumber;
@@ -64,26 +61,21 @@ function VaultCard({
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Available Rewards</div>
             <div className="content">
-              {commaFormatter(pendingReward.div(rewardTokenDecimal).toFixed(4))}
+              {boundCommaNumber(pendingReward.div(rewardTokenDecimal).toFixed(4))}
             </div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">{stakedToken.toUpperCase()} Staking APR</div>
-            <div className="content">
-              {commaFormatter(apr.multipliedBy(100).dp(6, 1).toString(10))}%
-            </div>
+            <div className="content">{format(apr.multipliedBy(100), 6)}%</div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Total {stakedToken.toUpperCase()} Staked</div>
-            <div className="content">
-              {commaFormatter(totalStaked.div(stakedTokenDecimal).dp(4, 1).toString(10))}
-            </div>
+            <div className="content">{format(totalStaked.div(stakedTokenDecimal), 4)}</div>
           </Col>
           <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">{rewardToken.toUpperCase()} Daily Emission</div>
             <div className="content">
-              {commaFormatter(dailyEmission.div(rewardTokenDecimal).dp(4, 1).toString(10))}{' '}
-              {rewardToken.toUpperCase()}
+              {format(dailyEmission.div(rewardTokenDecimal), 4)} {rewardToken.toUpperCase()}
             </div>
           </Col>
           <Col

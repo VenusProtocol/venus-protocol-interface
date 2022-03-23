@@ -5,20 +5,16 @@ import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import commaNumber from 'comma-number';
 import { sendSupply } from 'utilities/BnbContract';
 import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
-import { getBigNumber } from 'utilities/common';
-import { isAssetDisabled } from 'utilities';
+import { getBigNumber, format } from 'utilities/common';
 import { Asset, Setting } from 'types';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
-
-const format = commaNumber.bindWith(',', '.');
 
 interface SupplyTabProps {
   asset: Asset;
@@ -259,12 +255,12 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
             <div className="borrow-limit">
               <span>Borrow Limit</span>
               {amount.isZero() || amount.isNaN() ? (
-                <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+                <span>${format(borrowLimit)}</span>
               ) : (
                 <div className="flex align-center just-between">
-                  <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+                  <span>${format(borrowLimit)}</span>
                   <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                  <span>${format(newBorrowLimit.dp(2, 1).toString(10))}</span>
+                  <span>${format(newBorrowLimit)}</span>
                 </div>
               )}
             </div>
@@ -322,7 +318,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+            {format(asset.walletBalance, 2)} {asset.symbol}
           </span>
         </div>
       </TabContent>

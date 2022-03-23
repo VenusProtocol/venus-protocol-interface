@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
+import { format } from 'utilities/common';
 import { promisify } from 'utilities';
 import { uid } from 'react-uid';
 
@@ -91,8 +91,6 @@ const TableWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface VoterLeaderboardProps extends RouteComponentProps {
   getVoterAccounts: $TSFixMe;
 }
@@ -152,7 +150,7 @@ function VoterLeaderboard({ history, getVoterAccounts }: VoterLeaderboardProps) 
                     <p>
                       {format(
                         // @ts-expect-error ts-migrate(2348) FIXME: Value of type 'typeof BigNumber' is not callable. ... Remove this comment to see the full error message
-                        BigNumber(Web3.utils.fromWei(item.votes, 'ether')).dp(8, 1).toString(10),
+                        BigNumber(Web3.utils.fromWei(item.votes, 'ether')),
                       )}
                     </p>
                   </Col>

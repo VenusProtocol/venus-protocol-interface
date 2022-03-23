@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connect } from 'react-redux';
-import commaNumber from 'comma-number';
 import coinImg from 'assets/img/coins/vai.svg';
 import { Card } from 'components/Basic/Card';
-import { addToken } from 'utilities/common';
+import { addToken, format } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
@@ -63,8 +62,6 @@ const CardWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface VaiInfoProps {
   settings: Setting;
 }
@@ -81,7 +78,7 @@ function VaiInfo({ settings }: VaiInfoProps) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(userVaiBalance.dp(2, 1).toString(10))} VAI </p>
+          <p>{format(userVaiBalance)} VAI </p>
           {(window.ethereum || window.BinanceChain) && (
             <Icon
               className="add-vai-token"
