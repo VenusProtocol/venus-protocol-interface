@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
-import { format, boundCommaNumber } from 'utilities/common';
+import { format, formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { State } from 'core/modules/initialState';
 import * as constants from 'utilities/constants';
 import { VTOKEN_DECIMALS } from 'config';
@@ -79,11 +79,11 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
       </div>
       <div className="description">
         <p className="label"># of Suppliers</p>
-        <p className="value">{boundCommaNumber(marketInfo.supplierCount)}</p>
+        <p className="value">{formatCommaThousandsPeriodDecimal(marketInfo.supplierCount)}</p>
       </div>
       <div className="description">
         <p className="label"># of Borrowers</p>
-        <p className="value">{boundCommaNumber(marketInfo.borrowerCount)}</p>
+        <p className="value">{formatCommaThousandsPeriodDecimal(marketInfo.borrowerCount)}</p>
       </div>
       <div className="description">
         <p className="label">Borrow Cap</p>
@@ -145,7 +145,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
       </div>
       <div className="description">
         <p className="label">v{marketInfo.underlyingSymbol} Minted</p>
-        <p className="value">{boundCommaNumber(marketInfo.totalSupply2)}</p>
+        <p className="value">{formatCommaThousandsPeriodDecimal(marketInfo.totalSupply2)}</p>
       </div>
       <div className="description">
         <p className="label">Exchange Rate</p>
