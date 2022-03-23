@@ -7,7 +7,7 @@ import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { boundCommaNumber } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const VotingPowerWrapper = styled.div`
   width: 100%;
@@ -122,7 +122,7 @@ function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: 
               <Row className="flex align-center flex-wrap">
                 <Column className="voting-weight" xs="12" sm="12" md="5">
                   <p className="title">Voting Weight</p>
-                  <p className="content">{boundCommaNumber(power)}</p>
+                  <p className="content">{formatCommaThousandsPeriodDecimal(power)}</p>
                 </Column>
                 <Column xs="12" sm="12" md="7" className=" voting-hint">
                   <Row className="flex flex-wrap align-center">

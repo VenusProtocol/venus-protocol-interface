@@ -7,7 +7,13 @@ import { accountActionCreators } from 'core/modules/account/actions';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
-import { addToken, getBigNumber, formatApy, format, boundCommaNumber } from 'utilities/common';
+import {
+  addToken,
+  getBigNumber,
+  formatApy,
+  format,
+  formatCommaThousandsPeriodDecimal,
+} from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
 import { Setting } from 'types';
@@ -346,12 +352,12 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
         <div className="description">
           <p className="label"># of Suppliers</p>
           {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'supplierCount' does not exist on type '{... Remove this comment to see the full error message */}
-          <p className="value">{boundCommaNumber(marketInfo.supplierCount)}</p>
+          <p className="value">{formatCommaThousandsPeriodDecimal(marketInfo.supplierCount)}</p>
         </div>
         <div className="description">
           <p className="label"># of Borrowers</p>
           {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowerCount' does not exist on type '{... Remove this comment to see the full error message */}
-          <p className="value">{boundCommaNumber(marketInfo.borrowerCount)}</p>
+          <p className="value">{formatCommaThousandsPeriodDecimal(marketInfo.borrowerCount)}</p>
         </div>
         <div className="description">
           <p className="label">Reserves</p>
