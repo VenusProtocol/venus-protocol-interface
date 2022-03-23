@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import CircleProgressBar from 'components/Basic/CircleProgressBar';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import AnimatedNumber from 'animated-number-react';
 import { useWeb3Account } from 'clients/web3';
 import { accountActionCreators } from 'core/modules/account/actions';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
-import { getBigNumber } from 'utilities/common';
+import { getBigNumber, format } from 'utilities/common';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
 import { Setting } from 'types';
@@ -79,8 +78,6 @@ const BalancerWrapper = styled.div`
   align-items: center;
   padding: 20px 0;
 `;
-
-const format = commaNumber.bindWith(',', '.');
 
 interface WalletBalanceProps {
   settings: Setting;
@@ -196,7 +193,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
     };
   }, [withXVS]);
 
-  const formatValue = (value: $TSFixMe) => `$${format(getBigNumber(value).dp(2, 1).toString(10))}`;
+  const formatValue = (value: $TSFixMe) => `$${format(getBigNumber(value))}`;
 
   return (
     <Card>

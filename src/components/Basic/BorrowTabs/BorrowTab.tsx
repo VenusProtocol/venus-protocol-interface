@@ -5,18 +5,16 @@ import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import { Asset, Setting } from 'types';
-import commaNumber from 'comma-number';
+import { getBigNumber, formatApy, format } from 'utilities/common';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/venus_32.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
-import { getBigNumber, formatApy } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVbep } from '../../../hooks/useContract';
 
-const format = commaNumber.bindWith(',', '.');
 const abortController = new AbortController();
 
 interface DispatchProps {
@@ -224,7 +222,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
                 />
                 <span>Borrow Caps</span>
               </div>
-              <span>{format(new BigNumber(asset.borrowCaps || 0).dp(2, 1).toString(10))}</span>
+              <span>{format(new BigNumber(asset.borrowCaps || 0))}</span>
             </div>
           )}
         </div>
@@ -279,8 +277,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
         <div className="description">
           <span>Protocol Balance</span>
           <span>
-            {asset.borrowBalance && format(asset.borrowBalance.dp(2, 1).toString(10))}{' '}
-            {asset.symbol}
+            {asset.borrowBalance && format(asset.borrowBalance)} {asset.symbol}
           </span>
         </div>
       </TabContent>

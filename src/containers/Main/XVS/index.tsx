@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
@@ -17,6 +16,7 @@ import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
 import { useComptroller, useToken } from 'hooks/useContract';
 import { getComptrollerAddress } from 'utilities/addressHelpers';
+import { boundCommaNumber } from 'utilities/common';
 
 const XVSLayout = styled.div`
   .main-content {
@@ -185,8 +185,6 @@ const TableWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface XVSProps extends RouteComponentProps {
   settings: Setting;
 }
@@ -288,7 +286,7 @@ function XVS({ settings }: XVSProps) {
               <div className="flex align-center just-around info-wrapper">
                 <div className="info-item">
                   <p className="title">Daily Distribution</p>
-                  <p className="value">{format(dailyDistribution)}</p>
+                  <p className="value">{boundCommaNumber(dailyDistribution)}</p>
                 </div>
                 {/* <div className="info-item">
                       <p className="title">Total Distributed</p>
@@ -296,7 +294,7 @@ function XVS({ settings }: XVSProps) {
                     </div> */}
                 <div className="info-item">
                   <p className="title">Remaining</p>
-                  <p className="value">{format(remainAmount)}</p>
+                  <p className="value">{boundCommaNumber(remainAmount)}</p>
                 </div>
               </div>
               <Progress

@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
-import { formatApy } from 'utilities/common';
+import { formatApy, format } from 'utilities/common';
 import * as constants from 'utilities/constants';
 
 const MarketInfoWrapper = styled.div`
@@ -38,9 +37,6 @@ const MarketInfoContent = styled.div`
     margin-top: 58px;
   }
 `;
-
-// stylelint-disable-next-line
-const format = commaNumber.bindWith(',', '.');
 
 interface MarketInfoObjectType {
   underlyingSymbol: string;
@@ -149,9 +145,7 @@ function MarketInfo({ marketInfo, marketType }: Props) {
                 new BigNumber(
                   // @ts-expect-error marketInfo gets passed around as an empty object
                   marketType === 'supply' ? marketInfo.totalSupplyUsd : marketInfo.totalBorrowsUsd,
-                )
-                  .dp(2, 1)
-                  .toString(10),
+                ),
               )}
             </p>
           </div>
