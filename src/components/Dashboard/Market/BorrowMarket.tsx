@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
 import { connect } from 'react-redux';
-import commaNumber from 'comma-number';
 import { Label } from 'components/Basic/Label';
 import BorrowModal from 'components/Basic/BorrowModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
-import { getBigNumber, formatApy } from 'utilities/common';
+import { getBigNumber, formatApy, format } from 'utilities/common';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
 
@@ -17,8 +16,6 @@ const BorrowMarketWrapper = styled.div`
   height: 100%;
   padding-left: 6px;
 `;
-
-const format = commaNumber.bindWith(',', '.');
 
 interface StateProps {
   settings: Setting;
@@ -96,7 +93,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
         return {
           children: (
             <Label size="14" primary>
-              {format(walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+              {format(walletBalance)} {asset.symbol}
             </Label>
           ),
         };
@@ -111,7 +108,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
         return {
           children: (
             <Label size="14" primary>
-              ${format(liquidity.dp(2, 1).toString(10))}
+              ${format(liquidity)}
             </Label>
           ),
         };
@@ -178,10 +175,10 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
           children: (
             <div className="wallet-label flex flex-column">
               <Label size="14" primary>
-                ${format(borrowBalance.times(asset.tokenPrice).dp(2, 1).toString(10))}
+                ${format(borrowBalance.times(asset.tokenPrice))}
               </Label>
               <Label size="14">
-                {format(borrowBalance.dp(4, 1).toString(10))} {asset.symbol}
+                {format(borrowBalance, 4)} {asset.symbol}
               </Label>
             </div>
           ),
