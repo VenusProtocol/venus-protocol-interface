@@ -6,7 +6,12 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MainLayout from 'containers/Layout/MainLayout';
 import * as constants from 'utilities/constants';
-import { currencyFormatter, formatApy, boundCommaNumber, format } from 'utilities/common';
+import {
+  currencyFormatter,
+  formatApy,
+  formatCommaThousandsPeriodDecimal,
+  format,
+} from 'utilities/common';
 import { uid } from 'react-uid';
 import { Setting } from 'types';
 import { useMarkets } from 'hooks/useMarkets';
@@ -221,29 +226,29 @@ function Market({ history, settings }: MarketProps) {
           <div className="total-info">
             <div className="total-item">
               <div className="prop">Total Supply</div>
-              <div className="value" title={boundCommaNumber(totalSupply)}>
-                ${boundCommaNumber(totalSupply)}
+              <div className="value" title={formatCommaThousandsPeriodDecimal(totalSupply)}>
+                ${formatCommaThousandsPeriodDecimal(totalSupply)}
               </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Borrow</div>
-              <div className="value" title={boundCommaNumber(totalBorrow)}>
-                ${boundCommaNumber(totalBorrow)}
+              <div className="value" title={formatCommaThousandsPeriodDecimal(totalBorrow)}>
+                ${formatCommaThousandsPeriodDecimal(totalBorrow)}
               </div>
             </div>
             <div className="total-item">
               <div className="prop">Available Liquidity</div>
-              <div className="value" title={boundCommaNumber(availableLiquidity)}>
-                ${boundCommaNumber(availableLiquidity)}
+              <div className="value" title={formatCommaThousandsPeriodDecimal(availableLiquidity)}>
+                ${formatCommaThousandsPeriodDecimal(availableLiquidity)}
               </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
               <div
                 className="value"
-                title={boundCommaNumber(treasuryTotalUSDBalance.dp(2).toString())}
+                title={formatCommaThousandsPeriodDecimal(treasuryTotalUSDBalance.dp(2).toString())}
               >
-                ${boundCommaNumber(treasuryTotalUSDBalance.dp(2).toString())}
+                ${formatCommaThousandsPeriodDecimal(treasuryTotalUSDBalance.dp(2).toString())}
               </div>
             </div>
           </div>

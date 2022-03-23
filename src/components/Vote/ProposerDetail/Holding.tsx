@@ -4,7 +4,7 @@ import { Progress, Icon } from 'antd';
 import styled from 'styled-components';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Card } from 'components/Basic/Card';
-import { boundCommaNumber } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const HoldingWrapper = styled.div`
   width: 100%;
@@ -69,7 +69,9 @@ function Holding({ address, holdingInfo }: Props) {
         <div className="title">Holding</div>
         <div className="flex flex-column holding-section">
           <div className="label">Venus Balance</div>
-          <div className="value">{boundCommaNumber(holdingInfo.balance || '0.0000')}</div>
+          <div className="value">
+            {formatCommaThousandsPeriodDecimal(holdingInfo.balance || '0.0000')}
+          </div>
         </div>
         <div className="flex flex-column holding-section">
           <div className="flex align-center just-between">
@@ -79,7 +81,9 @@ function Holding({ address, holdingInfo }: Props) {
               <span>{holdingInfo.delegateCount || 0}</span>
             </div>
           </div>
-          <div className="value">{boundCommaNumber(holdingInfo.votes || '0.0000')}</div>
+          <div className="value">
+            {formatCommaThousandsPeriodDecimal(holdingInfo.votes || '0.0000')}
+          </div>
           <Progress
             percent={100}
             strokeColor="var(--color-blue-hover)"

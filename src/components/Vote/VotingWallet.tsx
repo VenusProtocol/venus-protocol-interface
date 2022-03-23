@@ -7,7 +7,7 @@ import coinImg from 'assets/img/venus_32.png';
 import { useWeb3Account } from 'clients/web3';
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
-import { boundCommaNumber } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useComptroller, useVenusLens } from '../../hooks/useContract';
@@ -168,7 +168,7 @@ function VotingWallet({
           <div className="flex align-center just-between">
             <div className="flex align-center">
               <img src={coinImg} alt="coin" />
-              <p className="content-value">{boundCommaNumber(balance)}</p>
+              <p className="content-value">{formatCommaThousandsPeriodDecimal(balance)}</p>
             </div>
           </div>
         </div>
@@ -180,12 +180,14 @@ function VotingWallet({
                 <p className="content-label">Venus Earned</p>
                 <div className="flex align-center">
                   <img src={coinImg} alt="coin" />
-                  <p className="content-value">{boundCommaNumber(earnedBalance)}</p>
+                  <p className="content-value">
+                    {formatCommaThousandsPeriodDecimal(earnedBalance)}
+                  </p>
                 </div>
                 <div className="mint-content-label">VAI Mint Earned</div>
                 <div className="flex align-center">
                   <img src={coinImg} alt="coin" />
-                  <p className="content-value">{boundCommaNumber(vaiMint)}</p>
+                  <p className="content-value">{formatCommaThousandsPeriodDecimal(vaiMint)}</p>
                 </div>
               </div>
               {account && (
