@@ -7,8 +7,7 @@ import { accountActionCreators } from 'core/modules/account/actions';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
-import commaNumber from 'comma-number';
-import { addToken, getBigNumber, formatApy } from 'utilities/common';
+import { addToken, getBigNumber, formatApy, format, boundCommaNumber } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
 import { Setting } from 'types';
@@ -138,7 +137,6 @@ const AssetSelectWrapper = styled.div`
 
 const { Option } = Select;
 const abortController = new AbortController();
-const format = commaNumber.bindWith(',', '.');
 
 interface OverviewProps {
   settings: Setting;
@@ -339,10 +337,8 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
           <p className="value">
             {`${format(
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'cash' does not exist on type '{}'.
-              new BigNumber(marketInfo.cash || 0)
-                .div(new BigNumber(10).pow(decimals))
-                .dp(8, 1)
-                .toString(10),
+              new BigNumber(marketInfo.cash || 0).div(new BigNumber(10).pow(decimals)),
+              8,
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
             )} ${marketInfo.underlyingSymbol || ''}`}
           </p>
@@ -350,12 +346,12 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
         <div className="description">
           <p className="label"># of Suppliers</p>
           {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'supplierCount' does not exist on type '{... Remove this comment to see the full error message */}
-          <p className="value">{format(marketInfo.supplierCount)}</p>
+          <p className="value">{boundCommaNumber(marketInfo.supplierCount)}</p>
         </div>
         <div className="description">
           <p className="label"># of Borrowers</p>
           {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowerCount' does not exist on type '{... Remove this comment to see the full error message */}
-          <p className="value">{format(marketInfo.borrowerCount)}</p>
+          <p className="value">{boundCommaNumber(marketInfo.borrowerCount)}</p>
         </div>
         <div className="description">
           <p className="label">Reserves</p>
@@ -395,7 +391,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
           <p className="value">
             {`$${format(
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalSupplyUsd' does not exist on type '... Remove this comment to see the full error message
-              new BigNumber(marketInfo.totalSupplyUsd || 0).dp(2, 1).toString(10),
+              new BigNumber(marketInfo.totalSupplyUsd || 0),
             )}`}
           </p>
         </div>
@@ -404,7 +400,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
           <p className="value">
             {`$${format(
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'totalBorrowsUsd' does not exist on type ... Remove this comment to see the full error message
-              new BigNumber(marketInfo.totalBorrowsUsd || 0).dp(2, 1).toString(10),
+              new BigNumber(marketInfo.totalBorrowsUsd || 0),
             )}`}
           </p>
         </div>

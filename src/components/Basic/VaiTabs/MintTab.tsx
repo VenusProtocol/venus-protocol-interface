@@ -3,15 +3,13 @@ import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3Account } from 'clients/web3';
-import commaNumber from 'comma-number';
 import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/SupplyModal';
+import { format } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUnitroller } from '../../../hooks/useContract';
-
-const format = commaNumber.bindWith(',', '.');
 
 function MintTab() {
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +85,7 @@ function MintTab() {
                 <span>Limit</span>
               </div>
             </div>
-            <span>{format(mintableVai.dp(2, 1).toString(10))} VAI</span>
+            <span>{format(mintableVai)} VAI</span>
           </div>
           <div className="description">
             <div className="flex align-center">
@@ -125,7 +123,7 @@ function MintTab() {
         </PrimaryButton>
         <div className="description">
           <span>VAI Balance</span>
-          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
+          <span>{format(userVaiBalance)} VAI</span>
         </div>
       </TabContent>
     </TabSection>

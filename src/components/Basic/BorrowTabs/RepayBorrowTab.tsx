@@ -4,21 +4,18 @@ import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import { sendRepay } from 'utilities/BnbContract';
-import commaNumber from 'comma-number';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
-import { getBigNumber, formatApy } from 'utilities/common';
+import { getBigNumber, formatApy, format } from 'utilities/common';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useToken, useVbep } from '../../../hooks/useContract';
-
-const format = commaNumber.bindWith(',', '.');
 
 interface DispatchProps {
   setSetting: (setting: Setting | undefined) => void;
@@ -318,7 +315,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
         <div className="description">
           <span>Wallet Balance</span>
           <span>
-            {format(asset.walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+            {format(asset.walletBalance)} {asset.symbol}
           </span>
         </div>
       </TabContent>

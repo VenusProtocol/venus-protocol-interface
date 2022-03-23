@@ -1,10 +1,10 @@
 /* eslint-disable no-useless-escape */
 import React from 'react';
 import { Progress, Icon } from 'antd';
-import commaNumber from 'comma-number';
 import styled from 'styled-components';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Card } from 'components/Basic/Card';
+import { boundCommaNumber } from 'utilities/common';
 
 const HoldingWrapper = styled.div`
   width: 100%;
@@ -51,7 +51,6 @@ const HoldingWrapper = styled.div`
     background-color: var(--color-bg-primary);
   }
 `;
-const format = commaNumber.bindWith(',', '.');
 
 interface Props extends RouteComponentProps {
   address: string;
@@ -70,7 +69,7 @@ function Holding({ address, holdingInfo }: Props) {
         <div className="title">Holding</div>
         <div className="flex flex-column holding-section">
           <div className="label">Venus Balance</div>
-          <div className="value">{format(holdingInfo.balance || '0.0000')}</div>
+          <div className="value">{boundCommaNumber(holdingInfo.balance || '0.0000')}</div>
         </div>
         <div className="flex flex-column holding-section">
           <div className="flex align-center just-between">
@@ -80,7 +79,7 @@ function Holding({ address, holdingInfo }: Props) {
               <span>{holdingInfo.delegateCount || 0}</span>
             </div>
           </div>
-          <div className="value">{format(holdingInfo.votes || '0.0000')}</div>
+          <div className="value">{boundCommaNumber(holdingInfo.votes || '0.0000')}</div>
           <Progress
             percent={100}
             strokeColor="var(--color-blue-hover)"
