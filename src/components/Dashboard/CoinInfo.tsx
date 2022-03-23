@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
-import commaNumber from 'comma-number';
 import * as constants from 'utilities/constants';
-import { addToken } from 'utilities/common';
+import { addToken, format } from 'utilities/common';
 import coinImg from 'assets/img/venus_32.png';
 import { Card } from 'components/Basic/Card';
 import { useWeb3Account } from 'clients/web3';
@@ -55,8 +54,6 @@ const CardWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 function CoinInfo() {
   const { account } = useWeb3Account();
   const { userXvsBalance } = useMarketsUser();
@@ -73,7 +70,7 @@ function CoinInfo() {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(userXvsBalance.dp(2, 1).toString(10))} XVS</p>
+          <p>{format(userXvsBalance)} XVS</p>
           {window.ethereum && (
             <Icon
               className="add-xvs-token"

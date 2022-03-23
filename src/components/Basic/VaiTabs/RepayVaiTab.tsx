@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
 import { useWeb3Account } from 'clients/web3';
+import { format } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { getVaiUnitrollerAddress } from '../../../utilities/addressHelpers';
 import { useVaiToken, useVaiUnitroller } from '../../../hooks/useContract';
-
-const format = commaNumber.bindWith(',', '.');
 
 function RepayVaiTab() {
   const [isLoading, setIsLoading] = useState(false);
@@ -103,7 +101,7 @@ function RepayVaiTab() {
                 <span>Balance</span>
               </div>
             </div>
-            <span>{format(userVaiMinted.dp(2, 1).toString(10))} VAI</span>
+            <span>{format(userVaiMinted)} VAI</span>
           </div>
         </div>
         {(userVaiBalance.isZero() || amount.isGreaterThan(userVaiBalance)) && (
@@ -139,7 +137,7 @@ function RepayVaiTab() {
         )}
         <div className="description">
           <span>VAI Balance</span>
-          <span>{format(userVaiBalance.dp(2, 1).toString(10))} VAI</span>
+          <span>{format(userVaiBalance)} VAI</span>
         </div>
       </TabContent>
     </TabSection>

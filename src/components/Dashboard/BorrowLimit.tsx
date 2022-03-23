@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LineProgressBar from 'components/Basic/LineProgressBar';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
+import { boundCommaNumber } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { useWeb3Account } from 'clients/web3';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
@@ -26,8 +26,6 @@ const CardWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 function BorrowLimit() {
   const [available, setAvailable] = useState('0');
   const [borrowPercent, setBorrowPercent] = useState(0);
@@ -49,7 +47,7 @@ function BorrowLimit() {
   return (
     <Card>
       <CardWrapper>
-        <p className="usd-price">${format(available)}</p>
+        <p className="usd-price">${boundCommaNumber(available)}</p>
         <p className="credit-text">Available Credit</p>
         <LineProgressBar label="Borrow Limit" percent={borrowPercent} />
       </CardWrapper>

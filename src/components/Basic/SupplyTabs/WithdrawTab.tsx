@@ -6,19 +6,16 @@ import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import { useWeb3Account } from 'clients/web3';
 import { connectAccount } from 'core';
-import commaNumber from 'comma-number';
 import { Asset, Setting } from 'types';
 import coinImg from 'assets/img/venus_32.png';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
-import { getBigNumber, formatApy } from 'utilities/common';
+import { getBigNumber, formatApy, format } from 'utilities/common';
 import { useComptroller, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
-
-const format = commaNumber.bindWith(',', '.');
 
 interface WithdrawTabProps {
   asset: Asset;
@@ -276,12 +273,12 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
           <div className="borrow-limit">
             <span>Borrow Limit</span>
             {amount.isZero() || amount.isNaN() ? (
-              <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+              <span>${format(borrowLimit)}</span>
             ) : (
               <div className="flex align-center just-between">
-                <span>${format(borrowLimit.dp(2, 1).toString(10))}</span>
+                <span>${format(borrowLimit)}</span>
                 <img className="arrow-right-img" src={arrowRightImg} alt="arrow" />
-                <span>${format(newBorrowLimit.dp(2, 1).toString(10))}</span>
+                <span>${format(newBorrowLimit)}</span>
               </div>
             )}
           </div>
@@ -324,7 +321,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
         <div className="description">
           <span>Protocol Balance</span>
           <span>
-            {format(asset.supplyBalance.dp(2, 1).toString(10))} {asset.symbol}
+            {format(asset.supplyBalance)} {asset.symbol}
           </span>
         </div>
       </TabContent>

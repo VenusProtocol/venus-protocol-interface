@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import commaNumber from 'comma-number';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
+import { format } from 'utilities/common';
 import { Icon, Tooltip } from 'antd';
 import { uid } from 'react-uid';
 
@@ -120,8 +120,6 @@ interface Props extends RouteComponentProps {
   onViewAll: () => void;
 }
 
-const format = commaNumber.bindWith(',', '.');
-
 function VoteCard({
   type,
   history,
@@ -164,9 +162,7 @@ function VoteCard({
               {format(
                 new BigNumber(
                   Web3.utils.fromWei(voteNumber.isNaN() ? '' : voteNumber.toString(10), 'ether'),
-                )
-                  .dp(8, 1)
-                  .toString(10),
+                ),
               )}
             </span>
           </div>
@@ -190,11 +186,7 @@ function VoteCard({
                   {l.label ? `${l.label.substr(0, 5)}...${l.label.substr(-4, 4)}` : ''}
                 </span>
                 <div>
-                  <span>
-                    {format(
-                      new BigNumber(Web3.utils.fromWei(l.value, 'ether')).dp(8, 1).toString(10),
-                    )}
-                  </span>
+                  <span>{format(new BigNumber(Web3.utils.fromWei(l.value, 'ether')))}</span>
                   {l.reason && (
                     <Tooltip
                       placement="top"
