@@ -5,10 +5,8 @@ import React, { useState } from 'react';
 
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import { Icon, IconName } from 'components';
-
-const commaFormatter = commaNumber.bindWith(',', '.');
+import { boundCommaNumber } from 'utilities/common';
 
 interface CardHeaderProps {
   stakedToken: string;
@@ -50,7 +48,7 @@ const CardHeader = ({
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Available Rewards</div>
           <div className="content">
-            {commaFormatter(userPendingReward.dp(4, 1).toFixed())} {rewardToken}
+            {boundCommaNumber(totalPendingRewards.dp(4, 1).toFixed())} {rewardToken}
           </div>
         </Col>
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
@@ -60,13 +58,13 @@ const CardHeader = ({
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Total {stakedToken} Staked</div>
           <div className="content">
-            {commaFormatter(totalStakedAmount.dp(4, 1).toFixed())} {stakedToken}
+            {boundCommaNumber(totalStakedAmount.dp(4, 1).toFixed())} {stakedToken}
           </div>
         </Col>
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">{rewardToken} Daily Emission</div>
           <div className="content">
-            {commaFormatter(dailyEmission.toFixed())} {rewardToken}
+            {boundCommaNumber(dailyEmission.toFixed())} {rewardToken}
           </div>
         </Col>
         <Col

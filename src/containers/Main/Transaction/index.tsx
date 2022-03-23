@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-
-import commaNumber from 'comma-number';
 import { Row, Col, Pagination, Select } from 'antd';
 import styled from 'styled-components';
 import { connectAccount } from 'core';
@@ -261,7 +259,6 @@ const eventTypes = [
 ];
 
 const { Option } = Select;
-const format = commaNumber.bindWith(',', '.');
 
 interface TransactionProps extends RouteComponentProps {
   getTransactionHistory: $TSFixMe;

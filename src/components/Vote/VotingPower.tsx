@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import { useWeb3Account } from 'clients/web3';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { boundCommaNumber } from 'utilities/common';
 
 const VotingPowerWrapper = styled.div`
   width: 100%;
@@ -101,8 +101,6 @@ const VotingPowerWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface VotingPowerProps extends RouteComponentProps {
   power: string;
   balance: string;
@@ -124,7 +122,7 @@ function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: 
               <Row className="flex align-center flex-wrap">
                 <Column className="voting-weight" xs="12" sm="12" md="5">
                   <p className="title">Voting Weight</p>
-                  <p className="content">{format(power)}</p>
+                  <p className="content">{boundCommaNumber(power)}</p>
                 </Column>
                 <Column xs="12" sm="12" md="7" className=" voting-hint">
                   <Row className="flex flex-wrap align-center">

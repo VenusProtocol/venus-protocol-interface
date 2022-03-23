@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
-import commaNumber from 'comma-number';
 import { connect } from 'react-redux';
 import toast from 'components/Basic/Toast';
 import { Label } from 'components/Basic/Label';
@@ -11,7 +10,7 @@ import Toggle from 'components/Basic/Toggle';
 import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
-import { formatApy } from 'utilities/common';
+import { formatApy, format } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
@@ -22,8 +21,6 @@ const SupplyMarketWrapper = styled.div`
   height: 100%;
   padding-left: 6px;
 `;
-
-const format = commaNumber.bindWith(',', '.');
 
 interface StateProps {
   settings: Setting;
@@ -120,7 +117,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
         return {
           children: (
             <Label size="14" primary>
-              {format(walletBalance.dp(2, 1).toString(10))} {asset.symbol}
+              {format(walletBalance)} {asset.symbol}
             </Label>
           ),
         };
@@ -192,10 +189,10 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
           children: (
             <div className="wallet-label flex flex-column">
               <Label size="14" primary>
-                ${format(supplyBalance.times(asset.tokenPrice).dp(2, 1).toString(10))}
+                ${format(supplyBalance.times(asset.tokenPrice))}
               </Label>
               <Label size="14">
-                {format(supplyBalance.dp(4, 1).toString(10))} {asset.symbol}
+                {format(supplyBalance, 4)} {asset.symbol}
               </Label>
             </div>
           ),

@@ -127,6 +127,10 @@ export const formatApy = (apy?: BigNumber | string | number): string => {
   return `${apyBN.toExponential(2, 1)}%`;
 };
 
+export const boundCommaNumber = commaNumber.bindWith(',', '.');
+export const format = (bigNumber: BigNumber, dp = 2) =>
+  boundCommaNumber(bigNumber.dp(dp, 1).toString(10));
+
 /**
  * Takes an index function and an array and returns an object with indexFn(item)
  * as keys and array items as values.

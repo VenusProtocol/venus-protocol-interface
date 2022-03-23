@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MainLayout from 'containers/Layout/MainLayout';
 import * as constants from 'utilities/constants';
-import { currencyFormatter, formatApy } from 'utilities/common';
+import { currencyFormatter, formatApy, boundCommaNumber, format } from 'utilities/common';
 import { uid } from 'react-uid';
 import { Setting } from 'types';
 import { useMarkets } from 'hooks/useMarkets';
@@ -160,8 +159,6 @@ const TableWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface MarketProps extends RouteComponentProps {
   settings: Setting;
 }
@@ -224,26 +221,29 @@ function Market({ history, settings }: MarketProps) {
           <div className="total-info">
             <div className="total-item">
               <div className="prop">Total Supply</div>
-              <div className="value" title={format(totalSupply)}>
-                ${format(totalSupply)}
+              <div className="value" title={boundCommaNumber(totalSupply)}>
+                ${boundCommaNumber(totalSupply)}
               </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Borrow</div>
-              <div className="value" title={format(totalBorrow)}>
-                ${format(totalBorrow)}
+              <div className="value" title={boundCommaNumber(totalBorrow)}>
+                ${boundCommaNumber(totalBorrow)}
               </div>
             </div>
             <div className="total-item">
               <div className="prop">Available Liquidity</div>
-              <div className="value" title={format(availableLiquidity)}>
-                ${format(availableLiquidity)}
+              <div className="value" title={boundCommaNumber(availableLiquidity)}>
+                ${boundCommaNumber(availableLiquidity)}
               </div>
             </div>
             <div className="total-item">
               <div className="prop">Total Treasury</div>
-              <div className="value" title={format(treasuryTotalUSDBalance.dp(2).toString())}>
-                ${format(treasuryTotalUSDBalance.dp(2).toString())}
+              <div
+                className="value"
+                title={boundCommaNumber(treasuryTotalUSDBalance.dp(2).toString())}
+              >
+                ${boundCommaNumber(treasuryTotalUSDBalance.dp(2).toString())}
               </div>
             </div>
           </div>
@@ -390,10 +390,8 @@ function Market({ history, settings }: MarketProps) {
                       <p className="item-title">{currencyFormatter(item.totalSupplyUsd)}</p>
                       <p className="item-value">
                         {format(
-                          new BigNumber(item.totalSupplyUsd)
-                            .div(new BigNumber(item.tokenPrice))
-                            .dp(0, 1)
-                            .toString(10),
+                          new BigNumber(item.totalSupplyUsd).div(new BigNumber(item.tokenPrice)),
+                          0,
                         )}{' '}
                         {item.underlyingSymbol}
                       </p>
@@ -408,10 +406,8 @@ function Market({ history, settings }: MarketProps) {
                       <p className="item-title">{currencyFormatter(item.totalBorrowsUsd)}</p>
                       <p className="item-value">
                         {format(
-                          new BigNumber(item.totalBorrowsUsd)
-                            .div(new BigNumber(item.tokenPrice))
-                            .dp(0, 1)
-                            .toString(10),
+                          new BigNumber(item.totalBorrowsUsd).div(new BigNumber(item.tokenPrice)),
+                          0,
                         )}{' '}
                         {item.underlyingSymbol}
                       </p>

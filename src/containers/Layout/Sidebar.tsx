@@ -10,8 +10,7 @@ import { Label } from 'components/Basic/Label';
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoPure.svg';
 import prdtImg from 'assets/img/prdt.png';
-import commaNumber from 'comma-number';
-import { getBigNumber } from 'utilities/common';
+import { getBigNumber, format } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
@@ -267,8 +266,6 @@ const MobileMenu = styled.div`
 
 const { Option } = Select;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface SidebarProps extends RouteComponentProps {
   settings: Setting;
   setSetting: (setting: Partial<Setting> | undefined) => void;
@@ -476,7 +473,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
       {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
-            <Label primary>${format(new BigNumber(tvl).dp(2, 1).toString(10))}</Label>
+            <Label primary>${format(new BigNumber(tvl), 2)}</Label>
             <Label className="center">Total Value Locked</Label>
           </div>
         </TotalValue>
@@ -484,7 +481,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
       {account && (
         <TotalValue>
           <div className="flex flex-column align-center just-center">
-            <Label primary>{format(getBigNumber(totalVaiMinted).dp(0, 1).toString(10))}</Label>
+            <Label primary>{format(getBigNumber(totalVaiMinted), 0)}</Label>
             <Label className="center">Total VAI Minted</Label>
           </div>
         </TotalValue>
