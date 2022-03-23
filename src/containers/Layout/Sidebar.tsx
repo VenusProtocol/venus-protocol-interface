@@ -6,7 +6,6 @@ import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import { accountActionCreators } from 'core/modules/account/actions';
-import ConnectButton, { ConnectButtonWrapper } from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoPure.svg';
@@ -16,8 +15,10 @@ import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
-import XVSActiveIcon from 'assets/img/venusActive.svg';
+import { AuthContext } from 'context/AuthContext';
+import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { State } from 'core/modules/initialState';
+import { SecondaryButton } from 'components';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useComptroller, useVaiToken } from '../../hooks/useContract';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';
@@ -282,6 +283,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   const { markets } = useMarkets();
   const comptrollerContract = useComptroller();
   const vaiTokenContract = useVaiToken();
+  const { openAuthModal } = React.useContext(AuthContext);
 
   const defaultPath = history.location.pathname.split('/')[1];
   const { account, chainId } = useWeb3Account();
@@ -489,9 +491,14 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           </div>
         </TotalValue>
       )}
-      <ConnectButtonWrapper>
-        <ConnectButton />
-      </ConnectButtonWrapper>
+
+      {/* Connect button */}
+      <SecondaryButton onClick={openAuthModal}>
+        {!account
+          ? 'Connect'
+          : `${account.substring(0, 6)}...${account.substring(account.length - 4)}`}
+      </SecondaryButton>
+
       <MobileMenu id="main-menu">
         <Select
           defaultValue={defaultPath}
