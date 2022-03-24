@@ -1,19 +1,34 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { PrimaryButton, SecondaryButton, TextButton, Button } from '.';
+import { PrimaryButton, SecondaryButton, TertiaryButton, TextButton, Button } from '.';
 
 export default {
   title: 'Components/Button',
   component: Button,
-  decorators: [withThemeProvider, withCenterStory({ width: 150 })],
+  decorators: [withThemeProvider, withCenterStory({ width: 250 })],
 } as ComponentMeta<typeof Button>;
 
 export const Primary = () => <PrimaryButton onClick={console.log}>Primary</PrimaryButton>;
+export const Secondary = () => <SecondaryButton onClick={console.log}>Secondary</SecondaryButton>;
+export const Tertiary = () => <TertiaryButton onClick={console.log}>Tertiary</TertiaryButton>;
+export const Text = () => <TextButton onClick={console.log}>Text</TextButton>;
 
-export const PrimaryDisabled = () => (
+export const Small = () => (
+  <PrimaryButton onClick={console.log} small>
+    Small
+  </PrimaryButton>
+);
+
+export const FullWidth = () => (
+  <PrimaryButton onClick={console.log} fullWidth>
+    Full width
+  </PrimaryButton>
+);
+
+export const Disabled = () => (
   <PrimaryButton onClick={console.log} disabled>
-    Primary
+    Disabled
   </PrimaryButton>
 );
 
@@ -27,7 +42,3 @@ Loading.story = {
     loki: { skip: true },
   },
 };
-
-export const Secondary = () => <SecondaryButton onClick={console.log}>Secondary</SecondaryButton>;
-
-export const Text = () => <TextButton onClick={console.log}>Text</TextButton>;
