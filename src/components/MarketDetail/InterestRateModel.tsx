@@ -154,12 +154,17 @@ function InterestRateModel({ currentAsset }: Props) {
     const marketInfo = markets.find(
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase(),
     );
+
+    const tokenDecimals =
+      constants.CONTRACT_TOKEN_ADDRESS[asset as keyof typeof constants.CONTRACT_TOKEN_ADDRESS]
+        ?.decimals || 18;
+
     // Get Current Utilization Rate
-    const cash = new BigNumber(cashValue).div(1e18);
+    const cash = new BigNumber(cashValue).div(new BigNumber(10).pow(tokenDecimals));
+
     const borrows = new BigNumber(marketInfo.totalBorrows2);
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS[asset].decimals),
+      new BigNumber(10).pow(tokenDecimals),
     );
     const currentUtilizationRate = borrows.div(cash.plus(borrows).minus(reserves));
 
@@ -168,6 +173,7 @@ function InterestRateModel({ currentAsset }: Props) {
       +currentUtilizationRate.toString(10) * 100,
       10,
     );
+
     setCurrentPercent(tempCurrentPercent || 0);
     const lineElement = document.getElementById('line');
     if (lineElement) {
