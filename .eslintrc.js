@@ -47,6 +47,7 @@ module.exports = {
       },
     ],
     // Custom
+    'import/no-named-as-default': 0,
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
