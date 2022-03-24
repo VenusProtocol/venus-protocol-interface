@@ -13,6 +13,7 @@ import prdtImg from 'assets/img/prdt.png';
 import { getBigNumber, format } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
+import { CHAIN_ID, BscChainId } from 'config';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { State } from 'core/modules/initialState';
@@ -297,7 +298,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   const { account, chainId } = useWeb3Account();
 
   useEffect(() => {
-    if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
+    if (chainId && chainId !== CHAIN_ID) {
       toast.error({
         title: 'Please change your network to access the BNB Chain Main Network',
       });
@@ -423,14 +424,16 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
         </NavLink>
-        <NavLink
-          className="flex flex-start align-center"
-          to="/convert-vrt"
-          active-class-name="active"
-        >
-          <Icon type="swap" />
-          <Label primary>Convert VRT</Label>
-        </NavLink>
+        {CHAIN_ID === BscChainId.TESTNET && (
+          <NavLink
+            className="flex flex-start align-center"
+            to="/convert-vrt"
+            active-class-name="active"
+          >
+            <Icon type="swap" />
+            <Label primary>Convert VRT</Label>
+          </NavLink>
+        )}
         <NavLink
           className="flex flex-start align-center"
           to="/transaction"
@@ -477,7 +480,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
         </a>
       </MainMenu>
       <FaucetMenu>
-        {process.env.REACT_APP_CHAIN_ID === '97' && (
+        {CHAIN_ID === BscChainId.TESTNET && (
           <NavLink className="flex just-center" to="/faucet" active-class-name="active">
             <Label primary>Faucet</Label>
           </NavLink>
@@ -540,11 +543,13 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Vault
             </Label>
           </Option>
-          <Option className="flex align-center just-center" value="convert-vrt">
-            <Label size={14} primary>
-              Convert VRT
-            </Label>
-          </Option>
+          {CHAIN_ID === BscChainId.TESTNET && (
+            <Option className="flex align-center just-center" value="Convert-vrt">
+              <Label size={14} primary>
+                Convert VRT
+              </Label>
+            </Option>
+          )}
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
               Transactions
@@ -560,7 +565,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Forum
             </Label>
           </Option>
-          {process.env.REACT_APP_CHAIN_ID === '97' && (
+          {CHAIN_ID === BscChainId.TESTNET && (
             <Option className="flex align-center just-center" value="faucet">
               <Label size={14} primary>
                 Faucet
