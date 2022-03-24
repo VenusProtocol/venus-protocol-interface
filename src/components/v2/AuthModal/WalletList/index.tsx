@@ -9,6 +9,7 @@ import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.s
 import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
 import { Connector } from 'clients/web3';
 import Typography from '@mui/material/Typography';
+import { VENUS_TERMS_OF_SERVICE_URL } from 'config';
 import { Icon } from '../../Icon';
 
 import { useStyles } from './styles';
@@ -97,6 +98,20 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
           </Typography>
         </div>
       ))}
+
+      <div css={styles.footer}>
+        <Typography variant="small2">
+          By connecting a wallet, you agree to Venus&apos;{' '}
+          <a
+            href={VENUS_TERMS_OF_SERVICE_URL}
+            target="_blank"
+            rel="noreferrer"
+            css={styles.footerLink}
+          >
+            Terms of Service
+          </a>
+        </Typography>
+      </div>
     </>
   );
 };
