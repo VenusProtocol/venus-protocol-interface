@@ -9,7 +9,7 @@ export interface IAuthModalProps {
   onClose: () => void;
   onLogin: IWalletListProps['onLogin'];
   onLogOut: IAccountDetailsProps['onLogOut'];
-  onCopyAccount: IAccountDetailsProps['onCopyAccount'];
+  onCopyAccountAddress: IAccountDetailsProps['onCopyAccountAddress'];
   account?: IAccountDetailsProps['account'];
 }
 
@@ -18,13 +18,13 @@ export const AuthModal: React.FC<IAuthModalProps> = ({
   onClose,
   onLogin,
   onLogOut,
-  onCopyAccount,
+  onCopyAccountAddress,
   account,
 }) => (
   // TODO: refactor to use new Modal component
   <Modal
     className="venus-modal"
-    width={532}
+    width={580}
     visible={isOpen}
     onCancel={onClose}
     footer={null}
@@ -35,7 +35,11 @@ export const AuthModal: React.FC<IAuthModalProps> = ({
     {!account ? (
       <WalletList onLogin={onLogin} />
     ) : (
-      <AccountDetails account={account} onCopyAccount={onCopyAccount} onLogOut={onLogOut} />
+      <AccountDetails
+        account={account}
+        onCopyAccountAddress={onCopyAccountAddress}
+        onLogOut={onLogOut}
+      />
     )}
   </Modal>
 );
