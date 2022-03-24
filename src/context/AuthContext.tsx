@@ -1,5 +1,6 @@
 import React from 'react';
 import noop from 'noop-ts';
+import copyToClipboard from 'copy-to-clipboard';
 
 import { Connector, useAuth } from 'clients/web3';
 import toast from 'components/Basic/Toast';
@@ -32,6 +33,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     closeAuthModal();
   };
 
+  const handleCopyAccountAddress = (accountAddress: string) => {
+    copyToClipboard(accountAddress);
+
+    toast.success({
+      title: 'Wallet address copied to clipboard',
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -45,14 +54,11 @@ export const AuthProvider: React.FC = ({ children }) => {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={closeAuthModal}
+        // TODO: fix (check how we can get connector name
         account={account ?? undefined}
         onLogOut={logOut}
         onLogin={handleLogin}
-        onCopyAccount={() =>
-          toast.success({
-            title: 'Wallet address copied to clipboard',
-          })
-        }
+        onCopyAccountAddress={handleCopyAccountAddress}
       />
 
       {children}
