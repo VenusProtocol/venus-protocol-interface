@@ -2,6 +2,7 @@ import React from 'react';
 import noop from 'noop-ts';
 
 import { Connector, useAuth } from 'clients/web3';
+import toast from 'components/Basic/Toast';
 import { AuthModal } from 'components';
 
 // eslint-disable-next-line no-spaced-func
@@ -47,6 +48,11 @@ export const AuthProvider: React.FC = ({ children }) => {
         account={account ?? undefined}
         onLogOut={logOut}
         onLogin={handleLogin}
+        onCopyAccount={() =>
+          toast.success({
+            title: 'Wallet address copied to clipboard',
+          })
+        }
       />
 
       {children}
