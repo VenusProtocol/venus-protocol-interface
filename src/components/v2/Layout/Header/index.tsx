@@ -5,7 +5,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Toolbar } from '../Toolbar';
 import ConnectButton from './ConnectButton';
-import { XvsCoinInfo, VaiCoinInfo } from './CoinInfo';
+import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
 import { useStyles } from './styles';
 
 interface IHeaderProps {
@@ -21,9 +21,9 @@ export const Header = ({ pageTitle }: IHeaderProps) => {
           {pageTitle}
         </Typography>
         <Box flexDirection="row" display="flex" flex={1} justifyContent="right">
-          <XvsCoinInfo css={styles.rightItemPaper} />
-          <VaiCoinInfo css={styles.rightItemPaper} />
-          <ConnectButton />
+          <XvsCoinInfo css={styles.rightItemPaper} className="coinInfo" />
+          <VaiCoinInfo css={styles.rightItemPaper} className="coinInfo" />
+          <ConnectButton css={styles.rightItemPaper} title="Connect wallet" />
         </Box>
       </Toolbar>
     </AppBar>

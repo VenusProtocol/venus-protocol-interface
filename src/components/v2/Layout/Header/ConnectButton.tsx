@@ -7,11 +7,16 @@ import { SecondaryButton, IButtonProps } from '../../Button';
 
 export interface IConnectButton extends IButtonProps {
   accountAddress?: string;
+  title?: string;
 }
 
-export const ConnectButton: React.FC<IConnectButton> = ({ accountAddress, ...otherProps }) => (
+export const ConnectButton: React.FC<IConnectButton> = ({
+  accountAddress,
+  title = 'Connect',
+  ...otherProps
+}) => (
   <SecondaryButton {...otherProps}>
-    {!accountAddress ? 'Connect' : truncateAddress(accountAddress)}
+    {!accountAddress ? title : truncateAddress(accountAddress)}
   </SecondaryButton>
 );
 
