@@ -24,9 +24,15 @@ const ledger = new LedgerConnector({
 
 export const injected = new InjectedConnector({ supportedChainIds: [CHAIN_ID] });
 
+const coinbaseWallet = new WalletLinkConnector({
+  url: RPC_URL,
+  appName: 'Venus',
+});
+
 export const connectorsByName = {
   [Connector.MetaMask]: injected,
   [Connector.WalletConnect]: walletConnect,
   [Connector.BSC]: bscConnector,
   [Connector.Ledger]: ledger,
+  [Connector.CoinbaseWallet]: coinbaseWallet,
 };
