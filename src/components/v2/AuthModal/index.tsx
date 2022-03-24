@@ -12,10 +12,10 @@ import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import { ReactComponent as VenusLogo } from 'assets/img/v2/venusLogoWithText.svg';
-import { PrimaryButton } from 'components';
 import toast from 'components/Basic/Toast';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { Connector } from 'clients/web3';
+import { PrimaryButton } from '../Button';
 
 // TODO: refactor
 const ModalContent = styled.div`
