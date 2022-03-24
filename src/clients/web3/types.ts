@@ -1,7 +1,7 @@
 export enum Connector {
   MetaMask = 'MetaMask',
+  TrustWallet = 'TrustWallet',
   WalletConnect = 'WalletConnect',
-  BSC = 'BSC',
-  Ledger = 'Ledger',
   CoinbaseWallet = 'CoinbaseWallet',
+  BinanceChainWallet = 'BinanceChainWallet',
 }
