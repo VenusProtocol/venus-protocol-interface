@@ -19,25 +19,11 @@ export const useStyles = () => {
     `,
     rightItemPaper: css`
       margin: ${theme.spacing(2)};
-      justify-content: center;
       align-items: center;
       padding: ${theme.spacing(1)};
       display: inline-flex;
-    `,
-    coinInfo: css`
-      display: flex;
-      flex-direction: row;
-      align-items: center;
       min-width: 165px;
-      margin-right: ${theme.spacing(2)};
-      padding: ${theme.spacing(1.5)} ${theme.spacing(2)};
       box-shadow: none;
-      > * {
-        margin-right: ${theme.spacing(1.5)};
-      }
-      p {
-        color: ${theme.palette.text.primary};
-      }
     `,
   };
 };

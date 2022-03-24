@@ -11,11 +11,19 @@ import { useStyles } from './styles';
 
 const format = commaNumber.bindWith(',', '.');
 
-export const CoinInfo = ({ balance, coin }: { balance: BigNumber; coin: 'xvs' | 'vai' }) => {
+export const CoinInfo = ({
+  balance,
+  coin,
+  className,
+}: {
+  balance: BigNumber;
+  coin: 'xvs' | 'vai';
+  className?: string;
+}) => {
   const styles = useStyles();
 
   return (
-    <Paper css={styles.coinInfo}>
+    <Paper css={styles.coinInfo} className={className}>
       <Icon name={coin} size="20px" />
       <Typography variant="small1" noWrap component="span">
         {format(balance.dp(2, 1).toString(10))} {coin.toUpperCase()}
@@ -24,12 +32,12 @@ export const CoinInfo = ({ balance, coin }: { balance: BigNumber; coin: 'xvs' | 
   );
 };
 
-export const XvsCoinInfo = () => {
+export const XvsCoinInfo = ({ className }: { className?: string }) => {
   const { userVaiBalance } = useVaiUser();
-  return <CoinInfo balance={userVaiBalance} coin="vai" />;
+  return <CoinInfo balance={userVaiBalance} coin="vai" className={className} />;
 };
 
-export const VaiCoinInfo = () => {
+export const VaiCoinInfo = ({ className }: { className?: string }) => {
   const { userXvsBalance } = useMarketsUser();
-  return <CoinInfo balance={userXvsBalance} coin="xvs" />;
+  return <CoinInfo balance={userXvsBalance} coin="xvs" className={className} />;
 };
