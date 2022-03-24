@@ -16,7 +16,6 @@ export const useStyles = () => {
       /* @TODO Remove when the ConnectButton is refactored */
       .connect-btn {
         height: auto;
-        margin: ${theme.spacing(2)};
         padding: ${theme.spacing(1.5)} ${theme.spacing(2)};
         width: 165px;
       }
@@ -36,7 +35,7 @@ export const useStyles = () => {
       flex-direction: row;
       align-items: center;
       min-width: 165px;
-      margin: ${theme.spacing(2)};
+      margin-right: ${theme.spacing(2)};
       padding: ${theme.spacing(1.5)} ${theme.spacing(2)};
       box-shadow: none;
       > * {
