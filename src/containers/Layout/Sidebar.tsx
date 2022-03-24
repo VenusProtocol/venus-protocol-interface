@@ -289,7 +289,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   useEffect(() => {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
       toast.error({
-        title: 'Please change your network to access the Binance Smart Chain Main Network',
+        title: 'Please change your network to access the BNB Chain Main Network',
       });
     }
   }, [chainId]);
