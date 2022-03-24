@@ -58,11 +58,11 @@ export const useStyles = () => {
       color: ${theme.palette.button.main};
 
       :hover {
-        color: ${theme.palette.button.dark};
+        color: ${theme.palette.button.medium};
       }
 
       :active {
-        color: ${theme.palette.button.light};
+        color: ${theme.palette.button.dark};
       }
     `,
   };
