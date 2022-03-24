@@ -15,6 +15,7 @@ export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
 export { ReactComponent as countdown } from './countdown.svg';
 export { ReactComponent as loading } from './loading.svg';
 export { ReactComponent as arrowDown } from './arrowDown.svg';
+export { ReactComponent as chevronRight } from './chevronRight.svg';
 export { ReactComponent as longArrow } from './longArrow.svg';
 export { ReactComponent as medium } from './medium.svg';
 export { ReactComponent as discord } from './discord.svg';
