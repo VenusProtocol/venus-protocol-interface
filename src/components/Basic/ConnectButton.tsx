@@ -226,7 +226,7 @@ function ConnectButton() {
   };
 
   const onConnect = useCallback(
-    (connectorName: ConnectorNames) => {
+    (connectorName: Connector) => {
       login(connectorName);
       onClose();
     },
@@ -297,7 +297,7 @@ function ConnectButton() {
                 {process.env.REACT_APP_CHAIN_ID === '56' && (
                   <div
                     className="flex align-center just-between metamask-connect-btn"
-                    onClick={() => onConnect(ConnectorNames.CoinbaseWallet)}
+                    onClick={() => onConnect(Connector.CoinbaseWallet)}
                   >
                     <div className="flex align-center">
                       <img src={coinbaseWalletImg} alt="coinbaseWallet" />
