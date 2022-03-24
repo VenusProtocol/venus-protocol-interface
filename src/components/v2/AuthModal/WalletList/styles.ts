@@ -14,6 +14,7 @@ export const useStyles = () => {
       padding: ${theme.spacing(2, 5)};
       display: flex;
       align-items: center;
+      color: ${theme.palette.text.primary};
 
       ${isActionable &&
       css`
@@ -25,17 +26,16 @@ export const useStyles = () => {
       `}
     `,
     walletLogo: css`
+      width: 48px;
       margin-right: ${theme.spacing(2)};
+      flex-shrink: 0;
     `,
     walletName: css`
       flex: 1;
       text-align: left;
-      color: ${theme.palette.text.primary};
-      font-weight: 400;
       margin-right: ${theme.spacing(2)};
     `,
     comingSoonText: css`
-      font-weight: 400;
       color: ${theme.palette.text.secondary};
       text-align: right;
     `,
