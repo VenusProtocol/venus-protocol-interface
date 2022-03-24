@@ -91,7 +91,7 @@ export default createTheme({
     },
     body1: {
       fontSize: '1rem',
-      fontWeight: 600,
+      fontWeight: 400,
     },
     body2: {
       fontSize: '1rem',
