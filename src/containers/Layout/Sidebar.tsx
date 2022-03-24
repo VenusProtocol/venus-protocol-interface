@@ -15,14 +15,12 @@ import { getBigNumber } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
-import { AuthContext } from 'context/AuthContext';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { State } from 'core/modules/initialState';
-import { SecondaryButton } from 'components';
 import { useMarkets } from 'hooks/useMarkets';
 import { useComptroller, useVaiToken } from 'hooks/useContract';
-import { truncateAddress } from 'utilities/truncateAddress';
 import { getVaiVaultAddress } from 'utilities/addressHelpers';
+import ConnectButton from 'components/v2/Layout/Header/ConnectButton';
 
 const SidebarWrapper = styled.div`
   height: 100vh;
@@ -284,7 +282,6 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   const { markets } = useMarkets();
   const comptrollerContract = useComptroller();
   const vaiTokenContract = useVaiToken();
-  const { openAuthModal } = React.useContext(AuthContext);
 
   const defaultPath = history.location.pathname.split('/')[1];
   const { account, chainId } = useWeb3Account();
@@ -493,10 +490,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
         </TotalValue>
       )}
 
-      {/* Connect button */}
-      <SecondaryButton onClick={openAuthModal}>
-        {!account ? 'Connect' : truncateAddress(account)}
-      </SecondaryButton>
+      <ConnectButton />
 
       <MobileMenu id="main-menu">
         <Select
