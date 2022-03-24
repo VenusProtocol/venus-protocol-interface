@@ -2,7 +2,7 @@ import React from 'react';
 import noop from 'noop-ts';
 
 import { Connector, useAuth } from 'clients/web3';
-import { AuthModal } from './AuthModal';
+import { AuthModal } from 'components';
 
 // eslint-disable-next-line no-spaced-func
 export const AuthContext = React.createContext<{
