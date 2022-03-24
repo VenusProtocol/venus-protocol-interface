@@ -80,11 +80,11 @@ export const useStyles = () => {
       line-height: 0;
 
       :hover > svg {
-        color: ${theme.palette.button.dark};
+        color: ${theme.palette.button.medium};
       }
 
       :active > svg {
-        color: ${theme.palette.button.light};
+        color: ${theme.palette.button.dark};
       }
     `,
     copyButtonIcon: css`
@@ -101,12 +101,12 @@ export const useStyles = () => {
 
       :hover > a,
       :hover > svg {
-        color: ${theme.palette.button.dark};
+        color: ${theme.palette.button.medium};
       }
 
       :active > a,
       :active > svg {
-        color: ${theme.palette.button.light};
+        color: ${theme.palette.button.dark};
       }
 
       ${theme.breakpoints.down('md')} {
