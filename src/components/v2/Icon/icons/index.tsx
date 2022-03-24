@@ -21,3 +21,4 @@ export { ReactComponent as twitter } from './twitter.svg';
 export { ReactComponent as github } from './github.svg';
 export { ReactComponent as venus } from './venus.svg';
 export { ReactComponent as convert } from './convert.svg';
+export { ReactComponent as close } from './close.svg';
