@@ -4,7 +4,7 @@ import copyToClipboard from 'copy-to-clipboard';
 
 import { Connector, useAuth } from 'clients/web3';
 import toast from 'components/Basic/Toast';
-import { AuthModal } from 'components';
+import { AuthModal } from 'components/v2/AuthModal';
 
 // eslint-disable-next-line no-spaced-func
 export const AuthContext = React.createContext<{
@@ -54,8 +54,15 @@ export const AuthProvider: React.FC = ({ children }) => {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={closeAuthModal}
-        // TODO: fix (check how we can get connector name
-        account={account ?? undefined}
+        account={
+          account
+            ? {
+                address: account,
+                // TODO: check how we can get connector name
+                connector: Connector.MetaMask,
+              }
+            : undefined
+        }
         onLogOut={logOut}
         onLogin={handleLogin}
         onCopyAccountAddress={handleCopyAccountAddress}
