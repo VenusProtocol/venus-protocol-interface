@@ -19,9 +19,10 @@ import { AuthContext } from 'context/AuthContext';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { State } from 'core/modules/initialState';
 import { SecondaryButton } from 'components';
-import { useMarkets } from '../../hooks/useMarkets';
-import { useComptroller, useVaiToken } from '../../hooks/useContract';
-import { getVaiVaultAddress } from '../../utilities/addressHelpers';
+import { useMarkets } from 'hooks/useMarkets';
+import { useComptroller, useVaiToken } from 'hooks/useContract';
+import { truncateAddress } from 'utilities/truncateAddress';
+import { getVaiVaultAddress } from 'utilities/addressHelpers';
 
 const SidebarWrapper = styled.div`
   height: calc(100vh - 29px);
@@ -496,9 +497,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
 
       {/* Connect button */}
       <SecondaryButton onClick={openAuthModal}>
-        {!account
-          ? 'Connect'
-          : `${account.substring(0, 6)}...${account.substring(account.length - 4)}`}
+        {!account ? 'Connect' : truncateAddress(account)}
       </SecondaryButton>
 
       <MobileMenu id="main-menu">
