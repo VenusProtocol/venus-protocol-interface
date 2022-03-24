@@ -3,8 +3,9 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { Connector } from 'clients/web3';
-import { WALLETS } from '../constants';
 import { Icon } from '../../Icon';
+import { SecondaryButton } from '../../Button';
+import { WALLETS } from '../constants';
 import { useStyles } from './styles';
 
 export interface IAccountDetailsProps {
@@ -68,6 +69,10 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
 
         <Icon name="open" css={styles.bscScanLinkIcon} />
       </div>
+
+      <SecondaryButton onClick={onLogOut} fullWidth>
+        Log out
+      </SecondaryButton>
     </div>
   );
 };
