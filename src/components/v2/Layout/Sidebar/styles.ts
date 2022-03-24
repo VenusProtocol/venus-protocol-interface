@@ -55,6 +55,7 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
         padding-top: ${theme.spacing(3)};
         padding-bottom: ${theme.spacing(3)};
         display: inline-flex;
+        justify-content: space-between;
       }
 
       .active-menu-item {
@@ -87,10 +88,99 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
         display: none;
       }
     `,
-    logoMobile: css`
+    logoClosed: css`
       display: ${expanded ? 'none' : 'block'};
       ${theme.breakpoints.down('sm')} {
         display: block;
+      }
+    `,
+    mobileMenuBox: css`
+      display: none;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: ${theme.spacing(2)};
+      ${theme.breakpoints.down('md')} {
+        display: flex;
+      }
+    `,
+    mobileLogo: css`
+      display: none;
+      ${theme.breakpoints.down('sm')} {
+        display: block;
+      }
+      height: 40px;
+      width: 40px;
+    `,
+    burger: css`
+      height: 24px;
+      width: 24px;
+    `,
+    mobileMenu: css`
+      > .MuiPaper-root {
+        background-color: ${theme.palette.background.default};
+        background-image: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        max-height: 100vh;
+        width: 100vw;
+        max-width: 100vw;
+        border-radius: 0;
+        border: 0;
+        box-shadow: none;
+      }
+    `,
+    mobileListItem: css`
+      a {
+        color: ${theme.palette.text.primary};
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        padding-top: ${theme.spacing(2)};
+        padding-bottom: ${theme.spacing(2)};
+      }
+      .active-mobile-menu-item {
+        svg {
+          color: ${theme.palette.interactive.primary};
+        }
+      }
+    `,
+    mobileListItemText: css`
+      color: ${theme.palette.text.primary};
+    `,
+    mobileArrow: css`
+      height: 24px;
+      width: 24px;
+      margin-right: ${theme.spacing(2.5)};
+    `,
+    mobileLabel: css`
+      flex-direction: row;
+      justify-content: center;
+      display: inline-flex;
+      align-items: center;
+    `,
+    flexRow: css`
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    `,
+    doublePadding: css`
+      padding: ${theme.spacing(1)} ${theme.spacing(2)}; ;
+    `,
+    coinInfo: css`
+      > div {
+        display: flex;
+        flex: 1;
+      }
+      div:first-child {
+        margin-right: ${theme.spacing(1)};
+      }
+      div:last-child {
+        margin-left: 0 ${theme.spacing(1)};
       }
     `,
   };
