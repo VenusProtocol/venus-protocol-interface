@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 
 import closeImg from 'assets/img/close.png';
 import { AccountDetails, IAccountDetailsProps } from './AccountDetails';
-import { ConnectorList, IConnectorListProps } from './ConnectorList';
+import { WalletList, IWalletListProps } from './WalletList';
 
 // TODO: refactor
 const ModalContent = styled.div`
@@ -185,7 +185,7 @@ const ModalContent = styled.div`
 export interface IAuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onLogin: IConnectorListProps['onLogin'];
+  onLogin: IWalletListProps['onLogin'];
   onLogOut: IAccountDetailsProps['onLogOut'];
   onCopyAccount: IAccountDetailsProps['onCopyAccount'];
   account?: IAccountDetailsProps['account'];
@@ -212,7 +212,7 @@ export const AuthModal: React.FC<IAuthModalProps> = ({
   >
     <ModalContent className="flex flex-column align-center just-center">
       {!account ? (
-        <ConnectorList onLogin={onLogin} />
+        <WalletList onLogin={onLogin} />
       ) : (
         <AccountDetails account={account} onCopyAccount={onCopyAccount} onLogOut={onLogOut} />
       )}
