@@ -48,14 +48,25 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
               type="button"
               css={styles.copyButton}
             >
-              <Icon
-                name="copy"
-                color={styles.theme.palette.interactive.primary}
-                size={styles.theme.spacing(3)}
-              />
+              <Icon name="copy" css={styles.copyButtonIcon} />
             </button>
           </div>
         </div>
+      </div>
+
+      <div css={styles.bscScanLinkContainer}>
+        <Typography
+          component="a"
+          href={`https://bscscan.com/address/${account.address}`}
+          target="_blank"
+          rel="noreferrer"
+          variant="small1"
+          css={styles.bscScanLinkText}
+        >
+          View on bscscan.com
+        </Typography>
+
+        <Icon name="open" css={styles.bscScanLinkIcon} />
       </div>
     </div>
   );
