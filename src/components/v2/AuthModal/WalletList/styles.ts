@@ -45,5 +45,20 @@ export const useStyles = () => {
       margin: ${theme.spacing(2, 'auto')};
       background-color: ${theme.palette.secondary.light};
     `,
+    footer: css`
+      text-align: center;
+      padding: ${theme.spacing(2, 2, 0)};
+    `,
+    footerLink: css`
+      color: ${theme.palette.button.main};
+
+      :hover {
+        color: ${theme.palette.button.dark};
+      }
+
+      :active {
+        color: ${theme.palette.button.light};
+      }
+    `,
   };
 };
