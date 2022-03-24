@@ -10,13 +10,6 @@ const setUpNetwork = async () => {
     return false;
   }
 
-  if (!process.env.REACT_APP_CHAIN_ID) {
-    // TODO: send error to Sentry
-
-    console.error('Missing environment variable: REACT_APP_CHAIN_ID');
-    return false;
-  }
-
   try {
     await window.ethereum.request({
       method: 'wallet_addEthereumChain',

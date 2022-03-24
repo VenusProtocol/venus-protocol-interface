@@ -52,14 +52,15 @@ import vtrx from 'assets/img/coins/vtrx.png';
 import vust from 'assets/img/coins/vust.png';
 import vluna from 'assets/img/coins/vluna.png';
 
+import { CHAIN_ID, BscChainId } from 'config';
 import contracts from './contracts';
 
 export const CONTRACT_XVS_TOKEN_ADDRESS =
-  process.env.REACT_APP_CHAIN_ID === '97' ? contracts.TEST.TOKEN.xvs : contracts.MAIN.TOKEN.xvs;
+  CHAIN_ID === BscChainId.TESTNET ? contracts.TEST.TOKEN.xvs : contracts.MAIN.TOKEN.xvs;
 
 // Contract ABI
 export const CONTRACT_TOKEN_ADDRESS =
-  process.env.REACT_APP_CHAIN_ID === '97'
+  CHAIN_ID === BscChainId.TESTNET
     ? {
         sxp: {
           id: 'sxp',
@@ -446,7 +447,7 @@ export const CONTRACT_TOKEN_ADDRESS =
       };
 
 export const CONTRACT_VBEP_ADDRESS =
-  process.env.REACT_APP_CHAIN_ID === '97'
+  CHAIN_ID === BscChainId.TESTNET
     ? {
         sxp: {
           id: 'sxp',
