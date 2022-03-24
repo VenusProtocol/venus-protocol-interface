@@ -35,6 +35,11 @@ export const useStyles = () => {
       text-align: left;
       margin-right: ${theme.spacing(2)};
     `,
+    chevronRightIcon: css`
+      width: 24px;
+      height: 24px;
+      color: ${theme.palette.text.primary};
+    `,
     comingSoonText: css`
       color: ${theme.palette.text.secondary};
       text-align: right;

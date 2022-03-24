@@ -30,7 +30,7 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
             {name}
           </Typography>
 
-          <Icon name="chevronRight" size="24px" color={styles.theme.palette.text.primary} />
+          <Icon name="chevronRight" css={[styles.chevronRightIcon]} />
         </button>
       ))}
 
