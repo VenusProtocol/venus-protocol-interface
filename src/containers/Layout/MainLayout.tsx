@@ -1,5 +1,7 @@
 import React from 'react';
+import Typography from '@mui/material/Typography';
 import styled, { withTheme } from 'styled-components';
+
 import Sidebar from 'containers/Layout/Sidebar';
 import Header from 'containers/Layout/Header';
 import { Footer } from 'components/v2/Layout/Footer';
@@ -12,13 +14,13 @@ const MainLayoutWrapper = styled.div`
   background-color: var(--color-bg-main);
 
   .main {
-    height: 100vh;
+    height: calc(100vh - 29px);
 
     .main-content {
       padding-top: 20px;
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 125px);
+      height: calc(100vh - 154px);
       overflow: auto;
       overflow-x: hidden;
 
@@ -50,6 +52,19 @@ const MainLayoutWrapper = styled.div`
   }
 `;
 
+const UstWarning = styled.div`
+  background-color: rgba(233, 61, 68, 1);
+  width: 100%;
+  padding: 4px 16px;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+
+  p {
+    color: rgba(255, 255, 255, 1);
+  }
+`;
+
 interface Props {
   title?: string;
   isHeader?: boolean;
@@ -60,28 +75,40 @@ function MainLayout({ title = '', isHeader, children }: Props) {
   const currentBlockNumber = useBlock();
 
   return (
-    <MainLayoutWrapper>
-      <Row>
-        <Column xs="12" sm="1.5">
-          <Sidebar />
-        </Column>
-        <Column xs="12" sm="10.5" className="main">
-          <Row>
-            {isHeader && (
+    <>
+      <UstWarning>
+        <Typography component="p" variant="small1">
+          <span role="img" aria-label="warning">
+            ⚠️
+          </span>{' '}
+          Wormhole UST on Venus is <strong>not</strong> recognized by CEXs. Please convert it to
+          WrappedUST before using.
+        </Typography>
+      </UstWarning>
+
+      <MainLayoutWrapper>
+        <Row>
+          <Column xs="12" sm="1.5">
+            <Sidebar />
+          </Column>
+          <Column xs="12" sm="10.5" className="main">
+            <Row>
+              {isHeader && (
+                <Column xs="12">
+                  <Header title={title} />
+                </Column>
+              )}
               <Column xs="12">
-                <Header title={title} />
+                <div className="main-content">{children}</div>
               </Column>
-            )}
-            <Column xs="12">
-              <div className="main-content">{children}</div>
-            </Column>
-            <Column xs="12">
-              <Footer currentBlockNumber={currentBlockNumber} />
-            </Column>
-          </Row>
-        </Column>
-      </Row>
-    </MainLayoutWrapper>
+              <Column xs="12">
+                <Footer currentBlockNumber={currentBlockNumber} />
+              </Column>
+            </Row>
+          </Column>
+        </Row>
+      </MainLayoutWrapper>
+    </>
   );
 }
 
