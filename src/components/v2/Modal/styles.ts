@@ -31,10 +31,10 @@ export const useModalStyles = ({
       padding-top: ${theme.spacing(3)};
       padding-bottom: ${hasTitleComponent ? theme.spacing(3) : 0};
       border-bottom: ${hasTitleComponent ? `1px solid ${theme.palette.secondary.light}` : 0};
-      margin-bottom: ${hasTitleComponent ? theme.spacing(3) : 0};
       position: sticky;
       top: 0;
       background-color: ${hasTitleComponent ? theme.palette.background.paper : 'transparent'};
+      margin-bottom: ${hasTitleComponent ? theme.spacing(5) : 0};
     `,
     titleComponent: css`
       align-self: center;
@@ -57,9 +57,9 @@ export const useModalStyles = ({
       background-color: ${theme.palette.background.paper};
     `,
     contentWrapper: css`
-      padding-bottom: ${theme.spacing(3)};
-      padding-left: ${noHorizontalPadding ? 0 : theme.spacing(3)};
-      padding-right: ${noHorizontalPadding ? 0 : theme.spacing(3)};
+      padding-bottom: ${theme.spacing(5)};
+      padding-left: ${noHorizontalPadding ? 0 : theme.spacing(5)};
+      padding-right: ${noHorizontalPadding ? 0 : theme.spacing(5)};
     `,
   };
 };
