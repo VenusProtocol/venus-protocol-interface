@@ -8,11 +8,14 @@ import { AuthModal } from 'components/v2/AuthModal';
 
 // eslint-disable-next-line no-spaced-func
 export const AuthContext = React.createContext<{
-  account?: string;
   login: (connector: Connector) => Promise<void>;
   logOut: () => void;
   openAuthModal: () => void;
   closeAuthModal: () => void;
+  account?: {
+    address: string;
+    connectedConnector?: Connector;
+  };
 }>({
   login: noop,
   logOut: noop,
@@ -23,7 +26,7 @@ export const AuthContext = React.createContext<{
 export const AuthProvider: React.FC = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
 
-  const { login, account, logOut } = useAuth();
+  const { login, accountAddress, logOut, connectedConnector } = useAuth();
 
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
@@ -33,18 +36,25 @@ export const AuthProvider: React.FC = ({ children }) => {
     closeAuthModal();
   };
 
-  const handleCopyAccountAddress = (accountAddress: string) => {
-    copyToClipboard(accountAddress);
+  const handleCopyAccountAddress = (accountAddressToCopy: string) => {
+    copyToClipboard(accountAddressToCopy);
 
     toast.success({
       title: 'Wallet address copied to clipboard',
     });
   };
 
+  const account = accountAddress
+    ? {
+        address: accountAddress,
+        connectedConnector,
+      }
+    : undefined;
+
   return (
     <AuthContext.Provider
       value={{
-        account: account ?? undefined,
+        account,
         login,
         logOut,
         openAuthModal,
@@ -54,15 +64,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={closeAuthModal}
-        account={
-          account
-            ? {
-                address: account,
-                // TODO: check how we can get connector name
-                connector: Connector.MetaMask,
-              }
-            : undefined
-        }
+        account={account}
         onLogOut={logOut}
         onLogin={handleLogin}
         onCopyAccountAddress={handleCopyAccountAddress}
