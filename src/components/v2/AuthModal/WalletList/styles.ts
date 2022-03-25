@@ -6,6 +6,9 @@ export const useStyles = () => {
 
   return {
     theme,
+    container: css`
+      margin: ${theme.spacing(-1, 0)};
+    `,
     getListItem: ({ isActionable }: { isActionable: boolean }) => css`
       width: 100%;
       background-color: transparent;

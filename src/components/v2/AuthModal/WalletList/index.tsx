@@ -16,7 +16,7 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
   const styles = useStyles();
 
   return (
-    <>
+    <div css={styles.container}>
       {WALLETS.map(({ name, connector, Logo }) => (
         <button
           css={styles.getListItem({ isActionable: true })}
@@ -64,6 +64,6 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
           .
         </Typography>
       </div>
-    </>
+    </div>
   );
 };

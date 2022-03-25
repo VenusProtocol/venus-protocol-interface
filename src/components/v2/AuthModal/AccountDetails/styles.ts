@@ -7,7 +7,6 @@ export const useStyles = () => {
   return {
     theme,
     container: css`
-      padding: ${theme.spacing(0, 5)};
       color: ${theme.palette.text.primary};
 
       ${theme.breakpoints.down('md')} {
@@ -58,6 +57,7 @@ export const useStyles = () => {
     accountAddress: css`
       margin-right: ${theme.spacing(1)};
       display: block;
+      letter-spacing: -0.75px;
 
       ${theme.breakpoints.down('md')} {
         display: none;
@@ -66,6 +66,7 @@ export const useStyles = () => {
     accountAddressMobile: css`
       margin-right: ${theme.spacing(1)};
       display: none;
+      letter-spacing: -0.75px;
 
       ${theme.breakpoints.down('md')} {
         display: block;

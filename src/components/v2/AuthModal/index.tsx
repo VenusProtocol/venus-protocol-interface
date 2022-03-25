@@ -1,12 +1,12 @@
 import React from 'react';
-import { Modal } from 'antd';
 
+import { Modal, IModalProps } from '../Modal';
 import { AccountDetails, IAccountDetailsProps } from './AccountDetails';
 import { WalletList, IWalletListProps } from './WalletList';
 
 export interface IAuthModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: IModalProps['handleClose'];
   onLogin: IWalletListProps['onLogin'];
   onLogOut: IAccountDetailsProps['onLogOut'];
   onCopyAccountAddress: IAccountDetailsProps['onCopyAccountAddress'];
@@ -21,16 +21,12 @@ export const AuthModal: React.FC<IAuthModalProps> = ({
   onCopyAccountAddress,
   account,
 }) => (
-  // TODO: refactor to use new Modal component
   <Modal
     className="venus-modal"
-    width={580}
-    visible={isOpen}
-    onCancel={onClose}
-    footer={null}
-    closable={false}
-    maskClosable
-    centered
+    isOpened={isOpen}
+    handleClose={onClose}
+    noHorizontalPadding={!account}
+    title={<h4>{!account ? 'Connect a wallet to start using Venus' : 'Your wallet'}</h4>}
   >
     {!account ? (
       <WalletList onLogin={onLogin} />
