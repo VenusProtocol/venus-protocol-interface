@@ -10,7 +10,7 @@ const MainLayoutWrapper = styled.div`
   width: 100%;
   display: flex;
   background-color: var(--color-bg-main);
-
+  padding-top: 50px;
   .main {
     height: 100vh;
 
@@ -48,6 +48,19 @@ const MainLayoutWrapper = styled.div`
       overflow: unset;
     }
   }
+  .ust-warning {
+    background-color: rgba(233, 61, 68, 1);
+    position: fixed;
+    top: 0;
+    height: 50px;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    p {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
 `;
 
 interface Props {
@@ -61,6 +74,15 @@ function MainLayout({ title = '', isHeader, children }: Props) {
 
   return (
     <MainLayoutWrapper>
+      <div className="ust-warning">
+        <p>
+          <span role="img" aria-label="warning">
+            ⚠️
+          </span>{' '}
+          Wormhole UST on Venus is not recognized by CEXs. Please convert it to WrappedUST before
+          using.
+        </p>
+      </div>
       <Row>
         <Column xs="12" sm="1.5">
           <Sidebar />
