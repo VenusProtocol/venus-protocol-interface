@@ -69,7 +69,7 @@ export default {
       tusd: '0x14016e85a25aeb13065688cafb43044c2ef86784',
       trx: '0x85EAC5Ac2F758618dFa09bDbe0cf174e7d574D5B',
       vai: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
-      vrt: '',
+      vrt: '0x5f84ce30dc3cf7909101c69086c50de191895883',
     },
     VBEP: {
       sxp: '0x2fF3d0F6990a40261c66E1ff2017aCBc282EB6d0',

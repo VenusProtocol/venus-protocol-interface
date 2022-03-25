@@ -44,7 +44,7 @@ const contracts = {
     97: '0x7B4dba3b320E7D421A213e1a73bB9858bb6839F8',
   },
   vrtToken: {
-    56: '',
+    56: '0x5f84ce30dc3cf7909101c69086c50de191895883',
     97: '0x331F639B4F3CF6E391CD244e0b5027C5968Ec325',
   },
   // vrt conversion
@@ -58,7 +58,7 @@ const contracts = {
   },
   // vrt vault
   vrtVaultProxy: {
-    56: '',
+    56: '0x98bF4786D72AAEF6c714425126Dd92f149e3F334',
     97: '0x1ffD1b8B67A1AE0C189c734B0F58B0954522FF71',
   },
 };
