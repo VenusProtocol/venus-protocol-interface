@@ -3,6 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { Connector } from 'clients/web3';
+import { CHAIN_ID, BscChainId } from 'config';
 import { truncateAddress } from 'utilities/truncateAddress';
 import { Icon } from '../../Icon';
 import { SecondaryButton } from '../../Button';
@@ -30,6 +31,10 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
   // if no match is found, but in reality that case should never happen
   const { Logo: WalletLogo, name: walletName } =
     WALLETS.find(wallet => wallet.connector === account.connector) || WALLETS[0];
+
+  const bscScanUrl = `https://${
+    CHAIN_ID === BscChainId.TESTNET ? 'testnet.' : ''
+  }bscscan.com/address/${account.address}`;
 
   return (
     <div css={styles.container}>
@@ -65,7 +70,7 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
       <div css={styles.bscScanLinkContainer}>
         <Typography
           component="a"
-          href={`https://bscscan.com/address/${account.address}`}
+          href={bscScanUrl}
           target="_blank"
           rel="noreferrer"
           variant="small1"
