@@ -79,8 +79,8 @@ function MainLayout({ title = '', isHeader, children }: Props) {
           <span role="img" aria-label="warning">
             ⚠️
           </span>{' '}
-          Wormhole UST on Venus is not recognized by CEXs. Please convert it to WrappedUST before
-          using.
+          Wormhole UST on Venus is <strong>not</strong> recognized by CEXs. Please convert it to
+          WrappedUST before using.
         </p>
       </div>
       <Row>
