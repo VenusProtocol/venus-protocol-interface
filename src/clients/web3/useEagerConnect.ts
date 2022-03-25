@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useWeb3Account } from 'clients/web3';
 
-import { LS_KEY_IS_USER_LOGGED_IN } from 'config';
+import { LS_KEY_CONNECTED_CONNECTOR } from 'config';
 import { injectedConnector } from './connectors';
 
 const useEagerConnect = () => {
@@ -12,8 +12,8 @@ const useEagerConnect = () => {
   useEffect(() => {
     const init = async () => {
       // Check if user previously connected their wallet with the dApp
-      const isUserConnected = window.localStorage.getItem(LS_KEY_IS_USER_LOGGED_IN);
-      if (!isUserConnected) {
+      const connectedConnector = window.localStorage.getItem(LS_KEY_CONNECTED_CONNECTOR);
+      if (!connectedConnector) {
         return;
       }
 
