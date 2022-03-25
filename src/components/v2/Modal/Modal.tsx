@@ -1,16 +1,16 @@
+/** @jsxImportSource @emotion/react */
 import React, { ReactElement } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import { Button, Modal as MUIModal, ModalProps } from '@mui/material';
 import Fade from '@mui/material/Fade';
-import Box from '@mui/material/Box';
-import { useModalStyles } from './ModalStyles';
 import { Icon } from '../Icon';
+import { useModalStyles } from './styles';
 
-export interface IModalProps extends ModalProps {
+export interface IModalProps extends Omit<ModalProps, 'title' | 'open'> {
   className?: string;
   isOpened: boolean;
   handleClose: () => void;
-  modalTitle?: string | ReactElement | ReactElement[];
+  title?: string | ReactElement | ReactElement[];
   noHorizontalPadding?: boolean;
 }
 
@@ -19,10 +19,11 @@ export const Modal: React.FC<IModalProps> = ({
   children,
   handleClose,
   isOpened,
-  modalTitle,
+  title,
   noHorizontalPadding,
+  ...otherModalProps
 }) => {
-  const s = useModalStyles({ hasTitleComponent: Boolean(modalTitle), noHorizontalPadding });
+  const s = useModalStyles({ hasTitleComponent: Boolean(title), noHorizontalPadding });
   return (
     <MUIModal
       open={isOpened}
@@ -33,17 +34,18 @@ export const Modal: React.FC<IModalProps> = ({
       BackdropProps={{
         timeout: 500,
       }}
+      {...otherModalProps}
     >
       <Fade in={isOpened}>
-        <Box className={className} sx={s.box}>
-          <Box sx={s.titleWrapper}>
-            <Box sx={s.titleComponent}>{modalTitle}</Box>
-            <Button sx={s.closeIcon} disableRipple onClick={handleClose}>
+        <div css={s.box} className={className}>
+          <div css={s.titleWrapper}>
+            <div css={s.titleComponent}>{title}</div>
+            <Button css={s.closeIcon} disableRipple onClick={handleClose}>
               <Icon name="close" />
             </Button>
-          </Box>
-          <div style={s.contentWrapper}>{children}</div>
-        </Box>
+          </div>
+          <div css={s.contentWrapper}>{children}</div>
+        </div>
       </Fade>
     </MUIModal>
   );
