@@ -14,7 +14,7 @@ export interface IAccountDetailsProps {
   onCopyAccountAddress: (accountAddress: string) => void;
   account: {
     address: string;
-    connector: Connector;
+    connector?: Connector;
   };
 }
 
