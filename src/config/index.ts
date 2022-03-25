@@ -40,7 +40,7 @@ export const BASE_BSC_SCAN_URL = BASE_BSC_SCAN_URLS[CHAIN_ID];
 
 export const API_ENDPOINT_URL = API_ENDPOINT_URLS[CHAIN_ID];
 
-export const LS_KEY_IS_USER_LOGGED_IN = 'is-user-logged-in';
+export const LS_KEY_CONNECTED_CONNECTOR = 'connected-connector';
 
 export const VTOKEN_DECIMALS = 8;
 
