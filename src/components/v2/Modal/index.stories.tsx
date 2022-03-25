@@ -35,7 +35,7 @@ ModalWithTitle.args = {
   handleClose: console.log,
   isOpened: true,
   children: <ModalContent />,
-  modalTitle: <>Title component</>,
+  title: <>Title component</>,
 };
 
 export const ModalWithNoHorizontalPadding = Template.bind({});
@@ -43,6 +43,6 @@ ModalWithNoHorizontalPadding.args = {
   handleClose: console.log,
   isOpened: true,
   children: <ModalContent />,
-  modalTitle: <>Title component</>,
+  title: <>Title component</>,
   noHorizontalPadding: true,
 };
