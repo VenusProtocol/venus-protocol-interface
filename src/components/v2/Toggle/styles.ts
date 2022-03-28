@@ -1,8 +1,9 @@
+import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
-  return {
+  return css({
     width: 44,
     height: 22,
     padding: 0,
@@ -14,6 +15,9 @@ export const useStyles = () => {
       '&.Mui-checked': {
         transform: 'translateX(22px)',
         color: theme.palette.error.main,
+        '& + .MuiSwitch-track': {
+          backgroundColor: theme.palette.background.default,
+        },
         '&.Mui-disabled + .MuiSwitch-track': {
           opacity: 0.5,
         },
@@ -28,7 +32,7 @@ export const useStyles = () => {
     },
     '& .MuiSwitch-thumb': {
       backgroundColor: theme.palette.text.secondary,
-      boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.35)',
+      boxShadow: '0 0 4px rgba(0, 0, 0, 0.35)',
       boxSizing: 'border-box',
       width: 22,
       height: 22,
@@ -40,11 +44,11 @@ export const useStyles = () => {
       borderRadius: 26 / 2,
       backgroundColor: theme.palette.background.default,
       // backgroundColor: defaultTheme.palette.background.default,
-      boxShadow: 'inset 0px 3px 20px rgba(0, 0, 0, 0.15)',
+      boxShadow: 'inset 0 3px 20px rgba(0, 0, 0, 0.15)',
       opacity: 1,
     },
     '&.Mui-checked+.MuiSwitch-track': {
       backgroundColor: theme.palette.background.default,
     },
-  };
+  });
 };
