@@ -1,21 +1,12 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
 import CircleProgressBar from 'components/Basic/CircleProgressBar';
-import BigNumber from 'bignumber.js';
 import AnimatedNumber from 'animated-number-react';
-import { useWeb3Account } from 'clients/web3';
-import { accountActionCreators } from 'core/modules/account/actions';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
-import { getBigNumber, format } from 'utilities/common';
 import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
-import { Setting } from 'types';
-import { State } from 'core/modules/initialState';
-import { useVaiUser } from '../../hooks/useVaiUser';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useVaiVault } from '../../hooks/useContract';
+import { useWalletBalance } from '../../hooks/useWalletBalance';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -79,121 +70,8 @@ const BalancerWrapper = styled.div`
   padding: 20px 0;
 `;
 
-interface WalletBalanceProps {
-  settings: Setting;
-  setSetting: (setting: Partial<Setting> | undefined) => void;
-}
-
-function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
-  const [netAPY, setNetAPY] = useState(0);
-  const [withXVS, setWithXVS] = useState(true);
-  const { userVaiMinted } = useVaiUser();
-  const { userMarketInfo } = useMarketsUser();
-
-  const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
-  const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
-  const { account } = useWeb3Account();
-  const vaultContract = useVaiVault();
-
-  let isMounted = true;
-
-  const addVAIApy = useCallback(
-    async apy => {
-      if (!account) {
-        return;
-      }
-      const { 0: staked } = await vaultContract.methods.userInfo(account).call();
-      const amount = new BigNumber(staked).div(1e18);
-
-      if (!isMounted) {
-        return;
-      }
-
-      if (amount.isNaN() || amount.isZero()) {
-        setNetAPY(apy.dp(2, 1).toNumber());
-      } else {
-        setNetAPY(apy.plus(settings.vaiAPY).dp(2, 1).toNumber());
-      }
-    },
-    [settings],
-  );
-
-  const updateNetAPY = useCallback(async () => {
-    let totalSum = new BigNumber(0);
-    let totalSupplied = new BigNumber(0);
-    let totalBorrowed = userVaiMinted;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
-    userMarketInfo.forEach((asset: Asset) => {
-      if (!asset) return;
-      const {
-        supplyBalance,
-        borrowBalance,
-        tokenPrice,
-        supplyApy,
-        borrowApy,
-        xvsSupplyApy,
-        xvsBorrowApy,
-      } = asset;
-      const supplyBalanceUSD = getBigNumber(supplyBalance).times(getBigNumber(tokenPrice));
-      const borrowBalanceUSD = getBigNumber(borrowBalance).times(getBigNumber(tokenPrice));
-      totalSupplied = totalSupplied.plus(supplyBalanceUSD);
-      totalBorrowed = totalBorrowed.plus(borrowBalanceUSD);
-
-      const supplyApyWithXVS = withXVS
-        ? getBigNumber(supplyApy).plus(getBigNumber(xvsSupplyApy))
-        : getBigNumber(supplyApy);
-      const borrowApyWithXVS = withXVS
-        ? getBigNumber(xvsBorrowApy).plus(getBigNumber(borrowApy))
-        : getBigNumber(borrowApy);
-
-      // const supplyApyWithXVS = getBigNumber(supplyApy);
-      // const borrowApyWithXVS = getBigNumber(borrowApy).times(-1);
-      totalSum = totalSum.plus(
-        supplyBalanceUSD
-          .times(supplyApyWithXVS.div(100))
-          .plus(borrowBalanceUSD.times(borrowApyWithXVS.div(100))),
-      );
-    });
-
-    let apy;
-
-    if (totalSum.isZero() || totalSum.isNaN()) {
-      apy = new BigNumber(0);
-    } else if (totalSum.isGreaterThan(0)) {
-      apy = totalSupplied.isZero() ? 0 : totalSum.div(totalSupplied).times(100);
-    } else {
-      apy = totalBorrowed.isZero() ? 0 : totalSum.div(totalBorrowed).times(100);
-    }
-    if (!isMounted) {
-      return;
-    }
-    setTotalSupply(totalSupplied);
-    setTotalBorrow(totalBorrowed);
-    addVAIApy(apy);
-  }, [userMarketInfo, withXVS]);
-
-  useEffect(() => {
-    if (account && userMarketInfo && userMarketInfo.length > 0) {
-      updateNetAPY();
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, [account, updateNetAPY]);
-
-  useEffect(() => {
-    if (isMounted) {
-      setSetting({
-        withXVS,
-      });
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, [withXVS]);
-
-  const formatValue = (value: $TSFixMe) => `$${format(getBigNumber(value))}`;
-
+function WalletBalance() {
+  const { totalSupply, formatValue, netAPY, withXVS, setWithXVS, totalBorrow } = useWalletBalance();
   return (
     <Card>
       <CardWrapper className="flex just-between">
@@ -246,8 +124,4 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
   );
 }
 
-const mapStateToProps = ({ account }: State) => ({
-  settings: account.setting,
-});
-
-export default connect(mapStateToProps, accountActionCreators)(WalletBalance);
+export default WalletBalance;

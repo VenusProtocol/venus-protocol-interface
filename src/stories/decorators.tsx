@@ -13,6 +13,7 @@ import Theme from 'theme';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import mainTheme from 'theme/MuiThemeProvider/muiTheme';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
+import { AuthProvider } from '../context/AuthContext';
 
 type DecoratorFunction = Parameters<typeof addDecorator>[0];
 
@@ -26,6 +27,12 @@ export const withProvider: DecoratorFunction = Story => (
   <Provider store={store}>
     <Story />
   </Provider>
+);
+
+export const withAuthProvider: DecoratorFunction = Story => (
+  <AuthProvider>
+    <Story />
+  </AuthProvider>
 );
 
 export const withWeb3Provider: DecoratorFunction = Story => (

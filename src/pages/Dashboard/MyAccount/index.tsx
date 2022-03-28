@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import { formatCentsToReadableValue } from 'utilities/common';
-import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
+import { Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
 import { useMyAccountStyles as useStyles } from './styles';
 
 interface IMyAccountProps {
@@ -16,20 +16,25 @@ interface IMyAccountProps {
   borrowLimitCents: number;
   safeLimitPercentage: number;
   borrowLimitUsedPercentage: number;
+  isSwitched: boolean;
+  onSwitch: () => void;
+  trackTooltip?: string;
+  markTooltip?: string;
 }
 
-export const MyAccount = ({
+export const MyAccountUi = ({
   netApyPercentage,
   dailyEarningsCents,
   supplyBalanceCents,
   borrowBalanceCents,
   borrowLimitCents,
   safeLimitPercentage,
+  borrowLimitUsedPercentage,
+  isSwitched,
+  onSwitch,
+  trackTooltip,
+  markTooltip,
 }: IMyAccountProps) => {
-  const [isToggleSwitched, setToggleSwitched] = useState(true);
-  const handleSwitch: IToggleProps['onChange'] = (event, checked) => {
-    setToggleSwitched(checked);
-  };
   const styles = useStyles();
   return (
     <Box css={styles.root} component={Paper}>
@@ -42,7 +47,7 @@ export const MyAccount = ({
           <Typography color="text.primary" variant="small1">
             APY with XVS
           </Typography>
-          <Toggle css={styles.toggle} value={isToggleSwitched} onChange={handleSwitch} />
+          <Toggle css={styles.toggle} value={isSwitched} onChange={onSwitch} />
         </Typography>
       </div>
       <div>
@@ -87,20 +92,20 @@ export const MyAccount = ({
             color="text.primary"
             css={styles.borrowLimitLabel}
           >
-            {safeLimitPercentage}%
+            {borrowLimitUsedPercentage}%
           </Typography>
         </Typography>
         {formatCentsToReadableValue(borrowLimitCents)}
       </div>
       <ProgressBarHorizontal
-        value={safeLimitPercentage}
+        value={borrowLimitUsedPercentage}
         mark={80}
         step={1}
         ariaLabel="Borrow limit"
         min={0}
         max={100}
-        trackTooltip="Storybook tooltip text for Track"
-        markTooltip="Storybook tooltip text for Mark"
+        trackTooltip={trackTooltip}
+        markTooltip={markTooltip}
         isDisabled
       />
       <Typography component="div" variant="small2" css={styles.bottom}>
