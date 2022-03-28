@@ -23,6 +23,12 @@ const ModalContent = () => (
   </>
 );
 
+const ModalContentScrollable = () => (
+  <div style={{ height: '120vh' }}>
+    <ModalContent />
+  </div>
+);
+
 export const ModalDefault = Template.bind({});
 ModalDefault.args = {
   handleClose: console.log,
@@ -45,4 +51,19 @@ ModalWithNoHorizontalPadding.args = {
   children: <ModalContent />,
   title: <>Title component</>,
   noHorizontalPadding: true,
+};
+
+export const ModalWithScrollAndTitle = Template.bind({});
+ModalWithScrollAndTitle.args = {
+  handleClose: console.log,
+  isOpened: true,
+  children: <ModalContentScrollable />,
+  title: <>Title component</>,
+};
+
+export const ModalWithScroll = Template.bind({});
+ModalWithScroll.args = {
+  handleClose: console.log,
+  isOpened: true,
+  children: <ModalContentScrollable />,
 };
