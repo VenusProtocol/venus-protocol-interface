@@ -6,6 +6,7 @@ import Sidebar from 'containers/Layout/Sidebar';
 import Header from 'containers/Layout/Header';
 import { Footer } from 'components/v2/Layout/Footer';
 import { Row, Column } from 'components/Basic/Style';
+import { Icon } from 'components';
 import { useBlock } from '../../hooks/useBlock';
 
 const MainLayoutWrapper = styled.div`
@@ -53,15 +54,29 @@ const MainLayoutWrapper = styled.div`
 `;
 
 const UstWarning = styled.div`
-  background-color: rgba(233, 61, 68, 1);
+  background-color: rgba(255, 231, 206, 1);
   width: 100%;
   padding: 4px 16px;
   justify-content: center;
   align-items: center;
   display: inline-flex;
+  height: 56px;
 
   p {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 1);
+    display: flex;
+    text-align: center;
+  }
+
+  svg {
+    display: flex;
+    margin-right: 8px;
+    align-self: center;
+    @media only screen and (max-width: 768px) {
+      height: 24px;
+      width: 24px;
+      margin-right: 0;
+    }
   }
 `;
 
@@ -78,11 +93,9 @@ function MainLayout({ title = '', isHeader, children }: Props) {
     <>
       <UstWarning>
         <Typography component="p" variant="small1">
-          <span role="img" aria-label="warning">
-            ⚠️
-          </span>{' '}
-          Wormhole UST on Venus is <strong>not</strong> recognized by CEXs. Please convert it to
-          WrappedUST before using.
+          <Icon name="attention" />
+          Venus uses Wormhole UST. Many CEXs currently only recognize Wrapped UST. Please convert
+          your UST as needed.
         </Typography>
       </UstWarning>
 
