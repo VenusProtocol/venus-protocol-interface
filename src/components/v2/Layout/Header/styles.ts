@@ -13,12 +13,6 @@ export const useStyles = () => {
       justify-content: space-between;
       display: flex;
 
-      /* @TODO Remove when the ConnectButton is refactored */
-      .connect-btn {
-        height: auto;
-        padding: ${theme.spacing(1.5)} ${theme.spacing(2)};
-        width: 165px;
-      }
       ${theme.breakpoints.down('md')} {
         display: none;
       }
