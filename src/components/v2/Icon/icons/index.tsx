@@ -24,3 +24,4 @@ export { ReactComponent as venus } from './venus.svg';
 export { ReactComponent as close } from './close.svg';
 export { ReactComponent as open } from './open.svg';
 export { ReactComponent as copy } from './copy.svg';
+export { ReactComponent as attention } from './attention.svg';
