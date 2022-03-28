@@ -23,7 +23,7 @@ import { useComptroller, useVaiToken } from '../../hooks/useContract';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const SidebarWrapper = styled.div`
-  height: 100vh;
+  height: calc(100vh - 29px);
   min-width: 116px;
   border-radius: 0 16px 16px 0;
   background-color: var(--color-bg-primary);
@@ -289,7 +289,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   useEffect(() => {
     if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
       toast.error({
-        title: 'Please change your network to access the Binance Smart Chain Main Network',
+        title: 'Please change your network to access the BNB Chain Main Network',
       });
     }
   }, [chainId]);

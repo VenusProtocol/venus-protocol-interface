@@ -1,5 +1,6 @@
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { BscConnector } from '@binance-chain/bsc-connector';
 import { LedgerConnector } from '@web3-react/ledger-connector';
 
@@ -24,9 +25,15 @@ const ledger = new LedgerConnector({
 
 export const injected = new InjectedConnector({ supportedChainIds: [CHAIN_ID] });
 
+const coinbaseWallet = new WalletLinkConnector({
+  url: RPC_URL,
+  appName: 'Venus',
+});
+
 export const connectorsByName = {
   [Connector.MetaMask]: injected,
   [Connector.WalletConnect]: walletConnect,
   [Connector.BSC]: bscConnector,
   [Connector.Ledger]: ledger,
+  [Connector.CoinbaseWallet]: coinbaseWallet,
 };

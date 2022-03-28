@@ -5,6 +5,7 @@ import metamaskImg from 'assets/img/metamask.png';
 import trustwalletImg from 'assets/img/trustwallet.svg';
 import safepalImg from 'assets/img/safepal.svg';
 import walletconnectImg from 'assets/img/walletconnect.svg';
+import coinbaseWalletImg from 'assets/img/v2/coinbaseWalletLogo.svg';
 import ledgerImg from 'assets/img/ledger.png';
 import binanceImg from 'assets/img/binance.jpg';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -225,11 +226,11 @@ function ConnectButton() {
   };
 
   const onConnect = useCallback(
-    type => {
+    (connectorName: Connector) => {
+      login(connectorName);
       onClose();
-      login(type);
     },
-    [login, setShowConnect],
+    [login],
   );
 
   return (
@@ -262,6 +263,7 @@ function ConnectButton() {
                 <VenusLogo className="logo-image" />
                 <p className="title">Connect to start using Venus</p>
               </div>
+
               <div className="connect-wallet-content">
                 <div className="flex align-center just-between metamask-connect-btn coming-soon">
                   <div className="flex align-center">
@@ -270,6 +272,7 @@ function ConnectButton() {
                   </div>
                   <span>Coming soon...</span>
                 </div>
+
                 <div className="flex align-center just-between metamask-connect-btn coming-soon">
                   <div className="flex align-center">
                     <img src={safepalImg} alt="safepal" />
@@ -277,7 +280,9 @@ function ConnectButton() {
                   </div>
                   <span>Coming soon...</span>
                 </div>
+
                 <div className="line" />
+
                 <div
                   className="flex align-center just-between metamask-connect-btn"
                   onClick={() => onConnect(Connector.MetaMask)}
@@ -288,6 +293,20 @@ function ConnectButton() {
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
+
+                {process.env.REACT_APP_CHAIN_ID === '56' && (
+                  <div
+                    className="flex align-center just-between metamask-connect-btn"
+                    onClick={() => onConnect(Connector.CoinbaseWallet)}
+                  >
+                    <div className="flex align-center">
+                      <img src={coinbaseWalletImg} alt="coinbaseWallet" />
+                      <span>Coinbase Wallet</span>
+                    </div>
+                    <img src={arrowRightImg} alt="arrow" />
+                  </div>
+                )}
+
                 <div
                   className="flex align-center just-between metamask-connect-btn"
                   onClick={() => onConnect(Connector.MetaMask)}
@@ -298,6 +317,7 @@ function ConnectButton() {
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
+
                 <div
                   className="flex align-center just-between metamask-connect-btn"
                   onClick={() => onConnect(Connector.WalletConnect)}
@@ -308,6 +328,7 @@ function ConnectButton() {
                   </div>
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
+
                 <div
                   className="flex align-center just-between metamask-connect-btn"
                   onClick={() => onConnect(Connector.BSC)}
@@ -319,6 +340,7 @@ function ConnectButton() {
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
               </div>
+
               <p className="center terms-of-use">
                 <span>By connecting, I accept Venus&lsquo;s</span>
                 <a href="https://www.swipe.io/terms" target="_blank" rel="noreferrer">

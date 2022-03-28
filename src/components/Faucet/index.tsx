@@ -121,7 +121,7 @@ const Faucet: React.FC<IFaucetProps> = ({
     <MainLayout isHeader={false}>
       <div className="flex just-center align-center">
         <Styles.FaucetWrapper className="flex flex-column align-center just-center">
-          <p className="header">Venus Binance Smart Chain Faucet</p>
+          <p className="header">Venus BNB Chain Faucet</p>
           <Form className="forgot-pwd-form">
             <Form.Item>
               {getFieldDecorator('address', {
@@ -131,7 +131,7 @@ const Faucet: React.FC<IFaucetProps> = ({
                     message: 'Address is required!',
                   },
                 ],
-              })(<Input placeholder="Input your Binance Smart Chain address..." />)}
+              })(<Input placeholder="Input your BNB Chain address..." />)}
             </Form.Item>
             {isRequestFaucetFundsLoading ? (
               <div className="flex flex-column">
