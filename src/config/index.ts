@@ -9,6 +9,8 @@ export const CHAIN_ID: BscChainId = process.env.REACT_APP_CHAIN_ID
   ? parseInt(process.env.REACT_APP_CHAIN_ID, 10)
   : BscChainId.MAINNET;
 
+export const isOnTestnet = CHAIN_ID === BscChainId.TESTNET;
+
 const BASE_BSC_SCAN_URLS = {
   [BscChainId.MAINNET]: 'https://bscscan.com',
   [BscChainId.TESTNET]: 'https://testnet.bscscan.com',
