@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { CHAIN_ID, BscChainId } from 'config';
+import { isOnTestnet } from 'config';
 import { IconName } from '../Icon';
 
 interface IMenuItem {
@@ -47,7 +45,7 @@ export const menuItems: IMenuItem[] = [
   },
 ];
 
-if (CHAIN_ID === BscChainId.TESTNET) {
+if (isOnTestnet) {
   menuItems.splice(6, 0, {
     href: '/convert-vrt',
     text: 'Convert XVS',
