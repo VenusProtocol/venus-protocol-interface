@@ -6,7 +6,7 @@ import { MyAccount } from '.';
 export default {
   title: 'Components/MyAccount',
   component: MyAccount,
-  decorators: [withThemeProvider, withCenterStory({ width: 'calc(100 - 32px)' })],
+  decorators: [withThemeProvider, withCenterStory({ width: 'calc(100% - 32px)' })],
 } as ComponentMeta<typeof MyAccount>;
 
 export const MyAccountDefault = () => (
