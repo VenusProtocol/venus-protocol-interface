@@ -26,3 +26,4 @@ export { ReactComponent as convert } from './convert.svg';
 export { ReactComponent as close } from './close.svg';
 export { ReactComponent as open } from './open.svg';
 export { ReactComponent as copy } from './copy.svg';
+export { ReactComponent as attention } from './attention.svg';
