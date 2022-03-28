@@ -13,7 +13,7 @@ import prdtImg from 'assets/img/prdt.png';
 import { getBigNumber, format } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
-import { CHAIN_ID, BscChainId } from 'config';
+import { CHAIN_ID, isOnTestnet } from 'config';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { State } from 'core/modules/initialState';
@@ -424,7 +424,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
         </NavLink>
-        {CHAIN_ID === BscChainId.TESTNET && (
+        {isOnTestnet && (
           <NavLink
             className="flex flex-start align-center"
             to="/convert-vrt"
@@ -480,7 +480,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
         </a>
       </MainMenu>
       <FaucetMenu>
-        {CHAIN_ID === BscChainId.TESTNET && (
+        {isOnTestnet && (
           <NavLink className="flex just-center" to="/faucet" active-class-name="active">
             <Label primary>Faucet</Label>
           </NavLink>
@@ -543,7 +543,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Vault
             </Label>
           </Option>
-          {CHAIN_ID === BscChainId.TESTNET && (
+          {isOnTestnet && (
             <Option className="flex align-center just-center" value="Convert-vrt">
               <Label size={14} primary>
                 Convert VRT
@@ -565,7 +565,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Forum
             </Label>
           </Option>
-          {CHAIN_ID === BscChainId.TESTNET && (
+          {isOnTestnet && (
             <Option className="flex align-center just-center" value="faucet">
               <Label size={14} primary>
                 Faucet

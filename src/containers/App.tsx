@@ -6,7 +6,7 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import en from 'react-intl/locale-data/en';
-import { CHAIN_ID, BscChainId } from 'config';
+import { isOnTestnet } from 'config';
 
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
