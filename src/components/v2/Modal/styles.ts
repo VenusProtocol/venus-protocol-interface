@@ -18,19 +18,23 @@ export const useModalStyles = ({
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 80%;
+      width: calc(100% - ${theme.spacing(4)});
       max-width: 544px;
       border-radius: ${theme.spacing(3)};
-      padding-top: ${theme.spacing(3)};
       background-color: ${theme.palette.background.paper};
+      overflow: auto;
+      max-height: calc(100% - ${theme.spacing(4)});
     `,
     titleWrapper: css`
-      position: relative;
       padding-left: ${theme.spacing(3)};
       padding-right: ${theme.spacing(3)};
+      padding-top: ${theme.spacing(3)};
       padding-bottom: ${hasTitleComponent ? theme.spacing(3) : 0};
       border-bottom: ${hasTitleComponent ? `1px solid ${theme.palette.secondary.light}` : 0};
       margin-bottom: ${hasTitleComponent ? theme.spacing(3) : 0};
+      position: sticky;
+      top: 0;
+      background-color: ${hasTitleComponent ? theme.palette.background.paper : 'transparent'};
     `,
     titleComponent: css`
       align-self: center;
@@ -43,13 +47,14 @@ export const useModalStyles = ({
     `,
     closeIcon: css`
       right: ${theme.spacing(3)};
-      top: 0;
+      top: ${theme.spacing(3)};
       position: absolute;
       height: ${iconCloseSize};
       width: ${iconCloseSize};
       min-width: ${iconCloseSize};
       margin-left: auto;
       padding: 0;
+      background-color: ${theme.palette.background.paper};
     `,
     contentWrapper: css`
       padding-bottom: ${theme.spacing(3)};
