@@ -2,8 +2,7 @@ import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withThemeProvider, withState } from 'stories/decorators';
 import Typography from '@mui/material/Typography';
-import { Modal } from '.';
-import type { IModalProps } from './Modal';
+import { Modal, IModalProps } from '.';
 
 export default {
   title: 'Components/Modal',

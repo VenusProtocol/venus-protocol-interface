@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { NoBscProviderError } from '@binance-chain/bsc-connector';
 import {
@@ -10,13 +10,24 @@ import {
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
 import toast from 'components/Basic/Toast';
-import { LS_KEY_IS_USER_LOGGED_IN } from 'config';
+import { LS_KEY_CONNECTED_CONNECTOR } from 'config';
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
 
+const getConnectedConnector = (): Connector | undefined => {
+  const lsConnectedConnector = window.localStorage.getItem(LS_KEY_CONNECTED_CONNECTOR);
+
+  return lsConnectedConnector &&
+    Object.values(Connector).includes(lsConnectedConnector as Connector)
+    ? (lsConnectedConnector as Connector)
+    : undefined;
+};
+
 const useAuth = () => {
-  const { activate, deactivate } = useWeb3React();
+  const { activate, deactivate, account } = useWeb3React();
+
+  const [connectedConnector, setConnectedConnector] = useState(getConnectedConnector());
 
   const login = useCallback(
     async (connectorID: Connector) => {
@@ -36,7 +47,8 @@ const useAuth = () => {
         await activate(connector, undefined, true);
 
         // Mark user as logged in
-        window.localStorage.setItem(LS_KEY_IS_USER_LOGGED_IN, 'true');
+        window.localStorage.setItem(LS_KEY_CONNECTED_CONNECTOR, connectorID);
+        setConnectedConnector(connectorID);
       } catch (error) {
         if (error instanceof UnsupportedChainIdError) {
           const hasSetup = await setupNetwork();
@@ -81,7 +93,7 @@ const useAuth = () => {
     [activate],
   );
 
-  const logout = useCallback(() => {
+  const logOut = useCallback(() => {
     deactivate();
     // This localStorage key is set by @web3-react/walletconnect-connector
     if (window.localStorage.getItem('walletconnect')) {
@@ -90,10 +102,11 @@ const useAuth = () => {
     }
 
     // Remove flag indicating user is logged in
-    window.localStorage.removeItem(LS_KEY_IS_USER_LOGGED_IN);
+    window.localStorage.removeItem(LS_KEY_CONNECTED_CONNECTOR);
+    setConnectedConnector(undefined);
   }, [deactivate]);
 
-  return { login, logout };
+  return { login, logOut, accountAddress: account, connectedConnector };
 };
 
 export default useAuth;

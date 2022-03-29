@@ -6,7 +6,6 @@ import { Select, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import { accountActionCreators } from 'core/modules/account/actions';
-import ConnectButton, { ConnectButtonWrapper } from 'components/Basic/ConnectButton';
 import { Label } from 'components/Basic/Label';
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoPure.svg';
@@ -18,9 +17,10 @@ import { Setting } from 'types';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { State } from 'core/modules/initialState';
-import { useMarkets } from '../../hooks/useMarkets';
-import { useComptroller, useVaiToken } from '../../hooks/useContract';
-import { getVaiVaultAddress } from '../../utilities/addressHelpers';
+import { useMarkets } from 'hooks/useMarkets';
+import { useComptroller, useVaiToken } from 'hooks/useContract';
+import { getVaiVaultAddress } from 'utilities/addressHelpers';
+import ConnectButton from 'components/v2/Layout/Header/ConnectButton';
 
 const SidebarWrapper = styled.div`
   height: calc(100vh - 29px);
@@ -491,9 +491,9 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           </div>
         </TotalValue>
       )}
-      <ConnectButtonWrapper>
-        <ConnectButton />
-      </ConnectButtonWrapper>
+
+      <ConnectButton />
+
       <MobileMenu id="main-menu">
         <Select
           defaultValue={defaultPath}

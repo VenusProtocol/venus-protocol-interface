@@ -112,6 +112,7 @@ export const styles = ({
       margin-right: ${theme.spacing(1)};
     `,
     label: css`
+      font-weight: 600;
       color: inherit;
     `,
   };

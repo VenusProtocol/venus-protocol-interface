@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useWeb3Account } from 'clients/web3';
 
-import { injected } from './connectors';
+import { injectedConnector } from './connectors';
 
 const useInactiveListener = (suppress = false) => {
   const { active, error, activate } = useWeb3Account();
@@ -12,7 +12,7 @@ const useInactiveListener = (suppress = false) => {
     if (ethereum && 'on' in ethereum && !active && !error && !suppress && !process.env.STORYBOOK) {
       const handleChainChanged = () => {
         // eat errors
-        activate(injected, undefined, true).catch(err => {
+        activate(injectedConnector, undefined, true).catch(err => {
           console.error('Failed to activate after chain changed', err);
         });
       };
@@ -20,7 +20,7 @@ const useInactiveListener = (suppress = false) => {
       const handleAccountsChanged = (accounts: $TSFixMe) => {
         if (accounts.length > 0) {
           // eat errors
-          activate(injected, undefined, true).catch(err => {
+          activate(injectedConnector, undefined, true).catch(err => {
             console.error('Failed to activate after accounts changed', err);
           });
         }

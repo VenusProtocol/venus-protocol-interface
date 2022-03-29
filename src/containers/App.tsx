@@ -9,6 +9,7 @@ import en from 'react-intl/locale-data/en';
 
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
+import { AuthProvider } from 'context/AuthContext';
 import enMessages from 'lang/en.json';
 import { store } from 'core';
 import Dashboard from 'containers/Main/Dashboard';
@@ -60,34 +61,40 @@ class App extends React.Component {
                   <VaiContextProvider>
                     <MarketContextProvider>
                       <MuiThemeProvider>
-                        <BrowserRouter>
-                          <ToastContainer
-                            autoClose={8000}
-                            transition={Slide}
-                            hideProgressBar
-                            newestOnTop
-                            position={toast.POSITION.TOP_LEFT}
-                          />
-                          <Switch>
-                            <Route exact path="/dashboard" component={Dashboard} />
-                            <Route exact path="/vote" component={Vote} />
-                            <Route exact path="/xvs" component={XVS} />
-                            <Route exact path="/market" component={Market} />
-                            <Route exact path="/transaction" component={Transaction} />
-                            <Route exact path="/vault" component={Vault} />
-                            <Route exact path="/market/:asset" component={MarketDetail} />
-                            <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
-                            <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                            <Route exact path="/vote/address/:address" component={ProposerDetail} />
-                            {process.env.REACT_APP_CHAIN_ID === '97' && (
-                              <Route exact path="/convert-vrt" component={VrtConversion} />
-                            )}
-                            {process.env.REACT_APP_CHAIN_ID === '97' && (
-                              <Route exact path="/faucet" component={Faucet} />
-                            )}
-                            <Redirect from="/" to="/dashboard" />
-                          </Switch>
-                        </BrowserRouter>
+                        <AuthProvider>
+                          <BrowserRouter>
+                            <ToastContainer
+                              autoClose={8000}
+                              transition={Slide}
+                              hideProgressBar
+                              newestOnTop
+                              position={toast.POSITION.TOP_LEFT}
+                            />
+                            <Switch>
+                              <Route exact path="/dashboard" component={Dashboard} />
+                              <Route exact path="/vote" component={Vote} />
+                              <Route exact path="/xvs" component={XVS} />
+                              <Route exact path="/market" component={Market} />
+                              <Route exact path="/transaction" component={Transaction} />
+                              <Route exact path="/vault" component={Vault} />
+                              <Route exact path="/market/:asset" component={MarketDetail} />
+                              <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
+                              <Route exact path="/vote/proposal/:id" component={VoteOverview} />
+                              <Route
+                                exact
+                                path="/vote/address/:address"
+                                component={ProposerDetail}
+                              />
+                              {process.env.REACT_APP_CHAIN_ID === '97' && (
+                                <Route exact path="/convert-vrt" component={VrtConversion} />
+                              )}
+                              {process.env.REACT_APP_CHAIN_ID === '97' && (
+                                <Route exact path="/faucet" component={Faucet} />
+                              )}
+                              <Redirect from="/" to="/dashboard" />
+                            </Switch>
+                          </BrowserRouter>
+                        </AuthProvider>
                       </MuiThemeProvider>
                     </MarketContextProvider>
                   </VaiContextProvider>

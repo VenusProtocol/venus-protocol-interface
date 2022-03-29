@@ -40,7 +40,7 @@ export const BASE_BSC_SCAN_URL = BASE_BSC_SCAN_URLS[CHAIN_ID];
 
 export const API_ENDPOINT_URL = API_ENDPOINT_URLS[CHAIN_ID];
 
-export const LS_KEY_IS_USER_LOGGED_IN = 'is-user-logged-in';
+export const LS_KEY_CONNECTED_CONNECTOR = 'connected-connector';
 
 export const VTOKEN_DECIMALS = 8;
 
@@ -61,3 +61,6 @@ export const VENUS_MEDIUM_URL = 'https://medium.com/@Venus_protocol';
 export const VENUS_DISCORD_URL = 'https://discord.com/invite/pTQ9EBHYtF';
 export const VENUS_TWITTER_URL = 'https://twitter.com/VenusProtocol';
 export const VENUS_GITHUB_URL = 'https://github.com/VenusProtocol/';
+
+// TODO: update
+export const VENUS_TERMS_OF_SERVICE_URL = 'https://www.swipe.io/terms';
