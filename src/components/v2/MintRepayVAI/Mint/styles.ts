@@ -28,5 +28,9 @@ export const useStyles = () => {
     infoValue: css`
       color: ${theme.palette.text.primary};
     `,
+    submitButton: css`
+      margin-left: auto;
+      margin-right: auto;
+    `,
   };
 };
