@@ -32,19 +32,19 @@ export const TextField: React.FC<ITextFieldProps> = ({
 
   const handleChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = e => {
     // Prevent value from being updated if it does not follow the rules
-    const respectsMaxRule =
+    const followsMaxRule =
       !e.currentTarget.value ||
       max === undefined ||
       type !== 'number' ||
       parseInt(e.currentTarget.value, 10) <= +max;
 
-    const respectsMinRule =
+    const followsMinRule =
       !e.currentTarget.value ||
       min === undefined ||
       type !== 'number' ||
       parseInt(e.currentTarget.value, 10) >= +min;
 
-    if (onChange && respectsMaxRule && respectsMinRule) {
+    if (onChange && followsMaxRule && followsMinRule) {
       onChange(e);
     }
   };
