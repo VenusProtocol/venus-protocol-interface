@@ -3,16 +3,13 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 
-import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
-import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
+import { convertWeiToCoins } from 'utilities/common';
 import { Icon } from '../../Icon';
-import { TextField } from '../../TextField';
-import { TertiaryButton, SecondaryButton } from '../../Button';
+import { TokenTextField } from '../../TokenTextField';
+import { SecondaryButton } from '../../Button';
 import { useStyles } from './styles';
 
-const VAI_DECIMALS = CONTRACT_TOKEN_ADDRESS.vai.decimals;
-const oneVaiInWei = new BigNumber(10).pow(VAI_DECIMALS);
-const oneWeiInVai = new BigNumber(1).dividedBy(oneVaiInWei);
+const VAI_SYMBOL = 'vai';
 
 export interface IMintUiProps {
   disabled: boolean;
@@ -31,62 +28,54 @@ export const MintUi: React.FC<IMintUiProps> = ({
   onSubmit,
 }) => {
   const styles = useStyles();
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState<BigNumber | ''>('');
 
-  // Convert limit to VAI
-  const limitVai = convertWeiToCoins({ value: limitWei, decimals: VAI_DECIMALS }).toString();
+  const isValueValid = value && value.isGreaterThan(0);
 
-  const isValueValid = parseInt(value, 10) > 0;
+  // Convert limit into VAI
+  const readableLimitVai = React.useMemo(
+    () => convertWeiToCoins({ value: limitWei, tokenSymbol: VAI_SYMBOL }).toString(),
+    [limitWei],
+  );
 
   // Calculate fee
-  const feeVai = isValueValid
-    ? new BigNumber(value).multipliedBy(mintFeePercentage).dividedBy(100).toFixed(2)
-    : '0';
-
-  const setMaxValue = () => setValue(limitVai);
+  const feeWei = new BigNumber(value || 0).multipliedBy(mintFeePercentage).dividedBy(100);
+  const readableFeeVai = convertWeiToCoins({ value: feeWei, tokenSymbol: VAI_SYMBOL }).toString();
 
   const handleSubmit = async (e: React.FormEvent) => {
     // Prevent native submission behavior
     e.preventDefault();
 
-    // Convert value to wei before submitting
-    const weiValue = convertCoinsToWei({ value: new BigNumber(value), decimals: VAI_DECIMALS });
-    await onSubmit(weiValue);
+    if (value) {
+      await onSubmit(value);
 
-    // Reset value
-    setValue('');
+      // Reset value
+      setValue('');
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* TODO: make this into a reusable component */}
-      <TextField
+      <TokenTextField
         css={styles.textField}
+        tokenSymbol={VAI_SYMBOL}
         value={value}
-        onChange={e => setValue(e.currentTarget.value)}
-        placeholder="0.00"
-        min={0}
-        max={limitVai}
-        step={oneWeiInVai.toString()}
-        type="number"
+        onChange={setValue}
+        maxWei={limitWei}
         disabled={disabled || isSubmitting}
-        rightAdornment={
-          <TertiaryButton onClick={setMaxValue} small disabled={disabled || isSubmitting}>
-            SAFE MAX
-          </TertiaryButton>
-        }
+        rightMaxButtonLabel="SAFE MAX"
       />
 
       <div css={styles.getRow({ isLast: false })}>
         <div css={styles.infoColumn}>
-          <Icon name="vai" css={styles.coinIcon} />
+          <Icon name={VAI_SYMBOL} css={styles.coinIcon} />
           <Typography component="span" variant="small2">
             Available VAI Limit
           </Typography>
         </div>
 
         <Typography component="span" css={styles.infoValue} variant="small1">
-          {limitVai} VAI
+          {readableLimitVai} VAI
         </Typography>
       </div>
 
@@ -99,7 +88,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
         </div>
 
         <Typography component="span" css={styles.infoValue} variant="small1">
-          {feeVai} VAI ({mintFeePercentage}%)
+          {readableFeeVai} VAI ({mintFeePercentage}%)
         </Typography>
       </div>
 
@@ -118,11 +107,11 @@ export const MintUi: React.FC<IMintUiProps> = ({
 export const Mint: React.FC = () => {
   // TODO: fetch actual data
   const isUserLoggedIn = true;
-  const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(VAI_DECIMALS));
+  const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(18));
   const mintFeePercentage = 2.14;
 
   const onSubmit: IMintUiProps['onSubmit'] = async value => {
-    // TODO: mint VAI
+    // TODO: call contract
     console.log('Amount to mint:', value.toString());
   };
 
