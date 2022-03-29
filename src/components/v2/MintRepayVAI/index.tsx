@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-// import Typography from '@mui/material/Typography';
 
+import { Mint } from './Mint';
 import { Tabs } from '../Tabs';
 import { useStyles } from './styles';
 
@@ -29,6 +29,9 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
           />
         </div>
       </div>
+
+      {/* TODO: add Repay component */}
+      {activeTabIndex === 0 ? <Mint /> : null}
     </div>
   );
 };

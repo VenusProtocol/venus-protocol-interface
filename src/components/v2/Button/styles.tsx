@@ -82,8 +82,7 @@ export const styles = ({
   };
 
   return {
-    button: css`
-      cursor: pointer;
+    getButton: ({ disabled }: { disabled: boolean }) => css`
       border-radius: 8px;
       padding: ${small ? theme.spacing(1, 1.5) : theme.spacing(1.5, 3)};
       border: 1px solid transparent;
@@ -101,6 +100,11 @@ export const styles = ({
         background-color: ${theme.palette.secondary.light};
         border-color: ${theme.palette.secondary.light};
       }
+
+      ${!disabled &&
+      css`
+        cursor: pointer;
+      `}
 
       ${fullWidth &&
       css`
