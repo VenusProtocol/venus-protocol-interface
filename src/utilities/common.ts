@@ -1,7 +1,9 @@
-import * as constants from 'utilities/constants';
 import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
+
+import * as constants from 'utilities/constants';
+import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 import { getVaiTokenAddress } from './addressHelpers';
 
 export const commaFormat = commaNumber.bindWith(',', '.');
@@ -119,11 +121,30 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
   return `$${commaFormat(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
 };
 
-export const convertWeiToCoins = ({ value, decimals }: { value: BigNumber; decimals: number }) =>
-  value.dividedBy(new BigNumber(10).pow(decimals)).decimalPlaces(decimals);
+export const getTokenDecimals = (tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS) =>
+  CONTRACT_TOKEN_ADDRESS[tokenSymbol]?.decimals || 18;
 
-export const convertCoinsToWei = ({ value, decimals }: { value: BigNumber; decimals: number }) =>
-  value.multipliedBy(new BigNumber(10).pow(decimals));
+export const convertWeiToCoins = ({
+  value,
+  tokenSymbol,
+}: {
+  value: BigNumber;
+  tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
+}) => {
+  const tokenDecimals = getTokenDecimals(tokenSymbol);
+  return value.dividedBy(new BigNumber(10).pow(tokenDecimals)).decimalPlaces(tokenDecimals);
+};
+
+export const convertCoinsToWei = ({
+  value,
+  tokenSymbol,
+}: {
+  value: BigNumber;
+  tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
+}) => {
+  const tokenDecimals = getTokenDecimals(tokenSymbol);
+  return value.multipliedBy(new BigNumber(10).pow(tokenDecimals));
+};
 
 export const formatApy = (apy?: BigNumber | string | number): string => {
   const apyBN = getBigNumber(apy);

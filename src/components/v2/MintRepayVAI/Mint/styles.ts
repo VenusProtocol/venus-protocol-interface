@@ -12,7 +12,6 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       margin-bottom: ${theme.spacing(isLast ? 3 : 2)};
     `,
     infoColumn: css`
