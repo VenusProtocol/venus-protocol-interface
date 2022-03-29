@@ -7,6 +7,11 @@ export default {
   title: 'Components/MintRepayVai',
   component: MintRepayVai,
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  parameters: {
+    backgrounds: {
+      default: 'Primary',
+    },
+  },
 } as ComponentMeta<typeof MintRepayVai>;
 
 export const Default = () => <MintRepayVai />;
