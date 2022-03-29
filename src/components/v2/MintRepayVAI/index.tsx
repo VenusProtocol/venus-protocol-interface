@@ -1,59 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React, { InputHTMLAttributes, HTMLAttributes } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Icon, IconName } from '../Icon';
+import React from 'react';
+// import Typography from '@mui/material/Typography';
 
+import { Tabs } from '../Tabs';
 import { useStyles } from './styles';
 
-export interface ITextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'css'> {
-  css?: HTMLAttributes<HTMLDivElement>['css'];
-  label?: string;
-  description?: string;
-  hasError?: boolean;
-  leftIconName?: IconName;
-  rightAdornment?: React.ReactElement;
+export interface IMintRepayVaiProps {
+  className?: string;
 }
 
-export const TextField: React.FC<ITextFieldProps> = ({
-  css,
-  label,
-  description,
-  hasError = false,
-  leftIconName,
-  rightAdornment,
-  ...inputProps
-}) => {
+// TODO: Move to dashboard component/container once created
+export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
+  const [activeTabIndex, setActiveTabIndex] = React.useState(0);
 
   return (
-    <Box css={css}>
-      {!!label && (
-        <Typography
-          variant="small1"
-          component="label"
-          css={styles.getLabel({ hasError })}
-          htmlFor={inputProps.id}
-        >
-          {label}
-        </Typography>
-      )}
+    <div className={className} css={styles.container}>
+      <div css={[styles.row, styles.header]}>
+        <div css={[styles.column, styles.headerTitle]}>
+          <h4>Mint/Repay VAI</h4>
+        </div>
 
-      <Box css={styles.getInputContainer({ hasError })}>
-        {!!leftIconName && (
-          <Icon name={leftIconName} size={styles.theme.spacing(3)} css={styles.leftIcon} />
-        )}
-
-        <input css={styles.getInput({ hasRightAdornment: !!rightAdornment })} {...inputProps} />
-
-        {rightAdornment}
-      </Box>
-
-      {!!description && (
-        <Typography variant="small2" css={styles.description}>
-          {description}
-        </Typography>
-      )}
-    </Box>
+        <div css={[styles.column, styles.headerTabsContainer]}>
+          <Tabs
+            tabTitles={['Mint VAI', 'Repay VAI']}
+            activeTabIndex={activeTabIndex}
+            onChange={tabIndex => setActiveTabIndex(tabIndex)}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
