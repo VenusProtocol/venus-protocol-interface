@@ -31,7 +31,7 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
       </div>
 
       {/* TODO: add Repay component */}
-      {activeTabIndex === 0 ? <Mint /> : null}
+      {activeTabIndex === 0 ? <Mint /> : undefined}
     </div>
   );
 };
