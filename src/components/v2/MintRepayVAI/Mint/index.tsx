@@ -20,6 +20,7 @@ const convertWeiToVai = (valueWei: BigNumber) =>
 const convertVaiToWei = (valueWei: BigNumber) => valueWei.multipliedBy(oneVaiInWei);
 
 export interface IMintUiProps {
+  disabled: boolean;
   isSubmitting: boolean;
   onSubmit: (value: BigNumber) => Promise<void>;
   limitWei: BigNumber;
@@ -28,6 +29,7 @@ export interface IMintUiProps {
 
 // TODO: Move to dashboard component/container once created
 export const MintUi: React.FC<IMintUiProps> = ({
+  disabled,
   limitWei,
   mintFeePercentage,
   isSubmitting,
@@ -72,9 +74,9 @@ export const MintUi: React.FC<IMintUiProps> = ({
         max={limitVai}
         step={oneWeiInVai.toString()}
         type="number"
-        disabled={isSubmitting}
+        disabled={disabled || isSubmitting}
         rightAdornment={
-          <TertiaryButton onClick={setMaxValue} small disabled={isSubmitting}>
+          <TertiaryButton onClick={setMaxValue} small disabled={disabled || isSubmitting}>
             SAFE MAX
           </TertiaryButton>
         }
@@ -110,7 +112,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
         css={styles.submitButton}
         type="submit"
         loading={isSubmitting}
-        disabled={!isValueValid}
+        disabled={disabled || !isValueValid}
       >
         Mint VAI
       </SecondaryButton>
@@ -120,6 +122,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
 
 export const Mint: React.FC = () => {
   // TODO: fetch actual data
+  const isUserLoggedIn = true;
   const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(VAI_DECIMALS));
   const mintFeePercentage = 2.14;
 
@@ -130,6 +133,7 @@ export const Mint: React.FC = () => {
 
   return (
     <MintUi
+      disabled={!isUserLoggedIn}
       limitWei={limitWei}
       mintFeePercentage={mintFeePercentage}
       isSubmitting={false}
