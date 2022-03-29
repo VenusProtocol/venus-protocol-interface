@@ -6,12 +6,18 @@ import Typography from '@mui/material/Typography';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 import { Icon } from '../../Icon';
 import { TextField } from '../../TextField';
-import { TertiaryButton } from '../../Button';
+import { TertiaryButton, SecondaryButton } from '../../Button';
 import { useStyles } from './styles';
 
 const VAI_DECIMALS = CONTRACT_TOKEN_ADDRESS.vai.decimals;
 const oneVaiInWei = new BigNumber(10).pow(VAI_DECIMALS);
 const oneWeiInVai = new BigNumber(1).dividedBy(oneVaiInWei);
+
+// TODO: make into a utility that can be used for all coins
+const convertWeiToVai = (valueWei: BigNumber) =>
+  valueWei.dividedBy(oneVaiInWei).decimalPlaces(VAI_DECIMALS);
+
+const convertVaiToWei = (valueWei: BigNumber) => valueWei.multipliedBy(oneVaiInWei);
 
 export interface IMintUiProps {
   isSubmitting: boolean;
@@ -31,16 +37,23 @@ export const MintUi: React.FC<IMintUiProps> = ({
   const [value, setValue] = React.useState('');
 
   // Convert limit to VAI
-  const limitVai = limitWei.dividedBy(oneVaiInWei);
+  const limitVai = convertWeiToVai(limitWei).toString();
 
-  const setMaxValue = () => setValue(limitVai.toString());
+  const isValueValid = parseInt(value, 10) > 0;
+
+  // Calculate fee
+  const feeVai = isValueValid
+    ? new BigNumber(value).multipliedBy(mintFeePercentage).dividedBy(100).toFixed(2)
+    : '0';
+
+  const setMaxValue = () => setValue(limitVai);
 
   const handleSubmit = async (e: React.FormEvent) => {
     // Prevent native submission behavior
     e.preventDefault();
 
     // Convert value to wei before submitting
-    const weiValue = new BigNumber(value).multipliedBy(oneVaiInWei);
+    const weiValue = convertVaiToWei(new BigNumber(value));
     await onSubmit(weiValue);
 
     // Reset value
@@ -56,7 +69,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
         onChange={e => setValue(e.currentTarget.value)}
         placeholder="0.00"
         min={0}
-        max={limitVai.toString()}
+        max={limitVai}
         step={oneWeiInVai.toString()}
         type="number"
         disabled={isSubmitting}
@@ -76,7 +89,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
         </div>
 
         <Typography component="span" css={styles.infoValue} variant="small1">
-          {limitVai.toString()} VAI
+          {limitVai} VAI
         </Typography>
       </div>
 
@@ -89,9 +102,18 @@ export const MintUi: React.FC<IMintUiProps> = ({
         </div>
 
         <Typography component="span" css={styles.infoValue} variant="small1">
-          {limitVai.toString()} VAI ({mintFeePercentage})
+          {feeVai} VAI ({mintFeePercentage}%)
         </Typography>
       </div>
+
+      <SecondaryButton
+        css={styles.submitButton}
+        type="submit"
+        loading={isSubmitting}
+        disabled={!isValueValid}
+      >
+        Mint VAI
+      </SecondaryButton>
     </form>
   );
 };
