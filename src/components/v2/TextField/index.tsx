@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import React, { InputHTMLAttributes, HTMLAttributes } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Icon, IconName } from '../Icon';
 
 import { useStyles } from './styles';
 
-export interface ITextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'css'> {
-  css?: HTMLAttributes<HTMLDivElement>['css'];
+export interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
   label?: string;
   description?: string;
   hasError?: boolean;
@@ -16,18 +16,41 @@ export interface ITextFieldProps extends Omit<InputHTMLAttributes<HTMLInputEleme
 }
 
 export const TextField: React.FC<ITextFieldProps> = ({
-  css,
+  className,
   label,
   description,
   hasError = false,
   leftIconName,
   rightAdornment,
+  onChange,
+  max,
+  min,
+  type,
   ...inputProps
 }) => {
   const styles = useStyles();
 
+  const handleChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = e => {
+    // Prevent value from being updated if it does not follow the rules
+    const respectsMaxRule =
+      !e.currentTarget.value ||
+      max === undefined ||
+      type !== 'number' ||
+      parseInt(e.currentTarget.value, 10) <= +max;
+
+    const respectsMinRule =
+      !e.currentTarget.value ||
+      min === undefined ||
+      type !== 'number' ||
+      parseInt(e.currentTarget.value, 10) >= +min;
+
+    if (onChange && respectsMaxRule && respectsMinRule) {
+      onChange(e);
+    }
+  };
+
   return (
-    <Box css={css}>
+    <Box className={className}>
       {!!label && (
         <Typography
           variant="small1"
@@ -44,7 +67,14 @@ export const TextField: React.FC<ITextFieldProps> = ({
           <Icon name={leftIconName} size={styles.theme.spacing(3)} css={styles.leftIcon} />
         )}
 
-        <input css={styles.getInput({ hasRightAdornment: !!rightAdornment })} {...inputProps} />
+        <input
+          css={styles.getInput({ hasRightAdornment: !!rightAdornment })}
+          max={max}
+          min={min}
+          onChange={handleChange}
+          type={type}
+          {...inputProps}
+        />
 
         {rightAdornment}
       </Box>
