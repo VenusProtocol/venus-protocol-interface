@@ -119,6 +119,12 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
   return `$${commaFormat(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
 };
 
+export const convertWeiToCoins = ({ value, decimals }: { value: BigNumber; decimals: number }) =>
+  value.dividedBy(new BigNumber(10).pow(decimals)).decimalPlaces(decimals);
+
+export const convertCoinsToWei = ({ value, decimals }: { value: BigNumber; decimals: number }) =>
+  value.multipliedBy(new BigNumber(10).pow(decimals));
+
 export const formatApy = (apy?: BigNumber | string | number): string => {
   const apyBN = getBigNumber(apy);
   if (apyBN.absoluteValue().isLessThan(100000000)) {
