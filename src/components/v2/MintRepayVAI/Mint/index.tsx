@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
 import { Icon } from '../../Icon';
 import { TextField } from '../../TextField';
 import { TertiaryButton, SecondaryButton } from '../../Button';
@@ -12,12 +13,6 @@ import { useStyles } from './styles';
 const VAI_DECIMALS = CONTRACT_TOKEN_ADDRESS.vai.decimals;
 const oneVaiInWei = new BigNumber(10).pow(VAI_DECIMALS);
 const oneWeiInVai = new BigNumber(1).dividedBy(oneVaiInWei);
-
-// TODO: make into a utility that can be used for all coins
-const convertWeiToVai = (valueWei: BigNumber) =>
-  valueWei.dividedBy(oneVaiInWei).decimalPlaces(VAI_DECIMALS);
-
-const convertVaiToWei = (valueWei: BigNumber) => valueWei.multipliedBy(oneVaiInWei);
 
 export interface IMintUiProps {
   disabled: boolean;
@@ -39,7 +34,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
   const [value, setValue] = React.useState('');
 
   // Convert limit to VAI
-  const limitVai = convertWeiToVai(limitWei).toString();
+  const limitVai = convertWeiToCoins({ value: limitWei, decimals: VAI_DECIMALS }).toString();
 
   const isValueValid = parseInt(value, 10) > 0;
 
@@ -55,7 +50,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
     e.preventDefault();
 
     // Convert value to wei before submitting
-    const weiValue = convertVaiToWei(new BigNumber(value));
+    const weiValue = convertCoinsToWei({ value: new BigNumber(value), decimals: VAI_DECIMALS });
     await onSubmit(weiValue);
 
     // Reset value
