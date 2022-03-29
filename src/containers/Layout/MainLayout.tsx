@@ -15,13 +15,13 @@ const MainLayoutWrapper = styled.div`
   background-color: var(--color-bg-main);
 
   .main {
-    height: calc(100vh - 29px);
+    height: calc(100vh - 56px);
 
     .main-content {
       padding-top: 20px;
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 154px);
+      height: calc(100vh - 184px);
       overflow: auto;
       overflow-x: hidden;
 
@@ -43,6 +43,10 @@ const MainLayoutWrapper = styled.div`
 
       ::-webkit-scrollbar-corner {
         background-color: transparent;
+      }
+
+      @media only screen and (max-width: 768px) {
+        height: calc(100vh - 295px);
       }
     }
 
