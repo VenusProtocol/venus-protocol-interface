@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
-// import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography';
 
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { Icon } from '../../Icon';
 import { TextField } from '../../TextField';
 import { TertiaryButton } from '../../Button';
 import { useStyles } from './styles';
@@ -13,27 +14,29 @@ const VAI_INFO = CONTRACT_TOKEN_ADDRESS.vai;
 export interface IMintUiProps {
   isSubmitting: boolean;
   onSubmit: (value: BigNumber) => Promise<void>;
-  weiLimit: BigNumber;
+  limitWei: BigNumber;
   mintFeePercentage: number;
 }
 
 // TODO: Move to dashboard component/container once created
-export const MintUi: React.FC<IMintUiProps> = ({ weiLimit, isSubmitting }) => {
+export const MintUi: React.FC<IMintUiProps> = ({ limitWei, mintFeePercentage, isSubmitting }) => {
   const styles = useStyles();
-  const [value, setValue] = React.useState<undefined | string>();
+  const [value, setValue] = React.useState('');
 
   // Convert wei to VAI
-  const vaiLimit = weiLimit.dividedBy(new BigNumber(10).pow(VAI_INFO.decimals));
+  const limitVai = limitWei.dividedBy(new BigNumber(10).pow(VAI_INFO.decimals));
 
-  const setMaxValue = () => setValue(vaiLimit.toString());
+  const setMaxValue = () => setValue(limitVai.toString());
 
   return (
-    <div css={styles.container}>
+    <>
       <TextField
+        css={styles.textField}
         value={value}
         onChange={e => setValue(e.currentTarget.value)}
         placeholder="0.00"
-        max={vaiLimit.toString()}
+        min={0}
+        max={limitVai.toNumber()}
         type="number"
         disabled={isSubmitting}
         rightAdornment={
@@ -42,13 +45,39 @@ export const MintUi: React.FC<IMintUiProps> = ({ weiLimit, isSubmitting }) => {
           </TertiaryButton>
         }
       />
-    </div>
+
+      <div css={styles.getRow({ isLast: false })}>
+        <div css={styles.infoColumn}>
+          <Icon name="vai" css={styles.coinIcon} />
+          <Typography component="span" variant="small2">
+            Available VAI Limit
+          </Typography>
+        </div>
+
+        <Typography component="span" css={styles.infoValue} variant="small1">
+          {limitVai.toString()} VAI
+        </Typography>
+      </div>
+
+      <div css={styles.getRow({ isLast: true })}>
+        <div css={styles.infoColumn}>
+          <Icon name="fee" css={styles.coinIcon} />
+          <Typography component="span" variant="small2">
+            Mint fee
+          </Typography>
+        </div>
+
+        <Typography component="span" css={styles.infoValue} variant="small1">
+          {limitVai.toString()} VAI ({mintFeePercentage})
+        </Typography>
+      </div>
+    </>
   );
 };
 
 export const Mint: React.FC = () => {
   // TODO: fetch actual data
-  const weiLimit = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(VAI_INFO.decimals));
+  const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(VAI_INFO.decimals));
   const mintFeePercentage = 2.14;
 
   const onSubmit: IMintUiProps['onSubmit'] = async value => {
@@ -58,7 +87,7 @@ export const Mint: React.FC = () => {
 
   return (
     <MintUi
-      weiLimit={weiLimit}
+      limitWei={limitWei}
       mintFeePercentage={mintFeePercentage}
       isSubmitting={false}
       onSubmit={onSubmit}
