@@ -23,7 +23,7 @@ import { useComptroller, useVaiToken } from '../../hooks/useContract';
 import { getVaiVaultAddress } from '../../utilities/addressHelpers';
 
 const SidebarWrapper = styled.div`
-  height: calc(100vh - 29px);
+  height: calc(100vh - 56px);
   min-width: 116px;
   border-radius: 0 16px 16px 0;
   background-color: var(--color-bg-primary);
