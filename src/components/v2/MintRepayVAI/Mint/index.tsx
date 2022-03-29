@@ -9,7 +9,9 @@ import { TextField } from '../../TextField';
 import { TertiaryButton } from '../../Button';
 import { useStyles } from './styles';
 
-const VAI_INFO = CONTRACT_TOKEN_ADDRESS.vai;
+const VAI_DECIMALS = CONTRACT_TOKEN_ADDRESS.vai.decimals;
+const oneVaiInWei = new BigNumber(10).pow(VAI_DECIMALS);
+const oneWeiInVai = new BigNumber(1).dividedBy(oneVaiInWei);
 
 export interface IMintUiProps {
   isSubmitting: boolean;
@@ -19,24 +21,43 @@ export interface IMintUiProps {
 }
 
 // TODO: Move to dashboard component/container once created
-export const MintUi: React.FC<IMintUiProps> = ({ limitWei, mintFeePercentage, isSubmitting }) => {
+export const MintUi: React.FC<IMintUiProps> = ({
+  limitWei,
+  mintFeePercentage,
+  isSubmitting,
+  onSubmit,
+}) => {
   const styles = useStyles();
   const [value, setValue] = React.useState('');
 
-  // Convert wei to VAI
-  const limitVai = limitWei.dividedBy(new BigNumber(10).pow(VAI_INFO.decimals));
+  // Convert limit to VAI
+  const limitVai = limitWei.dividedBy(oneVaiInWei);
 
   const setMaxValue = () => setValue(limitVai.toString());
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    // Prevent native submission behavior
+    e.preventDefault();
+
+    // Convert value to wei before submitting
+    const weiValue = new BigNumber(value).multipliedBy(oneVaiInWei);
+    await onSubmit(weiValue);
+
+    // Reset value
+    setValue('');
+  };
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
+      {/* TODO: make this into a reusable component */}
       <TextField
         css={styles.textField}
         value={value}
         onChange={e => setValue(e.currentTarget.value)}
         placeholder="0.00"
         min={0}
-        max={limitVai.toNumber()}
+        max={limitVai.toString()}
+        step={oneWeiInVai.toString()}
         type="number"
         disabled={isSubmitting}
         rightAdornment={
@@ -71,13 +92,13 @@ export const MintUi: React.FC<IMintUiProps> = ({ limitWei, mintFeePercentage, is
           {limitVai.toString()} VAI ({mintFeePercentage})
         </Typography>
       </div>
-    </>
+    </form>
   );
 };
 
 export const Mint: React.FC = () => {
   // TODO: fetch actual data
-  const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(VAI_INFO.decimals));
+  const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(VAI_DECIMALS));
   const mintFeePercentage = 2.14;
 
   const onSubmit: IMintUiProps['onSubmit'] = async value => {
