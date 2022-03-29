@@ -16,7 +16,7 @@ export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 export const Button = ({
   className,
   loading,
-  disabled,
+  disabled = false,
   fullWidth = false,
   small = false,
   variant = 'primary',
@@ -27,7 +27,7 @@ export const Button = ({
 
   return (
     <button
-      css={styles.button}
+      css={styles.getButton({ disabled })}
       className={className}
       disabled={loading || disabled}
       type="button"
