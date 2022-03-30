@@ -14,7 +14,7 @@ export interface ITokenTextFieldProps extends Omit<ITextFieldProps, 'value' | 'o
   tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
   onChange: (newValue: BigNumber | '') => void;
   rightMaxButtonLabel?: string;
-  value?: BigNumber | '';
+  value: BigNumber | '';
   maxWei?: BigNumber;
 }
 
