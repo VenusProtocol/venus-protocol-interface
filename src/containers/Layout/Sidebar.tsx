@@ -21,6 +21,19 @@ import { useComptroller, useVaiToken } from 'hooks/useContract';
 import { getVaiVaultAddress } from 'utilities/addressHelpers';
 import ConnectButton from 'components/v2/Layout/Header/ConnectButton';
 
+const ConnectButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
+  > button {
+    width: 114px;
+    height: 30px;
+  }
+`;
+
 const SidebarWrapper = styled.div`
   height: 100vh;
   min-width: 116px;
@@ -486,8 +499,9 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           </div>
         </TotalValue>
       )}
-
-      <ConnectButton />
+      <ConnectButtonWrapper>
+        <ConnectButton />
+      </ConnectButtonWrapper>
 
       <MobileMenu id="main-menu">
         <Select
