@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -24,6 +24,8 @@ interface IMyAccountProps {
   borrowLimitCents: number;
   safeLimitPercentage: number;
   borrowLimitUsedPercentage: number;
+  onSwitch: (value: boolean) => void;
+  isSwitched: boolean;
 }
 
 export const MyAccount = ({
@@ -33,10 +35,11 @@ export const MyAccount = ({
   borrowBalanceCents,
   borrowLimitCents,
   safeLimitPercentage,
+  onSwitch,
+  isSwitched,
 }: IMyAccountProps) => {
-  const [isToggleSwitched, setToggleSwitched] = useState(true);
   const handleSwitch: IToggleProps['onChange'] = (event, checked) => {
-    setToggleSwitched(checked);
+    onSwitch(!checked);
   };
   const styles = useStyles();
   return (
@@ -50,7 +53,7 @@ export const MyAccount = ({
           <Typography color="text.primary" variant="small1">
             APY with XVS
           </Typography>
-          <Toggle parentStyles={styles.toggle} value={isToggleSwitched} onChange={handleSwitch} />
+          <Toggle parentStyles={styles.toggle} value={isSwitched} onChange={handleSwitch} />
         </Typography>
       </div>
       <div>

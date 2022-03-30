@@ -11,6 +11,8 @@ export default {
 
 export const MyAccountDefault = () => (
   <MyAccount
+    isSwitched
+    onSwitch={(value: boolean) => {}}
     netApyPercentage={24.93}
     dailyEarningsCents={14.829}
     supplyBalanceCents={122.889}

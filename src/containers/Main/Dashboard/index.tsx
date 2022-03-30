@@ -12,6 +12,8 @@ import WalletBalance from 'components/Dashboard/WalletBalance';
 import Market from 'components/Dashboard/Market';
 import { Row, Column } from 'components/Basic/Style';
 import { State } from 'core/modules/initialState';
+import { MyAccount } from '../../../components/v2/MyAccount';
+import MyAccountWrapper from '../../../components/v2/MyAccount/MyAccountWrapper';
 
 const DashboardWrapper = styled.div`
   height: 100%;
@@ -24,6 +26,9 @@ function Dashboard() {
         <Row>
           <Column xs="12" sm="12" md="5">
             <Row>
+              <Column xs="12">
+                <MyAccountWrapper />
+              </Column>
               <Column xs="12">
                 <CoinInfo />
               </Column>
