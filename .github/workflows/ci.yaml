@@ -2,6 +2,10 @@ name: Tests and Checks
 
 on: [push]
 
+env:
+  REACT_APP_CHAIN_ID: 97
+  FAST_REFRESH: false
+
 jobs:
   typecheck:
     runs-on: ubuntu-20.04
