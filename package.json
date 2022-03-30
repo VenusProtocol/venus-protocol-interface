@@ -29,6 +29,8 @@
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.4",
     "@storybook/storybook-deployer": "^2.8.10",
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^12.1.4",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/ledger-connector": "^6.1.9",
