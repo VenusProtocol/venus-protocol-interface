@@ -1,5 +1,4 @@
 import React from 'react';
-import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 import { withRouter, withThemeProvider } from 'stories/decorators';
 import { Layout } from '.';
@@ -10,6 +9,4 @@ export default {
   decorators: [withRouter, withThemeProvider],
 } as ComponentMeta<typeof Layout>;
 
-export const LayoutDefault = () => (
-  <Layout currentBlockNumber={123456789}>Hello from storybook</Layout>
-);
+export const LayoutDefault = () => <Layout>Hello from storybook</Layout>;

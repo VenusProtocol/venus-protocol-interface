@@ -40,6 +40,7 @@ export const PALETTE = {
     success: 'rgba(24, 223, 139, 1)',
     error: 'rgba(233, 61, 68, 1)',
     error50: 'rgba(233, 61, 68, 0.5)',
+    tan: 'rgba(255, 231, 206, 1)',
   },
 };
 
@@ -54,13 +55,6 @@ const BREAKPOINTS = {
   },
 };
 
-const SIDEBAR_WIDTH = 180;
-
-export const defaultTheme = createTheme({
-  breakpoints: BREAKPOINTS,
-  palette: PALETTE as PaletteOptions,
-});
-
 const SPACING = 8;
 
 export default createTheme({
@@ -68,16 +62,19 @@ export default createTheme({
   palette: PALETTE,
   breakpoints: BREAKPOINTS,
   shape: {
-    layoutOffset: { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` },
-    sidebarWidth: SIDEBAR_WIDTH,
     borderRadius: {
       small: SPACING,
+      medium: SPACING * 2,
       large: SPACING * 3,
     } as any, // our custom types seem to clash with the default MUI types
     iconSize: {
       medium: SPACING * 2,
       large: 20,
     },
+    footerHeight: '56px',
+    bannerHeight: '56px',
+    drawerWidthDesktop: '224px',
+    drawerWidthTablet: '80px',
   },
   typography: {
     fontFamily: FONTS.primary,

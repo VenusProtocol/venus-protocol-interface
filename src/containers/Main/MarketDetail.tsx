@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import MainLayout from 'containers/Layout/MainLayout';
 import { connectAccount } from 'core';
 import { promisify } from 'utilities';
 import * as constants from 'utilities/constants';
@@ -181,48 +180,46 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   }, [currentAsset]);
 
   return (
-    <MainLayout title="Market">
-      <MarketDetailWrapper className="flex">
-        {currentAsset && (
-          <div className="flex market-detail-content">
-            <div className="column1">
+    <MarketDetailWrapper className="flex">
+      {currentAsset && (
+        <div className="flex market-detail-content">
+          <div className="column1">
+            <CardWrapper>
+              <MarketInfo marketInfo={marketInfo} marketType={marketType} />
+            </CardWrapper>
+          </div>
+          <div className="column2">
+            <div className="row1">
               <CardWrapper>
-                <MarketInfo marketInfo={marketInfo} marketType={marketType} />
+                <div className="flex align-center market-tab-wrapper">
+                  <div
+                    className={`tab-item pointer ${marketType === 'supply' ? 'tab-active' : ''}`}
+                    onClick={() => setMarketType('supply')}
+                  >
+                    Supply
+                  </div>
+                  <div
+                    className={`tab-item pointer ${marketType === 'borrow' ? 'tab-active' : ''}`}
+                    onClick={() => setMarketType('borrow')}
+                  >
+                    Borrow
+                  </div>
+                </div>
+                <OverviewChart marketType={marketType} graphType="composed" data={data} />
               </CardWrapper>
             </div>
-            <div className="column2">
-              <div className="row1">
-                <CardWrapper>
-                  <div className="flex align-center market-tab-wrapper">
-                    <div
-                      className={`tab-item pointer ${marketType === 'supply' ? 'tab-active' : ''}`}
-                      onClick={() => setMarketType('supply')}
-                    >
-                      Supply
-                    </div>
-                    <div
-                      className={`tab-item pointer ${marketType === 'borrow' ? 'tab-active' : ''}`}
-                      onClick={() => setMarketType('borrow')}
-                    >
-                      Borrow
-                    </div>
-                  </div>
-                  <OverviewChart marketType={marketType} graphType="composed" data={data} />
-                </CardWrapper>
-              </div>
-              <div className="flex row2">
-                <CardWrapper className="interest-rate-modal">
-                  <InterestRateModel currentAsset={currentAsset} />
-                </CardWrapper>
-                <CardWrapper className="market-summary">
-                  <MarketSummary marketInfo={marketInfo} currentAsset={currentAsset} />
-                </CardWrapper>
-              </div>
+            <div className="flex row2">
+              <CardWrapper className="interest-rate-modal">
+                <InterestRateModel currentAsset={currentAsset} />
+              </CardWrapper>
+              <CardWrapper className="market-summary">
+                <MarketSummary marketInfo={marketInfo} currentAsset={currentAsset} />
+              </CardWrapper>
             </div>
           </div>
-        )}
-      </MarketDetailWrapper>
-    </MainLayout>
+        </div>
+      )}
+    </MarketDetailWrapper>
   );
 }
 

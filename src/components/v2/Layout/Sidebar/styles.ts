@@ -1,28 +1,40 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-export const useStyles = ({ expanded }: { expanded: boolean }) => {
+export const useStyles = () => {
   const theme = useTheme();
   return {
     drawer: css`
       display: block;
-      .MuiPaper-root {
-        border-right: none;
+      width: ${theme.shape.drawerWidthDesktop};
+      ${theme.breakpoints.down('lg')} {
+        width: ${theme.shape.drawerWidthTablet};
       }
       ${theme.breakpoints.down('md')} {
         display: none;
       }
     `,
+    drawerContent: css`
+      width: ${theme.shape.drawerWidthDesktop};
+      ${theme.breakpoints.down('lg')} {
+        width: ${theme.shape.drawerWidthTablet};
+      }
+      display: block;
+      z-index: 1000;
+      position: sticky;
+      top: 0;
+      left: 0;
+    `,
     toolbar: css`
       display: flex;
       justify-content: center;
-      padding-top: ${theme.spacing(4)};
-      padding-bottom: ${theme.spacing(3)};
-      min-height: 0;
-      &.MuiToolbar-root {
-        padding-left: ${theme.spacing(3)};
-        padding-right: ${theme.spacing(3)};
+      padding-top: ${theme.spacing(5)};
+      padding-bottom: ${theme.spacing(6)};
+      ${theme.breakpoints.up('sm')} {
+        padding-left: ${theme.spacing(4)};
+        padding-right: ${theme.spacing(4)};
       }
+      min-height: 0;
       ${theme.breakpoints.down('md')} {
         min-height: initial;
       }
@@ -34,9 +46,12 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
         padding: 0;
         min-width: 0;
       }
+      ${theme.breakpoints.down('lg')} {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
     `,
     list: css`
-      padding-top: ${theme.spacing(1.25)};
       .activeMenuItem {
         color: ${theme.palette.text.primary};
         svg {
@@ -47,19 +62,39 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
     listItem: css`
       transition: color 0.3s;
       color: ${theme.palette.text.secondary};
-      min-width: auto;
+
       padding: 0;
       a {
-        padding-left: ${theme.spacing(2)};
-        padding-right: ${theme.spacing(0.5)};
-        padding-top: ${theme.spacing(3)};
-        padding-bottom: ${theme.spacing(3)};
+        padding: ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(4)};
         display: inline-flex;
-        justify-content: space-between;
+        justify-content: start;
+        ${theme.breakpoints.down('lg')} {
+          padding: ${theme.spacing(2)};
+          justify-content: center;
+        }
+        width: 100%;
+      }
+      ${theme.breakpoints.down('lg')} {
+        :hover {
+          border-radius: ${theme.shape.borderRadius.medium}px;
+          margin-left: ${theme.spacing(1.5)};
+          margin-right: ${theme.spacing(1.5)};
+        }
       }
 
       .active-menu-item {
-        padding-left: ${theme.spacing(1.5)};
+        padding-left: ${theme.spacing(4)};
+        background-color: ${theme.palette.secondary.light};
+        ${theme.breakpoints.down('lg')} {
+          padding-left: ${theme.spacing(2)};
+          border-radius: ${theme.shape.borderRadius.large}px;
+          margin-left: ${theme.spacing(1.5)};
+          margin-right: ${theme.spacing(1.5)};
+        }
+        :hover {
+          margin-left: 0;
+          margin-right: 0;
+        }
         .left-border {
           border: 2px solid ${theme.palette.interactive.primary};
           border-radius: 0 ${theme.shape.borderRadius.small}px ${theme.shape.borderRadius.small}px 0;
@@ -67,11 +102,22 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
           left: 0;
           top: 0;
           bottom: 0;
+          ${theme.breakpoints.down('lg')} {
+            display: none;
+          }
+        }
+        svg,
+        p {
+          color: ${theme.palette.text.primary};
         }
       }
     `,
     listItemIcon: css`
-      min-width: ${expanded ? '40px' : 0};
+      min-width: 32px;
+      ${theme.breakpoints.down('lg')} {
+        min-width: 0;
+        justify-content: center;
+      }
       color: inherit;
       svg {
         height: 20px;
@@ -80,17 +126,27 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
     `,
     listItemText: css`
       text-transform: none;
+      display: block;
+      ${theme.breakpoints.down('lg')} {
+        display: none;
+      }
+      ${theme.breakpoints.down('sm')} {
+        display: block;
+      }
     `,
     logo: css`
-      display: ${expanded ? 'block' : 'none'};
+      display: block;
+      ${theme.breakpoints.down('lg')} {
+        display: none;
+      }
       height: 33px;
       ${theme.breakpoints.down('sm')} {
         display: none;
       }
     `,
     logoClosed: css`
-      display: ${expanded ? 'none' : 'block'};
-      ${theme.breakpoints.down('sm')} {
+      display: none;
+      ${theme.breakpoints.down('lg')} {
         display: block;
       }
     `,
@@ -140,8 +196,17 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
         flex: 1;
         padding-top: ${theme.spacing(2)};
         padding-bottom: ${theme.spacing(2)};
+        justify-content: space-between;
+        padding-left: ${theme.spacing(3)};
+        padding-right: ${theme.spacing(3)};
+      }
+      :hover {
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 0;
       }
       .active-mobile-menu-item {
+        background-color: ${theme.palette.secondary.light};
         svg {
           color: ${theme.palette.interactive.primary};
         }
@@ -153,13 +218,15 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
     mobileArrow: css`
       height: 24px;
       width: 24px;
-      margin-right: ${theme.spacing(2.5)};
     `,
     mobileLabel: css`
       flex-direction: row;
       justify-content: center;
       display: inline-flex;
       align-items: center;
+      svg {
+        margin-right: ${theme.spacing(2)};
+      }
     `,
     flexRow: css`
       display: flex;
@@ -182,6 +249,14 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
       div:last-child {
         margin-left: 0 ${theme.spacing(1)};
       }
+    `,
+    actionButton: css`
+      cursor: pointer;
+      box-shadow: none;
+      background-color: transparent;
+      border: none;
+      display: flex;
+      justify-content: center;
     `,
   };
 };

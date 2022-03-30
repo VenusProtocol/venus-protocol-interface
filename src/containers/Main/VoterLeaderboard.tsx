@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 import { connectAccount } from 'core';
-import MainLayout from 'containers/Layout/MainLayout';
 import { format } from 'utilities/common';
 import { promisify } from 'utilities';
 import { uid } from 'react-uid';
@@ -110,68 +109,66 @@ function VoterLeaderboard({ history, getVoterAccounts }: VoterLeaderboardProps) 
   }, []);
 
   return (
-    <MainLayout title="Leaderboard">
-      <LeaderboardWrapper>
-        <TableWrapper>
-          <p className="header-title">Addresses by Voting Weight</p>
-          <Row className="table_header">
-            <Col xs={{ span: 24 }} lg={{ span: 12 }} className="rank">
-              Rank
-            </Col>
-            <Col xs={{ span: 8 }} lg={{ span: 4 }} className="votes right">
-              Votes
-            </Col>
-            <Col xs={{ span: 8 }} lg={{ span: 4 }} className="vote-weight right">
-              Vote Weight
-            </Col>
-            <Col xs={{ span: 8 }} lg={{ span: 4 }} className="proposals right">
-              Proposals Voted
-            </Col>
-          </Row>
-          <div className="table_content">
-            {(!voterAccounts || (voterAccounts && voterAccounts.length === 0)) && (
-              <p className="empty-voter center">No voters</p>
-            )}
-            {voterAccounts &&
-              voterAccounts.map((item, index) => (
-                <Row
-                  className="table_item pointer"
-                  key={uid(item)}
-                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
-                  onClick={() => history.push(`/vote/address/${item.address}`)}
-                >
-                  <Col xs={{ span: 24 }} lg={{ span: 12 }} className="flex align-center rank">
-                    <div className="rank-number">{index + 1}</div>
-                    {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'. */}
-                    <p>{item.address}</p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="votes right">
-                    <p className="mobile-label">Votes</p>
-                    <p>
-                      {format(
-                        // @ts-expect-error ts-migrate(2348) FIXME: Value of type 'typeof BigNumber' is not callable. ... Remove this comment to see the full error message
-                        BigNumber(Web3.utils.fromWei(item.votes, 'ether')),
-                      )}
-                    </p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="vote-weight right">
-                    <p className="mobile-label">Vote Weight</p>
-                    <p>
-                      {/* @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message */}
-                      {parseFloat(item.voteWeight * 100).toFixed(2)}%
-                    </p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="proposals right">
-                    <p className="mobile-label">Proposals Voted</p>
-                    {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'proposalsVoted' does not exist on type '... Remove this comment to see the full error message */}
-                    <p>{item.proposalsVoted}</p>
-                  </Col>
-                </Row>
-              ))}
-          </div>
-        </TableWrapper>
-      </LeaderboardWrapper>
-    </MainLayout>
+    <LeaderboardWrapper>
+      <TableWrapper>
+        <p className="header-title">Addresses by Voting Weight</p>
+        <Row className="table_header">
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} className="rank">
+            Rank
+          </Col>
+          <Col xs={{ span: 8 }} lg={{ span: 4 }} className="votes right">
+            Votes
+          </Col>
+          <Col xs={{ span: 8 }} lg={{ span: 4 }} className="vote-weight right">
+            Vote Weight
+          </Col>
+          <Col xs={{ span: 8 }} lg={{ span: 4 }} className="proposals right">
+            Proposals Voted
+          </Col>
+        </Row>
+        <div className="table_content">
+          {(!voterAccounts || (voterAccounts && voterAccounts.length === 0)) && (
+            <p className="empty-voter center">No voters</p>
+          )}
+          {voterAccounts &&
+            voterAccounts.map((item, index) => (
+              <Row
+                className="table_item pointer"
+                key={uid(item)}
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
+                onClick={() => history.push(`/vote/address/${item.address}`)}
+              >
+                <Col xs={{ span: 24 }} lg={{ span: 12 }} className="flex align-center rank">
+                  <div className="rank-number">{index + 1}</div>
+                  {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'. */}
+                  <p>{item.address}</p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} className="votes right">
+                  <p className="mobile-label">Votes</p>
+                  <p>
+                    {format(
+                      // @ts-expect-error ts-migrate(2348) FIXME: Value of type 'typeof BigNumber' is not callable. ... Remove this comment to see the full error message
+                      BigNumber(Web3.utils.fromWei(item.votes, 'ether')),
+                    )}
+                  </p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} className="vote-weight right">
+                  <p className="mobile-label">Vote Weight</p>
+                  <p>
+                    {/* @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message */}
+                    {parseFloat(item.voteWeight * 100).toFixed(2)}%
+                  </p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} className="proposals right">
+                  <p className="mobile-label">Proposals Voted</p>
+                  {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'proposalsVoted' does not exist on type '... Remove this comment to see the full error message */}
+                  <p>{item.proposalsVoted}</p>
+                </Col>
+              </Row>
+            ))}
+        </div>
+      </TableWrapper>
+    </LeaderboardWrapper>
   );
 }
 

@@ -13,6 +13,7 @@ import { AuthProvider } from 'context/AuthContext';
 import { isOnTestnet } from 'config';
 import enMessages from 'lang/en.json';
 import { store } from 'core';
+import { Layout } from 'components';
 import Dashboard from 'containers/Main/Dashboard';
 import Faucet from 'containers/Main/Faucet';
 import Vote from 'containers/Main/Vote';
@@ -39,8 +40,8 @@ const messages = {
   en: enMessages,
 };
 
-class App extends React.Component {
-  constructor(props: $TSFixMe) {
+class App extends React.Component<Record<string, unknown>, { lang: 'en' }> {
+  constructor(props: Record<string, unknown>) {
     super(props);
     this.state = {
       lang: initialLang,
@@ -48,9 +49,7 @@ class App extends React.Component {
   }
 
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'lang' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { lang } = this.state;
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     const message = messages[lang];
     return (
       <Theme>
@@ -71,25 +70,31 @@ class App extends React.Component {
                               newestOnTop
                               position={toast.POSITION.TOP_LEFT}
                             />
-                            <Switch>
-                              <Route exact path="/dashboard" component={Dashboard} />
-                              <Route exact path="/vote" component={Vote} />
-                              <Route exact path="/xvs" component={XVS} />
-                              <Route exact path="/market" component={Market} />
-                              <Route exact path="/transaction" component={Transaction} />
-                              <Route exact path="/vault" component={Vault} />
-                              <Route exact path="/market/:asset" component={MarketDetail} />
-                              <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
-                              <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                              <Route
-                                exact
-                                path="/vote/address/:address"
-                                component={ProposerDetail}
-                              />
-                              <Route exact path="/convert-vrt" component={VrtConversion} />
-                              {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
-                              <Redirect from="/" to="/dashboard" />
-                            </Switch>
+                            <Layout>
+                              <Switch>
+                                <Route exact path="/dashboard" component={Dashboard} />
+                                <Route exact path="/vote" component={Vote} />
+                                <Route exact path="/xvs" component={XVS} />
+                                <Route exact path="/market" component={Market} />
+                                <Route exact path="/transaction" component={Transaction} />
+                                <Route exact path="/vault" component={Vault} />
+                                <Route exact path="/market/:asset" component={MarketDetail} />
+                                <Route
+                                  exact
+                                  path="/vote/leaderboard"
+                                  component={VoterLeaderboard}
+                                />
+                                <Route exact path="/vote/proposal/:id" component={VoteOverview} />
+                                <Route
+                                  exact
+                                  path="/vote/address/:address"
+                                  component={ProposerDetail}
+                                />
+                                <Route exact path="/convert-vrt" component={VrtConversion} />
+                                {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
+                                <Redirect from="/" to="/dashboard" />
+                              </Switch>
+                            </Layout>
                           </BrowserRouter>
                         </AuthProvider>
                       </MuiThemeProvider>
