@@ -68,7 +68,7 @@ export const withCenterStory: (props: { width: number | string }) => DecoratorFu
         height: '100vh',
       }}
     >
-      <Box sx={{ flexShrink: 0, width }}>
+      <Box sx={{ flexShrink: 0, maxWidth: width, width: '100%' }}>
         <Story />
       </Box>
     </Box>
