@@ -7,6 +7,8 @@ import renderComponent from 'testUtils/renderComponent';
 import { TokenTextField } from '.';
 
 const oneXvsInWei = new BigNumber(10).pow(18);
+const oneWeiInXvs = new BigNumber(1).dividedBy(oneXvsInWei);
+
 const testId = 'token-text-field-input';
 
 describe('components/TokenTextField', () => {
@@ -47,7 +49,7 @@ describe('components/TokenTextField', () => {
     expect(onChangeMock).toHaveBeenCalledWith(valueWei);
   });
 
-  it('prevents user from entering value higher than max', async () => {
+  it('passes the correct max and step values down to the TextField component', async () => {
     const onChangeMock = jest.fn();
     const { getByTestId } = renderComponent(
       <TokenTextField
@@ -61,11 +63,30 @@ describe('components/TokenTextField', () => {
 
     const input = getByTestId(testId) as HTMLInputElement;
 
-    // Update input value
-    const valueXvs = '10';
-    fireEvent.change(input, { target: { value: valueXvs } });
+    expect(input.max).toBe('1');
+    expect(input.step).toBe(oneWeiInXvs.toString());
+  });
 
-    // Check onChange callback was not called
-    expect(onChangeMock).not.toHaveBeenCalled();
+  it('renders max button and updates value to maxWei when pressing on it', async () => {
+    const onChangeMock = jest.fn();
+    const rightMaxButtonLabel = 'Test max button label';
+
+    const { getByText } = renderComponent(
+      <TokenTextField
+        tokenSymbol="xvs"
+        onChange={onChangeMock}
+        value=""
+        data-testid={testId}
+        maxWei={oneXvsInWei}
+        rightMaxButtonLabel={rightMaxButtonLabel}
+      />,
+    );
+
+    const rightMaxButton = getByText(rightMaxButtonLabel) as HTMLButtonElement;
+
+    fireEvent.click(rightMaxButton);
+
+    // Check onChange callback was called with maxWei
+    expect(onChangeMock).toHaveBeenCalledWith(oneXvsInWei);
   });
 });
