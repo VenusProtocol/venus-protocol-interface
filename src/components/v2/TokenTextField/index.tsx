@@ -10,7 +10,8 @@ import { TextField, ITextFieldProps } from '../TextField';
 // Note: although we display all the values in coins (equivalent of ether for
 // the given token) to the user, the underlying values (maxWei, value) are
 // expressed in wei to make them easier to use with contracts
-export interface ITokenTextFieldProps extends Omit<ITextFieldProps, 'value' | 'onChange'> {
+export interface ITokenTextFieldProps
+  extends Omit<ITextFieldProps, 'value' | 'onChange' | 'max' | 'min'> {
   tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
   onChange: (newValue: BigNumber | '') => void;
   rightMaxButtonLabel?: string;
