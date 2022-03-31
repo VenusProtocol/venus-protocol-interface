@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { Connector } from 'clients/web3';
-import { CHAIN_ID, BscChainId } from 'config';
+import { isOnTestnet } from 'config';
 import { truncateAddress } from 'utilities/truncateAddress';
 import { Icon } from '../../Icon';
 import { SecondaryButton } from '../../Button';
@@ -32,9 +32,9 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
   const { Logo: WalletLogo, name: walletName } =
     WALLETS.find(wallet => wallet.connector === account.connector) || WALLETS[0];
 
-  const bscScanUrl = `https://${
-    CHAIN_ID === BscChainId.TESTNET ? 'testnet.' : ''
-  }bscscan.com/address/${account.address}`;
+  const bscScanUrl = `https://${isOnTestnet ? 'testnet.' : ''}bscscan.com/address/${
+    account.address
+  }`;
 
   return (
     <div css={styles.container}>

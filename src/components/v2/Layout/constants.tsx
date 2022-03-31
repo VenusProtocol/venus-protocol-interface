@@ -1,4 +1,4 @@
-import React from 'react';
+import { isOnTestnet } from 'config';
 import { IconName } from '../Icon';
 
 interface IMenuItem {
@@ -45,7 +45,7 @@ export const menuItems: IMenuItem[] = [
   },
 ];
 
-if (process.env.REACT_APP_CHAIN_ID === '97') {
+if (isOnTestnet) {
   menuItems.splice(6, 0, {
     href: '/convert-vrt',
     text: 'Convert XVS',

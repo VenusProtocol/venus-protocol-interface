@@ -13,6 +13,7 @@ import prdtImg from 'assets/img/prdt.png';
 import { getBigNumber, format } from 'utilities/common';
 import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
+import { CHAIN_ID, isOnTestnet } from 'config';
 import XVSIcon from 'assets/img/venus.svg';
 import XVSActiveIcon from 'assets/img/venus_active.svg';
 import { State } from 'core/modules/initialState';
@@ -297,7 +298,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
   const { account, chainId } = useWeb3Account();
 
   useEffect(() => {
-    if (chainId && chainId !== Number(process.env.REACT_APP_CHAIN_ID)) {
+    if (chainId && chainId !== CHAIN_ID) {
       toast.error({
         title: 'Please change your network to access the BNB Chain Main Network',
       });
@@ -423,7 +424,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
         </NavLink>
-        {process.env.REACT_APP_CHAIN_ID === '97' && (
+        {isOnTestnet && (
           <NavLink
             className="flex flex-start align-center"
             to="/convert-vrt"
@@ -479,7 +480,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
         </a>
       </MainMenu>
       <FaucetMenu>
-        {process.env.REACT_APP_CHAIN_ID === '97' && (
+        {isOnTestnet && (
           <NavLink className="flex just-center" to="/faucet" active-class-name="active">
             <Label primary>Faucet</Label>
           </NavLink>
@@ -542,7 +543,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Vault
             </Label>
           </Option>
-          {process.env.REACT_APP_CHAIN_ID === '97' && (
+          {isOnTestnet && (
             <Option className="flex align-center just-center" value="Convert-vrt">
               <Label size={14} primary>
                 Convert VRT
@@ -564,7 +565,7 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Forum
             </Label>
           </Option>
-          {process.env.REACT_APP_CHAIN_ID === '97' && (
+          {isOnTestnet && (
             <Option className="flex align-center just-center" value="faucet">
               <Label size={14} primary>
                 Faucet

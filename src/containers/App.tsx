@@ -6,6 +6,7 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import en from 'react-intl/locale-data/en';
+import { isOnTestnet } from 'config';
 
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
@@ -85,12 +86,10 @@ class App extends React.Component {
                                 path="/vote/address/:address"
                                 component={ProposerDetail}
                               />
-                              {process.env.REACT_APP_CHAIN_ID === '97' && (
+                              {isOnTestnet && (
                                 <Route exact path="/convert-vrt" component={VrtConversion} />
                               )}
-                              {process.env.REACT_APP_CHAIN_ID === '97' && (
-                                <Route exact path="/faucet" component={Faucet} />
-                              )}
+                              {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
                               <Redirect from="/" to="/dashboard" />
                             </Switch>
                           </BrowserRouter>
