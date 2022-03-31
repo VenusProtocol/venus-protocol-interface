@@ -20,8 +20,8 @@ export const useStyles = () => {
       padding-right: ${theme.spacing(2)};
     `,
     coinIcon: css`
-      width: 20px;
-      height: 20px;
+      width: ${theme.shape.iconSize.large};
+      height: ${theme.shape.iconSize.large};
       margin-right: ${theme.spacing(1)};
     `,
     infoValue: css`

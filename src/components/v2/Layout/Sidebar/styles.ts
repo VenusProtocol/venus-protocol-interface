@@ -62,7 +62,7 @@ export const useStyles = ({ expanded }: { expanded: boolean }) => {
         padding-left: ${theme.spacing(1.5)};
         .left-border {
           border: 2px solid ${theme.palette.interactive.primary};
-          border-radius: 0 ${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0;
+          border-radius: 0 ${theme.shape.borderRadius.small}px ${theme.shape.borderRadius.small}px 0;
           position: absolute;
           left: 0;
           top: 0;
