@@ -13,7 +13,7 @@ export interface IIconProps {
 
 export const Icon: React.FC<IIconProps> = ({ name, size, color, ...otherProps }) => {
   const theme = useTheme();
-  const sanitizedSize = size ?? theme.spacing(2);
+  const sanitizedSize = size ?? theme.shape.iconSize.medium;
   const sanitizedColor = color ?? theme.palette.text.secondary;
   const Component = icons[name];
 
