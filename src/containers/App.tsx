@@ -78,9 +78,7 @@ class App extends React.Component {
                           <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
                           <Route exact path="/vote/proposal/:id" component={VoteOverview} />
                           <Route exact path="/vote/address/:address" component={ProposerDetail} />
-                          {process.env.REACT_APP_CHAIN_ID === '97' && (
-                            <Route exact path="/convert-vrt" component={VrtConversion} />
-                          )}
+                          <Route exact path="/convert-vrt" component={VrtConversion} />
                           {process.env.REACT_APP_CHAIN_ID === '97' && (
                             <Route exact path="/faucet" component={Faucet} />
                           )}
