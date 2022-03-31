@@ -13,7 +13,7 @@ interface CardHeaderProps {
   rewardToken: string;
   apy: string | number;
   totalStakedAmount: BigNumber;
-  totalPendingRewards: BigNumber;
+  userPendingReward: BigNumber;
   dailyEmission: BigNumber;
   onExpand: () => void;
 }
@@ -23,7 +23,7 @@ const CardHeader = ({
   rewardToken,
   apy,
   totalStakedAmount,
-  totalPendingRewards,
+  userPendingReward,
   dailyEmission,
   onExpand,
 }: CardHeaderProps) => {
@@ -46,10 +46,9 @@ const CardHeader = ({
           </div>
         </Col>
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
-          <div className="title">Reward Pool</div>
+          <div className="title">Available Rewards</div>
           <div className="content">
-            {formatCommaThousandsPeriodDecimal(totalPendingRewards.dp(4, 1).toFixed())}{' '}
-            {rewardToken}
+            {formatCommaThousandsPeriodDecimal(userPendingReward.dp(4, 1).toFixed())} {rewardToken}
           </div>
         </Col>
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
