@@ -9,20 +9,23 @@ const borrowAssets: BorrowAsset[] = [
   {
     id: 'xvs',
     name: 'XVS',
+    walletBalanceCoins: new BigNumber(100),
     borrowApyPercentage: 3.14,
-    liquidityCents: new BigNumber(12697385811),
+    liquidityCents: new BigNumber('1269738581100'),
   },
   {
     id: 'usdc',
     name: 'USDC',
+    walletBalanceCoins: new BigNumber(0),
     borrowApyPercentage: 0.15,
-    liquidityCents: new BigNumber(874776312),
+    liquidityCents: new BigNumber('874776312719632'),
   },
   {
     id: 'bnb',
     name: 'BNB',
+    walletBalanceCoins: new BigNumber(23126378213),
     borrowApyPercentage: 2.14,
-    liquidityCents: new BigNumber(126735721),
+    liquidityCents: new BigNumber('12673572112321328768'),
   },
 ];
 
