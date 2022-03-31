@@ -48,8 +48,7 @@ const CardHeader = ({
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Available Rewards</div>
           <div className="content">
-            {formatCommaThousandsPeriodDecimal(userPendingReward.dp(4, 1).toFixed())}{' '}
-            {rewardToken}
+            {formatCommaThousandsPeriodDecimal(userPendingReward.dp(4, 1).toFixed())} {rewardToken}
           </div>
         </Col>
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
