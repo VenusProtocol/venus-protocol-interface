@@ -9,6 +9,7 @@ import {
 } from 'utilities/common';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 import { BorrowAsset } from './types';
+import { Icon, IconName } from '../Icon';
 import { Table, ITableProps } from '../Table';
 import { useStyles } from './styles';
 
@@ -33,8 +34,12 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({ className, borr
   const rows: ITableProps['data'] = borrowAssets.map(asset => [
     {
       key: 'asset',
-      // TODO: render icon
-      render: () => asset.name,
+      render: () => (
+        <div css={styles.tokenCell}>
+          <Icon name={asset.symbol as IconName} css={styles.tokenCellIcon} />
+          {asset.name}
+        </div>
+      ),
       value: asset.name,
     },
     {
@@ -129,6 +134,7 @@ const BorrowMarket: React.FC = () => {
 
       return {
         id: asset.id,
+        symbol: asset.symbol,
         name: asset.symbol.toUpperCase(),
         walletBalanceCoins: walletBalanceCoins || new BigNumber(0),
         borrowApyPercentage: +asset.borrowApy,

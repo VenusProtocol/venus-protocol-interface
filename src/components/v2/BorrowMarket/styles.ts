@@ -11,5 +11,14 @@ export const useStyles = () => {
       border-radius: ${theme.shape.borderRadius.large}px;
       padding: ${theme.spacing(3, 0, 1)};
     `,
+    tokenCell: css`
+      display: flex;
+      align-items: center;
+    `,
+    tokenCellIcon: css`
+      margin-right: ${theme.spacing(1)};
+      width: ${theme.shape.iconSize.large}px;
+      height: ${theme.shape.iconSize.large}px;
+    `,
   };
 };
