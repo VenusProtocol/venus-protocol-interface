@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
+import Typography from '@mui/material/Typography';
 import { PrimaryButton, Icon } from 'components';
 import { commaFormat } from 'utilities/common';
 
@@ -64,6 +65,9 @@ export default ({
       <div className="ratio-text">
         Convert <span>1</span> VRT for <span>{conversionRatio.toFixed(6)}</span> XVS
       </div>
+      <Typography component="p" variant="small1" className="info-banner">
+        Deposited VRT converts into XVS over a gradual 1 year vesting period (12,000 VRT / 1 XVS).
+      </Typography>
       {/* convert section */}
       <div className="convert-vrt">
         <div className="input-title">Convert VRT</div>
