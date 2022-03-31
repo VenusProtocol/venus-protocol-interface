@@ -10,7 +10,7 @@ export const useStyles = ({ isOpened }: { isOpened: boolean }) => {
       transition: box-shadow 0.3s;
       box-shadow: ${isOpened ? `0px 0 0 2px ${theme.palette.background.paper}` : 'none'};
       line-height: 24px;
-      border-radius: ${theme.shape.borderRadius}px;
+      border-radius: ${theme.shape.borderRadius.small}px;
       height: 32px;
       box-sizing: border-box;
       .MuiSelect-icon {
@@ -21,7 +21,7 @@ export const useStyles = ({ isOpened }: { isOpened: boolean }) => {
         padding-bottom: ${theme.spacing(0.5)};
         padding-left: ${theme.spacing(1.5)};
         background-color: ${theme.palette.background.paper};
-        border-radius: ${theme.shape.borderRadius}px;
+        border-radius: ${theme.shape.borderRadius.small}px;
       }
     `,
     menuPaper: {

@@ -61,14 +61,23 @@ export const defaultTheme = createTheme({
   palette: PALETTE as PaletteOptions,
 });
 
+const SPACING = 8;
+
 export default createTheme({
-  spacing: 8,
+  spacing: SPACING,
   palette: PALETTE,
   breakpoints: BREAKPOINTS,
   shape: {
     layoutOffset: { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` },
     sidebarWidth: SIDEBAR_WIDTH,
-    borderRadius: 8,
+    borderRadius: {
+      small: SPACING,
+      large: SPACING * 3,
+    } as any, // our custom types seem to clash with the default MUI types
+    iconSize: {
+      medium: SPACING * 2,
+      large: 20,
+    },
   },
   typography: {
     fontFamily: FONTS.primary,
