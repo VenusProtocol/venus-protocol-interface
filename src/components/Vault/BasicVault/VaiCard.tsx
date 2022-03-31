@@ -92,7 +92,7 @@ function VaultCard({ settings }: VaultCardProps) {
         rewardToken="XVS"
         apy={settings.vaiAPY || 0}
         totalStakedAmount={new BigNumber(settings.vaultVaiStaked || 0)}
-        totalPendingRewards={totalPendingRewards.div(1e18)}
+        userPendingReward={userPendingReward.div(1e18)}
         dailyEmission={dailyEmission}
         onExpand={() => {
           setExpanded(!expanded);

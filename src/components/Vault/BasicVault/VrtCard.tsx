@@ -96,7 +96,7 @@ export default function VaultCard() {
           .multipliedBy(100)
           .toFixed(2)}
         totalStakedAmount={vaultVrtBalance.div(1e18)}
-        totalPendingRewards={vaultVrtBalance.div(1e18)}
+        userPendingReward={userPendingReward.div(1e18)}
         dailyEmission={dailyEmission}
         onExpand={() => {
           setExpanded(!expanded);
