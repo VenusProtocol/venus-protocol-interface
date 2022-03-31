@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { Asset } from 'types';
 
-export type BorrowAsset = Pick<Asset, 'id' | 'name'> & {
+export type BorrowAsset = {
+  id: string;
+  name: string;
   walletBalanceCoins: BigNumber;
-  liquidityCents: Asset['liquidity'];
+  liquidityCents: BigNumber;
   borrowApyPercentage: number;
 };
