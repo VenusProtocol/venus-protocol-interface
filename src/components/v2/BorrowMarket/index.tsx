@@ -2,6 +2,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
+import { convertWeiToCoins } from 'utilities/common';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 import { BorrowAsset } from './types';
 import { Table, ITableProps } from '../Table';
@@ -69,21 +70,21 @@ const BorrowMarket: React.FC = () => {
     {
       id: '1',
       address: '1',
-      name: 'xvs',
+      symbol: 'xvs',
       borrowApy: '3.14',
       liquidity: '2151232133213',
     },
     {
       id: '2',
       address: '2',
-      name: 'usdc',
+      symbol: 'usdc',
       borrowApy: '0.14',
       liquidity: '2158192683',
     },
     {
       id: '3',
       address: '3',
-      name: 'bnb',
+      symbol: 'bnb',
       borrowApy: '8.14',
       liquidity: '918723',
     },
@@ -105,28 +106,30 @@ const BorrowMarket: React.FC = () => {
   ];
 
   // Format fetched data into borrow assets
-  const assets = assetDataFromContract.map(asset => {
-    const walletToken = walletTokens.find(token => token.vToken === asset.address);
+  const assets = assetDataFromContract
+    // Filter out tokens we don't support (this could happen if a new token was
+    // introduced within the smart contracts and we didn't update our frontend
+    // config)
+    .filter(asset => !Object.prototype.hasOwnProperty.call(CONTRACT_TOKEN_ADDRESS, asset.symbol))
+    .map(asset => {
+      const walletToken = walletTokens.find(token => token.vToken === asset.address);
 
-    // Find corresponding token information
-    const tokenDecimals =
-      CONTRACT_TOKEN_ADDRESS[asset.name as keyof typeof CONTRACT_TOKEN_ADDRESS]?.decimals;
+      const walletBalanceCoins =
+        walletToken?.tokenBalance &&
+        // Check token symbol is listed
+        convertWeiToCoins({
+          value: new BigNumber(walletToken.tokenBalance),
+          tokenSymbol: asset.symbol as keyof typeof CONTRACT_TOKEN_ADDRESS,
+        });
 
-    const walletBalanceCoins =
-      walletToken?.tokenBalance && tokenDecimals
-        ? new BigNumber(walletToken?.tokenBalance).multipliedBy(
-            new BigNumber(10).pow(tokenDecimals),
-          )
-        : new BigNumber(0);
-
-    return {
-      id: asset.id,
-      name: asset.name,
-      walletBalanceCoins,
-      borrowApyPercentage: +asset.borrowApy,
-      liquidityCents: new BigNumber(asset.liquidity),
-    };
-  });
+      return {
+        id: asset.id,
+        name: asset.symbol.toUpperCase(),
+        walletBalanceCoins: walletBalanceCoins || new BigNumber(0),
+        borrowApyPercentage: +asset.borrowApy,
+        liquidityCents: new BigNumber(asset.liquidity),
+      };
+    });
 
   return <BorrowMarketUi borrowAssets={assets} />;
 };
