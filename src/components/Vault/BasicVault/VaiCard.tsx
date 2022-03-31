@@ -113,7 +113,7 @@ function VaultCard({ settings }: VaultCardProps) {
             }
             onApprove={amt =>
               vaiTokenContract.methods
-                .approve(vaiVaultContract.options.address, amt.toFixed(10))
+                .approve(vaiVaultContract.options.address, amt.toFixed(0))
                 .send({ from: account })
             }
             onWithdraw={amt =>
