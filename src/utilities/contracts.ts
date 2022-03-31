@@ -71,7 +71,7 @@ export default {
       ust: '0x3d4350cD54aeF9f9b2C29435e0fa809957B3F30a',
       luna: '0x156ab3346823B651294766e23e6Cf87254d68962',
       vai: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
-      vrt: '',
+      vrt: '0x5f84ce30dc3cf7909101c69086c50de191895883',
     },
     VBEP: {
       sxp: '0x2fF3d0F6990a40261c66E1ff2017aCBc282EB6d0',
