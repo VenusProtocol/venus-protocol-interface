@@ -170,6 +170,9 @@ export const convertCoinsToWei = ({
   return value.multipliedBy(new BigNumber(10).pow(tokenDecimals));
 };
 
+export const convertCentsToDollars = (value: number) =>
+  +new BigNumber(value).dividedBy(100).toFixed(2);
+
 export const formatApy = (apy?: BigNumber | string | number): string => {
   const apyBN = getBigNumber(apy);
   if (apyBN.absoluteValue().isLessThan(100000000)) {

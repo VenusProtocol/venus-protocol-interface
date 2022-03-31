@@ -2,7 +2,11 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { convertWeiToCoins } from 'utilities/common';
+import {
+  convertWeiToCoins,
+  formatCommaThousandsPeriodDecimal,
+  convertCentsToDollars,
+} from 'utilities/common';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 import { BorrowAsset } from './types';
 import { Table, ITableProps } from '../Table';
@@ -35,21 +39,22 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({ className, borr
     },
     {
       key: 'apy',
-      // TODO: render icon
       render: () => `${asset.borrowApyPercentage}%`,
       value: asset.borrowApyPercentage,
     },
     {
       key: 'wallet',
-      // TODO: render icon
-      render: () => asset.name,
-      value: asset.name,
+      render: () =>
+        `${formatCommaThousandsPeriodDecimal(asset.walletBalanceCoins.toString())} ${asset.name}`,
+      value: asset.walletBalanceCoins.toString(),
     },
     {
       key: 'liquidity',
-      // TODO: render icon
-      render: () => asset.name,
-      value: asset.name,
+      render: () =>
+        `$${formatCommaThousandsPeriodDecimal(
+          convertCentsToDollars(asset.liquidityCents.toNumber()),
+        )}`,
+      value: asset.liquidityCents.toString(),
     },
   ]);
 
