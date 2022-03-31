@@ -8,6 +8,7 @@ import { BorrowMarketUi, BorrowAsset } from '.';
 const borrowAssets: BorrowAsset[] = [
   {
     id: 'xvs',
+    symbol: 'xvs',
     name: 'XVS',
     walletBalanceCoins: new BigNumber(100),
     borrowApyPercentage: 3.14,
@@ -15,6 +16,7 @@ const borrowAssets: BorrowAsset[] = [
   },
   {
     id: 'usdc',
+    symbol: 'usdc',
     name: 'USDC',
     walletBalanceCoins: new BigNumber(0),
     borrowApyPercentage: 0.15,
@@ -22,6 +24,7 @@ const borrowAssets: BorrowAsset[] = [
   },
   {
     id: 'bnb',
+    symbol: 'bnb',
     name: 'BNB',
     walletBalanceCoins: new BigNumber(23126378213),
     borrowApyPercentage: 2.14,
