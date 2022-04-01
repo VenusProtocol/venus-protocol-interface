@@ -41,7 +41,7 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
               >
                 <span>{col.label}</span>
                 {col.orderable && (
-                  <div>
+                  <div css={styles.tableSortLabelIconsContainer}>
                     <Icon
                       name="sort"
                       size="8px"

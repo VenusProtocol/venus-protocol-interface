@@ -61,13 +61,16 @@ export const useStyles = () => {
         }
       }
     `,
+    tableSortLabelIconsContainer: css`
+      margin-top: -2px;
+    `,
     tableSortLabelIcon: ({ active }: { active: boolean }) => css`
       &.MuiTableSortLabel-icon {
         fill: ${theme.palette.text.primary};
       }
       .Mui-active &.MuiTableSortLabel-icon {
-        fill: ${active ? theme.palette.success.slider : theme.palette.text.primary};
-        color: ${active ? theme.palette.success.slider : theme.palette.text.primary};
+        fill: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
+        color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
     `,
   };
