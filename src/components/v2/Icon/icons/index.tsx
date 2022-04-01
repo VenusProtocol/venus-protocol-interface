@@ -27,3 +27,4 @@ export { ReactComponent as copy } from './copy.svg';
 export { ReactComponent as attention } from './attention.svg';
 export { ReactComponent as burger } from './burger.svg';
 export { ReactComponent as arrowRight } from './arrowRight.svg';
+export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
