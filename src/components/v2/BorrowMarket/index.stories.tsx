@@ -26,7 +26,7 @@ const borrowAssets: BorrowAsset[] = [
     id: 'bnb',
     symbol: 'bnb',
     name: 'BNB',
-    walletBalanceCoins: new BigNumber(23126378213),
+    walletBalanceCoins: new BigNumber(23126373),
     borrowApyPercentage: 2.14,
     liquidityCents: new BigNumber('126735721123'),
   },

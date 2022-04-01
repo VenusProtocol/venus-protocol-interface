@@ -70,7 +70,15 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({ className, borr
 
       {/* TODO: add error state */}
 
-      <Table title="Borrow market" columns={columns} data={rows} />
+      <Table
+        title="Borrow market"
+        columns={columns}
+        data={rows}
+        initialOrder={{
+          orderBy: 'apy',
+          orderDirection: 'asc',
+        }}
+      />
     </div>
   );
 };

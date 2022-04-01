@@ -5,8 +5,8 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     title: css`
-      line-height: 100%;
-      color: ${theme.palette.text.primary};
+      margin-bottom: ${theme.spacing(3)};
+      padding: ${theme.spacing(0, 3)};
     `,
     tableContainer: css`
       background-color: transparent;
@@ -54,6 +54,9 @@ export const useStyles = () => {
         fill: ${active ? theme.palette.success.slider : theme.palette.text.primary};
         color: ${active ? theme.palette.success.slider : theme.palette.text.primary};
       }
+    `,
+    tableRow: css`
+      padding: ${theme.spacing(0, 2)};
     `,
   };
 };

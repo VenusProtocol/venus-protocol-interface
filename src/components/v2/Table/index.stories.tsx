@@ -92,3 +92,16 @@ export default {
 export const TableDefault = () => (
   <Table columns={columns} data={rows} title="Market Data" minWidth="650px" />
 );
+
+export const WithInitialOrderDefault = () => (
+  <Table
+    columns={columns}
+    data={rows}
+    title="Market Data"
+    minWidth="650px"
+    initialOrder={{
+      orderBy: 'APY',
+      orderDirection: 'desc',
+    }}
+  />
+);
