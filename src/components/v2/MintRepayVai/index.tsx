@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
+import { useIsSmDown } from 'hooks/responsive';
 import { Mint } from './Mint';
 import { Tabs } from '../Tabs';
 import { useStyles } from './styles';
@@ -15,7 +15,7 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
 
-  const isOnMobile = useMediaQuery(styles.theme.breakpoints.down('sm'));
+  const isOnMobile = useIsSmDown();
 
   return (
     <div className={className} css={styles.container}>
