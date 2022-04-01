@@ -2,6 +2,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
+import { Formik, Form } from 'formik';
 
 import { convertWeiToCoins } from 'utilities/common';
 import { Icon } from '../../Icon';
@@ -11,9 +12,32 @@ import { useStyles } from './styles';
 
 const VAI_SYMBOL = 'vai';
 
+type FormValues = {
+  amount: '' | BigNumber;
+};
+
+const initialValues: FormValues = {
+  amount: '',
+};
+
+const getReadableFeeVai = ({
+  valueWei,
+  mintFeePercentage,
+}: {
+  valueWei: BigNumber;
+  mintFeePercentage: number;
+}) => {
+  const feeWei = new BigNumber(valueWei || 0).multipliedBy(mintFeePercentage).dividedBy(100);
+  return convertWeiToCoins({
+    value: feeWei,
+    tokenSymbol: VAI_SYMBOL,
+    returnInReadableFormat: true,
+  });
+};
+
 export interface IMintUiProps {
   disabled: boolean;
-  isSubmitting: boolean;
+  isMintVaiLoading: boolean;
   onSubmit: (value: BigNumber) => Promise<void>;
   limitWei: BigNumber;
   mintFeePercentage: number;
@@ -24,13 +48,10 @@ export const MintUi: React.FC<IMintUiProps> = ({
   disabled,
   limitWei,
   mintFeePercentage,
-  isSubmitting,
+  isMintVaiLoading,
   onSubmit,
 }) => {
   const styles = useStyles();
-  const [value, setValue] = React.useState<BigNumber | ''>('');
-
-  const isValueValid = value && value.isGreaterThan(0);
 
   // Convert limit into VAI
   const readableLimitVai = React.useMemo(
@@ -38,69 +59,69 @@ export const MintUi: React.FC<IMintUiProps> = ({
     [limitWei],
   );
 
-  // Calculate fee
-  const feeWei = new BigNumber(value || 0).multipliedBy(mintFeePercentage).dividedBy(100);
-  const readableFeeVai = convertWeiToCoins({ value: feeWei, tokenSymbol: VAI_SYMBOL }).toString();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    // Prevent native submission behavior
-    e.preventDefault();
-
-    if (value) {
-      await onSubmit(value);
-
-      // Reset value
-      setValue('');
+  const handleSubmit = (values: FormValues) => {
+    if (values.amount) {
+      onSubmit(values.amount);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TokenTextField
-        css={styles.textField}
-        tokenSymbol={VAI_SYMBOL}
-        value={value}
-        onChange={setValue}
-        maxWei={limitWei}
-        disabled={disabled || isSubmitting}
-        rightMaxButtonLabel="SAFE MAX"
-      />
+    // TODO: add validation schema
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      {({ values, handleChange, handleBlur, isSubmitting, isValid }) => (
+        <Form>
+          <TokenTextField
+            name="amount"
+            css={styles.textField}
+            tokenSymbol={VAI_SYMBOL}
+            value={values.amount}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            maxWei={limitWei}
+            disabled={disabled || isSubmitting || isMintVaiLoading}
+            rightMaxButtonLabel="SAFE MAX"
+          />
 
-      <div css={styles.getRow({ isLast: false })}>
-        <div css={styles.infoColumn}>
-          <Icon name={VAI_SYMBOL} css={styles.coinIcon} />
-          <Typography component="span" variant="small2">
-            Available VAI Limit
-          </Typography>
-        </div>
+          <div css={styles.getRow({ isLast: false })}>
+            <div css={styles.infoColumn}>
+              <Icon name={VAI_SYMBOL} css={styles.coinIcon} />
+              <Typography component="span" variant="small2">
+                Available VAI Limit
+              </Typography>
+            </div>
 
-        <Typography component="span" css={styles.infoValue} variant="small1">
-          {readableLimitVai} VAI
-        </Typography>
-      </div>
+            <Typography component="span" css={styles.infoValue} variant="small1">
+              {readableLimitVai} VAI
+            </Typography>
+          </div>
 
-      <div css={styles.getRow({ isLast: true })}>
-        <div css={styles.infoColumn}>
-          <Icon name="fee" css={styles.coinIcon} />
-          <Typography component="span" variant="small2">
-            Mint fee
-          </Typography>
-        </div>
+          <div css={styles.getRow({ isLast: true })}>
+            <div css={styles.infoColumn}>
+              <Icon name="fee" css={styles.coinIcon} />
+              <Typography component="span" variant="small2">
+                Mint fee
+              </Typography>
+            </div>
 
-        <Typography component="span" css={styles.infoValue} variant="small1">
-          {readableFeeVai} VAI ({mintFeePercentage}%)
-        </Typography>
-      </div>
+            <Typography component="span" css={styles.infoValue} variant="small1">
+              {values.amount
+                ? getReadableFeeVai({ valueWei: values.amount, mintFeePercentage })
+                : '0'}{' '}
+              VAI ({mintFeePercentage}%)
+            </Typography>
+          </div>
 
-      <SecondaryButton
-        css={styles.submitButton}
-        type="submit"
-        loading={isSubmitting}
-        disabled={disabled || !isValueValid}
-      >
-        Mint VAI
-      </SecondaryButton>
-    </form>
+          <SecondaryButton
+            css={styles.submitButton}
+            type="submit"
+            loading={isSubmitting || isMintVaiLoading}
+            disabled={disabled || !isValid}
+          >
+            Mint VAI
+          </SecondaryButton>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
@@ -109,6 +130,7 @@ export const Mint: React.FC = () => {
   const isUserLoggedIn = true;
   const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(18));
   const mintFeePercentage = 2.14;
+  const isMintVaiLoading = false;
 
   const onSubmit: IMintUiProps['onSubmit'] = async value => {
     // TODO: call contract
@@ -120,7 +142,7 @@ export const Mint: React.FC = () => {
       disabled={!isUserLoggedIn}
       limitWei={limitWei}
       mintFeePercentage={mintFeePercentage}
-      isSubmitting={false}
+      isMintVaiLoading={isMintVaiLoading}
       onSubmit={onSubmit}
     />
   );
