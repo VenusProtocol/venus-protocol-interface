@@ -8,7 +8,7 @@ export const useStyles = () => {
     container: css`
       width: 100%;
       background-color: ${theme.palette.background.paper};
-      border-radius: ${theme.shape.borderRadius.large}px;
+      border-radius: 24px;
       padding: ${theme.spacing(3)};
     `,
     row: css`
