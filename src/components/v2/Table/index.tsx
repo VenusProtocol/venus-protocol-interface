@@ -21,12 +21,20 @@ export interface ITableProps {
   data: ITableRowProps[][];
   columns: { key: string; label: string; orderable: boolean }[];
   minWidth?: string;
+  initialOrder?: {
+    orderBy: string;
+    orderDirection: 'asc' | 'desc';
+  };
 }
 
-export function Table({ columns, data, title, minWidth }: ITableProps) {
+export function Table({ columns, data, title, minWidth, initialOrder }: ITableProps) {
   const styles = useStyles();
-  const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(undefined);
-  const [orderDirection, setOrderDirection] = useState<'asc' | 'desc' | undefined>('asc');
+  const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(
+    initialOrder?.orderBy,
+  );
+  const [orderDirection, setOrderDirection] = useState<'asc' | 'desc' | undefined>(
+    initialOrder?.orderDirection,
+  );
   const onRequestOrder = (property: typeof columns[number]['key']) => {
     let newOrder: 'asc' | 'desc' = 'asc';
     if (property === orderBy) {
@@ -44,10 +52,10 @@ export function Table({ columns, data, title, minWidth }: ITableProps) {
     const rowIndex = columns.findIndex(column => column.key === orderBy);
     const newRows = [...data];
     newRows.sort((a, b) => {
-      if (a[rowIndex].value < b[rowIndex].value) {
+      if (+a[rowIndex].value < +b[rowIndex].value) {
         return orderDirection === 'asc' ? -1 : 1;
       }
-      if (a[rowIndex].value > b[rowIndex].value) {
+      if (+a[rowIndex].value > +b[rowIndex].value) {
         return orderDirection === 'asc' ? 1 : -1;
       }
       return 0;
@@ -67,7 +75,7 @@ export function Table({ columns, data, title, minWidth }: ITableProps) {
         />
         <TableBody>
           {rows.map(row => (
-            <TableRow key={uid(row)}>
+            <TableRow key={uid(row)} css={styles.tableRow}>
               {row.map(({ key, render }: ITableRowProps) => (
                 <TableCell key={uid(key)}>{render()}</TableCell>
               ))}
