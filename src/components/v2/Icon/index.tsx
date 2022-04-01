@@ -15,7 +15,9 @@ export const Icon: React.FC<IIconProps> = ({ name, size, color, ...otherProps })
   const theme = useTheme();
   const sanitizedSize = size ?? theme.shape.iconSize.medium;
   const sanitizedColor = color ?? theme.palette.text.secondary;
-  const Component = icons[name];
+  // Because "name" could come from fetched data, we use a default icon in case
+  // the one requested isn't found
+  const Component = icons[name] || icons.mask;
 
   return (
     <Component
