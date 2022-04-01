@@ -6,11 +6,11 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import en from 'react-intl/locale-data/en';
-import { isOnTestnet } from 'config';
 
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
+import { isOnTestnet } from 'config';
 import enMessages from 'lang/en.json';
 import { store } from 'core';
 import Dashboard from 'containers/Main/Dashboard';
@@ -86,9 +86,7 @@ class App extends React.Component {
                                 path="/vote/address/:address"
                                 component={ProposerDetail}
                               />
-                              {isOnTestnet && (
-                                <Route exact path="/convert-vrt" component={VrtConversion} />
-                              )}
+                              <Route exact path="/convert-vrt" component={VrtConversion} />
                               {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
                               <Redirect from="/" to="/dashboard" />
                             </Switch>
