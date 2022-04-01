@@ -121,19 +121,43 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
   return `$${commaFormat(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
 };
 
+export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
+export const format = (bigNumber: BigNumber, dp = 2) =>
+  formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
+
 export const getTokenDecimals = (tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS) =>
   CONTRACT_TOKEN_ADDRESS[tokenSymbol]?.decimals || 18;
 
-export const convertWeiToCoins = ({
+export const formatCoinsToReadableValue = ({
   value,
   tokenSymbol,
 }: {
   value: BigNumber;
   tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
-}) => {
+}) => `${formatCommaThousandsPeriodDecimal(value.toString())} ${tokenSymbol.toUpperCase()}`;
+
+type IConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
+
+export function convertWeiToCoins<T extends boolean | undefined>({
+  value,
+  tokenSymbol,
+  returnInReadableFormat = false,
+}: {
+  value: BigNumber;
+  tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
+  returnInReadableFormat?: T;
+}): IConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getTokenDecimals(tokenSymbol);
-  return value.dividedBy(new BigNumber(10).pow(tokenDecimals)).decimalPlaces(tokenDecimals);
-};
+  const valueCoins = value
+    .dividedBy(new BigNumber(10).pow(tokenDecimals))
+    .decimalPlaces(tokenDecimals);
+
+  return (
+    returnInReadableFormat
+      ? formatCoinsToReadableValue({ value: valueCoins, tokenSymbol })
+      : valueCoins
+  ) as IConvertWeiToCoinsOutput<T>;
+}
 
 export const convertCoinsToWei = ({
   value,
@@ -153,10 +177,6 @@ export const formatApy = (apy?: BigNumber | string | number): string => {
   }
   return `${apyBN.toExponential(2, 1)}%`;
 };
-
-export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
-export const format = (bigNumber: BigNumber, dp = 2) =>
-  formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
 
 /**
  * Takes an index function and an array and returns an object with indexFn(item)
