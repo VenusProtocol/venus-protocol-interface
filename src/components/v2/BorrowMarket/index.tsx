@@ -4,9 +4,10 @@ import BigNumber from 'bignumber.js';
 
 import {
   convertWeiToCoins,
-  formatCommaThousandsPeriodDecimal,
-  convertCentsToDollars,
+  formatCoinsToReadableValue,
+  formatDollarsToReadableValue,
 } from 'utilities/common';
+import { TokenSymbol } from 'types';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 import { BorrowAsset } from './types';
 import { Icon, IconName } from '../Icon';
@@ -50,15 +51,15 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({ className, borr
     {
       key: 'wallet',
       render: () =>
-        `${formatCommaThousandsPeriodDecimal(asset.walletBalanceCoins.toString())} ${asset.name}`,
+        formatCoinsToReadableValue({
+          value: asset.walletBalanceCoins,
+          tokenSymbol: asset.symbol,
+        }),
       value: asset.walletBalanceCoins.toString(),
     },
     {
       key: 'liquidity',
-      render: () =>
-        `$${formatCommaThousandsPeriodDecimal(
-          convertCentsToDollars(asset.liquidityCents.toNumber()),
-        )}`,
+      render: () => formatDollarsToReadableValue(asset.liquidityCents),
       value: asset.liquidityCents.toString(),
     },
   ]);
@@ -129,12 +130,12 @@ const BorrowMarket: React.FC = () => {
         // Check token symbol is listed
         convertWeiToCoins({
           value: new BigNumber(walletToken.tokenBalance),
-          tokenSymbol: asset.symbol as keyof typeof CONTRACT_TOKEN_ADDRESS,
+          tokenSymbol: asset.symbol as TokenSymbol,
         });
 
       return {
         id: asset.id,
-        symbol: asset.symbol,
+        symbol: asset.symbol as TokenSymbol,
         name: asset.symbol.toUpperCase(),
         walletBalanceCoins: walletBalanceCoins || new BigNumber(0),
         borrowApyPercentage: +asset.borrowApy,
