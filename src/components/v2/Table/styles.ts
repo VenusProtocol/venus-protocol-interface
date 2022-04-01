@@ -18,6 +18,14 @@ export const useStyles = () => {
       .MuiTableCell-root {
         border-width: 0;
       }
+
+      .MuiTableCell-root:first-child {
+        padding-left: ${theme.spacing(3)};
+      }
+
+      .MuiTableCell-root:last-child {
+        padding-right: ${theme.spacing(3)};
+      }
     `,
     tableSortLabel: css`
       &.MuiTableSortLabel-root {
