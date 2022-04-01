@@ -68,14 +68,14 @@ export const MintUi: React.FC<IMintUiProps> = ({
   return (
     // TODO: add validation schema
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ values, handleChange, handleBlur, isSubmitting, isValid }) => (
+      {({ values, setFieldValue, handleBlur, isSubmitting, isValid }) => (
         <Form>
           <TokenTextField
             name="amount"
             css={styles.textField}
             tokenSymbol={VAI_SYMBOL}
             value={values.amount}
-            onChange={handleChange}
+            onChange={amount => setFieldValue('amount', amount)}
             onBlur={handleBlur}
             maxWei={limitWei}
             disabled={disabled || isSubmitting || isMintVaiLoading}
