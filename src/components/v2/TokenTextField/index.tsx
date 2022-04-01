@@ -2,8 +2,9 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { TokenSymbol } from 'types';
 import { convertWeiToCoins, convertCoinsToWei, getTokenDecimals } from 'utilities/common';
+import { IconName } from '../Icon';
 import { TertiaryButton } from '../Button';
 import { TextField, ITextFieldProps } from '../TextField';
 
@@ -12,7 +13,7 @@ import { TextField, ITextFieldProps } from '../TextField';
 // expressed in wei to make them easier to use with contracts
 export interface ITokenTextFieldProps
   extends Omit<ITextFieldProps, 'value' | 'onChange' | 'max' | 'min'> {
-  tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
+  tokenSymbol: TokenSymbol;
   onChange: (newValue: BigNumber | '') => void;
   rightMaxButtonLabel?: string;
   value: BigNumber | '';
@@ -66,6 +67,8 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
     onChange(newValueWei);
   };
 
+  console.log(tokenSymbol);
+
   return (
     <TextField
       placeholder="0.00"
@@ -75,6 +78,7 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
       max={maxCoins}
       step={step}
       type="number"
+      leftIconName={tokenSymbol as IconName}
       rightAdornment={
         rightMaxButtonLabel && onChange && maxWei ? (
           <TertiaryButton onClick={setMaxValue} small disabled={disabled}>
