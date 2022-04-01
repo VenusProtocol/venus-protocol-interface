@@ -6,7 +6,7 @@ import NumberFormat from 'react-number-format';
 import { connectAccount } from 'core';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { sendSupply } from 'utilities/BnbContract';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';

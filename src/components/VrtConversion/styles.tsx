@@ -14,11 +14,17 @@ export const ConvertWrapper = styled.div`
     font-size: 16px;
     line-height: 19px;
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
     .span {
       display: inline-block;
       margin: 0 4px;
     }
+  }
+
+  .info-banner {
+    text-align: center;
+    margin-bottom: 32px;
+    color: var(--color-text-secondary);
   }
 
   /* xvs pool */

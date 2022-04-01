@@ -5,7 +5,7 @@ import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import { sendRepay } from 'utilities/BnbContract';
 import arrowRightImg from 'assets/img/arrow-right.png';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';

@@ -7,7 +7,7 @@ import NumberFormat from 'react-number-format';
 import { useWeb3Account } from 'clients/web3';
 import { connectAccount } from 'core';
 import { Asset, Setting } from 'types';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
