@@ -6,11 +6,11 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import en from 'react-intl/locale-data/en';
-import { isOnTestnet } from 'config';
 
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
+import { isOnTestnet } from 'config';
 import enMessages from 'lang/en.json';
 import { store } from 'core';
 import Dashboard from 'containers/Main/Dashboard';
@@ -72,21 +72,23 @@ class App extends React.Component {
                               position={toast.POSITION.TOP_LEFT}
                             />
                             <Switch>
-                            <Route exact path="/dashboard" component={Dashboard} />
-                            <Route exact path="/vote" component={Vote} />
-                            <Route exact path="/xvs" component={XVS} />
-                            <Route exact path="/market" component={Market} />
-                            <Route exact path="/transaction" component={Transaction} />
-                            <Route exact path="/vault" component={Vault} />
-                            <Route exact path="/market/:asset" component={MarketDetail} />
-                            <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
-                            <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                            <Route exact path="/vote/address/:address" component={ProposerDetail} />
-                            <Route exact path="/convert-vrt" component={VrtConversion} />
-                            {process.env.REACT_APP_CHAIN_ID === '97' && (
-                              <Route exact path="/faucet" component={Faucet} />
-                            )}
-                            <Redirect from="/" to="/dashboard" />
+                              <Route exact path="/dashboard" component={Dashboard} />
+                              <Route exact path="/vote" component={Vote} />
+                              <Route exact path="/xvs" component={XVS} />
+                              <Route exact path="/market" component={Market} />
+                              <Route exact path="/transaction" component={Transaction} />
+                              <Route exact path="/vault" component={Vault} />
+                              <Route exact path="/market/:asset" component={MarketDetail} />
+                              <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
+                              <Route exact path="/vote/proposal/:id" component={VoteOverview} />
+                              <Route
+                                exact
+                                path="/vote/address/:address"
+                                component={ProposerDetail}
+                              />
+                              <Route exact path="/convert-vrt" component={VrtConversion} />
+                              {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
+                              <Redirect from="/" to="/dashboard" />
                             </Switch>
                           </BrowserRouter>
                         </AuthProvider>
