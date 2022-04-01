@@ -17,6 +17,7 @@ export const useStyles = () => {
       min-width: ${minWidth};
       .MuiTableCell-root {
         border-width: 0;
+        font-weight: ${theme.typography.body1.fontWeight};
       }
 
       .MuiTableCell-root:first-child {
@@ -68,9 +69,6 @@ export const useStyles = () => {
         fill: ${active ? theme.palette.success.slider : theme.palette.text.primary};
         color: ${active ? theme.palette.success.slider : theme.palette.text.primary};
       }
-    `,
-    tableRow: css`
-      padding: ${theme.spacing(0, 2)};
     `,
   };
 };
