@@ -9,9 +9,9 @@ import {
 } from 'utilities/common';
 import { TokenSymbol } from 'types';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
-import { BorrowAsset } from './types';
-import { Icon, IconName } from '../Icon';
+import { Token } from '../Token';
 import { Table, ITableProps } from '../Table';
+import { BorrowAsset } from './types';
 import { useStyles } from './styles';
 
 export * from './types';
@@ -35,12 +35,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({ className, borr
   const rows: ITableProps['data'] = borrowAssets.map(asset => [
     {
       key: 'asset',
-      render: () => (
-        <div css={styles.tokenCell}>
-          <Icon name={asset.symbol as IconName} css={styles.tokenCellIcon} />
-          {asset.name}
-        </div>
-      ),
+      render: () => <Token symbol={asset.symbol} />,
       value: asset.name,
     },
     {
