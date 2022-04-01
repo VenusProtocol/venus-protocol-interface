@@ -118,7 +118,7 @@ export default () => {
               <div className="container">
                 <TabContainer
                   className="vrt-conversion-tab-container"
-                  titles={['Convert', 'Withdraw']}
+                  titles={['Convert & Vest', 'Withdraw']}
                 >
                   <Convert
                     userVrtBalance={userVrtBalance}

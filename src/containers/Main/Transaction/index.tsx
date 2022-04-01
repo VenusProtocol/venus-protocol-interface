@@ -9,7 +9,7 @@ import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { promisify } from 'utilities';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
-import xvsImg from 'assets/img/coins/xvs.png';
+import xvsImg from 'assets/img/coins/xvs.svg';
 import { uid } from 'react-uid';
 import { BASE_BSC_SCAN_URL } from 'config';
 

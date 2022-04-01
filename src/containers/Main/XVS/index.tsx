@@ -8,7 +8,7 @@ import { uid } from 'react-uid';
 import { connectAccount } from 'core';
 import MainLayout from 'containers/Layout/MainLayout';
 import * as constants from 'utilities/constants';
-import coinImg from 'assets/img/venus_32.png';
+import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
