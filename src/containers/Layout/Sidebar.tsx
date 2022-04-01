@@ -15,7 +15,7 @@ import toast from 'components/Basic/Toast';
 import { Setting } from 'types';
 import { CHAIN_ID, isOnTestnet } from 'config';
 import XVSIcon from 'assets/img/venus.svg';
-import XVSActiveIcon from 'assets/img/venus_active.svg';
+import XVSActiveIcon from 'assets/img/venusActive.svg';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from 'hooks/useMarkets';
 import { useComptroller, useVaiToken } from 'hooks/useContract';
@@ -424,16 +424,14 @@ function Sidebar({ history, setSetting }: SidebarProps) {
           <Icon type="golden" theme="filled" />
           <Label primary>Vault</Label>
         </NavLink>
-        {isOnTestnet && (
-          <NavLink
-            className="flex flex-start align-center"
-            to="/convert-vrt"
-            active-class-name="active"
-          >
-            <Icon type="swap" />
-            <Label primary>Convert VRT</Label>
-          </NavLink>
-        )}
+        <NavLink
+          className="flex flex-start align-center"
+          to="/convert-vrt"
+          active-class-name="active"
+        >
+          <Icon type="swap" />
+          <Label primary>Convert VRT</Label>
+        </NavLink>
         <NavLink
           className="flex flex-start align-center"
           to="/transaction"
@@ -543,13 +541,11 @@ function Sidebar({ history, setSetting }: SidebarProps) {
               Vault
             </Label>
           </Option>
-          {isOnTestnet && (
-            <Option className="flex align-center just-center" value="Convert-vrt">
-              <Label size={14} primary>
-                Convert VRT
-              </Label>
-            </Option>
-          )}
+          <Option className="flex align-center just-center" value="convert-vrt">
+            <Label size={14} primary>
+              Convert VRT
+            </Label>
+          </Option>
           <Option className="flex align-center just-center" value="transaction">
             <Label size={14} primary>
               Transactions
