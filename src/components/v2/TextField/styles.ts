@@ -36,7 +36,7 @@ export const useStyles = () => {
       font-weight: 600;
       line-height: ${theme.spacing(3)};
       height: ${theme.spacing(5)};
-      padding-top: 4px; /* Vertically align input content */
+      padding-top: 2px; /* Vertically align input content */
       border: 0;
 
       ${hasRightAdornment && `margin-right: ${theme.spacing(1)}`};
