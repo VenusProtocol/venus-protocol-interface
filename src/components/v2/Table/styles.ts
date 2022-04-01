@@ -27,7 +27,12 @@ export const useStyles = () => {
         padding-right: ${theme.spacing(3)};
       }
     `,
-    tableSortLabel: css`
+    tableSortLabel: ({ orderable }: { orderable: boolean }) => css`
+      ${!orderable &&
+      css`
+        cursor: auto;
+      `}
+
       &.MuiTableSortLabel-root {
         span {
           color: ${theme.palette.text.secondary};
@@ -44,6 +49,7 @@ export const useStyles = () => {
       .MuiTableSortLabel-iconDirectionDesc {
         transform: rotate(180deg);
       }
+
       &.MuiTableSortLabel-root.Mui-active:hover {
         color: ${theme.palette.text.secondary};
         .MuiTableSortLabel-iconDirectionDesc {
