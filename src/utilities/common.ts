@@ -138,7 +138,7 @@ export const formatCoinsToReadableValue = ({
 
 type IConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 
-export function convertWeiToCoins<T extends boolean | undefined>({
+export function convertWeiToCoins<T extends boolean | undefined = undefined>({
   value,
   tokenSymbol,
   returnInReadableFormat = false,
