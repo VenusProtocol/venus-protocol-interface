@@ -67,8 +67,6 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
     onChange(newValueWei);
   };
 
-  console.log(tokenSymbol);
-
   return (
     <TextField
       placeholder="0.00"
