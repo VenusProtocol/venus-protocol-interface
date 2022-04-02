@@ -10,7 +10,7 @@ import Proposals from 'components/Vote/Proposals';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import useRefresh from 'hooks/useRefresh';
-import { CONTRACT_XVS_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from 'utilities/constants';
+import { XVS_TOKEN, VBEP_TOKENS } from 'constants/contracts';
 import { useComptroller, useToken, useVaiUnitroller, useXvsVaultProxy } from 'hooks/useContract';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { getVbepContract } from 'utilities/contractHelpers';
@@ -89,9 +89,7 @@ function Vote({ getProposals }: VoteProps) {
   const updateBalance = async () => {
     if (account) {
       // find the pid of xvs vault, which users get voting powers from
-      const length = await xvsVaultProxyContract.methods
-        .poolLength(CONTRACT_XVS_TOKEN_ADDRESS)
-        .call();
+      const length = await xvsVaultProxyContract.methods.poolLength(XVS_TOKEN).call();
 
       const [currentVotes, balanceTemp, ...xvsPoolInfos] = await Promise.all([
         // voting power is calculated from user's amount of XVS staked in the XVS vault
@@ -99,13 +97,13 @@ function Vote({ getProposals }: VoteProps) {
         xvsTokenContract.methods.balanceOf(account).call(),
         // query all xvs pool infos
         ...Array.from({ length }).map((_, index) =>
-          xvsVaultProxyContract.methods.poolInfos(CONTRACT_XVS_TOKEN_ADDRESS, index).call(),
+          xvsVaultProxyContract.methods.poolInfos(XVS_TOKEN, index).call(),
         ),
       ]);
 
       // find xvs vault pid
       const xvsVaultIndex = xvsPoolInfos.findIndex(
-        info => info.token.toLowerCase() === CONTRACT_XVS_TOKEN_ADDRESS.toLowerCase(),
+        info => info.token.toLowerCase() === XVS_TOKEN.toLowerCase(),
       );
       if (xvsVaultIndex < 0) {
         throw new Error('xvs vault not found!');
@@ -118,7 +116,7 @@ function Vote({ getProposals }: VoteProps) {
       );
 
       const userInfo = await xvsVaultProxyContract.methods
-        .getUserInfo(CONTRACT_XVS_TOKEN_ADDRESS, xvsVaultIndex, account)
+        .getUserInfo(XVS_TOKEN, xvsVaultIndex, account)
         .call();
       setStakedAmount(userInfo.amount);
     }
@@ -139,7 +137,7 @@ function Vote({ getProposals }: VoteProps) {
     );
     let venusEarned = new BigNumber(0);
     await Promise.all(
-      Object.values(CONTRACT_VBEP_ADDRESS).map(async item => {
+      Object.values(VBEP_TOKENS).map(async item => {
         const vBepContract = getVbepContract(web3, item.id);
         const [
           supplyState,

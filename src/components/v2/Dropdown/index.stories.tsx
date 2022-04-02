@@ -1,7 +1,8 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { CONTRACT_TOKEN_ADDRESS, CONTRACT_VBEP_ADDRESS } from 'utilities/constants';
+import { VBEP_TOKENS, getToken } from 'constants/contracts';
+import { TokenSymbol } from 'types';
 import { Dropdown } from '.';
 
 export default {
@@ -10,10 +11,10 @@ export default {
   decorators: [withThemeProvider, withCenterStory({ width: 137 })],
 } as ComponentMeta<typeof Dropdown>;
 
-const assets = Object.keys(CONTRACT_VBEP_ADDRESS).map(id => ({
+const assets = Object.keys(VBEP_TOKENS).map(id => ({
   value: id,
-  label: CONTRACT_TOKEN_ADDRESS[id as keyof typeof CONTRACT_TOKEN_ADDRESS]?.symbol || id,
-  img: CONTRACT_TOKEN_ADDRESS[id as keyof typeof CONTRACT_TOKEN_ADDRESS]?.asset,
+  label: getToken(id as TokenSymbol).symbol || id,
+  img: getToken(id as TokenSymbol).asset,
 }));
 
 export const DropdownDefault = () => (

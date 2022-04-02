@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { accountActionCreators } from 'core/modules/account/actions';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify } from 'utilities';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import {
   addToken,
   getBigNumber,
@@ -16,7 +16,7 @@ import {
 } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
-import { Setting } from 'types';
+import { Setting, TokenSymbol } from 'types';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
@@ -150,7 +150,7 @@ interface OverviewProps {
 }
 
 function Overview({ settings, getMarketHistory }: OverviewProps) {
-  const [currentAsset, setCurrentAsset] = useState('sxp');
+  const [currentAsset, setCurrentAsset] = useState<TokenSymbol>('sxp');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   const [currentAPY, setCurrentAPY] = useState(0);
@@ -159,7 +159,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   const { userMarketInfo } = useMarketsUser();
 
   const getGraphData = async (
-    asset: $TSFixMe,
+    asset: string,
 
     type: $TSFixMe,
 
@@ -191,8 +191,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
+        constants.getVbepToken(currentAsset).address,
         '1hr',
         24 * 7, // 1 week
       );
@@ -232,7 +231,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
     }
   }, [currentAsset, settings.marketType, userMarketInfo, settings.withXVS]);
 
-  const handleChangeAsset = (value: $TSFixMe) => {
+  const handleChangeAsset = (value: TokenSymbol) => {
     setCurrentAsset(value);
   };
 
@@ -253,23 +252,18 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                 dropdownClassName="asset-select"
                 onChange={handleChangeAsset}
               >
-                {Object.keys(constants.CONTRACT_VBEP_ADDRESS).map(key => (
+                {Object.keys(constants.VBEP_TOKENS).map(key => (
                   <Option
                     className="flex align-center just-between"
-                    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                    value={constants.CONTRACT_VBEP_ADDRESS[key].id}
+                    value={constants.getVbepToken(key as TokenSymbol).id}
                     key={uid(key)}
                   >
                     <img
                       className="asset-img"
-                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                      src={constants.CONTRACT_TOKEN_ADDRESS[key].asset}
+                      src={constants.getToken(key as TokenSymbol).asset}
                       alt="asset"
                     />{' '}
-                    <span>
-                      {/* @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message */}
-                      {constants.CONTRACT_TOKEN_ADDRESS[key].symbol}
-                    </span>
+                    <span>{constants.getToken(key as TokenSymbol).symbol}</span>
                   </Option>
                 ))}
               </Select>
@@ -279,8 +273,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
               <div className="flex align-center add-token-wrapper">
                 {currentAsset && currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
-                    {/* @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message */}
-                    {constants.CONTRACT_TOKEN_ADDRESS[currentAsset].symbol}
+                    {constants.getToken(currentAsset).symbol}
                     <Icon
                       className="add-token"
                       type="plus-circle"

@@ -6,7 +6,7 @@ import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { uid } from 'react-uid';
 import { connectAccount } from 'core';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
@@ -270,13 +270,13 @@ function XVS({ settings }: XVSProps) {
             <img src={coinImg} alt="xvs" />
             <a
               className="highlight"
-              href={`${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
+              href={`${BASE_BSC_SCAN_URL}/token/${constants.XVS_TOKEN}`}
               target="_blank"
               rel="noreferrer"
             >
-              {constants.CONTRACT_XVS_TOKEN_ADDRESS}
+              {constants.XVS_TOKEN}
             </a>
-            <CopyToClipboard text={constants.CONTRACT_XVS_TOKEN_ADDRESS} onCopy={() => {}}>
+            <CopyToClipboard text={constants.XVS_TOKEN} onCopy={() => {}}>
               <Icon className="pointer copy-btn" type="copy" />
             </CopyToClipboard>
           </div>
@@ -403,11 +403,10 @@ function XVS({ settings }: XVSProps) {
                         <img
                           className="asset-img"
                           src={
-                            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                            constants.CONTRACT_TOKEN_ADDRESS[
+                            constants.getToken(
                               // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
-                              item.underlyingSymbol.toLowerCase()
-                            ].asset
+                              item.underlyingSymbol.toLowerCase(),
+                            ).asset
                           }
                           alt="asset"
                         />

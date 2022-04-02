@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { formatApy } from 'utilities/common';
-import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { CONTRACT_TOKEN_ADDRESS, getToken } from 'constants/contracts';
 import { Toggle } from 'components';
 import { Table } from '.';
 import { Icon } from '../Icon';
@@ -44,7 +44,7 @@ function createData(
       value: asset,
       render: () => (
         <div css={styles.asset}>
-          <img src={CONTRACT_TOKEN_ADDRESS[asset]?.asset} alt={asset} />
+          <img src={getToken(asset).asset} alt={asset} />
           <span>{asset.toUpperCase()}</span>
         </div>
       ),

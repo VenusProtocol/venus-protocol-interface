@@ -2,8 +2,9 @@ import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 
-import * as constants from 'utilities/constants';
-import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
+import * as constants from 'constants/contracts';
+import { TokenSymbol } from 'types';
 import { getVaiTokenAddress } from './addressHelpers';
 
 export const commaFormat = commaNumber.bindWith(',', '.');
@@ -39,11 +40,11 @@ export const addToken = async ({
   decimal,
   type,
 }: {
-  asset: string;
+  asset: TokenSymbol;
   decimal: number;
   type: string;
 }) => {
-  let tokenAddress = '';
+  let tokenAddress: string | undefined = '';
   let tokenSymbol = '';
   let tokenDecimals = 18;
   let tokenImage = '';
@@ -54,15 +55,10 @@ export const addToken = async ({
     tokenImage = `${window.location.origin}/coins/vai.svg`;
   } else {
     tokenAddress =
-      type === 'token'
-        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].address
-        : // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_VBEP_ADDRESS[asset].address;
+      type === 'token' ? constants.getToken(asset).address : constants.getVbepToken(asset).address;
     tokenSymbol =
       type === 'token'
-        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
+        ? constants.getToken(asset).symbol
         : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
     tokenDecimals = decimal || (type === 'token' ? 18 : 8);
     tokenImage = `${window.location.origin}/coins/${
