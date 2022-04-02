@@ -97,6 +97,7 @@ export const styles = ({
         color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
       :disabled {
+        color: ${theme.palette.text.secondary};
         background-color: ${theme.palette.secondary.light};
         border-color: ${theme.palette.secondary.light};
       }
