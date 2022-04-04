@@ -29,3 +29,7 @@ export const WithRightAdornment = () => (
 export const WithHasError = () => (
   <TextField label="Label" placeholder="0.0" type="number" min={0} hasError />
 );
+
+export const WithMinAndMax = () => (
+  <TextField label="Label" placeholder="0.0" type="number" min={0} max={100} />
+);
