@@ -17,10 +17,11 @@ export const useStyles = () => {
     icon: css`
       width: ${theme.shape.iconSize.large}px;
       height: ${theme.shape.iconSize.large}px;
+      margin-top: -2px;
       margin-right: ${theme.spacing(1)};
     `,
-    value: css`
-      color: ${theme.palette.text.primary};
+    label: css`
+      color: ${theme.palette.text.secondary};
     `,
   };
 };

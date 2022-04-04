@@ -7,16 +7,16 @@ import { useStyles } from './styles';
 
 export interface ILabeledInlineValueProps {
   label: string;
-  value: string | number;
   iconName?: IconName;
   className?: string;
+  children: React.ReactNode;
 }
 
-export const LabeledInlineValue = ({
+export const LabeledInlineContent = ({
   label,
-  value,
   iconName,
   className,
+  children,
 }: ILabeledInlineValueProps) => {
   const styles = useStyles();
 
@@ -25,13 +25,13 @@ export const LabeledInlineValue = ({
       <div css={styles.column}>
         {iconName && <Icon name={iconName} css={styles.icon} />}
 
-        <Typography component="span" variant="small2">
+        <Typography component="span" css={styles.label} variant="body1">
           {label}
         </Typography>
       </div>
 
-      <Typography component="div" css={[styles.column, styles.value]} variant="small1">
-        {value}
+      <Typography component="div" css={styles.column} variant="body1">
+        {children}
       </Typography>
     </div>
   );

@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Formik, Form } from 'formik';
 
 import { convertWeiToCoins } from 'utilities/common';
-import { LabeledInlineValue } from '../../LabeledInlineValue';
+import { LabeledInlineContent } from '../../LabeledInlineContent';
 import { TokenTextField } from '../../TokenTextField';
 import { SecondaryButton } from '../../Button';
 import { useStyles } from './styles';
@@ -81,23 +81,24 @@ export const MintUi: React.FC<IMintUiProps> = ({
             rightMaxButtonLabel="SAFE MAX"
           />
 
-          <LabeledInlineValue
+          <LabeledInlineContent
             css={styles.getRow({ isLast: false })}
             iconName={VAI_SYMBOL}
             label="Available VAI Limit"
-            value={`${readableLimitVai} VAI`}
-          />
+          >
+            {`${readableLimitVai} VAI`}
+          </LabeledInlineContent>
 
-          <LabeledInlineValue
+          <LabeledInlineContent
             css={styles.getRow({ isLast: true })}
             iconName="fee"
             label="Mint fee"
-            value={`${
-              values.amount
-                ? getReadableFeeVai({ valueWei: values.amount, mintFeePercentage })
-                : '0'
-            } VAI (${mintFeePercentage}%)`}
-          />
+          >
+            {values.amount
+              ? getReadableFeeVai({ valueWei: values.amount, mintFeePercentage })
+              : '0'}
+            {` VAI (${mintFeePercentage}%)`}
+          </LabeledInlineContent>
 
           <SecondaryButton
             css={styles.submitButton}
