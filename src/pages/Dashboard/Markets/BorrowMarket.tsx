@@ -83,9 +83,8 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
 const BorrowMarket: React.FC = () => {
   // Format fetched data into borrow assets
   // @TODO: fetch actual data
-  const assets = require('./mocks')
-    .assetData // eslint-disable-line
-    // Filter out tokens we don't support (this could happen if a new token was
+  const assets = require('./mocks') // eslint-disable-line
+    .assetData// Filter out tokens we don't support (this could happen if a new token was
     // introduced within the smart contracts and we didn't update our frontend
     // config)
     .filter(

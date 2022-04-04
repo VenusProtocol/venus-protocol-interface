@@ -18,10 +18,14 @@ export const useStyles = () => {
       .MuiTableCell-root {
         border-width: 0;
         font-weight: ${theme.typography.body1.fontWeight};
+        > * {
+          float: right;
+        }
       }
 
       .MuiTableCell-root:first-child {
         padding-left: ${theme.spacing(3)};
+        float: left;
       }
 
       .MuiTableCell-root:last-child {

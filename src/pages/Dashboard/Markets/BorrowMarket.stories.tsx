@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { BorrowMarketUi } from '.';
+import { BorrowMarketUi } from './BorrowMarket';
 import { assetData } from './mocks';
 
 export default {
