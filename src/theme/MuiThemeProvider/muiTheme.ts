@@ -72,6 +72,7 @@ export default createTheme({
     sidebarWidth: SIDEBAR_WIDTH,
     borderRadius: {
       small: SPACING,
+      medium: SPACING * 2,
       large: SPACING * 3,
     } as any, // our custom types seem to clash with the default MUI types
     iconSize: {

@@ -34,6 +34,7 @@ declare module '@mui/material/styles' {
   interface Shape {
     borderRadius: {
       small: number;
+      medium: number;
       large: number;
     };
     iconSize: {
