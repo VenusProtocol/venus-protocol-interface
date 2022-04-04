@@ -7,24 +7,9 @@ import { LabeledInlineContent } from '../../LabeledInlineContent';
 import { TokenAmountForm } from '../../TokenAmountForm';
 import { TokenTextField } from '../../TokenTextField';
 import { SecondaryButton } from '../../Button';
+import { VAI_SYMBOL } from '../constants';
+import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from './styles';
-
-const VAI_SYMBOL = 'vai';
-
-const getReadableFeeVai = ({
-  valueWei,
-  mintFeePercentage,
-}: {
-  valueWei: BigNumber;
-  mintFeePercentage: number;
-}) => {
-  const feeWei = new BigNumber(valueWei || 0).multipliedBy(mintFeePercentage).dividedBy(100);
-  return convertWeiToCoins({
-    value: feeWei,
-    tokenSymbol: VAI_SYMBOL,
-    returnInReadableFormat: true,
-  });
-};
 
 export interface IMintUiProps {
   disabled: boolean;
@@ -34,7 +19,6 @@ export interface IMintUiProps {
   mintFeePercentage: number;
 }
 
-// TODO: Move to dashboard component/container once created
 export const MintUi: React.FC<IMintUiProps> = ({
   disabled,
   limitWei,
