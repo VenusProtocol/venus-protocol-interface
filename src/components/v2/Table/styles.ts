@@ -29,16 +29,14 @@ export const useStyles = () => {
       }
     `,
     tableSortLabel: ({ orderable }: { orderable: boolean }) => css`
-      ${!orderable &&
-      css`
-        cursor: auto;
-      `}
+      cursor: ${orderable ? 'pointer' : 'auto'};
 
       &.MuiTableSortLabel-root {
         span {
           color: ${theme.palette.text.secondary};
         }
       }
+
       .MuiSvgIcon-root {
         display: block;
         margin-right: ${theme.spacing(1)};
