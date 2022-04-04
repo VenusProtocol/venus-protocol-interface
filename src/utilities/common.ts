@@ -192,3 +192,5 @@ export const indexBy = (indexFn: $TSFixMe, arr: $TSFixMe) =>
     result[indexFn(item)] = item;
     return result;
   }, {});
+
+export const notNull = <TValue>(value: TValue | null): value is TValue => value !== null;

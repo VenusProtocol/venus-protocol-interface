@@ -173,7 +173,6 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
   }, [userMarketInfo, withXVS]);
 
   useEffect(() => {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'length' does not exist on type '{}'.
     if (account && userMarketInfo && userMarketInfo.length > 0) {
       updateNetAPY();
     }
