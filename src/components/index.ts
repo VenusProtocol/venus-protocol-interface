@@ -4,3 +4,6 @@ export * from './v2/Dropdown';
 export * from './v2/Layout';
 export * from './v2/TextField';
 export * from './v2/AuthModal';
+export * from './v2/Toggle';
+export * from './v2/Table';
+export * from './v2/Token';
