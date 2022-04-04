@@ -73,6 +73,11 @@ export function Table({ columns, data, title, minWidth, initialOrder }: ITablePr
           orderDirection={orderDirection}
           onRequestOrder={onRequestOrder}
         />
+
+        {/* TODO: add loading state */}
+
+        {/* TODO: add error state */}
+
         <TableBody>
           {rows.map(row => (
             <TableRow key={uid(row)}>

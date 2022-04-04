@@ -61,10 +61,6 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({ className, borr
 
   return (
     <div className={className} css={styles.container}>
-      {/* TODO: add loading state */}
-
-      {/* TODO: add error state */}
-
       <Table
         title="Borrow market"
         columns={columns}
