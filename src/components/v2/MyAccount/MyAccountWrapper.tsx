@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AnimatedNumber from 'animated-number-react';
 import commaNumber from 'comma-number';
 import { State } from '../../../core/modules/initialState';
 import { accountActionCreators } from '../../../core';
