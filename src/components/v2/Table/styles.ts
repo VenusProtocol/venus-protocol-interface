@@ -5,8 +5,8 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     title: css`
-      line-height: 100%;
-      color: ${theme.palette.text.primary};
+      margin-bottom: ${theme.spacing(3)};
+      padding: ${theme.spacing(0, 3)};
     `,
     tableContainer: css`
       background-color: transparent;
@@ -17,14 +17,26 @@ export const useStyles = () => {
       min-width: ${minWidth};
       .MuiTableCell-root {
         border-width: 0;
+        font-weight: ${theme.typography.body1.fontWeight};
+      }
+
+      .MuiTableCell-root:first-child {
+        padding-left: ${theme.spacing(3)};
+      }
+
+      .MuiTableCell-root:last-child {
+        padding-right: ${theme.spacing(3)};
       }
     `,
-    tableSortLabel: css`
+    tableSortLabel: ({ orderable }: { orderable: boolean }) => css`
+      cursor: ${orderable ? 'pointer' : 'auto'};
+
       &.MuiTableSortLabel-root {
         span {
           color: ${theme.palette.text.secondary};
         }
       }
+
       .MuiSvgIcon-root {
         display: block;
         margin-right: ${theme.spacing(1)};
@@ -36,6 +48,7 @@ export const useStyles = () => {
       .MuiTableSortLabel-iconDirectionDesc {
         transform: rotate(180deg);
       }
+
       &.MuiTableSortLabel-root.Mui-active:hover {
         color: ${theme.palette.text.secondary};
         .MuiTableSortLabel-iconDirectionDesc {
@@ -46,13 +59,16 @@ export const useStyles = () => {
         }
       }
     `,
+    tableSortLabelIconsContainer: css`
+      margin-top: -2px;
+    `,
     tableSortLabelIcon: ({ active }: { active: boolean }) => css`
       &.MuiTableSortLabel-icon {
         fill: ${theme.palette.text.primary};
       }
       .Mui-active &.MuiTableSortLabel-icon {
-        fill: ${active ? theme.palette.success.slider : theme.palette.text.primary};
-        color: ${active ? theme.palette.success.slider : theme.palette.text.primary};
+        fill: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
+        color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
     `,
   };
