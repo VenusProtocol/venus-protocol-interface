@@ -36,7 +36,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
 
   return (
     <TokenAmountForm onSubmit={onSubmit}>
-      {({ values, setFieldValue, handleBlur, isSubmitting, isValid }) => (
+      {({ values, setFieldValue, handleBlur, isSubmitting, isValid, touched }) => (
         <>
           <TokenTextField
             name="amount"
@@ -73,7 +73,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
             css={styles.submitButton}
             type="submit"
             loading={isSubmitting || isMintVaiLoading}
-            disabled={disabled || !isValid}
+            disabled={disabled || !isValid || !touched.amount}
           >
             Mint VAI
           </SecondaryButton>
