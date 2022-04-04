@@ -120,7 +120,6 @@ function VotingWallet({
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
     const vTokensBalanceInfos = await venusLensContract.methods
       .vTokenBalancesAll(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'map' does not exist on type '{}'.
         userMarketInfo.map((asset: Asset) => asset.vtokenAddress),
         account,
       )
