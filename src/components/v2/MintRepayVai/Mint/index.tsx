@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import Typography from '@mui/material/Typography';
 import { Formik, Form } from 'formik';
 
 import { convertWeiToCoins } from 'utilities/common';
-import { Icon } from '../../Icon';
+import { LabeledInlineValue } from '../../LabeledInlineValue';
 import { TokenTextField } from '../../TokenTextField';
 import { SecondaryButton } from '../../Button';
 import { useStyles } from './styles';
@@ -82,34 +81,23 @@ export const MintUi: React.FC<IMintUiProps> = ({
             rightMaxButtonLabel="SAFE MAX"
           />
 
-          <div css={styles.getRow({ isLast: false })}>
-            <div css={styles.infoColumn}>
-              <Icon name={VAI_SYMBOL} css={styles.coinIcon} />
-              <Typography component="span" variant="small2">
-                Available VAI Limit
-              </Typography>
-            </div>
+          <LabeledInlineValue
+            css={styles.getRow({ isLast: false })}
+            iconName={VAI_SYMBOL}
+            label="Available VAI Limit"
+            value={`${readableLimitVai} VAI`}
+          />
 
-            <Typography component="span" css={styles.infoValue} variant="small1">
-              {readableLimitVai} VAI
-            </Typography>
-          </div>
-
-          <div css={styles.getRow({ isLast: true })}>
-            <div css={styles.infoColumn}>
-              <Icon name="fee" css={styles.coinIcon} />
-              <Typography component="span" variant="small2">
-                Mint fee
-              </Typography>
-            </div>
-
-            <Typography component="span" css={styles.infoValue} variant="small1">
-              {values.amount
+          <LabeledInlineValue
+            css={styles.getRow({ isLast: true })}
+            iconName="fee"
+            label="Mint fee"
+            value={`${
+              values.amount
                 ? getReadableFeeVai({ valueWei: values.amount, mintFeePercentage })
-                : '0'}{' '}
-              VAI ({mintFeePercentage}%)
-            </Typography>
-          </div>
+                : '0'
+            } VAI (${mintFeePercentage}%)`}
+          />
 
           <SecondaryButton
             css={styles.submitButton}

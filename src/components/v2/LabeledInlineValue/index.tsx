@@ -9,13 +9,19 @@ export interface ILabeledInlineValueProps {
   label: string;
   value: string | number;
   iconName?: IconName;
+  className?: string;
 }
 
-export const LabeledInlineValue = ({ label, value, iconName }: ILabeledInlineValueProps) => {
+export const LabeledInlineValue = ({
+  label,
+  value,
+  iconName,
+  className,
+}: ILabeledInlineValueProps) => {
   const styles = useStyles();
 
   return (
-    <div css={styles.container}>
+    <div css={styles.container} className={className}>
       <div css={styles.column}>
         {iconName && <Icon name={iconName} css={styles.icon} />}
 
