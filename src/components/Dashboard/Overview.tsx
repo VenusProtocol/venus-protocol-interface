@@ -203,14 +203,17 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   }, [currentAsset]);
 
   useEffect(() => {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'length' does not exist on type '{}'.
     if (userMarketInfo && userMarketInfo.length > 0) {
       const currentMarketInfo =
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type '{}'.
         userMarketInfo.filter((s: $TSFixMe) => s && s.id === currentAsset).length !== 0
-          ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'filter' does not exist on type '{}'.
-            userMarketInfo.filter((s: $TSFixMe) => s && s.id === currentAsset)[0]
-          : {};
+          ? userMarketInfo.filter((s: $TSFixMe) => s && s.id === currentAsset)[0]
+          : {
+              supplyApy: undefined,
+              borrowApy: undefined,
+              xvsSupplyApy: new BigNumber(0),
+              xvsBorrowApy: undefined,
+              decimals: 18,
+            };
       const supplyApy = getBigNumber(currentMarketInfo.supplyApy);
       const borrowApy = getBigNumber(currentMarketInfo.borrowApy);
       const supplyApyWithXVS = settings.withXVS
