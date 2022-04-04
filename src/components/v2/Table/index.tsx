@@ -11,22 +11,30 @@ import Head from './Head';
 import { useStyles } from './styles';
 
 interface ITableRowProps {
-  key: string;
+  key: string | number;
   render: () => React.ReactNode | string;
   value: string | number | boolean;
 }
 
-interface ITableProps {
+export interface ITableProps {
   title: string;
   data: ITableRowProps[][];
   columns: { key: string; label: string; orderable: boolean }[];
-  minWidth: string;
+  minWidth?: string;
+  initialOrder?: {
+    orderBy: string;
+    orderDirection: 'asc' | 'desc';
+  };
 }
 
-export function Table({ columns, data, title, minWidth }: ITableProps) {
+export function Table({ columns, data, title, minWidth, initialOrder }: ITableProps) {
   const styles = useStyles();
-  const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(undefined);
-  const [orderDirection, setOrderDirection] = useState<'asc' | 'desc' | undefined>('asc');
+  const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(
+    initialOrder?.orderBy,
+  );
+  const [orderDirection, setOrderDirection] = useState<'asc' | 'desc' | undefined>(
+    initialOrder?.orderDirection,
+  );
   const onRequestOrder = (property: typeof columns[number]['key']) => {
     let newOrder: 'asc' | 'desc' = 'asc';
     if (property === orderBy) {
@@ -44,10 +52,10 @@ export function Table({ columns, data, title, minWidth }: ITableProps) {
     const rowIndex = columns.findIndex(column => column.key === orderBy);
     const newRows = [...data];
     newRows.sort((a, b) => {
-      if (a[rowIndex].value < b[rowIndex].value) {
+      if (+a[rowIndex].value < +b[rowIndex].value) {
         return orderDirection === 'asc' ? -1 : 1;
       }
-      if (a[rowIndex].value > b[rowIndex].value) {
+      if (+a[rowIndex].value > +b[rowIndex].value) {
         return orderDirection === 'asc' ? 1 : -1;
       }
       return 0;
@@ -58,13 +66,18 @@ export function Table({ columns, data, title, minWidth }: ITableProps) {
   return (
     <TableContainer css={styles.tableContainer} component={Paper}>
       <h4 css={styles.title}>{title}</h4>
-      <TableMUI css={styles.table({ minWidth })} aria-label={title}>
+      <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
         <Head
           columns={columns}
           orderBy={orderBy}
           orderDirection={orderDirection}
           onRequestOrder={onRequestOrder}
         />
+
+        {/* TODO: add loading state */}
+
+        {/* TODO: add error state */}
+
         <TableBody>
           {rows.map(row => (
             <TableRow key={uid(row)}>
