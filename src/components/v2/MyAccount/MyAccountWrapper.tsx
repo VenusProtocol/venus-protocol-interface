@@ -17,7 +17,7 @@ interface IMyAccountWrapperProps {
 const format = commaNumber.bindWith(',', '.');
 
 const MyAccountWrapper = ({ settings, setSetting }: IMyAccountWrapperProps) => {
-  const { totalSupply, formatValue, netAPY, withXVS, setWithXVS, totalBorrow } = useWalletBalance({
+  const { totalSupply, netAPY, withXVS, setWithXVS, totalBorrow } = useWalletBalance({
     settings,
     setSetting,
   });
@@ -25,37 +25,15 @@ const MyAccountWrapper = ({ settings, setSetting }: IMyAccountWrapperProps) => {
   return (
     <MyAccount
       key={borrowPercent}
-      netApy={`${netAPY}%`}
-      dailyEarnings="0"
-      supplyBalance={
-        <AnimatedNumber
-          value={totalSupply.dp(2, 1).toString(10)}
-          formatValue={formatValue}
-          duration={2000}
-        />
-      }
-      borrowBalance={
-        <AnimatedNumber
-          value={totalBorrow.dp(2, 1).toString(10)}
-          formatValue={formatValue}
-          duration={2000}
-        />
-      }
-      borrowLimit={`${borrowPercent}%`}
-      borrowLimitSum={`$${format(available)}`}
-      safeLimit="0"
-      isSwitched={withXVS}
+      netApyPercentage={netAPY}
+      dailyEarningsCents={0}
+      supplyBalanceCents={+totalSupply}
+      borrowBalanceCents={+format(available)}
+      borrowLimitCents={+totalBorrow}
+      safeLimitPercentage={0}
+      borrowLimitUsedPercentage={borrowPercent}
       onSwitch={() => setWithXVS(!withXVS)}
-      sliderProps={{
-        onChange: console.log,
-        defaultValue: borrowPercent,
-        step: 1,
-        mark: 80,
-        ariaLabel: 'Borrow limit',
-        min: 0,
-        max: 100,
-        isDisabled: true,
-      }}
+      isSwitched={withXVS}
     />
   );
 };

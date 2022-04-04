@@ -87,11 +87,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
             <BalancerWrapper>
               <p className="label">Supply Balance</p>
               <p className="value">
-                <AnimatedNumber
-                  value={totalSupply.dp(2, 1).toString(10)}
-                  formatValue={formatValue}
-                  duration={2000}
-                />
+                <AnimatedNumber value={totalSupply} formatValue={formatValue} duration={2000} />
               </p>
             </BalancerWrapper>
           </Column>
@@ -117,11 +113,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
             <BalancerWrapper>
               <p className="label">Borrow Balance</p>
               <p className="value">
-                <AnimatedNumber
-                  value={totalBorrow.dp(2, 1).toString(10)}
-                  formatValue={formatValue}
-                  duration={2000}
-                />
+                <AnimatedNumber value={totalBorrow} formatValue={formatValue} duration={2000} />
               </p>
             </BalancerWrapper>
           </Column>

@@ -127,11 +127,11 @@ export const useWalletBalance = ({ settings, setSetting }: WalletBalanceProps) =
   const formatValue = (value: $TSFixMe) => `$${format(getBigNumber(value).dp(2, 1).toString(10))}`;
 
   return {
-    totalSupply,
+    totalSupply: totalSupply.dp(2, 1).toString(10),
     formatValue,
     netAPY,
     withXVS,
     setWithXVS,
-    totalBorrow,
+    totalBorrow: totalBorrow.dp(2, 1).toString(10),
   };
 };
