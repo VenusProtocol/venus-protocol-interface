@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 
 import { convertWeiToCoins } from 'utilities/common';
 import { LabeledInlineContent } from '../../LabeledInlineContent';
-import { TokenAmountForm } from '../../TokenAmountForm';
+import { AmountForm } from '../../AmountForm';
 import { TokenTextField } from '../../TokenTextField';
 import { SecondaryButton } from '../../Button';
 import { VAI_SYMBOL } from '../constants';
@@ -35,7 +35,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
   );
 
   return (
-    <TokenAmountForm onSubmit={onSubmit}>
+    <AmountForm onSubmit={onSubmit}>
       {({ values, setFieldValue, handleBlur, isSubmitting, isValid, touched }) => (
         <>
           <TokenTextField
@@ -79,7 +79,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
           </SecondaryButton>
         </>
       )}
-    </TokenAmountForm>
+    </AmountForm>
   );
 };
 

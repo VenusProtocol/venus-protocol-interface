@@ -10,14 +10,14 @@ export const initialValues: FormValues = {
   amount: '',
 };
 
-export interface ITokenAmountFormProps
+export interface IAmountFormProps
   extends Omit<FormikConfig<FormValues>, 'onSubmit' | 'initialValues'> {
   onSubmit: (value: BigNumber) => Promise<void> | void;
   children: (formProps: FormikProps<FormValues>) => React.ReactNode;
   initialValues?: FormikConfig<FormValues>['initialValues'];
 }
 
-export const TokenAmountForm: React.FC<ITokenAmountFormProps> = ({ children, onSubmit }) => {
+export const AmountForm: React.FC<IAmountFormProps> = ({ children, onSubmit }) => {
   const handleSubmit = (values: FormValues) => {
     if (values.amount) {
       onSubmit(values.amount);
