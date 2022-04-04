@@ -76,7 +76,6 @@ const Market = ({ setSetting }: MarketProps) => {
     const tempBorrowedData: Asset[] = [];
 
     const tempNonBorrowedData: Asset[] = [];
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'forEach' does not exist on type '{}'.
     userMarketInfo.forEach((element: Asset) => {
       if (element.supplyBalance.isZero()) {
         tempNonSuppliableData.push(element);
@@ -97,7 +96,6 @@ const Market = ({ setSetting }: MarketProps) => {
   };
 
   useEffect(() => {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'length' does not exist on type '{}'.
     if (userMarketInfo && userMarketInfo.length > 0) {
       updateMarketTable();
     }
