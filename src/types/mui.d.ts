@@ -44,7 +44,6 @@ declare module '@mui/material/styles' {
       width: number;
       ml: number;
     };
-    sidebarWidth: number;
   }
 
   interface Theme extends Muitheme {

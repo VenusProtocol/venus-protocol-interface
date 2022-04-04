@@ -31,17 +31,17 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
           return (
             <TableCell key={col.key} sortDirection={active ? orderDirection : false}>
               <TableSortLabel
-                css={styles.tableSortLabel}
+                css={styles.tableSortLabel({ orderable: col.orderable })}
                 active={active}
                 direction={active ? orderDirection : 'asc'}
-                onClick={() => onRequestOrder(col.key)}
+                onClick={col.orderable ? () => onRequestOrder(col.key) : undefined}
                 hideSortIcon={false}
                 // @ts-expect-error Override IconComponent with null so it doesn't render
                 IconComponent={null}
               >
                 <span>{col.label}</span>
-                {col.orderable ? (
-                  <div>
+                {col.orderable && (
+                  <div css={styles.tableSortLabelIconsContainer}>
                     <Icon
                       name="sort"
                       size="8px"
@@ -59,12 +59,12 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
                       className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionDesc"
                     />
                   </div>
-                ) : null}
-                {active && col.orderable ? (
+                )}
+                {active && col.orderable && (
                   <Box component="span" sx={visuallyHidden}>
                     {orderDirection === 'desc' ? 'sorted descending' : 'sorted ascending'}
                   </Box>
-                ) : null}
+                )}
               </TableSortLabel>
             </TableCell>
           );
