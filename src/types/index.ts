@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 
 export type TokenSymbol = keyof typeof CONTRACT_TOKEN_ADDRESS;
+
+type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E };
 
 export interface User {
   Token: string;
@@ -11,7 +12,7 @@ export interface User {
 export interface Asset {
   id: string;
   name: string;
-  tokenPrice: string;
+  tokenPrice: BigNumber;
   symbol: string;
   borrowBalance: BigNumber;
   decimals: number;
@@ -26,9 +27,16 @@ export interface Asset {
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
   supplyApy: BigNumber;
-  collateralFactor: number;
+  collateralFactor: BigNumber;
   collateral: boolean;
   supplyBalance: BigNumber;
+  hypotheticalLiquidity?: Result<[string, string, string]>;
+  key: number;
+  percentOfLimit: string;
+  tokenAddress: string;
+  treasuryBalance: BigNumber;
+  vimg: string | undefined;
+  vsymbol: string;
 }
 
 export interface Setting {
