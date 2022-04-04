@@ -2,42 +2,47 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
+import { AuthContext } from 'context/AuthContext';
 import { Icon } from '../Icon';
 import { SecondaryButton } from '../Button';
 import { useStyles } from './styles';
 
-export interface IConnectWalletUiProps {
-  message: IConnectWalletProps['message'];
+export interface IPromptProps {
+  message: string;
+  openAuthModal: () => void;
+  className?: string;
 }
 
-// TODO: Move to dashboard component/container once created
-export const ConnectWalletUi: React.FC<IConnectWalletUiProps> = ({ message }) => {
+export const Prompt: React.FC<IPromptProps> = ({ message, openAuthModal, className }) => {
   const styles = useStyles();
 
   return (
-    <div css={styles.container}>
-      <div css={styles.messageContainer}>
+    <div className={className}>
+      <div css={styles.prompt}>
         <Icon css={styles.icon} name="wallet" />
 
         <Typography variant="small2" component="span" css={styles.message}>
           {message}
         </Typography>
       </div>
+
+      <SecondaryButton fullWidth onClick={openAuthModal}>
+        Connect wallet
+      </SecondaryButton>
     </div>
   );
 };
 
 export interface IConnectWalletProps {
-  message: string;
+  promptMessage: IPromptProps['message'];
 }
 
-export const ConnectWallet: React.FC<IConnectWalletProps> = ({ children, message }) => {
-  // TODO: fetch actual data
-  const isUserLoggedIn = false;
+export const ConnectWallet: React.FC<IConnectWalletProps> = ({ children, promptMessage }) => {
+  const { account, openAuthModal } = React.useContext(AuthContext);
 
-  // Render prompt message if user aren't connected with any wallet
-  if (!isUserLoggedIn) {
-    return <ConnectWalletUi message={message} />;
+  // Render prompt if user aren't connected with any wallet
+  if (!account) {
+    return <Prompt message={promptMessage} openAuthModal={openAuthModal} />;
   }
 
   return <>{children}</>;

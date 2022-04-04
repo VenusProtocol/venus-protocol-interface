@@ -1,13 +1,18 @@
 import React from 'react';
+import noop from 'noop-ts';
 
 import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { ConnectWallet } from '.';
+import { withWeb3Provider, withThemeProvider, withCenterStory } from 'stories/decorators';
+import { Prompt as PromptUi } from '.';
 
 export default {
   title: 'Components/ConnectWallet',
-  component: ConnectWallet,
-  decorators: [withThemeProvider, withCenterStory({ width: 450 })],
-} as ComponentMeta<typeof ConnectWallet>;
+  component: PromptUi,
+  decorators: [withWeb3Provider, withThemeProvider, withCenterStory({ width: 450 })],
+} as ComponentMeta<typeof PromptUi>;
 
-export const Default = () => <ConnectWallet message="Please connect your wallet to mint VAI" />;
+export const Prompt = () => (
+  <PromptUi message="Please connect your wallet to mint VAI" openAuthModal={noop}>
+    Protected content
+  </PromptUi>
+);

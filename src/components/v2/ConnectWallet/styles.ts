@@ -5,14 +5,14 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    container: css``,
-    messageContainer: css`
+    prompt: css`
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: ${theme.spacing(4, 2)};
       border-radius: ${theme.shape.borderRadius.medium}px;
       background-color: ${theme.palette.background.default};
+      padding: ${theme.spacing(4, 2)};
+      margin-bottom: ${theme.spacing(5)};
     `,
     icon: css`
       color: ${theme.palette.interactive.success};
