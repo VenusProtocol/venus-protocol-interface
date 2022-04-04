@@ -1,23 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { Formik, Form } from 'formik';
 
 import { convertWeiToCoins } from 'utilities/common';
 import { LabeledInlineContent } from '../../LabeledInlineContent';
+import { TokenAmountForm } from '../../TokenAmountForm';
 import { TokenTextField } from '../../TokenTextField';
 import { SecondaryButton } from '../../Button';
 import { useStyles } from './styles';
 
 const VAI_SYMBOL = 'vai';
-
-type FormValues = {
-  amount: '' | BigNumber;
-};
-
-const initialValues: FormValues = {
-  amount: '',
-};
 
 const getReadableFeeVai = ({
   valueWei,
@@ -58,17 +50,10 @@ export const MintUi: React.FC<IMintUiProps> = ({
     [limitWei],
   );
 
-  const handleSubmit = (values: FormValues) => {
-    if (values.amount) {
-      onSubmit(values.amount);
-    }
-  };
-
   return (
-    // TODO: add validation schema
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <TokenAmountForm onSubmit={onSubmit}>
       {({ values, setFieldValue, handleBlur, isSubmitting, isValid }) => (
-        <Form>
+        <>
           <TokenTextField
             name="amount"
             css={styles.textField}
@@ -108,9 +93,9 @@ export const MintUi: React.FC<IMintUiProps> = ({
           >
             Mint VAI
           </SecondaryButton>
-        </Form>
+        </>
       )}
-    </Formik>
+    </TokenAmountForm>
   );
 };
 
