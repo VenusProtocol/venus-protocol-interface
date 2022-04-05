@@ -3,7 +3,6 @@ import React from 'react';
 import {
   formatCoinsToReadableValue,
   formatDollarsToReadableValue,
-  getBigNumber,
   formatApy,
 } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
@@ -42,9 +41,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
     {
       key: 'apy',
       render: () => {
-        const apy = withXvs
-          ? getBigNumber(asset.xvsBorrowApy).plus(asset.borrowApy)
-          : asset.borrowApy;
+        const apy = withXvs ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
         return formatApy(apy);
       },
       value: asset.borrowApy.toString(),

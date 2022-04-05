@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { formatCoinsToReadableValue, getBigNumber, formatApy } from 'utilities/common';
+import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
 import { Token, Toggle } from 'components';
@@ -39,9 +39,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
     {
       key: 'apy',
       render: () => {
-        const apy = withXvs
-          ? getBigNumber(asset.xvsBorrowApy).plus(asset.borrowApy)
-          : asset.borrowApy;
+        const apy = withXvs ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
         return formatApy(apy);
       },
       value: asset.borrowApy.toString(),
