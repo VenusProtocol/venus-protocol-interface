@@ -39,7 +39,6 @@ export const useStyles = () => {
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
       backgroundColor: theme.palette.background.default,
-      // backgroundColor: defaultTheme.palette.background.default,
       boxShadow: 'inset 0px 3px 20px rgba(0, 0, 0, 0.15)',
       opacity: 1,
     },

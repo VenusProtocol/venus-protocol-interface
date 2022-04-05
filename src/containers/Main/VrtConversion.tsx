@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import MainLayout from 'containers/Layout/MainLayout';
 import { useWeb3Account } from 'clients/web3';
 import { Row, Col } from 'antd';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
@@ -102,7 +101,7 @@ export default () => {
   }, [fastRefresh, account]);
 
   return (
-    <MainLayout title="Convert VRT">
+    <>
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -169,6 +168,6 @@ export default () => {
           </Row>
         </VrtConversionWrapper>
       )}
-    </MainLayout>
+    </>
   );
 };
