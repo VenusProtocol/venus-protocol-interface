@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
-import MainLayout from 'containers/Layout/MainLayout';
 import CoinInfo from 'components/Vote/CoinInfo';
 import VotingWallet from 'components/Vote/VotingWallet';
 import VotingPower from 'components/Vote/VotingPower';
@@ -221,65 +220,63 @@ function Vote({ getProposals }: VoteProps) {
   }, [fastRefresh, account]);
 
   return (
-    <MainLayout title="Vote">
-      <VoteWrapper className="flex">
-        <Row>
-          <Column xs="12" sm="12" md="12">
-            <VotingPower
-              stakedAmount={stakedAmount}
-              // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
-              balance={balance !== '0' ? `${balance}` : '0.00000000'}
-              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ history: any; stakedAmount: string; balanc... Remove this comment to see the full error message
-              delegateAddress={delegateAddress}
-              delegateStatus={delegateStatus}
-              power={
-                votingWeight !== '0'
-                  ? `${new BigNumber(votingWeight).dp(8, 1).toString(10)}`
-                  : '0.00000000'
-              }
-            />
-          </Column>
-          <Column xs="12" sm="12" md="5">
-            <Row>
-              <Column xs="12">
-                <CoinInfo
-                  // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
-                  balance={balance !== '0' ? `${balance}` : '0.00000000'}
-                  address={account || ''}
-                />
-              </Column>
-              <Column xs="12">
-                <VotingWallet
-                  // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
-                  balance={balance !== '0' ? `${balance}` : '0.00000000'}
-                  earnedBalance={earnedBalance}
-                  vaiMint={vaiMint}
-                  delegateAddress={delegateAddress}
-                  delegateStatus={delegateStatus}
-                />
-              </Column>
-            </Row>
-          </Column>
-          <Column xs="12" sm="12" md="7">
-            <Row>
-              <Column xs="12">
-                <Proposals
-                  address={account || ''}
-                  isLoadingProposal={isLoadingProposal}
-                  pageNumber={current}
-                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type '{}'.
-                  proposals={proposals.result}
-                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{}'.
-                  total={proposals.total || 0}
-                  votingWeight={votingWeight}
-                  onChangePage={handleChangePage}
-                />
-              </Column>
-            </Row>
-          </Column>
-        </Row>
-      </VoteWrapper>
-    </MainLayout>
+    <VoteWrapper className="flex">
+      <Row>
+        <Column xs="12" sm="12" md="12">
+          <VotingPower
+            stakedAmount={stakedAmount}
+            // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
+            balance={balance !== '0' ? `${balance}` : '0.00000000'}
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ history: any; stakedAmount: string; balanc... Remove this comment to see the full error message
+            delegateAddress={delegateAddress}
+            delegateStatus={delegateStatus}
+            power={
+              votingWeight !== '0'
+                ? `${new BigNumber(votingWeight).dp(8, 1).toString(10)}`
+                : '0.00000000'
+            }
+          />
+        </Column>
+        <Column xs="12" sm="12" md="5">
+          <Row>
+            <Column xs="12">
+              <CoinInfo
+                // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
+                balance={balance !== '0' ? `${balance}` : '0.00000000'}
+                address={account || ''}
+              />
+            </Column>
+            <Column xs="12">
+              <VotingWallet
+                // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
+                balance={balance !== '0' ? `${balance}` : '0.00000000'}
+                earnedBalance={earnedBalance}
+                vaiMint={vaiMint}
+                delegateAddress={delegateAddress}
+                delegateStatus={delegateStatus}
+              />
+            </Column>
+          </Row>
+        </Column>
+        <Column xs="12" sm="12" md="7">
+          <Row>
+            <Column xs="12">
+              <Proposals
+                address={account || ''}
+                isLoadingProposal={isLoadingProposal}
+                pageNumber={current}
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type '{}'.
+                proposals={proposals.result}
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{}'.
+                total={proposals.total || 0}
+                votingWeight={votingWeight}
+                onChangePage={handleChangePage}
+              />
+            </Column>
+          </Row>
+        </Column>
+      </Row>
+    </VoteWrapper>
   );
 }
 
