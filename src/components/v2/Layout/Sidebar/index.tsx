@@ -12,18 +12,19 @@ import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoMobile.svg';
 import { useWeb3Account } from 'clients/web3';
 import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
-import { TextButton } from '../../Button';
 import { Toolbar } from '../Toolbar';
 import { Icon } from '../../Icon';
 import { useStyles } from './styles';
 import { menuItems } from '../constants';
 import ConnectButton from '../Header/ConnectButton';
 
-export const Sidebar = () => {
-  const [expanded, setExpanded] = useState(true);
+interface ISidebarProps {
+  account: undefined | null | string;
+}
+
+export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
-  const { account } = useWeb3Account();
 
   const openMenu = (event: React.MouseEvent) => {
     setAnchorEl(event.currentTarget);
@@ -31,39 +32,37 @@ export const Sidebar = () => {
   const closeMenu = () => {
     setAnchorEl(null);
   };
-  const styles = useStyles({ expanded });
+  const styles = useStyles();
   return (
     <>
-      <Drawer variant="permanent" anchor="left" css={styles.drawer}>
-        <Toolbar css={styles.toolbar}>
-          <TextButton onClick={() => setExpanded(!expanded)}>
+      <Drawer variant="permanent" css={styles.drawer}>
+        <div css={styles.drawerContent}>
+          <Toolbar css={styles.toolbar}>
             <LogoDesktop css={styles.logo} />
             <LogoNoText css={styles.logoClosed} />
-          </TextButton>
-        </Toolbar>
+          </Toolbar>
 
-        <List css={styles.list}>
-          {menuItems.map(({ href, icon, text }) => (
-            <ListItemButton key={text} component="li" css={styles.listItem} disableRipple>
-              <NavLink to={href} activeClassName="active-menu-item">
-                <ListItemIcon css={styles.listItemIcon}>
-                  <Icon name={icon} />
-                </ListItemIcon>
-                {expanded ? (
+          <List css={styles.list}>
+            {menuItems.map(({ href, icon, text }) => (
+              <ListItemButton key={text} component="li" css={styles.listItem} disableRipple>
+                <NavLink to={href} activeClassName="active-menu-item">
+                  <ListItemIcon css={styles.listItemIcon}>
+                    <Icon name={icon} />
+                  </ListItemIcon>
                   <Typography variant="body2" css={styles.listItemText}>
                     {text}
                   </Typography>
-                ) : null}
-                <div className="left-border" />
-              </NavLink>
-            </ListItemButton>
-          ))}
-        </List>
+                  <div className="left-border" />
+                </NavLink>
+              </ListItemButton>
+            ))}
+          </List>
+        </div>
       </Drawer>
       <div css={styles.mobileMenuBox}>
         <div css={styles.flexRow}>
           <LogoMobile css={styles.mobileLogo} />
-          <button type="button" onClick={openMenu}>
+          <button type="button" onClick={openMenu} css={styles.actionButton}>
             <Icon name="burger" css={styles.burger} />
           </button>
         </div>
@@ -81,7 +80,7 @@ export const Sidebar = () => {
         >
           <div css={[styles.flexRow, styles.doublePadding]}>
             <LogoMobile css={styles.mobileLogo} />
-            <button type="button" onClick={closeMenu}>
+            <button type="button" onClick={closeMenu} css={styles.actionButton}>
               <Icon name="close" css={styles.burger} />
             </button>
           </div>
@@ -92,7 +91,7 @@ export const Sidebar = () => {
                 <VaiCoinInfo />
               </>
             ) : (
-              <ConnectButton />
+              <ConnectButton fullWidth />
             )}
           </div>
           <List css={styles.list}>
@@ -126,3 +125,10 @@ export const Sidebar = () => {
     </>
   );
 };
+
+const Sidebar = () => {
+  const { account } = useWeb3Account();
+  return <SidebarUi account={account} />;
+};
+
+export default Sidebar;

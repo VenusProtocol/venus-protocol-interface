@@ -6,15 +6,29 @@ export const useStyles = () => {
   return {
     main: css`
       flex-grow: 1;
-      padding: 3px 3px 6px 3px;
-      min-height: 100vh;
+      margin: ${theme.spacing(4)} ${theme.spacing(5)} ${theme.shape.footerHeight};
+
+      ${theme.breakpoints.down('lg')} {
+        margin-left: ${theme.spacing(3)};
+        margin-right: ${theme.spacing(3)};
+      }
+
+      ${theme.breakpoints.down('md')} {
+        margin: ${theme.spacing(2)} ${theme.spacing(2)} ${theme.shape.footerHeight};
+      }
     `,
     footer: css`
       position: fixed;
       bottom: 0;
-      left: 0;
-      width: ${theme.shape.layoutOffset.width};
-      margin-left: ${theme.shape.layoutOffset.ml};
+      right: 0;
+      width: calc(100% - ${theme.shape.drawerWidthDesktop});
+      ${theme.breakpoints.down('lg')} {
+        width: calc(100% - ${theme.shape.drawerWidthTablet});
+      }
+
+      ${theme.breakpoints.down('md')} {
+        width: 100%;
+      }
     `,
   };
 };

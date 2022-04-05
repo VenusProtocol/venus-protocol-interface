@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import MainLayout from 'containers/Layout/MainLayout';
 import { connectAccount } from 'core';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { useWeb3, useWeb3Account } from 'clients/web3';
@@ -132,7 +131,7 @@ function Vault() {
   }, [fastRefresh, account]);
 
   return (
-    <MainLayout title="Vault">
+    <>
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -155,7 +154,7 @@ function Vault() {
           ))}
         </VaultWrapper>
       )}
-    </MainLayout>
+    </>
   );
 }
 

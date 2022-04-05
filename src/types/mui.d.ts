@@ -17,6 +17,7 @@ declare module '@mui/material/styles' {
       success: React.CSSProperties['color'];
       error: React.CSSProperties['color'];
       error50: React.CSSProperties['color'];
+      tan: React.CSSProperties['color'];
     };
   }
 
@@ -34,16 +35,17 @@ declare module '@mui/material/styles' {
   interface Shape {
     borderRadius: {
       small: number;
+      medium: number;
       large: number;
     };
     iconSize: {
       medium: number;
       large: number;
     };
-    layoutOffset: {
-      width: number;
-      ml: number;
-    };
+    footerHeight: string;
+    bannerHeight: string;
+    drawerWidthDesktop: string;
+    drawerWidthTablet: string;
   }
 
   interface Theme extends Muitheme {

@@ -6,7 +6,7 @@ export const useStyles = () => {
 
   return {
     container: css`
-      height: 56px;
+      height: ${theme.shape.footerHeight};
       padding: 0 ${theme.spacing(3)};
       background-color: var(--color-bg-main);
       display: flex;
