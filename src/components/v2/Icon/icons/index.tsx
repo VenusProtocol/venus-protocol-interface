@@ -27,6 +27,7 @@ export { ReactComponent as burger } from './burger.svg';
 export { ReactComponent as arrowRight } from './arrowRight.svg';
 export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
 export { ReactComponent as wallet } from './wallet.svg';
+export { ReactComponent as check } from './check.svg';
 
 // Coin icons
 export { ReactComponent as aave } from './coins/aave.svg';

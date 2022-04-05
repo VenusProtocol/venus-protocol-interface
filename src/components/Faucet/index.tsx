@@ -8,7 +8,7 @@ import * as constants from 'utilities/constants';
 import { Row, Column } from 'components/Basic/Style';
 import { IRequestFaucetFundsInput } from 'clients/api';
 import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
-import { BASE_BSC_SCAN_URL } from '../../config';
+import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { getVaiTokenAddress } from '../../utilities/addressHelpers';
 import * as Styles from './styles';
 
@@ -222,7 +222,7 @@ const Faucet: React.FC<IFaucetProps> = ({
           <p className="title">How does this work?</p>
           <p className="description">
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.sxp.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.sxp.address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -230,7 +230,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_XVS_TOKEN_ADDRESS)}
               target="_blank"
               rel="noreferrer"
             >
@@ -238,7 +238,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.busd.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.busd.address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -246,7 +246,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdc.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.usdc.address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -254,7 +254,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdt.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.usdt.address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -262,7 +262,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${getVaiTokenAddress()}`}
+              href={generateBscScanAddressUrl(getVaiTokenAddress())}
               target="_blank"
               rel="noreferrer"
             >
@@ -270,7 +270,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.btcb.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.btcb.address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -278,7 +278,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.eth.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.eth.address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -286,7 +286,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.ltc.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.ltc.address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -294,7 +294,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.xrp.address}`}
+              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.xrp.address)}
               target="_blank"
               rel="noreferrer"
             >
