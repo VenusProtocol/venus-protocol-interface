@@ -8,7 +8,6 @@ export { ReactComponent as shield } from './shield.svg';
 export { ReactComponent as sort } from './sort.svg';
 export { ReactComponent as vault } from './vault.svg';
 export { ReactComponent as vote } from './vote.svg';
-export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
 export { ReactComponent as countdown } from './countdown.svg';
 export { ReactComponent as loading } from './loading.svg';
 export { ReactComponent as arrowDown } from './arrowDown.svg';
@@ -25,6 +24,8 @@ export { ReactComponent as copy } from './copy.svg';
 export { ReactComponent as attention } from './attention.svg';
 export { ReactComponent as burger } from './burger.svg';
 export { ReactComponent as arrowRight } from './arrowRight.svg';
+export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
+export { ReactComponent as wallet } from './wallet.svg';
 
 // Coin icons
 export { ReactComponent as aave } from './coins/aave.svg';
