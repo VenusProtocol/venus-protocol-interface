@@ -7,4 +7,4 @@ export default {
   component: Footer,
 } as ComponentMeta<typeof Footer>;
 
-export const FooterDefault = () => <Footer currentBlockNumber={123456789} />;
+export const FooterDefault = () => <Footer currentBlockNumber={14378407} />;
