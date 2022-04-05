@@ -3,8 +3,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Formik, Form, FormikProps, FormikConfig } from 'formik';
 
-import { FormValues } from './types';
-import validateForm from './validateForm';
+import validationSchema, { FormValues } from './validationSchema';
 
 export const initialValues: FormValues = {
   amount: '',
@@ -28,7 +27,7 @@ export const AmountForm: React.FC<IAmountFormProps> = ({ children, onSubmit }) =
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validate={validateForm}
+      validationSchema={validationSchema}
       validateOnMount
     >
       {formikProps => <Form>{children(formikProps)}</Form>}
