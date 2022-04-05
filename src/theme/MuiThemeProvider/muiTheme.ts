@@ -1,5 +1,5 @@
 /* https://mui.com/customization/theming/ */
-import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 const fontFamily = ['ProximaNova', 'Arial', 'sans-serif'].join(',');
 

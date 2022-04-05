@@ -28,12 +28,7 @@ export const useStyles = () => {
     toolbar: css`
       display: flex;
       justify-content: center;
-      padding-top: ${theme.spacing(5)};
-      padding-bottom: ${theme.spacing(6)};
-      ${theme.breakpoints.up('sm')} {
-        padding-left: ${theme.spacing(4)};
-        padding-right: ${theme.spacing(4)};
-      }
+      padding: ${theme.spacing(5, 4, 6)};
       min-height: 0;
       ${theme.breakpoints.down('md')} {
         min-height: initial;
@@ -62,39 +57,40 @@ export const useStyles = () => {
     listItem: css`
       transition: color 0.3s;
       color: ${theme.palette.text.secondary};
-
       padding: 0;
+
+      ${theme.breakpoints.down('lg')} {
+        :hover {
+          background-color: transparent;
+        }
+
+        :hover > a {
+          background-color: ${theme.palette.secondary.light};
+        }
+      }
+
       a {
         padding: ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(4)};
         display: inline-flex;
         justify-content: start;
+        width: 100%;
+
         ${theme.breakpoints.down('lg')} {
+          width: auto;
+          margin: auto;
+          border-radius: ${theme.shape.borderRadius.medium}px;
           padding: ${theme.spacing(2)};
           justify-content: center;
         }
-        width: 100%;
-      }
-      ${theme.breakpoints.down('lg')} {
-        :hover {
-          border-radius: ${theme.shape.borderRadius.medium}px;
-          margin-left: ${theme.spacing(1.5)};
-          margin-right: ${theme.spacing(1.5)};
+
+        ${theme.breakpoints.down('md')} {
+          border-radius: 0;
         }
       }
 
       .active-menu-item {
-        padding-left: ${theme.spacing(4)};
         background-color: ${theme.palette.secondary.light};
-        ${theme.breakpoints.down('lg')} {
-          padding-left: ${theme.spacing(2)};
-          border-radius: ${theme.shape.borderRadius.large}px;
-          margin-left: ${theme.spacing(1.5)};
-          margin-right: ${theme.spacing(1.5)};
-        }
-        :hover {
-          margin-left: 0;
-          margin-right: 0;
-        }
+
         .left-border {
           border: 2px solid ${theme.palette.interactive.primary};
           border-radius: 0 ${theme.shape.borderRadius.small}px ${theme.shape.borderRadius.small}px 0;
@@ -130,7 +126,7 @@ export const useStyles = () => {
       ${theme.breakpoints.down('lg')} {
         display: none;
       }
-      ${theme.breakpoints.down('sm')} {
+      ${theme.breakpoints.down('md')} {
         display: block;
       }
     `,
@@ -161,10 +157,6 @@ export const useStyles = () => {
       }
     `,
     mobileLogo: css`
-      display: none;
-      ${theme.breakpoints.down('sm')} {
-        display: block;
-      }
       height: 40px;
       width: 40px;
     `,

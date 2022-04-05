@@ -21,10 +21,15 @@ export const Header = ({ location }: HeaderProps) => {
   return (
     <AppBar position="relative" css={styles.appBar}>
       <Toolbar css={styles.toolbar}>
-        <Typography variant="h2" noWrap component="div">
-          {title}
-        </Typography>
-        <Box flexDirection="row" display="flex" flex={1} justifyContent="right">
+        <h3>{title}</h3>
+
+        <Box
+          flexDirection="row"
+          display="flex"
+          flex={1}
+          justifyContent="right"
+          css={styles.rightItemContainer}
+        >
           <XvsCoinInfo css={styles.rightItemPaper} className="coinInfo" />
           <VaiCoinInfo css={styles.rightItemPaper} className="coinInfo" />
           <ConnectButton css={styles.rightItemPaper} title="Connect wallet" />
