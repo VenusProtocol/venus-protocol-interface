@@ -82,7 +82,9 @@ export function Table({ columns, data, title, minWidth, initialOrder }: ITablePr
           {rows.map(row => (
             <TableRow key={uid(row)}>
               {row.map(({ key, render }: ITableRowProps) => (
-                <TableCell key={uid(key)}>{render()}</TableCell>
+                <TableCell key={uid(key)}>
+                  <div>{render()}</div>
+                </TableCell>
               ))}
             </TableRow>
           ))}
