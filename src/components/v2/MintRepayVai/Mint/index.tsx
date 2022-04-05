@@ -1,38 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { Formik, Form } from 'formik';
 
 import { convertWeiToCoins } from 'utilities/common';
 import { LabeledInlineContent } from '../../LabeledInlineContent';
+import { AmountForm } from '../../AmountForm';
 import { TokenTextField } from '../../TokenTextField';
 import { SecondaryButton } from '../../Button';
+import { VAI_SYMBOL } from '../constants';
+import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from './styles';
-
-const VAI_SYMBOL = 'vai';
-
-type FormValues = {
-  amount: '' | BigNumber;
-};
-
-const initialValues: FormValues = {
-  amount: '',
-};
-
-const getReadableFeeVai = ({
-  valueWei,
-  mintFeePercentage,
-}: {
-  valueWei: BigNumber;
-  mintFeePercentage: number;
-}) => {
-  const feeWei = new BigNumber(valueWei || 0).multipliedBy(mintFeePercentage).dividedBy(100);
-  return convertWeiToCoins({
-    value: feeWei,
-    tokenSymbol: VAI_SYMBOL,
-    returnInReadableFormat: true,
-  });
-};
 
 export interface IMintUiProps {
   disabled: boolean;
@@ -42,7 +19,6 @@ export interface IMintUiProps {
   mintFeePercentage: number;
 }
 
-// TODO: Move to dashboard component/container once created
 export const MintUi: React.FC<IMintUiProps> = ({
   disabled,
   limitWei,
@@ -58,17 +34,10 @@ export const MintUi: React.FC<IMintUiProps> = ({
     [limitWei],
   );
 
-  const handleSubmit = (values: FormValues) => {
-    if (values.amount) {
-      onSubmit(values.amount);
-    }
-  };
-
   return (
-    // TODO: add validation schema
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ values, setFieldValue, handleBlur, isSubmitting, isValid }) => (
-        <Form>
+    <AmountForm onSubmit={onSubmit}>
+      {({ values, setFieldValue, handleBlur, isSubmitting, isValid, touched }) => (
+        <>
           <TokenTextField
             name="amount"
             css={styles.textField}
@@ -104,13 +73,13 @@ export const MintUi: React.FC<IMintUiProps> = ({
             css={styles.submitButton}
             type="submit"
             loading={isSubmitting || isMintVaiLoading}
-            disabled={disabled || !isValid}
+            disabled={disabled || !isValid || !touched.amount}
           >
             Mint VAI
           </SecondaryButton>
-        </Form>
+        </>
       )}
-    </Formik>
+    </AmountForm>
   );
 };
 
