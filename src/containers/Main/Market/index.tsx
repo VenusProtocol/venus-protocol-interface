@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import MainLayout from 'containers/Layout/MainLayout';
 import * as constants from 'utilities/constants';
 import {
   currencyFormatter,
@@ -220,225 +219,221 @@ function Market({ history, settings }: MarketProps) {
   };
 
   return (
-    <MainLayout title="All Markets">
-      <MarketWrapper>
-        <TableWrapper>
-          <div className="total-info">
-            <div className="total-item">
-              <div className="prop">Total Supply</div>
-              <div className="value" title={formatCommaThousandsPeriodDecimal(totalSupply)}>
-                ${formatCommaThousandsPeriodDecimal(totalSupply)}
-              </div>
-            </div>
-            <div className="total-item">
-              <div className="prop">Total Borrow</div>
-              <div className="value" title={formatCommaThousandsPeriodDecimal(totalBorrow)}>
-                ${formatCommaThousandsPeriodDecimal(totalBorrow)}
-              </div>
-            </div>
-            <div className="total-item">
-              <div className="prop">Available Liquidity</div>
-              <div className="value" title={formatCommaThousandsPeriodDecimal(availableLiquidity)}>
-                ${formatCommaThousandsPeriodDecimal(availableLiquidity)}
-              </div>
-            </div>
-            <div className="total-item">
-              <div className="prop">Total Treasury</div>
-              <div
-                className="value"
-                title={formatCommaThousandsPeriodDecimal(treasuryTotalUSDBalance.dp(2).toString())}
-              >
-                ${formatCommaThousandsPeriodDecimal(treasuryTotalUSDBalance.dp(2).toString())}
-              </div>
+    <MarketWrapper>
+      <TableWrapper>
+        <div className="total-info">
+          <div className="total-item">
+            <div className="prop">Total Supply</div>
+            <div className="value" title={formatCommaThousandsPeriodDecimal(totalSupply)}>
+              ${formatCommaThousandsPeriodDecimal(totalSupply)}
             </div>
           </div>
-          {settings.vaiAPY && (
-            <div className="vai-apy">
-              VAI Staking APY:
-              {settings.vaiAPY}%
+          <div className="total-item">
+            <div className="prop">Total Borrow</div>
+            <div className="value" title={formatCommaThousandsPeriodDecimal(totalBorrow)}>
+              ${formatCommaThousandsPeriodDecimal(totalBorrow)}
             </div>
-          )}
-          <Row className="table_header">
-            <Col xs={{ span: 24 }} lg={{ span: 2 }} className="market" />
-            <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-supply right">
-              <span onClick={() => handleSort('total_supply')}>
-                Total Supply{' '}
-                {sortInfo.field === 'total_supply' && (
-                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                )}
-              </span>
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 3 }} className="supply-apy right">
-              <span onClick={() => handleSort('supply_apy')}>
-                Supply APY{' '}
-                {sortInfo.field === 'supply_apy' && (
-                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                )}
-              </span>
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-borrow right">
-              <span onClick={() => handleSort('total_borrow')}>
-                Total Borrow{' '}
-                {sortInfo.field === 'total_borrow' && (
-                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                )}
-              </span>
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 3 }} className="borrow-apy right">
-              <span onClick={() => handleSort('borrow_apy')}>
-                Borrow APY{' '}
-                {sortInfo.field === 'borrow_apy' && (
-                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                )}
-              </span>
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 4 }} className="liquidity right">
-              <span onClick={() => handleSort('liquidity')}>
-                Liquidity{' '}
-                {sortInfo.field === 'liquidity' && (
-                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                )}
-              </span>
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 4 }} className="price right">
-              <span onClick={() => handleSort('price')}>
-                Price{' '}
-                {sortInfo.field === 'price' && (
-                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                )}
-              </span>
-            </Col>
-          </Row>
-          <div className="table_content">
-            {markets &&
-              (markets || [])
-                .map(market => ({
-                  ...market,
-                  totalSupplyApy: new BigNumber(market.supplyApy).plus(
-                    new BigNumber(market.supplyVenusApy),
-                  ),
-                  totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
-                    new BigNumber(market.borrowApy),
-                  ),
-                }))
-                .sort((a, b) => {
-                  if (!sortInfo.field) {
-                    return +new BigNumber(b.totalBorrowsUsd)
-                      .minus(new BigNumber(a.totalBorrowsUsd))
-                      .toString(10);
-                  }
-                  if (sortInfo.field === 'total_supply') {
-                    return sortInfo.sort === 'desc'
-                      ? +new BigNumber(b.totalSupplyUsd)
-                          .minus(new BigNumber(a.totalSupplyUsd))
-                          .toString(10)
-                      : +new BigNumber(a.totalSupplyUsd)
-                          .minus(new BigNumber(b.totalSupplyUsd))
-                          .toString(10);
-                  }
-                  if (sortInfo.field === 'supply_apy') {
-                    return sortInfo.sort === 'desc'
-                      ? b.totalSupplyApy.minus(a.totalSupplyApy).toNumber()
-                      : a.totalSupplyApy.minus(b.totalSupplyApy).toNumber();
-                  }
-                  if (sortInfo.field === 'total_borrow') {
-                    return sortInfo.sort === 'desc'
-                      ? +new BigNumber(b.totalBorrowsUsd)
-                          .minus(new BigNumber(a.totalBorrowsUsd))
-                          .toString(10)
-                      : +new BigNumber(a.totalBorrowsUsd)
-                          .minus(new BigNumber(b.totalBorrowsUsd))
-                          .toString(10);
-                  }
-                  if (sortInfo.field === 'borrow_apy') {
-                    return sortInfo.sort === 'desc'
-                      ? b.totalBorrowApy.minus(a.totalBorrowApy).toNumber()
-                      : a.totalBorrowApy.minus(b.totalBorrowApy).toNumber();
-                  }
-                  if (sortInfo.field === 'liquidity') {
-                    return sortInfo.sort === 'desc'
-                      ? +new BigNumber(b.liquidity).minus(new BigNumber(a.liquidity)).toString(10)
-                      : +new BigNumber(a.liquidity).minus(new BigNumber(b.liquidity)).toString(10);
-                  }
-                  if (sortInfo.field === 'price') {
-                    return sortInfo.sort === 'desc'
-                      ? +new BigNumber(b.tokenPrice).minus(new BigNumber(a.tokenPrice)).toString(10)
-                      : +new BigNumber(a.tokenPrice)
-                          .minus(new BigNumber(b.tokenPrice))
-                          .toString(10);
-                  }
-                  return 0;
-                })
-                .map(item => (
-                  <Row
-                    className="table_item pointer"
-                    key={uid(item)}
-                    onClick={() => history.push(`/market/${item.underlyingSymbol}`)}
-                  >
-                    <Col xs={{ span: 24 }} lg={{ span: 2 }} className="flex align-center market">
-                      <img
-                        className="asset-img"
-                        src={
-                          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                          constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
-                            ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                              constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
-                                .asset
-                            : null
-                        }
-                        alt="asset"
-                      />
-                      <p className="item-title">{item.underlyingSymbol}</p>
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 4 }} className="total-supply right">
-                      <p className="mobile-label">Total Supply</p>
-                      <p className="item-title">{currencyFormatter(item.totalSupplyUsd)}</p>
-                      <p className="item-value">
-                        {format(
-                          new BigNumber(item.totalSupplyUsd).div(new BigNumber(item.tokenPrice)),
-                          0,
-                        )}{' '}
-                        {item.underlyingSymbol}
-                      </p>
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 3 }} className="supply-apy right">
-                      <p className="mobile-label">Supply APY</p>
-                      <p className="item-title green">{formatApy(item.totalSupplyApy)}</p>
-                      <p className="item-value">{formatApy(item.supplyVenusApy)}</p>
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 4 }} className="total-borrow right">
-                      <p className="mobile-label">Total Borrow</p>
-                      <p className="item-title">{currencyFormatter(item.totalBorrowsUsd)}</p>
-                      <p className="item-value">
-                        {format(
-                          new BigNumber(item.totalBorrowsUsd).div(new BigNumber(item.tokenPrice)),
-                          0,
-                        )}{' '}
-                        {item.underlyingSymbol}
-                      </p>
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 3 }} className="borrow-apy right">
-                      <p className="mobile-label">Borrow APY</p>
-                      <p className={`item-title${item.totalBorrowApy.lt(0) ? ' red' : ' green'}`}>
-                        {formatApy(item.totalBorrowApy)}
-                      </p>
-                      <p className="item-value">{formatApy(item.borrowVenusApy)}</p>
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 4 }} className="liquidity right">
-                      <p className="mobile-label">Liquidity</p>
-                      <p className="item-title">{currencyFormatter(item.liquidity)}</p>
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 4 }} className="price right">
-                      <p className="mobile-label">Price</p>
-                      <p className="item-title">{currencyFormatter(item.tokenPrice)}</p>
-                      <p className="item-value" />
-                    </Col>
-                  </Row>
-                ))}
           </div>
-        </TableWrapper>
-      </MarketWrapper>
-    </MainLayout>
+          <div className="total-item">
+            <div className="prop">Available Liquidity</div>
+            <div className="value" title={formatCommaThousandsPeriodDecimal(availableLiquidity)}>
+              ${formatCommaThousandsPeriodDecimal(availableLiquidity)}
+            </div>
+          </div>
+          <div className="total-item">
+            <div className="prop">Total Treasury</div>
+            <div
+              className="value"
+              title={formatCommaThousandsPeriodDecimal(treasuryTotalUSDBalance.dp(2).toString())}
+            >
+              ${formatCommaThousandsPeriodDecimal(treasuryTotalUSDBalance.dp(2).toString())}
+            </div>
+          </div>
+        </div>
+        {settings.vaiAPY && (
+          <div className="vai-apy">
+            VAI Staking APY:
+            {settings.vaiAPY}%
+          </div>
+        )}
+        <Row className="table_header">
+          <Col xs={{ span: 24 }} lg={{ span: 2 }} className="market" />
+          <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-supply right">
+            <span onClick={() => handleSort('total_supply')}>
+              Total Supply{' '}
+              {sortInfo.field === 'total_supply' && (
+                <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+              )}
+            </span>
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 3 }} className="supply-apy right">
+            <span onClick={() => handleSort('supply_apy')}>
+              Supply APY{' '}
+              {sortInfo.field === 'supply_apy' && (
+                <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+              )}
+            </span>
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-borrow right">
+            <span onClick={() => handleSort('total_borrow')}>
+              Total Borrow{' '}
+              {sortInfo.field === 'total_borrow' && (
+                <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+              )}
+            </span>
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 3 }} className="borrow-apy right">
+            <span onClick={() => handleSort('borrow_apy')}>
+              Borrow APY{' '}
+              {sortInfo.field === 'borrow_apy' && (
+                <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+              )}
+            </span>
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 4 }} className="liquidity right">
+            <span onClick={() => handleSort('liquidity')}>
+              Liquidity{' '}
+              {sortInfo.field === 'liquidity' && (
+                <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+              )}
+            </span>
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 4 }} className="price right">
+            <span onClick={() => handleSort('price')}>
+              Price{' '}
+              {sortInfo.field === 'price' && (
+                <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+              )}
+            </span>
+          </Col>
+        </Row>
+        <div className="table_content">
+          {markets &&
+            (markets || [])
+              .map(market => ({
+                ...market,
+                totalSupplyApy: new BigNumber(market.supplyApy).plus(
+                  new BigNumber(market.supplyVenusApy),
+                ),
+                totalBorrowApy: new BigNumber(market.borrowVenusApy).plus(
+                  new BigNumber(market.borrowApy),
+                ),
+              }))
+              .sort((a, b) => {
+                if (!sortInfo.field) {
+                  return +new BigNumber(b.totalBorrowsUsd)
+                    .minus(new BigNumber(a.totalBorrowsUsd))
+                    .toString(10);
+                }
+                if (sortInfo.field === 'total_supply') {
+                  return sortInfo.sort === 'desc'
+                    ? +new BigNumber(b.totalSupplyUsd)
+                        .minus(new BigNumber(a.totalSupplyUsd))
+                        .toString(10)
+                    : +new BigNumber(a.totalSupplyUsd)
+                        .minus(new BigNumber(b.totalSupplyUsd))
+                        .toString(10);
+                }
+                if (sortInfo.field === 'supply_apy') {
+                  return sortInfo.sort === 'desc'
+                    ? b.totalSupplyApy.minus(a.totalSupplyApy).toNumber()
+                    : a.totalSupplyApy.minus(b.totalSupplyApy).toNumber();
+                }
+                if (sortInfo.field === 'total_borrow') {
+                  return sortInfo.sort === 'desc'
+                    ? +new BigNumber(b.totalBorrowsUsd)
+                        .minus(new BigNumber(a.totalBorrowsUsd))
+                        .toString(10)
+                    : +new BigNumber(a.totalBorrowsUsd)
+                        .minus(new BigNumber(b.totalBorrowsUsd))
+                        .toString(10);
+                }
+                if (sortInfo.field === 'borrow_apy') {
+                  return sortInfo.sort === 'desc'
+                    ? b.totalBorrowApy.minus(a.totalBorrowApy).toNumber()
+                    : a.totalBorrowApy.minus(b.totalBorrowApy).toNumber();
+                }
+                if (sortInfo.field === 'liquidity') {
+                  return sortInfo.sort === 'desc'
+                    ? +new BigNumber(b.liquidity).minus(new BigNumber(a.liquidity)).toString(10)
+                    : +new BigNumber(a.liquidity).minus(new BigNumber(b.liquidity)).toString(10);
+                }
+                if (sortInfo.field === 'price') {
+                  return sortInfo.sort === 'desc'
+                    ? +new BigNumber(b.tokenPrice).minus(new BigNumber(a.tokenPrice)).toString(10)
+                    : +new BigNumber(a.tokenPrice).minus(new BigNumber(b.tokenPrice)).toString(10);
+                }
+                return 0;
+              })
+              .map(item => (
+                <Row
+                  className="table_item pointer"
+                  key={uid(item)}
+                  onClick={() => history.push(`/market/${item.underlyingSymbol}`)}
+                >
+                  <Col xs={{ span: 24 }} lg={{ span: 2 }} className="flex align-center market">
+                    <img
+                      className="asset-img"
+                      src={
+                        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                        constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
+                          ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                            constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
+                              .asset
+                          : null
+                      }
+                      alt="asset"
+                    />
+                    <p className="item-title">{item.underlyingSymbol}</p>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="total-supply right">
+                    <p className="mobile-label">Total Supply</p>
+                    <p className="item-title">{currencyFormatter(item.totalSupplyUsd)}</p>
+                    <p className="item-value">
+                      {format(
+                        new BigNumber(item.totalSupplyUsd).div(new BigNumber(item.tokenPrice)),
+                        0,
+                      )}{' '}
+                      {item.underlyingSymbol}
+                    </p>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 3 }} className="supply-apy right">
+                    <p className="mobile-label">Supply APY</p>
+                    <p className="item-title green">{formatApy(item.totalSupplyApy)}</p>
+                    <p className="item-value">{formatApy(item.supplyVenusApy)}</p>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="total-borrow right">
+                    <p className="mobile-label">Total Borrow</p>
+                    <p className="item-title">{currencyFormatter(item.totalBorrowsUsd)}</p>
+                    <p className="item-value">
+                      {format(
+                        new BigNumber(item.totalBorrowsUsd).div(new BigNumber(item.tokenPrice)),
+                        0,
+                      )}{' '}
+                      {item.underlyingSymbol}
+                    </p>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 3 }} className="borrow-apy right">
+                    <p className="mobile-label">Borrow APY</p>
+                    <p className={`item-title${item.totalBorrowApy.lt(0) ? ' red' : ' green'}`}>
+                      {formatApy(item.totalBorrowApy)}
+                    </p>
+                    <p className="item-value">{formatApy(item.borrowVenusApy)}</p>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="liquidity right">
+                    <p className="mobile-label">Liquidity</p>
+                    <p className="item-title">{currencyFormatter(item.liquidity)}</p>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="price right">
+                    <p className="mobile-label">Price</p>
+                    <p className="item-title">{currencyFormatter(item.tokenPrice)}</p>
+                    <p className="item-value" />
+                  </Col>
+                </Row>
+              ))}
+        </div>
+      </TableWrapper>
+    </MarketWrapper>
   );
 }
 

@@ -8,7 +8,6 @@ import ProposerInfo from 'components/Vote/ProposerDetail/ProposerInfo';
 import Holding from 'components/Vote/ProposerDetail/Holding';
 import Transactions from 'components/Vote/ProposerDetail/Transactions';
 import VotingHistory from 'components/Vote/ProposerDetail/VotingHistory';
-import MainLayout from 'containers/Layout/MainLayout';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import { State } from 'core/modules/initialState';
@@ -132,38 +131,36 @@ function ProposerDetail({ match, getVoterDetail, getVoterHistory }: Props) {
   }, [match]);
 
   return (
-    <MainLayout title="Details">
-      <ProposerDetailWrapper className="flex flex-column">
-        <Row>
-          <Column xs="12" sm="5">
-            <ProposerInfo address={match.params ? match.params.address : ''} />
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="12" sm="5">
-            <Holding address={match.params ? match.params.address : ''} holdingInfo={holdingInfo} />
-          </Column>
-          <Column xs="12" sm="7">
-            <Transactions
-              address={match.params ? match.params.address : ''}
-              transactions={transactions}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column xs="12" sm="12">
-            <VotingHistory
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type '{}'.
-              data={data.result}
-              pageNumber={current}
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{}'.
-              total={data.total || 0}
-              onChangePage={handleChangePage}
-            />
-          </Column>
-        </Row>
-      </ProposerDetailWrapper>
-    </MainLayout>
+    <ProposerDetailWrapper className="flex flex-column">
+      <Row>
+        <Column xs="12" sm="5">
+          <ProposerInfo address={match.params ? match.params.address : ''} />
+        </Column>
+      </Row>
+      <Row>
+        <Column xs="12" sm="5">
+          <Holding address={match.params ? match.params.address : ''} holdingInfo={holdingInfo} />
+        </Column>
+        <Column xs="12" sm="7">
+          <Transactions
+            address={match.params ? match.params.address : ''}
+            transactions={transactions}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column xs="12" sm="12">
+          <VotingHistory
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type '{}'.
+            data={data.result}
+            pageNumber={current}
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{}'.
+            total={data.total || 0}
+            onChangePage={handleChangePage}
+          />
+        </Column>
+      </Row>
+    </ProposerDetailWrapper>
   );
 }
 

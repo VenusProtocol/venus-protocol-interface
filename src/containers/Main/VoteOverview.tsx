@@ -8,7 +8,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Tooltip } from 'antd';
 import { PrimaryButton } from 'components';
 import { connectAccount } from 'core';
-import MainLayout from 'containers/Layout/MainLayout';
 import ProposalInfo from 'components/Vote/VoteOverview/ProposalInfo';
 import ProposalUser from 'components/Vote/VoteOverview/ProposalUser';
 import VoteCard from 'components/Vote/VoteOverview/VoteCard';
@@ -261,117 +260,113 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     .plus(new BigNumber(abstainVotes.sumVotes || 0));
 
   return (
-    <MainLayout title="Overview">
-      <VoteOverviewWrapper className="flex">
-        <Row>
-          <Column xs="12" sm="9">
-            <Row>
-              <Column xs="12" sm="6">
-                <ProposalInfo proposalInfo={proposalInfo} />
-              </Column>
-              <Column xs="12" sm="6">
-                <ProposalUser proposalInfo={proposalInfo} />
-              </Column>
-            </Row>
-            <Row>
-              {[
-                { label: 'For', votes: agreeVotes, filterType: 1 },
-                { label: 'Against', votes: againstVotes, filterType: 0 },
-                { label: 'Abstain', votes: abstainVotes, filterType: 2 },
-              ].map(data => {
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{ sumVote... Remove this comment to see the full error message
-                const { sumVotes, result, total } = data.votes;
-                return (
-                  <Column key={uid(data)} xs="12" md="12" lg="4">
-                    <VoteCard
-                      type={data.filterType}
-                      label={data.label}
-                      voteNumber={new BigNumber(sumVotes)}
-                      totalNumber={totalVotes}
-                      addressNumber={total}
-                      emptyNumber={VOTE_DISPLAY_ROWS - total}
-                      list={result.map(v => ({
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
-                        label: v.address,
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'votes' does not exist on type 'never'.
-                        value: v.votes,
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'reason' does not exist on type 'never'.
-                        reason: v.reason,
-                      }))}
-                      onViewAll={() => loadVotes({ filter: data.filterType })}
-                    />
-                  </Column>
-                );
-              })}
-            </Row>
-            <div className="vote-status-update">
-              {proposalInfo.state !== 'Executed' &&
-                proposalInfo.state !== 'Defeated' &&
-                proposalInfo.state !== 'Canceled' && (
-                  <div className="flex align-center just-center update-proposal-status">
+    <VoteOverviewWrapper className="flex">
+      <Row>
+        <Column xs="12" sm="9">
+          <Row>
+            <Column xs="12" sm="6">
+              <ProposalInfo proposalInfo={proposalInfo} />
+            </Column>
+            <Column xs="12" sm="6">
+              <ProposalUser proposalInfo={proposalInfo} />
+            </Column>
+          </Row>
+          <Row>
+            {[
+              { label: 'For', votes: agreeVotes, filterType: 1 },
+              { label: 'Against', votes: againstVotes, filterType: 0 },
+              { label: 'Abstain', votes: abstainVotes, filterType: 2 },
+            ].map(data => {
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{ sumVote... Remove this comment to see the full error message
+              const { sumVotes, result, total } = data.votes;
+              return (
+                <Column key={uid(data)} xs="12" md="12" lg="4">
+                  <VoteCard
+                    type={data.filterType}
+                    label={data.label}
+                    voteNumber={new BigNumber(sumVotes)}
+                    totalNumber={totalVotes}
+                    addressNumber={total}
+                    emptyNumber={VOTE_DISPLAY_ROWS - total}
+                    list={result.map(v => ({
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
+                      label: v.address,
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'votes' does not exist on type 'never'.
+                      value: v.votes,
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'reason' does not exist on type 'never'.
+                      reason: v.reason,
+                    }))}
+                    onViewAll={() => loadVotes({ filter: data.filterType })}
+                  />
+                </Column>
+              );
+            })}
+          </Row>
+          <div className="vote-status-update">
+            {proposalInfo.state !== 'Executed' &&
+              proposalInfo.state !== 'Defeated' &&
+              proposalInfo.state !== 'Canceled' && (
+                <div className="flex align-center just-center update-proposal-status">
+                  <PrimaryButton
+                    disabled={
+                      !account ||
+                      isCancelLoading ||
+                      proposerVotingWeight >= proposalThreshold ||
+                      cancelStatus === 'success'
+                    }
+                    onClick={() => handleUpdateProposal('Cancel')}
+                  >
+                    {isCancelLoading && <Icon type="loading" />}{' '}
+                    {cancelStatus === 'pending' || cancelStatus === 'failure'
+                      ? 'Cancel'
+                      : 'Cancelled'}
+                  </PrimaryButton>
+                  {proposalInfo.state === 'Succeeded' && (
                     <PrimaryButton
-                      disabled={
-                        !account ||
-                        isCancelLoading ||
-                        proposerVotingWeight >= proposalThreshold ||
-                        cancelStatus === 'success'
-                      }
-                      onClick={() => handleUpdateProposal('Cancel')}
+                      disabled={!account || isLoading || status === 'success'}
+                      onClick={() => handleUpdateProposal('Queue')}
+                      loading={isLoading}
                     >
-                      {isCancelLoading && <Icon type="loading" />}{' '}
-                      {cancelStatus === 'pending' || cancelStatus === 'failure'
-                        ? 'Cancel'
-                        : 'Cancelled'}
+                      {status === 'pending' || status === 'failure' ? 'Queue' : 'Queued'}
                     </PrimaryButton>
-                    {proposalInfo.state === 'Succeeded' && (
-                      <PrimaryButton
-                        disabled={!account || isLoading || status === 'success'}
-                        onClick={() => handleUpdateProposal('Queue')}
-                        loading={isLoading}
-                      >
-                        {status === 'pending' || status === 'failure' ? 'Queue' : 'Queued'}
-                      </PrimaryButton>
-                    )}
-                    {proposalInfo.state === 'Queued' && (
-                      <PrimaryButton
-                        disabled={
-                          !account || isLoading || status === 'success' || !isPossibleExcuted
-                        }
-                        onClick={() => handleUpdateProposal('Execute')}
-                        loading={isLoading}
-                      >
-                        {status === 'pending' || status === 'failure' ? 'Execute' : 'Executed'}
-                      </PrimaryButton>
-                    )}
-                    {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
-                      <Tooltip title={`You are able to excute at ${excuteEta}`}>
-                        <Icon className="pointer" type="info-circle" theme="filled" />
-                      </Tooltip>
-                    )}
-                  </div>
-                )}
-              {proposalInfo.state !== 'Executed' &&
-                proposalInfo.state !== 'Defeated' &&
-                proposalInfo.state !== 'Canceled' &&
-                proposerVotingWeight >= proposalThreshold && (
-                  <p className="center warning">
-                    You can&apos;t cancel the proposal while the proposer voting weight meets
-                    proposal threshold
-                  </p>
-                )}
-            </div>
-            <Row>
-              <Column xs="12">
-                <ProposalDetail proposalInfo={proposalInfo} />
-              </Column>
-            </Row>
-          </Column>
-          <Column xs="12" sm="3">
-            <ProposalHistory proposalInfo={proposalInfo} />
-          </Column>
-        </Row>
-      </VoteOverviewWrapper>
-    </MainLayout>
+                  )}
+                  {proposalInfo.state === 'Queued' && (
+                    <PrimaryButton
+                      disabled={!account || isLoading || status === 'success' || !isPossibleExcuted}
+                      onClick={() => handleUpdateProposal('Execute')}
+                      loading={isLoading}
+                    >
+                      {status === 'pending' || status === 'failure' ? 'Execute' : 'Executed'}
+                    </PrimaryButton>
+                  )}
+                  {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
+                    <Tooltip title={`You are able to excute at ${excuteEta}`}>
+                      <Icon className="pointer" type="info-circle" theme="filled" />
+                    </Tooltip>
+                  )}
+                </div>
+              )}
+            {proposalInfo.state !== 'Executed' &&
+              proposalInfo.state !== 'Defeated' &&
+              proposalInfo.state !== 'Canceled' &&
+              proposerVotingWeight >= proposalThreshold && (
+                <p className="center warning">
+                  You can&apos;t cancel the proposal while the proposer voting weight meets proposal
+                  threshold
+                </p>
+              )}
+          </div>
+          <Row>
+            <Column xs="12">
+              <ProposalDetail proposalInfo={proposalInfo} />
+            </Column>
+          </Row>
+        </Column>
+        <Column xs="12" sm="3">
+          <ProposalHistory proposalInfo={proposalInfo} />
+        </Column>
+      </Row>
+    </VoteOverviewWrapper>
   );
 }
 
