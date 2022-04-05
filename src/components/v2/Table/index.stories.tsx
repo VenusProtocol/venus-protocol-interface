@@ -90,7 +90,7 @@ export default {
 } as ComponentMeta<typeof Table>;
 
 export const TableDefault = () => (
-  <Table columns={columns} data={rows} title="Market Data" minWidth="650px" />
+  <Table columns={columns} data={rows} title="Market Data" minWidth="650px" rowKeyIndex={0} />
 );
 
 export const WithInitialOrderDefault = () => (
@@ -103,5 +103,6 @@ export const WithInitialOrderDefault = () => (
       orderBy: 'APY',
       orderDirection: 'desc',
     }}
+    rowKeyIndex={0}
   />
 );
