@@ -41,9 +41,12 @@ export const useStyles = () => {
         }
       }
 
+      span.MuiTableSortLabel-icon {
+        display: none;
+      }
+
       .MuiSvgIcon-root {
         display: block;
-        margin-right: ${theme.spacing(1)};
         margin-left: ${theme.spacing(1)};
         transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
           transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
