@@ -20,5 +20,10 @@ export const useStyles = () => {
       width: ${theme.shape.iconSize.large}px;
       height: ${theme.shape.iconSize.large}px;
     `,
+    collateralCell: css`
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 24px;
+    `,
   };
 };
