@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import MaterialSlider from '@mui/material/Slider';
 import { useStyles } from './styles';
 
-interface ISliderProps {
+export interface ISliderProps {
   defaultValue: number;
   mark: number;
   step: number;
@@ -11,6 +11,7 @@ interface ISliderProps {
   min: number;
   max: number;
   onChange: (value: number | number[]) => void;
+  isDisabled?: boolean;
 }
 
 export const Slider = ({
@@ -21,6 +22,7 @@ export const Slider = ({
   min,
   max,
   onChange,
+  isDisabled,
 }: ISliderProps) => {
   const marks = mark ? [{ value: mark }] : undefined;
   const [over, setOver] = useState(defaultValue > mark);
@@ -43,6 +45,7 @@ export const Slider = ({
       min={min}
       max={max}
       size="medium"
+      disabled={isDisabled}
     />
   );
 };
