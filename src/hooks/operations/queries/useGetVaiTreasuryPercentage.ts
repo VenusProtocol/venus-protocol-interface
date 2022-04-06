@@ -6,12 +6,18 @@ import getVaiTreasuryPercentage, {
 import FunctionKey from 'constants/functionKey';
 import { useVaiUnitroller } from 'hooks/useContract';
 
-type Options = QueryObserverOptions<IGetVaiTreasuryPercentageOutput, Error>;
+type Options = QueryObserverOptions<
+  IGetVaiTreasuryPercentageOutput,
+  Error,
+  IGetVaiTreasuryPercentageOutput,
+  IGetVaiTreasuryPercentageOutput,
+  FunctionKey.GET_VAI_TREASURY_PERCENTAGE
+>;
 
-const useGetVaiTreasuryPercentage = (options: Options) => {
+const useGetVaiTreasuryPercentage = (options?: Options) => {
   const vaiControllerContract = useVaiUnitroller();
 
-  return useQuery<IGetVaiTreasuryPercentageOutput, Error>(
+  return useQuery(
     FunctionKey.GET_VAI_TREASURY_PERCENTAGE,
     () => getVaiTreasuryPercentage({ vaiControllerContract }),
     options,
