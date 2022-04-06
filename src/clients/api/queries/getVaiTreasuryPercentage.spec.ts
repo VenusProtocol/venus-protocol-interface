@@ -25,16 +25,21 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
   });
 
   test('returns the VAI treasury percentage in the correct format', async () => {
+    const callMock = jest.fn(async () => new BigNumber('1000000000000000'));
+    const treasuryPercentMock = jest.fn(() => ({
+      call: callMock,
+    }));
+
     const fakeContract = {
       methods: {
-        treasuryPercent: () => ({
-          call: async () => new BigNumber('1000000000000000'),
-        }),
+        treasuryPercent: treasuryPercentMock,
       },
     } as unknown as Contract;
 
     const response = await getVaiTreasuryPercentage({ vaiControllerContract: fakeContract });
 
+    expect(treasuryPercentMock).toHaveBeenCalledTimes(1);
+    expect(callMock).toHaveBeenCalledTimes(1);
     expect(response).toBe(0.1);
   });
 });
