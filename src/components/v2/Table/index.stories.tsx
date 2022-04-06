@@ -5,8 +5,8 @@ import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { formatApy } from 'utilities/common';
 import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { Toggle } from 'components';
 import { Table } from '.';
-import { Toggle } from '../Toggle';
 import { Icon } from '../Icon';
 
 const styles = {
