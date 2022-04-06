@@ -6,6 +6,7 @@ import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { formatApy } from 'utilities/common';
 import { CONTRACT_TOKEN_ADDRESS, getToken } from 'constants/contracts';
 import { Toggle } from 'components';
+import { CONTRACT_TOKEN_ADDRESS } from 'constants/contractTokenAddresses';
 import { Table } from '.';
 import { Icon } from '../Icon';
 
