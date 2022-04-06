@@ -15,4 +15,6 @@ export default {
   },
 } as ComponentMeta<typeof MintRepayVai>;
 
+// TODO: mock calls to contracts
+
 export const Default = () => <MintRepayVai />;
