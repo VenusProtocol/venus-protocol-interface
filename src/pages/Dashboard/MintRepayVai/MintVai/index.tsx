@@ -2,22 +2,25 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
+import { useVaiUser } from 'hooks/useVaiUser';
+import useGetVaiTreasuryPercentage from 'hooks/operations/queries/useGetVaiTreasuryPercentage';
 import { VAI_SYMBOL } from '../constants';
 import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from './styles';
 
-export interface IMintUiProps {
+export interface IMintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
   onSubmit: (value: BigNumber) => Promise<void>;
-  limitWei: BigNumber;
-  mintFeePercentage: number;
+  limitWei?: BigNumber;
+  mintFeePercentage?: number;
 }
 
-export const MintUi: React.FC<IMintUiProps> = ({
+export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   disabled,
   limitWei,
   mintFeePercentage,
@@ -27,9 +30,29 @@ export const MintUi: React.FC<IMintUiProps> = ({
   const styles = useStyles();
 
   // Convert limit into VAI
-  const readableLimitVai = React.useMemo(
-    () => convertWeiToCoins({ value: limitWei, tokenSymbol: VAI_SYMBOL }).toString(),
-    [limitWei],
+  // @TODO: check if we need to apply the 40% of user borrow balance limit like in the current app
+  const readableVaiLimit = React.useMemo(
+    () =>
+      !limitWei
+        ? '-'
+        : convertWeiToCoins({
+            value: limitWei,
+            tokenSymbol: VAI_SYMBOL,
+            returnInReadableFormat: true,
+          }).toString(),
+    [limitWei?.toString()],
+  );
+
+  const getReadableMintFee = React.useCallback(
+    (valueWei: BigNumber | '') => {
+      if (!mintFeePercentage) {
+        return '-';
+      }
+
+      const readableFeeVai = !valueWei ? '0' : getReadableFeeVai({ valueWei, mintFeePercentage });
+      return `${readableFeeVai} (${mintFeePercentage}%)`;
+    },
+    [mintFeePercentage],
   );
 
   return (
@@ -51,9 +74,9 @@ export const MintUi: React.FC<IMintUiProps> = ({
           <LabeledInlineContent
             css={styles.getRow({ isLast: false })}
             iconName={VAI_SYMBOL}
-            label="Available VAI Limit"
+            label="Available VAI limit"
           >
-            {`${readableLimitVai} VAI`}
+            {readableVaiLimit}
           </LabeledInlineContent>
 
           <LabeledInlineContent
@@ -61,10 +84,7 @@ export const MintUi: React.FC<IMintUiProps> = ({
             iconName="fee"
             label="Mint fee"
           >
-            {values.amount
-              ? getReadableFeeVai({ valueWei: values.amount, mintFeePercentage })
-              : '0'}
-            {` VAI (${mintFeePercentage}%)`}
+            {getReadableMintFee(values.amount)}
           </LabeledInlineContent>
 
           <SecondaryButton
@@ -81,25 +101,32 @@ export const MintUi: React.FC<IMintUiProps> = ({
   );
 };
 
-export const Mint: React.FC = () => {
-  // TODO: fetch actual data
-  const isUserLoggedIn = true;
-  const limitWei = new BigNumber('100.12').multipliedBy(new BigNumber(10).pow(18));
-  const mintFeePercentage = 2.14;
-  const isMintVaiLoading = false;
+const MintVai: React.FC = () => {
+  const { account } = React.useContext(AuthContext);
+  const { mintableVai } = useVaiUser();
+  const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
+    useGetVaiTreasuryPercentage();
 
-  const onSubmit: IMintUiProps['onSubmit'] = async value => {
+  // Convert limit into wei of VAI
+  const limitWei = React.useMemo(
+    () => convertCoinsToWei({ value: mintableVai, tokenSymbol: VAI_SYMBOL }),
+    [mintableVai.toString()],
+  );
+
+  const onSubmit: IMintVaiUiProps['onSubmit'] = async value => {
     // TODO: call contract
     console.log('Amount to mint:', value.toString());
   };
 
   return (
-    <MintUi
-      disabled={!isUserLoggedIn}
+    <MintVaiUi
+      disabled={!account || isGetVaiTreasuryPercentageLoading}
       limitWei={limitWei}
-      mintFeePercentage={mintFeePercentage}
-      isMintVaiLoading={isMintVaiLoading}
+      mintFeePercentage={vaiTreasuryPercentage}
+      isMintVaiLoading={false}
       onSubmit={onSubmit}
     />
   );
 };
+
+export default MintVai;

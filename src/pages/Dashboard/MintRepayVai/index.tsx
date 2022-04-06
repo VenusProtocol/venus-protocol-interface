@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useIsSmDown } from 'hooks/responsive';
 import { Tabs } from 'components';
-import { Mint } from './Mint';
+import MintVai from './MintVai';
 import { useStyles } from './styles';
 
 export interface IMintRepayVaiProps {
@@ -34,7 +34,7 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
       </div>
 
       {/* TODO: add Repay component */}
-      {activeTabIndex === 0 ? <Mint /> : undefined}
+      {activeTabIndex === 0 ? <MintVai /> : undefined}
     </div>
   );
 };
