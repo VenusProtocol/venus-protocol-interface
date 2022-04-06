@@ -6,7 +6,7 @@ import { SupplyMarketUi } from './SupplyMarket';
 import { assetData } from './mocks';
 
 export default {
-  title: 'Components/SupplyMarket',
+  title: 'Pages/Dashboard/SupplyMarket',
   component: SupplyMarketUi,
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
   subcomponents: { SupplyMarketUi },
