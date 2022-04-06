@@ -5,7 +5,7 @@ import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { MintRepayVai } from '.';
 
 export default {
-  title: 'Components/MintRepayVai',
+  title: 'Pages/Dashboard/MintRepayVai',
   component: MintRepayVai,
   decorators: [withThemeProvider, withCenterStory({ width: 600 })],
   parameters: {

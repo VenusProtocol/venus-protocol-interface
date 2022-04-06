@@ -3,10 +3,8 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { convertWeiToCoins } from 'utilities/common';
-import { LabeledInlineContent } from '../../LabeledInlineContent';
-import { AmountForm } from '../../AmountForm';
-import { TokenTextField } from '../../TokenTextField';
-import { SecondaryButton } from '../../Button';
+import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
+import { AmountForm } from '../AmountForm';
 import { VAI_SYMBOL } from '../constants';
 import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from './styles';
