@@ -2,8 +2,8 @@
 import React from 'react';
 
 import { useIsSmDown } from 'hooks/responsive';
+import { Tabs } from 'components';
 import { Mint } from './Mint';
-import { Tabs } from '../Tabs';
 import { useStyles } from './styles';
 
 export interface IMintRepayVaiProps {
