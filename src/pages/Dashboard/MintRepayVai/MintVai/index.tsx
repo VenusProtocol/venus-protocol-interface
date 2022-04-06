@@ -107,6 +107,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 const MintVai: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const { mintableVai } = useVaiUser();
+
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
