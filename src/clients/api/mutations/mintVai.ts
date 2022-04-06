@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { Contract } from 'web3-eth-contract';
 
 export interface IMintVaiInput {
-  vaiControllerContract: Contract; // @TODO: use contract type once defined (Typechain?)
+  vaiControllerContract: $TSFixMe; // @TODO: use contract type once defined (Typechain?)
   fromAccountAddress: string;
   amountWei: BigNumber;
 }

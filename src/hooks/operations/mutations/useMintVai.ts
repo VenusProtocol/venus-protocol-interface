@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import mintVai, { IMintVaiInput, IMintVaiOutput } from 'clients/api/mutations/mintVai';
+import { mintVai, IMintVaiInput, IMintVaiOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useVaiUnitroller } from 'hooks/useContract';
 

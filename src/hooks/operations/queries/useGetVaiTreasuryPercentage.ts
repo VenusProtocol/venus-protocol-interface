@@ -1,8 +1,6 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
-import getVaiTreasuryPercentage, {
-  IGetVaiTreasuryPercentageOutput,
-} from 'clients/api/queries/getVaiTreasuryPercentage';
+import { getVaiTreasuryPercentage, IGetVaiTreasuryPercentageOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useVaiUnitroller } from 'hooks/useContract';
 

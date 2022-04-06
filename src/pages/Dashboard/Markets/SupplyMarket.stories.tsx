@@ -8,7 +8,7 @@ import { assetData } from './mocks';
 export default {
   title: 'Pages/Dashboard/SupplyMarket',
   component: SupplyMarketUi,
-  decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  decorators: [withCenterStory({ width: 600 })],
   subcomponents: { SupplyMarketUi },
   parameters: {
     backgrounds: {

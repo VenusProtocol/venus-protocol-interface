@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { Contract } from 'web3-eth-contract';
 
 export interface IGetVaiTreasuryPercentageInput {
-  vaiControllerContract: Contract; // @TODO: use contract type (through Typechain?)
+  vaiControllerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
 }
 
 export type IGetVaiTreasuryPercentageOutput = number;

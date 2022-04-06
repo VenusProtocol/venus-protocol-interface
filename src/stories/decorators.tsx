@@ -40,7 +40,7 @@ export const withMarketContext: DecoratorFunction = Story => (
   </MarketContextProvider>
 );
 
-export const withVaiContext: DecoratorFunction = Story => (
+export const withVaiContextProvider: DecoratorFunction = Story => (
   <VaiContextProvider>
     <Story />
   </VaiContextProvider>
