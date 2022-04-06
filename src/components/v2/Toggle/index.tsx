@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import Switch from '@mui/material/Switch';
 import { useStyles } from './styles';
@@ -13,7 +14,7 @@ export const Toggle = ({ onChange, value }: IToggleProps) => {
   const styles = useStyles();
   return (
     <Switch
-      sx={styles}
+      css={styles}
       focusVisibleClassName=".Mui-focusVisible"
       disableRipple
       onChange={onChange}
