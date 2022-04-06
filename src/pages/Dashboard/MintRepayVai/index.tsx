@@ -10,7 +10,6 @@ export interface IMintRepayVaiProps {
   className?: string;
 }
 
-// TODO: Move to dashboard component/container once created
 export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
