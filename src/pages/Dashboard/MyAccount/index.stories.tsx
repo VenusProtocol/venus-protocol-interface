@@ -4,7 +4,7 @@ import { withThemeProvider, withCenterStory } from 'stories/decorators';
 import { MyAccount } from '.';
 
 export default {
-  title: 'Components/Dashboard/MyAccount',
+  title: 'Pages/Dashboard/MyAccount',
   component: MyAccount,
   decorators: [withThemeProvider, withCenterStory({ width: 650 })],
 } as ComponentMeta<typeof MyAccount>;

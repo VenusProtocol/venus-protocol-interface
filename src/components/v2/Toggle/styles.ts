@@ -1,44 +1,47 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
+const thumbSize = '22px';
+
 export const useStyles = () => {
   const theme = useTheme();
   return css`
-    width: 44px;
-    height: 22px;
+    width: calc(${thumbSize} * 2);
+    height: ${thumbSize};
     padding: 0;
     & .MuiSwitch-switchBase {
       padding: 0;
       margin: 0;
       transition-duration: 300ms;
-      color: ${theme.palette.text.disabled};
-    }
-    .MuiSwitch-switchBase.Mui-checked {
-      transform: translateX(22px);
-      .MuiSwitch-thumb {
-        background-color: ${theme.palette.interactive.primary};
+      color: ${theme.palette.background.default};
+      &.Mui-checked {
+        color: ${theme.palette.background.default};
+        transform: translateX(${thumbSize});
+        .MuiSwitch-thumb {
+          background-color: ${theme.palette.interactive.primary};
+        }
+        & + .MuiSwitch-track {
+          background-color: ${theme.palette.background.default};
+        }
       }
-    }
-    .MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
-      opacity: 0.5;
+      &.Mui-disabled + .MuiSwitch-track {
+        opacity: 0.5;
+      }
     }
     .MuiSwitch-thumb {
       background-color: ${theme.palette.secondary.light};
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+      box-shadow: none;
       box-sizing: border-box;
-      width: 22px;
-      height: 22px;
-      transition: ${theme.transitions.create(['background-image'], {
-        duration: 300999,
-      })};
+      width: ${thumbSize};
+      height: ${thumbSize};
     }
     .MuiSwitch-track {
-      border-radius: ${26 / 2}px;
+      border-radius: ${thumbSize};
       background-color: ${theme.palette.background.default};
+      opacity: 1;
     }
     .Mui-checked + .MuiSwitch-track {
       background-color: ${theme.palette.background.default};
-      box-shadow: inset 0 3px 20px rgba(0, 0, 0, 0.15);
       opacity: 1;
     }
   `;
