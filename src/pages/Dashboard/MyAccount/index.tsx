@@ -5,10 +5,9 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import { formatCentsToReadableValue } from 'utilities/common';
+import { IToggleProps, Toggle, Icon } from 'components';
 import { Slider } from '../../../components/v2/Slider';
 import { useMyAccountStyles as useStyles } from './styles';
-import { IToggleProps, Toggle } from '../../../components/v2/Toggle';
-import { Icon } from '../../../components/v2/Icon';
 import { Tooltip } from '../../../components/v2/Tooltip';
 
 interface IMyAccountProps {
