@@ -173,9 +173,9 @@ export const convertCoinsToWei = ({
 export const convertCentsToDollars = (value: number) =>
   +new BigNumber(value).dividedBy(100).toFixed(2);
 
-export const formatDollarsToReadableValue = (valueCents: number | BigNumber) =>
+export const formatCentsToReadableValue = (value: number | BigNumber) =>
   `$${formatCommaThousandsPeriodDecimal(
-    convertCentsToDollars(typeof valueCents === 'number' ? valueCents : valueCents.toNumber()),
+    convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
   )}`;
 
 export const formatApy = (apy?: BigNumber | string | number): string => {

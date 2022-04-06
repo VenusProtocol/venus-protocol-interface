@@ -2,7 +2,7 @@
 import React from 'react';
 import {
   formatCoinsToReadableValue,
-  formatDollarsToReadableValue,
+  formatCentsToReadableValue,
   formatApy,
 } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
@@ -57,7 +57,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
     },
     {
       key: 'liquidity',
-      render: () => formatDollarsToReadableValue(asset.liquidity),
+      render: () => formatCentsToReadableValue(asset.liquidity),
       value: asset.liquidity.toString(),
     },
   ]);
