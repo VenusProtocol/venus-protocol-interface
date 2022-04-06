@@ -1,4 +1,3 @@
-import { Contract } from 'web3-eth-contract';
 import BigNumber from 'bignumber.js';
 
 import getVaiTreasuryPercentage from './getVaiTreasuryPercentage';
@@ -13,7 +12,7 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
           },
         }),
       },
-    } as unknown as Contract;
+    } as any;
 
     try {
       await getVaiTreasuryPercentage({ vaiControllerContract: fakeContract });
@@ -34,7 +33,7 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
       methods: {
         treasuryPercent: treasuryPercentMock,
       },
-    } as unknown as Contract;
+    } as any;
 
     const response = await getVaiTreasuryPercentage({ vaiControllerContract: fakeContract });
 

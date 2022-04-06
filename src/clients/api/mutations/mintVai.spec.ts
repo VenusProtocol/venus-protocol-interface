@@ -1,4 +1,3 @@
-import { Contract } from 'web3-eth-contract';
 import BigNumber from 'bignumber.js';
 
 import mintVai from './mintVai';
@@ -13,7 +12,7 @@ describe('api/mutation/mintVai', () => {
           },
         }),
       },
-    } as unknown as Contract;
+    } as any;
 
     try {
       await mintVai({
@@ -41,7 +40,7 @@ describe('api/mutation/mintVai', () => {
       methods: {
         mintVAI: mintVaiMock,
       },
-    } as unknown as Contract;
+    } as unknown as any;
 
     const response = await mintVai({
       vaiControllerContract: fakeContract,
