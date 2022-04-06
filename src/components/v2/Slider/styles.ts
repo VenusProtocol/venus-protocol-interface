@@ -8,6 +8,9 @@ export const useStyles = ({ over }: { over: boolean }) => {
     background-color: ${theme.palette.background.default};
     height: 8px;
     padding: 0;
+    &.Mui-disabled {
+      color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
+    }
     .MuiSlider-track {
       height: 8px;
     }

@@ -11,7 +11,7 @@ export const Tooltip = ({ children, ...rest }: ITooltipProps) => {
     <>
       <Global styles={styles} />
       <MuiTooltip arrow placement="top" {...rest}>
-        {children}
+        <span>{children}</span>
       </MuiTooltip>
     </>
   );
