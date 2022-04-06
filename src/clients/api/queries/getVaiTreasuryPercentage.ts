@@ -9,7 +9,7 @@ export type IGetVaiTreasuryPercentageOutput = number;
 
 const getVaiTreasuryPercentage = async ({
   vaiControllerContract,
-}: IGetVaiTreasuryPercentageInput): Promise<IGetVaiTreasuryPercentageOutput> => {
+}: IGetVaiTreasuryPercentageInput) => {
   const treasuryPercentage = await vaiControllerContract.methods.treasuryPercent().call();
   const formattedTreasuryPercentage = new BigNumber(treasuryPercentage)
     .times(100)
