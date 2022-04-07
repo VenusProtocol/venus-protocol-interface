@@ -34,13 +34,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   // Convert limit into VAI
   const readableVaiLimit = React.useMemo(
     () =>
-      !limitWei
-        ? '-'
-        : convertWeiToCoins({
+      limitWei
+        ? convertWeiToCoins({
             value: limitWei,
             tokenSymbol: VAI_SYMBOL,
             returnInReadableFormat: true,
-          }).toString(),
+          }).toString()
+        : '-',
     [limitWei?.toString()],
   );
 
@@ -52,7 +52,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         return '-';
       }
 
-      const readableFeeVai = !valueWei ? '0' : getReadableFeeVai({ valueWei, mintFeePercentage });
+      const readableFeeVai = valueWei ? getReadableFeeVai({ valueWei, mintFeePercentage }) : '0';
       return `${readableFeeVai} (${mintFeePercentage}%)`;
     },
     [mintFeePercentage],
