@@ -57,8 +57,7 @@ const TREASURY_ADDRESSES = {
 
 export const TREASURY_ADDRESS = TREASURY_ADDRESSES[CHAIN_ID];
 
-export const ETHERSCAN_XVS_URL =
-  'https://bscscan.com/address/0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63';
+export const ETHERSCAN_XVS_CONTRACT_ADDRESS = '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63';
 export const VENUS_MEDIUM_URL = 'https://medium.com/@Venus_protocol';
 export const VENUS_DISCORD_URL = 'https://discord.com/invite/pTQ9EBHYtF';
 export const VENUS_TWITTER_URL = 'https://twitter.com/VenusProtocol';
