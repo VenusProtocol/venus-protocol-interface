@@ -95,33 +95,8 @@ export const useStyles = () => {
       transition: color 0.3s;
     `,
     bscScanLinkContainer: css`
-      display: inline-block;
-      color: ${theme.palette.button.main};
       margin-left: ${theme.spacing(8)};
       margin-bottom: ${theme.spacing(5)};
-
-      :hover > a,
-      :hover > svg {
-        color: ${theme.palette.button.medium};
-      }
-
-      :active > a,
-      :active > svg {
-        color: ${theme.palette.button.dark};
-      }
-
-      ${theme.breakpoints.down('md')} {
-        margin: 0 auto ${theme.spacing(4)};
-      }
-    `,
-    bscScanLinkText: css`
-      display: flex;
-      align-items: center;
-      color: inherit;
-    `,
-    bscScanLinkIcon: css`
-      color: inherit;
-      margin-left: ${theme.spacing(1)};
     `,
   };
 };

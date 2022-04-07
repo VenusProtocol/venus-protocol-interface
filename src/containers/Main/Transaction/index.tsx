@@ -10,7 +10,7 @@ import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import xvsImg from 'assets/img/coins/xvs.svg';
 import { uid } from 'react-uid';
-import { BASE_BSC_SCAN_URL } from 'config';
+import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 
 const TransactionWrapper = styled.div`
   width: 100%;
@@ -421,11 +421,7 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
                   <p
                     className="item-title"
                     onClick={() => {
-                      window.open(
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'.
-                        `${BASE_BSC_SCAN_URL}/address/${item.from}`,
-                        '_blank',
-                      );
+                      window.open(generateBscScanAddressUrl((item as any).from), '_blank');
                     }}
                   >
                     {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'. */}
@@ -438,11 +434,7 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
                   <p
                     className="mobile-label"
                     onClick={() => {
-                      window.open(
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
-                        `${BASE_BSC_SCAN_URL}/address/${item.to}`,
-                        '_blank',
-                      );
+                      window.open(generateBscScanAddressUrl((item as any).to), '_blank');
                     }}
                   >
                     To
@@ -450,11 +442,7 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
                   <p
                     className="item-title"
                     onClick={() => {
-                      window.open(
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
-                        `${BASE_BSC_SCAN_URL}/address/${item.to}`,
-                        '_blank',
-                      );
+                      window.open(generateBscScanAddressUrl((item as any).to), '_blank');
                     }}
                   >
                     {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'. */}
