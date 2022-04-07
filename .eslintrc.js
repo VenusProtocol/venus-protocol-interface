@@ -11,6 +11,7 @@ module.exports = {
   },
   rules: {
     // handled by prettier
+    '@typescript-eslint/space-before-blocks': 0,
     '@typescript-eslint/indent': 0,
     'arrow-parens': 0,
     'object-curly-newline': 0,
