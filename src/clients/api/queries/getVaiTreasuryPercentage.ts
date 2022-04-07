@@ -1,14 +1,14 @@
 import BigNumber from 'bignumber.js';
 
-export interface IGetVaiTreasuryPercentageInput {
+export type GetVaiTreasuryPercentageInput = {
   vaiControllerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
-}
+};
 
-export type IGetVaiTreasuryPercentageOutput = number;
+export type GetVaiTreasuryPercentageOutput = number;
 
 const getVaiTreasuryPercentage = async ({
   vaiControllerContract,
-}: IGetVaiTreasuryPercentageInput) => {
+}: GetVaiTreasuryPercentageInput) => {
   const treasuryPercentage = await vaiControllerContract.methods.treasuryPercent().call();
   const formattedTreasuryPercentage = new BigNumber(treasuryPercentage)
     .times(100)

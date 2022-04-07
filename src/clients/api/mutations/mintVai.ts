@@ -1,18 +1,18 @@
 import BigNumber from 'bignumber.js';
 
-export interface IMintVaiInput {
+export type MintVaiInput = {
   vaiControllerContract: $TSFixMe; // @TODO: use contract type once defined (Typechain?)
   fromAccountAddress: string;
   amountWei: BigNumber;
-}
+};
 
-export type IMintVaiOutput = void;
+export type MintVaiOutput = void;
 
 const mintVai = async ({
   vaiControllerContract,
   fromAccountAddress,
   amountWei,
-}: IMintVaiInput): Promise<IMintVaiOutput> =>
+}: MintVaiInput): Promise<MintVaiOutput> =>
   vaiControllerContract.methods.mintVAI(amountWei).send({ from: fromAccountAddress });
 
 export default mintVai;
