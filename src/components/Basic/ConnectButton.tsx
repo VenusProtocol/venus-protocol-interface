@@ -319,16 +319,18 @@ function ConnectButton() {
                   <img src={arrowRightImg} alt="arrow" />
                 </div>
 
-                <div
-                  className="flex align-center just-between metamask-connect-btn"
-                  onClick={() => onConnect(ConnectorNames.WalletConnect)}
-                >
-                  <div className="flex align-center">
-                    <img src={walletconnectImg} alt="coinbase wallet" />
-                    <span>WalletConnect</span>
+                {process.env.REACT_APP_CHAIN_ID === '56' && (
+                  <div
+                    className="flex align-center just-between metamask-connect-btn"
+                    onClick={() => onConnect(ConnectorNames.WalletConnect)}
+                  >
+                    <div className="flex align-center">
+                      <img src={walletconnectImg} alt="coinbase wallet" />
+                      <span>WalletConnect</span>
+                    </div>
+                    <img src={arrowRightImg} alt="arrow" />
                   </div>
-                  <img src={arrowRightImg} alt="arrow" />
-                </div>
+                )}
 
                 <div
                   className="flex align-center just-between metamask-connect-btn"
