@@ -7,12 +7,12 @@ export { default as useRequestFaucetFunds } from './mutations/useRequestFaucetFu
 
 export { default as mintVai } from './mutations/mintVai';
 export * from './mutations/mintVai';
-export { default as useMintVai } from './mutations/useMintVai';
 
 export { default as repayVai } from './mutations/repayVai';
 export * from './mutations/repayVai';
-export { default as useRepayVai } from './mutations/useRepayVai';
 
+export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
+export * from './queries/getVaiTreasuryPercentage';
 export { default as enterMarkets } from './mutations/enterMarkets';
 export * from './mutations/enterMarkets';
 export { default as useEnterMarkets } from './mutations/useEnterMarkets';

@@ -13,10 +13,8 @@ type Options = MutationObserverOptions<
 const useRepayVai = (options?: Options) => {
   const vaiControllerContract = useVaiUnitroller();
 
-  // @TODO: invalidate queries related to fetching the user VAI balance and
-  // minted VAI amount on success
   return useMutation(
-    FunctionKey.REPAY_VAI,
+    [FunctionKey.REPAY_VAI, options?.variables],
     (params: Omit<IRepayVaiInput, 'vaiControllerContract'>) =>
       repayVai({
         vaiControllerContract,
