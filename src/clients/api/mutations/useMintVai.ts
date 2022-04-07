@@ -13,7 +13,8 @@ type Options = MutationObserverOptions<
 const useMintVai = (options?: Options) => {
   const vaiControllerContract = useVaiUnitroller();
 
-  // @TODO: invalidate queries related to fetching the user minted VAI amount on success
+  // @TODO: invalidate queries related to fetching the user minted VAI amount
+
   return useMutation(
     FunctionKey.MINT_VAI,
     (params: Omit<IMintVaiInput, 'vaiControllerContract'>) =>
