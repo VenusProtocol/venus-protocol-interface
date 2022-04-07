@@ -32,13 +32,13 @@ describe('api/mutation/repayVai', () => {
     const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
     const sendMock = jest.fn(async () => undefined);
-    const repayVaiMock = jest.fn(() => ({
+    const repayVAIMock = jest.fn(() => ({
       send: sendMock,
     }));
 
     const fakeContract = {
       methods: {
-        repayVai: repayVaiMock,
+        repayVAI: repayVAIMock,
       },
     } as unknown as any;
 
@@ -49,8 +49,8 @@ describe('api/mutation/repayVai', () => {
     });
 
     expect(response).toBe(undefined);
-    expect(repayVaiMock).toHaveBeenCalledTimes(1);
-    expect(repayVaiMock).toHaveBeenCalledWith(fakeAmountWei);
+    expect(repayVAIMock).toHaveBeenCalledTimes(1);
+    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountWei);
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
   });

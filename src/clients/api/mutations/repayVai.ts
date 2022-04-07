@@ -13,6 +13,6 @@ const repayVai = async ({
   fromAccountAddress,
   amountWei,
 }: IRepayVaiInput): Promise<IRepayVaiOutput> =>
-  vaiControllerContract.methods.repayVai(amountWei).send({ from: fromAccountAddress });
+  vaiControllerContract.methods.repayVAI(amountWei).send({ from: fromAccountAddress });
 
 export default repayVai;
