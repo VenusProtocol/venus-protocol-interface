@@ -54,11 +54,7 @@ import vluna from 'assets/img/coins/vluna.png';
 
 import { TokenSymbol } from 'types';
 import { isOnTestnet } from 'config';
-<<<<<<< HEAD:src/constants/contracts.ts
 import contracts from 'utilities/contracts';
-=======
-import contracts from '../utilities/contracts';
->>>>>>> 2c94db7 (move contract token addresses constants to constants folder):src/constants/contractTokenAddresses.ts
 
 export const XVS_TOKEN = isOnTestnet ? contracts.TEST.TOKEN.xvs : contracts.MAIN.TOKEN.xvs;
 
