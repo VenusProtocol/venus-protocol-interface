@@ -2,7 +2,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { convertCoinsToWei } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
@@ -46,7 +46,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   return (
     <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-      {({ values, setFieldValue, handleBlur, isValid }) => (
+      {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
         <>
           <div css={styles.ctaContainer}>
             <TokenTextField
@@ -73,7 +73,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
           <SecondaryButton
             type="submit"
             loading={isRepayVaiLoading}
-            disabled={disabled || !isValid}
+            disabled={disabled || !isValid || !dirty}
             fullWidth
           >
             Repay VAI
@@ -92,6 +92,17 @@ const RepayVai: React.FC = () => {
   const { mutate: repayVai, isLoading: isRepayVaiLoading } = useRepayVai({
     onError: error => {
       toast.error({ title: error.message });
+    },
+    onSuccess: (_data, variables) => {
+      // @TODO: display success modal instead of toast once it's been
+      // implemented
+      toast.success({
+        title: `You successfully repaid ${convertWeiToCoins({
+          value: variables.amountWei,
+          tokenSymbol: VAI_SYMBOL,
+          returnInReadableFormat: true,
+        })}`,
+      });
     },
   });
 

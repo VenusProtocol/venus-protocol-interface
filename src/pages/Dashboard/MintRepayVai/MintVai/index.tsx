@@ -3,7 +3,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { useWeb3Account } from 'clients/web3';
-import { convertCoinsToWei } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
@@ -54,7 +54,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   return (
     <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-      {({ values, setFieldValue, handleBlur, isValid }) => (
+      {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
         <>
           <div css={styles.ctaContainer}>
             <TokenTextField
@@ -89,7 +89,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
           <SecondaryButton
             type="submit"
             loading={isMintVaiLoading}
-            disabled={disabled || !isValid}
+            disabled={disabled || !isValid || !dirty}
             fullWidth
           >
             Mint VAI
@@ -110,6 +110,17 @@ const MintVai: React.FC = () => {
   const { mutate: mintVai, isLoading: isMintVaiLoading } = useMintVai({
     onError: error => {
       toast.error({ title: error.message });
+    },
+    onSuccess: (_data, variables) => {
+      // @TODO: display success modal instead of toast once it's been
+      // implemented
+      toast.success({
+        title: `You successfully minted ${convertWeiToCoins({
+          value: variables.amountWei,
+          tokenSymbol: VAI_SYMBOL,
+          returnInReadableFormat: true,
+        })}`,
+      });
     },
   });
 
