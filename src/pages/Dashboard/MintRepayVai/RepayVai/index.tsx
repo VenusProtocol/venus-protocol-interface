@@ -7,7 +7,7 @@ import { AmountForm } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
-import useMintVai from 'hooks/operations/mutations/useMintVai';
+import useRepayVai from 'hooks/operations/mutations/useRepayVai';
 import toast from 'components/Basic/Toast';
 import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
@@ -89,8 +89,7 @@ const RepayVai: React.FC = () => {
 
   const { userVaiMinted, userVaiBalance } = useVaiUser();
 
-  // @TODO: use useRepayVai hook
-  const { mutate: mintVai, isLoading: isMintVaiLoading } = useMintVai({
+  const { mutate: repayVai, isLoading: isRepayVaiLoading } = useRepayVai({
     onError: error => {
       toast.error({ title: error.message });
     },
@@ -110,7 +109,7 @@ const RepayVai: React.FC = () => {
 
   const onSubmit: IRepayVaiUiProps['onSubmit'] = amountWei => {
     if (account) {
-      mintVai({
+      repayVai({
         fromAccountAddress: account.address,
         amountWei,
       });
@@ -123,7 +122,7 @@ const RepayVai: React.FC = () => {
       disabled={!account}
       userWeiBalance={userWeiBalance}
       mintedWei={mintedWei}
-      isRepayVaiLoading={isMintVaiLoading}
+      isRepayVaiLoading={isRepayVaiLoading}
       onSubmit={onSubmit}
     />
   );
