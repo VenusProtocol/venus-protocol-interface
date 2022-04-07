@@ -52,12 +52,11 @@ import vtrx from 'assets/img/coins/vtrx.png';
 import vust from 'assets/img/coins/vust.png';
 import vluna from 'assets/img/coins/vluna.png';
 
+import { TokenSymbol } from 'types';
 import { isOnTestnet } from 'config';
-import contracts from './contracts';
+import contracts from 'utilities/contracts';
 
-export const CONTRACT_XVS_TOKEN_ADDRESS = isOnTestnet
-  ? contracts.TEST.TOKEN.xvs
-  : contracts.MAIN.TOKEN.xvs;
+export const XVS_TOKEN = isOnTestnet ? contracts.TEST.TOKEN.xvs : contracts.MAIN.TOKEN.xvs;
 
 // Contract ABI
 export const CONTRACT_TOKEN_ADDRESS = isOnTestnet
@@ -446,7 +445,19 @@ export const CONTRACT_TOKEN_ADDRESS = isOnTestnet
       },
     };
 
-export const CONTRACT_VBEP_ADDRESS = isOnTestnet
+interface IToken {
+  id: TokenSymbol;
+  symbol: Uppercase<TokenSymbol>;
+  decimals: number;
+  address: string;
+  asset: string;
+  vasset: string;
+}
+
+export const getToken = (key: TokenSymbol): IToken =>
+  CONTRACT_TOKEN_ADDRESS[key as keyof typeof CONTRACT_TOKEN_ADDRESS] as IToken;
+
+export const VBEP_TOKENS = isOnTestnet
   ? {
       sxp: {
         id: 'sxp',
@@ -671,3 +682,12 @@ export const CONTRACT_VBEP_ADDRESS = isOnTestnet
         address: contracts.MAIN.VBEP.luna,
       },
     };
+
+interface IVBepToken {
+  id: TokenSymbol;
+  symbol: `v${Uppercase<TokenSymbol>}`;
+  address: string;
+}
+
+export const getVbepToken = (key: TokenSymbol): IVBepToken =>
+  VBEP_TOKENS[key as keyof typeof VBEP_TOKENS] as IVBepToken;

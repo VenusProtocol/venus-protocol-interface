@@ -6,7 +6,7 @@ import {
   formatApy,
 } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
-import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 import { Token } from 'components/v2/Token';
 import { Table, ITableProps } from 'components/v2/Table';
 import { useStyles } from './styles';

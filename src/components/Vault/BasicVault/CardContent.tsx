@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import NumberFormat from 'react-number-format';
 import { commaFormat } from 'utilities/common';
-
+import { TokenSymbol } from 'types';
 import { CardItemWrapper } from '../styles';
 
 const CardContentWrapper = styled.div`
@@ -18,8 +18,8 @@ interface CardContentProps {
   userStakedTokenBalance: BigNumber;
   userStakedAllowance: BigNumber;
   userStakedAmount: BigNumber;
-  stakedToken: string;
-  rewardToken: string;
+  stakedToken: Uppercase<TokenSymbol>;
+  rewardToken: Uppercase<TokenSymbol>;
   onClaimReward: () => Promise<void>;
   onStake: (amt: BigNumber) => Promise<void>;
   onApprove: (amt: BigNumber) => Promise<void>;

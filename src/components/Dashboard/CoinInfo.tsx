@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import { addToken, format } from 'utilities/common';
 import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
