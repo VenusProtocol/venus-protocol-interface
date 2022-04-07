@@ -2,31 +2,27 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { useWeb3Account } from 'clients/web3';
 import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
-import useGetVaiTreasuryPercentage from 'hooks/operations/queries/useGetVaiTreasuryPercentage';
 import useMintVai from 'hooks/operations/mutations/useMintVai';
 import toast from 'components/Basic/Toast';
 import { VAI_SYMBOL } from '../constants';
-import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from '../styles';
 
-export interface IMintVaiUiProps {
+export interface IRepayVaiUiProps {
   disabled: boolean;
-  isMintVaiLoading: boolean;
+  isRepayVaiLoading: boolean;
   onSubmit: (value: BigNumber) => void;
   limitWei?: BigNumber;
-  mintFeePercentage?: number;
 }
 
-export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
+export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
   limitWei,
-  mintFeePercentage,
-  isMintVaiLoading,
+  isRepayVaiLoading,
   onSubmit,
 }) => {
   const styles = useStyles();
@@ -34,29 +30,17 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   // Convert limit into VAI
   const readableVaiLimit = React.useMemo(
     () =>
-      limitWei
-        ? convertWeiToCoins({
+      !limitWei
+        ? '-'
+        : convertWeiToCoins({
             value: limitWei,
             tokenSymbol: VAI_SYMBOL,
             returnInReadableFormat: true,
-          }).toString()
-        : '-',
+          }).toString(),
     [limitWei?.toString()],
   );
 
-  const hasMintableVai = limitWei?.isGreaterThan(0) || false;
-
-  const getReadableMintFee = React.useCallback(
-    (valueWei: BigNumber | '') => {
-      if (!mintFeePercentage) {
-        return '-';
-      }
-
-      const readableFeeVai = valueWei ? getReadableFeeVai({ valueWei, mintFeePercentage }) : '0';
-      return `${readableFeeVai} (${mintFeePercentage}%)`;
-    },
-    [mintFeePercentage],
-  );
+  const hasRepayableVai = limitWei?.isGreaterThan(0) || false;
 
   return (
     <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
@@ -71,34 +55,26 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
               onChange={amount => setFieldValue('amount', amount, true)}
               onBlur={handleBlur}
               maxWei={limitWei}
-              disabled={disabled || isMintVaiLoading || !hasMintableVai}
-              rightMaxButtonLabel="SAFE MAX"
+              disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
+              rightMaxButtonLabel="MAX"
             />
 
             <LabeledInlineContent
-              css={styles.getRow({ isLast: false })}
+              css={styles.getRow({ isLast: true })}
               iconName={VAI_SYMBOL}
-              label="Available VAI limit"
+              label="Repay VAI balance"
             >
               {readableVaiLimit}
-            </LabeledInlineContent>
-
-            <LabeledInlineContent
-              css={styles.getRow({ isLast: true })}
-              iconName="fee"
-              label="Mint fee"
-            >
-              {getReadableMintFee(values.amount)}
             </LabeledInlineContent>
           </div>
 
           <SecondaryButton
             type="submit"
-            loading={isMintVaiLoading}
+            loading={isRepayVaiLoading}
             disabled={disabled || !isValid}
             fullWidth
           >
-            Mint VAI
+            Repay VAI
           </SecondaryButton>
         </>
       )}
@@ -106,13 +82,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   );
 };
 
-const MintVai: React.FC = () => {
-  const { account } = useWeb3Account();
+const RepayVai: React.FC = () => {
+  const { account } = React.useContext(AuthContext);
+
+  // @TODO: get user repayable VAI amount
   const { mintableVai } = useVaiUser();
 
-  const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
-    useGetVaiTreasuryPercentage();
-
+  // @TODO: use useRepayVai hook
   const { mutate: mintVai, isLoading: isMintVaiLoading } = useMintVai({
     onError: error => {
       toast.error({ title: error.message });
@@ -125,24 +101,24 @@ const MintVai: React.FC = () => {
     [mintableVai.toString()],
   );
 
-  const onSubmit: IMintVaiUiProps['onSubmit'] = amountWei => {
+  const onSubmit: IRepayVaiUiProps['onSubmit'] = amountWei => {
     if (account) {
       mintVai({
-        fromAccountAddress: account,
+        fromAccountAddress: account.address,
         amountWei,
       });
     }
   };
 
+  // @TODO: wrap with EnableToken component once created
   return (
-    <MintVaiUi
-      disabled={!account || isGetVaiTreasuryPercentageLoading}
+    <RepayVaiUi
+      disabled={!account}
       limitWei={limitWei}
-      mintFeePercentage={vaiTreasuryPercentage}
-      isMintVaiLoading={isMintVaiLoading}
+      isRepayVaiLoading={isMintVaiLoading}
       onSubmit={onSubmit}
     />
   );
 };
 
-export default MintVai;
+export default RepayVai;
