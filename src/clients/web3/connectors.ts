@@ -3,13 +3,15 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { BscConnector } from '@binance-chain/bsc-connector';
 
-import { RPC_URL, CHAIN_ID } from 'config';
+import { RPC_URL, CHAIN_ID, BscChainId } from 'config';
 import { Connector } from './types';
 
 export const injectedConnector = new InjectedConnector({ supportedChainIds: [CHAIN_ID] });
 
 const walletConnectConnector = new WalletConnectConnector({
-  rpc: { [CHAIN_ID]: RPC_URL },
+  rpc: { [BscChainId.MAINNET]: RPC_URL },
+  chainId: BscChainId.MAINNET,
+  bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
 });
 
