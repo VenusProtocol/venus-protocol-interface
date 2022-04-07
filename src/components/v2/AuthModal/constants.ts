@@ -4,6 +4,7 @@ import { ReactComponent as WalletConnectLogo } from 'assets/img/v2/wallets/walle
 import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/v2/wallets/binanceChainWalletLogo.svg';
 import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.svg';
 import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
+import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
 import { Connector } from 'clients/web3';
 import { BaseWallet, Wallet } from './types';
 
@@ -14,6 +15,12 @@ export const WALLETS: Wallet[] = [
     connector: Connector.MetaMask,
   },
   {
+    name: 'Coinbase Wallet',
+    Logo: CoinbaseWalletLogo,
+    connector: Connector.CoinbaseWallet,
+    mainnetOnly: true,
+  },
+  {
     name: 'Trust Wallet',
     Logo: TrustWalletLogo,
     connector: Connector.TrustWallet,
@@ -22,6 +29,7 @@ export const WALLETS: Wallet[] = [
     name: 'WalletConnect',
     Logo: WalletConnectLogo,
     connector: Connector.WalletConnect,
+    mainnetOnly: true,
   },
   {
     name: 'Binance Chain Wallet',
