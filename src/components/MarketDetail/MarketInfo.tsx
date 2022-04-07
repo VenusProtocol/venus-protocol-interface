@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { formatApy, format } from 'utilities/common';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
+import { TokenSymbol } from 'types';
 
 const MarketInfoWrapper = styled.div`
   .asset-img {
@@ -39,7 +40,7 @@ const MarketInfoContent = styled.div`
 `;
 
 interface MarketInfoObjectType {
-  underlyingSymbol: string;
+  underlyingSymbol: Uppercase<TokenSymbol>;
   supplyApy: number;
   supplyVenusApy: number;
   borrowApy: number;
@@ -61,11 +62,9 @@ function MarketInfo({ marketInfo, marketType }: Props) {
       <img
         className="asset-img"
         src={
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[marketInfo.underlyingSymbol.toLowerCase()]
-            ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-              constants.CONTRACT_TOKEN_ADDRESS[marketInfo.underlyingSymbol.toLowerCase()].asset
-            : null
+          constants.getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenSymbol).asset
+            ? constants.getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenSymbol).asset
+            : ''
         }
         alt="asset"
       />

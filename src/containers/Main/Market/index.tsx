@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import {
   currencyFormatter,
   formatApy,

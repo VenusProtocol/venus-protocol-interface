@@ -2,7 +2,7 @@
 import React from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
-import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 import { Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { useStyles } from './styles';

@@ -5,13 +5,13 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
 import { promisify } from 'utilities';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import OverviewChart from 'components/Basic/OverviewChart';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3Account } from 'clients/web3';
-import { Setting } from 'types';
+import { Setting, TokenSymbol } from 'types';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 
@@ -101,14 +101,14 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-interface Props extends RouteComponentProps<{ asset: string }> {
+interface Props extends RouteComponentProps<{ asset: TokenSymbol }> {
   settings: Setting;
   getMarketHistory: $TSFixMe;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
   const [marketType, setMarketType] = useState('supply');
-  const [currentAsset, setCurrentAsset] = useState('');
+  const [currentAsset, setCurrentAsset] = useState<TokenSymbol | ''>('');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
@@ -117,7 +117,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
 
   useEffect(() => {
     if (match.params && match.params.asset) {
-      setCurrentAsset(match.params.asset.toLowerCase());
+      setCurrentAsset(match.params.asset.toLowerCase() as TokenSymbol);
     }
   }, [match]);
 
@@ -156,8 +156,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (timeStamp % 60 === 0 && currentAsset) {
       getGraphData(
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
+        constants.getVbepToken(currentAsset).address,
         '1day',
         30, // 1 month
       );
@@ -171,8 +170,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
+        constants.getVbepToken(currentAsset).address,
         '1day',
         30, // 1 month
       );

@@ -7,10 +7,11 @@ import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import { Icon, IconName } from 'components';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { TokenSymbol } from 'types';
 
 interface CardHeaderProps {
-  stakedToken: string;
-  rewardToken: string;
+  stakedToken: Uppercase<TokenSymbol>;
+  rewardToken: Uppercase<TokenSymbol>;
   apy: string | number;
   totalStakedAmount: BigNumber;
   userPendingReward: BigNumber;

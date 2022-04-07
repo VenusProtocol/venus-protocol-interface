@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import { useXvsVaultProxy } from 'hooks/useContract';
 import useRefresh from 'hooks/useRefresh';
 import { getTokenContractByAddress } from 'utilities/contractHelpers';
 import { useWeb3, useWeb3Account } from 'clients/web3';
+import { TokenSymbol } from 'types';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import WithdrawCard from './WithdrawCard';
 import LoadingSpinner from '../../Basic/LoadingSpinner';
@@ -23,8 +24,8 @@ const CardContentWrapper = styled.div`
 
 interface CardContentProps {
   poolId: BigNumber;
-  stakedToken: string;
-  rewardToken: string;
+  stakedToken: TokenSymbol;
+  rewardToken: TokenSymbol;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;
@@ -38,14 +39,8 @@ function CardContent({
   pendingReward,
   lockPeriodSecond,
 }: CardContentProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
-  );
-  const rewardTokenDecimal = new BigNumber(10).pow(
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals,
-  );
+  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
+  const rewardTokenDecimal = new BigNumber(10).pow(constants.getToken(rewardToken).decimals);
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
   const web3 = useWeb3();
@@ -65,12 +60,8 @@ function CardContent({
   const [claimLoading, setClaimLoading] = useState(false);
   const [stakeLoading, setStakeLoading] = useState(false); // also applies to enabling
 
-  const stakedTokenAddress =
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].address;
-  const rewardTokenAddress =
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].address;
+  const stakedTokenAddress = constants.getToken(stakedToken).address;
+  const rewardTokenAddress = constants.getToken(rewardToken).address;
 
   const xvsVaultContract = useXvsVaultProxy();
   const stakedTokenContract = getTokenContractByAddress(web3, stakedTokenAddress);
@@ -188,9 +179,6 @@ function CardContent({
           <WithdrawCard
             poolId={poolId}
             stakedToken={stakedToken}
-            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ poolId: any; stakedToken: any; stakedToken... Remove this comment to see the full error message
-            stakedTokenAddress={stakedTokenAddress}
-            rewardToken={rewardToken}
             rewardTokenAddress={rewardTokenAddress}
             lockPeriodSecond={lockPeriodSecond}
             withdrawableAmount={withdrawableAmount}
