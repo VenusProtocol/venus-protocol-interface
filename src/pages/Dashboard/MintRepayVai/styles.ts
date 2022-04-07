@@ -7,7 +7,6 @@ export const useStyles = () => {
   return {
     theme,
     container: css`
-      height: 500px;
       width: 100%;
       display: flex;
       flex-direction: column;
