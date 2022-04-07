@@ -14,7 +14,7 @@ export const AuthContext = React.createContext<{
   closeAuthModal: () => void;
   account?: {
     address: string;
-    connectedConnector?: Connector;
+    connector?: Connector;
   };
 }>({
   login: noop,
@@ -47,7 +47,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const account = accountAddress
     ? {
         address: accountAddress,
-        connectedConnector,
+        connector: connectedConnector,
       }
     : undefined;
 
