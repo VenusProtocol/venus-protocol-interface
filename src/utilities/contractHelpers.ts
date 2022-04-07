@@ -37,7 +37,7 @@ import {
   getVrtConverterProxyAddress,
   getVrtVaultProxyAddress,
 } from './addressHelpers';
-import * as constants from './constants';
+import * as constants from '../constants/contracts';
 
 const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: Web3) => {
   const web3 = web3Contract ?? getWeb3NoAccount();
@@ -63,12 +63,7 @@ export const getXvsVaultStoreContract = (web3: $TSFixMe) =>
   getContract(xvsVaultStoreAbi, getXvsVaultAddress(), web3);
 
 export const getTokenContract = (web3: $TSFixMe, name: $TSFixMe) =>
-  getContract(
-    name === 'xvs' ? xvsAbi : bep20Abi,
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[name].address,
-    web3,
-  );
+  getContract(name === 'xvs' ? xvsAbi : bep20Abi, constants.getToken(name).address, web3);
 
 export const getTokenContractByAddress = (
   web3: $TSFixMe,
@@ -77,12 +72,7 @@ export const getTokenContractByAddress = (
 ) => getContract(vaiTokenAbi, address, web3);
 
 export const getVbepContract = (web3: $TSFixMe, name: $TSFixMe) =>
-  getContract(
-    name === 'bnb' ? vbnbAbi : vbepAbi,
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_VBEP_ADDRESS[name].address,
-    web3,
-  );
+  getContract(name === 'bnb' ? vbnbAbi : vbepAbi, constants.getVbepToken(name).address, web3);
 
 export const getComptrollerContract = (web3: $TSFixMe) =>
   getContract(comptrollerAbi, getComptrollerAddress(), web3);
