@@ -2,9 +2,9 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
+import { useWeb3Account } from 'clients/web3';
 import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import useGetVaiTreasuryPercentage from 'hooks/operations/queries/useGetVaiTreasuryPercentage';
@@ -104,7 +104,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 };
 
 const MintVai: React.FC = () => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useWeb3Account();
   const { mintableVai } = useVaiUser();
 
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
@@ -125,7 +125,7 @@ const MintVai: React.FC = () => {
   const onSubmit: IMintVaiUiProps['onSubmit'] = amountWei => {
     if (account) {
       mintVai({
-        fromAccountAddress: account.address,
+        fromAccountAddress: account,
         amountWei,
       });
     }
