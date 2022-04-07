@@ -5,7 +5,7 @@ import { useWeb3Account } from 'clients/web3';
 import { Row, Col } from 'antd';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useRefresh from '../../hooks/useRefresh';
-import * as constants from '../../utilities/constants';
+import * as constants from '../../constants/contracts';
 import { getVrtConverterProxyAddress } from '../../utilities/addressHelpers';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';

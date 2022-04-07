@@ -4,8 +4,9 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import NumberFormat from 'react-number-format';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import { useXvsVaultProxy } from 'hooks/useContract';
+import { TokenSymbol } from 'types';
 
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import { CardItemWrapper } from '../styles';
@@ -65,8 +66,8 @@ function formatTimeToLockPeriodString(seconds: $TSFixMe) {
 
 interface WithdrawCardProps {
   poolId: BigNumber;
-  stakedToken: string;
-  rewardTokenAddress: string;
+  stakedToken: TokenSymbol;
+  rewardTokenAddress: string | undefined;
   lockPeriodSecond: BigNumber;
   withdrawableAmount: BigNumber;
   pendingWithdrawals: unknown[];
@@ -82,10 +83,7 @@ function WithdrawCard({
   pendingWithdrawals,
   userEligibleStakedAmount,
 }: WithdrawCardProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
-  );
+  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
 
   const { account } = useWeb3Account();
   const xvsVaultContract = useXvsVaultProxy();
