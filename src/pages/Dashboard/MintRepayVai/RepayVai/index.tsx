@@ -2,14 +2,13 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
-import { useRepayVai } from 'clients/api';
+import useMintVai from 'hooks/operations/mutations/useMintVai';
 import toast from 'components/Basic/Toast';
-import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
 import { useStyles } from '../styles';
 
@@ -17,36 +16,35 @@ export interface IRepayVaiUiProps {
   disabled: boolean;
   isRepayVaiLoading: boolean;
   onSubmit: (value: BigNumber) => void;
-  userWeiBalance?: BigNumber;
-  mintedWei?: BigNumber;
+  limitWei?: BigNumber;
 }
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
-  userWeiBalance,
-  mintedWei,
+  limitWei,
   isRepayVaiLoading,
   onSubmit,
 }) => {
-  const limitWei = React.useMemo(
-    () =>
-      userWeiBalance && mintedWei ? BigNumber.minimum(userWeiBalance, mintedWei) : new BigNumber(0),
-    [userWeiBalance?.toString(), mintedWei?.toString()],
-  );
-
   const styles = useStyles();
 
-  // Convert minted wei into VAI
-  const readableRepayableVai = useConvertToReadableCoinString({
-    valueWei: mintedWei,
-    tokenSymbol: VAI_SYMBOL,
-  });
+  // Convert limit into VAI
+  const readableVaiLimit = React.useMemo(
+    () =>
+      !limitWei
+        ? '-'
+        : convertWeiToCoins({
+            value: limitWei,
+            tokenSymbol: VAI_SYMBOL,
+            returnInReadableFormat: true,
+          }).toString(),
+    [limitWei?.toString()],
+  );
 
-  const hasRepayableVai = mintedWei?.isGreaterThan(0) || false;
+  const hasRepayableVai = limitWei?.isGreaterThan(0) || false;
 
   return (
     <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-      {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
+      {({ values, setFieldValue, handleBlur, isValid }) => (
         <>
           <div css={styles.ctaContainer}>
             <TokenTextField
@@ -66,14 +64,14 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
               iconName={VAI_SYMBOL}
               label="Repay VAI balance"
             >
-              {readableRepayableVai}
+              {readableVaiLimit}
             </LabeledInlineContent>
           </div>
 
           <SecondaryButton
             type="submit"
             loading={isRepayVaiLoading}
-            disabled={disabled || !isValid || !dirty}
+            disabled={disabled || !isValid}
             fullWidth
           >
             Repay VAI
@@ -87,40 +85,25 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 const RepayVai: React.FC = () => {
   const { account } = React.useContext(AuthContext);
 
-  const { userVaiMinted, userVaiBalance } = useVaiUser();
+  // @TODO: get user repayable VAI amount
+  const { mintableVai } = useVaiUser();
 
-  const { mutate: repayVai, isLoading: isRepayVaiLoading } = useRepayVai({
+  // @TODO: use useRepayVai hook
+  const { mutate: mintVai, isLoading: isMintVaiLoading } = useMintVai({
     onError: error => {
       toast.error({ title: error.message });
     },
-    onSuccess: (_data, variables) => {
-      // @TODO: display success modal instead of toast once it's been
-      // implemented
-      toast.success({
-        title: `You successfully repaid ${convertWeiToCoins({
-          value: variables.amountWei,
-          tokenSymbol: VAI_SYMBOL,
-          returnInReadableFormat: true,
-        })}`,
-      });
-    },
   });
 
-  // Convert minted VAI balance into wei of VAI
-  const mintedWei = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiBalance, tokenSymbol: VAI_SYMBOL }),
-    [userVaiBalance.toString()],
-  );
-
-  // Convert user VAI balance into wei of VAI
-  const userWeiBalance = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiMinted, tokenSymbol: VAI_SYMBOL }),
-    [userVaiMinted.toString()],
+  // Convert limit into wei of VAI
+  const limitWei = React.useMemo(
+    () => convertCoinsToWei({ value: mintableVai, tokenSymbol: VAI_SYMBOL }),
+    [mintableVai.toString()],
   );
 
   const onSubmit: IRepayVaiUiProps['onSubmit'] = amountWei => {
     if (account) {
-      repayVai({
+      mintVai({
         fromAccountAddress: account.address,
         amountWei,
       });
@@ -131,9 +114,8 @@ const RepayVai: React.FC = () => {
   return (
     <RepayVaiUi
       disabled={!account}
-      userWeiBalance={userWeiBalance}
-      mintedWei={mintedWei}
-      isRepayVaiLoading={isRepayVaiLoading}
+      limitWei={limitWei}
+      isRepayVaiLoading={isMintVaiLoading}
       onSubmit={onSubmit}
     />
   );

@@ -59,41 +59,44 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   );
 
   return (
-    <AmountForm onSubmit={onSubmit}>
+    <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
       {({ values, setFieldValue, handleBlur, isValid }) => (
         <>
-          <TokenTextField
-            name="amount"
-            css={styles.textField}
-            tokenSymbol={VAI_SYMBOL}
-            value={values.amount}
-            onChange={amount => setFieldValue('amount', amount, true)}
-            onBlur={handleBlur}
-            maxWei={limitWei}
-            disabled={disabled || isMintVaiLoading || !hasMintableVai}
-            rightMaxButtonLabel="SAFE MAX"
-          />
+          <div css={styles.ctaContainer}>
+            <TokenTextField
+              name="amount"
+              css={styles.textField}
+              tokenSymbol={VAI_SYMBOL}
+              value={values.amount}
+              onChange={amount => setFieldValue('amount', amount, true)}
+              onBlur={handleBlur}
+              maxWei={limitWei}
+              disabled={disabled || isMintVaiLoading || !hasMintableVai}
+              rightMaxButtonLabel="SAFE MAX"
+            />
 
-          <LabeledInlineContent
-            css={styles.getRow({ isLast: false })}
-            iconName={VAI_SYMBOL}
-            label="Available VAI limit"
-          >
-            {readableVaiLimit}
-          </LabeledInlineContent>
+            <LabeledInlineContent
+              css={styles.getRow({ isLast: false })}
+              iconName={VAI_SYMBOL}
+              label="Available VAI limit"
+            >
+              {readableVaiLimit}
+            </LabeledInlineContent>
 
-          <LabeledInlineContent
-            css={styles.getRow({ isLast: true })}
-            iconName="fee"
-            label="Mint fee"
-          >
-            {getReadableMintFee(values.amount)}
-          </LabeledInlineContent>
+            <LabeledInlineContent
+              css={styles.getRow({ isLast: true })}
+              iconName="fee"
+              label="Mint fee"
+            >
+              {getReadableMintFee(values.amount)}
+            </LabeledInlineContent>
+          </div>
 
           <SecondaryButton
             type="submit"
             loading={isMintVaiLoading}
             disabled={disabled || !isValid}
+            fullWidth
           >
             Mint VAI
           </SecondaryButton>
