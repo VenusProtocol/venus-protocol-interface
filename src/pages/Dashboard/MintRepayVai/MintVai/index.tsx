@@ -3,13 +3,14 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { useWeb3Account } from 'clients/web3';
-import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
+import { convertCoinsToWei } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import useGetVaiTreasuryPercentage from 'hooks/operations/queries/useGetVaiTreasuryPercentage';
 import useMintVai from 'hooks/operations/mutations/useMintVai';
 import toast from 'components/Basic/Toast';
+import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
 import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from '../styles';
@@ -32,17 +33,10 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const styles = useStyles();
 
   // Convert limit into VAI
-  const readableVaiLimit = React.useMemo(
-    () =>
-      limitWei
-        ? convertWeiToCoins({
-            value: limitWei,
-            tokenSymbol: VAI_SYMBOL,
-            returnInReadableFormat: true,
-          }).toString()
-        : '-',
-    [limitWei?.toString()],
-  );
+  const readableVaiLimit = useConvertToReadableCoinString({
+    valueWei: limitWei,
+    tokenSymbol: VAI_SYMBOL,
+  });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
 
