@@ -2,12 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
-import commaNumber from 'comma-number';
+import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
 import { State } from 'core/modules/initialState';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
-import { BASE_BSC_SCAN_URL } from '../../config';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -52,7 +51,7 @@ interface CoinInfoProps {
 
 function CoinInfo({ address, balance }: CoinInfoProps) {
   const handleLink = () => {
-    window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
+    window.open(generateBscScanAddressUrl(address), '_blank');
   };
 
   return (
