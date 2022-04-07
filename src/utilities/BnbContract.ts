@@ -1,4 +1,4 @@
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import vbnbAbi from '../config/abis/vbnb.json';
 
 export const sendSupply = async (
@@ -11,12 +11,12 @@ export const sendSupply = async (
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = new web3.eth.Contract(vbnbAbi, constants.CONTRACT_VBEP_ADDRESS.bnb.address);
+    const contract = new web3.eth.Contract(vbnbAbi, constants.VBEP_TOKENS.bnb.address);
     const contractData = contract.methods.mint().encodeABI();
 
     const tx = {
       from,
-      to: constants.CONTRACT_VBEP_ADDRESS.bnb.address,
+      to: constants.VBEP_TOKENS.bnb.address,
       value: amount,
       data: contractData,
     };
@@ -43,12 +43,12 @@ export const sendRepay = async (
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = new web3.eth.Contract(vbnbAbi, constants.CONTRACT_VBEP_ADDRESS.bnb.address);
+    const contract = new web3.eth.Contract(vbnbAbi, constants.VBEP_TOKENS.bnb.address);
     const contractData = contract.methods.repayBorrow().encodeABI();
 
     const tx = {
       from,
-      to: constants.CONTRACT_VBEP_ADDRESS.bnb.address,
+      to: constants.VBEP_TOKENS.bnb.address,
       value: amount,
       data: contractData,
     };

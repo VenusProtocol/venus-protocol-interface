@@ -4,7 +4,7 @@ import { FormComponentProps } from 'antd/lib/form';
 import { ClickParam } from 'antd/lib/menu';
 import { PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import { Row, Column } from 'components/Basic/Style';
 import { IRequestFaucetFundsInput } from 'clients/api';
 import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
@@ -230,7 +230,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_XVS_TOKEN_ADDRESS)}
+              href={generateBscScanAddressUrl(constants.XVS_TOKEN)}
               target="_blank"
               rel="noreferrer"
             >

@@ -14,8 +14,9 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { State } from 'core/modules/initialState';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import { useWeb3 } from 'clients/web3';
+import { TokenSymbol } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
 import { getInterestModelContract, getVbepContract } from '../../utilities/contractHelpers';
 
@@ -111,7 +112,7 @@ const InterestRateModelWrapper = styled.div`
 let flag = false;
 
 interface Props extends RouteComponentProps {
-  currentAsset: string;
+  currentAsset: TokenSymbol;
 }
 
 interface CustomizedAxisTickProps {
@@ -143,7 +144,7 @@ function InterestRateModel({ currentAsset }: Props) {
     </g>
   );
 
-  const getGraphData = async (asset: string) => {
+  const getGraphData = async (asset: TokenSymbol) => {
     flag = true;
     const vbepContract = getVbepContract(web3, asset);
     const interestRateModel = await vbepContract.methods.interestRateModel().call();
@@ -155,9 +156,7 @@ function InterestRateModel({ currentAsset }: Props) {
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase(),
     );
 
-    const tokenDecimals =
-      constants.CONTRACT_TOKEN_ADDRESS[asset as keyof typeof constants.CONTRACT_TOKEN_ADDRESS]
-        ?.decimals || 18;
+    const tokenDecimals = constants.getToken(asset)?.decimals || 18;
 
     // Get Current Utilization Rate
     const cash = new BigNumber(cashValue).div(new BigNumber(10).pow(tokenDecimals));
@@ -348,10 +347,6 @@ function InterestRateModel({ currentAsset }: Props) {
     </InterestRateModelWrapper>
   );
 }
-
-InterestRateModel.defaultProps = {
-  currentAsset: '',
-};
 
 const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,

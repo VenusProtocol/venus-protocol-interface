@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { CONTRACT_TOKEN_ADDRESS } from 'utilities/constants';
+import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 
 export type TokenSymbol = keyof typeof CONTRACT_TOKEN_ADDRESS;
 
@@ -92,8 +92,8 @@ export interface Proposal {
 
 export interface IPool {
   poolId: BigNumber;
-  stakedToken: string;
-  rewardToken: string;
+  stakedToken: TokenSymbol;
+  rewardToken: TokenSymbol;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;

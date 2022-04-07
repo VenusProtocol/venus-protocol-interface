@@ -5,8 +5,9 @@ import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
 import { format, formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { State } from 'core/modules/initialState';
-import * as constants from 'utilities/constants';
+import * as constants from 'constants/contracts';
 import { VTOKEN_DECIMALS } from 'config';
+import { TokenSymbol } from 'types';
 
 const MarketSummaryWrapper = styled.div`
   .label {
@@ -43,7 +44,7 @@ const MarketSummaryWrapper = styled.div`
 
 interface Props extends RouteComponentProps {
   marketInfo: Partial<$TSFixMe>;
-  currentAsset: string;
+  currentAsset: TokenSymbol;
 }
 
 function MarketSummary({ marketInfo, currentAsset }: Props) {
@@ -53,12 +54,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
         <p className="label">Price</p>
         <p className="value">
           {`$${new BigNumber(marketInfo.underlyingPrice || 0)
-            .div(
-              new BigNumber(10).pow(
-                // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                36 - constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals,
-              ),
-            )
+            .div(new BigNumber(10).pow(36 - constants.getToken(currentAsset).decimals))
             .dp(8, 1)
             .toString(10)}`}
         </p>
@@ -68,10 +64,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
         <p className="value">
           {`${format(
             new BigNumber(marketInfo.cash || 0).div(
-              new BigNumber(10).pow(
-                // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals,
-              ),
+              new BigNumber(10).pow(constants.getToken(currentAsset).decimals),
             ),
             8,
           )} ${marketInfo.underlyingSymbol || ''}`}
@@ -105,12 +98,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
         <p className="label">Reserves</p>
         <p className="value">
           {`${new BigNumber(marketInfo.totalReserves || 0)
-            .div(
-              new BigNumber(10).pow(
-                // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals,
-              ),
-            )
+            .div(new BigNumber(10).pow(constants.getToken(currentAsset).decimals))
             .dp(8, 1)
             .toString(10)} ${marketInfo.underlyingSymbol || ''}`}
         </p>
@@ -155,10 +143,7 @@ function MarketSummary({ marketInfo, currentAsset }: Props) {
               .div(
                 new BigNumber(marketInfo.exchangeRate).div(
                   new BigNumber(10).pow(
-                    18 +
-                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                      constants.CONTRACT_TOKEN_ADDRESS[currentAsset].decimals -
-                      VTOKEN_DECIMALS,
+                    18 + constants.getToken(currentAsset).decimals - VTOKEN_DECIMALS,
                   ),
                 ),
               )

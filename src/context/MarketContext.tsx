@@ -4,12 +4,12 @@ import BigNumber from 'bignumber.js';
 import { TREASURY_ADDRESS } from 'config';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { Asset } from 'types';
+import * as constants from 'constants/contracts';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy, notNull } from '../utilities/common';
 import { useVaiUser } from '../hooks/useVaiUser';
 import { useComptroller, useVenusLens } from '../hooks/useContract';
-import * as constants from '../utilities/constants';
 
 const MarketContext = React.createContext({
   markets: [] as $TSFixMe[],
@@ -50,7 +50,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         return;
       }
 
-      const data = Object.keys(constants.CONTRACT_VBEP_ADDRESS)
+      const data = Object.keys(constants.VBEP_TOKENS)
         .map(item =>
           // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
           res.data.data.markets.find(
@@ -77,7 +77,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
     let isMounted = true;
 
     const getXvsBalance = (balances: $TSFixMe) => {
-      const vxvs = constants.CONTRACT_VBEP_ADDRESS.xvs.address.toLowerCase();
+      const vxvs = constants.VBEP_TOKENS.xvs.address.toLowerCase();
       const xvsDecimals = constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals;
       return new BigNumber(balances[vxvs].tokenBalance).shiftedBy(-xvsDecimals);
     };
@@ -93,7 +93,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           ? await comptrollerContract.methods.getAssetsIn(account).call()
           : [];
 
-        const vtAddresses = Object.values(constants.CONTRACT_VBEP_ADDRESS)
+        const vtAddresses = Object.values(constants.VBEP_TOKENS)
           .filter(item => item.address)
           .map(item => item.address);
 
@@ -123,8 +123,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
               new BigNumber(mantissa).shiftedBy(-item.decimals);
 
             // if no corresponding vassets, skip
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            if (!constants.CONTRACT_VBEP_ADDRESS[item.id]) {
+            if (!constants.getVbepToken(item.id)) {
               return null;
             }
 
@@ -133,8 +132,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
               market = {};
             }
 
-            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-            const vtokenAddress = constants.CONTRACT_VBEP_ADDRESS[item.id].address.toLowerCase();
+            const vtokenAddress = constants.getVbepToken(item.id).address.toLowerCase();
             const collateral = assetsIn
               .map((address: $TSFixMe) => address.toLowerCase())
               .includes(vtokenAddress);
