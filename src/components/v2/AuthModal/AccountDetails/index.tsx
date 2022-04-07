@@ -3,8 +3,8 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { Connector } from 'clients/web3';
-import { isOnTestnet } from 'config';
 import { truncateAddress } from 'utilities/truncateAddress';
+import { BscLink } from '../../BscLink';
 import { Icon } from '../../Icon';
 import { SecondaryButton } from '../../Button';
 import { WALLETS } from '../constants';
@@ -31,10 +31,6 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
   // if no match is found, but in reality that case should never happen
   const { Logo: WalletLogo, name: walletName } =
     WALLETS.find(wallet => wallet.connector === account.connector) || WALLETS[0];
-
-  const bscScanUrl = `https://${isOnTestnet ? 'testnet.' : ''}bscscan.com/address/${
-    account.address
-  }`;
 
   return (
     <div css={styles.container}>
@@ -67,19 +63,7 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
         </div>
       </div>
 
-      <div css={styles.bscScanLinkContainer}>
-        <Typography
-          component="a"
-          href={bscScanUrl}
-          target="_blank"
-          rel="noreferrer"
-          variant="small1"
-          css={styles.bscScanLinkText}
-        >
-          View on bscscan.com
-          <Icon name="open" css={styles.bscScanLinkIcon} />
-        </Typography>
-      </div>
+      <BscLink css={styles.bscScanLinkContainer} hash={account.address} />
 
       <SecondaryButton onClick={onLogOut} fullWidth>
         Log out

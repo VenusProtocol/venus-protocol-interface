@@ -7,8 +7,8 @@ import { useWeb3Account } from 'clients/web3';
 import coinImg from 'assets/img/coins/xvs.svg';
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
+import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
-import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 import { useComptroller, useVenusLens } from '../../hooks/useContract';
 
@@ -206,7 +206,7 @@ function VotingWallet({
               <div className="flex align-center">
                 <a
                   className="content-value"
-                  href={`${BASE_BSC_SCAN_URL}/address/${delegateAddress}`}
+                  href={generateBscScanAddressUrl(delegateAddress)}
                   target="_blank"
                   rel="noreferrer"
                 >
