@@ -7,4 +7,5 @@ export type BaseWallet = {
 
 export type Wallet = BaseWallet & {
   connector: Connector;
+  mainnetOnly?: boolean;
 };

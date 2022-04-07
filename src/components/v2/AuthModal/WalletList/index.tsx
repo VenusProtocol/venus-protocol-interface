@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { Connector } from 'clients/web3';
-import { VENUS_TERMS_OF_SERVICE_URL } from 'config';
+import { VENUS_TERMS_OF_SERVICE_URL, isOnTestnet } from 'config';
 import { Icon } from '../../Icon';
 import { WALLETS, UPCOMING_WALLETS } from '../constants';
 import { useStyles } from './styles';
@@ -17,22 +17,24 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
 
   return (
     <div css={styles.container}>
-      {WALLETS.map(({ name, connector, Logo }) => (
-        <button
-          css={styles.getListItem({ isActionable: true })}
-          key={`wallet-${name}`}
-          type="button"
-          onClick={() => onLogin(connector)}
-        >
-          <Logo css={styles.walletLogo} />
+      {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !isOnTestnet).map(
+        ({ name, connector, Logo }) => (
+          <button
+            css={styles.getListItem({ isActionable: true })}
+            key={`wallet-${name}`}
+            type="button"
+            onClick={() => onLogin(connector)}
+          >
+            <Logo css={styles.walletLogo} />
 
-          <Typography css={styles.walletName} component="span">
-            {name}
-          </Typography>
+            <Typography css={styles.walletName} component="span">
+              {name}
+            </Typography>
 
-          <Icon name="chevronRight" css={[styles.chevronRightIcon]} />
-        </button>
-      ))}
+            <Icon name="chevronRight" css={[styles.chevronRightIcon]} />
+          </button>
+        ),
+      )}
 
       <div css={styles.divider} />
 
