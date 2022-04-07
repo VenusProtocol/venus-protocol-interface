@@ -2,13 +2,14 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
+import { convertCoinsToWei } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import useMintVai from 'hooks/operations/mutations/useMintVai';
 import toast from 'components/Basic/Toast';
+import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
 import { useStyles } from '../styles';
 
@@ -28,17 +29,10 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const styles = useStyles();
 
   // Convert limit into VAI
-  const readableVaiLimit = React.useMemo(
-    () =>
-      !limitWei
-        ? '-'
-        : convertWeiToCoins({
-            value: limitWei,
-            tokenSymbol: VAI_SYMBOL,
-            returnInReadableFormat: true,
-          }).toString(),
-    [limitWei?.toString()],
-  );
+  const readableVaiLimit = useConvertToReadableCoinString({
+    valueWei: limitWei,
+    tokenSymbol: VAI_SYMBOL,
+  });
 
   const hasRepayableVai = limitWei?.isGreaterThan(0) || false;
 
