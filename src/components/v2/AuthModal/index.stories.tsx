@@ -2,14 +2,14 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
 
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { Connector } from 'clients/web3';
 import { AuthModal } from '.';
 
 export default {
   title: 'Components/AuthModal',
   component: AuthModal,
-  decorators: [withThemeProvider, withCenterStory({ width: 800 })],
+  decorators: [withCenterStory({ width: 800 })],
 } as ComponentMeta<typeof AuthModal>;
 
 export const Default = () => (

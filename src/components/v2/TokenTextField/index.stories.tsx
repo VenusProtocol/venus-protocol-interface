@@ -9,7 +9,7 @@ import { TokenTextField } from '.';
 export default {
   title: 'Components/TokenTextField',
   component: TokenTextField,
-  decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  decorators: [withCenterStory({ width: 600 })],
   parameters: {
     backgrounds: {
       default: 'Paper',

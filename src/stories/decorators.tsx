@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { addDecorator } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { store } from 'core/store';
 import Box from '@mui/material/Box';
@@ -39,7 +40,7 @@ export const withMarketContext: DecoratorFunction = Story => (
   </MarketContextProvider>
 );
 
-export const withVaiContext: DecoratorFunction = Story => (
+export const withVaiContextProvider: DecoratorFunction = Story => (
   <VaiContextProvider>
     <Story />
   </VaiContextProvider>
@@ -55,6 +56,16 @@ export const withThemeProvider: DecoratorFunction = Story => (
     </EmotionThemeProvider>
   </Theme>
 );
+
+export const withQueryClientProvider: DecoratorFunction = Story => {
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Story />
+    </QueryClientProvider>
+  );
+};
 
 export const withCenterStory: (props: { width: number | string }) => DecoratorFunction = props => {
   const { width } = props;
