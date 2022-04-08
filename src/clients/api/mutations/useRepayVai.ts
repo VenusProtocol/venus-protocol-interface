@@ -17,7 +17,7 @@ const useRepayVai = (options?: Options) => {
   // minted VAI amount
 
   return useMutation(
-    [FunctionKey.REPAY_VAI, options?.variables],
+    FunctionKey.REPAY_VAI,
     (params: Omit<IRepayVaiInput, 'vaiControllerContract'>) =>
       repayVai({
         vaiControllerContract,

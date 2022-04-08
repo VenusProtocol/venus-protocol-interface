@@ -17,7 +17,7 @@ const useMintVai = (options?: Options) => {
 
   return useMutation(
     FunctionKey.MINT_VAI,
-    (params: Omit<IMintVaiInput, 'vaiControllerContract'>) =>
+    (params: Omit<MintVaiInput, 'vaiControllerContract'>) =>
       mintVai({
         vaiControllerContract,
         ...params,
