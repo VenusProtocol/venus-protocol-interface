@@ -7,7 +7,7 @@ import { AmountForm } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
-import useRepayVai from 'hooks/operations/mutations/useRepayVai';
+import { useRepayVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
 import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
