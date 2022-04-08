@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { LabeledInlineContent } from '.';
 
 export default {
   title: 'Components/LabeledInlineContent',
   component: LabeledInlineContent,
-  decorators: [withThemeProvider, withCenterStory({ width: 450 })],
+  decorators: [withCenterStory({ width: 450 })],
 } as ComponentMeta<typeof LabeledInlineContent>;
 
 export const Default = () => (

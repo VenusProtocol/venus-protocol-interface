@@ -7,7 +7,7 @@ import { assetData } from './mocks';
 export default {
   title: 'Pages/Dashboard/BorrowMarket',
   component: BorrowMarketUi,
-  decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  decorators: [withCenterStory({ width: 600 })],
   parameters: {
     backgrounds: {
       default: 'Primary',

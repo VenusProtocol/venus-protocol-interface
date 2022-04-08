@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { VBEP_TOKENS, getToken } from 'constants/contracts';
 import { TokenSymbol } from 'types';
 import { Dropdown } from '.';
@@ -8,7 +8,7 @@ import { Dropdown } from '.';
 export default {
   title: 'Components/Dropdown',
   component: Dropdown,
-  decorators: [withThemeProvider, withCenterStory({ width: 137 })],
+  decorators: [withCenterStory({ width: 137 })],
 } as ComponentMeta<typeof Dropdown>;
 
 const assets = Object.keys(VBEP_TOKENS).map(id => ({

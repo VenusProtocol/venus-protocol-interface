@@ -7,7 +7,7 @@ import { TextField } from '.';
 export default {
   title: 'Components/TextField',
   component: TextField,
-  decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof TextField>;
 
 export const Default = () => <TextField placeholder="0.0" type="number" min={0} />;

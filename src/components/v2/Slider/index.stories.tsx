@@ -6,7 +6,7 @@ import { Slider } from '.';
 export default {
   title: 'Components/Slider',
   component: Slider,
-  decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof Slider>;
 
 export const ValidDropdown = () => (

@@ -3,14 +3,13 @@ import React from 'react';
 
 import { useIsSmDown } from 'hooks/responsive';
 import { Tabs } from 'components';
-import { Mint } from './Mint';
+import MintVai from './MintVai';
 import { useStyles } from './styles';
 
 export interface IMintRepayVaiProps {
   className?: string;
 }
 
-// TODO: Move to dashboard component/container once created
 export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
@@ -35,7 +34,7 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
       </div>
 
       {/* TODO: add Repay component */}
-      {activeTabIndex === 0 ? <Mint /> : undefined}
+      {activeTabIndex === 0 ? <MintVai /> : undefined}
     </div>
   );
 };
