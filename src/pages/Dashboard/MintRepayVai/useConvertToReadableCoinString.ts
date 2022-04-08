@@ -13,13 +13,13 @@ const useConvertToReadableCoinString = ({
 }) =>
   useMemo(
     () =>
-      !valueWei
-        ? '-'
-        : convertWeiToCoins({
+      valueWei
+        ? convertWeiToCoins({
             value: valueWei,
             tokenSymbol,
             returnInReadableFormat: true,
-          }).toString(),
+          }).toString()
+        : '-',
     [valueWei?.toString()],
   );
 
