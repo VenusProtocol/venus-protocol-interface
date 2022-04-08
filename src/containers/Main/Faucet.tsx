@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import useRequestFaucetFunds from 'hooks/useRequestFaucetFunds';
+import useRequestFaucetFunds from 'hooks/operations/mutations/useRequestFaucetFunds';
 import toast from 'components/Basic/Toast';
 import * as constants from 'constants/contracts';
 import Faucet from 'components/Faucet';
