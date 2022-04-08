@@ -6,7 +6,7 @@ import { PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import * as constants from 'constants/contracts';
 import { Row, Column } from 'components/Basic/Style';
-import { IRequestFaucetFundsInput } from 'clients/api';
+import { RequestFaucetFundsInput } from 'clients/api';
 import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { getVaiTokenAddress } from '../../utilities/addressHelpers';
@@ -14,7 +14,7 @@ import * as Styles from './styles';
 
 export interface IFaucetProps extends FormComponentProps {
   isRequestFaucetFundsLoading: boolean;
-  requestFaucetFunds: (params: IRequestFaucetFundsInput) => void;
+  requestFaucetFunds: (params: RequestFaucetFundsInput) => void;
 }
 
 const Faucet: React.FC<IFaucetProps> = ({

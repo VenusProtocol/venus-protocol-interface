@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { Icon, IconName, IIconProps } from '.';
 
 export default {
   title: 'Components/Icon',
   component: Icon,
-  decorators: [withThemeProvider, withCenterStory({ width: '50vw' })],
+  decorators: [withCenterStory({ width: '50vw' })],
 } as ComponentMeta<typeof Icon>;
 
 export const IconDefault = () => {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { MintRepayVai } from '.';
 
 export default {
   title: 'Pages/Dashboard/MintRepayVai',
   component: MintRepayVai,
-  decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  decorators: [withCenterStory({ width: 600 })],
   parameters: {
     backgrounds: {
       default: 'Primary',
