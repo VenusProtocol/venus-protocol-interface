@@ -6,7 +6,7 @@ describe('api/mutation/repayVai', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
-        repayVai: () => ({
+        repayVAI: () => ({
           send: async () => {
             throw new Error('Fake error message');
           },
