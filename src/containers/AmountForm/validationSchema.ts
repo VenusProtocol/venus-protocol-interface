@@ -5,10 +5,11 @@ export type FormValues = yup.InferType<typeof validationSchema>;
 
 const validationSchema = yup.object({
   amount: yup
-    .mixed()
+    .mixed<'' | BigNumber>()
+    .required()
     .test(
       'isPositiveBigNumber',
-      'required',
+      'value must be positive',
       value => value instanceof BigNumber && value.isGreaterThan(0),
     ),
 });

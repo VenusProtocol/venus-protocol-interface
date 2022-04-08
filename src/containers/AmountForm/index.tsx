@@ -29,6 +29,7 @@ export const AmountForm: React.FC<IAmountFormProps> = ({ children, onSubmit }) =
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
       validateOnMount
+      validateOnChange
     >
       {formikProps => <Form>{children(formikProps)}</Form>}
     </Formik>

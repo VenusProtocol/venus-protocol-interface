@@ -11,7 +11,6 @@ import { CONTRACT_TOKEN_ADDRESS, getToken } from 'constants/contracts';
 import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
 import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
 import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
-import { isOnTestnet } from 'config';
 import { getTokenContractByAddress } from 'utilities/contractHelpers';
 import { IPool, TokenSymbol } from 'types';
 import { State } from 'core/modules/initialState';
