@@ -16,7 +16,7 @@ const useMintVai = (options?: Options) => {
   // @TODO: invalidate queries related to fetching the user minted VAI amount
 
   return useMutation(
-    [FunctionKey.MINT_VAI, options?.variables],
+    FunctionKey.MINT_VAI,
     (params: Omit<MintVaiInput, 'vaiControllerContract'>) =>
       mintVai({
         vaiControllerContract,

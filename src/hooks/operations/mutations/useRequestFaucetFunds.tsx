@@ -9,7 +9,7 @@ const useRequestFaucetFunds = (
   options?: MutationObserverOptions<RequestFaucetFundsOutput, Error, RequestFaucetFundsInput>,
 ) =>
   useMutation<RequestFaucetFundsOutput, Error, RequestFaucetFundsInput>(
-    [REQUEST_FAUCET_FUNDS, options?.variables],
+    REQUEST_FAUCET_FUNDS,
     requestFaucetFunds,
     options,
   );
