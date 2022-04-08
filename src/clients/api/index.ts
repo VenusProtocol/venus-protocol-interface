@@ -3,11 +3,15 @@ export { default as queryClient } from './queryClient';
 // Mutations
 export { default as requestFaucetFunds } from './mutations/requestFaucetFunds';
 export * from './mutations/requestFaucetFunds';
+export { default as useRequestFaucetFunds } from './mutations/useRequestFaucetFunds';
+
 export { default as mintVai } from './mutations/mintVai';
 export * from './mutations/mintVai';
+export { default as useMintVai } from './mutations/useMintVai';
 
 export { default as repayVai } from './mutations/repayVai';
 export * from './mutations/repayVai';
+export { default as useRepayVai } from './mutations/useRepayVai';
 
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
@@ -25,3 +29,4 @@ export { default as getMarkets } from './queries/getMarkets';
 export * from './queries/getMarkets';
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
+export { default as useGetVaiTreasuryPercentage } from './queries/useGetVaiTreasuryPercentage';
