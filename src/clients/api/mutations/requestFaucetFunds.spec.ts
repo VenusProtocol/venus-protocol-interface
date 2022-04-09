@@ -8,11 +8,9 @@ describe('api/mutations/requestFaucetFunds', () => {
     const fakeErrorMessage = 'Fake error message';
 
     (restService as jest.Mock).mockImplementationOnce(async () => ({
-      status: 400,
-      data: {
-        status: false,
-        message: fakeErrorMessage,
-      },
+      result: 'error',
+      status: false,
+      message: fakeErrorMessage,
     }));
 
     try {

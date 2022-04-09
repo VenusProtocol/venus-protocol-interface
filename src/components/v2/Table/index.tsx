@@ -25,9 +25,19 @@ export interface ITableProps {
     orderBy: string;
     orderDirection: 'asc' | 'desc';
   };
+  rowOnClick?: (row: ITableRowProps[]) => void;
+  rowKeyIndex: number;
 }
 
-export function Table({ columns, data, title, minWidth, initialOrder }: ITableProps) {
+export const Table = ({
+  columns,
+  data,
+  title,
+  minWidth,
+  initialOrder,
+  rowOnClick,
+  rowKeyIndex,
+}: ITableProps) => {
   const styles = useStyles();
   const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(
     initialOrder?.orderBy,
@@ -80,7 +90,11 @@ export function Table({ columns, data, title, minWidth, initialOrder }: ITablePr
 
         <TableBody>
           {rows.map(row => (
-            <TableRow key={uid(row)}>
+            <TableRow
+              hover
+              key={row[rowKeyIndex].value.toString()}
+              onClick={() => rowOnClick && rowOnClick(row)}
+            >
               {row.map(({ key, render }: ITableRowProps) => (
                 <TableCell key={uid(key)}>
                   <div>{render()}</div>
@@ -92,4 +106,4 @@ export function Table({ columns, data, title, minWidth, initialOrder }: ITablePr
       </TableMUI>
     </TableContainer>
   );
-}
+};

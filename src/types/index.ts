@@ -3,8 +3,6 @@ import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 
 export type TokenSymbol = keyof typeof CONTRACT_TOKEN_ADDRESS;
 
-type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E };
-
 export interface User {
   Token: string;
 }
@@ -30,7 +28,7 @@ export interface Asset {
   collateralFactor: BigNumber;
   collateral: boolean;
   supplyBalance: BigNumber;
-  hypotheticalLiquidity?: Result<[string, string, string]>;
+  hypotheticalLiquidity: [string, string, string];
   key: number;
   percentOfLimit: string;
   tokenAddress: string;
@@ -109,4 +107,45 @@ export interface Transaction {
   amount: string;
   to: string;
   votes: string;
+}
+
+export interface Market {
+  address: string;
+  borrowApy: number;
+  borrowCaps: string;
+  borrowRatePerBlock: string;
+  borrowVenusApy: string;
+  borrowerCount: number;
+  borrowerDailyVenus: string;
+  cash: string;
+  collateralFactor: string;
+  exchangeRate: string;
+  lastCalculatedBlockNumber: number;
+  liquidity: string;
+  name: string;
+  reserveFactor: string;
+  supplierCount: number;
+  supplierDailyVenus: string;
+  supplyApy: string;
+  supplyRatePerBlock: string;
+  supplyVenusApy: string;
+  symbol: string;
+  tokenPrice: string;
+  totalBorrows: string;
+  totalBorrows2: string;
+  totalBorrowsUsd: string;
+  totalDistributed: string;
+  totalDistributed2: string;
+  totalReserves: string;
+  totalSupply: string;
+  totalSupply2: string;
+  totalSupplyUsd: string;
+  underlyingAddress: string;
+  underlyingDecimal: number;
+  underlyingName: string;
+  underlyingPrice: string;
+  underlyingSymbol: string;
+  venusBorrowIndex: string;
+  venusSpeeds: string;
+  venusSupplyIndex: string;
 }

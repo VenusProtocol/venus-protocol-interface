@@ -35,7 +35,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   const rows: ITableProps['data'] = borrowAssets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token symbol={asset.symbol as TokenSymbol} />,
+      render: () => <Token symbol={asset.name as TokenSymbol} />,
       value: asset.name,
     },
     {
@@ -72,6 +72,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
           orderBy: 'apy',
           orderDirection: 'asc',
         }}
+        rowKeyIndex={0}
       />
     </div>
   );
@@ -80,7 +81,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
 const BorrowMarket: React.FC = () => {
   // Format fetched data into borrow assets
   // @TODO: fetch actual data
-  const assets = require('./mocks') // eslint-disable-line
+  const assets = require('__mocks__/models/asset') // eslint-disable-line
     .assetData // Filter out tokens we don't support (this could happen if a new token was
     // introduced within the smart contracts and we didn't update our frontend
     // config)

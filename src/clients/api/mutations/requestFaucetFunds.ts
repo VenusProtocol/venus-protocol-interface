@@ -20,12 +20,13 @@ export type RequestFaucetFundsInput = {
 
 export type RequestFaucetFundsOutput = void;
 
-const stakeCoins = async (params: RequestFaucetFundsInput): Promise<RequestFaucetFundsOutput> => {
-  const response = await restService({ api: '/faucet', method: 'POST', params });
-
-  if ('data' in response && response.data.status === false) {
-    throw new Error(response.data.message);
+const requestFaucetFundsInput = async (
+  params: RequestFaucetFundsInput,
+): Promise<RequestFaucetFundsOutput> => {
+  const response = await restService<void>({ api: '/faucet', method: 'POST', params });
+  if ('result' in response && response.result === 'error') {
+    throw new Error(response.message);
   }
 };
 
-export default stakeCoins;
+export default requestFaucetFundsInput;
