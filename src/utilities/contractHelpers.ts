@@ -42,61 +42,61 @@ const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: Web3) => {
   return new web3.eth.Contract(abi, address);
 };
 
-export const getVaiTokenContract = (web3: $TSFixMe) =>
+export const getVaiTokenContract = (web3: Web3) =>
   getContract(vaiTokenAbi, getVaiTokenAddress(), web3);
 
-export const getVaiUnitrollerContract = (web3: $TSFixMe) =>
+export const getVaiUnitrollerContract = (web3: Web3) =>
   getContract(vaiUnitrollerAbi, getVaiUnitrollerAddress(), web3);
 
-export const getVaiVaultContract = (web3: $TSFixMe) =>
+export const getVaiVaultContract = (web3: Web3) =>
   getContract(vaiVaultAbi, getVaiVaultAddress(), web3);
 
-export const getXvsVaultContract = (web3: $TSFixMe) =>
+export const getXvsVaultContract = (web3: Web3) =>
   getContract(xvsVaultAbi, getXvsVaultAddress(), web3);
 
-export const getXvsVaultProxyContract = (web3: $TSFixMe) =>
+export const getXvsVaultProxyContract = (web3: Web3) =>
   getContract(xvsVaultAbi, getXvsVaultProxyAddress(), web3);
 
-export const getXvsVaultStoreContract = (web3: $TSFixMe) =>
+export const getXvsVaultStoreContract = (web3: Web3) =>
   getContract(xvsVaultStoreAbi, getXvsVaultAddress(), web3);
 
-export const getTokenContract = (web3: $TSFixMe, name: $TSFixMe) =>
+export const getTokenContract = (web3: Web3, name: $TSFixMe) =>
   getContract(name === 'xvs' ? xvsAbi : bep20Abi, constants.getToken(name).address, web3);
 
 export const getTokenContractByAddress = (
-  web3: $TSFixMe,
+  web3: Web3,
 
   address: $TSFixMe,
 ) => getContract(vaiTokenAbi, address, web3);
 
-export const getVbepContract = (web3: $TSFixMe, name: $TSFixMe) =>
+export const getVbepContract = (web3: Web3, name: $TSFixMe) =>
   getContract(name === 'bnb' ? vbnbAbi : vbepAbi, constants.getVbepToken(name).address, web3);
 
-export const getComptrollerContract = (web3: $TSFixMe) =>
+export const getComptrollerContract = (web3: Web3) =>
   getContract(comptrollerAbi, getComptrollerAddress(), web3);
 
-export const getPriceOracleContract = (web3: $TSFixMe) =>
+export const getPriceOracleContract = (web3: Web3) =>
   getContract(oracleAbi, getOracleAddress(), web3);
 
-export const getInterestModelContract = (web3: $TSFixMe, address: $TSFixMe) =>
+export const getInterestModelContract = (web3: Web3, address: $TSFixMe) =>
   getContract(interestModelAbi, address, web3);
 
-export const getVenusLensContract = (web3: $TSFixMe) =>
+export const getVenusLensContract = (web3: Web3) =>
   getContract(venusLensAbi, getVenusLensAddress(), web3);
 
-export const getGovernorBravoContract = (web3: $TSFixMe) =>
+export const getGovernorBravoContract = (web3: Web3) =>
   getContract(governorBravoAbi, getGovernorBravoAddress(), web3);
 
 // VRT conversion
-export const getXvsVestingProxyContract = (web3: $TSFixMe) =>
+export const getXvsVestingProxyContract = (web3: Web3) =>
   getContract(xvsVestingAbi, getXvsVestingProxyAddress(), web3);
 
-export const getVrtConverterProxyContract = (web3: $TSFixMe) =>
+export const getVrtConverterProxyContract = (web3: Web3) =>
   getContract(vrtConverterAbi, getVrtConverterProxyAddress(), web3);
 
-export const getVrtTokenContract = (web3: $TSFixMe) =>
+export const getVrtTokenContract = (web3: Web3) =>
   getContract(vrtTokenAbi, getVrtTokenAddress(), web3);
 
 // VRT vault
-export const getVrtVaultProxyContract = (web3: $TSFixMe) =>
+export const getVrtVaultProxyContract = (web3: Web3) =>
   getContract(vrtVaultAbi, getVrtVaultProxyAddress(), web3);
