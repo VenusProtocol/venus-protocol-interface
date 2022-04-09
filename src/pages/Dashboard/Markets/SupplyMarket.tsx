@@ -1,17 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useState } from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
-import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 import { Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
+import { ToastError } from 'utilities/errors';
+import toast from 'components/Basic/Toast';
+import { useWeb3Account } from 'clients/web3';
+import { useComptroller } from 'hooks/useContract';
+import useUserMarketInfo from 'hooks/useUserMarketInfo';
+import useExitMarket from 'hooks/operations/mutations/useExitMarket';
+import useEnterMarkets from 'hooks/operations/mutations/useEnterMarkets';
+import { CollateralConfirmModal } from './CollateralConfirmModal';
 import { useStyles } from './styles';
 
 export interface ISupplyMarketUiProps {
   className?: string;
   assets: Asset[];
   withXvs: boolean;
-  toggleAssetCollateral: (tokenSymbol: TokenSymbol) => void;
+  toggleAssetCollateral: (a: Asset) => void;
+  confirmCollateral: Asset | undefined;
+  setConfirmCollateral: (asset: Asset | undefined) => void;
 }
 
 const columns = [
@@ -26,14 +35,27 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   assets,
   toggleAssetCollateral,
   withXvs,
+  confirmCollateral,
+  setConfirmCollateral,
 }) => {
   const styles = useStyles();
-
+  const collateralOnChange = async (asset: Asset) => {
+    try {
+      toggleAssetCollateral(asset);
+    } catch (e) {
+      if (e instanceof ToastError) {
+        toast.error({
+          title: e.title,
+          description: e.description,
+        });
+      }
+    }
+  };
   // Format assets to rows
   const rows: ITableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token symbol={asset.symbol as TokenSymbol} />,
+      render: () => <Token symbol={asset.name as TokenSymbol} />,
       value: asset.name,
     },
     {
@@ -58,14 +80,14 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
       value: asset.collateral,
       render: () =>
         +asset.collateralFactor.toString() ? (
-          <Toggle
-            onChange={() => toggleAssetCollateral(asset.id as TokenSymbol)}
-            value={asset.collateral}
-          />
+          <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
         ) : null,
     },
   ]);
-
+  const rowOnClick = () => {
+    // @TODO - Sprint 10 https://app.clickup.com/t/24quh87
+    console.log('To be implemented in Sprint 10');
+  };
   return (
     <div className={className} css={styles.container}>
       <Table
@@ -76,23 +98,85 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
           orderBy: 'apy',
           orderDirection: 'asc',
         }}
+        rowOnClick={rowOnClick}
+        rowKeyIndex={0}
+      />
+      <CollateralConfirmModal
+        asset={confirmCollateral}
+        handleClose={() => setConfirmCollateral(undefined)}
       />
     </div>
   );
 };
 
 const SupplyMarket: React.FC = () => {
-  // Format fetched data into borrow assets
-  // @TODO: fetch actual data
-  const assets = require('./mocks') // eslint-disable-line
-    .assetData // Filter out tokens we don't support (this could happen if a new token was
-    // introduced within the smart contracts and we didn't update our frontend
-    // config)
-    .filter(
-      (asset: Asset) => !Object.prototype.hasOwnProperty.call(CONTRACT_TOKEN_ADDRESS, asset.symbol),
-    );
+  const { account = '' } = useWeb3Account();
+  const userMarketInfo = useUserMarketInfo({ account });
+  const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
+  const { mutate: enterMarkets } = useEnterMarkets({
+    onSuccess: () => setConfirmCollateral(undefined),
+    onError: error => {
+      setConfirmCollateral(undefined);
+      throw error;
+    },
+  });
+  const { mutate: exitMarkets } = useExitMarket({
+    onSuccess: () => setConfirmCollateral(undefined),
+    onError: error => {
+      setConfirmCollateral(undefined);
+      throw error;
+    },
+  });
+  const comptrollerContract = useComptroller();
+  const toggleAssetCollateral = (asset: Asset) => {
+    if (!account) {
+      throw new ToastError(
+        'Account Required',
+        'Please connect your wallet to set an asset as collateral.',
+      );
+    } else if (!asset || !asset.borrowBalance.isZero()) {
+      throw new ToastError(
+        'Collateral Required',
+        'Please repay all borrowed assets or set other assets as collateral.',
+      );
+    } else if (!asset.collateral) {
+      try {
+        setConfirmCollateral(asset);
+        enterMarkets({ comptrollerContract, vtokenAddresses: [asset.vtokenAddress], account });
+      } catch (error) {
+        console.log('enter markets error :>> ', error);
+        throw new ToastError(
+          'Collateral Enable Error',
+          `There was a problem enabeling collateral ${asset.name}. Please try again.`,
+        );
+      }
+    } else if (+asset.hypotheticalLiquidity['1'] > 0 || +asset.hypotheticalLiquidity['2'] === 0) {
+      try {
+        setConfirmCollateral(asset);
+        exitMarkets({ comptrollerContract, vtokenAddress: asset.vtokenAddress, account });
+      } catch (error) {
+        throw new ToastError(
+          'Collateral Disable Error',
+          `There was a problem disabeling collateral ${asset.name}. Please try again.`,
+        );
+      }
+    } else {
+      throw new ToastError(
+        'Collateral Required',
+        'Please repay all borrowed assets or set other assets as collateral.',
+      );
+    }
+  };
   // @TODO: set withXVS from WalletBalance
-  return <SupplyMarketUi assets={assets} withXvs toggleAssetCollateral={() => {}} />;
+  return (
+    <SupplyMarketUi
+      assets={userMarketInfo}
+      withXvs
+      toggleAssetCollateral={toggleAssetCollateral}
+      confirmCollateral={confirmCollateral}
+      setConfirmCollateral={setConfirmCollateral}
+    />
+  );
 };
 
 export default SupplyMarket;

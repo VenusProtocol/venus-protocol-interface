@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { TREASURY_ADDRESS } from 'config';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { Asset } from 'types';
+import { Asset, Market } from 'types';
 import * as constants from 'constants/contracts';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
@@ -45,18 +45,19 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
     let isMounted = true;
     const getMarkets = async () => {
       const res = await fetchMarkets();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
       if (!res.data || !res.data.status) {
         return;
       }
 
       const data = Object.keys(constants.VBEP_TOKENS)
-        .map(item =>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
-          res.data.data.markets.find(
-            (market: $TSFixMe) => market.underlyingSymbol.toLowerCase() === item.toLowerCase(),
-          ),
-        )
+        .map(item => {
+          if (res && res.data && res.data.data) {
+            return res.data.data.markets.find(
+              (market: Market) => market.underlyingSymbol.toLowerCase() === item.toLowerCase(),
+            );
+          }
+          return undefined;
+        })
         .filter(item => !!item);
 
       if (!isMounted) {
@@ -64,7 +65,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
       }
 
       setMarkets(data);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
       setDailyVenus(res.data.data.dailyVenus);
     };
     getMarkets();
@@ -186,6 +186,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
               isEnabled,
               collateral,
               percentOfLimit,
+              hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
             };
           },
         );
@@ -197,9 +198,8 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         // still have to query each market.
         assetList = await Promise.all(
           assetList.map(async asset => {
-            const comptrollerContractAddress = getComptrollerAddress();
-            const getHypotheticalLiquidity = () =>
-              comptrollerLensContract.methods
+            const getHypotheticalLiquidity = (): [string, string, string] =>
+              comptrollerContract.methods
                 .getHypotheticalAccountLiquidity(
                   comptrollerContractAddress,
                   account,

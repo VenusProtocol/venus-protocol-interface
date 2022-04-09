@@ -29,6 +29,7 @@ export const assetData = [
     treasuryBalance: new BigNumber('5553322'),
     vimg: undefined,
     vsymbol: 'vXVS',
+    hypotheticalLiquidity: ['1', '2', '3'] as [string, string, string],
   },
   {
     id: '2',
@@ -58,6 +59,7 @@ export const assetData = [
     treasuryBalance: new BigNumber('5553322'),
     vimg: undefined,
     vsymbol: 'vUSDC',
+    hypotheticalLiquidity: ['1', '2', '3'] as [string, string, string],
   },
   {
     id: '3',
@@ -87,5 +89,6 @@ export const assetData = [
     treasuryBalance: new BigNumber('5553322'),
     vimg: undefined,
     vsymbol: 'vBNB',
+    hypotheticalLiquidity: ['1', '2', '3'] as [string, string, string],
   },
 ];
