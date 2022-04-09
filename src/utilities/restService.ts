@@ -1,14 +1,40 @@
 import { set, isEmpty } from 'lodash';
 import { API_ENDPOINT_URL } from '../config';
 
-export async function restService({
+interface IBaseArgs {
+  api: string;
+  third_party?: boolean;
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+  token?: string | null;
+}
+interface IJsonArgs extends IBaseArgs {
+  contentType?: 'json';
+  params?: Record<string, unknown>;
+}
+interface IMultiFormArgs extends IBaseArgs {
+  contentType: 'multi-form';
+  params: Record<string, string | Blob>;
+}
+
+export async function restService<D>({
   api,
   third_party,
   method,
   params,
   contentType = 'json',
   token = null,
-}: $TSFixMe) {
+}: IJsonArgs | IMultiFormArgs): Promise<
+  | {
+      status: number;
+      data: { data: D; status: boolean } | undefined;
+    }
+  | {
+      data: undefined;
+      result: 'error';
+      message: string;
+      status: boolean;
+    }
+> {
   const headers = {};
   let path = `${API_ENDPOINT_URL}${api}`;
 
@@ -17,10 +43,10 @@ export async function restService({
   }
 
   const formData = new FormData();
-  if (contentType === 'multi-form') {
-    Object.keys(params).forEach(key => {
+  if (params && contentType === 'multi-form') {
+    Object.keys(params as Record<string, string | Blob>).forEach(key => {
       if (params[key] !== null && key !== 'token') {
-        formData.append(key, params[key]);
+        formData.append(key, params[key] as string | Blob);
       }
     });
   } else {
@@ -34,27 +60,29 @@ export async function restService({
   const reqBody = {
     method,
     headers,
+    body: {},
   };
   if (contentType === 'multi-form') {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
     reqBody.body = formData;
   } else if (!isEmpty(params)) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
     reqBody.body = JSON.stringify(params);
   } else if (Array.isArray(params)) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'body' does not exist on type '{ method: ... Remove this comment to see the full error message
     reqBody.body = JSON.stringify([]);
   }
 
-  return fetch(path, reqBody)
+  return fetch(path)
     .then(response =>
       response
-        .text()
-        .then(text =>
-          text ? { status: response.status, data: JSON.parse(text) } : { status: response.status },
+        .json()
+        .then(json =>
+          json
+            ? { status: response.status, data: json }
+            : { status: response.status, data: undefined },
         ),
     )
     .catch(error => ({
+      status: false,
+      data: undefined,
       result: 'error',
       message: error,
     }));

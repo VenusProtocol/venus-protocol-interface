@@ -191,10 +191,13 @@ export const formatApy = (apy?: BigNumber | string | number): string => {
  * @returns An object with the keys derived as indexFn(array item)
  */
 
-export const indexBy = (indexFn: $TSFixMe, arr: $TSFixMe) =>
-  arr.reduce((result: $TSFixMe, item: $TSFixMe) => {
+export const indexBy = <V>(indexFn: (v: V) => string, arr: V[]) =>
+  arr.reduce((result: Record<string, V>, item: V) => {
     result[indexFn(item)] = item;
     return result;
   }, {});
 
 export const notNull = <TValue>(value: TValue | null): value is TValue => value !== null;
+
+export const notUndefined = <TValue>(value: TValue | undefined): value is TValue =>
+  value !== undefined;

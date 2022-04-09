@@ -16,7 +16,7 @@ export const Token: React.FC<ITokenProps> = ({ className, symbol }) => {
 
   return (
     <div className={className} css={styles.container}>
-      <Icon name={symbol as IconName} css={styles.icon} />
+      <Icon name={symbol.toLowerCase() as IconName} css={styles.icon} />
       <Typography component="span">{symbol.toUpperCase()}</Typography>
     </div>
   );
