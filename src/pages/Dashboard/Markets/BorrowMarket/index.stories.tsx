@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory } from 'stories/decorators';
 import { assetData } from '__mocks__/models/asset';
-import { BorrowMarketUi } from './BorrowMarket';
+import { BorrowMarketUi } from '.';
 
 export default {
   title: 'Pages/Dashboard/BorrowMarket',
