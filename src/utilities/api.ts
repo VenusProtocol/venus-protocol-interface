@@ -3,7 +3,6 @@ import { restService } from './restService';
 
 export const fetchMarkets = async () =>
   restService<IGetMarketsResponse>({
-    api: '/governance/venus',
+    endpoint: '/governance/venus',
     method: 'GET',
-    params: {},
   });

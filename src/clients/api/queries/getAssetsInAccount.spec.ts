@@ -1,5 +1,3 @@
-import { Contract } from 'web3-eth-contract';
-
 import getAssetsInAccount from './getAssetsInAccount';
 
 describe('api/queries/getAssetsInAccount', () => {
