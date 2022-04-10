@@ -3,12 +3,16 @@ import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
 import { repayVai } from 'clients/api';
+import toast from 'components/Basic/Toast';
 import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
 import RepayVai from '.';
 
 jest.mock('clients/api');
+jest.mock('components/Basic/Toast');
+
+const fakeUserVaiMinted = new BigNumber('100');
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('renders without crashing', async () => {
@@ -17,8 +21,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('displays the correct repay VAI balance', async () => {
-    const fakeUserVaiMinted = new BigNumber('100');
-
     const { getByText } = renderComponent(
       <VaiContext.Provider
         value={{
@@ -38,7 +40,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('lets user repay their VAI balance', async () => {
-    const fakeUserVaiMinted = new BigNumber('100');
     const fakeUserVaiBalance = fakeUserVaiMinted;
     const fakeAccountAddress = '0x0';
 
@@ -73,19 +74,27 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     fireEvent.change(tokenTextFieldInput, { target: { value: fakeUserVaiMinted.toString() } });
 
     // Check input value updated correctly
-    expect(tokenTextFieldInput.value).toBe('100');
+    expect(tokenTextFieldInput.value).toBe(fakeUserVaiMinted.toString());
 
     // Submit repayment request
     const submitButton = getByText('Repay VAI').closest('button') as HTMLButtonElement;
     await waitFor(() => expect(submitButton).toHaveProperty('disabled', false));
     fireEvent.click(submitButton);
 
+    // Check repayVai was called correctly
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
     const fakeUserWeiMinted = fakeUserVaiMinted.multipliedBy(new BigNumber(10).pow(18));
     expect(repayVai).toHaveBeenCalledWith({
       fromAccountAddress: fakeAccountAddress,
       amountWei: fakeUserWeiMinted,
     });
+
+    // Check success toast is requested
+    expect(
+      toast.success({
+        title: `You successfully repaid ${fakeUserVaiMinted.toString()} VAI`,
+      }),
+    );
   });
 
   // @TODO: add tests to cover failing scenarios
