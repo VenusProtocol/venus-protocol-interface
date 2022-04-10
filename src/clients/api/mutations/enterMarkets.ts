@@ -1,7 +1,5 @@
-import { Contract } from 'web3-eth-contract';
-
 export interface IEnterMarketsInput {
-  comptrollerContract: Contract; // @TODO: use contract type (through Typechain?)
+  comptrollerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
   account: string | undefined | null;
   vtokenAddresses: string[];
 }

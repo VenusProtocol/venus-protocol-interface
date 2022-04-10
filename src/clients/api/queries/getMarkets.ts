@@ -14,7 +14,7 @@ export type GetMarketsOutput = Market[];
 
 const getMarkets = async (): Promise<GetMarketsOutput> => {
   const response = await restService<IGetMarketsResponse>({
-    api: '/governance/venus',
+    endpoint: '/governance/venus',
     method: 'GET',
   });
   if ('result' in response && response.result === 'error') {
