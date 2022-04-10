@@ -15,15 +15,15 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('displays the correct repay VAI balance', async () => {
-    const fakeUserVaiBalance = new BigNumber('100');
+    const fakeUserVaiMinted = new BigNumber('100');
 
     const { getByText } = renderComponent(
       <VaiContext.Provider
         value={{
           userVaiEnabled: true,
-          userVaiMinted: new BigNumber(0),
+          userVaiMinted: fakeUserVaiMinted,
           mintableVai: new BigNumber(0),
-          userVaiBalance: fakeUserVaiBalance,
+          userVaiBalance: new BigNumber(0),
         }}
       >
         <RepayVai />
@@ -32,6 +32,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => getByText('Repay VAI balance'));
 
     // Check user repay VAI balance displays correctly
-    await waitFor(() => getByText(`${fakeUserVaiBalance.toString()} VAI`));
+    await waitFor(() => getByText(`${fakeUserVaiMinted.toString()} VAI`));
   });
 });

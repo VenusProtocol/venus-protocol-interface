@@ -17,32 +17,34 @@ export interface IRepayVaiUiProps {
   disabled: boolean;
   isRepayVaiLoading: boolean;
   onSubmit: (value: BigNumber) => void;
-  userWeiBalance?: BigNumber;
-  mintedWei?: BigNumber;
+  userBalanceWei?: BigNumber;
+  userMintedWei?: BigNumber;
 }
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   disabled,
-  userWeiBalance,
-  mintedWei,
+  userBalanceWei,
+  userMintedWei,
   isRepayVaiLoading,
   onSubmit,
 }) => {
   const limitWei = React.useMemo(
     () =>
-      userWeiBalance && mintedWei ? BigNumber.minimum(userWeiBalance, mintedWei) : new BigNumber(0),
-    [userWeiBalance?.toString(), mintedWei?.toString()],
+      userBalanceWei && userMintedWei
+        ? BigNumber.minimum(userBalanceWei, userMintedWei)
+        : new BigNumber(0),
+    [userBalanceWei?.toString(), userMintedWei?.toString()],
   );
 
   const styles = useStyles();
 
   // Convert minted wei into VAI
   const readableRepayableVai = useConvertToReadableCoinString({
-    valueWei: mintedWei,
+    valueWei: userMintedWei,
     tokenSymbol: VAI_SYMBOL,
   });
 
-  const hasRepayableVai = mintedWei?.isGreaterThan(0) || false;
+  const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
 
   return (
     <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
@@ -107,15 +109,15 @@ const RepayVai: React.FC = () => {
   });
 
   // Convert minted VAI balance into wei of VAI
-  const mintedWei = React.useMemo(
+  const userMintedWei = React.useMemo(
     () => convertCoinsToWei({ value: userVaiMinted, tokenSymbol: VAI_SYMBOL }),
-    [userVaiBalance.toString()],
+    [userVaiMinted.toString()],
   );
 
   // Convert user VAI balance into wei of VAI
-  const userWeiBalance = React.useMemo(
+  const userBalanceWei = React.useMemo(
     () => convertCoinsToWei({ value: userVaiBalance, tokenSymbol: VAI_SYMBOL }),
-    [userVaiMinted.toString()],
+    [userVaiBalance.toString()],
   );
 
   const onSubmit: IRepayVaiUiProps['onSubmit'] = amountWei => {
@@ -131,8 +133,8 @@ const RepayVai: React.FC = () => {
   return (
     <RepayVaiUi
       disabled={!account}
-      userWeiBalance={userWeiBalance}
-      mintedWei={mintedWei}
+      userBalanceWei={userBalanceWei}
+      userMintedWei={userMintedWei}
       isRepayVaiLoading={isRepayVaiLoading}
       onSubmit={onSubmit}
     />
