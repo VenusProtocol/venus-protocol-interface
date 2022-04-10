@@ -108,13 +108,13 @@ const RepayVai: React.FC = () => {
 
   // Convert minted VAI balance into wei of VAI
   const mintedWei = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiBalance, tokenSymbol: VAI_SYMBOL }),
+    () => convertCoinsToWei({ value: userVaiMinted, tokenSymbol: VAI_SYMBOL }),
     [userVaiBalance.toString()],
   );
 
   // Convert user VAI balance into wei of VAI
   const userWeiBalance = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiMinted, tokenSymbol: VAI_SYMBOL }),
+    () => convertCoinsToWei({ value: userVaiBalance, tokenSymbol: VAI_SYMBOL }),
     [userVaiMinted.toString()],
   );
 
