@@ -46,7 +46,10 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         return '-';
       }
 
-      const readableFeeVai = valueWei ? getReadableFeeVai({ valueWei, mintFeePercentage }) : '0';
+      const readableFeeVai = getReadableFeeVai({
+        valueWei: valueWei || new BigNumber(0),
+        mintFeePercentage,
+      });
       return `${readableFeeVai} (${mintFeePercentage}%)`;
     },
     [mintFeePercentage],
