@@ -9,7 +9,7 @@ import { Asset, TokenSymbol } from 'types';
 import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 import { Token } from 'components/v2/Token';
 import { Table, ITableProps } from 'components/v2/Table';
-import { useStyles } from './styles';
+import { useStyles } from '../styles';
 
 export interface IBorrowMarketUiProps {
   className?: string;
@@ -63,7 +63,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   ]);
 
   return (
-    <div className={className} css={styles.container}>
+    <div className={className} css={styles.tableContainer}>
       <Table
         title="Borrow market"
         columns={columns}
