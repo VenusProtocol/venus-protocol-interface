@@ -88,7 +88,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
 const RepayVai: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-
   const { userVaiMinted, userVaiBalance } = useVaiUser();
 
   const { mutate: repayVai, isLoading: isRepayVaiLoading } = useRepayVai({
