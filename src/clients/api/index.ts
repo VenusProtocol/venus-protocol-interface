@@ -13,8 +13,6 @@ export { default as repayVai } from './mutations/repayVai';
 export * from './mutations/repayVai';
 export { default as useRepayVai } from './mutations/useRepayVai';
 
-export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
-export * from './queries/getVaiTreasuryPercentage';
 export { default as enterMarkets } from './mutations/enterMarkets';
 export * from './mutations/enterMarkets';
 export { default as useEnterMarkets } from './mutations/useEnterMarkets';
@@ -42,4 +40,4 @@ export { default as useGetMarkets } from './queries/useGetMarkets';
 
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
-export { default as useGetVaiTreasuryPercentage } from './queries/useGetVaiTreasuryPercentage';
+export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalancesAll';
