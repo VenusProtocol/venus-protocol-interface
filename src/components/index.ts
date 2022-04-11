@@ -6,7 +6,7 @@ export * from './v2/Icon';
 export * from './v2/LabeledInlineContent';
 export * from './v2/Layout';
 export * from './v2/Modal';
-export * from './v2/Slider';
+export * from './v2/ProgressBarHorizontal';
 export * from './v2/SuccessfulTransactionMessage';
 export * from './v2/Table';
 export * from './v2/Tabs';

@@ -5,10 +5,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import { formatCentsToReadableValue } from 'utilities/common';
-import { IToggleProps, Toggle, Icon } from 'components';
-import { Slider } from '../../../components/v2/Slider';
+import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
 import { useMyAccountStyles as useStyles } from './styles';
-import { Tooltip } from '../../../components/v2/Tooltip';
 
 interface IMyAccountProps {
   netApyPercentage: number;
@@ -94,14 +92,15 @@ export const MyAccount = ({
         </Typography>
         {formatCentsToReadableValue(borrowLimitCents)}
       </div>
-      <Slider
-        defaultValue={safeLimitPercentage}
+      <ProgressBarHorizontal
+        value={safeLimitPercentage}
         mark={80}
         step={1}
         ariaLabel="Borrow limit"
         min={0}
         max={100}
-        onChange={console.log}
+        trackTooltip="Storybook tooltip text for Track"
+        markTooltip="Storybook tooltip text for Mark"
         isDisabled
       />
       <Typography component="div" variant="small2" css={styles.bottom}>
