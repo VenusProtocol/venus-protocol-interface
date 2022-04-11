@@ -30,51 +30,59 @@ import { VaiContextProvider } from '../context/VaiContext';
 import { MuiThemeProvider } from '../theme/MuiThemeProvider/MuiThemeProvider';
 import 'assets/styles/App.scss';
 
-const App: React.FC = () => (
-  <Theme>
-    <Web3Wrapper>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <RefreshContextProvider>
-            <VaiContextProvider>
-              <MarketContextProvider>
-                <MuiThemeProvider>
-                  <AuthProvider>
-                    <BrowserRouter>
-                      <ToastContainer
-                        autoClose={8000}
-                        transition={Slide}
-                        hideProgressBar
-                        newestOnTop
-                        position={toast.POSITION.TOP_LEFT}
-                      />
-                      <Layout>
-                        <Switch>
-                          <Route exact path="/dashboard" component={Dashboard} />
-                          <Route exact path="/vote" component={Vote} />
-                          <Route exact path="/xvs" component={XVS} />
-                          <Route exact path="/market" component={Market} />
-                          <Route exact path="/transaction" component={Transaction} />
-                          <Route exact path="/vault" component={Vault} />
-                          <Route exact path="/market/:asset" component={MarketDetail} />
-                          <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
-                          <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                          <Route exact path="/vote/address/:address" component={ProposerDetail} />
-                          <Route exact path="/convert-vrt" component={VrtConversion} />
-                          {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
-                          <Redirect from="/" to="/dashboard" />
-                        </Switch>
-                      </Layout>
-                    </BrowserRouter>
-                  </AuthProvider>
-                </MuiThemeProvider>
-              </MarketContextProvider>
-            </VaiContextProvider>
-          </RefreshContextProvider>
-        </Provider>
-      </QueryClientProvider>
-    </Web3Wrapper>
-  </Theme>
-);
+class App extends React.Component<Record<string, unknown>, { lang: 'en' }> {
+  render() {
+    return (
+      <Theme>
+        <Web3Wrapper>
+          <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
+              <RefreshContextProvider>
+                <VaiContextProvider>
+                  <MarketContextProvider>
+                    <MuiThemeProvider>
+                      <AuthProvider>
+                        <BrowserRouter>
+                          <ToastContainer
+                            autoClose={8000}
+                            transition={Slide}
+                            hideProgressBar
+                            newestOnTop
+                            position={toast.POSITION.TOP_LEFT}
+                          />
+                          <Layout>
+                            <Switch>
+                              <Route exact path="/dashboard" component={Dashboard} />
+                              <Route exact path="/vote" component={Vote} />
+                              <Route exact path="/xvs" component={XVS} />
+                              <Route exact path="/market" component={Market} />
+                              <Route exact path="/transaction" component={Transaction} />
+                              <Route exact path="/vault" component={Vault} />
+                              <Route exact path="/market/:asset" component={MarketDetail} />
+                              <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
+                              <Route exact path="/vote/proposal/:id" component={VoteOverview} />
+                              <Route
+                                exact
+                                path="/vote/address/:address"
+                                component={ProposerDetail}
+                              />
+                              <Route exact path="/convert-vrt" component={VrtConversion} />
+                              {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
+                              <Redirect from="/" to="/dashboard" />
+                            </Switch>
+                          </Layout>
+                        </BrowserRouter>
+                      </AuthProvider>
+                    </MuiThemeProvider>
+                  </MarketContextProvider>
+                </VaiContextProvider>
+              </RefreshContextProvider>
+            </Provider>
+          </QueryClientProvider>
+        </Web3Wrapper>
+      </Theme>
+    );
+  }
+}
 
 export default App;
