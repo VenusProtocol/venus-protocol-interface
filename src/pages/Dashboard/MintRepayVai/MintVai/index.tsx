@@ -3,16 +3,17 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { useWeb3Account } from 'clients/web3';
-import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { AmountForm } from 'containers/AmountForm';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
-import useGetVaiTreasuryPercentage from 'hooks/operations/queries/useGetVaiTreasuryPercentage';
-import useMintVai from 'hooks/operations/mutations/useMintVai';
+import { useGetVaiTreasuryPercentage } from 'clients/api';
+import useMintVai from 'clients/api/mutations/useMintVai';
 import toast from 'components/Basic/Toast';
+import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
 import getReadableFeeVai from './getReadableFeeVai';
-import { useStyles } from './styles';
+import { useStyles } from '../styles';
 
 export interface IMintVaiUiProps {
   disabled: boolean;
@@ -32,17 +33,10 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const styles = useStyles();
 
   // Convert limit into VAI
-  const readableVaiLimit = React.useMemo(
-    () =>
-      limitWei
-        ? convertWeiToCoins({
-            value: limitWei,
-            tokenSymbol: VAI_SYMBOL,
-            returnInReadableFormat: true,
-          }).toString()
-        : '-',
-    [limitWei?.toString()],
-  );
+  const readableVaiLimit = useConvertToReadableCoinString({
+    valueWei: limitWei,
+    tokenSymbol: VAI_SYMBOL,
+  });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
 
@@ -59,42 +53,44 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   );
 
   return (
-    <AmountForm onSubmit={onSubmit}>
-      {({ values, setFieldValue, handleBlur, isValid }) => (
+    <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
+      {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
         <>
-          <TokenTextField
-            name="amount"
-            css={styles.textField}
-            tokenSymbol={VAI_SYMBOL}
-            value={values.amount}
-            onChange={amount => setFieldValue('amount', amount, true)}
-            onBlur={handleBlur}
-            maxWei={limitWei}
-            disabled={disabled || isMintVaiLoading || !hasMintableVai}
-            rightMaxButtonLabel="SAFE MAX"
-          />
+          <div css={styles.ctaContainer}>
+            <TokenTextField
+              name="amount"
+              css={styles.textField}
+              tokenSymbol={VAI_SYMBOL}
+              value={values.amount}
+              onChange={amount => setFieldValue('amount', amount, true)}
+              onBlur={handleBlur}
+              maxWei={limitWei}
+              disabled={disabled || isMintVaiLoading || !hasMintableVai}
+              rightMaxButtonLabel="SAFE MAX"
+            />
 
-          <LabeledInlineContent
-            css={styles.getRow({ isLast: false })}
-            iconName={VAI_SYMBOL}
-            label="Available VAI limit"
-          >
-            {readableVaiLimit}
-          </LabeledInlineContent>
+            <LabeledInlineContent
+              css={styles.getRow({ isLast: false })}
+              iconName={VAI_SYMBOL}
+              label="Available VAI limit"
+            >
+              {readableVaiLimit}
+            </LabeledInlineContent>
 
-          <LabeledInlineContent
-            css={styles.getRow({ isLast: true })}
-            iconName="fee"
-            label="Mint fee"
-          >
-            {getReadableMintFee(values.amount)}
-          </LabeledInlineContent>
+            <LabeledInlineContent
+              css={styles.getRow({ isLast: true })}
+              iconName="fee"
+              label="Mint fee"
+            >
+              {getReadableMintFee(values.amount)}
+            </LabeledInlineContent>
+          </div>
 
           <SecondaryButton
-            css={styles.submitButton}
             type="submit"
             loading={isMintVaiLoading}
-            disabled={disabled || !isValid}
+            disabled={disabled || !isValid || !dirty}
+            fullWidth
           >
             Mint VAI
           </SecondaryButton>
@@ -114,6 +110,17 @@ const MintVai: React.FC = () => {
   const { mutate: mintVai, isLoading: isMintVaiLoading } = useMintVai({
     onError: error => {
       toast.error({ title: error.message });
+    },
+    onSuccess: (_data, variables) => {
+      // @TODO: display success modal instead of toast once it's been
+      // implemented
+      toast.success({
+        title: `You successfully minted ${convertWeiToCoins({
+          value: variables.amountWei,
+          tokenSymbol: VAI_SYMBOL,
+          returnInReadableFormat: true,
+        })}`,
+      });
     },
   });
 

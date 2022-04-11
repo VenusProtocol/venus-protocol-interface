@@ -10,6 +10,7 @@ enum FunctionKey {
   MINT_VAI = 'MINT_VAI',
   ENTER_MARKETS = 'ENTER_MARKETS',
   EXIT_MARKET = 'EXIT_MARKET',
+  REPAY_VAI = 'REPAY_VAI',
 }
 
 export default FunctionKey;
