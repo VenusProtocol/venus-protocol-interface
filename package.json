@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "private": true,
   "engines": {
-    "node": ">=12.19.x"
+    "node": ">=16.x.x"
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
