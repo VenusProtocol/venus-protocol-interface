@@ -14,9 +14,10 @@ export interface IAmountFormProps
   onSubmit: (value: BigNumber) => Promise<void> | void;
   children: (formProps: FormikProps<FormValues>) => React.ReactNode;
   initialValues?: FormikConfig<FormValues>['initialValues'];
+  className?: string;
 }
 
-export const AmountForm: React.FC<IAmountFormProps> = ({ children, onSubmit }) => {
+export const AmountForm: React.FC<IAmountFormProps> = ({ children, onSubmit, className }) => {
   const handleSubmit = (values: FormValues) => {
     if (values.amount) {
       onSubmit(values.amount);
@@ -31,7 +32,7 @@ export const AmountForm: React.FC<IAmountFormProps> = ({ children, onSubmit }) =
       validateOnMount
       validateOnChange
     >
-      {formikProps => <Form>{children(formikProps)}</Form>}
+      {formikProps => <Form className={className}>{children(formikProps)}</Form>}
     </Formik>
   );
 };

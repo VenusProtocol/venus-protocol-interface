@@ -23,7 +23,12 @@ export type RequestFaucetFundsOutput = void;
 const requestFaucetFundsInput = async (
   params: RequestFaucetFundsInput,
 ): Promise<RequestFaucetFundsOutput> => {
-  const response = await restService<void>({ api: '/faucet', method: 'POST', params });
+  const response = await restService<RequestFaucetFundsOutput>({
+    endpoint: '/faucet',
+    method: 'POST',
+    params,
+  });
+
   if ('result' in response && response.result === 'error') {
     throw new Error(response.message);
   }

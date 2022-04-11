@@ -1,5 +1,3 @@
-import { Contract } from 'web3-eth-contract';
-
 import getVTokenBalancesAll from './getVTokenBalancesAll';
 
 describe('api/queries/getVTokenBalancesAll', () => {
