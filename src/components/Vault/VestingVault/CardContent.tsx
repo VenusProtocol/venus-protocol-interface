@@ -165,15 +165,7 @@ function CardContent({
               <button
                 type="button"
                 className="button claim-button"
-                disabled={
-                  !pendingReward.gt(0) ||
-                  !account ||
-                  claimLoading ||
-                  // We're temporarily disabling reward claiming because of a
-                  // current issue with the smart contract
-                  // @TODO: re-enable once issue is fixed
-                  stakedToken === 'xvs'
-                }
+                disabled={!pendingReward.gt(0) || !account || claimLoading}
                 onClick={async () => {
                   setClaimLoading(true);
                   try {
