@@ -8,18 +8,19 @@ import {
   TransProps as I18NextTransProps,
 } from 'react-i18next';
 
-i18next.use(initReactI18next).init({
-  resources: {
-    en: {
-      translation: EnLocales,
+export const init = () =>
+  i18next.use(initReactI18next).init({
+    resources: {
+      en: {
+        translation: EnLocales,
+      },
     },
-  },
-  lng: 'en', // We only support English for now, but we'll need to detect the user's locale once we support more languages
-  fallbackLng: 'en',
-  interpolation: {
-    escapeValue: false,
-  },
-});
+    lng: 'en', // We only support English for now, but we'll need to detect the user's locale once we support more languages
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
 interface TransProps extends Omit<I18NextTransProps<'t'>, 't' | 'i18nKey'> {
   i18nKey: string;
