@@ -1,8 +1,4 @@
-import { Contract } from 'web3-eth-contract';
 import getHypotheticalAccountLiquidity from './getHypotheticalAccountLiquidity';
-import { assetData } from '../../../__mocks__/models/asset';
-
-const asset = assetData[0];
 
 describe('api/queries/getHypotheticalAccountLiquidity', () => {
   test('throws an error when request fails', async () => {
@@ -38,7 +34,7 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
           call: async () => ['3', '4', '5'],
         }),
       },
-    } as unknown as Contract;
+    } as unknown as any;
 
     const response = await getHypotheticalAccountLiquidity({
       comptrollerContract: fakeContract,

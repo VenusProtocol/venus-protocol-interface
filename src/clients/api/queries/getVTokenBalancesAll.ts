@@ -1,7 +1,5 @@
-import { Contract } from 'web3-eth-contract';
-
 export interface IGetVTokenBalancesAllInput {
-  venusLensContract: Contract; // @TODO: use contract type (through Typechain?)
+  venusLensContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
   account: string | undefined | null;
   vtAddresses: string[];
 }
