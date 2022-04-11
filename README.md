@@ -76,3 +76,7 @@ prop variations.
 If regressions are detected or a new story is added on a PR a review is required after the last
 commit is pushed. If a new commit is pushed after the PR is approved, it will reset the approval for
 the new baseline and a new review will be required in order for it to be accepted.
+
+### Internationalization
+
+TO DO

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useTranslation } from 'clients/translation';
 import { Modal, IModalProps } from '../Modal';
 import { AccountDetails, IAccountDetailsProps } from './AccountDetails';
 import { WalletList, IWalletListProps } from './WalletList';
@@ -20,22 +21,28 @@ export const AuthModal: React.FC<IAuthModalProps> = ({
   onLogOut,
   onCopyAccountAddress,
   account,
-}) => (
-  <Modal
-    className="venus-modal"
-    isOpened={isOpen}
-    handleClose={onClose}
-    noHorizontalPadding={!account}
-    title={<h4>{!account ? 'Connect a wallet to start using Venus' : 'Your wallet'}</h4>}
-  >
-    {!account ? (
-      <WalletList onLogin={onLogin} />
-    ) : (
-      <AccountDetails
-        account={account}
-        onCopyAccountAddress={onCopyAccountAddress}
-        onLogOut={onLogOut}
-      />
-    )}
-  </Modal>
-);
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <Modal
+      className="venus-modal"
+      isOpened={isOpen}
+      handleClose={onClose}
+      noHorizontalPadding={!account}
+      title={
+        <h4>{!account ? t('authModal.title.connectWallet') : t('authModal.title.yourWallet')}</h4>
+      }
+    >
+      {!account ? (
+        <WalletList onLogin={onLogin} />
+      ) : (
+        <AccountDetails
+          account={account}
+          onCopyAccountAddress={onCopyAccountAddress}
+          onLogOut={onLogOut}
+        />
+      )}
+    </Modal>
+  );
+};
