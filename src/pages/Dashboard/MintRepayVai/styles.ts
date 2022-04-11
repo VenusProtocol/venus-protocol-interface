@@ -8,11 +8,14 @@ export const useStyles = () => {
     theme,
     container: css`
       width: 100%;
+      display: flex;
+      flex-direction: column;
       background-color: ${theme.palette.background.paper};
       border-radius: ${theme.shape.borderRadius.large}px;
       padding: ${theme.spacing(3)};
     `,
-    row: css`
+    header: css`
+      margin-bottom: ${theme.spacing(4)};
       display: flex;
       align-items: center;
 
@@ -20,11 +23,8 @@ export const useStyles = () => {
         display: block;
       }
     `,
-    column: css`
+    headerColumn: css`
       flex: 1;
-    `,
-    header: css`
-      margin-bottom: ${theme.spacing(4)};
     `,
     headerTitle: css`
       flex: 0 1 auto;
@@ -38,6 +38,20 @@ export const useStyles = () => {
       display: flex;
       justify-content: flex-end;
       flex: 1;
+    `,
+    tabContentContainer: css`
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    `,
+    ctaContainer: css`
+      flex: 1;
+    `,
+    textField: css`
+      margin-bottom: ${theme.spacing(4)};
+    `,
+    getRow: ({ isLast }: { isLast: boolean }) => css`
+      margin-bottom: ${theme.spacing(isLast ? 3 : 2)};
     `,
   };
 };

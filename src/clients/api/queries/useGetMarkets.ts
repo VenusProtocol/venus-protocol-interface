@@ -10,7 +10,6 @@ type Options = QueryObserverOptions<
   FunctionKey.GET_MARKETS
 >;
 
-const useGetMarkets = (options?: Options) =>
-  useQuery(FunctionKey.GET_MARKETS, () => getMarkets(), options);
+const useGetMarkets = (options?: Options) => useQuery(FunctionKey.GET_MARKETS, getMarkets, options);
 
 export default useGetMarkets;
