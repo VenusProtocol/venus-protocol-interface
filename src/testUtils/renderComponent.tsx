@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
-import Theme from 'containers/Theme';
+import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
