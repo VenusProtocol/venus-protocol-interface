@@ -2,7 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-import { useTranslation } from 'clients/translation';
+import { useTranslation } from 'translation';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';

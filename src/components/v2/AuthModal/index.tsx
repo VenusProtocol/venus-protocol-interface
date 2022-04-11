@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useTranslation } from 'clients/translation';
+import { useTranslation } from 'translation';
 import { Modal, IModalProps } from '../Modal';
 import { AccountDetails, IAccountDetailsProps } from './AccountDetails';
 import { WalletList, IWalletListProps } from './WalletList';

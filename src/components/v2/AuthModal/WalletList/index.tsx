@@ -2,7 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-import { useTranslation } from 'clients/translation';
+import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3';
 import { VENUS_TERMS_OF_SERVICE_URL, isOnTestnet } from 'config';
 import { Icon } from '../../Icon';

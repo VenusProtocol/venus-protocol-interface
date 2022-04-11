@@ -10,7 +10,7 @@ import { AuthProvider } from 'context/AuthContext';
 // import { isOnTestnet } from 'config';
 import { store } from 'core';
 import { Layout } from 'components';
-import { init as initTranslationClient } from 'clients/translation';
+import { init as initTranslationClient } from 'translation';
 import Dashboard from 'pages/Dashboard';
 // import Faucet from 'pages/Faucet';
 // import Vote from 'pages/Vote';

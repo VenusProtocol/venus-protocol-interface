@@ -1,12 +1,13 @@
 import React from 'react';
-import EnLocales from 'assets/translations/en.json';
-import i18next, { TFunctionKeys, ExistsFunction } from 'i18next';
+import i18next, { TFunctionKeys } from 'i18next';
 import {
   initReactI18next,
   useTranslation as useI18NextTranslation,
   Trans as I18NextTrans,
   TransProps as I18NextTransProps,
 } from 'react-i18next';
+
+import EnLocales from './translations/en.json';
 
 export const init = () =>
   i18next.use(initReactI18next).init({
