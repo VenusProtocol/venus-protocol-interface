@@ -21,6 +21,10 @@ export { default as exitMarket } from './mutations/exitMarket';
 export * from './mutations/exitMarket';
 export { default as useExitMarket } from './mutations/useExitMarket';
 
+export { default as approveToken } from './mutations/approveToken';
+export * from './mutations/approveToken';
+export { default as useApproveToken } from './mutations/useApproveToken';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';

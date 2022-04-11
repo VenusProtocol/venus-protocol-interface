@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
+import { AuthContext } from 'context/AuthContext';
 import { TokenSymbol } from 'types';
 import { formatApy } from 'utilities/common';
+import useApproveToken from 'clients/api/mutations/useApproveToken';
 import { Icon, IconName } from '../Icon';
 import { PrimaryButton } from '../Button';
 import useStyles from './styles';
@@ -13,19 +15,23 @@ export interface IEnableTokenProps {
   isEnabled: boolean;
   title: string;
   tokenInfo: { symbol: TokenSymbol; text: string; apy: BigNumber | number }[];
-  children: React.ReactElement;
+  approveToken: () => void;
+  vtokenAddress: string;
+  disabled: boolean;
 }
 
-export const EnableToken: React.FC<IEnableTokenProps> = ({
+export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> = ({
   symbol,
   title,
   tokenInfo,
   isEnabled,
   children,
-}: IEnableTokenProps) => {
+  approveToken,
+  disabled,
+}) => {
   const styles = useStyles();
   if (isEnabled) {
-    return children;
+    return <>{children}</>;
   }
   return (
     <div css={styles.container}>
@@ -47,9 +53,28 @@ export const EnableToken: React.FC<IEnableTokenProps> = ({
           </Typography>
         </div>
       ))}
-      <PrimaryButton fullWidth css={styles.button}>
+      <PrimaryButton disabled={disabled} fullWidth css={styles.button} onClick={approveToken}>
         Enable
       </PrimaryButton>
     </div>
   );
 };
+
+const EnableToken = ({
+  symbol,
+  vtokenAddress,
+  ...rest
+}: Omit<IEnableTokenProps, 'approveToken' | 'account'>) => {
+  const { mutate: approveToken } = useApproveToken({ assetId: symbol });
+  const { account } = useContext(AuthContext);
+  return (
+    <EnableTokenUi
+      {...rest}
+      symbol={symbol}
+      approveToken={() => approveToken({ account: account?.address, vtokenAddress })}
+      disabled={!account}
+    />
+  );
+};
+
+export default EnableToken;

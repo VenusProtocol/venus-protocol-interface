@@ -1,17 +1,18 @@
 import React from 'react';
+import { noop } from 'lodash';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory } from 'stories/decorators';
 import Typography from '@mui/material/Typography';
-import { EnableToken } from '.';
+import { EnableTokenUi } from '.';
 
 export default {
   title: 'Components/EnableToken',
-  component: EnableToken,
+  component: EnableTokenUi,
   decorators: [withCenterStory({ width: 450 })],
-} as ComponentMeta<typeof EnableToken>;
+} as ComponentMeta<typeof EnableTokenUi>;
 
 export const Disabled = () => (
-  <EnableToken
+  <EnableTokenUi
     isEnabled={false}
     title="To withdraw BNB to the Venus Protocol, you need to enable it first."
     symbol="eth"
@@ -19,13 +20,22 @@ export const Disabled = () => (
       { symbol: 'vai', text: 'Supply APY', apy: 77.36 },
       { symbol: 'vai', text: 'Distribution APY', apy: 0.82 },
     ]}
+    approveToken={noop}
+    disabled
   >
     <Typography>Invisible Content</Typography>
-  </EnableToken>
+  </EnableTokenUi>
 );
 
 export const Enabled = () => (
-  <EnableToken isEnabled title="Enable Token" symbol="eth" tokenInfo={[]}>
+  <EnableTokenUi
+    isEnabled
+    title="Enable Token"
+    symbol="eth"
+    tokenInfo={[]}
+    approveToken={noop}
+    disabled={false}
+  >
     <Typography>Visible Content</Typography>
-  </EnableToken>
+  </EnableTokenUi>
 );
