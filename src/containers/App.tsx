@@ -26,7 +26,7 @@ import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import VrtConversion from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
-import Theme from './Theme';
+import Theme from 'theme';
 import { RefreshContextProvider } from '../context/RefreshContext';
 import { MarketContextProvider } from '../context/MarketContext';
 import { VaiContextProvider } from '../context/VaiContext';
