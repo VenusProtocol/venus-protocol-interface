@@ -46,6 +46,3 @@ export const useTranslation = () => {
 // useTranslation hook.
 export const t = (params: TFunctionKeys, values?: Record<string, unknown>) =>
   i18next.t(params, values);
-
-// Function to check whether a translation exists
-export const translationExists: ExistsFunction = params => i18next.exists(params);
