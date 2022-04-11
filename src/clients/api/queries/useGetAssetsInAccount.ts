@@ -1,4 +1,5 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
+
 import getAssetsInAccount, {
   GetAssetsInAccountOutput,
   IGetAssetsInAccountInput,

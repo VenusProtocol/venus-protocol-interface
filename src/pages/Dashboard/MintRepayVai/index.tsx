@@ -4,6 +4,7 @@ import React from 'react';
 import { useIsSmDown } from 'hooks/responsive';
 import { Tabs } from 'components';
 import MintVai from './MintVai';
+import RepayVai from './RepayVai';
 import { useStyles } from './styles';
 
 export interface IMintRepayVaiProps {
@@ -18,12 +19,12 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
 
   return (
     <div className={className} css={styles.container}>
-      <div css={[styles.row, styles.header]}>
-        <div css={[styles.column, styles.headerTitle]}>
+      <div css={styles.header}>
+        <div css={[styles.headerColumn, styles.headerTitle]}>
           <h4>Mint/Repay VAI</h4>
         </div>
 
-        <div css={[styles.column, styles.headerTabsContainer]}>
+        <div css={[styles.headerColumn, styles.headerTabsContainer]}>
           <Tabs
             fullWidth={isOnMobile}
             tabTitles={['Mint VAI', 'Repay VAI']}
@@ -33,8 +34,7 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
         </div>
       </div>
 
-      {/* TODO: add Repay component */}
-      {activeTabIndex === 0 ? <MintVai /> : undefined}
+      {activeTabIndex === 0 ? <MintVai /> : <RepayVai />}
     </div>
   );
 };

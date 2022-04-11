@@ -1,16 +1,18 @@
 import { UseQueryResult } from 'react-query';
 import BigNumber from 'bignumber.js';
 import { GetMarketsOutput } from 'clients/api/queries/getMarkets';
-import { IGetVTokenBalancesAllOutput } from 'clients/api/queries/getVTokenBalancesAll';
 import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import { indexBy } from 'utilities/common';
 import { VBEP_TOKENS, CONTRACT_TOKEN_ADDRESS, getVbepToken } from 'constants/contracts';
-import useGetMarkets from './operations/queries/useGetMarkets';
-import useGetAssetsInAccount from './operations/queries/useGetAssetsInAccount';
-import useGetVTokenBalancesAll from './operations/queries/useGetVTokenBalancesAll';
-import { useGetHypotheticalLiquidityQueries } from './operations/queries/useGetHypotheticalLiquidity';
+import {
+  useGetMarkets,
+  useGetAssetsInAccount,
+  useGetVTokenBalancesAll,
+  useGetHypotheticalLiquidityQueries,
+  IGetVTokenBalancesAllOutput,
+} from 'clients/api';
 
 const useUserMarketInfo = ({ account }: { account: string | null | undefined }) => {
   const { userVaiMinted } = useVaiUser();
@@ -32,13 +34,13 @@ const useUserMarketInfo = ({ account }: { account: string | null | undefined }) 
     { placeholderData: [], enabled: !!account },
   );
 
-  let balances: Record<string, IGetVTokenBalancesAllOutput> = {};
+  let balances: Record<string, IGetVTokenBalancesAllOutput[number]> = {};
   balances = indexBy(
-    (item: IGetVTokenBalancesAllOutput) => item.vToken.toLowerCase(), // index by vToken address
+    (item: IGetVTokenBalancesAllOutput[number]) => item.vToken.toLowerCase(), // index by vToken address
     vTokenBalancesAccount,
   );
   const treasuryBalances = indexBy(
-    (item: IGetVTokenBalancesAllOutput) => item.vToken.toLowerCase(), // index by vToken address
+    (item: IGetVTokenBalancesAllOutput[number]) => item.vToken.toLowerCase(), // index by vToken address
     vTokenBalancesTreasury,
   );
   const marketsMap = indexBy(

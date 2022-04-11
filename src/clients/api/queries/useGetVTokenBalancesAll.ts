@@ -1,4 +1,5 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
+
 import getVTokenBalancesAll, {
   IGetVTokenBalancesAllInput,
   IGetVTokenBalancesAllOutput,
@@ -7,10 +8,10 @@ import { useVenusLens } from 'hooks/useContract';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  IGetVTokenBalancesAllOutput[],
+  IGetVTokenBalancesAllOutput,
   Error,
-  IGetVTokenBalancesAllOutput[],
-  IGetVTokenBalancesAllOutput[],
+  IGetVTokenBalancesAllOutput,
+  IGetVTokenBalancesAllOutput,
   FunctionKey.GET_VTOKEN_BALANCES_ACCOUNT
 >;
 
