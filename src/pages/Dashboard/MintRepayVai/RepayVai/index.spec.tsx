@@ -90,11 +90,10 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     });
 
     // Check success toast is requested
-    expect(
-      toast.success({
-        title: `You successfully repaid ${fakeUserVaiMinted.toString()} VAI`,
-      }),
-    );
+    expect(toast.success).toHaveBeenCalledTimes(1);
+    expect(toast.success).toHaveBeenCalledWith({
+      title: `You successfully repaid ${fakeUserVaiMinted.toString()} VAI`,
+    });
   });
 
   // @TODO: add tests to cover failing scenarios

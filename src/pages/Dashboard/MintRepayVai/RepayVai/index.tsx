@@ -3,7 +3,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
-import { AmountForm } from 'containers/AmountForm';
+import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
@@ -16,7 +16,7 @@ import { useStyles } from '../styles';
 export interface IRepayVaiUiProps {
   disabled: boolean;
   isRepayVaiLoading: boolean;
-  onSubmit: (value: BigNumber) => void;
+  repayVai: (amountWei: BigNumber) => Promise<void>;
   userBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
 }
@@ -26,7 +26,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   userBalanceWei,
   userMintedWei,
   isRepayVaiLoading,
-  onSubmit,
+  repayVai,
 }) => {
   const limitWei = React.useMemo(
     () =>
@@ -45,6 +45,25 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   });
 
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
+
+  const onSubmit: IAmountFormProps['onSubmit'] = async amountWei => {
+    try {
+      // Send request to repay VAI
+      await repayVai(amountWei);
+
+      // @TODO: display success modal instead of toast once it's been
+      // implemented
+      toast.success({
+        title: `You successfully repaid ${convertWeiToCoins({
+          value: amountWei,
+          tokenSymbol: VAI_SYMBOL,
+          returnInReadableFormat: true,
+        })}`,
+      });
+    } catch (error) {
+      toast.error({ title: (error as Error).message });
+    }
+  };
 
   return (
     <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
@@ -90,22 +109,7 @@ const RepayVai: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const { userVaiMinted, userVaiBalance } = useVaiUser();
 
-  const { mutate: repayVai, isLoading: isRepayVaiLoading } = useRepayVai({
-    onError: error => {
-      toast.error({ title: error.message });
-    },
-    onSuccess: (_data, variables) => {
-      // @TODO: display success modal instead of toast once it's been
-      // implemented
-      toast.success({
-        title: `You successfully repaid ${convertWeiToCoins({
-          value: variables.amountWei,
-          tokenSymbol: VAI_SYMBOL,
-          returnInReadableFormat: true,
-        })}`,
-      });
-    },
-  });
+  const { mutateAsync: contractRepayVai, isLoading: isRepayVaiLoading } = useRepayVai();
 
   // Convert minted VAI balance into wei of VAI
   const userMintedWei = React.useMemo(
@@ -119,13 +123,17 @@ const RepayVai: React.FC = () => {
     [userVaiBalance.toString()],
   );
 
-  const onSubmit: IRepayVaiUiProps['onSubmit'] = amountWei => {
-    if (account) {
-      repayVai({
-        fromAccountAddress: account.address,
-        amountWei,
-      });
+  const repayVai: IRepayVaiUiProps['repayVai'] = amountWei => {
+    if (!account) {
+      // This error should never happen, since the form inside the UI component
+      // is disabled if there's no logged in account
+      throw new Error('An internal error occurred: account undefined. Please try again later.');
     }
+
+    return contractRepayVai({
+      fromAccountAddress: account.address,
+      amountWei,
+    });
   };
 
   // @TODO: wrap with EnableToken component once created
@@ -135,7 +143,7 @@ const RepayVai: React.FC = () => {
       userBalanceWei={userBalanceWei}
       userMintedWei={userMintedWei}
       isRepayVaiLoading={isRepayVaiLoading}
-      onSubmit={onSubmit}
+      repayVai={repayVai}
     />
   );
 };
