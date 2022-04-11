@@ -5,7 +5,7 @@ import FunctionKey from 'constants/functionKey';
 import { useComptroller } from 'hooks/useContract';
 
 const useExitMarket = (
-  // TODO: use custom error type
+  // @TODO: use custom error type (see https://app.clickup.com/t/2rvwhnt)
   options?: MutationObserverOptions<
     ExitMarketOutput,
     Error,

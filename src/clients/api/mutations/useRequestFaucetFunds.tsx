@@ -5,7 +5,7 @@ import { requestFaucetFunds, RequestFaucetFundsInput, RequestFaucetFundsOutput }
 export const REQUEST_FAUCET_FUNDS = 'REQUEST_FAUCET_FUNDS';
 
 const useRequestFaucetFunds = (
-  // TODO: use custom error type
+  // @TODO: use custom error type (see https://app.clickup.com/t/2rvwhnt)
   options?: MutationObserverOptions<RequestFaucetFundsOutput, Error, RequestFaucetFundsInput>,
 ) => useMutation(REQUEST_FAUCET_FUNDS, requestFaucetFunds, options);
 
