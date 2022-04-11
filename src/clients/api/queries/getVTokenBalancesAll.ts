@@ -1,7 +1,5 @@
-import { Contract } from 'web3-eth-contract';
-
 export interface IGetVTokenBalancesAllInput {
-  venusLensContract: Contract; // @TODO: use contract type (through Typechain?)
+  venusLensContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
   account: string | undefined | null;
   vtAddresses: string[];
 }
@@ -15,7 +13,7 @@ interface IGetVTokenBalancesAllResponse extends Array<string> {
   vToken: string;
 }
 
-export interface IGetVTokenBalancesAllOutput {
+interface IGetVTokenBalanceOutput {
   balanceOf: string;
   balanceOfUnderlying: string;
   borrowBalanceCurrent: string;
@@ -24,14 +22,17 @@ export interface IGetVTokenBalancesAllOutput {
   vToken: string;
 }
 
+export type IGetVTokenBalancesAllOutput = IGetVTokenBalanceOutput[];
+
 const getVTokenBalancesAll = async ({
   venusLensContract,
   vtAddresses,
   account,
-}: IGetVTokenBalancesAllInput) => {
+}: IGetVTokenBalancesAllInput): Promise<IGetVTokenBalancesAllOutput> => {
   let response = await venusLensContract.methods
     .vTokenBalancesAll(vtAddresses, account?.toLowerCase())
     .call();
+
   // This is original returned as an array with these properties
   // but at some point the properties are getting lost
   response = response.map((item: IGetVTokenBalancesAllResponse) => ({
@@ -42,6 +43,7 @@ const getVTokenBalancesAll = async ({
     tokenBalance: item.tokenBalance,
     vToken: item.vToken,
   }));
+
   return response;
 };
 

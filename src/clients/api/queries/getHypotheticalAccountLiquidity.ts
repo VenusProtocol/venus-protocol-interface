@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { Contract } from 'web3-eth-contract';
 
 export interface IGetHypotheticalAccountLiquidityInput {
-  comptrollerContract: Contract; // @TODO: use contract type (through Typechain?)
+  comptrollerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
   account: string | undefined | null;
   vtokenAddress: string;
   balanceOf: string;

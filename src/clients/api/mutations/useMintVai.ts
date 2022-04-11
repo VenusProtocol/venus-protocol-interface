@@ -1,21 +1,22 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { mintVai, MintVaiInput, MintVaiOutput } from 'clients/api';
+import { mintVai, IMintVaiInput, MintVaiOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useVaiUnitroller } from 'hooks/useContract';
 
 type Options = MutationObserverOptions<
   MintVaiOutput,
   Error,
-  Omit<MintVaiInput, 'vaiControllerContract'>
+  Omit<IMintVaiInput, 'vaiControllerContract'>
 >;
 
 const useMintVai = (options?: Options) => {
   const vaiControllerContract = useVaiUnitroller();
 
+  // @TODO: invalidate queries related to fetching the user minted VAI amount on success
   return useMutation(
-    [FunctionKey.MINT_VAI, options?.variables],
-    (params: Omit<MintVaiInput, 'vaiControllerContract'>) =>
+    FunctionKey.MINT_VAI,
+    (params: Omit<IMintVaiInput, 'vaiControllerContract'>) =>
       mintVai({
         vaiControllerContract,
         ...params,

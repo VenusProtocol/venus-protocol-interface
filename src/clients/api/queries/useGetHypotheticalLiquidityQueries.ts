@@ -1,13 +1,14 @@
 import { useQueries, QueryObserverOptions } from 'react-query';
+
 import getHypotheticalAccountLiquidity from 'clients/api/queries/getHypotheticalAccountLiquidity';
-import { IGetVTokenBalancesAllOutput } from 'clients/api/queries/getVTokenBalancesAll';
+import { IGetVTokenBalancesAllOutput } from 'clients/api';
 import { useComptroller } from 'hooks/useContract';
 import FunctionKey from 'constants/functionKey';
 import { Asset } from 'types';
 
-type Options = QueryObserverOptions;
+type Options = QueryObserverOptions; // @TODO: add query specific generics
 
-export const useGetHypotheticalLiquidityQueries = (
+const useGetHypotheticalLiquidityQueries = (
   {
     assetList,
     account,
@@ -15,7 +16,7 @@ export const useGetHypotheticalLiquidityQueries = (
   }: {
     account: string | null | undefined;
     assetList: Asset[];
-    balances: Record<string, IGetVTokenBalancesAllOutput>;
+    balances: Record<string, IGetVTokenBalancesAllOutput[number]>;
   },
   options: Options = {},
 ) => {
@@ -41,3 +42,5 @@ export const useGetHypotheticalLiquidityQueries = (
     }),
   );
 };
+
+export default useGetHypotheticalLiquidityQueries;
