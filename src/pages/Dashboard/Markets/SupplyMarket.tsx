@@ -7,7 +7,6 @@ import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
 import { useWeb3Account } from 'clients/web3';
-import { useComptroller } from 'hooks/useContract';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import useExitMarket from 'hooks/operations/mutations/useExitMarket';
 import useEnterMarkets from 'hooks/operations/mutations/useEnterMarkets';
@@ -127,7 +126,6 @@ const SupplyMarket: React.FC = () => {
       throw error;
     },
   });
-  const comptrollerContract = useComptroller();
   const toggleAssetCollateral = (asset: Asset) => {
     if (!account) {
       throw new ToastError(
@@ -142,7 +140,7 @@ const SupplyMarket: React.FC = () => {
     } else if (!asset.collateral) {
       try {
         setConfirmCollateral(asset);
-        enterMarkets({ comptrollerContract, vtokenAddresses: [asset.vtokenAddress], account });
+        enterMarkets({ vtokenAddresses: [asset.vtokenAddress], account });
       } catch (error) {
         console.log('enter markets error :>> ', error);
         throw new ToastError(
@@ -153,7 +151,7 @@ const SupplyMarket: React.FC = () => {
     } else if (+asset.hypotheticalLiquidity['1'] > 0 || +asset.hypotheticalLiquidity['2'] === 0) {
       try {
         setConfirmCollateral(asset);
-        exitMarkets({ comptrollerContract, vtokenAddress: asset.vtokenAddress, account });
+        exitMarkets({ vtokenAddress: asset.vtokenAddress, account });
       } catch (error) {
         throw new ToastError(
           'Collateral Disable Error',

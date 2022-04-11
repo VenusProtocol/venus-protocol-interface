@@ -1,16 +1,28 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
-
+import { useComptroller } from 'hooks/useContract';
 import { enterMarkets, IEnterMarketsInput, EnterMarketsOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 
+type Options = MutationObserverOptions<
+  EnterMarketsOutput,
+  Error,
+  Omit<IEnterMarketsInput, 'comptrollerContract'>
+>;
+
 const useEnterMarkets = (
   // TODO: use custom error type
-  options?: MutationObserverOptions<EnterMarketsOutput, Error, IEnterMarketsInput>,
-) =>
-  useMutation<EnterMarketsOutput, Error, IEnterMarketsInput>(
+  options?: Options,
+) => {
+  const comptrollerContract = useComptroller();
+  return useMutation(
     FunctionKey.ENTER_MARKETS,
-    enterMarkets,
+    (params: Omit<IEnterMarketsInput, 'comptrollerContract'>) =>
+      enterMarkets({
+        comptrollerContract,
+        ...params,
+      }),
     options,
   );
+};
 
 export default useEnterMarkets;
