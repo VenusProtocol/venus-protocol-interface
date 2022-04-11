@@ -1,0 +1,85 @@
+/** @jsxImportSource @emotion/react */
+import React from 'react';
+import MaterialSlider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
+import { SliderTypeMap } from '@mui/material/Slider/Slider';
+
+import { Tooltip } from '../Tooltip';
+import { useStyles } from './styles';
+
+export interface ISliderProps {
+  value: number;
+  mark: number;
+  step: number;
+  ariaLabel: string;
+  min: number;
+  max: number;
+  trackTooltip?: string;
+  markTooltip?: string;
+  isDisabled?: boolean;
+}
+
+export const ProgressBarHorizontal = ({
+  value,
+  mark,
+  step,
+  ariaLabel,
+  min,
+  max,
+  isDisabled,
+  trackTooltip,
+  markTooltip,
+}: ISliderProps) => {
+  const marks = mark ? [{ value: mark }] : undefined;
+  const styles = useStyles({ over: value > mark });
+
+  const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => {
+    if (markTooltip) {
+      return (
+        <span {...props} css={[styles.mark, styles.hasTooltip]}>
+          <Tooltip title={markTooltip}>
+            <span css={styles.tooltipHelper}>.</span>
+          </Tooltip>
+        </span>
+      );
+    }
+
+    return <span {...props} css={styles.mark} />;
+  };
+
+  const renderTrack = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track']) => {
+    if (trackTooltip) {
+      return (
+        <div style={props?.style} css={[styles.trackWrapper, styles.hasTooltip]}>
+          <Tooltip title={trackTooltip}>
+            {/* passed styles undefined here because wrapper is now handling this part */}
+            <Box {...props} style={undefined} />
+          </Tooltip>
+        </div>
+      );
+    }
+
+    return <Box css={styles.trackWrapper} {...props} />;
+  };
+
+  return (
+    <>
+      <MaterialSlider
+        css={styles.slider}
+        components={{
+          Thumb: undefined,
+          Mark: renderMark,
+          Track: renderTrack,
+        }}
+        value={value}
+        marks={marks}
+        step={step}
+        aria-label={ariaLabel}
+        min={min}
+        max={max}
+        size="medium"
+        disabled={isDisabled}
+      />
+    </>
+  );
+};
