@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Toolbar } from '../Toolbar';
@@ -12,7 +11,7 @@ import { menuItems } from '../constants';
 
 type HeaderProps = RouteComponentProps;
 
-export const Header = ({ location }: HeaderProps) => {
+const Header = ({ location }: HeaderProps) => {
   const title = useMemo(
     () => menuItems.find(item => item.href === location.pathname)?.text,
     [location.pathname],

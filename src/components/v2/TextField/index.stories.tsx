@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { Button } from 'components';
 import { TextField } from '.';
 
