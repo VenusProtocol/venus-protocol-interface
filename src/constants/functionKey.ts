@@ -12,6 +12,7 @@ enum FunctionKey {
   ENTER_MARKETS = 'ENTER_MARKETS',
   EXIT_MARKET = 'EXIT_MARKET',
   REPAY_VAI = 'REPAY_VAI',
+  APPROVE_TOKEN = 'APPROVE_TOKEN',
 }
 
 export default FunctionKey;
