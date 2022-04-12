@@ -7,11 +7,15 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
+import { init as initTranslationLibrary } from 'translation';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
+
+// Initialize internationalization library
+initTranslationLibrary();
 
 const renderComponent = (children: any) => {
   const queryClient = new QueryClient({
