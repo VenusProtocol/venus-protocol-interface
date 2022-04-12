@@ -3,7 +3,7 @@ import { State } from 'react-powerplug';
 import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { TokenTextField } from '.';
 
 export default {

@@ -10,6 +10,7 @@ module.exports = {
     project: './tsconfig.eslint.json',
   },
   rules: {
+    '@typescript-eslint/no-unused-vars': 2,
     // handled by prettier
     '@typescript-eslint/space-before-blocks': 0,
     '@typescript-eslint/indent': 0,
