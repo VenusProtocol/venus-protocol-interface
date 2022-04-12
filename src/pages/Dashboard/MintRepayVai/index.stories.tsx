@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory } from 'stories/decorators';
-import { MintRepayVai } from '.';
+import MintRepayVai from '.';
 
 export default {
   title: 'Pages/Dashboard/MintRepayVai',

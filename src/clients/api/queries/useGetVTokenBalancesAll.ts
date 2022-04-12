@@ -12,7 +12,7 @@ type Options = QueryObserverOptions<
   Error,
   IGetVTokenBalancesAllOutput,
   IGetVTokenBalancesAllOutput,
-  FunctionKey.GET_VTOKEN_BALANCES_ACCOUNT
+  FunctionKey.GET_VTOKEN_BALANCES_ALL
 >;
 
 const useGetVTokenBalancesAll = (
@@ -21,7 +21,7 @@ const useGetVTokenBalancesAll = (
 ) => {
   const venusLensContract = useVenusLens();
   return useQuery(
-    FunctionKey.GET_VTOKEN_BALANCES_ACCOUNT,
+    FunctionKey.GET_VTOKEN_BALANCES_ALL,
     () => getVTokenBalancesAll({ venusLensContract, account, vtAddresses }),
     options,
   );

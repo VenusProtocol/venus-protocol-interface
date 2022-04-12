@@ -11,7 +11,7 @@ export interface IMintRepayVaiProps {
   className?: string;
 }
 
-export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
+const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = React.useState(0);
 
@@ -38,3 +38,5 @@ export const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
     </div>
   );
 };
+
+export default MintRepayVai;

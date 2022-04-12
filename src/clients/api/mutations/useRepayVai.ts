@@ -14,7 +14,7 @@ const useRepayVai = (options?: Options) => {
   const vaiControllerContract = useVaiUnitroller();
 
   // @TODO: invalidate queries related to fetching the user VAI balance and
-  // minted VAI amount on success
+  // minted VAI amount on success (see https://app.clickup.com/t/26b1p53)
   return useMutation(
     FunctionKey.REPAY_VAI,
     (params: Omit<IRepayVaiInput, 'vaiControllerContract'>) =>
