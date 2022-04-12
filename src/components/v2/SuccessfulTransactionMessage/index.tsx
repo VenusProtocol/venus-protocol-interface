@@ -7,6 +7,7 @@ import { convertWeiToCoins } from 'utilities/common';
 import { TokenSymbol } from 'types';
 import { BscLink } from '../BscLink';
 import { Icon, IconName } from '../Icon';
+import { IModalProps, Modal } from '../Modal';
 import { useStyles } from './styles';
 
 export interface ISuccessfulTransactionMessageProps {
@@ -59,3 +60,26 @@ export const SuccessfulTransactionMessage: React.FC<ISuccessfulTransactionMessag
     </div>
   );
 };
+
+export type SuccessfulTransactionModalProps = Omit<IModalProps, 'children'> &
+  ISuccessfulTransactionMessageProps;
+
+export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProps> = ({
+  className,
+  title,
+  message,
+  amount,
+  transactionHash,
+  isOpened,
+  handleClose,
+}) => (
+  <Modal isOpened={isOpened} handleClose={handleClose}>
+    <SuccessfulTransactionMessage
+      className={className}
+      title={title}
+      message={message}
+      transactionHash={transactionHash}
+      amount={amount}
+    />
+  </Modal>
+);
