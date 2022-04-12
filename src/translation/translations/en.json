@@ -14,5 +14,101 @@
   },
   "bscLink": {
     "content": "View on bscscan.com<1></1>"
+  },
+  "connectWallet": {
+    "connectButton": "Connect wallet"
+  },
+  "footer": {
+    "latestNumber": "Latest Block:\u00A0"
+  },
+  "header": {
+    "connectButton": {
+      "title": "Connect wallet"
+    }
+  },
+  "layout": {
+    "menuItems": {
+      "dashboard": "Dashboard",
+      "vote": "Vote",
+      "xvs": "XVS",
+      "market": "Market",
+      "vault": "Vault",
+      "history": "History",
+      "xvsPrediction": "XVS Prediction",
+      "convertXvs": "Convert XVS",
+      "faucet": "Faucet"
+    }
+  },
+  "myAccount": {
+    "apyWithXvs": "APY with XVS",
+    "apyWithXvsTooltip": "APY with XVS tooltip",
+    "netApy": "Net APY",
+    "netApyTooltip": "Net APY tooltip",
+    "dailyEarnings": "Daily earnings",
+    "supplyBalance": "Supply balance",
+    "borrowBalance": "Borrow balance",
+    "borrowLimit": "Borrow limit:",
+    "safeLimit": "Your safe limit:",
+    "safeLimitTooltip": "Your safe limit tooltip",
+    "progressBar": {
+      "ariaLabel": "Borrow limit"
+    }
+  },
+  "mintRepayVai": {
+    "title": "Mint/Repay VAI",
+    "tabMint": "Mint VAI",
+    "tabRepay": "Repay VAI",
+    "mintVai": {
+      "successMessage": "You successfully minted\u00A0{{coin}}",
+      "rightMaxButtonLabel": "SAFE MAX",
+      "vaiLimitLabel": "Available VAI limit",
+      "mintFeeLabel": "Mint fee",
+      "btnMintVai": "Mint VAI",
+      "undefinedAccountErrorMessage": "account undefined"
+    },
+    "repayVai": {
+      "successMessage": "You successfully repaid\u00A0{{coin}}",
+      "rightMaxButtonLabel": "MAX",
+      "repayVaiBalance": "Repay VAI balance",
+      "btnRepayVai": "Repay VAI",
+      "undefinedAccountErrorMessage": "account undefined"
+    }
+  },
+  "errors": {
+    "internal": "An internal error occurred: {{errorMessage}}. Please try again later."
+  },
+  "markets": {
+    "columns": {
+      "asset": "Asset",
+      "apy": "APY",
+      "wallet": "Wallet",
+      "collateral": "Collateral"
+    },
+    "tableTitleSupply": "Supply market",
+    "tableTitleBorrow": "Borrow market",
+    "errors": {
+      "accountError": {
+        "title": "Account Required",
+        "description": "Please connect your wallet to set an asset as collateral."
+      },
+      "collateralRequired": {
+        "title": "Collateral Required",
+        "description": "Please repay all borrowed assets or set other assets as collateral."
+      },
+      "collateralEnableError": {
+        "title": "Collateral Enable Error",
+        "description": "There was a problem enabling {{assetName}} as a collateral. Please try again."
+      },
+      "collateralDisableError": {
+        "title": "Collateral Disable Error",
+        "description": "There was a problem disabling {{assetName}} as a collateral. Please try again."
+      },
+      "tryAgain": "Please try again."
+    },
+    "collateralConfirmModal": {
+      "disable": "Disable as collateral",
+      "enable": "Enable as collateral",
+      "confirmText": "Confirm the transaction"
+    }
   }
 }

@@ -100,7 +100,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     // Check success toast is requested
     expect(toast.success).toHaveBeenCalledTimes(1);
     expect(toast.success).toHaveBeenCalledWith({
-      title: `You successfully minted ${fakeMintableVai.toString()} VAI`,
+      title: `You successfully minted\u00A0${fakeMintableVai.toString()} VAI`,
     });
   });
 
