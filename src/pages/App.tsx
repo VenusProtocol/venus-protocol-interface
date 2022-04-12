@@ -10,6 +10,7 @@ import { AuthProvider } from 'context/AuthContext';
 // import { isOnTestnet } from 'config';
 import { store } from 'core';
 import { Layout } from 'components';
+import { init as initTranslationClient } from 'translation';
 import Dashboard from 'pages/Dashboard';
 // import Faucet from 'pages/Faucet';
 // import Vote from 'pages/Vote';
@@ -28,6 +29,8 @@ import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 import 'assets/styles/App.scss';
+
+initTranslationClient();
 
 const App = () => (
   <Theme>

@@ -1,0 +1,18 @@
+{
+  "authModal": {
+    "accountDetails": {
+      "logOutButtonLabel": "Log out"
+    },
+    "title": {
+      "connectWallet": "Connect a wallet to start using Venus",
+      "yourWallet": "Your wallet"
+    },
+    "walletList": {
+      "comingSoon": "Coming soon",
+      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <2>Terms of Service</2>."
+    }
+  },
+  "bscLink": {
+    "content": "View on bscscan.com<1></1>"
+  }
+}
