@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { Pagination, Icon, Tooltip } from 'antd';
+import { Pagination, Tooltip } from 'antd';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
 import toast from 'components/Basic/Toast';

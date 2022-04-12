@@ -6,7 +6,6 @@ import { Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
-import FunctionKey from 'constants/functionKey';
 import { useWeb3Account } from 'clients/web3';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useExitMarket, useEnterMarkets } from 'clients/api';

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import Typography from '@mui/material/Typography';
 import { PrimaryButton } from 'components';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
