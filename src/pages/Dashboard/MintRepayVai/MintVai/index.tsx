@@ -2,9 +2,9 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { useWeb3Account } from 'clients/web3';
+import { AuthContext } from 'context/AuthContext';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
-import { AmountForm } from 'containers/AmountForm';
+import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useGetVaiTreasuryPercentage } from 'clients/api';
@@ -18,7 +18,7 @@ import { useStyles } from '../styles';
 export interface IMintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
-  onSubmit: (value: BigNumber) => void;
+  mintVai: (value: BigNumber) => Promise<void>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
 }
@@ -28,7 +28,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   limitWei,
   mintFeePercentage,
   isMintVaiLoading,
-  onSubmit,
+  mintVai,
 }) => {
   const styles = useStyles();
 
@@ -46,11 +46,33 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         return '-';
       }
 
-      const readableFeeVai = valueWei ? getReadableFeeVai({ valueWei, mintFeePercentage }) : '0';
+      const readableFeeVai = getReadableFeeVai({
+        valueWei: valueWei || new BigNumber(0),
+        mintFeePercentage,
+      });
       return `${readableFeeVai} (${mintFeePercentage}%)`;
     },
     [mintFeePercentage],
   );
+
+  const onSubmit: IAmountFormProps['onSubmit'] = async amountWei => {
+    try {
+      // Send request to repay VAI
+      await mintVai(amountWei);
+
+      // @TODO: display success modal instead of toast once it's been
+      // implemented
+      toast.success({
+        title: `You successfully minted ${convertWeiToCoins({
+          value: amountWei,
+          tokenSymbol: VAI_SYMBOL,
+          returnInReadableFormat: true,
+        })}`,
+      });
+    } catch (error) {
+      toast.error({ title: (error as Error).message });
+    }
+  };
 
   return (
     <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
@@ -101,28 +123,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 };
 
 const MintVai: React.FC = () => {
-  const { account } = useWeb3Account();
+  const { account } = React.useContext(AuthContext);
   const { mintableVai } = useVaiUser();
 
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
-  const { mutate: mintVai, isLoading: isMintVaiLoading } = useMintVai({
-    onError: error => {
-      toast.error({ title: error.message });
-    },
-    onSuccess: (_data, variables) => {
-      // @TODO: display success modal instead of toast once it's been
-      // implemented
-      toast.success({
-        title: `You successfully minted ${convertWeiToCoins({
-          value: variables.amountWei,
-          tokenSymbol: VAI_SYMBOL,
-          returnInReadableFormat: true,
-        })}`,
-      });
-    },
-  });
+  const { mutate: contractMintVai, isLoading: isMintVaiLoading } = useMintVai();
 
   // Convert limit into wei of VAI
   const limitWei = React.useMemo(
@@ -130,13 +137,17 @@ const MintVai: React.FC = () => {
     [mintableVai.toString()],
   );
 
-  const onSubmit: IMintVaiUiProps['onSubmit'] = amountWei => {
-    if (account) {
-      mintVai({
-        fromAccountAddress: account,
-        amountWei,
-      });
+  const mintVai: IMintVaiUiProps['mintVai'] = async amountWei => {
+    if (!account) {
+      // This error should never happen, since the form inside the UI component
+      // is disabled if there's no logged in account
+      throw new Error('An internal error occurred: account undefined. Please try again later.');
     }
+
+    return contractMintVai({
+      fromAccountAddress: account.address,
+      amountWei,
+    });
   };
 
   return (
@@ -145,7 +156,7 @@ const MintVai: React.FC = () => {
       limitWei={limitWei}
       mintFeePercentage={vaiTreasuryPercentage}
       isMintVaiLoading={isMintVaiLoading}
-      onSubmit={onSubmit}
+      mintVai={mintVai}
     />
   );
 };
