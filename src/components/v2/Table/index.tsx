@@ -20,13 +20,14 @@ export interface ITableProps {
   title: string;
   data: ITableRowProps[][];
   columns: { key: string; label: string; orderable: boolean }[];
+  rowKeyIndex: number;
   minWidth?: string;
   initialOrder?: {
     orderBy: string;
     orderDirection: 'asc' | 'desc';
   };
   rowOnClick?: (row: ITableRowProps[]) => void;
-  rowKeyIndex: number;
+  className?: string;
 }
 
 export const Table = ({
@@ -37,6 +38,7 @@ export const Table = ({
   initialOrder,
   rowOnClick,
   rowKeyIndex,
+  className,
 }: ITableProps) => {
   const styles = useStyles();
   const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(
@@ -74,36 +76,39 @@ export const Table = ({
   }, [data, orderBy, orderDirection]);
 
   return (
-    <TableContainer css={styles.tableContainer} component={Paper}>
+    <div className={className}>
       <h4 css={styles.title}>{title}</h4>
-      <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
-        <Head
-          columns={columns}
-          orderBy={orderBy}
-          orderDirection={orderDirection}
-          onRequestOrder={onRequestOrder}
-        />
 
-        {/* TODO: add loading state */}
+      <TableContainer css={styles.tableContainer} component={Paper}>
+        <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
+          <Head
+            columns={columns}
+            orderBy={orderBy}
+            orderDirection={orderDirection}
+            onRequestOrder={onRequestOrder}
+          />
 
-        {/* TODO: add error state */}
+          {/* TODO: add loading state */}
 
-        <TableBody>
-          {rows.map(row => (
-            <TableRow
-              hover
-              key={row[rowKeyIndex].value.toString()}
-              onClick={() => rowOnClick && rowOnClick(row)}
-            >
-              {row.map(({ key, render }: ITableRowProps) => (
-                <TableCell key={uid(key)}>
-                  <div>{render()}</div>
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </TableMUI>
-    </TableContainer>
+          {/* TODO: add error state */}
+
+          <TableBody>
+            {rows.map(row => (
+              <TableRow
+                hover
+                key={row[rowKeyIndex].value.toString()}
+                onClick={() => rowOnClick && rowOnClick(row)}
+              >
+                {row.map(({ key, render }: ITableRowProps) => (
+                  <TableCell key={uid(key)}>
+                    <div>{render()}</div>
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </TableMUI>
+      </TableContainer>
+    </div>
   );
 };
