@@ -3,7 +3,7 @@ import { ComponentMeta } from '@storybook/react';
 import { withCenterStory } from 'stories/decorators';
 import noop from 'noop-ts';
 import { assetData } from '__mocks__/models/asset';
-import { SupplyMarketUi } from './SupplyMarket';
+import { SupplyMarketUi } from '.';
 
 const asset = assetData[0];
 

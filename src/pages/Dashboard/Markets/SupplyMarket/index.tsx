@@ -10,7 +10,7 @@ import { useWeb3Account } from 'clients/web3';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
-import { useStyles } from './styles';
+import { useStyles } from '../styles';
 
 export interface ISupplyMarketUiProps {
   className?: string;
@@ -87,7 +87,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
     console.log('To be implemented in Sprint 10');
   };
   return (
-    <div className={className} css={styles.container}>
+    <div className={className} css={styles.tableContainer}>
       <Table
         title="Supply market"
         columns={columns}
