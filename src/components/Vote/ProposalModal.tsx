@@ -139,19 +139,7 @@ interface Props extends FormComponentProps {
   onCancel: () => void;
 }
 
-interface DispatchProps {
-  getProposals: () => void;
-}
-
-function ProposalModal({
-  form,
-  address,
-  visible,
-  maxOperation,
-  onCancel,
-  getProposals,
-  ...props
-}: Props & DispatchProps) {
+function ProposalModal({ form, address, visible, maxOperation, onCancel, ...props }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState('');
   const [errorMsg, setErrorMsg] = useState('');

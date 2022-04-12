@@ -4,13 +4,14 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
+  plugins: ['import', 'react', 'jsx-a11y', 'prettier', 'unused-imports'],
   extends: ['airbnb', 'airbnb-typescript', 'plugin:@typescript-eslint/recommended'],
   parserOptions: {
     project: './tsconfig.eslint.json',
   },
   rules: {
-    '@typescript-eslint/no-unused-vars': 2,
+    'unused-imports/no-unused-imports': 2,
+    'unused-imports/no-unused-vars': 2,
     // handled by prettier
     '@typescript-eslint/space-before-blocks': 0,
     '@typescript-eslint/indent': 0,
