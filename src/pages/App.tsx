@@ -10,7 +10,7 @@ import { AuthProvider } from 'context/AuthContext';
 // import { isOnTestnet } from 'config';
 import { store } from 'core';
 import { Layout } from 'components';
-import { init as initTranslationClient } from 'translation';
+import { init as initTranslationLibrary } from 'translation';
 import Dashboard from 'pages/Dashboard';
 // import Faucet from 'pages/Faucet';
 // import Vote from 'pages/Vote';
@@ -30,7 +30,7 @@ import { VaiContextProvider } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 import 'assets/styles/App.scss';
 
-initTranslationClient();
+initTranslationLibrary();
 
 const App = () => (
   <Theme>
