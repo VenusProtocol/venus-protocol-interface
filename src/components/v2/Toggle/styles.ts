@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-const thumbSize = '22px';
-
 export const useStyles = () => {
   const theme = useTheme();
+  const thumbSize = theme.spacing(5.5);
+
   return css`
     width: calc(${thumbSize} * 2);
     height: ${thumbSize};

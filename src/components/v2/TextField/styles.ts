@@ -8,15 +8,15 @@ export const useStyles = () => {
     theme,
     getLabel: ({ hasError }: { hasError: boolean }) => css`
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: ${theme.spacing(1)};
 
       ${hasError && `color: ${theme.palette.error.main};`};
     `,
     getInputContainer: ({ hasError }: { hasError: boolean }) => css`
       display: flex;
       align-items: center;
-      padding: ${theme.spacing(1, 1, 1, 2)};
-      border-radius: 12px;
+      padding: ${theme.spacing(2, 2, 2, 4)};
+      border-radius: ${theme.spacing(3)};
       border: 2px solid transparent;
       background-color: ${theme.palette.background.default};
 
@@ -28,14 +28,14 @@ export const useStyles = () => {
     `,
 
     leftIcon: css`
-      margin-right: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(2)};
     `,
     getInput: ({ hasRightAdornment }: { hasRightAdornment: boolean }) => css`
       background-color: transparent;
       flex: 1;
       font-weight: 600;
-      line-height: ${theme.spacing(3)};
-      height: ${theme.spacing(5)};
+      line-height: ${theme.spacing(6)};
+      height: ${theme.spacing(10)};
       padding-top: 2px; /* Vertically align input content */
       border: 0;
 
@@ -46,12 +46,12 @@ export const useStyles = () => {
       }
     `,
     rightButton: css`
-      margin-right: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(2)};
     `,
     description: css`
       display: block;
       color: ${theme.palette.text.secondary};
-      margin-top: 4px;
+      margin-top: ${theme.spacing(1)};
     `,
   };
 };
