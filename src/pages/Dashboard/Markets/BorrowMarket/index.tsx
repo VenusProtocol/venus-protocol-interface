@@ -6,9 +6,10 @@ import {
   formatApy,
 } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
-import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 import { Token } from 'components/v2/Token';
 import { Table, ITableProps } from 'components/v2/Table';
+import useUserMarketInfo from 'hooks/useUserMarketInfo';
+import { AuthContext } from 'context/AuthContext';
 import { useStyles } from '../styles';
 
 export interface IBorrowMarketUiProps {
@@ -32,35 +33,38 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   const styles = useStyles();
 
   // Format assets to rows
-  const rows: ITableProps['data'] = borrowAssets.map(asset => [
-    {
-      key: 'asset',
-      render: () => <Token symbol={asset.name as TokenSymbol} />,
-      value: asset.name,
-    },
-    {
-      key: 'apy',
-      render: () => {
-        const apy = withXvs ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
-        return formatApy(apy);
+  const rows: ITableProps['data'] = borrowAssets.map(asset => {
+    const borrowApy = withXvs ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
+
+    return [
+      {
+        key: 'asset',
+        render: () => <Token symbol={asset.name as TokenSymbol} />,
+        value: asset.name,
       },
-      value: asset.borrowApy.toString(),
-    },
-    {
-      key: 'wallet',
-      render: () =>
-        formatCoinsToReadableValue({
-          value: asset.walletBalance,
-          tokenSymbol: asset.symbol as TokenSymbol,
-        }),
-      value: asset.walletBalance.toString(),
-    },
-    {
-      key: 'liquidity',
-      render: () => formatCentsToReadableValue(asset.liquidity),
-      value: asset.liquidity.toString(),
-    },
-  ]);
+      {
+        key: 'apy',
+        render: () => formatApy(borrowApy),
+        value: borrowApy.toNumber(),
+      },
+      {
+        key: 'wallet',
+        render: () =>
+          formatCoinsToReadableValue({
+            value: asset.walletBalance,
+            tokenSymbol: asset.symbol as TokenSymbol,
+          }),
+        value: asset.walletBalance.toString(),
+      },
+      {
+        key: 'liquidity',
+        // Convert liquidity (expressed in dollars) to cents, then format it to
+        // readable value
+        render: () => formatCentsToReadableValue(asset.liquidity.multipliedBy(100)),
+        value: asset.liquidity.toNumber(),
+      },
+    ];
+  });
 
   return (
     <div className={className} css={styles.tableContainer}>
@@ -79,17 +83,11 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
 };
 
 const BorrowMarket: React.FC = () => {
-  // Format fetched data into borrow assets
-  // @TODO: fetch actual data
-  const assets = require('__mocks__/models/asset') // eslint-disable-line
-    .assetData // Filter out tokens we don't support (this could happen if a new token was
-    // introduced within the smart contracts and we didn't update our frontend
-    // config)
-    .filter(
-      (asset: Asset) => !Object.prototype.hasOwnProperty.call(CONTRACT_TOKEN_ADDRESS, asset.symbol),
-    );
+  const { account } = React.useContext(AuthContext);
+  const userMarketInfo = useUserMarketInfo({ account: account?.address });
+
   // @TODO: set withXVS from WalletBalance
-  return <BorrowMarketUi borrowAssets={assets} withXvs />;
+  return <BorrowMarketUi borrowAssets={userMarketInfo} withXvs />;
 };
 
 export default BorrowMarket;
