@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { SuccessfulTransactionMessage } from '.';
+import { SuccessfulTransactionMessage, SuccessfulTransactionModal } from '.';
 
 export default {
   title: 'Components/SuccessfulTransactionMessage',
@@ -22,6 +22,20 @@ export const Default = () => (
 
 export const WithAmount = () => (
   <SuccessfulTransactionMessage
+    title="Your borrow was successful"
+    message="You successfully borrowed"
+    transactionHash="0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63"
+    amount={{
+      valueWei: new BigNumber('100000000000000000000'),
+      tokenSymbol: 'xvs',
+    }}
+  />
+);
+
+export const InModal = () => (
+  <SuccessfulTransactionModal
+    isOpened
+    handleClose={console.log}
     title="Your borrow was successful"
     message="You successfully borrowed"
     transactionHash="0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63"
