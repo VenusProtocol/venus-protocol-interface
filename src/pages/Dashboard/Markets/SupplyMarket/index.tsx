@@ -6,6 +6,7 @@ import { Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
+import FunctionKey from 'constants/functionKey';
 import { useWeb3Account } from 'clients/web3';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
@@ -113,14 +114,18 @@ const SupplyMarket: React.FC = () => {
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
 
   const { mutate: enterMarkets } = useEnterMarkets({
-    onSuccess: () => setConfirmCollateral(undefined),
+    onSuccess: () => {
+      setConfirmCollateral(undefined);
+    },
     onError: error => {
       setConfirmCollateral(undefined);
       throw error;
     },
   });
   const { mutate: exitMarkets } = useExitMarket({
-    onSuccess: () => setConfirmCollateral(undefined),
+    onSuccess: () => {
+      setConfirmCollateral(undefined);
+    },
     onError: error => {
       setConfirmCollateral(undefined);
       throw error;
