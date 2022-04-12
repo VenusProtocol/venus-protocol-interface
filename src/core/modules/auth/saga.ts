@@ -30,7 +30,7 @@ export function* asyncLoginRequest({ payload, resolve, reject }: $TSFixMe) {
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
-      api: '',
+      endpoint: '',
       method: 'POST',
       params: {
         Username: email,
@@ -54,7 +54,7 @@ export function* asyncRegisterRequest({ payload, resolve, reject }: $TSFixMe) {
   try {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
     const response = yield call(restService, {
-      api: '',
+      endpoint: '',
       method: 'POST',
       params: {
         username: email,
