@@ -46,9 +46,18 @@ export const menuItems: IMenuItem[] = [
 ];
 
 if (isOnTestnet) {
-  menuItems.splice(6, 0, {
-    href: '/convert-vrt',
-    text: 'Convert XVS',
-    icon: 'convert',
-  });
+  menuItems.splice(
+    menuItems.length,
+    0,
+    {
+      href: '/convert-vrt',
+      text: 'Convert XVS',
+      icon: 'convert',
+    },
+    {
+      href: '/faucet',
+      text: 'Faucet',
+      icon: 'info',
+    },
+  );
 }
