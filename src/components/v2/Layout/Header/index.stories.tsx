@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { MemoryRouter, Route } from 'react-router';
 import { withThemeProvider, withRouter, withProvider } from 'stories/decorators';
-import { Header } from '.';
+import Header from '.';
 
 export default {
   title: 'Components/Layout/Header',

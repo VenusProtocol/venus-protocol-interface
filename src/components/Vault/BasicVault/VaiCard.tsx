@@ -30,7 +30,6 @@ function VaultCard({ settings }: VaultCardProps) {
   const vaiVaultContract = useVaiVault();
 
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
-  const [totalPendingRewards, setTotalPendingRewards] = useState(new BigNumber(0));
   const [userVaiAllowance, setUserVaiAllowance] = useState(new BigNumber(0));
   const [userVaiStakedAmount, setUserVaiStakedAmount] = useState(new BigNumber(0));
   const [userVaiBalance, setUserVaiBalance] = useState(new BigNumber(0));
@@ -47,7 +46,7 @@ function VaultCard({ settings }: VaultCardProps) {
     let userPendingRewardTemp = new BigNumber(0);
     let userVaiAllowanceTemp = new BigNumber(0);
 
-    const [venusVAIVaultRateTemp, totalPendingRewardsTemp] = await Promise.all([
+    const [venusVAIVaultRateTemp] = await Promise.all([
       compContract.methods.venusVAIVaultRate().call(),
       xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
     ]);
@@ -73,7 +72,6 @@ function VaultCard({ settings }: VaultCardProps) {
       setDailyEmission(
         new BigNumber(venusVAIVaultRateTemp).div(1e18).multipliedBy(blockPerDay).dp(2, 1),
       );
-      setTotalPendingRewards(new BigNumber(totalPendingRewardsTemp));
       setUserVaiBalance(new BigNumber(userVaiBalanceTemp));
       setUserVaiStakedAmount(new BigNumber(userVaiStakedAmountTemp));
       setUserPendingReward(new BigNumber(userPendingRewardTemp));
