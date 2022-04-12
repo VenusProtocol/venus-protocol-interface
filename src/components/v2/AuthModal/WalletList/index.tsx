@@ -2,6 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
+import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3';
 import { VENUS_TERMS_OF_SERVICE_URL, isOnTestnet } from 'config';
 import { Icon } from '../../Icon';
@@ -14,6 +15,7 @@ export interface IWalletListProps {
 
 export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
   const styles = useStyles();
+  const { t, Trans } = useTranslation();
 
   return (
     <div css={styles.container}>
@@ -47,23 +49,25 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
           </Typography>
 
           <Typography css={styles.comingSoonText} component="span">
-            Coming soon...
+            {t('authModal.walletList.comingSoon')}
           </Typography>
         </div>
       ))}
 
       <div css={styles.footer}>
         <Typography variant="small2">
-          By connecting a wallet, you agree to Venus&apos;{' '}
-          <a
-            href={VENUS_TERMS_OF_SERVICE_URL}
-            target="_blank"
-            rel="noreferrer"
-            css={styles.footerLink}
-          >
-            Terms of Service
-          </a>
-          .
+          <Trans i18nKey="authModal.walletList.termsOfServiceLink">
+            By connecting a wallet, you agree to Venus&apos;{' '}
+            <a
+              href={VENUS_TERMS_OF_SERVICE_URL}
+              target="_blank"
+              rel="noreferrer"
+              css={styles.footerLink}
+            >
+              Terms of Service
+            </a>
+            .
+          </Trans>
         </Typography>
       </div>
     </div>
