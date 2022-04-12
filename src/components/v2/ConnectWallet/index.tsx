@@ -11,11 +11,21 @@ export interface IPromptProps {
   message: string;
   openAuthModal: () => void;
   className?: string;
+  connected: boolean;
 }
 
-export const Prompt: React.FC<IPromptProps> = ({ message, openAuthModal, className }) => {
+export const Prompt: React.FC<IPromptProps> = ({
+  message,
+  openAuthModal,
+  className,
+  children,
+  connected,
+}) => {
   const styles = useStyles();
-
+  // Render prompt if user aren't connected with any wallet
+  if (connected) {
+    return <>{children}</>;
+  }
   return (
     <div className={className}>
       <div css={styles.prompt}>
@@ -33,17 +43,7 @@ export const Prompt: React.FC<IPromptProps> = ({ message, openAuthModal, classNa
   );
 };
 
-export interface IConnectWalletProps {
-  promptMessage: IPromptProps['message'];
-}
-
-export const ConnectWallet: React.FC<IConnectWalletProps> = ({ children, promptMessage }) => {
+export const ConnectWallet: React.FC<Omit<IPromptProps, 'connected' | 'openAuthModal'>> = props => {
   const { account, openAuthModal } = React.useContext(AuthContext);
-
-  // Render prompt if user aren't connected with any wallet
-  if (!account) {
-    return <Prompt message={promptMessage} openAuthModal={openAuthModal} />;
-  }
-
-  return <>{children}</>;
+  return <Prompt {...props} openAuthModal={openAuthModal} connected={!!account} />;
 };
