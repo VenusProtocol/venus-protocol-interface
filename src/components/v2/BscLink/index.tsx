@@ -2,6 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
+import { useTranslation } from 'translation';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
@@ -12,6 +13,7 @@ export interface IBscLinkProps {
 }
 
 export const BscLink: React.FC<IBscLinkProps> = ({ hash, className }) => {
+  const { Trans } = useTranslation();
   const styles = useStyles();
 
   return (
@@ -24,8 +26,10 @@ export const BscLink: React.FC<IBscLinkProps> = ({ hash, className }) => {
         variant="small1"
         css={styles.text}
       >
-        View on bscscan.com
-        <Icon name="open" css={styles.icon} />
+        <Trans i18nKey="bscLink.content">
+          View on bscscan.com
+          <Icon name="open" css={styles.icon} />
+        </Trans>
       </Typography>
     </div>
   );

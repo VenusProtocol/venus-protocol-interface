@@ -2,6 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
+import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3';
 import { truncateAddress } from 'utilities/truncateAddress';
 import { BscLink } from '../../BscLink';
@@ -25,6 +26,7 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
   account,
 }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
   const truncatedAccountAddress = truncateAddress(account.address);
 
   // Grab the wallet info. Note that we default to the first wallet in the list
@@ -66,7 +68,7 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
       <BscLink css={styles.bscScanLinkContainer} hash={account.address} />
 
       <SecondaryButton onClick={onLogOut} fullWidth>
-        Log out
+        {t('authModal.accountDetails.logOutButtonLabel')}
       </SecondaryButton>
     </div>
   );
