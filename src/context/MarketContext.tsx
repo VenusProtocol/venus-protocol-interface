@@ -5,7 +5,7 @@ import { TREASURY_ADDRESS } from 'config';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { Asset, Market } from 'types';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
-import { getVBepToken } from 'utilities';
+import { getVBepToken, getToken } from 'utilities';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy, notNull } from '../utilities/common';
 import useRefresh from '../hooks/useRefresh';
@@ -78,7 +78,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
 
     const getXvsBalance = (balances: $TSFixMe) => {
       const vxvs = getVBepToken('xvs').address.toLowerCase();
-      const xvsDecimals = TOKENS.xvs.decimals;
+      const xvsDecimals = getToken('xvs').decimals;
       return new BigNumber(balances[vxvs].tokenBalance).shiftedBy(-xvsDecimals);
     };
 
@@ -132,6 +132,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           }
 
           const vtokenAddress = getVBepToken(item.id).address.toLowerCase();
+
           const collateral = assetsIn
             .map((address: $TSFixMe) => address.toLowerCase())
             .includes(vtokenAddress);
