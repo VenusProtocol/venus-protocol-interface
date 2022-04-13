@@ -6,7 +6,6 @@ import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { uid } from 'react-uid';
 import { connectAccount } from 'core';
-import { getToken } from 'utilities';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
@@ -14,7 +13,7 @@ import { Setting } from 'types';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
 import { useComptroller, useToken } from 'clients/contracts/hooks';
-import { getContractAddress } from 'utilities';
+import { getToken, getContractAddress } from 'utilities';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const XVSLayout = styled.div`
