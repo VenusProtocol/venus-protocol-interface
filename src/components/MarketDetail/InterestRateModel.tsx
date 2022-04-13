@@ -18,7 +18,7 @@ import { getToken } from 'utilities';
 import { useWeb3 } from 'clients/web3';
 import { TokenSymbol } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
-import { getInterestModelContract, getVbepContract } from '../../clients/contracts/getters';
+import { getInterestModelContract, getVBepTokenContract } from '../../clients/contracts/getters';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -146,7 +146,7 @@ function InterestRateModel({ currentAsset }: Props) {
 
   const getGraphData = async (asset: TokenSymbol) => {
     flag = true;
-    const vbepContract = getVbepContract(web3, asset);
+    const vbepContract = getVBepTokenContract(web3, asset);
     const interestRateModel = await vbepContract.methods.interestRateModel().call();
     const interestModelContract = getInterestModelContract(web3, interestRateModel);
     const cashValue = await vbepContract.methods.getCash().call();

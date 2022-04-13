@@ -18,7 +18,7 @@ import {
   useXvsVaultProxy,
 } from 'clients/contracts/hooks';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { getVbepContract } from 'clients/contracts/getters';
+import { getVBepTokenContract } from 'clients/contracts/getters';
 import { State } from 'core/modules/initialState';
 
 const xvsTokenAddress = getToken('xvs').address;
@@ -145,7 +145,7 @@ function Vote({ getProposals }: VoteProps) {
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(VBEP_TOKENS).map(async item => {
-        const vBepContract = getVbepContract(web3, item.id);
+        const vBepContract = getVBepTokenContract(web3, item.id);
         const [
           supplyState,
           supplierTokens,

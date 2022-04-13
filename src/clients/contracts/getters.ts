@@ -33,6 +33,8 @@ export const getTokenContract = (web3: Web3, name: $TSFixMe) => {
     abi = xvsTokenAbi;
   } else if (name === 'vai') {
     abi = vaiTokenAbi;
+  } else if (name === 'vrt') {
+    abi = vrtTokenAbi;
   }
 
   return getContract(abi, getToken(name).address, web3);
@@ -41,11 +43,8 @@ export const getTokenContract = (web3: Web3, name: $TSFixMe) => {
 export const getTokenContractByAddress = (web3: Web3, address: $TSFixMe) =>
   getContract(bep20Abi, address, web3);
 
-export const getVbepContract = (web3: Web3, name: $TSFixMe) =>
+export const getVBepTokenContract = (web3: Web3, name: $TSFixMe) =>
   getContract(name === 'bnb' ? vBnbTokenAbi : vBepAbi, getVBepToken(name).address, web3);
-
-export const getVaiTokenContract = (web3: Web3) =>
-  getContract(vaiTokenAbi, getContractAddress('vai'), web3);
 
 export const getVaiUnitrollerContract = (web3: Web3) =>
   getContract(vaiUnitrollerAbi, getContractAddress('vaiUnitroller'), web3);
@@ -83,9 +82,6 @@ export const getXvsVestingProxyContract = (web3: Web3) =>
 
 export const getVrtConverterProxyContract = (web3: Web3) =>
   getContract(vrtConverterAbi, getContractAddress('vrtConverterProxy'), web3);
-
-export const getVrtTokenContract = (web3: Web3) =>
-  getContract(vrtTokenAbi, getContractAddress('vrt'), web3);
 
 // VRT vault
 export const getVrtVaultProxyContract = (web3: Web3) =>

@@ -8,7 +8,7 @@ import { addToken, format } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import { getContractAddress } from 'utilities';
+import { getToken } from 'utilities';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useVaiUser } from '../../hooks/useVaiUser';
 
@@ -70,7 +70,8 @@ function VaiInfo({ settings }: VaiInfoProps) {
   const { account } = useWeb3Account();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
-    window.open(`${BASE_BSC_SCAN_URL}/token/${getContractAddress('vai')}?a=${account}`, '_blank');
+    const vaiTokenAddress = getToken('vai').address;
+    window.open(`${BASE_BSC_SCAN_URL}/token/${vaiTokenAddress}?a=${account}`, '_blank');
   };
 
   return (

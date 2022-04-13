@@ -4,19 +4,13 @@ import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import { Row, Col } from 'antd';
 
-import { getToken } from 'utilities';
-import { getContractAddress } from 'utilities';
+import { getToken, getContractAddress } from 'utilities';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useRefresh from '../../hooks/useRefresh';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';
 import TabContainer from '../../components/Basic/TabContainer';
-import {
-  useVrtConverterProxy,
-  useVrtToken,
-  useXvsVestingProxy,
-  useToken,
-} from '../../clients/contracts/hooks';
+import { useVrtConverterProxy, useXvsVestingProxy, useToken } from '../../clients/contracts/hooks';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -59,7 +53,7 @@ export default () => {
   // contracts
   const vrtConverterContract = useVrtConverterProxy();
   const xvsVestingContract = useXvsVestingProxy();
-  const vrtTokenContract = useVrtToken();
+  const vrtTokenContract = useToken('vrt');
   const xvsTokenContract = useToken('xvs');
 
   useEffect(() => {

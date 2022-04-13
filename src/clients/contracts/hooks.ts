@@ -8,7 +8,7 @@ import {
   getTokenContract,
   getVaiUnitrollerContract,
   getVaiVaultContract,
-  getVbepContract,
+  getVBepTokenContract,
   getVenusLensContract,
   getXvsVaultProxyContract,
   getXvsVaultContract,
@@ -16,7 +16,6 @@ import {
   getGovernorBravoContract,
   getVrtConverterProxyContract,
   getXvsVestingProxyContract,
-  getVrtTokenContract,
   getVrtVaultProxyContract,
 } from './getters';
 
@@ -32,7 +31,7 @@ export const useTokenByAddress = (address: $TSFixMe) => {
 
 export const useVBepToken = (name: $TSFixMe) => {
   const web3 = useWeb3();
-  return useMemo(() => getVbepContract(web3, name), [web3, name]);
+  return useMemo(() => getVBepTokenContract(web3, name), [web3, name]);
 };
 
 export const useVaiUnitroller = () => {
@@ -89,11 +88,6 @@ export const useVrtConverterProxy = () => {
 export const useXvsVestingProxy = () => {
   const web3 = useWeb3();
   return useMemo(() => getXvsVestingProxyContract(web3), [web3]);
-};
-
-export const useVrtToken = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVrtTokenContract(web3), [web3]);
 };
 
 export const useVrtVaultProxy = () => {

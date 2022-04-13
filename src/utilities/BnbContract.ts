@@ -1,5 +1,6 @@
 import { getVBepToken } from 'utilities';
-import vbnbAbi from 'constants/contracts/abis/vbnb.json';
+
+import { getVBepTokenContract } from 'clients/contracts';
 
 const vBnbAddress = getVBepToken('bnb').address;
 
@@ -7,16 +8,12 @@ const vBnbAddress = getVBepToken('bnb').address;
 
 export const sendSupply = async (
   web3: $TSFixMe,
-
   from: $TSFixMe,
-
   amount: $TSFixMe,
-
   callback: $TSFixMe,
 ) => {
   try {
-    // TODO: use contracts client
-    const contract = new web3.eth.Contract(vbnbAbi, vBnbAddress);
+    const contract = getVBepTokenContract(web3, 'bnb');
     const contractData = contract.methods.mint().encodeABI();
 
     const tx = {
@@ -40,16 +37,12 @@ export const sendSupply = async (
 
 export const sendRepay = async (
   web3: $TSFixMe,
-
   from: $TSFixMe,
-
   amount: $TSFixMe,
-
   callback: $TSFixMe,
 ) => {
   try {
-    // TODO: use contracts client
-    const contract = new web3.eth.Contract(vbnbAbi, vBnbAddress);
+    const contract = getVBepTokenContract(web3, 'bnb');
     const contractData = contract.methods.repayBorrow().encodeABI();
 
     const tx = {
