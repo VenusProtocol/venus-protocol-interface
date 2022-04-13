@@ -13,7 +13,7 @@ import {
   formatCommaThousandsPeriodDecimal,
   format,
 } from 'utilities/common';
-import { Setting, TokenSymbol } from 'types';
+import { Setting, TokenId } from 'types';
 import { useMarkets } from 'hooks/useMarkets';
 import { State } from 'core/modules/initialState';
 
@@ -375,7 +375,7 @@ function Market({ history, settings }: MarketProps) {
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="flex align-center market">
                     <img
                       className="asset-img"
-                      src={getToken(item.underlyingSymbol.toLowerCase() as TokenSymbol)?.asset}
+                      src={getToken(item.underlyingSymbol.toLowerCase() as TokenId)?.asset}
                       alt="asset"
                     />
                     <p className="item-title">{item.underlyingSymbol}</p>

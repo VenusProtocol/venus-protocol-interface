@@ -16,7 +16,7 @@ import {
 import { State } from 'core/modules/initialState';
 import { getToken } from 'utilities';
 import { useWeb3 } from 'clients/web3';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
 import { getInterestModelContract, getVBepTokenContract } from '../../clients/contracts/getters';
 
@@ -112,7 +112,7 @@ const InterestRateModelWrapper = styled.div`
 let flag = false;
 
 interface Props extends RouteComponentProps {
-  currentAsset: TokenSymbol;
+  currentAsset: TokenId;
 }
 
 interface CustomizedAxisTickProps {
@@ -144,7 +144,7 @@ function InterestRateModel({ currentAsset }: Props) {
     </g>
   );
 
-  const getGraphData = async (asset: TokenSymbol) => {
+  const getGraphData = async (asset: TokenId) => {
     flag = true;
     const vbepContract = getVBepTokenContract(web3, asset);
     const interestRateModel = await vbepContract.methods.interestRateModel().call();

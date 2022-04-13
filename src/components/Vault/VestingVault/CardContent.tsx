@@ -9,7 +9,7 @@ import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import useRefresh from 'hooks/useRefresh';
 import { getTokenContractByAddress } from 'clients/contracts/getters';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import WithdrawCard from './WithdrawCard';
 import LoadingSpinner from '../../Basic/LoadingSpinner';
@@ -25,8 +25,8 @@ const CardContentWrapper = styled.div`
 
 interface CardContentProps {
   poolId: BigNumber;
-  stakedToken: TokenSymbol;
-  rewardToken: TokenSymbol;
+  stakedToken: TokenId;
+  rewardToken: TokenId;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;

@@ -6,14 +6,14 @@ import BigNumber from 'bignumber.js';
 import { getToken } from 'utilities';
 import { Icon, IconName } from 'components';
 import { formatCommaThousandsPeriodDecimal, format } from 'utilities/common';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import VaultCardContent from './CardContent';
 import { VaultCardWrapper } from '../styles';
 
 interface VaultCardProps {
   poolId: BigNumber;
-  stakedToken: TokenSymbol;
-  rewardToken: TokenSymbol;
+  stakedToken: TokenId;
+  rewardToken: TokenId;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;

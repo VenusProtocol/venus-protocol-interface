@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 
 import { formatApy, format } from 'utilities/common';
 import { getToken } from 'utilities';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 
 const MarketInfoWrapper = styled.div`
   .asset-img {
@@ -41,7 +41,7 @@ const MarketInfoContent = styled.div`
 `;
 
 interface MarketInfoObjectType {
-  underlyingSymbol: Uppercase<TokenSymbol>;
+  underlyingSymbol: Uppercase<TokenId>;
   supplyApy: number;
   supplyVenusApy: number;
   borrowApy: number;
@@ -63,8 +63,8 @@ function MarketInfo({ marketInfo, marketType }: Props) {
       <img
         className="asset-img"
         src={
-          getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenSymbol).asset
-            ? getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenSymbol).asset
+          getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenId).asset
+            ? getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenId).asset
             : ''
         }
         alt="asset"

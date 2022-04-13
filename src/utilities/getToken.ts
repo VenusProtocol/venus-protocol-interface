@@ -1,6 +1,6 @@
-import { TokenSymbol, IToken } from 'types';
+import { TokenId, IToken } from 'types';
 import { TOKENS } from 'constants/tokens';
 
-const getToken = (key: TokenSymbol): IToken => TOKENS[key as keyof typeof TOKENS] as IToken;
+const getToken = (id: TokenId) => TOKENS[id] as IToken;
 
 export default getToken;

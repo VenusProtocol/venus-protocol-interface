@@ -17,7 +17,7 @@ import {
   formatCommaThousandsPeriodDecimal,
 } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
-import { Setting, TokenSymbol } from 'types';
+import { Setting, TokenId, VBepTokenId } from 'types';
 import { State } from 'core/modules/initialState';
 import { VTOKEN_DECIMALS } from 'config';
 import { useMarkets } from '../../hooks/useMarkets';
@@ -151,7 +151,7 @@ interface OverviewProps {
 }
 
 function Overview({ settings, getMarketHistory }: OverviewProps) {
-  const [currentAsset, setCurrentAsset] = useState<TokenSymbol>('sxp');
+  const [currentAsset, setCurrentAsset] = useState<TokenId>('sxp');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   const [currentAPY, setCurrentAPY] = useState(0);
@@ -192,7 +192,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        getVBepToken(currentAsset).address,
+        getVBepToken(currentAsset as VBepTokenId).address,
         '1hr',
         24 * 7, // 1 week
       );
@@ -232,7 +232,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
     }
   }, [currentAsset, settings.marketType, userMarketInfo, settings.withXVS]);
 
-  const handleChangeAsset = (value: TokenSymbol) => {
+  const handleChangeAsset = (value: TokenId) => {
     setCurrentAsset(value);
   };
 
@@ -256,15 +256,11 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                 {Object.keys(VBEP_TOKENS).map(key => (
                   <Option
                     className="flex align-center just-between"
-                    value={getVBepToken(key as TokenSymbol).id}
+                    value={getVBepToken(key as VBepTokenId).id}
                     key={uid(key)}
                   >
-                    <img
-                      className="asset-img"
-                      src={getToken(key as TokenSymbol).asset}
-                      alt="asset"
-                    />{' '}
-                    <span>{getToken(key as TokenSymbol).symbol}</span>
+                    <img className="asset-img" src={getToken(key as TokenId).asset} alt="asset" />{' '}
+                    <span>{getToken(key as TokenId).symbol}</span>
                   </Option>
                 ))}
               </Select>

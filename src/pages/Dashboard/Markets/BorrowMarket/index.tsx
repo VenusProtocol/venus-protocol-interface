@@ -5,7 +5,7 @@ import {
   formatCentsToReadableValue,
   formatApy,
 } from 'utilities/common';
-import { Asset, TokenSymbol } from 'types';
+import { Asset, TokenId } from 'types';
 import { Token } from 'components/v2/Token';
 import { Table, ITableProps } from 'components/v2/Table';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
@@ -39,7 +39,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token symbol={asset.name as TokenSymbol} />,
+        render: () => <Token symbol={asset.name as TokenId} />,
         value: asset.name,
       },
       {
@@ -52,7 +52,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
         render: () =>
           formatCoinsToReadableValue({
             value: asset.walletBalance,
-            tokenSymbol: asset.symbol as TokenSymbol,
+            tokenSymbol: asset.symbol as TokenId,
           }),
         value: asset.walletBalance.toString(),
       },

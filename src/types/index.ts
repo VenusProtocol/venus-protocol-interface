@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { TOKENS } from 'constants/tokens';
+import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export interface User {
   Token: string;
@@ -35,21 +35,22 @@ export interface Asset {
   vsymbol: string;
 }
 
-export type TokenSymbol = keyof typeof TOKENS;
+export type TokenId = keyof typeof TOKENS;
+export type VBepTokenId = keyof typeof VBEP_TOKENS;
 
 export interface IToken {
-  id: TokenSymbol;
-  symbol: Uppercase<TokenSymbol>;
+  id: TokenId;
+  symbol: Uppercase<TokenId>;
   decimals: number;
-  address: string;
+  address: string | '';
   asset: string;
   vasset: string;
 }
 
 export interface IVBepToken {
-  id: TokenSymbol;
-  symbol: `v${Uppercase<TokenSymbol>}`;
-  address: string;
+  id: VBepTokenId;
+  symbol: `v${Uppercase<VBepTokenId>}`;
+  address: string | '';
 }
 
 export interface Setting {
@@ -106,8 +107,8 @@ export interface Proposal {
 
 export interface IPool {
   poolId: BigNumber;
-  stakedToken: TokenSymbol;
-  rewardToken: TokenSymbol;
+  stakedToken: TokenId;
+  rewardToken: TokenId;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;

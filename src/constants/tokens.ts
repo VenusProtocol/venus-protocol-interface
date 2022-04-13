@@ -92,7 +92,7 @@ export const TOKENS = isOnTestnet
         id: 'bnb',
         symbol: 'BNB',
         decimals: 18,
-        address: undefined,
+        address: TOKEN_ADDRESSES.bnb[97],
         asset: bnb,
         vasset: vbnb,
       },

@@ -2,9 +2,8 @@ import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 
-import { TOKENS } from 'constants/tokens';
 import { getToken, getVBepToken } from 'utilities';
-import { TokenSymbol } from 'types';
+import { TokenId, VBepTokenId } from 'types';
 
 export const commaFormat = commaNumber.bindWith(',', '.');
 
@@ -39,7 +38,7 @@ export const addToken = async ({
   decimal,
   type,
 }: {
-  asset: TokenSymbol;
+  asset: TokenId;
   decimal: number;
   type: string;
 }) => {
@@ -53,7 +52,8 @@ export const addToken = async ({
     tokenDecimals = 18;
     tokenImage = `${window.location.origin}/coins/vai.svg`;
   } else {
-    tokenAddress = type === 'token' ? getToken(asset).address : getVBepToken(asset).address;
+    tokenAddress =
+      type === 'token' ? getToken(asset).address : getVBepToken(asset as VBepTokenId).address;
     tokenSymbol =
       type === 'token'
         ? getToken(asset).symbol
@@ -119,15 +119,12 @@ export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
 export const format = (bigNumber: BigNumber, dp = 2) =>
   formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
 
-export const getTokenDecimals = (tokenSymbol: keyof typeof TOKENS) =>
-  TOKENS[tokenSymbol]?.decimals || 18;
-
 export const formatCoinsToReadableValue = ({
   value,
   tokenSymbol,
 }: {
   value: BigNumber;
-  tokenSymbol: keyof typeof TOKENS;
+  tokenSymbol: TokenId;
 }) => `${formatCommaThousandsPeriodDecimal(value.toString())} ${tokenSymbol.toUpperCase()}`;
 
 type IConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
@@ -138,10 +135,10 @@ export function convertWeiToCoins<T extends boolean | undefined = undefined>({
   returnInReadableFormat = false,
 }: {
   value: BigNumber;
-  tokenSymbol: keyof typeof TOKENS;
+  tokenSymbol: TokenId;
   returnInReadableFormat?: T;
 }): IConvertWeiToCoinsOutput<T> {
-  const tokenDecimals = getTokenDecimals(tokenSymbol);
+  const tokenDecimals = getToken(tokenSymbol).decimals;
   const valueCoins = value
     .dividedBy(new BigNumber(10).pow(tokenDecimals))
     .decimalPlaces(tokenDecimals);
@@ -158,9 +155,9 @@ export const convertCoinsToWei = ({
   tokenSymbol,
 }: {
   value: BigNumber;
-  tokenSymbol: keyof typeof TOKENS;
+  tokenSymbol: TokenId;
 }) => {
-  const tokenDecimals = getTokenDecimals(tokenSymbol);
+  const tokenDecimals = getToken(tokenSymbol).decimals;
   return value.multipliedBy(new BigNumber(10).pow(tokenDecimals));
 };
 

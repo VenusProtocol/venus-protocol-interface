@@ -6,7 +6,7 @@ import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { formatApy } from 'utilities/common';
 import { getToken } from 'utilities';
-import { TOKENS } from 'constants/tokens';
+import { TokenId } from 'types';
 import { Toggle } from 'components';
 import { Table } from '.';
 import { Icon } from '../Icon';
@@ -34,7 +34,7 @@ const styles = {
   `,
 };
 
-function createData(asset: keyof typeof TOKENS, apy: number, wallet: number, collateral: boolean) {
+function createData(asset: TokenId, apy: number, wallet: number, collateral: boolean) {
   return [
     {
       key: asset,

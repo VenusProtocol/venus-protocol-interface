@@ -6,7 +6,7 @@ import NumberFormat from 'react-number-format';
 
 import { useWeb3Account } from 'clients/web3';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import { CardItemWrapper } from '../styles';
@@ -66,7 +66,7 @@ function formatTimeToLockPeriodString(seconds: $TSFixMe) {
 
 interface WithdrawCardProps {
   poolId: BigNumber;
-  stakedToken: TokenSymbol;
+  stakedToken: TokenId;
   rewardTokenAddress: string | undefined;
   lockPeriodSecond: BigNumber;
   withdrawableAmount: BigNumber;

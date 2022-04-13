@@ -8,7 +8,7 @@ import { format, formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { State } from 'core/modules/initialState';
 import { getToken } from 'utilities';
 import { VTOKEN_DECIMALS } from 'config';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 
 const MarketSummaryWrapper = styled.div`
   .label {
@@ -45,7 +45,7 @@ const MarketSummaryWrapper = styled.div`
 
 interface Props extends RouteComponentProps {
   marketInfo: Partial<$TSFixMe>;
-  currentAsset: TokenSymbol;
+  currentAsset: TokenId;
 }
 
 function MarketSummary({ marketInfo, currentAsset }: Props) {

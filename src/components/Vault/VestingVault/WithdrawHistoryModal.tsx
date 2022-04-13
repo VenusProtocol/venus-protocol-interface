@@ -7,7 +7,7 @@ import { uid } from 'react-uid';
 
 import closeImg from 'assets/img/close.png';
 import { getToken } from 'utilities';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 
 const WithdrawHistoryModalWrapper = styled.div`
   color: #fff;
@@ -63,7 +63,7 @@ interface WithdrawHistoryModalProps {
   onCancel: () => void;
   pendingWithdrawals: unknown[];
   withdrawableAmount: BigNumber;
-  stakedToken: TokenSymbol;
+  stakedToken: TokenId;
 }
 
 function WithdrawHistoryModal({
