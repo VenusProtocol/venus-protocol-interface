@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
 
-import { getToken } from 'utilities';
+import { generateBscScanUrl } from 'utilities';
 import { addToken, format } from 'utilities/common';
 import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
 import { useWeb3Account } from 'clients/web3';
-import { BASE_BSC_SCAN_URL } from '../../config';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
 
 const CardWrapper = styled.div`
@@ -60,7 +59,7 @@ function CoinInfo() {
   const { userXvsBalance } = useMarketsUser();
 
   const handleLink = () => {
-    window.open(`${BASE_BSC_SCAN_URL}/token/${getToken('xvs').address}?a=${account}`, '_blank');
+    window.open(`${generateBscScanUrl('xvs', 'token')}?a=${account}`, '_blank');
   };
 
   return (

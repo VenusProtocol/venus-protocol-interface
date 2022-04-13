@@ -8,8 +8,7 @@ import { addToken, format } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import { getToken } from 'utilities';
-import { BASE_BSC_SCAN_URL } from '../../config';
+import { generateBscScanUrl } from 'utilities';
 import { useVaiUser } from '../../hooks/useVaiUser';
 
 const CardWrapper = styled.div`
@@ -70,8 +69,7 @@ function VaiInfo({ settings }: VaiInfoProps) {
   const { account } = useWeb3Account();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
-    const vaiTokenAddress = getToken('vai').address;
-    window.open(`${BASE_BSC_SCAN_URL}/token/${vaiTokenAddress}?a=${account}`, '_blank');
+    window.open(`${generateBscScanUrl('vai', 'token')}?a=${account}`, '_blank');
   };
 
   return (

@@ -10,7 +10,7 @@ import {
   VENUS_GITHUB_URL,
   ETHERSCAN_XVS_CONTRACT_ADDRESS,
 } from 'config';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
+import { generateBscScanUrl } from 'utilities';
 import { useBlock } from 'hooks/useBlock';
 import { Icon } from '../../Icon';
 import { useStyles } from './styles';
@@ -40,7 +40,7 @@ export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
       <div css={styles.links}>
         <a
           css={styles.link}
-          href={generateBscScanAddressUrl(ETHERSCAN_XVS_CONTRACT_ADDRESS)}
+          href={generateBscScanUrl(ETHERSCAN_XVS_CONTRACT_ADDRESS)}
           target="_blank"
           rel="noreferrer"
         >

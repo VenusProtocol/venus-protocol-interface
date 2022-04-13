@@ -10,10 +10,9 @@ import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
-import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
 import { useComptrollerContract, useTokenContract } from 'clients/contracts/hooks';
-import { getToken, getContractAddress } from 'utilities';
+import { getToken, getContractAddress, generateBscScanUrl } from 'utilities';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const XVSLayout = styled.div`
@@ -271,7 +270,7 @@ function XVS({ settings }: XVSProps) {
             <img src={coinImg} alt="xvs" />
             <a
               className="highlight"
-              href={`${BASE_BSC_SCAN_URL}/token/${getToken('xvs').address}`}
+              href={generateBscScanUrl('xvs')}
               target="_blank"
               rel="noreferrer"
             >

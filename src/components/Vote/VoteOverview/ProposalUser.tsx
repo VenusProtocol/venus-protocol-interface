@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
 import { ProposalInfo } from 'types';
-import { BASE_BSC_SCAN_URL } from '../../../config';
+import { generateBscScanUrl } from 'utilities';
 
 const ProposalUserWrapper = styled.div`
   width: 100%;
@@ -40,7 +40,7 @@ interface ProposalUserProps {
 
 function ProposalUser({ proposalInfo }: ProposalUserProps) {
   const handleAddLink = (linkType: $TSFixMe, v: $TSFixMe) => {
-    window.open(`${BASE_BSC_SCAN_URL}/${linkType === 'address' ? 'address' : 'tx'}/${v}`, '_blank');
+    window.open(generateBscScanUrl(v, linkType === 'address' ? 'address' : 'tx'), '_blank');
   };
 
   return (
