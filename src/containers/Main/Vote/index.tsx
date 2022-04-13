@@ -10,7 +10,7 @@ import Proposals from 'components/Vote/Proposals';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import useRefresh from 'hooks/useRefresh';
-import { XVS_TOKEN, VBEP_TOKENS } from 'constants/tokenContracts';
+import { XVS_TOKEN, VBEP_TOKENS } from 'constants/tokens';
 import {
   useComptroller,
   useToken,

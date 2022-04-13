@@ -1,5 +1,5 @@
 import { TokenSymbol, IVBepToken } from 'types';
-import { VBEP_TOKENS } from 'constants/tokenContracts';
+import { VBEP_TOKENS } from 'constants/tokens';
 
 // @TODO: refactor to take chain ID in consideration (currently handled in
 // constant file directly)

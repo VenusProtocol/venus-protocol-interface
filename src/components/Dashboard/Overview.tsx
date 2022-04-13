@@ -8,7 +8,7 @@ import { uid } from 'react-uid';
 import { accountActionCreators } from 'core/modules/account/actions';
 import OverviewChart from 'components/Basic/OverviewChart';
 import { promisify, getVBepToken, getToken } from 'utilities';
-import { VBEP_TOKENS } from 'constants/tokenContracts';
+import { VBEP_TOKENS } from 'constants/tokens';
 import {
   addToken,
   getBigNumber,

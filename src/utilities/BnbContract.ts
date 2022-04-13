@@ -1,5 +1,5 @@
 import { getVBepToken } from 'utilities';
-import vbnbAbi from 'constants/contractAbis/vbnb.json';
+import vbnbAbi from 'constants/contracts/abis/vbnb.json';
 
 const vBnbAddress = getVBepToken('bnb').address;
 

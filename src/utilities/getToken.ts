@@ -1,5 +1,5 @@
 import { TokenSymbol, IToken } from 'types';
-import { TOKENS } from 'constants/tokenContracts';
+import { TOKENS } from 'constants/tokens';
 
 // @TODO: refactor to take chain ID in consideration (currently handled in
 // constant file directly)

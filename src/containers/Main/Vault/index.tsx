@@ -8,7 +8,7 @@ import { useWeb3, useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
 import { useXvsVaultProxy } from 'clients/contracts/contractHooks';
 import { getToken } from 'utilities';
-import { TOKENS } from 'constants/tokenContracts';
+import { TOKENS } from 'constants/tokens';
 import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
 import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
 import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';

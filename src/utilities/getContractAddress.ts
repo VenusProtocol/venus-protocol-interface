@@ -1,6 +1,10 @@
 import { CHAIN_ID } from 'config';
-import addresses from 'constants/contractAddresses.json';
+import mainContractAddresses from 'constants/contracts/addresses/main.json';
+import tokenContractAddresses from 'constants/contracts/addresses/tokens.json';
 
-const getContractAddress = (contractId: keyof typeof addresses) => addresses[contractId][CHAIN_ID];
+const contractAddresses = { ...mainContractAddresses, ...tokenContractAddresses };
+
+const getContractAddress = (contractId: keyof typeof contractAddresses) =>
+  contractAddresses[contractId][CHAIN_ID];
 
 export default getContractAddress;

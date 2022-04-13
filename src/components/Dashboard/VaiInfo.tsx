@@ -70,10 +70,7 @@ function VaiInfo({ settings }: VaiInfoProps) {
   const { account } = useWeb3Account();
   const { userVaiBalance } = useVaiUser();
   const handleLink = () => {
-    window.open(
-      `${BASE_BSC_SCAN_URL}/token/${getContractAddress('vaiToken')}?a=${account}`,
-      '_blank',
-    );
+    window.open(`${BASE_BSC_SCAN_URL}/token/${getContractAddress('vai')}?a=${account}`, '_blank');
   };
 
   return (

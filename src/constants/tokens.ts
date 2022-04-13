@@ -54,7 +54,7 @@ import vluna from 'assets/img/coins/vluna.png';
 
 import { TokenSymbol, IToken, IVBepToken } from 'types';
 import { isOnTestnet } from 'config';
-import contracts from 'utilities/contracts';
+import contracts from 'constants/contracts/addresses/contracts';
 
 export const XVS_TOKEN = isOnTestnet ? contracts.TEST.TOKEN.xvs : contracts.MAIN.TOKEN.xvs;
 

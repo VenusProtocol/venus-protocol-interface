@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { TREASURY_ADDRESS } from 'config';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { Asset, Market } from 'types';
-import { VBEP_TOKENS, TOKENS } from 'constants/tokenContracts';
+import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import { getVBepToken } from 'utilities';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy, notNull } from '../utilities/common';

@@ -3,7 +3,7 @@ import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory } from 'stories/decorators';
 import { getToken } from 'utilities';
-import { VBEP_TOKENS } from 'constants/tokenContracts';
+import { VBEP_TOKENS } from 'constants/tokens';
 import { TokenSymbol } from 'types';
 import { Dropdown } from '.';
 

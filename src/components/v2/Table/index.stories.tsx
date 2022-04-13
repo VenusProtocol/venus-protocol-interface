@@ -6,7 +6,7 @@ import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { formatApy } from 'utilities/common';
 import { getToken } from 'utilities';
-import { TOKENS } from 'constants/tokenContracts';
+import { TOKENS } from 'constants/tokens';
 import { Toggle } from 'components';
 import { Table } from '.';
 import { Icon } from '../Icon';

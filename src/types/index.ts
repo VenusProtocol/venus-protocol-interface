@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { TOKENS } from 'constants/tokenContracts';
+import { TOKENS } from 'constants/tokens';
 
 export type TokenSymbol = keyof typeof TOKENS;
 
