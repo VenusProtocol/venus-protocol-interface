@@ -5,7 +5,8 @@ import Typography from '@mui/material/Typography';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { formatCentsToReadableValue } from 'utilities/common';
 import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
-import { useTranslation } from 'translation';
+import { AuthContext } from 'context/AuthContext';
+import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useMyAccountStyles as useStyles } from './styles';
 
 interface IMyAccountProps {
@@ -15,6 +16,7 @@ interface IMyAccountProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeLimitPercentage: number | undefined;
+  className?: string;
 }
 
 export const MyAccountUi = ({
@@ -24,10 +26,13 @@ export const MyAccountUi = ({
   borrowBalanceCents,
   borrowLimitCents,
   safeLimitPercentage,
+  className,
 }: IMyAccountProps) => {
   const styles = useStyles();
+  // @TODO: update to use a shared state (or possibly speak with designers about
+  // changing the designs, as it feels weird that this toggle would also update
+  // the borrow and supply market tables)
   const [isToggleSwitched, setToggleSwitched] = useState(true);
-
   const handleSwitch: IToggleProps['onChange'] = (event, checked) => {
     setToggleSwitched(checked);
   };
@@ -64,7 +69,7 @@ export const MyAccountUi = ({
         </Typography>
 
         <Typography variant="h1" color="interactive.success">
-          {netApyPercentage ? `${netApyPercentage}%` : '-'}
+          {typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : '-'}
         </Typography>
       </div>
 
@@ -141,3 +146,30 @@ export const MyAccountUi = ({
     </div>
   );
 };
+
+const MyAccount: React.FC = () => {
+  const { account } = React.useContext(AuthContext);
+  const userMarketInfo = useUserMarketInfo({ account: account?.address });
+
+  const uiProps = React.useMemo(() => {
+    const netApyPercentage = undefined;
+    const dailyEarningsCents = undefined;
+    const supplyBalanceCents = undefined;
+    const borrowBalanceCents = undefined;
+    const borrowLimitCents = undefined;
+    const safeLimitPercentage = undefined;
+
+    return {
+      netApyPercentage,
+      dailyEarningsCents,
+      supplyBalanceCents,
+      borrowBalanceCents,
+      borrowLimitCents,
+      safeLimitPercentage,
+    };
+  }, [userMarketInfo]);
+
+  return <MyAccountUi {...uiProps} />;
+};
+
+export default MyAccount;
