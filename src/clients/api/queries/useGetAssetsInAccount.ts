@@ -4,7 +4,7 @@ import getAssetsInAccount, {
   GetAssetsInAccountOutput,
   IGetAssetsInAccountInput,
 } from 'clients/api/queries/getAssetsInAccount';
-import { useComptroller } from 'hooks/useContract';
+import { useComptroller } from 'clients/contracts/contractHooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<

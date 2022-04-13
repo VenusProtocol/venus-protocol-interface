@@ -15,7 +15,7 @@ import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useVaiVault } from '../../hooks/useContract';
+import { useVaiVault } from '../../clients/contracts/contractHooks';
 
 const CardWrapper = styled.div`
   width: 100%;

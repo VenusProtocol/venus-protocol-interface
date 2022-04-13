@@ -10,7 +10,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { encodeParameters, getArgs } from 'utilities/common';
 import closeImg from 'assets/img/close.png';
 import { uid } from 'react-uid';
-import { useGovernorBravo } from '../../hooks/useContract';
+import { useGovernorBravo } from '../../clients/contracts/contractHooks';
 
 const ModalContent = styled.div`
   border-radius: 20px;

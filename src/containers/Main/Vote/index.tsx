@@ -11,9 +11,14 @@ import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import useRefresh from 'hooks/useRefresh';
 import { XVS_TOKEN, VBEP_TOKENS } from 'constants/contracts';
-import { useComptroller, useToken, useVaiUnitroller, useXvsVaultProxy } from 'hooks/useContract';
+import {
+  useComptroller,
+  useToken,
+  useVaiUnitroller,
+  useXvsVaultProxy,
+} from 'clients/contracts/contractHooks';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { getVbepContract } from 'utilities/contractHelpers';
+import { getVbepContract } from 'clients/contracts/contractHelpers';
 import { State } from 'core/modules/initialState';
 
 const VoteWrapper = styled.div`

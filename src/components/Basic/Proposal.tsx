@@ -10,7 +10,7 @@ import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Proposal as ProposalObject } from 'types';
 import { Label } from './Label';
-import { useGovernorBravo } from '../../hooks/useContract';
+import { useGovernorBravo } from '../../clients/contracts/contractHooks';
 import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';
 
 const ProposalWrapper = styled.div`

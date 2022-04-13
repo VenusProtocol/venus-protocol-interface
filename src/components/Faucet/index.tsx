@@ -9,7 +9,7 @@ import { Row, Column } from 'components/Basic/Style';
 import { RequestFaucetFundsInput } from 'clients/api';
 import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
-import { getVaiTokenAddress } from '../../utilities/addressHelpers';
+import getContractAddress from 'utilities/getContractAddress';
 import * as Styles from './styles';
 
 export interface IFaucetProps extends FormComponentProps {
@@ -262,7 +262,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(getVaiTokenAddress())}
+              href={generateBscScanAddressUrl(getContractAddress('vaiToken'))}
               target="_blank"
               rel="noreferrer"
             >

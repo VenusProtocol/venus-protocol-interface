@@ -2,7 +2,7 @@ import { useMutation, MutationObserverOptions } from 'react-query';
 
 import { queryClient, exitMarket, IExitMarketInput, ExitMarketOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useComptroller } from 'hooks/useContract';
+import { useComptroller } from 'clients/contracts/contractHooks';
 
 const useExitMarket = (
   // @TODO: use custom error type (see https://app.clickup.com/t/2rvwhnt)

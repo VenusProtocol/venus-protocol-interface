@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import { Row, Col } from 'antd';
+import getContractAddress from 'utilities/getContractAddress';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useRefresh from '../../hooks/useRefresh';
 import * as constants from '../../constants/contracts';
-import { getVrtConverterProxyAddress } from '../../utilities/addressHelpers';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';
 import TabContainer from '../../components/Basic/TabContainer';
@@ -15,7 +15,7 @@ import {
   useVrtToken,
   useXvsVestingProxy,
   useToken,
-} from '../../hooks/useContract';
+} from '../../clients/contracts/contractHooks';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -79,7 +79,9 @@ export default () => {
           vrtConverterContract.methods.conversionEndTime().call(),
           account ? vrtTokenContract.methods.balanceOf(account).call() : Promise.resolve(0),
           account
-            ? vrtTokenContract.methods.allowance(account, getVrtConverterProxyAddress()).call()
+            ? vrtTokenContract.methods
+                .allowance(account, getContractAddress('vrtConverterProxy'))
+                .call()
             : Promise.resolve(0),
           xvsTokenContract.methods.balanceOf(xvsVestingContract.options.address).call(),
         ]);

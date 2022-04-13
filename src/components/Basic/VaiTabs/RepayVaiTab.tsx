@@ -5,10 +5,10 @@ import BigNumber from 'bignumber.js';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
 import { useWeb3Account } from 'clients/web3';
+import getContractAddress from 'utilities/getContractAddress';
 import { format } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
-import { getVaiUnitrollerAddress } from '../../../utilities/addressHelpers';
-import { useVaiToken, useVaiUnitroller } from '../../../hooks/useContract';
+import { useVaiToken, useVaiUnitroller } from '../../../clients/contracts/contractHooks';
 
 function RepayVaiTab() {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,10 @@ function RepayVaiTab() {
     setIsLoading(true);
     try {
       await vaiContract.methods
-        .approve(getVaiUnitrollerAddress(), new BigNumber(2).pow(256).minus(1).toString(10))
+        .approve(
+          getContractAddress('vaiUnitroller'),
+          new BigNumber(2).pow(256).minus(1).toString(10),
+        )
         .send({
           from: account,
         });

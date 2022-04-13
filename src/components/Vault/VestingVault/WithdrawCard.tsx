@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import NumberFormat from 'react-number-format';
 import * as constants from 'constants/contracts';
-import { useXvsVaultProxy } from 'hooks/useContract';
+import { useXvsVaultProxy } from 'clients/contracts/contractHooks';
 import { TokenSymbol } from 'types';
 
 import WithdrawHistoryModal from './WithdrawHistoryModal';

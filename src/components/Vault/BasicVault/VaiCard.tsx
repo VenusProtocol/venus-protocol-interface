@@ -9,8 +9,13 @@ import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import useRefresh from 'hooks/useRefresh';
-import { useComptroller, useToken, useVaiToken, useVaiVault } from 'hooks/useContract';
-import { getVaiVaultAddress } from 'utilities/addressHelpers';
+import {
+  useComptroller,
+  useToken,
+  useVaiToken,
+  useVaiVault,
+} from 'clients/contracts/contractHooks';
+import getContractAddress from 'utilities/getContractAddress';
 
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
@@ -48,7 +53,7 @@ function VaultCard({ settings }: VaultCardProps) {
 
     const [venusVAIVaultRateTemp] = await Promise.all([
       compContract.methods.venusVAIVaultRate().call(),
-      xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
+      xvsTokenContract.methods.balanceOf(getContractAddress('vaiVault')).call(),
     ]);
 
     if (account) {
@@ -61,7 +66,7 @@ function VaultCard({ settings }: VaultCardProps) {
         vaiTokenContract.methods.balanceOf(account).call(),
         vaiVaultContract.methods.userInfo(account).call(),
         vaiVaultContract.methods.pendingXVS(account).call(),
-        vaiTokenContract.methods.allowance(account, getVaiVaultAddress()).call(),
+        vaiTokenContract.methods.allowance(account, getContractAddress('vaiVault')).call(),
       ]);
     }
 

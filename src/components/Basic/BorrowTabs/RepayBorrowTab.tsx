@@ -15,7 +15,7 @@ import { State } from 'core/modules/initialState';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useToken, useVbep } from '../../../hooks/useContract';
+import { useToken, useVbep } from '../../../clients/contracts/contractHooks';
 
 interface DispatchProps {
   setSetting: (setting: Setting | undefined) => void;

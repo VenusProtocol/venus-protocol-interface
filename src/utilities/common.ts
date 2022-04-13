@@ -5,7 +5,7 @@ import commaNumber from 'comma-number';
 import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
 import * as constants from 'constants/contracts';
 import { TokenSymbol } from 'types';
-import { getVaiTokenAddress } from './addressHelpers';
+import getContractAddress from './getContractAddress';
 
 export const commaFormat = commaNumber.bindWith(',', '.');
 
@@ -49,7 +49,7 @@ export const addToken = async ({
   let tokenDecimals = 18;
   let tokenImage = '';
   if (asset === 'vai') {
-    tokenAddress = getVaiTokenAddress();
+    tokenAddress = getContractAddress('vaiToken');
     tokenSymbol = 'VAI';
     tokenDecimals = 18;
     tokenImage = `${window.location.origin}/coins/vai.svg`;

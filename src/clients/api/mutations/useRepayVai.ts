@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { repayVai, IRepayVaiInput, IRepayVaiOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useVaiUnitroller } from 'hooks/useContract';
+import { useVaiUnitroller } from 'clients/contracts/contractHooks';
 
 type Options = MutationObserverOptions<
   IRepayVaiOutput,

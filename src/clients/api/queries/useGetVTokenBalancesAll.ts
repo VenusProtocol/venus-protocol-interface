@@ -4,7 +4,7 @@ import getVTokenBalancesAll, {
   IGetVTokenBalancesAllInput,
   IGetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
-import { useVenusLens } from 'hooks/useContract';
+import { useVenusLens } from 'clients/contracts/contractHooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<

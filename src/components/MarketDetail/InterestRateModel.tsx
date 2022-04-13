@@ -18,7 +18,7 @@ import * as constants from 'constants/contracts';
 import { useWeb3 } from 'clients/web3';
 import { TokenSymbol } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
-import { getInterestModelContract, getVbepContract } from '../../utilities/contractHelpers';
+import { getInterestModelContract, getVbepContract } from '../../clients/contracts/contractHelpers';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;

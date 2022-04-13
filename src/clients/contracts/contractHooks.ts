@@ -19,7 +19,7 @@ import {
   getXvsVestingProxyContract,
   getVrtTokenContract,
   getVrtVaultProxyContract,
-} from '../utilities/contractHelpers';
+} from './contractHelpers';
 
 export const useToken = (name: $TSFixMe) => {
   const web3 = useWeb3();
@@ -61,10 +61,9 @@ export const usePriceOracle = () => {
   return useMemo(() => getPriceOracleContract(web3), [web3]);
 };
 
-export const useInterestModel = () => {
+export const useInterestModel = (address: string) => {
   const web3 = useWeb3();
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  return useMemo(() => getInterestModelContract(web3), [web3]);
+  return useMemo(() => getInterestModelContract(web3, address), [web3]);
 };
 
 export const useVenusLens = () => {

@@ -14,7 +14,7 @@ import { formatApy, format } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import { useComptroller } from '../../../hooks/useContract';
+import { useComptroller } from '../../../clients/contracts/contractHooks';
 
 const SupplyMarketWrapper = styled.div`
   width: 100%;

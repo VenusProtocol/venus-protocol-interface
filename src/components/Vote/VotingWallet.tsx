@@ -10,7 +10,7 @@ import { Asset } from 'types';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useComptroller, useVenusLens } from '../../hooks/useContract';
+import { useComptroller, useVenusLens } from '../../clients/contracts/contractHooks';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;

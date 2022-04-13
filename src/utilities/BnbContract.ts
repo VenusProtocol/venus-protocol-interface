@@ -1,5 +1,7 @@
 import * as constants from 'constants/contracts';
-import vbnbAbi from '../config/abis/vbnb.json';
+import vbnbAbi from 'constants/contractAbis/vbnb.json';
+
+// @TODO: remove in favor or contracts client
 
 export const sendSupply = async (
   web3: $TSFixMe,
@@ -11,6 +13,7 @@ export const sendSupply = async (
   callback: $TSFixMe,
 ) => {
   try {
+    // TODO: use contracts client
     const contract = new web3.eth.Contract(vbnbAbi, constants.VBEP_TOKENS.bnb.address);
     const contractData = contract.methods.mint().encodeABI();
 
@@ -43,6 +46,7 @@ export const sendRepay = async (
   callback: $TSFixMe,
 ) => {
   try {
+    // TODO: use contracts client
     const contract = new web3.eth.Contract(vbnbAbi, constants.VBEP_TOKENS.bnb.address);
     const contractData = contract.methods.repayBorrow().encodeABI();
 

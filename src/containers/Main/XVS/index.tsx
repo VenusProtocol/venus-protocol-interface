@@ -13,8 +13,8 @@ import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
-import { useComptroller, useToken } from 'hooks/useContract';
-import { getComptrollerAddress } from 'utilities/addressHelpers';
+import { useComptroller, useToken } from 'clients/contracts/contractHooks';
+import getContractAddress from 'utilities/getContractAddress';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const XVSLayout = styled.div`
@@ -211,7 +211,9 @@ function XVS({ settings }: XVSProps) {
     // total info
     let venusVAIVaultRate = await comptrollerContract.methods.venusVAIVaultRate().call();
     venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
-    const remainedAmount = await xvsTokenContract.methods.balanceOf(getComptrollerAddress()).call();
+    const remainedAmount = await xvsTokenContract.methods
+      .balanceOf(getContractAddress('comptroller'))
+      .call();
     setDailyDistribution(
       new BigNumber(dailyVenus)
         .div(new BigNumber(10).pow(18))

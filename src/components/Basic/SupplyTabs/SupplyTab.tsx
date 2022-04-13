@@ -12,7 +12,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber, format } from 'utilities/common';
 import { Asset, Setting } from 'types';
-import { useToken, useVbep } from '../../../hooks/useContract';
+import { useToken, useVbep } from '../../../clients/contracts/contractHooks';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 

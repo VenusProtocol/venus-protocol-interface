@@ -13,7 +13,7 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVbep } from '../../../hooks/useContract';
+import { useVbep } from '../../../clients/contracts/contractHooks';
 
 const abortController = new AbortController();
 

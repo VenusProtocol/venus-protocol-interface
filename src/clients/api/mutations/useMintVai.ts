@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { mintVai, IMintVaiInput, MintVaiOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useVaiUnitroller } from 'hooks/useContract';
+import { useVaiUnitroller } from 'clients/contracts/contractHooks';
 
 type Options = MutationObserverOptions<
   MintVaiOutput,

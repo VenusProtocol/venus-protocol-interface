@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useWeb3Account } from 'clients/web3';
 import BigNumber from 'bignumber.js';
+import getContractAddress from 'utilities/getContractAddress';
 import useRefresh from '../hooks/useRefresh';
-import { useComptroller, useVaiToken, useVaiUnitroller } from '../hooks/useContract';
-import { getVaiUnitrollerAddress } from '../utilities/addressHelpers';
+import { useComptroller, useVaiToken, useVaiUnitroller } from '../clients/contracts/contractHooks';
 
 const VaiContext = React.createContext({
   userVaiMinted: new BigNumber(0),
@@ -38,7 +38,7 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
           vaiContract.methods.balanceOf(account).call(),
           comptrollerContract.methods.mintedVAIs(account).call(),
           vaiControllerContract.methods.getMintableVAI(account).call(),
-          vaiContract.methods.allowance(account, getVaiUnitrollerAddress()).call(),
+          vaiContract.methods.allowance(account, getContractAddress('vaiUnitroller')).call(),
         ]);
       if (!isMounted) {
         return;
