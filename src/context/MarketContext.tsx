@@ -77,7 +77,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
     let isMounted = true;
 
     const getXvsBalance = (balances: $TSFixMe) => {
-      const vxvs = VBEP_TOKENS.xvs.address.toLowerCase();
+      const vxvs = getVBepToken('xvs').address.toLowerCase();
       const xvsDecimals = TOKENS.xvs.decimals;
       return new BigNumber(balances[vxvs].tokenBalance).shiftedBy(-xvsDecimals);
     };

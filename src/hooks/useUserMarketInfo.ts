@@ -5,7 +5,8 @@ import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import { indexBy } from 'utilities/common';
-import { VBEP_TOKENS, TOKENS, getVBepToken } from 'constants/tokens';
+import { getVBepToken } from 'utilities';
+import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import {
   useGetMarkets,
   useGetAssetsInAccount,
