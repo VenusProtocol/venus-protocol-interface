@@ -15,7 +15,7 @@ import { State } from 'core/modules/initialState';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useToken, useVbep } from '../../../clients/contracts/contractHooks';
+import { useToken, useVBepToken } from '../../../clients/contracts/hooks';
 
 interface DispatchProps {
   setSetting: (setting: Setting | undefined) => void;
@@ -39,7 +39,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const tokenContract = useToken(asset.id);
-  const vbepContract = useVbep(asset.id);
+  const vbepContract = useVBepToken(asset.id);
   const web3 = useWeb3();
 
   const updateInfo = useCallback(() => {

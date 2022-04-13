@@ -6,7 +6,6 @@ import {
   getInterestModelContract,
   getPriceOracleContract,
   getTokenContract,
-  getVaiTokenContract,
   getVaiUnitrollerContract,
   getVaiVaultContract,
   getVbepContract,
@@ -19,7 +18,7 @@ import {
   getXvsVestingProxyContract,
   getVrtTokenContract,
   getVrtVaultProxyContract,
-} from './contractHelpers';
+} from './getters';
 
 export const useToken = (name: $TSFixMe) => {
   const web3 = useWeb3();
@@ -31,9 +30,9 @@ export const useTokenByAddress = (address: $TSFixMe) => {
   return useMemo(() => getTokenContractByAddress(web3, address), [web3, address]);
 };
 
-export const useVaiToken = () => {
+export const useVBepToken = (name: $TSFixMe) => {
   const web3 = useWeb3();
-  return useMemo(() => getVaiTokenContract(web3), [web3]);
+  return useMemo(() => getVbepContract(web3, name), [web3, name]);
 };
 
 export const useVaiUnitroller = () => {
@@ -44,11 +43,6 @@ export const useVaiUnitroller = () => {
 export const useVaiVault = () => {
   const web3 = useWeb3();
   return useMemo(() => getVaiVaultContract(web3), [web3]);
-};
-
-export const useVbep = (name: $TSFixMe) => {
-  const web3 = useWeb3();
-  return useMemo(() => getVbepContract(web3, name), [web3, name]);
 };
 
 export const useComptroller = () => {

@@ -5,9 +5,9 @@ import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 
 import { getToken } from 'utilities';
-import { useXvsVaultProxy } from 'clients/contracts/contractHooks';
+import { useXvsVaultProxy } from 'clients/contracts/hooks';
 import useRefresh from 'hooks/useRefresh';
-import { getTokenContractByAddress } from 'clients/contracts/contractHelpers';
+import { getTokenContractByAddress } from 'clients/contracts/getters';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { TokenSymbol } from 'types';
 import WithdrawHistoryModal from './WithdrawHistoryModal';

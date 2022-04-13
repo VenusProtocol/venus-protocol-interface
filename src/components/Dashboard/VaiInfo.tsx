@@ -8,7 +8,7 @@ import { addToken, format } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import getContractAddress from 'utilities/getContractAddress';
+import { getContractAddress } from 'utilities';
 import { BASE_BSC_SCAN_URL } from '../../config';
 import { useVaiUser } from '../../hooks/useVaiUser';
 

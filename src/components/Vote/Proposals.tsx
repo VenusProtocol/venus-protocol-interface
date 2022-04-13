@@ -12,7 +12,7 @@ import { Card } from 'components/Basic/Card';
 import { PrimaryButton } from 'components';
 import { useWeb3Account } from 'clients/web3';
 import { Proposal as ProposalObject } from 'types';
-import { useToken, useGovernorBravo } from '../../clients/contracts/contractHooks';
+import { useToken, useGovernorBravo } from '../../clients/contracts/hooks';
 
 const ProposalsWrapper = styled.div`
   width: 100%;

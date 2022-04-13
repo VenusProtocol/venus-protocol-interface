@@ -5,7 +5,7 @@ import { useWeb3Account } from 'clients/web3';
 import { Row, Col } from 'antd';
 
 import { getToken } from 'utilities';
-import getContractAddress from 'utilities/getContractAddress';
+import { getContractAddress } from 'utilities';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useRefresh from '../../hooks/useRefresh';
 import Convert from '../../components/VrtConversion/Convert';
@@ -16,7 +16,7 @@ import {
   useVrtToken,
   useXvsVestingProxy,
   useToken,
-} from '../../clients/contracts/contractHooks';
+} from '../../clients/contracts/hooks';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;

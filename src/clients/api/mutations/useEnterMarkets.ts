@@ -2,7 +2,7 @@ import { useMutation, MutationObserverOptions } from 'react-query';
 
 import { queryClient, enterMarkets, IEnterMarketsInput, EnterMarketsOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useComptroller } from 'clients/contracts/contractHooks';
+import { useComptroller } from 'clients/contracts/hooks';
 
 const useEnterMarkets = (
   options?: MutationObserverOptions<

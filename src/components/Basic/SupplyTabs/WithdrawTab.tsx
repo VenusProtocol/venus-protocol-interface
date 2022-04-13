@@ -13,7 +13,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber, formatApy, format } from 'utilities/common';
-import { useComptroller, useVbep } from '../../../clients/contracts/contractHooks';
+import { useComptroller, useVBepToken } from '../../../clients/contracts/hooks';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 
@@ -35,7 +35,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
   const { account } = useWeb3Account();
   const comptrollerContract = useComptroller();
-  const vbepContract = useVbep(asset.id);
+  const vbepContract = useVBepToken(asset.id);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const { mintableVai } = useVaiUser();
 

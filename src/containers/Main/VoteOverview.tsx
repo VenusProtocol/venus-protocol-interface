@@ -19,7 +19,7 @@ import { Row, Column } from 'components/Basic/Style';
 import { useWeb3Account } from 'clients/web3';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
-import { useToken, useGovernorBravo } from '../../clients/contracts/contractHooks';
+import { useToken, useGovernorBravo } from '../../clients/contracts/hooks';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;

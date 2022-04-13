@@ -1,7 +1,7 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useToken } from 'clients/contracts/contractHooks';
+import { useToken } from 'clients/contracts/hooks';
 
 const useApproveToken = (
   { assetId }: { assetId: string },

@@ -1,1 +1,2 @@
-export { default as getContractAddress } from '../../utilities/getContractAddress';
+export * from './getters';
+export * from './hooks';

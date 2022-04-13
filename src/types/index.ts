@@ -1,8 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { TOKENS } from 'constants/tokens';
 
-export type TokenSymbol = keyof typeof TOKENS;
-
 export interface User {
   Token: string;
 }
@@ -36,6 +34,8 @@ export interface Asset {
   vimg: string | undefined;
   vsymbol: string;
 }
+
+export type TokenSymbol = keyof typeof TOKENS;
 
 export interface IToken {
   id: TokenSymbol;
@@ -79,6 +79,7 @@ enum ProposalState {
   defeated = 'Defeated',
   expired = 'Expired',
 }
+
 export interface ProposalInfo {
   id: string;
   description: string;

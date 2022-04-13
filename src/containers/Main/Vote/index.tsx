@@ -16,9 +16,9 @@ import {
   useToken,
   useVaiUnitroller,
   useXvsVaultProxy,
-} from 'clients/contracts/contractHooks';
+} from 'clients/contracts/hooks';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { getVbepContract } from 'clients/contracts/contractHelpers';
+import { getVbepContract } from 'clients/contracts/getters';
 import { State } from 'core/modules/initialState';
 
 const xvsTokenAddress = getToken('xvs').address;

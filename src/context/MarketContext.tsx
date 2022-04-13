@@ -10,7 +10,7 @@ import { fetchMarkets } from '../utilities/api';
 import { indexBy, notNull } from '../utilities/common';
 import useRefresh from '../hooks/useRefresh';
 import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptroller, useVenusLens } from '../clients/contracts/contractHooks';
+import { useComptroller, useVenusLens } from '../clients/contracts/hooks';
 
 const MarketContext = React.createContext({
   markets: [] as $TSFixMe[],

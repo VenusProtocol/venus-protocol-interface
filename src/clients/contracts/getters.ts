@@ -10,9 +10,9 @@ import vaiUnitrollerAbi from 'constants/contracts/abis/vaiUnitroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
-import vbepAbi from 'constants/contracts/abis/vbep.json';
-import vbnbAbi from 'constants/contracts/abis/vbnb.json';
-import xvsAbi from 'constants/contracts/abis/xvs.json';
+import vBepAbi from 'constants/contracts/abis/vBepContract.json';
+import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
+import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import governorBravoAbi from 'constants/contracts/abis/governorBravoDelegate.json';
 import xvsVestingAbi from 'constants/contracts/abis/xvsVesting.json';
@@ -21,10 +21,28 @@ import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
 import vrtVaultAbi from 'constants/contracts/abis/vrtVault.json';
 import { getContractAddress, getToken, getVBepToken } from 'utilities';
 
-const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: Web3) => {
-  const web3 = web3Contract ?? getWeb3NoAccount();
+const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Instance: Web3) => {
+  const web3 = web3Instance ?? getWeb3NoAccount();
   return new web3.eth.Contract(abi, address);
 };
+
+export const getTokenContract = (web3: Web3, name: $TSFixMe) => {
+  let abi = bep20Abi as $TSFixMe;
+
+  if (name === 'xvs') {
+    abi = xvsTokenAbi;
+  } else if (name === 'vai') {
+    abi = vaiTokenAbi;
+  }
+
+  return getContract(abi, getToken(name).address, web3);
+};
+
+export const getTokenContractByAddress = (web3: Web3, address: $TSFixMe) =>
+  getContract(bep20Abi, address, web3);
+
+export const getVbepContract = (web3: Web3, name: $TSFixMe) =>
+  getContract(name === 'bnb' ? vBnbTokenAbi : vBepAbi, getVBepToken(name).address, web3);
 
 export const getVaiTokenContract = (web3: Web3) =>
   getContract(vaiTokenAbi, getContractAddress('vai'), web3);
@@ -43,18 +61,6 @@ export const getXvsVaultProxyContract = (web3: Web3) =>
 
 export const getXvsVaultStoreContract = (web3: Web3) =>
   getContract(xvsVaultStoreAbi, getContractAddress('xvsVaultStore'), web3);
-
-export const getTokenContract = (web3: Web3, name: $TSFixMe) =>
-  getContract(name === 'xvs' ? xvsAbi : bep20Abi, getToken(name).address, web3);
-
-export const getTokenContractByAddress = (
-  web3: Web3,
-
-  address: $TSFixMe,
-) => getContract(vaiTokenAbi, address, web3);
-
-export const getVbepContract = (web3: Web3, name: $TSFixMe) =>
-  getContract(name === 'bnb' ? vbnbAbi : vbepAbi, getVBepToken(name).address, web3);
 
 export const getComptrollerContract = (web3: Web3) =>
   getContract(comptrollerAbi, getContractAddress('comptroller'), web3);

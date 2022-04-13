@@ -9,13 +9,8 @@ import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import useRefresh from 'hooks/useRefresh';
-import {
-  useComptroller,
-  useToken,
-  useVaiToken,
-  useVaiVault,
-} from 'clients/contracts/contractHooks';
-import getContractAddress from 'utilities/getContractAddress';
+import { useComptroller, useToken, useVaiVault } from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
 
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
@@ -31,7 +26,7 @@ function VaultCard({ settings }: VaultCardProps) {
 
   const compContract = useComptroller();
   const xvsTokenContract = useToken('xvs');
-  const vaiTokenContract = useVaiToken();
+  const vaiTokenContract = useToken('vai');
   const vaiVaultContract = useVaiVault();
 
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));

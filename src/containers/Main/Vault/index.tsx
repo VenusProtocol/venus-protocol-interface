@@ -6,13 +6,13 @@ import { connectAccount } from 'core';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
-import { useXvsVaultProxy } from 'clients/contracts/contractHooks';
+import { useXvsVaultProxy } from 'clients/contracts/hooks';
 import { getToken } from 'utilities';
 import { TOKENS } from 'constants/tokens';
 import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
 import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
 import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
-import { getTokenContractByAddress } from 'clients/contracts/contractHelpers';
+import { getTokenContractByAddress } from 'clients/contracts/getters';
 import { IPool, TokenSymbol } from 'types';
 import { State } from 'core/modules/initialState';
 

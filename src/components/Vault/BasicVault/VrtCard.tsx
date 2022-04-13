@@ -6,8 +6,8 @@ import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
-import { useToken, useVrtVaultProxy } from 'clients/contracts/contractHooks';
-import getContractAddress from 'utilities/getContractAddress';
+import { useToken, useVrtVaultProxy } from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
 
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';

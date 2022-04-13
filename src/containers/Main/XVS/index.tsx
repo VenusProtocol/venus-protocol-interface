@@ -13,8 +13,8 @@ import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
-import { useComptroller, useToken } from 'clients/contracts/contractHooks';
-import getContractAddress from 'utilities/getContractAddress';
+import { useComptroller, useToken } from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const XVSLayout = styled.div`

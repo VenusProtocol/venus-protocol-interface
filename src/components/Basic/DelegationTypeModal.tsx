@@ -6,7 +6,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import DelegationVoting from './DelegationVoting';
 import ManualVoting from './ManualVoting';
-import { useXvsVaultProxy } from '../../clients/contracts/contractHooks';
+import { useXvsVaultProxy } from '../../clients/contracts/hooks';
 
 const ModalContent = styled.div`
   border-radius: 20px;

@@ -9,7 +9,7 @@ import { TabSection, TabContent } from 'components/Basic/SupplyModal';
 import { format } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVaiUnitroller } from '../../../clients/contracts/contractHooks';
+import { useVaiUnitroller } from '../../../clients/contracts/hooks';
 
 function MintTab() {
   const [isLoading, setIsLoading] = useState(false);

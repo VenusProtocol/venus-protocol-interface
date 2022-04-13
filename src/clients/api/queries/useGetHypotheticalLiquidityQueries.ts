@@ -2,7 +2,7 @@ import { useQueries, QueryObserverOptions } from 'react-query';
 
 import getHypotheticalAccountLiquidity from 'clients/api/queries/getHypotheticalAccountLiquidity';
 import { IGetVTokenBalancesAllOutput } from 'clients/api';
-import { useComptroller } from 'clients/contracts/contractHooks';
+import { useComptroller } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { Asset } from 'types';
 
