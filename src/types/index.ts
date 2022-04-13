@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
+import { TOKENS } from 'constants/contracts';
 
-export type TokenSymbol = keyof typeof CONTRACT_TOKEN_ADDRESS;
+export type TokenSymbol = keyof typeof TOKENS;
 
 export interface User {
   Token: string;

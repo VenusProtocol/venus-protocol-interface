@@ -60,7 +60,7 @@ function CoinInfo() {
 
   const handleLink = () => {
     window.open(
-      `${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_TOKEN_ADDRESS.xvs.address}?a=${account}`,
+      `${BASE_BSC_SCAN_URL}/token/${constants.TOKENS.xvs.address}?a=${account}`,
       '_blank',
     );
   };

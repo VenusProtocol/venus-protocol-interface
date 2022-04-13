@@ -7,7 +7,7 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
 import { useXvsVaultProxy } from 'clients/contracts/contractHooks';
-import { CONTRACT_TOKEN_ADDRESS, getToken } from 'constants/contracts';
+import { TOKENS, getToken } from 'constants/contracts';
 import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
 import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
 import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
@@ -25,7 +25,7 @@ const VaultWrapper = styled.div`
 `;
 
 // fast search token name by address
-const tokenAddressNameMap = Object.keys(CONTRACT_TOKEN_ADDRESS).reduce<Record<string, string>>(
+const tokenAddressNameMap = Object.keys(TOKENS).reduce<Record<string, string>>(
   (target: Record<string, string>, token) => {
     const { address } = getToken(token as TokenSymbol) || {};
     if (address) {
@@ -55,7 +55,7 @@ function Vault() {
 
     const fetchPools = async () => {
       // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
-      const xvsTokenAddress = CONTRACT_TOKEN_ADDRESS.xvs.address;
+      const xvsTokenAddress = TOKENS.xvs.address;
 
       const xvsTokenPoolLength = await xvsVaultContract.methods.poolLength(xvsTokenAddress).call();
 

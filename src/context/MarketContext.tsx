@@ -77,7 +77,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
 
     const getXvsBalance = (balances: $TSFixMe) => {
       const vxvs = constants.VBEP_TOKENS.xvs.address.toLowerCase();
-      const xvsDecimals = constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals;
+      const xvsDecimals = constants.TOKENS.xvs.decimals;
       return new BigNumber(balances[vxvs].tokenBalance).shiftedBy(-xvsDecimals);
     };
 
@@ -116,79 +116,77 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           markets,
         );
 
-        const assetAndNullList = Object.values(constants.CONTRACT_TOKEN_ADDRESS).map(
-          (item, index) => {
-            const toDecimalAmount = (mantissa: string) =>
-              new BigNumber(mantissa).shiftedBy(-item.decimals);
+        const assetAndNullList = Object.values(constants.TOKENS).map((item, index) => {
+          const toDecimalAmount = (mantissa: string) =>
+            new BigNumber(mantissa).shiftedBy(-item.decimals);
 
-            // if no corresponding vassets, skip
-            if (!constants.getVbepToken(item.id)) {
-              return null;
+          // if no corresponding vassets, skip
+          if (!constants.getVbepToken(item.id)) {
+            return null;
+          }
+
+          let market = marketsMap[item.symbol.toLowerCase()];
+          if (!market) {
+            market = {};
+          }
+
+          const vtokenAddress = constants.getVbepToken(item.id).address.toLowerCase();
+          const collateral = assetsIn
+            .map((address: $TSFixMe) => address.toLowerCase())
+            .includes(vtokenAddress);
+
+          const treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
+
+          let walletBalance = new BigNumber(0);
+          let supplyBalance = new BigNumber(0);
+          let borrowBalance = new BigNumber(0);
+          let isEnabled = false;
+          const percentOfLimit = '0';
+
+          if (account) {
+            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+            const wallet = balances[vtokenAddress];
+
+            walletBalance = toDecimalAmount(wallet.tokenBalance);
+            supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
+            borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
+            if (item.id === 'bnb') {
+              isEnabled = true;
+            } else {
+              isEnabled = toDecimalAmount(wallet.tokenAllowance).isGreaterThan(walletBalance);
             }
+          }
 
-            let market = marketsMap[item.symbol.toLowerCase()];
-            if (!market) {
-              market = {};
-            }
-
-            const vtokenAddress = constants.getVbepToken(item.id).address.toLowerCase();
-            const collateral = assetsIn
-              .map((address: $TSFixMe) => address.toLowerCase())
-              .includes(vtokenAddress);
-
-            const treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
-
-            let walletBalance = new BigNumber(0);
-            let supplyBalance = new BigNumber(0);
-            let borrowBalance = new BigNumber(0);
-            let isEnabled = false;
-            const percentOfLimit = '0';
-
-            if (account) {
-              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-              const wallet = balances[vtokenAddress];
-
-              walletBalance = toDecimalAmount(wallet.tokenBalance);
-              supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
-              borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
-              if (item.id === 'bnb') {
-                isEnabled = true;
-              } else {
-                isEnabled = toDecimalAmount(wallet.tokenAllowance).isGreaterThan(walletBalance);
-              }
-            }
-
-            return {
-              key: index,
-              id: item.id,
-              img: item.asset,
-              vimg: item.vasset,
-              name: market.underlyingSymbol || '',
-              symbol: market.underlyingSymbol || '',
-              decimals: item.decimals,
-              tokenAddress: market.underlyingAddress,
-              vsymbol: market.symbol,
-              vtokenAddress,
-              supplyApy: new BigNumber(market.supplyApy || 0),
-              borrowApy: new BigNumber(market.borrowApy || 0),
-              xvsSupplyApy: new BigNumber(market.supplyVenusApy || 0),
-              xvsBorrowApy: new BigNumber(market.borrowVenusApy || 0),
-              collateralFactor: new BigNumber(market.collateralFactor || 0).div(1e18),
-              tokenPrice: new BigNumber(market.tokenPrice || 0),
-              liquidity: new BigNumber(market.liquidity || 0),
-              borrowCaps: new BigNumber(market.borrowCaps || 0),
-              totalBorrows: new BigNumber(market.totalBorrows2 || 0),
-              treasuryBalance,
-              walletBalance,
-              supplyBalance,
-              borrowBalance,
-              isEnabled,
-              collateral,
-              percentOfLimit,
-              hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
-            };
-          },
-        );
+          return {
+            key: index,
+            id: item.id,
+            img: item.asset,
+            vimg: item.vasset,
+            name: market.underlyingSymbol || '',
+            symbol: market.underlyingSymbol || '',
+            decimals: item.decimals,
+            tokenAddress: market.underlyingAddress,
+            vsymbol: market.symbol,
+            vtokenAddress,
+            supplyApy: new BigNumber(market.supplyApy || 0),
+            borrowApy: new BigNumber(market.borrowApy || 0),
+            xvsSupplyApy: new BigNumber(market.supplyVenusApy || 0),
+            xvsBorrowApy: new BigNumber(market.borrowVenusApy || 0),
+            collateralFactor: new BigNumber(market.collateralFactor || 0).div(1e18),
+            tokenPrice: new BigNumber(market.tokenPrice || 0),
+            liquidity: new BigNumber(market.liquidity || 0),
+            borrowCaps: new BigNumber(market.borrowCaps || 0),
+            totalBorrows: new BigNumber(market.totalBorrows2 || 0),
+            treasuryBalance,
+            walletBalance,
+            supplyBalance,
+            borrowBalance,
+            isEnabled,
+            collateral,
+            percentOfLimit,
+            hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
+          };
+        });
 
         let assetList = assetAndNullList.filter(notNull);
 

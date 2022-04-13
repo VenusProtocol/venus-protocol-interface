@@ -58,8 +58,7 @@ import contracts from 'utilities/contracts';
 
 export const XVS_TOKEN = isOnTestnet ? contracts.TEST.TOKEN.xvs : contracts.MAIN.TOKEN.xvs;
 
-// Contract ABI
-export const CONTRACT_TOKEN_ADDRESS = isOnTestnet
+export const TOKENS = isOnTestnet
   ? {
       sxp: {
         id: 'sxp',
@@ -454,8 +453,7 @@ interface IToken {
   vasset: string;
 }
 
-export const getToken = (key: TokenSymbol): IToken =>
-  CONTRACT_TOKEN_ADDRESS[key as keyof typeof CONTRACT_TOKEN_ADDRESS] as IToken;
+export const getToken = (key: TokenSymbol): IToken => TOKENS[key as keyof typeof TOKENS] as IToken;
 
 export const VBEP_TOKENS = isOnTestnet
   ? {

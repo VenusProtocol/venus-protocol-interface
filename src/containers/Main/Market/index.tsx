@@ -376,10 +376,9 @@ function Market({ history, settings }: MarketProps) {
                       className="asset-img"
                       src={
                         // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                        constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
+                        constants.TOKENS[item.underlyingSymbol.toLowerCase()]
                           ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                            constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
-                              .asset
+                            constants.TOKENS[item.underlyingSymbol.toLowerCase()].asset
                           : null
                       }
                       alt="asset"

@@ -36,7 +36,7 @@ const VrtConversionWrapper = styled.div`
   }
 `;
 
-const VRT_DECIMAL = new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS.vrt.decimals);
+const VRT_DECIMAL = new BigNumber(10).pow(constants.TOKENS.vrt.decimals);
 const CONVERSION_RATIO_DECIMAL = new BigNumber(10).pow(18);
 
 export default () => {

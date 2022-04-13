@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 
-import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
+import { TOKENS } from 'constants/contracts';
 import * as constants from 'constants/contracts';
 import { TokenSymbol } from 'types';
 import getContractAddress from './getContractAddress';
@@ -121,15 +121,15 @@ export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
 export const format = (bigNumber: BigNumber, dp = 2) =>
   formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
 
-export const getTokenDecimals = (tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS) =>
-  CONTRACT_TOKEN_ADDRESS[tokenSymbol]?.decimals || 18;
+export const getTokenDecimals = (tokenSymbol: keyof typeof TOKENS) =>
+  TOKENS[tokenSymbol]?.decimals || 18;
 
 export const formatCoinsToReadableValue = ({
   value,
   tokenSymbol,
 }: {
   value: BigNumber;
-  tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
+  tokenSymbol: keyof typeof TOKENS;
 }) => `${formatCommaThousandsPeriodDecimal(value.toString())} ${tokenSymbol.toUpperCase()}`;
 
 type IConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
@@ -140,7 +140,7 @@ export function convertWeiToCoins<T extends boolean | undefined = undefined>({
   returnInReadableFormat = false,
 }: {
   value: BigNumber;
-  tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
+  tokenSymbol: keyof typeof TOKENS;
   returnInReadableFormat?: T;
 }): IConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getTokenDecimals(tokenSymbol);
@@ -160,7 +160,7 @@ export const convertCoinsToWei = ({
   tokenSymbol,
 }: {
   value: BigNumber;
-  tokenSymbol: keyof typeof CONTRACT_TOKEN_ADDRESS;
+  tokenSymbol: keyof typeof TOKENS;
 }) => {
   const tokenDecimals = getTokenDecimals(tokenSymbol);
   return value.multipliedBy(new BigNumber(10).pow(tokenDecimals));
