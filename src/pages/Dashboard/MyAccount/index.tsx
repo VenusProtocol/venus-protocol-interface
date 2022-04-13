@@ -2,22 +2,22 @@
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { formatCentsToReadableValue } from 'utilities/common';
 import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
 import { useTranslation } from 'translation';
 import { useMyAccountStyles as useStyles } from './styles';
 
 interface IMyAccountProps {
-  netApyPercentage: number;
-  dailyEarningsCents: number;
-  supplyBalanceCents: number;
-  borrowBalanceCents: number;
-  borrowLimitCents: number;
-  safeLimitPercentage: number;
-  borrowLimitUsedPercentage: number;
+  netApyPercentage: number | undefined;
+  dailyEarningsCents: number | undefined;
+  supplyBalanceCents: number | undefined;
+  borrowBalanceCents: number | undefined;
+  borrowLimitCents: number | undefined;
+  safeLimitPercentage: number | undefined;
 }
 
-export const MyAccount = ({
+export const MyAccountUi = ({
   netApyPercentage,
   dailyEarningsCents,
   supplyBalanceCents,
@@ -25,12 +25,18 @@ export const MyAccount = ({
   borrowLimitCents,
   safeLimitPercentage,
 }: IMyAccountProps) => {
+  const styles = useStyles();
   const [isToggleSwitched, setToggleSwitched] = useState(true);
+
   const handleSwitch: IToggleProps['onChange'] = (event, checked) => {
     setToggleSwitched(checked);
   };
-  const styles = useStyles();
-  const { t } = useTranslation();
+
+  const borrowLimitUsedPercentage =
+    borrowBalanceCents && borrowLimitCents
+      ? Math.round((borrowBalanceCents * 100) / borrowLimitCents)
+      : 0;
+
   return (
     <div css={styles.container}>
       <div css={[styles.row, styles.header]}>
@@ -58,7 +64,7 @@ export const MyAccount = ({
         </Typography>
 
         <Typography variant="h1" color="interactive.success">
-          {netApyPercentage}%
+          {netApyPercentage ? `${netApyPercentage}%` : '-'}
         </Typography>
       </div>
 
