@@ -3,7 +3,7 @@ import vbnbAbi from 'constants/contracts/abis/vbnb.json';
 
 const vBnbAddress = getVBepToken('bnb').address;
 
-// @TODO: remove in favor or contracts client
+// @TODO: remove once new Mint/Repay VAI component is implemented
 
 export const sendSupply = async (
   web3: $TSFixMe,
