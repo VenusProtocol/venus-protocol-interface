@@ -1,7 +1,9 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+
 import { withCenterStory } from 'stories/decorators';
-import { VBEP_TOKENS, getToken } from 'constants/contracts';
+import { getToken } from 'utilities';
+import { VBEP_TOKENS } from 'constants/tokenContracts';
 import { TokenSymbol } from 'types';
 import { Dropdown } from '.';
 

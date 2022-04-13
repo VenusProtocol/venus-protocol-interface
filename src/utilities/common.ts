@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 
-import { TOKENS } from 'constants/contracts';
-import * as constants from 'constants/contracts';
+import { TOKENS } from 'constants/tokenContracts';
+import { getToken, getVBepToken } from 'utilities';
 import { TokenSymbol } from 'types';
 import getContractAddress from './getContractAddress';
 
@@ -54,11 +54,10 @@ export const addToken = async ({
     tokenDecimals = 18;
     tokenImage = `${window.location.origin}/coins/vai.svg`;
   } else {
-    tokenAddress =
-      type === 'token' ? constants.getToken(asset).address : constants.getVbepToken(asset).address;
+    tokenAddress = type === 'token' ? getToken(asset).address : getVBepToken(asset).address;
     tokenSymbol =
       type === 'token'
-        ? constants.getToken(asset).symbol
+        ? getToken(asset).symbol
         : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
     tokenDecimals = decimal || (type === 'token' ? 18 : 8);
     tokenImage = `${window.location.origin}/coins/${

@@ -19,9 +19,7 @@ import xvsVestingAbi from 'constants/contractAbis/xvsVesting.json';
 import vrtConverterAbi from 'constants/contractAbis/vrtConverter.json';
 import vrtTokenAbi from 'constants/contractAbis/vrtToken.json';
 import vrtVaultAbi from 'constants/contractAbis/vrtVault.json';
-
-import getContractAddress from '../../utilities/getContractAddress';
-import * as constants from '../../constants/contracts';
+import { getContractAddress, getToken, getVBepToken } from 'utilities';
 
 const getContract = (abi: $TSFixMe, address: $TSFixMe, web3Contract: Web3) => {
   const web3 = web3Contract ?? getWeb3NoAccount();
@@ -47,7 +45,7 @@ export const getXvsVaultStoreContract = (web3: Web3) =>
   getContract(xvsVaultStoreAbi, getContractAddress('xvsVaultStore'), web3);
 
 export const getTokenContract = (web3: Web3, name: $TSFixMe) =>
-  getContract(name === 'xvs' ? xvsAbi : bep20Abi, constants.getToken(name).address, web3);
+  getContract(name === 'xvs' ? xvsAbi : bep20Abi, getToken(name).address, web3);
 
 export const getTokenContractByAddress = (
   web3: Web3,
@@ -56,7 +54,7 @@ export const getTokenContractByAddress = (
 ) => getContract(vaiTokenAbi, address, web3);
 
 export const getVbepContract = (web3: Web3, name: $TSFixMe) =>
-  getContract(name === 'bnb' ? vbnbAbi : vbepAbi, constants.getVbepToken(name).address, web3);
+  getContract(name === 'bnb' ? vbnbAbi : vbepAbi, getVBepToken(name).address, web3);
 
 export const getComptrollerContract = (web3: Web3) =>
   getContract(comptrollerAbi, getContractAddress('comptroller'), web3);

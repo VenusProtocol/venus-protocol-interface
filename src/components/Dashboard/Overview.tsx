@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { Select, Icon } from 'antd';
 import { connect } from 'react-redux';
+import { uid } from 'react-uid';
+
 import { accountActionCreators } from 'core/modules/account/actions';
 import OverviewChart from 'components/Basic/OverviewChart';
-import { promisify } from 'utilities';
-import * as constants from 'constants/contracts';
+import { promisify, getVBepToken, getToken } from 'utilities';
+import { VBEP_TOKENS } from 'constants/tokenContracts';
 import {
   addToken,
   getBigNumber,
@@ -15,12 +17,11 @@ import {
   formatCommaThousandsPeriodDecimal,
 } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
-import { uid } from 'react-uid';
 import { Setting, TokenSymbol } from 'types';
 import { State } from 'core/modules/initialState';
+import { VTOKEN_DECIMALS } from 'config';
 import { useMarkets } from '../../hooks/useMarkets';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { VTOKEN_DECIMALS } from '../../config';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -191,7 +192,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        constants.getVbepToken(currentAsset).address,
+        getVBepToken(currentAsset).address,
         '1hr',
         24 * 7, // 1 week
       );
@@ -252,18 +253,18 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                 dropdownClassName="asset-select"
                 onChange={handleChangeAsset}
               >
-                {Object.keys(constants.VBEP_TOKENS).map(key => (
+                {Object.keys(VBEP_TOKENS).map(key => (
                   <Option
                     className="flex align-center just-between"
-                    value={constants.getVbepToken(key as TokenSymbol).id}
+                    value={getVBepToken(key as TokenSymbol).id}
                     key={uid(key)}
                   >
                     <img
                       className="asset-img"
-                      src={constants.getToken(key as TokenSymbol).asset}
+                      src={getToken(key as TokenSymbol).asset}
                       alt="asset"
                     />{' '}
-                    <span>{constants.getToken(key as TokenSymbol).symbol}</span>
+                    <span>{getToken(key as TokenSymbol).symbol}</span>
                   </Option>
                 ))}
               </Select>
@@ -273,7 +274,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
               <div className="flex align-center add-token-wrapper">
                 {currentAsset && currentAsset !== 'bnb' && (
                   <div className="flex align-center underlying-asset">
-                    {constants.getToken(currentAsset).symbol}
+                    {getToken(currentAsset).symbol}
                     <Icon
                       className="add-token"
                       type="plus-circle"

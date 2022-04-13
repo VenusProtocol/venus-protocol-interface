@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { TOKENS } from 'constants/contracts';
+import { TOKENS } from 'constants/tokenContracts';
 
 export type TokenSymbol = keyof typeof TOKENS;
 
@@ -35,6 +35,21 @@ export interface Asset {
   treasuryBalance: BigNumber;
   vimg: string | undefined;
   vsymbol: string;
+}
+
+export interface IToken {
+  id: TokenSymbol;
+  symbol: Uppercase<TokenSymbol>;
+  decimals: number;
+  address: string;
+  asset: string;
+  vasset: string;
+}
+
+export interface IVBepToken {
+  id: TokenSymbol;
+  symbol: `v${Uppercase<TokenSymbol>}`;
+  address: string;
 }
 
 export interface Setting {

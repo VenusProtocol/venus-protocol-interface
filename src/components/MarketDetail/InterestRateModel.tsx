@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+
 import { connectAccount } from 'core';
 import {
   LineChart,
@@ -14,7 +14,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { State } from 'core/modules/initialState';
-import * as constants from 'constants/contracts';
+import { getToken } from 'utilities';
 import { useWeb3 } from 'clients/web3';
 import { TokenSymbol } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
@@ -156,7 +156,7 @@ function InterestRateModel({ currentAsset }: Props) {
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase(),
     );
 
-    const tokenDecimals = constants.getToken(asset)?.decimals || 18;
+    const tokenDecimals = getToken(asset)?.decimals || 18;
 
     // Get Current Utilization Rate
     const cash = new BigNumber(cashValue).div(new BigNumber(10).pow(tokenDecimals));

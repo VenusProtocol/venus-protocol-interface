@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
-import { promisify } from 'utilities';
-import * as constants from 'constants/contracts';
+
+import { promisify, getVBepToken } from 'utilities';
 import OverviewChart from 'components/Basic/OverviewChart';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
@@ -156,7 +156,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (timeStamp % 60 === 0 && currentAsset) {
       getGraphData(
-        constants.getVbepToken(currentAsset).address,
+        getVBepToken(currentAsset).address,
         '1day',
         30, // 1 month
       );
@@ -170,7 +170,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        constants.getVbepToken(currentAsset).address,
+        getVBepToken(currentAsset).address,
         '1day',
         30, // 1 month
       );

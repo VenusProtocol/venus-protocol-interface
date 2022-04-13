@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
-import * as constants from 'constants/contracts';
+
+import { getToken } from 'utilities';
 import { useXvsVaultProxy } from 'clients/contracts/contractHooks';
 import useRefresh from 'hooks/useRefresh';
 import { getTokenContractByAddress } from 'clients/contracts/contractHelpers';
@@ -39,8 +40,8 @@ function CardContent({
   pendingReward,
   lockPeriodSecond,
 }: CardContentProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
-  const rewardTokenDecimal = new BigNumber(10).pow(constants.getToken(rewardToken).decimals);
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
+  const rewardTokenDecimal = new BigNumber(10).pow(getToken(rewardToken).decimals);
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
   const web3 = useWeb3();
@@ -60,8 +61,8 @@ function CardContent({
   const [claimLoading, setClaimLoading] = useState(false);
   const [stakeLoading, setStakeLoading] = useState(false); // also applies to enabling
 
-  const stakedTokenAddress = constants.getToken(stakedToken).address;
-  const rewardTokenAddress = constants.getToken(rewardToken).address;
+  const stakedTokenAddress = getToken(stakedToken).address;
+  const rewardTokenAddress = getToken(rewardToken).address;
 
   const xvsVaultContract = useXvsVaultProxy();
   const stakedTokenContract = getTokenContractByAddress(web3, stakedTokenAddress);

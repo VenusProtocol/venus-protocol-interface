@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import { Row, Col } from 'antd';
+
+import { getToken } from 'utilities';
 import getContractAddress from 'utilities/getContractAddress';
 import LoadingSpinner from '../../components/Basic/LoadingSpinner';
 import useRefresh from '../../hooks/useRefresh';
-import * as constants from '../../constants/contracts';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';
 import TabContainer from '../../components/Basic/TabContainer';
@@ -36,7 +37,7 @@ const VrtConversionWrapper = styled.div`
   }
 `;
 
-const VRT_DECIMAL = new BigNumber(10).pow(constants.TOKENS.vrt.decimals);
+const VRT_DECIMAL = new BigNumber(10).pow(getToken('vrt').decimals);
 const CONVERSION_RATIO_DECIMAL = new BigNumber(10).pow(18);
 
 export default () => {

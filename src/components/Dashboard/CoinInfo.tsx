@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
-import * as constants from 'constants/contracts';
+
+import { getToken } from 'utilities';
 import { addToken, format } from 'utilities/common';
 import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
@@ -59,10 +60,7 @@ function CoinInfo() {
   const { userXvsBalance } = useMarketsUser();
 
   const handleLink = () => {
-    window.open(
-      `${BASE_BSC_SCAN_URL}/token/${constants.TOKENS.xvs.address}?a=${account}`,
-      '_blank',
-    );
+    window.open(`${BASE_BSC_SCAN_URL}/token/${getToken('xvs').address}?a=${account}`, '_blank');
   };
 
   return (

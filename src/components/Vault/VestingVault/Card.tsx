@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
-import * as constants from 'constants/contracts';
+
+import { getToken } from 'utilities';
 import { Icon, IconName } from 'components';
 import { formatCommaThousandsPeriodDecimal, format } from 'utilities/common';
 import { TokenSymbol } from 'types';
@@ -32,8 +33,8 @@ function VaultCard({
   totalStaked,
   dailyEmission,
 }: VaultCardProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
-  const rewardTokenDecimal = new BigNumber(10).pow(constants.getToken(rewardToken).decimals);
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
+  const rewardTokenDecimal = new BigNumber(10).pow(getToken(rewardToken).decimals);
   const [expanded, setExpanded] = useState(false);
   return (
     <VaultCardWrapper>

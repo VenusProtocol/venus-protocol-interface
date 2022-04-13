@@ -4,10 +4,11 @@ import BigNumber from 'bignumber.js';
 import { TREASURY_ADDRESS } from 'config';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { Asset, Market } from 'types';
-import * as constants from 'constants/contracts';
-import useRefresh from '../hooks/useRefresh';
+import { VBEP_TOKENS, TOKENS } from 'constants/tokenContracts';
+import { getVBepToken } from 'utilities';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy, notNull } from '../utilities/common';
+import useRefresh from '../hooks/useRefresh';
 import { useVaiUser } from '../hooks/useVaiUser';
 import { useComptroller, useVenusLens } from '../clients/contracts/contractHooks';
 
@@ -48,7 +49,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         return;
       }
 
-      const data = Object.keys(constants.VBEP_TOKENS)
+      const data = Object.keys(VBEP_TOKENS)
         .map(item => {
           if (res && res.data && res.data.data) {
             return res.data.data.markets.find(
@@ -76,8 +77,8 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
     let isMounted = true;
 
     const getXvsBalance = (balances: $TSFixMe) => {
-      const vxvs = constants.VBEP_TOKENS.xvs.address.toLowerCase();
-      const xvsDecimals = constants.TOKENS.xvs.decimals;
+      const vxvs = VBEP_TOKENS.xvs.address.toLowerCase();
+      const xvsDecimals = TOKENS.xvs.decimals;
       return new BigNumber(balances[vxvs].tokenBalance).shiftedBy(-xvsDecimals);
     };
 
@@ -92,7 +93,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           ? await comptrollerContract.methods.getAssetsIn(account).call()
           : [];
 
-        const vtAddresses = Object.values(constants.VBEP_TOKENS)
+        const vtAddresses = Object.values(VBEP_TOKENS)
           .filter(item => item.address)
           .map(item => item.address);
 
@@ -116,12 +117,12 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           markets,
         );
 
-        const assetAndNullList = Object.values(constants.TOKENS).map((item, index) => {
+        const assetAndNullList = Object.values(TOKENS).map((item, index) => {
           const toDecimalAmount = (mantissa: string) =>
             new BigNumber(mantissa).shiftedBy(-item.decimals);
 
           // if no corresponding vassets, skip
-          if (!constants.getVbepToken(item.id)) {
+          if (!getVBepToken(item.id)) {
             return null;
           }
 
@@ -130,7 +131,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             market = {};
           }
 
-          const vtokenAddress = constants.getVbepToken(item.id).address.toLowerCase();
+          const vtokenAddress = getVBepToken(item.id).address.toLowerCase();
           const collateral = assetsIn
             .map((address: $TSFixMe) => address.toLowerCase())
             .includes(vtokenAddress);

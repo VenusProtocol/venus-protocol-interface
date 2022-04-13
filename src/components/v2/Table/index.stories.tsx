@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { css } from '@emotion/react';
+
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { formatApy } from 'utilities/common';
-import { TOKENS, getToken } from 'constants/contracts';
+import { getToken } from 'utilities';
+import { TOKENS } from 'constants/tokenContracts';
 import { Toggle } from 'components';
 import { Table } from '.';
 import { Icon } from '../Icon';

@@ -1,5 +1,5 @@
 import { restService } from 'utilities';
-import { VBEP_TOKENS } from 'constants/contracts';
+import { VBEP_TOKENS } from 'constants/tokenContracts';
 import { Market } from 'types';
 import { notUndefined } from 'utilities/common';
 

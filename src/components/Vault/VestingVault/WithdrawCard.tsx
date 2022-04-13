@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3Account } from 'clients/web3';
 import NumberFormat from 'react-number-format';
-import * as constants from 'constants/contracts';
+
+import { useWeb3Account } from 'clients/web3';
 import { useXvsVaultProxy } from 'clients/contracts/contractHooks';
 import { TokenSymbol } from 'types';
-
+import { getToken } from 'utilities';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import { CardItemWrapper } from '../styles';
 
@@ -83,7 +83,7 @@ function WithdrawCard({
   pendingWithdrawals,
   userEligibleStakedAmount,
 }: WithdrawCardProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
 
   const { account } = useWeb3Account();
   const xvsVaultContract = useXvsVaultProxy();

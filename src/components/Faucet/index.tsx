@@ -2,14 +2,14 @@ import React from 'react';
 import { Input, Form, Dropdown, Menu } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { ClickParam } from 'antd/lib/menu';
+
+import { getToken } from 'utilities';
 import { PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import * as constants from 'constants/contracts';
 import { Row, Column } from 'components/Basic/Style';
 import { RequestFaucetFundsInput } from 'clients/api';
 import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
-import getContractAddress from 'utilities/getContractAddress';
 import * as Styles from './styles';
 
 export interface IFaucetProps extends FormComponentProps {
@@ -222,7 +222,7 @@ const Faucet: React.FC<IFaucetProps> = ({
           <p className="title">How does this work?</p>
           <p className="description">
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.sxp.address)}
+              href={generateBscScanAddressUrl(getToken('sxp').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -230,7 +230,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.XVS_TOKEN)}
+              href={generateBscScanAddressUrl(getToken('xvs').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -238,7 +238,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.busd.address)}
+              href={generateBscScanAddressUrl(getToken('busd').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -246,7 +246,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.usdc.address)}
+              href={generateBscScanAddressUrl(getToken('usdc').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -254,7 +254,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.usdt.address)}
+              href={generateBscScanAddressUrl(getToken('usdt').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -262,7 +262,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(getContractAddress('vaiToken'))}
+              href={generateBscScanAddressUrl(getToken('vai').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -270,7 +270,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.btcb.address)}
+              href={generateBscScanAddressUrl(getToken('btcb').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -278,7 +278,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.eth.address)}
+              href={generateBscScanAddressUrl(getToken('eth').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -286,7 +286,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.ltc.address)}
+              href={generateBscScanAddressUrl(getToken('ltc').address)}
               target="_blank"
               rel="noreferrer"
             >
@@ -294,7 +294,7 @@ const Faucet: React.FC<IFaucetProps> = ({
             </a>
             {', '}
             <a
-              href={generateBscScanAddressUrl(constants.TOKENS.xrp.address)}
+              href={generateBscScanAddressUrl(getToken('xrp').address)}
               target="_blank"
               rel="noreferrer"
             >

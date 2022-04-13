@@ -6,7 +6,7 @@ import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { uid } from 'react-uid';
 import { connectAccount } from 'core';
-import * as constants from 'constants/contracts';
+import { getToken } from 'utilities';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
@@ -272,13 +272,13 @@ function XVS({ settings }: XVSProps) {
             <img src={coinImg} alt="xvs" />
             <a
               className="highlight"
-              href={`${BASE_BSC_SCAN_URL}/token/${constants.XVS_TOKEN}`}
+              href={`${BASE_BSC_SCAN_URL}/token/${getToken('xvs').address}`}
               target="_blank"
               rel="noreferrer"
             >
-              {constants.XVS_TOKEN}
+              {getToken('xvs').address}
             </a>
-            <CopyToClipboard text={constants.XVS_TOKEN} onCopy={() => {}}>
+            <CopyToClipboard text={getToken('xvs').address} onCopy={() => {}}>
               <Icon className="pointer copy-btn" type="copy" />
             </CopyToClipboard>
           </div>
@@ -405,7 +405,7 @@ function XVS({ settings }: XVSProps) {
                         <img
                           className="asset-img"
                           src={
-                            constants.getToken(
+                            getToken(
                               // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
                               item.underlyingSymbol.toLowerCase(),
                             ).asset

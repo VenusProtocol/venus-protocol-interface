@@ -52,7 +52,7 @@ import vtrx from 'assets/img/coins/vtrx.png';
 import vust from 'assets/img/coins/vust.png';
 import vluna from 'assets/img/coins/vluna.png';
 
-import { TokenSymbol } from 'types';
+import { TokenSymbol, IToken, IVBepToken } from 'types';
 import { isOnTestnet } from 'config';
 import contracts from 'utilities/contracts';
 
@@ -444,15 +444,6 @@ export const TOKENS = isOnTestnet
       },
     };
 
-interface IToken {
-  id: TokenSymbol;
-  symbol: Uppercase<TokenSymbol>;
-  decimals: number;
-  address: string;
-  asset: string;
-  vasset: string;
-}
-
 export const getToken = (key: TokenSymbol): IToken => TOKENS[key as keyof typeof TOKENS] as IToken;
 
 export const VBEP_TOKENS = isOnTestnet
@@ -681,11 +672,5 @@ export const VBEP_TOKENS = isOnTestnet
       },
     };
 
-interface IVBepToken {
-  id: TokenSymbol;
-  symbol: `v${Uppercase<TokenSymbol>}`;
-  address: string;
-}
-
-export const getVbepToken = (key: TokenSymbol): IVBepToken =>
+export const getVBepToken = (key: TokenSymbol): IVBepToken =>
   VBEP_TOKENS[key as keyof typeof VBEP_TOKENS] as IVBepToken;
