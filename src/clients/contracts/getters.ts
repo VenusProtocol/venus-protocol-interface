@@ -10,7 +10,7 @@ import vaiUnitrollerAbi from 'constants/contracts/abis/vaiUnitroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
-import vBepAbi from 'constants/contracts/abis/vBepContract.json';
+import vBepAbi from 'constants/contracts/abis/vBep.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
