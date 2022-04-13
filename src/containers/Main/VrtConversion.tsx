@@ -10,7 +10,11 @@ import useRefresh from '../../hooks/useRefresh';
 import Convert from '../../components/VrtConversion/Convert';
 import Withdraw from '../../components/VrtConversion/Withdraw';
 import TabContainer from '../../components/Basic/TabContainer';
-import { useVrtConverterProxy, useXvsVestingProxy, useToken } from '../../clients/contracts/hooks';
+import {
+  useVrtConverterProxyContract,
+  useXvsVestingProxyContract,
+  useTokenContract,
+} from '../../clients/contracts/hooks';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -51,10 +55,10 @@ export default () => {
   const { fastRefresh } = useRefresh();
 
   // contracts
-  const vrtConverterContract = useVrtConverterProxy();
-  const xvsVestingContract = useXvsVestingProxy();
-  const vrtTokenContract = useToken('vrt');
-  const xvsTokenContract = useToken('xvs');
+  const vrtConverterContract = useVrtConverterProxyContract();
+  const xvsVestingContract = useXvsVestingProxyContract();
+  const vrtTokenContract = useTokenContract('vrt');
+  const xvsTokenContract = useTokenContract('xvs');
 
   useEffect(() => {
     let mounted = true;

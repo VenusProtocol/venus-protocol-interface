@@ -10,7 +10,7 @@ import { Asset } from 'types';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useComptroller, useVenusLens } from '../../clients/contracts/hooks';
+import { useComptrollerContract, useVenusLensContract } from '../../clients/contracts/hooks';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -105,8 +105,8 @@ function VotingWallet({
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
   const { account } = useWeb3Account();
   const { userMarketInfo } = useMarketsUser();
-  const comptrollerContract = useComptroller();
-  const venusLensContract = useVenusLens();
+  const comptrollerContract = useComptrollerContract();
+  const venusLensContract = useVenusLensContract();
 
   useEffect(() => {
     if (!earnedBalance) {

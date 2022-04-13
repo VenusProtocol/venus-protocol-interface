@@ -1,7 +1,7 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useToken } from 'clients/contracts/hooks';
+import { useTokenContract } from 'clients/contracts/hooks';
 
 const useApproveToken = (
   { assetId }: { assetId: string },
@@ -12,7 +12,7 @@ const useApproveToken = (
     Omit<IApproveTokenInput, 'tokenContract'>
   >,
 ) => {
-  const tokenContract = useToken(assetId);
+  const tokenContract = useTokenContract(assetId);
   return useMutation(
     FunctionKey.APPROVE_TOKEN,
     params =>

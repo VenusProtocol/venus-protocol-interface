@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 
 import { useWeb3Account } from 'clients/web3';
-import { useXvsVaultProxy } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import { TokenSymbol } from 'types';
 import { getToken } from 'utilities';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
@@ -86,7 +86,7 @@ function WithdrawCard({
   const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
 
   const { account } = useWeb3Account();
-  const xvsVaultContract = useXvsVaultProxy();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));

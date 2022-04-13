@@ -10,7 +10,7 @@ import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Proposal as ProposalObject } from 'types';
 import { Label } from './Label';
-import { useGovernorBravo } from '../../clients/contracts/hooks';
+import { useGovernorBravoContract } from '../../clients/contracts/hooks';
 import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';
 
 const ProposalWrapper = styled.div`
@@ -202,7 +202,7 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
   const [voteStatus, setVoteStatus] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [voteReason, setVoteReason] = useState('');
-  const governorBravoContract = useGovernorBravo();
+  const governorBravoContract = useGovernorBravoContract();
 
   const getStatus = (p: ProposalObject) => {
     if (p.state === 'Executed') {

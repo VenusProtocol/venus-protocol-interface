@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { repayVai, IRepayVaiInput, IRepayVaiOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useVaiUnitroller } from 'clients/contracts/hooks';
+import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
   IRepayVaiOutput,
@@ -11,7 +11,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useRepayVai = (options?: Options) => {
-  const vaiControllerContract = useVaiUnitroller();
+  const vaiControllerContract = useVaiUnitrollerContract();
 
   // @TODO: invalidate queries related to fetching the user VAI balance and
   // minted VAI amount on success (see https://app.clickup.com/t/26b1p53)

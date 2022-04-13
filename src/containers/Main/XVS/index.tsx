@@ -12,7 +12,7 @@ import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
 import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
-import { useComptroller, useToken } from 'clients/contracts/hooks';
+import { useComptrollerContract, useTokenContract } from 'clients/contracts/hooks';
 import { getToken, getContractAddress } from 'utilities';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
@@ -194,8 +194,8 @@ function XVS({ settings }: XVSProps) {
   const [remainAmount, setRemainAmount] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
   const { markets, dailyVenus } = useMarkets();
-  const xvsTokenContract = useToken('xvs');
-  const comptrollerContract = useComptroller();
+  const xvsTokenContract = useTokenContract('xvs');
+  const comptrollerContract = useComptrollerContract();
 
   const mintedAmount = '23700000';
 

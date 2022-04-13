@@ -2,7 +2,7 @@ import { useMutation, MutationObserverOptions } from 'react-query';
 
 import { queryClient, enterMarkets, IEnterMarketsInput, EnterMarketsOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useComptroller } from 'clients/contracts/hooks';
+import { useComptrollerContract } from 'clients/contracts/hooks';
 
 const useEnterMarkets = (
   options?: MutationObserverOptions<
@@ -12,7 +12,7 @@ const useEnterMarkets = (
     Omit<IEnterMarketsInput, 'comptrollerContract'>
   >,
 ) => {
-  const comptrollerContract = useComptroller();
+  const comptrollerContract = useComptrollerContract();
 
   // @TODO: invalidate related queries on success
   return useMutation(

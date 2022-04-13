@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 
 import { getToken } from 'utilities';
-import { useXvsVaultProxy } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import useRefresh from 'hooks/useRefresh';
 import { getTokenContractByAddress } from 'clients/contracts/getters';
 import { useWeb3, useWeb3Account } from 'clients/web3';
@@ -64,7 +64,7 @@ function CardContent({
   const stakedTokenAddress = getToken(stakedToken).address;
   const rewardTokenAddress = getToken(rewardToken).address;
 
-  const xvsVaultContract = useXvsVaultProxy();
+  const xvsVaultContract = useXvsVaultProxyContract();
   const stakedTokenContract = getTokenContractByAddress(web3, stakedTokenAddress);
 
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message

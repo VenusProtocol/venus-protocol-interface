@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
-import { useToken, useVrtVaultProxy } from 'clients/contracts/hooks';
+import { useTokenContract, useVrtVaultProxyContract } from 'clients/contracts/hooks';
 import { getContractAddress } from 'utilities';
 
 import CardContent from './CardContent';
@@ -21,8 +21,8 @@ export default function VaultCard() {
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
 
-  const vrtTokenContract = useToken('vrt');
-  const vrtVaultProxyContract = useVrtVaultProxy();
+  const vrtTokenContract = useTokenContract('vrt');
+  const vrtVaultProxyContract = useVrtVaultProxyContract();
 
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
   const [interestRatePerBlock, setInterestRatePerBlock] = useState(new BigNumber(0));

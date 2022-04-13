@@ -3,7 +3,11 @@ import { useWeb3Account } from 'clients/web3';
 import BigNumber from 'bignumber.js';
 import { getContractAddress } from 'utilities';
 import useRefresh from '../hooks/useRefresh';
-import { useComptroller, useToken, useVaiUnitroller } from '../clients/contracts/hooks';
+import {
+  useComptrollerContract,
+  useTokenContract,
+  useVaiUnitrollerContract,
+} from '../clients/contracts/hooks';
 
 const VaiContext = React.createContext({
   userVaiMinted: new BigNumber(0),
@@ -22,9 +26,9 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
   const [mintableVai, setMintableAmount] = useState(new BigNumber(0));
 
   const { fastRefresh } = useRefresh();
-  const comptrollerContract = useComptroller();
-  const vaiControllerContract = useVaiUnitroller();
-  const vaiContract = useToken('vai');
+  const comptrollerContract = useComptrollerContract();
+  const vaiControllerContract = useVaiUnitrollerContract();
+  const vaiContract = useTokenContract('vai');
   const { account } = useWeb3Account();
 
   useEffect(() => {

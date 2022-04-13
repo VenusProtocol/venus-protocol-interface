@@ -8,15 +8,15 @@ import { useWeb3Account } from 'clients/web3';
 import { getContractAddress } from 'utilities';
 import { format } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
-import { useToken, useVaiUnitroller } from '../../../clients/contracts/hooks';
+import { useTokenContract, useVaiUnitrollerContract } from '../../../clients/contracts/hooks';
 
 function RepayVaiTab() {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const { account } = useWeb3Account();
   const { userVaiMinted, userVaiBalance, userVaiEnabled } = useVaiUser();
-  const vaiContract = useToken('vai');
-  const vaiControllerContract = useVaiUnitroller();
+  const vaiContract = useTokenContract('vai');
+  const vaiControllerContract = useVaiUnitrollerContract();
 
   /**
    * Max amount

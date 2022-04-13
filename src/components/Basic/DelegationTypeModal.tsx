@@ -6,7 +6,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import closeImg from 'assets/img/close.png';
 import DelegationVoting from './DelegationVoting';
 import ManualVoting from './ManualVoting';
-import { useXvsVaultProxy } from '../../clients/contracts/hooks';
+import { useXvsVaultProxyContract } from '../../clients/contracts/hooks';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -88,7 +88,7 @@ function DelegationTypeModal({
 }: DelegationTypeModalProps) {
   const [child, setChild] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const xvsVaultProxyContract = useXvsVaultProxy();
+  const xvsVaultProxyContract = useXvsVaultProxyContract();
 
   const handleDelegateVoting = async (dAddress: string) => {
     setIsLoading(true);

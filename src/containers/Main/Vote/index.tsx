@@ -12,10 +12,10 @@ import { Row, Column } from 'components/Basic/Style';
 import useRefresh from 'hooks/useRefresh';
 import { VBEP_TOKENS } from 'constants/tokens';
 import {
-  useComptroller,
-  useToken,
-  useVaiUnitroller,
-  useXvsVaultProxy,
+  useComptrollerContract,
+  useTokenContract,
+  useVaiUnitrollerContract,
+  useXvsVaultProxyContract,
 } from 'clients/contracts/hooks';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { getVBepTokenContract } from 'clients/contracts/getters';
@@ -44,10 +44,10 @@ function Vote({ getProposals }: VoteProps) {
   const [stakedAmount, setStakedAmount] = useState('');
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
-  const xvsTokenContract = useToken('xvs');
-  const comptrollerContract = useComptroller();
-  const vaiUnitrollerContract = useVaiUnitroller();
-  const xvsVaultProxyContract = useXvsVaultProxy();
+  const xvsTokenContract = useTokenContract('xvs');
+  const comptrollerContract = useComptrollerContract();
+  const vaiUnitrollerContract = useVaiUnitrollerContract();
+  const xvsVaultProxyContract = useXvsVaultProxyContract();
   const web3 = useWeb3();
 
   const loadInitialData = useCallback(async () => {

@@ -15,7 +15,7 @@ import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useVaiUser } from '../../hooks/useVaiUser';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useVaiVault } from '../../clients/contracts/hooks';
+import { useVaiVaultContract } from '../../clients/contracts/hooks';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -93,7 +93,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
   const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
   const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
   const { account } = useWeb3Account();
-  const vaultContract = useVaiVault();
+  const vaultContract = useVaiVaultContract();
 
   let isMounted = true;
 

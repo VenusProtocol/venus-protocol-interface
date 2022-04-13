@@ -10,7 +10,7 @@ import { fetchMarkets } from '../utilities/api';
 import { indexBy, notNull } from '../utilities/common';
 import useRefresh from '../hooks/useRefresh';
 import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptroller, useVenusLens } from '../clients/contracts/hooks';
+import { useComptrollerContract, useVenusLensContract } from '../clients/contracts/hooks';
 
 const MarketContext = React.createContext({
   markets: [] as $TSFixMe[],
@@ -33,8 +33,8 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [userTotalBorrowBalance, setUserTotalBorrowBalance] = useState(new BigNumber(0));
   const [userXvsBalance, setUserXvsBalance] = useState(new BigNumber(0));
   const [treasuryTotalUSDBalance, setTreasuryTotalUSDBalance] = useState(new BigNumber(0));
-  const comptrollerContract = useComptroller();
-  const lens = useVenusLens();
+  const comptrollerContract = useComptrollerContract();
+  const lens = useVenusLensContract();
   const { account } = useWeb3Account();
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
