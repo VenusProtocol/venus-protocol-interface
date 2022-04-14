@@ -3,7 +3,7 @@ import { ComponentMeta } from '@storybook/react';
 
 import noop from 'noop-ts';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { MyAccountUi } from '.';
+import MyAccountUi from './MyAccountUi';
 
 export default {
   title: 'Pages/Dashboard/MyAccount',
