@@ -182,10 +182,13 @@ const MyAccount: React.FC = () => {
     let dailyEarningsCents: number | undefined;
     let netApyPercentage: number | undefined;
 
+    // We use the yearly earnings to calculate the daily earnings the net APY
+    let yearlyEarningsCents: BigNumber | undefined;
+
     assets.forEach(asset => {
       // Initialize values to 0. Note that we only initialize the values if at
-      // least one asset has been fetched (we don't want to display 0 values
-      // while the query is loading or if a fetching error happens)
+      // least one asset has been fetched (we don't want to display zeros while
+      // the query is loading or if a fetching error happens)
       if (!borrowBalanceCents) {
         borrowBalanceCents = new BigNumber(0);
       }
@@ -196,6 +199,10 @@ const MyAccount: React.FC = () => {
 
       if (!borrowLimitCents) {
         borrowLimitCents = new BigNumber(0);
+      }
+
+      if (!yearlyEarningsCents) {
+        yearlyEarningsCents = new BigNumber(0);
       }
 
       if (!dailyEarningsCents) {
@@ -210,17 +217,27 @@ const MyAccount: React.FC = () => {
         asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
       );
 
-      // Up borrow limit if asset is currently enabled as collateral
+      // Update borrow limit if asset is currently enabled as collateral
       if (asset.collateral) {
         borrowLimitCents = borrowLimitCents.plus(
           supplyBalanceCents.multipliedBy(asset.collateralFactor),
         );
       }
+
+      const supplyYearlyEarnings = supplyBalanceCents.multipliedBy(asset.supplyApy).dividedBy(100);
+      // Note that borrowYearlyInterests will always be negative (or 0), since
+      // the borrow APY is expressed with a negative percentage)
+      const borrowYearlyInterests = borrowBalanceCents.multipliedBy(asset.borrowApy).dividedBy(100);
+
+      // @TODO: include XVS distribution APY if enabled
+      yearlyEarningsCents = yearlyEarningsCents.plus(
+        supplyYearlyEarnings.plus(borrowYearlyInterests),
+      );
     });
 
     return {
       netApyPercentage,
-      dailyEarningsCents,
+      dailyEarningsCents: yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0),
       supplyBalanceCents: supplyBalanceCents?.toNumber(),
       borrowBalanceCents: borrowBalanceCents?.toNumber(),
       borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
