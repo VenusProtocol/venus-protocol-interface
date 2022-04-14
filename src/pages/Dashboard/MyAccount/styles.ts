@@ -22,19 +22,14 @@ export const useMyAccountStyles = () => {
       display: flex;
       align-items: center;
     `,
+    apyWithXvsLabel: css`
+      margin-left: ${theme.spacing(2)};
+    `,
     tooltip: css`
       display: flex;
     `,
-    getInfoIcon: ({ position }: { position: 'left' | 'right' }) => css`
+    infoIcon: () => css`
       cursor: help;
-
-      ${position === 'left'
-        ? css`
-            margin-right: ${theme.spacing(2)};
-          `
-        : css`
-            margin-left: ${theme.spacing(2)};
-          `};
     `,
     toggle: css`
       margin-left: ${theme.spacing(2)};
@@ -48,10 +43,13 @@ export const useMyAccountStyles = () => {
     netApyContainer: css`
       margin-bottom: ${theme.spacing(4)};
     `,
-    netApyLabel: css`
+    netApy: css`
       display: flex;
       align-items: center;
       margin-bottom: ${theme.spacing(1)};
+    `,
+    netApyLabel: css`
+      margin-right: ${theme.spacing(2)};
     `,
     list: css`
       padding-left: 0;
@@ -104,6 +102,9 @@ export const useMyAccountStyles = () => {
       margin-bottom: ${theme.spacing(3)};
     `,
     shieldIcon: css`
+      margin-right: ${theme.spacing(2)};
+    `,
+    safeLimit: css`
       margin-right: ${theme.spacing(2)};
     `,
     bottom: css`

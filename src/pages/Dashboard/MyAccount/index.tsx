@@ -56,11 +56,11 @@ export const MyAccountUi = ({
         <Typography component="div" variant="small2" css={styles.apyWithXvs}>
           {/* @TODO: update tooltip content */}
           <Tooltip css={styles.tooltip} title="tooltip content">
-            <Icon css={styles.getInfoIcon({ position: 'left' })} name="info" />
+            <Icon css={styles.infoIcon} name="info" />
           </Tooltip>
 
-          <Typography color="text.primary" variant="small1">
-            {t('myAccount.apyWithXvs')}
+          <Typography color="text.primary" variant="small1" css={styles.apyWithXvsLabel}>
+            APY with XVS
           </Typography>
 
           <Toggle css={styles.toggle} value={isToggleSwitched} onChange={handleSwitch} />
@@ -68,13 +68,16 @@ export const MyAccountUi = ({
       </div>
 
       <div css={styles.netApyContainer}>
-        <Typography component="div" variant="small2" css={styles.netApyLabel}>
-          Net APY
+        <div css={styles.netApy}>
+          <Typography component="div" variant="small2" css={styles.netApyLabel}>
+            Net APY
+          </Typography>
+
           {/* @TODO: update tooltip content */}
           <Tooltip css={styles.tooltip} title="tooltip content">
-            <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
+            <Icon css={styles.infoIcon} name="info" />
           </Tooltip>
-        </Typography>
+        </div>
 
         <Typography variant="h1" color="interactive.success">
           {typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : '-'}
@@ -156,7 +159,7 @@ export const MyAccountUi = ({
           Your safe limit:
         </Typography>
 
-        <Typography component="span" variant="small1" color="text.primary">
+        <Typography component="span" variant="small1" color="text.primary" css={styles.safeLimit}>
           {typeof safeLimitCents === 'number'
             ? formatCentsToReadableValue(safeLimitCents, true)
             : '-'}
@@ -164,7 +167,7 @@ export const MyAccountUi = ({
 
         {/* @TODO: update tooltip content */}
         <Tooltip css={styles.tooltip} title="tooltip content">
-          <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
+          <Icon css={styles.infoIcon} name="info" />
         </Tooltip>
       </Typography>
     </div>
