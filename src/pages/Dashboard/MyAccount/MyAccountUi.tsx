@@ -63,8 +63,10 @@ export const MyAccountUi = ({
         <Typography variant="h4">My account</Typography>
 
         <Typography component="div" variant="small2" css={styles.apyWithXvs}>
-          {/* @TODO: update tooltip content */}
-          <Tooltip css={styles.tooltip} title="tooltip content">
+          <Tooltip
+            css={styles.tooltip}
+            title="Choose whether to include the XVS distribution APY in calculations"
+          >
             <Icon css={styles.infoIcon} name="info" />
           </Tooltip>
 
@@ -82,8 +84,10 @@ export const MyAccountUi = ({
             Net APY
           </Typography>
 
-          {/* @TODO: update tooltip content */}
-          <Tooltip css={styles.tooltip} title="tooltip content">
+          <Tooltip
+            css={styles.tooltip}
+            title="Percentage of your total supply balance received as yearly interests"
+          >
             <Icon css={styles.infoIcon} name="info" />
           </Tooltip>
         </div>
@@ -190,8 +194,10 @@ export const MyAccountUi = ({
           {readableSafeBorrowLimit || '-'}
         </Typography>
 
-        {/* @TODO: update tooltip content */}
-        <Tooltip css={styles.tooltip} title="tooltip content">
+        <Tooltip
+          css={styles.tooltip}
+          title={`${safeBorrowLimitPercentage}% of your borrow limit. We consider borrowing more than this threshold unsafe.`}
+        >
           <Icon css={styles.infoIcon} name="info" />
         </Tooltip>
       </Typography>
