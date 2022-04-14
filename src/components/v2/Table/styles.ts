@@ -5,8 +5,8 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     title: css`
-      margin-bottom: ${theme.spacing(3)};
-      padding: ${theme.spacing(0, 3)};
+      margin-bottom: ${theme.spacing(6)};
+      padding: ${theme.spacing(0, 6)};
     `,
     tableContainer: css`
       background-color: transparent;
@@ -24,12 +24,12 @@ export const useStyles = () => {
       }
 
       .MuiTableCell-root:first-child {
-        padding-left: ${theme.spacing(3)};
+        padding-left: ${theme.spacing(6)};
         float: left;
       }
 
       .MuiTableCell-root:last-child {
-        padding-right: ${theme.spacing(3)};
+        padding-right: ${theme.spacing(6)};
       }
     `,
     tableSortLabel: ({ orderable }: { orderable: boolean }) => css`
@@ -47,7 +47,7 @@ export const useStyles = () => {
 
       .MuiSvgIcon-root {
         display: block;
-        margin-left: ${theme.spacing(1)};
+        margin-left: ${theme.spacing(2)};
         transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
           transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         transform: rotate(0deg);

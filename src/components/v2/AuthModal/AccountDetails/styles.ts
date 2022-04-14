@@ -16,21 +16,21 @@ export const useStyles = () => {
     infoContainer: css`
       display: flex;
       align-items: center;
-      margin-bottom: ${theme.spacing(2)};
+      margin-bottom: ${theme.spacing(4)};
 
       ${theme.breakpoints.down('md')} {
         display: block;
-        margin-bottom: ${theme.spacing(3)};
+        margin-bottom: ${theme.spacing(6)};
       }
     `,
     walletLogo: css`
-      width: 48px;
-      margin-right: ${theme.spacing(2)};
+      width: ${theme.spacing(12)};
+      margin-right: ${theme.spacing(4)};
       flex-shrink: 0;
 
       ${theme.breakpoints.down('md')} {
         margin-right: 0;
-        margin-bottom: ${theme.spacing(1)};
+        margin-bottom: ${theme.spacing(2)};
       }
     `,
     infoRightColumn: css`
@@ -38,11 +38,11 @@ export const useStyles = () => {
     `,
     walletName: css`
       display: block;
-      margin-bottom: ${theme.spacing(0.5)};
+      margin-bottom: ${theme.spacing(1)};
       color: ${theme.palette.text.secondary};
 
       ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(2)};
+        margin-bottom: ${theme.spacing(4)};
       }
     `,
     accountAddressContainer: css`
@@ -55,7 +55,7 @@ export const useStyles = () => {
       }
     `,
     accountAddress: css`
-      margin-right: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(2)};
       display: block;
       letter-spacing: -0.75px;
 
@@ -64,7 +64,7 @@ export const useStyles = () => {
       }
     `,
     accountAddressMobile: css`
-      margin-right: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(2)};
       display: none;
       letter-spacing: -0.75px;
 
@@ -76,8 +76,8 @@ export const useStyles = () => {
       cursor: pointer;
       background-color: transparent;
       border: 0;
-      padding: ${theme.spacing(0.5)};
-      margin: ${theme.spacing(-0.5)};
+      padding: ${theme.spacing(1)};
+      margin: ${theme.spacing(-1)};
       line-height: 0;
 
       :hover > svg {
@@ -90,13 +90,13 @@ export const useStyles = () => {
     `,
     copyButtonIcon: css`
       color: ${theme.palette.button.main};
-      width: 24px;
-      height: 24px;
+      width: ${theme.spacing(6)};
+      height: ${theme.spacing(6)};
       transition: color 0.3s;
     `,
     bscScanLinkContainer: css`
-      margin-left: ${theme.spacing(8)};
-      margin-bottom: ${theme.spacing(5)};
+      margin-left: ${theme.spacing(16)};
+      margin-bottom: ${theme.spacing(10)};
     `,
   };
 };
