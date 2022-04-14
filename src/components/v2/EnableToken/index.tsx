@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 import { AuthContext } from 'context/AuthContext';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import { formatApy } from 'utilities/common';
 import useApproveToken from 'clients/api/mutations/useApproveToken';
 import { Icon, IconName } from '../Icon';
@@ -11,10 +11,10 @@ import { PrimaryButton } from '../Button';
 import useStyles from './styles';
 
 export interface IEnableTokenProps {
-  symbol: TokenSymbol;
+  symbol: TokenId;
   isEnabled: boolean;
   title: string;
-  tokenInfo: { symbol: TokenSymbol; text: string; apy: BigNumber | number }[];
+  tokenInfo: { symbol: TokenId; text: string; apy: BigNumber | number }[];
   approveToken: () => void;
   vtokenAddress: string;
   disabled: boolean;

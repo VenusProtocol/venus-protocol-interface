@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3Account } from 'clients/web3';
 import NumberFormat from 'react-number-format';
-import * as constants from 'constants/contracts';
-import { useXvsVaultProxy } from 'hooks/useContract';
-import { TokenSymbol } from 'types';
 
+import { useWeb3Account } from 'clients/web3';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { TokenId } from 'types';
+import { getToken } from 'utilities';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import { CardItemWrapper } from '../styles';
 
@@ -66,7 +66,7 @@ function formatTimeToLockPeriodString(seconds: $TSFixMe) {
 
 interface WithdrawCardProps {
   poolId: BigNumber;
-  stakedToken: TokenSymbol;
+  stakedToken: TokenId;
   rewardTokenAddress: string | undefined;
   lockPeriodSecond: BigNumber;
   withdrawableAmount: BigNumber;
@@ -83,10 +83,10 @@ function WithdrawCard({
   pendingWithdrawals,
   userEligibleStakedAmount,
 }: WithdrawCardProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
 
   const { account } = useWeb3Account();
-  const xvsVaultContract = useXvsVaultProxy();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));

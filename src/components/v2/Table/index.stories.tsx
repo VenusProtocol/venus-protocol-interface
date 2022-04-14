@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { css } from '@emotion/react';
+
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { formatApy } from 'utilities/common';
-import { CONTRACT_TOKEN_ADDRESS, getToken } from 'constants/contracts';
+import { getToken } from 'utilities';
+import { TokenId } from 'types';
 import { Toggle } from 'components';
 import { Table } from '.';
 import { Icon } from '../Icon';
@@ -32,12 +34,7 @@ const styles = {
   `,
 };
 
-function createData(
-  asset: keyof typeof CONTRACT_TOKEN_ADDRESS,
-  apy: number,
-  wallet: number,
-  collateral: boolean,
-) {
+function createData(asset: TokenId, apy: number, wallet: number, collateral: boolean) {
   return [
     {
       key: asset,

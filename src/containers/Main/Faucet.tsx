@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { useRequestFaucetFunds } from 'clients/api';
 import toast from 'components/Basic/Toast';
-import * as constants from 'constants/contracts';
+import { getToken } from 'utilities';
 import Faucet from 'components/Faucet';
 
 type IFaucetContainerProps = RouteComponentProps;
@@ -12,12 +12,10 @@ const FaucetContainer: React.FC<IFaucetContainerProps> = () => {
     useRequestFaucetFunds({
       onSuccess: (_data, variables) => {
         let fromAddress;
-        if (variables.asset === 'xvs') {
-          fromAddress = constants.XVS_TOKEN;
-        } else if (variables.asset === 'bnb') {
-          fromAddress = constants.XVS_TOKEN;
+        if (variables.asset === 'xvs' || variables.asset === 'bnb') {
+          fromAddress = getToken('xvs').address;
         } else {
-          fromAddress = constants.getToken(variables.asset).address;
+          fromAddress = getToken(variables.asset).address;
         }
 
         toast.success({

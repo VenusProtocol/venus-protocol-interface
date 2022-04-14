@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+
 import { connectAccount } from 'core';
 import {
   LineChart,
@@ -14,11 +14,11 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { State } from 'core/modules/initialState';
-import * as constants from 'constants/contracts';
+import { getToken } from 'utilities';
 import { useWeb3 } from 'clients/web3';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
-import { getInterestModelContract, getVbepContract } from '../../utilities/contractHelpers';
+import { getInterestModelContract, getVBepTokenContract } from '../../clients/contracts/getters';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -112,7 +112,7 @@ const InterestRateModelWrapper = styled.div`
 let flag = false;
 
 interface Props extends RouteComponentProps {
-  currentAsset: TokenSymbol;
+  currentAsset: TokenId;
 }
 
 interface CustomizedAxisTickProps {
@@ -144,9 +144,9 @@ function InterestRateModel({ currentAsset }: Props) {
     </g>
   );
 
-  const getGraphData = async (asset: TokenSymbol) => {
+  const getGraphData = async (asset: TokenId) => {
     flag = true;
-    const vbepContract = getVbepContract(web3, asset);
+    const vbepContract = getVBepTokenContract(web3, asset);
     const interestRateModel = await vbepContract.methods.interestRateModel().call();
     const interestModelContract = getInterestModelContract(web3, interestRateModel);
     const cashValue = await vbepContract.methods.getCash().call();
@@ -156,7 +156,7 @@ function InterestRateModel({ currentAsset }: Props) {
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase(),
     );
 
-    const tokenDecimals = constants.getToken(asset)?.decimals || 18;
+    const tokenDecimals = getToken(asset)?.decimals || 18;
 
     // Get Current Utilization Rate
     const cash = new BigNumber(cashValue).div(new BigNumber(10).pow(tokenDecimals));

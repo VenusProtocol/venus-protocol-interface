@@ -14,7 +14,7 @@ import { formatApy, format } from 'utilities/common';
 import { useWeb3Account } from 'clients/web3';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import { useComptroller } from '../../../hooks/useContract';
+import { useComptrollerContract } from '../../../clients/contracts/hooks';
 
 const SupplyMarketWrapper = styled.div`
   width: 100%;
@@ -36,7 +36,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
   const [record, setRecord] = useState({} as Asset);
   const [isCollateralEnalbe, setIsCollateralEnable] = useState(true);
   const { account } = useWeb3Account();
-  const comptrollerContract = useComptroller();
+  const comptrollerContract = useComptrollerContract();
 
   const handleToggleCollateral = async (r: $TSFixMe) => {
     if (r && account && r.borrowBalance.isZero()) {
