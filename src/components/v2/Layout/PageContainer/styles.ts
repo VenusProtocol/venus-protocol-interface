@@ -6,15 +6,15 @@ export const useStyles = () => {
   return {
     main: css`
       flex-grow: 1;
-      margin: ${theme.spacing(4)} ${theme.spacing(5)} ${theme.shape.footerHeight};
+      margin: ${theme.spacing(8)} ${theme.spacing(10)} ${theme.shape.footerHeight};
 
       ${theme.breakpoints.down('lg')} {
-        margin-left: ${theme.spacing(3)};
-        margin-right: ${theme.spacing(3)};
+        margin-left: ${theme.spacing(6)};
+        margin-right: ${theme.spacing(6)};
       }
 
       ${theme.breakpoints.down('md')} {
-        margin: ${theme.spacing(2)} ${theme.spacing(2)} ${theme.shape.footerHeight};
+        margin: ${theme.spacing(4)} ${theme.spacing(4)} ${theme.shape.footerHeight};
       }
     `,
     footer: css`
