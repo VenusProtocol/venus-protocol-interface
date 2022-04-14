@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 
 import { formatCentsToReadableValue } from 'utilities/common';
 import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
+import { useTranslation } from 'translation';
 import { useMyAccountStyles as useStyles } from './styles';
 
 interface IMyAccountProps {
@@ -31,24 +32,25 @@ export const MyAccount = ({
     setToggleSwitched(checked);
   };
   const styles = useStyles();
+  const { t } = useTranslation();
   return (
     <Box css={styles.root} component={Paper}>
       <div css={styles.row}>
         <Typography variant="h4">My account</Typography>
         <Typography component="span" variant="small2" css={styles.apyWithXvs}>
-          <Tooltip css={styles.tooltip} title="tooltip content">
+          <Tooltip css={styles.tooltip} title={t('myAccount.apyWithXvsTooltip')}>
             <Icon css={styles.iconInfo} name="info" />
           </Tooltip>
           <Typography color="text.primary" variant="small1">
-            APY with XVS
+            {t('myAccount.apyWithXvs')}
           </Typography>
           <Toggle css={styles.toggle} value={isToggleSwitched} onChange={handleSwitch} />
         </Typography>
       </div>
       <div>
         <Typography component="p" variant="small2" css={styles.netApyLabel}>
-          Net APY
-          <Tooltip css={styles.tooltip} title="tooltip content">
+          {t('myAccount.netApy')}
+          <Tooltip css={styles.tooltip} title={t('myAccount.netApyTooltip')}>
             <Icon css={styles.iconInfo} name="info" />
           </Tooltip>
         </Typography>
@@ -59,19 +61,19 @@ export const MyAccount = ({
       <ul css={styles.list}>
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="p" variant="small2" css={styles.labelListItem}>
-            Daily earnings
+            {t('myAccount.dailyEarnings')}
           </Typography>
           {formatCentsToReadableValue(dailyEarningsCents)}
         </Typography>
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="p" variant="small2" css={styles.labelListItem}>
-            Supply balance
+            {t('myAccount.supplyBalance')}
           </Typography>
           {formatCentsToReadableValue(supplyBalanceCents)}
         </Typography>
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="p" variant="small2" css={styles.labelListItem}>
-            Borrow balance
+            {t('myAccount.borrowBalance')}
           </Typography>
           {formatCentsToReadableValue(borrowBalanceCents)}
         </Typography>
@@ -79,7 +81,7 @@ export const MyAccount = ({
       <div css={styles.row}>
         <Typography component="div" variant="small2" css={styles.borrowLimitLabelWrapper}>
           <Typography component="p" variant="small2" css={styles.borrowLimitLabel}>
-            Borrow limit:
+            {t('myAccount.borrowLimit')}
           </Typography>
           <Typography
             component="span"
@@ -96,7 +98,7 @@ export const MyAccount = ({
         value={safeLimitPercentage}
         mark={80}
         step={1}
-        ariaLabel="Borrow limit"
+        ariaLabel={t('myAccount.progressBar.ariaLabel')}
         min={0}
         max={100}
         trackTooltip="Storybook tooltip text for Track"
@@ -106,10 +108,10 @@ export const MyAccount = ({
       <Typography component="div" variant="small2" css={styles.bottom}>
         <Icon name="shield" />
         <Typography component="p" css={styles.safeLimit}>
-          Your safe limit:
+          {t('myAccount.safeLimit')}
         </Typography>
         {safeLimitPercentage}%
-        <Tooltip css={styles.tooltip} title="tooltip content">
+        <Tooltip css={styles.tooltip} title={t('myAccount.safeLimitTooltip')}>
           <Icon css={styles.iconInfo} name="info" />
         </Tooltip>
       </Typography>
