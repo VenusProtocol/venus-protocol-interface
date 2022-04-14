@@ -59,8 +59,8 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   const rows: ITableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token symbol={asset.name as TokenId} />,
-      value: asset.name,
+      render: () => <Token symbol={asset.symbol as TokenId} />,
+      value: asset.id,
     },
     {
       key: 'apy',
@@ -156,7 +156,7 @@ const SupplyMarket: React.FC = () => {
       } catch (error) {
         throw new ToastError(
           t('markets.errors.collateralEnableError.title'),
-          t('markets.errors.collateralEnableError.description', { assetName: asset.name }),
+          t('markets.errors.collateralEnableError.description', { assetName: asset.symbol }),
         );
       }
     } else if (+asset.hypotheticalLiquidity['1'] > 0 || +asset.hypotheticalLiquidity['2'] === 0) {
@@ -166,7 +166,7 @@ const SupplyMarket: React.FC = () => {
       } catch (error) {
         throw new ToastError(
           t('markets.errors.collateralDisableError.title'),
-          t('markets.errors.collateralDisableError.description', { assetName: asset.name }),
+          t('markets.errors.collateralDisableError.description', { assetName: asset.symbol }),
         );
       }
     } else {
