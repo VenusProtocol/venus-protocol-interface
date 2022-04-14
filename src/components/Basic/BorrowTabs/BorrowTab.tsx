@@ -13,7 +13,7 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVbep } from '../../../hooks/useContract';
+import { useVBepTokenContract } from '../../../clients/contracts/hooks';
 
 const abortController = new AbortController();
 
@@ -38,7 +38,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
   const { account } = useWeb3Account();
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
-  const vbepContract = useVbep(asset.id);
+  const vbepContract = useVBepTokenContract(asset.id);
 
   const updateInfo = useCallback(() => {
     const tokenPrice = getBigNumber(asset.tokenPrice);

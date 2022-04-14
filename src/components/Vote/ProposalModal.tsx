@@ -10,7 +10,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { encodeParameters, getArgs } from 'utilities/common';
 import closeImg from 'assets/img/close.png';
 import { uid } from 'react-uid';
-import { useGovernorBravo } from '../../hooks/useContract';
+import { useGovernorBravoContract } from '../../clients/contracts/hooks';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -153,7 +153,7 @@ function ProposalModal({ form, address, visible, maxOperation, onCancel, ...prop
     },
   ]);
   const [activePanelKey, setActivePanelKey] = useState<number | string[]>(['0']);
-  const governorBravoContract = useGovernorBravo();
+  const governorBravoContract = useGovernorBravoContract();
 
   useEffect(() => {
     if (!visible) {

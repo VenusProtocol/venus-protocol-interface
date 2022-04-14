@@ -4,7 +4,7 @@ import getVTokenBalancesAll, {
   IGetVTokenBalancesAllInput,
   IGetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
-import { useVenusLens } from 'hooks/useContract';
+import { useVenusLensContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -19,7 +19,7 @@ const useGetVTokenBalancesAll = (
   { account, vtAddresses }: Omit<IGetVTokenBalancesAllInput, 'venusLensContract'>,
   options?: Options,
 ) => {
-  const venusLensContract = useVenusLens();
+  const venusLensContract = useVenusLensContract();
   return useQuery(
     FunctionKey.GET_VTOKEN_BALANCES_ALL,
     () => getVTokenBalancesAll({ venusLensContract, account, vtAddresses }),

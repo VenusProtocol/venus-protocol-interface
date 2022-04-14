@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
 
 const useConvertToReadableCoinString = ({
   tokenSymbol,
   valueWei,
 }: {
-  tokenSymbol: TokenSymbol;
+  tokenSymbol: TokenId;
   valueWei?: BigNumber;
 }) =>
   useMemo(

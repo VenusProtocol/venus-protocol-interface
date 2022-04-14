@@ -1,22 +1,24 @@
-import * as constants from 'constants/contracts';
-import vbnbAbi from '../config/abis/vbnb.json';
+import { getVBepToken } from 'utilities';
+
+import { getVBepTokenContract } from 'clients/contracts';
+
+const vBnbAddress = getVBepToken('bnb').address;
+
+// @TODO: remove once new Mint/Repay VAI component is implemented
 
 export const sendSupply = async (
   web3: $TSFixMe,
-
   from: $TSFixMe,
-
   amount: $TSFixMe,
-
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = new web3.eth.Contract(vbnbAbi, constants.VBEP_TOKENS.bnb.address);
+    const contract = getVBepTokenContract(web3, 'bnb');
     const contractData = contract.methods.mint().encodeABI();
 
     const tx = {
       from,
-      to: constants.VBEP_TOKENS.bnb.address,
+      to: vBnbAddress,
       value: amount,
       data: contractData,
     };
@@ -35,20 +37,17 @@ export const sendSupply = async (
 
 export const sendRepay = async (
   web3: $TSFixMe,
-
   from: $TSFixMe,
-
   amount: $TSFixMe,
-
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = new web3.eth.Contract(vbnbAbi, constants.VBEP_TOKENS.bnb.address);
+    const contract = getVBepTokenContract(web3, 'bnb');
     const contractData = contract.methods.repayBorrow().encodeABI();
 
     const tx = {
       from,
-      to: constants.VBEP_TOKENS.bnb.address,
+      to: getVBepToken('bnb'),
       value: amount,
       data: contractData,
     };

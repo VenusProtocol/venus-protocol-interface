@@ -6,13 +6,14 @@ import { connectAccount } from 'core';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
-import { useXvsVaultProxy } from 'hooks/useContract';
-import { CONTRACT_TOKEN_ADDRESS, getToken } from 'constants/contracts';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { getToken } from 'utilities';
+import { TOKENS } from 'constants/tokens';
 import GeneralVaultPoolCard from 'components/Vault/VestingVault/Card';
 import VaiPoolCard from 'components/Vault/BasicVault/VaiCard';
 import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
-import { getTokenContractByAddress } from 'utilities/contractHelpers';
-import { IPool, TokenSymbol } from 'types';
+import { getTokenContractByAddress } from 'clients/contracts/getters';
+import { IPool, TokenId } from 'types';
 import { State } from 'core/modules/initialState';
 
 const VaultWrapper = styled.div`
@@ -25,9 +26,9 @@ const VaultWrapper = styled.div`
 `;
 
 // fast search token name by address
-const tokenAddressNameMap = Object.keys(CONTRACT_TOKEN_ADDRESS).reduce<Record<string, string>>(
+const tokenAddressNameMap = Object.keys(TOKENS).reduce<Record<string, string>>(
   (target: Record<string, string>, token) => {
-    const { address } = getToken(token as TokenSymbol) || {};
+    const { address } = getToken(token as TokenId) || {};
     if (address) {
       return {
         ...target,
@@ -47,7 +48,7 @@ function Vault() {
   const { account } = useWeb3Account();
   const web3 = useWeb3();
   const { fastRefresh } = useRefresh();
-  const xvsVaultContract = useXvsVaultProxy();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   // fetch XVS vault pools info
   useEffect(() => {
@@ -55,7 +56,7 @@ function Vault() {
 
     const fetchPools = async () => {
       // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
-      const xvsTokenAddress = CONTRACT_TOKEN_ADDRESS.xvs.address;
+      const xvsTokenAddress = TOKENS.xvs.address;
 
       const xvsTokenPoolLength = await xvsVaultContract.methods.poolLength(xvsTokenAddress).call();
 
@@ -100,8 +101,8 @@ function Vault() {
 
         return {
           poolId: new BigNumber(param.pid),
-          stakedToken: tokenAddressNameMap[poolInfo.token] as TokenSymbol,
-          rewardToken: tokenAddressNameMap[param.rewardToken] as TokenSymbol,
+          stakedToken: tokenAddressNameMap[poolInfo.token] as TokenId,
+          rewardToken: tokenAddressNameMap[param.rewardToken] as TokenId,
           pendingReward: new BigNumber(userPendingRewards),
           userStakedAmount: new BigNumber(userInfo.amount),
           lockPeriodSecond: new BigNumber(poolInfo.lockPeriod),

@@ -9,7 +9,7 @@ import { TabSection, TabContent } from 'components/Basic/SupplyModal';
 import { format } from 'utilities/common';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVaiUnitroller } from '../../../hooks/useContract';
+import { useVaiUnitrollerContract } from '../../../clients/contracts/hooks';
 
 function MintTab() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +18,7 @@ function MintTab() {
   const { account } = useWeb3Account();
   const { userVaiBalance, mintableVai } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
-  const vaiControllerContract = useVaiUnitroller();
+  const vaiControllerContract = useVaiUnitrollerContract();
 
   const getFeePercent = useCallback(async () => {
     const treasuryPercent = await vaiControllerContract.methods.treasuryPercent().call();

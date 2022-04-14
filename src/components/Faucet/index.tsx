@@ -2,14 +2,13 @@ import React from 'react';
 import { Input, Form, Dropdown, Menu } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { ClickParam } from 'antd/lib/menu';
+
 import { PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import * as constants from 'constants/contracts';
 import { Row, Column } from 'components/Basic/Style';
 import { RequestFaucetFundsInput } from 'clients/api';
 import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
-import { getVaiTokenAddress } from '../../utilities/addressHelpers';
+import { generateBscScanUrl } from 'utilities';
 import * as Styles from './styles';
 
 export interface IFaucetProps extends FormComponentProps {
@@ -221,83 +220,43 @@ const Faucet: React.FC<IFaucetProps> = ({
         <div className="flex flex-column align-center just-center bottom">
           <p className="title">How does this work?</p>
           <p className="description">
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.sxp.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('sxp', 'token')} target="_blank" rel="noreferrer">
               SXP
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.XVS_TOKEN)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('xvs', 'token')} target="_blank" rel="noreferrer">
               XVS
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.busd.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('busd', 'token')} target="_blank" rel="noreferrer">
               BUSD
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.usdc.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('usdc')} target="_blank" rel="noreferrer">
               USDC
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.usdt.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('usdt', 'token')} target="_blank" rel="noreferrer">
               USDT
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(getVaiTokenAddress())}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('vai', 'token')} target="_blank" rel="noreferrer">
               VAI
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.btcb.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('btcb', 'token')} target="_blank" rel="noreferrer">
               BTCB
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.eth.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('eth', 'token')} target="_blank" rel="noreferrer">
               ETH
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.ltc.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('ltc', 'token')} target="_blank" rel="noreferrer">
               LTC
             </a>
             {', '}
-            <a
-              href={generateBscScanAddressUrl(constants.CONTRACT_TOKEN_ADDRESS.xrp.address)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={generateBscScanUrl('xrp', 'token')} target="_blank" rel="noreferrer">
               XRP
             </a>
             {' are issued as BEP20 token.'}

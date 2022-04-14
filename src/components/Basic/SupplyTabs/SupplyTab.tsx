@@ -12,7 +12,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber, format } from 'utilities/common';
 import { Asset, Setting } from 'types';
-import { useToken, useVbep } from '../../../hooks/useContract';
+import { useTokenContract, useVBepTokenContract } from '../../../clients/contracts/hooks';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 
@@ -32,8 +32,8 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
   const [newBorrowLimit, setNewBorrowLimit] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
   const { account } = useWeb3Account();
-  const vbepContract = useVbep(asset.id);
-  const tokenContract = useToken(asset.id);
+  const vbepContract = useVBepTokenContract(asset.id);
+  const tokenContract = useTokenContract(asset.id);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const { mintableVai } = useVaiUser();
   const web3 = useWeb3();

@@ -9,7 +9,7 @@ import { format } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
 import { Transaction } from 'types';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
+import { generateBscScanUrl } from 'utilities';
 
 const TransactionsWrapper = styled.div`
   width: 100%;
@@ -127,7 +127,7 @@ function Transactions({ address, transactions }: Props) {
   }, [transactions, address]);
 
   const handleLink = () => {
-    window.open(generateBscScanAddressUrl(address), '_blank');
+    window.open(generateBscScanUrl(address), '_blank');
   };
   return (
     <Card>

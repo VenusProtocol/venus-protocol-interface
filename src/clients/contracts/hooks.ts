@@ -6,10 +6,9 @@ import {
   getInterestModelContract,
   getPriceOracleContract,
   getTokenContract,
-  getVaiTokenContract,
   getVaiUnitrollerContract,
   getVaiVaultContract,
-  getVbepContract,
+  getVBepTokenContract,
   getVenusLensContract,
   getXvsVaultProxyContract,
   getXvsVaultContract,
@@ -17,99 +16,81 @@ import {
   getGovernorBravoContract,
   getVrtConverterProxyContract,
   getXvsVestingProxyContract,
-  getVrtTokenContract,
   getVrtVaultProxyContract,
-  getComptrollerLensContract,
-} from '../utilities/contractHelpers';
+} from './getters';
 
-export const useToken = (name: $TSFixMe) => {
+export const useTokenContract = (name: $TSFixMe) => {
   const web3 = useWeb3();
   return useMemo(() => getTokenContract(web3, name), [web3, name]);
 };
 
-export const useTokenByAddress = (address: $TSFixMe) => {
+export const useTokenContractByAddress = (address: $TSFixMe) => {
   const web3 = useWeb3();
   return useMemo(() => getTokenContractByAddress(web3, address), [web3, address]);
 };
 
-export const useVaiToken = () => {
+export const useVBepTokenContract = (name: $TSFixMe) => {
   const web3 = useWeb3();
-  return useMemo(() => getVaiTokenContract(web3), [web3]);
+  return useMemo(() => getVBepTokenContract(web3, name), [web3, name]);
 };
 
-export const useVaiUnitroller = () => {
+export const useVaiUnitrollerContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVaiUnitrollerContract(web3), [web3]);
 };
 
-export const useVaiVault = () => {
+export const useVaiVaultContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVaiVaultContract(web3), [web3]);
 };
 
-export const useVbep = (name: $TSFixMe) => {
-  const web3 = useWeb3();
-  return useMemo(() => getVbepContract(web3, name), [web3, name]);
-};
-
-export const useComptroller = () => {
+export const useComptrollerContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getComptrollerContract(web3), [web3]);
 };
 
-export const useComptrollerLens = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getComptrollerLensContract(web3), [web3]);
-};
-
-export const usePriceOracle = () => {
+export const usePriceOracleContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getPriceOracleContract(web3), [web3]);
 };
 
-export const useInterestModel = () => {
+export const useInterestModelContract = (address: string) => {
   const web3 = useWeb3();
-  // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
-  return useMemo(() => getInterestModelContract(web3), [web3]);
+  return useMemo(() => getInterestModelContract(web3, address), [web3]);
 };
 
-export const useVenusLens = () => {
+export const useVenusLensContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVenusLensContract(web3), [web3]);
 };
 
-export const useXvsVault = () => {
+export const useXvsVaultContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getXvsVaultContract(web3), [web3]);
 };
 
-export const useXvsVaultProxy = () => {
+export const useXvsVaultProxyContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getXvsVaultProxyContract(web3), [web3]);
 };
 
-export const useGovernorBravo = () => {
+export const useGovernorBravoContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getGovernorBravoContract(web3), [web3]);
 };
 
 // VRT conversion
-export const useVrtConverterProxy = () => {
+export const useVrtConverterProxyContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVrtConverterProxyContract(web3), [web3]);
 };
 
-export const useXvsVestingProxy = () => {
+export const useXvsVestingProxyContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getXvsVestingProxyContract(web3), [web3]);
 };
 
-export const useVrtToken = () => {
-  const web3 = useWeb3();
-  return useMemo(() => getVrtTokenContract(web3), [web3]);
-};
-
-export const useVrtVaultProxy = () => {
+export const useVrtVaultProxyContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVrtVaultProxyContract(web3), [web3]);
 };

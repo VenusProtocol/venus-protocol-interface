@@ -4,7 +4,7 @@ import getAssetsInAccount, {
   GetAssetsInAccountOutput,
   IGetAssetsInAccountInput,
 } from 'clients/api/queries/getAssetsInAccount';
-import { useComptroller } from 'hooks/useContract';
+import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -19,7 +19,7 @@ const useGetAssetsInAccount = (
   { account }: Omit<IGetAssetsInAccountInput, 'comptrollerContract'>,
   options?: Options,
 ) => {
-  const comptrollerContract = useComptroller();
+  const comptrollerContract = useComptrollerContract();
   return useQuery(
     FunctionKey.GET_ASSETS_IN_ACCOUNT,
     () => getAssetsInAccount({ comptrollerContract, account }),

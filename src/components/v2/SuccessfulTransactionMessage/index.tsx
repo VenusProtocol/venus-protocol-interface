@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 
 import { convertWeiToCoins } from 'utilities/common';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import { BscLink } from '../BscLink';
 import { Icon, IconName } from '../Icon';
 import { IModalProps, Modal } from '../Modal';
@@ -15,7 +15,7 @@ export interface ISuccessfulTransactionMessageProps {
   message: string;
   transactionHash: string;
   amount?: {
-    tokenSymbol: TokenSymbol;
+    tokenSymbol: TokenId;
     valueWei: BigNumber;
   };
   className?: string;
