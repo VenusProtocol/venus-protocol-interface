@@ -15,7 +15,7 @@ export const useStyles = () => {
     ustWarning: css`
       background-color: ${theme.palette.interactive.tan};
       width: 100%;
-      padding: ${theme.spacing(0.5)} ${theme.spacing(2)};
+      padding: ${theme.spacing(1)} ${theme.spacing(4)};
       justify-content: center;
       align-items: center;
       display: inline-flex;
@@ -29,11 +29,11 @@ export const useStyles = () => {
 
       svg {
         display: flex;
-        margin-right: ${theme.spacing(1)};
+        margin-right: ${theme.spacing(2)};
         align-self: center;
         ${theme.breakpoints.down('md')} {
-          height: ${theme.spacing(3)};
-          width: ${theme.spacing(3)};
+          height: ${theme.spacing(6)};
+          width: ${theme.spacing(6)};
           margin-right: 0;
         }
       }

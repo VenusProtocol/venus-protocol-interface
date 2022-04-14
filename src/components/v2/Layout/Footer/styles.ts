@@ -7,7 +7,7 @@ export const useStyles = () => {
   return {
     container: css`
       height: ${theme.shape.footerHeight};
-      padding: 0 ${theme.spacing(3)};
+      padding: 0 ${theme.spacing(6)};
       background-color: var(--color-bg-main);
       display: flex;
       justify-content: flex-end;
@@ -35,7 +35,7 @@ export const useStyles = () => {
     links: css`
       color: ${theme.palette.text.primary};
       display: flex;
-      margin-left: ${theme.spacing(1)};
+      margin-left: ${theme.spacing(2)};
 
       ${theme.breakpoints.down('md')} {
         margin-left: 0;
@@ -44,13 +44,13 @@ export const useStyles = () => {
     link: css`
       background-color: ${theme.palette.secondary.light};
       transition: background-color 0.3s;
-      margin-left: ${theme.spacing(2)};
+      margin-left: ${theme.spacing(4)};
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
+      width: ${theme.spacing(6)};
+      height: ${theme.spacing(6)};
+      border-radius: ${theme.spacing(1)};
 
       :hover {
         background-color: ${theme.palette.button.main};

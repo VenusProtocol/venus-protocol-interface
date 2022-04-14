@@ -30,7 +30,7 @@ export const styles = () => {
 
       ${!last &&
       css`
-        margin-right: ${theme.spacing(1)};
+        margin-right: ${theme.spacing(2)};
       `};
 
       ${!active &&

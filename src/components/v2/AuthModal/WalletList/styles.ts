@@ -7,14 +7,14 @@ export const useStyles = () => {
   return {
     theme,
     container: css`
-      margin: ${theme.spacing(-1, 0)};
+      margin: ${theme.spacing(-2, 0)};
     `,
     getListItem: ({ isActionable }: { isActionable: boolean }) => css`
       width: 100%;
       background-color: transparent;
       box-shadow: none;
       border: 0;
-      padding: ${theme.spacing(2, 5)};
+      padding: ${theme.spacing(4, 10)};
       display: flex;
       align-items: center;
       color: ${theme.palette.text.primary};
@@ -30,13 +30,13 @@ export const useStyles = () => {
     `,
     walletLogo: css`
       width: 48px;
-      margin-right: ${theme.spacing(2)};
+      margin-right: ${theme.spacing(4)};
       flex-shrink: 0;
     `,
     walletName: css`
       flex: 1;
       text-align: left;
-      margin-right: ${theme.spacing(2)};
+      margin-right: ${theme.spacing(4)};
     `,
     chevronRightIcon: css`
       width: 24px;
@@ -48,14 +48,14 @@ export const useStyles = () => {
       text-align: right;
     `,
     divider: css`
-      width: calc(100% - ${theme.spacing(10)});
+      width: calc(100% - ${theme.spacing(20)});
       height: 1px;
-      margin: ${theme.spacing(2, 'auto')};
+      margin: ${theme.spacing(4, 'auto')};
       background-color: ${theme.palette.secondary.light};
     `,
     footer: css`
       text-align: center;
-      padding: ${theme.spacing(2, 2, 0)};
+      padding: ${theme.spacing(4, 4, 0)};
     `,
     footerLink: css`
       color: ${theme.palette.button.main};

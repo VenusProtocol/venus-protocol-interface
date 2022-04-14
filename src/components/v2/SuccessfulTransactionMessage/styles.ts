@@ -11,27 +11,27 @@ export const useStyles = () => {
       align-items: center;
     `,
     headerIcon: css`
-      width: 64px;
-      height: 64px;
+      width: ${theme.spacing(16)};
+      height: ${theme.spacing(16)};
       color: ${theme.palette.interactive.success};
-      margin-bottom: ${theme.spacing(3)};
+      margin-bottom: ${theme.spacing(6)};
     `,
     title: css`
-      margin-bottom: ${theme.spacing(2)};
+      margin-bottom: ${theme.spacing(4)};
     `,
     messageContainer: css`
       margin: auto;
       display: flex;
       align-items: center;
-      margin-bottom: ${theme.spacing(5)};
+      margin-bottom: ${theme.spacing(10)};
     `,
     amountContainer: css`
       display: flex;
       align-items: center;
     `,
     amountTokenIcon: css`
-      margin-left: ${theme.spacing(1)};
-      margin-right: ${theme.spacing(0.5)};
+      margin-left: ${theme.spacing(2)};
+      margin-right: ${theme.spacing(1)};
     `,
   };
 };

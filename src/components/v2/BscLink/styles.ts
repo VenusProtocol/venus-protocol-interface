@@ -20,7 +20,7 @@ export const useStyles = () => {
       }
 
       ${theme.breakpoints.down('md')} {
-        margin: 0 auto ${theme.spacing(4)};
+        margin: 0 auto ${theme.spacing(8)};
       }
     `,
     text: css`
@@ -30,7 +30,7 @@ export const useStyles = () => {
     `,
     icon: css`
       color: inherit;
-      margin-left: ${theme.spacing(1)};
+      margin-left: ${theme.spacing(2)};
     `,
   };
 };
