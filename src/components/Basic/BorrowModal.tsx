@@ -231,7 +231,7 @@ function BorrowModal({ visible, asset, onCancel }: Props) {
         <img className="close-btn pointer" src={closeImg} alt="close" onClick={onCancel} />
         <div className="flex align-center just-center header-content">
           <img src={asset.img} alt="asset" />
-          <p className="title">{asset.name}</p>
+          <p className="title">{asset.symbol}</p>
         </div>
         {currentTab === 'borrow' && (
           <BorrowTab asset={asset} changeTab={setCurrentTab} onCancel={onCancel} />

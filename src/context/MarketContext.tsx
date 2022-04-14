@@ -164,7 +164,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             id: item.id,
             img: item.asset,
             vimg: item.vasset,
-            name: market.underlyingSymbol || '',
             symbol: market.underlyingSymbol || '',
             decimals: item.decimals,
             tokenAddress: market.underlyingAddress,

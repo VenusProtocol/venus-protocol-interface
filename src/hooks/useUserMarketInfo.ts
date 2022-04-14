@@ -15,7 +15,7 @@ import {
   IGetVTokenBalancesAllOutput,
 } from 'clients/api';
 
-const useUserMarketInfo = ({ account }: { account: string | null | undefined }) => {
+const useUserMarketInfo = ({ account }: { account: string | null | undefined }): Asset[] => {
   const { userVaiMinted } = useVaiUser();
 
   const vtAddresses = Object.values(VBEP_TOKENS)
@@ -89,8 +89,7 @@ const useUserMarketInfo = ({ account }: { account: string | null | undefined }) 
       id: item.id,
       img: item.asset,
       vimg: item.vasset,
-      name: market.underlyingSymbol || item.id.toUpperCase(),
-      symbol: market.underlyingSymbol || '',
+      symbol: market.underlyingSymbol || item.id.toUpperCase(),
       decimals: item.decimals,
       tokenAddress: market.underlyingAddress,
       vsymbol: market.symbol,

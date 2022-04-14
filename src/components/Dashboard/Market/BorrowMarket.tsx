@@ -48,7 +48,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
               <img src={asset.img} alt="ethereum" />
               <div className="flex flex-column align-start">
                 <Label size="14" primary>
-                  {asset.name}
+                  {asset.symbol}
                 </Label>
                 <Label size="14">{asset.borrowApy.dp(2, 1).toString(10)}%</Label>
               </div>
@@ -129,7 +129,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
               <img src={asset.img} alt="ethereum" />
               <div className="flex flex-column align-start">
                 <Label size="14" primary>
-                  {asset.name}
+                  {asset.symbol}
                 </Label>
                 <Label size="14">{asset.borrowApy.dp(2, 1).toString(10)}%</Label>
               </div>
