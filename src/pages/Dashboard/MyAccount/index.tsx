@@ -16,7 +16,7 @@ interface IMyAccountProps {
   supplyBalanceCents: number | undefined;
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
-  safeLimitPercentage: number;
+  safeBorrowLimitPercentage: number;
   className?: string;
 }
 
@@ -26,7 +26,7 @@ export const MyAccountUi = ({
   supplyBalanceCents,
   borrowBalanceCents,
   borrowLimitCents,
-  safeLimitPercentage,
+  safeBorrowLimitPercentage,
   className,
 }: IMyAccountProps) => {
   const styles = useStyles();
@@ -38,14 +38,28 @@ export const MyAccountUi = ({
     setToggleSwitched(checked);
   };
 
+  const readableBorrowBalance =
+    typeof borrowBalanceCents === 'number'
+      ? formatCentsToReadableValue(borrowBalanceCents)
+      : undefined;
+
   const borrowLimitUsedPercentage =
     typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
       ? Math.round((borrowBalanceCents * 100) / borrowLimitCents)
       : undefined;
 
-  const safeLimitCents =
+  const readableBorrowLimitUsedPercentage = borrowLimitUsedPercentage
+    ? `${borrowLimitUsedPercentage}%`
+    : undefined;
+
+  const safeBorrowLimitCents =
     typeof borrowLimitCents === 'number'
-      ? Math.floor((borrowLimitCents * safeLimitPercentage) / 100)
+      ? Math.floor((borrowLimitCents * safeBorrowLimitPercentage) / 100)
+      : undefined;
+
+  const readableSafeBorrowLimit =
+    typeof safeBorrowLimitCents === 'number'
+      ? formatCentsToReadableValue(safeBorrowLimitCents, true)
       : undefined;
 
   return (
@@ -110,9 +124,7 @@ export const MyAccountUi = ({
             Borrow balance
           </Typography>
 
-          {typeof borrowBalanceCents === 'number'
-            ? formatCentsToReadableValue(borrowBalanceCents)
-            : '-'}
+          {readableBorrowBalance || '-'}
         </Typography>
       </ul>
 
@@ -123,7 +135,7 @@ export const MyAccountUi = ({
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
-            {typeof borrowLimitUsedPercentage === 'number' && `${borrowLimitUsedPercentage}%`}
+            {readableBorrowLimitUsedPercentage || '-'}
           </Typography>
         </div>
 
@@ -142,13 +154,30 @@ export const MyAccountUi = ({
       <ProgressBarHorizontal
         css={styles.progressBar}
         value={borrowLimitUsedPercentage || 0}
-        mark={safeLimitPercentage}
+        mark={safeBorrowLimitPercentage}
         step={1}
         ariaLabel={t('myAccount.progressBar.ariaLabel')}
         min={0}
         max={100}
-        trackTooltip="Storybook tooltip text for Track"
-        markTooltip="Storybook tooltip text for Mark"
+        trackTooltip={
+          readableBorrowBalance &&
+          readableBorrowLimitUsedPercentage && (
+            <>
+              Current borrow balance:
+              <br />
+              {readableBorrowBalance} ({readableBorrowLimitUsedPercentage} of your borrow limit)
+            </>
+          )
+        }
+        markTooltip={
+          readableSafeBorrowLimit && (
+            <>
+              Safe borrow limit:
+              <br />
+              {readableSafeBorrowLimit} ({safeBorrowLimitPercentage}% of your borrow limit)
+            </>
+          )
+        }
         isDisabled
       />
 
@@ -160,9 +189,7 @@ export const MyAccountUi = ({
         </Typography>
 
         <Typography component="span" variant="small1" color="text.primary" css={styles.safeLimit}>
-          {typeof safeLimitCents === 'number'
-            ? formatCentsToReadableValue(safeLimitCents, true)
-            : '-'}
+          {readableSafeBorrowLimit || '-'}
         </Typography>
 
         {/* @TODO: update tooltip content */}
@@ -178,61 +205,66 @@ const MyAccount: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const assets = useUserMarketInfo({ account: account?.address });
 
-  const uiProps: Omit<IMyAccountProps, 'className' | 'safeLimitPercentage'> = React.useMemo(() => {
-    let supplyBalanceCents: BigNumber | undefined;
-    let borrowBalanceCents: BigNumber | undefined;
-    let borrowLimitCents: BigNumber | undefined;
+  const uiProps: Omit<IMyAccountProps, 'className' | 'safeBorrowLimitPercentage'> =
+    React.useMemo(() => {
+      let supplyBalanceCents: BigNumber | undefined;
+      let borrowBalanceCents: BigNumber | undefined;
+      let borrowLimitCents: BigNumber | undefined;
 
-    // We use the yearly earnings to calculate the daily earnings the net APY
-    let yearlyEarningsCents: BigNumber | undefined;
+      // We use the yearly earnings to calculate the daily earnings the net APY
+      let yearlyEarningsCents: BigNumber | undefined;
 
-    assets.forEach(asset => {
-      // Initialize values to 0. Note that we only initialize the values if at
-      // least one asset has been fetched (we don't want to display zeros while
-      // the query is loading or if a fetching error happens)
-      if (!borrowBalanceCents) {
-        borrowBalanceCents = new BigNumber(0);
-      }
+      assets.forEach(asset => {
+        // Initialize values to 0. Note that we only initialize the values if at
+        // least one asset has been fetched (we don't want to display zeros while
+        // the query is loading or if a fetching error happens)
+        if (!borrowBalanceCents) {
+          borrowBalanceCents = new BigNumber(0);
+        }
 
-      if (!supplyBalanceCents) {
-        supplyBalanceCents = new BigNumber(0);
-      }
+        if (!supplyBalanceCents) {
+          supplyBalanceCents = new BigNumber(0);
+        }
 
-      if (!borrowLimitCents) {
-        borrowLimitCents = new BigNumber(0);
-      }
+        if (!borrowLimitCents) {
+          borrowLimitCents = new BigNumber(0);
+        }
 
-      if (!yearlyEarningsCents) {
-        yearlyEarningsCents = new BigNumber(0);
-      }
+        if (!yearlyEarningsCents) {
+          yearlyEarningsCents = new BigNumber(0);
+        }
 
-      borrowBalanceCents = borrowBalanceCents.plus(
-        asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
-      );
-
-      supplyBalanceCents = supplyBalanceCents.plus(
-        asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
-      );
-
-      // Update borrow limit if asset is currently enabled as collateral
-      if (asset.collateral) {
-        borrowLimitCents = borrowLimitCents.plus(
-          supplyBalanceCents.multipliedBy(asset.collateralFactor),
+        borrowBalanceCents = borrowBalanceCents.plus(
+          asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
         );
-      }
 
-      const supplyYearlyEarnings = supplyBalanceCents.multipliedBy(asset.supplyApy).dividedBy(100);
-      // Note that borrowYearlyInterests will always be negative (or 0), since
-      // the borrow APY is expressed with a negative percentage)
-      const borrowYearlyInterests = borrowBalanceCents.multipliedBy(asset.borrowApy).dividedBy(100);
+        supplyBalanceCents = supplyBalanceCents.plus(
+          asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+        );
 
-      // @TODO: include XVS distribution APY if enabled
-      yearlyEarningsCents = yearlyEarningsCents.plus(
-        supplyYearlyEarnings.plus(borrowYearlyInterests),
-      );
-    });
+        // Update borrow limit if asset is currently enabled as collateral
+        if (asset.collateral) {
+          borrowLimitCents = borrowLimitCents.plus(
+            supplyBalanceCents.multipliedBy(asset.collateralFactor),
+          );
+        }
 
-    /*
+        const supplyYearlyEarnings = supplyBalanceCents
+          .multipliedBy(asset.supplyApy)
+          .dividedBy(100);
+        // Note that borrowYearlyInterests will always be negative (or 0), since
+        // the borrow APY is expressed with a negative percentage)
+        const borrowYearlyInterests = borrowBalanceCents
+          .multipliedBy(asset.borrowApy)
+          .dividedBy(100);
+
+        // @TODO: include XVS distribution APY if enabled
+        yearlyEarningsCents = yearlyEarningsCents.plus(
+          supplyYearlyEarnings.plus(borrowYearlyInterests),
+        );
+      });
+
+      /*
     The net APY represents a percentage of the difference between the supply
     balance and the borrow balance.
 
@@ -242,27 +274,27 @@ const MyAccount: React.FC = () => {
     Then we calculate what percentage of that difference the yearly earnings
     represent: netApy = yearlyEarnings * 100 / supplyBorrowDifference
     */
-    const supplyBorrowDifferenceCents =
-      supplyBalanceCents && borrowBalanceCents && supplyBalanceCents.minus(borrowBalanceCents);
+      const supplyBorrowDifferenceCents =
+        supplyBalanceCents && borrowBalanceCents && supplyBalanceCents.minus(borrowBalanceCents);
 
-    const netApyPercentage =
-      supplyBorrowDifferenceCents &&
-      yearlyEarningsCents &&
-      +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2);
+      const netApyPercentage =
+        supplyBorrowDifferenceCents &&
+        yearlyEarningsCents &&
+        +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2);
 
-    const dailyEarningsCents =
-      yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
+      const dailyEarningsCents =
+        yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
 
-    return {
-      netApyPercentage,
-      dailyEarningsCents,
-      supplyBalanceCents: supplyBalanceCents?.toNumber(),
-      borrowBalanceCents: borrowBalanceCents?.toNumber(),
-      borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
-    };
-  }, [JSON.stringify(assets)]);
+      return {
+        netApyPercentage,
+        dailyEarningsCents,
+        supplyBalanceCents: supplyBalanceCents?.toNumber(),
+        borrowBalanceCents: borrowBalanceCents?.toNumber(),
+        borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
+      };
+    }, [JSON.stringify(assets)]);
 
-  return <MyAccountUi safeLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE} {...uiProps} />;
+  return <MyAccountUi safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE} {...uiProps} />;
 };
 
 export default MyAccount;

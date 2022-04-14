@@ -21,7 +21,7 @@ export const Default = () => (
     supplyBalanceCents={122889}
     borrowBalanceCents={30243}
     borrowLimitCents={73730}
-    safeLimitPercentage={65}
+    safeBorrowLimitPercentage={65}
   />
 );
 
@@ -32,6 +32,6 @@ export const WithoutValues = () => (
     supplyBalanceCents={undefined}
     borrowBalanceCents={undefined}
     borrowLimitCents={undefined}
-    safeLimitPercentage={65}
+    safeBorrowLimitPercentage={65}
   />
 );

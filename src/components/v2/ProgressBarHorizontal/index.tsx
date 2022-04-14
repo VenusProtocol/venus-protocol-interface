@@ -4,7 +4,7 @@ import MaterialSlider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import { SliderTypeMap } from '@mui/material/Slider/Slider';
 
-import { Tooltip } from '../Tooltip';
+import { Tooltip, ITooltipProps } from '../Tooltip';
 import { useStyles } from './styles';
 
 export interface ISliderProps {
@@ -14,8 +14,8 @@ export interface ISliderProps {
   ariaLabel: string;
   min: number;
   max: number;
-  trackTooltip?: string;
-  markTooltip?: string;
+  trackTooltip?: ITooltipProps['title'];
+  markTooltip?: ITooltipProps['title'];
   isDisabled?: boolean;
   className?: string;
 }

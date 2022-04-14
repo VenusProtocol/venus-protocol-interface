@@ -3,7 +3,7 @@ import { Global } from '@emotion/react';
 import MuiTooltip, { TooltipProps } from '@mui/material/Tooltip';
 import { useStyles } from './styles';
 
-type ITooltipProps = TooltipProps;
+export type ITooltipProps = TooltipProps;
 
 export const Tooltip = ({ children, ...rest }: ITooltipProps) => {
   const styles = useStyles();
