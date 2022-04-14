@@ -4,12 +4,14 @@ import BigNumber from 'bignumber.js';
 
 import { AuthContext } from 'context/AuthContext';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { internalError } from 'utilities/getError';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useGetVaiTreasuryPercentage } from 'clients/api';
 import useMintVai from 'clients/api/mutations/useMintVai';
 import toast from 'components/Basic/Toast';
+import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
 import getReadableFeeVai from './getReadableFeeVai';
@@ -31,6 +33,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   mintVai,
 }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   // Convert limit into VAI
   const readableVaiLimit = useConvertToReadableCoinString({
@@ -60,14 +63,15 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
       // Send request to repay VAI
       await mintVai(amountWei);
 
+      const coin = convertWeiToCoins({
+        value: amountWei,
+        tokenSymbol: VAI_SYMBOL,
+        returnInReadableFormat: true,
+      });
       // @TODO: display success modal instead of toast once it's been
       // implemented
       toast.success({
-        title: `You successfully minted ${convertWeiToCoins({
-          value: amountWei,
-          tokenSymbol: VAI_SYMBOL,
-          returnInReadableFormat: true,
-        })}`,
+        title: t('mintRepayVai.mintVai.successMessage', { coin }),
       });
     } catch (error) {
       toast.error({ title: (error as Error).message });
@@ -88,13 +92,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
               onBlur={handleBlur}
               maxWei={limitWei}
               disabled={disabled || isMintVaiLoading || !hasMintableVai}
-              rightMaxButtonLabel="SAFE MAX"
+              rightMaxButtonLabel={t('mintRepayVai.mintVai.rightMaxButtonLabel')}
             />
 
             <LabeledInlineContent
               css={styles.getRow({ isLast: false })}
               iconName={VAI_SYMBOL}
-              label="Available VAI limit"
+              label={t('mintRepayVai.mintVai.vaiLimitLabel')}
             >
               {readableVaiLimit}
             </LabeledInlineContent>
@@ -102,7 +106,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
             <LabeledInlineContent
               css={styles.getRow({ isLast: true })}
               iconName="fee"
-              label="Mint fee"
+              label={t('mintRepayVai.mintVai.mintFeeLabel')}
             >
               {getReadableMintFee(values.amount)}
             </LabeledInlineContent>
@@ -114,7 +118,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
             disabled={disabled || !isValid || !dirty}
             fullWidth
           >
-            Mint VAI
+            {t('mintRepayVai.mintVai.btnMintVai')}
           </SecondaryButton>
         </>
       )}
@@ -125,6 +129,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 const MintVai: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const { mintableVai } = useVaiUser();
+  const { t } = useTranslation();
 
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
@@ -139,9 +144,10 @@ const MintVai: React.FC = () => {
 
   const mintVai: IMintVaiUiProps['mintVai'] = async amountWei => {
     if (!account) {
+      const errorMessage = t('mintRepayVai.mintVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw new Error('An internal error occurred: account undefined. Please try again later.');
+      throw internalError(errorMessage);
     }
 
     return contractMintVai({
