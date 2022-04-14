@@ -11,15 +11,15 @@ export const useStyles = ({ isOpened }: { isOpened: boolean }) => {
       box-shadow: ${isOpened ? `0px 0 0 2px ${theme.palette.background.paper}` : 'none'};
       line-height: 24px;
       border-radius: ${theme.shape.borderRadius.small}px;
-      height: 32px;
+      height: ${theme.spacing(8)};
       box-sizing: border-box;
       .MuiSelect-icon {
         transition: transform 0.3s;
       }
       .MuiSelect-select {
-        padding-top: ${theme.spacing(0.5)};
-        padding-bottom: ${theme.spacing(0.5)};
-        padding-left: ${theme.spacing(1.5)};
+        padding-top: ${theme.spacing(1)};
+        padding-bottom: ${theme.spacing(1)};
+        padding-left: ${theme.spacing(3)};
         background-color: ${theme.palette.background.paper};
         border-radius: ${theme.shape.borderRadius.small}px;
       }

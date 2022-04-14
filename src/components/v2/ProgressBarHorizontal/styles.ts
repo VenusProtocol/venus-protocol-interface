@@ -7,7 +7,7 @@ export const useStyles = ({ over }: { over: boolean }) => {
     slider: css`
       color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
       background-color: ${theme.palette.background.default};
-      height: 8px;
+      height: ${theme.spacing(2)};
       padding: 0;
       &.Mui-disabled {
         color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
@@ -16,11 +16,11 @@ export const useStyles = ({ over }: { over: boolean }) => {
         background-color: ${over
           ? theme.palette.interactive.error50
           : theme.palette.interactive.success};
-        height: 8px;
-        border-radius: 4px;
+        height: ${theme.spacing(2)};
+        border-radius: ${theme.spacing(1)};
       }
       .MuiSlider-rail {
-        height: 8px;
+        height: ${theme.spacing(2)};
         color: ${theme.palette.background.default};
       }
     `,
@@ -36,8 +36,8 @@ export const useStyles = ({ over }: { over: boolean }) => {
       z-index: 1;
 
       /* theme styles */
-      width: 4px;
-      height: 8px;
+      width: ${theme.spacing(1)};
+      height: ${theme.spacing(2)};
       color: ${theme.palette.interactive.error};
     `,
     hasTooltip: css`

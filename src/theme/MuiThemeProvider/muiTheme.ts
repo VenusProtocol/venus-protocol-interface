@@ -55,7 +55,7 @@ const BREAKPOINTS = {
   },
 };
 
-const SPACING = 8;
+const SPACING = 4;
 
 export default createTheme({
   spacing: SPACING,
@@ -63,12 +63,13 @@ export default createTheme({
   breakpoints: BREAKPOINTS,
   shape: {
     borderRadius: {
-      small: SPACING,
-      medium: SPACING * 2,
-      large: SPACING * 3,
+      verySmall: SPACING,
+      small: SPACING * 2,
+      medium: SPACING * 4,
+      large: SPACING * 6,
     } as any, // our custom types seem to clash with the default MUI types
     iconSize: {
-      medium: SPACING * 2,
+      medium: SPACING * 4,
       large: 20,
     },
     footerHeight: '56px',

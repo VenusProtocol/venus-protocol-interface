@@ -9,10 +9,10 @@ export const useStyles = () => {
       flex-direction: row;
       align-items: center;
       justify-content: start;
-      padding: ${theme.spacing(1.5)} ${theme.spacing(2)};
+      padding: ${theme.spacing(3)} ${theme.spacing(4)};
       box-shadow: none;
       > * {
-        margin-right: ${theme.spacing(1.5)};
+        margin-right: ${theme.spacing(3)};
       }
       p {
         color: ${theme.palette.text.primary};

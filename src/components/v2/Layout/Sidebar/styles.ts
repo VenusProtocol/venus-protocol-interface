@@ -28,7 +28,7 @@ export const useStyles = () => {
     toolbar: css`
       display: flex;
       justify-content: center;
-      padding: ${theme.spacing(5, 4, 6)};
+      padding: ${theme.spacing(10, 8, 12)};
       min-height: 0;
       ${theme.breakpoints.down('md')} {
         min-height: initial;
@@ -70,7 +70,7 @@ export const useStyles = () => {
       }
 
       a {
-        padding: ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(4)};
+        padding: ${theme.spacing(4)} ${theme.spacing(4)} ${theme.spacing(4)} ${theme.spacing(8)};
         display: inline-flex;
         justify-content: start;
         width: 100%;
@@ -79,7 +79,7 @@ export const useStyles = () => {
           width: auto;
           margin: auto;
           border-radius: ${theme.shape.borderRadius.medium}px;
-          padding: ${theme.spacing(2)};
+          padding: ${theme.spacing(4)};
           justify-content: center;
         }
 
@@ -109,15 +109,15 @@ export const useStyles = () => {
       }
     `,
     listItemIcon: css`
-      min-width: 32px;
+      min-width: ${theme.spacing(8)};
       ${theme.breakpoints.down('lg')} {
         min-width: 0;
         justify-content: center;
       }
       color: inherit;
       svg {
-        height: 20px;
-        width: 20px;
+        height: ${theme.spacing(5)};
+        width: ${theme.spacing(5)};
       }
     `,
     listItemText: css`
@@ -151,18 +151,18 @@ export const useStyles = () => {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      padding: ${theme.spacing(2)};
+      padding: ${theme.spacing(4)};
       ${theme.breakpoints.down('md')} {
         display: flex;
       }
     `,
     mobileLogo: css`
-      height: 40px;
-      width: 40px;
+      height: ${theme.spacing(10)};
+      width: ${theme.spacing(10)};
     `,
     burger: css`
-      height: 24px;
-      width: 24px;
+      height: ${theme.spacing(6)};
+      width: ${theme.spacing(6)};
     `,
     mobileMenu: css`
       > .MuiPaper-root {
@@ -186,11 +186,11 @@ export const useStyles = () => {
         display: flex;
         flex-direction: row;
         flex: 1;
-        padding-top: ${theme.spacing(2)};
-        padding-bottom: ${theme.spacing(2)};
+        padding-top: ${theme.spacing(4)};
+        padding-bottom: ${theme.spacing(4)};
         justify-content: space-between;
-        padding-left: ${theme.spacing(3)};
-        padding-right: ${theme.spacing(3)};
+        padding-left: ${theme.spacing(6)};
+        padding-right: ${theme.spacing(6)};
       }
       :hover {
         margin-left: 0;
@@ -208,8 +208,8 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
     `,
     mobileArrow: css`
-      height: 24px;
-      width: 24px;
+      height: ${theme.spacing(6)};
+      width: ${theme.spacing(6)};
     `,
     mobileLabel: css`
       flex-direction: row;
@@ -217,7 +217,7 @@ export const useStyles = () => {
       display: inline-flex;
       align-items: center;
       svg {
-        margin-right: ${theme.spacing(2)};
+        margin-right: ${theme.spacing(4)};
       }
     `,
     flexRow: css`
@@ -228,7 +228,7 @@ export const useStyles = () => {
       align-items: center;
     `,
     doublePadding: css`
-      padding: ${theme.spacing(1)} ${theme.spacing(2)}; ;
+      padding: ${theme.spacing(2)} ${theme.spacing(4)}; ;
     `,
     coinInfo: css`
       > div {
@@ -236,10 +236,10 @@ export const useStyles = () => {
         flex: 1;
       }
       div:first-child {
-        margin-right: ${theme.spacing(1)};
+        margin-right: ${theme.spacing(2)};
       }
       div:last-child {
-        margin-left: 0 ${theme.spacing(1)};
+        margin-left: 0 ${theme.spacing(2)};
       }
     `,
     actionButton: css`
