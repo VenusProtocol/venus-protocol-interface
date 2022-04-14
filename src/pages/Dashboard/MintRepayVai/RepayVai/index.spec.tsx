@@ -92,7 +92,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     // Check success toast is requested
     expect(toast.success).toHaveBeenCalledTimes(1);
     expect(toast.success).toHaveBeenCalledWith({
-      title: `You successfully repaid ${fakeUserVaiMinted.toString()} VAI`,
+      title: `You successfully repaid\u00A0${fakeUserVaiMinted.toString()} VAI`,
     });
   });
 
