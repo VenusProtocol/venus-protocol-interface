@@ -9,7 +9,7 @@ export const useStyles = ({ over }: { over: boolean }) => {
       color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
       background-color: ${theme.palette.background.default};
       height: ${theme.spacing(2)};
-      padding: 0;
+      padding: 0 !important;
       &.Mui-disabled {
         color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
       }
