@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 
-import SupplyMarket from './Markets/SupplyMarket';
-import BorrowMarket from './Markets/BorrowMarket';
+import { SupplyMarket, BorrowMarket } from './Markets';
 
 const DashboardUi: React.FC = () => (
   <div>

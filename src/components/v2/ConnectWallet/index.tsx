@@ -3,6 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { AuthContext } from 'context/AuthContext';
+import { useTranslation } from 'translation';
 import { Icon } from '../Icon';
 import { SecondaryButton } from '../Button';
 import { useStyles } from './styles';
@@ -22,6 +23,8 @@ export const Prompt: React.FC<IPromptProps> = ({
   connected,
 }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
+
   // Render prompt if user aren't connected with any wallet
   if (connected) {
     return <>{children}</>;
@@ -37,7 +40,7 @@ export const Prompt: React.FC<IPromptProps> = ({
       </div>
 
       <SecondaryButton fullWidth onClick={openAuthModal}>
-        Connect wallet
+        {t('connectWallet.connectButton')}
       </SecondaryButton>
     </div>
   );

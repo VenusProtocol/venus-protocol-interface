@@ -12,7 +12,8 @@ import {
 } from 'config';
 import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 import { useBlock } from 'hooks/useBlock';
-import { Icon } from '../../Icon';
+import { useTranslation } from 'translation';
+import { Icon } from 'components/v2/Icon';
 import { useStyles } from './styles';
 
 export interface IFooterProps {
@@ -21,6 +22,7 @@ export interface IFooterProps {
 
 export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div css={styles.container}>
@@ -32,7 +34,7 @@ export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
         target="_blank"
         rel="noreferrer"
       >
-        Latest Block:&nbsp;
+        {t('footer.latestNumber')}
         <br css={styles.blockInfoMobileLineBreak} />
         <span css={styles.blockInfoNumber}>{currentBlockNumber}</span>
       </Typography>
