@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 
@@ -17,6 +17,8 @@ interface IMyAccountProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeBorrowLimitPercentage: number;
+  withXvs: boolean;
+  onXvsToggle: (newValue: boolean) => void;
   className?: string;
 }
 
@@ -27,16 +29,12 @@ export const MyAccountUi = ({
   borrowBalanceCents,
   borrowLimitCents,
   safeBorrowLimitPercentage,
+  withXvs,
+  onXvsToggle,
   className,
 }: IMyAccountProps) => {
   const styles = useStyles();
-  // @TODO: update to use a shared state (or possibly speak with designers about
-  // changing the designs, as it feels weird that this toggle would also update
-  // the borrow and supply market tables)
-  const [isToggleSwitched, setToggleSwitched] = useState(true);
-  const handleSwitch: IToggleProps['onChange'] = (event, checked) => {
-    setToggleSwitched(checked);
-  };
+  const handleXvsToggleChange: IToggleProps['onChange'] = (event, checked) => onXvsToggle(checked);
 
   const readableBorrowBalance =
     typeof borrowBalanceCents === 'number'
@@ -77,7 +75,7 @@ export const MyAccountUi = ({
             APY with XVS
           </Typography>
 
-          <Toggle css={styles.toggle} value={isToggleSwitched} onChange={handleSwitch} />
+          <Toggle css={styles.toggle} value={withXvs} onChange={handleXvsToggleChange} />
         </Typography>
       </div>
 
@@ -205,66 +203,84 @@ const MyAccount: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const assets = useUserMarketInfo({ account: account?.address });
 
-  const uiProps: Omit<IMyAccountProps, 'className' | 'safeBorrowLimitPercentage'> =
-    React.useMemo(() => {
-      let supplyBalanceCents: BigNumber | undefined;
-      let borrowBalanceCents: BigNumber | undefined;
-      let borrowLimitCents: BigNumber | undefined;
+  // @TODO: elevate state so it can be shared with borrow and supply markets
+  const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
 
-      // We use the yearly earnings to calculate the daily earnings the net APY
-      let yearlyEarningsCents: BigNumber | undefined;
+  const uiProps: Pick<
+    IMyAccountProps,
+    | 'netApyPercentage'
+    | 'dailyEarningsCents'
+    | 'supplyBalanceCents'
+    | 'borrowBalanceCents'
+    | 'borrowLimitCents'
+  > = React.useMemo(() => {
+    let supplyBalanceCents: BigNumber | undefined;
+    let borrowBalanceCents: BigNumber | undefined;
+    let borrowLimitCents: BigNumber | undefined;
 
-      assets.forEach(asset => {
-        // Initialize values to 0. Note that we only initialize the values if at
-        // least one asset has been fetched (we don't want to display zeros while
-        // the query is loading or if a fetching error happens)
-        if (!borrowBalanceCents) {
-          borrowBalanceCents = new BigNumber(0);
-        }
+    // We use the yearly earnings to calculate the daily earnings the net APY
+    let yearlyEarningsCents: BigNumber | undefined;
 
-        if (!supplyBalanceCents) {
-          supplyBalanceCents = new BigNumber(0);
-        }
+    assets.forEach(asset => {
+      // Initialize values to 0. Note that we only initialize the values if at
+      // least one asset has been fetched (we don't want to display zeros while
+      // the query is loading or if a fetching error happens)
+      if (!borrowBalanceCents) {
+        borrowBalanceCents = new BigNumber(0);
+      }
 
-        if (!borrowLimitCents) {
-          borrowLimitCents = new BigNumber(0);
-        }
+      if (!supplyBalanceCents) {
+        supplyBalanceCents = new BigNumber(0);
+      }
 
-        if (!yearlyEarningsCents) {
-          yearlyEarningsCents = new BigNumber(0);
-        }
+      if (!borrowLimitCents) {
+        borrowLimitCents = new BigNumber(0);
+      }
 
-        borrowBalanceCents = borrowBalanceCents.plus(
-          asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+      if (!yearlyEarningsCents) {
+        yearlyEarningsCents = new BigNumber(0);
+      }
+
+      borrowBalanceCents = borrowBalanceCents.plus(
+        asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+      );
+
+      supplyBalanceCents = supplyBalanceCents.plus(
+        asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+      );
+
+      // Update borrow limit if asset is currently enabled as collateral
+      if (asset.collateral) {
+        borrowLimitCents = borrowLimitCents.plus(
+          supplyBalanceCents.multipliedBy(asset.collateralFactor),
         );
+      }
 
-        supplyBalanceCents = supplyBalanceCents.plus(
-          asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
-        );
+      const supplyYearlyEarnings = supplyBalanceCents.multipliedBy(asset.supplyApy).dividedBy(100);
+      // Note that borrowYearlyInterests will always be negative (or 0), since
+      // the borrow APY is expressed with a negative percentage)
+      const borrowYearlyInterests = borrowBalanceCents.multipliedBy(asset.borrowApy).dividedBy(100);
 
-        // Update borrow limit if asset is currently enabled as collateral
-        if (asset.collateral) {
-          borrowLimitCents = borrowLimitCents.plus(
-            supplyBalanceCents.multipliedBy(asset.collateralFactor),
-          );
-        }
+      yearlyEarningsCents = yearlyEarningsCents.plus(
+        supplyYearlyEarnings.plus(borrowYearlyInterests),
+      );
 
-        const supplyYearlyEarnings = supplyBalanceCents
-          .multipliedBy(asset.supplyApy)
+      // Add XVS distribution earnings if enabled
+      if (isXvsEnabled) {
+        const supplyDistributionYearlyEarnings = supplyBalanceCents
+          .multipliedBy(asset.xvsSupplyApy)
           .dividedBy(100);
-        // Note that borrowYearlyInterests will always be negative (or 0), since
-        // the borrow APY is expressed with a negative percentage)
-        const borrowYearlyInterests = borrowBalanceCents
-          .multipliedBy(asset.borrowApy)
+        const borrowDistributionYearlyEarnings = borrowBalanceCents
+          .multipliedBy(asset.xvsBorrowApy)
           .dividedBy(100);
 
-        // @TODO: include XVS distribution APY if enabled
-        yearlyEarningsCents = yearlyEarningsCents.plus(
-          supplyYearlyEarnings.plus(borrowYearlyInterests),
-        );
-      });
+        yearlyEarningsCents = yearlyEarningsCents
+          .plus(supplyDistributionYearlyEarnings)
+          .plus(borrowDistributionYearlyEarnings);
+      }
+    });
 
-      /*
+    /*
     The net APY represents a percentage of the difference between the supply
     balance and the borrow balance.
 
@@ -274,29 +290,36 @@ const MyAccount: React.FC = () => {
     Then we calculate what percentage of that difference the yearly earnings
     represent: netApy = yearlyEarnings * 100 / supplyBorrowDifference
     */
-      const supplyBorrowDifferenceCents =
-        supplyBalanceCents && borrowBalanceCents && supplyBalanceCents.minus(borrowBalanceCents);
+    const supplyBorrowDifferenceCents =
+      supplyBalanceCents && borrowBalanceCents && supplyBalanceCents.minus(borrowBalanceCents);
 
-      const netApyPercentage =
-        supplyBorrowDifferenceCents &&
-        yearlyEarningsCents &&
-        supplyBorrowDifferenceCents.isGreaterThan(0)
-          ? +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2)
-          : undefined;
+    const netApyPercentage =
+      supplyBorrowDifferenceCents &&
+      yearlyEarningsCents &&
+      supplyBorrowDifferenceCents.isGreaterThan(0)
+        ? +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2)
+        : undefined;
 
-      const dailyEarningsCents =
-        yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
+    const dailyEarningsCents =
+      yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
 
-      return {
-        netApyPercentage,
-        dailyEarningsCents,
-        supplyBalanceCents: supplyBalanceCents?.toNumber(),
-        borrowBalanceCents: borrowBalanceCents?.toNumber(),
-        borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
-      };
-    }, [JSON.stringify(assets)]);
+    return {
+      netApyPercentage,
+      dailyEarningsCents,
+      supplyBalanceCents: supplyBalanceCents?.toNumber(),
+      borrowBalanceCents: borrowBalanceCents?.toNumber(),
+      borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
+    };
+  }, [JSON.stringify(assets), isXvsEnabled]);
 
-  return <MyAccountUi safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE} {...uiProps} />;
+  return (
+    <MyAccountUi
+      safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+      withXvs={isXvsEnabled}
+      onXvsToggle={setIsXvsEnabled}
+      {...uiProps}
+    />
+  );
 };
 
 export default MyAccount;

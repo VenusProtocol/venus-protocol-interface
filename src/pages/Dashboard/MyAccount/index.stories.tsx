@@ -1,5 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+
+import noop from 'noop-ts';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
 import { MyAccountUi } from '.';
 
@@ -22,10 +24,12 @@ export const Default = () => (
     borrowBalanceCents={30243}
     borrowLimitCents={73730}
     safeBorrowLimitPercentage={65}
+    onXvsToggle={noop}
+    withXvs
   />
 );
 
-export const WithoutValues = () => (
+export const WithoutUndefinedValues = () => (
   <MyAccountUi
     netApyPercentage={undefined}
     dailyEarningsCents={undefined}
@@ -33,5 +37,7 @@ export const WithoutValues = () => (
     borrowBalanceCents={undefined}
     borrowLimitCents={undefined}
     safeBorrowLimitPercentage={65}
+    onXvsToggle={noop}
+    withXvs={false}
   />
 );
