@@ -179,8 +179,6 @@ const MyAccount: React.FC = () => {
     let supplyBalanceCents: BigNumber | undefined;
     let borrowBalanceCents: BigNumber | undefined;
     let borrowLimitCents: BigNumber | undefined;
-    let dailyEarningsCents: number | undefined;
-    let netApyPercentage: number | undefined;
 
     // We use the yearly earnings to calculate the daily earnings the net APY
     let yearlyEarningsCents: BigNumber | undefined;
@@ -203,10 +201,6 @@ const MyAccount: React.FC = () => {
 
       if (!yearlyEarningsCents) {
         yearlyEarningsCents = new BigNumber(0);
-      }
-
-      if (!dailyEarningsCents) {
-        dailyEarningsCents = 0;
       }
 
       borrowBalanceCents = borrowBalanceCents.plus(
@@ -235,9 +229,30 @@ const MyAccount: React.FC = () => {
       );
     });
 
+    /*
+    The net APY represents a percentage of the difference between the supply
+    balance and the borrow balance.
+
+    We first calculate the difference between the supply balance and the borrow
+    balance: supplyBorrowDifference = supplyBalance - borrowBalance
+
+    Then we calculate what percentage of that difference the yearly earnings
+    represent: netApy = yearlyEarnings * 100 / supplyBorrowDifference
+    */
+    const supplyBorrowDifferenceCents =
+      supplyBalanceCents && borrowBalanceCents && supplyBalanceCents.minus(borrowBalanceCents);
+
+    const netApyPercentage =
+      supplyBorrowDifferenceCents &&
+      yearlyEarningsCents &&
+      +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2);
+
+    const dailyEarningsCents =
+      yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
+
     return {
       netApyPercentage,
-      dailyEarningsCents: yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0),
+      dailyEarningsCents,
       supplyBalanceCents: supplyBalanceCents?.toNumber(),
       borrowBalanceCents: borrowBalanceCents?.toNumber(),
       borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
