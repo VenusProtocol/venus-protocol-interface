@@ -187,7 +187,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Repay {asset.name} to the Venus Protocol, you need to enable it first.
+              To Repay {asset.symbol} to the Venus Protocol, you need to enable it first.
             </p>
           </>
         )}

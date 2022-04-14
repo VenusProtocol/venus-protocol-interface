@@ -44,8 +44,8 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token symbol={asset.name as TokenId} />,
-        value: asset.name,
+        render: () => <Token symbol={asset.symbol as TokenId} />,
+        value: asset.id,
       },
       {
         key: 'apy',

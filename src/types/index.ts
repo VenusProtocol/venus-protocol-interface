@@ -6,8 +6,7 @@ export interface User {
 }
 
 export interface Asset {
-  id: string;
-  name: string;
+  id: TokenId;
   tokenPrice: BigNumber;
   symbol: string;
   borrowBalance: BigNumber;

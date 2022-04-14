@@ -1,16 +1,15 @@
 import BigNumber from 'bignumber.js';
+import { Asset } from 'types';
 
-export const assetData = [
+export const assetData: Asset[] = [
   {
-    id: '1',
-    address: '1',
-    symbol: 'xvs',
+    id: 'xvs',
+    symbol: 'XVS',
     borrowApy: new BigNumber('3.14'),
     liquidity: new BigNumber('2151232133213'),
     tokenPrice: new BigNumber(123),
     borrowBalance: new BigNumber('123'),
     decimals: 18,
-    name: 'XVS',
     walletBalance: new BigNumber('444'),
     isEnabled: true,
     vtokenAddress: '0x123',
@@ -32,15 +31,13 @@ export const assetData = [
     hypotheticalLiquidity: ['1', '2', '3'] as [string, string, string],
   },
   {
-    id: '2',
-    address: '2',
-    symbol: 'usdc',
+    id: 'usdc',
+    symbol: 'USDC',
     borrowApy: new BigNumber('0.14'),
     liquidity: new BigNumber('2158192683'),
     tokenPrice: new BigNumber(123333),
     borrowBalance: new BigNumber('12333'),
     decimals: 18,
-    name: 'usdc',
     walletBalance: new BigNumber('444'),
     isEnabled: true,
     vtokenAddress: '0x123',
@@ -62,15 +59,13 @@ export const assetData = [
     hypotheticalLiquidity: ['1', '2', '3'] as [string, string, string],
   },
   {
-    id: '3',
-    address: '3',
-    symbol: 'bnb',
+    id: 'bnb',
+    symbol: 'BNB',
     borrowApy: new BigNumber('8.14'),
     liquidity: new BigNumber('918723'),
     tokenPrice: new BigNumber(123),
     borrowBalance: new BigNumber('13323'),
     decimals: 18,
-    name: 'bnb',
     walletBalance: new BigNumber('444'),
     isEnabled: true,
     vtokenAddress: '0x123',
