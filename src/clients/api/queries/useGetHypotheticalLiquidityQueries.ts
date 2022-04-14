@@ -28,7 +28,7 @@ const useGetHypotheticalLiquidityQueries = (
           ? true
           : balances[asset.vtokenAddress.toLowerCase()]?.balanceOf !== undefined;
       return {
-        queryKey: [FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, account, asset.name],
+        queryKey: [FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, account, asset.symbol],
         queryFn: () =>
           getHypotheticalAccountLiquidity({
             comptrollerContract,
