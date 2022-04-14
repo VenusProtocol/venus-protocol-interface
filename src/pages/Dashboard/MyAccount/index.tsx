@@ -34,10 +34,10 @@ export const MyAccount = ({
   return (
     <div css={styles.container}>
       <div css={[styles.row, styles.header]}>
-        <Typography variant="h4">{t('myAccount.title')}</Typography>
+        <Typography variant="h4">My account</Typography>
 
         <Typography component="div" variant="small2" css={styles.apyWithXvs}>
-          <Tooltip css={styles.tooltip} title={t('myAccount.apyWithXvsTooltip')}>
+          <Tooltip css={styles.tooltip} title="tooltip content">
             <Icon css={styles.getInfoIcon({ position: 'left' })} name="info" />
           </Tooltip>
 
@@ -51,8 +51,8 @@ export const MyAccount = ({
 
       <div css={styles.netApyContainer}>
         <Typography component="div" variant="small2" css={styles.netApyLabel}>
-          {t('myAccount.netApy')}
-          <Tooltip css={styles.tooltip} title={t('myAccount.netApyTooltip')}>
+          Net APY
+          <Tooltip css={styles.tooltip} title="tooltip content">
             <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
           </Tooltip>
         </Typography>
@@ -65,7 +65,7 @@ export const MyAccount = ({
       <ul css={styles.list}>
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="div" variant="small2" css={styles.labelListItem}>
-            {t('myAccount.dailyEarnings')}
+            Daily earnings
           </Typography>
 
           {formatCentsToReadableValue(dailyEarningsCents)}
@@ -73,7 +73,7 @@ export const MyAccount = ({
 
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="div" variant="small2" css={styles.labelListItem}>
-            {t('myAccount.supplyBalance')}
+            Supply balance
           </Typography>
 
           {formatCentsToReadableValue(supplyBalanceCents)}
@@ -81,7 +81,7 @@ export const MyAccount = ({
 
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="div" variant="small2" css={styles.labelListItem}>
-            {t('myAccount.borrowBalance')}
+            Borrow balance
           </Typography>
 
           {formatCentsToReadableValue(borrowBalanceCents)}
@@ -91,7 +91,7 @@ export const MyAccount = ({
       <div css={[styles.row, styles.topProgressBarLegend]}>
         <div css={styles.borrowLimitLabelWrapper}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {t('myAccount.borrowLimit')}
+            Borrow limit:
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
@@ -121,14 +121,14 @@ export const MyAccount = ({
         <Icon name="shield" css={styles.shieldIcon} />
 
         <Typography component="span" variant="small2" css={styles.inlineLabel}>
-          {t('myAccount.safeLimit')}
+          Your safe limit:
         </Typography>
 
         <Typography component="span" variant="small1" color="text.primary">
           {safeLimitPercentage}%
         </Typography>
 
-        <Tooltip css={styles.tooltip} title={t('myAccount.safeLimitTooltip')}>
+        <Tooltip css={styles.tooltip} title="tooltip content">
           <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
         </Tooltip>
       </Typography>
