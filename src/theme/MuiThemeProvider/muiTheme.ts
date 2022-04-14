@@ -57,6 +57,25 @@ const BREAKPOINTS = {
 
 const SPACING = 4;
 
+export type TypographyVariant =
+  | 'button'
+  | 'caption'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'inherit'
+  | 'overline'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'body1'
+  | 'body2'
+  | 'small1'
+  | 'small2'
+  | undefined;
+
 export default createTheme({
   spacing: SPACING,
   palette: PALETTE,

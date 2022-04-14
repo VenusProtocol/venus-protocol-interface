@@ -113,5 +113,30 @@
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
     "supplyBalance": "Supply balance",
     "title": "My account"
+  },
+  "supplyWithdraw": {
+    "borrowLimit": "Borrow limit",
+    "connectWalletToSupply": "Please connect your wallet to supply",
+    "connectWalletToWithdraw": "Please connect your wallet to withdraw",
+    "currentAmount": "Current: <white>{{amount}}<white>",
+    "currentBorrowBalance": "Current borrow balance: {{amount}} ({{percent}}%)",
+    "dailyEarnings": "Daily Earnings",
+    "distributionApy": "Distribution APY",
+    "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first.",
+    "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first.",
+    "enterValidAmountSupply": "Enter a valid amount to supply",
+    "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
+    "max": "Max",
+    "maxAmount": "Max: <white>{{amount}}<white>",
+    "maxBorrowTooltip": "Max borrow limit: {{amount }} (100%)",
+    "progressBarAria": "borrow balance progress bar",
+    "safeBorrowLimit": "Safe borrow limit: {{amount}} (80%)",
+    "supply": "Supply",
+    "supplyApy": "Supply APY",
+    "supplyBalance": "Supply Balance",
+    "supplyBalanceValue": "{{amount}} {{symbol}}",
+    "walletBalance": "Wallet balance: <white>{{amount}} {{symbol}}<white>",
+    "withdraw": "Withdraw",
+    "withdrawableAmount": "Withdrawable amount: <white>{{amount}} {{symbol}}<white>"
   }
 }

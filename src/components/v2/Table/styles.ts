@@ -23,6 +23,10 @@ export const useStyles = () => {
         }
       }
 
+      .MuiTableRow-root {
+        cursor: pointer;
+      }
+
       .MuiTableCell-root:first-child {
         padding-left: ${theme.spacing(6)};
         float: left;

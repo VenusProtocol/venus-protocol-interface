@@ -9,9 +9,9 @@ import { useStyles } from './styles';
 export interface IValueUpdateProps {
   className?: string;
   original: number | BigNumber;
-  update: number | BigNumber;
-  /** Defaults to formatting cents to readable dollar value */
-  format?: (params: { value: number | BigNumber }) => string;
+  update: number | BigNumber | undefined;
+  /** Defaults to formating cents to readable dollar value */
+  format?: (value: number | BigNumber) => string;
 }
 
 export const ValueUpdate: React.FC<IValueUpdateProps> = ({
@@ -20,18 +20,21 @@ export const ValueUpdate: React.FC<IValueUpdateProps> = ({
   update,
   format = formatCentsToReadableValue,
 }) => {
-  const increase = update > original;
+  const increase = !!(update && update > original);
   const styles = useStyles({ increase });
-
   return (
     <div className={className} css={styles.container}>
       <Typography component="span" variant="body1">
         {format({ value: original })}
       </Typography>
-      <Icon name="arrowShaft" css={styles.icon} />
-      <Typography component="span" variant="body1">
-        {format({ value: update })}
-      </Typography>
+      {(typeof update === 'number' || update instanceof BigNumber) && (
+        <>
+          <Icon name="arrowShaft" css={styles.icon} />
+          <Typography component="span" variant="body1">
+            {format({ value: update })}
+          </Typography>
+        </>
+      )}
     </div>
   );
 };

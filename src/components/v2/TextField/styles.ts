@@ -38,6 +38,7 @@ export const useStyles = () => {
       height: ${theme.spacing(10)};
       padding-top: 2px; /* Vertically align input content */
       border: 0;
+      width: 100%;
 
       ${hasRightAdornment && `margin-right: ${theme.spacing(1)}`};
 
