@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo, useState } from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
-import { Asset, TokenSymbol } from 'types';
+import { Asset, TokenId } from 'types';
 import { Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
@@ -59,7 +59,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   const rows: ITableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token symbol={asset.name as TokenSymbol} />,
+      render: () => <Token symbol={asset.name as TokenId} />,
       value: asset.name,
     },
     {
@@ -75,7 +75,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
       render: () =>
         formatCoinsToReadableValue({
           value: asset.walletBalance,
-          tokenSymbol: asset.symbol as TokenSymbol,
+          tokenSymbol: asset.symbol as TokenId,
         }),
       value: asset.walletBalance.toString(),
     },

@@ -2,7 +2,7 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { getVaiTreasuryPercentage, GetVaiTreasuryPercentageOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useVaiUnitroller } from 'hooks/useContract';
+import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
 
 type Options = QueryObserverOptions<
   GetVaiTreasuryPercentageOutput,
@@ -13,7 +13,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVaiTreasuryPercentage = (options?: Options) => {
-  const vaiControllerContract = useVaiUnitroller();
+  const vaiControllerContract = useVaiUnitrollerContract();
 
   return useQuery(
     FunctionKey.GET_VAI_TREASURY_PERCENTAGE,

@@ -7,10 +7,10 @@ import { useWeb3Account } from 'clients/web3';
 import coinImg from 'assets/img/coins/xvs.svg';
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
+import { generateBscScanUrl } from 'utilities';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useComptroller, useVenusLens } from '../../hooks/useContract';
+import { useComptrollerContract, useVenusLensContract } from '../../clients/contracts/hooks';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -105,8 +105,8 @@ function VotingWallet({
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
   const { account } = useWeb3Account();
   const { userMarketInfo } = useMarketsUser();
-  const comptrollerContract = useComptroller();
-  const venusLensContract = useVenusLens();
+  const comptrollerContract = useComptrollerContract();
+  const venusLensContract = useVenusLensContract();
 
   useEffect(() => {
     if (!earnedBalance) {
@@ -199,7 +199,7 @@ function VotingWallet({
               <div className="flex align-center">
                 <a
                   className="content-value"
-                  href={generateBscScanAddressUrl(delegateAddress)}
+                  href={generateBscScanUrl(delegateAddress)}
                   target="_blank"
                   rel="noreferrer"
                 >

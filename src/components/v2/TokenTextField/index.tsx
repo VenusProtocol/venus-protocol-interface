@@ -2,8 +2,9 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { TokenSymbol } from 'types';
-import { convertWeiToCoins, convertCoinsToWei, getTokenDecimals } from 'utilities/common';
+import { TokenId } from 'types';
+import { getToken } from 'utilities';
+import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
 import { IconName } from '../Icon';
 import { TertiaryButton } from '../Button';
 import { TextField, ITextFieldProps } from '../TextField';
@@ -13,7 +14,7 @@ import { TextField, ITextFieldProps } from '../TextField';
 // expressed in wei to make them easier to use with contracts
 export interface ITokenTextFieldProps
   extends Omit<ITextFieldProps, 'value' | 'onChange' | 'max' | 'min'> {
-  tokenSymbol: TokenSymbol;
+  tokenSymbol: TokenId;
   onChange: (newValue: BigNumber | '') => void;
   rightMaxButtonLabel?: string;
   value: BigNumber | '';
@@ -30,7 +31,7 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
   ...otherProps
 }) => {
   const step = React.useMemo(() => {
-    const tmpTokenDecimals = getTokenDecimals(tokenSymbol);
+    const tmpTokenDecimals = getToken(tokenSymbol).decimals;
     const tmpOneCoinInWei = new BigNumber(10).pow(tmpTokenDecimals);
     const tmpOneWeiInCoins = new BigNumber(1).dividedBy(tmpOneCoinInWei);
 

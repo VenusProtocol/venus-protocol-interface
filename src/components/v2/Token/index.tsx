@@ -2,13 +2,13 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import { Icon, IconName } from '../Icon';
 import { useStyles } from './styles';
 
 export interface ITokenProps {
   className?: string;
-  symbol: TokenSymbol;
+  symbol: TokenId;
 }
 
 export const Token: React.FC<ITokenProps> = ({ className, symbol }) => {

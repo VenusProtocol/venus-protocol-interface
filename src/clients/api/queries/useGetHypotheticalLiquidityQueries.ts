@@ -2,7 +2,7 @@ import { useQueries, QueryObserverOptions } from 'react-query';
 
 import getHypotheticalAccountLiquidity from 'clients/api/queries/getHypotheticalAccountLiquidity';
 import { IGetVTokenBalancesAllOutput } from 'clients/api';
-import { useComptroller } from 'hooks/useContract';
+import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { Asset } from 'types';
 
@@ -20,7 +20,7 @@ const useGetHypotheticalLiquidityQueries = (
   },
   options: Options = {},
 ) => {
-  const comptrollerContract = useComptroller();
+  const comptrollerContract = useComptrollerContract();
   return useQueries(
     assetList.map((asset: Asset) => {
       const enabled =

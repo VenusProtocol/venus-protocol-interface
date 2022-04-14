@@ -6,15 +6,13 @@ import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { uid } from 'react-uid';
 import { connectAccount } from 'core';
-import * as constants from 'constants/contracts';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
-import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
-import { useComptroller, useToken } from 'hooks/useContract';
-import { getComptrollerAddress } from 'utilities/addressHelpers';
+import { useComptrollerContract, useTokenContract } from 'clients/contracts/hooks';
+import { getToken, getContractAddress, generateBscScanUrl } from 'utilities';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const XVSLayout = styled.div`
@@ -195,8 +193,8 @@ function XVS({ settings }: XVSProps) {
   const [remainAmount, setRemainAmount] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
   const { markets, dailyVenus } = useMarkets();
-  const xvsTokenContract = useToken('xvs');
-  const comptrollerContract = useComptroller();
+  const xvsTokenContract = useTokenContract('xvs');
+  const comptrollerContract = useComptrollerContract();
 
   const mintedAmount = '23700000';
 
@@ -211,7 +209,9 @@ function XVS({ settings }: XVSProps) {
     // total info
     let venusVAIVaultRate = await comptrollerContract.methods.venusVAIVaultRate().call();
     venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
-    const remainedAmount = await xvsTokenContract.methods.balanceOf(getComptrollerAddress()).call();
+    const remainedAmount = await xvsTokenContract.methods
+      .balanceOf(getContractAddress('comptroller'))
+      .call();
     setDailyDistribution(
       new BigNumber(dailyVenus)
         .div(new BigNumber(10).pow(18))
@@ -270,13 +270,13 @@ function XVS({ settings }: XVSProps) {
             <img src={coinImg} alt="xvs" />
             <a
               className="highlight"
-              href={`${BASE_BSC_SCAN_URL}/token/${constants.XVS_TOKEN}`}
+              href={generateBscScanUrl('xvs')}
               target="_blank"
               rel="noreferrer"
             >
-              {constants.XVS_TOKEN}
+              {getToken('xvs').address}
             </a>
-            <CopyToClipboard text={constants.XVS_TOKEN} onCopy={() => {}}>
+            <CopyToClipboard text={getToken('xvs').address} onCopy={() => {}}>
               <Icon className="pointer copy-btn" type="copy" />
             </CopyToClipboard>
           </div>
@@ -403,7 +403,7 @@ function XVS({ settings }: XVSProps) {
                         <img
                           className="asset-img"
                           src={
-                            constants.getToken(
+                            getToken(
                               // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
                               item.underlyingSymbol.toLowerCase(),
                             ).asset

@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
-import * as constants from 'constants/contracts';
-import { useXvsVaultProxy } from 'hooks/useContract';
+
+import { getToken } from 'utilities';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import useRefresh from 'hooks/useRefresh';
-import { getTokenContractByAddress } from 'utilities/contractHelpers';
+import { getTokenContractByAddress } from 'clients/contracts/getters';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { TokenSymbol } from 'types';
+import { TokenId } from 'types';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import WithdrawCard from './WithdrawCard';
 import LoadingSpinner from '../../Basic/LoadingSpinner';
@@ -24,8 +25,8 @@ const CardContentWrapper = styled.div`
 
 interface CardContentProps {
   poolId: BigNumber;
-  stakedToken: TokenSymbol;
-  rewardToken: TokenSymbol;
+  stakedToken: TokenId;
+  rewardToken: TokenId;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;
@@ -39,8 +40,8 @@ function CardContent({
   pendingReward,
   lockPeriodSecond,
 }: CardContentProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
-  const rewardTokenDecimal = new BigNumber(10).pow(constants.getToken(rewardToken).decimals);
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
+  const rewardTokenDecimal = new BigNumber(10).pow(getToken(rewardToken).decimals);
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
   const web3 = useWeb3();
@@ -60,10 +61,10 @@ function CardContent({
   const [claimLoading, setClaimLoading] = useState(false);
   const [stakeLoading, setStakeLoading] = useState(false); // also applies to enabling
 
-  const stakedTokenAddress = constants.getToken(stakedToken).address;
-  const rewardTokenAddress = constants.getToken(rewardToken).address;
+  const stakedTokenAddress = getToken(stakedToken).address;
+  const rewardTokenAddress = getToken(rewardToken).address;
 
-  const xvsVaultContract = useXvsVaultProxy();
+  const xvsVaultContract = useXvsVaultProxyContract();
   const stakedTokenContract = getTokenContractByAddress(web3, stakedTokenAddress);
 
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message

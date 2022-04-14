@@ -1,8 +1,10 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+
 import { withCenterStory } from 'stories/decorators';
-import { VBEP_TOKENS, getToken } from 'constants/contracts';
-import { TokenSymbol } from 'types';
+import { getToken } from 'utilities';
+import { VBEP_TOKENS } from 'constants/tokens';
+import { TokenId } from 'types';
 import { Dropdown } from '.';
 
 export default {
@@ -13,8 +15,8 @@ export default {
 
 const assets = Object.keys(VBEP_TOKENS).map(id => ({
   value: id,
-  label: getToken(id as TokenSymbol).symbol || id,
-  img: getToken(id as TokenSymbol).asset,
+  label: getToken(id as TokenId).symbol || id,
+  img: getToken(id as TokenId).asset,
 }));
 
 export const DropdownDefault = () => (

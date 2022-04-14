@@ -6,7 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
 import toast from 'components/Basic/Toast';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
+import { generateBscScanUrl } from 'utilities';
 
 const ProposerInfoWrapper = styled.div`
   width: 100%;
@@ -40,7 +40,7 @@ interface Props extends RouteComponentProps {
 
 function ProposerInfo({ address }: Props) {
   const handleLink = () => {
-    window.open(generateBscScanAddressUrl(address), '_blank');
+    window.open(generateBscScanUrl(address), '_blank');
   };
   return (
     <Card>

@@ -5,7 +5,8 @@ import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import { indexBy } from 'utilities/common';
-import { VBEP_TOKENS, CONTRACT_TOKEN_ADDRESS, getVbepToken } from 'constants/contracts';
+import { getVBepToken } from 'utilities';
+import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import {
   useGetMarkets,
   useGetAssetsInAccount,
@@ -48,15 +49,15 @@ const useUserMarketInfo = ({ account }: { account: string | null | undefined }) 
     markets as GetMarketsOutput,
   );
 
-  let assetList = Object.values(CONTRACT_TOKEN_ADDRESS).reduce((acc, item, index) => {
+  let assetList = Object.values(TOKENS).reduce((acc, item, index) => {
     const toDecimalAmount = (mantissa: string) => new BigNumber(mantissa).shiftedBy(-item.decimals);
     // if no corresponding vassets, skip
-    if (!getVbepToken(item.id)) {
+    if (!getVBepToken(item.id)) {
       return acc;
     }
 
     const market = marketsMap[item.symbol.toLowerCase()] || {};
-    const vtokenAddress = getVbepToken(item.id).address.toLowerCase();
+    const vtokenAddress = getVBepToken(item.id).address.toLowerCase();
     const collateral = assetsInAccount
       .map((address: string) => address.toLowerCase())
       .includes(vtokenAddress);
