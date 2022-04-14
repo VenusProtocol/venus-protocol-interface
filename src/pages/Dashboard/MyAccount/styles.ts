@@ -4,7 +4,10 @@ import { useTheme } from '@mui/material';
 export const useMyAccountStyles = () => {
   const theme = useTheme();
   return {
-    root: css`
+    container: css`
+      width: 100%;
+      background-color: ${theme.palette.background.paper};
+      border-radius: ${theme.shape.borderRadius.large}px;
       padding: ${theme.spacing(6)};
     `,
     row: css`
@@ -22,9 +25,16 @@ export const useMyAccountStyles = () => {
     tooltip: css`
       display: flex;
     `,
-    iconInfo: css`
-      margin-left: ${theme.spacing(2)};
-      margin-right: ${theme.spacing(2)};
+    getInfoIcon: ({ position }: { position: 'left' | 'right' }) => css`
+      cursor: help;
+
+      ${position === 'left'
+        ? css`
+            margin-right: ${theme.spacing(2)};
+          `
+        : css`
+            margin-left: ${theme.spacing(2)};
+          `};
     `,
     toggle: css`
       margin-left: ${theme.spacing(2)};
@@ -41,14 +51,12 @@ export const useMyAccountStyles = () => {
     netApyLabel: css`
       display: flex;
       align-items: center;
-      width: 100%;
-      margin-top: ${theme.spacing(6)};
+      margin-bottom: ${theme.spacing(1)};
     `,
     list: css`
       padding-left: 0;
       display: flex;
       margin-bottom: ${theme.spacing(6)};
-      margin-top: ${theme.spacing(2)};
 
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
@@ -89,17 +97,19 @@ export const useMyAccountStyles = () => {
     borrowLimitLabelWrapper: css`
       display: flex;
     `,
-    borrowLimitLabel: css`
+    inlineLabel: css`
       margin-right: ${theme.spacing(1)};
+    `,
+    progressBar: css`
+      margin-bottom: ${theme.spacing(3)};
+    `,
+    shieldIcon: css`
+      margin-right: ${theme.spacing(2)};
     `,
     bottom: css`
       display: flex;
       justify-content: flex-end;
       align-items: center;
-    `,
-    safeLimit: css`
-      margin-left: ${theme.spacing(2)};
-      margin-right: ${theme.spacing(2)};
     `,
   };
 };
