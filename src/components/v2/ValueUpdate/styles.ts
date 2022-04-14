@@ -11,7 +11,7 @@ export const useStyles = ({ increase }: { increase: boolean }) => {
     `,
     icon: css`
       color: ${increase ? theme.palette.interactive.success : theme.palette.interactive.error};
-      margin: 0 ${theme.spacing(1.25)};
+      margin: 0 ${theme.spacing(2.5)};
       width: ${theme.shape.iconSize.medium}px;
       height: ${theme.shape.iconSize.medium}px;
     `,

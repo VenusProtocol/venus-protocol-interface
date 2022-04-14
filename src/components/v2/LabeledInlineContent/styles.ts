@@ -18,7 +18,7 @@ export const useStyles = () => {
       width: ${theme.shape.iconSize.large}px;
       height: ${theme.shape.iconSize.large}px;
       margin-top: -2px;
-      margin-right: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(2)};
     `,
     label: css`
       color: ${theme.palette.text.secondary};

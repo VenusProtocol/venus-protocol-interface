@@ -7,11 +7,11 @@ export const useStyles = () => {
     .MuiTooltip-popper {
       .MuiTooltip-tooltip {
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 12px;
+        border-radius: ${theme.spacing(3)};
         background-color: ${theme.palette.secondary.light};
         font-size: ${theme.typography.small2.fontSize};
         font-weight: ${theme.typography.small2.fontWeight};
-        padding: ${theme.spacing(1.5)};
+        padding: ${theme.spacing(3)};
       }
       .MuiTooltip-arrow {
         color: ${theme.palette.secondary.light};

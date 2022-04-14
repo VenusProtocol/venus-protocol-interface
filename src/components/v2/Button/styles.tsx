@@ -84,7 +84,7 @@ export const styles = ({
   return {
     getButton: ({ disabled }: { disabled: boolean }) => css`
       border-radius: 8px;
-      padding: ${small ? theme.spacing(1, 1.5) : theme.spacing(1.5, 3)};
+      padding: ${small ? theme.spacing(2, 3) : theme.spacing(3, 6)};
       border: 1px solid transparent;
       box-shadow: none;
       display: flex;
@@ -114,7 +114,7 @@ export const styles = ({
       ${getButtonVariantCss(variant)};
     `,
     loadingIcon: css`
-      margin-right: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(2)};
     `,
     label: css`
       font-weight: 600;
