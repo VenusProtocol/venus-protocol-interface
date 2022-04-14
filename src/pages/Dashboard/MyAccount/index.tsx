@@ -15,7 +15,7 @@ interface IMyAccountProps {
   supplyBalanceCents: number | undefined;
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
-  safeLimitPercentage: number | undefined;
+  safeLimitPercentage: number;
   className?: string;
 }
 
@@ -38,16 +38,22 @@ export const MyAccountUi = ({
   };
 
   const borrowLimitUsedPercentage =
-    borrowBalanceCents && borrowLimitCents
+    typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
       ? Math.round((borrowBalanceCents * 100) / borrowLimitCents)
-      : 0;
+      : undefined;
+
+  const safeLimitCents =
+    typeof borrowLimitCents === 'number'
+      ? Math.floor((borrowLimitCents * safeLimitPercentage) / 100)
+      : undefined;
 
   return (
-    <div css={styles.container}>
+    <div css={styles.container} className={className}>
       <div css={[styles.row, styles.header]}>
         <Typography variant="h4">My account</Typography>
 
         <Typography component="div" variant="small2" css={styles.apyWithXvs}>
+          {/* @TODO: update tooltip content */}
           <Tooltip css={styles.tooltip} title="tooltip content">
             <Icon css={styles.getInfoIcon({ position: 'left' })} name="info" />
           </Tooltip>
@@ -63,6 +69,7 @@ export const MyAccountUi = ({
       <div css={styles.netApyContainer}>
         <Typography component="div" variant="small2" css={styles.netApyLabel}>
           Net APY
+          {/* @TODO: update tooltip content */}
           <Tooltip css={styles.tooltip} title="tooltip content">
             <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
           </Tooltip>
@@ -79,7 +86,9 @@ export const MyAccountUi = ({
             Daily earnings
           </Typography>
 
-          {formatCentsToReadableValue(dailyEarningsCents)}
+          {typeof dailyEarningsCents === 'number'
+            ? formatCentsToReadableValue(dailyEarningsCents)
+            : '-'}
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
@@ -87,7 +96,9 @@ export const MyAccountUi = ({
             Supply balance
           </Typography>
 
-          {formatCentsToReadableValue(supplyBalanceCents)}
+          {typeof supplyBalanceCents === 'number'
+            ? formatCentsToReadableValue(supplyBalanceCents)
+            : '-'}
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
@@ -95,30 +106,39 @@ export const MyAccountUi = ({
             Borrow balance
           </Typography>
 
-          {formatCentsToReadableValue(borrowBalanceCents)}
+          {typeof borrowBalanceCents === 'number'
+            ? formatCentsToReadableValue(borrowBalanceCents)
+            : '-'}
         </Typography>
       </ul>
 
       <div css={[styles.row, styles.topProgressBarLegend]}>
-        <div css={styles.borrowLimitLabelWrapper}>
+        <div css={styles.inlineContainer}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            Borrow limit:
+            Borrow limit used:
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
-            {safeLimitPercentage}%
+            {typeof borrowLimitUsedPercentage === 'number' && `${borrowLimitUsedPercentage}%`}
           </Typography>
         </div>
 
-        <Typography component="span" variant="small1" color="text.primary">
-          {formatCentsToReadableValue(borrowLimitCents)}
-        </Typography>
+        <div css={styles.inlineContainer}>
+          <Typography component="span" variant="small2" css={styles.inlineLabel}>
+            Limit:
+          </Typography>
+
+          <Typography component="span" variant="small1" color="text.primary">
+            {typeof borrowLimitCents === 'number' &&
+              formatCentsToReadableValue(borrowLimitCents, true)}
+          </Typography>
+        </div>
       </div>
 
       <ProgressBarHorizontal
         css={styles.progressBar}
-        value={safeLimitPercentage}
-        mark={80}
+        value={borrowLimitUsedPercentage || 0}
+        mark={safeLimitPercentage}
         step={1}
         ariaLabel={t('myAccount.progressBar.ariaLabel')}
         min={0}
@@ -136,9 +156,12 @@ export const MyAccountUi = ({
         </Typography>
 
         <Typography component="span" variant="small1" color="text.primary">
-          {safeLimitPercentage}%
+          {typeof safeLimitCents === 'number'
+            ? formatCentsToReadableValue(safeLimitCents, true)
+            : '-'}
         </Typography>
 
+        {/* @TODO: update tooltip content */}
         <Tooltip css={styles.tooltip} title="tooltip content">
           <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
         </Tooltip>
@@ -157,7 +180,6 @@ const MyAccount: React.FC = () => {
     const supplyBalanceCents = undefined;
     const borrowBalanceCents = undefined;
     const borrowLimitCents = undefined;
-    const safeLimitPercentage = undefined;
 
     return {
       netApyPercentage,
@@ -165,11 +187,10 @@ const MyAccount: React.FC = () => {
       supplyBalanceCents,
       borrowBalanceCents,
       borrowLimitCents,
-      safeLimitPercentage,
     };
   }, [userMarketInfo]);
 
-  return <MyAccountUi {...uiProps} />;
+  return <MyAccountUi safeLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE} {...uiProps} />;
 };
 
 export default MyAccount;

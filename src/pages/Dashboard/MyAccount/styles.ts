@@ -94,7 +94,7 @@ export const useMyAccountStyles = () => {
     topProgressBarLegend: css`
       margin-bottom: ${theme.spacing(3)};
     `,
-    borrowLimitLabelWrapper: css`
+    inlineContainer: css`
       display: flex;
     `,
     inlineLabel: css`

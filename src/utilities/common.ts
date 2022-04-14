@@ -161,12 +161,12 @@ export const convertCoinsToWei = ({
   return value.multipliedBy(new BigNumber(10).pow(tokenDecimals));
 };
 
-export const convertCentsToDollars = (value: number) =>
-  +new BigNumber(value).dividedBy(100).toFixed(2);
+export const convertCentsToDollars = (value: number, removeDecimals = false) =>
+  +new BigNumber(value).dividedBy(100).toFixed(removeDecimals ? 0 : 2);
 
-export const formatCentsToReadableValue = (value: number | BigNumber) =>
+export const formatCentsToReadableValue = (value: number | BigNumber, removeDecimals = false) =>
   `$${formatCommaThousandsPeriodDecimal(
-    convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
+    convertCentsToDollars(typeof value === 'number' ? value : value.toNumber(), removeDecimals),
   )}`;
 
 export const formatApy = (apy?: BigNumber | string | number): string => {

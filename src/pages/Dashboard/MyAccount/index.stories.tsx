@@ -12,16 +12,16 @@ export default {
       default: 'Primary',
     },
   },
-} as ComponentMeta<typeof MyAccount>;
+} as ComponentMeta<typeof MyAccountUi>;
 
 export const Default = () => (
   <MyAccountUi
-    netApyPercentage={2493}
-    dailyEarningsCents={14829}
+    netApyPercentage={24.93}
+    dailyEarningsCents={1482}
     supplyBalanceCents={122889}
     borrowBalanceCents={30243}
-    borrowLimitCents={7373}
-    safeLimitPercentage={41}
+    borrowLimitCents={73730}
+    safeLimitPercentage={65}
   />
 );
 
@@ -32,6 +32,6 @@ export const WithoutValues = () => (
     supplyBalanceCents={undefined}
     borrowBalanceCents={undefined}
     borrowLimitCents={undefined}
-    safeLimitPercentage={undefined}
+    safeLimitPercentage={65}
   />
 );
