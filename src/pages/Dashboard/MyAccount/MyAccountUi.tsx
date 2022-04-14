@@ -30,21 +30,22 @@ export const MyAccountUi = ({
   className,
 }: IMyAccountUiProps) => {
   const styles = useStyles();
-  const handleXvsToggleChange: IToggleProps['onChange'] = (event, checked) => onXvsToggle(checked);
+  const handleXvsToggleChange: IToggleProps['onChange'] = (_event, checked) => onXvsToggle(checked);
 
   const readableBorrowBalance =
     typeof borrowBalanceCents === 'number'
       ? formatCentsToReadableValue(borrowBalanceCents)
       : undefined;
 
-  const borrowLimitUsedPercentage =
-    typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
-      ? Math.round((borrowBalanceCents * 100) / borrowLimitCents)
-      : undefined;
+  let borrowLimitUsedPercentage: number | undefined;
+  if (borrowLimitCents === 0) {
+    borrowLimitUsedPercentage = 0;
+  } else if (typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number') {
+    borrowLimitUsedPercentage = Math.round((borrowBalanceCents * 100) / borrowLimitCents);
+  }
 
-  const readableBorrowLimitUsedPercentage = borrowLimitUsedPercentage
-    ? `${borrowLimitUsedPercentage}%`
-    : undefined;
+  const readableBorrowLimitUsedPercentage =
+    typeof borrowLimitUsedPercentage === 'number' ? `${borrowLimitUsedPercentage}%` : undefined;
 
   const safeBorrowLimitCents =
     typeof borrowLimitCents === 'number'
@@ -139,8 +140,9 @@ export const MyAccountUi = ({
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
-            {typeof borrowLimitCents === 'number' &&
-              formatCentsToReadableValue(borrowLimitCents, true)}
+            {typeof borrowLimitCents === 'number'
+              ? formatCentsToReadableValue(borrowLimitCents, true)
+              : '-'}
           </Typography>
         </div>
       </div>
@@ -164,7 +166,9 @@ export const MyAccountUi = ({
           )
         }
         markTooltip={
-          readableSafeBorrowLimit && (
+          readableSafeBorrowLimit &&
+          safeBorrowLimitCents &&
+          safeBorrowLimitCents > 0 && (
             <>
               Safe borrow limit:
               <br />

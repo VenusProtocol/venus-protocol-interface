@@ -14,7 +14,7 @@ const MyAccount: React.FC = () => {
   // @TODO: elevate state so it can be shared with borrow and supply markets
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
 
-  const uiProps: Pick<
+  const calculations: Pick<
     IMyAccountUiProps,
     | 'netApyPercentage'
     | 'dailyEarningsCents'
@@ -88,25 +88,17 @@ const MyAccount: React.FC = () => {
       }
     });
 
-    /*
-    The net APY represents a percentage of the difference between the supply
-    balance and the borrow balance.
+    // Calculate net APY as a percentage of supply balance, based on yearly interests
+    let netApyPercentage: number | undefined;
 
-    We first calculate the difference between the supply balance and the borrow
-    balance: supplyBorrowDifference = supplyBalance - borrowBalance
-
-    Then we calculate what percentage of that difference the yearly earnings
-    represent: netApy = yearlyEarnings * 100 / supplyBorrowDifference
-    */
-    const supplyBorrowDifferenceCents =
-      supplyBalanceCents && borrowBalanceCents && supplyBalanceCents.minus(borrowBalanceCents);
-
-    const netApyPercentage =
-      supplyBorrowDifferenceCents &&
-      yearlyEarningsCents &&
-      supplyBorrowDifferenceCents.isGreaterThan(0)
-        ? +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2)
-        : undefined;
+    if (supplyBalanceCents?.isEqualTo(0)) {
+      netApyPercentage = 0;
+    } else if (supplyBalanceCents && yearlyEarningsCents) {
+      netApyPercentage = +yearlyEarningsCents
+        .multipliedBy(100)
+        .dividedBy(supplyBalanceCents)
+        .toFixed(2);
+    }
 
     const dailyEarningsCents =
       yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
@@ -125,7 +117,7 @@ const MyAccount: React.FC = () => {
       safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       withXvs={isXvsEnabled}
       onXvsToggle={setIsXvsEnabled}
-      {...uiProps}
+      {...calculations}
     />
   );
 };

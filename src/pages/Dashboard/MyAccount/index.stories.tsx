@@ -29,6 +29,19 @@ export const Default = () => (
   />
 );
 
+export const WithZeroValues = () => (
+  <MyAccountUi
+    netApyPercentage={0}
+    dailyEarningsCents={0}
+    supplyBalanceCents={0}
+    borrowBalanceCents={0}
+    borrowLimitCents={0}
+    safeBorrowLimitPercentage={65}
+    onXvsToggle={noop}
+    withXvs={false}
+  />
+);
+
 export const WithoutUndefinedValues = () => (
   <MyAccountUi
     netApyPercentage={undefined}
