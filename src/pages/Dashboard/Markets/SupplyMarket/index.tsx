@@ -65,10 +65,10 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
     {
       key: 'apy',
       render: () => {
-        const apy = withXvs ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
+        const apy = withXvs ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
         return formatApy(apy);
       },
-      value: asset.borrowApy.toString(),
+      value: asset.supplyApy.toString(),
     },
     {
       key: 'wallet',
