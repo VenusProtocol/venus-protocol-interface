@@ -280,7 +280,9 @@ const MyAccount: React.FC = () => {
       const netApyPercentage =
         supplyBorrowDifferenceCents &&
         yearlyEarningsCents &&
-        +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2);
+        supplyBorrowDifferenceCents.isGreaterThan(0)
+          ? +yearlyEarningsCents.multipliedBy(100).dividedBy(supplyBorrowDifferenceCents).toFixed(2)
+          : undefined;
 
       const dailyEarningsCents =
         yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
