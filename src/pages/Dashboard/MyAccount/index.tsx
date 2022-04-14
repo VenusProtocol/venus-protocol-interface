@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
+import BigNumber from 'bignumber.js';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { formatCentsToReadableValue } from 'utilities/common';
@@ -172,23 +173,59 @@ export const MyAccountUi = ({
 
 const MyAccount: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-  const userMarketInfo = useUserMarketInfo({ account: account?.address });
+  const assets = useUserMarketInfo({ account: account?.address });
 
-  const uiProps = React.useMemo(() => {
-    const netApyPercentage = undefined;
-    const dailyEarningsCents = undefined;
-    const supplyBalanceCents = undefined;
-    const borrowBalanceCents = undefined;
-    const borrowLimitCents = undefined;
+  const uiProps: Omit<IMyAccountProps, 'className' | 'safeLimitPercentage'> = React.useMemo(() => {
+    let supplyBalanceCents: BigNumber | undefined;
+    let borrowBalanceCents: BigNumber | undefined;
+    let borrowLimitCents: BigNumber | undefined;
+    let dailyEarningsCents: number | undefined;
+    let netApyPercentage: number | undefined;
+
+    assets.forEach(asset => {
+      // Initialize values to 0. Note that we only initialize the values if at
+      // least one asset has been fetched (we don't want to display 0 values
+      // while the query is loading or if a fetching error happens)
+      if (!borrowBalanceCents) {
+        borrowBalanceCents = new BigNumber(0);
+      }
+
+      if (!supplyBalanceCents) {
+        supplyBalanceCents = new BigNumber(0);
+      }
+
+      if (!borrowLimitCents) {
+        borrowLimitCents = new BigNumber(0);
+      }
+
+      if (!dailyEarningsCents) {
+        dailyEarningsCents = 0;
+      }
+
+      borrowBalanceCents = borrowBalanceCents.plus(
+        asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+      );
+
+      supplyBalanceCents = supplyBalanceCents.plus(
+        asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+      );
+
+      // Up borrow limit if asset is currently enabled as collateral
+      if (asset.collateral) {
+        borrowLimitCents = borrowLimitCents.plus(
+          supplyBalanceCents.multipliedBy(asset.collateralFactor),
+        );
+      }
+    });
 
     return {
       netApyPercentage,
       dailyEarningsCents,
-      supplyBalanceCents,
-      borrowBalanceCents,
-      borrowLimitCents,
+      supplyBalanceCents: supplyBalanceCents?.toNumber(),
+      borrowBalanceCents: borrowBalanceCents?.toNumber(),
+      borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
     };
-  }, [userMarketInfo]);
+  }, [JSON.stringify(assets)]);
 
   return <MyAccountUi safeLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE} {...uiProps} />;
 };
