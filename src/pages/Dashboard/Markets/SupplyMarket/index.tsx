@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenSymbol } from 'types';
 import { Token, Toggle } from 'components';
@@ -9,6 +9,7 @@ import toast from 'components/Basic/Toast';
 import { useWeb3Account } from 'clients/web3';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
+import { useTranslation } from 'translation';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import { useStyles } from '../styles';
 
@@ -21,13 +22,6 @@ export interface ISupplyMarketUiProps {
   setConfirmCollateral: (asset: Asset | undefined) => void;
 }
 
-const columns = [
-  { key: 'asset', label: 'Asset', orderable: false },
-  { key: 'apy', label: 'APY', orderable: true },
-  { key: 'wallet', label: 'Wallet', orderable: true },
-  { key: 'collateral', label: 'Collateral', orderable: true },
-];
-
 export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   className,
   assets,
@@ -37,6 +31,18 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   setConfirmCollateral,
 }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
+
+  const columns = useMemo(
+    () => [
+      { key: 'asset', label: t('markets.columns.asset'), orderable: false },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
+      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
+      { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
+    ],
+    [],
+  );
+
   const collateralOnChange = async (asset: Asset) => {
     try {
       toggleAssetCollateral(asset);
@@ -89,7 +95,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   return (
     <div className={className} css={styles.tableContainer}>
       <Table
-        title="Supply market"
+        title={t('markets.tableTitle')}
         columns={columns}
         data={rows}
         initialOrder={{
@@ -111,6 +117,7 @@ const SupplyMarket: React.FC = () => {
   const { account = '' } = useWeb3Account();
   const userMarketInfo = useUserMarketInfo({ account });
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
+  const { t } = useTranslation();
 
   const { mutate: enterMarkets } = useEnterMarkets({
     onSuccess: () => {
@@ -134,13 +141,13 @@ const SupplyMarket: React.FC = () => {
   const toggleAssetCollateral = (asset: Asset) => {
     if (!account) {
       throw new ToastError(
-        'Account Required',
-        'Please connect your wallet to set an asset as collateral.',
+        t('markets.errors.accountError.title'),
+        t('markets.errors.accountError.description'),
       );
     } else if (!asset || !asset.borrowBalance.isZero()) {
       throw new ToastError(
-        'Collateral Required',
-        'Please repay all borrowed assets or set other assets as collateral.',
+        t('markets.errors.collateralRequired.title'),
+        t('markets.errors.collateralRequired.description'),
       );
     } else if (!asset.collateral) {
       try {
@@ -148,8 +155,8 @@ const SupplyMarket: React.FC = () => {
         enterMarkets({ vtokenAddresses: [asset.vtokenAddress], account });
       } catch (error) {
         throw new ToastError(
-          'Collateral Enable Error',
-          `There was a problem enabeling collateral ${asset.name}. Please try again.`,
+          t('markets.errors.collateralEnableError.title'),
+          t('markets.errors.collateralEnableError.description', { assetName: asset.name }),
         );
       }
     } else if (+asset.hypotheticalLiquidity['1'] > 0 || +asset.hypotheticalLiquidity['2'] === 0) {
@@ -158,14 +165,14 @@ const SupplyMarket: React.FC = () => {
         exitMarkets({ vtokenAddress: asset.vtokenAddress, account });
       } catch (error) {
         throw new ToastError(
-          'Collateral Disable Error',
-          `There was a problem disabeling collateral ${asset.name}. Please try again.`,
+          t('markets.errors.collateralDisableError.title'),
+          t('markets.errors.collateralDisableError.description', { assetName: asset.name }),
         );
       }
     } else {
       throw new ToastError(
-        'Collateral Required',
-        'Please repay all borrowed assets or set other assets as collateral.',
+        t('markets.errors.collateralRequired.title'),
+        t('markets.errors.collateralRequired.description'),
       );
     }
   };

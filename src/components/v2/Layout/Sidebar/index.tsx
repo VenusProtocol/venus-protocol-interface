@@ -7,16 +7,18 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
+
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoMobile.svg';
 import { useWeb3Account } from 'clients/web3';
+import { useTranslation } from 'translation';
 import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
 import { Toolbar } from '../Toolbar';
 import { Icon } from '../../Icon';
-import { useStyles } from './styles';
 import { menuItems } from '../constants';
 import ConnectButton from '../Header/ConnectButton';
+import { useStyles } from './styles';
 
 interface ISidebarProps {
   account: undefined | null | string;
@@ -25,6 +27,8 @@ interface ISidebarProps {
 export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
+  const { t } = useTranslation();
+  const styles = useStyles();
 
   const openMenu = (event: React.MouseEvent) => {
     setAnchorEl(event.currentTarget);
@@ -32,7 +36,7 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
   const closeMenu = () => {
     setAnchorEl(null);
   };
-  const styles = useStyles();
+
   return (
     <>
       <Drawer variant="permanent" css={styles.drawer}>
@@ -41,16 +45,15 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
             <LogoDesktop css={styles.logo} />
             <LogoNoText css={styles.logoClosed} />
           </Toolbar>
-
           <List css={styles.list}>
-            {menuItems.map(({ href, icon, text }) => (
-              <ListItemButton key={text} component="li" css={styles.listItem} disableRipple>
+            {menuItems.map(({ href, icon, i18nKey }) => (
+              <ListItemButton key={i18nKey} component="li" css={styles.listItem} disableRipple>
                 <NavLink to={href} activeClassName="active-menu-item">
                   <ListItemIcon css={styles.listItemIcon}>
                     <Icon name={icon} />
                   </ListItemIcon>
                   <Typography variant="body2" css={styles.listItemText}>
-                    {text}
+                    {t(i18nKey)}
                   </Typography>
                   <div className="left-border" />
                 </NavLink>
@@ -95,9 +98,9 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
             )}
           </div>
           <List css={styles.list}>
-            {menuItems.map(({ href, icon, text }) => (
+            {menuItems.map(({ href, icon, i18nKey }) => (
               <ListItemButton
-                key={text}
+                key={i18nKey}
                 component="li"
                 css={[styles.listItem, styles.mobileListItem]}
                 disableRipple
@@ -112,7 +115,7 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
                       component="span"
                       css={[styles.listItemText, styles.mobileListItemText]}
                     >
-                      {text}
+                      {t(i18nKey)}
                     </Typography>
                   </div>
                   <Icon name="arrowRight" css={styles.mobileArrow} />

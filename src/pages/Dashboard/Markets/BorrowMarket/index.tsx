@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
@@ -10,6 +10,7 @@ import { Token } from 'components/v2/Token';
 import { Table, ITableProps } from 'components/v2/Table';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { AuthContext } from 'context/AuthContext';
+import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
 
 export interface IBorrowMarketUiProps {
@@ -18,19 +19,23 @@ export interface IBorrowMarketUiProps {
   withXvs: boolean;
 }
 
-const columns = [
-  { key: 'asset', label: 'Asset', orderable: false },
-  { key: 'apy', label: 'APY', orderable: true },
-  { key: 'wallet', label: 'Wallet', orderable: true },
-  { key: 'liquidity', label: 'Liquidity', orderable: true },
-];
-
 export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   className,
   borrowAssets,
   withXvs,
 }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
+
+  const columns = useMemo(
+    () => [
+      { key: 'asset', label: t('markets.columns.asset'), orderable: false },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
+      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
+      { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
+    ],
+    [],
+  );
 
   // Format assets to rows
   const rows: ITableProps['data'] = borrowAssets.map(asset => {
@@ -69,7 +74,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   return (
     <div className={className} css={styles.tableContainer}>
       <Table
-        title="Borrow market"
+        title={t('markets.tableTitleBorrow')}
         columns={columns}
         data={rows}
         initialOrder={{

@@ -3,12 +3,14 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { internalError } from 'utilities/getError';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
+import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_SYMBOL } from '../constants';
 import { useStyles } from '../styles';
@@ -28,6 +30,9 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   isRepayVaiLoading,
   repayVai,
 }) => {
+  const styles = useStyles();
+  const { t } = useTranslation();
+
   const limitWei = React.useMemo(
     () =>
       userBalanceWei && userMintedWei
@@ -35,8 +40,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         : new BigNumber(0),
     [userBalanceWei?.toString(), userMintedWei?.toString()],
   );
-
-  const styles = useStyles();
 
   // Convert minted wei into VAI
   const readableRepayableVai = useConvertToReadableCoinString({
@@ -51,14 +54,15 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       // Send request to repay VAI
       await repayVai(amountWei);
 
+      const coin = convertWeiToCoins({
+        value: amountWei,
+        tokenSymbol: VAI_SYMBOL,
+        returnInReadableFormat: true,
+      });
       // @TODO: display success modal instead of toast once it's been
       // implemented
       toast.success({
-        title: `You successfully repaid ${convertWeiToCoins({
-          value: amountWei,
-          tokenSymbol: VAI_SYMBOL,
-          returnInReadableFormat: true,
-        })}`,
+        title: t('mintRepayVai.repayVai.successMessage', { coin }),
       });
     } catch (error) {
       toast.error({ title: (error as Error).message });
@@ -79,13 +83,13 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
               onBlur={handleBlur}
               maxWei={limitWei}
               disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
-              rightMaxButtonLabel="MAX"
+              rightMaxButtonLabel={t('mintRepayVai.repayVai.rightMaxButtonLabel')}
             />
 
             <LabeledInlineContent
               css={styles.getRow({ isLast: true })}
               iconName={VAI_SYMBOL}
-              label="Repay VAI balance"
+              label={t('mintRepayVai.repayVai.repayVaiBalance')}
             >
               {readableRepayableVai}
             </LabeledInlineContent>
@@ -97,7 +101,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
             disabled={disabled || !isValid || !dirty}
             fullWidth
           >
-            Repay VAI
+            {t('mintRepayVai.repayVai.btnRepayVai')}
           </SecondaryButton>
         </>
       )}
@@ -108,6 +112,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 const RepayVai: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const { userVaiMinted, userVaiBalance } = useVaiUser();
+  const { t } = useTranslation();
 
   const { mutateAsync: contractRepayVai, isLoading: isRepayVaiLoading } = useRepayVai();
 
@@ -125,9 +130,10 @@ const RepayVai: React.FC = () => {
 
   const repayVai: IRepayVaiUiProps['repayVai'] = amountWei => {
     if (!account) {
+      const errorMessage = t('mintRepayVai.repayVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw new Error('An internal error occurred: account undefined. Please try again later.');
+      throw internalError(errorMessage);
     }
 
     return contractRepayVai({
