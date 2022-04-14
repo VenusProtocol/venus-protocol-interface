@@ -180,7 +180,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
           <>
             <img src={asset.img} alt="asset" />
             <p className="center warning-label">
-              To Supply {asset.name} to the Venus Protocol, you need to approve it first.
+              To Supply {asset.symbol} to the Venus Protocol, you need to approve it first.
             </p>
           </>
         )}
