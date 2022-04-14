@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
+import { generateBscScanUrl } from 'utilities';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
@@ -20,7 +20,7 @@ export const BscLink: React.FC<IBscLinkProps> = ({ hash, className }) => {
     <div css={styles.container} className={className}>
       <Typography
         component="a"
-        href={generateBscScanAddressUrl(hash)}
+        href={generateBscScanUrl(hash)}
         target="_blank"
         rel="noreferrer"
         variant="small1"

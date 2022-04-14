@@ -9,8 +9,12 @@ import { useWeb3Account } from 'clients/web3';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import useRefresh from 'hooks/useRefresh';
-import { useComptroller, useToken, useVaiToken, useVaiVault } from 'hooks/useContract';
-import { getVaiVaultAddress } from 'utilities/addressHelpers';
+import {
+  useComptrollerContract,
+  useTokenContract,
+  useVaiVaultContract,
+} from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
 
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
@@ -24,10 +28,10 @@ function VaultCard({ settings }: VaultCardProps) {
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
 
-  const compContract = useComptroller();
-  const xvsTokenContract = useToken('xvs');
-  const vaiTokenContract = useVaiToken();
-  const vaiVaultContract = useVaiVault();
+  const compContract = useComptrollerContract();
+  const xvsTokenContract = useTokenContract('xvs');
+  const vaiTokenContract = useTokenContract('vai');
+  const vaiVaultContract = useVaiVaultContract();
 
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
   const [userVaiAllowance, setUserVaiAllowance] = useState(new BigNumber(0));
@@ -48,7 +52,7 @@ function VaultCard({ settings }: VaultCardProps) {
 
     const [venusVAIVaultRateTemp] = await Promise.all([
       compContract.methods.venusVAIVaultRate().call(),
-      xvsTokenContract.methods.balanceOf(getVaiVaultAddress()).call(),
+      xvsTokenContract.methods.balanceOf(getContractAddress('vaiVault')).call(),
     ]);
 
     if (account) {
@@ -61,7 +65,7 @@ function VaultCard({ settings }: VaultCardProps) {
         vaiTokenContract.methods.balanceOf(account).call(),
         vaiVaultContract.methods.userInfo(account).call(),
         vaiVaultContract.methods.pendingXVS(account).call(),
-        vaiTokenContract.methods.allowance(account, getVaiVaultAddress()).call(),
+        vaiTokenContract.methods.allowance(account, getContractAddress('vaiVault')).call(),
       ]);
     }
 

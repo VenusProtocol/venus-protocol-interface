@@ -4,15 +4,16 @@ import BigNumber from 'bignumber.js';
 import { Row, Col, Icon } from 'antd';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import * as constants from 'constants/contracts';
+import { uid } from 'react-uid';
+
+import { getToken } from 'utilities';
 import {
   currencyFormatter,
   formatApy,
   formatCommaThousandsPeriodDecimal,
   format,
 } from 'utilities/common';
-import { uid } from 'react-uid';
-import { Setting } from 'types';
+import { Setting, TokenId } from 'types';
 import { useMarkets } from 'hooks/useMarkets';
 import { State } from 'core/modules/initialState';
 
@@ -374,14 +375,7 @@ function Market({ history, settings }: MarketProps) {
                   <Col xs={{ span: 24 }} lg={{ span: 2 }} className="flex align-center market">
                     <img
                       className="asset-img"
-                      src={
-                        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                        constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
-                          ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                            constants.CONTRACT_TOKEN_ADDRESS[item.underlyingSymbol.toLowerCase()]
-                              .asset
-                          : null
-                      }
+                      src={getToken(item.underlyingSymbol.toLowerCase() as TokenId)?.asset}
                       alt="asset"
                     />
                     <p className="item-title">{item.underlyingSymbol}</p>

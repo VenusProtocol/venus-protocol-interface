@@ -5,12 +5,11 @@ import styled from 'styled-components';
 import { connectAccount } from 'core';
 import { Label } from 'components/Basic/Label';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
-import { promisify } from 'utilities';
+import { promisify, generateBscScanUrl } from 'utilities';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import xvsImg from 'assets/img/coins/xvs.svg';
 import { uid } from 'react-uid';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
 
 const TransactionWrapper = styled.div`
   width: 100%;
@@ -264,7 +263,7 @@ interface TransactionProps extends RouteComponentProps {
 }
 
 function Transaction({ getTransactionHistory }: TransactionProps) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<$TSFixMe[]>([]);
   const [offset, setOffset] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [total, setTotal] = useState(0);
@@ -382,13 +381,11 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
               <Row className="table_item" key={uid(item)}>
                 <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
                   <p className="mobile-label">ID</p>
-                  {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'id' does not exist on type 'never'. */}
                   <p className="item-title">{item.id}</p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} className="type">
                   <p className="mobile-label">Type</p>
                   <img className="asset-img" src={xvsImg} alt="asset" />
-                  {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'event' does not exist on type 'never'. */}
                   <p className="item-title">{item.event}</p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} className="hash">
@@ -396,24 +393,14 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
                   <p
                     className="item-title"
                     onClick={() => {
-                      window.open(
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message
-                        `${BASE_BSC_SCAN_URL}/tx/${item.transactionHash}`,
-                        '_blank',
-                      );
+                      window.open(generateBscScanUrl(item.transactionHash, 'tx'), '_blank');
                     }}
                   >
-                    {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message */}
-                    {`${item.transactionHash.slice(
-                      0,
-                      6,
-                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message
-                    )}...${item.transactionHash.slice(-6)}`}
+                    {`${item.transactionHash.slice(0, 6)}...${item.transactionHash.slice(-6)}`}
                   </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 2 }} className="block">
                   <p className="mobile-label">Block</p>
-                  {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'blockNumber' does not exist on type 'nev... Remove this comment to see the full error message */}
                   <p className="item-title">{item.blockNumber}</p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} className="from">
@@ -421,20 +408,17 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
                   <p
                     className="item-title"
                     onClick={() => {
-                      window.open(generateBscScanAddressUrl((item as any).from), '_blank');
+                      window.open(generateBscScanUrl(item.from), '_blank');
                     }}
                   >
-                    {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'. */}
-                    {item.from &&
-                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'.
-                      `${item.from.slice(0, 6)}...${item.from.slice(-6)}`}
+                    {item.from && `${item.from.slice(0, 6)}...${item.from.slice(-6)}`}
                   </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} className="to">
                   <p
                     className="mobile-label"
                     onClick={() => {
-                      window.open(generateBscScanAddressUrl((item as any).to), '_blank');
+                      window.open(generateBscScanUrl(item.to), '_blank');
                     }}
                   >
                     To
@@ -442,32 +426,24 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
                   <p
                     className="item-title"
                     onClick={() => {
-                      window.open(generateBscScanAddressUrl((item as any).to), '_blank');
+                      window.open(generateBscScanUrl(item.to), '_blank');
                     }}
                   >
-                    {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'. */}
-                    {item.to &&
-                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
-                      `${item.to.slice(0, 6)}...${item.to.slice(-6)}`}
+                    {item.to && `${item.to.slice(0, 6)}...${item.to.slice(-6)}`}
                   </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} className="amount">
                   <p className="mobile-label">Amount</p>
                   <p className="item-title">
-                    {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'. */}
                     {item.amount < 0.00001 && item.amount > 0
                       ? '< 0.00001'
-                      : // @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'.
-                        formatCommaThousandsPeriodDecimal(item.amount)}
+                      : formatCommaThousandsPeriodDecimal(item.amount)}
                   </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 2 }} className="date">
                   <p className="mobile-label">Created At</p>
                   <p className="item-title">
-                    {diffFormat(
-                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'createdAt' does not exist on type 'never... Remove this comment to see the full error message
-                      moment(current).diff(moment(item.createdAt), 'seconds'),
-                    )}
+                    {diffFormat(moment(current).diff(moment(item.createdAt), 'seconds'))}
                   </p>
                 </Col>
               </Row>

@@ -1,7 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { CONTRACT_TOKEN_ADDRESS } from 'constants/contracts';
-
-export type TokenSymbol = keyof typeof CONTRACT_TOKEN_ADDRESS;
+import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export interface User {
   Token: string;
@@ -37,6 +35,24 @@ export interface Asset {
   vsymbol: string;
 }
 
+export type TokenId = keyof typeof TOKENS;
+export type VBepTokenId = keyof typeof VBEP_TOKENS;
+
+export interface IToken {
+  id: TokenId;
+  symbol: Uppercase<TokenId>;
+  decimals: number;
+  address: string | '';
+  asset: string;
+  vasset: string;
+}
+
+export interface IVBepToken {
+  id: VBepTokenId;
+  symbol: `v${Uppercase<VBepTokenId>}`;
+  address: string | '';
+}
+
 export interface Setting {
   marketType?: string; // 'supply'
   withXVS?: boolean;
@@ -64,6 +80,7 @@ enum ProposalState {
   defeated = 'Defeated',
   expired = 'Expired',
 }
+
 export interface ProposalInfo {
   id: string;
   description: string;
@@ -90,8 +107,8 @@ export interface Proposal {
 
 export interface IPool {
   poolId: BigNumber;
-  stakedToken: TokenSymbol;
-  rewardToken: TokenSymbol;
+  stakedToken: TokenId;
+  rewardToken: TokenId;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;
