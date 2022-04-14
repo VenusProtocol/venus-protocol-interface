@@ -6,8 +6,8 @@ import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
-import { useToken, useVrtVaultProxy } from 'hooks/useContract';
-import { getVrtVaultProxyAddress } from 'utilities/addressHelpers';
+import { useTokenContract, useVrtVaultProxyContract } from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
 
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
@@ -21,8 +21,8 @@ export default function VaultCard() {
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
 
-  const vrtTokenContract = useToken('vrt');
-  const vrtVaultProxyContract = useVrtVaultProxy();
+  const vrtTokenContract = useTokenContract('vrt');
+  const vrtVaultProxyContract = useVrtVaultProxyContract();
 
   const [dailyEmission, setDailyEmission] = useState(new BigNumber(0));
   const [interestRatePerBlock, setInterestRatePerBlock] = useState(new BigNumber(0));
@@ -45,7 +45,7 @@ export default function VaultCard() {
 
     const [interestRatePerBlockTemp, vaultVrtBalanceTemp] = await Promise.all([
       vrtVaultProxyContract.methods.interestRatePerBlock().call(),
-      vrtTokenContract.methods.balanceOf(getVrtVaultProxyAddress()).call(),
+      vrtTokenContract.methods.balanceOf(getContractAddress('vrtVaultProxy')).call(),
     ]);
 
     if (account) {
@@ -58,7 +58,7 @@ export default function VaultCard() {
         vrtTokenContract.methods.balanceOf(account).call(),
         vrtVaultProxyContract.methods.userInfo(account).call(),
         vrtVaultProxyContract.methods.getAccruedInterest(account).call(),
-        vrtTokenContract.methods.allowance(account, getVrtVaultProxyAddress()).call(),
+        vrtTokenContract.methods.allowance(account, getContractAddress('vrtVaultProxy')).call(),
       ]);
     }
 

@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Modal } from 'antd';
 import BigNumber from 'bignumber.js';
-import closeImg from 'assets/img/close.png';
 import moment from 'moment';
 import { uid } from 'react-uid';
-import * as constants from 'constants/contracts';
-import { TokenSymbol } from 'types';
+
+import closeImg from 'assets/img/close.png';
+import { getToken } from 'utilities';
+import { TokenId } from 'types';
 
 const WithdrawHistoryModalWrapper = styled.div`
   color: #fff;
@@ -62,7 +63,7 @@ interface WithdrawHistoryModalProps {
   onCancel: () => void;
   pendingWithdrawals: unknown[];
   withdrawableAmount: BigNumber;
-  stakedToken: TokenSymbol;
+  stakedToken: TokenId;
 }
 
 function WithdrawHistoryModal({
@@ -72,7 +73,7 @@ function WithdrawHistoryModal({
   withdrawableAmount,
   stakedToken,
 }: WithdrawHistoryModalProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(constants.getToken(stakedToken).decimals);
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
   return (
     <Modal
       className="venus-modal"

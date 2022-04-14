@@ -4,14 +4,14 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
-import { promisify } from 'utilities';
-import * as constants from 'constants/contracts';
+
+import { promisify, getVBepToken } from 'utilities';
 import OverviewChart from 'components/Basic/OverviewChart';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3Account } from 'clients/web3';
-import { Setting, TokenSymbol } from 'types';
+import { Setting, TokenId, VBepTokenId } from 'types';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 
@@ -101,14 +101,14 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-interface Props extends RouteComponentProps<{ asset: TokenSymbol }> {
+interface Props extends RouteComponentProps<{ asset: TokenId }> {
   settings: Setting;
   getMarketHistory: $TSFixMe;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
   const [marketType, setMarketType] = useState('supply');
-  const [currentAsset, setCurrentAsset] = useState<TokenSymbol | ''>('');
+  const [currentAsset, setCurrentAsset] = useState<TokenId | ''>('');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
@@ -117,7 +117,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
 
   useEffect(() => {
     if (match.params && match.params.asset) {
-      setCurrentAsset(match.params.asset.toLowerCase() as TokenSymbol);
+      setCurrentAsset(match.params.asset.toLowerCase() as TokenId);
     }
   }, [match]);
 
@@ -156,7 +156,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (timeStamp % 60 === 0 && currentAsset) {
       getGraphData(
-        constants.getVbepToken(currentAsset).address,
+        getVBepToken(currentAsset as VBepTokenId).address,
         '1day',
         30, // 1 month
       );
@@ -170,7 +170,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        constants.getVbepToken(currentAsset).address,
+        getVBepToken(currentAsset as VBepTokenId).address,
         '1day',
         30, // 1 month
       );

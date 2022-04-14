@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
+
 import { formatApy, format } from 'utilities/common';
-import * as constants from 'constants/contracts';
-import { TokenSymbol } from 'types';
+import { getToken } from 'utilities';
+import { TokenId } from 'types';
 
 const MarketInfoWrapper = styled.div`
   .asset-img {
@@ -40,7 +41,7 @@ const MarketInfoContent = styled.div`
 `;
 
 interface MarketInfoObjectType {
-  underlyingSymbol: Uppercase<TokenSymbol>;
+  underlyingSymbol: Uppercase<TokenId>;
   supplyApy: number;
   supplyVenusApy: number;
   borrowApy: number;
@@ -62,8 +63,8 @@ function MarketInfo({ marketInfo, marketType }: Props) {
       <img
         className="asset-img"
         src={
-          constants.getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenSymbol).asset
-            ? constants.getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenSymbol).asset
+          getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenId).asset
+            ? getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenId).asset
             : ''
         }
         alt="asset"

@@ -19,7 +19,7 @@ import { Row, Column } from 'components/Basic/Style';
 import { useWeb3Account } from 'clients/web3';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
-import { useToken, useGovernorBravo } from '../../hooks/useContract';
+import { useTokenContract, useGovernorBravoContract } from '../../clients/contracts/hooks';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
@@ -115,8 +115,8 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
   const [excuteEta, setExcuteEta] = useState('');
   const { account } = useWeb3Account();
-  const xvsTokenContract = useToken('xvs');
-  const governorBravoContract = useGovernorBravo();
+  const xvsTokenContract = useTokenContract('xvs');
+  const governorBravoContract = useGovernorBravoContract();
 
   const updateBalance = useCallback(async () => {
     if (proposalInfo.id) {

@@ -7,14 +7,21 @@ import CoinInfo from 'components/Vote/CoinInfo';
 import VotingWallet from 'components/Vote/VotingWallet';
 import VotingPower from 'components/Vote/VotingPower';
 import Proposals from 'components/Vote/Proposals';
-import { promisify } from 'utilities';
+import { promisify, getToken } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import useRefresh from 'hooks/useRefresh';
-import { XVS_TOKEN, VBEP_TOKENS } from 'constants/contracts';
-import { useComptroller, useToken, useVaiUnitroller, useXvsVaultProxy } from 'hooks/useContract';
+import { VBEP_TOKENS } from 'constants/tokens';
+import {
+  useComptrollerContract,
+  useTokenContract,
+  useVaiUnitrollerContract,
+  useXvsVaultProxyContract,
+} from 'clients/contracts/hooks';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { getVbepContract } from 'utilities/contractHelpers';
+import { getVBepTokenContract } from 'clients/contracts/getters';
 import { State } from 'core/modules/initialState';
+
+const xvsTokenAddress = getToken('xvs').address;
 
 const VoteWrapper = styled.div`
   height: 100%;
@@ -37,10 +44,10 @@ function Vote({ getProposals }: VoteProps) {
   const [stakedAmount, setStakedAmount] = useState('');
   const { account } = useWeb3Account();
   const { fastRefresh } = useRefresh();
-  const xvsTokenContract = useToken('xvs');
-  const comptrollerContract = useComptroller();
-  const vaiUnitrollerContract = useVaiUnitroller();
-  const xvsVaultProxyContract = useXvsVaultProxy();
+  const xvsTokenContract = useTokenContract('xvs');
+  const comptrollerContract = useComptrollerContract();
+  const vaiUnitrollerContract = useVaiUnitrollerContract();
+  const xvsVaultProxyContract = useXvsVaultProxyContract();
   const web3 = useWeb3();
 
   const loadInitialData = useCallback(async () => {
@@ -89,7 +96,7 @@ function Vote({ getProposals }: VoteProps) {
   const updateBalance = async () => {
     if (account) {
       // find the pid of xvs vault, which users get voting powers from
-      const length = await xvsVaultProxyContract.methods.poolLength(XVS_TOKEN).call();
+      const length = await xvsVaultProxyContract.methods.poolLength(xvsTokenAddress).call();
 
       const [currentVotes, balanceTemp, ...xvsPoolInfos] = await Promise.all([
         // voting power is calculated from user's amount of XVS staked in the XVS vault
@@ -97,13 +104,13 @@ function Vote({ getProposals }: VoteProps) {
         xvsTokenContract.methods.balanceOf(account).call(),
         // query all xvs pool infos
         ...Array.from({ length }).map((_, index) =>
-          xvsVaultProxyContract.methods.poolInfos(XVS_TOKEN, index).call(),
+          xvsVaultProxyContract.methods.poolInfos(xvsTokenAddress, index).call(),
         ),
       ]);
 
       // find xvs vault pid
       const xvsVaultIndex = xvsPoolInfos.findIndex(
-        info => info.token.toLowerCase() === XVS_TOKEN.toLowerCase(),
+        info => info.token.toLowerCase() === xvsTokenAddress.toLowerCase(),
       );
       if (xvsVaultIndex < 0) {
         throw new Error('xvs vault not found!');
@@ -116,7 +123,7 @@ function Vote({ getProposals }: VoteProps) {
       );
 
       const userInfo = await xvsVaultProxyContract.methods
-        .getUserInfo(XVS_TOKEN, xvsVaultIndex, account)
+        .getUserInfo(xvsTokenAddress, xvsVaultIndex, account)
         .call();
       setStakedAmount(userInfo.amount);
     }
@@ -138,7 +145,7 @@ function Vote({ getProposals }: VoteProps) {
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(VBEP_TOKENS).map(async item => {
-        const vBepContract = getVbepContract(web3, item.id);
+        const vBepContract = getVBepTokenContract(web3, item.id);
         const [
           supplyState,
           supplierTokens,

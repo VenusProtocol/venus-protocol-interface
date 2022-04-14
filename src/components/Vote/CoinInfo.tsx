@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
-import generateBscScanAddressUrl from 'utilities/generateBscScanAddressUrl';
+import { generateBscScanUrl } from 'utilities';
 import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
 import { State } from 'core/modules/initialState';
@@ -51,7 +51,7 @@ interface CoinInfoProps {
 
 function CoinInfo({ address, balance }: CoinInfoProps) {
   const handleLink = () => {
-    window.open(generateBscScanAddressUrl(address), '_blank');
+    window.open(generateBscScanUrl(address), '_blank');
   };
 
   return (
