@@ -50,6 +50,7 @@ export { ReactComponent as matic } from './coins/matic.svg';
 export { ReactComponent as sxp } from './coins/sxp.svg';
 export { ReactComponent as trx } from './coins/trx.svg';
 export { ReactComponent as tusd } from './coins/tusd.svg';
+export { ReactComponent as luna } from './coins/luna.svg';
 export { ReactComponent as usdc } from './coins/usdc.svg';
 export { ReactComponent as usdt } from './coins/usdt.svg';
 export { ReactComponent as vai } from './coins/vai.svg';
