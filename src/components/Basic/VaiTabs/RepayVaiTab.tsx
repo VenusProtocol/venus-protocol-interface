@@ -37,7 +37,7 @@ function RepayVaiTab() {
           new BigNumber(2).pow(256).minus(1).toString(10),
         )
         .send({
-          from: account,
+          from: account || undefined,
         });
     } catch (error) {
       console.log('vai approve error :>> ', error);

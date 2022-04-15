@@ -45,10 +45,10 @@ function VaultCard({ settings }: VaultCardProps) {
   useEffect(async () => {
     let isMounted = true;
 
-    let userVaiBalanceTemp = new BigNumber(0);
+    let userVaiBalanceTemp = '0';
     let userVaiStakedAmountTemp = '0';
     let userPendingRewardTemp = '0';
-    let userVaiAllowanceTemp = new BigNumber(0);
+    let userVaiAllowanceTemp = '0';
 
     const [venusVAIVaultRateTemp] = await Promise.all([
       compContract.methods.venusVAIVaultRate().call(),
@@ -117,11 +117,11 @@ function VaultCard({ settings }: VaultCardProps) {
                 .deposit(stakeAmount.toFixed(0))
                 .send({ from: account || undefined });
             }}
-            onApprove={amt =>
-              vaiTokenContract.methods
+            onApprove={async amt => {
+              await vaiTokenContract.methods
                 .approve(vaiVaultContract.options.address, amt.toFixed(0))
-                .send({ from: account })
-            }
+                .send({ from: account || undefined });
+            }}
             onWithdraw={async amt => {
               await vaiVaultContract.methods
                 .withdraw(amt.toFixed(0))

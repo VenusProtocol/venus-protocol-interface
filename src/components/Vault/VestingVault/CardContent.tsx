@@ -65,7 +65,7 @@ function CardContent({
   const rewardTokenAddress = getToken(rewardToken).address;
 
   const xvsVaultContract = useXvsVaultProxyContract();
-  const stakedTokenContract = getTokenContractByAddress(web3, stakedTokenAddress);
+  const stakedTokenContract = getTokenContractByAddress(stakedTokenAddress, web3);
 
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {

@@ -1,6 +1,6 @@
 import { getVBepToken } from 'utilities';
 
-import { getVBepTokenContract } from 'clients/contracts';
+import { getVTokenContract } from 'clients/contracts';
 
 const vBnbAddress = getVBepToken('bnb').address;
 
@@ -13,7 +13,7 @@ export const sendSupply = async (
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = getVBepTokenContract(web3, 'bnb');
+    const contract = getVTokenContract('bnb', web3);
     const contractData = contract.methods.mint().encodeABI();
 
     const tx = {
@@ -42,7 +42,7 @@ export const sendRepay = async (
   callback: $TSFixMe,
 ) => {
   try {
-    const contract = getVBepTokenContract(web3, 'bnb');
+    const contract = getVTokenContract('bnb', web3);
     const contractData = contract.methods.repayBorrow().encodeABI();
 
     const tx = {

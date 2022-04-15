@@ -38,10 +38,10 @@ export default function VaultCard() {
   useEffect(async () => {
     let isMounted = true;
 
-    let userVrtBalanceTemp = new BigNumber(0);
+    let userVrtBalanceTemp = '0';
     let userVrtStakedAmountTemp = '0';
     let userPendingRewardTemp = '0';
-    let userVrtAllowanceTemp = new BigNumber(0);
+    let userVrtAllowanceTemp = '0';
 
     const [interestRatePerBlockTemp, vaultVrtBalanceTemp] = await Promise.all([
       vrtVaultProxyContract.methods.interestRatePerBlock().call(),

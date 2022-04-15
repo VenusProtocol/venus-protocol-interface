@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { TokenId, VTokenId } from 'types';
 import { useWeb3 } from 'clients/web3';
 import {
   getComptrollerContract,
@@ -8,7 +9,7 @@ import {
   getTokenContract,
   getVaiUnitrollerContract,
   getVaiVaultContract,
-  getVBepTokenContract,
+  getVTokenContract,
   getVenusLensContract,
   getXvsVaultProxyContract,
   getXvsVaultContract,
@@ -19,19 +20,19 @@ import {
   getVrtVaultProxyContract,
 } from './getters';
 
-export const useTokenContract = (name: $TSFixMe) => {
+export const useTokenContract = <T extends TokenId>(name: T) => {
   const web3 = useWeb3();
-  return useMemo(() => getTokenContract(web3, name), [web3, name]);
+  return useMemo(() => getTokenContract<T>(name, web3), [web3, name]);
 };
 
-export const useTokenContractByAddress = (address: $TSFixMe) => {
+export const useTokenContractByAddress = (address: string) => {
   const web3 = useWeb3();
-  return useMemo(() => getTokenContractByAddress(web3, address), [web3, address]);
+  return useMemo(() => getTokenContractByAddress(address, web3), [web3, address]);
 };
 
-export const useVBepTokenContract = (name: $TSFixMe) => {
+export const useVTokenContract = <T extends VTokenId>(name: T) => {
   const web3 = useWeb3();
-  return useMemo(() => getVBepTokenContract(web3, name), [web3, name]);
+  return useMemo(() => getVTokenContract<T>(name, web3), [web3, name]);
 };
 
 export const useVaiUnitrollerContract = () => {
@@ -56,7 +57,7 @@ export const usePriceOracleContract = () => {
 
 export const useInterestModelContract = (address: string) => {
   const web3 = useWeb3();
-  return useMemo(() => getInterestModelContract(web3, address), [web3]);
+  return useMemo(() => getInterestModelContract(address, web3), [web3]);
 };
 
 export const useVenusLensContract = () => {

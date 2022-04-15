@@ -119,7 +119,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const governorBravoContract = useGovernorBravoDelegateContract();
 
   const updateBalance = useCallback(async () => {
-    if (proposalInfo.id) {
+    if (proposalInfo.id && proposalInfo.proposer) {
       const threshold = await governorBravoContract.methods.proposalThreshold().call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
       const weight = await xvsTokenContract.methods.getCurrentVotes(proposalInfo.proposer).call();

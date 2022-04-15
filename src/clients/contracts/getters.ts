@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
+import { TokenId, VTokenId } from 'types';
 import { getWeb3NoAccount } from 'clients/web3';
 import bep20Abi from 'constants/contracts/abis/bep20.json';
 import comptrollerAbi from 'constants/contracts/abis/comptroller.json';
@@ -11,7 +12,7 @@ import vaiUnitrollerAbi from 'constants/contracts/abis/vaiUnitroller.json';
 import vaiVaultAbi from 'constants/contracts/abis/vaiVault.json';
 import xvsVaultStoreAbi from 'constants/contracts/abis/xvsVaultStore.json';
 import xvsVaultAbi from 'constants/contracts/abis/xvsVault.json';
-import vBepAbi from 'constants/contracts/abis/vBep.json';
+import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
@@ -25,54 +26,65 @@ import {
   Comptroller,
   InterestModel,
   Oracle,
-  // VaiToken,
-  VaiUnitroller,
   VaiVault,
-  XvsVaultStore,
+  VaiUnitroller,
   XvsVault,
-  // VBep,
-  // VBnbToken,
-  // XvsToken,
+  XvsVaultStore,
   VenusLens,
   GovernorBravoDelegate,
   XvsVesting,
-  VrtConverter,
-  // VrtToken,
   VrtVault,
+  VrtConverter,
 } from 'types/contracts';
 import { getContractAddress, getToken, getVBepToken } from 'utilities';
+import { TokenContract, VTokenContract } from './types';
 
-const getContract = (abi: AbiItem | AbiItem[], address: string | undefined, web3Instance: Web3) => {
+const getContract = (abi: AbiItem | AbiItem[], address: string, web3Instance: Web3) => {
   const web3 = web3Instance ?? getWeb3NoAccount();
   return new web3.eth.Contract(abi, address);
 };
 
-// @TODO: type "name"
-export const getTokenContract = (web3: Web3, name: $TSFixMe) => {
-  let abi = bep20Abi as $TSFixMe;
+export const getTokenContract = <T extends TokenId>(tokenId: T, web3: Web3): TokenContract<T> => {
+  const tokenAddress = getToken(tokenId).address;
 
-  if (name === 'xvs') {
-    abi = xvsTokenAbi;
-  } else if (name === 'vai') {
-    abi = vaiTokenAbi;
-  } else if (name === 'vrt') {
-    abi = vrtTokenAbi;
+  if (tokenId === 'xvs') {
+    return getContract(xvsTokenAbi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
   }
 
-  // @TODO: assign return type based on `name`
-  return getContract(abi, getToken(name).address, web3);
+  if (tokenId === 'vai') {
+    return getContract(vaiTokenAbi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
+  }
+
+  if (tokenId === 'vrt') {
+    return getContract(vrtTokenAbi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
+  }
+
+  return getContract(bep20Abi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
 };
 
-export const getTokenContractByAddress = (web3: Web3, address: $TSFixMe): Bep20 =>
+export const getTokenContractByAddress = (address: string, web3: Web3): Bep20 =>
   getContract(bep20Abi as AbiItem[], address, web3) as unknown as Bep20;
 
-// @TODO: assign return type based on `name`
-export const getVBepTokenContract = (web3: Web3, name: $TSFixMe) =>
-  getContract(
-    name === 'bnb' ? (vBnbTokenAbi as AbiItem[]) : (vBepAbi as AbiItem[]),
-    getVBepToken(name).address,
+export const getVTokenContract = <T extends VTokenId>(
+  tokenId: T,
+  web3: Web3,
+): VTokenContract<T> => {
+  const vBepTokenAddress = getVBepToken(tokenId).address;
+
+  if (tokenId === 'bnb') {
+    return getContract(
+      vBnbTokenAbi as AbiItem[],
+      vBepTokenAddress,
+      web3,
+    ) as unknown as VTokenContract<T>;
+  }
+
+  return getContract(
+    vBep20Abi as AbiItem[],
+    vBepTokenAddress,
     web3,
-  );
+  ) as unknown as VTokenContract<T>;
+};
 
 export const getVaiUnitrollerContract = (web3: Web3) =>
   getContract(
@@ -119,7 +131,7 @@ export const getComptrollerContract = (web3: Web3) =>
 export const getPriceOracleContract = (web3: Web3) =>
   getContract(oracleAbi as AbiItem[], getContractAddress('oracle'), web3) as unknown as Oracle;
 
-export const getInterestModelContract = (web3: Web3, address: $TSFixMe) =>
+export const getInterestModelContract = (address: string, web3: Web3) =>
   getContract(interestModelAbi as AbiItem[], address, web3) as unknown as InterestModel;
 
 export const getVenusLensContract = (web3: Web3) =>

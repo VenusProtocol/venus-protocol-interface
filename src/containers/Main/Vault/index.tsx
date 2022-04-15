@@ -76,7 +76,7 @@ function Vault() {
           xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call(),
         ]);
 
-        const totalStaked = await getTokenContractByAddress(web3, poolInfo.token)
+        const totalStaked = await getTokenContractByAddress(poolInfo.token, web3)
           .methods.balanceOf(xvsVaultContract.options.address)
           .call();
 

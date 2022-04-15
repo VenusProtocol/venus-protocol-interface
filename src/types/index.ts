@@ -35,7 +35,7 @@ export interface Asset {
 }
 
 export type TokenId = keyof typeof TOKENS;
-export type VBepTokenId = keyof typeof VBEP_TOKENS;
+export type VTokenId = keyof typeof VBEP_TOKENS;
 
 export interface IToken {
   id: TokenId;
@@ -47,8 +47,8 @@ export interface IToken {
 }
 
 export interface IVBepToken {
-  id: VBepTokenId;
-  symbol: `v${Uppercase<VBepTokenId>}`;
+  id: VTokenId;
+  symbol: `v${Uppercase<VTokenId>}`;
   address: string | '';
 }
 
