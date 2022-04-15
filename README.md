@@ -23,7 +23,7 @@ cp .env.template .env
 
 ## Requirements and Configuration
 
-You’ll need to have Node >12.19 or later version on your local development machine
+You’ll need to have Node >16 or later version on your local development machine
 
 ## Deployment
 
@@ -84,7 +84,7 @@ inside [src/assets/translation](src/assets/translations). This means all texts w
 to be rendered using the `t` function, returned by `useTranslation`:
 
 ```tsx
-import { useTranslation } from 'clients/translation';
+import { useTranslation } from 'translation';
 
 const Component: React.FC = () => {
   const { t } = useTranslation();
@@ -96,7 +96,7 @@ const Component: React.FC = () => {
 If a text contains HTML or JSX elements, then the `Trans` component can be used instead:
 
 ```tsx
-import { useTranslation } from 'clients/translation';
+import { useTranslation } from 'translation';
 
 const Component: React.FC = () => {
   const { Trans } = useTranslation();
@@ -113,7 +113,7 @@ If a text needs to be accessed from outside of a component, then the `t` functio
 translation client can be used:
 
 ```tsx
-import { t } from 'clients/translation';
+import { t } from 'translation';
 
 const myFunction () => t('functionName.textKey');
 ```
