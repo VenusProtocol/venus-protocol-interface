@@ -140,13 +140,10 @@ function VotingWallet({
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
       setIsLoading(true);
       try {
-        // @TODO: check why type doesn't contain "claimVenus"
-        await (comptrollerContract.methods as $TSFixMe)
-          .claimVenus(
-            account,
-            outstandingVTokens.map((token: $TSFixMe) => token[0]),
-          )
-          .send({ from: account });
+        await comptrollerContract.methods['claimVenus(address,address[])'](
+          account,
+          outstandingVTokens.map((token: $TSFixMe) => token[0]),
+        ).send({ from: account });
       } catch (error) {
         console.log('claim venus error :>> ', error);
       }
