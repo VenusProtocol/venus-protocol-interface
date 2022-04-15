@@ -7,6 +7,11 @@ export default {
   title: 'Pages/Dashboard/MyAccount',
   component: MyAccount,
   decorators: [withThemeProvider, withCenterStory({ width: 650 })],
+  parameters: {
+    backgrounds: {
+      default: 'Primary',
+    },
+  },
 } as ComponentMeta<typeof MyAccount>;
 
 export const Default = () => (
