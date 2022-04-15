@@ -46,8 +46,8 @@ function VaultCard({ settings }: VaultCardProps) {
     let isMounted = true;
 
     let userVaiBalanceTemp = new BigNumber(0);
-    let userVaiStakedAmountTemp = new BigNumber(0);
-    let userPendingRewardTemp = new BigNumber(0);
+    let userVaiStakedAmountTemp = '0';
+    let userPendingRewardTemp = '0';
     let userVaiAllowanceTemp = new BigNumber(0);
 
     const [venusVAIVaultRateTemp] = await Promise.all([
@@ -109,18 +109,24 @@ function VaultCard({ settings }: VaultCardProps) {
             userStakedAmount={userVaiStakedAmount}
             stakedToken="VAI"
             rewardToken="XVS"
-            onClaimReward={() => vaiVaultContract.methods.claim().send({ from: account })}
-            onStake={stakeAmount =>
-              vaiVaultContract.methods.deposit(stakeAmount.toFixed(0)).send({ from: account })
-            }
+            onClaimReward={async () => {
+              await vaiVaultContract.methods.claim().send({ from: account || undefined });
+            }}
+            onStake={async stakeAmount => {
+              await vaiVaultContract.methods
+                .deposit(stakeAmount.toFixed(0))
+                .send({ from: account || undefined });
+            }}
             onApprove={amt =>
               vaiTokenContract.methods
                 .approve(vaiVaultContract.options.address, amt.toFixed(0))
                 .send({ from: account })
             }
-            onWithdraw={amt =>
-              vaiVaultContract.methods.withdraw(amt.toFixed(0)).send({ from: account })
-            }
+            onWithdraw={async amt => {
+              await vaiVaultContract.methods
+                .withdraw(amt.toFixed(0))
+                .send({ from: account || undefined });
+            }}
           />
         )}
       </div>

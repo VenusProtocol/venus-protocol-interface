@@ -70,7 +70,7 @@ function CardContent({
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
     let isMounted = true;
-    let [balance, allowance, withdrawals] = ['0', '0', []];
+    let [balance, allowance, withdrawals] = ['0', '0', [['', '']]];
     if (account) {
       [balance, allowance, withdrawals] = await Promise.all([
         stakedTokenContract.methods.balanceOf(account).call(),
@@ -162,7 +162,7 @@ function CardContent({
                   try {
                     await xvsVaultContract.methods
                       .deposit(rewardTokenAddress, poolId.toNumber(), 0)
-                      .send({ from: account });
+                      .send({ from: account || undefined });
                   } catch (e) {
                     console.log('>> claim reward error:  ', e);
                   }
@@ -234,7 +234,7 @@ function CardContent({
                           new BigNumber(2).pow(256).minus(1).toString(10),
                         )
                         .send({
-                          from: account,
+                          from: account || undefined,
                         });
                     } else {
                       await xvsVaultContract.methods
@@ -243,7 +243,7 @@ function CardContent({
                           poolId.toNumber(),
                           stakeAmount.multipliedBy(1e18).toString(10),
                         )
-                        .send({ from: account });
+                        .send({ from: account || undefined });
                     }
                   } catch (e) {
                     console.log('>> stake error:', e);

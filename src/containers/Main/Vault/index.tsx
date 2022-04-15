@@ -58,7 +58,10 @@ function Vault() {
       // added pool: vai->xvs, xvs->xvs, vrt->vrt(todo)
       const xvsTokenAddress = TOKENS.xvs.address;
 
-      const xvsTokenPoolLength = await xvsVaultContract.methods.poolLength(xvsTokenAddress).call();
+      const fetchedXvsTokenPoolLength = await xvsVaultContract.methods
+        .poolLength(xvsTokenAddress)
+        .call();
+      const xvsTokenPoolLength = +fetchedXvsTokenPoolLength;
 
       const fetchPoolParameters = Array.from({ length: xvsTokenPoolLength }).map((_, index) => ({
         rewardToken: xvsTokenAddress,
@@ -81,7 +84,7 @@ function Vault() {
           '0',
           {
             amount: '0',
-            pendingWithdrawals: [],
+            pendingWithdrawals: '',
             rewardDebt: '0',
           },
         ];

@@ -96,7 +96,8 @@ function Vote({ getProposals }: VoteProps) {
   const updateBalance = async () => {
     if (account) {
       // find the pid of xvs vault, which users get voting powers from
-      const length = await xvsVaultProxyContract.methods.poolLength(xvsTokenAddress).call();
+      const fetchedLength = await xvsVaultProxyContract.methods.poolLength(xvsTokenAddress).call();
+      const length = +fetchedLength;
 
       const [currentVotes, balanceTemp, ...xvsPoolInfos] = await Promise.all([
         // voting power is calculated from user's amount of XVS staked in the XVS vault

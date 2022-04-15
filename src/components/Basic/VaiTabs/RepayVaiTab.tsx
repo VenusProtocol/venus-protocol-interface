@@ -53,7 +53,7 @@ function RepayVaiTab() {
     try {
       await vaiControllerContract.methods
         .repayVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
-        .send({ from: account });
+        .send({ from: account || undefined });
       setAmount(new BigNumber(0));
     } catch (error) {
       console.log('repay vai error :>> ', error);
