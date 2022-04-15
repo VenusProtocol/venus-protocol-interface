@@ -17,6 +17,7 @@ export interface ISliderProps {
   trackTooltip?: string;
   markTooltip?: string;
   isDisabled?: boolean;
+  className?: string;
 }
 
 export const ProgressBarHorizontal = ({
@@ -29,6 +30,7 @@ export const ProgressBarHorizontal = ({
   isDisabled,
   trackTooltip,
   markTooltip,
+  className,
 }: ISliderProps) => {
   const marks = mark ? [{ value: mark }] : undefined;
   const styles = useStyles({ over: value > mark });
@@ -63,23 +65,22 @@ export const ProgressBarHorizontal = ({
   };
 
   return (
-    <>
-      <MaterialSlider
-        css={styles.slider}
-        components={{
-          Thumb: undefined,
-          Mark: renderMark,
-          Track: renderTrack,
-        }}
-        value={value}
-        marks={marks}
-        step={step}
-        aria-label={ariaLabel}
-        min={min}
-        max={max}
-        size="medium"
-        disabled={isDisabled}
-      />
-    </>
+    <MaterialSlider
+      className={className}
+      css={styles.slider}
+      components={{
+        Thumb: undefined,
+        Mark: renderMark,
+        Track: renderTrack,
+      }}
+      value={value}
+      marks={marks}
+      step={step}
+      aria-label={ariaLabel}
+      min={min}
+      max={max}
+      size="medium"
+      disabled={isDisabled}
+    />
   );
 };

@@ -74,7 +74,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   return (
     <div className={className} css={styles.tableContainer}>
       <Table
-        title={t('markets.tableTitleBorrow')}
+        title={t('markets.borrowMarketTableTitle')}
         columns={columns}
         data={rows}
         initialOrder={{
