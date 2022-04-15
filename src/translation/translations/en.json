@@ -43,6 +43,7 @@
     }
   },
   "markets": {
+    "borrowMarketTableTitle": "Borrow market",
     "collateralConfirmModal": {
       "confirmText": "Confirm the transaction",
       "disable": "Disable as collateral",
@@ -72,8 +73,7 @@
         "title": "Collateral Required"
       }
     },
-    "tableTitle": "TRANSLATION NEEDED",
-    "tableTitleBorrow": "Borrow market"
+    "supplyMarketTableTitle": "Supply market"
   },
   "mintRepayVai": {
     "mintVai": {
@@ -97,7 +97,7 @@
   },
   "myAccount": {
     "apyWithXvs": "APY with XVS",
-    "apyWithXvsTooltip": "APY with XVS tooltip",
+    "apyWithXvsTooltip": "TRANSLATION NEEDED",
     "borrowBalance": "Borrow balance",
     "borrowLimit": "Borrow limit:",
     "dailyEarnings": "Daily earnings",
@@ -107,7 +107,8 @@
       "ariaLabel": "Borrow limit"
     },
     "safeLimit": "Your safe limit:",
-    "safeLimitTooltip": "Your safe limit tooltip",
-    "supplyBalance": "Supply balance"
+    "safeLimitTooltip": "TRANSLATION NEEDED",
+    "supplyBalance": "Supply balance",
+    "title": "My account"
   }
 }
