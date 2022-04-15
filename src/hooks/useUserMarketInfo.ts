@@ -15,7 +15,11 @@ import {
   IGetVTokenBalancesAllOutput,
 } from 'clients/api';
 
-const useUserMarketInfo = ({ account }: { account: string | null | undefined }): Asset[] => {
+const useUserMarketInfo = ({
+  account,
+}: {
+  account: string | null | undefined;
+}): { assets: Asset[]; userTotalBorrowLimit: BigNumber; userTotalBorrowBalance: BigNumber } => {
   const { userVaiMinted } = useVaiUser();
 
   const vtAddresses = Object.values(VBEP_TOKENS)
@@ -160,7 +164,11 @@ const useUserMarketInfo = ({ account }: { account: string | null | undefined }):
           .dp(0, 1)
           .toString(10),
   }));
-  return assetList;
+  return {
+    assets: assetList,
+    userTotalBorrowLimit: totalBorrowLimit,
+    userTotalBorrowBalance: totalBorrowBalance,
+  };
 };
 
 export default useUserMarketInfo;
