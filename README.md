@@ -134,8 +134,8 @@ need to update with the content you want.
 
 ### Automatic contract types
 
-We use [TypeChain](https://github.com/dethcrypto/TypeChain) to automatically generate TypeScript
-types for our contracts, using their ABIs located at `src/constants/contracts/abis`.
+We use [TypeChain](https://github.com/dethcrypto/TypeChain) to automatically generate types for our
+contracts, using their ABIs located at `src/constants/contracts/abis`.
 
 Note that the types aren't committed to the repo, since they are rebuilt every time TypeChain
 generates them. Instead, they are automatically generated upon installing dependencies. You will
