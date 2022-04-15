@@ -49,10 +49,11 @@ const MyAccount: React.FC = () => {
         yearlyEarningsCents = new BigNumber(0);
       }
 
+      // @TODO: use reusable util once implemented
+      // (see https://app.clickup.com/t/26pg8t0)
       borrowBalanceCents = borrowBalanceCents.plus(
         asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
       );
-
       supplyBalanceCents = supplyBalanceCents.plus(
         asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
       );
@@ -100,6 +101,8 @@ const MyAccount: React.FC = () => {
         .toFixed(2);
     }
 
+    // @TODO: use reusable util once implemented (see
+    // https://app.clickup.com/t/26pg8j3)
     const dailyEarningsCents =
       yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
 
