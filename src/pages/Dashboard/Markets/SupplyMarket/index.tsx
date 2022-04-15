@@ -95,7 +95,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   return (
     <div className={className} css={styles.tableContainer}>
       <Table
-        title={t('markets.tableTitle')}
+        title={t('markets.supplyMarketTableTitle')}
         columns={columns}
         data={rows}
         initialOrder={{

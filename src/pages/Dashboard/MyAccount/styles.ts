@@ -4,14 +4,19 @@ import { useTheme } from '@mui/material';
 export const useMyAccountStyles = () => {
   const theme = useTheme();
   return {
-    root: css`
-      padding: ${theme.spacing(3)};
+    container: css`
+      width: 100%;
+      background-color: ${theme.palette.background.paper};
+      border-radius: ${theme.shape.borderRadius.large}px;
+      padding: ${theme.spacing(6)};
     `,
     row: css`
-      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+    `,
+    header: css`
+      margin-bottom: ${theme.spacing(6)};
     `,
     apyWithXvs: css`
       display: flex;
@@ -20,30 +25,38 @@ export const useMyAccountStyles = () => {
     tooltip: css`
       display: flex;
     `,
-    iconInfo: css`
-      margin-left: ${theme.spacing(1)};
-      margin-right: ${theme.spacing(1)};
+    getInfoIcon: ({ position }: { position: 'left' | 'right' }) => css`
+      cursor: help;
+
+      ${position === 'left'
+        ? css`
+            margin-right: ${theme.spacing(2)};
+          `
+        : css`
+            margin-left: ${theme.spacing(2)};
+          `};
     `,
     toggle: css`
-      margin-left: ${theme.spacing(1)};
+      margin-left: ${theme.spacing(2)};
     `,
     labelListItem: css`
-      margin-bottom: ${theme.spacing(0.7)};
+      margin-bottom: ${theme.spacing(1)};
     `,
     inline: css`
       display: inline-block;
     `,
+    netApyContainer: css`
+      margin-bottom: ${theme.spacing(4)};
+    `,
     netApyLabel: css`
       display: flex;
       align-items: center;
-      width: 100%;
-      margin-top: ${theme.spacing(3)};
+      margin-bottom: ${theme.spacing(1)};
     `,
     list: css`
       padding-left: 0;
       display: flex;
-      margin-bottom: ${theme.spacing(3)};
-      margin-top: ${theme.spacing(1)};
+      margin-bottom: ${theme.spacing(6)};
 
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
@@ -51,8 +64,8 @@ export const useMyAccountStyles = () => {
     `,
     item: css`
       list-style: none;
-      padding-left: ${theme.spacing(4)};
-      padding-right: ${theme.spacing(4)};
+      padding-left: ${theme.spacing(8)};
+      padding-right: ${theme.spacing(8)};
       border-left: 1px solid ${theme.palette.secondary.light};
       border-right: 1px solid ${theme.palette.secondary.light};
 
@@ -65,7 +78,7 @@ export const useMyAccountStyles = () => {
         font-size: 14px;
 
         & + & {
-          margin-top: ${theme.spacing(1)};
+          margin-top: ${theme.spacing(2)};
         }
       }
 
@@ -78,20 +91,25 @@ export const useMyAccountStyles = () => {
         padding-right: 0;
       }
     `,
+    topProgressBarLegend: css`
+      margin-bottom: ${theme.spacing(3)};
+    `,
     borrowLimitLabelWrapper: css`
       display: flex;
     `,
-    borrowLimitLabel: css`
-      margin-right: ${theme.spacing(0.5)};
+    inlineLabel: css`
+      margin-right: ${theme.spacing(1)};
+    `,
+    progressBar: css`
+      margin-bottom: ${theme.spacing(3)};
+    `,
+    shieldIcon: css`
+      margin-right: ${theme.spacing(2)};
     `,
     bottom: css`
       display: flex;
       justify-content: flex-end;
       align-items: center;
-    `,
-    safeLimit: css`
-      margin-left: ${theme.spacing(1)};
-      margin-right: ${theme.spacing(1)};
     `,
   };
 };
