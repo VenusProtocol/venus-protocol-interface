@@ -29,8 +29,8 @@ const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
           <Tabs
             fullWidth={isOnMobile}
             tabTitles={[t('mintRepayVai.tabMint'), t('mintRepayVai.tabRepay')]}
-            activeTabIndex={activeTabIndex}
-            onChange={tabIndex => setActiveTabIndex(tabIndex)}
+            onTabChange={setActiveTabIndex}
+            initialActiveTabIndex={activeTabIndex}
           />
         </div>
       </div>
