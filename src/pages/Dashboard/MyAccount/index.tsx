@@ -49,8 +49,6 @@ const MyAccount: React.FC = () => {
         yearlyEarningsCents = new BigNumber(0);
       }
 
-      // @TODO: use reusable util once implemented
-      // (see https://app.clickup.com/t/26pg8t0)
       borrowBalanceCents = borrowBalanceCents.plus(
         asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
       );
@@ -60,6 +58,8 @@ const MyAccount: React.FC = () => {
 
       // Update borrow limit if asset is currently enabled as collateral
       if (asset.collateral) {
+        // @TODO: use reusable util once implemented
+        // (see https://app.clickup.com/t/26pg8t0)
         borrowLimitCents = borrowLimitCents.plus(
           supplyBalanceCents.multipliedBy(asset.collateralFactor),
         );
