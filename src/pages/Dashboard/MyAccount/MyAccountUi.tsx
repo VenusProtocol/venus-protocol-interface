@@ -3,6 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { formatCentsToReadableValue } from 'utilities/common';
+import { useTranslation } from 'translation';
 import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
 import { useMyAccountStyles as useStyles } from './styles';
 
@@ -30,6 +31,8 @@ export const MyAccountUi = ({
   className,
 }: IMyAccountUiProps) => {
   const styles = useStyles();
+  const { t, Trans } = useTranslation();
+
   const handleXvsToggleChange: IToggleProps['onChange'] = (_event, checked) => onXvsToggle(checked);
 
   const readableBorrowBalance =
@@ -60,18 +63,15 @@ export const MyAccountUi = ({
   return (
     <div css={styles.container} className={className}>
       <div css={[styles.row, styles.header]}>
-        <Typography variant="h4">My account</Typography>
+        <Typography variant="h4">{t('myAccount.title')}</Typography>
 
         <Typography component="div" variant="small2" css={styles.apyWithXvs}>
-          <Tooltip
-            css={styles.tooltip}
-            title="Choose whether to include the XVS distribution APY in calculations"
-          >
+          <Tooltip css={styles.tooltip} title={t('myAccount.apyWithXvsTooltip')}>
             <Icon css={styles.infoIcon} name="info" />
           </Tooltip>
 
           <Typography color="text.primary" variant="small1" css={styles.apyWithXvsLabel}>
-            APY with XVS
+            {t('myAccount.apyWithXvs')}
           </Typography>
 
           <Toggle css={styles.toggle} value={withXvs} onChange={handleXvsToggleChange} />
@@ -81,13 +81,10 @@ export const MyAccountUi = ({
       <div css={styles.netApyContainer}>
         <div css={styles.netApy}>
           <Typography component="div" variant="small2" css={styles.netApyLabel}>
-            Net APY
+            {t('myAccount.netApy')}
           </Typography>
 
-          <Tooltip
-            css={styles.tooltip}
-            title="Percentage of your total supply balance received as yearly interests"
-          >
+          <Tooltip css={styles.tooltip} title={t('myAccount.netApyTooltip')}>
             <Icon css={styles.infoIcon} name="info" />
           </Tooltip>
         </div>
@@ -100,7 +97,7 @@ export const MyAccountUi = ({
       <ul css={styles.list}>
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="div" variant="small2" css={styles.labelListItem}>
-            Daily earnings
+            {t('myAccount.dailyEarnings')}
           </Typography>
 
           {typeof dailyEarningsCents === 'number'
@@ -110,7 +107,7 @@ export const MyAccountUi = ({
 
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="div" variant="small2" css={styles.labelListItem}>
-            Supply balance
+            {t('myAccount.supplyBalance')}
           </Typography>
 
           {typeof supplyBalanceCents === 'number'
@@ -120,7 +117,7 @@ export const MyAccountUi = ({
 
         <Typography component="li" variant="h4" css={styles.item}>
           <Typography component="div" variant="small2" css={styles.labelListItem}>
-            Borrow balance
+            {t('myAccount.borrowBalance')}
           </Typography>
 
           {readableBorrowBalance || '-'}
@@ -130,7 +127,7 @@ export const MyAccountUi = ({
       <div css={[styles.row, styles.topProgressBarLegend]}>
         <div css={styles.inlineContainer}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            Borrow limit used:
+            {t('myAccount.borrowLimitUsed')}
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
@@ -140,7 +137,7 @@ export const MyAccountUi = ({
 
         <div css={styles.inlineContainer}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            Limit:
+            {t('myAccount.limit')}
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
@@ -162,22 +159,34 @@ export const MyAccountUi = ({
         trackTooltip={
           readableBorrowBalance &&
           readableBorrowLimitUsedPercentage && (
-            <>
+            <Trans
+              i18nKey="myAccount.progressBar.borrowLimitTooltip"
+              values={{
+                borrowBalance: readableBorrowBalance,
+                borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
+              }}
+            >
               Current borrow balance:
               <br />
               {readableBorrowBalance} ({readableBorrowLimitUsedPercentage} of your borrow limit)
-            </>
+            </Trans>
           )
         }
         markTooltip={
           readableSafeBorrowLimit &&
           safeBorrowLimitCents &&
           safeBorrowLimitCents > 0 && (
-            <>
+            <Trans
+              i18nKey="myAccount.progressBar.safeBorrowLimitTooltip"
+              values={{
+                safeBorrowLimit: readableSafeBorrowLimit,
+                safeBorrowLimitPercentage,
+              }}
+            >
               Safe borrow limit:
               <br />
               {readableSafeBorrowLimit} ({safeBorrowLimitPercentage}% of your borrow limit)
-            </>
+            </Trans>
           )
         }
         isDisabled
@@ -187,7 +196,7 @@ export const MyAccountUi = ({
         <Icon name="shield" css={styles.shieldIcon} />
 
         <Typography component="span" variant="small2" css={styles.inlineLabel}>
-          Your safe limit:
+          {t('myAccount.safeLimit')}
         </Typography>
 
         <Typography component="span" variant="small1" color="text.primary" css={styles.safeLimit}>
@@ -196,7 +205,7 @@ export const MyAccountUi = ({
 
         <Tooltip
           css={styles.tooltip}
-          title={`${safeBorrowLimitPercentage}% of your borrow limit. We consider borrowing more than this threshold unsafe.`}
+          title={t('myAccount.safeLimitTooltip', { safeBorrowLimitPercentage })}
         >
           <Icon css={styles.infoIcon} name="info" />
         </Tooltip>

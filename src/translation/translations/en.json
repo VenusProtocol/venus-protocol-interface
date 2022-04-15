@@ -97,17 +97,19 @@
   },
   "myAccount": {
     "apyWithXvs": "APY with XVS",
-    "apyWithXvsTooltip": "TRANSLATION NEEDED",
+    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APR in calculations",
     "borrowBalance": "Borrow balance",
-    "borrowLimit": "Borrow limit:",
+    "borrowLimitUsed": "Borrow limit used:",
     "dailyEarnings": "Daily earnings",
+    "limit": "Limit:",
     "netApy": "Net APY",
-    "netApyTooltip": "Net APY tooltip",
+    "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
     "progressBar": {
-      "ariaLabel": "Borrow limit"
+      "borrowLimitTooltip": "Current borrow balance:<1></1>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
+      "safeBorrowLimitTooltip": "Safe borrow limit:<1></1>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
     },
     "safeLimit": "Your safe limit:",
-    "safeLimitTooltip": "TRANSLATION NEEDED",
+    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing more than this threshold unsafe.",
     "supplyBalance": "Supply balance",
     "title": "My account"
   }
