@@ -31,8 +31,8 @@ export const assetData: Asset[] = [
     hypotheticalLiquidity: ['1', '2', '3'] as [string, string, string],
   },
   {
-    id: 'usdc',
-    symbol: 'USDC',
+    id: 'tusd',
+    symbol: 'TUSD',
     borrowApy: new BigNumber('0.14'),
     liquidity: new BigNumber('2158192683'),
     tokenPrice: new BigNumber(123333),
@@ -59,8 +59,8 @@ export const assetData: Asset[] = [
     hypotheticalLiquidity: ['1', '2', '3'] as [string, string, string],
   },
   {
-    id: 'bnb',
-    symbol: 'BNB',
+    id: 'luna',
+    symbol: 'LUNA',
     borrowApy: new BigNumber('8.14'),
     liquidity: new BigNumber('918723'),
     tokenPrice: new BigNumber(123),
