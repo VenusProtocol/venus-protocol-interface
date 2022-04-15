@@ -1,6 +1,6 @@
 name: Tests and Checks
 
-on: [pull_request]
+on: [push]
 
 env:
   REACT_APP_CHAIN_ID: 97
@@ -61,10 +61,6 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
-      - uses: actions/checkout@v2
-      - run: |
-          git fetch --prune --unshallow
 
       - run: |
           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
