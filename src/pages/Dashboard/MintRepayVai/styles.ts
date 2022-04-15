@@ -12,10 +12,10 @@ export const useStyles = () => {
       flex-direction: column;
       background-color: ${theme.palette.background.paper};
       border-radius: ${theme.shape.borderRadius.large}px;
-      padding: ${theme.spacing(3)};
+      padding: ${theme.spacing(6)};
     `,
     header: css`
-      margin-bottom: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(8)};
       display: flex;
       align-items: center;
 
@@ -28,10 +28,10 @@ export const useStyles = () => {
     `,
     headerTitle: css`
       flex: 0 1 auto;
-      padding-right: ${theme.spacing(2)};
+      padding-right: ${theme.spacing(4)};
 
       ${theme.breakpoints.down('sm')} {
-        margin-bottom: ${theme.spacing(3)};
+        margin-bottom: ${theme.spacing(6)};
       }
     `,
     headerTabsContainer: css`
@@ -48,10 +48,10 @@ export const useStyles = () => {
       flex: 1;
     `,
     textField: css`
-      margin-bottom: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(8)};
     `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
-      margin-bottom: ${theme.spacing(isLast ? 3 : 2)};
+      margin-bottom: ${theme.spacing(isLast ? 6 : 4)};
     `,
   };
 };
