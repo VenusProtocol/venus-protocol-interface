@@ -56,18 +56,19 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
 
       <div css={styles.footer}>
         <Typography variant="small2">
-          <Trans i18nKey="authModal.walletList.termsOfServiceLink">
-            By connecting a wallet, you agree to Venus&apos;{' '}
-            <a
-              href={VENUS_TERMS_OF_SERVICE_URL}
-              target="_blank"
-              rel="noreferrer"
-              css={styles.footerLink}
-            >
-              Terms of Service
-            </a>
-            .
-          </Trans>
+          <Trans
+            i18nKey="authModal.walletList.termsOfServiceLink"
+            components={{
+              Anchor: (
+                <a // eslint-disable-line jsx-a11y/anchor-has-content
+                  href={VENUS_TERMS_OF_SERVICE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  css={styles.footerLink}
+                />
+              ),
+            }}
+          />
         </Typography>
       </div>
     </div>
