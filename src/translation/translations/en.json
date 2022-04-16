@@ -105,6 +105,7 @@
     "netApy": "Net APY",
     "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
     "progressBar": {
+      "accessibilityLabel": "Representation of the current state of your account",
       "borrowLimitTooltip": "Current borrow balance:<1></1>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
       "safeBorrowLimitTooltip": "Safe borrow limit:<1></1>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
     },
