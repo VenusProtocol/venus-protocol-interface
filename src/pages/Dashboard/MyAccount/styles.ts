@@ -35,6 +35,7 @@ export const useMyAccountStyles = () => {
       margin-left: ${theme.spacing(2)};
     `,
     labelListItem: css`
+      display: block;
       margin-bottom: ${theme.spacing(1)};
     `,
     inline: css`

@@ -65,22 +65,27 @@ export const MyAccountUi = ({
       <div css={[styles.row, styles.header]}>
         <Typography variant="h4">{t('myAccount.title')}</Typography>
 
-        <Typography component="div" variant="small2" css={styles.apyWithXvs}>
+        <div css={styles.apyWithXvs}>
           <Tooltip css={styles.tooltip} title={t('myAccount.apyWithXvsTooltip')}>
             <Icon css={styles.infoIcon} name="info" />
           </Tooltip>
 
-          <Typography color="text.primary" variant="small1" css={styles.apyWithXvsLabel}>
+          <Typography
+            color="text.primary"
+            variant="small1"
+            component="span"
+            css={styles.apyWithXvsLabel}
+          >
             {t('myAccount.apyWithXvs')}
           </Typography>
 
           <Toggle css={styles.toggle} value={withXvs} onChange={handleXvsToggleChange} />
-        </Typography>
+        </div>
       </div>
 
       <div css={styles.netApyContainer}>
         <div css={styles.netApy}>
-          <Typography component="div" variant="small2" css={styles.netApyLabel}>
+          <Typography component="span" variant="small2" css={styles.netApyLabel}>
             {t('myAccount.netApy')}
           </Typography>
 
@@ -89,14 +94,14 @@ export const MyAccountUi = ({
           </Tooltip>
         </div>
 
-        <Typography variant="h1" color="interactive.success">
+        <Typography variant="h1" color="interactive.success" component="span">
           {typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : '-'}
         </Typography>
       </div>
 
       <ul css={styles.list}>
         <Typography component="li" variant="h4" css={styles.item}>
-          <Typography component="div" variant="small2" css={styles.labelListItem}>
+          <Typography component="span" variant="small2" css={styles.labelListItem}>
             {t('myAccount.dailyEarnings')}
           </Typography>
 
@@ -106,7 +111,7 @@ export const MyAccountUi = ({
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
-          <Typography component="div" variant="small2" css={styles.labelListItem}>
+          <Typography component="span" variant="small2" css={styles.labelListItem}>
             {t('myAccount.supplyBalance')}
           </Typography>
 
@@ -116,7 +121,7 @@ export const MyAccountUi = ({
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
-          <Typography component="div" variant="small2" css={styles.labelListItem}>
+          <Typography component="span" variant="small2" css={styles.labelListItem}>
             {t('myAccount.borrowBalance')}
           </Typography>
 
@@ -192,7 +197,7 @@ export const MyAccountUi = ({
         isDisabled
       />
 
-      <Typography component="div" variant="small2" css={styles.bottom}>
+      <div css={styles.bottom}>
         <Icon name="shield" css={styles.shieldIcon} />
 
         <Typography component="span" variant="small2" css={styles.inlineLabel}>
@@ -209,7 +214,7 @@ export const MyAccountUi = ({
         >
           <Icon css={styles.infoIcon} name="info" />
         </Tooltip>
-      </Typography>
+      </div>
     </div>
   );
 };
