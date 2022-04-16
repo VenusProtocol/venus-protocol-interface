@@ -5,8 +5,9 @@ import { useStyles } from './styles';
 
 export { type TooltipProps } from '@mui/material/Tooltip';
 
-export const Tooltip = ({ children, ...rest }: TooltipProps) => {
+export const Tooltip: React.FC<TooltipProps> = ({ children, ...rest }) => {
   const styles = useStyles();
+
   return (
     <>
       <Global styles={styles} />
