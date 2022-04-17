@@ -10,8 +10,8 @@ export interface IValueUpdateProps {
   className?: string;
   original: number | BigNumber;
   update: number | BigNumber;
-  /** Defaults to formating cents to readable dollar value */
-  format?: (value: number | BigNumber) => string;
+  /** Defaults to formatting cents to readable dollar value */
+  format?: (params: { value: number | BigNumber }) => string;
 }
 
 export const ValueUpdate: React.FC<IValueUpdateProps> = ({
@@ -26,11 +26,11 @@ export const ValueUpdate: React.FC<IValueUpdateProps> = ({
   return (
     <div className={className} css={styles.container}>
       <Typography component="span" variant="body1">
-        {format(original)}
+        {format({ value: original })}
       </Typography>
       <Icon name="arrowShaft" css={styles.icon} />
       <Typography component="span" variant="body1">
-        {format(update)}
+        {format({ value: update })}
       </Typography>
     </div>
   );

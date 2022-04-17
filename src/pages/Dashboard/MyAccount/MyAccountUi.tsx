@@ -2,8 +2,8 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-import PLACEHOLDER_KEY from 'constants/paceholderKey';
-import { formatCentsToReadableValue } from 'utilities/common';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
 import { useTranslation } from 'translation';
 import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
 import { useMyAccountStyles as useStyles } from './styles';
@@ -43,43 +43,36 @@ export const MyAccountUi = ({
     borrowLimitUsedPercentage = Math.round((borrowBalanceCents * 100) / borrowLimitCents);
   }
 
+  const readableBorrowLimitUsedPercentage = formatToReadablePercentage(borrowLimitUsedPercentage);
+
   const safeBorrowLimitCents =
     typeof borrowLimitCents === 'number'
       ? Math.floor((borrowLimitCents * safeBorrowLimitPercentage) / 100)
       : undefined;
 
-  const readableNetApyPercentage =
-    typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : PLACEHOLDER_KEY;
+  const readableSafeBorrowLimit = formatCentsToReadableValue({
+    value: safeBorrowLimitCents,
+    removeDecimals: true,
+  });
 
-  const readableBorrowLimitUsedPercentage =
-    typeof borrowLimitUsedPercentage === 'number'
-      ? `${borrowLimitUsedPercentage}%`
-      : PLACEHOLDER_KEY;
+  const readableBorrowLimit = formatCentsToReadableValue({
+    value: borrowLimitCents,
+    removeDecimals: true,
+  });
 
-  const readableBorrowBalance =
-    typeof borrowBalanceCents === 'number'
-      ? formatCentsToReadableValue(borrowBalanceCents)
-      : PLACEHOLDER_KEY;
+  const readableNetApyPercentage = formatToReadablePercentage(netApyPercentage);
 
-  const readableSafeBorrowLimit =
-    typeof safeBorrowLimitCents === 'number'
-      ? formatCentsToReadableValue(safeBorrowLimitCents, true)
-      : PLACEHOLDER_KEY;
+  const readableBorrowBalance = formatCentsToReadableValue({
+    value: borrowBalanceCents,
+  });
 
-  const readableDailyEarnings =
-    typeof dailyEarningsCents === 'number'
-      ? formatCentsToReadableValue(dailyEarningsCents)
-      : PLACEHOLDER_KEY;
+  const readableDailyEarnings = formatCentsToReadableValue({
+    value: dailyEarningsCents,
+  });
 
-  const readableSupplyBalance =
-    typeof supplyBalanceCents === 'number'
-      ? formatCentsToReadableValue(supplyBalanceCents)
-      : PLACEHOLDER_KEY;
-
-  const readableBorrowLimit =
-    typeof borrowLimitCents === 'number'
-      ? formatCentsToReadableValue(borrowLimitCents, true)
-      : PLACEHOLDER_KEY;
+  const readableSupplyBalance = formatCentsToReadableValue({
+    value: supplyBalanceCents,
+  });
 
   return (
     <div css={styles.container} className={className}>
@@ -178,7 +171,7 @@ export const MyAccountUi = ({
         max={100}
         trackTooltip={
           readableBorrowBalance !== PLACEHOLDER_KEY &&
-          readableBorrowLimitUsedPercentage && (
+          readableBorrowLimitUsedPercentage !== PLACEHOLDER_KEY && (
             <Trans
               i18nKey="myAccount.progressBar.borrowLimitTooltip"
               values={{

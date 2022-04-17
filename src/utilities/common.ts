@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
 
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { getToken, getVBepToken } from 'utilities';
 import { TokenId, VBepTokenId } from 'types';
 
@@ -123,9 +124,12 @@ export const formatCoinsToReadableValue = ({
   value,
   tokenSymbol,
 }: {
-  value: BigNumber;
+  value: BigNumber | undefined;
   tokenSymbol: TokenId;
-}) => `${formatCommaThousandsPeriodDecimal(value.toString())} ${tokenSymbol.toUpperCase()}`;
+}) =>
+  value === undefined
+    ? PLACEHOLDER_KEY
+    : `${formatCommaThousandsPeriodDecimal(value.toString())} ${tokenSymbol.toUpperCase()}`;
 
 type IConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 
@@ -164,10 +168,21 @@ export const convertCoinsToWei = ({
 export const convertCentsToDollars = (value: number, removeDecimals = false) =>
   +new BigNumber(value).dividedBy(100).toFixed(removeDecimals ? 0 : 2);
 
-export const formatCentsToReadableValue = (value: number | BigNumber, removeDecimals = false) =>
-  `$${formatCommaThousandsPeriodDecimal(
+export const formatCentsToReadableValue = ({
+  value,
+  removeDecimals = false,
+}: {
+  value: number | BigNumber | undefined;
+  removeDecimals?: boolean;
+}) => {
+  if (value === undefined) {
+    return PLACEHOLDER_KEY;
+  }
+
+  return `$${formatCommaThousandsPeriodDecimal(
     convertCentsToDollars(typeof value === 'number' ? value : value.toNumber(), removeDecimals),
   )}`;
+};
 
 export const formatApy = (apy?: BigNumber | string | number): string => {
   const apyBN = getBigNumber(apy);
@@ -175,6 +190,14 @@ export const formatApy = (apy?: BigNumber | string | number): string => {
     return `${apyBN.dp(2, 1).toString(10)}%`;
   }
   return `${apyBN.toExponential(2, 1)}%`;
+};
+
+export const formatToReadablePercentage = (value: number | string | undefined) => {
+  if (value === undefined) {
+    return PLACEHOLDER_KEY;
+  }
+
+  return `${value}%`;
 };
 
 /**
