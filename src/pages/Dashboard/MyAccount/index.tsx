@@ -9,7 +9,9 @@ import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
 const MyAccount: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-  const assets = useUserMarketInfo({ account: account?.address });
+  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+    account: account?.address,
+  });
 
   // @TODO: elevate state so it can be shared with borrow and supply markets
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
@@ -23,8 +25,7 @@ const MyAccount: React.FC = () => {
     | 'borrowLimitCents'
   > = React.useMemo(() => {
     let supplyBalanceCents: BigNumber | undefined;
-    let borrowBalanceCents: BigNumber | undefined;
-    let borrowLimitCents: BigNumber | undefined;
+    const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
 
     // We use the yearly earnings to calculate the daily earnings the net APY
     let yearlyEarningsCents: BigNumber | undefined;
@@ -33,37 +34,17 @@ const MyAccount: React.FC = () => {
       // Initialize values to 0. Note that we only initialize the values if at
       // least one asset has been fetched (we don't want to display zeros while
       // the query is loading or if a fetching error happens)
-      if (!borrowBalanceCents) {
-        borrowBalanceCents = new BigNumber(0);
-      }
-
       if (!supplyBalanceCents) {
         supplyBalanceCents = new BigNumber(0);
-      }
-
-      if (!borrowLimitCents) {
-        borrowLimitCents = new BigNumber(0);
       }
 
       if (!yearlyEarningsCents) {
         yearlyEarningsCents = new BigNumber(0);
       }
 
-      borrowBalanceCents = borrowBalanceCents.plus(
-        asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
-      );
       supplyBalanceCents = supplyBalanceCents.plus(
         asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
       );
-
-      // Update borrow limit if asset is currently enabled as collateral
-      if (asset.collateral) {
-        // @TODO: use reusable util once implemented
-        // (see https://app.clickup.com/t/26pg8t0)
-        borrowLimitCents = borrowLimitCents.plus(
-          supplyBalanceCents.multipliedBy(asset.collateralFactor),
-        );
-      }
 
       const supplyYearlyEarnings = supplyBalanceCents.multipliedBy(asset.supplyApy).dividedBy(100);
       // Note that borrowYearlyInterests will always be negative (or 0), since
@@ -111,7 +92,7 @@ const MyAccount: React.FC = () => {
       dailyEarningsCents,
       supplyBalanceCents: supplyBalanceCents?.toNumber(),
       borrowBalanceCents: borrowBalanceCents?.toNumber(),
-      borrowLimitCents: borrowLimitCents && +borrowLimitCents.toFixed(0),
+      borrowLimitCents: userTotalBorrowLimit.multipliedBy(100).toNumber(),
     };
   }, [JSON.stringify(assets), isXvsEnabled]);
 
