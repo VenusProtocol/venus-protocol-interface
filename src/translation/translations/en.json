@@ -106,8 +106,8 @@
     "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
     "progressBar": {
       "accessibilityLabel": "Representation of the current state of your account",
-      "borrowLimitTooltip": "Current borrow balance:<1></1>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
-      "safeBorrowLimitTooltip": "Safe borrow limit:<1></1>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
+      "borrowLimitTooltip": "Current borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
+      "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
     },
     "safeLimit": "Your safe limit:",
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
