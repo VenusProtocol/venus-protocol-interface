@@ -89,10 +89,10 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
 
 const BorrowMarket: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-  const userMarketInfo = useUserMarketInfo({ account: account?.address });
+  const { assets } = useUserMarketInfo({ account: account?.address });
 
   // @TODO: set withXVS from WalletBalance
-  return <BorrowMarketUi borrowAssets={userMarketInfo} withXvs />;
+  return <BorrowMarketUi borrowAssets={assets} withXvs />;
 };
 
 export default BorrowMarket;
