@@ -115,7 +115,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
 
 const SupplyMarket: React.FC = () => {
   const { account = '' } = useWeb3Account();
-  const userMarketInfo = useUserMarketInfo({ account });
+  const { assets } = useUserMarketInfo({ account });
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
   const { t } = useTranslation();
 
@@ -179,7 +179,7 @@ const SupplyMarket: React.FC = () => {
   // @TODO: set withXVS from WalletBalance
   return (
     <SupplyMarketUi
-      assets={userMarketInfo}
+      assets={assets}
       withXvs
       toggleAssetCollateral={toggleAssetCollateral}
       confirmCollateral={confirmCollateral}
