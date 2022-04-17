@@ -2,6 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
+import PLACEHOLDER_KEY from 'constants/paceholderKey';
 import { formatCentsToReadableValue } from 'utilities/common';
 import { useTranslation } from 'translation';
 import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
@@ -38,7 +39,7 @@ export const MyAccountUi = ({
   const readableBorrowBalance =
     typeof borrowBalanceCents === 'number'
       ? formatCentsToReadableValue(borrowBalanceCents)
-      : undefined;
+      : PLACEHOLDER_KEY;
 
   let borrowLimitUsedPercentage: number | undefined;
   if (borrowLimitCents === 0) {
@@ -48,7 +49,9 @@ export const MyAccountUi = ({
   }
 
   const readableBorrowLimitUsedPercentage =
-    typeof borrowLimitUsedPercentage === 'number' ? `${borrowLimitUsedPercentage}%` : undefined;
+    typeof borrowLimitUsedPercentage === 'number'
+      ? `${borrowLimitUsedPercentage}%`
+      : PLACEHOLDER_KEY;
 
   const safeBorrowLimitCents =
     typeof borrowLimitCents === 'number'
@@ -58,7 +61,7 @@ export const MyAccountUi = ({
   const readableSafeBorrowLimit =
     typeof safeBorrowLimitCents === 'number'
       ? formatCentsToReadableValue(safeBorrowLimitCents, true)
-      : undefined;
+      : PLACEHOLDER_KEY;
 
   return (
     <div css={styles.container} className={className}>
@@ -95,7 +98,7 @@ export const MyAccountUi = ({
         </div>
 
         <Typography variant="h1" color="interactive.success" component="span">
-          {typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : '-'}
+          {typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : PLACEHOLDER_KEY}
         </Typography>
       </div>
 
@@ -107,7 +110,7 @@ export const MyAccountUi = ({
 
           {typeof dailyEarningsCents === 'number'
             ? formatCentsToReadableValue(dailyEarningsCents)
-            : '-'}
+            : PLACEHOLDER_KEY}
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
@@ -117,7 +120,7 @@ export const MyAccountUi = ({
 
           {typeof supplyBalanceCents === 'number'
             ? formatCentsToReadableValue(supplyBalanceCents)
-            : '-'}
+            : PLACEHOLDER_KEY}
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
@@ -125,7 +128,7 @@ export const MyAccountUi = ({
             {t('myAccount.borrowBalance')}
           </Typography>
 
-          {readableBorrowBalance || '-'}
+          {readableBorrowBalance}
         </Typography>
       </ul>
 
@@ -136,7 +139,7 @@ export const MyAccountUi = ({
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
-            {readableBorrowLimitUsedPercentage || '-'}
+            {readableBorrowLimitUsedPercentage}
           </Typography>
         </div>
 
@@ -148,7 +151,7 @@ export const MyAccountUi = ({
           <Typography component="span" variant="small1" color="text.primary">
             {typeof borrowLimitCents === 'number'
               ? formatCentsToReadableValue(borrowLimitCents, true)
-              : '-'}
+              : PLACEHOLDER_KEY}
           </Typography>
         </div>
       </div>
@@ -162,7 +165,7 @@ export const MyAccountUi = ({
         min={0}
         max={100}
         trackTooltip={
-          readableBorrowBalance &&
+          readableBorrowBalance !== PLACEHOLDER_KEY &&
           readableBorrowLimitUsedPercentage && (
             <Trans
               i18nKey="myAccount.progressBar.borrowLimitTooltip"
@@ -178,7 +181,7 @@ export const MyAccountUi = ({
           )
         }
         markTooltip={
-          readableSafeBorrowLimit &&
+          readableSafeBorrowLimit !== PLACEHOLDER_KEY &&
           safeBorrowLimitCents &&
           safeBorrowLimitCents > 0 && (
             <Trans
@@ -205,7 +208,7 @@ export const MyAccountUi = ({
         </Typography>
 
         <Typography component="span" variant="small1" color="text.primary" css={styles.safeLimit}>
-          {readableSafeBorrowLimit || '-'}
+          {readableSafeBorrowLimit}
         </Typography>
 
         <Tooltip

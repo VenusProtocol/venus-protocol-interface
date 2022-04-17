@@ -97,7 +97,7 @@
   },
   "myAccount": {
     "apyWithXvs": "APY with XVS",
-    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APR in calculations",
+    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APY in calculations",
     "borrowBalance": "Borrow balance",
     "borrowLimitUsed": "Borrow limit used:",
     "dailyEarnings": "Daily earnings",
@@ -110,7 +110,7 @@
       "safeBorrowLimitTooltip": "Safe borrow limit:<1></1>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
     },
     "safeLimit": "Your safe limit:",
-    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing more than this threshold unsafe.",
+    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
     "supplyBalance": "Supply balance",
     "title": "My account"
   }
