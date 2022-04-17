@@ -36,11 +36,6 @@ export const MyAccountUi = ({
 
   const handleXvsToggleChange: IToggleProps['onChange'] = (_event, checked) => onXvsToggle(checked);
 
-  const readableBorrowBalance =
-    typeof borrowBalanceCents === 'number'
-      ? formatCentsToReadableValue(borrowBalanceCents)
-      : PLACEHOLDER_KEY;
-
   let borrowLimitUsedPercentage: number | undefined;
   if (borrowLimitCents === 0) {
     borrowLimitUsedPercentage = 0;
@@ -48,19 +43,42 @@ export const MyAccountUi = ({
     borrowLimitUsedPercentage = Math.round((borrowBalanceCents * 100) / borrowLimitCents);
   }
 
-  const readableBorrowLimitUsedPercentage =
-    typeof borrowLimitUsedPercentage === 'number'
-      ? `${borrowLimitUsedPercentage}%`
-      : PLACEHOLDER_KEY;
-
   const safeBorrowLimitCents =
     typeof borrowLimitCents === 'number'
       ? Math.floor((borrowLimitCents * safeBorrowLimitPercentage) / 100)
       : undefined;
 
+  const readableNetApyPercentage =
+    typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : PLACEHOLDER_KEY;
+
+  const readableBorrowLimitUsedPercentage =
+    typeof borrowLimitUsedPercentage === 'number'
+      ? `${borrowLimitUsedPercentage}%`
+      : PLACEHOLDER_KEY;
+
+  const readableBorrowBalance =
+    typeof borrowBalanceCents === 'number'
+      ? formatCentsToReadableValue(borrowBalanceCents)
+      : PLACEHOLDER_KEY;
+
   const readableSafeBorrowLimit =
     typeof safeBorrowLimitCents === 'number'
       ? formatCentsToReadableValue(safeBorrowLimitCents, true)
+      : PLACEHOLDER_KEY;
+
+  const readableDailyEarnings =
+    typeof dailyEarningsCents === 'number'
+      ? formatCentsToReadableValue(dailyEarningsCents)
+      : PLACEHOLDER_KEY;
+
+  const readableSupplyBalance =
+    typeof supplyBalanceCents === 'number'
+      ? formatCentsToReadableValue(supplyBalanceCents)
+      : PLACEHOLDER_KEY;
+
+  const readableBorrowLimit =
+    typeof borrowLimitCents === 'number'
+      ? formatCentsToReadableValue(borrowLimitCents, true)
       : PLACEHOLDER_KEY;
 
   return (
@@ -98,7 +116,7 @@ export const MyAccountUi = ({
         </div>
 
         <Typography variant="h1" color="interactive.success" component="span">
-          {typeof netApyPercentage === 'number' ? `${netApyPercentage}%` : PLACEHOLDER_KEY}
+          {readableNetApyPercentage}
         </Typography>
       </div>
 
@@ -108,9 +126,7 @@ export const MyAccountUi = ({
             {t('myAccount.dailyEarnings')}
           </Typography>
 
-          {typeof dailyEarningsCents === 'number'
-            ? formatCentsToReadableValue(dailyEarningsCents)
-            : PLACEHOLDER_KEY}
+          {readableDailyEarnings}
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
@@ -118,9 +134,7 @@ export const MyAccountUi = ({
             {t('myAccount.supplyBalance')}
           </Typography>
 
-          {typeof supplyBalanceCents === 'number'
-            ? formatCentsToReadableValue(supplyBalanceCents)
-            : PLACEHOLDER_KEY}
+          {readableSupplyBalance}
         </Typography>
 
         <Typography component="li" variant="h4" css={styles.item}>
@@ -149,9 +163,7 @@ export const MyAccountUi = ({
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
-            {typeof borrowLimitCents === 'number'
-              ? formatCentsToReadableValue(borrowLimitCents, true)
-              : PLACEHOLDER_KEY}
+            {readableBorrowLimit}
           </Typography>
         </div>
       </div>
