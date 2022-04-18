@@ -53,6 +53,7 @@
       "apy": "APY",
       "asset": "Asset",
       "collateral": "Collateral",
+      "liquidity": "Liquidity",
       "wallet": "Wallet"
     },
     "errors": {
