@@ -35,6 +35,9 @@ export const useModalStyles = ({
       top: 0;
       background-color: ${hasTitleComponent ? theme.palette.background.paper : 'transparent'};
       margin-bottom: ${hasTitleComponent ? theme.spacing(10) : 0};
+      ${theme.breakpoints.down('md')} {
+        margin-bottom: ${hasTitleComponent ? theme.spacing(4) : 0};
+      }
     `,
     titleComponent: css`
       align-self: center;
@@ -60,6 +63,11 @@ export const useModalStyles = ({
       padding-bottom: ${theme.spacing(10)};
       padding-left: ${noHorizontalPadding ? 0 : theme.spacing(10)};
       padding-right: ${noHorizontalPadding ? 0 : theme.spacing(10)};
+      ${theme.breakpoints.down('md')} {
+        padding-bottom: ${theme.spacing(4)};
+        padding-left: ${noHorizontalPadding ? 0 : theme.spacing(4)};
+        padding-right: ${noHorizontalPadding ? 0 : theme.spacing(4)};
+      }
     `,
   };
 };

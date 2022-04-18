@@ -5,10 +5,6 @@ import { Formik, Form, FormikProps, FormikConfig } from 'formik';
 
 import validationSchema, { FormValues } from './validationSchema';
 
-export const initialValues: FormValues = {
-  amount: '',
-};
-
 export interface IAmountFormProps
   extends Omit<FormikConfig<FormValues>, 'onSubmit' | 'initialValues'> {
   onSubmit: (value: BigNumber) => Promise<void> | void;
@@ -17,7 +13,12 @@ export interface IAmountFormProps
   className?: string;
 }
 
-export const AmountForm: React.FC<IAmountFormProps> = ({ children, onSubmit, className }) => {
+export const AmountForm: React.FC<IAmountFormProps> = ({
+  children,
+  onSubmit,
+  className,
+  initialValues = { amount: '' },
+}) => {
   const handleSubmit = (values: FormValues) => {
     if (values.amount) {
       onSubmit(values.amount);

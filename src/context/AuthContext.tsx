@@ -6,8 +6,7 @@ import { Connector, useAuth } from 'clients/web3';
 import toast from 'components/Basic/Toast';
 import { AuthModal } from 'components/v2/AuthModal';
 
-// eslint-disable-next-line no-spaced-func
-export const AuthContext = React.createContext<{
+export interface IAuthContextValue {
   login: (connector: Connector) => Promise<void>;
   logOut: () => void;
   openAuthModal: () => void;
@@ -16,7 +15,9 @@ export const AuthContext = React.createContext<{
     address: string;
     connector?: Connector;
   };
-}>({
+}
+
+export const AuthContext = React.createContext<IAuthContextValue>({
   login: noop,
   logOut: noop,
   openAuthModal: noop,
