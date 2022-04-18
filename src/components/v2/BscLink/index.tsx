@@ -26,10 +26,12 @@ export const BscLink: React.FC<IBscLinkProps> = ({ hash, className }) => {
         variant="small1"
         css={styles.text}
       >
-        <Trans i18nKey="bscLink.content">
-          View on bscscan.com
-          <Icon name="open" css={styles.icon} />
-        </Trans>
+        <Trans
+          i18nKey="bscLink.content"
+          components={{
+            Icon: <Icon name="open" css={styles.icon} />,
+          }}
+        />
       </Typography>
     </div>
   );
