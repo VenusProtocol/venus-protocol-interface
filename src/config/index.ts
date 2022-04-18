@@ -65,3 +65,5 @@ export const VENUS_GITHUB_URL = 'https://github.com/VenusProtocol/';
 
 // TODO: update
 export const VENUS_TERMS_OF_SERVICE_URL = 'https://www.swipe.io/terms';
+
+export const SAFE_BORROW_LIMIT_PERCENTAGE = 80;

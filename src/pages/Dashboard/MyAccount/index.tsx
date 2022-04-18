@@ -1,137 +1,109 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
+import React from 'react';
+import BigNumber from 'bignumber.js';
 
-import { formatCentsToReadableValue } from 'utilities/common';
-import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
-import { useTranslation } from 'translation';
-import { useMyAccountStyles as useStyles } from './styles';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import { AuthContext } from 'context/AuthContext';
+import useUserMarketInfo from 'hooks/useUserMarketInfo';
+import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
-interface IMyAccountProps {
-  netApyPercentage: number;
-  dailyEarningsCents: number;
-  supplyBalanceCents: number;
-  borrowBalanceCents: number;
-  borrowLimitCents: number;
-  safeLimitPercentage: number;
-  borrowLimitUsedPercentage: number;
-}
+const MyAccount: React.FC = () => {
+  const { account } = React.useContext(AuthContext);
+  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+    account: account?.address,
+  });
 
-export const MyAccount = ({
-  netApyPercentage,
-  dailyEarningsCents,
-  supplyBalanceCents,
-  borrowBalanceCents,
-  borrowLimitCents,
-  safeLimitPercentage,
-}: IMyAccountProps) => {
-  const [isToggleSwitched, setToggleSwitched] = useState(true);
-  const handleSwitch: IToggleProps['onChange'] = (event, checked) => {
-    setToggleSwitched(checked);
-  };
-  const styles = useStyles();
-  const { t } = useTranslation();
+  // @TODO: elevate state so it can be shared with borrow and supply markets
+  const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
+
+  const calculations: Pick<
+    IMyAccountUiProps,
+    | 'netApyPercentage'
+    | 'dailyEarningsCents'
+    | 'supplyBalanceCents'
+    | 'borrowBalanceCents'
+    | 'borrowLimitCents'
+  > = React.useMemo(() => {
+    let supplyBalanceCents: BigNumber | undefined;
+    const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
+
+    // We use the yearly earnings to calculate the daily earnings the net APY
+    let yearlyEarningsCents: BigNumber | undefined;
+
+    assets.forEach(asset => {
+      // Initialize values to 0. Note that we only initialize the values if at
+      // least one asset has been fetched (we don't want to display zeros while
+      // the query is loading or if a fetching error happens)
+      if (!supplyBalanceCents) {
+        supplyBalanceCents = new BigNumber(0);
+      }
+
+      if (!yearlyEarningsCents) {
+        yearlyEarningsCents = new BigNumber(0);
+      }
+
+      supplyBalanceCents = supplyBalanceCents.plus(
+        asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+      );
+
+      const supplyYearlyEarnings = supplyBalanceCents.multipliedBy(asset.supplyApy).dividedBy(100);
+      // Note that borrowYearlyInterests will always be negative (or 0), since
+      // the borrow APY is expressed with a negative percentage)
+      const borrowYearlyInterests = borrowBalanceCents.multipliedBy(asset.borrowApy).dividedBy(100);
+
+      yearlyEarningsCents = yearlyEarningsCents.plus(
+        supplyYearlyEarnings.plus(borrowYearlyInterests),
+      );
+
+      // Add XVS distribution earnings if enabled
+      if (isXvsEnabled) {
+        const supplyDistributionYearlyEarnings = supplyBalanceCents
+          .multipliedBy(asset.xvsSupplyApy)
+          .dividedBy(100);
+        const borrowDistributionYearlyEarnings = borrowBalanceCents
+          .multipliedBy(asset.xvsBorrowApy)
+          .dividedBy(100);
+
+        yearlyEarningsCents = yearlyEarningsCents
+          .plus(supplyDistributionYearlyEarnings)
+          .plus(borrowDistributionYearlyEarnings);
+      }
+    });
+
+    // Calculate net APY as a percentage of supply balance, based on yearly interests
+    let netApyPercentage: number | undefined;
+
+    if (supplyBalanceCents?.isEqualTo(0)) {
+      netApyPercentage = 0;
+    } else if (supplyBalanceCents && yearlyEarningsCents) {
+      netApyPercentage = +yearlyEarningsCents
+        .multipliedBy(100)
+        .dividedBy(supplyBalanceCents)
+        .toFixed(2);
+    }
+
+    // @TODO: use reusable util once implemented (see
+    // https://app.clickup.com/t/26pg8j3)
+    const dailyEarningsCents =
+      yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
+
+    return {
+      netApyPercentage,
+      dailyEarningsCents,
+      supplyBalanceCents: supplyBalanceCents?.toNumber(),
+      borrowBalanceCents: borrowBalanceCents?.toNumber(),
+      borrowLimitCents: userTotalBorrowLimit.multipliedBy(100).toNumber(),
+    };
+  }, [JSON.stringify(assets), isXvsEnabled]);
+
   return (
-    <div css={styles.container}>
-      <div css={[styles.row, styles.header]}>
-        <Typography variant="h4">{t('myAccount.title')}</Typography>
-
-        <Typography component="div" variant="small2" css={styles.apyWithXvs}>
-          <Tooltip css={styles.tooltip} title={t('myAccount.apyWithXvsTooltip')}>
-            <Icon css={styles.getInfoIcon({ position: 'left' })} name="info" />
-          </Tooltip>
-
-          <Typography color="text.primary" variant="small1">
-            {t('myAccount.apyWithXvs')}
-          </Typography>
-
-          <Toggle css={styles.toggle} value={isToggleSwitched} onChange={handleSwitch} />
-        </Typography>
-      </div>
-
-      <div css={styles.netApyContainer}>
-        <Typography component="div" variant="small2" css={styles.netApyLabel}>
-          {t('myAccount.netApy')}
-          <Tooltip css={styles.tooltip} title={t('myAccount.netApyTooltip')}>
-            <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
-          </Tooltip>
-        </Typography>
-
-        <Typography variant="h1" color="interactive.success">
-          {netApyPercentage}%
-        </Typography>
-      </div>
-
-      <ul css={styles.list}>
-        <Typography component="li" variant="h4" css={styles.item}>
-          <Typography component="div" variant="small2" css={styles.labelListItem}>
-            {t('myAccount.dailyEarnings')}
-          </Typography>
-
-          {formatCentsToReadableValue(dailyEarningsCents)}
-        </Typography>
-
-        <Typography component="li" variant="h4" css={styles.item}>
-          <Typography component="div" variant="small2" css={styles.labelListItem}>
-            {t('myAccount.supplyBalance')}
-          </Typography>
-
-          {formatCentsToReadableValue(supplyBalanceCents)}
-        </Typography>
-
-        <Typography component="li" variant="h4" css={styles.item}>
-          <Typography component="div" variant="small2" css={styles.labelListItem}>
-            {t('myAccount.borrowBalance')}
-          </Typography>
-
-          {formatCentsToReadableValue(borrowBalanceCents)}
-        </Typography>
-      </ul>
-
-      <div css={[styles.row, styles.topProgressBarLegend]}>
-        <div css={styles.borrowLimitLabelWrapper}>
-          <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {t('myAccount.borrowLimit')}
-          </Typography>
-
-          <Typography component="span" variant="small1" color="text.primary">
-            {safeLimitPercentage}%
-          </Typography>
-        </div>
-
-        <Typography component="span" variant="small1" color="text.primary">
-          {formatCentsToReadableValue(borrowLimitCents)}
-        </Typography>
-      </div>
-
-      <ProgressBarHorizontal
-        css={styles.progressBar}
-        value={safeLimitPercentage}
-        mark={80}
-        step={1}
-        ariaLabel={t('myAccount.progressBar.ariaLabel')}
-        min={0}
-        max={100}
-        trackTooltip="Storybook tooltip text for Track"
-        markTooltip="Storybook tooltip text for Mark"
-        isDisabled
-      />
-
-      <Typography component="div" variant="small2" css={styles.bottom}>
-        <Icon name="shield" css={styles.shieldIcon} />
-
-        <Typography component="span" variant="small2" css={styles.inlineLabel}>
-          {t('myAccount.safeLimit')}
-        </Typography>
-
-        <Typography component="span" variant="small1" color="text.primary">
-          {safeLimitPercentage}%
-        </Typography>
-
-        <Tooltip css={styles.tooltip} title={t('myAccount.safeLimitTooltip')}>
-          <Icon css={styles.getInfoIcon({ position: 'right' })} name="info" />
-        </Tooltip>
-      </Typography>
-    </div>
+    <MyAccountUi
+      safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+      withXvs={isXvsEnabled}
+      onXvsToggle={setIsXvsEnabled}
+      {...calculations}
+    />
   );
 };
+
+export default MyAccount;
