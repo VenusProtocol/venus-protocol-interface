@@ -179,7 +179,7 @@ export const SupplyWithdrawContent: React.FC<
         css={[styles.infoRow, styles.dailyEarnings]}
         className="info-row"
       >
-        {formatCentsToReadableValue(dailyEarnings)}
+        {formatCentsToReadableValue({ value: dailyEarnings })}
       </LabeledInlineContent>
       <LabeledInlineContent
         label={t('supplyWithdraw.supplyBalance')}
