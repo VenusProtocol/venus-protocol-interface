@@ -12,7 +12,7 @@ import { Card } from 'components/Basic/Card';
 import { PrimaryButton } from 'components';
 import { useWeb3Account } from 'clients/web3';
 import { Proposal as ProposalObject } from 'types';
-import { useTokenContract, useGovernorBravoContract } from '../../clients/contracts/hooks';
+import { useTokenContract, useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
@@ -137,7 +137,7 @@ function Proposals({
 
   const { account } = useWeb3Account();
   const tokenContract = useTokenContract('xvs');
-  const governorBravoContract = useGovernorBravoContract();
+  const governorBravoContract = useGovernorBravoDelegateContract();
 
   const getVoteProposalInfo = async () => {
     const [threshold, maxOpeartion] = await Promise.all([

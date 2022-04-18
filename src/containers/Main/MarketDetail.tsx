@@ -11,7 +11,7 @@ import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
 import { useWeb3Account } from 'clients/web3';
-import { Setting, TokenId, VBepTokenId } from 'types';
+import { Setting, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
 import { useMarkets } from '../../hooks/useMarkets';
 
@@ -101,14 +101,14 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-interface Props extends RouteComponentProps<{ asset: TokenId }> {
+interface Props extends RouteComponentProps<{ asset: VTokenId }> {
   settings: Setting;
   getMarketHistory: $TSFixMe;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
   const [marketType, setMarketType] = useState('supply');
-  const [currentAsset, setCurrentAsset] = useState<TokenId | ''>('');
+  const [currentAsset, setCurrentAsset] = useState<VTokenId | ''>('');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
@@ -117,7 +117,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
 
   useEffect(() => {
     if (match.params && match.params.asset) {
-      setCurrentAsset(match.params.asset.toLowerCase() as TokenId);
+      setCurrentAsset(match.params.asset.toLowerCase() as VTokenId);
     }
   }, [match]);
 
@@ -156,7 +156,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (timeStamp % 60 === 0 && currentAsset) {
       getGraphData(
-        getVBepToken(currentAsset as VBepTokenId).address,
+        getVBepToken(currentAsset as VTokenId).address,
         '1day',
         30, // 1 month
       );
@@ -170,7 +170,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        getVBepToken(currentAsset as VBepTokenId).address,
+        getVBepToken(currentAsset as VTokenId).address,
         '1day',
         30, // 1 month
       );

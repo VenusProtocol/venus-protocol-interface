@@ -17,7 +17,7 @@ import {
   formatCommaThousandsPeriodDecimal,
 } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
-import { Setting, TokenId, VBepTokenId } from 'types';
+import { Setting, TokenId, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
 import { VTOKEN_DECIMALS } from 'config';
 import { useMarkets } from '../../hooks/useMarkets';
@@ -192,7 +192,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        getVBepToken(currentAsset as VBepTokenId).address,
+        getVBepToken(currentAsset as VTokenId).address,
         '1hr',
         24 * 7, // 1 week
       );
@@ -256,7 +256,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                 {Object.keys(VBEP_TOKENS).map(key => (
                   <Option
                     className="flex align-center just-between"
-                    value={getVBepToken(key as VBepTokenId).id}
+                    value={getVBepToken(key as VTokenId).id}
                     key={uid(key)}
                   >
                     <img className="asset-img" src={getToken(key as TokenId).asset} alt="asset" />{' '}

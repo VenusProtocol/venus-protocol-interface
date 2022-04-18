@@ -38,10 +38,10 @@ export default function VaultCard() {
   useEffect(async () => {
     let isMounted = true;
 
-    let userVrtBalanceTemp = new BigNumber(0);
-    let userVrtStakedAmountTemp = new BigNumber(0);
-    let userPendingRewardTemp = new BigNumber(0);
-    let userVrtAllowanceTemp = new BigNumber(0);
+    let userVrtBalanceTemp = '0';
+    let userVrtStakedAmountTemp = '0';
+    let userPendingRewardTemp = '0';
+    let userVrtAllowanceTemp = '0';
 
     const [interestRatePerBlockTemp, vaultVrtBalanceTemp] = await Promise.all([
       vrtVaultProxyContract.methods.interestRatePerBlock().call(),
@@ -112,16 +112,22 @@ export default function VaultCard() {
             stakedToken="VRT"
             rewardToken="VRT"
             fullWithdraw
-            onClaimReward={() => vrtVaultProxyContract.methods.claim().send({ from: account })}
-            onStake={stakeAmount =>
-              vrtVaultProxyContract.methods.deposit(stakeAmount.toFixed(0)).send({ from: account })
-            }
-            onApprove={amt =>
-              vrtTokenContract.methods
+            onClaimReward={async () => {
+              await vrtVaultProxyContract.methods.claim().send({ from: account || undefined });
+            }}
+            onStake={async stakeAmount => {
+              await vrtVaultProxyContract.methods
+                .deposit(stakeAmount.toFixed(0))
+                .send({ from: account || undefined });
+            }}
+            onApprove={async amt => {
+              await vrtTokenContract.methods
                 .approve(vrtVaultProxyContract.options.address, amt.toFixed(0))
-                .send({ from: account })
-            }
-            onWithdraw={() => vrtVaultProxyContract.methods.withdraw().send({ from: account })}
+                .send({ from: account || undefined });
+            }}
+            onWithdraw={async () => {
+              await vrtVaultProxyContract.methods.withdraw().send({ from: account || undefined });
+            }}
           />
         )}
       </div>

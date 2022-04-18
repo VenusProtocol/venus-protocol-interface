@@ -155,12 +155,12 @@ function WithdrawCard({
                   try {
                     await xvsVaultContract.methods
                       .requestWithdrawal(
-                        rewardTokenAddress,
+                        rewardTokenAddress!,
                         poolId.toNumber(),
                         withdrawAmount.multipliedBy(stakedTokenDecimal).toString(10),
                       )
                       .send({
-                        from: account,
+                        from: account || undefined,
                       });
                   } catch (e) {
                     console.log('>> request withdraw error: ', e);
@@ -188,8 +188,8 @@ function WithdrawCard({
                   setExecuteWithdrawLoading(true);
                   try {
                     await xvsVaultContract.methods
-                      .executeWithdrawal(rewardTokenAddress, poolId.toNumber())
-                      .send({ from: account });
+                      .executeWithdrawal(rewardTokenAddress!, poolId.toNumber())
+                      .send({ from: account || undefined });
                   } catch (e) {
                     console.log('>> execute withdraw error:', e);
                   }

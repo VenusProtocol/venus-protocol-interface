@@ -140,7 +140,7 @@ export default () => {
                           await vrtConverterContract.methods
                             .convert(convertAmount.times(VRT_DECIMAL).toFixed())
                             .send({
-                              from: account,
+                              from: account || undefined,
                             });
                         }
                       } catch (e) {
@@ -154,7 +154,7 @@ export default () => {
                     handleClickWithdraw={async () => {
                       try {
                         await xvsVestingContract.methods.withdraw().send({
-                          from: account,
+                          from: account || undefined,
                         });
                       } catch (e) {
                         console.log('>> withdraw error', e);
