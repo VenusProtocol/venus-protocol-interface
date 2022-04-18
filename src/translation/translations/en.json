@@ -9,11 +9,11 @@
     },
     "walletList": {
       "comingSoon": "Coming soon",
-      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <2>Terms of Service</2>."
+      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <anchor>Terms of Service<anchor>."
     }
   },
   "bscLink": {
-    "content": "View on bscscan.com<1></1>"
+    "content": "View on bscscan.com<icon>"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
