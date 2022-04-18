@@ -39,27 +39,27 @@ import {
 import { getContractAddress, getToken, getVBepToken } from 'utilities';
 import { TokenContract, VTokenContract } from './types';
 
-const getContract = (abi: AbiItem | AbiItem[], address: string, web3Instance: Web3) => {
+const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance: Web3) => {
   const web3 = web3Instance ?? getWeb3NoAccount();
-  return new web3.eth.Contract(abi, address);
+  return new web3.eth.Contract(abi, address) as unknown as T;
 };
 
 export const getTokenContract = <T extends TokenId>(tokenId: T, web3: Web3): TokenContract<T> => {
   const tokenAddress = getToken(tokenId).address;
 
   if (tokenId === 'xvs') {
-    return getContract(xvsTokenAbi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
+    return getContract<TokenContract<T>>(xvsTokenAbi as AbiItem[], tokenAddress, web3);
   }
 
   if (tokenId === 'vai') {
-    return getContract(vaiTokenAbi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
+    return getContract<TokenContract<T>>(vaiTokenAbi as AbiItem[], tokenAddress, web3);
   }
 
   if (tokenId === 'vrt') {
-    return getContract(vrtTokenAbi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
+    return getContract<TokenContract<T>>(vrtTokenAbi as AbiItem[], tokenAddress, web3);
   }
 
-  return getContract(bep20Abi as AbiItem[], tokenAddress, web3) as unknown as TokenContract<T>;
+  return getContract<TokenContract<T>>(bep20Abi as AbiItem[], tokenAddress, web3);
 };
 
 export const getTokenContractByAddress = (address: string, web3: Web3): Bep20 =>
