@@ -207,8 +207,8 @@ function XVS({ settings }: XVSProps) {
     );
 
     // total info
-    let venusVAIVaultRate = await comptrollerContract.methods.venusVAIVaultRate().call();
-    venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
+    const fetchedVenusVAIVaultRate = await comptrollerContract.methods.venusVAIVaultRate().call();
+    const venusVAIVaultRate = new BigNumber(fetchedVenusVAIVaultRate).div(1e18).times(20 * 60 * 24);
     const remainedAmount = await xvsTokenContract.methods
       .balanceOf(getContractAddress('comptroller'))
       .call();

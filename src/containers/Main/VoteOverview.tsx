@@ -19,7 +19,7 @@ import { Row, Column } from 'components/Basic/Style';
 import { useWeb3Account } from 'clients/web3';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
-import { useTokenContract, useGovernorBravoContract } from '../../clients/contracts/hooks';
+import { useTokenContract, useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
@@ -116,10 +116,10 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [excuteEta, setExcuteEta] = useState('');
   const { account } = useWeb3Account();
   const xvsTokenContract = useTokenContract('xvs');
-  const governorBravoContract = useGovernorBravoContract();
+  const governorBravoContract = useGovernorBravoDelegateContract();
 
   const updateBalance = useCallback(async () => {
-    if (proposalInfo.id) {
+    if (proposalInfo.id && proposalInfo.proposer) {
       const threshold = await governorBravoContract.methods.proposalThreshold().call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
       const weight = await xvsTokenContract.methods.getCurrentVotes(proposalInfo.proposer).call();
@@ -201,9 +201,11 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   }, [getVoters, proposalInfo]);
 
   const getIsPossibleExcuted = async () => {
-    const proposalsRes = await governorBravoContract.methods.proposals(proposalInfo.id).call();
-    setIsPossibleExcuted(proposalsRes && proposalsRes.eta <= Date.now() / 1000);
-    setExcuteEta(moment(proposalsRes.eta * 1000).format('LLLL'));
+    if (proposalInfo.id) {
+      const proposalsRes = await governorBravoContract.methods.proposals(proposalInfo.id).call();
+      setIsPossibleExcuted(proposalsRes && +proposalsRes.eta <= Date.now() / 1000);
+      setExcuteEta(moment(+proposalsRes.eta * 1000).format('LLLL'));
+    }
   };
 
   useEffect(() => {
@@ -213,10 +215,16 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   }, [proposalInfo]);
 
   const handleUpdateProposal = async (statusType: $TSFixMe) => {
+    if (!proposalInfo.id) {
+      return;
+    }
+
     if (statusType === 'Queue') {
       setIsLoading(true);
       try {
-        await governorBravoContract.methods.queue(proposalInfo.id).send({ from: account });
+        await governorBravoContract.methods
+          .queue(proposalInfo.id)
+          .send({ from: account || undefined });
         setStatus('success');
         toast.success({
           title: 'Proposal list will be updated within a few seconds',
@@ -229,7 +237,9 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     } else if (statusType === 'Execute') {
       setIsLoading(true);
       try {
-        await governorBravoContract.methods.execute(proposalInfo.id).send({ from: account });
+        await governorBravoContract.methods
+          .execute(proposalInfo.id)
+          .send({ from: account || undefined });
         setStatus('success');
         toast.success({
           title: 'Proposal list will be updated within a few seconds',
@@ -242,7 +252,9 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     } else if (statusType === 'Cancel') {
       setIsCancelLoading(true);
       try {
-        await governorBravoContract.methods.cancel(proposalInfo.id).send({ from: account });
+        await governorBravoContract.methods
+          .cancel(proposalInfo.id)
+          .send({ from: account || undefined });
         setCancelStatus('success');
         toast.success({
           title:

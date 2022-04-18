@@ -16,9 +16,9 @@ import {
 import { State } from 'core/modules/initialState';
 import { getToken } from 'utilities';
 import { useWeb3 } from 'clients/web3';
-import { TokenId } from 'types';
+import { VTokenId } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
-import { getInterestModelContract, getVBepTokenContract } from '../../clients/contracts/getters';
+import { getInterestModelContract, getVTokenContract } from '../../clients/contracts/getters';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -112,7 +112,7 @@ const InterestRateModelWrapper = styled.div`
 let flag = false;
 
 interface Props extends RouteComponentProps {
-  currentAsset: TokenId;
+  currentAsset: VTokenId;
 }
 
 interface CustomizedAxisTickProps {
@@ -144,11 +144,11 @@ function InterestRateModel({ currentAsset }: Props) {
     </g>
   );
 
-  const getGraphData = async (asset: TokenId) => {
+  const getGraphData = async (asset: VTokenId) => {
     flag = true;
-    const vbepContract = getVBepTokenContract(web3, asset);
+    const vbepContract = getVTokenContract(asset, web3);
     const interestRateModel = await vbepContract.methods.interestRateModel().call();
-    const interestModelContract = getInterestModelContract(web3, interestRateModel);
+    const interestModelContract = getInterestModelContract(interestRateModel, web3);
     const cashValue = await vbepContract.methods.getCash().call();
 
     const data: $TSFixMe = [];

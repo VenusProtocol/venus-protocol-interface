@@ -18,7 +18,7 @@ import {
   useXvsVaultProxyContract,
 } from 'clients/contracts/hooks';
 import { useWeb3, useWeb3Account } from 'clients/web3';
-import { getVBepTokenContract } from 'clients/contracts/getters';
+import { getVTokenContract } from 'clients/contracts/getters';
 import { State } from 'core/modules/initialState';
 
 const xvsTokenAddress = getToken('xvs').address;
@@ -96,7 +96,8 @@ function Vote({ getProposals }: VoteProps) {
   const updateBalance = async () => {
     if (account) {
       // find the pid of xvs vault, which users get voting powers from
-      const length = await xvsVaultProxyContract.methods.poolLength(xvsTokenAddress).call();
+      const fetchedLength = await xvsVaultProxyContract.methods.poolLength(xvsTokenAddress).call();
+      const length = +fetchedLength;
 
       const [currentVotes, balanceTemp, ...xvsPoolInfos] = await Promise.all([
         // voting power is calculated from user's amount of XVS staked in the XVS vault
@@ -145,7 +146,7 @@ function Vote({ getProposals }: VoteProps) {
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(VBEP_TOKENS).map(async item => {
-        const vBepContract = getVBepTokenContract(web3, item.id);
+        const vBepContract = getVTokenContract(item.id, web3);
         const [
           supplyState,
           supplierTokens,
