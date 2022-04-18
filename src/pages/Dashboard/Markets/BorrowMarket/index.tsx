@@ -65,7 +65,10 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
         key: 'liquidity',
         // Convert liquidity (expressed in dollars) to cents, then format it to
         // readable value
-        render: () => formatCentsToReadableValue(asset.liquidity.multipliedBy(100)),
+        render: () =>
+          formatCentsToReadableValue({
+            value: asset.liquidity.multipliedBy(100),
+          }),
         value: asset.liquidity.toNumber(),
       },
     ];
