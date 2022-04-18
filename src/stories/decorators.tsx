@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { addDecorator } from '@storybook/react';
+import { addDecorator, Story as StoryType } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { store } from 'core/store';
@@ -8,13 +8,14 @@ import Box from '@mui/material/Box';
 import { Web3Wrapper } from 'clients/web3';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
+import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import Theme from 'theme';
 // resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import mainTheme from 'theme/MuiThemeProvider/muiTheme';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 
-type DecoratorFunction = Parameters<typeof addDecorator>[0];
+export type DecoratorFunction = Parameters<typeof addDecorator>[0];
 
 export const withRouter: DecoratorFunction = Story => (
   <BrowserRouter>
@@ -39,6 +40,13 @@ export const withMarketContext: DecoratorFunction = Story => (
     <Story />
   </MarketContextProvider>
 );
+
+export const withAuthContext = (context: IAuthContextValue) => (Story: StoryType) =>
+  (
+    <AuthContext.Provider value={context}>
+      <Story />
+    </AuthContext.Provider>
+  );
 
 export const withVaiContextProvider: DecoratorFunction = Story => (
   <VaiContextProvider>

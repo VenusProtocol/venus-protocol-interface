@@ -11,36 +11,23 @@ export const styles = () => {
       hr {
         width: 100%;
         border: 1px solid ${theme.palette.secondary.light};
-        margin-bottom: ${theme.spacing(4)};
+        margin-bottom: ${theme.spacing(8)};
       }
     `,
     mainLogo: css`
-      height: ${theme.spacing(5.75)};
-      width: ${theme.spacing(5.75)};
-      margin-bottom: ${theme.spacing(2.5)};
+      height: ${theme.spacing(10)};
+      width: ${theme.spacing(10)};
+      margin-bottom: ${theme.spacing(5)};
     `,
     mainText: css`
       text-align: center;
-      margin-bottom: ${theme.spacing(2.5)};
-    `,
-    tokenInfo: css`
-      display: inline-flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      margin-bottom: ${theme.spacing(1.5)};
-      svg {
-        margin-right: ${theme.spacing(1)};
-      }
-    `,
-    tokenInfoText: css`
-      display: inline-flex;
-    `,
-    apy: css`
-      color: ${theme.palette.text.primary};
+      margin-bottom: ${theme.spacing(10)};
     `,
     button: css`
-      margin-top: ${theme.spacing(4.5)};
+      margin-top: ${theme.spacing(9)};
+    `,
+    labeledInlineContent: css`
+      margin-bottom: ${theme.spacing(3)};
     `,
   };
 };

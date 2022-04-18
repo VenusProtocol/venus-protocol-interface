@@ -2,9 +2,10 @@ import { useMutation, MutationObserverOptions } from 'react-query';
 import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
+import { TokenId } from 'types';
 
 const useApproveToken = (
-  { assetId }: { assetId: string },
+  { assetId }: { assetId: TokenId },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     ApproveTokenOutput,

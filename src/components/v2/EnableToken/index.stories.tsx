@@ -17,8 +17,8 @@ export const Disabled = () => (
     title="To withdraw BNB to the Venus Protocol, you need to enable it first."
     symbol="eth"
     tokenInfo={[
-      { symbol: 'vai', text: 'Supply APY', apy: 77.36 },
-      { symbol: 'vai', text: 'Distribution APY', apy: 0.82 },
+      { iconName: 'vai', label: 'Supply APY', children: '77.36' },
+      { iconName: 'vai', label: 'Distribution APY', children: '0.82' },
     ]}
     approveToken={noop}
     disabled
