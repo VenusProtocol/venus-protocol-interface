@@ -4,7 +4,7 @@ import commaNumber from 'comma-number';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { getToken, getVBepToken } from 'utilities';
-import { TokenId, VBepTokenId } from 'types';
+import { TokenId, VTokenId } from 'types';
 
 export const commaFormat = commaNumber.bindWith(',', '.');
 
@@ -54,7 +54,7 @@ export const addToken = async ({
     tokenImage = `${window.location.origin}/coins/vai.svg`;
   } else {
     tokenAddress =
-      type === 'token' ? getToken(asset).address : getVBepToken(asset as VBepTokenId).address;
+      type === 'token' ? getToken(asset).address : getVBepToken(asset as VTokenId).address;
     tokenSymbol =
       type === 'token'
         ? getToken(asset).symbol

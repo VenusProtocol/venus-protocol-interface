@@ -47,7 +47,7 @@ function MintTab() {
     try {
       await vaiControllerContract.methods
         .mintVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
-        .send({ from: account });
+        .send({ from: account || undefined });
       setAmount(new BigNumber(0));
     } catch (error) {
       console.log('mint vai error :>> ', error);

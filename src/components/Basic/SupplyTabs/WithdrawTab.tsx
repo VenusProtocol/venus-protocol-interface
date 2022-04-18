@@ -1,20 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-
-import { Progress } from 'antd';
-import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
+import { Progress } from 'antd';
+
+import { PrimaryButton } from 'components';
 import { useWeb3Account } from 'clients/web3';
 import { connectAccount } from 'core';
-import { Asset, Setting } from 'types';
-import { isAssetDisabled } from 'utilities';
+import { Asset, Setting, VTokenId } from 'types';
 import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber, formatApy, format } from 'utilities/common';
-import { useComptrollerContract, useVBepTokenContract } from '../../../clients/contracts/hooks';
+import { useComptrollerContract, useVTokenContract } from '../../../clients/contracts/hooks';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 
@@ -36,7 +35,7 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
   const { account } = useWeb3Account();
   const comptrollerContract = useComptrollerContract();
-  const vbepContract = useVBepTokenContract(asset.id);
+  const vbepContract = useVTokenContract(asset.id as VTokenId);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const { mintableVai } = useVaiUser();
 
@@ -112,14 +111,14 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
     });
     try {
       if (amount.eq(asset.supplyBalance)) {
-        const vTokenBalance = await vbepContract.methods.balanceOf(account).call();
-        await vbepContract.methods.redeem(vTokenBalance).send({ from: account });
+        const vTokenBalance = await vbepContract.methods.balanceOf(account!).call();
+        await vbepContract.methods.redeem(vTokenBalance).send({ from: account! });
       } else {
         await vbepContract.methods
           .redeemUnderlying(
             amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10),
           )
-          .send({ from: account });
+          .send({ from: account! });
       }
       setAmount(new BigNumber(0));
       setIsLoading(false);
