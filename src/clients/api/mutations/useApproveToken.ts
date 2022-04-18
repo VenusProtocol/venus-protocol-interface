@@ -1,4 +1,6 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
+
+import { TokenId } from 'types';
 import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { PrimaryButton } from 'components';
-import NumberFormat from 'react-number-format';
-import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
+import NumberFormat from 'react-number-format';
+
+import { PrimaryButton } from 'components';
+import { connectAccount } from 'core';
 import { sendRepay } from 'utilities/BnbContract';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/coins/xvs.svg';
@@ -10,12 +11,12 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy, format } from 'utilities/common';
-import { Asset, Setting } from 'types';
+import { Asset, Setting, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
 import { useWeb3, useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useTokenContract, useVBepTokenContract } from '../../../clients/contracts/hooks';
+import { useTokenContract, useVTokenContract } from '../../../clients/contracts/hooks';
 
 interface DispatchProps {
   setSetting: (setting: Setting | undefined) => void;
@@ -39,7 +40,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const tokenContract = useTokenContract(asset.id);
-  const vbepContract = useVBepTokenContract(asset.id);
+  const vbepContract = useVTokenContract(asset.id as VTokenId);
   const web3 = useWeb3();
 
   const updateInfo = useCallback(() => {
