@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import BigNumber from 'bignumber.js';
 import { Formik, Form, FormikProps, FormikConfig } from 'formik';
 
 import validationSchema, { FormValues } from './validationSchema';
@@ -11,7 +10,7 @@ export const initialValues: FormValues = {
 
 export interface IAmountFormProps
   extends Omit<FormikConfig<FormValues>, 'onSubmit' | 'initialValues'> {
-  onSubmit: (value: BigNumber) => Promise<void> | void;
+  onSubmit: (value: string) => Promise<void> | void;
   children: (formProps: FormikProps<FormValues>) => React.ReactNode;
   initialValues?: FormikConfig<FormValues>['initialValues'];
   className?: string;
