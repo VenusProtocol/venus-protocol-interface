@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Progress } from 'antd';
-import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
+
+import { PrimaryButton } from 'components';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
-import { Asset, Setting } from 'types';
+import { Asset, Setting, VTokenId } from 'types';
 import { getBigNumber, formatApy, format } from 'utilities/common';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/coins/xvs.svg';
@@ -13,7 +14,7 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { useWeb3Account } from 'clients/web3';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVBepTokenContract } from '../../../clients/contracts/hooks';
+import { useVTokenContract } from '../../../clients/contracts/hooks';
 
 const abortController = new AbortController();
 
@@ -38,7 +39,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
   const { account } = useWeb3Account();
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
-  const vbepContract = useVBepTokenContract(asset.id);
+  const vbepContract = useVTokenContract(asset.id as VTokenId);
 
   const updateInfo = useCallback(() => {
     const tokenPrice = getBigNumber(asset.tokenPrice);

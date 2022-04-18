@@ -117,6 +117,11 @@ function VotingWallet({
   }, [earnedBalance]);
 
   const handleCollect = async () => {
+    if (!account) {
+      console.error('Cannot collect Venus tokens: ', 'account undefined');
+      return;
+    }
+
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
     const vTokensBalanceInfos = await venusLensContract.methods
       .vTokenBalancesAll(
@@ -142,13 +147,10 @@ function VotingWallet({
     if (+earnedBalance !== 0 || +vaiMint !== 0) {
       setIsLoading(true);
       try {
-        await comptrollerContract.methods
-          .claimVenus(
-            account,
-
-            outstandingVTokens.map((token: $TSFixMe) => token[0]),
-          )
-          .send({ from: account });
+        await comptrollerContract.methods['claimVenus(address,address[])'](
+          account,
+          outstandingVTokens.map((token: $TSFixMe) => token[0]),
+        ).send({ from: account });
       } catch (error) {
         console.log('claim venus error :>> ', error);
       }

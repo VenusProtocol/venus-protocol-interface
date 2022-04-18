@@ -137,7 +137,9 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             .map((address: $TSFixMe) => address.toLowerCase())
             .includes(vtokenAddress);
 
-          const treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
+          const treasuryBalance = toDecimalAmount(
+            (treasuryBalances[vtokenAddress] as any).tokenBalance,
+          );
 
           let walletBalance = new BigNumber(0);
           let supplyBalance = new BigNumber(0);
@@ -196,20 +198,23 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         // still have to query each market.
         assetList = await Promise.all(
           assetList.map(async asset => {
-            const getHypotheticalLiquidity = (): [string, string, string] =>
-              comptrollerContract.methods
-                .getHypotheticalAccountLiquidity(
-                  comptrollerContractAddress,
-                  account,
-                  asset.vtokenAddress,
-                  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                  balances[asset.vtokenAddress.toLowerCase()].balanceOf,
-                  0,
-                )
-                .call();
+            const hypotheticalLiquidity: [string, string, string] = (
+              account
+                ? await comptrollerContract.methods
+                    .getHypotheticalAccountLiquidity(
+                      account,
+                      asset.vtokenAddress,
+                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                      balances[asset.vtokenAddress.toLowerCase()].balanceOf,
+                      0,
+                    )
+                    .call()
+                : ['0', '0', '0']
+            ) as [string, string, string];
+
             return {
               ...asset,
-              hypotheticalLiquidity: account ? await getHypotheticalLiquidity() : ['0', '0', '0'],
+              hypotheticalLiquidity,
             };
           }),
         );
