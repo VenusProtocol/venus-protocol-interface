@@ -9,6 +9,7 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
     `,
     column: css`
       display: flex;
