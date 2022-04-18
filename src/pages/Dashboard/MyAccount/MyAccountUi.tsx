@@ -171,7 +171,7 @@ export const MyAccountUi = ({
         max={100}
         trackTooltip={
           readableBorrowBalance !== PLACEHOLDER_KEY &&
-          readableBorrowLimitUsedPercentage !== PLACEHOLDER_KEY && (
+          readableBorrowLimitUsedPercentage !== PLACEHOLDER_KEY ? (
             <Trans
               i18nKey="myAccount.progressBar.borrowLimitTooltip"
               components={{
@@ -182,12 +182,12 @@ export const MyAccountUi = ({
                 borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
               }}
             />
-          )
+          ) : undefined
         }
         markTooltip={
           readableSafeBorrowLimit !== PLACEHOLDER_KEY &&
           borrowBalanceCents &&
-          borrowBalanceCents > 0 && (
+          borrowBalanceCents > 0 ? (
             <Trans
               i18nKey="myAccount.progressBar.safeBorrowLimitTooltip"
               components={{
@@ -198,7 +198,7 @@ export const MyAccountUi = ({
                 safeBorrowLimitPercentage,
               }}
             />
-          )
+          ) : undefined
         }
         isDisabled
       />

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Icon, IconName } from '../Icon';
 import { useStyles } from './styles';
 
-export interface ILabeledInlineValueProps {
+export interface ILabeledInlineContentProps {
   label: string;
   iconName?: IconName;
   className?: string;
@@ -17,7 +17,7 @@ export const LabeledInlineContent = ({
   iconName,
   className,
   children,
-}: ILabeledInlineValueProps) => {
+}: ILabeledInlineContentProps) => {
   const styles = useStyles();
 
   return (

@@ -1,23 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
-import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 import { AuthContext } from 'context/AuthContext';
 import { TokenId } from 'types';
-import { formatApy } from 'utilities/common';
 import useApproveToken from 'clients/api/mutations/useApproveToken';
 import { Icon, IconName } from '../Icon';
-import { PrimaryButton } from '../Button';
+import { SecondaryButton } from '../Button';
 import useStyles from './styles';
+import { Delimiter } from '../Delimiter';
+import { LabeledInlineContent, ILabeledInlineContentProps } from '../LabeledInlineContent';
 
 export interface IEnableTokenProps {
   symbol: TokenId;
   isEnabled: boolean;
-  title: string;
-  tokenInfo: { symbol: TokenId; text: string; apy: BigNumber | number }[];
+  title: string | React.ReactElement;
+  tokenInfo: ILabeledInlineContentProps[];
   approveToken: () => void;
   vtokenAddress: string;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> = ({
@@ -27,7 +27,7 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
   isEnabled,
   children,
   approveToken,
-  disabled,
+  disabled = false,
 }) => {
   const styles = useStyles();
   if (isEnabled) {
@@ -39,32 +39,20 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
       <Typography component="h3" variant="h3" css={styles.mainText}>
         {title}
       </Typography>
-      <hr />
-      {tokenInfo.map(({ symbol: infoSymbol, text, apy }) => (
-        <div css={styles.tokenInfo}>
-          <div css={styles.tokenInfoText}>
-            <Icon name={infoSymbol as IconName} size="20px" />
-            <Typography variant="small1" component="span">
-              {text}
-            </Typography>
-          </div>
-          <Typography variant="small1" component="span" css={styles.apy}>
-            {formatApy(apy)}
-          </Typography>
-        </div>
+      <Delimiter />
+      {tokenInfo.map(info => (
+        <LabeledInlineContent {...info} key={info.label} css={styles.labeledInlineContent} />
       ))}
-      <PrimaryButton disabled={disabled} fullWidth css={styles.button} onClick={approveToken}>
+      <SecondaryButton disabled={disabled} fullWidth css={styles.button} onClick={approveToken}>
         Enable
-      </PrimaryButton>
+      </SecondaryButton>
     </div>
   );
 };
 
-const EnableToken = ({
-  symbol,
-  vtokenAddress,
-  ...rest
-}: Omit<IEnableTokenProps, 'approveToken' | 'account'>) => {
+export const EnableToken: React.FC<
+  Omit<IEnableTokenProps, 'approveToken' | 'account' | 'disabled'>
+> = ({ symbol, vtokenAddress, ...rest }) => {
   const { mutate: approveToken } = useApproveToken({ assetId: symbol });
   const { account } = useContext(AuthContext);
   return (

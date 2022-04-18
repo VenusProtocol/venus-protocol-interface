@@ -4,7 +4,7 @@ import MaterialSlider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import { SliderTypeMap } from '@mui/material/Slider/Slider';
 
-import { Tooltip, TooltipProps } from '../Tooltip';
+import { Tooltip, ITooltipProps } from '../Tooltip';
 import { useStyles } from './styles';
 
 export interface ISliderProps {
@@ -14,10 +14,11 @@ export interface ISliderProps {
   ariaLabel: string;
   min: number;
   max: number;
-  trackTooltip?: TooltipProps['title'];
-  markTooltip?: TooltipProps['title'];
+  trackTooltip?: ITooltipProps['title'];
+  markTooltip?: ITooltipProps['title'];
   isDisabled?: boolean;
   className?: string;
+  tooltipPlacement?: ITooltipProps['placement'];
 }
 
 export const ProgressBarHorizontal = ({
@@ -31,6 +32,7 @@ export const ProgressBarHorizontal = ({
   trackTooltip,
   markTooltip,
   className,
+  tooltipPlacement = 'top',
 }: ISliderProps) => {
   const marks = mark ? [{ value: mark }] : undefined;
   const styles = useStyles({ over: value > mark });
@@ -39,7 +41,7 @@ export const ProgressBarHorizontal = ({
     if (markTooltip) {
       return (
         <span {...props} css={[styles.mark, styles.hasTooltip]}>
-          <Tooltip title={markTooltip}>
+          <Tooltip placement={tooltipPlacement} title={markTooltip}>
             <span css={styles.tooltipHelper}>.</span>
           </Tooltip>
         </span>
@@ -53,7 +55,7 @@ export const ProgressBarHorizontal = ({
     if (trackTooltip) {
       return (
         <div style={props?.style} css={[styles.trackWrapper, styles.hasTooltip]}>
-          <Tooltip title={trackTooltip}>
+          <Tooltip placement={tooltipPlacement} title={trackTooltip}>
             {/* passed styles undefined here because wrapper is now handling this part */}
             <Box {...props} style={undefined} />
           </Tooltip>
