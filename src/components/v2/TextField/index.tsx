@@ -64,7 +64,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
 
       <Box css={styles.getInputContainer({ hasError })}>
         {!!leftIconName && (
-          <Icon name={leftIconName} size={styles.theme.spacing(3)} css={styles.leftIcon} />
+          <Icon name={leftIconName} size={styles.theme.spacing(6)} css={styles.leftIcon} />
         )}
 
         <input
