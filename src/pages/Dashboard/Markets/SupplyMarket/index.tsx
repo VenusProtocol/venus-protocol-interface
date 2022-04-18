@@ -10,6 +10,7 @@ import { useWeb3Account } from 'clients/web3';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
+import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import { useStyles } from '../styles';
 
@@ -30,6 +31,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   confirmCollateral,
   setConfirmCollateral,
 }) => {
+  const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -88,9 +90,11 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
         ) : null,
     },
   ]);
-  const rowOnClick = () => {
-    // @TODO - Sprint 10 https://app.clickup.com/t/24quh87
-    console.log('To be implemented in Sprint 10');
+  const rowOnClick = (row: ITableProps['data'][number]) => {
+    const asset = assets.find((value: Asset) => value.id === row[0].value);
+    if (asset) {
+      setSelectedAsset(asset);
+    }
   };
   return (
     <div className={className} css={styles.tableContainer}>
@@ -109,6 +113,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
         asset={confirmCollateral}
         handleClose={() => setConfirmCollateral(undefined)}
       />
+      <SupplyWithdrawModal asset={selectedAsset} onClose={() => setSelectedAsset(undefined)} />
     </div>
   );
 };
@@ -120,18 +125,14 @@ const SupplyMarket: React.FC = () => {
   const { t } = useTranslation();
 
   const { mutate: enterMarkets } = useEnterMarkets({
-    onSuccess: () => {
-      setConfirmCollateral(undefined);
-    },
+    onSuccess: () => setConfirmCollateral(undefined),
     onError: error => {
       setConfirmCollateral(undefined);
       throw error;
     },
   });
   const { mutate: exitMarkets } = useExitMarket({
-    onSuccess: () => {
-      setConfirmCollateral(undefined);
-    },
+    onSuccess: () => setConfirmCollateral(undefined),
     onError: error => {
       setConfirmCollateral(undefined);
       throw error;
