@@ -11,18 +11,20 @@ import { AuthProvider } from 'context/AuthContext';
 import { store } from 'core';
 import { Layout } from 'components';
 import { init as initTranslationLibrary } from 'translation';
+import { isOnTestnet } from 'config';
 import Dashboard from 'pages/Dashboard';
-// import Faucet from 'pages/Faucet';
-// import Vote from 'pages/Vote';
-// import XVS from 'pages/XVS';
-// import Market from 'pages/Market';
-// import Vault from 'pages/Vault';
-// import MarketDetail from 'pages/MarketDetail';
-// import VoteOverview from 'pages/VoteOverview';
-// import ProposerDetail from 'pages/ProposerDetail';
-// import VoterLeaderboard from 'pages/VoterLeaderboard';
-// import VrtConversion from 'pages/VrtConversion';
-// import Transaction from 'pages/Transaction';
+import DashboardV1 from 'containers/Main/Dashboard';
+import Faucet from 'containers/Main/Faucet';
+import Vote from 'containers/Main/Vote';
+import XVS from 'containers/Main/XVS';
+import Market from 'containers/Main/Market';
+import Vault from 'containers/Main/Vault';
+import MarketDetail from 'containers/Main/MarketDetail';
+import VoteOverview from 'containers/Main/VoteOverview';
+import ProposerDetail from 'containers/Main/ProposerDetail';
+import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
+import VrtConversion from 'containers/Main/VrtConversion';
+import Transaction from 'containers/Main/Transaction';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
 import { MarketContextProvider } from 'context/MarketContext';
@@ -52,26 +54,22 @@ const App = () => (
                       />
                       <Layout>
                         <Switch>
-                          <Route exact path="/dashboard" component={Dashboard} />
-                          {/* <Route exact path="/vote" component={Vote} />
+                          <Route
+                            exact
+                            path="/dashboard"
+                            component={process.env.REACT_APP_RUN_V2 ? Dashboard : DashboardV1}
+                          />
+                          <Route exact path="/vote" component={Vote} />
                           <Route exact path="/xvs" component={XVS} />
                           <Route exact path="/market" component={Market} />
                           <Route exact path="/transaction" component={Transaction} />
                           <Route exact path="/vault" component={Vault} />
                           <Route exact path="/market/:asset" component={MarketDetail} />
-                          <Route
-                            exact
-                            path="/vote/leaderboard"
-                            component={VoterLeaderboard}
-                          />
+                          <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
                           <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                          <Route
-                            exact
-                            path="/vote/address/:address"
-                            component={ProposerDetail}
-                          /> */}
-                          {/* <Route exact path="/convert-vrt" component={VrtConversion} /> */}
-                          {/* {isOnTestnet && <Route exact path="/faucet" component={Faucet} />} */}
+                          <Route exact path="/vote/address/:address" component={ProposerDetail} />
+                          <Route exact path="/convert-vrt" component={VrtConversion} />
+                          {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
                           <Redirect from="/" to="/dashboard" />
                         </Switch>
                       </Layout>
