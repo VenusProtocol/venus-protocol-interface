@@ -102,9 +102,10 @@ const Component: React.FC = () => {
   const { Trans } = useTranslation();
 
   return (
-    <Trans i18nKey="componentName.textKey">
-      This is a <a href="https://acme.com">link</a>.
-    </Trans>
+    <Trans 
+      i18nKey="componentName.textKey"
+      components={{ Anchor: <a href="https://acme.com"/> }}
+    />
   );
 };
 ```
