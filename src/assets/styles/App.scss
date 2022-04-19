@@ -3,7 +3,7 @@
 body {
   /* width */
   &::-webkit-scrollbar {
-    width: 2px;
+    width: var(--scrollbar-width);
     height: 5px;
   }
 

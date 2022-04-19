@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Icon } from '../Icon';
 import Sidebar from './Sidebar';
@@ -17,7 +16,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
     <div css={styles.layout}>
       <Sidebar />
-      <Box display="flex" flexDirection="column" flex="1">
+      <div css={styles.main}>
         <div css={styles.ustWarning}>
           <Typography component="p" variant="small1">
             <Icon name="attention" />
@@ -27,7 +26,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
         </div>
         <Header />
         <PageContainer>{children}</PageContainer>
-      </Box>
+      </div>
     </div>
   );
 };

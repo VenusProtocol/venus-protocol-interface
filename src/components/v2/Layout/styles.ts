@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
+const viewWidthWithScrollbar = '(100vw - var(--scrollbar-width))';
+
 export const useStyles = () => {
   const theme = useTheme();
   return {
@@ -10,6 +12,16 @@ export const useStyles = () => {
       flex-direction: row;
       ${theme.breakpoints.down('md')} {
         flex-direction: column;
+      }
+    `,
+    main: css`
+      max-width: calc(${viewWidthWithScrollbar} - ${theme.shape.drawerWidthDesktop});
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      ${theme.breakpoints.down('lg')} {
+        max-width: calc(${viewWidthWithScrollbar} - ${theme.shape.drawerWidthTablet});
       }
     `,
     ustWarning: css`
