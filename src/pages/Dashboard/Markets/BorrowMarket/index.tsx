@@ -32,7 +32,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
       { key: 'apy', label: t('markets.columns.apy'), orderable: true },
       { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
-      { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
+      { key: 'liquidity', label: t('markets.columns.liquidity'), orderable: true },
     ],
     [],
   );
