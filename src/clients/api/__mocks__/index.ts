@@ -22,6 +22,24 @@ export const getVTokenBalancesAll = jest.fn();
 export const useGetVTokenBalancesAll = () =>
   useQuery(FunctionKey.GET_VTOKEN_BALANCES_ALL, getVTokenBalancesAll);
 
+export const getVenusInitialIndex = jest.fn();
+export const useGetVenusInitialIndex = () =>
+  useQuery(FunctionKey.GET_VENUS_INITIAL_INDEX, getVenusInitialIndex);
+
+export const getVenusAccrued = jest.fn();
+export const useGetVenusAccrued = () => useQuery(FunctionKey.GET_VENUS_ACCRUED, getVenusAccrued);
+
+export const getVenusVaiState = jest.fn();
+export const useGetVenusVaiState = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_STATE, getVenusVaiState);
+
+export const getMintedVai = jest.fn();
+export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
+
+export const getVenusVaiMinterIndex = jest.fn();
+export const useGetVenusVaiMinterIndex = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getMintedVai);
+
 // Mutations
 export const requestFaucetFunds = jest.fn();
 export const useRequestFaucetFunds = () =>
