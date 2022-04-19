@@ -1,4 +1,4 @@
-import fakeTransactionReceipt from '__mocks__/api/transactionReceipt';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { Comptroller } from 'types/contracts';
 import claimVenus from './claimVenus';
 

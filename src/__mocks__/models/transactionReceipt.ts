@@ -9,10 +9,10 @@ const transactionReceipt: TransactionReceipt = {
   from: 'fake-from',
   to: 'fake-to',
   cumulativeGasUsed: 99999,
-  effectiveGasPrice: 99999,
   gasUsed: 99999,
+  effectiveGasPrice: 123456789,
   logs: [],
-  logsBloom: 'fake-logs-bloom',
+  logsBloom: 'fake-log-bloom',
 };
 
 export default transactionReceipt;

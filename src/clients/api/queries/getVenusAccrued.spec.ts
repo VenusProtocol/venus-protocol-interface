@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import address from '__mocks__/models/address';
 import { Comptroller } from 'types/contracts';
 import getVenusAccrued from './getVenusAccrued';
+
+const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
 describe('api/queries/getVenusAccrued', () => {
   test('throws an error when request fails', async () => {
@@ -19,7 +20,7 @@ describe('api/queries/getVenusAccrued', () => {
     try {
       await getVenusAccrued({
         comptrollerContract: fakeContract,
-        accountAddress: address,
+        accountAddress: fakeFromAccountsAddress,
       });
 
       throw new Error('getVenusAccrued should have thrown an error but did not');
@@ -43,7 +44,7 @@ describe('api/queries/getVenusAccrued', () => {
 
     const response = await getVenusAccrued({
       comptrollerContract: fakeContract,
-      accountAddress: address,
+      accountAddress: fakeFromAccountsAddress,
     });
 
     expect(venusAccruedMock).toHaveBeenCalledTimes(1);
