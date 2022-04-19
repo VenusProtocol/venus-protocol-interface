@@ -78,3 +78,7 @@ export { default as useGetVenusVaiState } from './queries/useGetVenusVaiState';
 export { default as getMintedVai } from './queries/getMintedVai';
 export * from './queries/getMintedVai';
 export { default as useGetMintedVai } from './queries/useGetMintedVai';
+
+export { default as getVenusVaiMinterIndex } from './queries/getVenusVaiMinterIndex';
+export * from './queries/getVenusVaiMinterIndex';
+export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMinterIndex';

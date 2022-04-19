@@ -12,7 +12,7 @@ const transactionReceipt: TransactionReceipt = {
   gasUsed: 99999,
   effectiveGasPrice: 123456789,
   logs: [],
-  logsBloom: 'fake-log-bloom',
+  logsBloom: 'fake-logs-bloom',
 };
 
 export default transactionReceipt;
