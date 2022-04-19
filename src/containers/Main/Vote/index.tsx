@@ -141,6 +141,8 @@ function Vote({ getProposals }: VoteProps) {
       comptrollerContract.methods.mintedVAIs(myAddress).call(),
     ]);
 
+    console.log(typeof venusInitialIndex);
+
     let vaiMinterIndex = await Promise.resolve(
       vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call(),
     );

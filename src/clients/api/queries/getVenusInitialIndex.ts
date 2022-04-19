@@ -1,18 +1,14 @@
-import BigNumber from 'bignumber.js';
-
 import { Comptroller } from 'types/contracts';
 
 export interface IGetVenusInitialIndexInput {
   comptrollerContract: Comptroller;
 }
 
-export type GetVenusInitialIndexOutput = BigNumber;
+export type GetVenusInitialIndexOutput = string;
 
-const getVenusInitialIndex = async ({
+const getVenusInitialIndex = ({
   comptrollerContract,
-}: IGetVenusInitialIndexInput): Promise<GetVenusInitialIndexOutput> => {
-  const res = await comptrollerContract.methods.venusInitialIndex().call();
-  return new BigNumber(res);
-};
+}: IGetVenusInitialIndexInput): Promise<GetVenusInitialIndexOutput> =>
+  comptrollerContract.methods.venusInitialIndex().call();
 
 export default getVenusInitialIndex;
