@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import address from '__mocks__/models/address';
 import { Comptroller } from 'types/contracts';
 import getMintedVai from './getMintedVai';
+
+const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
 describe('api/queries/getMintedVai', () => {
   test('throws an error when request fails', async () => {
@@ -19,7 +20,7 @@ describe('api/queries/getMintedVai', () => {
     try {
       await getMintedVai({
         comptrollerContract: fakeContract,
-        accountAddress: address,
+        accountAddress: fakeFromAccountsAddress,
       });
 
       throw new Error('getMintedVai should have thrown an error but did not');
@@ -43,7 +44,7 @@ describe('api/queries/getMintedVai', () => {
 
     const response = await getMintedVai({
       comptrollerContract: fakeContract,
-      accountAddress: address,
+      accountAddress: fakeFromAccountsAddress,
     });
 
     expect(mintedVAIsMock).toHaveBeenCalledTimes(1);

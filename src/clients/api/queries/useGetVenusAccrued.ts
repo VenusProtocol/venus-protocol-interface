@@ -9,14 +9,14 @@ type Options = QueryObserverOptions<
   Error,
   GetVenusAccruedOutput,
   GetVenusAccruedOutput,
-  FunctionKey.GET_XVS_ACCRUED
+  FunctionKey.GET_VENUS_ACCRUED
 >;
 
 const useGetVenusInitialIndex = (accountAddress: string, options?: Options) => {
   const comptrollerContract = useComptrollerContract();
 
   return useQuery(
-    FunctionKey.GET_XVS_ACCRUED,
+    FunctionKey.GET_VENUS_ACCRUED,
     () => getVenusAccrued({ accountAddress, comptrollerContract }),
     options,
   );
