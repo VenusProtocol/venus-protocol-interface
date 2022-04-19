@@ -15,6 +15,9 @@
   "bscLink": {
     "content": "View on bscscan.com<icon>"
   },
+  "claimXvsRewardButton": {
+    "title": "Claim <Icon/> {{amount}}"
+  },
   "connectButton": {
     "title": "Connect"
   },
