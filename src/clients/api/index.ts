@@ -50,6 +50,10 @@ export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll'
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalancesAll';
 
+export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
+export * from './queries/getVenusInitialIndex';
+export { default as useGetVenusInitialIndex } from './queries/useGetVenusInitialIndex';
+
 export { default as getVenusAccrued } from './queries/getVenusAccrued';
 export * from './queries/getVenusAccrued';
 export { default as useGetVenusAccrued } from './queries/useGetVenusAccrued';
