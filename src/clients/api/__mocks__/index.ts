@@ -40,3 +40,4 @@ export const exitMarket = jest.fn();
 export const useExitMarket = () => useMutation(FunctionKey.EXIT_MARKET, exitMarket);
 
 export const claimVenus = jest.fn();
+export const useClaimVenus = () => useMutation(FunctionKey.CLAIM_VENUS, claimVenus);

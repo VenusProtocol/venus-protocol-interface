@@ -16,7 +16,7 @@ const useClaimVenus = (options?: Options) => {
   // @TODO: invalidate queries related to fetching the user claimable XVS
   // balance
   return useMutation(
-    FunctionKey.REPAY_VAI,
+    FunctionKey.CLAIM_VENUS,
     (params: Omit<IClaimVenusInput, 'comptrollerContract'>) =>
       claimVenus({
         comptrollerContract,
