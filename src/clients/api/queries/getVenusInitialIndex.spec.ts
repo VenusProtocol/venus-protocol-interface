@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import { Comptroller } from 'types/contracts';
 import getVenusInitialIndex from './getVenusInitialIndex';
 
@@ -23,7 +25,7 @@ describe('api/queries/getVenusInitialIndex', () => {
   });
 
   test('returns the initial Venus market index on success', async () => {
-    const fakeInitialIndex = 1000000000000000;
+    const fakeInitialIndex = new BigNumber(1000000000000000);
     const callMock = jest.fn(async () => fakeInitialIndex);
     const venusInitialIndexMock = jest.fn(() => ({
       call: callMock,
@@ -39,6 +41,7 @@ describe('api/queries/getVenusInitialIndex', () => {
 
     expect(venusInitialIndexMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
-    expect(response).toBe(fakeInitialIndex);
+    expect(response instanceof BigNumber).toBe(true);
+    expect(response.toFixed()).toBe(fakeInitialIndex.toFixed());
   });
 });

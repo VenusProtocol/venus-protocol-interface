@@ -2,6 +2,7 @@ import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 
 import { VTokenId } from 'types';
+import { getToken } from 'utilities';
 import { getVTokenContract } from 'clients/contracts';
 import { VBEP_TOKENS } from 'constants/tokens';
 import { Comptroller } from 'types/contracts';
@@ -12,10 +13,10 @@ export interface IGetXvsRewardInput {
   web3: Web3;
   accountAddress: string;
   comptrollerContract: Comptroller;
-  venusInitialIndex: number;
+  venusInitialIndex: BigNumber;
   xvsAccrued: BigNumber;
-  vaiMintIndex: number;
-  userVaiMintIndex: number;
+  vaiMintIndex: BigNumber;
+  userVaiMintIndex: BigNumber;
   userMintedVai: BigNumber;
 }
 
@@ -54,8 +55,10 @@ const getXvsReward = async ({
 
     // Calculate XVS reward from supplying tokens
     const adjustedSupplierIndex =
-      +supplierIndex === 0 && +supplyState.index > 0 ? venusInitialIndex : supplyState.index;
+      +supplierIndex === 0 && +supplyState.index > 0 ? venusInitialIndex : supplierIndex;
+
     const supplierDeltaIndex = new BigNumber(supplyState.index).minus(adjustedSupplierIndex);
+
     const supplierXvsReward = new BigNumber(supplierTokens)
       .multipliedBy(supplierDeltaIndex)
       // @TODO: check why we have a constant here (1e36 - Venus initial index?)
@@ -96,7 +99,10 @@ const getXvsReward = async ({
 
   // Calculate XVS reward from minting VAI
   const adjustedVaiMinterIndex =
-    vaiMintIndex === 0 && vaiMintIndex > 0 ? venusInitialIndex : userVaiMintIndex;
+    userVaiMintIndex.isEqualTo(0) && vaiMintIndex.isGreaterThan(0)
+      ? venusInitialIndex
+      : userVaiMintIndex;
+
   const deltaIndex = new BigNumber(vaiMintIndex).minus(new BigNumber(adjustedVaiMinterIndex));
 
   const vaiMinterDelta = new BigNumber(userMintedVai)
@@ -107,8 +113,11 @@ const getXvsReward = async ({
     .dp(8, 1);
 
   // Calculate and return total XVS reward
-  const xvsReward = xvsEarned.plus(vaiMinterDelta);
-  return xvsReward;
+  const xvsRewardTokens = xvsEarned.plus(vaiMinterDelta);
+  const xvsDecimals = getToken('xvs').decimals;
+  const xvsRewardWei = xvsRewardTokens.multipliedBy(new BigNumber(10).pow(xvsDecimals));
+
+  return xvsRewardWei;
 };
 
 export default getXvsReward;

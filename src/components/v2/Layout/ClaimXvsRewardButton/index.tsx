@@ -2,6 +2,8 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
+import { AuthContext } from 'context/AuthContext';
+import { useGetXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
 import { convertWeiToCoins } from 'utilities/common';
 import { Icon } from '../../Icon';
@@ -47,14 +49,14 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 };
 
 export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
+  const { account } = React.useContext(AuthContext);
+  const { data: xvsRewardWei } = useGetXvsReward(account?.address);
+
   const claimXvs = () => {
     // @TODO: send transaction to claim XVS
   };
 
-  // @TODO: fetch actual amount of claimable XVS wei
-  const fakeAmount = new BigNumber(100000000000000);
-
-  return <ClaimXvsRewardButtonUi amountWei={fakeAmount} onClick={claimXvs} {...props} />;
+  return <ClaimXvsRewardButtonUi amountWei={xvsRewardWei} onClick={claimXvs} {...props} />;
 };
 
 export default ClaimXvsRewardButton;
