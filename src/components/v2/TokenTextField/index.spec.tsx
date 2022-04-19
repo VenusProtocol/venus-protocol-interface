@@ -1,14 +1,13 @@
 import React from 'react';
 import noop from 'noop-ts';
-import { fireEvent } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { fireEvent } from '@testing-library/react';
 
 import renderComponent from 'testUtils/renderComponent';
 import { TokenTextField } from '.';
 
-const oneXvsInWei = new BigNumber(10).pow(18);
-const oneWeiInXvs = new BigNumber(1).dividedBy(oneXvsInWei);
-
+const ONE_XVS = '1';
+const XVS_DECIMALS = 18;
 const testId = 'token-text-field-input';
 
 describe('components/TokenTextField', () => {
@@ -16,23 +15,7 @@ describe('components/TokenTextField', () => {
     renderComponent(<TokenTextField tokenSymbol="xvs" onChange={noop} value="" />);
   });
 
-  it('converts passed wei value into readable value expressed in coins', async () => {
-    const onChangeMock = jest.fn();
-    const { getByTestId } = renderComponent(
-      <TokenTextField
-        tokenSymbol="xvs"
-        onChange={onChangeMock}
-        value={oneXvsInWei}
-        data-testid={testId}
-      />,
-    );
-
-    const input = getByTestId(testId) as HTMLInputElement;
-
-    expect(input.value).toBe('1');
-  });
-
-  it('lets user enter a value and calls onChange callback with correct value', async () => {
+  it('does not let user enter value with more decimal places than token associated to tokenSymbol provided has', async () => {
     const onChangeMock = jest.fn();
     const { getByTestId } = renderComponent(
       <TokenTextField tokenSymbol="xvs" onChange={onChangeMock} value="" data-testid={testId} />,
@@ -40,31 +23,25 @@ describe('components/TokenTextField', () => {
 
     const input = getByTestId(testId) as HTMLInputElement;
 
+    const oneWeiInXvs = new BigNumber(ONE_XVS)
+      .dividedBy(new BigNumber(10).pow(XVS_DECIMALS))
+      .toFixed();
+
     // Update input value
-    const valueXvs = '10';
-    fireEvent.change(input, { target: { value: valueXvs } });
+    fireEvent.change(input, { target: { value: oneWeiInXvs } });
 
-    // Check value passed to onChange callback was converted into wei
-    const valueWei = new BigNumber(valueXvs).multipliedBy(new BigNumber(10).pow(18));
-    expect(onChangeMock).toHaveBeenCalledWith(valueWei);
-  });
+    // Check value passed to onChange callback was correct
+    expect(onChangeMock).toHaveBeenCalledTimes(1);
+    expect(onChangeMock).toHaveBeenCalledWith(oneWeiInXvs);
 
-  it('passes the correct max and step values down to the TextField component', async () => {
-    const onChangeMock = jest.fn();
-    const { getByTestId } = renderComponent(
-      <TokenTextField
-        tokenSymbol="xvs"
-        onChange={onChangeMock}
-        value=""
-        data-testid={testId}
-        maxWei={oneXvsInWei}
-      />,
-    );
+    // Update input value
+    const invalidValue = new BigNumber(ONE_XVS)
+      .dividedBy(new BigNumber(10).pow(XVS_DECIMALS + 1))
+      .toFixed();
+    fireEvent.change(input, { target: { value: invalidValue } });
 
-    const input = getByTestId(testId) as HTMLInputElement;
-
-    expect(input.max).toBe('1');
-    expect(input.step).toBe(oneWeiInXvs.toString());
+    // Check onChange callback wasn't called again
+    expect(onChangeMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders max button and updates value to maxWei when pressing on it', async () => {
@@ -77,7 +54,7 @@ describe('components/TokenTextField', () => {
         onChange={onChangeMock}
         value=""
         data-testid={testId}
-        maxWei={oneXvsInWei}
+        max={ONE_XVS}
         rightMaxButtonLabel={rightMaxButtonLabel}
       />,
     );
@@ -87,6 +64,6 @@ describe('components/TokenTextField', () => {
     fireEvent.click(rightMaxButton);
 
     // Check onChange callback was called with maxWei
-    expect(onChangeMock).toHaveBeenCalledWith(oneXvsInWei);
+    expect(onChangeMock).toHaveBeenCalledWith(ONE_XVS);
   });
 });
