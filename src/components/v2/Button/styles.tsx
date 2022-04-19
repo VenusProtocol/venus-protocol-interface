@@ -17,7 +17,7 @@ export const styles = ({
   const getButtonVariantCss = (refVariant: Variant) => {
     if (refVariant === 'secondary') {
       return css`
-        background-color: transparent;
+        background-color: ${theme.palette.background.paper};
         border-color: ${theme.palette.button.medium};
 
         :hover:not(:disabled) {

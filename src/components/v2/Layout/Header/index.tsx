@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 
 import { useTranslation } from 'translation';
 import { Toolbar } from '../Toolbar';
+import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
 import ConnectButton from '../ConnectButton';
 import { menuItems } from '../constants';
 import { useStyles } from './styles';
@@ -35,6 +36,7 @@ const Header = () => {
           justifyContent="right"
           css={styles.rightItemContainer}
         >
+          <ClaimXvsRewardButton />
           <ConnectButton css={styles.rightItemPaper} />
         </Box>
       </Toolbar>
