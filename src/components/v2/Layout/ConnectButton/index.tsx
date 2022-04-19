@@ -10,7 +10,7 @@ export interface IConnectButton extends IButtonProps {
   title?: string;
 }
 
-export const ConnectButton: React.FC<IConnectButton> = ({
+export const ConnectButtonUi: React.FC<IConnectButton> = ({
   accountAddress,
   title = 'Connect',
   ...otherProps
@@ -20,9 +20,9 @@ export const ConnectButton: React.FC<IConnectButton> = ({
   </SecondaryButton>
 );
 
-const ConnectButtonContainer: React.FC<IButtonProps> = props => {
+export const ConnectButton: React.FC<IButtonProps> = props => {
   const { account, openAuthModal } = React.useContext(AuthContext);
-  return <ConnectButton accountAddress={account?.address} onClick={openAuthModal} {...props} />;
+  return <ConnectButtonUi accountAddress={account?.address} onClick={openAuthModal} {...props} />;
 };
 
-export default ConnectButtonContainer;
+export default ConnectButton;

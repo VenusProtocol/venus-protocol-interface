@@ -15,9 +15,9 @@ import { useWeb3Account } from 'clients/web3';
 import { useTranslation } from 'translation';
 import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
 import { Toolbar } from '../Toolbar';
+import ConnectButton from '../ConnectButton';
 import { Icon } from '../../Icon';
 import { menuItems } from '../constants';
-import ConnectButton from '../Header/ConnectButton';
 import { useStyles } from './styles';
 
 interface ISidebarProps {
