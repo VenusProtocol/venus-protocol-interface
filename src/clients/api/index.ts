@@ -38,6 +38,10 @@ export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
 
+export { default as claimVenus } from './mutations/claimVenus';
+export * from './mutations/claimVenus';
+export { default as useClaimVenus } from './mutations/useClaimVenus';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
