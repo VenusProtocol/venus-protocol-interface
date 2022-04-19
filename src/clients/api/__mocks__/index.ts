@@ -57,5 +57,5 @@ export const useEnterMarkets = () => useMutation(FunctionKey.ENTER_MARKETS, ente
 export const exitMarket = jest.fn();
 export const useExitMarket = () => useMutation(FunctionKey.EXIT_MARKET, exitMarket);
 
-export const claimVenus = jest.fn();
-export const useClaimVenus = () => useMutation(FunctionKey.CLAIM_VENUS, claimVenus);
+export const claimXvsReward = jest.fn();
+export const useClaimXvsReward = () => useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward);
