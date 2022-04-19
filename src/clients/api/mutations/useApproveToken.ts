@@ -4,7 +4,6 @@ import { TokenId } from 'types';
 import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
-import { TokenId } from 'types';
 
 const useApproveToken = (
   { assetId }: { assetId: TokenId },
