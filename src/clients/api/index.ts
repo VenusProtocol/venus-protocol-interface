@@ -74,3 +74,7 @@ export { default as useGetVenusAccrued } from './queries/useGetVenusAccrued';
 export { default as getVenusVaiState } from './queries/getVenusVaiState';
 export * from './queries/getVenusVaiState';
 export { default as useGetVenusVaiState } from './queries/useGetVenusVaiState';
+
+export { default as getMintedVai } from './queries/getMintedVai';
+export * from './queries/getMintedVai';
+export { default as useGetMintedVai } from './queries/useGetMintedVai';
