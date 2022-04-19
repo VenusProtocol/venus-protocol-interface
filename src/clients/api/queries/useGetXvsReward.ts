@@ -1,10 +1,8 @@
-import { useContext } from 'react';
 import { useQuery, QueryObserverOptions } from 'react-query';
 import BigNumber from 'bignumber.js';
 
 import { useComptrollerContract } from 'clients/contracts/hooks';
 import { useWeb3 } from 'clients/web3';
-import { AuthContext } from 'context/AuthContext';
 import useGetVenusInitialIndex from 'clients/api/queries/useGetVenusInitialIndex';
 import useGetVenusAccrued from 'clients/api/queries/useGetVenusAccrued';
 import useGetVenusVaiState from 'clients/api/queries/useGetVenusVaiState';
@@ -21,40 +19,46 @@ type Options = QueryObserverOptions<
   FunctionKey.GET_XVS_REWARD
 >;
 
-const useGetXvsReward = (accountAddress: string, options?: Options) => {
+const useGetXvsReward = (accountAddress: string | undefined, options?: Options) => {
   const web3 = useWeb3();
-
-  const { account } = useContext(AuthContext);
   const comptrollerContract = useComptrollerContract();
 
   const { data: venusInitialIndex } = useGetVenusInitialIndex();
-  const { data: xvsAccrued } = useGetVenusAccrued(accountAddress);
+  const { data: xvsAccrued } = useGetVenusAccrued(accountAddress || '', {
+    enabled: !!accountAddress,
+  });
   const { data: vaiState } = useGetVenusVaiState();
-  const { data: userMintedVai } = useGetMintedVai(accountAddress);
-  const { data: vaiMinterIndex } = useGetVenusVaiMinterIndex(accountAddress);
+  const { data: userMintedVai } = useGetMintedVai(accountAddress || '', {
+    enabled: !!accountAddress,
+  });
+  const { data: vaiMinterIndex } = useGetVenusVaiMinterIndex(accountAddress || '', {
+    enabled: !!accountAddress,
+  });
 
   return useQuery(
     FunctionKey.GET_XVS_REWARD,
     () =>
       getXvsReward({
         web3,
-        accountAddress: account?.address || '',
+        accountAddress: accountAddress || '',
         comptrollerContract,
-        venusInitialIndex: venusInitialIndex || 0,
+        venusInitialIndex: venusInitialIndex || new BigNumber(0),
         xvsAccrued: xvsAccrued || new BigNumber(0),
-        vaiMintIndex: vaiState?.index ? +vaiState.index : 0,
-        userVaiMintIndex: vaiMinterIndex || 0,
+        vaiMintIndex: new BigNumber(vaiState?.index || 0),
+        userVaiMintIndex: vaiMinterIndex || new BigNumber(0),
         userMintedVai: userMintedVai || new BigNumber(0),
       }),
     {
       enabled:
         (options?.enabled === undefined || options?.enabled) &&
-        !!account?.address &&
+        // Check user have connected their wallet
+        accountAddress !== undefined &&
+        // Check all required queries executed successfully
         venusInitialIndex !== undefined &&
-        !!xvsAccrued &&
+        xvsAccrued !== undefined &&
         vaiState?.index !== undefined &&
         vaiMinterIndex !== undefined &&
-        !!userMintedVai,
+        userMintedVai !== undefined,
     },
   );
 };
