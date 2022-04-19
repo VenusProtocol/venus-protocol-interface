@@ -27,7 +27,7 @@ describe('api/queries/getVenusVaiMinterIndex', () => {
   });
 
   test('returns the VAI treasury percentage in the correct format', async () => {
-    const fakeInitialIndex = '1000000000000000';
+    const fakeInitialIndex = 1000000;
     const callMock = jest.fn(async () => fakeInitialIndex);
     const venusVAIMinterIndexMock = jest.fn(() => ({
       call: callMock,

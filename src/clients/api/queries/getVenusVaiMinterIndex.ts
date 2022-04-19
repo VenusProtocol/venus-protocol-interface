@@ -5,12 +5,14 @@ export interface IGetVenusVaiMinterIndexInput {
   accountAddress: string;
 }
 
-export type GetVenusVaiMinterIndexOutput = string;
+export type GetVenusVaiMinterIndexOutput = number;
 
-const getVenusVaiMinterIndex = ({
+const getVenusVaiMinterIndex = async ({
   vaiUnitrollerContract,
   accountAddress,
-}: IGetVenusVaiMinterIndexInput): Promise<GetVenusVaiMinterIndexOutput> =>
-  vaiUnitrollerContract.methods.venusVAIMinterIndex(accountAddress).call();
+}: IGetVenusVaiMinterIndexInput): Promise<GetVenusVaiMinterIndexOutput> => {
+  const res = await vaiUnitrollerContract.methods.venusVAIMinterIndex(accountAddress).call();
+  return +res;
+};
 
 export default getVenusVaiMinterIndex;

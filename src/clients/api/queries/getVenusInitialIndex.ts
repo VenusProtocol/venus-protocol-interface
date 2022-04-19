@@ -4,11 +4,13 @@ export interface IGetVenusInitialIndexInput {
   comptrollerContract: Comptroller;
 }
 
-export type GetVenusInitialIndexOutput = string;
+export type GetVenusInitialIndexOutput = number;
 
-const getVenusInitialIndex = ({
+const getVenusInitialIndex = async ({
   comptrollerContract,
-}: IGetVenusInitialIndexInput): Promise<GetVenusInitialIndexOutput> =>
-  comptrollerContract.methods.venusInitialIndex().call();
+}: IGetVenusInitialIndexInput): Promise<GetVenusInitialIndexOutput> => {
+  const res = await comptrollerContract.methods.venusInitialIndex().call();
+  return +res;
+};
 
 export default getVenusInitialIndex;
