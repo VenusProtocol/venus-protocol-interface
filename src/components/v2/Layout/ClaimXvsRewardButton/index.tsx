@@ -12,7 +12,7 @@ import { useStyles } from './styles';
 const XVS_SYMBOL = 'xvs';
 
 export interface IClaimXvsRewardButton extends IButtonProps {
-  amountWei: BigNumber;
+  amountWei?: BigNumber;
 }
 
 export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
@@ -21,6 +21,10 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 }) => {
   const { Trans } = useTranslation();
   const styles = useStyles();
+
+  if (!amountWei) {
+    return null;
+  }
 
   const readableAmount = convertWeiToCoins({
     value: amountWei,
