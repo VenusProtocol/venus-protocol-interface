@@ -2,7 +2,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { internalError } from 'utilities/getError';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -33,13 +33,14 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const limitWei = React.useMemo(
-    () =>
+  const limitTokens = React.useMemo(() => {
+    const limitWei =
       userBalanceWei && userMintedWei
         ? BigNumber.minimum(userBalanceWei, userMintedWei)
-        : new BigNumber(0),
-    [userBalanceWei?.toString(), userMintedWei?.toString()],
-  );
+        : new BigNumber(0);
+
+    return convertWeiToCoins({ value: limitWei, tokenSymbol: VAI_SYMBOL }).toString();
+  }, [userBalanceWei?.toString(), userMintedWei?.toString()]);
 
   // Convert minted wei into VAI
   const readableRepayableVai = useConvertToReadableCoinString({
@@ -49,20 +50,29 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
 
-  const onSubmit: IAmountFormProps['onSubmit'] = async amountWei => {
+  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+    const formattedAmountTokens = new BigNumber(amountTokens);
+
+    const amountWei = convertCoinsToWei({
+      value: formattedAmountTokens,
+      tokenSymbol: VAI_SYMBOL,
+    });
+
     try {
       // Send request to repay VAI
       await repayVai(amountWei);
 
-      const coin = convertWeiToCoins({
-        value: amountWei,
-        tokenSymbol: VAI_SYMBOL,
-        returnInReadableFormat: true,
-      });
       // @TODO: display success modal instead of toast once it's been
       // implemented
+      const readableAmountTokens = formatCoinsToReadableValue({
+        value: formattedAmountTokens,
+        tokenSymbol: VAI_SYMBOL,
+      });
+
       toast.success({
-        title: t('mintRepayVai.repayVai.successMessage', { coin }),
+        title: t('mintRepayVai.repayVai.successMessage', {
+          tokens: readableAmountTokens,
+        }),
       });
     } catch (error) {
       toast.error({ title: (error as Error).message });
@@ -81,7 +91,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               onBlur={handleBlur}
-              maxWei={limitWei}
+              max={limitTokens}
               disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
               rightMaxButtonLabel={t('mintRepayVai.repayVai.rightMaxButtonLabel')}
             />
