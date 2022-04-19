@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 
 import { useTranslation } from 'translation';
 import { Toolbar } from '../Toolbar';
-import ConnectButton from './ConnectButton';
+import ConnectButton from '../ConnectButton';
 import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
 import { menuItems } from '../constants';
 import { useStyles } from './styles';
