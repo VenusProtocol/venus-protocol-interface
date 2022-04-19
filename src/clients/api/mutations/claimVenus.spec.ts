@@ -1,9 +1,9 @@
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import address from '__mocks__/models/address';
 import { Comptroller } from 'types/contracts';
 import claimVenus from './claimVenus';
 
-const fakeTokenAddresses = ['0x3d759121234cd36F8124C21aFe1c6852d2bEd848'];
-const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
+const fakeTokenAddresses = [address];
 
 describe('api/mutation/claimVenus', () => {
   test('throws an error when request fails', async () => {
@@ -21,7 +21,7 @@ describe('api/mutation/claimVenus', () => {
       await claimVenus({
         comptrollerContract: fakeContract,
         tokenAddresses: fakeTokenAddresses,
-        fromAccountAddress: fakeFromAccountsAddress,
+        fromAccountAddress: address,
       });
 
       throw new Error('claimVenus should have thrown an error but did not');
@@ -45,13 +45,13 @@ describe('api/mutation/claimVenus', () => {
     const response = await claimVenus({
       comptrollerContract: fakeContract,
       tokenAddresses: fakeTokenAddresses,
-      fromAccountAddress: fakeFromAccountsAddress,
+      fromAccountAddress: address,
     });
 
     expect(response).toBe(fakeTransactionReceipt);
     expect(claimVenusMock).toHaveBeenCalledTimes(1);
-    expect(claimVenusMock).toHaveBeenCalledWith(fakeFromAccountsAddress, fakeTokenAddresses);
+    expect(claimVenusMock).toHaveBeenCalledWith(address, fakeTokenAddresses);
     expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
+    expect(sendMock).toHaveBeenCalledWith({ from: address });
   });
 });
