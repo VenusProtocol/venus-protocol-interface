@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import { useTranslation } from 'translation';
 import { Toolbar } from '../Toolbar';
 import ConnectButton from '../ConnectButton';
-import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
 import { menuItems } from '../constants';
 import { useStyles } from './styles';
 
@@ -36,9 +35,7 @@ const Header = () => {
           justifyContent="right"
           css={styles.rightItemContainer}
         >
-          <XvsCoinInfo css={styles.rightItemPaper} className="coinInfo" />
-          <VaiCoinInfo css={styles.rightItemPaper} className="coinInfo" />
-          <ConnectButton css={styles.rightItemPaper} title={t('header.connectButton.title')} />
+          <ConnectButton css={styles.rightItemPaper} />
         </Box>
       </Toolbar>
     </AppBar>

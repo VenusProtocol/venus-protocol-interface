@@ -15,6 +15,9 @@
   "bscLink": {
     "content": "View on bscscan.com<icon>"
   },
+  "connectButton": {
+    "title": "Connect"
+  },
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
@@ -23,11 +26,6 @@
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
-  },
-  "header": {
-    "connectButton": {
-      "title": "Connect wallet"
-    }
   },
   "layout": {
     "menuItems": {
