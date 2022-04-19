@@ -49,3 +49,7 @@ export { default as useGetMarkets } from './queries/useGetMarkets';
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalancesAll';
+
+export { default as getVenusAccrued } from './queries/getVenusAccrued';
+export * from './queries/getVenusAccrued';
+export { default as useGetVenusAccrued } from './queries/useGetVenusAccrued';
