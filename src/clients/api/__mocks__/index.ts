@@ -40,6 +40,8 @@ export const getVenusVaiMinterIndex = jest.fn();
 export const useGetVenusVaiMinterIndex = () =>
   useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getMintedVai);
 
+export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, jest.fn());
+
 // Mutations
 export const requestFaucetFunds = jest.fn();
 export const useRequestFaucetFunds = () =>
