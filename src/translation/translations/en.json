@@ -13,13 +13,13 @@
     }
   },
   "bscLink": {
-    "content": "View on bscscan.com<icon>"
+    "content": "View on bscscan.com<Icon/>"
   },
   "claimXvsRewardButton": {
     "title": "Claim <Icon/> {{amount}}"
   },
   "connectButton": {
-    "title": "Connect"
+    "title": "Connect wallet"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"

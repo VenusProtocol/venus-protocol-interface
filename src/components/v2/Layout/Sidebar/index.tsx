@@ -13,7 +13,6 @@ import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoMobile.svg';
 import { useWeb3Account } from 'clients/web3';
 import { useTranslation } from 'translation';
-import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
 import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
 import ConnectButton from '../ConnectButton';
@@ -25,7 +24,7 @@ interface ISidebarProps {
   account: undefined | null | string;
 }
 
-export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
+export const SidebarUi: React.FC<ISidebarProps> = () => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
@@ -58,6 +57,7 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
                   <Typography variant="body2" css={styles.listItemText}>
                     {t(i18nKey)}
                   </Typography>
+
                   <div className="left-border" />
                 </NavLink>
               </ListItemButton>
@@ -69,6 +69,8 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
       <div css={styles.mobileMenuBox}>
         <div css={styles.flexRow}>
           <LogoMobile css={styles.mobileLogo} />
+
+          <ConnectButton small fullWidth css={styles.mobileConnectButton} />
 
           <button type="button" onClick={openMenu} css={styles.actionButton}>
             <Icon name="burger" css={styles.burger} />
@@ -90,20 +92,11 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
           <div css={[styles.flexRow, styles.doublePadding]}>
             <LogoMobile css={styles.mobileLogo} />
 
+            <ConnectButton small fullWidth css={styles.mobileConnectButton} />
+
             <button type="button" onClick={closeMenu} css={styles.actionButton}>
               <Icon name="close" css={styles.burger} />
             </button>
-          </div>
-
-          <div css={[styles.flexRow, styles.doublePadding, styles.coinInfo]}>
-            {account ? (
-              <>
-                <XvsCoinInfo />
-                <VaiCoinInfo />
-              </>
-            ) : (
-              <ConnectButton fullWidth />
-            )}
           </div>
 
           <List css={styles.list}>
