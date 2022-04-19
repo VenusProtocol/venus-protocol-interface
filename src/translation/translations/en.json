@@ -82,7 +82,7 @@
       "btnMintVai": "Mint VAI",
       "mintFeeLabel": "Mint fee",
       "rightMaxButtonLabel": "SAFE MAX",
-      "successMessage": "You successfully minted\u00a0{{coin}}",
+      "successMessage": "You successfully minted {{tokens}}",
       "undefinedAccountErrorMessage": "account undefined",
       "vaiLimitLabel": "Available VAI limit"
     },
@@ -90,7 +90,7 @@
       "btnRepayVai": "Repay VAI",
       "repayVaiBalance": "Repay VAI balance",
       "rightMaxButtonLabel": "MAX",
-      "successMessage": "You successfully repaid\u00a0{{coin}}",
+      "successMessage": "You successfully repaid {{tokens}}",
       "undefinedAccountErrorMessage": "account undefined"
     },
     "tabMint": "Mint VAI",

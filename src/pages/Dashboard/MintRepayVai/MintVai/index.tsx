@@ -3,7 +3,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { AuthContext } from 'context/AuthContext';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { internalError } from 'utilities/getError';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
@@ -35,6 +35,12 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const limitTokens = React.useMemo(
+    () =>
+      limitWei ? convertWeiToCoins({ value: limitWei, tokenSymbol: VAI_SYMBOL }).toString() : '0',
+    [limitWei?.toString()],
+  );
+
   // Convert limit into VAI
   const readableVaiLimit = useConvertToReadableCoinString({
     valueWei: limitWei,
@@ -44,13 +50,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
 
   const getReadableMintFee = React.useCallback(
-    (valueWei: BigNumber | '') => {
+    (valueWei: string) => {
       if (!mintFeePercentage) {
         return '-';
       }
 
       const readableFeeVai = getReadableFeeVai({
-        valueWei: valueWei || new BigNumber(0),
+        valueWei: new BigNumber(valueWei || 0),
         mintFeePercentage,
       });
       return `${readableFeeVai} (${mintFeePercentage}%)`;
@@ -58,20 +64,27 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     [mintFeePercentage],
   );
 
-  const onSubmit: IAmountFormProps['onSubmit'] = async amountWei => {
+  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+    const formattedAmountTokens = new BigNumber(amountTokens);
+
+    const amountWei = convertCoinsToWei({
+      value: formattedAmountTokens,
+      tokenSymbol: VAI_SYMBOL,
+    });
+
     try {
       // Send request to repay VAI
       await mintVai(amountWei);
 
-      const coin = convertWeiToCoins({
-        value: amountWei,
-        tokenSymbol: VAI_SYMBOL,
-        returnInReadableFormat: true,
-      });
       // @TODO: display success modal instead of toast once it's been
       // implemented
+      const readableAmountTokens = formatCoinsToReadableValue({
+        value: formattedAmountTokens,
+        tokenSymbol: VAI_SYMBOL,
+      });
+
       toast.success({
-        title: t('mintRepayVai.mintVai.successMessage', { coin }),
+        title: t('mintRepayVai.mintVai.successMessage', { tokens: readableAmountTokens }),
       });
     } catch (error) {
       toast.error({ title: (error as Error).message });
@@ -90,7 +103,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               onBlur={handleBlur}
-              maxWei={limitWei}
+              max={limitTokens}
               disabled={disabled || isMintVaiLoading || !hasMintableVai}
               rightMaxButtonLabel={t('mintRepayVai.mintVai.rightMaxButtonLabel')}
             />
