@@ -11,17 +11,17 @@ type Options = QueryObserverOptions<
   Error,
   GetVenusVaiMinterIndexOutput,
   GetVenusVaiMinterIndexOutput,
-  FunctionKey.GET_VENUS_INITIAL_INDEX
+  FunctionKey.GET_VENUS_VAI_MINTER_INDEX
 >;
 
-const useGetVenusInitialIndex = (accountAddress: string, options?: Options) => {
+const useGetVenusVaiMinterIndex = (accountAddress: string, options?: Options) => {
   const vaiUnitrollerContract = useVaiUnitrollerContract();
 
   return useQuery(
-    FunctionKey.GET_VENUS_INITIAL_INDEX,
+    FunctionKey.GET_VENUS_VAI_MINTER_INDEX,
     () => getVenusVaiMinterIndex({ accountAddress, vaiUnitrollerContract }),
     options,
   );
 };
 
-export default useGetVenusInitialIndex;
+export default useGetVenusVaiMinterIndex;
