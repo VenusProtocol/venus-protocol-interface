@@ -23,11 +23,6 @@ export const useStyles = () => {
         padding: ${theme.spacing(6, 4, 0)} !important;
       }
     `,
-    rightItemContainer: css`
-      ${theme.breakpoints.down('md')} {
-        display: none;
-      }
-    `,
     rightItemPaper: css`
       margin-right: ${theme.spacing(3)};
       align-items: center;

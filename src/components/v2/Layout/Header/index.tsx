@@ -5,6 +5,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 
 import { useTranslation } from 'translation';
+import { useIsMdDown } from 'hooks/responsive';
 import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
 import ConnectButton from '../ConnectButton';
@@ -15,6 +16,8 @@ const Header = () => {
   const { pathname } = useLocation();
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const isOnMobile = useIsMdDown();
 
   const title = useMemo(() => {
     const currentItemKey = menuItems.find(item => item.href === pathname)?.i18nKey;
@@ -29,16 +32,13 @@ const Header = () => {
     <AppBar position="relative" css={styles.appBar}>
       <Toolbar css={styles.toolbar}>
         {title && <h3>{title}</h3>}
-        <Box
-          flexDirection="row"
-          display="flex"
-          flex={1}
-          justifyContent="right"
-          css={styles.rightItemContainer}
-        >
-          <ClaimXvsRewardButton />
-          <ConnectButton css={styles.rightItemPaper} />
-        </Box>
+
+        {!isOnMobile && (
+          <Box flexDirection="row" display="flex" flex={1} justifyContent="right">
+            <ClaimXvsRewardButton />
+            <ConnectButton css={styles.rightItemPaper} />
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );
