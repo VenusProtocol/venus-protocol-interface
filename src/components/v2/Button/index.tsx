@@ -33,7 +33,7 @@ export const Button = ({
       type="button"
       {...otherProps}
     >
-      {loading && <Icon name="loading" size="28px" css={styles.loadingIcon} />}
+      {loading && <Icon name="loading" css={styles.loadingIcon} />}
 
       <Typography css={styles.label} component="span" variant={small ? 'small1' : 'body1'}>
         {children}

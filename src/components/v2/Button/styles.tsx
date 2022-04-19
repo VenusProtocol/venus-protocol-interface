@@ -115,6 +115,10 @@ export const styles = ({
     `,
     loadingIcon: css`
       margin-right: ${theme.spacing(2)};
+      width: ${theme.spacing(7)};
+      height: ${theme.spacing(7)};
+      margin-top: -3px;
+      margin-bottom: -3px;
     `,
     label: css`
       font-weight: 600;
