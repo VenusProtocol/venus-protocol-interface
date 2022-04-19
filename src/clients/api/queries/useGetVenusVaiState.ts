@@ -9,14 +9,14 @@ type Options = QueryObserverOptions<
   Error,
   IGetVenusVaiStateOutput,
   IGetVenusVaiStateOutput,
-  FunctionKey.GET_VENUS_VAI_STATE
+  FunctionKey.GET_VAI_STATE
 >;
 
 const useGetVenusVaiStateIndex = (options?: Options) => {
   const vaiUnitrollerContract = useVaiUnitrollerContract();
 
   return useQuery(
-    FunctionKey.GET_VENUS_VAI_STATE,
+    FunctionKey.GET_VAI_STATE,
     () => getVenusVaiState({ vaiUnitrollerContract }),
     options,
   );
