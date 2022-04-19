@@ -165,6 +165,11 @@ export const useStyles = () => {
       width: ${theme.spacing(6)};
     `,
     mobileMenu: css`
+      .MuiMenu-list {
+        display: flex;
+        flex-direction: column;
+      }
+
       > .MuiPaper-root {
         background-color: ${theme.palette.background.default};
         background-image: none;
@@ -249,6 +254,9 @@ export const useStyles = () => {
       border: none;
       display: flex;
       justify-content: center;
+    `,
+    claimXvsRewardButton: css`
+      margin: ${theme.spacing(4, 4, 0, 4)};
     `,
   };
 };
