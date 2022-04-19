@@ -25,9 +25,9 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/useApproveToken';
 
-export { default as claimVenus } from './mutations/claimVenus';
-export * from './mutations/claimVenus';
-export { default as useClaimVenus } from './mutations/useClaimVenus';
+export { default as claimXvsReward } from './mutations/claimXvsReward';
+export * from './mutations/claimXvsReward';
+export { default as useClaimXvsReward } from './mutations/useClaimXvsReward';
 
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';

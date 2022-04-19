@@ -1,11 +1,11 @@
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import address from '__mocks__/models/address';
 import { Comptroller } from 'types/contracts';
-import claimVenus from './claimVenus';
+import claimXvsReward from './claimXvsReward';
 
 const fakeTokenAddresses = [address];
 
-describe('api/mutation/claimVenus', () => {
+describe('api/mutation/claimXvsReward', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -18,13 +18,13 @@ describe('api/mutation/claimVenus', () => {
     } as unknown as Comptroller;
 
     try {
-      await claimVenus({
+      await claimXvsReward({
         comptrollerContract: fakeContract,
         tokenAddresses: fakeTokenAddresses,
         fromAccountAddress: address,
       });
 
-      throw new Error('claimVenus should have thrown an error but did not');
+      throw new Error('claimXvsReward should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -42,7 +42,7 @@ describe('api/mutation/claimVenus', () => {
       },
     } as unknown as Comptroller;
 
-    const response = await claimVenus({
+    const response = await claimXvsReward({
       comptrollerContract: fakeContract,
       tokenAddresses: fakeTokenAddresses,
       fromAccountAddress: address,

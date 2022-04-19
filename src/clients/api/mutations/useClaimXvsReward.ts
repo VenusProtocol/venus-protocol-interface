@@ -1,24 +1,24 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { claimVenus, IClaimVenusInput, ClaimVenusOutput } from 'clients/api';
+import { claimXvsReward, IClaimXvsRewardInput, ClaimXvsRewardOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
-  ClaimVenusOutput,
+  ClaimXvsRewardOutput,
   Error,
-  Omit<IClaimVenusInput, 'vaiControllerContract'>
+  Omit<IClaimXvsRewardInput, 'vaiControllerContract'>
 >;
 
-const useClaimVenus = (options?: Options) => {
+const useClaimXvsReward = (options?: Options) => {
   const comptrollerContract = useComptrollerContract();
 
   // @TODO: invalidate queries related to fetching the user claimable XVS
   // balance
   return useMutation(
-    FunctionKey.CLAIM_VENUS,
-    (params: Omit<IClaimVenusInput, 'comptrollerContract'>) =>
-      claimVenus({
+    FunctionKey.CLAIM_XVS_REWARD,
+    (params: Omit<IClaimXvsRewardInput, 'comptrollerContract'>) =>
+      claimXvsReward({
         comptrollerContract,
         ...params,
       }),
@@ -26,4 +26,4 @@ const useClaimVenus = (options?: Options) => {
   );
 };
 
-export default useClaimVenus;
+export default useClaimXvsReward;

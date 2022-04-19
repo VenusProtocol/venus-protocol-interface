@@ -18,7 +18,7 @@ enum FunctionKey {
   EXIT_MARKET = 'EXIT_MARKET',
   REPAY_VAI = 'REPAY_VAI',
   APPROVE_TOKEN = 'APPROVE_TOKEN',
-  CLAIM_VENUS = 'CLAIM_VENUS',
+  CLAIM_XVS_REWARD = 'CLAIM_XVS_REWARD',
 }
 
 export default FunctionKey;

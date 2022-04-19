@@ -2,19 +2,19 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { Comptroller } from 'types/contracts';
 
-export interface IClaimVenusInput {
+export interface IClaimXvsRewardInput {
   comptrollerContract: Comptroller;
   fromAccountAddress: string;
   tokenAddresses: string[];
 }
 
-export type ClaimVenusOutput = TransactionReceipt;
+export type ClaimXvsRewardOutput = TransactionReceipt;
 
-const claimVenus = async ({
+const claimXvsReward = async ({
   comptrollerContract,
   fromAccountAddress,
   tokenAddresses,
-}: IClaimVenusInput): Promise<ClaimVenusOutput> =>
+}: IClaimXvsRewardInput): Promise<ClaimXvsRewardOutput> =>
   comptrollerContract.methods['claimVenus(address,address[])'](
     fromAccountAddress,
     tokenAddresses,
@@ -22,4 +22,4 @@ const claimVenus = async ({
     from: fromAccountAddress,
   });
 
-export default claimVenus;
+export default claimXvsReward;
