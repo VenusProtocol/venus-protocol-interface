@@ -21,6 +21,9 @@
   "connectButton": {
     "title": "Connect wallet"
   },
+  "claimXvsRewardButton": {
+    "title": "Claim <Icon/> {{amount}}"
+  },
   "connectButton": {
     "title": "Connect"
   },
