@@ -21,6 +21,9 @@
   "connectButton": {
     "title": "Connect wallet"
   },
+  "connectButton": {
+    "title": "Connect"
+  },
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
