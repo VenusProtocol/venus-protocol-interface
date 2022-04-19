@@ -4,6 +4,7 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import { mintVai, getVaiTreasuryPercentage } from 'clients/api';
 import toast from 'components/Basic/Toast';
+import { formatCoinsToReadableValue } from 'utilities/common';
 import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
@@ -12,7 +13,11 @@ import RepayVai from '.';
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
 
-const fakeMintableVai = new BigNumber('100');
+const fakeMintableVai = new BigNumber('1000');
+const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
+  value: fakeMintableVai,
+  tokenSymbol: 'vai',
+});
 const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/MintRepayVai/MintVai', () => {
@@ -41,7 +46,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     await waitFor(() => getByText('Available VAI limit'));
 
     // Check available VAI limit displays correctly
-    await waitFor(() => getByText(`${fakeMintableVai.toString()} VAI`));
+    await waitFor(() => getByText(formattedFakeUserVaiMinted));
     // Check mint fee displays correctly
     await waitFor(() => getByText(`0 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
   });
@@ -100,7 +105,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     // Check success toast is requested
     expect(toast.success).toHaveBeenCalledTimes(1);
     expect(toast.success).toHaveBeenCalledWith({
-      title: `You successfully minted\u00A0${fakeMintableVai.toString()} VAI`,
+      title: `You successfully minted ${formattedFakeUserVaiMinted}`,
     });
   });
 

@@ -4,6 +4,7 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import { repayVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
+import { formatCoinsToReadableValue } from 'utilities/common';
 import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
@@ -12,7 +13,11 @@ import RepayVai from '.';
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
 
-const fakeUserVaiMinted = new BigNumber('100');
+const fakeUserVaiMinted = new BigNumber('1000000');
+const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
+  value: fakeUserVaiMinted,
+  tokenSymbol: 'vai',
+});
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('renders without crashing', async () => {
@@ -36,7 +41,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     await waitFor(() => getByText('Repay VAI balance'));
 
     // Check user repay VAI balance displays correctly
-    await waitFor(() => getByText(`${fakeUserVaiMinted.toString()} VAI`));
+    await waitFor(() => getByText(formattedFakeUserVaiMinted));
   });
 
   it('lets user repay their VAI balance', async () => {
@@ -92,7 +97,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     // Check success toast is requested
     expect(toast.success).toHaveBeenCalledTimes(1);
     expect(toast.success).toHaveBeenCalledWith({
-      title: `You successfully repaid\u00A0${fakeUserVaiMinted.toString()} VAI`,
+      title: `You successfully repaid ${formattedFakeUserVaiMinted}`,
     });
   });
 
