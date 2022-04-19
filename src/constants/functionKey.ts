@@ -19,15 +19,12 @@ enum FunctionKey {
   EXIT_MARKET = 'EXIT_MARKET',
   REPAY_VAI = 'REPAY_VAI',
   APPROVE_TOKEN = 'APPROVE_TOKEN',
-<<<<<<< HEAD
   SUPPLY = 'SUPPLY',
   SUPPLY_BNB = 'SUPPLY_BNB',
   REDEEM = 'REDEEM',
   REDEEM_UNDERLYING = 'REDEEM_UNDERLYING',
   CLAIM_VENUS = 'CLAIM_VENUS',
-=======
   CLAIM_XVS_REWARD = 'CLAIM_XVS_REWARD',
->>>>>>> 074fa25 (rename claimVenus to claimXvsReward)
 }
 
 export default FunctionKey;
