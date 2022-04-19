@@ -22,7 +22,14 @@ export const ConnectButtonUi: React.FC<IConnectButton> = ({ accountAddress, ...o
 
 export const ConnectButton: React.FC<IButtonProps> = props => {
   const { account, openAuthModal } = React.useContext(AuthContext);
-  return <ConnectButtonUi accountAddress={account?.address} onClick={openAuthModal} {...props} />;
+  return (
+    <ConnectButtonUi
+      accountAddress={account?.address}
+      onClick={openAuthModal}
+      variant={account ? 'secondary' : 'primary'}
+      {...props}
+    />
+  );
 };
 
 export default ConnectButton;
