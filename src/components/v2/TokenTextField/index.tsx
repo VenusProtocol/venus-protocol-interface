@@ -1,85 +1,58 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import BigNumber from 'bignumber.js';
 
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { convertWeiToCoins, convertCoinsToWei } from 'utilities/common';
 import { IconName } from '../Icon';
 import { TertiaryButton } from '../Button';
 import { TextField, ITextFieldProps } from '../TextField';
 
-// Note: although we display all the values in coins (equivalent of ether for
+// Note: although we display all the values in tokens (equivalent of ether for
 // the given token) to the user, the underlying values (maxWei, value) are
 // expressed in wei to make them easier to use with contracts
 export interface ITokenTextFieldProps
-  extends Omit<ITextFieldProps, 'value' | 'onChange' | 'max' | 'min'> {
+  extends Omit<ITextFieldProps, 'onChange' | 'value' | 'max' | 'min'> {
   tokenSymbol: TokenId;
-  onChange: (newValue: BigNumber | '') => void;
+  value: string;
+  onChange: (newValue: string) => void;
   rightMaxButtonLabel?: string;
-  value: BigNumber | '';
-  maxWei?: BigNumber;
+  max?: string;
 }
 
 export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
   tokenSymbol,
-  maxWei,
   rightMaxButtonLabel,
-  value,
   onChange,
   disabled,
+  max,
   ...otherProps
 }) => {
-  const step = React.useMemo(() => {
-    const tmpTokenDecimals = getToken(tokenSymbol).decimals;
-    const tmpOneCoinInWei = new BigNumber(10).pow(tmpTokenDecimals);
-    const tmpOneWeiInCoins = new BigNumber(1).dividedBy(tmpOneCoinInWei);
-
-    return tmpOneWeiInCoins.toString();
-  }, [tokenSymbol]);
-
-  // Convert value passed in wei into coins (string)
-  const readableValueCoins = value ? convertWeiToCoins({ value, tokenSymbol }).toString() : '';
-
-  // Convert max passed in wei into coins (number)
-  const maxCoins = React.useMemo(
-    () => (maxWei ? convertWeiToCoins({ value: maxWei, tokenSymbol }).toNumber() : undefined),
-    [maxWei],
-  );
-
   const setMaxValue = () => {
-    if (onChange && maxWei) {
-      onChange(maxWei);
+    if (onChange && max) {
+      onChange(max);
     }
   };
 
-  const handleChange: ITextFieldProps['onChange'] = event => {
-    const newValueWei =
-      event.currentTarget.value &&
-      // Convert value into wei
-      convertCoinsToWei({
-        value: new BigNumber(event.currentTarget.value),
-        tokenSymbol,
-      })
-        // Remove decimal places, since we've converted the value into the
-        // smallest possible unit we need to strip out any remaining fractions
-        .decimalPlaces(0);
+  const handleChange: ITextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
+    // Format value so it doesn't have more decimals places than the token has
+    const tokenDecimals = getToken(tokenSymbol).decimals;
+    const valueDecimals = value.includes('.') ? value.split('.')[1].length : 0;
 
-    onChange(newValueWei);
+    if (valueDecimals <= tokenDecimals) {
+      onChange(value);
+    }
   };
 
   return (
     <TextField
       placeholder="0.00"
-      value={readableValueCoins}
-      onChange={handleChange}
       min={0}
-      max={maxCoins}
-      step={step}
+      max={max}
+      onChange={handleChange}
       type="number"
       leftIconName={tokenSymbol as IconName}
       rightAdornment={
-        rightMaxButtonLabel && onChange && maxWei ? (
+        rightMaxButtonLabel && onChange && max ? (
           <TertiaryButton onClick={setMaxValue} small disabled={disabled}>
             {rightMaxButtonLabel}
           </TertiaryButton>

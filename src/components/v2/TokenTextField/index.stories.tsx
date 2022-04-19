@@ -1,6 +1,5 @@
 import React from 'react';
 import { State } from 'react-powerplug';
-import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory } from 'stories/decorators';
@@ -17,28 +16,28 @@ export default {
   },
 } as ComponentMeta<typeof TokenTextField>;
 
-const initialData: { valueWei: BigNumber | '' } = { valueWei: '' };
+const initialData: { value: string } = { value: '' };
 
 export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TokenTextField
         tokenSymbol="usdt"
-        value={state.valueWei}
-        onChange={valueWei => setState({ valueWei })}
+        value={state.value}
+        onChange={value => setState({ value })}
       />
     )}
   </State>
 );
 
-export const WithMaxWei = () => (
+export const WithMaxTokens = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TokenTextField
         tokenSymbol="xvs"
-        value={state.valueWei}
-        onChange={valueWei => setState({ valueWei })}
-        maxWei={new BigNumber(10).pow(18).multipliedBy(10000)}
+        value={state.value}
+        onChange={value => setState({ value })}
+        max="10"
       />
     )}
   </State>
@@ -49,9 +48,9 @@ export const WithRightMaxButtonLabel = () => (
     {({ state, setState }) => (
       <TokenTextField
         tokenSymbol="usdt"
-        value={state.valueWei}
-        onChange={valueWei => setState({ valueWei })}
-        maxWei={new BigNumber(10).pow(6).multipliedBy(80)}
+        value={state.value}
+        onChange={value => setState({ value })}
+        max="10"
         rightMaxButtonLabel="80% limit"
       />
     )}
