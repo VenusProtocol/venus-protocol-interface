@@ -141,16 +141,16 @@ const useUserMarketInfo = ({
   const [totalBorrowBalance, totalBorrowLimit] = assetList.reduce(
     (acc: [BigNumber, BigNumber], asset: Asset) => {
       const borrowBalanceUSD = asset.borrowBalance.times(asset.tokenPrice);
-      acc[0].plus(borrowBalanceUSD);
+      acc[0] = acc[0].plus(borrowBalanceUSD);
       if (asset.collateral) {
         const supplyBalanceUSD = asset.supplyBalance.times(asset.tokenPrice);
-        acc[1].plus(supplyBalanceUSD.times(asset.collateralFactor));
+        acc[1] = acc[1].plus(supplyBalanceUSD.times(asset.collateralFactor));
       }
       return acc;
     },
     [new BigNumber(0), new BigNumber(0)],
   );
-  totalBorrowBalance.plus(userVaiMinted);
+  const userTotalBorrowBalance = totalBorrowBalance.plus(userVaiMinted);
 
   // percent of limit
   assetList = assetList.map((item: Asset) => ({
@@ -167,7 +167,7 @@ const useUserMarketInfo = ({
   return {
     assets: assetList,
     userTotalBorrowLimit: totalBorrowLimit,
-    userTotalBorrowBalance: totalBorrowBalance,
+    userTotalBorrowBalance,
   };
 };
 

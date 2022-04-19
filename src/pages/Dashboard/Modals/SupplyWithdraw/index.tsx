@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import BigNumber from 'bignumber.js';
 import {
   ConnectWallet,
@@ -12,6 +12,8 @@ import {
   IconName,
 } from 'components';
 import { IAmountFormProps } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
+import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import { formatApy } from 'utilities/common';
@@ -141,15 +143,20 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
 
 const SupplyWithdrawModal: React.FC<
   Omit<ISupplyWithdrawUiProps, 'userTotalBorrowBalance' | 'userTotalBorrowLimit' | 'dailyEarnings'>
-> = props => (
-  // @TODO - add source for dailyEarnings, userTotalBorrowBalance and userTotalBorrowLimit https://app.clickup.com/t/24quhp4
+> = props => {
+  const { account } = useContext(AuthContext);
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+    account: account?.address,
+  });
   // @TODO - use dailyEarnings util https://app.clickup.com/t/26pg8j3
-  <SupplyWithdrawUi
-    {...props}
-    userTotalBorrowBalance={new BigNumber('16')}
-    userTotalBorrowLimit={new BigNumber('42.38')}
-    dailyEarnings={new BigNumber('238')}
-  />
-);
+  return (
+    <SupplyWithdrawUi
+      {...props}
+      userTotalBorrowBalance={userTotalBorrowBalance}
+      userTotalBorrowLimit={userTotalBorrowLimit}
+      dailyEarnings={new BigNumber('238')}
+    />
+  );
+};
 
 export default SupplyWithdrawModal;
