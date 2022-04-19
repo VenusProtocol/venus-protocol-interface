@@ -19,7 +19,6 @@ import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
-  convertCoinsToWei,
   convertWeiToCoins,
   formatCentsToReadableValue,
   format,
@@ -57,7 +56,8 @@ export const SupplyWithdrawContent: React.FC<
   calculateNewBalance,
 }) => {
   const { id: assetId } = asset;
-  const { amount } = values;
+  const { amount: amountString } = values;
+  const amount = new BigNumber(amountString || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -84,19 +84,14 @@ export const SupplyWithdrawContent: React.FC<
     return [updateBorrowLimit, updateBorrowPercent];
   }, [amount, asset?.id, userTotalBorrowBalance, userTotalBorrowLimit]);
 
-  // Convert wallet/ supply balance into wei
-  const maxInputWei = React.useMemo(
-    () => convertCoinsToWei({ value: maxInput, tokenSymbol: assetId }),
-    [maxInput.toString(), assetId],
-  );
   return (
     <>
       <TokenTextField
         name="amount"
         tokenSymbol={assetId as TokenId}
-        value={amount}
+        value={amountString}
         onChange={amt => setFieldValue('amount', amt, true)}
-        maxWei={maxInputWei}
+        max={maxInput.toString()}
         rightMaxButtonLabel={t('supplyWithdraw.max').toUpperCase()}
         css={styles.input}
       />
