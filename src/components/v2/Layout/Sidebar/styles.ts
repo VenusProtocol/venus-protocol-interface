@@ -157,6 +157,7 @@ export const useStyles = () => {
       }
     `,
     mobileLogo: css`
+      flex-shrink: 0;
       height: ${theme.spacing(10)};
       width: ${theme.spacing(10)};
     `,
@@ -235,25 +236,19 @@ export const useStyles = () => {
     doublePadding: css`
       padding: ${theme.spacing(2)} ${theme.spacing(4)}; ;
     `,
-    coinInfo: css`
-      > div {
-        display: flex;
-        flex: 1;
-      }
-      div:first-child {
-        margin-right: ${theme.spacing(2)};
-      }
-      div:last-child {
-        margin-left: 0 ${theme.spacing(2)};
-      }
-    `,
     actionButton: css`
+      flex-shrink: 0;
+      width: ${theme.spacing(10)};
       cursor: pointer;
       box-shadow: none;
       background-color: transparent;
       border: none;
       display: flex;
       justify-content: center;
+    `,
+    mobileConnectButton: css`
+      margin-left: ${theme.spacing(8)};
+      margin-right: ${theme.spacing(8)};
     `,
     claimXvsRewardButton: css`
       margin: ${theme.spacing(4, 4, 0, 4)};
