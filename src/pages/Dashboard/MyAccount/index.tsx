@@ -85,7 +85,9 @@ const MyAccount: React.FC = () => {
     // @TODO: use reusable util once implemented (see
     // https://app.clickup.com/t/26pg8j3)
     const dailyEarningsCents =
-      yearlyEarningsCents && +yearlyEarningsCents.dividedBy(365).toFixed(0);
+      yearlyEarningsCents && !yearlyEarningsCents.isNaN()
+        ? +yearlyEarningsCents.dividedBy(365).toFixed(0)
+        : undefined;
 
     return {
       netApyPercentage,
