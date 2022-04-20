@@ -1,24 +1,29 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 
-import { TokenId } from 'types';
-import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
+import { VTokenId } from 'types';
+import {
+  queryClient,
+  redeemUnderlying,
+  IRedeemUnderlyingInput,
+  RedeemUnderlyingOutput,
+} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
 
-const useApproveToken = (
-  { assetId }: { assetId: TokenId },
+const useRedeemUnderlying = (
+  { assetId }: { assetId: VTokenId },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
-    ApproveTokenOutput,
+    RedeemUnderlyingOutput,
     Error,
-    Omit<IApproveTokenInput, 'tokenContract'>
+    Omit<IRedeemUnderlyingInput, 'tokenContract'>
   >,
 ) => {
   const tokenContract = useTokenContract(assetId);
   return useMutation(
-    FunctionKey.APPROVE_TOKEN,
+    FunctionKey.REDEEM_UNDERLYING,
     params =>
-      approveToken({
+      redeemUnderlying({
         tokenContract,
         ...params,
       }),
@@ -34,4 +39,4 @@ const useApproveToken = (
   );
 };
 
-export default useApproveToken;
+export default useRedeemUnderlying;
