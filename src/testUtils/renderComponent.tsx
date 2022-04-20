@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
-import { SuccessModalProvider } from 'context/SuccessModalContext';
+import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { init as initTranslationLibrary } from 'translation';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
@@ -37,7 +37,7 @@ const renderComponent = (children: any) => {
               <MarketContextProvider>
                 <MuiThemeProvider>
                   <AuthProvider>
-                    <SuccessModalProvider>
+                    <SuccessfulTransactionModalProvider>
                       <BrowserRouter>
                         <ToastContainer
                           autoClose={8000}
@@ -51,7 +51,7 @@ const renderComponent = (children: any) => {
                           <Route path="/" component={() => children} />
                         </Switch>
                       </BrowserRouter>
-                    </SuccessModalProvider>
+                    </SuccessfulTransactionModalProvider>
                   </AuthProvider>
                 </MuiThemeProvider>
               </MarketContextProvider>

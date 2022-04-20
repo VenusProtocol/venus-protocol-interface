@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
-import { SuccessModalProvider } from 'context/SuccessModalContext';
+import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 // import { isOnTestnet } from 'config';
 import { store } from 'core';
 import { Layout } from 'components';
@@ -45,7 +45,7 @@ const App = () => (
               <MarketContextProvider>
                 <MuiThemeProvider>
                   <AuthProvider>
-                    <SuccessModalProvider>
+                    <SuccessfulTransactionModalProvider>
                       <BrowserRouter>
                         <ToastContainer
                           autoClose={8000}
@@ -76,7 +76,7 @@ const App = () => (
                           </Switch>
                         </Layout>
                       </BrowserRouter>
-                    </SuccessModalProvider>
+                    </SuccessfulTransactionModalProvider>
                   </AuthProvider>
                 </MuiThemeProvider>
               </MarketContextProvider>
