@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
+import { SuccessModalProvider } from 'context/SuccessModalContext';
 import { init as initTranslationLibrary } from 'translation';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
@@ -36,19 +37,21 @@ const renderComponent = (children: any) => {
               <MarketContextProvider>
                 <MuiThemeProvider>
                   <AuthProvider>
-                    <BrowserRouter>
-                      <ToastContainer
-                        autoClose={8000}
-                        transition={Slide}
-                        hideProgressBar
-                        newestOnTop
-                        position={toast.POSITION.TOP_LEFT}
-                      />
+                    <SuccessModalProvider>
+                      <BrowserRouter>
+                        <ToastContainer
+                          autoClose={8000}
+                          transition={Slide}
+                          hideProgressBar
+                          newestOnTop
+                          position={toast.POSITION.TOP_LEFT}
+                        />
 
-                      <Switch>
-                        <Route path="/" component={() => children} />
-                      </Switch>
-                    </BrowserRouter>
+                        <Switch>
+                          <Route path="/" component={() => children} />
+                        </Switch>
+                      </BrowserRouter>
+                    </SuccessModalProvider>
                   </AuthProvider>
                 </MuiThemeProvider>
               </MarketContextProvider>
