@@ -4,14 +4,12 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'jsx-a11y', 'prettier', 'unused-imports'],
+  plugins: ['import', 'react', 'jsx-a11y', 'prettier'],
   extends: ['airbnb', 'airbnb-typescript', 'plugin:@typescript-eslint/recommended'],
   parserOptions: {
     project: './tsconfig.eslint.json',
   },
   rules: {
-    'unused-imports/no-unused-imports': 2,
-    'unused-imports/no-unused-vars': 2,
     // handled by prettier
     '@typescript-eslint/space-before-blocks': 0,
     '@typescript-eslint/indent': 0,
@@ -51,6 +49,7 @@ module.exports = {
     ],
     // Custom
     'import/no-named-as-default': 0,
+    '@typescript-eslint/no-unused-vars': 2,
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
