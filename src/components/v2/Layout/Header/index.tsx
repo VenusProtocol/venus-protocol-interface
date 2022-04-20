@@ -36,7 +36,7 @@ const Header = () => {
         {!isOnMobile && (
           <Box flexDirection="row" display="flex" flex={1} justifyContent="right">
             <ClaimXvsRewardButton />
-            <ConnectButton css={styles.rightItemPaper} />
+            <ConnectButton />
           </Box>
         )}
       </Toolbar>
