@@ -7,22 +7,24 @@ import {
   ClaimXvsRewardOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useComptrollerContract } from 'clients/contracts/hooks';
+import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
   ClaimXvsRewardOutput,
   Error,
-  Omit<IClaimXvsRewardInput, 'vaiControllerContract'>
+  Omit<IClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>
 >;
 
 const useClaimXvsReward = (options?: Options) => {
   const comptrollerContract = useComptrollerContract();
+  const venusLensContract = useVenusLensContract();
 
   return useMutation(
     FunctionKey.CLAIM_XVS_REWARD,
-    (params: Omit<IClaimXvsRewardInput, 'comptrollerContract'>) =>
+    (params: Omit<IClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>) =>
       claimXvsReward({
         comptrollerContract,
+        venusLensContract,
         ...params,
       }),
     {
