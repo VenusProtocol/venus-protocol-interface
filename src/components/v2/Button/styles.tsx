@@ -17,7 +17,7 @@ export const styles = ({
   const getButtonVariantCss = (refVariant: Variant) => {
     if (refVariant === 'secondary') {
       return css`
-        background-color: transparent;
+        background-color: ${theme.palette.background.paper};
         border-color: ${theme.palette.button.medium};
 
         :hover:not(:disabled) {
@@ -115,6 +115,10 @@ export const styles = ({
     `,
     loadingIcon: css`
       margin-right: ${theme.spacing(2)};
+      width: ${theme.spacing(7)};
+      height: ${theme.spacing(7)};
+      margin-top: -3px;
+      margin-bottom: -3px;
     `,
     label: css`
       font-weight: 600;
