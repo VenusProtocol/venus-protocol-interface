@@ -13,6 +13,8 @@ import { useStyles } from './styles';
 
 const XVS_SYMBOL = 'xvs';
 
+export const TEST_ID = 'claim-xvs-reward-button';
+
 export interface IClaimXvsRewardButton extends IButtonProps {
   amountWei?: BigNumber;
 }
@@ -35,7 +37,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   });
 
   return (
-    <SecondaryButton css={styles.button} {...otherProps}>
+    <SecondaryButton data-testid={TEST_ID} css={styles.button} {...otherProps}>
       <Trans
         i18nKey="claimXvsRewardButton.title"
         components={{
