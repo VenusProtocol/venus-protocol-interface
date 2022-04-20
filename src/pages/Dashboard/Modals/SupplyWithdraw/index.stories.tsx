@@ -4,10 +4,10 @@ import noop from 'noop-ts';
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withAuthContext } from 'stories/decorators';
 import { assetData } from '__mocks__/models/asset';
-import { SupplyWithdrawUi, ISupplyWithdrawUiProps } from '.';
+import { SupplyWithdrawUi, ISupplyWithdrawUiProps, ISupplyWithdrawProps } from '.';
 
 export default {
-  title: 'Pages/Dashboard/SupplyWithdraw',
+  title: 'Pages/Dashboard/Modals/SupplyWithdraw',
   component: SupplyWithdrawUi,
   decorators: [withCenterStory({ width: 600 })],
   parameters: {
@@ -17,7 +17,9 @@ export default {
   },
 } as ComponentMeta<typeof SupplyWithdrawUi>;
 
-const Template: Story<ISupplyWithdrawUiProps> = args => <SupplyWithdrawUi {...args} />;
+const Template: Story<ISupplyWithdrawUiProps & ISupplyWithdrawProps> = args => (
+  <SupplyWithdrawUi {...args} />
+);
 
 const context = {
   login: noop,
@@ -36,6 +38,7 @@ DisconnectedSupply.args = {
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
   dailyEarnings: new BigNumber('238'),
+  isTransactionLoading: false,
 };
 
 export const DisabledSupply = Template.bind({});
@@ -46,6 +49,8 @@ DisabledSupply.args = {
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
   dailyEarnings: new BigNumber('238'),
+  supply: noop,
+  isTransactionLoading: false,
 };
 
 export const Supply = Template.bind({});
@@ -56,4 +61,6 @@ Supply.args = {
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
   dailyEarnings: new BigNumber('238'),
+  supply: noop,
+  isTransactionLoading: false,
 };

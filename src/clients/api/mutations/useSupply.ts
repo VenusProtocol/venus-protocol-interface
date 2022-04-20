@@ -1,21 +1,26 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
-import { Bep20 } from 'types/contracts';
-import { TokenId } from 'types';
-import { queryClient, supply, ISupplyInput, SupplyOutput } from 'clients/api';
+import { VBep20 } from 'types/contracts';
+import { VTokenId } from 'types';
+import queryClient from 'clients/api/queryClient';
+import supply, { ISupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
+
 import FunctionKey from 'constants/functionKey';
-import { useTokenContract } from 'clients/contracts/hooks';
+import { useVTokenContract } from 'clients/contracts/hooks';
+
+export type SupplyParams = Omit<ISupplyInput, 'tokenContract' | 'account'>;
 
 const useSupply = (
-  { assetId }: { assetId: TokenId },
+  { assetId, account }: { assetId: VTokenId; account: string | undefined },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
-  options?: MutationObserverOptions<SupplyOutput, Error, Omit<ISupplyInput, 'tokenContract'>>,
+  options?: MutationObserverOptions<SupplyOutput, Error, SupplyParams>,
 ) => {
-  const tokenContract = useTokenContract<TokenId>(assetId);
+  const tokenContract = useVTokenContract<VTokenId>(assetId);
   return useMutation(
     [FunctionKey.SUPPLY, assetId],
     params =>
       supply({
-        tokenContract: tokenContract as Bep20,
+        tokenContract: tokenContract as VBep20,
+        account,
         ...params,
       }),
     {

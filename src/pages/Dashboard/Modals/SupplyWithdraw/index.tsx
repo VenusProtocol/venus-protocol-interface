@@ -14,36 +14,51 @@ import {
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
+import useWithdraw, { UseWithdrawParams } from 'hooks/useWithdraw';
+import useSupply, { UseSupplyParams } from 'hooks/useSupply';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
-import { formatApy } from 'utilities/common';
+import { formatApy, getBigNumber } from 'utilities/common';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 
 export interface ISupplyWithdrawUiProps {
   className?: string;
   onClose: IModalProps['handleClose'];
-  asset: Asset | undefined;
+  asset: Asset;
+}
+
+export interface ISupplyWithdrawProps {
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
   dailyEarnings: BigNumber;
+  supply: (params: UseSupplyParams) => void;
+  redeem: (params: UseWithdrawParams) => void;
+  redeemUnderlying: (params: UseWithdrawParams) => void;
+  isTransactionLoading: boolean;
+  vTokenBalance: string | undefined;
 }
 
 /**
  * The fade effect on this component results in that it is still rendered after the asset has been set to undefined
  * when closing the modal.
  */
-export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
+export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdrawProps> = ({
   className,
   onClose,
   asset,
   userTotalBorrowBalance,
   userTotalBorrowLimit,
   dailyEarnings,
+  supply,
+  redeem,
+  redeemUnderlying,
+  isTransactionLoading,
+  vTokenBalance,
 }) => {
   const styles = useStyles();
 
-  const { id: assetId, isEnabled, symbol } = asset || {};
+  const { id: assetId, isEnabled, symbol, decimals } = asset || {};
   const { t } = useTranslation();
 
   const tokenInfo: ILabeledInlineContentProps[] = asset
@@ -61,8 +76,24 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
       ]
     : [];
 
-  const onSubmit: IAmountFormProps['onSubmit'] = () => {
-    // TODO: https://app.clickup.com/t/24quhp4
+  const onSubmitSupply: IAmountFormProps['onSubmit'] = value => {
+    supply({
+      amount: getBigNumber(value)
+        .times(new BigNumber(10).pow(decimals || 18))
+        .toString(10),
+    });
+  };
+
+  const onSubmitWithdraw: IAmountFormProps['onSubmit'] = value => {
+    const amount = getBigNumber(value);
+    const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
+    if (amountEqualsSupplyBalance && vTokenBalance) {
+      redeem({ amount: vTokenBalance });
+    } else {
+      redeemUnderlying({
+        amount: amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10),
+      });
+    }
   };
   const calculateNewSupplyAmount = (amount: BigNumber) => userTotalBorrowLimit.plus(amount);
   const calculateNewBorrowAmount = (amount: BigNumber) => userTotalBorrowLimit.minus(amount);
@@ -76,6 +107,8 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
     disabledButtonKey,
     maxInputKey,
     calculateNewBalance,
+    isTransactionLoading,
+    onSubmit,
   }: {
     message: string;
     title: string;
@@ -85,6 +118,8 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
     disabledButtonKey: string;
     maxInputKey: 'walletBalance' | 'supplyBalance';
     calculateNewBalance: (amount: BigNumber) => BigNumber;
+    isTransactionLoading: boolean;
+    onSubmit: IAmountFormProps['onSubmit'];
   }) => (
     <div className={className} css={styles.container}>
       <ConnectWallet message={message}>
@@ -109,6 +144,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
               disabledButtonKey={disabledButtonKey}
               maxInput={asset[maxInputKey]}
               calculateNewBalance={calculateNewBalance}
+              isTransactionLoading={isTransactionLoading}
             />
           </EnableToken>
         )}
@@ -129,6 +165,8 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
           disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
           maxInputKey: 'walletBalance',
           calculateNewBalance: calculateNewSupplyAmount,
+          isTransactionLoading,
+          onSubmit: onSubmitSupply,
         }),
       },
       {
@@ -142,6 +180,8 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
           disabledButtonKey: t('supplyWithdraw.enterValidAmountWithdraw'),
           maxInputKey: 'supplyBalance',
           calculateNewBalance: calculateNewBorrowAmount,
+          isTransactionLoading,
+          onSubmit: onSubmitWithdraw,
         }),
       },
     ],
@@ -159,20 +199,32 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
   );
 };
 
-const SupplyWithdrawModal: React.FC<
-  Omit<ISupplyWithdrawUiProps, 'userTotalBorrowBalance' | 'userTotalBorrowLimit' | 'dailyEarnings'>
-> = props => {
+const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
+  const { asset, ...rest } = props;
   const { account } = useContext(AuthContext);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
     account: account?.address,
   });
+  const { supply, isLoading: isSupplyLoading } = useSupply({ asset, account: account?.address });
+  const {
+    redeem,
+    redeemUnderlying,
+    vTokenBalance,
+    isLoading: isWithdrawLoading,
+  } = useWithdraw({ asset, account: account?.address });
   // @TODO - use dailyEarnings util https://app.clickup.com/t/26pg8j3
   return (
     <SupplyWithdrawUi
-      {...props}
+      {...rest}
+      asset={asset}
       userTotalBorrowBalance={userTotalBorrowBalance}
       userTotalBorrowLimit={userTotalBorrowLimit}
       dailyEarnings={new BigNumber('238')}
+      supply={supply}
+      redeem={redeem}
+      redeemUnderlying={redeemUnderlying}
+      vTokenBalance={vTokenBalance}
+      isTransactionLoading={isSupplyLoading || isWithdrawLoading}
     />
   );
 };

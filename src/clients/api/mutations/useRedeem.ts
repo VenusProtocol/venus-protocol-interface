@@ -6,9 +6,13 @@ import FunctionKey from 'constants/functionKey';
 import { useVTokenContract } from 'clients/contracts/hooks';
 
 const useRedeem = (
-  { assetId }: { assetId: VTokenId },
+  { assetId, account }: { assetId: VTokenId; account: string | undefined },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
-  options?: MutationObserverOptions<RedeemOutput, Error, Omit<IRedeemInput, 'tokenContract'>>,
+  options?: MutationObserverOptions<
+    RedeemOutput,
+    Error,
+    Omit<IRedeemInput, 'tokenContract' | 'account'>
+  >,
 ) => {
   const tokenContract = useVTokenContract(assetId);
   return useMutation(
@@ -16,6 +20,7 @@ const useRedeem = (
     params =>
       redeem({
         tokenContract: tokenContract as VBep20,
+        account,
         ...params,
       }),
     {

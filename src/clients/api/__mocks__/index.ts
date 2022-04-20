@@ -73,3 +73,15 @@ export const useClaimXvsReward = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward, options);
 
 export const useRepayVToken = () => jest.fn();
+  
+export const supply = jest.fn();
+export const useSupply = () => useMutation(FunctionKey.SUPPLY, supply);
+
+export const supplyBnb = jest.fn();
+export const useSupplyBnb = () => useMutation(FunctionKey.SUPPLY_BNB, supplyBnb);
+
+export const redeem = jest.fn();
+export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
+
+export const redeemUnderlying = jest.fn();
+export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);

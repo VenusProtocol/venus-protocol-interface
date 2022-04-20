@@ -8,23 +8,24 @@ import {
   RedeemUnderlyingOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useTokenContract } from 'clients/contracts/hooks';
+import { useVTokenContract } from 'clients/contracts/hooks';
 
 const useRedeemUnderlying = (
-  { assetId }: { assetId: VTokenId },
+  { assetId, account }: { assetId: VTokenId; account: string | undefined },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     RedeemUnderlyingOutput,
     Error,
-    Omit<IRedeemUnderlyingInput, 'tokenContract'>
+    Omit<IRedeemUnderlyingInput, 'tokenContract' | 'account'>
   >,
 ) => {
-  const tokenContract = useTokenContract(assetId);
+  const tokenContract = useVTokenContract(assetId);
   return useMutation(
     FunctionKey.REDEEM_UNDERLYING,
     params =>
       redeemUnderlying({
         tokenContract,
+        account,
         ...params,
       }),
     {
