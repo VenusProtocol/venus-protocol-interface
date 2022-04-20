@@ -5,9 +5,10 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 
 import { useTranslation } from 'translation';
+import { useIsMdDown } from 'hooks/responsive';
 import { Toolbar } from '../Toolbar';
-import ConnectButton from './ConnectButton';
-import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
+import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
+import ConnectButton from '../ConnectButton';
 import { menuItems } from '../constants';
 import { useStyles } from './styles';
 
@@ -15,6 +16,8 @@ const Header = () => {
   const { pathname } = useLocation();
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const isOnMobile = useIsMdDown();
 
   const title = useMemo(() => {
     const currentItemKey = menuItems.find(item => item.href === pathname)?.i18nKey;
@@ -29,17 +32,13 @@ const Header = () => {
     <AppBar position="relative" css={styles.appBar}>
       <Toolbar css={styles.toolbar}>
         {title && <h3>{title}</h3>}
-        <Box
-          flexDirection="row"
-          display="flex"
-          flex={1}
-          justifyContent="right"
-          css={styles.rightItemContainer}
-        >
-          <XvsCoinInfo css={styles.rightItemPaper} className="coinInfo" />
-          <VaiCoinInfo css={styles.rightItemPaper} className="coinInfo" />
-          <ConnectButton css={styles.rightItemPaper} title={t('header.connectButton.title')} />
-        </Box>
+
+        {!isOnMobile && (
+          <Box flexDirection="row" display="flex" flex={1} justifyContent="right">
+            <ClaimXvsRewardButton />
+            <ConnectButton />
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );
