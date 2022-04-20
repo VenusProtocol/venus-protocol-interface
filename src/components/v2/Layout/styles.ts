@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-const viewWidthWithScrollbar = '(100vw - var(--scrollbar-width))';
+const viewWidthWithScrollbar = '100vw';
 
 export const useStyles = () => {
   const theme = useTheme();
@@ -19,6 +19,7 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
       flex: 1;
+      overflow: hidden;
 
       ${theme.breakpoints.down('lg')} {
         max-width: calc(${viewWidthWithScrollbar} - ${theme.shape.drawerWidthTablet});
