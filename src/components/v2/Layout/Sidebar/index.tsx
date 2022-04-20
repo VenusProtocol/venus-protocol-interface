@@ -13,18 +13,18 @@ import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoMobile.svg';
 import { useWeb3Account } from 'clients/web3';
 import { useTranslation } from 'translation';
-import { XvsCoinInfo, VaiCoinInfo } from '../CoinInfo';
 import { Toolbar } from '../Toolbar';
+import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
+import ConnectButton from '../ConnectButton';
 import { Icon } from '../../Icon';
 import { menuItems } from '../constants';
-import ConnectButton from '../Header/ConnectButton';
 import { useStyles } from './styles';
 
 interface ISidebarProps {
   account: undefined | null | string;
 }
 
-export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
+export const SidebarUi: React.FC<ISidebarProps> = () => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
@@ -45,6 +45,7 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
             <LogoDesktop css={styles.logo} />
             <LogoNoText css={styles.logoClosed} />
           </Toolbar>
+
           <List css={styles.list}>
             {menuItems.map(({ href, icon, i18nKey }) => (
               <ListItemButton key={i18nKey} component="li" css={styles.listItem} disableRipple>
@@ -52,9 +53,11 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
                   <ListItemIcon css={styles.listItemIcon}>
                     <Icon name={icon} />
                   </ListItemIcon>
+
                   <Typography variant="body2" css={styles.listItemText}>
                     {t(i18nKey)}
                   </Typography>
+
                   <div className="left-border" />
                 </NavLink>
               </ListItemButton>
@@ -62,13 +65,18 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
           </List>
         </div>
       </Drawer>
+
       <div css={styles.mobileMenuBox}>
         <div css={styles.flexRow}>
           <LogoMobile css={styles.mobileLogo} />
+
+          <ConnectButton small fullWidth css={styles.mobileConnectButton} />
+
           <button type="button" onClick={openMenu} css={styles.actionButton}>
             <Icon name="burger" css={styles.burger} />
           </button>
         </div>
+
         <Menu
           css={styles.mobileMenu}
           className="mobile-menu"
@@ -83,20 +91,14 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
         >
           <div css={[styles.flexRow, styles.doublePadding]}>
             <LogoMobile css={styles.mobileLogo} />
+
+            <ConnectButton small fullWidth css={styles.mobileConnectButton} />
+
             <button type="button" onClick={closeMenu} css={styles.actionButton}>
               <Icon name="close" css={styles.burger} />
             </button>
           </div>
-          <div css={[styles.flexRow, styles.doublePadding, styles.coinInfo]}>
-            {account ? (
-              <>
-                <XvsCoinInfo />
-                <VaiCoinInfo />
-              </>
-            ) : (
-              <ConnectButton fullWidth />
-            )}
-          </div>
+
           <List css={styles.list}>
             {menuItems.map(({ href, icon, i18nKey }) => (
               <ListItemButton
@@ -110,6 +112,7 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
                     <ListItemIcon css={styles.listItemIcon}>
                       <Icon name={icon} />
                     </ListItemIcon>
+
                     <Typography
                       variant="body2"
                       component="span"
@@ -118,11 +121,14 @@ export const SidebarUi: React.FC<ISidebarProps> = ({ account }) => {
                       {t(i18nKey)}
                     </Typography>
                   </div>
+
                   <Icon name="arrowRight" css={styles.mobileArrow} />
                 </NavLink>
               </ListItemButton>
             ))}
           </List>
+
+          <ClaimXvsRewardButton css={styles.claimXvsRewardButton} />
         </Menu>
       </div>
     </>
