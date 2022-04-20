@@ -47,5 +47,31 @@ export const useStyles = () => {
     bottomInfo: css`
       margin-bottom: ${theme.spacing(8)};
     `,
+    centerColumn: css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: ${theme.spacing(13)};
+    `,
+    icon: css`
+      height: ${theme.spacing(12)};
+      width: ${theme.spacing(12)};
+      margin-bottom: ${theme.spacing(8)};
+    `,
+    successTitle: css`
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    successMessage: css`
+      margin-bottom: ${theme.spacing(10)};
+      display: inline-flex;
+      align-items: center;
+      svg {
+        margin-left: ${theme.spacing(2)};
+      }
+    `,
+    bscScan: css`
+      margin-bottom: ${theme.spacing(10)};
+    `,
   };
 };
