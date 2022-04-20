@@ -3,11 +3,6 @@ import { IconName } from '../Icon';
 
 interface IMenuItem {
   href: string;
-  /**
-   * i18nKey are used for extracting texts from translation files
-   *
-   * avoid removing this values in order to save the content
-   */
   i18nKey: string;
   icon: IconName;
 }

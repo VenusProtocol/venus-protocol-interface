@@ -23,28 +23,5 @@ export const useStyles = () => {
         padding: ${theme.spacing(6, 4, 0)} !important;
       }
     `,
-    rightItemContainer: css`
-      ${theme.breakpoints.down('md')} {
-        display: none;
-      }
-    `,
-    rightItemPaper: css`
-      margin-right: ${theme.spacing(3)};
-      align-items: center;
-      padding: ${theme.spacing(2)};
-      display: inline-flex;
-      min-width: ${theme.spacing(41)};
-      box-shadow: none;
-      border-radius: ${theme.shape.borderRadius.small}px;
-      :last-child {
-        margin-right: 0;
-      }
-      :nth-last-child(2) {
-        margin-right: ${theme.spacing(6)};
-      }
-      ${theme.breakpoints.down('lg')} {
-        min-width: ${theme.spacing(35)};
-      }
-    `,
   };
 };
