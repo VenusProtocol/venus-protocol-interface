@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 
 import { getToken } from 'utilities';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS, VBEP_TOKEN_DECIMALS } from 'constants/tokens';
 import { Comptroller } from 'types/contracts';
 import getVTokenData from './getVTokenData';
 
@@ -59,10 +59,8 @@ const getXvsReward = async ({
         +userSupplyIndex === 0 && +supplyStateIndex > 0 ? venusInitialIndex : userSupplyIndex;
 
       const supplierDeltaIndex = new BigNumber(supplyStateIndex).minus(adjustedSupplierIndex);
-
       const supplierXvsReward = new BigNumber(userBalanceWei)
         .multipliedBy(supplierDeltaIndex)
-        // @TODO: check why we have a constant here (1e36 - Venus initial index?)
         .dividedBy(1e36);
 
       // Calculate XVS reward from borrowing tokens
@@ -71,10 +69,9 @@ const getXvsReward = async ({
       if (+userBorrowIndex > 0) {
         const borrowerDeltaIndex = new BigNumber(borrowStateIndex).minus(userBorrowIndex);
         const borrowerAmount = new BigNumber(userBorrowBalanceStoredWei)
-          .multipliedBy(1e18) // @TODO: check why we have a constant here (assumes 18 decimals?)
+          .multipliedBy(1e18)
           .dividedBy(tokenBorrowIndex);
 
-        // @TODO: check why we have a constant here (1e36 - Venus initial index?)
         borrowerXvsReward = borrowerAmount.times(borrowerDeltaIndex).dividedBy(1e36);
       }
 
@@ -84,25 +81,17 @@ const getXvsReward = async ({
     new BigNumber(0),
   );
 
-  const totalXvsEarned = xvsEarned
-    .plus(xvsAccrued)
-    // @TODO: check why we have a constant here (assumes 18 decimals?)
-    .dividedBy(1e18)
-    // @TODO: check why we have a constant here (assumes 8 decimals?)
-    .dp(8, 1);
+  const totalXvsEarned = xvsEarned.plus(xvsAccrued).dividedBy(1e18).dp(VBEP_TOKEN_DECIMALS, 1);
 
   // Calculate XVS reward from minting VAI
   const adjustedVaiMinterIndex =
     userVaiMintIndex === '0' && +vaiMintIndex < 0 ? venusInitialIndex : userVaiMintIndex;
 
   const deltaIndex = new BigNumber(vaiMintIndex).minus(new BigNumber(adjustedVaiMinterIndex));
-
   const vaiMinterDelta = new BigNumber(userMintedVai)
     .times(deltaIndex)
-    // @TODO: check why we have a constant here
     .div(1e54)
-    // @TODO: check why we have a constant here (assumes 8 decimals?)
-    .dp(8, 1);
+    .dp(VBEP_TOKEN_DECIMALS, 1);
 
   // Calculate and return total XVS reward
   const xvsRewardTokens = totalXvsEarned.plus(vaiMinterDelta);
