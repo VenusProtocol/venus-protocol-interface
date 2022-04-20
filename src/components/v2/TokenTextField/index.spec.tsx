@@ -44,6 +44,26 @@ describe('components/TokenTextField', () => {
     expect(onChangeMock).toHaveBeenCalledTimes(1);
   });
 
+  it('passes the correct max and step values down to the TextField component', async () => {
+    const oneWeiInXvs = new BigNumber(ONE_XVS).dividedBy(new BigNumber(10).pow(18));
+
+    const onChangeMock = jest.fn();
+    const { getByTestId } = renderComponent(
+      <TokenTextField
+        tokenSymbol="xvs"
+        onChange={onChangeMock}
+        value=""
+        data-testid={testId}
+        max={ONE_XVS}
+      />,
+    );
+
+    const input = getByTestId(testId) as HTMLInputElement;
+
+    expect(input.max).toBe(ONE_XVS);
+    expect(input.step).toBe(oneWeiInXvs.toFixed());
+  });
+
   it('renders max button and updates value to maxWei when pressing on it', async () => {
     const onChangeMock = jest.fn();
     const rightMaxButtonLabel = 'Test max button label';
