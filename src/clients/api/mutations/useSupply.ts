@@ -1,25 +1,21 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
-
+import { Bep20 } from 'types/contracts';
 import { TokenId } from 'types';
-import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
+import { queryClient, supply, ISupplyInput, SupplyOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
 
-const useApproveToken = (
+const useSupply = (
   { assetId }: { assetId: TokenId },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
-  options?: MutationObserverOptions<
-    ApproveTokenOutput,
-    Error,
-    Omit<IApproveTokenInput, 'tokenContract'>
-  >,
+  options?: MutationObserverOptions<SupplyOutput, Error, Omit<ISupplyInput, 'tokenContract'>>,
 ) => {
-  const tokenContract = useTokenContract(assetId);
+  const tokenContract = useTokenContract<TokenId>(assetId);
   return useMutation(
-    FunctionKey.APPROVE_TOKEN,
+    [FunctionKey.SUPPLY, assetId],
     params =>
-      approveToken({
-        tokenContract,
+      supply({
+        tokenContract: tokenContract as Bep20,
         ...params,
       }),
     {
@@ -34,4 +30,4 @@ const useApproveToken = (
   );
 };
 
-export default useApproveToken;
+export default useSupply;

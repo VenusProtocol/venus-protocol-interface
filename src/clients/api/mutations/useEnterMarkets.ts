@@ -24,14 +24,10 @@ const useEnterMarkets = (
       }),
     {
       ...options,
-      onSuccess: (
-        data: void,
-        variables: Omit<IEnterMarketsInput, 'comptrollerContract'>,
-        context: unknown,
-      ) => {
+      onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
         if (options?.onSuccess) {
-          options.onSuccess(data, variables, context);
+          options.onSuccess(...onSuccessParams);
         }
       },
     },
