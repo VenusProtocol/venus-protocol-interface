@@ -25,6 +25,19 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/useApproveToken';
 
+export { default as supply } from './mutations/supply';
+export * from './mutations/supply';
+export { default as useSupply } from './mutations/useSupply';
+export { default as useSupplyBnb } from './mutations/useSupplyBnb';
+
+export { default as redeem } from './mutations/redeem';
+export * from './mutations/redeem';
+export { default as useRedeem } from './mutations/useRedeem';
+
+export { default as redeemUnderlying } from './mutations/redeemUnderlying';
+export * from './mutations/redeemUnderlying';
+export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
@@ -45,3 +58,7 @@ export { default as useGetMarkets } from './queries/useGetMarkets';
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalancesAll';
+
+export { default as getBalanceOf } from './queries/getVTokenBalance';
+export * from './queries/getVTokenBalance';
+export { default as useGetBalanceOf } from './queries/useGetVTokenBalancef';
