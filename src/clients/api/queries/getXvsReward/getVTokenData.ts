@@ -5,8 +5,6 @@ import { getVTokenContract } from 'clients/contracts';
 import { Comptroller } from 'types/contracts';
 import { VTokenId } from 'types';
 
-// @TODO: add tests
-
 export interface IGetVTokenDataInput {
   tokenId: VTokenId;
   tokenAddress: string;

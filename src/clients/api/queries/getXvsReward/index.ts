@@ -6,8 +6,6 @@ import { VBEP_TOKENS } from 'constants/tokens';
 import { Comptroller } from 'types/contracts';
 import getVTokenData from './getVTokenData';
 
-// @TODO: add tests
-
 export interface IGetXvsRewardInput {
   web3: Web3;
   accountAddress: string;
