@@ -59,7 +59,7 @@ export const Tabs = ({
           </TertiaryButton>
         ))}
       </div>
-      {tabsContent && tabsContent[activeTabIndex]}
+      {tabsContent[activeTabIndex]}
     </>
   );
 };

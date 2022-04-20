@@ -23,3 +23,13 @@ export const WithTitle = () => (
     tabsContent={[<>first tab content</>, <>second tab content</>]}
   />
 );
+
+export const WithTitle = () => <Tabs componentTitle="Title" tabTitles={['Borrow', 'Repay']} />;
+
+export const WithChildren = () => (
+  <Tabs
+    fullWidth
+    tabTitles={['Borrow', 'Repay']}
+    tabsContent={[<>first tab content</>, <>second tab content</>]}
+  />
+);
