@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import BigNumber from 'bignumber.js';
 
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
@@ -27,6 +28,15 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
   max,
   ...otherProps
 }) => {
+  const tokenDecimals = getToken(tokenSymbol).decimals;
+
+  const step = React.useMemo(() => {
+    const tmpOneCoinInWei = new BigNumber(10).pow(tokenDecimals);
+    const tmpOneWeiInCoins = new BigNumber(1).dividedBy(tmpOneCoinInWei);
+
+    return tmpOneWeiInCoins.toFixed();
+  }, [tokenSymbol]);
+
   const setMaxValue = () => {
     if (onChange && max) {
       onChange(max);
@@ -34,8 +44,7 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
   };
 
   const handleChange: ITextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
-    // Format value so it doesn't have more decimals places than the token has
-    const tokenDecimals = getToken(tokenSymbol).decimals;
+    // Forbid values with more decimals than the token provided supports
     const valueDecimals = value.includes('.') ? value.split('.')[1].length : 0;
 
     if (valueDecimals <= tokenDecimals) {
@@ -48,6 +57,7 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
       placeholder="0.00"
       min={0}
       max={max}
+      step={step}
       onChange={handleChange}
       type="number"
       leftIconName={tokenSymbol as IconName}
