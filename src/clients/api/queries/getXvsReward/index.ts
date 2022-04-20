@@ -19,6 +19,9 @@ export interface IGetXvsRewardInput {
 
 export type GetXvsRewardOutput = BigNumber;
 
+// @TODO: refactor once method to fetch XVS reward from a contract has been
+// implemented (see https://app.clickup.com/t/284g9ed)
+
 const getXvsReward = async ({
   web3,
   accountAddress,
