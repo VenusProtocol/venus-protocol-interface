@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import {
   ConnectWallet,
@@ -42,21 +42,10 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
   dailyEarnings,
 }) => {
   const styles = useStyles();
-  const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
 
   const { id: assetId, isEnabled, symbol } = asset || {};
   const { t } = useTranslation();
-  const TAB_TEXT_KEYS = [
-    {
-      connect: t('supplyWithdraw.connectWalletToSupply'),
-      enable: t('supplyWithdraw.enableToSupply', { symbol }),
-    },
-    {
-      connect: t('supplyWithdraw.connectWalletToWithdraw'),
-      enable: t('supplyWithdraw.enableToWithdraw', { symbol }),
-    },
-  ];
-  const activeTabTextKeys = TAB_TEXT_KEYS[activeTabIndex];
+
   const tokenInfo: ILabeledInlineContentProps[] = asset
     ? [
         {
@@ -87,21 +76,17 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
       <>
         <Tabs
           tabTitles={[t('supplyWithdraw.supply'), t('supplyWithdraw.withdraw')]}
-          onTabChange={setActiveTabIndex}
-          fullWidth
-        />
-        <div className={className} css={styles.container}>
-          <ConnectWallet message={activeTabTextKeys.connect}>
-            {asset && (
-              <EnableToken
-                symbol={assetId as TokenId}
-                title={activeTabTextKeys.enable}
-                tokenInfo={tokenInfo}
-                isEnabled={!!isEnabled}
-                vtokenAddress={asset.vtokenAddress}
-              >
-                {
-                  [
+          tabsContent={[
+            <div className={className} css={styles.container}>
+              <ConnectWallet message={t('supplyWithdraw.connectWalletToSupply')}>
+                {asset && (
+                  <EnableToken
+                    symbol={assetId as TokenId}
+                    title={t('supplyWithdraw.enableToSupply', { symbol })}
+                    tokenInfo={tokenInfo}
+                    isEnabled={!!isEnabled}
+                    vtokenAddress={asset.vtokenAddress}
+                  >
                     <SupplyWithdrawForm
                       key="supply"
                       asset={asset}
@@ -115,7 +100,21 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
                       disabledButtonKey={t('supplyWithdraw.enterValidAmountSupply')}
                       maxInput={asset.walletBalance}
                       calculateNewBalance={calculateNewSupplyAmount}
-                    />,
+                    />
+                  </EnableToken>
+                )}
+              </ConnectWallet>
+            </div>,
+            <div className={className} css={styles.container}>
+              <ConnectWallet message={t('supplyWithdraw.connectWalletToWithdraw')}>
+                {asset && (
+                  <EnableToken
+                    symbol={assetId as TokenId}
+                    title={t('supplyWithdraw.enableToWithdraw', { symbol })}
+                    tokenInfo={tokenInfo}
+                    isEnabled={!!isEnabled}
+                    vtokenAddress={asset.vtokenAddress}
+                  >
                     <SupplyWithdrawForm
                       key="withdraw"
                       asset={asset}
@@ -129,13 +128,13 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
                       disabledButtonKey={t('supplyWithdraw.enterValidAmountWithdraw')}
                       maxInput={asset.supplyBalance}
                       calculateNewBalance={calculateNewBorrowAmount}
-                    />,
-                  ][activeTabIndex]
-                }
-              </EnableToken>
-            )}
-          </ConnectWallet>
-        </div>
+                    />
+                  </EnableToken>
+                )}
+              </ConnectWallet>
+            </div>,
+          ]}
+        />
       </>
     </Modal>
   );

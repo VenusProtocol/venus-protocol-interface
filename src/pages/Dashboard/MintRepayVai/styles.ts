@@ -14,31 +14,6 @@ export const useStyles = () => {
       border-radius: ${theme.shape.borderRadius.large}px;
       padding: ${theme.spacing(6)};
     `,
-    header: css`
-      margin-bottom: ${theme.spacing(8)};
-      display: flex;
-      align-items: center;
-
-      ${theme.breakpoints.down('sm')} {
-        display: block;
-      }
-    `,
-    headerColumn: css`
-      flex: 1;
-    `,
-    headerTitle: css`
-      flex: 0 1 auto;
-      padding-right: ${theme.spacing(4)};
-
-      ${theme.breakpoints.down('sm')} {
-        margin-bottom: ${theme.spacing(6)};
-      }
-    `,
-    headerTabsContainer: css`
-      display: flex;
-      justify-content: flex-end;
-      flex: 1;
-    `,
     tabContentContainer: css`
       flex: 1;
       display: flex;

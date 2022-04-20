@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 
-import { useIsSmDown } from 'hooks/responsive';
 import { Tabs } from 'components';
 import { useTranslation } from 'translation';
 import MintVai from './MintVai';
@@ -14,28 +13,15 @@ export interface IMintRepayVaiProps {
 
 const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
-  const [activeTabIndex, setActiveTabIndex] = React.useState(0);
   const { t } = useTranslation();
-  const isOnMobile = useIsSmDown();
 
   return (
     <div className={className} css={styles.container}>
-      <div css={styles.header}>
-        <div css={[styles.headerColumn, styles.headerTitle]}>
-          <h4>{t('mintRepayVai.title')}</h4>
-        </div>
-
-        <div css={[styles.headerColumn, styles.headerTabsContainer]}>
-          <Tabs
-            fullWidth={isOnMobile}
-            tabTitles={[t('mintRepayVai.tabMint'), t('mintRepayVai.tabRepay')]}
-            onTabChange={setActiveTabIndex}
-            initialActiveTabIndex={activeTabIndex}
-          />
-        </div>
-      </div>
-
-      {activeTabIndex === 0 ? <MintVai /> : <RepayVai />}
+      <Tabs
+        componentTitle={t('mintRepayVai.title')}
+        tabTitles={[t('mintRepayVai.tabMint'), t('mintRepayVai.tabRepay')]}
+        tabsContent={[<MintVai />, <RepayVai />]}
+      />
     </div>
   );
 };

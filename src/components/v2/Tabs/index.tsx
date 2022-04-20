@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { TertiaryButton } from '../Button';
 import useStyles from './styles';
 
 export interface ITabsProps {
   tabTitles: string[];
+  tabsContent: ReactElement[];
+  componentTitle?: string;
   initialActiveTabIndex?: number;
   onTabChange?: (newIndex: number) => void;
   className?: string;
-  fullWidth?: boolean;
 }
 
 export const Tabs = ({
@@ -17,7 +18,8 @@ export const Tabs = ({
   initialActiveTabIndex = 0,
   onTabChange,
   className,
-  fullWidth = false,
+  tabsContent,
+  componentTitle,
 }: ITabsProps) => {
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
@@ -31,20 +33,33 @@ export const Tabs = ({
   };
 
   return (
-    <div css={styles.getContainer({ fullWidth })} className={className}>
-      {tabTitles.map((tabTitle, index) => (
-        <TertiaryButton
-          key={tabTitle}
-          onClick={() => handleChange(index)}
-          css={styles.getButton({
-            active: index === activeTabIndex,
-            last: index === tabTitles.length - 1,
-            fullWidth,
-          })}
-        >
-          {tabTitle}
-        </TertiaryButton>
-      ))}
-    </div>
+    <>
+      <div
+        css={styles.getContainer({
+          hasTitle: !!componentTitle,
+        })}
+        className={className}
+      >
+        {componentTitle && (
+          <div css={[styles.headerTitle]}>
+            <h4>{componentTitle}</h4>
+          </div>
+        )}
+        {tabTitles.map((tabTitle, index) => (
+          <TertiaryButton
+            key={tabTitle}
+            onClick={() => handleChange(index)}
+            css={styles.getButton({
+              active: index === activeTabIndex,
+              last: index === tabTitles.length - 1,
+              fullWidth: !componentTitle,
+            })}
+          >
+            {tabTitle}
+          </TertiaryButton>
+        ))}
+      </div>
+      {tabsContent && tabsContent[activeTabIndex]}
+    </>
   );
 };

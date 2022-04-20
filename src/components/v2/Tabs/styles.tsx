@@ -5,13 +5,29 @@ export const styles = () => {
   const theme = useTheme();
 
   return {
-    getContainer: ({ fullWidth }: { fullWidth: boolean }) => css`
+    getContainer: ({ hasTitle }: { hasTitle: boolean }) => css`
       display: flex;
+      margin-bottom: ${theme.spacing(6)};
+      width: 100%;
 
-      ${fullWidth &&
+      ${hasTitle &&
       css`
-        width: 100%;
+        align-items: center;
+
+        ${theme.breakpoints.down('sm')} {
+          flex-wrap: wrap;
+        }
       `}
+    `,
+    headerTitle: css`
+      flex: 0 1 auto;
+      margin-right: auto;
+      padding-right: ${theme.spacing(4)};
+
+      ${theme.breakpoints.down('sm')} {
+        width: 100%;
+        margin-bottom: ${theme.spacing(6)};
+      }
     `,
     getButton: ({
       active,

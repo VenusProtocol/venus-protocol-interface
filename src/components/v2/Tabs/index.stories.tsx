@@ -6,16 +6,20 @@ import { Tabs } from '.';
 export default {
   title: 'Components/Tabs',
   component: Tabs,
-  decorators: [withCenterStory({ width: 350 })],
+  decorators: [withCenterStory({ width: 650 })],
 } as ComponentMeta<typeof Tabs>;
 
-export const Default = () => <Tabs tabTitles={['Borrow', 'Repay']} onTabChange={console.log} />;
-
-export const FullWidth = () => (
+export const Default = () => (
   <Tabs
     tabTitles={['Borrow', 'Repay']}
-    initialActiveTabIndex={1}
-    onTabChange={console.log}
-    fullWidth
+    tabsContent={[<>first tab content</>, <>second tab content</>]}
+  />
+);
+
+export const WithTitle = () => (
+  <Tabs
+    componentTitle="Title"
+    tabTitles={['Borrow', 'Repay']}
+    tabsContent={[<>first tab content</>, <>second tab content</>]}
   />
 );
