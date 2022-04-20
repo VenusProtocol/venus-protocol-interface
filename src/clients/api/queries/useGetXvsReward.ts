@@ -42,10 +42,10 @@ const useGetXvsReward = (accountAddress: string | undefined, options?: Options) 
         web3,
         accountAddress: accountAddress || '',
         comptrollerContract,
-        venusInitialIndex: venusInitialIndex || new BigNumber(0),
+        venusInitialIndex: venusInitialIndex || '0',
         xvsAccrued: xvsAccrued || new BigNumber(0),
-        vaiMintIndex: new BigNumber(vaiState?.index || 0),
-        userVaiMintIndex: vaiMinterIndex || new BigNumber(0),
+        vaiMintIndex: vaiState?.index || '0',
+        userVaiMintIndex: vaiMinterIndex || '0',
         userMintedVai: userMintedVai || new BigNumber(0),
       }),
     {
