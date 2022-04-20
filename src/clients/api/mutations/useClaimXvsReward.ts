@@ -1,6 +1,11 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { claimXvsReward, IClaimXvsRewardInput, ClaimXvsRewardOutput } from 'clients/api';
+import {
+  queryClient,
+  claimXvsReward,
+  IClaimXvsRewardInput,
+  ClaimXvsRewardOutput,
+} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 
@@ -13,8 +18,6 @@ type Options = MutationObserverOptions<
 const useClaimXvsReward = (options?: Options) => {
   const comptrollerContract = useComptrollerContract();
 
-  // @TODO: invalidate queries related to fetching the user claimable XVS
-  // balance
   return useMutation(
     FunctionKey.CLAIM_XVS_REWARD,
     (params: Omit<IClaimXvsRewardInput, 'comptrollerContract'>) =>
@@ -22,7 +25,17 @@ const useClaimXvsReward = (options?: Options) => {
         comptrollerContract,
         ...params,
       }),
-    options,
+    {
+      ...options,
+      onSuccess: (...onSuccessParams) => {
+        // Trigger refetch of XVS reward
+        queryClient.invalidateQueries(FunctionKey.GET_XVS_REWARD);
+
+        if (options?.onSuccess) {
+          options.onSuccess(...onSuccessParams);
+        }
+      },
+    },
   );
 };
 
