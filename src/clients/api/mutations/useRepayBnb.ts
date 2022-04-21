@@ -1,7 +1,7 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import { useWeb3 } from 'clients/web3';
-import { repayBnb, IRepayBnbInput, RepayBnbOutput } from 'clients/api';
+import { queryClient, repayBnb, IRepayBnbInput, RepayBnbOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<RepayBnbOutput, Error, Omit<IRepayBnbInput, 'web3'>>;
@@ -9,7 +9,6 @@ type Options = MutationObserverOptions<RepayBnbOutput, Error, Omit<IRepayBnbInpu
 const useRepayNonBnbVToken = (options?: Options) => {
   const web3 = useWeb3();
 
-  // @TODO: invalidate queries related to fetching borrow balance
   return useMutation(
     FunctionKey.REPAY_BNB,
     params =>
@@ -17,7 +16,16 @@ const useRepayNonBnbVToken = (options?: Options) => {
         web3,
         ...params,
       }),
-    options,
+    {
+      ...options,
+      onSuccess: (...onSuccessParams) => {
+        queryClient.invalidateQueries([FunctionKey.GET_V_TOKEN_BORROW_BALANCE, 'bnb']);
+
+        if (options?.onSuccess) {
+          options.onSuccess(...onSuccessParams);
+        }
+      },
+    },
   );
 };
 

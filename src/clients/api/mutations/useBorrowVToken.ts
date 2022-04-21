@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { borrowVToken, IBorrowVTokenInput, BorrowVTokenOutput } from 'clients/api';
+import { queryClient, borrowVToken, IBorrowVTokenInput, BorrowVTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { VTokenId } from 'types';
 import { useVTokenContract } from 'clients/contracts/hooks';
@@ -14,7 +14,6 @@ type Options = MutationObserverOptions<
 const useBorrowVToken = ({ vTokenId }: { vTokenId: VTokenId }, options?: Options) => {
   const vTokenContract = useVTokenContract(vTokenId);
 
-  // @TODO: invalidate queries related to fetching borrow balance
   return useMutation(
     FunctionKey.BORROW_V_TOKEN,
     params =>
@@ -22,7 +21,16 @@ const useBorrowVToken = ({ vTokenId }: { vTokenId: VTokenId }, options?: Options
         vTokenContract,
         ...params,
       }),
-    options,
+    {
+      ...options,
+      onSuccess: (...onSuccessParams) => {
+        queryClient.invalidateQueries([FunctionKey.GET_V_TOKEN_BORROW_BALANCE, vTokenId]);
+
+        if (options?.onSuccess) {
+          options.onSuccess(...onSuccessParams);
+        }
+      },
+    },
   );
 };
 

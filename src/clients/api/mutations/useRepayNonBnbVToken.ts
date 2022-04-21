@@ -1,6 +1,11 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { repayNonBnbVToken, IRepayNonBnbVTokenInput, RepayBnbOutput } from 'clients/api';
+import {
+  queryClient,
+  repayNonBnbVToken,
+  IRepayNonBnbVTokenInput,
+  RepayBnbOutput,
+} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { VTokenId } from 'types';
 import { useVTokenContract } from 'clients/contracts/hooks';
@@ -17,7 +22,6 @@ const useRepayNonBnbVToken = (
 ) => {
   const vTokenContract = useVTokenContract(vTokenId);
 
-  // @TODO: invalidate queries related to fetching borrow balance
   return useMutation(
     FunctionKey.REPAY_NON_BNB_V_TOKEN,
     params =>
@@ -25,7 +29,16 @@ const useRepayNonBnbVToken = (
         vTokenContract,
         ...params,
       }),
-    options,
+    {
+      ...options,
+      onSuccess: (...onSuccessParams) => {
+        queryClient.invalidateQueries([FunctionKey.GET_V_TOKEN_BORROW_BALANCE, vTokenId]);
+
+        if (options?.onSuccess) {
+          options.onSuccess(...onSuccessParams);
+        }
+      },
+    },
   );
 };
 
