@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import { VaiUnitroller } from 'types/contracts';
 
 export interface IGetVenusVaiMinterIndexInput {
@@ -6,14 +5,12 @@ export interface IGetVenusVaiMinterIndexInput {
   accountAddress: string;
 }
 
-export type GetVenusVaiMinterIndexOutput = BigNumber;
+export type GetVenusVaiMinterIndexOutput = string;
 
 const getVenusVaiMinterIndex = async ({
   vaiUnitrollerContract,
   accountAddress,
-}: IGetVenusVaiMinterIndexInput): Promise<GetVenusVaiMinterIndexOutput> => {
-  const res = await vaiUnitrollerContract.methods.venusVAIMinterIndex(accountAddress).call();
-  return new BigNumber(res);
-};
+}: IGetVenusVaiMinterIndexInput): Promise<GetVenusVaiMinterIndexOutput> =>
+  vaiUnitrollerContract.methods.venusVAIMinterIndex(accountAddress).call();
 
 export default getVenusVaiMinterIndex;
