@@ -43,6 +43,10 @@ export const useGetVenusVaiMinterIndex = () =>
 export const getXvsReward = jest.fn();
 export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);
 
+export const getVTokenBalance = jest.fn();
+export const useGetVTokenBalance = () =>
+  useMutation(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalance);
+
 // Mutations
 export const requestFaucetFunds = jest.fn();
 export const useRequestFaucetFunds = (options?: MutationObserverOptions) =>
@@ -67,3 +71,5 @@ export const useExitMarket = (options?: MutationObserverOptions) =>
 export const claimXvsReward = jest.fn();
 export const useClaimXvsReward = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward, options);
+
+export const useRepayVToken = () => jest.fn();
