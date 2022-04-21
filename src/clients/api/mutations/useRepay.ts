@@ -16,14 +16,14 @@ type Options = MutationObserverOptions<
   Omit<IRepayNonBnbInput, 'vTokenContract'> | Omit<IRepayBnbInput, 'web3'>
 >;
 
-const useRepay = ({ assetId }: { assetId: VTokenId }, options?: Options) => {
+const useRepay = ({ tokenId }: { tokenId: VTokenId }, options?: Options) => {
   const useRepayNonBnbResult = useRepayNonBnb(
-    { assetId: assetId as Exclude<VTokenId, 'bnb'> },
+    { tokenId: tokenId as Exclude<VTokenId, 'bnb'> },
     options,
   );
   const useRepayBnbResult = useRepayBnb(options);
 
-  return assetId === 'bnb' ? useRepayBnbResult : useRepayNonBnbResult;
+  return tokenId === 'bnb' ? useRepayBnbResult : useRepayNonBnbResult;
 };
 
 export default useRepay;

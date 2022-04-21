@@ -11,8 +11,8 @@ type Options = MutationObserverOptions<
   Omit<IRepayNonBnbInput, 'vTokenContract'>
 >;
 
-const useRepayNonBnb = ({ assetId }: { assetId: Exclude<VTokenId, 'bnb'> }, options?: Options) => {
-  const vTokenContract = useVTokenContract(assetId);
+const useRepayNonBnb = ({ tokenId }: { tokenId: Exclude<VTokenId, 'bnb'> }, options?: Options) => {
+  const vTokenContract = useVTokenContract(tokenId);
 
   // @TODO: invalidate queries related to fetching borrow balance
   return useMutation(

@@ -107,3 +107,7 @@ export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMi
 export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
 export { default as useGetXvsReward } from './queries/useGetXvsReward';
+
+export { default as getVTokenBorrowBalance } from './queries/getVTokenBorrowBalance';
+export * from './queries/getVTokenBorrowBalance';
+export { default as useGetVTokenBorrowBalance } from './queries/useGetVTokenBorrowBalance';
