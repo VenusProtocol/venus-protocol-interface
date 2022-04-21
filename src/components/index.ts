@@ -10,7 +10,7 @@ export * from './v2/LabeledInlineContent';
 export * from './v2/Layout';
 export * from './v2/Modal';
 export * from './v2/ProgressBarHorizontal';
-export * from './v2/SuccessfulTransactionMessage';
+export * from './v2/SuccessfulTransactionModal';
 export * from './v2/Table';
 export * from './v2/Tabs';
 export * from './v2/TextField';
