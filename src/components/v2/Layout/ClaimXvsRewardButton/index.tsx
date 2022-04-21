@@ -2,6 +2,9 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
+import toast from 'components/Basic/Toast';
+import { AuthContext } from 'context/AuthContext';
+import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
 import { convertWeiToCoins } from 'utilities/common';
 import { Icon } from '../../Icon';
@@ -9,6 +12,8 @@ import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
 
 const XVS_SYMBOL = 'xvs';
+
+export const TEST_ID = 'claim-xvs-reward-button';
 
 export interface IClaimXvsRewardButton extends IButtonProps {
   amountWei?: BigNumber;
@@ -21,7 +26,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   const { Trans } = useTranslation();
   const styles = useStyles();
 
-  if (!amountWei) {
+  if (!amountWei || amountWei.isEqualTo(0)) {
     return null;
   }
 
@@ -32,7 +37,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   });
 
   return (
-    <SecondaryButton css={styles.button} {...otherProps}>
+    <SecondaryButton data-testid={TEST_ID} css={styles.button} {...otherProps}>
       <Trans
         i18nKey="claimXvsRewardButton.title"
         components={{
@@ -47,14 +52,41 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 };
 
 export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
-  const claimXvs = () => {
-    // @TODO: send transaction to claim XVS
+  const { account } = React.useContext(AuthContext);
+  const { data: xvsRewardWei } = useGetXvsReward(account?.address);
+  const { t } = useTranslation();
+
+  const { mutate: claimXvsReward, isLoading: isClaimXvsRewardLoading } = useClaimXvsReward({
+    onError: error => {
+      toast.error({
+        title: error.message,
+      });
+    },
+    onSuccess: () => {
+      // @TODO: display success modal instead of toast once it's been
+      // implemented (see https://app.clickup.com/t/2849k4u)
+      toast.success({
+        title: t('claimXvsRewardButton.successMessage'),
+      });
+    },
+  });
+
+  const handleClick = () => {
+    if (account?.address) {
+      claimXvsReward({
+        fromAccountAddress: account.address,
+      });
+    }
   };
 
-  // @TODO: fetch actual amount of claimable XVS wei
-  const fakeAmount = new BigNumber(100000000000000);
-
-  return <ClaimXvsRewardButtonUi amountWei={fakeAmount} onClick={claimXvs} {...props} />;
+  return (
+    <ClaimXvsRewardButtonUi
+      amountWei={xvsRewardWei}
+      loading={isClaimXvsRewardLoading}
+      onClick={handleClick}
+      {...props}
+    />
+  );
 };
 
 export default ClaimXvsRewardButton;
