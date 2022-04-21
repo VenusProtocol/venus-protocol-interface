@@ -48,6 +48,8 @@ export { default as repayBnb } from './mutations/repayBnb';
 export * from './mutations/repayBnb';
 export { default as useRepayBnb } from './mutations/useRepayBnb';
 
+export { default as useRepay } from './mutations/useRepay';
+
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
