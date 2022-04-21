@@ -7,9 +7,9 @@ import { SliderTypeMap } from '@mui/material/Slider/Slider';
 import { Tooltip, ITooltipProps } from '../Tooltip';
 import { useStyles } from './styles';
 
-export interface ISliderProps {
+export interface IProgressBarProps {
   value: number;
-  mark: number;
+  mark?: number;
   step: number;
   ariaLabel: string;
   min: number;
@@ -33,9 +33,9 @@ export const ProgressBarHorizontal = ({
   markTooltip,
   className,
   tooltipPlacement = 'top',
-}: ISliderProps) => {
+}: IProgressBarProps) => {
   const marks = mark ? [{ value: mark }] : undefined;
-  const styles = useStyles({ over: value > mark });
+  const styles = useStyles({ over: mark ? value > mark : false });
 
   const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => {
     if (markTooltip) {
@@ -72,7 +72,7 @@ export const ProgressBarHorizontal = ({
       css={styles.slider}
       components={{
         Thumb: undefined,
-        Mark: renderMark,
+        Mark: mark ? renderMark : undefined,
         Track: renderTrack,
       }}
       value={value}
