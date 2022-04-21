@@ -1,28 +1,45 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { claimXvsReward, IClaimXvsRewardInput, ClaimXvsRewardOutput } from 'clients/api';
+import {
+  queryClient,
+  claimXvsReward,
+  IClaimXvsRewardInput,
+  ClaimXvsRewardOutput,
+} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useComptrollerContract } from 'clients/contracts/hooks';
+import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
   ClaimXvsRewardOutput,
   Error,
-  Omit<IClaimXvsRewardInput, 'vaiControllerContract'>
+  Omit<IClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>
 >;
 
 const useClaimXvsReward = (options?: Options) => {
   const comptrollerContract = useComptrollerContract();
+  const venusLensContract = useVenusLensContract();
 
-  // @TODO: invalidate queries related to fetching the user claimable XVS
-  // balance
   return useMutation(
     FunctionKey.CLAIM_XVS_REWARD,
-    (params: Omit<IClaimXvsRewardInput, 'comptrollerContract'>) =>
+    (params: Omit<IClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>) =>
       claimXvsReward({
         comptrollerContract,
+        venusLensContract,
         ...params,
       }),
-    options,
+    {
+      ...options,
+      onSuccess: (...onSuccessParams) => {
+        // Trigger refetch of XVS reward
+        queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
+        queryClient.invalidateQueries(FunctionKey.GET_VENUS_ACCRUED);
+        queryClient.invalidateQueries(FunctionKey.GET_XVS_REWARD);
+
+        if (options?.onSuccess) {
+          options.onSuccess(...onSuccessParams);
+        }
+      },
+    },
   );
 };
 

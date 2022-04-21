@@ -50,6 +50,7 @@ export interface IVBepToken {
   id: VTokenId;
   symbol: `v${Uppercase<VTokenId>}`;
   address: string | '';
+  decimals: number;
 }
 
 export interface Setting {
