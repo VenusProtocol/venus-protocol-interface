@@ -18,6 +18,7 @@ export { ReactComponent as discord } from './discord.svg';
 export { ReactComponent as twitter } from './twitter.svg';
 export { ReactComponent as github } from './github.svg';
 export { ReactComponent as venus } from './venus.svg';
+export { ReactComponent as convert } from './convert.svg';
 export { ReactComponent as close } from './close.svg';
 export { ReactComponent as open } from './open.svg';
 export { ReactComponent as copy } from './copy.svg';
@@ -28,7 +29,6 @@ export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
 export { ReactComponent as wallet } from './wallet.svg';
 export { ReactComponent as check } from './check.svg';
 export { ReactComponent as arrowShaft } from './arrowShaft.svg';
-export { ReactComponent as convert } from './convert.svg';
 
 // Coin icons
 export { ReactComponent as aave } from './coins/aave.svg';
