@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { repayNonBnb, IRepayNonBnbInput, RepayBnbOutput } from 'clients/api';
+import { repayNonBnbVToken, IRepayNonBnbVTokenInput, RepayBnbOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { VTokenId } from 'types';
 import { useVTokenContract } from 'clients/contracts/hooks';
@@ -8,10 +8,10 @@ import { useVTokenContract } from 'clients/contracts/hooks';
 type Options = MutationObserverOptions<
   RepayBnbOutput,
   Error,
-  Omit<IRepayNonBnbInput, 'vTokenContract'>
+  Omit<IRepayNonBnbVTokenInput, 'vTokenContract'>
 >;
 
-const useRepayNonBnb = (
+const useRepayNonBnbVToken = (
   { vTokenId }: { vTokenId: Exclude<VTokenId, 'bnb'> },
   options?: Options,
 ) => {
@@ -21,7 +21,7 @@ const useRepayNonBnb = (
   return useMutation(
     FunctionKey.REPAY_NON_BNB,
     params =>
-      repayNonBnb({
+      repayNonBnbVToken({
         vTokenContract,
         ...params,
       }),
@@ -29,4 +29,4 @@ const useRepayNonBnb = (
   );
 };
 
-export default useRepayNonBnb;
+export default useRepayNonBnbVToken;

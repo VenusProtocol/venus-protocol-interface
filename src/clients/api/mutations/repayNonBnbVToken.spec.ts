@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js';
 import { VTokenContract } from 'clients/contracts/types';
 import fakeAddress from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import repayNonBnb from './repayNonBnb';
+import repayNonBnbVToken from './repayNonBnbVToken';
 
-describe('api/mutation/repayNonBnb', () => {
+describe('api/mutation/repayNonBnbVToken', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -18,7 +18,7 @@ describe('api/mutation/repayNonBnb', () => {
     } as unknown as VTokenContract<'xvs'>;
 
     try {
-      await repayNonBnb({
+      await repayNonBnbVToken({
         vTokenContract: fakeContract,
         amountWei: new BigNumber('10000000000000000'),
         fromAccountAddress: fakeAddress,
@@ -44,7 +44,7 @@ describe('api/mutation/repayNonBnb', () => {
       },
     } as unknown as VTokenContract<'xvs'>;
 
-    const response = await repayNonBnb({
+    const response = await repayNonBnbVToken({
       vTokenContract: fakeContract,
       amountWei: fakeAmountWei,
       fromAccountAddress: fakeAddress,

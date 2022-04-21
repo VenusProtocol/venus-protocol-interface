@@ -6,7 +6,7 @@ import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<RepayBnbOutput, Error, Omit<IRepayBnbInput, 'web3'>>;
 
-const useRepayNonBnb = (options?: Options) => {
+const useRepayNonBnbVToken = (options?: Options) => {
   const web3 = useWeb3();
 
   // @TODO: invalidate queries related to fetching borrow balance
@@ -21,4 +21,4 @@ const useRepayNonBnb = (options?: Options) => {
   );
 };
 
-export default useRepayNonBnb;
+export default useRepayNonBnbVToken;
