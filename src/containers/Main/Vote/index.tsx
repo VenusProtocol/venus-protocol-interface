@@ -140,6 +140,7 @@ function Vote({ getProposals }: VoteProps) {
       vaiUnitrollerContract.methods.venusVAIState().call(),
       comptrollerContract.methods.mintedVAIs(myAddress).call(),
     ]);
+
     let vaiMinterIndex = await Promise.resolve(
       vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call(),
     );
