@@ -29,16 +29,6 @@ export const styles = () => {
         margin-bottom: ${theme.spacing(6)};
       }
     `,
-    headerTitle: css`
-      flex: 0 1 auto;
-      margin-right: auto;
-      padding-right: ${theme.spacing(4)};
-
-      ${theme.breakpoints.down('sm')} {
-        width: 100%;
-        margin-bottom: ${theme.spacing(6)};
-      }
-    `,
     getButton: ({
       active,
       last,

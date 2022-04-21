@@ -15,13 +15,14 @@ const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const tabsContent = [
+    { title: t('mintRepayVai.tabMint'), content: <MintVai /> },
+    { title: t('mintRepayVai.tabRepay'), content: <RepayVai /> },
+  ];
+
   return (
     <div className={className} css={styles.container}>
-      <Tabs
-        componentTitle={t('mintRepayVai.title')}
-        tabTitles={[t('mintRepayVai.tabMint'), t('mintRepayVai.tabRepay')]}
-        tabsContent={[<MintVai />, <RepayVai />]}
-      />
+      <Tabs componentTitle={t('mintRepayVai.title')} tabsContent={tabsContent} />
     </div>
   );
 };

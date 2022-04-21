@@ -4,9 +4,13 @@ import React, { ReactElement, useState } from 'react';
 import { TertiaryButton } from '../Button';
 import useStyles from './styles';
 
+type Tab = {
+  title: string;
+  content: ReactElement;
+};
+
 export interface ITabsProps {
-  tabTitles: string[];
-  tabsContent: ReactElement[];
+  tabsContent: Tab[];
   componentTitle?: string;
   initialActiveTabIndex?: number;
   onTabChange?: (newIndex: number) => void;
@@ -14,11 +18,10 @@ export interface ITabsProps {
 }
 
 export const Tabs = ({
-  tabTitles,
+  tabsContent,
   initialActiveTabIndex = 0,
   onTabChange,
   className,
-  tabsContent,
   componentTitle,
 }: ITabsProps) => {
   const styles = useStyles();
@@ -45,21 +48,21 @@ export const Tabs = ({
             <h4>{componentTitle}</h4>
           </div>
         )}
-        {tabTitles.map((tabTitle, index) => (
+        {tabsContent.map(({ title }, index) => (
           <TertiaryButton
-            key={tabTitle}
+            key={title}
             onClick={() => handleChange(index)}
             css={styles.getButton({
               active: index === activeTabIndex,
-              last: index === tabTitles.length - 1,
+              last: index === title.length - 1,
               fullWidth: !componentTitle,
             })}
           >
-            {tabTitle}
+            {title}
           </TertiaryButton>
         ))}
       </div>
-      {tabsContent[activeTabIndex]}
+      {tabsContent[activeTabIndex].content}
     </>
   );
 };

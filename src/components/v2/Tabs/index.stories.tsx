@@ -9,27 +9,15 @@ export default {
   decorators: [withCenterStory({ width: 650 })],
 } as ComponentMeta<typeof Tabs>;
 
-export const Default = () => (
-  <Tabs
-    tabTitles={['Borrow', 'Repay']}
-    tabsContent={[<>first tab content</>, <>second tab content</>]}
-  />
-);
+const tabsContent = [
+  { title: 'Borrow', content: <>first tab content</> },
+  { title: 'Repay', content: <>second tab content</> },
+];
 
-export const WithTitle = () => (
-  <Tabs
-    componentTitle="Title"
-    tabTitles={['Borrow', 'Repay']}
-    tabsContent={[<>first tab content</>, <>second tab content</>]}
-  />
-);
+export const Default = () => <Tabs tabsContent={tabsContent} />;
 
-export const WithTitle = () => <Tabs componentTitle="Title" tabTitles={['Borrow', 'Repay']} />;
+export const WithTitle = () => <Tabs componentTitle="Title" tabsContent={tabsContent} />;
 
-export const WithChildren = () => (
-  <Tabs
-    fullWidth
-    tabTitles={['Borrow', 'Repay']}
-    tabsContent={[<>first tab content</>, <>second tab content</>]}
-  />
+export const WithInitialSecondTabActive = () => (
+  <Tabs initialActiveTabIndex={1} componentTitle="Title" tabsContent={tabsContent} />
 );
