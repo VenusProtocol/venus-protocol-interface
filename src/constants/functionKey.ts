@@ -25,6 +25,7 @@ enum FunctionKey {
   REDEEM = 'REDEEM',
   REDEEM_UNDERLYING = 'REDEEM_UNDERLYING',
   CLAIM_XVS_REWARD = 'CLAIM_XVS_REWARD',
+  REPAY_BORROW = 'REPAY_BORROW',
 }
 
 export default FunctionKey;

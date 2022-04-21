@@ -40,6 +40,9 @@ export * from './mutations/redeem';
 export { default as useRedeem } from './mutations/useRedeem';
 export * from './mutations/useRedeem';
 
+export { default as repay } from './mutations/repayNonBnb';
+export * from './mutations/repayNonBnb';
+
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
