@@ -31,6 +31,8 @@ const useClaimXvsReward = (options?: Options) => {
       ...options,
       onSuccess: (...onSuccessParams) => {
         // Trigger refetch of XVS reward
+        queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
+        queryClient.invalidateQueries(FunctionKey.GET_VENUS_ACCRUED);
         queryClient.invalidateQueries(FunctionKey.GET_XVS_REWARD);
 
         if (options?.onSuccess) {
