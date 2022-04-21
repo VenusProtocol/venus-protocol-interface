@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
 
+import fakeAddress from '__mocks__/models/address';
+import transactionReceipt from '__mocks__/models/transactionReceipt';
 import { VBep20 } from 'types/contracts';
 import repayNonBnb from './repayNonBnb';
 
@@ -19,7 +21,7 @@ describe('api/mutation/repayNonBnb', () => {
       await repayNonBnb({
         vTokenContract: fakeContract,
         amountWei: new BigNumber('10000000000000000'),
-        fromAccountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+        fromAccountAddress: fakeAddress,
       });
 
       throw new Error('repay should have thrown an error but did not');
@@ -28,11 +30,10 @@ describe('api/mutation/repayNonBnb', () => {
     }
   });
 
-  test('returns undefined when request succeeds', async () => {
+  test('returns transaction receipt when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
-    const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
-    const sendMock = jest.fn(async () => undefined);
+    const sendMock = jest.fn(async () => transactionReceipt);
     const repayBorrowMock = jest.fn(() => ({
       send: sendMock,
     }));
@@ -46,13 +47,13 @@ describe('api/mutation/repayNonBnb', () => {
     const response = await repayNonBnb({
       vTokenContract: fakeContract,
       amountWei: fakeAmountWei,
-      fromAccountAddress: fakeFromAccountsAddress,
+      fromAccountAddress: fakeAddress,
     });
 
-    expect(response).toBe(undefined);
+    expect(response).toBe(transactionReceipt);
     expect(repayBorrowMock).toHaveBeenCalledTimes(1);
     expect(repayBorrowMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
+    expect(sendMock).toHaveBeenCalledWith({ from: fakeAddress });
   });
 });
