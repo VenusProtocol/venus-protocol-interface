@@ -1,6 +1,6 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import { assetData } from '__mocks__/models/asset';
 import renderComponent from 'testUtils/renderComponent';
 import { AuthContext } from 'context/AuthContext';
@@ -17,7 +17,7 @@ const fakeGetVTokenBalance = new BigNumber('111');
 
 jest.mock('clients/api');
 
-describe('components/SupplyWithdrawUi', () => {
+describe.only('components/SupplyWithdrawUi', () => {
   it('renders without crashing', async () => {
     renderComponent(<SupplyWithdraw onClose={jest.fn()} asset={asset} />);
   });
@@ -97,13 +97,18 @@ describe('components/SupplyWithdrawUi', () => {
 
     const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
     expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
-    // const disabledButton = getByRole('button', {name: /submit/i});
     const disabledButton = document.querySelector('button[type="submit"]');
     expect(disabledButton).toHaveAttribute('disabled');
   });
 
   it('calls supplyBnb when supplying BNB', async () => {
-    const bnbAsset = { ...asset, id: 'bnb' as TokenId, symbol: 'BNB', vsymbol: 'vBNB' };
+    const bnbAsset = {
+      ...asset,
+      id: 'bnb' as TokenId,
+      symbol: 'BNB',
+      vsymbol: 'vBNB',
+      walletBalance: new BigNumber('11'),
+    };
     renderComponent(
       <AuthContext.Provider
         value={{
@@ -120,7 +125,9 @@ describe('components/SupplyWithdrawUi', () => {
       </AuthContext.Provider>,
     );
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-    fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    act(() => {
+      fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    });
     const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.supply);
     fireEvent.click(sumbitButton);
@@ -128,6 +135,13 @@ describe('components/SupplyWithdrawUi', () => {
   });
 
   it('calls supplyNonBnb when supplying other token', async () => {
+    const nonBnbAsset = {
+      ...asset,
+      id: 'eth' as TokenId,
+      symbol: 'ETH',
+      vsymbol: 'vETH',
+      walletBalance: new BigNumber('11'),
+    };
     renderComponent(
       <AuthContext.Provider
         value={{
@@ -140,11 +154,13 @@ describe('components/SupplyWithdrawUi', () => {
           },
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={nonBnbAsset} />
       </AuthContext.Provider>,
     );
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-    fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    act(() => {
+      fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    });
     const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.supply);
     fireEvent.click(sumbitButton);
@@ -172,8 +188,12 @@ describe('components/SupplyWithdrawUi', () => {
     const withdrawButton = await waitFor(() => getByText(en.supplyWithdraw.withdraw));
     fireEvent.click(withdrawButton);
     const maxButton = await waitFor(() => getByText(en.supplyWithdraw.max.toUpperCase()));
-    fireEvent.click(maxButton);
-    const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    act(() => {
+      fireEvent.click(maxButton);
+    });
+    const sumbitButton = await waitFor(
+      () => document.querySelector('button[type="submit"]') as HTMLButtonElement,
+    );
     await waitFor(() => expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
     fireEvent.click(sumbitButton);
     await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amount: fakeGetVTokenBalance }));
@@ -198,7 +218,9 @@ describe('components/SupplyWithdrawUi', () => {
     const withdrawButton = getByText(en.supplyWithdraw.withdraw);
     fireEvent.click(withdrawButton);
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-    fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    act(() => {
+      fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    });
     const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.withdraw);
     fireEvent.click(sumbitButton);

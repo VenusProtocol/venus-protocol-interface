@@ -144,6 +144,14 @@
     "supplyBalanceValue": "{{amount}} {{symbol}}",
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
+    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>",
+    "withdrawError": {
+      "description": "There was an error withdrawing {{symbol}}. Please try again later",
+      "title": "Withdrawl Error"
+    },
+    "supplyError": {
+      "description": "There was an error supplying {{symbol}}. Please try again later",
+      "title": "Supply Error"
+    }
   }
 }

@@ -9,7 +9,7 @@ import FunctionKey from 'constants/functionKey';
 export type SupplyBnbParams = Omit<ISupplyBnbInput, 'tokenContract' | 'account' | 'web3'>;
 
 const useSupplyBnb = (
-  { account }: { account: string | undefined },
+  { account }: { account: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<SupplyBnbOutput, Error, SupplyBnbParams>,
 ) => {

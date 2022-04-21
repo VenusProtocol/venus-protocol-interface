@@ -1,6 +1,6 @@
 export interface IRedeemUnderlyingInput {
   tokenContract: $TSFixMe; // @TODO: use contract type once defined (Typechain?)
-  account: string | undefined;
+  account: string;
   amount: string;
 }
 

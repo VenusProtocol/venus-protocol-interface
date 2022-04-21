@@ -6,7 +6,7 @@ import { getVBepToken } from 'utilities';
 export interface ISupplyBnbInput {
   tokenContract: VBnbToken;
   web3: Web3;
-  account: string | undefined;
+  account: string;
   amount: string;
 }
 

@@ -11,7 +11,6 @@ import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactio
 import { init as initTranslationLibrary } from 'translation';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
-import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 
@@ -34,27 +33,25 @@ const renderComponent = (children: any) => {
         <QueryClientProvider client={queryClient}>
           <RefreshContextProvider>
             <VaiContextProvider>
-              <MarketContextProvider>
-                <MuiThemeProvider>
-                  <AuthProvider>
-                    <SuccessfulTransactionModalProvider>
-                      <BrowserRouter>
-                        <ToastContainer
-                          autoClose={8000}
-                          transition={Slide}
-                          hideProgressBar
-                          newestOnTop
-                          position={toast.POSITION.TOP_LEFT}
-                        />
+              <MuiThemeProvider>
+                <AuthProvider>
+                  <SuccessfulTransactionModalProvider>
+                    <BrowserRouter>
+                      <ToastContainer
+                        autoClose={8000}
+                        transition={Slide}
+                        hideProgressBar
+                        newestOnTop
+                        position={toast.POSITION.TOP_LEFT}
+                      />
 
-                        <Switch>
-                          <Route path="/" component={() => children} />
-                        </Switch>
-                      </BrowserRouter>
-                    </SuccessfulTransactionModalProvider>
-                  </AuthProvider>
-                </MuiThemeProvider>
-              </MarketContextProvider>
+                      <Switch>
+                        <Route path="/" component={() => children} />
+                      </Switch>
+                    </BrowserRouter>
+                  </SuccessfulTransactionModalProvider>
+                </AuthProvider>
+              </MuiThemeProvider>
             </VaiContextProvider>
           </RefreshContextProvider>
         </QueryClientProvider>

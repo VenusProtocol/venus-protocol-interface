@@ -38,7 +38,8 @@ DisconnectedSupply.args = {
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
   dailyEarnings: new BigNumber('238'),
-  isTransactionLoading: false,
+  isSupplyLoading: false,
+  isWithdrawLoading: false,
 };
 
 export const DisabledSupply = Template.bind({});
@@ -49,8 +50,10 @@ DisabledSupply.args = {
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
   dailyEarnings: new BigNumber('238'),
-  supply: noop,
-  isTransactionLoading: false,
+  onSubmitSupply: noop,
+  onSubmitWithdraw: noop,
+  isSupplyLoading: false,
+  isWithdrawLoading: false,
 };
 
 export const Supply = Template.bind({});
@@ -61,6 +64,8 @@ Supply.args = {
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
   dailyEarnings: new BigNumber('238'),
-  supply: noop,
-  isTransactionLoading: false,
+  onSubmitSupply: noop,
+  onSubmitWithdraw: noop,
+  isSupplyLoading: false,
+  isWithdrawLoading: false,
 };

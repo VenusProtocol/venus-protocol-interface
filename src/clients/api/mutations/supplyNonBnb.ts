@@ -1,19 +1,19 @@
 import type { TransactionReceipt } from 'web3-core';
 import { VBep20 } from 'types/contracts';
 
-export interface ISupplyInput {
+export interface ISupplyNonBnbInput {
   tokenContract: VBep20;
-  account: string | undefined;
+  account: string;
   amount: string;
 }
 
-export type SupplyOutput = void | TransactionReceipt;
+export type SupplyNonBnbOutput = void | TransactionReceipt;
 
 const supplyNonBnb = async ({
   tokenContract,
   account,
   amount,
-}: ISupplyInput): Promise<SupplyOutput> =>
+}: ISupplyNonBnbInput): Promise<SupplyNonBnbOutput> =>
   tokenContract.methods.mint(amount).send({ from: account });
 
 export default supplyNonBnb;
