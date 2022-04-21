@@ -16,13 +16,13 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenBorrowBalance = (
-  { accountAddress, tokenId }: { accountAddress: string; tokenId: VTokenId },
+  { accountAddress, vTokenId }: { accountAddress: string; vTokenId: VTokenId },
   options?: Options,
 ) => {
-  const vTokenContract = useVTokenContract(tokenId);
+  const vTokenContract = useVTokenContract(vTokenId);
 
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_BORROW_BALANCE, tokenId],
+    [FunctionKey.GET_V_TOKEN_BORROW_BALANCE, vTokenId],
     () => getVTokenBorrowBalance({ accountAddress, vTokenContract }),
     options,
   );

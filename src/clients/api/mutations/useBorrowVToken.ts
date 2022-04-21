@@ -1,27 +1,24 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { repayNonBnb, IRepayNonBnbInput, RepayBnbOutput } from 'clients/api';
+import { borrowVToken, IBorrowVTokenInput, BorrowVTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { VTokenId } from 'types';
 import { useVTokenContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
-  RepayBnbOutput,
+  BorrowVTokenOutput,
   Error,
-  Omit<IRepayNonBnbInput, 'vTokenContract'>
+  Omit<IBorrowVTokenInput, 'vTokenContract'>
 >;
 
-const useRepayNonBnb = (
-  { vTokenId }: { vTokenId: Exclude<VTokenId, 'bnb'> },
-  options?: Options,
-) => {
+const useBorrowVToken = ({ vTokenId }: { vTokenId: VTokenId }, options?: Options) => {
   const vTokenContract = useVTokenContract(vTokenId);
 
   // @TODO: invalidate queries related to fetching borrow balance
   return useMutation(
-    FunctionKey.REPAY_NON_BNB,
+    FunctionKey.BORROW_V_TOKEN,
     params =>
-      repayNonBnb({
+      borrowVToken({
         vTokenContract,
         ...params,
       }),
@@ -29,4 +26,4 @@ const useRepayNonBnb = (
   );
 };
 
-export default useRepayNonBnb;
+export default useBorrowVToken;

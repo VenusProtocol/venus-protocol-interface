@@ -1,15 +1,14 @@
 import BigNumber from 'bignumber.js';
 
+import address from '__mocks__/models/address';
 import { VTokenContract } from 'clients/contracts/types';
-import fakeAddress from '__mocks__/models/address';
-import transactionReceipt from '__mocks__/models/transactionReceipt';
-import repayNonBnb from './repayNonBnb';
+import borrowVToken from './borrowVToken';
 
-describe('api/mutation/repayNonBnb', () => {
+describe('api/mutation/borrowVToken', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
-        repayBorrow: () => ({
+        borrow: () => ({
           send: async () => {
             throw new Error('Fake error message');
           },
@@ -18,13 +17,13 @@ describe('api/mutation/repayNonBnb', () => {
     } as unknown as VTokenContract<'xvs'>;
 
     try {
-      await repayNonBnb({
+      await borrowVToken({
         vTokenContract: fakeContract,
         amountWei: new BigNumber('10000000000000000'),
-        fromAccountAddress: fakeAddress,
+        fromAccountAddress: address,
       });
 
-      throw new Error('repay should have thrown an error but did not');
+      throw new Error('borrowVToken should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -33,27 +32,27 @@ describe('api/mutation/repayNonBnb', () => {
   test('returns transaction receipt when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
 
-    const sendMock = jest.fn(async () => transactionReceipt);
-    const repayBorrowMock = jest.fn(() => ({
+    const sendMock = jest.fn(async () => undefined);
+    const borrowMock = jest.fn(() => ({
       send: sendMock,
     }));
 
     const fakeContract = {
       methods: {
-        repayBorrow: repayBorrowMock,
+        borrow: borrowMock,
       },
     } as unknown as VTokenContract<'xvs'>;
 
-    const response = await repayNonBnb({
+    const response = await borrowVToken({
       vTokenContract: fakeContract,
       amountWei: fakeAmountWei,
-      fromAccountAddress: fakeAddress,
+      fromAccountAddress: address,
     });
 
-    expect(response).toBe(transactionReceipt);
-    expect(repayBorrowMock).toHaveBeenCalledTimes(1);
-    expect(repayBorrowMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+    expect(response).toBe(undefined);
+    expect(borrowMock).toHaveBeenCalledTimes(1);
+    expect(borrowMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: fakeAddress });
+    expect(sendMock).toHaveBeenCalledWith({ from: address });
   });
 });

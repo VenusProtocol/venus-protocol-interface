@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { VBep20 } from 'types/contracts';
+import { VTokenId } from 'types';
+import { VTokenContract } from 'clients/contracts/types';
 
 export interface IRepayNonBnbInput {
-  vTokenContract: VBep20;
+  vTokenContract: VTokenContract<Exclude<VTokenId, 'bnb'>>;
   fromAccountAddress: string;
   amountWei: BigNumber;
 }
