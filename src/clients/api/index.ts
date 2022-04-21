@@ -38,6 +38,10 @@ export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
 
+export { default as claimXvsReward } from './mutations/claimXvsReward';
+export * from './mutations/claimXvsReward';
+export { default as useClaimXvsReward } from './mutations/useClaimXvsReward';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
@@ -62,3 +66,23 @@ export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalanc
 export { default as getBalanceOf } from './queries/getVTokenBalance';
 export * from './queries/getVTokenBalance';
 export { default as useGetBalanceOf } from './queries/useGetVTokenBalancef';
+
+export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
+export * from './queries/getVenusInitialIndex';
+export { default as useGetVenusInitialIndex } from './queries/useGetVenusInitialIndex';
+
+export { default as getVenusAccrued } from './queries/getVenusAccrued';
+export * from './queries/getVenusAccrued';
+export { default as useGetVenusAccrued } from './queries/useGetVenusAccrued';
+
+export { default as getVenusVaiState } from './queries/getVenusVaiState';
+export * from './queries/getVenusVaiState';
+export { default as useGetVenusVaiState } from './queries/useGetVenusVaiState';
+
+export { default as getMintedVai } from './queries/getMintedVai';
+export * from './queries/getMintedVai';
+export { default as useGetMintedVai } from './queries/useGetMintedVai';
+
+export { default as getVenusVaiMinterIndex } from './queries/getVenusVaiMinterIndex';
+export * from './queries/getVenusVaiMinterIndex';
+export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMinterIndex';
