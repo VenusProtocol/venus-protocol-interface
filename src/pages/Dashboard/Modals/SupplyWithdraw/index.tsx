@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import {
   ConnectWallet,
@@ -42,21 +42,10 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
   dailyEarnings,
 }) => {
   const styles = useStyles();
-  const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
 
   const { id: assetId, isEnabled, symbol } = asset || {};
   const { t } = useTranslation();
-  const TAB_TEXT_KEYS = [
-    {
-      connect: t('supplyWithdraw.connectWalletToSupply'),
-      enable: t('supplyWithdraw.enableToSupply', { symbol }),
-    },
-    {
-      connect: t('supplyWithdraw.connectWalletToWithdraw'),
-      enable: t('supplyWithdraw.enableToWithdraw', { symbol }),
-    },
-  ];
-  const activeTabTextKeys = TAB_TEXT_KEYS[activeTabIndex];
+
   const tokenInfo: ILabeledInlineContentProps[] = asset
     ? [
         {
@@ -78,65 +67,94 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps> = ({
   const calculateNewSupplyAmount = (amount: BigNumber) => userTotalBorrowLimit.plus(amount);
   const calculateNewBorrowAmount = (amount: BigNumber) => userTotalBorrowLimit.minus(amount);
 
+  const renderTabContent = ({
+    message,
+    title,
+    key,
+    inputLabel,
+    enabledButtonKey,
+    disabledButtonKey,
+    maxInputKey,
+    calculateNewBalance,
+  }: {
+    message: string;
+    title: string;
+    key: string;
+    inputLabel: string;
+    enabledButtonKey: string;
+    disabledButtonKey: string;
+    maxInputKey: 'walletBalance' | 'supplyBalance';
+    calculateNewBalance: (amount: BigNumber) => BigNumber;
+  }) => (
+    <div className={className} css={styles.container}>
+      <ConnectWallet message={message}>
+        {asset && (
+          <EnableToken
+            symbol={assetId as TokenId}
+            title={title}
+            tokenInfo={tokenInfo}
+            isEnabled={!!isEnabled}
+            vtokenAddress={asset.vtokenAddress}
+          >
+            <SupplyWithdrawForm
+              key={key}
+              asset={asset}
+              tokenInfo={tokenInfo}
+              userTotalBorrowBalance={userTotalBorrowBalance}
+              userTotalBorrowLimit={userTotalBorrowLimit}
+              dailyEarnings={dailyEarnings}
+              onSubmit={onSubmit}
+              inputLabel={inputLabel}
+              enabledButtonKey={enabledButtonKey}
+              disabledButtonKey={disabledButtonKey}
+              maxInput={asset[maxInputKey]}
+              calculateNewBalance={calculateNewBalance}
+            />
+          </EnableToken>
+        )}
+      </ConnectWallet>
+    </div>
+  );
+
+  const tabsContent = useMemo(
+    () => [
+      {
+        title: t('supplyWithdraw.supply'),
+        content: renderTabContent({
+          message: t('supplyWithdraw.connectWalletToSupply'),
+          title: t('supplyWithdraw.enableToSupply', { symbol }),
+          key: 'supply',
+          inputLabel: t('supplyWithdraw.walletBalance'),
+          enabledButtonKey: t('supplyWithdraw.supply'),
+          disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
+          maxInputKey: 'walletBalance',
+          calculateNewBalance: calculateNewSupplyAmount,
+        }),
+      },
+      {
+        title: t('supplyWithdraw.withdraw'),
+        content: renderTabContent({
+          message: t('supplyWithdraw.connectWalletToWithdraw'),
+          title: t('supplyWithdraw.enableToWithdraw', { symbol }),
+          key: 'withdraw',
+          inputLabel: t('supplyWithdraw.withdrawableAmount'),
+          enabledButtonKey: t('supplyWithdraw.withdraw'),
+          disabledButtonKey: t('supplyWithdraw.enterValidAmountWithdraw'),
+          maxInputKey: 'supplyBalance',
+          calculateNewBalance: calculateNewBorrowAmount,
+        }),
+      },
+    ],
+    [],
+  );
+
   return (
     <Modal
       isOpened={!!assetId}
       handleClose={onClose}
       title={assetId ? <Token symbol={assetId as TokenId} variant="h4" /> : undefined}
     >
-      <>
-        <Tabs
-          tabTitles={[t('supplyWithdraw.supply'), t('supplyWithdraw.withdraw')]}
-          onTabChange={setActiveTabIndex}
-          fullWidth
-        />
-        <div className={className} css={styles.container}>
-          <ConnectWallet message={activeTabTextKeys.connect}>
-            {asset && (
-              <EnableToken
-                symbol={assetId as TokenId}
-                title={activeTabTextKeys.enable}
-                tokenInfo={tokenInfo}
-                isEnabled={!!isEnabled}
-                vtokenAddress={asset.vtokenAddress}
-              >
-                {
-                  [
-                    <SupplyWithdrawForm
-                      key="supply"
-                      asset={asset}
-                      tokenInfo={tokenInfo}
-                      userTotalBorrowBalance={userTotalBorrowBalance}
-                      userTotalBorrowLimit={userTotalBorrowLimit}
-                      dailyEarnings={dailyEarnings}
-                      onSubmit={onSubmit}
-                      inputLabel={t('supplyWithdraw.walletBalance')}
-                      enabledButtonKey={t('supplyWithdraw.supply')}
-                      disabledButtonKey={t('supplyWithdraw.enterValidAmountSupply')}
-                      maxInput={asset.walletBalance}
-                      calculateNewBalance={calculateNewSupplyAmount}
-                    />,
-                    <SupplyWithdrawForm
-                      key="withdraw"
-                      asset={asset}
-                      tokenInfo={tokenInfo}
-                      userTotalBorrowBalance={userTotalBorrowBalance}
-                      userTotalBorrowLimit={userTotalBorrowLimit}
-                      dailyEarnings={dailyEarnings}
-                      onSubmit={onSubmit}
-                      inputLabel={t('supplyWithdraw.withdrawableAmount')}
-                      enabledButtonKey={t('supplyWithdraw.withdraw')}
-                      disabledButtonKey={t('supplyWithdraw.enterValidAmountWithdraw')}
-                      maxInput={asset.supplyBalance}
-                      calculateNewBalance={calculateNewBorrowAmount}
-                    />,
-                  ][activeTabIndex]
-                }
-              </EnableToken>
-            )}
-          </ConnectWallet>
-        </div>
-      </>
+      <Tabs tabsContent={tabsContent} />
     </Modal>
   );
 };
