@@ -99,7 +99,7 @@ export const SupplyWithdrawContent: React.FC<
         <Trans
           i18nKey={inputLabel}
           components={{
-            white: <Typography component="span" variant="small1" css={styles.whiteLabel} />,
+            White: <Typography component="span" variant="small1" css={styles.whiteLabel} />,
           }}
           values={{ amount: format(maxInput), symbol: assetId?.toUpperCase() }}
         />
@@ -126,7 +126,7 @@ export const SupplyWithdrawContent: React.FC<
               <Trans
                 i18nKey="supplyWithdraw.currentAmount"
                 components={{
-                  white: <Typography component="span" variant="body1" css={styles.whiteLabel} />,
+                  White: <Typography component="span" variant="body1" css={styles.whiteLabel} />,
                 }}
                 values={{ amount: currencyFormatter(userTotalBorrowBalance) }}
               />
@@ -142,7 +142,7 @@ export const SupplyWithdrawContent: React.FC<
               <Trans
                 i18nKey="supplyWithdraw.maxAmount"
                 components={{
-                  white: <Typography component="span" variant="body1" css={styles.whiteLabel} />,
+                  White: <Typography component="span" variant="body1" css={styles.whiteLabel} />,
                 }}
                 values={{ amount: currencyFormatter(userTotalBorrowLimit) }}
               />

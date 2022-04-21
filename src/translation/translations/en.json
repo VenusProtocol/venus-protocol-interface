@@ -9,7 +9,7 @@
     },
     "walletList": {
       "comingSoon": "Coming soon",
-      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <anchor>Terms of Service<anchor>."
+      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>."
     }
   },
   "bscLink": {
@@ -120,7 +120,7 @@
     "borrowLimit": "Borrow limit",
     "connectWalletToSupply": "Please connect your wallet to supply",
     "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-    "currentAmount": "Current: <white>{{amount}}<white>",
+    "currentAmount": "Current: <White>{{amount}}</White>",
     "currentBorrowBalance": "Current borrow balance: {{amount}} ({{percent}}%)",
     "dailyEarnings": "Daily Earnings",
     "distributionApy": "Distribution APY",
@@ -129,7 +129,7 @@
     "enterValidAmountSupply": "Enter a valid amount to supply",
     "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
     "max": "Max",
-    "maxAmount": "Max: <white>{{amount}}<white>",
+    "maxAmount": "Max: <White>{{amount}}</White>",
     "maxBorrowTooltip": "Max borrow limit: {{amount }} (100%)",
     "progressBarAria": "borrow balance progress bar",
     "safeBorrowLimit": "Safe borrow limit: {{amount}} (80%)",
@@ -137,8 +137,8 @@
     "supplyApy": "Supply APY",
     "supplyBalance": "Supply Balance",
     "supplyBalanceValue": "{{amount}} {{symbol}}",
-    "walletBalance": "Wallet balance: <white>{{amount}} {{symbol}}<white>",
+    "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount: <white>{{amount}} {{symbol}}<white>"
+    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
   }
 }
