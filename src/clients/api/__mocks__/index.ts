@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 
@@ -40,22 +40,30 @@ export const getVenusVaiMinterIndex = jest.fn();
 export const useGetVenusVaiMinterIndex = () =>
   useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getMintedVai);
 
+export const getXvsReward = jest.fn();
+export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);
+
 // Mutations
 export const requestFaucetFunds = jest.fn();
-export const useRequestFaucetFunds = () =>
-  useMutation(FunctionKey.REQUEST_FAUCET_FUNDS, requestFaucetFunds);
+export const useRequestFaucetFunds = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.REQUEST_FAUCET_FUNDS, requestFaucetFunds, options);
 
 export const mintVai = jest.fn();
-export const useMintVai = () => useMutation(FunctionKey.MINT_VAI, mintVai);
+export const useMintVai = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.MINT_VAI, mintVai, options);
 
 export const repayVai = jest.fn();
-export const useRepayVai = () => useMutation(FunctionKey.REPAY_VAI, repayVai);
+export const useRepayVai = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.REPAY_VAI, repayVai, options);
 
 export const enterMarkets = jest.fn();
-export const useEnterMarkets = () => useMutation(FunctionKey.ENTER_MARKETS, enterMarkets);
+export const useEnterMarkets = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.ENTER_MARKETS, enterMarkets, options);
 
 export const exitMarket = jest.fn();
-export const useExitMarket = () => useMutation(FunctionKey.EXIT_MARKET, exitMarket);
+export const useExitMarket = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.EXIT_MARKET, exitMarket, options);
 
 export const claimXvsReward = jest.fn();
-export const useClaimXvsReward = () => useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward);
+export const useClaimXvsReward = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward, options);
