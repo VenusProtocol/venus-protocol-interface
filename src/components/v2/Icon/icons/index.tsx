@@ -28,6 +28,7 @@ export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
 export { ReactComponent as wallet } from './wallet.svg';
 export { ReactComponent as check } from './check.svg';
 export { ReactComponent as arrowShaft } from './arrowShaft.svg';
+export { ReactComponent as convert } from './convert.svg';
 
 // Coin icons
 export { ReactComponent as aave } from './coins/aave.svg';
