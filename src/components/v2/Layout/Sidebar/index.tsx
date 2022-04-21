@@ -84,7 +84,6 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
           id="account-menu"
           open={open}
           onClose={closeMenu}
-          onClick={closeMenu}
           transitionDuration={0}
           marginThreshold={0}
           TransitionProps={{ style: { transition: 'background 0.2s linear' } }}
@@ -107,7 +106,7 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
                 css={[styles.listItem, styles.mobileListItem]}
                 disableRipple
               >
-                <NavLink to={href} activeClassName="active-mobile-menu-item">
+                <NavLink onClick={closeMenu} to={href} activeClassName="active-mobile-menu-item">
                   <div css={styles.mobileLabel}>
                     <ListItemIcon css={styles.listItemIcon}>
                       <Icon name={icon} />
