@@ -19,7 +19,7 @@ const useRepayNonBnbVToken = (
 
   // @TODO: invalidate queries related to fetching borrow balance
   return useMutation(
-    FunctionKey.REPAY_NON_BNB,
+    FunctionKey.REPAY_NON_BNB_V_TOKEN,
     params =>
       repayNonBnbVToken({
         vTokenContract,
