@@ -11,13 +11,14 @@ import {
   ILabeledInlineContentProps,
   IconName,
 } from 'components';
+import { useGetVTokenBalance } from 'clients/api';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import useWithdraw, { UseWithdrawParams } from 'hooks/useWithdraw';
 import useSupply, { UseSupplyParams } from 'hooks/useSupply';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
+import { Asset, TokenId, VTokenId } from 'types';
 import { formatApy, getBigNumber } from 'utilities/common';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
@@ -205,11 +206,14 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
     account: account?.address,
   });
+  const { data: vTokenBalance } = useGetVTokenBalance(
+    { account: account?.address, assetId: asset.id as VTokenId },
+    { enabled: true },
+  );
   const { supply, isLoading: isSupplyLoading } = useSupply({ asset, account: account?.address });
   const {
     redeem,
     redeemUnderlying,
-    vTokenBalance,
     isLoading: isWithdrawLoading,
   } = useWithdraw({ asset, account: account?.address });
   // @TODO - use dailyEarnings util https://app.clickup.com/t/26pg8j3

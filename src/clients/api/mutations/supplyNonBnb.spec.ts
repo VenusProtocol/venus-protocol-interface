@@ -1,6 +1,6 @@
-import supply from './supply';
+import supply from './supplyNonBnb';
 
-describe('api/mutation/supply', () => {
+describe('api/mutation/supplyNonBnb', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {

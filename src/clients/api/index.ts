@@ -25,12 +25,15 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/useApproveToken';
 
-export { default as supply } from './mutations/supply';
-export * from './mutations/supply';
+export { default as supplyNonBnb } from './mutations/supplyNonBnb';
+export * from './mutations/supplyNonBnb';
+export { default as useSupplyNonBnb } from './mutations/useSupplyNonBnb';
+export * from './mutations/useSupplyNonBnb';
+
+export { default as supplyBnb } from './mutations/supplyBnb';
 export * from './mutations/supplyBnb';
-export { default as useSupply } from './mutations/useSupply';
 export { default as useSupplyBnb } from './mutations/useSupplyBnb';
-export * from './mutations/useSupply';
+export * from './mutations/useSupplyBnb';
 
 export { default as redeem } from './mutations/redeem';
 export * from './mutations/redeem';
@@ -67,7 +70,7 @@ export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalanc
 
 export { default as getVTokenBalance } from './queries/getVTokenBalance';
 export * from './queries/getVTokenBalance';
-export { default as useGetVTokenBalance } from './queries/useGetVTokenBalancef';
+export { default as useGetVTokenBalance } from './queries/useGetVTokenBalance';
 
 export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
 export * from './queries/getVenusInitialIndex';
@@ -92,5 +95,3 @@ export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMi
 export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
 export { default as useGetXvsReward } from './queries/useGetXvsReward';
-
-

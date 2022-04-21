@@ -2,7 +2,7 @@ import { useMutation, MutationObserverOptions } from 'react-query';
 import { VBep20 } from 'types/contracts';
 import { VTokenId } from 'types';
 import queryClient from 'clients/api/queryClient';
-import supply, { ISupplyInput, SupplyOutput } from 'clients/api/mutations/supply';
+import supply, { ISupplyInput, SupplyOutput } from 'clients/api/mutations/supplyNonBnb';
 
 import FunctionKey from 'constants/functionKey';
 import { useVTokenContract } from 'clients/contracts/hooks';

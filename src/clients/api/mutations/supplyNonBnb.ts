@@ -9,7 +9,11 @@ export interface ISupplyInput {
 
 export type SupplyOutput = void | TransactionReceipt;
 
-const supply = async ({ tokenContract, account, amount }: ISupplyInput): Promise<SupplyOutput> =>
+const supplyNonBnb = async ({
+  tokenContract,
+  account,
+  amount,
+}: ISupplyInput): Promise<SupplyOutput> =>
   tokenContract.methods.mint(amount).send({ from: account });
 
-export default supply;
+export default supplyNonBnb;

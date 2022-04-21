@@ -1,10 +1,5 @@
 import { Asset, VTokenId } from 'types';
-import {
-  useSupply as useSupplyNonBnb,
-  useSupplyBnb,
-  ISupplyInput,
-  ISupplyBnbInput,
-} from 'clients/api';
+import { useSupplyNonBnb, useSupplyBnb, ISupplyInput, ISupplyBnbInput } from 'clients/api';
 
 interface IUseSupplyArgs {
   asset: Asset;

@@ -1,4 +1,4 @@
-import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
+import { useQuery, useQueries, useMutation, MutationObserverOptions } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 
@@ -13,7 +13,9 @@ export const useGetAssetsInAccount = () =>
 
 export const getHypotheticalAccountLiquidity = jest.fn();
 export const useGetHypotheticalLiquidityQueries = () =>
-  useQuery(FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, getHypotheticalAccountLiquidity);
+  useQueries([
+    { queryKey: FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, queryFn: getHypotheticalAccountLiquidity },
+  ]);
 
 export const getMarkets = jest.fn();
 export const useGetMarkets = () => useQuery(FunctionKey.GET_MARKETS, getMarkets);
@@ -45,7 +47,7 @@ export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvs
 
 export const getVTokenBalance = jest.fn();
 export const useGetVTokenBalance = () =>
-  useMutation(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalance);
+  useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalance);
 
 // Mutations
 export const requestFaucetFunds = jest.fn();
@@ -76,6 +78,8 @@ export const useRepayVToken = () => jest.fn();
   
 export const supply = jest.fn();
 export const useSupply = () => useMutation(FunctionKey.SUPPLY, supply);
+export const supplyNonBnb = jest.fn();
+export const useSupplyNonBnb = () => useMutation(FunctionKey.SUPPLY, supplyNonBnb);
 
 export const supplyBnb = jest.fn();
 export const useSupplyBnb = () => useMutation(FunctionKey.SUPPLY_BNB, supplyBnb);
