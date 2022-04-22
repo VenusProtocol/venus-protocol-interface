@@ -3,7 +3,7 @@ import { VBep20 } from 'types/contracts';
 
 export interface IRedeemInput {
   tokenContract: VBep20;
-  account: string | undefined;
+  account: string;
   amount: string;
 }
 
