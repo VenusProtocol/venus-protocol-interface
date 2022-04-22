@@ -27,7 +27,7 @@ const useSupplyBnb = (
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_VTOKEN_BALANCES_ALL);
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

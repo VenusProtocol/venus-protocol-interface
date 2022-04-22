@@ -40,6 +40,16 @@ export * from './mutations/redeem';
 export { default as useRedeem } from './mutations/useRedeem';
 export * from './mutations/useRedeem';
 
+export { default as repayNonBnbVToken } from './mutations/repayNonBnbVToken';
+export * from './mutations/repayNonBnbVToken';
+export { default as useRepayNonBnbVToken } from './mutations/useRepayNonBnbVToken';
+
+export { default as repayBnb } from './mutations/repayBnb';
+export * from './mutations/repayBnb';
+export { default as useRepayBnb } from './mutations/useRepayBnb';
+
+export { default as useRepayVToken } from './mutations/useRepayVToken';
+
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
@@ -48,6 +58,10 @@ export * from './mutations/useRedeemUnderlying';
 export { default as claimXvsReward } from './mutations/claimXvsReward';
 export * from './mutations/claimXvsReward';
 export { default as useClaimXvsReward } from './mutations/useClaimXvsReward';
+
+export { default as borrowVToken } from './mutations/borrowVToken';
+export * from './mutations/borrowVToken';
+export { default as useBorrowVToken } from './mutations/useBorrowVToken';
 
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
@@ -97,3 +111,7 @@ export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMi
 export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
 export { default as useGetXvsReward } from './queries/useGetXvsReward';
+
+export { default as getVTokenBorrowBalance } from './queries/getVTokenBorrowBalance';
+export * from './queries/getVTokenBorrowBalance';
+export { default as useGetVTokenBorrowBalance } from './queries/useGetVTokenBorrowBalance';
