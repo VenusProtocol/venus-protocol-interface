@@ -10,14 +10,14 @@ export interface IToggleProps {
   value: boolean;
   className?: string;
 }
-
-const label = { inputProps: { 'aria-label': 'Switch' } };
+export const switchAriaLabel = 'Switch';
+const label = { inputProps: { 'aria-label': switchAriaLabel } };
 
 export const Toggle = ({ onChange, value, className }: IToggleProps) => {
   const styles = useStyles();
   return (
     <Switch
-      className={className}
+      className={`${className} toggle`}
       css={styles}
       focusVisibleClassName=".Mui-focusVisible"
       disableRipple

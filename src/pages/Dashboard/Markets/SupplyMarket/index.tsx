@@ -2,7 +2,7 @@
 import React, { useMemo, useState } from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenId } from 'types';
-import { Token, Toggle } from 'components';
+import { switchAriaLabel, Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
@@ -90,10 +90,12 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
         ) : null,
     },
   ]);
-  const rowOnClick = (row: ITableProps['data'][number]) => {
-    const asset = assets.find((value: Asset) => value.id === row[0].value);
-    if (asset) {
-      setSelectedAsset(asset);
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
+    if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
+      const asset = assets.find((value: Asset) => value.id === row[0].value);
+      if (asset) {
+        setSelectedAsset(asset);
+      }
     }
   };
   return (
