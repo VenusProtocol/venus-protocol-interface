@@ -14,7 +14,7 @@ export const generateBscScanUrl = <T extends UrlType = 'address'>(
     suffix = getToken(identifier as TokenId).address;
   }
 
-  return `${BASE_BSC_SCAN_URL}/${urlType}/${suffix}`;
+  return `${BASE_BSC_SCAN_URL}/${urlType || 'address'}/${suffix}`;
 };
 
 export default generateBscScanUrl;

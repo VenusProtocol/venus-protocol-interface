@@ -20,7 +20,7 @@ export const BscLink: React.FC<IBscLinkProps> = ({ hash, className }) => {
     <div css={styles.container} className={className}>
       <Typography
         component="a"
-        href={generateBscScanUrl(hash)}
+        href={generateBscScanUrl(hash, 'tx')}
         target="_blank"
         rel="noreferrer"
         variant="small1"
