@@ -36,12 +36,15 @@ import {
   VrtVault,
   VrtConverter,
 } from 'types/contracts';
-import { getContractAddress, getToken, getVBepToken } from 'utilities';
+import { getContractAddress, getToken, getVBepToken, setupContractErrorHandling } from 'utilities';
 import { TokenContract, VTokenContract } from './types';
 
-const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance: Web3) => {
+const getContract = <T>(abi: AbiItem[], address: string, web3Instance: Web3) => {
   const web3 = web3Instance ?? getWeb3NoAccount();
-  return new web3.eth.Contract(abi, address) as unknown as T;
+  // @ts-expect-error There is a clash between this base class and the extended class we return
+  const Contract = setupContractErrorHandling(web3.eth.Contract);
+  const contract = new Contract(abi, address) as unknown as T;
+  return contract;
 };
 
 export const getTokenContract = <T extends TokenId>(tokenId: T, web3: Web3): TokenContract<T> => {

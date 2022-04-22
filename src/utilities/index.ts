@@ -10,3 +10,4 @@ export {
   calculateYearlyEarningsForAssets,
   calculateYearlyEarningsCents,
 } from './calculateYearlyEarnings';
+export { default as setupContractErrorHandling } from './setupContractErrorHandling';
