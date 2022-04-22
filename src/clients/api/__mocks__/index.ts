@@ -49,6 +49,10 @@ export const getVTokenBalance = jest.fn();
 export const useGetVTokenBalance = () =>
   useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalance);
 
+export const getVTokenBorrowBalance = jest.fn();
+export const useGetVTokenBorrowBalance = () =>
+  useMutation(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
+
 // Mutations
 export const requestFaucetFunds = jest.fn();
 export const useRequestFaucetFunds = (options?: MutationObserverOptions) =>
@@ -96,6 +100,3 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
-export const getVTokenBorrowBalance = jest.fn();
-export const useGetVTokenBorrowBalance = () =>
-  useMutation(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
