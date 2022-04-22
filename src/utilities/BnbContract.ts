@@ -47,7 +47,7 @@ export const sendRepay = async (
 
     const tx = {
       from,
-      to: getVBepToken('bnb'),
+      to: getVBepToken('bnb').address,
       value: amount,
       data: contractData,
     };

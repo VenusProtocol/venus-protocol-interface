@@ -184,7 +184,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     account: account?.address,
   });
   const { data: vTokenBalance } = useGetVTokenBalance(
-    { account: account?.address || '', assetId: asset.id as VTokenId },
+    { account: account?.address || '', vTokenId: asset.id as VTokenId },
     { enabled: !!account },
   );
   const { mutate: supply, isLoading: isSupplyLoading } = useSupply(

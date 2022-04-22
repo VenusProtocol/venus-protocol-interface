@@ -22,7 +22,7 @@ export const useGetMarkets = () => useQuery(FunctionKey.GET_MARKETS, getMarkets)
 
 export const getVTokenBalancesAll = jest.fn();
 export const useGetVTokenBalancesAll = () =>
-  useQuery(FunctionKey.GET_VTOKEN_BALANCES_ALL, getVTokenBalancesAll);
+  useQuery(FunctionKey.GET_V_TOKEN_BALANCES_ALL, getVTokenBalancesAll);
 
 export const getVenusInitialIndex = jest.fn();
 export const useGetVenusInitialIndex = () =>
@@ -49,6 +49,10 @@ export const getVTokenBalance = jest.fn();
 export const useGetVTokenBalance = () =>
   useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalance);
 
+export const getVTokenBorrowBalance = jest.fn();
+export const useGetVTokenBorrowBalance = () =>
+  useMutation(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
+
 // Mutations
 export const requestFaucetFunds = jest.fn();
 export const useRequestFaucetFunds = (options?: MutationObserverOptions) =>
@@ -73,6 +77,13 @@ export const useExitMarket = (options?: MutationObserverOptions) =>
 export const claimXvsReward = jest.fn();
 export const useClaimXvsReward = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward, options);
+
+export const repayBnb = jest.fn();
+export const useRepayBnb = () => useMutation(FunctionKey.REPAY_BNB, repayBnb);
+
+export const repayNonBnbVToken = jest.fn();
+export const useRepayNonBnbVToken = () =>
+  useMutation(FunctionKey.REPAY_NON_BNB_V_TOKEN, repayNonBnbVToken);
 
 export const useRepayVToken = () => jest.fn();
 
