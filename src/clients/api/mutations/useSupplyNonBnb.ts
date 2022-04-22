@@ -2,29 +2,23 @@ import { useMutation, MutationObserverOptions } from 'react-query';
 import { VBep20 } from 'types/contracts';
 import { VTokenId } from 'types';
 import queryClient from 'clients/api/queryClient';
-import redeem, { IRedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
+import supply, { ISupplyNonBnbInput, SupplyNonBnbOutput } from 'clients/api/mutations/supplyNonBnb';
 
 import FunctionKey from 'constants/functionKey';
 import { useVTokenContract } from 'clients/contracts/hooks';
 
-export interface UseRedeemParams {
-  amount: string;
-}
+export type SupplyNonBnbParams = Omit<ISupplyNonBnbInput, 'tokenContract' | 'account'>;
 
-const useRedeem = (
+const useSupply = (
   { assetId, account }: { assetId: VTokenId; account: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
-  options?: MutationObserverOptions<
-    RedeemOutput,
-    Error,
-    Omit<IRedeemInput, 'tokenContract' | 'account'>
-  >,
+  options?: MutationObserverOptions<SupplyNonBnbOutput, Error, SupplyNonBnbParams>,
 ) => {
-  const tokenContract = useVTokenContract(assetId);
+  const tokenContract = useVTokenContract<VTokenId>(assetId);
   return useMutation(
-    FunctionKey.REDEEM,
+    [FunctionKey.SUPPLY, assetId],
     params =>
-      redeem({
+      supply({
         tokenContract: tokenContract as VBep20,
         account,
         ...params,
@@ -41,4 +35,4 @@ const useRedeem = (
   );
 };
 
-export default useRedeem;
+export default useSupply;

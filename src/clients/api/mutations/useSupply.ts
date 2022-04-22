@@ -1,33 +1,41 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
-import { Bep20 } from 'types/contracts';
-import { TokenId } from 'types';
-import { queryClient, supply, ISupplyInput, SupplyOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { useTokenContract } from 'clients/contracts/hooks';
+import { MutationObserverOptions } from 'react-query';
+import { Asset, VTokenId } from 'types';
+import {
+  useSupplyNonBnb,
+  useSupplyBnb,
+  ISupplyNonBnbInput,
+  ISupplyBnbInput,
+  SupplyBnbOutput,
+  SupplyBnbParams,
+  SupplyNonBnbOutput,
+  SupplyNonBnbParams,
+} from 'clients/api';
+
+interface IUseSupplyArgs {
+  asset: Asset;
+  account: string;
+}
+
+type OptionsSupplyBnb = MutationObserverOptions<SupplyBnbOutput, Error, SupplyBnbParams>;
+type OptionsSupplyNonBnb = MutationObserverOptions<SupplyNonBnbOutput, Error, SupplyNonBnbParams>;
+
+export type UseSupplyParams =
+  | Omit<ISupplyNonBnbInput, 'tokenContract' | 'assetId' | 'account'>
+  | Omit<ISupplyBnbInput, 'tokenContract' | 'assetId' | 'account'>;
 
 const useSupply = (
-  { assetId }: { assetId: TokenId },
-  // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
-  options?: MutationObserverOptions<SupplyOutput, Error, Omit<ISupplyInput, 'tokenContract'>>,
+  { asset, account }: IUseSupplyArgs,
+  options?: OptionsSupplyBnb | OptionsSupplyNonBnb,
 ) => {
-  const tokenContract = useTokenContract<TokenId>(assetId);
-  return useMutation(
-    [FunctionKey.SUPPLY, assetId],
-    params =>
-      supply({
-        tokenContract: tokenContract as Bep20,
-        ...params,
-      }),
+  const useSupplyNonBnbResult = useSupplyNonBnb(
     {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_VTOKEN_BALANCES_ALL);
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
+      assetId: asset?.id as VTokenId,
+      account,
     },
+    options as OptionsSupplyNonBnb,
   );
+  const useSupplyBnbResult = useSupplyBnb({ account }, options as OptionsSupplyBnb);
+  return asset.id === 'bnb' ? useSupplyBnbResult : useSupplyNonBnbResult;
 };
 
 export default useSupply;
