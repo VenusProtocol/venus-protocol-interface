@@ -37,6 +37,7 @@ interface ISupplyWithdrawFormUiProps {
   disabledButtonKey: string;
   maxInput: BigNumber;
   calculateNewBalance: (amount: BigNumber) => BigNumber;
+  isTransactionLoading: boolean;
 }
 
 export const SupplyWithdrawContent: React.FC<
@@ -54,6 +55,7 @@ export const SupplyWithdrawContent: React.FC<
   enabledButtonKey,
   disabledButtonKey,
   calculateNewBalance,
+  isTransactionLoading,
 }) => {
   const { id: assetId } = asset;
   const { amount: amountString } = values;
@@ -61,10 +63,6 @@ export const SupplyWithdrawContent: React.FC<
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  // const [newBorrowLimit, setNewBorrowLimit] = useState<BigNumber | undefined>(undefined);
-  // const [newBorrowPercent, setNewBorrowPercent] = useState(
-  //   userTotalBorrowBalance.div(userTotalBorrowLimit).times(100),
-  // );
   const [newBorrowLimit, newBorrowPercent] = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
     const collateralFactor = getBigNumber(asset?.collateralFactor);
@@ -186,7 +184,7 @@ export const SupplyWithdrawContent: React.FC<
           symbol: asset.symbol,
         })}
       </LabeledInlineContent>
-      <PrimaryButton fullWidth disabled={!validAmount} type="submit">
+      <PrimaryButton fullWidth disabled={!validAmount} type="submit" loading={isTransactionLoading}>
         {validAmount ? enabledButtonKey : disabledButtonKey}
       </PrimaryButton>
     </>
