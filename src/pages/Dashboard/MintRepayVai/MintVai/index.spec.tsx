@@ -99,7 +99,6 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     expect(mintVai).toHaveBeenCalledWith({
       fromAccountAddress: fakeAccountAddress,
       amountWei: fakeWeiMinted,
-      vaiControllerContract: expect.any(Object),
     });
 
     // Check success toast is requested
