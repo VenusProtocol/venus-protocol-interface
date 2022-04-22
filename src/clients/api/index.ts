@@ -25,18 +25,25 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/useApproveToken';
 
-export { default as supply } from './mutations/supply';
-export * from './mutations/supply';
-export { default as useSupply } from './mutations/useSupply';
+export { default as supplyNonBnb } from './mutations/supplyNonBnb';
+export * from './mutations/supplyNonBnb';
+export { default as useSupplyNonBnb } from './mutations/useSupplyNonBnb';
+export * from './mutations/useSupplyNonBnb';
+
+export { default as supplyBnb } from './mutations/supplyBnb';
+export * from './mutations/supplyBnb';
 export { default as useSupplyBnb } from './mutations/useSupplyBnb';
+export * from './mutations/useSupplyBnb';
 
 export { default as redeem } from './mutations/redeem';
 export * from './mutations/redeem';
 export { default as useRedeem } from './mutations/useRedeem';
+export * from './mutations/useRedeem';
 
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
+export * from './mutations/useRedeemUnderlying';
 
 export { default as claimXvsReward } from './mutations/claimXvsReward';
 export * from './mutations/claimXvsReward';
@@ -63,9 +70,9 @@ export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll'
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalancesAll';
 
-export { default as getBalanceOf } from './queries/getVTokenBalance';
+export { default as getVTokenBalance } from './queries/getVTokenBalance';
 export * from './queries/getVTokenBalance';
-export { default as useGetBalanceOf } from './queries/useGetVTokenBalancef';
+export { default as useGetVTokenBalance } from './queries/useGetVTokenBalance';
 
 export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
 export * from './queries/getVenusInitialIndex';
