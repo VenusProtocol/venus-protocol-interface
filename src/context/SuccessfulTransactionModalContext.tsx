@@ -1,7 +1,10 @@
 import React from 'react';
 import noop from 'noop-ts';
 
-import { SuccessfulTransactionModal, ISuccessfulTransactionModalProps } from 'components';
+import {
+  SuccessfulTransactionModal,
+  ISuccessfulTransactionModalProps,
+} from 'components/v2/SuccessfulTransactionModal';
 
 type OpenSuccessfulTransactionModalInput = Pick<
   ISuccessfulTransactionModalProps,
@@ -51,7 +54,7 @@ export const SuccessfulTransactionModalProvider: React.FC = ({ children }) => {
         closeSuccessfulTransactionModal,
       }}
     >
-      {!!modalProps && (
+      {modalProps && (
         <SuccessfulTransactionModal
           isOpened={isOpened}
           handleClose={closeSuccessfulTransactionModal}

@@ -29,10 +29,16 @@ const useClaimXvsReward = (options?: Options) => {
       }),
     {
       ...options,
-      onSuccess: (...onSuccessParams) => {
+      onSuccess: async (...onSuccessParams) => {
         // Trigger refetch of XVS reward
-        queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
-        queryClient.invalidateQueries(FunctionKey.GET_VENUS_ACCRUED);
+        await Promise.all([
+          queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_MINTER_INDEX),
+          queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_STATE),
+          queryClient.invalidateQueries(FunctionKey.GET_VENUS_ACCRUED),
+          queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI),
+          queryClient.invalidateQueries(FunctionKey.GET_VENUS_INITIAL_INDEX),
+        ]);
+
         queryClient.invalidateQueries(FunctionKey.GET_XVS_REWARD);
 
         if (options?.onSuccess) {
