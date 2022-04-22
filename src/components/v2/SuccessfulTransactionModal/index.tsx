@@ -15,7 +15,7 @@ export interface ISuccessfulTransactionModalProps extends Omit<IModalProps, 'chi
   message: string;
   transactionHash: string;
   amount?: {
-    tokenSymbol: TokenId;
+    tokenId: TokenId;
     valueWei: BigNumber;
   };
   className?: string;
@@ -46,12 +46,12 @@ export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalPro
 
           {amount && (
             <div css={styles.amountContainer}>
-              <Icon name={amount.tokenSymbol as IconName} css={styles.amountTokenIcon} />
+              <Icon name={amount.tokenId as IconName} css={styles.amountTokenIcon} />
 
               <Typography variant="small1" component="span">
                 {convertWeiToCoins({
                   value: amount.valueWei,
-                  tokenSymbol: amount.tokenSymbol,
+                  tokenId: amount.tokenId,
                   returnInReadableFormat: true,
                 })}
               </Typography>

@@ -71,7 +71,7 @@ export const SupplyWithdrawContent: React.FC<
     if (tokenPrice && validAmount) {
       const amountInUsd = convertWeiToCoins({
         value: amount as BigNumber,
-        tokenSymbol: asset.id,
+        tokenId: asset.id,
       })
         .times(tokenPrice)
         .times(collateralFactor);
@@ -86,7 +86,7 @@ export const SupplyWithdrawContent: React.FC<
     <>
       <TokenTextField
         name="amount"
-        tokenSymbol={assetId as TokenId}
+        tokenId={assetId as TokenId}
         value={amountString}
         onChange={amt => setFieldValue('amount', amt, true)}
         max={maxInput.toString()}
