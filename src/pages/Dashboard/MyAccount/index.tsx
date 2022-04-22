@@ -10,7 +10,11 @@ import {
 } from 'utilities';
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
-const MyAccount: React.FC = () => {
+interface IMyAccountProps {
+  className?: string;
+}
+
+const MyAccount: React.FC<IMyAccountProps> = ({ className }) => {
   const { account } = React.useContext(AuthContext);
   const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
     account: account?.address,
@@ -51,6 +55,7 @@ const MyAccount: React.FC = () => {
 
   return (
     <MyAccountUi
+      className={className}
       safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       withXvs={isXvsEnabled}
       onXvsToggle={setIsXvsEnabled}

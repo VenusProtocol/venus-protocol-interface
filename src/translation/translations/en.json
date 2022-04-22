@@ -153,5 +153,12 @@
       "description": "There was an error supplying {{symbol}}. Please try again later",
       "title": "Supply Error"
     }
+  },
+  "dashboard": {
+    "markets": {
+      "title": "Markets",
+      "tabSupply": "Supply",
+      "tabBorrow": "Borrow"
+    }
   }
 }
