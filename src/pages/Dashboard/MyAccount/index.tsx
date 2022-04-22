@@ -38,7 +38,7 @@ const MyAccount: React.FC = () => {
       yearlyEarningsCents &&
       calculateApy({ supplyBalanceCents, yearlyEarningsCents });
     const dailyEarningsCents =
-      yearlyEarningsCents && +calculateDailyEarningsCents(yearlyEarningsCents);
+      yearlyEarningsCents && +calculateDailyEarningsCents(yearlyEarningsCents).toFixed(0);
 
     return {
       netApyPercentage,

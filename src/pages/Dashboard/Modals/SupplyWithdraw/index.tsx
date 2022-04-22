@@ -20,6 +20,7 @@ import useSupply from 'clients/api/mutations/useSupply';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
 import { formatApy, getBigNumber } from 'utilities/common';
+import { calculateYearlyEarningsCents, calculateDailyEarningsCents } from 'utilities';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 
@@ -32,7 +33,7 @@ export interface ISupplyWithdrawUiProps {
 export interface ISupplyWithdrawProps {
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
-  dailyEarnings: BigNumber;
+  dailyEarningsCents: BigNumber;
   onSubmitSupply: IAmountFormProps['onSubmit'];
   onSubmitWithdraw: IAmountFormProps['onSubmit'];
   isSupplyLoading: boolean;
@@ -49,7 +50,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   asset,
   userTotalBorrowBalance,
   userTotalBorrowLimit,
-  dailyEarnings,
+  dailyEarningsCents,
   onSubmitSupply,
   onSubmitWithdraw,
   isSupplyLoading,
@@ -117,7 +118,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
               tokenInfo={tokenInfo}
               userTotalBorrowBalance={userTotalBorrowBalance}
               userTotalBorrowLimit={userTotalBorrowLimit}
-              dailyEarnings={dailyEarnings}
+              dailyEarningsCents={dailyEarningsCents}
               onSubmit={onSubmit}
               inputLabel={inputLabel}
               enabledButtonKey={enabledButtonKey}
@@ -228,7 +229,6 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     },
   );
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
-  // @TODO - use dailyEarnings util https://app.clickup.com/t/26pg8j3
   const onSubmitSupply: IAmountFormProps['onSubmit'] = value => {
     supply({
       amount: getBigNumber(value)
@@ -248,13 +248,23 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       });
     }
   };
+  // @TODO: elevate state so it can be shared with borrow and supply markets
+  const isXvsEnabled = true;
+  const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
+  const { yearlyEarningsCents } = calculateYearlyEarningsCents({
+    asset,
+    borrowBalanceCents,
+    isXvsEnabled,
+  });
+  const dailyEarningsCents =
+    yearlyEarningsCents && calculateDailyEarningsCents(yearlyEarningsCents);
   return (
     <SupplyWithdrawUi
       {...rest}
       asset={asset}
       userTotalBorrowBalance={userTotalBorrowBalance}
       userTotalBorrowLimit={userTotalBorrowLimit}
-      dailyEarnings={new BigNumber('238')}
+      dailyEarningsCents={dailyEarningsCents}
       onSubmitSupply={onSubmitSupply}
       onSubmitWithdraw={onSubmitWithdraw}
       isSupplyLoading={isSupplyLoading}
