@@ -1,6 +1,9 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 
-import { getVTokenBalance, GetVTokenBalanceOutput, IGetVTokenBalanceInput } from 'clients/api';
+import getVTokenBalance, {
+  GetVTokenBalanceOutput,
+  IGetVTokenBalanceInput,
+} from 'clients/api/queries/getVTokenBalance';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { VTokenId } from 'types';
@@ -14,12 +17,12 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenBalance = (
-  { account, assetId }: Omit<IGetVTokenBalanceInput, 'tokenContract'> & { assetId: VTokenId },
+  { account, vTokenId }: Omit<IGetVTokenBalanceInput, 'tokenContract'> & { vTokenId: VTokenId },
   options?: Options,
 ) => {
-  const tokenContract = useVTokenContract(assetId as VTokenId);
+  const tokenContract = useVTokenContract(vTokenId as VTokenId);
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCE, assetId],
+    [FunctionKey.GET_V_TOKEN_BALANCE, vTokenId],
     () => getVTokenBalance({ tokenContract, account }),
     options,
   );

@@ -18,7 +18,7 @@ describe('api/queries/getVTokenBalance', () => {
         account: '0x23da',
       });
 
-      throw new Error('getBalanceOf should have thrown an error but did not');
+      throw new Error('getVTokenBalance should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
