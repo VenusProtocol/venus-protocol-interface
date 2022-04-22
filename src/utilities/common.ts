@@ -129,7 +129,7 @@ export const formatCoinsToReadableValue = ({
 }) =>
   value === undefined
     ? PLACEHOLDER_KEY
-    : `${formatCommaThousandsPeriodDecimal(value.toString())} ${tokenSymbol.toUpperCase()}`;
+    : `${formatCommaThousandsPeriodDecimal(value.toFixed())} ${tokenSymbol.toUpperCase()}`;
 
 type IConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 

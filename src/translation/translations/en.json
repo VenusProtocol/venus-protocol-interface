@@ -16,8 +16,12 @@
     "content": "View on bscscan.com<Icon/>"
   },
   "claimXvsRewardButton": {
-    "successMessage": "You've successfully claimed your XVS reward",
-    "title": "Claim <Icon/> {{amount}}"
+    "successfulTransactionModal": {
+      "message": "You successfully claimed",
+      "title": "Your claim was successful"
+    },
+    "title": "Claim <Icon/> {{amount}}",
+    "walletNotConnectedError": "Wallet not connected"
   },
   "connectButton": {
     "title": "Connect wallet"
