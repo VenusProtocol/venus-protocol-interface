@@ -17,7 +17,7 @@ export const Toggle = ({ onChange, value, className }: IToggleProps) => {
   const styles = useStyles();
   return (
     <Switch
-      className={`${className} toggle`}
+      className={className}
       css={styles}
       focusVisibleClassName=".Mui-focusVisible"
       disableRipple
