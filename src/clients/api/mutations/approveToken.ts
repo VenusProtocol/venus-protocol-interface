@@ -1,13 +1,15 @@
 import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core';
+import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
 
 export interface IApproveTokenInput {
-  tokenContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
+  tokenContract: Bep20 | VaiToken | VrtToken | XvsToken;
   account: string | undefined;
   vtokenAddress: string;
   allowance?: string;
 }
 
-export type ApproveTokenOutput = void;
+export type ApproveTokenOutput = TransactionReceipt;
 
 const approveToken = ({
   tokenContract,

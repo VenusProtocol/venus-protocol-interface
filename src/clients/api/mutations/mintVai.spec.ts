@@ -50,7 +50,7 @@ describe('api/mutation/mintVai', () => {
 
     expect(response).toBe(undefined);
     expect(mintVaiMock).toHaveBeenCalledTimes(1);
-    expect(mintVaiMock).toHaveBeenCalledWith(fakeAmountWei);
+    expect(mintVaiMock).toHaveBeenCalledWith(fakeAmountWei.toString());
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
   });

@@ -1,10 +1,13 @@
+import type { TransactionReceipt } from 'web3-core';
+import { VBep20, VBnbToken } from 'types/contracts';
+
 export interface IRedeemUnderlyingInput {
-  tokenContract: $TSFixMe; // @TODO: use contract type once defined (Typechain?)
+  tokenContract: VBep20 | VBnbToken;
   account: string;
   amount: string;
 }
 
-export type RedeemUnderlyingOutput = void;
+export type RedeemUnderlyingOutput = TransactionReceipt;
 
 const redeemUnderlying = async ({
   tokenContract,
