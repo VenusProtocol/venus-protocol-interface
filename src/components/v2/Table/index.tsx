@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -28,6 +28,7 @@ export interface ITableProps {
   };
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
   className?: string;
+  gridTemplateColumns?: string;
 }
 
 export const Table = ({
@@ -39,6 +40,7 @@ export const Table = ({
   rowOnClick,
   rowKeyIndex,
   className,
+  gridTemplateColumns,
 }: ITableProps) => {
   const styles = useStyles();
   const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(
@@ -75,6 +77,16 @@ export const Table = ({
     return newRows;
   }, [data, orderBy, orderDirection]);
 
+  /* gridStyles provides grid-template-columns styles for rows in rows for thead and tbody */
+  const gridStyles =
+    gridTemplateColumns ||
+    useMemo(
+      () =>
+        /* if gridTemplateColumns prop is not passed from parent component, we create similar fractions by default */
+        columns.map(() => '1fr').join(' '),
+      [columns],
+    );
+
   return (
     <div className={className}>
       <h4 css={styles.title}>{title}</h4>
@@ -86,6 +98,7 @@ export const Table = ({
             orderBy={orderBy}
             orderDirection={orderDirection}
             onRequestOrder={onRequestOrder}
+            css={styles.getTemplateColumns({ gridStyles })}
           />
 
           {/* TODO: add loading state */}
@@ -98,12 +111,17 @@ export const Table = ({
                 hover
                 key={row[rowKeyIndex].value.toString()}
                 onClick={e => rowOnClick && rowOnClick(e, row)}
+                css={styles.getTemplateColumns({ gridStyles })}
               >
-                {row.map(({ key, render }: ITableRowProps) => (
-                  <TableCell key={uid(key)}>
-                    <div>{render()}</div>
-                  </TableCell>
-                ))}
+                {row.map(({ key, render }: ITableRowProps) => {
+                  const cellContent = render();
+                  const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+                  return (
+                    <TableCell css={styles.cellWrapper} key={uid(key)} title={cellTitle}>
+                      {cellContent}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))}
           </TableBody>

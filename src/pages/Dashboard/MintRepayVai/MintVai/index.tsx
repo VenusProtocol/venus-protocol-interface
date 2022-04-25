@@ -19,7 +19,7 @@ import { useStyles } from '../styles';
 export interface IMintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
-  mintVai: (value: BigNumber) => Promise<void>;
+  mintVai: (value: BigNumber) => Promise<unknown>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
 }
