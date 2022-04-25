@@ -157,22 +157,20 @@ export const convertCoinsToWei = ({ value, tokenId }: { value: BigNumber; tokenI
   return value.multipliedBy(new BigNumber(10).pow(tokenDecimals));
 };
 
-export const convertCentsToDollars = (value: number, removeDecimals = false) =>
-  +new BigNumber(value).dividedBy(100).toFixed(removeDecimals ? 0 : 2);
+export const convertCentsToDollars = (value: number) =>
+  new BigNumber(value).dividedBy(100).toFixed(2);
 
 export const formatCentsToReadableValue = ({
   value,
-  removeDecimals = false,
 }: {
   value: number | BigNumber | undefined;
-  removeDecimals?: boolean;
 }) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
 
   return `$${formatCommaThousandsPeriodDecimal(
-    convertCentsToDollars(typeof value === 'number' ? value : value.toNumber(), removeDecimals),
+    convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
   )}`;
 };
 
