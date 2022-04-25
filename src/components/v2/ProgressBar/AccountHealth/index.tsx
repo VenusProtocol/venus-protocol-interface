@@ -122,7 +122,6 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
     </div>
   );
 };
-<<<<<<< HEAD
 
 export const BorrowBalanceAccountHealth = (props: IAccountHealthProps) => (
   <AccountHealth variant="borrowBalance" {...props} />
@@ -131,5 +130,3 @@ export const BorrowBalanceAccountHealth = (props: IAccountHealthProps) => (
 export const BorrowLimitUsedAccountHealth = (props: IAccountHealthProps) => (
   <AccountHealth variant="borrowLimitUsed" {...props} />
 );
-=======
->>>>>>> 4eb42648 (add basic AccountHealth component)
