@@ -23,7 +23,6 @@ export const ValidProgressBarWithTooltip = () => (
     max={100}
     trackTooltip="Storybook tooltip text for Track"
     markTooltip="Storybook tooltip text for Mark"
-    isDisabled
   />
 );
 

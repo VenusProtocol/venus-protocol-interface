@@ -16,7 +16,6 @@ export interface IProgressBarProps {
   max: number;
   trackTooltip?: ITooltipProps['title'];
   markTooltip?: ITooltipProps['title'];
-  isDisabled?: boolean;
   className?: string;
   tooltipPlacement?: ITooltipProps['placement'];
 }
@@ -28,7 +27,6 @@ export const ProgressBar = ({
   ariaLabel,
   min,
   max,
-  isDisabled,
   trackTooltip,
   markTooltip,
   className,
@@ -82,7 +80,7 @@ export const ProgressBar = ({
       min={min}
       max={max}
       size="medium"
-      disabled={isDisabled}
+      disabled
     />
   );
 };

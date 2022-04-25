@@ -198,7 +198,6 @@ export const MyAccountUi = ({
             />
           ) : undefined
         }
-        isDisabled
       />
 
       <div css={styles.bottom}>
