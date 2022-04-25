@@ -17,7 +17,7 @@ import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
 import ConnectButton from '../ConnectButton';
 import { Icon } from '../../Icon';
-import { menuItems } from '../constants';
+import { menuItems, IMenuItem } from '../constants';
 import { useStyles } from './styles';
 
 interface ISidebarProps {
@@ -37,6 +37,36 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
     setAnchorEl(null);
   };
 
+  const renderLink = ({ href, icon, i18nKey }: IMenuItem) => {
+    const content = (
+      <>
+        <ListItemIcon css={styles.listItemIcon}>
+          <Icon name={icon} />
+        </ListItemIcon>
+
+        <Typography variant="body2" css={styles.listItemText}>
+          {t(i18nKey)}
+        </Typography>
+
+        <div className="left-border" />
+      </>
+    );
+
+    if (href[0] === '/') {
+      return (
+        <NavLink to={href} activeClassName="active-menu-item">
+          {content}
+        </NavLink>
+      );
+    }
+
+    return (
+      <a href={href} target="_blank" rel="noreferrer">
+        {content}
+      </a>
+    );
+  };
+
   return (
     <>
       <Drawer variant="permanent" css={styles.drawer}>
@@ -47,19 +77,14 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
           </Toolbar>
 
           <List css={styles.list}>
-            {menuItems.map(({ href, icon, i18nKey }) => (
-              <ListItemButton key={i18nKey} component="li" css={styles.listItem} disableRipple>
-                <NavLink to={href} activeClassName="active-menu-item">
-                  <ListItemIcon css={styles.listItemIcon}>
-                    <Icon name={icon} />
-                  </ListItemIcon>
-
-                  <Typography variant="body2" css={styles.listItemText}>
-                    {t(i18nKey)}
-                  </Typography>
-
-                  <div className="left-border" />
-                </NavLink>
+            {menuItems.map(menuItem => (
+              <ListItemButton
+                key={menuItem.i18nKey}
+                component="li"
+                css={styles.listItem}
+                disableRipple
+              >
+                {renderLink(menuItem)}
               </ListItemButton>
             ))}
           </List>

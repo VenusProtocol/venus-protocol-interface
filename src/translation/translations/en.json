@@ -37,7 +37,7 @@
   },
   "layout": {
     "menuItems": {
-      "convertXvs": "Convert XVS",
+      "convertVrt": "Convert VRT",
       "dashboard": "Dashboard",
       "faucet": "Faucet",
       "history": "History",
