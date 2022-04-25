@@ -18,9 +18,8 @@ export const useStyles = () => {
       .MuiTableCell-root {
         border-width: 0;
         font-weight: ${theme.typography.body1.fontWeight};
-        > * {
-          float: right;
-        }
+        text-align: right;
+        font-size: 14px;
       }
 
       .MuiTableRow-root {
@@ -29,7 +28,12 @@ export const useStyles = () => {
 
       .MuiTableCell-root:first-child {
         padding-left: ${theme.spacing(6)};
-        float: left;
+        text-align: left;
+        max-width: 110px;
+      }
+
+      .MuiTableCell-root:nth-child(2) {
+        max-width: 100px;
       }
 
       .MuiTableCell-root:last-child {
@@ -81,6 +85,14 @@ export const useStyles = () => {
         fill: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
         color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
+    `,
+    cellWrapper: css`
+      max-width: 115px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `,
+    cellInner: css`
+      text-overflow: ellipsis;
     `,
   };
 };

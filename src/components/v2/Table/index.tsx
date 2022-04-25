@@ -99,11 +99,15 @@ export const Table = ({
                 key={row[rowKeyIndex].value.toString()}
                 onClick={() => rowOnClick && rowOnClick(row)}
               >
-                {row.map(({ key, render }: ITableRowProps) => (
-                  <TableCell key={uid(key)}>
-                    <div>{render()}</div>
-                  </TableCell>
-                ))}
+                {row.map(({ key, render }: ITableRowProps) => {
+                  const cellContent = render();
+                  const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+                  return (
+                    <TableCell css={styles.cellWrapper} key={uid(key)} title={cellTitle}>
+                      {cellContent}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))}
           </TableBody>
