@@ -5,7 +5,7 @@ import { TREASURY_ADDRESS } from 'config';
 import { useWeb3 } from 'clients/web3';
 import { Asset, Market } from 'types';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
-import { getVBepToken, getToken } from 'utilities';
+import { getVBepToken, getToken, calculateCollateralValue } from 'utilities';
 import { fetchMarkets } from 'utilities/api';
 import { indexBy, notNull } from 'utilities/common';
 import useRefresh from 'hooks/useRefresh';
@@ -229,8 +229,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
 
         const totalBorrowLimit = assetList.reduce((acc, asset) => {
           if (asset.collateral) {
-            const supplyBalanceUSD = asset.supplyBalance.times(asset.tokenPrice);
-            return acc.plus(supplyBalanceUSD.times(asset.collateralFactor));
+            return acc.plus(calculateCollateralValue({ amountWei: asset.supplyBalance, asset }));
           }
           return acc;
         }, new BigNumber(0));

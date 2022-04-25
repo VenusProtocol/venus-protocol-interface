@@ -13,9 +13,10 @@ import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber, formatApy, format } from 'utilities/common';
 import { useComptrollerContract, useVTokenContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 import { useMarketsUser } from 'hooks/useMarketsUser';
 import { useVaiUser } from 'hooks/useVaiUser';
-import { AuthContext } from 'context/AuthContext';
+import { calculateCollateralValue } from 'utilities';
 
 interface WithdrawTabProps {
   asset: Asset;
@@ -67,7 +68,9 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
     setSafeMaxBalance(BigNumber.minimum(safeMax, supplyBalance));
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
-      const temp = userTotalBorrowLimit.minus(amount.times(tokenPrice).times(collateralFactor));
+      const temp = userTotalBorrowLimit.minus(
+        calculateCollateralValue({ amountWei: amount, asset }),
+      );
       setNewBorrowLimit(temp);
       setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
       if (userTotalBorrowLimit.isZero()) {
@@ -162,11 +165,11 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
             }}
             isAllowed={({ value }) => {
               const temp = new BigNumber(value || 0);
-              const { tokenPrice, collateralFactor, collateral } = asset;
+              const { collateral } = asset;
               return (
                 temp.isLessThanOrEqualTo(asset.supplyBalance) &&
                 (!collateral ||
-                  userTotalBorrowLimit.gte(temp.times(tokenPrice).times(collateralFactor)))
+                  userTotalBorrowLimit.gte(calculateCollateralValue({ amountWei: temp, asset })))
               );
             }}
             thousandSeparator
