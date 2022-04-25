@@ -42,12 +42,10 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
 
   const readableSafeBorrowLimit = formatCentsToReadableValue({
     value: safeBorrowLimitCents,
-    removeDecimals: true,
   });
 
   const readableBorrowLimit = formatCentsToReadableValue({
     value: borrowLimitCents,
-    removeDecimals: true,
   });
 
   const readableBorrowBalance = formatCentsToReadableValue({
