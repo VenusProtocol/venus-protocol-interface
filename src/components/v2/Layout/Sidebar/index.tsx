@@ -13,6 +13,7 @@ import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoMobile.svg';
 import { useWeb3Account } from 'clients/web3';
 import { useTranslation } from 'translation';
+import { absoluteUrlRegex } from 'utilities/regex';
 import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
 import ConnectButton from '../ConnectButton';
@@ -49,17 +50,28 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
           <List css={styles.list}>
             {menuItems.map(({ href, icon, i18nKey }) => (
               <ListItemButton key={i18nKey} component="li" css={styles.listItem} disableRipple>
-                <NavLink to={href} activeClassName="active-menu-item">
-                  <ListItemIcon css={styles.listItemIcon}>
-                    <Icon name={icon} />
-                  </ListItemIcon>
+                {absoluteUrlRegex.test(href) ? (
+                  <a href={href} onClick={closeMenu}>
+                    <ListItemIcon css={styles.listItemIcon}>
+                      <Icon name={icon} />
+                    </ListItemIcon>
+                    <Typography variant="body2" css={styles.listItemText}>
+                      {t(i18nKey)}
+                    </Typography>
+                  </a>
+                ) : (
+                  <NavLink to={href} activeClassName="active-menu-item">
+                    <ListItemIcon css={styles.listItemIcon}>
+                      <Icon name={icon} />
+                    </ListItemIcon>
 
-                  <Typography variant="body2" css={styles.listItemText}>
-                    {t(i18nKey)}
-                  </Typography>
+                    <Typography variant="body2" css={styles.listItemText}>
+                      {t(i18nKey)}
+                    </Typography>
 
-                  <div className="left-border" />
-                </NavLink>
+                    <div className="left-border" />
+                  </NavLink>
+                )}
               </ListItemButton>
             ))}
           </List>
@@ -106,23 +118,39 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
                 css={[styles.listItem, styles.mobileListItem]}
                 disableRipple
               >
-                <NavLink onClick={closeMenu} to={href} activeClassName="active-mobile-menu-item">
-                  <div css={styles.mobileLabel}>
-                    <ListItemIcon css={styles.listItemIcon}>
-                      <Icon name={icon} />
-                    </ListItemIcon>
-
-                    <Typography
-                      variant="body2"
-                      component="span"
-                      css={[styles.listItemText, styles.mobileListItemText]}
-                    >
-                      {t(i18nKey)}
-                    </Typography>
-                  </div>
-
-                  <Icon name="arrowRight" css={styles.mobileArrow} />
-                </NavLink>
+                {absoluteUrlRegex.test(href) ? (
+                  <a href={href} onClick={closeMenu}>
+                    <div css={styles.mobileLabel}>
+                      <ListItemIcon css={styles.listItemIcon}>
+                        <Icon name={icon} />
+                      </ListItemIcon>
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        css={[styles.listItemText, styles.mobileListItemText]}
+                      >
+                        {t(i18nKey)}
+                      </Typography>
+                    </div>
+                    <Icon name="arrowRight" css={styles.mobileArrow} />
+                  </a>
+                ) : (
+                  <NavLink onClick={closeMenu} to={href} activeClassName="active-mobile-menu-item">
+                    <div css={styles.mobileLabel}>
+                      <ListItemIcon css={styles.listItemIcon}>
+                        <Icon name={icon} />
+                      </ListItemIcon>
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        css={[styles.listItemText, styles.mobileListItemText]}
+                      >
+                        {t(i18nKey)}
+                      </Typography>
+                    </div>
+                    <Icon name="arrowRight" css={styles.mobileArrow} />
+                  </NavLink>
+                )}
               </ListItemButton>
             ))}
           </List>
