@@ -193,7 +193,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       onError: () => {
         toast.error({
           title: t('supplyWithdraw.supplyError.title'),
-          description: t('supplyWithdraw.supplyError.description'),
+          description: t('supplyWithdraw.supplyError.description', { symbol: asset.symbol }),
         });
       },
     },
@@ -208,7 +208,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       onError: () => {
         toast.error({
           title: t('supplyWithdraw.withdrawError.title'),
-          description: t('supplyWithdraw.withdrawError.description'),
+          description: t('supplyWithdraw.withdrawError.description', { symbol: asset.symbol }),
         });
       },
     },
@@ -222,7 +222,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       onError: () => {
         toast.error({
           title: t('supplyWithdraw.withdrawError.title'),
-          description: t('supplyWithdraw.withdrawError.description'),
+          description: t('supplyWithdraw.withdrawError.description', { symbol: asset.symbol }),
         });
       },
     },
