@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -16,8 +15,9 @@ import { useTranslation } from 'translation';
 import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
 import ConnectButton from '../ConnectButton';
+import Link from './Link';
 import { Icon } from '../../Icon';
-import { menuItems, IMenuItem } from '../constants';
+import { menuItems } from '../constants';
 import { useStyles } from './styles';
 
 interface ISidebarProps {
@@ -37,36 +37,6 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
     setAnchorEl(null);
   };
 
-  const renderLink = ({ href, icon, i18nKey }: IMenuItem) => {
-    const content = (
-      <>
-        <ListItemIcon css={styles.listItemIcon}>
-          <Icon name={icon} />
-        </ListItemIcon>
-
-        <Typography variant="body2" css={styles.listItemText}>
-          {t(i18nKey)}
-        </Typography>
-
-        <div className="left-border" />
-      </>
-    );
-
-    if (href[0] === '/') {
-      return (
-        <NavLink to={href} activeClassName="active-menu-item">
-          {content}
-        </NavLink>
-      );
-    }
-
-    return (
-      <a href={href} target="_blank" rel="noreferrer">
-        {content}
-      </a>
-    );
-  };
-
   return (
     <>
       <Drawer variant="permanent" css={styles.drawer}>
@@ -84,7 +54,17 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
                 css={styles.listItem}
                 disableRipple
               >
-                {renderLink(menuItem)}
+                <Link href={menuItem.href}>
+                  <ListItemIcon css={styles.listItemIcon}>
+                    <Icon name={menuItem.icon} />
+                  </ListItemIcon>
+
+                  <Typography variant="body2" css={styles.listItemText}>
+                    {t(menuItem.i18nKey)}
+                  </Typography>
+
+                  <div className="left-border" />
+                </Link>
               </ListItemButton>
             ))}
           </List>
@@ -131,7 +111,7 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
                 css={[styles.listItem, styles.mobileListItem]}
                 disableRipple
               >
-                <NavLink onClick={closeMenu} to={href} activeClassName="active-mobile-menu-item">
+                <Link onClick={closeMenu} href={href}>
                   <div css={styles.mobileLabel}>
                     <ListItemIcon css={styles.listItemIcon}>
                       <Icon name={icon} />
@@ -147,7 +127,7 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
                   </div>
 
                   <Icon name="arrowRight" css={styles.mobileArrow} />
-                </NavLink>
+                </Link>
               </ListItemButton>
             ))}
           </List>
