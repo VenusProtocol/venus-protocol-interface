@@ -12,6 +12,7 @@ export interface IAccountHealthProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeBorrowLimitPercentage: number;
+  variant?: 'primary' | 'secondary';
   className?: string;
 }
 
@@ -19,6 +20,7 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
   className,
   borrowBalanceCents,
   borrowLimitCents,
+  variant = 'primary',
   safeBorrowLimitPercentage,
 }) => {
   const styles = useStyles();
@@ -54,20 +56,22 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
 
   return (
     <div className={className}>
-      <div css={[styles.row, styles.topProgressBarLegend]}>
+      <div css={styles.topProgressBarLegend}>
         <div css={styles.inlineContainer}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {t('accountHealth.borrowLimitUsed')}
+            {variant === 'primary'
+              ? t('accountHealth.currentBorrowBalance')
+              : t('accountHealth.borrowLimitUsed')}
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
-            {readableBorrowLimitUsedPercentage}
+            {variant === 'primary' ? readableBorrowBalance : readableBorrowLimitUsedPercentage}
           </Typography>
         </div>
 
         <div css={styles.inlineContainer}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {t('accountHealth.limit')}
+            {variant === 'primary' ? t('accountHealth.max') : t('accountHealth.limit')}
           </Typography>
 
           <Typography component="span" variant="small1" color="text.primary">
@@ -118,3 +122,11 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
     </div>
   );
 };
+
+export const PrimaryAccountHealth = (props: IAccountHealthProps) => (
+  <AccountHealth variant="primary" {...props} />
+);
+
+export const SecondaryAccountHealth = (props: IAccountHealthProps) => (
+  <AccountHealth variant="secondary" {...props} />
+);

@@ -5,12 +5,10 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    row: css`
+    topProgressBarLegend: css`
       display: flex;
       justify-content: space-between;
       align-items: center;
-    `,
-    topProgressBarLegend: css`
       margin-bottom: ${theme.spacing(3)};
     `,
     inlineContainer: css`
