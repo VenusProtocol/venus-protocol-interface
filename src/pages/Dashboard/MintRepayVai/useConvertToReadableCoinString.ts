@@ -5,10 +5,10 @@ import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
 
 const useConvertToReadableCoinString = ({
-  tokenSymbol,
+  tokenId,
   valueWei,
 }: {
-  tokenSymbol: TokenId;
+  tokenId: TokenId;
   valueWei?: BigNumber;
 }) =>
   useMemo(
@@ -16,7 +16,7 @@ const useConvertToReadableCoinString = ({
       valueWei
         ? convertWeiToCoins({
             value: valueWei,
-            tokenSymbol,
+            tokenId,
             returnInReadableFormat: true,
           }).toString()
         : '-',

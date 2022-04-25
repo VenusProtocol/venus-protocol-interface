@@ -77,7 +77,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
       render: () =>
         formatCoinsToReadableValue({
           value: asset.walletBalance,
-          tokenSymbol: asset.symbol as TokenId,
+          tokenId: asset.symbol as TokenId,
         }),
       value: asset.walletBalance.toString(),
     },

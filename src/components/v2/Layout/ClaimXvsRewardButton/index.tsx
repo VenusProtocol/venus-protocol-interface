@@ -7,6 +7,7 @@ import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
+import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
@@ -45,7 +46,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
         message: t('claimXvsRewardButton.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
-          tokenSymbol: 'xvs',
+          tokenId: 'xvs' as TokenId,
         },
         transactionHash,
       });
@@ -58,7 +59,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
   const readableAmount = convertWeiToCoins({
     value: amountWei,
-    tokenSymbol: XVS_SYMBOL,
+    tokenId: XVS_SYMBOL,
     returnInReadableFormat: true,
   });
 
