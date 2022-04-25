@@ -6,7 +6,7 @@ import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Tooltip } from 'antd';
-import { PrimaryButton } from 'components';
+import { PrimaryButton, SecondaryButton } from 'components';
 import { connectAccount } from 'core';
 import ProposalInfo from 'components/Vote/VoteOverview/ProposalInfo';
 import ProposalUser from 'components/Vote/VoteOverview/ProposalUser';
@@ -26,17 +26,8 @@ const VoteOverviewWrapper = styled.div`
 
   .vote-status-update {
     margin-bottom: 20px;
+
     button {
-      width: 120px;
-      height: 40px;
-      background-color: var(--color-yellow);
-      border-radius: 10px;
-      span {
-        font-size: 16px;
-        font-weight: bold;
-        color: var(--color-text-main);
-        text-transform: capitalize;
-      }
       &:not(:last-child) {
         margin-right: 10px;
       }
@@ -319,20 +310,20 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
               proposalInfo.state !== 'Defeated' &&
               proposalInfo.state !== 'Canceled' && (
                 <div className="flex align-center just-center update-proposal-status">
-                  <PrimaryButton
+                  <SecondaryButton
                     disabled={
                       !account ||
                       isCancelLoading ||
                       proposerVotingWeight >= proposalThreshold ||
                       cancelStatus === 'success'
                     }
+                    loading={isCancelLoading}
                     onClick={() => handleUpdateProposal('Cancel')}
                   >
-                    {isCancelLoading && <Icon type="loading" />}{' '}
                     {cancelStatus === 'pending' || cancelStatus === 'failure'
                       ? 'Cancel'
                       : 'Cancelled'}
-                  </PrimaryButton>
+                  </SecondaryButton>
                   {proposalInfo.state === 'Succeeded' && (
                     <PrimaryButton
                       disabled={!account || isLoading || status === 'success'}
