@@ -15,7 +15,7 @@ export interface IMyAccountUiProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeBorrowLimitPercentage: number;
-  withXvs: boolean;
+  isXvsEnabled: boolean;
   onXvsToggle: (newValue: boolean) => void;
   className?: string;
 }
@@ -27,7 +27,7 @@ export const MyAccountUi = ({
   borrowBalanceCents,
   borrowLimitCents,
   safeBorrowLimitPercentage,
-  withXvs,
+  isXvsEnabled,
   onXvsToggle,
   className,
 }: IMyAccountUiProps) => {
@@ -93,7 +93,7 @@ export const MyAccountUi = ({
             {t('myAccount.apyWithXvs')}
           </Typography>
 
-          <Toggle css={styles.toggle} value={withXvs} onChange={handleXvsToggleChange} />
+          <Toggle css={styles.toggle} value={isXvsEnabled} onChange={handleXvsToggleChange} />
         </div>
       </div>
 

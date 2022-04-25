@@ -15,4 +15,4 @@ export default {
   },
 } as ComponentMeta<typeof BorrowMarketUi>;
 
-export const Default = () => <BorrowMarketUi borrowAssets={assetData} withXvs={false} />;
+export const Default = () => <BorrowMarketUi borrowAssets={assetData} isXvsEnabled={false} />;
