@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
@@ -17,9 +17,10 @@ import {
   useVaiUnitrollerContract,
   useXvsVaultProxyContract,
 } from 'clients/contracts/hooks';
-import { useWeb3, useWeb3Account } from 'clients/web3';
+import { useWeb3 } from 'clients/web3';
 import { getVTokenContract } from 'clients/contracts/getters';
 import { State } from 'core/modules/initialState';
+import { AuthContext } from 'context/AuthContext';
 
 const xvsTokenAddress = getToken('xvs').address;
 
@@ -42,7 +43,7 @@ function Vote({ getProposals }: VoteProps) {
   const [delegateAddress, setDelegateAddress] = useState('');
   const [delegateStatus, setDelegateStatus] = useState('');
   const [stakedAmount, setStakedAmount] = useState('');
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { fastRefresh } = useRefresh();
   const xvsTokenContract = useTokenContract('xvs');
   const comptrollerContract = useComptrollerContract();
@@ -101,8 +102,8 @@ function Vote({ getProposals }: VoteProps) {
 
       const [currentVotes, balanceTemp, ...xvsPoolInfos] = await Promise.all([
         // voting power is calculated from user's amount of XVS staked in the XVS vault
-        xvsVaultProxyContract.methods.getCurrentVotes(account).call(),
-        xvsTokenContract.methods.balanceOf(account).call(),
+        xvsVaultProxyContract.methods.getCurrentVotes(account.address).call(),
+        xvsTokenContract.methods.balanceOf(account.address).call(),
         // query all xvs pool infos
         ...Array.from({ length }).map((_, index) =>
           xvsVaultProxyContract.methods.poolInfos(xvsTokenAddress, index).call(),
@@ -124,14 +125,14 @@ function Vote({ getProposals }: VoteProps) {
       );
 
       const userInfo = await xvsVaultProxyContract.methods
-        .getUserInfo(xvsTokenAddress, xvsVaultIndex, account)
+        .getUserInfo(xvsTokenAddress, xvsVaultIndex, account.address)
         .call();
       setStakedAmount(userInfo.amount);
     }
   };
 
   const getVoteInfo = async () => {
-    const myAddress = account;
+    const myAddress = account?.address;
     if (!myAddress) return;
 
     const [venusInitialIndex, venusAccrued, venusVAIState, vaiMinterAmount] = await Promise.all([
@@ -210,10 +211,10 @@ function Vote({ getProposals }: VoteProps) {
 
   const updateDelegate = async () => {
     if (account) {
-      const res = await xvsVaultProxyContract.methods.delegates(account).call();
+      const res = await xvsVaultProxyContract.methods.delegates(account.address).call();
       setDelegateAddress(res);
       if (res !== '0x0000000000000000000000000000000000000000') {
-        setDelegateStatus(res === account ? 'self' : 'delegate');
+        setDelegateStatus(res === account.address ? 'self' : 'delegate');
       } else {
         setDelegateStatus('');
       }
@@ -250,7 +251,7 @@ function Vote({ getProposals }: VoteProps) {
               <CoinInfo
                 // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
                 balance={balance !== '0' ? `${balance}` : '0.00000000'}
-                address={account || ''}
+                address={account?.address || ''}
               />
             </Column>
             <Column xs="12">
@@ -269,7 +270,7 @@ function Vote({ getProposals }: VoteProps) {
           <Row>
             <Column xs="12">
               <Proposals
-                address={account || ''}
+                address={account?.address || ''}
                 isLoadingProposal={isLoadingProposal}
                 pageNumber={current}
                 // @ts-expect-error ts-migrate(2339) FIXME: Property 'result' does not exist on type '{}'.

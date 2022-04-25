@@ -16,7 +16,7 @@ describe('api/mutation/approveToken', () => {
     try {
       await approveToken({
         tokenContract: fakeContract,
-        account: '0x32asdf',
+        accountAddress: '0x32asdf',
         allowance: new BigNumber(2).pow(256).minus(1).toString(10),
         vtokenAddress: '0x32asdf',
       });
@@ -28,7 +28,7 @@ describe('api/mutation/approveToken', () => {
   });
 
   test('returns undefined when request succeeds', async () => {
-    const account = '0x3d7598124C212d2121234cd36aFe1c685FbEd848';
+    const accountAddress = '0x3d7598124C212d2121234cd36aFe1c685FbEd848';
     const vtokenAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
     const allowance = new BigNumber(2).pow(256).minus(1).toString(10);
 
@@ -45,7 +45,7 @@ describe('api/mutation/approveToken', () => {
 
     const response = await approveToken({
       tokenContract: fakeContract,
-      account,
+      accountAddress,
       vtokenAddress,
       allowance,
     });
@@ -54,6 +54,6 @@ describe('api/mutation/approveToken', () => {
     expect(enterMarketsMock).toHaveBeenCalledTimes(1);
     expect(enterMarketsMock).toHaveBeenCalledWith(vtokenAddress, allowance);
     expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: account });
+    expect(sendMock).toHaveBeenCalledWith({ from: accountAddress });
   });
 });

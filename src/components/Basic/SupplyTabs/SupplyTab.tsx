@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import { Progress } from 'antd';
 import NumberFormat from 'react-number-format';
 
 import { PrimaryButton } from 'components';
 import { connectAccount } from 'core';
-import { useWeb3, useWeb3Account } from 'clients/web3';
+import { useWeb3 } from 'clients/web3';
 import { sendSupply } from 'utilities/BnbContract';
 import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
@@ -13,9 +13,10 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber, format } from 'utilities/common';
 import { Asset, Setting, VTokenId } from 'types';
-import { useTokenContract, useVTokenContract } from '../../../clients/contracts/hooks';
-import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVaiUser } from '../../../hooks/useVaiUser';
+import { useTokenContract, useVTokenContract } from 'clients/contracts/hooks';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { AuthContext } from 'context/AuthContext';
 
 interface SupplyTabProps {
   asset: Asset;
@@ -32,7 +33,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowLimit, setNewBorrowLimit] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const vbepContract = useVTokenContract(asset.id as VTokenId);
   const tokenContract = useTokenContract(asset.id);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
@@ -87,7 +88,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
     try {
       await tokenContract.methods
         .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
-        .send({ from: account || undefined });
+        .send({ from: account?.address });
       setIsEnabled(true);
     } catch (error) {
       console.log('approve error :>> ', error);
@@ -112,7 +113,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
       try {
         await vbepContract.methods
           .mint(amount.times(new BigNumber(10).pow(asset.decimals)).toString(10))
-          .send({ from: account || undefined });
+          .send({ from: account?.address });
         setAmount(new BigNumber(0));
         onCancel();
       } catch (error) {

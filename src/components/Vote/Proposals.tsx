@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
@@ -10,9 +10,9 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
 import { PrimaryButton } from 'components';
-import { useWeb3Account } from 'clients/web3';
 import { Proposal as ProposalObject } from 'types';
-import { useTokenContract, useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
+import { useTokenContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
@@ -135,7 +135,7 @@ function Proposals({
 
   const [notProposable, setNotProposable] = useState(false);
 
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const tokenContract = useTokenContract('xvs');
   const governorBravoContract = useGovernorBravoDelegateContract();
 

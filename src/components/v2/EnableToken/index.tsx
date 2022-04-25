@@ -59,7 +59,7 @@ export const EnableToken: React.FC<
     <EnableTokenUi
       {...rest}
       symbol={symbol}
-      approveToken={() => approveToken({ account: account?.address, vtokenAddress })}
+      approveToken={() => approveToken({ accountAddress: account?.address, vtokenAddress })}
       disabled={!account}
     />
   );

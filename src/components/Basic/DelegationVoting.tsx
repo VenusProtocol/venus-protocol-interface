@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input } from 'antd';
 import { PrimaryButton } from 'components';
-import { useWeb3Account } from 'clients/web3';
+import { AuthContext } from 'context/AuthContext';
 
 const VotingWrapper = styled.div`
   .close-btn {
@@ -95,7 +95,7 @@ interface Props extends RouteComponentProps {
 
 function DelegationVoting({ history, isLoading, onDelegate }: Props) {
   const [delegateAddress, setDelegateAddress] = useState('');
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   return (
     <VotingWrapper>
       <div className="flex align-center just-center header-content">
@@ -127,7 +127,7 @@ function DelegationVoting({ history, isLoading, onDelegate }: Props) {
             className="self-button"
             onClick={() => {
               if (account) {
-                setDelegateAddress(account);
+                setDelegateAddress(account.address);
               }
             }}
           >

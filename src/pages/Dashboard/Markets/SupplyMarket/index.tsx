@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenId } from 'types';
 import { switchAriaLabel, Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
-import { AuthContext } from 'context/AuthContext';
 import { useUserMarketInfo, useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
+import { AuthContext } from 'context/AuthContext';
 import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import { useStyles } from '../styles';
@@ -122,9 +122,8 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
 };
 
 const SupplyMarket: React.FC<Pick<ISupplyMarketUiProps, 'isXvsEnabled'>> = ({ isXvsEnabled }) => {
-  const { account } = React.useContext(AuthContext);
-
-  const { assets } = useUserMarketInfo({ account: account?.address });
+  const { account } = useContext(AuthContext);
+  const { assets } = useUserMarketInfo({ accountAddress: account?.address });
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
   const { t } = useTranslation();
 
@@ -157,7 +156,7 @@ const SupplyMarket: React.FC<Pick<ISupplyMarketUiProps, 'isXvsEnabled'>> = ({ is
     } else if (!asset.collateral) {
       try {
         setConfirmCollateral(asset);
-        enterMarkets({ vtokenAddresses: [asset.vtokenAddress], account: account?.address });
+        enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress: account.address });
       } catch (error) {
         throw new ToastError(
           t('markets.errors.collateralEnableError.title'),
@@ -167,7 +166,7 @@ const SupplyMarket: React.FC<Pick<ISupplyMarketUiProps, 'isXvsEnabled'>> = ({ is
     } else if (+asset.hypotheticalLiquidity['1'] > 0 || +asset.hypotheticalLiquidity['2'] === 0) {
       try {
         setConfirmCollateral(asset);
-        exitMarkets({ vtokenAddress: asset.vtokenAddress, account: account?.address });
+        exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress: account.address });
       } catch (error) {
         throw new ToastError(
           t('markets.errors.collateralDisableError.title'),

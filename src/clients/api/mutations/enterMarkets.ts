@@ -3,7 +3,7 @@ import { Comptroller } from 'types/contracts';
 
 export interface IEnterMarketsInput {
   comptrollerContract: Comptroller;
-  account: string;
+  accountAddress?: string;
   vtokenAddresses: string[];
 }
 
@@ -11,9 +11,9 @@ export type EnterMarketsOutput = TransactionReceipt;
 
 const enterMarkets = ({
   comptrollerContract,
-  account,
+  accountAddress,
   vtokenAddresses,
 }: IEnterMarketsInput): Promise<EnterMarketsOutput> =>
-  comptrollerContract.methods.enterMarkets(vtokenAddresses).send({ from: account });
+  comptrollerContract.methods.enterMarkets(vtokenAddresses).send({ from: accountAddress });
 
 export default enterMarkets;

@@ -3,7 +3,7 @@ import { Comptroller } from 'types/contracts';
 
 export interface IExitMarketInput {
   comptrollerContract: Comptroller;
-  account: string;
+  accountAddress?: string;
   vtokenAddress: string;
 }
 
@@ -11,9 +11,9 @@ export type ExitMarketOutput = TransactionReceipt;
 
 const exitMarket = ({
   comptrollerContract,
-  account,
+  accountAddress,
   vtokenAddress,
 }: IExitMarketInput): Promise<ExitMarketOutput> =>
-  comptrollerContract.methods.exitMarket(vtokenAddress).send({ from: account });
+  comptrollerContract.methods.exitMarket(vtokenAddress).send({ from: accountAddress });
 
 export default exitMarket;

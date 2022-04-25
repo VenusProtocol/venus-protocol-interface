@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useWeb3Account } from 'clients/web3';
+import React, { useContext, useEffect, useState } from 'react';
+
 import BigNumber from 'bignumber.js';
 import { getContractAddress } from 'utilities';
-import useRefresh from '../hooks/useRefresh';
 import {
   useComptrollerContract,
   useTokenContract,
   useVaiUnitrollerContract,
-} from '../clients/contracts/hooks';
+} from 'clients/contracts/hooks';
+import useRefresh from 'hooks/useRefresh';
+import { AuthContext } from './AuthContext';
 
 const VaiContext = React.createContext({
   userVaiMinted: new BigNumber(0),
@@ -29,7 +30,7 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
   const comptrollerContract = useComptrollerContract();
   const vaiControllerContract = useVaiUnitrollerContract();
   const vaiContract = useTokenContract('vai');
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -39,10 +40,12 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
       }
       const [userVaiBalanceTemp, userVaiMintedTemp, { 1: mintableVaiTemp }, allowBalanceTemp] =
         await Promise.all([
-          vaiContract.methods.balanceOf(account).call(),
-          comptrollerContract.methods.mintedVAIs(account).call(),
-          vaiControllerContract.methods.getMintableVAI(account).call(),
-          vaiContract.methods.allowance(account, getContractAddress('vaiUnitroller')).call(),
+          vaiContract.methods.balanceOf(account.address).call(),
+          comptrollerContract.methods.mintedVAIs(account.address).call(),
+          vaiControllerContract.methods.getMintableVAI(account.address).call(),
+          vaiContract.methods
+            .allowance(account.address, getContractAddress('vaiUnitroller'))
+            .call(),
         ]);
       if (!isMounted) {
         return;

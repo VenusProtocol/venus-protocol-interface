@@ -4,7 +4,7 @@ import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
 
 export interface IApproveTokenInput {
   tokenContract: Bep20 | VaiToken | VrtToken | XvsToken;
-  account: string | undefined;
+  accountAddress: string | undefined;
   vtokenAddress: string;
   allowance?: string;
 }
@@ -13,10 +13,10 @@ export type ApproveTokenOutput = TransactionReceipt;
 
 const approveToken = ({
   tokenContract,
-  account,
+  accountAddress,
   vtokenAddress,
   allowance = new BigNumber(2).pow(256).minus(1).toString(10),
 }: IApproveTokenInput): Promise<ApproveTokenOutput> =>
-  tokenContract.methods.approve(vtokenAddress, allowance).send({ from: account });
+  tokenContract.methods.approve(vtokenAddress, allowance).send({ from: accountAddress });
 
 export default approveToken;
