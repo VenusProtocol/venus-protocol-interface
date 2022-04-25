@@ -16,13 +16,13 @@ import { useStyles } from '../styles';
 export interface IBorrowMarketUiProps {
   className?: string;
   borrowAssets: Asset[];
-  withXvs: boolean;
+  isXvsEnabled: boolean;
 }
 
 export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   className,
   borrowAssets,
-  withXvs,
+  isXvsEnabled,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -39,7 +39,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
 
   // Format assets to rows
   const rows: ITableProps['data'] = borrowAssets.map(asset => {
-    const borrowApy = withXvs ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
+    const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
 
     return [
       {
@@ -90,12 +90,10 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   );
 };
 
-const BorrowMarket: React.FC = () => {
+const BorrowMarket: React.FC<Pick<IBorrowMarketUiProps, 'isXvsEnabled'>> = ({ isXvsEnabled }) => {
   const { account } = React.useContext(AuthContext);
   const { assets } = useUserMarketInfo({ account: account?.address });
-
-  // @TODO: set withXVS from WalletBalance
-  return <BorrowMarketUi borrowAssets={assets} withXvs />;
+  return <BorrowMarketUi borrowAssets={assets} isXvsEnabled={isXvsEnabled} />;
 };
 
 export default BorrowMarket;

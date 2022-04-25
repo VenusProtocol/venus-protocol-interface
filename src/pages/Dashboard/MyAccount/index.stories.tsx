@@ -25,7 +25,7 @@ export const Default = () => (
     borrowLimitCents={73730}
     safeBorrowLimitPercentage={65}
     onXvsToggle={noop}
-    withXvs
+    isXvsEnabled
   />
 );
 
@@ -38,7 +38,7 @@ export const WithZeroValues = () => (
     borrowLimitCents={0}
     safeBorrowLimitPercentage={65}
     onXvsToggle={noop}
-    withXvs={false}
+    isXvsEnabled={false}
   />
 );
 
@@ -51,6 +51,6 @@ export const WithoutUndefinedValues = () => (
     borrowLimitCents={undefined}
     safeBorrowLimitPercentage={65}
     onXvsToggle={noop}
-    withXvs={false}
+    isXvsEnabled={false}
   />
 );

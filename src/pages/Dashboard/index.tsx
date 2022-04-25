@@ -6,12 +6,13 @@ import { useStyles } from './styles';
 
 const DashboardUi: React.FC = () => {
   const styles = useStyles();
+  const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
   return (
     <div>
-      <MyAccount />
+      <MyAccount setIsXvsEnabled={setIsXvsEnabled} isXvsEnabled={isXvsEnabled} />
       <div css={styles.container}>
-        <SupplyMarket />
-        <BorrowMarket />
+        <SupplyMarket isXvsEnabled={isXvsEnabled} />
+        <BorrowMarket isXvsEnabled={isXvsEnabled} />
       </div>
     </div>
   );

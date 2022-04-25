@@ -17,7 +17,7 @@ import { useStyles } from '../styles';
 export interface ISupplyMarketUiProps {
   className?: string;
   assets: Asset[];
-  withXvs: boolean;
+  isXvsEnabled: boolean;
   toggleAssetCollateral: (a: Asset) => void;
   confirmCollateral: Asset | undefined;
   setConfirmCollateral: (asset: Asset | undefined) => void;
@@ -27,7 +27,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   className,
   assets,
   toggleAssetCollateral,
-  withXvs,
+  isXvsEnabled,
   confirmCollateral,
   setConfirmCollateral,
 }) => {
@@ -67,7 +67,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
     {
       key: 'apy',
       render: () => {
-        const apy = withXvs ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
+        const apy = isXvsEnabled ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
         return formatApy(apy);
       },
       value: asset.supplyApy.toString(),
@@ -120,7 +120,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
   );
 };
 
-const SupplyMarket: React.FC = () => {
+const SupplyMarket: React.FC<Pick<ISupplyMarketUiProps, 'isXvsEnabled'>> = ({ isXvsEnabled }) => {
   const { account = '' } = useWeb3Account();
   const { assets } = useUserMarketInfo({ account });
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
@@ -179,11 +179,11 @@ const SupplyMarket: React.FC = () => {
       );
     }
   };
-  // @TODO: set withXVS from WalletBalance
+
   return (
     <SupplyMarketUi
       assets={assets}
-      withXvs
+      isXvsEnabled={isXvsEnabled}
       toggleAssetCollateral={toggleAssetCollateral}
       confirmCollateral={confirmCollateral}
       setConfirmCollateral={setConfirmCollateral}

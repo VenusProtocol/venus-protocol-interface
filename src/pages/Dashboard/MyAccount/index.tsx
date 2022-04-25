@@ -10,14 +10,16 @@ import {
 } from 'utilities';
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
-const MyAccount: React.FC = () => {
+interface IMyAccountProps {
+  isXvsEnabled: boolean;
+  setIsXvsEnabled: (value: boolean) => void;
+}
+
+const MyAccount: React.FC<IMyAccountProps> = ({ isXvsEnabled, setIsXvsEnabled }) => {
   const { account } = React.useContext(AuthContext);
   const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
     account: account?.address,
   });
-
-  // @TODO: elevate state so it can be shared with borrow and supply markets
-  const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
 
   const calculations: Pick<
     IMyAccountUiProps,
@@ -52,7 +54,7 @@ const MyAccount: React.FC = () => {
   return (
     <MyAccountUi
       safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-      withXvs={isXvsEnabled}
+      isXvsEnabled={isXvsEnabled}
       onXvsToggle={setIsXvsEnabled}
       {...calculations}
     />
