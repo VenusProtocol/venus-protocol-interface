@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
 import { useTranslation } from 'translation';
-import { IToggleProps, Toggle, Icon, ProgressBarHorizontal, Tooltip } from 'components';
+import { IToggleProps, Toggle, Icon, ProgressBar, Tooltip } from 'components';
 import { useMyAccountStyles as useStyles } from './styles';
 
 export interface IMyAccountUiProps {
@@ -159,7 +159,7 @@ export const MyAccountUi = ({
         </div>
       </div>
 
-      <ProgressBarHorizontal
+      <ProgressBar
         css={styles.progressBar}
         value={borrowLimitUsedPercentage || 0}
         mark={safeBorrowLimitPercentage}

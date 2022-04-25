@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { formatToReadablePercentage } from 'utilities/common';
-import { IProgressBarProps, ProgressBarHorizontal } from '..';
+import { IProgressBarProps, ProgressBar } from '..';
 import { useStyles } from './styles';
 
 export const PercentageRepresentation: React.FC<Pick<IProgressBarProps, 'value' | 'className'>> = ({
@@ -13,7 +13,7 @@ export const PercentageRepresentation: React.FC<Pick<IProgressBarProps, 'value' 
   const styles = useStyles();
   return (
     <div css={styles.root}>
-      <ProgressBarHorizontal
+      <ProgressBar
         className={className}
         value={value}
         mark={undefined}

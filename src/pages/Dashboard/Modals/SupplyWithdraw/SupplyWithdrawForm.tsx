@@ -11,7 +11,7 @@ import {
   LabeledInlineContent,
   ILabeledInlineContentProps,
   PrimaryButton,
-  ProgressBarHorizontal,
+  ProgressBar,
   Tooltip,
   ValueUpdate,
 } from 'components';
@@ -147,7 +147,7 @@ export const SupplyWithdrawContent: React.FC<
             </Typography>
           </Tooltip>
         </div>
-        <ProgressBarHorizontal
+        <ProgressBar
           value={newBorrowPercent.toNumber()}
           // @TODO use SAFE_BORROW_LIMIT_PERCENTAGE constant
           mark={80}

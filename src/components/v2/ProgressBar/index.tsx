@@ -21,7 +21,7 @@ export interface IProgressBarProps {
   tooltipPlacement?: ITooltipProps['placement'];
 }
 
-export const ProgressBarHorizontal = ({
+export const ProgressBar = ({
   value,
   mark,
   step,
