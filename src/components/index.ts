@@ -9,6 +9,7 @@ export * from './v2/Icon';
 export * from './v2/LabeledInlineContent';
 export * from './v2/Layout';
 export * from './v2/Modal';
+export * from './v2/PercentageRepresentation';
 export * from './v2/ProgressBarHorizontal';
 export * from './v2/SuccessfulTransactionModal';
 export * from './v2/Table';
