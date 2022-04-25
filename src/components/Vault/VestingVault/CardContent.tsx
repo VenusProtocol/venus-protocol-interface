@@ -70,7 +70,7 @@ function CardContent({
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
     let isMounted = true;
-    let [balance, allowance, withdrawals] = ['0', '0', [['', '']]];
+    let [balance, allowance, withdrawals] = ['0', '0', [['0', '0']]];
     if (account) {
       [balance, allowance, withdrawals] = await Promise.all([
         stakedTokenContract.methods.balanceOf(account).call(),
