@@ -101,7 +101,7 @@ describe('pages/Dashboard/MintRepayVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenSymbol: 'xvs',
+        tokenId: 'xvs',
         valueWei: fakeXvsReward,
       },
       message: expect.any(String),

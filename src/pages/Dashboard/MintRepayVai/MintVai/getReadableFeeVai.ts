@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { convertWeiToCoins } from 'utilities/common';
-import { VAI_SYMBOL } from '../constants';
+import { VAI_ID } from '../constants';
 
 const getReadableFeeVai = ({
   valueWei,
@@ -13,7 +13,7 @@ const getReadableFeeVai = ({
   const feeWei = new BigNumber(valueWei || 0).multipliedBy(mintFeePercentage).dividedBy(100);
   return convertWeiToCoins({
     value: feeWei,
-    tokenSymbol: VAI_SYMBOL,
+    tokenId: VAI_ID,
     returnInReadableFormat: true,
   });
 };

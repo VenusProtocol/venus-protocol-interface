@@ -12,7 +12,7 @@ import { useRepayVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
-import { VAI_SYMBOL } from '../constants';
+import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 
 export interface IRepayVaiUiProps {
@@ -39,13 +39,13 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         ? BigNumber.minimum(userBalanceWei, userMintedWei)
         : new BigNumber(0);
 
-    return convertWeiToCoins({ value: limitWei, tokenSymbol: VAI_SYMBOL }).toString();
+    return convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toString();
   }, [userBalanceWei?.toString(), userMintedWei?.toString()]);
 
   // Convert minted wei into VAI
   const readableRepayableVai = useConvertToReadableCoinString({
     valueWei: userMintedWei,
-    tokenSymbol: VAI_SYMBOL,
+    tokenId: VAI_ID,
   });
 
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
@@ -55,7 +55,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
     const amountWei = convertCoinsToWei({
       value: formattedAmountTokens,
-      tokenSymbol: VAI_SYMBOL,
+      tokenId: VAI_ID,
     });
 
     try {
@@ -66,7 +66,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       // implemented
       const readableAmountTokens = formatCoinsToReadableValue({
         value: formattedAmountTokens,
-        tokenSymbol: VAI_SYMBOL,
+        tokenId: VAI_ID,
       });
 
       toast.success({
@@ -87,7 +87,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
             <TokenTextField
               name="amount"
               css={styles.textField}
-              tokenSymbol={VAI_SYMBOL}
+              tokenId={VAI_ID}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               onBlur={handleBlur}
@@ -98,7 +98,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
             <LabeledInlineContent
               css={styles.getRow({ isLast: true })}
-              iconName={VAI_SYMBOL}
+              iconName={VAI_ID}
               label={t('mintRepayVai.repayVai.repayVaiBalance')}
             >
               {readableRepayableVai}
@@ -128,13 +128,13 @@ const RepayVai: React.FC = () => {
 
   // Convert minted VAI balance into wei of VAI
   const userMintedWei = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiMinted, tokenSymbol: VAI_SYMBOL }),
+    () => convertCoinsToWei({ value: userVaiMinted, tokenId: VAI_ID }),
     [userVaiMinted.toString()],
   );
 
   // Convert user VAI balance into wei of VAI
   const userBalanceWei = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiBalance, tokenSymbol: VAI_SYMBOL }),
+    () => convertCoinsToWei({ value: userVaiBalance, tokenId: VAI_ID }),
     [userVaiBalance.toString()],
   );
 
