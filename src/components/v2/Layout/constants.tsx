@@ -1,7 +1,7 @@
 import { isOnTestnet } from 'config';
 import { IconName } from '../Icon';
 
-interface IMenuItem {
+export interface IMenuItem {
   href: string;
   i18nKey: string;
   icon: IconName;
@@ -66,8 +66,8 @@ if (isOnTestnet) {
     {
       href: '/convert-vrt',
       // Translation key: do not remove this comment
-      // t('layout.menuItems.convertXvs')
-      i18nKey: 'layout.menuItems.convertXvs',
+      // t('layout.menuItems.convertVrt')
+      i18nKey: 'layout.menuItems.convertVrt',
       icon: 'convert',
     },
     {
@@ -75,7 +75,7 @@ if (isOnTestnet) {
       // Translation key: do not remove this comment
       // t('layout.menuItems.faucet')
       i18nKey: 'layout.menuItems.faucet',
-      icon: 'info',
+      icon: 'vault',
     },
   );
 }
