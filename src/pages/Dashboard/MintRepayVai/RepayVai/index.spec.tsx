@@ -16,7 +16,7 @@ jest.mock('components/Basic/Toast');
 const fakeUserVaiMinted = new BigNumber('1000000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
   value: fakeUserVaiMinted,
-  tokenSymbol: 'vai',
+  tokenId: 'vai',
 });
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {

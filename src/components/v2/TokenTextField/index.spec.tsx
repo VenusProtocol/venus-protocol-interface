@@ -12,13 +12,13 @@ const testId = 'token-text-field-input';
 
 describe('components/TokenTextField', () => {
   it('renders without crashing', async () => {
-    renderComponent(<TokenTextField tokenSymbol="xvs" onChange={noop} value="" />);
+    renderComponent(<TokenTextField tokenId="xvs" onChange={noop} value="" />);
   });
 
   it('does not let user enter value with more decimal places than token associated to tokenSymbol provided has', async () => {
     const onChangeMock = jest.fn();
     const { getByTestId } = renderComponent(
-      <TokenTextField tokenSymbol="xvs" onChange={onChangeMock} value="" data-testid={testId} />,
+      <TokenTextField tokenId="xvs" onChange={onChangeMock} value="" data-testid={testId} />,
     );
 
     const input = getByTestId(testId) as HTMLInputElement;
@@ -50,7 +50,7 @@ describe('components/TokenTextField', () => {
     const onChangeMock = jest.fn();
     const { getByTestId } = renderComponent(
       <TokenTextField
-        tokenSymbol="xvs"
+        tokenId="xvs"
         onChange={onChangeMock}
         value=""
         data-testid={testId}
@@ -70,7 +70,7 @@ describe('components/TokenTextField', () => {
 
     const { getByText } = renderComponent(
       <TokenTextField
-        tokenSymbol="xvs"
+        tokenId="xvs"
         onChange={onChangeMock}
         value=""
         data-testid={testId}

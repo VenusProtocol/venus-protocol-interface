@@ -12,7 +12,7 @@ import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
-import { VAI_SYMBOL } from '../constants';
+import { VAI_ID } from '../constants';
 import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from '../styles';
 
@@ -35,15 +35,14 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const { t } = useTranslation();
 
   const limitTokens = React.useMemo(
-    () =>
-      limitWei ? convertWeiToCoins({ value: limitWei, tokenSymbol: VAI_SYMBOL }).toString() : '0',
+    () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toString() : '0'),
     [limitWei?.toString()],
   );
 
   // Convert limit into VAI
   const readableVaiLimit = useConvertToReadableCoinString({
     valueWei: limitWei,
-    tokenSymbol: VAI_SYMBOL,
+    tokenId: VAI_ID,
   });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
@@ -68,7 +67,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
     const amountWei = convertCoinsToWei({
       value: formattedAmountTokens,
-      tokenSymbol: VAI_SYMBOL,
+      tokenId: VAI_ID,
     });
 
     try {
@@ -79,7 +78,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
       // implemented
       const readableAmountTokens = formatCoinsToReadableValue({
         value: formattedAmountTokens,
-        tokenSymbol: VAI_SYMBOL,
+        tokenId: VAI_ID,
       });
 
       toast.success({
@@ -98,7 +97,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
             <TokenTextField
               name="amount"
               css={styles.textField}
-              tokenSymbol={VAI_SYMBOL}
+              tokenId={VAI_ID}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               onBlur={handleBlur}
@@ -109,7 +108,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
             <LabeledInlineContent
               css={styles.getRow({ isLast: false })}
-              iconName={VAI_SYMBOL}
+              iconName={VAI_ID}
               label={t('mintRepayVai.mintVai.vaiLimitLabel')}
             >
               {readableVaiLimit}
@@ -150,7 +149,7 @@ const MintVai: React.FC = () => {
 
   // Convert limit into wei of VAI
   const limitWei = React.useMemo(
-    () => convertCoinsToWei({ value: mintableVai, tokenSymbol: VAI_SYMBOL }),
+    () => convertCoinsToWei({ value: mintableVai, tokenId: VAI_ID }),
     [mintableVai.toString()],
   );
 

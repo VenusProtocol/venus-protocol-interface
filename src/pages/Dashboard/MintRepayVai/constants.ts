@@ -1,1 +1,1 @@
-export const VAI_SYMBOL = 'vai';
+export const VAI_ID = 'vai';

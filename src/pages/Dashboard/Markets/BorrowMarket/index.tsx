@@ -57,7 +57,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
         render: () =>
           formatCoinsToReadableValue({
             value: asset.walletBalance,
-            tokenSymbol: asset.symbol as TokenId,
+            tokenId: asset.id as TokenId,
           }),
         value: asset.walletBalance.toString(),
       },

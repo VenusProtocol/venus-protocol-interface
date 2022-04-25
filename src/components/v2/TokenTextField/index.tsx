@@ -13,7 +13,7 @@ import { TextField, ITextFieldProps } from '../TextField';
 // expressed in wei to make them easier to use with contracts
 export interface ITokenTextFieldProps
   extends Omit<ITextFieldProps, 'onChange' | 'value' | 'max' | 'min'> {
-  tokenSymbol: TokenId;
+  tokenId: TokenId;
   value: string;
   onChange: (newValue: string) => void;
   rightMaxButtonLabel?: string;
@@ -21,21 +21,21 @@ export interface ITokenTextFieldProps
 }
 
 export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
-  tokenSymbol,
+  tokenId,
   rightMaxButtonLabel,
   onChange,
   disabled,
   max,
   ...otherProps
 }) => {
-  const tokenDecimals = getToken(tokenSymbol).decimals;
+  const tokenDecimals = getToken(tokenId).decimals;
 
   const step = React.useMemo(() => {
     const tmpOneCoinInWei = new BigNumber(10).pow(tokenDecimals);
     const tmpOneWeiInCoins = new BigNumber(1).dividedBy(tmpOneCoinInWei);
 
     return tmpOneWeiInCoins.toFixed();
-  }, [tokenSymbol]);
+  }, [tokenId]);
 
   const setMaxValue = () => {
     if (onChange && max) {
@@ -60,7 +60,7 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
       step={step}
       onChange={handleChange}
       type="number"
-      leftIconName={tokenSymbol as IconName}
+      leftIconName={tokenId as IconName}
       rightAdornment={
         rightMaxButtonLabel && onChange && max ? (
           <TertiaryButton onClick={setMaxValue} small disabled={disabled}>

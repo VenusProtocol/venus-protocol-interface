@@ -21,11 +21,7 @@ const initialData: { value: string } = { value: '' };
 export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
-      <TokenTextField
-        tokenSymbol="usdt"
-        value={state.value}
-        onChange={value => setState({ value })}
-      />
+      <TokenTextField tokenId="usdt" value={state.value} onChange={value => setState({ value })} />
     )}
   </State>
 );
@@ -34,7 +30,7 @@ export const WithMaxTokens = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TokenTextField
-        tokenSymbol="xvs"
+        tokenId="xvs"
         value={state.value}
         onChange={value => setState({ value })}
         max="10"
@@ -47,7 +43,7 @@ export const WithRightMaxButtonLabel = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TokenTextField
-        tokenSymbol="usdt"
+        tokenId="usdt"
         value={state.value}
         onChange={value => setState({ value })}
         max="10"
