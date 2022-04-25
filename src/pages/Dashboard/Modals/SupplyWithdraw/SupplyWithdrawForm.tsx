@@ -31,7 +31,7 @@ interface ISupplyWithdrawFormUiProps {
   tokenInfo: ILabeledInlineContentProps[];
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
-  dailyEarnings: BigNumber;
+  dailyEarningsCents: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
@@ -49,7 +49,7 @@ export const SupplyWithdrawContent: React.FC<
   tokenInfo,
   userTotalBorrowBalance,
   userTotalBorrowLimit,
-  dailyEarnings,
+  dailyEarningsCents,
   maxInput,
   inputLabel,
   enabledButtonKey,
@@ -172,7 +172,7 @@ export const SupplyWithdrawContent: React.FC<
         css={[styles.infoRow, styles.dailyEarnings]}
         className="info-row"
       >
-        {formatCentsToReadableValue({ value: dailyEarnings })}
+        {formatCentsToReadableValue({ value: dailyEarningsCents })}
       </LabeledInlineContent>
       <LabeledInlineContent
         label={t('supplyWithdraw.supplyBalance')}

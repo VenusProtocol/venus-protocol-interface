@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
 const calculateDailyEarningsCents = (yearlyEarningsCents: BigNumber) =>
-  yearlyEarningsCents.dividedBy(365).toFixed(0);
+  yearlyEarningsCents.dividedBy(365);
 
 export default calculateDailyEarningsCents;

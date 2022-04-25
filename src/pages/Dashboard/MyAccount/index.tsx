@@ -40,7 +40,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({ isXvsEnabled, setIsXvsEnabled })
       yearlyEarningsCents &&
       calculateApy({ supplyBalanceCents, yearlyEarningsCents });
     const dailyEarningsCents =
-      yearlyEarningsCents && +calculateDailyEarningsCents(yearlyEarningsCents);
+      yearlyEarningsCents && +calculateDailyEarningsCents(yearlyEarningsCents).toFixed(0);
 
     return {
       netApyPercentage,
