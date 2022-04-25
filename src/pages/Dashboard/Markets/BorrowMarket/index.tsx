@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
@@ -91,8 +91,8 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
 };
 
 const BorrowMarket: React.FC = () => {
-  const { account } = React.useContext(AuthContext);
-  const { assets } = useUserMarketInfo({ account: account?.address });
+  const { account } = useContext(AuthContext);
+  const { assets } = useUserMarketInfo({ account });
 
   // @TODO: set withXVS from WalletBalance
   return <BorrowMarketUi borrowAssets={assets} withXvs />;

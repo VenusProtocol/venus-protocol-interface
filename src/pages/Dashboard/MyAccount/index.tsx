@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { AuthContext } from 'context/AuthContext';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
@@ -11,9 +11,9 @@ import {
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
 const MyAccount: React.FC = () => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useContext(AuthContext);
   const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
-    account: account?.address,
+    account,
   });
 
   // @TODO: elevate state so it can be shared with borrow and supply markets

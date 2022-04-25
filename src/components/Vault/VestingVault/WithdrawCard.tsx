@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 
-import { useWeb3Account } from 'clients/web3';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
+import { AuthContext } from 'context/AuthContext';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import { CardItemWrapper } from '../styles';
 
@@ -85,7 +85,7 @@ function WithdrawCard({
 }: WithdrawCardProps) {
   const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
 
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const xvsVaultContract = useXvsVaultProxyContract();
 
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
@@ -160,7 +160,7 @@ function WithdrawCard({
                         withdrawAmount.multipliedBy(stakedTokenDecimal).toString(10),
                       )
                       .send({
-                        from: account || undefined,
+                        from: account?.address,
                       });
                   } catch (e) {
                     console.log('>> request withdraw error: ', e);
@@ -189,7 +189,7 @@ function WithdrawCard({
                   try {
                     await xvsVaultContract.methods
                       .executeWithdrawal(rewardTokenAddress!, poolId.toNumber())
-                      .send({ from: account || undefined });
+                      .send({ from: account?.address });
                   } catch (e) {
                     console.log('>> execute withdraw error:', e);
                   }

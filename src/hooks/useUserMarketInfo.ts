@@ -14,11 +14,12 @@ import {
   useGetHypotheticalLiquidityQueries,
   IGetVTokenBalancesAllOutput,
 } from 'clients/api';
+import { IAccount } from '../context/AuthContext';
 
 const useUserMarketInfo = ({
   account,
 }: {
-  account: string | null | undefined;
+  account?: IAccount;
 }): { assets: Asset[]; userTotalBorrowLimit: BigNumber; userTotalBorrowBalance: BigNumber } => {
   const { userVaiMinted } = useVaiUser();
 
@@ -27,11 +28,11 @@ const useUserMarketInfo = ({
     .map(item => item.address);
   const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
   const { data: assetsInAccount = [] } = useGetAssetsInAccount(
-    { account },
+    { account: account?.address },
     { placeholderData: [], enabled: !!account },
   );
   const { data: vTokenBalancesAccount = [] } = useGetVTokenBalancesAll(
-    { account, vtAddresses },
+    { account: account?.address, vtAddresses },
     { placeholderData: [], enabled: !!account },
   );
   const { data: vTokenBalancesTreasury = [] } = useGetVTokenBalancesAll(
@@ -123,7 +124,7 @@ const useUserMarketInfo = ({
   // toggle. Sadly, the current VenusLens contract does not provide this info, so we
   // still have to query each market.
   const hypotheticalLiquidityQueries = useGetHypotheticalLiquidityQueries(
-    { assetList, account, balances },
+    { assetList, account: account?.address, balances },
     { enabled: !!account },
   );
   assetList = (hypotheticalLiquidityQueries as Array<UseQueryResult<Asset>>).reduce(

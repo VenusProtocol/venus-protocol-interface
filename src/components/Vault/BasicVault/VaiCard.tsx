@@ -1,11 +1,11 @@
 // We put the code of UI of old VAI pool (which will be live for quite some time) into this seperated
 // file, instead of merging its logic into general pool UI which is in `./Card.js` thus we can easily
 // remove this VAI pool code in the future when it's about to be deprecated
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import BigNumber from 'bignumber.js';
 import { connect } from 'react-redux';
-import { useWeb3Account } from 'clients/web3';
+
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import useRefresh from 'hooks/useRefresh';
@@ -15,7 +15,7 @@ import {
   useVaiVaultContract,
 } from 'clients/contracts/hooks';
 import { getContractAddress } from 'utilities';
-
+import { AuthContext } from 'context/AuthContext';
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
 import { VaultCardWrapper } from '../styles';
@@ -25,7 +25,7 @@ interface VaultCardProps {
 }
 
 function VaultCard({ settings }: VaultCardProps) {
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { fastRefresh } = useRefresh();
 
   const compContract = useComptrollerContract();
@@ -62,10 +62,10 @@ function VaultCard({ settings }: VaultCardProps) {
         userPendingRewardTemp,
         userVaiAllowanceTemp,
       ] = await Promise.all([
-        vaiTokenContract.methods.balanceOf(account).call(),
-        vaiVaultContract.methods.userInfo(account).call(),
-        vaiVaultContract.methods.pendingXVS(account).call(),
-        vaiTokenContract.methods.allowance(account, getContractAddress('vaiVault')).call(),
+        vaiTokenContract.methods.balanceOf(account.address).call(),
+        vaiVaultContract.methods.userInfo(account.address).call(),
+        vaiVaultContract.methods.pendingXVS(account.address).call(),
+        vaiTokenContract.methods.allowance(account.address, getContractAddress('vaiVault')).call(),
       ]);
     }
 
@@ -110,22 +110,22 @@ function VaultCard({ settings }: VaultCardProps) {
             stakedToken="VAI"
             rewardToken="XVS"
             onClaimReward={async () => {
-              await vaiVaultContract.methods.claim().send({ from: account || undefined });
+              await vaiVaultContract.methods.claim().send({ from: account?.address });
             }}
             onStake={async stakeAmount => {
               await vaiVaultContract.methods
                 .deposit(stakeAmount.toFixed(0))
-                .send({ from: account || undefined });
+                .send({ from: account?.address });
             }}
             onApprove={async amt => {
               await vaiTokenContract.methods
                 .approve(vaiVaultContract.options.address, amt.toFixed(0))
-                .send({ from: account || undefined });
+                .send({ from: account?.address });
             }}
             onWithdraw={async amt => {
               await vaiVaultContract.methods
                 .withdraw(amt.toFixed(0))
-                .send({ from: account || undefined });
+                .send({ from: account?.address });
             }}
           />
         )}

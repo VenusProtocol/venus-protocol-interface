@@ -1,13 +1,13 @@
 // We put the code of UI of old VAI pool (which will be live for quite some time) into this seperated
 // file, instead of merging its logic into general pool UI which is in `./Card.js` thus we can easily
 // remove this VAI pool code in the future when it's about to be deprecated
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import BigNumber from 'bignumber.js';
-import { useWeb3Account } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
 import { useTokenContract, useVrtVaultProxyContract } from 'clients/contracts/hooks';
 import { getContractAddress } from 'utilities';
+import { AuthContext } from 'context/AuthContext';
 
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
@@ -18,7 +18,7 @@ const BLOCK_PER_MINUTE = 60 / 3;
 const BLOCK_PER_DAY = BLOCK_PER_MINUTE * 60 * 24;
 
 export default function VaultCard() {
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { fastRefresh } = useRefresh();
 
   const vrtTokenContract = useTokenContract('vrt');
@@ -55,10 +55,12 @@ export default function VaultCard() {
         userPendingRewardTemp,
         userVrtAllowanceTemp,
       ] = await Promise.all([
-        vrtTokenContract.methods.balanceOf(account).call(),
-        vrtVaultProxyContract.methods.userInfo(account).call(),
-        vrtVaultProxyContract.methods.getAccruedInterest(account).call(),
-        vrtTokenContract.methods.allowance(account, getContractAddress('vrtVaultProxy')).call(),
+        vrtTokenContract.methods.balanceOf(account.address).call(),
+        vrtVaultProxyContract.methods.userInfo(account.address).call(),
+        vrtVaultProxyContract.methods.getAccruedInterest(account.address).call(),
+        vrtTokenContract.methods
+          .allowance(account.address, getContractAddress('vrtVaultProxy'))
+          .call(),
       ]);
     }
 
@@ -113,20 +115,20 @@ export default function VaultCard() {
             rewardToken="VRT"
             fullWithdraw
             onClaimReward={async () => {
-              await vrtVaultProxyContract.methods.claim().send({ from: account || undefined });
+              await vrtVaultProxyContract.methods.claim().send({ from: account?.address });
             }}
             onStake={async stakeAmount => {
               await vrtVaultProxyContract.methods
                 .deposit(stakeAmount.toFixed(0))
-                .send({ from: account || undefined });
+                .send({ from: account?.address });
             }}
             onApprove={async amt => {
               await vrtTokenContract.methods
                 .approve(vrtVaultProxyContract.options.address, amt.toFixed(0))
-                .send({ from: account || undefined });
+                .send({ from: account?.address });
             }}
             onWithdraw={async () => {
-              await vrtVaultProxyContract.methods.withdraw().send({ from: account || undefined });
+              await vrtVaultProxyContract.methods.withdraw().send({ from: account?.address });
             }}
           />
         )}

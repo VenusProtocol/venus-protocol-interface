@@ -11,7 +11,6 @@ import Menu from '@mui/material/Menu';
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
 import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoMobile.svg';
-import { useWeb3Account } from 'clients/web3';
 import { useTranslation } from 'translation';
 import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
@@ -20,11 +19,7 @@ import { Icon } from '../../Icon';
 import { menuItems } from '../constants';
 import { useStyles } from './styles';
 
-interface ISidebarProps {
-  account: undefined | null | string;
-}
-
-export const SidebarUi: React.FC<ISidebarProps> = () => {
+export const SidebarUi: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
@@ -134,9 +129,4 @@ export const SidebarUi: React.FC<ISidebarProps> = () => {
   );
 };
 
-const Sidebar = () => {
-  const { account } = useWeb3Account();
-  return <SidebarUi account={account} />;
-};
-
-export default Sidebar;
+export default SidebarUi;

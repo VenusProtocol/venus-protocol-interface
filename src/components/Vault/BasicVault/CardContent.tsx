@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3Account } from 'clients/web3';
 import NumberFormat from 'react-number-format';
+
 import { commaFormat } from 'utilities/common';
 import { TokenId } from 'types';
+import { AuthContext } from 'context/AuthContext';
 import { CardItemWrapper } from '../styles';
 
 const CardContentWrapper = styled.div`
@@ -40,7 +41,7 @@ function CardContent({
   onWithdraw,
   fullWithdraw,
 }: CardContentProps) {
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
 
   // user info
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0));

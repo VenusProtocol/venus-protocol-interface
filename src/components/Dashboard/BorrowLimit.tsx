@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LineProgressBar from 'components/Basic/LineProgressBar';
 import BigNumber from 'bignumber.js';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
-import { useWeb3Account } from 'clients/web3';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { AuthContext } from 'context/AuthContext';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -29,7 +29,7 @@ const CardWrapper = styled.div`
 function BorrowLimit() {
   const [available, setAvailable] = useState('0');
   const [borrowPercent, setBorrowPercent] = useState(0);
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
 
   useEffect(() => {

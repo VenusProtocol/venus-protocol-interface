@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenId } from 'types';
 import { Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
-import { useWeb3Account } from 'clients/web3';
 import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
+import { AuthContext } from 'context/AuthContext';
 import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import { useStyles } from '../styles';
@@ -121,7 +121,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
 };
 
 const SupplyMarket: React.FC = () => {
-  const { account = '' } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { assets } = useUserMarketInfo({ account });
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
   const { t } = useTranslation();

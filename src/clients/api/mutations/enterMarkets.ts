@@ -1,6 +1,8 @@
+import { IAccount } from 'context/AuthContext';
+
 export interface IEnterMarketsInput {
   comptrollerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
-  account: string | undefined | null;
+  account: IAccount;
   vtokenAddresses: string[];
 }
 

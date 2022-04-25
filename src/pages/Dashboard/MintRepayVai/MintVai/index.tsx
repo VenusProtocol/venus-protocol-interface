@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { AuthContext } from 'context/AuthContext';
@@ -139,7 +139,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 };
 
 const MintVai: React.FC = () => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useContext(AuthContext);
   const { mintableVai } = useVaiUser();
   const { t } = useTranslation();
 

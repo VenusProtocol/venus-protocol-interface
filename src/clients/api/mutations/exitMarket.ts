@@ -1,6 +1,8 @@
+import { IAccount } from 'context/AuthContext';
+
 export interface IExitMarketInput {
   comptrollerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
-  account: string | undefined | null;
+  account: IAccount;
   vtokenAddress: string;
 }
 
@@ -11,6 +13,6 @@ const exitMarket = ({
   account,
   vtokenAddress,
 }: IExitMarketInput): Promise<ExitMarketOutput> =>
-  comptrollerContract.methods.exitMarket(vtokenAddress).send({ from: account });
+  comptrollerContract.methods.exitMarket(vtokenAddress).send({ from: account.address });
 
 export default exitMarket;
