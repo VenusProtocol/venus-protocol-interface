@@ -40,7 +40,7 @@ export const ProgressBarHorizontal = ({
   const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => {
     if (markTooltip) {
       return (
-        <Box component="span" css={[styles.mark, styles.hasTooltip]}>
+        <Box component="span" {...props} css={[styles.mark, styles.hasTooltip]}>
           <Tooltip placement={tooltipPlacement} title={markTooltip}>
             <span css={styles.tooltipHelper}>.</span>
           </Tooltip>
