@@ -1,11 +1,5 @@
 import { isOnTestnet } from 'config';
-import { IconName } from '../Icon';
-
-export interface IMenuItem {
-  href: string;
-  i18nKey: string;
-  icon: IconName;
-}
+import { IMenuItem } from './types';
 
 export const menuItems: IMenuItem[] = [
   {
