@@ -21,6 +21,14 @@
       "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>."
     }
   },
+  "borrowRepayModal": {
+    "borrow": {
+      "rightMaxButtonLabel": "80% LIMIT",
+      "submitButton": "Borrow"
+    },
+    "borrowTabTitle": "Borrow",
+    "repayTabTitle": "Repay"
+  },
   "bscLink": {
     "content": "View on bscscan.com<Icon/>"
   },
