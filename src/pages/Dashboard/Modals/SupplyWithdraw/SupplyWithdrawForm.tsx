@@ -116,7 +116,7 @@ export const SupplyWithdrawContent: React.FC<
       <Delimiter css={styles.getRow({ isLast: true })} />
 
       <BorrowBalanceAccountHealth
-        css={styles.progressSection}
+        css={styles.getRow({ isLast: true })}
         borrowBalanceCents={userTotalBorrowBalance.toNumber()}
         borrowLimitCents={userTotalBorrowLimit.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
