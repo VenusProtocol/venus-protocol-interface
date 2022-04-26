@@ -15,6 +15,7 @@ declare module '@mui/material/styles' {
     interactive: {
       primary: React.CSSProperties['color'];
       success: React.CSSProperties['color'];
+      success50: React.CSSProperties['color'];
       error: React.CSSProperties['color'];
       error50: React.CSSProperties['color'];
       tan: React.CSSProperties['color'];
