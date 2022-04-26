@@ -8,7 +8,7 @@ import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { FormValues } from 'containers/AmountForm/validationSchema';
 import { AmountForm } from 'containers/AmountForm';
-import { PrimaryButton, TokenTextField } from 'components';
+import { PrimaryButton, TokenTextField, AccountHealth } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 
@@ -22,6 +22,7 @@ export interface IBorrowUiProps extends FormikProps<FormValues> {
   asset: Asset;
   safeBorrowLimitPercentage: number;
   userTotalBorrowBalanceCents: ProjectableValue<BigNumber>;
+  userBorrowLimit: BigNumber;
   dailyEarningsCents: ProjectableValue<BigNumber>;
 }
 
@@ -34,6 +35,8 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
   dirty,
   isValid,
   safeBorrowLimitPercentage,
+  userTotalBorrowBalanceCents,
+  userBorrowLimit,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -57,6 +60,12 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         })}
       />
 
+      <AccountHealth
+        borrowBalanceCents={userTotalBorrowBalanceCents.current.toNumber()}
+        borrowLimitCents={userBorrowLimit.toNumber()}
+        safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+      />
+
       <PrimaryButton type="submit" disabled={disabled || !isValid || !dirty} fullWidth>
         {t('borrowRepayModal.borrow.submitButton')}
       </PrimaryButton>
@@ -76,7 +85,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
     current: new BigNumber('1000000000'),
     projected: new BigNumber('1000000000'),
   };
-
+  const userBorrowLimit = new BigNumber('1000000000');
   const dailyEarningsCents = {
     current: new BigNumber('100000'),
     projected: new BigNumber('1000000'),
@@ -91,6 +100,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
           asset={asset}
           disabled={!account}
           userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
+          userBorrowLimit={userBorrowLimit}
           safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
           dailyEarningsCents={dailyEarningsCents}
           {...formikProps}
