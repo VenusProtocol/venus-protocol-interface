@@ -1,4 +1,13 @@
 {
+  "accountHealth": {
+    "accessibilityLabel": "Representation of the current state of your account",
+    "borrowLimitTooltip": "Current borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
+    "borrowLimitUsed": "Borrow limit used:",
+    "currentBorrowBalance": "Current:",
+    "limit": "Limit:",
+    "max": "Max:",
+    "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
+  },
   "authModal": {
     "accountDetails": {
       "logOutButtonLabel": "Log out"
@@ -142,16 +151,16 @@
     "supplyApy": "Supply APY",
     "supplyBalance": "Supply Balance",
     "supplyBalanceValue": "{{amount}} {{symbol}}",
+    "supplyError": {
+      "description": "There was an error supplying {{symbol}}. Please try again later",
+      "title": "Supply Error"
+    },
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>",
     "withdrawError": {
       "description": "There was an error withdrawing {{symbol}}. Please try again later",
       "title": "Withdrawl Error"
-    },
-    "supplyError": {
-      "description": "There was an error supplying {{symbol}}. Please try again later",
-      "title": "Supply Error"
     }
   }
 }

@@ -1,27 +1,20 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory } from 'stories/decorators';
-import { ProgressBarHorizontal } from '.';
+import { ProgressBar } from '.';
 
 export default {
-  title: 'Components/ProgressBarHorizontal',
-  component: ProgressBarHorizontal,
+  title: 'Components/ProgressBar',
+  component: ProgressBar,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof ProgressBarHorizontal>;
+} as ComponentMeta<typeof ProgressBar>;
 
 export const ValidProgressBar = () => (
-  <ProgressBarHorizontal
-    value={50}
-    step={5}
-    mark={75}
-    ariaLabel="Storybook slider"
-    min={0}
-    max={100}
-  />
+  <ProgressBar value={50} step={5} mark={75} ariaLabel="Storybook slider" min={0} max={100} />
 );
 
 export const ValidProgressBarWithTooltip = () => (
-  <ProgressBarHorizontal
+  <ProgressBar
     value={50}
     step={5}
     mark={75}
@@ -30,17 +23,9 @@ export const ValidProgressBarWithTooltip = () => (
     max={100}
     trackTooltip="Storybook tooltip text for Track"
     markTooltip="Storybook tooltip text for Mark"
-    isDisabled
   />
 );
 
 export const InvalidProgressBar = () => (
-  <ProgressBarHorizontal
-    value={90}
-    step={10}
-    mark={75}
-    ariaLabel="Storybook slider"
-    min={0}
-    max={100}
-  />
+  <ProgressBar value={90} step={10} mark={75} ariaLabel="Storybook slider" min={0} max={100} />
 );

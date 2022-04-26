@@ -90,12 +90,6 @@ export const useMyAccountStyles = () => {
         padding-right: 0;
       }
     `,
-    topProgressBarLegend: css`
-      margin-bottom: ${theme.spacing(3)};
-    `,
-    inlineContainer: css`
-      display: flex;
-    `,
     inlineLabel: css`
       margin-right: ${theme.spacing(1)};
     `,
