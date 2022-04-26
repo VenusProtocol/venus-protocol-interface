@@ -108,7 +108,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
     <>
       <TokenTextField
         name="amount"
-        css={styles.input}
+        css={styles.getRow({ isLast: true })}
         tokenId={asset.id}
         value={values.amount}
         onChange={amount => setFieldValue('amount', amount, true)}
@@ -124,11 +124,12 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
         borrowLimitCents={userBorrowLimitCents.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+        css={styles.getRow({ isLast: true })}
       />
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowLimitUsed')}
-        css={[styles.infoRow, styles.borrowLimit]}
+        css={styles.getRow({ isLast: false })}
       >
         <ValueUpdate
           original={borrowLimitUsedPercentage}
@@ -140,7 +141,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowBalance')}
-        css={[styles.infoRow, styles.borrowLimit]}
+        css={styles.getRow({ isLast: true })}
       >
         <ValueUpdate
           original={userTotalBorrowBalanceCents.toNumber()}
@@ -149,19 +150,30 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         />
       </LabeledInlineContent>
 
-      <Delimiter />
+      <Delimiter css={styles.getRow({ isLast: true })} />
 
-      <LabeledInlineContent label={t('borrowRepayModal.borrow.borrowAPy')} iconName={asset.id}>
+      <LabeledInlineContent
+        label={t('borrowRepayModal.borrow.borrowAPy')}
+        iconName={asset.id}
+        css={styles.getRow({ isLast: false })}
+      >
         {readableBorrowApy}
       </LabeledInlineContent>
 
-      <LabeledInlineContent label={t('borrowRepayModal.borrow.distributionAPy')} iconName="xvs">
+      <LabeledInlineContent
+        label={t('borrowRepayModal.borrow.distributionAPy')}
+        iconName="xvs"
+        css={styles.getRow({ isLast: true })}
+      >
         {readableDistributionApy}
       </LabeledInlineContent>
 
-      <Delimiter />
+      <Delimiter css={styles.getRow({ isLast: true })} />
 
-      <LabeledInlineContent label={t('borrowRepayModal.borrow.dailyEarnings')}>
+      <LabeledInlineContent
+        label={t('borrowRepayModal.borrow.dailyEarnings')}
+        css={styles.bottomRow}
+      >
         <ValueUpdate
           original={dailyEarningsCents.toNumber()}
           update={hypotheticalDailyEarningsCents?.toNumber()}

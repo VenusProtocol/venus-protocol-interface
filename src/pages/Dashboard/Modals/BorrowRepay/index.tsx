@@ -2,29 +2,33 @@
 import React from 'react';
 
 import { Asset } from 'types';
-import { Tabs } from 'components';
+import { Tabs, Modal, IModalProps, Token } from 'components';
 import { useTranslation } from 'translation';
-import { useStyles } from '../styles';
 import Borrow from './Borrow';
 
-export interface IBorrowRepayProps {
-  asset: Asset;
-  className?: string;
+export interface IBorrowRepayProps extends Pick<IModalProps, 'handleClose'> {
+  asset?: Asset;
 }
 
-const BorrowRepay: React.FC<IBorrowRepayProps> = ({ className, asset }) => {
-  const styles = useStyles();
+const BorrowRepay: React.FC<IBorrowRepayProps> = ({ handleClose, asset }) => {
   const { t } = useTranslation();
 
   const tabsContent = [
-    { title: t('borrowRepayModal.borrowTabTitle'), content: <Borrow asset={asset} /> },
+    {
+      title: t('borrowRepayModal.borrowTabTitle'),
+      content: asset ? <Borrow asset={asset} /> : <></>,
+    },
     { title: t('borrowRepayModal.repayTabTitle'), content: <>Repay</> },
   ];
 
   return (
-    <div className={className} css={styles.container}>
+    <Modal
+      isOpened={!!asset}
+      title={asset && <Token symbol={asset.id} variant="h4" />}
+      handleClose={handleClose}
+    >
       <Tabs tabsContent={tabsContent} />
-    </div>
+    </Modal>
   );
 };
 
