@@ -22,18 +22,17 @@ import {
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 
-type ProjectableValue<T> = {
-  current: T;
-  projected?: T;
-};
-
-export interface IBorrowUiProps extends FormikProps<FormValues> {
+export interface IBorrowUiProps
+  extends Pick<
+    FormikProps<FormValues>,
+    'values' | 'setFieldValue' | 'handleBlur' | 'dirty' | 'isValid'
+  > {
   disabled: boolean;
   asset: Asset;
   safeBorrowLimitPercentage: number;
-  userTotalBorrowBalanceCents: ProjectableValue<BigNumber>;
+  userTotalBorrowBalanceCents: BigNumber;
   userBorrowLimitCents: BigNumber;
-  dailyEarningsCents: ProjectableValue<BigNumber>;
+  calculateDailyEarningsCents: (tokenAmount: BigNumber) => BigNumber;
 }
 
 export const BorrowUi: React.FC<IBorrowUiProps> = ({
@@ -46,31 +45,42 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
   isValid,
   safeBorrowLimitPercentage,
   userTotalBorrowBalanceCents,
-  dailyEarningsCents,
   userBorrowLimitCents,
+  calculateDailyEarningsCents,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const borrowLimitUsedPercentage: ProjectableValue<number> = {
-    current: calculatePercentage({
-      numerator: userTotalBorrowBalanceCents.current.toNumber(),
+  const isAmountValid = values.amount && +values.amount > 0;
+  const hypotheticalUserTotalBorrowBalanceCents = isAmountValid
+    ? userTotalBorrowBalanceCents.plus(
+        asset.tokenPrice
+          .multipliedBy(values.amount)
+          // Convert dollars to cents
+          .multipliedBy(100),
+      )
+    : undefined;
+
+  const borrowLimitUsedPercentage = calculatePercentage({
+    numerator: userTotalBorrowBalanceCents.toNumber(),
+    denominator: userBorrowLimitCents.toNumber(),
+  });
+  const hypotheticalBorrowLimitUsedPercentage =
+    hypotheticalUserTotalBorrowBalanceCents &&
+    calculatePercentage({
+      numerator: hypotheticalUserTotalBorrowBalanceCents.toNumber(),
       denominator: userBorrowLimitCents.toNumber(),
-    }),
-    projected:
-      userTotalBorrowBalanceCents.projected &&
-      calculatePercentage({
-        numerator: userTotalBorrowBalanceCents.projected.toNumber(),
-        denominator: userBorrowLimitCents.toNumber(),
-      }),
-  };
+    });
+
+  const dailyEarningsCents = calculateDailyEarningsCents(new BigNumber(0));
+  const hypotheticalDailyEarningsCents = isAmountValid
+    ? calculateDailyEarningsCents(new BigNumber(values.amount))
+    : undefined;
 
   // Calculate safe maximum amount of coins user can borrow
   const safeMaxCoins = React.useMemo(() => {
     const safeBorrowLimitCents = userBorrowLimitCents.multipliedBy(safeBorrowLimitPercentage / 100);
-    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(
-      userTotalBorrowBalanceCents.current,
-    );
+    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(userTotalBorrowBalanceCents);
 
     const tokenDecimals = getToken(asset.id).decimals;
 
@@ -88,7 +98,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
     asset.tokenPrice,
     userBorrowLimitCents.toFixed(),
     safeBorrowLimitPercentage,
-    userTotalBorrowBalanceCents.current.toFixed(),
+    userTotalBorrowBalanceCents.toFixed(),
   ]);
 
   const readableBorrowApy = formatToReadablePercentage(asset.borrowApy.toFixed(2));
@@ -111,7 +121,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
       />
 
       <AccountHealth
-        borrowBalanceCents={userTotalBorrowBalanceCents.current.toNumber()}
+        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
         borrowLimitCents={userBorrowLimitCents.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       />
@@ -121,8 +131,8 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         css={[styles.infoRow, styles.borrowLimit]}
       >
         <ValueUpdate
-          original={borrowLimitUsedPercentage.current}
-          update={borrowLimitUsedPercentage.projected}
+          original={borrowLimitUsedPercentage}
+          update={hypotheticalBorrowLimitUsedPercentage}
           positiveDirection="desc"
           format={formatToReadablePercentage}
         />
@@ -133,8 +143,8 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         css={[styles.infoRow, styles.borrowLimit]}
       >
         <ValueUpdate
-          original={userTotalBorrowBalanceCents.current.toNumber()}
-          update={userTotalBorrowBalanceCents.projected?.toNumber()}
+          original={userTotalBorrowBalanceCents.toNumber()}
+          update={hypotheticalUserTotalBorrowBalanceCents?.toNumber()}
           positiveDirection="desc"
         />
       </LabeledInlineContent>
@@ -153,8 +163,8 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
 
       <LabeledInlineContent label={t('borrowRepayModal.borrow.dailyEarnings')}>
         <ValueUpdate
-          original={dailyEarningsCents.current.toNumber()}
-          update={dailyEarningsCents.projected?.toNumber()}
+          original={dailyEarningsCents.toNumber()}
+          update={hypotheticalDailyEarningsCents?.toNumber()}
         />
       </LabeledInlineContent>
 
@@ -174,30 +184,36 @@ export interface IBorrowProps {
 const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
   const { account } = React.useContext(AuthContext);
 
-  // TODO: fetch actual values (https://app.clickup.com/t/24qunn3)
-  const userTotalBorrowBalanceCents = {
-    current: new BigNumber('100000'),
-    projected: new BigNumber('1000000'),
-  };
+  // @TODO: fetch actual values (https://app.clickup.com/t/24qunn3)
+  const userTotalBorrowBalanceCents = new BigNumber('100000');
   const userBorrowLimitCents = new BigNumber('2000000');
-  const dailyEarningsCents = {
-    current: new BigNumber('100'),
-    projected: new BigNumber('1000'),
+
+  // @TODO: add real calculation using assets (https://app.clickup.com/t/24qunn3)
+  const calculateDailyEarningsCents: IBorrowUiProps['calculateDailyEarningsCents'] = tokenAmount =>
+    new BigNumber('100').plus(tokenAmount);
+
+  // @TODO: send borrow request
+  const handleSubmit = (amountTokens: string) => {
+    console.log(amountTokens);
   };
 
   return (
     // @TODO: add ConnectWallet wrapper (https://app.clickup.com/t/24qunn3)
     // @TODO: add EnableToken wrapper (https://app.clickup.com/t/24qunn3)
-    <AmountForm onSubmit={() => {}}>
-      {formikProps => (
+    <AmountForm onSubmit={handleSubmit}>
+      {({ values, setFieldValue, handleBlur, dirty, isValid }) => (
         <BorrowUi
           asset={asset}
           disabled={!account}
           userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
           userBorrowLimitCents={userBorrowLimitCents}
           safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-          dailyEarningsCents={dailyEarningsCents}
-          {...formikProps}
+          calculateDailyEarningsCents={calculateDailyEarningsCents}
+          values={values}
+          setFieldValue={setFieldValue}
+          handleBlur={handleBlur}
+          dirty={dirty}
+          isValid={isValid}
         />
       )}
     </AmountForm>
