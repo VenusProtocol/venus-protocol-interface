@@ -4,7 +4,14 @@ import { act, fireEvent, waitFor } from '@testing-library/react';
 import { assetData } from '__mocks__/models/asset';
 import renderComponent from 'testUtils/renderComponent';
 import { AuthContext } from 'context/AuthContext';
-import { supplyNonBnb, supplyBnb, redeem, redeemUnderlying, getVTokenBalance } from 'clients/api';
+import {
+  supplyNonBnb,
+  supplyBnb,
+  redeem,
+  redeemUnderlying,
+  getVTokenBalance,
+  useUserMarketInfo,
+} from 'clients/api';
 import { TokenId } from 'types';
 import en from 'translation/translations/en.json';
 import SupplyWithdraw from '.';
@@ -17,7 +24,14 @@ const fakeGetVTokenBalance = new BigNumber('111');
 
 jest.mock('clients/api');
 
-describe.only('components/SupplyWithdrawUi', () => {
+describe('components/SupplyWithdraw', () => {
+  beforeEach(() => {
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: assetData,
+      userTotalBorrowLimit: new BigNumber('111'),
+      userTotalBorrowBalance: new BigNumber('91'),
+    }));
+  });
   it('renders without crashing', async () => {
     renderComponent(<SupplyWithdraw onClose={jest.fn()} asset={asset} />);
   });

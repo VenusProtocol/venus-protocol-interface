@@ -2,13 +2,12 @@
 import React, { useMemo, useState } from 'react';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenId } from 'types';
-import { Token, Toggle } from 'components';
+import { switchAriaLabel, Token, Toggle } from 'components';
 import { Table, ITableProps } from 'components/v2/Table';
 import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
-import { useWeb3Account } from 'clients/web3';
-import useUserMarketInfo from 'hooks/useUserMarketInfo';
-import { useExitMarket, useEnterMarkets } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
+import { useUserMarketInfo, useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
 import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
@@ -90,10 +89,12 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
         ) : null,
     },
   ]);
-  const rowOnClick = (row: ITableProps['data'][number]) => {
-    const asset = assets.find((value: Asset) => value.id === row[0].value);
-    if (asset) {
-      setSelectedAsset(asset);
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
+    if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
+      const asset = assets.find((value: Asset) => value.id === row[0].value);
+      if (asset) {
+        setSelectedAsset(asset);
+      }
     }
   };
   return (
@@ -121,8 +122,9 @@ export const SupplyMarketUi: React.FC<ISupplyMarketUiProps> = ({
 };
 
 const SupplyMarket: React.FC<Pick<ISupplyMarketUiProps, 'isXvsEnabled'>> = ({ isXvsEnabled }) => {
-  const { account = '' } = useWeb3Account();
-  const { assets } = useUserMarketInfo({ account });
+  const { account } = React.useContext(AuthContext);
+
+  const { assets } = useUserMarketInfo({ account: account?.address });
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
   const { t } = useTranslation();
 
@@ -155,7 +157,7 @@ const SupplyMarket: React.FC<Pick<ISupplyMarketUiProps, 'isXvsEnabled'>> = ({ is
     } else if (!asset.collateral) {
       try {
         setConfirmCollateral(asset);
-        enterMarkets({ vtokenAddresses: [asset.vtokenAddress], account });
+        enterMarkets({ vtokenAddresses: [asset.vtokenAddress], account: account?.address });
       } catch (error) {
         throw new ToastError(
           t('markets.errors.collateralEnableError.title'),
@@ -165,7 +167,7 @@ const SupplyMarket: React.FC<Pick<ISupplyMarketUiProps, 'isXvsEnabled'>> = ({ is
     } else if (+asset.hypotheticalLiquidity['1'] > 0 || +asset.hypotheticalLiquidity['2'] === 0) {
       try {
         setConfirmCollateral(asset);
-        exitMarkets({ vtokenAddress: asset.vtokenAddress, account });
+        exitMarkets({ vtokenAddress: asset.vtokenAddress, account: account?.address });
       } catch (error) {
         throw new ToastError(
           t('markets.errors.collateralDisableError.title'),

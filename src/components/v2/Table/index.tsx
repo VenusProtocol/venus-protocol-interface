@@ -26,7 +26,7 @@ export interface ITableProps {
     orderBy: string;
     orderDirection: 'asc' | 'desc';
   };
-  rowOnClick?: (row: ITableRowProps[]) => void;
+  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
   className?: string;
 }
 
@@ -97,7 +97,7 @@ export const Table = ({
               <TableRow
                 hover
                 key={row[rowKeyIndex].value.toString()}
-                onClick={() => rowOnClick && rowOnClick(row)}
+                onClick={e => rowOnClick && rowOnClick(e, row)}
               >
                 {row.map(({ key, render }: ITableRowProps) => (
                   <TableCell key={uid(key)}>
