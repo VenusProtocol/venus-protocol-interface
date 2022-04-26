@@ -12,7 +12,7 @@ export interface IAccountHealthProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeBorrowLimitPercentage: number;
-  variant?: 'primary' | 'secondary';
+  variant?: 'borrowBalance' | 'borrowLimitUsed';
   className?: string;
 }
 
@@ -20,7 +20,7 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
   className,
   borrowBalanceCents,
   borrowLimitCents,
-  variant = 'primary',
+  variant = 'borrowBalance',
   safeBorrowLimitPercentage,
 }) => {
   const styles = useStyles();
@@ -57,22 +57,24 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
       <div css={styles.topProgressBarLegend}>
         <div css={styles.inlineContainer}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {variant === 'primary'
+            {variant === 'borrowBalance'
               ? t('accountHealth.currentBorrowBalance')
               : t('accountHealth.borrowLimitUsed')}
           </Typography>
 
-          <Typography component="span" variant="small1" color="text.primary">
-            {variant === 'primary' ? readableBorrowBalance : readableBorrowLimitUsedPercentage}
+          <Typography component="span" variant="small1" color="text.borrowBalance">
+            {variant === 'borrowBalance'
+              ? readableBorrowBalance
+              : readableBorrowLimitUsedPercentage}
           </Typography>
         </div>
 
         <div css={styles.inlineContainer}>
           <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {variant === 'primary' ? t('accountHealth.max') : t('accountHealth.limit')}
+            {variant === 'borrowBalance' ? t('accountHealth.max') : t('accountHealth.limit')}
           </Typography>
 
-          <Typography component="span" variant="small1" color="text.primary">
+          <Typography component="span" variant="small1" color="text.borrowBalance">
             {readableBorrowLimit}
           </Typography>
         </div>
@@ -121,10 +123,10 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
   );
 };
 
-export const PrimaryAccountHealth = (props: IAccountHealthProps) => (
-  <AccountHealth variant="primary" {...props} />
+export const BorrowBalanceAccountHealth = (props: IAccountHealthProps) => (
+  <AccountHealth variant="borrowBalance" {...props} />
 );
 
-export const SecondaryAccountHealth = (props: IAccountHealthProps) => (
-  <AccountHealth variant="secondary" {...props} />
+export const BorrowLimitUsedAccountHealth = (props: IAccountHealthProps) => (
+  <AccountHealth variant="borrowLimitUsed" {...props} />
 );

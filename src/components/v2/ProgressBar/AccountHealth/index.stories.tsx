@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory } from 'stories/decorators';
-import { AccountHealth, PrimaryAccountHealth, SecondaryAccountHealth } from '.';
+import { AccountHealth, BorrowBalanceAccountHealth, BorrowLimitUsedAccountHealth } from '.';
 
 export default {
   title: 'Components/AccountHealth',
@@ -10,7 +10,7 @@ export default {
 } as ComponentMeta<typeof AccountHealth>;
 
 export const Primary = () => (
-  <PrimaryAccountHealth
+  <BorrowBalanceAccountHealth
     borrowBalanceCents={30243}
     borrowLimitCents={737300}
     safeBorrowLimitPercentage={80}
@@ -18,7 +18,7 @@ export const Primary = () => (
 );
 
 export const Secondary = () => (
-  <SecondaryAccountHealth
+  <BorrowLimitUsedAccountHealth
     borrowBalanceCents={30243}
     borrowLimitCents={737300}
     safeBorrowLimitPercentage={80}
@@ -26,11 +26,15 @@ export const Secondary = () => (
 );
 
 export const WithZeroValues = () => (
-  <AccountHealth borrowBalanceCents={0} borrowLimitCents={0} safeBorrowLimitPercentage={80} />
+  <BorrowBalanceAccountHealth
+    borrowBalanceCents={0}
+    borrowLimitCents={0}
+    safeBorrowLimitPercentage={80}
+  />
 );
 
 export const WithUndefinedValues = () => (
-  <AccountHealth
+  <BorrowBalanceAccountHealth
     borrowBalanceCents={undefined}
     borrowLimitCents={undefined}
     safeBorrowLimitPercentage={80}

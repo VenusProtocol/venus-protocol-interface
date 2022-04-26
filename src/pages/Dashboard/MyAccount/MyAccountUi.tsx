@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
 import { useTranslation } from 'translation';
-import { IToggleProps, Toggle, Icon, Tooltip, SecondaryAccountHealth } from 'components';
+import { IToggleProps, Toggle, Icon, Tooltip, BorrowLimitUsedAccountHealth } from 'components';
 import { useMyAccountStyles as useStyles } from './styles';
 
 export interface IMyAccountUiProps {
@@ -123,7 +123,7 @@ export const MyAccountUi = ({
         </Typography>
       </ul>
 
-      <SecondaryAccountHealth
+      <BorrowLimitUsedAccountHealth
         css={styles.progressBar}
         borrowBalanceCents={borrowBalanceCents}
         safeBorrowLimitPercentage={safeBorrowLimitPercentage}

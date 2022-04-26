@@ -11,7 +11,7 @@ import {
   LabeledInlineContent,
   ILabeledInlineContentProps,
   PrimaryButton,
-  AccountHealth,
+  BorrowBalanceAccountHealth,
   ValueUpdate,
 } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
@@ -114,7 +114,7 @@ export const SupplyWithdrawContent: React.FC<
       ))}
       <Delimiter />
 
-      <AccountHealth
+      <BorrowBalanceAccountHealth
         css={styles.progressSection}
         borrowBalanceCents={userTotalBorrowBalance.toNumber()}
         borrowLimitCents={userTotalBorrowLimit.toNumber()}
