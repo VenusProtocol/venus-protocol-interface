@@ -4,7 +4,7 @@ import { withCenterStory } from 'stories/decorators';
 import { AccountHealth, BorrowBalanceAccountHealth, BorrowLimitUsedAccountHealth } from '.';
 
 export default {
-  title: 'Components/AccountHealth',
+  title: 'Components/ProgressBar/AccountHealth',
   component: AccountHealth,
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof AccountHealth>;
