@@ -16,19 +16,17 @@ export interface IProgressBarProps {
   max: number;
   trackTooltip?: ITooltipProps['title'];
   markTooltip?: ITooltipProps['title'];
-  isDisabled?: boolean;
   className?: string;
   tooltipPlacement?: ITooltipProps['placement'];
 }
 
-export const ProgressBarHorizontal = ({
+export const ProgressBar = ({
   value,
   mark,
   step,
   ariaLabel,
   min,
   max,
-  isDisabled,
   trackTooltip,
   markTooltip,
   className,
@@ -40,7 +38,7 @@ export const ProgressBarHorizontal = ({
   const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => {
     if (markTooltip) {
       return (
-        <Box component="span" css={[styles.mark, styles.hasTooltip]}>
+        <Box component="span" {...props} css={[styles.mark, styles.hasTooltip]}>
           <Tooltip placement={tooltipPlacement} title={markTooltip}>
             <span css={styles.tooltipHelper}>.</span>
           </Tooltip>
@@ -82,7 +80,7 @@ export const ProgressBarHorizontal = ({
       min={min}
       max={max}
       size="medium"
-      disabled={isDisabled}
+      disabled
     />
   );
 };

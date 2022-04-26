@@ -11,10 +11,10 @@ import {
   LabeledInlineContent,
   ILabeledInlineContentProps,
   PrimaryButton,
-  ProgressBarHorizontal,
-  Tooltip,
+  BorrowBalanceAccountHealth,
   ValueUpdate,
 } from 'components';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
@@ -22,7 +22,6 @@ import {
   convertWeiToCoins,
   formatCentsToReadableValue,
   format,
-  currencyFormatter,
 } from 'utilities/common';
 import { useStyles } from '../styles';
 
@@ -57,17 +56,19 @@ export const SupplyWithdrawContent: React.FC<
   calculateNewBalance,
   isTransactionLoading,
 }) => {
+  const styles = useStyles();
+  const { t, Trans } = useTranslation();
+
   const { id: assetId } = asset;
   const { amount: amountString } = values;
   const amount = new BigNumber(amountString || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
-  const styles = useStyles();
-  const { t, Trans } = useTranslation();
-  const [newBorrowLimit, newBorrowPercent] = useMemo(() => {
+
+  const [newBorrowLimit] = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
     const collateralFactor = getBigNumber(asset?.collateralFactor);
     let updateBorrowLimit;
-    let updateBorrowPercent = userTotalBorrowBalance.div(userTotalBorrowLimit).times(100);
+
     if (tokenPrice && validAmount) {
       const amountInUsd = convertWeiToCoins({
         value: amount as BigNumber,
@@ -75,11 +76,12 @@ export const SupplyWithdrawContent: React.FC<
       })
         .times(tokenPrice)
         .times(collateralFactor);
+
       const temp = calculateNewBalance(amountInUsd);
       updateBorrowLimit = BigNumber.maximum(temp, 0);
-      updateBorrowPercent = userTotalBorrowBalance.div(temp).times(100);
     }
-    return [updateBorrowLimit, updateBorrowPercent];
+
+    return [updateBorrowLimit];
   }, [amount, asset?.id, userTotalBorrowBalance, userTotalBorrowLimit]);
 
   return (
@@ -89,7 +91,7 @@ export const SupplyWithdrawContent: React.FC<
         tokenId={assetId as TokenId}
         value={amountString}
         onChange={amt => setFieldValue('amount', amt, true)}
-        max={maxInput.toString()}
+        max={maxInput.toFixed()}
         rightMaxButtonLabel={t('supplyWithdraw.max').toUpperCase()}
         css={styles.input}
       />
@@ -111,53 +113,14 @@ export const SupplyWithdrawContent: React.FC<
         />
       ))}
       <Delimiter />
-      <div css={styles.progressSection}>
-        <div css={styles.totalAndLimit}>
-          <Tooltip
-            placement="bottom"
-            title={t('supplyWithdraw.currentBorrowBalance', {
-              amount: currencyFormatter(userTotalBorrowBalance),
-              percent: newBorrowPercent.toFixed(0),
-            })}
-          >
-            <Typography component="span" variant="body1" css={styles.greyLabel}>
-              <Trans
-                i18nKey="supplyWithdraw.currentAmount"
-                components={{
-                  White: <Typography component="span" variant="body1" css={styles.whiteLabel} />,
-                }}
-                values={{ amount: currencyFormatter(userTotalBorrowBalance) }}
-              />
-            </Typography>
-          </Tooltip>
-          <Tooltip
-            placement="bottom"
-            title={t('supplyWithdraw.maxBorrowTooltip', {
-              amount: currencyFormatter(userTotalBorrowLimit),
-            })}
-          >
-            <Typography component="span" variant="body1" css={styles.greyLabel}>
-              <Trans
-                i18nKey="supplyWithdraw.maxAmount"
-                components={{
-                  White: <Typography component="span" variant="body1" css={styles.whiteLabel} />,
-                }}
-                values={{ amount: currencyFormatter(userTotalBorrowLimit) }}
-              />
-            </Typography>
-          </Tooltip>
-        </div>
-        <ProgressBarHorizontal
-          value={newBorrowPercent.toNumber()}
-          // @TODO use SAFE_BORROW_LIMIT_PERCENTAGE constant
-          mark={80}
-          step={1}
-          min={0}
-          max={100}
-          ariaLabel={t('supplyWithdraw.progressBarAria')}
-          markTooltip={t('supplyWithdraw.safeBorrowLimit', { amount })}
-        />
-      </div>
+
+      <BorrowBalanceAccountHealth
+        css={styles.progressSection}
+        borrowBalanceCents={userTotalBorrowBalance.toNumber()}
+        borrowLimitCents={userTotalBorrowLimit.toNumber()}
+        safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+      />
+
       <LabeledInlineContent
         label={t('supplyWithdraw.borrowLimit')}
         css={[styles.infoRow, styles.borrowLimit]}
