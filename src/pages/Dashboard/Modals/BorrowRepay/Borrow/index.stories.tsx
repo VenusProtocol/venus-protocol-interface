@@ -24,7 +24,6 @@ export const Default = () => (
     {({ values, setFieldValue, handleBlur, dirty, isValid }) => (
       <BorrowUi
         asset={assetData[0]}
-        disabled={false}
         safeBorrowLimitPercentage={80}
         userTotalBorrowBalanceCents={new BigNumber('100000')}
         userBorrowLimitCents={new BigNumber('2000000')}

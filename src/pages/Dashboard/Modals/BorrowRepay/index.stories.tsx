@@ -1,4 +1,5 @@
 import React from 'react';
+import noop from 'noop-ts';
 
 import { assetData } from '__mocks__/models/asset';
 import { ComponentMeta } from '@storybook/react';
@@ -16,4 +17,4 @@ export default {
   },
 } as ComponentMeta<typeof BorrowRepay>;
 
-export const Default = () => <BorrowRepay asset={assetData[0]} />;
+export const Default = () => <BorrowRepay asset={assetData[0]} onClose={noop} />;

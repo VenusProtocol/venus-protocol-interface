@@ -6,7 +6,6 @@ import BigNumber from 'bignumber.js';
 import { getToken } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
-import { AuthContext } from 'context/AuthContext';
 import { FormValues } from 'containers/AmountForm/validationSchema';
 import { AmountForm } from 'containers/AmountForm';
 import { formatToReadablePercentage } from 'utilities/common';
@@ -27,7 +26,6 @@ export interface IBorrowUiProps
     FormikProps<FormValues>,
     'values' | 'setFieldValue' | 'handleBlur' | 'dirty' | 'isValid'
   > {
-  disabled: boolean;
   asset: Asset;
   safeBorrowLimitPercentage: number;
   userTotalBorrowBalanceCents: BigNumber;
@@ -36,7 +34,6 @@ export interface IBorrowUiProps
 }
 
 export const BorrowUi: React.FC<IBorrowUiProps> = ({
-  disabled,
   asset,
   values,
   setFieldValue,
@@ -114,10 +111,10 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         onChange={amount => setFieldValue('amount', amount, true)}
         max={safeMaxCoins}
         onBlur={handleBlur}
-        disabled={disabled}
         rightMaxButtonLabel={t('borrowRepayModal.borrow.rightMaxButtonLabel', {
           limitPercentage: safeBorrowLimitPercentage,
         })}
+        data-testid="token-text-field"
       />
 
       <AccountHealth
@@ -180,7 +177,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         />
       </LabeledInlineContent>
 
-      <PrimaryButton type="submit" disabled={disabled || !isValid || !dirty} fullWidth>
+      <PrimaryButton type="submit" disabled={!isValid || !dirty} fullWidth>
         {isValid
           ? t('borrowRepayModal.borrow.submitButton')
           : t('borrowRepayModal.borrow.submitButtonDisabled')}
@@ -194,8 +191,6 @@ export interface IBorrowProps {
 }
 
 const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
-  const { account } = React.useContext(AuthContext);
-
   // @TODO: fetch actual values (https://app.clickup.com/t/24qunn3)
   const userTotalBorrowBalanceCents = new BigNumber('100000');
   const userBorrowLimitCents = new BigNumber('2000000');
@@ -216,7 +211,6 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
       {({ values, setFieldValue, handleBlur, dirty, isValid }) => (
         <BorrowUi
           asset={asset}
-          disabled={!account}
           userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
           userBorrowLimitCents={userBorrowLimitCents}
           safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}

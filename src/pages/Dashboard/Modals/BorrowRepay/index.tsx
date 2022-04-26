@@ -6,11 +6,12 @@ import { Tabs, Modal, IModalProps, Token } from 'components';
 import { useTranslation } from 'translation';
 import Borrow from './Borrow';
 
-export interface IBorrowRepayProps extends Pick<IModalProps, 'handleClose'> {
+export interface IBorrowRepayProps {
+  onClose: IModalProps['handleClose'];
   asset?: Asset;
 }
 
-const BorrowRepay: React.FC<IBorrowRepayProps> = ({ handleClose, asset }) => {
+const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset }) => {
   const { t } = useTranslation();
 
   const tabsContent = [
@@ -25,7 +26,7 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ handleClose, asset }) => {
     <Modal
       isOpened={!!asset}
       title={asset && <Token symbol={asset.id} variant="h4" />}
-      handleClose={handleClose}
+      handleClose={onClose}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>
