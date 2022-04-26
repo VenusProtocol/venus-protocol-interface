@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
+import calculatePercentage from 'utilities/calculatePercentage';
 import { useTranslation } from 'translation';
 import { ProgressBar } from '..';
 import { useStyles } from './styles';
@@ -26,12 +27,13 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
   const styles = useStyles();
   const { t, Trans } = useTranslation();
 
-  let borrowLimitUsedPercentage: number | undefined;
-  if (borrowLimitCents === 0) {
-    borrowLimitUsedPercentage = 0;
-  } else if (typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number') {
-    borrowLimitUsedPercentage = Math.round((borrowBalanceCents * 100) / borrowLimitCents);
-  }
+  const borrowLimitUsedPercentage =
+    typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
+      ? calculatePercentage({
+          numerator: borrowBalanceCents,
+          denominator: borrowLimitCents,
+        })
+      : undefined;
 
   const readableBorrowLimitUsedPercentage = formatToReadablePercentage(borrowLimitUsedPercentage);
 

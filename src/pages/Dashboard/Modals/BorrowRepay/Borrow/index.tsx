@@ -9,6 +9,7 @@ import { AuthContext } from 'context/AuthContext';
 import { FormValues } from 'containers/AmountForm/validationSchema';
 import { AmountForm } from 'containers/AmountForm';
 import { formatToReadablePercentage } from 'utilities/common';
+import calculatePercentage from 'utilities/calculatePercentage';
 import {
   PrimaryButton,
   TokenTextField,
@@ -30,7 +31,7 @@ export interface IBorrowUiProps extends FormikProps<FormValues> {
   asset: Asset;
   safeBorrowLimitPercentage: number;
   userTotalBorrowBalanceCents: ProjectableValue<BigNumber>;
-  userBorrowLimit: BigNumber;
+  userBorrowLimitCents: BigNumber;
   dailyEarningsCents: ProjectableValue<BigNumber>;
 }
 
@@ -45,10 +46,23 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
   safeBorrowLimitPercentage,
   userTotalBorrowBalanceCents,
   dailyEarningsCents,
-  userBorrowLimit,
+  userBorrowLimitCents,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const borrowLimitUsedPercentage: ProjectableValue<number> = {
+    current: calculatePercentage({
+      numerator: userTotalBorrowBalanceCents.current.toNumber(),
+      denominator: userBorrowLimitCents.toNumber(),
+    }),
+    projected:
+      userTotalBorrowBalanceCents.projected &&
+      calculatePercentage({
+        numerator: userTotalBorrowBalanceCents.projected.toNumber(),
+        denominator: userBorrowLimitCents.toNumber(),
+      }),
+  };
 
   // @TODO: calculate input max value (https://app.clickup.com/t/24qunn3)
   const max = '10000';
@@ -74,7 +88,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
 
       <AccountHealth
         borrowBalanceCents={userTotalBorrowBalanceCents.current.toNumber()}
-        borrowLimitCents={userBorrowLimit.toNumber()}
+        borrowLimitCents={userBorrowLimitCents.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       />
 
@@ -83,9 +97,8 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         css={[styles.infoRow, styles.borrowLimit]}
       >
         <ValueUpdate
-          // @TODO: use borrow limit used (https://app.clickup.com/t/24qunn3)
-          original={userTotalBorrowBalanceCents.current.toNumber()}
-          update={userTotalBorrowBalanceCents.projected?.toNumber()}
+          original={borrowLimitUsedPercentage.current}
+          update={borrowLimitUsedPercentage.projected}
           positiveDirection="desc"
           format={formatToReadablePercentage}
         />
@@ -139,13 +152,13 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
 
   // TODO: fetch actual values (https://app.clickup.com/t/24qunn3)
   const userTotalBorrowBalanceCents = {
-    current: new BigNumber('1000000000'),
-    projected: new BigNumber('10000000000'),
-  };
-  const userBorrowLimit = new BigNumber('10000000000');
-  const dailyEarningsCents = {
     current: new BigNumber('100000'),
     projected: new BigNumber('1000000'),
+  };
+  const userBorrowLimitCents = new BigNumber('2000000');
+  const dailyEarningsCents = {
+    current: new BigNumber('100'),
+    projected: new BigNumber('1000'),
   };
 
   return (
@@ -157,7 +170,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
           asset={asset}
           disabled={!account}
           userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-          userBorrowLimit={userBorrowLimit}
+          userBorrowLimitCents={userBorrowLimitCents}
           safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
           dailyEarningsCents={dailyEarningsCents}
           {...formikProps}
