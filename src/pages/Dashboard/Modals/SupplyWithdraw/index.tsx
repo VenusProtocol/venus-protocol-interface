@@ -12,10 +12,14 @@ import {
   IconName,
 } from 'components';
 import toast from 'components/Basic/Toast';
-import { useRedeem, useRedeemUnderlying, useGetVTokenBalance } from 'clients/api';
+import {
+  useRedeem,
+  useRedeemUnderlying,
+  useGetVTokenBalance,
+  useUserMarketInfo,
+} from 'clients/api';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
-import useUserMarketInfo from 'hooks/useUserMarketInfo';
 import useSupply from 'clients/api/mutations/useSupply';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
