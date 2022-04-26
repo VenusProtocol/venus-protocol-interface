@@ -6,7 +6,6 @@ export const useStyles = () => {
 
   return {
     button: css`
-      margin-right: ${theme.spacing(6)};
       border-color: ${theme.palette.background.paper};
 
       > span {
