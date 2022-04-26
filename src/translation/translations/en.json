@@ -23,8 +23,11 @@
   },
   "borrowRepayModal": {
     "borrow": {
+      "borrowAPy": "Borrow APY",
       "borrowBalance": "Borrow balance",
       "borrowLimitUsed": "Borrow limit used",
+      "dailyEarnings": "Daily earnings",
+      "distributionAPy": "Distribution APY",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow"
     },

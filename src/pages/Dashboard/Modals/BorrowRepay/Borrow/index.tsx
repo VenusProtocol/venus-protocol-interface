@@ -15,6 +15,7 @@ import {
   AccountHealth,
   LabeledInlineContent,
   ValueUpdate,
+  Delimiter,
 } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
@@ -43,6 +44,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
   isValid,
   safeBorrowLimitPercentage,
   userTotalBorrowBalanceCents,
+  dailyEarningsCents,
   userBorrowLimit,
 }) => {
   const styles = useStyles();
@@ -50,6 +52,9 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
 
   // @TODO: calculate input max value (https://app.clickup.com/t/24qunn3)
   const max = '10000';
+
+  const readableBorrowApy = formatToReadablePercentage(asset.borrowApy.toFixed(2));
+  const readableDistrubtionApy = formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2));
 
   return (
     <>
@@ -92,6 +97,25 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         <ValueUpdate
           original={userTotalBorrowBalanceCents.current.toNumber()}
           update={userTotalBorrowBalanceCents.projected?.toNumber()}
+        />
+      </LabeledInlineContent>
+
+      <Delimiter />
+
+      <LabeledInlineContent label={t('borrowRepayModal.borrow.borrowAPy')} iconName={asset.id}>
+        {readableBorrowApy}
+      </LabeledInlineContent>
+
+      <LabeledInlineContent label={t('borrowRepayModal.borrow.distributionAPy')} iconName="xvs">
+        {readableDistrubtionApy}
+      </LabeledInlineContent>
+
+      <Delimiter />
+
+      <LabeledInlineContent label={t('borrowRepayModal.borrow.dailyEarnings')}>
+        <ValueUpdate
+          original={dailyEarningsCents.current.toNumber()}
+          update={dailyEarningsCents.projected?.toNumber()}
         />
       </LabeledInlineContent>
 
