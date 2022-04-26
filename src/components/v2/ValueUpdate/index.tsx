@@ -2,7 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import { getBigNumber, formatCentsToReadableValue } from 'utilities/common';
+import { formatCentsToReadableValue } from 'utilities/common';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
@@ -20,6 +20,7 @@ type BigNumberValueProps = {
 
 export type ValueUpdateProps = {
   className?: string;
+  positiveDirection?: 'asc' | 'desc';
 } & (NumberValueProps | BigNumberValueProps);
 
 export const ValueUpdate: React.FC<ValueUpdateProps> = ({
@@ -27,19 +28,27 @@ export const ValueUpdate: React.FC<ValueUpdateProps> = ({
   original,
   update,
   format = (value: ValueUpdateProps['original']) => formatCentsToReadableValue({ value }),
+  positiveDirection = 'asc',
 }) => {
-  const updateIsValid = typeof update === 'number' || update instanceof BigNumber;
-  const originalBigNumber = getBigNumber(original);
-  const updateBigNumber = getBigNumber(update);
-  const increase = !!(updateIsValid && updateBigNumber.isGreaterThanOrEqualTo(originalBigNumber));
-  const styles = useStyles({ increase });
+  let isImprovement = false;
+  if (typeof original === 'number' && typeof update === 'number') {
+    isImprovement = positiveDirection === 'asc' ? update >= original : update <= original;
+  } else if (original instanceof BigNumber && update instanceof BigNumber) {
+    isImprovement =
+      positiveDirection === 'asc'
+        ? update.isGreaterThanOrEqualTo(original)
+        : update.isLessThanOrEqualTo(original);
+  }
+
+  const styles = useStyles({ isImprovement });
 
   return (
     <div className={className} css={styles.container}>
       <Typography component="span" variant="body1">
         {format(original as never)}
       </Typography>
-      {updateIsValid && (
+
+      {update !== undefined && (
         <>
           <Icon name="arrowShaft" css={styles.icon} />
           <Typography component="span" variant="body1">

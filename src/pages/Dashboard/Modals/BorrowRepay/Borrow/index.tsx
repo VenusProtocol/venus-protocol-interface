@@ -86,6 +86,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
           // @TODO: use borrow limit used (https://app.clickup.com/t/24qunn3)
           original={userTotalBorrowBalanceCents.current.toNumber()}
           update={userTotalBorrowBalanceCents.projected?.toNumber()}
+          positiveDirection="desc"
           format={formatToReadablePercentage}
         />
       </LabeledInlineContent>
@@ -97,6 +98,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         <ValueUpdate
           original={userTotalBorrowBalanceCents.current.toNumber()}
           update={userTotalBorrowBalanceCents.projected?.toNumber()}
+          positiveDirection="desc"
         />
       </LabeledInlineContent>
 
@@ -136,9 +138,9 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
   // TODO: fetch actual values (https://app.clickup.com/t/24qunn3)
   const userTotalBorrowBalanceCents = {
     current: new BigNumber('1000000000'),
-    projected: new BigNumber('1000000000'),
+    projected: new BigNumber('10000000000'),
   };
-  const userBorrowLimit = new BigNumber('1000000000');
+  const userBorrowLimit = new BigNumber('10000000000');
   const dailyEarningsCents = {
     current: new BigNumber('100000'),
     projected: new BigNumber('1000000'),
