@@ -66,7 +66,9 @@
     },
     "columns": {
       "apy": "APY",
+      "apyEarned": "APY/Earned",
       "asset": "Asset",
+      "balance": "Balance",
       "collateral": "Collateral",
       "liquidity": "Liquidity",
       "wallet": "Wallet"
@@ -89,6 +91,7 @@
         "title": "Collateral Required"
       }
     },
+    "suppliedTableTitle": "Supplied",
     "supplyMarketTableTitle": "Supply market"
   },
   "mintRepayVai": {

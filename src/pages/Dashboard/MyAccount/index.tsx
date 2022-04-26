@@ -1,26 +1,30 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
+import { BigNumber } from 'bignumber.js';
+import React from 'react';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
-import { AuthContext } from 'context/AuthContext';
-import { useUserMarketInfo } from 'clients/api';
 import {
   calculateApy,
   calculateDailyEarningsCents,
   calculateYearlyEarningsForAssets,
 } from 'utilities';
+import { Asset } from 'types';
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
 interface IMyAccountProps {
   isXvsEnabled: boolean;
   setIsXvsEnabled: (value: boolean) => void;
+  assets: Asset[];
+  userTotalBorrowBalance: BigNumber;
+  userTotalBorrowLimit: BigNumber;
 }
 
-const MyAccount: React.FC<IMyAccountProps> = ({ isXvsEnabled, setIsXvsEnabled }) => {
-  const { account } = useContext(AuthContext);
-  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
-    accountAddress: account?.address,
-  });
-
+const MyAccount: React.FC<IMyAccountProps> = ({
+  assets,
+  isXvsEnabled,
+  setIsXvsEnabled,
+  userTotalBorrowBalance,
+  userTotalBorrowLimit,
+}) => {
   const calculations: Pick<
     IMyAccountUiProps,
     | 'netApyPercentage'

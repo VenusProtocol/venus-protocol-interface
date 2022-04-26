@@ -14,14 +14,15 @@ export default {
   subcomponents: { SupplyMarketUi },
   parameters: {
     backgrounds: {
-      default: 'Primary',
+      default: 'White',
     },
   },
 } as ComponentMeta<typeof SupplyMarketUi>;
 
 export const Default = () => (
   <SupplyMarketUi
-    assets={assetData}
+    suppliedAssets={assetData}
+    supplyMarketAssets={assetData}
     isXvsEnabled={false}
     toggleAssetCollateral={noop}
     confirmCollateral={undefined}
@@ -31,7 +32,8 @@ export const Default = () => (
 
 export const LoadingModal = () => (
   <SupplyMarketUi
-    assets={assetData}
+    suppliedAssets={assetData}
+    supplyMarketAssets={assetData}
     isXvsEnabled={false}
     toggleAssetCollateral={noop}
     confirmCollateral={asset}

@@ -9,7 +9,10 @@ export const useStyles = () => {
       width: 100%;
       background-color: ${theme.palette.background.paper};
       border-radius: ${theme.shape.borderRadius.large}px;
-      padding: ${theme.spacing(3, 0, 1)};
+      padding: ${theme.spacing(6)};
+    `,
+    delimiter: css`
+      margin: ${theme.spacing(6)};
     `,
   };
 };
