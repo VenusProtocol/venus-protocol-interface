@@ -8,7 +8,14 @@ import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { FormValues } from 'containers/AmountForm/validationSchema';
 import { AmountForm } from 'containers/AmountForm';
-import { PrimaryButton, TokenTextField, AccountHealth } from 'components';
+import { formatToReadablePercentage } from 'utilities/common';
+import {
+  PrimaryButton,
+  TokenTextField,
+  AccountHealth,
+  LabeledInlineContent,
+  ValueUpdate,
+} from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 
@@ -41,7 +48,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  // TODO: calculate input max value (https://app.clickup.com/t/24qunn3)
+  // @TODO: calculate input max value (https://app.clickup.com/t/24qunn3)
   const max = '10000';
 
   return (
@@ -65,6 +72,28 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         borrowLimitCents={userBorrowLimit.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       />
+
+      <LabeledInlineContent
+        label={t('borrowRepayModal.borrow.borrowLimitUsed')}
+        css={[styles.infoRow, styles.borrowLimit]}
+      >
+        <ValueUpdate
+          // @TODO: use borrow limit used (https://app.clickup.com/t/24qunn3)
+          original={userTotalBorrowBalanceCents.current.toNumber()}
+          update={userTotalBorrowBalanceCents.projected?.toNumber()}
+          format={formatToReadablePercentage}
+        />
+      </LabeledInlineContent>
+
+      <LabeledInlineContent
+        label={t('borrowRepayModal.borrow.borrowBalance')}
+        css={[styles.infoRow, styles.borrowLimit]}
+      >
+        <ValueUpdate
+          original={userTotalBorrowBalanceCents.current.toNumber()}
+          update={userTotalBorrowBalanceCents.projected?.toNumber()}
+        />
+      </LabeledInlineContent>
 
       <PrimaryButton type="submit" disabled={disabled || !isValid || !dirty} fullWidth>
         {t('borrowRepayModal.borrow.submitButton')}
