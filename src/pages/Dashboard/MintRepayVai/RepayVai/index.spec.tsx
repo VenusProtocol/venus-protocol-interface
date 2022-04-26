@@ -91,7 +91,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     const fakeUserWeiMinted = fakeUserVaiMinted.multipliedBy(new BigNumber(10).pow(18));
     expect(repayVai).toHaveBeenCalledWith({
       fromAccountAddress: fakeAccountAddress,
-      amountWei: fakeUserWeiMinted,
+      amountWei: fakeUserWeiMinted.toString(),
     });
 
     // Check success toast is requested

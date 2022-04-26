@@ -1,12 +1,13 @@
-import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core';
+import { VaiUnitroller } from 'types/contracts';
 
 export interface IRepayVaiInput {
-  vaiControllerContract: $TSFixMe; // @TODO: use contract type once defined (Typechain?)
+  vaiControllerContract: VaiUnitroller;
   fromAccountAddress: string;
-  amountWei: BigNumber;
+  amountWei: string;
 }
 
-export type IRepayVaiOutput = void;
+export type IRepayVaiOutput = TransactionReceipt;
 
 const repayVai = async ({
   vaiControllerContract,

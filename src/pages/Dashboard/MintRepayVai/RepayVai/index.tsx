@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core';
 
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { internalError } from 'utilities/getError';
@@ -18,7 +19,7 @@ import { useStyles } from '../styles';
 export interface IRepayVaiUiProps {
   disabled: boolean;
   isRepayVaiLoading: boolean;
-  repayVai: (amountWei: BigNumber) => Promise<void>;
+  repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt>;
   userBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
 }
@@ -148,7 +149,7 @@ const RepayVai: React.FC = () => {
 
     return contractRepayVai({
       fromAccountAddress: account.address,
-      amountWei,
+      amountWei: amountWei.toString(),
     });
   };
 
