@@ -1,10 +1,13 @@
+import type { TransactionReceipt } from 'web3-core';
+import { Comptroller } from 'types/contracts';
+
 export interface IExitMarketInput {
-  comptrollerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
-  account: string | undefined | null;
+  comptrollerContract: Comptroller;
+  account: string;
   vtokenAddress: string;
 }
 
-export type ExitMarketOutput = void;
+export type ExitMarketOutput = TransactionReceipt;
 
 const exitMarket = ({
   comptrollerContract,

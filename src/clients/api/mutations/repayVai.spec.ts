@@ -17,7 +17,7 @@ describe('api/mutation/repayVai', () => {
     try {
       await repayVai({
         vaiControllerContract: fakeContract,
-        amountWei: new BigNumber('10000000000000000'),
+        amountWei: '10000000000000000',
         fromAccountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
@@ -35,7 +35,6 @@ describe('api/mutation/repayVai', () => {
     const repayVAIMock = jest.fn(() => ({
       send: sendMock,
     }));
-
     const fakeContract = {
       methods: {
         repayVAI: repayVAIMock,
@@ -44,13 +43,13 @@ describe('api/mutation/repayVai', () => {
 
     const response = await repayVai({
       vaiControllerContract: fakeContract,
-      amountWei: fakeAmountWei,
+      amountWei: fakeAmountWei.toString(),
       fromAccountAddress: fakeFromAccountsAddress,
     });
 
     expect(response).toBe(undefined);
     expect(repayVAIMock).toHaveBeenCalledTimes(1);
-    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountWei);
+    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountWei.toString());
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
   });
