@@ -24,7 +24,7 @@ const fakeGetVTokenBalance = new BigNumber('111');
 
 jest.mock('clients/api');
 
-describe.only('pages/SupplyWithdrawUi', () => {
+describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: assetData,

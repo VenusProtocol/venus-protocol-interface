@@ -8,11 +8,10 @@ import { switchAriaLabel } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import en from 'translation/translations/en.json';
 import SupplyMarket from '.';
-  
 
 const fakeAccountAddress = '0x0';
 
-  jest.mock('clients/api');
+jest.mock('clients/api');
 
 describe('pages/SupplyMarket', () => {
   beforeEach(() => {
@@ -24,7 +23,14 @@ describe('pages/SupplyMarket', () => {
   });
 
   it('clicking row opens modal', async () => {
-    const { getByText } = renderComponent(<SupplyMarket isXvsEnabled suppliedAssets={[]} supplyMarketAssets={assetData} accountAddress={fakeAccountAddress} />);
+    const { getByText } = renderComponent(
+      <SupplyMarket
+        isXvsEnabled
+        suppliedAssets={[]}
+        supplyMarketAssets={assetData}
+        accountAddress={fakeAccountAddress}
+      />,
+    );
     const rowElement = getByText(assetData[2].symbol);
     fireEvent.click(rowElement);
     const connectButton = getByText(en.supplyWithdraw.connectWalletToSupply);
@@ -45,7 +51,12 @@ describe('pages/SupplyMarket', () => {
           },
         }}
       >
-        <SupplyMarket isXvsEnabled suppliedAssets={[]} supplyMarketAssets={assetData} accountAddress={fakeAccountAddress} />
+        <SupplyMarket
+          isXvsEnabled
+          suppliedAssets={[]}
+          supplyMarketAssets={assetData}
+          accountAddress={fakeAccountAddress}
+        />
       </AuthContext.Provider>,
     );
     const toggle = document.querySelector(

@@ -23,32 +23,32 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 }) => {
   const styles = useStyles();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
-  const { suppliedAssets, supplyMarketAssets } = useMemo(() => {
-    const sortedAssets = assets.reduce(
-      (acc, curr) => {
-        if (curr.supplyBalance.isZero()) {
-          acc.supplyMarketAssets.push(curr);
-        } else {
-          acc.suppliedAssets.push(curr);
-        }
-        // @TODO https://app.clickup.com/t/28ngecq
-        // if (curr.borrowBalance.isZero()) {
-        //   acc.borrowMarketAssets.push(curr);
-        // } else {
-        //   acc.borrowedAssets.push(curr);
-        // }
-        return acc;
-      },
-      {
-        suppliedAssets: [] as Asset[],
-        supplyMarketAssets: [] as Asset[],
-        // @TODO https://app.clickup.com/t/28ngecq
-        // borrowedAssets: [] as Asset[],
-        // borrowMarketAssets: [] as Asset[],
-      },
-    );
-    return sortedAssets;
-  }, [JSON.stringify(assets)]);
+  const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
+    useMemo(() => {
+      const sortedAssets = assets.reduce(
+        (acc, curr) => {
+          if (curr.supplyBalance.isZero()) {
+            acc.supplyMarketAssets.push(curr);
+          } else {
+            acc.suppliedAssets.push(curr);
+          }
+
+          if (curr.borrowBalance.isZero()) {
+            acc.borrowMarketAssets.push(curr);
+          } else {
+            acc.borrowingAssets.push(curr);
+          }
+          return acc;
+        },
+        {
+          suppliedAssets: [] as Asset[],
+          supplyMarketAssets: [] as Asset[],
+          borrowingAssets: [] as Asset[],
+          borrowMarketAssets: [] as Asset[],
+        },
+      );
+      return sortedAssets;
+    }, [JSON.stringify(assets)]);
   return (
     <div>
       <MyAccount
@@ -65,7 +65,12 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
           supplyMarketAssets={supplyMarketAssets}
           accountAddress={accountAddress}
         />
-        <BorrowMarket isXvsEnabled={isXvsEnabled} />
+        <BorrowMarket
+          isXvsEnabled={isXvsEnabled}
+          borrowingAssets={borrowingAssets}
+          borrowMarketAssets={borrowMarketAssets}
+          userTotalBorrowLimit={userTotalBorrowLimit}
+        />
       </div>
     </div>
   );
@@ -74,7 +79,7 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 const Dashboard: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
-    account: account?.address,
+    accountAddress: account?.address || '',
   });
 
   return (

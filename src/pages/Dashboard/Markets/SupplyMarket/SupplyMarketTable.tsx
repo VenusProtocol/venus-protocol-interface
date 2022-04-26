@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenId } from 'types';
 import { switchAriaLabel, Token, Toggle } from 'components';
@@ -60,7 +61,9 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       render: () =>
         +asset.collateralFactor.toString() ? (
           <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
-        ) : null,
+        ) : (
+          PLACEHOLDER_KEY
+        ),
     },
   ]);
   const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
