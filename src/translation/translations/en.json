@@ -29,7 +29,8 @@
       "dailyEarnings": "Daily earnings",
       "distributionAPy": "Distribution APY",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
-      "submitButton": "Borrow"
+      "submitButton": "Borrow",
+      "submitButtonDisabled": "Enter a valid amount to borrow"
     },
     "borrowTabTitle": "Borrow",
     "repayTabTitle": "Repay"

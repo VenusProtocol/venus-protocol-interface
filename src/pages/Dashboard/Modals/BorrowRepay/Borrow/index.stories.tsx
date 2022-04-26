@@ -29,6 +29,12 @@ const context = {
   },
 };
 
+export const Default = Template.bind({});
+Default.decorators = [withAuthContext(context)];
+Default.args = {
+  asset: assetData[0],
+};
+
 export const Disconnected = Template.bind({});
 Disconnected.args = {
   asset: assetData[0],
@@ -38,10 +44,4 @@ export const Disabled = Template.bind({});
 Disabled.decorators = [withAuthContext(context)];
 Disabled.args = {
   asset: { ...assetData[0], isEnabled: false },
-};
-
-export const Default = Template.bind({});
-Default.decorators = [withAuthContext(context)];
-Default.args = {
-  asset: assetData[0],
 };

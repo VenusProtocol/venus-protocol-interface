@@ -122,7 +122,9 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
       </LabeledInlineContent>
 
       <PrimaryButton type="submit" disabled={disabled || !isValid || !dirty} fullWidth>
-        {t('borrowRepayModal.borrow.submitButton')}
+        {isValid
+          ? t('borrowRepayModal.borrow.submitButton')
+          : t('borrowRepayModal.borrow.submitButtonDisabled')}
       </PrimaryButton>
     </>
   );
