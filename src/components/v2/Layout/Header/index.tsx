@@ -34,8 +34,8 @@ const Header = () => {
         {title && <h3>{title}</h3>}
 
         {!isOnMobile && (
-          <Box flexDirection="row" display="flex" flex={1} justifyContent="right">
-            <ClaimXvsRewardButton />
+          <Box flexDirection="row" display="flex" justifyContent="right">
+            <ClaimXvsRewardButton css={styles.claimXvsButton} />
             <ConnectButton />
           </Box>
         )}
