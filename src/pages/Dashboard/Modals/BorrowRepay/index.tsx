@@ -18,7 +18,7 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ className, asset }) => {
 
   const tabsContent = [
     { title: t('borrowRepayModal.borrowTabTitle'), content: <Borrow asset={asset} /> },
-    { title: t('borrowRepayModal.repayTabTitle'), content: <></> },
+    { title: t('borrowRepayModal.repayTabTitle'), content: <>Repay</> },
   ];
 
   return (
