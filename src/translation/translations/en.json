@@ -23,7 +23,7 @@
   },
   "borrowRepayModal": {
     "borrow": {
-      "rightMaxButtonLabel": "80% LIMIT",
+      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow"
     },
     "borrowTabTitle": "Borrow",
