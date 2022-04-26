@@ -2,7 +2,7 @@
 import React from 'react';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { AuthContext } from 'context/AuthContext';
-import useUserMarketInfo from 'hooks/useUserMarketInfo';
+import { useUserMarketInfo } from 'clients/api';
 import {
   calculateApy,
   calculateDailyEarningsCents,

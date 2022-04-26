@@ -115,3 +115,5 @@ export { default as useGetXvsReward } from './queries/useGetXvsReward';
 export { default as getVTokenBorrowBalance } from './queries/getVTokenBorrowBalance';
 export * from './queries/getVTokenBorrowBalance';
 export { default as useGetVTokenBorrowBalance } from './queries/useGetVTokenBorrowBalance';
+
+export { default as useUserMarketInfo } from './queries/useUserMarketInfo';

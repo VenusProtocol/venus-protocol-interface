@@ -8,7 +8,7 @@ import {
 import { Asset, TokenId } from 'types';
 import { Token } from 'components/v2/Token';
 import { Table, ITableProps } from 'components/v2/Table';
-import useUserMarketInfo from 'hooks/useUserMarketInfo';
+import { useUserMarketInfo } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';

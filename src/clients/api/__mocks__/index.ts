@@ -100,3 +100,5 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
+
+export const useUserMarketInfo = jest.fn();
