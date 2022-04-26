@@ -145,7 +145,7 @@ const MintVai: React.FC = () => {
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
-  const { mutate: contractMintVai, isLoading: isMintVaiLoading } = useMintVai();
+  const { mutateAsync: contractMintVai, isLoading: isMintVaiLoading } = useMintVai();
 
   // Convert limit into wei of VAI
   const limitWei = React.useMemo(
