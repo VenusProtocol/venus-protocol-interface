@@ -3,6 +3,7 @@ import React from 'react';
 import { FormikProps } from 'formik';
 import BigNumber from 'bignumber.js';
 
+import { getToken } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
@@ -64,11 +65,34 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
       }),
   };
 
-  // @TODO: calculate input max value (https://app.clickup.com/t/24qunn3)
-  const max = '10000';
+  // Calculate safe maximum amount of coins user can borrow
+  const safeMaxCoins = React.useMemo(() => {
+    const safeBorrowLimitCents = userBorrowLimitCents.multipliedBy(safeBorrowLimitPercentage / 100);
+    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(
+      userTotalBorrowBalanceCents.current,
+    );
+
+    const tokenDecimals = getToken(asset.id).decimals;
+
+    return (
+      marginWithSafeBorrowLimitCents
+        // Convert cents to dollars
+        .dividedBy(100)
+        // Convert dollars to coins
+        .dividedBy(asset.tokenPrice)
+        // Format value
+        .toFixed(tokenDecimals, BigNumber.ROUND_DOWN)
+    );
+  }, [
+    asset.id,
+    asset.tokenPrice,
+    userBorrowLimitCents.toFixed(),
+    safeBorrowLimitPercentage,
+    userTotalBorrowBalanceCents.current.toFixed(),
+  ]);
 
   const readableBorrowApy = formatToReadablePercentage(asset.borrowApy.toFixed(2));
-  const readableDistrubtionApy = formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2));
+  const readableDistributionApy = formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2));
 
   return (
     <>
@@ -78,7 +102,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         tokenId={asset.id}
         value={values.amount}
         onChange={amount => setFieldValue('amount', amount, true)}
-        max={max}
+        max={safeMaxCoins}
         onBlur={handleBlur}
         disabled={disabled}
         rightMaxButtonLabel={t('borrowRepayModal.borrow.rightMaxButtonLabel', {
@@ -122,7 +146,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
       </LabeledInlineContent>
 
       <LabeledInlineContent label={t('borrowRepayModal.borrow.distributionAPy')} iconName="xvs">
-        {readableDistrubtionApy}
+        {readableDistributionApy}
       </LabeledInlineContent>
 
       <Delimiter />
