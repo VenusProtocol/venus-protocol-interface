@@ -9,8 +9,6 @@ import Borrow from '.';
 const ONE = '1';
 const fakeAsset = assetData[1];
 
-jest.mock('clients/api');
-
 describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(<Borrow asset={fakeAsset} />);
