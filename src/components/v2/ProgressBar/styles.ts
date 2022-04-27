@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-export const useStyles = ({ over }: { over: boolean }) => {
+export const useStyles = ({ over, secondaryOver }: { over: boolean; secondaryOver: boolean }) => {
   const theme = useTheme();
   return {
     slider: css`
@@ -27,6 +27,7 @@ export const useStyles = ({ over }: { over: boolean }) => {
     `,
     trackWrapper: css`
       position: relative;
+      z-index: 20;
     `,
     mark: css`
       position: absolute;
@@ -34,7 +35,7 @@ export const useStyles = ({ over }: { over: boolean }) => {
       background-color: currentColor;
       top: 50%;
       transform: translate(-1px, -50%);
-      z-index: 1;
+      z-index: 30;
 
       /* theme styles */
       width: ${theme.spacing(1)};
@@ -48,6 +49,17 @@ export const useStyles = ({ over }: { over: boolean }) => {
     `,
     tooltipHelper: css`
       visibility: hidden;
+    `,
+    secondaryRail: (value: number | undefined) => css`
+      ${value ? `width: ${value}%;` : 'display: none;'}
+      &.MuiSlider-track {
+        background-color: ${secondaryOver
+          ? theme.palette.interactive.error50
+          : theme.palette.interactive.success50};
+      }
+      position: absolute;
+      top: 0;
+      z-index: 10;
     `,
   };
 };
