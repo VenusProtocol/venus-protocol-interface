@@ -29,21 +29,17 @@ export const TextField: React.FC<ITextFieldProps> = ({
   ...inputProps
 }) => {
   const styles = useStyles();
-
   const handleChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = e => {
+    let safeValue = e.currentTarget.value;
+    if (type === 'number' && safeValue.startsWith('.')) {
+      safeValue = `0${safeValue}`;
+    }
     // Prevent value from being updated if it does not follow the rules
     const followsMaxRule =
-      !e.currentTarget.value ||
-      max === undefined ||
-      type !== 'number' ||
-      parseInt(e.currentTarget.value, 10) <= +max;
+      !safeValue || max === undefined || type !== 'number' || parseInt(safeValue, 10) <= +max;
 
     const followsMinRule =
-      !e.currentTarget.value ||
-      min === undefined ||
-      type !== 'number' ||
-      parseInt(e.currentTarget.value, 10) >= +min;
-
+      !safeValue || min === undefined || type !== 'number' || parseInt(safeValue, 10) >= +min;
     if (onChange && followsMaxRule && followsMinRule) {
       onChange(e);
     }
