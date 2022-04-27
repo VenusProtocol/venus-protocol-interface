@@ -94,7 +94,10 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
               onBlur={handleBlur}
               max={limitTokens}
               disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
-              rightMaxButtonLabel={t('mintRepayVai.repayVai.rightMaxButtonLabel')}
+              rightMaxButton={{
+                label: t('mintRepayVai.repayVai.rightMaxButtonLabel'),
+                valueOnClick: limitTokens,
+              }}
             />
 
             <LabeledInlineContent

@@ -64,9 +64,12 @@ describe('components/TokenTextField', () => {
     expect(input.step).toBe(oneWeiInXvs.toFixed());
   });
 
-  it('renders max button and updates value to maxWei when pressing on it', async () => {
+  it('renders max button and updates value to provided value when pressing on it', async () => {
     const onChangeMock = jest.fn();
-    const rightMaxButtonLabel = 'Test max button label';
+    const rightMaxButton = {
+      label: 'Test max button label',
+      valueOnClick: ONE_XVS,
+    };
 
     const { getByText } = renderComponent(
       <TokenTextField
@@ -75,15 +78,14 @@ describe('components/TokenTextField', () => {
         value=""
         data-testid={testId}
         max={ONE_XVS}
-        rightMaxButtonLabel={rightMaxButtonLabel}
+        rightMaxButton={rightMaxButton}
       />,
     );
 
-    const rightMaxButton = getByText(rightMaxButtonLabel) as HTMLButtonElement;
+    const rightMaxButtonDom = getByText(rightMaxButton.label) as HTMLButtonElement;
+    fireEvent.click(rightMaxButtonDom);
 
-    fireEvent.click(rightMaxButton);
-
-    // Check onChange callback was called with maxWei
+    // Check onChange callback was called with correct value
     expect(onChangeMock).toHaveBeenCalledWith(ONE_XVS);
   });
 });

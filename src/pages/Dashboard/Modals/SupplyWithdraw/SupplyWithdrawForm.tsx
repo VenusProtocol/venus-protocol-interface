@@ -92,7 +92,10 @@ export const SupplyWithdrawContent: React.FC<
         value={amountString}
         onChange={amt => setFieldValue('amount', amt, true)}
         max={maxInput.toFixed()}
-        rightMaxButtonLabel={t('supplyWithdraw.max').toUpperCase()}
+        rightMaxButton={{
+          label: t('supplyWithdraw.max').toUpperCase(),
+          valueOnClick: maxInput.toFixed(),
+        }}
         css={styles.input}
       />
       <Typography component="span" variant="small1" css={styles.greyLabel}>

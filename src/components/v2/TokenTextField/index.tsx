@@ -16,13 +16,16 @@ export interface ITokenTextFieldProps
   tokenId: TokenId;
   value: string;
   onChange: (newValue: string) => void;
-  rightMaxButtonLabel?: string;
+  rightMaxButton?: {
+    label: string;
+    valueOnClick: string;
+  };
   max?: string;
 }
 
 export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
   tokenId,
-  rightMaxButtonLabel,
+  rightMaxButton,
   onChange,
   disabled,
   max,
@@ -37,9 +40,9 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
     return tmpOneWeiInCoins.toFixed();
   }, [tokenId]);
 
-  const setMaxValue = () => {
-    if (onChange && max) {
-      onChange(max);
+  const setMaxValue = (newValue: string) => {
+    if (onChange) {
+      onChange(newValue);
     }
   };
 
@@ -62,9 +65,13 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
       type="number"
       leftIconName={tokenId as IconName}
       rightAdornment={
-        rightMaxButtonLabel && onChange && max ? (
-          <TertiaryButton onClick={setMaxValue} small disabled={disabled}>
-            {rightMaxButtonLabel}
+        rightMaxButton && onChange ? (
+          <TertiaryButton
+            onClick={() => setMaxValue(rightMaxButton.valueOnClick)}
+            small
+            disabled={disabled}
+          >
+            {rightMaxButton.label}
           </TertiaryButton>
         ) : undefined
       }
