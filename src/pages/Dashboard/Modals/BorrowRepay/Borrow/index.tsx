@@ -101,6 +101,12 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
   const readableBorrowApy = formatToReadablePercentage(asset.borrowApy.toFixed(2));
   const readableDistributionApy = formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2));
 
+  const canSubmit =
+    isValid &&
+    dirty &&
+    typeof hypotheticalBorrowLimitUsedPercentage === 'number' &&
+    hypotheticalBorrowLimitUsedPercentage <= 100;
+
   return (
     <>
       <TokenTextField
@@ -180,8 +186,8 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         />
       </LabeledInlineContent>
 
-      <PrimaryButton type="submit" disabled={!isValid || !dirty} fullWidth>
-        {isValid
+      <PrimaryButton type="submit" disabled={!canSubmit} fullWidth>
+        {canSubmit
           ? t('borrowRepayModal.borrow.submitButton')
           : t('borrowRepayModal.borrow.submitButtonDisabled')}
       </PrimaryButton>
