@@ -62,7 +62,7 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
               : t('accountHealth.borrowLimitUsed')}
           </Typography>
 
-          <Typography component="span" variant="small1" color="text.borrowBalance">
+          <Typography component="span" variant="small1" css={styles.inlineValue}>
             {variant === 'borrowBalance'
               ? readableBorrowBalance
               : readableBorrowLimitUsedPercentage}
@@ -74,7 +74,7 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
             {variant === 'borrowBalance' ? t('accountHealth.max') : t('accountHealth.limit')}
           </Typography>
 
-          <Typography component="span" variant="small1" color="text.borrowBalance">
+          <Typography component="span" variant="small1" css={styles.inlineValue}>
             {readableBorrowLimit}
           </Typography>
         </div>
