@@ -8,6 +8,7 @@ export const useStyles = () => {
       background-image: none;
       background-color: transparent;
       box-shadow: none;
+      padding: 0;
     `,
     toolbar: css`
       padding: ${theme.spacing(8, 10, 0)} !important;

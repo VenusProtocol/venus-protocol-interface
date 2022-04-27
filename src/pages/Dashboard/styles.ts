@@ -25,6 +25,9 @@ export const useStyles = () => {
         margin-bottom: ${gap};
       }
     `,
+    market: css`
+      padding-top: 0;
+    `,
     tabsWrapper: css`
       background-color: ${theme.palette.background.paper};
       border-radius: ${theme.shape.borderRadius.large}px;
@@ -37,6 +40,10 @@ export const useStyles = () => {
       padding-left: ${theme.spacing(6)};
       padding-right: ${theme.spacing(6)};
       padding-top: ${theme.spacing(6)};
+
+      ${theme.breakpoints.down('xl')} {
+        padding-top: ${theme.spacing(6)};
+      }
 
       ${theme.breakpoints.down('sm')} {
         padding-left: 0;

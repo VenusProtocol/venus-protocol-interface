@@ -7,9 +7,7 @@ export const useStyles = () => {
   return {
     tableContainer: css`
       width: 100%;
-      background-color: ${theme.palette.background.paper};
-      border-radius: ${theme.shape.borderRadius.large}px;
-      padding: ${theme.spacing(6)};
+      padding: 0;
     `,
     delimiter: css`
       margin: ${theme.spacing(6)};
