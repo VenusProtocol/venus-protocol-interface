@@ -184,6 +184,7 @@ export const useStyles = () => {
         border-radius: 0;
         border: 0;
         box-shadow: none;
+        padding: 0;
       }
     `,
     mobileListItem: css`

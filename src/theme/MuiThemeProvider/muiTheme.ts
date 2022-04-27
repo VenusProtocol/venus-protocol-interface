@@ -77,26 +77,28 @@ export type TypographyVariant =
   | 'small2'
   | undefined;
 
+const SHAPE = {
+  borderRadius: {
+    verySmall: SPACING,
+    small: SPACING * 2,
+    medium: SPACING * 4,
+    large: SPACING * 6,
+  } as any, // our custom types seem to clash with the default MUI types
+  iconSize: {
+    medium: SPACING * 4,
+    large: 20,
+  },
+  footerHeight: '56px',
+  bannerHeight: '56px',
+  drawerWidthDesktop: '224px',
+  drawerWidthTablet: '80px',
+};
+
 export default createTheme({
   spacing: SPACING,
   palette: PALETTE,
   breakpoints: BREAKPOINTS,
-  shape: {
-    borderRadius: {
-      verySmall: SPACING,
-      small: SPACING * 2,
-      medium: SPACING * 4,
-      large: SPACING * 6,
-    } as any, // our custom types seem to clash with the default MUI types
-    iconSize: {
-      medium: SPACING * 4,
-      large: 20,
-    },
-    footerHeight: '56px',
-    bannerHeight: '56px',
-    drawerWidthDesktop: '224px',
-    drawerWidthTablet: '80px',
-  },
+  shape: SHAPE,
   typography: {
     fontFamily: FONTS.primary,
     color: PALETTE.text.primary,
@@ -142,6 +144,21 @@ export default createTheme({
       styleOverrides: {
         root: {
           backgroundImage: 'none',
+          backgroundColor: PALETTE.background.paper,
+          borderRadius: SHAPE.borderRadius.large,
+          padding: SPACING * 6,
+          boxShadow: 'none',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+        },
+        paper: {
+          padding: 0,
+          borderRadius: 0,
         },
       },
     },

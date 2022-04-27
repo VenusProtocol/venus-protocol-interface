@@ -46,11 +46,11 @@ const DashboardMarketsUi: React.FC<IDashboardMarketsUiProps> = ({
         title: t('dashboard.markets.tabSupply'),
         content: (
           <SupplyMarket
+            css={[styles.item, styles.market]}
             isXvsEnabled={isXvsEnabled}
             suppliedAssets={suppliedAssets}
             supplyMarketAssets={supplyMarketAssets}
             accountAddress={accountAddress}
-            css={styles.item}
           />
         ),
       },
@@ -59,6 +59,7 @@ const DashboardMarketsUi: React.FC<IDashboardMarketsUiProps> = ({
         title: t('dashboard.markets.tabBorrow'),
         content: (
           <BorrowMarket
+            css={[styles.item, styles.market]}
             isXvsEnabled={isXvsEnabled}
             borrowingAssets={borrowingAssets}
             borrowMarketAssets={borrowMarketAssets}
@@ -86,13 +87,14 @@ const DashboardMarketsUi: React.FC<IDashboardMarketsUiProps> = ({
   return (
     <div css={styles.container}>
       <SupplyMarket
+        css={[styles.item, styles.market]}
         isXvsEnabled={isXvsEnabled}
         suppliedAssets={suppliedAssets}
         supplyMarketAssets={supplyMarketAssets}
         accountAddress={accountAddress}
-        css={styles.item}
       />
       <BorrowMarket
+        css={[styles.item, styles.market]}
         isXvsEnabled={isXvsEnabled}
         borrowingAssets={borrowingAssets}
         borrowMarketAssets={borrowMarketAssets}

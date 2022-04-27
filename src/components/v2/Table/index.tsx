@@ -88,10 +88,10 @@ export const Table = ({
     );
 
   return (
-    <div className={className}>
+    <Paper css={styles.root} className={className}>
       {title && <h4 css={styles.title}>{title}</h4>}
 
-      <TableContainer css={styles.tableContainer} component={Paper}>
+      <TableContainer>
         <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
           <Head
             columns={columns}
@@ -127,6 +127,6 @@ export const Table = ({
           </TableBody>
         </TableMUI>
       </TableContainer>
-    </div>
+    </Paper>
   );
 };

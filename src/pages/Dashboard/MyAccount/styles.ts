@@ -6,9 +6,6 @@ export const useMyAccountStyles = () => {
   return {
     container: css`
       width: 100%;
-      background-color: ${theme.palette.background.paper};
-      border-radius: ${theme.shape.borderRadius.large}px;
-      padding: ${theme.spacing(6)};
     `,
     row: css`
       display: flex;
@@ -17,6 +14,7 @@ export const useMyAccountStyles = () => {
     `,
     header: css`
       margin-bottom: ${theme.spacing(6)};
+      padding: ${theme.spacing(2)} 0;
     `,
     apyWithXvs: css`
       display: flex;

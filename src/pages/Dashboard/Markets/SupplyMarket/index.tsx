@@ -24,13 +24,13 @@ interface ISupplyMarketProps {
 }
 
 export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
+  className,
   isXvsEnabled,
   supplyMarketAssets,
   suppliedAssets,
   toggleAssetCollateral,
   confirmCollateral,
   setConfirmCollateral,
-  className,
 }) => {
   const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
   const styles = useStyles();
