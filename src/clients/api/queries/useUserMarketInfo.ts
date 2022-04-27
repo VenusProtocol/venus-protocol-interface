@@ -16,9 +16,9 @@ import {
 } from 'clients/api';
 
 const useUserMarketInfo = ({
-  account,
+  accountAddress,
 }: {
-  account: string | null | undefined;
+  accountAddress?: string;
 }): { assets: Asset[]; userTotalBorrowLimit: BigNumber; userTotalBorrowBalance: BigNumber } => {
   const { userVaiMinted } = useVaiUser();
 
@@ -27,16 +27,16 @@ const useUserMarketInfo = ({
     .map(item => item.address);
   const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
   const { data: assetsInAccount = [] } = useGetAssetsInAccount(
-    { account },
-    { placeholderData: [], enabled: !!account },
+    { account: accountAddress },
+    { placeholderData: [], enabled: Boolean(accountAddress) },
   );
   const { data: vTokenBalancesAccount = [] } = useGetVTokenBalancesAll(
-    { account, vtAddresses },
-    { placeholderData: [], enabled: !!account },
+    { account: accountAddress, vtAddresses },
+    { placeholderData: [], enabled: Boolean(accountAddress) },
   );
   const { data: vTokenBalancesTreasury = [] } = useGetVTokenBalancesAll(
     { account: TREASURY_ADDRESS, vtAddresses },
-    { placeholderData: [], enabled: !!account },
+    { placeholderData: [], enabled: Boolean(accountAddress) },
   );
 
   let balances: Record<string, IGetVTokenBalancesAllOutput[number]> = {};
@@ -77,7 +77,7 @@ const useUserMarketInfo = ({
     const percentOfLimit = '0';
 
     const wallet = balances[vtokenAddress];
-    if (account && wallet) {
+    if (accountAddress && wallet) {
       walletBalance = toDecimalAmount(wallet.tokenBalance);
       supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
       borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
@@ -123,8 +123,8 @@ const useUserMarketInfo = ({
   // toggle. Sadly, the current VenusLens contract does not provide this info, so we
   // still have to query each market.
   const hypotheticalLiquidityQueries = useGetHypotheticalLiquidityQueries(
-    { assetList, account, balances },
-    { enabled: !!account },
+    { assetList, account: accountAddress, balances },
+    { enabled: Boolean(accountAddress) },
   );
   assetList = (hypotheticalLiquidityQueries as Array<UseQueryResult<Asset>>).reduce(
     (acc: Asset[], result: UseQueryResult<Asset>, idx: number) => {

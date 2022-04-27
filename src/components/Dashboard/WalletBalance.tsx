@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import CircleProgressBar from 'components/Basic/CircleProgressBar';
 import BigNumber from 'bignumber.js';
 import AnimatedNumber from 'animated-number-react';
-import { useWeb3Account } from 'clients/web3';
+
 import { accountActionCreators } from 'core/modules/account/actions';
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
@@ -13,9 +13,10 @@ import Toggle from 'components/Basic/Toggle';
 import { Label } from 'components/Basic/Label';
 import { Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import { useVaiUser } from '../../hooks/useVaiUser';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useVaiVaultContract } from '../../clients/contracts/hooks';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { useVaiVaultContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -92,7 +93,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
 
   const [totalSupply, setTotalSupply] = useState(new BigNumber(0));
   const [totalBorrow, setTotalBorrow] = useState(new BigNumber(0));
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const vaultContract = useVaiVaultContract();
 
   let isMounted = true;
@@ -102,7 +103,7 @@ function WalletBalance({ settings, setSetting }: WalletBalanceProps) {
       if (!account) {
         return;
       }
-      const { 0: staked } = await vaultContract.methods.userInfo(account).call();
+      const { 0: staked } = await vaultContract.methods.userInfo(account.address).call();
       const amount = new BigNumber(staked).div(1e18);
 
       if (!isMounted) {

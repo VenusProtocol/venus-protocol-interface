@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3Account } from 'clients/web3';
+
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { AuthContext } from 'context/AuthContext';
 
 const VotingPowerWrapper = styled.div`
   width: 100%;
@@ -109,7 +110,7 @@ interface VotingPowerProps extends RouteComponentProps {
 }
 
 function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: VotingPowerProps) {
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
 
   const [isOpenDelegationModal, setIsOpenDelegationModal] = useState(false);
 
@@ -177,7 +178,7 @@ function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: 
         visible={isOpenDelegationModal}
         balance={balance}
         delegateStatus={delegateStatus}
-        address={account || ''}
+        address={account?.address || ''}
         onCancel={() => setIsOpenDelegationModal(false)}
       />
     </>

@@ -186,7 +186,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const { account } = useContext(AuthContext);
   const { t } = useTranslation();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
-    account: account?.address,
+    accountAddress: account?.address,
   });
   const { data: vTokenBalance } = useGetVTokenBalance(
     { account: account?.address || '', vTokenId: asset.id as VTokenId },

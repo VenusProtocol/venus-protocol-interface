@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 
 import toast from 'components/Basic/Toast';
@@ -84,7 +84,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 };
 
 export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useContext(AuthContext);
   const { data: xvsRewardWei } = useGetXvsReward(account?.address);
   const { t } = useTranslation();
 

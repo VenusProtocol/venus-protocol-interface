@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
@@ -7,8 +7,8 @@ import { generateBscScanUrl } from 'utilities';
 import { addToken, format } from 'utilities/common';
 import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
-import { useWeb3Account } from 'clients/web3';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { AuthContext } from 'context/AuthContext';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -55,7 +55,7 @@ const CardWrapper = styled.div`
 `;
 
 function CoinInfo() {
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { userXvsBalance } = useMarketsUser();
 
   const handleLink = () => {
@@ -85,7 +85,12 @@ function CoinInfo() {
         </div>
         <div className="flex align-center just-center pointer" onClick={() => handleLink()}>
           <p className="highlight">
-            {account ? `${account.substr(0, 4)}...${account.substr(account.length - 4, 4)}` : ''}
+            {account
+              ? `${account.address.substr(0, 4)}...${account.address.substr(
+                  account.address.length - 4,
+                  4,
+                )}`
+              : ''}
           </p>
           <div className="flex align-center just-center copy-btn">
             <Icon type="arrow-right" />
