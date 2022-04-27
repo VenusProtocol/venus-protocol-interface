@@ -138,6 +138,13 @@ export default createTheme({
     },
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         hiddenLabel: {
