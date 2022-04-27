@@ -9,7 +9,7 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, FormValues, ErrorCode } from 'containers/AmountForm';
-import { formatToReadablePercentage } from 'utilities/common';
+import { formatToReadablePercentage, formatApy } from 'utilities/common';
 import calculatePercentage from 'utilities/calculatePercentage';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
@@ -22,6 +22,8 @@ import {
   ValueUpdate,
   Delimiter,
   Icon,
+  ConnectWallet,
+  EnableToken,
 } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
@@ -54,14 +56,13 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
   borrowLimitCents,
   calculateDailyEarningsCents,
 }) => {
+  const { t } = useTranslation();
   const sharedStyles = useStyles();
   const borrowStyles = useBorrowStyles();
   const styles = {
     ...sharedStyles,
     ...borrowStyles,
   };
-
-  const { t } = useTranslation();
 
   const isAmountValid = values.amount && +values.amount > 0;
   const hypotheticalTotalBorrowBalanceCents = isAmountValid
@@ -73,10 +74,15 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
       )
     : undefined;
 
-  const borrowLimitUsedPercentage = calculatePercentage({
-    numerator: totalBorrowBalanceCents.toNumber(),
-    denominator: borrowLimitCents.toNumber(),
-  });
+  const borrowLimitUsedPercentage = React.useMemo(
+    () =>
+      calculatePercentage({
+        numerator: totalBorrowBalanceCents.toNumber(),
+        denominator: borrowLimitCents.toNumber(),
+      }),
+    [totalBorrowBalanceCents.toNumber(), borrowLimitCents.toNumber()],
+  );
+
   const hypotheticalBorrowLimitUsedPercentage =
     hypotheticalTotalBorrowBalanceCents &&
     calculatePercentage({
@@ -84,13 +90,19 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
       denominator: borrowLimitCents.toNumber(),
     });
 
-  const dailyEarningsCents = calculateDailyEarningsCents(new BigNumber(0));
+  const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
   const hypotheticalDailyEarningsCents = isAmountValid
     ? calculateDailyEarningsCents(new BigNumber(values.amount))
     : undefined;
 
-  const readableBorrowApy = formatToReadablePercentage(asset.borrowApy.toFixed(2));
-  const readableDistributionApy = formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2));
+  const readableBorrowApy = React.useMemo(
+    () => formatToReadablePercentage(asset.borrowApy.toFixed(2)),
+    [asset.borrowApy.toFixed()],
+  );
+  const readableDistributionApy = React.useMemo(
+    () => formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2)),
+    [asset.xvsBorrowApy.toFixed()],
+  );
 
   const canSubmit =
     isValid &&
@@ -204,6 +216,7 @@ export interface IBorrowProps {
 }
 
 const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
+  const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
   const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
@@ -243,43 +256,69 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
   // Calculate maximum and safe maximum amount of coins user can borrow
   const [maxAmountCoins, safeBorrowLimitCoins] = React.useMemo(() => {
     const safeBorrowLimitCents = borrowLimitCents.multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100);
+    const marginWithBorrowLimitCents = borrowLimitCents.minus(totalBorrowBalanceCents);
     const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(totalBorrowBalanceCents);
 
     const tokenDecimals = getToken(asset.id).decimals;
     const formatValue = (value: BigNumber) => value.toFixed(tokenDecimals, BigNumber.ROUND_DOWN);
 
-    const maxCoins = marginWithSafeBorrowLimitCents
+    const maxCoins = marginWithBorrowLimitCents
       // Convert cents to dollars
       .dividedBy(100)
       // Convert dollars to coins
       .dividedBy(asset.tokenPrice);
 
-    const safeMaxCoins = maxCoins.multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100);
+    const safeMaxCoins = marginWithSafeBorrowLimitCents
+      // Convert cents to dollars
+      .dividedBy(100)
+      // Convert dollars to coins
+      .dividedBy(asset.tokenPrice);
 
     return [formatValue(maxCoins), formatValue(safeMaxCoins)];
   }, [asset.id, asset.tokenPrice, borrowLimitCents.toFixed(), totalBorrowBalanceCents.toFixed()]);
 
   return (
-    // @TODO: add ConnectWallet wrapper (https://app.clickup.com/t/24qunn3)
-    // @TODO: add EnableToken wrapper (https://app.clickup.com/t/24qunn3)
-    <AmountForm onSubmit={handleSubmit} maxAmount={maxAmountCoins}>
-      {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
-        <BorrowUi
-          asset={asset}
-          totalBorrowBalanceCents={totalBorrowBalanceCents}
-          borrowLimitCents={borrowLimitCents}
-          safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-          safeBorrowLimitCoins={safeBorrowLimitCoins}
-          calculateDailyEarningsCents={calculateDailyEarningsCents}
-          values={values}
-          setFieldValue={setFieldValue}
-          handleBlur={handleBlur}
-          dirty={dirty}
-          isValid={isValid}
-          errors={errors}
-        />
+    <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
+      {asset && (
+        <EnableToken
+          symbol={asset.id}
+          title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
+          tokenInfo={[
+            {
+              label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
+              iconName: asset.id,
+              children: formatApy(asset.borrowApy),
+            },
+            {
+              label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
+              iconName: 'xvs',
+              children: formatApy(asset.xvsBorrowApy),
+            },
+          ]}
+          isEnabled={asset.isEnabled}
+          vtokenAddress={asset.vtokenAddress}
+        >
+          <AmountForm onSubmit={handleSubmit} maxAmount={maxAmountCoins}>
+            {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
+              <BorrowUi
+                asset={asset}
+                totalBorrowBalanceCents={totalBorrowBalanceCents}
+                borrowLimitCents={borrowLimitCents}
+                safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+                safeBorrowLimitCoins={safeBorrowLimitCoins}
+                calculateDailyEarningsCents={calculateDailyEarningsCents}
+                values={values}
+                setFieldValue={setFieldValue}
+                handleBlur={handleBlur}
+                dirty={dirty}
+                isValid={isValid}
+                errors={errors}
+              />
+            )}
+          </AmountForm>
+        </EnableToken>
       )}
-    </AmountForm>
+    </ConnectWallet>
   );
 };
 
