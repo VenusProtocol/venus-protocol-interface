@@ -120,6 +120,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
       <AccountHealth
         borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
         borrowLimitCents={userBorrowLimitCents.toNumber()}
+        hypotheticalBorrowBalanceCents={hypotheticalUserTotalBorrowBalanceCents?.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
         css={styles.getRow({ isLast: true })}
       />

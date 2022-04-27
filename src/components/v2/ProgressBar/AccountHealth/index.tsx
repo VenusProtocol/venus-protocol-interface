@@ -13,6 +13,7 @@ export interface IAccountHealthProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeBorrowLimitPercentage: number;
+  hypotheticalBorrowBalanceCents?: number;
   variant?: 'borrowBalance' | 'borrowLimitUsed';
   className?: string;
 }
@@ -22,6 +23,7 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
   borrowBalanceCents,
   borrowLimitCents,
   variant = 'borrowBalance',
+  hypotheticalBorrowBalanceCents,
   safeBorrowLimitPercentage,
 }) => {
   const styles = useStyles();
@@ -31,6 +33,14 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
     typeof borrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
       ? calculatePercentage({
           numerator: borrowBalanceCents,
+          denominator: borrowLimitCents,
+        })
+      : undefined;
+
+  const hypotheticalBorrowLimitUsedPercentage =
+    typeof hypotheticalBorrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
+      ? calculatePercentage({
+          numerator: hypotheticalBorrowBalanceCents,
           denominator: borrowLimitCents,
         })
       : undefined;
@@ -84,6 +94,7 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
 
       <ProgressBar
         value={borrowLimitUsedPercentage || 0}
+        secondaryValue={hypotheticalBorrowLimitUsedPercentage}
         mark={safeBorrowLimitPercentage}
         step={1}
         ariaLabel={t('accountHealth.accessibilityLabel')}
