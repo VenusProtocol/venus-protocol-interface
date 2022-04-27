@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Icon } from 'antd';
@@ -11,10 +11,10 @@ import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
 import { formatApy, format } from 'utilities/common';
-import { useWeb3Account } from 'clients/web3';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
-import { useComptrollerContract } from '../../../clients/contracts/hooks';
+import { useComptrollerContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const SupplyMarketWrapper = styled.div`
   width: 100%;
@@ -35,7 +35,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
   const [isOpenCollateralConfirm, setIsCollateralConfirm] = useState(false);
   const [record, setRecord] = useState({} as Asset);
   const [isCollateralEnalbe, setIsCollateralEnable] = useState(true);
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const comptrollerContract = useComptrollerContract();
 
   const handleToggleCollateral = async (r: $TSFixMe) => {
@@ -44,7 +44,9 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
         setIsCollateralEnable(false);
         setIsCollateralConfirm(true);
         try {
-          await comptrollerContract.methods.enterMarkets([r.vtokenAddress]).send({ from: account });
+          await comptrollerContract.methods
+            .enterMarkets([r.vtokenAddress])
+            .send({ from: account.address });
         } catch (error) {
           console.log('enter markets error :>> ', error);
         }
@@ -52,7 +54,9 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       } else if (+r.hypotheticalLiquidity['1'] > 0 || +r.hypotheticalLiquidity['2'] === 0) {
         setIsCollateralEnable(true);
         setIsCollateralConfirm(true);
-        await comptrollerContract.methods.exitMarket(r.vtokenAddress).send({ from: account });
+        await comptrollerContract.methods
+          .exitMarket(r.vtokenAddress)
+          .send({ from: account.address });
         setIsCollateralConfirm(false);
       } else {
         toast.error({

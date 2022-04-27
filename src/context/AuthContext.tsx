@@ -6,15 +6,17 @@ import { Connector, useAuth } from 'clients/web3';
 import toast from 'components/Basic/Toast';
 import { AuthModal } from 'components/v2/AuthModal';
 
+export interface IAccount {
+  address: string;
+  connector?: Connector;
+}
+
 export interface IAuthContextValue {
   login: (connector: Connector) => Promise<void>;
   logOut: () => void;
   openAuthModal: () => void;
   closeAuthModal: () => void;
-  account?: {
-    address: string;
-    connector?: Connector;
-  };
+  account?: IAccount;
 }
 
 export const AuthContext = React.createContext<IAuthContextValue>({

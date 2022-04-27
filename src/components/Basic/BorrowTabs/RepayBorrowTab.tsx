@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 
@@ -13,10 +13,11 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy, format } from 'utilities/common';
 import { Asset, Setting, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
-import { useWeb3, useWeb3Account } from 'clients/web3';
-import { useVaiUser } from '../../../hooks/useVaiUser';
-import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useTokenContract, useVTokenContract } from '../../../clients/contracts/hooks';
+import { useWeb3 } from 'clients/web3';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { useTokenContract, useVTokenContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 interface DispatchProps {
   setSetting: (setting: Setting | undefined) => void;
@@ -36,7 +37,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const tokenContract = useTokenContract(asset.id);
@@ -83,7 +84,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
       try {
         await tokenContract.methods
           .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
-          .send({ from: account });
+          .send({ from: account.address });
         setIsEnabled(true);
       } catch (error) {
         console.log('approve error :>> ', error);
@@ -110,7 +111,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
           ? new BigNumber(2).pow(256).minus(1).toString(10)
           : amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10);
         try {
-          await vbepContract.methods.repayBorrow(repayAmount).send({ from: account });
+          await vbepContract.methods.repayBorrow(repayAmount).send({ from: account.address });
           setAmount(new BigNumber(0));
           onCancel();
         } catch (error) {

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -124,7 +124,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 };
 
 const RepayVai: React.FC = () => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useContext(AuthContext);
   const { userVaiMinted, userVaiBalance } = useVaiUser();
   const { t } = useTranslation();
 

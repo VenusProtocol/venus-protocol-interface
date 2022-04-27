@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
 import BigNumber from 'bignumber.js';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
-import { useWeb3Account } from 'clients/web3';
 import { getContractAddress } from 'utilities';
 import { format } from 'utilities/common';
-import { useVaiUser } from '../../../hooks/useVaiUser';
-import { useTokenContract, useVaiUnitrollerContract } from '../../../clients/contracts/hooks';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { useTokenContract, useVaiUnitrollerContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 function RepayVaiTab() {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { userVaiMinted, userVaiBalance, userVaiEnabled } = useVaiUser();
   const vaiContract = useTokenContract('vai');
   const vaiControllerContract = useVaiUnitrollerContract();
@@ -37,7 +37,7 @@ function RepayVaiTab() {
           new BigNumber(2).pow(256).minus(1).toString(10),
         )
         .send({
-          from: account || undefined,
+          from: account?.address,
         });
     } catch (error) {
       console.log('vai approve error :>> ', error);
@@ -53,7 +53,7 @@ function RepayVaiTab() {
     try {
       await vaiControllerContract.methods
         .repayVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
-        .send({ from: account || undefined });
+        .send({ from: account?.address });
       setAmount(new BigNumber(0));
     } catch (error) {
       console.log('repay vai error :>> ', error);

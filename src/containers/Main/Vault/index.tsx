@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { connectAccount } from 'core';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import { useWeb3, useWeb3Account } from 'clients/web3';
+import { useWeb3 } from 'clients/web3';
 import useRefresh from 'hooks/useRefresh';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import { getToken } from 'utilities';
@@ -15,6 +15,7 @@ import VrtPoolCard from 'components/Vault/BasicVault/VrtCard';
 import { getTokenContractByAddress } from 'clients/contracts/getters';
 import { IPool, TokenId } from 'types';
 import { State } from 'core/modules/initialState';
+import { AuthContext } from 'context/AuthContext';
 
 const VaultWrapper = styled.div`
   width: 100%;
@@ -45,7 +46,7 @@ function Vault() {
   const [poolInfos, setPoolInfos] = useState<IPool[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const web3 = useWeb3();
   const { fastRefresh } = useRefresh();
   const xvsVaultContract = useXvsVaultProxyContract();
@@ -91,8 +92,12 @@ function Vault() {
 
         if (account) {
           [userPendingRewards, userInfo] = await Promise.all([
-            xvsVaultContract.methods.pendingReward(param.rewardToken, param.pid, account).call(),
-            xvsVaultContract.methods.getUserInfo(param.rewardToken, param.pid, account).call(),
+            xvsVaultContract.methods
+              .pendingReward(param.rewardToken, param.pid, account.address)
+              .call(),
+            xvsVaultContract.methods
+              .getUserInfo(param.rewardToken, param.pid, account.address)
+              .call(),
           ]);
         }
 

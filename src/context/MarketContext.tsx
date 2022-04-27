@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { TREASURY_ADDRESS } from 'config';
-import { useWeb3, useWeb3Account } from 'clients/web3';
+import { useWeb3 } from 'clients/web3';
 import { Asset, Market } from 'types';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import { getVBepToken, getToken } from 'utilities';
-import { fetchMarkets } from '../utilities/api';
-import { indexBy, notNull } from '../utilities/common';
-import useRefresh from '../hooks/useRefresh';
-import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptrollerContract, useVenusLensContract } from '../clients/contracts/hooks';
+import { fetchMarkets } from 'utilities/api';
+import { indexBy, notNull } from 'utilities/common';
+import useRefresh from 'hooks/useRefresh';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
+import { AuthContext } from './AuthContext';
 
 const MarketContext = React.createContext({
   markets: [] as $TSFixMe[],
@@ -35,7 +36,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [treasuryTotalUSDBalance, setTreasuryTotalUSDBalance] = useState(new BigNumber(0));
   const comptrollerContract = useComptrollerContract();
   const lens = useVenusLensContract();
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
 
@@ -90,7 +91,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
       try {
         let xvsBalance = new BigNumber(0);
         const assetsIn = account
-          ? await comptrollerContract.methods.getAssetsIn(account).call()
+          ? await comptrollerContract.methods.getAssetsIn(account.address).call()
           : [];
 
         const vtAddresses = Object.values(VBEP_TOKENS)
@@ -101,7 +102,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         if (account) {
           balances = indexBy(
             (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
-            await lens.methods.vTokenBalancesAll(vtAddresses, account).call(),
+            await lens.methods.vTokenBalancesAll(vtAddresses, account.address).call(),
           );
           xvsBalance = getXvsBalance(balances);
         }
@@ -202,7 +203,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
               account
                 ? await comptrollerContract.methods
                     .getHypotheticalAccountLiquidity(
-                      account,
+                      account.address,
                       asset.vtokenAddress,
                       // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                       balances[asset.vtokenAddress.toLowerCase()].balanceOf,
