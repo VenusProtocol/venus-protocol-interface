@@ -31,10 +31,10 @@ const renderComponent = (children: any) => {
     <Theme>
       <Web3Wrapper>
         <QueryClientProvider client={queryClient}>
-          <RefreshContextProvider>
-            <VaiContextProvider>
-              <MuiThemeProvider>
-                <AuthProvider>
+          <AuthProvider>
+            <RefreshContextProvider>
+              <VaiContextProvider>
+                <MuiThemeProvider>
                   <SuccessfulTransactionModalProvider>
                     <BrowserRouter>
                       <ToastContainer
@@ -50,10 +50,10 @@ const renderComponent = (children: any) => {
                       </Switch>
                     </BrowserRouter>
                   </SuccessfulTransactionModalProvider>
-                </AuthProvider>
-              </MuiThemeProvider>
-            </VaiContextProvider>
-          </RefreshContextProvider>
+                </MuiThemeProvider>
+              </VaiContextProvider>
+            </RefreshContextProvider>
+          </AuthProvider>
         </QueryClientProvider>
       </Web3Wrapper>
     </Theme>,

@@ -40,11 +40,11 @@ const App = () => (
     <Web3Wrapper>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-          <RefreshContextProvider>
-            <VaiContextProvider>
-              <MarketContextProvider>
-                <MuiThemeProvider>
-                  <AuthProvider>
+          <AuthProvider>
+            <RefreshContextProvider>
+              <VaiContextProvider>
+                <MarketContextProvider>
+                  <MuiThemeProvider>
                     <SuccessfulTransactionModalProvider>
                       <BrowserRouter>
                         <ToastContainer
@@ -77,11 +77,11 @@ const App = () => (
                         </Layout>
                       </BrowserRouter>
                     </SuccessfulTransactionModalProvider>
-                  </AuthProvider>
-                </MuiThemeProvider>
-              </MarketContextProvider>
-            </VaiContextProvider>
-          </RefreshContextProvider>
+                  </MuiThemeProvider>
+                </MarketContextProvider>
+              </VaiContextProvider>
+            </RefreshContextProvider>
+          </AuthProvider>
         </Provider>
       </QueryClientProvider>
     </Web3Wrapper>
