@@ -12,7 +12,12 @@ import { formatToReadablePercentage } from 'utilities/common';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
 import calculatePercentage from 'utilities/calculatePercentage';
-import { AccountHealth, LabeledInlineContent, ValueUpdate, Delimiter } from 'components';
+import {
+  BorrowBalanceAccountHealth,
+  LabeledInlineContent,
+  ValueUpdate,
+  Delimiter,
+} from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 
@@ -98,7 +103,7 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, amount }) => {
 
   return (
     <>
-      <AccountHealth
+      <BorrowBalanceAccountHealth
         borrowBalanceCents={totalBorrowBalanceCents.toNumber()}
         borrowLimitCents={borrowLimitCents.toNumber()}
         hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}

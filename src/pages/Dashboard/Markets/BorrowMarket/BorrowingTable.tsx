@@ -13,7 +13,7 @@ import {
 } from 'utilities/common';
 import { useStyles } from '../styles';
 
-export interface IBorrowingUiProps {
+export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
   userTotalBorrowLimit: BigNumber;
@@ -23,6 +23,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   assets,
   isXvsEnabled,
   userTotalBorrowLimit,
+  rowOnClick,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -100,6 +101,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
         orderDirection: 'asc',
       }}
       rowKeyIndex={0}
+      rowOnClick={rowOnClick}
     />
   );
 };

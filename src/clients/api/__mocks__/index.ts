@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import { useQuery, useQueries, useMutation, MutationObserverOptions } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
