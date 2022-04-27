@@ -7,7 +7,7 @@ import { Asset, Market } from 'types';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import { getVBepToken, getToken, calculateCollateralValue } from 'utilities';
 import { fetchMarkets } from 'utilities/api';
-import { indexBy, notNull } from 'utilities/common';
+import { indexBy, notNull, convertCoinsToWei } from 'utilities/common';
 import useRefresh from 'hooks/useRefresh';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
@@ -229,7 +229,12 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
 
         const totalBorrowLimit = assetList.reduce((acc, asset) => {
           if (asset.collateral) {
-            return acc.plus(calculateCollateralValue({ amountWei: asset.supplyBalance, asset }));
+            return acc.plus(
+              calculateCollateralValue({
+                amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
+                asset,
+              }),
+            );
           }
           return acc;
         }, new BigNumber(0));

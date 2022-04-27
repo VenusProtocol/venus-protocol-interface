@@ -17,7 +17,12 @@ import {
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
-import { getBigNumber, formatCentsToReadableValue, format } from 'utilities/common';
+import {
+  getBigNumber,
+  formatCentsToReadableValue,
+  format,
+  convertCoinsToWei,
+} from 'utilities/common';
 import { calculateCollateralValue } from 'utilities';
 import { useStyles } from '../styles';
 
@@ -66,7 +71,7 @@ export const SupplyWithdrawContent: React.FC<
 
     if (tokenPrice && validAmount) {
       const amountInUsd = calculateCollateralValue({
-        amountWei: amount,
+        amountWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
         asset,
       });
       const temp = calculateNewBalance(amountInUsd);
