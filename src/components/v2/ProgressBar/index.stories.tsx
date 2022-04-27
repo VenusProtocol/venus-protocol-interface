@@ -49,6 +49,8 @@ export const SecondaryValueOverProgressBar = () => (
     step={10}
     mark={75}
     ariaLabel="Storybook slider"
+    trackTooltip="Storybook tooltip text for Track"
+    markTooltip="Storybook tooltip text for Mark"
     min={0}
     max={100}
   />
