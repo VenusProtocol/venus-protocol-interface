@@ -9,6 +9,7 @@ import { useStyles } from './styles';
 
 export interface IProgressBarProps {
   value: number;
+  secondaryValue?: number;
   mark?: number;
   step: number;
   ariaLabel: string;
@@ -22,6 +23,7 @@ export interface IProgressBarProps {
 
 export const ProgressBar = ({
   value,
+  secondaryValue,
   mark,
   step,
   ariaLabel,
@@ -33,7 +35,10 @@ export const ProgressBar = ({
   tooltipPlacement = 'top',
 }: IProgressBarProps) => {
   const marks = mark ? [{ value: mark }] : undefined;
-  const styles = useStyles({ over: mark ? value > mark : false });
+  const styles = useStyles({
+    over: mark ? value > mark : false,
+    secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
+  });
 
   const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => {
     if (markTooltip) {
@@ -61,7 +66,12 @@ export const ProgressBar = ({
       );
     }
 
-    return <Box css={styles.trackWrapper} {...props} />;
+    return (
+      <>
+        <Box css={styles.trackWrapper} {...props} />
+        <Box css={styles.secondaryRail(secondaryValue)} {...props} style={undefined} />
+      </>
+    );
   };
 
   return (

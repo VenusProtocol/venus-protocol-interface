@@ -38,6 +38,7 @@ export const PALETTE = {
   interactive: {
     primary: 'rgba(58, 120, 255, 1)',
     success: 'rgba(24, 223, 139, 1)',
+    success50: 'rgba(24, 223, 139, 0.5)',
     error: 'rgba(233, 61, 68, 1)',
     error50: 'rgba(233, 61, 68, 0.5)',
     tan: 'rgba(255, 231, 206, 1)',
