@@ -15,21 +15,22 @@ export const useStyles = () => {
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};
+
       .MuiTableCell-root {
         border-width: 0;
         font-weight: ${theme.typography.body1.fontWeight};
-        > * {
-          float: right;
-        }
+        text-align: right;
+        font-size: ${theme.spacing(3.5)};
       }
 
       .MuiTableRow-root {
+        display: grid;
         cursor: pointer;
       }
 
       .MuiTableCell-root:first-child {
         padding-left: ${theme.spacing(6)};
-        float: left;
+        text-align: left;
       }
 
       .MuiTableCell-root:last-child {
@@ -81,6 +82,17 @@ export const useStyles = () => {
         fill: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
         color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
+    `,
+    cellWrapper: css`
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `,
+    cellInner: css`
+      text-overflow: ellipsis;
+    `,
+
+    getTemplateColumns: ({ gridStyles }: { gridStyles: string }) => css`
+      grid-template-columns: ${gridStyles};
     `,
   };
 };

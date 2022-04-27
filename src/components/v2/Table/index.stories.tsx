@@ -103,3 +103,13 @@ export const WithInitialOrderDefault = () => (
     rowKeyIndex={0}
   />
 );
+
+export const WithCustomColumnsWidth = () => (
+  <Table
+    columns={columns}
+    data={rows}
+    title="Market Data"
+    rowKeyIndex={0}
+    gridTemplateColumns="100px 1fr 1fr 140px"
+  />
+);

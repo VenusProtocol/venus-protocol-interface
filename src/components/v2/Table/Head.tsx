@@ -14,6 +14,7 @@ interface IHeadProps<C extends { key: string; label: string; orderable: boolean 
   orderBy: string | undefined;
   orderDirection: 'asc' | 'desc' | undefined;
   onRequestOrder: (property: C[number]['key']) => void;
+  className?: string;
 }
 
 function Head<C extends { key: string; label: string; orderable: boolean }[]>({
@@ -21,11 +22,12 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
   orderBy,
   orderDirection,
   onRequestOrder,
+  className,
 }: IHeadProps<C>) {
   const styles = useStyles();
   return (
     <TableHead>
-      <TableRow>
+      <TableRow className={className}>
         {columns.map((col: C[number]) => {
           const active = orderBy === col.key;
           return (
