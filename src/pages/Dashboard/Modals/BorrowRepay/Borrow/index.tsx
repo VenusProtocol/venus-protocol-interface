@@ -1,17 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { FormikProps } from 'formik';
 import BigNumber from 'bignumber.js';
 
 import { getToken } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
-import { AmountForm, FormValues, ErrorCode } from 'containers/AmountForm';
-import { formatApy } from 'utilities/common';
+import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
+import { formatApy, convertCoinsToWei } from 'utilities/common';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
+import toast from 'components/Basic/Toast';
 import { useUserMarketInfo } from 'clients/api';
 import { PrimaryButton, TokenTextField, Icon, ConnectWallet, EnableToken } from 'components';
 import { useTranslation } from 'translation';
@@ -19,31 +20,27 @@ import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
 import { useStyles as useBorrowStyles } from './styles';
 
-export interface IBorrowUiProps
-  extends Pick<
-    FormikProps<FormValues>,
-    'values' | 'setFieldValue' | 'handleBlur' | 'dirty' | 'isValid' | 'errors'
-  > {
+export interface IBorrowFormProps {
   asset: Asset;
+  limitTokens: string;
   safeBorrowLimitPercentage: number;
-  safeBorrowLimitCoins: string;
+  safeLimitTokens: string;
   totalBorrowBalanceCents: BigNumber;
   borrowLimitCents: BigNumber;
+  borrow: (amountWei: BigNumber) => Promise<string>;
+  isBorrowLoading: boolean;
   calculateDailyEarningsCents: (tokenAmount: BigNumber) => BigNumber;
 }
 
-export const BorrowUi: React.FC<IBorrowUiProps> = ({
+export const BorrowForm: React.FC<IBorrowFormProps> = ({
   asset,
-  values,
-  setFieldValue,
-  handleBlur,
-  dirty,
-  errors,
-  isValid,
+  limitTokens,
   safeBorrowLimitPercentage,
-  safeBorrowLimitCoins,
+  safeLimitTokens,
   totalBorrowBalanceCents,
   borrowLimitCents,
+  borrow,
+  isBorrowLoading,
   calculateDailyEarningsCents,
 }) => {
   const { t } = useTranslation();
@@ -54,61 +51,98 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
     ...borrowStyles,
   };
 
-  const canSubmit = isValid && dirty;
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+    const formattedAmountTokens = new BigNumber(amountTokens);
+
+    const amountWei = convertCoinsToWei({
+      value: formattedAmountTokens,
+      tokenId: asset.id,
+    });
+
+    try {
+      // Send request to repay VAI
+      const transactionHash = await borrow(amountWei);
+
+      // Display successful transaction modal
+      openSuccessfulTransactionModal({
+        title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
+        message: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: asset.id,
+        },
+        transactionHash,
+      });
+    } catch (error) {
+      toast.error({ title: (error as Error).message });
+    }
+  };
 
   return (
-    <>
-      <div css={styles.getRow({ isLast: true })}>
-        <TokenTextField
-          name="amount"
-          tokenId={asset.id}
-          value={values.amount}
-          onChange={amount => setFieldValue('amount', amount, true)}
-          onBlur={handleBlur}
-          rightMaxButton={{
-            label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
-              limitPercentage: safeBorrowLimitPercentage,
-            }),
-            valueOnClick: safeBorrowLimitCoins,
-          }}
-          data-testid="token-text-field"
-          // Only display error state if amount is higher than borrow limit
-          hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
-        />
+    <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
+      {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
+        <>
+          <div css={styles.getRow({ isLast: true })}>
+            <TokenTextField
+              name="amount"
+              tokenId={asset.id}
+              value={values.amount}
+              onChange={amount => setFieldValue('amount', amount, true)}
+              onBlur={handleBlur}
+              rightMaxButton={{
+                label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
+                  limitPercentage: safeBorrowLimitPercentage,
+                }),
+                valueOnClick: safeLimitTokens,
+              }}
+              data-testid="token-text-field"
+              // Only display error state if amount is higher than borrow limit
+              hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
+            />
 
-        {+values.amount > +safeBorrowLimitCoins && (
-          <div css={styles.liquidationWarning}>
-            <Icon name="info" css={styles.liquidationWarningIcon} />
+            {+values.amount > +safeLimitTokens && (
+              <div css={styles.liquidationWarning}>
+                <Icon name="info" css={styles.liquidationWarningIcon} />
 
-            <Typography variant="small2" css={styles.whiteLabel}>
-              {t('borrowRepayModal.borrow.highAmountWarning')}
-            </Typography>
+                <Typography variant="small2" css={styles.whiteLabel}>
+                  {t('borrowRepayModal.borrow.highAmountWarning')}
+                </Typography>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      <AccountData
-        amount={values.amount}
-        asset={asset}
-        totalBorrowBalanceCents={totalBorrowBalanceCents}
-        borrowLimitCents={borrowLimitCents}
-        calculateDailyEarningsCents={calculateDailyEarningsCents}
-      />
+          <AccountData
+            amount={values.amount}
+            asset={asset}
+            totalBorrowBalanceCents={totalBorrowBalanceCents}
+            borrowLimitCents={borrowLimitCents}
+            calculateDailyEarningsCents={calculateDailyEarningsCents}
+          />
 
-      <PrimaryButton type="submit" disabled={!canSubmit} fullWidth>
-        {canSubmit
-          ? t('borrowRepayModal.borrow.submitButton')
-          : t('borrowRepayModal.borrow.submitButtonDisabled')}
-      </PrimaryButton>
-    </>
+          <PrimaryButton
+            type="submit"
+            loading={isBorrowLoading}
+            disabled={!isValid || !dirty || isBorrowLoading}
+            fullWidth
+          >
+            {dirty && isValid
+              ? t('borrowRepayModal.borrow.submitButton')
+              : t('borrowRepayModal.borrow.submitButtonDisabled')}
+          </PrimaryButton>
+        </>
+      )}
+    </AmountForm>
   );
 };
 
 export interface IBorrowProps {
   asset: Asset;
+  onClose: () => void;
 }
 
-const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
+const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -120,7 +154,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
   const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
-  const calculateDailyEarningsCents: IBorrowUiProps['calculateDailyEarningsCents'] =
+  const calculateDailyEarningsCents: IBorrowFormProps['calculateDailyEarningsCents'] =
     tokenAmount => {
       const updatedAssets = assets.map(assetData => ({
         ...assetData,
@@ -141,13 +175,25 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
         : new BigNumber(0);
     };
 
-  // @TODO: send borrow request
-  const handleSubmit = (amountTokens: string) => {
-    console.log(amountTokens);
+  const handleBorrow = async () => {
+    if (!account?.address) {
+      throw new Error(t('borrowRepayModal.walletNotConnectedError'));
+    }
+
+    // Close modal
+    onClose();
+
+    // const res = await claimXvsReward({
+    //   fromAccountAddress: account.address,
+    // });
+
+    // return res.transactionHash;
+
+    return '1273986';
   };
 
   // Calculate maximum and safe maximum amount of coins user can borrow
-  const [maxAmountCoins, safeBorrowLimitCoins] = React.useMemo(() => {
+  const [limitTokens, safeLimitTokens] = React.useMemo(() => {
     const safeBorrowLimitCents = borrowLimitCents.multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100);
     const marginWithBorrowLimitCents = borrowLimitCents.minus(totalBorrowBalanceCents);
     const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(totalBorrowBalanceCents);
@@ -191,24 +237,17 @@ const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
           isEnabled={asset.isEnabled}
           vtokenAddress={asset.vtokenAddress}
         >
-          <AmountForm onSubmit={handleSubmit} maxAmount={maxAmountCoins}>
-            {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
-              <BorrowUi
-                asset={asset}
-                totalBorrowBalanceCents={totalBorrowBalanceCents}
-                borrowLimitCents={borrowLimitCents}
-                safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-                safeBorrowLimitCoins={safeBorrowLimitCoins}
-                calculateDailyEarningsCents={calculateDailyEarningsCents}
-                values={values}
-                setFieldValue={setFieldValue}
-                handleBlur={handleBlur}
-                dirty={dirty}
-                isValid={isValid}
-                errors={errors}
-              />
-            )}
-          </AmountForm>
+          <BorrowForm
+            asset={asset}
+            limitTokens={limitTokens}
+            totalBorrowBalanceCents={totalBorrowBalanceCents}
+            borrowLimitCents={borrowLimitCents}
+            safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+            safeLimitTokens={safeLimitTokens}
+            borrow={handleBorrow}
+            isBorrowLoading={false}
+            calculateDailyEarningsCents={calculateDailyEarningsCents}
+          />
         </EnableToken>
       )}
     </ConnectWallet>

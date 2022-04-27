@@ -1,4 +1,5 @@
 import React from 'react';
+import noop from 'noop-ts';
 import { waitFor, fireEvent } from '@testing-library/react';
 
 import { assetData } from '__mocks__/models/asset';
@@ -12,12 +13,12 @@ const fakeAsset = assetData[1];
 
 describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(<Borrow asset={fakeAsset} />);
+    const { getByText } = renderComponent(<Borrow asset={fakeAsset} onClose={noop} />);
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
   });
 
   it('disables submit button if an incorrect amount is entered in input', async () => {
-    const { getByText, getByTestId } = renderComponent(<Borrow asset={fakeAsset} />);
+    const { getByText, getByTestId } = renderComponent(<Borrow asset={fakeAsset} onClose={noop} />);
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
     expect(

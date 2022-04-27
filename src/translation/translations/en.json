@@ -30,17 +30,22 @@
       "dailyEarnings": "Daily earnings",
       "distributionAPy": "Distribution APY",
       "enableToken": {
-        "distributionInfo": "Distribution APY",
         "borrowInfo": "Borrow APY",
+        "distributionInfo": "Distribution APY",
         "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first."
       },
       "highAmountWarning": "You entered a high amount. There is a risk of liquidation.",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow",
-      "submitButtonDisabled": "Enter a valid amount to borrow"
+      "submitButtonDisabled": "Enter a valid amount to borrow",
+      "successfulTransactionModal": {
+        "message": "You successfully borrowed",
+        "title": "Your borrow was successful"
+      }
     },
     "borrowTabTitle": "Borrow",
-    "repayTabTitle": "Repay"
+    "repayTabTitle": "Repay",
+    "walletNotConnectedError": "TRANSLATION NEEDED"
   },
   "bscLink": {
     "content": "View on bscscan.com<Icon/>"
