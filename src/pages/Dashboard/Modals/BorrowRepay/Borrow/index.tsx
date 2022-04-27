@@ -7,9 +7,13 @@ import BigNumber from 'bignumber.js';
 import { getToken } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
+import { AuthContext } from 'context/AuthContext';
 import { AmountForm, FormValues, ErrorCode } from 'containers/AmountForm';
 import { formatToReadablePercentage } from 'utilities/common';
 import calculatePercentage from 'utilities/calculatePercentage';
+import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
+import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
+import { useUserMarketInfo } from 'clients/api';
 import {
   PrimaryButton,
   TokenTextField,
@@ -200,13 +204,36 @@ export interface IBorrowProps {
 }
 
 const Borrow: React.FC<IBorrowProps> = ({ asset }) => {
-  // @TODO: fetch actual values (https://app.clickup.com/t/24qunn3)
-  const totalBorrowBalanceCents = new BigNumber('100000');
-  const borrowLimitCents = new BigNumber('2000000');
+  const { account } = React.useContext(AuthContext);
 
-  // @TODO: add real calculation using assets (https://app.clickup.com/t/24qunn3)
-  const calculateDailyEarningsCents: IBorrowUiProps['calculateDailyEarningsCents'] = tokenAmount =>
-    new BigNumber('100').plus(tokenAmount);
+  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+    accountAddress: account?.address,
+  });
+
+  // Convert dollar values to cents
+  const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
+  const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
+
+  const calculateDailyEarningsCents: IBorrowUiProps['calculateDailyEarningsCents'] =
+    tokenAmount => {
+      const updatedAssets = assets.map(assetData => ({
+        ...assetData,
+        borrowBalance:
+          assetData.id === asset.id
+            ? assetData.borrowBalance.plus(tokenAmount)
+            : assetData.borrowBalance,
+      }));
+
+      const { yearlyEarningsCents } = calculateYearlyEarningsForAssets({
+        assets: updatedAssets,
+        borrowBalanceCents: totalBorrowBalanceCents,
+        isXvsEnabled: true,
+      });
+
+      return yearlyEarningsCents
+        ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
+        : new BigNumber(0);
+    };
 
   // @TODO: send borrow request
   const handleSubmit = (amountTokens: string) => {
