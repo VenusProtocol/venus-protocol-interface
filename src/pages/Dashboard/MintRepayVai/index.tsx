@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Tabs } from 'components';
 import { useTranslation } from 'translation';
+import Paper from '@mui/material/Paper';
 import MintVai from './MintVai';
 import RepayVai from './RepayVai';
 import { useStyles } from './styles';
@@ -21,9 +22,9 @@ const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
   ];
 
   return (
-    <div className={className} css={styles.container}>
+    <Paper className={className} css={styles.container}>
       <Tabs componentTitle={t('mintRepayVai.title')} tabsContent={tabsContent} />
-    </div>
+    </Paper>
   );
 };
 
