@@ -6,22 +6,24 @@ import { formatCentsToReadableValue } from 'utilities/common';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-type NumberValueProps = {
+interface INumberValueProps {
   original: number | undefined;
   update: number | undefined;
   format?: (value: number | undefined) => string;
-};
+}
 
-type BigNumberValueProps = {
+interface IBigNumberValueProps {
   original: BigNumber | undefined;
   update: BigNumber | undefined;
   format?: (value: BigNumber | undefined) => string;
-};
+}
 
-export type ValueUpdateProps = {
+interface ValueUpdateCommonProps {
   className?: string;
   positiveDirection?: 'asc' | 'desc';
-} & (NumberValueProps | BigNumberValueProps);
+}
+
+export type ValueUpdateProps = ValueUpdateCommonProps & (INumberValueProps | IBigNumberValueProps);
 
 export const ValueUpdate: React.FC<ValueUpdateProps> = ({
   className,
