@@ -20,19 +20,21 @@ export default {
 } as ComponentMeta<typeof BorrowUi>;
 
 export const Default = () => (
-  <AmountForm onSubmit={noop}>
-    {({ values, setFieldValue, handleBlur, dirty, isValid }) => (
+  <AmountForm onSubmit={noop} maxAmount="14859.150116049962406">
+    {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
       <BorrowUi
         asset={assetData[0]}
         safeBorrowLimitPercentage={80}
-        userTotalBorrowBalanceCents={new BigNumber('100000')}
-        userBorrowLimitCents={new BigNumber('2000000')}
+        safeBorrowLimitCoins="11730.907986355233479"
+        totalBorrowBalanceCents={new BigNumber('100000')}
+        borrowLimitCents={new BigNumber('2000000')}
         calculateDailyEarningsCents={tokenAmount => new BigNumber('100').plus(tokenAmount)}
         values={values}
         setFieldValue={setFieldValue}
         handleBlur={handleBlur}
         dirty={dirty}
         isValid={isValid}
+        errors={errors}
       />
     )}
   </AmountForm>

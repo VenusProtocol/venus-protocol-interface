@@ -28,6 +28,7 @@
       "borrowLimitUsed": "Borrow limit used",
       "dailyEarnings": "Daily earnings",
       "distributionAPy": "Distribution APY",
+      "highAmountWarning": "You entered a high amount. There is a risk of liquidation.",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow",
       "submitButtonDisabled": "Enter a valid amount to borrow"
