@@ -76,7 +76,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
         <>
-          <div css={styles.getRow({ isLast: true })}>
+          <div css={[styles.getRow({ isLast: true })]}>
             <TokenTextField
               name="amount"
               tokenId={asset.id}

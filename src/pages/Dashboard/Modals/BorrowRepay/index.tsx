@@ -4,6 +4,7 @@ import React from 'react';
 import { Asset } from 'types';
 import { Tabs, Modal, IModalProps, Token } from 'components';
 import { useTranslation } from 'translation';
+import { useStyles } from '../styles';
 import Borrow from './Borrow';
 
 export interface IBorrowRepayProps {
@@ -13,13 +14,25 @@ export interface IBorrowRepayProps {
 
 const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset }) => {
   const { t } = useTranslation();
+  const styles = useStyles();
 
   const tabsContent = [
     {
       title: t('borrowRepayModal.borrowTabTitle'),
-      content: <Borrow asset={asset} onClose={onClose} />,
+      content: (
+        <div css={styles.container}>
+          <Borrow asset={asset} onClose={onClose} />
+        </div>
+      ),
     },
-    { title: t('borrowRepayModal.repayTabTitle'), content: <>Repay</> },
+    {
+      title: t('borrowRepayModal.repayTabTitle'),
+      content: (
+        <div css={styles.container}>
+          <>Repay</>
+        </div>
+      ),
+    },
   ];
 
   return (
