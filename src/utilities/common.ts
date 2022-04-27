@@ -131,7 +131,7 @@ export const formatCoinsToReadableValue = ({
     ? PLACEHOLDER_KEY
     : `${formatCommaThousandsPeriodDecimal(value.toFixed())} ${tokenId.toUpperCase()}`;
 
-type IConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
+type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 
 export function convertWeiToCoins<T extends boolean | undefined = false>({
   value,
@@ -141,7 +141,7 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
   value: BigNumber;
   tokenId: TokenId;
   returnInReadableFormat?: T;
-}): IConvertWeiToCoinsOutput<T> {
+}): ConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
   const valueCoins = value
     .dividedBy(new BigNumber(10).pow(tokenDecimals))
@@ -149,7 +149,7 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
 
   return (
     returnInReadableFormat ? formatCoinsToReadableValue({ value: valueCoins, tokenId }) : valueCoins
-  ) as IConvertWeiToCoinsOutput<T>;
+  ) as ConvertWeiToCoinsOutput<T>;
 }
 
 export const convertCoinsToWei = ({ value, tokenId }: { value: BigNumber; tokenId: TokenId }) => {
