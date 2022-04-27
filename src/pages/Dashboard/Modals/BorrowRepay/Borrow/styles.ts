@@ -6,7 +6,7 @@ export const useStyles = () => {
 
   return {
     liquidationWarning: css`
-      border: 2px solid ${theme.palette.interactive.error};
+      border: ${theme.spacing(0.5)} solid ${theme.palette.interactive.error};
       margin-top: ${theme.spacing(3)};
       padding: ${theme.spacing(4)};
       border-radius: ${theme.spacing(3)};
