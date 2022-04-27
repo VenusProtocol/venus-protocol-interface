@@ -8,7 +8,7 @@ import Borrow from './Borrow';
 
 export interface IBorrowRepayProps {
   onClose: IModalProps['handleClose'];
-  asset?: Asset;
+  asset: Asset;
 }
 
 const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset }) => {
@@ -17,17 +17,13 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset }) => {
   const tabsContent = [
     {
       title: t('borrowRepayModal.borrowTabTitle'),
-      content: asset ? <Borrow asset={asset} /> : <></>,
+      content: <Borrow asset={asset} />,
     },
     { title: t('borrowRepayModal.repayTabTitle'), content: <>Repay</> },
   ];
 
   return (
-    <Modal
-      isOpened={!!asset}
-      title={asset && <Token symbol={asset.id} variant="h4" />}
-      handleClose={onClose}
-    >
+    <Modal isOpened title={<Token symbol={asset.id} variant="h4" />} handleClose={onClose}>
       <Tabs tabsContent={tabsContent} />
     </Modal>
   );
