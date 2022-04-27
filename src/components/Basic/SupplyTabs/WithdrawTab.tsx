@@ -11,7 +11,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import feeImg from 'assets/img/fee.png';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
-import { getBigNumber, formatApy, format } from 'utilities/common';
+import { getBigNumber, formatApy, format, convertCoinsToWei } from 'utilities/common';
 import { useComptrollerContract, useVTokenContract } from 'clients/contracts/hooks';
 import { AuthContext } from 'context/AuthContext';
 import { useMarketsUser } from 'hooks/useMarketsUser';
@@ -169,7 +169,12 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
               return (
                 temp.isLessThanOrEqualTo(asset.supplyBalance) &&
                 (!collateral ||
-                  userTotalBorrowLimit.gte(calculateCollateralValue({ amountWei: temp, asset })))
+                  userTotalBorrowLimit.gte(
+                    calculateCollateralValue({
+                      amountWei: convertCoinsToWei({ value: temp, tokenId: asset.id }),
+                      asset,
+                    }),
+                  ))
               );
             }}
             thousandSeparator
