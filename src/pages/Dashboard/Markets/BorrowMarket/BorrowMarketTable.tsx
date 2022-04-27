@@ -45,6 +45,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketUiProps> = ({ assets, isXvsEnable
           formatCoinsToReadableValue({
             value: asset.walletBalance,
             tokenId: asset.id as TokenId,
+            shorthand: true,
           }),
         value: asset.walletBalance.toString(),
       },
