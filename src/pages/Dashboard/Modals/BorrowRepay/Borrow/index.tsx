@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 
-import { getToken } from 'utilities';
+import { getVBepToken } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
@@ -182,7 +182,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
 
   const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
-      throw new Error(t('borrowRepayModal.walletNotConnectedError'));
+      throw new Error(t('errors.walletNotConnected'));
     }
 
     const res = await borrow({
@@ -202,7 +202,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
     const marginWithBorrowLimitCents = borrowLimitCents.minus(totalBorrowBalanceCents);
     const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(totalBorrowBalanceCents);
 
-    const tokenDecimals = getToken(asset.id).decimals;
+    const tokenDecimals = getVBepToken(asset.id as VTokenId).decimals;
     const formatValue = (value: BigNumber) => value.toFixed(tokenDecimals, BigNumber.ROUND_DOWN);
 
     const maxCoins = marginWithBorrowLimitCents

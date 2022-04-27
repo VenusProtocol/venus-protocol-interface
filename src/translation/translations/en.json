@@ -44,8 +44,7 @@
       }
     },
     "borrowTabTitle": "Borrow",
-    "repayTabTitle": "Repay",
-    "walletNotConnectedError": "TRANSLATION NEEDED"
+    "repayTabTitle": "Repay"
   },
   "bscLink": {
     "content": "View on bscscan.com<Icon/>"
@@ -55,8 +54,7 @@
       "message": "You successfully claimed",
       "title": "Your claim was successful"
     },
-    "title": "Claim <Icon/> {{amount}}",
-    "walletNotConnectedError": "Wallet not connected"
+    "title": "Claim <Icon/> {{amount}}"
   },
   "connectButton": {
     "title": "Connect wallet"
@@ -65,7 +63,8 @@
     "connectButton": "Connect wallet"
   },
   "errors": {
-    "internal": "An internal error occurred: {{errorMessage}}. Please try again later."
+    "internal": "An internal error occurred: {{errorMessage}}. Please try again later.",
+    "walletNotConnected": "TRANSLATION NEEDED"
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"

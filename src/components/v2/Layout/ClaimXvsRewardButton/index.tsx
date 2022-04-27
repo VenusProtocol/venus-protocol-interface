@@ -92,7 +92,7 @@ export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
 
   const handleClaim = async () => {
     if (!account?.address) {
-      throw new Error(t('claimXvsRewardButton.walletNotConnectedError'));
+      throw new Error(t('errors.walletNotConnected'));
     }
 
     const res = await claimXvsReward({
