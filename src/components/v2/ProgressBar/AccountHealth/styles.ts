@@ -17,5 +17,8 @@ export const useStyles = () => {
     inlineLabel: css`
       margin-right: ${theme.spacing(1)};
     `,
+    inlineValue: css`
+      color: ${theme.palette.text.primary};
+    `,
   };
 };
