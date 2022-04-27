@@ -86,6 +86,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
+      gridTemplateColumns="120px 1fr 1fr 1fr"
     />
   );
 };

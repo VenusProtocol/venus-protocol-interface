@@ -4,14 +4,14 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    title: css`
-      margin-bottom: ${theme.spacing(6)};
-      padding: ${theme.spacing(0, 6)};
+    root: css`
+      overflow: hidden;
+      padding-left: 0;
+      padding-right: 0;
     `,
-    tableContainer: css`
-      background-color: transparent;
-      background-image: none;
-      box-shadow: none;
+    title: css`
+      margin-bottom: ${theme.spacing(4)};
+      padding: ${theme.spacing(0, 6)};
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};

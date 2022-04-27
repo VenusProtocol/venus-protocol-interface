@@ -10,9 +10,6 @@ export const useStyles = () => {
       width: 100%;
       display: flex;
       flex-direction: column;
-      background-color: ${theme.palette.background.paper};
-      border-radius: ${theme.shape.borderRadius.large}px;
-      padding: ${theme.spacing(6)};
     `,
     tabContentContainer: css`
       flex: 1;

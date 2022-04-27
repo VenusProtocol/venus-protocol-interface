@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
 import { useTranslation } from 'translation';
 import { IToggleProps, Toggle, Icon, Tooltip, BorrowLimitUsedAccountHealth } from 'components';
+import Paper from '@mui/material/Paper';
 import { useMyAccountStyles as useStyles } from './styles';
 
 export interface IMyAccountUiProps {
@@ -59,7 +60,7 @@ export const MyAccountUi = ({
   });
 
   return (
-    <div css={styles.container} className={className}>
+    <Paper css={styles.container} className={className}>
       <div css={[styles.row, styles.header]}>
         <Typography variant="h4">{t('myAccount.title')}</Typography>
 
@@ -148,7 +149,7 @@ export const MyAccountUi = ({
           <Icon css={styles.infoIcon} name="info" />
         </Tooltip>
       </div>
-    </div>
+    </Paper>
   );
 };
 

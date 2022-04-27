@@ -11,7 +11,7 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
   parameters: {
     backgrounds: {
-      default: 'Paper',
+      // default: 'background.default',
     },
   },
 } as ComponentMeta<typeof TokenTextField>;
