@@ -55,20 +55,20 @@ export const ProgressBar = ({
   };
 
   const renderTrack = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track']) => {
-    if (trackTooltip) {
-      return (
-        <div style={props?.style} css={[styles.trackWrapper, styles.hasTooltip]}>
-          <Tooltip placement={tooltipPlacement} title={trackTooltip}>
-            {/* passed styles undefined here because wrapper is now handling this part */}
-            <Box {...props} style={undefined} />
-          </Tooltip>
-        </div>
-      );
-    }
+    const primaryRail = trackTooltip ? (
+      <div style={props?.style} css={[styles.trackWrapper, styles.hasTooltip]}>
+        <Tooltip placement={tooltipPlacement} title={trackTooltip}>
+          {/* passed styles undefined here because wrapper is now handling this part */}
+          <Box {...props} style={undefined} />
+        </Tooltip>
+      </div>
+    ) : (
+      <Box css={styles.trackWrapper} {...props} />
+    );
 
     return (
       <>
-        <Box css={styles.trackWrapper} {...props} />
+        {primaryRail}
         <Box css={styles.secondaryRail(secondaryValue)} {...props} style={undefined} />
       </>
     );
