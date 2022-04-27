@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 
 import { getToken } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
-import { Asset } from 'types';
+import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { formatApy, convertCoinsToWei } from 'utilities/common';
@@ -13,7 +13,7 @@ import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCen
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
 import toast from 'components/Basic/Toast';
-import { useUserMarketInfo } from 'clients/api';
+import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import { PrimaryButton, TokenTextField, Icon, ConnectWallet, EnableToken } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
@@ -90,6 +90,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
               tokenId={asset.id}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
+              disabled={isBorrowLoading}
               onBlur={handleBlur}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
@@ -150,6 +151,10 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
     accountAddress: account?.address,
   });
 
+  const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrowVToken({
+    vTokenId: asset.id as VTokenId,
+  });
+
   // Convert dollar values to cents
   const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
@@ -175,21 +180,20 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
         : new BigNumber(0);
     };
 
-  const handleBorrow = async () => {
+  const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
       throw new Error(t('borrowRepayModal.walletNotConnectedError'));
     }
 
-    // Close modal
+    const res = await borrow({
+      amountWei,
+      fromAccountAddress: account.address,
+    });
+
+    // Close modal on success
     onClose();
 
-    // const res = await claimXvsReward({
-    //   fromAccountAddress: account.address,
-    // });
-
-    // return res.transactionHash;
-
-    return '1273986';
+    return res.transactionHash;
   };
 
   // Calculate maximum and safe maximum amount of coins user can borrow
@@ -245,7 +249,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}
             borrow={handleBorrow}
-            isBorrowLoading={false}
+            isBorrowLoading={isBorrowLoading}
             calculateDailyEarningsCents={calculateDailyEarningsCents}
           />
         </EnableToken>
