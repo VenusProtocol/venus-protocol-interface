@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
@@ -19,7 +20,7 @@ import { useStyles } from '../styles';
 export interface IMintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
-  mintVai: (value: BigNumber) => Promise<unknown>;
+  mintVai: (value: BigNumber) => Promise<TransactionReceipt>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
 }
