@@ -123,13 +123,21 @@ export const format = (bigNumber: BigNumber, dp = 2) =>
 export const formatCoinsToReadableValue = ({
   value,
   tokenId,
+  shorthand = false,
 }: {
   value: BigNumber | undefined;
   tokenId: TokenId;
-}) =>
-  value === undefined
-    ? PLACEHOLDER_KEY
-    : `${formatCommaThousandsPeriodDecimal(value.toFixed())} ${tokenId.toUpperCase()}`;
+  shorthand?: boolean;
+}) => {
+  if (value === undefined) {
+    return PLACEHOLDER_KEY;
+  }
+  let valueString = parseFloat(value.toFixed(8)).toString();
+  if (shorthand && value.gt(1)) {
+    valueString = parseFloat(value.toFixed(2)).toString();
+  }
+  return `${formatCommaThousandsPeriodDecimal(valueString)} ${tokenId.toUpperCase()}`;
+};
 
 type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 
