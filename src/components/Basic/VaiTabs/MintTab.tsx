@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import NumberFormat from 'react-number-format';
-import { useWeb3Account } from 'clients/web3';
 import feeImg from 'assets/img/fee.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/SupplyModal';
 import { format } from 'utilities/common';
-import { useVaiUser } from '../../../hooks/useVaiUser';
-import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVaiUnitrollerContract } from '../../../clients/contracts/hooks';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 function MintTab() {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(new BigNumber(0));
   const [feePercent, setFeePercent] = useState(new BigNumber(0));
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { userVaiBalance, mintableVai } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const vaiControllerContract = useVaiUnitrollerContract();
@@ -47,7 +47,7 @@ function MintTab() {
     try {
       await vaiControllerContract.methods
         .mintVAI(amount.times(new BigNumber(10).pow(18)).dp(0).toString(10))
-        .send({ from: account || undefined });
+        .send({ from: account?.address });
       setAmount(new BigNumber(0));
     } catch (error) {
       console.log('mint vai error :>> ', error);

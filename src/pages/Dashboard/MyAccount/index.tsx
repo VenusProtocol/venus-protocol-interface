@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { AuthContext } from 'context/AuthContext';
 import { useUserMarketInfo } from 'clients/api';
@@ -16,9 +16,9 @@ interface IMyAccountProps {
 }
 
 const MyAccount: React.FC<IMyAccountProps> = ({ isXvsEnabled, setIsXvsEnabled }) => {
-  const { account } = React.useContext(AuthContext);
+  const { account } = useContext(AuthContext);
   const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
-    account: account?.address,
+    accountAddress: account?.address,
   });
 
   const calculations: Pick<

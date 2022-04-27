@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { useState, useEffect, useCallback, ReactChildren } from 'react';
+import React, { useState, useEffect, useCallback, ReactChildren, useContext } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import Web3 from 'web3';
@@ -16,10 +16,10 @@ import ProposalHistory from 'components/Vote/VoteOverview/ProposalHistory';
 import { promisify } from 'utilities';
 import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
-import { useWeb3Account } from 'clients/web3';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
-import { useTokenContract, useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
+import { useTokenContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
@@ -105,7 +105,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [proposerVotingWeight, setProposerVotingWeight] = useState(0);
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
   const [excuteEta, setExcuteEta] = useState('');
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const xvsTokenContract = useTokenContract('xvs');
   const governorBravoContract = useGovernorBravoDelegateContract();
 
@@ -213,9 +213,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     if (statusType === 'Queue') {
       setIsLoading(true);
       try {
-        await governorBravoContract.methods
-          .queue(proposalInfo.id)
-          .send({ from: account || undefined });
+        await governorBravoContract.methods.queue(proposalInfo.id).send({ from: account?.address });
         setStatus('success');
         toast.success({
           title: 'Proposal list will be updated within a few seconds',
@@ -230,7 +228,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
       try {
         await governorBravoContract.methods
           .execute(proposalInfo.id)
-          .send({ from: account || undefined });
+          .send({ from: account?.address });
         setStatus('success');
         toast.success({
           title: 'Proposal list will be updated within a few seconds',
@@ -245,7 +243,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
       try {
         await governorBravoContract.methods
           .cancel(proposalInfo.id)
-          .send({ from: account || undefined });
+          .send({ from: account?.address });
         setCancelStatus('success');
         toast.success({
           title:

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import { useWeb3Account } from 'clients/web3';
 import { Row, Col } from 'antd';
 
 import { getToken, getContractAddress } from 'utilities';
-import LoadingSpinner from '../../components/Basic/LoadingSpinner';
-import useRefresh from '../../hooks/useRefresh';
-import Convert from '../../components/VrtConversion/Convert';
-import Withdraw from '../../components/VrtConversion/Withdraw';
-import TabContainer from '../../components/Basic/TabContainer';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import useRefresh from 'hooks/useRefresh';
+import Convert from 'components/VrtConversion/Convert';
+import Withdraw from 'components/VrtConversion/Withdraw';
+import TabContainer from 'components/Basic/TabContainer';
 import {
   useVrtConverterProxyContract,
   useXvsVestingProxyContract,
   useTokenContract,
-} from '../../clients/contracts/hooks';
+} from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -51,7 +51,7 @@ export default () => {
   const [loading, setLoading] = useState(true);
 
   // account
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { fastRefresh } = useRefresh();
 
   // contracts
@@ -66,7 +66,7 @@ export default () => {
       if (account) {
         try {
           const { totalWithdrawableAmount: totalWithdrawableAmountTemp } =
-            await xvsVestingContract.methods.getWithdrawableAmount(account).call();
+            await xvsVestingContract.methods.getWithdrawableAmount(account.address).call();
           setWithdrawableAmount(new BigNumber(totalWithdrawableAmountTemp).div(VRT_DECIMAL));
         } catch (e) {
           console.log('no vestings');
@@ -76,10 +76,10 @@ export default () => {
         await Promise.all([
           vrtConverterContract.methods.conversionRatio().call(),
           vrtConverterContract.methods.conversionEndTime().call(),
-          account ? vrtTokenContract.methods.balanceOf(account).call() : Promise.resolve(0),
+          account ? vrtTokenContract.methods.balanceOf(account.address).call() : Promise.resolve(0),
           account
             ? vrtTokenContract.methods
-                .allowance(account, getContractAddress('vrtConverterProxy'))
+                .allowance(account.address, getContractAddress('vrtConverterProxy'))
                 .call()
             : Promise.resolve(0),
           xvsTokenContract.methods.balanceOf(xvsVestingContract.options.address).call(),
@@ -134,33 +134,33 @@ export default () => {
                               new BigNumber(2).pow(256).minus(1).toFixed(),
                             )
                             .send({
-                              from: account,
+                              from: account.address,
                             });
                         } else {
                           await vrtConverterContract.methods
                             .convert(convertAmount.times(VRT_DECIMAL).toFixed())
                             .send({
-                              from: account || undefined,
+                              from: account?.address,
                             });
                         }
                       } catch (e) {
                         console.log('>> convert error', e);
                       }
                     }}
-                    account={account || ''}
+                    account={account?.address || ''}
                   />
                   <Withdraw
                     withdrawableAmount={withdrawableAmount}
                     handleClickWithdraw={async () => {
                       try {
                         await xvsVestingContract.methods.withdraw().send({
-                          from: account || undefined,
+                          from: account?.address,
                         });
                       } catch (e) {
                         console.log('>> withdraw error', e);
                       }
                     }}
-                    account={account || ''}
+                    account={account?.address || ''}
                   />
                 </TabContainer>
               </div>

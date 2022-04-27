@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { Progress } from 'antd';
 import NumberFormat from 'react-number-format';
 
@@ -11,10 +11,10 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
-import { useWeb3Account } from 'clients/web3';
-import { useVaiUser } from '../../../hooks/useVaiUser';
-import { useMarketsUser } from '../../../hooks/useMarketsUser';
-import { useVTokenContract } from '../../../clients/contracts/hooks';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { useVTokenContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const abortController = new AbortController();
 
@@ -36,7 +36,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
   const [borrowPercent, setBorrowPercent] = useState(new BigNumber(0));
   const [newBorrowBalance, setNewBorrowBalance] = useState(new BigNumber(0));
   const [newBorrowPercent, setNewBorrowPercent] = useState(new BigNumber(0));
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { userVaiMinted } = useVaiUser();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useMarketsUser();
   const vbepContract = useVTokenContract(asset.id as VTokenId);
@@ -95,7 +95,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
       try {
         await vbepContract.methods
           .borrow(amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10))
-          .send({ from: account });
+          .send({ from: account.address });
         setAmount(new BigNumber(0));
         onCancel();
       } catch (error) {

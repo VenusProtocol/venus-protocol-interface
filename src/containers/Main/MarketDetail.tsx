@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
@@ -10,10 +10,10 @@ import OverviewChart from 'components/Basic/OverviewChart';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
-import { useWeb3Account } from 'clients/web3';
 import { Setting, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
-import { useMarkets } from '../../hooks/useMarkets';
+import { useMarkets } from 'hooks/useMarkets';
+import { AuthContext } from 'context/AuthContext';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
@@ -112,7 +112,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { markets } = useMarkets();
 
   useEffect(() => {

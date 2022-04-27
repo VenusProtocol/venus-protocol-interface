@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
-import { useWeb3Account } from 'clients/web3';
 import coinImg from 'assets/img/coins/xvs.svg';
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 import { generateBscScanUrl } from 'utilities';
 import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useComptrollerContract, useVenusLensContract } from '../../clients/contracts/hooks';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -103,7 +103,7 @@ function VotingWallet({
 }: VotingWalletProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
-  const { account } = useWeb3Account();
+  const { account } = useContext(AuthContext);
   const { userMarketInfo } = useMarketsUser();
   const comptrollerContract = useComptrollerContract();
   const venusLensContract = useVenusLensContract();
@@ -126,7 +126,7 @@ function VotingWallet({
     const vTokensBalanceInfos = await venusLensContract.methods
       .vTokenBalancesAll(
         userMarketInfo.map((asset: Asset) => asset.vtokenAddress),
-        account,
+        account.address,
       )
       .call();
 
@@ -141,9 +141,9 @@ function VotingWallet({
       setIsLoading(true);
       try {
         await comptrollerContract.methods['claimVenus(address,address[])'](
-          account,
+          account.address,
           outstandingVTokens.map((token: $TSFixMe) => token[0]),
-        ).send({ from: account });
+        ).send({ from: account.address });
       } catch (error) {
         console.log('claim venus error :>> ', error);
       }
