@@ -9,9 +9,7 @@ import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { formatApy, convertCoinsToWei } from 'utilities/common';
-import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
 import toast from 'components/Basic/Toast';
 import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import { PrimaryButton, TokenTextField, Icon, ConnectWallet, EnableToken } from 'components';
@@ -25,11 +23,8 @@ export interface IBorrowFormProps {
   limitTokens: string;
   safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
-  totalBorrowBalanceCents: BigNumber;
-  borrowLimitCents: BigNumber;
   borrow: (amountWei: BigNumber) => Promise<string>;
   isBorrowLoading: boolean;
-  calculateDailyEarningsCents: (tokenAmount: BigNumber) => BigNumber;
 }
 
 export const BorrowForm: React.FC<IBorrowFormProps> = ({
@@ -37,11 +32,8 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   limitTokens,
   safeBorrowLimitPercentage,
   safeLimitTokens,
-  totalBorrowBalanceCents,
-  borrowLimitCents,
   borrow,
   isBorrowLoading,
-  calculateDailyEarningsCents,
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useStyles();
@@ -114,13 +106,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             )}
           </div>
 
-          <AccountData
-            amount={values.amount}
-            asset={asset}
-            totalBorrowBalanceCents={totalBorrowBalanceCents}
-            borrowLimitCents={borrowLimitCents}
-            calculateDailyEarningsCents={calculateDailyEarningsCents}
-          />
+          <AccountData amount={values.amount} asset={asset} />
 
           <PrimaryButton
             type="submit"
@@ -147,7 +133,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+  const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
     accountAddress: account?.address,
   });
 
@@ -158,27 +144,6 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
   // Convert dollar values to cents
   const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
-
-  const calculateDailyEarningsCents: IBorrowFormProps['calculateDailyEarningsCents'] =
-    tokenAmount => {
-      const updatedAssets = assets.map(assetData => ({
-        ...assetData,
-        borrowBalance:
-          assetData.id === asset.id
-            ? assetData.borrowBalance.plus(tokenAmount)
-            : assetData.borrowBalance,
-      }));
-
-      const { yearlyEarningsCents } = calculateYearlyEarningsForAssets({
-        assets: updatedAssets,
-        borrowBalanceCents: totalBorrowBalanceCents,
-        isXvsEnabled: true,
-      });
-
-      return yearlyEarningsCents
-        ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
-        : new BigNumber(0);
-    };
 
   const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
@@ -244,13 +209,10 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
           <BorrowForm
             asset={asset}
             limitTokens={limitTokens}
-            totalBorrowBalanceCents={totalBorrowBalanceCents}
-            borrowLimitCents={borrowLimitCents}
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}
             borrow={handleBorrow}
             isBorrowLoading={isBorrowLoading}
-            calculateDailyEarningsCents={calculateDailyEarningsCents}
           />
         </EnableToken>
       )}

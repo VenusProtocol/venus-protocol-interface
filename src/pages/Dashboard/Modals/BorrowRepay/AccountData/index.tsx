@@ -5,8 +5,12 @@ import BigNumber from 'bignumber.js';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
+import { AuthContext } from 'context/AuthContext';
 import { FormValues } from 'containers/AmountForm';
+import { useUserMarketInfo } from 'clients/api';
 import { formatToReadablePercentage } from 'utilities/common';
+import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
+import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
 import calculatePercentage from 'utilities/calculatePercentage';
 import { AccountHealth, LabeledInlineContent, ValueUpdate, Delimiter } from 'components';
 import { useTranslation } from 'translation';
@@ -15,20 +19,19 @@ import { useStyles } from '../../styles';
 export interface IAccountDataProps {
   asset: Asset;
   amount: FormikProps<FormValues>['values']['amount'];
-  totalBorrowBalanceCents: BigNumber;
-  borrowLimitCents: BigNumber;
-  calculateDailyEarningsCents: (tokenAmount: BigNumber) => BigNumber;
 }
 
-const AccountData: React.FC<IAccountDataProps> = ({
-  asset,
-  amount,
-  totalBorrowBalanceCents,
-  borrowLimitCents,
-  calculateDailyEarningsCents,
-}) => {
+const AccountData: React.FC<IAccountDataProps> = ({ asset, amount }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const { account } = React.useContext(AuthContext);
+
+  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+    accountAddress: account?.address,
+  });
+
+  const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
+  const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
   const isAmountPositive = amount && +amount > 0;
   const hypotheticalTotalBorrowBalanceCents = isAmountPositive
@@ -55,6 +58,29 @@ const AccountData: React.FC<IAccountDataProps> = ({
       numerator: hypotheticalTotalBorrowBalanceCents.toNumber(),
       denominator: borrowLimitCents.toNumber(),
     });
+
+  const calculateDailyEarningsCents = React.useCallback(
+    (tokenAmount: BigNumber) => {
+      const updatedAssets = assets.map(assetData => ({
+        ...assetData,
+        borrowBalance:
+          assetData.id === asset.id
+            ? assetData.borrowBalance.plus(tokenAmount)
+            : assetData.borrowBalance,
+      }));
+
+      const { yearlyEarningsCents } = calculateYearlyEarningsForAssets({
+        assets: updatedAssets,
+        borrowBalanceCents: totalBorrowBalanceCents,
+        isXvsEnabled: true,
+      });
+
+      return yearlyEarningsCents
+        ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
+        : new BigNumber(0);
+    },
+    [JSON.stringify(assets), totalBorrowBalanceCents.toFixed()],
+  );
 
   const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
   const hypotheticalDailyEarningsCents = isAmountPositive

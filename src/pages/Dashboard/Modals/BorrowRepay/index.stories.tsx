@@ -17,4 +17,6 @@ export default {
   },
 } as ComponentMeta<typeof BorrowRepay>;
 
+// TODO: add other cases
+
 export const Default = () => <BorrowRepay asset={assetData[0]} onClose={noop} />;
