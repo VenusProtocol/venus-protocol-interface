@@ -47,7 +47,10 @@ export const WithRightMaxButtonLabel = () => (
         value={state.value}
         onChange={value => setState({ value })}
         max="10"
-        rightMaxButtonLabel="80% limit"
+        rightMaxButton={{
+          label: '80% limit',
+          valueOnClick: '8',
+        }}
       />
     )}
   </State>

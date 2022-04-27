@@ -19,7 +19,7 @@ import { useStyles } from '../styles';
 export interface IMintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
-  mintVai: (value: BigNumber) => Promise<void>;
+  mintVai: (value: BigNumber) => Promise<unknown>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
 }
@@ -103,7 +103,10 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
               onBlur={handleBlur}
               max={limitTokens}
               disabled={disabled || isMintVaiLoading || !hasMintableVai}
-              rightMaxButtonLabel={t('mintRepayVai.mintVai.rightMaxButtonLabel')}
+              rightMaxButton={{
+                label: t('mintRepayVai.mintVai.rightMaxButtonLabel'),
+                valueOnClick: limitTokens,
+              }}
             />
 
             <LabeledInlineContent
