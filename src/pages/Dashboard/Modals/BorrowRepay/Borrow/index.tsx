@@ -109,11 +109,13 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         tokenId={asset.id}
         value={values.amount}
         onChange={amount => setFieldValue('amount', amount, true)}
-        max={safeMaxCoins}
         onBlur={handleBlur}
-        rightMaxButtonLabel={t('borrowRepayModal.borrow.rightMaxButtonLabel', {
-          limitPercentage: safeBorrowLimitPercentage,
-        })}
+        rightMaxButton={{
+          label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
+            limitPercentage: safeBorrowLimitPercentage,
+          }),
+          valueOnClick: safeMaxCoins,
+        }}
         data-testid="token-text-field"
       />
 
