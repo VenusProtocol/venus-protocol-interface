@@ -5,7 +5,7 @@ import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import { indexBy } from 'utilities/common';
-import { getVBepToken } from 'utilities';
+import { calculateCollateralValue, getVBepToken } from 'utilities';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import {
   useGetMarkets,
@@ -143,8 +143,7 @@ const useUserMarketInfo = ({
       const borrowBalanceUSD = asset.borrowBalance.times(asset.tokenPrice);
       acc[0] = acc[0].plus(borrowBalanceUSD);
       if (asset.collateral) {
-        const supplyBalanceUSD = asset.supplyBalance.times(asset.tokenPrice);
-        acc[1] = acc[1].plus(supplyBalanceUSD.times(asset.collateralFactor));
+        acc[1] = acc[1].plus(calculateCollateralValue({ amountWei: asset.supplyBalance, asset }));
       }
       return acc;
     },

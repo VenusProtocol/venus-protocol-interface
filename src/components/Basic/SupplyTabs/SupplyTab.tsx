@@ -11,12 +11,13 @@ import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
-import { getBigNumber, format } from 'utilities/common';
+import { getBigNumber, format, convertCoinsToWei } from 'utilities/common';
 import { Asset, Setting, VTokenId } from 'types';
 import { useTokenContract, useVTokenContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 import { useMarketsUser } from 'hooks/useMarketsUser';
 import { useVaiUser } from 'hooks/useVaiUser';
-import { AuthContext } from 'context/AuthContext';
+import { calculateCollateralValue } from 'utilities';
 
 interface SupplyTabProps {
   asset: Asset;
@@ -42,10 +43,13 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
 
   const updateInfo = useCallback(async () => {
     const tokenPrice = getBigNumber(asset.tokenPrice);
-    const collateralFactor = getBigNumber(asset.collateralFactor);
 
     if (tokenPrice && !amount.isZero() && !amount.isNaN()) {
-      const temp = userTotalBorrowLimit.plus(amount.times(tokenPrice).times(collateralFactor));
+      const collateralValue = calculateCollateralValue({
+        amountWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
+        asset,
+      });
+      const temp = userTotalBorrowLimit.plus(collateralValue);
       setNewBorrowLimit(BigNumber.maximum(temp, 0));
       setNewBorrowPercent(userTotalBorrowBalance.div(temp).times(100));
       if (userTotalBorrowLimit.isZero()) {

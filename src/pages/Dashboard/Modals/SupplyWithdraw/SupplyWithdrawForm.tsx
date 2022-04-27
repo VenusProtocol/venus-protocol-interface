@@ -17,12 +17,8 @@ import {
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
-import {
-  getBigNumber,
-  convertWeiToCoins,
-  formatCentsToReadableValue,
-  format,
-} from 'utilities/common';
+import { getBigNumber, formatCentsToReadableValue, format } from 'utilities/common';
+import { calculateCollateralValue } from 'utilities';
 import { useStyles } from '../styles';
 
 interface ISupplyWithdrawFormUiProps {
@@ -66,17 +62,13 @@ export const SupplyWithdrawContent: React.FC<
 
   const [newBorrowLimit] = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
-    const collateralFactor = getBigNumber(asset?.collateralFactor);
     let updateBorrowLimit;
 
     if (tokenPrice && validAmount) {
-      const amountInUsd = convertWeiToCoins({
-        value: amount as BigNumber,
-        tokenId: asset.id,
-      })
-        .times(tokenPrice)
-        .times(collateralFactor);
-
+      const amountInUsd = calculateCollateralValue({
+        amountWei: amount,
+        asset,
+      });
       const temp = calculateNewBalance(amountInUsd);
       updateBorrowLimit = BigNumber.maximum(temp, 0);
     }
