@@ -24,7 +24,7 @@ const fakeGetVTokenBalance = new BigNumber('111');
 
 jest.mock('clients/api');
 
-describe('components/SupplyWithdraw', () => {
+describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: assetData,
@@ -32,6 +32,7 @@ describe('components/SupplyWithdraw', () => {
       userTotalBorrowBalance: new BigNumber('91'),
     }));
   });
+
   it('renders without crashing', async () => {
     renderComponent(<SupplyWithdraw onClose={jest.fn()} asset={asset} />);
   });
