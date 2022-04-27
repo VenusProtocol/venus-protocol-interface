@@ -58,6 +58,7 @@
     }
   },
   "markets": {
+    "borrowingTableTitle": "Borrowing",
     "borrowMarketTableTitle": "Borrow market",
     "collateralConfirmModal": {
       "confirmText": "Confirm the transaction",
@@ -66,9 +67,12 @@
     },
     "columns": {
       "apy": "APY",
+      "apyEarned": "APY/Earned",
       "asset": "Asset",
+      "balance": "Balance",
       "collateral": "Collateral",
       "liquidity": "Liquidity",
+      "percentOfLimit": "% of Limit",
       "wallet": "Wallet"
     },
     "errors": {
@@ -89,6 +93,7 @@
         "title": "Collateral Required"
       }
     },
+    "suppliedTableTitle": "Supplied",
     "supplyMarketTableTitle": "Supply market"
   },
   "mintRepayVai": {
