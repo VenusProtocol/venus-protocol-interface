@@ -9,24 +9,14 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, FormValues, ErrorCode } from 'containers/AmountForm';
-import { formatToReadablePercentage, formatApy } from 'utilities/common';
-import calculatePercentage from 'utilities/calculatePercentage';
+import { formatApy } from 'utilities/common';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
 import { useUserMarketInfo } from 'clients/api';
-import {
-  PrimaryButton,
-  TokenTextField,
-  AccountHealth,
-  LabeledInlineContent,
-  ValueUpdate,
-  Delimiter,
-  Icon,
-  ConnectWallet,
-  EnableToken,
-} from 'components';
+import { PrimaryButton, TokenTextField, Icon, ConnectWallet, EnableToken } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
+import AccountData from '../AccountData';
 import { useStyles as useBorrowStyles } from './styles';
 
 export interface IBorrowUiProps
@@ -64,51 +54,7 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
     ...borrowStyles,
   };
 
-  const isAmountValid = values.amount && +values.amount > 0;
-  const hypotheticalTotalBorrowBalanceCents = isAmountValid
-    ? totalBorrowBalanceCents.plus(
-        asset.tokenPrice
-          .multipliedBy(values.amount)
-          // Convert dollars to cents
-          .multipliedBy(100),
-      )
-    : undefined;
-
-  const borrowLimitUsedPercentage = React.useMemo(
-    () =>
-      calculatePercentage({
-        numerator: totalBorrowBalanceCents.toNumber(),
-        denominator: borrowLimitCents.toNumber(),
-      }),
-    [totalBorrowBalanceCents.toNumber(), borrowLimitCents.toNumber()],
-  );
-
-  const hypotheticalBorrowLimitUsedPercentage =
-    hypotheticalTotalBorrowBalanceCents &&
-    calculatePercentage({
-      numerator: hypotheticalTotalBorrowBalanceCents.toNumber(),
-      denominator: borrowLimitCents.toNumber(),
-    });
-
-  const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
-  const hypotheticalDailyEarningsCents = isAmountValid
-    ? calculateDailyEarningsCents(new BigNumber(values.amount))
-    : undefined;
-
-  const readableBorrowApy = React.useMemo(
-    () => formatToReadablePercentage(asset.borrowApy.toFixed(2)),
-    [asset.borrowApy.toFixed()],
-  );
-  const readableDistributionApy = React.useMemo(
-    () => formatToReadablePercentage(asset.xvsBorrowApy.toFixed(2)),
-    [asset.xvsBorrowApy.toFixed()],
-  );
-
-  const canSubmit =
-    isValid &&
-    dirty &&
-    typeof hypotheticalBorrowLimitUsedPercentage === 'number' &&
-    hypotheticalBorrowLimitUsedPercentage <= 100;
+  const canSubmit = isValid && dirty;
 
   return (
     <>
@@ -141,66 +87,13 @@ export const BorrowUi: React.FC<IBorrowUiProps> = ({
         )}
       </div>
 
-      <AccountHealth
-        borrowBalanceCents={totalBorrowBalanceCents.toNumber()}
-        borrowLimitCents={borrowLimitCents.toNumber()}
-        hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}
-        safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-        css={styles.getRow({ isLast: true })}
+      <AccountData
+        amount={values.amount}
+        asset={asset}
+        totalBorrowBalanceCents={totalBorrowBalanceCents}
+        borrowLimitCents={borrowLimitCents}
+        calculateDailyEarningsCents={calculateDailyEarningsCents}
       />
-
-      <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.borrowLimitUsed')}
-        css={styles.getRow({ isLast: false })}
-      >
-        <ValueUpdate
-          original={borrowLimitUsedPercentage}
-          update={hypotheticalBorrowLimitUsedPercentage}
-          positiveDirection="desc"
-          format={formatToReadablePercentage}
-        />
-      </LabeledInlineContent>
-
-      <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.borrowBalance')}
-        css={styles.getRow({ isLast: true })}
-      >
-        <ValueUpdate
-          original={totalBorrowBalanceCents.toNumber()}
-          update={hypotheticalTotalBorrowBalanceCents?.toNumber()}
-          positiveDirection="desc"
-        />
-      </LabeledInlineContent>
-
-      <Delimiter css={styles.getRow({ isLast: true })} />
-
-      <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.borrowAPy')}
-        iconName={asset.id}
-        css={styles.getRow({ isLast: false })}
-      >
-        {readableBorrowApy}
-      </LabeledInlineContent>
-
-      <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.distributionAPy')}
-        iconName="xvs"
-        css={styles.getRow({ isLast: true })}
-      >
-        {readableDistributionApy}
-      </LabeledInlineContent>
-
-      <Delimiter css={styles.getRow({ isLast: true })} />
-
-      <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.dailyEarnings')}
-        css={styles.bottomRow}
-      >
-        <ValueUpdate
-          original={dailyEarningsCents.toNumber()}
-          update={hypotheticalDailyEarningsCents?.toNumber()}
-        />
-      </LabeledInlineContent>
 
       <PrimaryButton type="submit" disabled={!canSubmit} fullWidth>
         {canSubmit
