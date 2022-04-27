@@ -34,9 +34,11 @@ export const ProgressBar = ({
   className,
   tooltipPlacement = 'top',
 }: IProgressBarProps) => {
+  const safeValue = value < max ? value : max;
+
   const marks = mark ? [{ value: mark }] : undefined;
   const styles = useStyles({
-    over: mark ? value > mark : false,
+    over: mark ? safeValue > mark : false,
     secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
   });
 
@@ -69,7 +71,14 @@ export const ProgressBar = ({
     return (
       <>
         {primaryRail}
-        <Box css={styles.secondaryRail(secondaryValue)} {...props} style={undefined} />
+
+        {secondaryValue !== undefined && (
+          <Box
+            css={styles.secondaryRail(secondaryValue < max ? secondaryValue : max)}
+            {...props}
+            style={undefined}
+          />
+        )}
       </>
     );
   };
@@ -83,7 +92,7 @@ export const ProgressBar = ({
         Mark: mark ? renderMark : undefined,
         Track: renderTrack,
       }}
-      value={value}
+      value={safeValue}
       marks={marks}
       step={step}
       aria-label={ariaLabel}
