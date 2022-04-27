@@ -34,9 +34,11 @@ export const ProgressBar = ({
   className,
   tooltipPlacement = 'top',
 }: IProgressBarProps) => {
+  const safeValue = value < max ? value : max;
+
   const marks = mark ? [{ value: mark }] : undefined;
   const styles = useStyles({
-    over: mark ? value > mark : false,
+    over: mark ? safeValue > mark : false,
     secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
   });
 
@@ -55,21 +57,28 @@ export const ProgressBar = ({
   };
 
   const renderTrack = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track']) => {
-    if (trackTooltip) {
-      return (
-        <div style={props?.style} css={[styles.trackWrapper, styles.hasTooltip]}>
-          <Tooltip placement={tooltipPlacement} title={trackTooltip}>
-            {/* passed styles undefined here because wrapper is now handling this part */}
-            <Box {...props} style={undefined} />
-          </Tooltip>
-        </div>
-      );
-    }
+    const primaryRail = trackTooltip ? (
+      <div style={props?.style} css={[styles.trackWrapper, styles.hasTooltip]}>
+        <Tooltip placement={tooltipPlacement} title={trackTooltip}>
+          {/* passed styles undefined here because wrapper is now handling this part */}
+          <Box {...props} style={undefined} />
+        </Tooltip>
+      </div>
+    ) : (
+      <Box css={styles.trackWrapper} {...props} />
+    );
 
     return (
       <>
-        <Box css={styles.trackWrapper} {...props} />
-        <Box css={styles.secondaryRail(secondaryValue)} {...props} style={undefined} />
+        {primaryRail}
+
+        {secondaryValue !== undefined && (
+          <Box
+            css={styles.secondaryRail(secondaryValue < max ? secondaryValue : max)}
+            {...props}
+            style={undefined}
+          />
+        )}
       </>
     );
   };
@@ -83,7 +92,7 @@ export const ProgressBar = ({
         Mark: mark ? renderMark : undefined,
         Track: renderTrack,
       }}
-      value={value}
+      value={safeValue}
       marks={marks}
       step={step}
       aria-label={ariaLabel}
