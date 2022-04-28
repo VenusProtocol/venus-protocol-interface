@@ -49,7 +49,7 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvsPrediction')
     i18nKey: 'layout.menuItems.xvsPrediction',
-    icon: 'market',
+    icon: 'xvsPrediction',
   },
 ];
 
@@ -69,7 +69,7 @@ if (isOnTestnet) {
       // Translation key: do not remove this comment
       // t('layout.menuItems.faucet')
       i18nKey: 'layout.menuItems.faucet',
-      icon: 'vault',
+      icon: 'faucet',
     },
   );
 }
