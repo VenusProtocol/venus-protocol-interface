@@ -34,6 +34,7 @@ const context = {
 export const DisconnectedSupply = Template.bind({});
 DisconnectedSupply.args = {
   asset: assetData[0],
+  assets: assetData,
   onClose: noop,
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
@@ -45,6 +46,7 @@ export const DisabledSupply = Template.bind({});
 DisabledSupply.decorators = [withAuthContext(context)];
 DisabledSupply.args = {
   asset: { ...assetData[0], isEnabled: false },
+  assets: assetData,
   onClose: noop,
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
@@ -58,6 +60,7 @@ export const Supply = Template.bind({});
 Supply.decorators = [withAuthContext(context)];
 Supply.args = {
   asset: assetData[0],
+  assets: assetData,
   onClose: noop,
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),

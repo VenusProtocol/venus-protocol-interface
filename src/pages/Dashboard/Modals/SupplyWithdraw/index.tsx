@@ -84,9 +84,10 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   const calculateNewSupplyAmount = (initial: BigNumber, amount: BigNumber) => initial.plus(amount);
   const calculateNewBorrowAmount = (initial: BigNumber, amount: BigNumber) => initial.minus(amount);
 
-  const TabContent = ({
+  const renderTabContent = ({
     message,
     title,
+    key,
     inputLabel,
     enabledButtonKey,
     disabledButtonKey,
@@ -97,6 +98,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   }: {
     message: string;
     title: string;
+    key: string;
     inputLabel: string;
     enabledButtonKey: string;
     disabledButtonKey: string;
@@ -116,6 +118,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
             vtokenAddress={asset.vtokenAddress}
           >
             <SupplyWithdrawForm
+              key={key}
               asset={asset}
               assets={assets}
               tokenInfo={tokenInfo}
@@ -139,37 +142,33 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   const tabsContent = [
     {
       title: t('supplyWithdraw.supply'),
-      content: (
-        <TabContent
-          message={t('supplyWithdraw.connectWalletToSupply')}
-          title={t('supplyWithdraw.enableToSupply', { symbol })}
-          key="supply"
-          inputLabel={t('supplyWithdraw.walletBalance')}
-          enabledButtonKey={t('supplyWithdraw.supply')}
-          disabledButtonKey={t('supplyWithdraw.enterValidAmountSupply')}
-          maxInputKey="walletBalance"
-          calculateNewBalance={calculateNewSupplyAmount}
-          isTransactionLoading={isSupplyLoading}
-          onSubmit={onSubmitSupply}
-        />
-      ),
+      content: renderTabContent({
+        message: t('supplyWithdraw.connectWalletToSupply'),
+        title: t('supplyWithdraw.enableToSupply', { symbol }),
+        key: 'supply',
+        inputLabel: t('supplyWithdraw.walletBalance'),
+        enabledButtonKey: t('supplyWithdraw.supply'),
+        disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
+        maxInputKey: 'walletBalance',
+        calculateNewBalance: calculateNewSupplyAmount,
+        isTransactionLoading: isSupplyLoading,
+        onSubmit: onSubmitSupply,
+      }),
     },
     {
       title: t('supplyWithdraw.withdraw'),
-      content: (
-        <TabContent
-          message={t('supplyWithdraw.connectWalletToWithdraw')}
-          title={t('supplyWithdraw.enableToWithdraw', { symbol })}
-          key="withdraw"
-          inputLabel={t('supplyWithdraw.withdrawableAmount')}
-          enabledButtonKey={t('supplyWithdraw.withdraw')}
-          disabledButtonKey={t('supplyWithdraw.enterValidAmountWithdraw')}
-          maxInputKey="supplyBalance"
-          calculateNewBalance={calculateNewBorrowAmount}
-          isTransactionLoading={isWithdrawLoading}
-          onSubmit={onSubmitWithdraw}
-        />
-      ),
+      content: renderTabContent({
+        message: t('supplyWithdraw.connectWalletToWithdraw'),
+        title: t('supplyWithdraw.enableToWithdraw', { symbol }),
+        key: 'withdraw',
+        inputLabel: t('supplyWithdraw.withdrawableAmount'),
+        enabledButtonKey: t('supplyWithdraw.withdraw'),
+        disabledButtonKey: t('supplyWithdraw.enterValidAmountWithdraw'),
+        maxInputKey: 'supplyBalance',
+        calculateNewBalance: calculateNewBorrowAmount,
+        isTransactionLoading: isWithdrawLoading,
+        onSubmit: onSubmitWithdraw,
+      }),
     },
   ];
 
