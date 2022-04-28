@@ -59,6 +59,7 @@ export const SupplyWithdrawContent: React.FC<
   calculateNewBalance,
   isTransactionLoading,
   isXvsEnabled,
+  isValid,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -66,7 +67,7 @@ export const SupplyWithdrawContent: React.FC<
   const { id: assetId } = asset;
   const { amount: amountString } = values;
   const amount = new BigNumber(amountString || 0);
-  const validAmount = amount && !amount.isZero() && !amount.isNaN();
+  const validAmount = amount && !amount.isZero() && !amount.isNaN() && isValid;
   const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
