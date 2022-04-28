@@ -132,9 +132,9 @@ export const formatCoinsToReadableValue = ({
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
-  let valueString = parseFloat(value.toFixed(8)).toString();
+  let valueString = value.times(1).dp(8).toFixed();
   if (shorthand && value.gt(1)) {
-    valueString = parseFloat(value.toFixed(2)).toString();
+    valueString = value.times(1).dp(2).toFixed();
   }
   return `${formatCommaThousandsPeriodDecimal(valueString)} ${tokenId.toUpperCase()}`;
 };

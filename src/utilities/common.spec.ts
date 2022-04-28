@@ -27,4 +27,15 @@ describe('utilities/formatCoinsToReadableValue', () => {
     });
     expect(value).toBe('0.1234 ADA');
   });
+
+  test('removes trailing zeros', () => {
+    const trailingZeroNumber = new BigNumber(0.0000005);
+    const value = formatCoinsToReadableValue({
+      value: trailingZeroNumber,
+      tokenId: 'ada',
+      shorthand: true,
+    });
+    expect(trailingZeroNumber.toFixed(8)).toBe('0.00000050');
+    expect(value).toBe('0.0000005 ADA');
+  });
 });
