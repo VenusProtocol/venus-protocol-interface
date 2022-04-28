@@ -255,6 +255,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   // @TODO: elevate state so it can be shared with borrow and supply markets
   const isXvsEnabled = true;
   const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
+  // @TODO: include all assets in calculation of yearly earnings
   const { yearlyEarningsCents } = calculateYearlyEarningsCents({
     asset,
     borrowBalanceCents,

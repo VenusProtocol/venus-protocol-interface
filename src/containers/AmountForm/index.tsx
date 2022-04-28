@@ -2,13 +2,16 @@
 import React from 'react';
 import { Formik, Form, FormikProps, FormikConfig } from 'formik';
 
-import validationSchema, { FormValues } from './validationSchema';
+import getValidationSchema, { FormValues } from './validationSchema';
+
+export * from './validationSchema';
 
 export interface IAmountFormProps
   extends Omit<FormikConfig<FormValues>, 'onSubmit' | 'initialValues'> {
   onSubmit: (value: string) => Promise<void> | void;
   children: (formProps: FormikProps<FormValues>) => React.ReactNode;
-  initialValues?: FormikConfig<FormValues>['initialValues'];
+  initialAmount?: FormikConfig<FormValues>['initialValues']['amount'];
+  maxAmount?: FormikConfig<FormValues>['initialValues']['amount'];
   className?: string;
 }
 
@@ -16,19 +19,22 @@ export const AmountForm: React.FC<IAmountFormProps> = ({
   children,
   onSubmit,
   className,
-  initialValues = { amount: '' },
+  initialAmount = '',
+  maxAmount,
 }) => {
   const handleSubmit = (values: FormValues) => {
     if (values.amount) {
-      onSubmit(values.amount);
+      onSubmit(values.amount.trim());
     }
   };
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        amount: initialAmount,
+      }}
       onSubmit={handleSubmit}
-      validationSchema={validationSchema}
+      validationSchema={getValidationSchema(maxAmount)}
       validateOnMount
       validateOnChange
     >

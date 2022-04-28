@@ -21,6 +21,31 @@
       "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>."
     }
   },
+  "borrowRepayModal": {
+    "borrow": {
+      "borrowAPy": "Borrow APY",
+      "borrowBalance": "Borrow balance",
+      "borrowLimitUsed": "Borrow limit used",
+      "connectWalletMessage": "Please connect your wallet to borrow",
+      "dailyEarnings": "Daily earnings",
+      "distributionAPy": "Distribution APY",
+      "enableToken": {
+        "borrowInfo": "Borrow APY",
+        "distributionInfo": "Distribution APY",
+        "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first."
+      },
+      "highAmountWarning": "You entered a high amount. There is a risk of liquidation.",
+      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
+      "submitButton": "Borrow",
+      "submitButtonDisabled": "Enter a valid amount to borrow",
+      "successfulTransactionModal": {
+        "message": "You successfully borrowed",
+        "title": "Your borrow was successful"
+      }
+    },
+    "borrowTabTitle": "Borrow",
+    "repayTabTitle": "Repay"
+  },
   "bscLink": {
     "content": "View on bscscan.com<Icon/>"
   },
@@ -29,8 +54,7 @@
       "message": "You successfully claimed",
       "title": "Your claim was successful"
     },
-    "title": "Claim <Icon/> {{amount}}",
-    "walletNotConnectedError": "Wallet not connected"
+    "title": "Claim <Icon/> {{amount}}"
   },
   "connectButton": {
     "title": "Connect wallet"
@@ -39,7 +63,8 @@
     "connectButton": "Connect wallet"
   },
   "errors": {
-    "internal": "An internal error occurred: {{errorMessage}}. Please try again later."
+    "internal": "An internal error occurred: {{errorMessage}}. Please try again later.",
+    "walletNotConnected": "TRANSLATION NEEDED"
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
@@ -120,16 +145,9 @@
     "apyWithXvs": "APY with XVS",
     "apyWithXvsTooltip": "Choose whether to include the XVS distribution APY in calculations",
     "borrowBalance": "Borrow balance",
-    "borrowLimitUsed": "Borrow limit used:",
     "dailyEarnings": "Daily earnings",
-    "limit": "Limit:",
     "netApy": "Net APY",
     "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-    "progressBar": {
-      "accessibilityLabel": "Representation of the current state of your account",
-      "borrowLimitTooltip": "Current borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
-      "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
-    },
     "safeLimit": "Your safe limit:",
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
     "supplyBalance": "Supply balance",
@@ -139,8 +157,6 @@
     "borrowLimit": "Borrow limit",
     "connectWalletToSupply": "Please connect your wallet to supply",
     "connectWalletToWithdraw": "Please connect your wallet to withdraw",
-    "currentAmount": "Current: <White>{{amount}}</White>",
-    "currentBorrowBalance": "Current borrow balance: {{amount}} ({{percent}}%)",
     "dailyEarnings": "Daily Earnings",
     "distributionApy": "Distribution APY",
     "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first.",
@@ -148,10 +164,6 @@
     "enterValidAmountSupply": "Enter a valid amount to supply",
     "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
     "max": "Max",
-    "maxAmount": "Max: <White>{{amount}}</White>",
-    "maxBorrowTooltip": "Max borrow limit: {{amount }} (100%)",
-    "progressBarAria": "borrow balance progress bar",
-    "safeBorrowLimit": "Safe borrow limit: {{amount}} (80%)",
     "supply": "Supply",
     "supplyApy": "Supply APY",
     "supplyBalance": "Supply Balance",

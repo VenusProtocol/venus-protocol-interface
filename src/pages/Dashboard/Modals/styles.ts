@@ -24,28 +24,23 @@ export const useStyles = () => {
       display: flex;
       justify-content: space-between;
     `,
-    infoRow: css`
-      margin: ${theme.spacing(3)} 0;
+    getRow: ({ isLast }: { isLast: boolean }) => css`
+      margin-bottom: ${theme.spacing(isLast ? 8 : 3)};
+
       ${theme.breakpoints.down('md')} {
+        margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
+
         span {
           font-size: 0.875rem;
         }
       }
     `,
-    borrowLimit: css`
-      margin-bottom: ${theme.spacing(6)};
-    `,
-    dailyEarnings: css`
-      margin-top: ${theme.spacing(6)};
-    `,
-    progressSection: css`
-      margin: ${theme.spacing(7.5)} 0;
+    bottomRow: css`
+      margin-bottom: ${theme.spacing(12)};
+
       ${theme.breakpoints.down('md')} {
-        margin: ${theme.spacing(6)} 0;
+        margin-bottom: ${theme.spacing(8)};
       }
-    `,
-    bottomInfo: css`
-      margin-bottom: ${theme.spacing(8)};
     `,
   };
 };

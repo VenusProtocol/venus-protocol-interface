@@ -1,12 +1,23 @@
 import * as yup from 'yup';
 
-export type FormValues = yup.InferType<typeof validationSchema>;
+export type FormValues = yup.InferType<ReturnType<typeof getValidationSchema>>;
 
-const validationSchema = yup.object({
-  amount: yup
-    .string()
-    .required()
-    .test('isPositive', 'value must be positive', value => !!value && +value > 0),
-});
+export enum ErrorCode {
+  NOT_POSITIVE = 'NOT_POSITIVE', // value must be positive
+  HIGHER_THAN_MAX = 'HIGHER_THAN_MAX', // value must be lower or equal to max
+}
 
-export default validationSchema;
+const getValidationSchema = (maxAmount?: string) =>
+  yup.object({
+    amount: yup
+      .string()
+      .required()
+      .test('isPositive', ErrorCode.NOT_POSITIVE, value => !!value && +value > 0)
+      .test(
+        'isHigherThanMax',
+        ErrorCode.HIGHER_THAN_MAX,
+        value => !value || !maxAmount || +value <= +maxAmount,
+      ),
+  });
+
+export default getValidationSchema;
