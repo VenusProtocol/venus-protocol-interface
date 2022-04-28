@@ -85,7 +85,7 @@ export const repayNonBnbVToken = jest.fn();
 export const useRepayNonBnbVToken = () =>
   useMutation(FunctionKey.REPAY_NON_BNB_V_TOKEN, repayNonBnbVToken);
 
-export const useRepayVToken = () => jest.fn();
+export const useRepayVToken = useRepayNonBnbVToken;
 
 export const supply = jest.fn();
 export const useSupply = () => useMutation(FunctionKey.SUPPLY, supply);

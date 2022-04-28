@@ -48,8 +48,6 @@ export { default as repayBnb } from './mutations/repayBnb';
 export * from './mutations/repayBnb';
 export { default as useRepayBnb } from './mutations/useRepayBnb';
 
-export { default as useRepayVToken } from './mutations/useRepayVToken';
-
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
@@ -62,6 +60,9 @@ export { default as useClaimXvsReward } from './mutations/useClaimXvsReward';
 export { default as borrowVToken } from './mutations/borrowVToken';
 export * from './mutations/borrowVToken';
 export { default as useBorrowVToken } from './mutations/useBorrowVToken';
+
+export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
+export { default as useRepayVToken } from './mutations/useRepayVToken';
 
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
@@ -115,5 +116,3 @@ export { default as useGetXvsReward } from './queries/useGetXvsReward';
 export { default as getVTokenBorrowBalance } from './queries/getVTokenBorrowBalance';
 export * from './queries/getVTokenBorrowBalance';
 export { default as useGetVTokenBorrowBalance } from './queries/useGetVTokenBorrowBalance';
-
-export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
