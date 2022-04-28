@@ -73,6 +73,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
       {selectedAsset && (
         <SupplyWithdrawModal
           asset={selectedAsset}
+          assets={[...suppliedAssets, ...supplyMarketAssets]}
           isXvsEnabled={isXvsEnabled}
           onClose={() => setSelectedAsset(undefined)}
         />

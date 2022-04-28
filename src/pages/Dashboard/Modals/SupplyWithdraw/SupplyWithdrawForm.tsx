@@ -14,6 +14,7 @@ import {
   BorrowBalanceAccountHealth,
   ValueUpdate,
 } from 'components';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
@@ -31,7 +32,7 @@ interface ISupplyWithdrawFormUiProps {
   tokenInfo: ILabeledInlineContentProps[];
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
-  dailyEarningsCents: BigNumber;
+  dailyEarningsCents: BigNumber | undefined;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
@@ -142,7 +143,9 @@ export const SupplyWithdrawContent: React.FC<
         css={styles.getRow({ isLast: false })}
         className="info-row"
       >
-        {formatCentsToReadableValue({ value: dailyEarningsCents })}
+        {dailyEarningsCents
+          ? formatCentsToReadableValue({ value: dailyEarningsCents })
+          : PLACEHOLDER_KEY}
       </LabeledInlineContent>
       <LabeledInlineContent
         label={t('supplyWithdraw.supplyBalance')}

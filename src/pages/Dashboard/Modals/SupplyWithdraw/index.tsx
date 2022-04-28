@@ -24,7 +24,7 @@ import useSupply from 'clients/api/mutations/useSupply';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
 import { formatApy, getBigNumber } from 'utilities/common';
-import { calculateYearlyEarningsCents, calculateDailyEarningsCents } from 'utilities';
+import { calculateYearlyEarningsForAssets, calculateDailyEarningsCents } from 'utilities';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 
@@ -32,13 +32,14 @@ export interface ISupplyWithdrawUiProps {
   className?: string;
   onClose: IModalProps['handleClose'];
   asset: Asset;
+  assets: Asset[];
   isXvsEnabled: boolean;
 }
 
 export interface ISupplyWithdrawProps {
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
-  dailyEarningsCents: BigNumber;
+  dailyEarningsCents: BigNumber | undefined;
   onSubmitSupply: IAmountFormProps['onSubmit'];
   onSubmitWithdraw: IAmountFormProps['onSubmit'];
   isSupplyLoading: boolean;
@@ -50,7 +51,7 @@ export interface ISupplyWithdrawProps {
  * when closing the modal.
  */
 export const SupplyWithdrawUi: React.FC<
-  Omit<ISupplyWithdrawUiProps, 'isXvsEnabled'> & ISupplyWithdrawProps
+  Omit<ISupplyWithdrawUiProps, 'isXvsEnabled' | 'assets'> & ISupplyWithdrawProps
 > = ({
   className,
   onClose,
@@ -186,7 +187,7 @@ export const SupplyWithdrawUi: React.FC<
 };
 
 const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
-  const { asset, isXvsEnabled, ...rest } = props;
+  const { asset, assets, isXvsEnabled, ...rest } = props;
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
   const { t } = useTranslation();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
@@ -257,9 +258,8 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     }
   };
   const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
-  // @TODO: include all assets in calculation of yearly earnings
-  const { yearlyEarningsCents } = calculateYearlyEarningsCents({
-    asset,
+  const { yearlyEarningsCents } = calculateYearlyEarningsForAssets({
+    assets,
     borrowBalanceCents,
     isXvsEnabled,
   });
