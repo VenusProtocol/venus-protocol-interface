@@ -5,7 +5,7 @@ import { FormikProps } from 'formik';
 import { Typography } from '@mui/material';
 import toast from 'components/Basic/Toast';
 import { FormValues } from 'containers/AmountForm/validationSchema';
-import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import {
   TokenTextField,
   Delimiter,
@@ -45,6 +45,7 @@ export const SupplyWithdrawContent: React.FC<
   ISupplyWithdrawFormUiProps & FormikProps<FormValues>
 > = ({
   values,
+  errors,
   setFieldValue,
   asset,
   tokenInfo,
@@ -124,12 +125,14 @@ export const SupplyWithdrawContent: React.FC<
         tokenId={assetId as TokenId}
         value={amountString}
         onChange={amt => setFieldValue('amount', amt, true)}
-        max={maxInput.toFixed()}
+        disabled={isTransactionLoading}
         rightMaxButton={{
           label: t('supplyWithdraw.max').toUpperCase(),
           valueOnClick: maxInput.toFixed(),
         }}
         css={styles.input}
+        // Only display error state if amount is higher than borrow limit
+        hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
       />
       <Typography
         component="div"
