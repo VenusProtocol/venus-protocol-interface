@@ -26,6 +26,8 @@ export { ReactComponent as attention } from './attention.svg';
 export { ReactComponent as burger } from './burger.svg';
 export { ReactComponent as arrowRight } from './arrowRight.svg';
 export { ReactComponent as xvsOutlined } from './xvsOutlined.svg';
+export { ReactComponent as xvsPrediction } from './xvsPrediction.svg';
+export { ReactComponent as faucet } from './faucet.svg';
 export { ReactComponent as wallet } from './wallet.svg';
 export { ReactComponent as check } from './check.svg';
 export { ReactComponent as arrowShaft } from './arrowShaft.svg';
