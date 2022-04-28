@@ -21,7 +21,7 @@ import { useStyles } from '../../styles';
 
 export interface IAccountDataProps {
   asset: Asset;
-  hypotheticalBorrowAmountTokens?: number;
+  hypotheticalBorrowAmountTokens: number;
 }
 
 const AccountData: React.FC<IAccountDataProps> = ({ asset, hypotheticalBorrowAmountTokens }) => {
@@ -36,15 +36,15 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, hypotheticalBorrowAmo
   const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
-  const isAmountPositive = hypotheticalBorrowAmountTokens && hypotheticalBorrowAmountTokens > 0;
-  const hypotheticalTotalBorrowBalanceCents = isAmountPositive
-    ? totalBorrowBalanceCents.plus(
-        asset.tokenPrice
-          .multipliedBy(hypotheticalBorrowAmountTokens)
-          // Convert dollars to cents
-          .multipliedBy(100),
-      )
-    : undefined;
+  const hypotheticalTotalBorrowBalanceCents =
+    hypotheticalBorrowAmountTokens !== 0
+      ? totalBorrowBalanceCents.plus(
+          asset.tokenPrice
+            .multipliedBy(hypotheticalBorrowAmountTokens)
+            // Convert dollars to cents
+            .multipliedBy(100),
+        )
+      : undefined;
 
   const borrowLimitUsedPercentage = React.useMemo(
     () =>
@@ -85,9 +85,10 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, hypotheticalBorrowAmo
   );
 
   const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
-  const hypotheticalDailyEarningsCents = isAmountPositive
-    ? calculateDailyEarningsCents(new BigNumber(hypotheticalBorrowAmountTokens))
-    : undefined;
+  const hypotheticalDailyEarningsCents =
+    hypotheticalBorrowAmountTokens !== 0
+      ? calculateDailyEarningsCents(new BigNumber(hypotheticalBorrowAmountTokens))
+      : undefined;
 
   const readableBorrowApy = React.useMemo(
     () => formatToReadablePercentage(asset.borrowApy.toFixed(2)),

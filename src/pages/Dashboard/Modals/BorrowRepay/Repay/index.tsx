@@ -5,31 +5,41 @@ import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import { formatApy, convertCoinsToWei } from 'utilities/common';
+import { formatApy, convertCoinsToWei, formatCoinsToReadableValue } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
-import { PrimaryButton, TokenTextField, ConnectWallet, EnableToken } from 'components';
+import {
+  PrimaryButton,
+  TokenTextField,
+  ConnectWallet,
+  EnableToken,
+  LabeledInlineContent,
+} from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
 
 export interface IRepayFormProps {
   asset: Asset;
-  limitTokens: string;
   repay: (amountWei: BigNumber) => Promise<string>;
   isRepayLoading: boolean;
 }
 
-export const RepayForm: React.FC<IRepayFormProps> = ({
-  asset,
-  limitTokens,
-  repay,
-  isRepayLoading,
-}) => {
+export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoading }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const limitTokens = asset.borrowBalance.toFixed();
+  const readableTokenBorrowBalance = React.useMemo(
+    () =>
+      formatCoinsToReadableValue({
+        value: asset.borrowBalance,
+        tokenId: asset.id,
+      }),
+    [asset.borrowBalance.toFixed(), asset.id],
+  );
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
@@ -62,6 +72,13 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
         <>
+          <LabeledInlineContent
+            css={styles.getRow({ isLast: true })}
+            label={t('borrowRepayModal.repay.currentlyBorrowing')}
+          >
+            {readableTokenBorrowBalance}
+          </LabeledInlineContent>
+
           <div css={[styles.getRow({ isLast: true })]}>
             <TokenTextField
               name="amount"
@@ -71,20 +88,20 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
               disabled={isRepayLoading}
               onBlur={handleBlur}
               rightMaxButton={{
-                label: t('borrowRepayModal.repay.rightMaxButtonLabel', {
-                  limitPercentage: limitTokens,
-                }),
+                label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
                 valueOnClick: limitTokens,
               }}
               data-testid="token-text-field"
               // Only display error state if amount is higher than limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
             />
+
+            {/* @TODO: add wallet balance */}
           </div>
 
           {/* @TODO: add buttons */}
 
-          <AccountData asset={asset} />
+          <AccountData hypotheticalBorrowAmountTokens={-values.amount} asset={asset} />
 
           <PrimaryButton
             type="submit"
@@ -110,9 +127,6 @@ export interface IRepayProps {
 const Repay: React.FC<IRepayProps> = ({ asset, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
-
-  // TODO: calculate limit tokens
-  const limitTokens = '100';
 
   // TODO: use repay VToken mutation
   const isRepayLoading = false;
@@ -156,12 +170,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose }) => {
           isEnabled={asset.isEnabled}
           vtokenAddress={asset.vtokenAddress}
         >
-          <RepayForm
-            asset={asset}
-            limitTokens={limitTokens}
-            repay={handleRepay}
-            isRepayLoading={isRepayLoading}
-          />
+          <RepayForm asset={asset} repay={handleRepay} isRepayLoading={isRepayLoading} />
         </EnableToken>
       )}
     </ConnectWallet>

@@ -46,6 +46,7 @@
     "borrowTabTitle": "Borrow",
     "repay": {
       "connectWalletMessage": "Please connect your wallet to repay",
+      "currentlyBorrowing": "Currently borrowing",
       "enableToken": {
         "borrowInfo": "Borrow APY",
         "distributionInfo": "Distribution APY",
