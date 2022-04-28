@@ -3,14 +3,13 @@ import React, { useMemo } from 'react';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
 import { Asset, TokenId } from 'types';
-import { switchAriaLabel, Token, Toggle } from 'components';
-import { Table, ITableProps } from 'components/v2/Table';
+import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
 
 export interface ISuppliedTableUiProps {
   assets: Asset[];
   isXvsEnabled: boolean;
-  setSelectedAsset: (asset: Asset | undefined) => void;
+  rowOnClick: (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => void;
   collateralOnChange: (asset: Asset) => void;
 }
 
@@ -18,7 +17,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
   assets,
   isXvsEnabled,
   collateralOnChange,
-  setSelectedAsset,
+  rowOnClick,
 }) => {
   const { t } = useTranslation();
 
@@ -67,14 +66,6 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
         ),
     },
   ]);
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
-    if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
-      const asset = assets.find((value: Asset) => value.id === row[0].value);
-      if (asset) {
-        setSelectedAsset(asset);
-      }
-    }
-  };
   return (
     <Table
       title={t('markets.suppliedTableTitle')}
