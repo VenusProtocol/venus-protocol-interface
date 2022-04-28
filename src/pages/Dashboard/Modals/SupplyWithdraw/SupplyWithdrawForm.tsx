@@ -64,6 +64,8 @@ export const SupplyWithdrawContent: React.FC<
   const { amount: amountString } = values;
   const amount = new BigNumber(amountString || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
+  const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
+  const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
   const [newBorrowLimit] = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
@@ -122,8 +124,8 @@ export const SupplyWithdrawContent: React.FC<
 
       <BorrowBalanceAccountHealth
         css={styles.getRow({ isLast: true })}
-        borrowBalanceCents={userTotalBorrowBalance.toNumber()}
-        borrowLimitCents={userTotalBorrowLimit.toNumber()}
+        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
+        borrowLimitCents={userTotalBorrowLimitCents.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       />
 
@@ -135,7 +137,6 @@ export const SupplyWithdrawContent: React.FC<
         <ValueUpdate original={userTotalBorrowLimit} update={newBorrowLimit} />
       </LabeledInlineContent>
       <Delimiter css={styles.getRow({ isLast: true })} />
-      {/* @TODO add daily earnings calculations https://app.clickup.com/t/24quhp4 */}
       <LabeledInlineContent
         label={t('supplyWithdraw.dailyEarnings')}
         css={styles.getRow({ isLast: false })}
