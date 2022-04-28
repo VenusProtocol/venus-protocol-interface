@@ -54,7 +54,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
     });
 
     try {
-      // Send request to repay VAI
+      // Send request to borrow asset
       const transactionHash = await borrow(amountWei);
 
       // Display successful transaction modal

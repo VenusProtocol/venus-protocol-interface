@@ -11,7 +11,6 @@ import {
   ILabeledInlineContentProps,
   IconName,
 } from 'components';
-import toast from 'components/Basic/Toast';
 import {
   useRedeem,
   useRedeemUnderlying,
@@ -21,10 +20,10 @@ import {
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import { formatApy, getBigNumber } from 'utilities/common';
-import { calculateYearlyEarningsForAssets, calculateDailyEarningsCents } from 'utilities';
+import { formatApy, getBigNumber, convertCoinsToWei } from 'utilities/common';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 
@@ -39,7 +38,6 @@ export interface ISupplyWithdrawUiProps {
 export interface ISupplyWithdrawProps {
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
-  dailyEarningsCents: BigNumber | undefined;
   onSubmitSupply: IAmountFormProps['onSubmit'];
   onSubmitWithdraw: IAmountFormProps['onSubmit'];
   isSupplyLoading: boolean;
@@ -50,15 +48,14 @@ export interface ISupplyWithdrawProps {
  * The fade effect on this component results in that it is still rendered after the asset has been set to undefined
  * when closing the modal.
  */
-export const SupplyWithdrawUi: React.FC<
-  Omit<ISupplyWithdrawUiProps, 'isXvsEnabled' | 'assets'> & ISupplyWithdrawProps
-> = ({
+export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdrawProps> = ({
   className,
   onClose,
   asset,
+  assets,
   userTotalBorrowBalance,
   userTotalBorrowLimit,
-  dailyEarningsCents,
+  isXvsEnabled,
   onSubmitSupply,
   onSubmitWithdraw,
   isSupplyLoading,
@@ -84,8 +81,8 @@ export const SupplyWithdrawUi: React.FC<
       ]
     : [];
 
-  const calculateNewSupplyAmount = (amount: BigNumber) => userTotalBorrowLimit.plus(amount);
-  const calculateNewBorrowAmount = (amount: BigNumber) => userTotalBorrowLimit.minus(amount);
+  const calculateNewSupplyAmount = (initial: BigNumber, amount: BigNumber) => initial.plus(amount);
+  const calculateNewBorrowAmount = (initial: BigNumber, amount: BigNumber) => initial.minus(amount);
 
   const TabContent = ({
     message,
@@ -104,7 +101,7 @@ export const SupplyWithdrawUi: React.FC<
     enabledButtonKey: string;
     disabledButtonKey: string;
     maxInputKey: 'walletBalance' | 'supplyBalance';
-    calculateNewBalance: (amount: BigNumber) => BigNumber;
+    calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
     isTransactionLoading: boolean;
     onSubmit: IAmountFormProps['onSubmit'];
   }) => (
@@ -120,10 +117,10 @@ export const SupplyWithdrawUi: React.FC<
           >
             <SupplyWithdrawForm
               asset={asset}
+              assets={assets}
               tokenInfo={tokenInfo}
               userTotalBorrowBalance={userTotalBorrowBalance}
               userTotalBorrowLimit={userTotalBorrowLimit}
-              dailyEarningsCents={dailyEarningsCents}
               onSubmit={onSubmit}
               inputLabel={inputLabel}
               enabledButtonKey={enabledButtonKey}
@@ -131,6 +128,7 @@ export const SupplyWithdrawUi: React.FC<
               maxInput={asset[maxInputKey]}
               calculateNewBalance={calculateNewBalance}
               isTransactionLoading={isTransactionLoading}
+              isXvsEnabled={isXvsEnabled}
             />
           </EnableToken>
         )}
@@ -187,9 +185,10 @@ export const SupplyWithdrawUi: React.FC<
 };
 
 const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
-  const { asset, assets, isXvsEnabled, ...rest } = props;
+  const { asset, assets, isXvsEnabled, onClose, ...rest } = props;
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
   const { t } = useTranslation();
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
     accountAddress,
   });
@@ -197,85 +196,86 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     { account: accountAddress, vTokenId: asset.id as VTokenId },
     { enabled: !!accountAddress },
   );
-  const { mutate: supply, isLoading: isSupplyLoading } = useSupply(
-    { asset, account: accountAddress },
-    {
-      onError: () => {
-        toast.error({
-          title: t('supplyWithdraw.supplyError.title'),
-          description: t('supplyWithdraw.supplyError.description', { symbol: asset.symbol }),
-        });
-      },
-    },
-  );
-
-  const { mutate: redeem, isLoading: isRedeemLoading } = useRedeem(
-    {
+  const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
+    asset,
+    account: accountAddress,
+  });
+  const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
+    assetId: asset?.id as VTokenId,
+    account: accountAddress,
+  });
+  const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
+    useRedeemUnderlying({
       assetId: asset?.id as VTokenId,
       account: accountAddress,
-    },
-    {
-      onError: () => {
-        toast.error({
-          title: t('supplyWithdraw.withdrawError.title'),
-          description: t('supplyWithdraw.withdrawError.description', { symbol: asset.symbol }),
-        });
-      },
-    },
-  );
-  const { mutate: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } = useRedeemUnderlying(
-    {
-      assetId: asset?.id as VTokenId,
-      account: accountAddress,
-    },
-    {
-      onError: () => {
-        toast.error({
-          title: t('supplyWithdraw.withdrawError.title'),
-          description: t('supplyWithdraw.withdrawError.description', { symbol: asset.symbol }),
-        });
-      },
-    },
-  );
+    });
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
-  const onSubmitSupply: IAmountFormProps['onSubmit'] = value => {
-    supply({
-      amount: getBigNumber(value)
-        .times(new BigNumber(10).pow(asset.decimals || 18))
-        .toString(10),
+  const onSubmitSupply: IAmountFormProps['onSubmit'] = async value => {
+    const supplyAmount = new BigNumber(value)
+      .times(new BigNumber(10).pow(asset.decimals || 18))
+      .toString(10);
+    const res = await supply({
+      amount: supplyAmount,
+    });
+    onClose();
+    openSuccessfulTransactionModal({
+      title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
+      message: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
+      amount: {
+        valueWei: convertCoinsToWei({ value: new BigNumber(value), tokenId: asset.id }),
+        tokenId: asset.id,
+      },
+      transactionHash: res.transactionHash,
     });
   };
 
-  const onSubmitWithdraw: IAmountFormProps['onSubmit'] = value => {
+  const onSubmitWithdraw: IAmountFormProps['onSubmit'] = async value => {
     const amount = getBigNumber(value);
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
+    let transactionHash;
+    let withdrawlValue;
     if (amountEqualsSupplyBalance && vTokenBalance) {
-      redeem({ amount: vTokenBalance });
+      const res = await redeem({ amount: vTokenBalance });
+      ({ transactionHash } = res);
+      withdrawlValue = new BigNumber(vTokenBalance);
+      // Display successful transaction modal
     } else {
-      redeemUnderlying({
-        amount: amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10),
+      const withdrawlAmount = amount
+        .times(new BigNumber(10).pow(asset.decimals))
+        .integerValue()
+        .toString(10);
+      const res = await redeemUnderlying({
+        amount: withdrawlAmount,
+      });
+      ({ transactionHash } = res);
+      withdrawlValue = new BigNumber(withdrawlAmount);
+    }
+    onClose();
+    if (withdrawlValue && transactionHash) {
+      openSuccessfulTransactionModal({
+        title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
+        message: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
+        amount: {
+          valueWei: convertCoinsToWei({ value: withdrawlValue, tokenId: asset.id }),
+          tokenId: asset.id,
+        },
+        transactionHash,
       });
     }
   };
-  const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
-  const { yearlyEarningsCents } = calculateYearlyEarningsForAssets({
-    assets,
-    borrowBalanceCents,
-    isXvsEnabled,
-  });
-  const dailyEarningsCents =
-    yearlyEarningsCents && calculateDailyEarningsCents(yearlyEarningsCents);
   return (
     <SupplyWithdrawUi
       {...rest}
+      onClose={onClose}
       asset={asset}
       userTotalBorrowBalance={userTotalBorrowBalance}
       userTotalBorrowLimit={userTotalBorrowLimit}
-      dailyEarningsCents={dailyEarningsCents}
       onSubmitSupply={onSubmitSupply}
       onSubmitWithdraw={onSubmitWithdraw}
       isSupplyLoading={isSupplyLoading}
       isWithdrawLoading={isWithdrawLoading}
+      isXvsEnabled={isXvsEnabled}
+      assets={assets}
     />
   );
 };

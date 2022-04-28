@@ -7,7 +7,7 @@ export interface ISupplyNonBnbInput {
   amount: string;
 }
 
-export type SupplyNonBnbOutput = void | TransactionReceipt;
+export type SupplyNonBnbOutput = TransactionReceipt;
 
 const supplyNonBnb = async ({
   tokenContract,

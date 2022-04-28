@@ -37,7 +37,6 @@ DisconnectedSupply.args = {
   onClose: noop,
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
-  dailyEarningsCents: new BigNumber('238'),
   isSupplyLoading: false,
   isWithdrawLoading: false,
 };
@@ -49,7 +48,6 @@ DisabledSupply.args = {
   onClose: noop,
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
-  dailyEarningsCents: new BigNumber('238'),
   onSubmitSupply: noop,
   onSubmitWithdraw: noop,
   isSupplyLoading: false,
@@ -63,7 +61,6 @@ Supply.args = {
   onClose: noop,
   userTotalBorrowBalance: new BigNumber('16'),
   userTotalBorrowLimit: new BigNumber('42.38'),
-  dailyEarningsCents: new BigNumber('238'),
   onSubmitSupply: noop,
   onSubmitWithdraw: noop,
   isSupplyLoading: false,
