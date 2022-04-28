@@ -54,7 +54,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
     });
 
     try {
-      // Send request to borrow asset
+      // Send request to borrow tokens
       const transactionHash = await borrow(amountWei);
 
       // Display successful transaction modal
@@ -106,7 +106,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             )}
           </div>
 
-          <AccountData amount={values.amount} asset={asset} />
+          <AccountData hypotheticalBorrowAmountTokens={+values.amount} asset={asset} />
 
           <PrimaryButton
             type="submit"

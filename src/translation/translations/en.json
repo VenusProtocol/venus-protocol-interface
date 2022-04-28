@@ -44,6 +44,21 @@
       }
     },
     "borrowTabTitle": "Borrow",
+    "repay": {
+      "connectWalletMessage": "Please connect your wallet to repay",
+      "enableToken": {
+        "borrowInfo": "Borrow APY",
+        "distributionInfo": "Distribution APY",
+        "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first."
+      },
+      "rightMaxButtonLabel": "MAX",
+      "submitButton": "Repay",
+      "submitButtonDisabled": "Enter a valid amount to repay",
+      "successfulTransactionModal": {
+        "message": "You successfully repaid",
+        "title": "Your repayment was successful"
+      }
+    },
     "repayTabTitle": "Repay"
   },
   "bscLink": {

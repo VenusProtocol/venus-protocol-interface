@@ -6,6 +6,7 @@ import { Tabs, Modal, IModalProps, Token } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
 import Borrow from './Borrow';
+import Repay from './Repay';
 
 export interface IBorrowRepayProps {
   onClose: IModalProps['handleClose'];
@@ -29,7 +30,7 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset }) => {
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
         <div css={styles.container}>
-          <>Repay</>
+          <Repay asset={asset} onClose={onClose} />
         </div>
       ),
     },
