@@ -79,9 +79,10 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
 
 const SupplyMarket: React.FC<
   Pick<ISupplyMarketProps, 'isXvsEnabled' | 'supplyMarketAssets' | 'suppliedAssets'> & {
+    className?: string;
     accountAddress: string;
   }
-> = ({ isXvsEnabled, supplyMarketAssets, suppliedAssets, accountAddress }) => {
+> = ({ className, isXvsEnabled, supplyMarketAssets, suppliedAssets, accountAddress }) => {
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
   const { t } = useTranslation();
 
@@ -141,6 +142,7 @@ const SupplyMarket: React.FC<
 
   return (
     <SupplyMarketUi
+      className={className}
       suppliedAssets={suppliedAssets}
       supplyMarketAssets={supplyMarketAssets}
       isXvsEnabled={isXvsEnabled}

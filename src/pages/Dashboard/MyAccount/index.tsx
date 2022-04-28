@@ -11,6 +11,7 @@ import { Asset } from 'types';
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
 interface IMyAccountProps {
+  className?: string;
   isXvsEnabled: boolean;
   setIsXvsEnabled: (value: boolean) => void;
   assets: Asset[];
@@ -19,6 +20,7 @@ interface IMyAccountProps {
 }
 
 const MyAccount: React.FC<IMyAccountProps> = ({
+  className,
   assets,
   isXvsEnabled,
   setIsXvsEnabled,
@@ -57,6 +59,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({
 
   return (
     <MyAccountUi
+      className={className}
       safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       isXvsEnabled={isXvsEnabled}
       onXvsToggle={setIsXvsEnabled}
