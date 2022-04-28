@@ -148,6 +148,7 @@
   "mintRepayVai": {
     "mintVai": {
       "btnMintVai": "Mint VAI",
+      "enableToken": "To mint VAI to the Venus Protocol, you need to approve it first",
       "mintFeeLabel": "Mint fee",
       "rightMaxButtonLabel": "SAFE MAX",
       "successfulTransactionModal": {
@@ -159,6 +160,7 @@
     },
     "repayVai": {
       "btnRepayVai": "Repay VAI",
+      "enableToken": "To repay VAI to the Venus Protocol, you need to approve it first",
       "repayVaiBalance": "Repay VAI balance",
       "rightMaxButtonLabel": "MAX",
       "successMessage": "You successfully repaid {{tokens}}",
@@ -205,6 +207,10 @@
     "supplyBalanceValue": "{{amount}} {{symbol}}",
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
+    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>",
+    "withdrawError": {
+      "description": "There was an error withdrawing {{symbol}}. Please try again later",
+      "title": "Withdrawl Error"
+    }
   }
 }

@@ -3,18 +3,22 @@ import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { mintVai, getVaiTreasuryPercentage } from 'clients/api';
+import { mintVai, getVaiTreasuryPercentage, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
+import { assetData } from '__mocks__/models/asset';
+import en from 'translation/translations/en.json';
 import RepayVai from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
+const fakeAccountAddress = '0x0';
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
 const fakeMintableVai = new BigNumber('1000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
   value: fakeMintableVai,
@@ -23,6 +27,14 @@ const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
 const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/MintRepayVai/MintVai', () => {
+  beforeEach(() => {
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: [...assetData, fakeVai],
+      userTotalBorrowLimit: new BigNumber('111'),
+      userTotalBorrowBalance: new BigNumber('91'),
+    }));
+  });
+
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(<RepayVai />);
     await waitFor(() => getByText('Available VAI limit'));
@@ -117,6 +129,33 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
       message: expect.any(String),
       title: expect.any(String),
     });
+  });
+
+  it('asks the user to enable token if not enabled', async () => {
+    const disabledFakeVaiAsset = { ...fakeVai, isEnabled: false };
+    (useUserMarketInfo as jest.Mock).mockImplementationOnce(() => ({
+      assets: [disabledFakeVaiAsset],
+      userTotalBorrowLimit: new BigNumber('111'),
+      userTotalBorrowBalance: new BigNumber('91'),
+    }));
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <RepayVai />
+      </AuthContext.Provider>,
+    );
+    const enableToMintText = en.mintRepayVai.mintVai.enableToken;
+    const enableTextSupply = getByText(enableToMintText);
+    expect(enableTextSupply).toHaveTextContent(enableToMintText);
   });
 
   // @TODO: add tests to cover failing scenarios

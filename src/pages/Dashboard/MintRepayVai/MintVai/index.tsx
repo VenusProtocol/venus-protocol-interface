@@ -5,11 +5,19 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { TokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { getToken } from 'utilities';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { InternalError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
-import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
+import {
+  EnableToken,
+  IconName,
+  ILabeledInlineContentProps,
+  SecondaryButton,
+  LabeledInlineContent,
+  TokenTextField,
+} from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
@@ -25,6 +33,7 @@ export interface IMintVaiUiProps {
   mintVai: (value: BigNumber) => Promise<TransactionReceipt>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
+  userVaiEnabled: boolean;
 }
 
 export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
@@ -33,11 +42,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   mintFeePercentage,
   isMintVaiLoading,
   mintVai,
+  userVaiEnabled,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
+  const vaiToken = getToken(VAI_ID);
   const limitTokens = React.useMemo(
     () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toString() : '0'),
     [limitWei?.toString()],
@@ -91,60 +102,81 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     }
   };
 
+  const tokenInfo: ILabeledInlineContentProps[] = [
+    {
+      label: t('mintRepayVai.mintVai.vaiLimitLabel'),
+      iconName: VAI_ID as IconName,
+      children: readableVaiLimit,
+    },
+    {
+      label: t('mintRepayVai.mintVai.mintFeeLabel'),
+      iconName: 'xvs' as IconName,
+      children: getReadableMintFee(limitWei?.toFixed() || '0'),
+    },
+  ];
+
   return (
-    <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-      {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
-        <>
-          <div css={styles.ctaContainer}>
-            <TokenTextField
-              name="amount"
-              css={styles.textField}
-              tokenId={VAI_ID}
-              value={values.amount}
-              onChange={amount => setFieldValue('amount', amount, true)}
-              onBlur={handleBlur}
-              max={limitTokens}
-              disabled={disabled || isMintVaiLoading || !hasMintableVai}
-              rightMaxButton={{
-                label: t('mintRepayVai.mintVai.rightMaxButtonLabel'),
-                valueOnClick: limitTokens,
-              }}
-            />
+    <EnableToken
+      symbol={VAI_ID}
+      title={t('mintRepayVai.mintVai.enableToken')}
+      tokenInfo={tokenInfo}
+      isEnabled={!!userVaiEnabled}
+      vtokenAddress={vaiToken.address}
+    >
+      <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
+        {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
+          <>
+            <div css={styles.ctaContainer}>
+              <TokenTextField
+                name="amount"
+                css={styles.textField}
+                tokenId={VAI_ID}
+                value={values.amount}
+                onChange={amount => setFieldValue('amount', amount, true)}
+                onBlur={handleBlur}
+                max={limitTokens}
+                disabled={disabled || isMintVaiLoading || !hasMintableVai}
+                rightMaxButton={{
+                  label: t('mintRepayVai.mintVai.rightMaxButtonLabel'),
+                  valueOnClick: limitTokens,
+                }}
+              />
 
-            <LabeledInlineContent
-              css={styles.getRow({ isLast: false })}
-              iconName={VAI_ID}
-              label={t('mintRepayVai.mintVai.vaiLimitLabel')}
+              <LabeledInlineContent
+                css={styles.getRow({ isLast: false })}
+                iconName={VAI_ID}
+                label={t('mintRepayVai.mintVai.vaiLimitLabel')}
+              >
+                {readableVaiLimit}
+              </LabeledInlineContent>
+
+              <LabeledInlineContent
+                css={styles.getRow({ isLast: true })}
+                iconName="fee"
+                label={t('mintRepayVai.mintVai.mintFeeLabel')}
+              >
+                {getReadableMintFee(values.amount)}
+              </LabeledInlineContent>
+            </div>
+
+            <SecondaryButton
+              type="submit"
+              loading={isMintVaiLoading}
+              disabled={disabled || !isValid || !dirty}
+              fullWidth
             >
-              {readableVaiLimit}
-            </LabeledInlineContent>
-
-            <LabeledInlineContent
-              css={styles.getRow({ isLast: true })}
-              iconName="fee"
-              label={t('mintRepayVai.mintVai.mintFeeLabel')}
-            >
-              {getReadableMintFee(values.amount)}
-            </LabeledInlineContent>
-          </div>
-
-          <SecondaryButton
-            type="submit"
-            loading={isMintVaiLoading}
-            disabled={disabled || !isValid || !dirty}
-            fullWidth
-          >
-            {t('mintRepayVai.mintVai.btnMintVai')}
-          </SecondaryButton>
-        </>
-      )}
-    </AmountForm>
+              {t('mintRepayVai.mintVai.btnMintVai')}
+            </SecondaryButton>
+          </>
+        )}
+      </AmountForm>
+    </EnableToken>
   );
 };
 
 const MintVai: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { mintableVai } = useVaiUser();
+  const { mintableVai, userVaiEnabled } = useVaiUser();
   const { t } = useTranslation();
 
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
@@ -179,6 +211,7 @@ const MintVai: React.FC = () => {
       mintFeePercentage={vaiTreasuryPercentage}
       isMintVaiLoading={isMintVaiLoading}
       mintVai={mintVai}
+      userVaiEnabled={userVaiEnabled}
     />
   );
 };

@@ -1,12 +1,24 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
-
+import { useUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
+import { assetData } from '__mocks__/models/asset';
 import MintRepayVai from '.';
 
 jest.mock('clients/api');
 
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
+
 describe('pages/Dashboard/MintRepayVai', () => {
+  beforeEach(() => {
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: [...assetData, fakeVai],
+      userTotalBorrowLimit: new BigNumber('111'),
+      userTotalBorrowBalance: new BigNumber('91'),
+    }));
+  });
+
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(<MintRepayVai />);
     await waitFor(() => getByText('Mint/Repay VAI'));
