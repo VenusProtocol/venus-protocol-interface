@@ -8,6 +8,11 @@ export const useStyles = () => {
       overflow: hidden;
       padding-left: 0;
       padding-right: 0;
+
+      ${theme.breakpoints.down('sm')} {
+        padding-top: ${theme.spacing(2)};
+        padding-bottom: ${theme.spacing(2)};
+      }
     `,
     title: css`
       margin-bottom: ${theme.spacing(4)};

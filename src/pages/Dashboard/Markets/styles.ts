@@ -8,9 +8,17 @@ export const useStyles = () => {
     tableContainer: css`
       width: 100%;
       padding: 0;
+
+      ${theme.breakpoints.down('sm')} {
+        background-color: transparent;
+      }
     `,
     delimiter: css`
       margin: ${theme.spacing(6)};
+
+      ${theme.breakpoints.down('sm')} {
+        display: none;
+      }
     `,
     balance: css`
       display: flex;

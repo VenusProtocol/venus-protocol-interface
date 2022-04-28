@@ -10,7 +10,9 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
+import { useIsSmDown } from 'hooks/responsive';
 import { useStyles } from '../styles';
+import { AssetCardMobile } from '../AssetCardMobile';
 
 export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -25,6 +27,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
+  const isSmDown = useIsSmDown();
   const styles = useStyles();
   const columns = useMemo(
     () => [
@@ -32,6 +35,14 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       { key: 'apyEarned', label: t('markets.columns.apyEarned'), orderable: true },
       { key: 'balance', label: t('markets.columns.balance'), orderable: true },
       { key: 'percentOfLimit', label: t('markets.columns.percentOfLimit'), orderable: true },
+    ],
+    [],
+  );
+  const columnsMobile = useMemo(
+    () => [
+      { key: 'apyEarned', label: t('markets.columns.apyEarned'), orderable: false },
+      { key: 'balance', label: t('markets.columns.balance'), orderable: false },
+      { key: 'percentOfLimit', label: t('markets.columns.percentOfLimit'), orderable: false },
     ],
     [],
   );
@@ -90,6 +101,22 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       },
     ];
   });
+
+  if (isSmDown) {
+    return (
+      <>
+        <h4>{t('markets.borrowingTableTitle')}</h4>
+        {rows.map(([asset, apyEarned, balance, percentOfLimit]) => (
+          <AssetCardMobile
+            title={asset.render()}
+            columns={columnsMobile}
+            data={[[apyEarned, balance, percentOfLimit]]}
+            rowOnClick={rowOnClick}
+          />
+        ))}
+      </>
+    );
+  }
 
   return (
     <Table

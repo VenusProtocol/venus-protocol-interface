@@ -7,6 +7,8 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
+import { useIsSmDown } from '../../../../hooks/responsive';
+import { AssetCardMobile } from '../AssetCardMobile';
 
 export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -19,12 +21,21 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
+  const isSmDown = useIsSmDown();
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
       { key: 'apy', label: t('markets.columns.apy'), orderable: true },
       { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
       { key: 'liquidity', label: t('markets.columns.liquidity'), orderable: true },
+    ],
+    [],
+  );
+  const columnsMobile = useMemo(
+    () => [
+      { key: 'apy', label: t('markets.columns.apy'), orderable: false },
+      { key: 'wallet', label: t('markets.columns.wallet'), orderable: false },
+      { key: 'liquidity', label: t('markets.columns.liquidity'), orderable: false },
     ],
     [],
   );
@@ -64,6 +75,21 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
     ];
   });
 
+  if (isSmDown) {
+    return (
+      <>
+        <h4>{t('markets.borrowMarketTableTitle')}</h4>
+        {rows.map(([asset, apy, wallet, liquidity]) => (
+          <AssetCardMobile
+            title={asset.render()}
+            columns={columnsMobile}
+            data={[[apy, wallet, liquidity]]}
+            rowOnClick={rowOnClick}
+          />
+        ))}
+      </>
+    );
+  }
   return (
     <Table
       title={t('markets.borrowMarketTableTitle')}

@@ -5,6 +5,8 @@ import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilitie
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
+import { useIsSmDown } from '../../../../hooks/responsive';
+import { AssetCardMobile } from '../AssetCardMobile';
 
 export interface ISupplyMarketTableUiProps {
   assets: Asset[];
@@ -20,6 +22,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
+  const isSmDown = useIsSmDown();
 
   const columns = useMemo(
     () => [
@@ -30,6 +33,16 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
     ],
     [],
   );
+
+  const columnsMobile = useMemo(
+    () => [
+      { key: 'apy', label: t('markets.columns.apy'), orderable: false },
+      { key: 'wallet', label: t('markets.columns.wallet'), orderable: false },
+      { key: 'collateral', label: t('markets.columns.collateral'), orderable: false },
+    ],
+    [],
+  );
+
   // Format assets to rows
   const rows: ITableProps['data'] = assets.map(asset => [
     {
