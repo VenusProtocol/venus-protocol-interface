@@ -187,17 +187,17 @@ export const SupplyWithdrawUi: React.FC<
 
 const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const { asset, isXvsEnabled, ...rest } = props;
-  const { account } = useContext(AuthContext);
+  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
   const { t } = useTranslation();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
-    accountAddress: account?.address,
+    accountAddress,
   });
   const { data: vTokenBalance } = useGetVTokenBalance(
-    { account: account?.address || '', vTokenId: asset.id as VTokenId },
-    { enabled: !!account },
+    { account: accountAddress, vTokenId: asset.id as VTokenId },
+    { enabled: !!accountAddress },
   );
   const { mutate: supply, isLoading: isSupplyLoading } = useSupply(
-    { asset, account: account?.address || '' },
+    { asset, account: accountAddress },
     {
       onError: () => {
         toast.error({
@@ -211,7 +211,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const { mutate: redeem, isLoading: isRedeemLoading } = useRedeem(
     {
       assetId: asset?.id as VTokenId,
-      account: account?.address || '',
+      account: accountAddress,
     },
     {
       onError: () => {
@@ -225,7 +225,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const { mutate: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } = useRedeemUnderlying(
     {
       assetId: asset?.id as VTokenId,
-      account: account?.address || '',
+      account: accountAddress,
     },
     {
       onError: () => {
