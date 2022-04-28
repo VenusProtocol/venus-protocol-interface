@@ -17,7 +17,7 @@ interface ITableRowProps {
 }
 
 export interface ITableProps {
-  title: string;
+  title?: string;
   data: ITableRowProps[][];
   columns: { key: string; label: string; orderable: boolean }[];
   rowKeyIndex: number;
@@ -89,7 +89,7 @@ export const Table = ({
 
   return (
     <div className={className}>
-      <h4 css={styles.title}>{title}</h4>
+      {title && <h4 css={styles.title}>{title}</h4>}
 
       <TableContainer css={styles.tableContainer} component={Paper}>
         <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>

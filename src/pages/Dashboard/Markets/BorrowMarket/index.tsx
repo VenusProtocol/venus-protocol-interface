@@ -69,13 +69,15 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   );
 };
 
-const BorrowMarket: React.FC<Omit<IBorrowMarketUiProps, 'className'>> = ({
+const BorrowMarket: React.FC<IBorrowMarketUiProps> = ({
+  className,
   isXvsEnabled,
   borrowMarketAssets,
   borrowingAssets,
   userTotalBorrowLimit,
 }) => (
   <BorrowMarketUi
+    className={className}
     borrowingAssets={borrowingAssets}
     borrowMarketAssets={borrowMarketAssets}
     isXvsEnabled={isXvsEnabled}
