@@ -36,6 +36,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   isBorrowLoading,
 }) => {
   const { t } = useTranslation();
+
   const sharedStyles = useStyles();
   const borrowStyles = useBorrowStyles();
   const styles = {

@@ -17,7 +17,7 @@ export const useStyles = () => {
       align-items: center;
       padding: ${theme.spacing(2, 2, 2, 4)};
       border-radius: ${theme.spacing(3)};
-      border: 2px solid transparent;
+      border: 2px solid ${hasError ? theme.palette.interactive.error : 'transparent'};
       background-color: ${theme.palette.background.default};
 
       &:focus-within {

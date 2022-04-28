@@ -3,10 +3,16 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
 
-import { Asset } from 'types';
+import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import { formatApy, convertCoinsToWei, formatCoinsToReadableValue } from 'utilities/common';
+import {
+  formatApy,
+  convertCoinsToWei,
+  formatCoinsToReadableValue,
+  formatToReadablePercentage,
+} from 'utilities/common';
+import { useRepayVToken } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import {
@@ -15,9 +21,11 @@ import {
   ConnectWallet,
   EnableToken,
   LabeledInlineContent,
+  TertiaryButton,
 } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
+import { useStyles as useRepayStyles } from './styles';
 import AccountData from '../AccountData';
 
 export interface IRepayFormProps {
@@ -28,11 +36,26 @@ export interface IRepayFormProps {
 
 export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoading }) => {
   const { t, Trans } = useTranslation();
-  const styles = useStyles();
+
+  const sharedStyles = useStyles();
+  const repayStyles = useRepayStyles();
+  const styles = {
+    ...sharedStyles,
+    ...repayStyles,
+  };
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const limitTokens = asset.walletBalance.toFixed();
+  const limitTokens = BigNumber.min(asset.borrowBalance, asset.walletBalance).toFixed();
+
+  const getTokenBorrowBalancePercentageTokens = React.useCallback(
+    (percentage: number) =>
+      asset.borrowBalance
+        .multipliedBy(percentage / 100)
+        .decimalPlaces(asset.decimals)
+        .toString(),
+    [asset.borrowBalance.toFixed(), asset.decimals],
+  );
 
   const readableTokenBorrowBalance = React.useMemo(
     () =>
@@ -108,18 +131,34 @@ export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoad
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
             />
 
-            <Typography component="div" variant="small1" css={styles.greyLabel}>
+            <Typography
+              component="div"
+              variant="small2"
+              css={[styles.greyLabel, styles.walletBalance]}
+            >
               <Trans
                 i18nKey="borrowRepayModal.repay.walletBalance"
                 components={{
-                  White: <Typography component="span" variant="small1" css={styles.whiteLabel} />,
+                  White: <span css={styles.whiteLabel} />,
                 }}
                 values={{ balance: readableTokenWalletBalance }}
               />
             </Typography>
-          </div>
 
-          {/* @TODO: add buttons */}
+            <div css={styles.selectButtonsContainer}>
+              {[25, 50, 75, 100].map(percentage => (
+                <TertiaryButton
+                  key={`select-button-${percentage}`}
+                  css={styles.selectButton}
+                  onClick={() =>
+                    setFieldValue('amount', getTokenBorrowBalancePercentageTokens(percentage), true)
+                  }
+                >
+                  {formatToReadablePercentage(percentage)}
+                </TertiaryButton>
+              ))}
+            </div>
+          </div>
 
           <AccountData hypotheticalBorrowAmountTokens={-values.amount} asset={asset} />
 
@@ -148,25 +187,24 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  // TODO: use repay VToken mutation
-  const isRepayLoading = false;
+  const { mutateAsync: repay, isLoading: isRepayLoading } = useRepayVToken({
+    vTokenId: asset.id as VTokenId,
+  });
+
   const handleRepay: IRepayFormProps['repay'] = async amountWei => {
     if (!account?.address) {
       throw new Error(t('errors.walletNotConnected'));
     }
 
-    console.log('amountWei', amountWei.toFixed());
-
-    // const res = await borrow({
-    //   amountWei,
-    //   fromAccountAddress: account.address,
-    // });
+    const res = await repay({
+      amountWei,
+      fromAccountAddress: account.address,
+    });
 
     // Close modal on success
     onClose();
 
-    // return res.transactionHash;
-    return 'TODO: return hash';
+    return res.transactionHash;
   };
 
   return (
