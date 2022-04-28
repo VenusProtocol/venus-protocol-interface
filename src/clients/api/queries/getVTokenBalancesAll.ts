@@ -1,6 +1,6 @@
 export interface IGetVTokenBalancesAllInput {
   venusLensContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
-  account: string | undefined | null;
+  account: string;
   vtAddresses: string[];
 }
 
