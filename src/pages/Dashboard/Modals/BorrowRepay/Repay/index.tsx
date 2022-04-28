@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import { Typography } from '@mui/material';
 
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
@@ -26,12 +27,13 @@ export interface IRepayFormProps {
 }
 
 export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoading }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const styles = useStyles();
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const limitTokens = asset.borrowBalance.toFixed();
+  const limitTokens = asset.walletBalance.toFixed();
+
   const readableTokenBorrowBalance = React.useMemo(
     () =>
       formatCoinsToReadableValue({
@@ -39,6 +41,15 @@ export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoad
         tokenId: asset.id,
       }),
     [asset.borrowBalance.toFixed(), asset.id],
+  );
+
+  const readableTokenWalletBalance = React.useMemo(
+    () =>
+      formatCoinsToReadableValue({
+        value: asset.walletBalance,
+        tokenId: asset.id,
+      }),
+    [asset.walletBalance.toFixed(), asset.id],
   );
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
@@ -83,6 +94,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoad
             <TokenTextField
               name="amount"
               tokenId={asset.id}
+              css={styles.input}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               disabled={isRepayLoading}
@@ -96,7 +108,15 @@ export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoad
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
             />
 
-            {/* @TODO: add wallet balance */}
+            <Typography component="div" variant="small1" css={styles.greyLabel}>
+              <Trans
+                i18nKey="borrowRepayModal.repay.walletBalance"
+                components={{
+                  White: <Typography component="span" variant="small1" css={styles.whiteLabel} />,
+                }}
+                values={{ balance: readableTokenWalletBalance }}
+              />
+            </Typography>
           </div>
 
           {/* @TODO: add buttons */}

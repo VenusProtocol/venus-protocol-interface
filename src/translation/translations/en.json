@@ -58,7 +58,8 @@
       "successfulTransactionModal": {
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
-      }
+      },
+      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
     },
     "repayTabTitle": "Repay"
   },
@@ -87,7 +88,7 @@
   },
   "errors": {
     "internal": "An internal error occurred: {{errorMessage}}. Please try again later.",
-    "walletNotConnected": "TRANSLATION NEEDED"
+    "walletNotConnected": "Wallet not connected"
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
