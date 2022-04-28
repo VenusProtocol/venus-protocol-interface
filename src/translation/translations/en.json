@@ -179,5 +179,12 @@
       "description": "There was an error withdrawing {{symbol}}. Please try again later",
       "title": "Withdrawl Error"
     }
+  },
+  "dashboard": {
+    "markets": {
+      "title": "Markets",
+      "tabSupply": "Supply",
+      "tabBorrow": "Borrow"
+    }
   }
 }
