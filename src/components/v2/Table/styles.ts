@@ -21,6 +21,9 @@ export const useStyles = () => {
         font-weight: ${theme.typography.body1.fontWeight};
         text-align: right;
         font-size: ${theme.spacing(3.5)};
+        display: inline-flex;
+        justify-content: flex-end;
+        align-items: center;
       }
 
       .MuiTableRow-root {
@@ -31,6 +34,7 @@ export const useStyles = () => {
       .MuiTableCell-root:first-child {
         padding-left: ${theme.spacing(6)};
         text-align: left;
+        justify-content: flex-start;
       }
 
       .MuiTableCell-root:last-child {
