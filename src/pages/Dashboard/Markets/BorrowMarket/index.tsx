@@ -2,10 +2,12 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper } from '@mui/material';
+
 import { Delimiter } from 'components';
 import { Asset } from 'types';
-import BorrowMarketTable from './BorrowMarketTable';
-import BorrowingTable from './BorrowingTable';
+import BorrowRepayModal from 'pages/Dashboard/Modals/BorrowRepay';
+import BorrowMarketTable, { IBorrowMarketTableProps } from './BorrowMarketTable';
+import BorrowingTable, { IBorrowingUiProps } from './BorrowingTable';
 import { useStyles } from '../styles';
 
 export interface IBorrowMarketUiProps {
@@ -23,21 +25,47 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   isXvsEnabled,
   userTotalBorrowLimit,
 }) => {
+  const [selectedAsset, setSelectedAsset] = React.useState<Asset | undefined>(undefined);
   const styles = useStyles();
+
+  const rowOnClick: IBorrowMarketTableProps['rowOnClick'] | IBorrowingUiProps['rowOnClick'] = (
+    _e,
+    row,
+  ) => {
+    const asset = [...borrowingAssets, ...borrowMarketAssets].find(
+      (value: Asset) => value.id === row[0].value,
+    );
+
+    if (asset) {
+      setSelectedAsset(asset);
+    }
+  };
+
   return (
-    <Paper className={className} css={styles.tableContainer}>
-      {borrowingAssets.length > 0 && (
-        <>
-          <BorrowingTable
-            assets={borrowingAssets}
-            isXvsEnabled={isXvsEnabled}
-            userTotalBorrowLimit={userTotalBorrowLimit}
-          />
-          <Delimiter css={styles.delimiter} />
-        </>
+    <>
+      <Paper className={className} css={styles.tableContainer}>
+        {borrowingAssets.length > 0 && (
+          <>
+            <BorrowingTable
+              assets={borrowingAssets}
+              isXvsEnabled={isXvsEnabled}
+              userTotalBorrowLimit={userTotalBorrowLimit}
+              rowOnClick={rowOnClick}
+            />
+            <Delimiter css={styles.delimiter} />
+          </>
+        )}
+        <BorrowMarketTable
+          assets={borrowMarketAssets}
+          isXvsEnabled={isXvsEnabled}
+          rowOnClick={rowOnClick}
+        />
+      </Paper>
+
+      {selectedAsset && (
+        <BorrowRepayModal asset={selectedAsset} onClose={() => setSelectedAsset(undefined)} />
       )}
-      <BorrowMarketTable assets={borrowMarketAssets} isXvsEnabled={isXvsEnabled} />
-    </Paper>
+    </>
   );
 };
 

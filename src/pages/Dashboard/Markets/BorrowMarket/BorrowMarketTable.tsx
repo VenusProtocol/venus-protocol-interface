@@ -8,12 +8,16 @@ import {
   formatApy,
 } from 'utilities/common';
 
-export interface IBorrowMarketUiProps {
+export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
 }
 
-const BorrowMarketTable: React.FC<IBorrowMarketUiProps> = ({ assets, isXvsEnabled }) => {
+const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
+  assets,
+  isXvsEnabled,
+  rowOnClick,
+}) => {
   const { t } = useTranslation();
   const columns = useMemo(
     () => [
@@ -70,6 +74,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketUiProps> = ({ assets, isXvsEnable
         orderDirection: 'asc',
       }}
       rowKeyIndex={0}
+      rowOnClick={rowOnClick}
     />
   );
 };

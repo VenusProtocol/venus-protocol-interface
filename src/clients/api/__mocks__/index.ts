@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import { useQuery, useQueries, useMutation, MutationObserverOptions } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
@@ -102,8 +101,7 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
 
-export const useUserMarketInfo = jest.fn(() => ({
-  assets: [],
-  userTotalBorrowLimit: new BigNumber('111'),
-  userTotalBorrowBalance: new BigNumber('91'),
-}));
+export const useUserMarketInfo = jest.fn();
+
+export const borrowVToken = jest.fn();
+export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, borrowVToken);

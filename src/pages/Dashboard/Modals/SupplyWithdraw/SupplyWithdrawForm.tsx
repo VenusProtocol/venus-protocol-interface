@@ -95,7 +95,11 @@ export const SupplyWithdrawContent: React.FC<
         }}
         css={styles.input}
       />
-      <Typography component="span" variant="small1" css={styles.greyLabel}>
+      <Typography
+        component="div"
+        variant="small1"
+        css={[styles.greyLabel, styles.getRow({ isLast: true })]}
+      >
         <Trans
           i18nKey={inputLabel}
           components={{
@@ -104,18 +108,20 @@ export const SupplyWithdrawContent: React.FC<
           values={{ amount: format(maxInput), symbol: assetId?.toUpperCase() }}
         />
       </Typography>
-      {tokenInfo.map(info => (
+
+      {tokenInfo.map((info, index) => (
         <LabeledInlineContent
-          css={styles.infoRow}
+          css={styles.getRow({ isLast: index === tokenInfo.length - 1 })}
           className="info-row"
           {...info}
           key={info.label}
         />
       ))}
-      <Delimiter />
+
+      <Delimiter css={styles.getRow({ isLast: true })} />
 
       <BorrowBalanceAccountHealth
-        css={styles.progressSection}
+        css={styles.getRow({ isLast: true })}
         borrowBalanceCents={userTotalBorrowBalance.toNumber()}
         borrowLimitCents={userTotalBorrowLimit.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
@@ -123,23 +129,23 @@ export const SupplyWithdrawContent: React.FC<
 
       <LabeledInlineContent
         label={t('supplyWithdraw.borrowLimit')}
-        css={[styles.infoRow, styles.borrowLimit]}
+        css={styles.getRow({ isLast: true })}
         className="info-row"
       >
         <ValueUpdate original={userTotalBorrowLimit} update={newBorrowLimit} />
       </LabeledInlineContent>
-      <Delimiter />
+      <Delimiter css={styles.getRow({ isLast: true })} />
       {/* @TODO add daily earnings calculations https://app.clickup.com/t/24quhp4 */}
       <LabeledInlineContent
         label={t('supplyWithdraw.dailyEarnings')}
-        css={[styles.infoRow, styles.dailyEarnings]}
+        css={styles.getRow({ isLast: false })}
         className="info-row"
       >
         {formatCentsToReadableValue({ value: dailyEarningsCents })}
       </LabeledInlineContent>
       <LabeledInlineContent
         label={t('supplyWithdraw.supplyBalance')}
-        css={[styles.infoRow, styles.bottomInfo]}
+        css={styles.bottomRow}
         className="info-row"
       >
         {t('supplyWithdraw.supplyBalanceValue', {
