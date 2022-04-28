@@ -13,6 +13,7 @@ import {
   formatToReadablePercentage,
 } from 'utilities/common';
 import { useRepayVToken } from 'clients/api';
+import { UiError } from 'utilities/errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import {
@@ -98,7 +99,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoad
         transactionHash,
       });
     } catch (error) {
-      toast.error({ title: (error as Error).message });
+      toast.error(error as UiError);
     }
   };
 
@@ -193,7 +194,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose }) => {
 
   const handleRepay: IRepayFormProps['repay'] = async amountWei => {
     if (!account?.address) {
-      throw new Error(t('errors.walletNotConnected'));
+      throw new UiError(t('errors.walletNotConnected'));
     }
 
     const res = await repay({

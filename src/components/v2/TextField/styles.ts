@@ -27,7 +27,6 @@ export const useStyles = () => {
           : theme.palette.interactive.primary};
       }
     `,
-
     leftIcon: css`
       margin-right: ${theme.spacing(2)};
     `,

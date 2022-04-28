@@ -5,7 +5,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
-import { internalError } from 'utilities/getError';
+import { InternalError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
@@ -162,7 +162,7 @@ const MintVai: React.FC = () => {
       const errorMessage = t('mintRepayVai.mintVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw internalError(errorMessage);
+      throw new InternalError(errorMessage);
     }
 
     return contractMintVai({

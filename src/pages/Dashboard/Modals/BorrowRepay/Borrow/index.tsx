@@ -11,6 +11,7 @@ import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { formatApy, convertCoinsToWei } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
+import { UiError } from 'utilities/errors';
 import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import { PrimaryButton, TokenTextField, Icon, ConnectWallet, EnableToken } from 'components';
 import { useTranslation } from 'translation';
@@ -69,7 +70,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
         transactionHash,
       });
     } catch (error) {
-      toast.error({ title: (error as Error).message });
+      toast.error(error as UiError);
     }
   };
 
@@ -148,7 +149,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
 
   const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
-      throw new Error(t('errors.walletNotConnected'));
+      throw new UiError(t('errors.walletNotConnected'));
     }
 
     const res = await borrow({
