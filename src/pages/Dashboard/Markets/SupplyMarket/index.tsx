@@ -71,7 +71,11 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
         handleClose={() => setConfirmCollateral(undefined)}
       />
       {selectedAsset && (
-        <SupplyWithdrawModal asset={selectedAsset} onClose={() => setSelectedAsset(undefined)} />
+        <SupplyWithdrawModal
+          asset={selectedAsset}
+          isXvsEnabled={isXvsEnabled}
+          onClose={() => setSelectedAsset(undefined)}
+        />
       )}
     </Paper>
   );

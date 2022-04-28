@@ -32,6 +32,7 @@ export interface ISupplyWithdrawUiProps {
   className?: string;
   onClose: IModalProps['handleClose'];
   asset: Asset;
+  isXvsEnabled: boolean;
 }
 
 export interface ISupplyWithdrawProps {
@@ -48,7 +49,9 @@ export interface ISupplyWithdrawProps {
  * The fade effect on this component results in that it is still rendered after the asset has been set to undefined
  * when closing the modal.
  */
-export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdrawProps> = ({
+export const SupplyWithdrawUi: React.FC<
+  Omit<ISupplyWithdrawUiProps, 'isXvsEnabled'> & ISupplyWithdrawProps
+> = ({
   className,
   onClose,
   asset,
@@ -183,7 +186,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
 };
 
 const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
-  const { asset, ...rest } = props;
+  const { asset, isXvsEnabled, ...rest } = props;
   const { account } = useContext(AuthContext);
   const { t } = useTranslation();
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
@@ -253,8 +256,6 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       });
     }
   };
-  // @TODO: elevate state so it can be shared with borrow and supply markets
-  const isXvsEnabled = true;
   const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   // @TODO: include all assets in calculation of yearly earnings
   const { yearlyEarningsCents } = calculateYearlyEarningsCents({
