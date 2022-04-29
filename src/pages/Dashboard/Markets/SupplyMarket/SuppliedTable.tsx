@@ -59,7 +59,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       value: asset.supplyBalance.toString(),
     },
     {
-      key: asset.collateral.toString(),
+      key: 'collateral',
       value: asset.collateral,
       render: () =>
         +asset.collateralFactor.toString() ? (
@@ -80,7 +80,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns="120px 1fr 1fr 1fr"
+      gridTemplateColumns={isSmDown ? '1fr 1fr 120px' : '120px 1fr 1fr 1fr'}
       isMobileView={isSmDown}
     />
   );

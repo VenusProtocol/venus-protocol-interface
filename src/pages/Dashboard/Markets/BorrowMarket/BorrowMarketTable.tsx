@@ -78,7 +78,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns="120px 1fr 1fr 1fr"
+      gridTemplateColumns={isSmDown ? '1fr 1fr 1fr' : '120px 1fr 1fr 1fr'}
       isMobileView={isSmDown}
     />
   );

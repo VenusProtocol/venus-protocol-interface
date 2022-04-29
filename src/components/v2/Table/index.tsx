@@ -31,8 +31,13 @@ export interface ITableProps {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
   className?: string;
   gridTemplateColumns?: string;
+  gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
   isMobileView?: boolean;
 }
+
+/* helper function for getting grid-template-columns string, used by default for similar cells width depending on cells count */
+const getTemplateColumnsString = (columnsArray: Array<unknown>) =>
+  columnsArray.map(() => '1fr').join(' ');
 
 export const Table = ({
   columns,
@@ -44,6 +49,7 @@ export const Table = ({
   rowKeyIndex,
   className,
   gridTemplateColumns,
+  gridTemplateRowsMobile = '1fr',
   isMobileView,
 }: ITableProps) => {
   const styles = useStyles();
@@ -82,12 +88,15 @@ export const Table = ({
   }, [data, orderBy, orderDirection]);
 
   /* gridStyles provides grid-template-columns styles for rows in rows for thead and tbody */
-  const gridStyles =
+  const gridColumns =
     gridTemplateColumns ||
     useMemo(
       () =>
         /* if gridTemplateColumns prop is not passed from parent component, we create similar fractions by default */
-        columns.map(() => '1fr').join(' '),
+        isMobileView
+          ? /* getting default gridTemplateColumns string depending on columns array length */
+            getTemplateColumnsString(columns.slice(1, columns.length))
+          : getTemplateColumnsString(columns),
       [columns],
     );
 
@@ -101,7 +110,13 @@ export const Table = ({
             <Paper key={uid(cells)} css={styles.tableWrapperMobile}>
               <div css={styles.rowTitleMobile}>{rowTitle.render()}</div>
               <Delimiter css={styles.delimiterMobile} />
-              <div css={styles.rowWrapperMobile}>
+              <div
+                css={[
+                  styles.rowWrapperMobile,
+                  styles.getTemplateColumns({ gridColumns }),
+                  styles.getTemplateRows({ gridRows: gridTemplateRowsMobile }),
+                ]}
+              >
                 {cells.map(cell => {
                   const currentColumn = columns.find(column => column.key === cell.key);
                   return (
@@ -125,7 +140,7 @@ export const Table = ({
               orderBy={orderBy}
               orderDirection={orderDirection}
               onRequestOrder={onRequestOrder}
-              css={styles.getTemplateColumns({ gridStyles })}
+              css={styles.getTemplateColumns({ gridColumns })}
             />
 
             {/* TODO: add loading state */}
@@ -138,7 +153,7 @@ export const Table = ({
                   hover
                   key={row[rowKeyIndex].value.toString()}
                   onClick={e => rowOnClick && rowOnClick(e, row)}
-                  css={styles.getTemplateColumns({ gridStyles })}
+                  css={styles.getTemplateColumns({ gridColumns })}
                 >
                   {row.map(({ key, render }: ITableRowProps) => {
                     const cellContent = render();

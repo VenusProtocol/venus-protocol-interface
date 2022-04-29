@@ -39,8 +39,11 @@ export const useStyles = () => {
       margin: ${theme.spacing(4)};
     `,
     rowWrapperMobile: css`
-      display: flex;
-      justify-content: space-between;
+      /* display: flex;
+      justify-content: space-between; */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
     `,
     cellMobile: css`
       display: flex;
@@ -137,8 +140,12 @@ export const useStyles = () => {
       text-overflow: ellipsis;
     `,
 
-    getTemplateColumns: ({ gridStyles }: { gridStyles: string }) => css`
-      grid-template-columns: ${gridStyles};
+    getTemplateColumns: ({ gridColumns }: { gridColumns: string }) => css`
+      grid-template-columns: ${gridColumns};
+    `,
+
+    getTemplateRows: ({ gridRows }: { gridRows: string }) => css`
+      grid-template-rows: ${gridRows};
     `,
   };
 };

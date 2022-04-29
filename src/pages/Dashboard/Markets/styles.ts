@@ -23,7 +23,7 @@ export const useStyles = () => {
     balance: css`
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+
       > :first-child {
         color: ${theme.palette.text.primary};
       }

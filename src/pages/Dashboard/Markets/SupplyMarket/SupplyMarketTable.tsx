@@ -80,7 +80,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns="120px 1fr 1fr 1fr"
+      gridTemplateColumns={isSmDown ? '1fr 1fr 120px' : '120px 1fr 1fr 1fr'}
       isMobileView={isSmDown}
     />
   );
