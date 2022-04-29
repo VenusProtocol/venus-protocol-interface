@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { FC, ReactNode } from 'react';
 import Paper from '@mui/material/Paper';
-import { Delimiter, ITableProps, Table } from 'components';
+import { Delimiter, Table } from 'components';
+import { ITableProps } from 'components/v2/Table/useTable';
 import { useStyles } from './styles';
 
 interface IAssetCardMobile extends Pick<ITableProps, 'columns' | 'data' | 'rowOnClick'> {

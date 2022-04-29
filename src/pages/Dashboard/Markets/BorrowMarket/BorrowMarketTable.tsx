@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { Table, ITableProps, Token } from 'components';
+import { Table, Token } from 'components';
+import { ITableProps } from 'components/v2/Table/useTable';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
