@@ -12,10 +12,7 @@ const calculateApy = ({
   if (supplyBalanceCents?.isEqualTo(0)) {
     netApyPercentage = 0;
   } else if (supplyBalanceCents && yearlyEarningsCents) {
-    netApyPercentage = +yearlyEarningsCents
-      .multipliedBy(100)
-      .dividedBy(supplyBalanceCents)
-      .toFixed(2);
+    netApyPercentage = +yearlyEarningsCents.dividedBy(supplyBalanceCents).toFixed(2);
   }
   return netApyPercentage;
 };
