@@ -25,10 +25,14 @@ export const calculateYearlyEarningsCents = ({
     .multipliedBy(asset.tokenPrice)
     .multipliedBy(100);
 
-  const supplyYearlyEarningsCents = assetSupplyBalanceCents.multipliedBy(asset.supplyApy);
+  const supplyYearlyEarningsCents = assetSupplyBalanceCents.multipliedBy(
+    asset.supplyApy.dividedBy(100),
+  );
   // Note that borrowYearlyInterests will always be negative (or 0), since
   // the borrow APY is expressed with a negative percentage)
-  const borrowYearlyInterestsCents = assetBorrowBalanceCents.multipliedBy(asset.borrowApy);
+  const borrowYearlyInterestsCents = assetBorrowBalanceCents.multipliedBy(
+    asset.borrowApy.dividedBy(100),
+  );
 
   let totalYearlyEarningsCents = yearlyEarningsCents.plus(
     supplyYearlyEarningsCents.plus(borrowYearlyInterestsCents),
@@ -36,10 +40,10 @@ export const calculateYearlyEarningsCents = ({
   // Add XVS distribution earnings if enabled
   if (isXvsEnabled) {
     const supplyDistributionYearlyEarnings = assetSupplyBalanceCents.multipliedBy(
-      asset.xvsSupplyApy,
+      asset.xvsSupplyApy.dividedBy(100),
     );
     const borrowDistributionYearlyEarnings = assetBorrowBalanceCents.multipliedBy(
-      asset.xvsBorrowApy,
+      asset.xvsBorrowApy.dividedBy(100),
     );
 
     totalYearlyEarningsCents = totalYearlyEarningsCents

@@ -11,7 +11,7 @@ describe('utilities/calculateYearlyEarnings', () => {
       asset: assets[0] as Asset,
       isXvsEnabled: true,
     });
-    expect(earnings?.toString()).toBe('1950.170411097753949326114');
+    expect(earnings?.toString()).toBe('19.50170411097753949326114');
   });
 
   test('calculates yearly Earnings for array of assets', () => {
@@ -19,6 +19,6 @@ describe('utilities/calculateYearlyEarnings', () => {
       assets: assets as Asset[],
       isXvsEnabled: true,
     });
-    expect(earnings?.toString()).toBe('20547.29737036564957645186396');
+    expect(earnings?.toString()).toBe('205.4729737036564957645186396');
   });
 });
