@@ -26,10 +26,7 @@ export const useStyles = () => {
     `,
     tableWrapperMobile: css`
       margin-top: ${theme.spacing(6)};
-      padding-top: ${theme.spacing(4)};
-      padding-bottom: ${theme.spacing(4)};
-      padding-left: 0;
-      padding-right: 0;
+      padding: ${theme.spacing(4, 0)};
     `,
     rowTitleMobile: css`
       padding-left: ${theme.spacing(4)};
@@ -39,11 +36,9 @@ export const useStyles = () => {
       margin: ${theme.spacing(4)};
     `,
     rowWrapperMobile: css`
-      /* display: flex;
-      justify-content: space-between; */
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+
+      /* grid-template-columns and grid-template-rows for this block is set by props */
     `,
     cellMobile: css`
       display: flex;
