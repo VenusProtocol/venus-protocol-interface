@@ -6,7 +6,6 @@ import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
 import { useIsSmDown } from 'hooks/responsive';
-import { AssetCardMobile } from '../AssetCardMobile';
 
 export interface ISuppliedTableUiProps {
   assets: Asset[];
@@ -30,15 +29,6 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       { key: 'apyEarned', label: t('markets.columns.apyEarned'), orderable: true },
       { key: 'balance', label: t('markets.columns.balance'), orderable: true },
       { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
-    ],
-    [],
-  );
-
-  const columnsMobile = useMemo(
-    () => [
-      { key: 'apyEarned', label: t('markets.columns.apyEarned'), orderable: false },
-      { key: 'balance', label: t('markets.columns.balance'), orderable: false },
-      { key: 'collateral', label: t('markets.columns.collateral'), orderable: false },
     ],
     [],
   );
@@ -91,6 +81,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
       gridTemplateColumns="120px 1fr 1fr 1fr"
+      isMobileView={isSmDown}
     />
   );
 };

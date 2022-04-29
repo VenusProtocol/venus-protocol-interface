@@ -12,7 +12,6 @@ import {
 } from 'utilities/common';
 import { useIsSmDown } from 'hooks/responsive';
 import { useStyles } from '../styles';
-import { AssetCardMobile } from '../AssetCardMobile';
 
 export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -38,14 +37,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
     ],
     [],
   );
-  const columnsMobile = useMemo(
-    () => [
-      { key: 'apyEarned', label: t('markets.columns.apyEarned'), orderable: false },
-      { key: 'balance', label: t('markets.columns.balance'), orderable: false },
-      { key: 'percentOfLimit', label: t('markets.columns.percentOfLimit'), orderable: false },
-    ],
-    [],
-  );
+
   // Format assets to rows
   const rows: ITableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
@@ -102,22 +94,6 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
     ];
   });
 
-  if (isSmDown) {
-    return (
-      <>
-        <h4>{t('markets.borrowingTableTitle')}</h4>
-        {rows.map(([asset, apyEarned, balance, percentOfLimit]) => (
-          <AssetCardMobile
-            title={asset.render()}
-            columns={columnsMobile}
-            data={[[apyEarned, balance, percentOfLimit]]}
-            rowOnClick={rowOnClick}
-          />
-        ))}
-      </>
-    );
-  }
-
   return (
     <Table
       title={t('markets.borrowingTableTitle')}
@@ -130,6 +106,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
       gridTemplateColumns="120px 1fr 1fr 1fr"
+      isMobileView={isSmDown}
     />
   );
 };

@@ -14,9 +14,46 @@ export const useStyles = () => {
         padding-bottom: ${theme.spacing(2)};
       }
     `,
+    rootMobile: css`
+      background-color: transparent;
+    `,
     title: css`
       margin-bottom: ${theme.spacing(4)};
       padding: ${theme.spacing(0, 6)};
+    `,
+    titleMobile: css`
+      padding: 0;
+    `,
+    tableWrapperMobile: css`
+      margin-top: ${theme.spacing(6)};
+      padding-top: ${theme.spacing(4)};
+      padding-bottom: ${theme.spacing(4)};
+      padding-left: 0;
+      padding-right: 0;
+    `,
+    rowTitleMobile: css`
+      padding-left: ${theme.spacing(4)};
+      padding-right: ${theme.spacing(4)};
+    `,
+    delimiterMobile: css`
+      margin: ${theme.spacing(4)};
+    `,
+    rowWrapperMobile: css`
+      display: flex;
+      justify-content: space-between;
+    `,
+    cellMobile: css`
+      display: flex;
+      flex-direction: column;
+      padding-left: ${theme.spacing(4)};
+      padding-right: ${theme.spacing(4)};
+    `,
+    columnLabelMobile: css`
+      font-size: ${theme.spacing(3)};
+    `,
+    cellValueMobile: css`
+      padding-top: ${theme.spacing(2)};
+      padding-bottom: ${theme.spacing(2)};
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};

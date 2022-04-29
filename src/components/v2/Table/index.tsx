@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo, useState } from 'react';
+import { uid } from 'react-uid';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { uid } from 'react-uid';
+import Typography from '@mui/material/Typography';
+import { Delimiter } from '../Delimiter';
 import Head from './Head';
 import { useStyles } from './styles';
 
@@ -29,6 +31,7 @@ export interface ITableProps {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
   className?: string;
   gridTemplateColumns?: string;
+  isMobileView?: boolean;
 }
 
 export const Table = ({
@@ -41,6 +44,7 @@ export const Table = ({
   rowKeyIndex,
   className,
   gridTemplateColumns,
+  isMobileView,
 }: ITableProps) => {
   const styles = useStyles();
   const [orderBy, setOrderBy] = useState<typeof columns[number]['key'] | undefined>(
@@ -88,45 +92,69 @@ export const Table = ({
     );
 
   return (
-    <Paper css={styles.root} className={className}>
-      {title && <h4 css={styles.title}>{title}</h4>}
+    <Paper css={[styles.root, isMobileView && styles.rootMobile]} className={className}>
+      {title && <h4 css={[styles.title, isMobileView && styles.titleMobile]}>{title}</h4>}
 
-      <TableContainer>
-        <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
-          <Head
-            columns={columns}
-            orderBy={orderBy}
-            orderDirection={orderDirection}
-            onRequestOrder={onRequestOrder}
-            css={styles.getTemplateColumns({ gridStyles })}
-          />
-
-          {/* TODO: add loading state */}
-
-          {/* TODO: add error state */}
-
-          <TableBody>
-            {rows.map(row => (
-              <TableRow
-                hover
-                key={row[rowKeyIndex].value.toString()}
-                onClick={e => rowOnClick && rowOnClick(e, row)}
-                css={styles.getTemplateColumns({ gridStyles })}
-              >
-                {row.map(({ key, render }: ITableRowProps) => {
-                  const cellContent = render();
-                  const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+      {isMobileView ? (
+        <>
+          {rows.map(([rowTitle, ...cells]) => (
+            <Paper key={uid(cells)} css={styles.tableWrapperMobile}>
+              <div css={styles.rowTitleMobile}>{rowTitle.render()}</div>
+              <Delimiter css={styles.delimiterMobile} />
+              <div css={styles.rowWrapperMobile}>
+                {cells.map(cell => {
+                  const currentColumn = columns.find(column => column.key === cell.key);
                   return (
-                    <TableCell css={styles.cellWrapper} key={uid(key)} title={cellTitle}>
-                      {cellContent}
-                    </TableCell>
+                    <div key={uid(cell)} css={styles.cellMobile}>
+                      <Typography variant="body2" css={styles.columnLabelMobile}>
+                        {currentColumn?.label}
+                      </Typography>
+                      <span css={styles.cellValueMobile}>{cell.render()}</span>
+                    </div>
                   );
                 })}
-              </TableRow>
-            ))}
-          </TableBody>
-        </TableMUI>
-      </TableContainer>
+              </div>
+            </Paper>
+          ))}
+        </>
+      ) : (
+        <TableContainer>
+          <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
+            <Head
+              columns={columns}
+              orderBy={orderBy}
+              orderDirection={orderDirection}
+              onRequestOrder={onRequestOrder}
+              css={styles.getTemplateColumns({ gridStyles })}
+            />
+
+            {/* TODO: add loading state */}
+
+            {/* TODO: add error state */}
+
+            <TableBody>
+              {rows.map(row => (
+                <TableRow
+                  hover
+                  key={row[rowKeyIndex].value.toString()}
+                  onClick={e => rowOnClick && rowOnClick(e, row)}
+                  css={styles.getTemplateColumns({ gridStyles })}
+                >
+                  {row.map(({ key, render }: ITableRowProps) => {
+                    const cellContent = render();
+                    const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+                    return (
+                      <TableCell css={styles.cellWrapper} key={uid(key)} title={cellTitle}>
+                        {cellContent}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableBody>
+          </TableMUI>
+        </TableContainer>
+      )}
     </Paper>
   );
 };

@@ -5,8 +5,7 @@ import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilitie
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
-import { useIsSmDown } from '../../../../hooks/responsive';
-import { AssetCardMobile } from '../AssetCardMobile';
+import { useIsSmDown } from 'hooks/responsive';
 
 export interface ISupplyMarketTableUiProps {
   assets: Asset[];
@@ -30,15 +29,6 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       { key: 'apy', label: t('markets.columns.apy'), orderable: true },
       { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
       { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
-    ],
-    [],
-  );
-
-  const columnsMobile = useMemo(
-    () => [
-      { key: 'apy', label: t('markets.columns.apy'), orderable: false },
-      { key: 'wallet', label: t('markets.columns.wallet'), orderable: false },
-      { key: 'collateral', label: t('markets.columns.collateral'), orderable: false },
     ],
     [],
   );
@@ -69,7 +59,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       value: asset.walletBalance.toString(),
     },
     {
-      key: asset.collateral.toString(),
+      key: 'collateral',
       value: asset.collateral,
       render: () =>
         +asset.collateralFactor.toString() ? (
@@ -91,6 +81,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
       gridTemplateColumns="120px 1fr 1fr 1fr"
+      isMobileView={isSmDown}
     />
   );
 };
