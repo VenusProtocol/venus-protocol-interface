@@ -37,7 +37,7 @@ const styles = {
 function createData(asset: TokenId, apy: number, wallet: number, collateral: boolean) {
   return [
     {
-      key: asset,
+      key: 'asset',
       value: asset,
       render: () => (
         <div css={styles.asset}>
@@ -47,7 +47,7 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
       ),
     },
     {
-      key: apy.toString(),
+      key: 'APY',
       value: apy,
       render: () => (
         <div css={styles.apy}>
@@ -56,9 +56,9 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
         </div>
       ),
     },
-    { key: wallet.toString(), value: wallet, render: () => `${wallet} ${asset}` },
+    { key: 'Wallet', value: wallet, render: () => `${wallet} ${asset}` },
     {
-      key: collateral.toString(),
+      key: 'Collateral',
       value: collateral,
       render: () => <Toggle onChange={console.log} value={collateral} />,
     },
@@ -84,6 +84,11 @@ export default {
   title: 'Components/Table',
   component: Table,
   decorators: [withCenterStory({ width: 800 }), withThemeProvider],
+  parameters: {
+    backgrounds: {
+      default: 'White',
+    },
+  },
 } as ComponentMeta<typeof Table>;
 
 export const TableDefault = () => (
@@ -111,5 +116,21 @@ export const WithCustomColumnsWidth = () => (
     title="Market Data"
     rowKeyIndex={0}
     gridTemplateColumns="100px 1fr 1fr 140px"
+  />
+);
+
+export const MobileView = () => (
+  <Table columns={columns} data={rows} title="Market Data" rowKeyIndex={0} isMobileView />
+);
+
+export const MobileViewMultipleRows = () => (
+  <Table
+    columns={columns}
+    data={rows}
+    title="Market Data"
+    rowKeyIndex={0}
+    gridTemplateColumns="1fr 150px"
+    gridTemplateRowsMobile="1fr 1fr"
+    isMobileView
   />
 );
