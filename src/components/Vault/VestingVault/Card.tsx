@@ -40,14 +40,14 @@ function VaultCard({
     <VaultCardWrapper>
       <div className={`header-container ${expanded ? '' : 'fold'}`}>
         <Row className="header">
-          <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
+          <Col className="col-item" lg={{ span: 2 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Stake</div>
             <div className="content">
               <Icon name={stakedToken.toLowerCase() as IconName} />
               <span>{stakedToken.toUpperCase()}</span>
             </div>
           </Col>
-          <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
+          <Col className="col-item" lg={{ span: 2 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Earn</div>
             <div className="content">
               <Icon name={rewardToken.toLowerCase() as IconName} />
@@ -60,15 +60,15 @@ function VaultCard({
               {formatCommaThousandsPeriodDecimal(pendingReward.div(rewardTokenDecimal).toFixed(4))}
             </div>
           </Col>
-          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+          <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">{stakedToken.toUpperCase()} Staking APR</div>
             <div className="content">{format(apr.multipliedBy(100), 6)}%</div>
           </Col>
-          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+          <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">Total {stakedToken.toUpperCase()} Staked</div>
             <div className="content">{format(totalStaked.div(stakedTokenDecimal), 4)}</div>
           </Col>
-          <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+          <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
             <div className="title">{rewardToken.toUpperCase()} Daily Emission</div>
             <div className="content">
               {format(dailyEmission.div(rewardTokenDecimal), 4)} {rewardToken.toUpperCase()}
@@ -76,7 +76,7 @@ function VaultCard({
           </Col>
           <Col
             className="col-item expand-icon-wrapper"
-            lg={{ span: 2 }}
+            lg={{ span: 1 }}
             xs={{ span: 24 }}
             onClick={() => setExpanded(!expanded)}
           >
