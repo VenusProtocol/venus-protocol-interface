@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
+
   return {
     appBar: css`
       background-image: none;
@@ -26,6 +27,11 @@ export const useStyles = () => {
     `,
     claimXvsButton: css`
       margin-right: ${theme.spacing(6)};
+    `,
+    ctaContainer: css`
+      display: flex;
+      align-items: center;
+      margin-left: auto;
     `,
   };
 };

@@ -38,10 +38,6 @@ const TableWrapper = styled.div`
     border-bottom: 1px solid var(--color-bg-active);
   }
 
-  @media (max-width: 768px) {
-    width: 90%;
-  }
-
   .table_header {
     padding: 10px 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -101,6 +97,8 @@ const TableWrapper = styled.div`
         font-weight: 600;
         font-size: 16px;
         color: var(--color-white);
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .hash,
