@@ -34,7 +34,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(<SupplyWithdraw onClose={jest.fn()} asset={asset} />);
+    renderComponent(
+      <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />,
+    );
   });
 
   it('asks the user to connect if wallet is not connected', async () => {
@@ -48,7 +50,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           account: undefined,
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
       </AuthContext.Provider>,
     );
 
@@ -74,7 +76,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={disabledAsset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={disabledAsset} isXvsEnabled assets={assetData} />
       </AuthContext.Provider>,
     );
     const enableToSupplyText = en.supplyWithdraw.enableToSupply.replace(
@@ -106,7 +108,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
       </AuthContext.Provider>,
     );
 
@@ -136,7 +138,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={bnbAsset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={bnbAsset} isXvsEnabled assets={assetData} />
       </AuthContext.Provider>,
     );
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
@@ -169,7 +171,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={nonBnbAsset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={nonBnbAsset} isXvsEnabled assets={assetData} />
       </AuthContext.Provider>,
     );
     const tokenTextInput = document.querySelector('input') as HTMLInputElement;
@@ -196,7 +198,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
       </AuthContext.Provider>,
     );
 
@@ -227,7 +229,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} />
+        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
       </AuthContext.Provider>,
     );
     const withdrawButton = getByText(en.supplyWithdraw.withdraw);
