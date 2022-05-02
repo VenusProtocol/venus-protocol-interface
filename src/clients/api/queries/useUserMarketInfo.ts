@@ -31,7 +31,7 @@ const useUserMarketInfo = ({
     { placeholderData: [], enabled: Boolean(accountAddress) },
   );
   const { data: vTokenBalancesAccount = [] } = useGetVTokenBalancesAll(
-    { account: accountAddress, vtAddresses },
+    { account: accountAddress || '', vtAddresses },
     { placeholderData: [], enabled: Boolean(accountAddress) },
   );
   const { data: vTokenBalancesTreasury = [] } = useGetVTokenBalancesAll(
