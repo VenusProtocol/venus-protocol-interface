@@ -106,16 +106,18 @@ const DashboardMarketsUi: React.FC<IDashboardMarketsUiProps> = ({
 
 interface IDashboardUiProps {
   accountAddress: string;
-  userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
+  userTotalBorrowBalance: BigNumber;
+  userTotalSupplyBalance: BigNumber;
   assets: Asset[];
 }
 
 const DashboardUi: React.FC<IDashboardUiProps> = ({
   accountAddress,
   assets,
-  userTotalBorrowBalance,
   userTotalBorrowLimit,
+  userTotalBorrowBalance,
+  userTotalSupplyBalance,
 }) => {
   const styles = useStyles();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
@@ -154,8 +156,9 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
           setIsXvsEnabled={setIsXvsEnabled}
           isXvsEnabled={isXvsEnabled}
           css={styles.item}
-          userTotalBorrowBalance={userTotalBorrowBalance}
           userTotalBorrowLimit={userTotalBorrowLimit}
+          userTotalBorrowBalance={userTotalBorrowBalance}
+          userTotalSupplyBalance={userTotalSupplyBalance}
         />
         <MintRepayVai css={styles.item} />
       </div>
@@ -174,16 +177,18 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 
 const Dashboard: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
-    accountAddress: account?.address || '',
-  });
+  const { assets, userTotalBorrowLimit, userTotalBorrowBalance, userTotalSupplyBalance } =
+    useUserMarketInfo({
+      accountAddress: account?.address || '',
+    });
 
   return (
     <DashboardUi
       accountAddress={account?.address || ''}
       assets={assets}
-      userTotalBorrowBalance={userTotalBorrowBalance}
       userTotalBorrowLimit={userTotalBorrowLimit}
+      userTotalBorrowBalance={userTotalBorrowBalance}
+      userTotalSupplyBalance={userTotalSupplyBalance}
     />
   );
 };
