@@ -35,7 +35,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay asset={fakeAsset} onClose={noop} />);
+    renderComponent(<Repay asset={fakeAsset} onClose={noop} isXvsEnabled />);
   });
 
   it('disables submit button if an incorrect amount is entered in input', async () => {
@@ -51,7 +51,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
           },
         }}
       >
-        <Repay asset={fakeAsset} onClose={noop} />
+        <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />
       </AuthContext.Provider>,
     );
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
@@ -98,7 +98,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
           },
         }}
       >
-        <Repay asset={fakeAsset} onClose={onCloseMock} />
+        <Repay asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />
       </AuthContext.Provider>,
     );
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));

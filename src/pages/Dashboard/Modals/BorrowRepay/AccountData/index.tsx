@@ -22,9 +22,14 @@ import { useStyles } from '../../styles';
 export interface IAccountDataProps {
   asset: Asset;
   hypotheticalBorrowAmountTokens: number;
+  isXvsEnabled: boolean;
 }
 
-const AccountData: React.FC<IAccountDataProps> = ({ asset, hypotheticalBorrowAmountTokens }) => {
+const AccountData: React.FC<IAccountDataProps> = ({
+  asset,
+  hypotheticalBorrowAmountTokens,
+  isXvsEnabled,
+}) => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
@@ -74,7 +79,7 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, hypotheticalBorrowAmo
 
       const yearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: updatedAssets,
-        isXvsEnabled: true,
+        isXvsEnabled,
       });
 
       return yearlyEarningsCents

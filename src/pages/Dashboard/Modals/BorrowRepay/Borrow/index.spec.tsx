@@ -30,7 +30,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Borrow asset={fakeAsset} onClose={noop} />);
+    renderComponent(<Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />);
   });
 
   it('disables submit button if an incorrect amount is entered in input', async () => {
@@ -46,7 +46,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
           },
         }}
       >
-        <Borrow asset={fakeAsset} onClose={noop} />
+        <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />
       </AuthContext.Provider>,
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
@@ -89,7 +89,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
           },
         }}
       >
-        <Borrow asset={fakeAsset} onClose={onCloseMock} />
+        <Borrow asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />
       </AuthContext.Provider>,
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));

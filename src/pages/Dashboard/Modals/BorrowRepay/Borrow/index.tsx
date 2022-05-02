@@ -26,6 +26,7 @@ export interface IBorrowFormProps {
   safeLimitTokens: string;
   borrow: (amountWei: BigNumber) => Promise<string>;
   isBorrowLoading: boolean;
+  isXvsEnabled: boolean;
 }
 
 export const BorrowForm: React.FC<IBorrowFormProps> = ({
@@ -34,6 +35,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   safeBorrowLimitPercentage,
   safeLimitTokens,
   borrow,
+  isXvsEnabled,
   isBorrowLoading,
 }) => {
   const { t } = useTranslation();
@@ -108,7 +110,11 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             )}
           </div>
 
-          <AccountData hypotheticalBorrowAmountTokens={+values.amount} asset={asset} />
+          <AccountData
+            hypotheticalBorrowAmountTokens={+values.amount}
+            asset={asset}
+            isXvsEnabled={isXvsEnabled}
+          />
 
           <PrimaryButton
             type="submit"
@@ -128,10 +134,11 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
 
 export interface IBorrowProps {
   asset: Asset;
+  isXvsEnabled: boolean;
   onClose: () => void;
 }
 
-const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
+const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -210,6 +217,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
         >
           <BorrowForm
             asset={asset}
+            isXvsEnabled={isXvsEnabled}
             limitTokens={limitTokens}
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}

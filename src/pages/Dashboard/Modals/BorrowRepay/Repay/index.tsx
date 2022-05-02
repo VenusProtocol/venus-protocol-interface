@@ -33,9 +33,15 @@ export interface IRepayFormProps {
   asset: Asset;
   repay: (amountWei: BigNumber) => Promise<string>;
   isRepayLoading: boolean;
+  isXvsEnabled: boolean;
 }
 
-export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoading }) => {
+export const RepayForm: React.FC<IRepayFormProps> = ({
+  asset,
+  repay,
+  isRepayLoading,
+  isXvsEnabled,
+}) => {
   const { t, Trans } = useTranslation();
 
   const sharedStyles = useStyles();
@@ -161,7 +167,11 @@ export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoad
             </div>
           </div>
 
-          <AccountData hypotheticalBorrowAmountTokens={-values.amount} asset={asset} />
+          <AccountData
+            hypotheticalBorrowAmountTokens={-values.amount}
+            asset={asset}
+            isXvsEnabled={isXvsEnabled}
+          />
 
           <PrimaryButton
             type="submit"
@@ -181,10 +191,11 @@ export const RepayForm: React.FC<IRepayFormProps> = ({ asset, repay, isRepayLoad
 
 export interface IRepayProps {
   asset: Asset;
+  isXvsEnabled: boolean;
   onClose: () => void;
 }
 
-const Repay: React.FC<IRepayProps> = ({ asset, onClose }) => {
+const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -229,7 +240,12 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose }) => {
           isEnabled={asset.isEnabled}
           vtokenAddress={asset.vtokenAddress}
         >
-          <RepayForm asset={asset} repay={handleRepay} isRepayLoading={isRepayLoading} />
+          <RepayForm
+            asset={asset}
+            repay={handleRepay}
+            isXvsEnabled={isXvsEnabled}
+            isRepayLoading={isRepayLoading}
+          />
         </EnableToken>
       )}
     </ConnectWallet>
