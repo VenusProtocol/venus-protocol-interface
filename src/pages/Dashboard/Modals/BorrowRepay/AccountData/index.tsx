@@ -74,9 +74,8 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, amount }) => {
             : assetData.borrowBalance,
       }));
 
-      const { yearlyEarningsCents } = calculateYearlyEarningsForAssets({
+      const yearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: updatedAssets,
-        borrowBalanceCents: totalBorrowBalanceCents,
         isXvsEnabled: true,
       });
 

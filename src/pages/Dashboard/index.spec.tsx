@@ -15,6 +15,7 @@ describe('pages/Dashboard', () => {
       assets: assetData,
       userTotalBorrowLimit: new BigNumber('111'),
       userTotalBorrowBalance: new BigNumber('91'),
+      userTotalSupplyBalance: new BigNumber('910'),
     }));
   });
 

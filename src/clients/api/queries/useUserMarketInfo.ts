@@ -19,7 +19,12 @@ const useUserMarketInfo = ({
   accountAddress,
 }: {
   accountAddress?: string;
-}): { assets: Asset[]; userTotalBorrowLimit: BigNumber; userTotalBorrowBalance: BigNumber } => {
+}): {
+  assets: Asset[];
+  userTotalBorrowLimit: BigNumber;
+  userTotalBorrowBalance: BigNumber;
+  userTotalSupplyBalance: BigNumber;
+} => {
   const { userVaiMinted } = useVaiUser();
 
   const vtAddresses = Object.values(VBEP_TOKENS)
@@ -138,12 +143,21 @@ const useUserMarketInfo = ({
     [],
   );
 
-  const [totalBorrowBalance, totalBorrowLimit] = assetList.reduce(
-    (acc: [BigNumber, BigNumber], asset: Asset) => {
+  const { totalBorrowBalance, totalBorrowLimit, totalSupplyBalance } = assetList.reduce(
+    (
+      acc: {
+        totalBorrowBalance: BigNumber;
+        totalBorrowLimit: BigNumber;
+        totalSupplyBalance: BigNumber;
+      },
+      asset: Asset,
+    ) => {
       const borrowBalanceUSD = asset.borrowBalance.times(asset.tokenPrice);
-      acc[0] = acc[0].plus(borrowBalanceUSD);
+      const supplyBalanceUSD = asset.supplyBalance.times(asset.tokenPrice);
+      acc.totalBorrowBalance = acc.totalBorrowBalance.plus(borrowBalanceUSD);
+      acc.totalSupplyBalance = acc.totalSupplyBalance.plus(supplyBalanceUSD);
       if (asset.collateral) {
-        acc[1] = acc[1].plus(
+        acc.totalBorrowLimit = acc.totalBorrowLimit.plus(
           calculateCollateralValue({
             amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
             asset,
@@ -152,7 +166,11 @@ const useUserMarketInfo = ({
       }
       return acc;
     },
-    [new BigNumber(0), new BigNumber(0)],
+    {
+      totalBorrowBalance: new BigNumber(0),
+      totalBorrowLimit: new BigNumber(0),
+      totalSupplyBalance: new BigNumber(0),
+    },
   );
   const userTotalBorrowBalance = totalBorrowBalance.plus(userVaiMinted);
 
@@ -172,6 +190,7 @@ const useUserMarketInfo = ({
     assets: assetList,
     userTotalBorrowLimit: totalBorrowLimit,
     userTotalBorrowBalance,
+    userTotalSupplyBalance: totalSupplyBalance,
   };
 };
 
