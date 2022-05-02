@@ -62,6 +62,13 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "dashboard": {
+    "markets": {
+      "tabBorrow": "Borrow",
+      "tabSupply": "Supply",
+      "title": "Markets"
+    }
+  },
   "errors": {
     "internal": "An internal error occurred: {{errorMessage}}. Please try again later.",
     "walletNotConnected": "TRANSLATION NEEDED"
@@ -164,6 +171,14 @@
     "enterValidAmountSupply": "Enter a valid amount to supply",
     "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
     "max": "Max",
+    "successfulSupplyTransactionModal": {
+      "message": "You successfully supplied",
+      "title": "Your supply was successful"
+    },
+    "successfulWithdrawTransactionModal": {
+      "message": "You successfully withdrew",
+      "title": "Your withdrawal was successful"
+    },
     "supply": "Supply",
     "supplyApy": "Supply APY",
     "supplyBalance": "Supply Balance",
@@ -178,13 +193,6 @@
     "withdrawError": {
       "description": "There was an error withdrawing {{symbol}}. Please try again later",
       "title": "Withdrawl Error"
-    }
-  },
-  "dashboard": {
-    "markets": {
-      "title": "Markets",
-      "tabSupply": "Supply",
-      "tabBorrow": "Borrow"
     }
   }
 }

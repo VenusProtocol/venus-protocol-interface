@@ -6,7 +6,7 @@ import { ToastError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
-import { Delimiter } from 'components';
+import { switchAriaLabel, Delimiter, ITableProps } from 'components';
 import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import SupplyMarketTable from './SupplyMarketTable';
@@ -47,6 +47,16 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
       }
     }
   };
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
+    if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
+      const asset = [...suppliedAssets, ...supplyMarketAssets].find(
+        (value: Asset) => value.id === row[0].value,
+      );
+      if (asset) {
+        setSelectedAsset(asset);
+      }
+    }
+  };
   return (
     <Paper className={className} css={styles.tableContainer}>
       {suppliedAssets.length > 0 && (
@@ -54,7 +64,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
           <SuppliedTable
             isXvsEnabled={isXvsEnabled}
             assets={suppliedAssets}
-            setSelectedAsset={setSelectedAsset}
+            rowOnClick={rowOnClick}
             collateralOnChange={collateralOnChange}
           />
           <Delimiter css={styles.delimiter} />
@@ -63,7 +73,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
       <SupplyMarketTable
         isXvsEnabled={isXvsEnabled}
         assets={supplyMarketAssets}
-        setSelectedAsset={setSelectedAsset}
+        rowOnClick={rowOnClick}
         collateralOnChange={collateralOnChange}
       />
       <CollateralConfirmModal
@@ -71,7 +81,12 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
         handleClose={() => setConfirmCollateral(undefined)}
       />
       {selectedAsset && (
-        <SupplyWithdrawModal asset={selectedAsset} onClose={() => setSelectedAsset(undefined)} />
+        <SupplyWithdrawModal
+          asset={selectedAsset}
+          assets={[...suppliedAssets, ...supplyMarketAssets]}
+          isXvsEnabled={isXvsEnabled}
+          onClose={() => setSelectedAsset(undefined)}
+        />
       )}
     </Paper>
   );
