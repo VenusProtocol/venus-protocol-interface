@@ -32,14 +32,14 @@ const CardHeader = ({
   return (
     <div className={`header-container ${expanded ? '' : 'fold'}`}>
       <Row className="header">
-        <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 2 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Stake</div>
           <div className="content">
             <Icon name={stakedToken.toLowerCase() as IconName} />
             <span>{stakedToken}</span>
           </div>
         </Col>
-        <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 2 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Earn</div>
           <div className="content">
             <Icon name={rewardToken.toLowerCase() as IconName} />
@@ -52,17 +52,17 @@ const CardHeader = ({
             {formatCommaThousandsPeriodDecimal(userPendingReward.dp(4, 1).toFixed())} {rewardToken}
           </div>
         </Col>
-        <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">{stakedToken} Staking APR</div>
           <div className="content">{apy}%</div>
         </Col>
-        <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Total {stakedToken} Staked</div>
           <div className="content">
             {formatCommaThousandsPeriodDecimal(totalStakedAmount.dp(4, 1).toFixed())} {stakedToken}
           </div>
         </Col>
-        <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">{rewardToken} Daily Emission</div>
           <div className="content">
             {formatCommaThousandsPeriodDecimal(dailyEmission.toFixed())} {rewardToken}
@@ -70,7 +70,7 @@ const CardHeader = ({
         </Col>
         <Col
           className="col-item expand-icon-wrapper"
-          lg={{ span: 2 }}
+          lg={{ span: 1 }}
           xs={{ span: 24 }}
           onClick={() => {
             setExpanded(!expanded);
