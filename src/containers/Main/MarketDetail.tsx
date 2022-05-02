@@ -20,7 +20,6 @@ const MarketDetailWrapper = styled.div`
 
   .market-detail-content {
     width: 100%;
-    padding: 20px 40px 20px 0;
 
     @media only screen and (max-width: 1440px) {
       flex-direction: column;
