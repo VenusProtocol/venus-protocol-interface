@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { formatApy } from 'utilities/common';
+import { formatToReadablePercentage } from 'utilities/common';
 import { getToken } from 'utilities';
 import { TokenId } from 'types';
 import { Toggle } from 'components';
@@ -52,7 +52,7 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
       render: () => (
         <div css={styles.apy}>
           <Icon name="longArrow" size="12px" />
-          {formatApy(apy)} {asset.toUpperCase()}
+          {formatToReadablePercentage(apy)} {asset.toUpperCase()}
         </div>
       ),
     },

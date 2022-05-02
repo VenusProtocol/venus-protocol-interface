@@ -10,7 +10,7 @@ import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
-import { getBigNumber, formatApy, format } from 'utilities/common';
+import { getBigNumber, formatToReadablePercentage, format } from 'utilities/common';
 import { Asset, Setting, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
 import { useWeb3 } from 'clients/web3';
@@ -235,7 +235,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
               />
               <span>Distribution APY</span>
             </div>
-            <span>{formatApy(asset.xvsBorrowApy)}</span>
+            <span>{formatToReadablePercentage(asset.xvsBorrowApy)}</span>
           </div>
           <div className="description">
             <div className="flex align-center">

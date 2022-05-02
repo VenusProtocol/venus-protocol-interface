@@ -182,20 +182,18 @@ export const formatCentsToReadableValue = ({
   )}`;
 };
 
-export const formatApy = (apy?: BigNumber | string | number): string => {
-  const apyBN = getBigNumber(apy);
-  if (apyBN.absoluteValue().isLessThan(100000000)) {
-    return `${apyBN.dp(2, 1).toString(10)}%`;
-  }
-  return `${apyBN.toExponential(2, 1)}%`;
-};
-
-export const formatToReadablePercentage = (value: number | string | undefined) => {
+export const formatToReadablePercentage = (value: number | string | BigNumber | undefined) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
 
-  return `${value}%`;
+  const valueBn = new BigNumber(value);
+
+  if (valueBn.absoluteValue().isGreaterThanOrEqualTo(100000000)) {
+    return `${valueBn.toExponential(2)}%`;
+  }
+
+  return `${valueBn.dp(2).toFixed()}%`;
 };
 
 /**

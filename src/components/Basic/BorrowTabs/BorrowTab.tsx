@@ -6,7 +6,7 @@ import { PrimaryButton } from 'components';
 import { connectAccount } from 'core';
 import BigNumber from 'bignumber.js';
 import { Asset, Setting, VTokenId } from 'types';
-import { getBigNumber, formatApy, format } from 'utilities/common';
+import { getBigNumber, formatToReadablePercentage, format } from 'utilities/common';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
@@ -190,7 +190,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
               />
               <span>Distribution APY</span>
             </div>
-            <span>{formatApy(asset.xvsBorrowApy)}</span>
+            <span>{formatToReadablePercentage(asset.xvsBorrowApy)}</span>
           </div>
           <div className="description">
             <div className="flex align-center">

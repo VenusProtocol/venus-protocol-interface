@@ -10,7 +10,7 @@ import Toggle from 'components/Basic/Toggle';
 import SupplyModal from 'components/Basic/SupplyModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
-import { formatApy, format } from 'utilities/common';
+import { formatToReadablePercentage, format } from 'utilities/common';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useComptrollerContract } from 'clients/contracts/hooks';
@@ -106,7 +106,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
           children: (
             <div className="apy-content">
               <Icon type="arrow-up" />
-              <div className="apy-green-label">{formatApy(apy)}</div>
+              <div className="apy-green-label">{formatToReadablePercentage(apy)}</div>
             </div>
           ),
         };
@@ -175,7 +175,7 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
           children: (
             <div className="apy-content">
               <Icon type="arrow-up" />
-              <div className="apy-green-label">{formatApy(apy)}</div>
+              <div className="apy-green-label">{formatToReadablePercentage(apy)}</div>
             </div>
           ),
         };
