@@ -15,8 +15,9 @@ interface IMyAccountProps {
   isXvsEnabled: boolean;
   setIsXvsEnabled: (value: boolean) => void;
   assets: Asset[];
-  userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
+  userTotalBorrowBalance: BigNumber;
+  userTotalSupplyBalance: BigNumber;
 }
 
 const MyAccount: React.FC<IMyAccountProps> = ({
@@ -24,35 +25,29 @@ const MyAccount: React.FC<IMyAccountProps> = ({
   assets,
   isXvsEnabled,
   setIsXvsEnabled,
-  userTotalBorrowBalance,
   userTotalBorrowLimit,
+  userTotalBorrowBalance,
+  userTotalSupplyBalance,
 }) => {
   const calculations: Pick<
     IMyAccountUiProps,
-    | 'netApyPercentage'
-    | 'dailyEarningsCents'
-    | 'supplyBalanceCents'
-    | 'borrowBalanceCents'
-    | 'borrowLimitCents'
+    'netApyPercentage' | 'dailyEarningsCents' | 'supplyBalanceCents' | 'borrowLimitCents'
   > = React.useMemo(() => {
-    const borrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
-    const { supplyBalanceCents, yearlyEarningsCents } = calculateYearlyEarningsForAssets({
+    const yearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets,
-      borrowBalanceCents,
       isXvsEnabled,
     });
+    const supplyBalanceCents = userTotalSupplyBalance.multipliedBy(100);
     const netApyPercentage =
       supplyBalanceCents &&
       yearlyEarningsCents &&
       calculateApy({ supplyBalanceCents, yearlyEarningsCents });
     const dailyEarningsCents =
       yearlyEarningsCents && +calculateDailyEarningsCents(yearlyEarningsCents).toFixed(0);
-
     return {
       netApyPercentage,
       dailyEarningsCents,
       supplyBalanceCents: supplyBalanceCents?.toNumber(),
-      borrowBalanceCents: borrowBalanceCents?.toNumber(),
       borrowLimitCents: userTotalBorrowLimit.multipliedBy(100).toNumber(),
     };
   }, [JSON.stringify(assets), isXvsEnabled]);
@@ -63,6 +58,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({
       safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       isXvsEnabled={isXvsEnabled}
       onXvsToggle={setIsXvsEnabled}
+      borrowBalanceCents={+userTotalBorrowBalance.multipliedBy(100).toFixed()}
       {...calculations}
     />
   );

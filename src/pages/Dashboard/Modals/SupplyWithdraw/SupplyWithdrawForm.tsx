@@ -90,9 +90,8 @@ export const SupplyWithdrawContent: React.FC<
   const [dailyEarningsCents, hypotheticalDailyEarningCents] = useMemo(() => {
     let hypotheticalDailyEarningCentsValue;
     const hypotheticalAssets = [...assets];
-    const { yearlyEarningsCents } = calculateYearlyEarningsForAssets({
+    const yearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets,
-      borrowBalanceCents: userTotalBorrowLimitCents,
       isXvsEnabled,
     });
     const dailyEarningsCentsValue =
@@ -106,12 +105,10 @@ export const SupplyWithdrawContent: React.FC<
       };
       const currentIndex = assets.findIndex(a => a.id === asset.id);
       hypotheticalAssets.splice(currentIndex, 1, hypotheticalAsset);
-      const { yearlyEarningsCents: hypotheticalYearlyEarningsCents } =
-        calculateYearlyEarningsForAssets({
-          assets: hypotheticalAssets,
-          borrowBalanceCents: userTotalBorrowLimitCents,
-          isXvsEnabled,
-        });
+      const hypotheticalYearlyEarningsCents = calculateYearlyEarningsForAssets({
+        assets: hypotheticalAssets,
+        isXvsEnabled,
+      });
       hypotheticalDailyEarningCentsValue =
         hypotheticalYearlyEarningsCents &&
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
