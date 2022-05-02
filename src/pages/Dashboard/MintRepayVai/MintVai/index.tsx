@@ -117,7 +117,8 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   return (
     <EnableToken
-      symbol={VAI_ID}
+      symbol={VAI_ID.toUpperCase()}
+      assetId={VAI_ID}
       title={t('mintRepayVai.mintVai.enableToken')}
       tokenInfo={tokenInfo}
       isEnabled={!!userVaiEnabled}

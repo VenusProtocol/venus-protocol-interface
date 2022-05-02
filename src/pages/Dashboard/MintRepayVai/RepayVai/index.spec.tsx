@@ -10,7 +10,6 @@ import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
-import en from 'translation/translations/en.json';
 import RepayVai from '.';
 
 jest.mock('clients/api');
@@ -122,33 +121,5 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       title: expect.any(String),
     });
   });
-
-  it('asks the user to enable token if not enabled', async () => {
-    const disabledFakeVaiAsset = { ...fakeVai, isEnabled: false };
-    (useUserMarketInfo as jest.Mock).mockImplementationOnce(() => ({
-      assets: [disabledFakeVaiAsset],
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
-    }));
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <RepayVai />
-      </AuthContext.Provider>,
-    );
-    const enableToRepayText = en.mintRepayVai.repayVai.enableToken;
-    const enableTextSupply = getByText(enableToRepayText);
-    expect(enableTextSupply).toHaveTextContent(enableToRepayText);
-  });
-
   // @TODO: add tests to cover failing scenarios
 });

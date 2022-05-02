@@ -99,7 +99,8 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   return (
     <EnableToken
-      symbol={VAI_ID}
+      symbol={VAI_ID.toUpperCase()}
+      assetId={VAI_ID}
       title={t('mintRepayVai.repayVai.enableToken')}
       tokenInfo={tokenInfo}
       isEnabled={!!userVaiEnabled}

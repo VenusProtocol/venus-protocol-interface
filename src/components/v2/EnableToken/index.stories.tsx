@@ -31,7 +31,7 @@ export const Enabled = () => (
   <EnableTokenUi
     isEnabled
     title="Enable Token"
-    symbol="eth"
+    symbol="ETH"
     tokenInfo={[]}
     approveToken={noop}
     disabled={false}

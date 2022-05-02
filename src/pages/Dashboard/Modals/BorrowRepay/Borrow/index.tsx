@@ -198,7 +198,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
       {asset && (
         <EnableToken
-          symbol={asset.id}
+          assetId={asset.id}
+          symbol={asset.symbol}
           title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {
