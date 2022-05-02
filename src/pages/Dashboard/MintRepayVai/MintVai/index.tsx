@@ -36,7 +36,6 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const limitTokens = React.useMemo(
