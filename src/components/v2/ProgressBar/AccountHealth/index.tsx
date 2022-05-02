@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Typography from '@mui/material/Typography';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
 import calculatePercentage from 'utilities/calculatePercentage';
 import { useTranslation } from 'translation';
-import { ProgressBar } from '..';
-import { useStyles } from './styles';
+import { LabeledProgressBar } from '../LabeledProgressBar';
 
 export interface IAccountHealthProps {
   borrowBalanceCents: number | undefined;
@@ -26,7 +24,6 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
   hypotheticalBorrowBalanceCents,
   safeBorrowLimitPercentage,
 }) => {
-  const styles = useStyles();
   const { t, Trans } = useTranslation();
 
   const borrowLimitUsedPercentage =
@@ -66,33 +63,19 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
 
   return (
     <div className={className}>
-      <div css={styles.topProgressBarLegend}>
-        <div css={styles.inlineContainer}>
-          <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {variant === 'borrowBalance'
-              ? t('accountHealth.currentBorrowBalance')
-              : t('accountHealth.borrowLimitUsed')}
-          </Typography>
-
-          <Typography component="span" variant="small1" css={styles.inlineValue}>
-            {variant === 'borrowBalance'
-              ? readableBorrowBalance
-              : readableBorrowLimitUsedPercentage}
-          </Typography>
-        </div>
-
-        <div css={styles.inlineContainer}>
-          <Typography component="span" variant="small2" css={styles.inlineLabel}>
-            {variant === 'borrowBalance' ? t('accountHealth.max') : t('accountHealth.limit')}
-          </Typography>
-
-          <Typography component="span" variant="small1" css={styles.inlineValue}>
-            {readableBorrowLimit}
-          </Typography>
-        </div>
-      </div>
-
-      <ProgressBar
+      <LabeledProgressBar
+        greyLeftText={
+          variant === 'borrowBalance'
+            ? t('accountHealth.currentBorrowBalance')
+            : t('accountHealth.borrowLimitUsed')
+        }
+        whiteLeftText={
+          variant === 'borrowBalance' ? readableBorrowBalance : readableBorrowLimitUsedPercentage
+        }
+        greyRightText={
+          variant === 'borrowBalance' ? t('accountHealth.max') : t('accountHealth.limit')
+        }
+        whiteRightText={readableBorrowLimit}
         value={borrowLimitUsedPercentage || 0}
         secondaryValue={hypotheticalBorrowLimitUsedPercentage}
         mark={safeBorrowLimitPercentage}
