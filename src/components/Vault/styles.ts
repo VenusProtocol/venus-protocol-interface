@@ -30,12 +30,15 @@ export const VaultCardWrapper = styled.div`
 
   .col-item {
     margin-bottom: 12px;
-    text-align: center;
+
+    &:not(:last-child) {
+      padding-right: 12px;
+    }
   }
 
-  @media only screen and (min-width: 992px) {
-    .col-item {
-      text-align: left;
+  @media (max-width: 992px) {
+    .col-item:last-child {
+      margin-bottom: 8px;
     }
   }
 
@@ -50,6 +53,7 @@ export const VaultCardWrapper = styled.div`
     color: #fff;
     font-size: 14px;
     line-height: 16px;
+
     img {
       width: 16px;
       height: 16px;
@@ -60,11 +64,17 @@ export const VaultCardWrapper = styled.div`
     text-align: center;
     cursor: pointer;
   }
+
   .expand-icon {
-    width: 14px;
-    height: 8px;
-    margin-top: 15px;
-    margin-left: 8px;
+    width: 12px;
+    height: 12px;
+    margin-top: 12px;
+  }
+
+  @media (max-width: 992px) {
+    .expand-icon {
+      margin-top: 0;
+    }
   }
 `;
 

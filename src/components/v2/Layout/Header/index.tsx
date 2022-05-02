@@ -2,7 +2,6 @@
 import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 
 import { useTranslation } from 'translation';
 import { useIsMdDown } from 'hooks/responsive';
@@ -34,10 +33,10 @@ const Header = () => {
         {title && <h3>{title}</h3>}
 
         {!isOnMobile && (
-          <Box flexDirection="row" display="flex" justifyContent="right">
+          <div css={styles.ctaContainer}>
             <ClaimXvsRewardButton css={styles.claimXvsButton} />
             <ConnectButton />
-          </Box>
+          </div>
         )}
       </Toolbar>
     </AppBar>
