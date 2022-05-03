@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ProgressBar, Table, Token, ITableProps } from 'components';
+import { ProgressBar, Table, Token, ITableProps, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
@@ -61,20 +61,16 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       {
         key: 'balance',
         render: () => (
-          <span css={styles.balance}>
-            <Typography variant="small1">
-              {formatCentsToReadableValue({
-                value: asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
-              })}
-            </Typography>
-            <Typography variant="small2">
-              {formatCoinsToReadableValue({
-                value: asset.borrowBalance,
-                tokenId: asset.id as TokenId,
-                shorthand: true,
-              })}
-            </Typography>
-          </span>
+          <LayeredValues
+            topValue={formatCentsToReadableValue({
+              value: asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+            })}
+            bottomValue={formatCoinsToReadableValue({
+              value: asset.borrowBalance,
+              tokenId: asset.id as TokenId,
+              shorthand: true,
+            })}
+          />
         ),
         value: asset.borrowBalance.toString(),
       },

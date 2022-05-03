@@ -7,6 +7,7 @@ export * from './v2/Dropdown';
 export * from './v2/EnableToken';
 export * from './v2/Icon';
 export * from './v2/LabeledInlineContent';
+export * from './v2/LayeredValues';
 export * from './v2/Layout';
 export * from './v2/Modal';
 export * from './v2/ProgressBar';
