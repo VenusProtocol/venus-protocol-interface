@@ -118,19 +118,3 @@ export const WithCustomColumnsWidth = () => (
     gridTemplateColumns="100px 1fr 1fr 140px"
   />
 );
-
-export const MobileView = () => (
-  <Table columns={columns} data={rows} title="Market Data" rowKeyIndex={0} isMobileView />
-);
-
-export const MobileViewMultipleRows = () => (
-  <Table
-    columns={columns}
-    data={rows}
-    title="Market Data"
-    rowKeyIndex={0}
-    gridTemplateColumns="1fr 150px"
-    gridTemplateRowsMobile="1fr 1fr"
-    isMobileView
-  />
-);

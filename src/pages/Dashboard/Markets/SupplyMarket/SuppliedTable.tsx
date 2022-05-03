@@ -85,7 +85,6 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
       gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
-      isMobileView={isSmDown}
     />
   );
 };
