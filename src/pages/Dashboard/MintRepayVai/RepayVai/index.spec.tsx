@@ -3,42 +3,79 @@ import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { repayVai } from 'clients/api';
+import { repayVai, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
+import { assetData } from '__mocks__/models/asset';
 import RepayVai from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
+const fakeAccountAddress = '0x0';
 const fakeUserVaiMinted = new BigNumber('1000000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
   value: fakeUserVaiMinted,
   tokenId: 'vai',
 });
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
+  beforeEach(() => {
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: [...assetData, fakeVai],
+      userTotalBorrowLimit: new BigNumber('111'),
+      userTotalBorrowBalance: new BigNumber('91'),
+    }));
+  });
+
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(<RepayVai />);
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <RepayVai />
+      </AuthContext.Provider>,
+    );
     await waitFor(() => getByText('Repay VAI balance'));
   });
 
   it('displays the correct repay VAI balance', async () => {
     const { getByText } = renderComponent(
-      <VaiContext.Provider
+      <AuthContext.Provider
         value={{
-          userVaiEnabled: true,
-          userVaiMinted: fakeUserVaiMinted,
-          mintableVai: new BigNumber(0),
-          userVaiBalance: new BigNumber(0),
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
         }}
       >
-        <RepayVai />
-      </VaiContext.Provider>,
+        <VaiContext.Provider
+          value={{
+            userVaiEnabled: true,
+            userVaiMinted: fakeUserVaiMinted,
+            mintableVai: new BigNumber(0),
+            userVaiBalance: new BigNumber(0),
+          }}
+        >
+          <RepayVai />
+        </VaiContext.Provider>
+      </AuthContext.Provider>,
     );
     await waitFor(() => getByText('Repay VAI balance'));
 
@@ -51,7 +88,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     (repayVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const fakeUserVaiBalance = fakeUserVaiMinted;
-    const fakeAccountAddress = '0x0';
 
     const { getByText, getByPlaceholderText } = renderComponent(
       <VaiContext.Provider
@@ -111,6 +147,5 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       title: expect.any(String),
     });
   });
-
   // @TODO: add tests to cover failing scenarios
 });

@@ -111,7 +111,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
       <ConnectWallet message={message}>
         {asset && (
           <EnableToken
-            symbol={assetId as TokenId}
+            assetId={asset.id as TokenId}
             title={title}
             tokenInfo={tokenInfo}
             isEnabled={!!isEnabled}

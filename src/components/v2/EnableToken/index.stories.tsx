@@ -15,7 +15,7 @@ export const Disabled = () => (
   <EnableTokenUi
     isEnabled={false}
     title="To withdraw BNB to the Venus Protocol, you need to enable it first."
-    symbol="eth"
+    assetId="eth"
     tokenInfo={[
       { iconName: 'vai', label: 'Supply APY', children: '77.36' },
       { iconName: 'vai', label: 'Distribution APY', children: '0.82' },
@@ -31,7 +31,7 @@ export const Enabled = () => (
   <EnableTokenUi
     isEnabled
     title="Enable Token"
-    symbol="eth"
+    assetId="eth"
     tokenInfo={[]}
     approveToken={noop}
     disabled={false}

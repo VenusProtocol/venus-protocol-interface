@@ -11,7 +11,7 @@ import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent, ILabeledInlineContentProps } from '../LabeledInlineContent';
 
 export interface IEnableTokenProps {
-  symbol: TokenId;
+  assetId: TokenId;
   isEnabled: boolean;
   title: string | React.ReactElement;
   tokenInfo: ILabeledInlineContentProps[];
@@ -21,7 +21,7 @@ export interface IEnableTokenProps {
 }
 
 export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> = ({
-  symbol,
+  assetId,
   title,
   tokenInfo,
   isEnabled,
@@ -35,7 +35,7 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
   }
   return (
     <div css={styles.container}>
-      <Icon name={symbol as IconName} css={styles.mainLogo} />
+      <Icon name={assetId as IconName} css={styles.mainLogo} />
       <Typography component="h3" variant="h3" css={styles.mainText}>
         {title}
       </Typography>
@@ -52,13 +52,13 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
 
 export const EnableToken: React.FC<
   Omit<IEnableTokenProps, 'approveToken' | 'account' | 'disabled'>
-> = ({ symbol, vtokenAddress, ...rest }) => {
-  const { mutate: approveToken } = useApproveToken({ assetId: symbol });
+> = ({ vtokenAddress, assetId, ...rest }) => {
+  const { mutate: approveToken } = useApproveToken({ assetId });
   const { account } = useContext(AuthContext);
   return (
     <EnableTokenUi
       {...rest}
-      symbol={symbol}
+      assetId={assetId}
       approveToken={() => approveToken({ accountAddress: account?.address, vtokenAddress })}
       disabled={!account}
     />

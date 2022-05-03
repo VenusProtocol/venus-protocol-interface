@@ -62,39 +62,6 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     expect(connectTextWithdraw).toHaveTextContent(en.supplyWithdraw.connectWalletToWithdraw);
   });
 
-  it('asks the user to enable token if not enabled', async () => {
-    const disabledAsset = { ...asset, isEnabled: false };
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <SupplyWithdraw onClose={jest.fn()} asset={disabledAsset} isXvsEnabled assets={assetData} />
-      </AuthContext.Provider>,
-    );
-    const enableToSupplyText = en.supplyWithdraw.enableToSupply.replace(
-      '{{symbol}}',
-      disabledAsset.symbol,
-    );
-    const enableToWithdrawText = en.supplyWithdraw.enableToWithdraw.replace(
-      '{{symbol}}',
-      disabledAsset.symbol,
-    );
-    const enableTextSupply = getByText(enableToSupplyText);
-    expect(enableTextSupply).toHaveTextContent(enableToSupplyText);
-    const withdrawButton = getByText(en.supplyWithdraw.withdraw);
-    fireEvent.click(withdrawButton);
-    const enableTextWithdraw = getByText(enableToWithdrawText);
-    expect(enableTextWithdraw).toHaveTextContent(enableToWithdrawText);
-  });
-
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
       <AuthContext.Provider

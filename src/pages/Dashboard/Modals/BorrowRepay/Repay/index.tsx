@@ -222,7 +222,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
       {asset && (
         <EnableToken
-          symbol={asset.id}
+          assetId={asset.id}
           title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {
