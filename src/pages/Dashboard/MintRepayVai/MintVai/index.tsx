@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
+import React, { useContext, useMemo, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
+import { useField } from 'formik';
 
 import { AuthContext } from 'context/AuthContext';
 import { getToken } from 'utilities';
@@ -10,10 +11,10 @@ import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { InternalError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
+  FormikSubmitButton,
   EnableToken,
   IconName,
   ILabeledInlineContentProps,
-  FormikSubmitButton,
   LabeledInlineContent,
   FormikTokenTextField,
   ConnectWallet,
@@ -52,7 +53,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const vaiToken = getToken(VAI_ID);
-  const limitTokens = React.useMemo(
+  const limitTokens = useMemo(
     () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toString() : '0'),
     [limitWei?.toString()],
   );
@@ -64,6 +65,21 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
+
+  const getReadableMintFee = useCallback(
+    (valueWei: string) => {
+      if (!mintFeePercentage) {
+        return PLACEHOLDER_KEY;
+      }
+
+      const readableFeeVai = getReadableFeeVai({
+        valueWei: new BigNumber(valueWei || 0),
+        mintFeePercentage,
+      });
+      return `${readableFeeVai} (${mintFeePercentage}%)`;
+    },
+    [mintFeePercentage],
+  );
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertCoinsToWei({
@@ -89,21 +105,6 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
       toast.error({ title: (error as Error).message });
     }
   };
-
-  const getReadableMintFee = React.useCallback(
-    (valueWei: string) => {
-      if (!mintFeePercentage) {
-        return PLACEHOLDER_KEY;
-      }
-
-      const readableFeeVai = getReadableFeeVai({
-        valueWei: new BigNumber(valueWei || 0),
-        mintFeePercentage,
-      });
-      return `${readableFeeVai} (${mintFeePercentage}%)`;
-    },
-    [mintFeePercentage],
-  );
 
   const tokenInfo: ILabeledInlineContentProps[] = [
     {
