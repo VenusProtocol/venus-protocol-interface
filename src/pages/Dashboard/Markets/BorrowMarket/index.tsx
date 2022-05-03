@@ -63,7 +63,11 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
       </Paper>
 
       {selectedAsset && (
-        <BorrowRepayModal asset={selectedAsset} onClose={() => setSelectedAsset(undefined)} />
+        <BorrowRepayModal
+          asset={selectedAsset}
+          onClose={() => setSelectedAsset(undefined)}
+          isXvsEnabled={isXvsEnabled}
+        />
       )}
     </>
   );

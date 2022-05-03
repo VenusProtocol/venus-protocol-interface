@@ -11,6 +11,7 @@ import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { formatApy, convertCoinsToWei } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
+import { UiError } from 'utilities/errors';
 import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import { PrimaryButton, TokenTextField, Icon, ConnectWallet, EnableToken } from 'components';
 import { useTranslation } from 'translation';
@@ -25,6 +26,7 @@ export interface IBorrowFormProps {
   safeLimitTokens: string;
   borrow: (amountWei: BigNumber) => Promise<string>;
   isBorrowLoading: boolean;
+  isXvsEnabled: boolean;
 }
 
 export const BorrowForm: React.FC<IBorrowFormProps> = ({
@@ -33,9 +35,11 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   safeBorrowLimitPercentage,
   safeLimitTokens,
   borrow,
+  isXvsEnabled,
   isBorrowLoading,
 }) => {
   const { t } = useTranslation();
+
   const sharedStyles = useStyles();
   const borrowStyles = useBorrowStyles();
   const styles = {
@@ -54,7 +58,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
     });
 
     try {
-      // Send request to borrow asset
+      // Send request to borrow tokens
       const transactionHash = await borrow(amountWei);
 
       // Display successful transaction modal
@@ -68,7 +72,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
         transactionHash,
       });
     } catch (error) {
-      toast.error({ title: (error as Error).message });
+      toast.error(error as UiError);
     }
   };
 
@@ -106,7 +110,11 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             )}
           </div>
 
-          <AccountData amount={values.amount} asset={asset} />
+          <AccountData
+            hypotheticalBorrowAmountTokens={+values.amount}
+            asset={asset}
+            isXvsEnabled={isXvsEnabled}
+          />
 
           <PrimaryButton
             type="submit"
@@ -126,10 +134,11 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
 
 export interface IBorrowProps {
   asset: Asset;
+  isXvsEnabled: boolean;
   onClose: () => void;
 }
 
-const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
+const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -147,7 +156,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
 
   const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
-      throw new Error(t('errors.walletNotConnected'));
+      throw new UiError(t('errors.walletNotConnected'));
     }
 
     const res = await borrow({
@@ -208,6 +217,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose }) => {
         >
           <BorrowForm
             asset={asset}
+            isXvsEnabled={isXvsEnabled}
             limitTokens={limitTokens}
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             safeLimitTokens={safeLimitTokens}

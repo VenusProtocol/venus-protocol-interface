@@ -1,12 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { FormikProps } from 'formik';
 import BigNumber from 'bignumber.js';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
-import { FormValues } from 'containers/AmountForm';
 import { useUserMarketInfo } from 'clients/api';
 import { formatToReadablePercentage } from 'utilities/common';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
@@ -23,10 +21,15 @@ import { useStyles } from '../../styles';
 
 export interface IAccountDataProps {
   asset: Asset;
-  amount: FormikProps<FormValues>['values']['amount'];
+  hypotheticalBorrowAmountTokens: number;
+  isXvsEnabled: boolean;
 }
 
-const AccountData: React.FC<IAccountDataProps> = ({ asset, amount }) => {
+const AccountData: React.FC<IAccountDataProps> = ({
+  asset,
+  hypotheticalBorrowAmountTokens,
+  isXvsEnabled,
+}) => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
@@ -38,15 +41,15 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, amount }) => {
   const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
-  const isAmountPositive = amount && +amount > 0;
-  const hypotheticalTotalBorrowBalanceCents = isAmountPositive
-    ? totalBorrowBalanceCents.plus(
-        asset.tokenPrice
-          .multipliedBy(amount)
-          // Convert dollars to cents
-          .multipliedBy(100),
-      )
-    : undefined;
+  const hypotheticalTotalBorrowBalanceCents =
+    hypotheticalBorrowAmountTokens !== 0
+      ? totalBorrowBalanceCents.plus(
+          asset.tokenPrice
+            .multipliedBy(hypotheticalBorrowAmountTokens)
+            // Convert dollars to cents
+            .multipliedBy(100),
+        )
+      : undefined;
 
   const borrowLimitUsedPercentage = React.useMemo(
     () =>
@@ -76,7 +79,7 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, amount }) => {
 
       const yearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: updatedAssets,
-        isXvsEnabled: true,
+        isXvsEnabled,
       });
 
       return yearlyEarningsCents
@@ -87,9 +90,10 @@ const AccountData: React.FC<IAccountDataProps> = ({ asset, amount }) => {
   );
 
   const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
-  const hypotheticalDailyEarningsCents = isAmountPositive
-    ? calculateDailyEarningsCents(new BigNumber(amount))
-    : undefined;
+  const hypotheticalDailyEarningsCents =
+    hypotheticalBorrowAmountTokens !== 0
+      ? calculateDailyEarningsCents(new BigNumber(hypotheticalBorrowAmountTokens))
+      : undefined;
 
   const readableBorrowApy = React.useMemo(
     () => formatToReadablePercentage(asset.borrowApy.toFixed(2)),

@@ -22,7 +22,9 @@ describe('pages/Dashboard/BorrowRepayModal', () => {
   });
 
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(<BorrowRepay onClose={jest.fn()} asset={asset} />);
+    const { getByText } = renderComponent(
+      <BorrowRepay onClose={jest.fn()} asset={asset} isXvsEnabled />,
+    );
     await waitFor(() => expect(getByText(en.borrowRepayModal.borrowTabTitle)));
   });
 });

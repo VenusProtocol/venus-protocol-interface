@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
-import { internalError } from 'utilities/getError';
+import { InternalError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
@@ -147,7 +147,7 @@ const RepayVai: React.FC = () => {
       const errorMessage = t('mintRepayVai.repayVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw internalError(errorMessage);
+      throw new InternalError(errorMessage);
     }
 
     return contractRepayVai({
