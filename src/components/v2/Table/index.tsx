@@ -106,6 +106,7 @@ export const Table = ({
     <Paper css={[styles.root, isMobileView && styles.rootMobile]} className={className}>
       {title && <h4 css={[styles.title, isMobileView && styles.titleMobile]}>{title}</h4>}
 
+      {/* TODO: refactor to use CSS instead */}
       {isMobileView ? (
         <>
           {rows.map(row => {
