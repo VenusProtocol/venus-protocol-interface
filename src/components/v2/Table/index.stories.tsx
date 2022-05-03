@@ -47,7 +47,7 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
       ),
     },
     {
-      key: 'APY',
+      key: 'apy',
       value: apy,
       render: () => (
         <div css={styles.apy}>
@@ -56,7 +56,7 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
         </div>
       ),
     },
-    { key: 'Wallet', value: wallet, render: () => `${wallet} ${asset}` },
+    { key: 'wallet', value: wallet, render: () => `${wallet} ${asset}` },
     {
       key: 'Collateral',
       value: collateral,
@@ -75,8 +75,8 @@ const rows = [
 
 const columns = [
   { key: 'asset', label: 'Asset', orderable: false },
-  { key: 'APY', label: 'APY', orderable: true },
-  { key: 'Wallet', label: 'Wallet', orderable: true },
+  { key: 'apy', label: 'APY', orderable: true },
+  { key: 'wallet', label: 'Wallet', orderable: true },
   { key: 'Collateral', label: 'Collateral', orderable: true },
 ];
 
