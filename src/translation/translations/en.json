@@ -79,6 +79,37 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "convertVrt": {
+    "balance": "Balance: <White>{{amount}} VRT</White>",
+    "connectWalletToConvertVrtToXvs": "To convert VRT to XVS you should connect your wallet first",
+    "convert": "Convert",
+    "convertVrt": "Convert VRT",
+    "convertVrttoXvs": "Convert VRT to XVS",
+    "dailyLimit": "Daily limit",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} day",
+    "hours_one": "{{count}} hour",
+    "hours_other": "{{count}} hours",
+    "max": "Max",
+    "minutes_one": "{{count}} minute",
+    "minutes_other": "{{count}} minutes",
+    "progressBar": "daily limit progress bar",
+    "remainingTimeDays_one": "<Icon/> Remaining time:\u00a0<White>{{count}} day</White>",
+    "remainingTimeDays_other": "<Icon/> Remaining time:\u00a0<White>{{count}} days</White>",
+    "remainingTimeHours_one": "<Icon/> Remaining time:\u00a0<White>{{count}} hour</White>",
+    "remainingTimeHours_other": "<Icon/> Remaining time:\u00a0<White>{{count}} hours</White>",
+    "remainingTimeHoursAndMinutes": "<Icon/> Remaining time:\u00a0<White>$t(convertVrt.hours, {\"count\": {{hours}} }) and $t(convertVrt.minutes, {\"count\": {{minutes}} })</White>",
+    "remainingTimeMinutes": "<Icon/> Remaining time:\u00a0<White>{{count}} minute</White>",
+    "remainingTimeMinutes_other": "<Icon/> Remaining time:\u00a0<White>{{count}} minutes</White>",
+    "remainingTimeMissing": "<Icon/> Remaining time:\u00a0<White>{{count}}</White>",
+    "usedOverTotalVrt": "{{used}}/{{total}} VRT",
+    "vrtEqualsXvs": "1 VRT = {{xvsToVrtRate}} XVS",
+    "withdraw": "Withdraw",
+    "withdrawableAmount": "Withdrawable amount",
+    "withdrawXvs": "Withdraw XVS",
+    "xvsAVailable": "Current XVS Available",
+    "youWillReceive": "You will recieve"
+  },
   "dashboard": {
     "markets": {
       "tabBorrow": "Borrow",
@@ -95,6 +126,7 @@
   "layout": {
     "menuItems": {
       "convertVrt": "Convert VRT",
+      "convertVrtTitle": "Convert VRT to XVS",
       "dashboard": "Dashboard",
       "faucet": "Faucet",
       "history": "History",

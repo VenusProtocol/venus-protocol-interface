@@ -16,6 +16,7 @@ export * from './v2/Notice';
 export * from './v2/ProgressBar';
 export * from './v2/ProgressBar/AccountHealth';
 export * from './v2/ProgressBar/PercentageRepresentation';
+export * from './v2/ProgressBar/LabeledProgressBar';
 export * from './v2/SuccessfulTransactionModal';
 export * from './v2/Table';
 export * from './v2/Tabs';

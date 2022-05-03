@@ -19,7 +19,8 @@ const Header = () => {
   const isOnMobile = useIsMdDown();
 
   const title = useMemo(() => {
-    const currentItemKey = menuItems.find(item => item.href === pathname)?.i18nKey;
+    const currentItem = menuItems.find(item => item.href === pathname);
+    const currentItemKey = currentItem?.i18nTitleKey || currentItem?.i18nKey;
     if (!currentItemKey) {
       console.error(`missed key for translation: ${pathname}`);
       return null;
