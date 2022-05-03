@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ProgressBar, Table, ITableProps, Token } from 'components';
+import { ProgressBar, Table, Token, ITableProps } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
@@ -10,7 +10,9 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
-import { useStyles } from '../styles';
+import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
+import { useStyles as useSharedStyles } from '../styles';
+import { useStyles as useLocalStyles } from './styles';
 
 export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -25,7 +27,12 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
+  const isSmDown = useIsSmDown();
+  const isLgDown = useIsLgDown();
+  const sharedStyles = useSharedStyles();
+  const localStyles = useLocalStyles();
+  const styles = { ...sharedStyles, ...localStyles };
+
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
@@ -35,6 +42,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
     ],
     [],
   );
+
   // Format assets to rows
   const rows: ITableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
@@ -93,7 +101,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
 
   return (
     <Table
-      title={t('markets.borrowingTableTitle')}
+      title={isLgDown && !isSmDown ? undefined : t('markets.borrowingTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -102,7 +110,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns="120px 1fr 1fr 1fr"
+      gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
     />
   );
 };
