@@ -6,6 +6,7 @@ import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
 import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
+import { useStyles } from './styles';
 
 export interface ISuppliedTableUiProps {
   assets: Asset[];
@@ -23,6 +24,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
   const { t } = useTranslation();
   const isSmDown = useIsSmDown();
   const isLgDown = useIsLgDown();
+  const styles = useStyles();
 
   const columns = useMemo(
     () => [
@@ -82,7 +84,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns={isSmDown ? '1fr 1fr 120px' : '120px 1fr 1fr 1fr'}
+      gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
       isMobileView={isSmDown}
     />
   );

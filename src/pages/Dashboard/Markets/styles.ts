@@ -51,7 +51,6 @@ export const useStyles = () => {
     tabsTitle: css`
       text-align: center;
     `,
-
     tableContainer: css`
       width: 100%;
       padding: 0;

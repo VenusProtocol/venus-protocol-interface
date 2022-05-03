@@ -8,6 +8,7 @@ import {
   formatToReadablePercentage,
 } from 'utilities/common';
 import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
+import { useStyles } from './styles';
 
 export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -24,6 +25,8 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   const { t } = useTranslation();
   const isSmDown = useIsSmDown();
   const isLgDown = useIsLgDown();
+  const styles = useStyles();
+
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
@@ -85,7 +88,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns={isSmDown ? '1fr 1fr 1fr' : '120px 1fr 1fr 1fr'}
+      gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
       isMobileView={isSmDown}
     />
   );

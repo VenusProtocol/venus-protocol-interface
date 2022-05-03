@@ -11,7 +11,8 @@ import {
   formatToReadablePercentage,
 } from 'utilities/common';
 import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
-import { useStyles } from '../styles';
+import { useStyles as useSharedStyles } from '../styles';
+import { useStyles as useLocalStyles } from './styles';
 
 export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -28,7 +29,10 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   const { t } = useTranslation();
   const isSmDown = useIsSmDown();
   const isLgDown = useIsLgDown();
-  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
+  const localStyles = useLocalStyles();
+  const styles = { ...sharedStyles, ...localStyles };
+
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
@@ -106,7 +110,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns={isSmDown ? '1fr 1fr 1fr' : '120px 1fr 1fr 1fr'}
+      gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
       isMobileView={isSmDown}
     />
   );
