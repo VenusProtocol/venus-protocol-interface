@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Paper } from '@mui/material';
 import { Asset } from 'types';
-import { ToastError } from 'utilities/errors';
+import { UiError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
@@ -39,7 +39,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
     try {
       toggleAssetCollateral(asset);
     } catch (e) {
-      if (e instanceof ToastError) {
+      if (e instanceof UiError) {
         toast.error({
           title: e.title,
           description: e.description,
@@ -118,12 +118,12 @@ const SupplyMarket: React.FC<
 
   const toggleAssetCollateral = (asset: Asset) => {
     if (!accountAddress) {
-      throw new ToastError(
+      throw new UiError(
         t('markets.errors.accountError.title'),
         t('markets.errors.accountError.description'),
       );
     } else if (!asset || !asset.borrowBalance.isZero()) {
-      throw new ToastError(
+      throw new UiError(
         t('markets.errors.collateralRequired.title'),
         t('markets.errors.collateralRequired.description'),
       );
@@ -132,7 +132,7 @@ const SupplyMarket: React.FC<
         setConfirmCollateral(asset);
         enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress });
       } catch (error) {
-        throw new ToastError(
+        throw new UiError(
           t('markets.errors.collateralEnableError.title'),
           t('markets.errors.collateralEnableError.description', { assetName: asset.symbol }),
         );
@@ -142,13 +142,13 @@ const SupplyMarket: React.FC<
         setConfirmCollateral(asset);
         exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress });
       } catch (error) {
-        throw new ToastError(
+        throw new UiError(
           t('markets.errors.collateralDisableError.title'),
           t('markets.errors.collateralDisableError.description', { assetName: asset.symbol }),
         );
       }
     } else {
-      throw new ToastError(
+      throw new UiError(
         t('markets.errors.collateralRequired.title'),
         t('markets.errors.collateralRequired.description'),
       );
