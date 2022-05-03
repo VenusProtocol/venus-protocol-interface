@@ -7,7 +7,7 @@ import { Label } from 'components/Basic/Label';
 import BorrowModal from 'components/Basic/BorrowModal';
 import MarketTable from 'components/Basic/Table';
 import PendingTransaction from 'components/Basic/PendingTransaction';
-import { getBigNumber, formatApy, format } from 'utilities/common';
+import { getBigNumber, formatToReadablePercentage, format } from 'utilities/common';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
 
@@ -77,7 +77,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
                   !settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'
                 }
               >
-                {formatApy(apy)}
+                {formatToReadablePercentage(apy)}
               </div>
             </div>
           ),
@@ -158,7 +158,7 @@ function BorrowMarket({ borrowedAssets, remainAssets, settings }: Props & StateP
                   !settings.withXVS || apy.isNegative() ? 'apy-red-label' : 'apy-green-label'
                 }
               >
-                {formatApy(apy)}
+                {formatToReadablePercentage(apy)}
               </div>
             </div>
           ),

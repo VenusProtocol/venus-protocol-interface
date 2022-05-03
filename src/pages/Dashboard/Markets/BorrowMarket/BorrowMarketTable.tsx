@@ -5,7 +5,7 @@ import { Asset, TokenId } from 'types';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
-  formatApy,
+  formatToReadablePercentage,
 } from 'utilities/common';
 
 export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
@@ -40,7 +40,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       },
       {
         key: 'apy',
-        render: () => formatApy(borrowApy),
+        render: () => formatToReadablePercentage(borrowApy),
         value: borrowApy.toNumber(),
       },
       {

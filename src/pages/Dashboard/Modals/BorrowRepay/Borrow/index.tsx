@@ -8,7 +8,7 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import { formatApy, convertCoinsToWei } from 'utilities/common';
+import { formatToReadablePercentage, convertCoinsToWei } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import { UiError } from 'utilities/errors';
@@ -204,12 +204,12 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
             {
               label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
               iconName: asset.id,
-              children: formatApy(asset.borrowApy),
+              children: formatToReadablePercentage(asset.borrowApy),
             },
             {
               label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
               iconName: 'xvs',
-              children: formatApy(asset.xvsBorrowApy),
+              children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}
           isEnabled={asset.isEnabled}

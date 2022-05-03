@@ -7,7 +7,6 @@ import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import {
-  formatApy,
   convertCoinsToWei,
   formatCoinsToReadableValue,
   formatToReadablePercentage,
@@ -229,12 +228,12 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
             {
               label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
               iconName: asset.id,
-              children: formatApy(asset.borrowApy),
+              children: formatToReadablePercentage(asset.borrowApy),
             },
             {
               label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
               iconName: 'xvs',
-              children: formatApy(asset.xvsBorrowApy),
+              children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}
           isEnabled={asset.isEnabled}

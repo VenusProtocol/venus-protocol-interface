@@ -12,7 +12,7 @@ import { VBEP_TOKENS } from 'constants/tokens';
 import {
   addToken,
   getBigNumber,
-  formatApy,
+  formatToReadablePercentage,
   format,
   formatCommaThousandsPeriodDecimal,
 } from 'utilities/common';
@@ -314,7 +314,7 @@ function Overview({ settings, getMarketHistory }: OverviewProps) {
                 : 'apy-value-red'
             }
           >
-            {formatApy(currentAPY)}
+            {formatToReadablePercentage(currentAPY)}
           </p>
           <p className="apy-label">
             {(settings.marketType || 'supply') === 'supply' ? 'Supply APY' : 'Borrow APY'}
