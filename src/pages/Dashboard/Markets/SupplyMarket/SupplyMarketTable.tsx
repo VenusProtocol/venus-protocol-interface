@@ -5,13 +5,14 @@ import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilitie
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
-import { useIsSmDown } from 'hooks/responsive';
+import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 
 export interface ISupplyMarketTableUiProps {
   assets: Asset[];
   isXvsEnabled: boolean;
   rowOnClick: (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => void;
   collateralOnChange: (asset: Asset) => void;
+  hasSuppliedAssets: boolean;
 }
 
 export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
@@ -19,9 +20,11 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
   isXvsEnabled,
   collateralOnChange,
   rowOnClick,
+  hasSuppliedAssets,
 }) => {
   const { t } = useTranslation();
   const isSmDown = useIsSmDown();
+  const isLgDown = useIsLgDown();
 
   const columns = useMemo(
     () => [
@@ -73,7 +76,11 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
 
   return (
     <Table
-      title={t('markets.supplyMarketTableTitle')}
+      title={
+        !hasSuppliedAssets && !isSmDown && isLgDown
+          ? undefined
+          : t('markets.supplyMarketTableTitle')
+      }
       columns={columns}
       data={rows}
       initialOrder={{

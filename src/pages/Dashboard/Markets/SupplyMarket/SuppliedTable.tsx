@@ -5,7 +5,7 @@ import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilitie
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
-import { useIsSmDown } from 'hooks/responsive';
+import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 
 export interface ISuppliedTableUiProps {
   assets: Asset[];
@@ -22,6 +22,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const isSmDown = useIsSmDown();
+  const isLgDown = useIsLgDown();
 
   const columns = useMemo(
     () => [
@@ -69,9 +70,10 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
         ),
     },
   ]);
+
   return (
     <Table
-      title={t('markets.suppliedTableTitle')}
+      title={isLgDown && !isSmDown ? undefined : t('markets.suppliedTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{

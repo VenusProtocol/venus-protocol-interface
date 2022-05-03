@@ -12,6 +12,7 @@ export const useStyles = () => {
     `,
     tabletViewContainer: css`
       display: none;
+      padding: 0;
 
       ${theme.breakpoints.down('lg')} {
         display: block;

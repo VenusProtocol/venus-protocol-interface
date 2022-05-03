@@ -58,6 +58,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
         <BorrowMarketTable
           assets={borrowMarketAssets}
           isXvsEnabled={isXvsEnabled}
+          hasBorrowingAssets={borrowingAssets.length > 0}
           rowOnClick={rowOnClick}
         />
       </Paper>

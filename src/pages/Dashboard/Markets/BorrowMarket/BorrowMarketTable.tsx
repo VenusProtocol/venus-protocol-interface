@@ -7,20 +7,23 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
-import { useIsSmDown } from 'hooks/responsive';
+import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 
 export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
+  hasBorrowingAssets: boolean;
 }
 
 const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   assets,
   isXvsEnabled,
   rowOnClick,
+  hasBorrowingAssets,
 }) => {
   const { t } = useTranslation();
   const isSmDown = useIsSmDown();
+  const isLgDown = useIsLgDown();
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
@@ -69,7 +72,11 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
 
   return (
     <Table
-      title={t('markets.borrowMarketTableTitle')}
+      title={
+        !hasBorrowingAssets && !isSmDown && isLgDown
+          ? undefined
+          : t('markets.borrowMarketTableTitle')
+      }
       columns={columns}
       data={rows}
       initialOrder={{

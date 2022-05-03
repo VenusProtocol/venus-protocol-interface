@@ -71,6 +71,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
         </>
       )}
       <SupplyMarketTable
+        hasSuppliedAssets={suppliedAssets.length > 0}
         isXvsEnabled={isXvsEnabled}
         assets={supplyMarketAssets}
         rowOnClick={rowOnClick}

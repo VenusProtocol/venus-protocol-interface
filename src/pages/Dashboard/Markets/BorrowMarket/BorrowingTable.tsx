@@ -10,7 +10,7 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
-import { useIsSmDown } from 'hooks/responsive';
+import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 import { useStyles } from '../styles';
 
 export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
@@ -27,6 +27,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const isSmDown = useIsSmDown();
+  const isLgDown = useIsLgDown();
   const styles = useStyles();
   const columns = useMemo(
     () => [
@@ -96,7 +97,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
 
   return (
     <Table
-      title={t('markets.borrowingTableTitle')}
+      title={isLgDown && !isSmDown ? undefined : t('markets.borrowingTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
