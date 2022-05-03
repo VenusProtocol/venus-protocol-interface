@@ -112,7 +112,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         {asset && (
           <EnableToken
             assetId={asset.id as TokenId}
-            symbol={asset.symbol}
             title={title}
             tokenInfo={tokenInfo}
             isEnabled={!!isEnabled}

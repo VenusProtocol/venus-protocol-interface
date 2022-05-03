@@ -34,22 +34,48 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(<RepayVai />);
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <RepayVai />
+      </AuthContext.Provider>,
+    );
     await waitFor(() => getByText('Repay VAI balance'));
   });
 
   it('displays the correct repay VAI balance', async () => {
     const { getByText } = renderComponent(
-      <VaiContext.Provider
+      <AuthContext.Provider
         value={{
-          userVaiEnabled: true,
-          userVaiMinted: fakeUserVaiMinted,
-          mintableVai: new BigNumber(0),
-          userVaiBalance: new BigNumber(0),
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
         }}
       >
-        <RepayVai />
-      </VaiContext.Provider>,
+        <VaiContext.Provider
+          value={{
+            userVaiEnabled: true,
+            userVaiMinted: fakeUserVaiMinted,
+            mintableVai: new BigNumber(0),
+            userVaiBalance: new BigNumber(0),
+          }}
+        >
+          <RepayVai />
+        </VaiContext.Provider>
+      </AuthContext.Provider>,
     );
     await waitFor(() => getByText('Repay VAI balance'));
 

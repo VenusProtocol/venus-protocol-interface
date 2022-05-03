@@ -223,7 +223,6 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       {asset && (
         <EnableToken
           assetId={asset.id}
-          symbol={asset.symbol}
           title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {

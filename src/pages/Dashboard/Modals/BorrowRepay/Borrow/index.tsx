@@ -199,7 +199,6 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       {asset && (
         <EnableToken
           assetId={asset.id}
-          symbol={asset.symbol}
           title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {

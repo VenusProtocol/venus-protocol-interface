@@ -11,6 +11,7 @@ import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
+  ConnectWallet,
   EnableToken,
   IconName,
   ILabeledInlineContentProps,
@@ -98,54 +99,55 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   ];
 
   return (
-    <EnableToken
-      symbol={VAI_ID.toUpperCase()}
-      assetId={VAI_ID}
-      title={t('mintRepayVai.repayVai.enableToken')}
-      tokenInfo={tokenInfo}
-      isEnabled={!!userVaiEnabled}
-      vtokenAddress={vaiToken.address}
-    >
-      <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-        {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
-          <>
-            <div css={styles.ctaContainer}>
-              <TokenTextField
-                name="amount"
-                css={styles.textField}
-                tokenId={VAI_ID}
-                value={values.amount}
-                onChange={amount => setFieldValue('amount', amount, true)}
-                onBlur={handleBlur}
-                max={limitTokens}
-                disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
-                rightMaxButton={{
-                  label: t('mintRepayVai.repayVai.rightMaxButtonLabel'),
-                  valueOnClick: limitTokens,
-                }}
-              />
+    <ConnectWallet message={t('mintRepayVai.repayVai.connectWallet')}>
+      <EnableToken
+        assetId={VAI_ID}
+        title={t('mintRepayVai.repayVai.enableToken')}
+        tokenInfo={tokenInfo}
+        isEnabled={!!userVaiEnabled}
+        vtokenAddress={vaiToken.address}
+      >
+        <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
+          {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
+            <>
+              <div css={styles.ctaContainer}>
+                <TokenTextField
+                  name="amount"
+                  css={styles.textField}
+                  tokenId={VAI_ID}
+                  value={values.amount}
+                  onChange={amount => setFieldValue('amount', amount, true)}
+                  onBlur={handleBlur}
+                  max={limitTokens}
+                  disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
+                  rightMaxButton={{
+                    label: t('mintRepayVai.repayVai.rightMaxButtonLabel'),
+                    valueOnClick: limitTokens,
+                  }}
+                />
 
-              <LabeledInlineContent
-                css={styles.getRow({ isLast: true })}
-                iconName={VAI_ID}
-                label={t('mintRepayVai.repayVai.repayVaiBalance')}
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: true })}
+                  iconName={VAI_ID}
+                  label={t('mintRepayVai.repayVai.repayVaiBalance')}
+                >
+                  {readableRepayableVai}
+                </LabeledInlineContent>
+              </div>
+
+              <SecondaryButton
+                type="submit"
+                loading={isRepayVaiLoading}
+                disabled={disabled || !isValid || !dirty}
+                fullWidth
               >
-                {readableRepayableVai}
-              </LabeledInlineContent>
-            </div>
-
-            <SecondaryButton
-              type="submit"
-              loading={isRepayVaiLoading}
-              disabled={disabled || !isValid || !dirty}
-              fullWidth
-            >
-              {t('mintRepayVai.repayVai.btnRepayVai')}
-            </SecondaryButton>
-          </>
-        )}
-      </AmountForm>
-    </EnableToken>
+                {t('mintRepayVai.repayVai.btnRepayVai')}
+              </SecondaryButton>
+            </>
+          )}
+        </AmountForm>
+      </EnableToken>
+    </ConnectWallet>
   );
 };
 

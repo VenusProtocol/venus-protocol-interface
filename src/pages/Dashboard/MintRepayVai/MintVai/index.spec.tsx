@@ -35,7 +35,21 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   });
 
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(<RepayVai />);
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <RepayVai />
+      </AuthContext.Provider>,
+    );
     await waitFor(() => getByText('Available VAI limit'));
   });
 
@@ -45,16 +59,28 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     );
 
     const { getByText } = renderComponent(
-      <VaiContext.Provider
+      <AuthContext.Provider
         value={{
-          userVaiEnabled: true,
-          userVaiMinted: new BigNumber(0),
-          mintableVai: fakeMintableVai,
-          userVaiBalance: new BigNumber(0),
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
         }}
       >
-        <RepayVai />
-      </VaiContext.Provider>,
+        <VaiContext.Provider
+          value={{
+            userVaiEnabled: true,
+            userVaiMinted: new BigNumber(0),
+            mintableVai: fakeMintableVai,
+            userVaiBalance: new BigNumber(0),
+          }}
+        >
+          <RepayVai />
+        </VaiContext.Provider>
+      </AuthContext.Provider>,
     );
     await waitFor(() => getByText('Available VAI limit'));
 
@@ -67,8 +93,6 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   it('lets user mint VAI', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     (mintVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
-
-    const fakeAccountAddress = '0x0';
 
     const { getByText, getByPlaceholderText } = renderComponent(
       <VaiContext.Provider

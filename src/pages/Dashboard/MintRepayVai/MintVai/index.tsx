@@ -17,6 +17,7 @@ import {
   SecondaryButton,
   LabeledInlineContent,
   TokenTextField,
+  ConnectWallet,
 } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
@@ -116,62 +117,63 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   ];
 
   return (
-    <EnableToken
-      symbol={VAI_ID.toUpperCase()}
-      assetId={VAI_ID}
-      title={t('mintRepayVai.mintVai.enableToken')}
-      tokenInfo={tokenInfo}
-      isEnabled={!!userVaiEnabled}
-      vtokenAddress={vaiToken.address}
-    >
-      <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-        {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
-          <>
-            <div css={styles.ctaContainer}>
-              <TokenTextField
-                name="amount"
-                css={styles.textField}
-                tokenId={VAI_ID}
-                value={values.amount}
-                onChange={amount => setFieldValue('amount', amount, true)}
-                onBlur={handleBlur}
-                max={limitTokens}
-                disabled={disabled || isMintVaiLoading || !hasMintableVai}
-                rightMaxButton={{
-                  label: t('mintRepayVai.mintVai.rightMaxButtonLabel'),
-                  valueOnClick: limitTokens,
-                }}
-              />
+    <ConnectWallet message={t('mintRepayVai.mintVai.connectWallet')}>
+      <EnableToken
+        assetId={VAI_ID}
+        title={t('mintRepayVai.mintVai.enableToken')}
+        tokenInfo={tokenInfo}
+        isEnabled={!!userVaiEnabled}
+        vtokenAddress={vaiToken.address}
+      >
+        <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
+          {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
+            <>
+              <div css={styles.ctaContainer}>
+                <TokenTextField
+                  name="amount"
+                  css={styles.textField}
+                  tokenId={VAI_ID}
+                  value={values.amount}
+                  onChange={amount => setFieldValue('amount', amount, true)}
+                  onBlur={handleBlur}
+                  max={limitTokens}
+                  disabled={disabled || isMintVaiLoading || !hasMintableVai}
+                  rightMaxButton={{
+                    label: t('mintRepayVai.mintVai.rightMaxButtonLabel'),
+                    valueOnClick: limitTokens,
+                  }}
+                />
 
-              <LabeledInlineContent
-                css={styles.getRow({ isLast: false })}
-                iconName={VAI_ID}
-                label={t('mintRepayVai.mintVai.vaiLimitLabel')}
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: false })}
+                  iconName={VAI_ID}
+                  label={t('mintRepayVai.mintVai.vaiLimitLabel')}
+                >
+                  {readableVaiLimit}
+                </LabeledInlineContent>
+
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: true })}
+                  iconName="fee"
+                  label={t('mintRepayVai.mintVai.mintFeeLabel')}
+                >
+                  {getReadableMintFee(values.amount)}
+                </LabeledInlineContent>
+              </div>
+
+              <SecondaryButton
+                type="submit"
+                loading={isMintVaiLoading}
+                disabled={disabled || !isValid || !dirty}
+                fullWidth
               >
-                {readableVaiLimit}
-              </LabeledInlineContent>
-
-              <LabeledInlineContent
-                css={styles.getRow({ isLast: true })}
-                iconName="fee"
-                label={t('mintRepayVai.mintVai.mintFeeLabel')}
-              >
-                {getReadableMintFee(values.amount)}
-              </LabeledInlineContent>
-            </div>
-
-            <SecondaryButton
-              type="submit"
-              loading={isMintVaiLoading}
-              disabled={disabled || !isValid || !dirty}
-              fullWidth
-            >
-              {t('mintRepayVai.mintVai.btnMintVai')}
-            </SecondaryButton>
-          </>
-        )}
-      </AmountForm>
-    </EnableToken>
+                {t('mintRepayVai.mintVai.btnMintVai')}
+              </SecondaryButton>
+            </>
+          )}
+        </AmountForm>
+      </EnableToken>
+    </ConnectWallet>
   );
 };
 

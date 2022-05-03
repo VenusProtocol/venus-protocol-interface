@@ -11,7 +11,6 @@ import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent, ILabeledInlineContentProps } from '../LabeledInlineContent';
 
 export interface IEnableTokenProps {
-  symbol: string;
   assetId: TokenId;
   isEnabled: boolean;
   title: string | React.ReactElement;
@@ -21,8 +20,8 @@ export interface IEnableTokenProps {
   disabled?: boolean;
 }
 
-export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress' | 'assetId'>> = ({
-  symbol,
+export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> = ({
+  assetId,
   title,
   tokenInfo,
   isEnabled,
@@ -36,7 +35,7 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress' | '
   }
   return (
     <div css={styles.container}>
-      <Icon name={symbol as IconName} css={styles.mainLogo} />
+      <Icon name={assetId as IconName} css={styles.mainLogo} />
       <Typography component="h3" variant="h3" css={styles.mainText}>
         {title}
       </Typography>
@@ -59,6 +58,7 @@ export const EnableToken: React.FC<
   return (
     <EnableTokenUi
       {...rest}
+      assetId={assetId}
       approveToken={() => approveToken({ accountAddress: account?.address, vtokenAddress })}
       disabled={!account}
     />

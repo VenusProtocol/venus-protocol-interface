@@ -87,7 +87,6 @@
     }
   },
   "errors": {
-    "internal": "An internal error occurred: {{errorMessage}}. Please try again later.",
     "walletNotConnected": "Wallet not connected"
   },
   "footer": {
@@ -148,6 +147,7 @@
   "mintRepayVai": {
     "mintVai": {
       "btnMintVai": "Mint VAI",
+      "connectWallet": "Please connect your wallet to mint",
       "enableToken": "To mint VAI to the Venus Protocol, you need to approve it first",
       "mintFeeLabel": "Mint fee",
       "rightMaxButtonLabel": "SAFE MAX",
@@ -160,10 +160,10 @@
     },
     "repayVai": {
       "btnRepayVai": "Repay VAI",
+      "connectWallet": "Please connect your wallet to repay",
       "enableToken": "To repay VAI to the Venus Protocol, you need to approve it first",
       "repayVaiBalance": "Repay VAI balance",
       "rightMaxButtonLabel": "MAX",
-      "successMessage": "You successfully repaid {{tokens}}",
       "undefinedAccountErrorMessage": "account undefined"
     },
     "tabMint": "Mint VAI",
@@ -207,10 +207,6 @@
     "supplyBalanceValue": "{{amount}} {{symbol}}",
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>",
-    "withdrawError": {
-      "description": "There was an error withdrawing {{symbol}}. Please try again later",
-      "title": "Withdrawl Error"
-    }
+    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
   }
 }
