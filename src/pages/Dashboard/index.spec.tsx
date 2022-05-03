@@ -20,8 +20,11 @@ describe('pages/Dashboard', () => {
   });
 
   it('filters and displays supplied tokens in supplied section', async () => {
-    const { getByLabelText } = renderComponent(<Dashboard />);
-    const suppliedTable = getByLabelText(en.markets.suppliedTableTitle);
+    const { getAllByLabelText } = renderComponent(<Dashboard />);
+    // React Testing Library doesn't ignore elements hidden through css
+    // ("display: none"), so we get all the matching elements and use the first
+    // one
+    const suppliedTable = getAllByLabelText(en.markets.suppliedTableTitle)[0];
     expect(suppliedTable).toBeTruthy();
     // Supplied coins in mock data include usdc and sxp
     within(suppliedTable as HTMLTableSectionElement).getByText('SXP');
@@ -31,9 +34,11 @@ describe('pages/Dashboard', () => {
   });
 
   it('filters and displays non supplied tokens in Supply Market section', async () => {
-    const { getByLabelText } = renderComponent(<Dashboard />);
-    const nonSuppliedTable = getByLabelText(en.markets.supplyMarketTableTitle);
-    expect(nonSuppliedTable).toBeTruthy();
+    const { getAllByLabelText } = renderComponent(<Dashboard />);
+    // React Testing Library doesn't ignore elements hidden through css
+    // ("display: none"), so we get all the matching elements and use the first
+    // one
+    const nonSuppliedTable = getAllByLabelText(en.markets.supplyMarketTableTitle)[0];
     // Supplied coins in mock data include busd and usdt
     within(nonSuppliedTable as HTMLTableSectionElement).getByText('BUSD');
     within(nonSuppliedTable as HTMLTableSectionElement).getByText('USDT');

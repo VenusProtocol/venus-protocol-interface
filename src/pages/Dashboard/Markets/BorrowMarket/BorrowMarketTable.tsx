@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Table, ITableProps, Token } from 'components';
+import { Table, Token, ITableProps } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
@@ -7,18 +7,26 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
+import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
+import { useStyles } from './styles';
 
 export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
+  hasBorrowingAssets: boolean;
 }
 
 const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   assets,
   isXvsEnabled,
   rowOnClick,
+  hasBorrowingAssets,
 }) => {
   const { t } = useTranslation();
+  const isSmDown = useIsSmDown();
+  const isLgDown = useIsLgDown();
+  const styles = useStyles();
+
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
@@ -28,6 +36,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
     ],
     [],
   );
+
   // Format assets to rows
   const rows: ITableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
@@ -66,7 +75,11 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
 
   return (
     <Table
-      title={t('markets.borrowMarketTableTitle')}
+      title={
+        !hasBorrowingAssets && !isSmDown && isLgDown
+          ? undefined
+          : t('markets.borrowMarketTableTitle')
+      }
       columns={columns}
       data={rows}
       initialOrder={{
@@ -75,7 +88,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns="120px 1fr 1fr 1fr"
+      gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
     />
   );
 };

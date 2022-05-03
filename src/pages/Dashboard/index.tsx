@@ -1,108 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { AuthContext } from 'context/AuthContext';
 import { useUserMarketInfo } from 'clients/api';
 import { Asset } from 'types';
 
-import { useIsSmDown, useIsXlDown } from 'hooks/responsive';
-import { Tabs } from 'components';
-import { useTranslation } from 'translation';
 import MyAccount from './MyAccount';
 import MintRepayVai from './MintRepayVai';
-import { SupplyMarket, BorrowMarket } from './Markets';
+import Markets from './Markets';
 import { useStyles } from './styles';
-
-interface IDashboardMarketsUiProps {
-  isXvsEnabled: boolean;
-  accountAddress: string;
-  userTotalBorrowLimit: BigNumber;
-  suppliedAssets: Asset[];
-  supplyMarketAssets: Asset[];
-  borrowingAssets: Asset[];
-  borrowMarketAssets: Asset[];
-}
-
-const DashboardMarketsUi: React.FC<IDashboardMarketsUiProps> = ({
-  isXvsEnabled,
-  accountAddress,
-  userTotalBorrowLimit,
-  suppliedAssets,
-  supplyMarketAssets,
-  borrowingAssets,
-  borrowMarketAssets,
-}) => {
-  const { t } = useTranslation();
-  const isXlDown = useIsXlDown();
-  const isSmDown = useIsSmDown();
-  const styles = useStyles();
-
-  const [activeTab, setActiveTab] = useState(0);
-
-  if (isXlDown) {
-    const tabsContent = [
-      {
-        name: t('markets.supplyMarketTableTitle'),
-        title: t('dashboard.markets.tabSupply'),
-        content: (
-          <SupplyMarket
-            css={[styles.item, styles.market]}
-            isXvsEnabled={isXvsEnabled}
-            suppliedAssets={suppliedAssets}
-            supplyMarketAssets={supplyMarketAssets}
-            accountAddress={accountAddress}
-          />
-        ),
-      },
-      {
-        name: t('markets.borrowMarketTableTitle'),
-        title: t('dashboard.markets.tabBorrow'),
-        content: (
-          <BorrowMarket
-            css={[styles.item, styles.market]}
-            isXvsEnabled={isXvsEnabled}
-            borrowingAssets={borrowingAssets}
-            borrowMarketAssets={borrowMarketAssets}
-            userTotalBorrowLimit={userTotalBorrowLimit}
-          />
-        ),
-      },
-    ];
-    const tabletTitle = isSmDown ? undefined : tabsContent[activeTab].name;
-    return (
-      <div css={styles.tabsWrapper}>
-        {isSmDown && (
-          <h4 css={[styles.tabsHeader, styles.tabsTitle]}>{t('dashboard.markets.title')}</h4>
-        )}
-        <Tabs
-          css={styles.tabsHeader}
-          componentTitle={tabletTitle}
-          tabsContent={tabsContent}
-          onTabChange={setActiveTab}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div css={styles.container}>
-      <SupplyMarket
-        css={[styles.item, styles.market]}
-        isXvsEnabled={isXvsEnabled}
-        suppliedAssets={suppliedAssets}
-        supplyMarketAssets={supplyMarketAssets}
-        accountAddress={accountAddress}
-      />
-      <BorrowMarket
-        css={[styles.item, styles.market]}
-        isXvsEnabled={isXvsEnabled}
-        borrowingAssets={borrowingAssets}
-        borrowMarketAssets={borrowMarketAssets}
-        userTotalBorrowLimit={userTotalBorrowLimit}
-      />
-    </div>
-  );
-};
 
 interface IDashboardUiProps {
   accountAddress: string;
@@ -150,19 +56,21 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 
   return (
     <>
-      <div css={styles.container}>
+      <div css={styles.row}>
         <MyAccount
           assets={assets}
           setIsXvsEnabled={setIsXvsEnabled}
           isXvsEnabled={isXvsEnabled}
-          css={styles.item}
+          css={styles.column}
           userTotalBorrowLimit={userTotalBorrowLimit}
           userTotalBorrowBalance={userTotalBorrowBalance}
           userTotalSupplyBalance={userTotalSupplyBalance}
         />
-        <MintRepayVai css={styles.item} />
+
+        <MintRepayVai css={styles.column} />
       </div>
-      <DashboardMarketsUi
+
+      <Markets
         isXvsEnabled={isXvsEnabled}
         accountAddress={accountAddress}
         userTotalBorrowLimit={userTotalBorrowLimit}

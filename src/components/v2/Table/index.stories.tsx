@@ -37,7 +37,7 @@ const styles = {
 function createData(asset: TokenId, apy: number, wallet: number, collateral: boolean) {
   return [
     {
-      key: asset,
+      key: 'asset',
       value: asset,
       render: () => (
         <div css={styles.asset}>
@@ -47,7 +47,7 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
       ),
     },
     {
-      key: apy.toString(),
+      key: 'apy',
       value: apy,
       render: () => (
         <div css={styles.apy}>
@@ -56,9 +56,9 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
         </div>
       ),
     },
-    { key: wallet.toString(), value: wallet, render: () => `${wallet} ${asset}` },
+    { key: 'wallet', value: wallet, render: () => `${wallet} ${asset}` },
     {
-      key: collateral.toString(),
+      key: 'collateral',
       value: collateral,
       render: () => <Toggle onChange={console.log} value={collateral} />,
     },
@@ -75,8 +75,8 @@ const rows = [
 
 const columns = [
   { key: 'asset', label: 'Asset', orderable: false },
-  { key: 'APY', label: 'APY', orderable: true },
-  { key: 'Wallet', label: 'Wallet', orderable: true },
+  { key: 'apy', label: 'APY', orderable: true },
+  { key: 'wallet', label: 'Wallet', orderable: true },
   { key: 'Collateral', label: 'Collateral', orderable: true },
 ];
 
@@ -84,6 +84,11 @@ export default {
   title: 'Components/Table',
   component: Table,
   decorators: [withCenterStory({ width: 800 }), withThemeProvider],
+  parameters: {
+    backgrounds: {
+      default: 'White',
+    },
+  },
 } as ComponentMeta<typeof Table>;
 
 export const TableDefault = () => (
@@ -97,7 +102,7 @@ export const WithInitialOrderDefault = () => (
     title="Market Data"
     minWidth="650px"
     initialOrder={{
-      orderBy: 'APY',
+      orderBy: 'apy',
       orderDirection: 'desc',
     }}
     rowKeyIndex={0}
