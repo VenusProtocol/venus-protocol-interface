@@ -79,6 +79,23 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "convertVrt": {
+    "balance": "Balance: <White>{{amount}} VRT</White>",
+    "connectWalletToConvertVrtToXvs": "To convert VRT to XVS you should connect your wallet first",
+    "convert": "Convert",
+    "convertVrt": "Convert VRT",
+    "convertVrttoXvs": "Convert VRT to XVS",
+    "dailyLimit": "Daily limit",
+    "progressBar": "daily limit progress bar",
+    "remainingTime": "<Icon/> Remaining time:\u00a0<White>{{time}}</White>",
+    "usedOverTotalVrt": "{{used}}/{{total}} VRT",
+    "vrtEqualsXvs": "1 VRT = {{xvsToVrtRate}} XVS",
+    "withdraw": "Withdraw",
+    "withdrawableAmount": "Withdrawable amount",
+    "withdrawXvs": "Withdraw XVS",
+    "xvsAVailable": "Current XVS Available",
+    "youWillReceive": "You will recieve"
+  },
   "dashboard": {
     "markets": {
       "tabBorrow": "Borrow",
@@ -95,6 +112,7 @@
   "layout": {
     "menuItems": {
       "convertVrt": "Convert VRT",
+      "convertVrtTitle": "Convert VRT to XVS",
       "dashboard": "Dashboard",
       "faucet": "Faucet",
       "history": "History",

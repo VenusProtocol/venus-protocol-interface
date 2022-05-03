@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { useField } from 'formik';
 import { Typography } from '@mui/material';
 import toast from 'components/Basic/Toast';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
@@ -38,6 +37,7 @@ interface ISupplyWithdrawFormUiProps {
   calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
   isTransactionLoading: boolean;
   isXvsEnabled: boolean;
+  amountValue: string;
 }
 
 export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
@@ -53,12 +53,12 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   calculateNewBalance,
   isTransactionLoading,
   isXvsEnabled,
+  amountValue,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  const [{ value: amountString }] = useField('amount');
   const { id: assetId } = asset;
-  const amount = new BigNumber(amountString || 0);
+  const amount = new BigNumber(amountValue || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
   const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
@@ -192,7 +192,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   );
 };
 
-interface ISupplyWithdrawFormProps extends ISupplyWithdrawFormUiProps {
+interface ISupplyWithdrawFormProps extends Omit<ISupplyWithdrawFormUiProps, 'amountValue'> {
   onSubmit: IAmountFormProps['onSubmit'];
 }
 
@@ -210,7 +210,9 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
   };
   return (
     <AmountForm onSubmit={onSubmitHandleError} maxAmount={maxInput.toFixed()}>
-      {() => <SupplyWithdrawContent maxInput={maxInput} {...props} />}
+      {({ values }) => (
+        <SupplyWithdrawContent maxInput={maxInput} amountValue={values.amount} {...props} />
+      )}
     </AmountForm>
   );
 };

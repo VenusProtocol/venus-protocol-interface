@@ -23,7 +23,8 @@ import MarketDetail from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
-import VrtConversion from 'containers/Main/VrtConversion';
+import ConvertVrt from 'pages/ConvertVrt';
+import ConvertVrtV1 from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
@@ -65,7 +66,11 @@ const App = () => (
                             <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
                             <Route exact path="/vote/proposal/:id" component={VoteOverview} />
                             <Route exact path="/vote/address/:address" component={ProposerDetail} />
-                            <Route exact path="/convert-vrt" component={VrtConversion} />
+                            <Route
+                              exact
+                              path="/convert-vrt"
+                              component={process.env.REACT_APP_RUN_V2 ? ConvertVrt : ConvertVrtV1}
+                            />
                             {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
                             <Redirect from="/" to="/dashboard" />
                           </Switch>
