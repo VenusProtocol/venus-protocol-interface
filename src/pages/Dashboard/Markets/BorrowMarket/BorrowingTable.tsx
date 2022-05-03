@@ -2,8 +2,7 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ProgressBar, Table, Token } from 'components';
-import { ITableProps } from 'components/v2/Table/useTable';
+import { ProgressBar, Table, Token, ITableProps } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {

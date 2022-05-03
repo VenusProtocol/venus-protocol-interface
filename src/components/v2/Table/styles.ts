@@ -26,7 +26,7 @@ export const useStyles = () => {
     `,
     tableWrapperMobile: css`
       margin-top: ${theme.spacing(6)};
-      padding: ${theme.spacing(4, 0)};
+      padding: ${theme.spacing(4, 0, 2)};
     `,
     rowTitleMobile: css`
       padding-left: ${theme.spacing(4)};
@@ -43,6 +43,7 @@ export const useStyles = () => {
     cellMobile: css`
       display: flex;
       flex-direction: column;
+      overflow: hidden;
       padding-left: ${theme.spacing(4)};
       padding-right: ${theme.spacing(4)};
     `,
@@ -52,6 +53,8 @@ export const useStyles = () => {
     cellValueMobile: css`
       padding-top: ${theme.spacing(2)};
       padding-bottom: ${theme.spacing(2)};
+      overflow: hidden;
+      text-overflow: ellipsis;
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};
@@ -134,7 +137,6 @@ export const useStyles = () => {
     cellInner: css`
       text-overflow: ellipsis;
     `,
-
     getTemplateColumns: ({ gridColumns }: { gridColumns: string }) => css`
       grid-template-columns: ${gridColumns};
     `,
