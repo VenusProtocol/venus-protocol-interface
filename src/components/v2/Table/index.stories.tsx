@@ -58,7 +58,7 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
     },
     { key: 'wallet', value: wallet, render: () => `${wallet} ${asset}` },
     {
-      key: 'Collateral',
+      key: 'collateral',
       value: collateral,
       render: () => <Toggle onChange={console.log} value={collateral} />,
     },
@@ -102,7 +102,7 @@ export const WithInitialOrderDefault = () => (
     title="Market Data"
     minWidth="650px"
     initialOrder={{
-      orderBy: 'APY',
+      orderBy: 'apy',
       orderDirection: 'desc',
     }}
     rowKeyIndex={0}
