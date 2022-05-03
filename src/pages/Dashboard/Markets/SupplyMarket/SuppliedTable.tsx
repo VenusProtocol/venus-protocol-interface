@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatCoinsToReadableValue, formatApy } from 'utilities/common';
+import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilities/common';
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
@@ -41,7 +41,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       key: 'apyEarned',
       render: () => {
         const apy = isXvsEnabled ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
-        return formatApy(apy);
+        return formatToReadablePercentage(apy);
       },
       value: asset.supplyApy.toString(),
     },
