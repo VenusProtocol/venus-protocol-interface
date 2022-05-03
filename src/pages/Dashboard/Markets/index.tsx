@@ -38,11 +38,10 @@ const Markets: React.FC<IMarketsProps> = ({
     ...localStyles,
   };
 
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
 
   const tabsContent = [
     {
-      name: t('markets.supplyMarketTableTitle'),
       title: t('dashboard.markets.tabSupply'),
       content: (
         <SupplyMarket
@@ -69,6 +68,18 @@ const Markets: React.FC<IMarketsProps> = ({
     },
   ];
 
+  const getTabsComponentTitle = () => {
+    if (activeTabIndex === 0 && suppliedAssets.length > 0) {
+      return suppliedAssets.length > 0
+        ? t('markets.suppliedTableTitle')
+        : t('markets.supplyMarketTableTitle');
+    }
+
+    return borrowingAssets.length > 0
+      ? t('markets.borrowingTableTitle')
+      : t('markets.borrowMarketTableTitle');
+  };
+
   return (
     <>
       {/* Desktop display */}
@@ -94,9 +105,9 @@ const Markets: React.FC<IMarketsProps> = ({
       <Paper css={styles.tabletViewContainer}>
         <Tabs
           css={styles.tabsHeader}
-          componentTitle={tabsContent[activeTab].name}
+          componentTitle={getTabsComponentTitle()}
           tabsContent={tabsContent}
-          onTabChange={setActiveTab}
+          onTabChange={setActiveTabIndex}
         />
       </Paper>
 
@@ -104,7 +115,7 @@ const Markets: React.FC<IMarketsProps> = ({
       <Paper css={styles.mobileViewContainer}>
         <h4 css={[styles.tabsHeader, styles.tabsTitle]}>{t('dashboard.markets.title')}</h4>
 
-        <Tabs css={styles.tabsHeader} tabsContent={tabsContent} onTabChange={setActiveTab} />
+        <Tabs css={styles.tabsHeader} tabsContent={tabsContent} onTabChange={setActiveTabIndex} />
       </Paper>
     </>
   );
