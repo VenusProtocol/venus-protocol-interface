@@ -1,9 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilities/common';
+import {
+  formatCoinsToReadableValue,
+  formatToReadablePercentage,
+  formatCentsToReadableValue,
+} from 'utilities/common';
 import { Asset, TokenId } from 'types';
-import { Table, ITableProps, Token, Toggle } from 'components';
+import { Table, ITableProps, Token, Toggle, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 import { useStyles } from './styles';
@@ -53,12 +57,18 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
     },
     {
       key: 'balance',
-      render: () =>
-        formatCoinsToReadableValue({
-          value: asset.supplyBalance,
-          tokenId: asset.symbol as TokenId,
-          shorthand: true,
-        }),
+      render: () => (
+        <LayeredValues
+          topValue={formatCentsToReadableValue({
+            value: asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
+          })}
+          bottomValue={formatCoinsToReadableValue({
+            value: asset.supplyBalance,
+            tokenId: asset.id as TokenId,
+            shorthand: true,
+          })}
+        />
+      ),
       value: asset.supplyBalance.toString(),
     },
     {
