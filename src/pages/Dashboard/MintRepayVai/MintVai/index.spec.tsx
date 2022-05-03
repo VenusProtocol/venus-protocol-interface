@@ -2,8 +2,9 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { mintVai, getVaiTreasuryPercentage } from 'clients/api';
-import toast from 'components/Basic/Toast';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
@@ -12,6 +13,7 @@ import RepayVai from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
+jest.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeMintableVai = new BigNumber('1000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
@@ -52,6 +54,9 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   });
 
   it('lets user mint VAI', async () => {
+    const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+    (mintVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+
     const fakeAccountAddress = '0x0';
 
     const { getByText, getByPlaceholderText } = renderComponent(
@@ -101,10 +106,16 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
       amountWei: fakeWeiMinted,
     });
 
-    // Check success toast is requested
-    expect(toast.success).toHaveBeenCalledTimes(1);
-    expect(toast.success).toHaveBeenCalledWith({
-      title: `You successfully minted ${formattedFakeUserVaiMinted}`,
+    // Check successful transaction modal is displayed
+    await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
+    expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
+      transactionHash: fakeTransactionReceipt.transactionHash,
+      amount: {
+        tokenId: 'xvs',
+        valueWei: fakeWeiMinted,
+      },
+      message: expect.any(String),
+      title: expect.any(String),
     });
   });
 

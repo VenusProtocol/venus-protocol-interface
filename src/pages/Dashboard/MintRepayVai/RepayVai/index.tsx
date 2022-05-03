@@ -3,10 +3,12 @@ import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
-import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
+import { TokenId } from 'types';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { InternalError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { SecondaryButton, LabeledInlineContent, TokenTextField } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
@@ -33,6 +35,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const limitTokens = React.useMemo(() => {
     const limitWei =
@@ -52,28 +55,24 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
-    const formattedAmountTokens = new BigNumber(amountTokens);
-
     const amountWei = convertCoinsToWei({
-      value: formattedAmountTokens,
+      value: new BigNumber(amountTokens),
       tokenId: VAI_ID,
     });
 
     try {
       // Send request to repay VAI
-      await repayVai(amountWei);
+      const res = await repayVai(amountWei);
 
-      // @TODO: display success modal instead of toast once it's been
-      // implemented
-      const readableAmountTokens = formatCoinsToReadableValue({
-        value: formattedAmountTokens,
-        tokenId: VAI_ID,
-      });
-
-      toast.success({
-        title: t('mintRepayVai.repayVai.successMessage', {
-          tokens: readableAmountTokens,
-        }),
+      // Display successful transaction modal
+      openSuccessfulTransactionModal({
+        title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
+        message: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: 'xvs' as TokenId,
+        },
+        transactionHash: res.transactionHash,
       });
     } catch (error) {
       toast.error({ title: (error as Error).message });
