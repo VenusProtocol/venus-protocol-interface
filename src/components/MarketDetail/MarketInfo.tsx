@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 
-import { formatApy, format } from 'utilities/common';
+import { formatToReadablePercentage, format } from 'utilities/common';
 import { getToken } from 'utilities';
 import { TokenId } from 'types';
 
@@ -76,7 +76,7 @@ function MarketInfo({ marketInfo, marketType }: Props) {
             <p className="label">Net Rate</p>
             <p className="value">
               {marketType === 'supply'
-                ? formatApy(
+                ? formatToReadablePercentage(
                     new BigNumber(
                       // @ts-expect-error marketInfo gets passed around as an empty object
                       +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
@@ -87,7 +87,7 @@ function MarketInfo({ marketInfo, marketType }: Props) {
                       ),
                     ),
                   )
-                : formatApy(
+                : formatToReadablePercentage(
                     new BigNumber(
                       // @ts-expect-error marketInfo gets passed around as an empty object
                       Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy,
@@ -125,11 +125,11 @@ function MarketInfo({ marketInfo, marketType }: Props) {
             <p className="label">Distribution APY</p>
             <p className="value">
               {marketType === 'supply'
-                ? formatApy(
+                ? formatToReadablePercentage(
                     // @ts-expect-error marketInfo gets passed around as an empty object
                     +marketInfo.supplyVenusApy < 0.01 ? 0.01 : marketInfo.supplyVenusApy,
                   )
-                : formatApy(
+                : formatToReadablePercentage(
                     // @ts-expect-error marketInfo gets passed around as an empty object
                     marketInfo.borrowVenusApy < 0.01 ? 0.01 : marketInfo.borrowVenusApy,
                   )}

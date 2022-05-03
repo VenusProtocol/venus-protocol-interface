@@ -8,7 +8,6 @@ import { Asset, TokenId } from 'types';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
-  formatApy,
   formatToReadablePercentage,
 } from 'utilities/common';
 import { useStyles } from '../styles';
@@ -48,7 +47,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       },
       {
         key: 'apyEarned',
-        render: () => <div>{formatApy(borrowApy)}</div>,
+        render: () => <div>{formatToReadablePercentage(borrowApy)}</div>,
         value: borrowApy.toNumber(),
       },
       {

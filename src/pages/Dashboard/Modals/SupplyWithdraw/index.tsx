@@ -23,7 +23,7 @@ import useSupply from 'clients/api/mutations/useSupply';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import { formatApy, convertCoinsToWei } from 'utilities/common';
+import { formatToReadablePercentage, convertCoinsToWei } from 'utilities/common';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 
@@ -71,12 +71,12 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         {
           label: t('supplyWithdraw.supplyApy'),
           iconName: assetId as IconName,
-          children: formatApy(asset.supplyApy),
+          children: formatToReadablePercentage(asset.supplyApy),
         },
         {
           label: t('supplyWithdraw.distributionApy'),
           iconName: 'xvs' as IconName,
-          children: formatApy(asset.xvsSupplyApy),
+          children: formatToReadablePercentage(asset.xvsSupplyApy),
         },
       ]
     : [];

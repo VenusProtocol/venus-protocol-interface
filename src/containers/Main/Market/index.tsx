@@ -9,7 +9,7 @@ import { uid } from 'react-uid';
 import { getToken } from 'utilities';
 import {
   currencyFormatter,
-  formatApy,
+  formatToReadablePercentage,
   formatCommaThousandsPeriodDecimal,
   format,
 } from 'utilities/common';
@@ -381,8 +381,10 @@ function Market({ history, settings }: MarketProps) {
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} className="supply-apy right">
                   <p className="mobile-label">Supply APY</p>
-                  <p className="item-title green">{formatApy(item.totalSupplyApy)}</p>
-                  <p className="item-value">{formatApy(item.supplyVenusApy)}</p>
+                  <p className="item-title green">
+                    {formatToReadablePercentage(item.totalSupplyApy)}
+                  </p>
+                  <p className="item-value">{formatToReadablePercentage(item.supplyVenusApy)}</p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} className="total-borrow right">
                   <p className="mobile-label">Total Borrow</p>
@@ -398,9 +400,9 @@ function Market({ history, settings }: MarketProps) {
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} className="borrow-apy right">
                   <p className="mobile-label">Borrow APY</p>
                   <p className={`item-title${item.totalBorrowApy.lt(0) ? ' red' : ' green'}`}>
-                    {formatApy(item.totalBorrowApy)}
+                    {formatToReadablePercentage(item.totalBorrowApy)}
                   </p>
-                  <p className="item-value">{formatApy(item.borrowVenusApy)}</p>
+                  <p className="item-value">{formatToReadablePercentage(item.borrowVenusApy)}</p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} className="liquidity right">
                   <p className="mobile-label">Liquidity</p>
