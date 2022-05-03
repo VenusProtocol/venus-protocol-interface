@@ -15,14 +15,10 @@ interface WithdrawProps {
 const Withdraw: React.FC<WithdrawProps> = ({ xvsTotal }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const readableXvsAvailable = useMemo(
-    () =>
-      useConvertToReadableCoinString({
-        valueWei: xvsTotal,
-        tokenId: XVS_ID,
-      }),
-    [xvsTotal],
-  );
+  const readableXvsAvailable = useConvertToReadableCoinString({
+    valueWei: xvsTotal,
+    tokenId: XVS_ID,
+  });
   return (
     <div css={styles.root}>
       <section css={styles.title}>
