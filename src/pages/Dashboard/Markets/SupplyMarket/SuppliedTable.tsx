@@ -5,6 +5,8 @@ import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilitie
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
+import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
+import { useStyles } from './styles';
 
 export interface ISuppliedTableUiProps {
   assets: Asset[];
@@ -20,6 +22,9 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
+  const isSmDown = useIsSmDown();
+  const isLgDown = useIsLgDown();
+  const styles = useStyles();
 
   const columns = useMemo(
     () => [
@@ -30,6 +35,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
     ],
     [],
   );
+
   // Format assets to rows
   const rows: ITableProps['data'] = assets.map(asset => [
     {
@@ -56,7 +62,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       value: asset.supplyBalance.toString(),
     },
     {
-      key: asset.collateral.toString(),
+      key: 'collateral',
       value: asset.collateral,
       render: () =>
         +asset.collateralFactor.toString() ? (
@@ -66,9 +72,10 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
         ),
     },
   ]);
+
   return (
     <Table
-      title={t('markets.suppliedTableTitle')}
+      title={isLgDown && !isSmDown ? undefined : t('markets.suppliedTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -77,7 +84,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns="120px 1fr 1fr 1fr"
+      gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
     />
   );
 };
