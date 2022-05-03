@@ -134,13 +134,13 @@ export const SupplyWithdrawContent: React.FC<
       />
       <Typography
         component="div"
-        variant="small1"
+        variant="small2"
         css={[styles.greyLabel, styles.getRow({ isLast: true })]}
       >
         <Trans
           i18nKey={inputLabel}
           components={{
-            White: <Typography component="span" variant="small1" css={styles.whiteLabel} />,
+            White: <span css={styles.whiteLabel} />,
           }}
           values={{ amount: format(maxInput), symbol: assetId?.toUpperCase() }}
         />
