@@ -75,8 +75,11 @@ export const withQueryClientProvider: DecoratorFunction = Story => {
   );
 };
 
-export const withCenterStory: (props: { width: number | string }) => DecoratorFunction = props => {
-  const { width } = props;
+export const withCenterStory: (props: {
+  width?: number | string;
+  height?: number | string;
+}) => DecoratorFunction = props => {
+  const { width, height } = props;
   return Story => (
     <Box
       sx={{
@@ -87,7 +90,7 @@ export const withCenterStory: (props: { width: number | string }) => DecoratorFu
         height: '100vh',
       }}
     >
-      <Box sx={{ flexShrink: 0, maxWidth: width, width: '100%' }}>
+      <Box sx={{ flexShrink: 0, maxWidth: width, width: '100%', height }}>
         <Story />
       </Box>
     </Box>
