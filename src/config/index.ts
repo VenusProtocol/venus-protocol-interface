@@ -30,9 +30,7 @@ export const RPC_URLS: {
     'https://bsc-dataseed.binance.org',
   ],
   [BscChainId.TESTNET]: [
-    'https://data-seed-prebsc-1-s1.binance.org:8545',
-    'https://data-seed-prebsc-2-s1.binance.org:8545',
-    'https://data-seed-prebsc-1-s2.binance.org:8545',
+    'https://speedy-nodes-nyc.moralis.io/6c1fe2e962cdccfe0e93dcb3/bsc/testnet',
   ],
 };
 
