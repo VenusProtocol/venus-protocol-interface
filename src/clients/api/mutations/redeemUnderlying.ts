@@ -14,6 +14,6 @@ const redeemUnderlying = async ({
   account,
   amount,
 }: IRedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> =>
-  tokenContract.methods.redeemUnderlying(amount).send({ from: account! });
+  tokenContract.methods.redeemUnderlying(amount).send({ from: account });
 
 export default redeemUnderlying;

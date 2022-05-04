@@ -42,30 +42,33 @@ export const ProgressBar = ({
     secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
   });
 
-  const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => {
-    if (markTooltip) {
-      return (
-        <Box component="span" {...props} css={[styles.mark, styles.hasTooltip]}>
-          <Tooltip placement={tooltipPlacement} title={markTooltip}>
-            <span css={styles.tooltipHelper}>.</span>
-          </Tooltip>
-        </Box>
-      );
-    }
-
-    return <Box component="span" {...props} css={styles.mark} />;
-  };
+  const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => (
+    <Box
+      component="span"
+      style={props?.style}
+      className={props?.className}
+      css={[styles.mark, markTooltip ? styles.hasTooltip : undefined]}
+    >
+      {markTooltip && (
+        <Tooltip placement={tooltipPlacement} title={markTooltip}>
+          <span css={styles.tooltipHelper}>.</span>
+        </Tooltip>
+      )}
+    </Box>
+  );
 
   const renderTrack = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track']) => {
-    const primaryRail = trackTooltip ? (
-      <div style={props?.style} css={[styles.trackWrapper, styles.hasTooltip]}>
-        <Tooltip placement={tooltipPlacement} title={trackTooltip}>
-          {/* passed styles undefined here because wrapper is now handling this part */}
-          <Box {...props} style={undefined} />
-        </Tooltip>
-      </div>
-    ) : (
-      <Box css={styles.trackWrapper} {...props} />
+    const primaryRail = (
+      <Box
+        style={props?.style}
+        css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
+      >
+        {trackTooltip && (
+          <Tooltip placement={tooltipPlacement} title={trackTooltip}>
+            <Box className={props?.className} />
+          </Tooltip>
+        )}
+      </Box>
     );
 
     return (
@@ -75,8 +78,7 @@ export const ProgressBar = ({
         {secondaryValue !== undefined && (
           <Box
             css={styles.secondaryRail(secondaryValue < max ? secondaryValue : max)}
-            {...props}
-            style={undefined}
+            className={props?.className}
           />
         )}
       </>

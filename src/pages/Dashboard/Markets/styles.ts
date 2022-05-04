@@ -70,7 +70,7 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
 
-      > :first-child {
+      > :first-of-type {
         color: ${theme.palette.text.primary};
       }
     `,
@@ -78,7 +78,7 @@ export const useStyles = () => {
       display: flex;
       width: 100%;
       align-items: center;
-      > :first-child {
+      > :first-of-type {
         margin-right: ${theme.spacing(2)};
       }
     `,
