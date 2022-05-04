@@ -168,18 +168,39 @@ export const convertCoinsToWei = ({ value, tokenId }: { value: BigNumber; tokenI
 export const convertCentsToDollars = (value: number) =>
   new BigNumber(value).dividedBy(100).toFixed(2);
 
+const ONE_BILLION = 1000000000;
+const ONE_MILLION = 1000000;
+const ONE_THOUSAND = 1000;
+
 export const formatCentsToReadableValue = ({
   value,
+  shorthand = false,
 }: {
   value: number | BigNumber | undefined;
+  shorthand?: boolean;
 }) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
 
-  return `$${formatCommaThousandsPeriodDecimal(
-    convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
-  )}`;
+  if (!shorthand) {
+    return `$${formatCommaThousandsPeriodDecimal(
+      convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
+    )}`;
+  }
+
+  // Shorten value
+  const wrappedValueDollars = new BigNumber(value).dividedBy(100);
+  let shortenedValue = wrappedValueDollars.toFixed(2);
+  if (wrappedValueDollars.isGreaterThan(ONE_BILLION)) {
+    shortenedValue = `${wrappedValueDollars.dividedBy(ONE_BILLION).dp(2).toFixed()}B`;
+  } else if (wrappedValueDollars.isGreaterThan(ONE_MILLION)) {
+    shortenedValue = `${wrappedValueDollars.dividedBy(ONE_MILLION).dp(2).toFixed()}M`;
+  } else if (wrappedValueDollars.isGreaterThan(ONE_THOUSAND)) {
+    shortenedValue = `${wrappedValueDollars.dividedBy(ONE_THOUSAND).dp(2).toFixed()}K`;
+  }
+
+  return `$${shortenedValue}`;
 };
 
 export const formatToReadablePercentage = (value: number | string | BigNumber | undefined) => {
