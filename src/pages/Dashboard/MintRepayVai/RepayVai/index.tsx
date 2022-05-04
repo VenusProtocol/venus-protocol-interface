@@ -78,8 +78,8 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
       // Display successful transaction modal
       openSuccessfulTransactionModal({
-        title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
-        message: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
+        title: t('mintRepayVai.repayVai.successfulTransactionModal.title'),
+        message: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           tokenId: 'xvs' as TokenId,
