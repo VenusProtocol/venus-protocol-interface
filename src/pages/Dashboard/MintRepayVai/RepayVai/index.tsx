@@ -23,7 +23,7 @@ import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
-import useConvertToReadableCoinString from '../../../../utilities/useConvertToReadableCoinString';
+import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 

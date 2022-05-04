@@ -1,6 +1,5 @@
 export * from './v2/AuthModal';
 export * from './v2/Button';
-export * from './v2/Button/FormikSubmitButton';
 export * from './v2/BscLink';
 export * from './v2/ConnectWallet';
 export * from './v2/Delimiter';
@@ -24,6 +23,5 @@ export * from './v2/TextField';
 export * from './v2/Toggle';
 export * from './v2/Token';
 export * from './v2/TokenTextField';
-export * from './v2/TokenTextField/FormikTokenTextField';
 export * from './v2/Tooltip';
 export * from './v2/ValueUpdate';

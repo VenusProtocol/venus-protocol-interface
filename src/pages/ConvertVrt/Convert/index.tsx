@@ -12,7 +12,7 @@ import {
   TokenTextField,
 } from 'components';
 import { useTranslation } from 'translation';
-import useConvertToReadableCoinString from 'utilities/useConvertToReadableCoinString';
+import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { format } from 'utilities/common';
 import { formatI18nextRelativetimeValues } from 'utilities';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
