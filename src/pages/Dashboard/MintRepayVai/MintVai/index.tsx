@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
-import { TokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { getToken } from 'utilities';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -14,19 +13,22 @@ import {
   EnableToken,
   IconName,
   ILabeledInlineContentProps,
-  SecondaryButton,
+  FormikSubmitButton,
   LabeledInlineContent,
-  TokenTextField,
+  FormikTokenTextField,
   ConnectWallet,
 } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
+import { TokenId } from 'types';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
-import getReadableFeeVai from './getReadableFeeVai';
 import { useStyles } from '../styles';
+import getReadableFeeVai from './getReadableFeeVai';
+import MintFee from './MintFee';
 
 export interface IMintVaiUiProps {
   disabled: boolean;
@@ -63,21 +65,6 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
 
-  const getReadableMintFee = React.useCallback(
-    (valueWei: string) => {
-      if (!mintFeePercentage) {
-        return '-';
-      }
-
-      const readableFeeVai = getReadableFeeVai({
-        valueWei: new BigNumber(valueWei || 0),
-        mintFeePercentage,
-      });
-      return `${readableFeeVai} (${mintFeePercentage}%)`;
-    },
-    [mintFeePercentage],
-  );
-
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertCoinsToWei({
       value: new BigNumber(amountTokens),
@@ -103,6 +90,21 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     }
   };
 
+  const getReadableMintFee = React.useCallback(
+    (valueWei: string) => {
+      if (!mintFeePercentage) {
+        return PLACEHOLDER_KEY;
+      }
+
+      const readableFeeVai = getReadableFeeVai({
+        valueWei: new BigNumber(valueWei || 0),
+        mintFeePercentage,
+      });
+      return `${readableFeeVai} (${mintFeePercentage}%)`;
+    },
+    [mintFeePercentage],
+  );
+
   const tokenInfo: ILabeledInlineContentProps[] = [
     {
       label: t('mintRepayVai.mintVai.vaiLimitLabel'),
@@ -126,16 +128,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         vtokenAddress={vaiToken.address}
       >
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-          {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
+          {() => (
             <>
               <div css={styles.ctaContainer}>
-                <TokenTextField
+                <FormikTokenTextField
                   name="amount"
                   css={styles.textField}
                   tokenId={VAI_ID}
-                  value={values.amount}
-                  onChange={amount => setFieldValue('amount', amount, true)}
-                  onBlur={handleBlur}
                   max={limitTokens}
                   disabled={disabled || isMintVaiLoading || !hasMintableVai}
                   rightMaxButton={{
@@ -152,23 +151,16 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
                   {readableVaiLimit}
                 </LabeledInlineContent>
 
-                <LabeledInlineContent
-                  css={styles.getRow({ isLast: true })}
-                  iconName="fee"
-                  label={t('mintRepayVai.mintVai.mintFeeLabel')}
-                >
-                  {getReadableMintFee(values.amount)}
-                </LabeledInlineContent>
+                <MintFee getReadableMintFee={getReadableMintFee} />
               </div>
 
-              <SecondaryButton
-                type="submit"
+              <FormikSubmitButton
                 loading={isMintVaiLoading}
-                disabled={disabled || !isValid || !dirty}
+                disabled={disabled}
                 fullWidth
-              >
-                {t('mintRepayVai.mintVai.btnMintVai')}
-              </SecondaryButton>
+                variant="secondary"
+                enabledLabel={t('mintRepayVai.mintVai.btnMintVai')}
+              />
             </>
           )}
         </AmountForm>

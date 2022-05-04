@@ -15,9 +15,9 @@ import {
   EnableToken,
   IconName,
   ILabeledInlineContentProps,
-  SecondaryButton,
+  FormikSubmitButton,
   LabeledInlineContent,
-  TokenTextField,
+  FormikTokenTextField,
 } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
@@ -108,16 +108,13 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         vtokenAddress={vaiToken.address}
       >
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-          {({ values, setFieldValue, handleBlur, isValid, dirty }) => (
+          {() => (
             <>
               <div css={styles.ctaContainer}>
-                <TokenTextField
+                <FormikTokenTextField
                   name="amount"
                   css={styles.textField}
                   tokenId={VAI_ID}
-                  value={values.amount}
-                  onChange={amount => setFieldValue('amount', amount, true)}
-                  onBlur={handleBlur}
                   max={limitTokens}
                   disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
                   rightMaxButton={{
@@ -135,14 +132,13 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                 </LabeledInlineContent>
               </div>
 
-              <SecondaryButton
-                type="submit"
+              <FormikSubmitButton
+                variant="secondary"
                 loading={isRepayVaiLoading}
-                disabled={disabled || !isValid || !dirty}
+                disabled={disabled}
+                enabledLabel={t('mintRepayVai.repayVai.btnRepayVai')}
                 fullWidth
-              >
-                {t('mintRepayVai.repayVai.btnRepayVai')}
-              </SecondaryButton>
+              />
             </>
           )}
         </AmountForm>
