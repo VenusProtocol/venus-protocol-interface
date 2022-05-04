@@ -67,6 +67,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
         render: () =>
           formatCentsToReadableValue({
             value: asset.liquidity.multipliedBy(100),
+            shorthand: true,
           }),
         value: asset.liquidity.toNumber(),
       },
