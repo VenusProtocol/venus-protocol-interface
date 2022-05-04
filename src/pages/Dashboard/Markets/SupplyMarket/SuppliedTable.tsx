@@ -90,7 +90,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       data={rows}
       initialOrder={{
         orderBy: 'apyEarned',
-        orderDirection: 'asc',
+        orderDirection: 'desc',
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
