@@ -59,7 +59,7 @@ export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalPro
           )}
         </div>
 
-        <BscLink hash={transactionHash} />
+        <BscLink hash={transactionHash} urlType="tx" />
       </div>
     </Modal>
   );
