@@ -90,7 +90,7 @@ const MarketTableWrapper = styled.div`
         text-align: right;
         width: 28%;
 
-        &:first-child {
+        &:first-of-type {
           width: 16%;
         }
 
@@ -116,7 +116,7 @@ const MarketTableWrapper = styled.div`
         text-align: right;
         width: 28%;
 
-        &:first-child {
+        &:first-of-type {
           width: 16%;
         }
 
