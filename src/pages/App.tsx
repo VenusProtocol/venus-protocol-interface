@@ -14,7 +14,6 @@ import { Layout } from 'components';
 import { init as initTranslationLibrary } from 'translation';
 import { isOnTestnet } from 'config';
 import Dashboard from 'pages/Dashboard';
-import DashboardV1 from 'containers/Main/Dashboard';
 import Faucet from 'containers/Main/Faucet';
 import Vote from 'containers/Main/Vote';
 import XVS from 'containers/Main/XVS';
@@ -56,11 +55,7 @@ const App = () => (
                         />
                         <Layout>
                           <Switch>
-                            <Route
-                              exact
-                              path="/dashboard"
-                              component={process.env.REACT_APP_RUN_V2 ? Dashboard : DashboardV1}
-                            />
+                            <Route exact path="/dashboard" component={Dashboard} />
                             <Route exact path="/vote" component={Vote} />
                             <Route exact path="/xvs" component={XVS} />
                             <Route exact path="/market" component={Market} />
