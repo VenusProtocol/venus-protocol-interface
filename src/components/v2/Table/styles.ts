@@ -74,7 +74,7 @@ export const useStyles = () => {
         cursor: pointer;
       }
 
-      .MuiTableCell-root:first-child {
+      .MuiTableCell-root:first-of-type {
         padding-left: ${theme.spacing(6)};
         text-align: left;
         justify-content: flex-start;

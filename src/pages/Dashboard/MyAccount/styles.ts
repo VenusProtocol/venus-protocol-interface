@@ -79,7 +79,7 @@ export const useMyAccountStyles = () => {
         }
       }
 
-      :first-child {
+      :first-of-type {
         border-left: none;
         padding-left: 0;
       }

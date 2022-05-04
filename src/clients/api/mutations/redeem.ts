@@ -10,6 +10,6 @@ export interface IRedeemInput {
 export type RedeemOutput = TransactionReceipt;
 
 const redeem = async ({ tokenContract, account, amount }: IRedeemInput): Promise<RedeemOutput> =>
-  tokenContract.methods.redeem(amount).send({ from: account! });
+  tokenContract.methods.redeem(amount).send({ from: account });
 
 export default redeem;
