@@ -87,7 +87,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       data={rows}
       initialOrder={{
         orderBy: 'apy',
-        orderDirection: 'asc',
+        orderDirection: 'desc',
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
