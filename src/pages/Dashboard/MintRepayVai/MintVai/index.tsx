@@ -2,7 +2,6 @@
 import React, { useContext, useMemo, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
-import { useField } from 'formik';
 
 import { AuthContext } from 'context/AuthContext';
 import { getToken } from 'utilities';
