@@ -85,7 +85,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       data={rows}
       initialOrder={{
         orderBy: 'apy',
-        orderDirection: 'asc',
+        orderDirection: 'desc',
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
