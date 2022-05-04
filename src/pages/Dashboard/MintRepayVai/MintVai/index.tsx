@@ -2,7 +2,6 @@
 import React, { useContext, useMemo, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
-import { useField } from 'formik';
 
 import { AuthContext } from 'context/AuthContext';
 import { getToken } from 'utilities';
@@ -25,7 +24,7 @@ import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import useConvertToReadableCoinString from 'utilities/useConvertToReadableCoinString';
+import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';

@@ -7,6 +7,9 @@ export const useStyles = () => {
     // Subtracting the Wormhole UST banner to show more content
     marginTop: css`
       margin-top: ${theme.spacing(20)};
+      ${theme.breakpoints.down('md')} {
+        margin-top: ${theme.spacing(0)};
+      }
     `,
     root: css`
       display: flex;
@@ -18,10 +21,17 @@ export const useStyles = () => {
     tabs: css`
       width: ${theme.spacing(136)};
       padding: ${theme.spacing(10)};
+      ${theme.breakpoints.down('md')} {
+        width: 100%;
+        padding: ${theme.spacing(4)};
+      }
     `,
     title: css`
       margin: ${theme.spacing(12)} 0;
       text-align: center;
+      ${theme.breakpoints.down('md')} {
+        margin: ${theme.spacing(8)} 0;
+      }
     `,
     input: css`
       margin: ${theme.spacing(1)} 0;
@@ -29,6 +39,7 @@ export const useStyles = () => {
     inputLabel: css`
       color: ${theme.palette.text.primary};
       text-align: left;
+      font-weight: 600;
     `,
     whiteLabel: css`
       color: ${theme.palette.text.primary};
@@ -36,10 +47,16 @@ export const useStyles = () => {
     inputSection: css`
       margin-bottom: ${theme.spacing(8)};
       width: 100%;
+      ${theme.breakpoints.down('md')} {
+        margin-bottom: ${theme.spacing(6)};
+      }
     `,
     progressBar: css`
       width: 100%;
       margin-bottom: ${theme.spacing(12)};
+      ${theme.breakpoints.down('md')} {
+        margin-bottom: ${theme.spacing(8)};
+      }
     `,
     submitButton: css`
       margin-bottom: ${theme.spacing(4)};

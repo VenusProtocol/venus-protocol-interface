@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { Typography } from '@mui/material';
@@ -11,7 +11,7 @@ import {
   Icon,
 } from 'components';
 import { useTranslation } from 'translation';
-import useConvertToReadableCoinString from 'utilities/useConvertToReadableCoinString';
+import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { format } from 'utilities/common';
 import { ConvertVrtForm } from '../Form';
 import { VRT_ID, XVS_ID } from '../constants';
@@ -34,10 +34,14 @@ const Convert: React.FC<ConvertProps> = ({
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  const readableXvsAvailable = useConvertToReadableCoinString({
-    valueWei: xvsTotal,
-    tokenId: XVS_ID,
-  });
+  const readableXvsAvailable = useMemo(
+    () =>
+      useConvertToReadableCoinString({
+        valueWei: xvsTotal,
+        tokenId: XVS_ID,
+      }),
+    [xvsTotal],
+  );
   return (
     <div css={styles.root}>
       <section css={styles.title}>
@@ -61,25 +65,27 @@ const Convert: React.FC<ConvertProps> = ({
                   name="vrt"
                   max={xvsTotal.toFixed()}
                   css={styles.input}
+                  description={
+                    <Trans
+                      i18nKey="convertVrt.balance"
+                      components={{
+                        White: <span css={styles.whiteLabel} />,
+                      }}
+                      values={{ amount: format(new BigNumber(vrtLimit)) }}
+                    />
+                  }
                 />
-                <Typography variant="small2">
-                  <Trans
-                    i18nKey="convertVrt.balance"
-                    components={{
-                      White: <span css={styles.whiteLabel} />,
-                    }}
-                    values={{ amount: format(new BigNumber(vrtLimit)) }}
-                  />
-                </Typography>
               </div>
               <div css={styles.inputSection}>
                 <Typography variant="small2" css={styles.inputLabel}>
                   {t('convertVrt.youWillReceive')}
                 </Typography>
-                <FormikTokenTextField tokenId={XVS_ID} name="xvs" css={styles.input} />
-                <Typography variant="small2">
-                  {t('convertVrt.vrtEqualsXvs', { xvsToVrtRate })}
-                </Typography>
+                <FormikTokenTextField
+                  tokenId={XVS_ID}
+                  name="xvs"
+                  css={styles.input}
+                  description={t('convertVrt.vrtEqualsXvs', { xvsToVrtRate })}
+                />
               </div>
               <div css={styles.progressBar}>
                 <LabeledProgressBar

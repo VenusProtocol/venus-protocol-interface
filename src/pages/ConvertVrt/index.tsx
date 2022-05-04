@@ -11,8 +11,8 @@ import { useStyles } from './styles';
 export interface ConvertVrtUiProps {
   xvsTotal: BigNumber;
   xvsToVrtRate: BigNumber;
-  vrtLimitUsed: number;
-  vrtLimit: number;
+  vrtLimitUsed: BigNumber;
+  vrtLimit: BigNumber;
   vestingTime: number;
 }
 
@@ -55,8 +55,8 @@ const ConvertVrt = () => (
   <ConvertVrtUi
     xvsTotal={new BigNumber('120497')}
     xvsToVrtRate={new BigNumber('0.000083')}
-    vrtLimitUsed={300}
-    vrtLimit={1000}
+    vrtLimitUsed={new BigNumber(300)}
+    vrtLimit={new BigNumber(1000)}
     vestingTime={2}
   />
 );
