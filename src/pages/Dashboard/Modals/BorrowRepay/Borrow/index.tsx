@@ -13,7 +13,13 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import { UiError } from 'utilities/errors';
 import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
-import { PrimaryButton, TokenTextField, Icon, ConnectWallet, EnableToken } from 'components';
+import {
+  FormikSubmitButton,
+  FormikTokenTextField,
+  Icon,
+  ConnectWallet,
+  EnableToken,
+} from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
@@ -78,16 +84,13 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
 
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
-      {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
+      {({ values, dirty, isValid, errors }) => (
         <>
           <div css={[styles.getRow({ isLast: true })]}>
-            <TokenTextField
+            <FormikTokenTextField
               name="amount"
               tokenId={asset.id}
-              value={values.amount}
-              onChange={amount => setFieldValue('amount', amount, true)}
               disabled={isBorrowLoading}
-              onBlur={handleBlur}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
                   limitPercentage: safeBorrowLimitPercentage,
@@ -116,16 +119,13 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             isXvsEnabled={isXvsEnabled}
           />
 
-          <PrimaryButton
-            type="submit"
+          <FormikSubmitButton
             loading={isBorrowLoading}
             disabled={!isValid || !dirty || isBorrowLoading}
             fullWidth
-          >
-            {dirty && isValid
-              ? t('borrowRepayModal.borrow.submitButton')
-              : t('borrowRepayModal.borrow.submitButtonDisabled')}
-          </PrimaryButton>
+            enabledLabel={t('borrowRepayModal.borrow.submitButton')}
+            disabledLabel={t('borrowRepayModal.borrow.submitButtonDisabled')}
+          />
         </>
       )}
     </AmountForm>

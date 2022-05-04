@@ -1,17 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { FormikProps } from 'formik';
+import { useField } from 'formik';
 import { Typography } from '@mui/material';
 import toast from 'components/Basic/Toast';
-import { FormValues } from 'containers/AmountForm/validationSchema';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import {
-  TokenTextField,
+  FormikTokenTextField,
   Delimiter,
   LabeledInlineContent,
   ILabeledInlineContentProps,
-  PrimaryButton,
+  FormikSubmitButton,
   BorrowBalanceAccountHealth,
   ValueUpdate,
 } from 'components';
@@ -41,12 +40,7 @@ interface ISupplyWithdrawFormUiProps {
   isXvsEnabled: boolean;
 }
 
-export const SupplyWithdrawContent: React.FC<
-  ISupplyWithdrawFormUiProps & FormikProps<FormValues>
-> = ({
-  values,
-  errors,
-  setFieldValue,
+export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   asset,
   tokenInfo,
   userTotalBorrowBalance,
@@ -59,15 +53,13 @@ export const SupplyWithdrawContent: React.FC<
   calculateNewBalance,
   isTransactionLoading,
   isXvsEnabled,
-  isValid,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-
+  const [{ value: amountString }] = useField('amount');
   const { id: assetId } = asset;
-  const { amount: amountString } = values;
   const amount = new BigNumber(amountString || 0);
-  const validAmount = amount && !amount.isZero() && !amount.isNaN() && isValid;
+  const validAmount = amount && !amount.isZero() && !amount.isNaN();
   const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
@@ -118,11 +110,9 @@ export const SupplyWithdrawContent: React.FC<
 
   return (
     <>
-      <TokenTextField
+      <FormikTokenTextField
         name="amount"
         tokenId={assetId as TokenId}
-        value={amountString}
-        onChange={amt => setFieldValue('amount', amt, true)}
         disabled={isTransactionLoading}
         rightMaxButton={{
           label: t('supplyWithdraw.max').toUpperCase(),
@@ -130,7 +120,7 @@ export const SupplyWithdrawContent: React.FC<
         }}
         css={styles.input}
         // Only display error state if amount is higher than borrow limit
-        hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
+        displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
       />
       <Typography
         component="div"
@@ -191,9 +181,13 @@ export const SupplyWithdrawContent: React.FC<
           symbol: asset.symbol,
         })}
       </LabeledInlineContent>
-      <PrimaryButton fullWidth disabled={!validAmount} type="submit" loading={isTransactionLoading}>
-        {validAmount ? enabledButtonKey : disabledButtonKey}
-      </PrimaryButton>
+      <FormikSubmitButton
+        fullWidth
+        disabled={!validAmount}
+        loading={isTransactionLoading}
+        enabledLabel={enabledButtonKey}
+        disabledLabel={disabledButtonKey}
+      />
     </>
   );
 };
@@ -216,7 +210,7 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
   };
   return (
     <AmountForm onSubmit={onSubmitHandleError} maxAmount={maxInput.toFixed()}>
-      {formikBag => <SupplyWithdrawContent maxInput={maxInput} {...props} {...formikBag} />}
+      {() => <SupplyWithdrawContent maxInput={maxInput} {...props} />}
     </AmountForm>
   );
 };
