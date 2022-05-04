@@ -173,10 +173,6 @@ export const useStyles = () => {
 
       > .MuiPaper-root {
         background-color: ${theme.palette.background.default};
-        background-image: none;
-        position: absolute;
-        top: 0;
-        left: 0;
         height: 100vh;
         max-height: 100vh;
         width: 100vw;

@@ -87,6 +87,8 @@ export const SidebarUi: React.FC = () => {
           transitionDuration={0}
           marginThreshold={0}
           TransitionProps={{ style: { transition: 'background 0.2s linear' } }}
+          anchorReference="anchorPosition"
+          anchorPosition={{ top: 0, left: 0 }}
         >
           <div css={[styles.flexRow, styles.doublePadding]}>
             <LogoMobile css={styles.mobileLogo} />
