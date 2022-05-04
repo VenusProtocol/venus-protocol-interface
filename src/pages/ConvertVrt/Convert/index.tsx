@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { Typography } from '@mui/material';
