@@ -9,7 +9,7 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof AccountHealth>;
 
-export const Primary = () => (
+export const BorrowBalanceAccountHealthWithValues = () => (
   <BorrowBalanceAccountHealth
     borrowBalanceCents={30243}
     borrowLimitCents={737300}
@@ -17,7 +17,7 @@ export const Primary = () => (
   />
 );
 
-export const Secondary = () => (
+export const BorrowLimitUsedAccountHealthWithValues = () => (
   <BorrowLimitUsedAccountHealth
     borrowBalanceCents={30243}
     borrowLimitCents={737300}
@@ -25,7 +25,7 @@ export const Secondary = () => (
   />
 );
 
-export const WithZeroValues = () => (
+export const BorrowBalanceAccountHealthWithZeroValues = () => (
   <BorrowBalanceAccountHealth
     borrowBalanceCents={0}
     borrowLimitCents={0}
@@ -33,7 +33,7 @@ export const WithZeroValues = () => (
   />
 );
 
-export const WithUndefinedValues = () => (
+export const BorrowBalanceAccountHealthWithUndefinedValues = () => (
   <BorrowBalanceAccountHealth
     borrowBalanceCents={undefined}
     borrowLimitCents={undefined}
