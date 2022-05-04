@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
+import transactionReceipt from '__mocks__/models/transactionReceipt';
 import approveToken from './approveToken';
 
-describe('api/mutation/approveToken', () => {
+describe('api/mutations/approveToken', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -27,19 +28,19 @@ describe('api/mutation/approveToken', () => {
     }
   });
 
-  test('returns undefined when request succeeds', async () => {
+  test('returns Transaction Receipt when request succeeds', async () => {
     const accountAddress = '0x3d7598124C212d2121234cd36aFe1c685FbEd848';
     const vtokenAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
     const allowance = new BigNumber(2).pow(256).minus(1).toString(10);
 
-    const sendMock = jest.fn(async () => undefined);
-    const enterMarketsMock = jest.fn(() => ({
+    const sendMock = jest.fn(async () => transactionReceipt);
+    const approveTokenMock = jest.fn(() => ({
       send: sendMock,
     }));
 
     const fakeContract = {
       methods: {
-        approve: enterMarketsMock,
+        approve: approveTokenMock,
       },
     } as unknown as any;
 
@@ -50,9 +51,9 @@ describe('api/mutation/approveToken', () => {
       allowance,
     });
 
-    expect(response).toBe(undefined);
-    expect(enterMarketsMock).toHaveBeenCalledTimes(1);
-    expect(enterMarketsMock).toHaveBeenCalledWith(vtokenAddress, allowance);
+    expect(response).toBe(transactionReceipt);
+    expect(approveTokenMock).toHaveBeenCalledTimes(1);
+    expect(approveTokenMock).toHaveBeenCalledWith(vtokenAddress, allowance);
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: accountAddress });
   });
