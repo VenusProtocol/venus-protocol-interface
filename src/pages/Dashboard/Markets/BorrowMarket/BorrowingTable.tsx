@@ -102,7 +102,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       data={rows}
       initialOrder={{
         orderBy: 'apyEarned',
-        orderDirection: 'asc',
+        orderDirection: 'desc',
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
