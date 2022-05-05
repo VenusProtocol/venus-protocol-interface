@@ -53,7 +53,37 @@ export const getVTokenBorrowBalance = jest.fn();
 export const useGetVTokenBorrowBalance = () =>
   useMutation(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
 
+export const getVrtAllowance = jest.fn();
+export const useGetAllowance = () => useMutation(FunctionKey.GET_TOKEN_ALLOWANCE, getVrtAllowance);
+
+export const getVrtBalanceOf = jest.fn();
+export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getVrtBalanceOf);
+
+export const getVrtConversionEndtime = jest.fn();
+export const useGetVrtConversionEndtime = () =>
+  useMutation(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndtime);
+
+export const getVrtConversionRatio = jest.fn();
+export const useGetVrtConversionRatio = () =>
+  useMutation(FunctionKey.GET_VRT_CONVERSION_RATIO, getVrtConversionRatio);
+
+export const getXvsWithdrawableAmount = jest.fn();
+export const useGetXvsWithdrawableAmount = () =>
+  useMutation(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, getXvsWithdrawableAmount);
+
 // Mutations
+export const approveToken = jest.fn();
+export const useApproveToken = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.APPROVE_TOKEN, approveToken, options);
+
+export const approveVrt = jest.fn();
+export const useApproveVrt = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.APPROVE_VRT, approveVrt, options);
+
+export const convertVrt = jest.fn();
+export const useConvertVrt = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CONVERT_VRT, approveVrt, options);
+
 export const requestFaucetFunds = jest.fn();
 export const useRequestFaucetFunds = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.REQUEST_FAUCET_FUNDS, requestFaucetFunds, options);
@@ -105,3 +135,7 @@ export const useUserMarketInfo = jest.fn();
 
 export const borrowVToken = jest.fn();
 export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, borrowVToken);
+
+export const withdrawXvs = jest.fn();
+export const useWithdrawXvs = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.WITHDRAW_XVS, approveVrt, options);
