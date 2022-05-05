@@ -25,6 +25,10 @@ export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
 export { default as useApproveToken } from './mutations/useApproveToken';
 
+export { default as convertVrt } from './mutations/convertVrt';
+export * from './mutations/convertVrt';
+export { default as useConvertVrt } from './mutations/useConvertVrt';
+
 export { default as supplyNonBnb } from './mutations/supplyNonBnb';
 export * from './mutations/supplyNonBnb';
 export { default as useSupplyNonBnb } from './mutations/useSupplyNonBnb';
@@ -64,6 +68,10 @@ export { default as useBorrowVToken } from './mutations/useBorrowVToken';
 export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
 export { default as useRepayVToken } from './mutations/useRepayVToken';
 
+export { default as withdrawXvs } from './mutations/withdrawXvs';
+export * from './mutations/withdrawXvs';
+export { default as useWithdrawVrt } from './mutations/useWithdrawXvs';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
@@ -85,9 +93,9 @@ export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll'
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalancesAll';
 
-export { default as getVTokenBalance } from './queries/getVTokenBalance';
-export * from './queries/getVTokenBalance';
-export { default as useGetVTokenBalance } from './queries/useGetVTokenBalance';
+export { default as getVTokenBalance } from './queries/getVTokenBalanceOf';
+export * from './queries/getVTokenBalanceOf';
+export { default as useGetVTokenBalance } from './queries/useGetVTokenBalanceOf';
 
 export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
 export * from './queries/getVenusInitialIndex';
@@ -113,6 +121,22 @@ export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
 export { default as useGetXvsReward } from './queries/useGetXvsReward';
 
-export { default as getVTokenBorrowBalance } from './queries/getVTokenBorrowBalance';
-export * from './queries/getVTokenBorrowBalance';
-export { default as useGetVTokenBorrowBalance } from './queries/useGetVTokenBorrowBalance';
+export { default as getVrtAllowance } from './queries/getAllowance';
+export * from './queries/getAllowance';
+export { default as useGetVrtAllowance } from './queries/useGetAllowance';
+
+export { default as getBalanceOf } from './queries/getBalanceOf';
+export * from './queries/getBalanceOf';
+export { default as useGetBalanceOf } from './queries/getBalanceOf';
+
+export { default as getVrtConversionEndtime } from './queries/getVrtConversionEndTime';
+export * from './queries/getVrtConversionEndTime';
+export { default as useGetVrtConversionEndtime } from './queries/useGetVrtConversionEndTime';
+
+export { default as getVrtConversionRatio } from './queries/getVrtConversionRatio';
+export * from './queries/getVrtConversionRatio';
+export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversionRatio';
+
+export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
+export * from './queries/getXvsWithdrawableAmount';
+export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';

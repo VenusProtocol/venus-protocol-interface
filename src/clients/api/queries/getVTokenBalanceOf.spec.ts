@@ -1,4 +1,4 @@
-import getVTokenBalance from './getVTokenBalance';
+import getVTokenBalance from './getVTokenBalanceOf';
 
 describe('api/queries/getVTokenBalance', () => {
   test('throws an error when request fails', async () => {
