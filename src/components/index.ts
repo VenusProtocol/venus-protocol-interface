@@ -11,6 +11,7 @@ export * from './v2/LabeledInlineContent';
 export * from './v2/LayeredValues';
 export * from './v2/Layout';
 export * from './v2/Modal';
+export * from './v2/Notice';
 export * from './v2/ProgressBar';
 export * from './v2/ProgressBar/AccountHealth';
 export * from './v2/ProgressBar/PercentageRepresentation';
