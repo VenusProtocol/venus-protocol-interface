@@ -81,8 +81,10 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
       ]
     : [];
 
-  const calculateNewSupplyAmount = (initial: BigNumber, amount: BigNumber) => initial.plus(amount);
-  const calculateNewBorrowAmount = (initial: BigNumber, amount: BigNumber) => initial.minus(amount);
+  const calculateNewSupplyAmount =
+    ({ isWithdrawing }: { isWithdrawing: boolean }) =>
+    (initial: BigNumber, amount: BigNumber) =>
+      isWithdrawing ? initial.minus(amount) : initial.plus(amount);
 
   const renderTabContent = ({
     message,
@@ -150,7 +152,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         enabledButtonKey: t('supplyWithdraw.supply'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
         maxInputKey: 'walletBalance',
-        calculateNewBalance: calculateNewSupplyAmount,
+        calculateNewBalance: calculateNewSupplyAmount({ isWithdrawing: false }),
         isTransactionLoading: isSupplyLoading,
         onSubmit: onSubmitSupply,
       }),
@@ -165,7 +167,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         enabledButtonKey: t('supplyWithdraw.withdraw'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountWithdraw'),
         maxInputKey: 'supplyBalance',
-        calculateNewBalance: calculateNewBorrowAmount,
+        calculateNewBalance: calculateNewSupplyAmount({ isWithdrawing: true }),
         isTransactionLoading: isWithdrawLoading,
         onSubmit: onSubmitWithdraw,
       }),
