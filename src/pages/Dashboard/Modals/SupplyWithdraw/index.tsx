@@ -257,11 +257,9 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     const amount = new BigNumber(value);
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;
-    let withdrawlValue;
     if (amountEqualsSupplyBalance && vTokenBalance) {
       const res = await redeem({ amount: vTokenBalance });
       ({ transactionHash } = res);
-      withdrawlValue = new BigNumber(vTokenBalance);
       // Display successful transaction modal
     } else {
       const withdrawlAmount = amount
@@ -272,15 +270,14 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
         amount: withdrawlAmount,
       });
       ({ transactionHash } = res);
-      withdrawlValue = new BigNumber(withdrawlAmount);
     }
     onClose();
-    if (withdrawlValue && transactionHash) {
+    if (transactionHash) {
       openSuccessfulTransactionModal({
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
         message: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
         amount: {
-          valueWei: convertCoinsToWei({ value: withdrawlValue, tokenId: asset.id }),
+          valueWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
           tokenId: asset.id,
         },
         transactionHash,
