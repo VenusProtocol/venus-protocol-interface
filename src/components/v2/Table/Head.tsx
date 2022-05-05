@@ -24,7 +24,7 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
   onRequestOrder,
   className,
 }: IHeadProps<C>) {
-  const styles = useStyles();
+  const styles = useStyles({});
   return (
     <TableHead>
       <TableRow className={className}>

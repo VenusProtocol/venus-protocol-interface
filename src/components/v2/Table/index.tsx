@@ -7,8 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { Breakpoint } from '@mui/material';
 
-import { useIsMdDown } from 'hooks/responsive';
+import { useBreakpointDown } from 'hooks/responsive';
 import { Delimiter } from '../Delimiter';
 import Head from './Head';
 import { useStyles } from './styles';
@@ -33,6 +34,7 @@ export interface ITableProps {
   className?: string;
   gridTemplateColumns?: string;
   gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
+  useCardLayoutFrom?: Breakpoint;
 }
 
 /* helper function for getting grid-template-columns string, used by default for similar cells width depending on cells count */
@@ -50,9 +52,10 @@ export const Table = ({
   className,
   gridTemplateColumns,
   gridTemplateRowsMobile = '1fr',
+  useCardLayoutFrom,
 }: ITableProps) => {
-  const styles = useStyles();
-  const isSmDown = useIsMdDown();
+  const styles = useStyles({ useCardLayoutFrom });
+  const isCardLayout = useCardLayoutFrom ? useBreakpointDown(useCardLayoutFrom) : false;
 
   const [orderBy, setOrderBy] = React.useState<typeof columns[number]['key'] | undefined>(
     initialOrder?.orderBy,
@@ -97,17 +100,17 @@ export const Table = ({
     }
 
     /* if gridTemplateColumns prop is not passed from parent component, we create similar fractions by default */
-    return isSmDown
+    return isCardLayout
       ? /* getting default gridTemplateColumns string depending on columns array length */
         getTemplateColumnsString(columns.slice(1, columns.length))
       : getTemplateColumnsString(columns);
-  }, [columns, gridTemplateColumns]);
+  }, [columns, gridTemplateColumns, isCardLayout]);
 
   return (
-    <Paper css={[styles.root, isSmDown && styles.rootMobile]} className={className}>
-      {title && <h4 css={[styles.title, isSmDown && styles.titleMobile]}>{title}</h4>}
+    <Paper css={[styles.root, isCardLayout && styles.rootMobile]} className={className}>
+      {title && <h4 css={[styles.title, isCardLayout && styles.titleMobile]}>{title}</h4>}
 
-      {isSmDown ? (
+      {isCardLayout ? (
         <>
           {rows.map(row => {
             const rowKey = row[rowKeyIndex].value.toString();

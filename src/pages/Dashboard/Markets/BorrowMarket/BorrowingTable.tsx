@@ -107,6 +107,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
       gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
+      useCardLayoutFrom="sm"
     />
   );
 };

@@ -8,6 +8,7 @@ import { formatToReadablePercentage } from 'utilities/common';
 import { getToken } from 'utilities';
 import { TokenId } from 'types';
 import { Toggle } from 'components';
+import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 import { Table } from '.';
 import { Icon } from '../Icon';
 
@@ -77,7 +78,7 @@ const columns = [
   { key: 'asset', label: 'Asset', orderable: false },
   { key: 'apy', label: 'APY', orderable: true },
   { key: 'wallet', label: 'Wallet', orderable: true },
-  { key: 'Collateral', label: 'Collateral', orderable: true },
+  { key: 'collateral', label: 'Collateral', orderable: true },
 ];
 
 export default {
@@ -86,7 +87,7 @@ export default {
   decorators: [withCenterStory({ width: 800 }), withThemeProvider],
   parameters: {
     backgrounds: {
-      default: 'White',
+      default: PALETTE.background.default,
     },
   },
 } as ComponentMeta<typeof Table>;
@@ -116,5 +117,21 @@ export const WithCustomColumnsWidth = () => (
     title="Market Data"
     rowKeyIndex={0}
     gridTemplateColumns="100px 1fr 1fr 140px"
+  />
+);
+
+export const CardsLayout = () => (
+  <Table columns={columns} data={rows} title="Market Data" rowKeyIndex={0} useCardLayoutFrom="xl" />
+);
+
+export const CardsLayoutWithMultipleRows = () => (
+  <Table
+    columns={columns}
+    data={rows}
+    title="Market Data"
+    rowKeyIndex={0}
+    gridTemplateColumns="1fr 1fr"
+    gridTemplateRowsMobile="1fr 1fr"
+    useCardLayoutFrom="xl"
   />
 );

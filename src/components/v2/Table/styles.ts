@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
-import { useTheme } from '@mui/material';
+import { Breakpoint, useTheme } from '@mui/material';
 
-export const useStyles = () => {
+export const useStyles = ({ useCardLayoutFrom = 'xs' }: { useCardLayoutFrom?: Breakpoint }) => {
   const theme = useTheme();
   return {
     root: css`
@@ -9,7 +9,7 @@ export const useStyles = () => {
       padding-left: 0;
       padding-right: 0;
 
-      ${theme.breakpoints.down('sm')} {
+      ${theme.breakpoints.down(useCardLayoutFrom)} {
         padding-top: ${theme.spacing(2)};
         padding-bottom: ${theme.spacing(2)};
       }
