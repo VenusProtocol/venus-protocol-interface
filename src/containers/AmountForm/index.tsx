@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Formik, Form, FormikProps, FormikConfig } from 'formik';
+import { Formik, Form, FormikProps, FormikConfig, FormikHelpers } from 'formik';
 
 import getValidationSchema, { FormValues } from './validationSchema';
 
@@ -22,9 +22,10 @@ export const AmountForm: React.FC<IAmountFormProps> = ({
   initialAmount = '',
   maxAmount,
 }) => {
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (values.amount) {
-      onSubmit(values.amount.trim());
+      await onSubmit(values.amount.trim());
+      resetForm();
     }
   };
 
