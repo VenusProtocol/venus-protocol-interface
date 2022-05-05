@@ -30,12 +30,13 @@ interface ISupplyWithdrawFormUiProps {
   asset: Asset;
   assets: Asset[];
   tokenInfo: ILabeledInlineContentProps[];
+  availableBalance: BigNumber;
+  maxInput: BigNumber;
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
-  maxInput: BigNumber;
   calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
   isTransactionLoading: boolean;
   isXvsEnabled: boolean;
@@ -47,6 +48,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   userTotalBorrowBalance,
   userTotalBorrowLimit,
   assets,
+  availableBalance,
   maxInput,
   inputLabel,
   enabledButtonKey,
@@ -137,7 +139,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
           components={{
             White: <span css={styles.whiteLabel} />,
           }}
-          values={{ amount: format(maxInput), symbol: assetId?.toUpperCase() }}
+          values={{ amount: format(availableBalance), symbol: assetId?.toUpperCase() }}
         />
       </Typography>
 
@@ -212,6 +214,7 @@ interface ISupplyWithdrawFormProps extends ISupplyWithdrawFormUiProps {
 const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
   onSubmit,
   maxInput,
+  availableBalance,
   ...props
 }) => {
   const onSubmitHandleError: IAmountFormProps['onSubmit'] = async (value: string) => {
@@ -223,7 +226,9 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
   };
   return (
     <AmountForm onSubmit={onSubmitHandleError} maxAmount={maxInput.toFixed()}>
-      {() => <SupplyWithdrawContent maxInput={maxInput} {...props} />}
+      {() => (
+        <SupplyWithdrawContent maxInput={maxInput} availableBalance={availableBalance} {...props} />
+      )}
     </AmountForm>
   );
 };
