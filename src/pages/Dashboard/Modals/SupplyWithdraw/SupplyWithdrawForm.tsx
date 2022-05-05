@@ -5,6 +5,7 @@ import { useField } from 'formik';
 import { Typography } from '@mui/material';
 import toast from 'components/Basic/Toast';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
   FormikTokenTextField,
   Delimiter,
@@ -62,6 +63,10 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
   const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
+
+  const hypotheticalTokenSupplyBalance = amountString
+    ? calculateNewBalance(asset.supplyBalance, amount)
+    : undefined;
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
@@ -176,10 +181,18 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
         css={styles.bottomRow}
         className="info-row"
       >
-        {t('supplyWithdraw.supplyBalanceValue', {
-          amount: format(calculateNewBalance(asset.supplyBalance, amount)),
-          symbol: asset.symbol,
-        })}
+        <ValueUpdate
+          original={asset.supplyBalance}
+          update={hypotheticalTokenSupplyBalance}
+          format={(value: BigNumber | undefined) =>
+            value
+              ? t('supplyWithdraw.supplyBalanceValue', {
+                  amount: format(value),
+                  symbol: asset.symbol,
+                })
+              : PLACEHOLDER_KEY
+          }
+        />
       </LabeledInlineContent>
       <FormikSubmitButton
         fullWidth
