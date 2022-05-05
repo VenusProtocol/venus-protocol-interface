@@ -33,3 +33,5 @@ export const WithHasError = () => (
 export const WithMinAndMax = () => (
   <TextField label="Label" placeholder="0.0" type="number" min={0} max={100} />
 );
+
+export const Disabled = () => <TextField placeholder="0.0" type="number" min={0} disabled />;

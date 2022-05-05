@@ -9,7 +9,7 @@ import { useStyles } from './styles';
 export interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
-  description?: string;
+  description?: string | React.ReactElement;
   hasError?: boolean;
   leftIconName?: IconName;
   rightAdornment?: React.ReactElement;
@@ -26,6 +26,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
   max,
   min,
   type,
+  disabled,
   ...inputProps
 }) => {
   const styles = useStyles();
@@ -58,7 +59,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
         </Typography>
       )}
 
-      <Box css={styles.getInputContainer({ hasError })}>
+      <Box css={styles.getInputContainer({ hasError, disabled })}>
         {!!leftIconName && (
           <Icon name={leftIconName} size={styles.theme.spacing(6)} css={styles.leftIcon} />
         )}
@@ -69,6 +70,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
           min={min}
           onChange={handleChange}
           type={type}
+          disabled={disabled}
           {...inputProps}
         />
 
