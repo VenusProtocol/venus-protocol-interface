@@ -4,7 +4,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Select as MuiSelect } from '@mui/material';
+import Typography from '@mui/material/Typography';
+
 import { Icon } from '../Icon';
+import { TextButton } from '../Button';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
 type Option = {
@@ -56,10 +59,20 @@ export const Select = ({ className, options }: ISelectProps) => {
         )}
         MenuProps={{
           PaperProps: {
-            style: styles.menuWrapper,
+            sx: styles.menuWrapper,
+          },
+          MenuListProps: {
+            sx: styles.menuList,
           },
         }}
       >
+        <div css={styles.mobileHeader}>
+          <Typography variant="h4">Select Type</Typography>
+
+          <TextButton css={styles.closeMenuButton} onClick={handleClose}>
+            <Icon name="close" />
+          </TextButton>
+        </div>
         {[DEFAULT_OPTION, ...options].map(({ value, label }) => (
           <MenuItem
             disableRipple

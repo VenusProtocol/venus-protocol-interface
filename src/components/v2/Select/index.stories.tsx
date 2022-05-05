@@ -14,7 +14,7 @@ export default {
   },
 } as ComponentMeta<typeof Select>;
 
-const options = Array.from(Array(5).keys()).map(i => ({
+const options = Array.from(Array(25).keys()).map(i => ({
   value: `value${i}`,
   label: `Value${i}`,
 }));

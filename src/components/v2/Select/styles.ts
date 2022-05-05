@@ -41,10 +41,40 @@ export const useStyles = () => {
         }
       }
     `,
+    mobileHeader: css`
+      display: none;
+
+      ${theme.breakpoints.down('sm')} {
+        padding: ${theme.spacing(4)};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: sticky;
+        top: 0;
+        background-color: ${theme.palette.background.paper};
+        z-index: 1;
+        border-bottom: 1px solid ${theme.palette.secondary.light};
+      }
+    `,
+    closeMenuButton: css`
+      position: absolute;
+      right: 0;
+    `,
+
+    /* styles passed as MenuProps are not recognized if we pass them as emotion SerializedStyles */
+    menuList: {
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: 0,
+      },
+    },
     menuWrapper: {
       padding: 0,
       borderRadius: theme.shape.borderRadius.small,
       marginTop: theme.spacing(1),
+
+      [theme.breakpoints.down('sm')]: {
+        width: `calc(100vw - ${theme.spacing(4)})`,
+      },
     },
   };
 };
