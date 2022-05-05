@@ -41,7 +41,7 @@ export const ProgressBar = ({
     over: mark ? safeValue > mark : false,
     secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
   });
-
+  console.log({ value });
   const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => (
     <Box
       component="span"
@@ -63,10 +63,12 @@ export const ProgressBar = ({
         style={props?.style}
         css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
       >
-        {trackTooltip && (
+        {trackTooltip ? (
           <Tooltip placement={tooltipPlacement} title={trackTooltip}>
             <Box className={props?.className} />
           </Tooltip>
+        ) : (
+          <Box className={props?.className} />
         )}
       </Box>
     );
