@@ -22,9 +22,10 @@ export const AmountForm: React.FC<IAmountFormProps> = ({
   initialAmount = '',
   maxAmount,
 }) => {
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = async (values: FormValues, { resetForm }: any) => {
     if (values.amount) {
-      onSubmit(values.amount.trim());
+      await onSubmit(values.amount.trim());
+      resetForm();
     }
   };
 
