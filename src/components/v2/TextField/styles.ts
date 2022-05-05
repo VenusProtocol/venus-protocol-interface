@@ -3,7 +3,6 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
-
   return {
     theme,
     getLabel: ({ hasError }: { hasError: boolean }) => css`
@@ -12,21 +11,38 @@ export const useStyles = () => {
 
       ${hasError && `color: ${theme.palette.error.main};`};
     `,
-    getInputContainer: ({ hasError }: { hasError: boolean }) => css`
-      display: flex;
-      align-items: center;
-      padding: ${theme.spacing(2, 2, 2, 4)};
-      border-radius: ${theme.spacing(3)};
-      border: ${theme.spacing(0.5)} solid
-        ${hasError ? theme.palette.interactive.error : 'transparent'};
-      background-color: ${theme.palette.background.default};
+    getInputContainer: ({
+      hasError,
+      disabled,
+    }: {
+      hasError: boolean;
+      disabled: boolean | undefined;
+    }) => {
+      let borderColor: undefined | string = 'transparent';
 
-      &:focus-within {
-        border-color: ${hasError
-          ? theme.palette.interactive.error
-          : theme.palette.interactive.primary};
+      if (hasError) {
+        borderColor = theme.palette.interactive.error;
       }
-    `,
+
+      if (disabled) {
+        borderColor = theme.palette.secondary.light;
+      }
+      return css`
+        display: flex;
+        align-items: center;
+        padding: ${theme.spacing(2, 2, 2, 4)};
+        border-radius: ${theme.spacing(3)};
+        border: ${theme.spacing(0.5)} solid ${borderColor};
+        background-color: ${disabled
+          ? theme.palette.background.default
+          : theme.palette.background.paper};
+        &:focus-within {
+          border-color: ${hasError
+            ? theme.palette.interactive.error
+            : theme.palette.interactive.primary};
+        }
+      `;
+    },
     leftIcon: css`
       margin-right: ${theme.spacing(2)};
     `,
