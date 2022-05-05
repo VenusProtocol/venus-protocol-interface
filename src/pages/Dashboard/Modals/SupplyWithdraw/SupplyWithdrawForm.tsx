@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { useField } from 'formik';
 import { Typography } from '@mui/material';
 import toast from 'components/Basic/Toast';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
@@ -34,6 +33,7 @@ interface ISupplyWithdrawFormUiProps {
   maxInput: BigNumber;
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
+  inputValue: string;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
@@ -50,6 +50,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   assets,
   availableBalance,
   maxInput,
+  inputValue,
   inputLabel,
   enabledButtonKey,
   disabledButtonKey,
@@ -59,14 +60,13 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  const [{ value: amountString }] = useField('amount');
   const { id: assetId } = asset;
-  const amount = new BigNumber(amountString || 0);
+  const amount = new BigNumber(inputValue || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
   const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
-  const hypotheticalTokenSupplyBalance = amountString
+  const hypotheticalTokenSupplyBalance = inputValue
     ? calculateNewBalance(asset.supplyBalance, amount)
     : undefined;
 
@@ -207,7 +207,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   );
 };
 
-interface ISupplyWithdrawFormProps extends ISupplyWithdrawFormUiProps {
+interface ISupplyWithdrawFormProps extends Omit<ISupplyWithdrawFormUiProps, 'inputValue'> {
   onSubmit: IAmountFormProps['onSubmit'];
 }
 
@@ -226,8 +226,13 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
   };
   return (
     <AmountForm onSubmit={onSubmitHandleError} maxAmount={maxInput.toFixed()}>
-      {() => (
-        <SupplyWithdrawContent maxInput={maxInput} availableBalance={availableBalance} {...props} />
+      {({ values }) => (
+        <SupplyWithdrawContent
+          maxInput={maxInput}
+          availableBalance={availableBalance}
+          inputValue={values.amount}
+          {...props}
+        />
       )}
     </AmountForm>
   );
