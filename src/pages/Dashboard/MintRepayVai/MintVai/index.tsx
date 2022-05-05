@@ -28,7 +28,6 @@ import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
-import MintFee from './MintFee';
 
 export interface IMintVaiUiProps {
   disabled: boolean;
@@ -128,7 +127,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         vtokenAddress={vaiToken.address}
       >
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-          {() => (
+          {({ values }) => (
             <>
               <div css={styles.ctaContainer}>
                 <FormikTokenTextField
@@ -151,7 +150,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
                   {readableVaiLimit}
                 </LabeledInlineContent>
 
-                <MintFee getReadableMintFee={getReadableMintFee} />
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: true })}
+                  iconName="fee"
+                  label={t('mintRepayVai.mintVai.mintFeeLabel')}
+                >
+                  {getReadableMintFee(values.amount)}
+                </LabeledInlineContent>
               </div>
 
               <FormikSubmitButton
