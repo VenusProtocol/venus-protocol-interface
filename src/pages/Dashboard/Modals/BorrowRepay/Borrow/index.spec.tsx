@@ -3,6 +3,7 @@ import noop from 'noop-ts';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -145,6 +146,43 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toHaveAttribute('disabled');
+  });
+
+  it('updates input value correctly when pressing on max button', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+
+    // Check input is empty
+    const input = getByTestId('token-text-field') as HTMLInputElement;
+    expect(input.value).toBe('');
+
+    // Press on max button
+    fireEvent.click(getByText(`${SAFE_BORROW_LIMIT_PERCENTAGE}% LIMIT`));
+
+    const safeUserBorrowLimitDollars = fakeUserTotalBorrowLimitDollars
+      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
+      .dividedBy(100);
+    const safeBorrowDeltaDollars = safeUserBorrowLimitDollars.minus(
+      fakeUserTotalBorrowBalanceDollars,
+    );
+    const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
+    const expectedInputValue = safeBorrowDeltaTokens.dp(fakeAsset.decimals).toFixed();
+
+    await waitFor(() => expect(input.value).toBe(expectedInputValue));
   });
 
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
