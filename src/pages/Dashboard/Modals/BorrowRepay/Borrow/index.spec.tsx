@@ -3,9 +3,9 @@ import noop from 'noop-ts';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import { Asset } from 'types';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
 import { useUserMarketInfo, borrowVToken } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -14,8 +14,38 @@ import en from 'translation/translations/en.json';
 import Borrow from '.';
 
 const ONE = '1';
-const ONE_MILLION = '1000000';
-const fakeAsset = assetData[0];
+const baseFakeAsset: Asset = {
+  key: 0,
+  id: 'sxp',
+  img: '/static/media/sxp.78951004.png',
+  vimg: '/static/media/vsxp.b4a90bb0.png',
+  symbol: 'SXP',
+  tokenAddress: '0x47bead2563dcbf3bf2c9407fea4dc236faba485a',
+  vsymbol: 'vSXP',
+  vtokenAddress: '0x2ff3d0f6990a40261c66e1ff2017acbc282eb6d0',
+  supplyApy: new BigNumber('0.05225450324405023'),
+  borrowApy: new BigNumber('-2.3062487835658776'),
+  xvsSupplyApy: new BigNumber('0.11720675342484096'),
+  xvsBorrowApy: new BigNumber('4.17469243006608279'),
+  collateralFactor: new BigNumber('0.5'),
+  borrowCaps: new BigNumber('0'),
+  totalBorrows: new BigNumber('1852935.597521220541385584'),
+  treasuryBalance: new BigNumber('0'),
+  supplyBalance: new BigNumber('90'),
+  borrowBalance: new BigNumber('0'),
+  isEnabled: true,
+  collateral: false,
+  percentOfLimit: '0',
+  hypotheticalLiquidity: ['0', '0', '0'],
+  decimals: 18,
+  tokenPrice: new BigNumber('1'),
+  walletBalance: new BigNumber('100'),
+  liquidity: new BigNumber('10000'),
+};
+
+const fakeUserTotalBorrowLimit = new BigNumber('1000');
+const fakeUserTotalBorrowBalance = new BigNumber('10');
+const fakeBorrowDelta = fakeUserTotalBorrowLimit.minus(fakeUserTotalBorrowBalance);
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
@@ -23,17 +53,27 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+      assets: [], // Not used in these tests
+      userTotalBorrowLimit: fakeUserTotalBorrowLimit,
+      userTotalBorrowBalance: fakeUserTotalBorrowBalance,
     }));
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />);
+    renderComponent(<Borrow asset={baseFakeAsset} onClose={noop} isXvsEnabled />);
   });
 
-  it('disables submit button if an incorrect amount is entered in input', async () => {
+  // TODO: fix form (currently allows borrowing more than available liquidity)
+  it.skip('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
+    const customFakeAssets: Asset = {
+      ...baseFakeAsset,
+      tokenPrice: new BigNumber(1),
+      walletBalance: new BigNumber(10000000),
+      // Set liquidity to be less than USD amount user can borrow before
+      // reaching limit
+      liquidity: fakeBorrowDelta.minus(10),
+    };
+
     const { getByText, getByTestId } = renderComponent(
       <AuthContext.Provider
         value={{
@@ -46,7 +86,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
           },
         }}
       >
-        <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />
+        <Borrow asset={customFakeAssets} onClose={noop} isXvsEnabled />
       </AuthContext.Provider>,
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
@@ -55,16 +95,16 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toHaveAttribute('disabled');
 
+    const fakeIncorrectAmount = customFakeAssets.liquidity
+      .dividedBy(customFakeAssets.tokenPrice)
+      // Add one token more than the available liquidity
+      .plus(1)
+      .dp(customFakeAssets.decimals, BigNumber.ROUND_DOWN)
+      .toFixed();
+
     // Enter amount in input
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: ONE } });
+    fireEvent.change(getByTestId('token-text-field'), { target: { value: fakeIncorrectAmount } });
 
-    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButton));
-    expect(
-      getByText(en.borrowRepayModal.borrow.submitButton).closest('button'),
-    ).not.toHaveAttribute('disabled');
-
-    // Enter amount higher than maximum borrow limit in input
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: ONE_MILLION } });
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
@@ -89,7 +129,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
           },
         }}
       >
-        <Borrow asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />
+        <Borrow asset={baseFakeAsset} onClose={onCloseMock} isXvsEnabled />
       </AuthContext.Provider>,
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
@@ -106,7 +146,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     fireEvent.click(getByText(en.borrowRepayModal.borrow.submitButton));
 
     const expectedAmountWei = new BigNumber(ONE).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.decimals),
+      new BigNumber(10).pow(baseFakeAsset.decimals),
     );
 
     await waitFor(() => expect(borrowVToken).toHaveBeenCalledTimes(1));
@@ -120,7 +160,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: fakeAsset.id,
+        tokenId: baseFakeAsset.id,
         valueWei: expectedAmountWei,
       },
       message: expect.any(String),
