@@ -2,14 +2,13 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 import { useUserMarketInfo } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
+import fakeAccountAddress from '__mocks__/models/address';
 import MintRepayVai from '.';
 
 jest.mock('clients/api');
 
-const fakeAccountAddress = '0x0';
 const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
 
 describe('pages/Dashboard/MintRepayVai', () => {
@@ -22,40 +21,24 @@ describe('pages/Dashboard/MintRepayVai', () => {
   });
 
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <MintRepayVai />
-      </AuthContext.Provider>,
-    );
+    const { getByText } = renderComponent(() => <MintRepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+    });
     await waitFor(() => getByText('Mint/Repay VAI'));
   });
 
   it('renders mint tab by default and lets user switch to repay tab', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <MintRepayVai />
-      </AuthContext.Provider>,
-    );
+    const { getByText } = renderComponent(() => <MintRepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+    });
 
     // Check mint tab is display by default
     await waitFor(() => getByText('Available VAI limit'));

@@ -2,14 +2,12 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { assetData } from '__mocks__/models/asset';
+import fakeAccountAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
 import { enterMarkets, useUserMarketInfo } from 'clients/api';
 import { switchAriaLabel } from 'components';
-import { AuthContext } from 'context/AuthContext';
 import en from 'translation/translations/en.json';
 import SupplyMarket from '.';
-
-const fakeAccountAddress = '0x0';
 
 jest.mock('clients/api');
 
@@ -40,24 +38,21 @@ describe('pages/SupplyMarket', () => {
 
   it('clicking toggle only toggles collateral', async () => {
     const { queryByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
+      () => (
         <SupplyMarket
           isXvsEnabled
           suppliedAssets={[]}
           supplyMarketAssets={assetData}
           accountAddress={fakeAccountAddress}
         />
-      </AuthContext.Provider>,
+      ),
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
     );
     const toggle = document.querySelector(
       `input[aria-label="${switchAriaLabel}"]`,

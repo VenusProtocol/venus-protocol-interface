@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
-import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { getXvsReward, claimXvsReward } from 'clients/api';
 import ClaimXvsRewardButton, { TEST_ID } from '.';
@@ -24,21 +23,13 @@ describe('pages/Dashboard/MintRepayVai', () => {
   });
 
   it('renders nothing if user have no claimable XVS reward', () => {
-    const { queryAllByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAddress,
-          },
-        }}
-      >
-        <ClaimXvsRewardButton />
-      </AuthContext.Provider>,
-    );
+    const { queryAllByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
     expect(queryAllByTestId(TEST_ID)).toHaveLength(0);
   });
 
@@ -47,21 +38,13 @@ describe('pages/Dashboard/MintRepayVai', () => {
       async () => new BigNumber('10000000000000000000000'),
     );
 
-    const { getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAddress,
-          },
-        }}
-      >
-        <ClaimXvsRewardButton />
-      </AuthContext.Provider>,
-    );
+    const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
 
     await waitFor(() => expect(getByTestId(TEST_ID)));
     expect(getByTestId(TEST_ID).textContent).toContain('10,000 XVS');
@@ -74,21 +57,13 @@ describe('pages/Dashboard/MintRepayVai', () => {
     (getXvsReward as jest.Mock).mockImplementationOnce(async () => fakeXvsReward);
     (claimXvsReward as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
-    const { getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAddress,
-          },
-        }}
-      >
-        <ClaimXvsRewardButton />
-      </AuthContext.Provider>,
-    );
+    const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
 
     await waitFor(() => expect(getByTestId(TEST_ID)));
 

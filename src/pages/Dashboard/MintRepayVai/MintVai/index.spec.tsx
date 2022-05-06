@@ -6,17 +6,16 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { mintVai, getVaiTreasuryPercentage, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
-import { AuthContext } from 'context/AuthContext';
 import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
+import fakeAccountAddress from '__mocks__/models/address';
 import RepayVai from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeAccountAddress = '0x0';
 const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
 const fakeMintableVai = new BigNumber('1000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
@@ -35,21 +34,13 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   });
 
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <RepayVai />
-      </AuthContext.Provider>,
-    );
+    const { getByText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+    });
     await waitFor(() => getByText('Available VAI limit'));
   });
 
@@ -59,17 +50,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     );
 
     const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
+      () => (
         <VaiContext.Provider
           value={{
             userVaiEnabled: true,
@@ -80,7 +61,14 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
         >
           <RepayVai />
         </VaiContext.Provider>
-      </AuthContext.Provider>,
+      ),
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
     );
     await waitFor(() => getByText('Available VAI limit'));
 
@@ -95,28 +83,25 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     (mintVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByPlaceholderText } = renderComponent(
-      <VaiContext.Provider
-        value={{
-          userVaiEnabled: true,
-          mintableVai: fakeMintableVai,
-          userVaiMinted: new BigNumber(0),
-          userVaiBalance: new BigNumber(0),
-        }}
-      >
-        <AuthContext.Provider
+      () => (
+        <VaiContext.Provider
           value={{
-            login: jest.fn(),
-            logOut: jest.fn(),
-            openAuthModal: jest.fn(),
-            closeAuthModal: jest.fn(),
-            account: {
-              address: fakeAccountAddress,
-            },
+            userVaiEnabled: true,
+            mintableVai: fakeMintableVai,
+            userVaiMinted: new BigNumber(0),
+            userVaiBalance: new BigNumber(0),
           }}
         >
           <RepayVai />
-        </AuthContext.Provider>
-      </VaiContext.Provider>,
+        </VaiContext.Provider>
+      ),
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
     );
     await waitFor(() => getByText('Available VAI limit'));
 
