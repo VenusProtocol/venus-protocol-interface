@@ -90,7 +90,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
       // Display successful transaction modal
       openSuccessfulTransactionModal({
         title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
-        message: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
+        content: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           tokenId: 'xvs' as TokenId,

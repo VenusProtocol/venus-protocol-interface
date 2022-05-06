@@ -34,7 +34,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
       openSuccessfulTransactionModal({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
         transactionHash,
-        children: (
+        content: (
           <div css={styles.successModalConversionAmounts}>
             <Token symbol={XVS_ID} css={styles.successModalToken} variant="small2" />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>

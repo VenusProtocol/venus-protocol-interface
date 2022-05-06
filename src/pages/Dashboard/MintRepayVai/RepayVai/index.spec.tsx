@@ -114,7 +114,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
         tokenId: 'xvs',
         valueWei: fakeUserWeiMinted,
       },
-      message: expect.any(String),
+      content: expect.any(String),
       title: expect.any(String),
     });
   });

@@ -79,7 +79,7 @@ describe('pages/Dashboard/MintRepayVai', () => {
         tokenId: 'xvs',
         valueWei: fakeXvsReward,
       },
-      message: expect.any(String),
+      content: expect.any(String),
       title: expect.any(String),
     });
   });

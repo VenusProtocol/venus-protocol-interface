@@ -16,10 +16,11 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import { formatI18nextRelativetimeValues } from 'utilities';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
-import { convertWeiToCoins } from 'utilities/common';
-import { getContractAddress } from 'utilities';
+import { getContractAddress, formatI18nextRelativetimeValues } from 'utilities';
+import { InternalError } from 'utilities/errors';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { VRT_ID, XVS_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 
@@ -138,9 +139,13 @@ const Convert: React.FC<IConvertProps> = ({
             css={styles.form}
           >
             {({ values }) => {
-              const xvsValue = values.amount
-              ? new BigNumber(values.amount).times(xvsToVrtConversionRatio).dp(VRT_DECIMAL).toFixed()
-              : '';
+              const xvsValue =
+                values.amount && xvsToVrtConversionRatio
+                  ? new BigNumber(values.amount)
+                      .times(xvsToVrtConversionRatio)
+                      .dp(VRT_DECIMAL)
+                      .toFixed()
+                  : '';
               return (
                 <>
                   <div css={styles.inputSection}>

@@ -42,6 +42,6 @@ export const WithdrawTab = () => (
   <Withdraw
     xvsVestedBalanceWei={new BigNumber(9999)}
     withdrawXvs={noop}
-    xvsWithdrawlLoading={false}
+    withdrawXvsLoading={false}
   />
 );
