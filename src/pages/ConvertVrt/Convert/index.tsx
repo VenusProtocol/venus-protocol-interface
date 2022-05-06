@@ -16,26 +16,24 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { formatI18nextRelativetimeValues } from 'utilities';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
-import { getContractAddress, formatI18nextRelativetimeValues } from 'utilities';
-import { InternalError } from 'utilities/errors';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins } from 'utilities/common';
+import { getContractAddress } from 'utilities';
 import { VRT_ID, XVS_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 
-interface ConvertProps {
-  xvsToVrtConversionRatio: BigNumber;
-  vrtLimitUsedWei: BigNumber;
-  vrtLimitWei: BigNumber;
-  vrtConversionEndTime: string;
-  userVrtBalanceWei: BigNumber;
+export interface IConvertProps {
+  xvsToVrtConversionRatio: BigNumber | undefined;
+  vrtConversionEndTime: Date | undefined;
+  userVrtBalanceWei: BigNumber | undefined;
   vrtConversionLoading: boolean;
   userVrtEnabled: boolean;
   convertVrt: (amount: string) => Promise<string>;
+  walletConnected: boolean;
 }
 
-const Convert: React.FC<ConvertProps> = ({
+const Convert: React.FC<IConvertProps> = ({
   xvsToVrtConversionRatio,
   vrtConversionEndTime,
   userVrtBalanceWei,
@@ -118,7 +116,9 @@ const Convert: React.FC<ConvertProps> = ({
             css={styles.form}
           >
             {({ values }) => {
-              const xvsValue = calculateXvsFromVrt(new BigNumber(values.amount));
+              const xvsValue = values.amount
+              ? new BigNumber(values.amount).times(xvsToVrtConversionRatio).dp(VRT_DECIMAL).toFixed()
+              : '';
               return (
                 <>
                   <div css={styles.inputSection}>

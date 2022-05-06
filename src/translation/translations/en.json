@@ -91,6 +91,7 @@
   "convertVrt": {
     "balance": "Balance: <White>{{amount}}</White>",
     "connectWalletToConvertVrtToXvs": "To convert VRT to XVS you should connect your wallet first",
+    "connectWalletToWithdrawXvs": "To withdraw XVS you should connect your wallet first",
     "convert": "Convert",
     "convertVrt": "Convert VRT",
     "convertVrtToXvs": "Convert VRT to XVS",
@@ -118,6 +119,7 @@
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount",
     "withdrawXvs": "Withdraw XVS",
+    "usedOverTotalVrt": "{{used}}/{{total}} VRT",
     "xvsAVailable": "Current XVS Available",
     "youWillReceive": "You will receive"
   },

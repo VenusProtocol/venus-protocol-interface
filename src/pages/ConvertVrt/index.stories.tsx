@@ -38,4 +38,10 @@ Convert.args = {
   vrtConversionEndTime: new Date('1678859525'),
 };
 
-export const WithdrawTab = () => <Withdraw xvsVestedBalanceWei={new BigNumber(9999)} />;
+export const WithdrawTab = () => (
+  <Withdraw
+    xvsVestedBalanceWei={new BigNumber(9999)}
+    withdrawXvs={noop}
+    xvsWithdrawlLoading={false}
+  />
+);
