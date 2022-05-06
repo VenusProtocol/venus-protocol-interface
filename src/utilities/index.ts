@@ -11,3 +11,4 @@ export {
 } from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
 export * from './generateBscScanUrl';
+export { default as formatI18nextRelativetimeValues } from './formatI18nextRelativetimeValues';

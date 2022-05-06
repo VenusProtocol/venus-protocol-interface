@@ -102,7 +102,7 @@ export default ({
       </div>
       {/* recieve section */}
       <div className="recieve-xvs">
-        <div className="input-title">You will recieve</div>
+        <div className="input-title">You will receive</div>
         <div className="input-wrapper">
           <img src={xvsImg} alt="xvs-icon" />
           <NumberFormat
