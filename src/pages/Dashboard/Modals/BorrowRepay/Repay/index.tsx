@@ -52,7 +52,10 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const limitTokens = BigNumber.min(asset.borrowBalance, asset.walletBalance).toFixed();
+  const limitTokens = React.useMemo(
+    () => BigNumber.min(asset.borrowBalance, asset.walletBalance).toFixed(),
+    [asset.borrowBalance, asset.walletBalance],
+  );
 
   const getTokenBorrowBalancePercentageTokens = React.useCallback(
     (percentage: number) =>
