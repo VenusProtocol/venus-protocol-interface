@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Typography from '@mui/material/Typography';
 
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
-import { Icon } from '../Icon';
+import { NoticeInfo } from '../Notice';
 import { SecondaryButton } from '../Button';
 import { useStyles } from './styles';
 
@@ -31,13 +30,7 @@ export const Prompt: React.FC<IPromptProps> = ({
   }
   return (
     <div className={className}>
-      <div css={styles.prompt}>
-        <Icon css={styles.icon} name="wallet" />
-
-        <Typography variant="small2" component="span" css={styles.message}>
-          {message}
-        </Typography>
-      </div>
+      <NoticeInfo css={styles.notice} description={message} />
 
       <SecondaryButton fullWidth onClick={openAuthModal}>
         {t('connectWallet.connectButton')}
