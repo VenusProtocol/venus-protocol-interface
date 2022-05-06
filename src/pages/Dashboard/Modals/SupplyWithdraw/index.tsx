@@ -103,16 +103,23 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
     onSubmit: IAmountFormProps['onSubmit'];
   }) => {
     const maxInput = React.useMemo(() => {
-      let maxInputDollars = asset.walletBalance;
+      let maxInputTokens = asset.walletBalance;
 
       // If asset isn't used as collateral user can withdraw the entire supply
       // balance without affecting their borrow limit
       if (type === 'withdraw' && !asset.collateral) {
-        maxInputDollars = asset.supplyBalance;
+        maxInputTokens = asset.supplyBalance;
       } else if (type === 'withdraw') {
         // Calculate how much token user can withdraw before they risk getting
         // liquidated (if their borrow balance goes above their borrow limit)
+
+        // Return 0 if borrow limit has already been reached
+        if (userTotalBorrowBalance.isGreaterThanOrEqualTo(userTotalBorrowLimit)) {
+          return new BigNumber(0);
+        }
+
         const marginWithBorrowLimitDollars = userTotalBorrowLimit.minus(userTotalBorrowBalance);
+
         const collateralAmountPerTokenDollars = asset.tokenPrice.multipliedBy(
           asset.collateralFactor,
         );
@@ -120,10 +127,10 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
           .dividedBy(collateralAmountPerTokenDollars)
           .dp(asset.decimals, BigNumber.ROUND_DOWN);
 
-        maxInputDollars = BigNumber.minimum(maxTokensBeforeLiquidation, asset.supplyBalance);
+        maxInputTokens = BigNumber.minimum(maxTokensBeforeLiquidation, asset.supplyBalance);
       }
 
-      return maxInputDollars;
+      return maxInputTokens;
     }, []);
 
     return (
