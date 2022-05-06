@@ -56,6 +56,26 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
   });
 
+  it('displays correct wallet balance for the relevant token', async () => {
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+
+    await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
+  });
+
   it('disables submit button if an incorrect amount is entered in input', async () => {
     const { getByText, getByTestId } = renderComponent(
       () => <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />,
