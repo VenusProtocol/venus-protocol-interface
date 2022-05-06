@@ -29,12 +29,12 @@ interface ISupplyWithdrawFormUiProps {
   asset: Asset;
   assets: Asset[];
   tokenInfo: ILabeledInlineContentProps[];
+  maxInput: BigNumber;
   userTotalBorrowBalance: BigNumber;
   userTotalBorrowLimit: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
-  maxInput: BigNumber;
   calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
   isTransactionLoading: boolean;
   isXvsEnabled: boolean;
