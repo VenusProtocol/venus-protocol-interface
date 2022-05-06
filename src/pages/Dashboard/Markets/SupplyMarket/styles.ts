@@ -1,4 +1,12 @@
-export const useStyles = () => ({
-  getGridTemplateColumns: ({ isMobile }: { isMobile: boolean }) =>
-    isMobile ? '1fr 1fr 120px' : '120px 1fr 1fr 1fr',
-});
+import { useTheme } from '@mui/material';
+
+export const useStyles = () => {
+  const theme = useTheme();
+
+  return {
+    getGridTemplateColumns: ({ isCardLayout }: { isCardLayout: boolean }) =>
+      isCardLayout
+        ? `1fr 1fr minmax(${theme.spacing(30)}, 1fr)`
+        : `minmax(${theme.spacing(30)}, 1fr) 1fr 1fr minmax(${theme.spacing(36)}, 1fr)`,
+  };
+};
