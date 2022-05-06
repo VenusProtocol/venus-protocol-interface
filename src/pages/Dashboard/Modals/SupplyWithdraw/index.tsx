@@ -145,6 +145,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
               vtokenAddress={asset.vtokenAddress}
             >
               <SupplyWithdrawForm
+                key={`form-${type}`}
                 asset={asset}
                 assets={assets}
                 tokenInfo={tokenInfo}
