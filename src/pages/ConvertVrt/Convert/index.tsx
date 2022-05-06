@@ -79,6 +79,28 @@ const Convert: React.FC<IConvertProps> = ({
       openSuccessfulTransactionModal({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
         transactionHash,
+        children: (
+          <div css={styles.successModalConversionAmounts}>
+            <Token symbol={VRT_ID} css={styles.successModalToken} variant="small2" />
+            <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
+              {convertWeiToCoins({
+                valueWei: vrtAmountWei,
+                tokenId: VRT_ID,
+                returnInReadableFormat: true,
+              })}
+            </Typography>
+            <Icon name="arrowShaft" css={styles.successModalArrow} />
+            <Token symbol={XVS_ID} css={styles.successModalToken} variant="small2" />{' '}
+            <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
+              {xvsAmountWei &&
+                convertWeiToCoins({
+                  valueWei: xvsAmountWei,
+                  tokenId: XVS_ID,
+                  returnInReadableFormat: true,
+                })}
+            </Typography>
+          </div>
+        ),
       });
     } catch (err) {
       toast.error({ title: (err as Error).message });

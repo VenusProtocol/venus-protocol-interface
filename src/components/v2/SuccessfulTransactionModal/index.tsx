@@ -50,7 +50,7 @@ export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalPro
 
               <Typography variant="small1" component="span">
                 {convertWeiToCoins({
-                  value: amount.valueWei,
+                  valueWei: amount.valueWei,
                   tokenId: amount.tokenId,
                   returnInReadableFormat: true,
                 })}

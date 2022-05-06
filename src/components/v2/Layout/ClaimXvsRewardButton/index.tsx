@@ -58,7 +58,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   };
 
   const readableAmount = convertWeiToCoins({
-    value: amountWei,
+    valueWei: amountWei,
     tokenId: XVS_SYMBOL,
     returnInReadableFormat: true,
   });
