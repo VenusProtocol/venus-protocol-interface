@@ -8,6 +8,7 @@ export const useStyles = () => {
       display: flex;
       flex: 1;
       flex-direction: row;
+      height: 100vh;
       ${theme.breakpoints.down('md')} {
         flex-direction: column;
       }

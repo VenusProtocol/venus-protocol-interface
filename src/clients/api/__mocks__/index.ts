@@ -53,15 +53,15 @@ export const getVTokenBorrowBalance = jest.fn();
 export const useGetVTokenBorrowBalance = () =>
   useMutation(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
 
-export const getVrtAllowance = jest.fn();
-export const useGetAllowance = () => useMutation(FunctionKey.GET_TOKEN_ALLOWANCE, getVrtAllowance);
+export const getAllowance = jest.fn();
+export const useGetAllowance = () => useMutation(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getVrtBalanceOf = jest.fn();
 export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getVrtBalanceOf);
 
-export const getVrtConversionEndtime = jest.fn();
-export const useGetVrtConversionEndtime = () =>
-  useMutation(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndtime);
+export const getVrtConversionEndTime = jest.fn();
+export const useGetVrtConversionEndTime = () =>
+  useMutation(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);
 
 export const getVrtConversionRatio = jest.fn();
 export const useGetVrtConversionRatio = () =>

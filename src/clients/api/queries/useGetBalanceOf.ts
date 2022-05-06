@@ -16,8 +16,8 @@ type Options = QueryObserverOptions<
   FunctionKey.GET_BALANCE_OF
 >;
 
-const useGetBalanceOfIndex = (
-  { accountAddress, tokenId }: Omit<IGetBalanceOfInput, 'vrtTokenContract'> & { tokenId: TokenId },
+const useGetBalanceOf = (
+  { accountAddress, tokenId }: Omit<IGetBalanceOfInput, 'tokenContract'> & { tokenId: TokenId },
   options?: Options,
 ) => {
   const tokenContract = useTokenContract(tokenId);
@@ -29,4 +29,4 @@ const useGetBalanceOfIndex = (
   );
 };
 
-export default useGetBalanceOfIndex;
+export default useGetBalanceOf;
