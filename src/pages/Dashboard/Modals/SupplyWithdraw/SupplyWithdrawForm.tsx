@@ -132,7 +132,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
           components={{
             White: <span css={styles.whiteLabel} />,
           }}
-          values={{ amount: format(maxInput), symbol: assetId?.toUpperCase() }}
+          values={{ amount: format(maxInput, asset.decimals), symbol: assetId?.toUpperCase() }}
         />
       </Typography>
 
