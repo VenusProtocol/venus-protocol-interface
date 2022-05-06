@@ -177,26 +177,34 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       return ['0', '0'];
     }
 
-    const marginWithBorrowLimitCents = borrowLimitCents.minus(totalBorrowBalanceCents);
+    const marginWithBorrowLimitDollars = borrowLimitCents
+      .minus(totalBorrowBalanceCents)
+      // Convert cents to dollars
+      .dividedBy(100);
+    const maxCoins = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
+      // Convert dollars to coins
+      .dividedBy(asset.tokenPrice);
+
     const safeBorrowLimitCents = borrowLimitCents.multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100);
-    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(totalBorrowBalanceCents);
+    const marginWithSafeBorrowLimitDollars = safeBorrowLimitCents
+      .minus(totalBorrowBalanceCents)
+      // Convert cents to dollars
+      .dividedBy(100);
+    const safeMaxCoins = marginWithSafeBorrowLimitDollars
+      // Convert dollars to coins
+      .dividedBy(asset.tokenPrice);
+
     const tokenDecimals = getVBepToken(asset.id as VTokenId).decimals;
     const formatValue = (value: BigNumber) => value.toFixed(tokenDecimals, BigNumber.ROUND_DOWN);
 
-    const maxCoins = marginWithBorrowLimitCents
-      // Convert cents to dollars
-      .dividedBy(100)
-      // Convert dollars to coins
-      .dividedBy(asset.tokenPrice);
-
-    const safeMaxCoins = marginWithSafeBorrowLimitCents
-      // Convert cents to dollars
-      .dividedBy(100)
-      // Convert dollars to coins
-      .dividedBy(asset.tokenPrice);
-
     return [formatValue(maxCoins), formatValue(safeMaxCoins)];
-  }, [asset.id, asset.tokenPrice, borrowLimitCents.toFixed(), totalBorrowBalanceCents.toFixed()]);
+  }, [
+    asset.id,
+    asset.tokenPrice,
+    asset.liquidity,
+    borrowLimitCents.toFixed(),
+    totalBorrowBalanceCents.toFixed(),
+  ]);
 
   return (
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
