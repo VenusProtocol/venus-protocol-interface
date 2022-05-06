@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import { visuallyHidden } from '@mui/utils';
 import { Icon } from '../Icon';
-import { useStyles } from './styles';
+import { useHeadStyles as useStyles } from './styles';
 
 interface IHeadProps<C extends { key: string; label: string; orderable: boolean }[]> {
   columns: C;
@@ -24,7 +24,7 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
   onRequestOrder,
   className,
 }: IHeadProps<C>) {
-  const styles = useStyles({});
+  const styles = useStyles();
   return (
     <TableHead>
       <TableRow className={className}>

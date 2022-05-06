@@ -7,9 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Breakpoint } from '@mui/material';
 
 import { useBreakpointDown } from 'hooks/responsive';
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 import { Delimiter } from '../Delimiter';
 import Head from './Head';
 import { useStyles } from './styles';
@@ -34,7 +34,7 @@ export interface ITableProps {
   className?: string;
   gridTemplateColumns?: string;
   gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
-  useCardLayoutFrom?: Breakpoint;
+  useCardLayoutFrom?: keyof typeof BREAKPOINTS.values;
 }
 
 /* helper function for getting grid-template-columns string, used by default for similar cells width depending on cells count */

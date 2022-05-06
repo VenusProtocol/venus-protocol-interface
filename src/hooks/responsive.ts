@@ -1,7 +1,8 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme, Breakpoint } from '@mui/material';
+import { useTheme } from '@mui/material';
+import { BREAKPOINTS } from '../theme/MuiThemeProvider/muiTheme';
 
-export const useBreakpointDown = (breakpoint: Breakpoint) => {
+export const useBreakpointDown = (breakpoint: keyof typeof BREAKPOINTS.values) => {
   const theme = useTheme();
   return useMediaQuery(theme.breakpoints.down(breakpoint));
 };

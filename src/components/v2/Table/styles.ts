@@ -1,7 +1,12 @@
 import { css } from '@emotion/react';
-import { Breakpoint, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
-export const useStyles = ({ useCardLayoutFrom = 'xs' }: { useCardLayoutFrom?: Breakpoint }) => {
+interface ITableStylesProps {
+  useCardLayoutFrom?: keyof typeof BREAKPOINTS.values;
+}
+
+export const useStyles = ({ useCardLayoutFrom = 'xs' }: ITableStylesProps) => {
   const theme = useTheme();
   return {
     root: css`
@@ -84,6 +89,26 @@ export const useStyles = ({ useCardLayoutFrom = 'xs' }: { useCardLayoutFrom?: Br
         padding-right: ${theme.spacing(6)};
       }
     `,
+    cellWrapper: css`
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `,
+    cellInner: css`
+      text-overflow: ellipsis;
+    `,
+    getTemplateColumns: ({ gridColumns }: { gridColumns: string }) => css`
+      grid-template-columns: ${gridColumns};
+    `,
+
+    getTemplateRows: ({ gridRows }: { gridRows: string }) => css`
+      grid-template-rows: ${gridRows};
+    `,
+  };
+};
+
+export const useHeadStyles = () => {
+  const theme = useTheme();
+  return {
     tableSortLabel: ({ orderable }: { orderable: boolean }) => css`
       cursor: ${orderable ? 'pointer' : 'auto'};
 
@@ -129,20 +154,6 @@ export const useStyles = ({ useCardLayoutFrom = 'xs' }: { useCardLayoutFrom?: Br
         fill: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
         color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
-    `,
-    cellWrapper: css`
-      overflow: hidden;
-      text-overflow: ellipsis;
-    `,
-    cellInner: css`
-      text-overflow: ellipsis;
-    `,
-    getTemplateColumns: ({ gridColumns }: { gridColumns: string }) => css`
-      grid-template-columns: ${gridColumns};
-    `,
-
-    getTemplateRows: ({ gridRows }: { gridRows: string }) => css`
-      grid-template-rows: ${gridRows};
     `,
   };
 };
