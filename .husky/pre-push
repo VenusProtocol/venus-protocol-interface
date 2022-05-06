@@ -1,1 +1,2 @@
 yarn tsc
+yarn test --watchAll=false
