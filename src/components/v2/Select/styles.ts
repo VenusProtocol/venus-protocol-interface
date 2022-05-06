@@ -7,9 +7,10 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    root: css`
-      background-color: ${theme.palette.background.paper};
+    root: ({ isOpened }: { isOpened: boolean }) => css`
+      background-color: ${theme.palette.secondary.light};
       border-radius: ${theme.shape.borderRadius.small}px;
+      border: 1px solid ${isOpened ? theme.palette.interactive.primary : 'transparent'};
     `,
     getArrowIcon: ({ isMenuOpened }: { isMenuOpened: boolean }) => css`
       position: absolute;
@@ -27,10 +28,20 @@ export const useStyles = () => {
       &:active,
       &:hover,
       &:focus {
-        background-color: ${theme.palette.secondary.light};
+        background-color: ${theme.palette.background.default};
+
+        ${theme.breakpoints.down('sm')} {
+          background-color: ${theme.palette.secondary.light};
+        }
       }
 
       &.${SELECTED_MENU_ITEM_CLASSNAME} {
+        background-color: ${theme.palette.background.default}!important;
+
+        ${theme.breakpoints.down('sm')} {
+          background-color: ${theme.palette.secondary.light}!important;
+        }
+
         /* check mark for selected item */
         &::after {
           content: '';
@@ -45,7 +56,7 @@ export const useStyles = () => {
       display: none;
 
       ${theme.breakpoints.down('sm')} {
-        padding: ${theme.spacing(4)};
+        padding: ${theme.spacing(6, 4)};
         display: flex;
         align-items: center;
         justify-content: center;
@@ -68,12 +79,15 @@ export const useStyles = () => {
       },
     },
     menuWrapper: {
+      backgroundColor: theme.palette.secondary.light,
       padding: 0,
-      borderRadius: theme.shape.borderRadius.small,
+      borderRadius: `${theme.shape.borderRadius.small}px`,
       marginTop: theme.spacing(1),
 
       [theme.breakpoints.down('sm')]: {
         width: `calc(100vw - ${theme.spacing(4)})`,
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: `${theme.shape.borderRadius.large}px`,
       },
     },
   };

@@ -49,7 +49,7 @@ export const Select = ({ className, options }: ISelectProps) => {
         onClose={handleClose}
         onOpen={handleOpen}
         className={className}
-        css={styles.root}
+        css={styles.root({ isOpened })}
         value={selectedValue}
         onChange={handleChange}
         displayEmpty
