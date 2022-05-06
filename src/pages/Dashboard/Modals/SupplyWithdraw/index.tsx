@@ -155,7 +155,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
                 enabledButtonKey={enabledButtonKey}
                 disabledButtonKey={disabledButtonKey}
                 maxInput={maxInput}
-                availableBalance={type === 'supply' ? asset.walletBalance : asset.supplyBalance}
                 calculateNewBalance={calculateNewBalance}
                 isTransactionLoading={isTransactionLoading}
                 isXvsEnabled={isXvsEnabled}
