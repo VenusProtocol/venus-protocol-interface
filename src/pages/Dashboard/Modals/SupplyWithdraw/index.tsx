@@ -81,76 +81,102 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
       ]
     : [];
 
-  const calculateNewSupplyAmount = (initial: BigNumber, amount: BigNumber) => initial.plus(amount);
-  const calculateNewBorrowAmount = (initial: BigNumber, amount: BigNumber) => initial.minus(amount);
-
   const renderTabContent = ({
+    type,
     message,
     title,
-    key,
     inputLabel,
     enabledButtonKey,
     disabledButtonKey,
-    maxInputKey,
     calculateNewBalance,
     isTransactionLoading,
     onSubmit,
   }: {
+    type: 'supply' | 'withdraw';
     message: string;
     title: string;
-    key: string;
     inputLabel: string;
     enabledButtonKey: string;
     disabledButtonKey: string;
-    maxInputKey: 'walletBalance' | 'supplyBalance';
     calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
     isTransactionLoading: boolean;
     onSubmit: IAmountFormProps['onSubmit'];
-  }) => (
-    <div className={className} css={styles.container}>
-      <ConnectWallet message={message}>
-        {asset && (
-          <EnableToken
-            assetId={asset.id as TokenId}
-            title={title}
-            tokenInfo={tokenInfo}
-            isEnabled={!!isEnabled}
-            vtokenAddress={asset.vtokenAddress}
-          >
-            <SupplyWithdrawForm
-              key={key}
-              asset={asset}
-              assets={assets}
+  }) => {
+    const maxInput = React.useMemo(() => {
+      let maxInputTokens = asset.walletBalance;
+
+      // If asset isn't used as collateral user can withdraw the entire supply
+      // balance without affecting their borrow limit
+      if (type === 'withdraw' && !asset.collateral) {
+        maxInputTokens = asset.supplyBalance;
+      } else if (type === 'withdraw') {
+        // Calculate how much token user can withdraw before they risk getting
+        // liquidated (if their borrow balance goes above their borrow limit)
+
+        // Return 0 if borrow limit has already been reached
+        if (userTotalBorrowBalance.isGreaterThanOrEqualTo(userTotalBorrowLimit)) {
+          return new BigNumber(0);
+        }
+
+        const marginWithBorrowLimitDollars = userTotalBorrowLimit.minus(userTotalBorrowBalance);
+
+        const collateralAmountPerTokenDollars = asset.tokenPrice.multipliedBy(
+          asset.collateralFactor,
+        );
+        const maxTokensBeforeLiquidation = marginWithBorrowLimitDollars
+          .dividedBy(collateralAmountPerTokenDollars)
+          .dp(asset.decimals, BigNumber.ROUND_DOWN);
+
+        maxInputTokens = BigNumber.minimum(maxTokensBeforeLiquidation, asset.supplyBalance);
+      }
+
+      return maxInputTokens;
+    }, []);
+
+    return (
+      <div className={className} css={styles.container}>
+        <ConnectWallet message={message}>
+          {asset && (
+            <EnableToken
+              assetId={asset.id as TokenId}
+              title={title}
               tokenInfo={tokenInfo}
-              userTotalBorrowBalance={userTotalBorrowBalance}
-              userTotalBorrowLimit={userTotalBorrowLimit}
-              onSubmit={onSubmit}
-              inputLabel={inputLabel}
-              enabledButtonKey={enabledButtonKey}
-              disabledButtonKey={disabledButtonKey}
-              maxInput={asset[maxInputKey]}
-              calculateNewBalance={calculateNewBalance}
-              isTransactionLoading={isTransactionLoading}
-              isXvsEnabled={isXvsEnabled}
-            />
-          </EnableToken>
-        )}
-      </ConnectWallet>
-    </div>
-  );
+              isEnabled={!!isEnabled}
+              vtokenAddress={asset.vtokenAddress}
+            >
+              <SupplyWithdrawForm
+                asset={asset}
+                assets={assets}
+                tokenInfo={tokenInfo}
+                userTotalBorrowBalance={userTotalBorrowBalance}
+                userTotalBorrowLimit={userTotalBorrowLimit}
+                onSubmit={onSubmit}
+                inputLabel={inputLabel}
+                enabledButtonKey={enabledButtonKey}
+                disabledButtonKey={disabledButtonKey}
+                maxInput={maxInput}
+                calculateNewBalance={calculateNewBalance}
+                isTransactionLoading={isTransactionLoading}
+                isXvsEnabled={isXvsEnabled}
+              />
+            </EnableToken>
+          )}
+        </ConnectWallet>
+      </div>
+    );
+  };
 
   const tabsContent = [
     {
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
+        type: 'supply',
         message: t('supplyWithdraw.connectWalletToSupply'),
         title: t('supplyWithdraw.enableToSupply', { symbol }),
-        key: 'supply',
         inputLabel: t('supplyWithdraw.walletBalance'),
         enabledButtonKey: t('supplyWithdraw.supply'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
-        maxInputKey: 'walletBalance',
-        calculateNewBalance: calculateNewSupplyAmount,
+        calculateNewBalance: (initial: BigNumber, amount: BigNumber) => initial.plus(amount),
         isTransactionLoading: isSupplyLoading,
         onSubmit: onSubmitSupply,
       }),
@@ -158,14 +184,13 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
     {
       title: t('supplyWithdraw.withdraw'),
       content: renderTabContent({
+        type: 'withdraw',
         message: t('supplyWithdraw.connectWalletToWithdraw'),
         title: t('supplyWithdraw.enableToWithdraw', { symbol }),
-        key: 'withdraw',
         inputLabel: t('supplyWithdraw.withdrawableAmount'),
         enabledButtonKey: t('supplyWithdraw.withdraw'),
         disabledButtonKey: t('supplyWithdraw.enterValidAmountWithdraw'),
-        maxInputKey: 'supplyBalance',
-        calculateNewBalance: calculateNewBorrowAmount,
+        calculateNewBalance: (initial: BigNumber, amount: BigNumber) => initial.minus(amount),
         isTransactionLoading: isWithdrawLoading,
         onSubmit: onSubmitWithdraw,
       }),
