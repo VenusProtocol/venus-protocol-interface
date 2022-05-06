@@ -65,3 +65,7 @@ export const VENUS_GITHUB_URL = 'https://github.com/VenusProtocol/';
 export const VENUS_TERMS_OF_SERVICE_URL = 'https://www.swipe.io/terms';
 
 export const SAFE_BORROW_LIMIT_PERCENTAGE = 80;
+
+export const UNSTOPPABLE_CLIENT_ID = process.env.REACT_APP_UNSTOPPABLE_CLIENT_ID as string;
+export const UNSTOPPABLE_REDIRECT_URI = process.env.REACT_APP_UNSTOPPABLE_REDIRECT_URI as string;
+export const UNSTOPPABLE_POST_LOGOUT_REDIRECT_URI = process.env.REACT_APP_UNSTOPPABLE_POST_LOGOUT_REDIRECT_URI as string;

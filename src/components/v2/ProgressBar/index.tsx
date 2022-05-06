@@ -63,10 +63,12 @@ export const ProgressBar = ({
         style={props?.style}
         css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
       >
-        {trackTooltip && (
+        {trackTooltip ? (
           <Tooltip placement={tooltipPlacement} title={trackTooltip}>
             <Box className={props?.className} />
           </Tooltip>
+        ) : (
+          <Box className={props?.className} />
         )}
       </Box>
     );

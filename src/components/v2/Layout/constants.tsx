@@ -61,7 +61,9 @@ if (isOnTestnet) {
       href: '/convert-vrt',
       // Translation key: do not remove this comment
       // t('layout.menuItems.convertVrt')
+      // t('layout.menuItems.convertVrtTitle')
       i18nKey: 'layout.menuItems.convertVrt',
+      i18nTitleKey: 'layout.menuItems.convertVrtTitle',
       icon: 'convert',
     },
     {
