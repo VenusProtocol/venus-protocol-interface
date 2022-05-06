@@ -172,10 +172,14 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   // Calculate maximum and safe maximum amount of coins user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
-    const safeBorrowLimitCents = borrowLimitCents.multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100);
-    const marginWithBorrowLimitCents = borrowLimitCents.minus(totalBorrowBalanceCents);
-    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(totalBorrowBalanceCents);
+    // Return 0 values if borrow limit has been reached
+    if (totalBorrowBalanceCents.isGreaterThan(borrowLimitCents)) {
+      return ['0', '0'];
+    }
 
+    const marginWithBorrowLimitCents = borrowLimitCents.minus(totalBorrowBalanceCents);
+    const safeBorrowLimitCents = borrowLimitCents.multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100);
+    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(totalBorrowBalanceCents);
     const tokenDecimals = getVBepToken(asset.id as VTokenId).decimals;
     const formatValue = (value: BigNumber) => value.toFixed(tokenDecimals, BigNumber.ROUND_DOWN);
 
