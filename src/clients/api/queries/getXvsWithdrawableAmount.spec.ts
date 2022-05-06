@@ -29,7 +29,7 @@ describe('api/queries/getXvsBalance', () => {
     }
   });
 
-  test('returns the conversion end time on success', async () => {
+  test('returns the withdrawable amount on success', async () => {
     const fakeOutput: IGetXvsWithdrawableAmountOutput = {
       totalWithdrawableAmount: '500000',
       totalVestedAmount: '1000',
