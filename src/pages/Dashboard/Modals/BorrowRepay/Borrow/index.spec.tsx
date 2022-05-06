@@ -41,8 +41,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     renderComponent(<Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />);
   });
 
-  // @TODO: enable once PR to fix form has been fixed (https://github.com/VenusProtocol/venus-protocol-interface/pull/428)
-  it.skip('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
+  it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       liquidity: new BigNumber(200),
