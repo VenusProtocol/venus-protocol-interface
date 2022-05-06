@@ -77,6 +77,47 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
   });
 
   it('disables submit button if an amount entered in input is higher than borrow balance of token', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      walletBalance: new BigNumber(1),
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
+    ).toHaveAttribute('disabled');
+
+    const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
+
+    // Enter amount in input
+    fireEvent.change(getByTestId('token-text-field'), {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check submit button is disabled
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
+    ).toHaveAttribute('disabled');
+  });
+
+  it.only('disables submit button if an amount entered in input is higher than wallet balance for the relevant token', async () => {
     const { getByText, getByTestId } = renderComponent(
       <AuthContext.Provider
         value={{
