@@ -56,7 +56,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
   });
 
-  it('displays correct wallet balance for the relevant token', async () => {
+  it('displays correct token wallet balance', async () => {
     const { getByText } = renderComponent(
       <AuthContext.Provider
         value={{
@@ -76,7 +76,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
   });
 
-  it('disables submit button if an amount entered in input is higher than borrow balance of token', async () => {
+  it('disables submit button if an amount entered in input is higher than token borrow balance', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       walletBalance: new BigNumber(1),
@@ -117,7 +117,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     ).toHaveAttribute('disabled');
   });
 
-  it.only('disables submit button if an amount entered in input is higher than wallet balance for the relevant token', async () => {
+  it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
     const { getByText, getByTestId } = renderComponent(
       <AuthContext.Provider
         value={{
@@ -151,6 +151,88 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     expect(
       getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
     ).toHaveAttribute('disabled');
+  });
+
+  it('updates input value to token wallet balance when it is lower than token borrow balance', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      borrowBalance: new BigNumber(100),
+      walletBalance: new BigNumber(10),
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+
+    // Check input is empty
+    const input = getByTestId('token-text-field') as HTMLInputElement;
+    expect(input.value).toBe('');
+
+    // Press on max button
+    fireEvent.click(getByText('MAX'));
+
+    const expectedInputValue = customFakeAsset.walletBalance.dp(customFakeAsset.decimals).toFixed();
+
+    await waitFor(() => expect(input.value).toBe(expectedInputValue));
+
+    // Check submit button is enabled
+    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).not.toHaveAttribute(
+      'disabled',
+    );
+  });
+
+  it('updates input value to token borrow balance when it is lower than token wallet balance', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      borrowBalance: new BigNumber(10),
+      walletBalance: new BigNumber(100),
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+
+    // Check input is empty
+    const input = getByTestId('token-text-field') as HTMLInputElement;
+    expect(input.value).toBe('');
+
+    // Press on max button
+    fireEvent.click(getByText('MAX'));
+
+    const expectedInputValue = customFakeAsset.borrowBalance.dp(customFakeAsset.decimals).toFixed();
+
+    await waitFor(() => expect(input.value).toBe(expectedInputValue));
+
+    // Check submit button is enabled
+    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).not.toHaveAttribute(
+      'disabled',
+    );
   });
 
   it('disables submit button if an incorrect amount is entered in input', async () => {
