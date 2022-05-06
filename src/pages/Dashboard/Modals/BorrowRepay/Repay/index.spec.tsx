@@ -3,6 +3,7 @@ import noop from 'noop-ts';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import { Asset } from 'types';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -12,14 +13,12 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 import Repay from '.';
 
-const fakeTokenBorrowBalanceTokens = new BigNumber('10000');
-const fakeAssets = assetData.map((asset, index) => ({
-  ...asset,
-  isEnabled: true,
-  walletBalance: index === 3 ? fakeTokenBorrowBalanceTokens : asset.walletBalance,
-  borrowBalance: index === 3 ? fakeTokenBorrowBalanceTokens : asset.borrowBalance,
-}));
-const fakeAsset = fakeAssets[3];
+const fakeAsset: Asset = {
+  ...assetData[0],
+  tokenPrice: new BigNumber(1),
+  borrowBalance: new BigNumber(1000),
+  walletBalance: new BigNumber(10000000),
+};
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
@@ -27,14 +26,34 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: fakeAssets,
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+      assets: [],
+      userTotalBorrowLimit: new BigNumber(1000),
+      userTotalBorrowBalance: new BigNumber(100),
     }));
   });
 
   it('renders without crashing', () => {
     renderComponent(<Repay asset={fakeAsset} onClose={noop} isXvsEnabled />);
+  });
+
+  it('displays correct token borrow balance', async () => {
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+
+    await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
   });
 
   it('disables submit button if an incorrect amount is entered in input', async () => {
