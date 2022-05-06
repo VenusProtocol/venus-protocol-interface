@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
+import React, { useContext, useMemo, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -10,10 +10,10 @@ import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { InternalError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
+  FormikSubmitButton,
   EnableToken,
   IconName,
   ILabeledInlineContentProps,
-  FormikSubmitButton,
   LabeledInlineContent,
   FormikTokenTextField,
   ConnectWallet,
@@ -24,11 +24,10 @@ import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import useConvertToReadableCoinString from '../useConvertToReadableCoinString';
+import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
-import MintFee from './MintFee';
 
 export interface IMintVaiUiProps {
   disabled: boolean;
@@ -52,7 +51,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const vaiToken = getToken(VAI_ID);
-  const limitTokens = React.useMemo(
+  const limitTokens = useMemo(
     () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toString() : '0'),
     [limitWei?.toString()],
   );
@@ -64,6 +63,21 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
+
+  const getReadableMintFee = useCallback(
+    (valueWei: string) => {
+      if (!mintFeePercentage) {
+        return PLACEHOLDER_KEY;
+      }
+
+      const readableFeeVai = getReadableFeeVai({
+        valueWei: new BigNumber(valueWei || 0),
+        mintFeePercentage,
+      });
+      return `${readableFeeVai} (${mintFeePercentage}%)`;
+    },
+    [mintFeePercentage],
+  );
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertCoinsToWei({
@@ -90,21 +104,6 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     }
   };
 
-  const getReadableMintFee = React.useCallback(
-    (valueWei: string) => {
-      if (!mintFeePercentage) {
-        return PLACEHOLDER_KEY;
-      }
-
-      const readableFeeVai = getReadableFeeVai({
-        valueWei: new BigNumber(valueWei || 0),
-        mintFeePercentage,
-      });
-      return `${readableFeeVai} (${mintFeePercentage}%)`;
-    },
-    [mintFeePercentage],
-  );
-
   const tokenInfo: ILabeledInlineContentProps[] = [
     {
       label: t('mintRepayVai.mintVai.vaiLimitLabel'),
@@ -128,7 +127,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         vtokenAddress={vaiToken.address}
       >
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-          {() => (
+          {({ values }) => (
             <>
               <div css={styles.ctaContainer}>
                 <FormikTokenTextField
@@ -151,7 +150,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
                   {readableVaiLimit}
                 </LabeledInlineContent>
 
-                <MintFee getReadableMintFee={getReadableMintFee} />
+                <LabeledInlineContent
+                  css={styles.getRow({ isLast: true })}
+                  iconName="fee"
+                  label={t('mintRepayVai.mintVai.mintFeeLabel')}
+                >
+                  {getReadableMintFee(values.amount)}
+                </LabeledInlineContent>
               </div>
 
               <FormikSubmitButton

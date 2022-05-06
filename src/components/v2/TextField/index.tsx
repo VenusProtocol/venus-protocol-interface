@@ -9,7 +9,7 @@ import { useStyles } from './styles';
 export interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
-  description?: string;
+  description?: string | React.ReactElement;
   hasError?: boolean;
   leftIconName?: IconName;
   rightAdornment?: React.ReactElement;
