@@ -45,14 +45,37 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     }));
   });
 
-  describe('Supply form', () => {
-    it('renders without crashing', async () => {
-      renderComponent(
-        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={fakeAssets} />,
-      );
-    });
+  it('renders without crashing', async () => {
+    renderComponent(
+      <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={fakeAssets} />,
+    );
+  });
 
-    it.only('displays correct token wallet balance', async () => {
+  it('asks the user to connect if wallet is not connected', async () => {
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: undefined,
+        }}
+      >
+        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={fakeAssets} />
+      </AuthContext.Provider>,
+    );
+
+    const connectTextSupply = getByText(en.supplyWithdraw.connectWalletToSupply);
+    expect(connectTextSupply).toHaveTextContent(en.supplyWithdraw.connectWalletToSupply);
+    const withdrawButton = getByText(en.supplyWithdraw.withdraw);
+    fireEvent.click(withdrawButton);
+    const connectTextWithdraw = getByText(en.supplyWithdraw.connectWalletToWithdraw);
+    expect(connectTextWithdraw).toHaveTextContent(en.supplyWithdraw.connectWalletToWithdraw);
+  });
+
+  describe('Supply form', () => {
+    it('displays correct token wallet balance', async () => {
       const { getByText } = renderComponent(
         <AuthContext.Provider
           value={{
@@ -72,7 +95,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
     });
 
-    it('asks the user to connect if wallet is not connected', async () => {
+    it('displays correct token supply balance', async () => {
       const { getByText } = renderComponent(
         <AuthContext.Provider
           value={{
@@ -80,19 +103,16 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
             logOut: jest.fn(),
             openAuthModal: jest.fn(),
             closeAuthModal: jest.fn(),
-            account: undefined,
+            account: {
+              address: fakeAccountAddress,
+            },
           }}
         >
           <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={fakeAssets} />
         </AuthContext.Provider>,
       );
 
-      const connectTextSupply = getByText(en.supplyWithdraw.connectWalletToSupply);
-      expect(connectTextSupply).toHaveTextContent(en.supplyWithdraw.connectWalletToSupply);
-      const withdrawButton = getByText(en.supplyWithdraw.withdraw);
-      fireEvent.click(withdrawButton);
-      const connectTextWithdraw = getByText(en.supplyWithdraw.connectWalletToWithdraw);
-      expect(connectTextWithdraw).toHaveTextContent(en.supplyWithdraw.connectWalletToWithdraw);
+      await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
     });
 
     it('submit is disabled with no amount', async () => {
