@@ -115,6 +115,54 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
     });
 
+    it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
+      const customFakeAsset: Asset = {
+        ...fakeAsset,
+        walletBalance: new BigNumber(1),
+      };
+
+      const { getByText } = renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            asset={customFakeAsset}
+            isXvsEnabled
+            assets={fakeAssets}
+          />
+        </AuthContext.Provider>,
+      );
+      await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+
+      // Check submit button is disabled
+      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toHaveAttribute(
+        'disabled',
+      );
+
+      const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
+
+      // Enter amount in input
+      const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+      fireEvent.change(tokenTextInput, {
+        target: { value: incorrectValueTokens },
+      });
+
+      // Check submit button is still disabled
+      await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toHaveAttribute(
+        'disabled',
+      );
+    });
+
     it('submit is disabled with no amount', async () => {
       const { getByText } = renderComponent(
         <AuthContext.Provider
@@ -165,9 +213,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       act(() => {
         fireEvent.change(tokenTextInput, { target: { value: ONE } });
       });
-      const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-      expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.supply);
-      fireEvent.click(sumbitButton);
+      const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+      expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply);
+      fireEvent.click(submitButton);
       await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amount: ONE_WEI }));
     });
 
@@ -203,9 +251,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       act(() => {
         fireEvent.change(tokenTextInput, { target: { value: ONE } });
       });
-      const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-      expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.supply);
-      fireEvent.click(sumbitButton);
+      const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+      expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply);
+      fireEvent.click(submitButton);
       await waitFor(() => expect(supplyNonBnb).toHaveBeenCalledWith({ amount: ONE_WEI }));
     });
   });
@@ -235,11 +283,11 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       act(() => {
         fireEvent.click(maxButton);
       });
-      const sumbitButton = await waitFor(
+      const submitButton = await waitFor(
         () => document.querySelector('button[type="submit"]') as HTMLButtonElement,
       );
-      await waitFor(() => expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
-      fireEvent.click(sumbitButton);
+      await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
+      fireEvent.click(submitButton);
       await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amount: fakeGetVTokenBalance }));
     });
 
@@ -265,9 +313,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       act(() => {
         fireEvent.change(tokenTextInput, { target: { value: ONE } });
       });
-      const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-      expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.withdraw);
-      fireEvent.click(sumbitButton);
+      const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+      expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw);
+      fireEvent.click(submitButton);
       await waitFor(() => expect(redeemUnderlying).toHaveBeenCalledWith({ amount: ONE_WEI }));
     });
   });
