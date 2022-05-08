@@ -1,4 +1,9 @@
+import BigNumber from 'bignumber.js';
+
+import { VBep20 } from 'types/contracts';
 import supply from './supplyNonBnb';
+
+const fakeAmount = new BigNumber(1000000000000);
 
 describe('api/mutation/supplyNonBnb', () => {
   test('throws an error when request fails', async () => {
@@ -10,12 +15,12 @@ describe('api/mutation/supplyNonBnb', () => {
           },
         }),
       },
-    } as any;
+    } as unknown as VBep20;
 
     try {
       await supply({
         tokenContract: fakeContract,
-        amount: '10000000000000000',
+        amount: fakeAmount,
         account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
@@ -26,7 +31,6 @@ describe('api/mutation/supplyNonBnb', () => {
   });
 
   test('returns undefined when request succeeds', async () => {
-    const fakeAmount = '1000000000000';
     const fakeAccount = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
     const sendMock = jest.fn(async () => undefined);
@@ -38,7 +42,7 @@ describe('api/mutation/supplyNonBnb', () => {
       methods: {
         mint: supplyMock,
       },
-    } as unknown as any;
+    } as unknown as VBep20;
 
     const response = await supply({
       tokenContract: fakeContract,
@@ -48,7 +52,7 @@ describe('api/mutation/supplyNonBnb', () => {
 
     expect(response).toBe(undefined);
     expect(supplyMock).toHaveBeenCalledTimes(1);
-    expect(supplyMock).toHaveBeenCalledWith(fakeAmount);
+    expect(supplyMock).toHaveBeenCalledWith(fakeAmount.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeAccount });
   });

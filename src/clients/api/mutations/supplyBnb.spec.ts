@@ -1,5 +1,10 @@
+import BigNumber from 'bignumber.js';
+
+import { VBnbToken } from 'types/contracts';
 import { VBEP_TOKENS } from 'constants/tokens';
 import supplyBnb from './supplyBnb';
+
+const fakeAmount = new BigNumber(10000000000000000);
 
 describe('api/mutation/supplyBnb', () => {
   test('throws an error when request fails', async () => {
@@ -19,13 +24,13 @@ describe('api/mutation/supplyBnb', () => {
           },
         }),
       },
-    } as any;
+    } as unknown as VBnbToken;
 
     try {
       await supplyBnb({
         web3: fakeWeb3,
         tokenContract: fakeContract,
-        amount: '10000000000000000',
+        amount: fakeAmount,
         account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
@@ -36,7 +41,6 @@ describe('api/mutation/supplyBnb', () => {
   });
 
   test('returns undefined when request succeeds', async () => {
-    const fakeAmount = '100000000';
     const fakeAccount = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
 
     const sendTransactionMock = jest.fn(async () => {});
@@ -57,7 +61,7 @@ describe('api/mutation/supplyBnb', () => {
           encodeABI: () => fakeEncodedUri,
         }),
       },
-    } as any;
+    } as unknown as VBnbToken;
 
     const response = await supplyBnb({
       web3: fakeWeb3,
@@ -71,7 +75,7 @@ describe('api/mutation/supplyBnb', () => {
     expect(sendTransactionMock).toHaveBeenCalledWith({
       from: fakeAccount,
       data: fakeEncodedUri,
-      value: fakeAmount,
+      value: fakeAmount.toFixed(),
       to: VBEP_TOKENS.bnb.address,
     });
   });

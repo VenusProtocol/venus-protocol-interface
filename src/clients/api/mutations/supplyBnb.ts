@@ -1,5 +1,7 @@
+import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 import type { TransactionReceipt } from 'web3-core';
+
 import { VBnbToken } from 'types/contracts';
 import { getVBepToken } from 'utilities';
 
@@ -7,7 +9,7 @@ export interface ISupplyBnbInput {
   tokenContract: VBnbToken;
   web3: Web3;
   account: string;
-  amount: string;
+  amount: BigNumber;
 }
 
 const vBnbAddress = getVBepToken('bnb').address;
@@ -24,7 +26,7 @@ const supplyBnb = async ({
   const tx = {
     from: account,
     to: vBnbAddress,
-    value: amount,
+    value: amount.toFixed(),
     data: contractData,
   };
 
