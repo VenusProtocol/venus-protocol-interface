@@ -243,8 +243,6 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     });
     onClose();
 
-    console.log('HEERRE');
-
     openSuccessfulTransactionModal({
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
       message: t('supplyWithdraw.successfulSupplyTransactionModal.message'),

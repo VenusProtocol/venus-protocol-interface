@@ -185,14 +185,20 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       expect(disabledButton).toHaveAttribute('disabled');
     });
 
-    it.skip('calls supplyBnb when supplying BNB', async () => {
-      const bnbAsset = {
+    it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
+      const customFakeAsset: Asset = {
         ...fakeAsset,
         id: 'bnb' as TokenId,
         symbol: 'BNB',
         vsymbol: 'vBNB',
         walletBalance: new BigNumber('11'),
       };
+
+      const onCloseMock = jest.fn();
+      const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+      (supplyBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+
       renderComponent(
         <AuthContext.Provider
           value={{
@@ -205,17 +211,41 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
             },
           }}
         >
-          <SupplyWithdraw onClose={jest.fn()} asset={bnbAsset} isXvsEnabled assets={[fakeAsset]} />
+          <SupplyWithdraw
+            onClose={onCloseMock}
+            asset={customFakeAsset}
+            isXvsEnabled
+            assets={[fakeAsset]}
+          />
         </AuthContext.Provider>,
       );
+
+      const correctAmountTokens = 1;
       const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-      act(() => {
-        fireEvent.change(tokenTextInput, { target: { value: ONE } });
-      });
+      fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
+
+      // Click on submit button
       const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-      expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply);
+      await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply));
       fireEvent.click(submitButton);
-      await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amount: ONE_WEI }));
+
+      const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+        new BigNumber(10).pow(customFakeAsset.decimals),
+      );
+
+      await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amount: expectedAmountWei }));
+      expect(onCloseMock).toHaveBeenCalledTimes(1);
+      await waitFor(() =>
+        expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
+          transactionHash: fakeTransactionReceipt.transactionHash,
+          amount: {
+            tokenId: customFakeAsset.id,
+            valueWei: expectedAmountWei,
+          },
+          message: en.supplyWithdraw.successfulSupplyTransactionModal.message,
+          title: en.supplyWithdraw.successfulSupplyTransactionModal.title,
+        }),
+      );
     });
 
     it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
