@@ -313,7 +313,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   describe('Withdraw form', () => {
-    it.skip('redeem is called when full amount is withdrawn', async () => {
+    it('redeem is called when full amount is withdrawn', async () => {
       (getVTokenBalance as jest.Mock).mockImplementationOnce(async () => fakeGetVTokenBalance);
       const { getByText } = renderComponent(
         <AuthContext.Provider
@@ -345,7 +345,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amount: fakeGetVTokenBalance }));
     });
 
-    it.skip('redeemUnderlying is called when partial amount is withdrawn', async () => {
+    it('redeemUnderlying is called when partial amount is withdrawn', async () => {
       const { getByText } = renderComponent(
         <AuthContext.Provider
           value={{
@@ -363,14 +363,24 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       );
       const withdrawButton = getByText(en.supplyWithdraw.withdraw);
       fireEvent.click(withdrawButton);
+
+      const correctAmountTokens = 1;
+
       const tokenTextInput = document.querySelector('input') as HTMLInputElement;
       act(() => {
-        fireEvent.change(tokenTextInput, { target: { value: ONE } });
+        fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
       });
       const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
       expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw);
       fireEvent.click(submitButton);
-      await waitFor(() => expect(redeemUnderlying).toHaveBeenCalledWith({ amount: ONE_WEI }));
+
+      const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+        new BigNumber(10).pow(fakeAsset.decimals),
+      );
+
+      await waitFor(() =>
+        expect(redeemUnderlying).toHaveBeenCalledWith({ amount: expectedAmountWei }),
+      );
     });
   });
 });
