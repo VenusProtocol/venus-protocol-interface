@@ -19,5 +19,21 @@ export const useStyles = () => {
       background-color: ${theme.palette.background.default};
       padding: ${theme.spacing(3)};
     `,
+    tooltipItem: css`
+      display: flex;
+      align-items: center;
+      margin-right: auto;
+
+      &:not(:last-of-type) {
+        margin-bottom: ${theme.spacing(2)};
+      }
+    `,
+    tooltipItemLabel: css`
+      color: ${theme.palette.text.secondary};
+      margin-right: ${theme.spacing(2)};
+    `,
+    tooltipItemValue: css`
+      color: ${theme.palette.text.primary};
+    `,
   };
 };

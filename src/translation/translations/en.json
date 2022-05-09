@@ -10,8 +10,8 @@
   },
   "apyChart": {
     "tooltipItems": {
-      "borrowApy": "<Label>Borrow APY</Label><Value>{{percentage}}</Value>",
-      "supplyApy": "<Label>Supply APY</Label><Value>{{percentage}}</Value>",
+      "borrowApy": "<Label>Borrow APY</Label><Value>{{apy}}</Value>",
+      "supplyApy": "<Label>Supply APY</Label><Value>{{apy}}</Value>",
       "totalBorrow": "<Label>Total borrow</Label><Value>{{balance}}</Value>",
       "totalSupply": "<Label>Total supply</Label><Value>{{balance}}</Value>"
     }

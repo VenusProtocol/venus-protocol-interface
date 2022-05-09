@@ -1,32 +1,44 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import { AreaChart, Tooltip, Area, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { useUID } from 'react-uid';
+import Typography from '@mui/material/Typography';
 
+import { useTranslation } from 'translation';
 import { formatToReadableDate } from 'utilities';
-import { formatToReadablePercentage } from 'utilities/common';
+import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilities/common';
 import { useStyles } from './styles';
 
 export interface IItem {
   apy: number;
   timestamp: Date;
+  balanceCents: BigNumber;
 }
 
 export interface IApyChartProps {
   data: IItem[];
+  type: 'supply' | 'borrow';
   color?: string;
   className?: string;
 }
 
-export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data }) => {
+interface IRechartDataItem {
+  name: string;
+  apy: number;
+  balanceCents: BigNumber;
+}
+
+export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data, type }) => {
   const styles = useStyles();
   const chartColor = color || styles.defaultChartColor;
+  const { Trans } = useTranslation();
 
-  const chartData = React.useMemo(
+  const chartData: IRechartDataItem[] = React.useMemo(
     () =>
-      data.map(({ timestamp, apy }) => ({
+      data.map(({ timestamp, ...rest }) => ({
+        ...rest,
         name: formatToReadableDate(timestamp),
-        apy,
       })),
     [JSON.stringify(data)],
   );
@@ -67,10 +79,56 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data }) =
       <Tooltip
         isAnimationActive={false}
         cursor={styles.cursor}
-        content={({ payload }) => {
-          console.log(payload);
-          return <div css={styles.tooltipContainer}>test</div>;
-        }}
+        content={({ payload }) =>
+          payload && payload[0] ? (
+            <div css={styles.tooltipContainer}>
+              <div css={styles.tooltipItem}>
+                <Trans
+                  i18nKey={
+                    // Translation keys: do not remove this comment
+                    // t('apyChart.tooltipItems.supplyApy')
+                    // t('apyChart.tooltipItems.borrowApy')
+                    type === 'supply'
+                      ? 'apyChart.tooltipItems.supplyApy'
+                      : 'apyChart.tooltipItems.borrowApy'
+                  }
+                  components={{
+                    Label: <Typography css={styles.tooltipItemLabel} variant="tiny" />,
+                    Value: <Typography css={styles.tooltipItemValue} variant="small1" />,
+                  }}
+                  values={{
+                    apy: formatToReadablePercentage((payload[0].payload as IRechartDataItem).apy),
+                  }}
+                />
+              </div>
+
+              <div css={styles.tooltipItem}>
+                <Trans
+                  i18nKey={
+                    // Translation keys: do not remove this comment
+                    // t('apyChart.tooltipItems.totalSupply')
+                    // t('apyChart.tooltipItems.totalBorrow')
+                    type === 'supply'
+                      ? 'apyChart.tooltipItems.totalSupply'
+                      : 'apyChart.tooltipItems.totalBorrow'
+                  }
+                  components={{
+                    Label: <Typography css={styles.tooltipItemLabel} variant="tiny" />,
+                    Value: <Typography css={styles.tooltipItemValue} variant="small1" />,
+                  }}
+                  values={{
+                    balance: formatCentsToReadableValue({
+                      value: (payload[0].payload as IRechartDataItem).balanceCents,
+                      shorthand: true,
+                    }),
+                  }}
+                />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )
+        }
       />
       <Area
         isAnimationActive={false}
