@@ -91,7 +91,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isMobile: isSmDown })}
+      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isLgDown })}
     />
   );
 };
