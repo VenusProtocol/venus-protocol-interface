@@ -16,7 +16,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsWithdrawableAmount = (
-  { accountAddress }: Omit<IGetXvsWithdrawableAmountInput, 'xvsTokenContract'>,
+  { accountAddress }: Omit<IGetXvsWithdrawableAmountInput, 'xvsVestingContract'>,
   options?: Options,
 ) => {
   const xvsVestingContract = useXvsVestingProxyContract();

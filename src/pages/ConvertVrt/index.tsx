@@ -9,6 +9,7 @@ import {
   useGetBalanceOf,
   useGetVrtConversionEndTime,
   useGetVrtConversionRatio,
+  useGetXvsWithdrawableAmount,
   useConvertVrt,
   useWithdrawXvs,
 } from 'clients/api';
@@ -29,12 +30,12 @@ export const ConvertVrtUi = ({
   vrtConversionEndTime,
   walletConnected,
   userVrtBalanceWei,
-  xvsVestedBalanceWei,
   userVrtEnabled,
   vrtConversionLoading,
   convertVrt,
   xvsWithdrawlLoading,
   withdrawXvs,
+  xvsWithdrawableAmount,
 }: ConvertVrtUiProps) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -57,7 +58,7 @@ export const ConvertVrtUi = ({
       title: t('convertVrt.withdraw'),
       content: (
         <Withdraw
-          xvsVestedBalanceWei={xvsVestedBalanceWei}
+          xvsWithdrawableAmount={xvsWithdrawableAmount}
           xvsWithdrawlLoading={xvsWithdrawlLoading}
           withdrawXvs={withdrawXvs}
         />
@@ -96,6 +97,11 @@ const ConvertVrt = () => {
     { accountAddress: getContractAddress('xvsVestingProxy'), tokenId: 'xvs' },
     { enabled: !!accountAddress },
   );
+  const { data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {} } =
+    useGetXvsWithdrawableAmount(
+      { accountAddress: accountAddress || '' },
+      { enabled: !!accountAddress },
+    );
 
   const { mutateAsync: convertVrt, isLoading: vrtConversionLoading } = useConvertVrt();
   const { mutateAsync: withdrawXvs, isLoading: xvsWithdrawlLoading } = useWithdrawXvs();
@@ -132,7 +138,6 @@ const ConvertVrt = () => {
     return (
       <ConvertVrtUi
         walletConnected={!!accountAddress}
-        xvsVestedBalanceWei={new BigNumber(xvsVestedBalanceWei)}
         xvsToVrtConversionRatio={conversionRatio}
         userVrtBalanceWei={new BigNumber(userVrtBalanceWei)}
         vrtConversionEndTime={vrtConversionEndTime}
@@ -141,6 +146,7 @@ const ConvertVrt = () => {
         convertVrt={handleConvertVrt}
         withdrawXvs={handleWithdrawXvs}
         xvsWithdrawlLoading={xvsWithdrawlLoading}
+        xvsWithdrawableAmount={xvsWithdrawableAmount}
       />
     );
   }

@@ -40,7 +40,7 @@ Convert.args = {
 
 export const WithdrawTab = () => (
   <Withdraw
-    xvsVestedBalanceWei={new BigNumber(9999)}
+    xvsWithdrawableAmount={new BigNumber(9999)}
     withdrawXvs={noop}
     withdrawXvsLoading={false}
   />

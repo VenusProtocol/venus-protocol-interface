@@ -38,7 +38,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
         }}
       >
         <Withdraw
-          xvsVestedBalanceWei={new BigNumber(9999)}
+          xvsWithdrawableAmount={new BigNumber(9999)}
           withdrawXvs={withdrawXvs}
           xvsWithdrawlLoading={false}
         />

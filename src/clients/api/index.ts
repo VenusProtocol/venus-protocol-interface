@@ -137,4 +137,4 @@ export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversi
 
 export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';
-export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
+export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithdrawableAmount';

@@ -11,13 +11,13 @@ import { XVS_ID } from '../constants';
 import { useStyles } from '../styles';
 
 export interface IWithdrawProps {
-  xvsVestedBalanceWei: BigNumber | undefined;
+  xvsWithdrawableAmount: BigNumber | undefined;
   withdrawXvs: () => Promise<string>;
   xvsWithdrawlLoading: boolean;
 }
 
 const Withdraw: React.FC<IWithdrawProps> = ({
-  xvsVestedBalanceWei,
+  xvsWithdrawableAmount,
   withdrawXvs,
   xvsWithdrawlLoading,
 }) => {
@@ -25,7 +25,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
   const styles = useStyles();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
   const readableXvsAvailable = useConvertToReadableCoinString({
-    valueWei: xvsVestedBalanceWei,
+    valueWei: xvsWithdrawableAmount,
     tokenId: XVS_ID,
   });
   const onSubmit = async () => {
@@ -56,7 +56,9 @@ const Withdraw: React.FC<IWithdrawProps> = ({
         </section>
         <PrimaryButton
           disabled={
-            !xvsVestedBalanceWei || xvsVestedBalanceWei.isZero() || xvsVestedBalanceWei.isNaN()
+            !xvsWithdrawableAmount ||
+            xvsWithdrawableAmount.isZero() ||
+            xvsWithdrawableAmount.isNaN()
           }
           fullWidth
           onClick={onSubmit}
