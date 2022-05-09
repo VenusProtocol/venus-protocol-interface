@@ -3,9 +3,11 @@ import noop from 'noop-ts';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import { assetData } from '__mocks__/models/asset';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import { Asset } from 'types';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
-import { assetData } from '__mocks__/models/asset';
 import { useUserMarketInfo, borrowVToken } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -13,9 +15,15 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 import Borrow from '.';
 
-const ONE = '1';
-const ONE_MILLION = '1000000';
-const fakeAsset = assetData[0];
+const fakeAsset: Asset = {
+  ...assetData[0],
+  tokenPrice: new BigNumber(1),
+  walletBalance: new BigNumber(10000000),
+  liquidity: new BigNumber(10000),
+};
+
+const fakeUserTotalBorrowLimitDollars = new BigNumber(1000);
+const fakeUserTotalBorrowBalanceDollars = new BigNumber(10);
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
@@ -23,9 +31,9 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+      assets: [], // Not used in these tests
+      userTotalBorrowLimit: fakeUserTotalBorrowLimitDollars,
+      userTotalBorrowBalance: fakeUserTotalBorrowBalanceDollars,
     }));
   });
 
@@ -33,7 +41,50 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     renderComponent(<Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />);
   });
 
-  it('disables submit button if an incorrect amount is entered in input', async () => {
+  it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      liquidity: new BigNumber(200),
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
+    ).toHaveAttribute('disabled');
+
+    const incorrectValueTokens = customFakeAsset.liquidity
+      .dividedBy(customFakeAsset.tokenPrice)
+      // Add one token more than the available liquidity
+      .plus(1)
+      .dp(customFakeAsset.decimals, BigNumber.ROUND_DOWN)
+      .toFixed();
+
+    // Enter amount in input
+    fireEvent.change(getByTestId('token-text-field'), { target: { value: incorrectValueTokens } });
+
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
+    ).toHaveAttribute('disabled');
+  });
+
+  it('disables submit button if amount to borrow requested would make user borrow balance go higher than their borrow limit', async () => {
     const { getByText, getByTestId } = renderComponent(
       <AuthContext.Provider
         value={{
@@ -51,24 +102,72 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
+    // Check submit button is disabled
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toHaveAttribute('disabled');
 
+    const fakeBorrowDeltaDollars = fakeUserTotalBorrowLimitDollars.minus(
+      fakeUserTotalBorrowBalanceDollars,
+    );
+
+    const incorrectValueTokens = fakeBorrowDeltaDollars
+      .dividedBy(fakeAsset.tokenPrice)
+      // Add one token more than the maximum
+      .plus(1)
+      .dp(fakeAsset.decimals, BigNumber.ROUND_DOWN)
+      .toFixed();
+
     // Enter amount in input
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: ONE } });
+    fireEvent.change(getByTestId('token-text-field'), { target: { value: incorrectValueTokens } });
 
-    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButton));
-    expect(
-      getByText(en.borrowRepayModal.borrow.submitButton).closest('button'),
-    ).not.toHaveAttribute('disabled');
-
-    // Enter amount higher than maximum borrow limit in input
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: ONE_MILLION } });
+    // Check submit button is still disabled
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toHaveAttribute('disabled');
+  });
+
+  it('updates input value correctly when pressing on max button', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+
+    // Check input is empty
+    const input = getByTestId('token-text-field') as HTMLInputElement;
+    expect(input.value).toBe('');
+
+    // Press on max button
+    fireEvent.click(getByText(`${SAFE_BORROW_LIMIT_PERCENTAGE}% LIMIT`));
+
+    const safeUserBorrowLimitDollars = fakeUserTotalBorrowLimitDollars
+      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
+      .dividedBy(100);
+    const safeBorrowDeltaDollars = safeUserBorrowLimitDollars.minus(
+      fakeUserTotalBorrowBalanceDollars,
+    );
+    const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
+    const expectedInputValue = safeBorrowDeltaTokens.dp(fakeAsset.decimals).toFixed();
+
+    await waitFor(() => expect(input.value).toBe(expectedInputValue));
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButton).closest('button'),
+    ).not.toHaveAttribute('disabled');
   });
 
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
@@ -99,13 +198,14 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     ).toHaveAttribute('disabled');
 
     // Enter amount in input
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: ONE } });
+    const correctAmountTokens = 1;
+    fireEvent.change(getByTestId('token-text-field'), { target: { value: correctAmountTokens } });
 
     // Click on submit button
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButton));
     fireEvent.click(getByText(en.borrowRepayModal.borrow.submitButton));
 
-    const expectedAmountWei = new BigNumber(ONE).multipliedBy(
+    const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.decimals),
     );
 
