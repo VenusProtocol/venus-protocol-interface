@@ -6,32 +6,24 @@ import { formatCentsToReadableValue } from 'utilities/common';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-interface INumberValueProps {
-  original: number | undefined;
-  update: number | undefined;
-  format?: (value: number | undefined) => string;
-}
-
-interface IBigNumberValueProps {
-  original: BigNumber | undefined;
-  update: BigNumber | undefined;
-  format?: (value: BigNumber | undefined) => string;
-}
-
-interface ValueUpdateCommonProps {
+export interface IValueUpdateProps<T> {
+  original: T;
+  update: T;
+  format?: (value: T) => string;
   className?: string;
   positiveDirection?: 'asc' | 'desc';
 }
 
-export type ValueUpdateProps = ValueUpdateCommonProps & (INumberValueProps | IBigNumberValueProps);
-
-export const ValueUpdate: React.FC<ValueUpdateProps> = ({
+export function ValueUpdate<T>({
   className,
   original,
   update,
-  format = (value: ValueUpdateProps['original']) => formatCentsToReadableValue({ value }),
+  format = (value: T) =>
+    formatCentsToReadableValue({
+      value: value instanceof BigNumber || typeof value === 'number' ? value : undefined,
+    }),
   positiveDirection = 'asc',
-}) => {
+}: React.PropsWithChildren<IValueUpdateProps<T>>) {
   let isImprovement = false;
   if (typeof original === 'number' && typeof update === 'number') {
     isImprovement = positiveDirection === 'asc' ? update >= original : update <= original;
@@ -60,4 +52,4 @@ export const ValueUpdate: React.FC<ValueUpdateProps> = ({
       )}
     </div>
   );
-};
+}
