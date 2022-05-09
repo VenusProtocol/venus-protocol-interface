@@ -18,8 +18,6 @@ export interface IApyChartProps {
   className?: string;
 }
 
-// TODO: pass data through props
-
 export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data }) => {
   const styles = useStyles();
   const chartColor = color || styles.defaultChartColor;
@@ -45,6 +43,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data }) =
       // TODO: fix
       width={700}
       height={350}
+      // TODO: fix placement of chart (margins)
       data={chartData}
     >
       {/* Gradient used as filler */}
@@ -65,8 +64,16 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data }) =
         stroke={styles.accessoryColor}
         domain={[0, 50]}
       />
-      <Tooltip isAnimationActive={false} cursor={styles.cursor} />
+      <Tooltip
+        isAnimationActive={false}
+        cursor={styles.cursor}
+        content={({ payload }) => {
+          console.log(payload);
+          return <div css={styles.tooltipContainer}>test</div>;
+        }}
+      />
       <Area
+        isAnimationActive={false}
         dataKey="apy"
         stroke={chartColor}
         strokeWidth={styles.areaStrokeWidth}
