@@ -151,7 +151,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     expect(input.value).toBe('');
 
     // Press on max button
-    fireEvent.click(getByText('MAX'));
+    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
     const expectedInputValue = customFakeAsset.walletBalance.dp(customFakeAsset.decimals).toFixed();
 
@@ -185,7 +185,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     expect(input.value).toBe('');
 
     // Press on max button
-    fireEvent.click(getByText('MAX'));
+    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
     const expectedInputValue = customFakeAsset.borrowBalance.dp(customFakeAsset.decimals).toFixed();
 
