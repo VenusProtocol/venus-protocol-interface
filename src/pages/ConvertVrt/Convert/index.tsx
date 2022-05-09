@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { Typography } from '@mui/material';
@@ -52,7 +52,19 @@ const Convert: React.FC<IConvertProps> = ({
     valueWei: userVrtBalanceWei?.times(xvsToVrtConversionRatio || 1),
     tokenId: XVS_ID,
   });
-  const readableUserVrtBalance = useConvertToReadableCoinString({
+
+  const readableUserVrtBalance = useMemo(
+    () =>
+      userVrtBalanceWei
+        ? convertWeiToCoins({
+            valueWei: userVrtBalanceWei,
+            tokenId: VRT_ID,
+          })
+        : PLACEHOLDER_KEY,
+    [userVrtBalanceWei?.toString()],
+  );
+
+  useConvertToReadableCoinString({
     valueWei: userVrtBalanceWei,
     tokenId: VRT_ID,
   });
@@ -67,6 +79,7 @@ const Convert: React.FC<IConvertProps> = ({
 
   const { relativeTimeTranslationKey, realtiveTimeFormatValues } =
     formatI18nextRelativetimeValues(vrtConversionEndTime);
+
   const onSubmit = async (vrtAmount: string) => {
     try {
       const vrtAmountWei = convertCoinsToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
@@ -76,7 +89,9 @@ const Convert: React.FC<IConvertProps> = ({
         // This should never happen because the form is not rendered without successfully fetching this
         throw new InternalError(t('convertVrt.internalErrorXvsToVrtConversionRatioUndefined'));
       }
+
       const xvsAmountWei = calculateXvsFromVrt(vrtAmountWei);
+
       openSuccessfulTransactionModal({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
         transactionHash,
@@ -107,9 +122,11 @@ const Convert: React.FC<IConvertProps> = ({
       toast.error({ title: (err as Error).message });
     }
   };
+
   const userVrtBalance =
     userVrtBalanceWei &&
     convertWeiToCoins({ valueWei: userVrtBalanceWei, tokenId: VRT_ID }).toFixed();
+
   return (
     <div css={styles.root}>
       {walletConnected ? (
@@ -160,7 +177,12 @@ const Convert: React.FC<IConvertProps> = ({
                           components={{
                             White: <span css={styles.whiteLabel} />,
                           }}
-                          values={{ amount: readableUserVrtBalance }}
+                          values={{
+                            amount: t('general.amountToken', {
+                              amount: readableUserVrtBalance,
+                              symbol: 'VRT',
+                            }),
+                          }}
                         />
                       }
                       rightMaxButton={{

@@ -269,5 +269,8 @@
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
+  },
+  "general": {
+    "amountToken": "{{amount}} {{symbol}}"
   }
 }
