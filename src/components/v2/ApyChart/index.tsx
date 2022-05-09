@@ -45,7 +45,7 @@ const data = [
 
 export const ApyChart: React.FC<IApyChartProps> = ({ className, color }) => {
   const styles = useStyles();
-  const chartColor = color ?? styles.defaultChartColor;
+  const chartColor = color || styles.defaultChartColor;
 
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
@@ -78,16 +78,14 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color }) => {
       <XAxis dataKey="name" axisLine={false} tickLine={false} stroke={styles.accessoryColor} />
       {/* TODO: set domain based on data (with maximum starting at 100) */}
       <YAxis axisLine={false} tickLine={false} stroke={styles.accessoryColor} domain={[0, 50]} />
-      <Tooltip
-        isAnimationActive={false}
-        cursor={{ strokeDasharray: '4 4', stroke: styles.accessoryColor }}
-      />
+      <Tooltip isAnimationActive={false} cursor={styles.cursor} />
       <Area
         dataKey="uv"
         stroke={chartColor}
         strokeWidth="2px"
         fillOpacity={1}
         fill={`url(#${gradientId})`}
+        activeDot={styles.activeDot}
       />
     </AreaChart>
   );
