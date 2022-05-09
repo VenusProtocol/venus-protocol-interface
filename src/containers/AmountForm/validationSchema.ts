@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import BigNumber from 'bignumber.js';
 
 export type FormValues = yup.InferType<ReturnType<typeof getValidationSchema>>;
 
@@ -16,7 +17,7 @@ const getValidationSchema = (maxAmount?: string) =>
       .test(
         'isHigherThanMax',
         ErrorCode.HIGHER_THAN_MAX,
-        value => !value || !maxAmount || +value <= +maxAmount,
+        value => !value || !maxAmount || new BigNumber(value).lte(new BigNumber(maxAmount)),
       ),
   });
 
