@@ -275,7 +275,9 @@ describe('pages/ConvertVRT/Convert', () => {
       await waitFor(() => fireEvent.click(maxButton));
     });
     const vrtTextInput = getByTestId('vrt-token-text-field') as HTMLInputElement;
-    expect(vrtTextInput.value).toBe(userVrtBalanceWei.toFixed());
+    expect(vrtTextInput.value).toBe(
+      userVrtBalanceWei.dividedBy(new BigNumber(10).pow(18).toFixed()).toFixed(),
+    );
   });
 
   it('cannot convert above limit', async () => {

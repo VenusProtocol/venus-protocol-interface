@@ -107,7 +107,9 @@ const Convert: React.FC<IConvertProps> = ({
       toast.error({ title: (err as Error).message });
     }
   };
-
+  const userVrtBalance =
+    userVrtBalanceWei &&
+    convertWeiToCoins({ valueWei: userVrtBalanceWei, tokenId: VRT_ID }).toFixed();
   return (
     <div css={styles.root}>
       {walletConnected ? (
@@ -133,11 +135,7 @@ const Convert: React.FC<IConvertProps> = ({
           ]}
           vtokenAddress={vrtConverterProxyAddress}
         >
-          <AmountForm
-            onSubmit={onSubmit}
-            maxAmount={userVrtBalanceWei?.toFixed()}
-            css={styles.form}
-          >
+          <AmountForm onSubmit={onSubmit} maxAmount={userVrtBalance} css={styles.form}>
             {({ values }) => {
               const xvsValue =
                 values.amount && xvsToVrtConversionRatio
@@ -167,7 +165,7 @@ const Convert: React.FC<IConvertProps> = ({
                       }
                       rightMaxButton={{
                         label: t('convertVrt.max').toUpperCase(),
-                        valueOnClick: userVrtBalanceWei?.toFixed() || '',
+                        valueOnClick: userVrtBalance || '',
                       }}
                       displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
                       data-testid="vrt-token-text-field"
