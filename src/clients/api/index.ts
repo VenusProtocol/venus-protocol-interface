@@ -42,7 +42,6 @@ export * from './mutations/useSupplyBnb';
 export { default as redeem } from './mutations/redeem';
 export * from './mutations/redeem';
 export { default as useRedeem } from './mutations/useRedeem';
-export * from './mutations/useRedeem';
 
 export { default as repayNonBnbVToken } from './mutations/repayNonBnbVToken';
 export * from './mutations/repayNonBnbVToken';
@@ -55,7 +54,6 @@ export { default as useRepayBnb } from './mutations/useRepayBnb';
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
 export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
-export * from './mutations/useRedeemUnderlying';
 
 export { default as claimXvsReward } from './mutations/claimXvsReward';
 export * from './mutations/claimXvsReward';
