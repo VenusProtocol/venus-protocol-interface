@@ -2,7 +2,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ConnectWallet, PrimaryButton, Token } from 'components';
+import { ConnectWallet, Icon, PrimaryButton } from 'components';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
@@ -13,13 +13,13 @@ import { useStyles } from '../styles';
 export interface IWithdrawProps {
   xvsWithdrawableAmount: BigNumber | undefined;
   withdrawXvs: () => Promise<string>;
-  xvsWithdrawlLoading: boolean;
+  withdrawXvsLoading: boolean;
 }
 
 const Withdraw: React.FC<IWithdrawProps> = ({
   xvsWithdrawableAmount,
   withdrawXvs,
-  xvsWithdrawlLoading,
+  withdrawXvsLoading,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -36,7 +36,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
         transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
-            <Token symbol={XVS_ID} css={styles.successModalToken} variant="small2" />
+            <Icon name={XVS_ID} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {readableXvsAvailable}
             </Typography>
@@ -62,7 +62,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
           }
           fullWidth
           onClick={onSubmit}
-          loading={xvsWithdrawlLoading}
+          loading={withdrawXvsLoading}
         >
           {t('convertVrt.withdrawXvs')}
         </PrimaryButton>

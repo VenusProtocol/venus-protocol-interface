@@ -31,9 +31,9 @@ export const ConvertVrtUi = ({
   walletConnected,
   userVrtBalanceWei,
   userVrtEnabled,
-  vrtConversionLoading,
+  convertVrtLoading,
   convertVrt,
-  xvsWithdrawlLoading,
+  withdrawXvsLoading,
   withdrawXvs,
   xvsWithdrawableAmount,
 }: ConvertVrtUiProps) => {
@@ -49,7 +49,7 @@ export const ConvertVrtUi = ({
           walletConnected={walletConnected}
           userVrtBalanceWei={userVrtBalanceWei}
           userVrtEnabled={userVrtEnabled}
-          vrtConversionLoading={vrtConversionLoading}
+          convertVrtLoading={convertVrtLoading}
           convertVrt={convertVrt}
         />
       ),
@@ -59,7 +59,7 @@ export const ConvertVrtUi = ({
       content: (
         <Withdraw
           xvsWithdrawableAmount={xvsWithdrawableAmount}
-          xvsWithdrawlLoading={xvsWithdrawlLoading}
+          withdrawXvsLoading={withdrawXvsLoading}
           withdrawXvs={withdrawXvs}
         />
       ),
@@ -93,18 +93,15 @@ const ConvertVrt = () => {
     { accountAddress: accountAddress || '', tokenId: VRT_ID },
     { enabled: !!accountAddress },
   );
-  const { data: xvsVestedBalanceWei } = useGetBalanceOf(
-    { accountAddress: getContractAddress('xvsVestingProxy'), tokenId: 'xvs' },
-    { enabled: !!accountAddress },
-  );
+
   const { data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {} } =
     useGetXvsWithdrawableAmount(
       { accountAddress: accountAddress || '' },
       { enabled: !!accountAddress },
     );
 
-  const { mutateAsync: convertVrt, isLoading: vrtConversionLoading } = useConvertVrt();
-  const { mutateAsync: withdrawXvs, isLoading: xvsWithdrawlLoading } = useWithdrawXvs();
+  const { mutateAsync: convertVrt, isLoading: convertVrtLoading } = useConvertVrt();
+  const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
   const userVrtEnabled = new BigNumber(userVrtAllowance || 0).gt(0);
 
   const handleConvertVrt = async (amount: string) => {
@@ -134,22 +131,23 @@ const ConvertVrt = () => {
     }
     return undefined;
   }, [vrtConversionRatio]);
-  if (conversionRatio && userVrtBalanceWei && vrtConversionEndTime && xvsVestedBalanceWei) {
+  if (conversionRatio && vrtConversionEndTime) {
     return (
       <ConvertVrtUi
         walletConnected={!!accountAddress}
         xvsToVrtConversionRatio={conversionRatio}
-        userVrtBalanceWei={new BigNumber(userVrtBalanceWei)}
+        userVrtBalanceWei={userVrtBalanceWei}
         vrtConversionEndTime={vrtConversionEndTime}
-        vrtConversionLoading={vrtConversionLoading}
+        convertVrtLoading={convertVrtLoading}
         userVrtEnabled={userVrtEnabled}
         convertVrt={handleConvertVrt}
         withdrawXvs={handleWithdrawXvs}
-        xvsWithdrawlLoading={xvsWithdrawlLoading}
+        withdrawXvsLoading={withdrawXvsLoading}
         xvsWithdrawableAmount={xvsWithdrawableAmount}
       />
     );
   }
+  // @TODO - Handle error state
   return <LoadingSpinner />;
 };
 

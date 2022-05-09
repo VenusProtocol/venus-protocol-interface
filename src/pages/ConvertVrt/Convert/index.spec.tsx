@@ -52,7 +52,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={new BigNumber('0.0000833')}
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -84,7 +84,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={new BigNumber('0.0000833')}
           vrtConversionEndTime={new Date('2000-01-01')}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -118,7 +118,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={new BigNumber('0.0000833')}
           vrtConversionEndTime={new Date('2000-01-01')}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -148,7 +148,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={new BigNumber('0.0000833')}
           vrtConversionEndTime={new Date('2000-01-01')}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -180,7 +180,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={xvsToVrtConversionRatio}
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -217,7 +217,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={xvsToVrtConversionRatio}
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={convertVrt}
           walletConnected
@@ -263,7 +263,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={xvsToVrtConversionRatio}
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -301,7 +301,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={xvsToVrtConversionRatio}
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -343,7 +343,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={xvsToVrtConversionRatio}
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
@@ -385,7 +385,7 @@ describe('pages/ConvertVRT/Convert', () => {
           xvsToVrtConversionRatio={xvsToVrtConversionRatio}
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
-          vrtConversionLoading={false}
+          convertVrtLoading={false}
           userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected

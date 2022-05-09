@@ -50,7 +50,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   const vaiToken = getToken(VAI_ID);
   const limitTokens = useMemo(
-    () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
+    () => (limitWei ? convertWeiToCoins({ valueWei: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
     [limitWei?.toFixed()],
   );
 

@@ -9,18 +9,16 @@ import {
   ConnectWallet,
   EnableToken,
   Icon,
-  Token,
   TokenTextField,
 } from 'components';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { getContractAddress, formatI18nextRelativetimeValues } from 'utilities';
 import { InternalError } from 'utilities/errors';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { VRT_ID, XVS_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 
@@ -28,7 +26,7 @@ export interface IConvertProps {
   xvsToVrtConversionRatio: BigNumber | undefined;
   vrtConversionEndTime: Date | undefined;
   userVrtBalanceWei: BigNumber | undefined;
-  vrtConversionLoading: boolean;
+  convertVrtLoading: boolean;
   userVrtEnabled: boolean;
   convertVrt: (amount: string) => Promise<string>;
   walletConnected: boolean;
@@ -38,7 +36,7 @@ const Convert: React.FC<IConvertProps> = ({
   xvsToVrtConversionRatio,
   vrtConversionEndTime,
   userVrtBalanceWei,
-  vrtConversionLoading,
+  convertVrtLoading,
   userVrtEnabled,
   convertVrt,
   walletConnected,
@@ -49,20 +47,23 @@ const Convert: React.FC<IConvertProps> = ({
   const vrtConverterProxyAddress = getContractAddress('vrtConverterProxy');
 
   const readableXvsAvailable = useConvertToReadableCoinString({
-    valueWei: userVrtBalanceWei?.times(xvsToVrtConversionRatio || 1),
+    valueWei: xvsToVrtConversionRatio && userVrtBalanceWei?.times(xvsToVrtConversionRatio),
     tokenId: XVS_ID,
   });
 
-  const readableUserVrtBalance = useMemo(
-    () =>
-      userVrtBalanceWei
-        ? convertWeiToCoins({
-            valueWei: userVrtBalanceWei,
-            tokenId: VRT_ID,
-          })
-        : PLACEHOLDER_KEY,
-    [userVrtBalanceWei?.toString()],
-  );
+  const readableUserVrtBalance = useMemo(() => {
+    const userVrtBalanceCoins =
+      userVrtBalanceWei &&
+      convertWeiToCoins({
+        valueWei: userVrtBalanceWei,
+        tokenId: VRT_ID,
+      });
+
+    return formatCoinsToReadableValue({
+      value: userVrtBalanceCoins,
+      tokenId: VRT_ID,
+    });
+  }, [userVrtBalanceWei?.toFixed()]);
 
   useConvertToReadableCoinString({
     valueWei: userVrtBalanceWei,
@@ -95,9 +96,9 @@ const Convert: React.FC<IConvertProps> = ({
       openSuccessfulTransactionModal({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
         transactionHash,
-        children: (
+        content: (
           <div css={styles.successModalConversionAmounts}>
-            <Token symbol={VRT_ID} css={styles.successModalToken} variant="small2" />
+            <Icon name={VRT_ID} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {convertWeiToCoins({
                 valueWei: vrtAmountWei,
@@ -106,7 +107,7 @@ const Convert: React.FC<IConvertProps> = ({
               })}
             </Typography>
             <Icon name="arrowShaft" css={styles.successModalArrow} />
-            <Token symbol={XVS_ID} css={styles.successModalToken} variant="small2" />{' '}
+            <Icon name={XVS_ID} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {xvsAmountWei &&
                 convertWeiToCoins({
@@ -131,7 +132,7 @@ const Convert: React.FC<IConvertProps> = ({
     <div css={styles.root}>
       {walletConnected ? (
         <section css={styles.title}>
-          <Typography variant="h3">{readableXvsAvailable || PLACEHOLDER_KEY}</Typography>
+          <Typography variant="h3">{readableXvsAvailable}</Typography>
           <Typography variant="small2">{t('convertVrt.xvsAVailable')}</Typography>
         </section>
       ) : (
@@ -146,13 +147,9 @@ const Convert: React.FC<IConvertProps> = ({
         >
           <AmountForm onSubmit={onSubmit} maxAmount={userVrtBalance} css={styles.form}>
             {({ values }) => {
-              const xvsValue =
-                values.amount && xvsToVrtConversionRatio
-                  ? new BigNumber(values.amount)
-                      .times(xvsToVrtConversionRatio)
-                      .dp(VRT_DECIMAL)
-                      .toFixed()
-                  : '';
+              const xvsValue = calculateXvsFromVrt(new BigNumber(values.amount))
+                ?.dp(VRT_DECIMAL)
+                .toFixed();
               return (
                 <>
                   <div css={styles.inputSection}>
@@ -169,18 +166,17 @@ const Convert: React.FC<IConvertProps> = ({
                           components={{
                             White: <span css={styles.whiteLabel} />,
                           }}
-                          values={{
-                            amount: t('general.amountToken', {
-                              amount: readableUserVrtBalance,
-                              symbol: 'VRT',
-                            }),
-                          }}
+                          values={readableUserVrtBalance}
                         />
                       }
-                      rightMaxButton={{
-                        label: t('convertVrt.max').toUpperCase(),
-                        valueOnClick: userVrtBalance || '',
-                      }}
+                      rightMaxButton={
+                        userVrtBalance
+                          ? {
+                              label: t('convertVrt.max'),
+                              valueOnClick: userVrtBalance,
+                            }
+                          : undefined
+                      }
                       displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
                       data-testid="vrt-token-text-field"
                     />
@@ -197,7 +193,7 @@ const Convert: React.FC<IConvertProps> = ({
                         xvsToVrtConversionRatio: xvsToVrtConversionRatio?.toFixed(),
                       })}
                       disabled
-                      value={xvsValue}
+                      value={xvsValue || ''}
                       onChange={noop}
                       data-testid="xvs-token-text-field"
                     />
@@ -205,11 +201,11 @@ const Convert: React.FC<IConvertProps> = ({
                   <FormikSubmitButton
                     css={styles.submitButton}
                     fullWidth
-                    loading={vrtConversionLoading}
+                    loading={convertVrtLoading}
                     enabledLabel={t('convertVrt.convertVrtToXvs')}
                     disabled={
                       (vrtConversionEndTime && +vrtConversionEndTime < Date.now()) ||
-                      vrtConversionLoading
+                      convertVrtLoading
                     }
                   />
                   <Typography css={styles.remainingTime}>

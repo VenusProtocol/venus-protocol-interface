@@ -101,7 +101,7 @@
     "hours_one": "{{count}} hour",
     "hours_other": "{{count}} hours",
     "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
-    "max": "Max",
+    "max": "MAX",
     "minutes_one": "{{count}} minute",
     "minutes_other": "{{count}} minutes",
     "remainingTimeDays_one": "<Icon/> Remaining time:\u00a0<White>{{count}} day</White>",
@@ -119,7 +119,6 @@
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount",
     "withdrawXvs": "Withdraw XVS",
-    "usedOverTotalVrt": "{{used}}/{{total}} VRT",
     "xvsAVailable": "Current XVS Available",
     "youWillReceive": "You will receive"
   },
@@ -138,6 +137,9 @@
   },
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
+  },
+  "general": {
+    "amountToken": "{{amount}} {{symbol}}"
   },
   "layout": {
     "menuItems": {
@@ -269,8 +271,5 @@
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
-  },
-  "general": {
-    "amountToken": "{{amount}} {{symbol}}"
   }
 }

@@ -40,7 +40,7 @@ describe('pages/ConvertVRT/Withdraw', () => {
         <Withdraw
           xvsWithdrawableAmount={new BigNumber(9999)}
           withdrawXvs={withdrawXvs}
-          xvsWithdrawlLoading={false}
+          withdrawXvsLoading={false}
         />
       </AuthContext.Provider>,
     );
