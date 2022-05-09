@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { ApyChart, IItem } from '.';
+import { ApyChart, SupplyApyChart, BorrowApyChart, IItem } from '.';
 
 const data: IItem[] = [
   {
@@ -50,4 +50,5 @@ export default {
   decorators: [withThemeProvider, withCenterStory({ width: 700 })],
 } as ComponentMeta<typeof ApyChart>;
 
-export const Default = () => <ApyChart data={data} type="supply" />;
+export const SupplyAPY = () => <SupplyApyChart data={data} />;
+export const BorrowAPY = () => <BorrowApyChart data={data} />;

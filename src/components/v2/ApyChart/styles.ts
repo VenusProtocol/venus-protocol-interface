@@ -8,7 +8,8 @@ export const useStyles = () => {
   const accessoryColor = theme.palette.text.secondary;
 
   return {
-    defaultChartColor: theme.palette.interactive.success,
+    supplyChartColor: theme.palette.interactive.success,
+    borrowChartColor: theme.palette.interactive.error,
     gridLineColor: theme.palette.secondary.light,
     accessoryColor,
     cursor: { strokeDasharray: `${SPACING} ${SPACING}`, stroke: accessoryColor },
