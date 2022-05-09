@@ -1,16 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import {
-  AreaChart as RechartsAreaChart,
-  Tooltip,
-  Area,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { AreaChart, Tooltip, Area, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { useUID } from 'react-uid';
 
-export interface IAreaChartProps {
+export interface IApyChartProps {
   className?: string;
 }
 
@@ -45,7 +38,10 @@ const data = [
   },
 ];
 
-export const AreaChart: React.FC<IAreaChartProps> = ({ className }) => {
+// TODO: pass data through props
+// TODO: get colors from theme
+
+export const ApyChart: React.FC<IApyChartProps> = ({ className }) => {
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
   // using unique ids)
@@ -54,7 +50,7 @@ export const AreaChart: React.FC<IAreaChartProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <RechartsAreaChart
+      <AreaChart
         width={700}
         height={350}
         data={data}
@@ -65,7 +61,7 @@ export const AreaChart: React.FC<IAreaChartProps> = ({ className }) => {
           bottom: 0,
         }}
       >
-        {/* Gradient */}
+        {/* Gradient used as filler */}
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#8884d8" stopOpacity={0.35} />
@@ -75,9 +71,9 @@ export const AreaChart: React.FC<IAreaChartProps> = ({ className }) => {
 
         <CartesianGrid vertical={false} stroke="#383944" />
         <XAxis dataKey="name" axisLine={false} tickLine={false} stroke="#9597A1" />
-        {/* TODO: set domain based on data (with 100 being the minimum) */}
+        {/* TODO: set domain based on data (with maximum starting at 100) */}
         <YAxis axisLine={false} tickLine={false} stroke="#9597A1" domain={[0, 50]} />
-        <Tooltip />
+        <Tooltip isAnimationActive={false} cursor={{ strokeDasharray: '4 4', stroke: '#9597A1' }} />
         <Area
           dataKey="uv"
           stroke="#8884d8"
@@ -85,7 +81,7 @@ export const AreaChart: React.FC<IAreaChartProps> = ({ className }) => {
           fillOpacity={1}
           fill={`url(#${gradientId})`}
         />
-      </RechartsAreaChart>
+      </AreaChart>
     </div>
   );
 };

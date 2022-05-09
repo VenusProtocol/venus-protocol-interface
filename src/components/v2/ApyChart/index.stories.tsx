@@ -3,12 +3,12 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { AreaChart } from '.';
+import { ApyChart } from '.';
 
 export default {
-  title: 'Components/AreaChart',
-  component: AreaChart,
+  title: 'Components/ApyChart',
+  component: ApyChart,
   decorators: [withThemeProvider, withCenterStory({ width: 700 })],
-} as ComponentMeta<typeof AreaChart>;
+} as ComponentMeta<typeof ApyChart>;
 
-export const Default = () => <AreaChart />;
+export const Default = () => <ApyChart />;
