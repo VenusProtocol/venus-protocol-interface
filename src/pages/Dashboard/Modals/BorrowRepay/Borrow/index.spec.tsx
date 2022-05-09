@@ -60,7 +60,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
 
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
 
     const incorrectValueTokens = customFakeAsset.liquidity
       .dividedBy(customFakeAsset.tokenPrice)
@@ -114,7 +114,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
   });
 
   it('updates input value correctly when pressing on max button', async () => {
@@ -174,7 +174,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
 
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
 
     // Enter amount in input
     const correctAmountTokens = 1;

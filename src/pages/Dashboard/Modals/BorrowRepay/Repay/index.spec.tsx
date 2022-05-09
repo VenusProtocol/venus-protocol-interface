@@ -80,7 +80,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
     expect(
       getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
 
     const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
 
@@ -93,7 +93,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
     expect(
       getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
   });
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
@@ -111,7 +111,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
     expect(
       getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
 
     const incorrectValueTokens = fakeAsset.borrowBalance.plus(1).toFixed();
 
@@ -124,7 +124,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
     expect(
       getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
   });
 
   it('updates input value to token wallet balance when pressing on max button if token wallet balance is lower than token borrow balance', async () => {
@@ -158,9 +158,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).not.toHaveAttribute(
-      'disabled',
-    );
+    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).toBeEnabled();
   });
 
   it('updates input value to token borrow balance when pressing on max button if token borrow balance is lower than token wallet balance', async () => {
@@ -194,9 +192,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).not.toHaveAttribute(
-      'disabled',
-    );
+    expect(getByText(en.borrowRepayModal.repay.submitButton).closest('button')).toBeEnabled();
   });
 
   it('updates input value to correct value when pressing on preset percentage buttons', async () => {
@@ -239,7 +235,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
       // Check submit button is enabled
       expect(
         getByText(en.borrowRepayModal.repay.submitButton).closest('button'),
-      ).not.toHaveAttribute('disabled');
+      ).not.toBeDisabled();
     }
   });
 
@@ -263,7 +259,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
     expect(
       getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
 
     const correctAmountTokens = 1;
 
