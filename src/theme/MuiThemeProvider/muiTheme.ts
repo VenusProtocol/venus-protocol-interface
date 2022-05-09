@@ -56,7 +56,7 @@ const BREAKPOINTS = {
   },
 };
 
-const SPACING = 4;
+export const SPACING = 4;
 
 export type TypographyVariant =
   | 'button'
