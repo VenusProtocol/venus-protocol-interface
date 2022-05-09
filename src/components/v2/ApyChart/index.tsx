@@ -3,49 +3,35 @@ import React from 'react';
 import { AreaChart, Tooltip, Area, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { useUID } from 'react-uid';
 
+import { formatToReadableDate } from 'utilities';
+import { formatToReadablePercentage } from 'utilities/common';
 import { useStyles } from './styles';
 
+export interface IItem {
+  apy: number;
+  timestamp: Date;
+}
+
 export interface IApyChartProps {
+  data: IItem[];
   color?: string;
   className?: string;
 }
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 40,
-  },
-  {
-    name: 'Page B',
-    uv: 30,
-  },
-  {
-    name: 'Page C',
-    uv: 20,
-  },
-  {
-    name: 'Page D',
-    uv: 27,
-  },
-  {
-    name: 'Page E',
-    uv: 18,
-  },
-  {
-    name: 'Page F',
-    uv: 23,
-  },
-  {
-    name: 'Page G',
-    uv: 34,
-  },
-];
-
 // TODO: pass data through props
 
-export const ApyChart: React.FC<IApyChartProps> = ({ className, color }) => {
+export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data }) => {
   const styles = useStyles();
   const chartColor = color || styles.defaultChartColor;
+
+  const chartData = React.useMemo(
+    () =>
+      data.map(({ timestamp, apy }) => ({
+        name: formatToReadableDate(timestamp),
+        apy,
+      })),
+    [JSON.stringify(data)],
+  );
 
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
@@ -56,15 +42,10 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color }) => {
   return (
     <AreaChart
       className={className}
+      // TODO: fix
       width={700}
       height={350}
-      data={data}
-      margin={{
-        top: 10,
-        right: 30,
-        left: 0,
-        bottom: 0,
-      }}
+      data={chartData}
     >
       {/* Gradient used as filler */}
       <defs>
@@ -77,15 +58,21 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color }) => {
       <CartesianGrid vertical={false} stroke={styles.gridLineColor} />
       <XAxis dataKey="name" axisLine={false} tickLine={false} stroke={styles.accessoryColor} />
       {/* TODO: set domain based on data (with maximum starting at 100) */}
-      <YAxis axisLine={false} tickLine={false} stroke={styles.accessoryColor} domain={[0, 50]} />
+      <YAxis
+        axisLine={false}
+        tickLine={false}
+        tickFormatter={formatToReadablePercentage}
+        stroke={styles.accessoryColor}
+        domain={[0, 50]}
+      />
       <Tooltip isAnimationActive={false} cursor={styles.cursor} />
       <Area
-        dataKey="uv"
+        dataKey="apy"
         stroke={chartColor}
-        strokeWidth="2px"
+        strokeWidth={styles.areaStrokeWidth}
         fillOpacity={1}
         fill={`url(#${gradientId})`}
-        activeDot={styles.activeDot}
+        activeDot={styles.areaActiveDot}
       />
     </AreaChart>
   );

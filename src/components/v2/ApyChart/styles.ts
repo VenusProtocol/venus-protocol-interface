@@ -4,7 +4,6 @@ import { SPACING } from 'theme/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {
   const theme = useTheme();
-
   const accessoryColor = theme.palette.text.secondary;
 
   return {
@@ -12,6 +11,7 @@ export const useStyles = () => {
     gridLineColor: theme.palette.secondary.light,
     accessoryColor,
     cursor: { strokeDasharray: `${SPACING} ${SPACING}`, stroke: accessoryColor },
-    activeDot: { r: SPACING * 2, strokeWidth: SPACING },
+    areaActiveDot: { r: SPACING * 2, strokeWidth: SPACING },
+    areaStrokeWidth: theme.spacing(0.5),
   };
 };
