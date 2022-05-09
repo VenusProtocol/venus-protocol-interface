@@ -20,7 +20,7 @@ describe('api/mutation/supplyNonBnb', () => {
     try {
       await supply({
         tokenContract: fakeContract,
-        amount: fakeAmount,
+        amountWei: fakeAmount,
         account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
@@ -46,7 +46,7 @@ describe('api/mutation/supplyNonBnb', () => {
 
     const response = await supply({
       tokenContract: fakeContract,
-      amount: fakeAmount,
+      amountWei: fakeAmount,
       account: fakeAccount,
     });
 

@@ -233,7 +233,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         new BigNumber(10).pow(customFakeAsset.decimals),
       );
 
-      await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amount: expectedAmountWei }));
+      await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
       expect(onCloseMock).toHaveBeenCalledTimes(1);
       await waitFor(() =>
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
@@ -296,7 +296,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         new BigNumber(10).pow(customFakeAsset.decimals),
       );
 
-      await waitFor(() => expect(supplyNonBnb).toHaveBeenCalledWith({ amount: expectedAmountWei }));
+      await waitFor(() =>
+        expect(supplyNonBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }),
+      );
       expect(onCloseMock).toHaveBeenCalledTimes(1);
       await waitFor(() =>
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
@@ -342,7 +344,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       );
       await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
       fireEvent.click(submitButton);
-      await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amount: fakeGetVTokenBalance }));
+      await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amountWei: fakeGetVTokenBalance }));
     });
 
     it('redeemUnderlying is called when partial amount is withdrawn', async () => {
@@ -379,7 +381,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       );
 
       await waitFor(() =>
-        expect(redeemUnderlying).toHaveBeenCalledWith({ amount: expectedAmountWei }),
+        expect(redeemUnderlying).toHaveBeenCalledWith({ amountWei: expectedAmountWei }),
       );
     });
   });

@@ -30,7 +30,7 @@ describe('api/mutation/supplyBnb', () => {
       await supplyBnb({
         web3: fakeWeb3,
         tokenContract: fakeContract,
-        amount: fakeAmount,
+        amountWei: fakeAmount,
         account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
@@ -66,7 +66,7 @@ describe('api/mutation/supplyBnb', () => {
     const response = await supplyBnb({
       web3: fakeWeb3,
       tokenContract: fakeContract,
-      amount: fakeAmount,
+      amountWei: fakeAmount,
       account: fakeAccount,
     });
 

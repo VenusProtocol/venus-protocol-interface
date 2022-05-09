@@ -239,7 +239,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const onSubmitSupply: IAmountFormProps['onSubmit'] = async value => {
     const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
     const res = await supply({
-      amount: supplyAmount,
+      amountWei: supplyAmount,
     });
     onClose();
 
@@ -259,13 +259,13 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;
     if (amountEqualsSupplyBalance && vTokenBalanceWei) {
-      const res = await redeem({ amount: new BigNumber(vTokenBalanceWei) });
+      const res = await redeem({ amountWei: new BigNumber(vTokenBalanceWei) });
       ({ transactionHash } = res);
       // Display successful transaction modal
     } else {
       const withdrawAmount = amount.times(new BigNumber(10).pow(asset.decimals)).integerValue();
       const res = await redeemUnderlying({
-        amount: withdrawAmount,
+        amountWei: withdrawAmount,
       });
       ({ transactionHash } = res);
     }

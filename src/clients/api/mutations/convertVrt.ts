@@ -3,7 +3,7 @@ import { VrtConverter } from 'types/contracts';
 
 export interface IConvertVrtInput {
   vrtConverterContract: VrtConverter;
-  amount: string;
+  amountWei: string;
   accountAddress: string;
 }
 
@@ -11,10 +11,10 @@ export type ConvertVrtOutput = TransactionReceipt;
 
 const convertVrt = async ({
   vrtConverterContract,
-  amount,
+  amountWei,
   accountAddress,
 }: IConvertVrtInput): Promise<ConvertVrtOutput> =>
-  vrtConverterContract.methods.convert(amount).send({
+  vrtConverterContract.methods.convert(amountWei).send({
     from: accountAddress,
   });
 

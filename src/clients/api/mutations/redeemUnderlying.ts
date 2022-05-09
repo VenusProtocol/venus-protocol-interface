@@ -6,7 +6,7 @@ import { VBep20, VBnbToken } from 'types/contracts';
 export interface IRedeemUnderlyingInput {
   tokenContract: VBep20 | VBnbToken;
   account: string;
-  amount: BigNumber;
+  amountWei: BigNumber;
 }
 
 export type RedeemUnderlyingOutput = TransactionReceipt;
@@ -14,8 +14,8 @@ export type RedeemUnderlyingOutput = TransactionReceipt;
 const redeemUnderlying = async ({
   tokenContract,
   account,
-  amount,
+  amountWei,
 }: IRedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> =>
-  tokenContract.methods.redeemUnderlying(amount.toFixed()).send({ from: account });
+  tokenContract.methods.redeemUnderlying(amountWei.toFixed()).send({ from: account });
 
 export default redeemUnderlying;

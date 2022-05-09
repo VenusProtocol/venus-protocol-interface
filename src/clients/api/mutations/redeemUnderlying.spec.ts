@@ -21,7 +21,7 @@ describe('api/mutation/redeemUnderlying', () => {
     try {
       await redeemUnderlying({
         tokenContract: fakeContract,
-        amount: fakeAmount,
+        amountWei: fakeAmount,
         account: fakeAccountAddress,
       });
 
@@ -45,7 +45,7 @@ describe('api/mutation/redeemUnderlying', () => {
 
     const response = await redeemUnderlying({
       tokenContract: fakeContract,
-      amount: fakeAmount,
+      amountWei: fakeAmount,
       account: fakeAccountAddress,
     });
 

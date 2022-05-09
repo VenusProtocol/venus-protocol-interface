@@ -9,7 +9,7 @@ export interface ISupplyBnbInput {
   tokenContract: VBnbToken;
   web3: Web3;
   account: string;
-  amount: BigNumber;
+  amountWei: BigNumber;
 }
 
 const vBnbAddress = getVBepToken('bnb').address;
@@ -20,13 +20,13 @@ const supplyBnb = async ({
   web3,
   tokenContract,
   account,
-  amount,
+  amountWei,
 }: ISupplyBnbInput): Promise<SupplyBnbOutput> => {
   const contractData = tokenContract.methods.mint().encodeABI();
   const tx = {
     from: account,
     to: vBnbAddress,
-    value: amount.toFixed(),
+    value: amountWei.toFixed(),
     data: contractData,
   };
 

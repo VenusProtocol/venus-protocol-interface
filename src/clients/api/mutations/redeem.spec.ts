@@ -20,7 +20,7 @@ describe('api/mutation/redeem', () => {
     try {
       await redeem({
         tokenContract: fakeContract,
-        amount: fakeAmount,
+        amountWei: fakeAmount,
         account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
@@ -46,7 +46,7 @@ describe('api/mutation/redeem', () => {
 
     const response = await redeem({
       tokenContract: fakeContract,
-      amount: fakeAmount,
+      amountWei: fakeAmount,
       account: fakeFromAccountsAddress,
     });
 

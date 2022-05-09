@@ -9,10 +9,6 @@ import redeemUnderlying, {
 import FunctionKey from 'constants/functionKey';
 import { useVTokenContract } from 'clients/contracts/hooks';
 
-export interface UseRedeemUnderlyingParams {
-  amount: string;
-}
-
 const useRedeemUnderlying = (
   { assetId, account }: { assetId: VTokenId; account: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
