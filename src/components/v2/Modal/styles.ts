@@ -16,8 +16,16 @@ export const useModalStyles = ({
     box: css`
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      left: calc(50% + ${theme.shape.drawerWidthDesktop});
+      transform: translate(calc(-50% - (${theme.shape.drawerWidthDesktop}) / 2), -50%);
+      ${theme.breakpoints.down('lg')} {
+        left: calc(50% + ${theme.shape.drawerWidthTablet});
+        transform: translate(calc(-50% - (${theme.shape.drawerWidthTablet}) / 2), -50%);
+      }
+      ${theme.breakpoints.down('md')} {
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
       width: calc(100% - ${theme.spacing(8)});
       max-width: ${theme.spacing(136)};
       border-radius: ${theme.spacing(6)};
