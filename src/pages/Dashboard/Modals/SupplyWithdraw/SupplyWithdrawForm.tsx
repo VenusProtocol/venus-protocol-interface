@@ -64,7 +64,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
   const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
-  const hypotheticalTokenSupplyBalance = amountString
+  const hypotheticalTokenSupplyBalance = amountValue
     ? calculateNewBalance(asset.supplyBalance, amount)
     : undefined;
 
