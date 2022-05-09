@@ -19,7 +19,6 @@ export interface IItem {
 export interface IApyChartProps {
   data: IItem[];
   type: 'supply' | 'borrow';
-  color?: string;
   className?: string;
 }
 
@@ -29,19 +28,19 @@ interface IRechartDataItem {
   balanceCents: BigNumber;
 }
 
-export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data, type }) => {
+export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) => {
   const styles = useStyles();
-  const chartColor = color || styles.defaultChartColor;
+  const chartColor = type === 'supply' ? styles.supplyChartColor : styles.borrowChartColor;
   const { Trans } = useTranslation();
 
-  const chartData: IRechartDataItem[] = React.useMemo(
-    () =>
-      data.map(({ timestamp, ...rest }) => ({
-        ...rest,
-        name: formatToReadableDate(timestamp),
-      })),
-    [JSON.stringify(data)],
-  );
+  const [chartData, domain]: [IRechartDataItem[], [number, number]] = React.useMemo(() => {
+    const formattedData = data.map(({ timestamp, ...rest }) => ({
+      ...rest,
+      name: formatToReadableDate(timestamp),
+    }));
+
+    return [formattedData, [0, 100]];
+  }, [JSON.stringify(data)]);
 
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
@@ -74,7 +73,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data, typ
         tickLine={false}
         tickFormatter={formatToReadablePercentage}
         stroke={styles.accessoryColor}
-        domain={[0, 50]}
+        domain={domain}
       />
       <Tooltip
         isAnimationActive={false}
@@ -142,3 +141,10 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, color, data, typ
     </AreaChart>
   );
 };
+
+export const SupplyApyChart: React.FC<Omit<IApyChartProps, 'type'>> = props => (
+  <ApyChart type="supply" {...props} />
+);
+export const BorrowApyChart: React.FC<Omit<IApyChartProps, 'type'>> = props => (
+  <ApyChart type="borrow" {...props} />
+);
