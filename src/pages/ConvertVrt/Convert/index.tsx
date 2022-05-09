@@ -142,14 +142,6 @@ const Convert: React.FC<IConvertProps> = ({
           title={t('convertVrt.enableVrt')}
           assetId={VRT_ID}
           isEnabled={userVrtEnabled}
-          tokenInfo={[
-            {
-              iconName: 'xvs',
-              label: 'VRT Conversion Ratio',
-              children: xvsToVrtConversionRatio?.toFixed(6),
-            },
-            { iconName: 'vrt', label: 'Current VRT Balance', children: readableUserVrtBalance },
-          ]}
           vtokenAddress={vrtConverterProxyAddress}
         >
           <AmountForm onSubmit={onSubmit} maxAmount={userVrtBalance} css={styles.form}>
