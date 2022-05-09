@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
 import { SPACING } from 'theme/MuiThemeProvider/muiTheme';
@@ -13,5 +14,10 @@ export const useStyles = () => {
     cursor: { strokeDasharray: `${SPACING} ${SPACING}`, stroke: accessoryColor },
     areaActiveDot: { r: SPACING * 2, strokeWidth: SPACING },
     areaStrokeWidth: theme.spacing(0.5),
+    tooltipContainer: css`
+      border-radius: ${theme.shape.borderRadius.small}px;
+      background-color: ${theme.palette.background.default};
+      padding: ${theme.spacing(3)};
+    `,
   };
 };
