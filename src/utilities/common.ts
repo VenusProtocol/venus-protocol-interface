@@ -132,11 +132,20 @@ export const formatCoinsToReadableValue = ({
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
-  let valueString = value.times(1).dp(8).toFixed();
-  if (shorthand && value.gt(1)) {
-    valueString = value.times(1).dp(2).toFixed();
+
+  let decimalPlaces;
+  if (shorthand) {
+    // If value is greater than 1, use 2 decimal places, otherwise use 8
+    // see (https://app.clickup.com/24381231/v/dc/q81tf-9288/q81tf-1128)
+    decimalPlaces = value.gt(1) ? 2 : 8;
+  } else {
+    const token = getToken(tokenId);
+    decimalPlaces = token.decimals;
   }
-  return `${formatCommaThousandsPeriodDecimal(valueString)} ${tokenId.toUpperCase()}`;
+
+  return `${formatCommaThousandsPeriodDecimal(
+    value.dp(decimalPlaces).toFixed(),
+  )} ${tokenId.toUpperCase()}`;
 };
 
 type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;

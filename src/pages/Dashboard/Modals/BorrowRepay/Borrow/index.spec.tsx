@@ -40,6 +40,65 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     renderComponent(<Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />);
   });
 
+  it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      liquidity: new BigNumber(100000000),
+    };
+
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+
+    const borrowDeltaDollars = fakeUserTotalBorrowLimitDollars.minus(
+      fakeUserTotalBorrowBalanceDollars,
+    );
+    const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
+
+    await waitFor(() =>
+      getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.symbol.toUpperCase()}`),
+    );
+  });
+
+  it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      liquidity: new BigNumber(200),
+    };
+
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />
+      </AuthContext.Provider>,
+    );
+
+    await waitFor(() =>
+      getByText(`${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.symbol.toUpperCase()}`),
+    );
+  });
+
   it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
