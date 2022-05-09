@@ -26,11 +26,13 @@ declare module '@mui/material/styles' {
   interface TypographyVariants {
     small1: React.CSSProperties;
     small2: React.CSSProperties;
+    tiny: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     small1?: React.CSSProperties;
     small2?: React.CSSProperties;
+    tiny?: React.CSSProperties;
   }
 
   interface Shape {
@@ -58,6 +60,7 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     small1: true;
     small2: true;
+    tiny: true;
   }
 }
 

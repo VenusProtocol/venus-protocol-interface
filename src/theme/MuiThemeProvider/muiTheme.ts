@@ -138,6 +138,9 @@ export default createTheme({
       fontWeight: 400,
       color: PALETTE.text.secondary,
     },
+    tiny: {
+      fontSize: '0.75rem',
+    },
   },
   components: {
     MuiPaper: {
