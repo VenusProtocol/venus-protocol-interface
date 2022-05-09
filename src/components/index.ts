@@ -25,4 +25,5 @@ export * from './v2/Toggle';
 export * from './v2/Token';
 export * from './v2/TokenTextField';
 export * from './v2/Tooltip';
+export * from './v2/Spinner';
 export * from './v2/ValueUpdate';
