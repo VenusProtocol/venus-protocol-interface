@@ -19,6 +19,7 @@ export const useStyles = () => {
     `,
     title: css`
       margin-bottom: ${theme.spacing(4)};
+      text-align: center;
     `,
     messageContainer: css`
       margin: auto;
