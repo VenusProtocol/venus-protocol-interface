@@ -147,7 +147,6 @@
     },
     "columns": {
       "apy": "APY",
-      "apyEarned": "APY/Earned",
       "asset": "Asset",
       "balance": "Balance",
       "collateral": "Collateral",
