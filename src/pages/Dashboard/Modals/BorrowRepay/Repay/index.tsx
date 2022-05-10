@@ -28,6 +28,8 @@ import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
 import AccountData from '../AccountData';
 
+export const PRESET_PERCENTAGES = [25, 50, 75, 100];
+
 export interface IRepayFormProps {
   asset: Asset;
   repay: (amountWei: BigNumber) => Promise<string>;
@@ -155,7 +157,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
             </Typography>
 
             <div css={styles.selectButtonsContainer}>
-              {[25, 50, 75, 100].map(percentage => (
+              {PRESET_PERCENTAGES.map(percentage => (
                 <TertiaryButton
                   key={`select-button-${percentage}`}
                   css={styles.selectButton}
