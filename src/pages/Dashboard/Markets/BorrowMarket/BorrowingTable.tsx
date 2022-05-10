@@ -77,18 +77,20 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       {
         key: 'percentOfLimit',
         render: () => (
-          <span css={styles.percentOfLimit}>
+          <div css={styles.percentOfLimit}>
             <ProgressBar
               min={0}
               max={100}
-              value={+percentOfLimit}
+              value={percentOfLimit.toNumber()}
               step={1}
               ariaLabel={t('markets.columns.percentOfLimit')}
+              css={styles.percentOfLimitProgressBar}
             />
+
             <Typography variant="small2" css={styles.white}>
               {formatToReadablePercentage(percentOfLimit)}
             </Typography>
-          </span>
+          </div>
         ),
         value: percentOfLimit.toFixed(),
       },
