@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
 import toast from 'components/Basic/Toast';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
   FormikTokenTextField,
   Delimiter,
@@ -17,7 +16,12 @@ import {
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
-import { getBigNumber, format, convertCoinsToWei } from 'utilities/common';
+import {
+  getBigNumber,
+  format,
+  convertCoinsToWei,
+  formatCoinsToReadableValue,
+} from 'utilities/common';
 import {
   calculateYearlyEarningsForAssets,
   calculateDailyEarningsCents,
@@ -185,12 +189,11 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
           original={asset.supplyBalance}
           update={hypotheticalTokenSupplyBalance}
           format={(value: BigNumber | undefined) =>
-            value
-              ? t('supplyWithdraw.supplyBalanceValue', {
-                  amount: format(value),
-                  symbol: asset.symbol,
-                })
-              : PLACEHOLDER_KEY
+            formatCoinsToReadableValue({
+              value,
+              tokenId: asset.id,
+              shorthand: true,
+            })
           }
         />
       </LabeledInlineContent>
