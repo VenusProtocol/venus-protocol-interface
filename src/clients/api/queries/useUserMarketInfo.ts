@@ -130,7 +130,10 @@ const useUserMarketInfo = ({
         tokenPrice: new BigNumber(market.tokenPrice || 0),
         liquidity: new BigNumber(market.liquidity || 0),
         borrowCaps: new BigNumber(market.borrowCaps || 0),
-        totalBorrows: new BigNumber(market.totalBorrows2 || 0),
+        treasuryTotalBorrowsUsd: new BigNumber(market.totalBorrowsUsd),
+        treasuryTotalSupplyUsd: new BigNumber(market.totalSupplyUsd),
+        treasuryTotalSupply: new BigNumber(market.totalSupply),
+        treasuryTotalBorrows: new BigNumber(market.totalBorrows2),
         treasuryBalance,
         walletBalance,
         supplyBalance,
@@ -151,13 +154,13 @@ const useUserMarketInfo = ({
         asset.treasuryBalance.multipliedBy(asset.tokenPrice),
       );
       acc.treasuryTotalSupplyUsdBalance = acc.treasuryTotalSupplyUsdBalance.plus(
-        new BigNumber(market.totalSupplyUsd),
+        asset.treasuryTotalSupplyUsd,
       );
       acc.treasuryTotalBorrowUsdBalance = acc.treasuryTotalBorrowUsdBalance.plus(
-        new BigNumber(market.totalBorrowsUsd),
+        asset.treasuryTotalBorrowsUsd,
       );
       acc.treasuryTotalAvailableLiquidityUsdBalance =
-        acc.treasuryTotalAvailableLiquidityUsdBalance.plus(new BigNumber(market.liquidity));
+        acc.treasuryTotalAvailableLiquidityUsdBalance.plus(asset.liquidity);
 
       // Create borrow limit based on assets supplied as collateral
       if (asset.collateral) {

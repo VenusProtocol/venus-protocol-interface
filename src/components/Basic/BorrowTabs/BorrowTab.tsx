@@ -268,7 +268,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
             amount.isGreaterThan(asset.liquidity.div(asset.tokenPrice)) ||
             newBorrowPercent.isGreaterThan(100) ||
             (!new BigNumber(asset.borrowCaps || 0).isZero() &&
-              amount.plus(asset.totalBorrows).isGreaterThan(asset.borrowCaps))
+              amount.plus(asset.treasuryTotalBorrows).isGreaterThan(asset.borrowCaps))
           }
           onClick={handleBorrow}
           loading={isLoading}
