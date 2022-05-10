@@ -11,15 +11,22 @@ import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactio
 import { init as initTranslationLibrary } from 'translation';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
-import { VaiContextProvider } from 'context/VaiContext';
+import { VaiContext, IVaiContextValue } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
+import BigNumber from 'bignumber.js';
 
 // Initialize internationalization library
 initTranslationLibrary();
 
 const renderComponent = (
   children: React.ReactElement | (() => React.ReactElement),
-  { authContextValue = {} }: { authContextValue?: Partial<IAuthContextValue> } = {},
+  {
+    authContextValue = {},
+    vaiContextValue = {},
+  }: {
+    authContextValue?: Partial<IAuthContextValue>;
+    vaiContextValue?: Partial<IVaiContextValue>;
+  } = {},
 ) => {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -37,6 +44,13 @@ const renderComponent = (
     account: undefined,
     ...authContextValue,
   };
+  const defaultVaiContextValues = {
+    userVaiMinted: new BigNumber(0),
+    userVaiBalance: new BigNumber(0),
+    userVaiEnabled: false,
+    mintableVai: new BigNumber(0),
+    ...vaiContextValue,
+  };
 
   const renderRes = render(
     <Theme>
@@ -45,7 +59,7 @@ const renderComponent = (
           <MuiThemeProvider>
             <AuthContext.Provider value={defaultAuthContextValues}>
               <RefreshContextProvider>
-                <VaiContextProvider>
+                <VaiContext.Provider value={defaultVaiContextValues}>
                   <SuccessfulTransactionModalProvider>
                     <BrowserRouter>
                       <ToastContainer
@@ -64,7 +78,7 @@ const renderComponent = (
                       </Switch>
                     </BrowserRouter>
                   </SuccessfulTransactionModalProvider>
-                </VaiContextProvider>
+                </VaiContext.Provider>
               </RefreshContextProvider>
             </AuthContext.Provider>
           </MuiThemeProvider>

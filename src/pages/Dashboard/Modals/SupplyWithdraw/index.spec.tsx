@@ -19,8 +19,6 @@ import { Asset, TokenId } from 'types';
 import en from 'translation/translations/en.json';
 import SupplyWithdraw from '.';
 
-const ONE = '1';
-const ONE_WEI = '1000000000000000000';
 const asset = assetData[1];
 const fakeGetVTokenBalance = new BigNumber('111');
 
@@ -67,7 +65,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />,
+      () => (
+        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+      ),
       {
         authContextValue: {
           account: {
@@ -82,7 +82,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
   it('displays correct token supply balance', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />,
+      () => (
+        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+      ),
       {
         authContextValue: {
           account: {
@@ -102,12 +104,14 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     };
 
     const { getByText } = renderComponent(
-      () => <SupplyWithdraw
-        onClose={jest.fn()}
-        asset={customFakeAsset}
-        isXvsEnabled
-        assets={[customFakeAsset]}
-      />,
+      () => (
+        <SupplyWithdraw
+          onClose={jest.fn()}
+          asset={customFakeAsset}
+          isXvsEnabled
+          assets={[customFakeAsset]}
+        />
+      ),
       {
         authContextValue: {
           account: {
@@ -140,7 +144,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />,
+      () => (
+        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+      ),
       {
         authContextValue: {
           account: {
@@ -148,7 +154,6 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         },
       },
-
     );
 
     const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
@@ -172,12 +177,14 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     (supplyBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     renderComponent(
-      () => <SupplyWithdraw
-        onClose={onCloseMock}
-        asset={customFakeAsset}
-        isXvsEnabled
-        assets={[fakeAsset]}
-      />,
+      () => (
+        <SupplyWithdraw
+          onClose={onCloseMock}
+          asset={customFakeAsset}
+          isXvsEnabled
+          assets={[fakeAsset]}
+        />
+      ),
       {
         authContextValue: {
           account: {

@@ -6,7 +6,6 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { repayVai, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
-import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -44,27 +43,19 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('displays the correct repay VAI balance', async () => {
-    const { getByText } = renderComponent(
-      () => (
-        <VaiContext.Provider
-          value={{
-            userVaiEnabled: true,
-            userVaiMinted: fakeUserVaiMinted,
-            mintableVai: new BigNumber(0),
-            userVaiBalance: new BigNumber(0),
-          }}
-        >
-          <RepayVai />
-        </VaiContext.Provider>
-      ),
-      {
-        authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+    const { getByText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
         },
       },
-    );
+      vaiContextValue: {
+        userVaiEnabled: true,
+        userVaiMinted: fakeUserVaiMinted,
+        mintableVai: new BigNumber(0),
+        userVaiBalance: new BigNumber(0),
+      },
+    });
     await waitFor(() => getByText('Repay VAI balance'));
 
     // Check user repay VAI balance displays correctly
@@ -77,27 +68,19 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     const fakeUserVaiBalance = fakeUserVaiMinted;
 
-    const { getByText, getByPlaceholderText } = renderComponent(
-      () => (
-        <VaiContext.Provider
-          value={{
-            userVaiEnabled: true,
-            mintableVai: new BigNumber(0),
-            userVaiMinted: fakeUserVaiMinted,
-            userVaiBalance: fakeUserVaiBalance,
-          }}
-        >
-          <RepayVai />
-        </VaiContext.Provider>
-      ),
-      {
-        authContextValue: {
-          account: {
-            address: fakeAccountAddress,
-          },
+    const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
         },
       },
-    );
+      vaiContextValue: {
+        userVaiEnabled: true,
+        mintableVai: new BigNumber(0),
+        userVaiMinted: fakeUserVaiMinted,
+        userVaiBalance: fakeUserVaiBalance,
+      },
+    });
     await waitFor(() => getByText('Repay VAI balance'));
 
     // Input amount
