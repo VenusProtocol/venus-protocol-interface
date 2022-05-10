@@ -6,17 +6,15 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { mintVai, getVaiTreasuryPercentage, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
-import { AuthContext } from 'context/AuthContext';
-import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
+import fakeAccountAddress from '__mocks__/models/address';
 import RepayVai from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeAccountAddress = '0x0';
 const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
 const fakeMintableVai = new BigNumber('1000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
@@ -35,21 +33,13 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   });
 
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <RepayVai />
-      </AuthContext.Provider>,
-    );
+    const { getByText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+    });
     await waitFor(() => getByText('Available VAI limit'));
   });
 
@@ -58,30 +48,19 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
       async () => fakeVaiTreasuryPercentage,
     );
 
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <VaiContext.Provider
-          value={{
-            userVaiEnabled: true,
-            userVaiMinted: new BigNumber(0),
-            mintableVai: fakeMintableVai,
-            userVaiBalance: new BigNumber(0),
-          }}
-        >
-          <RepayVai />
-        </VaiContext.Provider>
-      </AuthContext.Provider>,
-    );
+    const { getByText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+      vaiContextValue: {
+        userVaiEnabled: true,
+        userVaiMinted: new BigNumber(0),
+        mintableVai: fakeMintableVai,
+        userVaiBalance: new BigNumber(0),
+      },
+    });
     await waitFor(() => getByText('Available VAI limit'));
 
     // Check available VAI limit displays correctly
@@ -94,30 +73,19 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     (mintVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
-    const { getByText, getByPlaceholderText } = renderComponent(
-      <VaiContext.Provider
-        value={{
-          userVaiEnabled: true,
-          mintableVai: fakeMintableVai,
-          userVaiMinted: new BigNumber(0),
-          userVaiBalance: new BigNumber(0),
-        }}
-      >
-        <AuthContext.Provider
-          value={{
-            login: jest.fn(),
-            logOut: jest.fn(),
-            openAuthModal: jest.fn(),
-            closeAuthModal: jest.fn(),
-            account: {
-              address: fakeAccountAddress,
-            },
-          }}
-        >
-          <RepayVai />
-        </AuthContext.Provider>
-      </VaiContext.Provider>,
-    );
+    const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+      vaiContextValue: {
+        userVaiEnabled: true,
+        mintableVai: fakeMintableVai,
+        userVaiMinted: new BigNumber(0),
+        userVaiBalance: new BigNumber(0),
+      },
+    });
     await waitFor(() => getByText('Available VAI limit'));
 
     // Click on "SAFE MAX" button

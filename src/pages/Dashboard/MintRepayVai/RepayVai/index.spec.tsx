@@ -6,17 +6,15 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { repayVai, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
-import { AuthContext } from 'context/AuthContext';
-import { VaiContext } from 'context/VaiContext';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
+import fakeAccountAddress from '__mocks__/models/address';
 import RepayVai from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Basic/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeAccountAddress = '0x0';
 const fakeUserVaiMinted = new BigNumber('1000000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
   value: fakeUserVaiMinted,
@@ -34,49 +32,30 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   });
 
   it('renders without crashing', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <RepayVai />
-      </AuthContext.Provider>,
-    );
+    const { getByText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+    });
     await waitFor(() => getByText('Repay VAI balance'));
   });
 
   it('displays the correct repay VAI balance', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <VaiContext.Provider
-          value={{
-            userVaiEnabled: true,
-            userVaiMinted: fakeUserVaiMinted,
-            mintableVai: new BigNumber(0),
-            userVaiBalance: new BigNumber(0),
-          }}
-        >
-          <RepayVai />
-        </VaiContext.Provider>
-      </AuthContext.Provider>,
-    );
+    const { getByText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+      vaiContextValue: {
+        userVaiEnabled: true,
+        userVaiMinted: fakeUserVaiMinted,
+        mintableVai: new BigNumber(0),
+        userVaiBalance: new BigNumber(0),
+      },
+    });
     await waitFor(() => getByText('Repay VAI balance'));
 
     // Check user repay VAI balance displays correctly
@@ -89,30 +68,19 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     const fakeUserVaiBalance = fakeUserVaiMinted;
 
-    const { getByText, getByPlaceholderText } = renderComponent(
-      <VaiContext.Provider
-        value={{
-          userVaiEnabled: true,
-          mintableVai: new BigNumber(0),
-          userVaiMinted: fakeUserVaiMinted,
-          userVaiBalance: fakeUserVaiBalance,
-        }}
-      >
-        <AuthContext.Provider
-          value={{
-            login: jest.fn(),
-            logOut: jest.fn(),
-            openAuthModal: jest.fn(),
-            closeAuthModal: jest.fn(),
-            account: {
-              address: fakeAccountAddress,
-            },
-          }}
-        >
-          <RepayVai />
-        </AuthContext.Provider>
-      </VaiContext.Provider>,
-    );
+    const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
+      authContextValue: {
+        account: {
+          address: fakeAccountAddress,
+        },
+      },
+      vaiContextValue: {
+        userVaiEnabled: true,
+        mintableVai: new BigNumber(0),
+        userVaiMinted: fakeUserVaiMinted,
+        userVaiBalance: fakeUserVaiBalance,
+      },
+    });
     await waitFor(() => getByText('Repay VAI balance'));
 
     // Input amount
