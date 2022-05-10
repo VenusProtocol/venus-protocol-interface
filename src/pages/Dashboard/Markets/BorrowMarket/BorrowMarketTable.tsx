@@ -89,7 +89,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isLgDown })}
+      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isSmDown })}
     />
   );
 };
