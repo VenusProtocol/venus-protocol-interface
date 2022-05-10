@@ -40,9 +40,21 @@ describe('pages/SupplyMarket', () => {
     let userTotalBorrowBalance: BigNumber;
     let userTotalBorrowLimit: BigNumber;
     let userTotalSupplyBalance: BigNumber;
+    let treasuryTotalUsdBalance: BigNumber;
+    let treasuryTotalSupplyUsdBalance: BigNumber;
+    let treasuryTotalBorrowUsdBalance: BigNumber;
+    let treasuryTotalAvailableLiquidityUsdBalance: BigNumber;
     const CallMarketContext = () => {
-      ({ assets, userTotalBorrowBalance, userTotalBorrowLimit, userTotalSupplyBalance } =
-        useUserMarketInfo({ accountAddress: fakeAddress }));
+      ({
+        assets,
+        userTotalBorrowBalance,
+        userTotalBorrowLimit,
+        userTotalSupplyBalance,
+        treasuryTotalUsdBalance,
+        treasuryTotalSupplyUsdBalance,
+        treasuryTotalBorrowUsdBalance,
+        treasuryTotalAvailableLiquidityUsdBalance,
+      } = useUserMarketInfo({ accountAddress: fakeAddress }));
       return <div />;
     };
     renderComponent(<CallMarketContext />, {
@@ -63,6 +75,22 @@ describe('pages/SupplyMarket', () => {
     );
     await waitFor(() =>
       expect(userTotalSupplyBalance.toFixed()).toBe('184114779.84631676380304982489610572'),
+    );
+    await waitFor(() =>
+      expect(treasuryTotalUsdBalance.toFixed()).toBe('6744000847.35474642509783918968428126'),
+    );
+    await waitFor(() =>
+      expect(treasuryTotalSupplyUsdBalance.toFixed()).toBe(
+        '1009809011846086109330217.375449451699026548',
+      ),
+    );
+    await waitFor(() =>
+      expect(treasuryTotalBorrowUsdBalance.toFixed()).toBe('8587791534566.260141326894326108'),
+    );
+    await waitFor(() =>
+      expect(treasuryTotalAvailableLiquidityUsdBalance.toFixed()).toBe(
+        '1009809011837545745832691.419939998914208345',
+      ),
     );
   });
 });
