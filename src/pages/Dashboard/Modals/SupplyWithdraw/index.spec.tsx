@@ -1,8 +1,12 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { act, fireEvent, waitFor } from '@testing-library/react';
+
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import renderComponent from 'testUtils/renderComponent';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { AuthContext } from 'context/AuthContext';
 import {
   supplyNonBnb,
@@ -12,30 +16,37 @@ import {
   getVTokenBalance,
   useUserMarketInfo,
 } from 'clients/api';
-import { TokenId } from 'types';
+import { Asset, TokenId } from 'types';
 import en from 'translation/translations/en.json';
 import SupplyWithdraw from '.';
 
-const ONE = '1';
-const ONE_WEI = '1000000000000000000';
-const asset = assetData[1];
-const fakeAccountAddress = '0x0';
 const fakeGetVTokenBalance = new BigNumber('111');
 
+const fakeAsset: Asset = {
+  ...assetData[0],
+  tokenPrice: new BigNumber(1),
+  supplyBalance: new BigNumber(1000),
+  walletBalance: new BigNumber(10000000),
+};
+
+const fakeUserTotalBorrowLimitDollars = new BigNumber(1000);
+const fakeUserTotalBorrowBalanceDollars = new BigNumber(10);
+
 jest.mock('clients/api');
+jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+      assets: [], // Not used in these tests
+      userTotalBorrowLimit: fakeUserTotalBorrowLimitDollars,
+      userTotalBorrowBalance: fakeUserTotalBorrowBalanceDollars,
     }));
   });
 
   it('renders without crashing', async () => {
     renderComponent(
-      <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />,
+      <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />,
     );
   });
 
@@ -50,7 +61,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           account: undefined,
         }}
       >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
+        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
       </AuthContext.Provider>,
     );
 
@@ -62,152 +73,316 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     expect(connectTextWithdraw).toHaveTextContent(en.supplyWithdraw.connectWalletToWithdraw);
   });
 
-  it('submit is disabled with no amount', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
-      </AuthContext.Provider>,
-    );
+  describe('Supply form', () => {
+    it('displays correct token wallet balance', async () => {
+      const { getByText } = renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+        </AuthContext.Provider>,
+      );
 
-    const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
-    expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
-    const disabledButton = document.querySelector('button[type="submit"]');
-    expect(disabledButton).toHaveAttribute('disabled');
+      await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
+    });
+
+    it('displays correct token supply balance', async () => {
+      const { getByText } = renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+        </AuthContext.Provider>,
+      );
+
+      await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
+    });
+
+    it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
+      const customFakeAsset: Asset = {
+        ...fakeAsset,
+        walletBalance: new BigNumber(1),
+      };
+
+      const { getByText } = renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            asset={customFakeAsset}
+            isXvsEnabled
+            assets={[customFakeAsset]}
+          />
+        </AuthContext.Provider>,
+      );
+      await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+
+      // Check submit button is disabled
+      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toHaveAttribute(
+        'disabled',
+      );
+
+      const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
+
+      // Enter amount in input
+      const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+      fireEvent.change(tokenTextInput, {
+        target: { value: incorrectValueTokens },
+      });
+
+      // Check submit button is still disabled
+      await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toHaveAttribute(
+        'disabled',
+      );
+    });
+
+    it('submit is disabled with no amount', async () => {
+      const { getByText } = renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+        </AuthContext.Provider>,
+      );
+
+      const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
+      expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
+      const disabledButton = document.querySelector('button[type="submit"]');
+      expect(disabledButton).toHaveAttribute('disabled');
+    });
+
+    it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
+      const customFakeAsset: Asset = {
+        ...fakeAsset,
+        id: 'bnb' as TokenId,
+        symbol: 'BNB',
+        vsymbol: 'vBNB',
+        walletBalance: new BigNumber('11'),
+      };
+
+      const onCloseMock = jest.fn();
+      const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+      (supplyBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+
+      renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw
+            onClose={onCloseMock}
+            asset={customFakeAsset}
+            isXvsEnabled
+            assets={[fakeAsset]}
+          />
+        </AuthContext.Provider>,
+      );
+
+      const correctAmountTokens = 1;
+      const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+      fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
+
+      // Click on submit button
+      const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+      await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply));
+      fireEvent.click(submitButton);
+
+      const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+        new BigNumber(10).pow(customFakeAsset.decimals),
+      );
+
+      await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
+      expect(onCloseMock).toHaveBeenCalledTimes(1);
+      await waitFor(() =>
+        expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
+          transactionHash: fakeTransactionReceipt.transactionHash,
+          amount: {
+            tokenId: customFakeAsset.id,
+            valueWei: expectedAmountWei,
+          },
+          message: en.supplyWithdraw.successfulSupplyTransactionModal.message,
+          title: en.supplyWithdraw.successfulSupplyTransactionModal.title,
+        }),
+      );
+    });
+
+    it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
+      const customFakeAsset: Asset = {
+        ...fakeAsset,
+        id: 'eth' as TokenId,
+        symbol: 'ETH',
+        vsymbol: 'vETH',
+        walletBalance: new BigNumber('11'),
+      };
+
+      const onCloseMock = jest.fn();
+      const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+      (supplyNonBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+
+      renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw
+            onClose={onCloseMock}
+            asset={customFakeAsset}
+            isXvsEnabled
+            assets={[fakeAsset]}
+          />
+        </AuthContext.Provider>,
+      );
+
+      const correctAmountTokens = 1;
+      const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+      fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
+
+      // Click on submit button
+      const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+      await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.supply));
+      fireEvent.click(submitButton);
+
+      const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+        new BigNumber(10).pow(customFakeAsset.decimals),
+      );
+
+      await waitFor(() =>
+        expect(supplyNonBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }),
+      );
+      expect(onCloseMock).toHaveBeenCalledTimes(1);
+      await waitFor(() =>
+        expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
+          transactionHash: fakeTransactionReceipt.transactionHash,
+          amount: {
+            tokenId: customFakeAsset.id,
+            valueWei: expectedAmountWei,
+          },
+          message: en.supplyWithdraw.successfulSupplyTransactionModal.message,
+          title: en.supplyWithdraw.successfulSupplyTransactionModal.title,
+        }),
+      );
+    });
   });
 
-  it('calls supplyBnb when supplying BNB', async () => {
-    const bnbAsset = {
-      ...asset,
-      id: 'bnb' as TokenId,
-      symbol: 'BNB',
-      vsymbol: 'vBNB',
-      walletBalance: new BigNumber('11'),
-    };
-    renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <SupplyWithdraw onClose={jest.fn()} asset={bnbAsset} isXvsEnabled assets={assetData} />
-      </AuthContext.Provider>,
-    );
-    const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-    act(() => {
-      fireEvent.change(tokenTextInput, { target: { value: ONE } });
-    });
-    const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.supply);
-    fireEvent.click(sumbitButton);
-    await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amount: ONE_WEI }));
-  });
+  describe('Withdraw form', () => {
+    it('redeem is called when full amount is withdrawn', async () => {
+      (getVTokenBalance as jest.Mock).mockImplementationOnce(async () => fakeGetVTokenBalance);
+      const { getByText } = renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+        </AuthContext.Provider>,
+      );
 
-  it('calls supplyNonBnb when supplying other token', async () => {
-    const nonBnbAsset = {
-      ...asset,
-      id: 'eth' as TokenId,
-      symbol: 'ETH',
-      vsymbol: 'vETH',
-      walletBalance: new BigNumber('11'),
-    };
-    renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <SupplyWithdraw onClose={jest.fn()} asset={nonBnbAsset} isXvsEnabled assets={assetData} />
-      </AuthContext.Provider>,
-    );
-    const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-    act(() => {
-      fireEvent.change(tokenTextInput, { target: { value: ONE } });
+      const withdrawButton = await waitFor(() => getByText(en.supplyWithdraw.withdraw));
+      fireEvent.click(withdrawButton);
+      const maxButton = await waitFor(() => getByText(en.supplyWithdraw.max.toUpperCase()));
+      act(() => {
+        fireEvent.click(maxButton);
+      });
+      const submitButton = await waitFor(
+        () => document.querySelector('button[type="submit"]') as HTMLButtonElement,
+      );
+      await waitFor(() => expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
+      fireEvent.click(submitButton);
+      await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amountWei: fakeGetVTokenBalance }));
     });
-    const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.supply);
-    fireEvent.click(sumbitButton);
-    await waitFor(() => expect(supplyNonBnb).toHaveBeenCalledWith({ amount: ONE_WEI }));
-  });
 
-  it('redeem is called when full amount is withdrawn', async () => {
-    (getVTokenBalance as jest.Mock).mockImplementationOnce(async () => fakeGetVTokenBalance);
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
-      </AuthContext.Provider>,
-    );
+    it('redeemUnderlying is called when partial amount is withdrawn', async () => {
+      const { getByText } = renderComponent(
+        <AuthContext.Provider
+          value={{
+            login: jest.fn(),
+            logOut: jest.fn(),
+            openAuthModal: jest.fn(),
+            closeAuthModal: jest.fn(),
+            account: {
+              address: fakeAccountAddress,
+            },
+          }}
+        >
+          <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+        </AuthContext.Provider>,
+      );
+      const withdrawButton = getByText(en.supplyWithdraw.withdraw);
+      fireEvent.click(withdrawButton);
 
-    const withdrawButton = await waitFor(() => getByText(en.supplyWithdraw.withdraw));
-    fireEvent.click(withdrawButton);
-    const maxButton = await waitFor(() => getByText(en.supplyWithdraw.max.toUpperCase()));
-    act(() => {
-      fireEvent.click(maxButton);
+      const correctAmountTokens = 1;
+
+      const tokenTextInput = document.querySelector('input') as HTMLInputElement;
+      act(() => {
+        fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
+      });
+      const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+      expect(submitButton).toHaveTextContent(en.supplyWithdraw.withdraw);
+      fireEvent.click(submitButton);
+
+      const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
+        new BigNumber(10).pow(fakeAsset.decimals),
+      );
+
+      await waitFor(() =>
+        expect(redeemUnderlying).toHaveBeenCalledWith({ amountWei: expectedAmountWei }),
+      );
     });
-    const sumbitButton = await waitFor(
-      () => document.querySelector('button[type="submit"]') as HTMLButtonElement,
-    );
-    await waitFor(() => expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.withdraw));
-    fireEvent.click(sumbitButton);
-    await waitFor(() => expect(redeem).toHaveBeenCalledWith({ amount: fakeGetVTokenBalance }));
-  });
-
-  it('redeemUnderlying is called when partial amount is withdrawn', async () => {
-    const { getByText } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
-          account: {
-            address: fakeAccountAddress,
-          },
-        }}
-      >
-        <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
-      </AuthContext.Provider>,
-    );
-    const withdrawButton = getByText(en.supplyWithdraw.withdraw);
-    fireEvent.click(withdrawButton);
-    const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-    act(() => {
-      fireEvent.change(tokenTextInput, { target: { value: ONE } });
-    });
-    const sumbitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    expect(sumbitButton).toHaveTextContent(en.supplyWithdraw.withdraw);
-    fireEvent.click(sumbitButton);
-    await waitFor(() => expect(redeemUnderlying).toHaveBeenCalledWith({ amount: ONE_WEI }));
   });
 });

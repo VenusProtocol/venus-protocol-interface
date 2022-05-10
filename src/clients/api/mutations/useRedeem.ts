@@ -7,10 +7,6 @@ import redeem, { IRedeemInput, RedeemOutput } from 'clients/api/mutations/redeem
 import FunctionKey from 'constants/functionKey';
 import { useVTokenContract } from 'clients/contracts/hooks';
 
-export interface UseRedeemParams {
-  amount: string;
-}
-
 const useRedeem = (
   { assetId, account }: { assetId: VTokenId; account: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt

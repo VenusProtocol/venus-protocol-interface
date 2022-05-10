@@ -25,7 +25,7 @@ describe('api/mutation/convertVrt', () => {
     try {
       await convertVrt({
         vrtConverterContract: fakeContract,
-        amount: fakeAmount,
+        amountWei: fakeAmount,
         accountAddress: address,
       });
 
@@ -49,7 +49,7 @@ describe('api/mutation/convertVrt', () => {
 
     const response = await convertVrt({
       vrtConverterContract: fakeContract,
-      amount: fakeAmount,
+      amountWei: fakeAmount,
       accountAddress: address,
     });
 
