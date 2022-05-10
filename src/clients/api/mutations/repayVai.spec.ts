@@ -43,13 +43,13 @@ describe('api/mutation/repayVai', () => {
 
     const response = await repayVai({
       vaiControllerContract: fakeContract,
-      amountWei: fakeAmountWei.toString(),
+      amountWei: fakeAmountWei.toFixed(),
       fromAccountAddress: fakeFromAccountsAddress,
     });
 
     expect(response).toBe(undefined);
     expect(repayVAIMock).toHaveBeenCalledTimes(1);
-    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountWei.toString());
+    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
   });

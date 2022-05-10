@@ -63,7 +63,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
       asset.borrowBalance
         .multipliedBy(percentage / 100)
         .decimalPlaces(asset.decimals)
-        .toString(),
+        .toFixed(),
     [asset.borrowBalance.toFixed(), asset.decimals],
   );
 
