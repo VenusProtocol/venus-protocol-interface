@@ -86,11 +86,11 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
               ariaLabel={t('markets.columns.percentOfLimit')}
             />
             <Typography variant="small2" css={styles.white}>
-              {formatToReadablePercentage(percentOfLimit.toFixed(2))}
+              {formatToReadablePercentage(percentOfLimit)}
             </Typography>
           </span>
         ),
-        value: asset.liquidity.toNumber(),
+        value: percentOfLimit.toFixed(),
       },
     ];
   });
