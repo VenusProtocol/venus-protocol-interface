@@ -240,7 +240,6 @@
     "supply": "Supply",
     "supplyApy": "Supply APY",
     "supplyBalance": "Supply Balance",
-    "supplyBalanceValue": "{{amount}} {{symbol}}",
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
