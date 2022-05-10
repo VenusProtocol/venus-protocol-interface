@@ -9,7 +9,6 @@ import { Asset } from 'types';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
 import { useUserMarketInfo, borrowVToken } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -48,19 +47,14 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+      () => <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      {
+        authContextValue: {
           account: {
             address: fakeAccountAddress,
           },
-        }}
-      >
-        <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />
-      </AuthContext.Provider>,
+        },
+      },
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
@@ -86,19 +80,14 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
 
   it('disables submit button if amount to borrow requested would make user borrow balance go higher than their borrow limit', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+      <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />,
+      {
+        authContextValue: {
           account: {
             address: fakeAccountAddress,
           },
-        }}
-      >
-        <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />
-      </AuthContext.Provider>,
+        },
+      },
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
@@ -130,19 +119,14 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
 
   it('updates input value correctly when pressing on max button', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+      <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />,
+      {
+        authContextValue: {
           account: {
             address: fakeAccountAddress,
           },
-        }}
-      >
-        <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />
-      </AuthContext.Provider>,
+        },
+      },
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
@@ -177,19 +161,14 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     (borrowVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+      () => <Borrow asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />,
+      {
+        authContextValue: {
           account: {
             address: fakeAccountAddress,
           },
-        }}
-      >
-        <Borrow asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />
-      </AuthContext.Provider>,
+        },
+      },
     );
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 

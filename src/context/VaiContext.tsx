@@ -10,6 +10,13 @@ import {
 import useRefresh from 'hooks/useRefresh';
 import { AuthContext } from './AuthContext';
 
+export interface IVaiContextValue {
+  userVaiMinted: BigNumber;
+  userVaiBalance: BigNumber;
+  userVaiEnabled: boolean;
+  mintableVai: BigNumber;
+}
+
 const VaiContext = React.createContext({
   userVaiMinted: new BigNumber(0),
   userVaiBalance: new BigNumber(0),
