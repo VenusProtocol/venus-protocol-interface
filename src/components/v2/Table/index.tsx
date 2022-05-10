@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import { useIsMdDown } from 'hooks/responsive';
+import { useIsSmDown } from 'hooks/responsive';
 import { Delimiter } from '../Delimiter';
 import Head from './Head';
 import { useStyles } from './styles';
@@ -52,7 +52,7 @@ export const Table = ({
   gridTemplateRowsMobile = '1fr',
 }: ITableProps) => {
   const styles = useStyles();
-  const isSmDown = useIsMdDown();
+  const isSmDown = useIsSmDown();
 
   const [orderBy, setOrderBy] = React.useState<typeof columns[number]['key'] | undefined>(
     initialOrder?.orderBy,
