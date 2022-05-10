@@ -179,7 +179,7 @@
   "mintRepayVai": {
     "mintVai": {
       "btnMintVai": "Mint VAI",
-      "connectWallet": "Please connect your wallet to mint",
+      "connectWallet": "Please connect your wallet to mint VAI.",
       "enableToken": "To mint VAI to the Venus Protocol, you need to approve it first",
       "mintFeeLabel": "Mint fee",
       "rightMaxButtonLabel": "SAFE MAX",
@@ -192,7 +192,7 @@
     },
     "repayVai": {
       "btnRepayVai": "Repay VAI",
-      "connectWallet": "Please connect your wallet to repay",
+      "connectWallet": "Please connect your wallet to repay VAI.",
       "enableToken": "To repay VAI to the Venus Protocol, you need to approve it first",
       "repayVaiBalance": "Repay VAI balance",
       "rightMaxButtonLabel": "MAX",
