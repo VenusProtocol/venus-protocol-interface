@@ -166,7 +166,9 @@ const Convert: React.FC<IConvertProps> = ({
                           components={{
                             White: <span css={styles.whiteLabel} />,
                           }}
-                          values={readableUserVrtBalance}
+                          values={{
+                            amount: readableUserVrtBalance,
+                          }}
                         />
                       }
                       rightMaxButton={

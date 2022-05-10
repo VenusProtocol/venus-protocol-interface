@@ -5,6 +5,7 @@ import { ComponentMeta, Story } from '@storybook/react';
 import { withAuthContext, withCenterStory, withRouter, withProvider } from 'stories/decorators';
 import ConvertVRT, { ConvertVrtUi, ConvertVrtUiProps } from '.';
 import Withdraw from './Withdraw';
+import ConvertComp from './Convert';
 
 export default {
   title: 'Pages/ConvertVRT',
@@ -31,12 +32,25 @@ const context = {
 
 export const ConnectWallet = () => <ConvertVRT />;
 
-export const Convert = Template.bind({});
-Convert.decorators = [withAuthContext(context)];
-Convert.args = {
+export const Enable = Template.bind({});
+Enable.decorators = [withAuthContext(context)];
+Enable.args = {
   xvsToVrtConversionRatio: new BigNumber('0.000083'),
   vrtConversionEndTime: new Date('1678859525'),
 };
+
+export const ConvertTab = () => (
+  <ConvertComp
+    xvsToVrtConversionRatio={new BigNumber(0.000006333)}
+    vrtConversionEndTime={new Date(Date.now() + 60 * 60 * 24 * 3)}
+    userVrtBalanceWei={new BigNumber(33333)}
+    convertVrtLoading={false}
+    userVrtEnabled
+    convertVrt={noop}
+    walletConnected
+  />
+);
+ConvertTab.decorators = [withAuthContext(context)];
 
 export const WithdrawTab = () => (
   <Withdraw
