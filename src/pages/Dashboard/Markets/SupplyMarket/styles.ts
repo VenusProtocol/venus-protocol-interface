@@ -7,6 +7,8 @@ export const useStyles = () => {
     getGridTemplateColumns: ({ isCardLayout }: { isCardLayout: boolean }) =>
       isCardLayout
         ? `1fr 1fr minmax(${theme.spacing(30)}, 1fr)`
-        : `minmax(${theme.spacing(30)}, 1fr) 1fr 1fr minmax(${theme.spacing(30)}, 1fr)`,
+        : `minmax(${theme.spacing(30)}, 1fr) 1fr minmax(${theme.spacing(
+            33,
+          )}, 1fr)  minmax(${theme.spacing(30)}, 1fr)`,
   };
 };
