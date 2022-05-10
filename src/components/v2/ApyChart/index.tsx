@@ -39,7 +39,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
       // TODO: fix
       width={700}
       height={350}
-      // TODO: fix placement of chart (margins)
+      margin={styles.areaChartMargin}
       data={data}
     >
       {/* Gradient used as filler */}
@@ -91,7 +91,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                     Value: <Typography css={styles.tooltipItemValue} variant="small1" />,
                   }}
                   values={{
-                    apy: formatToReadablePercentage((payload[0].payload as IItem).apy),
+                    percentage: formatToReadablePercentage((payload[0].payload as IItem).apy),
                   }}
                 />
               </div>
