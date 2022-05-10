@@ -94,7 +94,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isLgDown })}
+      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isSmDown })}
     />
   );
 };
