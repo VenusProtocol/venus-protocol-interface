@@ -57,9 +57,14 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
       if (!isMounted) {
         return;
       }
+
+      const formattedAllowBalanceTemp = new BigNumber(allowBalanceTemp);
       setMintedAmount(new BigNumber(userVaiMintedTemp).div(1e18));
       setWalletAmount(new BigNumber(userVaiBalanceTemp).div(1e18));
-      setEnabled(new BigNumber(allowBalanceTemp).gte(new BigNumber(userVaiMintedTemp)));
+      setEnabled(
+        formattedAllowBalanceTemp.gt(0) &&
+          formattedAllowBalanceTemp.gte(new BigNumber(userVaiMintedTemp)),
+      );
       setMintableAmount(new BigNumber(mintableVaiTemp).div(1e18));
     };
     update();
