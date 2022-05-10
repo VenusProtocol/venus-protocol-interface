@@ -103,7 +103,6 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             <FormikTokenTextField
               name="amount"
               tokenId={asset.id}
-              css={styles.input}
               disabled={isBorrowLoading}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
@@ -114,21 +113,16 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
               data-testid="token-text-field"
               // Only display error state if amount is higher than borrow limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
+              description={
+                <Trans
+                  i18nKey="borrowRepayModal.borrow.borrowableAmount"
+                  components={{
+                    White: <span css={styles.whiteLabel} />,
+                  }}
+                  values={{ amount: readableTokenBorrowableAmount }}
+                />
+              }
             />
-
-            <Typography
-              component="div"
-              variant="small2"
-              css={[styles.greyLabel, styles.borrowableBalance]}
-            >
-              <Trans
-                i18nKey="borrowRepayModal.borrow.borrowableAmount"
-                components={{
-                  White: <span css={styles.whiteLabel} />,
-                }}
-                values={{ amount: readableTokenBorrowableAmount }}
-              />
-            </Typography>
 
             {+values.amount > +safeLimitTokens && (
               <div css={styles.liquidationWarning}>

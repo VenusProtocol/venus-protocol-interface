@@ -5,9 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    borrowableBalance: css`
-      margin-bottom: ${theme.spacing(3)};
-    `,
     liquidationWarning: css`
       border: ${theme.spacing(0.5)} solid ${theme.palette.interactive.error};
       margin-top: ${theme.spacing(3)};
