@@ -45,7 +45,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
       {/* Gradient used as filler */}
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={chartColor} stopOpacity={0.35} />
+          <stop offset="0%" stopColor={chartColor} stopOpacity={0.3} />
           <stop offset="100%" stopColor={chartColor} stopOpacity={0} />
         </linearGradient>
       </defs>
@@ -58,14 +58,16 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
         tickFormatter={formatToReadableDate}
         stroke={styles.accessoryColor}
         tickMargin={styles.tickMargin}
+        style={styles.axis}
       />
       {/* TODO: set domain based on data (with maximum starting at 100) */}
       <YAxis
         axisLine={false}
         tickLine={false}
         tickFormatter={formatToReadablePercentage}
-        stroke={styles.accessoryColor}
         tickMargin={styles.tickMargin}
+        stroke={styles.accessoryColor}
+        style={styles.axis}
         domain={[0, 'dataMax + 20']}
       />
       <Tooltip
