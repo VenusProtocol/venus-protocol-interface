@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 
-import { getVBepToken } from 'utilities';
+import { getToken } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
@@ -216,7 +216,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       // Convert dollars to coins
       .dividedBy(asset.tokenPrice);
 
-    const tokenDecimals = getVBepToken(asset.id as VTokenId).decimals;
+    const tokenDecimals = getToken(asset.id as VTokenId).decimals;
     const formatValue = (value: BigNumber) =>
       value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toString(10);
 
