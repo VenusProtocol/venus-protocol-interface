@@ -40,6 +40,53 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     renderComponent(<Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />);
   });
 
+  it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      liquidity: new BigNumber(100000000),
+    };
+
+    const { getByText } = renderComponent(
+      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+
+    const borrowDeltaDollars = fakeUserTotalBorrowLimitDollars.minus(
+      fakeUserTotalBorrowBalanceDollars,
+    );
+    const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
+
+    await waitFor(() => getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.symbol}`));
+  });
+
+  it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      liquidity: new BigNumber(200),
+    };
+
+    const { getByText } = renderComponent(
+      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+
+    await waitFor(() =>
+      getByText(`${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.symbol}`),
+    );
+  });
+
   it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
@@ -47,7 +94,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      () => <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
       {
         authContextValue: {
           account: {
@@ -159,7 +206,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     (borrowVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      () => <Borrow asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />,
+      <Borrow asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />,
       {
         authContextValue: {
           account: {
