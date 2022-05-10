@@ -312,7 +312,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                     disabled={
                       !account ||
                       isCancelLoading ||
-                      proposerVotingWeight >= proposalThreshold ||
+                      proposerVotingWeight < proposalThreshold ||
                       cancelStatus === 'success'
                     }
                     loading={isCancelLoading}
