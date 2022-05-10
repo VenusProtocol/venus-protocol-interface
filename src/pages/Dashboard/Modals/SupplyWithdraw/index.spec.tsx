@@ -286,6 +286,14 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 });
 
 describe('Withdraw form', () => {
+  beforeEach(() => {
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: [], // Not used in these tests
+      userTotalBorrowLimit: fakeUserTotalBorrowLimitDollars,
+      userTotalBorrowBalance: fakeUserTotalBorrowBalanceDollars,
+    }));
+  });
+
   it('redeem is called when full amount is withdrawn', async () => {
     (getVTokenBalance as jest.Mock).mockImplementationOnce(async () => fakeGetVTokenBalance);
     const { getByText } = renderComponent(
