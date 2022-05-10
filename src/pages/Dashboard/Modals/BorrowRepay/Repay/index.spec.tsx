@@ -7,7 +7,6 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { useUserMarketInfo, repayNonBnbVToken } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -40,19 +39,14 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
   it('disables submit button if an incorrect amount is entered in input', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+      () => <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />,
+      {
+        authContextValue: {
           account: {
             address: fakeAccountAddress,
           },
-        }}
-      >
-        <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />
-      </AuthContext.Provider>,
+        },
+      },
     );
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
 
@@ -87,19 +81,14 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <AuthContext.Provider
-        value={{
-          login: jest.fn(),
-          logOut: jest.fn(),
-          openAuthModal: jest.fn(),
-          closeAuthModal: jest.fn(),
+      () => <Repay asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />,
+      {
+        authContextValue: {
           account: {
             address: fakeAccountAddress,
           },
-        }}
-      >
-        <Repay asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />
-      </AuthContext.Provider>,
+        },
+      },
     );
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
 
