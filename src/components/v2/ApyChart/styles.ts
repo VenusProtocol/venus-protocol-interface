@@ -15,6 +15,7 @@ export const useStyles = () => {
     cursor: { strokeDasharray: `${SPACING} ${SPACING}`, stroke: accessoryColor },
     areaActiveDot: { r: SPACING * 2, strokeWidth: SPACING },
     areaStrokeWidth: theme.spacing(0.5),
+    tickMargin: SPACING * 2,
     tooltipContainer: css`
       border-radius: ${theme.shape.borderRadius.small}px;
       background-color: ${theme.palette.background.default};

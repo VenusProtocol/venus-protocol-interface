@@ -22,25 +22,10 @@ export interface IApyChartProps {
   className?: string;
 }
 
-interface IRechartDataItem {
-  name: string;
-  apy: number;
-  balanceCents: BigNumber;
-}
-
 export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) => {
   const styles = useStyles();
   const chartColor = type === 'supply' ? styles.supplyChartColor : styles.borrowChartColor;
   const { Trans } = useTranslation();
-
-  const [chartData, domain]: [IRechartDataItem[], [number, number]] = React.useMemo(() => {
-    const formattedData = data.map(({ timestamp, ...rest }) => ({
-      ...rest,
-      name: formatToReadableDate(timestamp),
-    }));
-
-    return [formattedData, [0, 100]];
-  }, [JSON.stringify(data)]);
 
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
@@ -55,7 +40,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
       width={700}
       height={350}
       // TODO: fix placement of chart (margins)
-      data={chartData}
+      data={data}
     >
       {/* Gradient used as filler */}
       <defs>
@@ -66,14 +51,22 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
       </defs>
 
       <CartesianGrid vertical={false} stroke={styles.gridLineColor} />
-      <XAxis dataKey="name" axisLine={false} tickLine={false} stroke={styles.accessoryColor} />
+      <XAxis
+        dataKey="timestamp"
+        axisLine={false}
+        tickLine={false}
+        tickFormatter={formatToReadableDate}
+        stroke={styles.accessoryColor}
+        tickMargin={styles.tickMargin}
+      />
       {/* TODO: set domain based on data (with maximum starting at 100) */}
       <YAxis
         axisLine={false}
         tickLine={false}
         tickFormatter={formatToReadablePercentage}
         stroke={styles.accessoryColor}
-        domain={domain}
+        tickMargin={styles.tickMargin}
+        domain={[0, 'dataMax + 20']}
       />
       <Tooltip
         isAnimationActive={false}
@@ -96,7 +89,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                     Value: <Typography css={styles.tooltipItemValue} variant="small1" />,
                   }}
                   values={{
-                    apy: formatToReadablePercentage((payload[0].payload as IRechartDataItem).apy),
+                    apy: formatToReadablePercentage((payload[0].payload as IItem).apy),
                   }}
                 />
               </div>
@@ -117,7 +110,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                   }}
                   values={{
                     balance: formatCentsToReadableValue({
-                      value: (payload[0].payload as IRechartDataItem).balanceCents,
+                      value: (payload[0].payload as IItem).balanceCents,
                       shorthand: true,
                     }),
                   }}
