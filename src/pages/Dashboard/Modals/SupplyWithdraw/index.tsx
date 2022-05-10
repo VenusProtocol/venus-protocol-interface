@@ -218,7 +218,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
     accountAddress,
   });
-  const { data: vTokenBalance } = useGetVTokenBalance(
+  const { data: vTokenBalanceWei } = useGetVTokenBalance(
     { account: accountAddress, vTokenId: asset.id as VTokenId },
     { enabled: !!accountAddress },
   );
@@ -237,13 +237,12 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     });
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
   const onSubmitSupply: IAmountFormProps['onSubmit'] = async value => {
-    const supplyAmount = new BigNumber(value)
-      .times(new BigNumber(10).pow(asset.decimals || 18))
-      .toString(10);
+    const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
     const res = await supply({
-      amount: supplyAmount,
+      amountWei: supplyAmount,
     });
     onClose();
+
     openSuccessfulTransactionModal({
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
       message: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
@@ -259,17 +258,14 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     const amount = new BigNumber(value);
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;
-    if (amountEqualsSupplyBalance && vTokenBalance) {
-      const res = await redeem({ amount: vTokenBalance });
+    if (amountEqualsSupplyBalance && vTokenBalanceWei) {
+      const res = await redeem({ amountWei: new BigNumber(vTokenBalanceWei) });
       ({ transactionHash } = res);
       // Display successful transaction modal
     } else {
-      const withdrawlAmount = amount
-        .times(new BigNumber(10).pow(asset.decimals))
-        .integerValue()
-        .toString(10);
+      const withdrawAmount = amount.times(new BigNumber(10).pow(asset.decimals)).integerValue();
       const res = await redeemUnderlying({
-        amount: withdrawlAmount,
+        amountWei: withdrawAmount,
       });
       ({ transactionHash } = res);
     }

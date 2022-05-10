@@ -1,4 +1,10 @@
+import BigNumber from 'bignumber.js';
+
+import fakeAccountAddress from '__mocks__/models/address';
+import { VBep20 } from 'types/contracts';
 import redeemUnderlying from './redeemUnderlying';
+
+const fakeAmount = new BigNumber(10000000000000000);
 
 describe('api/mutation/redeemUnderlying', () => {
   test('throws an error when request fails', async () => {
@@ -10,13 +16,13 @@ describe('api/mutation/redeemUnderlying', () => {
           },
         }),
       },
-    } as any;
+    } as unknown as VBep20;
 
     try {
       await redeemUnderlying({
         tokenContract: fakeContract,
-        amount: '10000000000000000',
-        account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+        amountWei: fakeAmount,
+        account: fakeAccountAddress,
       });
 
       throw new Error('redeemUnderlying should have thrown an error but did not');
@@ -26,9 +32,6 @@ describe('api/mutation/redeemUnderlying', () => {
   });
 
   test('returns undefined when request succeeds', async () => {
-    const fakeAmountWei = '10000000000000000';
-    const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
-
     const sendMock = jest.fn(async () => undefined);
     const redeemUnderlyingMock = jest.fn(() => ({
       send: sendMock,
@@ -38,18 +41,18 @@ describe('api/mutation/redeemUnderlying', () => {
       methods: {
         redeemUnderlying: redeemUnderlyingMock,
       },
-    } as unknown as any;
+    } as unknown as VBep20;
 
     const response = await redeemUnderlying({
       tokenContract: fakeContract,
-      amount: fakeAmountWei,
-      account: fakeFromAccountsAddress,
+      amountWei: fakeAmount,
+      account: fakeAccountAddress,
     });
 
     expect(response).toBe(undefined);
     expect(redeemUnderlyingMock).toHaveBeenCalledTimes(1);
-    expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmountWei);
+    expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmount.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);
-    expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
+    expect(sendMock).toHaveBeenCalledWith({ from: fakeAccountAddress });
   });
 });
