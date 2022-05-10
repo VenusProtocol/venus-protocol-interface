@@ -67,6 +67,7 @@ export const useStyles = () => {
         display: inline-flex;
         justify-content: flex-end;
         align-items: center;
+        text-transform: none;
       }
 
       .MuiTableRow-root {

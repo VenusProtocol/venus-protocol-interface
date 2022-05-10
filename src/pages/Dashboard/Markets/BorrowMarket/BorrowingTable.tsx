@@ -36,7 +36,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apyEarned', label: t('markets.columns.apyEarned'), orderable: true },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
       { key: 'balance', label: t('markets.columns.balance'), orderable: true },
       { key: 'percentOfLimit', label: t('markets.columns.percentOfLimit'), orderable: true },
     ],
@@ -54,7 +54,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
         value: asset.id,
       },
       {
-        key: 'apyEarned',
+        key: 'apy',
         render: () => <div>{formatToReadablePercentage(borrowApy)}</div>,
         value: borrowApy.toNumber(),
       },
@@ -101,12 +101,12 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'apyEarned',
+        orderBy: 'apy',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isLgDown })}
+      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isSmDown })}
     />
   );
 };
