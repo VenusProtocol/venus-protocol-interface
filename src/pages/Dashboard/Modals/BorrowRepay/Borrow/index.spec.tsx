@@ -75,7 +75,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
   });
 
   it('disables submit button if amount to borrow requested would make user borrow balance go higher than their borrow limit', async () => {
@@ -94,7 +94,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     // Check submit button is disabled
     expect(
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
-    ).toHaveAttribute('disabled');
+    ).toBeDisabled();
 
     const fakeBorrowDeltaDollars = fakeUserTotalBorrowLimitDollars.minus(
       fakeUserTotalBorrowBalanceDollars,
@@ -149,9 +149,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    expect(
-      getByText(en.borrowRepayModal.borrow.submitButton).closest('button'),
-    ).not.toHaveAttribute('disabled');
+    expect(getByText(en.borrowRepayModal.borrow.submitButton).closest('button')).toBeEnabled();
   });
 
   it('lets user borrow tokens, then displays successful transaction modal and calls onClose callback on success', async () => {

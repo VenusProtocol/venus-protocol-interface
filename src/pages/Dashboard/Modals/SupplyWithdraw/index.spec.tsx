@@ -94,6 +94,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         },
       );
+
       await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
     });
 
@@ -140,9 +141,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
 
       // Check submit button is disabled
-      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toHaveAttribute(
-        'disabled',
-      );
+      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toBeDisabled();
 
       const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
 
@@ -154,9 +153,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
       // Check submit button is still disabled
       await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
-      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toHaveAttribute(
-        'disabled',
-      );
+      expect(getByText(en.supplyWithdraw.enterValidAmountSupply).closest('button')).toBeDisabled();
     });
 
     it('submit is disabled with no amount', async () => {
@@ -176,7 +173,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
       expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
       const disabledButton = document.querySelector('button[type="submit"]');
-      expect(disabledButton).toHaveAttribute('disabled');
+      expect(disabledButton).toBeDisabled();
     });
 
     it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {

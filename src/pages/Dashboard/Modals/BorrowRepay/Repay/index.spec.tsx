@@ -203,7 +203,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />,
+      <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />,
       {
         authContextValue: {
           account: {
