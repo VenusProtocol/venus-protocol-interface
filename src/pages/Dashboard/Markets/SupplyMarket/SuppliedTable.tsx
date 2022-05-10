@@ -33,7 +33,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apyEarned', label: t('markets.columns.apyEarned'), orderable: true },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
       { key: 'balance', label: t('markets.columns.balance'), orderable: true },
       { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
     ],
@@ -48,7 +48,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       value: asset.id,
     },
     {
-      key: 'apyEarned',
+      key: 'apy',
       render: () => {
         const apy = isXvsEnabled ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
         return formatToReadablePercentage(apy);
@@ -89,7 +89,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'apyEarned',
+        orderBy: 'apy',
         orderDirection: 'desc',
       }}
       rowOnClick={rowOnClick}
