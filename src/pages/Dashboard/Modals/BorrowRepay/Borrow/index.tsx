@@ -8,7 +8,11 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import { formatToReadablePercentage, convertCoinsToWei } from 'utilities/common';
+import {
+  formatToReadablePercentage,
+  formatCoinsToReadableValue,
+  convertCoinsToWei,
+} from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
 import { UiError } from 'utilities/errors';
@@ -44,7 +48,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   isXvsEnabled,
   isBorrowLoading,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const sharedStyles = useStyles();
   const borrowStyles = useBorrowStyles();
@@ -54,6 +58,15 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   };
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const readableTokenBorrowableAmount = React.useMemo(
+    () =>
+      formatCoinsToReadableValue({
+        value: new BigNumber(limitTokens),
+        tokenId: asset.id,
+      }),
+    [limitTokens],
+  );
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
@@ -100,6 +113,15 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
               data-testid="token-text-field"
               // Only display error state if amount is higher than borrow limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
+              description={
+                <Trans
+                  i18nKey="borrowRepayModal.borrow.borrowableAmount"
+                  components={{
+                    White: <span css={styles.whiteLabel} />,
+                  }}
+                  values={{ amount: readableTokenBorrowableAmount }}
+                />
+              }
             />
 
             {+values.amount > +safeLimitTokens && (

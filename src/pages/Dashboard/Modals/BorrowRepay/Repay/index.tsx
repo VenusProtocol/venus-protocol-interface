@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { Typography } from '@mui/material';
 
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
@@ -124,11 +123,10 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
             {readableTokenBorrowBalance}
           </LabeledInlineContent>
 
-          <div css={[styles.getRow({ isLast: true })]}>
+          <div css={[styles.getRow({ isLast: false })]}>
             <TokenTextField
               name="amount"
               tokenId={asset.id}
-              css={styles.input}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               disabled={isRepayLoading}
@@ -140,22 +138,19 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
               data-testid="token-text-field"
               // Only display error state if amount is higher than limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
+              description={
+                <Trans
+                  i18nKey="borrowRepayModal.repay.walletBalance"
+                  components={{
+                    White: <span css={styles.whiteLabel} />,
+                  }}
+                  values={{ balance: readableTokenWalletBalance }}
+                />
+              }
             />
+          </div>
 
-            <Typography
-              component="div"
-              variant="small2"
-              css={[styles.greyLabel, styles.walletBalance]}
-            >
-              <Trans
-                i18nKey="borrowRepayModal.repay.walletBalance"
-                components={{
-                  White: <span css={styles.whiteLabel} />,
-                }}
-                values={{ balance: readableTokenWalletBalance }}
-              />
-            </Typography>
-
+          <div css={[styles.getRow({ isLast: true })]}>
             <div css={styles.selectButtonsContainer}>
               {PRESET_PERCENTAGES.map(percentage => (
                 <TertiaryButton

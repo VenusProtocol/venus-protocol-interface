@@ -23,6 +23,7 @@
   },
   "borrowRepayModal": {
     "borrow": {
+      "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
       "borrowAPy": "Borrow APY",
       "borrowBalance": "Borrow balance",
       "borrowLimitUsed": "Borrow limit used",
@@ -101,7 +102,6 @@
     "remainingTimeHoursAndMinutes": "<Icon/> Remaining time:\u00a0<White>$t(convertVrt.hours, {\"count\": {{hours}} }) and $t(convertVrt.minutes, {\"count\": {{minutes}} })</White>",
     "remainingTimeMinutes": "<Icon/> Remaining time:\u00a0<White>{{count}} minute</White>",
     "remainingTimeMinutes_other": "<Icon/> Remaining time:\u00a0<White>{{count}} minutes</White>",
-    "remainingTimeMissing": "<Icon/> Remaining time:\u00a0<White>{{count}}</White>",
     "usedOverTotalVrt": "{{used}}/{{total}} VRT",
     "vrtEqualsXvs": "1 VRT = {{xvsToVrtRate}} XVS",
     "withdraw": "Withdraw",
