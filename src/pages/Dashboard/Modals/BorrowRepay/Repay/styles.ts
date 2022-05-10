@@ -5,9 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    walletBalance: css`
-      margin-bottom: ${theme.spacing(3)};
-    `,
     selectButtonsContainer: css`
       display: flex;
       flex-direction: row;
