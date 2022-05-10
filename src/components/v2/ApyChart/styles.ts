@@ -21,6 +21,10 @@ export const useStyles = () => {
     areaStrokeWidth: theme.spacing(0.5),
     axis: theme.typography.tiny,
     tickMargin: SPACING * 2,
+    container: css`
+      width: 100%;
+      height: ${theme.spacing(62)};
+    `,
     tooltipContainer: css`
       border-radius: ${theme.shape.borderRadius.small}px;
       background-color: ${theme.palette.background.default};
