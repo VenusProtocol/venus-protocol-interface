@@ -14,8 +14,8 @@ import { useUID } from 'react-uid';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
-import { formatToReadableDate } from 'utilities';
 import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilities/common';
+import formatToReadableDate from './formatToReadableDate';
 import { useStyles } from './styles';
 
 export interface IItem {

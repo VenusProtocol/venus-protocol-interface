@@ -1,6 +1,6 @@
-import formatDate from 'date-fns/format';
+import moment from 'moment';
 
-const READABLE_DATE_FORMAT = 'MM.dd';
+const READABLE_DATE_FORMAT = 'MM.DD';
 
-const formatToReadableDate = (timestamp: Date) => formatDate(timestamp, READABLE_DATE_FORMAT);
+const formatToReadableDate = (timestamp: Date) => moment(timestamp).format(READABLE_DATE_FORMAT);
 export default formatToReadableDate;
