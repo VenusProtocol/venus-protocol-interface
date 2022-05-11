@@ -15,6 +15,6 @@ const mintVai = async ({
   fromAccountAddress,
   amountWei,
 }: IMintVaiInput): Promise<MintVaiOutput> =>
-  vaiControllerContract.methods.mintVAI(amountWei.toString()).send({ from: fromAccountAddress });
+  vaiControllerContract.methods.mintVAI(amountWei.toFixed()).send({ from: fromAccountAddress });
 
 export default mintVai;

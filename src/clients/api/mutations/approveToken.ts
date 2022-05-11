@@ -15,7 +15,7 @@ const approveToken = ({
   tokenContract,
   accountAddress,
   vtokenAddress,
-  allowance = new BigNumber(2).pow(256).minus(1).toString(10),
+  allowance = new BigNumber(2).pow(256).minus(1).toFixed(),
 }: IApproveTokenInput): Promise<ApproveTokenOutput> =>
   tokenContract.methods.approve(vtokenAddress, allowance).send({ from: accountAddress });
 

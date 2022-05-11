@@ -53,7 +53,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
         const apy = isXvsEnabled ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
         return formatToReadablePercentage(apy);
       },
-      value: asset.supplyApy.toString(),
+      value: asset.supplyApy.toFixed(),
     },
     {
       key: 'balance',
@@ -69,13 +69,13 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
           })}
         />
       ),
-      value: asset.supplyBalance.toString(),
+      value: asset.supplyBalance.toFixed(),
     },
     {
       key: 'collateral',
       value: asset.collateral,
       render: () =>
-        +asset.collateralFactor.toString() ? (
+        asset.collateralFactor.toNumber() ? (
           <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
         ) : (
           PLACEHOLDER_KEY
