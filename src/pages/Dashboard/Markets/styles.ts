@@ -76,11 +76,14 @@ export const useStyles = () => {
     `,
     percentOfLimit: css`
       display: flex;
-      width: 100%;
       align-items: center;
+
       > :first-of-type {
         margin-right: ${theme.spacing(2)};
       }
+    `,
+    percentOfLimitProgressBar: css`
+      width: ${theme.spacing(13)};
     `,
     white: css`
       color: ${theme.palette.text.primary};
