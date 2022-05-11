@@ -121,12 +121,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                     />
                   </div>
                 </div>
-              ) : (
-                // Although the type definition of "content" allows an undefined
-                // value to be returned, it actually creates a runtime error if
-                // we do so. For that reason we return a fragment instead
-                <></>
-              )
+              ) : null
             }
           />
           <Area
