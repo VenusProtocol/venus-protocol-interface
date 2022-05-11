@@ -16,7 +16,8 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'translation';
 import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilities/common';
 import formatToReadableDate from './formatToReadableDate';
-import { useStyles } from './styles';
+import { useStyles as useSharedStyles } from '../styles';
+import { useStyles as useLocalStyles } from './styles';
 
 export interface IApyChartItem {
   apyPercentage: number;
@@ -31,7 +32,13 @@ export interface IApyChartProps {
 }
 
 export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) => {
-  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
+  const localStyles = useLocalStyles();
+  const styles = {
+    ...sharedStyles,
+    ...localStyles,
+  };
+
   const chartColor = type === 'supply' ? styles.supplyChartColor : styles.borrowChartColor;
   const { Trans } = useTranslation();
 
@@ -44,7 +51,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
   return (
     <div css={styles.container} className={className}>
       <ResponsiveContainer>
-        <AreaChart margin={styles.areaChartMargin} data={data}>
+        <AreaChart margin={styles.chartMargin} data={data}>
           {/* Gradient used as filler */}
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -64,6 +71,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             style={styles.axis}
           />
           <YAxis
+            dataKey="apyPercentage"
             axisLine={false}
             tickLine={false}
             tickFormatter={formatToReadablePercentage}
@@ -130,10 +138,10 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             isAnimationActive={false}
             dataKey="apyPercentage"
             stroke={chartColor}
-            strokeWidth={styles.areaStrokeWidth}
+            strokeWidth={styles.strokeWidth}
             fillOpacity={1}
             fill={`url(#${gradientId})`}
-            activeDot={styles.areaActiveDot}
+            activeDot={styles.activeDot}
           />
         </AreaChart>
       </ResponsiveContainer>

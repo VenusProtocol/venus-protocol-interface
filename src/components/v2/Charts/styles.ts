@@ -8,15 +8,13 @@ export const useStyles = () => {
   const accessoryColor = theme.palette.text.secondary;
 
   return {
+    supplyChartColor: theme.palette.interactive.success,
+    borrowChartColor: theme.palette.interactive.error,
     gridLineColor: theme.palette.secondary.light,
     accessoryColor,
     cursor: { strokeDasharray: `${SPACING} ${SPACING}`, stroke: accessoryColor },
-    areaChartMargin: {
-      right: SPACING * 2.5,
-      left: -SPACING * 4,
-    },
-    areaActiveDot: { r: SPACING * 2, strokeWidth: SPACING },
-    areaStrokeWidth: theme.spacing(0.5),
+    activeDot: { r: SPACING * 2, strokeWidth: SPACING },
+    strokeWidth: theme.spacing(0.5),
     axis: theme.typography.tiny,
     tickMargin: SPACING * 2,
     container: css`

@@ -4,7 +4,8 @@ import { ResponsiveContainer, YAxis, CartesianGrid, LineChart, Line } from 'rech
 
 // import { useTranslation } from 'translation';
 import { formatToReadablePercentage } from 'utilities/common';
-import { useStyles } from './styles';
+import { useStyles as useSharedStyles } from '../styles';
+import { useStyles as useLocalStyles } from './styles';
 
 export interface IInterestRateItem {
   utilizationPercentage: number;
@@ -18,7 +19,12 @@ export interface IInterestRateChartProps {
 }
 
 export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className, data }) => {
-  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
+  const localStyles = useLocalStyles();
+  const styles = {
+    ...sharedStyles,
+    ...localStyles,
+  };
 
   return (
     <div css={styles.container} className={className}>
@@ -42,12 +48,14 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
             dataKey="borrowApyPercentage"
             stroke={styles.lineBorrowApyColor}
             strokeWidth={styles.lineStrokeWidth}
+            isAnimationActive={false}
           />
           <Line
             type="monotone"
             dataKey="supplyApyPercentage"
             stroke={styles.lineSupplyApyColor}
             strokeWidth={styles.lineStrokeWidth}
+            isAnimationActive={false}
           />
         </LineChart>
       </ResponsiveContainer>

@@ -509,7 +509,7 @@ const data: IInterestRateItem[] = [
 ];
 
 export default {
-  title: 'Components/InterestRateChart',
+  title: 'Components/Charts/InterestRateChart',
   component: InterestRateChart,
   decorators: [withThemeProvider, withCenterStory({ width: 700 })],
 } as ComponentMeta<typeof InterestRateChart>;
