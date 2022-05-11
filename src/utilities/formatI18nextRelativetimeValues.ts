@@ -16,10 +16,19 @@ type FormatI18nextRelativetimeValuesReturn =
       relativeTimeTranslationKey: 'convertVrt.remainingTimeMissing';
       realtiveTimeFormatValues: { count: string };
     };
-// Don't remove this comment, it allows for translation keys set by this function to be collected
-// t('convertVrt.remainingTimeDays_one') t('convertVrt.remainingTimeDays_other') t('convertVrt.remainingTimeHours_one') t('convertVrt.remainingTimeHours_other')
-// t('convertVrt.remainingTimeHoursAndMinutes') t('convertVrt.remainingTimeMinutes') t('convertVrt.remainingTimeMinutes_other') t('convertVrt.minutes_one')
-// t('convertVrt.minutes_other') t('convertVrt.hours_one') t('convertVrt.hours_other') t('convertVrt.days_one') t('convertVrt.days_other')
+// Don't remove this comment, it allows for translation keys set by this
+// function to be collected
+// t('convertVrt.remainingTimeDays_one')
+// t('convertVrt.remainingTimeDays_other')
+// t('convertVrt.remainingTimeHours_one')
+// t('convertVrt.remainingTimeHours_other')
+// t('convertVrt.remainingTimeHoursAndMinutes')
+// t('convertVrt.remainingTimeMinutes')
+// t('convertVrt.remainingTimeMissing')
+// t('convertVrt.remainingTimeMinutes_other') t('convertVrt.minutes_one')
+// t('convertVrt.minutes_other') t('convertVrt.hours_one')
+// t('convertVrt.hours_other') t('convertVrt.days_one')
+// t('convertVrt.days_other')
 const formatI18nextRelativetimeValues = (
   vrtConversionEndTime: string | undefined,
 ): FormatI18nextRelativetimeValuesReturn => {
