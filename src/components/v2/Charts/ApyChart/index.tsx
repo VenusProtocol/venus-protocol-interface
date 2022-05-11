@@ -11,11 +11,11 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { useUID } from 'react-uid';
-import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
 import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilities/common';
 import formatToReadableDate from './formatToReadableDate';
+import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
@@ -40,7 +40,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
   };
 
   const chartColor = type === 'supply' ? styles.supplyChartColor : styles.borrowChartColor;
-  const { Trans } = useTranslation();
+  const { t } = useTranslation();
 
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
@@ -86,52 +86,28 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             cursor={styles.cursor}
             content={({ payload }) =>
               payload && payload[0] ? (
-                <div css={styles.tooltipContainer}>
-                  <div css={styles.tooltipItem}>
-                    <Trans
-                      i18nKey={
-                        // Translation keys: do not remove this comment
-                        // t('apyChart.tooltipItems.supplyApy')
-                        // t('apyChart.tooltipItems.borrowApy')
+                <TooltipContent
+                  items={[
+                    {
+                      label:
                         type === 'supply'
-                          ? 'apyChart.tooltipItems.supplyApy'
-                          : 'apyChart.tooltipItems.borrowApy'
-                      }
-                      components={{
-                        Label: <Typography css={styles.tooltipItemLabel} variant="tiny" />,
-                        Value: <Typography css={styles.tooltipItemValue} variant="small1" />,
-                      }}
-                      values={{
-                        percentage: formatToReadablePercentage(
-                          (payload[0].payload as IApyChartItem).apyPercentage,
-                        ),
-                      }}
-                    />
-                  </div>
-
-                  <div css={styles.tooltipItem}>
-                    <Trans
-                      i18nKey={
-                        // Translation keys: do not remove this comment
-                        // t('apyChart.tooltipItems.totalSupply')
-                        // t('apyChart.tooltipItems.totalBorrow')
+                          ? t('apyChart.tooltipItemLabels.supplyApy')
+                          : t('apyChart.tooltipItemLabels.borrowApy'),
+                      value: formatToReadablePercentage(
+                        (payload[0].payload as IApyChartItem).apyPercentage,
+                      ),
+                    },
+                    {
+                      label:
                         type === 'supply'
-                          ? 'apyChart.tooltipItems.totalSupply'
-                          : 'apyChart.tooltipItems.totalBorrow'
-                      }
-                      components={{
-                        Label: <Typography css={styles.tooltipItemLabel} variant="tiny" />,
-                        Value: <Typography css={styles.tooltipItemValue} variant="small1" />,
-                      }}
-                      values={{
-                        balance: formatCentsToReadableValue({
-                          value: (payload[0].payload as IApyChartItem).balanceCents,
-                          shorthand: true,
-                        }),
-                      }}
-                    />
-                  </div>
-                </div>
+                          ? t('apyChart.tooltipItemLabels.totalSupply')
+                          : t('apyChart.tooltipItemLabels.totalBorrow'),
+                      value: formatCentsToReadableValue({
+                        value: (payload[0].payload as IApyChartItem).balanceCents,
+                      }),
+                    },
+                  ]}
+                />
               ) : null
             }
           />
@@ -142,7 +118,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             strokeWidth={styles.lineStrokeWidth}
             fillOpacity={1}
             fill={`url(#${gradientId})`}
-            activeDot={styles.activeDot}
+            activeDot={styles.areaActiveDot}
           />
         </AreaChart>
       </ResponsiveContainer>

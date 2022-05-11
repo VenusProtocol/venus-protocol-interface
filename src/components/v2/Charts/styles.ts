@@ -13,7 +13,6 @@ export const useStyles = () => {
     gridLineColor: theme.palette.secondary.light,
     accessoryColor,
     cursor: { strokeDasharray: `${SPACING} ${SPACING}`, stroke: accessoryColor },
-    activeDot: { r: SPACING * 2, strokeWidth: SPACING },
     lineStrokeWidth: theme.spacing(0.5),
     axis: theme.typography.tiny,
     tickMargin: SPACING * 2,

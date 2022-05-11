@@ -14,30 +14,10 @@ export const useStyles = () => {
       right: SPACING * 2.5,
       left: -SPACING * 4,
     },
+    areaActiveDot: { r: SPACING * 2, strokeWidth: SPACING },
     container: css`
       width: 100%;
       height: ${theme.spacing(62)};
-    `,
-    tooltipContainer: css`
-      border-radius: ${theme.shape.borderRadius.small}px;
-      background-color: ${theme.palette.background.default};
-      padding: ${theme.spacing(3)};
-    `,
-    tooltipItem: css`
-      display: flex;
-      align-items: center;
-      margin-right: auto;
-
-      &:not(:last-of-type) {
-        margin-bottom: ${theme.spacing(2)};
-      }
-    `,
-    tooltipItemLabel: css`
-      color: ${theme.palette.text.secondary};
-      margin-right: ${theme.spacing(2)};
-    `,
-    tooltipItemValue: css`
-      color: ${theme.palette.text.primary};
     `,
   };
 };
