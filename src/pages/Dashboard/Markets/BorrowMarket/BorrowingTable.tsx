@@ -48,7 +48,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   const rows: ITableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
     const percentOfLimit = calculatePercentage({
-      numerator: +asset.borrowBalance,
+      numerator: +asset.borrowBalance.multipliedBy(asset.tokenPrice),
       denominator: +userTotalBorrowLimit,
     });
     return [
