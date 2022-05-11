@@ -10,6 +10,7 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
+import calculatePercentage from 'utilities/calculatePercentage';
 import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
@@ -46,7 +47,10 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   // Format assets to rows
   const rows: ITableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
-    const percentOfLimit = asset.borrowBalance.div(userTotalBorrowLimit).times(100);
+    const percentOfLimit = calculatePercentage({
+      numerator: +asset.borrowBalance,
+      denominator: +userTotalBorrowLimit,
+    });
     return [
       {
         key: 'asset',
@@ -81,7 +85,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
             <ProgressBar
               min={0}
               max={100}
-              value={percentOfLimit.toNumber()}
+              value={percentOfLimit}
               step={1}
               ariaLabel={t('markets.columns.percentOfLimit')}
               css={styles.percentOfLimitProgressBar}
