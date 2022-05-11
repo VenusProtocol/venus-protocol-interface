@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import { Table, Token, ITableProps } from 'components';
 import { useTranslation } from 'translation';
@@ -7,8 +8,8 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
-import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 import { useStyles } from './styles';
+import { useStyles as useSharedStyles } from '../styles';
 
 export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -23,9 +24,8 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   hasBorrowingAssets,
 }) => {
   const { t } = useTranslation();
-  const isSmDown = useIsSmDown();
-  const isLgDown = useIsLgDown();
   const styles = useStyles();
+  const sharedStyles = useSharedStyles();
 
   const columns = useMemo(
     () => [
@@ -76,11 +76,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
 
   return (
     <Table
-      title={
-        !hasBorrowingAssets && !isSmDown && isLgDown
-          ? undefined
-          : t('markets.borrowMarketTableTitle')
-      }
+      title={!hasBorrowingAssets ? undefined : t('markets.borrowMarketTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -89,7 +85,9 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isSmDown })}
+      tableCss={sharedStyles.table}
+      cardsCss={sharedStyles.cards}
+      css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );
 };

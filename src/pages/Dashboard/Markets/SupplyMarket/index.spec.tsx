@@ -21,7 +21,7 @@ describe('pages/SupplyMarket', () => {
   });
 
   it('clicking row opens modal', async () => {
-    const { getByText } = renderComponent(
+    const { getByText, getAllByText } = renderComponent(
       <SupplyMarket
         isXvsEnabled
         suppliedAssets={[]}
@@ -29,7 +29,7 @@ describe('pages/SupplyMarket', () => {
         accountAddress={fakeAccountAddress}
       />,
     );
-    const rowElement = getByText(assetData[2].symbol);
+    const rowElement = getAllByText(assetData[2].symbol)[0];
     fireEvent.click(rowElement);
     const connectButton = getByText(en.supplyWithdraw.connectWalletToSupply);
     expect(connectButton).toBeTruthy();
