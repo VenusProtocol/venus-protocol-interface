@@ -61,7 +61,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
             tokenId: asset.symbol as TokenId,
             shorthand: true,
           }),
-        value: asset.walletBalance.toString(),
+        value: asset.walletBalance.toFixed(),
       },
       {
         key: 'collateral',

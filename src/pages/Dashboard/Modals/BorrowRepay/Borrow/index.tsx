@@ -218,7 +218,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
     const tokenDecimals = getToken(asset.id as VTokenId).decimals;
     const formatValue = (value: BigNumber) =>
-      value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toString(10);
+      value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toFixed();
 
     return [formatValue(maxCoins), formatValue(safeMaxCoins)];
   }, [

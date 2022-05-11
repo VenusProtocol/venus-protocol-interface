@@ -55,8 +55,8 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         ? BigNumber.minimum(userBalanceWei, userMintedWei)
         : new BigNumber(0);
 
-    return convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toString();
-  }, [userBalanceWei?.toString(), userMintedWei?.toString()]);
+    return convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toFixed();
+  }, [userBalanceWei?.toFixed(), userMintedWei?.toFixed()]);
 
   // Convert minted wei into VAI
   const readableRepayableVai = useConvertToReadableCoinString({
@@ -157,13 +157,13 @@ const RepayVai: React.FC = () => {
   // Convert minted VAI balance into wei of VAI
   const userMintedWei = React.useMemo(
     () => convertCoinsToWei({ value: userVaiMinted, tokenId: VAI_ID }),
-    [userVaiMinted.toString()],
+    [userVaiMinted.toFixed()],
   );
 
   // Convert user VAI balance into wei of VAI
   const userBalanceWei = React.useMemo(
     () => convertCoinsToWei({ value: userVaiBalance, tokenId: VAI_ID }),
-    [userVaiBalance.toString()],
+    [userVaiBalance.toFixed()],
   );
 
   const repayVai: IRepayVaiUiProps['repayVai'] = amountWei => {
@@ -176,7 +176,7 @@ const RepayVai: React.FC = () => {
 
     return contractRepayVai({
       fromAccountAddress: account.address,
-      amountWei: amountWei.toString(),
+      amountWei: amountWei.toFixed(),
     });
   };
 
