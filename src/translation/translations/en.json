@@ -146,9 +146,7 @@
     }
   },
   "marketDetails": {
-    "marketInfo": {
-      "title": "Market info"
-    }
+    "marketInfoTitle": "Market info"
   },
   "markets": {
     "borrowingTableTitle": "Borrowing",
