@@ -17,10 +17,10 @@ export const useStyles = () => {
         margin-right: ${theme.spacing(4)};
       }
     `,
-    graphsColumn: css`
+    content: css`
       flex: 2;
     `,
-    statsColumn: css`
+    sideBar: css`
       flex: 1;
     `,
   };
