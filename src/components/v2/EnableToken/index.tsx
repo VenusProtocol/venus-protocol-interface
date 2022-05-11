@@ -20,6 +20,7 @@ export interface IEnableTokenProps {
   vtokenAddress: string;
   tokenInfo?: ILabeledInlineContentProps[];
   disabled?: boolean;
+  isApproveTokenLoading?: boolean;
 }
 
 export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> = ({
@@ -57,7 +58,12 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
         </div>
       )}
 
-      <SecondaryButton disabled={disabled} fullWidth onClick={approveToken}>
+      <SecondaryButton
+        disabled={disabled || isApproveTokenLoading}
+        loading={isApproveTokenLoading}
+        fullWidth
+        onClick={approveToken}
+      >
         {t('enableToken.enableButtonLabel')}
       </SecondaryButton>
     </div>

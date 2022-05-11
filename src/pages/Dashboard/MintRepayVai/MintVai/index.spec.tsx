@@ -2,6 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { mintVai, getVaiTreasuryPercentage, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -40,7 +41,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
         },
       },
     });
-    await waitFor(() => getByText('Available VAI limit'));
+    await waitFor(() => getByText(en.mintRepayVai.mintVai.enableToken));
   });
 
   it('displays the correct available VAI limit and mint fee', async () => {
@@ -61,7 +62,6 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
         userVaiBalance: new BigNumber(0),
       },
     });
-    await waitFor(() => getByText('Available VAI limit'));
 
     // Check available VAI limit displays correctly
     await waitFor(() => getByText(formattedFakeUserVaiMinted));
@@ -86,10 +86,12 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
         userVaiBalance: new BigNumber(0),
       },
     });
-    await waitFor(() => getByText('Available VAI limit'));
+    await waitFor(() => getByText(en.mintRepayVai.mintVai.btnMintVai));
 
     // Click on "SAFE MAX" button
-    const safeMaxButton = getByText('SAFE MAX').closest('button') as HTMLButtonElement;
+    const safeMaxButton = getByText(en.mintRepayVai.mintVai.rightMaxButtonLabel).closest(
+      'button',
+    ) as HTMLButtonElement;
     fireEvent.click(safeMaxButton);
 
     // Check input value updated to max amount of mintable VAI
@@ -97,8 +99,10 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeMintableVai.toFixed()));
 
     // Submit repayment request
-    const submitButton = getByText('Mint VAI').closest('button') as HTMLButtonElement;
-    await waitFor(() => expect(submitButton).toHaveProperty('disabled', false));
+    const submitButton = getByText(en.mintRepayVai.mintVai.btnMintVai).closest(
+      'button',
+    ) as HTMLButtonElement;
+    await waitFor(() => expect(submitButton).toBeEnabled());
     fireEvent.click(submitButton);
 
     // Check mintVai was called correctly
