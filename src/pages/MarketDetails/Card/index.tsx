@@ -12,8 +12,8 @@ const Card: React.FC<ICardProps> = ({ children, title }) => {
   const styles = useStyles();
 
   return (
-    <Paper css={styles.container}>
-      <h4>{title}</h4>
+    <Paper>
+      <h4 css={styles.title}>{title}</h4>
 
       {children}
     </Paper>
