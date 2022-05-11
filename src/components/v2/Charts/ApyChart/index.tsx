@@ -18,14 +18,14 @@ import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilitie
 import formatToReadableDate from './formatToReadableDate';
 import { useStyles } from './styles';
 
-export interface IItem {
+export interface IApyChartItem {
   apyPercentage: number;
   timestamp: Date;
   balanceCents: BigNumber;
 }
 
 export interface IApyChartProps {
-  data: IItem[];
+  data: IApyChartItem[];
   type: 'supply' | 'borrow';
   className?: string;
 }
@@ -94,7 +94,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                       }}
                       values={{
                         percentage: formatToReadablePercentage(
-                          (payload[0].payload as IItem).apyPercentage,
+                          (payload[0].payload as IApyChartItem).apyPercentage,
                         ),
                       }}
                     />
@@ -116,7 +116,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                       }}
                       values={{
                         balance: formatCentsToReadableValue({
-                          value: (payload[0].payload as IItem).balanceCents,
+                          value: (payload[0].payload as IApyChartItem).balanceCents,
                           shorthand: true,
                         }),
                       }}

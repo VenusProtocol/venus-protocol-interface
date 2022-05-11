@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { ApyChart, SupplyApyChart, BorrowApyChart, IItem } from '.';
+import { ApyChart, SupplyApyChart, BorrowApyChart, IApyChartItem } from '.';
 
-const data: IItem[] = [
+const data: IApyChartItem[] = [
   {
     apyPercentage: 40,
     timestamp: new Date('2022-05-03T10:59:44.330Z'),
