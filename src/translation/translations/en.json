@@ -8,6 +8,14 @@
     "max": "Max:",
     "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
   },
+  "apyChart": {
+    "tooltipItems": {
+      "borrowApy": "<Label>Borrow APY</Label><Value>{{percentage}}</Value>",
+      "supplyApy": "<Label>Supply APY</Label><Value>{{percentage}}</Value>",
+      "totalBorrow": "<Label>Total borrow</Label><Value>{{balance}}</Value>",
+      "totalSupply": "<Label>Total supply</Label><Value>{{balance}}</Value>"
+    }
+  },
   "authModal": {
     "accountDetails": {
       "logOutButtonLabel": "Log out"
