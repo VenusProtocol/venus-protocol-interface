@@ -31,8 +31,8 @@ export interface Asset {
   treasuryBalance: BigNumber;
   vimg: string | undefined;
   vsymbol: string;
-  treasuryTotalBorrowsUsd: BigNumber;
-  treasuryTotalSupplyUsd: BigNumber;
+  treasuryTotalBorrowsUsdCents: BigNumber;
+  treasuryTotalSupplyUsdCents: BigNumber;
   treasuryTotalSupply: BigNumber;
   treasuryTotalBorrows: BigNumber;
 }

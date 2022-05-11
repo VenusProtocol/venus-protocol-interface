@@ -13,8 +13,8 @@ describe('pages/SupplyMarket', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: assetData,
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+      userTotalBorrowLimitCents: new BigNumber('111'),
+      userTotalBorrowBalanceCents: new BigNumber('91'),
     }));
   });
 
@@ -24,7 +24,7 @@ describe('pages/SupplyMarket', () => {
         isXvsEnabled
         borrowMarketAssets={[]}
         borrowingAssets={assetData}
-        userTotalBorrowLimit={new BigNumber(1000)}
+        userTotalBorrowLimitCents={new BigNumber(100000)}
       />,
     );
     const rowElement = getAllByText(assetData[2].symbol)[0];
@@ -39,7 +39,7 @@ describe('pages/SupplyMarket', () => {
         borrowingAssets={[]}
         borrowMarketAssets={assetData}
         isXvsEnabled
-        userTotalBorrowLimit={new BigNumber(110)}
+        userTotalBorrowLimitCents={new BigNumber(11000)}
       />,
     );
     const borrowingTable = queryByLabelText(en.markets.borrowingTableTitle);

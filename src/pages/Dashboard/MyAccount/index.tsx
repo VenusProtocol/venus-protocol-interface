@@ -15,9 +15,9 @@ interface IMyAccountProps {
   isXvsEnabled: boolean;
   setIsXvsEnabled: (value: boolean) => void;
   assets: Asset[];
-  userTotalBorrowLimit: BigNumber;
-  userTotalBorrowBalance: BigNumber;
-  userTotalSupplyBalance: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
+  userTotalBorrowBalanceCents: BigNumber;
+  userTotalSupplyBalanceCents: BigNumber;
 }
 
 const MyAccount: React.FC<IMyAccountProps> = ({
@@ -25,9 +25,9 @@ const MyAccount: React.FC<IMyAccountProps> = ({
   assets,
   isXvsEnabled,
   setIsXvsEnabled,
-  userTotalBorrowLimit,
-  userTotalBorrowBalance,
-  userTotalSupplyBalance,
+  userTotalBorrowLimitCents,
+  userTotalBorrowBalanceCents,
+  userTotalSupplyBalanceCents,
 }) => {
   const calculations: Pick<
     IMyAccountUiProps,
@@ -37,18 +37,17 @@ const MyAccount: React.FC<IMyAccountProps> = ({
       assets,
       isXvsEnabled,
     });
-    const supplyBalanceCents = userTotalSupplyBalance.multipliedBy(100);
     const netApyPercentage =
-      supplyBalanceCents &&
+      userTotalSupplyBalanceCents &&
       yearlyEarningsCents &&
-      calculateApy({ supplyBalanceCents, yearlyEarningsCents });
+      calculateApy({ supplyBalanceCents: userTotalSupplyBalanceCents, yearlyEarningsCents });
     const dailyEarningsCents =
       yearlyEarningsCents && +calculateDailyEarningsCents(yearlyEarningsCents).toFixed(0);
     return {
       netApyPercentage,
       dailyEarningsCents,
-      supplyBalanceCents: supplyBalanceCents?.toNumber(),
-      borrowLimitCents: userTotalBorrowLimit.multipliedBy(100).toNumber(),
+      supplyBalanceCents: userTotalSupplyBalanceCents?.toNumber(),
+      borrowLimitCents: userTotalBorrowLimitCents.toNumber(),
     };
   }, [JSON.stringify(assets), isXvsEnabled]);
 
@@ -58,7 +57,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({
       safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       isXvsEnabled={isXvsEnabled}
       onXvsToggle={setIsXvsEnabled}
-      borrowBalanceCents={+userTotalBorrowBalance.multipliedBy(100).toFixed()}
+      borrowBalanceCents={+userTotalBorrowBalanceCents.toFixed()}
       {...calculations}
     />
   );

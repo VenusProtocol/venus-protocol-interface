@@ -15,7 +15,7 @@ export interface IBorrowMarketUiProps {
   borrowMarketAssets: Asset[];
   borrowingAssets: Asset[];
   isXvsEnabled: boolean;
-  userTotalBorrowLimit: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
 }
 
 export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
@@ -23,7 +23,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   borrowingAssets,
   borrowMarketAssets,
   isXvsEnabled,
-  userTotalBorrowLimit,
+  userTotalBorrowLimitCents,
 }) => {
   const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
   const styles = useStyles();
@@ -51,7 +51,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
             <BorrowingTable
               assets={borrowingAssets}
               isXvsEnabled={isXvsEnabled}
-              userTotalBorrowLimit={userTotalBorrowLimit}
+              userTotalBorrowLimitCents={userTotalBorrowLimitCents}
               rowOnClick={rowOnClick}
             />
             <Delimiter css={styles.delimiter} />
@@ -81,14 +81,14 @@ const BorrowMarket: React.FC<IBorrowMarketUiProps> = ({
   isXvsEnabled,
   borrowMarketAssets,
   borrowingAssets,
-  userTotalBorrowLimit,
+  userTotalBorrowLimitCents,
 }) => (
   <BorrowMarketUi
     className={className}
     borrowingAssets={borrowingAssets}
     borrowMarketAssets={borrowMarketAssets}
     isXvsEnabled={isXvsEnabled}
-    userTotalBorrowLimit={userTotalBorrowLimit}
+    userTotalBorrowLimitCents={userTotalBorrowLimitCents}
   />
 );
 

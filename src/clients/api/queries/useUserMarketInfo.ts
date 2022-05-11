@@ -21,13 +21,13 @@ const useUserMarketInfo = ({
   accountAddress?: string;
 }): {
   assets: Asset[];
-  userTotalBorrowLimit: BigNumber;
-  userTotalBorrowBalance: BigNumber;
-  userTotalSupplyBalance: BigNumber;
-  treasuryTotalSupplyUsdBalance: BigNumber;
-  treasuryTotalAvailableLiquidityUsdBalance: BigNumber;
-  treasuryTotalBorrowUsdBalance: BigNumber;
-  treasuryTotalUsdBalance: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
+  userTotalBorrowBalanceCents: BigNumber;
+  userTotalSupplyBalanceCents: BigNumber;
+  treasuryTotalSupplyUsdBalanceCents: BigNumber;
+  treasuryTotalAvailableLiquidityUsdBalanceCents: BigNumber;
+  treasuryTotalBorrowUsdBalanceCents: BigNumber;
+  treasuryTotalUsdBalanceCents: BigNumber;
 } => {
   const { userVaiMinted } = useVaiUser();
 
@@ -65,13 +65,13 @@ const useUserMarketInfo = ({
 
   const {
     assets,
-    userTotalBorrowBalance,
-    userTotalBorrowLimit,
-    userTotalSupplyBalance,
-    treasuryTotalUsdBalance,
-    treasuryTotalSupplyUsdBalance,
-    treasuryTotalBorrowUsdBalance,
-    treasuryTotalAvailableLiquidityUsdBalance,
+    userTotalBorrowBalanceCents,
+    userTotalBorrowLimitCents,
+    userTotalSupplyBalanceCents,
+    treasuryTotalUsdBalanceCents,
+    treasuryTotalSupplyUsdBalanceCents,
+    treasuryTotalBorrowUsdBalanceCents,
+    treasuryTotalAvailableLiquidityUsdBalanceCents,
   } = Object.values(TOKENS).reduce(
     (acc, item, index) => {
       const { assets: assetAcc } = acc;
@@ -130,8 +130,8 @@ const useUserMarketInfo = ({
         tokenPrice: new BigNumber(market.tokenPrice || 0),
         liquidity: new BigNumber(market.liquidity || 0),
         borrowCaps: new BigNumber(market.borrowCaps || 0),
-        treasuryTotalBorrowsUsd: new BigNumber(market.totalBorrowsUsd),
-        treasuryTotalSupplyUsd: new BigNumber(market.totalSupplyUsd),
+        treasuryTotalBorrowsUsdCents: new BigNumber(market.totalBorrowsUsd).times(100),
+        treasuryTotalSupplyUsdCents: new BigNumber(market.totalSupplyUsd).times(100),
         treasuryTotalSupply: new BigNumber(market.totalSupply),
         treasuryTotalBorrows: new BigNumber(market.totalBorrows2),
         treasuryBalance,
@@ -144,31 +144,31 @@ const useUserMarketInfo = ({
         hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
       };
       // user totals
-      const borrowBalanceUSD = asset.borrowBalance.times(asset.tokenPrice);
-      const supplyBalanceUSD = asset.supplyBalance.times(asset.tokenPrice);
-      acc.userTotalBorrowBalance = acc.userTotalBorrowBalance.plus(borrowBalanceUSD);
-      acc.userTotalSupplyBalance = acc.userTotalSupplyBalance.plus(supplyBalanceUSD);
+      const borrowBalanceUsdCents = asset.borrowBalance.times(asset.tokenPrice).times(100);
+      const supplyBalanceUsdCents = asset.supplyBalance.times(asset.tokenPrice).times(100);
+      acc.userTotalBorrowBalanceCents = acc.userTotalBorrowBalanceCents.plus(borrowBalanceUsdCents);
+      acc.userTotalSupplyBalanceCents = acc.userTotalSupplyBalanceCents.plus(supplyBalanceUsdCents);
 
       // treasury totals
-      acc.treasuryTotalUsdBalance = acc.treasuryTotalUsdBalance.plus(
-        asset.treasuryBalance.multipliedBy(asset.tokenPrice),
+      acc.treasuryTotalUsdBalanceCents = acc.treasuryTotalUsdBalanceCents.plus(
+        asset.treasuryBalance.multipliedBy(asset.tokenPrice).times(100),
       );
-      acc.treasuryTotalSupplyUsdBalance = acc.treasuryTotalSupplyUsdBalance.plus(
-        asset.treasuryTotalSupplyUsd,
+      acc.treasuryTotalSupplyUsdBalanceCents = acc.treasuryTotalSupplyUsdBalanceCents.plus(
+        asset.treasuryTotalSupplyUsdCents,
       );
-      acc.treasuryTotalBorrowUsdBalance = acc.treasuryTotalBorrowUsdBalance.plus(
-        asset.treasuryTotalBorrowsUsd,
+      acc.treasuryTotalBorrowUsdBalanceCents = acc.treasuryTotalBorrowUsdBalanceCents.plus(
+        asset.treasuryTotalBorrowsUsdCents,
       );
-      acc.treasuryTotalAvailableLiquidityUsdBalance =
-        acc.treasuryTotalAvailableLiquidityUsdBalance.plus(asset.liquidity);
+      acc.treasuryTotalAvailableLiquidityUsdBalanceCents =
+        acc.treasuryTotalAvailableLiquidityUsdBalanceCents.plus(asset.liquidity.times(100));
 
       // Create borrow limit based on assets supplied as collateral
       if (asset.collateral) {
-        acc.userTotalBorrowLimit = acc.userTotalBorrowLimit.plus(
+        acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
           calculateCollateralValue({
             amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
             asset,
-          }),
+          }).times(100),
         );
       }
 
@@ -176,13 +176,13 @@ const useUserMarketInfo = ({
     },
     {
       assets: [],
-      userTotalBorrowBalance: new BigNumber(0),
-      userTotalBorrowLimit: new BigNumber(0),
-      userTotalSupplyBalance: new BigNumber(0),
-      treasuryTotalBorrowUsdBalance: new BigNumber(0),
-      treasuryTotalUsdBalance: new BigNumber(0),
-      treasuryTotalSupplyUsdBalance: new BigNumber(0),
-      treasuryTotalAvailableLiquidityUsdBalance: new BigNumber(0),
+      userTotalBorrowBalanceCents: new BigNumber(0),
+      userTotalBorrowLimitCents: new BigNumber(0),
+      userTotalSupplyBalanceCents: new BigNumber(0),
+      treasuryTotalBorrowUsdBalanceCents: new BigNumber(0),
+      treasuryTotalUsdBalanceCents: new BigNumber(0),
+      treasuryTotalSupplyUsdBalanceCents: new BigNumber(0),
+      treasuryTotalAvailableLiquidityUsdBalanceCents: new BigNumber(0),
     },
   );
 
@@ -208,16 +208,18 @@ const useUserMarketInfo = ({
     [],
   );
 
-  const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalance.plus(userVaiMinted);
+  const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalanceCents.plus(
+    userVaiMinted.times(100),
+  );
 
   // percent of limit
   assetList = assetList.map((item: Asset) => ({
     ...item,
-    percentOfLimit: new BigNumber(userTotalBorrowLimit).isZero()
+    percentOfLimit: new BigNumber(userTotalBorrowLimitCents).isZero()
       ? '0'
       : item.borrowBalance
           .times(item.tokenPrice)
-          .div(userTotalBorrowLimit)
+          .div(userTotalBorrowLimitCents)
           .times(100)
           .dp(0, 1)
           .toFixed(),
@@ -225,13 +227,13 @@ const useUserMarketInfo = ({
 
   return {
     assets: assetList,
-    userTotalBorrowLimit,
-    userTotalBorrowBalance: userTotalBorrowBalanceWithUserMintedVai,
-    userTotalSupplyBalance,
-    treasuryTotalSupplyUsdBalance,
-    treasuryTotalAvailableLiquidityUsdBalance,
-    treasuryTotalBorrowUsdBalance,
-    treasuryTotalUsdBalance,
+    userTotalBorrowLimitCents,
+    userTotalBorrowBalanceCents: userTotalBorrowBalanceWithUserMintedVai,
+    userTotalSupplyBalanceCents,
+    treasuryTotalSupplyUsdBalanceCents,
+    treasuryTotalAvailableLiquidityUsdBalanceCents,
+    treasuryTotalBorrowUsdBalanceCents,
+    treasuryTotalUsdBalanceCents,
   };
 };
 

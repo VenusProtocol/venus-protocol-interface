@@ -36,8 +36,8 @@ export interface ISupplyWithdrawUiProps {
 }
 
 export interface ISupplyWithdrawProps {
-  userTotalBorrowBalance: BigNumber;
-  userTotalBorrowLimit: BigNumber;
+  userTotalBorrowBalanceCents: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
   onSubmitSupply: IAmountFormProps['onSubmit'];
   onSubmitWithdraw: IAmountFormProps['onSubmit'];
   isSupplyLoading: boolean;
@@ -53,8 +53,8 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   onClose,
   asset,
   assets,
-  userTotalBorrowBalance,
-  userTotalBorrowLimit,
+  userTotalBorrowBalanceCents,
+  userTotalBorrowLimitCents,
   isXvsEnabled,
   onSubmitSupply,
   onSubmitWithdraw,
@@ -114,11 +114,13 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         // liquidated (if their borrow balance goes above their borrow limit)
 
         // Return 0 if borrow limit has already been reached
-        if (userTotalBorrowBalance.isGreaterThanOrEqualTo(userTotalBorrowLimit)) {
+        if (userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
           return new BigNumber(0);
         }
 
-        const marginWithBorrowLimitDollars = userTotalBorrowLimit.minus(userTotalBorrowBalance);
+        const marginWithBorrowLimitDollars = userTotalBorrowLimitCents
+          .minus(userTotalBorrowBalanceCents)
+          .dividedBy(100);
 
         const collateralAmountPerTokenDollars = asset.tokenPrice.multipliedBy(
           asset.collateralFactor,
@@ -150,8 +152,8 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
                 assets={assets}
                 type={type}
                 tokenInfo={tokenInfo}
-                userTotalBorrowBalance={userTotalBorrowBalance}
-                userTotalBorrowLimit={userTotalBorrowLimit}
+                userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
+                userTotalBorrowLimitCents={userTotalBorrowLimitCents}
                 onSubmit={onSubmit}
                 inputLabel={inputLabel}
                 enabledButtonKey={enabledButtonKey}
@@ -216,7 +218,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
 
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-  const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+  const { userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
     accountAddress,
   });
   const { data: vTokenBalanceWei } = useGetVTokenBalance(
@@ -288,8 +290,8 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       {...rest}
       onClose={onClose}
       asset={asset}
-      userTotalBorrowBalance={userTotalBorrowBalance}
-      userTotalBorrowLimit={userTotalBorrowLimit}
+      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
+      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       onSubmitSupply={onSubmitSupply}
       onSubmitWithdraw={onSubmitWithdraw}
       isSupplyLoading={isSupplyLoading}

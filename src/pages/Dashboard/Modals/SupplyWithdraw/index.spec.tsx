@@ -39,8 +39,8 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: [], // Not used in these tests
-      userTotalBorrowLimit: fakeUserTotalBorrowLimitDollars,
-      userTotalBorrowBalance: fakeUserTotalBorrowBalanceDollars,
+      userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+      userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
     }));
   });
 
@@ -341,8 +341,8 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     beforeEach(() => {
       (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
         assets: [], // Not used in these tests
-        userTotalBorrowLimit: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalance: fakeUserTotalBorrowBalanceDollars,
+        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
       }));
     });
 

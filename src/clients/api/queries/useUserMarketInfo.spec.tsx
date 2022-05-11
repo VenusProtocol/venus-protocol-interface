@@ -37,23 +37,23 @@ describe('pages/SupplyMarket', () => {
 
   it('calculates totals correctly', async () => {
     let assets: Asset[];
-    let userTotalBorrowBalance: BigNumber;
-    let userTotalBorrowLimit: BigNumber;
-    let userTotalSupplyBalance: BigNumber;
-    let treasuryTotalUsdBalance: BigNumber;
-    let treasuryTotalSupplyUsdBalance: BigNumber;
-    let treasuryTotalBorrowUsdBalance: BigNumber;
-    let treasuryTotalAvailableLiquidityUsdBalance: BigNumber;
+    let userTotalBorrowBalanceCents: BigNumber;
+    let userTotalBorrowLimitCents: BigNumber;
+    let userTotalSupplyBalanceCents: BigNumber;
+    let treasuryTotalUsdBalanceCents: BigNumber;
+    let treasuryTotalSupplyUsdBalanceCents: BigNumber;
+    let treasuryTotalBorrowUsdBalanceCents: BigNumber;
+    let treasuryTotalAvailableLiquidityUsdBalanceCents: BigNumber;
     const CallMarketContext = () => {
       ({
         assets,
-        userTotalBorrowBalance,
-        userTotalBorrowLimit,
-        userTotalSupplyBalance,
-        treasuryTotalUsdBalance,
-        treasuryTotalSupplyUsdBalance,
-        treasuryTotalBorrowUsdBalance,
-        treasuryTotalAvailableLiquidityUsdBalance,
+        userTotalBorrowBalanceCents,
+        userTotalBorrowLimitCents,
+        userTotalSupplyBalanceCents,
+        treasuryTotalUsdBalanceCents,
+        treasuryTotalSupplyUsdBalanceCents,
+        treasuryTotalBorrowUsdBalanceCents,
+        treasuryTotalAvailableLiquidityUsdBalanceCents,
       } = useUserMarketInfo({ accountAddress: fakeAddress }));
       return <div />;
     };
@@ -68,28 +68,28 @@ describe('pages/SupplyMarket', () => {
     });
     await waitFor(() => expect(assets).toBeTruthy());
     await waitFor(() =>
-      expect(userTotalBorrowBalance.toFixed()).toBe('63164147.57467084058156978936843085'),
+      expect(userTotalBorrowBalanceCents.toFixed()).toBe('6316414757.467084058156978936843085'),
     );
     await waitFor(() =>
-      expect(userTotalBorrowLimit.toFixed()).toBe('138714326.9334798845110528092688405'),
+      expect(userTotalBorrowLimitCents.toFixed()).toBe('13871432693.34798845110528092688405'),
     );
     await waitFor(() =>
-      expect(userTotalSupplyBalance.toFixed()).toBe('184114779.84631676380304982489610572'),
+      expect(userTotalSupplyBalanceCents.toFixed()).toBe('18411477984.631676380304982489610572'),
     );
     await waitFor(() =>
-      expect(treasuryTotalUsdBalance.toFixed()).toBe('6744000847.35474642509783918968428126'),
+      expect(treasuryTotalUsdBalanceCents.toFixed()).toBe('674400084735.474642509783918968428126'),
     );
     await waitFor(() =>
-      expect(treasuryTotalSupplyUsdBalance.toFixed()).toBe(
-        '1009809011846086109330217.375449451699026548',
+      expect(treasuryTotalSupplyUsdBalanceCents.toFixed()).toBe(
+        '100980901184608610933021737.5449451699026548',
       ),
     );
     await waitFor(() =>
-      expect(treasuryTotalBorrowUsdBalance.toFixed()).toBe('8587791534566.260141326894326108'),
+      expect(treasuryTotalBorrowUsdBalanceCents.toFixed()).toBe('858779153456626.0141326894326108'),
     );
     await waitFor(() =>
-      expect(treasuryTotalAvailableLiquidityUsdBalance.toFixed()).toBe(
-        '1009809011837545745832691.419939998914208345',
+      expect(treasuryTotalAvailableLiquidityUsdBalanceCents.toFixed()).toBe(
+        '100980901183754574583269141.9939998914208345',
       ),
     );
   });
