@@ -4,10 +4,10 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import Card from '../Card';
 
-const MarketDetails: React.FC = () => {
+const MarketInfo: React.FC = () => {
   const { t } = useTranslation();
 
-  return <Card title={t('marketDetails.marketInfoTitle')} />;
+  return <Card title={t('marketDetails.marketInfo.title')} />;
 };
 
-export default MarketDetails;
+export default MarketInfo;
