@@ -44,7 +44,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
   return (
     <div css={styles.container} className={className}>
       <ResponsiveContainer>
-        <AreaChart className={className} margin={styles.areaChartMargin} data={data}>
+        <AreaChart margin={styles.areaChartMargin} data={data}>
           {/* Gradient used as filler */}
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
