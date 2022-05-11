@@ -25,6 +25,11 @@ const ProposalDetailWrapper = styled.div`
     h5,
     h6 {
       color: var(--color-text-main);
+      word-break: break-word;
+    }
+
+    p {
+      word-break: break-word;
     }
   }
 `;
