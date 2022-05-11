@@ -60,7 +60,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
             tokenId: asset.id as TokenId,
             shorthand: true,
           }),
-        value: asset.walletBalance.toString(),
+        value: asset.walletBalance.toFixed(),
       },
       {
         key: 'liquidity',

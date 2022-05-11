@@ -85,10 +85,10 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     // Input amount
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    fireEvent.change(tokenTextFieldInput, { target: { value: fakeUserVaiMinted.toString() } });
+    fireEvent.change(tokenTextFieldInput, { target: { value: fakeUserVaiMinted.toFixed() } });
 
     // Check input value updated correctly
-    expect(tokenTextFieldInput.value).toBe(fakeUserVaiMinted.toString());
+    expect(tokenTextFieldInput.value).toBe(fakeUserVaiMinted.toFixed());
 
     // Submit repayment request
     const submitButton = getByText('Repay VAI').closest('button') as HTMLButtonElement;
@@ -100,7 +100,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     const fakeUserWeiMinted = fakeUserVaiMinted.multipliedBy(new BigNumber(10).pow(18));
     expect(repayVai).toHaveBeenCalledWith({
       fromAccountAddress: fakeAccountAddress,
-      amountWei: fakeUserWeiMinted.toString(),
+      amountWei: fakeUserWeiMinted.toFixed(),
     });
 
     // Check successful transaction modal is displayed

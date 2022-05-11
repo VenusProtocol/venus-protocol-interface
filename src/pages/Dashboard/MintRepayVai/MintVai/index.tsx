@@ -52,8 +52,8 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   const vaiToken = getToken(VAI_ID);
   const limitTokens = useMemo(
-    () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toString() : '0'),
-    [limitWei?.toString()],
+    () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
+    [limitWei?.toFixed()],
   );
 
   // Convert limit into VAI
@@ -187,7 +187,7 @@ const MintVai: React.FC = () => {
   // Convert limit into wei of VAI
   const limitWei = React.useMemo(
     () => convertCoinsToWei({ value: mintableVai, tokenId: VAI_ID }),
-    [mintableVai.toString()],
+    [mintableVai.toFixed()],
   );
 
   const mintVai: IMintVaiUiProps['mintVai'] = async amountWei => {

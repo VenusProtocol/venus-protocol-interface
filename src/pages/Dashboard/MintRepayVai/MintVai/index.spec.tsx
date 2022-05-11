@@ -94,7 +94,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
 
     // Check input value updated to max amount of mintable VAI
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeMintableVai.toString()));
+    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeMintableVai.toFixed()));
 
     // Submit repayment request
     const submitButton = getByText('Mint VAI').closest('button') as HTMLButtonElement;

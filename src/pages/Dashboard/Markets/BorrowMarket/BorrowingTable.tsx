@@ -72,7 +72,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
             })}
           />
         ),
-        value: asset.borrowBalance.toString(),
+        value: asset.borrowBalance.toFixed(),
       },
       {
         key: 'percentOfLimit',

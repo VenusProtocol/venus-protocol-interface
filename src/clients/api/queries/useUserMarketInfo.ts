@@ -184,7 +184,7 @@ const useUserMarketInfo = ({
           .div(totalBorrowLimit)
           .times(100)
           .dp(0, 1)
-          .toString(10),
+          .toFixed(),
   }));
   return {
     assets: assetList,
