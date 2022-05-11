@@ -145,6 +145,11 @@
       "xvsPrediction": "XVS Prediction"
     }
   },
+  "marketDetails": {
+    "marketInfo": {
+      "title": "Market info"
+    }
+  },
   "markets": {
     "borrowingTableTitle": "Borrowing",
     "borrowMarketTableTitle": "Borrow market",
