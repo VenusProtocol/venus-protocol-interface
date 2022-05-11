@@ -19,11 +19,12 @@ import Vote from 'containers/Main/Vote';
 import XVS from 'containers/Main/XVS';
 import Market from 'containers/Main/Market';
 import Vault from 'containers/Main/Vault';
-import MarketDetail from 'containers/Main/MarketDetail';
+import MarketDetailsV1 from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
+import MarketDetails from 'pages/MarketDetails';
 import ConvertVrtV1 from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from 'theme';
@@ -60,9 +61,15 @@ const App = () => (
                             <Route exact path="/vote" component={Vote} />
                             <Route exact path="/xvs" component={XVS} />
                             <Route exact path="/market" component={Market} />
+                            <Route
+                              exact
+                              path="/market/:assetId"
+                              component={
+                                process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
+                              }
+                            />
                             <Route exact path="/transaction" component={Transaction} />
                             <Route exact path="/vault" component={Vault} />
-                            <Route exact path="/market/:asset" component={MarketDetail} />
                             <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
                             <Route exact path="/vote/proposal/:id" component={VoteOverview} />
                             <Route exact path="/vote/address/:address" component={ProposerDetail} />
