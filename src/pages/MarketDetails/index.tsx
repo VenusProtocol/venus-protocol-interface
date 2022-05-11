@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 
+import MarketInfo from './MarketInfo';
 import { useStyles } from './styles';
 
 const MarketDetails: React.FC = () => {
@@ -8,9 +9,11 @@ const MarketDetails: React.FC = () => {
 
   return (
     <div css={styles.container}>
-      <div css={[styles.column, styles.content]}>Graphs here</div>
+      <div css={[styles.column, styles.graphsColumn]}>Graphs here</div>
 
-      <div css={[styles.column, styles.sideBar]}>Market detials</div>
+      <div css={[styles.column, styles.statsColumn]}>
+        <MarketInfo />
+      </div>
     </div>
   );
 };

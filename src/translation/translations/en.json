@@ -161,9 +161,7 @@
     }
   },
   "marketDetails": {
-    "marketInfo": {
-      "title": "Market info"
-    }
+    "marketInfoTitle": "Market info"
   },
   "market": {
     "availableLiquidity": "Available Liquidity",
