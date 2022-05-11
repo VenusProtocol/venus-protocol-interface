@@ -56,7 +56,7 @@ const BREAKPOINTS = {
   },
 };
 
-const SPACING = 4;
+export const SPACING = 4;
 
 export type TypographyVariant =
   | 'button'
@@ -137,6 +137,9 @@ export default createTheme({
       fontSize: '0.875rem',
       fontWeight: 400,
       color: PALETTE.text.secondary,
+    },
+    tiny: {
+      fontSize: '0.75rem',
     },
   },
   components: {

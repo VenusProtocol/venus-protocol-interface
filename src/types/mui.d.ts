@@ -8,17 +8,17 @@ declare module '@mui/material/styles' {
   // Add v2 colors
   interface Palette {
     button: {
-      main: React.CSSProperties['color'];
-      medium: React.CSSProperties['color'];
-      dark: React.CSSProperties['color'];
+      main: string;
+      medium: string;
+      dark: string;
     };
     interactive: {
-      primary: React.CSSProperties['color'];
-      success: React.CSSProperties['color'];
-      success50: React.CSSProperties['color'];
-      error: React.CSSProperties['color'];
-      error50: React.CSSProperties['color'];
-      tan: React.CSSProperties['color'];
+      primary: string;
+      success: string;
+      success50: string;
+      error: string;
+      error50: string;
+      tan: string;
     };
   }
 
@@ -26,11 +26,13 @@ declare module '@mui/material/styles' {
   interface TypographyVariants {
     small1: React.CSSProperties;
     small2: React.CSSProperties;
+    tiny: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     small1?: React.CSSProperties;
     small2?: React.CSSProperties;
+    tiny?: React.CSSProperties;
   }
 
   interface Shape {
@@ -58,6 +60,7 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     small1: true;
     small2: true;
+    tiny: true;
   }
 }
 
