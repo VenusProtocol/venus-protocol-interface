@@ -8,37 +8,37 @@ import { ApyChart, SupplyApyChart, BorrowApyChart, IItem } from '.';
 
 const data: IItem[] = [
   {
-    apy: 40,
+    apyPercentage: 40,
     timestamp: new Date('2022-05-03T10:59:44.330Z'),
     balanceCents: new BigNumber(10000),
   },
   {
-    apy: 30,
+    apyPercentage: 30,
     timestamp: new Date('2022-05-04T10:59:44.330Z'),
     balanceCents: new BigNumber(10000000),
   },
   {
-    apy: 20,
+    apyPercentage: 20,
     timestamp: new Date('2022-05-05T10:59:44.330Z'),
     balanceCents: new BigNumber(100000),
   },
   {
-    apy: 27,
+    apyPercentage: 27,
     timestamp: new Date('2022-05-06T10:59:44.330Z'),
     balanceCents: new BigNumber(100000),
   },
   {
-    apy: 18,
+    apyPercentage: 18,
     timestamp: new Date('2022-05-07T10:59:44.330Z'),
     balanceCents: new BigNumber(10000000000),
   },
   {
-    apy: 23,
+    apyPercentage: 23,
     timestamp: new Date('2022-05-08T10:59:44.330Z'),
     balanceCents: new BigNumber(10000000),
   },
   {
-    apy: 34,
+    apyPercentage: 34,
     timestamp: new Date('2022-05-09T10:59:44.330Z'),
     balanceCents: new BigNumber(100000),
   },

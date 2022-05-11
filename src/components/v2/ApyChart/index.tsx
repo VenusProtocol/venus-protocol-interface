@@ -19,7 +19,7 @@ import formatToReadableDate from './formatToReadableDate';
 import { useStyles } from './styles';
 
 export interface IItem {
-  apy: number;
+  apyPercentage: number;
   timestamp: Date;
   balanceCents: BigNumber;
 }
@@ -93,7 +93,9 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                         Value: <Typography css={styles.tooltipItemValue} variant="small1" />,
                       }}
                       values={{
-                        percentage: formatToReadablePercentage((payload[0].payload as IItem).apy),
+                        percentage: formatToReadablePercentage(
+                          (payload[0].payload as IItem).apyPercentage,
+                        ),
                       }}
                     />
                   </div>
@@ -126,7 +128,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
           />
           <Area
             isAnimationActive={false}
-            dataKey="apy"
+            dataKey="apyPercentage"
             stroke={chartColor}
             strokeWidth={styles.areaStrokeWidth}
             fillOpacity={1}
