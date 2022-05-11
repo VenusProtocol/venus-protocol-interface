@@ -38,6 +38,15 @@ export const menuItems: IMenuItem[] = [
     icon: 'vault',
   },
   {
+    href: '/convert-vrt',
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.convertVrt')
+    // t('layout.menuItems.convertVrtTitle')
+    i18nKey: 'layout.menuItems.convertVrt',
+    i18nTitleKey: 'layout.menuItems.convertVrtTitle',
+    icon: 'convert',
+  },
+  {
     href: '/transaction',
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
@@ -54,24 +63,11 @@ export const menuItems: IMenuItem[] = [
 ];
 
 if (isOnTestnet) {
-  menuItems.splice(
-    menuItems.length,
-    0,
-    {
-      href: '/convert-vrt',
-      // Translation key: do not remove this comment
-      // t('layout.menuItems.convertVrt')
-      // t('layout.menuItems.convertVrtTitle')
-      i18nKey: 'layout.menuItems.convertVrt',
-      i18nTitleKey: 'layout.menuItems.convertVrtTitle',
-      icon: 'convert',
-    },
-    {
-      href: '/faucet',
-      // Translation key: do not remove this comment
-      // t('layout.menuItems.faucet')
-      i18nKey: 'layout.menuItems.faucet',
-      icon: 'faucet',
-    },
-  );
+  menuItems.splice(menuItems.length, 0, {
+    href: '/faucet',
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.faucet')
+    i18nKey: 'layout.menuItems.faucet',
+    icon: 'faucet',
+  });
 }
