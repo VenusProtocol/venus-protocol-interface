@@ -26,25 +26,25 @@ const TableCards: React.FC<ITableCardProps> = ({
     <div className={className}>
       {rows.map(row => {
         const rowKey = row[rowKeyIndex].value.toString();
-        const [titleCell, ...otherCells] = row;
-
+        const [titleColumn, ...otherColumns] = columns;
+        const titleCell = row.find(cell => titleColumn.key === cell.key);
         return (
           <Paper
             key={rowKey}
             css={styles.tableWrapperMobile}
             onClick={e => rowOnClick && rowOnClick(e, row)}
           >
-            <div css={styles.rowTitleMobile}>{titleCell.render()}</div>
+            <div css={styles.rowTitleMobile}>{titleCell?.render()}</div>
             <Delimiter css={styles.delimiterMobile} />
             <div className="table__table-cards__card-content" css={styles.rowWrapperMobile}>
-              {otherCells.map(cell => {
-                const currentColumn = columns.find(column => column.key === cell.key);
+              {otherColumns.map(column => {
+                const currentCell = row.find(cell => column.key === cell.key);
                 return (
-                  <div key={`${rowKey}-${cell.key}`} css={styles.cellMobile}>
+                  <div key={`${rowKey}-${currentCell?.key}`} css={styles.cellMobile}>
                     <Typography variant="body2" css={styles.columnLabelMobile}>
-                      {currentColumn?.label}
+                      {column?.label}
                     </Typography>
-                    <div css={styles.cellValueMobile}>{cell.render()}</div>
+                    <div css={styles.cellValueMobile}>{currentCell?.render()}</div>
                   </div>
                 );
               })}
