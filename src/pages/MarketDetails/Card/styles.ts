@@ -13,12 +13,12 @@ export const useStyles = () => {
     `,
     title: css`
       margin-right: ${theme.spacing(4)};
-      margin-bottom: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(6)};
     `,
-    legendsContainer: css`
+    row: css`
       display: flex;
       align-items: center;
-      margin-bottom: ${theme.spacing(4)};
+      margin-bottom: ${theme.spacing(6)};
     `,
     legend: css`
       display: flex;
@@ -30,6 +30,13 @@ export const useStyles = () => {
     `,
     legendLabel: css`
       color: ${theme.palette.text.primary};
+    `,
+    stat: css`
+      :not(:last-of-type) {
+        margin-right: ${theme.spacing(6)};
+        padding-right: ${theme.spacing(6)};
+        border-right: 1px solid ${theme.palette.secondary.light};
+      }
     `,
     getLegendColorIndicator: ({ color }: { color: string }) => css`
       background-color: ${color};
