@@ -1,6 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { ResponsiveContainer, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
+import {
+  ResponsiveContainer,
+  YAxis,
+  XAxis,
+  CartesianGrid,
+  LineChart,
+  Line,
+  ReferenceLine,
+} from 'recharts';
 
 // import { useTranslation } from 'translation';
 import { formatToReadablePercentage } from 'utilities/common';
@@ -33,6 +41,17 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
           data={data}
           // TODO: fix margins
         >
+          <XAxis
+            dataKey="utilizationPercentage"
+            axisLine={false}
+            tickLine={false}
+            tickFormatter={formatToReadablePercentage}
+            stroke={styles.accessoryColor}
+            tickMargin={styles.tickMargin}
+            tickCount={5}
+            type="number"
+            style={styles.axis}
+          />
           <YAxis
             axisLine={false}
             tickLine={false}
@@ -40,8 +59,10 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
             tickMargin={styles.tickMargin}
             stroke={styles.accessoryColor}
             style={styles.axis}
-            domain={[0, 'dataMax + 10']}
+            tickCount={10}
+            dataKey="supplyApyPercentage"
           />
+
           <CartesianGrid vertical={false} stroke={styles.gridLineColor} />
           <Line
             type="monotone"
@@ -49,6 +70,7 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
             stroke={styles.lineBorrowApyColor}
             strokeWidth={styles.lineStrokeWidth}
             isAnimationActive={false}
+            dot={false}
           />
           <Line
             type="monotone"
@@ -56,7 +78,9 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
             stroke={styles.lineSupplyApyColor}
             strokeWidth={styles.lineStrokeWidth}
             isAnimationActive={false}
+            dot={false}
           />
+          <ReferenceLine y={90} stroke="blue" strokeWidth={styles.lineStrokeWidth} />
         </LineChart>
       </ResponsiveContainer>
     </div>

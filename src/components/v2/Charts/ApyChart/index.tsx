@@ -21,7 +21,7 @@ import { useStyles as useLocalStyles } from './styles';
 
 export interface IApyChartItem {
   apyPercentage: number;
-  timestamp: Date;
+  timestampMs: number;
   balanceCents: BigNumber;
 }
 
@@ -62,12 +62,13 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
 
           <CartesianGrid vertical={false} stroke={styles.gridLineColor} />
           <XAxis
-            dataKey="timestamp"
+            dataKey="timestampMs"
             axisLine={false}
             tickLine={false}
             tickFormatter={formatToReadableDate}
             stroke={styles.accessoryColor}
             tickMargin={styles.tickMargin}
+            tickCount={7}
             style={styles.axis}
           />
           <YAxis
@@ -76,9 +77,9 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             tickLine={false}
             tickFormatter={formatToReadablePercentage}
             tickMargin={styles.tickMargin}
+            tickCount={6}
             stroke={styles.accessoryColor}
             style={styles.axis}
-            domain={[0, 'dataMax + 10']}
           />
           <Tooltip
             isAnimationActive={false}
@@ -138,7 +139,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             isAnimationActive={false}
             dataKey="apyPercentage"
             stroke={chartColor}
-            strokeWidth={styles.strokeWidth}
+            strokeWidth={styles.lineStrokeWidth}
             fillOpacity={1}
             fill={`url(#${gradientId})`}
             activeDot={styles.activeDot}

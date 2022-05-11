@@ -14,7 +14,7 @@ export const useStyles = () => {
     accessoryColor,
     cursor: { strokeDasharray: `${SPACING} ${SPACING}`, stroke: accessoryColor },
     activeDot: { r: SPACING * 2, strokeWidth: SPACING },
-    strokeWidth: theme.spacing(0.5),
+    lineStrokeWidth: theme.spacing(0.5),
     axis: theme.typography.tiny,
     tickMargin: SPACING * 2,
     container: css`

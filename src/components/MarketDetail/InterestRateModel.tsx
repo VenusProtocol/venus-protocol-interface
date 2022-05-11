@@ -276,8 +276,6 @@ function InterestRateModel({ currentAsset }: Props) {
     }
   };
 
-  console.log(graphData);
-
   return (
     <InterestRateModelWrapper>
       <p className="title">Interest Rate Model</p>

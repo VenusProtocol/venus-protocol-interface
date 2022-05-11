@@ -10,6 +10,7 @@ export const useStyles = () => {
     supplyChartColor: theme.palette.interactive.success,
     borrowChartColor: theme.palette.interactive.error,
     chartMargin: {
+      top: SPACING * 3,
       right: SPACING * 2.5,
       left: -SPACING * 4,
     },
