@@ -5,10 +5,14 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     headerRoot: css`
+      margin-bottom: ${theme.spacing(6)};
       padding: ${theme.spacing(4)} 0 ${theme.spacing(4)} ${theme.spacing(6)};
       ${theme.breakpoints.down('xxl')} {
         padding: 0;
         background-color: transparent;
+      }
+      ${theme.breakpoints.down('lg')} {
+        margin-bottom: 0;
       }
     `,
     row: css`
@@ -56,8 +60,34 @@ export const useStyles = () => {
           margin-top: ${theme.spacing(1)};
         }
       }
+      ${theme.breakpoints.down('md')} {
+        flex-basis: calc(100%);
+        border-right: none;
+        background-color: ${theme.palette.background.paper};
+        border-radius: ${theme.shape.borderRadius.large}px;
+        padding: ${theme.spacing(4)};
+        :first-of-type {
+          margin-right: initial;
+          margin-bottom: ${theme.spacing(2)};
+        }
+        :nth-of-type(2) {
+          margin-left: initial;
+          margin-bottom: ${theme.spacing(2)};
+        }
+        :nth-of-type(3) {
+          margin-right: initial;
+          margin-top: initial;
+          margin-bottom: ${theme.spacing(2)};
+        }
+        :last-of-type {
+          margin-left: initial;
+          margin-top: initial;
+          margin-bottom: 0;
+        }
+      }
     `,
     title: css`
+      display: block;
       margin-bottom: ${theme.spacing(1)};
       ${theme.breakpoints.down('xl')} {
         font-size: 0.75rem;
@@ -86,6 +116,7 @@ export const useStyles = () => {
     cardContentGrid: css`
       ${theme.breakpoints.down('xxl')} {
         background-color: initial;
+        padding-top: 0;
       }
       .table__table-cards__card-content {
         ${theme.breakpoints.down('xxl')} {
