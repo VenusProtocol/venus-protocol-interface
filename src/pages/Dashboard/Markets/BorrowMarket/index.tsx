@@ -35,7 +35,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
     setSelectedAssetId(row[0].value as TokenId);
   };
 
-  const asset = React.useMemo(
+  const selectedAsset = React.useMemo(
     () =>
       [...borrowingAssets, ...borrowMarketAssets].find(
         marketAsset => marketAsset.id === selectedAssetId,
@@ -65,9 +65,9 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
         />
       </Paper>
 
-      {asset && (
+      {selectedAsset && (
         <BorrowRepayModal
-          asset={asset}
+          asset={selectedAsset}
           onClose={() => setSelectedAssetId(undefined)}
           isXvsEnabled={isXvsEnabled}
         />
