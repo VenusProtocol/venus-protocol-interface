@@ -7,6 +7,11 @@ export const useStyles = () => {
     drawer: css`
       display: block;
       width: ${theme.shape.drawerWidthDesktop};
+
+      > .MuiDrawer-paper {
+        border-right: none;
+      }
+
       ${theme.breakpoints.down('lg')} {
         width: ${theme.shape.drawerWidthTablet};
       }
