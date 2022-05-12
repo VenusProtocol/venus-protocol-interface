@@ -110,6 +110,7 @@
     "remainingTimeHoursAndMinutes": "<Icon/> Remaining time:\u00a0<White>$t(convertVrt.hours, {\"count\": {{hours}} }) and $t(convertVrt.minutes, {\"count\": {{minutes}} })</White>",
     "remainingTimeMinutes": "<Icon/> Remaining time:\u00a0<White>{{count}} minute</White>",
     "remainingTimeMinutes_other": "<Icon/> Remaining time:\u00a0<White>{{count}} minutes</White>",
+    "remainingTimeMissing": "TRANSLATION NEEDED",
     "usedOverTotalVrt": "{{used}}/{{total}} VRT",
     "vrtEqualsXvs": "1 VRT = {{xvsToVrtRate}} XVS",
     "withdraw": "Withdraw",
@@ -146,8 +147,14 @@
     }
   },
   "marketDetails": {
+    "borrowInfo": {
+      "title": "Borrow info"
+    },
     "marketInfo": {
       "title": "Market info"
+    },
+    "supplyInfo": {
+      "title": "Supply info"
     }
   },
   "markets": {
