@@ -1,5 +1,5 @@
-export * from './v2/Charts/ApyChart';
-export * from './v2/Charts/InterestRateChart';
+export * from './v2/charts/ApyChart';
+export * from './v2/charts/InterestRateChart';
 export * from './v2/AuthModal';
 export * from './v2/Button';
 export * from './v2/BscLink';
