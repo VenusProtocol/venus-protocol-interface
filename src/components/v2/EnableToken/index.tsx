@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
 import Typography from '@mui/material/Typography';
+
+import { useTranslation } from 'translation';
 import { AuthContext } from 'context/AuthContext';
 import { TokenId } from 'types';
 import useApproveToken from 'clients/api/mutations/useApproveToken';
@@ -14,23 +16,24 @@ export interface IEnableTokenProps {
   assetId: TokenId;
   isEnabled: boolean;
   title: string | React.ReactElement;
-  tokenInfo: ILabeledInlineContentProps[];
   approveToken: () => void;
   vtokenAddress: string;
-  isApproveTokenLoading?: boolean;
+  tokenInfo?: ILabeledInlineContentProps[];
   disabled?: boolean;
+  isApproveTokenLoading?: boolean;
 }
 
 export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> = ({
   assetId,
   title,
-  tokenInfo,
+  tokenInfo = [],
   isEnabled,
   children,
   approveToken,
   isApproveTokenLoading = false,
   disabled = false,
 }) => {
+  const { t } = useTranslation();
   const styles = useStyles();
 
   if (isEnabled) {
@@ -44,20 +47,24 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
       <Typography component="h3" variant="h3" css={styles.mainText}>
         {title}
       </Typography>
-      <Delimiter />
 
-      {tokenInfo.map(info => (
-        <LabeledInlineContent {...info} key={info.label} css={styles.labeledInlineContent} />
-      ))}
+      {tokenInfo.length > 0 && (
+        <div css={styles.tokenInfoContainer}>
+          <Delimiter css={styles.delimiter} />
+
+          {tokenInfo.map(info => (
+            <LabeledInlineContent {...info} key={info.label} css={styles.labeledInlineContent} />
+          ))}
+        </div>
+      )}
 
       <SecondaryButton
         disabled={disabled || isApproveTokenLoading}
         loading={isApproveTokenLoading}
         fullWidth
-        css={styles.button}
         onClick={approveToken}
       >
-        Enable
+        {t('enableToken.enableButtonLabel')}
       </SecondaryButton>
     </div>
   );
