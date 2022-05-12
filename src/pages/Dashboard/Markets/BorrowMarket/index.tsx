@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Paper } from '@mui/material';
 
 import { Delimiter } from 'components';
-import { Asset } from 'types';
+import { Asset, TokenId } from 'types';
 import BorrowRepayModal from 'pages/Dashboard/Modals/BorrowRepay';
 import BorrowMarketTable, { IBorrowMarketTableProps } from './BorrowMarketTable';
 import BorrowingTable, { IBorrowingUiProps } from './BorrowingTable';
@@ -25,21 +25,23 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   isXvsEnabled,
   userTotalBorrowLimit,
 }) => {
-  const [selectedAsset, setSelectedAsset] = React.useState<Asset | undefined>(undefined);
+  const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
   const styles = useStyles();
 
   const rowOnClick: IBorrowMarketTableProps['rowOnClick'] | IBorrowingUiProps['rowOnClick'] = (
     _e,
     row,
   ) => {
-    const asset = [...borrowingAssets, ...borrowMarketAssets].find(
-      (value: Asset) => value.id === row[0].value,
-    );
-
-    if (asset) {
-      setSelectedAsset(asset);
-    }
+    setSelectedAssetId(row[0].value as TokenId);
   };
+
+  const asset = React.useMemo(
+    () =>
+      [...borrowingAssets, ...borrowMarketAssets].find(
+        marketAsset => marketAsset.id === selectedAssetId,
+      ),
+    [selectedAssetId, JSON.stringify(borrowingAssets), JSON.stringify(borrowMarketAssets)],
+  );
 
   return (
     <>
@@ -63,10 +65,10 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
         />
       </Paper>
 
-      {selectedAsset && (
+      {asset && (
         <BorrowRepayModal
-          asset={selectedAsset}
-          onClose={() => setSelectedAsset(undefined)}
+          asset={asset}
+          onClose={() => setSelectedAssetId(undefined)}
           isXvsEnabled={isXvsEnabled}
         />
       )}

@@ -1,6 +1,7 @@
-import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
+
 import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
+import ALLOWANCE_AMOUNT_WEI from 'constants/allowanceAmountWei';
 
 export interface IApproveTokenInput {
   tokenContract: Bep20 | VaiToken | VrtToken | XvsToken;
@@ -15,7 +16,7 @@ const approveToken = ({
   tokenContract,
   accountAddress,
   vtokenAddress,
-  allowance = new BigNumber(2).pow(256).minus(1).toFixed(),
+  allowance = ALLOWANCE_AMOUNT_WEI,
 }: IApproveTokenInput): Promise<ApproveTokenOutput> =>
   tokenContract.methods.approve(vtokenAddress, allowance).send({ from: accountAddress });
 
