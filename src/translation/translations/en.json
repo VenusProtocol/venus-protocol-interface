@@ -161,8 +161,14 @@
     }
   },
   "marketDetails": {
+    "borrowInfo": {
+      "title": "Borrow info"
+    },
     "marketInfo": {
       "title": "Market info"
+    },
+    "supplyInfo": {
+      "title": "Supply info"
     }
   },
   "market": {
