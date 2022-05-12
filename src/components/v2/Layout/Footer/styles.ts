@@ -7,13 +7,18 @@ export const useStyles = () => {
   return {
     container: css`
       height: ${theme.shape.footerHeight};
-      padding: 0 ${theme.spacing(6)};
+      padding: 0 ${theme.spacing(10)};
       background-color: var(--color-bg-main);
       display: flex;
       justify-content: flex-end;
       align-items: center;
 
+      ${theme.breakpoints.down('lg')} {
+        padding: 0 ${theme.spacing(6)};
+      }
+
       ${theme.breakpoints.down('md')} {
+        padding: 0 ${theme.spacing(4)};
         justify-content: space-between;
       }
     `,
