@@ -21,13 +21,19 @@ export const styles = () => {
     `,
     mainText: css`
       text-align: center;
-      margin-bottom: ${theme.spacing(10)};
+      margin-bottom: ${theme.spacing(8)};
     `,
-    button: css`
-      margin-top: ${theme.spacing(9)};
+    delimiter: css`
+      margin-bottom: ${theme.spacing(8)};
+    `,
+    tokenInfoContainer: css`
+      width: 100%;
+      margin-bottom: ${theme.spacing(12)};
     `,
     labeledInlineContent: css`
-      margin-bottom: ${theme.spacing(3)};
+      :not(:last-of-type) {
+        margin-bottom: ${theme.spacing(3)};
+      }
     `,
   };
 };

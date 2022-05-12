@@ -2,6 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { repayVai, useUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -39,7 +40,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
         },
       },
     });
-    await waitFor(() => getByText('Repay VAI balance'));
+    await waitFor(() => getByText(en.mintRepayVai.repayVai.enableToken));
   });
 
   it('displays the correct repay VAI balance', async () => {
@@ -56,7 +57,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
         userVaiBalance: new BigNumber(0),
       },
     });
-    await waitFor(() => getByText('Repay VAI balance'));
+    await waitFor(() => getByText(en.mintRepayVai.repayVai.btnRepayVai));
 
     // Check user repay VAI balance displays correctly
     await waitFor(() => getByText(formattedFakeUserVaiMinted));
@@ -81,7 +82,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
         userVaiBalance: fakeUserVaiBalance,
       },
     });
-    await waitFor(() => getByText('Repay VAI balance'));
+    await waitFor(() => getByText(en.mintRepayVai.repayVai.btnRepayVai));
 
     // Input amount
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
@@ -91,8 +92,10 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(tokenTextFieldInput.value).toBe(fakeUserVaiMinted.toFixed());
 
     // Submit repayment request
-    const submitButton = getByText('Repay VAI').closest('button') as HTMLButtonElement;
-    await waitFor(() => expect(submitButton).toHaveProperty('disabled', false));
+    const submitButton = getByText(en.mintRepayVai.repayVai.btnRepayVai).closest(
+      'button',
+    ) as HTMLButtonElement;
+    await waitFor(() => expect(submitButton).toBeEnabled());
     fireEvent.click(submitButton);
 
     // Check repayVai was called correctly

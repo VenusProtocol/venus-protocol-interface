@@ -13,8 +13,6 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
   ConnectWallet,
   EnableToken,
-  IconName,
-  ILabeledInlineContentProps,
   FormikSubmitButton,
   LabeledInlineContent,
   FormikTokenTextField,
@@ -90,20 +88,12 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       toast.error({ title: (error as Error).message });
     }
   };
-  const tokenInfo: ILabeledInlineContentProps[] = [
-    {
-      label: t('mintRepayVai.repayVai.repayVaiBalance'),
-      iconName: VAI_ID as IconName,
-      children: readableRepayableVai,
-    },
-  ];
 
   return (
     <ConnectWallet message={t('mintRepayVai.repayVai.connectWallet')}>
       <EnableToken
         assetId={VAI_ID}
         title={t('mintRepayVai.repayVai.enableToken')}
-        tokenInfo={tokenInfo}
         isEnabled={!!userVaiEnabled}
         vtokenAddress={vaiToken.address}
       >
