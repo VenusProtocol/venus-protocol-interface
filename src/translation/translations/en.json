@@ -153,6 +153,12 @@
       "title": "Market info"
     }
   },
+  "market": {
+    "availableLiquidity": "Available Liquidity",
+    "totalBorrow": "Total Borrow",
+    "totalSupply": "Total Supply",
+    "totalTreasury": "Total Treasury"
+  },
   "markets": {
     "borrowingTableTitle": "Borrowing",
     "borrowMarketTableTitle": "Borrow market",
