@@ -4,7 +4,7 @@ import React from 'react';
 import MarketInfo from './MarketInfo';
 import { useStyles } from './styles';
 
-const MarketDetails: React.FC = () => {
+export const MarketDetailsUI: React.FC = () => {
   const styles = useStyles();
 
   return (
@@ -17,5 +17,7 @@ const MarketDetails: React.FC = () => {
     </div>
   );
 };
+
+const MarketDetails: React.FC = () => <MarketDetailsUI />;
 
 export default MarketDetails;
