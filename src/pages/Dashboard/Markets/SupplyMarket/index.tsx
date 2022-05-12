@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import { Paper } from '@mui/material';
-import { Asset } from 'types';
+import { Asset, TokenId } from 'types';
 import { UiError } from 'utilities/errors';
 import toast from 'components/Basic/Toast';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
@@ -32,7 +32,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
   confirmCollateral,
   setConfirmCollateral,
 }) => {
-  const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
+  const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
   const styles = useStyles();
 
   const collateralOnChange = async (asset: Asset) => {
@@ -47,16 +47,21 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
       }
     }
   };
+
   const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
     if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
-      const asset = [...suppliedAssets, ...supplyMarketAssets].find(
-        (value: Asset) => value.id === row[0].value,
-      );
-      if (asset) {
-        setSelectedAsset(asset);
-      }
+      setSelectedAssetId(row[0].value as TokenId);
     }
   };
+
+  const selectedAsset = React.useMemo(
+    () =>
+      [...supplyMarketAssets, ...suppliedAssets].find(
+        marketAsset => marketAsset.id === selectedAssetId,
+      ),
+    [selectedAssetId, JSON.stringify(supplyMarketAssets), JSON.stringify(suppliedAssets)],
+  );
+
   return (
     <Paper className={className} css={styles.tableContainer}>
       {suppliedAssets.length > 0 && (
@@ -86,7 +91,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
           asset={selectedAsset}
           assets={[...suppliedAssets, ...supplyMarketAssets]}
           isXvsEnabled={isXvsEnabled}
-          onClose={() => setSelectedAsset(undefined)}
+          onClose={() => setSelectedAssetId(undefined)}
         />
       )}
     </Paper>
