@@ -16,6 +16,18 @@ export const Disabled = () => (
     isEnabled={false}
     title="To withdraw BNB to the Venus Protocol, you need to enable it first."
     assetId="eth"
+    approveToken={noop}
+    disabled
+  >
+    <Typography>Invisible Content</Typography>
+  </EnableTokenUi>
+);
+
+export const DisabledWithTokenInfo = () => (
+  <EnableTokenUi
+    isEnabled={false}
+    title="To withdraw BNB to the Venus Protocol, you need to enable it first."
+    assetId="eth"
     tokenInfo={[
       { iconName: 'vai', label: 'Supply APY', children: '77.36' },
       { iconName: 'vai', label: 'Distribution APY', children: '0.82' },

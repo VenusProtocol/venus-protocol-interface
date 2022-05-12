@@ -12,8 +12,6 @@ import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
   FormikSubmitButton,
   EnableToken,
-  IconName,
-  ILabeledInlineContentProps,
   LabeledInlineContent,
   FormikTokenTextField,
   ConnectWallet,
@@ -104,25 +102,11 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     }
   };
 
-  const tokenInfo: ILabeledInlineContentProps[] = [
-    {
-      label: t('mintRepayVai.mintVai.vaiLimitLabel'),
-      iconName: VAI_ID as IconName,
-      children: readableVaiLimit,
-    },
-    {
-      label: t('mintRepayVai.mintVai.mintFeeLabel'),
-      iconName: 'xvs' as IconName,
-      children: getReadableMintFee(limitWei?.toFixed() || '0'),
-    },
-  ];
-
   return (
     <ConnectWallet message={t('mintRepayVai.mintVai.connectWallet')}>
       <EnableToken
         assetId={VAI_ID}
         title={t('mintRepayVai.mintVai.enableToken')}
-        tokenInfo={tokenInfo}
         isEnabled={!!userVaiEnabled}
         vtokenAddress={vaiToken.address}
       >

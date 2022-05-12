@@ -1,6 +1,8 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
+
+import en from 'translation/translations/en.json';
 import { useUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
@@ -28,7 +30,7 @@ describe('pages/Dashboard/MintRepayVai', () => {
         },
       },
     });
-    await waitFor(() => getByText('Mint/Repay VAI'));
+    await waitFor(() => getByText(en.mintRepayVai.title));
   });
 
   it('renders mint tab by default and lets user switch to repay tab', async () => {
@@ -41,13 +43,15 @@ describe('pages/Dashboard/MintRepayVai', () => {
     });
 
     // Check mint tab is display by default
-    await waitFor(() => getByText('Available VAI limit'));
+    await waitFor(() => getByText(en.mintRepayVai.mintVai.enableToken));
 
     // Click on "Repay VAI" tab
-    const repayVaiTabButton = getByText('Repay VAI').closest('button') as HTMLButtonElement;
+    const repayVaiTabButton = getByText(en.mintRepayVai.tabRepay).closest(
+      'button',
+    ) as HTMLButtonElement;
     fireEvent.click(repayVaiTabButton);
 
     // Check repay tab is now displaying
-    await waitFor(() => getByText('Repay VAI balance'));
+    await waitFor(() => getByText(en.mintRepayVai.repayVai.enableToken));
   });
 });
