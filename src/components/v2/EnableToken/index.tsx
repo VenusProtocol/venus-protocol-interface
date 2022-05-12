@@ -17,6 +17,7 @@ export interface IEnableTokenProps {
   tokenInfo: ILabeledInlineContentProps[];
   approveToken: () => void;
   vtokenAddress: string;
+  isApproveTokenLoading?: boolean;
   disabled?: boolean;
 }
 
@@ -27,23 +28,35 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
   isEnabled,
   children,
   approveToken,
+  isApproveTokenLoading = false,
   disabled = false,
 }) => {
   const styles = useStyles();
+
   if (isEnabled) {
     return <>{children}</>;
   }
+
   return (
     <div css={styles.container}>
       <Icon name={assetId as IconName} css={styles.mainLogo} />
+
       <Typography component="h3" variant="h3" css={styles.mainText}>
         {title}
       </Typography>
       <Delimiter />
+
       {tokenInfo.map(info => (
         <LabeledInlineContent {...info} key={info.label} css={styles.labeledInlineContent} />
       ))}
-      <SecondaryButton disabled={disabled} fullWidth css={styles.button} onClick={approveToken}>
+
+      <SecondaryButton
+        disabled={disabled || isApproveTokenLoading}
+        loading={isApproveTokenLoading}
+        fullWidth
+        css={styles.button}
+        onClick={approveToken}
+      >
         Enable
       </SecondaryButton>
     </div>
@@ -53,13 +66,15 @@ export const EnableTokenUi: React.FC<Omit<IEnableTokenProps, 'vtokenAddress'>> =
 export const EnableToken: React.FC<
   Omit<IEnableTokenProps, 'approveToken' | 'account' | 'disabled'>
 > = ({ vtokenAddress, assetId, ...rest }) => {
-  const { mutate: approveToken } = useApproveToken({ assetId });
+  const { mutate: approveToken, isLoading: isApproveTokenLoading } = useApproveToken({ assetId });
   const { account } = useContext(AuthContext);
+
   return (
     <EnableTokenUi
       {...rest}
       assetId={assetId}
       approveToken={() => approveToken({ accountAddress: account?.address, vtokenAddress })}
+      isApproveTokenLoading={isApproveTokenLoading}
       disabled={!account}
     />
   );
