@@ -8,7 +8,6 @@ import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
-// import { isOnTestnet } from 'config';
 import { store } from 'core';
 import { Layout } from 'components';
 import { init as initTranslationLibrary } from 'translation';
@@ -17,7 +16,8 @@ import Dashboard from 'pages/Dashboard';
 import Faucet from 'containers/Main/Faucet';
 import Vote from 'containers/Main/Vote';
 import XVS from 'containers/Main/XVS';
-import Market from 'containers/Main/Market';
+import MarketV1 from 'containers/Main/Market';
+import Market from 'pages/Market';
 import Vault from 'containers/Main/Vault';
 import MarketDetailsV1 from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
@@ -67,6 +67,11 @@ const App = () => (
                               component={
                                 process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
                               }
+                            />
+                            <Route
+                              exact
+                              path="/market"
+                              component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
                             />
                             <Route exact path="/transaction" component={Transaction} />
                             <Route exact path="/vault" component={Vault} />
