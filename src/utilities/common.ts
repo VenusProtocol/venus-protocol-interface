@@ -201,11 +201,11 @@ export const formatCentsToReadableValue = ({
   // Shorten value
   const wrappedValueDollars = new BigNumber(value).dividedBy(100);
   let shortenedValue = wrappedValueDollars.toFixed(2);
-  if (wrappedValueDollars.isGreaterThan(ONE_BILLION)) {
+  if (wrappedValueDollars.isGreaterThanOrEqualTo(ONE_BILLION)) {
     shortenedValue = `${wrappedValueDollars.dividedBy(ONE_BILLION).dp(2).toFixed()}B`;
-  } else if (wrappedValueDollars.isGreaterThan(ONE_MILLION)) {
+  } else if (wrappedValueDollars.isGreaterThanOrEqualTo(ONE_MILLION)) {
     shortenedValue = `${wrappedValueDollars.dividedBy(ONE_MILLION).dp(2).toFixed()}M`;
-  } else if (wrappedValueDollars.isGreaterThan(ONE_THOUSAND)) {
+  } else if (wrappedValueDollars.isGreaterThanOrEqualTo(ONE_THOUSAND)) {
     shortenedValue = `${wrappedValueDollars.dividedBy(ONE_THOUSAND).dp(2).toFixed()}K`;
   }
 

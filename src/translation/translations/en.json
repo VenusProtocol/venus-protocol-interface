@@ -148,12 +148,22 @@
   },
   "marketDetails": {
     "borrowInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalBorrow": "Total borrow"
+      },
       "title": "Borrow info"
     },
     "marketInfo": {
       "title": "Market info"
     },
     "supplyInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalSupply": "Total supply"
+      },
       "title": "Supply info"
     }
   },
