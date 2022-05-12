@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
+import { ReferenceLine } from 'recharts';
 
 import { SPACING } from 'theme/MuiThemeProvider/muiTheme';
 
@@ -14,5 +15,12 @@ export const useStyles = () => {
       width: 100%;
       height: ${theme.spacing(95)};
     `,
+    referenceLineColor: theme.palette.interactive.primary,
+    referenceLineLabel: {
+      position: 'top',
+      fill: theme.palette.text.primary,
+      fontSize: theme.typography.small1.fontSize,
+      fontWeight: theme.typography.small1.fontWeight,
+    } as React.ComponentProps<typeof ReferenceLine>['label'],
   };
 };

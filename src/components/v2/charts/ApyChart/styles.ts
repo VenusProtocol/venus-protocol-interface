@@ -9,11 +9,6 @@ export const useStyles = () => {
   return {
     supplyChartColor: theme.palette.interactive.success,
     borrowChartColor: theme.palette.interactive.error,
-    chartMargin: {
-      top: SPACING * 3,
-      right: SPACING * 2.5,
-      left: -SPACING * 4,
-    },
     areaActiveDot: { r: SPACING * 2, strokeWidth: SPACING },
     container: css`
       width: 100%;

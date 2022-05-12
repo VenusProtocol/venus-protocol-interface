@@ -8,6 +8,11 @@ export const useStyles = () => {
   const accessoryColor = theme.palette.text.secondary;
 
   return {
+    chartMargin: {
+      top: SPACING * 5,
+      right: SPACING * 2.5,
+      left: -SPACING * 4,
+    },
     supplyChartColor: theme.palette.interactive.success,
     borrowChartColor: theme.palette.interactive.error,
     gridLineColor: theme.palette.secondary.light,

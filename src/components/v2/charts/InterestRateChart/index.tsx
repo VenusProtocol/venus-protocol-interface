@@ -18,17 +18,22 @@ import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
 export interface IInterestRateItem {
-  utilizationRatePercentage: number;
+  utilizationRate: number;
   borrowApyPercentage: number;
   supplyApyPercentage: number;
 }
 
 export interface IInterestRateChartProps {
   data: IInterestRateItem[];
+  currentUtilizationRate: number;
   className?: string;
 }
 
-export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className, data }) => {
+export const InterestRateChart: React.FC<IInterestRateChartProps> = ({
+  className,
+  currentUtilizationRate,
+  data,
+}) => {
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
   const styles = {
@@ -41,12 +46,9 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
   return (
     <div css={styles.container} className={className}>
       <ResponsiveContainer>
-        <LineChart
-          data={data}
-          // TODO: fix margins
-        >
+        <LineChart data={data} margin={styles.chartMargin}>
           <XAxis
-            dataKey="utilizationRatePercentage"
+            dataKey="utilizationRate"
             axisLine={false}
             tickLine={false}
             tickFormatter={formatToReadablePercentage}
@@ -64,7 +66,6 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
             stroke={styles.accessoryColor}
             style={styles.axis}
             tickCount={10}
-            dataKey="supplyApyPercentage"
           />
           <Tooltip
             isAnimationActive={false}
@@ -76,7 +77,7 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
                     {
                       label: t('interestRateChart.tooltipItemLabels.utilizationRate'),
                       value: formatToReadablePercentage(
-                        (payload[0].payload as IInterestRateItem).utilizationRatePercentage,
+                        (payload[0].payload as IInterestRateItem).utilizationRate,
                       ),
                     },
                     {
@@ -115,7 +116,18 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({ className
             isAnimationActive={false}
             dot={false}
           />
-          <ReferenceLine y={90} stroke="blue" strokeWidth={styles.lineStrokeWidth} />
+          <ReferenceLine
+            x={currentUtilizationRate}
+            stroke={styles.referenceLineColor}
+            // Note: we can not use the spread operator to extend
+            // styles.referenceLineLabel because its type is not accepted for
+            // that
+            label={Object.assign(styles.referenceLineLabel || {}, {
+              value: t('interestRateChart.currentUtilizationRateLabelValue', {
+                percentage: formatToReadablePercentage(currentUtilizationRate),
+              }),
+            })}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

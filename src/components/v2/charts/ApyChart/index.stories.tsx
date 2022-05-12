@@ -45,7 +45,7 @@ const data: IApyChartItem[] = [
 ];
 
 export default {
-  title: 'Components/Charts/ApyChart',
+  title: 'Components/charts/ApyChart',
   component: ApyChart,
   decorators: [withThemeProvider, withCenterStory({ width: 700 })],
 } as ComponentMeta<typeof ApyChart>;

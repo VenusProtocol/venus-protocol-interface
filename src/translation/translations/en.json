@@ -139,6 +139,7 @@
     "latestNumber": "Latest Block:\u00a0"
   },
   "interestRateChart": {
+    "currentUtilizationRateLabelValue": "Current ({{percentage}})",
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
       "supplyApy": "Supply APY",
