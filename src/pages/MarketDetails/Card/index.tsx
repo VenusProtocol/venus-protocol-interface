@@ -49,9 +49,10 @@ const Card: React.FC<ICardProps> = ({ children, title, legends = [], stats = [],
         <div css={styles.row}>
           {stats.map(stat => (
             <div css={styles.stat}>
-              <Typography variant="small2" component="div">
+              <Typography variant="small2" component="div" css={styles.statLabel}>
                 {stat.label}
               </Typography>
+
               <Typography variant="h4" component="div">
                 {stat.value}
               </Typography>

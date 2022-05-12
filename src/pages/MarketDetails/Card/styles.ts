@@ -38,6 +38,9 @@ export const useStyles = () => {
         border-right: 1px solid ${theme.palette.secondary.light};
       }
     `,
+    statLabel: css`
+      margin-bottom: ${theme.spacing(1)};
+    `,
     getLegendColorIndicator: ({ color }: { color: string }) => css`
       background-color: ${color};
       width: ${theme.spacing(2)};
