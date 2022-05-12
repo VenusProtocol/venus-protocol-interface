@@ -63,11 +63,10 @@ export const useMyAccountStyles = () => {
       list-style: none;
       padding-left: ${theme.spacing(8)};
       padding-right: ${theme.spacing(8)};
-      border-left: 1px solid ${theme.palette.secondary.light};
       border-right: 1px solid ${theme.palette.secondary.light};
 
       ${theme.breakpoints.down('sm')} {
-        border: none;
+        border-right: none;
         padding: 0;
         display: flex;
         justify-content: space-between;
