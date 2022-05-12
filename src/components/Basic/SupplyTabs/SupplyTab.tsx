@@ -158,6 +158,9 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
     setAmount(asset.walletBalance);
   };
 
+  // Temporary fix to prevent users from supplying LUNA
+  const isLuna = asset.id === 'luna';
+
   return (
     <TabSection>
       <div className="flex flex-column align-center just-center body-content">
@@ -300,6 +303,8 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
             fullWidth
             className="button"
             disabled={
+              // Temporary fix to prevent users from supplying LUNA
+              isLuna ||
               isLoading ||
               !account ||
               amount.isNaN() ||
