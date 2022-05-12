@@ -48,5 +48,12 @@ export const useStyles = () => {
         }
       }
     `,
+    legendColors: {
+      supplyApy: theme.palette.interactive.success,
+      borrowApy: theme.palette.interactive.error,
+    },
+    apyChart: css`
+      margin-right: ${theme.spacing(-2.5)};
+    `,
   };
 };
