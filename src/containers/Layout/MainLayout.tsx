@@ -98,8 +98,7 @@ function MainLayout({ title = '', isHeader, children }: Props) {
       <UstWarning>
         <Typography component="p" variant="small1">
           <Icon name="attention" />
-          Venus uses Wormhole UST. Many CEXs currently only recognize Wrapped UST. Please convert
-          your UST as needed.
+          Venus is paused until LUNA and UST are deprecated as collateral.
         </Typography>
       </UstWarning>
 
