@@ -34,8 +34,8 @@ export const useStyles = () => {
         border-radius: ${theme.spacing(3)};
         border: ${theme.spacing(0.5)} solid ${borderColor};
         background-color: ${disabled
-          ? theme.palette.background.default
-          : theme.palette.background.paper};
+          ? theme.palette.background.paper
+          : theme.palette.background.default};
         &:focus-within {
           border-color: ${hasError
             ? theme.palette.interactive.error
