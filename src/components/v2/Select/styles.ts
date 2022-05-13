@@ -11,6 +11,7 @@ export const useStyles = () => {
       background-color: ${theme.palette.secondary.light};
       border-radius: ${theme.shape.borderRadius.small}px;
       border: 1px solid ${isOpened ? theme.palette.interactive.primary : 'transparent'};
+      width: 100%;
     `,
     getArrowIcon: ({ isMenuOpened }: { isMenuOpened: boolean }) => css`
       position: absolute;
@@ -51,6 +52,9 @@ export const useStyles = () => {
           height: 8px;
         }
       }
+      ${theme.breakpoints.down('sm')} {
+        padding-top: 0;
+      }
     `,
     mobileHeader: css`
       display: none;
@@ -73,11 +77,6 @@ export const useStyles = () => {
     `,
 
     /* styles passed as MenuProps are not recognized if we pass them as emotion SerializedStyles */
-    menuList: {
-      [theme.breakpoints.down('sm')]: {
-        paddingTop: 0,
-      },
-    },
     menuWrapper: {
       backgroundColor: theme.palette.secondary.light,
       padding: 0,
@@ -85,7 +84,8 @@ export const useStyles = () => {
       marginTop: theme.spacing(1),
 
       [theme.breakpoints.down('sm')]: {
-        width: `calc(100vw - ${theme.spacing(4)})`,
+        minWidth: 'calc(100vw)',
+        height: '100%',
         backgroundColor: theme.palette.background.paper,
         borderRadius: `${theme.shape.borderRadius.large}px`,
       },

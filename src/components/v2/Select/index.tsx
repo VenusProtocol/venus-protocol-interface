@@ -1,90 +1,104 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import { SelectChangeEvent } from '@mui/material/Select';
+import { MenuProps } from '@mui/material/Menu';
 import { Select as MuiSelect } from '@mui/material';
 import Typography from '@mui/material/Typography';
-
+import { useIsSmDown } from 'hooks/responsive';
 import { Icon } from '../Icon';
 import { TextButton } from '../Button';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
-type Option = {
+interface IOption {
   value: string;
   label: string;
-};
-
-interface ISelectProps {
-  className?: string;
-  options: Option[];
 }
 
-const DEFAULT_OPTION = {
-  value: '',
-  label: 'All',
-};
+export interface ISelectProps {
+  className?: string;
+  options: IOption[];
+  value: string | undefined;
+  onChange: (e: SelectChangeEvent) => void;
+  ariaLabel: string;
+  title: string;
+}
 
-export const Select = ({ className, options }: ISelectProps) => {
-  const [selectedValue, setSelectedValue] = React.useState(DEFAULT_OPTION.value);
-  const [isOpened, setIsOpened] = useState(false);
+export const Select: React.FC<ISelectProps> = ({
+  className,
+  options,
+  value,
+  onChange,
+  ariaLabel,
+  title,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
   const styles = useStyles();
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelectedValue(event.target.value as string);
-  };
+  const isSmDown = useIsSmDown();
 
   const handleClose = () => {
-    setIsOpened(false);
+    setIsOpen(false);
   };
 
   const handleOpen = () => {
-    setIsOpened(true);
+    setIsOpen(true);
   };
 
-  return (
-    <FormControl fullWidth hiddenLabel>
-      <MuiSelect
-        open={isOpened}
-        onClose={handleClose}
-        onOpen={handleOpen}
-        className={className}
-        css={styles.root({ isOpened })}
-        value={selectedValue}
-        onChange={handleChange}
-        displayEmpty
-        inputProps={{ 'aria-label': 'Select' }}
-        IconComponent={() => (
-          <Icon css={styles.getArrowIcon({ isMenuOpened: isOpened })} name="arrowDown" />
-        )}
-        MenuProps={{
-          PaperProps: {
-            sx: styles.menuWrapper,
-          },
-          MenuListProps: {
-            sx: styles.menuList,
-          },
-        }}
-      >
-        <div css={styles.mobileHeader}>
-          <Typography variant="h4">Select Type</Typography>
+  const menuProps = useMemo(() => {
+    const mobileStyles: Partial<MenuProps> = {
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'center',
+      },
+      anchorReference: 'none',
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'center',
+      },
+    };
+    return {
+      PaperProps: {
+        sx: styles.menuWrapper,
+      },
+      ...(isSmDown ? mobileStyles : {}),
+    };
+  }, [isSmDown]);
 
-          <TextButton css={styles.closeMenuButton} onClick={handleClose}>
-            <Icon name="close" />
-          </TextButton>
-        </div>
-        {[DEFAULT_OPTION, ...options].map(({ value, label }) => (
-          <MenuItem
-            disableRipple
-            css={styles.menuItem}
-            key={value}
-            classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
-            value={value}
-          >
-            {label}
-          </MenuItem>
-        ))}
-      </MuiSelect>
-    </FormControl>
+  return (
+    <MuiSelect
+      open={isOpen}
+      onClose={handleClose}
+      onOpen={handleOpen}
+      className={className}
+      css={styles.root({ isOpened: isOpen })}
+      value={value}
+      onChange={onChange}
+      displayEmpty
+      inputProps={{ 'aria-label': ariaLabel }}
+      IconComponent={() => (
+        <Icon css={styles.getArrowIcon({ isMenuOpened: isOpen })} name="arrowDown" />
+      )}
+      MenuProps={menuProps}
+      autoWidth={isSmDown}
+    >
+      <div css={styles.mobileHeader}>
+        <Typography variant="h4">{title}</Typography>
+
+        <TextButton css={styles.closeMenuButton} onClick={handleClose}>
+          <Icon name="close" />
+        </TextButton>
+      </div>
+      {options.map(({ value: v, label }) => (
+        <MenuItem
+          disableRipple
+          css={styles.menuItem}
+          key={v}
+          classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
+          value={v}
+        >
+          {label}
+        </MenuItem>
+      ))}
+    </MuiSelect>
   );
 };
