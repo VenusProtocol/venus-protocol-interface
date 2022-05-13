@@ -53,7 +53,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         ? BigNumber.minimum(userBalanceWei, userMintedWei)
         : new BigNumber(0);
 
-    return convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toFixed();
+    return convertWeiToCoins({ valueWei: limitWei, tokenId: VAI_ID }).toFixed();
   }, [userBalanceWei?.toFixed(), userMintedWei?.toFixed()]);
 
   // Convert minted wei into VAI
@@ -77,7 +77,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       // Display successful transaction modal
       openSuccessfulTransactionModal({
         title: t('mintRepayVai.repayVai.successfulTransactionModal.title'),
-        message: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
+        content: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           tokenId: 'xvs' as TokenId,

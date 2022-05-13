@@ -151,16 +151,16 @@ export const formatCoinsToReadableValue = ({
 type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 
 export function convertWeiToCoins<T extends boolean | undefined = false>({
-  value,
+  valueWei,
   tokenId,
   returnInReadableFormat = false,
 }: {
-  value: BigNumber;
+  valueWei: BigNumber;
   tokenId: TokenId;
   returnInReadableFormat?: T;
 }): ConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
-  const valueCoins = value
+  const valueCoins = valueWei
     .dividedBy(new BigNumber(10).pow(tokenDecimals))
     .decimalPlaces(tokenDecimals);
 

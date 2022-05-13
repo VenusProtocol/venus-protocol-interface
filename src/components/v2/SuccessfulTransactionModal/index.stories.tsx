@@ -18,11 +18,21 @@ export const InModal = () => (
     isOpened
     handleClose={noop}
     title="Your borrow was successful"
-    message="You successfully borrowed"
+    content="You successfully borrowed"
     transactionHash="0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63"
     amount={{
       valueWei: new BigNumber('100000000000000000000'),
       tokenId: 'xvs' as TokenId,
     }}
+  />
+);
+
+export const WithChildrenNoMessageModal = () => (
+  <SuccessfulTransactionModal
+    isOpened
+    handleClose={noop}
+    title="Your borrow was successful"
+    transactionHash="0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63"
+    content={<div>Custom Content</div>}
   />
 );
