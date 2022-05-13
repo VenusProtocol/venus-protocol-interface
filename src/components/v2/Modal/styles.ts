@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-const headerIconSize = '35px';
-
 export const useModalStyles = ({
   hasTitleComponent,
   noHorizontalPadding,
@@ -50,25 +48,25 @@ export const useModalStyles = ({
     `,
     backArrow: css`
       transform: rotate(180deg);
-      height: ${headerIconSize};
-      width: ${headerIconSize};
+      height: ${theme.shape.iconSize.xLarge};
+      width: ${theme.shape.iconSize.xLarge};
     `,
     titleComponent: css`
       align-self: center;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: ${headerIconSize};
-      padding-left: ${headerIconSize};
-      padding-right: ${headerIconSize};
+      min-height: ${theme.shape.iconSize.xLarge};
+      padding-left: ${theme.shape.iconSize.xLarge};
+      padding-right: ${theme.shape.iconSize.xLarge};
     `,
     closeIcon: css`
       right: ${theme.spacing(6)};
       top: ${theme.spacing(6)};
       position: absolute;
-      height: ${headerIconSize};
-      width: ${headerIconSize};
-      min-width: ${headerIconSize};
+      height: ${theme.shape.iconSize.xLarge};
+      width: ${theme.shape.iconSize.xLarge};
+      min-width: ${theme.shape.iconSize.xLarge};
       margin-left: auto;
       padding: 0;
       background-color: ${theme.palette.background.paper};

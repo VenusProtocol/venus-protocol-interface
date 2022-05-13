@@ -42,6 +42,7 @@ declare module '@mui/material/styles' {
     iconSize: {
       medium: number;
       large: number;
+      xLarge: number;
     };
     footerHeight: string;
     bannerHeight: string;
