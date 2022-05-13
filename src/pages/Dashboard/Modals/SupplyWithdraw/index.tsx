@@ -148,6 +148,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
                 key={`form-${type}`}
                 asset={asset}
                 assets={assets}
+                type={type}
                 tokenInfo={tokenInfo}
                 userTotalBorrowBalance={userTotalBorrowBalance}
                 userTotalBorrowLimit={userTotalBorrowLimit}
