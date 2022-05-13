@@ -51,6 +51,7 @@ export const useStyles = () => {
     legendColors: {
       supplyApy: theme.palette.interactive.success,
       borrowApy: theme.palette.interactive.error,
+      utilizationRate: theme.palette.interactive.primary,
     },
     apyChart: css`
       margin-right: ${theme.spacing(-2.5)};

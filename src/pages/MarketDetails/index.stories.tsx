@@ -1,8 +1,8 @@
 import React from 'react';
-import BigNumber from 'bignumber.js';
+
 import { ComponentMeta } from '@storybook/react';
 import { withRouter, withProvider } from 'stories/decorators';
-import { IApyChartProps } from 'components';
+import { fakeApyChartData, fakeInterestRateChartData } from './mockData';
 import { MarketDetailsUi } from '.';
 
 export default {
@@ -11,60 +11,17 @@ export default {
   decorators: [withRouter, withProvider],
 } as ComponentMeta<typeof MarketDetailsUi>;
 
-const totalBorrowBalanceCents = 100000000;
-const borrowApyPercentage = 2.24;
-const borrowDistributionApyPercentage = 1.1;
-const totalSupplyBalanceCents = 100000000000;
-const supplyApyPercentage = 4.56;
-const supplyDistributionApyPercentage = 0.45;
-
-const chartData: IApyChartProps['data'] = [
-  {
-    apyPercentage: 40,
-    timestampMs: new Date('2022-05-03T10:59:44.330Z').getTime(),
-    balanceCents: new BigNumber(10000),
-  },
-  {
-    apyPercentage: 30,
-    timestampMs: new Date('2022-05-04T10:59:44.330Z').getTime(),
-    balanceCents: new BigNumber(10000000),
-  },
-  {
-    apyPercentage: 20,
-    timestampMs: new Date('2022-05-05T10:59:44.330Z').getTime(),
-    balanceCents: new BigNumber(100000),
-  },
-  {
-    apyPercentage: 27,
-    timestampMs: new Date('2022-05-06T10:59:44.330Z').getTime(),
-    balanceCents: new BigNumber(100000),
-  },
-  {
-    apyPercentage: 18,
-    timestampMs: new Date('2022-05-07T10:59:44.330Z').getTime(),
-    balanceCents: new BigNumber(10000000000),
-  },
-  {
-    apyPercentage: 23,
-    timestampMs: new Date('2022-05-08T10:59:44.330Z').getTime(),
-    balanceCents: new BigNumber(10000000),
-  },
-  {
-    apyPercentage: 34,
-    timestampMs: new Date('2022-05-09T10:59:44.330Z').getTime(),
-    balanceCents: new BigNumber(100000),
-  },
-];
-
 export const Default = () => (
   <MarketDetailsUi
-    totalBorrowBalanceCents={totalBorrowBalanceCents}
-    borrowApyPercentage={borrowApyPercentage}
-    borrowDistributionApyPercentage={borrowDistributionApyPercentage}
-    totalSupplyBalanceCents={totalSupplyBalanceCents}
-    supplyApyPercentage={supplyApyPercentage}
-    supplyDistributionApyPercentage={supplyDistributionApyPercentage}
-    supplyChartData={chartData}
-    borrowChartData={chartData}
+    totalBorrowBalanceCents={100000000}
+    borrowApyPercentage={2.24}
+    borrowDistributionApyPercentage={1.1}
+    totalSupplyBalanceCents={100000000000}
+    supplyApyPercentage={4.56}
+    supplyDistributionApyPercentage={0.45}
+    currentUtilizationRate={46}
+    supplyChartData={fakeApyChartData}
+    borrowChartData={fakeApyChartData}
+    interestRateChartData={fakeInterestRateChartData}
   />
 );

@@ -169,14 +169,18 @@
       },
       "title": "Borrow info"
     },
+    "interestRateModel": {
+      "title": "Interest Rate Model"
+    },
+    "legends": {
+      "borrowApy": "Borrow APY",
+      "supplyApy": "Supply APY",
+      "utilizationRate": "Utilization rate"
+    },
     "marketInfo": {
       "title": "Market info"
     },
     "supplyInfo": {
-      "legends": {
-        "borrowApy": "Borrow APY",
-        "supplyApy": "Supply APY"
-      },
       "stats": {
         "apy": "APY",
         "distributionApy": "Distribution APY",

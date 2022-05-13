@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import BigNumber from 'bignumber.js';
 
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
-import { ApyChart, IApyChartProps } from 'components';
+import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
+import { fakeApyChartData, fakeInterestRateChartData } from './mockData';
 import MarketInfo from './MarketInfo';
 import Card, { IStat, ILegend } from './Card';
 import { useStyles } from './styles';
@@ -16,8 +16,10 @@ export interface IMarketDetailsUiProps {
   totalSupplyBalanceCents: number;
   supplyApyPercentage: number;
   supplyDistributionApyPercentage: number;
+  currentUtilizationRate: number;
   supplyChartData: IApyChartProps['data'];
   borrowChartData: IApyChartProps['data'];
+  interestRateChartData: IInterestRateChartProps['data'];
 }
 
 export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
@@ -27,13 +29,15 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
   totalSupplyBalanceCents,
   supplyApyPercentage,
   supplyDistributionApyPercentage,
+  currentUtilizationRate,
   supplyChartData,
   borrowChartData,
+  interestRateChartData,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const borrowInfoStats: IStat[] = [
+  const supplyInfoStats: IStat[] = [
     {
       label: t('marketDetails.supplyInfo.stats.totalSupply'),
       value: formatCentsToReadableValue({
@@ -51,14 +55,14 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
   ];
 
-  const borrowInfoLegends: ILegend[] = [
+  const supplyInfoLegends: ILegend[] = [
     {
-      label: t('marketDetails.supplyInfo.legends.supplyApy'),
+      label: t('marketDetails.legends.supplyApy'),
       color: styles.legendColors.supplyApy,
     },
   ];
 
-  const supplyInfoStats: IStat[] = [
+  const borrowInfoStats: IStat[] = [
     {
       label: t('marketDetails.borrowInfo.stats.totalBorrow'),
       value: formatCentsToReadableValue({
@@ -76,10 +80,25 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
   ];
 
-  const supplyInfoLegends: ILegend[] = [
+  const borrowInfoLegends: ILegend[] = [
     {
-      label: t('marketDetails.supplyInfo.legends.borrowApy'),
+      label: t('marketDetails.legends.borrowApy'),
       color: styles.legendColors.borrowApy,
+    },
+  ];
+
+  const interestRateModelLegends: ILegend[] = [
+    {
+      label: t('marketDetails.legends.utilizationRate'),
+      color: styles.legendColors.utilizationRate,
+    },
+    {
+      label: t('marketDetails.legends.borrowApy'),
+      color: styles.legendColors.borrowApy,
+    },
+    {
+      label: t('marketDetails.legends.supplyApy'),
+      color: styles.legendColors.supplyApy,
     },
   ];
 
@@ -89,8 +108,8 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         <Card
           title={t('marketDetails.supplyInfo.title')}
           css={styles.graphCard}
-          stats={borrowInfoStats}
-          legends={borrowInfoLegends}
+          stats={supplyInfoStats}
+          legends={supplyInfoLegends}
         >
           <div css={styles.apyChart}>
             <ApyChart data={supplyChartData} type="supply" />
@@ -100,11 +119,24 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         <Card
           title={t('marketDetails.borrowInfo.title')}
           css={styles.graphCard}
-          stats={supplyInfoStats}
-          legends={supplyInfoLegends}
+          stats={borrowInfoStats}
+          legends={borrowInfoLegends}
         >
           <div css={styles.apyChart}>
             <ApyChart data={borrowChartData} type="borrow" />
+          </div>
+        </Card>
+
+        <Card
+          title={t('marketDetails.interestRateModel.title')}
+          css={styles.graphCard}
+          legends={interestRateModelLegends}
+        >
+          <div css={styles.apyChart}>
+            <InterestRateChart
+              data={interestRateChartData}
+              currentUtilizationRate={currentUtilizationRate}
+            />
           </div>
         </Card>
       </div>
@@ -125,82 +157,7 @@ const MarketDetails: React.FC = () => {
   const totalSupplyBalanceCents = 100000000000;
   const supplyApyPercentage = 4.56;
   const supplyDistributionApyPercentage = 0.45;
-
-  const supplyChartData: IApyChartProps['data'] = [
-    {
-      apyPercentage: 40,
-      timestampMs: new Date('2022-05-03T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000),
-    },
-    {
-      apyPercentage: 30,
-      timestampMs: new Date('2022-05-04T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000000),
-    },
-    {
-      apyPercentage: 20,
-      timestampMs: new Date('2022-05-05T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(100000),
-    },
-    {
-      apyPercentage: 27,
-      timestampMs: new Date('2022-05-06T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(100000),
-    },
-    {
-      apyPercentage: 18,
-      timestampMs: new Date('2022-05-07T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000000000),
-    },
-    {
-      apyPercentage: 23,
-      timestampMs: new Date('2022-05-08T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000000),
-    },
-    {
-      apyPercentage: 34,
-      timestampMs: new Date('2022-05-09T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(100000),
-    },
-  ];
-
-  const borrowChartData: IApyChartProps['data'] = [
-    {
-      apyPercentage: 40,
-      timestampMs: new Date('2022-05-03T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000),
-    },
-    {
-      apyPercentage: 30,
-      timestampMs: new Date('2022-05-04T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000000),
-    },
-    {
-      apyPercentage: 20,
-      timestampMs: new Date('2022-05-05T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(100000),
-    },
-    {
-      apyPercentage: 27,
-      timestampMs: new Date('2022-05-06T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(100000),
-    },
-    {
-      apyPercentage: 18,
-      timestampMs: new Date('2022-05-07T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000000000),
-    },
-    {
-      apyPercentage: 23,
-      timestampMs: new Date('2022-05-08T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(10000000),
-    },
-    {
-      apyPercentage: 34,
-      timestampMs: new Date('2022-05-09T10:59:44.330Z').getTime(),
-      balanceCents: new BigNumber(100000),
-    },
-  ];
+  const currentUtilizationRate = 46;
 
   return (
     <MarketDetailsUi
@@ -210,8 +167,10 @@ const MarketDetails: React.FC = () => {
       totalSupplyBalanceCents={totalSupplyBalanceCents}
       supplyApyPercentage={supplyApyPercentage}
       supplyDistributionApyPercentage={supplyDistributionApyPercentage}
-      supplyChartData={supplyChartData}
-      borrowChartData={borrowChartData}
+      currentUtilizationRate={currentUtilizationRate}
+      supplyChartData={fakeApyChartData}
+      borrowChartData={fakeApyChartData}
+      interestRateChartData={fakeInterestRateChartData}
     />
   );
 };
