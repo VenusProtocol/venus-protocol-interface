@@ -48,7 +48,7 @@ jobs:
         run: yarn lint-styles
 
   storybooks:
-    runs-on: self-hosted
+    runs-on: [self-hosted,fe]
     container:
       image: node:14.15.1-buster
     steps:
