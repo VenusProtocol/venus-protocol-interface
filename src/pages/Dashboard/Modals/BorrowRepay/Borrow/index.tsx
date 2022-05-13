@@ -83,7 +83,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
       // Display successful transaction modal
       openSuccessfulTransactionModal({
         title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
-        message: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
+        content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           tokenId: asset.id,

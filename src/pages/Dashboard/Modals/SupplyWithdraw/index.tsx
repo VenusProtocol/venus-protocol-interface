@@ -246,7 +246,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
 
     openSuccessfulTransactionModal({
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
-      message: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
+      content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
         valueWei: convertCoinsToWei({ value: new BigNumber(value), tokenId: asset.id }),
         tokenId: asset.id,
@@ -274,7 +274,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     if (transactionHash) {
       openSuccessfulTransactionModal({
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
-        message: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
+        content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
         amount: {
           valueWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
           tokenId: asset.id,

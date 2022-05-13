@@ -12,7 +12,7 @@ const getReadableFeeVai = ({
 }) => {
   const feeWei = new BigNumber(valueWei || 0).multipliedBy(mintFeePercentage).dividedBy(100);
   return convertWeiToCoins({
-    value: feeWei,
+    valueWei: feeWei,
     tokenId: VAI_ID,
     returnInReadableFormat: true,
   });

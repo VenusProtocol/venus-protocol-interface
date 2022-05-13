@@ -68,7 +68,7 @@ export { default as useRepayVToken } from './mutations/useRepayVToken';
 
 export { default as withdrawXvs } from './mutations/withdrawXvs';
 export * from './mutations/withdrawXvs';
-export { default as useWithdrawVrt } from './mutations/useWithdrawXvs';
+export { default as useWithdrawXvs } from './mutations/useWithdrawXvs';
 
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
@@ -137,4 +137,4 @@ export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversi
 
 export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';
-export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
+export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithdrawableAmount';

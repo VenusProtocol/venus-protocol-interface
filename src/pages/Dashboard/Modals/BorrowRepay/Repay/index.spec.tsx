@@ -290,7 +290,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
         tokenId: fakeAsset.id,
         valueWei: expectedAmountWei,
       },
-      message: expect.any(String),
+      content: expect.any(String),
       title: expect.any(String),
     });
   });

@@ -39,6 +39,8 @@ export const useStyles = () => {
     inputLabel: css`
       color: ${theme.palette.text.primary};
       text-align: left;
+    `,
+    fontWeight600: css`
       font-weight: 600;
     `,
     whiteLabel: css`
@@ -49,13 +51,6 @@ export const useStyles = () => {
       width: 100%;
       ${theme.breakpoints.down('md')} {
         margin-bottom: ${theme.spacing(6)};
-      }
-    `,
-    progressBar: css`
-      width: 100%;
-      margin-bottom: ${theme.spacing(12)};
-      ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(8)};
       }
     `,
     submitButton: css`
@@ -75,6 +70,24 @@ export const useStyles = () => {
     `,
     smallSpacer: css`
       margin-top: 40px;
+    `,
+    successMessage: css`
+      color: ${theme.palette.text.secondary};
+    `,
+    successModalConversionAmounts: css`
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    `,
+    successModalToken: css`
+      margin-right: ${theme.spacing(2.5)};
+      span {
+        font-weight: 600;
+      }
+    `,
+    successModalArrow: css`
+      margin: 0 ${theme.spacing(3.5)};
     `,
   };
 };

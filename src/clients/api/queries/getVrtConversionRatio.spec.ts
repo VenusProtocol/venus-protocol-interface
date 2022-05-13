@@ -24,7 +24,7 @@ describe('api/queries/getVrtConversionRatio', () => {
     }
   });
 
-  test('returns the conversion end time on success', async () => {
+  test('returns the conversion ratio on success', async () => {
     const fakeOutput: GetVrtConversionRatioOutput = '0.5';
 
     const callMock = jest.fn(async () => fakeOutput);

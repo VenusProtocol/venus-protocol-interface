@@ -1,4 +1,5 @@
 import { XvsVesting } from 'types/contracts';
+import BigNumber from 'bignumber.js';
 import getXvsWithdrawableAmount, {
   IGetXvsWithdrawableAmountOutput,
 } from './getXvsWithdrawableAmount';
@@ -29,11 +30,11 @@ describe('api/queries/getXvsBalance', () => {
     }
   });
 
-  test('returns the conversion end time on success', async () => {
+  test('returns the withdrawable amount on success', async () => {
     const fakeOutput: IGetXvsWithdrawableAmountOutput = {
-      totalWithdrawableAmount: '500000',
-      totalVestedAmount: '1000',
-      totalWithdrawnAmount: '0',
+      totalWithdrawableAmount: new BigNumber('500000'),
+      totalVestedAmount: new BigNumber('1000'),
+      totalWithdrawnAmount: new BigNumber('0'),
     };
 
     const callMock = jest.fn(async () => fakeOutput);
@@ -55,6 +56,6 @@ describe('api/queries/getXvsBalance', () => {
     expect(xvsWithdrawableAmountMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(xvsWithdrawableAmountMock).toHaveBeenCalledWith(fakeAccountAddress);
-    expect(response).toBe(fakeOutput);
+    expect(response).toStrictEqual(fakeOutput);
   });
 });

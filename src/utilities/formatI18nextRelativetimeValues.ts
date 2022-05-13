@@ -30,7 +30,7 @@ type FormatI18nextRelativetimeValuesReturn =
 // t('convertVrt.hours_other') t('convertVrt.days_one')
 // t('convertVrt.days_other')
 const formatI18nextRelativetimeValues = (
-  vrtConversionEndTime: string | undefined,
+  vrtConversionEndTime: Date | undefined,
 ): FormatI18nextRelativetimeValuesReturn => {
   if (vrtConversionEndTime === undefined) {
     return {
@@ -38,32 +38,41 @@ const formatI18nextRelativetimeValues = (
       relativeTimeTranslationKey: 'convertVrt.remainingTimeMissing',
     };
   }
-  const MINUTE_IN_MILISECONDS = 60 * 1000;
-  const HOUR_IN_MILISECONDS = 60 * MINUTE_IN_MILISECONDS;
-  const DAY_IN_MILISECONDS = 24 * HOUR_IN_MILISECONDS;
-  const vestingTimeRemainingMs = new Date().getTime() - +vrtConversionEndTime * 1000;
+  const MINUTE_IN_MILLISECONDS = 60 * 1000;
+  const HOUR_IN_MILLISECONDS = 60 * MINUTE_IN_MILLISECONDS;
+  const DAY_IN_MILLISECONDS = 24 * HOUR_IN_MILLISECONDS;
+  const vestingTimeRemainingMs = vrtConversionEndTime.getTime() - Date.now();
   let relativeTimeValues: FormatI18nextRelativetimeValuesReturn = {
-    realtiveTimeFormatValues: { count: Math.floor(vestingTimeRemainingMs / DAY_IN_MILISECONDS) },
+    realtiveTimeFormatValues: { count: Math.floor(vestingTimeRemainingMs / DAY_IN_MILLISECONDS) },
     relativeTimeTranslationKey: 'convertVrt.remainingTimeDays',
   };
-  if (vestingTimeRemainingMs === HOUR_IN_MILISECONDS) {
-    relativeTimeValues = {
-      realtiveTimeFormatValues: { count: Math.floor(vestingTimeRemainingMs / HOUR_IN_MILISECONDS) },
-      relativeTimeTranslationKey: 'convertVrt.remainingTimeHours',
-    };
-  } else if (vestingTimeRemainingMs < HOUR_IN_MILISECONDS) {
+  if (vestingTimeRemainingMs < 0) {
     relativeTimeValues = {
       realtiveTimeFormatValues: {
-        count: Math.floor(vestingTimeRemainingMs / MINUTE_IN_MILISECONDS),
+        count: 0,
       },
       relativeTimeTranslationKey: 'convertVrt.remainingTimeMinutes',
     };
-  } else if (vestingTimeRemainingMs < DAY_IN_MILISECONDS) {
+  } else if (vestingTimeRemainingMs === HOUR_IN_MILLISECONDS) {
     relativeTimeValues = {
       realtiveTimeFormatValues: {
-        hours: Math.floor(vestingTimeRemainingMs / HOUR_IN_MILISECONDS),
+        count: Math.floor(vestingTimeRemainingMs / HOUR_IN_MILLISECONDS),
+      },
+      relativeTimeTranslationKey: 'convertVrt.remainingTimeHours',
+    };
+  } else if (vestingTimeRemainingMs < HOUR_IN_MILLISECONDS) {
+    relativeTimeValues = {
+      realtiveTimeFormatValues: {
+        count: Math.floor(vestingTimeRemainingMs / MINUTE_IN_MILLISECONDS),
+      },
+      relativeTimeTranslationKey: 'convertVrt.remainingTimeMinutes',
+    };
+  } else if (vestingTimeRemainingMs < DAY_IN_MILLISECONDS) {
+    relativeTimeValues = {
+      realtiveTimeFormatValues: {
+        hours: Math.floor(vestingTimeRemainingMs / HOUR_IN_MILLISECONDS),
         minutes: Math.floor(
-          ((vestingTimeRemainingMs % HOUR_IN_MILISECONDS) / HOUR_IN_MILISECONDS) * 60,
+          ((vestingTimeRemainingMs % HOUR_IN_MILLISECONDS) / HOUR_IN_MILLISECONDS) * 60,
         ),
       },
       relativeTimeTranslationKey: 'convertVrt.remainingTimeHoursAndMinutes',
