@@ -12,7 +12,7 @@ import { useStyles } from './styles';
 
 export interface ISuccessfulTransactionModalProps extends Omit<IModalProps, 'children'> {
   title: string;
-  message: string;
+  content?: string | React.ReactElement;
   transactionHash: string;
   amount?: {
     tokenId: TokenId;
@@ -24,7 +24,7 @@ export interface ISuccessfulTransactionModalProps extends Omit<IModalProps, 'chi
 export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalProps> = ({
   className,
   title,
-  message,
+  content,
   amount,
   transactionHash,
   isOpened,
@@ -40,17 +40,18 @@ export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalPro
         <h3 css={styles.title}>{title}</h3>
 
         <div css={styles.messageContainer}>
-          <Typography variant="small1" component="p">
-            {message}
-          </Typography>
-
+          {!!content && (
+            <Typography variant="small1" component="p">
+              {content}
+            </Typography>
+          )}
           {amount && (
             <div css={styles.amountContainer}>
               <Icon name={amount.tokenId as IconName} css={styles.amountTokenIcon} />
 
               <Typography variant="small1" component="span">
                 {convertWeiToCoins({
-                  value: amount.valueWei,
+                  valueWei: amount.valueWei,
                   tokenId: amount.tokenId,
                   returnInReadableFormat: true,
                 })}

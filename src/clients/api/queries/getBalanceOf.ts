@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { VrtToken, XvsToken, Bep20, VaiToken } from 'types/contracts';
 
 export interface IGetBalanceOfInput {
@@ -5,12 +6,14 @@ export interface IGetBalanceOfInput {
   accountAddress: string;
 }
 
-export type GetBalanceOfOutput = string;
+export type GetBalanceOfOutput = BigNumber;
 
-const getBalanceOf = ({
+const getBalanceOf = async ({
   tokenContract,
   accountAddress,
-}: IGetBalanceOfInput): Promise<GetBalanceOfOutput> =>
-  tokenContract.methods.balanceOf(accountAddress).call();
+}: IGetBalanceOfInput): Promise<GetBalanceOfOutput> => {
+  const resp = await tokenContract.methods.balanceOf(accountAddress).call();
+  return new BigNumber(resp);
+};
 
 export default getBalanceOf;

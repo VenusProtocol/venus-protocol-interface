@@ -268,7 +268,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
             tokenId: customFakeAsset.id,
             valueWei: expectedAmountWei,
           },
-          message: en.supplyWithdraw.successfulSupplyTransactionModal.message,
+          content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
           title: en.supplyWithdraw.successfulSupplyTransactionModal.title,
         }),
       );
@@ -330,7 +330,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
             tokenId: customFakeAsset.id,
             valueWei: expectedAmountWei,
           },
-          message: en.supplyWithdraw.successfulSupplyTransactionModal.message,
+          content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
           title: en.supplyWithdraw.successfulSupplyTransactionModal.title,
         }),
       );

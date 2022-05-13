@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
@@ -15,11 +16,11 @@ const useConvertToReadableCoinString = ({
     () =>
       valueWei
         ? convertWeiToCoins({
-            value: valueWei,
+            valueWei,
             tokenId,
             returnInReadableFormat: true,
-          }).toString()
-        : '-',
+          })
+        : PLACEHOLDER_KEY,
     [valueWei?.toString()],
   );
 

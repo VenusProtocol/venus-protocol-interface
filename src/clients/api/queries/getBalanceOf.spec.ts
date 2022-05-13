@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { VrtToken } from 'types/contracts';
 import getBalanceOf, { GetBalanceOfOutput } from './getBalanceOf';
 
@@ -28,7 +29,7 @@ describe('api/queries/getBalanceOf', () => {
   });
 
   test('returns the Allowance on success', async () => {
-    const fakeOutput: GetBalanceOfOutput = '0';
+    const fakeOutput: GetBalanceOfOutput = new BigNumber('0');
 
     const callMock = jest.fn(async () => fakeOutput);
     const vrtBalanceOfMock = jest.fn(() => ({
@@ -49,6 +50,6 @@ describe('api/queries/getBalanceOf', () => {
     expect(vrtBalanceOfMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(vrtBalanceOfMock).toHaveBeenCalledWith(fakeAccountAddress);
-    expect(response).toBe(fakeOutput);
+    expect(response).toStrictEqual(fakeOutput);
   });
 });

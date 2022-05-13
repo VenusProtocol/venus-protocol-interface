@@ -50,7 +50,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   const vaiToken = getToken(VAI_ID);
   const limitTokens = useMemo(
-    () => (limitWei ? convertWeiToCoins({ value: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
+    () => (limitWei ? convertWeiToCoins({ valueWei: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
     [limitWei?.toFixed()],
   );
 
@@ -90,7 +90,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
       // Display successful transaction modal
       openSuccessfulTransactionModal({
         title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
-        message: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
+        content: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           tokenId: 'xvs' as TokenId,

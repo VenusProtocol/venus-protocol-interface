@@ -43,7 +43,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
       // Display successful transaction modal
       openSuccessfulTransactionModal({
         title: t('claimXvsRewardButton.successfulTransactionModal.title'),
-        message: t('claimXvsRewardButton.successfulTransactionModal.message'),
+        content: t('claimXvsRewardButton.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           tokenId: 'xvs' as TokenId,
@@ -58,7 +58,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   };
 
   const readableAmount = convertWeiToCoins({
-    value: amountWei,
+    valueWei: amountWei,
     tokenId: XVS_SYMBOL,
     returnInReadableFormat: true,
   });

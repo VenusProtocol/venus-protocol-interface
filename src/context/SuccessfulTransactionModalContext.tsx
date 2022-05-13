@@ -8,7 +8,7 @@ import {
 
 type OpenSuccessfulTransactionModalInput = Pick<
   ISuccessfulTransactionModalProps,
-  'title' | 'message' | 'transactionHash' | 'amount'
+  'title' | 'content' | 'transactionHash' | 'amount'
 >;
 
 export interface ISuccessfulTransactionModalValue {

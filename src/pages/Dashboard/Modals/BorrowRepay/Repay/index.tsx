@@ -100,7 +100,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
       // Display successful transaction modal
       openSuccessfulTransactionModal({
         title: t('borrowRepayModal.repay.successfulTransactionModal.title'),
-        message: t('borrowRepayModal.repay.successfulTransactionModal.message'),
+        content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
           tokenId: asset.id,

@@ -25,9 +25,8 @@ describe('api/queries/getVrtConversionEndTime', () => {
   });
 
   test('returns the conversion end time on success', async () => {
-    const fakeOutput: GetVrtConversionEndTimeOutput = '365';
-
-    const callMock = jest.fn(async () => fakeOutput);
+    const fakeOutput: GetVrtConversionEndTimeOutput = new Date(1678859525000);
+    const callMock = jest.fn(async () => 1678859525);
     const vrtConversionEndtimeMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -45,6 +44,6 @@ describe('api/queries/getVrtConversionEndTime', () => {
     expect(vrtConversionEndtimeMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledWith();
-    expect(response).toBe(fakeOutput);
+    expect(response).toStrictEqual(fakeOutput);
   });
 });
