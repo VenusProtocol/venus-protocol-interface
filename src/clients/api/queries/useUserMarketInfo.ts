@@ -39,10 +39,10 @@ const useUserMarketInfo = ({
     { account: accountAddress || '', vtAddresses },
     { placeholderData: [], enabled: Boolean(accountAddress) },
   );
-  const { data: vTokenBalancesTreasury = [] } = useGetVTokenBalancesAll(
-    { account: TREASURY_ADDRESS, vtAddresses },
-    { placeholderData: [], enabled: Boolean(accountAddress) },
-  );
+  const { data: vTokenBalancesTreasury = [] } = useGetVTokenBalancesAll({
+    account: TREASURY_ADDRESS,
+    vtAddresses,
+  });
 
   let balances: Record<string, IGetVTokenBalancesAllOutput[number]> = {};
   balances = indexBy(
