@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withRouter, withProvider, withCenterStory } from 'stories/decorators';
-import Card, { ILegend, IStat } from '.';
+import Card, { ICardProps } from '.';
 
 export default {
   title: 'Pages/MarketDetail/Card',
@@ -16,7 +16,7 @@ export default {
 
 export const Default = () => <Card title="Card title">Children</Card>;
 
-const legends: ILegend[] = [
+const legends: ICardProps['legends'] = [
   {
     label: 'Borrow APY',
     color: 'red',
@@ -33,7 +33,7 @@ export const WithLegends = () => (
   </Card>
 );
 
-const stats: IStat[] = [
+const stats: ICardProps['stats'] = [
   {
     label: 'Total supply',
     value: '24M',

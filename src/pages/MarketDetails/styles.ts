@@ -8,7 +8,7 @@ export const useStyles = () => {
     container: css`
       display: flex;
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: block;
       }
     `,
@@ -21,7 +21,7 @@ export const useStyles = () => {
         margin-right: ${theme.spacing(4)};
       }
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         :not(:first-of-type) {
           margin-left: 0;
         }
@@ -42,7 +42,7 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(6)};
       }
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         :last-of-type {
           margin-bottom: ${theme.spacing(6)};
         }

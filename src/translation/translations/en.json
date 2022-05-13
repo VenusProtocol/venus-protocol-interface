@@ -178,6 +178,20 @@
       "utilizationRate": "Utilization rate"
     },
     "marketInfo": {
+      "stats": {
+        "borrowCapLabel": "Borrow cap",
+        "borrowerCountLabel": "# of borrowers",
+        "collateralFactorLabel": "Collateral factor",
+        "dailyInterestsLabel": "Interest paid/day",
+        "exchangeRateLabel": "Exchange rate",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "marketLiquidityLabel": "Market liquidity",
+        "mintedTokensLabel": "{{vTokenSymbol}} minted",
+        "priceLabel": "Price",
+        "reserveFactorLabel": "Reserve factor",
+        "reserveTokensLabel": "Reserves",
+        "supplierCountLabel": "# of suppliers"
+      },
       "title": "Market info"
     },
     "supplyInfo": {

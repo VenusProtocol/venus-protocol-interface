@@ -17,7 +17,6 @@ export const useStyles = () => {
     `,
     row: css`
       display: flex;
-      align-items: center;
       margin-bottom: ${theme.spacing(6)};
     `,
     legend: css`
@@ -40,6 +39,11 @@ export const useStyles = () => {
     `,
     statLabel: css`
       margin-bottom: ${theme.spacing(1)};
+    `,
+    statValue: css`
+      ${theme.breakpoints.down('md')} {
+        font-size: ${theme.typography.small1.fontSize};
+      }
     `,
     getLegendColorIndicator: ({ color }: { color: string }) => css`
       background-color: ${color};

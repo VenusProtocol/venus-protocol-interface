@@ -3,16 +3,12 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
+import { IStat } from '../types';
 import { useStyles } from './styles';
 
 export interface ILegend {
   label: string;
   color: string;
-}
-
-export interface IStat {
-  label: string;
-  value: string | number;
 }
 
 export interface ICardProps {
@@ -33,7 +29,7 @@ const Card: React.FC<ICardProps> = ({ children, title, legends = [], stats = [],
         {legends.length > 0 && (
           <div css={styles.row}>
             {legends.map(legend => (
-              <div css={styles.legend}>
+              <div css={styles.legend} key={`card-${title}-legend-${legend.label}`}>
                 <div css={styles.getLegendColorIndicator({ color: legend.color })} />
 
                 <Typography css={styles.legendLabel} variant="small2">
@@ -48,12 +44,12 @@ const Card: React.FC<ICardProps> = ({ children, title, legends = [], stats = [],
       {stats.length > 0 && (
         <div css={styles.row}>
           {stats.map(stat => (
-            <div css={styles.stat}>
+            <div css={styles.stat} key={`card-${title}-legend-${stat.label}`}>
               <Typography variant="small2" component="div" css={styles.statLabel}>
                 {stat.label}
               </Typography>
 
-              <Typography variant="h4" component="div">
+              <Typography variant="h4" component="div" css={styles.statValue}>
                 {stat.value}
               </Typography>
             </div>
