@@ -6,7 +6,7 @@ import { useStyles } from './styles';
 interface ISpinnerProps {
   variant?: 'large' | 'small';
   autoplay?: boolean;
-  className: string;
+  className?: string;
 }
 
 export const Spinner: React.FC<ISpinnerProps> = ({
