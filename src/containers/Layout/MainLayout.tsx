@@ -66,21 +66,29 @@ const UstWarning = styled.div`
   display: inline-flex;
   height: 56px;
 
-  p {
-    color: rgba(0, 0, 0, 1);
+  > div {
     display: flex;
-    text-align: center;
+    align-items: center;
+  }
+
+  > div > p {
+    color: rgba(0, 0, 0, 1);
   }
 
   svg {
     display: flex;
     margin-right: 8px;
     align-self: center;
+
     @media only screen and (max-width: 768px) {
       height: 24px;
       width: 24px;
-      margin-right: 0;
     }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
   }
 `;
 
@@ -96,9 +104,18 @@ function MainLayout({ title = '', isHeader, children }: Props) {
   return (
     <>
       <UstWarning>
-        <Typography component="p" variant="small1">
+        <Typography component="div" variant="small1">
           <Icon name="attention" />
-          Venus is paused until LUNA and UST are deprecated as collateral.
+          <p>
+            Venus is paused until LUNA and UST are deprecated as collateral.{' '}
+            <a
+              href="https://blog.venus.io/venus-protocol-official-statement-regarding-luna-6eb45c3cb058"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read more.
+            </a>
+          </p>
         </Typography>
       </UstWarning>
 
