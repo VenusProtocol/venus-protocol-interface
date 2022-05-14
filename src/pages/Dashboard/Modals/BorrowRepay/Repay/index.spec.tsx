@@ -8,6 +8,7 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { useUserMarketInfo, repayNonBnbVToken } from 'clients/api';
+import MAX_UINT256 from 'constants/maxUint256';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -292,6 +293,39 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
       },
       content: expect.any(String),
       title: expect.any(String),
+    });
+  });
+
+  it('lets user close position with max uint256', async () => {
+    (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+
+    const { getByText } = renderComponent(
+      <Repay asset={fakeAsset} onClose={jest.fn()} isXvsEnabled />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
+    ).toBeDisabled();
+
+    // Press on max button
+    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
+
+    // Click on submit button
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
+    fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
+
+    await waitFor(() => expect(repayNonBnbVToken).toHaveBeenCalledTimes(1));
+    expect(repayNonBnbVToken).toHaveBeenCalledWith({
+      amountWei: MAX_UINT256,
+      fromAccountAddress: fakeAccountAddress,
     });
   });
 });

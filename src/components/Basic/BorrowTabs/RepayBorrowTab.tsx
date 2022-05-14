@@ -10,6 +10,7 @@ import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
+import MAX_UINT256 from 'constants/maxUint256';
 import { getBigNumber, formatToReadablePercentage, format } from 'utilities/common';
 import { Asset, Setting, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
@@ -83,7 +84,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
       setIsLoading(true);
       try {
         await tokenContract.methods
-          .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
+          .approve(asset.vtokenAddress, MAX_UINT256.toFixed())
           .send({ from: account.address });
         setIsEnabled(true);
       } catch (error) {
@@ -108,7 +109,7 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
       });
       if (asset.id !== 'bnb') {
         const repayAmount = amount.eq(asset.borrowBalance)
-          ? new BigNumber(2).pow(256).minus(1).toString(10)
+          ? MAX_UINT256.toFixed()
           : amount.times(new BigNumber(10).pow(asset.decimals)).integerValue().toString(10);
         try {
           await vbepContract.methods.repayBorrow(repayAmount).send({ from: account.address });

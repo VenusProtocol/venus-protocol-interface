@@ -1,5 +1,5 @@
-import BigNumber from 'bignumber.js';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
+import MAX_UINT256 from 'constants/maxUint256';
 import approveToken from './approveToken';
 
 describe('api/mutations/approveToken', () => {
@@ -18,7 +18,7 @@ describe('api/mutations/approveToken', () => {
       await approveToken({
         tokenContract: fakeContract,
         accountAddress: '0x32asdf',
-        allowance: new BigNumber(2).pow(256).minus(1).toString(10),
+        allowance: MAX_UINT256.toFixed(),
         vtokenAddress: '0x32asdf',
       });
 
@@ -31,7 +31,7 @@ describe('api/mutations/approveToken', () => {
   test('returns Transaction Receipt when request succeeds', async () => {
     const accountAddress = '0x3d7598124C212d2121234cd36aFe1c685FbEd848';
     const vtokenAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
-    const allowance = new BigNumber(2).pow(256).minus(1).toString(10);
+    const allowance = MAX_UINT256.toFixed();
 
     const sendMock = jest.fn(async () => transactionReceipt);
     const approveTokenMock = jest.fn(() => ({
