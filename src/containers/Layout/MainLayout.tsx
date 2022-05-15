@@ -107,14 +107,16 @@ function MainLayout({ title = '', isHeader, children }: Props) {
         <Typography component="div" variant="small1">
           <Icon name="attention" />
           <p>
-            Venus is paused until LUNA and UST are deprecated as collateral.{' '}
+            Venus Protocol is resuming in a phased approach. Borrowing is offline. Check the
+            announcement
             <a
-              href="https://blog.venus.io/venus-protocol-official-statement-regarding-luna-6eb45c3cb058"
+              href="https://blog.venus.io/venus-luna-incident-update-3-resuming-the-protocol-ff059a914405"
               target="_blank"
               rel="noreferrer"
             >
-              Read more.
+              &nbsp;announcement&nbsp;
             </a>
+            for details.
           </p>
         </Typography>
       </UstWarning>
