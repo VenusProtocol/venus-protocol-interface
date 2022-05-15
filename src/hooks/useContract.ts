@@ -17,6 +17,7 @@ import {
   getXvsVestingProxyContract,
   getVrtTokenContract,
   getVrtVaultProxyContract,
+  getComptrollerLensContract,
 } from '../utilities/contractHelpers';
 import useWeb3 from './useWeb3';
 
@@ -53,6 +54,11 @@ export const useVbep = (name: $TSFixMe) => {
 export const useComptroller = () => {
   const web3 = useWeb3();
   return useMemo(() => getComptrollerContract(web3), [web3]);
+};
+
+export const useComptrollerLens = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getComptrollerLensContract(web3), [web3]);
 };
 
 export const usePriceOracle = () => {

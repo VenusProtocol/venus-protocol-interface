@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWeb3React } from '@web3-react/core';
 import { TREASURY_ADDRESS } from 'config';
+import { getComptrollerAddress } from 'utilities/addressHelpers';
 import useRefresh from '../hooks/useRefresh';
 import { fetchMarkets } from '../utilities/api';
 import { indexBy } from '../utilities/common';
 import useWeb3 from '../hooks/useWeb3';
 import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptroller, useVenusLens } from '../hooks/useContract';
+import { useComptroller, useVenusLens, useComptrollerLens } from '../hooks/useContract';
 
 import * as constants from '../utilities/constants';
 
@@ -33,6 +34,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [userXVSBalance, setUserXVSBalance] = useState(new BigNumber(0));
   const [treasuryTotalUSDBalance, setTreasuryTotalUSDBalance] = useState(new BigNumber(0));
   const comptrollerContract = useComptroller();
+  const comptrollerLensContract = useComptrollerLens();
   const lens = useVenusLens();
   const { account } = useWeb3React();
   const web3 = useWeb3();
@@ -190,16 +192,17 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         });
 
         assetList = assetList.filter(item => !!item);
-
         // We use "hypothetical liquidity upon exiting a market" to disable the "exit market"
         // toggle. Sadly, the current VenusLens contract does not provide this info, so we
         // still have to query each market.
         // @ts-expect-error ts-migrate(2322) FIXME: Type '{ hypotheticalLiquidity: any; key?: number |... Remove this comment to see the full error message
         assetList = await Promise.all(
           assetList.map(async asset => {
+            const comptrollerContractAddress = getComptrollerAddress();
             const getHypotheticalLiquidity = () =>
-              comptrollerContract.methods
+              comptrollerLensContract.methods
                 .getHypotheticalAccountLiquidity(
+                  comptrollerContractAddress,
                   account,
                   // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
                   asset.vtokenAddress,
