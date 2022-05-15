@@ -14,6 +14,9 @@ export const getVaiUnitrollerAddress = () =>
 export const getComptrollerAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   addresses.comptroller[chainId];
+export const getComptrollerLensAddress = () =>
+  // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
+  addresses.comptrollerLens[chainId];
 export const getOracleAddress = () =>
   // @ts-expect-error ts-migrate(2538) FIXME: Type 'undefined' cannot be used as an index type.
   addresses.oracle[chainId];

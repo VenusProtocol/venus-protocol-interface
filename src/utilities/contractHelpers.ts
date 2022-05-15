@@ -1,6 +1,7 @@
 import { getWeb3NoAccount, Web3 } from './web3';
 import bep20Abi from '../config/abis/bep20.json';
 import comptrollerAbi from '../config/abis/comptroller.json';
+import comptrollerLensAbi from '../config/abis/comptrollerLens.json';
 import interestModelAbi from '../config/abis/interestModel.json';
 import oracleAbi from '../config/abis/oracle.json';
 import vaiTokenAbi from '../config/abis/vaiToken.json';
@@ -20,6 +21,7 @@ import vrtVaultAbi from '../config/abis/vrtVault.json';
 
 import {
   getComptrollerAddress,
+  getComptrollerLensAddress,
   getOracleAddress,
   getVaiTokenAddress,
   getVaiUnitrollerAddress,
@@ -82,6 +84,9 @@ export const getVbepContract = (web3: $TSFixMe, name: $TSFixMe) =>
 
 export const getComptrollerContract = (web3: $TSFixMe) =>
   getContract(comptrollerAbi, getComptrollerAddress(), web3);
+
+export const getComptrollerLensContract = (web3: $TSFixMe) =>
+  getContract(comptrollerLensAbi, getComptrollerLensAddress(), web3);
 
 export const getPriceOracleContract = (web3: $TSFixMe) =>
   getContract(oracleAbi, getOracleAddress(), web3);
