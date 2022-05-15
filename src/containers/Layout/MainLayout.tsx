@@ -64,7 +64,7 @@ const UstWarning = styled.div`
   justify-content: center;
   align-items: center;
   display: inline-flex;
-  height: 56px;
+  min-height: 56px;
 
   > div {
     display: flex;
@@ -107,16 +107,16 @@ function MainLayout({ title = '', isHeader, children }: Props) {
         <Typography component="div" variant="small1">
           <Icon name="attention" />
           <p>
-            Venus Protocol is resuming in a phased approach. Borrowing is offline. Check the
-            announcement
+            Venus Protocol is resuming in a phased approach. Due to the Terra incident, all accounts
+            with LUNA and UST borrowing or collateralization are offline. Check the &nbsp;
             <a
               href="https://blog.venus.io/venus-luna-incident-update-3-resuming-the-protocol-ff059a914405"
               target="_blank"
               rel="noreferrer"
             >
-              &nbsp;announcement&nbsp;
+              announcement
             </a>
-            for details.
+            &nbsp;for details.
           </p>
         </Typography>
       </UstWarning>
