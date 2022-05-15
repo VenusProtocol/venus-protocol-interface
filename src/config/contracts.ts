@@ -21,7 +21,7 @@ const contracts = {
   },
   comptrollerLens: {
     56: '0xa6492B8Ec8255b293354D0D2BeFE7E4662d03511',
-    97: '',
+    97: '0xd5f1b9cec564508b6d54a212d4815d9a08584b3d',
   },
   oracle: {
     56: '0xd8B6dA2bfEC71D684D3E2a2FC9492dDad5C3787F',
