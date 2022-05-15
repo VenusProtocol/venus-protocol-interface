@@ -127,7 +127,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
 
   return (
     <TabSection>
-      {/* <div className="flex flex-column align-center just-center body-content">
+      <div className="flex flex-column align-center just-center body-content">
         <div className="flex align-center input-wrapper">
           <NumberFormat
             autoFocus
@@ -149,8 +149,8 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
             SAFE MAX
           </span>
         </div>
-      </div> */}
-      <Tabs className="flex align-center" style={{ paddingTop: 20 }}>
+      </div>
+      <Tabs className="flex align-center">
         <div
           className="flex align-center just-center tab-item pointer tab-active"
           onClick={() => {
@@ -169,29 +169,15 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
         </div>
       </Tabs>
       <TabContent className="flex flex-column align-center just-content">
-        {/* <div className="flex flex-column just-center align-center apy-content"> */}
-        <div className="flex just-center align-center">
-          <div
-            className="description"
-            style={{ display: 'block', padding: 20, marginBottom: 0, textAlign: 'center' }}
-          >
-            {/* <div className="flex align-center">
+        <div className="flex flex-column just-center align-center apy-content">
+          <div className="description">
+            <div className="flex align-center">
               <img className="asset-img" src={asset.img} alt="asset" />
               <span>Borrow APY</span>
             </div>
-            <span>{asset.borrowApy.dp(2, 1).toString(10)}%</span> */}
-            Borrowing is currently unavailable. Check the announcement
-            <a
-              href="https://blog.venus.io/venus-luna-incident-update-3-resuming-the-protocol-ff059a914405"
-              target="_blank"
-              rel="noreferrer"
-            >
-              &nbsp;announcement&nbsp;
-            </a>
-            for details.
+            <span>{asset.borrowApy.dp(2, 1).toString(10)}%</span>
           </div>
-        </div>
-        {/* <div className="description">
+          <div className="description">
             <div className="flex align-center">
               <img
                 style={{
@@ -296,7 +282,7 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
             {asset.borrowBalance && format(asset.borrowBalance.dp(2, 1).toString(10))}{' '}
             {asset.symbol}
           </span>
-        </div> */}
+        </div>
       </TabContent>
     </TabSection>
   );
