@@ -20,6 +20,7 @@ declare module '@mui/material/styles' {
       error50: string;
       tan: string;
       delimiter: string;
+      warning: string;
     };
   }
 
