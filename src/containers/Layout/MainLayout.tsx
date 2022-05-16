@@ -108,7 +108,7 @@ function MainLayout({ title = '', isHeader, children }: Props) {
           <Icon name="attention" />
           <p>
             Venus Protocol is resuming in a phased approach. Due to the Terra incident, all accounts
-            with LUNA and UST borrowing or collateralization are offline. Check the &nbsp;
+            with LUNA and UST borrowing or collateralization are offline. Check the&nbsp;
             <a
               href="https://blog.venus.io/venus-luna-incident-update-3-resuming-the-protocol-ff059a914405"
               target="_blank"
