@@ -13,13 +13,13 @@ declare module '@mui/material/styles' {
       dark: string;
     };
     interactive: {
-      primary: React.CSSProperties['color'];
-      success: React.CSSProperties['color'];
-      success50: React.CSSProperties['color'];
-      error: React.CSSProperties['color'];
-      error50: React.CSSProperties['color'];
-      tan: React.CSSProperties['color'];
-      delimiter: React.CSSProperties['color'];
+      primary: string;
+      success: string;
+      success50: string;
+      error: string;
+      error50: string;
+      tan: string;
+      delimiter: string;
     };
   }
 
