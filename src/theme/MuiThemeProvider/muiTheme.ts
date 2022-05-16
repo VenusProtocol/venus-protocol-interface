@@ -43,6 +43,7 @@ export const PALETTE = {
     error50: 'rgba(233, 61, 68, 0.5)',
     tan: 'rgba(255, 231, 206, 1)',
     delimiter: 'rgba(49, 50, 60, 1)',
+    warning: 'rgba(220, 148, 68, 1)',
   },
 };
 

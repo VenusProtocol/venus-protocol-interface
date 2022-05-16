@@ -27,6 +27,11 @@ export const useStyles = () => {
             border-color: ${theme.palette.interactive.success};
             background-color: ${alpha(theme.palette.interactive.success as string, 0.05)};
           `;
+        case 'warning':
+          return css`
+            border-color: ${theme.palette.interactive.warning};
+            background-color: ${alpha(theme.palette.interactive.warning as string, 0.05)};
+          `;
       }
     },
     icon: css`
@@ -47,6 +52,13 @@ export const useStyles = () => {
         case 'success':
           return css`
             color: ${theme.palette.interactive.success};
+          `;
+        case 'warning':
+          return css`
+            width: ${theme.spacing(7)};
+            height: ${theme.spacing(7)};
+            margin-top: ${theme.spacing(-1)};
+            color: ${theme.palette.interactive.warning};
           `;
       }
     },
