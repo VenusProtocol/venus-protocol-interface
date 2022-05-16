@@ -164,17 +164,13 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const { userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+  const { userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
     accountAddress: account?.address,
   });
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrowVToken({
     vTokenId: asset.id as VTokenId,
   });
-
-  // Convert dollar values to cents
-  const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
-  const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
   const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
@@ -195,21 +191,23 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   // Calculate maximum and safe maximum amount of coins user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
     // Return 0 values if borrow limit has been reached
-    if (totalBorrowBalanceCents.isGreaterThan(borrowLimitCents)) {
+    if (userTotalBorrowBalanceCents.isGreaterThan(userTotalBorrowLimitCents)) {
       return ['0', '0'];
     }
 
-    const marginWithBorrowLimitDollars = borrowLimitCents
-      .minus(totalBorrowBalanceCents)
+    const marginWithBorrowLimitDollars = userTotalBorrowLimitCents
+      .minus(userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
     const maxCoins = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
       // Convert dollars to coins
       .dividedBy(asset.tokenPrice);
 
-    const safeBorrowLimitCents = borrowLimitCents.multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100);
+    const safeBorrowLimitCents = userTotalBorrowLimitCents.multipliedBy(
+      SAFE_BORROW_LIMIT_PERCENTAGE / 100,
+    );
     const marginWithSafeBorrowLimitDollars = safeBorrowLimitCents
-      .minus(totalBorrowBalanceCents)
+      .minus(userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
     const safeMaxCoins = marginWithSafeBorrowLimitDollars
@@ -225,8 +223,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     asset.id,
     asset.tokenPrice,
     asset.liquidity,
-    borrowLimitCents.toFixed(),
-    totalBorrowBalanceCents.toFixed(),
+    userTotalBorrowLimitCents.toFixed(),
+    userTotalBorrowBalanceCents.toFixed(),
   ]);
 
   return (

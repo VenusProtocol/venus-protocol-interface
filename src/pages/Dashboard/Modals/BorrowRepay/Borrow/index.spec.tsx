@@ -21,8 +21,8 @@ const fakeAsset: Asset = {
   liquidity: new BigNumber(10000),
 };
 
-const fakeUserTotalBorrowLimitDollars = new BigNumber(1000);
-const fakeUserTotalBorrowBalanceDollars = new BigNumber(10);
+const fakeUserTotalBorrowLimitCents = new BigNumber(100000);
+const fakeUserTotalBorrowBalanceCents = new BigNumber(1000);
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
@@ -31,8 +31,8 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: [], // Not used in these tests
-      userTotalBorrowLimit: fakeUserTotalBorrowLimitDollars,
-      userTotalBorrowBalance: fakeUserTotalBorrowBalanceDollars,
+      userTotalBorrowLimitCents: fakeUserTotalBorrowLimitCents,
+      userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceCents,
     }));
   });
 
@@ -57,9 +57,9 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       },
     );
 
-    const borrowDeltaDollars = fakeUserTotalBorrowLimitDollars.minus(
-      fakeUserTotalBorrowBalanceDollars,
-    );
+    const borrowDeltaDollars = fakeUserTotalBorrowLimitCents
+      .minus(fakeUserTotalBorrowBalanceCents)
+      .dividedBy(100);
     const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
 
     await waitFor(() => getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.symbol}`));
@@ -143,9 +143,9 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
     ).toBeDisabled();
 
-    const fakeBorrowDeltaDollars = fakeUserTotalBorrowLimitDollars.minus(
-      fakeUserTotalBorrowBalanceDollars,
-    );
+    const fakeBorrowDeltaDollars = fakeUserTotalBorrowLimitCents
+      .minus(fakeUserTotalBorrowBalanceCents)
+      .dividedBy(100);
 
     const incorrectValueTokens = fakeBorrowDeltaDollars
       .dividedBy(fakeAsset.tokenPrice)
@@ -184,12 +184,12 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     // Press on max button
     fireEvent.click(getByText(`${SAFE_BORROW_LIMIT_PERCENTAGE}% LIMIT`));
 
-    const safeUserBorrowLimitDollars = fakeUserTotalBorrowLimitDollars
+    const safeUserBorrowLimitCents = fakeUserTotalBorrowLimitCents
       .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
       .dividedBy(100);
-    const safeBorrowDeltaDollars = safeUserBorrowLimitDollars.minus(
-      fakeUserTotalBorrowBalanceDollars,
-    );
+    const safeBorrowDeltaDollars = safeUserBorrowLimitCents
+      .minus(fakeUserTotalBorrowBalanceCents)
+      .dividedBy(100);
     const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
     const expectedInputValue = safeBorrowDeltaTokens.dp(fakeAsset.decimals).toFixed();
 

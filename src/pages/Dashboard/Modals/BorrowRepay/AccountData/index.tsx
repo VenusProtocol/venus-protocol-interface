@@ -34,16 +34,13 @@ const AccountData: React.FC<IAccountDataProps> = ({
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
 
-  const { assets, userTotalBorrowBalance, userTotalBorrowLimit } = useUserMarketInfo({
+  const { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
     accountAddress: account?.address,
   });
 
-  const totalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
-  const borrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
-
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
-      ? totalBorrowBalanceCents.plus(
+      ? userTotalBorrowBalanceCents.plus(
           asset.tokenPrice
             .multipliedBy(hypotheticalBorrowAmountTokens)
             // Convert dollars to cents
@@ -54,17 +51,17 @@ const AccountData: React.FC<IAccountDataProps> = ({
   const borrowLimitUsedPercentage = React.useMemo(
     () =>
       calculatePercentage({
-        numerator: totalBorrowBalanceCents.toNumber(),
-        denominator: borrowLimitCents.toNumber(),
+        numerator: userTotalBorrowBalanceCents.toNumber(),
+        denominator: userTotalBorrowLimitCents.toNumber(),
       }),
-    [totalBorrowBalanceCents.toNumber(), borrowLimitCents.toNumber()],
+    [userTotalBorrowBalanceCents.toNumber(), userTotalBorrowLimitCents.toNumber()],
   );
 
   const hypotheticalBorrowLimitUsedPercentage =
     hypotheticalTotalBorrowBalanceCents &&
     calculatePercentage({
       numerator: hypotheticalTotalBorrowBalanceCents.toNumber(),
-      denominator: borrowLimitCents.toNumber(),
+      denominator: userTotalBorrowLimitCents.toNumber(),
     });
 
   const calculateDailyEarningsCents = React.useCallback(
@@ -86,7 +83,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
         ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
         : new BigNumber(0);
     },
-    [JSON.stringify(assets), totalBorrowBalanceCents.toFixed()],
+    [JSON.stringify(assets), userTotalBorrowBalanceCents.toFixed()],
   );
 
   const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
@@ -107,8 +104,8 @@ const AccountData: React.FC<IAccountDataProps> = ({
   return (
     <>
       <BorrowBalanceAccountHealth
-        borrowBalanceCents={totalBorrowBalanceCents.toNumber()}
-        borrowLimitCents={borrowLimitCents.toNumber()}
+        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
+        borrowLimitCents={userTotalBorrowLimitCents.toNumber()}
         hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
         css={styles.getRow({ isLast: true })}
@@ -131,7 +128,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
         css={styles.getRow({ isLast: true })}
       >
         <ValueUpdate
-          original={totalBorrowBalanceCents.toNumber()}
+          original={userTotalBorrowBalanceCents.toNumber()}
           update={hypotheticalTotalBorrowBalanceCents?.toNumber()}
           positiveDirection="desc"
         />

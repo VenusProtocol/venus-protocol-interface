@@ -18,7 +18,6 @@ export interface Asset {
   xvsBorrowApy: BigNumber;
   img: string;
   borrowCaps: BigNumber;
-  totalBorrows: BigNumber;
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
   supplyApy: BigNumber;
@@ -32,6 +31,10 @@ export interface Asset {
   treasuryBalance: BigNumber;
   vimg: string | undefined;
   vsymbol: string;
+  treasuryTotalBorrowsUsdCents: BigNumber;
+  treasuryTotalSupplyUsdCents: BigNumber;
+  treasuryTotalSupply: BigNumber;
+  treasuryTotalBorrows: BigNumber;
 }
 
 export type TokenId = keyof typeof TOKENS;

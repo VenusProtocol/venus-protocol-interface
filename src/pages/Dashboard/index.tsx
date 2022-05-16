@@ -12,18 +12,18 @@ import { useStyles } from './styles';
 
 interface IDashboardUiProps {
   accountAddress: string;
-  userTotalBorrowLimit: BigNumber;
-  userTotalBorrowBalance: BigNumber;
-  userTotalSupplyBalance: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
+  userTotalBorrowBalanceCents: BigNumber;
+  userTotalSupplyBalanceCents: BigNumber;
   assets: Asset[];
 }
 
 const DashboardUi: React.FC<IDashboardUiProps> = ({
   accountAddress,
   assets,
-  userTotalBorrowLimit,
-  userTotalBorrowBalance,
-  userTotalSupplyBalance,
+  userTotalBorrowLimitCents,
+  userTotalBorrowBalanceCents,
+  userTotalSupplyBalanceCents,
 }) => {
   const styles = useStyles();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
@@ -62,9 +62,9 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
           setIsXvsEnabled={setIsXvsEnabled}
           isXvsEnabled={isXvsEnabled}
           css={styles.column}
-          userTotalBorrowLimit={userTotalBorrowLimit}
-          userTotalBorrowBalance={userTotalBorrowBalance}
-          userTotalSupplyBalance={userTotalSupplyBalance}
+          userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+          userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
+          userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
         />
 
         <MintRepayVai css={styles.column} />
@@ -73,7 +73,7 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
       <Markets
         isXvsEnabled={isXvsEnabled}
         accountAddress={accountAddress}
-        userTotalBorrowLimit={userTotalBorrowLimit}
+        userTotalBorrowLimitCents={userTotalBorrowLimitCents}
         suppliedAssets={suppliedAssets}
         supplyMarketAssets={supplyMarketAssets}
         borrowingAssets={borrowingAssets}
@@ -85,18 +85,22 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 
 const Dashboard: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-  const { assets, userTotalBorrowLimit, userTotalBorrowBalance, userTotalSupplyBalance } =
-    useUserMarketInfo({
-      accountAddress: account?.address || '',
-    });
+  const {
+    assets,
+    userTotalBorrowLimitCents,
+    userTotalBorrowBalanceCents,
+    userTotalSupplyBalanceCents,
+  } = useUserMarketInfo({
+    accountAddress: account?.address || '',
+  });
 
   return (
     <DashboardUi
       accountAddress={account?.address || ''}
       assets={assets}
-      userTotalBorrowLimit={userTotalBorrowLimit}
-      userTotalBorrowBalance={userTotalBorrowBalance}
-      userTotalSupplyBalance={userTotalSupplyBalance}
+      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
+      userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
     />
   );
 };
