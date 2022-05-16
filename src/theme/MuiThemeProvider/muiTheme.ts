@@ -87,7 +87,8 @@ const SHAPE = {
   } as any, // our custom types seem to clash with the default MUI types
   iconSize: {
     medium: SPACING * 4,
-    large: 20,
+    large: SPACING * 5,
+    xLarge: SPACING * 6,
   },
   footerHeight: '56px',
   bannerHeight: '56px',

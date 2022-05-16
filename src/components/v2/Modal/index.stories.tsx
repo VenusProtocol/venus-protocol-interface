@@ -43,6 +43,15 @@ ModalWithTitle.args = {
   title: <>Title component</>,
 };
 
+export const ModalWithBackButton = Template.bind({});
+ModalWithBackButton.args = {
+  handleClose: console.log,
+  isOpened: true,
+  children: <ModalContent />,
+  title: <>Title component</>,
+  handleBackAction: console.log,
+};
+
 export const ModalWithNoHorizontalPadding = Template.bind({});
 ModalWithNoHorizontalPadding.args = {
   handleClose: console.log,
