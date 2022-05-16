@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Icon } from '../Icon';
@@ -8,8 +8,8 @@ import { useStyles } from './styles';
 
 interface INoticeProps {
   className?: string;
-  title?: string;
-  description: string;
+  title?: string | ReactElement;
+  description: string | ReactElement;
   variant?: NoticeVariant;
 }
 
