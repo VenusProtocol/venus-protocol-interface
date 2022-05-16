@@ -35,8 +35,8 @@ interface ISupplyWithdrawFormUiProps {
   type: 'supply' | 'withdraw';
   tokenInfo: ILabeledInlineContentProps[];
   maxInput: BigNumber;
-  userTotalBorrowBalance: BigNumber;
-  userTotalBorrowLimit: BigNumber;
+  userTotalBorrowBalanceCents: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
   inputLabel: string;
   enabledButtonKey: string;
   disabledButtonKey: string;
@@ -50,8 +50,8 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   asset,
   type,
   tokenInfo,
-  userTotalBorrowBalance,
-  userTotalBorrowLimit,
+  userTotalBorrowBalanceCents,
+  userTotalBorrowLimitCents,
   assets,
   maxInput,
   inputLabel,
@@ -67,8 +67,6 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   const { id: assetId } = asset;
   const amount = new BigNumber(amountValue || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
-  const userTotalBorrowBalanceCents = userTotalBorrowBalance.multipliedBy(100);
-  const userTotalBorrowLimitCents = userTotalBorrowLimit.multipliedBy(100);
 
   const hypotheticalTokenSupplyBalance = amountValue
     ? calculateNewBalance(asset.supplyBalance, amount)
@@ -76,19 +74,20 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
-    let updateBorrowLimit;
+    let updateBorrowLimitCents;
 
     if (tokenPrice && validAmount) {
-      const amountInUsd = calculateCollateralValue({
+      const amountInUsdCents = calculateCollateralValue({
         amountWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
         asset,
-      });
-      const temp = calculateNewBalance(userTotalBorrowLimit, amountInUsd);
-      updateBorrowLimit = BigNumber.maximum(temp, 0);
+      }).times(100);
+
+      const temp = calculateNewBalance(userTotalBorrowLimitCents, amountInUsdCents);
+      updateBorrowLimitCents = BigNumber.maximum(temp, 0);
     }
-    const updateBorrowLimitCents = updateBorrowLimit?.multipliedBy(100);
+
     return updateBorrowLimitCents;
-  }, [amount, asset?.id, userTotalBorrowBalance, userTotalBorrowLimit]);
+  }, [amount, asset?.id, userTotalBorrowBalanceCents, userTotalBorrowLimitCents]);
 
   const [dailyEarningsCents, hypotheticalDailyEarningCents] = useMemo(() => {
     let hypotheticalDailyEarningCentsValue;

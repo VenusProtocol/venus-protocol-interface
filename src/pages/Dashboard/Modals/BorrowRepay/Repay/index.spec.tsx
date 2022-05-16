@@ -28,8 +28,8 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: [],
-      userTotalBorrowLimit: new BigNumber(1000),
-      userTotalBorrowBalance: new BigNumber(100),
+      userTotalBorrowLimitCents: new BigNumber(100000),
+      userTotalBorrowBalanceCents: new BigNumber(10000),
     }));
   });
 

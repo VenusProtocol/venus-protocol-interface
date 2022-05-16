@@ -12,17 +12,19 @@ export const useGetAssetsInAccount = () =>
   useQuery(FunctionKey.GET_ASSETS_IN_ACCOUNT, getAssetsInAccount);
 
 export const getHypotheticalAccountLiquidity = jest.fn();
-export const useGetHypotheticalLiquidityQueries = () =>
+export const useGetHypotheticalLiquidityQueries = jest.fn(() =>
   useQueries([
     { queryKey: FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, queryFn: getHypotheticalAccountLiquidity },
-  ]);
+  ]),
+);
 
 export const getMarkets = jest.fn();
 export const useGetMarkets = () => useQuery(FunctionKey.GET_MARKETS, getMarkets);
 
 export const getVTokenBalancesAll = jest.fn();
-export const useGetVTokenBalancesAll = () =>
-  useQuery(FunctionKey.GET_V_TOKEN_BALANCES_ALL, getVTokenBalancesAll);
+export const useGetVTokenBalancesAll = jest.fn(() =>
+  useQuery(FunctionKey.GET_V_TOKEN_BALANCES_ALL, getVTokenBalancesAll),
+);
 
 export const getVenusInitialIndex = jest.fn();
 export const useGetVenusInitialIndex = () =>

@@ -17,8 +17,8 @@ describe('pages/Dashboard/MintRepayVai', () => {
   beforeEach(() => {
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: [...assetData, fakeVai],
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+      userTotalBorrowLimitCents: new BigNumber('111'),
+      userTotalBorrowBalanceCents: new BigNumber('91'),
     }));
   });
 

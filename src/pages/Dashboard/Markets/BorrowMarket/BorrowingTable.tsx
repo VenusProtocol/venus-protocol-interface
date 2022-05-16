@@ -17,13 +17,13 @@ import { useStyles as useLocalStyles } from './styles';
 export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
-  userTotalBorrowLimit: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
 }
 
 const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   assets,
   isXvsEnabled,
-  userTotalBorrowLimit,
+  userTotalBorrowLimitCents,
   rowOnClick,
 }) => {
   const { t } = useTranslation();
@@ -45,8 +45,8 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   const rows: ITableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
     const percentOfLimit = calculatePercentage({
-      numerator: +asset.borrowBalance.multipliedBy(asset.tokenPrice),
-      denominator: +userTotalBorrowLimit,
+      numerator: +asset.borrowBalance.multipliedBy(asset.tokenPrice).times(100),
+      denominator: +userTotalBorrowLimitCents,
     });
     return [
       {

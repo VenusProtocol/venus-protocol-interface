@@ -63,7 +63,6 @@ export { default as borrowVToken } from './mutations/borrowVToken';
 export * from './mutations/borrowVToken';
 export { default as useBorrowVToken } from './mutations/useBorrowVToken';
 
-export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
 export { default as useRepayVToken } from './mutations/useRepayVToken';
 
 export { default as withdrawXvs } from './mutations/withdrawXvs';
@@ -137,4 +136,6 @@ export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversi
 
 export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';
+
 export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithdrawableAmount';
+export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
