@@ -56,6 +56,15 @@ declare module '@mui/material/styles' {
   interface Theme extends Muitheme {
     shape: Shape;
   }
+
+  interface BreakpointOverrides {
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+    xxl: true;
+  }
 }
 
 declare module '@mui/material/Typography' {
