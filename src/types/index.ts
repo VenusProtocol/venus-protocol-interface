@@ -35,6 +35,7 @@ export interface Asset {
   treasuryTotalSupplyUsdCents: BigNumber;
   treasuryTotalSupply: BigNumber;
   treasuryTotalBorrows: BigNumber;
+  xvsPerDay: BigNumber;
 }
 
 export type TokenId = keyof typeof TOKENS;

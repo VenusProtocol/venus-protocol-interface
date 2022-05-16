@@ -90,5 +90,29 @@ export const useStyles = () => {
         }
       }
     `,
+    whiteText: css`
+      color: ${theme.palette.text.primary};
+    `,
+    fontWeight400: css`
+      font-weight: 400;
+    `,
+    table: css`
+      display: initial;
+      ${theme.breakpoints.down('sm')} {
+        display: none;
+      }
+    `,
+    cards: css`
+      display: none;
+      ${theme.breakpoints.down('sm')} {
+        display: initial;
+      }
+    `,
+    cardContentGrid: css`
+      .table__table-cards__card-content {
+        grid-template-columns: 1fr 1fr minmax(${theme.spacing(30)}, 1fr);
+        grid-template-rows: 1fr;
+      }
+    `,
   };
 };

@@ -192,6 +192,9 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             collateral,
             percentOfLimit,
             hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
+            xvsPerDay: new BigNumber(market.supplierDailyVenus)
+              .plus(new BigNumber(market.borrowerDailyVenus))
+              .div(new BigNumber(10).pow(getToken('xvs').decimals)),
           };
         });
 
