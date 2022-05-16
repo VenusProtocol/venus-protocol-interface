@@ -14,7 +14,7 @@ import { useStyles as useSharedStyles } from '../styles';
 export interface IMarketsProps {
   isXvsEnabled: boolean;
   accountAddress: string;
-  userTotalBorrowLimit: BigNumber;
+  userTotalBorrowLimitCents: BigNumber;
   suppliedAssets: Asset[];
   supplyMarketAssets: Asset[];
   borrowingAssets: Asset[];
@@ -24,7 +24,7 @@ export interface IMarketsProps {
 const Markets: React.FC<IMarketsProps> = ({
   isXvsEnabled,
   accountAddress,
-  userTotalBorrowLimit,
+  userTotalBorrowLimitCents,
   suppliedAssets,
   supplyMarketAssets,
   borrowingAssets,
@@ -62,7 +62,7 @@ const Markets: React.FC<IMarketsProps> = ({
           isXvsEnabled={isXvsEnabled}
           borrowingAssets={borrowingAssets}
           borrowMarketAssets={borrowMarketAssets}
-          userTotalBorrowLimit={userTotalBorrowLimit}
+          userTotalBorrowLimitCents={userTotalBorrowLimitCents}
         />
       ),
     },
@@ -97,7 +97,7 @@ const Markets: React.FC<IMarketsProps> = ({
           isXvsEnabled={isXvsEnabled}
           borrowingAssets={borrowingAssets}
           borrowMarketAssets={borrowMarketAssets}
-          userTotalBorrowLimit={userTotalBorrowLimit}
+          userTotalBorrowLimitCents={userTotalBorrowLimitCents}
         />
       </div>
 
