@@ -88,5 +88,28 @@ export const useStyles = () => {
     white: css`
       color: ${theme.palette.text.primary};
     `,
+    marketTable: css`
+      h4 {
+        display: initial;
+        ${theme.breakpoints.down('lg')} {
+          display: none;
+        }
+        ${theme.breakpoints.down('sm')} {
+          display: initial;
+        }
+      }
+    `,
+    table: css`
+      display: initial;
+      ${theme.breakpoints.down('sm')} {
+        display: none;
+      }
+    `,
+    cards: css`
+      display: none;
+      ${theme.breakpoints.down('sm')} {
+        display: initial;
+      }
+    `,
   };
 };
