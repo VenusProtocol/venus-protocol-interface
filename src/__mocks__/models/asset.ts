@@ -32,6 +32,7 @@ export const assetData: Asset[] = [
     treasuryTotalSupplyUsdCents: new BigNumber('278311516.880071415163614'),
     treasuryTotalSupply: new BigNumber('19339683254955736'),
     treasuryTotalBorrows: new BigNumber('1852935.597521220541385584'),
+    xvsPerDay: new BigNumber('19999999'),
   },
   {
     key: 1,
@@ -63,6 +64,7 @@ export const assetData: Asset[] = [
     treasuryTotalSupplyUsdCents: new BigNumber('1000183891879506332139.9292470565707358'),
     treasuryTotalSupply: new BigNumber('47171999131879271527200010830'),
     treasuryTotalBorrows: new BigNumber('73128318.509651061457900627'),
+    xvsPerDay: new BigNumber('19999999'),
   },
   {
     key: 2,
@@ -94,6 +96,7 @@ export const assetData: Asset[] = [
     treasuryTotalSupplyUsdCents: new BigNumber('100980412010115687912488517.7789655772798633'),
     treasuryTotalSupply: new BigNumber('5029972090817266864401527367893625'),
     treasuryTotalBorrows: new BigNumber('232511166.920938849475104194'),
+    xvsPerDay: new BigNumber('19999999'),
   },
   {
     key: 3,
@@ -125,5 +128,6 @@ export const assetData: Asset[] = [
     treasuryTotalSupplyUsdCents: new BigNumber('1054707853878.3839597655397544'),
     treasuryTotalSupply: new BigNumber('51881081291203672464'),
     treasuryTotalBorrows: new BigNumber('142662020.229587308931217432'),
+    xvsPerDay: new BigNumber('19999999'),
   },
 ];

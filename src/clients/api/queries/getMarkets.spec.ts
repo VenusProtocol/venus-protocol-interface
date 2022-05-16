@@ -69,9 +69,9 @@ describe('api/queries/getMarkets', () => {
       data: { data: { markets: [supportedMarket] } },
     }));
 
-    const response = await getMarkets();
+    const { markets } = await getMarkets();
 
-    expect(response.markets).toHaveLength(1);
+    expect(markets).toHaveLength(1);
   });
 
   test('filters unsupported markets', async () => {
@@ -81,8 +81,8 @@ describe('api/queries/getMarkets', () => {
       data: { data: { markets: [unsupportedMarket] } },
     }));
 
-    const response = await getMarkets();
+    const { markets } = await getMarkets();
 
-    expect(response.markets).toHaveLength(0);
+    expect(markets).toHaveLength(0);
   });
 });

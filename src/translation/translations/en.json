@@ -327,6 +327,12 @@
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
   },
   "xvs": {
+    "columns": {
+      "asset": "Asset",
+      "borrowXvsApy": "Borrow XVS APY",
+      "supplyXvsApy": "Supply XVS APY",
+      "xvsPerDay": "XVS Per Day"
+    },
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
