@@ -2,7 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-import { Icon } from 'components/v2/Icon';
+import { Spinner } from '../Spinner';
 import useStyles from './styles';
 import { Variant } from './types';
 
@@ -33,7 +33,11 @@ export const Button = ({
       type="button"
       {...otherProps}
     >
-      {loading && <Icon name="loading" css={styles.loadingIcon} />}
+      {loading && (
+        <div css={styles.loadingIcon}>
+          <Spinner variant="small" />
+        </div>
+      )}
 
       <Typography css={styles.label} component="span" variant={small ? 'small1' : 'body1'}>
         {children}

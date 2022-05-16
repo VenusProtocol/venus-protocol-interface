@@ -16,21 +16,19 @@ jest.mock('clients/api');
 const ONE = '1';
 
 describe('pages/ConvertVRT/Convert', () => {
-  beforeAll(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date('2022-03-01'));
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
-  });
-
   beforeEach(() => {
+    jest.useFakeTimers('modern').setSystemTime(new Date('2022-03-01'));
     (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
       assets: assetData,
       userTotalBorrowLimit: new BigNumber('111'),
       userTotalBorrowBalance: new BigNumber('91'),
       userTotalSupplyBalance: new BigNumber('910'),
     }));
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it('submit button is enabled with input, good vesting period and not loading', () => {
