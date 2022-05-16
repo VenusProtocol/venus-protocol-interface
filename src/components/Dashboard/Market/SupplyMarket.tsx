@@ -133,9 +133,11 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
 
       render(collateral: $TSFixMe, asset: Asset) {
         return {
-          children: +asset.collateralFactor.toString() ? (
-            <Toggle checked={collateral} onChecked={() => handleToggleCollateral(asset)} />
-          ) : null,
+          // Temporary fix to prevent users from entering LUNA and UST collateral markets
+          children:
+            +asset.collateralFactor.toString() && asset.id !== 'luna' && asset.id !== 'ust' ? (
+              <Toggle checked={collateral} onChecked={() => handleToggleCollateral(asset)} />
+            ) : null,
         };
       },
     },
