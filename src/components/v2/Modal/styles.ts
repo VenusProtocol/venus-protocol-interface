@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-const iconCloseSize = '35px';
-
 export const useModalStyles = ({
   hasTitleComponent,
   noHorizontalPadding,
@@ -43,26 +41,40 @@ export const useModalStyles = ({
       top: 0;
       background-color: ${hasTitleComponent ? theme.palette.background.paper : 'transparent'};
       margin-bottom: ${hasTitleComponent ? theme.spacing(10) : 0};
+      display: flex;
+      align-items: center;
+      justify-content: center;
       ${theme.breakpoints.down('md')} {
         margin-bottom: ${hasTitleComponent ? theme.spacing(4) : 0};
       }
+    `,
+    backAction: css`
+      position: absolute;
+      left: ${theme.spacing(6)};
+      padding: 0;
+      min-width: auto;
+    `,
+    backArrow: css`
+      transform: rotate(180deg);
+      height: ${theme.shape.iconSize.xLarge};
+      width: ${theme.shape.iconSize.xLarge};
     `,
     titleComponent: css`
       align-self: center;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: ${iconCloseSize};
-      padding-left: ${iconCloseSize};
-      padding-right: ${iconCloseSize};
+      min-height: ${theme.shape.iconSize.xLarge};
+      padding-left: ${theme.shape.iconSize.xLarge};
+      padding-right: ${theme.shape.iconSize.xLarge};
     `,
     closeIcon: css`
       right: ${theme.spacing(6)};
       top: ${theme.spacing(6)};
       position: absolute;
-      height: ${iconCloseSize};
-      width: ${iconCloseSize};
-      min-width: ${iconCloseSize};
+      height: ${theme.shape.iconSize.xLarge};
+      width: ${theme.shape.iconSize.xLarge};
+      min-width: ${theme.shape.iconSize.xLarge};
       margin-left: auto;
       padding: 0;
       background-color: ${theme.palette.background.paper};
