@@ -97,10 +97,11 @@ export const withCenterStory: (props: {
   );
 };
 
-export const withState: DecoratorFunction = (Story, options) => {
+export const withOnChange: (
+  pickValue: (event: React.ChangeEvent<any>) => unknown,
+) => DecoratorFunction = pickValue => (Story, options) => {
   const [v, onChange] = useState(options.parameters.args.value);
   options.parameters.args.value = v;
-  options.parameters.args.onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    onChange(event.target.checked);
+  options.parameters.args.onChange = (event: React.ChangeEvent) => onChange(pickValue(event));
   return Story(options);
 };
