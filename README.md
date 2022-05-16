@@ -1,47 +1,5 @@
 # Venus Protocol
 
-## Gitcoin challenge
-
-This is a fork to allow the login integration with Unstoppable Domains.
-
-This is a challenge created by `Hackathon: L2 Rollathon: a Virtual Hackathon` called `Integrating UNS “Login With Unstoppable”`.
-
-#### Information about me
-
-**Discord ID**
-```
-PedroPetri#0721
-```
-
-**Name**
-```
-Pedro Petri
-```
-
-
-**Contact email**
-```
-pedroapetri@gmail.com
-```
-
-
-**Video**
-```
-https://youtu.be/U4N5bp9Q-go
-```
-
-
-**Project**
-```
-venus-protocol-interface
-```
-
-**Link**
-```
-https://pedropetri@github.com/pedropetri/venus-protocol-interface
-```
-
-
 ## Quick Installation & Start
 
 Install [make](https://www.npmjs.com/package/make) and [husky](https://www.npmjs.com/package/husky)
