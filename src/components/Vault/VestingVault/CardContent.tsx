@@ -9,6 +9,7 @@ import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import useRefresh from 'hooks/useRefresh';
 import { getTokenContractByAddress } from 'clients/contracts/getters';
 import { useWeb3 } from 'clients/web3';
+import MAX_UINT256 from 'constants/maxUint256';
 import { TokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
@@ -232,10 +233,7 @@ function CardContent({
                   try {
                     if (!userStakedTokenAllowance.gt(0)) {
                       await stakedTokenContract.methods
-                        .approve(
-                          xvsVaultContract.options.address,
-                          new BigNumber(2).pow(256).minus(1).toString(10),
-                        )
+                        .approve(xvsVaultContract.options.address, MAX_UINT256.toFixed())
                         .send({
                           from: account?.address,
                         });
