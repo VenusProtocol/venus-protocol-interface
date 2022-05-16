@@ -25,5 +25,9 @@ export const useStyles = () => {
         margin: ${theme.spacing(4)};
       }
     `,
+    bannerLink: css`
+      color: ${theme.palette.text.primary};
+      text-decoration: underline;
+    `,
   };
 };
