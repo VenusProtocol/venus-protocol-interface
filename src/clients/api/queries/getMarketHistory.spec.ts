@@ -55,24 +55,4 @@ describe('api/queries/getMarketHistory', () => {
     expect(response).toHaveLength(1);
     expect(response[0]).toBe(marketSnapshot);
   });
-
-  test('calls correct endpoint when passing limit and type params', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
-      status: 200,
-      data: { data: { result: [marketSnapshot] } },
-    }));
-
-    await getMarketHistory({
-      vTokenId: 'aave',
-      type: 'fake-type',
-      limit: 6,
-    });
-
-    expect(restService).toHaveBeenCalledTimes(1);
-    expect(restService).toHaveBeenCalledWith({
-      endpoint:
-        '/market_history/graph?asset=0x714db6c38A17883964B68a07d56cE331501d9eb6&type=fake-type&limit=6',
-      method: 'GET',
-    });
-  });
 });

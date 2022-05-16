@@ -73,7 +73,7 @@ const App = () => (
                             />
                             <Route
                               exact
-                              path={Path.MARKET_DETAILS}
+                              path="/market/:vTokenId"
                               component={
                                 process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
                               }

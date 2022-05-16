@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { RouteComponentProps, Redirect } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { getToken, getVBepToken } from 'utilities';
@@ -273,158 +273,29 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
 
 export type MarketDetailsProps = RouteComponentProps<{ vTokenId: VTokenId }>;
 
-const MarketDetails: React.FC<MarketDetailsProps> = ({
-  match: {
-    params: { vTokenId },
-  },
-}) => {
-  const vToken = getVBepToken(vTokenId);
-
-  // Redirect to market page if vTokenId passed through route params is invalid
-  if (!vToken) {
-    return <Redirect to={Path.MARKET} />;
-  }
-
-  const { data: marketSnapshots = [] } = useGetMarketHistory(
-    {
-      vTokenId,
-    },
-    {
-      placeholderData: [],
-    },
-  );
-
-  const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
-  const assetMarket = markets.find(
-    market => market.address.toLowerCase() === vToken.address.toLowerCase(),
-  );
-
-  // Format data for graphs
-  const [supplyChartData, borrowChartData] = React.useMemo(
-    () =>
-      [...marketSnapshots]
-        // Snapshots are returned from earliest to oldest, so we reverse them to
-        // pass them to the graphs in the right order
-        .reverse()
-        .reduce(
-          ([accSupplyChartData, accBorrowChartData], marketSnapshot) => {
-            const timestampMs = new Date(marketSnapshot.createdAt).getTime();
-
-            return [
-              [
-                ...accSupplyChartData,
-                {
-                  apyPercentage: formatPercentage(marketSnapshot.supplyApy),
-                  timestampMs,
-                  balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(
-                    marketSnapshot.priceUSD,
-                  ),
-                },
-              ],
-              [
-                ...accBorrowChartData,
-                {
-                  apyPercentage: formatPercentage(marketSnapshot.borrowApy),
-                  timestampMs,
-                  balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(
-                    marketSnapshot.priceUSD,
-                  ),
-                },
-              ],
-            ];
-          },
-          [[], []] as [IApyChartProps['data'], IApyChartProps['data']],
-        ),
-    [JSON.stringify(marketSnapshots)],
-  );
-
-  const props = React.useMemo(() => {
-    const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
-    const totalSupplyBalanceCents = assetMarket && +assetMarket.totalSupplyUsd * 100;
-    const borrowApyPercentage = assetMarket?.borrowApy;
-    const supplyApyPercentage = assetMarket && +assetMarket.supplyApy;
-    const borrowDistributionApyPercentage = assetMarket && +assetMarket.borrowVenusApy;
-    const supplyDistributionApyPercentage = assetMarket && +assetMarket.supplyVenusApy;
-    const tokenPriceDollars = assetMarket && +assetMarket.tokenPrice;
-    const marketLiquidityTokens = assetMarket && new BigNumber(assetMarket.liquidity);
-    const supplierCount = assetMarket?.supplierCount;
-    const borrowerCount = assetMarket?.borrowerCount;
-    const borrowCapCents = assetMarket && +assetMarket.borrowCaps * +assetMarket.tokenPrice * 100;
-    const mintedTokens = assetMarket && new BigNumber(assetMarket.totalSupply2);
-
-    const dailyInterestsCents =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.supplierDailyVenus).plus(
-          new BigNumber(assetMarket.borrowerDailyVenus),
-        ),
-        tokenId: 'xvs',
-      })
-        // Convert XVS to dollars
-        .multipliedBy(assetMarket.tokenPrice)
-        // Convert to cents
-        .multipliedBy(100)
-        .toNumber();
-
-    const reserveFactor =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.reserveFactor),
-        tokenId: vTokenId,
-      })
-        // Convert to percentage
-        .multipliedBy(100)
-        .toNumber();
-
-    const collateralFactor =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.collateralFactor),
-        tokenId: vTokenId,
-      })
-        // Convert to percentage
-        .multipliedBy(100)
-        .toNumber();
-
-    const reserveTokens =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.totalReserves),
-        tokenId: vTokenId,
-      });
-
-    const exchangeRateVTokens =
-      assetMarket &&
-      new BigNumber(1).div(
-        new BigNumber(assetMarket.exchangeRate).div(
-          new BigNumber(10).pow(18 + getToken(vTokenId).decimals - VTOKEN_DECIMALS),
-        ),
-      );
-
-    // TODO: calculate actual value (see https://app.clickup.com/t/29xmavh)
-    const currentUtilizationRate = 46;
-
-    return {
-      totalBorrowBalanceCents,
-      totalSupplyBalanceCents,
-      borrowApyPercentage,
-      supplyApyPercentage,
-      borrowDistributionApyPercentage,
-      supplyDistributionApyPercentage,
-      tokenPriceDollars,
-      marketLiquidityTokens,
-      supplierCount,
-      borrowerCount,
-      borrowCapCents,
-      mintedTokens,
-      dailyInterestsCents,
-      reserveFactor,
-      collateralFactor,
-      reserveTokens,
-      exchangeRateVTokens,
-      currentUtilizationRate,
-    };
-  }, [JSON.stringify(assetMarket)]);
+const MarketDetails: React.FC<MarketDetailsProps> = () => {
+  // TODO: fetch actual data (see https://app.clickup.com/t/29xm9d3 and
+  // https://app.clickup.com/t/29xm9ct)
+  const tokenId = 'bnb';
+  const vTokenid = 'bnb';
+  const totalBorrowBalanceCents = 100000000;
+  const borrowApyPercentage = 2.24;
+  const borrowDistributionApyPercentage = 1.1;
+  const totalSupplyBalanceCents = 100000000000;
+  const supplyApyPercentage = 4.56;
+  const supplyDistributionApyPercentage = 0.45;
+  const currentUtilizationRate = 46;
+  const tokenPriceCents = 11415;
+  const marketLiquidityTokens = new BigNumber(100000000);
+  const supplierCount = 1234;
+  const borrowerCount = 76;
+  const borrowCapCents = 812963286;
+  const dailyInterestsCents = 123212;
+  const reserveTokens = new BigNumber(100000);
+  const reserveFactor = 20;
+  const collateralFactor = 70;
+  const mintedTokens = new BigNumber(10000000);
+  const exchangeRateVToken = new BigNumber(1.345);
 
   return (
     <MarketDetailsUi
