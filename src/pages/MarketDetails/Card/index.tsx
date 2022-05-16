@@ -49,7 +49,7 @@ const Card: React.FC<ICardProps> = ({ children, title, legends = [], stats = [],
                 {stat.label}
               </Typography>
 
-              <Typography variant="h4" component="div" css={styles.statValue}>
+              <Typography variant="h4" css={styles.statValue}>
                 {stat.value}
               </Typography>
             </div>
