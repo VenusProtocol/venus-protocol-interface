@@ -34,12 +34,9 @@ export interface IApyChartProps {
 export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) => {
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
-  const styles = {
-    ...sharedStyles,
-    ...localStyles,
-  };
 
-  const chartColor = type === 'supply' ? styles.supplyChartColor : styles.borrowChartColor;
+  const chartColor =
+    type === 'supply' ? localStyles.supplyChartColor : localStyles.borrowChartColor;
   const { t } = useTranslation();
 
   // Generate base ID that won't change between renders but will be incremented
@@ -49,9 +46,9 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
   const gradientId = `gradient-${baseId}`;
 
   return (
-    <div css={styles.container} className={className}>
+    <div css={sharedStyles.container} className={className}>
       <ResponsiveContainer>
-        <AreaChart margin={styles.chartMargin} data={data}>
+        <AreaChart margin={sharedStyles.chartMargin} data={data}>
           {/* Gradient used as filler */}
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -60,30 +57,30 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             </linearGradient>
           </defs>
 
-          <CartesianGrid vertical={false} stroke={styles.gridLineColor} />
+          <CartesianGrid vertical={false} stroke={sharedStyles.gridLineColor} />
           <XAxis
             dataKey="timestampMs"
             axisLine={false}
             tickLine={false}
             tickFormatter={formatToReadableDate}
-            stroke={styles.accessoryColor}
-            tickMargin={styles.tickMargin}
+            stroke={sharedStyles.accessoryColor}
+            tickMargin={sharedStyles.tickMargin}
             tickCount={7}
-            style={styles.axis}
+            style={sharedStyles.axis}
           />
           <YAxis
             dataKey="apyPercentage"
             axisLine={false}
             tickLine={false}
             tickFormatter={formatToReadablePercentage}
-            tickMargin={styles.tickMargin}
+            tickMargin={sharedStyles.tickMargin}
             tickCount={6}
-            stroke={styles.accessoryColor}
-            style={styles.axis}
+            stroke={sharedStyles.accessoryColor}
+            style={sharedStyles.axis}
           />
           <Tooltip
             isAnimationActive={false}
-            cursor={styles.cursor}
+            cursor={sharedStyles.cursor}
             content={({ payload }) =>
               payload && payload[0] ? (
                 <TooltipContent
@@ -115,10 +112,10 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
             isAnimationActive={false}
             dataKey="apyPercentage"
             stroke={chartColor}
-            strokeWidth={styles.lineStrokeWidth}
+            strokeWidth={sharedStyles.lineStrokeWidth}
             fillOpacity={1}
             fill={`url(#${gradientId})`}
-            activeDot={styles.areaActiveDot}
+            activeDot={localStyles.areaActiveDot}
           />
         </AreaChart>
       </ResponsiveContainer>

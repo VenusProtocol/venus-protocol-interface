@@ -36,40 +36,36 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({
 }) => {
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
-  const styles = {
-    ...sharedStyles,
-    ...localStyles,
-  };
 
   const { t } = useTranslation();
 
   return (
-    <div css={styles.container} className={className}>
+    <div css={sharedStyles.container} className={className}>
       <ResponsiveContainer>
-        <LineChart data={data} margin={styles.chartMargin}>
+        <LineChart data={data} margin={sharedStyles.chartMargin}>
           <XAxis
             dataKey="utilizationRate"
             axisLine={false}
             tickLine={false}
             tickFormatter={formatToReadablePercentage}
-            stroke={styles.accessoryColor}
-            tickMargin={styles.tickMargin}
+            stroke={sharedStyles.accessoryColor}
+            tickMargin={sharedStyles.tickMargin}
             tickCount={5}
             type="number"
-            style={styles.axis}
+            style={sharedStyles.axis}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
             tickFormatter={formatToReadablePercentage}
-            tickMargin={styles.tickMargin}
-            stroke={styles.accessoryColor}
-            style={styles.axis}
+            tickMargin={sharedStyles.tickMargin}
+            stroke={sharedStyles.accessoryColor}
+            style={sharedStyles.axis}
             tickCount={10}
           />
           <Tooltip
             isAnimationActive={false}
-            cursor={styles.cursor}
+            cursor={sharedStyles.cursor}
             content={({ payload }) =>
               payload && payload[0] ? (
                 <TooltipContent
@@ -97,32 +93,32 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({
               ) : null
             }
           />
-          <CartesianGrid vertical={false} stroke={styles.gridLineColor} />
+          <CartesianGrid vertical={false} stroke={sharedStyles.gridLineColor} />
           <Line
             type="monotone"
             dataKey="borrowApyPercentage"
-            stroke={styles.lineBorrowApyColor}
-            strokeWidth={styles.lineStrokeWidth}
+            stroke={localStyles.lineBorrowApyColor}
+            strokeWidth={sharedStyles.lineStrokeWidth}
             isAnimationActive={false}
-            activeDot={styles.lineActiveDot}
+            activeDot={localStyles.lineActiveDot}
             dot={false}
           />
           <Line
             type="monotone"
             dataKey="supplyApyPercentage"
-            stroke={styles.lineSupplyApyColor}
-            strokeWidth={styles.lineStrokeWidth}
-            activeDot={styles.lineActiveDot}
+            stroke={localStyles.lineSupplyApyColor}
+            strokeWidth={sharedStyles.lineStrokeWidth}
+            activeDot={localStyles.lineActiveDot}
             isAnimationActive={false}
             dot={false}
           />
           <ReferenceLine
             x={currentUtilizationRate}
-            stroke={styles.referenceLineColor}
+            stroke={localStyles.referenceLineColor}
             // Note: we can not use the spread operator to extend
             // styles.referenceLineLabel because its type is not accepted for
             // that
-            label={Object.assign(styles.referenceLineLabel || {}, {
+            label={Object.assign(localStyles.referenceLineLabel || {}, {
               value: t('interestRateChart.currentUtilizationRateLabelValue', {
                 percentage: formatToReadablePercentage(currentUtilizationRate),
               }),
