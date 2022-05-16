@@ -160,6 +160,21 @@
       "xvsPrediction": "XVS Prediction"
     }
   },
+  "market": {
+    "availableLiquidity": "Available Liquidity",
+    "columns": {
+      "asset": "Asset",
+      "borrowApy": "Borrow APY",
+      "liquidity": "Liquidity",
+      "price": "Price",
+      "supplyApy": "Supply APY",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    },
+    "totalBorrow": "Total Borrow",
+    "totalSupply": "Total Supply",
+    "totalTreasury": "Total Treasury"
+  },
   "marketDetails": {
     "borrowInfo": {
       "stats": {
@@ -202,21 +217,6 @@
       },
       "title": "Supply info"
     }
-  },
-  "market": {
-    "availableLiquidity": "Available Liquidity",
-    "columns": {
-      "asset": "Asset",
-      "borrowApy": "Borrow APY",
-      "liquidity": "Liquidity",
-      "price": "Price",
-      "supplyApy": "Supply APY",
-      "totalBorrow": "Total Borrow",
-      "totalSupply": "Total Supply"
-    },
-    "totalBorrow": "Total Borrow",
-    "totalSupply": "Total Supply",
-    "totalTreasury": "Total Treasury"
   },
   "markets": {
     "borrowingTableTitle": "Borrowing",
@@ -323,5 +323,10 @@
     "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
+  },
+  "xvs": {
+    "dailyDistribution": "Daily Distribution:",
+    "progressBar": "Xvs Distribution progress",
+    "remaining": "Remaining:"
   }
 }

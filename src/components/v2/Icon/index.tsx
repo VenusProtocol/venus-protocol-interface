@@ -9,6 +9,7 @@ export interface IIconProps {
   size?: string;
   color?: string;
   className?: string;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export const Icon: React.FC<IIconProps> = ({ name, size, color, ...otherProps }) => {
