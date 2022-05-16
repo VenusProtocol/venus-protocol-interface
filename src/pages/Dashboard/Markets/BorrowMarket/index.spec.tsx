@@ -19,7 +19,7 @@ describe('pages/SupplyMarket', () => {
   });
 
   it('clicking row opens modal', async () => {
-    const { getByText } = renderComponent(
+    const { getByText, getAllByText } = renderComponent(
       <BorrowMarket
         isXvsEnabled
         borrowMarketAssets={[]}
@@ -27,7 +27,7 @@ describe('pages/SupplyMarket', () => {
         userTotalBorrowLimit={new BigNumber(1000)}
       />,
     );
-    const rowElement = getByText(assetData[2].symbol);
+    const rowElement = getAllByText(assetData[2].symbol)[0];
     fireEvent.click(rowElement);
     const connectButton = getByText(en.borrowRepayModal.borrow.connectWalletMessage);
     expect(connectButton).toBeTruthy();

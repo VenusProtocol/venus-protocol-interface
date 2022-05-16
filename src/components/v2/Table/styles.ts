@@ -10,19 +10,17 @@ export const useStyles = () => {
       padding-right: 0;
 
       ${theme.breakpoints.down('sm')} {
+        background-color: transparent;
         padding-top: ${theme.spacing(2)};
         padding-bottom: ${theme.spacing(2)};
       }
     `,
-    rootMobile: css`
-      background-color: transparent;
-    `,
     title: css`
       margin-bottom: ${theme.spacing(4)};
       padding: ${theme.spacing(0, 6)};
-    `,
-    titleMobile: css`
-      padding: 0;
+      ${theme.breakpoints.down('sm')} {
+        padding: 0;
+      }
     `,
     tableWrapperMobile: css`
       margin-top: ${theme.spacing(6)};
@@ -37,8 +35,7 @@ export const useStyles = () => {
     `,
     rowWrapperMobile: css`
       display: grid;
-
-      /* grid-template-columns and grid-template-rows for this block is set by props */
+      grid-template-rows: 1fr;
     `,
     cellMobile: css`
       display: flex;
@@ -64,21 +61,15 @@ export const useStyles = () => {
         font-weight: ${theme.typography.body1.fontWeight};
         text-align: right;
         font-size: ${theme.spacing(3.5)};
-        display: inline-flex;
-        justify-content: flex-end;
-        align-items: center;
-        text-transform: none;
       }
 
       .MuiTableRow-root {
-        display: grid;
         cursor: pointer;
       }
 
       .MuiTableCell-root:first-of-type {
         padding-left: ${theme.spacing(6)};
         text-align: left;
-        justify-content: flex-start;
       }
 
       .MuiTableCell-root:last-child {
@@ -137,13 +128,6 @@ export const useStyles = () => {
     `,
     cellInner: css`
       text-overflow: ellipsis;
-    `,
-    getTemplateColumns: ({ gridColumns }: { gridColumns: string }) => css`
-      grid-template-columns: ${gridColumns};
-    `,
-
-    getTemplateRows: ({ gridRows }: { gridRows: string }) => css`
-      grid-template-rows: ${gridRows};
     `,
   };
 };
