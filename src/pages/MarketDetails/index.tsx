@@ -14,12 +14,9 @@ import {
   formatPercentage,
   convertWeiToCoins,
 } from 'utilities/common';
-import { VTOKEN_DECIMALS } from 'config';
-import { useGetMarketHistory, useGetMarkets } from 'clients/api';
+import { useGetMarketHistory } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import Path from 'constants/path';
-import { fakeInterestRateChartData } from './__mocks__/models';
+import { fakeInterestRateChartData } from './mockData';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
 import Card, { ICardProps } from './Card';
 import { useStyles } from './styles';
@@ -216,11 +213,10 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
   ];
 
+  // TODO: handle loading state better
   if (!supplyChartData.length || !borrowChartData.length) {
-    return <LoadingSpinner />;
+    return null;
   }
-
-  // @TODO: handle fetching errors
 
   return (
     <div css={styles.container}>
@@ -273,11 +269,53 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
 
 export type MarketDetailsProps = RouteComponentProps<{ vTokenId: VTokenId }>;
 
-const MarketDetails: React.FC<MarketDetailsProps> = () => {
-  // TODO: fetch actual data (see https://app.clickup.com/t/29xm9d3 and
-  // https://app.clickup.com/t/29xm9ct)
+const MarketDetails: React.FC<MarketDetailsProps> = ({
+  match: {
+    params: { vTokenId },
+  },
+}) => {
+  const { data: marketSnapshots = [] } = useGetMarketHistory({
+    vTokenId,
+  });
+
+  // Format data for graphs
+  const [supplyChartData, borrowChartData] = React.useMemo(
+    () =>
+      marketSnapshots.reduce(
+        ([accSupplyChartData, accBorrowChartData], marketSnapshot) => {
+          const timestampMs = new Date(marketSnapshot.createdAt).getTime();
+
+          return [
+            [
+              ...accSupplyChartData,
+              {
+                apyPercentage: +marketSnapshot.supplyApy,
+                timestampMs,
+                balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(
+                  marketSnapshot.priceUSD,
+                ),
+              },
+            ],
+            [
+              ...accBorrowChartData,
+              {
+                apyPercentage: +marketSnapshot.borrowApy,
+                timestampMs,
+                balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(
+                  marketSnapshot.priceUSD,
+                ),
+              },
+            ],
+          ];
+        },
+        [[], []] as [IApyChartProps['data'], IApyChartProps['data']],
+      ),
+    [JSON.stringify(marketSnapshots)],
+  );
+
+  // TODO: handle loading state
+
   const tokenId = 'bnb';
-  const vTokenid = 'bnb';
   const totalBorrowBalanceCents = 100000000;
   const borrowApyPercentage = 2.24;
   const borrowDistributionApyPercentage = 1.1;
@@ -299,10 +337,28 @@ const MarketDetails: React.FC<MarketDetailsProps> = () => {
 
   return (
     <MarketDetailsUi
+      tokenId={tokenId}
       vTokenId={vTokenId}
+      totalBorrowBalanceCents={totalBorrowBalanceCents}
+      borrowApyPercentage={borrowApyPercentage}
+      borrowDistributionApyPercentage={borrowDistributionApyPercentage}
+      totalSupplyBalanceCents={totalSupplyBalanceCents}
+      supplyApyPercentage={supplyApyPercentage}
+      supplyDistributionApyPercentage={supplyDistributionApyPercentage}
+      currentUtilizationRate={currentUtilizationRate}
+      tokenPriceCents={tokenPriceCents}
+      marketLiquidityTokens={marketLiquidityTokens}
+      supplierCount={supplierCount}
+      borrowerCount={borrowerCount}
+      borrowCapCents={borrowCapCents}
+      dailyInterestsCents={dailyInterestsCents}
+      reserveTokens={reserveTokens}
+      reserveFactor={reserveFactor}
+      collateralFactor={collateralFactor}
+      mintedTokens={mintedTokens}
+      exchangeRateVToken={exchangeRateVToken}
       supplyChartData={supplyChartData}
       borrowChartData={borrowChartData}
-      // TODO: pass actual data (see https://app.clickup.com/t/29xmavh)
       interestRateChartData={fakeInterestRateChartData}
       {...props}
     />
