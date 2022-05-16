@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 import BigNumber from 'bignumber.js';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, TabContent } from 'components/Basic/BorrowModal';
+import MAX_UINT256 from 'constants/maxUint256';
 import { getContractAddress } from 'utilities';
 import { format } from 'utilities/common';
 import { useVaiUser } from 'hooks/useVaiUser';
@@ -32,10 +33,7 @@ function RepayVaiTab() {
     setIsLoading(true);
     try {
       await vaiContract.methods
-        .approve(
-          getContractAddress('vaiUnitroller'),
-          new BigNumber(2).pow(256).minus(1).toString(10),
-        )
+        .approve(getContractAddress('vaiUnitroller'), MAX_UINT256.toFixed())
         .send({
           from: account?.address,
         });

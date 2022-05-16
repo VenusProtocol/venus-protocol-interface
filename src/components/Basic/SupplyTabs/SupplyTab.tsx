@@ -11,6 +11,7 @@ import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
+import MAX_UINT256 from 'constants/maxUint256';
 import { getBigNumber, format, convertCoinsToWei } from 'utilities/common';
 import { Asset, Setting, VTokenId } from 'types';
 import { useTokenContract, useVTokenContract } from 'clients/contracts/hooks';
@@ -91,7 +92,7 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
     setIsLoading(true);
     try {
       await tokenContract.methods
-        .approve(asset.vtokenAddress, new BigNumber(2).pow(256).minus(1).toString(10))
+        .approve(asset.vtokenAddress, MAX_UINT256.toFixed())
         .send({ from: account?.address });
       setIsEnabled(true);
     } catch (error) {
