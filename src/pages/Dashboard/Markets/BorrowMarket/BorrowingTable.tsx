@@ -11,7 +11,6 @@ import {
   formatToReadablePercentage,
 } from 'utilities/common';
 import calculatePercentage from 'utilities/calculatePercentage';
-import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
@@ -28,8 +27,6 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
-  const isSmDown = useIsSmDown();
-  const isLgDown = useIsLgDown();
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
   const styles = { ...sharedStyles, ...localStyles };
@@ -103,7 +100,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
 
   return (
     <Table
-      title={isLgDown && !isSmDown ? undefined : t('markets.borrowingTableTitle')}
+      title={t('markets.borrowingTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -112,7 +109,9 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isSmDown })}
+      tableCss={sharedStyles.table}
+      cardsCss={sharedStyles.cards}
+      css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );
 };

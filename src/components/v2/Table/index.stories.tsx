@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { css } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
@@ -11,30 +12,57 @@ import { Toggle } from 'components';
 import { Table } from '.';
 import { Icon } from '../Icon';
 
-const styles = {
-  asset: css`
-    display: flex;
-    align-items: center;
-    img {
-      height: 18px;
-      width: 18px;
-      margin-right: 4px;
-    }
-    span {
-      display: flex;
-      justify-self: flex-end;
-    }
-  `,
-  apy: css`
-    color: #18df8b;
-    svg {
-      margin-right: 12px;
-      fill: #18df8b;
-    }
-  `,
+const useStyles = () => {
+  const theme = useTheme();
+  return {
+    table: css`
+      h4 {
+        display: initial;
+        ${theme.breakpoints.down('lg')} {
+          display: none;
+        }
+        ${theme.breakpoints.down('sm')} {
+          display: initial;
+        }
+      }
+    `,
+    tableCss: css`
+      display: initial;
+      ${theme.breakpoints.down('sm')} {
+        display: none;
+      }
+    `,
+    cardsCss: css`
+      display: none;
+      ${theme.breakpoints.down('sm')} {
+        display: initial;
+      }
+    `,
+  };
 };
-
-function createData(asset: TokenId, apy: number, wallet: number, collateral: boolean) {
+const createData = (asset: TokenId, apy: number, wallet: number, collateral: boolean) => {
+  const styles = {
+    asset: css`
+      display: flex;
+      align-items: center;
+      img {
+        height: 18px;
+        width: 18px;
+        margin-right: 4px;
+      }
+      span {
+        display: flex;
+        justify-self: flex-end;
+      }
+    `,
+    apy: css`
+      color: #18df8b;
+      svg {
+        margin-right: 12px;
+        fill: #18df8b;
+      }
+    `,
+  };
   return [
     {
       key: 'asset',
@@ -63,7 +91,7 @@ function createData(asset: TokenId, apy: number, wallet: number, collateral: boo
       render: () => <Toggle onChange={console.log} value={collateral} />,
     },
   ];
-}
+};
 
 const rows = [
   createData('sxp', 0.18, 0, true),
@@ -91,30 +119,54 @@ export default {
   },
 } as ComponentMeta<typeof Table>;
 
-export const TableDefault = () => (
-  <Table columns={columns} data={rows} title="Market Data" minWidth="650px" rowKeyIndex={0} />
-);
+export const TableDefault = () => {
+  const styles = useStyles();
+  return (
+    <Table
+      columns={columns}
+      data={rows}
+      title="Market Data"
+      minWidth="650px"
+      rowKeyIndex={0}
+      tableCss={styles.tableCss}
+      cardsCss={styles.cardsCss}
+      css={styles.table}
+    />
+  );
+};
 
-export const WithInitialOrderDefault = () => (
-  <Table
-    columns={columns}
-    data={rows}
-    title="Market Data"
-    minWidth="650px"
-    initialOrder={{
-      orderBy: 'apy',
-      orderDirection: 'desc',
-    }}
-    rowKeyIndex={0}
-  />
-);
+export const WithInitialOrderDefault = () => {
+  const styles = useStyles();
+  return (
+    <Table
+      columns={columns}
+      data={rows}
+      title="Market Data"
+      minWidth="650px"
+      initialOrder={{
+        orderBy: 'apy',
+        orderDirection: 'desc',
+      }}
+      rowKeyIndex={0}
+      tableCss={styles.tableCss}
+      cardsCss={styles.cardsCss}
+      css={styles.table}
+    />
+  );
+};
 
-export const WithCustomColumnsWidth = () => (
-  <Table
-    columns={columns}
-    data={rows}
-    title="Market Data"
-    rowKeyIndex={0}
-    gridTemplateColumns="100px 1fr 1fr 140px"
-  />
-);
+export const WithCustomColumnsWidth = () => {
+  const styles = useStyles();
+  return (
+    <Table
+      columns={columns}
+      data={rows}
+      title="Market Data"
+      rowKeyIndex={0}
+      gridTemplateColumnsCards="100px 1fr 1fr 140px"
+      tableCss={styles.tableCss}
+      cardsCss={styles.cardsCss}
+      css={styles.table}
+    />
+  );
+};

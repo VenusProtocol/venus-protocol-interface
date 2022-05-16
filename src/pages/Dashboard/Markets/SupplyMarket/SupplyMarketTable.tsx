@@ -5,7 +5,7 @@ import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilitie
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
-import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
+import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 
 export interface ISupplyMarketTableUiProps {
@@ -24,9 +24,8 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
   hasSuppliedAssets,
 }) => {
   const { t } = useTranslation();
-  const isSmDown = useIsSmDown();
-  const isLgDown = useIsLgDown();
   const styles = useStyles();
+  const sharedStyles = useSharedStyles();
 
   const columns = useMemo(
     () => [
@@ -78,11 +77,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
 
   return (
     <Table
-      title={
-        !hasSuppliedAssets && !isSmDown && isLgDown
-          ? undefined
-          : t('markets.supplyMarketTableTitle')
-      }
+      title={!hasSuppliedAssets ? undefined : t('markets.supplyMarketTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -91,7 +86,9 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isSmDown })}
+      tableCss={sharedStyles.table}
+      cardsCss={sharedStyles.cards}
+      css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );
 };

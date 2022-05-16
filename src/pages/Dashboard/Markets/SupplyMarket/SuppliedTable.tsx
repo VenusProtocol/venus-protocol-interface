@@ -9,8 +9,8 @@ import {
 import { Asset, TokenId } from 'types';
 import { Table, ITableProps, Token, Toggle, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
-import { useIsSmDown, useIsLgDown } from 'hooks/responsive';
 import { useStyles } from './styles';
+import { useStyles as useSharedStyles } from '../styles';
 
 export interface ISuppliedTableUiProps {
   assets: Asset[];
@@ -26,9 +26,8 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
-  const isSmDown = useIsSmDown();
-  const isLgDown = useIsLgDown();
   const styles = useStyles();
+  const sharedStyles = useSharedStyles();
 
   const columns = useMemo(
     () => [
@@ -85,7 +84,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
 
   return (
     <Table
-      title={isLgDown && !isSmDown ? undefined : t('markets.suppliedTableTitle')}
+      title={t('markets.suppliedTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -94,7 +93,9 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      gridTemplateColumns={styles.getGridTemplateColumns({ isCardLayout: isSmDown })}
+      tableCss={sharedStyles.table}
+      cardsCss={sharedStyles.cards}
+      css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );
 };
