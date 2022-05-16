@@ -120,6 +120,22 @@ export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
 export const format = (bigNumber: BigNumber, dp = 2) =>
   formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
 
+export const shortenNumberWithSuffix = (value: BigNumber) => {
+  const ONE_BILLION = 1000000000;
+  const ONE_MILLION = 1000000;
+  const ONE_THOUSAND = 1000;
+
+  let shortenedValue = value.toFixed(2);
+  if (value.isGreaterThan(ONE_BILLION)) {
+    shortenedValue = `${value.dividedBy(ONE_BILLION).dp(2).toFixed()}B`;
+  } else if (value.isGreaterThan(ONE_MILLION)) {
+    shortenedValue = `${value.dividedBy(ONE_MILLION).dp(2).toFixed()}M`;
+  } else if (value.isGreaterThan(ONE_THOUSAND)) {
+    shortenedValue = `${value.dividedBy(ONE_THOUSAND).dp(2).toFixed()}K`;
+  }
+  return shortenedValue;
+};
+
 export const formatCoinsToReadableValue = ({
   value,
   tokenId,
@@ -177,10 +193,6 @@ export const convertCoinsToWei = ({ value, tokenId }: { value: BigNumber; tokenI
 export const convertCentsToDollars = (value: number) =>
   new BigNumber(value).dividedBy(100).toFixed(2);
 
-const ONE_BILLION = 1000000000;
-const ONE_MILLION = 1000000;
-const ONE_THOUSAND = 1000;
-
 export const formatCentsToReadableValue = ({
   value,
   shorthand = false,
@@ -200,15 +212,7 @@ export const formatCentsToReadableValue = ({
 
   // Shorten value
   const wrappedValueDollars = new BigNumber(value).dividedBy(100);
-  let shortenedValue = wrappedValueDollars.toFixed(2);
-  if (wrappedValueDollars.isGreaterThanOrEqualTo(ONE_BILLION)) {
-    shortenedValue = `${wrappedValueDollars.dividedBy(ONE_BILLION).dp(2).toFixed()}B`;
-  } else if (wrappedValueDollars.isGreaterThanOrEqualTo(ONE_MILLION)) {
-    shortenedValue = `${wrappedValueDollars.dividedBy(ONE_MILLION).dp(2).toFixed()}M`;
-  } else if (wrappedValueDollars.isGreaterThanOrEqualTo(ONE_THOUSAND)) {
-    shortenedValue = `${wrappedValueDollars.dividedBy(ONE_THOUSAND).dp(2).toFixed()}K`;
-  }
-
+  const shortenedValue = shortenNumberWithSuffix(wrappedValueDollars);
   return `$${shortenedValue}`;
 };
 

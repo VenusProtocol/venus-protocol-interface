@@ -205,6 +205,15 @@
   },
   "market": {
     "availableLiquidity": "Available Liquidity",
+    "columns": {
+      "asset": "Asset",
+      "borrowApy": "Borrow APY",
+      "liquidity": "Liquidity",
+      "price": "Price",
+      "supplyApy": "Supply APY",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    },
     "totalBorrow": "Total Borrow",
     "totalSupply": "Total Supply",
     "totalTreasury": "Total Treasury"

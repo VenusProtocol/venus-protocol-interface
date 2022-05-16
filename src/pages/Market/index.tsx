@@ -1,7 +1,7 @@
 import React from 'react';
 
-const MarketUI: React.FC = () => <div />;
+const MarketUi: React.FC = () => <div />;
 
-const Market: React.FC = () => <MarketUI />;
+const Market: React.FC = () => <MarketUi />;
 
 export default Market;
