@@ -121,6 +121,7 @@ export const styles = ({
       margin-bottom: -3px;
     `,
     label: css`
+      display: inline-flex;
       font-weight: 600;
       color: inherit;
     `,

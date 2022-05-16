@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withThemeProvider, withState } from 'stories/decorators';
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import Typography from '@mui/material/Typography';
 import { Modal, IModalProps } from '.';
 
 export default {
   title: 'Components/Modal',
   component: Modal,
-  decorators: [withCenterStory({ width: 600 }), withThemeProvider, withState],
+  decorators: [withCenterStory({ width: 600 }), withThemeProvider],
 } as ComponentMeta<typeof Modal>;
 
 const Template: Story<IModalProps> = (args: IModalProps) => <Modal {...args} />;
