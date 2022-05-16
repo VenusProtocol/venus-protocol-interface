@@ -28,3 +28,10 @@ export const Success = () => (
     description="Сheck with the addressee whether transactions from smart contracts are accepted"
   />
 );
+export const Warning = () => (
+  <Notice
+    variant="warning"
+    title="Withdrawal is made using a smart contract"
+    description="Сheck with the addressee whether transactions from smart contracts are accepted"
+  />
+);
