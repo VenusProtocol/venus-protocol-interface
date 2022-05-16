@@ -132,12 +132,10 @@ function SupplyMarket({ settings, suppliedAssets, remainAssets }: Props & StateP
       key: 'collateral',
 
       render(collateral: $TSFixMe, asset: Asset) {
-        const isLunaOrUstAsset = asset.id === 'luna' || asset.id === 'ust';
         return {
-          // Allow allow users to disable lune and ust collateral
+          // Temporary fix to prevent users from entering LUNA and UST collateral markets
           children:
-            (+asset.collateralFactor.toString() && !isLunaOrUstAsset) ||
-            (isLunaOrUstAsset && collateral) ? (
+            +asset.collateralFactor.toString() && asset.id !== 'luna' && asset.id !== 'ust' ? (
               <Toggle checked={collateral} onChecked={() => handleToggleCollateral(asset)} />
             ) : null,
         };
