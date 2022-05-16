@@ -12,7 +12,6 @@ import {
   formatToReadablePercentage,
   formatCoinsToReadableValue,
   formatPercentage,
-  convertWeiToCoins,
 } from 'utilities/common';
 import { useGetMarketHistory } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
@@ -281,35 +280,39 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
   // Format data for graphs
   const [supplyChartData, borrowChartData] = React.useMemo(
     () =>
-      marketSnapshots.reduce(
-        ([accSupplyChartData, accBorrowChartData], marketSnapshot) => {
-          const timestampMs = new Date(marketSnapshot.createdAt).getTime();
+      [...marketSnapshots]
+        // Snapshots are returned from earliest to oldest, so we reverse them to
+        // pass them to the graphs in the right order
+        .reverse()
+        .reduce(
+          ([accSupplyChartData, accBorrowChartData], marketSnapshot) => {
+            const timestampMs = new Date(marketSnapshot.createdAt).getTime();
 
-          return [
-            [
-              ...accSupplyChartData,
-              {
-                apyPercentage: +marketSnapshot.supplyApy,
-                timestampMs,
-                balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(
-                  marketSnapshot.priceUSD,
-                ),
-              },
-            ],
-            [
-              ...accBorrowChartData,
-              {
-                apyPercentage: +marketSnapshot.borrowApy,
-                timestampMs,
-                balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(
-                  marketSnapshot.priceUSD,
-                ),
-              },
-            ],
-          ];
-        },
-        [[], []] as [IApyChartProps['data'], IApyChartProps['data']],
-      ),
+            return [
+              [
+                ...accSupplyChartData,
+                {
+                  apyPercentage: formatPercentage(marketSnapshot.supplyApy),
+                  timestampMs,
+                  balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(
+                    marketSnapshot.priceUSD,
+                  ),
+                },
+              ],
+              [
+                ...accBorrowChartData,
+                {
+                  apyPercentage: formatPercentage(marketSnapshot.borrowApy),
+                  timestampMs,
+                  balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(
+                    marketSnapshot.priceUSD,
+                  ),
+                },
+              ],
+            ];
+          },
+          [[], []] as [IApyChartProps['data'], IApyChartProps['data']],
+        ),
     [JSON.stringify(marketSnapshots)],
   );
 
