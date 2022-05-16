@@ -6,8 +6,8 @@ export const useStyles = () => {
   return {
     headerRoot: css`
       padding: ${theme.spacing(4)} 0 ${theme.spacing(4)} ${theme.spacing(6)};
-      ${theme.breakpoints.down('xl')} {
-        padding: ${theme.spacing(4)} 0 ${theme.spacing(4)} ${theme.spacing(4)};
+      ${theme.breakpoints.down('xxl')} {
+        padding: 0;
         background-color: transparent;
       }
     `,
@@ -32,7 +32,7 @@ export const useStyles = () => {
       :last-of-type {
         border-right: none;
       }
-      ${theme.breakpoints.down('xl')} {
+      ${theme.breakpoints.down('xxl')} {
         flex-basis: calc(50% - ${theme.spacing(2)});
         border-right: none;
         background-color: ${theme.palette.background.paper};
@@ -69,6 +69,33 @@ export const useStyles = () => {
         font-weight: ${theme.typography.body2.fontWeight};
         letter-spacing: ${theme.typography.body2.letterSpacing};
         color: ${theme.palette.text.primary};
+      }
+    `,
+    table: css`
+      display: initial;
+      ${theme.breakpoints.down('xxl')} {
+        display: none;
+      }
+    `,
+    cards: css`
+      display: none;
+      ${theme.breakpoints.down('xxl')} {
+        display: initial;
+      }
+    `,
+    cardContentGrid: css`
+      ${theme.breakpoints.down('xxl')} {
+        background-color: initial;
+      }
+      .table__table-cards__card-content {
+        ${theme.breakpoints.down('xxl')} {
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+          grid-template-rows: 1fr;
+        }
+        ${theme.breakpoints.down('md')} {
+          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+        }
       }
     `,
   };

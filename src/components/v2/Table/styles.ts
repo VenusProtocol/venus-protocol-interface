@@ -46,12 +46,15 @@ export const useStyles = () => {
     `,
     columnLabelMobile: css`
       font-size: ${theme.spacing(3)};
+      text-transform: none;
+      font-weight: 400;
     `,
     cellValueMobile: css`
       padding-top: ${theme.spacing(2)};
       padding-bottom: ${theme.spacing(2)};
       overflow: hidden;
       text-overflow: ellipsis;
+      font-weight: 400;
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};
@@ -61,6 +64,7 @@ export const useStyles = () => {
         font-weight: ${theme.typography.body1.fontWeight};
         text-align: right;
         font-size: ${theme.spacing(3.5)};
+        text-transform: none;
       }
 
       .MuiTableRow-root {

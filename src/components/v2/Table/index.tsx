@@ -21,6 +21,7 @@ export interface ITableProps {
   title?: string;
   data: ITableRowProps[][];
   columns: { key: string; label: string; orderable: boolean }[];
+  cardColumns?: { key: string; label: string; orderable: boolean }[];
   rowKeyIndex: number;
   minWidth?: string;
   initialOrder?: {
@@ -37,6 +38,7 @@ export interface ITableProps {
 
 export const Table = ({
   columns,
+  cardColumns,
   data,
   title,
   minWidth,
@@ -130,7 +132,7 @@ export const Table = ({
         rows={rows}
         rowKeyIndex={rowKeyIndex}
         rowOnClick={rowOnClick}
-        columns={columns}
+        columns={cardColumns || columns}
         css={cardsCss}
       />
     </Paper>
