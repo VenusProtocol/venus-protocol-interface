@@ -100,7 +100,7 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-interface Props extends RouteComponentProps<{ asset: VTokenId }> {
+interface Props extends RouteComponentProps<{ assetId: VTokenId }> {
   settings: Setting;
   getMarketHistory: $TSFixMe;
 }
@@ -115,8 +115,8 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   const { markets } = useMarkets();
 
   useEffect(() => {
-    if (match.params && match.params.asset) {
-      setCurrentAsset(match.params.asset.toLowerCase() as VTokenId);
+    if (match.params && match.params.assetId) {
+      setCurrentAsset(match.params.assetId.toLowerCase() as VTokenId);
     }
   }, [match]);
 

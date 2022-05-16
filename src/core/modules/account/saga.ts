@@ -19,6 +19,7 @@ import { restService } from 'utilities';
 
 export function* asyncGetMarketHistoryRequest({ payload, resolve, reject }: $TSFixMe) {
   const { asset, limit, type } = payload;
+
   let endpoint = `/market_history/graph?asset=${asset}&type=${type}`;
   if (limit) endpoint += `&limit=${limit}`;
   try {
@@ -28,6 +29,7 @@ export function* asyncGetMarketHistoryRequest({ payload, resolve, reject }: $TSF
       method: 'GET',
       params: {},
     });
+
     if (response.status === 200) {
       resolve(response.data);
     }

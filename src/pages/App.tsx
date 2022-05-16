@@ -65,18 +65,17 @@ const App = () => (
                               path="/xvs"
                               component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
                             />
-                            <Route exact path="/market" component={Market} />
+                            <Route
+                              exact
+                              path="/market"
+                              component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
+                            />
                             <Route
                               exact
                               path="/market/:assetId"
                               component={
                                 process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
                               }
-                            />
-                            <Route
-                              exact
-                              path="/market"
-                              component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
                             />
                             <Route exact path="/transaction" component={Transaction} />
                             <Route exact path="/vault" component={Vault} />
