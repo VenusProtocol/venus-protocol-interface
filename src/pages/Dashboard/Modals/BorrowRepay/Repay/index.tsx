@@ -14,6 +14,7 @@ import { useRepayVToken } from 'clients/api';
 import { UiError } from 'utilities/errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import toast from 'components/Basic/Toast';
+import MAX_UINT256 from 'constants/maxUint256';
 import {
   PrimaryButton,
   TokenTextField,
@@ -34,6 +35,7 @@ export interface IRepayFormProps {
   repay: (amountWei: BigNumber) => Promise<string>;
   isRepayLoading: boolean;
   isXvsEnabled: boolean;
+  limitTokens: string;
 }
 
 export const RepayForm: React.FC<IRepayFormProps> = ({
@@ -41,6 +43,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
   repay,
   isRepayLoading,
   isXvsEnabled,
+  limitTokens,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -52,11 +55,6 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
   };
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-
-  const limitTokens = React.useMemo(
-    () => BigNumber.min(asset.borrowBalance, asset.walletBalance).toFixed(),
-    [asset.borrowBalance, asset.walletBalance],
-  );
 
   const getTokenBorrowBalancePercentageTokens = React.useCallback(
     (percentage: number) =>
@@ -198,6 +196,11 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
+  const limitTokens = React.useMemo(
+    () => BigNumber.min(asset.borrowBalance, asset.walletBalance),
+    [asset.borrowBalance, asset.walletBalance],
+  );
+
   const { mutateAsync: repay, isLoading: isRepayLoading } = useRepayVToken({
     vTokenId: asset.id as VTokenId,
   });
@@ -207,8 +210,13 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       throw new UiError(t('errors.walletNotConnected'));
     }
 
+    let repayAmount = amountWei;
+    if (repayAmount.eq(convertCoinsToWei({ value: limitTokens, tokenId: asset.id }))) {
+      repayAmount = MAX_UINT256;
+    }
+
     const res = await repay({
-      amountWei,
+      amountWei: repayAmount,
       fromAccountAddress: account.address,
     });
 
@@ -244,6 +252,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
             repay={handleRepay}
             isXvsEnabled={isXvsEnabled}
             isRepayLoading={isRepayLoading}
+            limitTokens={limitTokens.toFixed()}
           />
         </EnableToken>
       )}
