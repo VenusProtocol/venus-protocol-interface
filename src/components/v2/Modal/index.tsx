@@ -10,6 +10,7 @@ export interface IModalProps extends Omit<ModalProps, 'title' | 'open'> {
   className?: string;
   isOpened: boolean;
   handleClose: () => void;
+  handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
   noHorizontalPadding?: boolean;
 }
@@ -18,6 +19,7 @@ export const Modal: React.FC<IModalProps> = ({
   className,
   children,
   handleClose,
+  handleBackAction = undefined,
   isOpened,
   title,
   noHorizontalPadding,
@@ -39,6 +41,11 @@ export const Modal: React.FC<IModalProps> = ({
       <Fade in={isOpened}>
         <div css={s.box} className={className}>
           <div css={s.titleWrapper}>
+            {!!handleBackAction && (
+              <Button css={s.backAction} disableRipple onClick={handleBackAction}>
+                <Icon css={s.backArrow} name="arrowRight" />
+              </Button>
+            )}
             <div css={s.titleComponent}>{title}</div>
             <Button css={s.closeIcon} disableRipple onClick={handleClose}>
               <Icon name="close" />
