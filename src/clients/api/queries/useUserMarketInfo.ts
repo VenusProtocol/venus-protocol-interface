@@ -147,6 +147,9 @@ const useUserMarketInfo = ({
         collateral,
         percentOfLimit,
         hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
+        xvsPerDay: new BigNumber(market.supplierDailyVenus)
+          .plus(new BigNumber(market.borrowerDailyVenus))
+          .div(new BigNumber(10).pow(getToken('xvs').decimals)),
       };
       // user totals
       const borrowBalanceUsdCents = asset.borrowBalance.times(asset.tokenPrice).times(100);
@@ -166,6 +169,8 @@ const useUserMarketInfo = ({
       );
       acc.treasuryTotalAvailableLiquidityUsdBalanceCents =
         acc.treasuryTotalAvailableLiquidityUsdBalanceCents.plus(asset.liquidity.times(100));
+      // total distributed Xvs
+      acc.totalXvsDistributed = acc.totalXvsDistributed.plus(market.totalDistributed);
 
       acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
         new BigNumber(market.totalDistributed).times(
