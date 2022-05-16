@@ -11,8 +11,9 @@ import {
   formatToReadablePercentage,
   formatCoinsToReadableValue,
 } from 'utilities/common';
+import { useGetMarketHistory } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
-import { fakeApyChartData, fakeInterestRateChartData } from './mockData';
+import { fakeInterestRateChartData } from './mockData';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
 import Card, { ICardProps } from './Card';
 import { useStyles } from './styles';
@@ -204,6 +205,11 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
   ];
 
+  // TODO: handle loading state better
+  if (!supplyChartData.length || !borrowChartData.length) {
+    return null;
+  }
+
   return (
     <div css={styles.container}>
       <div css={[styles.column, styles.graphsColumn]}>
@@ -252,11 +258,53 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
 
 export type MarketDetailsProps = RouteComponentProps<{ vTokenId: VTokenId }>;
 
-const MarketDetails: React.FC<MarketDetailsProps> = () => {
-  // TODO: fetch actual data (see https://app.clickup.com/t/29xm9d3 and
-  // https://app.clickup.com/t/29xm9ct)
+const MarketDetails: React.FC<MarketDetailsProps> = ({
+  match: {
+    params: { vTokenId },
+  },
+}) => {
+  const { data: marketSnapshots = [] } = useGetMarketHistory({
+    vTokenId,
+  });
+
+  // Format data for graphs
+  const [supplyChartData, borrowChartData] = React.useMemo(
+    () =>
+      marketSnapshots.reduce(
+        ([accSupplyChartData, accBorrowChartData], marketSnapshot) => {
+          const timestampMs = new Date(marketSnapshot.createdAt).getTime();
+
+          return [
+            [
+              ...accSupplyChartData,
+              {
+                apyPercentage: +marketSnapshot.supplyApy,
+                timestampMs,
+                balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(
+                  marketSnapshot.priceUSD,
+                ),
+              },
+            ],
+            [
+              ...accBorrowChartData,
+              {
+                apyPercentage: +marketSnapshot.borrowApy,
+                timestampMs,
+                balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(
+                  marketSnapshot.priceUSD,
+                ),
+              },
+            ],
+          ];
+        },
+        [[], []] as [IApyChartProps['data'], IApyChartProps['data']],
+      ),
+    [JSON.stringify(marketSnapshots)],
+  );
+
+  // TODO: handle loading state
+
   const tokenId = 'bnb';
-  const vTokenid = 'bnb';
   const totalBorrowBalanceCents = 100000000;
   const borrowApyPercentage = 2.24;
   const borrowDistributionApyPercentage = 1.1;
@@ -279,7 +327,7 @@ const MarketDetails: React.FC<MarketDetailsProps> = () => {
   return (
     <MarketDetailsUi
       tokenId={tokenId}
-      vTokenId={vTokenid}
+      vTokenId={vTokenId}
       totalBorrowBalanceCents={totalBorrowBalanceCents}
       borrowApyPercentage={borrowApyPercentage}
       borrowDistributionApyPercentage={borrowDistributionApyPercentage}
@@ -298,8 +346,8 @@ const MarketDetails: React.FC<MarketDetailsProps> = () => {
       collateralFactor={collateralFactor}
       mintedTokens={mintedTokens}
       exchangeRateVToken={exchangeRateVToken}
-      supplyChartData={fakeApyChartData}
-      borrowChartData={fakeApyChartData}
+      supplyChartData={supplyChartData}
+      borrowChartData={borrowChartData}
       interestRateChartData={fakeInterestRateChartData}
     />
   );
