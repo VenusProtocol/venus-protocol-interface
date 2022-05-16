@@ -15,7 +15,8 @@ import { isOnTestnet } from 'config';
 import Dashboard from 'pages/Dashboard';
 import Faucet from 'containers/Main/Faucet';
 import Vote from 'containers/Main/Vote';
-import XVS from 'containers/Main/XVS';
+import XVSV1 from 'containers/Main/XVS';
+import Xvs from 'pages/Xvs';
 import MarketV1 from 'containers/Main/Market';
 import Market from 'pages/Market';
 import Vault from 'containers/Main/Vault';
@@ -59,7 +60,11 @@ const App = () => (
                           <Switch>
                             <Route exact path="/dashboard" component={Dashboard} />
                             <Route exact path="/vote" component={Vote} />
-                            <Route exact path="/xvs" component={XVS} />
+                            <Route
+                              exact
+                              path="/xvs"
+                              component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
+                            />
                             <Route exact path="/market" component={Market} />
                             <Route
                               exact
