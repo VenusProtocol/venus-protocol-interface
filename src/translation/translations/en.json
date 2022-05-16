@@ -147,6 +147,7 @@
     }
   },
   "layout": {
+    "bannerText": "Venus Protocol is resuming in a phased approach. Due to the Terra incident, all accounts with LUNA and UST borrowing or collateralization are offline. Check the\u00a0<Anchor>announcement</Anchor>\u00a0for details.",
     "menuItems": {
       "convertVrt": "Convert VRT",
       "convertVrtTitle": "Convert VRT to XVS",
