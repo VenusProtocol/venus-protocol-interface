@@ -1,0 +1,58 @@
+import { restService } from 'utilities/restService';
+import { MarketSnapshot } from 'types';
+import getMarketHistory from './getMarketHistory';
+
+jest.mock('utilities/restService');
+
+const marketSnapshot: MarketSnapshot = {
+  id: '18d50fb4-ebe8-4dd6-b0d6-0e052b968ec6',
+  asset: '0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7',
+  blockNumber: 1,
+  blockTimestamp: 1652593258,
+  borrowApy: '2.0144969858718893',
+  borrowVenusApy: '0.000002129447247135',
+  exchangeRate: '212011549336411',
+  supplyApy: '0.000001537885451792',
+  supplyVenusApy: '0.000000000001825',
+  totalBorrow: '71999131879185046048588013',
+  totalSupply: '47171999131879185046048588013',
+  createdAt: '2022-05-15T06:00:00.000Z',
+  updatedAt: '2022-05-15T06:00:00.000Z',
+  priceUSD: '1.00028324',
+};
+
+describe('api/queries/getMarketHistory', () => {
+  test('throws an error when request fails', async () => {
+    const fakeErrorMessage = 'Fake error message';
+
+    (restService as jest.Mock).mockImplementationOnce(async () => ({
+      result: 'error',
+      status: false,
+      message: fakeErrorMessage,
+    }));
+
+    try {
+      await getMarketHistory({
+        vTokenId: 'aave',
+      });
+
+      throw new Error('getMarketHistory should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
+    }
+  });
+
+  test('returns market history on success', async () => {
+    (restService as jest.Mock).mockImplementationOnce(async () => ({
+      status: 200,
+      data: { data: { result: [marketSnapshot] } },
+    }));
+
+    const response = await getMarketHistory({
+      vTokenId: 'aave',
+    });
+
+    expect(response).toHaveLength(1);
+    expect(response[0]).toBe(marketSnapshot);
+  });
+});

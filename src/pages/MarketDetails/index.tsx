@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { getToken, getVBepToken } from 'utilities';
 import { TokenId, VTokenId } from 'types';
@@ -249,7 +250,9 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
   );
 };
 
-const MarketDetails: React.FC = () => {
+export type MarketDetailsProps = RouteComponentProps<{ vTokenId: VTokenId }>;
+
+const MarketDetails: React.FC<MarketDetailsProps> = () => {
   // TODO: fetch actual data (see https://app.clickup.com/t/29xm9d3 and
   // https://app.clickup.com/t/29xm9ct)
   const tokenId = 'bnb';
