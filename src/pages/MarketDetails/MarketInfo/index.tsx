@@ -1,13 +1,33 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 
+import { LabeledInlineContent } from 'components';
 import { useTranslation } from 'translation';
+import { IStat } from '../types';
 import Card from '../Card';
+import { useStyles } from './styles';
 
-const MarketInfo: React.FC = () => {
+export interface IMarketInfoProps {
+  stats: IStat[];
+}
+
+const MarketInfo: React.FC<IMarketInfoProps> = ({ stats }) => {
   const { t } = useTranslation();
+  const styles = useStyles();
 
-  return <Card title={t('marketDetails.marketInfo.title')} />;
+  return (
+    <Card title={t('marketDetails.marketInfo.title')}>
+      <ul css={styles.itemList}>
+        {stats.map(stat => (
+          <li css={styles.item} key={`market-info-stat-${stat.label}`}>
+            <LabeledInlineContent label={stat.label}>
+              <span css={styles.value}>{stat.value}</span>
+            </LabeledInlineContent>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  );
 };
 
 export default MarketInfo;
