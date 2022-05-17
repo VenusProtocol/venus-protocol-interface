@@ -22,7 +22,7 @@ const fakeUserVaiMinted = new BigNumber('1000000');
 
 describe('pages/SupplyMarket', () => {
   beforeEach(() => {
-    (getMarkets as jest.Mock).mockImplementation(() => markets);
+    (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
     (getAssetsInAccount as jest.Mock).mockImplementation(() => assetsInAccount);
     (useGetHypotheticalLiquidityQueries as jest.Mock).mockImplementation(() =>
       markets.map(() => '68247906490737205226143250'),

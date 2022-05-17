@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
+import { useGetVenusVaiVaultRate, useGetBalanceOf, useUserMarketInfo } from 'clients/api';
 import { EllipseText, Icon, LabeledProgressBar } from 'components';
+import { AuthContext } from 'context/AuthContext';
 import copy from 'copy-to-clipboard';
-import { getToken, generateBscScanUrl } from 'utilities';
-import { formatCoinsToReadableValue } from 'utilities/common';
+import { getToken, generateBscScanUrl, getContractAddress } from 'utilities';
+import { convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
 import { MINTED_XVS_WEI } from '../constants';
@@ -15,7 +17,7 @@ interface IHeaderProps {
 }
 
 interface IHeaderContainerProps {
-  remainingDistribution: BigNumber;
+  remainingDistributionWei: BigNumber;
   dailyVenus: BigNumber;
   venusVaiVaultRate: BigNumber;
   totalXvsDistributedWei: BigNumber;
@@ -23,7 +25,7 @@ interface IHeaderContainerProps {
 
 export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   className,
-  remainingDistribution,
+  remainingDistributionWei,
   dailyVenus,
   venusVaiVaultRate,
   totalXvsDistributedWei,
@@ -46,8 +48,14 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   }, [dailyVenus.toFixed(), venusVaiVaultRate]);
 
   const readableRemainingDistribution = useMemo(
-    () => formatCoinsToReadableValue({ value: remainingDistribution, tokenId: 'xvs' }),
-    [remainingDistribution.toFixed()],
+    () =>
+      convertWeiToCoins({
+        valueWei: remainingDistributionWei,
+        tokenId: 'xvs',
+        returnInReadableFormat: true,
+        shorthand: true,
+      }),
+    [remainingDistributionWei.toFixed()],
   );
 
   const percentOfXvsDistributed = useMemo(
@@ -92,14 +100,26 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   );
 };
 
-const Header: React.FC<IHeaderProps> = ({ className }) => (
-  <HeaderUi
-    remainingDistribution={new BigNumber('5072435.34')}
-    venusVaiVaultRate={new BigNumber('6451.2')}
-    className={className}
-    dailyVenus={new BigNumber('11241610019199999648000')}
-    totalXvsDistributedWei={new BigNumber('10008323501130')}
-  />
-);
+const Header: React.FC<IHeaderProps> = ({ className }) => {
+  const { account } = useContext(AuthContext);
+  const { data: venusVAIVaultRate } = useGetVenusVaiVaultRate();
+  const { dailyVenus, totalXvsDistributedWei } = useUserMarketInfo({
+    accountAddress: account?.address,
+  });
+  const { data: xvsRemainingDistribution } = useGetBalanceOf({
+    tokenId: 'xvs',
+    accountAddress: getContractAddress('comptroller'),
+  });
+
+  return (
+    <HeaderUi
+      remainingDistributionWei={xvsRemainingDistribution || new BigNumber(0)}
+      venusVaiVaultRate={venusVAIVaultRate || new BigNumber(0)}
+      className={className}
+      dailyVenus={dailyVenus || new BigNumber(0)}
+      totalXvsDistributedWei={totalXvsDistributedWei}
+    />
+  );
+};
 
 export default Header;
