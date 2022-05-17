@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
+import { useUserMarketInfo } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities/common';
 import { useStyles } from '../styles';
@@ -13,7 +15,7 @@ interface IHeaderProps {
   totalTreasuryCents: BigNumber;
 }
 
-const Header: React.FC<IHeaderProps> = ({
+export const HeaderUi: React.FC<IHeaderProps> = ({
   totalSupplyCents,
   totalBorrowCents,
   availableLiquidityCents,
@@ -58,6 +60,24 @@ const Header: React.FC<IHeaderProps> = ({
         </Paper>
       </div>
     </Paper>
+  );
+};
+
+const Header = () => {
+  const { account } = useContext(AuthContext);
+  const {
+    treasuryTotalSupplyUsdBalanceCents,
+    treasuryTotalAvailableLiquidityUsdBalanceCents,
+    treasuryTotalBorrowUsdBalanceCents,
+    treasuryTotalUsdBalanceCents,
+  } = useUserMarketInfo({ accountAddress: account?.address || '' });
+  return (
+    <HeaderUi
+      totalSupplyCents={treasuryTotalSupplyUsdBalanceCents}
+      totalBorrowCents={treasuryTotalBorrowUsdBalanceCents}
+      availableLiquidityCents={treasuryTotalAvailableLiquidityUsdBalanceCents}
+      totalTreasuryCents={treasuryTotalUsdBalanceCents}
+    />
   );
 };
 
