@@ -132,8 +132,15 @@ function VotingWallet({
 
     const outstandingVTokens = vTokensBalanceInfos.filter(
       (info: $TSFixMe) =>
-        // info[2]: borrowBalanceCurrent, info[3]: balanceOfUnderlying
-        new BigNumber(info[2]).gt(0) || new BigNumber(info[3]).gt(0),
+        /**
+          * 0 vToken: address(vToken),
+            1 balanceOf: balanceOf, // balance of vToken
+            2 borrowBalanceCurrent: borrowBalanceCurrent, // interest bearing balance of vToken
+            3 balanceOfUnderlying: balanceOfUnderlying, // balance of vToken * exchangeRate
+            4 tokenBalance: tokenBalance, // balance of underlying token
+            5 tokenAllowance: tokenAllowance // token allowance of underlying token
+         */
+        new BigNumber(info[2]).gt(0) || new BigNumber(info[4]).gt(0),
     );
 
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
