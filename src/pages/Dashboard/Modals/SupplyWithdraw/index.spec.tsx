@@ -12,7 +12,7 @@ import {
   supplyBnb,
   redeem,
   redeemUnderlying,
-  getVTokenBalance,
+  getVTokenBalanceOf,
   useUserMarketInfo,
 } from 'clients/api';
 import { Asset, TokenId } from 'types';
@@ -347,7 +347,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     });
 
     it('redeem is called when full amount is withdrawn', async () => {
-      (getVTokenBalance as jest.Mock).mockImplementationOnce(async () => fakeGetVTokenBalance);
+      (getVTokenBalanceOf as jest.Mock).mockImplementationOnce(async () => fakeGetVTokenBalance);
       const { getByText } = renderComponent(
         () => <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />,
         {

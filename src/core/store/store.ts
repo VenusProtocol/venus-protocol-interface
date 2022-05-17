@@ -2,11 +2,11 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import sagas from 'core/store/sagas';
-import { loadState, saveState } from 'utilities/localStorage';
+// import { loadState, saveState } from 'utilities/localStorage';
 import rootReducer from 'core/store/reducers';
-import { throttle } from 'lodash';
+// import { throttle } from 'lodash';
 
-const persistedState = loadState();
+// const persistedState = loadState();
 const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [thunk, sagaMiddleware];
@@ -27,8 +27,8 @@ const composeEnhancers =
     : compose;
 /* eslint-enable */
 
-const store = createStore(rootReducer, persistedState, composeEnhancers(...enhancers));
+const store = createStore(rootReducer, composeEnhancers(...enhancers));
 
 sagaMiddleware.run(sagas);
-store.subscribe(throttle(() => saveState(store.getState()), 1000));
+// store.subscribe(throttle(() => saveState(store.getState()), 1000));
 export default store;
