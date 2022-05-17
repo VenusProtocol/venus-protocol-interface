@@ -12,6 +12,7 @@ import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/SupplyModal';
 import { getBigNumber } from 'utilities/common';
+import { isAssetDisabled } from 'utilities';
 import { Asset, Setting } from 'types';
 import { useToken, useVbep } from '../../../hooks/useContract';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
@@ -193,14 +194,16 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
         )}
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer tab-active"
-          onClick={() => {
-            changeTab('supply');
-          }}
-        >
-          Supply
-        </div>
+        {!isAssetDisabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer tab-active"
+            onClick={() => {
+              changeTab('supply');
+            }}
+          >
+            Supply
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer"
           onClick={() => {

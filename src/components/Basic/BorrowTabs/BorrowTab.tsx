@@ -12,6 +12,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';
 import { useWeb3React } from '@web3-react/core';
+import { isAssetDisabled } from 'utilities';
 import { useVaiUser } from '../../../hooks/useVaiUser';
 import { useMarketsUser } from '../../../hooks/useMarketsUser';
 import { useVbep } from '../../../hooks/useContract';
@@ -151,14 +152,16 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
         </div>
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer tab-active"
-          onClick={() => {
-            changeTab('borrow');
-          }}
-        >
-          Borrow
-        </div>
+        {!isAssetDisabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer tab-active"
+            onClick={() => {
+              changeTab('borrow');
+            }}
+          >
+            Borrow
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer"
           onClick={() => {

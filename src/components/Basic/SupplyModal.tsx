@@ -5,6 +5,7 @@ import WithdrawTab from 'components/Basic/SupplyTabs/WithdrawTab';
 import closeImg from 'assets/img/close.png';
 import { Asset } from 'types';
 import styled from 'styled-components';
+import { isAssetDisabled } from 'utilities';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -197,10 +198,11 @@ interface SupplyModalProps {
 }
 
 function SupplyModal({ visible, asset, onCancel }: SupplyModalProps) {
-  const [currentTab, setCurrentTab] = useState('supply');
+  const defaultTab = isAssetDisabled(asset.id) ? 'withdraw' : 'supply';
+  const [currentTab, setCurrentTab] = useState(defaultTab);
 
   useEffect(() => {
-    setCurrentTab('supply');
+    setCurrentTab(defaultTab);
   }, [visible]);
 
   if (!asset.id) {
