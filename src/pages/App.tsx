@@ -18,14 +18,15 @@ import Vote from 'containers/Main/Vote';
 import XVSV1 from 'containers/Main/XVS';
 import Xvs from 'pages/Xvs';
 import MarketV1 from 'containers/Main/Market';
+import { VBEP_TOKENS } from 'constants/tokens';
 import Market from 'pages/Market';
 import Vault from 'containers/Main/Vault';
-import MarketDetailsV1 from 'containers/Main/MarketDetail';
+import MarketDetailsV1, { Props as IMarketDetailsV1Props } from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
-import MarketDetails from 'pages/MarketDetails';
+import MarketDetails, { MarketDetailsProps } from 'pages/MarketDetails';
 import ConvertVrtV1 from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from 'theme';
@@ -74,11 +75,24 @@ const App = () => (
                             <Route
                               exact
                               path="/market/:vTokenId"
-                              // TODO: redirect to market page when vTokenId is
-                              // invalid
-                              component={
-                                process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
-                              }
+                              render={props => {
+                                // Redirect to market page if vTokenId is
+                                // invalid
+                                if (
+                                  !Object.prototype.hasOwnProperty.call(
+                                    VBEP_TOKENS,
+                                    props.match.params.vTokenId,
+                                  )
+                                ) {
+                                  return <Redirect to="/market" />;
+                                }
+
+                                return process.env.REACT_APP_RUN_V2 ? (
+                                  <MarketDetails {...(props as MarketDetailsProps)} />
+                                ) : (
+                                  <MarketDetailsV1 {...(props as IMarketDetailsV1Props)} />
+                                );
+                              }}
                             />
                             <Route exact path={Path.TRANSACTION} component={Transaction} />
                             <Route exact path={Path.VAULT} component={Vault} />
