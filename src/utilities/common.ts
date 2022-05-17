@@ -140,10 +140,12 @@ export const formatCoinsToReadableValue = ({
   value,
   tokenId,
   shorthand = false,
+  suffix = false,
 }: {
   value: BigNumber | undefined;
   tokenId: TokenId;
   shorthand?: boolean;
+  suffix?: boolean;
 }) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
@@ -157,6 +159,9 @@ export const formatCoinsToReadableValue = ({
   } else {
     const token = getToken(tokenId);
     decimalPlaces = token.decimals;
+  }
+  if (suffix) {
+    return `${shortenNumberWithSuffix(value)} ${tokenId.toUpperCase()}`;
   }
 
   return `${formatCommaThousandsPeriodDecimal(
