@@ -14,7 +14,7 @@ import {
 import {
   useRedeem,
   useRedeemUnderlying,
-  useGetVTokenBalance,
+  useGetVTokenBalanceOf,
   useUserMarketInfo,
 } from 'clients/api';
 import { IAmountFormProps } from 'containers/AmountForm';
@@ -221,7 +221,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   const { userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
     accountAddress,
   });
-  const { data: vTokenBalanceWei } = useGetVTokenBalance(
+  const { data: vTokenBalanceWei } = useGetVTokenBalanceOf(
     { account: accountAddress, vTokenId: asset.id as VTokenId },
     { enabled: !!accountAddress },
   );

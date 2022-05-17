@@ -90,9 +90,6 @@ export const useStyles = () => {
         }
       }
     `,
-    whiteText: css`
-      color: ${theme.palette.text.primary};
-    `,
     fontWeight400: css`
       font-weight: 400;
     `,

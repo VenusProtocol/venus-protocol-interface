@@ -54,9 +54,9 @@ export const useGetVenusVaiVaultRate = () =>
 export const getXvsReward = jest.fn();
 export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);
 
-export const getVTokenBalance = jest.fn();
-export const useGetVTokenBalance = () =>
-  useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalance);
+export const getVTokenBalanceOf = jest.fn();
+export const useGetVTokenBalanceOf = () =>
+  useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalanceOf);
 
 export const getVTokenBorrowBalance = jest.fn();
 export const useGetVTokenBorrowBalance = () =>
@@ -65,8 +65,8 @@ export const useGetVTokenBorrowBalance = () =>
 export const getAllowance = jest.fn();
 export const useGetAllowance = () => useMutation(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
-export const getVrtBalanceOf = jest.fn();
-export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getVrtBalanceOf);
+export const getBalanceOf = jest.fn();
+export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getBalanceOf);
 
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
