@@ -6,6 +6,7 @@ import { Progress } from 'antd';
 import { PrimaryButton } from 'components';
 import { connectAccount } from 'core';
 import { Asset, Setting, VTokenId } from 'types';
+import { isAssetEnabled, calculateCollateralValue } from 'utilities';
 import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
@@ -21,7 +22,6 @@ import { useComptrollerContract, useVTokenContract } from 'clients/contracts/hoo
 import { AuthContext } from 'context/AuthContext';
 import { useMarketsUser } from 'hooks/useMarketsUser';
 import { useVaiUser } from 'hooks/useVaiUser';
-import { calculateCollateralValue } from 'utilities';
 
 interface WithdrawTabProps {
   asset: Asset;
@@ -195,14 +195,16 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
         </p>
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer"
-          onClick={() => {
-            changeTab('supply');
-          }}
-        >
-          Supply
-        </div>
+        {isAssetEnabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer"
+            onClick={() => {
+              changeTab('supply');
+            }}
+          >
+            Supply
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer tab-active"
           onClick={() => {

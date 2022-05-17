@@ -13,6 +13,7 @@ import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import MAX_UINT256 from 'constants/maxUint256';
 import { getBigNumber, formatToReadablePercentage, format } from 'utilities/common';
 import { Asset, Setting, VTokenId } from 'types';
+import { isAssetEnabled } from 'utilities';
 import { State } from 'core/modules/initialState';
 import { useWeb3 } from 'clients/web3';
 import { useVaiUser } from 'hooks/useVaiUser';
@@ -196,14 +197,16 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
         )}
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer"
-          onClick={() => {
-            changeTab('borrow');
-          }}
-        >
-          Borrow
-        </div>
+        {isAssetEnabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer"
+            onClick={() => {
+              changeTab('borrow');
+            }}
+          >
+            Borrow
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer tab-active"
           onClick={() => {

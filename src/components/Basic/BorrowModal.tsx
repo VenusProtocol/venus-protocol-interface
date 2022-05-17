@@ -4,6 +4,7 @@ import BorrowTab from 'components/Basic/BorrowTabs/BorrowTab';
 import RepayBorrowTab from 'components/Basic/BorrowTabs/RepayBorrowTab';
 import { Modal } from 'antd';
 import closeImg from 'assets/img/close.png';
+import { isAssetEnabled } from 'utilities';
 import { Asset } from 'types';
 
 const ModalContent = styled.div`
@@ -205,10 +206,11 @@ interface Props {
 }
 
 function BorrowModal({ visible, asset, onCancel }: Props) {
-  const [currentTab, setCurrentTab] = useState('borrow');
+  const defaultTab = isAssetEnabled(asset.id) ? 'borrow' : 'repayBorrow';
+  const [currentTab, setCurrentTab] = useState(defaultTab);
 
   useEffect(() => {
-    setCurrentTab('borrow');
+    setCurrentTab(defaultTab);
   }, [visible]);
 
   if (!asset.id) {

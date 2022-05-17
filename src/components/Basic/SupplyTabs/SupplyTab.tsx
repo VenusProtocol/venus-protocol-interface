@@ -18,7 +18,7 @@ import { useTokenContract, useVTokenContract } from 'clients/contracts/hooks';
 import { AuthContext } from 'context/AuthContext';
 import { useMarketsUser } from 'hooks/useMarketsUser';
 import { useVaiUser } from 'hooks/useVaiUser';
-import { calculateCollateralValue } from 'utilities';
+import { calculateCollateralValue, isAssetEnabled } from 'utilities';
 
 interface SupplyTabProps {
   asset: Asset;
@@ -196,14 +196,16 @@ function SupplyTab({ asset, changeTab, onCancel, setSetting }: SupplyTabProps) {
         )}
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer tab-active"
-          onClick={() => {
-            changeTab('supply');
-          }}
-        >
-          Supply
-        </div>
+        {isAssetEnabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer tab-active"
+            onClick={() => {
+              changeTab('supply');
+            }}
+          >
+            Supply
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer"
           onClick={() => {

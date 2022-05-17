@@ -15,6 +15,7 @@ import { useVaiUser } from 'hooks/useVaiUser';
 import { useMarketsUser } from 'hooks/useMarketsUser';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import { AuthContext } from 'context/AuthContext';
+import { isAssetEnabled } from 'utilities';
 
 const abortController = new AbortController();
 
@@ -150,14 +151,16 @@ function BorrowTab({ asset, changeTab, onCancel, setSetting }: Props & DispatchP
         </div>
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer tab-active"
-          onClick={() => {
-            changeTab('borrow');
-          }}
-        >
-          Borrow
-        </div>
+        {isAssetEnabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer tab-active"
+            onClick={() => {
+              changeTab('borrow');
+            }}
+          >
+            Borrow
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer"
           onClick={() => {
