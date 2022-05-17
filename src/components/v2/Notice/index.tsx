@@ -15,14 +15,14 @@ interface INoticeProps {
 
 const getNoticeIconName = (
   variant: NoticeVariant,
-): 'info' | 'notice' | 'checkInline' | 'warning' => {
+): 'info' | 'notice' | 'checkInline' | 'attention' => {
   switch (variant) {
     case 'error':
       return 'notice';
     case 'success':
       return 'checkInline';
     case 'warning':
-      return 'warning';
+      return 'attention';
     default:
     case 'info':
       return 'info';
