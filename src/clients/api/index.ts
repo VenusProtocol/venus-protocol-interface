@@ -90,9 +90,9 @@ export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll'
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/useGetVTokenBalancesAll';
 
-export { default as getVTokenBalance } from './queries/getVTokenBalanceOf';
+export { default as getVTokenBalanceOf } from './queries/getVTokenBalanceOf';
 export * from './queries/getVTokenBalanceOf';
-export { default as useGetVTokenBalance } from './queries/useGetVTokenBalanceOf';
+export { default as useGetVTokenBalanceOf } from './queries/useGetVTokenBalanceOf';
 
 export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
 export * from './queries/getVenusInitialIndex';
