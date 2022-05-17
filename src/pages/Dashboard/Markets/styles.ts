@@ -77,6 +77,7 @@ export const useStyles = () => {
     percentOfLimit: css`
       display: flex;
       align-items: center;
+      justify-content: flex-end;
 
       > :first-of-type {
         margin-right: ${theme.spacing(2)};
