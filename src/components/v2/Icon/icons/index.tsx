@@ -34,7 +34,6 @@ export { ReactComponent as checkInline } from './checkInline.svg';
 export { ReactComponent as mark } from './mark.svg';
 export { ReactComponent as arrowShaft } from './arrowShaft.svg';
 export { ReactComponent as notice } from './notice.svg';
-export { ReactComponent as warning } from './warning.svg';
 
 // Coin icons
 export { ReactComponent as aave } from './coins/aave.svg';
