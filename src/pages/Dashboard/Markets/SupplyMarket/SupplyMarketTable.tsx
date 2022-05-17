@@ -13,7 +13,6 @@ export interface ISupplyMarketTableUiProps {
   isXvsEnabled: boolean;
   rowOnClick: (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => void;
   collateralOnChange: (asset: Asset) => void;
-  hasSuppliedAssets: boolean;
 }
 
 export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
@@ -21,7 +20,6 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
   isXvsEnabled,
   collateralOnChange,
   rowOnClick,
-  hasSuppliedAssets,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -77,7 +75,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
 
   return (
     <Table
-      title={!hasSuppliedAssets ? undefined : t('markets.supplyMarketTableTitle')}
+      title={t('markets.supplyMarketTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -88,7 +86,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       rowKeyIndex={0}
       tableCss={sharedStyles.table}
       cardsCss={sharedStyles.cards}
-      css={[sharedStyles.marketTable, styles.cardContentGrid]}
+      css={[sharedStyles.marketTable, sharedStyles.generalMarketTable, styles.cardContentGrid]}
     />
   );
 };
