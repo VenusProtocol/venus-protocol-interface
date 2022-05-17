@@ -14,14 +14,12 @@ import { useStyles as useSharedStyles } from '../styles';
 export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
-  hasBorrowingAssets: boolean;
 }
 
 const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   assets,
   isXvsEnabled,
   rowOnClick,
-  hasBorrowingAssets,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -76,7 +74,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
 
   return (
     <Table
-      title={!hasBorrowingAssets ? undefined : t('markets.borrowMarketTableTitle')}
+      title={t('markets.borrowMarketTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -87,7 +85,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       rowOnClick={rowOnClick}
       tableCss={sharedStyles.table}
       cardsCss={sharedStyles.cards}
-      css={[sharedStyles.marketTable, styles.cardContentGrid]}
+      css={[sharedStyles.marketTable, sharedStyles.generalMarketTable, styles.cardContentGrid]}
     />
   );
 };
