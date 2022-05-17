@@ -74,6 +74,8 @@ const App = () => (
                             <Route
                               exact
                               path="/market/:vTokenId"
+                              // TODO: redirect to market page when vTokenId is
+                              // invalid
                               component={
                                 process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
                               }
