@@ -12,6 +12,7 @@ import vaiImg from 'assets/img/coins/vai.svg';
 import { Progress } from 'antd';
 import { TabSection, Tabs, TabContent } from 'components/Basic/BorrowModal';
 import { getBigNumber, formatApy } from 'utilities/common';
+import { isAssetDisabled } from 'utilities';
 import { Asset, Setting } from 'types';
 import { State } from 'core/modules/initialState';
 import { useVaiUser } from '../../../hooks/useVaiUser';
@@ -197,14 +198,16 @@ function RepayBorrowTab({ asset, changeTab, onCancel, setSetting }: Props & Disp
         )}
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer"
-          onClick={() => {
-            changeTab('borrow');
-          }}
-        >
-          Borrow
-        </div>
+        {!isAssetDisabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer"
+            onClick={() => {
+              changeTab('borrow');
+            }}
+          >
+            Borrow
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer tab-active"
           onClick={() => {

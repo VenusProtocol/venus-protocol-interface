@@ -8,6 +8,7 @@ import { useWeb3React } from '@web3-react/core';
 import { connectAccount } from 'core';
 import commaNumber from 'comma-number';
 import { Asset, Setting } from 'types';
+import { isAssetDisabled } from 'utilities';
 import coinImg from 'assets/img/coins/xvs.svg';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import vaiImg from 'assets/img/coins/vai.svg';
@@ -185,14 +186,16 @@ function WithdrawTab({ asset, changeTab, onCancel, setSetting }: WithdrawTabProp
         </p>
       </div>
       <Tabs className="flex align-center">
-        <div
-          className="flex align-center just-center tab-item pointer"
-          onClick={() => {
-            changeTab('supply');
-          }}
-        >
-          Supply
-        </div>
+        {!isAssetDisabled(asset.id) ? (
+          <div
+            className="flex align-center just-center tab-item pointer"
+            onClick={() => {
+              changeTab('supply');
+            }}
+          >
+            Supply
+          </div>
+        ) : null}
         <div
           className="flex align-center just-center tab-item pointer tab-active"
           onClick={() => {
