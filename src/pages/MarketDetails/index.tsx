@@ -12,7 +12,9 @@ import {
   formatToReadablePercentage,
   formatCoinsToReadableValue,
   formatPercentage,
+  convertWeiToCoins,
 } from 'utilities/common';
+import { VTOKEN_DECIMALS } from 'config';
 import { useGetMarketHistory, useGetMarkets } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
@@ -33,6 +35,17 @@ export interface IMarketDetailsUiProps {
   supplyApyPercentage?: number;
   borrowDistributionApyPercentage?: number;
   supplyDistributionApyPercentage?: number;
+  tokenPriceDollars?: number;
+  marketLiquidityTokens?: BigNumber;
+  supplierCount?: number;
+  borrowerCount?: number;
+  borrowCapCents?: number;
+  dailyInterestsCents?: number;
+  reserveFactor?: number;
+  collateralFactor?: number;
+  mintedTokens?: BigNumber;
+  reserveTokens?: BigNumber;
+  exchangeRateVTokens?: BigNumber;
 }
 
 export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
@@ -206,6 +219,8 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     return <LoadingSpinner />;
   }
 
+  // @TODO: handle fetching errors
+
   return (
     <div css={styles.container}>
       <div css={[styles.column, styles.graphsColumn]}>
@@ -316,59 +331,100 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     [JSON.stringify(marketSnapshots)],
   );
 
-  const totalBorrowBalanceCents = assetMarket?.totalBorrowsUsd
-    ? +assetMarket.totalBorrowsUsd * 100
-    : undefined;
-  const totalSupplyBalanceCents = assetMarket?.totalSupplyUsd
-    ? +assetMarket.totalSupplyUsd * 100
-    : undefined;
+  const props = React.useMemo(() => {
+    const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
+    const totalSupplyBalanceCents = assetMarket && +assetMarket.totalSupplyUsd * 100;
+    const borrowApyPercentage = assetMarket?.borrowApy;
+    const supplyApyPercentage = assetMarket && +assetMarket.supplyApy;
+    const borrowDistributionApyPercentage = assetMarket && +assetMarket.borrowVenusApy;
+    const supplyDistributionApyPercentage = assetMarket && +assetMarket.supplyVenusApy;
+    const tokenPriceDollars = assetMarket && +assetMarket.tokenPrice;
+    const marketLiquidityTokens = assetMarket && new BigNumber(assetMarket.liquidity);
+    const supplierCount = assetMarket?.supplierCount;
+    const borrowerCount = assetMarket?.borrowerCount;
+    const borrowCapCents = assetMarket && +assetMarket.borrowCaps * +assetMarket.tokenPrice * 100;
+    const mintedTokens = assetMarket && new BigNumber(assetMarket.totalSupply2);
 
-  const borrowApyPercentage = assetMarket?.borrowApy;
-  const supplyApyPercentage = assetMarket?.supplyApy ? +assetMarket.supplyApy : undefined;
+    const dailyInterestsCents =
+      assetMarket &&
+      convertWeiToCoins({
+        valueWei: new BigNumber(assetMarket.supplierDailyVenus).plus(
+          new BigNumber(assetMarket.borrowerDailyVenus),
+        ),
+        tokenId: 'xvs',
+      })
+        // Convert XVS to dollars
+        .multipliedBy(assetMarket.tokenPrice)
+        // Convert to cents
+        .multipliedBy(100)
+        .toNumber();
 
-  const borrowDistributionApyPercentage = assetMarket?.borrowVenusApy
-    ? +assetMarket.borrowVenusApy
-    : undefined;
-  const supplyDistributionApyPercentage = assetMarket?.supplyVenusApy
-    ? +assetMarket.supplyVenusApy
-    : undefined;
+    const reserveFactor =
+      assetMarket &&
+      convertWeiToCoins({
+        valueWei: new BigNumber(assetMarket.reserveFactor),
+        tokenId: vTokenId,
+      })
+        // Convert to percentage
+        .multipliedBy(100)
+        .toNumber();
 
-  const currentUtilizationRate = 46;
-  const tokenPriceCents = 11415;
-  const marketLiquidityTokens = new BigNumber(100000000);
-  const supplierCount = 1234;
-  const borrowerCount = 76;
-  const borrowCapCents = 812963286;
-  const dailyInterestsCents = 123212;
-  const reserveTokens = new BigNumber(100000);
-  const reserveFactor = 20;
-  const collateralFactor = 70;
-  const mintedTokens = new BigNumber(10000000);
-  const exchangeRateVToken = new BigNumber(1.345);
+    const collateralFactor =
+      assetMarket &&
+      convertWeiToCoins({
+        valueWei: new BigNumber(assetMarket.collateralFactor),
+        tokenId: vTokenId,
+      })
+        // Convert to percentage
+        .multipliedBy(100)
+        .toNumber();
+
+    const reserveTokens =
+      assetMarket &&
+      convertWeiToCoins({
+        valueWei: new BigNumber(assetMarket.totalReserves),
+        tokenId: vTokenId,
+      });
+
+    const exchangeRateVTokens =
+      assetMarket &&
+      new BigNumber(1).div(
+        new BigNumber(assetMarket.exchangeRate).div(
+          new BigNumber(10).pow(18 + getToken(vTokenId).decimals - VTOKEN_DECIMALS),
+        ),
+      );
+
+    // TODO: calculate actual value (see https://app.clickup.com/t/29xmavh)
+    const currentUtilizationRate = 46;
+
+    return {
+      totalBorrowBalanceCents,
+      totalSupplyBalanceCents,
+      borrowApyPercentage,
+      supplyApyPercentage,
+      borrowDistributionApyPercentage,
+      supplyDistributionApyPercentage,
+      tokenPriceDollars,
+      marketLiquidityTokens,
+      supplierCount,
+      borrowerCount,
+      borrowCapCents,
+      mintedTokens,
+      dailyInterestsCents,
+      reserveFactor,
+      collateralFactor,
+      reserveTokens,
+      exchangeRateVTokens,
+      currentUtilizationRate,
+    };
+  }, [JSON.stringify(assetMarket)]);
 
   return (
     <MarketDetailsUi
       vTokenId={vTokenId}
-      totalBorrowBalanceCents={totalBorrowBalanceCents}
-      borrowApyPercentage={borrowApyPercentage}
-      borrowDistributionApyPercentage={borrowDistributionApyPercentage}
-      totalSupplyBalanceCents={totalSupplyBalanceCents}
-      supplyApyPercentage={supplyApyPercentage}
-      supplyDistributionApyPercentage={supplyDistributionApyPercentage}
-      currentUtilizationRate={currentUtilizationRate}
-      tokenPriceCents={tokenPriceCents}
-      marketLiquidityTokens={marketLiquidityTokens}
-      supplierCount={supplierCount}
-      borrowerCount={borrowerCount}
-      borrowCapCents={borrowCapCents}
-      dailyInterestsCents={dailyInterestsCents}
-      reserveTokens={reserveTokens}
-      reserveFactor={reserveFactor}
-      collateralFactor={collateralFactor}
-      mintedTokens={mintedTokens}
-      exchangeRateVToken={exchangeRateVToken}
       supplyChartData={supplyChartData}
       borrowChartData={borrowChartData}
+      // TODO: pass actual data (see https://app.clickup.com/t/29xmavh)
       interestRateChartData={fakeInterestRateChartData}
       {...props}
     />

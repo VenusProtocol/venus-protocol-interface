@@ -44,7 +44,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
       <h4
         class="MuiTypography-root MuiTypography-h4 css-13ud2lo-MuiTypography-root-Card"
       >
-        $2K
+        -
       </h4>
     </div>
     <div
@@ -58,7 +58,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
       <h4
         class="MuiTypography-root MuiTypography-h4 css-13ud2lo-MuiTypography-root-Card"
       >
-        0%
+        -
       </h4>
     </div>
     <div
@@ -72,7 +72,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
       <h4
         class="MuiTypography-root MuiTypography-h4 css-13ud2lo-MuiTypography-root-Card"
       >
-        Infinity%
+        -
       </h4>
     </div>
   </div>
@@ -135,7 +135,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
       <h4
         class="MuiTypography-root MuiTypography-h4 css-13ud2lo-MuiTypography-root-Card"
       >
-        $4K
+        -
       </h4>
     </div>
     <div
@@ -149,7 +149,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
       <h4
         class="MuiTypography-root MuiTypography-h4 css-13ud2lo-MuiTypography-root-Card"
       >
-        -0.16%
+        -
       </h4>
     </div>
     <div
@@ -163,7 +163,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
       <h4
         class="MuiTypography-root MuiTypography-h4 css-13ud2lo-MuiTypography-root-Card"
       >
-        1.23%
+        -
       </h4>
     </div>
   </div>
@@ -289,7 +289,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            $114.15
+            -
           </span>
         </div>
       </div>
@@ -315,7 +315,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            100,000,000 AAVE
+            -
           </span>
         </div>
       </div>
@@ -341,7 +341,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            1234
+            -
           </span>
         </div>
       </div>
@@ -367,7 +367,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            76
+            -
           </span>
         </div>
       </div>
@@ -393,7 +393,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            $8,129,632.86
+            -
           </span>
         </div>
       </div>
@@ -419,7 +419,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            $1,232.12
+            -
           </span>
         </div>
       </div>
@@ -445,7 +445,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            100,000 AAVE
+            -
           </span>
         </div>
       </div>
@@ -471,7 +471,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            20%
+            -
           </span>
         </div>
       </div>
@@ -497,7 +497,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            70%
+            -
           </span>
         </div>
       </div>
@@ -523,7 +523,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            10000000
+            -
           </span>
         </div>
       </div>
@@ -549,7 +549,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            1 AAVE=1.345 vAAVE
+            -
           </span>
         </div>
       </div>
