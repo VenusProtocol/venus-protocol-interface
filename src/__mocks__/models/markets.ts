@@ -1,4 +1,6 @@
-export const markets = [
+import { Market } from 'types';
+
+export const markets: Market[] = [
   {
     address: '0x74469281310195a04840daf6edf576f559a3de80',
     symbol: 'vSXP',
@@ -163,7 +165,7 @@ export const markets = [
     address: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
     symbol: 'vBNB',
     name: 'Venus BNB',
-    underlyingAddress: null,
+    underlyingAddress: '0x2e7222e51c0f6e98610a1543aa3836e092cde62c',
     underlyingName: 'BNB',
     underlyingSymbol: 'BNB',
     underlyingDecimal: 18,
