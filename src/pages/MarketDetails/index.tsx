@@ -225,7 +225,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     <div css={styles.container}>
       <div css={[styles.column, styles.graphsColumn]}>
         <Card
-          data-testid="market-details-supply-info"
+          testId="market-details-supply-info"
           title={t('marketDetails.supplyInfo.title')}
           css={styles.graphCard}
           stats={supplyInfoStats}
@@ -237,7 +237,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          data-testid="market-details-borrow-info"
+          testId="market-details-borrow-info"
           title={t('marketDetails.borrowInfo.title')}
           css={styles.graphCard}
           stats={borrowInfoStats}
@@ -249,7 +249,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          data-testid="market-details-interest-rate-model"
+          testId="market-details-interest-rate-model"
           title={t('marketDetails.interestRateModel.title')}
           css={styles.graphCard}
           legends={interestRateModelLegends}
@@ -264,7 +264,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       </div>
 
       <div css={[styles.column, styles.statsColumn]}>
-        <MarketInfo stats={marketInfoStats} data-testid="market-details-market-info" />
+        <MarketInfo stats={marketInfoStats} testId="market-details-market-info" />
       </div>
     </div>
   );
