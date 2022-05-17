@@ -69,7 +69,7 @@ const Markets: React.FC<IMarketsProps> = ({
   ];
 
   const getTabsComponentTitle = () => {
-    if (activeTabIndex === 0 && suppliedAssets.length > 0) {
+    if (activeTabIndex === 0) {
       return suppliedAssets.length > 0
         ? t('markets.suppliedTableTitle')
         : t('markets.supplyMarketTableTitle');
