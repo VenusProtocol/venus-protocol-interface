@@ -170,8 +170,6 @@ const useUserMarketInfo = ({
       acc.treasuryTotalAvailableLiquidityUsdBalanceCents =
         acc.treasuryTotalAvailableLiquidityUsdBalanceCents.plus(asset.liquidity.times(100));
       // total distributed Xvs
-      acc.totalXvsDistributed = acc.totalXvsDistributed.plus(market.totalDistributed);
-
       acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
         new BigNumber(market.totalDistributed).times(
           new BigNumber(10).pow(getToken('xvs').decimals),

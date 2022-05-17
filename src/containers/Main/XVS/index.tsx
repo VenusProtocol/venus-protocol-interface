@@ -261,7 +261,7 @@ function XVS({ settings }: XVSProps) {
       sort: sortInfo.field === field && sortInfo.sort === 'desc' ? 'asc' : 'desc',
     });
   };
-
+  console.log({ settings });
   return (
     <XVSLayout>
       <XVSWrapper>

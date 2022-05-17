@@ -108,14 +108,18 @@ export const Table = ({
               const rowKey = row[rowKeyIndex].value.toString();
 
               return (
-                <TableRow hover key={rowKey} onClick={e => rowOnClick && rowOnClick(e, row)}>
+                <TableRow
+                  hover
+                  key={`${rowKey}-table`}
+                  onClick={e => rowOnClick && rowOnClick(e, row)}
+                >
                   {row.map(({ key, render }: ITableRowProps) => {
                     const cellContent = render();
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
                     return (
                       <TableCell
                         css={styles.cellWrapper}
-                        key={`${rowKey}-${key}`}
+                        key={`${rowKey}-${key}-table`}
                         title={cellTitle}
                       >
                         {cellContent}
