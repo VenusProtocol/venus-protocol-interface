@@ -100,6 +100,11 @@ export const useStyles = () => {
         }
       }
     `,
+    generalMarketTable: css`
+      h4 {
+        display: initial;
+      }
+    `,
     table: css`
       display: initial;
       ${theme.breakpoints.down('sm')} {
