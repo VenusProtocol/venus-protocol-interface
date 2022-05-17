@@ -2,8 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { toast, ToastContainer, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from 'react-toastify';
 
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
@@ -62,13 +61,7 @@ const renderComponent = (
                 <VaiContext.Provider value={defaultVaiContextValues}>
                   <SuccessfulTransactionModalProvider>
                     <BrowserRouter>
-                      <ToastContainer
-                        autoClose={8000}
-                        transition={Slide}
-                        hideProgressBar
-                        newestOnTop
-                        position={toast.POSITION.TOP_LEFT}
-                      />
+                      <ToastContainer />
 
                       <Switch>
                         <Route

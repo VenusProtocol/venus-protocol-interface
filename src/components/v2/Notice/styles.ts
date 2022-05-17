@@ -7,9 +7,13 @@ export const useStyles = () => {
   return {
     root: css`
       border-radius: ${theme.shape.borderRadius.medium}px;
+      background-color: ${theme.palette.background.default};
+    `,
+    inner: css`
+      border-radius: ${theme.shape.borderRadius.medium}px;
       border: 1px solid ${theme.palette.secondary.light};
     `,
-    getRootStyles: ({ variant }: { variant: NoticeVariant }) => {
+    getInnerStyles: ({ variant }: { variant: NoticeVariant }) => {
       switch (variant) {
         default:
         case 'info':
@@ -25,7 +29,7 @@ export const useStyles = () => {
         case 'success':
           return css`
             border-color: ${theme.palette.interactive.success};
-            background-color: ${alpha(theme.palette.interactive.success as string, 0.05)};
+            background-color: ${alpha(theme.palette.interactive.success as string, 0.1)};
           `;
         case 'warning':
           return css`
@@ -69,7 +73,11 @@ export const useStyles = () => {
     `,
     title: css`
       font-weight: bold;
-      margin-bottom: ${theme.spacing(2)};
     `,
+    getDescription: ({ hasMarginTop }: { hasMarginTop: boolean }) =>
+      hasMarginTop &&
+      css`
+        margin-top: ${theme.spacing(2)};
+      `,
   };
 };

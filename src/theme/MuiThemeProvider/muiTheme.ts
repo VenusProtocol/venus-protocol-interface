@@ -79,7 +79,7 @@ export type TypographyVariant =
   | 'small2'
   | undefined;
 
-const SHAPE = {
+export const SHAPE = {
   borderRadius: {
     verySmall: SPACING,
     small: SPACING * 2,
