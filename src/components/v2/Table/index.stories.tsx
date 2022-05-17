@@ -38,6 +38,15 @@ const useStyles = () => {
         display: initial;
       }
     `,
+
+    /* multiple rows styles */
+
+    cardContentGrid: `
+      .table__table-cards__card-content {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        row-gap: 20px;
+    `,
   };
 };
 const createData = (asset: TokenId, apy: number, wallet: number, collateral: boolean) => {
@@ -167,6 +176,22 @@ export const WithCustomColumnsWidth = () => {
       tableCss={styles.tableCss}
       cardsCss={styles.cardsCss}
       css={styles.table}
+    />
+  );
+};
+
+export const WithMultipleRows = () => {
+  const styles = useStyles();
+  return (
+    <Table
+      columns={columns}
+      data={rows}
+      title="Market Data"
+      minWidth="650px"
+      rowKeyIndex={0}
+      tableCss={styles.tableCss}
+      cardsCss={styles.cardsCss}
+      css={[styles.table, styles.cardContentGrid]}
     />
   );
 };
