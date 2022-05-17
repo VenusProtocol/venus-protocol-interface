@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { ComponentMeta } from '@storybook/react';
 import { withRouter, withProvider } from 'stories/decorators';
-import { fakeApyChartData, fakeInterestRateChartData } from './mockData';
+import { fakeApyChartData, fakeInterestRateChartData } from './__mocks__/models';
 import { MarketDetailsUi } from '.';
 
 export default {
@@ -14,7 +14,6 @@ export default {
 
 export const Default = () => (
   <MarketDetailsUi
-    tokenId="bnb"
     vTokenId="bnb"
     totalBorrowBalanceCents={100000000}
     borrowApyPercentage={2.24}

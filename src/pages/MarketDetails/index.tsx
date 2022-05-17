@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { getToken, getVBepToken } from 'utilities';
-import { TokenId, VTokenId } from 'types';
+import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
 import {
   formatCentsToReadableValue,
@@ -12,22 +12,15 @@ import {
   formatCoinsToReadableValue,
   formatPercentage,
 } from 'utilities/common';
-import { useGetMarketHistory } from 'clients/api';
+import { useGetMarketHistory, useGetMarkets } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
-import { fakeInterestRateChartData } from './mockData';
+import { fakeInterestRateChartData } from './__mocks__/models';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
 import Card, { ICardProps } from './Card';
 import { useStyles } from './styles';
 
 export interface IMarketDetailsUiProps {
-  tokenId: TokenId;
   vTokenId: VTokenId;
-  totalBorrowBalanceCents: number;
-  borrowApyPercentage: number;
-  borrowDistributionApyPercentage: number;
-  totalSupplyBalanceCents: number;
-  supplyApyPercentage: number;
-  supplyDistributionApyPercentage: number;
   currentUtilizationRate: number;
   tokenPriceCents: number;
   marketLiquidityTokens: BigNumber;
@@ -43,10 +36,15 @@ export interface IMarketDetailsUiProps {
   supplyChartData: IApyChartProps['data'];
   borrowChartData: IApyChartProps['data'];
   interestRateChartData: IInterestRateChartProps['data'];
+  totalBorrowBalanceCents?: number;
+  totalSupplyBalanceCents?: number;
+  borrowApyPercentage?: number;
+  supplyApyPercentage?: number;
+  borrowDistributionApyPercentage?: number;
+  supplyDistributionApyPercentage?: number;
 }
 
 export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
-  tokenId,
   vTokenId,
   totalBorrowBalanceCents,
   borrowApyPercentage,
@@ -73,24 +71,24 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const token = getToken(tokenId);
+  const token = getToken(vTokenId);
   const vToken = getVBepToken(vTokenId);
 
   const supplyInfoStats: ICardProps['stats'] = [
     {
       label: t('marketDetails.supplyInfo.stats.totalSupply'),
       value: formatCentsToReadableValue({
-        value: totalBorrowBalanceCents,
+        value: totalSupplyBalanceCents,
         shorthand: true,
       }),
     },
     {
       label: t('marketDetails.supplyInfo.stats.apy'),
-      value: formatToReadablePercentage(borrowApyPercentage),
+      value: formatToReadablePercentage(supplyApyPercentage),
     },
     {
       label: t('marketDetails.supplyInfo.stats.distributionApy'),
-      value: formatToReadablePercentage(borrowDistributionApyPercentage),
+      value: formatToReadablePercentage(supplyDistributionApyPercentage),
     },
   ];
 
@@ -105,17 +103,17 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     {
       label: t('marketDetails.borrowInfo.stats.totalBorrow'),
       value: formatCentsToReadableValue({
-        value: totalSupplyBalanceCents,
+        value: totalBorrowBalanceCents,
         shorthand: true,
       }),
     },
     {
       label: t('marketDetails.borrowInfo.stats.apy'),
-      value: formatToReadablePercentage(supplyApyPercentage),
+      value: formatToReadablePercentage(borrowApyPercentage),
     },
     {
       label: t('marketDetails.borrowInfo.stats.distributionApy'),
-      value: formatToReadablePercentage(supplyDistributionApyPercentage),
+      value: formatToReadablePercentage(borrowDistributionApyPercentage),
     },
   ];
 
@@ -153,7 +151,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       value: formatCoinsToReadableValue({
         value: marketLiquidityTokens,
         shorthand: true,
-        tokenId,
+        tokenId: vTokenId,
       }),
     },
     {
@@ -181,7 +179,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       value: formatCoinsToReadableValue({
         value: reserveTokens,
         shorthand: true,
-        tokenId,
+        tokenId: vTokenId,
       }),
     },
     {
@@ -215,6 +213,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     <div css={styles.container}>
       <div css={[styles.column, styles.graphsColumn]}>
         <Card
+          data-testid="market-details-supply-info"
           title={t('marketDetails.supplyInfo.title')}
           css={styles.graphCard}
           stats={supplyInfoStats}
@@ -226,6 +225,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
+          data-testid="market-details-borrow-info"
           title={t('marketDetails.borrowInfo.title')}
           css={styles.graphCard}
           stats={borrowInfoStats}
@@ -237,6 +237,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
+          data-testid="market-details-interest-rate-model"
           title={t('marketDetails.interestRateModel.title')}
           css={styles.graphCard}
           legends={interestRateModelLegends}
@@ -251,7 +252,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       </div>
 
       <div css={[styles.column, styles.statsColumn]}>
-        <MarketInfo stats={marketInfoStats} />
+        <MarketInfo stats={marketInfoStats} data-testid="market-details-market-info" />
       </div>
     </div>
   );
@@ -264,9 +265,20 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     params: { vTokenId },
   },
 }) => {
-  const { data: marketSnapshots = [] } = useGetMarketHistory({
-    vTokenId,
-  });
+  const { data: marketSnapshots = [] } = useGetMarketHistory(
+    {
+      vTokenId,
+    },
+    {
+      placeholderData: [],
+    },
+  );
+
+  const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
+  const vToken = getVBepToken(vTokenId);
+  const assetMarket = markets.find(
+    market => market.address.toLowerCase() === vToken.address.toLowerCase(),
+  );
 
   // Format data for graphs
   const [supplyChartData, borrowChartData] = React.useMemo(
@@ -309,13 +321,23 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
 
   // TODO: handle loading state
 
-  const tokenId = 'bnb';
-  const totalBorrowBalanceCents = 100000000;
-  const borrowApyPercentage = 2.24;
-  const borrowDistributionApyPercentage = 1.1;
-  const totalSupplyBalanceCents = 100000000000;
-  const supplyApyPercentage = 4.56;
-  const supplyDistributionApyPercentage = 0.45;
+  const totalBorrowBalanceCents = assetMarket?.totalBorrowsUsd
+    ? +assetMarket.totalBorrowsUsd * 100
+    : undefined;
+  const totalSupplyBalanceCents = assetMarket?.totalSupplyUsd
+    ? +assetMarket.totalSupplyUsd * 100
+    : undefined;
+
+  const borrowApyPercentage = assetMarket?.borrowApy;
+  const supplyApyPercentage = assetMarket?.supplyApy ? +assetMarket.supplyApy : undefined;
+
+  const borrowDistributionApyPercentage = assetMarket?.borrowVenusApy
+    ? +assetMarket.borrowVenusApy
+    : undefined;
+  const supplyDistributionApyPercentage = assetMarket?.supplyVenusApy
+    ? +assetMarket.supplyVenusApy
+    : undefined;
+
   const currentUtilizationRate = 46;
   const tokenPriceCents = 11415;
   const marketLiquidityTokens = new BigNumber(100000000);
@@ -331,7 +353,6 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
 
   return (
     <MarketDetailsUi
-      tokenId={tokenId}
       vTokenId={vTokenId}
       totalBorrowBalanceCents={totalBorrowBalanceCents}
       borrowApyPercentage={borrowApyPercentage}

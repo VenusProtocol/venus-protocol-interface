@@ -16,13 +16,20 @@ export interface ICardProps {
   legends?: ILegend[];
   stats?: IStat[];
   className?: string;
+  'data-testid'?: string;
 }
 
-const Card: React.FC<ICardProps> = ({ children, title, legends = [], stats = [], className }) => {
+const Card: React.FC<ICardProps> = ({
+  children,
+  title,
+  legends = [],
+  stats = [],
+  ...containerProps
+}) => {
   const styles = useStyles();
 
   return (
-    <Paper className={className}>
+    <Paper {...containerProps}>
       <div css={styles.header}>
         <h4 css={styles.title}>{title}</h4>
 
