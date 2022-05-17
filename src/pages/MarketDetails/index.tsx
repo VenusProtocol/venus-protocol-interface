@@ -15,6 +15,7 @@ import {
 } from 'utilities/common';
 import { useGetMarketHistory, useGetMarkets } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { fakeInterestRateChartData } from './__mocks__/models';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
 import Card, { ICardProps } from './Card';
@@ -201,9 +202,8 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
   ];
 
-  // TODO: handle loading state better
   if (!supplyChartData.length || !borrowChartData.length) {
-    return null;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -315,8 +315,6 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
         ),
     [JSON.stringify(marketSnapshots)],
   );
-
-  // TODO: handle loading state
 
   const totalBorrowBalanceCents = assetMarket?.totalBorrowsUsd
     ? +assetMarket.totalBorrowsUsd * 100
