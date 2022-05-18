@@ -11,16 +11,14 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatCoinsToReadableValue,
-  formatPercentage,
-  convertWeiToCoins,
 } from 'utilities/common';
-import { VTOKEN_DECIMALS } from 'config';
-import { useGetMarketHistory, useGetMarkets } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import Path from 'constants/path';
 import { fakeInterestRateChartData } from './__mocks__/models';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
+import useGetChartData from './useGetChartData';
+import useGetMarketData from './useGetMarketData';
 import Card, { ICardProps } from './Card';
 import { useStyles } from './styles';
 
@@ -285,155 +283,22 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     return <Redirect to={Path.MARKET} />;
   }
 
-  const { data: marketSnapshots = [] } = useGetMarketHistory(
-    {
-      vTokenId,
-    },
-    {
-      placeholderData: [],
-    },
-  );
+  const chartData = useGetChartData({
+    vTokenId,
+  });
 
-  const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
-  const assetMarket = markets.find(
-    market => market.address.toLowerCase() === vToken.address.toLowerCase(),
-  );
-
-  // Format data for graphs
-  const [supplyChartData, borrowChartData] = React.useMemo(
-    () =>
-      [...marketSnapshots]
-        // Snapshots are returned from earliest to oldest, so we reverse them to
-        // pass them to the graphs in the right order
-        .reverse()
-        .reduce(
-          ([accSupplyChartData, accBorrowChartData], marketSnapshot) => {
-            const timestampMs = new Date(marketSnapshot.createdAt).getTime();
-
-            return [
-              [
-                ...accSupplyChartData,
-                {
-                  apyPercentage: formatPercentage(marketSnapshot.supplyApy),
-                  timestampMs,
-                  balanceCents: new BigNumber(marketSnapshot.totalSupply).multipliedBy(
-                    marketSnapshot.priceUSD,
-                  ),
-                },
-              ],
-              [
-                ...accBorrowChartData,
-                {
-                  apyPercentage: formatPercentage(marketSnapshot.borrowApy),
-                  timestampMs,
-                  balanceCents: new BigNumber(marketSnapshot.totalBorrow).multipliedBy(
-                    marketSnapshot.priceUSD,
-                  ),
-                },
-              ],
-            ];
-          },
-          [[], []] as [IApyChartProps['data'], IApyChartProps['data']],
-        ),
-    [JSON.stringify(marketSnapshots)],
-  );
-
-  const props = React.useMemo(() => {
-    const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
-    const totalSupplyBalanceCents = assetMarket && +assetMarket.totalSupplyUsd * 100;
-    const borrowApyPercentage = assetMarket?.borrowApy;
-    const supplyApyPercentage = assetMarket && +assetMarket.supplyApy;
-    const borrowDistributionApyPercentage = assetMarket && +assetMarket.borrowVenusApy;
-    const supplyDistributionApyPercentage = assetMarket && +assetMarket.supplyVenusApy;
-    const tokenPriceDollars = assetMarket && +assetMarket.tokenPrice;
-    const marketLiquidityTokens = assetMarket && new BigNumber(assetMarket.liquidity);
-    const supplierCount = assetMarket?.supplierCount;
-    const borrowerCount = assetMarket?.borrowerCount;
-    const borrowCapCents = assetMarket && +assetMarket.borrowCaps * +assetMarket.tokenPrice * 100;
-    const mintedTokens = assetMarket && new BigNumber(assetMarket.totalSupply2);
-
-    const dailyInterestsCents =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.supplierDailyVenus).plus(
-          new BigNumber(assetMarket.borrowerDailyVenus),
-        ),
-        tokenId: 'xvs',
-      })
-        // Convert XVS to dollars
-        .multipliedBy(assetMarket.tokenPrice)
-        // Convert to cents
-        .multipliedBy(100)
-        .toNumber();
-
-    const reserveFactor =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.reserveFactor),
-        tokenId: vTokenId,
-      })
-        // Convert to percentage
-        .multipliedBy(100)
-        .toNumber();
-
-    const collateralFactor =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.collateralFactor),
-        tokenId: vTokenId,
-      })
-        // Convert to percentage
-        .multipliedBy(100)
-        .toNumber();
-
-    const reserveTokens =
-      assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.totalReserves),
-        tokenId: vTokenId,
-      });
-
-    const exchangeRateVTokens =
-      assetMarket &&
-      new BigNumber(1).div(
-        new BigNumber(assetMarket.exchangeRate).div(
-          new BigNumber(10).pow(18 + getToken(vTokenId).decimals - VTOKEN_DECIMALS),
-        ),
-      );
-
-    // TODO: calculate actual value (see https://app.clickup.com/t/29xmavh)
-    const currentUtilizationRate = 46;
-
-    return {
-      totalBorrowBalanceCents,
-      totalSupplyBalanceCents,
-      borrowApyPercentage,
-      supplyApyPercentage,
-      borrowDistributionApyPercentage,
-      supplyDistributionApyPercentage,
-      tokenPriceDollars,
-      marketLiquidityTokens,
-      supplierCount,
-      borrowerCount,
-      borrowCapCents,
-      mintedTokens,
-      dailyInterestsCents,
-      reserveFactor,
-      collateralFactor,
-      reserveTokens,
-      exchangeRateVTokens,
-      currentUtilizationRate,
-    };
-  }, [JSON.stringify(assetMarket)]);
+  const marketData = useGetMarketData({
+    vTokenId,
+    vTokenAddress: vToken.address,
+  });
 
   return (
     <MarketDetailsUi
       vTokenId={vTokenId}
-      supplyChartData={supplyChartData}
-      borrowChartData={borrowChartData}
       // TODO: pass actual data (see https://app.clickup.com/t/29xmavh)
       interestRateChartData={fakeInterestRateChartData}
-      {...props}
+      {...chartData}
+      {...marketData}
     />
   );
 };
