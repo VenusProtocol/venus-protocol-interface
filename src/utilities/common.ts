@@ -221,18 +221,22 @@ export const formatCentsToReadableValue = ({
   return `$${shortenedValue}`;
 };
 
+export const formatPercentage = (value: string | number | BigNumber) => {
+  const valueBn = new BigNumber(value);
+
+  if (valueBn.absoluteValue().isGreaterThanOrEqualTo(100000000)) {
+    return +valueBn.toExponential(2);
+  }
+
+  return +valueBn.dp(2).toFixed();
+};
+
 export const formatToReadablePercentage = (value: number | string | BigNumber | undefined) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
 
-  const valueBn = new BigNumber(value);
-
-  if (valueBn.absoluteValue().isGreaterThanOrEqualTo(100000000)) {
-    return `${valueBn.toExponential(2)}%`;
-  }
-
-  return `${valueBn.dp(2).toFixed()}%`;
+  return `${formatPercentage(value)}%`;
 };
 
 /**
