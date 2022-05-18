@@ -18,15 +18,14 @@ import Vote from 'containers/Main/Vote';
 import XVSV1 from 'containers/Main/XVS';
 import Xvs from 'pages/Xvs';
 import MarketV1 from 'containers/Main/Market';
-import { VBEP_TOKENS } from 'constants/tokens';
 import Market from 'pages/Market';
 import Vault from 'containers/Main/Vault';
-import MarketDetailsV1, { Props as IMarketDetailsV1Props } from 'containers/Main/MarketDetail';
+import MarketDetailsV1 from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
-import MarketDetails, { MarketDetailsProps } from 'pages/MarketDetails';
+import MarketDetails from 'pages/MarketDetails';
 import ConvertVrtV1 from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from 'theme';
@@ -34,6 +33,7 @@ import { RefreshContextProvider } from 'context/RefreshContext';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
+import Path from 'constants/path';
 import 'assets/styles/App.scss';
 
 initTranslationLibrary();
@@ -59,52 +59,41 @@ const App = () => (
                         />
                         <Layout>
                           <Switch>
-                            <Route exact path="/dashboard" component={Dashboard} />
-                            <Route exact path="/vote" component={Vote} />
+                            <Route exact path={Path.DASHBOARD} component={Dashboard} />
+                            <Route exact path={Path.VOTE} component={Vote} />
                             <Route
                               exact
-                              path="/xvs"
+                              path={Path.XVS}
                               component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
                             />
                             <Route
                               exact
-                              path="/market"
+                              path={Path.MARKET}
                               component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
                             />
                             <Route
                               exact
-                              path="/market/:vTokenId"
-                              render={props => {
-                                // Redirect to market page if vTokenId is
-                                // invalid
-                                if (
-                                  !Object.prototype.hasOwnProperty.call(
-                                    VBEP_TOKENS,
-                                    props.match.params.vTokenId,
-                                  )
-                                ) {
-                                  return <Redirect to="/market" />;
-                                }
-
-                                return process.env.REACT_APP_RUN_V2 ? (
-                                  <MarketDetails {...(props as MarketDetailsProps)} />
-                                ) : (
-                                  <MarketDetailsV1 {...(props as IMarketDetailsV1Props)} />
-                                );
-                              }}
+                              path={Path.MARKET_DETAILS}
+                              component={
+                                process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
+                              }
                             />
-                            <Route exact path="/transaction" component={Transaction} />
-                            <Route exact path="/vault" component={Vault} />
-                            <Route exact path="/vote/leaderboard" component={VoterLeaderboard} />
-                            <Route exact path="/vote/proposal/:id" component={VoteOverview} />
-                            <Route exact path="/vote/address/:address" component={ProposerDetail} />
+                            <Route exact path={Path.TRANSACTION} component={Transaction} />
+                            <Route exact path={Path.VAULT} component={Vault} />
                             <Route
                               exact
-                              path="/convert-vrt"
+                              path={Path.VOTE_LEADER_BOARD}
+                              component={VoterLeaderboard}
+                            />
+                            <Route exact path={Path.VOTE_PROPOSAL} component={VoteOverview} />
+                            <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
+                            <Route
+                              exact
+                              path={Path.CONVERT_VRT}
                               component={process.env.REACT_APP_RUN_V2 ? ConvertVrt : ConvertVrtV1}
                             />
-                            {isOnTestnet && <Route exact path="/faucet" component={Faucet} />}
-                            <Redirect from="/" to="/dashboard" />
+                            {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
+                            <Redirect from={Path.ROOT} to={Path.DASHBOARD} />
                           </Switch>
                         </Layout>
                       </BrowserRouter>

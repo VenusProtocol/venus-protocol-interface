@@ -100,7 +100,7 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-export interface Props extends RouteComponentProps<{ vTokenId: VTokenId }> {
+interface Props extends RouteComponentProps<{ vTokenId: VTokenId }> {
   settings: Setting;
   getMarketHistory: $TSFixMe;
 }
