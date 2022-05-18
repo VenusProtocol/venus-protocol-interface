@@ -161,6 +161,21 @@
       "xvsPrediction": "XVS Prediction"
     }
   },
+  "market": {
+    "availableLiquidity": "Available Liquidity",
+    "columns": {
+      "asset": "Asset",
+      "borrowApy": "Borrow APY",
+      "liquidity": "Liquidity",
+      "price": "Price",
+      "supplyApy": "Supply APY",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    },
+    "totalBorrow": "Total Borrow",
+    "totalSupply": "Total Supply",
+    "totalTreasury": "Total Treasury"
+  },
   "marketDetails": {
     "borrowInfo": {
       "stats": {
@@ -191,7 +206,8 @@
         "priceLabel": "Price",
         "reserveFactorLabel": "Reserve factor",
         "reserveTokensLabel": "Reserves",
-        "supplierCountLabel": "# of suppliers"
+        "supplierCountLabel": "# of suppliers",
+        "unlimitedBorrowCap": "Unlimited"
       },
       "title": "Market info"
     },
@@ -203,21 +219,6 @@
       },
       "title": "Supply info"
     }
-  },
-  "market": {
-    "availableLiquidity": "Available Liquidity",
-    "columns": {
-      "asset": "Asset",
-      "borrowApy": "Borrow APY",
-      "liquidity": "Liquidity",
-      "price": "Price",
-      "supplyApy": "Supply APY",
-      "totalBorrow": "Total Borrow",
-      "totalSupply": "Total Supply"
-    },
-    "totalBorrow": "Total Borrow",
-    "totalSupply": "Total Supply",
-    "totalTreasury": "Total Treasury"
   },
   "markets": {
     "borrowingTableTitle": "Borrowing",
