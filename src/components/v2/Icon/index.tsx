@@ -14,12 +14,9 @@ export interface IIconProps {
 }
 
 export const Icon: React.FC<IIconProps> = ({ name, size, color, ...otherProps }) => {
-  const theme = useTheme();
-  const idRef = useRef<string>();
+  const idRef = useRef<string>(uniqueId());
 
-  if (idRef.current === undefined) {
-    idRef.current = uniqueId();
-  }
+  const theme = useTheme();
   const sanitizedSize = size ?? theme.shape.iconSize.medium;
   const sanitizedColor = color ?? theme.palette.text.secondary;
   // Because "name" could come from fetched data, we use a default icon in case
