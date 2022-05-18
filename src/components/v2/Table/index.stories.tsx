@@ -12,7 +12,7 @@ import { Toggle } from 'components';
 import { Table } from '.';
 import { Icon } from '../Icon';
 
-const useStyles = () => {
+export const useTableStyles = () => {
   const theme = useTheme();
   return {
     table: css`
@@ -49,7 +49,8 @@ const useStyles = () => {
     `,
   };
 };
-const createData = (asset: TokenId, apy: number, wallet: number, collateral: boolean) => {
+
+export const createData = (asset: TokenId, apy: number, wallet: number, collateral: boolean) => {
   const styles = {
     asset: css`
       display: flex;
@@ -102,7 +103,7 @@ const createData = (asset: TokenId, apy: number, wallet: number, collateral: boo
   ];
 };
 
-const rows = [
+export const rows = [
   createData('sxp', 0.18, 0, true),
   createData('usdc', 12.05, 90, false),
   createData('usdt', 0.8, 160, true),
@@ -110,7 +111,7 @@ const rows = [
   createData('xvs', 0.15, 160, true),
 ];
 
-const columns = [
+export const columns = [
   { key: 'asset', label: 'Asset', orderable: false },
   { key: 'apy', label: 'APY', orderable: true },
   { key: 'wallet', label: 'Wallet', orderable: true },
@@ -129,7 +130,7 @@ export default {
 } as ComponentMeta<typeof Table>;
 
 export const TableDefault = () => {
-  const styles = useStyles();
+  const styles = useTableStyles();
   return (
     <Table
       columns={columns}
@@ -145,7 +146,7 @@ export const TableDefault = () => {
 };
 
 export const WithInitialOrderDefault = () => {
-  const styles = useStyles();
+  const styles = useTableStyles();
   return (
     <Table
       columns={columns}
@@ -165,7 +166,7 @@ export const WithInitialOrderDefault = () => {
 };
 
 export const WithCustomColumnsWidth = () => {
-  const styles = useStyles();
+  const styles = useTableStyles();
   return (
     <Table
       columns={columns}
