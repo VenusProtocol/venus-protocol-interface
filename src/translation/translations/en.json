@@ -539,5 +539,9 @@
     "totalStaked": "Total Staked",
     "stakeButton": "Stake",
     "withdrawButton": "Withdraw"
+  },
+  "pagination": {
+    "itemOf": "{{currentPageLastIndex}} item of {{itemsCount}}",
+    "itemsOf": "{{firstItemNumberInRow}} - {{currentPageLastIndex}} items of {{itemsCount}}"
   }
 }
