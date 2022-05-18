@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { getToken, getVBepToken } from 'utilities';
@@ -18,6 +18,7 @@ import { VTOKEN_DECIMALS } from 'config';
 import { useGetMarketHistory, useGetMarkets } from 'clients/api';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import Path from 'constants/path';
 import { fakeInterestRateChartData } from './__mocks__/models';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
 import Card, { ICardProps } from './Card';
@@ -277,6 +278,13 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     params: { vTokenId },
   },
 }) => {
+  const vToken = getVBepToken(vTokenId);
+
+  // Redirect to market page if vTokenId passed through route params is invalid
+  if (!vToken) {
+    return <Redirect to={Path.MARKET} />;
+  }
+
   const { data: marketSnapshots = [] } = useGetMarketHistory(
     {
       vTokenId,
@@ -287,7 +295,6 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
   );
 
   const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
-  const vToken = getVBepToken(vTokenId);
   const assetMarket = markets.find(
     market => market.address.toLowerCase() === vToken.address.toLowerCase(),
   );
