@@ -32,6 +32,10 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       margin-left: auto;
+
+      ${theme.breakpoints.down('md')} {
+        display: none;
+      }
     `,
   };
 };
