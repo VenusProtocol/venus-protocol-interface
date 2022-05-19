@@ -294,7 +294,9 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     },
   );
 
-  const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
+  const { data: { markets } = { markets: [] } } = useGetMarkets({
+    placeholderData: { markets: [], dailyVenus: undefined },
+  });
   const assetMarket = markets.find(
     market => market.address.toLowerCase() === vToken.address.toLowerCase(),
   );
