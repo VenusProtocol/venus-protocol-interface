@@ -2,6 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor } from '@testing-library/react';
 
+import { TokenId } from 'types';
 import { useUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
@@ -26,5 +27,18 @@ describe('pages/Dashboard/BorrowRepayModal', () => {
       <BorrowRepay onClose={jest.fn()} asset={asset} isXvsEnabled />,
     );
     await waitFor(() => expect(getByText(en.borrowRepayModal.borrowTabTitle)));
+  });
+
+  it.each(['ust', 'luna'])('does not display borrow tab when asset is %s', async tokenId => {
+    const fakeAsset = {
+      ...asset,
+      id: tokenId as TokenId,
+    };
+
+    const { queryByText } = renderComponent(() => (
+      <BorrowRepay onClose={jest.fn()} asset={fakeAsset} isXvsEnabled />
+    ));
+
+    await waitFor(() => expect(queryByText(en.borrowRepayModal.borrowTabTitle)).toBeNull());
   });
 });
