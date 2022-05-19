@@ -175,10 +175,12 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
   valueWei,
   tokenId,
   returnInReadableFormat = false,
+  shorthand = false,
 }: {
   valueWei: BigNumber;
   tokenId: TokenId;
   returnInReadableFormat?: T;
+  shorthand?: boolean;
 }): ConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
   const valueCoins = valueWei
@@ -186,7 +188,9 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
     .decimalPlaces(tokenDecimals);
 
   return (
-    returnInReadableFormat ? formatCoinsToReadableValue({ value: valueCoins, tokenId }) : valueCoins
+    returnInReadableFormat
+      ? formatCoinsToReadableValue({ value: valueCoins, tokenId, shorthand })
+      : valueCoins
   ) as ConvertWeiToCoinsOutput<T>;
 }
 
