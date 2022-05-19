@@ -13,21 +13,5 @@ export const useStyles = () => {
         flex-direction: column;
       }
     `,
-    banner: css`
-      margin: ${theme.spacing(4, 12)};
-      ${theme.breakpoints.down('xl')} {
-        margin: ${theme.spacing(4, 10)};
-      }
-      ${theme.breakpoints.down('lg')} {
-        margin: ${theme.spacing(6)};
-      }
-      ${theme.breakpoints.down('md')} {
-        margin: ${theme.spacing(4)};
-      }
-    `,
-    bannerLink: css`
-      color: ${theme.palette.text.primary};
-      text-decoration: underline;
-    `,
   };
 };
