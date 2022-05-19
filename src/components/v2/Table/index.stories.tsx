@@ -114,7 +114,7 @@ const columns = [
   { key: 'asset', label: 'Asset', orderable: false },
   { key: 'apy', label: 'APY', orderable: true },
   { key: 'wallet', label: 'Wallet', orderable: true },
-  { key: 'Collateral', label: 'Collateral', orderable: true },
+  { key: 'collateral', label: 'Collateral', orderable: true },
 ];
 
 export default {
