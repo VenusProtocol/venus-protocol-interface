@@ -51,7 +51,6 @@ export const useStyles = () => {
     `,
     cellValueMobile: css`
       padding-top: ${theme.spacing(2)};
-      padding-bottom: ${theme.spacing(2)};
       overflow: hidden;
       text-overflow: ellipsis;
       font-weight: 400;
