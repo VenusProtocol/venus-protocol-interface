@@ -6,7 +6,6 @@ import Sidebar from 'containers/Layout/Sidebar';
 import Header from 'containers/Layout/Header';
 import { Footer } from 'components/v2/Layout/Footer';
 import { Row, Column } from 'components/Basic/Style';
-import { Icon } from 'components';
 import { useBlock } from '../../hooks/useBlock';
 
 const MainLayoutWrapper = styled.div`
@@ -21,7 +20,7 @@ const MainLayoutWrapper = styled.div`
       padding-top: 20px;
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 184px);
+      height: calc(100vh - 128px);
       overflow: auto;
       overflow-x: hidden;
 
@@ -57,41 +56,6 @@ const MainLayoutWrapper = styled.div`
   }
 `;
 
-const UstWarning = styled.div`
-  background-color: rgba(255, 231, 206, 1);
-  width: 100%;
-  padding: 4px 16px;
-  justify-content: center;
-  align-items: center;
-  display: inline-flex;
-  min-height: 56px;
-
-  > div {
-    display: flex;
-    align-items: center;
-  }
-
-  > div > p {
-    color: rgba(0, 0, 0, 1);
-  }
-
-  svg {
-    display: flex;
-    margin-right: 8px;
-    align-self: center;
-
-    @media only screen and (max-width: 768px) {
-      height: 24px;
-      width: 24px;
-    }
-  }
-
-  a {
-    color: inherit;
-    text-decoration: underline;
-  }
-`;
-
 interface Props {
   title?: string;
   isHeader?: boolean;
@@ -103,24 +67,6 @@ function MainLayout({ title = '', isHeader, children }: Props) {
 
   return (
     <>
-      <UstWarning>
-        <Typography component="div" variant="small1">
-          <Icon name="attention" />
-          <p>
-            Venus Protocol is resuming in a phased approach. Due to the Terra incident, all accounts
-            with LUNA and UST borrowing or collateralization are offline. Check the&nbsp;
-            <a
-              href="https://blog.venus.io/venus-luna-incident-update-3-resuming-the-protocol-ff059a914405"
-              target="_blank"
-              rel="noreferrer"
-            >
-              announcement
-            </a>
-            &nbsp;for details.
-          </p>
-        </Typography>
-      </UstWarning>
-
       <MainLayoutWrapper>
         <Row>
           <Column xs="12" sm="1.5">
