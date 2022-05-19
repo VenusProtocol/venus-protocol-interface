@@ -114,6 +114,10 @@ export { default as getVenusVaiMinterIndex } from './queries/getVenusVaiMinterIn
 export * from './queries/getVenusVaiMinterIndex';
 export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMinterIndex';
 
+export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultRate';
+export * from './queries/getVenusVaiVaultRate';
+export { default as useGetVenusVaiVaultRate } from './queries/useGetVenusVaiVaultRate';
+
 export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
 export { default as useGetXvsReward } from './queries/useGetXvsReward';

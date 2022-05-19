@@ -5,7 +5,7 @@ import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import { indexBy, convertCoinsToWei } from 'utilities/common';
-import { calculateCollateralValue, getVBepToken } from 'utilities';
+import { calculateCollateralValue, getVBepToken, getToken } from 'utilities';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import {
   useGetMarkets,
@@ -28,13 +28,17 @@ const useUserMarketInfo = ({
   treasuryTotalAvailableLiquidityUsdBalanceCents: BigNumber;
   treasuryTotalBorrowUsdBalanceCents: BigNumber;
   treasuryTotalUsdBalanceCents: BigNumber;
+  totalXvsDistributedWei: BigNumber;
+  dailyVenus: BigNumber | undefined;
 } => {
   const { userVaiMinted } = useVaiUser();
 
   const vtAddresses = Object.values(VBEP_TOKENS)
     .filter(item => item.address)
     .map(item => item.address);
-  const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
+  const { data: { markets, dailyVenus } = { markets: [], dailyVenus: undefined } } = useGetMarkets({
+    placeholderData: { markets: [], dailyVenus: undefined },
+  });
   const { data: assetsInAccount = [] } = useGetAssetsInAccount(
     { account: accountAddress },
     { placeholderData: [], enabled: Boolean(accountAddress) },
@@ -60,7 +64,7 @@ const useUserMarketInfo = ({
   );
   const marketsMap = indexBy(
     (item: Market) => item.underlyingSymbol.toLowerCase(),
-    markets as GetMarketsOutput,
+    markets as GetMarketsOutput['markets'],
   );
 
   const {
@@ -72,6 +76,7 @@ const useUserMarketInfo = ({
     treasuryTotalSupplyUsdBalanceCents,
     treasuryTotalBorrowUsdBalanceCents,
     treasuryTotalAvailableLiquidityUsdBalanceCents,
+    totalXvsDistributedWei,
   } = Object.values(TOKENS).reduce(
     (acc, item, index) => {
       const { assets: assetAcc } = acc;
@@ -162,6 +167,12 @@ const useUserMarketInfo = ({
       acc.treasuryTotalAvailableLiquidityUsdBalanceCents =
         acc.treasuryTotalAvailableLiquidityUsdBalanceCents.plus(asset.liquidity.times(100));
 
+      acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
+        new BigNumber(market.totalDistributed).times(
+          new BigNumber(10).pow(getToken('xvs').decimals),
+        ),
+      );
+
       // Create borrow limit based on assets supplied as collateral
       if (asset.collateral) {
         acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
@@ -183,6 +194,7 @@ const useUserMarketInfo = ({
       treasuryTotalUsdBalanceCents: new BigNumber(0),
       treasuryTotalSupplyUsdBalanceCents: new BigNumber(0),
       treasuryTotalAvailableLiquidityUsdBalanceCents: new BigNumber(0),
+      totalXvsDistributedWei: new BigNumber(0),
     },
   );
 
@@ -234,6 +246,8 @@ const useUserMarketInfo = ({
     treasuryTotalAvailableLiquidityUsdBalanceCents,
     treasuryTotalBorrowUsdBalanceCents,
     treasuryTotalUsdBalanceCents,
+    dailyVenus,
+    totalXvsDistributedWei,
   };
 };
 
