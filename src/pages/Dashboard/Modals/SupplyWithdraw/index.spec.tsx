@@ -83,6 +83,33 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   describe('Supply form', () => {
+    it.each(['ust', 'luna'])('does not display supply tab when asset is %s', async tokenId => {
+      const customFakeAsset = {
+        ...fakeAsset,
+        id: tokenId as TokenId,
+      };
+
+      const { queryByText } = renderComponent(
+        () => (
+          <SupplyWithdraw
+            onClose={jest.fn()}
+            asset={customFakeAsset}
+            isXvsEnabled
+            assets={[customFakeAsset]}
+          />
+        ),
+        {
+          authContextValue: {
+            account: {
+              address: fakeAccountAddress,
+            },
+          },
+        },
+      );
+
+      await waitFor(() => expect(queryByText(en.supplyWithdraw.supply)).toBeNull());
+    });
+
     it('displays correct token wallet balance', async () => {
       const { getByText } = renderComponent(
         <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />,
@@ -174,44 +201,6 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
       const disabledButton = document.querySelector('button[type="submit"]');
       expect(disabledButton).toBeDisabled();
-    });
-
-    it('does not let user supply LUNA', async () => {
-      const customFakeAsset: Asset = {
-        ...fakeAsset,
-        id: 'luna',
-        symbol: 'LUNA',
-        vsymbol: 'vLUNA',
-        walletBalance: new BigNumber('100000000'),
-      };
-
-      renderComponent(
-        () => (
-          <SupplyWithdraw
-            onClose={jest.fn()}
-            asset={customFakeAsset}
-            isXvsEnabled
-            assets={[customFakeAsset]}
-          />
-        ),
-        {
-          authContextValue: {
-            account: {
-              address: fakeAccountAddress,
-            },
-          },
-        },
-      );
-
-      // Check submit button is disabled
-      expect(document.querySelector('button[type="submit"]')).toBeDisabled();
-
-      const correctAmountTokens = 1;
-      const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-      fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
-
-      // Check submit button is still disabled
-      expect(document.querySelector('button[type="submit"]')).toBeDisabled();
     });
 
     it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {

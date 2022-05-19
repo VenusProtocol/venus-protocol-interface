@@ -172,20 +172,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
 
   const tabsContent = [
     {
-      title: t('supplyWithdraw.supply'),
-      content: renderTabContent({
-        type: 'supply',
-        message: t('supplyWithdraw.connectWalletToSupply'),
-        title: t('supplyWithdraw.enableToSupply', { symbol }),
-        inputLabel: t('supplyWithdraw.walletBalance'),
-        enabledButtonKey: t('supplyWithdraw.supply'),
-        disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
-        calculateNewBalance: (initial: BigNumber, amount: BigNumber) => initial.plus(amount),
-        isTransactionLoading: isSupplyLoading,
-        onSubmit: onSubmitSupply,
-      }),
-    },
-    {
       title: t('supplyWithdraw.withdraw'),
       content: renderTabContent({
         type: 'withdraw',
@@ -200,6 +186,24 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
       }),
     },
   ];
+
+  // Prevent user from being able to supply UST or LUNA
+  if (assetId !== 'ust' && assetId !== 'luna') {
+    tabsContent.unshift({
+      title: t('supplyWithdraw.supply'),
+      content: renderTabContent({
+        type: 'supply',
+        message: t('supplyWithdraw.connectWalletToSupply'),
+        title: t('supplyWithdraw.enableToSupply', { symbol }),
+        inputLabel: t('supplyWithdraw.walletBalance'),
+        enabledButtonKey: t('supplyWithdraw.supply'),
+        disabledButtonKey: t('supplyWithdraw.enterValidAmountSupply'),
+        calculateNewBalance: (initial: BigNumber, amount: BigNumber) => initial.plus(amount),
+        isTransactionLoading: isSupplyLoading,
+        onSubmit: onSubmitSupply,
+      }),
+    });
+  }
 
   return (
     <Modal
