@@ -126,11 +126,11 @@ export const shortenNumberWithSuffix = (value: BigNumber) => {
   const ONE_THOUSAND = 1000;
 
   let shortenedValue = value.toFixed(2);
-  if (value.isGreaterThan(ONE_BILLION)) {
+  if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
     shortenedValue = `${value.dividedBy(ONE_BILLION).dp(2).toFixed()}B`;
-  } else if (value.isGreaterThan(ONE_MILLION)) {
+  } else if (value.isGreaterThanOrEqualTo(ONE_MILLION)) {
     shortenedValue = `${value.dividedBy(ONE_MILLION).dp(2).toFixed()}M`;
-  } else if (value.isGreaterThan(ONE_THOUSAND)) {
+  } else if (value.isGreaterThanOrEqualTo(ONE_THOUSAND)) {
     shortenedValue = `${value.dividedBy(ONE_THOUSAND).dp(2).toFixed()}K`;
   }
   return shortenedValue;
