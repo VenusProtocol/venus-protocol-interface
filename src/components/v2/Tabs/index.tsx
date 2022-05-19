@@ -4,13 +4,13 @@ import React, { ReactElement, useState } from 'react';
 import { TertiaryButton } from '../Button';
 import useStyles from './styles';
 
-type Tab = {
+export type TabContent = {
   title: string;
   content: ReactElement;
 };
 
 export interface ITabsProps {
-  tabsContent: Tab[];
+  tabsContent: TabContent[];
   componentTitle?: string;
   initialActiveTabIndex?: number;
   onTabChange?: (newIndex: number) => void;
