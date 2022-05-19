@@ -91,7 +91,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
         transactionHash,
       });
     } catch (error) {
-      toast.error(error as UiError);
+      toast.error({ title: (error as UiError).message });
     }
   };
 
