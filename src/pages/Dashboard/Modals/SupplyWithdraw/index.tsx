@@ -10,6 +10,7 @@ import {
   Token,
   ILabeledInlineContentProps,
   IconName,
+  TabContent,
 } from 'components';
 import {
   useRedeem,
@@ -17,6 +18,7 @@ import {
   useGetVTokenBalanceOf,
   useUserMarketInfo,
 } from 'clients/api';
+import { isTokenEnabled } from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';
@@ -170,7 +172,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
     );
   };
 
-  const tabsContent = [
+  const tabsContent: TabContent[] = [
     {
       title: t('supplyWithdraw.withdraw'),
       content: renderTabContent({
@@ -188,7 +190,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   ];
 
   // Prevent user from being able to supply UST or LUNA
-  if (assetId !== 'ust' && assetId !== 'luna') {
+  if (isTokenEnabled(assetId)) {
     tabsContent.unshift({
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
