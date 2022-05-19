@@ -14,8 +14,8 @@ const useGetMarketData = ({
   vTokenId: IVBepToken['id'];
   vTokenAddress: IVBepToken['address'];
 }) => {
-  const { data: markets = [] } = useGetMarkets({ placeholderData: [] });
-  const assetMarket = markets.find(
+  const { data: getMarketData } = useGetMarkets();
+  const assetMarket = (getMarketData?.markets || []).find(
     market => market.address.toLowerCase() === vTokenAddress.toLowerCase(),
   );
 

@@ -7,14 +7,9 @@ import { formatPercentage } from 'utilities/common';
 import { useGetMarketHistory } from 'clients/api';
 
 const useGetChartData = ({ vTokenId }: { vTokenId: IVBepToken['id'] }) => {
-  const { data: marketSnapshots = [] } = useGetMarketHistory(
-    {
-      vTokenId,
-    },
-    {
-      placeholderData: [],
-    },
-  );
+  const { data: marketSnapshots = [] } = useGetMarketHistory({
+    vTokenId,
+  });
 
   return React.useMemo(() => {
     const supplyChartData: IApyChartProps['data'] = [];
