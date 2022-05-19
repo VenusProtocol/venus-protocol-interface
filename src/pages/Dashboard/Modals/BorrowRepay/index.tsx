@@ -2,7 +2,8 @@
 import React from 'react';
 
 import { Asset } from 'types';
-import { Tabs, Modal, IModalProps, Token } from 'components';
+import { isTokenEnabled } from 'utilities';
+import { Tabs, Modal, IModalProps, Token, TabContent } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
 import Borrow from './Borrow';
@@ -18,7 +19,7 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset, isXvsEnabled
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const tabsContent = [
+  const tabsContent: TabContent[] = [
     {
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
@@ -29,7 +30,7 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset, isXvsEnabled
     },
   ];
 
-  if (asset.id !== 'luna' && asset.id !== 'ust') {
+  if (isTokenEnabled(asset.id)) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
