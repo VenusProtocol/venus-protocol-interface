@@ -20,14 +20,6 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset, isXvsEnabled
 
   const tabsContent = [
     {
-      title: t('borrowRepayModal.borrowTabTitle'),
-      content: (
-        <div css={styles.container}>
-          <Borrow asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
-        </div>
-      ),
-    },
-    {
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
         <div css={styles.container}>
@@ -36,6 +28,17 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset, isXvsEnabled
       ),
     },
   ];
+
+  if (asset.id !== 'luna' && asset.id !== 'ust') {
+    tabsContent.unshift({
+      title: t('borrowRepayModal.borrowTabTitle'),
+      content: (
+        <div css={styles.container}>
+          <Borrow asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
+        </div>
+      ),
+    });
+  }
 
   return (
     <Modal isOpened title={<Token symbol={asset.id} variant="h4" />} handleClose={onClose}>
