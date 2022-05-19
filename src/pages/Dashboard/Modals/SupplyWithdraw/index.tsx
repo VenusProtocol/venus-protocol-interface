@@ -23,7 +23,8 @@ import useSupply from 'clients/api/mutations/useSupply';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import { formatToReadablePercentage, convertCoinsToWei } from 'utilities/common';
+import { isFeatureEnabledForAsset } from 'utilities/flags';
+import { formatToReadablePercentage, convertCoinsToWei, notBoolean } from 'utilities/common';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 
@@ -171,7 +172,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   };
 
   const tabsContent = [
-    {
+    isFeatureEnabledForAsset(asset.id) && {
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
         type: 'supply',
@@ -199,7 +200,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         onSubmit: onSubmitWithdraw,
       }),
     },
-  ];
+  ].filter(notBoolean);
 
   return (
     <Modal

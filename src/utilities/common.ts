@@ -262,3 +262,6 @@ export const notNull = <TValue>(value: TValue | null): value is TValue => value 
 
 export const notUndefined = <TValue>(value: TValue | undefined): value is TValue =>
   value !== undefined;
+
+export const notBoolean = <TValue>(value: TValue | boolean): value is TValue =>
+  typeof value !== 'boolean';
