@@ -270,7 +270,7 @@ function XVS({ settings }: XVSProps) {
             <img src={coinImg} alt="xvs" />
             <a
               className="highlight"
-              href={generateBscScanUrl('xvs')}
+              href={generateBscScanUrl('xvs', 'token')}
               target="_blank"
               rel="noreferrer"
             >

@@ -6,6 +6,7 @@ export * from './v2/BscLink';
 export * from './v2/ConnectWallet';
 export * from './v2/Delimiter';
 export * from './v2/Select';
+export * from './v2/EllipseText';
 export * from './v2/EnableToken';
 export * from './v2/Form';
 export * from './v2/Icon';

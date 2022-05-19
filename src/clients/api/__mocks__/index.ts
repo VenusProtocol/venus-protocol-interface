@@ -45,7 +45,11 @@ export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMin
 
 export const getVenusVaiMinterIndex = jest.fn();
 export const useGetVenusVaiMinterIndex = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getMintedVai);
+  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getVenusVaiMinterIndex);
+
+export const getVenusVaiVaultRate = jest.fn();
+export const useGetVenusVaiVaultRate = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getVenusVaiVaultRate);
 
 export const getXvsReward = jest.fn();
 export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);

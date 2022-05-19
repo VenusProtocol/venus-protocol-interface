@@ -71,7 +71,7 @@ describe('api/queries/getMarkets', () => {
 
     const response = await getMarkets();
 
-    expect(response).toHaveLength(1);
+    expect(response.markets).toHaveLength(1);
   });
 
   test('filters unsupported markets', async () => {
@@ -83,6 +83,6 @@ describe('api/queries/getMarkets', () => {
 
     const response = await getMarkets();
 
-    expect(response).toHaveLength(0);
+    expect(response.markets).toHaveLength(0);
   });
 });

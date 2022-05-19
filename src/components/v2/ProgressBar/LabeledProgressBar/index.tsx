@@ -9,6 +9,7 @@ interface ILabeledProgressBar extends IProgressBarProps {
   whiteLeftText?: string;
   greyRightText?: string;
   whiteRightText?: string;
+  className?: string;
 }
 
 export const LabeledProgressBar: React.FC<ILabeledProgressBar> = ({
@@ -16,12 +17,13 @@ export const LabeledProgressBar: React.FC<ILabeledProgressBar> = ({
   whiteRightText,
   greyLeftText,
   whiteLeftText,
+  className,
   ...progressBarProps
 }) => {
   const styles = useStyles();
   return (
-    <div>
-      <div css={styles.topProgressBarLegend}>
+    <>
+      <div className={className} css={styles.topProgressBarLegend}>
         <div css={styles.inlineContainer}>
           {greyLeftText && (
             <Typography component="span" variant="small2" css={styles.inlineLabel}>
@@ -50,6 +52,6 @@ export const LabeledProgressBar: React.FC<ILabeledProgressBar> = ({
         </div>
       </div>
       <ProgressBar {...progressBarProps} />
-    </div>
+    </>
   );
 };

@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { restService } from 'utilities';
 import { VBEP_TOKENS } from 'constants/tokens';
 import { Market } from 'types';
@@ -10,7 +11,7 @@ export interface IGetMarketsResponse {
   venusRate: string;
 }
 
-export type GetMarketsOutput = Market[];
+export type GetMarketsOutput = { markets: Market[]; dailyVenus: BigNumber | undefined };
 
 const getMarkets = async (): Promise<GetMarketsOutput> => {
   const response = await restService<IGetMarketsResponse>({
@@ -20,19 +21,19 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
   if ('result' in response && response.result === 'error') {
     throw new Error(response.message);
   }
-  let data: Market[] = [];
-
-  data = Object.keys(VBEP_TOKENS)
-    .map(item => {
-      if (response && response.data && response.data.data) {
-        return response.data.data.markets.find(
+  let markets: Market[] = [];
+  let dailyVenus;
+  if (response && response.data && response.data.data) {
+    dailyVenus = new BigNumber(response.data.data.dailyVenus);
+    markets = Object.keys(VBEP_TOKENS)
+      .map(item =>
+        response.data?.data.markets.find(
           (market: Market) => market.underlyingSymbol.toLowerCase() === item.toLowerCase(),
-        );
-      }
-      return undefined;
-    })
-    .filter(notUndefined);
-  return data;
+        ),
+      )
+      .filter(notUndefined);
+  }
+  return { markets, dailyVenus };
 };
 
 export default getMarkets;
