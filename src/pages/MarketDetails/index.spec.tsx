@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 
 import { markets } from '__mocks__/models/markets';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
@@ -15,7 +16,10 @@ jest.mock('clients/api');
 describe('pages/MarketDetails', () => {
   beforeEach(() => {
     (getMarketHistory as jest.Mock).mockImplementation(() => marketSnapshots);
-    (getMarkets as jest.Mock).mockImplementation(() => markets);
+    (getMarkets as jest.Mock).mockImplementation(() => ({
+      markets,
+      dailyVenus: new BigNumber(0),
+    }));
   });
 
   it('renders without crashing', () => {
