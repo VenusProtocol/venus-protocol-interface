@@ -1,3 +1,5 @@
+import type { TransactionReceipt } from 'web3-core';
+
 export class UiError extends Error {
   title: string;
 
@@ -21,3 +23,19 @@ export class InternalError extends Error {
     this.message = message;
   }
 }
+
+export class TransactionError extends Error {
+  txHash: string;
+
+  constructor(message: string, txHash: string) {
+    super(message);
+    this.txHash = txHash;
+  }
+}
+
+export const checkForTransactionError = (receipt: TransactionReceipt) => {
+  if (receipt.events?.Failure) {
+    throw new TransactionError('TransactionFailure', receipt.transactionHash);
+  }
+  return receipt;
+};
