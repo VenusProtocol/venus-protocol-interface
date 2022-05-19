@@ -106,7 +106,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
         transactionHash,
       });
     } catch (error) {
-      toast.error(error as UiError);
+      toast.error({ title: (error as UiError).message });
     }
   };
 
