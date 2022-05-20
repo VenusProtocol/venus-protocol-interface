@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
-import { getToken } from 'utilities';
+import { getContractAddress } from 'utilities';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { InternalError } from 'utilities/errors';
@@ -48,7 +48,6 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const vaiToken = getToken(VAI_ID);
   const limitTokens = useMemo(
     () => (limitWei ? convertWeiToCoins({ valueWei: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
     [limitWei?.toFixed()],
@@ -108,7 +107,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         assetId={VAI_ID}
         title={t('mintRepayVai.mintVai.enableToken')}
         isEnabled={!!userVaiEnabled}
-        vtokenAddress={vaiToken.address}
+        vtokenAddress={getContractAddress('vaiUnitroller')}
       >
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
           {({ values }) => (
