@@ -53,31 +53,40 @@ export const useModalStyles = ({
       left: ${theme.spacing(6)};
       padding: 0;
       min-width: auto;
+      background-color: transparent;
+
+      :hover {
+        background-color: transparent;
+      }
     `,
     backArrow: css`
       transform: rotate(180deg);
-      height: ${theme.shape.iconSize.xLarge};
-      width: ${theme.shape.iconSize.xLarge};
+      height: ${theme.shape.iconSize.xLarge}px;
+      width: ${theme.shape.iconSize.xLarge}px;
     `,
     titleComponent: css`
       align-self: center;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: ${theme.shape.iconSize.xLarge};
-      padding-left: ${theme.shape.iconSize.xLarge};
-      padding-right: ${theme.shape.iconSize.xLarge};
+      min-height: ${theme.shape.iconSize.xLarge}px;
+      padding-left: ${theme.shape.iconSize.xLarge}px;
+      padding-right: ${theme.shape.iconSize.xLarge}px;
     `,
     closeIcon: css`
       right: ${theme.spacing(6)};
       top: ${theme.spacing(6)};
       position: absolute;
-      height: ${theme.shape.iconSize.xLarge};
-      width: ${theme.shape.iconSize.xLarge};
-      min-width: ${theme.shape.iconSize.xLarge};
+      height: ${theme.shape.iconSize.xLarge}px;
+      width: ${theme.shape.iconSize.xLarge}px;
       margin-left: auto;
+      min-width: 0;
       padding: 0;
-      background-color: ${theme.palette.background.paper};
+      background-color: transparent;
+
+      :hover {
+        background-color: transparent;
+      }
     `,
     contentWrapper: css`
       padding-bottom: ${theme.spacing(10)};
