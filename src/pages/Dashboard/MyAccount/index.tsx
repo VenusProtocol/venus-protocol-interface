@@ -3,7 +3,7 @@ import { BigNumber } from 'bignumber.js';
 import React from 'react';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import {
-  calculateApy,
+  calculateNetApy,
   calculateDailyEarningsCents,
   calculateYearlyEarningsForAssets,
 } from 'utilities';
@@ -40,7 +40,10 @@ const MyAccount: React.FC<IMyAccountProps> = ({
     const netApyPercentage =
       userTotalSupplyBalanceCents &&
       yearlyEarningsCents &&
-      calculateApy({ supplyBalanceCents: userTotalSupplyBalanceCents, yearlyEarningsCents });
+      calculateNetApy({
+        supplyBalanceCents: userTotalSupplyBalanceCents,
+        yearlyEarningsCents,
+      });
     const dailyEarningsCents =
       yearlyEarningsCents && +calculateDailyEarningsCents(yearlyEarningsCents).toFixed(0);
     return {
