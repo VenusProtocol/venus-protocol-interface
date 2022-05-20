@@ -182,7 +182,7 @@ export const WithCustomColumnsWidth = () => {
 };
 
 export const WithMultipleRows = () => {
-  const styles = useStyles();
+  const styles = useTableStyles();
   return (
     <Table
       columns={columns}
