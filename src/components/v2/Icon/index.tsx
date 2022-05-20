@@ -1,5 +1,6 @@
+import React, { useRef } from 'react';
 import { useTheme } from '@mui/material';
-import React from 'react';
+import { uniqueId } from 'lodash';
 import * as icons from './icons';
 
 export type IconName = keyof typeof icons;
@@ -13,6 +14,8 @@ export interface IIconProps {
 }
 
 export const Icon: React.FC<IIconProps> = ({ name, size, color, ...otherProps }) => {
+  const idRef = useRef<string>(uniqueId());
+
   const theme = useTheme();
   const sanitizedSize = size ?? theme.shape.iconSize.medium;
   const sanitizedColor = color ?? theme.palette.text.secondary;
@@ -25,6 +28,7 @@ export const Icon: React.FC<IIconProps> = ({ name, size, color, ...otherProps })
       width={sanitizedSize}
       height={sanitizedSize}
       color={sanitizedColor}
+      id={idRef.current}
       {...otherProps}
     />
   );
