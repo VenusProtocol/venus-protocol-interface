@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { DISABLED_TOKENS } from 'utilities';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import renderComponent from 'testUtils/renderComponent';
@@ -83,7 +84,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   describe('Supply form', () => {
-    it.each(['ust', 'luna'])('does not display supply tab when asset is %s', async tokenId => {
+    it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async tokenId => {
       const customFakeAsset = {
         ...fakeAsset,
         id: tokenId as TokenId,
