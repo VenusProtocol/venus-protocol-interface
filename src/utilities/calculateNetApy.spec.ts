@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js';
-import calculateApy from './calculateApy';
+import calculateNetApy from './calculateNetApy';
 
-describe('utilities/calculateApy', () => {
+describe('utilities/calculateNetApy', () => {
   test('calculates apy from balance and yearly earnings', () => {
-    const apy = calculateApy({
+    const apy = calculateNetApy({
       yearlyEarningsCents: new BigNumber('1924.21991227022443813375'),
       supplyBalanceCents: new BigNumber('21507.4246'),
     });
-    expect(apy).toBe(0.09);
+    expect(apy).toBe(8.95);
   });
 });

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-const calculateApy = ({
+const calculateNetApy = ({
   supplyBalanceCents,
   yearlyEarningsCents,
 }: {
@@ -12,9 +12,12 @@ const calculateApy = ({
   if (supplyBalanceCents?.isEqualTo(0)) {
     netApyPercentage = 0;
   } else if (supplyBalanceCents && yearlyEarningsCents) {
-    netApyPercentage = +yearlyEarningsCents.dividedBy(supplyBalanceCents).toFixed(2);
+    netApyPercentage = +yearlyEarningsCents
+      .multipliedBy(100)
+      .dividedBy(supplyBalanceCents)
+      .toFixed(2);
   }
   return netApyPercentage;
 };
 
-export default calculateApy;
+export default calculateNetApy;
