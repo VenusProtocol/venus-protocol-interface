@@ -24,7 +24,7 @@ export const useStyles = () => {
     `,
     tableWrapperMobile: css`
       margin-top: ${theme.spacing(6)};
-      padding: ${theme.spacing(4, 0, 2)};
+      padding: ${theme.spacing(4, 0)};
     `,
     rowTitleMobile: css`
       padding-left: ${theme.spacing(4)};
