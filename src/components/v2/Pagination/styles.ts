@@ -8,8 +8,19 @@ export const useStyles = () => {
       display: flex;
     `,
     button: css`
+      width: ${theme.spacing(8)};
+      height: ${theme.spacing(8)};
+      padding: 0;
       background-color: ${theme.palette.background.paper};
-      color: ${theme.palette.text.primary};
+      color: ${theme.palette.text.secondary};
+      margin-left: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(1)};
+      transition: color 0.3s;
+      border-radius: ${theme.shape.borderRadius.verySmall}px;
+
+      &:hover {
+        color: ${theme.palette.text.primary}!important;
+      }
     `,
     getButtonStyles: ({ isActive }: { isActive: boolean }) => css`
       color: ${isActive ? theme.palette.text.primary : theme.palette.text.secondary};
@@ -18,6 +29,14 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       line-height: 1px;
+    `,
+    iconReverted: css`
+      transform: rotate(180deg);
+    `,
+    dots: css`
+      color: ${theme.palette.text.secondary};
+      margin-left: ${theme.spacing(1)};
+      margin-right: ${theme.spacing(1)};
     `,
   };
 };

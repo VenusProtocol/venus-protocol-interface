@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import Typography from '@mui/material/Typography';
 import { Button } from '../Button';
+import { Icon, IIconProps } from '../Icon';
 import { useStyles } from './styles';
 
 interface IPaginationProps {
@@ -10,19 +12,7 @@ interface IPaginationProps {
   setCurrentPageIndex: (pageIndex: number) => void;
 }
 
-/** This task is about creating a pagination component that will have the next behavior:
- - if there's 3 or less than 3 pages to handle in total, all page numbers should be displayed and the three dots should not display
- - the component should accept an optional initialPage  prop (defaulting to 1 ) which will define what page will be selected on mount
- - when pressing on the right arrow, the next page should get selected
- - when pressing on the left arrow, the previous page should get selected
- - if the first page is selected, no left arrow or dots should display
- - if the second page is selected, no left arrow should display
- - if the last page is selected, no right arrow or three dots should display
- - if the second to last page is selected, no right arrow should display
- - if any other page is selected, the left and right arrows as well as the three dots should display (as per designs)
- * */
-
-const PAGES_TO_SHOW_COUNT = 3;
+const PAGES_TO_SHOW_COUNT = 4;
 
 export const Pagination = ({
   className,
@@ -55,6 +45,7 @@ export const Pagination = ({
   return (
     <div css={[classes.root, className]}>
       {pagesArray.map((page, index) => {
+        const iconProps: IIconProps = { size: '20px', name: 'arrowRight', color: 'inherit' };
         if (index === minPageIndexToShow) {
           return (
             <div css={classes.arrowButtonWrapper}>
@@ -64,9 +55,9 @@ export const Pagination = ({
                 key={page}
                 onClick={() => setCurrentPageIndex(activePageIndex - 1)}
               >
-                {'<'}
+                <Icon css={classes.iconReverted} {...iconProps} />
               </Button>
-              ...
+              <Typography css={classes.dots}>...</Typography>
             </div>
           );
         }
@@ -74,14 +65,14 @@ export const Pagination = ({
         if (index === maxPageIndexToShow) {
           return (
             <div css={classes.arrowButtonWrapper}>
-              ...
+              <Typography css={classes.dots}>...</Typography>
               <Button
                 variant="text"
                 css={classes.button}
                 key={page}
                 onClick={() => setCurrentPageIndex(activePageIndex + 1)}
               >
-                {'>'}
+                <Icon {...iconProps} />
               </Button>
             </div>
           );

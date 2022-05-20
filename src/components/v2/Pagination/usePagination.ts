@@ -2,12 +2,19 @@ import { useEffect, useState } from 'react';
 
 type IPaginationProps<Row> = {
   data: Row[];
+  initialPageNumber?: number;
   rowsPerPageCount?: number;
 };
 
-export function usePagination<Row>({ data, rowsPerPageCount = 10 }: IPaginationProps<Row>) {
+export function usePagination<Row>({
+  data,
+  initialPageNumber = 1,
+  rowsPerPageCount = 10,
+}: IPaginationProps<Row>) {
+  const initialPageIndex = initialPageNumber - 1;
+
   const [currentPageData, setCurrentPageData] = useState<Row[]>([]);
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [currentPageIndex, setCurrentPageIndex] = useState(initialPageIndex);
   const [pagesCount, setPagesCount] = useState(0);
 
   /* calculating rows per page count */
@@ -19,9 +26,11 @@ export function usePagination<Row>({ data, rowsPerPageCount = 10 }: IPaginationP
   const isLastPage = currentPageIndex === pagesCount - 1;
   const currentPageFirstIndex = currentPageIndex * rowsPerPageCount;
   const currentPageLastIndex = isLastPage ? data.length : currentPageFirstIndex + rowsPerPageCount;
-  const itemsCountString = `${currentPageFirstIndex + 1} - ${currentPageLastIndex} items of ${
-    data.length
-  }`;
+  const firstItemNumberInRow = currentPageFirstIndex + 1;
+  const isSingleItemOnPage = firstItemNumberInRow === currentPageLastIndex;
+  const itemsCountString = isSingleItemOnPage
+    ? `${currentPageLastIndex} item of ${data.length}`
+    : `${firstItemNumberInRow} - ${currentPageLastIndex} items of ${data.length}`;
 
   /* setting data for selected page */
   useEffect(() => {
