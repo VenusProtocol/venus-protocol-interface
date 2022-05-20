@@ -58,6 +58,7 @@ export const useStyles = () => {
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};
+      table-layout: fixed;
 
       .MuiTableCell-root {
         border-width: 0;
