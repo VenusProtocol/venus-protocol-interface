@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js';
-
+import {
+  TokenErrorReporterError,
+  TokenErrorReporterFailureInfo,
+} from 'constants/contracts/errorReporter';
+import { TransactionError } from 'utilities/errors';
 import fakeAccountAddress from '__mocks__/models/address';
 import { VBep20 } from 'types/contracts';
 import redeemUnderlying from './redeemUnderlying';
@@ -31,8 +35,45 @@ describe('api/mutation/redeemUnderlying', () => {
     }
   });
 
-  test('returns undefined when request succeeds', async () => {
-    const sendMock = jest.fn(async () => undefined);
+  test('throws a transaction error when Failure event is present', async () => {
+    const fakeContract = {
+      methods: {
+        redeemUnderlying: () => ({
+          send: async () => ({
+            events: {
+              Failure: {
+                returnValues: {
+                  info: '2',
+                  error: '2',
+                },
+              },
+            },
+          }),
+        }),
+      },
+    } as unknown as VBep20;
+
+    try {
+      await redeemUnderlying({
+        tokenContract: fakeContract,
+        amountWei: fakeAmount,
+        account: fakeAccountAddress,
+      });
+
+      throw new Error('redeemUnderlying should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot(`[Error: ${TokenErrorReporterError[2]}]`);
+      expect(error).toBeInstanceOf(TransactionError);
+      if (error instanceof TransactionError) {
+        expect(error.error).toBe(TokenErrorReporterError[2]);
+        expect(error.info).toBe(TokenErrorReporterFailureInfo[2]);
+      }
+    }
+  });
+
+  test('returns Receipt when request succeeds', async () => {
+    const fakeTransactionReceipt = { events: {} };
+    const sendMock = jest.fn(async () => fakeTransactionReceipt);
     const redeemUnderlyingMock = jest.fn(() => ({
       send: sendMock,
     }));
@@ -49,7 +90,7 @@ describe('api/mutation/redeemUnderlying', () => {
       account: fakeAccountAddress,
     });
 
-    expect(response).toBe(undefined);
+    expect(response).toBe(fakeTransactionReceipt);
     expect(redeemUnderlyingMock).toHaveBeenCalledTimes(1);
     expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmount.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);
