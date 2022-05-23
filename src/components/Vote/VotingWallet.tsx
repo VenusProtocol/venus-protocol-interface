@@ -89,7 +89,6 @@ const VotingWalletWrapper = styled.div`
 interface VotingWalletProps {
   balance: string;
   earnedBalance: string;
-  vaiMint: string;
   delegateAddress: string;
   delegateStatus: string;
 }
@@ -97,7 +96,6 @@ interface VotingWalletProps {
 function VotingWallet({
   balance,
   earnedBalance,
-  vaiMint,
   delegateAddress,
   delegateStatus,
 }: VotingWalletProps) {
@@ -144,7 +142,7 @@ function VotingWallet({
     );
 
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
-    if (+earnedBalance !== 0 || +vaiMint !== 0) {
+    if (+earnedBalance !== 0) {
       setIsLoading(true);
       try {
         await comptrollerContract.methods['claimVenus(address,address[])'](
@@ -184,11 +182,6 @@ function VotingWallet({
                   <p className="content-value">
                     {formatCommaThousandsPeriodDecimal(earnedBalance)}
                   </p>
-                </div>
-                <div className="mint-content-label">VAI Mint Earned</div>
-                <div className="flex align-center">
-                  <img src={coinImg} alt="coin" />
-                  <p className="content-value">{formatCommaThousandsPeriodDecimal(vaiMint)}</p>
                 </div>
               </div>
               {account && (

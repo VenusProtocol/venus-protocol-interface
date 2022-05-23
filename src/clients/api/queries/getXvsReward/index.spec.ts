@@ -22,9 +22,6 @@ describe('api/queries/getXvsReward', () => {
         accountAddress: fakeAddress,
         venusInitialIndex: '0',
         xvsAccrued: new BigNumber(0),
-        vaiMintIndex: '0',
-        userVaiMintIndex: '0',
-        userMintedVai: new BigNumber(0),
       });
 
       throw new Error('getXvsReward should have thrown an error but did not');
@@ -79,12 +76,9 @@ describe('api/queries/getXvsReward', () => {
       accountAddress: fakeAddress,
       venusInitialIndex: '1000000000000000000000000000000000000',
       xvsAccrued: new BigNumber(0),
-      vaiMintIndex: '1235570923392602317081285608441920863',
-      userVaiMintIndex: '1234097255434816053226745973593453893',
-      userMintedVai: new BigNumber('6774861994741465595631650'),
     });
 
     expect(res instanceof BigNumber).toBe(true);
-    expect(res.toFixed()).toBe('73680438982174403880000000000');
+    expect(res.toFixed()).toBe('73680428998277363810000000000');
   });
 });
