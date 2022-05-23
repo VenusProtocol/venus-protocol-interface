@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { VBep20, VBnbToken } from 'types/contracts';
-import { checkForTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'utilities/errors';
 
 export interface IRedeemUnderlyingInput {
   tokenContract: VBep20 | VBnbToken;
@@ -20,7 +20,7 @@ const redeemUnderlying = async ({
   const resp = await tokenContract.methods
     .redeemUnderlying(amountWei.toFixed())
     .send({ from: account });
-  return checkForTransactionError(resp);
+  return checkForTokenTransactionError(resp);
 };
 
 export default redeemUnderlying;

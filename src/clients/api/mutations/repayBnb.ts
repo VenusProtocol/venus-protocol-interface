@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 
 import { getVTokenContract } from 'clients/contracts';
 import { getVBepToken } from 'utilities';
-import { checkForTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'utilities/errors';
 
 export interface IRepayBnbInput {
   web3: Web3;
@@ -28,7 +28,7 @@ const repayBnb = async ({
     value: amountWei.toFixed(),
     data: contractData,
   });
-  return checkForTransactionError(resp);
+  return checkForTokenTransactionError(resp);
 };
 
 export default repayBnb;

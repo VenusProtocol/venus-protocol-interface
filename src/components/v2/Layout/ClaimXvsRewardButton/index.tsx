@@ -9,6 +9,7 @@ import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
 import { toast } from '../../Toast';
+import { UiError, TransactionError } from 'utilities/errors';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
@@ -18,7 +19,7 @@ const XVS_SYMBOL = 'xvs';
 export const TEST_ID = 'claim-xvs-reward-button';
 
 export interface IClaimXvsRewardButton extends Omit<IButtonProps, 'onClick'> {
-  onClaim: () => Promise<string>;
+  onClaim: () => Promise<string | undefined>;
   amountWei?: BigNumber;
 }
 
@@ -39,20 +40,21 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   const handleClick = async () => {
     try {
       const transactionHash = await onClaim();
-
-      // Display successful transaction modal
-      openSuccessfulTransactionModal({
-        title: t('claimXvsRewardButton.successfulTransactionModal.title'),
-        content: t('claimXvsRewardButton.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          tokenId: 'xvs' as TokenId,
-        },
-        transactionHash,
-      });
+      if (transactionHash) {
+        // Display successful transaction modal
+        openSuccessfulTransactionModal({
+          title: t('claimXvsRewardButton.successfulTransactionModal.title'),
+          content: t('claimXvsRewardButton.successfulTransactionModal.message'),
+          amount: {
+            valueWei: amountWei,
+            tokenId: 'xvs' as TokenId,
+          },
+          transactionHash,
+        });
+      }
     } catch (error) {
       toast.error({
-        message: (error as Error).message,
+        message: (error as UiError).message,
       });
     }
   };
@@ -92,14 +94,20 @@ export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
 
   const handleClaim = async () => {
     if (!account?.address) {
-      throw new Error(t('errors.walletNotConnected'));
+      throw new UiError(t('errors.walletNotConnected'));
     }
-
-    const res = await claimXvsReward({
-      fromAccountAddress: account.address,
-    });
-
-    return res.transactionHash;
+    let res;
+    try {
+      res = await claimXvsReward({
+        fromAccountAddress: account.address,
+      });
+      return res.transactionHash;
+    } catch (err) {
+      if (err instanceof TransactionError) {
+        throw new UiError(err.error, err.info);
+      }
+    }
+    return undefined;
   };
 
   return (

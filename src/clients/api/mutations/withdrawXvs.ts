@@ -1,6 +1,5 @@
 import type { TransactionReceipt } from 'web3-core/types';
 import { XvsVesting } from 'types/contracts';
-import { checkForTransactionError } from 'utilities/errors';
 
 export interface IWithdrawXvsInput {
   xvsVestingContract: XvsVesting;
@@ -9,14 +8,12 @@ export interface IWithdrawXvsInput {
 
 export type WithdrawXvsOutput = TransactionReceipt;
 
-const withdrawXvs = async ({
+const withdrawXvs = ({
   xvsVestingContract,
   accountAddress,
-}: IWithdrawXvsInput): Promise<WithdrawXvsOutput> => {
-  const resp = await xvsVestingContract.methods.withdraw().send({
+}: IWithdrawXvsInput): Promise<WithdrawXvsOutput> =>
+  xvsVestingContract.methods.withdraw().send({
     from: accountAddress,
   });
-  return checkForTransactionError(resp);
-};
 
 export default withdrawXvs;

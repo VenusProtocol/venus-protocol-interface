@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VBnbToken } from 'types/contracts';
 import { getVBepToken } from 'utilities';
-import { checkForTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'utilities/errors';
 
 export interface ISupplyBnbInput {
   tokenContract: VBnbToken;
@@ -32,7 +32,7 @@ const supplyBnb = async ({
   };
 
   const resp = await web3.eth.sendTransaction(tx);
-  return checkForTransactionError(resp);
+  return checkForTokenTransactionError(resp);
 };
 
 export default supplyBnb;

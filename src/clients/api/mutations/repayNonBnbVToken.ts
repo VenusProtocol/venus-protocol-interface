@@ -3,7 +3,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VTokenId } from 'types';
 import { VTokenContract } from 'clients/contracts/types';
-import { checkForTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'utilities/errors';
 
 export interface IRepayNonBnbVTokenInput {
   vTokenContract: VTokenContract<Exclude<VTokenId, 'bnb'>>;
@@ -21,7 +21,7 @@ const repayNonBnbVToken = async ({
   const resp = await vTokenContract.methods
     .repayBorrow(amountWei.toFixed())
     .send({ from: fromAccountAddress });
-  return checkForTransactionError(resp);
+  return checkForTokenTransactionError(resp);
 };
 
 export default repayNonBnbVToken;

@@ -1,6 +1,6 @@
 import type { TransactionReceipt } from 'web3-core';
 import { VaiUnitroller } from 'types/contracts';
-import { checkForTransactionError } from 'utilities/errors';
+import { checkForVaiControllerTransactionError } from 'utilities/errors';
 
 export interface IRepayVaiInput {
   vaiControllerContract: VaiUnitroller;
@@ -18,7 +18,7 @@ const repayVai = async ({
   const resp = await vaiControllerContract.methods
     .repayVAI(amountWei)
     .send({ from: fromAccountAddress });
-  return checkForTransactionError(resp);
+  return checkForVaiControllerTransactionError(resp);
 };
 
 export default repayVai;

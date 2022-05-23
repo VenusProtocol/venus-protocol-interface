@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { checkForTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'utilities/errors';
 import { VTokenId } from 'types';
 import { VTokenContract } from 'clients/contracts/types';
 
@@ -21,7 +21,7 @@ const borrowVToken = async ({
   const resp = await vTokenContract.methods
     .borrow(amountWei.toFixed())
     .send({ from: fromAccountAddress });
-  return checkForTransactionError(resp);
+  return checkForTokenTransactionError(resp);
 };
 
 export default borrowVToken;

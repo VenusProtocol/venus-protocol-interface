@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
-import { checkForTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'utilities/errors';
 import { VBep20 } from 'types/contracts';
 
 export interface ISupplyNonBnbInput {
@@ -17,7 +17,7 @@ const supplyNonBnb = async ({
   amountWei,
 }: ISupplyNonBnbInput): Promise<SupplyNonBnbOutput> => {
   const resp = await tokenContract.methods.mint(amountWei.toFixed()).send({ from: account });
-  return checkForTransactionError(resp);
+  return checkForTokenTransactionError(resp);
 };
 
 export default supplyNonBnb;
