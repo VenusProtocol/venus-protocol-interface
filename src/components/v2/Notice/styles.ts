@@ -55,9 +55,6 @@ export const useStyles = () => {
           `;
         case 'warning':
           return css`
-            width: ${theme.spacing(6)};
-            height: ${theme.spacing(6)};
-            margin-top: ${theme.spacing(-0.5)};
             color: ${theme.palette.interactive.warning};
           `;
       }
