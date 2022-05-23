@@ -14,7 +14,6 @@ import { VBEP_TOKENS } from 'constants/tokens';
 import {
   useComptrollerContract,
   useTokenContract,
-  useVaiUnitrollerContract,
   useXvsVaultProxyContract,
 } from 'clients/contracts/hooks';
 import { useWeb3 } from 'clients/web3';
@@ -39,7 +38,6 @@ function Vote({ getProposals }: VoteProps) {
   const [current, setCurrent] = useState(1);
   const [isLoadingProposal, setIsLoadingPropoasl] = useState(false);
   const [earnedBalance, setEarnedBalance] = useState('0.00000000');
-  const [vaiMint, setVaiMint] = useState('0.00000000');
   const [delegateAddress, setDelegateAddress] = useState('');
   const [delegateStatus, setDelegateStatus] = useState('');
   const [stakedAmount, setStakedAmount] = useState('');
@@ -47,7 +45,6 @@ function Vote({ getProposals }: VoteProps) {
   const { fastRefresh } = useRefresh();
   const xvsTokenContract = useTokenContract('xvs');
   const comptrollerContract = useComptrollerContract();
-  const vaiUnitrollerContract = useVaiUnitrollerContract();
   const xvsVaultProxyContract = useXvsVaultProxyContract();
   const web3 = useWeb3();
 
@@ -135,16 +132,11 @@ function Vote({ getProposals }: VoteProps) {
     const myAddress = account?.address;
     if (!myAddress) return;
 
-    const [venusInitialIndex, venusAccrued, venusVAIState, vaiMinterAmount] = await Promise.all([
+    const [venusInitialIndex, venusAccrued] = await Promise.all([
       comptrollerContract.methods.venusInitialIndex().call(),
       comptrollerContract.methods.venusAccrued(myAddress).call(),
-      vaiUnitrollerContract.methods.venusVAIState().call(),
-      comptrollerContract.methods.mintedVAIs(myAddress).call(),
     ]);
 
-    let vaiMinterIndex = await Promise.resolve(
-      vaiUnitrollerContract.methods.venusVAIMinterIndex(myAddress).call(),
-    );
     let venusEarned = new BigNumber(0);
     await Promise.all(
       Object.values(VBEP_TOKENS).map(async item => {
@@ -192,21 +184,10 @@ function Vote({ getProposals }: VoteProps) {
     // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'BigNumber... Remove this comment to see the full error message
     venusEarned = venusEarned.plus(venusAccrued).dividedBy(1e18).dp(8, 1).toString(10);
 
-    const vaiMintIndex = venusVAIState.index;
-    if (+vaiMinterIndex === 0 && +vaiMintIndex > 0) {
-      vaiMinterIndex = venusInitialIndex;
-    }
-    const deltaIndex = new BigNumber(vaiMintIndex).minus(new BigNumber(vaiMinterIndex));
-    const vaiMinterDelta = new BigNumber(vaiMinterAmount)
-      .times(deltaIndex)
-      .div(1e54)
-      .dp(8, 1)
-      .toString(10);
     setEarnedBalance(
       // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
       venusEarned && venusEarned !== '0' ? `${venusEarned}` : '0.00000000',
     );
-    setVaiMint(vaiMinterDelta && vaiMinterDelta !== '0' ? `${vaiMinterDelta}` : '0.00000000');
   };
 
   const updateDelegate = async () => {
@@ -259,7 +240,6 @@ function Vote({ getProposals }: VoteProps) {
                 // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
                 balance={balance !== '0' ? `${balance}` : '0.00000000'}
                 earnedBalance={earnedBalance}
-                vaiMint={vaiMint}
                 delegateAddress={delegateAddress}
                 delegateStatus={delegateStatus}
               />
