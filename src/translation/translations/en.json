@@ -293,6 +293,7 @@
     "apyWithXvsTooltip": "Choose whether to include the XVS distribution APY in calculations",
     "borrowBalance": "Borrow balance",
     "dailyEarnings": "Daily earnings",
+    "includingMintedVai": "Including minted VAI",
     "netApy": "Net APY",
     "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
     "safeLimit": "Your safe limit:",

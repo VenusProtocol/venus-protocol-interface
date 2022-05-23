@@ -6,7 +6,7 @@ import { useStyles } from './styles';
 
 interface ILabeledProgressBar extends IProgressBarProps {
   greyLeftText?: string;
-  whiteLeftText?: string;
+  whiteLeftText?: string | React.ReactElement;
   greyRightText?: string;
   whiteRightText?: string;
   className?: string;
