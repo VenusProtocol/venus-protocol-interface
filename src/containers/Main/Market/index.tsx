@@ -358,7 +358,7 @@ function Market({ history, settings }: MarketProps) {
               <Row
                 className="table_item pointer"
                 key={uid(item)}
-                onClick={() => history.push(`/market/${item.underlyingSymbol}`)}
+                onClick={() => history.push(`/market/${item.underlyingSymbol.toLowerCase()}`)}
               >
                 <Col xs={{ span: 24 }} lg={{ span: 2 }} className="flex align-center market">
                   <img
