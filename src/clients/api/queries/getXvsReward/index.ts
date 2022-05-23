@@ -12,9 +12,6 @@ export interface IGetXvsRewardInput {
   comptrollerContract: Comptroller;
   venusInitialIndex: string;
   xvsAccrued: BigNumber;
-  vaiMintIndex: string;
-  userVaiMintIndex: string;
-  userMintedVai: BigNumber;
 }
 
 export type GetXvsRewardOutput = BigNumber;
@@ -28,9 +25,6 @@ const getXvsReward = async ({
   comptrollerContract,
   venusInitialIndex,
   xvsAccrued,
-  vaiMintIndex,
-  userVaiMintIndex,
-  userMintedVai,
 }: IGetXvsRewardInput): Promise<GetXvsRewardOutput> => {
   const vTokensData = await Promise.all(
     Object.values(VBEP_TOKENS).map(vToken =>
@@ -86,20 +80,9 @@ const getXvsReward = async ({
 
   const totalXvsEarned = xvsEarned.plus(xvsAccrued).dividedBy(1e18).dp(VBEP_TOKEN_DECIMALS, 1);
 
-  // Calculate XVS reward from minting VAI
-  const adjustedVaiMinterIndex =
-    userVaiMintIndex === '0' && +vaiMintIndex < 0 ? venusInitialIndex : userVaiMintIndex;
-
-  const deltaIndex = new BigNumber(vaiMintIndex).minus(new BigNumber(adjustedVaiMinterIndex));
-  const vaiMinterDelta = new BigNumber(userMintedVai)
-    .times(deltaIndex)
-    .div(1e54)
-    .dp(VBEP_TOKEN_DECIMALS, 1);
-
   // Calculate and return total XVS reward
-  const xvsRewardTokens = totalXvsEarned.plus(vaiMinterDelta);
   const xvsDecimals = getToken('xvs').decimals;
-  const xvsRewardWei = xvsRewardTokens.multipliedBy(new BigNumber(10).pow(xvsDecimals));
+  const xvsRewardWei = totalXvsEarned.multipliedBy(new BigNumber(10).pow(xvsDecimals));
 
   return xvsRewardWei;
 };
