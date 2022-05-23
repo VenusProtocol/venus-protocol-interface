@@ -25,6 +25,10 @@ import {
   EnableToken,
 } from 'components';
 import { useTranslation } from 'translation';
+import {
+  TokenTransactionErrorsError,
+  TokenTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
 import { useStyles as useBorrowStyles } from './styles';
@@ -188,7 +192,12 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       return res.transactionHash;
     } catch (err) {
       if (err instanceof TransactionError) {
-        throw new UiError(err.message, err.description);
+        throw new UiError(
+          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
+          TokenTransactionErrorsFailureInfo[
+            err.info as keyof typeof TokenTransactionErrorsFailureInfo
+          ],
+        );
       }
     }
   };

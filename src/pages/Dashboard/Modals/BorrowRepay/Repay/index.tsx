@@ -24,6 +24,10 @@ import {
 } from 'components';
 import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
+import {
+  TokenTransactionErrorsError,
+  TokenTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
 import AccountData from '../AccountData';
@@ -228,7 +232,12 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       return res.transactionHash;
     } catch (err) {
       if (err instanceof TransactionError) {
-        throw new UiError(err.message, err.description);
+        throw new UiError(
+          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
+          TokenTransactionErrorsFailureInfo[
+            err.info as keyof typeof TokenTransactionErrorsFailureInfo
+          ],
+        );
       }
     }
   };

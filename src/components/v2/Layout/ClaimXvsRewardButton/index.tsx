@@ -8,8 +8,12 @@ import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
-import { toast } from '../../Toast';
 import { UiError, TransactionError } from 'utilities/errors';
+import {
+  ComptrollerTransactionErrorsError,
+  ComptrollerTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
+import { toast } from '../../Toast';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
@@ -96,18 +100,23 @@ export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
     if (!account?.address) {
       throw new UiError(t('errors.walletNotConnected'));
     }
-    let res;
     try {
-      res = await claimXvsReward({
+      const res = await claimXvsReward({
         fromAccountAddress: account.address,
       });
       return res.transactionHash;
     } catch (err) {
       if (err instanceof TransactionError) {
-        throw new UiError(err.error, err.info);
+        throw new UiError(
+          ComptrollerTransactionErrorsError[
+            err.error as keyof typeof ComptrollerTransactionErrorsError
+          ],
+          ComptrollerTransactionErrorsFailureInfo[
+            err.info as keyof typeof ComptrollerTransactionErrorsFailureInfo
+          ],
+        );
       }
     }
-    return undefined;
   };
 
   return (

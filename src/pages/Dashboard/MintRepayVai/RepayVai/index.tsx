@@ -21,6 +21,10 @@ import {
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
 import { useTranslation } from 'translation';
+import {
+  VAIControllerTransactionErrorsError,
+  VAIControllerTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
@@ -172,7 +176,14 @@ const RepayVai: React.FC = () => {
       });
     } catch (err) {
       if (err instanceof TransactionError) {
-        throw new UiError(err.message, err.description);
+        throw new UiError(
+          VAIControllerTransactionErrorsError[
+            err.error as keyof typeof VAIControllerTransactionErrorsError
+          ],
+          VAIControllerTransactionErrorsFailureInfo[
+            err.info as keyof typeof VAIControllerTransactionErrorsFailureInfo
+          ],
+        );
       }
     }
   };
