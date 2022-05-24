@@ -7,7 +7,7 @@ import {
   formatCentsToReadableValue,
 } from 'utilities/common';
 import { Asset, TokenId } from 'types';
-import { Table, ITableProps, Token, Toggle, LayeredValues } from 'components';
+import { Table, TableProps, Token, Toggle, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from './styles';
 import { useStyles as useSharedStyles } from '../styles';
@@ -15,7 +15,7 @@ import { useStyles as useSharedStyles } from '../styles';
 export interface ISuppliedTableUiProps {
   assets: Asset[];
   isXvsEnabled: boolean;
-  rowOnClick: (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => void;
+  rowOnClick: (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => void;
   collateralOnChange: (asset: Asset) => void;
 }
 
@@ -40,7 +40,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
   );
 
   // Format assets to rows
-  const rows: ITableProps['data'] = assets.map(asset => [
+  const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
       render: () => <Token symbol={asset.symbol as TokenId} />,
