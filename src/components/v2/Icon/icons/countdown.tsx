@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { SVGProps } from 'react';
 
-const SvgCountdown = (props: SVGProps<SVGSVGElement>) => (
+const SvgCountdown = ({ id, ...props }: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <g
-      clipPath="url(#countdown_svg__a)"
+      clipPath={`url(#${id})`}
       stroke="currentColor"
       strokeWidth={1.333}
       strokeLinecap="round"
@@ -14,7 +14,7 @@ const SvgCountdown = (props: SVGProps<SVGSVGElement>) => (
       <path d="M8.5 4.3v4l2.667 1.334" />
     </g>
     <defs>
-      <clipPath id="countdown_svg__a">
+      <clipPath id={id}>
         <path fill="#fff" transform="translate(.5 .3)" d="M0 0h16v16H0z" />
       </clipPath>
     </defs>
