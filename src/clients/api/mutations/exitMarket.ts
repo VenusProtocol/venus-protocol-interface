@@ -1,5 +1,6 @@
 import type { TransactionReceipt } from 'web3-core';
 import { Comptroller } from 'types/contracts';
+import { checkForComptrollerTransactionError } from 'utilities/errors';
 
 export interface IExitMarketInput {
   comptrollerContract: Comptroller;
@@ -9,11 +10,15 @@ export interface IExitMarketInput {
 
 export type ExitMarketOutput = TransactionReceipt;
 
-const exitMarket = ({
+const exitMarket = async ({
   comptrollerContract,
   accountAddress,
   vtokenAddress,
-}: IExitMarketInput): Promise<ExitMarketOutput> =>
-  comptrollerContract.methods.exitMarket(vtokenAddress).send({ from: accountAddress });
+}: IExitMarketInput): Promise<ExitMarketOutput> => {
+  const resp = await comptrollerContract.methods
+    .exitMarket(vtokenAddress)
+    .send({ from: accountAddress });
+  return checkForComptrollerTransactionError(resp);
+};
 
 export default exitMarket;

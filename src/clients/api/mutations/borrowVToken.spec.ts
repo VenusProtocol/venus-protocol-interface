@@ -2,6 +2,11 @@ import BigNumber from 'bignumber.js';
 
 import address from '__mocks__/models/address';
 import { VTokenContract } from 'clients/contracts/types';
+import {
+  TokenErrorReporterError,
+  TokenErrorReporterFailureInfo,
+} from 'constants/contracts/errorReporter';
+import { TransactionError } from 'utilities/errors';
 import borrowVToken from './borrowVToken';
 
 describe('api/mutation/borrowVToken', () => {
@@ -29,10 +34,46 @@ describe('api/mutation/borrowVToken', () => {
     }
   });
 
+  test('throws a transaction error when Failure event is present', async () => {
+    const fakeContract = {
+      methods: {
+        borrow: () => ({
+          send: async () => ({
+            events: {
+              Failure: {
+                returnValues: {
+                  info: '1',
+                  error: '1',
+                },
+              },
+            },
+          }),
+        }),
+      },
+    } as unknown as VTokenContract<'xvs'>;
+
+    try {
+      await borrowVToken({
+        vTokenContract: fakeContract,
+        amountWei: new BigNumber('10000000000000000'),
+        fromAccountAddress: address,
+      });
+
+      throw new Error('borrowVToken should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot(`[Error: ${TokenErrorReporterError[1]}]`);
+      expect(error).toBeInstanceOf(TransactionError);
+      if (error instanceof TransactionError) {
+        expect(error.error).toBe(TokenErrorReporterError[1]);
+        expect(error.info).toBe(TokenErrorReporterFailureInfo[1]);
+      }
+    }
+  });
+
   test('returns transaction receipt when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
-
-    const sendMock = jest.fn(async () => undefined);
+    const fakeTransaction = { events: {} };
+    const sendMock = jest.fn(async () => fakeTransaction);
     const borrowMock = jest.fn(() => ({
       send: sendMock,
     }));
@@ -49,7 +90,7 @@ describe('api/mutation/borrowVToken', () => {
       fromAccountAddress: address,
     });
 
-    expect(response).toBe(undefined);
+    expect(response).toBe(fakeTransaction);
     expect(borrowMock).toHaveBeenCalledTimes(1);
     expect(borrowMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);
