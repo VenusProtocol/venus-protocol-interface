@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { SVGProps } from 'react';
 
-const SvgFil = (props: SVGProps<SVGSVGElement>) => (
+const SvgFil = ({ id, ...props }: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <mask
-      id="fil_svg__a"
+      id={id}
       style={{
         maskType: 'alpha',
       }}
@@ -16,7 +16,7 @@ const SvgFil = (props: SVGProps<SVGSVGElement>) => (
     >
       <path fillRule="evenodd" clipRule="evenodd" d="M2 2h20v20H2V2Z" fill="#fff" />
     </mask>
-    <g mask="url(#fil_svg__a)" fillRule="evenodd" clipRule="evenodd">
+    <g mask={`url(#${id})`} fillRule="evenodd" clipRule="evenodd">
       <path
         d="M12 22C6.5 22 2 17.5 2 11.95c.05-5.5 4.5-10 10.05-9.95 5.5.05 9.95 4.5 9.95 10.1-.05 5.45-4.5 9.9-10 9.9Z"
         fill="#0090FF"
