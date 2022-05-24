@@ -13,9 +13,8 @@ import {
 import { useRepayVToken } from 'clients/api';
 import { UiError } from 'utilities/errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import toast from 'components/Basic/Toast';
-import MAX_UINT256 from 'constants/maxUint256';
 import {
+  toast,
   PrimaryButton,
   TokenTextField,
   ConnectWallet,
@@ -23,6 +22,7 @@ import {
   LabeledInlineContent,
   TertiaryButton,
 } from 'components';
+import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
@@ -106,7 +106,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
         transactionHash,
       });
     } catch (error) {
-      toast.error({ title: (error as UiError).message });
+      toast.error({ message: (error as UiError).message });
     }
   };
 

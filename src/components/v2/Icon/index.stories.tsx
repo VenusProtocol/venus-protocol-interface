@@ -11,10 +11,10 @@ export default {
 
 export const IconDefault = () => {
   // Get all SVG file names
-  const svgs = require.context('./icons', true, /\.svg$/);
+  const svgs = require.context('./icons', true, /\.tsx$/);
   const svgFileNames = svgs
     .keys()
-    .map(path => path.replace('./', '').replace('coins/', '').replace('.svg', '')) as IconName[];
+    .map(path => path.replace('./', '').replace('coins/', '').replace('.tsx', '')) as IconName[];
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
