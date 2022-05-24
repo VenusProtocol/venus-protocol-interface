@@ -5,11 +5,10 @@ import BigNumber from 'bignumber.js';
 import { Pagination, Tooltip } from 'antd';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
-import toast from 'components/Basic/Toast';
+import { toast, PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
-import { PrimaryButton } from 'components';
 import { Proposal as ProposalObject } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { useTokenContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
@@ -201,7 +200,7 @@ function Proposals({
       const status = await governorBravoContract.methods.state(pId).call();
       if (status === '0' || status === '1') {
         toast.error({
-          title: "You can't create proposal. there is proposal in progress!",
+          message: "You can't create proposal. there is proposal in progress!",
         });
       } else {
         setProposalModal(true);

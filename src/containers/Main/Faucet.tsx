@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { useRequestFaucetFunds } from 'clients/api';
-import toast from 'components/Basic/Toast';
+import { toast } from 'components';
 import { getToken } from 'utilities';
 import Faucet from 'components/Faucet';
 
@@ -19,12 +19,12 @@ const FaucetContainer: React.FC<IFaucetContainerProps> = () => {
         }
 
         toast.success({
-          title: `Funding request for ${fromAddress} into ${variables.address}`,
+          message: `Funding request for ${fromAddress} into ${variables.address}`,
         });
       },
       onError: error => {
         toast.error({
-          title: error.message,
+          message: error.message,
         });
       },
     });

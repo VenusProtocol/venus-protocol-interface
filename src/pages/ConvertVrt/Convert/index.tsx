@@ -10,9 +10,9 @@ import {
   EnableToken,
   Icon,
   TokenTextField,
+  toast,
 } from 'components';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
@@ -120,7 +120,7 @@ const Convert: React.FC<IConvertProps> = ({
         ),
       });
     } catch (err) {
-      toast.error({ title: (err as Error).message });
+      toast.error({ message: (err as Error).message });
     }
   };
 

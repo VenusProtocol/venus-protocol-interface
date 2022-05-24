@@ -33,59 +33,6 @@ body {
   }
 }
 
-.Toastify__toast-container {
-  left: 0;
-  top: 0;
-  margin-left: 0;
-  padding: 0;
-
-  .Toastify__toast {
-    width: 100vw;
-    min-height: 52px;
-    padding: 0;
-    box-shadow: 0 12px 30px rgba(79, 75, 108, 0.159282);
-    .Toastify__toast-body {
-      display: flex;
-      align-items: center;
-      margin: 0;
-      color: var(--color-text-main);
-
-      .toast_container_wrapper {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        padding-left: 25px;
-        .title {
-          color: var(--color-text-main);
-          font-weight: bold;
-          margin-bottom: 0;
-          margin-right: 10px;
-        }
-      }
-
-      .success {
-        background: var(--color-green);
-      }
-      .error {
-        background: var(--color-red);
-      }
-
-      .info {
-        background: var(--color-yellow);
-      }
-    }
-
-    .Toastify__close-button {
-      position: absolute;
-      color: var(--color-text-main);
-      opacity: 1;
-      top: 15px;
-      right: 25px;
-    }
-  }
-}
-
 .venus-modal,
 .collateral-confirm-modal {
   .ant-modal-content {

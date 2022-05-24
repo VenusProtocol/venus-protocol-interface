@@ -6,7 +6,7 @@ import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Tooltip } from 'antd';
-import { PrimaryButton, SecondaryButton } from 'components';
+import { PrimaryButton, SecondaryButton, toast } from 'components';
 import { connectAccount } from 'core';
 import ProposalInfo from 'components/Vote/VoteOverview/ProposalInfo';
 import ProposalUser from 'components/Vote/VoteOverview/ProposalUser';
@@ -14,7 +14,6 @@ import VoteCard from 'components/Vote/VoteOverview/VoteCard';
 import ProposalDetail from 'components/Vote/VoteOverview/ProposalDetail';
 import ProposalHistory from 'components/Vote/VoteOverview/ProposalHistory';
 import { promisify } from 'utilities';
-import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
@@ -216,7 +215,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
         await governorBravoContract.methods.queue(proposalInfo.id).send({ from: account?.address });
         setStatus('success');
         toast.success({
-          title: 'Proposal list will be updated within a few seconds',
+          message: 'Proposal list will be updated within a few seconds',
         });
       } catch (error) {
         setStatus('failure');
@@ -231,7 +230,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
           .send({ from: account?.address });
         setStatus('success');
         toast.success({
-          title: 'Proposal list will be updated within a few seconds',
+          message: 'Proposal list will be updated within a few seconds',
         });
       } catch (error) {
         setStatus('failure');
@@ -246,7 +245,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
           .send({ from: account?.address });
         setCancelStatus('success');
         toast.success({
-          title:
+          message:
             'Current proposal is cancelled successfully. Proposal list will be updated within a few seconds',
         });
       } catch (error) {

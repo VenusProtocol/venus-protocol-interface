@@ -15,10 +15,10 @@ import {
   LabeledInlineContent,
   FormikTokenTextField,
   ConnectWallet,
+  toast,
 } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
-import toast from 'components/Basic/Toast';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -97,7 +97,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         transactionHash: res.transactionHash,
       });
     } catch (error) {
-      toast.error({ title: (error as Error).message });
+      toast.error({ message: (error as Error).message });
     }
   };
 

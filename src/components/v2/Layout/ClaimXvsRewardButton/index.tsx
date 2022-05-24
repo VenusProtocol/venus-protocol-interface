@@ -2,13 +2,13 @@
 import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 
-import toast from 'components/Basic/Toast';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
+import { toast } from '../../Toast';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
@@ -52,7 +52,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
       });
     } catch (error) {
       toast.error({
-        title: (error as Error).message,
+        message: (error as Error).message,
       });
     }
   };

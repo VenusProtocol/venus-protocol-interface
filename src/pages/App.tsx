@@ -2,8 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
-import { toast, ToastContainer, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from 'react-toastify';
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
@@ -50,13 +49,7 @@ const App = () => (
                   <MarketContextProvider>
                     <SuccessfulTransactionModalProvider>
                       <BrowserRouter>
-                        <ToastContainer
-                          autoClose={8000}
-                          transition={Slide}
-                          hideProgressBar
-                          newestOnTop
-                          position={toast.POSITION.TOP_LEFT}
-                        />
+                        <ToastContainer />
                         <Layout>
                           <Switch>
                             <Route exact path={Path.DASHBOARD} component={Dashboard} />
