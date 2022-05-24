@@ -138,7 +138,7 @@ function VotingWallet({
             4 tokenBalance: tokenBalance, // balance of underlying token
             5 tokenAllowance: tokenAllowance // token allowance of underlying token
          */
-        new BigNumber(info[2]).gt(0) || new BigNumber(info[4]).gt(0),
+        new BigNumber(info[1]).gt(0) || new BigNumber(info[2]).gt(0),
     );
 
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
