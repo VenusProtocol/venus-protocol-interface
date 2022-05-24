@@ -1,24 +1,51 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Typography from '@mui/material/Typography';
 import { Button } from '../Button';
 import { Icon, IIconProps } from '../Icon';
 import { useStyles } from './styles';
 
-interface IPaginationProps {
+interface IPaginationButtonProps {
   className?: string;
-  activePageIndex: number;
+  onClick: () => void;
+  dotsPosition?: 'before' | 'after';
+  children: number | ReactElement;
+}
+
+const PaginationButton: React.FC<IPaginationButtonProps> = ({
+  className,
+  onClick,
+  dotsPosition,
+  children,
+}) => {
+  const classes = useStyles();
+  return (
+    <div css={classes.arrowButtonWrapper}>
+      {dotsPosition === 'before' && <Typography css={classes.dots}>...</Typography>}
+      <Button variant="text" css={[classes.button]} className={className} onClick={onClick}>
+        {children}
+      </Button>
+      {dotsPosition === 'after' && <Typography css={classes.dots}>...</Typography>}
+    </div>
+  );
+};
+
+interface IPaginationProps {
   pagesCount: number;
-  setCurrentPageIndex: (pageIndex: number) => void;
+  activePageIndex: number;
+  setActivePageIndex: (pageIndex: number) => void;
+  itemsCountString?: string;
+  className?: string;
 }
 
 const PAGES_TO_SHOW_COUNT = 4;
 
 export const Pagination = ({
-  className,
-  activePageIndex,
   pagesCount,
-  setCurrentPageIndex,
+  activePageIndex,
+  setActivePageIndex,
+  itemsCountString,
+  className,
 }: IPaginationProps) => {
   const classes = useStyles();
 
@@ -42,39 +69,36 @@ export const Pagination = ({
     return null;
   }
 
+  const iconProps: IIconProps = { size: '25', name: 'arrowRight', color: 'inherit' };
+
   return (
     <div css={[classes.root, className]}>
+      {itemsCountString && (
+        <Typography css={classes.itemsCountString}>{itemsCountString}</Typography>
+      )}
+
       {pagesArray.map((page, index) => {
-        const iconProps: IIconProps = { size: '20px', name: 'arrowRight', color: 'inherit' };
         if (index === minPageIndexToShow) {
           return (
-            <div css={classes.arrowButtonWrapper}>
-              <Button
-                variant="text"
-                css={classes.button}
-                key={page}
-                onClick={() => setCurrentPageIndex(activePageIndex - 1)}
-              >
-                <Icon css={classes.iconReverted} {...iconProps} />
-              </Button>
-              <Typography css={classes.dots}>...</Typography>
-            </div>
+            <PaginationButton
+              key={page}
+              onClick={() => setActivePageIndex(activePageIndex - 1)}
+              dotsPosition="after"
+            >
+              <Icon css={classes.iconReverted} {...iconProps} />
+            </PaginationButton>
           );
         }
 
         if (index === maxPageIndexToShow) {
           return (
-            <div css={classes.arrowButtonWrapper}>
-              <Typography css={classes.dots}>...</Typography>
-              <Button
-                variant="text"
-                css={classes.button}
-                key={page}
-                onClick={() => setCurrentPageIndex(activePageIndex + 1)}
-              >
-                <Icon {...iconProps} />
-              </Button>
-            </div>
+            <PaginationButton
+              key={page}
+              onClick={() => setActivePageIndex(activePageIndex + 1)}
+              dotsPosition="before"
+            >
+              <Icon {...iconProps} />
+            </PaginationButton>
           );
         }
 
@@ -83,14 +107,13 @@ export const Pagination = ({
         }
 
         return (
-          <Button
-            variant="text"
-            css={[classes.button, classes.getButtonStyles({ isActive: index === activePageIndex })]}
+          <PaginationButton
             key={page}
-            onClick={() => setCurrentPageIndex(index)}
+            onClick={() => setActivePageIndex(index)}
+            css={classes.getButtonStyles({ isActive: index === activePageIndex })}
           >
             {page}
-          </Button>
+          </PaginationButton>
         );
       })}
     </div>

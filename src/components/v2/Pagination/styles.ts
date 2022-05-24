@@ -6,6 +6,23 @@ export const useStyles = () => {
   return {
     root: css`
       display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: ${theme.spacing(4)};
+      ${theme.breakpoints.down('sm')} {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    `,
+    itemsCountString: css`
+      margin-right: ${theme.spacing(2)};
+      white-space: nowrap;
+      ${theme.breakpoints.down('sm')} {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: ${theme.spacing(2)};
+        text-align: center;
+      }
     `,
     button: css`
       width: ${theme.spacing(8)};

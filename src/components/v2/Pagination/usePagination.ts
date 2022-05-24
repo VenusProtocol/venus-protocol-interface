@@ -14,7 +14,7 @@ export function usePagination<Row>({
   const initialPageIndex = initialPageNumber - 1;
 
   const [currentPageData, setCurrentPageData] = useState<Row[]>([]);
-  const [currentPageIndex, setCurrentPageIndex] = useState(initialPageIndex);
+  const [activePageIndex, setActivePageIndex] = useState(initialPageIndex);
   const [pagesCount, setPagesCount] = useState(0);
 
   /* calculating rows per page count */
@@ -23,8 +23,8 @@ export function usePagination<Row>({
   }, [rowsPerPageCount]);
 
   // const isFirstPage = currentPageIndex === 0;
-  const isLastPage = currentPageIndex === pagesCount - 1;
-  const currentPageFirstIndex = currentPageIndex * rowsPerPageCount;
+  const isLastPage = activePageIndex === pagesCount - 1;
+  const currentPageFirstIndex = activePageIndex * rowsPerPageCount;
   const currentPageLastIndex = isLastPage ? data.length : currentPageFirstIndex + rowsPerPageCount;
   const firstItemNumberInRow = currentPageFirstIndex + 1;
   const isSingleItemOnPage = firstItemNumberInRow === currentPageLastIndex;
@@ -36,12 +36,12 @@ export function usePagination<Row>({
   useEffect(() => {
     const newPageData = data.slice(currentPageFirstIndex, currentPageLastIndex);
     setCurrentPageData(newPageData);
-  }, [currentPageIndex, rowsPerPageCount]);
+  }, [activePageIndex, rowsPerPageCount]);
 
   return {
     pagesCount,
-    currentPageIndex,
-    setCurrentPageIndex,
+    activePageIndex,
+    setActivePageIndex,
     currentPageData,
     itemsCountString,
   };

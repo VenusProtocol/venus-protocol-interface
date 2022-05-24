@@ -2,8 +2,6 @@
 import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { Table } from '../Table';
@@ -30,7 +28,7 @@ const PaginationWithCustomRowsPerPageTemplate: Story<{
 }> = ({ initialPageNumber, rowsPerPageCount }) => {
   const styles = useTableStyles();
   const data = [...rows, ...rows, ...rows];
-  const { pagesCount, currentPageIndex, setCurrentPageIndex, currentPageData, itemsCountString } =
+  const { pagesCount, activePageIndex, setActivePageIndex, currentPageData, itemsCountString } =
     usePagination<ITableRowProps[]>({
       data,
       initialPageNumber,
@@ -39,6 +37,7 @@ const PaginationWithCustomRowsPerPageTemplate: Story<{
 
   return (
     <>
+      {/* Table component is here just for displaying the hook usePagination usage */}
       <Table
         columns={columns}
         data={currentPageData}
@@ -49,14 +48,12 @@ const PaginationWithCustomRowsPerPageTemplate: Story<{
         cardsCss={styles.cardsCss}
         css={styles.table}
       />
-      <Box display="flex" justifyContent="flex-end" alignItems="center" mt={4}>
-        <Typography mr={2}>{itemsCountString}</Typography>
-        <Pagination
-          activePageIndex={currentPageIndex}
-          pagesCount={pagesCount}
-          setCurrentPageIndex={setCurrentPageIndex}
-        />
-      </Box>
+      <Pagination
+        pagesCount={pagesCount}
+        activePageIndex={activePageIndex}
+        setActivePageIndex={setActivePageIndex}
+        itemsCountString={itemsCountString}
+      />
     </>
   );
 };
