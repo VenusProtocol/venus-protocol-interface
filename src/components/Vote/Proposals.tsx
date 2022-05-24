@@ -113,6 +113,8 @@ interface Props {
   total: number;
   onChangePage: (page: number, total: number, size: number) => void;
 }
+// @ts-expect-error Hack to get antd tooltip to work on non antd button
+PrimaryButton.__ANT_BUTTON = true; // eslint-disable-line @typescript-eslint/no-unused-vars, no-underscore-dangle
 
 function Proposals({
   address,
