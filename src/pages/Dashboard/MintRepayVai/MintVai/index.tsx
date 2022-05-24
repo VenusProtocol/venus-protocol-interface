@@ -7,7 +7,7 @@ import { AuthContext } from 'context/AuthContext';
 import { getContractAddress } from 'utilities';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
-import { InternalError } from 'utilities/errors';
+import { UiError, TransactionError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
   FormikSubmitButton,
@@ -23,6 +23,10 @@ import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import {
+  VAIControllerTransactionErrorsError,
+  VAIControllerTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
@@ -30,7 +34,7 @@ import getReadableFeeVai from './getReadableFeeVai';
 export interface IMintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
-  mintVai: (value: BigNumber) => Promise<TransactionReceipt>;
+  mintVai: (value: BigNumber) => Promise<TransactionReceipt | undefined>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
   userVaiEnabled: boolean;
@@ -87,15 +91,17 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
       const res = await mintVai(amountWei);
 
       // Display successful transaction modal
-      openSuccessfulTransactionModal({
-        title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
-        content: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          tokenId: 'xvs' as TokenId,
-        },
-        transactionHash: res.transactionHash,
-      });
+      if (res) {
+        openSuccessfulTransactionModal({
+          title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
+          content: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
+          amount: {
+            valueWei: amountWei,
+            tokenId: 'xvs' as TokenId,
+          },
+          transactionHash: res.transactionHash,
+        });
+      }
     } catch (error) {
       toast.error({ message: (error as Error).message });
     }
@@ -178,13 +184,26 @@ const MintVai: React.FC = () => {
       const errorMessage = t('mintRepayVai.mintVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw new InternalError(errorMessage);
+      throw new UiError(errorMessage);
     }
 
-    return contractMintVai({
-      fromAccountAddress: account.address,
-      amountWei,
-    });
+    try {
+      return await contractMintVai({
+        fromAccountAddress: account.address,
+        amountWei,
+      });
+    } catch (err) {
+      if (err instanceof TransactionError) {
+        throw new UiError(
+          VAIControllerTransactionErrorsError[
+            err.error as keyof typeof VAIControllerTransactionErrorsError
+          ],
+          VAIControllerTransactionErrorsFailureInfo[
+            err.info as keyof typeof VAIControllerTransactionErrorsFailureInfo
+          ],
+        );
+      }
+    }
   };
 
   return (

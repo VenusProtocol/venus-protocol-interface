@@ -8,7 +8,7 @@ export interface IWithdrawXvsInput {
 
 export type WithdrawXvsOutput = TransactionReceipt;
 
-const withdrawXvs = async ({
+const withdrawXvs = ({
   xvsVestingContract,
   accountAddress,
 }: IWithdrawXvsInput): Promise<WithdrawXvsOutput> =>

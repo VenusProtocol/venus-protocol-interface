@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js';
-
+import {
+  TokenErrorReporterError,
+  TokenErrorReporterFailureInfo,
+} from 'constants/contracts/errorReporter';
+import { TransactionError } from 'utilities/errors';
 import { VBep20 } from 'types/contracts';
 import supply from './supplyNonBnb';
 
@@ -30,10 +34,46 @@ describe('api/mutation/supplyNonBnb', () => {
     }
   });
 
-  test('returns undefined when request succeeds', async () => {
-    const fakeAccount = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
+  test('throws a transaction error when Failure event is present', async () => {
+    const fakeContract = {
+      methods: {
+        mint: () => ({
+          send: async () => ({
+            events: {
+              Failure: {
+                returnValues: {
+                  info: '2',
+                  error: '2',
+                },
+              },
+            },
+          }),
+        }),
+      },
+    } as unknown as VBep20;
 
-    const sendMock = jest.fn(async () => undefined);
+    try {
+      await supply({
+        tokenContract: fakeContract,
+        amountWei: fakeAmount,
+        account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+      });
+
+      throw new Error('repayVai should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot(`[Error: ${TokenErrorReporterError[2]}]`);
+      expect(error).toBeInstanceOf(TransactionError);
+      if (error instanceof TransactionError) {
+        expect(error.error).toBe(TokenErrorReporterError[2]);
+        expect(error.info).toBe(TokenErrorReporterFailureInfo[2]);
+      }
+    }
+  });
+
+  test('returns Receipt when request succeeds', async () => {
+    const fakeAccount = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
+    const fakeTransactionReceipt = { events: {} };
+    const sendMock = jest.fn(async () => fakeTransactionReceipt);
     const supplyMock = jest.fn(() => ({
       send: sendMock,
     }));
@@ -50,7 +90,7 @@ describe('api/mutation/supplyNonBnb', () => {
       account: fakeAccount,
     });
 
-    expect(response).toBe(undefined);
+    expect(response).toBe(fakeTransactionReceipt);
     expect(supplyMock).toHaveBeenCalledTimes(1);
     expect(supplyMock).toHaveBeenCalledWith(fakeAmount.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);

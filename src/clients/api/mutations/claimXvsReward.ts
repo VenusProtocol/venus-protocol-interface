@@ -3,6 +3,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VBEP_TOKENS } from 'constants/tokens';
 import { Comptroller, VenusLens } from 'types/contracts';
+import { checkForComptrollerTransactionError } from 'utilities/errors';
 import getVTokenBalancesAll from '../queries/getVTokenBalancesAll';
 
 export interface IClaimXvsRewardInput {
@@ -37,12 +38,13 @@ const claimXvsReward = async ({
     .map(vTokenBalance => vTokenBalance.vToken);
 
   // Send query to claim XVS reward
-  return comptrollerContract.methods['claimVenus(address,address[])'](
+  const resp = await comptrollerContract.methods['claimVenus(address,address[])'](
     fromAccountAddress,
     filteredVTokenAddresses,
   ).send({
     from: fromAccountAddress,
   });
+  return checkForComptrollerTransactionError(resp);
 };
 
 export default claimXvsReward;

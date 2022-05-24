@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js';
-
+import {
+  VAIControllerErrorReporterError,
+  VAIControllerErrorReporterFailureInfo,
+} from 'constants/contracts/errorReporter';
+import { TransactionError } from 'utilities/errors';
 import repayVai from './repayVai';
 
 describe('api/mutation/repayVai', () => {
@@ -27,11 +31,47 @@ describe('api/mutation/repayVai', () => {
     }
   });
 
-  test('returns undefined when request succeeds', async () => {
+  test('throws a transaction error when Failure event is present', async () => {
+    const fakeContract = {
+      methods: {
+        repayVAI: () => ({
+          send: async () => ({
+            events: {
+              Failure: {
+                returnValues: {
+                  info: '2',
+                  error: '2',
+                },
+              },
+            },
+          }),
+        }),
+      },
+    } as any;
+
+    try {
+      await repayVai({
+        vaiControllerContract: fakeContract,
+        amountWei: '10000000000000000',
+        fromAccountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+      });
+
+      throw new Error('repayVai should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot(`[Error: ${VAIControllerErrorReporterError[2]}]`);
+      expect(error).toBeInstanceOf(TransactionError);
+      if (error instanceof TransactionError) {
+        expect(error.error).toBe(VAIControllerErrorReporterError[2]);
+        expect(error.info).toBe(VAIControllerErrorReporterFailureInfo[2]);
+      }
+    }
+  });
+
+  test('returns Receipt when request succeeds', async () => {
     const fakeAmountWei = new BigNumber('10000000000000000');
     const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
-
-    const sendMock = jest.fn(async () => undefined);
+    const fakeTransactionReceipt = { events: {} };
+    const sendMock = jest.fn(async () => fakeTransactionReceipt);
     const repayVAIMock = jest.fn(() => ({
       send: sendMock,
     }));
@@ -47,7 +87,7 @@ describe('api/mutation/repayVai', () => {
       fromAccountAddress: fakeFromAccountsAddress,
     });
 
-    expect(response).toBe(undefined);
+    expect(response).toBe(fakeTransactionReceipt);
     expect(repayVAIMock).toHaveBeenCalledTimes(1);
     expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
     expect(sendMock).toHaveBeenCalledTimes(1);

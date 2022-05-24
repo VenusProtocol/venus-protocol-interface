@@ -6,7 +6,7 @@ import type { TransactionReceipt } from 'web3-core';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
-import { InternalError } from 'utilities/errors';
+import { UiError, TransactionError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -21,6 +21,10 @@ import {
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
 import { useTranslation } from 'translation';
+import {
+  VAIControllerTransactionErrorsError,
+  VAIControllerTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
@@ -28,7 +32,7 @@ import { useStyles } from '../styles';
 export interface IRepayVaiUiProps {
   disabled: boolean;
   isRepayVaiLoading: boolean;
-  repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt>;
+  repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt | undefined>;
   userBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
   userVaiEnabled: boolean;
@@ -75,15 +79,17 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       const res = await repayVai(amountWei);
 
       // Display successful transaction modal
-      openSuccessfulTransactionModal({
-        title: t('mintRepayVai.repayVai.successfulTransactionModal.title'),
-        content: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          tokenId: 'xvs' as TokenId,
-        },
-        transactionHash: res.transactionHash,
-      });
+      if (res) {
+        openSuccessfulTransactionModal({
+          title: t('mintRepayVai.repayVai.successfulTransactionModal.title'),
+          content: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
+          amount: {
+            valueWei: amountWei,
+            tokenId: 'xvs' as TokenId,
+          },
+          transactionHash: res.transactionHash,
+        });
+      }
     } catch (error) {
       toast.error({ message: (error as Error).message });
     }
@@ -156,18 +162,30 @@ const RepayVai: React.FC = () => {
     [userVaiBalance.toFixed()],
   );
 
-  const repayVai: IRepayVaiUiProps['repayVai'] = amountWei => {
+  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
     if (!account) {
       const errorMessage = t('mintRepayVai.repayVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw new InternalError(errorMessage);
+      throw new UiError(errorMessage);
     }
-
-    return contractRepayVai({
-      fromAccountAddress: account.address,
-      amountWei: amountWei.toFixed(),
-    });
+    try {
+      return await contractRepayVai({
+        fromAccountAddress: account.address,
+        amountWei: amountWei.toFixed(),
+      });
+    } catch (err) {
+      if (err instanceof TransactionError) {
+        throw new UiError(
+          VAIControllerTransactionErrorsError[
+            err.error as keyof typeof VAIControllerTransactionErrorsError
+          ],
+          VAIControllerTransactionErrorsFailureInfo[
+            err.info as keyof typeof VAIControllerTransactionErrorsFailureInfo
+          ],
+        );
+      }
+    }
   };
 
   // @TODO: wrap with EnableToken component once created
