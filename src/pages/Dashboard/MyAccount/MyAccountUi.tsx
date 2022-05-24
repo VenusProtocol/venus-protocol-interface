@@ -93,7 +93,15 @@ export const MyAccountUi = ({
           </Tooltip>
         </div>
 
-        <Typography variant="h1" color="interactive.success" component="span">
+        <Typography
+          variant="h1"
+          color={
+            netApyPercentage !== undefined && netApyPercentage >= 0
+              ? 'interactive.success'
+              : 'interactive.error'
+          }
+          component="span"
+        >
           {readableNetApyPercentage}
         </Typography>
       </div>
