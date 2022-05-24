@@ -529,5 +529,15 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
+  },
+  "vaultItemUi": {
+    "reward": "Available reward:",
+    "claimButton": "Claim",
+    "youAreStaking": "You are staking",
+    "stakingApr": "{{stakeTokenName}} Staking APR",
+    "dailyEmission": "Daily Emission",
+    "totalStaked": "Total Staked",
+    "stakeButton": "Stake",
+    "withdrawButton": "Withdraw"
   }
 }
