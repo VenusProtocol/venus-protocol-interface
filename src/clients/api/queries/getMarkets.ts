@@ -26,11 +26,27 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
   if (response && response.data && response.data.data) {
     dailyVenus = new BigNumber(response.data.data.dailyVenus);
     markets = Object.keys(VBEP_TOKENS)
-      .map(item =>
-        response.data?.data.markets.find(
+      .map(item => {
+        const activeMarket = response.data?.data.markets.find(
           (market: Market) => market.underlyingSymbol.toLowerCase() === item.toLowerCase(),
-        ),
-      )
+        );
+        if (activeMarket) {
+          activeMarket.id = activeMarket.underlyingSymbol.toLowerCase();
+          activeMarket.tokenPrice = new BigNumber(activeMarket.tokenPrice);
+          activeMarket.liquidity = new BigNumber(activeMarket.liquidity);
+          activeMarket.borrowVenusApy = new BigNumber(activeMarket.borrowVenusApy);
+          activeMarket.borrowApy = new BigNumber(activeMarket.borrowApy);
+          activeMarket.supplyVenusApy = new BigNumber(activeMarket.supplyVenusApy);
+          activeMarket.supplyApy = new BigNumber(activeMarket.supplyApy);
+          activeMarket.treasuryTotalBorrowsUsdCents = new BigNumber(
+            activeMarket.totalBorrowsUsd,
+          ).times(100);
+          activeMarket.treasuryTotalSupplyUsdCents = new BigNumber(
+            activeMarket.totalSupplyUsd,
+          ).times(100);
+        }
+        return activeMarket;
+      })
       .filter(notUndefined);
   }
   return { markets, dailyVenus };

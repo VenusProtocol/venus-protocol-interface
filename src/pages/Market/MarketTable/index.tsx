@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
-import { AuthContext } from 'context/AuthContext';
 import { Table, Token, ITableProps, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
-import { useUserMarketInfo } from 'clients/api';
+import { Market, TokenId } from 'types';
+import { useGetMarkets } from 'clients/api';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
@@ -15,10 +14,10 @@ import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
 export interface IMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
-  assets: Asset[];
+  markets: Market[];
 }
 
-export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, rowOnClick }) => {
+export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, rowOnClick }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
@@ -44,87 +43,87 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, rowOnClick 
     return newColumns;
   }, [columns]);
 
-  // Format assets to rows
-  const rows: ITableProps['data'] = assets.map(asset => [
+  // Format markets to rows
+  const rows: ITableProps['data'] = markets.map(market => [
     {
       key: 'asset',
-      render: () => <Token symbol={asset.symbol as TokenId} />,
-      value: asset.id,
+      render: () => <Token symbol={market.underlyingSymbol as TokenId} />,
+      value: market.id,
     },
     {
       key: 'totalSupply',
       render: () => (
         <LayeredValues
           topValue={formatCentsToReadableValue({
-            value: asset.treasuryTotalSupplyUsdCents,
+            value: market.treasuryTotalSupplyUsdCents,
             shorthand: true,
           })}
           bottomValue={formatCoinsToReadableValue({
-            value: asset.treasuryTotalSupplyUsdCents.div(asset.tokenPrice.times(100)),
-            tokenId: asset.id as TokenId,
+            value: market.treasuryTotalSupplyUsdCents.div(market.tokenPrice.times(100)),
+            tokenId: market.id as TokenId,
             shorthand: true,
           })}
         />
       ),
-      value: asset.treasuryTotalSupplyUsdCents.toFixed(),
+      value: market.treasuryTotalSupplyUsdCents.toFixed(),
     },
     {
       key: 'supplyApy',
       render: () => (
         <LayeredValues
-          topValue={formatToReadablePercentage(asset.supplyApy.plus(asset.xvsSupplyApy))}
-          bottomValue={formatToReadablePercentage(asset.xvsSupplyApy)}
+          topValue={formatToReadablePercentage(market.supplyApy.plus(market.supplyVenusApy))}
+          bottomValue={formatToReadablePercentage(market.supplyVenusApy)}
         />
       ),
-      value: asset.supplyApy.plus(asset.xvsSupplyApy).toFixed(),
+      value: market.supplyApy.plus(market.supplyVenusApy).toFixed(),
     },
     {
       key: 'totalBorrows',
       render: () => (
         <LayeredValues
           topValue={formatCentsToReadableValue({
-            value: asset.treasuryTotalBorrowsUsdCents,
+            value: market.treasuryTotalBorrowsUsdCents,
             shorthand: true,
           })}
           bottomValue={formatCoinsToReadableValue({
-            value: asset.treasuryTotalBorrowsUsdCents.div(asset.tokenPrice.times(100)),
-            tokenId: asset.id as TokenId,
+            value: market.treasuryTotalBorrowsUsdCents.div(market.tokenPrice.times(100)),
+            tokenId: market.id as TokenId,
             shorthand: true,
           })}
         />
       ),
-      value: asset.treasuryTotalBorrowsUsdCents.toFixed(),
+      value: market.treasuryTotalBorrowsUsdCents.toFixed(),
     },
     {
       key: 'borrowApy',
       render: () => (
         <LayeredValues
-          topValue={formatToReadablePercentage(asset.borrowApy.plus(asset.xvsBorrowApy))}
-          bottomValue={formatToReadablePercentage(asset.xvsBorrowApy)}
+          topValue={formatToReadablePercentage(market.borrowApy.plus(market.borrowVenusApy))}
+          bottomValue={formatToReadablePercentage(market.borrowVenusApy)}
         />
       ),
-      value: asset.borrowApy.plus(asset.xvsBorrowApy).toFixed(),
+      value: market.borrowApy.plus(market.borrowVenusApy).toFixed(),
     },
     {
       key: 'liquidity',
       render: () => (
         <Typography variant="small1" css={styles.whiteText}>
           {formatCentsToReadableValue({
-            value: asset.liquidity.multipliedBy(100),
+            value: market.liquidity.multipliedBy(100),
             shorthand: true,
           })}
         </Typography>
       ),
-      value: asset.liquidity.toFixed(),
+      value: market.liquidity.toFixed(),
     },
     {
       key: 'price',
       render: () => (
         <Typography variant="small1" css={styles.whiteText}>
-          {formatCentsToReadableValue({ value: asset.tokenPrice.multipliedBy(100) })}
+          {formatCentsToReadableValue({ value: market.tokenPrice.multipliedBy(100) })}
         </Typography>
       ),
-      value: asset.tokenPrice.toFixed(),
+      value: market.tokenPrice.toFixed(),
     },
   ]);
 
@@ -147,9 +146,11 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, rowOnClick 
 };
 
 const MarketTable = () => {
-  const { account } = useContext(AuthContext);
-  const { assets } = useUserMarketInfo({ accountAddress: account?.address || '' });
-  return <MarketTableUi assets={assets} />;
+  const { data: { markets } = { markets: [], dailyVenus: undefined } } = useGetMarkets({
+    placeholderData: { markets: [], dailyVenus: undefined },
+    refetchInterval: 10 * 1000, // Refetch the data 10 seconds
+  });
+  return <MarketTableUi markets={markets} />;
 };
 
 export default MarketTable;

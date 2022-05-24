@@ -131,27 +131,28 @@ export interface Transaction {
 }
 
 export interface Market {
+  id: string;
   address: string;
-  borrowApy: number;
+  borrowApy: BigNumber;
   borrowCaps: string;
   borrowRatePerBlock: string;
-  borrowVenusApy: string;
+  borrowVenusApy: BigNumber;
   borrowerCount: number;
   borrowerDailyVenus: string;
   cash: string;
   collateralFactor: string;
   exchangeRate: string;
   lastCalculatedBlockNumber: number;
-  liquidity: string;
+  liquidity: BigNumber;
   name: string;
   reserveFactor: string;
   supplierCount: number;
   supplierDailyVenus: string;
-  supplyApy: string;
+  supplyApy: BigNumber;
   supplyRatePerBlock: string;
-  supplyVenusApy: string;
+  supplyVenusApy: BigNumber;
   symbol: string;
-  tokenPrice: string;
+  tokenPrice: BigNumber;
   totalBorrows: string;
   totalBorrows2: string;
   totalBorrowsUsd: string;
@@ -169,6 +170,8 @@ export interface Market {
   venusBorrowIndex: string;
   venusSpeeds: string;
   venusSupplyIndex: string;
+  treasuryTotalBorrowsUsdCents: BigNumber;
+  treasuryTotalSupplyUsdCents: BigNumber;
 }
 
 export interface MarketSnapshot {
