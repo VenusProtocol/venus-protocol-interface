@@ -7,17 +7,14 @@ import CoinInfo from 'components/Vote/CoinInfo';
 import VotingWallet from 'components/Vote/VotingWallet';
 import VotingPower from 'components/Vote/VotingPower';
 import Proposals from 'components/Vote/Proposals';
-import { promisify, getToken } from 'utilities';
+import { promisify, getToken, getContractAddress } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import useRefresh from 'hooks/useRefresh';
-import { VBEP_TOKENS } from 'constants/tokens';
 import {
-  useComptrollerContract,
   useTokenContract,
   useXvsVaultProxyContract,
+  useVenusLensContract,
 } from 'clients/contracts/hooks';
-import { useWeb3 } from 'clients/web3';
-import { getVTokenContract } from 'clients/contracts/getters';
 import { State } from 'core/modules/initialState';
 import { AuthContext } from 'context/AuthContext';
 
@@ -44,9 +41,8 @@ function Vote({ getProposals }: VoteProps) {
   const { account } = useContext(AuthContext);
   const { fastRefresh } = useRefresh();
   const xvsTokenContract = useTokenContract('xvs');
-  const comptrollerContract = useComptrollerContract();
   const xvsVaultProxyContract = useXvsVaultProxyContract();
-  const web3 = useWeb3();
+  const venusLensContract = useVenusLensContract();
 
   const loadInitialData = useCallback(async () => {
     setIsLoadingPropoasl(true);
@@ -130,63 +126,13 @@ function Vote({ getProposals }: VoteProps) {
 
   const getVoteInfo = async () => {
     const myAddress = account?.address;
-    if (!myAddress) return;
-
-    const [venusInitialIndex, venusAccrued] = await Promise.all([
-      comptrollerContract.methods.venusInitialIndex().call(),
-      comptrollerContract.methods.venusAccrued(myAddress).call(),
-    ]);
-
-    let venusEarned = new BigNumber(0);
-    await Promise.all(
-      Object.values(VBEP_TOKENS).map(async item => {
-        const vBepContract = getVTokenContract(item.id, web3);
-        const [
-          supplyState,
-          supplierTokens,
-          borrowState,
-          borrowerIndex,
-          borrowBalanceStored,
-          borrowIndex,
-        ] = await Promise.all([
-          comptrollerContract.methods.venusSupplyState(item.address).call(),
-          vBepContract.methods.balanceOf(myAddress).call(),
-          comptrollerContract.methods.venusBorrowState(item.address).call(),
-          comptrollerContract.methods.venusBorrowerIndex(item.address, myAddress).call(),
-          vBepContract.methods.borrowBalanceStored(myAddress).call(),
-          vBepContract.methods.borrowIndex().call(),
-        ]);
-        let supplierIndex = await Promise.resolve(
-          comptrollerContract.methods.venusSupplierIndex(item.address, myAddress).call(),
-        );
-        const supplyIndex = supplyState.index;
-        if (+supplierIndex === 0 && +supplyIndex > 0) {
-          supplierIndex = venusInitialIndex;
-        }
-        let deltaIndex = new BigNumber(supplyIndex).minus(supplierIndex);
-
-        const supplierDelta = new BigNumber(supplierTokens)
-          .multipliedBy(deltaIndex)
-          .dividedBy(1e36);
-
-        venusEarned = venusEarned.plus(supplierDelta);
-        if (+borrowerIndex > 0) {
-          deltaIndex = new BigNumber(borrowState.index).minus(borrowerIndex);
-          const borrowerAmount = new BigNumber(borrowBalanceStored)
-            .multipliedBy(1e18)
-            .dividedBy(borrowIndex);
-          const borrowerDelta = borrowerAmount.times(deltaIndex).dividedBy(1e36);
-          venusEarned = venusEarned.plus(borrowerDelta);
-        }
-      }),
-    );
-
-    // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'BigNumber... Remove this comment to see the full error message
-    venusEarned = venusEarned.plus(venusAccrued).dividedBy(1e18).dp(8, 1).toString(10);
-
+    if (!myAddress) {
+      return;
+    }
+    const venusEarned = await venusLensContract.methods.pendingVenus(myAddress, getContractAddress('comptroller')).call();
+    const venusEarnedString = new BigNumber(venusEarned).dividedBy(1e18).dp(8, 1).toString(10);
     setEarnedBalance(
-      // @ts-expect-error ts-migrate(2367) FIXME: This condition will always return 'true' since the... Remove this comment to see the full error message
-      venusEarned && venusEarned !== '0' ? `${venusEarned}` : '0.00000000',
+      venusEarned && venusEarned !== '0' ? `${venusEarnedString}` : '0.00000000',
     );
   };
 
