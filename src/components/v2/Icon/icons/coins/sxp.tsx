@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { SVGProps } from 'react';
 
-const SvgSxp = (props: SVGProps<SVGSVGElement>) => (
+const SvgSxp = ({ id, ...props }: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"
-      fill="url(#sxp_svg__a)"
+      fill={`url(#${id})`}
     />
     <path
       fillRule="evenodd"
@@ -15,7 +15,7 @@ const SvgSxp = (props: SVGProps<SVGSVGElement>) => (
     />
     <defs>
       <linearGradient
-        id="sxp_svg__a"
+        id={id}
         x1={3.363}
         y1={6.196}
         x2={19.412}
