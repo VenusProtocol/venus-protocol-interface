@@ -129,11 +129,11 @@ function Vote({ getProposals }: VoteProps) {
     if (!myAddress) {
       return;
     }
-    const venusEarned = await venusLensContract.methods.pendingVenus(myAddress, getContractAddress('comptroller')).call();
+    const venusEarned = await venusLensContract.methods
+      .pendingVenus(myAddress, getContractAddress('comptroller'))
+      .call();
     const venusEarnedString = new BigNumber(venusEarned).dividedBy(1e18).dp(8, 1).toString(10);
-    setEarnedBalance(
-      venusEarned && venusEarned !== '0' ? `${venusEarnedString}` : '0.00000000',
-    );
+    setEarnedBalance(venusEarned && venusEarned !== '0' ? `${venusEarnedString}` : '0.00000000');
   };
 
   const updateDelegate = async () => {

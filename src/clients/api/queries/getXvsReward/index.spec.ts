@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
-import Web3 from 'web3';
 
 import { VTokenId } from 'types';
 import fakeAddress from '__mocks__/models/address';
-import { Comptroller } from 'types/contracts';
+import { VenusLens } from 'types/contracts';
 import getVTokenData from './getVTokenData';
 import getXvsReward from '.';
 
@@ -17,11 +16,8 @@ describe('api/queries/getXvsReward', () => {
 
     try {
       await getXvsReward({
-        comptrollerContract: {} as unknown as Comptroller,
-        web3: {} as unknown as Web3,
+        lensContract: {} as unknown as VenusLens,
         accountAddress: fakeAddress,
-        venusInitialIndex: '0',
-        xvsAccrued: new BigNumber(0),
       });
 
       throw new Error('getXvsReward should have thrown an error but did not');
@@ -71,11 +67,8 @@ describe('api/queries/getXvsReward', () => {
     );
 
     const res = await getXvsReward({
-      comptrollerContract: {} as unknown as Comptroller,
-      web3: {} as unknown as Web3,
+      lensContract: {} as unknown as VenusLens,
       accountAddress: fakeAddress,
-      venusInitialIndex: '1000000000000000000000000000000000000',
-      xvsAccrued: new BigNumber(0),
     });
 
     expect(res instanceof BigNumber).toBe(true);
