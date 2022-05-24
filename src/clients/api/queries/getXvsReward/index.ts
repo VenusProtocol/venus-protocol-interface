@@ -17,7 +17,9 @@ const getXvsReward = async ({
   lensContract,
   accountAddress,
 }: IGetXvsRewardInput): Promise<GetXvsRewardOutput> => {
-  const pendingVenus = await lensContract.methods.pendingVenus(accountAddress, getContractAddress('comptroller')).call();
+  const pendingVenus = await lensContract.methods
+    .pendingVenus(accountAddress, getContractAddress('comptroller'))
+    .call();
 
   const totalXvsEarned = accountAddress
     ? new BigNumber(pendingVenus).dividedBy(1e18).dp(VBEP_TOKEN_DECIMALS, 1)
