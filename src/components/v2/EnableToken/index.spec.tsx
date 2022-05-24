@@ -8,7 +8,7 @@ import { TokenId } from 'types';
 import EnableToken from '.';
 
 jest.mock('clients/api');
-jest.mock('components/Basic/Toast');
+jest.mock('components/v2/Toast');
 
 const fakeAccountAddress = '0x0';
 const fakeAsset = { ...assetData[0], isEnabled: true };

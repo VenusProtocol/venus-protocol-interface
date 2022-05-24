@@ -9,7 +9,7 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
-import toast from 'components/Basic/Toast';
+import { toast } from 'components/v2/Toast';
 import { LS_KEY_CONNECTED_CONNECTOR } from 'config';
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
@@ -37,7 +37,7 @@ const useAuth = () => {
         // an incorrect connectorID was passed to this function)
 
         toast.error({
-          title: 'An internal error occurred: unsupported wallet. Please try again later',
+          message: 'An internal error occurred: unsupported wallet. Please try again later',
         });
         return;
       }
@@ -87,7 +87,7 @@ const useAuth = () => {
           errorMessage = (error as Error).message;
         }
 
-        toast.error({ title: errorMessage });
+        toast.error({ message: errorMessage });
       }
     },
     [activate],

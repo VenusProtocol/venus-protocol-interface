@@ -29,3 +29,4 @@ export * from './v2/TokenTextField';
 export * from './v2/Tooltip';
 export * from './v2/Spinner';
 export * from './v2/ValueUpdate';
+export * from './v2/Toast';

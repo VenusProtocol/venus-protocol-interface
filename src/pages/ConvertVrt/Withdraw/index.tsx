@@ -2,9 +2,8 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ConnectWallet, Icon, PrimaryButton } from 'components';
+import { ConnectWallet, Icon, PrimaryButton, toast } from 'components';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import toast from 'components/Basic/Toast';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { useTranslation } from 'translation';
 import { XVS_ID } from '../constants';
@@ -44,7 +43,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
         ),
       });
     } catch (err) {
-      toast.error({ title: (err as Error).message });
+      toast.error({ message: (err as Error).message });
     }
   };
   return (

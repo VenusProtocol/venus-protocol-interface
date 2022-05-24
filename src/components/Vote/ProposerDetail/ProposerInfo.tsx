@@ -5,7 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
-import toast from 'components/Basic/Toast';
+import { toast } from 'components';
 import { generateBscScanUrl } from 'utilities';
 
 const ProposerInfoWrapper = styled.div`
@@ -56,7 +56,7 @@ function ProposerInfo({ address }: Props) {
             text={address}
             onCopy={() => {
               toast.success({
-                title: 'Copied address',
+                message: 'Copied address',
               });
             }}
           >

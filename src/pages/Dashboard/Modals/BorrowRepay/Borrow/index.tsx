@@ -14,16 +14,16 @@ import {
   convertCoinsToWei,
 } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import toast from 'components/Basic/Toast';
-import { UiError } from 'utilities/errors';
-import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
+  toast,
   FormikSubmitButton,
   FormikTokenTextField,
   Icon,
   ConnectWallet,
   EnableToken,
 } from 'components';
+import { UiError } from 'utilities/errors';
+import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
@@ -91,7 +91,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
         transactionHash,
       });
     } catch (error) {
-      toast.error({ title: (error as UiError).message });
+      toast.error({ message: (error as UiError).message });
     }
   };
 

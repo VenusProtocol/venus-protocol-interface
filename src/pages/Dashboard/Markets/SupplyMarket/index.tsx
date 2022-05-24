@@ -3,10 +3,9 @@ import React, { useState } from 'react';
 import { Paper } from '@mui/material';
 import { Asset, TokenId } from 'types';
 import { UiError } from 'utilities/errors';
-import toast from 'components/Basic/Toast';
+import { toast, switchAriaLabel, Delimiter, ITableProps } from 'components';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
-import { switchAriaLabel, Delimiter, ITableProps } from 'components';
 import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import SupplyMarketTable from './SupplyMarketTable';
@@ -41,8 +40,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
     } catch (e) {
       if (e instanceof UiError) {
         toast.error({
-          title: e.title,
-          description: e.description,
+          message: `${e.title} ${e.description}`,
         });
       }
     }

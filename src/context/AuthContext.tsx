@@ -3,7 +3,7 @@ import noop from 'noop-ts';
 import copyToClipboard from 'copy-to-clipboard';
 
 import { Connector, useAuth } from 'clients/web3';
-import toast from 'components/Basic/Toast';
+import { toast } from 'components/v2/Toast';
 import { AuthModal } from 'components/v2/AuthModal';
 
 export interface IAccount {
@@ -43,7 +43,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     copyToClipboard(accountAddressToCopy);
 
     toast.success({
-      title: 'Wallet address copied to clipboard',
+      message: 'Wallet address copied to clipboard',
     });
   };
 

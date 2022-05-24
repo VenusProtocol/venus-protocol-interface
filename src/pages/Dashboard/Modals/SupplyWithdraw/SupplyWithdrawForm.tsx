@@ -2,9 +2,8 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import toast from 'components/Basic/Toast';
-import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import {
+  toast,
   FormikTokenTextField,
   Delimiter,
   LabeledInlineContent,
@@ -13,6 +12,7 @@ import {
   BorrowBalanceAccountHealth,
   ValueUpdate,
 } from 'components';
+import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
@@ -226,7 +226,7 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
     try {
       await onSubmit(value);
     } catch (err) {
-      toast.error({ title: (err as Error).message });
+      toast.error({ message: (err as Error).message });
     }
   };
   return (
