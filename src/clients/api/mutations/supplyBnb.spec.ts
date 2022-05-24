@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js';
-
+import {
+  TokenErrorReporterError,
+  TokenErrorReporterFailureInfo,
+} from 'constants/contracts/errorReporter';
+import { TransactionError } from 'utilities/errors';
 import { VBnbToken } from 'types/contracts';
 import { VBEP_TOKENS } from 'constants/tokens';
 import supplyBnb from './supplyBnb';
@@ -40,10 +44,53 @@ describe('api/mutation/supplyBnb', () => {
     }
   });
 
-  test('returns undefined when request succeeds', async () => {
-    const fakeAccount = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
+  test('throws a transaction error when Failure event is present', async () => {
+    const fakeWeb3 = {
+      eth: {
+        sendTransaction: async () => ({
+          events: {
+            Failure: {
+              returnValues: {
+                info: '2',
+                error: '2',
+              },
+            },
+          },
+        }),
+      },
+    } as any;
 
-    const sendTransactionMock = jest.fn(async () => {});
+    const fakeContract = {
+      methods: {
+        mint: () => ({
+          encodeABI: () => ({}),
+        }),
+      },
+    } as unknown as VBnbToken;
+
+    try {
+      await supplyBnb({
+        web3: fakeWeb3,
+        tokenContract: fakeContract,
+        amountWei: fakeAmount,
+        account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+      });
+
+      throw new Error('repayVai should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot(`[Error: ${TokenErrorReporterError[2]}]`);
+      expect(error).toBeInstanceOf(TransactionError);
+      if (error instanceof TransactionError) {
+        expect(error.error).toBe(TokenErrorReporterError[2]);
+        expect(error.info).toBe(TokenErrorReporterFailureInfo[2]);
+      }
+    }
+  });
+
+  test('returns Receipt when request succeeds', async () => {
+    const fakeAccount = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
+    const fakeTransactionReceipt = { events: {} };
+    const sendTransactionMock = jest.fn(async () => fakeTransactionReceipt);
     const ethMock = {
       sendTransaction: sendTransactionMock,
     };
@@ -70,7 +117,7 @@ describe('api/mutation/supplyBnb', () => {
       account: fakeAccount,
     });
 
-    expect(response).toBe(undefined);
+    expect(response).toBe(fakeTransactionReceipt);
     expect(sendTransactionMock).toHaveBeenCalledTimes(1);
     expect(sendTransactionMock).toHaveBeenCalledWith({
       from: fakeAccount,

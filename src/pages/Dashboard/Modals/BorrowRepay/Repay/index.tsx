@@ -11,7 +11,7 @@ import {
   formatToReadablePercentage,
 } from 'utilities/common';
 import { useRepayVToken } from 'clients/api';
-import { UiError } from 'utilities/errors';
+import { UiError, TransactionError } from 'utilities/errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
   toast,
@@ -24,6 +24,10 @@ import {
 } from 'components';
 import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
+import {
+  TokenTransactionErrorsError,
+  TokenTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
 import AccountData from '../AccountData';
@@ -32,7 +36,7 @@ export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
 export interface IRepayFormProps {
   asset: Asset;
-  repay: (amountWei: BigNumber) => Promise<string>;
+  repay: (amountWei: BigNumber) => Promise<string | undefined>;
   isRepayLoading: boolean;
   isXvsEnabled: boolean;
   limitTokens: string;
@@ -94,17 +98,18 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
     try {
       // Send request to repay tokens
       const transactionHash = await repay(amountWei);
-
-      // Display successful transaction modal
-      openSuccessfulTransactionModal({
-        title: t('borrowRepayModal.repay.successfulTransactionModal.title'),
-        content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          tokenId: asset.id,
-        },
-        transactionHash,
-      });
+      if (transactionHash) {
+        // Display successful transaction modal
+        openSuccessfulTransactionModal({
+          title: t('borrowRepayModal.repay.successfulTransactionModal.title'),
+          content: t('borrowRepayModal.repay.successfulTransactionModal.message'),
+          amount: {
+            valueWei: amountWei,
+            tokenId: asset.id,
+          },
+          transactionHash,
+        });
+      }
     } catch (error) {
       toast.error({ message: (error as UiError).message });
     }
@@ -215,15 +220,26 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       repayAmount = MAX_UINT256;
     }
 
-    const res = await repay({
-      amountWei: repayAmount,
-      fromAccountAddress: account.address,
-    });
+    try {
+      const res = await repay({
+        amountWei: repayAmount,
+        fromAccountAddress: account.address,
+      });
 
-    // Close modal on success
-    onClose();
+      // Close modal on success
+      onClose();
 
-    return res.transactionHash;
+      return res.transactionHash;
+    } catch (err) {
+      if (err instanceof TransactionError) {
+        throw new UiError(
+          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
+          TokenTransactionErrorsFailureInfo[
+            err.info as keyof typeof TokenTransactionErrorsFailureInfo
+          ],
+        );
+      }
+    }
   };
 
   return (

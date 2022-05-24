@@ -14,6 +14,8 @@ import {
   convertCoinsToWei,
 } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import { TransactionError, UiError } from 'utilities/errors';
+import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
   toast,
   FormikSubmitButton,
@@ -22,9 +24,11 @@ import {
   ConnectWallet,
   EnableToken,
 } from 'components';
-import { UiError } from 'utilities/errors';
-import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
 import { useTranslation } from 'translation';
+import {
+  TokenTransactionErrorsError,
+  TokenTransactionErrorsFailureInfo,
+} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
 import { useStyles as useBorrowStyles } from './styles';
@@ -34,7 +38,7 @@ export interface IBorrowFormProps {
   limitTokens: string;
   safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
-  borrow: (amountWei: BigNumber) => Promise<string>;
+  borrow: (amountWei: BigNumber) => Promise<string | undefined>;
   isBorrowLoading: boolean;
   isXvsEnabled: boolean;
 }
@@ -81,15 +85,17 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
       const transactionHash = await borrow(amountWei);
 
       // Display successful transaction modal
-      openSuccessfulTransactionModal({
-        title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
-        content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
-        amount: {
-          valueWei: amountWei,
-          tokenId: asset.id,
-        },
-        transactionHash,
-      });
+      if (transactionHash) {
+        openSuccessfulTransactionModal({
+          title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
+          content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
+          amount: {
+            valueWei: amountWei,
+            tokenId: asset.id,
+          },
+          transactionHash,
+        });
+      }
     } catch (error) {
       toast.error({ message: (error as UiError).message });
     }
@@ -176,16 +182,24 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     if (!account?.address) {
       throw new UiError(t('errors.walletNotConnected'));
     }
-
-    const res = await borrow({
-      amountWei,
-      fromAccountAddress: account.address,
-    });
-
-    // Close modal on success
-    onClose();
-
-    return res.transactionHash;
+    try {
+      const res = await borrow({
+        amountWei,
+        fromAccountAddress: account.address,
+      });
+      // Close modal on success
+      onClose();
+      return res.transactionHash;
+    } catch (err) {
+      if (err instanceof TransactionError) {
+        throw new UiError(
+          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
+          TokenTransactionErrorsFailureInfo[
+            err.info as keyof typeof TokenTransactionErrorsFailureInfo
+          ],
+        );
+      }
+    }
   };
 
   // Calculate maximum and safe maximum amount of coins user can borrow
