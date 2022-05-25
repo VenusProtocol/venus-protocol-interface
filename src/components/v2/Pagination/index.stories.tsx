@@ -60,7 +60,7 @@ const PaginationWithCustomRowsPerPageTemplate: Story<{
   );
 };
 
-export const PaginationForNonTableComponent: Story<{
+const PaginationForNonTableComponent: Story<{
   initialPageNumber: number;
   pagesToCreateCount: number;
   rowsPerPageCount: number;
