@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 import { VenusLens } from 'types/contracts';
-import getXvsReward from '.';
+import getXvsReward from './getXvsReward';
 
 describe('api/queries/getXvsReward', () => {
   test('throws an error when one of VenusLens contract call fails', async () => {

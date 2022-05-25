@@ -94,29 +94,9 @@ export { default as getVTokenBalanceOf } from './queries/getVTokenBalanceOf';
 export * from './queries/getVTokenBalanceOf';
 export { default as useGetVTokenBalanceOf } from './queries/useGetVTokenBalanceOf';
 
-export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
-export * from './queries/getVenusInitialIndex';
-export { default as useGetVenusInitialIndex } from './queries/useGetVenusInitialIndex';
-
-export { default as getVenusAccrued } from './queries/getVenusAccrued';
-export * from './queries/getVenusAccrued';
-export { default as useGetVenusAccrued } from './queries/useGetVenusAccrued';
-
-export { default as getVenusVaiState } from './queries/getVenusVaiState';
-export * from './queries/getVenusVaiState';
-export { default as useGetVenusVaiState } from './queries/useGetVenusVaiState';
-
 export { default as getMintedVai } from './queries/getMintedVai';
 export * from './queries/getMintedVai';
 export { default as useGetMintedVai } from './queries/useGetMintedVai';
-
-export { default as getVenusVaiMinterIndex } from './queries/getVenusVaiMinterIndex';
-export * from './queries/getVenusVaiMinterIndex';
-export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMinterIndex';
-
-export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultRate';
-export * from './queries/getVenusVaiVaultRate';
-export { default as useGetVenusVaiVaultRate } from './queries/useGetVenusVaiVaultRate';
 
 export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
@@ -137,6 +117,10 @@ export { default as useGetVrtConversionEndTime } from './queries/useGetVrtConver
 export { default as getVrtConversionRatio } from './queries/getVrtConversionRatio';
 export * from './queries/getVrtConversionRatio';
 export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversionRatio';
+
+export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultRate';
+export * from './queries/getVenusVaiVaultRate';
+export { default as useGetVenusVaiVaultRate } from './queries/useGetVenusVaiVaultRate';
 
 export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';
