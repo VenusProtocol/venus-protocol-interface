@@ -15,17 +15,17 @@ interface IPaginationButtonProps {
 const PaginationButton: React.FC<IPaginationButtonProps> = ({
   className,
   onClick,
-  dotsPosition,
+  // dotsPosition,
   children,
 }) => {
   const classes = useStyles();
   return (
     <div css={classes.arrowButtonWrapper}>
-      {dotsPosition === 'before' && <Typography css={classes.dots}>...</Typography>}
+      {/* {dotsPosition === 'before' && <Typography css={classes.dots}>...</Typography>} */}
       <Button variant="text" css={[classes.button]} className={className} onClick={onClick}>
         {children}
       </Button>
-      {dotsPosition === 'after' && <Typography css={classes.dots}>...</Typography>}
+      {/* {dotsPosition === 'after' && <Typography css={classes.dots}>...</Typography>} */}
     </div>
   );
 };
@@ -33,7 +33,7 @@ const PaginationButton: React.FC<IPaginationButtonProps> = ({
 interface IPaginationProps {
   pagesCount: number;
   activePageIndex: number;
-  setActivePageIndex: (pageIndex: number) => void;
+  goToPageByIndex: (pageIndex: number) => void;
   itemsCountString?: string;
   className?: string;
 }
@@ -43,7 +43,7 @@ const PAGES_TO_SHOW_COUNT = 4;
 export const Pagination = ({
   pagesCount,
   activePageIndex,
-  setActivePageIndex,
+  goToPageByIndex,
   itemsCountString,
   className,
 }: IPaginationProps) => {
@@ -78,26 +78,26 @@ export const Pagination = ({
       )}
 
       {pagesArray.map((page, index) => {
-        if (index === minPageIndexToShow) {
-          return (
-            <PaginationButton
-              key={page}
-              onClick={() => setActivePageIndex(activePageIndex - 1)}
-              dotsPosition="after"
-            >
-              <Icon css={classes.iconReverted} {...iconProps} />
-            </PaginationButton>
-          );
-        }
-
         if (index === maxPageIndexToShow) {
           return (
             <PaginationButton
               key={page}
-              onClick={() => setActivePageIndex(activePageIndex + 1)}
+              onClick={() => goToPageByIndex(activePageIndex + 1)}
               dotsPosition="before"
             >
               <Icon {...iconProps} />
+            </PaginationButton>
+          );
+        }
+
+        if (index === minPageIndexToShow) {
+          return (
+            <PaginationButton
+              key={page}
+              onClick={() => goToPageByIndex(activePageIndex - 1)}
+              dotsPosition="after"
+            >
+              <Icon css={classes.iconReverted} {...iconProps} />
             </PaginationButton>
           );
         }
@@ -109,7 +109,7 @@ export const Pagination = ({
         return (
           <PaginationButton
             key={page}
-            onClick={() => setActivePageIndex(index)}
+            onClick={() => goToPageByIndex(index)}
             css={classes.getButtonStyles({ isActive: index === activePageIndex })}
           >
             {page}

@@ -41,8 +41,10 @@ export function usePagination<Row>({
   return {
     pagesCount,
     activePageIndex,
-    setActivePageIndex,
     currentPageData,
     itemsCountString,
+    goToNextPage: () => setActivePageIndex(activePageIndex + 1),
+    goToPreviousPage: () => setActivePageIndex(activePageIndex - 1),
+    goToPageByIndex: (pageIndex: number) => setActivePageIndex(pageIndex),
   };
 }

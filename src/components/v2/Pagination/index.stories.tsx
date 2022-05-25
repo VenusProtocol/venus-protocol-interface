@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
+import Typography from '@mui/material/Typography';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
@@ -22,15 +23,16 @@ export default {
   },
 } as ComponentMeta<typeof Pagination>;
 
+const tableData = [...rows, ...rows, ...rows];
+
 const PaginationWithCustomRowsPerPageTemplate: Story<{
   initialPageNumber: number;
   rowsPerPageCount: number;
 }> = ({ initialPageNumber, rowsPerPageCount }) => {
   const styles = useTableStyles();
-  const data = [...rows, ...rows, ...rows];
-  const { pagesCount, activePageIndex, setActivePageIndex, currentPageData, itemsCountString } =
+  const { pagesCount, activePageIndex, goToPageByIndex, currentPageData, itemsCountString } =
     usePagination<ITableRowProps[]>({
-      data,
+      data: tableData,
       initialPageNumber,
       rowsPerPageCount,
     });
@@ -51,7 +53,40 @@ const PaginationWithCustomRowsPerPageTemplate: Story<{
       <Pagination
         pagesCount={pagesCount}
         activePageIndex={activePageIndex}
-        setActivePageIndex={setActivePageIndex}
+        goToPageByIndex={goToPageByIndex}
+        itemsCountString={itemsCountString}
+      />
+    </>
+  );
+};
+
+export const PaginationForNonTableComponent: Story<{
+  initialPageNumber: number;
+  pagesToCreateCount: number;
+  rowsPerPageCount: number;
+}> = ({ initialPageNumber, rowsPerPageCount = 1, pagesToCreateCount = 10 }) => {
+  const data = Array.from({ length: pagesToCreateCount }, (_, i) => `random page ${i + 1} data`);
+
+  const { pagesCount, activePageIndex, goToPageByIndex, currentPageData, itemsCountString } =
+    usePagination<string>({
+      data,
+      initialPageNumber,
+      rowsPerPageCount,
+    });
+
+  const handleGoToPageClick = (newPageIndex: number) => {
+    /* do something on change page action */
+    goToPageByIndex(newPageIndex);
+  };
+
+  return (
+    <>
+      {/* example with custom content */}
+      <Typography align="center">{currentPageData}</Typography>
+      <Pagination
+        pagesCount={pagesCount}
+        activePageIndex={activePageIndex}
+        goToPageByIndex={handleGoToPageClick}
         itemsCountString={itemsCountString}
       />
     </>
@@ -62,4 +97,11 @@ export const PaginationWithCustomRowsPerPage = PaginationWithCustomRowsPerPageTe
 PaginationWithCustomRowsPerPage.args = {
   initialPageNumber: 1,
   rowsPerPageCount: 3,
+};
+
+export const PaginationWithCustomContentPerPage = PaginationForNonTableComponent.bind({});
+PaginationWithCustomContentPerPage.args = {
+  initialPageNumber: 1,
+  rowsPerPageCount: 1,
+  pagesToCreateCount: 10,
 };
