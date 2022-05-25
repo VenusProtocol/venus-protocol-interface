@@ -1,8 +1,5 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
-import BigNumber from 'bignumber.js';
-
-import { useComptrollerContract } from 'clients/contracts/hooks';
-import { useWeb3 } from 'clients/web3';
+import { useVenusLensContract } from 'clients/contracts/hooks';
 import useGetVenusInitialIndex from 'clients/api/queries/useGetVenusInitialIndex';
 import useGetVenusAccrued from 'clients/api/queries/useGetVenusAccrued';
 import FunctionKey from 'constants/functionKey';
@@ -17,8 +14,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsReward = (accountAddress: string | undefined, options?: Options) => {
-  const web3 = useWeb3();
-  const comptrollerContract = useComptrollerContract();
+  const lensContract = useVenusLensContract();
 
   const { data: venusInitialIndex } = useGetVenusInitialIndex();
   const { data: xvsAccrued } = useGetVenusAccrued(accountAddress || '', {
@@ -29,11 +25,8 @@ const useGetXvsReward = (accountAddress: string | undefined, options?: Options) 
     FunctionKey.GET_XVS_REWARD,
     () =>
       getXvsReward({
-        web3,
+        lensContract,
         accountAddress: accountAddress || '',
-        comptrollerContract,
-        venusInitialIndex: venusInitialIndex || '0',
-        xvsAccrued: xvsAccrued || new BigNumber(0),
       }),
     {
       enabled:
