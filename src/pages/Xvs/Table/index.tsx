@@ -9,7 +9,7 @@ import {
   useGetBalanceOf,
   useGetMarkets,
 } from 'clients/api';
-import { Token, Table, ITableProps } from 'components';
+import { Token, Table, TableProps } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
@@ -42,11 +42,11 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
     [],
   );
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
     history.push(`/market/${row[0].value}`);
   };
   // Format assets to rows
-  const rows: ITableProps['data'] = assets.map(asset => [
+  const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
       render: () => <Token symbol={asset.symbol as TokenId} />,

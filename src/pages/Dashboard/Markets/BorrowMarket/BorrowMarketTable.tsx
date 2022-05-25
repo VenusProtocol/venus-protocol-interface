@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
-import { Table, Token, ITableProps } from 'components';
+import { Table, Token, TableProps } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
@@ -11,7 +11,7 @@ import {
 import { useStyles } from './styles';
 import { useStyles as useSharedStyles } from '../styles';
 
-export interface IBorrowMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
+export interface IBorrowMarketTableProps extends Pick<TableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
 }
@@ -36,7 +36,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   );
 
   // Format assets to rows
-  const rows: ITableProps['data'] = assets.map(asset => {
+  const rows: TableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
 
     return [

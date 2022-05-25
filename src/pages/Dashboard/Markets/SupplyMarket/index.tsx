@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Paper } from '@mui/material';
 import { Asset, TokenId } from 'types';
 import { UiError } from 'utilities/errors';
-import { toast, switchAriaLabel, Delimiter, ITableProps } from 'components';
+import { toast, switchAriaLabel, Delimiter, TableProps } from 'components';
 import { useExitMarket, useEnterMarkets } from 'clients/api';
 import { useTranslation } from 'translation';
 import { SupplyWithdrawModal } from '../../Modals';
@@ -46,7 +46,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
     }
   };
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: ITableProps['data'][number]) => {
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
     if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
       setSelectedAssetId(row[0].value as TokenId);
     }

@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ProgressBar, Table, Token, ITableProps, LayeredValues } from 'components';
+import { ProgressBar, Table, Token, TableProps, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
@@ -14,7 +14,7 @@ import calculatePercentage from 'utilities/calculatePercentage';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
-export interface IBorrowingUiProps extends Pick<ITableProps, 'rowOnClick'> {
+export interface IBorrowingUiProps extends Pick<TableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
   userTotalBorrowLimitCents: BigNumber;
@@ -42,7 +42,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   );
 
   // Format assets to rows
-  const rows: ITableProps['data'] = assets.map(asset => {
+  const rows: TableProps['data'] = assets.map(asset => {
     const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
     const percentOfLimit = calculatePercentage({
       numerator: +asset.borrowBalance.multipliedBy(asset.tokenPrice).times(100),
