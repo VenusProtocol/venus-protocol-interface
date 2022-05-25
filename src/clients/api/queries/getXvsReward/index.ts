@@ -21,9 +21,7 @@ const getXvsReward = async ({
     .pendingVenus(accountAddress, getContractAddress('comptroller'))
     .call();
 
-  const totalXvsEarned = accountAddress
-    ? new BigNumber(pendingVenus).dividedBy(1e18).dp(VBEP_TOKEN_DECIMALS, 1)
-    : new BigNumber(0);
+  const totalXvsEarned = new BigNumber(pendingVenus).dividedBy(1e18).dp(VBEP_TOKEN_DECIMALS, 1);
 
   // Calculate and return total XVS reward
   const xvsDecimals = getToken('xvs').decimals;
