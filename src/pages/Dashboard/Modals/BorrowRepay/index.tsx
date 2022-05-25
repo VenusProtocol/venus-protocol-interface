@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Asset } from 'types';
-import { isTokenEnabled } from 'utilities';
+import { isAssetEnabled } from 'utilities';
 import { Tabs, Modal, IModalProps, Token, TabContent } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
@@ -30,7 +30,7 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset, isXvsEnabled
     },
   ];
 
-  if (isTokenEnabled(asset.id)) {
+  if (isAssetEnabled(asset.id)) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
