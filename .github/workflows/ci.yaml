@@ -88,6 +88,8 @@ jobs:
 
   test:
     runs-on: ubuntu-20.04
+    container:
+      image: node:14.15.1-buster
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -101,4 +103,11 @@ jobs:
         run: yarn
 
       - name: Run tests
-        run: yarn test
+        run: yarn test --ci --json --coverage --testLocationInResults --outputFile=./coverage/report.json
+
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          package-manager: yarn
+          coverage-file: ./coverage/report.json
+          skip-step: all
+          github-token: ${{ secrets.GITHUB_TOKEN }}
