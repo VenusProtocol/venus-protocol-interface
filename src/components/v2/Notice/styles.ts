@@ -67,6 +67,7 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
       padding-left: ${theme.spacing(8)};
+      word-break: break-word;
     `,
     title: css`
       font-weight: bold;
