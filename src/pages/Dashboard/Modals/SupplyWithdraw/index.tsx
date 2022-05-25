@@ -18,7 +18,7 @@ import {
   useGetVTokenBalanceOf,
   useUserMarketInfo,
 } from 'clients/api';
-import { isTokenEnabled } from 'utilities';
+import { isAssetEnabled } from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';
@@ -190,7 +190,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   ];
 
   // Prevent user from being able to supply UST or LUNA
-  if (isTokenEnabled(assetId)) {
+  if (isAssetEnabled(assetId)) {
     tabsContent.unshift({
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
