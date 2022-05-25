@@ -22,8 +22,7 @@
     "storybook": "STORYBOOK=true start-storybook -p 6006 -s public",
     "build-storybook": "STORYBOOK=true build-storybook -s public",
     "loki": "loki update --reactUri file:./storybook-static",
-    "regression": "reg-suit run",
-    "deploy-storybook": "storybook-to-ghpages -- --existing-output-dir=./storybook-static --source-branch=develop"
+    "regression": "reg-suit run"
   },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
@@ -32,7 +31,6 @@
     "@lottiefiles/react-lottie-player": "^3.4.5",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.4",
-    "@storybook/storybook-deployer": "^2.8.10",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@types/comma-number": "^2.1.0",
