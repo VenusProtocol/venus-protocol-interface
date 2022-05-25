@@ -531,7 +531,7 @@
     "remaining": "Remaining:"
   },
   "vaultItemUi": {
-    "reward": "Available reward:",
+    "reward": "Reward:",
     "claimButton": "Claim",
     "youAreStaking": "You are staking",
     "stakingApr": "{{stakeTokenName}} Staking APR",

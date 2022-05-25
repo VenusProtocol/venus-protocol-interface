@@ -1,4 +1,5 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { VaultItemUi } from '.';
@@ -16,13 +17,13 @@ export default {
 
 export const VaultItemUiDefault = () => (
   <VaultItemUi
-    stakeTokenName="vai"
-    earnTokenName="xvs"
-    rewardValue={22.889}
-    stakingValue={100}
-    stakingAprValue={2.39}
-    dailyEmissionValue={250}
-    totalStakedValue={50100314}
+    tokenId="vai"
+    rewardTokenId="xvs"
+    rewardWei={new BigNumber('000900000000000000')}
+    userStakedWei={new BigNumber('100000000000000000000')}
+    stakingAprPercentage={2.39}
+    dailyEmissionWei={new BigNumber('2120000000000000000')}
+    totalStakedWei={new BigNumber('1233000000000000000000')}
     onClaim={console.log}
     onStake={console.log}
     onReward={console.log}
@@ -31,13 +32,13 @@ export const VaultItemUiDefault = () => (
 
 export const VaultItemUiWithoutReward = () => (
   <VaultItemUi
-    stakeTokenName="vrt"
-    earnTokenName="vrt"
-    rewardValue={-22.889}
-    stakingValue={100}
-    stakingAprValue={2.39}
-    dailyEmissionValue={250}
-    totalStakedValue={50100314}
+    tokenId="vrt"
+    rewardTokenId="vrt"
+    rewardWei={new BigNumber(0)}
+    userStakedWei={new BigNumber('100000000000000000000')}
+    stakingAprPercentage={2.39}
+    dailyEmissionWei={new BigNumber('2120000000000000000')}
+    totalStakedWei={new BigNumber('1233000000000000000000')}
     onClaim={console.log}
     onStake={console.log}
     onReward={console.log}
