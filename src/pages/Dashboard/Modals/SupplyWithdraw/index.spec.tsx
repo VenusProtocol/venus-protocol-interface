@@ -204,44 +204,6 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       expect(disabledButton).toBeDisabled();
     });
 
-    it('does not let user supply LUNA', async () => {
-      const customFakeAsset: Asset = {
-        ...fakeAsset,
-        id: 'luna',
-        symbol: 'LUNA',
-        vsymbol: 'vLUNA',
-        walletBalance: new BigNumber('100000000'),
-      };
-
-      renderComponent(
-        () => (
-          <SupplyWithdraw
-            onClose={jest.fn()}
-            asset={customFakeAsset}
-            isXvsEnabled
-            assets={[customFakeAsset]}
-          />
-        ),
-        {
-          authContextValue: {
-            account: {
-              address: fakeAccountAddress,
-            },
-          },
-        },
-      );
-
-      // Check submit button is disabled
-      expect(document.querySelector('button[type="submit"]')).toBeDisabled();
-
-      const correctAmountTokens = 1;
-      const tokenTextInput = document.querySelector('input') as HTMLInputElement;
-      fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
-
-      // Check submit button is still disabled
-      expect(document.querySelector('button[type="submit"]')).toBeDisabled();
-    });
-
     it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,

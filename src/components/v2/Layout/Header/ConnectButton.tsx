@@ -22,7 +22,9 @@ export const ConnectButton: React.FC<IConnectButton> = ({
 
 const ConnectButtonContainer: React.FC<IButtonProps> = props => {
   const { account, openAuthModal } = React.useContext(AuthContext);
-  return <ConnectButton accountAddress={account} openAuthModal={openAuthModal} {...props} />;
+  return (
+    <ConnectButton accountAddress={account?.address} openAuthModal={openAuthModal} {...props} />
+  );
 };
 
 export default ConnectButtonContainer;
