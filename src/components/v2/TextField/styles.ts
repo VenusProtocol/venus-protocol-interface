@@ -3,58 +3,72 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
+  return {
+    theme,
+    getLabel: ({ hasError }: { hasError: boolean }) => css`
+      display: block;
+      margin-bottom: ${theme.spacing(1)};
 
-  const getLabel = ({ hasError }: { hasError: boolean }) => css`
-    display: block;
-    margin-bottom: 4px;
+      ${hasError && `color: ${theme.palette.error.main};`};
+    `,
+    getInputContainer: ({
+      hasError,
+      disabled,
+    }: {
+      hasError: boolean;
+      disabled: boolean | undefined;
+    }) => {
+      let borderColor: undefined | string = 'transparent';
 
-    ${hasError && `color: ${theme.palette.error.main};`};
-  `;
+      if (hasError) {
+        borderColor = theme.palette.interactive.error;
+      }
 
-  const getInputContainer = ({ hasError }: { hasError: boolean }) => css`
-    display: flex;
-    align-items: center;
-    padding: ${theme.spacing(1, 1, 1, 2)};
-    border-radius: 12px;
-    border: 2px solid transparent;
-    background-color: ${theme.palette.background.default};
+      if (disabled) {
+        borderColor = theme.palette.secondary.light;
+      }
+      return css`
+        display: flex;
+        align-items: center;
+        padding: ${theme.spacing(2, 2, 2, 4)};
+        border-radius: ${theme.spacing(3)};
+        border: ${theme.spacing(0.5)} solid ${borderColor};
+        background-color: ${disabled
+          ? theme.palette.background.paper
+          : theme.palette.background.default};
+        &:focus-within {
+          border-color: ${hasError
+            ? theme.palette.interactive.error
+            : theme.palette.interactive.primary};
+        }
+      `;
+    },
+    leftIcon: css`
+      margin-right: ${theme.spacing(2)};
+    `,
+    getInput: ({ hasRightAdornment }: { hasRightAdornment: boolean }) => css`
+      background-color: transparent;
+      flex: 1;
+      font-weight: 600;
+      line-height: ${theme.spacing(6)};
+      height: ${theme.spacing(10)};
+      padding-top: 2px; /* Vertically align input content */
+      border: 0;
+      width: 100%;
 
-    &:focus-within {
-      border-color: ${hasError
-        ? theme.palette.interactive.error
-        : theme.palette.interactive.primary};
-    }
-  `;
+      ${hasRightAdornment && `margin-right: ${theme.spacing(1)}`};
 
-  const leftIcon = css`
-    margin-right: ${theme.spacing(1)};
-  `;
-
-  const getInput = ({ hasRightAdornment }: { hasRightAdornment: boolean }) => css`
-    background-color: transparent;
-    flex: 1;
-    font-weight: 600;
-    line-height: ${theme.spacing(3)};
-    height: ${theme.spacing(5)};
-    padding-top: 4px; /* Vertically align input content */
-    border: 0;
-
-    ${hasRightAdornment && `margin-right: ${theme.spacing(1)}`};
-
-    &:focus {
-      outline: 0;
-    }
-  `;
-
-  const rightButton = css`
-    margin-right: ${theme.spacing(1)};
-  `;
-
-  const description = css`
-    display: block;
-    color: ${theme.palette.text.secondary};
-    margin-top: 4px;
-  `;
-
-  return { getLabel, getInputContainer, leftIcon, getInput, rightButton, description, theme };
+      &:focus {
+        outline: 0;
+      }
+    `,
+    rightButton: css`
+      margin-right: ${theme.spacing(2)};
+    `,
+    description: css`
+      display: block;
+      color: ${theme.palette.text.secondary};
+      margin-top: ${theme.spacing(1)};
+    `,
+  };
 };

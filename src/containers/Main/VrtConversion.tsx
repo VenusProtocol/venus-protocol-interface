@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import MainLayout from 'containers/Layout/MainLayout';
-import { useWeb3React } from '@web3-react/core';
 import { Row, Col } from 'antd';
-import LoadingSpinner from '../../components/Basic/LoadingSpinner';
-import useRefresh from '../../hooks/useRefresh';
-import * as constants from '../../utilities/constants';
-import { getVrtConverterProxyAddress } from '../../utilities/addressHelpers';
-import Convert from '../../components/VrtConversion/Convert';
-import Withdraw from '../../components/VrtConversion/Withdraw';
-import TabContainer from '../../components/Basic/TabContainer';
+
+import { getToken, getContractAddress } from 'utilities';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import useRefresh from 'hooks/useRefresh';
+import Convert from 'components/VrtConversion/Convert';
+import Withdraw from 'components/VrtConversion/Withdraw';
+import TabContainer from 'components/Basic/TabContainer';
 import {
-  useVrtConverterProxy,
-  useVrtToken,
-  useXvsVestingProxy,
-  useToken,
-} from '../../hooks/useContract';
+  useVrtConverterProxyContract,
+  useXvsVestingProxyContract,
+  useTokenContract,
+} from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const VrtConversionWrapper = styled.div`
   margin: 16px;
@@ -37,8 +35,7 @@ const VrtConversionWrapper = styled.div`
   }
 `;
 
-const VRT_DECIMAL = new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS.vrt.decimals);
-const XVS_DECIMAL = new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals);
+const VRT_DECIMAL = new BigNumber(10).pow(getToken('vrt').decimals);
 const CONVERSION_RATIO_DECIMAL = new BigNumber(10).pow(18);
 
 export default () => {
@@ -54,14 +51,14 @@ export default () => {
   const [loading, setLoading] = useState(true);
 
   // account
-  const { account } = useWeb3React();
+  const { account } = useContext(AuthContext);
   const { fastRefresh } = useRefresh();
 
   // contracts
-  const vrtConverterContract = useVrtConverterProxy();
-  const xvsVestingContract = useXvsVestingProxy();
-  const vrtTokenContract = useVrtToken();
-  const xvsTokenContract = useToken('xvs');
+  const vrtConverterContract = useVrtConverterProxyContract();
+  const xvsVestingContract = useXvsVestingProxyContract();
+  const vrtTokenContract = useTokenContract('vrt');
+  const xvsTokenContract = useTokenContract('xvs');
 
   useEffect(() => {
     let mounted = true;
@@ -69,7 +66,7 @@ export default () => {
       if (account) {
         try {
           const { totalWithdrawableAmount: totalWithdrawableAmountTemp } =
-            await xvsVestingContract.methods.getWithdrawableAmount(account).call();
+            await xvsVestingContract.methods.getWithdrawableAmount(account.address).call();
           setWithdrawableAmount(new BigNumber(totalWithdrawableAmountTemp).div(VRT_DECIMAL));
         } catch (e) {
           console.log('no vestings');
@@ -79,9 +76,11 @@ export default () => {
         await Promise.all([
           vrtConverterContract.methods.conversionRatio().call(),
           vrtConverterContract.methods.conversionEndTime().call(),
-          account ? vrtTokenContract.methods.balanceOf(account).call() : Promise.resolve(0),
+          account ? vrtTokenContract.methods.balanceOf(account.address).call() : Promise.resolve(0),
           account
-            ? vrtTokenContract.methods.allowance(account, getVrtConverterProxyAddress()).call()
+            ? vrtTokenContract.methods
+                .allowance(account.address, getContractAddress('vrtConverterProxy'))
+                .call()
             : Promise.resolve(0),
           xvsTokenContract.methods.balanceOf(xvsVestingContract.options.address).call(),
         ]);
@@ -102,7 +101,7 @@ export default () => {
   }, [fastRefresh, account]);
 
   return (
-    <MainLayout title="Convert VRT">
+    <>
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -135,33 +134,33 @@ export default () => {
                               new BigNumber(2).pow(256).minus(1).toFixed(),
                             )
                             .send({
-                              from: account,
+                              from: account.address,
                             });
                         } else {
                           await vrtConverterContract.methods
                             .convert(convertAmount.times(VRT_DECIMAL).toFixed())
                             .send({
-                              from: account,
+                              from: account?.address,
                             });
                         }
                       } catch (e) {
                         console.log('>> convert error', e);
                       }
                     }}
-                    account={account || ''}
+                    account={account?.address || ''}
                   />
                   <Withdraw
                     withdrawableAmount={withdrawableAmount}
                     handleClickWithdraw={async () => {
                       try {
                         await xvsVestingContract.methods.withdraw().send({
-                          from: account,
+                          from: account?.address,
                         });
                       } catch (e) {
                         console.log('>> withdraw error', e);
                       }
                     }}
-                    account={account || ''}
+                    account={account?.address || ''}
                   />
                 </TabContainer>
               </div>
@@ -169,6 +168,6 @@ export default () => {
           </Row>
         </VrtConversionWrapper>
       )}
-    </MainLayout>
+    </>
   );
 };

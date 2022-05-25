@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
-import * as constants from 'utilities/constants';
-import { useXvsVaultProxy } from 'hooks/useContract';
 
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { TokenId } from 'types';
+import { getToken } from 'utilities';
+import { AuthContext } from 'context/AuthContext';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import { CardItemWrapper } from '../styles';
 
@@ -65,8 +66,8 @@ function formatTimeToLockPeriodString(seconds: $TSFixMe) {
 
 interface WithdrawCardProps {
   poolId: BigNumber;
-  stakedToken: string;
-  rewardTokenAddress: string;
+  stakedToken: TokenId;
+  rewardTokenAddress: string | undefined;
   lockPeriodSecond: BigNumber;
   withdrawableAmount: BigNumber;
   pendingWithdrawals: unknown[];
@@ -82,13 +83,10 @@ function WithdrawCard({
   pendingWithdrawals,
   userEligibleStakedAmount,
 }: WithdrawCardProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
-  );
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
 
-  const { account } = useWeb3React();
-  const xvsVaultContract = useXvsVaultProxy();
+  const { account } = useContext(AuthContext);
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState(new BigNumber(0));
@@ -157,12 +155,12 @@ function WithdrawCard({
                   try {
                     await xvsVaultContract.methods
                       .requestWithdrawal(
-                        rewardTokenAddress,
+                        rewardTokenAddress!,
                         poolId.toNumber(),
                         withdrawAmount.multipliedBy(stakedTokenDecimal).toString(10),
                       )
                       .send({
-                        from: account,
+                        from: account?.address,
                       });
                   } catch (e) {
                     console.log('>> request withdraw error: ', e);
@@ -190,8 +188,8 @@ function WithdrawCard({
                   setExecuteWithdrawLoading(true);
                   try {
                     await xvsVaultContract.methods
-                      .executeWithdrawal(rewardTokenAddress, poolId.toNumber())
-                      .send({ from: account });
+                      .executeWithdrawal(rewardTokenAddress!, poolId.toNumber())
+                      .send({ from: account?.address });
                   } catch (e) {
                     console.log('>> execute withdraw error:', e);
                   }

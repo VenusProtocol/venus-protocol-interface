@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { addDecorator } from '@storybook/react';
+import { addDecorator, Story as StoryType } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { store } from 'core/store';
-import { Web3ReactProvider } from '@web3-react/core';
 import Box from '@mui/material/Box';
-import { getLibrary } from 'utilities/connectors';
-import Web3ReactManager from 'utilities/Web3ReactManager';
+import { Web3Wrapper } from 'clients/web3';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
-import Theme from 'containers/Theme';
+import { AuthContext, IAuthContextValue } from 'context/AuthContext';
+import Theme from 'theme';
 // resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import mainTheme from 'theme/MuiThemeProvider/muiTheme';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 
-type DecoratorFunction = Parameters<typeof addDecorator>[0];
+export type DecoratorFunction = Parameters<typeof addDecorator>[0];
 
 export const withRouter: DecoratorFunction = Story => (
   <BrowserRouter>
@@ -30,11 +30,9 @@ export const withProvider: DecoratorFunction = Story => (
 );
 
 export const withWeb3Provider: DecoratorFunction = Story => (
-  <Web3ReactProvider getLibrary={getLibrary}>
-    <Web3ReactManager>
-      <Story />
-    </Web3ReactManager>
-  </Web3ReactProvider>
+  <Web3Wrapper>
+    <Story />
+  </Web3Wrapper>
 );
 
 export const withMarketContext: DecoratorFunction = Story => (
@@ -43,7 +41,14 @@ export const withMarketContext: DecoratorFunction = Story => (
   </MarketContextProvider>
 );
 
-export const withVaiContext: DecoratorFunction = Story => (
+export const withAuthContext = (context: IAuthContextValue) => (Story: StoryType) =>
+  (
+    <AuthContext.Provider value={context}>
+      <Story />
+    </AuthContext.Provider>
+  );
+
+export const withVaiContextProvider: DecoratorFunction = Story => (
   <VaiContextProvider>
     <Story />
   </VaiContextProvider>
@@ -60,8 +65,21 @@ export const withThemeProvider: DecoratorFunction = Story => (
   </Theme>
 );
 
-export const withCenterStory: (props: { width: number }) => DecoratorFunction = props => {
-  const { width } = props;
+export const withQueryClientProvider: DecoratorFunction = Story => {
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Story />
+    </QueryClientProvider>
+  );
+};
+
+export const withCenterStory: (props: {
+  width?: number | string;
+  height?: number | string;
+}) => DecoratorFunction = props => {
+  const { width, height } = props;
   return Story => (
     <Box
       sx={{
@@ -72,17 +90,18 @@ export const withCenterStory: (props: { width: number }) => DecoratorFunction = 
         height: '100vh',
       }}
     >
-      <Box sx={{ flexShrink: 0, width }}>
+      <Box sx={{ flexShrink: 0, maxWidth: width, width: '100%', height }}>
         <Story />
       </Box>
     </Box>
   );
 };
 
-export const withState: DecoratorFunction = (Story, options) => {
+export const withOnChange: (
+  pickValue: (event: React.ChangeEvent<any>) => unknown,
+) => DecoratorFunction = pickValue => (Story, options) => {
   const [v, onChange] = useState(options.parameters.args.value);
   options.parameters.args.value = v;
-  options.parameters.args.onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    onChange(event.target.checked);
+  options.parameters.args.onChange = (event: React.ChangeEvent) => onChange(pickValue(event));
   return Story(options);
 };

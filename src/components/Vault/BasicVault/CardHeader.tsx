@@ -5,14 +5,13 @@ import React, { useState } from 'react';
 
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
-import { Icon, IconName } from 'components/v2/Icon';
-
-const commaFormatter = commaNumber.bindWith(',', '.');
+import { Icon, IconName } from 'components';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { TokenId } from 'types';
 
 interface CardHeaderProps {
-  stakedToken: string;
-  rewardToken: string;
+  stakedToken: Uppercase<TokenId>;
+  rewardToken: Uppercase<TokenId>;
   apy: string | number;
   totalStakedAmount: BigNumber;
   userPendingReward: BigNumber;
@@ -33,14 +32,14 @@ const CardHeader = ({
   return (
     <div className={`header-container ${expanded ? '' : 'fold'}`}>
       <Row className="header">
-        <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 2 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Stake</div>
           <div className="content">
             <Icon name={stakedToken.toLowerCase() as IconName} />
             <span>{stakedToken}</span>
           </div>
         </Col>
-        <Col className="col-item" lg={{ span: 3 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 2 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Earn</div>
           <div className="content">
             <Icon name={rewardToken.toLowerCase() as IconName} />
@@ -50,28 +49,28 @@ const CardHeader = ({
         <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Available Rewards</div>
           <div className="content">
-            {commaFormatter(userPendingReward.dp(4, 1).toFixed())} {rewardToken}
+            {formatCommaThousandsPeriodDecimal(userPendingReward.dp(4, 1).toFixed())} {rewardToken}
           </div>
         </Col>
-        <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">{stakedToken} Staking APR</div>
           <div className="content">{apy}%</div>
         </Col>
-        <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">Total {stakedToken} Staked</div>
           <div className="content">
-            {commaFormatter(totalStakedAmount.dp(4, 1).toFixed())} {stakedToken}
+            {formatCommaThousandsPeriodDecimal(totalStakedAmount.dp(4, 1).toFixed())} {stakedToken}
           </div>
         </Col>
-        <Col className="col-item" lg={{ span: 4 }} md={{ span: 6 }} xs={{ span: 12 }}>
+        <Col className="col-item" lg={{ span: 5 }} md={{ span: 6 }} xs={{ span: 12 }}>
           <div className="title">{rewardToken} Daily Emission</div>
           <div className="content">
-            {commaFormatter(dailyEmission.toFixed())} {rewardToken}
+            {formatCommaThousandsPeriodDecimal(dailyEmission.toFixed())} {rewardToken}
           </div>
         </Col>
         <Col
           className="col-item expand-icon-wrapper"
-          lg={{ span: 2 }}
+          lg={{ span: 1 }}
           xs={{ span: 24 }}
           onClick={() => {
             setExpanded(!expanded);

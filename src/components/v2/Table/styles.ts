@@ -4,31 +4,105 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    title: css`
-      line-height: 100%;
-      color: ${theme.palette.text.primary};
+    root: css`
+      overflow: hidden;
+      padding-left: 0;
+      padding-right: 0;
+
+      ${theme.breakpoints.down('sm')} {
+        background-color: transparent;
+        padding-top: ${theme.spacing(2)};
+        padding-bottom: ${theme.spacing(2)};
+      }
     `,
-    tableContainer: css`
-      background-color: transparent;
-      background-image: none;
-      box-shadow: none;
+    title: css`
+      margin-bottom: ${theme.spacing(4)};
+      padding: ${theme.spacing(0, 6)};
+      ${theme.breakpoints.down('sm')} {
+        padding: 0;
+      }
+    `,
+    tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
+      margin-top: ${theme.spacing(6)};
+      padding: ${theme.spacing(4, 0)};
+      ${clickable &&
+      `
+        cursor: pointer;
+        :hover {
+          background-color: ${theme.palette.interactive.hover};
+        }
+      `}
+    `,
+    rowTitleMobile: css`
+      padding-left: ${theme.spacing(4)};
+      padding-right: ${theme.spacing(4)};
+    `,
+    delimiterMobile: css`
+      margin: ${theme.spacing(4)};
+    `,
+    rowWrapperMobile: css`
+      display: grid;
+      grid-template-rows: 1fr;
+    `,
+    cellMobile: css`
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-left: ${theme.spacing(4)};
+      padding-right: ${theme.spacing(4)};
+    `,
+    columnLabelMobile: css`
+      font-size: ${theme.spacing(3)};
+      text-transform: none;
+      font-weight: 400;
+    `,
+    cellValueMobile: css`
+      padding-top: ${theme.spacing(2)};
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 400;
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};
+      table-layout: fixed;
+
       .MuiTableCell-root {
         border-width: 0;
+        font-weight: ${theme.typography.body1.fontWeight};
+        text-align: right;
+        font-size: ${theme.spacing(3.5)};
+        text-transform: none;
+      }
+
+      .MuiTableRow-root {
+        cursor: pointer;
+      }
+
+      .MuiTableCell-root:first-of-type {
+        padding-left: ${theme.spacing(6)};
+        text-align: left;
+      }
+
+      .MuiTableCell-root:last-child {
+        padding-right: ${theme.spacing(6)};
       }
     `,
-    tableSortLabel: css`
+    tableSortLabel: ({ orderable }: { orderable: boolean }) => css`
+      cursor: ${orderable ? 'pointer' : 'auto'};
+
       &.MuiTableSortLabel-root {
         span {
           color: ${theme.palette.text.secondary};
         }
       }
+
+      span.MuiTableSortLabel-icon {
+        display: none;
+      }
+
       .MuiSvgIcon-root {
         display: block;
-        margin-right: ${theme.spacing(1)};
-        margin-left: ${theme.spacing(1)};
+        margin-left: ${theme.spacing(2)};
         transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
           transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         transform: rotate(0deg);
@@ -36,6 +110,7 @@ export const useStyles = () => {
       .MuiTableSortLabel-iconDirectionDesc {
         transform: rotate(180deg);
       }
+
       &.MuiTableSortLabel-root.Mui-active:hover {
         color: ${theme.palette.text.secondary};
         .MuiTableSortLabel-iconDirectionDesc {
@@ -46,14 +121,24 @@ export const useStyles = () => {
         }
       }
     `,
+    tableSortLabelIconsContainer: css`
+      margin-top: -2px;
+    `,
     tableSortLabelIcon: ({ active }: { active: boolean }) => css`
       &.MuiTableSortLabel-icon {
         fill: ${theme.palette.text.primary};
       }
       .Mui-active &.MuiTableSortLabel-icon {
-        fill: ${active ? theme.palette.success.slider : theme.palette.text.primary};
-        color: ${active ? theme.palette.success.slider : theme.palette.text.primary};
+        fill: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
+        color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
+    `,
+    cellWrapper: css`
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `,
+    cellInner: css`
+      text-overflow: ellipsis;
     `,
   };
 };

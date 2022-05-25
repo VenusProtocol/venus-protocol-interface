@@ -1,8 +1,10 @@
-import * as constants from 'utilities/constants';
 import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 import commaNumber from 'comma-number';
-import { getVaiTokenAddress } from './addressHelpers';
+
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { getToken, getVBepToken } from 'utilities';
+import { TokenId, VTokenId } from 'types';
 
 export const commaFormat = commaNumber.bindWith(',', '.');
 
@@ -37,30 +39,25 @@ export const addToken = async ({
   decimal,
   type,
 }: {
-  asset: string;
+  asset: TokenId;
   decimal: number;
   type: string;
 }) => {
-  let tokenAddress = '';
+  let tokenAddress: string | undefined = '';
   let tokenSymbol = '';
   let tokenDecimals = 18;
   let tokenImage = '';
   if (asset === 'vai') {
-    tokenAddress = getVaiTokenAddress();
+    tokenAddress = getToken('vai').address;
     tokenSymbol = 'VAI';
     tokenDecimals = 18;
     tokenImage = `${window.location.origin}/coins/vai.svg`;
   } else {
     tokenAddress =
-      type === 'token'
-        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].address
-        : // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_VBEP_ADDRESS[asset].address;
+      type === 'token' ? getToken(asset).address : getVBepToken(asset as VTokenId).address;
     tokenSymbol =
       type === 'token'
-        ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[asset].symbol
+        ? getToken(asset).symbol
         : `v${(asset === 'btcb' ? 'btc' : asset).toUpperCase()}`;
     tokenDecimals = decimal || (type === 'token' ? 18 : 8);
     tokenImage = `${window.location.origin}/coins/${
@@ -69,9 +66,7 @@ export const addToken = async ({
   }
 
   try {
-    // wasAdded is a boolean. Like any RPC method, an error may be thrown.
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ethereum' does not exist on type 'Window... Remove this comment to see the full error message
-    const wasAdded = await window.ethereum.request({
+    await window.ethereum?.request({
       method: 'wallet_watchAsset',
       params: {
         type: 'ERC20', // Initially only supports ERC20, but eventually more!
@@ -83,15 +78,9 @@ export const addToken = async ({
         },
       },
     });
-
-    if (wasAdded) {
-      // eslint-disable-next-line no-console
-      console.log('Thanks for your interest!');
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('Your loss!');
-    }
   } catch (error) {
+    // TODO: send error to Sentry
+
     // eslint-disable-next-line no-console
     console.log(error);
   }
@@ -127,12 +116,131 @@ export const currencyFormatter = (labelValue: $TSFixMe) => {
   return `$${commaFormat(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
 };
 
-export const formatApy = (apy?: BigNumber | string | number): string => {
-  const apyBN = getBigNumber(apy);
-  if (apyBN.absoluteValue().isLessThan(100000000)) {
-    return `${apyBN.dp(2, 1).toString(10)}%`;
+export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
+export const format = (bigNumber: BigNumber, dp = 2) =>
+  formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
+
+export const shortenNumberWithSuffix = (value: BigNumber) => {
+  const ONE_BILLION = 1000000000;
+  const ONE_MILLION = 1000000;
+  const ONE_THOUSAND = 1000;
+
+  let shortenedValue = value.toFixed(2);
+  if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
+    shortenedValue = `${value.dividedBy(ONE_BILLION).dp(2).toFixed()}B`;
+  } else if (value.isGreaterThanOrEqualTo(ONE_MILLION)) {
+    shortenedValue = `${value.dividedBy(ONE_MILLION).dp(2).toFixed()}M`;
+  } else if (value.isGreaterThanOrEqualTo(ONE_THOUSAND)) {
+    shortenedValue = `${value.dividedBy(ONE_THOUSAND).dp(2).toFixed()}K`;
   }
-  return `${apyBN.toExponential(2, 1)}%`;
+  return shortenedValue;
+};
+
+export const formatCoinsToReadableValue = ({
+  value,
+  tokenId,
+  shorthand = false,
+  suffix = false,
+}: {
+  value: BigNumber | undefined;
+  tokenId: TokenId;
+  shorthand?: boolean;
+  suffix?: boolean;
+}) => {
+  if (value === undefined) {
+    return PLACEHOLDER_KEY;
+  }
+
+  let decimalPlaces;
+  if (shorthand) {
+    // If value is greater than 1, use 2 decimal places, otherwise use 8
+    // see (https://app.clickup.com/24381231/v/dc/q81tf-9288/q81tf-1128)
+    decimalPlaces = value.gt(1) ? 2 : 8;
+  } else {
+    const token = getToken(tokenId);
+    decimalPlaces = token.decimals;
+  }
+  if (suffix) {
+    return `${shortenNumberWithSuffix(value)} ${tokenId.toUpperCase()}`;
+  }
+
+  return `${formatCommaThousandsPeriodDecimal(
+    value.dp(decimalPlaces).toFixed(),
+  )} ${tokenId.toUpperCase()}`;
+};
+
+type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
+
+export function convertWeiToCoins<T extends boolean | undefined = false>({
+  valueWei,
+  tokenId,
+  returnInReadableFormat = false,
+  shorthand = false,
+}: {
+  valueWei: BigNumber;
+  tokenId: TokenId;
+  returnInReadableFormat?: T;
+  shorthand?: boolean;
+}): ConvertWeiToCoinsOutput<T> {
+  const tokenDecimals = getToken(tokenId).decimals;
+  const valueCoins = valueWei
+    .dividedBy(new BigNumber(10).pow(tokenDecimals))
+    .decimalPlaces(tokenDecimals);
+
+  return (
+    returnInReadableFormat
+      ? formatCoinsToReadableValue({ value: valueCoins, tokenId, shorthand })
+      : valueCoins
+  ) as ConvertWeiToCoinsOutput<T>;
+}
+
+export const convertCoinsToWei = ({ value, tokenId }: { value: BigNumber; tokenId: TokenId }) => {
+  const tokenDecimals = getToken(tokenId).decimals;
+  return value.multipliedBy(new BigNumber(10).pow(tokenDecimals));
+};
+
+export const convertCentsToDollars = (value: number) =>
+  new BigNumber(value).dividedBy(100).toFixed(2);
+
+export const formatCentsToReadableValue = ({
+  value,
+  shorthand = false,
+}: {
+  value: number | BigNumber | undefined;
+  shorthand?: boolean;
+}) => {
+  if (value === undefined) {
+    return PLACEHOLDER_KEY;
+  }
+
+  if (!shorthand) {
+    return `$${formatCommaThousandsPeriodDecimal(
+      convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
+    )}`;
+  }
+
+  // Shorten value
+  const wrappedValueDollars = new BigNumber(value).dividedBy(100);
+  const shortenedValue = shortenNumberWithSuffix(wrappedValueDollars);
+  return `$${shortenedValue}`;
+};
+
+export const formatPercentage = (value: string | number | BigNumber) => {
+  const valueBn = new BigNumber(value);
+
+  if (valueBn.absoluteValue().isGreaterThanOrEqualTo(100000000)) {
+    return +valueBn.toExponential(2);
+  }
+
+  return +valueBn.dp(2).toFixed();
+};
+
+export const formatToReadablePercentage = (value: number | string | BigNumber | undefined) => {
+  if (value === undefined) {
+    return PLACEHOLDER_KEY;
+  }
+
+  return `${formatPercentage(value)}%`;
 };
 
 /**
@@ -144,8 +252,13 @@ export const formatApy = (apy?: BigNumber | string | number): string => {
  * @returns An object with the keys derived as indexFn(array item)
  */
 
-export const indexBy = (indexFn: $TSFixMe, arr: $TSFixMe) =>
-  arr.reduce((result: $TSFixMe, item: $TSFixMe) => {
+export const indexBy = <V>(indexFn: (v: V) => string, arr: V[]) =>
+  arr.reduce((result: Record<string, V>, item: V) => {
     result[indexFn(item)] = item;
     return result;
   }, {});
+
+export const notNull = <TValue>(value: TValue | null): value is TValue => value !== null;
+
+export const notUndefined = <TValue>(value: TValue | undefined): value is TValue =>
+  value !== undefined;

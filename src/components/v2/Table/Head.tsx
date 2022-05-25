@@ -14,6 +14,7 @@ interface IHeadProps<C extends { key: string; label: string; orderable: boolean 
   orderBy: string | undefined;
   orderDirection: 'asc' | 'desc' | undefined;
   onRequestOrder: (property: C[number]['key']) => void;
+  className?: string;
 }
 
 function Head<C extends { key: string; label: string; orderable: boolean }[]>({
@@ -21,27 +22,28 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
   orderBy,
   orderDirection,
   onRequestOrder,
+  className,
 }: IHeadProps<C>) {
   const styles = useStyles();
   return (
     <TableHead>
-      <TableRow>
+      <TableRow className={className}>
         {columns.map((col: C[number]) => {
           const active = orderBy === col.key;
           return (
             <TableCell key={col.key} sortDirection={active ? orderDirection : false}>
               <TableSortLabel
-                css={styles.tableSortLabel}
+                css={styles.tableSortLabel({ orderable: col.orderable })}
                 active={active}
                 direction={active ? orderDirection : 'asc'}
-                onClick={() => onRequestOrder(col.key)}
+                onClick={col.orderable ? () => onRequestOrder(col.key) : undefined}
                 hideSortIcon={false}
                 // @ts-expect-error Override IconComponent with null so it doesn't render
                 IconComponent={null}
               >
                 <span>{col.label}</span>
-                {col.orderable ? (
-                  <div>
+                {col.orderable && (
+                  <div css={styles.tableSortLabelIconsContainer}>
                     <Icon
                       name="sort"
                       size="8px"
@@ -59,12 +61,12 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
                       className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionDesc"
                     />
                   </div>
-                ) : null}
-                {active && col.orderable ? (
+                )}
+                {active && col.orderable && (
                   <Box component="span" sx={visuallyHidden}>
                     {orderDirection === 'desc' ? 'sorted descending' : 'sorted ascending'}
                   </Box>
-                ) : null}
+                )}
               </TableSortLabel>
             </TableCell>
           );

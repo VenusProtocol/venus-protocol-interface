@@ -2,6 +2,10 @@ name: Tests and Checks
 
 on: [push]
 
+env:
+  REACT_APP_CHAIN_ID: 97
+  FAST_REFRESH: false
+
 jobs:
   typecheck:
     runs-on: ubuntu-20.04
@@ -11,7 +15,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 16
           cache: 'yarn'
 
       - name: Install deps
@@ -28,7 +32,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 16
           cache: 'yarn'
 
       - name: Install deps
@@ -44,7 +48,7 @@ jobs:
         run: yarn lint-styles
 
   storybooks:
-    runs-on: self-hosted
+    runs-on: [self-hosted,fe]
     container:
       image: node:14.15.1-buster
     steps:
@@ -55,7 +59,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 16
           cache: 'yarn'
 
       - run: |
@@ -84,17 +88,26 @@ jobs:
 
   test:
     runs-on: ubuntu-20.04
+    container:
+      image: node:14.15.1-buster
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 16
           cache: 'yarn'
 
       - name: Install deps
         run: yarn
 
       - name: Run tests
-        run: yarn test
+        run: yarn test --ci --json --coverage --testLocationInResults --outputFile=./coverage/report.json
+
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          package-manager: yarn
+          coverage-file: ./coverage/report.json
+          skip-step: all
+          github-token: ${{ secrets.GITHUB_TOKEN }}

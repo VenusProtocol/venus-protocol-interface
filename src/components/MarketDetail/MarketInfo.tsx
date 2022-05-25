@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
-import { formatApy } from 'utilities/common';
-import * as constants from 'utilities/constants';
+
+import { formatToReadablePercentage, format } from 'utilities/common';
+import { getToken } from 'utilities';
+import { TokenId } from 'types';
 
 const MarketInfoWrapper = styled.div`
   .asset-img {
@@ -39,11 +40,8 @@ const MarketInfoContent = styled.div`
   }
 `;
 
-// stylelint-disable-next-line
-const format = commaNumber.bindWith(',', '.');
-
 interface MarketInfoObjectType {
-  underlyingSymbol: string;
+  underlyingSymbol: Uppercase<TokenId>;
   supplyApy: number;
   supplyVenusApy: number;
   borrowApy: number;
@@ -65,11 +63,9 @@ function MarketInfo({ marketInfo, marketType }: Props) {
       <img
         className="asset-img"
         src={
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          constants.CONTRACT_TOKEN_ADDRESS[marketInfo.underlyingSymbol.toLowerCase()]
-            ? // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-              constants.CONTRACT_TOKEN_ADDRESS[marketInfo.underlyingSymbol.toLowerCase()].asset
-            : null
+          getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenId).asset
+            ? getToken(marketInfo.underlyingSymbol.toLowerCase() as TokenId).asset
+            : ''
         }
         alt="asset"
       />
@@ -80,7 +76,7 @@ function MarketInfo({ marketInfo, marketType }: Props) {
             <p className="label">Net Rate</p>
             <p className="value">
               {marketType === 'supply'
-                ? formatApy(
+                ? formatToReadablePercentage(
                     new BigNumber(
                       // @ts-expect-error marketInfo gets passed around as an empty object
                       +marketInfo.supplyApy < 0.01 ? 0.01 : marketInfo.supplyApy,
@@ -91,7 +87,7 @@ function MarketInfo({ marketInfo, marketType }: Props) {
                       ),
                     ),
                   )
-                : formatApy(
+                : formatToReadablePercentage(
                     new BigNumber(
                       // @ts-expect-error marketInfo gets passed around as an empty object
                       Math.abs(+marketInfo.borrowApy) < 0.01 ? 0.01 : marketInfo.borrowApy,
@@ -129,11 +125,11 @@ function MarketInfo({ marketInfo, marketType }: Props) {
             <p className="label">Distribution APY</p>
             <p className="value">
               {marketType === 'supply'
-                ? formatApy(
+                ? formatToReadablePercentage(
                     // @ts-expect-error marketInfo gets passed around as an empty object
                     +marketInfo.supplyVenusApy < 0.01 ? 0.01 : marketInfo.supplyVenusApy,
                   )
-                : formatApy(
+                : formatToReadablePercentage(
                     // @ts-expect-error marketInfo gets passed around as an empty object
                     marketInfo.borrowVenusApy < 0.01 ? 0.01 : marketInfo.borrowVenusApy,
                   )}
@@ -149,9 +145,7 @@ function MarketInfo({ marketInfo, marketType }: Props) {
                 new BigNumber(
                   // @ts-expect-error marketInfo gets passed around as an empty object
                   marketType === 'supply' ? marketInfo.totalSupplyUsd : marketInfo.totalBorrowsUsd,
-                )
-                  .dp(2, 1)
-                  .toString(10),
+                ),
               )}
             </p>
           </div>

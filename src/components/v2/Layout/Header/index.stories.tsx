@@ -1,26 +1,19 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import {
-  withRouter,
-  withProvider,
-  withWeb3Provider,
-  withMarketContext,
-  withVaiContext,
-  withThemeProvider,
-} from 'stories/decorators';
-import { Header } from '.';
+import { MemoryRouter, Route } from 'react-router';
+import { withThemeProvider, withRouter, withProvider } from 'stories/decorators';
+import Header from '.';
 
 export default {
   title: 'Components/Layout/Header',
   component: Header,
-  decorators: [
-    withRouter,
-    withProvider,
-    withWeb3Provider,
-    withMarketContext,
-    withVaiContext,
-    withThemeProvider,
-  ],
+  decorators: [withThemeProvider, withRouter, withProvider],
 } as ComponentMeta<typeof Header>;
 
-export const HeaderDefault = () => <Header pageTitle="Hello from storybook" />;
+export const HeaderDefault = () => (
+  <div style={{ minHeight: 100 }}>
+    <MemoryRouter initialEntries={['/dashboard']}>
+      <Route component={Header} path="/dashboard" />
+    </MemoryRouter>
+  </div>
+);

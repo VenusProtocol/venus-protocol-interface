@@ -2,20 +2,18 @@ import React from 'react';
 import { Input, Form, Dropdown, Menu } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { ClickParam } from 'antd/lib/menu';
-import MainLayout from 'containers/Layout/MainLayout';
+
 import { PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import * as constants from 'utilities/constants';
 import { Row, Column } from 'components/Basic/Style';
-import { IRequestFaucetFundsInput } from 'clients/api';
+import { RequestFaucetFundsInput } from 'clients/api';
 import { AssetTicker } from 'clients/api/mutations/requestFaucetFunds';
-import { BASE_BSC_SCAN_URL } from '../../config';
-import { getVaiTokenAddress } from '../../utilities/addressHelpers';
+import { generateBscScanUrl } from 'utilities';
 import * as Styles from './styles';
 
 export interface IFaucetProps extends FormComponentProps {
   isRequestFaucetFundsLoading: boolean;
-  requestFaucetFunds: (params: IRequestFaucetFundsInput) => void;
+  requestFaucetFunds: (params: RequestFaucetFundsInput) => void;
 }
 
 const Faucet: React.FC<IFaucetProps> = ({
@@ -118,206 +116,164 @@ const Faucet: React.FC<IFaucetProps> = ({
   );
 
   return (
-    <MainLayout isHeader={false}>
-      <div className="flex just-center align-center">
-        <Styles.FaucetWrapper className="flex flex-column align-center just-center">
-          <p className="header">Venus BNB Chain Faucet</p>
-          <Form className="forgot-pwd-form">
-            <Form.Item>
-              {getFieldDecorator('address', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Address is required!',
-                  },
-                ],
-              })(<Input placeholder="Input your BNB Chain address..." />)}
-            </Form.Item>
-            {isRequestFaucetFundsLoading ? (
-              <div className="flex flex-column">
-                <LoadingSpinner size={60} />
-              </div>
-            ) : (
-              <>
-                <Row>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={bnbMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me BNB</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={sxpMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me SXP</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={xvsMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me XVS</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={busdMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me BUSD</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={usdtMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me USDT</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={usdcMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me USDC</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={btcbMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me BTCB</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={ethMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me ETH</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={ltcMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me LTC</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4" className="empty-menu">
-                    <Styles.ButtonWrapper />
-                  </Column>
-                  <Column xs="6" sm="4">
-                    <Styles.ButtonWrapper>
-                      <Dropdown overlay={xrpMenu} placement="bottomCenter">
-                        <PrimaryButton className="button">Give Me XRP</PrimaryButton>
-                      </Dropdown>
-                    </Styles.ButtonWrapper>
-                  </Column>
-                  <Column xs="6" sm="4" className="empty-menu">
-                    <Styles.ButtonWrapper />
-                  </Column>
-                </Row>
-              </>
-            )}
-          </Form>
-          <div className="flex flex-column align-center just-center bottom">
-            <p className="title">How does this work?</p>
-            <p className="description">
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.sxp.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                SXP
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                XVS
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.busd.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                BUSD
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdc.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                USDC
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.usdt.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                USDT
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${getVaiTokenAddress()}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                VAI
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.btcb.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                BTCB
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.eth.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                ETH
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.ltc.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                LTC
-              </a>
-              {', '}
-              <a
-                href={`${BASE_BSC_SCAN_URL}/address/${constants.CONTRACT_TOKEN_ADDRESS.xrp.address}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                XRP
-              </a>
-              {' are issued as BEP20 token.'}
-            </p>
-            <p className="description">
-              Click to get detail about{' '}
-              <a
-                href="https://github.com/binance-chain/BEPs/blob/master/BEP20.md"
-                target="_blank"
-                rel="noreferrer"
-              >
-                BEP20
-              </a>
-            </p>
-          </div>
-        </Styles.FaucetWrapper>
-      </div>
-    </MainLayout>
+    <div className="flex just-center align-center">
+      <Styles.FaucetWrapper className="flex flex-column align-center just-center">
+        <p className="header">Venus BNB Chain Faucet</p>
+        <Form className="forgot-pwd-form">
+          <Form.Item>
+            {getFieldDecorator('address', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Address is required!',
+                },
+              ],
+            })(<Input placeholder="Input your BNB Chain address..." />)}
+          </Form.Item>
+          {isRequestFaucetFundsLoading ? (
+            <div className="flex flex-column">
+              <LoadingSpinner size={60} />
+            </div>
+          ) : (
+            <>
+              <Row>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={bnbMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me BNB</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={sxpMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me SXP</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={xvsMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me XVS</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={busdMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me BUSD</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={usdtMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me USDT</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={usdcMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me USDC</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={btcbMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me BTCB</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={ethMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me ETH</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={ltcMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me LTC</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4" className="empty-menu">
+                  <Styles.ButtonWrapper />
+                </Column>
+                <Column xs="6" sm="4">
+                  <Styles.ButtonWrapper>
+                    <Dropdown overlay={xrpMenu} placement="bottomCenter">
+                      <PrimaryButton className="button">Give Me XRP</PrimaryButton>
+                    </Dropdown>
+                  </Styles.ButtonWrapper>
+                </Column>
+                <Column xs="6" sm="4" className="empty-menu">
+                  <Styles.ButtonWrapper />
+                </Column>
+              </Row>
+            </>
+          )}
+        </Form>
+        <div className="flex flex-column align-center just-center bottom">
+          <p className="title">How does this work?</p>
+          <p className="description">
+            <a href={generateBscScanUrl('sxp', 'token')} target="_blank" rel="noreferrer">
+              SXP
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('xvs', 'token')} target="_blank" rel="noreferrer">
+              XVS
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('busd', 'token')} target="_blank" rel="noreferrer">
+              BUSD
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('usdc')} target="_blank" rel="noreferrer">
+              USDC
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('usdt', 'token')} target="_blank" rel="noreferrer">
+              USDT
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('vai', 'token')} target="_blank" rel="noreferrer">
+              VAI
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('btcb', 'token')} target="_blank" rel="noreferrer">
+              BTCB
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('eth', 'token')} target="_blank" rel="noreferrer">
+              ETH
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('ltc', 'token')} target="_blank" rel="noreferrer">
+              LTC
+            </a>
+            {', '}
+            <a href={generateBscScanUrl('xrp', 'token')} target="_blank" rel="noreferrer">
+              XRP
+            </a>
+            {' are issued as BEP20 token.'}
+          </p>
+          <p className="description">
+            Click to get detail about{' '}
+            <a
+              href="https://github.com/binance-chain/BEPs/blob/master/BEP20.md"
+              target="_blank"
+              rel="noreferrer"
+            >
+              BEP20
+            </a>
+          </p>
+        </div>
+      </Styles.FaucetWrapper>
+    </div>
   );
 };
 

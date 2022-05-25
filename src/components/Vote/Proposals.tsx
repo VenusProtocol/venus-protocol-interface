@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { Pagination, Icon, Tooltip } from 'antd';
+import { Pagination, Tooltip } from 'antd';
 import Proposal from 'components/Basic/Proposal';
 import ProposalModal from 'components/Vote/ProposalModal';
-import toast from 'components/Basic/Toast';
+import { toast, PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
-import { PrimaryButton } from 'components';
-import { useWeb3React } from '@web3-react/core';
 import { Proposal as ProposalObject } from 'types';
-import { useToken, useGovernorBravo } from '../../hooks/useContract';
+import { AuthContext } from 'context/AuthContext';
+import { useTokenContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
@@ -114,6 +113,8 @@ interface Props {
   total: number;
   onChangePage: (page: number, total: number, size: number) => void;
 }
+// @ts-expect-error Hack to get antd tooltip to work on non antd button
+PrimaryButton.__ANT_BUTTON = true; // eslint-disable-line @typescript-eslint/no-unused-vars, no-underscore-dangle
 
 function Proposals({
   address,
@@ -135,9 +136,9 @@ function Proposals({
 
   const [notProposable, setNotProposable] = useState(false);
 
-  const { account } = useWeb3React();
-  const tokenContract = useToken('xvs');
-  const governorBravoContract = useGovernorBravo();
+  const { account } = useContext(AuthContext);
+  const tokenContract = useTokenContract('xvs');
+  const governorBravoContract = useGovernorBravoDelegateContract();
 
   const getVoteProposalInfo = async () => {
     const [threshold, maxOpeartion] = await Promise.all([
@@ -201,7 +202,7 @@ function Proposals({
       const status = await governorBravoContract.methods.state(pId).call();
       if (status === '0' || status === '1') {
         toast.error({
-          title: "You can't create proposal. there is proposal in progress!",
+          message: "You can't create proposal. there is proposal in progress!",
         });
       } else {
         setProposalModal(true);

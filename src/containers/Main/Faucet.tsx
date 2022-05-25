@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import useRequestFaucetFunds from 'hooks/useRequestFaucetFunds';
-import toast from 'components/Basic/Toast';
-import * as constants from 'utilities/constants';
+import { useRequestFaucetFunds } from 'clients/api';
+import { toast } from 'components';
+import { getToken } from 'utilities';
 import Faucet from 'components/Faucet';
 
 type IFaucetContainerProps = RouteComponentProps;
@@ -12,21 +12,19 @@ const FaucetContainer: React.FC<IFaucetContainerProps> = () => {
     useRequestFaucetFunds({
       onSuccess: (_data, variables) => {
         let fromAddress;
-        if (variables.asset === 'xvs') {
-          fromAddress = constants.CONTRACT_XVS_TOKEN_ADDRESS;
-        } else if (variables.asset === 'bnb') {
-          fromAddress = constants.CONTRACT_XVS_TOKEN_ADDRESS;
+        if (variables.asset === 'xvs' || variables.asset === 'bnb') {
+          fromAddress = getToken('xvs').address;
         } else {
-          fromAddress = constants.CONTRACT_TOKEN_ADDRESS[variables.asset].address;
+          fromAddress = getToken(variables.asset).address;
         }
 
         toast.success({
-          title: `Funding request for ${fromAddress} into ${variables.address}`,
+          message: `Funding request for ${fromAddress} into ${variables.address}`,
         });
       },
       onError: error => {
         toast.error({
-          title: error.message,
+          message: error.message,
         });
       },
     });

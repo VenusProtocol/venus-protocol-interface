@@ -1,13 +1,17 @@
 import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withThemeProvider, withState } from 'stories/decorators';
+import { withCenterStory, withThemeProvider, withOnChange } from 'stories/decorators';
 import { Toggle } from '.';
-import type { IToggleProps } from './Toggle';
+import type { IToggleProps } from '.';
 
 export default {
   title: 'Components/Toggle',
   component: Toggle,
-  decorators: [withCenterStory({ width: 200 }), withThemeProvider, withState],
+  decorators: [
+    withCenterStory({ width: 200 }),
+    withThemeProvider,
+    withOnChange(e => e.target.checked),
+  ],
 } as ComponentMeta<typeof Toggle>;
 
 const Template: Story<IToggleProps> = (args: IToggleProps) => <Toggle {...args} />;

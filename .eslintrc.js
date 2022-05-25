@@ -17,6 +17,7 @@ module.exports = {
     'object-curly-newline': 0,
     'no-confusing-arrow': 0,
     'react/jsx-one-expression-per-line': 0,
+    'react/jsx-indent': 0,
 
     /* airbnb rules */
     'implicit-arrow-linebreak': 0,
@@ -44,10 +45,18 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['**/*.stories.tsx', '**/*.stories.ts', 'src/stories/**'],
+        devDependencies: [
+          '**/*.stories.tsx',
+          '**/*.stories.ts',
+          'src/stories/**',
+          '**/*.spec.tsx',
+          'src/setupTests.ts',
+        ],
       },
     ],
     // Custom
+    'import/no-named-as-default': 0,
+    '@typescript-eslint/no-unused-vars': 2,
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
@@ -61,8 +70,10 @@ module.exports = {
         },
       },
     ],
+    '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/jsx-wrap-multilines': 0,
     'generator-star-spacing': 0,
+    'consistent-return': 0,
   },
   settings: {
     'import/resolver': {

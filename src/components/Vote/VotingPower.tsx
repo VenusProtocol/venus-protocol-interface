@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
-import { useWeb3React } from '@web3-react/core';
+
 import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { AuthContext } from 'context/AuthContext';
 
 const VotingPowerWrapper = styled.div`
   width: 100%;
@@ -101,8 +102,6 @@ const VotingPowerWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface VotingPowerProps extends RouteComponentProps {
   power: string;
   balance: string;
@@ -111,7 +110,7 @@ interface VotingPowerProps extends RouteComponentProps {
 }
 
 function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: VotingPowerProps) {
-  const { account } = useWeb3React();
+  const { account } = useContext(AuthContext);
 
   const [isOpenDelegationModal, setIsOpenDelegationModal] = useState(false);
 
@@ -124,7 +123,7 @@ function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: 
               <Row className="flex align-center flex-wrap">
                 <Column className="voting-weight" xs="12" sm="12" md="5">
                   <p className="title">Voting Weight</p>
-                  <p className="content">{format(power)}</p>
+                  <p className="content">{formatCommaThousandsPeriodDecimal(power)}</p>
                 </Column>
                 <Column xs="12" sm="12" md="7" className=" voting-hint">
                   <Row className="flex flex-wrap align-center">
@@ -179,7 +178,7 @@ function VotingPower({ history, power, balance, delegateStatus, stakedAmount }: 
         visible={isOpenDelegationModal}
         balance={balance}
         delegateStatus={delegateStatus}
-        address={account || ''}
+        address={account?.address || ''}
         onCancel={() => setIsOpenDelegationModal(false)}
       />
     </>

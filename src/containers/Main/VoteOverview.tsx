@@ -1,43 +1,32 @@
 /* eslint-disable no-useless-escape */
-import React, { useState, useEffect, useCallback, ReactChildren } from 'react';
+import React, { useState, useEffect, useCallback, ReactChildren, useContext } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Icon, Tooltip } from 'antd';
-import { PrimaryButton } from 'components';
+import { PrimaryButton, SecondaryButton, toast } from 'components';
 import { connectAccount } from 'core';
-import MainLayout from 'containers/Layout/MainLayout';
 import ProposalInfo from 'components/Vote/VoteOverview/ProposalInfo';
 import ProposalUser from 'components/Vote/VoteOverview/ProposalUser';
 import VoteCard from 'components/Vote/VoteOverview/VoteCard';
 import ProposalDetail from 'components/Vote/VoteOverview/ProposalDetail';
 import ProposalHistory from 'components/Vote/VoteOverview/ProposalHistory';
 import { promisify } from 'utilities';
-import toast from 'components/Basic/Toast';
 import { Row, Column } from 'components/Basic/Style';
-import { useWeb3React } from '@web3-react/core';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
-import { useToken, useGovernorBravo } from '../../hooks/useContract';
+import { useTokenContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const VoteOverviewWrapper = styled.div`
   width: 100%;
 
   .vote-status-update {
     margin-bottom: 20px;
+
     button {
-      width: 120px;
-      height: 40px;
-      background-color: var(--color-yellow);
-      border-radius: 10px;
-      span {
-        font-size: 16px;
-        font-weight: bold;
-        color: var(--color-text-main);
-        text-transform: capitalize;
-      }
       &:not(:last-child) {
         margin-right: 10px;
       }
@@ -115,12 +104,12 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [proposerVotingWeight, setProposerVotingWeight] = useState(0);
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
   const [excuteEta, setExcuteEta] = useState('');
-  const { account } = useWeb3React();
-  const xvsTokenContract = useToken('xvs');
-  const governorBravoContract = useGovernorBravo();
+  const { account } = useContext(AuthContext);
+  const xvsTokenContract = useTokenContract('xvs');
+  const governorBravoContract = useGovernorBravoDelegateContract();
 
   const updateBalance = useCallback(async () => {
-    if (proposalInfo.id) {
+    if (proposalInfo.id && proposalInfo.proposer) {
       const threshold = await governorBravoContract.methods.proposalThreshold().call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
       const weight = await xvsTokenContract.methods.getCurrentVotes(proposalInfo.proposer).call();
@@ -202,9 +191,11 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   }, [getVoters, proposalInfo]);
 
   const getIsPossibleExcuted = async () => {
-    const proposalsRes = await governorBravoContract.methods.proposals(proposalInfo.id).call();
-    setIsPossibleExcuted(proposalsRes && proposalsRes.eta <= Date.now() / 1000);
-    setExcuteEta(moment(proposalsRes.eta * 1000).format('LLLL'));
+    if (proposalInfo.id) {
+      const proposalsRes = await governorBravoContract.methods.proposals(proposalInfo.id).call();
+      setIsPossibleExcuted(proposalsRes && +proposalsRes.eta <= Date.now() / 1000);
+      setExcuteEta(moment(+proposalsRes.eta * 1000).format('LLLL'));
+    }
   };
 
   useEffect(() => {
@@ -214,13 +205,17 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   }, [proposalInfo]);
 
   const handleUpdateProposal = async (statusType: $TSFixMe) => {
+    if (!proposalInfo.id) {
+      return;
+    }
+
     if (statusType === 'Queue') {
       setIsLoading(true);
       try {
-        await governorBravoContract.methods.queue(proposalInfo.id).send({ from: account });
+        await governorBravoContract.methods.queue(proposalInfo.id).send({ from: account?.address });
         setStatus('success');
         toast.success({
-          title: 'Proposal list will be updated within a few seconds',
+          message: 'Proposal list will be updated within a few seconds',
         });
       } catch (error) {
         setStatus('failure');
@@ -230,10 +225,12 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     } else if (statusType === 'Execute') {
       setIsLoading(true);
       try {
-        await governorBravoContract.methods.execute(proposalInfo.id).send({ from: account });
+        await governorBravoContract.methods
+          .execute(proposalInfo.id)
+          .send({ from: account?.address });
         setStatus('success');
         toast.success({
-          title: 'Proposal list will be updated within a few seconds',
+          message: 'Proposal list will be updated within a few seconds',
         });
       } catch (error) {
         setStatus('failure');
@@ -243,10 +240,12 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     } else if (statusType === 'Cancel') {
       setIsCancelLoading(true);
       try {
-        await governorBravoContract.methods.cancel(proposalInfo.id).send({ from: account });
+        await governorBravoContract.methods
+          .cancel(proposalInfo.id)
+          .send({ from: account?.address });
         setCancelStatus('success');
         toast.success({
-          title:
+          message:
             'Current proposal is cancelled successfully. Proposal list will be updated within a few seconds',
         });
       } catch (error) {
@@ -261,117 +260,113 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     .plus(new BigNumber(abstainVotes.sumVotes || 0));
 
   return (
-    <MainLayout title="Overview">
-      <VoteOverviewWrapper className="flex">
-        <Row>
-          <Column xs="12" sm="9">
-            <Row>
-              <Column xs="12" sm="6">
-                <ProposalInfo proposalInfo={proposalInfo} />
-              </Column>
-              <Column xs="12" sm="6">
-                <ProposalUser proposalInfo={proposalInfo} />
-              </Column>
-            </Row>
-            <Row>
-              {[
-                { label: 'For', votes: agreeVotes, filterType: 1 },
-                { label: 'Against', votes: againstVotes, filterType: 0 },
-                { label: 'Abstain', votes: abstainVotes, filterType: 2 },
-              ].map(data => {
-                // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{ sumVote... Remove this comment to see the full error message
-                const { sumVotes, result, total } = data.votes;
-                return (
-                  <Column key={uid(data)} xs="12" md="12" lg="4">
-                    <VoteCard
-                      type={data.filterType}
-                      label={data.label}
-                      voteNumber={new BigNumber(sumVotes)}
-                      totalNumber={totalVotes}
-                      addressNumber={total}
-                      emptyNumber={VOTE_DISPLAY_ROWS - total}
-                      list={result.map(v => ({
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
-                        label: v.address,
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'votes' does not exist on type 'never'.
-                        value: v.votes,
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'reason' does not exist on type 'never'.
-                        reason: v.reason,
-                      }))}
-                      onViewAll={() => loadVotes({ filter: data.filterType })}
-                    />
-                  </Column>
-                );
-              })}
-            </Row>
-            <div className="vote-status-update">
-              {proposalInfo.state !== 'Executed' &&
-                proposalInfo.state !== 'Defeated' &&
-                proposalInfo.state !== 'Canceled' && (
-                  <div className="flex align-center just-center update-proposal-status">
+    <VoteOverviewWrapper className="flex">
+      <Row>
+        <Column xs="12" sm="9">
+          <Row>
+            <Column xs="12" sm="6">
+              <ProposalInfo proposalInfo={proposalInfo} />
+            </Column>
+            <Column xs="12" sm="6">
+              <ProposalUser proposalInfo={proposalInfo} />
+            </Column>
+          </Row>
+          <Row>
+            {[
+              { label: 'For', votes: agreeVotes, filterType: 1 },
+              { label: 'Against', votes: againstVotes, filterType: 0 },
+              { label: 'Abstain', votes: abstainVotes, filterType: 2 },
+            ].map(data => {
+              // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{ sumVote... Remove this comment to see the full error message
+              const { sumVotes, result, total } = data.votes;
+              return (
+                <Column key={uid(data)} xs="12" md="12" lg="4">
+                  <VoteCard
+                    type={data.filterType}
+                    label={data.label}
+                    voteNumber={new BigNumber(sumVotes)}
+                    totalNumber={totalVotes}
+                    addressNumber={total}
+                    emptyNumber={VOTE_DISPLAY_ROWS - total}
+                    list={result.map(v => ({
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'address' does not exist on type 'never'.
+                      label: v.address,
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'votes' does not exist on type 'never'.
+                      value: v.votes,
+                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'reason' does not exist on type 'never'.
+                      reason: v.reason,
+                    }))}
+                    onViewAll={() => loadVotes({ filter: data.filterType })}
+                  />
+                </Column>
+              );
+            })}
+          </Row>
+          <div className="vote-status-update">
+            {proposalInfo.state !== 'Executed' &&
+              proposalInfo.state !== 'Defeated' &&
+              proposalInfo.state !== 'Canceled' && (
+                <div className="flex align-center just-center update-proposal-status">
+                  <SecondaryButton
+                    disabled={
+                      !account ||
+                      isCancelLoading ||
+                      proposerVotingWeight < proposalThreshold ||
+                      cancelStatus === 'success'
+                    }
+                    loading={isCancelLoading}
+                    onClick={() => handleUpdateProposal('Cancel')}
+                  >
+                    {cancelStatus === 'pending' || cancelStatus === 'failure'
+                      ? 'Cancel'
+                      : 'Cancelled'}
+                  </SecondaryButton>
+                  {proposalInfo.state === 'Succeeded' && (
                     <PrimaryButton
-                      disabled={
-                        !account ||
-                        isCancelLoading ||
-                        proposerVotingWeight >= proposalThreshold ||
-                        cancelStatus === 'success'
-                      }
-                      onClick={() => handleUpdateProposal('Cancel')}
+                      disabled={!account || isLoading || status === 'success'}
+                      onClick={() => handleUpdateProposal('Queue')}
+                      loading={isLoading}
                     >
-                      {isCancelLoading && <Icon type="loading" />}{' '}
-                      {cancelStatus === 'pending' || cancelStatus === 'failure'
-                        ? 'Cancel'
-                        : 'Cancelled'}
+                      {status === 'pending' || status === 'failure' ? 'Queue' : 'Queued'}
                     </PrimaryButton>
-                    {proposalInfo.state === 'Succeeded' && (
-                      <PrimaryButton
-                        disabled={!account || isLoading || status === 'success'}
-                        onClick={() => handleUpdateProposal('Queue')}
-                        loading={isLoading}
-                      >
-                        {status === 'pending' || status === 'failure' ? 'Queue' : 'Queued'}
-                      </PrimaryButton>
-                    )}
-                    {proposalInfo.state === 'Queued' && (
-                      <PrimaryButton
-                        disabled={
-                          !account || isLoading || status === 'success' || !isPossibleExcuted
-                        }
-                        onClick={() => handleUpdateProposal('Execute')}
-                        loading={isLoading}
-                      >
-                        {status === 'pending' || status === 'failure' ? 'Execute' : 'Executed'}
-                      </PrimaryButton>
-                    )}
-                    {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
-                      <Tooltip title={`You are able to excute at ${excuteEta}`}>
-                        <Icon className="pointer" type="info-circle" theme="filled" />
-                      </Tooltip>
-                    )}
-                  </div>
-                )}
-              {proposalInfo.state !== 'Executed' &&
-                proposalInfo.state !== 'Defeated' &&
-                proposalInfo.state !== 'Canceled' &&
-                proposerVotingWeight >= proposalThreshold && (
-                  <p className="center warning">
-                    You can&apos;t cancel the proposal while the proposer voting weight meets
-                    proposal threshold
-                  </p>
-                )}
-            </div>
-            <Row>
-              <Column xs="12">
-                <ProposalDetail proposalInfo={proposalInfo} />
-              </Column>
-            </Row>
-          </Column>
-          <Column xs="12" sm="3">
-            <ProposalHistory proposalInfo={proposalInfo} />
-          </Column>
-        </Row>
-      </VoteOverviewWrapper>
-    </MainLayout>
+                  )}
+                  {proposalInfo.state === 'Queued' && (
+                    <PrimaryButton
+                      disabled={!account || isLoading || status === 'success' || !isPossibleExcuted}
+                      onClick={() => handleUpdateProposal('Execute')}
+                      loading={isLoading}
+                    >
+                      {status === 'pending' || status === 'failure' ? 'Execute' : 'Executed'}
+                    </PrimaryButton>
+                  )}
+                  {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
+                    <Tooltip title={`You are able to excute at ${excuteEta}`}>
+                      <Icon className="pointer" type="info-circle" theme="filled" />
+                    </Tooltip>
+                  )}
+                </div>
+              )}
+            {proposalInfo.state !== 'Executed' &&
+              proposalInfo.state !== 'Defeated' &&
+              proposalInfo.state !== 'Canceled' &&
+              proposerVotingWeight >= proposalThreshold && (
+                <p className="center warning">
+                  You can&apos;t cancel the proposal while the proposer voting weight meets proposal
+                  threshold
+                </p>
+              )}
+          </div>
+          <Row>
+            <Column xs="12">
+              <ProposalDetail proposalInfo={proposalInfo} />
+            </Column>
+          </Row>
+        </Column>
+        <Column xs="12" sm="3">
+          <ProposalHistory proposalInfo={proposalInfo} />
+        </Column>
+      </Row>
+    </VoteOverviewWrapper>
   );
 }
 

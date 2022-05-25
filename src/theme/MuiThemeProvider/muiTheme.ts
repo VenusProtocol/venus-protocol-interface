@@ -1,5 +1,5 @@
 /* https://mui.com/customization/theming/ */
-import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 const fontFamily = ['ProximaNova', 'Arial', 'sans-serif'].join(',');
 
@@ -13,6 +13,7 @@ export const PALETTE = {
   background: {
     default: 'rgba(31, 32, 40, 1)',
     paper: 'rgba(40, 41, 49, 1)',
+    black: '#1F2028',
   },
   primary: {
     light: '#EBBF6E',
@@ -31,14 +32,19 @@ export const PALETTE = {
   },
   button: {
     main: 'rgba(58, 120, 255, 1)',
-    dark: 'rgba(38, 90, 204, 1)',
-    light: 'rgba(27, 67, 152, 1)',
+    medium: 'rgba(38, 90, 204, 1)',
+    dark: 'rgba(27, 67, 152, 1)',
   },
   interactive: {
     primary: 'rgba(58, 120, 255, 1)',
     success: 'rgba(24, 223, 139, 1)',
+    success50: 'rgba(24, 223, 139, 0.5)',
     error: 'rgba(233, 61, 68, 1)',
     error50: 'rgba(233, 61, 68, 0.5)',
+    tan: 'rgba(255, 231, 206, 1)',
+    delimiter: 'rgba(49, 50, 60, 1)',
+    warning: 'rgba(220, 148, 68, 1)',
+    hover: 'rgba(255, 255, 255, 0.08)',
   },
 };
 
@@ -53,21 +59,50 @@ const BREAKPOINTS = {
   },
 };
 
-const SIDEBAR_WIDTH = 180;
-export const layoutOffset = { width: `calc(100% - ${SIDEBAR_WIDTH}px)`, ml: `${SIDEBAR_WIDTH}px` };
+export const SPACING = 4;
 
-export const defaultTheme = createTheme({
-  breakpoints: BREAKPOINTS,
-  palette: PALETTE as PaletteOptions,
-});
+export type TypographyVariant =
+  | 'button'
+  | 'caption'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'inherit'
+  | 'overline'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'body1'
+  | 'body2'
+  | 'small1'
+  | 'small2'
+  | undefined;
+
+export const SHAPE = {
+  borderRadius: {
+    verySmall: SPACING,
+    small: SPACING * 2,
+    medium: SPACING * 4,
+    large: SPACING * 6,
+  } as any, // our custom types seem to clash with the default MUI types
+  iconSize: {
+    medium: SPACING * 4,
+    large: SPACING * 5,
+    xLarge: SPACING * 6,
+  },
+  footerHeight: '56px',
+  bannerHeight: '56px',
+  drawerWidthDesktop: '224px',
+  drawerWidthTablet: '80px',
+};
 
 export default createTheme({
-  spacing: 8,
-  shape: {
-    borderRadius: 8,
-  },
+  spacing: SPACING,
   palette: PALETTE,
   breakpoints: BREAKPOINTS,
+  shape: SHAPE,
   typography: {
     fontFamily: FONTS.primary,
     color: PALETTE.text.primary,
@@ -89,7 +124,7 @@ export default createTheme({
     },
     body1: {
       fontSize: '1rem',
-      fontWeight: 600,
+      fontWeight: 400,
     },
     body2: {
       fontSize: '1rem',
@@ -107,14 +142,18 @@ export default createTheme({
       fontWeight: 400,
       color: PALETTE.text.secondary,
     },
+    tiny: {
+      fontSize: '0.75rem',
+    },
   },
   components: {
-    MuiAppBar: {
+    MuiPaper: {
       styleOverrides: {
         root: {
-          ...layoutOffset,
-          backgroundColor: PALETTE.background.default,
           backgroundImage: 'none',
+          backgroundColor: PALETTE.background.paper,
+          borderRadius: SHAPE.borderRadius.large,
+          padding: SPACING * 6,
           boxShadow: 'none',
         },
       },
@@ -122,24 +161,11 @@ export default createTheme({
     MuiDrawer: {
       styleOverrides: {
         root: {
-          width: SIDEBAR_WIDTH,
-          flexShrink: 0,
+          borderRadius: 0,
         },
         paper: {
-          width: SIDEBAR_WIDTH,
-          borderRadius: '0 16px 16px 0',
-          border: 'none',
-        },
-      },
-    },
-    MuiToolbar: {
-      styleOverrides: {
-        root: {
-          paddingTop: defaultTheme.spacing(3),
-          paddingBottom: defaultTheme.spacing(3),
-          [defaultTheme.breakpoints.up('md')]: {
-            minHeight: 96,
-          },
+          padding: 0,
+          borderRadius: 0,
         },
       },
     },
@@ -153,47 +179,11 @@ export default createTheme({
         },
       },
     },
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          lineHeight: '24px',
-          borderRadius: 8,
-          height: 32,
-          boxSizing: 'border-box',
-        },
-        select: {
-          paddingTop: 4,
-          paddingBottom: 4,
-          paddingLeft: 12,
-          backgroundColor: PALETTE.background.paper,
-          borderRadius: 8,
-        },
-        icon: {
-          transition: 'transform .3s',
-        },
-      },
-    },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
           top: 0,
           border: 'none',
-        },
-      },
-    },
-    MuiSwitch: {
-      styleOverrides: {
-        switchBase: {
-          color: PALETTE.text.disabled,
-          '&.Mui-checked': {
-            color: PALETTE.interactive.error,
-          },
-          '&+.MuiSwitch-track': {
-            backgroundColor: PALETTE.background.default,
-          },
-          '&.Mui-checked+.MuiSwitch-track': {
-            backgroundColor: PALETTE.background.default,
-          },
         },
       },
     },

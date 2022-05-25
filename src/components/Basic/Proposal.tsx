@@ -10,7 +10,7 @@ import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
 import { Proposal as ProposalObject } from 'types';
 import { Label } from './Label';
-import { useGovernorBravo } from '../../hooks/useContract';
+import { useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
 import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';
 
 const ProposalWrapper = styled.div`
@@ -202,7 +202,7 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
   const [voteStatus, setVoteStatus] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [voteReason, setVoteReason] = useState('');
-  const governorBravoContract = useGovernorBravo();
+  const governorBravoContract = useGovernorBravoDelegateContract();
 
   const getStatus = (p: ProposalObject) => {
     if (p.state === 'Executed') {
@@ -218,8 +218,8 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
   };
 
   const getIsHasVoted = useCallback(async () => {
-    const res = await governorBravoContract.methods.getReceipt(proposal.id, address).call();
-    setVoteStatus(res.hasVoted ? 'voted' : 'novoted');
+    const [hasVoted] = await governorBravoContract.methods.getReceipt(proposal.id, address).call();
+    setVoteStatus(hasVoted ? 'voted' : 'novoted');
   }, [address, proposal]);
 
   useEffect(() => {

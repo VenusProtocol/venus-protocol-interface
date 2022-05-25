@@ -1,0 +1,533 @@
+{
+  "accountHealth": {
+    "accessibilityLabel": "Representation of the current state of your account",
+    "borrowLimitTooltip": "Current borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
+    "borrowLimitUsed": "Borrow limit used:",
+    "currentBorrowBalance": "Current:",
+    "limit": "Limit:",
+    "max": "Max:",
+    "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
+  },
+  "apyChart": {
+    "tooltipItemLabels": {
+      "borrowApy": "Borrow APY",
+      "supplyApy": "Supply APY",
+      "totalBorrow": "Total borrow",
+      "totalSupply": "Total supply"
+    }
+  },
+  "authModal": {
+    "accountDetails": {
+      "logOutButtonLabel": "Log out"
+    },
+    "title": {
+      "connectWallet": "Connect a wallet to start using Venus",
+      "yourWallet": "Your wallet"
+    },
+    "walletList": {
+      "comingSoon": "Coming soon",
+      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>."
+    }
+  },
+  "borrowRepayModal": {
+    "borrow": {
+      "borrowableAmount": "Borrowable amount: <White>{{amount}}</White>",
+      "borrowAPy": "Borrow APY",
+      "borrowBalance": "Borrow balance",
+      "borrowLimitUsed": "Borrow limit used",
+      "connectWalletMessage": "Please connect your wallet to borrow",
+      "dailyEarnings": "Daily earnings",
+      "distributionAPy": "Distribution APY",
+      "enableToken": {
+        "borrowInfo": "Borrow APY",
+        "distributionInfo": "Distribution APY",
+        "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first."
+      },
+      "highAmountWarning": "You entered a high amount. There is a risk of liquidation.",
+      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
+      "submitButton": "Borrow",
+      "submitButtonDisabled": "Enter a valid amount to borrow",
+      "successfulTransactionModal": {
+        "message": "You successfully borrowed",
+        "title": "Your borrow was successful"
+      }
+    },
+    "borrowTabTitle": "Borrow",
+    "repay": {
+      "connectWalletMessage": "Please connect your wallet to repay",
+      "currentlyBorrowing": "Currently borrowing",
+      "enableToken": {
+        "borrowInfo": "Borrow APY",
+        "distributionInfo": "Distribution APY",
+        "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first."
+      },
+      "rightMaxButtonLabel": "MAX",
+      "submitButton": "Repay",
+      "submitButtonDisabled": "Enter a valid amount to repay",
+      "successfulTransactionModal": {
+        "message": "You successfully repaid",
+        "title": "Your repayment was successful"
+      },
+      "walletBalance": "Wallet balance: <White>{{balance}}</White>"
+    },
+    "repayTabTitle": "Repay"
+  },
+  "bscLink": {
+    "content": "View on bscscan.com<Icon/>"
+  },
+  "claimXvsRewardButton": {
+    "successfulTransactionModal": {
+      "message": "You successfully claimed",
+      "title": "Your claim was successful"
+    },
+    "title": "Claim <Icon/> {{amount}}"
+  },
+  "connectButton": {
+    "title": "Connect wallet"
+  },
+  "connectWallet": {
+    "connectButton": "Connect wallet"
+  },
+  "convertVrt": {
+    "balance": "Balance: <White>{{amount}}</White>",
+    "connectWalletToConvertVrtToXvs": "To convert VRT to XVS you should connect your wallet first",
+    "connectWalletToWithdrawXvs": "To withdraw XVS you should connect your wallet first",
+    "convert": "Convert",
+    "convertVrt": "Convert VRT",
+    "convertVrtToXvs": "Convert VRT to XVS",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} day",
+    "enableVrt": "To convert VRT to XVS you will first need to enable it.",
+    "hours_one": "{{count}} hour",
+    "hours_other": "{{count}} hours",
+    "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
+    "max": "MAX",
+    "minutes_one": "{{count}} minute",
+    "minutes_other": "{{count}} minutes",
+    "remainingTimeDays_one": "<Icon/> Remaining time:\u00a0<White>{{count}} day</White>",
+    "remainingTimeDays_other": "<Icon/> Remaining time:\u00a0<White>{{count}} days</White>",
+    "remainingTimeHours_one": "<Icon/> Remaining time:\u00a0<White>{{count}} hour</White>",
+    "remainingTimeHours_other": "<Icon/> Remaining time:\u00a0<White>{{count}} hours</White>",
+    "remainingTimeHoursAndMinutes": "<Icon/> Remaining time:\u00a0<White>$t(convertVrt.hours, {\"count\": {{hours}} }) and $t(convertVrt.minutes, {\"count\": {{minutes}} })</White>",
+    "remainingTimeMinutes": "<Icon/> Remaining time:\u00a0<White>{{count}} minute</White>",
+    "remainingTimeMinutes_other": "<Icon/> Remaining time:\u00a0<White>{{count}} minutes</White>",
+    "remainingTimeMissing": "<Icon/> Remaining time:\u00a0<White>{{count}}</White>",
+    "successfulConvertTransactionModal": {
+      "title": "Convert submitted successfully"
+    },
+    "vrtEqualsXvs": "1 VRT = {{xvsToVrtConversionRatio}} XVS",
+    "withdraw": "Withdraw",
+    "withdrawableAmount": "Withdrawable amount",
+    "withdrawXvs": "Withdraw XVS",
+    "xvsAVailable": "Current XVS Available",
+    "youWillReceive": "You will receive"
+  },
+  "dashboard": {
+    "markets": {
+      "tabBorrow": "Borrow",
+      "tabSupply": "Supply",
+      "title": "Markets"
+    }
+  },
+  "enableToken": {
+    "enableButtonLabel": "Enable"
+  },
+  "errors": {
+    "walletNotConnected": "Wallet not connected"
+  },
+  "footer": {
+    "latestNumber": "Latest Block:\u00a0"
+  },
+  "interestRateChart": {
+    "currentUtilizationRateLabelValue": "Current ({{percentage}})",
+    "tooltipItemLabels": {
+      "borrowApy": "Borrow APY",
+      "supplyApy": "Supply APY",
+      "utilizationRate": "Utilization rate"
+    }
+  },
+  "layout": {
+    "bannerText": "Venus Protocol is resuming in a phased approach. Due to the Terra incident, all accounts with LUNA and UST borrowing or collateralization are offline. Check the\u00a0<Anchor>announcement</Anchor>\u00a0for details.",
+    "menuItems": {
+      "convertVrt": "Convert VRT",
+      "convertVrtTitle": "Convert VRT to XVS",
+      "dashboard": "Dashboard",
+      "faucet": "Faucet",
+      "history": "History",
+      "market": "Market",
+      "vault": "Vault",
+      "vote": "Vote",
+      "xvs": "XVS",
+      "xvsPrediction": "XVS Prediction"
+    }
+  },
+  "market": {
+    "availableLiquidity": "Available Liquidity",
+    "columns": {
+      "asset": "Asset",
+      "borrowApy": "Borrow APY",
+      "liquidity": "Liquidity",
+      "price": "Price",
+      "supplyApy": "Supply APY",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    },
+    "totalBorrow": "Total Borrow",
+    "totalSupply": "Total Supply",
+    "totalTreasury": "Total Treasury"
+  },
+  "marketDetails": {
+    "borrowInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalBorrow": "Total borrow"
+      },
+      "title": "Borrow info"
+    },
+    "interestRateModel": {
+      "title": "Interest Rate Model"
+    },
+    "legends": {
+      "borrowApy": "Borrow APY",
+      "supplyApy": "Supply APY",
+      "utilizationRate": "Utilization rate"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowCapLabel": "Borrow cap",
+        "borrowerCountLabel": "# of borrowers",
+        "collateralFactorLabel": "Collateral factor",
+        "dailyInterestsLabel": "Interest paid/day",
+        "exchangeRateLabel": "Exchange rate",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "marketLiquidityLabel": "Market liquidity",
+        "mintedTokensLabel": "{{vTokenSymbol}} minted",
+        "priceLabel": "Price",
+        "reserveFactorLabel": "Reserve factor",
+        "reserveTokensLabel": "Reserves",
+        "supplierCountLabel": "# of suppliers",
+        "unlimitedBorrowCap": "Unlimited"
+      },
+      "title": "Market info"
+    },
+    "supplyInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalSupply": "Total supply"
+      },
+      "title": "Supply info"
+    }
+  },
+  "markets": {
+    "borrowingTableTitle": "Borrowing",
+    "borrowMarketTableTitle": "Borrow market",
+    "collateralConfirmModal": {
+      "confirmText": "Confirm the transaction",
+      "disable": "Disable as collateral",
+      "enable": "Enable as collateral"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "Asset",
+      "balance": "Balance",
+      "collateral": "Collateral",
+      "liquidity": "Liquidity",
+      "percentOfLimit": "% of Limit",
+      "wallet": "Wallet"
+    },
+    "errors": {
+      "accountError": {
+        "description": "Please connect your wallet to set an asset as collateral.",
+        "title": "Account Required"
+      },
+      "collateralDisableError": {
+        "description": "There was a problem disabling {{assetName}} as a collateral. Please try again.",
+        "title": "Collateral Disable Error"
+      },
+      "collateralEnableError": {
+        "description": "There was a problem enabling {{assetName}} as a collateral. Please try again.",
+        "title": "Collateral Enable Error"
+      },
+      "collateralRequired": {
+        "description": "Please repay all borrowed assets or set other assets as collateral.",
+        "title": "Collateral Required"
+      }
+    },
+    "suppliedTableTitle": "Supplied",
+    "supplyMarketTableTitle": "Supply market"
+  },
+  "mintRepayVai": {
+    "mintVai": {
+      "btnMintVai": "Mint VAI",
+      "connectWallet": "Please connect your wallet to mint VAI.",
+      "enableToken": "To mint VAI to the Venus Protocol, you need to approve it first",
+      "mintFeeLabel": "Mint fee",
+      "rightMaxButtonLabel": "SAFE MAX",
+      "successfulTransactionModal": {
+        "message": "You successfully minted",
+        "title": "Your mint was successful"
+      },
+      "undefinedAccountErrorMessage": "account undefined",
+      "vaiLimitLabel": "Available VAI limit"
+    },
+    "repayVai": {
+      "btnRepayVai": "Repay VAI",
+      "connectWallet": "Please connect your wallet to repay VAI.",
+      "enableToken": "To repay VAI to the Venus Protocol, you need to approve it first",
+      "repayVaiBalance": "Repay VAI balance",
+      "rightMaxButtonLabel": "MAX",
+      "successfulTransactionModal": {
+        "message": "You successfully repaid",
+        "title": "Your repayment was successful"
+      },
+      "undefinedAccountErrorMessage": "account undefined"
+    },
+    "tabMint": "Mint VAI",
+    "tabRepay": "Repay VAI",
+    "title": "Mint/Repay VAI"
+  },
+  "myAccount": {
+    "apyWithXvs": "APY with XVS",
+    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APY in calculations",
+    "borrowBalance": "Borrow balance",
+    "dailyEarnings": "Daily earnings",
+    "includingMintedVai": "Including minted VAI",
+    "netApy": "Net APY",
+    "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+    "safeLimit": "Your safe limit:",
+    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
+    "supplyBalance": "Supply balance",
+    "title": "My account"
+  },
+  "supplyWithdraw": {
+    "borrowLimit": "Borrow limit",
+    "connectWalletToSupply": "Please connect your wallet to supply",
+    "connectWalletToWithdraw": "Please connect your wallet to withdraw",
+    "dailyEarnings": "Daily Earnings",
+    "distributionApy": "Distribution APY",
+    "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first.",
+    "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first.",
+    "enterValidAmountSupply": "Enter a valid amount to supply",
+    "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
+    "max": "Max",
+    "successfulSupplyTransactionModal": {
+      "message": "You successfully supplied",
+      "title": "Your supply was successful"
+    },
+    "successfulWithdrawTransactionModal": {
+      "message": "You successfully withdrew",
+      "title": "Your withdrawal was successful"
+    },
+    "supply": "Supply",
+    "supplyApy": "Supply APY",
+    "supplyBalance": "Supply Balance",
+    "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
+    "withdraw": "Withdraw",
+    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
+  },
+  "transactionErrors": {
+    "comptrollertransactionErrors": {
+      "comptrollerMismatch": "Comptroller Mismatch",
+      "insufficientBalanceForVai": "Insufficient Balance For Vai",
+      "insufficientLiquidity": "Insufficient Liquidity",
+      "insufficientShortfall": "Insufficient Shortfall",
+      "invalidCloseFactor": "Invalid Close Factor",
+      "invalidCollateralFactor": "Invalid Collateral Factor",
+      "invalidLiquidationIncentive": "Invalid Liquidation Incentive",
+      "marketAlreadyListed": "Market Already Listed",
+      "marketNotEntered": "Market Not Entered",
+      "marketNotListed": "Market Not Listed",
+      "mathError": "Math Error",
+      "noError": "No Error",
+      "nonzeroBorrowBalance": "Nonzero Borrow Balance",
+      "priceError": "Price Error",
+      "rejection": "Rejection",
+      "snapshotError": "Snapshot Error",
+      "tooManyAssets": "Too Many Assets",
+      "tooMuchRepay": "Too Much Repay",
+      "unauthorized": "Unauthorized"
+    },
+    "comptrollertransactionErrorsFailureInfo": {
+      "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
+      "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
+      "exitMarketBalanceOwed": "Exit Market Balance Owed",
+      "exitMarketRejection": "Exit Market Rejection",
+      "setCloseFactorOwnerCheck": "Set Close Factor Owner Check",
+      "setCloseFactorValidation": "Set Close Factor Validation",
+      "setCollateralFactorNoExists": "Set Collateral Factor No Exists",
+      "setCollateralFactorOwnerCheck": "Set Collateral Factor Owner Check",
+      "setCollateralFactorValidation": "Set Collateral Factor Validation",
+      "setCollateralFactorWithoutPrice": "Set Collateral Factor Without Price",
+      "setImplementationOwnerCheck": "Set Implementation Owner Check",
+      "setLiquidationIncentiveOwnerCheck": "Set Liquidation Incentive Owner Check",
+      "setLiquidationIncentiveValidation": "Set Liquidation Incentive Validation",
+      "setMaxAssetsOwnerCheck": "Set Max Assets Owner Check",
+      "setMintedVaiRejection": "Set Minted VAI Rejection",
+      "setPauseGuardianOwnerCheck": "Set Pause Guardian Owner Check",
+      "setPendingAdminOwnerCheck": "set Pending Admin Owner Check",
+      "setPendingImplementationOwnerCheck": "Set Pending Implementation Owner Check",
+      "setPriceOracleOwnerCheck": "Set Price Oracle Owner Check",
+      "setTreasuryOwnerCheck": "Set Treasury Owner Check",
+      "setVaiControllerOwnerCheck": "Set VAI Controller Owner Check",
+      "setVaiMintRateCheck": "Set VAI Mint Rate Check",
+      "supportMarketExists": "Support Market Exists",
+      "supportMarketOwnerCheck": "Support Market Owner Check"
+    },
+    "tokentransactionErrorsError": {
+      "badInput": "Bad Input",
+      "comptrollerCalculationError": "Comptroller Calculation Error",
+      "comptrollerRejection": "Comptroller Rejection",
+      "interestRateModelError": "Interest Rate Model Error",
+      "invalidAccountPair": "Invalid Account Pair",
+      "invalidCloseAmountRequested": "Invalid Close Amount Requested",
+      "invalidCollateralFactor": "Invalid Collateral Factor",
+      "marketNotFresh": "Market Not Fresh",
+      "marketNotListed": "Market Not Listed",
+      "mathError": "Math Error",
+      "noError": "No Error",
+      "tokenInsufficentCash": "tokenInsufficent Cash",
+      "tokenInsufficientAllowance": "Token Insufficient Allowance",
+      "tokenInsufficientBalance": "Token Insufficient Balance",
+      "tokenPriceError": "Token Price Error",
+      "tokenTransferInFailed": "Token Transfer In Failed",
+      "tokenTransferOutFailed": "Token Transfer Out Failed",
+      "unauthorized": "Unauthorizedd"
+    },
+    "tokentransactionErrorsFailureInfo": {
+      "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
+      "accrueInterestAccumulatedInterestCalculationFailed": "Accrue Interest Accumulated Interest Calculation Failed",
+      "accrueInterestBorrowRateCalculationFailed": "Accrue Interest Borrow Rate Calculation Failed",
+      "accrueInterestNewBorrowIndexCalculationFailed": "Accrue Interest New Borrow Index Calculation Failed",
+      "accrueInterestNewTotalBorrowsCalculationFailed": "Accrue Interest New Total Borrows Calculation Failed",
+      "accrueInterestNewTotalReservesCalculationFailed": "Accrue Interest New Total Reserves Calculation Failed",
+      "accrueInterestSimpleInterestFactorCalculationFailed": "Accrue Interest Simple Interest Factor Calculation Failed",
+      "addReservesAccrueInterestFailed": "Add Reserves Accrue Interest Failed",
+      "addReservesFreshCheck": "Add Reserves Fresh Check",
+      "addReservesTransferInNotPossible": "Add Reserves Transfer In Not Possible",
+      "borrowAccrueInterestFailed": "Borrow Accrue Interest Failed",
+      "borrowAccumulatedBalanceCalculationFailed": "Borrow Accumulated Balance Calculation Failed",
+      "borrowCashNotAvailable": "Borrow Cash Not Available",
+      "borrowComptrollerRejection": "Borrow Comptroller Rejection",
+      "borrowFreshnessCheck": "Borrow Freshness Check",
+      "borrowMarketNotListed": "Borrow Market Not Listed",
+      "borrowNewAccountBorrowBalanceCalculationFailed": "Borrow New Account Borrow Balance Calculation Failed",
+      "borrowNewTotalBalanceCalculationFailed": "Borrow New Total Balance Calculation Failed",
+      "liquidateAccrueBorrowInterestFailed": "Liquidate Accrue BorrowInterest Failed",
+      "liquidateAccrueCollateralInterestFailed": "Liquidate Accrue Collateral Interest Failed",
+      "liquidateCloseAmountIsUintMax": "Liquidate Close Amount Is UINT Max",
+      "liquidateCloseAmountIsZero": "Liquidate Close Amount Is Zero",
+      "liquidateCollateralFreshnessCheck": "Liquidate Collateral Freshness Check",
+      "liquidateComptrollerCalculateAmountSeizeFailed": "Liquidate Comptroller Calculate Amount Seize Failed",
+      "liquidateComptrollerRejection": "Liquidate Comptroller Rejection",
+      "liquidateFreshnessCheck": "Liquidate Freshness Check",
+      "liquidateSeizeBalanceDecrementFailed": "Liquidate Seize Balance Decrement Failed",
+      "liquidateSeizeBalanceIncrementFailed": "Liquidate Seize Balance Increment Failed",
+      "liquidateSeizeBorrowFreshFailed": "Liquidate Seize Borrow Fresh Failed",
+      "liquidateSeizeComptrollerRejection": "Liquidate Seize Comptroller Rejection",
+      "liquidateSeizeIsBorrower": "LiquidateSeizeIsBorrower",
+      "liquidateSeizeLiquidatorIsBorrower": "LiquidateSeizeLiquidatorIsBorrower",
+      "liquidateSeizeTooMuch": "Liquidate Seize Too Much",
+      "mintAccrueInterestFailed": "Mint Accrue Interest Failed",
+      "mintComptrollerRejection": "Mint Comptroller Rejection",
+      "mintExchangeRateReadFailed": "Mint Exchange Rate Read Failed",
+      "mintFreshnessCheck": "Mint Freshness Check",
+      "mintNewAccountBalanceCalculationFailed": "Mint New Account Balance Calculation Failed",
+      "mintNewTotalSupplyCalculationFailed": "Mint New Total Supply Calculation Failed",
+      "mintTransferInFailed": "Mint Transfer In Failed",
+      "mintTransferNotPossible": "Mint Transfer Not Possible",
+      "redeemAccrueInterestFailed": "Redeem Accrue Interest Failed",
+      "redeemComptrollerRejection": "Redeem Comptroller Rejection",
+      "redeemExchangeAmountCalculatioFailed": "Redeem Exchange Amount Calculatio Failed",
+      "redeemExchangeRateReadFailed": "Redeem Exchange Rate Read Failed",
+      "redeemExchangeTokensCalculationFailed": "Redeem Exchange Tokens Calculation Failed",
+      "redeemFeeCalculationFailed": "Redeem Fee Calculation Failed",
+      "redeemFreshnessCheck": "Redeem Freshness Check",
+      "redeemNewAccountBalanceCalculationFailed": "Redeem New Account Balance Calculation Failed",
+      "redeemNewTotalSupplyCalculationFailed": "Redeem New Total Supply Calculation Failed",
+      "redeemTransferOutNotPossible": "Redeem Transfer Out Not Possible",
+      "reduceReservesAccrueInterestFailed": "Reduce Reserves Accrue Interest Failed",
+      "reduceReservesAdminCheck": "Reduce Reserves Admin Check",
+      "reduceReservesCashNotAvailable": "Reduce Reserves Cash Not Available",
+      "reduceReservesFreshCheck": "Reduce Reserves Fresh Check",
+      "reduceReservesValidation": "Reduce Reserves Validation",
+      "repayBehalfAccrueInterestFailed": "repay Behalf Accrue Interest Failed",
+      "repayBorrowAccrueInterestFailed": "repay Borrow Accrue Interest Failed",
+      "repayBorrowAccumulatedBalanceCalculationFailed": "Repay Borrow Accumulated Balance Calculation Failed",
+      "repayBorrowComptrollerRejection": "Repay Borrow Comptroller Rejection",
+      "repayBorrowFreshnessCheck": "Repay Borrow Freshness Check",
+      "repayBorrowNewAccountBorrowBalanceCalculationFailed": "Repay Borrow New Account Borrow Balance Calculation Failed",
+      "repayBorrowTransferInNotPossible": "Repay Borrow Transfer In Not Possible",
+      "repayBorrowTransferNotPossible": "Repay Borrow Transfer Not Possible",
+      "repayVaiComptrollerRejection": "repay VAI Comptroller Rejection",
+      "repayVaiFreshnessCheck": "Repay VAI Freshness Check",
+      "setCollateralFactorOwnerCheck": "Set Collateral Factor Owner Check",
+      "setCollateralFactorValidation": "Set Collateral Factor Validation",
+      "setComptrollerOwnerCheck": "Set Comptroller Owner Check",
+      "setInterestRateModelAccrueInterestFailed": "Set Interest Rate Model Accrue Interest Failed",
+      "setInterestRateModelFreshCheck": "Set Interest Rate Model Fresh Check",
+      "setInterestRateModelOwnerCheck": "Set Interest Rate Model Owner Check",
+      "setMaxAssetsOwnerCheck": "Set Max Assets Owner Check",
+      "setOracleMarketNotListed": "Set Oracle Market Not Listed",
+      "setPendingAdminOwnerCheck": "Set Pending Admin Owner Check",
+      "setReserveFactorAccrueInterestFailed": "Set Reserve Factor Accrue Interest Failed",
+      "setReserveFactorAdminCheck": "Set Reserve Factor Admin Check",
+      "setReserveFactorBoundsCheck": "Set Reserve Factor Bounds Check",
+      "setReserveFactorFreshCheck": "Set Reserve Factor Fresh Check",
+      "sftMintNewAccountBalanceCalculationFailed": "SFT Mint New Account Balance Calculation Failed",
+      "tokenGetUnderlyingPriceError": "Token Get Underlying Price Error",
+      "transferComptrollerRejection": "Transfer Comptroller Rejection",
+      "transferNotAllowed": "Transfer Not Allowed",
+      "transferNotEnough": "Transfer Not Enough",
+      "transferTooMuch": "Transfer Too Much",
+      "vaiMintExchangeCalculationFailed": "VAI Mint Exchange Calculation Failed"
+    },
+    "vaiControllerReporterError": {
+      "insufficientBalanceForVai": "Insufficient Balance For VAI",
+      "mathError": "Mat hError",
+      "noError": "No Error",
+      "priceError": "Price Error",
+      "rejection": "Rejection",
+      "snpashotError": "Snpashot Error",
+      "unauthorized": "Unauthorized"
+    },
+    "vaiControllerReporterFailureInfo": {
+      "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
+      "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
+      "mintFeeCalculationFailed": "Mint Fee Calculation Failed",
+      "setComptrollerOwnerCheck": "Set Comptroller Owner Check",
+      "setPendingAdminOwnerCheck": "Set Pending Admin Owner Check",
+      "setPendingImplementationOwnerCheck": "Set Pending Implementation Owner Check",
+      "setTreasureOwnerCheck": "Set Treasure Owner Check",
+      "vaiBurnRejection": "VAI Burn Rejection",
+      "vaiLiquidateAccrueBorrowInterestFailed": "VAI Liquidate Accrue Borrow Interest Failed",
+      "vaiLiquidateAccrueCollateralInterestFailed": "VAI Liquidate Accrue Collateral Interest Failed",
+      "vaiLiquidateCloseAmountIsUintMax": "VAI Liquidate Close Amount Is UINT Max",
+      "vaiLiquidateCloseAmountIsZero": "VAI Liquidate Close Amount Is Zero",
+      "vaiLiquidateCollateralFreshnessCheck": "VAI Liquidate Collateral Freshness Check",
+      "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "VAI Liquidate Comptroller Calculate Amount Seize Failed",
+      "vaiLiquidateComptrollerRejection": "VAI Liquidate Comptroller Rejection",
+      "vaiLiquidateFreshnessCheck": "VAI Liquidate Freshness Check",
+      "vaiLiquidateLiquidatorIsBorrower": "VAI LiquidateLiquidatorIsBorrower",
+      "vaiLiquidateRepayBorrowFreshFailed": "VAI Liquidate Repay Borrow Fresh Failed",
+      "vaiLiquidateSeizeBalanceDecrementFailed": "VAI Liquidate Seize Balance Decrement Failed",
+      "vaiLiquidateSeizeBalanceIncrementFailed": "VAI Liquidate Seize Balance Increment Failed",
+      "vaiLiquidateSeizeComptrollerRejection": "VAI Liquidate Seize Comptroller Rejection",
+      "vaiLiquidateSeizeLiquidatorIsBorrower": "VAI Liquidate Seize Liquidator Is Borrower",
+      "vaiLiquidateSeizeTooMuch": "VAI Liquidate Seize Too Much",
+      "vaiMintRejection": "VAI Mint Rejected"
+    }
+  },
+  "xvs": {
+    "columns": {
+      "asset": "Asset",
+      "borrowXvsApy": "Borrow XVS APY",
+      "supplyXvsApy": "Supply XVS APY",
+      "xvsPerDay": "XVS Per Day"
+    },
+    "dailyDistribution": "Daily Distribution:",
+    "progressBar": "Xvs Distribution progress",
+    "remaining": "Remaining:"
+  }
+}

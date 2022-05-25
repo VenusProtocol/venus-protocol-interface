@@ -1,0 +1,402 @@
+import React from 'react';
+import BigNumber from 'bignumber.js';
+import { fireEvent, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { assetData } from '__mocks__/models/asset';
+import renderComponent from 'testUtils/renderComponent';
+import { AuthContext } from 'context/AuthContext';
+import fakeAccountAddress from '__mocks__/models/address';
+import transactionReceipt from '__mocks__/models/transactionReceipt';
+import { useUserMarketInfo } from 'clients/api';
+import en from 'translation/translations/en.json';
+import Convert from '.';
+
+jest.mock('clients/api');
+
+const ONE = '1';
+
+describe('pages/ConvertVRT/Convert', () => {
+  beforeEach(() => {
+    jest.useFakeTimers('modern').setSystemTime(new Date('2022-03-01'));
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: assetData,
+      userTotalBorrowLimit: new BigNumber('111'),
+      userTotalBorrowBalance: new BigNumber('91'),
+      userTotalSupplyBalance: new BigNumber('910'),
+    }));
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  it('submit button is enabled with input, good vesting period and not loading', () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={new BigNumber('0.0000833')}
+          vrtConversionEndTime={IN_ONE_YEAR}
+          userVrtBalanceWei={new BigNumber('90000083300000000000')}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const tokenTextInput = getByTestId('vrt-token-text-field');
+    act(() => {
+      fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    });
+    const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
+    expect(submitButton).toBeEnabled();
+  });
+
+  it('submit button is disabled if vesting period has passed', () => {
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={new BigNumber('0.0000833')}
+          vrtConversionEndTime={new Date('2000-01-01')}
+          userVrtBalanceWei={new BigNumber('90000083300000000000')}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const tokenTextInput = getByTestId('vrt-token-text-field');
+    act(() => {
+      fireEvent.change(tokenTextInput, { target: { value: ONE } });
+    });
+    const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('submit button is disabled with no input and valid vesting', () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={new BigNumber('0.0000833')}
+          vrtConversionEndTime={new Date('2000-01-01')}
+          userVrtBalanceWei={new BigNumber('90000083300000000000')}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('submit button is disabled with no input and valid vesting', () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const { getByText } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={new BigNumber('0.0000833')}
+          vrtConversionEndTime={new Date('2000-01-01')}
+          userVrtBalanceWei={new BigNumber('90000083300000000000')}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('xvs is calculate passed on VRT input', () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const userVrtBalanceWei = new BigNumber('90000083300000000000');
+    const xvsToVrtConversionRatio = new BigNumber('0.0000833');
+    const { getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
+          vrtConversionEndTime={IN_ONE_YEAR}
+          userVrtBalanceWei={userVrtBalanceWei}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const vrtTextInput = getByTestId('vrt-token-text-field');
+    act(() => {
+      fireEvent.change(vrtTextInput, { target: { value: ONE } });
+    });
+    const xvsTextInput = getByTestId('xvs-token-text-field') as HTMLInputElement;
+    expect(xvsTextInput.value).toBe(new BigNumber(ONE).times(xvsToVrtConversionRatio).toFixed());
+  });
+
+  it('can convert vrt for xvs with valid input', async () => {
+    const convertVrt = jest.fn().mockReturnValue(transactionReceipt.transactionHash);
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const userVrtBalanceWei = new BigNumber('90000083300000000000');
+    const xvsToVrtConversionRatio = new BigNumber('0.0000833');
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
+          vrtConversionEndTime={IN_ONE_YEAR}
+          userVrtBalanceWei={userVrtBalanceWei}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={convertVrt}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    await act(async () => {
+      await waitFor(() => fireEvent.change(vrtTextInput, { target: { value: ONE } }));
+    });
+    const submitButton = await waitFor(
+      () => getByText(en.convertVrt.convertVrtToXvs).closest('button') as HTMLButtonElement,
+    );
+    await waitFor(() => expect(submitButton).toBeEnabled());
+    await act(async () => {
+      await waitFor(() => fireEvent.click(submitButton));
+    });
+    await waitFor(() => expect(submitButton).toBeDisabled());
+    await waitFor(() => expect(convertVrt).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(convertVrt).toHaveBeenCalledWith('1000000000000000000'));
+    // Show modal
+    getByText(en.convertVrt.successfulConvertTransactionModal.title);
+  });
+
+  it('Max button inputs max amount', () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const userVrtBalanceWei = new BigNumber('90000083300000000000');
+    const xvsToVrtConversionRatio = new BigNumber('0.0000833');
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
+          vrtConversionEndTime={IN_ONE_YEAR}
+          userVrtBalanceWei={userVrtBalanceWei}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const maxButton = getByText(en.convertVrt.max.toUpperCase());
+    act(async () => {
+      await waitFor(() => fireEvent.click(maxButton));
+    });
+    const vrtTextInput = getByTestId('vrt-token-text-field') as HTMLInputElement;
+    expect(vrtTextInput.value).toBe(
+      userVrtBalanceWei.dividedBy(new BigNumber(10).pow(18).toFixed()).toFixed(),
+    );
+  });
+
+  it('cannot convert above limit', async () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const userVrtBalanceWei = new BigNumber('90000083300000000000');
+    const xvsToVrtConversionRatio = new BigNumber('0.0000833');
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
+          vrtConversionEndTime={IN_ONE_YEAR}
+          userVrtBalanceWei={userVrtBalanceWei}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    await act(async () => {
+      await waitFor(() =>
+        fireEvent.change(vrtTextInput, {
+          target: { value: userVrtBalanceWei.times(userVrtBalanceWei).toFixed() },
+        }),
+      );
+    });
+    const submitButton = await waitFor(
+      () => getByText(en.convertVrt.convertVrtToXvs).closest('button') as HTMLButtonElement,
+    );
+    await waitFor(() => expect(submitButton).toBeDisabled());
+  });
+
+  it('cannot convert negative', async () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const userVrtBalanceWei = new BigNumber('90000083300000000000');
+    const xvsToVrtConversionRatio = new BigNumber('0.0000833');
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
+          vrtConversionEndTime={IN_ONE_YEAR}
+          userVrtBalanceWei={userVrtBalanceWei}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    await act(async () => {
+      await waitFor(() =>
+        fireEvent.change(vrtTextInput, {
+          target: { value: userVrtBalanceWei.times(-1).toFixed() },
+        }),
+      );
+    });
+    const submitButton = await waitFor(
+      () => getByText(en.convertVrt.convertVrtToXvs).closest('button') as HTMLButtonElement,
+    );
+    await waitFor(() => expect(submitButton).toBeDisabled());
+  });
+
+  it('cannot convert 0', async () => {
+    const IN_ONE_YEAR = new Date();
+    IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
+    const userVrtBalanceWei = new BigNumber('90000083300000000000');
+    const xvsToVrtConversionRatio = new BigNumber('0.0000833');
+    const { getByText, getByTestId } = renderComponent(
+      <AuthContext.Provider
+        value={{
+          login: jest.fn(),
+          logOut: jest.fn(),
+          openAuthModal: jest.fn(),
+          closeAuthModal: jest.fn(),
+          account: {
+            address: fakeAccountAddress,
+          },
+        }}
+      >
+        <Convert
+          xvsToVrtConversionRatio={xvsToVrtConversionRatio}
+          vrtConversionEndTime={IN_ONE_YEAR}
+          userVrtBalanceWei={userVrtBalanceWei}
+          convertVrtLoading={false}
+          userVrtEnabled
+          convertVrt={jest.fn()}
+          walletConnected
+        />
+      </AuthContext.Provider>,
+    );
+    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    await act(async () => {
+      await waitFor(() => fireEvent.change(vrtTextInput, { target: { value: '0' } }));
+    });
+    const submitButton = await waitFor(
+      () => getByText(en.convertVrt.convertVrtToXvs).closest('button') as HTMLButtonElement,
+    );
+    await waitFor(() => expect(submitButton).toBeDisabled());
+  });
+});

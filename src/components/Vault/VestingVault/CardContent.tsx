@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
 import NumberFormat from 'react-number-format';
-import * as constants from 'utilities/constants';
-import { useXvsVaultProxy } from 'hooks/useContract';
+
+import { getToken } from 'utilities';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import useRefresh from 'hooks/useRefresh';
-import useWeb3 from 'hooks/useWeb3';
-import { getTokenContractByAddress } from 'utilities/contractHelpers';
+import { getTokenContractByAddress } from 'clients/contracts/getters';
+import { useWeb3 } from 'clients/web3';
+import MAX_UINT256 from 'constants/maxUint256';
+import { TokenId } from 'types';
+import { AuthContext } from 'context/AuthContext';
 import WithdrawHistoryModal from './WithdrawHistoryModal';
 import WithdrawCard from './WithdrawCard';
 import LoadingSpinner from '../../Basic/LoadingSpinner';
@@ -24,8 +27,8 @@ const CardContentWrapper = styled.div`
 
 interface CardContentProps {
   poolId: BigNumber;
-  stakedToken: string;
-  rewardToken: string;
+  stakedToken: TokenId;
+  rewardToken: TokenId;
   userStakedAmount: BigNumber;
   pendingReward: BigNumber;
   lockPeriodSecond: BigNumber;
@@ -39,15 +42,9 @@ function CardContent({
   pendingReward,
   lockPeriodSecond,
 }: CardContentProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
-  );
-  const rewardTokenDecimal = new BigNumber(10).pow(
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].decimals,
-  );
-  const { account } = useWeb3React();
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
+  const rewardTokenDecimal = new BigNumber(10).pow(getToken(rewardToken).decimals);
+  const { account } = useContext(AuthContext);
   const { fastRefresh } = useRefresh();
   const web3 = useWeb3();
 
@@ -66,26 +63,24 @@ function CardContent({
   const [claimLoading, setClaimLoading] = useState(false);
   const [stakeLoading, setStakeLoading] = useState(false); // also applies to enabling
 
-  const stakedTokenAddress =
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].address;
-  const rewardTokenAddress =
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[rewardToken].address;
+  const stakedTokenAddress = getToken(stakedToken).address;
+  const rewardTokenAddress = getToken(rewardToken).address;
 
-  const xvsVaultContract = useXvsVaultProxy();
-  const stakedTokenContract = getTokenContractByAddress(web3, stakedTokenAddress);
+  const xvsVaultContract = useXvsVaultProxyContract();
+  const stakedTokenContract = getTokenContractByAddress(stakedTokenAddress, web3);
 
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '() => Promise<() => void>' is no... Remove this comment to see the full error message
   useEffect(async () => {
     let isMounted = true;
-    let [balance, allowance, withdrawals] = ['0', '0', []];
+    let [balance, allowance, withdrawals] = ['0', '0', [['0', '0']]];
     if (account) {
       [balance, allowance, withdrawals] = await Promise.all([
-        stakedTokenContract.methods.balanceOf(account).call(),
-        stakedTokenContract.methods.allowance(account, xvsVaultContract.options.address).call(),
+        stakedTokenContract.methods.balanceOf(account.address).call(),
+        stakedTokenContract.methods
+          .allowance(account.address, xvsVaultContract.options.address)
+          .call(),
         xvsVaultContract.methods
-          .getWithdrawalRequests(rewardTokenAddress, poolId.toNumber(), account)
+          .getWithdrawalRequests(rewardTokenAddress, poolId.toNumber(), account.address)
           .call(),
       ]);
     }
@@ -171,7 +166,7 @@ function CardContent({
                   try {
                     await xvsVaultContract.methods
                       .deposit(rewardTokenAddress, poolId.toNumber(), 0)
-                      .send({ from: account });
+                      .send({ from: account?.address });
                   } catch (e) {
                     console.log('>> claim reward error:  ', e);
                   }
@@ -189,9 +184,6 @@ function CardContent({
           <WithdrawCard
             poolId={poolId}
             stakedToken={stakedToken}
-            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ poolId: any; stakedToken: any; stakedToken... Remove this comment to see the full error message
-            stakedTokenAddress={stakedTokenAddress}
-            rewardToken={rewardToken}
             rewardTokenAddress={rewardTokenAddress}
             lockPeriodSecond={lockPeriodSecond}
             withdrawableAmount={withdrawableAmount}
@@ -241,12 +233,9 @@ function CardContent({
                   try {
                     if (!userStakedTokenAllowance.gt(0)) {
                       await stakedTokenContract.methods
-                        .approve(
-                          xvsVaultContract.options.address,
-                          new BigNumber(2).pow(256).minus(1).toString(10),
-                        )
+                        .approve(xvsVaultContract.options.address, MAX_UINT256.toFixed())
                         .send({
-                          from: account,
+                          from: account?.address,
                         });
                     } else {
                       await xvsVaultContract.methods
@@ -255,7 +244,7 @@ function CardContent({
                           poolId.toNumber(),
                           stakeAmount.multipliedBy(1e18).toString(10),
                         )
-                        .send({ from: account });
+                        .send({ from: account?.address });
                     }
                   } catch (e) {
                     console.log('>> stake error:', e);

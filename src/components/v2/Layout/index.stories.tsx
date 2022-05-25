@@ -9,6 +9,4 @@ export default {
   decorators: [withRouter, withThemeProvider],
 } as ComponentMeta<typeof Layout>;
 
-export const LayoutDefault = () => (
-  <Layout currentBlockNumber={123456789}>Hello from storybook</Layout>
-);
+export const LayoutDefault = () => <Layout>Hello from storybook</Layout>;

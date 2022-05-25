@@ -1,3 +1,7 @@
 node_modules
 .eslintrc.js
 public
+build
+storybook-static
+i18next-parser.config.js
+coverage

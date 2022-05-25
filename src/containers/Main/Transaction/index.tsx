@@ -1,19 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-
-import commaNumber from 'comma-number';
 import { Row, Col, Pagination, Select } from 'antd';
 import styled from 'styled-components';
 import { connectAccount } from 'core';
-import MainLayout from 'containers/Layout/MainLayout';
 import { Label } from 'components/Basic/Label';
-
-import { promisify } from 'utilities';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { promisify, generateBscScanUrl } from 'utilities';
 import moment from 'moment';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import xvsImg from 'assets/img/coins/xvs.svg';
 import { uid } from 'react-uid';
-import { BASE_BSC_SCAN_URL } from 'config';
 
 const TransactionWrapper = styled.div`
   width: 100%;
@@ -40,10 +36,6 @@ const TableWrapper = styled.div`
     padding-bottom: 20px;
     font-weight: bold;
     border-bottom: 1px solid var(--color-bg-active);
-  }
-
-  @media (max-width: 768px) {
-    width: 90%;
   }
 
   .table_header {
@@ -105,6 +97,8 @@ const TableWrapper = styled.div`
         font-weight: 600;
         font-size: 16px;
         color: var(--color-white);
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .hash,
@@ -261,14 +255,13 @@ const eventTypes = [
 ];
 
 const { Option } = Select;
-const format = commaNumber.bindWith(',', '.');
 
 interface TransactionProps extends RouteComponentProps {
   getTransactionHistory: $TSFixMe;
 }
 
 function Transaction({ getTransactionHistory }: TransactionProps) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<$TSFixMe[]>([]);
   const [offset, setOffset] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [total, setTotal] = useState(0);
@@ -321,207 +314,170 @@ function Transaction({ getTransactionHistory }: TransactionProps) {
   };
 
   return (
-    <MainLayout title="Transaction History">
-      <TransactionWrapper>
-        <TableWrapper>
-          <AssetSelectWrapper className="flex align-center just-end" id="event-type">
-            <Label size="16" primary>
-              Type:
-            </Label>
+    <TransactionWrapper>
+      <TableWrapper>
+        <AssetSelectWrapper className="flex align-center just-end" id="event-type">
+          <Label size="16" primary>
+            Type:
+          </Label>
 
-            <Select
-              defaultValue="All"
-              style={{ width: 200, marginRight: 10 }}
-              // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
-              getPopupContainer={() => document.getElementById('event-type')}
-              dropdownMenuStyle={{
-                backgroundColor: 'var(--color-bg-main)',
-              }}
-              dropdownClassName="asset-select"
-              onChange={val => {
-                setOffset(1);
-                setEvent(val);
-              }}
-            >
-              {eventTypes.map((eventType, index) => (
-                <Option
-                  className="flex align-center just-between"
-                  value={eventType}
-                  key={uid(`${eventType}-${index}`)}
-                >
-                  <span>{eventType}</span>
-                </Option>
-              ))}
-            </Select>
-          </AssetSelectWrapper>
-          <Row className="table_header">
-            <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
-              ID
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 4 }} className="type">
-              Type
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 3 }} className="hash">
-              Txn Hash
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 2 }} className="block">
-              Block
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 4 }} className="from">
-              From
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 4 }} className="to">
-              To
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 3 }} className="amount">
-              Amount
-            </Col>
-            <Col xs={{ span: 6 }} lg={{ span: 2 }} className="date">
-              Created At
-            </Col>
-          </Row>
-          <div className="table_content">
-            {data &&
-              data.length > 0 &&
-              data.map(item => (
-                <Row className="table_item" key={uid(item)}>
-                  <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
-                    <p className="mobile-label">ID</p>
-                    {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'id' does not exist on type 'never'. */}
-                    <p className="item-title">{item.id}</p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="type">
-                    <p className="mobile-label">Type</p>
-                    <img className="asset-img" src={xvsImg} alt="asset" />
-                    {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'event' does not exist on type 'never'. */}
-                    <p className="item-title">{item.event}</p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 3 }} className="hash">
-                    <p className="mobile-label">Txn Hash</p>
-                    <p
-                      className="item-title"
-                      onClick={() => {
-                        window.open(
-                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message
-                          `${BASE_BSC_SCAN_URL}/tx/${item.transactionHash}`,
-                          '_blank',
-                        );
-                      }}
-                    >
-                      {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message */}
-                      {`${item.transactionHash.slice(
-                        0,
-                        6,
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'transactionHash' does not exist on type ... Remove this comment to see the full error message
-                      )}...${item.transactionHash.slice(-6)}`}
-                    </p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 2 }} className="block">
-                    <p className="mobile-label">Block</p>
-                    {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'blockNumber' does not exist on type 'nev... Remove this comment to see the full error message */}
-                    <p className="item-title">{item.blockNumber}</p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="from">
-                    <p className="mobile-label">From</p>
-                    <p
-                      className="item-title"
-                      onClick={() => {
-                        window.open(
-                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'.
-                          `${BASE_BSC_SCAN_URL}/address/${item.from}`,
-                          '_blank',
-                        );
-                      }}
-                    >
-                      {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'. */}
-                      {item.from &&
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'from' does not exist on type 'never'.
-                        `${item.from.slice(0, 6)}...${item.from.slice(-6)}`}
-                    </p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} className="to">
-                    <p
-                      className="mobile-label"
-                      onClick={() => {
-                        window.open(
-                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
-                          `${BASE_BSC_SCAN_URL}/address/${item.to}`,
-                          '_blank',
-                        );
-                      }}
-                    >
-                      To
-                    </p>
-                    <p
-                      className="item-title"
-                      onClick={() => {
-                        window.open(
-                          // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
-                          `${BASE_BSC_SCAN_URL}/address/${item.to}`,
-                          '_blank',
-                        );
-                      }}
-                    >
-                      {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'. */}
-                      {item.to &&
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'to' does not exist on type 'never'.
-                        `${item.to.slice(0, 6)}...${item.to.slice(-6)}`}
-                    </p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 3 }} className="amount">
-                    <p className="mobile-label">Amount</p>
-                    <p className="item-title">
-                      {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'. */}
-                      {item.amount < 0.00001 && item.amount > 0
-                        ? '< 0.00001'
-                        : // @ts-expect-error ts-migrate(2339) FIXME: Property 'amount' does not exist on type 'never'.
-                          format(item.amount)}
-                    </p>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 2 }} className="date">
-                    <p className="mobile-label">Created At</p>
-                    <p className="item-title">
-                      {diffFormat(
-                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'createdAt' does not exist on type 'never... Remove this comment to see the full error message
-                        moment(current).diff(moment(item.createdAt), 'seconds'),
-                      )}
-                    </p>
-                  </Col>
-                </Row>
-              ))}
-          </div>
-          {data && data.length !== 0 ? (
-            <div className="flex align-center just-between footer">
-              <Pagination
-                size="small"
-                defaultCurrent={1}
-                defaultPageSize={5}
-                current={offset}
-                pageSize={pageSize}
-                total={total}
-                onChange={handleChangePage}
-              />
-              <div className="flex just-between align-center button">
-                {offset * pageSize < total && (
-                  <div className="flex align-center button-next" onClick={onNext}>
-                    <span>Next</span>
-                    <img src={arrowRightImg} alt="arrow" />
-                  </div>
-                )}
-                {offset > 1 && (
-                  <div className="flex align-center button-prev" onClick={onPrev}>
-                    <img src={arrowRightImg} alt="arrow" />
-                    <span>Prev</span>
-                  </div>
-                )}
-              </div>
+          <Select
+            defaultValue="All"
+            style={{ width: 200, marginRight: 10 }}
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '() => HTMLElement | null' is not assignable ... Remove this comment to see the full error message
+            getPopupContainer={() => document.getElementById('event-type')}
+            dropdownMenuStyle={{
+              backgroundColor: 'var(--color-bg-main)',
+            }}
+            dropdownClassName="asset-select"
+            onChange={val => {
+              setOffset(1);
+              setEvent(val);
+            }}
+          >
+            {eventTypes.map((eventType, index) => (
+              <Option
+                className="flex align-center just-between"
+                value={eventType}
+                key={uid(`${eventType}-${index}`)}
+              >
+                <span>{eventType}</span>
+              </Option>
+            ))}
+          </Select>
+        </AssetSelectWrapper>
+        <Row className="table_header">
+          <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
+            ID
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 4 }} className="type">
+            Type
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 3 }} className="hash">
+            Txn Hash
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 2 }} className="block">
+            Block
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 4 }} className="from">
+            From
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 4 }} className="to">
+            To
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 3 }} className="amount">
+            Amount
+          </Col>
+          <Col xs={{ span: 6 }} lg={{ span: 2 }} className="date">
+            Created At
+          </Col>
+        </Row>
+        <div className="table_content">
+          {data &&
+            data.length > 0 &&
+            data.map(item => (
+              <Row className="table_item" key={uid(item)}>
+                <Col xs={{ span: 24 }} lg={{ span: 2 }} className="id">
+                  <p className="mobile-label">ID</p>
+                  <p className="item-title">{item.id}</p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} className="type">
+                  <p className="mobile-label">Type</p>
+                  <img className="asset-img" src={xvsImg} alt="asset" />
+                  <p className="item-title">{item.event}</p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 3 }} className="hash">
+                  <p className="mobile-label">Txn Hash</p>
+                  <p
+                    className="item-title"
+                    onClick={() => {
+                      window.open(generateBscScanUrl(item.transactionHash, 'tx'), '_blank');
+                    }}
+                  >
+                    {`${item.transactionHash.slice(0, 6)}...${item.transactionHash.slice(-6)}`}
+                  </p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 2 }} className="block">
+                  <p className="mobile-label">Block</p>
+                  <p className="item-title">{item.blockNumber}</p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} className="from">
+                  <p className="mobile-label">From</p>
+                  <p
+                    className="item-title"
+                    onClick={() => {
+                      window.open(generateBscScanUrl(item.from), '_blank');
+                    }}
+                  >
+                    {item.from && `${item.from.slice(0, 6)}...${item.from.slice(-6)}`}
+                  </p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} className="to">
+                  <p
+                    className="mobile-label"
+                    onClick={() => {
+                      window.open(generateBscScanUrl(item.to), '_blank');
+                    }}
+                  >
+                    To
+                  </p>
+                  <p
+                    className="item-title"
+                    onClick={() => {
+                      window.open(generateBscScanUrl(item.to), '_blank');
+                    }}
+                  >
+                    {item.to && `${item.to.slice(0, 6)}...${item.to.slice(-6)}`}
+                  </p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 3 }} className="amount">
+                  <p className="mobile-label">Amount</p>
+                  <p className="item-title">
+                    {item.amount < 0.00001 && item.amount > 0
+                      ? '< 0.00001'
+                      : formatCommaThousandsPeriodDecimal(item.amount)}
+                  </p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 2 }} className="date">
+                  <p className="mobile-label">Created At</p>
+                  <p className="item-title">
+                    {diffFormat(moment(current).diff(moment(item.createdAt), 'seconds'))}
+                  </p>
+                </Col>
+              </Row>
+            ))}
+        </div>
+        {data && data.length !== 0 ? (
+          <div className="flex align-center just-between footer">
+            <Pagination
+              size="small"
+              defaultCurrent={1}
+              defaultPageSize={5}
+              current={offset}
+              pageSize={pageSize}
+              total={total}
+              onChange={handleChangePage}
+            />
+            <div className="flex just-between align-center button">
+              {offset * pageSize < total && (
+                <div className="flex align-center button-next" onClick={onNext}>
+                  <span>Next</span>
+                  <img src={arrowRightImg} alt="arrow" />
+                </div>
+              )}
+              {offset > 1 && (
+                <div className="flex align-center button-prev" onClick={onPrev}>
+                  <img src={arrowRightImg} alt="arrow" />
+                  <span>Prev</span>
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="no-transaction">No Transactions</div>
-          )}
-        </TableWrapper>
-      </TransactionWrapper>
-    </MainLayout>
+          </div>
+        ) : (
+          <div className="no-transaction">No Transactions</div>
+        )}
+      </TableWrapper>
+    </TransactionWrapper>
   );
 }
 

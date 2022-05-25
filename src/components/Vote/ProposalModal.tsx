@@ -10,7 +10,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { encodeParameters, getArgs } from 'utilities/common';
 import closeImg from 'assets/img/close.png';
 import { uid } from 'react-uid';
-import { useGovernorBravo } from '../../hooks/useContract';
+import { useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
 
 const ModalContent = styled.div`
   border-radius: 20px;
@@ -139,19 +139,7 @@ interface Props extends FormComponentProps {
   onCancel: () => void;
 }
 
-interface DispatchProps {
-  getProposals: () => void;
-}
-
-function ProposalModal({
-  form,
-  address,
-  visible,
-  maxOperation,
-  onCancel,
-  getProposals,
-  ...props
-}: Props & DispatchProps) {
+function ProposalModal({ form, address, visible, maxOperation, onCancel, ...props }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -165,7 +153,7 @@ function ProposalModal({
     },
   ]);
   const [activePanelKey, setActivePanelKey] = useState<number | string[]>(['0']);
-  const governorBravoContract = useGovernorBravo();
+  const governorBravoContract = useGovernorBravoDelegateContract();
 
   useEffect(() => {
     if (!visible) {

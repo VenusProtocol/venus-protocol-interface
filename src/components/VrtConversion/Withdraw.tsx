@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import Typography from '@mui/material/Typography';
 import { PrimaryButton } from 'components';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const WithdrawWrapper = styled.div`
   .withdraw-title {
@@ -28,8 +28,6 @@ const WithdrawWrapper = styled.div`
   }
 `;
 
-const commaFormatter = commaNumber.bindWith(',', '.');
-
 export type WithdrawPropsType = {
   withdrawableAmount: BigNumber;
   account: string;
@@ -46,7 +44,7 @@ export default ({ withdrawableAmount, account, handleClickWithdraw }: WithdrawPr
           Your XVS will be gradually available over a 1 year period.
         </Typography>
         <div className="withdraw-title-line-2">
-          {commaFormatter(withdrawableAmount.toFixed(6))} XVS
+          {formatCommaThousandsPeriodDecimal(withdrawableAmount.toFixed(6))} XVS
         </div>
       </div>
       <PrimaryButton

@@ -1,42 +1,52 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import MuiButton, { ButtonProps } from '@mui/material/Button';
-import { Icon } from 'components/v2/Icon';
-import useStyles from './styles';
+import Typography from '@mui/material/Typography';
 
-export interface IButtonProps extends ButtonProps {
-  className?: string;
+import { Spinner } from '../Spinner';
+import useStyles from './styles';
+import { Variant } from './types';
+
+export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
-  fillWidth?: boolean;
+  fullWidth?: boolean;
+  small?: boolean;
+  variant?: Variant;
 }
 
 export const Button = ({
   className,
   loading,
-  disabled,
-  startIcon = null,
+  disabled = false,
   fullWidth = false,
-  ...restProps
+  small = false,
+  variant = 'primary',
+  children,
+  ...otherProps
 }: IButtonProps) => {
-  const styles = useStyles({ fullWidth });
+  const styles = useStyles({ fullWidth, variant, small });
+
   return (
-    <MuiButton
-      css={styles}
+    <button
+      css={styles.getButton({ disabled })}
       className={className}
-      startIcon={loading ? <Icon name="loading" size="28px" /> : startIcon}
       disabled={loading || disabled}
-      disableRipple
-      {...restProps}
-    />
+      type="button"
+      {...otherProps}
+    >
+      {loading && (
+        <div css={styles.loadingIcon}>
+          <Spinner variant="small" />
+        </div>
+      )}
+
+      <Typography css={styles.label} component="span" variant={small ? 'small1' : 'body1'}>
+        {children}
+      </Typography>
+    </button>
   );
 };
 
-export const PrimaryButton = (props: IButtonProps) => (
-  <Button variant="contained" color="button" {...props} />
-);
-
-export const SecondaryButton = (props: IButtonProps) => (
-  <Button variant="outlined" color="button" {...props} />
-);
-
+export const PrimaryButton = (props: IButtonProps) => <Button variant="primary" {...props} />;
+export const SecondaryButton = (props: IButtonProps) => <Button variant="secondary" {...props} />;
+export const TertiaryButton = (props: IButtonProps) => <Button variant="tertiary" {...props} />;
 export const TextButton = (props: IButtonProps) => <Button variant="text" {...props} />;

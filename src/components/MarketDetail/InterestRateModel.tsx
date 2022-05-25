@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import BigNumber from 'bignumber.js';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+
 import { connectAccount } from 'core';
 import {
   LineChart,
@@ -14,10 +14,11 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { State } from 'core/modules/initialState';
-import * as constants from 'utilities/constants';
+import { getToken } from 'utilities';
+import { useWeb3 } from 'clients/web3';
+import { VTokenId } from 'types';
 import { useMarkets } from '../../hooks/useMarkets';
-import useWeb3 from '../../hooks/useWeb3';
-import { getInterestModelContract, getVbepContract } from '../../utilities/contractHelpers';
+import { getInterestModelContract, getVTokenContract } from '../../clients/contracts/getters';
 
 const InterestRateModelWrapper = styled.div`
   margin: 10px -20px 10px;
@@ -111,7 +112,7 @@ const InterestRateModelWrapper = styled.div`
 let flag = false;
 
 interface Props extends RouteComponentProps {
-  currentAsset: string;
+  currentAsset: VTokenId;
 }
 
 interface CustomizedAxisTickProps {
@@ -143,23 +144,26 @@ function InterestRateModel({ currentAsset }: Props) {
     </g>
   );
 
-  const getGraphData = async (asset: string) => {
+  const getGraphData = async (asset: VTokenId) => {
     flag = true;
-    const vbepContract = getVbepContract(web3, asset);
+    const vbepContract = getVTokenContract(asset, web3);
     const interestRateModel = await vbepContract.methods.interestRateModel().call();
-    const interestModelContract = getInterestModelContract(web3, interestRateModel);
+    const interestModelContract = getInterestModelContract(interestRateModel, web3);
     const cashValue = await vbepContract.methods.getCash().call();
 
     const data: $TSFixMe = [];
     const marketInfo = markets.find(
       item => item.underlyingSymbol.toLowerCase() === asset.toLowerCase(),
     );
+
+    const tokenDecimals = getToken(asset)?.decimals || 18;
+
     // Get Current Utilization Rate
-    const cash = new BigNumber(cashValue).div(1e18);
+    const cash = new BigNumber(cashValue).div(new BigNumber(10).pow(tokenDecimals));
+
     const borrows = new BigNumber(marketInfo.totalBorrows2);
     const reserves = new BigNumber(marketInfo.totalReserves || 0).div(
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      new BigNumber(10).pow(constants.CONTRACT_TOKEN_ADDRESS[asset].decimals),
+      new BigNumber(10).pow(tokenDecimals),
     );
     const currentUtilizationRate = borrows.div(cash.plus(borrows).minus(reserves));
 
@@ -168,6 +172,7 @@ function InterestRateModel({ currentAsset }: Props) {
       +currentUtilizationRate.toString(10) * 100,
       10,
     );
+
     setCurrentPercent(tempCurrentPercent || 0);
     const lineElement = document.getElementById('line');
     if (lineElement) {
@@ -342,10 +347,6 @@ function InterestRateModel({ currentAsset }: Props) {
     </InterestRateModelWrapper>
   );
 }
-
-InterestRateModel.defaultProps = {
-  currentAsset: '',
-};
 
 const mapStateToProps = ({ account }: State) => ({
   settings: account.setting,

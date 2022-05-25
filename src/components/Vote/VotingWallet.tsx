@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
-import commaNumber from 'comma-number';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
 import coinImg from 'assets/img/coins/xvs.svg';
-import { useWeb3React } from '@web3-react/core';
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
-import { BASE_BSC_SCAN_URL } from '../../config';
-import { useMarketsUser } from '../../hooks/useMarketsUser';
-import { useComptroller, useVenusLens } from '../../hooks/useContract';
+import { generateBscScanUrl } from 'utilities';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { useMarketsUser } from 'hooks/useMarketsUser';
+import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
+import { AuthContext } from 'context/AuthContext';
 
 const VotingWalletWrapper = styled.div`
   width: 100%;
@@ -86,12 +86,9 @@ const VotingWalletWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface VotingWalletProps {
   balance: string;
   earnedBalance: string;
-  vaiMint: string;
   delegateAddress: string;
   delegateStatus: string;
 }
@@ -99,16 +96,15 @@ interface VotingWalletProps {
 function VotingWallet({
   balance,
   earnedBalance,
-  vaiMint,
   delegateAddress,
   delegateStatus,
 }: VotingWalletProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEarn, setIsLoadingEarn] = useState(false);
-  const { account } = useWeb3React();
+  const { account } = useContext(AuthContext);
   const { userMarketInfo } = useMarketsUser();
-  const comptrollerContract = useComptroller();
-  const venusLensContract = useVenusLens();
+  const comptrollerContract = useComptrollerContract();
+  const venusLensContract = useVenusLensContract();
 
   useEffect(() => {
     if (!earnedBalance) {
@@ -119,12 +115,16 @@ function VotingWallet({
   }, [earnedBalance]);
 
   const handleCollect = async () => {
+    if (!account) {
+      console.error('Cannot collect Venus tokens: ', 'account undefined');
+      return;
+    }
+
     // filter out tokens that users have positive balance to save gas cost by 'claimVenus'
     const vTokensBalanceInfos = await venusLensContract.methods
       .vTokenBalancesAll(
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'map' does not exist on type '{}'.
         userMarketInfo.map((asset: Asset) => asset.vtokenAddress),
-        account,
+        account.address,
       )
       .call();
 
@@ -138,20 +138,17 @@ function VotingWallet({
             4 tokenBalance: tokenBalance, // balance of underlying token
             5 tokenAllowance: tokenAllowance // token allowance of underlying token
          */
-        new BigNumber(info[2]).gt(0) || new BigNumber(info[4]).gt(0),
+        new BigNumber(info[1]).gt(0) || new BigNumber(info[2]).gt(0),
     );
 
     // const t = (await this.venusLens.vTokenBalancesAll(this.vBep20Delegator.vTokenWithMetadataAll.map(t=>t.address), this.address)).filter(t=>t.balanceOfUnderlying.gt(0) || t.borrowBalanceCurrent.gt(0)).map(t=>t.address)
-    if (+earnedBalance !== 0 || +vaiMint !== 0) {
+    if (+earnedBalance !== 0) {
       setIsLoading(true);
       try {
-        await comptrollerContract.methods
-          .claimVenus(
-            account,
-
-            outstandingVTokens.map((token: $TSFixMe) => token[0]),
-          )
-          .send({ from: account });
+        await comptrollerContract.methods['claimVenus(address,address[])'](
+          account.address,
+          outstandingVTokens.map((token: $TSFixMe) => token[0]),
+        ).send({ from: account.address });
       } catch (error) {
         console.log('claim venus error :>> ', error);
       }
@@ -170,7 +167,7 @@ function VotingWallet({
           <div className="flex align-center just-between">
             <div className="flex align-center">
               <img src={coinImg} alt="coin" />
-              <p className="content-value">{format(balance)}</p>
+              <p className="content-value">{formatCommaThousandsPeriodDecimal(balance)}</p>
             </div>
           </div>
         </div>
@@ -182,12 +179,9 @@ function VotingWallet({
                 <p className="content-label">Venus Earned</p>
                 <div className="flex align-center">
                   <img src={coinImg} alt="coin" />
-                  <p className="content-value">{format(earnedBalance)}</p>
-                </div>
-                <div className="mint-content-label">VAI Mint Earned</div>
-                <div className="flex align-center">
-                  <img src={coinImg} alt="coin" />
-                  <p className="content-value">{format(vaiMint)}</p>
+                  <p className="content-value">
+                    {formatCommaThousandsPeriodDecimal(earnedBalance)}
+                  </p>
                 </div>
               </div>
               {account && (
@@ -207,7 +201,7 @@ function VotingWallet({
               <div className="flex align-center">
                 <a
                   className="content-value"
-                  href={`${BASE_BSC_SCAN_URL}/address/${delegateAddress}`}
+                  href={generateBscScanUrl(delegateAddress)}
                   target="_blank"
                   rel="noreferrer"
                 >

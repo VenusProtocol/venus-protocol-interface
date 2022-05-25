@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import BigNumber from 'bignumber.js';
-import { useWeb3React } from '@web3-react/core';
-import { TREASURY_ADDRESS } from 'config';
-import { getComptrollerAddress } from 'utilities/addressHelpers';
-import useRefresh from '../hooks/useRefresh';
-import { fetchMarkets } from '../utilities/api';
-import { indexBy } from '../utilities/common';
-import useWeb3 from '../hooks/useWeb3';
-import { useVaiUser } from '../hooks/useVaiUser';
-import { useComptroller, useVenusLens, useComptrollerLens } from '../hooks/useContract';
 
-import * as constants from '../utilities/constants';
+import { TREASURY_ADDRESS } from 'config';
+import { useWeb3 } from 'clients/web3';
+import { Asset, Market } from 'types';
+import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
+import { getVBepToken, getToken, calculateCollateralValue } from 'utilities';
+import { fetchMarkets } from 'utilities/api';
+import { indexBy, notNull, convertCoinsToWei } from 'utilities/common';
+import useRefresh from 'hooks/useRefresh';
+import { useVaiUser } from 'hooks/useVaiUser';
+import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
+import { AuthContext } from './AuthContext';
 
 const MarketContext = React.createContext({
   markets: [] as $TSFixMe[],
   dailyVenus: 0,
   treasuryTotalUSDBalance: new BigNumber(0),
-  userMarketInfo: {},
+  userMarketInfo: [] as Array<Asset>,
   userTotalBorrowLimit: new BigNumber(0),
   userTotalBorrowBalance: new BigNumber(0),
-  userXVSBalance: new BigNumber(0),
+  userXvsBalance: new BigNumber(0),
 });
 
 // This context provide a way for all the components to share the market data, thus avoid
@@ -28,15 +29,14 @@ const MarketContext = React.createContext({
 const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [markets, setMarkets] = useState<$TSFixMe[]>([]);
   const [dailyVenus, setDailyVenus] = useState(0);
-  const [userMarketInfo, setUserMarketInfo] = useState({});
+  const [userMarketInfo, setUserMarketInfo] = useState<Array<Asset>>([]);
   const [userTotalBorrowLimit, setUserTotalBorrowLimit] = useState(new BigNumber(0));
   const [userTotalBorrowBalance, setUserTotalBorrowBalance] = useState(new BigNumber(0));
-  const [userXVSBalance, setUserXVSBalance] = useState(new BigNumber(0));
+  const [userXvsBalance, setUserXvsBalance] = useState(new BigNumber(0));
   const [treasuryTotalUSDBalance, setTreasuryTotalUSDBalance] = useState(new BigNumber(0));
-  const comptrollerContract = useComptroller();
-  const comptrollerLensContract = useComptrollerLens();
-  const lens = useVenusLens();
-  const { account } = useWeb3React();
+  const comptrollerContract = useComptrollerContract();
+  const lens = useVenusLensContract();
+  const { account } = useContext(AuthContext);
   const web3 = useWeb3();
   const { userVaiMinted } = useVaiUser();
 
@@ -46,18 +46,19 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
     let isMounted = true;
     const getMarkets = async () => {
       const res = await fetchMarkets();
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
       if (!res.data || !res.data.status) {
         return;
       }
 
-      const data = Object.keys(constants.CONTRACT_VBEP_ADDRESS)
-        .map(item =>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
-          res.data.data.markets.find(
-            (market: $TSFixMe) => market.underlyingSymbol.toLowerCase() === item.toLowerCase(),
-          ),
-        )
+      const data = Object.keys(VBEP_TOKENS)
+        .map(item => {
+          if (res && res.data && res.data.data) {
+            return res.data.data.markets.find(
+              (market: Market) => market.underlyingSymbol.toLowerCase() === item.toLowerCase(),
+            );
+          }
+          return undefined;
+        })
         .filter(item => !!item);
 
       if (!isMounted) {
@@ -65,7 +66,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
       }
 
       setMarkets(data);
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type '{ status: ... Remove this comment to see the full error message
       setDailyVenus(res.data.data.dailyVenus);
     };
     getMarkets();
@@ -78,8 +78,8 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
     let isMounted = true;
 
     const getXvsBalance = (balances: $TSFixMe) => {
-      const vxvs = constants.CONTRACT_VBEP_ADDRESS.xvs.address.toLowerCase();
-      const xvsDecimals = constants.CONTRACT_TOKEN_ADDRESS.xvs.decimals;
+      const vxvs = getVBepToken('xvs').address.toLowerCase();
+      const xvsDecimals = getToken('xvs').decimals;
       return new BigNumber(balances[vxvs].tokenBalance).shiftedBy(-xvsDecimals);
     };
 
@@ -91,10 +91,10 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
       try {
         let xvsBalance = new BigNumber(0);
         const assetsIn = account
-          ? await comptrollerContract.methods.getAssetsIn(account).call()
+          ? await comptrollerContract.methods.getAssetsIn(account.address).call()
           : [];
 
-        const vtAddresses = Object.values(constants.CONTRACT_VBEP_ADDRESS)
+        const vtAddresses = Object.values(VBEP_TOKENS)
           .filter(item => item.address)
           .map(item => item.address);
 
@@ -102,7 +102,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         if (account) {
           balances = indexBy(
             (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
-            await lens.methods.vTokenBalancesAll(vtAddresses, account).call(),
+            await lens.methods.vTokenBalancesAll(vtAddresses, account.address).call(),
           );
           xvsBalance = getXvsBalance(balances);
         }
@@ -118,13 +118,12 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           markets,
         );
 
-        let assetList = Object.values(constants.CONTRACT_TOKEN_ADDRESS).map((item, index) => {
-          const toDecimalAmount = (mantissa: $TSFixMe) =>
+        const assetAndNullList = Object.values(TOKENS).map((item, index) => {
+          const toDecimalAmount = (mantissa: string) =>
             new BigNumber(mantissa).shiftedBy(-item.decimals);
 
           // if no corresponding vassets, skip
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          if (!constants.CONTRACT_VBEP_ADDRESS[item.id]) {
+          if (!getVBepToken(item.id)) {
             return null;
           }
 
@@ -133,19 +132,21 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             market = {};
           }
 
-          // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const vtokenAddress = constants.CONTRACT_VBEP_ADDRESS[item.id].address.toLowerCase();
+          const vtokenAddress = getVBepToken(item.id).address.toLowerCase();
+
           const collateral = assetsIn
             .map((address: $TSFixMe) => address.toLowerCase())
             .includes(vtokenAddress);
 
-          const treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
+          const treasuryBalance = toDecimalAmount(
+            (treasuryBalances[vtokenAddress] as any).tokenBalance,
+          );
 
           let walletBalance = new BigNumber(0);
           let supplyBalance = new BigNumber(0);
           let borrowBalance = new BigNumber(0);
           let isEnabled = false;
-          const percentOfLimit = new BigNumber(0);
+          const percentOfLimit = '0';
 
           if (account) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -166,7 +167,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             id: item.id,
             img: item.asset,
             vimg: item.vasset,
-            name: market.underlyingSymbol || '',
             symbol: market.underlyingSymbol || '',
             decimals: item.decimals,
             tokenAddress: market.underlyingAddress,
@@ -180,7 +180,10 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             tokenPrice: new BigNumber(market.tokenPrice || 0),
             liquidity: new BigNumber(market.liquidity || 0),
             borrowCaps: new BigNumber(market.borrowCaps || 0),
-            totalBorrows: new BigNumber(market.totalBorrows2 || 0),
+            treasuryTotalBorrowsUsdCents: new BigNumber(market.totalBorrowsUsd).times(100),
+            treasuryTotalSupplyUsdCents: new BigNumber(market.totalSupplyUsd).times(100),
+            treasuryTotalSupply: new BigNumber(market.totalSupply),
+            treasuryTotalBorrows: new BigNumber(market.totalBorrows2),
             treasuryBalance,
             walletBalance,
             supplyBalance,
@@ -188,70 +191,66 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             isEnabled,
             collateral,
             percentOfLimit,
+            hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
+            xvsPerDay: new BigNumber(market.supplierDailyVenus)
+              .plus(new BigNumber(market.borrowerDailyVenus))
+              .div(new BigNumber(10).pow(getToken('xvs').decimals)),
           };
         });
 
-        assetList = assetList.filter(item => !!item);
+        let assetList = assetAndNullList.filter(notNull);
+
         // We use "hypothetical liquidity upon exiting a market" to disable the "exit market"
         // toggle. Sadly, the current VenusLens contract does not provide this info, so we
         // still have to query each market.
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ hypotheticalLiquidity: any; key?: number |... Remove this comment to see the full error message
         assetList = await Promise.all(
           assetList.map(async asset => {
-            const comptrollerContractAddress = getComptrollerAddress();
-            const getHypotheticalLiquidity = () =>
-              comptrollerLensContract.methods
-                .getHypotheticalAccountLiquidity(
-                  comptrollerContractAddress,
-                  account,
-                  // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-                  asset.vtokenAddress,
-                  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                  balances[asset.vtokenAddress.toLowerCase()].balanceOf,
-                  0,
-                )
-                .call();
+            const hypotheticalLiquidity: [string, string, string] = (
+              account
+                ? await comptrollerContract.methods
+                    .getHypotheticalAccountLiquidity(
+                      account.address,
+                      asset.vtokenAddress,
+                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                      balances[asset.vtokenAddress.toLowerCase()].balanceOf,
+                      0,
+                    )
+                    .call()
+                : ['0', '0', '0']
+            ) as [string, string, string];
+
             return {
               ...asset,
-              hypotheticalLiquidity: account ? await getHypotheticalLiquidity() : ['0', '0', '0'],
+              hypotheticalLiquidity,
             };
           }),
         );
 
         const totalBorrowBalance = assetList
           .reduce((acc, asset) => {
-            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-            const borrowBalanceUSD = asset.borrowBalance.times(
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-              asset.tokenPrice,
-            );
+            const borrowBalanceUSD = asset.borrowBalance.times(asset.tokenPrice);
             return acc.plus(borrowBalanceUSD);
           }, new BigNumber(0))
           .plus(userVaiMinted);
 
         const totalBorrowLimit = assetList.reduce((acc, asset) => {
-          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           if (asset.collateral) {
-            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-            const supplyBalanceUSD = asset.supplyBalance.times(
-              // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-              asset.tokenPrice,
+            return acc.plus(
+              calculateCollateralValue({
+                amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
+                asset,
+              }),
             );
-            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-            return acc.plus(supplyBalanceUSD.times(asset.collateralFactor));
           }
           return acc;
         }, new BigNumber(0));
 
         // percent of limit
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ percentOfLimit: string; key?: number | und... Remove this comment to see the full error message
-        assetList = assetList.map(item => ({
+        assetList = assetList.map((item: Asset) => ({
           ...item,
           percentOfLimit: new BigNumber(totalBorrowLimit).isZero()
             ? '0'
-            : // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-              item.borrowBalance
-                // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+            : item.borrowBalance
                 .times(item.tokenPrice)
                 .div(totalBorrowLimit)
                 .times(100)
@@ -265,7 +264,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
 
         // Calculate total treasury balance in USD
         const updatedTreasuryTotalUSDBalance = assetList.reduce((accumulator, asset) => {
-          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           const treasuryUSDBalance = asset.treasuryBalance.multipliedBy(asset.tokenPrice);
           return accumulator.plus(treasuryUSDBalance);
         }, new BigNumber(0));
@@ -274,7 +272,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         setUserMarketInfo(assetList);
         setUserTotalBorrowLimit(totalBorrowLimit);
         setUserTotalBorrowBalance(totalBorrowBalance);
-        setUserXVSBalance(xvsBalance);
+        setUserXvsBalance(xvsBalance);
       } catch (error) {
         console.log('error when get market data', error);
       }
@@ -294,7 +292,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         userMarketInfo,
         userTotalBorrowLimit,
         userTotalBorrowBalance,
-        userXVSBalance,
+        userXvsBalance,
       }}
     >
       {children}

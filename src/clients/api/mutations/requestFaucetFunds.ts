@@ -12,20 +12,26 @@ export type AssetTicker =
   | 'ltc'
   | 'xrp';
 
-export interface IRequestFaucetFundsInput {
+export type RequestFaucetFundsInput = {
   address: string;
   asset: AssetTicker;
   amountType: 'low' | 'medium' | 'high';
-}
+};
 
-export type IRequestFaucetFundsOutput = void;
+export type RequestFaucetFundsOutput = void;
 
-const stakeCoins = async (params: IRequestFaucetFundsInput): Promise<IRequestFaucetFundsOutput> => {
-  const response = await restService({ api: '/faucet', method: 'POST', params });
+const requestFaucetFundsInput = async (
+  params: RequestFaucetFundsInput,
+): Promise<RequestFaucetFundsOutput> => {
+  const response = await restService<RequestFaucetFundsOutput>({
+    endpoint: '/faucet',
+    method: 'POST',
+    params,
+  });
 
-  if ('data' in response && response.data.status === false) {
-    throw new Error(response.data.message);
+  if ('result' in response && response.result === 'error') {
+    throw new Error(response.message);
   }
 };
 
-export default stakeCoins;
+export default requestFaucetFundsInput;

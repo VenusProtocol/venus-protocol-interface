@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Row, Col, Icon, Progress } from 'antd';
 import styled from 'styled-components';
 import { uid } from 'react-uid';
 import { connectAccount } from 'core';
-import MainLayout from 'containers/Layout/MainLayout';
-import * as constants from 'utilities/constants';
 import coinImg from 'assets/img/coins/xvs.svg';
 import vaiImg from 'assets/img/coins/vai.svg';
 import { State } from 'core/modules/initialState';
 import { Setting } from 'types';
-import { BASE_BSC_SCAN_URL } from 'config';
 import { useMarkets } from 'hooks/useMarkets';
-import { useComptroller, useToken } from 'hooks/useContract';
-import { getComptrollerAddress } from 'utilities/addressHelpers';
+import { useComptrollerContract, useTokenContract } from 'clients/contracts/hooks';
+import { getToken, getContractAddress, generateBscScanUrl } from 'utilities';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const XVSLayout = styled.div`
   .main-content {
@@ -185,8 +182,6 @@ const TableWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface XVSProps extends RouteComponentProps {
   settings: Setting;
 }
@@ -198,8 +193,8 @@ function XVS({ settings }: XVSProps) {
   const [remainAmount, setRemainAmount] = useState('0');
   const [sortInfo, setSortInfo] = useState({ field: '', sort: 'desc' });
   const { markets, dailyVenus } = useMarkets();
-  const xvsTokenContract = useToken('xvs');
-  const comptrollerContract = useComptroller();
+  const xvsTokenContract = useTokenContract('xvs');
+  const comptrollerContract = useComptrollerContract();
 
   const mintedAmount = '23700000';
 
@@ -212,9 +207,11 @@ function XVS({ settings }: XVSProps) {
     );
 
     // total info
-    let venusVAIVaultRate = await comptrollerContract.methods.venusVAIVaultRate().call();
-    venusVAIVaultRate = new BigNumber(venusVAIVaultRate).div(1e18).times(20 * 60 * 24);
-    const remainedAmount = await xvsTokenContract.methods.balanceOf(getComptrollerAddress()).call();
+    const fetchedVenusVAIVaultRate = await comptrollerContract.methods.venusVAIVaultRate().call();
+    const venusVAIVaultRate = new BigNumber(fetchedVenusVAIVaultRate).div(1e18).times(20 * 60 * 24);
+    const remainedAmount = await xvsTokenContract.methods
+      .balanceOf(getContractAddress('comptroller'))
+      .call();
     setDailyDistribution(
       new BigNumber(dailyVenus)
         .div(new BigNumber(10).pow(18))
@@ -264,193 +261,190 @@ function XVS({ settings }: XVSProps) {
       sort: sortInfo.field === field && sortInfo.sort === 'desc' ? 'asc' : 'desc',
     });
   };
-
+  console.log({ settings });
   return (
     <XVSLayout>
-      <MainLayout title="User Distribution">
-        <XVSWrapper>
-          <XVSInfoWrapper className="flex align-center just-between">
-            <div className="flex align-center xvs-info">
-              <img src={coinImg} alt="xvs" />
-              <a
-                className="highlight"
-                href={`${BASE_BSC_SCAN_URL}/token/${constants.CONTRACT_XVS_TOKEN_ADDRESS}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {constants.CONTRACT_XVS_TOKEN_ADDRESS}
-              </a>
-              <CopyToClipboard text={constants.CONTRACT_XVS_TOKEN_ADDRESS} onCopy={() => {}}>
-                <Icon className="pointer copy-btn" type="copy" />
-              </CopyToClipboard>
-            </div>
-            <div className="flex flex-column distribution-wrapper">
-              <div className="flex align-center just-around info-wrapper">
-                <div className="info-item">
-                  <p className="title">Daily Distribution</p>
-                  <p className="value">{format(dailyDistribution)}</p>
-                </div>
-                {/* <div className="info-item">
+      <XVSWrapper>
+        <XVSInfoWrapper className="flex align-center just-between">
+          <div className="flex align-center xvs-info">
+            <img src={coinImg} alt="xvs" />
+            <a
+              className="highlight"
+              href={generateBscScanUrl('xvs', 'token')}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {getToken('xvs').address}
+            </a>
+            <CopyToClipboard text={getToken('xvs').address} onCopy={() => {}}>
+              <Icon className="pointer copy-btn" type="copy" />
+            </CopyToClipboard>
+          </div>
+          <div className="flex flex-column distribution-wrapper">
+            <div className="flex align-center just-around info-wrapper">
+              <div className="info-item">
+                <p className="title">Daily Distribution</p>
+                <p className="value">{formatCommaThousandsPeriodDecimal(dailyDistribution)}</p>
+              </div>
+              {/* <div className="info-item">
                       <p className="title">Total Distributed</p>
                       <p className="value">{format(totalDistributed)}</p>
                     </div> */}
-                <div className="info-item">
-                  <p className="title">Remaining</p>
-                  <p className="value">{format(remainAmount)}</p>
-                </div>
+              <div className="info-item">
+                <p className="title">Remaining</p>
+                <p className="value">{formatCommaThousandsPeriodDecimal(remainAmount)}</p>
               </div>
-              <Progress
-                percent={new BigNumber(totalDistributed)
-                  .dividedBy(new BigNumber(mintedAmount))
-                  .multipliedBy(100)
-                  .toNumber()}
-                strokeColor="var(--color-green)"
-                strokeWidth={7}
-                showInfo={false}
-              />
             </div>
-          </XVSInfoWrapper>
-          <TableWrapper>
-            <p className="header-title">Market Distribution</p>
-            <Row className="table_header">
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} className="market">
-                Market
-              </Col>
-              <Col xs={{ span: 8 }} lg={{ span: 6 }} className="per-day right">
-                <span onClick={() => handleSort('perDay')}>
-                  <img src={coinImg} alt="xvs" /> Per Day{' '}
-                  {sortInfo.field === 'perDay' && (
-                    <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                  )}
-                </span>
-              </Col>
-              <Col xs={{ span: 8 }} lg={{ span: 6 }} className="supply-apy right">
-                <span onClick={() => handleSort('supplyAPY')}>
-                  Supply
-                  <img src={coinImg} alt="xvs" />
-                  APY{' '}
-                  {sortInfo.field === 'supplyAPY' && (
-                    <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                  )}
-                </span>
-              </Col>
-              <Col xs={{ span: 8 }} lg={{ span: 6 }} className="borrow-apy right">
-                <span onClick={() => handleSort('borrowAPY')}>
-                  Borrow
-                  <img src={coinImg} alt="xvs" />
-                  APY{' '}
-                  {sortInfo.field === 'borrowAPY' && (
-                    <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
-                  )}
-                </span>
-              </Col>
-              {/* <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-distributed right">
+            <Progress
+              percent={new BigNumber(totalDistributed)
+                .dividedBy(new BigNumber(mintedAmount))
+                .multipliedBy(100)
+                .toNumber()}
+              strokeColor="var(--color-green)"
+              strokeWidth={7}
+              showInfo={false}
+            />
+          </div>
+        </XVSInfoWrapper>
+        <TableWrapper>
+          <p className="header-title">Market Distribution</p>
+          <Row className="table_header">
+            <Col xs={{ span: 24 }} lg={{ span: 6 }} className="market">
+              Market
+            </Col>
+            <Col xs={{ span: 8 }} lg={{ span: 6 }} className="per-day right">
+              <span onClick={() => handleSort('perDay')}>
+                <img src={coinImg} alt="xvs" /> Per Day{' '}
+                {sortInfo.field === 'perDay' && (
+                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+                )}
+              </span>
+            </Col>
+            <Col xs={{ span: 8 }} lg={{ span: 6 }} className="supply-apy right">
+              <span onClick={() => handleSort('supplyAPY')}>
+                Supply
+                <img src={coinImg} alt="xvs" />
+                APY{' '}
+                {sortInfo.field === 'supplyAPY' && (
+                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+                )}
+              </span>
+            </Col>
+            <Col xs={{ span: 8 }} lg={{ span: 6 }} className="borrow-apy right">
+              <span onClick={() => handleSort('borrowAPY')}>
+                Borrow
+                <img src={coinImg} alt="xvs" />
+                APY{' '}
+                {sortInfo.field === 'borrowAPY' && (
+                  <Icon type={sortInfo.sort === 'desc' ? 'caret-down' : 'caret-up'} />
+                )}
+              </span>
+            </Col>
+            {/* <Col xs={{ span: 6 }} lg={{ span: 4 }} className="total-distributed right">
                     Total Distributed
                   </Col> */}
-            </Row>
-            <div className="table_content">
-              {totalMarkets &&
-                (totalMarkets || [])
-                  .sort((a, b) => {
-                    if (sortInfo.field) {
-                      if (sortInfo.field === 'perDay') {
-                        return sortInfo.sort === 'desc'
-                          ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
-                            +new BigNumber(b.perDay)
-                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
-                              .minus(new BigNumber(a.perDay))
-                              .toString(10)
-                          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
-                            +new BigNumber(a.perDay)
-                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
-                              .minus(new BigNumber(b.perDay))
-                              .toString(10);
-                      }
-                      if (sortInfo.field === 'supplyAPY') {
-                        return sortInfo.sort === 'desc'
-                          ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
-                            +new BigNumber(b.supplyAPY)
-                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
-                              .minus(new BigNumber(a.supplyAPY))
-                              .toString(10)
-                          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
-                            +new BigNumber(a.supplyAPY)
-                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
-                              .minus(new BigNumber(b.supplyAPY))
-                              .toString(10);
-                      }
-                      if (sortInfo.field === 'borrowAPY') {
-                        return sortInfo.sort === 'desc'
-                          ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
-                            +new BigNumber(b.borrowAPY)
-                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
-                              .minus(new BigNumber(a.borrowAPY))
-                              .toString(10)
-                          : // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
-                            +new BigNumber(a.borrowAPY)
-                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
-                              .minus(new BigNumber(b.borrowAPY))
-                              .toString(10);
-                      }
+          </Row>
+          <div className="table_content">
+            {totalMarkets &&
+              (totalMarkets || [])
+                .sort((a, b) => {
+                  if (sortInfo.field) {
+                    if (sortInfo.field === 'perDay') {
+                      return sortInfo.sort === 'desc'
+                        ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
+                          +new BigNumber(b.perDay)
+                            // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
+                            .minus(new BigNumber(a.perDay))
+                            .toString(10)
+                        : // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
+                          +new BigNumber(a.perDay)
+                            // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
+                            .minus(new BigNumber(b.perDay))
+                            .toString(10);
                     }
+                    if (sortInfo.field === 'supplyAPY') {
+                      return sortInfo.sort === 'desc'
+                        ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
+                          +new BigNumber(b.supplyAPY)
+                            // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            .minus(new BigNumber(a.supplyAPY))
+                            .toString(10)
+                        : // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
+                          +new BigNumber(a.supplyAPY)
+                            // @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            .minus(new BigNumber(b.supplyAPY))
+                            .toString(10);
+                    }
+                    if (sortInfo.field === 'borrowAPY') {
+                      return sortInfo.sort === 'desc'
+                        ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
+                          +new BigNumber(b.borrowAPY)
+                            // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            .minus(new BigNumber(a.borrowAPY))
+                            .toString(10)
+                        : // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
+                          +new BigNumber(a.borrowAPY)
+                            // @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message
+                            .minus(new BigNumber(b.borrowAPY))
+                            .toString(10);
+                    }
+                  }
+                  // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
+                  return +new BigNumber(b.perDay)
                     // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
-                    return +new BigNumber(b.perDay)
-                      // @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'.
-                      .minus(new BigNumber(a.perDay))
-                      .toString(10);
-                  })
-                  .map(item => (
-                    <Row className="table_item pointer" key={uid(item)}>
-                      <Col xs={{ span: 24 }} lg={{ span: 6 }} className="flex align-center market">
-                        {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message */}
-                        {item.underlyingSymbol !== 'VAI' ? (
-                          <img
-                            className="asset-img"
-                            src={
-                              // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                              constants.CONTRACT_TOKEN_ADDRESS[
-                                // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
-                                item.underlyingSymbol.toLowerCase()
-                              ].asset
-                            }
-                            alt="asset"
-                          />
-                        ) : (
-                          <img className="vai-img" src={vaiImg} alt="asset" />
-                        )}
-                        {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message */}
-                        <p>{item.underlyingSymbol}</p>
-                      </Col>
-                      <Col xs={{ span: 24 }} lg={{ span: 6 }} className="per-day right">
-                        <p className="mobile-label">Per day</p>
-                        {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'. */}
-                        <p>{item.perDay}</p>
-                      </Col>
-                      <Col xs={{ span: 24 }} lg={{ span: 6 }} className="supply-apy right">
-                        <p className="mobile-label">Supply APY</p>
+                    .minus(new BigNumber(a.perDay))
+                    .toString(10);
+                })
+                .map(item => (
+                  <Row className="table_item pointer" key={uid(item)}>
+                    <Col xs={{ span: 24 }} lg={{ span: 6 }} className="flex align-center market">
+                      {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message */}
+                      {item.underlyingSymbol !== 'VAI' ? (
+                        <img
+                          className="asset-img"
+                          src={
+                            getToken(
+                              // @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message
+                              item.underlyingSymbol.toLowerCase(),
+                            ).asset
+                          }
+                          alt="asset"
+                        />
+                      ) : (
+                        <img className="vai-img" src={vaiImg} alt="asset" />
+                      )}
+                      {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message */}
+                      <p>{item.underlyingSymbol}</p>
+                    </Col>
+                    <Col xs={{ span: 24 }} lg={{ span: 6 }} className="per-day right">
+                      <p className="mobile-label">Per day</p>
+                      {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'perDay' does not exist on type 'never'. */}
+                      <p>{item.perDay}</p>
+                    </Col>
+                    <Col xs={{ span: 24 }} lg={{ span: 6 }} className="supply-apy right">
+                      <p className="mobile-label">Supply APY</p>
+                      <p>
+                        {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message */}
+                        {item.supplyAPY}%
+                      </p>
+                    </Col>
+                    <Col xs={{ span: 24 }} lg={{ span: 6 }} className="borrow-apy right">
+                      <p className="mobile-label">Borrow APY</p>
+                      {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message */}
+                      {item.underlyingSymbol !== 'VAI' ? (
                         <p>
-                          {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'supplyAPY' does not exist on type 'never... Remove this comment to see the full error message */}
-                          {item.supplyAPY}%
+                          {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message */}
+                          {item.borrowAPY}%
                         </p>
-                      </Col>
-                      <Col xs={{ span: 24 }} lg={{ span: 6 }} className="borrow-apy right">
-                        <p className="mobile-label">Borrow APY</p>
-                        {/*  @ts-expect-error ts-migrate(2339) FIXME: Property 'underlyingSymbol' does not exist on type... Remove this comment to see the full error message */}
-                        {item.underlyingSymbol !== 'VAI' ? (
-                          <p>
-                            {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'borrowAPY' does not exist on type 'never... Remove this comment to see the full error message */}
-                            {item.borrowAPY}%
-                          </p>
-                        ) : (
-                          <p>-</p>
-                        )}
-                      </Col>
-                    </Row>
-                  ))}
-            </div>
-          </TableWrapper>
-        </XVSWrapper>
-      </MainLayout>
+                      ) : (
+                        <p>-</p>
+                      )}
+                    </Col>
+                  </Row>
+                ))}
+          </div>
+        </TableWrapper>
+      </XVSWrapper>
     </XVSLayout>
   );
 }

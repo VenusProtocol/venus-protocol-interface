@@ -1,27 +1,25 @@
 /* eslint-disable no-useless-escape */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import MainLayout from 'containers/Layout/MainLayout';
 import { connectAccount } from 'core';
-import { promisify } from 'utilities';
-import * as constants from 'utilities/constants';
+
+import { promisify, getVBepToken } from 'utilities';
 import OverviewChart from 'components/Basic/OverviewChart';
 import MarketInfo from 'components/MarketDetail/MarketInfo';
 import MarketSummary from 'components/MarketDetail/MarketSummary';
 import InterestRateModel from 'components/MarketDetail/InterestRateModel';
-import { useWeb3React } from '@web3-react/core';
-import { Setting } from 'types';
+import { Setting, VTokenId } from 'types';
 import { State } from 'core/modules/initialState';
-import { useMarkets } from '../../hooks/useMarkets';
+import { useMarkets } from 'hooks/useMarkets';
+import { AuthContext } from 'context/AuthContext';
 
 const MarketDetailWrapper = styled.div`
   height: 100%;
 
   .market-detail-content {
     width: 100%;
-    padding: 20px 40px 20px 0;
 
     @media only screen and (max-width: 1440px) {
       flex-direction: column;
@@ -102,23 +100,23 @@ const CardWrapper = styled.div`
 let timeStamp = 0;
 const abortController = new AbortController();
 
-interface Props extends RouteComponentProps<{ asset: string }> {
+interface Props extends RouteComponentProps<{ vTokenId: VTokenId }> {
   settings: Setting;
   getMarketHistory: $TSFixMe;
 }
 
 function MarketDetail({ match, getMarketHistory }: Props) {
   const [marketType, setMarketType] = useState('supply');
-  const [currentAsset, setCurrentAsset] = useState('');
+  const [currentAsset, setCurrentAsset] = useState<VTokenId | ''>('');
   const [data, setData] = useState([]);
   const [marketInfo, setMarketInfo] = useState({});
   // const [currentAPY, setCurrentAPY] = useState(0);
-  const { account } = useWeb3React();
+  const { account } = useContext(AuthContext);
   const { markets } = useMarkets();
 
   useEffect(() => {
-    if (match.params && match.params.asset) {
-      setCurrentAsset(match.params.asset.toLowerCase());
+    if (match.params && match.params.vTokenId) {
+      setCurrentAsset(match.params.vTokenId.toLowerCase() as VTokenId);
     }
   }, [match]);
 
@@ -157,8 +155,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (timeStamp % 60 === 0 && currentAsset) {
       getGraphData(
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
+        getVBepToken(currentAsset as VTokenId).address,
         '1day',
         30, // 1 month
       );
@@ -172,8 +169,7 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   useEffect(() => {
     if (currentAsset) {
       getGraphData(
-        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        constants.CONTRACT_VBEP_ADDRESS[currentAsset].address,
+        getVBepToken(currentAsset as VTokenId).address,
         '1day',
         30, // 1 month
       );
@@ -181,48 +177,46 @@ function MarketDetail({ match, getMarketHistory }: Props) {
   }, [currentAsset]);
 
   return (
-    <MainLayout title="Market">
-      <MarketDetailWrapper className="flex">
-        {currentAsset && (
-          <div className="flex market-detail-content">
-            <div className="column1">
+    <MarketDetailWrapper className="flex">
+      {currentAsset && (
+        <div className="flex market-detail-content">
+          <div className="column1">
+            <CardWrapper>
+              <MarketInfo marketInfo={marketInfo} marketType={marketType} />
+            </CardWrapper>
+          </div>
+          <div className="column2">
+            <div className="row1">
               <CardWrapper>
-                <MarketInfo marketInfo={marketInfo} marketType={marketType} />
+                <div className="flex align-center market-tab-wrapper">
+                  <div
+                    className={`tab-item pointer ${marketType === 'supply' ? 'tab-active' : ''}`}
+                    onClick={() => setMarketType('supply')}
+                  >
+                    Supply
+                  </div>
+                  <div
+                    className={`tab-item pointer ${marketType === 'borrow' ? 'tab-active' : ''}`}
+                    onClick={() => setMarketType('borrow')}
+                  >
+                    Borrow
+                  </div>
+                </div>
+                <OverviewChart marketType={marketType} graphType="composed" data={data} />
               </CardWrapper>
             </div>
-            <div className="column2">
-              <div className="row1">
-                <CardWrapper>
-                  <div className="flex align-center market-tab-wrapper">
-                    <div
-                      className={`tab-item pointer ${marketType === 'supply' ? 'tab-active' : ''}`}
-                      onClick={() => setMarketType('supply')}
-                    >
-                      Supply
-                    </div>
-                    <div
-                      className={`tab-item pointer ${marketType === 'borrow' ? 'tab-active' : ''}`}
-                      onClick={() => setMarketType('borrow')}
-                    >
-                      Borrow
-                    </div>
-                  </div>
-                  <OverviewChart marketType={marketType} graphType="composed" data={data} />
-                </CardWrapper>
-              </div>
-              <div className="flex row2">
-                <CardWrapper className="interest-rate-modal">
-                  <InterestRateModel currentAsset={currentAsset} />
-                </CardWrapper>
-                <CardWrapper className="market-summary">
-                  <MarketSummary marketInfo={marketInfo} currentAsset={currentAsset} />
-                </CardWrapper>
-              </div>
+            <div className="flex row2">
+              <CardWrapper className="interest-rate-modal">
+                <InterestRateModel currentAsset={currentAsset} />
+              </CardWrapper>
+              <CardWrapper className="market-summary">
+                <MarketSummary marketInfo={marketInfo} currentAsset={currentAsset} />
+              </CardWrapper>
             </div>
           </div>
-        )}
-      </MarketDetailWrapper>
-    </MainLayout>
+        </div>
+      )}
+    </MarketDetailWrapper>
   );
 }
 

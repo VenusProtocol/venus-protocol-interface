@@ -1,9 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useWeb3React } from '@web3-react/core';
+import React, { useContext, useEffect, useState } from 'react';
+
 import BigNumber from 'bignumber.js';
-import useRefresh from '../hooks/useRefresh';
-import { useComptroller, useVaiToken, useVaiUnitroller } from '../hooks/useContract';
-import { getVaiUnitrollerAddress } from '../utilities/addressHelpers';
+import { getContractAddress } from 'utilities';
+import {
+  useComptrollerContract,
+  useTokenContract,
+  useVaiUnitrollerContract,
+} from 'clients/contracts/hooks';
+import useRefresh from 'hooks/useRefresh';
+import { AuthContext } from './AuthContext';
+
+export interface IVaiContextValue {
+  userVaiMinted: BigNumber;
+  userVaiBalance: BigNumber;
+  userVaiEnabled: boolean;
+  mintableVai: BigNumber;
+}
 
 const VaiContext = React.createContext({
   userVaiMinted: new BigNumber(0),
@@ -22,10 +34,10 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
   const [mintableVai, setMintableAmount] = useState(new BigNumber(0));
 
   const { fastRefresh } = useRefresh();
-  const comptrollerContract = useComptroller();
-  const vaiControllerContract = useVaiUnitroller();
-  const vaiContract = useVaiToken();
-  const { account } = useWeb3React();
+  const comptrollerContract = useComptrollerContract();
+  const vaiControllerContract = useVaiUnitrollerContract();
+  const vaiContract = useTokenContract('vai');
+  const { account } = useContext(AuthContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -35,17 +47,24 @@ const VaiContextProvider = ({ children }: $TSFixMe) => {
       }
       const [userVaiBalanceTemp, userVaiMintedTemp, { 1: mintableVaiTemp }, allowBalanceTemp] =
         await Promise.all([
-          vaiContract.methods.balanceOf(account).call(),
-          comptrollerContract.methods.mintedVAIs(account).call(),
-          vaiControllerContract.methods.getMintableVAI(account).call(),
-          vaiContract.methods.allowance(account, getVaiUnitrollerAddress()).call(),
+          vaiContract.methods.balanceOf(account.address).call(),
+          comptrollerContract.methods.mintedVAIs(account.address).call(),
+          vaiControllerContract.methods.getMintableVAI(account.address).call(),
+          vaiContract.methods
+            .allowance(account.address, getContractAddress('vaiUnitroller'))
+            .call(),
         ]);
       if (!isMounted) {
         return;
       }
+
+      const formattedAllowBalanceTemp = new BigNumber(allowBalanceTemp);
       setMintedAmount(new BigNumber(userVaiMintedTemp).div(1e18));
       setWalletAmount(new BigNumber(userVaiBalanceTemp).div(1e18));
-      setEnabled(new BigNumber(allowBalanceTemp).gte(new BigNumber(userVaiMintedTemp)));
+      setEnabled(
+        formattedAllowBalanceTemp.gt(0) &&
+          formattedAllowBalanceTemp.gte(new BigNumber(userVaiMintedTemp)),
+      );
       setMintableAmount(new BigNumber(mintableVaiTemp).div(1e18));
     };
     update();

@@ -1,4 +1,4 @@
-FROM node:12.19.0-alpine3.12 as builder
+FROM node:16.14.2-alpine3.14 as builder
 
 ENV NODE_ENV development
 ENV NODE_PATH=src/
@@ -7,16 +7,14 @@ RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
 
-COPY package.json yarn.lock ./
+COPY . .
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-RUN npm install
-
-COPY . .
+RUN yarn
 
 RUN cat .env || true && \
-    npm run build
+    yarn build
 
 #----- Upload to S3 ------
 FROM amazon/aws-cli AS s3_uploader

@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
+import { withCenterStory } from 'stories/decorators';
 import { Button } from 'components';
 import { TextField } from '.';
 
 export default {
   title: 'Components/TextField',
   component: TextField,
-  decorators: [withThemeProvider, withCenterStory({ width: 600 })],
+  decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof TextField>;
 
 export const Default = () => <TextField placeholder="0.0" type="number" min={0} />;
@@ -29,3 +29,9 @@ export const WithRightAdornment = () => (
 export const WithHasError = () => (
   <TextField label="Label" placeholder="0.0" type="number" min={0} hasError />
 );
+
+export const WithMinAndMax = () => (
+  <TextField label="Label" placeholder="0.0" type="number" min={0} max={100} />
+);
+
+export const Disabled = () => <TextField placeholder="0.0" type="number" min={0} disabled />;

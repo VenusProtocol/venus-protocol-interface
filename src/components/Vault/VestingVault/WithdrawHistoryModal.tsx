@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Modal } from 'antd';
 import BigNumber from 'bignumber.js';
-import closeImg from 'assets/img/close.png';
 import moment from 'moment';
 import { uid } from 'react-uid';
-import * as constants from 'utilities/constants';
+
+import closeImg from 'assets/img/close.png';
+import { getToken } from 'utilities';
+import { TokenId } from 'types';
 
 const WithdrawHistoryModalWrapper = styled.div`
   color: #fff;
@@ -61,7 +63,7 @@ interface WithdrawHistoryModalProps {
   onCancel: () => void;
   pendingWithdrawals: unknown[];
   withdrawableAmount: BigNumber;
-  stakedToken: string;
+  stakedToken: TokenId;
 }
 
 function WithdrawHistoryModal({
@@ -71,10 +73,7 @@ function WithdrawHistoryModal({
   withdrawableAmount,
   stakedToken,
 }: WithdrawHistoryModalProps) {
-  const stakedTokenDecimal = new BigNumber(10).pow(
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-    constants.CONTRACT_TOKEN_ADDRESS[stakedToken].decimals,
-  );
+  const stakedTokenDecimal = new BigNumber(10).pow(getToken(stakedToken).decimals);
   return (
     <Modal
       className="venus-modal"

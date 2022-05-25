@@ -4,12 +4,12 @@ import { Icon } from 'antd';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
-import commaNumber from 'comma-number';
 import moment from 'moment';
+import { format } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
 import { Transaction } from 'types';
-import { BASE_BSC_SCAN_URL } from '../../../config';
+import { generateBscScanUrl } from 'utilities';
 
 const TransactionsWrapper = styled.div`
   width: 100%;
@@ -78,8 +78,6 @@ const TransactionsWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface Props extends RouteComponentProps {
   address: string;
   transactions: Transaction[];
@@ -113,18 +111,14 @@ function Transactions({ address, transactions }: Props) {
         tempData.push({
           action: tx.support ? 'Received Votes' : 'Lost Votes',
           age: getDate(tx.blockTimestamp),
-          result: format(
-            new BigNumber(tx.votes).div(new BigNumber(10).pow(18)).dp(4, 1).toString(10),
-          ),
+          result: format(new BigNumber(tx.votes).div(new BigNumber(10).pow(18)), 4),
           isReceived: tx.support,
         });
       } else {
         tempData.push({
           action: tx.to.toLowerCase() === address.toLowerCase() ? 'Received XVS' : 'Sent XVS',
           age: getDate(tx.blockTimestamp),
-          result: format(
-            new BigNumber(tx.amount).div(new BigNumber(10).pow(18)).dp(4, 1).toString(10),
-          ),
+          result: format(new BigNumber(tx.amount).div(new BigNumber(10).pow(18)), 4),
           isReceived: tx.to.toLowerCase() === address.toLowerCase(),
         });
       }
@@ -133,7 +127,7 @@ function Transactions({ address, transactions }: Props) {
   }, [transactions, address]);
 
   const handleLink = () => {
-    window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
+    window.open(generateBscScanUrl(address), '_blank');
   };
   return (
     <Card>

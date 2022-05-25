@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { connectAccount } from 'core';
-import commaNumber from 'comma-number';
+import { generateBscScanUrl } from 'utilities';
 import coinImg from 'assets/img/coins/xvs.svg';
 import { Card } from 'components/Basic/Card';
 import { State } from 'core/modules/initialState';
-import { BASE_BSC_SCAN_URL } from '../../config';
+import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
 
 const CardWrapper = styled.div`
   width: 100%;
@@ -44,8 +44,6 @@ const CardWrapper = styled.div`
   }
 `;
 
-const format = commaNumber.bindWith(',', '.');
-
 interface CoinInfoProps {
   address: string;
   balance: string;
@@ -53,7 +51,7 @@ interface CoinInfoProps {
 
 function CoinInfo({ address, balance }: CoinInfoProps) {
   const handleLink = () => {
-    window.open(`${BASE_BSC_SCAN_URL}/address/${address}`, '_blank');
+    window.open(generateBscScanUrl(address), '_blank');
   };
 
   return (
@@ -61,7 +59,7 @@ function CoinInfo({ address, balance }: CoinInfoProps) {
       <CardWrapper className="flex align-center just-between">
         <div className="flex align-center">
           <img src={coinImg} alt="coin" />
-          <p>{format(balance)}</p>
+          <p>{formatCommaThousandsPeriodDecimal(balance)}</p>
         </div>
         {address ? (
           <div className="flex align-center just-center pointer" onClick={() => handleLink()}>

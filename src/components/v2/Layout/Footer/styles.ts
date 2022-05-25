@@ -6,45 +6,56 @@ export const useStyles = () => {
 
   return {
     container: css`
-      height: 56px;
-      padding: 0 ${theme.spacing(2)};
+      height: ${theme.shape.footerHeight};
+      padding: 0 ${theme.spacing(10)};
       background-color: var(--color-bg-main);
       display: flex;
       justify-content: flex-end;
       align-items: center;
 
-      ${theme.breakpoints.down('md')} {
-        height: auto;
-        padding: ${theme.spacing(3)} ${theme.spacing(2)};
-        flex-direction: column;
+      ${theme.breakpoints.down('lg')} {
+        padding: 0 ${theme.spacing(6)};
       }
-    `,
-    status: css`
-      display: flex;
-      align-items: center;
 
       ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(2)};
+        padding: 0 ${theme.spacing(4)};
+        justify-content: space-between;
       }
     `,
-    statusBlockNumber: css`
+    blockInfo: css`
+      ${theme.breakpoints.down('md')} {
+        flex: 1;
+      }
+    `,
+    blockInfoMobileLineBreak: css`
+      display: none;
+
+      ${theme.breakpoints.down('md')} {
+        display: block;
+      }
+    `,
+    blockInfoNumber: css`
       color: ${theme.palette.text.primary};
     `,
     links: css`
       color: ${theme.palette.text.primary};
       display: flex;
-      margin-left: ${theme.spacing(1)};
+      margin-left: ${theme.spacing(2)};
+
+      ${theme.breakpoints.down('md')} {
+        margin-left: 0;
+      }
     `,
     link: css`
       background-color: ${theme.palette.secondary.light};
       transition: background-color 0.3s;
-      margin-left: ${theme.spacing(2)};
+      margin-left: ${theme.spacing(4)};
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
+      width: ${theme.spacing(6)};
+      height: ${theme.spacing(6)};
+      border-radius: ${theme.spacing(1)};
 
       :hover {
         background-color: ${theme.palette.button.main};
