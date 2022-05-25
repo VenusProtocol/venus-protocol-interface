@@ -8,8 +8,7 @@ describe('api/queries/getXvsReward', () => {
   test('throws an error when one of VenusLens contract call fails', async () => {
     const lensContract = {
       methods: {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        pendingVenus(user: string, comptroller: string) {
+        pendingVenus() {
           return {
             call() {
               throw new Error('Fake error message');
@@ -34,8 +33,7 @@ describe('api/queries/getXvsReward', () => {
   test('returns correct XVS reward amount in wei', async () => {
     const lensContract = {
       methods: {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        pendingVenus(user: string, comptroller: string) {
+        pendingVenus() {
           return {
             call() {
               return '73680428998277363810000000000';
