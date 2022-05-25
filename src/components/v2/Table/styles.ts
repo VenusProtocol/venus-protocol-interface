@@ -22,9 +22,16 @@ export const useStyles = () => {
         padding: 0;
       }
     `,
-    tableWrapperMobile: css`
+    tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
       margin-top: ${theme.spacing(6)};
       padding: ${theme.spacing(4, 0)};
+      ${clickable &&
+      `
+        cursor: pointer;
+        :hover {
+          background-color: ${theme.palette.interactive.hover};
+        }
+      `}
     `,
     rowTitleMobile: css`
       padding-left: ${theme.spacing(4)};

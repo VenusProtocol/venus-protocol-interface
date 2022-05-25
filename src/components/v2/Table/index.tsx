@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { SerializedStyles } from '@emotion/react';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,7 +18,7 @@ export interface ITableRowProps {
   value: string | number | boolean;
 }
 
-export interface ITableProps {
+export interface ITableBaseProps {
   title?: string;
   data: ITableRowProps[][];
   columns: { key: string; label: string; orderable: boolean }[];
@@ -36,6 +37,18 @@ export interface ITableProps {
   gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
 }
 
+interface ITableCardRowOnClickProps extends ITableBaseProps {
+  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
+  getRowHref?: undefined;
+}
+
+interface ITableCardHrefProps extends ITableBaseProps {
+  rowOnClick?: undefined;
+  getRowHref?: (row: ITableRowProps[]) => string;
+}
+
+export type TableProps = ITableCardRowOnClickProps | ITableCardHrefProps;
+
 export const Table = ({
   columns,
   cardColumns,
@@ -44,11 +57,12 @@ export const Table = ({
   minWidth,
   initialOrder,
   rowOnClick,
+  getRowHref,
   rowKeyIndex,
   className,
   tableCss,
   cardsCss,
-}: ITableProps) => {
+}: TableProps) => {
   const styles = useStyles();
 
   const [orderBy, setOrderBy] = React.useState<typeof columns[number]['key'] | undefined>(
@@ -111,7 +125,18 @@ export const Table = ({
                 <TableRow
                   hover
                   key={`${rowKey}-table`}
-                  onClick={e => rowOnClick && rowOnClick(e, row)}
+                  onClick={
+                    rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
+                  }
+                  component={
+                    getRowHref
+                      ? ({ children, ...props }) => (
+                          <Link {...props} to={getRowHref(row)}>
+                            {children}
+                          </Link>
+                        )
+                      : 'tr'
+                  }
                 >
                   {row.map(({ key, render }: ITableRowProps) => {
                     const cellContent = render();
@@ -136,6 +161,7 @@ export const Table = ({
         rows={rows}
         rowKeyIndex={rowKeyIndex}
         rowOnClick={rowOnClick}
+        getRowHref={getRowHref}
         columns={cardColumns || columns}
         css={cardsCss}
       />

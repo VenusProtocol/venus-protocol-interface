@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Paper, Typography } from '@mui/material';
 import { Delimiter } from '../Delimiter';
 import { ITableRowProps } from './types';
@@ -8,15 +9,16 @@ import { useStyles } from './styles';
 interface ITableCardProps {
   rows: ITableRowProps[][];
   rowKeyIndex: number;
-  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
   columns: { key: string; label: string; orderable: boolean }[];
   className?: string;
+  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
+  getRowHref?: (row: ITableRowProps[]) => string;
 }
-
 const TableCards: React.FC<ITableCardProps> = ({
   rows,
   rowKeyIndex,
   rowOnClick,
+  getRowHref,
   columns,
   className,
 }) => {
@@ -31,8 +33,17 @@ const TableCards: React.FC<ITableCardProps> = ({
         return (
           <Paper
             key={rowKey}
-            css={styles.tableWrapperMobile}
-            onClick={e => rowOnClick && rowOnClick(e, row)}
+            css={styles.tableWrapperMobile({ clickable: !!(rowOnClick || getRowHref) })}
+            onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}
+            component={
+              getRowHref
+                ? ({ children, ...props }) => (
+                    <div {...props}>
+                      <Link to={getRowHref(row)}>{children}</Link>
+                    </div>
+                  )
+                : 'div'
+            }
           >
             <div css={styles.rowTitleMobile}>{titleCell?.render()}</div>
             <Delimiter css={styles.delimiterMobile} />

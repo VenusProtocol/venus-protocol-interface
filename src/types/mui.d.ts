@@ -21,6 +21,7 @@ declare module '@mui/material/styles' {
       tan: string;
       delimiter: string;
       warning: string;
+      hover: string;
     };
   }
 

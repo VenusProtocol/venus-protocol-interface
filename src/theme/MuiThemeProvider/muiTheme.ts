@@ -44,6 +44,7 @@ export const PALETTE = {
     tan: 'rgba(255, 231, 206, 1)',
     delimiter: 'rgba(49, 50, 60, 1)',
     warning: 'rgba(220, 148, 68, 1)',
+    hover: 'rgba(255, 255, 255, 0.08)',
   },
 };
 
