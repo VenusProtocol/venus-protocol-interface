@@ -216,7 +216,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     }
 
     let repayAmount = amountWei;
-    if (repayAmount.eq(convertCoinsToWei({ value: limitTokens, tokenId: asset.id }))) {
+    if (repayAmount.eq(convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }))) {
       repayAmount = MAX_UINT256;
     }
 
