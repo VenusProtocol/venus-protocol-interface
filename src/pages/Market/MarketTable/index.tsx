@@ -2,7 +2,7 @@
 import React, { useContext, useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { AuthContext } from 'context/AuthContext';
-import { Table, Token, ITableProps, LayeredValues } from 'components';
+import { Table, Token, TableProps, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import { useUserMarketInfo } from 'clients/api';
@@ -14,11 +14,11 @@ import {
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
-export interface IMarketTableProps extends Pick<ITableProps, 'rowOnClick'> {
+export interface IMarketTableProps extends Pick<TableProps, 'getRowHref'> {
   assets: Asset[];
 }
 
-export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, rowOnClick }) => {
+export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
@@ -45,7 +45,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, rowOnClick 
   }, [columns]);
 
   // Format assets to rows
-  const rows: ITableProps['data'] = assets.map(asset => [
+  const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
       render: () => <Token symbol={asset.symbol as TokenId} />,
@@ -138,7 +138,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, rowOnClick 
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
-      rowOnClick={rowOnClick}
+      getRowHref={getRowHref}
       tableCss={sharedStyles.table}
       cardsCss={sharedStyles.cards}
       css={sharedStyles.cardContentGrid}
@@ -149,7 +149,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, rowOnClick 
 const MarketTable = () => {
   const { account } = useContext(AuthContext);
   const { assets } = useUserMarketInfo({ accountAddress: account?.address || '' });
-  return <MarketTableUi assets={assets} />;
+  return <MarketTableUi assets={assets} getRowHref={row => `/market/${row[0].value}`} />;
 };
 
 export default MarketTable;
