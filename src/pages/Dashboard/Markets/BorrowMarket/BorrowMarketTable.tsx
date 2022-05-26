@@ -28,7 +28,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
+      { key: 'apr', label: t('markets.columns.apr'), orderable: true },
       { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
       { key: 'liquidity', label: t('markets.columns.liquidity'), orderable: true },
     ],
@@ -46,7 +46,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
         value: asset.id,
       },
       {
-        key: 'apy',
+        key: 'apr',
         render: () => formatToReadablePercentage(borrowApy),
         value: borrowApy.toNumber(),
       },
@@ -78,7 +78,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'apy',
+        orderBy: 'apr',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}

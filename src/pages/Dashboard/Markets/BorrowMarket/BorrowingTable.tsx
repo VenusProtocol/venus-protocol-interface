@@ -34,7 +34,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
   const columns = useMemo(
     () => [
       { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
+      { key: 'apr', label: t('markets.columns.apr'), orderable: true },
       { key: 'balance', label: t('markets.columns.balance'), orderable: true },
       { key: 'percentOfLimit', label: t('markets.columns.percentOfLimit'), orderable: true },
     ],
@@ -55,7 +55,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
         value: asset.id,
       },
       {
-        key: 'apy',
+        key: 'apr',
         render: () => <div>{formatToReadablePercentage(borrowApy)}</div>,
         value: borrowApy.toNumber(),
       },
@@ -104,7 +104,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'apy',
+        orderBy: 'apr',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
