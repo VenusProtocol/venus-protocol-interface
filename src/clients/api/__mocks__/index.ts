@@ -29,27 +29,8 @@ export const useGetVTokenBalancesAll = jest.fn(() =>
   useQuery(FunctionKey.GET_V_TOKEN_BALANCES_ALL, getVTokenBalancesAll),
 );
 
-export const getVenusInitialIndex = jest.fn();
-export const useGetVenusInitialIndex = () =>
-  useQuery(FunctionKey.GET_VENUS_INITIAL_INDEX, getVenusInitialIndex);
-
-export const getVenusAccrued = jest.fn();
-export const useGetVenusAccrued = () => useQuery(FunctionKey.GET_VENUS_ACCRUED, getVenusAccrued);
-
-export const getVenusVaiState = jest.fn();
-export const useGetVenusVaiState = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_STATE, getVenusVaiState);
-
 export const getMintedVai = jest.fn();
 export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
-
-export const getVenusVaiMinterIndex = jest.fn();
-export const useGetVenusVaiMinterIndex = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getVenusVaiMinterIndex);
-
-export const getVenusVaiVaultRate = jest.fn();
-export const useGetVenusVaiVaultRate = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getVenusVaiVaultRate);
 
 export const getXvsReward = jest.fn();
 export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);
@@ -94,6 +75,10 @@ export const useGetVTokenApySimulations = () =>
 export const getVTokenSupplyRate = jest.fn();
 
 export const getVTokenBorrowRate = jest.fn();
+
+export const getVenusVaiVaultRate = jest.fn();
+export const useGetVenusVaiVaultRate = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_RATE, getVenusVaiVaultRate);
 
 // Mutations
 export const approveToken = jest.fn();
