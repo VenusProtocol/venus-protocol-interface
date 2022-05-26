@@ -93,16 +93,10 @@ const Dashboard: React.FC = () => {
   return (
     <DashboardUi
       accountAddress={account?.address || ''}
-      assets={getUserMarketInfoData?.assets || []}
-      userTotalBorrowLimitCents={
-        getUserMarketInfoData?.userTotalBorrowLimitCents || new BigNumber(0)
-      }
-      userTotalBorrowBalanceCents={
-        getUserMarketInfoData?.userTotalBorrowBalanceCents || new BigNumber(0)
-      }
-      userTotalSupplyBalanceCents={
-        getUserMarketInfoData?.userTotalSupplyBalanceCents || new BigNumber(0)
-      }
+      assets={getUserMarketInfoData.assets}
+      userTotalBorrowLimitCents={getUserMarketInfoData.userTotalBorrowLimitCents}
+      userTotalBorrowBalanceCents={getUserMarketInfoData.userTotalBorrowBalanceCents}
+      userTotalSupplyBalanceCents={getUserMarketInfoData.userTotalSupplyBalanceCents}
     />
   );
 };

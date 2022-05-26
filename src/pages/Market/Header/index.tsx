@@ -72,16 +72,10 @@ const Header = () => {
 
   return (
     <HeaderUi
-      totalSupplyCents={
-        getUserMarketInfoData?.treasuryTotalSupplyUsdBalanceCents || new BigNumber(0)
-      }
-      totalBorrowCents={
-        getUserMarketInfoData?.treasuryTotalBorrowUsdBalanceCents || new BigNumber(0)
-      }
-      availableLiquidityCents={
-        getUserMarketInfoData?.treasuryTotalAvailableLiquidityUsdBalanceCents || new BigNumber(0)
-      }
-      totalTreasuryCents={getUserMarketInfoData?.treasuryTotalUsdBalanceCents || new BigNumber(0)}
+      totalSupplyCents={getUserMarketInfoData.treasuryTotalSupplyUsdBalanceCents}
+      totalBorrowCents={getUserMarketInfoData.treasuryTotalBorrowUsdBalanceCents}
+      availableLiquidityCents={getUserMarketInfoData.treasuryTotalAvailableLiquidityUsdBalanceCents}
+      totalTreasuryCents={getUserMarketInfoData.treasuryTotalUsdBalanceCents}
     />
   );
 };

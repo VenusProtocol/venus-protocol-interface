@@ -116,8 +116,8 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
       remainingDistributionWei={xvsRemainingDistribution || new BigNumber(0)}
       venusVaiVaultRate={venusVAIVaultRate || new BigNumber(0)}
       className={className}
-      dailyVenus={getUserMarketInfoData?.dailyVenus || new BigNumber(0)}
-      totalXvsDistributedWei={getUserMarketInfoData?.totalXvsDistributedWei || new BigNumber(0)}
+      dailyVenus={getUserMarketInfoData.dailyVenus}
+      totalXvsDistributedWei={getUserMarketInfoData.totalXvsDistributedWei}
     />
   );
 };

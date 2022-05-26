@@ -593,7 +593,7 @@ Object {
       "xvsSupplyApy": "1841951.587706392698558375",
     },
   ],
-  "dailyVenus": undefined,
+  "dailyVenus": "0",
   "totalXvsDistributedWei": "3.110919e+24",
   "treasuryTotalAvailableLiquidityUsdBalanceCents": "1.009809011837545745832691419939998914208345e+26",
   "treasuryTotalBorrowUsdBalanceCents": "858779153456626.0141326894326108",

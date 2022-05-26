@@ -25,12 +25,12 @@ export interface IData {
   treasuryTotalBorrowUsdBalanceCents: BigNumber;
   treasuryTotalUsdBalanceCents: BigNumber;
   totalXvsDistributedWei: BigNumber;
-  dailyVenus: BigNumber | undefined;
+  dailyVenus: BigNumber;
 }
 
 export interface UseGetUserMarketInfoOutput {
   isLoading: boolean;
-  data: IData | undefined;
+  data: IData;
 }
 
 const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(
@@ -46,11 +46,21 @@ const useGetUserMarketInfo = ({
 }): UseGetUserMarketInfoOutput => {
   const { userVaiMinted } = useVaiUser();
 
-  const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
+  const {
+    data: getMarketsData = {
+      markets: [],
+      dailyVenus: new BigNumber(0),
+    },
+    isLoading: isGetMarketsLoading,
+  } = useGetMarkets({
+    placeholderData: {
+      markets: [],
+      dailyVenus: new BigNumber(0),
+    },
+  });
 
   const marketsMap = useMemo(
     () =>
-      getMarketsData?.markets &&
       indexBy(
         (item: Market) => item.underlyingSymbol.toLowerCase(), // index by symbol of underlying token
         getMarketsData.markets as IGetMarketsOutput['markets'],
@@ -58,20 +68,20 @@ const useGetUserMarketInfo = ({
     [getMarketsData?.markets],
   );
 
-  const { data: assetsInAccount, isLoading: isGetAssetsInAccountLoading } = useGetAssetsInAccount(
-    { account: accountAddress },
-    { enabled: !!accountAddress },
-  );
+  const { data: assetsInAccount = [], isLoading: isGetAssetsInAccountLoading } =
+    useGetAssetsInAccount(
+      { account: accountAddress },
+      { enabled: !!accountAddress, placeholderData: [] },
+    );
 
-  const { data: vTokenBalancesAccount, isLoading: isGetVTokenBalancesAccountLoading } =
+  const { data: vTokenBalancesAccount = [], isLoading: isGetVTokenBalancesAccountLoading } =
     useGetVTokenBalancesAll(
       { account: accountAddress || '', vTokenAddresses },
-      { enabled: !!accountAddress },
+      { enabled: !!accountAddress, placeholderData: [] },
     );
 
   const vTokenBalances = useMemo(
     () =>
-      vTokenBalancesAccount &&
       indexBy(
         (item: IGetVTokenBalancesAllOutput[number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesAccount,
@@ -79,15 +89,19 @@ const useGetUserMarketInfo = ({
     [JSON.stringify(vTokenBalancesAccount)],
   );
 
-  const { data: vTokenBalancesTreasury, isLoading: isGetVTokenBalancesTreasuryLoading } =
-    useGetVTokenBalancesAll({
-      account: TREASURY_ADDRESS,
-      vTokenAddresses,
-    });
+  const { data: vTokenBalancesTreasury = [], isLoading: isGetVTokenBalancesTreasuryLoading } =
+    useGetVTokenBalancesAll(
+      {
+        account: TREASURY_ADDRESS,
+        vTokenAddresses,
+      },
+      {
+        placeholderData: [],
+      },
+    );
 
   const treasuryBalances = useMemo(
     () =>
-      vTokenBalancesTreasury &&
       indexBy(
         (item: IGetVTokenBalancesAllOutput[number]) => item.vToken.toLowerCase(), // index by vToken address
         vTokenBalancesTreasury,
@@ -125,7 +139,7 @@ const useGetUserMarketInfo = ({
           return acc;
         }
 
-        const market = marketsMap && marketsMap[item.id];
+        const market = marketsMap[item.id];
         const vtokenAddress = vBepToken.address.toLowerCase();
         const collateral = (assetsInAccount || [])
           .map((address: string) => address.toLowerCase())
@@ -270,7 +284,7 @@ const useGetUserMarketInfo = ({
       treasuryTotalUsdBalanceCents,
       treasuryTotalBorrowUsdBalanceCents,
       treasuryTotalSupplyUsdBalanceCents,
-      dailyVenus: getMarketsData?.dailyVenus,
+      dailyVenus: getMarketsData.dailyVenus || new BigNumber(0),
       totalXvsDistributedWei,
     };
   }, [

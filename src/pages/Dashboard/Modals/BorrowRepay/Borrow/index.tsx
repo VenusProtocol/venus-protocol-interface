@@ -205,11 +205,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   // Calculate maximum and safe maximum amount of coins user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
-    // Return 0 values if borrow limit has been reached or data hasn't been
-    // fetched yet
+    // Return 0 values if borrow limit has been reached
     if (
-      !getUserMarketInfoData?.userTotalBorrowBalanceCents ||
-      !getUserMarketInfoData?.userTotalBorrowLimitCents ||
       getUserMarketInfoData.userTotalBorrowBalanceCents.isGreaterThan(
         getUserMarketInfoData.userTotalBorrowLimitCents,
       )
@@ -245,8 +242,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     asset.id,
     asset.tokenPrice,
     asset.liquidity,
-    getUserMarketInfoData?.userTotalBorrowLimitCents.toFixed(),
-    getUserMarketInfoData?.userTotalBorrowBalanceCents.toFixed(),
+    getUserMarketInfoData.userTotalBorrowLimitCents.toFixed(),
+    getUserMarketInfoData.userTotalBorrowBalanceCents.toFixed(),
   ]);
 
   return (

@@ -154,7 +154,7 @@ const MarketTable = () => {
 
   return (
     <MarketTableUi
-      assets={getUserMarketInfoData?.assets || []}
+      assets={getUserMarketInfoData.assets}
       getRowHref={row => `/market/${row[0].value}`}
     />
   );

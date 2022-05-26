@@ -125,14 +125,16 @@ const XvsTable: React.FC = () => {
       .div(vaultVaiStaked?.div(new BigNumber(10).pow(getToken('vai').decimals)));
   }
 
-  const assets: TableAsset[] = getUserMarketInfoData?.assets || [];
-  assets.push({
-    id: 'vai',
-    symbol: 'VAI',
-    xvsPerDay: venusVaiVaultRate,
-    xvsSupplyApy: vaiApy,
-    xvsBorrowApy: undefined,
-  });
+  const assets: TableAsset[] = [
+    ...getUserMarketInfoData.assets,
+    {
+      id: 'vai',
+      symbol: 'VAI',
+      xvsPerDay: venusVaiVaultRate,
+      xvsSupplyApy: vaiApy,
+      xvsBorrowApy: undefined,
+    },
+  ];
 
   return <XvsTableUi assets={assets} />;
 };
