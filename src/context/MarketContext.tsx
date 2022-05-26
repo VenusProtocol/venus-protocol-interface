@@ -94,7 +94,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           ? await comptrollerContract.methods.getAssetsIn(account.address).call()
           : [];
 
-        const vtAddresses = Object.values(VBEP_TOKENS)
+        const vTokenAddresses = Object.values(VBEP_TOKENS)
           .filter(item => item.address)
           .map(item => item.address);
 
@@ -102,7 +102,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         if (account) {
           balances = indexBy(
             (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
-            await lens.methods.vTokenBalancesAll(vtAddresses, account.address).call(),
+            await lens.methods.vTokenBalancesAll(vTokenAddresses, account.address).call(),
           );
           xvsBalance = getXvsBalance(balances);
         }
@@ -110,7 +110,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         // Fetch treasury balances
         const treasuryBalances = indexBy(
           (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
-          await lens.methods.vTokenBalancesAll(vtAddresses, TREASURY_ADDRESS).call(),
+          await lens.methods.vTokenBalancesAll(vTokenAddresses, TREASURY_ADDRESS).call(),
         );
 
         const marketsMap = indexBy(

@@ -14,7 +14,7 @@ import {
   redeem,
   redeemUnderlying,
   getVTokenBalanceOf,
-  useUserMarketInfo,
+  useGetUserMarketInfo,
 } from 'clients/api';
 import { Asset, TokenId } from 'types';
 import en from 'translation/translations/en.json';
@@ -38,10 +38,13 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [], // Not used in these tests
-      userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-      userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [], // Not used in these tests
+        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+      },
+      isLoading: false,
     }));
   });
 
@@ -329,10 +332,13 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
   describe('Withdraw form', () => {
     beforeEach(() => {
-      (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-        assets: [], // Not used in these tests
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: [], // Not used in these tests
+          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        },
+        isLoading: false,
       }));
     });
 

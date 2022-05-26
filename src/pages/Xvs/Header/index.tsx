@@ -2,7 +2,7 @@
 import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { useGetVenusVaiVaultRate, useGetBalanceOf, useUserMarketInfo } from 'clients/api';
+import { useGetVenusVaiVaultRate, useGetBalanceOf, useGetUserMarketInfo } from 'clients/api';
 import { EllipseText, Icon, LabeledProgressBar } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import copy from 'copy-to-clipboard';
@@ -103,7 +103,7 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
 const Header: React.FC<IHeaderProps> = ({ className }) => {
   const { account } = useContext(AuthContext);
   const { data: venusVAIVaultRate } = useGetVenusVaiVaultRate();
-  const { dailyVenus, totalXvsDistributedWei } = useUserMarketInfo({
+  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
   const { data: xvsRemainingDistribution } = useGetBalanceOf({
@@ -116,8 +116,8 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
       remainingDistributionWei={xvsRemainingDistribution || new BigNumber(0)}
       venusVaiVaultRate={venusVAIVaultRate || new BigNumber(0)}
       className={className}
-      dailyVenus={dailyVenus || new BigNumber(0)}
-      totalXvsDistributedWei={totalXvsDistributedWei}
+      dailyVenus={getUserMarketInfoData?.dailyVenus || new BigNumber(0)}
+      totalXvsDistributedWei={getUserMarketInfoData?.totalXvsDistributedWei || new BigNumber(0)}
     />
   );
 };

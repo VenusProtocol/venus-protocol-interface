@@ -25,7 +25,7 @@ const claimXvsReward = async ({
 
   const vTokenBalances = await getVTokenBalancesAll({
     venusLensContract,
-    vtAddresses: vTokenAddresses,
+    vTokenAddresses,
     account: fromAccountAddress,
   });
 

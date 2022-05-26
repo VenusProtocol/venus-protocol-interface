@@ -140,7 +140,7 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
 
-export const useUserMarketInfo = jest.fn();
+export const useGetUserMarketInfo = jest.fn();
 
 export const borrowVToken = jest.fn();
 export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, borrowVToken);

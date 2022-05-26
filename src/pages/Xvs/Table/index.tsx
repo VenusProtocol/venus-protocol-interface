@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import {
-  useUserMarketInfo,
+  useGetUserMarketInfo,
   useGetVenusVaiVaultRate,
   useGetBalanceOf,
   useGetMarkets,
@@ -104,7 +104,10 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { assets } = useUserMarketInfo({ accountAddress: account?.address });
+  // TODO: handle loading state
+  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+    accountAddress: account?.address,
+  });
   const { data: { markets } = { markets: [] } } = useGetMarkets({
     placeholderData: { markets: [], dailyVenus: undefined },
   });
@@ -122,13 +125,15 @@ const XvsTable: React.FC = () => {
       .div(vaultVaiStaked?.div(new BigNumber(10).pow(getToken('vai').decimals)));
   }
 
-  (assets as TableAsset[]).push({
+  const assets: TableAsset[] = getUserMarketInfoData?.assets || [];
+  assets.push({
     id: 'vai',
     symbol: 'VAI',
     xvsPerDay: venusVaiVaultRate,
     xvsSupplyApy: vaiApy,
     xvsBorrowApy: undefined,
   });
+
   return <XvsTableUi assets={assets} />;
 };
 

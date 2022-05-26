@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import { formatToReadablePercentage } from 'utilities/common';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
@@ -34,13 +34,14 @@ const AccountData: React.FC<IAccountDataProps> = ({
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
 
-  const { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
+  // TODO: handle loading state
+  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
 
   const hypotheticalTotalBorrowBalanceCents =
-    hypotheticalBorrowAmountTokens !== 0
-      ? userTotalBorrowBalanceCents.plus(
+    getUserMarketInfoData?.userTotalBorrowBalanceCents && hypotheticalBorrowAmountTokens !== 0
+      ? getUserMarketInfoData.userTotalBorrowBalanceCents.plus(
           asset.tokenPrice
             .multipliedBy(hypotheticalBorrowAmountTokens)
             // Convert dollars to cents
@@ -50,23 +51,33 @@ const AccountData: React.FC<IAccountDataProps> = ({
 
   const borrowLimitUsedPercentage = React.useMemo(
     () =>
+      getUserMarketInfoData?.userTotalBorrowBalanceCents &&
+      getUserMarketInfoData?.userTotalBorrowLimitCents &&
       calculatePercentage({
-        numerator: userTotalBorrowBalanceCents.toNumber(),
-        denominator: userTotalBorrowLimitCents.toNumber(),
+        numerator: getUserMarketInfoData.userTotalBorrowBalanceCents.toNumber(),
+        denominator: getUserMarketInfoData.userTotalBorrowLimitCents.toNumber(),
       }),
-    [userTotalBorrowBalanceCents.toNumber(), userTotalBorrowLimitCents.toNumber()],
+    [
+      getUserMarketInfoData?.userTotalBorrowBalanceCents.toNumber(),
+      getUserMarketInfoData?.userTotalBorrowLimitCents.toNumber(),
+    ],
   );
 
   const hypotheticalBorrowLimitUsedPercentage =
     hypotheticalTotalBorrowBalanceCents &&
+    getUserMarketInfoData?.userTotalBorrowLimitCents &&
     calculatePercentage({
       numerator: hypotheticalTotalBorrowBalanceCents.toNumber(),
-      denominator: userTotalBorrowLimitCents.toNumber(),
+      denominator: getUserMarketInfoData.userTotalBorrowLimitCents.toNumber(),
     });
 
   const calculateDailyEarningsCents = React.useCallback(
     (tokenAmount: BigNumber) => {
-      const updatedAssets = assets.map(assetData => ({
+      if (!getUserMarketInfoData?.assets) {
+        return new BigNumber(0);
+      }
+
+      const updatedAssets = getUserMarketInfoData.assets.map(assetData => ({
         ...assetData,
         borrowBalance:
           assetData.id === asset.id
@@ -83,7 +94,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
         ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
         : new BigNumber(0);
     },
-    [JSON.stringify(assets), userTotalBorrowBalanceCents.toFixed()],
+    [JSON.stringify(getUserMarketInfoData?.assets)],
   );
 
   const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
@@ -104,8 +115,8 @@ const AccountData: React.FC<IAccountDataProps> = ({
   return (
     <>
       <BorrowBalanceAccountHealth
-        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
-        borrowLimitCents={userTotalBorrowLimitCents.toNumber()}
+        borrowBalanceCents={getUserMarketInfoData?.userTotalBorrowBalanceCents.toNumber()}
+        borrowLimitCents={getUserMarketInfoData?.userTotalBorrowLimitCents.toNumber()}
         hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
         css={styles.getRow({ isLast: true })}
@@ -128,7 +139,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
         css={styles.getRow({ isLast: true })}
       >
         <ValueUpdate
-          original={userTotalBorrowBalanceCents.toNumber()}
+          original={getUserMarketInfoData?.userTotalBorrowBalanceCents.toNumber()}
           update={hypotheticalTotalBorrowBalanceCents?.toNumber()}
           positiveDirection="desc"
         />

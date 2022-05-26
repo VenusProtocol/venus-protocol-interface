@@ -127,7 +127,7 @@ export * from './queries/getXvsWithdrawableAmount';
 
 export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithdrawableAmount';
 
-export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
+export { default as useGetUserMarketInfo } from './queries/useGetUserMarketInfo';
 
 export { default as getMarketHistory } from './queries/getMarketHistory';
 export * from './queries/getMarketHistory';

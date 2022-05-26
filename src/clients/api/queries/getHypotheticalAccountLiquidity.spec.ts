@@ -15,7 +15,7 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
     try {
       await getHypotheticalAccountLiquidity({
         comptrollerContract: fakeContract,
-        account: '0xq3k9',
+        accountAddress: '0xq3k9',
         vtokenAddress: '0xq3k9',
         balanceOf: '',
         borrowAmount: 0,
@@ -38,7 +38,7 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
 
     const response = await getHypotheticalAccountLiquidity({
       comptrollerContract: fakeContract,
-      account: '0x34111',
+      accountAddress: '0x34111',
       vtokenAddress: '0xq3k9',
       balanceOf: '',
       borrowAmount: 0,

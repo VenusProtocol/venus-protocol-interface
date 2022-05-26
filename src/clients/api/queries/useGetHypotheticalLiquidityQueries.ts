@@ -1,40 +1,42 @@
 import { useQueries, QueryObserverOptions } from 'react-query';
 
 import getHypotheticalAccountLiquidity from 'clients/api/queries/getHypotheticalAccountLiquidity';
-import { IGetVTokenBalancesAllOutput } from 'clients/api';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { Asset } from 'types';
 
 type Options = QueryObserverOptions; // @TODO: add query specific generics
 
+type VToken = {
+  address: Asset['vtokenAddress'];
+  balance: string;
+};
+
 const useGetHypotheticalLiquidityQueries = (
   {
-    assetList,
-    account,
-    balances,
+    vTokens,
+    accountAddress,
   }: {
-    account: string | null | undefined;
-    assetList: Asset[];
-    balances: Record<string, IGetVTokenBalancesAllOutput[number]>;
+    accountAddress: string;
+    vTokens: VToken[];
   },
   options: Options = {},
 ) => {
   const comptrollerContract = useComptrollerContract();
+
   return useQueries(
-    assetList.map((asset: Asset) => {
-      const enabled =
-        options.enabled === undefined
-          ? true
-          : balances[asset.vtokenAddress.toLowerCase()]?.balanceOf !== undefined;
+    vTokens.map(vToken => {
+      const formattedVTokenAddress = vToken.address.toLowerCase();
+      const enabled = options.enabled !== undefined && !!vToken.balance;
+
       return {
-        queryKey: [FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, account, asset.symbol],
+        queryKey: [FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, accountAddress, formattedVTokenAddress],
         queryFn: () =>
           getHypotheticalAccountLiquidity({
             comptrollerContract,
-            account,
-            vtokenAddress: asset.vtokenAddress,
-            balanceOf: balances[asset.vtokenAddress.toLowerCase()]?.balanceOf,
+            accountAddress,
+            vtokenAddress: formattedVTokenAddress,
+            balanceOf: vToken.balance,
           }),
         ...options,
         enabled,

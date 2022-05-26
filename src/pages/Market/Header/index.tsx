@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities/common';
@@ -65,18 +65,23 @@ export const HeaderUi: React.FC<IHeaderProps> = ({
 
 const Header = () => {
   const { account } = useContext(AuthContext);
-  const {
-    treasuryTotalSupplyUsdBalanceCents,
-    treasuryTotalAvailableLiquidityUsdBalanceCents,
-    treasuryTotalBorrowUsdBalanceCents,
-    treasuryTotalUsdBalanceCents,
-  } = useUserMarketInfo({ accountAddress: account?.address || '' });
+  // TODO: handle loading state
+  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+    accountAddress: account?.address,
+  });
+
   return (
     <HeaderUi
-      totalSupplyCents={treasuryTotalSupplyUsdBalanceCents}
-      totalBorrowCents={treasuryTotalBorrowUsdBalanceCents}
-      availableLiquidityCents={treasuryTotalAvailableLiquidityUsdBalanceCents}
-      totalTreasuryCents={treasuryTotalUsdBalanceCents}
+      totalSupplyCents={
+        getUserMarketInfoData?.treasuryTotalSupplyUsdBalanceCents || new BigNumber(0)
+      }
+      totalBorrowCents={
+        getUserMarketInfoData?.treasuryTotalBorrowUsdBalanceCents || new BigNumber(0)
+      }
+      availableLiquidityCents={
+        getUserMarketInfoData?.treasuryTotalAvailableLiquidityUsdBalanceCents || new BigNumber(0)
+      }
+      totalTreasuryCents={getUserMarketInfoData?.treasuryTotalUsdBalanceCents || new BigNumber(0)}
     />
   );
 };

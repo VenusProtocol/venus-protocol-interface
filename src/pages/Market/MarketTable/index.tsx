@@ -5,7 +5,7 @@ import { AuthContext } from 'context/AuthContext';
 import { Table, Token, TableProps, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
@@ -148,8 +148,16 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
 
 const MarketTable = () => {
   const { account } = useContext(AuthContext);
-  const { assets } = useUserMarketInfo({ accountAddress: account?.address || '' });
-  return <MarketTableUi assets={assets} getRowHref={row => `/market/${row[0].value}`} />;
+  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+    accountAddress: account?.address || '',
+  });
+
+  return (
+    <MarketTableUi
+      assets={getUserMarketInfoData?.assets || []}
+      getRowHref={row => `/market/${row[0].value}`}
+    />
+  );
 };
 
 export default MarketTable;

@@ -15,7 +15,7 @@ import {
 } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { TransactionError, UiError } from 'utilities/errors';
-import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
+import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
   toast,
   FormikSubmitButton,
@@ -170,7 +170,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const { userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
+  // TODO: handle loading state
+  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
 
@@ -204,24 +205,31 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   // Calculate maximum and safe maximum amount of coins user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
-    // Return 0 values if borrow limit has been reached
-    if (userTotalBorrowBalanceCents.isGreaterThan(userTotalBorrowLimitCents)) {
+    // Return 0 values if borrow limit has been reached or data hasn't been
+    // fetched yet
+    if (
+      !getUserMarketInfoData?.userTotalBorrowBalanceCents ||
+      !getUserMarketInfoData?.userTotalBorrowLimitCents ||
+      getUserMarketInfoData.userTotalBorrowBalanceCents.isGreaterThan(
+        getUserMarketInfoData.userTotalBorrowLimitCents,
+      )
+    ) {
       return ['0', '0'];
     }
 
-    const marginWithBorrowLimitDollars = userTotalBorrowLimitCents
-      .minus(userTotalBorrowBalanceCents)
+    const marginWithBorrowLimitDollars = getUserMarketInfoData.userTotalBorrowLimitCents
+      .minus(getUserMarketInfoData.userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
     const maxCoins = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
       // Convert dollars to coins
       .dividedBy(asset.tokenPrice);
 
-    const safeBorrowLimitCents = userTotalBorrowLimitCents.multipliedBy(
+    const safeBorrowLimitCents = getUserMarketInfoData.userTotalBorrowLimitCents.multipliedBy(
       SAFE_BORROW_LIMIT_PERCENTAGE / 100,
     );
     const marginWithSafeBorrowLimitDollars = safeBorrowLimitCents
-      .minus(userTotalBorrowBalanceCents)
+      .minus(getUserMarketInfoData.userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
     const safeMaxCoins = marginWithSafeBorrowLimitDollars
@@ -237,8 +245,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     asset.id,
     asset.tokenPrice,
     asset.liquidity,
-    userTotalBorrowLimitCents.toFixed(),
-    userTotalBorrowBalanceCents.toFixed(),
+    getUserMarketInfoData?.userTotalBorrowLimitCents.toFixed(),
+    getUserMarketInfoData?.userTotalBorrowBalanceCents.toFixed(),
   ]);
 
   return (

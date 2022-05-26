@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { AuthContext } from 'context/AuthContext';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import { Asset } from 'types';
 
 import MyAccount from './MyAccount';
@@ -85,22 +85,24 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 
 const Dashboard: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-  const {
-    assets,
-    userTotalBorrowLimitCents,
-    userTotalBorrowBalanceCents,
-    userTotalSupplyBalanceCents,
-  } = useUserMarketInfo({
+  // TODO: handle loading state
+  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
     accountAddress: account?.address || '',
   });
 
   return (
     <DashboardUi
       accountAddress={account?.address || ''}
-      assets={assets}
-      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
-      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
-      userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
+      assets={getUserMarketInfoData?.assets || []}
+      userTotalBorrowLimitCents={
+        getUserMarketInfoData?.userTotalBorrowLimitCents || new BigNumber(0)
+      }
+      userTotalBorrowBalanceCents={
+        getUserMarketInfoData?.userTotalBorrowBalanceCents || new BigNumber(0)
+      }
+      userTotalSupplyBalanceCents={
+        getUserMarketInfoData?.userTotalSupplyBalanceCents || new BigNumber(0)
+      }
     />
   );
 };
