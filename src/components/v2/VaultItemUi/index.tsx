@@ -6,11 +6,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
-import {
-  convertWeiToCoins,
-  formatCommaThousandsPeriodDecimal,
-  formatToReadablePercentage,
-} from 'utilities/common';
+import { convertWeiToCoins, formatToReadablePercentage } from 'utilities/common';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import { Icon } from '../Icon';
@@ -58,13 +54,11 @@ export const VaultItemUi = ({
         value: (
           <>
             <Icon css={classes.tokenIcon} name={rewardTokenId} />
-            {formatCommaThousandsPeriodDecimal(
-              convertWeiToCoins({
-                valueWei: dailyEmissionWei,
-                tokenId: rewardTokenId,
-                returnInReadableFormat: true,
-              }),
-            )}
+            {convertWeiToCoins({
+              valueWei: dailyEmissionWei,
+              tokenId: rewardTokenId,
+              returnInReadableFormat: true,
+            })}
           </>
         ),
       },
@@ -73,13 +67,11 @@ export const VaultItemUi = ({
         value: (
           <>
             <Icon css={classes.tokenIcon} name={tokenId} />
-            {formatCommaThousandsPeriodDecimal(
-              convertWeiToCoins({
-                valueWei: totalStakedWei,
-                tokenId,
-                returnInReadableFormat: true,
-              }),
-            )}
+            {convertWeiToCoins({
+              valueWei: totalStakedWei,
+              tokenId,
+              returnInReadableFormat: true,
+            })}
           </>
         ),
       },

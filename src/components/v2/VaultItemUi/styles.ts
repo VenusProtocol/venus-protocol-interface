@@ -19,13 +19,13 @@ export const useStyles = () => {
       align-items: center;
     `,
     tokenIcon: css`
-      width: 20px;
-      height: 20px;
+      width: ${theme.shape.iconSize.large};
+      height: ${theme.shape.iconSize.large};
       margin-right: ${theme.spacing(1)};
     `,
     tokenIconLarge: css`
-      width: 32px;
-      height: 32px;
+      width: ${theme.shape.iconSize.xLarge};
+      height: ${theme.shape.iconSize.xLarge};
     `,
     tokenIconReward: css`
       margin-left: ${theme.spacing(1)};
@@ -35,7 +35,7 @@ export const useStyles = () => {
     `,
     textMobile14: css`
       ${theme.breakpoints.down('sm')} {
-        font-size: 14px;
+        font-size: ${theme.spacing(3.5)};
       }
     `,
     textRewardValue: css`
@@ -54,7 +54,7 @@ export const useStyles = () => {
       align-items: center;
 
       ${theme.breakpoints.down('sm')} {
-        font-size: 14px;
+        font-size: ${theme.spacing(3.5)};
       }
     `,
     buttonClaim: css`
