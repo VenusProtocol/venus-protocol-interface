@@ -531,7 +531,7 @@
     "remaining": "Remaining:"
   },
   "pagination": {
-    "itemOf": "{{currentPageLastIndex}} item of {{itemsCount}}",
-    "itemsOf": "{{firstItemNumberInRow}} - {{currentPageLastIndex}} items of {{itemsCount}}"
+    "itemOf": "item {{currentPageLastIndex}} out of {{itemsCount}}",
+    "itemsOf": "items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   }
 }

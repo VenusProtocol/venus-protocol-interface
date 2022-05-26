@@ -42,11 +42,6 @@ export const useStyles = () => {
     getButtonStyles: ({ isActive }: { isActive: boolean }) => css`
       color: ${isActive ? theme.palette.text.primary : theme.palette.text.secondary};
     `,
-    arrowButtonWrapper: css`
-      display: flex;
-      align-items: center;
-      line-height: 1px;
-    `,
     iconReverted: css`
       transform: rotate(180deg);
     `,
