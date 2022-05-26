@@ -34,10 +34,20 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('xvs.columns.asset'), orderable: false },
-      { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true },
-      { key: 'supplyXvsApy', label: t('xvs.columns.supplyXvsApy'), orderable: true },
-      { key: 'borrowXvsApy', label: t('xvs.columns.borrowXvsApy'), orderable: true },
+      { key: 'asset', label: t('xvs.columns.asset'), orderable: false, align: 'left' },
+      { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true, align: 'right' },
+      {
+        key: 'supplyXvsApy',
+        label: t('xvs.columns.supplyXvsApy'),
+        orderable: true,
+        align: 'right',
+      },
+      {
+        key: 'borrowXvsApy',
+        label: t('xvs.columns.borrowXvsApy'),
+        orderable: true,
+        align: 'right',
+      },
     ],
     [],
   );
@@ -51,6 +61,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
       key: 'asset',
       render: () => <Token symbol={asset.symbol as TokenId} />,
       value: asset.id,
+      align: 'left',
     },
     {
       key: 'xvsPerDay',
@@ -64,6 +75,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
         </Typography>
       ),
       value: asset.xvsPerDay?.toFixed() || 0,
+      align: 'right',
     },
     {
       key: 'supplyXvsApy',
@@ -73,6 +85,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
         </Typography>
       ),
       value: asset.xvsSupplyApy?.toFixed() || 0,
+      align: 'right',
     },
     {
       key: 'borrowXvsApy',
@@ -82,6 +95,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
         </Typography>
       ),
       value: asset.xvsBorrowApy?.toFixed() || 0,
+      align: 'right',
     },
   ]);
 

@@ -33,10 +33,15 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
-      { key: 'balance', label: t('markets.columns.balance'), orderable: true },
-      { key: 'percentOfLimit', label: t('markets.columns.percentOfLimit'), orderable: true },
+      { key: 'asset', label: t('markets.columns.asset'), orderable: false, align: 'left' },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true, align: 'right' },
+      { key: 'balance', label: t('markets.columns.balance'), orderable: true, align: 'right' },
+      {
+        key: 'percentOfLimit',
+        label: t('markets.columns.percentOfLimit'),
+        orderable: true,
+        align: 'right',
+      },
     ],
     [],
   );
@@ -53,11 +58,13 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
         key: 'asset',
         render: () => <Token symbol={asset.symbol as TokenId} />,
         value: asset.id,
+        align: 'left',
       },
       {
         key: 'apy',
         render: () => <div>{formatToReadablePercentage(borrowApy)}</div>,
         value: borrowApy.toNumber(),
+        align: 'right',
       },
       {
         key: 'balance',
@@ -74,6 +81,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
           />
         ),
         value: asset.borrowBalance.toFixed(),
+        align: 'right',
       },
       {
         key: 'percentOfLimit',
@@ -94,6 +102,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
           </div>
         ),
         value: percentOfLimit.toFixed(),
+        align: 'right',
       },
     ];
   });
