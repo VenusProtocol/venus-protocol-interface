@@ -48,7 +48,7 @@ export const PALETTE = {
   },
 };
 
-const BREAKPOINTS = {
+export const BREAKPOINTS = {
   values: {
     xs: 0,
     sm: 576,
