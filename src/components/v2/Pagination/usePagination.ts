@@ -1,54 +1,70 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
 
-type IPaginationProps<Row> = {
-  data: Row[];
+type IPaginationProps = {
+  itemsCount: number;
+  onChange: (newPageIndex: number) => void;
   initialPageNumber?: number;
-  rowsPerPageCount?: number;
+  itemsPerPageCount?: number;
 };
 
-export function usePagination<Row>({
-  data,
+const PAGES_TO_SHOW_COUNT = 4;
+
+export function usePagination({
+  itemsCount,
+  onChange,
   initialPageNumber = 1,
-  rowsPerPageCount = 10,
-}: IPaginationProps<Row>) {
+  itemsPerPageCount = 10,
+}: IPaginationProps) {
   const { t } = useTranslation();
 
   const initialPageIndex = initialPageNumber - 1;
 
-  const [currentPageData, setCurrentPageData] = useState<Row[]>([]);
   const [activePageIndex, setActivePageIndex] = useState(initialPageIndex);
   const [pagesCount, setPagesCount] = useState(0);
-  const itemsCount = data.length;
 
-  /* calculating rows per page count */
+  /* calculating items per page count */
   useEffect(() => {
-    setPagesCount(Math.ceil(itemsCount / rowsPerPageCount));
-  }, [rowsPerPageCount]);
+    setPagesCount(Math.ceil(itemsCount / itemsPerPageCount));
+  }, [itemsPerPageCount]);
 
-  // const isFirstPage = currentPageIndex === 0;
   const isLastPage = activePageIndex === pagesCount - 1;
-  const currentPageFirstIndex = activePageIndex * rowsPerPageCount;
-  const currentPageLastIndex = isLastPage ? itemsCount : currentPageFirstIndex + rowsPerPageCount;
-  const firstItemNumberInRow = currentPageFirstIndex + 1;
-  const isSingleItemOnPage = firstItemNumberInRow === currentPageLastIndex;
+  const currentPageFirstIndex = activePageIndex * itemsPerPageCount;
+  const currentPageLastIndex = isLastPage ? itemsCount : currentPageFirstIndex + itemsPerPageCount;
+  const firstItemNumber = currentPageFirstIndex + 1;
+  const isSingleItemOnPage = firstItemNumber === currentPageLastIndex;
   const itemsCountString = isSingleItemOnPage
     ? t('pagination.itemOf', { currentPageLastIndex, itemsCount })
-    : t('pagination.itemsOf', { firstItemNumberInRow, currentPageLastIndex, itemsCount });
+    : t('pagination.itemsOf', { firstItemNumber, currentPageLastIndex, itemsCount });
 
-  /* setting data for selected page */
-  useEffect(() => {
-    const newPageData = data.slice(currentPageFirstIndex, currentPageLastIndex);
-    setCurrentPageData(newPageData);
-  }, [activePageIndex, rowsPerPageCount]);
+  /* creating pages array */
+  const pagesArray = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+  const halfOfPagesCount = Math.ceil(PAGES_TO_SHOW_COUNT / 2);
+  const lastPageIndex = pagesCount - 1;
+  const isActivePageInEnd = activePageIndex > lastPageIndex - halfOfPagesCount;
+  const isActivePageInStart = activePageIndex < halfOfPagesCount;
+
+  const minPageIndexToShow = isActivePageInEnd
+    ? lastPageIndex - PAGES_TO_SHOW_COUNT
+    : activePageIndex - halfOfPagesCount;
+
+  const maxPageIndexToShow = isActivePageInStart
+    ? PAGES_TO_SHOW_COUNT
+    : activePageIndex + halfOfPagesCount;
+
+  const handlePageChange = (pageIndex: number) => {
+    onChange(pageIndex);
+    setActivePageIndex(pageIndex);
+  };
 
   return {
     pagesCount,
     activePageIndex,
-    currentPageData,
     itemsCountString,
-    goToNextPage: () => setActivePageIndex(activePageIndex + 1),
-    goToPreviousPage: () => setActivePageIndex(activePageIndex - 1),
-    goToPageByIndex: (pageIndex: number) => setActivePageIndex(pageIndex),
+    goToPageByIndex: handlePageChange,
+    pagesArray,
+    minPageIndexToShow,
+    maxPageIndexToShow,
   };
 }
