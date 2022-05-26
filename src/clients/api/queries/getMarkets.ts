@@ -11,9 +11,12 @@ export interface IGetMarketsResponse {
   venusRate: string;
 }
 
-export type GetMarketsOutput = { markets: Market[]; dailyVenus: BigNumber | undefined };
+export interface IGetMarketsOutput {
+  markets: Market[];
+  dailyVenus: BigNumber | undefined;
+}
 
-const getMarkets = async (): Promise<GetMarketsOutput> => {
+const getMarkets = async (): Promise<IGetMarketsOutput> => {
   const response = await restService<IGetMarketsResponse>({
     endpoint: '/governance/venus',
     method: 'GET',

@@ -1,6 +1,6 @@
 import { UseQueryResult } from 'react-query';
 import BigNumber from 'bignumber.js';
-import { GetMarketsOutput } from 'clients/api/queries/getMarkets';
+import { IGetMarketsOutput } from 'clients/api/queries/getMarkets';
 import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
@@ -64,7 +64,7 @@ const useUserMarketInfo = ({
   );
   const marketsMap = indexBy(
     (item: Market) => item.underlyingSymbol.toLowerCase(),
-    markets as GetMarketsOutput['markets'],
+    markets as IGetMarketsOutput['markets'],
   );
 
   const {
