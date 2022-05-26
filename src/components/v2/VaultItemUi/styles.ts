@@ -19,13 +19,13 @@ export const useStyles = () => {
       align-items: center;
     `,
     tokenIcon: css`
-      width: ${theme.shape.iconSize.large};
-      height: ${theme.shape.iconSize.large};
+      width: ${theme.shape.iconSize.large}px;
+      height: ${theme.shape.iconSize.large}px;
       margin-right: ${theme.spacing(1)};
     `,
     tokenIconLarge: css`
-      width: ${theme.shape.iconSize.xLarge};
-      height: ${theme.shape.iconSize.xLarge};
+      width: ${theme.shape.iconSize.xLarge}px;
+      height: ${theme.shape.iconSize.xLarge}px;
     `,
     tokenIconReward: css`
       margin-left: ${theme.spacing(1)};

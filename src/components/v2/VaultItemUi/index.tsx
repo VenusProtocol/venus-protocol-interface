@@ -40,7 +40,7 @@ export const VaultItemUi = ({
   onReward,
   className,
 }: IVaultItemUiProps) => {
-  const classes = useStyles();
+  const styles = useStyles();
   const { t } = useTranslation();
 
   const dataListItems = useMemo(
@@ -53,7 +53,7 @@ export const VaultItemUi = ({
         title: t('vaultItemUi.dailyEmission'),
         value: (
           <>
-            <Icon css={classes.tokenIcon} name={rewardTokenId} />
+            <Icon css={styles.tokenIcon} name={rewardTokenId} />
             {convertWeiToCoins({
               valueWei: dailyEmissionWei,
               tokenId: rewardTokenId,
@@ -66,7 +66,7 @@ export const VaultItemUi = ({
         title: t('vaultItemUi.totalStaked'),
         value: (
           <>
-            <Icon css={classes.tokenIcon} name={tokenId} />
+            <Icon css={styles.tokenIcon} name={tokenId} />
             {convertWeiToCoins({
               valueWei: totalStakedWei,
               tokenId,
@@ -80,23 +80,23 @@ export const VaultItemUi = ({
   );
 
   return (
-    <Paper css={classes.container} className={className}>
-      <div css={classes.header}>
-        <div css={classes.title}>
-          <Icon css={classes.tokenIcon} name={tokenId} />
-          <Typography variant="h4" css={classes.text}>
+    <Paper css={styles.container} className={className}>
+      <div css={styles.header}>
+        <div css={styles.title}>
+          <Icon css={styles.tokenIcon} name={tokenId} />
+          <Typography variant="h4" css={styles.text}>
             {getToken(tokenId).symbol}
           </Typography>
         </div>
 
         {rewardWei?.isGreaterThan(0) && (
-          <div css={classes.rewardWrapper}>
-            <Typography css={[classes.text, classes.textMobile14]}>
+          <div css={styles.rewardWrapper}>
+            <Typography css={[styles.text, styles.textMobile14]}>
               {t('vaultItemUi.reward')}
             </Typography>
-            <Icon css={[classes.tokenIcon, classes.tokenIconReward]} name={rewardTokenId} />
+            <Icon css={[styles.tokenIcon, styles.tokenIconReward]} name={rewardTokenId} />
             <Typography
-              css={[classes.text, classes.textRewardValue, classes.textMobile14]}
+              css={[styles.text, styles.textRewardValue, styles.textMobile14]}
               variant="body1"
               color="textPrimary"
             >
@@ -106,16 +106,16 @@ export const VaultItemUi = ({
                 returnInReadableFormat: true,
               })}
             </Typography>
-            <Button onClick={onClaim} variant="text" css={classes.buttonClaim}>
+            <Button onClick={onClaim} variant="text" css={styles.buttonClaim}>
               {t('vaultItemUi.claimButton')}
             </Button>
           </div>
         )}
       </div>
 
-      <Typography css={classes.textMobile14}>{t('vaultItemUi.youAreStaking')}</Typography>
-      <Typography variant="h1" css={classes.textStakingValue}>
-        <Icon css={[classes.tokenIcon, classes.tokenIconLarge]} name={tokenId} />
+      <Typography css={styles.textMobile14}>{t('vaultItemUi.youAreStaking')}</Typography>
+      <Typography variant="h1" css={styles.textStakingValue}>
+        <Icon css={[styles.tokenIcon, styles.tokenIconLarge]} name={tokenId} />
         {convertWeiToCoins({
           tokenId,
           valueWei: userStakedWei,
@@ -123,22 +123,22 @@ export const VaultItemUi = ({
         })}
       </Typography>
 
-      <ul css={classes.dataRow}>
+      <ul css={styles.dataRow}>
         {dataListItems.map(({ title, value }) => (
-          <li key={title} css={classes.valueWrapper}>
-            <Typography css={classes.textMobile14}>{title}</Typography>
-            <Typography variant="h4" css={[classes.textAligned, classes.textMobile14]}>
+          <li key={title} css={styles.valueWrapper}>
+            <Typography css={styles.textMobile14}>{title}</Typography>
+            <Typography variant="h4" css={[styles.textAligned, styles.textMobile14]}>
               {value}
             </Typography>
           </li>
         ))}
       </ul>
 
-      <div css={classes.buttonsWrapper}>
-        <Button onClick={onStake} css={classes.button} variant="primary">
+      <div css={styles.buttonsWrapper}>
+        <Button onClick={onStake} css={styles.button} variant="primary">
           {t('vaultItemUi.stakeButton')}
         </Button>
-        <Button onClick={onReward} css={classes.button} variant="secondary">
+        <Button onClick={onReward} css={styles.button} variant="secondary">
           {t('vaultItemUi.withdrawButton')}
         </Button>
       </div>
