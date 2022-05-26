@@ -14,7 +14,7 @@ jest.mock('clients/api');
 
 const fakeUserVaiMinted = new BigNumber('1000000');
 
-describe('pages/SupplyMarket', () => {
+describe('api/queries/useGetUserMarketInfo', () => {
   beforeEach(() => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
     (getAssetsInAccount as jest.Mock).mockImplementation(() => assetsInAccount);
@@ -28,10 +28,21 @@ describe('pages/SupplyMarket', () => {
   });
 
   it('calculates totals correctly', async () => {
-    let data: UseGetUserMarketInfoOutput['data'];
+    let data: UseGetUserMarketInfoOutput['data'] = {
+      assets: [],
+      userTotalBorrowBalanceCents: new BigNumber(0),
+      userTotalBorrowLimitCents: new BigNumber(0),
+      userTotalSupplyBalanceCents: new BigNumber(0),
+      treasuryTotalBorrowUsdBalanceCents: new BigNumber(0),
+      treasuryTotalUsdBalanceCents: new BigNumber(0),
+      treasuryTotalSupplyUsdBalanceCents: new BigNumber(0),
+      treasuryTotalAvailableLiquidityUsdBalanceCents: new BigNumber(0),
+      totalXvsDistributedWei: new BigNumber(0),
+      dailyVenus: new BigNumber(0),
+    };
+
     const CallMarketContext = () => {
-      const result = useGetUserMarketInfo({ accountAddress: fakeAddress });
-      data = result?.data;
+      ({ data } = useGetUserMarketInfo({ accountAddress: fakeAddress }));
       return <div />;
     };
 
@@ -45,7 +56,7 @@ describe('pages/SupplyMarket', () => {
       },
     });
 
-    await waitFor(() => expect(data).toBeDefined());
+    await waitFor(() => expect(data.assets.length > 0).toBe(true));
     expect(data).toMatchSnapshot();
   });
 });
