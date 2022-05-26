@@ -1,10 +1,49 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
+import { IApyChartProps } from 'components';
 import { ComponentMeta } from '@storybook/react';
+import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { withRouter, withProvider } from 'stories/decorators';
-import { fakeApyChartData, fakeInterestRateChartData } from './__mocks__/models';
 import { MarketDetailsUi } from '.';
+
+const fakeApyChartData: IApyChartProps['data'] = [
+  {
+    apyPercentage: 40,
+    timestampMs: new Date('2022-05-03T10:59:44.330Z').getTime(),
+    balanceCents: new BigNumber(10000),
+  },
+  {
+    apyPercentage: 30,
+    timestampMs: new Date('2022-05-04T10:59:44.330Z').getTime(),
+    balanceCents: new BigNumber(10000000),
+  },
+  {
+    apyPercentage: 20,
+    timestampMs: new Date('2022-05-05T10:59:44.330Z').getTime(),
+    balanceCents: new BigNumber(100000),
+  },
+  {
+    apyPercentage: 27,
+    timestampMs: new Date('2022-05-06T10:59:44.330Z').getTime(),
+    balanceCents: new BigNumber(100000),
+  },
+  {
+    apyPercentage: 18,
+    timestampMs: new Date('2022-05-07T10:59:44.330Z').getTime(),
+    balanceCents: new BigNumber(10000000000),
+  },
+  {
+    apyPercentage: 23,
+    timestampMs: new Date('2022-05-08T10:59:44.330Z').getTime(),
+    balanceCents: new BigNumber(10000000),
+  },
+  {
+    apyPercentage: 34,
+    timestampMs: new Date('2022-05-09T10:59:44.330Z').getTime(),
+    balanceCents: new BigNumber(100000),
+  },
+];
 
 export default {
   title: 'Pages/MarketDetail',
@@ -35,6 +74,6 @@ export const Default = () => (
     exchangeRateVTokens={new BigNumber(1.345)}
     supplyChartData={fakeApyChartData}
     borrowChartData={fakeApyChartData}
-    interestRateChartData={fakeInterestRateChartData}
+    interestRateChartData={vTokenApySimulations}
   />
 );

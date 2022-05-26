@@ -60,25 +60,40 @@ export const useGetVTokenBalanceOf = () =>
 
 export const getVTokenBorrowBalance = jest.fn();
 export const useGetVTokenBorrowBalance = () =>
-  useMutation(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
+  useQuery(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
 
 export const getAllowance = jest.fn();
-export const useGetAllowance = () => useMutation(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
+export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = jest.fn();
 export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getBalanceOf);
 
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
-  useMutation(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);
+  useQuery(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);
 
 export const getVrtConversionRatio = jest.fn();
 export const useGetVrtConversionRatio = () =>
-  useMutation(FunctionKey.GET_VRT_CONVERSION_RATIO, getVrtConversionRatio);
+  useQuery(FunctionKey.GET_VRT_CONVERSION_RATIO, getVrtConversionRatio);
 
 export const getXvsWithdrawableAmount = jest.fn();
 export const useGetXvsWithdrawableAmount = () =>
-  useMutation(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, getXvsWithdrawableAmount);
+  useQuery(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, getXvsWithdrawableAmount);
+
+export const getVTokenCash = jest.fn();
+export const useGetVTokenCash = () => useQuery(FunctionKey.GET_V_TOKEN_CASH, getVTokenCash);
+
+export const getVTokenInterestRateModel = jest.fn();
+export const useGetVTokenInterestRateModel = () =>
+  useQuery(FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, getVTokenInterestRateModel);
+
+export const getVTokenApySimulations = jest.fn();
+export const useGetVTokenApySimulations = () =>
+  useQuery(FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, getVTokenApySimulations);
+
+export const getVTokenSupplyRate = jest.fn();
+
+export const getVTokenBorrowRate = jest.fn();
 
 // Mutations
 export const approveToken = jest.fn();

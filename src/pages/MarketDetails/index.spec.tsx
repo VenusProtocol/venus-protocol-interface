@@ -5,7 +5,8 @@ import BigNumber from 'bignumber.js';
 
 import { markets } from '__mocks__/models/markets';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
-import { getMarkets, getMarketHistory } from 'clients/api';
+import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
+import { getMarkets, getMarketHistory, getVTokenApySimulations } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import MarketDetails from '.';
 
@@ -20,6 +21,7 @@ describe('pages/MarketDetails', () => {
       markets,
       dailyVenus: new BigNumber(0),
     }));
+    (getVTokenApySimulations as jest.Mock).mockImplementation(() => vTokenApySimulations);
   });
 
   it('renders without crashing', () => {

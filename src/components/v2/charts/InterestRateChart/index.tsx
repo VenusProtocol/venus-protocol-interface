@@ -25,7 +25,7 @@ export interface IInterestRateItem {
 
 export interface IInterestRateChartProps {
   data: IInterestRateItem[];
-  currentUtilizationRate: number;
+  currentUtilizationRate?: number;
   className?: string;
 }
 
@@ -112,18 +112,21 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({
             isAnimationActive={false}
             dot={false}
           />
-          <ReferenceLine
-            x={currentUtilizationRate}
-            stroke={localStyles.referenceLineColor}
-            // Note: we can not use the spread operator to extend
-            // styles.referenceLineLabel because its type is not accepted for
-            // that
-            label={Object.assign(localStyles.referenceLineLabel || {}, {
-              value: t('interestRateChart.currentUtilizationRateLabelValue', {
-                percentage: formatToReadablePercentage(currentUtilizationRate),
-              }),
-            })}
-          />
+          {typeof currentUtilizationRate === 'number' && (
+            <ReferenceLine
+              x={currentUtilizationRate}
+              stroke={localStyles.referenceLineColor}
+              // Note: we can not use the spread operator to extend
+              // styles.referenceLineLabel because its type is not accepted for
+              // that
+              label={Object.assign(localStyles.referenceLineLabel || {}, {
+                value: t('interestRateChart.currentUtilizationRateLabelValue', {
+                  percentage: formatToReadablePercentage(currentUtilizationRate),
+                }),
+              })}
+              alwaysShow
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>
