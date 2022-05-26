@@ -20,6 +20,8 @@ export const useStyles = () => {
 
 export const customToastGlobalStyles = {
   '.Toastify__toast-container': {
+    width: 'auto',
+    maxWidth: 'calc(100vw - 40px)',
     '.Toastify__toast': {
       fontFamily: FONTS.primary,
       backgroundColor: 'transparent',
