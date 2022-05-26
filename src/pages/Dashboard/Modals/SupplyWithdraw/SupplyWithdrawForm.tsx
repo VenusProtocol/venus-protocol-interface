@@ -235,7 +235,16 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
       });
       throw Error('test');
     } catch (err) {
-      toast.error({ message: (err as Error).message });
+      if (err instanceof TransactionError) {
+        toast.error({
+          message:
+          transactionErrorTranslations[
+              err.error as keyof typeof transactionErrorTranslations
+            ],
+        });
+      } else {
+        toast.error({ message: (err as Error).message });
+      }
     }
   };
   return (
