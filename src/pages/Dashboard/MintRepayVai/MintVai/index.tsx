@@ -24,8 +24,8 @@ import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import {
-  VAIControllerTransactionErrorsError,
-  VAIControllerTransactionErrorsFailureInfo,
+  loadVAIControllerTransactionErrorsErrorTranslations,
+  loadVAIControllerTransactionErrorsFailureInfoTranslations,
 } from 'translation/transactionErrors';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
@@ -194,12 +194,16 @@ const MintVai: React.FC = () => {
       });
     } catch (err) {
       if (err instanceof TransactionError) {
+        const vaiControllerTransactionErrorsError =
+          loadVAIControllerTransactionErrorsErrorTranslations();
+        const vaiControllerTransactionErrorsFailureInfo =
+          loadVAIControllerTransactionErrorsFailureInfoTranslations();
         throw new UiError(
-          VAIControllerTransactionErrorsError[
-            err.error as keyof typeof VAIControllerTransactionErrorsError
+          vaiControllerTransactionErrorsError[
+            err.error as keyof typeof vaiControllerTransactionErrorsError
           ],
-          VAIControllerTransactionErrorsFailureInfo[
-            err.info as keyof typeof VAIControllerTransactionErrorsFailureInfo
+          vaiControllerTransactionErrorsFailureInfo[
+            err.info as keyof typeof vaiControllerTransactionErrorsFailureInfo
           ],
         );
       }

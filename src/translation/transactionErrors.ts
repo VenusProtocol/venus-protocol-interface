@@ -4,7 +4,7 @@ const { t } = i18next;
 
 /** Values copied from https://github.com/VenusProtocol/venus-protocol/blob/develop/contracts/transactionErrors.sol */
 
-export const ComptrollerTransactionErrorsError = {
+export const loadComptrollerTransactionErrorsErrorTranslations = () => ({
   NO_ERROR: t('transactionErrors.comptrollertransactionErrors.noError'),
   UNAUTHORIZED: t('transactionErrors.comptrollertransactionErrors.unauthorized'),
   COMPTROLLER_MISMATCH: t('transactionErrors.comptrollertransactionErrors.comptrollerMismatch'),
@@ -30,9 +30,9 @@ export const ComptrollerTransactionErrorsError = {
   INSUFFICIENT_BALANCE_FOR_VAI: t(
     'transactionErrors.comptrollertransactionErrors.insufficientBalanceForVai',
   ),
-};
+});
 
-export const ComptrollerTransactionErrorsFailureInfo = {
+export const loadComptrollerTransactionErrorsFailureInfoTranslations = () => ({
   ACCEPT_ADMIN_PENDING_ADMIN_CHECK: t(
     'transactionErrors.comptrollertransactionErrorsFailureInfo.acceptAdminPendingAdminCheck',
   ),
@@ -105,9 +105,9 @@ export const ComptrollerTransactionErrorsFailureInfo = {
   SET_TREASURY_OWNER_CHECK: t(
     'transactionErrors.comptrollertransactionErrorsFailureInfo.setTreasuryOwnerCheck',
   ),
-};
+});
 
-export const TokenTransactionErrorsError = {
+export const loadTokenTransactionErrorsErrorTranslations = () => ({
   NO_ERROR: t('transactionErrors.tokentransactionErrorsError.noError'),
   UNAUTHORIZED: t('transactionErrors.tokentransactionErrorsError.unauthorized'),
   BAD_INPUT: t('transactionErrors.tokentransactionErrorsError.badInput'),
@@ -142,9 +142,9 @@ export const TokenTransactionErrorsError = {
     'transactionErrors.tokentransactionErrorsError.tokenTransferOutFailed',
   ),
   TOKEN_PRICE_ERROR: t('transactionErrors.tokentransactionErrorsError.tokenPriceError'),
-};
+});
 
-export const TokenTransactionErrorsFailureInfo = {
+export const loadTokenTransactionErrorsFailureInfoTranslations = () => ({
   ACCEPT_ADMIN_PENDING_ADMIN_CHECK: t(
     'transactionErrors.tokentransactionErrorsFailureInfo.acceptAdminPendingAdminCheck',
   ),
@@ -398,9 +398,9 @@ export const TokenTransactionErrorsFailureInfo = {
   REDEEM_FEE_CALCULATION_FAILED: t(
     'transactionErrors.tokentransactionErrorsFailureInfo.redeemFeeCalculationFailed',
   ),
-};
+});
 
-export const VAIControllerTransactionErrorsError = {
+export const loadVAIControllerTransactionErrorsErrorTranslations = () => ({
   NO_ERROR: t('transactionErrors.vaiControllerReporterError.noError'),
   UNAUTHORIZED: t('transactionErrors.vaiControllerReporterError.unauthorized'),
   REJECTION: t('transactionErrors.vaiControllerReporterError.rejection'),
@@ -410,9 +410,9 @@ export const VAIControllerTransactionErrorsError = {
   INSUFFICIENT_BALANCE_FOR_VAI: t(
     'transactionErrors.vaiControllerReporterError.insufficientBalanceForVai',
   ),
-};
+});
 
-export const VAIControllerTransactionErrorsFailureInfo = {
+export const loadVAIControllerTransactionErrorsFailureInfoTranslations = () => ({
   SET_PENDING_ADMIN_OWNER_CHECK: t(
     'transactionErrors.vaiControllerReporterFailureInfo.setPendingAdminOwnerCheck',
   ),
@@ -481,4 +481,4 @@ export const VAIControllerTransactionErrorsFailureInfo = {
   SET_TREASURY_OWNER_CHECK: t(
     'transactionErrors.vaiControllerReporterFailureInfo.setTreasureOwnerCheck',
   ),
-};
+});
