@@ -18,7 +18,8 @@ import XVSV1 from 'containers/Main/XVS';
 import Xvs from 'pages/Xvs';
 import MarketV1 from 'containers/Main/Market';
 import Market from 'pages/Market';
-import Vault from 'containers/Main/Vault';
+import Vault from 'pages/Vault';
+import VaultV1 from 'containers/Main/Vault';
 import MarketDetailsV1 from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
@@ -73,7 +74,11 @@ const App = () => (
                                 }
                               />
                               <Route exact path={Path.TRANSACTION} component={Transaction} />
-                              <Route exact path={Path.VAULT} component={Vault} />
+                              <Route
+                                exact
+                                path={Path.VAULT}
+                                component={process.env.REACT_APP_RUN_V2 ? Vault : VaultV1}
+                              />
                               <Route
                                 exact
                                 path={Path.VOTE_LEADER_BOARD}
