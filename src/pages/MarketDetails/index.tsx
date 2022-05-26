@@ -15,7 +15,7 @@ import {
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import Path from 'constants/path';
-import { fakeInterestRateChartData } from './__mocks__/models';
+import { useGetVTokenApySimulations } from 'clients/api';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
 import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
@@ -24,7 +24,6 @@ import { useStyles } from './styles';
 
 export interface IMarketDetailsUiProps {
   vTokenId: VTokenId;
-  currentUtilizationRate: number;
   supplyChartData: IApyChartProps['data'];
   borrowChartData: IApyChartProps['data'];
   interestRateChartData: IInterestRateChartProps['data'];
@@ -45,6 +44,7 @@ export interface IMarketDetailsUiProps {
   mintedTokens?: BigNumber;
   reserveTokens?: BigNumber;
   exchangeRateVTokens?: BigNumber;
+  currentUtilizationRate?: number;
 }
 
 export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
@@ -214,7 +214,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
   ];
 
-  if (!supplyChartData.length || !borrowChartData.length) {
+  if (!supplyChartData.length || !borrowChartData.length || !interestRateChartData.length) {
     return <LoadingSpinner />;
   }
 
@@ -283,22 +283,26 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     return <Redirect to={Path.MARKET} />;
   }
 
+  const { reserveFactorMantissa, ...marketData } = useGetMarketData({
+    vTokenId,
+    vTokenAddress: vToken.address,
+  });
+
   const chartData = useGetChartData({
     vTokenId,
   });
 
-  const marketData = useGetMarketData({
+  const { data: interestRateChartData = [] } = useGetVTokenApySimulations({
     vTokenId,
-    vTokenAddress: vToken.address,
+    reserveFactorMantissa,
   });
 
   return (
     <MarketDetailsUi
       vTokenId={vTokenId}
-      // TODO: pass actual data (see https://app.clickup.com/t/29xmavh)
-      interestRateChartData={fakeInterestRateChartData}
-      {...chartData}
       {...marketData}
+      {...chartData}
+      interestRateChartData={interestRateChartData}
     />
   );
 };

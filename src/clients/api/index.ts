@@ -148,3 +148,21 @@ export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
 export { default as getMarketHistory } from './queries/getMarketHistory';
 export * from './queries/getMarketHistory';
 export { default as useGetMarketHistory } from './queries/useGetMarketHistory';
+
+export { default as getVTokenCash } from './queries/getVTokenCash';
+export * from './queries/getVTokenCash';
+export { default as useGetVTokenCash } from './queries/useGetVTokenCash';
+
+export { default as getVTokenInterestRateModel } from './queries/getVTokenInterestRateModel';
+export * from './queries/getVTokenInterestRateModel';
+export { default as useGetVTokenInterestRateModel } from './queries/useGetVTokenInterestRateModel';
+
+export { default as getVTokenApySimulations } from './queries/getVTokenApySimulations';
+export * from './queries/getVTokenApySimulations';
+export { default as useGetVTokenApySimulations } from './queries/useGetVTokenApySimulations';
+
+export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
+export * from './queries/getVTokenBorrowRate';
+
+export { default as getVTokenSupplyRate } from './queries/getVTokenSupplyRate';
+export * from './queries/getVTokenSupplyRate';
