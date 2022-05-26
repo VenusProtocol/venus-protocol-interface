@@ -11,7 +11,7 @@ import {
 
 import EnLocales from './translations/en.json';
 
-export const init = () =>
+const init = () => {
   i18next.use(initReactI18next).init({
     resources: {
       en: {
@@ -36,6 +36,9 @@ export const init = () =>
       },
     },
   });
+  i18next.loadNamespaces('errors');
+  return i18next;
+};
 
 interface TransProps extends Omit<I18NextTransProps<'t'>, 't' | 'i18nKey'> {
   i18nKey: string;
@@ -61,3 +64,5 @@ export const useTranslation = () => {
 // useTranslation hook.
 export const t = (params: TFunctionKeys, values?: Record<string, unknown>) =>
   i18next.t(params, values);
+
+export const i18NextInstance = init();

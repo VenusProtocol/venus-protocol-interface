@@ -9,10 +9,7 @@ import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
 import { UiError, TransactionError } from 'utilities/errors';
-import {
-  ComptrollerTransactionErrorsError,
-  ComptrollerTransactionErrorsFailureInfo,
-} from 'translation/transactionErrors';
+import { transactionErrorTranslations } from 'translation/transactionErrors';
 import { toast } from '../../Toast';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
@@ -108,12 +105,8 @@ export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
     } catch (err) {
       if (err instanceof TransactionError) {
         throw new UiError(
-          ComptrollerTransactionErrorsError[
-            err.error as keyof typeof ComptrollerTransactionErrorsError
-          ],
-          ComptrollerTransactionErrorsFailureInfo[
-            err.info as keyof typeof ComptrollerTransactionErrorsFailureInfo
-          ],
+          transactionErrorTranslations[err.error as keyof typeof transactionErrorTranslations],
+          transactionErrorTranslations[err.info as keyof typeof transactionErrorTranslations],
         );
       }
     }
