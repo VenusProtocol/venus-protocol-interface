@@ -1,10 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import { Paper } from '@mui/material';
-import { Asset, TokenId } from 'types';
+import BigNumber from 'bignumber.js';
+
+import { Asset, VTokenId } from 'types';
 import { UiError } from 'utilities/errors';
 import { toast, switchAriaLabel, Delimiter, TableProps } from 'components';
-import { useExitMarket, useEnterMarkets } from 'clients/api';
+import { useWeb3 } from 'clients/web3';
+import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
+import {
+  useExitMarket,
+  useEnterMarkets,
+  getHypotheticalAccountLiquidity,
+  getVTokenBalanceOf,
+} from 'clients/api';
 import { useTranslation } from 'translation';
 import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
@@ -17,7 +26,7 @@ interface ISupplyMarketProps {
   isXvsEnabled: boolean;
   suppliedAssets: Asset[];
   supplyMarketAssets: Asset[];
-  toggleAssetCollateral: (a: Asset) => void;
+  toggleAssetCollateral: (a: Asset) => Promise<void>;
   confirmCollateral: Asset | undefined;
   setConfirmCollateral: (asset: Asset | undefined) => void;
 }
@@ -36,7 +45,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
 
   const collateralOnChange = async (asset: Asset) => {
     try {
-      toggleAssetCollateral(asset);
+      await toggleAssetCollateral(asset);
     } catch (e) {
       if (e instanceof UiError) {
         toast.error({
@@ -48,7 +57,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
 
   const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
     if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
-      setSelectedAssetId(row[0].value as TokenId);
+      setSelectedAssetId(row[0].value as VTokenId);
     }
   };
 
@@ -101,49 +110,75 @@ const SupplyMarket: React.FC<
     accountAddress: string;
   }
 > = ({ className, isXvsEnabled, supplyMarketAssets, suppliedAssets, accountAddress }) => {
+  const web3 = useWeb3();
+  const comptrollerContract = useComptrollerContract();
+
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
   const { t } = useTranslation();
 
-  const { mutate: enterMarkets } = useEnterMarkets({
-    onSuccess: () => setConfirmCollateral(undefined),
-    onError: error => {
-      setConfirmCollateral(undefined);
-      throw error;
-    },
-  });
-  const { mutate: exitMarkets } = useExitMarket({
-    onSuccess: () => setConfirmCollateral(undefined),
-    onError: error => {
-      setConfirmCollateral(undefined);
-      throw error;
-    },
+  const { mutateAsync: enterMarkets } = useEnterMarkets({
+    onSettled: () => setConfirmCollateral(undefined),
   });
 
-  const toggleAssetCollateral = (asset: Asset) => {
+  const { mutateAsync: exitMarkets } = useExitMarket({
+    onSettled: () => setConfirmCollateral(undefined),
+  });
+
+  const toggleAssetCollateral = async (asset: Asset) => {
     if (!accountAddress) {
       throw new UiError(
         t('markets.errors.accountError.title'),
         t('markets.errors.accountError.description'),
       );
-    } else if (!asset || !asset.borrowBalance.isZero()) {
+    }
+
+    if (!asset || !asset.borrowBalance.isZero()) {
       throw new UiError(
         t('markets.errors.collateralRequired.title'),
         t('markets.errors.collateralRequired.description'),
       );
-    } else if (!asset.collateral) {
+    }
+
+    if (!asset.collateral) {
       try {
         setConfirmCollateral(asset);
-        enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress });
+        await enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress });
       } catch (error) {
         throw new UiError(
           t('markets.errors.collateralEnableError.title'),
           t('markets.errors.collateralEnableError.description', { assetName: asset.symbol }),
         );
       }
-    } else if (+asset.hypotheticalLiquidity['1'] > 0 || +asset.hypotheticalLiquidity['2'] === 0) {
+
+      return;
+    }
+
+    const vTokenContract = getVTokenContract(asset.id as VTokenId, web3);
+
+    let assetHypotheticalLiquidity;
+    try {
+      const vTokenBalanceOf = await getVTokenBalanceOf({
+        tokenContract: vTokenContract,
+        account: accountAddress,
+      });
+
+      assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
+        comptrollerContract,
+        accountAddress,
+        vTokenAddress: asset.vtokenAddress,
+        vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf),
+      });
+    } catch (error) {
+      throw new UiError(
+        t('markets.errors.collateralDisableError.title'),
+        t('markets.errors.collateralDisableError.description', { assetName: asset.symbol }),
+      );
+    }
+
+    if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
       try {
         setConfirmCollateral(asset);
-        exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress });
+        await exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress });
       } catch (error) {
         throw new UiError(
           t('markets.errors.collateralDisableError.title'),

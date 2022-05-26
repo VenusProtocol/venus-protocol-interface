@@ -80,7 +80,6 @@ export { default as useGetAssetsInAccount } from './queries/useGetAssetsInAccoun
 
 export { default as getHypotheticalAccountLiquidity } from './queries/getHypotheticalAccountLiquidity';
 export * from './queries/getHypotheticalAccountLiquidity';
-export { default as useGetHypotheticalLiquidityQueries } from './queries/useGetHypotheticalLiquidityQueries';
 
 export { default as getMarkets } from './queries/getMarkets';
 export * from './queries/getMarkets';

@@ -24,7 +24,6 @@ export interface Asset {
   collateralFactor: BigNumber;
   collateral: boolean;
   supplyBalance: BigNumber;
-  hypotheticalLiquidity: [string, string, string];
   key: number;
   percentOfLimit: string;
   tokenAddress: string;

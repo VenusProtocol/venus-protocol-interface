@@ -191,7 +191,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             isEnabled,
             collateral,
             percentOfLimit,
-            hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
             xvsPerDay: new BigNumber(market.supplierDailyVenus)
               .plus(new BigNumber(market.borrowerDailyVenus))
               .div(new BigNumber(10).pow(getToken('xvs').decimals)),
@@ -199,32 +198,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         });
 
         let assetList = assetAndNullList.filter(notNull);
-
-        // We use "hypothetical liquidity upon exiting a market" to disable the "exit market"
-        // toggle. Sadly, the current VenusLens contract does not provide this info, so we
-        // still have to query each market.
-        assetList = await Promise.all(
-          assetList.map(async asset => {
-            const hypotheticalLiquidity: [string, string, string] = (
-              account
-                ? await comptrollerContract.methods
-                    .getHypotheticalAccountLiquidity(
-                      account.address,
-                      asset.vtokenAddress,
-                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                      balances[asset.vtokenAddress.toLowerCase()].balanceOf,
-                      0,
-                    )
-                    .call()
-                : ['0', '0', '0']
-            ) as [string, string, string];
-
-            return {
-              ...asset,
-              hypotheticalLiquidity,
-            };
-          }),
-        );
 
         const totalBorrowBalance = assetList
           .reduce((acc, asset) => {
@@ -238,7 +211,9 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             return acc.plus(
               calculateCollateralValue({
                 amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
-                asset,
+                tokenId: asset.id,
+                tokenPriceTokens: asset.tokenPrice,
+                collateralFactor: asset.collateralFactor,
               }),
             );
           }

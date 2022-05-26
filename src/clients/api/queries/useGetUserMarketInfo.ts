@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
-import { UseQueryResult } from 'react-query';
 import BigNumber from 'bignumber.js';
 
-import { GetMarketsOutput } from 'clients/api/queries/getMarkets';
+import { IGetMarketsOutput } from 'clients/api/queries/getMarkets';
 import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
@@ -13,7 +12,6 @@ import {
   useGetMarkets,
   useGetAssetsInAccount,
   useGetVTokenBalancesAll,
-  useGetHypotheticalLiquidityQueries,
   IGetVTokenBalancesAllOutput,
 } from 'clients/api';
 
@@ -40,6 +38,7 @@ const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(
   [],
 );
 
+// TODO: decouple, this hook handles too many things
 const useGetUserMarketInfo = ({
   accountAddress,
 }: {
@@ -54,7 +53,7 @@ const useGetUserMarketInfo = ({
       getMarketsData?.markets &&
       indexBy(
         (item: Market) => item.underlyingSymbol.toLowerCase(), // index by symbol of underlying token
-        getMarketsData.markets as GetMarketsOutput['markets'],
+        getMarketsData.markets as IGetMarketsOutput['markets'],
       ),
     [getMarketsData?.markets],
   );
@@ -96,40 +95,13 @@ const useGetUserMarketInfo = ({
     [JSON.stringify(vTokenBalancesTreasury)],
   );
 
-  // We use "hypothetical liquidity upon exiting a market" to disable the "exit market"
-  // toggle. Sadly, the current VenusLens contract does not provide this info, so we
-  // still have to query each market.
-  const vTokens = useMemo(
-    () =>
-      vTokenBalances
-        ? vTokenAddresses.map(vTokenAddress => ({
-            address: vTokenAddress,
-            balance: vTokenBalances[vTokenAddress]?.balanceOf,
-          }))
-        : [],
-    [vTokenBalances],
-  );
-
-  const hypotheticalLiquidityQueries = useGetHypotheticalLiquidityQueries(
-    { vTokens, accountAddress: accountAddress || '' },
-    { enabled: !!accountAddress && vTokens.length > 0 },
-  );
-
-  const isGetHypotheticalLiquidityQueriesLoading = hypotheticalLiquidityQueries.some(
-    hypotheticalLiquidityQuery => hypotheticalLiquidityQuery.isLoading,
-  );
-
   const isLoading =
     isGetMarketsLoading ||
     isGetAssetsInAccountLoading ||
     isGetVTokenBalancesAccountLoading ||
-    isGetVTokenBalancesTreasuryLoading ||
-    isGetHypotheticalLiquidityQueriesLoading;
+    isGetVTokenBalancesTreasuryLoading;
 
-  let data: undefined | IData;
-
-  // TODO: memoize
-  if (marketsMap && assetsInAccount && treasuryBalances && vTokenBalances && getMarketsData) {
+  const data = useMemo(() => {
     const {
       assets,
       userTotalBorrowBalanceCents,
@@ -153,14 +125,14 @@ const useGetUserMarketInfo = ({
           return acc;
         }
 
-        const market = marketsMap[item.id] || {};
+        const market = marketsMap && marketsMap[item.id];
         const vtokenAddress = vBepToken.address.toLowerCase();
-        const collateral = assetsInAccount
+        const collateral = (assetsInAccount || [])
           .map((address: string) => address.toLowerCase())
           .includes(vtokenAddress);
 
         let treasuryBalance = new BigNumber(0);
-        if (treasuryBalances[vtokenAddress]) {
+        if (treasuryBalances && treasuryBalances[vtokenAddress]) {
           treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
         }
 
@@ -170,7 +142,7 @@ const useGetUserMarketInfo = ({
         let isEnabled = false;
         const percentOfLimit = '0';
 
-        const wallet = vTokenBalances[vtokenAddress];
+        const wallet = vTokenBalances && vTokenBalances[vtokenAddress];
         if (accountAddress && wallet) {
           walletBalance = toDecimalAmount(wallet.tokenBalance);
           supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
@@ -187,23 +159,23 @@ const useGetUserMarketInfo = ({
           id: item.id,
           img: item.asset,
           vimg: item.vasset,
-          symbol: market.underlyingSymbol || item.id.toUpperCase(),
+          symbol: market?.underlyingSymbol || item.id.toUpperCase(),
           decimals: item.decimals,
-          tokenAddress: market.underlyingAddress,
-          vsymbol: market.symbol,
+          tokenAddress: market?.underlyingAddress,
+          vsymbol: market?.symbol,
           vtokenAddress,
-          supplyApy: new BigNumber(market.supplyApy || 0),
-          borrowApy: new BigNumber(market.borrowApy || 0),
-          xvsSupplyApy: new BigNumber(market.supplyVenusApy || 0),
-          xvsBorrowApy: new BigNumber(market.borrowVenusApy || 0),
-          collateralFactor: new BigNumber(market.collateralFactor || 0).div(1e18),
-          tokenPrice: new BigNumber(market.tokenPrice || 0),
-          liquidity: new BigNumber(market.liquidity || 0),
-          borrowCaps: new BigNumber(market.borrowCaps || 0),
-          treasuryTotalBorrowsUsdCents: new BigNumber(market.totalBorrowsUsd).times(100),
-          treasuryTotalSupplyUsdCents: new BigNumber(market.totalSupplyUsd).times(100),
-          treasuryTotalSupply: new BigNumber(market.totalSupply),
-          treasuryTotalBorrows: new BigNumber(market.totalBorrows2),
+          supplyApy: new BigNumber(market?.supplyApy || 0),
+          borrowApy: new BigNumber(market?.borrowApy || 0),
+          xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
+          xvsBorrowApy: new BigNumber(market?.borrowVenusApy || 0),
+          collateralFactor: new BigNumber(market?.collateralFactor || 0).div(1e18),
+          tokenPrice: new BigNumber(market?.tokenPrice || 0),
+          liquidity: new BigNumber(market?.liquidity || 0),
+          borrowCaps: new BigNumber(market?.borrowCaps || 0),
+          treasuryTotalBorrowsUsdCents: new BigNumber(market?.totalBorrowsUsd || 0).times(100),
+          treasuryTotalSupplyUsdCents: new BigNumber(market?.totalSupplyUsd || 0).times(100),
+          treasuryTotalSupply: new BigNumber(market?.totalSupply || 0),
+          treasuryTotalBorrows: new BigNumber(market?.totalBorrows2 || 0),
           treasuryBalance,
           walletBalance,
           supplyBalance,
@@ -211,9 +183,8 @@ const useGetUserMarketInfo = ({
           isEnabled,
           collateral,
           percentOfLimit,
-          hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
-          xvsPerDay: new BigNumber(market.supplierDailyVenus)
-            .plus(new BigNumber(market.borrowerDailyVenus))
+          xvsPerDay: new BigNumber(market?.supplierDailyVenus || 0)
+            .plus(new BigNumber(market?.borrowerDailyVenus || 0))
             .div(new BigNumber(10).pow(getToken('xvs').decimals)),
         };
 
@@ -239,7 +210,7 @@ const useGetUserMarketInfo = ({
           acc.treasuryTotalAvailableLiquidityUsdBalanceCents.plus(asset.liquidity.times(100));
         // total distributed Xvs
         acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
-          new BigNumber(market.totalDistributed).times(
+          new BigNumber(market?.totalDistributed || 0).times(
             new BigNumber(10).pow(getToken('xvs').decimals),
           ),
         );
@@ -249,7 +220,9 @@ const useGetUserMarketInfo = ({
           acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
             calculateCollateralValue({
               amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
-              asset,
+              tokenId: asset.id,
+              tokenPriceTokens: asset.tokenPrice,
+              collateralFactor: asset.collateralFactor,
             }).times(100),
           );
         }
@@ -271,18 +244,6 @@ const useGetUserMarketInfo = ({
 
     let assetList = assets;
 
-    assetList = (hypotheticalLiquidityQueries as Array<UseQueryResult<Asset>>).reduce(
-      (acc: Asset[], result: UseQueryResult<Asset>, idx: number) => {
-        const assetCopy = { ...assetList[idx] };
-        if (result.data) {
-          assetCopy.hypotheticalLiquidity = result.data;
-        }
-        acc.push(assetCopy);
-        return acc;
-      },
-      [],
-    );
-
     const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalanceCents.plus(
       userVaiMinted.times(100),
     );
@@ -300,7 +261,7 @@ const useGetUserMarketInfo = ({
             .toFixed(),
     }));
 
-    data = {
+    return {
       assets: assetList,
       userTotalBorrowBalanceCents: userTotalBorrowBalanceWithUserMintedVai,
       userTotalBorrowLimitCents,
@@ -309,10 +270,16 @@ const useGetUserMarketInfo = ({
       treasuryTotalUsdBalanceCents,
       treasuryTotalBorrowUsdBalanceCents,
       treasuryTotalSupplyUsdBalanceCents,
-      dailyVenus: getMarketsData.dailyVenus,
+      dailyVenus: getMarketsData?.dailyVenus,
       totalXvsDistributedWei,
     };
-  }
+  }, [
+    JSON.stringify(marketsMap),
+    JSON.stringify(assetsInAccount),
+    JSON.stringify(treasuryBalances),
+    JSON.stringify(vTokenBalances),
+    JSON.stringify(getMarketsData),
+  ]);
 
   return {
     isLoading,

@@ -79,7 +79,9 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
     if (tokenPrice && validAmount) {
       const amountInUsdCents = calculateCollateralValue({
         amountWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
-        asset,
+        tokenId: asset.id,
+        tokenPriceTokens: asset.tokenPrice,
+        collateralFactor: asset.collateralFactor,
       }).times(100);
 
       const temp = calculateNewBalance(userTotalBorrowLimitCents, amountInUsdCents);

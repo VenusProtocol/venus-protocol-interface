@@ -1,4 +1,4 @@
-import { useQuery, useQueries, useMutation, MutationObserverOptions } from 'react-query';
+import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 
@@ -12,11 +12,6 @@ export const useGetAssetsInAccount = () =>
   useQuery(FunctionKey.GET_ASSETS_IN_ACCOUNT, getAssetsInAccount);
 
 export const getHypotheticalAccountLiquidity = jest.fn();
-export const useGetHypotheticalLiquidityQueries = jest.fn(() =>
-  useQueries([
-    { queryKey: FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, queryFn: getHypotheticalAccountLiquidity },
-  ]),
-);
 
 export const getMarkets = jest.fn();
 export const useGetMarkets = () => useQuery(FunctionKey.GET_MARKETS, getMarkets);

@@ -7,12 +7,7 @@ import { markets } from '__mocks__/models/markets';
 import { vTokenBalancesAccount } from '__mocks__/models/vTokenBalancesAccount';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
 import fakeAddress from '__mocks__/models/address';
-import {
-  getAssetsInAccount,
-  getMarkets,
-  useGetVTokenBalancesAll,
-  useGetHypotheticalLiquidityQueries,
-} from 'clients/api';
+import { getAssetsInAccount, getMarkets, useGetVTokenBalancesAll } from 'clients/api';
 import useGetUserMarketInfo, { UseGetUserMarketInfoOutput } from './useGetUserMarketInfo';
 
 jest.mock('clients/api');
@@ -23,9 +18,6 @@ describe('pages/SupplyMarket', () => {
   beforeEach(() => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
     (getAssetsInAccount as jest.Mock).mockImplementation(() => assetsInAccount);
-    (useGetHypotheticalLiquidityQueries as jest.Mock).mockImplementation(() =>
-      markets.map(() => '68247906490737205226143250'),
-    );
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {
       if (account === fakeAddress) {
