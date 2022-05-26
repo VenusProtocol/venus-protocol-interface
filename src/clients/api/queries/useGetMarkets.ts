@@ -1,12 +1,12 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
-import getMarkets, { GetMarketsOutput } from 'clients/api/queries/getMarkets';
+import getMarkets, { IGetMarketsOutput } from 'clients/api/queries/getMarkets';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  GetMarketsOutput,
+  IGetMarketsOutput,
   Error,
-  GetMarketsOutput,
-  GetMarketsOutput,
+  IGetMarketsOutput,
+  IGetMarketsOutput,
   FunctionKey.GET_MARKETS
 >;
 
