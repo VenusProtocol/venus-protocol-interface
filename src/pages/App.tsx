@@ -26,7 +26,6 @@ import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
 import MarketDetails from 'pages/MarketDetails';
-import ConvertVrtV1 from 'containers/Main/VrtConversion';
 import Transaction from 'containers/Main/Transaction';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
@@ -86,11 +85,7 @@ const App = () => (
                               />
                               <Route exact path={Path.VOTE_PROPOSAL} component={VoteOverview} />
                               <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
-                              <Route
-                                exact
-                                path={Path.CONVERT_VRT}
-                                component={process.env.REACT_APP_RUN_V2 ? ConvertVrt : ConvertVrtV1}
-                              />
+                              <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
                               {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
                               <Redirect from={Path.ROOT} to={Path.DASHBOARD} />
                             </ResetScrollOnRouteChange>
