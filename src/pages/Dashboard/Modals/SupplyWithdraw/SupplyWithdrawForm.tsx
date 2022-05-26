@@ -15,6 +15,8 @@ import {
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
+import { loadTokenTransactionErrorsErrorTranslations } from 'translation/transactionErrors';
+import { TransactionError } from 'utilities/errors';
 import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
@@ -226,7 +228,18 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
     try {
       await onSubmit(value);
     } catch (err) {
-      toast.error({ message: (err as Error).message });
+      if (err instanceof TransactionError) {
+        const tokenTransactionErrorsErrorTranslations =
+          loadTokenTransactionErrorsErrorTranslations();
+        toast.error({
+          message:
+            tokenTransactionErrorsErrorTranslations[
+              err.error as keyof typeof tokenTransactionErrorsErrorTranslations
+            ],
+        });
+      } else {
+        toast.error({ message: (err as Error).message });
+      }
     }
   };
   return (
