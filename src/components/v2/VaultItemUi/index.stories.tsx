@@ -1,5 +1,6 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { VaultItemUi } from '.';
@@ -24,9 +25,9 @@ export const VaultItemUiDefault = () => (
     stakingAprPercentage={2.39}
     dailyEmissionWei={new BigNumber('2120000000000000000')}
     totalStakedWei={new BigNumber('1233000000000000000000')}
-    onClaim={console.log}
-    onStake={console.log}
-    onReward={console.log}
+    onClaim={noop}
+    onStake={noop}
+    onReward={noop}
   />
 );
 
@@ -39,8 +40,8 @@ export const VaultItemUiWithoutReward = () => (
     stakingAprPercentage={2.39}
     dailyEmissionWei={new BigNumber('2120000000000000000')}
     totalStakedWei={new BigNumber('1233000000000000000000')}
-    onClaim={console.log}
-    onStake={console.log}
-    onReward={console.log}
+    onClaim={noop}
+    onStake={noop}
+    onReward={noop}
   />
 );
