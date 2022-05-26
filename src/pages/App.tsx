@@ -8,7 +8,7 @@ import { Web3Wrapper } from 'clients/web3';
 import { AuthProvider } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { store } from 'core';
-import { Layout } from 'components';
+import { Layout, ResetScrollOnRouteChange } from 'components';
 import { init as initTranslationLibrary } from 'translation';
 import { isOnTestnet } from 'config';
 import Dashboard from 'pages/Dashboard';
@@ -52,41 +52,43 @@ const App = () => (
                         <ToastContainer />
                         <Layout>
                           <Switch>
-                            <Route exact path={Path.DASHBOARD} component={Dashboard} />
-                            <Route exact path={Path.VOTE} component={Vote} />
-                            <Route
-                              exact
-                              path={Path.XVS}
-                              component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
-                            />
-                            <Route
-                              exact
-                              path={Path.MARKET}
-                              component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
-                            />
-                            <Route
-                              exact
-                              path={Path.MARKET_DETAILS}
-                              component={
-                                process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
-                              }
-                            />
-                            <Route exact path={Path.TRANSACTION} component={Transaction} />
-                            <Route exact path={Path.VAULT} component={Vault} />
-                            <Route
-                              exact
-                              path={Path.VOTE_LEADER_BOARD}
-                              component={VoterLeaderboard}
-                            />
-                            <Route exact path={Path.VOTE_PROPOSAL} component={VoteOverview} />
-                            <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
-                            <Route
-                              exact
-                              path={Path.CONVERT_VRT}
-                              component={process.env.REACT_APP_RUN_V2 ? ConvertVrt : ConvertVrtV1}
-                            />
-                            {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
-                            <Redirect from={Path.ROOT} to={Path.DASHBOARD} />
+                            <ResetScrollOnRouteChange>
+                              <Route exact path={Path.DASHBOARD} component={Dashboard} />
+                              <Route exact path={Path.VOTE} component={Vote} />
+                              <Route
+                                exact
+                                path={Path.XVS}
+                                component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
+                              />
+                              <Route
+                                exact
+                                path={Path.MARKET}
+                                component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
+                              />
+                              <Route
+                                exact
+                                path={Path.MARKET_DETAILS}
+                                component={
+                                  process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
+                                }
+                              />
+                              <Route exact path={Path.TRANSACTION} component={Transaction} />
+                              <Route exact path={Path.VAULT} component={Vault} />
+                              <Route
+                                exact
+                                path={Path.VOTE_LEADER_BOARD}
+                                component={VoterLeaderboard}
+                              />
+                              <Route exact path={Path.VOTE_PROPOSAL} component={VoteOverview} />
+                              <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
+                              <Route
+                                exact
+                                path={Path.CONVERT_VRT}
+                                component={process.env.REACT_APP_RUN_V2 ? ConvertVrt : ConvertVrtV1}
+                              />
+                              {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
+                              <Redirect from={Path.ROOT} to={Path.DASHBOARD} />
+                            </ResetScrollOnRouteChange>
                           </Switch>
                         </Layout>
                       </BrowserRouter>
