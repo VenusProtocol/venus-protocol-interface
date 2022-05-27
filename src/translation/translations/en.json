@@ -545,6 +545,10 @@
     "withdrawButton": "Withdraw",
     "youAreStaking": "You are staking"
   },
+  "vote": {
+    "governanceProposals": "Governance proposals",
+    "votingWallet": "Voting wallet"
+  },
   "xvs": {
     "columns": {
       "asset": "Asset",
