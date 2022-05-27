@@ -149,3 +149,7 @@ export * from './queries/getVTokenBorrowRate';
 
 export { default as getVTokenSupplyRate } from './queries/getVTokenSupplyRate';
 export * from './queries/getVTokenSupplyRate';
+
+export { default as getTransactions } from './queries/getTransactions';
+export * from './queries/getTransactions';
+export { default as useGetTransactions } from './queries/useGetTransactions';
