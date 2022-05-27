@@ -4,7 +4,7 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { mintVai, getVaiTreasuryPercentage, useUserMarketInfo } from 'clients/api';
+import { mintVai, getVaiTreasuryPercentage, useGetUserMarketInfo } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import renderComponent from 'testUtils/renderComponent';
@@ -26,10 +26,13 @@ const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [...assetData, fakeVai],
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [...assetData, fakeVai],
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
   });
 

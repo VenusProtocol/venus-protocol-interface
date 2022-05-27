@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import {
-  useUserMarketInfo,
+  useGetUserMarketInfo,
   useGetVenusVaiVaultRate,
   useGetBalanceOf,
   useGetMarkets,
@@ -118,7 +118,12 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { assets } = useUserMarketInfo({ accountAddress: account?.address });
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: { assets },
+  } = useGetUserMarketInfo({
+    accountAddress: account?.address,
+  });
   const { data: { markets } = { markets: [] } } = useGetMarkets({
     placeholderData: { markets: [], dailyVenus: undefined },
   });
@@ -136,14 +141,18 @@ const XvsTable: React.FC = () => {
       .div(vaultVaiStaked?.div(new BigNumber(10).pow(getToken('vai').decimals)));
   }
 
-  (assets as TableAsset[]).push({
-    id: 'vai',
-    symbol: 'VAI',
-    xvsPerDay: venusVaiVaultRate,
-    xvsSupplyApy: vaiApy,
-    xvsBorrowApy: undefined,
-  });
-  return <XvsTableUi assets={assets} />;
+  const updatedAssets: TableAsset[] = [
+    ...assets,
+    {
+      id: 'vai',
+      symbol: 'VAI',
+      xvsPerDay: venusVaiVaultRate,
+      xvsSupplyApy: vaiApy,
+      xvsBorrowApy: undefined,
+    },
+  ];
+
+  return <XvsTableUi assets={updatedAssets} />;
 };
 
 export default XvsTable;

@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities/common';
@@ -65,12 +65,18 @@ export const HeaderUi: React.FC<IHeaderProps> = ({
 
 const Header = () => {
   const { account } = useContext(AuthContext);
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
-    treasuryTotalSupplyUsdBalanceCents,
-    treasuryTotalAvailableLiquidityUsdBalanceCents,
-    treasuryTotalBorrowUsdBalanceCents,
-    treasuryTotalUsdBalanceCents,
-  } = useUserMarketInfo({ accountAddress: account?.address || '' });
+    data: {
+      treasuryTotalSupplyUsdBalanceCents,
+      treasuryTotalBorrowUsdBalanceCents,
+      treasuryTotalAvailableLiquidityUsdBalanceCents,
+      treasuryTotalUsdBalanceCents,
+    },
+  } = useGetUserMarketInfo({
+    accountAddress: account?.address,
+  });
+
   return (
     <HeaderUi
       totalSupplyCents={treasuryTotalSupplyUsdBalanceCents}

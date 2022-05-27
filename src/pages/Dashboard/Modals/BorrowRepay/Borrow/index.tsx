@@ -15,7 +15,7 @@ import {
 } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { TransactionError, UiError } from 'utilities/errors';
-import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
+import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
   toast,
   FormikSubmitButton,
@@ -170,7 +170,10 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const { userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
 

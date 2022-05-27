@@ -80,7 +80,6 @@ export { default as useGetAssetsInAccount } from './queries/useGetAssetsInAccoun
 
 export { default as getHypotheticalAccountLiquidity } from './queries/getHypotheticalAccountLiquidity';
 export * from './queries/getHypotheticalAccountLiquidity';
-export { default as useGetHypotheticalLiquidityQueries } from './queries/useGetHypotheticalLiquidityQueries';
 
 export { default as getMarkets } from './queries/getMarkets';
 export * from './queries/getMarkets';
@@ -127,7 +126,7 @@ export * from './queries/getXvsWithdrawableAmount';
 
 export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithdrawableAmount';
 
-export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
+export { default as useGetUserMarketInfo } from './queries/useGetUserMarketInfo';
 
 export { default as getMarketHistory } from './queries/getMarketHistory';
 export * from './queries/getMarketHistory';

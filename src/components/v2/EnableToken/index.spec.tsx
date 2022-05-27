@@ -1,7 +1,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
 import { TokenId } from 'types';
@@ -17,10 +17,13 @@ const fakeContent = 'Fake Content';
 describe('components/EnableToken', () => {
   it('asks the user to enable token if not enabled', async () => {
     const disabledFakeAsset = { ...fakeAsset, isEnabled: false };
-    (useUserMarketInfo as jest.Mock).mockImplementationOnce(() => ({
-      assets: [disabledFakeAsset],
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementationOnce(() => ({
+      data: {
+        assets: [disabledFakeAsset],
+        userTotalBorrowLimit: new BigNumber('111'),
+        userTotalBorrowBalance: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
     const { getByText } = renderComponent(
       <EnableToken
@@ -38,10 +41,13 @@ describe('components/EnableToken', () => {
 
   it('renders content when token is enabled', async () => {
     const enabledFakeAsset = { ...fakeAsset };
-    (useUserMarketInfo as jest.Mock).mockImplementationOnce(() => ({
-      assets: [enabledFakeAsset],
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementationOnce(() => ({
+      data: {
+        assets: [enabledFakeAsset],
+        userTotalBorrowLimit: new BigNumber('111'),
+        userTotalBorrowBalance: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
     const { getByText } = renderComponent(
       <EnableToken

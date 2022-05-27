@@ -16,13 +16,13 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenBalancesAll = (
-  { account, vtAddresses }: Omit<IGetVTokenBalancesAllInput, 'venusLensContract'>,
+  { account, vTokenAddresses }: Omit<IGetVTokenBalancesAllInput, 'venusLensContract'>,
   options?: Options,
 ) => {
   const venusLensContract = useVenusLensContract();
   return useQuery(
     [FunctionKey.GET_V_TOKEN_BALANCES_ALL, account],
-    () => getVTokenBalancesAll({ venusLensContract, account, vtAddresses }),
+    () => getVTokenBalancesAll({ venusLensContract, account, vTokenAddresses }),
     options,
   );
 };

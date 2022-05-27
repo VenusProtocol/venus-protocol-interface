@@ -16,7 +16,7 @@ import {
   useRedeem,
   useRedeemUnderlying,
   useGetVTokenBalanceOf,
-  useUserMarketInfo,
+  useGetUserMarketInfo,
 } from 'clients/api';
 import { isAssetEnabled } from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
@@ -224,7 +224,9 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
 
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-  const { userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
+  const {
+    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+  } = useGetUserMarketInfo({
     accountAddress,
   });
   const { data: vTokenBalanceWei } = useGetVTokenBalanceOf(

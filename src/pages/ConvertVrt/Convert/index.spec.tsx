@@ -7,7 +7,7 @@ import renderComponent from 'testUtils/renderComponent';
 import { AuthContext } from 'context/AuthContext';
 import fakeAccountAddress from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import en from 'translation/translations/en.json';
 import Convert from '.';
 
@@ -18,11 +18,14 @@ const ONE = '1';
 describe('pages/ConvertVRT/Convert', () => {
   beforeEach(() => {
     jest.useFakeTimers('modern').setSystemTime(new Date('2022-03-01'));
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
-      userTotalSupplyBalance: new BigNumber('910'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: assetData,
+        userTotalBorrowLimit: new BigNumber('111'),
+        userTotalBorrowBalance: new BigNumber('91'),
+        userTotalSupplyBalance: new BigNumber('910'),
+      },
+      isLoading: false,
     }));
   });
 
