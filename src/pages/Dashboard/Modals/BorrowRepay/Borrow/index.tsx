@@ -248,7 +248,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
       {asset && (
         <EnableToken
-          assetId={asset.id}
+          vTokenId={asset.id}
           title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {
@@ -262,8 +262,6 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
               children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}
-          isEnabled={asset.isEnabled}
-          vtokenAddress={asset.vtokenAddress}
         >
           <BorrowForm
             asset={asset}

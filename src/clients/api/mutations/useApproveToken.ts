@@ -26,6 +26,9 @@ const useApproveToken = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+
+        // TODO: invalidate allowance queries for the specific token
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

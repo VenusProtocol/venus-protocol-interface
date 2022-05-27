@@ -4,7 +4,8 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { mintVai, getVaiTreasuryPercentage, useGetUserMarketInfo } from 'clients/api';
+import { mintVai, getVaiTreasuryPercentage, useUserMarketInfo, getAllowance } from 'clients/api';
+import MAX_UINT256 from 'constants/maxUint256';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import renderComponent from 'testUtils/renderComponent';
@@ -26,25 +27,23 @@ const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   beforeEach(() => {
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      data: {
-        assets: [...assetData, fakeVai],
-        userTotalBorrowLimitCents: new BigNumber('111'),
-        userTotalBorrowBalanceCents: new BigNumber('91'),
-      },
-      isLoading: false,
+    // Mark token as enabled
+    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: [...assetData, fakeVai],
+      userTotalBorrowLimitCents: new BigNumber('111'),
+      userTotalBorrowBalanceCents: new BigNumber('91'),
     }));
   });
 
-  it('renders without crashing', async () => {
-    const { getByText } = renderComponent(() => <RepayVai />, {
+  it('renders without crashing', () => {
+    renderComponent(() => <RepayVai />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
         },
       },
     });
-    await waitFor(() => getByText(en.mintRepayVai.mintVai.enableToken));
   });
 
   it('displays the correct available VAI limit and mint fee', async () => {

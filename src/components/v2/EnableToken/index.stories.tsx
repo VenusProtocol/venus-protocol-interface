@@ -1,5 +1,6 @@
 import React from 'react';
 import { noop } from 'lodash';
+
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory } from 'stories/decorators';
 import Typography from '@mui/material/Typography';
@@ -13,11 +14,10 @@ export default {
 
 export const Disabled = () => (
   <EnableTokenUi
-    isEnabled={false}
     title="To withdraw BNB to the Venus Protocol, you need to enable it first."
-    assetId="eth"
-    approveToken={noop}
-    disabled
+    vTokenId="eth"
+    isTokenEnabled={false}
+    enableToken={noop}
   >
     <Typography>Invisible Content</Typography>
   </EnableTokenUi>
@@ -25,15 +25,14 @@ export const Disabled = () => (
 
 export const DisabledWithTokenInfo = () => (
   <EnableTokenUi
-    isEnabled={false}
     title="To withdraw BNB to the Venus Protocol, you need to enable it first."
-    assetId="eth"
+    vTokenId="eth"
+    isTokenEnabled={false}
     tokenInfo={[
       { iconName: 'vai', label: 'Supply APY', children: '77.36' },
       { iconName: 'vai', label: 'Distribution APY', children: '0.82' },
     ]}
-    approveToken={noop}
-    disabled
+    enableToken={noop}
   >
     <Typography>Invisible Content</Typography>
   </EnableTokenUi>
@@ -41,12 +40,11 @@ export const DisabledWithTokenInfo = () => (
 
 export const Enabled = () => (
   <EnableTokenUi
-    isEnabled
     title="Enable Token"
-    assetId="eth"
+    isTokenEnabled
+    vTokenId="eth"
     tokenInfo={[]}
-    approveToken={noop}
-    disabled={false}
+    enableToken={noop}
   >
     <Typography>Visible Content</Typography>
   </EnableTokenUi>

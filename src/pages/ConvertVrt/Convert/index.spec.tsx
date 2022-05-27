@@ -4,10 +4,11 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { assetData } from '__mocks__/models/asset';
 import renderComponent from 'testUtils/renderComponent';
+import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext } from 'context/AuthContext';
 import fakeAccountAddress from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import { useGetUserMarketInfo } from 'clients/api';
+import { useUserMarketInfo, getAllowance } from 'clients/api';
 import en from 'translation/translations/en.json';
 import Convert from '.';
 
@@ -18,14 +19,13 @@ const ONE = '1';
 describe('pages/ConvertVRT/Convert', () => {
   beforeEach(() => {
     jest.useFakeTimers('modern').setSystemTime(new Date('2022-03-01'));
-    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      data: {
-        assets: assetData,
-        userTotalBorrowLimit: new BigNumber('111'),
-        userTotalBorrowBalance: new BigNumber('91'),
-        userTotalSupplyBalance: new BigNumber('910'),
-      },
-      isLoading: false,
+    // Mark token as enabled
+    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      assets: assetData,
+      userTotalBorrowLimit: new BigNumber('111'),
+      userTotalBorrowBalance: new BigNumber('91'),
+      userTotalSupplyBalance: new BigNumber('910'),
     }));
   });
 
@@ -34,7 +34,7 @@ describe('pages/ConvertVRT/Convert', () => {
     jest.useRealTimers();
   });
 
-  it('submit button is enabled with input, good vesting period and not loading', () => {
+  it('submit button is enabled with input, good vesting period and not loading', async () => {
     const IN_ONE_YEAR = new Date();
     IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
     const { getByText, getByTestId } = renderComponent(
@@ -54,21 +54,21 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
       </AuthContext.Provider>,
     );
+    await waitFor(() => getByTestId('vrt-token-text-field'));
     const tokenTextInput = getByTestId('vrt-token-text-field');
     act(() => {
       fireEvent.change(tokenTextInput, { target: { value: ONE } });
     });
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
-    expect(submitButton).toBeEnabled();
+    await waitFor(() => expect(submitButton).toBeEnabled());
   });
 
-  it('submit button is disabled if vesting period has passed', () => {
+  it('submit button is disabled if vesting period has passed', async () => {
     const { getByText, getByTestId } = renderComponent(
       <AuthContext.Provider
         value={{
@@ -86,24 +86,24 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={new Date('2000-01-01')}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
       </AuthContext.Provider>,
     );
+    await waitFor(() => getByTestId('vrt-token-text-field'));
     const tokenTextInput = getByTestId('vrt-token-text-field');
     act(() => {
       fireEvent.change(tokenTextInput, { target: { value: ONE } });
     });
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
-    expect(submitButton).toBeDisabled();
+    await waitFor(() => expect(submitButton).toBeDisabled());
   });
 
-  it('submit button is disabled with no input and valid vesting', () => {
+  it('submit button is disabled with no input and valid vesting', async () => {
     const IN_ONE_YEAR = new Date();
     IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
-    const { getByText } = renderComponent(
+    const { getByText, getByTestId } = renderComponent(
       <AuthContext.Provider
         value={{
           login: jest.fn(),
@@ -120,20 +120,20 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={new Date('2000-01-01')}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
       </AuthContext.Provider>,
     );
+    await waitFor(() => getByTestId('vrt-token-text-field'));
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
     expect(submitButton).toBeDisabled();
   });
 
-  it('submit button is disabled with no input and valid vesting', () => {
+  it('submit button is disabled with no input and valid vesting', async () => {
     const IN_ONE_YEAR = new Date();
     IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
-    const { getByText } = renderComponent(
+    const { getByTestId, getByText } = renderComponent(
       <AuthContext.Provider
         value={{
           login: jest.fn(),
@@ -150,17 +150,17 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={new Date('2000-01-01')}
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
       </AuthContext.Provider>,
     );
+    await waitFor(() => getByTestId('vrt-token-text-field'));
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
     expect(submitButton).toBeDisabled();
   });
 
-  it('xvs is calculate passed on VRT input', () => {
+  it('xvs is calculate passed on VRT input', async () => {
     const IN_ONE_YEAR = new Date();
     IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
     const userVrtBalanceWei = new BigNumber('90000083300000000000');
@@ -182,12 +182,12 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
       </AuthContext.Provider>,
     );
+    await waitFor(() => getByTestId('vrt-token-text-field'));
     const vrtTextInput = getByTestId('vrt-token-text-field');
     act(() => {
       fireEvent.change(vrtTextInput, { target: { value: ONE } });
@@ -219,7 +219,6 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={convertVrt}
           walletConnected
         />
@@ -243,7 +242,7 @@ describe('pages/ConvertVRT/Convert', () => {
     getByText(en.convertVrt.successfulConvertTransactionModal.title);
   });
 
-  it('Max button inputs max amount', () => {
+  it('Max button inputs max amount', async () => {
     const IN_ONE_YEAR = new Date();
     IN_ONE_YEAR.setFullYear(IN_ONE_YEAR.getFullYear() + 1);
     const userVrtBalanceWei = new BigNumber('90000083300000000000');
@@ -265,12 +264,14 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
       </AuthContext.Provider>,
     );
+
+    await waitFor(() => getByTestId('vrt-token-text-field'));
+
     const maxButton = getByText(en.convertVrt.max.toUpperCase());
     act(async () => {
       await waitFor(() => fireEvent.click(maxButton));
@@ -303,7 +304,6 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
@@ -345,7 +345,6 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />
@@ -387,7 +386,6 @@ describe('pages/ConvertVRT/Convert', () => {
           vrtConversionEndTime={IN_ONE_YEAR}
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
-          userVrtEnabled
           convertVrt={jest.fn()}
           walletConnected
         />

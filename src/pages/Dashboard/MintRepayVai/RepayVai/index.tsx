@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { TokenId } from 'types';
-import { getToken } from 'utilities';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { UiError, TransactionError } from 'utilities/errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
@@ -35,7 +34,6 @@ export interface IRepayVaiUiProps {
   repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt | undefined>;
   userBalanceWei?: BigNumber;
   userMintedWei?: BigNumber;
-  userVaiEnabled: boolean;
 }
 
 export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
@@ -44,13 +42,11 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   userMintedWei,
   isRepayVaiLoading,
   repayVai,
-  userVaiEnabled,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const vaiToken = getToken(VAI_ID);
   const limitTokens = React.useMemo(() => {
     const limitWei =
       userBalanceWei && userMintedWei
@@ -97,12 +93,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('mintRepayVai.repayVai.connectWallet')}>
-      <EnableToken
-        assetId={VAI_ID}
-        title={t('mintRepayVai.repayVai.enableToken')}
-        isEnabled={!!userVaiEnabled}
-        vtokenAddress={vaiToken.address}
-      >
+      <EnableToken title={t('mintRepayVai.repayVai.enableToken')} vTokenId={VAI_ID}>
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
           {() => (
             <>
@@ -145,7 +136,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
 const RepayVai: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { userVaiMinted, userVaiBalance, userVaiEnabled } = useVaiUser();
+  const { userVaiMinted, userVaiBalance } = useVaiUser();
   const { t } = useTranslation();
 
   const { mutateAsync: contractRepayVai, isLoading: isRepayVaiLoading } = useRepayVai();
@@ -188,7 +179,6 @@ const RepayVai: React.FC = () => {
     }
   };
 
-  // @TODO: wrap with EnableToken component once created
   return (
     <RepayVaiUi
       disabled={!account}
@@ -196,7 +186,6 @@ const RepayVai: React.FC = () => {
       userMintedWei={userMintedWei}
       isRepayVaiLoading={isRepayVaiLoading}
       repayVai={repayVai}
-      userVaiEnabled={userVaiEnabled}
     />
   );
 };

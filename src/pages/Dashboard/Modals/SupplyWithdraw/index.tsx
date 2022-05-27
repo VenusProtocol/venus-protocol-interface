@@ -65,7 +65,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
 }) => {
   const styles = useStyles();
 
-  const { id: assetId, isEnabled, symbol } = asset || {};
+  const { id: assetId, symbol } = asset || {};
   const { t } = useTranslation();
 
   const tokenInfo: ILabeledInlineContentProps[] = asset
@@ -141,13 +141,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
       <div className={className} css={styles.container}>
         <ConnectWallet message={message}>
           {asset && (
-            <EnableToken
-              assetId={asset.id as TokenId}
-              title={title}
-              tokenInfo={tokenInfo}
-              isEnabled={!!isEnabled}
-              vtokenAddress={asset.vtokenAddress}
-            >
+            <EnableToken vTokenId={asset.id} title={title} tokenInfo={tokenInfo}>
               <SupplyWithdrawForm
                 key={`form-${type}`}
                 asset={asset}
