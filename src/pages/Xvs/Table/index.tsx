@@ -104,8 +104,10 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
-  // TODO: handle loading state
-  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: { assets },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
   const { data: { markets } = { markets: [] } } = useGetMarkets({
@@ -125,8 +127,8 @@ const XvsTable: React.FC = () => {
       .div(vaultVaiStaked?.div(new BigNumber(10).pow(getToken('vai').decimals)));
   }
 
-  const assets: TableAsset[] = [
-    ...getUserMarketInfoData.assets,
+  const updatedAssets: TableAsset[] = [
+    ...assets,
     {
       id: 'vai',
       symbol: 'VAI',
@@ -136,7 +138,7 @@ const XvsTable: React.FC = () => {
     },
   ];
 
-  return <XvsTableUi assets={assets} />;
+  return <XvsTableUi assets={updatedAssets} />;
 };
 
 export default XvsTable;

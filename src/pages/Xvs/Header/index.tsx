@@ -103,7 +103,9 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
 const Header: React.FC<IHeaderProps> = ({ className }) => {
   const { account } = useContext(AuthContext);
   const { data: venusVAIVaultRate } = useGetVenusVaiVaultRate();
-  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+  const {
+    data: { dailyVenus, totalXvsDistributedWei },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
   const { data: xvsRemainingDistribution } = useGetBalanceOf({
@@ -116,8 +118,8 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
       remainingDistributionWei={xvsRemainingDistribution || new BigNumber(0)}
       venusVaiVaultRate={venusVAIVaultRate || new BigNumber(0)}
       className={className}
-      dailyVenus={getUserMarketInfoData.dailyVenus}
-      totalXvsDistributedWei={getUserMarketInfoData.totalXvsDistributedWei}
+      dailyVenus={dailyVenus}
+      totalXvsDistributedWei={totalXvsDistributedWei}
     />
   );
 };

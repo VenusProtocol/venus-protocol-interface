@@ -85,18 +85,25 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 
 const Dashboard: React.FC = () => {
   const { account } = React.useContext(AuthContext);
-  // TODO: handle loading state
-  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: {
+      assets,
+      userTotalBorrowLimitCents,
+      userTotalBorrowBalanceCents,
+      userTotalSupplyBalanceCents,
+    },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address || '',
   });
 
   return (
     <DashboardUi
       accountAddress={account?.address || ''}
-      assets={getUserMarketInfoData.assets}
-      userTotalBorrowLimitCents={getUserMarketInfoData.userTotalBorrowLimitCents}
-      userTotalBorrowBalanceCents={getUserMarketInfoData.userTotalBorrowBalanceCents}
-      userTotalSupplyBalanceCents={getUserMarketInfoData.userTotalSupplyBalanceCents}
+      assets={assets}
+      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
+      userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
     />
   );
 };

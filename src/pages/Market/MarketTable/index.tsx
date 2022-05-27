@@ -148,16 +148,13 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
 
 const MarketTable = () => {
   const { account } = useContext(AuthContext);
-  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+  const {
+    data: { assets },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address || '',
   });
 
-  return (
-    <MarketTableUi
-      assets={getUserMarketInfoData.assets}
-      getRowHref={row => `/market/${row[0].value}`}
-    />
-  );
+  return <MarketTableUi assets={assets} getRowHref={row => `/market/${row[0].value}`} />;
 };
 
 export default MarketTable;

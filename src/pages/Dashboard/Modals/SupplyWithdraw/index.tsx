@@ -224,7 +224,9 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
 
   const { t } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-  const { data: getUserMarketInfo } = useGetUserMarketInfo({
+  const {
+    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+  } = useGetUserMarketInfo({
     accountAddress,
   });
   const { data: vTokenBalanceWei } = useGetVTokenBalanceOf(
@@ -296,10 +298,8 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       {...rest}
       onClose={onClose}
       asset={asset}
-      userTotalBorrowBalanceCents={
-        getUserMarketInfo?.userTotalBorrowBalanceCents || new BigNumber(0)
-      }
-      userTotalBorrowLimitCents={getUserMarketInfo?.userTotalBorrowLimitCents || new BigNumber(0)}
+      userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
+      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       onSubmitSupply={onSubmitSupply}
       onSubmitWithdraw={onSubmitWithdraw}
       isSupplyLoading={isSupplyLoading}

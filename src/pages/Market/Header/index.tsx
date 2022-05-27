@@ -65,17 +65,24 @@ export const HeaderUi: React.FC<IHeaderProps> = ({
 
 const Header = () => {
   const { account } = useContext(AuthContext);
-  // TODO: handle loading state
-  const { data: getUserMarketInfoData } = useGetUserMarketInfo({
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: {
+      treasuryTotalSupplyUsdBalanceCents,
+      treasuryTotalBorrowUsdBalanceCents,
+      treasuryTotalAvailableLiquidityUsdBalanceCents,
+      treasuryTotalUsdBalanceCents,
+    },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
 
   return (
     <HeaderUi
-      totalSupplyCents={getUserMarketInfoData.treasuryTotalSupplyUsdBalanceCents}
-      totalBorrowCents={getUserMarketInfoData.treasuryTotalBorrowUsdBalanceCents}
-      availableLiquidityCents={getUserMarketInfoData.treasuryTotalAvailableLiquidityUsdBalanceCents}
-      totalTreasuryCents={getUserMarketInfoData.treasuryTotalUsdBalanceCents}
+      totalSupplyCents={treasuryTotalSupplyUsdBalanceCents}
+      totalBorrowCents={treasuryTotalBorrowUsdBalanceCents}
+      availableLiquidityCents={treasuryTotalAvailableLiquidityUsdBalanceCents}
+      totalTreasuryCents={treasuryTotalUsdBalanceCents}
     />
   );
 };
