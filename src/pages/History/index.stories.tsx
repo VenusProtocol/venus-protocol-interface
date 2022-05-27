@@ -1,8 +1,9 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { noop } from 'lodash';
-import { ALL_VALUE } from './Filters';
+import noop from 'noop-ts';
+import transactions from '__mocks__/models/transactions';
 import { HistoryUi } from '.';
+import { ALL_VALUE } from './Filters';
 
 export default {
   title: 'Pages/History',
@@ -20,6 +21,6 @@ export const Default = () => (
     setEventType={noop}
     showOnlyMyTxns={false}
     setShowOnlyMyTxns={noop}
-    transactions={[]}
+    transactions={transactions}
   />
 );

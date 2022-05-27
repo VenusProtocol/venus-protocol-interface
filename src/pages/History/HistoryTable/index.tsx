@@ -5,7 +5,8 @@ import { EllipseText, Icon, Table, TableProps } from 'components';
 import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import { useTranslation } from 'translation';
-import { TokenId, Transaction } from 'types';
+import { TokenId } from 'types';
+import { Transaction } from 'models';
 import { useStyles } from './styles';
 
 export interface IHistoryTableProps {
@@ -25,7 +26,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
       { key: 'from', label: t('history.columns.from'), orderable: true, align: 'left' },
       { key: 'to', label: t('history.columns.to'), orderable: true, align: 'left' },
       { key: 'amount', label: t('history.columns.amount'), orderable: true, align: 'right' },
-      { key: 'createdAt', label: t('history.columns.createdAt'), orderable: true, align: 'right' },
+      { key: 'created', label: t('history.columns.created'), orderable: true, align: 'right' },
     ],
     [],
   );
@@ -153,7 +154,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
       align: 'right',
     },
     {
-      key: 'createdAt',
+      key: 'created',
       render: () => (
         <Typography variant="small2" css={styles.whiteText}>
           {t('history.createdAt', { date: txn.createdAt })}
@@ -170,7 +171,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
       cardColumns={cardColumns}
       data={rows}
       initialOrder={{
-        orderBy: 'createdAt',
+        orderBy: 'created',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
@@ -181,6 +182,8 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
   );
 };
 
-const HistoryTable = () => <HistoryTableUi transactions={[]} />;
+const HistoryTable: React.FC<IHistoryTableProps> = ({ transactions }) => (
+  <HistoryTableUi transactions={transactions} />
+);
 
 export default HistoryTable;

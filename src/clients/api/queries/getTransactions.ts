@@ -29,7 +29,7 @@ export interface IGetTransactionsOutput {
   limit: number;
   page: number;
   total: number;
-  result: Transaction[];
+  transactions: Transaction[];
 }
 
 const getTransactions = async ({
@@ -59,8 +59,9 @@ const getTransactions = async ({
     // @todo Add specific api error handling
     throw new Error('Unexpected error retrieving transactions');
   }
+  const { limit, page: payloadPage, total } = payload;
   const transactions = payload.result.map(data => new Transaction(data));
-  return { ...payload, result: transactions };
+  return { limit, page: payloadPage, total, transactions };
 };
 
 export default getTransactions;

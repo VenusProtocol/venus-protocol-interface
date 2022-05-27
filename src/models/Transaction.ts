@@ -5,7 +5,7 @@ import { ITransactionResponse, TransactionCategory, TransactionEvent } from 'typ
 class Transaction {
   id: number;
 
-  amount: BigNumber;
+  private _amount: number;
 
   blockNumber;
 
@@ -29,7 +29,7 @@ class Transaction {
 
   constructor(data: ITransactionResponse) {
     this.id = data.id;
-    this.amount = new BigNumber(data.amount);
+    this._amount = data.amount;
     this.blockNumber = data.blockNumber;
     this.category = data.category as TransactionCategory;
     this._createdAt = data.createdAt;
@@ -40,6 +40,10 @@ class Transaction {
     this.transactionHash = data.transactionHash;
     this._updatedAt = data.updatedAt;
     this.vTokenAddress = data.vTokenAddress;
+  }
+
+  get amount() {
+    return new BigNumber(this._amount);
   }
 
   get createdAt() {

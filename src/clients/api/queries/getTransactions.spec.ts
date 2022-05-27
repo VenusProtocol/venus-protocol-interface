@@ -31,14 +31,14 @@ describe('api/queries/getMarkets', () => {
       data: { data: { result: transactionResponse }, limit: 20, page: 1, total: 40 },
     }));
 
-    const { result } = await getTransactions({
+    const { transactions } = await getTransactions({
       page: 2,
       event: 'Withdraw',
       order: 'event',
       address: fakeAddress,
       sort: 'asc',
     });
-    expect(result).toHaveLength(20);
+    expect(transactions).toHaveLength(20);
     expect(restService).toBeCalledWith({
       endpoint: '/transactions',
       method: 'GET',
@@ -50,7 +50,7 @@ describe('api/queries/getMarkets', () => {
         sort: 'asc',
       },
     });
-    result.forEach(txn => {
+    transactions.forEach(txn => {
       expect(txn).toBeInstanceOf(Transaction);
     });
   });
@@ -61,8 +61,8 @@ describe('api/queries/getMarkets', () => {
       data: { data: { result: transactionResponse }, limit: 20, page: 1, total: 40 },
     }));
 
-    const { result } = await getTransactions({});
-    expect(result).toHaveLength(20);
+    const { transactions } = await getTransactions({});
+    expect(transactions).toHaveLength(20);
     expect(restService).toBeCalledWith({
       endpoint: '/transactions',
       method: 'GET',
@@ -74,7 +74,7 @@ describe('api/queries/getMarkets', () => {
         sort: 'desc',
       },
     });
-    result.forEach(txn => {
+    transactions.forEach(txn => {
       expect(txn).toBeInstanceOf(Transaction);
     });
   });
