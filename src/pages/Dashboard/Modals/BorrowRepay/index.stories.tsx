@@ -34,6 +34,13 @@ Disconnected.args = {
   onClose: noop,
 };
 
+export const Disabled = Template.bind({});
+Disabled.decorators = [withAuthContext(context)];
+Disabled.args = {
+  asset: assetData[0],
+  onClose: noop,
+};
+
 export const Default = Template.bind({});
 Default.decorators = [withAuthContext(context)];
 Default.args = {

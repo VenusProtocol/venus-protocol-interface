@@ -42,6 +42,20 @@ DisconnectedSupply.args = {
   isWithdrawLoading: false,
 };
 
+export const DisabledSupply = Template.bind({});
+DisabledSupply.decorators = [withAuthContext(context)];
+DisabledSupply.args = {
+  asset: assetData[0],
+  assets: assetData,
+  onClose: noop,
+  userTotalBorrowBalanceCents: new BigNumber('16'),
+  userTotalBorrowLimitCents: new BigNumber('42.38'),
+  onSubmitSupply: noop,
+  onSubmitWithdraw: noop,
+  isSupplyLoading: false,
+  isWithdrawLoading: false,
+};
+
 export const Supply = Template.bind({});
 Supply.decorators = [withAuthContext(context)];
 Supply.args = {
