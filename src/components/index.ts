@@ -3,6 +3,7 @@ export * from './v2/charts/InterestRateChart';
 export * from './v2/AuthModal';
 export * from './v2/Button';
 export * from './v2/BscLink';
+export * from './v2/Checkbox';
 export * from './v2/ConnectWallet';
 export * from './v2/Delimiter';
 export * from './v2/EllipseText';

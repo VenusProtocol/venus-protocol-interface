@@ -139,6 +139,8 @@
     "latestNumber": "Latest Block:\u00a0"
   },
   "history": {
+    "all": "All",
+    "approval": "Approval",
     "columns": {
       "amount": "Amount",
       "block": "Block",
@@ -149,7 +151,25 @@
       "txnHash": "Txn Hash",
       "type": "Type"
     },
-    "createdAt": "{{ date, distanceToNow }} ago"
+    "createdAt": "{{ date, distanceToNow }} ago",
+    "deposit": "Deposit",
+    "liquidateBorrow": "Liquidate Borrow",
+    "mint": "Mint",
+    "mintVAI": "Mint VAI",
+    "myTransactions": "My Transactions",
+    "proposalCanceled": "Proposal Canceled",
+    "proposalCreated": "Proposal Created",
+    "proposalExecuted": "Proposal Executed",
+    "proposalQueued": "Proposal Queued",
+    "redeem": "Redeem",
+    "repayBorrow": "Repay Borrow",
+    "repayVAI": "Repay VAI",
+    "reservesAdded": "Reserves Added",
+    "reservesReduced": "Reserves Reduced",
+    "transfer": "Transfer",
+    "type": "Type",
+    "voteCast": "Vote Cast",
+    "withdraw": "Withdraw"
   },
   "interestRateChart": {
     "currentUtilizationRateLabelValue": "Current ({{percentage}})",
