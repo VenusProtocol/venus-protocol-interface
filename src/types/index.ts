@@ -206,12 +206,18 @@ export type TransactionEvent =
   | 'ProposalExecuted'
   | 'ProposalCanceled';
 
-export interface Transaction {
-  amount: BigNumber;
+export enum TransactionCategory {
+  vtoken = 'vtoken',
+  vai = 'vai',
+  vote = 'vote',
+}
+
+export interface ITransactionResponse {
+  amount: number;
   blockNumber: number;
-  category: 'vtoken' | 'vai' | 'vote';
-  createdAt: Date;
-  event: TransactionEvent;
+  category: string;
+  createdAt: string;
+  event: string;
   from: string;
   id: number;
   timestamp: string | null;
