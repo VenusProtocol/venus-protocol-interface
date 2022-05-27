@@ -27,10 +27,15 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
-      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
-      { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
+      { key: 'asset', label: t('markets.columns.asset'), orderable: false, align: 'left' },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true, align: 'right' },
+      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true, align: 'right' },
+      {
+        key: 'collateral',
+        label: t('markets.columns.collateral'),
+        orderable: true,
+        align: 'right',
+      },
     ],
     [],
   );
@@ -44,11 +49,13 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
         key: 'asset',
         render: () => <Token symbol={asset.symbol as TokenId} />,
         value: asset.id,
+        align: 'left',
       },
       {
         key: 'apy',
         render: () => formatToReadablePercentage(supplyApy),
         value: supplyApy.toNumber(),
+        align: 'right',
       },
       {
         key: 'wallet',
@@ -59,16 +66,18 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
             shorthand: true,
           }),
         value: asset.walletBalance.toFixed(),
+        align: 'right',
       },
       {
         key: 'collateral',
-        value: asset.collateral,
         render: () =>
           asset.collateralFactor.toNumber() ? (
             <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
           ) : (
             PLACEHOLDER_KEY
           ),
+        value: asset.collateral,
+        align: 'right',
       },
     ];
   });

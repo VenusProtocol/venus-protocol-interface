@@ -31,10 +31,15 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
-      { key: 'balance', label: t('markets.columns.balance'), orderable: true },
-      { key: 'collateral', label: t('markets.columns.collateral'), orderable: true },
+      { key: 'asset', label: t('markets.columns.asset'), orderable: false, align: 'left' },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true, align: 'right' },
+      { key: 'balance', label: t('markets.columns.balance'), orderable: true, align: 'right' },
+      {
+        key: 'collateral',
+        label: t('markets.columns.collateral'),
+        orderable: true,
+        align: 'right',
+      },
     ],
     [],
   );
@@ -45,6 +50,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
       key: 'asset',
       render: () => <Token symbol={asset.symbol as TokenId} />,
       value: asset.id,
+      align: 'left',
     },
     {
       key: 'apy',
@@ -53,6 +59,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
         return formatToReadablePercentage(apy);
       },
       value: asset.supplyApy.toFixed(),
+      align: 'right',
     },
     {
       key: 'balance',
@@ -69,16 +76,18 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
         />
       ),
       value: asset.supplyBalance.toFixed(),
+      align: 'right',
     },
     {
       key: 'collateral',
-      value: asset.collateral,
       render: () =>
         asset.collateralFactor.toNumber() ? (
           <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
         ) : (
           PLACEHOLDER_KEY
         ),
+      value: asset.collateral,
+      align: 'right',
     },
   ]);
 
