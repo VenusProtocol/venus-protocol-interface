@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VBnbToken } from 'types/contracts';
 import { getVBepToken } from 'utilities';
-import { checkForTokenTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'errors';
 
 export interface ISupplyBnbInput {
   tokenContract: VBnbToken;

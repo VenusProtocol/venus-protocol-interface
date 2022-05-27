@@ -1,4 +1,4 @@
-import { i18NextInstance } from 'translation';
+import { t } from 'translation';
 import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
@@ -8,11 +8,7 @@ import {
   VAIControllerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
 
-const { t } = i18NextInstance;
-
-/** Values copied from https://github.com/VenusProtocol/venus-protocol/blob/develop/contracts/transactionErrors.sol */
-
-export const transactionErrorTranslations: Record<
+export const transactionErrorPhrases: Record<
   | keyof typeof ComptrollerErrorReporterError
   | keyof typeof ComptrollerErrorReporterFailureInfo
   | keyof typeof TokenErrorReporterError

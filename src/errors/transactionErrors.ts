@@ -7,45 +7,7 @@ import {
   VAIControllerErrorReporterError,
   VAIControllerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-
-export class UiError extends Error {
-  title: string;
-
-  description?: string;
-
-  constructor(title: string, description?: string) {
-    super(title);
-    this.title = title;
-
-    if (description) {
-      this.description = description;
-    }
-  }
-}
-
-export class InternalError extends Error {
-  message: string;
-
-  constructor(message: string) {
-    super(message);
-    this.message = message;
-  }
-}
-
-export class TransactionError extends Error {
-  info: string;
-
-  error: string;
-
-  description: string;
-
-  constructor(error: string, info: string) {
-    super(error);
-    this.error = error;
-    this.info = info;
-    this.description = info;
-  }
-}
+import { VError, IVErrorPhraseMap } from './VError';
 
 const checkForTransactionError = (
   receipt: TransactionReceipt,
@@ -60,7 +22,14 @@ const checkForTransactionError = (
 ) => {
   if (receipt.events?.Failure) {
     const { error, info } = receipt.events?.Failure.returnValues;
-    throw new TransactionError(errorEnum[error], infoEnum[info]);
+    throw new VError({
+      type: 'transaction',
+      code: errorEnum[info] as IVErrorPhraseMap['transaction'],
+      data: {
+        error: errorEnum[error],
+        info: infoEnum[info],
+      },
+    });
   }
   return receipt;
 };

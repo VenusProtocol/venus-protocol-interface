@@ -6,7 +6,7 @@ import {
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { TransactionError } from 'utilities/errors';
+import { VError } from 'errors';
 import borrowVToken from './borrowVToken';
 
 describe('api/mutation/borrowVToken', () => {
@@ -62,10 +62,11 @@ describe('api/mutation/borrowVToken', () => {
       throw new Error('borrowVToken should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot(`[Error: ${TokenErrorReporterError[1]}]`);
-      expect(error).toBeInstanceOf(TransactionError);
-      if (error instanceof TransactionError) {
-        expect(error.error).toBe(TokenErrorReporterError[1]);
-        expect(error.info).toBe(TokenErrorReporterFailureInfo[1]);
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('transaction');
+        expect(error.data.error).toBe(TokenErrorReporterError[1]);
+        expect(error.data.info).toBe(TokenErrorReporterFailureInfo[1]);
       }
     }
   });

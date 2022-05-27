@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { VBep20, VBnbToken } from 'types/contracts';
-import { checkForTokenTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'errors';
 
 export interface IRedeemUnderlyingInput {
   tokenContract: VBep20 | VBnbToken;

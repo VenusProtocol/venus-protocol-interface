@@ -3,7 +3,7 @@ import {
   VAIControllerErrorReporterError,
   VAIControllerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { TransactionError } from 'utilities/errors';
+import { VError } from 'errors';
 import repayVai from './repayVai';
 
 describe('api/mutation/repayVai', () => {
@@ -59,10 +59,11 @@ describe('api/mutation/repayVai', () => {
       throw new Error('repayVai should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot(`[Error: ${VAIControllerErrorReporterError[2]}]`);
-      expect(error).toBeInstanceOf(TransactionError);
-      if (error instanceof TransactionError) {
-        expect(error.error).toBe(VAIControllerErrorReporterError[2]);
-        expect(error.info).toBe(VAIControllerErrorReporterFailureInfo[2]);
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('transaction');
+        expect(error.data.error).toBe(VAIControllerErrorReporterError[2]);
+        expect(error.data.info).toBe(VAIControllerErrorReporterFailureInfo[2]);
       }
     }
   });

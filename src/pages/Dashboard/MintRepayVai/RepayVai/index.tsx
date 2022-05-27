@@ -5,7 +5,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { TokenId } from 'types';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
-import { UiError, TransactionError } from 'utilities/errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -20,7 +20,6 @@ import {
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
 import { useTranslation } from 'translation';
-import { transactionErrorTranslations } from 'translation/transactionErrors';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
@@ -84,7 +83,13 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         });
       }
     } catch (error) {
-      toast.error({ message: (error as Error).message });
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
     }
   };
 
@@ -134,7 +139,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 const RepayVai: React.FC = () => {
   const { account } = useContext(AuthContext);
   const { userVaiMinted, userVaiBalance } = useVaiUser();
-  const { t } = useTranslation();
 
   const { mutateAsync: contractRepayVai, isLoading: isRepayVaiLoading } = useRepayVai();
 
@@ -152,24 +156,14 @@ const RepayVai: React.FC = () => {
 
   const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
     if (!account) {
-      const errorMessage = t('mintRepayVai.repayVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw new UiError(errorMessage);
+      throw new VError({ type: 'unexpected', code: 'undefinedAccountErrorMessage' });
     }
-    try {
-      return await contractRepayVai({
-        fromAccountAddress: account.address,
-        amountWei: amountWei.toFixed(),
-      });
-    } catch (err) {
-      if (err instanceof TransactionError) {
-        throw new UiError(
-          transactionErrorTranslations[err.error as keyof typeof transactionErrorTranslations],
-          transactionErrorTranslations[err.info as keyof typeof transactionErrorTranslations],
-        );
-      }
-    }
+    return contractRepayVai({
+      fromAccountAddress: account.address,
+      amountWei: amountWei.toFixed(),
+    });
   };
 
   return (

@@ -3,7 +3,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VTokenId } from 'types';
 import { VTokenContract } from 'clients/contracts/types';
-import { checkForTokenTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'errors';
 
 export interface IRepayNonBnbVTokenInput {
   vTokenContract: VTokenContract<Exclude<VTokenId, 'bnb'>>;

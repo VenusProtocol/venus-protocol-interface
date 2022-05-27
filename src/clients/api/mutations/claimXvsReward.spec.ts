@@ -6,7 +6,7 @@ import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { TransactionError } from 'utilities/errors';
+import { VError } from 'errors';
 import getVTokenBalancesAll from '../queries/getVTokenBalancesAll';
 import claimXvsReward from './claimXvsReward';
 
@@ -96,10 +96,11 @@ describe('api/mutation/claimXvsReward', () => {
       throw new Error('claimXvsReward should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot(`[Error: ${ComptrollerErrorReporterError[1]}]`);
-      expect(error).toBeInstanceOf(TransactionError);
-      if (error instanceof TransactionError) {
-        expect(error.error).toBe(ComptrollerErrorReporterError[1]);
-        expect(error.info).toBe(ComptrollerErrorReporterFailureInfo[1]);
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('transaction');
+        expect(error.data.error).toBe(ComptrollerErrorReporterError[1]);
+        expect(error.data.info).toBe(ComptrollerErrorReporterFailureInfo[1]);
       }
     }
   });

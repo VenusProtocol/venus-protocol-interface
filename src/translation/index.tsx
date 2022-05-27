@@ -59,10 +59,10 @@ export const useTranslation = () => {
   };
 };
 
+const i18NextInstance = init();
+
 // Only use this function when you need to render a string from outside a
 // component. Otherwise, use the t function or Trans component returned by the
 // useTranslation hook.
 export const t = (params: TFunctionKeys, values?: Record<string, unknown>) =>
-  i18next.t(params, values);
-
-export const i18NextInstance = init();
+  i18NextInstance.t(params, values);

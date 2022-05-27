@@ -3,7 +3,7 @@ import {
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { TransactionError } from 'utilities/errors';
+import { VError } from 'errors';
 import { VBnbToken } from 'types/contracts';
 import { VBEP_TOKENS } from 'constants/tokens';
 import supplyBnb from './supplyBnb';
@@ -79,10 +79,11 @@ describe('api/mutation/supplyBnb', () => {
       throw new Error('repayVai should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot(`[Error: ${TokenErrorReporterError[2]}]`);
-      expect(error).toBeInstanceOf(TransactionError);
-      if (error instanceof TransactionError) {
-        expect(error.error).toBe(TokenErrorReporterError[2]);
-        expect(error.info).toBe(TokenErrorReporterFailureInfo[2]);
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('transaction');
+        expect(error.data.error).toBe(TokenErrorReporterError[2]);
+        expect(error.data.info).toBe(TokenErrorReporterFailureInfo[2]);
       }
     }
   });

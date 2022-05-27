@@ -133,6 +133,8 @@
     "enableButtonLabel": "Enable"
   },
   "errors": {
+    "somethingWentWrong": "Something went wrong",
+    "undefinedAccountErrorMessage": "account undefined",
     "walletNotConnected": "Wallet not connected"
   },
   "footer": {
@@ -250,22 +252,10 @@
       "wallet": "Wallet"
     },
     "errors": {
-      "accountError": {
-        "description": "Please connect your wallet to set an asset as collateral",
-        "title": "Account Required"
-      },
-      "collateralDisableError": {
-        "description": "There was a problem disabling {{assetName}} as a collateral. Please try again.",
-        "title": "Collateral Disable Error"
-      },
-      "collateralEnableError": {
-        "description": "There was a problem enabling {{assetName}} as a collateral. Please try again.",
-        "title": "Collateral Enable Error"
-      },
-      "collateralRequired": {
-        "description": "Please repay all borrowed assets or set other assets as collateral",
-        "title": "Collateral Required"
-      }
+      "accountError": "Account Required - Please connect your wallet to set an asset as collateral.",
+      "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
+      "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
+      "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
     },
     "suppliedTableTitle": "Supplied",
     "supplyMarketTableTitle": "Supply market"
@@ -281,7 +271,6 @@
         "message": "You successfully minted",
         "title": "Your mint was successful"
       },
-      "undefinedAccountErrorMessage": "account undefined",
       "vaiLimitLabel": "Available VAI limit"
     },
     "repayVai": {
@@ -293,8 +282,7 @@
       "successfulTransactionModal": {
         "message": "You successfully repaid",
         "title": "Your repayment was successful"
-      },
-      "undefinedAccountErrorMessage": "account undefined"
+      }
     },
     "tabMint": "Mint VAI",
     "tabRepay": "Repay VAI",

@@ -14,7 +14,7 @@ import {
 } from 'clients/api';
 import { Tabs } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import { UiError } from 'utilities/errors';
+import { VError } from 'errors/VError';
 import { useTranslation } from 'translation';
 import { CONVERSION_RATIO_DECIMAL, VRT_ID } from './constants';
 import Withdraw, { IWithdrawProps } from './Withdraw';
@@ -91,7 +91,7 @@ const ConvertVrt = () => {
 
   const handleConvertVrt = async (amount: string) => {
     if (!accountAddress) {
-      throw new UiError(t('errors.walletNotConnected'));
+      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
     }
     const res = await convertVrt({
       amountWei: amount,
@@ -102,7 +102,7 @@ const ConvertVrt = () => {
 
   const handleWithdrawXvs = async () => {
     if (!accountAddress) {
-      throw new UiError(t('errors.walletNotConnected'));
+      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
     }
     const res = await withdrawXvs({
       accountAddress,
