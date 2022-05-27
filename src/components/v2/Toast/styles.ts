@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
-import { FONTS } from 'theme/MuiThemeProvider/muiTheme';
+import { BREAKPOINTS, FONTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {
   const theme = useTheme();
@@ -22,6 +22,11 @@ export const customToastGlobalStyles = {
   '.Toastify__toast-container': {
     width: 'auto',
     maxWidth: 'calc(100vw - 40px)',
+    [`@media(max-width: ${BREAKPOINTS.values.md}px)`]: {
+      width: '100vw',
+      maxWidth: '100%',
+      left: 0,
+    },
     '.Toastify__toast': {
       fontFamily: FONTS.primary,
       backgroundColor: 'transparent',
