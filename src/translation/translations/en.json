@@ -528,5 +528,26 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
+  },
+  "voteProposalUi": {
+    "statusCard": {
+      "for": "For",
+      "against": "Against",
+      "abstain": "Abstain",
+      "queued": "Queue",
+      "readyToExecute": "Ready to execute",
+      "executed": "Executed",
+      "cancelled": "Cancelled"
+    },
+    "proposalStatus": {
+      "active": "Active"
+    },
+    "voteStatus": {
+      "votedFor": "Voted for",
+      "votedAgainst": "Voted against",
+      "abstained": "Abstained",
+      "notVoted": "Not voted"
+    },
+    "activeUntil": "Active until:"
   }
 }
