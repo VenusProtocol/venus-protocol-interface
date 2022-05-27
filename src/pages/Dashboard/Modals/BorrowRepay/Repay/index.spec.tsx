@@ -7,7 +7,7 @@ import { Asset } from 'types';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import { useUserMarketInfo, repayNonBnbVToken, getAllowance } from 'clients/api';
+import { useGetUserMarketInfo, repayNonBnbVToken, getAllowance } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
@@ -28,10 +28,13 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [],
-      userTotalBorrowLimitCents: new BigNumber(100000),
-      userTotalBorrowBalanceCents: new BigNumber(10000),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [],
+        userTotalBorrowLimitCents: new BigNumber(100000),
+        userTotalBorrowBalanceCents: new BigNumber(10000),
+      },
+      isLoading: false,
     }));
   });
 

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'translation';
 import { AuthContext } from 'context/AuthContext';
 import { VTokenId } from 'types';
-import { getVBepToken, getContractAddress } from 'utilities';
+import getSpenderAddress from 'clients/api/mutations/useApproveToken/getSpenderAddress';
 import { useApproveToken, useGetAllowance } from 'clients/api';
 import { Icon } from '../Icon';
 import { SecondaryButton } from '../Button';
@@ -92,20 +92,12 @@ export type EnableTokenProps = Pick<
 export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, ...rest }) => {
   const { account } = useContext(AuthContext);
 
-  let vTokenAddress = '';
-  if (vTokenId === 'vai') {
-    vTokenAddress = getContractAddress('vaiUnitroller');
-  } else if (vTokenId === 'vrt') {
-    vTokenAddress = getContractAddress('vrtConverterProxy');
-  } else {
-    vTokenAddress = getVBepToken(vTokenId).address;
-  }
+  const spenderAddress = getSpenderAddress(vTokenId);
 
-  // TODO: handle errors
   const { data: tokenAllowance, isLoading: isGetAllowanceLoading } = useGetAllowance(
     {
       accountAddress: account?.address || '',
-      spenderAddress: vTokenAddress,
+      spenderAddress: getSpenderAddress(vTokenId),
       tokenId: vTokenId,
     },
     {
@@ -124,7 +116,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, ...rest }) =
     if (account?.address) {
       contractApproveToken({
         accountAddress: account.address,
-        vtokenAddress: vTokenAddress,
+        vtokenAddress: spenderAddress,
       });
     }
   };

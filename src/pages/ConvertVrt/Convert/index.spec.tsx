@@ -8,7 +8,7 @@ import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext } from 'context/AuthContext';
 import fakeAccountAddress from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import { useUserMarketInfo, getAllowance } from 'clients/api';
+import { useGetUserMarketInfo, getAllowance } from 'clients/api';
 import en from 'translation/translations/en.json';
 import Convert from '.';
 
@@ -21,11 +21,14 @@ describe('pages/ConvertVRT/Convert', () => {
     jest.useFakeTimers('modern').setSystemTime(new Date('2022-03-01'));
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimit: new BigNumber('111'),
-      userTotalBorrowBalance: new BigNumber('91'),
-      userTotalSupplyBalance: new BigNumber('910'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: assetData,
+        userTotalBorrowLimit: new BigNumber('111'),
+        userTotalBorrowBalance: new BigNumber('91'),
+        userTotalSupplyBalance: new BigNumber('910'),
+      },
+      isLoading: false,
     }));
   });
 

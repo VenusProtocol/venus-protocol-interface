@@ -15,7 +15,7 @@ import {
   redeem,
   redeemUnderlying,
   getVTokenBalanceOf,
-  useUserMarketInfo,
+  useGetUserMarketInfo,
   getAllowance,
 } from 'clients/api';
 import { Asset, TokenId } from 'types';
@@ -42,10 +42,13 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [], // Not used in these tests
-      userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-      userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [], // Not used in these tests
+        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+      },
+      isLoading: false,
     }));
   });
 

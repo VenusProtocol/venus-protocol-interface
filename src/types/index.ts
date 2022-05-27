@@ -12,7 +12,7 @@ export interface Asset {
   borrowBalance: BigNumber;
   decimals: number;
   walletBalance: BigNumber;
-  isEnabled: boolean;
+  isEnabled: boolean; // TODO: remove once this PR has been merged (https://github.com/VenusProtocol/venus-protocol-interface/pull/559)
   vtokenAddress: string;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;

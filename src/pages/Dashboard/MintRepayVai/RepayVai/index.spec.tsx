@@ -4,7 +4,7 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { repayVai, useUserMarketInfo, getAllowance } from 'clients/api';
+import { repayVai, useGetUserMarketInfo, getAllowance } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import MAX_UINT256 from 'constants/maxUint256';
 import { formatCoinsToReadableValue } from 'utilities/common';
@@ -22,16 +22,19 @@ const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
   value: fakeUserVaiMinted,
   tokenId: 'vai',
 });
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [...assetData, fakeVai],
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [...assetData, fakeVai],
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
   });
 

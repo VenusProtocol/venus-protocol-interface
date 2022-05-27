@@ -10,7 +10,7 @@ import EnableToken from '.';
 jest.mock('clients/api');
 jest.mock('components/v2/Toast');
 
-const fakeAsset = { ...assetData[0], isEnabled: true };
+const fakeAsset = assetData[0];
 const fakeContent = 'Fake Content';
 
 describe('components/EnableToken', () => {
