@@ -38,7 +38,7 @@ const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(
   [],
 );
 
-// TODO: decouple, this hook handles too many things
+// TODO: decouple, this hook handles too many things (see https://app.clickup.com/t/2d4rfx6)
 const useGetUserMarketInfo = ({
   accountAddress,
 }: {
