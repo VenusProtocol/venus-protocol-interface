@@ -109,7 +109,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, ...rest }) =
     vTokenId === 'bnb' || (!!tokenAllowance && new BigNumber(tokenAllowance).isGreaterThan(0));
 
   const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
-    assetId: vTokenId,
+    tokenId: vTokenId,
   });
 
   const approveToken = () => {

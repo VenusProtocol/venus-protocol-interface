@@ -1,7 +1,7 @@
 import React from 'react';
 import noop from 'noop-ts';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withAuthContext } from 'stories/decorators';
+import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
 import { assetData } from '__mocks__/models/asset';
 import BorrowRepay, { IBorrowRepayProps } from '.';
 
@@ -42,7 +42,7 @@ Disabled.args = {
 };
 
 export const Default = Template.bind({});
-Default.decorators = [withAuthContext(context)];
+Default.decorators = [withAuthContext(context), withEnabledToken(assetData[0].id)];
 Default.args = {
   asset: assetData[0],
   onClose: noop,

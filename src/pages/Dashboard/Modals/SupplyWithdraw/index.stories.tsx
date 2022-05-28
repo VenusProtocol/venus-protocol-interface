@@ -2,7 +2,7 @@ import React from 'react';
 import { BigNumber } from 'bignumber.js';
 import noop from 'noop-ts';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withAuthContext } from 'stories/decorators';
+import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
 import { assetData } from '__mocks__/models/asset';
 import { SupplyWithdrawUi, ISupplyWithdrawUiProps, ISupplyWithdrawProps } from '.';
 
@@ -57,7 +57,7 @@ DisabledSupply.args = {
 };
 
 export const Supply = Template.bind({});
-Supply.decorators = [withAuthContext(context)];
+Supply.decorators = [withAuthContext(context), withEnabledToken(assetData[0].id)];
 Supply.args = {
   asset: assetData[0],
   assets: assetData,

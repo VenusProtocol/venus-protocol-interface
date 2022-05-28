@@ -1,20 +1,13 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 
-import MAX_UINT256 from 'constants/maxUint256';
 import { TokenId } from 'types';
-import {
-  queryClient,
-  approveToken,
-  IApproveTokenInput,
-  ApproveTokenOutput,
-  GetAllowanceOutput,
-} from 'clients/api';
+import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
-import getSpenderAddress from './getSpenderAddress';
+import setCachedTokenAllowanceToMax from './setCachedTokenAllowanceToMax';
 
 const useApproveToken = (
-  { assetId }: { assetId: TokenId },
+  { tokenId }: { tokenId: TokenId },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     ApproveTokenOutput,
@@ -22,7 +15,7 @@ const useApproveToken = (
     Omit<IApproveTokenInput, 'tokenContract'>
   >,
 ) => {
-  const tokenContract = useTokenContract(assetId);
+  const tokenContract = useTokenContract(tokenId);
   return useMutation(
     FunctionKey.APPROVE_TOKEN,
     params =>
@@ -33,9 +26,7 @@ const useApproveToken = (
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        // Update cached allowance value to MAX_UINT256
-        const queryKey = [FunctionKey.GET_TOKEN_ALLOWANCE, assetId, getSpenderAddress(assetId)];
-        queryClient.setQueryData<GetAllowanceOutput>(queryKey, `${MAX_UINT256}`);
+        setCachedTokenAllowanceToMax({ queryClient, tokenId });
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
