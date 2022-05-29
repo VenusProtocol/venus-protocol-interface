@@ -16,6 +16,7 @@ const useApproveToken = (
   >,
 ) => {
   const tokenContract = useTokenContract(tokenId);
+
   return useMutation(
     FunctionKey.APPROVE_TOKEN,
     params =>

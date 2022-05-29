@@ -1,7 +1,7 @@
 import { TokenId } from 'types';
 import { getContractAddress, getVBepToken } from 'utilities';
 
-const getSpenderAddress = (tokenId: TokenId) => {
+const getTokenSpenderAddress = (tokenId: TokenId) => {
   if (tokenId === 'vai') {
     return getContractAddress('vaiUnitroller');
   }
@@ -13,4 +13,4 @@ const getSpenderAddress = (tokenId: TokenId) => {
   return getVBepToken(tokenId).address;
 };
 
-export default getSpenderAddress;
+export default getTokenSpenderAddress;

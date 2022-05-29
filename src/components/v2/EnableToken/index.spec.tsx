@@ -29,7 +29,7 @@ describe('components/EnableToken', () => {
   });
 
   it('renders content when token is enabled', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementationOnce(() => MAX_UINT256.toFixed());
 
     const { getByText } = renderComponent(
       <EnableToken vTokenId={fakeAsset.id} title="Enable token to proceed">

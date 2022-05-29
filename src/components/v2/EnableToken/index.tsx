@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'translation';
 import { AuthContext } from 'context/AuthContext';
 import { VTokenId } from 'types';
-import getSpenderAddress from 'clients/api/mutations/useApproveToken/getSpenderAddress';
+import { getTokenSpenderAddress } from 'utilities';
 import { useApproveToken, useGetAllowance } from 'clients/api';
 import { Icon } from '../Icon';
 import { SecondaryButton } from '../Button';
@@ -92,12 +92,12 @@ export type EnableTokenProps = Pick<
 export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, ...rest }) => {
   const { account } = useContext(AuthContext);
 
-  const spenderAddress = getSpenderAddress(vTokenId);
+  const spenderAddress = getTokenSpenderAddress(vTokenId);
 
   const { data: tokenAllowance, isLoading: isGetAllowanceLoading } = useGetAllowance(
     {
       accountAddress: account?.address || '',
-      spenderAddress: getSpenderAddress(vTokenId),
+      spenderAddress,
       tokenId: vTokenId,
     },
     {
@@ -116,7 +116,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, ...rest }) =
     if (account?.address) {
       contractApproveToken({
         accountAddress: account.address,
-        vtokenAddress: spenderAddress,
+        spenderAddress,
       });
     }
   };
