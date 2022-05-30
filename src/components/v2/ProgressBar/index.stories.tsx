@@ -13,6 +13,18 @@ export const ValidProgressBar = () => (
   <ProgressBar value={50} step={5} mark={75} ariaLabel="Storybook slider" min={0} max={100} />
 );
 
+export const ProgressBarWithCustomProgressColor = () => (
+  <ProgressBar
+    progressColorOverride="yellow"
+    value={50}
+    step={5}
+    mark={75}
+    ariaLabel="Storybook slider"
+    min={0}
+    max={100}
+  />
+);
+
 export const ValidProgressBarWithTooltip = () => (
   <ProgressBar
     value={50}
