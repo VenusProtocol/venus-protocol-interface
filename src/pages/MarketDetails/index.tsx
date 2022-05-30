@@ -29,8 +29,8 @@ export interface IMarketDetailsUiProps {
   interestRateChartData: IInterestRateChartProps['data'];
   totalBorrowBalanceCents?: number;
   totalSupplyBalanceCents?: number;
-  borrowApyPercentage?: number;
-  supplyApyPercentage?: number;
+  borrowApyPercentage?: BigNumber;
+  supplyApyPercentage?: BigNumber;
   borrowDistributionApyPercentage?: number;
   supplyDistributionApyPercentage?: number;
   tokenPriceDollars?: number;
