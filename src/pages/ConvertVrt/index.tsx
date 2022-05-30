@@ -26,7 +26,6 @@ export type ConvertVrtUiProps = IConvertProps & IWithdrawProps;
 export const ConvertVrtUi = ({
   xvsToVrtConversionRatio,
   vrtConversionEndTime,
-  walletConnected,
   userVrtBalanceWei,
   convertVrtLoading,
   convertVrt,
@@ -43,7 +42,6 @@ export const ConvertVrtUi = ({
         <Convert
           xvsToVrtConversionRatio={xvsToVrtConversionRatio}
           vrtConversionEndTime={vrtConversionEndTime}
-          walletConnected={walletConnected}
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={convertVrtLoading}
           convertVrt={convertVrt}
@@ -121,7 +119,6 @@ const ConvertVrt = () => {
   if (conversionRatio && vrtConversionEndTime) {
     return (
       <ConvertVrtUi
-        walletConnected={!!accountAddress}
         xvsToVrtConversionRatio={conversionRatio}
         userVrtBalanceWei={userVrtBalanceWei}
         vrtConversionEndTime={vrtConversionEndTime}

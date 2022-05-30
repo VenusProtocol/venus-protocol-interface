@@ -28,7 +28,6 @@ export interface IConvertProps {
   userVrtBalanceWei: BigNumber | undefined;
   convertVrtLoading: boolean;
   convertVrt: (amount: string) => Promise<string>;
-  walletConnected: boolean;
 }
 
 const Convert: React.FC<IConvertProps> = ({
@@ -37,7 +36,6 @@ const Convert: React.FC<IConvertProps> = ({
   userVrtBalanceWei,
   convertVrtLoading,
   convertVrt,
-  walletConnected,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -127,14 +125,13 @@ const Convert: React.FC<IConvertProps> = ({
 
   return (
     <div css={styles.root}>
-      {walletConnected && (
-        <section css={styles.title}>
-          <Typography variant="h3">{readableXvsAvailable}</Typography>
-          <Typography variant="small2">{t('convertVrt.xvsAVailable')}</Typography>
-        </section>
-      )}
       <ConnectWallet message={t('convertVrt.connectWalletToConvertVrtToXvs')}>
         <EnableToken title={t('convertVrt.enableVrt')} vTokenId={VRT_ID}>
+          <section css={styles.title}>
+            <Typography variant="h3">{readableXvsAvailable}</Typography>
+            <Typography variant="small2">{t('convertVrt.xvsAVailable')}</Typography>
+          </section>
+
           <AmountForm onSubmit={onSubmit} maxAmount={userVrtBalance} css={styles.form}>
             {({ values }) => {
               const xvsValue = calculateXvsFromVrt(new BigNumber(values.amount))

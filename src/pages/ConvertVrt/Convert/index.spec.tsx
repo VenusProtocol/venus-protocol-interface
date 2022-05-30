@@ -58,7 +58,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -90,7 +89,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -124,7 +122,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -154,7 +151,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={new BigNumber('90000083300000000000')}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -186,7 +182,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -223,7 +218,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
           convertVrt={convertVrt}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -268,7 +262,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -308,7 +301,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -349,7 +341,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
@@ -390,7 +381,6 @@ describe('pages/ConvertVRT/Convert', () => {
           userVrtBalanceWei={userVrtBalanceWei}
           convertVrtLoading={false}
           convertVrt={jest.fn()}
-          walletConnected
         />
       </AuthContext.Provider>,
     );
