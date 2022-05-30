@@ -68,12 +68,12 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         <LayeredValues
           topValue={formatCentsToReadableValue({
             value: asset.treasuryTotalSupplyUsdCents,
-            shorthand: true,
+            shortenLargeValue: true,
           })}
           bottomValue={formatCoinsToReadableValue({
             value: asset.treasuryTotalSupplyUsdCents.div(asset.tokenPrice.times(100)),
-            tokenId: asset.id as TokenId,
-            shorthand: true,
+            tokenId: asset.id,
+            minimizeDecimals: true,
           })}
         />
       ),
@@ -97,12 +97,12 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         <LayeredValues
           topValue={formatCentsToReadableValue({
             value: asset.treasuryTotalBorrowsUsdCents,
-            shorthand: true,
+            shortenLargeValue: true,
           })}
           bottomValue={formatCoinsToReadableValue({
             value: asset.treasuryTotalBorrowsUsdCents.div(asset.tokenPrice.times(100)),
-            tokenId: asset.id as TokenId,
-            shorthand: true,
+            tokenId: asset.id,
+            minimizeDecimals: true,
           })}
         />
       ),
@@ -126,7 +126,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         <Typography variant="small1" css={styles.whiteText}>
           {formatCentsToReadableValue({
             value: asset.liquidity.multipliedBy(100),
-            shorthand: true,
+            shortenLargeValue: true,
           })}
         </Typography>
       ),

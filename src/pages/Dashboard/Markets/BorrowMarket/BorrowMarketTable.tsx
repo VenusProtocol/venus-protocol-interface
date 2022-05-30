@@ -57,8 +57,8 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
         render: () =>
           formatCoinsToReadableValue({
             value: asset.walletBalance,
-            tokenId: asset.id as TokenId,
-            shorthand: true,
+            tokenId: asset.id,
+            minimizeDecimals: true,
           }),
         value: asset.walletBalance.toFixed(),
         align: 'right',
@@ -68,7 +68,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
         render: () =>
           formatCentsToReadableValue({
             value: asset.liquidity.multipliedBy(100),
-            shorthand: true,
+            shortenLargeValue: true,
           }),
         value: asset.liquidity.toNumber(),
         align: 'right',

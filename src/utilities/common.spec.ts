@@ -14,7 +14,7 @@ describe('utilities/formatCoinsToReadableValue', () => {
     const value = formatCoinsToReadableValue({
       value: new BigNumber(1000.1234),
       tokenId: 'eth',
-      shorthand: true,
+      minimizeDecimals: true,
     });
     expect(value).toBe('1,000.12 ETH');
   });
@@ -23,7 +23,7 @@ describe('utilities/formatCoinsToReadableValue', () => {
     const value = formatCoinsToReadableValue({
       value: new BigNumber(0.1234),
       tokenId: 'ada',
-      shorthand: true,
+      minimizeDecimals: true,
     });
     expect(value).toBe('0.1234 ADA');
   });
@@ -33,7 +33,7 @@ describe('utilities/formatCoinsToReadableValue', () => {
     const value = formatCoinsToReadableValue({
       value: trailingZeroNumber,
       tokenId: 'ada',
-      shorthand: true,
+      minimizeDecimals: true,
     });
     expect(trailingZeroNumber.toFixed(8)).toBe('0.00000050');
     expect(value).toBe('0.0000005 ADA');
