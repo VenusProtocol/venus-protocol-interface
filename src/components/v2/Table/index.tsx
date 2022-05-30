@@ -129,15 +129,6 @@ export const Table = ({
                   onClick={
                     rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
                   }
-                  component={
-                    getRowHref
-                      ? ({ children, ...props }) => (
-                          <Link {...props} to={getRowHref(row)}>
-                            {children}
-                          </Link>
-                        )
-                      : 'tr'
-                  }
                 >
                   {row.map(({ key, render, align }: ITableRowProps) => {
                     const cellContent = render();
@@ -149,7 +140,7 @@ export const Table = ({
                         title={cellTitle}
                         align={align}
                       >
-                        {cellContent}
+                        {getRowHref ? <Link to={getRowHref(row)}>{cellContent}</Link> : cellContent}
                       </TableCell>
                     );
                   })}
