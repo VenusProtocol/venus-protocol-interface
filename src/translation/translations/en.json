@@ -26,7 +26,7 @@
     },
     "walletList": {
       "comingSoon": "Coming soon",
-      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>."
+      "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>"
     }
   },
   "borrowRepayModal": {
@@ -41,9 +41,9 @@
       "enableToken": {
         "borrowInfo": "Borrow APY",
         "distributionInfo": "Distribution APY",
-        "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first."
+        "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first"
       },
-      "highAmountWarning": "You entered a high amount. There is a risk of liquidation.",
+      "highAmountWarning": "You entered a high amount. There is a risk of liquidation",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow",
       "submitButtonDisabled": "Enter a valid amount to borrow",
@@ -59,7 +59,7 @@
       "enableToken": {
         "borrowInfo": "Borrow APY",
         "distributionInfo": "Distribution APY",
-        "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first."
+        "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first"
       },
       "rightMaxButtonLabel": "MAX",
       "submitButton": "Repay",
@@ -90,14 +90,14 @@
   },
   "convertVrt": {
     "balance": "Balance: <White>{{amount}}</White>",
-    "connectWalletToConvertVrtToXvs": "To convert VRT to XVS you should connect your wallet first",
-    "connectWalletToWithdrawXvs": "To withdraw XVS you should connect your wallet first",
+    "connectWalletToConvertVrtToXvs": "Please connect your wallet to convert VRT to XVS",
+    "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
     "convert": "Convert",
     "convertVrt": "Convert VRT",
     "convertVrtToXvs": "Convert VRT to XVS",
     "days_one": "{{count}} day",
     "days_other": "{{count}} day",
-    "enableVrt": "To convert VRT to XVS you will first need to enable it.",
+    "enableVrt": "To convert VRT to XVS with the Venus Protocol, you need to enable it",
     "hours_one": "{{count}} hour",
     "hours_other": "{{count}} hours",
     "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
@@ -251,7 +251,7 @@
     },
     "errors": {
       "accountError": {
-        "description": "Please connect your wallet to set an asset as collateral.",
+        "description": "Please connect your wallet to set an asset as collateral",
         "title": "Account Required"
       },
       "collateralDisableError": {
@@ -263,7 +263,7 @@
         "title": "Collateral Enable Error"
       },
       "collateralRequired": {
-        "description": "Please repay all borrowed assets or set other assets as collateral.",
+        "description": "Please repay all borrowed assets or set other assets as collateral",
         "title": "Collateral Required"
       }
     },
@@ -273,8 +273,8 @@
   "mintRepayVai": {
     "mintVai": {
       "btnMintVai": "Mint VAI",
-      "connectWallet": "Please connect your wallet to mint VAI.",
-      "enableToken": "To mint VAI to the Venus Protocol, you need to approve it first",
+      "connectWallet": "Please connect your wallet to mint VAI",
+      "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
       "mintFeeLabel": "Mint fee",
       "rightMaxButtonLabel": "SAFE MAX",
       "successfulTransactionModal": {
@@ -286,8 +286,8 @@
     },
     "repayVai": {
       "btnRepayVai": "Repay VAI",
-      "connectWallet": "Please connect your wallet to repay VAI.",
-      "enableToken": "To repay VAI to the Venus Protocol, you need to approve it first",
+      "connectWallet": "Please connect your wallet to repay VAI",
+      "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
       "repayVaiBalance": "Repay VAI balance",
       "rightMaxButtonLabel": "MAX",
       "successfulTransactionModal": {
@@ -313,14 +313,18 @@
     "supplyBalance": "Supply balance",
     "title": "My account"
   },
+  "pagination": {
+    "itemOf": "item {{currentPageLastIndex}} out of {{itemsCount}}",
+    "itemsOf": "items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
+  },
   "supplyWithdraw": {
     "borrowLimit": "Borrow limit",
     "connectWalletToSupply": "Please connect your wallet to supply",
     "connectWalletToWithdraw": "Please connect your wallet to withdraw",
     "dailyEarnings": "Daily Earnings",
     "distributionApy": "Distribution APY",
-    "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first.",
-    "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first.",
+    "enableToSupply": "To supply {{symbol}} to the Venus Protocol, you need to enable it first",
+    "enableToWithdraw": "To withdraw {{symbol}} to the Venus Protocol, you need to enable it first",
     "enterValidAmountSupply": "Enter a valid amount to supply",
     "enterValidAmountWithdraw": "Enter a valid amount to withdraw",
     "max": "Max",
@@ -531,6 +535,16 @@
       "vaiMintRejection": "VAI Mint Rejected"
     }
   },
+  "vaultItemUi": {
+    "claimButton": "Claim",
+    "dailyEmission": "Daily Emission",
+    "reward": "Reward:",
+    "stakeButton": "Stake",
+    "stakingApr": "{{stakeTokenName}} Staking APR",
+    "totalStaked": "Total Staked",
+    "withdrawButton": "Withdraw",
+    "youAreStaking": "You are staking"
+  },
   "xvs": {
     "columns": {
       "asset": "Asset",
@@ -541,19 +555,5 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
-  },
-  "vaultItemUi": {
-    "reward": "Reward:",
-    "claimButton": "Claim",
-    "youAreStaking": "You are staking",
-    "stakingApr": "{{stakeTokenName}} Staking APR",
-    "dailyEmission": "Daily Emission",
-    "totalStaked": "Total Staked",
-    "stakeButton": "Stake",
-    "withdrawButton": "Withdraw"
-  },
-  "pagination": {
-    "itemOf": "item {{currentPageLastIndex}} out of {{itemsCount}}",
-    "itemsOf": "items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   }
 }

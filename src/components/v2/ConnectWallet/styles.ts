@@ -5,9 +5,11 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
+    container: css`
+      width: 100%;
+    `,
     notice: css`
       margin-bottom: ${theme.spacing(10)};
-      margin-top: ${theme.spacing(2)};
     `,
   };
 };
