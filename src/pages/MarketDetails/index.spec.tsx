@@ -60,12 +60,14 @@ describe('pages/MarketDetails', () => {
     );
 
     // Check supply info displays correctly
-    await waitFor(() => expect(getByTestId('market-details-supply-info')).toMatchSnapshot());
+    await waitFor(() =>
+      expect(getByTestId('market-details-supply-info').textContent).toMatchSnapshot(),
+    );
     // Check borrow info displays correctly
-    expect(getByTestId('market-details-borrow-info')).toMatchSnapshot();
+    expect(getByTestId('market-details-borrow-info').textContent).toMatchSnapshot();
     // Check interest rate model displays correctly
-    expect(getByTestId('market-details-interest-rate-model')).toMatchSnapshot();
+    expect(getByTestId('market-details-interest-rate-model').textContent).toMatchSnapshot();
     // Check market info displays correctly
-    expect(getByTestId('market-details-market-info')).toMatchSnapshot();
+    expect(getByTestId('market-details-market-info').textContent).toMatchSnapshot();
   });
 });
