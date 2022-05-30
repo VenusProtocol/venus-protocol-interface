@@ -227,9 +227,11 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       .minus(userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
-    const safeMaxCoins = marginWithSafeBorrowLimitDollars
-      // Convert dollars to coins
-      .dividedBy(asset.tokenPrice);
+
+    const safeMaxCoins = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
+      ? // Convert dollars to coins
+        marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
+      : new BigNumber(0);
 
     const tokenDecimals = getToken(asset.id as VTokenId).decimals;
     const formatValue = (value: BigNumber) =>
