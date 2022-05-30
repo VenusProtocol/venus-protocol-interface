@@ -1,5 +1,11 @@
 # Venus Protocol
 
+## WARNING FOR CONTRIBUTORS
+
+The Venus protocol interface is currently being redesigned. At the moment our priorities are
+refactoring and completing the new site design. We can't guarantee a timely response to unsolicited
+pull requests that are not on our roadmap.
+
 ## Quick Installation & Start
 
 Install [make](https://www.npmjs.com/package/make) and [husky](https://www.npmjs.com/package/husky)
@@ -102,10 +108,7 @@ const Component: React.FC = () => {
   const { Trans } = useTranslation();
 
   return (
-    <Trans 
-      i18nKey="componentName.textKey"
-      components={{ Anchor: <a href="https://acme.com"/> }}
-    />
+    <Trans i18nKey="componentName.textKey" components={{ Anchor: <a href="https://acme.com" /> }} />
   );
 };
 ```
