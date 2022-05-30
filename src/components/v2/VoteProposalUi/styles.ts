@@ -54,6 +54,9 @@ export const useStyles = () => {
       display: flex;
       justify-content: space-between;
     `,
+    activeUntilDate: css`
+      margin-left: ${theme.spacing(1)};
+    `,
     gridItemRight: css`
       padding-left: ${theme.spacing(6)};
       border-left: 1px solid ${theme.palette.secondary.light};

@@ -1,110 +1,82 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
+import { SerializedStyles } from '@emotion/react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
-import { Icon } from '../Icon';
-import { ProgressBar } from '../ProgressBar';
+import { Icon, IconName } from '../Icon';
+import { Spinner } from '../Spinner';
+import { ActiveVotingProgress } from './ActiveVotingProgress';
 import { useStyles } from './styles';
 
-type ProposalStatus = 'active' | 'queued' | 'readyToExecute' | 'executed' | 'cancelled';
+type ProposalCardStatus = 'queued' | 'readyToExecute' | 'executed' | 'cancelled';
+type ProposalStatus = 'active' | ProposalCardStatus;
 
 interface IStatusCard {
-  status: ProposalStatus;
-  votedFor?: string;
-  votedAgainst?: string;
-  abstain?: string;
+  status: ProposalCardStatus;
 }
 
-const StatusCard: React.FC<IStatusCard> = ({ status, votedFor, votedAgainst, abstain }) => {
+const StatusCard: React.FC<IStatusCard> = ({ status }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const statusContent: Record<
+    ProposalCardStatus,
+    {
+      iconWrapperCss: SerializedStyles | SerializedStyles[];
+      iconName: IconName;
+      iconCss: SerializedStyles | SerializedStyles[];
+      label: string;
+    }
+  > = useMemo(
+    () => ({
+      queued: {
+        iconWrapperCss: [styles.iconWrapper, styles.iconDotsWrapper],
+        iconName: 'dots',
+        iconCss: styles.icon,
+        label: t('voteProposalUi.statusCard.queued'),
+      },
+      readyToExecute: {
+        iconWrapperCss: [styles.iconWrapper, styles.iconInfoWrapper],
+        iconName: 'exclamation',
+        iconCss: styles.icon,
+        label: t('voteProposalUi.statusCard.readyToExecute'),
+      },
+      executed: {
+        iconWrapperCss: [styles.iconWrapper, styles.iconMarkWrapper],
+        iconName: 'mark',
+        iconCss: [styles.icon, styles.iconCheck],
+        label: t('voteProposalUi.statusCard.executed'),
+      },
+      cancelled: {
+        iconWrapperCss: [styles.iconWrapper, styles.iconCloseWrapper],
+        iconName: 'close',
+        iconCss: styles.icon,
+        label: t('voteProposalUi.statusCard.cancelled'),
+      },
+    }),
+    [],
+  );
+
   switch (status) {
-    case 'active':
-      return (
-        <>
-          <div css={styles.voteRow}>
-            <Typography variant="small2" color="textPrimary">
-              {t('voteProposalUi.statusCard.for')}
-            </Typography>
-
-            <Typography variant="small2" color="textPrimary">
-              {votedFor}
-            </Typography>
-          </div>
-          <ProgressBar value={20} step={1} ariaLabel="progress" min={1} max={100} />
-
-          <div css={styles.voteRow}>
-            <Typography variant="small2" color="textPrimary">
-              {t('voteProposalUi.statusCard.against')}
-            </Typography>
-
-            <Typography variant="small2" color="textPrimary">
-              {votedAgainst}
-            </Typography>
-          </div>
-          <ProgressBar value={20} step={1} ariaLabel="progress" min={1} max={100} />
-
-          <div css={styles.voteRow}>
-            <Typography variant="small2" color="textPrimary">
-              {t('voteProposalUi.statusCard.abstain')}
-            </Typography>
-
-            <Typography variant="small2" color="textPrimary">
-              {abstain}
-            </Typography>
-          </div>
-          <ProgressBar value={5} step={1} ariaLabel="progress" min={1} max={100} />
-        </>
-      );
     case 'queued':
-      return (
-        <>
-          <div css={[styles.iconWrapper, styles.iconDotsWrapper]}>
-            <Icon css={styles.icon} name="dots" />
-          </div>
-          <Typography css={styles.statusText} variant="body2">
-            {t('voteProposalUi.statusCard.queued')}
-          </Typography>
-        </>
-      );
     case 'readyToExecute':
-      return (
-        <>
-          <div css={[styles.iconWrapper, styles.iconInfoWrapper]}>
-            <Icon css={styles.icon} name="exclamation" />
-          </div>
-          <Typography css={styles.statusText} variant="body2">
-            {t('voteProposalUi.statusCard.readyToExecute')}
-          </Typography>
-        </>
-      );
     case 'executed':
+    case 'cancelled':
       return (
         <>
-          <div css={[styles.iconWrapper, styles.iconMarkWrapper]}>
-            <Icon css={[styles.icon, styles.iconCheck]} name="mark" />
+          <div css={statusContent[status].iconWrapperCss}>
+            <Icon css={statusContent[status].iconCss} name={statusContent[status].iconName} />
           </div>
           <Typography css={styles.statusText} variant="body2">
-            {t('voteProposalUi.statusCard.executed')}
+            {statusContent[status].label}
           </Typography>
         </>
       );
     default:
-    case 'cancelled':
-      return (
-        <>
-          <div css={[styles.iconWrapper, styles.iconCloseWrapper]}>
-            <Icon css={styles.icon} name="close" />
-          </div>
-          <Typography css={styles.statusText} variant="body2">
-            {t('voteProposalUi.statusCard.cancelled')}
-          </Typography>
-        </>
-      );
+      return <Spinner variant="small" />;
   }
 };
 
@@ -115,6 +87,7 @@ interface IVoteProposalUiProps {
   proposalNumber: number;
   proposalText: string;
   proposalStatus: ProposalStatus;
+  cancelDate?: string;
   voteStatus?: VoteStatus;
   votedFor?: string;
   votedAgainst?: string;
@@ -126,6 +99,7 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
   proposalNumber,
   proposalText,
   proposalStatus,
+  cancelDate,
   voteStatus,
   votedFor,
   votedAgainst,
@@ -179,25 +153,30 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
           </Typography>
 
           <div css={styles.cardFooter}>
-            <Typography variant="small2">
-              {t('voteProposalUi.activeUntil')}
-              <Typography variant="small2" color="textPrimary">
-                27 Jun 13:54
+            {cancelDate && (
+              <Typography variant="small2">
+                {t('voteProposalUi.activeUntil')}
+                <Typography css={styles.activeUntilDate} variant="small2" color="textPrimary">
+                  {cancelDate}
+                </Typography>
               </Typography>
-            </Typography>
+            )}
 
             <Typography color="textPrimary" variant="small2">
-              27h : 13m : 54s
+              27h : 13m : 54s {/* // TODO: countdown calculating */}
             </Typography>
           </div>
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
-          <StatusCard
-            status={proposalStatus}
-            votedFor={votedFor}
-            votedAgainst={votedAgainst}
-            abstain={abstain}
-          />
+          {proposalStatus === 'active' ? (
+            <ActiveVotingProgress
+              votedFor={votedFor}
+              votedAgainst={votedAgainst}
+              abstain={abstain}
+            />
+          ) : (
+            <StatusCard status={proposalStatus} />
+          )}
         </Grid>
       </Grid>
     </Paper>

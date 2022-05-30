@@ -19,6 +19,7 @@ export interface IProgressBarProps {
   markTooltip?: ITooltipProps['title'];
   className?: string;
   tooltipPlacement?: ITooltipProps['placement'];
+  progressColorOverride?: string;
 }
 
 export const ProgressBar = ({
@@ -33,6 +34,7 @@ export const ProgressBar = ({
   markTooltip,
   className,
   tooltipPlacement = 'top',
+  progressColorOverride,
 }: IProgressBarProps) => {
   const safeValue = value < max ? value : max;
 
@@ -40,6 +42,7 @@ export const ProgressBar = ({
   const styles = useStyles({
     over: mark ? safeValue > mark : false,
     secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
+    progressColorOverride,
   });
 
   const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => (

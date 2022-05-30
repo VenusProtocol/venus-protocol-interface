@@ -21,6 +21,7 @@ export const Active = () => (
     votedAgainst="2130.02 XVS"
     abstain="100 XVS"
     voteStatus="votedFor"
+    cancelDate="27 Jun 13:54"
   />
 );
 export const Queued = () => (
