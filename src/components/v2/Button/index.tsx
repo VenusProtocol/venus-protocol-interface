@@ -1,16 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import Typography from '@mui/material/Typography';
+import { Link, LinkProps } from 'react-router-dom';
 
 import { Spinner } from '../Spinner';
 import useStyles from './styles';
 import { Variant } from './types';
 
-export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  loading?: boolean;
+export interface IBaseButtonProps {
   fullWidth?: boolean;
   small?: boolean;
   variant?: Variant;
+}
+
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    IBaseButtonProps {
+  loading?: boolean;
 }
 
 export const Button = ({
@@ -50,3 +56,12 @@ export const PrimaryButton = (props: IButtonProps) => <Button variant="primary" 
 export const SecondaryButton = (props: IButtonProps) => <Button variant="secondary" {...props} />;
 export const TertiaryButton = (props: IButtonProps) => <Button variant="tertiary" {...props} />;
 export const TextButton = (props: IButtonProps) => <Button variant="text" {...props} />;
+export const LinkButton = ({
+  variant = 'primary',
+  fullWidth = false,
+  small = false,
+  ...props
+}: LinkProps & IBaseButtonProps) => {
+  const styles = useStyles({ fullWidth, variant, small });
+  return <Link {...props} css={[styles.getButton({ disabled: false }), styles.link]} />;
+};
