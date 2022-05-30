@@ -130,13 +130,11 @@ const Convert: React.FC<IConvertProps> = ({
 
   return (
     <div css={styles.root}>
-      {walletConnected ? (
+      {walletConnected && (
         <section css={styles.title}>
           <Typography variant="h3">{readableXvsAvailable}</Typography>
           <Typography variant="small2">{t('convertVrt.xvsAVailable')}</Typography>
         </section>
-      ) : (
-        <div css={styles.smallSpacer} />
       )}
       <ConnectWallet message={t('convertVrt.connectWalletToConvertVrtToXvs')}>
         <EnableToken
