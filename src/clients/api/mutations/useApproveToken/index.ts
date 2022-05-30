@@ -4,9 +4,10 @@ import { TokenId } from 'types';
 import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
+import setCachedTokenAllowanceToMax from './setCachedTokenAllowanceToMax';
 
 const useApproveToken = (
-  { assetId }: { assetId: TokenId },
+  { tokenId }: { tokenId: TokenId },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     ApproveTokenOutput,
@@ -14,7 +15,8 @@ const useApproveToken = (
     Omit<IApproveTokenInput, 'tokenContract'>
   >,
 ) => {
-  const tokenContract = useTokenContract(assetId);
+  const tokenContract = useTokenContract(tokenId);
+
   return useMutation(
     FunctionKey.APPROVE_TOKEN,
     params =>
@@ -25,7 +27,8 @@ const useApproveToken = (
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+        setCachedTokenAllowanceToMax({ queryClient, tokenId });
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

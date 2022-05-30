@@ -45,7 +45,6 @@ export const ConvertTab = () => (
     vrtConversionEndTime={new Date(Date.now() + 60 * 60 * 24 * 3)}
     userVrtBalanceWei={new BigNumber(33333)}
     convertVrtLoading={false}
-    userVrtEnabled
     convertVrt={noop}
     walletConnected
   />

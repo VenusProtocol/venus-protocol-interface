@@ -8,7 +8,8 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
-import { useGetUserMarketInfo, borrowVToken } from 'clients/api';
+import { useGetUserMarketInfo, borrowVToken, getAllowance } from 'clients/api';
+import MAX_UINT256 from 'constants/maxUint256';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -29,6 +30,8 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
   beforeEach(() => {
+    // Mark token as enabled
+    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256.toFixed());
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [], // Not used in these tests

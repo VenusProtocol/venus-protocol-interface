@@ -5,7 +5,6 @@ import Paper from '@mui/material/Paper';
 
 import { AuthContext } from 'context/AuthContext';
 import {
-  useGetAllowance,
   useGetBalanceOf,
   useGetVrtConversionEndTime,
   useGetVrtConversionRatio,
@@ -15,7 +14,6 @@ import {
 } from 'clients/api';
 import { Tabs } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
-import { getContractAddress } from 'utilities';
 import { UiError } from 'utilities/errors';
 import { useTranslation } from 'translation';
 import { CONVERSION_RATIO_DECIMAL, VRT_ID } from './constants';
@@ -30,7 +28,6 @@ export const ConvertVrtUi = ({
   vrtConversionEndTime,
   walletConnected,
   userVrtBalanceWei,
-  userVrtEnabled,
   convertVrtLoading,
   convertVrt,
   withdrawXvsLoading,
@@ -48,7 +45,6 @@ export const ConvertVrtUi = ({
           vrtConversionEndTime={vrtConversionEndTime}
           walletConnected={walletConnected}
           userVrtBalanceWei={userVrtBalanceWei}
-          userVrtEnabled={userVrtEnabled}
           convertVrtLoading={convertVrtLoading}
           convertVrt={convertVrt}
         />
@@ -81,14 +77,6 @@ const ConvertVrt = () => {
   const accountAddress = account?.address;
   const { data: vrtConversionEndTime } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatio } = useGetVrtConversionRatio();
-  const { data: userVrtAllowance } = useGetAllowance(
-    {
-      tokenId: VRT_ID,
-      accountAddress: accountAddress || '',
-      spenderAddress: getContractAddress('vrtConverterProxy'),
-    },
-    { enabled: !!accountAddress },
-  );
   const { data: userVrtBalanceWei } = useGetBalanceOf(
     { accountAddress: accountAddress || '', tokenId: VRT_ID },
     { enabled: !!accountAddress },
@@ -102,7 +90,6 @@ const ConvertVrt = () => {
 
   const { mutateAsync: convertVrt, isLoading: convertVrtLoading } = useConvertVrt();
   const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
-  const userVrtEnabled = new BigNumber(userVrtAllowance || 0).gt(0);
 
   const handleConvertVrt = async (amount: string) => {
     if (!accountAddress) {
@@ -139,7 +126,6 @@ const ConvertVrt = () => {
         userVrtBalanceWei={userVrtBalanceWei}
         vrtConversionEndTime={vrtConversionEndTime}
         convertVrtLoading={convertVrtLoading}
-        userVrtEnabled={userVrtEnabled}
         convertVrt={handleConvertVrt}
         withdrawXvs={handleWithdrawXvs}
         withdrawXvsLoading={withdrawXvsLoading}

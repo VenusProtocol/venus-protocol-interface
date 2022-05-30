@@ -11,7 +11,7 @@ import MintRepayVai from '.';
 
 jest.mock('clients/api');
 
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 
 describe('pages/Dashboard/MintRepayVai', () => {
   beforeEach(() => {

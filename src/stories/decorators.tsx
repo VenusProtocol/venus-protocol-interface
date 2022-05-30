@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { addDecorator, Story as StoryType } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { Provider } from 'react-redux';
 import { store } from 'core/store';
 import Box from '@mui/material/Box';
+import { TokenId } from 'types';
 import { Web3Wrapper } from 'clients/web3';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
+import setCachedTokenAllowanceToMax from 'clients/api/mutations/useApproveToken/setCachedTokenAllowanceToMax';
 import Theme from 'theme';
 // resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
@@ -66,7 +68,28 @@ export const withThemeProvider: DecoratorFunction = Story => (
 );
 
 export const withQueryClientProvider: DecoratorFunction = Story => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        cacheTime: Infinity,
+        staleTime: Infinity,
+      },
+    },
+  });
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Story />
+    </QueryClientProvider>
+  );
+};
+
+export const withEnabledToken = (tokenId: TokenId) => (Story: StoryType) => {
+  const queryClient = useQueryClient();
+
+  // Update cache to set token as enabled
+  setCachedTokenAllowanceToMax({ queryClient, tokenId });
 
   return (
     <QueryClientProvider client={queryClient}>

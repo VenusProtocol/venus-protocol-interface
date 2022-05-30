@@ -12,7 +12,6 @@ export interface Asset {
   borrowBalance: BigNumber;
   decimals: number;
   walletBalance: BigNumber;
-  isEnabled: boolean;
   vtokenAddress: string;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;

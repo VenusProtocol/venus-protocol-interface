@@ -145,7 +145,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           let walletBalance = new BigNumber(0);
           let supplyBalance = new BigNumber(0);
           let borrowBalance = new BigNumber(0);
-          let isEnabled = false;
           const percentOfLimit = '0';
 
           if (account) {
@@ -155,11 +154,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             walletBalance = toDecimalAmount(wallet.tokenBalance);
             supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
             borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
-            if (item.id === 'bnb') {
-              isEnabled = true;
-            } else {
-              isEnabled = toDecimalAmount(wallet.tokenAllowance).isGreaterThan(walletBalance);
-            }
           }
 
           return {
@@ -188,7 +182,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             walletBalance,
             supplyBalance,
             borrowBalance,
-            isEnabled,
             collateral,
             percentOfLimit,
             xvsPerDay: new BigNumber(market.supplierDailyVenus)
