@@ -4,12 +4,16 @@ import { Transaction } from 'models';
 import { TransactionEvent } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { useGetTransactions } from 'clients/api';
+import { Pagination } from 'components';
 import HistoryTable from './HistoryTable';
 import Filters, { ALL_VALUE, IFilterProps } from './Filters';
 
 interface IHistoryUiProps extends IFilterProps {
   transactions: Transaction[];
   isFetching: boolean;
+  total: number | undefined;
+  limit: number | undefined;
+  setCurrentPage: (page: number) => void;
 }
 
 export const HistoryUi: React.FC<IHistoryUiProps> = ({
@@ -20,6 +24,9 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
   transactions,
   walletConnected,
   isFetching,
+  total,
+  limit,
+  setCurrentPage,
 }) => (
   <div>
     <Filters
@@ -30,21 +37,32 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
       walletConnected={walletConnected}
     />
     <HistoryTable transactions={transactions} isFetching={isFetching} />
+    {total && (
+      <Pagination
+        itemsCount={total}
+        onChange={(nextIndex: number) => {
+          setCurrentPage(nextIndex + 1);
+          window.scrollTo(0, 0);
+        }}
+        itemsPerPageCount={limit || 20}
+      />
+    )}
   </div>
 );
 
 const History: React.FC = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
+  const [currentPage, setCurrentPage] = useState(1);
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
-  const { data: { transactions } = { transactions: [] }, isFetching } = useGetTransactions(
-    {
+  const { data: { transactions, total, limit } = { transactions: [] }, isFetching } =
+    useGetTransactions({
+      page: currentPage,
       address: showOnlyMyTxns ? accountAddress : undefined,
       event: eventType !== ALL_VALUE ? eventType : undefined,
-    },
-    { placeholderData: { transactions: [], limit: 0, page: 0, total: 0 } },
-  );
+    });
+
   return (
     <HistoryUi
       eventType={eventType}
@@ -54,6 +72,9 @@ const History: React.FC = () => {
       transactions={transactions}
       walletConnected={!!accountAddress}
       isFetching={isFetching}
+      total={total}
+      limit={limit}
+      setCurrentPage={setCurrentPage}
     />
   );
 };

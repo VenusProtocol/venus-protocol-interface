@@ -19,13 +19,13 @@ export default {
 
 const PaginationTemplate: Story<{
   itemsCount: number;
-  initialPageNumber?: number;
+  initialPageIndex?: number;
   itemsPerPageCount?: number;
-}> = ({ initialPageNumber, itemsPerPageCount }) => (
+}> = ({ initialPageIndex, itemsPerPageCount }) => (
   <Pagination
     itemsCount={25}
     onChange={noop}
-    initialPageNumber={initialPageNumber}
+    initialPageIndex={initialPageIndex}
     itemsPerPageCount={itemsPerPageCount}
   />
 );
@@ -33,6 +33,6 @@ const PaginationTemplate: Story<{
 export const PaginationWithCustomContentPerPage = PaginationTemplate.bind({});
 PaginationWithCustomContentPerPage.args = {
   itemsCount: 25,
-  initialPageNumber: 1,
+  initialPageIndex: 0,
   itemsPerPageCount: 4,
 };
