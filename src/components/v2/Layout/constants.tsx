@@ -38,7 +38,7 @@ export const menuItems: IMenuItem[] = [
     icon: 'vault',
   },
   {
-    href: '/transaction',
+    href: process.env.REACT_APP_RUN_V2 ? '/history' : '/transaction',
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
     i18nKey: 'layout.menuItems.history',

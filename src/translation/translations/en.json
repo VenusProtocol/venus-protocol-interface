@@ -138,6 +138,19 @@
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
   },
+  "history": {
+    "columns": {
+      "amount": "Amount",
+      "block": "Block",
+      "createdAt": "Created at",
+      "from": "From",
+      "id": "ID",
+      "to": "To",
+      "txnHash": "Txn Hash",
+      "type": "Type"
+    },
+    "createdAt": "{{ date, distanceToNow }} ago"
+  },
   "interestRateChart": {
     "currentUtilizationRateLabelValue": "Current ({{percentage}})",
     "tooltipItemLabels": {
@@ -147,7 +160,6 @@
     }
   },
   "layout": {
-    "bannerText": "Venus Protocol is resuming in a phased approach. Due to the Terra incident, all accounts with LUNA and UST borrowing or collateralization are offline. Check the\u00a0<Anchor>announcement</Anchor>\u00a0for details.",
     "menuItems": {
       "convertVrt": "Convert VRT",
       "convertVrtTitle": "Convert VRT to XVS",

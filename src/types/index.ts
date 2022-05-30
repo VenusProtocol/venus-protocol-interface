@@ -120,7 +120,7 @@ export interface IPool {
   dailyEmission: BigNumber;
 }
 
-export interface Transaction {
+export interface VoteTransaction {
   support: boolean;
   type: 'vote';
   blockTimestamp: number;
@@ -185,4 +185,39 @@ export interface MarketSnapshot {
   totalBorrow: string;
   totalSupply: string;
   updatedAt: string;
+}
+
+export type TransactionEvent =
+  | 'Mint'
+  | 'Transfer'
+  | 'Borrow'
+  | 'RepayBorrow'
+  | 'Redeem'
+  | 'Approval'
+  | 'LiquidateBorrow'
+  | 'ReservesAdded'
+  | 'ReservesReduced'
+  | 'MintVAI'
+  | 'Withdraw'
+  | 'RepayVAI'
+  | 'Deposit'
+  | 'VoteCast'
+  | 'ProposalCreated'
+  | 'ProposalQueued'
+  | 'ProposalExecuted'
+  | 'ProposalCanceled';
+
+export interface Transaction {
+  amount: BigNumber;
+  blockNumber: number;
+  category: 'vtoken' | 'vai' | 'vote';
+  createdAt: Date;
+  event: TransactionEvent;
+  from: string;
+  id: number;
+  timestamp: string | null;
+  to: string;
+  transactionHash: string;
+  updatedAt: string;
+  vTokenAddress: string;
 }

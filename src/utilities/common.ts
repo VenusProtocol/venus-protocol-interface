@@ -141,11 +141,13 @@ export const formatCoinsToReadableValue = ({
   tokenId,
   shorthand = false,
   suffix = false,
+  symbol = true,
 }: {
   value: BigNumber | undefined;
   tokenId: TokenId;
   shorthand?: boolean;
   suffix?: boolean;
+  symbol?: boolean;
 }) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
@@ -160,13 +162,18 @@ export const formatCoinsToReadableValue = ({
     const token = getToken(tokenId);
     decimalPlaces = token.decimals;
   }
+  let symbolPlacement = '';
+  if (symbol) {
+    symbolPlacement = ` ${tokenId.toUpperCase()}`;
+  }
+
   if (suffix) {
-    return `${shortenNumberWithSuffix(value)} ${tokenId.toUpperCase()}`;
+    return `${shortenNumberWithSuffix(value)}${symbolPlacement}`;
   }
 
   return `${formatCommaThousandsPeriodDecimal(
     value.dp(decimalPlaces).toFixed(),
-  )} ${tokenId.toUpperCase()}`;
+  )}${symbolPlacement}`;
 };
 
 type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;

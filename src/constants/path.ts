@@ -5,6 +5,7 @@ enum Path {
   MARKET = '/market',
   MARKET_DETAILS = '/market/:vTokenId',
   TRANSACTION = '/transaction',
+  HISTORY = '/history',
   VAULT = '/vault',
   VOTE = '/vote',
   VOTE_LEADER_BOARD = '/vote/leaderboard',
