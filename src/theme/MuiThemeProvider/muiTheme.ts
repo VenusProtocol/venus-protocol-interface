@@ -129,7 +129,6 @@ export default createTheme({
     body2: {
       fontSize: '1rem',
       fontWeight: 600,
-      textTransform: 'uppercase',
       letterSpacing: '0.3px',
     },
     small1: {

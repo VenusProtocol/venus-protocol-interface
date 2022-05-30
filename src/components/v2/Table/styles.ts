@@ -53,7 +53,6 @@ export const useStyles = () => {
     `,
     columnLabelMobile: css`
       font-size: ${theme.spacing(3)};
-      text-transform: none;
       font-weight: 400;
     `,
     cellValueMobile: css`
