@@ -516,8 +516,14 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
+    "delegateYourVoting": "2. <Anchor>Delegate your voting power</Anchor> to yourself or somebody else",
+    "depositXvs": "Deposit XVS",
+    "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "governanceProposals": "Governance proposals",
-    "votingWallet": "Voting wallet"
+    "totalLocked": "Total locked",
+    "toVoteYouShould": "To vote you should:",
+    "votingWallet": "Voting wallet",
+    "votingWeight": "Voting weight"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",

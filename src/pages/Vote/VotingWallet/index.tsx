@@ -1,11 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
+import { Paper, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Delimiter, Icon, LinkButton } from 'components';
+import PATHS from 'constants/path';
 import { useTranslation } from 'translation';
+import { convertWeiToCoins, format } from 'utilities/common';
 import { useStyles } from './styles';
 
-export const VoteUi: React.FC = () => {
-  const { t } = useTranslation();
+interface IVoteUiProps {
+  votingWeight: BigNumber;
+  xvsLockedWei: BigNumber;
+}
+
+export const VoteUi: React.FC<IVoteUiProps> = ({ votingWeight, xvsLockedWei }) => {
+  const { t, Trans } = useTranslation();
   const styles = useStyles();
   const readableXvsLocked = convertWeiToCoins({
     valueWei: xvsLockedWei,
@@ -63,6 +73,11 @@ export const VoteUi: React.FC = () => {
   );
 };
 
-const Vote: React.FC = () => <VoteUi />;
+const Vote: React.FC = () => (
+  <VoteUi
+    votingWeight={new BigNumber(1.003)}
+    xvsLockedWei={new BigNumber('19931200345567000000')}
+  />
+);
 
 export default Vote;
