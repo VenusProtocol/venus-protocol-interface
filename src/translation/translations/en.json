@@ -147,7 +147,6 @@
     }
   },
   "layout": {
-    "bannerText": "Venus Protocol is resuming in a phased approach. Due to the Terra incident, all accounts with LUNA and UST borrowing or collateralization are offline. Check the\u00a0<Anchor>announcement</Anchor>\u00a0for details.",
     "menuItems": {
       "convertVrt": "Convert VRT",
       "convertVrtTitle": "Convert VRT to XVS",
@@ -300,6 +299,10 @@
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
     "supplyBalance": "Supply balance",
     "title": "My account"
+  },
+  "pagination": {
+    "itemOf": "item {{currentPageLastIndex}} out of {{itemsCount}}",
+    "itemsOf": "items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
   "supplyWithdraw": {
     "borrowLimit": "Borrow limit",
@@ -519,6 +522,16 @@
       "vaiMintRejection": "VAI Mint Rejected"
     }
   },
+  "vaultItemUi": {
+    "claimButton": "Claim",
+    "dailyEmission": "Daily Emission",
+    "reward": "Reward:",
+    "stakeButton": "Stake",
+    "stakingApr": "{{stakeTokenName}} Staking APR",
+    "totalStaked": "Total Staked",
+    "withdrawButton": "Withdraw",
+    "youAreStaking": "You are staking"
+  },
   "xvs": {
     "columns": {
       "asset": "Asset",
@@ -529,19 +542,5 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
-  },
-  "vaultItemUi": {
-    "reward": "Reward:",
-    "claimButton": "Claim",
-    "youAreStaking": "You are staking",
-    "stakingApr": "{{stakeTokenName}} Staking APR",
-    "dailyEmission": "Daily Emission",
-    "totalStaked": "Total Staked",
-    "stakeButton": "Stake",
-    "withdrawButton": "Withdraw"
-  },
-  "pagination": {
-    "itemOf": "item {{currentPageLastIndex}} out of {{itemsCount}}",
-    "itemsOf": "items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   }
 }
