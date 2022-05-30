@@ -46,7 +46,6 @@ export const ConvertTab = () => (
     userVrtBalanceWei={new BigNumber(33333)}
     convertVrtLoading={false}
     convertVrt={noop}
-    walletConnected
   />
 );
 ConvertTab.decorators = [withAuthContext(context)];

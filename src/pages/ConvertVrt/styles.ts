@@ -17,7 +17,7 @@ export const useStyles = () => {
       min-height: 100%;
       flex: 1;
       flex-direction: column;
-      margin-top: ${theme.spacing(10)};
+      margin-top: ${theme.spacing(12)};
     `,
     tabs: css`
       max-width: ${theme.spacing(136)};
@@ -30,7 +30,7 @@ export const useStyles = () => {
       }
     `,
     title: css`
-      margin: ${theme.spacing(12)} 0;
+      margin-bottom: ${theme.spacing(12)};
       text-align: center;
       ${theme.breakpoints.down('md')} {
         margin: ${theme.spacing(8)} 0;

@@ -53,6 +53,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
           <Typography variant="h3">{readableXvsAvailable}</Typography>
           <Typography variant="small2">{t('convertVrt.withdrawableAmount')}</Typography>
         </section>
+
         <PrimaryButton
           disabled={
             !xvsWithdrawableAmount ||
