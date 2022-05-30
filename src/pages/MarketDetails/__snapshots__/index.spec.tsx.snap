@@ -523,7 +523,7 @@ exports[`pages/MarketDetails fetches market details and displays them correctly 
           <span
             class="css-z29iu1-MarketInfo"
           >
-            52,965,104,736,226.06 AAVE
+            52,965,104,736,226.06
           </span>
         </div>
       </div>

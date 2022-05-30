@@ -70,7 +70,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
           {formatCoinsToReadableValue({
             value: asset.xvsPerDay,
             tokenId: 'xvs',
-            shorthand: true,
+            minimizeDecimals: true,
           })}
         </Typography>
       ),

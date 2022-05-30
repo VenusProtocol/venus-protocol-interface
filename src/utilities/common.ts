@@ -139,22 +139,22 @@ export const shortenNumberWithSuffix = (value: BigNumber) => {
 export const formatCoinsToReadableValue = ({
   value,
   tokenId,
-  shorthand = false,
-  suffix = false,
-  symbol = true,
+  minimizeDecimals = false,
+  shortenLargeValue = false,
+  addSymbol = true,
 }: {
   value: BigNumber | undefined;
   tokenId: TokenId;
-  shorthand?: boolean;
-  suffix?: boolean;
-  symbol?: boolean;
+  minimizeDecimals?: boolean;
+  shortenLargeValue?: boolean;
+  addSymbol?: boolean;
 }) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
 
   let decimalPlaces;
-  if (shorthand) {
+  if (minimizeDecimals) {
     // If value is greater than 1, use 2 decimal places, otherwise use 8
     // see (https://app.clickup.com/24381231/v/dc/q81tf-9288/q81tf-1128)
     decimalPlaces = value.gt(1) ? 2 : 8;
@@ -162,12 +162,14 @@ export const formatCoinsToReadableValue = ({
     const token = getToken(tokenId);
     decimalPlaces = token.decimals;
   }
+
   let symbolPlacement = '';
-  if (symbol) {
-    symbolPlacement = ` ${tokenId.toUpperCase()}`;
+  if (addSymbol) {
+    const token = getToken(tokenId);
+    symbolPlacement = ` ${token.symbol}`;
   }
 
-  if (suffix) {
+  if (shortenLargeValue) {
     return `${shortenNumberWithSuffix(value)}${symbolPlacement}`;
   }
 
@@ -182,12 +184,12 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
   valueWei,
   tokenId,
   returnInReadableFormat = false,
-  shorthand = false,
+  minimizeDecimals = false,
 }: {
   valueWei: BigNumber;
   tokenId: TokenId;
   returnInReadableFormat?: T;
-  shorthand?: boolean;
+  minimizeDecimals?: boolean;
 }): ConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
   const valueCoins = valueWei
@@ -196,7 +198,7 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
 
   return (
     returnInReadableFormat
-      ? formatCoinsToReadableValue({ value: valueCoins, tokenId, shorthand })
+      ? formatCoinsToReadableValue({ value: valueCoins, tokenId, minimizeDecimals })
       : valueCoins
   ) as ConvertWeiToCoinsOutput<T>;
 }
@@ -211,16 +213,16 @@ export const convertCentsToDollars = (value: number) =>
 
 export const formatCentsToReadableValue = ({
   value,
-  shorthand = false,
+  shortenLargeValue = false,
 }: {
   value: number | BigNumber | undefined;
-  shorthand?: boolean;
+  shortenLargeValue?: boolean;
 }) => {
   if (value === undefined) {
     return PLACEHOLDER_KEY;
   }
 
-  if (!shorthand) {
+  if (!shortenLargeValue) {
     return `$${formatCommaThousandsPeriodDecimal(
       convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
     )}`;

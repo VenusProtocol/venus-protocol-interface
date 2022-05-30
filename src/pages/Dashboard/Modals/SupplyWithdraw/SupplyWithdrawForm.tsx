@@ -199,7 +199,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
             formatCoinsToReadableValue({
               value,
               tokenId: asset.id,
-              shorthand: true,
+              minimizeDecimals: true,
             })
           }
         />

@@ -144,8 +144,8 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
           {formatCoinsToReadableValue({
             value: txn.amount,
             tokenId: getTokenIdFromVAddress(txn.vTokenAddress) as TokenId,
-            shorthand: true,
-            symbol: false,
+            minimizeDecimals: true,
+            addSymbol: false,
           })}
         </Typography>
       ),

@@ -82,7 +82,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       label: t('marketDetails.supplyInfo.stats.totalSupply'),
       value: formatCentsToReadableValue({
         value: totalSupplyBalanceCents,
-        shorthand: true,
+        shortenLargeValue: true,
       }),
     },
     {
@@ -107,7 +107,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       label: t('marketDetails.borrowInfo.stats.totalBorrow'),
       value: formatCentsToReadableValue({
         value: totalBorrowBalanceCents,
-        shorthand: true,
+        shortenLargeValue: true,
       }),
     },
     {
@@ -151,7 +151,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       label: t('marketDetails.marketInfo.stats.marketLiquidityLabel'),
       value: formatCoinsToReadableValue({
         value: marketLiquidityTokens,
-        shorthand: true,
+        minimizeDecimals: true,
         tokenId: vTokenId,
       }),
     },
@@ -182,7 +182,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       label: t('marketDetails.marketInfo.stats.reserveTokensLabel'),
       value: formatCoinsToReadableValue({
         value: reserveTokens,
-        shorthand: true,
+        minimizeDecimals: true,
         tokenId: vTokenId,
       }),
     },
@@ -198,7 +198,8 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       label: t('marketDetails.marketInfo.stats.mintedTokensLabel', { vTokenSymbol: vToken.symbol }),
       value: formatCoinsToReadableValue({
         value: mintedTokens,
-        shorthand: true,
+        minimizeDecimals: true,
+        addSymbol: false,
         tokenId: vTokenId,
       }),
     },

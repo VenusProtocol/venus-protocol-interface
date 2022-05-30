@@ -75,8 +75,8 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
             })}
             bottomValue={formatCoinsToReadableValue({
               value: asset.borrowBalance,
-              tokenId: asset.id as TokenId,
-              shorthand: true,
+              tokenId: asset.id,
+              minimizeDecimals: true,
             })}
           />
         ),
