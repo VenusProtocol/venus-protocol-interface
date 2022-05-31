@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
+import Countdown from 'react-countdown';
+import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
 import { SerializedStyles } from '@emotion/react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -87,7 +89,7 @@ interface IVoteProposalUiProps {
   proposalNumber: number;
   proposalText: string;
   proposalStatus: ProposalStatus;
-  cancelDate?: string;
+  cancelDate?: Date;
   voteStatus?: VoteStatus;
   votedFor?: string;
   votedAgainst?: string;
@@ -120,6 +122,30 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
         return t('voteProposalUi.voteStatus.notVoted');
     }
   }, [voteStatus]);
+
+  const countdownRenderer = ({
+    days,
+    hours,
+    minutes,
+    seconds,
+    completed,
+  }: CountdownRenderProps) => {
+    if (completed) {
+      // Render a completed state
+      return null;
+    }
+    // Render a countdown
+    if (days) {
+      return `${days}d ${hours}h : ${minutes}m : ${seconds}s`;
+    }
+    if (hours) {
+      return `${hours}h : ${minutes}m : ${seconds}s`;
+    }
+    if (minutes) {
+      return `${minutes}m : ${seconds}s`;
+    }
+    return `${seconds}s`;
+  };
 
   return (
     <Paper className={className} css={styles.root}>
@@ -157,13 +183,18 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
               <Typography variant="small2">
                 {t('voteProposalUi.activeUntil')}
                 <Typography css={styles.activeUntilDate} variant="small2" color="textPrimary">
-                  {cancelDate}
+                  {cancelDate.toLocaleString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
                 </Typography>
               </Typography>
             )}
 
             <Typography color="textPrimary" variant="small2">
-              27h : 13m : 54s {/* // TODO: countdown calculating */}
+              <Countdown date={cancelDate} renderer={countdownRenderer} />
             </Typography>
           </div>
         </Grid>

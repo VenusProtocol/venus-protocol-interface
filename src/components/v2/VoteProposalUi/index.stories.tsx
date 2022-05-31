@@ -21,7 +21,7 @@ export const Active = () => (
     votedAgainst="2130.02 XVS"
     abstain="100 XVS"
     voteStatus="votedFor"
-    cancelDate="27 Jun 13:54"
+    cancelDate={new Date(Date.now() + 3650000)}
   />
 );
 export const Queued = () => (
@@ -29,6 +29,7 @@ export const Queued = () => (
     proposalNumber={58}
     proposalText="Buy back and burn and Tokenomic contribution finised soon"
     proposalStatus="queued"
+    cancelDate={new Date(Date.now() + 3650000)}
   />
 );
 export const ReadyToExecute = () => (
@@ -36,6 +37,7 @@ export const ReadyToExecute = () => (
     proposalNumber={58}
     proposalText="Buy back and burn and Tokenomic contribution finised soon"
     proposalStatus="readyToExecute"
+    cancelDate={new Date(Date.now() + 3650000)}
   />
 );
 export const Executed = () => (
@@ -43,6 +45,7 @@ export const Executed = () => (
     proposalNumber={58}
     proposalText="Buy back and burn and Tokenomic contribution finised soon"
     proposalStatus="executed"
+    cancelDate={new Date(Date.now() + 3650000)}
   />
 );
 export const Cancelled = () => (
@@ -50,5 +53,6 @@ export const Cancelled = () => (
     proposalNumber={58}
     proposalText="Buy back and burn and Tokenomic contribution finised soon"
     proposalStatus="cancelled"
+    cancelDate={new Date(Date.now())}
   />
 );
