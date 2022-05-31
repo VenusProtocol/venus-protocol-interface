@@ -16,7 +16,8 @@ import { Tabs } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { UiError } from 'utilities/errors';
 import { useTranslation } from 'translation';
-import { CONVERSION_RATIO_DECIMAL, VRT_ID } from './constants';
+import { convertWeiToCoins } from 'utilities/common';
+import { VRT_ID, XVS_ID } from './constants';
 import Withdraw, { IWithdrawProps } from './Withdraw';
 import Convert, { IConvertProps } from './Convert';
 import { useStyles } from './styles';
@@ -112,7 +113,10 @@ const ConvertVrt = () => {
 
   const conversionRatio = useMemo(() => {
     if (vrtConversionRatio) {
-      return new BigNumber(vrtConversionRatio).div(CONVERSION_RATIO_DECIMAL);
+      return convertWeiToCoins({
+        valueWei: new BigNumber(vrtConversionRatio),
+        tokenId: XVS_ID,
+      });
     }
     return undefined;
   }, [vrtConversionRatio]);
