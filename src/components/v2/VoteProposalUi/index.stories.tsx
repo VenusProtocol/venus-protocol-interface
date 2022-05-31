@@ -27,7 +27,7 @@ export const Active = () => (
 export const Queued = () => (
   <VoteProposalUi
     proposalNumber={58}
-    proposalText="Buy back and burn and Tokenomic contribution finised soon"
+    proposalText="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
     proposalStatus="queued"
     cancelDate={new Date(Date.now() + 3650000)}
   />

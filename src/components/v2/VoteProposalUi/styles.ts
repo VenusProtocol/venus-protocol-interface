@@ -47,8 +47,14 @@ export const useStyles = () => {
       color: ${theme.palette.interactive.success};
     `,
     cardTitle: css`
-      padding-top: ${theme.spacing(5)};
-      padding-bottom: ${theme.spacing(6)};
+      margin-top: ${theme.spacing(5)};
+      margin-bottom: ${theme.spacing(6)};
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
     `,
     cardFooter: css`
       display: flex;
