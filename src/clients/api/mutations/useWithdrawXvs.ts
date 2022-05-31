@@ -1,5 +1,6 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 
+import queryClient from 'clients/api/queryClient';
 import { withdrawXvs, IWithdrawXvsInput, WithdrawXvsOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useXvsVestingProxyContract } from 'clients/contracts/hooks';
@@ -21,6 +22,13 @@ const useWithdrawXvs = (
       }),
     {
       ...options,
+      onSuccess: (...onSuccessParams) => {
+        queryClient.invalidateQueries(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT);
+
+        if (options?.onSuccess) {
+          options.onSuccess(...onSuccessParams);
+        }
+      },
     },
   );
 };
