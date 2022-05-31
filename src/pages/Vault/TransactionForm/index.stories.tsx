@@ -24,12 +24,11 @@ Default.args = {
 
 export const WithLockingPeriod = Template.bind({});
 WithLockingPeriod.args = {
-  title: 'Stake VAI',
-  tokenId: 'vai',
+  title: 'Stake XVS',
+  tokenId: 'xvs',
   availableTokensWei: new BigNumber('193871256231321312312'),
-  availableTokensLabel: 'Available VAI',
-  submitButtonLabel: 'Stake',
-  submitButtonDisabledLabel: 'Enter a valid amount to stake',
-  lockingPeriodLabel: 'Locking period',
-  lockingPeriodMs: new BigNumber('100000000000000'),
+  availableTokensLabel: 'Available reward',
+  submitButtonLabel: 'Make a request',
+  submitButtonDisabledLabel: 'Enter a valid amount to make a request',
+  lockingPeriodMs: 10800000000,
 };

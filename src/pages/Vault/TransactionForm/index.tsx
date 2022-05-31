@@ -19,8 +19,7 @@ export interface ITransactionFormProps {
   isSubmitting: boolean;
   availableTokensWei: BigNumber;
   availableTokensLabel: string;
-  lockingPeriodMs?: BigNumber;
-  lockingPeriodLabel?: string;
+  lockingPeriodMs?: number;
 }
 
 const TransactionForm: React.FC<ITransactionFormProps> = ({
@@ -32,7 +31,6 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
   onSubmit,
   isSubmitting,
   lockingPeriodMs,
-  lockingPeriodLabel,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -52,10 +50,16 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
     minimizeDecimals: true,
   });
 
-  const readableLockedPeriod = React.useMemo(
-    () => lockingPeriodMs && lockingPeriodMs.toFixed(),
-    [lockingPeriodMs?.toFixed()],
-  );
+  const readableLockingPeriod = React.useMemo(() => {
+    if (!lockingPeriodMs) {
+      return undefined;
+    }
+
+    const now = new Date();
+    const unlockingDate = new Date(now.getTime() + lockingPeriodMs);
+
+    return t('vault.transactionForm.lockingPeriod.duration', { date: unlockingDate });
+  }, [lockingPeriodMs?.toFixed()]);
 
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={stringifiedAvailableTokens}>
@@ -66,7 +70,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
             tokenId={tokenId}
             disabled={isSubmitting}
             rightMaxButton={{
-              label: t('vault.transactionModal.rightMaxButtonLabel'),
+              label: t('vault.transactionForm.rightMaxButtonLabel'),
               valueOnClick: stringifiedAvailableTokens,
             }}
             max={stringifiedAvailableTokens}
@@ -77,14 +81,17 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
           <LabeledInlineContent
             iconName={tokenId}
             label={availableTokensLabel}
-            css={styles.getRow()}
+            css={styles.getRow({ isLast: !readableLockingPeriod })}
           >
             {readableAvailableTokens}
           </LabeledInlineContent>
 
-          {readableLockedPeriod && !!lockingPeriodLabel && (
-            <LabeledInlineContent label={lockingPeriodLabel} css={styles.getRow({ isLast: true })}>
-              {readableLockedPeriod}
+          {readableLockingPeriod && (
+            <LabeledInlineContent
+              label={t('vault.transactionForm.lockingPeriod.label')}
+              css={styles.getRow({ isLast: true })}
+            >
+              {readableLockingPeriod}
             </LabeledInlineContent>
           )}
 

@@ -6,7 +6,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { BLOCKS_PER_DAY } from 'constants/blocksPerDay';
-import { DAYS_PER_YEAR } from 'constants/time';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useGetMarkets } from 'clients/api';
 import useRefresh from 'hooks/useRefresh';
 import {

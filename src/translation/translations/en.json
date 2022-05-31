@@ -496,7 +496,11 @@
     "vaiMintRejection": "VAI Mint Rejected"
   },
   "vault": {
-    "transactionModal": {
+    "transactionForm": {
+      "lockingPeriod": {
+        "duration": "{{date, distanceToNow}}",
+        "label": "Locking period"
+      },
       "rightMaxButtonLabel": "MAX"
     }
   },
