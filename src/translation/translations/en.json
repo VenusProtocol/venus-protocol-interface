@@ -508,6 +508,11 @@
     "vaiMintExchangeCalculationFailed": "VAI Mint Exchange Calculation Failed",
     "vaiMintRejection": "VAI Mint Rejected"
   },
+  "vault": {
+    "transactionModal": {
+      "rightMaxButtonLabel": "MAX"
+    }
+  },
   "vaultItemUi": {
     "claimButton": "Claim",
     "dailyEmission": "Daily Emission",

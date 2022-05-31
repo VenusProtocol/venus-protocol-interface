@@ -178,19 +178,21 @@ export const formatCoinsToReadableValue = ({
   )}${symbolPlacement}`;
 };
 
-type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
+export interface IConvertWeiToCoinsInput<T extends boolean | undefined = false> {
+  valueWei: BigNumber;
+  tokenId: TokenId;
+  returnInReadableFormat?: T;
+  minimizeDecimals?: boolean;
+}
+
+export type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 
 export function convertWeiToCoins<T extends boolean | undefined = false>({
   valueWei,
   tokenId,
   returnInReadableFormat = false,
   minimizeDecimals = false,
-}: {
-  valueWei: BigNumber;
-  tokenId: TokenId;
-  returnInReadableFormat?: T;
-  minimizeDecimals?: boolean;
-}): ConvertWeiToCoinsOutput<T> {
+}: IConvertWeiToCoinsInput<T>): ConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
   const valueCoins = valueWei
     .dividedBy(new BigNumber(10).pow(tokenDecimals))
