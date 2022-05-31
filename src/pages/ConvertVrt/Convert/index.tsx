@@ -16,7 +16,6 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
-import { formatI18nextRelativetimeValues } from 'utilities';
 import { VError } from 'errors/VError';
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { VRT_ID, XVS_ID, VRT_DECIMAL } from '../constants';
@@ -72,9 +71,6 @@ const Convert: React.FC<IConvertProps> = ({
         : undefined,
     [xvsToVrtConversionRatio],
   );
-
-  const { relativeTimeTranslationKey, realtiveTimeFormatValues } =
-    formatI18nextRelativetimeValues(vrtConversionEndTime);
 
   const onSubmit = async (vrtAmount: string) => {
     try {
@@ -202,12 +198,12 @@ const Convert: React.FC<IConvertProps> = ({
                   />
                   <Typography css={styles.remainingTime}>
                     <Trans
-                      i18nKey={relativeTimeTranslationKey}
+                      i18nKey="convertVrt.remainingTime"
                       components={{
                         Icon: <Icon name="countdown" css={styles.remainingTimeSvg} />,
                         White: <span css={styles.whiteLabel} />,
                       }}
-                      values={realtiveTimeFormatValues}
+                      values={{ date: vrtConversionEndTime }}
                     />
                   </Typography>
                 </>
