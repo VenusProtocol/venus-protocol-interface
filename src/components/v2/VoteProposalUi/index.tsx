@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
+import { BigNumber } from 'bignumber.js';
 import Countdown from 'react-countdown';
 import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
 import { SerializedStyles } from '@emotion/react';
@@ -8,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
+import { TokenId } from 'types';
 import { Icon, IconName } from '../Icon';
 import { Spinner } from '../Spinner';
 import { ActiveVotingProgress } from './ActiveVotingProgress';
@@ -82,7 +84,7 @@ const StatusCard: React.FC<IStatusCard> = ({ status }) => {
   }
 };
 
-type VoteStatus = 'votedFor' | 'votedAgainst' | 'abstained';
+type UserVoteStatus = 'votedFor' | 'votedAgainst' | 'abstained';
 
 interface IVoteProposalUiProps {
   className?: string;
@@ -90,10 +92,11 @@ interface IVoteProposalUiProps {
   proposalText: string;
   proposalStatus: ProposalStatus;
   cancelDate?: Date;
-  voteStatus?: VoteStatus;
-  votedFor?: string;
-  votedAgainst?: string;
-  abstain?: string;
+  userVoteStatus?: UserVoteStatus;
+  votedForWei?: BigNumber;
+  votedAgainstWei?: BigNumber;
+  abstainWei?: BigNumber;
+  tokenId?: TokenId;
 }
 
 export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
@@ -102,16 +105,17 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
   proposalText,
   proposalStatus,
   cancelDate,
-  voteStatus,
-  votedFor,
-  votedAgainst,
-  abstain,
+  userVoteStatus,
+  votedForWei,
+  votedAgainstWei,
+  abstainWei,
+  tokenId,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   const voteStatusText = useMemo(() => {
-    switch (voteStatus) {
+    switch (userVoteStatus) {
       case 'votedFor':
         return t('voteProposalUi.voteStatus.votedFor');
       case 'votedAgainst':
@@ -121,7 +125,7 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
       default:
         return t('voteProposalUi.voteStatus.notVoted');
     }
-  }, [voteStatus]);
+  }, [userVoteStatus]);
 
   const countdownRenderer = ({
     days,
@@ -200,11 +204,17 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
           {proposalStatus === 'active' ? (
-            <ActiveVotingProgress
-              votedFor={votedFor}
-              votedAgainst={votedAgainst}
-              abstain={abstain}
-            />
+            tokenId &&
+            votedForWei &&
+            votedAgainstWei &&
+            abstainWei && (
+              <ActiveVotingProgress
+                tokenId={tokenId}
+                votedFor={votedForWei}
+                votedAgainst={votedAgainstWei}
+                abstain={abstainWei}
+              />
+            )
           ) : (
             <StatusCard status={proposalStatus} />
           )}

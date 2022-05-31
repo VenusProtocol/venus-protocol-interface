@@ -1,4 +1,5 @@
 import React from 'react';
+import { BigNumber } from 'bignumber.js';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
 import { VoteProposalUi } from '.';
 
@@ -17,11 +18,12 @@ export const Active = () => (
     proposalNumber={58}
     proposalText="Buy back and burn and Tokenomic contribution finised soon"
     proposalStatus="active"
-    votedFor="2130.02 XVS"
-    votedAgainst="2130.02 XVS"
-    abstain="100 XVS"
-    voteStatus="votedFor"
+    votedForWei={new BigNumber('300000000000000000000')}
+    votedAgainstWei={new BigNumber('200000000000000000000')}
+    abstainWei={new BigNumber('100000000000000000000')}
+    userVoteStatus="votedFor"
     cancelDate={new Date(Date.now() + 3650000)}
+    tokenId="xvs"
   />
 );
 export const Queued = () => (

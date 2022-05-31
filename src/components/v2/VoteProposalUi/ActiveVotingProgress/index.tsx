@@ -1,66 +1,95 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
+import { BigNumber } from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'translation';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
+import { TokenId } from 'types';
+import { convertWeiToCoins } from 'utilities/common';
 import { ProgressBar } from '../../ProgressBar';
 import { useStyles } from '../styles';
 
 interface IActiveVotingProgressProps {
-  votedFor?: string;
-  votedAgainst?: string;
-  abstain?: string;
+  tokenId: TokenId;
+  votedFor: BigNumber;
+  votedAgainst: BigNumber;
+  abstain: BigNumber;
 }
 
 export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
+  tokenId,
   votedFor,
   votedAgainst,
   abstain,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const votedTotalWei = votedFor.plus(votedAgainst.plus(abstain));
+  const votedTotalCoins = +convertWeiToCoins({
+    valueWei: votedTotalWei,
+    tokenId,
+    returnInReadableFormat: false,
+  }).toFormat();
+
+  const defaultProgressbarProps = {
+    step: 0.1,
+    min: 0,
+    max: votedTotalCoins,
+  };
 
   const activeProposalVotingData = useMemo(
     () => [
       {
         id: 'for',
         label: t('voteProposalUi.statusCard.for'),
-        value: votedFor,
+        value: convertWeiToCoins({
+          valueWei: votedFor,
+          tokenId,
+          returnInReadableFormat: true,
+        }),
         progressBarProps: {
-          // TODO: calculating progress
           ariaLabel: 'votes for',
-          value: 20,
-          step: 1,
-          min: 1,
-          max: 100,
+          value: +convertWeiToCoins({
+            valueWei: votedFor,
+            tokenId,
+            returnInReadableFormat: false,
+          }).toFormat(),
         },
       },
       {
         id: 'against',
         label: t('voteProposalUi.statusCard.against'),
-        value: votedAgainst,
+        value: convertWeiToCoins({
+          valueWei: votedAgainst,
+          tokenId,
+          returnInReadableFormat: true,
+        }),
         progressBarProps: {
-          // TODO: calculating progress
           progressColorOverride: PALETTE.interactive.error50,
           ariaLabel: 'votes against',
-          value: 20,
-          step: 1,
-          min: 1,
-          max: 100,
+          value: +convertWeiToCoins({
+            valueWei: votedAgainst,
+            tokenId,
+            returnInReadableFormat: false,
+          }).toFormat(),
         },
       },
       {
         id: 'abstain',
         label: t('voteProposalUi.statusCard.abstain'),
-        value: abstain,
+        value: convertWeiToCoins({
+          valueWei: abstain,
+          tokenId,
+          returnInReadableFormat: true,
+        }),
         progressBarProps: {
-          // TODO: calculating progress
           progressColorOverride: PALETTE.text.secondary,
           ariaLabel: 'votes abstain',
-          value: 20,
-          step: 1,
-          min: 1,
-          max: 100,
+          value: +convertWeiToCoins({
+            valueWei: abstain,
+            tokenId,
+            returnInReadableFormat: false,
+          }).toFormat(),
         },
       },
     ],
@@ -84,7 +113,7 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
                 {value}
               </Typography>
             </div>
-            <ProgressBar {...progressBarProps} />
+            <ProgressBar {...defaultProgressbarProps} {...progressBarProps} />
           </React.Fragment>
         );
       })}
