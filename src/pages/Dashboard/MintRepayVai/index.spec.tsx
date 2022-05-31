@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
 import en from 'translation/translations/en.json';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -11,14 +11,17 @@ import MintRepayVai from '.';
 
 jest.mock('clients/api');
 
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 
 describe('pages/Dashboard/MintRepayVai', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [...assetData, fakeVai],
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [...assetData, fakeVai],
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
   });
 

@@ -126,7 +126,6 @@ export const useStyles = () => {
       }
     `,
     listItemText: css`
-      text-transform: none;
       display: block;
       ${theme.breakpoints.down('lg')} {
         display: none;

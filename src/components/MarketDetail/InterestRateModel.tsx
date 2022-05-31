@@ -189,6 +189,7 @@ function InterestRateModel({ currentAsset }: Props) {
           .call(),
       ),
     );
+
     const supplyRes = await Promise.all(
       urArray.map(ur =>
         interestModelContract.methods

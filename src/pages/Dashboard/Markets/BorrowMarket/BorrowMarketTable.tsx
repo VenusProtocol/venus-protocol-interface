@@ -27,10 +27,10 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('markets.columns.asset'), orderable: false },
-      { key: 'apy', label: t('markets.columns.apy'), orderable: true },
-      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true },
-      { key: 'liquidity', label: t('markets.columns.liquidity'), orderable: true },
+      { key: 'asset', label: t('markets.columns.asset'), orderable: false, align: 'left' },
+      { key: 'apy', label: t('markets.columns.apy'), orderable: true, align: 'right' },
+      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true, align: 'right' },
+      { key: 'liquidity', label: t('markets.columns.liquidity'), orderable: true, align: 'right' },
     ],
     [],
   );
@@ -44,30 +44,34 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
         key: 'asset',
         render: () => <Token symbol={asset.symbol as TokenId} />,
         value: asset.id,
+        align: 'left',
       },
       {
         key: 'apy',
         render: () => formatToReadablePercentage(borrowApy),
         value: borrowApy.toNumber(),
+        align: 'right',
       },
       {
         key: 'wallet',
         render: () =>
           formatCoinsToReadableValue({
             value: asset.walletBalance,
-            tokenId: asset.id as TokenId,
-            shorthand: true,
+            tokenId: asset.id,
+            minimizeDecimals: true,
           }),
         value: asset.walletBalance.toFixed(),
+        align: 'right',
       },
       {
         key: 'liquidity',
         render: () =>
           formatCentsToReadableValue({
             value: asset.liquidity.multipliedBy(100),
-            shorthand: true,
+            shortenLargeValue: true,
           }),
         value: asset.liquidity.toNumber(),
+        align: 'right',
       },
     ];
   });

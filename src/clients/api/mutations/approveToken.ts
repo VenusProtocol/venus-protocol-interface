@@ -5,8 +5,8 @@ import ALLOWANCE_AMOUNT_WEI from 'constants/allowanceAmountWei';
 
 export interface IApproveTokenInput {
   tokenContract: Bep20 | VaiToken | VrtToken | XvsToken;
-  accountAddress: string | undefined;
-  vtokenAddress: string;
+  accountAddress: string;
+  spenderAddress: string;
   allowance?: string;
 }
 
@@ -15,9 +15,9 @@ export type ApproveTokenOutput = TransactionReceipt;
 const approveToken = ({
   tokenContract,
   accountAddress,
-  vtokenAddress,
+  spenderAddress,
   allowance = ALLOWANCE_AMOUNT_WEI,
 }: IApproveTokenInput): Promise<ApproveTokenOutput> =>
-  tokenContract.methods.approve(vtokenAddress, allowance).send({ from: accountAddress });
+  tokenContract.methods.approve(spenderAddress, allowance).send({ from: accountAddress });
 
 export default approveToken;

@@ -18,15 +18,16 @@ import XVSV1 from 'containers/Main/XVS';
 import Xvs from 'pages/Xvs';
 import MarketV1 from 'containers/Main/Market';
 import Market from 'pages/Market';
-import Vault from 'containers/Main/Vault';
+import Vault from 'pages/Vault';
+import VaultV1 from 'containers/Main/Vault';
 import MarketDetailsV1 from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
 import MarketDetails from 'pages/MarketDetails';
-import ConvertVrtV1 from 'containers/Main/VrtConversion';
-import Transaction from 'containers/Main/Transaction';
+import TransactionV1 from 'containers/Main/Transaction';
+import History from 'pages/History';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
 import { MarketContextProvider } from 'context/MarketContext';
@@ -51,44 +52,47 @@ const App = () => (
                       <BrowserRouter>
                         <ToastContainer />
                         <Layout>
+                          <ResetScrollOnRouteChange />
                           <Switch>
-                            <ResetScrollOnRouteChange>
-                              <Route exact path={Path.DASHBOARD} component={Dashboard} />
-                              <Route exact path={Path.VOTE} component={Vote} />
-                              <Route
-                                exact
-                                path={Path.XVS}
-                                component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
-                              />
-                              <Route
-                                exact
-                                path={Path.MARKET}
-                                component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
-                              />
-                              <Route
-                                exact
-                                path={Path.MARKET_DETAILS}
-                                component={
-                                  process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
-                                }
-                              />
-                              <Route exact path={Path.TRANSACTION} component={Transaction} />
-                              <Route exact path={Path.VAULT} component={Vault} />
-                              <Route
-                                exact
-                                path={Path.VOTE_LEADER_BOARD}
-                                component={VoterLeaderboard}
-                              />
-                              <Route exact path={Path.VOTE_PROPOSAL} component={VoteOverview} />
-                              <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
-                              <Route
-                                exact
-                                path={Path.CONVERT_VRT}
-                                component={process.env.REACT_APP_RUN_V2 ? ConvertVrt : ConvertVrtV1}
-                              />
-                              {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
-                              <Redirect from={Path.ROOT} to={Path.DASHBOARD} />
-                            </ResetScrollOnRouteChange>
+                            <Route exact path={Path.DASHBOARD} component={Dashboard} />
+                            <Route exact path={Path.VOTE} component={Vote} />
+                            <Route
+                              exact
+                              path={Path.XVS}
+                              component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
+                            />
+                            <Route
+                              exact
+                              path={Path.MARKET}
+                              component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
+                            />
+                            <Route
+                              exact
+                              path={Path.MARKET_DETAILS}
+                              component={
+                                process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
+                              }
+                            />
+                            <Route
+                              exact
+                              path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
+                              component={process.env.REACT_APP_RUN_V2 ? History : TransactionV1}
+                            />
+                            <Route
+                              exact
+                              path={Path.VAULT}
+                              component={process.env.REACT_APP_RUN_V2 ? Vault : VaultV1}
+                            />
+                            <Route
+                              exact
+                              path={Path.VOTE_LEADER_BOARD}
+                              component={VoterLeaderboard}
+                            />
+                            <Route exact path={Path.VOTE_PROPOSAL} component={VoteOverview} />
+                            <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
+                            <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
+                            {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
+                            <Redirect to={Path.DASHBOARD} />
                           </Switch>
                         </Layout>
                       </BrowserRouter>

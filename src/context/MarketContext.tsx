@@ -94,7 +94,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           ? await comptrollerContract.methods.getAssetsIn(account.address).call()
           : [];
 
-        const vtAddresses = Object.values(VBEP_TOKENS)
+        const vTokenAddresses = Object.values(VBEP_TOKENS)
           .filter(item => item.address)
           .map(item => item.address);
 
@@ -102,7 +102,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         if (account) {
           balances = indexBy(
             (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
-            await lens.methods.vTokenBalancesAll(vtAddresses, account.address).call(),
+            await lens.methods.vTokenBalancesAll(vTokenAddresses, account.address).call(),
           );
           xvsBalance = getXvsBalance(balances);
         }
@@ -110,7 +110,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         // Fetch treasury balances
         const treasuryBalances = indexBy(
           (item: $TSFixMe) => item.vToken.toLowerCase(), // index by vToken address
-          await lens.methods.vTokenBalancesAll(vtAddresses, TREASURY_ADDRESS).call(),
+          await lens.methods.vTokenBalancesAll(vTokenAddresses, TREASURY_ADDRESS).call(),
         );
 
         const marketsMap = indexBy(
@@ -145,7 +145,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           let walletBalance = new BigNumber(0);
           let supplyBalance = new BigNumber(0);
           let borrowBalance = new BigNumber(0);
-          let isEnabled = false;
           const percentOfLimit = '0';
 
           if (account) {
@@ -155,11 +154,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             walletBalance = toDecimalAmount(wallet.tokenBalance);
             supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
             borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
-            if (item.id === 'bnb') {
-              isEnabled = true;
-            } else {
-              isEnabled = toDecimalAmount(wallet.tokenAllowance).isGreaterThan(walletBalance);
-            }
           }
 
           return {
@@ -188,10 +182,8 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             walletBalance,
             supplyBalance,
             borrowBalance,
-            isEnabled,
             collateral,
             percentOfLimit,
-            hypotheticalLiquidity: ['0', '0', '0'] as [string, string, string],
             xvsPerDay: new BigNumber(market.supplierDailyVenus)
               .plus(new BigNumber(market.borrowerDailyVenus))
               .div(new BigNumber(10).pow(getToken('xvs').decimals)),
@@ -199,32 +191,6 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
         });
 
         let assetList = assetAndNullList.filter(notNull);
-
-        // We use "hypothetical liquidity upon exiting a market" to disable the "exit market"
-        // toggle. Sadly, the current VenusLens contract does not provide this info, so we
-        // still have to query each market.
-        assetList = await Promise.all(
-          assetList.map(async asset => {
-            const hypotheticalLiquidity: [string, string, string] = (
-              account
-                ? await comptrollerContract.methods
-                    .getHypotheticalAccountLiquidity(
-                      account.address,
-                      asset.vtokenAddress,
-                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-                      balances[asset.vtokenAddress.toLowerCase()].balanceOf,
-                      0,
-                    )
-                    .call()
-                : ['0', '0', '0']
-            ) as [string, string, string];
-
-            return {
-              ...asset,
-              hypotheticalLiquidity,
-            };
-          }),
-        );
 
         const totalBorrowBalance = assetList
           .reduce((acc, asset) => {
@@ -238,7 +204,9 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             return acc.plus(
               calculateCollateralValue({
                 amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
-                asset,
+                tokenId: asset.id,
+                tokenPriceTokens: asset.tokenPrice,
+                collateralFactor: asset.collateralFactor,
               }),
             );
           }

@@ -40,6 +40,7 @@ declare module '@mui/material/styles' {
 
   interface Shape {
     borderRadius: {
+      verySmall: number;
       small: number;
       medium: number;
       large: number;

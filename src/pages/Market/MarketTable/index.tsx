@@ -5,7 +5,7 @@ import { AuthContext } from 'context/AuthContext';
 import { Table, Token, TableProps, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
@@ -26,13 +26,23 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('market.columns.asset'), orderable: false },
-      { key: 'totalSupply', label: t('market.columns.totalSupply'), orderable: true },
-      { key: 'supplyApy', label: t('market.columns.supplyApy'), orderable: true },
-      { key: 'totalBorrows', label: t('market.columns.totalBorrow'), orderable: true },
-      { key: 'borrowApy', label: t('market.columns.borrowApy'), orderable: true },
-      { key: 'liquidity', label: t('market.columns.liquidity'), orderable: true },
-      { key: 'price', label: t('market.columns.price'), orderable: true },
+      { key: 'asset', label: t('market.columns.asset'), orderable: false, align: 'left' },
+      {
+        key: 'totalSupply',
+        label: t('market.columns.totalSupply'),
+        orderable: true,
+        align: 'right',
+      },
+      { key: 'supplyApy', label: t('market.columns.supplyApy'), orderable: true, align: 'right' },
+      {
+        key: 'totalBorrows',
+        label: t('market.columns.totalBorrow'),
+        orderable: true,
+        align: 'right',
+      },
+      { key: 'borrowApy', label: t('market.columns.borrowApy'), orderable: true, align: 'right' },
+      { key: 'liquidity', label: t('market.columns.liquidity'), orderable: true, align: 'right' },
+      { key: 'price', label: t('market.columns.price'), orderable: true, align: 'right' },
     ],
     [],
   );
@@ -50,6 +60,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
       key: 'asset',
       render: () => <Token symbol={asset.symbol as TokenId} />,
       value: asset.id,
+      align: 'left',
     },
     {
       key: 'totalSupply',
@@ -57,16 +68,17 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         <LayeredValues
           topValue={formatCentsToReadableValue({
             value: asset.treasuryTotalSupplyUsdCents,
-            shorthand: true,
+            shortenLargeValue: true,
           })}
           bottomValue={formatCoinsToReadableValue({
             value: asset.treasuryTotalSupplyUsdCents.div(asset.tokenPrice.times(100)),
-            tokenId: asset.id as TokenId,
-            shorthand: true,
+            tokenId: asset.id,
+            minimizeDecimals: true,
           })}
         />
       ),
       value: asset.treasuryTotalSupplyUsdCents.toFixed(),
+      align: 'right',
     },
     {
       key: 'supplyApy',
@@ -77,6 +89,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         />
       ),
       value: asset.supplyApy.plus(asset.xvsSupplyApy).toFixed(),
+      align: 'right',
     },
     {
       key: 'totalBorrows',
@@ -84,16 +97,17 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         <LayeredValues
           topValue={formatCentsToReadableValue({
             value: asset.treasuryTotalBorrowsUsdCents,
-            shorthand: true,
+            shortenLargeValue: true,
           })}
           bottomValue={formatCoinsToReadableValue({
             value: asset.treasuryTotalBorrowsUsdCents.div(asset.tokenPrice.times(100)),
-            tokenId: asset.id as TokenId,
-            shorthand: true,
+            tokenId: asset.id,
+            minimizeDecimals: true,
           })}
         />
       ),
       value: asset.treasuryTotalBorrowsUsdCents.toFixed(),
+      align: 'right',
     },
     {
       key: 'borrowApy',
@@ -104,6 +118,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         />
       ),
       value: asset.borrowApy.plus(asset.xvsBorrowApy).toFixed(),
+      align: 'right',
     },
     {
       key: 'liquidity',
@@ -111,11 +126,12 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         <Typography variant="small1" css={styles.whiteText}>
           {formatCentsToReadableValue({
             value: asset.liquidity.multipliedBy(100),
-            shorthand: true,
+            shortenLargeValue: true,
           })}
         </Typography>
       ),
       value: asset.liquidity.toFixed(),
+      align: 'right',
     },
     {
       key: 'price',
@@ -125,6 +141,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
         </Typography>
       ),
       value: asset.tokenPrice.toFixed(),
+      align: 'right',
     },
   ]);
 
@@ -148,7 +165,12 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
 
 const MarketTable = () => {
   const { account } = useContext(AuthContext);
-  const { assets } = useUserMarketInfo({ accountAddress: account?.address || '' });
+  const {
+    data: { assets },
+  } = useGetUserMarketInfo({
+    accountAddress: account?.address || '',
+  });
+
   return <MarketTableUi assets={assets} getRowHref={row => `/market/${row[0].value}`} />;
 };
 

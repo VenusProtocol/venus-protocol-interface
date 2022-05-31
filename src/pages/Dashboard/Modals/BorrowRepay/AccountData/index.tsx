@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import { formatToReadablePercentage } from 'utilities/common';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
@@ -34,7 +34,10 @@ const AccountData: React.FC<IAccountDataProps> = ({
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
 
-  const { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
 
@@ -83,7 +86,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
         ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
         : new BigNumber(0);
     },
-    [JSON.stringify(assets), userTotalBorrowBalanceCents.toFixed()],
+    [JSON.stringify(assets)],
   );
 
   const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);

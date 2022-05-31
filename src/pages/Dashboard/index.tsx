@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { AuthContext } from 'context/AuthContext';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import { Asset } from 'types';
 
 import MyAccount from './MyAccount';
@@ -85,12 +85,15 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 
 const Dashboard: React.FC = () => {
   const { account } = React.useContext(AuthContext);
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
-    assets,
-    userTotalBorrowLimitCents,
-    userTotalBorrowBalanceCents,
-    userTotalSupplyBalanceCents,
-  } = useUserMarketInfo({
+    data: {
+      assets,
+      userTotalBorrowLimitCents,
+      userTotalBorrowBalanceCents,
+      userTotalSupplyBalanceCents,
+    },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address || '',
   });
 

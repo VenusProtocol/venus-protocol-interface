@@ -5,7 +5,8 @@ import BigNumber from 'bignumber.js';
 
 import { markets } from '__mocks__/models/markets';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
-import { getMarkets, getMarketHistory } from 'clients/api';
+import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
+import { getMarkets, getMarketHistory, getVTokenApySimulations } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import MarketDetails from '.';
 
@@ -20,6 +21,7 @@ describe('pages/MarketDetails', () => {
       markets,
       dailyVenus: new BigNumber(0),
     }));
+    (getVTokenApySimulations as jest.Mock).mockImplementation(() => vTokenApySimulations);
   });
 
   it('renders without crashing', () => {
@@ -58,12 +60,14 @@ describe('pages/MarketDetails', () => {
     );
 
     // Check supply info displays correctly
-    await waitFor(() => expect(getByTestId('market-details-supply-info')).toMatchSnapshot());
+    await waitFor(() =>
+      expect(getByTestId('market-details-supply-info').textContent).toMatchSnapshot(),
+    );
     // Check borrow info displays correctly
-    expect(getByTestId('market-details-borrow-info')).toMatchSnapshot();
+    expect(getByTestId('market-details-borrow-info').textContent).toMatchSnapshot();
     // Check interest rate model displays correctly
-    expect(getByTestId('market-details-interest-rate-model')).toMatchSnapshot();
+    expect(getByTestId('market-details-interest-rate-model').textContent).toMatchSnapshot();
     // Check market info displays correctly
-    expect(getByTestId('market-details-market-info')).toMatchSnapshot();
+    expect(getByTestId('market-details-market-info').textContent).toMatchSnapshot();
   });
 });

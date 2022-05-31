@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
-import { getContractAddress } from 'utilities';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { UiError, TransactionError } from 'utilities/errors';
@@ -37,7 +36,6 @@ export interface IMintVaiUiProps {
   mintVai: (value: BigNumber) => Promise<TransactionReceipt | undefined>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
-  userVaiEnabled: boolean;
 }
 
 export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
@@ -46,7 +44,6 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   mintFeePercentage,
   isMintVaiLoading,
   mintVai,
-  userVaiEnabled,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -109,12 +106,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('mintRepayVai.mintVai.connectWallet')}>
-      <EnableToken
-        assetId={VAI_ID}
-        title={t('mintRepayVai.mintVai.enableToken')}
-        isEnabled={!!userVaiEnabled}
-        vtokenAddress={getContractAddress('vaiUnitroller')}
-      >
+      <EnableToken title={t('mintRepayVai.mintVai.enableToken')} vTokenId={VAI_ID}>
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
           {({ values }) => (
             <>
@@ -165,7 +157,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
 const MintVai: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { mintableVai, userVaiEnabled } = useVaiUser();
+  const { mintableVai } = useVaiUser();
   const { t } = useTranslation();
 
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
@@ -213,7 +205,6 @@ const MintVai: React.FC = () => {
       mintFeePercentage={vaiTreasuryPercentage}
       isMintVaiLoading={isMintVaiLoading}
       mintVai={mintVai}
-      userVaiEnabled={userVaiEnabled}
     />
   );
 };

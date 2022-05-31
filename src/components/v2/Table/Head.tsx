@@ -9,7 +9,14 @@ import { visuallyHidden } from '@mui/utils';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-interface IHeadProps<C extends { key: string; label: string; orderable: boolean }[]> {
+interface IColProps {
+  key: string;
+  label: string;
+  orderable: boolean;
+  align?: 'left' | 'center' | 'right';
+}
+
+interface IHeadProps<C extends IColProps[]> {
   columns: C;
   orderBy: string | undefined;
   orderDirection: 'asc' | 'desc' | undefined;
@@ -17,7 +24,7 @@ interface IHeadProps<C extends { key: string; label: string; orderable: boolean 
   className?: string;
 }
 
-function Head<C extends { key: string; label: string; orderable: boolean }[]>({
+function Head<C extends IColProps[]>({
   columns,
   orderBy,
   orderDirection,
@@ -31,7 +38,11 @@ function Head<C extends { key: string; label: string; orderable: boolean }[]>({
         {columns.map((col: C[number]) => {
           const active = orderBy === col.key;
           return (
-            <TableCell key={col.key} sortDirection={active ? orderDirection : false}>
+            <TableCell
+              key={col.key}
+              sortDirection={active ? orderDirection : false}
+              align={col.align}
+            >
               <TableSortLabel
                 css={styles.tableSortLabel({ orderable: col.orderable })}
                 active={active}

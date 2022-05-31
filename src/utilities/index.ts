@@ -11,5 +11,7 @@ export {
 } from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
 export * from './generateBscScanUrl';
+export { default as getTokenIdFromVAddress } from './getTokenIdFromVAddress';
 export { default as formatI18nextRelativetimeValues } from './formatI18nextRelativetimeValues';
 export * from './featureFlags';
+export { default as getTokenSpenderAddress } from './getTokenSpenderAddress';

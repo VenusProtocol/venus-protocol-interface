@@ -4,8 +4,9 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { repayVai, useUserMarketInfo } from 'clients/api';
+import { repayVai, useGetUserMarketInfo, getAllowance } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import MAX_UINT256 from 'constants/maxUint256';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
@@ -21,26 +22,30 @@ const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
   value: fakeUserVaiMinted,
   tokenId: 'vai',
 });
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [...assetData, fakeVai],
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
+    // Mark token as enabled
+    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256.toFixed());
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [...assetData, fakeVai],
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
   });
 
-  it('renders without crashing', async () => {
-    const { getByText } = renderComponent(() => <RepayVai />, {
+  it('renders without crashing', () => {
+    renderComponent(() => <RepayVai />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
         },
       },
     });
-    await waitFor(() => getByText(en.mintRepayVai.repayVai.enableToken));
   });
 
   it('displays the correct repay VAI balance', async () => {

@@ -1,14 +1,17 @@
 import React from 'react';
 import renderComponent from 'testUtils/renderComponent';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import Market from '.';
 
 jest.mock('clients/api');
 
 describe('pages/Market', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [], // Not used in these tests
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [], // Not used in these tests
+      },
+      isLoading: false,
     }));
   });
 

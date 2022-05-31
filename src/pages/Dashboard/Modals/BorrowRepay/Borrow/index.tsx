@@ -15,7 +15,7 @@ import {
 } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { TransactionError, UiError } from 'utilities/errors';
-import { useUserMarketInfo, useBorrowVToken } from 'clients/api';
+import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
   toast,
   FormikSubmitButton,
@@ -170,7 +170,10 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const { userTotalBorrowBalanceCents, userTotalBorrowLimitCents } = useUserMarketInfo({
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+  } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
 
@@ -205,7 +208,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   // Calculate maximum and safe maximum amount of coins user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
     // Return 0 values if borrow limit has been reached
-    if (userTotalBorrowBalanceCents.isGreaterThan(userTotalBorrowLimitCents)) {
+    if (userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
       return ['0', '0'];
     }
 
@@ -224,9 +227,11 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       .minus(userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
-    const safeMaxCoins = marginWithSafeBorrowLimitDollars
-      // Convert dollars to coins
-      .dividedBy(asset.tokenPrice);
+
+    const safeMaxCoins = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
+      ? // Convert dollars to coins
+        marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
+      : new BigNumber(0);
 
     const tokenDecimals = getToken(asset.id as VTokenId).decimals;
     const formatValue = (value: BigNumber) =>
@@ -245,7 +250,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
       {asset && (
         <EnableToken
-          assetId={asset.id}
+          vTokenId={asset.id}
           title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {
@@ -259,8 +264,6 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
               children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}
-          isEnabled={asset.isEnabled}
-          vtokenAddress={asset.vtokenAddress}
         >
           <BorrowForm
             asset={asset}

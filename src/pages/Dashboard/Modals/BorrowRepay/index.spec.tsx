@@ -4,7 +4,7 @@ import { waitFor } from '@testing-library/react';
 
 import { TokenId } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
 import en from 'translation/translations/en.json';
@@ -16,10 +16,13 @@ jest.mock('clients/api');
 
 describe('pages/Dashboard/BorrowRepayModal', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: assetData,
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
   });
 

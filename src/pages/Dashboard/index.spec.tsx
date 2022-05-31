@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { within } from '@testing-library/dom';
 import { assetData } from '__mocks__/models/asset';
 import renderComponent from 'testUtils/renderComponent';
-import { useUserMarketInfo } from 'clients/api';
+import { useGetUserMarketInfo } from 'clients/api';
 import en from 'translation/translations/en.json';
 import Dashboard from '.';
 
@@ -11,11 +11,14 @@ jest.mock('clients/api');
 
 describe('pages/Dashboard', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
-      userTotalSupplyBalanceCents: new BigNumber('910'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: assetData,
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+        userTotalSupplyBalanceCents: new BigNumber('910'),
+      },
+      isLoading: false,
     }));
   });
 

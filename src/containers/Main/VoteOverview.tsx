@@ -103,7 +103,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [proposalThreshold, setProposalThreshold] = useState(0);
   const [proposerVotingWeight, setProposerVotingWeight] = useState(0);
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
-  const [excuteEta, setExcuteEta] = useState('');
+  const [executeEta, setExecuteEta] = useState('');
   const { account } = useContext(AuthContext);
   const xvsTokenContract = useTokenContract('xvs');
   const governorBravoContract = useGovernorBravoDelegateContract();
@@ -194,7 +194,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
     if (proposalInfo.id) {
       const proposalsRes = await governorBravoContract.methods.proposals(proposalInfo.id).call();
       setIsPossibleExcuted(proposalsRes && +proposalsRes.eta <= Date.now() / 1000);
-      setExcuteEta(moment(+proposalsRes.eta * 1000).format('LLLL'));
+      setExecuteEta(moment(+proposalsRes.eta * 1000).format('LLLL'));
     }
   };
 
@@ -340,7 +340,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                     </PrimaryButton>
                   )}
                   {proposalInfo.state === 'Queued' && !isPossibleExcuted && (
-                    <Tooltip title={`You are able to excute at ${excuteEta}`}>
+                    <Tooltip title={`You will be able to execute this proposal on ${executeEta}`}>
                       <Icon className="pointer" type="info-circle" theme="filled" />
                     </Tooltip>
                   )}
