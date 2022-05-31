@@ -517,11 +517,11 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
-    "delegateAddress": "Delegate Address",
-    "delegateLeaderboard": "Delegate Leaderboard",
-    "delegateVoting": "Delegate Voting",
+    "delegateAddress": "Delegate address",
+    "delegateLeaderboard": "Delegate leaderboard",
+    "delegateVoting": "Delegate voting",
     "delegateYourVoting": "2. <Anchor>Delegate your voting power</Anchor> to yourself or somebody else",
-    "delgateVotes": "Delegate Votes",
+    "delgateVotes": "Delegate votes",
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
