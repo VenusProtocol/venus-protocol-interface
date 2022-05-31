@@ -517,14 +517,22 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
+    "delegateAddress": "Delegate Address",
+    "delegateLeaderboard": "Delegate Leaderboard",
+    "delegateVoting": "Delegate Voting",
     "delegateYourVoting": "2. <Anchor>Delegate your voting power</Anchor> to yourself or somebody else",
+    "delgateVotes": "Delegate Votes",
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
+    "enterContactAddress": "Enter contact address",
     "governanceProposals": "Governance proposals",
+    "pasteYourAddress": "Paste your address",
+    "pleasePayAttention": "Please pay attention",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "votingWallet": "Voting wallet",
-    "votingWeight": "Voting weight"
+    "votingWeight": "Voting weight",
+    "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",
