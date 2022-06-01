@@ -79,6 +79,10 @@ export const getTransactions = jest.fn();
 export const useGetTransactions = () =>
   useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions);
 
+export const getXvsVaultPoolLength = jest.fn();
+export const useGetXvsVaultPoolLength = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_POOL_LENGTH, getXvsVaultPoolLength);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
