@@ -27,3 +27,13 @@ export interface ProposalInfo {
   state: ProposalState;
   proposer: string;
 }
+
+// TODO: remove once Vote and Vote Proposal Details screens have been refactored
+export interface IDeprecatedProposal {
+  forVotes: number;
+  againstVotes: number;
+  description: string;
+  id: string;
+  state: string;
+  createdAt: string;
+}

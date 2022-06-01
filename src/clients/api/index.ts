@@ -186,3 +186,7 @@ export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
 
 export { default as useGetVaults } from './queries/useGetVaults';
+
+export { default as getProposals } from './queries/getProposals';
+export * from './queries/getProposals';
+export { default as useGetProposals } from './queries/useGetProposals';

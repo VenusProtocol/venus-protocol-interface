@@ -17,7 +17,10 @@ import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'components/Vote/types';
-import { useXvsVaultProxyContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import {
+  useXvsVaultProxyContract,
+  useGovernorBravoDelegateContract,
+} from 'clients/contracts/hooks';
 import { AuthContext } from 'context/AuthContext';
 
 const VoteOverviewWrapper = styled.div`

@@ -9,9 +9,9 @@ import { toast, PrimaryButton } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import arrowRightImg from 'assets/img/arrow-right.png';
 import { Card } from 'components/Basic/Card';
-import { Proposal as ProposalObject } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { useTokenContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { IDeprecatedProposal as ProposalObject } from './types';
 
 const ProposalsWrapper = styled.div`
   width: 100%;
