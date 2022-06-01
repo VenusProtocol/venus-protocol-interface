@@ -2,6 +2,7 @@
 import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { EllipseText, Icon, Table, TableProps } from 'components';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import { useTranslation } from 'translation';
@@ -122,19 +123,22 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
     },
     {
       key: 'to',
-      render: () => (
-        <EllipseText css={styles.txnHash} text={txn.to}>
-          <Typography
-            className="ellipse-text"
-            component="a"
-            href={generateBscScanUrl(txn.to, 'address')}
-            target="_blank"
-            rel="noreferrer"
-            variant="small2"
-            css={styles.txnHashText}
-          />
-        </EllipseText>
-      ),
+      render: () =>
+        txn.to ? (
+          <EllipseText css={styles.txnHash} text={txn.to}>
+            <Typography
+              className="ellipse-text"
+              component="a"
+              href={generateBscScanUrl(txn.to, 'address')}
+              target="_blank"
+              rel="noreferrer"
+              variant="small2"
+              css={styles.txnHashText}
+            />
+          </EllipseText>
+        ) : (
+          PLACEHOLDER_KEY
+        ),
       value: txn.to,
       align: 'left',
     },
