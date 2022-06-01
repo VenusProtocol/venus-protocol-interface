@@ -75,6 +75,10 @@ export const getVenusVaiVaultRate = jest.fn();
 export const useGetVenusVaiVaultRate = () =>
   useQuery(FunctionKey.GET_VENUS_VAI_VAULT_RATE, getVenusVaiVaultRate);
 
+export const getTransactions = jest.fn();
+export const useGetTransactions = () =>
+  useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>

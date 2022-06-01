@@ -8,6 +8,16 @@ interface IRestServiceInput {
   params?: Record<string, unknown>;
 }
 
+const createQueryParams = (params: Record<string, unknown>) => {
+  const paramArray = Object.entries(params).map(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      return `${key}=${value}`;
+    }
+    return '';
+  });
+  return paramArray.filter(p => p).join('&');
+};
+
 export async function restService<D>({
   endpoint,
   method,
@@ -26,7 +36,7 @@ export async function restService<D>({
     }
 > {
   const headers = {};
-  const path = `${API_ENDPOINT_URL}${endpoint}`;
+  let path = `${API_ENDPOINT_URL}${endpoint}`;
 
   set(headers, 'Accept', 'application/json');
   set(headers, 'Content-Type', 'application/json');
@@ -41,12 +51,12 @@ export async function restService<D>({
     body: {},
   };
 
-  if (params && !isEmpty(params)) {
+  if (params && !isEmpty(params) && method === 'POST') {
     reqBody.body = JSON.stringify(params);
-  } else if (Array.isArray(params)) {
-    reqBody.body = JSON.stringify([]);
+  } else if (params && !isEmpty(params) && method === 'GET') {
+    const queryParams = createQueryParams(params);
+    path = `${path}?${queryParams}`;
   }
-
   return fetch(path)
     .then(response =>
       response

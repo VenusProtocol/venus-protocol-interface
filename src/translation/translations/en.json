@@ -133,7 +133,7 @@
     "columns": {
       "amount": "Amount",
       "block": "Block",
-      "createdAt": "Created at",
+      "created": "Created",
       "from": "From",
       "id": "ID",
       "to": "To",
