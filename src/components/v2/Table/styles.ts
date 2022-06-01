@@ -47,7 +47,6 @@ export const useStyles = () => {
     cellMobile: css`
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       padding-left: ${theme.spacing(4)};
       padding-right: ${theme.spacing(4)};
     `,

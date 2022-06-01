@@ -75,6 +75,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
             tokenId: asset.id,
             minimizeDecimals: true,
           })}
+          css={styles.noWrap}
         />
       ),
       value: asset.treasuryTotalSupplyUsdCents.toFixed(),
@@ -104,6 +105,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
             tokenId: asset.id,
             minimizeDecimals: true,
           })}
+          css={styles.noWrap}
         />
       ),
       value: asset.treasuryTotalBorrowsUsdCents.toFixed(),
@@ -151,7 +153,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ assets, getRowHref 
       cardColumns={cardColumns}
       data={rows}
       initialOrder={{
-        orderBy: 'totalSupply',
+        orderBy: 'asset',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
