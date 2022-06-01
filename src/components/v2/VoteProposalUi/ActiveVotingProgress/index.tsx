@@ -11,30 +11,49 @@ import { useStyles } from '../styles';
 
 interface IActiveVotingProgressProps {
   tokenId: TokenId;
-  votedFor: BigNumber;
-  votedAgainst: BigNumber;
-  abstain: BigNumber;
+  votedForWei?: BigNumber;
+  votedAgainstWei?: BigNumber;
+  abstainedWei?: BigNumber;
+  votedTotalWei?: BigNumber;
 }
 
-export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
-  tokenId,
-  votedFor,
-  votedAgainst,
-  abstain,
-}) => {
-  const styles = useStyles();
-  const { t } = useTranslation();
-  const votedTotalWei = votedFor.plus(votedAgainst.plus(abstain));
-  const votedTotalCoins = +convertWeiToCoins({
-    valueWei: votedTotalWei,
+const getValueString = (tokenId: TokenId, valueWei?: BigNumber) => {
+  // if !valueWei the progress row will not be rendered
+  if (!valueWei) return undefined;
+  return convertWeiToCoins({
+    valueWei,
+    tokenId,
+    returnInReadableFormat: true,
+  });
+};
+
+const getValueNumber = (tokenId: TokenId, valueWei?: BigNumber) => {
+  if (!valueWei) return 0;
+  return +convertWeiToCoins({
+    valueWei,
     tokenId,
     returnInReadableFormat: false,
   }).toFormat();
+};
+
+export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
+  tokenId,
+  votedForWei,
+  votedAgainstWei,
+  abstainedWei,
+  votedTotalWei,
+}) => {
+  const styles = useStyles();
+  const { t } = useTranslation();
+
+  const votedTotalCoins = getValueNumber(tokenId, votedTotalWei);
 
   const defaultProgressbarProps = {
-    step: 0.1,
+    step: 0.0001,
     min: 0,
-    max: votedTotalCoins,
+
+    // || 1 is used for rendering an empty progressbar for case when votedTotalCoins is 0
+    max: votedTotalCoins || 1,
   };
 
   const activeProposalVotingData = useMemo(
@@ -42,62 +61,38 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
       {
         id: 'for',
         label: t('voteProposalUi.statusCard.for'),
-        value: convertWeiToCoins({
-          valueWei: votedFor,
-          tokenId,
-          returnInReadableFormat: true,
-        }),
+        value: getValueString(tokenId, votedForWei),
         progressBarProps: {
-          ariaLabel: 'votes for',
-          value: +convertWeiToCoins({
-            valueWei: votedFor,
-            tokenId,
-            returnInReadableFormat: false,
-          }).toFormat(),
+          ariaLabel: t('voteProposalUi.statusCard.ariaLabelFor'),
+          value: getValueNumber(tokenId, votedForWei),
         },
       },
       {
         id: 'against',
         label: t('voteProposalUi.statusCard.against'),
-        value: convertWeiToCoins({
-          valueWei: votedAgainst,
-          tokenId,
-          returnInReadableFormat: true,
-        }),
+        value: getValueString(tokenId, votedAgainstWei),
         progressBarProps: {
-          progressColorOverride: PALETTE.interactive.error50,
-          ariaLabel: 'votes against',
-          value: +convertWeiToCoins({
-            valueWei: votedAgainst,
-            tokenId,
-            returnInReadableFormat: false,
-          }).toFormat(),
+          successColor: PALETTE.interactive.error50,
+          ariaLabel: t('voteProposalUi.statusCard.ariaLabelAgainst'),
+          value: getValueNumber(tokenId, votedAgainstWei),
         },
       },
       {
         id: 'abstain',
         label: t('voteProposalUi.statusCard.abstain'),
-        value: convertWeiToCoins({
-          valueWei: abstain,
-          tokenId,
-          returnInReadableFormat: true,
-        }),
+        value: getValueString(tokenId, abstainedWei),
         progressBarProps: {
-          progressColorOverride: PALETTE.text.secondary,
-          ariaLabel: 'votes abstain',
-          value: +convertWeiToCoins({
-            valueWei: abstain,
-            tokenId,
-            returnInReadableFormat: false,
-          }).toFormat(),
+          successColor: PALETTE.text.secondary,
+          ariaLabel: t('voteProposalUi.statusCard.ariaLabelAbstain'),
+          value: getValueNumber(tokenId, abstainedWei),
         },
       },
     ],
-    [votedFor, votedAgainst, abstain],
+    [votedForWei, votedAgainstWei, abstainedWei],
   );
 
   return (
-    <>
+    <div css={styles.votesWrapper}>
       {activeProposalVotingData.map(({ id, label, value, progressBarProps }) => {
         if (!value) {
           return null;
@@ -117,6 +112,6 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
           </React.Fragment>
         );
       })}
-    </>
+    </div>
   );
 };

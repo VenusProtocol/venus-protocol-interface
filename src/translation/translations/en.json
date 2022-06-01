@@ -532,8 +532,11 @@
   "voteProposalUi": {
     "statusCard": {
       "for": "For",
+      "ariaLabelFor": "votes for",
       "against": "Against",
+      "ariaLabelAgainst": "votes against",
       "abstain": "Abstain",
+      "ariaLabelAbstain": "votes abstain",
       "queued": "Queue",
       "readyToExecute": "Ready to execute",
       "executed": "Executed",
@@ -548,6 +551,13 @@
       "abstained": "Abstained",
       "notVoted": "Not voted"
     },
-    "activeUntil": "Active until:"
+    "activeUntil": "Active until:",
+    "activeUntilDate": "{{ date, dd MMM HH:mm }}",
+    "countdownFormat": {
+      "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
+      "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
+      "minutesIncluded": "{{minutes}}m : {{seconds}}s",
+      "secondsIncluded": "{{seconds}}s"
+    }
   }
 }

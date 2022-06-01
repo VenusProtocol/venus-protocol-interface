@@ -8,7 +8,7 @@ export default {
   decorators: [withThemeProvider, withCenterStory({ width: 750 })],
   parameters: {
     backgrounds: {
-      default: 'Default',
+      default: 'Primary',
     },
   },
 };
@@ -16,11 +16,11 @@ export default {
 export const Active = () => (
   <VoteProposalUi
     proposalNumber={58}
-    proposalText="Buy back and burn and Tokenomic contribution finised soon"
+    proposalText="Buy back and burn and Tokenomic contribution finished soon"
     proposalStatus="active"
-    votedForWei={new BigNumber('300000000000000000000')}
-    votedAgainstWei={new BigNumber('200000000000000000000')}
-    abstainWei={new BigNumber('100000000000000000000')}
+    votedForWei={new BigNumber('500000000000000000')}
+    votedAgainstWei={new BigNumber('2000000000000000000')}
+    abstainedWei={new BigNumber('0')}
     userVoteStatus="votedFor"
     cancelDate={new Date(Date.now() + 3650000)}
     tokenId="xvs"
@@ -37,7 +37,7 @@ export const Queued = () => (
 export const ReadyToExecute = () => (
   <VoteProposalUi
     proposalNumber={58}
-    proposalText="Buy back and burn and Tokenomic contribution finised soon"
+    proposalText="Buy back and burn and Tokenomic contribution finished soon"
     proposalStatus="readyToExecute"
     cancelDate={new Date(Date.now() + 3650000)}
   />
@@ -45,7 +45,7 @@ export const ReadyToExecute = () => (
 export const Executed = () => (
   <VoteProposalUi
     proposalNumber={58}
-    proposalText="Buy back and burn and Tokenomic contribution finised soon"
+    proposalText="Buy back and burn and Tokenomic contribution finished soon"
     proposalStatus="executed"
     cancelDate={new Date(Date.now() + 3650000)}
   />
@@ -53,7 +53,7 @@ export const Executed = () => (
 export const Cancelled = () => (
   <VoteProposalUi
     proposalNumber={58}
-    proposalText="Buy back and burn and Tokenomic contribution finised soon"
+    proposalText="Buy back and burn and Tokenomic contribution finished soon"
     proposalStatus="cancelled"
     cancelDate={new Date(Date.now())}
   />

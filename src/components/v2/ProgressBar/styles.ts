@@ -4,30 +4,25 @@ import { useTheme } from '@mui/material';
 export const useStyles = ({
   over,
   secondaryOver,
-  progressColorOverride,
+  successColor,
 }: {
   over: boolean;
   secondaryOver: boolean;
-  progressColorOverride?: string;
+  successColor: string;
 }) => {
   const theme = useTheme();
   return {
     slider: css`
       display: block;
-      color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
-      color: ${progressColorOverride};
+      color: ${over ? theme.palette.interactive.error50 : successColor};
       background-color: ${theme.palette.background.default};
       height: ${theme.spacing(2)};
       padding: 0 !important;
       &.Mui-disabled {
-        color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
-        color: ${progressColorOverride};
+        color: ${over ? theme.palette.interactive.error50 : successColor};
       }
       .MuiSlider-track {
-        background-color: ${over
-          ? theme.palette.interactive.error50
-          : theme.palette.interactive.success};
-        background-color: ${progressColorOverride};
+        background-color: ${over ? theme.palette.interactive.error50 : successColor};
         height: ${theme.spacing(2)};
         border-radius: ${theme.spacing(1)};
       }

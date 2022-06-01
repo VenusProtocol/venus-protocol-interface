@@ -29,6 +29,7 @@ export const useStyles = () => {
     cardHeader: css`
       display: flex;
       justify-content: space-between;
+      align-items: center;
     `,
     cardBadges: css`
       /* TODO */
@@ -80,6 +81,11 @@ export const useStyles = () => {
     `,
 
     /* StatusCard styles */
+    votesWrapper: css`
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    `,
     voteRow: css`
       display: flex;
       justify-content: space-between;

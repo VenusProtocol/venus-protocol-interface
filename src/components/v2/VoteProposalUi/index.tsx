@@ -95,7 +95,7 @@ interface IVoteProposalUiProps {
   userVoteStatus?: UserVoteStatus;
   votedForWei?: BigNumber;
   votedAgainstWei?: BigNumber;
-  abstainWei?: BigNumber;
+  abstainedWei?: BigNumber;
   tokenId?: TokenId;
 }
 
@@ -108,7 +108,7 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
   userVoteStatus,
   votedForWei,
   votedAgainstWei,
-  abstainWei,
+  abstainedWei,
   tokenId,
 }) => {
   const styles = useStyles();
@@ -140,16 +140,22 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
     }
     // Render a countdown
     if (days) {
-      return `${days}d ${hours}h : ${minutes}m : ${seconds}s`;
+      return t('voteProposalUi.countdownFormat.daysIncluded', { days, hours, minutes, seconds });
     }
     if (hours) {
-      return `${hours}h : ${minutes}m : ${seconds}s`;
+      return t('voteProposalUi.countdownFormat.hoursIncluded', { hours, minutes, seconds });
     }
     if (minutes) {
-      return `${minutes}m : ${seconds}s`;
+      return t('voteProposalUi.countdownFormat.minutesIncluded', { minutes, seconds });
     }
-    return `${seconds}s`;
+    return t('voteProposalUi.countdownFormat.minutesIncluded', { seconds });
   };
+
+  const votedTotalWei = BigNumber.sum.apply(null, [
+    votedForWei || 0,
+    votedAgainstWei || 0,
+    abstainedWei || 0,
+  ]);
 
   return (
     <Paper className={className} css={styles.root}>
@@ -187,12 +193,7 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
               <Typography variant="small2">
                 {t('voteProposalUi.activeUntil')}
                 <Typography css={styles.activeUntilDate} variant="small2" color="textPrimary">
-                  {cancelDate.toLocaleString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
+                  {t('voteProposalUi.activeUntilDate', { date: cancelDate })}
                 </Typography>
               </Typography>
             )}
@@ -204,15 +205,13 @@ export const VoteProposalUi: React.FC<IVoteProposalUiProps> = ({
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
           {proposalStatus === 'active' ? (
-            tokenId &&
-            votedForWei &&
-            votedAgainstWei &&
-            abstainWei && (
+            tokenId && (
               <ActiveVotingProgress
                 tokenId={tokenId}
-                votedFor={votedForWei}
-                votedAgainst={votedAgainstWei}
-                abstain={abstainWei}
+                votedForWei={votedForWei}
+                votedAgainstWei={votedAgainstWei}
+                abstainedWei={abstainedWei}
+                votedTotalWei={votedTotalWei}
               />
             )
           ) : (
