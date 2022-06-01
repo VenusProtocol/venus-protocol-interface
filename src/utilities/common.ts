@@ -96,26 +96,6 @@ export const getBigNumber = (value?: BigNumber | string | number): BigNumber => 
   return new BigNumber(value);
 };
 
-export const currencyFormatter = (labelValue: $TSFixMe) => {
-  let suffix = '';
-  let unit = 1;
-  const abs = Math.abs(Number(labelValue));
-  if (abs >= 1.0e9) {
-    // Nine Zeroes for Billions
-    suffix = 'B';
-    unit = 1.0e9;
-  } else if (abs >= 1.0e6) {
-    // Six Zeroes for Millions
-    suffix = 'M';
-    unit = 1.0e6;
-  } else if (abs >= 1.0e3) {
-    // Three Zeroes for Thousands
-    suffix = 'K';
-    unit = 1.0e3;
-  }
-  return `$${commaFormat(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
-};
-
 export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
 export const format = (bigNumber: BigNumber, dp = 2) =>
   formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
