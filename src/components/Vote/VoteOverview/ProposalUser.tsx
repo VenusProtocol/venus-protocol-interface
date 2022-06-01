@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
-import { ProposalInfo } from 'types';
 import { generateBscScanUrl } from 'utilities';
+import { ProposalInfo } from '../types';
 
 const ProposalUserWrapper = styled.div`
   width: 100%;

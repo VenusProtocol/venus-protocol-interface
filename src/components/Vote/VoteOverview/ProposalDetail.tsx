@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Card } from 'components/Basic/Card';
 import { Label } from 'components/Basic/Label';
 import { uid } from 'react-uid';
-import { ProposalInfo } from 'types';
+import { ProposalInfo } from '../types';
 
 const ProposalDetailWrapper = styled.div`
   width: 100%;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import Markdown from 'react-remarkable';
 import { Card } from 'components/Basic/Card';
-import { ProposalInfo as ProposalInfoType } from 'types';
+import { ProposalInfo as ProposalInfoType } from '../types';
 import { getRemainingTime, FORMAT_STRING } from '../../../utilities/time';
 
 const ProposalInfoWrapper = styled.div`

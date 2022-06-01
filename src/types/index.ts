@@ -68,34 +68,15 @@ export interface Setting {
   vaiAPY?: number | string;
 }
 
-export interface Action {
-  title: string;
-}
-
 export type ProposalState =
   | 'Pending'
   | 'Active'
-  | 'Succeeded'
-  | 'Queued'
-  | 'Executed'
   | 'Canceled'
   | 'Defeated'
-  | 'Expired';
-
-export interface ProposalInfo {
-  id: string;
-  description: string;
-  actions: Action[];
-  startTimestamp?: number;
-  createdTimestamp?: number;
-  queuedTimestamp?: number;
-  executedTimestamp?: number;
-  endTimestamp?: number;
-  cancelTimestamp?: number;
-  updatedAt?: number;
-  state: ProposalState;
-  proposer: string;
-}
+  | 'Succeeded'
+  | 'Queued'
+  | 'Expired'
+  | 'Executed';
 
 export interface Proposal {
   forVotes: number;
