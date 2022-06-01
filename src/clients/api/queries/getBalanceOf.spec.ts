@@ -32,13 +32,13 @@ describe('api/queries/getBalanceOf', () => {
     const fakeOutput: GetBalanceOfOutput = new BigNumber('0');
 
     const callMock = jest.fn(async () => fakeOutput);
-    const vrtBalanceOfMock = jest.fn(() => ({
+    const getBalanceOfMock = jest.fn(() => ({
       call: callMock,
     }));
 
     const fakeContract = {
       methods: {
-        balanceOf: vrtBalanceOfMock,
+        balanceOf: getBalanceOfMock,
       },
     } as unknown as VrtToken;
 
@@ -47,9 +47,9 @@ describe('api/queries/getBalanceOf', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(vrtBalanceOfMock).toHaveBeenCalledTimes(1);
+    expect(getBalanceOfMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
-    expect(vrtBalanceOfMock).toHaveBeenCalledWith(fakeAccountAddress);
+    expect(getBalanceOfMock).toHaveBeenCalledWith(fakeAccountAddress);
     expect(response).toStrictEqual(fakeOutput);
   });
 });
