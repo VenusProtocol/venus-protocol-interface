@@ -150,6 +150,10 @@ export { default as getCurrentVotes } from './queries/getCurrentVotes';
 export * from './queries/getCurrentVotes';
 export { default as useGetCurrentVotes } from './queries/useGetCurrentVotes';
 
+export { default as getPendingXvs } from './queries/getPendingXvs';
+export * from './queries/getPendingXvs';
+export { default as useGetPendingXvs } from './queries/useGetPendingXvs';
+
 export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
 export * from './queries/getVTokenBorrowRate';
 
