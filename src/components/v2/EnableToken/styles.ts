@@ -8,7 +8,6 @@ export const styles = () => {
       display: flex;
       flex-direction: column;
       align-items: center;
-
       hr {
         width: 100%;
         border: 1px solid ${theme.palette.secondary.light};
