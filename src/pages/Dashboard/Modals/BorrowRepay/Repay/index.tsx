@@ -11,7 +11,7 @@ import {
   formatToReadablePercentage,
 } from 'utilities/common';
 import { useRepayVToken } from 'clients/api';
-import { UiError, TransactionError } from 'utilities/errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
   toast,
@@ -24,10 +24,6 @@ import {
 } from 'components';
 import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
-import {
-  TokenTransactionErrorsError,
-  TokenTransactionErrorsFailureInfo,
-} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
 import AccountData from '../AccountData';
@@ -111,7 +107,13 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
         });
       }
     } catch (error) {
-      toast.error({ message: (error as UiError).message });
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
     }
   };
 
@@ -212,7 +214,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   const handleRepay: IRepayFormProps['repay'] = async amountWei => {
     if (!account?.address) {
-      throw new UiError(t('errors.walletNotConnected'));
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
 
     let repayAmount = amountWei;
@@ -220,26 +222,15 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       repayAmount = MAX_UINT256;
     }
 
-    try {
-      const res = await repay({
-        amountWei: repayAmount,
-        fromAccountAddress: account.address,
-      });
+    const res = await repay({
+      amountWei: repayAmount,
+      fromAccountAddress: account.address,
+    });
 
-      // Close modal on success
-      onClose();
+    // Close modal on success
+    onClose();
 
-      return res.transactionHash;
-    } catch (err) {
-      if (err instanceof TransactionError) {
-        throw new UiError(
-          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
-          TokenTransactionErrorsFailureInfo[
-            err.info as keyof typeof TokenTransactionErrorsFailureInfo
-          ],
-        );
-      }
-    }
+    return res.transactionHash;
   };
 
   return (

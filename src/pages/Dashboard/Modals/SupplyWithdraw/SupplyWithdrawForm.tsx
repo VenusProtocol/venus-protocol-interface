@@ -15,6 +15,7 @@ import {
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { useTranslation } from 'translation';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
@@ -227,10 +228,17 @@ const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
   const onSubmitHandleError: IAmountFormProps['onSubmit'] = async (value: string) => {
     try {
       await onSubmit(value);
-    } catch (err) {
-      toast.error({ message: (err as Error).message });
+    } catch (error) {
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+        toast.error({
+          message,
+        });
+      }
     }
   };
+
   return (
     <AmountForm onSubmit={onSubmitHandleError} maxAmount={maxInput.toFixed()}>
       {({ values }) => (

@@ -17,7 +17,7 @@ import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { formatI18nextRelativetimeValues } from 'utilities';
-import { InternalError } from 'utilities/errors';
+import { VError } from 'errors/VError';
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { VRT_ID, XVS_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
@@ -83,7 +83,10 @@ const Convert: React.FC<IConvertProps> = ({
       // Display successful transaction modal
       if (!xvsToVrtConversionRatio) {
         // This should never happen because the form is not rendered without successfully fetching this
-        throw new InternalError(t('convertVrt.internalErrorXvsToVrtConversionRatioUndefined'));
+        throw new VError({
+          type: 'unexpected',
+          code: 'internalErrorXvsToVrtConversionRatioUndefined',
+        });
       }
 
       const xvsAmountWei = calculateXvsFromVrt(vrtAmountWei);

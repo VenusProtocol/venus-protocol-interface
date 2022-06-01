@@ -6,7 +6,7 @@ import type { TransactionReceipt } from 'web3-core';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
-import { UiError, TransactionError } from 'utilities/errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
   FormikSubmitButton,
@@ -22,10 +22,6 @@ import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import {
-  VAIControllerTransactionErrorsError,
-  VAIControllerTransactionErrorsFailureInfo,
-} from 'translation/transactionErrors';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
@@ -100,7 +96,13 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
         });
       }
     } catch (error) {
-      toast.error({ message: (error as Error).message });
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
     }
   };
 
@@ -158,7 +160,6 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 const MintVai: React.FC = () => {
   const { account } = useContext(AuthContext);
   const { mintableVai } = useVaiUser();
-  const { t } = useTranslation();
 
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
@@ -173,29 +174,14 @@ const MintVai: React.FC = () => {
 
   const mintVai: IMintVaiUiProps['mintVai'] = async amountWei => {
     if (!account) {
-      const errorMessage = t('mintRepayVai.mintVai.undefinedAccountErrorMessage');
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
-      throw new UiError(errorMessage);
+      throw new VError({ type: 'unexpected', code: 'undefinedAccountErrorMessage' });
     }
-
-    try {
-      return await contractMintVai({
-        fromAccountAddress: account.address,
-        amountWei,
-      });
-    } catch (err) {
-      if (err instanceof TransactionError) {
-        throw new UiError(
-          VAIControllerTransactionErrorsError[
-            err.error as keyof typeof VAIControllerTransactionErrorsError
-          ],
-          VAIControllerTransactionErrorsFailureInfo[
-            err.info as keyof typeof VAIControllerTransactionErrorsFailureInfo
-          ],
-        );
-      }
-    }
+    return contractMintVai({
+      fromAccountAddress: account.address,
+      amountWei,
+    });
   };
 
   return (

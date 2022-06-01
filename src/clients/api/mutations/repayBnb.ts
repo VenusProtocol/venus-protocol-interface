@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 
 import { getVTokenContract } from 'clients/contracts';
 import { getVBepToken } from 'utilities';
-import { checkForTokenTransactionError } from 'utilities/errors';
+import { checkForTokenTransactionError } from 'errors';
 
 export interface IRepayBnbInput {
   web3: Web3;

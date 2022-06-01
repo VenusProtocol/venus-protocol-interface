@@ -13,9 +13,6 @@ import GovernanceResponse from '../src/__mocks__/api/governance.json';
 import VoteReponse from '../src/__mocks__/api/vote.json';
 import TransactionResponse from '../src/__mocks__/api/transactions.json';
 import vaiControllerResponses from '../src/__mocks__/contracts/vaiController.json';
-import { init as initTranslationLibrary } from '../src/translation';
-
-initTranslationLibrary();
 
 initialize({
   onUnhandledRequest: 'bypass',

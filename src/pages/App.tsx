@@ -9,7 +9,6 @@ import { AuthProvider } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { store } from 'core';
 import { Layout, ResetScrollOnRouteChange } from 'components';
-import { init as initTranslationLibrary } from 'translation';
 import { isOnTestnet } from 'config';
 import Dashboard from 'pages/Dashboard';
 import Faucet from 'containers/Main/Faucet';
@@ -35,8 +34,6 @@ import { VaiContextProvider } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 import Path from 'constants/path';
 import 'assets/styles/App.scss';
-
-initTranslationLibrary();
 
 const App = () => (
   <Theme>

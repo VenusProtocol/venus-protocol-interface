@@ -14,7 +14,7 @@ import {
   convertCoinsToWei,
 } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { TransactionError, UiError } from 'utilities/errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
   toast,
@@ -25,10 +25,6 @@ import {
   EnableToken,
 } from 'components';
 import { useTranslation } from 'translation';
-import {
-  TokenTransactionErrorsError,
-  TokenTransactionErrorsFailureInfo,
-} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
 import { useStyles as useBorrowStyles } from './styles';
@@ -97,7 +93,13 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
         });
       }
     } catch (error) {
-      toast.error({ message: (error as UiError).message });
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
     }
   };
 
@@ -183,26 +185,15 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
-      throw new UiError(t('errors.walletNotConnected'));
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
-    try {
-      const res = await borrow({
-        amountWei,
-        fromAccountAddress: account.address,
-      });
-      // Close modal on success
-      onClose();
-      return res.transactionHash;
-    } catch (err) {
-      if (err instanceof TransactionError) {
-        throw new UiError(
-          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
-          TokenTransactionErrorsFailureInfo[
-            err.info as keyof typeof TokenTransactionErrorsFailureInfo
-          ],
-        );
-      }
-    }
+    const res = await borrow({
+      amountWei,
+      fromAccountAddress: account.address,
+    });
+    // Close modal on success
+    onClose();
+    return res.transactionHash;
   };
 
   // Calculate maximum and safe maximum amount of coins user can borrow
