@@ -15,11 +15,9 @@ import Faucet from 'containers/Main/Faucet';
 import Vote from 'containers/Main/Vote';
 import XVSV1 from 'containers/Main/XVS';
 import Xvs from 'pages/Xvs';
-import MarketV1 from 'containers/Main/Market';
 import Market from 'pages/Market';
 import Vault from 'pages/Vault';
 import VaultV1 from 'containers/Main/Vault';
-import MarketDetailsV1 from 'containers/Main/MarketDetail';
 import VoteOverview from 'containers/Main/VoteOverview';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
@@ -58,18 +56,8 @@ const App = () => (
                               path={Path.XVS}
                               component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
                             />
-                            <Route
-                              exact
-                              path={Path.MARKET}
-                              component={process.env.REACT_APP_RUN_V2 ? Market : MarketV1}
-                            />
-                            <Route
-                              exact
-                              path={Path.MARKET_DETAILS}
-                              component={
-                                process.env.REACT_APP_RUN_V2 ? MarketDetails : MarketDetailsV1
-                              }
-                            />
+                            <Route exact path={Path.MARKET} component={Market} />
+                            <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
                             <Route
                               exact
                               path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
