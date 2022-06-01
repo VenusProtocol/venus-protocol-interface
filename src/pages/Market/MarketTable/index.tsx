@@ -157,7 +157,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
       cardColumns={cardColumns}
       data={rows}
       initialOrder={{
-        orderBy: 'totalSupply',
+        orderBy: 'asset',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
