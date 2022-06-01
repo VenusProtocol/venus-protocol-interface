@@ -4,6 +4,7 @@ import MaterialSlider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import { SliderTypeMap } from '@mui/material/Slider/Slider';
 
+import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 import { Tooltip, ITooltipProps } from '../Tooltip';
 import { useStyles } from './styles';
 
@@ -19,6 +20,7 @@ export interface IProgressBarProps {
   markTooltip?: ITooltipProps['title'];
   className?: string;
   tooltipPlacement?: ITooltipProps['placement'];
+  successColor?: string;
 }
 
 export const ProgressBar = ({
@@ -33,6 +35,7 @@ export const ProgressBar = ({
   markTooltip,
   className,
   tooltipPlacement = 'top',
+  successColor = PALETTE.interactive.success,
 }: IProgressBarProps) => {
   const safeValue = value < max ? value : max;
 
@@ -40,6 +43,7 @@ export const ProgressBar = ({
   const styles = useStyles({
     over: mark ? safeValue > mark : false,
     secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
+    successColor,
   });
 
   const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => (

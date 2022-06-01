@@ -88,9 +88,11 @@ export const SHAPE = {
     large: SPACING * 6,
   } as any, // our custom types seem to clash with the default MUI types
   iconSize: {
+    small: SPACING * 3,
     medium: SPACING * 4,
     large: SPACING * 5,
     xLarge: SPACING * 6,
+    xxLarge: SPACING * 10,
   },
   footerHeight: '56px',
   bannerHeight: '56px',

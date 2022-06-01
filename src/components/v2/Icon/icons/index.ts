@@ -37,6 +37,8 @@ export { default as checkInline } from './checkInline';
 export { default as mark } from './mark';
 export { default as arrowShaft } from './arrowShaft';
 export { default as notice } from './notice';
+export { default as dots } from './dots';
+export { default as exclamation } from './exclamation';
 
 // Coin icons
 export { default as aave } from './coins/aave';

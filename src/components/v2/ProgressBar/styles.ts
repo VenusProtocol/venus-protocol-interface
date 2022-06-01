@@ -1,22 +1,28 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-export const useStyles = ({ over, secondaryOver }: { over: boolean; secondaryOver: boolean }) => {
+export const useStyles = ({
+  over,
+  secondaryOver,
+  successColor,
+}: {
+  over: boolean;
+  secondaryOver: boolean;
+  successColor: string;
+}) => {
   const theme = useTheme();
   return {
     slider: css`
       display: block;
-      color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
+      color: ${over ? theme.palette.interactive.error50 : successColor};
       background-color: ${theme.palette.background.default};
       height: ${theme.spacing(2)};
       padding: 0 !important;
       &.Mui-disabled {
-        color: ${over ? theme.palette.interactive.error50 : theme.palette.interactive.success};
+        color: ${over ? theme.palette.interactive.error50 : successColor};
       }
       .MuiSlider-track {
-        background-color: ${over
-          ? theme.palette.interactive.error50
-          : theme.palette.interactive.success};
+        background-color: ${over ? theme.palette.interactive.error50 : successColor};
         height: ${theme.spacing(2)};
         border-radius: ${theme.spacing(1)};
       }
