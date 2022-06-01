@@ -7,6 +7,11 @@ export const useStyles = () => {
     whiteText: css`
       color: ${theme.palette.text.primary};
     `,
+    noWrap: css`
+      > span {
+        white-space: nowrap;
+      }
+    `,
     cardContentGrid: `
       .table__table-cards__card-content {
         grid-template-columns: 1fr 1fr 1fr;
