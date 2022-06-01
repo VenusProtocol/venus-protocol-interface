@@ -8,7 +8,7 @@ import moment from 'moment';
 import { format } from 'utilities/common';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
-import { Transaction } from 'types';
+import { VoteTransaction } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
 const TransactionsWrapper = styled.div`
@@ -80,7 +80,7 @@ const TransactionsWrapper = styled.div`
 
 interface Props extends RouteComponentProps {
   address: string;
-  transactions: Transaction[];
+  transactions: VoteTransaction[];
 }
 
 interface FormatTransaction {
@@ -106,7 +106,7 @@ function Transactions({ address, transactions }: Props) {
   useEffect(() => {
     const tempData: FormatTransaction[] = [];
 
-    transactions.forEach((tx: Transaction) => {
+    transactions.forEach((tx: VoteTransaction) => {
       if (tx.type === 'vote') {
         tempData.push({
           action: tx.support ? 'Received Votes' : 'Lost Votes',

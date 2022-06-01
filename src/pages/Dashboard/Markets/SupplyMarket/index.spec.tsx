@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import { assetData } from '__mocks__/models/asset';
 import fakeAccountAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
-import { enterMarkets, useUserMarketInfo } from 'clients/api';
+import { enterMarkets, useGetUserMarketInfo } from 'clients/api';
 import { switchAriaLabel } from 'components';
 import en from 'translation/translations/en.json';
 import SupplyMarket from '.';
@@ -13,10 +13,13 @@ jest.mock('clients/api');
 
 describe('pages/SupplyMarket', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: assetData,
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: assetData,
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
   });
 

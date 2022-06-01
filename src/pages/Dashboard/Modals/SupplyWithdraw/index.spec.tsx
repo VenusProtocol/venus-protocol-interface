@@ -6,6 +6,7 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { DISABLED_TOKENS } from 'utilities';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import MAX_UINT256 from 'constants/maxUint256';
 import renderComponent from 'testUtils/renderComponent';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
@@ -14,7 +15,8 @@ import {
   redeem,
   redeemUnderlying,
   getVTokenBalanceOf,
-  useUserMarketInfo,
+  useGetUserMarketInfo,
+  getAllowance,
 } from 'clients/api';
 import { Asset, TokenId } from 'types';
 import en from 'translation/translations/en.json';
@@ -38,10 +40,15 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 
 describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [], // Not used in these tests
-      userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-      userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+    // Mark token as enabled
+    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256.toFixed());
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [], // Not used in these tests
+        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+      },
+      isLoading: false,
     }));
   });
 
@@ -77,6 +84,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         },
       },
     );
+
+    await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+
     const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
     expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
     const disabledButton = document.querySelector('button[type="submit"]');
@@ -198,6 +208,8 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         },
       );
 
+      await waitFor(() => getByText(en.supplyWithdraw.enterValidAmountSupply));
+
       const disabledButtonText = getByText(en.supplyWithdraw.enterValidAmountSupply);
       expect(disabledButtonText).toHaveTextContent(en.supplyWithdraw.enterValidAmountSupply);
       const disabledButton = document.querySelector('button[type="submit"]');
@@ -278,7 +290,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
       (supplyNonBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
-      renderComponent(
+      const { getByText } = renderComponent(
         () => (
           <SupplyWithdraw
             onClose={onCloseMock}
@@ -295,6 +307,8 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         },
       );
+
+      await waitFor(() => getByText(en.supplyWithdraw.supply));
 
       const correctAmountTokens = 1;
       const tokenTextInput = document.querySelector('input') as HTMLInputElement;
@@ -329,10 +343,13 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
   describe('Withdraw form', () => {
     beforeEach(() => {
-      (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-        assets: [], // Not used in these tests
-        userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-        userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: [], // Not used in these tests
+          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        },
+        isLoading: false,
       }));
     });
 
@@ -374,6 +391,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
           },
         },
       );
+
+      await waitFor(() => getByText(en.supplyWithdraw.withdraw));
+
       const withdrawButton = getByText(en.supplyWithdraw.withdraw);
       fireEvent.click(withdrawButton);
 

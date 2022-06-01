@@ -1,4 +1,6 @@
 import React from 'react';
+import { format as formatDate, isDate, formatDistanceToNowStrict } from 'date-fns';
+import { enUS } from 'date-fns/locale';
 import i18next, { TFunctionKeys } from 'i18next';
 import {
   initReactI18next,
@@ -20,6 +22,18 @@ export const init = () =>
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
+      format: (value, format, lng) => {
+        const locales = { en: enUS };
+
+        if (isDate(value)) {
+          const locale = lng && lng in locales ? locales[lng as keyof typeof locales] : locales.en;
+          if (format === 'distanceToNow') {
+            return formatDistanceToNowStrict(value, { locale });
+          }
+          return formatDate(value, format || '', { locale });
+        }
+        return value;
+      },
     },
   });
 

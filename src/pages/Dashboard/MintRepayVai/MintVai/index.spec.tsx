@@ -4,7 +4,8 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { mintVai, getVaiTreasuryPercentage, useUserMarketInfo } from 'clients/api';
+import { mintVai, getVaiTreasuryPercentage, useGetUserMarketInfo, getAllowance } from 'clients/api';
+import MAX_UINT256 from 'constants/maxUint256';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import renderComponent from 'testUtils/renderComponent';
@@ -16,7 +17,7 @@ jest.mock('clients/api');
 jest.mock('components/v2/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI', isEnabled: true };
+const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 const fakeMintableVai = new BigNumber('1000');
 const formattedFakeUserVaiMinted = formatCoinsToReadableValue({
   value: fakeMintableVai,
@@ -26,22 +27,26 @@ const fakeVaiTreasuryPercentage = 7.19;
 
 describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   beforeEach(() => {
-    (useUserMarketInfo as jest.Mock).mockImplementation(() => ({
-      assets: [...assetData, fakeVai],
-      userTotalBorrowLimitCents: new BigNumber('111'),
-      userTotalBorrowBalanceCents: new BigNumber('91'),
+    // Mark token as enabled
+    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256.toFixed());
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [...assetData, fakeVai],
+        userTotalBorrowLimitCents: new BigNumber('111'),
+        userTotalBorrowBalanceCents: new BigNumber('91'),
+      },
+      isLoading: false,
     }));
   });
 
-  it('renders without crashing', async () => {
-    const { getByText } = renderComponent(() => <RepayVai />, {
+  it('renders without crashing', () => {
+    renderComponent(() => <RepayVai />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
         },
       },
     });
-    await waitFor(() => getByText(en.mintRepayVai.mintVai.enableToken));
   });
 
   it('displays the correct available VAI limit and mint fee', async () => {

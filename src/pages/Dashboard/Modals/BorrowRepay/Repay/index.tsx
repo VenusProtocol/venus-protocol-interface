@@ -246,7 +246,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
       {asset && (
         <EnableToken
-          assetId={asset.id}
+          vTokenId={asset.id}
           title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {
@@ -260,8 +260,6 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
               children: formatToReadablePercentage(asset.xvsBorrowApy),
             },
           ]}
-          isEnabled={asset.isEnabled}
-          vtokenAddress={asset.vtokenAddress}
         >
           <RepayForm
             asset={asset}

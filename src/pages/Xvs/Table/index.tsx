@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import {
-  useUserMarketInfo,
+  useGetUserMarketInfo,
   useGetVenusVaiVaultRate,
   useGetBalanceOf,
   useGetMarkets,
@@ -34,10 +34,20 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('xvs.columns.asset'), orderable: false },
-      { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true },
-      { key: 'supplyXvsApy', label: t('xvs.columns.supplyXvsApy'), orderable: true },
-      { key: 'borrowXvsApy', label: t('xvs.columns.borrowXvsApy'), orderable: true },
+      { key: 'asset', label: t('xvs.columns.asset'), orderable: false, align: 'left' },
+      { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true, align: 'right' },
+      {
+        key: 'supplyXvsApy',
+        label: t('xvs.columns.supplyXvsApy'),
+        orderable: true,
+        align: 'right',
+      },
+      {
+        key: 'borrowXvsApy',
+        label: t('xvs.columns.borrowXvsApy'),
+        orderable: true,
+        align: 'right',
+      },
     ],
     [],
   );
@@ -51,6 +61,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
       key: 'asset',
       render: () => <Token symbol={asset.symbol as TokenId} />,
       value: asset.id,
+      align: 'left',
     },
     {
       key: 'xvsPerDay',
@@ -59,11 +70,12 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
           {formatCoinsToReadableValue({
             value: asset.xvsPerDay,
             tokenId: 'xvs',
-            shorthand: true,
+            minimizeDecimals: true,
           })}
         </Typography>
       ),
       value: asset.xvsPerDay?.toFixed() || 0,
+      align: 'right',
     },
     {
       key: 'supplyXvsApy',
@@ -73,6 +85,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
         </Typography>
       ),
       value: asset.xvsSupplyApy?.toFixed() || 0,
+      align: 'right',
     },
     {
       key: 'borrowXvsApy',
@@ -82,6 +95,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
         </Typography>
       ),
       value: asset.xvsBorrowApy?.toFixed() || 0,
+      align: 'right',
     },
   ]);
 
@@ -104,7 +118,12 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { assets } = useUserMarketInfo({ accountAddress: account?.address });
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: { assets },
+  } = useGetUserMarketInfo({
+    accountAddress: account?.address,
+  });
   const { data: { markets } = { markets: [] } } = useGetMarkets({
     placeholderData: { markets: [], dailyVenus: undefined },
   });
@@ -122,14 +141,18 @@ const XvsTable: React.FC = () => {
       .div(vaultVaiStaked?.div(new BigNumber(10).pow(getToken('vai').decimals)));
   }
 
-  (assets as TableAsset[]).push({
-    id: 'vai',
-    symbol: 'VAI',
-    xvsPerDay: venusVaiVaultRate,
-    xvsSupplyApy: vaiApy,
-    xvsBorrowApy: undefined,
-  });
-  return <XvsTableUi assets={assets} />;
+  const updatedAssets: TableAsset[] = [
+    ...assets,
+    {
+      id: 'vai',
+      symbol: 'VAI',
+      xvsPerDay: venusVaiVaultRate,
+      xvsSupplyApy: vaiApy,
+      xvsBorrowApy: undefined,
+    },
+  ];
+
+  return <XvsTableUi assets={updatedAssets} />;
 };
 
 export default XvsTable;

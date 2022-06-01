@@ -1,7 +1,7 @@
 export interface IGetVTokenBalancesAllInput {
   venusLensContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
   account: string;
-  vtAddresses: string[];
+  vTokenAddresses: string[];
 }
 
 interface IGetVTokenBalancesAllResponse extends Array<string> {
@@ -26,11 +26,11 @@ export type IGetVTokenBalancesAllOutput = IGetVTokenBalanceOutput[];
 
 const getVTokenBalancesAll = async ({
   venusLensContract,
-  vtAddresses,
+  vTokenAddresses,
   account,
 }: IGetVTokenBalancesAllInput): Promise<IGetVTokenBalancesAllOutput> => {
   let response = await venusLensContract.methods
-    .vTokenBalancesAll(vtAddresses, account?.toLowerCase())
+    .vTokenBalancesAll(vTokenAddresses, account?.toLowerCase())
     .call();
 
   // This is original returned as an array with these properties

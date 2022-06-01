@@ -1,3 +1,6 @@
+import BigNumber from 'bignumber.js';
+
+import { Comptroller } from 'types/contracts';
 import getHypotheticalAccountLiquidity from './getHypotheticalAccountLiquidity';
 
 describe('api/queries/getHypotheticalAccountLiquidity', () => {
@@ -10,15 +13,15 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
           },
         }),
       },
-    } as any;
+    } as unknown as Comptroller;
 
     try {
       await getHypotheticalAccountLiquidity({
         comptrollerContract: fakeContract,
-        account: '0xq3k9',
-        vtokenAddress: '0xq3k9',
-        balanceOf: '',
-        borrowAmount: 0,
+        accountAddress: '0xq3k9',
+        vTokenAddress: '0xq3k9',
+        vTokenBalanceOfWei: new BigNumber(0),
+        vTokenBorrowAmountWei: new BigNumber(0),
       });
 
       throw new Error('getHypotheticalAccountLiquidity should have thrown an error but did not');
@@ -31,18 +34,18 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
     const fakeContract = {
       methods: {
         getHypotheticalAccountLiquidity: () => ({
-          call: async () => ['3', '4', '5'],
+          call: async () => ({ 0: '3', 1: '4', 2: '5' }),
         }),
       },
-    } as unknown as any;
+    } as unknown as Comptroller;
 
     const response = await getHypotheticalAccountLiquidity({
       comptrollerContract: fakeContract,
-      account: '0x34111',
-      vtokenAddress: '0xq3k9',
-      balanceOf: '',
-      borrowAmount: 0,
+      accountAddress: '0x34111',
+      vTokenAddress: '0xq3k9',
+      vTokenBalanceOfWei: new BigNumber(0),
+      vTokenBorrowAmountWei: new BigNumber(0),
     });
-    expect(response).toStrictEqual(['3', '4', '5']);
+    expect(response).toStrictEqual({ 0: '3', 1: '4', 2: '5' });
   });
 });

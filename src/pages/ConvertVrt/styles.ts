@@ -4,9 +4,9 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    // Subtracting the Wormhole UST banner to show more content
     marginTop: css`
-      margin-top: ${theme.spacing(20)};
+      margin-top: ${theme.spacing(34)};
+
       ${theme.breakpoints.down('md')} {
         margin-top: ${theme.spacing(0)};
       }
@@ -17,17 +17,20 @@ export const useStyles = () => {
       min-height: 100%;
       flex: 1;
       flex-direction: column;
+      margin-top: ${theme.spacing(12)};
     `,
     tabs: css`
-      width: ${theme.spacing(136)};
+      max-width: ${theme.spacing(136)};
+      width: 100%;
       padding: ${theme.spacing(10)};
+
       ${theme.breakpoints.down('md')} {
-        width: 100%;
+        max-width: 100%;
         padding: ${theme.spacing(4)};
       }
     `,
     title: css`
-      margin: ${theme.spacing(12)} 0;
+      margin-bottom: ${theme.spacing(12)};
       text-align: center;
       ${theme.breakpoints.down('md')} {
         margin: ${theme.spacing(8)} 0;

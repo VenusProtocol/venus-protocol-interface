@@ -15,7 +15,7 @@ describe('api/queries/getVTokenBalancesAll', () => {
     try {
       await getVTokenBalancesAll({
         venusLensContract: fakeContract,
-        vtAddresses: [''],
+        vTokenAddresses: [''],
         account: '0x23da',
       });
 

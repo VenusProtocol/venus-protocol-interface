@@ -5,7 +5,7 @@ import { IVBepToken } from 'types';
 import { getToken } from 'utilities';
 import { convertWeiToCoins } from 'utilities/common';
 import { VTOKEN_DECIMALS } from 'config';
-import { useGetMarkets } from 'clients/api';
+import { useGetMarkets, useGetVTokenCash } from 'clients/api';
 
 const useGetMarketData = ({
   vTokenId,
@@ -14,12 +14,16 @@ const useGetMarketData = ({
   vTokenId: IVBepToken['id'];
   vTokenAddress: IVBepToken['address'];
 }) => {
+  const { data: vTokenCashWei } = useGetVTokenCash({
+    vTokenId,
+  });
+
   const { data: getMarketData } = useGetMarkets();
   const assetMarket = (getMarketData?.markets || []).find(
     market => market.address.toLowerCase() === vTokenAddress.toLowerCase(),
   );
 
-  const props = React.useMemo(() => {
+  return React.useMemo(() => {
     const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
     const totalSupplyBalanceCents = assetMarket && +assetMarket.totalSupplyUsd * 100;
     const borrowApyPercentage = assetMarket?.borrowApy;
@@ -32,6 +36,7 @@ const useGetMarketData = ({
     const borrowerCount = assetMarket?.borrowerCount;
     const borrowCapCents = assetMarket && +assetMarket.borrowCaps * +assetMarket.tokenPrice * 100;
     const mintedTokens = assetMarket && new BigNumber(assetMarket.totalSupply2);
+    const reserveFactorMantissa = assetMarket && new BigNumber(assetMarket.reserveFactor);
 
     const dailyInterestsCents =
       assetMarket &&
@@ -82,8 +87,19 @@ const useGetMarketData = ({
         ),
       );
 
-    // TODO: calculate actual value (see https://app.clickup.com/t/29xmavh)
-    const currentUtilizationRate = 46;
+    let currentUtilizationRate: number | undefined;
+    if (vTokenCashWei && assetMarket && reserveTokens) {
+      const vTokenCashTokens = convertWeiToCoins({
+        valueWei: vTokenCashWei,
+        tokenId: vTokenId,
+      });
+
+      currentUtilizationRate = new BigNumber(assetMarket.totalBorrows2)
+        .div(vTokenCashTokens.plus(assetMarket.totalBorrows2).minus(reserveTokens))
+        .multipliedBy(100)
+        .dp(0)
+        .toNumber();
+    }
 
     return {
       totalBorrowBalanceCents,
@@ -104,10 +120,9 @@ const useGetMarketData = ({
       reserveTokens,
       exchangeRateVTokens,
       currentUtilizationRate,
+      reserveFactorMantissa,
     };
-  }, [JSON.stringify(assetMarket)]);
-
-  return props;
+  }, [JSON.stringify(assetMarket), vTokenCashWei?.toFixed()]);
 };
 
 export default useGetMarketData;

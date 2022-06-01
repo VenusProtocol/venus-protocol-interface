@@ -16,7 +16,7 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
-import { getContractAddress, formatI18nextRelativetimeValues } from 'utilities';
+import { formatI18nextRelativetimeValues } from 'utilities';
 import { InternalError } from 'utilities/errors';
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
 import { VRT_ID, XVS_ID, VRT_DECIMAL } from '../constants';
@@ -27,9 +27,7 @@ export interface IConvertProps {
   vrtConversionEndTime: Date | undefined;
   userVrtBalanceWei: BigNumber | undefined;
   convertVrtLoading: boolean;
-  userVrtEnabled: boolean;
   convertVrt: (amount: string) => Promise<string>;
-  walletConnected: boolean;
 }
 
 const Convert: React.FC<IConvertProps> = ({
@@ -37,14 +35,11 @@ const Convert: React.FC<IConvertProps> = ({
   vrtConversionEndTime,
   userVrtBalanceWei,
   convertVrtLoading,
-  userVrtEnabled,
   convertVrt,
-  walletConnected,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-  const vrtConverterProxyAddress = getContractAddress('vrtConverterProxy');
 
   const readableXvsAvailable = useConvertToReadableCoinString({
     valueWei: xvsToVrtConversionRatio && userVrtBalanceWei?.times(xvsToVrtConversionRatio),
@@ -130,21 +125,13 @@ const Convert: React.FC<IConvertProps> = ({
 
   return (
     <div css={styles.root}>
-      {walletConnected ? (
-        <section css={styles.title}>
-          <Typography variant="h3">{readableXvsAvailable}</Typography>
-          <Typography variant="small2">{t('convertVrt.xvsAVailable')}</Typography>
-        </section>
-      ) : (
-        <div css={styles.smallSpacer} />
-      )}
       <ConnectWallet message={t('convertVrt.connectWalletToConvertVrtToXvs')}>
-        <EnableToken
-          title={t('convertVrt.enableVrt')}
-          assetId={VRT_ID}
-          isEnabled={userVrtEnabled}
-          vtokenAddress={vrtConverterProxyAddress}
-        >
+        <EnableToken title={t('convertVrt.enableVrt')} vTokenId={VRT_ID}>
+          <section css={styles.title}>
+            <Typography variant="h3">{readableXvsAvailable}</Typography>
+            <Typography variant="small2">{t('convertVrt.xvsAVailable')}</Typography>
+          </section>
+
           <AmountForm onSubmit={onSubmit} maxAmount={userVrtBalance} css={styles.form}>
             {({ values }) => {
               const xvsValue = calculateXvsFromVrt(new BigNumber(values.amount))

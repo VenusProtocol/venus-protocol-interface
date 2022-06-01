@@ -1,24 +1,31 @@
 import BigNumber from 'bignumber.js';
 
+import { Comptroller } from 'types/contracts';
+
 export interface IGetHypotheticalAccountLiquidityInput {
-  comptrollerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
-  account: string | undefined | null;
-  vtokenAddress: string;
-  balanceOf: string;
-  borrowAmount?: number | BigNumber;
+  comptrollerContract: Comptroller;
+  accountAddress: string;
+  vTokenAddress: string;
+  vTokenBalanceOfWei: BigNumber;
+  vTokenBorrowAmountWei?: BigNumber;
 }
 
-export type GetHypotheticalAccountLiquidityOutput = number;
+export type GetHypotheticalAccountLiquidityOutput = { 0: string; 1: string; 2: string };
 
 const getHypotheticalAccountLiquidity = ({
   comptrollerContract,
-  account,
-  vtokenAddress,
-  balanceOf,
-  borrowAmount = 0,
+  accountAddress,
+  vTokenAddress,
+  vTokenBalanceOfWei,
+  vTokenBorrowAmountWei = new BigNumber(0),
 }: IGetHypotheticalAccountLiquidityInput): Promise<GetHypotheticalAccountLiquidityOutput> =>
   comptrollerContract.methods
-    .getHypotheticalAccountLiquidity(account?.toLowerCase(), vtokenAddress, balanceOf, borrowAmount)
+    .getHypotheticalAccountLiquidity(
+      accountAddress.toLowerCase(),
+      vTokenAddress,
+      vTokenBalanceOfWei.toFixed(),
+      vTokenBorrowAmountWei.toFixed(),
+    )
     .call();
 
 export default getHypotheticalAccountLiquidity;

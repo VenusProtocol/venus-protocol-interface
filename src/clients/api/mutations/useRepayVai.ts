@@ -24,7 +24,6 @@ const useRepayVai = (options?: Options) => {
       ...options,
       onSuccess: (...onSuccessParams) => {
         // Invalidate queries related to fetching the user minted VAI amount
-        queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_STATE);
         queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
 
         if (options?.onSuccess) {

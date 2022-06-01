@@ -1,8 +1,9 @@
 import React from 'react';
-import { ComponentMeta } from '@storybook/react';
+import noop from 'noop-ts';
 
-import { withCenterStory } from 'stories/decorators';
-import MintRepayVai from '.';
+import { ComponentMeta, Story } from '@storybook/react';
+import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
+import MintRepayVai, { IMintRepayVaiProps } from '.';
 
 export default {
   title: 'Pages/Dashboard/MintRepayVai',
@@ -15,4 +16,22 @@ export default {
   },
 } as ComponentMeta<typeof MintRepayVai>;
 
-export const Default = () => <MintRepayVai />;
+const Template: Story<IMintRepayVaiProps> = props => <MintRepayVai {...props} />;
+
+const context = {
+  login: noop,
+  logOut: noop,
+  openAuthModal: noop,
+  closeAuthModal: noop,
+  account: {
+    address: '0x0000000000000000000000000000000000000000',
+  },
+};
+
+export const Disconnected = Template.bind({});
+
+export const Disabled = Template.bind({});
+Disabled.decorators = [withAuthContext(context)];
+
+export const Default = Template.bind({});
+Default.decorators = [withAuthContext(context), withEnabledToken('vai')];

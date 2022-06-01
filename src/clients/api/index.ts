@@ -80,7 +80,6 @@ export { default as useGetAssetsInAccount } from './queries/useGetAssetsInAccoun
 
 export { default as getHypotheticalAccountLiquidity } from './queries/getHypotheticalAccountLiquidity';
 export * from './queries/getHypotheticalAccountLiquidity';
-export { default as useGetHypotheticalLiquidityQueries } from './queries/useGetHypotheticalLiquidityQueries';
 
 export { default as getMarkets } from './queries/getMarkets';
 export * from './queries/getMarkets';
@@ -94,29 +93,9 @@ export { default as getVTokenBalanceOf } from './queries/getVTokenBalanceOf';
 export * from './queries/getVTokenBalanceOf';
 export { default as useGetVTokenBalanceOf } from './queries/useGetVTokenBalanceOf';
 
-export { default as getVenusInitialIndex } from './queries/getVenusInitialIndex';
-export * from './queries/getVenusInitialIndex';
-export { default as useGetVenusInitialIndex } from './queries/useGetVenusInitialIndex';
-
-export { default as getVenusAccrued } from './queries/getVenusAccrued';
-export * from './queries/getVenusAccrued';
-export { default as useGetVenusAccrued } from './queries/useGetVenusAccrued';
-
-export { default as getVenusVaiState } from './queries/getVenusVaiState';
-export * from './queries/getVenusVaiState';
-export { default as useGetVenusVaiState } from './queries/useGetVenusVaiState';
-
 export { default as getMintedVai } from './queries/getMintedVai';
 export * from './queries/getMintedVai';
 export { default as useGetMintedVai } from './queries/useGetMintedVai';
-
-export { default as getVenusVaiMinterIndex } from './queries/getVenusVaiMinterIndex';
-export * from './queries/getVenusVaiMinterIndex';
-export { default as useGetVenusVaiMinterIndex } from './queries/useGetVenusVaiMinterIndex';
-
-export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultRate';
-export * from './queries/getVenusVaiVaultRate';
-export { default as useGetVenusVaiVaultRate } from './queries/useGetVenusVaiVaultRate';
 
 export { default as getXvsReward } from './queries/getXvsReward';
 export * from './queries/getXvsReward';
@@ -138,13 +117,35 @@ export { default as getVrtConversionRatio } from './queries/getVrtConversionRati
 export * from './queries/getVrtConversionRatio';
 export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversionRatio';
 
+export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultRate';
+export * from './queries/getVenusVaiVaultRate';
+export { default as useGetVenusVaiVaultRate } from './queries/useGetVenusVaiVaultRate';
+
 export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';
 
 export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithdrawableAmount';
 
-export { default as useUserMarketInfo } from './queries/useUserMarketInfo';
+export { default as useGetUserMarketInfo } from './queries/useGetUserMarketInfo';
 
 export { default as getMarketHistory } from './queries/getMarketHistory';
 export * from './queries/getMarketHistory';
 export { default as useGetMarketHistory } from './queries/useGetMarketHistory';
+
+export { default as getVTokenCash } from './queries/getVTokenCash';
+export * from './queries/getVTokenCash';
+export { default as useGetVTokenCash } from './queries/useGetVTokenCash';
+
+export { default as getVTokenInterestRateModel } from './queries/getVTokenInterestRateModel';
+export * from './queries/getVTokenInterestRateModel';
+export { default as useGetVTokenInterestRateModel } from './queries/useGetVTokenInterestRateModel';
+
+export { default as getVTokenApySimulations } from './queries/getVTokenApySimulations';
+export * from './queries/getVTokenApySimulations';
+export { default as useGetVTokenApySimulations } from './queries/useGetVTokenApySimulations';
+
+export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
+export * from './queries/getVTokenBorrowRate';
+
+export { default as getVTokenSupplyRate } from './queries/getVTokenSupplyRate';
+export * from './queries/getVTokenSupplyRate';

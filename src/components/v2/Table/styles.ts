@@ -53,7 +53,6 @@ export const useStyles = () => {
     `,
     columnLabelMobile: css`
       font-size: ${theme.spacing(3)};
-      text-transform: none;
       font-weight: 400;
     `,
     cellValueMobile: css`
@@ -69,7 +68,7 @@ export const useStyles = () => {
       .MuiTableCell-root {
         border-width: 0;
         font-weight: ${theme.typography.body1.fontWeight};
-        text-align: right;
+        flex-direction: row;
         font-size: ${theme.spacing(3.5)};
         text-transform: none;
       }
@@ -80,7 +79,6 @@ export const useStyles = () => {
 
       .MuiTableCell-root:first-of-type {
         padding-left: ${theme.spacing(6)};
-        text-align: left;
       }
 
       .MuiTableCell-root:last-child {

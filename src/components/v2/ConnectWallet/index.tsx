@@ -29,7 +29,7 @@ export const Prompt: React.FC<IPromptProps> = ({
     return <>{children}</>;
   }
   return (
-    <div className={className}>
+    <div css={styles.container} className={className}>
       <NoticeInfo css={styles.notice} description={message} />
 
       <SecondaryButton fullWidth onClick={openAuthModal}>

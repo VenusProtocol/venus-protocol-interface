@@ -16,6 +16,7 @@ export interface ITableRowProps {
   key: string | number;
   render: () => React.ReactNode | string;
   value: string | number | boolean;
+  align?: 'left' | 'center' | 'right';
 }
 
 export interface ITableBaseProps {
@@ -128,17 +129,8 @@ export const Table = ({
                   onClick={
                     rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
                   }
-                  component={
-                    getRowHref
-                      ? ({ children, ...props }) => (
-                          <Link {...props} to={getRowHref(row)}>
-                            {children}
-                          </Link>
-                        )
-                      : 'tr'
-                  }
                 >
-                  {row.map(({ key, render }: ITableRowProps) => {
+                  {row.map(({ key, render, align }: ITableRowProps) => {
                     const cellContent = render();
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
                     return (
@@ -146,8 +138,9 @@ export const Table = ({
                         css={styles.cellWrapper}
                         key={`${rowKey}-${key}-table`}
                         title={cellTitle}
+                        align={align}
                       >
-                        {cellContent}
+                        {getRowHref ? <Link to={getRowHref(row)}>{cellContent}</Link> : cellContent}
                       </TableCell>
                     );
                   })}

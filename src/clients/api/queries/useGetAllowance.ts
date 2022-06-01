@@ -13,7 +13,7 @@ type Options = QueryObserverOptions<
   Error,
   GetAllowanceOutput,
   GetAllowanceOutput,
-  FunctionKey.GET_TOKEN_ALLOWANCE
+  [FunctionKey.GET_TOKEN_ALLOWANCE, string, string]
 >;
 
 const useGetAllowance = (
@@ -27,7 +27,7 @@ const useGetAllowance = (
   const tokenContract = useTokenContract(tokenId);
 
   return useQuery(
-    FunctionKey.GET_TOKEN_ALLOWANCE,
+    [FunctionKey.GET_TOKEN_ALLOWANCE, tokenId, spenderAddress],
     () => getAllowance({ tokenContract, accountAddress, spenderAddress }),
     options,
   );

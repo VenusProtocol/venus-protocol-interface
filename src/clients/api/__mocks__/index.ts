@@ -1,4 +1,4 @@
-import { useQuery, useQueries, useMutation, MutationObserverOptions } from 'react-query';
+import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 
@@ -12,11 +12,6 @@ export const useGetAssetsInAccount = () =>
   useQuery(FunctionKey.GET_ASSETS_IN_ACCOUNT, getAssetsInAccount);
 
 export const getHypotheticalAccountLiquidity = jest.fn();
-export const useGetHypotheticalLiquidityQueries = jest.fn(() =>
-  useQueries([
-    { queryKey: FunctionKey.GET_HYPOTHETICAL_LIQUIDITY, queryFn: getHypotheticalAccountLiquidity },
-  ]),
-);
 
 export const getMarkets = jest.fn();
 export const useGetMarkets = () => useQuery(FunctionKey.GET_MARKETS, getMarkets);
@@ -29,27 +24,8 @@ export const useGetVTokenBalancesAll = jest.fn(() =>
   useQuery(FunctionKey.GET_V_TOKEN_BALANCES_ALL, getVTokenBalancesAll),
 );
 
-export const getVenusInitialIndex = jest.fn();
-export const useGetVenusInitialIndex = () =>
-  useQuery(FunctionKey.GET_VENUS_INITIAL_INDEX, getVenusInitialIndex);
-
-export const getVenusAccrued = jest.fn();
-export const useGetVenusAccrued = () => useQuery(FunctionKey.GET_VENUS_ACCRUED, getVenusAccrued);
-
-export const getVenusVaiState = jest.fn();
-export const useGetVenusVaiState = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_STATE, getVenusVaiState);
-
 export const getMintedVai = jest.fn();
 export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
-
-export const getVenusVaiMinterIndex = jest.fn();
-export const useGetVenusVaiMinterIndex = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getVenusVaiMinterIndex);
-
-export const getVenusVaiVaultRate = jest.fn();
-export const useGetVenusVaiVaultRate = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_MINTER_INDEX, getVenusVaiVaultRate);
 
 export const getXvsReward = jest.fn();
 export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);
@@ -60,25 +36,44 @@ export const useGetVTokenBalanceOf = () =>
 
 export const getVTokenBorrowBalance = jest.fn();
 export const useGetVTokenBorrowBalance = () =>
-  useMutation(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
+  useQuery(FunctionKey.GET_V_TOKEN_BORROW_BALANCE, getVTokenBorrowBalance);
 
 export const getAllowance = jest.fn();
-export const useGetAllowance = () => useMutation(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
+export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = jest.fn();
 export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getBalanceOf);
 
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
-  useMutation(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);
+  useQuery(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);
 
 export const getVrtConversionRatio = jest.fn();
 export const useGetVrtConversionRatio = () =>
-  useMutation(FunctionKey.GET_VRT_CONVERSION_RATIO, getVrtConversionRatio);
+  useQuery(FunctionKey.GET_VRT_CONVERSION_RATIO, getVrtConversionRatio);
 
 export const getXvsWithdrawableAmount = jest.fn();
 export const useGetXvsWithdrawableAmount = () =>
-  useMutation(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, getXvsWithdrawableAmount);
+  useQuery(FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, getXvsWithdrawableAmount);
+
+export const getVTokenCash = jest.fn();
+export const useGetVTokenCash = () => useQuery(FunctionKey.GET_V_TOKEN_CASH, getVTokenCash);
+
+export const getVTokenInterestRateModel = jest.fn();
+export const useGetVTokenInterestRateModel = () =>
+  useQuery(FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, getVTokenInterestRateModel);
+
+export const getVTokenApySimulations = jest.fn();
+export const useGetVTokenApySimulations = () =>
+  useQuery(FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, getVTokenApySimulations);
+
+export const getVTokenSupplyRate = jest.fn();
+
+export const getVTokenBorrowRate = jest.fn();
+
+export const getVenusVaiVaultRate = jest.fn();
+export const useGetVenusVaiVaultRate = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_RATE, getVenusVaiVaultRate);
 
 // Mutations
 export const approveToken = jest.fn();
@@ -140,7 +135,7 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
 
-export const useUserMarketInfo = jest.fn();
+export const useGetUserMarketInfo = jest.fn();
 
 export const borrowVToken = jest.fn();
 export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, borrowVToken);
