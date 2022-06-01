@@ -106,6 +106,7 @@ export default createTheme({
   typography: {
     fontFamily: FONTS.primary,
     color: PALETTE.text.primary,
+    lineHeight: 1.5,
     h1: {
       fontSize: '2.5rem',
       fontWeight: 600,

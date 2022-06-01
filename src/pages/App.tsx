@@ -12,7 +12,8 @@ import { Layout, ResetScrollOnRouteChange } from 'components';
 import { isOnTestnet } from 'config';
 import Dashboard from 'pages/Dashboard';
 import Faucet from 'containers/Main/Faucet';
-import Vote from 'containers/Main/Vote';
+import VoteV1 from 'containers/Main/Vote';
+import Vote from 'pages/Vote';
 import XVSV1 from 'containers/Main/XVS';
 import Xvs from 'pages/Xvs';
 import Market from 'pages/Market';
@@ -50,7 +51,11 @@ const App = () => (
                           <ResetScrollOnRouteChange />
                           <Switch>
                             <Route exact path={Path.DASHBOARD} component={Dashboard} />
-                            <Route exact path={Path.VOTE} component={Vote} />
+                            <Route
+                              exact
+                              path={Path.VOTE}
+                              component={process.env.REACT_APP_RUN_V2 ? Vote : VoteV1}
+                            />
                             <Route
                               exact
                               path={Path.XVS}
