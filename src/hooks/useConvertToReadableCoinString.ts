@@ -1,27 +1,23 @@
 import { useMemo } from 'react';
-import BigNumber from 'bignumber.js';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import { TokenId } from 'types';
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins, IConvertWeiToCoinsInput } from 'utilities/common';
 
-const useConvertToReadableCoinString = ({
-  tokenId,
-  valueWei,
-}: {
-  tokenId: TokenId;
-  valueWei?: BigNumber;
-}) =>
+export interface IUseConvertToReadableCoinStringInput
+  extends Omit<IConvertWeiToCoinsInput, 'valueWei' | 'returnInReadableFormat'> {
+  valueWei: IConvertWeiToCoinsInput['valueWei'] | undefined;
+}
+
+const useConvertToReadableCoinString = (params: IUseConvertToReadableCoinStringInput) =>
   useMemo(
     () =>
-      valueWei
+      params.valueWei
         ? convertWeiToCoins({
-            valueWei,
-            tokenId,
+            ...(params as IConvertWeiToCoinsInput),
             returnInReadableFormat: true,
           })
         : PLACEHOLDER_KEY,
-    [valueWei?.toString()],
+    [params.valueWei?.toFixed()],
   );
 
 export default useConvertToReadableCoinString;
