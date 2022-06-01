@@ -97,6 +97,8 @@ export const useGetXvsVaultTotalAllocationPoints = () =>
 export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
+export const getCurrentVotes = jest.fn();
+export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
 
 export const useGetTreasuryTotals = jest.fn();
 

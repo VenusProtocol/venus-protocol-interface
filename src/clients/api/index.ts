@@ -146,6 +146,10 @@ export { default as getVTokenApySimulations } from './queries/getVTokenApySimula
 export * from './queries/getVTokenApySimulations';
 export { default as useGetVTokenApySimulations } from './queries/useGetVTokenApySimulations';
 
+export { default as getCurrentVotes } from './queries/getCurrentVotes';
+export * from './queries/getCurrentVotes';
+export { default as useGetCurrentVotes } from './queries/useGetCurrentVotes';
+
 export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
 export * from './queries/getVTokenBorrowRate';
 
