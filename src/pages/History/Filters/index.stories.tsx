@@ -1,25 +1,23 @@
 import React from 'react';
+import noop from 'lodash';
 import { ComponentMeta } from '@storybook/react';
-import { noop } from 'lodash';
-import { ALL_VALUE } from './Filters';
-import { HistoryUi } from '.';
+import Filters, { ALL_VALUE } from '.';
 
 export default {
-  title: 'Pages/History',
-  component: HistoryUi,
+  title: 'Pages/Filters',
+  component: Filters,
   parameters: {
     backgrounds: {
       default: 'White',
     },
   },
-} as ComponentMeta<typeof HistoryUi>;
+} as ComponentMeta<typeof Filters>;
 
 export const Default = () => (
-  <HistoryUi
+  <Filters
     eventType={ALL_VALUE}
     setEventType={noop}
     showOnlyMyTxns={false}
     setShowOnlyMyTxns={noop}
-    transactions={[]}
   />
 );
