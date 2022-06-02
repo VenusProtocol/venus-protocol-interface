@@ -78,7 +78,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
     {
       key: 'txnHash',
       render: () => (
-        <EllipseText css={styles.txnHash} text={txn.transactionHash}>
+        <EllipseText css={styles.txnHash} text={txn.transactionHash} minChars={6}>
           <Typography
             className="ellipse-text"
             component="a"
@@ -106,7 +106,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
     {
       key: 'from',
       render: () => (
-        <EllipseText css={styles.txnHash} text={txn.from}>
+        <EllipseText css={styles.txnHash} text={txn.from} minChars={6}>
           <Typography
             className="ellipse-text"
             component="a"
@@ -125,7 +125,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
       key: 'to',
       render: () =>
         txn.to ? (
-          <EllipseText css={styles.txnHash} text={txn.to}>
+          <EllipseText css={styles.txnHash} text={txn.to} minChars={6}>
             <Typography
               className="ellipse-text"
               component="a"
