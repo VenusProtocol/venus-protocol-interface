@@ -68,6 +68,7 @@ const App = () => (
                               path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
                               component={process.env.REACT_APP_RUN_V2 ? History : TransactionV1}
                             />
+
                             <Route
                               exact
                               path={Path.VAULT}

@@ -1,7 +1,7 @@
 import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import { XVS_TOKEN_ADDRESS } from './constants';
 import getXvsVaultPoolInfos, { GetXvsVaultPoolInfosOutput } from '../getXvsVaultPoolInfos';
 import getXvsVaultPendingReward, {
@@ -22,7 +22,7 @@ const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
 }: IUseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
-  const xvsVaultContract = useXvsVaultContract();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   const poolQueries: UseQueryOptions<
     GetXvsVaultPoolInfosOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
