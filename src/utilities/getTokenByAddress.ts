@@ -6,7 +6,9 @@ const getTokenByAddress = (address: string) => {
     key => TOKENS[key as keyof typeof TOKENS]?.address === address,
   );
 
-  return tokenId && (TOKENS[tokenId as TokenId] as IToken);
+  return tokenId && Object.prototype.hasOwnProperty.call(TOKENS, tokenId)
+    ? (TOKENS[tokenId as TokenId] as IToken)
+    : undefined;
 };
 
 export default getTokenByAddress;
