@@ -13,4 +13,4 @@ export default {
   },
 } as ComponentMeta<typeof HistoryTableUi>;
 
-export const Default = () => <HistoryTableUi transactions={transactions} />;
+export const Default = () => <HistoryTableUi transactions={transactions} isFetching={false} />;
