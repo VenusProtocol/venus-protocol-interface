@@ -120,6 +120,7 @@
     "enableButtonLabel": "Enable"
   },
   "errors": {
+    "invalidTokenAddressProvided": "Invalid token address provided",
     "somethingWentWrong": "Something went wrong",
     "undefinedAccountErrorMessage": "account undefined",
     "walletNotConnected": "Wallet not connected"
@@ -518,6 +519,36 @@
     "governanceProposals": "Governance proposals",
     "votingWallet": "Voting wallet"
   },
+  "voteProposalUi": {
+    "activeUntil": "Active until:",
+    "activeUntilDate": "{{ date, dd MMM HH:mm }}",
+    "countdownFormat": {
+      "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
+      "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
+      "minutesIncluded": "{{minutes}}m : {{seconds}}s"
+    },
+    "proposalStatus": {
+      "active": "Active"
+    },
+    "statusCard": {
+      "abstain": "Abstain",
+      "against": "Against",
+      "ariaLabelAbstain": "votes abstain",
+      "ariaLabelAgainst": "votes against",
+      "ariaLabelFor": "votes for",
+      "cancelled": "Cancelled",
+      "executed": "Executed",
+      "for": "For",
+      "queued": "Queue",
+      "readyToExecute": "Ready to execute"
+    },
+    "voteStatus": {
+      "abstained": "Abstained",
+      "notVoted": "Not voted",
+      "votedAgainst": "Voted against",
+      "votedFor": "Voted for"
+    }
+  },
   "xvs": {
     "columns": {
       "asset": "Asset",
@@ -528,36 +559,5 @@
     "dailyDistribution": "Daily Distribution:",
     "progressBar": "Xvs Distribution progress",
     "remaining": "Remaining:"
-  },
-  "voteProposalUi": {
-    "statusCard": {
-      "for": "For",
-      "ariaLabelFor": "votes for",
-      "against": "Against",
-      "ariaLabelAgainst": "votes against",
-      "abstain": "Abstain",
-      "ariaLabelAbstain": "votes abstain",
-      "queued": "Queue",
-      "readyToExecute": "Ready to execute",
-      "executed": "Executed",
-      "cancelled": "Cancelled"
-    },
-    "proposalStatus": {
-      "active": "Active"
-    },
-    "voteStatus": {
-      "votedFor": "Voted for",
-      "votedAgainst": "Voted against",
-      "abstained": "Abstained",
-      "notVoted": "Not voted"
-    },
-    "activeUntil": "Active until:",
-    "activeUntilDate": "{{ date, dd MMM HH:mm }}",
-    "countdownFormat": {
-      "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
-      "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
-      "minutesIncluded": "{{minutes}}m : {{seconds}}s",
-      "secondsIncluded": "{{seconds}}s"
-    }
   }
 }
