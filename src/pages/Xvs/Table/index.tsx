@@ -12,7 +12,7 @@ import {
 import { Token, Table, TableProps } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import { getContractAddress, getToken } from 'utilities';
 import { formatToReadablePercentage, formatCoinsToReadableValue } from 'utilities/common';
 import { useStyles } from '../styles';
@@ -59,7 +59,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token tokenId={asset.symbol as TokenId} />,
+      render: () => <Token tokenId={asset.id} />,
       value: asset.id,
       align: 'left',
     },

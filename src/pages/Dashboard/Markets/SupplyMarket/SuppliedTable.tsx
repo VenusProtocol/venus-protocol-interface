@@ -6,7 +6,7 @@ import {
   formatToReadablePercentage,
   formatCentsToReadableValue,
 } from 'utilities/common';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import { Table, TableProps, Token, Toggle, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from './styles';
@@ -48,7 +48,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token tokenId={asset.symbol as TokenId} />,
+      render: () => <Token tokenId={asset.id} />,
       value: asset.id,
       align: 'left',
     },

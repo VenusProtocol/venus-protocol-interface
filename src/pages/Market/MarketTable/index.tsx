@@ -57,7 +57,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
   const rows: TableProps['data'] = markets.map(market => [
     {
       key: 'market',
-      render: () => <Token tokenId={market.underlyingSymbol as TokenId} />,
+      render: () => <Token tokenId={market.id as TokenId} />,
       value: market.id,
     },
     {

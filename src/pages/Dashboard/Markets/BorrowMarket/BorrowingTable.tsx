@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
 import { ProgressBar, Table, Token, TableProps, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
@@ -56,7 +56,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token tokenId={asset.symbol as TokenId} />,
+        render: () => <Token tokenId={asset.id} />,
         value: asset.id,
         align: 'left',
       },
