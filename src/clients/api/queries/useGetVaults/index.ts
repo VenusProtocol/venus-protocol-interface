@@ -5,7 +5,7 @@ import { Vault } from 'types';
 import { BLOCKS_PER_DAY } from 'constants/blocksPerDay';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { getTokenByAddress } from 'utilities';
-import { convertWeiToCoins } from 'utilities/common';
+import { indexBy } from 'utilities/common';
 import { XVS_TOKEN_ADDRESS, XVS_TOKEN_ID } from './constants';
 import useGetXvsVaultPoolsCount from '../useGetXvsVaultPoolsCount';
 import useGetXvsVaultTotalAllocationPoints from '../useGetXvsVaultTotalAllocationPoints';
@@ -65,6 +65,12 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
     queryResult => queryResult.isLoading,
   );
 
+  // Index results by pool ID
+  const poolBalances = indexBy(
+    (_item, index) => `${index}`,
+    poolBalanceQueryResults.map(poolBalanceQueryResult => poolBalanceQueryResult.data),
+  );
+
   const isLoading =
     isGetXvsVaultPoolsCountLoading ||
     isGetXvsVaultRewardWeiPerBlockLoading ||
@@ -90,7 +96,8 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
         ] as UseQueryResult<IGetXvsVaultUserInfoOutput>;
 
         const poolInfos = poolInfosQueryResult.data;
-        const totalStakedAmountWei = poolBalanceQueryResults[poolIndex].data;
+        const totalStakedAmountWei = poolBalances[poolIndex];
+
         const lockingPeriodMs = poolInfos?.lockingPeriodMs;
         const userStakedAmountWei = userInfoQueryResult.data?.stakedAmountWei;
         const userPendingRewardAmountWei = userPendingRewardQueryResult.data;
@@ -98,7 +105,7 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
         const stakedTokenId =
           poolInfos?.stakedTokenAddress && getTokenByAddress(poolInfos.stakedTokenAddress)?.id;
 
-        const vaultRewardWeiPerBlock =
+        const poolRewardWeiPerBlock =
           xvsVaultRewardWeiPerBlock &&
           xvsVaultTotalAllocationPoints &&
           poolInfos?.allocationPoint &&
@@ -107,38 +114,32 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
             .div(xvsVaultTotalAllocationPoints);
 
         const dailyEmissionAmountWei =
-          vaultRewardWeiPerBlock && vaultRewardWeiPerBlock.multipliedBy(BLOCKS_PER_DAY);
+          poolRewardWeiPerBlock && poolRewardWeiPerBlock.multipliedBy(BLOCKS_PER_DAY);
 
-        let stakeApr: number | undefined;
-
-        if (dailyEmissionAmountWei && totalStakedAmountWei) {
-          const dailyEmissionAmountTokens = convertWeiToCoins({
-            valueWei: dailyEmissionAmountWei,
-            tokenId: XVS_TOKEN_ID,
-          });
-
-          stakeApr = dailyEmissionAmountTokens
+        const stakeAprPercentage =
+          dailyEmissionAmountWei &&
+          totalStakedAmountWei &&
+          dailyEmissionAmountWei
             .multipliedBy(DAYS_PER_YEAR)
             .div(totalStakedAmountWei)
+            .multipliedBy(100)
             .toNumber();
-        }
 
         if (
           stakedTokenId &&
           lockingPeriodMs &&
-          vaultRewardWeiPerBlock &&
           dailyEmissionAmountWei &&
           totalStakedAmountWei &&
-          stakeApr
+          stakeAprPercentage
         ) {
           const vault: Vault = {
             poolIndex,
-            stakedTokenId,
             rewardTokenId: XVS_TOKEN_ID,
+            stakedTokenId,
             lockingPeriodMs,
             dailyEmissionAmountWei,
-            stakeApr,
             totalStakedAmountWei,
+            stakeAprPercentage,
             userStakedAmountWei,
             userPendingRewardAmountWei,
           };
@@ -152,7 +153,7 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
       queriesPerPoolCount,
       xvsVaultPoolsCount,
       JSON.stringify(poolQueryResults),
-      JSON.stringify(poolBalanceQueryResults),
+      JSON.stringify(poolBalances),
       xvsVaultRewardWeiPerBlock?.toFixed(),
       xvsVaultTotalAllocationPoints,
     ],
