@@ -64,7 +64,7 @@ describe('api/queries/getXvsVaultPoolInfos', () => {
       allocationPoint: 10,
       lastRewardBlock: 100000,
       accRewardPerShare: new BigNumber('123871680'),
-      lockingPeriodDays: 200,
+      lockingPeriodMs: 200000,
     });
   });
 });

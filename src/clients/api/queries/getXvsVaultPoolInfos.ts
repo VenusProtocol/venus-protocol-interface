@@ -12,7 +12,7 @@ export type GetXvsVaultPoolInfosOutput = {
   allocationPoint: number;
   lastRewardBlock: number;
   accRewardPerShare: BigNumber;
-  lockingPeriodDays: number;
+  lockingPeriodMs: number;
 };
 
 const getXvsVaultPoolInfos = async ({
@@ -27,7 +27,8 @@ const getXvsVaultPoolInfos = async ({
     allocationPoint: +res.allocPoint,
     lastRewardBlock: +res.lastRewardBlock,
     accRewardPerShare: new BigNumber(res.accRewardPerShare),
-    lockingPeriodDays: +res.lockPeriod,
+    // Convert lockPeriod from seconds to milliseconds
+    lockingPeriodMs: +res.lockPeriod * 1000,
   };
 };
 
