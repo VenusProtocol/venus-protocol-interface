@@ -5,14 +5,14 @@ import { convertCoinsToWei } from 'utilities/common';
 import { getTokenByAddress } from 'utilities';
 import { VError } from 'errors';
 
-export interface GetXvsVaultUserInfoInput {
+export interface IGetXvsVaultUserInfoInput {
   xvsVaultContract: XvsVault;
   tokenAddress: string;
-  pid: number;
+  poolIndex: number;
   accountAddress: string;
 }
 
-export interface GetXvsVaultUserInfoOutput {
+export interface IGetXvsVaultUserInfoOutput {
   stakedAmountWei: BigNumber;
   pendingWithdrawalsTotalAmountWei: BigNumber;
   rewardDebtAmountWei: BigNumber;
@@ -21,9 +21,9 @@ export interface GetXvsVaultUserInfoOutput {
 const GetXvsVaultUserInfo = async ({
   xvsVaultContract,
   tokenAddress,
-  pid,
+  poolIndex,
   accountAddress,
-}: GetXvsVaultUserInfoInput): Promise<GetXvsVaultUserInfoOutput> => {
+}: IGetXvsVaultUserInfoInput): Promise<IGetXvsVaultUserInfoOutput> => {
   const token = getTokenByAddress(tokenAddress);
 
   if (!token) {
@@ -33,7 +33,9 @@ const GetXvsVaultUserInfo = async ({
     });
   }
 
-  const res = await xvsVaultContract.methods.getUserInfo(tokenAddress, pid, accountAddress).call();
+  const res = await xvsVaultContract.methods
+    .getUserInfo(tokenAddress, poolIndex, accountAddress)
+    .call();
 
   const stakedAmountTokens = new BigNumber(res.amount).dividedBy(token.decimals);
   const pendingWithdrawalsTotalAmountTokens = new BigNumber(res.pendingWithdrawals).dividedBy(

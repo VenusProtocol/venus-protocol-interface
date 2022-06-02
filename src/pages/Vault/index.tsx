@@ -9,6 +9,7 @@ const VaultUi: React.FC = () => <div>Vault</div>;
 const Vault: React.FC = () => {
   // DEV ONLY
   const { account } = useContext(AuthContext);
+
   useGetVaults({
     accountAddress: account?.address,
   });
