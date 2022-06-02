@@ -32,9 +32,9 @@ const GetXvsVaultPendingRewardWei = async ({
   const res = await xvsVaultContract.methods
     .pendingReward(tokenAddress, pid, accountAddress)
     .call();
-  const rewardPerBlockXvs = new BigNumber(res).dividedBy(token.decimals);
+  const pendingRewardXvs = new BigNumber(res).dividedBy(token.decimals);
   return convertCoinsToWei({
-    value: rewardPerBlockXvs,
+    value: pendingRewardXvs,
     tokenId: token.id,
   });
 };

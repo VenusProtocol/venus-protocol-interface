@@ -61,10 +61,10 @@ describe('api/queries/getXvsVaultPoolInfos', () => {
     expect(poolInfosMock).toHaveBeenCalledWith(fakeTokenAddress, fakePid);
     expect(response).toStrictEqual({
       tokenAddress: fakeTokenAddress,
-      allocPoint: 10,
+      allocationPoint: 10,
       lastRewardBlock: 100000,
       accRewardPerShare: new BigNumber('123871680'),
-      lockPeriodDays: 200,
+      lockingPeriodDays: 200,
     });
   });
 });
