@@ -86,7 +86,6 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   }
 
   // Get addresses of tokens staked in pools, sorted by pool index
-
   const stakedTokenAddresses = Object.keys(poolData)
     .filter(key => key !== undefined)
     .map(poolIndex => poolData[poolIndex].poolInfos.stakedTokenAddress);
