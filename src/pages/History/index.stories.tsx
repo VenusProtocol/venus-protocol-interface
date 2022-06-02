@@ -23,5 +23,6 @@ export const Default = () => (
     setShowOnlyMyTxns={noop}
     transactions={transactions}
     walletConnected
+    isFetching={false}
   />
 );

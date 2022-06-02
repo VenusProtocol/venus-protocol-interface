@@ -8,6 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Spinner } from '../Spinner';
 import Head from './Head';
 import { useStyles } from './styles';
 import TableCards from './TableCards';
@@ -36,6 +37,7 @@ export interface ITableBaseProps {
   cardsCss?: SerializedStyles;
   gridTemplateColumnsCards?: string;
   gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
+  isFetching?: boolean;
 }
 
 interface ITableCardRowOnClickProps extends ITableBaseProps {
@@ -63,6 +65,7 @@ export const Table = ({
   className,
   tableCss,
   cardsCss,
+  isFetching,
 }: TableProps) => {
   const styles = useStyles();
 
@@ -114,8 +117,6 @@ export const Table = ({
             onRequestOrder={onRequestOrder}
           />
 
-          {/* TODO: add loading state */}
-
           {/* TODO: add error state */}
 
           <TableBody>
@@ -151,6 +152,7 @@ export const Table = ({
           </TableBody>
         </TableMUI>
       </TableContainer>
+      {isFetching && <Spinner />}
       <TableCards
         rows={rows}
         rowKeyIndex={rowKeyIndex}

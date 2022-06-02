@@ -9,6 +9,7 @@ import Filters, { ALL_VALUE, IFilterProps } from './Filters';
 
 interface IHistoryUiProps extends IFilterProps {
   transactions: Transaction[];
+  isFetching: boolean;
 }
 
 export const HistoryUi: React.FC<IHistoryUiProps> = ({
@@ -18,6 +19,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
   setShowOnlyMyTxns,
   transactions,
   walletConnected,
+  isFetching,
 }) => (
   <div>
     <Filters
@@ -27,7 +29,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
       setShowOnlyMyTxns={setShowOnlyMyTxns}
       walletConnected={walletConnected}
     />
-    <HistoryTable transactions={transactions} />
+    <HistoryTable transactions={transactions} isFetching={isFetching} />
   </div>
 );
 
@@ -36,7 +38,7 @@ const History: React.FC = () => {
   const accountAddress = account?.address;
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
-  const { data: { transactions } = { transactions: [] } } = useGetTransactions(
+  const { data: { transactions } = { transactions: [] }, isFetching } = useGetTransactions(
     {
       address: showOnlyMyTxns ? accountAddress : undefined,
       event: eventType !== ALL_VALUE ? eventType : undefined,
@@ -51,6 +53,7 @@ const History: React.FC = () => {
       setShowOnlyMyTxns={setShowOnlyMyTxns}
       transactions={transactions}
       walletConnected={!!accountAddress}
+      isFetching={isFetching}
     />
   );
 };
