@@ -9,6 +9,8 @@ interface ISpinnerProps {
   className?: string;
 }
 
+export const SPINNER_TEST_ID = 'spinner-test-id';
+
 export const Spinner: React.FC<ISpinnerProps> = ({
   variant = 'large',
   autoplay = true,
@@ -16,8 +18,8 @@ export const Spinner: React.FC<ISpinnerProps> = ({
 }) => {
   const styles = useStyles({ variant });
   return (
-    <div css={styles.container}>
-      <SpinnerAnimation className={className} autoplay={autoplay} css={styles.spinner} />
+    <div css={styles.container} className={className} data-testid={SPINNER_TEST_ID}>
+      <SpinnerAnimation autoplay={autoplay} css={styles.spinner} />
     </div>
   );
 };
