@@ -104,8 +104,6 @@ function Vault() {
           .multipliedBy(poolInfo.allocPoint)
           .div(totalAllocPoints);
 
-        console.log(totalStaked);
-
         const blockPerDay = 86400 / 3; // per 3 seconds for a block
         const dailyEmission = new BigNumber(rewardPerBlockOfPool).multipliedBy(blockPerDay);
 
