@@ -2,40 +2,11 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
-import { VError } from 'errors';
 import getXvsVaultRewardTokenAmountsPerBlock from './getXvsVaultRewardWeiPerBlock';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 
 describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
-  test('throws an error when providing an invalid token address', async () => {
-    const fakeContract = {
-      methods: {
-        rewardTokenAmountsPerBlock: () => ({
-          call: jest.fn(),
-        }),
-      },
-    } as unknown as XvsVault;
-
-    try {
-      await getXvsVaultRewardTokenAmountsPerBlock({
-        xvsVaultContract: fakeContract,
-        tokenAddress: 'invalid token address',
-      });
-
-      throw new Error(
-        'getXvsVaultRewardTokenAmountsPerBlock should have thrown an error but did not',
-      );
-    } catch (error) {
-      expect(error).toBeInstanceOf(VError);
-      expect(error).toMatchInlineSnapshot('[Error: invalidTokenAddressProvided]');
-      if (error instanceof VError) {
-        expect(error.type).toBe('unexpected');
-        expect(error.code).toBe('invalidTokenAddressProvided');
-      }
-    }
-  });
-
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -62,7 +33,7 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
   });
 
   test('returns the reward per block in wei on success', async () => {
-    const fakeOutput = '36';
+    const fakeOutput = '2000000000000000000';
 
     const callMock = jest.fn(async () => fakeOutput);
     const rewardTokenAmountsPerBlockMock = jest.fn(() => ({
@@ -83,6 +54,6 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledTimes(1);
     expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledWith(xvsTokenAddress);
-    expect(response).toStrictEqual(new BigNumber('2000000000000000000'));
+    expect(response).toStrictEqual(new BigNumber(fakeOutput));
   });
 });
