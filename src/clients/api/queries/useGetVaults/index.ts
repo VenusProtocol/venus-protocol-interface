@@ -6,13 +6,15 @@ import { BLOCKS_PER_DAY } from 'constants/blocksPerDay';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { getTokenByAddress } from 'utilities';
 import { indexBy } from 'utilities/common';
+import {
+  useGetXvsVaultPoolsCount,
+  useGetXvsVaultTotalAllocationPoints,
+  useGetXvsVaultRewardWeiPerBlock,
+  GetXvsVaultPoolInfosOutput,
+  GetXvsVaultPendingRewardWeiOutput,
+  IGetXvsVaultUserInfoOutput,
+} from 'clients/api';
 import { XVS_TOKEN_ADDRESS, XVS_TOKEN_ID } from './constants';
-import useGetXvsVaultPoolsCount from '../useGetXvsVaultPoolsCount';
-import useGetXvsVaultTotalAllocationPoints from '../useGetXvsVaultTotalAllocationPoints';
-import useGetXvsVaultRewardWeiPerBlock from '../useGetXvsVaultRewardWeiPerBlock';
-import { GetXvsVaultPoolInfosOutput } from '../getXvsVaultPoolInfos';
-import { GetXvsVaultPendingRewardWeiOutput } from '../getXvsVaultPendingRewardWei';
-import { IGetXvsVaultUserInfoOutput } from '../getXvsVaultUserInfo';
 import useGetXvsVaultPools from './useGetXvsVaultPools';
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
 
@@ -45,9 +47,6 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   });
   const arePoolQueriesLoading = poolQueryResults.some(queryResult => queryResult.isLoading);
 
-  const queriesPerPoolCount =
-    xvsVaultPoolsCount > 0 ? poolQueryResults.length / xvsVaultPoolsCount : 0;
-
   // Index results by pool ID
   const poolData: {
     [poolIndex: string]: {
@@ -56,6 +55,9 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
       userPendingRewardAmountWei: GetXvsVaultPendingRewardWeiOutput;
     };
   } = {};
+
+  const queriesPerPoolCount =
+    xvsVaultPoolsCount > 0 ? poolQueryResults.length / xvsVaultPoolsCount : 0;
 
   for (let poolIndex = 0; poolIndex < xvsVaultPoolsCount; poolIndex++) {
     const poolQueryResultStartIndex = poolIndex * queriesPerPoolCount;
@@ -87,7 +89,7 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
 
   // Get addresses of tokens staked in pools, sorted by pool index
   const stakedTokenAddresses = Object.keys(poolData)
-    .filter(key => key !== undefined)
+    .filter(key => Object.prototype.hasOwnProperty.call(poolData, key))
     .map(poolIndex => poolData[poolIndex].poolInfos.stakedTokenAddress);
 
   // Fetch pool balances
@@ -169,7 +171,6 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
         return acc;
       }, []),
     [
-      queriesPerPoolCount,
       xvsVaultPoolsCount,
       JSON.stringify(poolData),
       JSON.stringify(poolBalances),
@@ -181,7 +182,6 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   return {
     data,
     isLoading,
-    // TODO: handle errors and retry scenarios
   };
 };
 

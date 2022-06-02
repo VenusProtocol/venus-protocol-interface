@@ -171,11 +171,11 @@ export { default as useGetXvsVaultPoolsCount } from './queries/useGetXvsVaultPoo
 export { default as getXvsVaultPoolInfos } from './queries/getXvsVaultPoolInfos';
 export * from './queries/getXvsVaultPoolInfos';
 
-export { default as getXvsVaultRewardTokenAmountsPerBlock } from './queries/getXvsVaultRewardWeiPerBlock';
+export { default as getXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock';
 export * from './queries/getXvsVaultRewardWeiPerBlock';
 export { default as useGetXvsVaultRewardWeiPerBlock } from './queries/useGetXvsVaultRewardWeiPerBlock';
 
-export { default as getXvsVaultPendingReward } from './queries/getXvsVaultPendingRewardWei';
+export { default as getXvsVaultPendingRewardWei } from './queries/getXvsVaultPendingRewardWei';
 export * from './queries/getXvsVaultPendingRewardWei';
 
 export { default as getXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints';
