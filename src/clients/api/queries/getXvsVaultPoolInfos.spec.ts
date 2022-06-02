@@ -21,7 +21,7 @@ describe('api/queries/getXvsVaultPoolInfos', () => {
       await getXvsVaultPoolInfos({
         xvsVaultContract: fakeContract,
         tokenAddress: fakeTokenAddress,
-        poolIndex: fakePid,
+        pid: fakePid,
       });
 
       throw new Error('getXvsVaultPoolInfos should have thrown an error but did not');
@@ -53,18 +53,18 @@ describe('api/queries/getXvsVaultPoolInfos', () => {
     const response = await getXvsVaultPoolInfos({
       xvsVaultContract: fakeContract,
       tokenAddress: fakeTokenAddress,
-      poolIndex: fakePid,
+      pid: fakePid,
     });
 
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(poolInfosMock).toHaveBeenCalledTimes(1);
     expect(poolInfosMock).toHaveBeenCalledWith(fakeTokenAddress, fakePid);
     expect(response).toStrictEqual({
-      stakedTokenAddress: fakeTokenAddress,
-      allocationPoint: 10,
+      tokenAddress: fakeTokenAddress,
+      allocPoint: 10,
       lastRewardBlock: 100000,
       accRewardPerShare: new BigNumber('123871680'),
-      lockingPeriodMs: 200000,
+      lockPeriodDays: 200,
     });
   });
 });

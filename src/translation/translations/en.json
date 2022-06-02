@@ -121,6 +121,7 @@
     "enableButtonLabel": "Enable"
   },
   "errors": {
+    "invalidTokenAddressProvided": "Invalid token address provided",
     "somethingWentWrong": "Something went wrong",
     "undefinedAccountErrorMessage": "account undefined",
     "walletNotConnected": "Wallet not connected"

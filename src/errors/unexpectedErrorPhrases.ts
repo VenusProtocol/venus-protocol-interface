@@ -8,4 +8,5 @@ export const unexpectedErrorPhrases = {
     'convertVrt.internalErrorXvsToVrtConversionRatioUndefined',
   ),
   accountError: t('markets.errors.accountError'),
+  invalidTokenAddressProvided: t('errors.invalidTokenAddressProvided'),
 };
