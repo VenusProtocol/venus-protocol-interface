@@ -49,12 +49,41 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   const arePoolQueriesLoading = poolQueryResults.some(queryResult => queryResult.isLoading);
 
   // Index results by pool ID
-  const [poolData, stakedTokenAddresses] = useMemo(() => {
-    const data: {
-      [poolIndex: string]: {
-        poolInfos: GetXvsVaultPoolInfosOutput;
-        userPendingRewardWei?: GetXvsVaultPendingRewardWeiOutput;
-        userInfos?: IGetXvsVaultUserInfoOutput;
+  const poolData: {
+    [poolIndex: string]: {
+      poolInfos: GetXvsVaultPoolInfosOutput;
+      userInfos: IGetXvsVaultUserInfoOutput;
+      userPendingRewardAmountWei: GetXvsVaultPendingRewardWeiOutput;
+    };
+  } = {};
+
+  const queriesPerPoolCount =
+    xvsVaultPoolsCount > 0 ? poolQueryResults.length / xvsVaultPoolsCount : 0;
+
+  for (let poolIndex = 0; poolIndex < xvsVaultPoolsCount; poolIndex++) {
+    const poolQueryResultStartIndex = poolIndex * queriesPerPoolCount;
+
+    const poolInfosQueryResult = poolQueryResults[
+      poolQueryResultStartIndex
+    ] as UseQueryResult<GetXvsVaultPoolInfosOutput>;
+
+    const userPendingRewardQueryResult = poolQueryResults[
+      poolQueryResultStartIndex + 1
+    ] as UseQueryResult<GetXvsVaultPendingRewardWeiOutput>;
+
+    const userInfoQueryResult = poolQueryResults[
+      poolQueryResultStartIndex + 2
+    ] as UseQueryResult<IGetXvsVaultUserInfoOutput>;
+
+    if (
+      poolInfosQueryResult?.data &&
+      userPendingRewardQueryResult?.data &&
+      userInfoQueryResult?.data
+    ) {
+      poolData[poolIndex] = {
+        poolInfos: poolInfosQueryResult.data,
+        userInfos: userInfoQueryResult.data,
+        userPendingRewardAmountWei: userPendingRewardQueryResult.data,
       };
     } = {};
 
@@ -89,8 +118,10 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
       }
     }
 
-    return [data, tokenAddresses];
-  }, [JSON.stringify(poolQueryResults), xvsVaultPoolsCount]);
+  // Get addresses of tokens staked in pools, sorted by pool index
+  const stakedTokenAddresses = Object.keys(poolData)
+    .filter(key => Object.prototype.hasOwnProperty.call(poolData, key))
+    .map(poolIndex => poolData[poolIndex].poolInfos.stakedTokenAddress);
 
   // Fetch pool balances
   const poolBalanceQueryResults = useGetXvsVaultPoolBalances({
