@@ -1,6 +1,6 @@
 // import FunctionKey from 'constants/functionKey';
 import { Vault } from 'types';
-import useGetXvsVaultPoolLength from './useGetXvsVaultPoolLength';
+import useGetXvsVaultPoolsCount from './useGetXvsVaultPoolsCount';
 
 export interface UseGetVaultsOutput {
   isLoading: boolean;
@@ -8,7 +8,8 @@ export interface UseGetVaultsOutput {
 }
 
 const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVaultsOutput => {
-  const { data: xvsVaultPoolLength } = useGetXvsVaultPoolLength();
+  //
+  const { data: xvsVaultPoolLength } = useGetXvsVaultPoolsCount();
 
   console.log(xvsVaultPoolLength, accountAddress);
 
