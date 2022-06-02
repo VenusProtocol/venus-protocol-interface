@@ -88,11 +88,15 @@ export const useGetTreasuryTotals = jest.fn();
 
 export const useGetUserMarketInfo = jest.fn();
 
-export const getProposals = jest.fn();
-export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
+export const getXvsVaultPoolInfos = jest.fn();
 
-export const getVoteReceipt = jest.fn();
-export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
+export const getXvsVaultRewardTokenAmountsPerBlock = jest.fn();
+
+export const getXvsVaultTotalAllocPoints = jest.fn();
+
+export const getXvsVaultRewardWeiPerBlock = jest.fn();
+
+export const getXvsVaultPendingReward = jest.fn();
 
 // Mutations
 export const approveToken = jest.fn();
