@@ -243,9 +243,9 @@ export const formatToReadablePercentage = (value: number | string | BigNumber | 
  * @returns An object with the keys derived as indexFn(array item)
  */
 
-export const indexBy = <V>(indexFn: (v: V) => string, arr: V[]) =>
-  arr.reduce((result: Record<string, V>, item: V) => {
-    result[indexFn(item)] = item;
+export const indexBy = <V>(indexFn: (v: V, index: number) => string, arr: V[]) =>
+  arr.reduce((result: Record<string, V>, item: V, index) => {
+    result[indexFn(item, index)] = item;
     return result;
   }, {});
 

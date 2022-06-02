@@ -232,7 +232,7 @@ export interface Vault {
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
   lockingPeriodMs: number;
-  stakeApr: number;
+  stakeAprPercentage: number;
   totalStakedAmountWei: BigNumber;
   dailyEmissionAmountWei: BigNumber;
   userStakedAmountWei?: BigNumber;
