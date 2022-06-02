@@ -1,16 +1,13 @@
 import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
-import {
-  getXvsVaultPoolInfos,
-  GetXvsVaultPoolInfosOutput,
-  getXvsVaultPendingRewardWei,
+import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { XVS_TOKEN_ADDRESS } from './constants';
+import getXvsVaultPoolInfos, { GetXvsVaultPoolInfosOutput } from '../getXvsVaultPoolInfos';
+import getXvsVaultPendingReward, {
   GetXvsVaultPendingRewardWeiOutput,
-  getXvsVaultUserInfo,
-  IGetXvsVaultUserInfoOutput,
-} from 'clients/api';
-import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+} from '../getXvsVaultPendingRewardWei';
+import getXvsVaultUserInfo, { IGetXvsVaultUserInfoOutput } from '../getXvsVaultUserInfo';
 
 export interface IUseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -25,7 +22,7 @@ const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
 }: IUseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
-  const xvsVaultContract = useXvsVaultProxyContract();
+  const xvsVaultContract = useXvsVaultContract();
 
   const poolQueries: UseQueryOptions<
     GetXvsVaultPoolInfosOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
@@ -45,13 +42,13 @@ const useGetXvsVaultPools = ({
 
     poolQueries.push({
       queryFn: () =>
-        getXvsVaultPendingRewardWei({
+        getXvsVaultPendingReward({
           xvsVaultContract,
           tokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
           accountAddress: accountAddress || '',
         }),
-      queryKey: [FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI, XVS_TOKEN_ADDRESS, poolIndex],
+      queryKey: [FunctionKey.GET_XVS_VAULT_PENDING_REWARD, XVS_TOKEN_ADDRESS, poolIndex],
       enabled: !!accountAddress,
     });
 
