@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
 import { VError } from 'errors';
@@ -85,6 +87,6 @@ describe('api/queries/getXvsVaultPendingReward', () => {
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(pendingRewardMock).toHaveBeenCalledTimes(1);
     expect(pendingRewardMock).toHaveBeenCalledWith(xvsTokenAddress, fakePid, fakeAccountAddress);
-    expect(response.toFixed()).toStrictEqual('2000000000000000000');
+    expect(response).toStrictEqual(new BigNumber('2000000000000000000'));
   });
 });
