@@ -42,7 +42,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token symbol={asset.symbol as TokenId} />,
+        render: () => <Token tokenId={asset.symbol as TokenId} />,
         value: asset.id,
         align: 'left',
       },
