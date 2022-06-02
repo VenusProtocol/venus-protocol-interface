@@ -45,17 +45,51 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   });
   const arePoolQueriesLoading = poolQueryResults.some(queryResult => queryResult.isLoading);
 
-  // Get addresses of tokens staked in pools, sorted by pool index
   const queriesPerPoolCount =
     xvsVaultPoolsCount > 0 ? poolQueryResults.length / xvsVaultPoolsCount : 0;
 
-  const stakedTokenAddresses = Array.from({ length: xvsVaultPoolsCount }).map((_, poolIndex) => {
-    const poolInfosQueryResultIndex = poolIndex * queriesPerPoolCount;
+  // Index results by pool ID
+  const poolData: {
+    [poolIndex: string]: {
+      poolInfos: GetXvsVaultPoolInfosOutput;
+      userInfos: IGetXvsVaultUserInfoOutput;
+      userPendingRewardAmountWei: GetXvsVaultPendingRewardWeiOutput;
+    };
+  } = {};
+
+  for (let poolIndex = 0; poolIndex < xvsVaultPoolsCount; poolIndex++) {
+    const poolQueryResultStartIndex = poolIndex * queriesPerPoolCount;
+
     const poolInfosQueryResult = poolQueryResults[
-      poolInfosQueryResultIndex
+      poolQueryResultStartIndex
     ] as UseQueryResult<GetXvsVaultPoolInfosOutput>;
-    return poolInfosQueryResult.data?.stakedTokenAddress;
-  });
+
+    const userPendingRewardQueryResult = poolQueryResults[
+      poolQueryResultStartIndex + 1
+    ] as UseQueryResult<GetXvsVaultPendingRewardWeiOutput>;
+
+    const userInfoQueryResult = poolQueryResults[
+      poolQueryResultStartIndex + 2
+    ] as UseQueryResult<IGetXvsVaultUserInfoOutput>;
+
+    if (
+      poolInfosQueryResult?.data &&
+      userPendingRewardQueryResult?.data &&
+      userInfoQueryResult?.data
+    ) {
+      poolData[poolIndex] = {
+        poolInfos: poolInfosQueryResult.data,
+        userInfos: userInfoQueryResult.data,
+        userPendingRewardAmountWei: userPendingRewardQueryResult.data,
+      };
+    }
+  }
+
+  // Get addresses of tokens staked in pools, sorted by pool index
+
+  const stakedTokenAddresses = Object.keys(poolData)
+    .filter(key => key !== undefined)
+    .map(poolIndex => poolData[poolIndex].poolInfos.stakedTokenAddress);
 
   // Fetch pool balances
   const poolBalanceQueryResults = useGetXvsVaultPoolBalances({
@@ -82,35 +116,21 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   const data: Vault[] = useMemo(
     () =>
       Array.from({ length: xvsVaultPoolsCount }).reduce<Vault[]>((acc, _item, poolIndex) => {
-        const poolQueryResultStartIndex = poolIndex * queriesPerPoolCount;
-        const poolInfosQueryResult = poolQueryResults[
-          poolQueryResultStartIndex
-        ] as UseQueryResult<GetXvsVaultPoolInfosOutput>;
-
-        const userPendingRewardQueryResult = poolQueryResults[
-          poolQueryResultStartIndex + 1
-        ] as UseQueryResult<GetXvsVaultPendingRewardWeiOutput>;
-
-        const userInfoQueryResult = poolQueryResults[
-          poolQueryResultStartIndex + 2
-        ] as UseQueryResult<IGetXvsVaultUserInfoOutput>;
-
-        const poolInfos = poolInfosQueryResult.data;
         const totalStakedAmountWei = poolBalances[poolIndex];
-
-        const lockingPeriodMs = poolInfos?.lockingPeriodMs;
-        const userStakedAmountWei = userInfoQueryResult.data?.stakedAmountWei;
-        const userPendingRewardAmountWei = userPendingRewardQueryResult.data;
+        const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
+        const userStakedAmountWei = poolData[poolIndex]?.userInfos.stakedAmountWei;
+        const userPendingRewardAmountWei = poolData[poolIndex]?.userPendingRewardAmountWei;
 
         const stakedTokenId =
-          poolInfos?.stakedTokenAddress && getTokenByAddress(poolInfos.stakedTokenAddress)?.id;
+          poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
+          getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress)?.id;
 
         const poolRewardWeiPerBlock =
           xvsVaultRewardWeiPerBlock &&
           xvsVaultTotalAllocationPoints &&
-          poolInfos?.allocationPoint &&
+          poolData[poolIndex]?.poolInfos.allocationPoint &&
           xvsVaultRewardWeiPerBlock
-            .multipliedBy(poolInfos?.allocationPoint)
+            .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
             .div(xvsVaultTotalAllocationPoints);
 
         const dailyEmissionAmountWei =
@@ -152,7 +172,7 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
     [
       queriesPerPoolCount,
       xvsVaultPoolsCount,
-      JSON.stringify(poolQueryResults),
+      JSON.stringify(poolData),
       JSON.stringify(poolBalances),
       xvsVaultRewardWeiPerBlock?.toFixed(),
       xvsVaultTotalAllocationPoints,
