@@ -1,18 +1,18 @@
 import { XvsVault } from 'types/contracts';
 
-export interface GetXvsVaultTotalAllocPointsInput {
+export interface IGetXvsVaultTotalAllocPointsInput {
   xvsVaultContract: XvsVault;
   tokenAddress: string;
 }
 
 export type GetXvsVaultTotalAllocPointsOutput = number;
 
-const getXvsVaultTotalAllocPoints = async ({
+const getXvsVaultTotalAllocationPoints = async ({
   xvsVaultContract,
   tokenAddress,
-}: GetXvsVaultTotalAllocPointsInput): Promise<GetXvsVaultTotalAllocPointsOutput> => {
+}: IGetXvsVaultTotalAllocPointsInput): Promise<GetXvsVaultTotalAllocPointsOutput> => {
   const res = await xvsVaultContract.methods.totalAllocPoints(tokenAddress).call();
   return +res;
 };
 
-export default getXvsVaultTotalAllocPoints;
+export default getXvsVaultTotalAllocationPoints;

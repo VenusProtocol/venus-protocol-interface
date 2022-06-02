@@ -8,16 +8,16 @@ import { VError } from 'errors';
 export interface GetXvsVaultPendingRewardWeiInput {
   xvsVaultContract: XvsVault;
   tokenAddress: string;
-  pid: number;
+  poolIndex: number;
   accountAddress: string;
 }
 
 export type GetXvsVaultPendingRewardWeiOutput = BigNumber;
 
-const GetXvsVaultPendingRewardWei = async ({
+const getXvsVaultPendingRewardWei = async ({
   xvsVaultContract,
   tokenAddress,
-  pid,
+  poolIndex,
   accountAddress,
 }: GetXvsVaultPendingRewardWeiInput): Promise<GetXvsVaultPendingRewardWeiOutput> => {
   const token = getTokenByAddress(tokenAddress);
@@ -30,7 +30,7 @@ const GetXvsVaultPendingRewardWei = async ({
   }
 
   const res = await xvsVaultContract.methods
-    .pendingReward(tokenAddress, pid, accountAddress)
+    .pendingReward(tokenAddress, poolIndex, accountAddress)
     .call();
   const pendingRewardXvs = new BigNumber(res).dividedBy(token.decimals);
   return convertCoinsToWei({
@@ -39,4 +39,4 @@ const GetXvsVaultPendingRewardWei = async ({
   });
 };
 
-export default GetXvsVaultPendingRewardWei;
+export default getXvsVaultPendingRewardWei;

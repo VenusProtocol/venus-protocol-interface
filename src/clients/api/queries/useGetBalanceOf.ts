@@ -13,7 +13,7 @@ type Options = QueryObserverOptions<
   Error,
   GetBalanceOfOutput,
   GetBalanceOfOutput,
-  FunctionKey.GET_BALANCE_OF
+  [FunctionKey.GET_BALANCE_OF, string, string]
 >;
 
 const useGetBalanceOf = (
@@ -23,7 +23,7 @@ const useGetBalanceOf = (
   const tokenContract = useTokenContract(tokenId);
 
   return useQuery(
-    FunctionKey.GET_BALANCE_OF,
+    [FunctionKey.GET_BALANCE_OF, tokenId, accountAddress],
     () => getBalanceOf({ tokenContract, accountAddress }),
     options,
   );

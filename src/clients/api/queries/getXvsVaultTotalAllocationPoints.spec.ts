@@ -1,9 +1,9 @@
 import { XvsVault } from 'types/contracts';
-import getXvsVaultTotalAllocPoints from './getXvsVaultTotalAllocPoints';
+import getXvsVaultTotalAllocationPoints from './getXvsVaultTotalAllocationPoints';
 
 const fakeTokenAddress = '0x0';
 
-describe('api/queries/getXvsVaultTotalAllocPoints', () => {
+describe('api/queries/getXvsVaultTotalAllocationPoints', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -16,12 +16,12 @@ describe('api/queries/getXvsVaultTotalAllocPoints', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultTotalAllocPoints({
+      await getXvsVaultTotalAllocationPoints({
         xvsVaultContract: fakeContract,
         tokenAddress: fakeTokenAddress,
       });
 
-      throw new Error('getXvsVaultTotalAllocPoints should have thrown an error but did not');
+      throw new Error('getXvsVaultTotalAllocationPoints should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -41,7 +41,7 @@ describe('api/queries/getXvsVaultTotalAllocPoints', () => {
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultTotalAllocPoints({
+    const response = await getXvsVaultTotalAllocationPoints({
       xvsVaultContract: fakeContract,
       tokenAddress: fakeTokenAddress,
     });

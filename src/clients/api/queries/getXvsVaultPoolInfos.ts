@@ -4,11 +4,11 @@ import { XvsVault } from 'types/contracts';
 export interface IGetXvsVaultPoolInfosInput {
   xvsVaultContract: XvsVault;
   tokenAddress: string;
-  pid: number;
+  poolIndex: number;
 }
 
 export type GetXvsVaultPoolInfosOutput = {
-  tokenAddress: string;
+  stakedTokenAddress: string;
   allocationPoint: number;
   lastRewardBlock: number;
   accRewardPerShare: BigNumber;
@@ -18,12 +18,12 @@ export type GetXvsVaultPoolInfosOutput = {
 const getXvsVaultPoolInfos = async ({
   xvsVaultContract,
   tokenAddress,
-  pid,
+  poolIndex,
 }: IGetXvsVaultPoolInfosInput): Promise<GetXvsVaultPoolInfosOutput> => {
-  const res = await xvsVaultContract.methods.poolInfos(tokenAddress, pid).call();
+  const res = await xvsVaultContract.methods.poolInfos(tokenAddress, poolIndex).call();
 
   return {
-    tokenAddress: res.token,
+    stakedTokenAddress: res.token,
     allocationPoint: +res.allocPoint,
     lastRewardBlock: +res.lastRewardBlock,
     accRewardPerShare: new BigNumber(res.accRewardPerShare),

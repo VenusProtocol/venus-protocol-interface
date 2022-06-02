@@ -4,12 +4,12 @@ import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
 import { VError } from 'errors';
 import fakeAccountAddress from '__mocks__/models/address';
-import getXvsVaultPendingReward from './getXvsVaultPendingReward';
+import getXvsVaultPendingRewardWei from './getXvsVaultPendingRewardWei';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 const fakePid = 1;
 
-describe('api/queries/getXvsVaultPendingReward', () => {
+describe('api/queries/getXvsVaultPendingRewardWei', () => {
   test('throws an error when providing an invalid token address', async () => {
     const fakeContract = {
       methods: {
@@ -20,14 +20,14 @@ describe('api/queries/getXvsVaultPendingReward', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultPendingReward({
+      await getXvsVaultPendingRewardWei({
         xvsVaultContract: fakeContract,
         tokenAddress: 'invalid token address',
         accountAddress: fakeAccountAddress,
-        pid: fakePid,
+        poolIndex: fakePid,
       });
 
-      throw new Error('getXvsVaultPendingReward should have thrown an error but did not');
+      throw new Error('getXvsVaultPendingRewardWei should have thrown an error but did not');
     } catch (error) {
       expect(error).toBeInstanceOf(VError);
       expect(error).toMatchInlineSnapshot('[Error: invalidTokenAddressProvided]');
@@ -50,14 +50,14 @@ describe('api/queries/getXvsVaultPendingReward', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultPendingReward({
+      await getXvsVaultPendingRewardWei({
         xvsVaultContract: fakeContract,
         tokenAddress: xvsTokenAddress,
         accountAddress: fakeAccountAddress,
-        pid: fakePid,
+        poolIndex: fakePid,
       });
 
-      throw new Error('getXvsVaultTotalAllocPoints should have thrown an error but did not');
+      throw new Error('getXvsVaultTotalAllocationPoints should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -77,11 +77,11 @@ describe('api/queries/getXvsVaultPendingReward', () => {
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultPendingReward({
+    const response = await getXvsVaultPendingRewardWei({
       xvsVaultContract: fakeContract,
       tokenAddress: xvsTokenAddress,
       accountAddress: fakeAccountAddress,
-      pid: fakePid,
+      poolIndex: fakePid,
     });
 
     expect(callMock).toHaveBeenCalledTimes(1);
