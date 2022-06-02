@@ -22,5 +22,6 @@ export const Default = () => (
     showOnlyMyTxns={false}
     setShowOnlyMyTxns={noop}
     transactions={transactions}
+    walletConnected
   />
 );
