@@ -12,6 +12,9 @@ export const useStyles = () => {
       border-radius: ${theme.shape.borderRadius.small}px;
       border: 1px solid ${isOpened ? theme.palette.interactive.primary : 'transparent'};
       width: 100%;
+      > div {
+        padding: ${theme.spacing(3, 4)};
+      }
     `,
     getArrowIcon: ({ isMenuOpened }: { isMenuOpened: boolean }) => css`
       position: absolute;
