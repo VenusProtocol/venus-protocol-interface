@@ -24,7 +24,7 @@ describe('api/queries/getXvsVaultUserInfo', () => {
         xvsVaultContract: fakeContract,
         tokenAddress: 'invalid token address',
         accountAddress: fakeAccountAddress,
-        pid: fakePid,
+        poolIndex: fakePid,
       });
 
       throw new Error('getXvsVaultUserInfo should have thrown an error but did not');
@@ -54,10 +54,10 @@ describe('api/queries/getXvsVaultUserInfo', () => {
         xvsVaultContract: fakeContract,
         tokenAddress: xvsTokenAddress,
         accountAddress: fakeAccountAddress,
-        pid: fakePid,
+        poolIndex: fakePid,
       });
 
-      throw new Error('getXvsVaultTotalAllocPoints should have thrown an error but did not');
+      throw new Error('getXvsVaultTotalAllocationPoints should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -83,7 +83,7 @@ describe('api/queries/getXvsVaultUserInfo', () => {
       xvsVaultContract: fakeContract,
       tokenAddress: xvsTokenAddress,
       accountAddress: fakeAccountAddress,
-      pid: fakePid,
+      poolIndex: fakePid,
     });
 
     expect(callMock).toHaveBeenCalledTimes(1);
