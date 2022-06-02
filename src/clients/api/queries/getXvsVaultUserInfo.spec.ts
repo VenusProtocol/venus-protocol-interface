@@ -3,29 +3,31 @@ import BigNumber from 'bignumber.js';
 import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
 import { VError } from 'errors';
-import getXvsVaultRewardTokenAmountsPerBlock from './getXvsVaultRewardWeiPerBlock';
+import fakeAccountAddress from '__mocks__/models/address';
+import getXvsVaultUserInfo from './getXvsVaultUserInfo';
 
 const xvsTokenAddress = TOKENS.xvs.address;
+const fakePid = 1;
 
-describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
+describe('api/queries/getXvsVaultUserInfo', () => {
   test('throws an error when providing an invalid token address', async () => {
     const fakeContract = {
       methods: {
-        rewardTokenAmountsPerBlock: () => ({
+        getUserInfo: () => ({
           call: jest.fn(),
         }),
       },
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultRewardTokenAmountsPerBlock({
+      await getXvsVaultUserInfo({
         xvsVaultContract: fakeContract,
         tokenAddress: 'invalid token address',
+        accountAddress: fakeAccountAddress,
+        pid: fakePid,
       });
 
-      throw new Error(
-        'getXvsVaultRewardTokenAmountsPerBlock should have thrown an error but did not',
-      );
+      throw new Error('getXvsVaultUserInfo should have thrown an error but did not');
     } catch (error) {
       expect(error).toBeInstanceOf(VError);
       expect(error).toMatchInlineSnapshot('[Error: invalidTokenAddressProvided]');
@@ -39,7 +41,7 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
-        rewardTokenAmountsPerBlock: () => ({
+        getUserInfo: () => ({
           call: async () => {
             throw new Error('Fake error message');
           },
@@ -48,41 +50,49 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultRewardTokenAmountsPerBlock({
+      await getXvsVaultUserInfo({
         xvsVaultContract: fakeContract,
         tokenAddress: xvsTokenAddress,
+        accountAddress: fakeAccountAddress,
+        pid: fakePid,
       });
 
-      throw new Error(
-        'getXvsVaultRewardTokenAmountsPerBlock should have thrown an error but did not',
-      );
+      throw new Error('getXvsVaultTotalAllocPoints should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
   });
 
-  test('returns the reward per block in wei on success', async () => {
-    const fakeOutput = '36';
-
-    const callMock = jest.fn(async () => fakeOutput);
-    const rewardTokenAmountsPerBlockMock = jest.fn(() => ({
+  test('returns user info related to XVS vault in correct format on success', async () => {
+    const callMock = jest.fn(async () => ({
+      amount: '36',
+      pendingWithdrawals: '54',
+      rewardDebt: '18',
+    }));
+    const getUserInfoMock = jest.fn(() => ({
       call: callMock,
     }));
 
     const fakeContract = {
       methods: {
-        rewardTokenAmountsPerBlock: rewardTokenAmountsPerBlockMock,
+        getUserInfo: getUserInfoMock,
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultRewardTokenAmountsPerBlock({
+    const response = await getXvsVaultUserInfo({
       xvsVaultContract: fakeContract,
       tokenAddress: xvsTokenAddress,
+      accountAddress: fakeAccountAddress,
+      pid: fakePid,
     });
 
     expect(callMock).toHaveBeenCalledTimes(1);
-    expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledTimes(1);
-    expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledWith(xvsTokenAddress);
-    expect(response).toStrictEqual(new BigNumber('2000000000000000000'));
+    expect(getUserInfoMock).toHaveBeenCalledTimes(1);
+    expect(getUserInfoMock).toHaveBeenCalledWith(xvsTokenAddress, fakePid, fakeAccountAddress);
+    expect(response).toStrictEqual({
+      pendingWithdrawalsTotalAmountWei: new BigNumber('3000000000000000000'),
+      rewardDebtAmountWei: new BigNumber('1000000000000000000'),
+      stakedAmountWei: new BigNumber('2000000000000000000'),
+    });
   });
 });

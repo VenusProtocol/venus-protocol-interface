@@ -169,3 +169,6 @@ export * from './queries/getXvsVaultPendingReward';
 
 export { default as getXvsVaultTotalAllocPoints } from './queries/getXvsVaultTotalAllocPoints';
 export * from './queries/getXvsVaultTotalAllocPoints';
+
+export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
+export * from './queries/getXvsVaultUserInfo';
