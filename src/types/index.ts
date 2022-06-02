@@ -232,13 +232,12 @@ export interface ITransactionResponse {
 }
 
 export interface Vault {
-  poolIndex: number;
-  stakedTokenId: TokenId;
+  poolId: string;
   rewardTokenId: TokenId;
   lockingPeriodMs: number;
-  stakeAprPercentage: number;
+  stakeApr: number;
   totalStakedAmountWei: BigNumber;
+  userStakedAmountWei: BigNumber;
+  userPendingRewardAmountWei: BigNumber;
   dailyEmissionAmountWei: BigNumber;
-  userStakedAmountWei?: BigNumber;
-  userPendingRewardAmountWei?: BigNumber;
 }

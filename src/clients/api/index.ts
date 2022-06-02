@@ -182,3 +182,5 @@ export * from './queries/getXvsVaultTotalAllocPoints';
 
 export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
+
+export { default as useGetVaults } from './queries/useGetVaults';
