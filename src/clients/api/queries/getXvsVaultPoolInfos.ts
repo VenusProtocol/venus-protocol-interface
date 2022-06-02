@@ -9,10 +9,10 @@ export interface IGetXvsVaultPoolInfosInput {
 
 export type GetXvsVaultPoolInfosOutput = {
   tokenAddress: string;
-  allocPoint: number;
+  allocationPoint: number;
   lastRewardBlock: number;
   accRewardPerShare: BigNumber;
-  lockPeriodDays: number;
+  lockingPeriodDays: number;
 };
 
 const getXvsVaultPoolInfos = async ({
@@ -24,10 +24,10 @@ const getXvsVaultPoolInfos = async ({
 
   return {
     tokenAddress: res.token,
-    allocPoint: +res.allocPoint,
+    allocationPoint: +res.allocPoint,
     lastRewardBlock: +res.lastRewardBlock,
     accRewardPerShare: new BigNumber(res.accRewardPerShare),
-    lockPeriodDays: +res.lockPeriod,
+    lockingPeriodDays: +res.lockPeriod,
   };
 };
 
