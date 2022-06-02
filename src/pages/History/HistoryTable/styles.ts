@@ -10,34 +10,42 @@ export const useStyles = () => {
     table: css`
       display: initial;
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: none;
       }
     `,
     cards: css`
       display: none;
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: initial;
       }
     `,
     cardContentGrid: css`
-      ${theme.breakpoints.down('lg')} {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      ${theme.breakpoints.down('xl')} {
         background-color: initial;
       }
       .table__table-cards__card-content {
-        ${theme.breakpoints.down('lg')} {
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        ${theme.breakpoints.down('xl')} {
+          > div > div {
+            overflow: initial;
+          }
+          grid-template-columns:
+            calc(20% - ${theme.spacing(11)}) auto auto calc(20% - ${theme.spacing(11)})
+            calc(20% - ${theme.spacing(11)}) auto;
           grid-template-rows: 1fr;
+          justify-content: space-between;
         }
         ${theme.breakpoints.down('md')} {
-          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-columns: calc(33% - ${theme.spacing(4)}) calc(33% - ${theme.spacing(4)}) auto;
           grid-template-rows: 1fr 1fr;
           row-gap: ${theme.spacing(5)};
         }
+        ${theme.breakpoints.down('sm')} {
+          row-gap: ${theme.spacing(4)};
+        }
       }
-    `,
-    txnHash: css`
-      width: 100%;
     `,
     txnHashText: css`
       align-items: center;
@@ -60,7 +68,7 @@ export const useStyles = () => {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         display: flex;
       }
     `,

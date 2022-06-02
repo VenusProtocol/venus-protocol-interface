@@ -6,9 +6,17 @@ export const useStyles = () => {
   return {
     root: css`
       display: flex;
-      margin: ${theme.spacing(6)};
       flex-direction: row;
       justify-content: space-between;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      padding-bottom: 0;
+      ${theme.breakpoints.down('xl')} {
+        background-color: transparent;
+      }
+      ${theme.breakpoints.down('sm')} {
+        padding: 0;
+      }
     `,
     myTransactions: css`
       display: flex;
@@ -17,6 +25,9 @@ export const useStyles = () => {
     `,
     select: css`
       width: ${theme.spacing(41)};
+    `,
+    typeSelectLabel: css`
+      margin-right: ${theme.spacing(3)};
     `,
   };
 };
