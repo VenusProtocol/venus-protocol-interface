@@ -10,9 +10,11 @@ const Vault: React.FC = () => {
   // DEV ONLY
   const { account } = useContext(AuthContext);
 
-  useGetVaults({
+  const { data: vaults } = useGetVaults({
     accountAddress: account?.address,
   });
+
+  console.log(vaults);
   // END DEV ONLY
 
   return <VaultUi />;

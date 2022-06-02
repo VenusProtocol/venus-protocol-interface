@@ -73,6 +73,13 @@ const App = () => (
                               path={Path.VAULT}
                               component={process.env.REACT_APP_RUN_V2 ? Vault : VaultV1}
                             />
+
+                            {/* <Route
+                              exact
+                              path={Path.VAULT}
+                              component={process.env.REACT_APP_RUN_V2 ? VaultV1 : Vault}
+                            /> */}
+
                             <Route
                               exact
                               path={Path.VOTE_LEADER_BOARD}
