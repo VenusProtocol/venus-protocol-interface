@@ -10,14 +10,14 @@ type Options = QueryObserverOptions<
   Error,
   GetXvsVaultPoolsCountOutput,
   GetXvsVaultPoolsCountOutput,
-  FunctionKey.GET_XVS_VAULT_POOL_LENGTH
+  FunctionKey.GET_XVS_VAULT_POOLS_COUNT
 >;
 
 const useGetXvsVaultPoolsCount = (options?: Options) => {
   const xvsVaultContract = useXvsVaultContract();
 
   return useQuery(
-    FunctionKey.GET_XVS_VAULT_POOL_LENGTH,
+    FunctionKey.GET_XVS_VAULT_POOLS_COUNT,
     () => getXvsVaultPoolsCount({ xvsVaultContract }),
     options,
   );

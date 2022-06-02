@@ -2,11 +2,11 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
-import getXvsVaultRewardTokenAmountsPerBlock from './getXvsVaultRewardWeiPerBlock';
+import getXvsVaultRewardWeiPerBlock from './getXvsVaultRewardWeiPerBlock';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 
-describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
+describe('api/queries/getXvsVaultRewardWeiPerBlock', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -19,14 +19,12 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultRewardTokenAmountsPerBlock({
+      await getXvsVaultRewardWeiPerBlock({
         xvsVaultContract: fakeContract,
         tokenAddress: xvsTokenAddress,
       });
 
-      throw new Error(
-        'getXvsVaultRewardTokenAmountsPerBlock should have thrown an error but did not',
-      );
+      throw new Error('getXvsVaultRewardWeiPerBlock should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -46,7 +44,7 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultRewardTokenAmountsPerBlock({
+    const response = await getXvsVaultRewardWeiPerBlock({
       xvsVaultContract: fakeContract,
       tokenAddress: xvsTokenAddress,
     });
