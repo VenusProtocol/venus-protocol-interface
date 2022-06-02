@@ -87,6 +87,16 @@ export const useGetTreasuryTotals = jest.fn();
 
 export const useGetUserMarketInfo = jest.fn();
 
+export const getXvsVaultPoolInfos = jest.fn();
+
+export const getXvsVaultRewardTokenAmountsPerBlock = jest.fn();
+
+export const getXvsVaultTotalAllocPoints = jest.fn();
+
+export const getXvsVaultRewardWeiPerBlock = jest.fn();
+
+export const getXvsVaultPendingReward = jest.fn();
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>

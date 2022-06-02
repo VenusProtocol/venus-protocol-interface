@@ -1,29 +1,31 @@
 import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
 import { VError } from 'errors';
-import getXvsVaultRewardTokenAmountsPerBlock from './getXvsVaultRewardWeiPerBlock';
+import fakeAccountAddress from '__mocks__/models/address';
+import getXvsVaultPendingReward from './getXvsVaultPendingReward';
 
 const xvsTokenAddress = TOKENS.xvs.address;
+const fakePid = 1;
 
-describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
+describe('api/queries/getXvsVaultPendingReward', () => {
   test('throws an error when providing an invalid token address', async () => {
     const fakeContract = {
       methods: {
-        rewardTokenAmountsPerBlock: () => ({
+        pendingReward: () => ({
           call: jest.fn(),
         }),
       },
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultRewardTokenAmountsPerBlock({
+      await getXvsVaultPendingReward({
         xvsVaultContract: fakeContract,
         tokenAddress: 'invalid token address',
+        accountAddress: fakeAccountAddress,
+        pid: fakePid,
       });
 
-      throw new Error(
-        'getXvsVaultRewardTokenAmountsPerBlock should have thrown an error but did not',
-      );
+      throw new Error('getXvsVaultPendingReward should have thrown an error but did not');
     } catch (error) {
       expect(error).toBeInstanceOf(VError);
       expect(error).toMatchInlineSnapshot('[Error: invalidTokenAddressProvided]');
@@ -37,7 +39,7 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
-        rewardTokenAmountsPerBlock: () => ({
+        pendingReward: () => ({
           call: async () => {
             throw new Error('Fake error message');
           },
@@ -46,41 +48,43 @@ describe('api/queries/getXvsVaultRewardTokenAmountsPerBlock', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultRewardTokenAmountsPerBlock({
+      await getXvsVaultPendingReward({
         xvsVaultContract: fakeContract,
         tokenAddress: xvsTokenAddress,
+        accountAddress: fakeAccountAddress,
+        pid: fakePid,
       });
 
-      throw new Error(
-        'getXvsVaultRewardTokenAmountsPerBlock should have thrown an error but did not',
-      );
+      throw new Error('getXvsVaultTotalAllocPoints should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
   });
 
-  test('returns the reward per block in wei on success', async () => {
+  test('returns the pending reward of the user in wei on success', async () => {
     const fakeOutput = '36';
 
     const callMock = jest.fn(async () => fakeOutput);
-    const rewardTokenAmountsPerBlockMock = jest.fn(() => ({
+    const pendingRewardMock = jest.fn(() => ({
       call: callMock,
     }));
 
     const fakeContract = {
       methods: {
-        rewardTokenAmountsPerBlock: rewardTokenAmountsPerBlockMock,
+        pendingReward: pendingRewardMock,
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultRewardTokenAmountsPerBlock({
+    const response = await getXvsVaultPendingReward({
       xvsVaultContract: fakeContract,
       tokenAddress: xvsTokenAddress,
+      accountAddress: fakeAccountAddress,
+      pid: fakePid,
     });
 
     expect(callMock).toHaveBeenCalledTimes(1);
-    expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledTimes(1);
-    expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledWith(xvsTokenAddress);
+    expect(pendingRewardMock).toHaveBeenCalledTimes(1);
+    expect(pendingRewardMock).toHaveBeenCalledWith(xvsTokenAddress, fakePid, fakeAccountAddress);
     expect(response.toFixed()).toStrictEqual('2000000000000000000');
   });
 });

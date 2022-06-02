@@ -5,17 +5,21 @@ import { convertCoinsToWei } from 'utilities/common';
 import { getTokenByAddress } from 'utilities';
 import { VError } from 'errors';
 
-export interface IGetXvsVaultRewardWeiPerBlockInput {
+export interface GetXvsVaultPendingRewardWeiInput {
   xvsVaultContract: XvsVault;
   tokenAddress: string;
+  pid: number;
+  accountAddress: string;
 }
 
-export type GetXvsVaultRewardWeiPerBlockOutput = BigNumber;
+export type GetXvsVaultPendingRewardWeiOutput = BigNumber;
 
-const getXvsVaultRewardWeiPerBlock = async ({
+const GetXvsVaultPendingRewardWei = async ({
   xvsVaultContract,
   tokenAddress,
-}: IGetXvsVaultRewardWeiPerBlockInput): Promise<GetXvsVaultRewardWeiPerBlockOutput> => {
+  pid,
+  accountAddress,
+}: GetXvsVaultPendingRewardWeiInput): Promise<GetXvsVaultPendingRewardWeiOutput> => {
   const token = getTokenByAddress(tokenAddress);
 
   if (!token) {
@@ -25,7 +29,9 @@ const getXvsVaultRewardWeiPerBlock = async ({
     });
   }
 
-  const res = await xvsVaultContract.methods.rewardTokenAmountsPerBlock(tokenAddress).call();
+  const res = await xvsVaultContract.methods
+    .pendingReward(tokenAddress, pid, accountAddress)
+    .call();
   const rewardPerBlockXvs = new BigNumber(res).dividedBy(token.decimals);
   return convertCoinsToWei({
     value: rewardPerBlockXvs,
@@ -33,4 +39,4 @@ const getXvsVaultRewardWeiPerBlock = async ({
   });
 };
 
-export default getXvsVaultRewardWeiPerBlock;
+export default GetXvsVaultPendingRewardWei;
