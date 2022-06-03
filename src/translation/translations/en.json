@@ -505,7 +505,7 @@
       "rightMaxButtonLabel": "MAX"
     }
   },
-  "vaultItemUi": {
+  "vaultItem": {
     "claimButton": "Claim",
     "dailyEmission": "Daily Emission",
     "reward": "Reward:",

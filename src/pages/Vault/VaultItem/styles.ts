@@ -79,8 +79,8 @@ export const useStyles = () => {
 
       & + & {
         border-left: 1px solid ${theme.palette.interactive.delimiter};
-        margin-left: ${theme.spacing(8)};
-        padding-left: ${theme.spacing(8)};
+        margin-left: ${theme.spacing(6)};
+        padding-left: ${theme.spacing(6)};
 
         ${theme.breakpoints.down('sm')} {
           margin-left: 0;

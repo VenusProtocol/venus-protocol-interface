@@ -1,4 +1,4 @@
-// VaultItemUi
+// VaultItem
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
@@ -9,11 +9,11 @@ import { useTranslation } from 'translation';
 import { convertWeiToCoins, formatToReadablePercentage } from 'utilities/common';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { Icon } from '../Icon';
-import { Button } from '../Button';
+import { Icon } from '../../../components/v2/Icon';
+import { Button } from '../../../components/v2/Button';
 import { useStyles } from './styles';
 
-export interface IVaultItemUiProps {
+export interface IVaultItemProps {
   tokenId: TokenId;
   rewardTokenId: TokenId;
   rewardWei?: BigNumber;
@@ -27,7 +27,7 @@ export interface IVaultItemUiProps {
   className?: string;
 }
 
-export const VaultItemUi = ({
+export const VaultItem = ({
   tokenId,
   rewardTokenId,
   rewardWei,
@@ -39,18 +39,18 @@ export const VaultItemUi = ({
   onStake,
   onReward,
   className,
-}: IVaultItemUiProps) => {
+}: IVaultItemProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   const dataListItems = useMemo(
     () => [
       {
-        title: t('vaultItemUi.stakingApr', { stakeTokenName: getToken(tokenId).symbol }),
+        title: t('vaultItem.stakingApr', { stakeTokenName: getToken(tokenId).symbol }),
         value: formatToReadablePercentage(stakingAprPercentage),
       },
       {
-        title: t('vaultItemUi.dailyEmission'),
+        title: t('vaultItem.dailyEmission'),
         value: (
           <>
             <Icon css={styles.tokenIcon} name={rewardTokenId} />
@@ -63,7 +63,7 @@ export const VaultItemUi = ({
         ),
       },
       {
-        title: t('vaultItemUi.totalStaked'),
+        title: t('vaultItem.totalStaked'),
         value: (
           <>
             <Icon css={styles.tokenIcon} name={tokenId} />
@@ -92,7 +92,7 @@ export const VaultItemUi = ({
         {rewardWei?.isGreaterThan(0) && (
           <div css={styles.rewardWrapper}>
             <Typography css={[styles.text, styles.textMobile14]}>
-              {t('vaultItemUi.reward')}
+              {t('vaultItem.reward')}
             </Typography>
             <Icon css={[styles.tokenIcon, styles.tokenIconReward]} name={rewardTokenId} />
             <Typography
@@ -107,13 +107,13 @@ export const VaultItemUi = ({
               })}
             </Typography>
             <Button onClick={onClaim} variant="text" css={styles.buttonClaim}>
-              {t('vaultItemUi.claimButton')}
+              {t('vaultItem.claimButton')}
             </Button>
           </div>
         )}
       </div>
 
-      <Typography css={styles.textMobile14}>{t('vaultItemUi.youAreStaking')}</Typography>
+      <Typography css={styles.textMobile14}>{t('vaultItem.youAreStaking')}</Typography>
       <Typography variant="h1" css={styles.textStakingValue}>
         <Icon css={[styles.tokenIcon, styles.tokenIconLarge]} name={tokenId} />
         {convertWeiToCoins({
@@ -136,14 +136,14 @@ export const VaultItemUi = ({
 
       <div css={styles.buttonsWrapper}>
         <Button onClick={onStake} css={styles.button} variant="primary">
-          {t('vaultItemUi.stakeButton')}
+          {t('vaultItem.stakeButton')}
         </Button>
         <Button onClick={onReward} css={styles.button} variant="secondary">
-          {t('vaultItemUi.withdrawButton')}
+          {t('vaultItem.withdrawButton')}
         </Button>
       </div>
     </Paper>
   );
 };
 
-export default VaultItemUi;
+export default VaultItem;
