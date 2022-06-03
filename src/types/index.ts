@@ -229,3 +229,15 @@ export interface ITransactionResponse {
   updatedAt: string;
   vTokenAddress: string;
 }
+
+export interface Vault {
+  poolIndex: number;
+  stakedTokenId: TokenId;
+  rewardTokenId: TokenId;
+  lockingPeriodMs: number;
+  stakeAprPercentage: number;
+  totalStakedAmountWei: BigNumber;
+  dailyEmissionAmountWei: BigNumber;
+  userStakedAmountWei?: BigNumber;
+  userPendingRewardAmountWei?: BigNumber;
+}

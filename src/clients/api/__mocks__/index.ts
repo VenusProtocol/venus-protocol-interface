@@ -79,6 +79,24 @@ export const getTransactions = jest.fn();
 export const useGetTransactions = () =>
   useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions);
 
+export const getXvsVaultPoolsCount = jest.fn();
+export const useGetXvsVaultPoolsCount = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolsCount);
+
+export const getXvsVaultPoolInfos = jest.fn();
+
+export const getXvsVaultRewardWeiPerBlock = jest.fn();
+export const useGetXvsVaultRewardWeiPerBlock = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_REWARD_WEI_PER_BLOCK, getXvsVaultRewardWeiPerBlock);
+
+export const getXvsVaultTotalAllocationPoints = jest.fn();
+export const useGetXvsVaultTotalAllocationPoints = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, getXvsVaultTotalAllocationPoints);
+
+export const getXvsVaultPendingRewardWei = jest.fn();
+
+export const getXvsVaultUserInfo = jest.fn();
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>

@@ -31,12 +31,14 @@ describe('api/queries/getXvsReward', () => {
   });
 
   test('returns correct XVS reward amount in wei', async () => {
+    const fakeOutput = '73680428998277363810000000000';
+
     const lensContract = {
       methods: {
         pendingVenus() {
           return {
             call() {
-              return '73680428998277363810000000000';
+              return fakeOutput;
             },
           };
         },
@@ -49,6 +51,6 @@ describe('api/queries/getXvsReward', () => {
     });
 
     expect(res instanceof BigNumber).toBe(true);
-    expect(res.toFixed()).toBe('73680428998277363810000000000');
+    expect(res).toStrictEqual(new BigNumber(fakeOutput));
   });
 });
