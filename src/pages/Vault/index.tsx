@@ -25,7 +25,9 @@ export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
         <VaultItem
           {...vault}
           key={`vault-${vault.poolIndex}`}
-          // TODO: add callbacks (see )
+          // TODO: add callbacks (see https://app.clickup.com/t/2dfqc8g,
+          // https://app.clickup.com/t/2dfqca0,
+          // https://app.clickup.com/t/2dfqcb3)
           onClaim={() => {}}
           onReward={() => {}}
           onStake={() => {}}

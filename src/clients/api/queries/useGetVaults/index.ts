@@ -23,7 +23,7 @@ export interface UseGetVaultsOutput {
   data: Vault[];
 }
 
-// TODO: fetch non-vesting vaults
+// TODO: fetch non-vesting vaults (see https://app.clickup.com/t/2dfqc2m)
 const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVaultsOutput => {
   const { data: xvsVaultPoolsCount = 0, isLoading: isGetXvsVaultPoolsCountLoading } =
     useGetXvsVaultPoolsCount();
@@ -49,45 +49,48 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   const arePoolQueriesLoading = poolQueryResults.some(queryResult => queryResult.isLoading);
 
   // Index results by pool ID
-  const poolData: {
-    [poolIndex: string]: {
-      poolInfos: GetXvsVaultPoolInfosOutput;
-      userPendingRewardWei?: GetXvsVaultPendingRewardWeiOutput;
-      userInfos?: IGetXvsVaultUserInfoOutput;
-    };
-  } = {};
-
-  const queriesPerPoolCount =
-    xvsVaultPoolsCount > 0 ? poolQueryResults.length / xvsVaultPoolsCount : 0;
-
-  for (let poolIndex = 0; poolIndex < xvsVaultPoolsCount; poolIndex++) {
-    const poolQueryResultStartIndex = poolIndex * queriesPerPoolCount;
-
-    const poolInfosQueryResult = poolQueryResults[
-      poolQueryResultStartIndex
-    ] as UseQueryResult<GetXvsVaultPoolInfosOutput>;
-
-    const userPendingRewardQueryResult = poolQueryResults[
-      poolQueryResultStartIndex + 1
-    ] as UseQueryResult<GetXvsVaultPendingRewardWeiOutput>;
-
-    const userInfoQueryResult = poolQueryResults[
-      poolQueryResultStartIndex + 2
-    ] as UseQueryResult<IGetXvsVaultUserInfoOutput>;
-
-    if (poolInfosQueryResult?.data) {
-      poolData[poolIndex] = {
-        poolInfos: poolInfosQueryResult.data,
-        userInfos: userInfoQueryResult.data,
-        userPendingRewardWei: userPendingRewardQueryResult.data,
+  const [poolData, stakedTokenAddresses] = useMemo(() => {
+    const data: {
+      [poolIndex: string]: {
+        poolInfos: GetXvsVaultPoolInfosOutput;
+        userPendingRewardWei?: GetXvsVaultPendingRewardWeiOutput;
+        userInfos?: IGetXvsVaultUserInfoOutput;
       };
-    }
-  }
+    } = {};
 
-  // Get addresses of tokens staked in pools, sorted by pool index
-  const stakedTokenAddresses = Object.keys(poolData)
-    .filter(key => Object.prototype.hasOwnProperty.call(poolData, key))
-    .map(poolIndex => poolData[poolIndex].poolInfos.stakedTokenAddress);
+    const tokenAddresses: string[] = [];
+
+    const queriesPerPoolCount =
+      xvsVaultPoolsCount > 0 ? poolQueryResults.length / xvsVaultPoolsCount : 0;
+
+    for (let poolIndex = 0; poolIndex < xvsVaultPoolsCount; poolIndex++) {
+      const poolQueryResultStartIndex = poolIndex * queriesPerPoolCount;
+
+      const poolInfosQueryResult = poolQueryResults[
+        poolQueryResultStartIndex
+      ] as UseQueryResult<GetXvsVaultPoolInfosOutput>;
+
+      const userPendingRewardQueryResult = poolQueryResults[
+        poolQueryResultStartIndex + 1
+      ] as UseQueryResult<GetXvsVaultPendingRewardWeiOutput>;
+
+      const userInfoQueryResult = poolQueryResults[
+        poolQueryResultStartIndex + 2
+      ] as UseQueryResult<IGetXvsVaultUserInfoOutput>;
+
+      if (poolInfosQueryResult?.data) {
+        tokenAddresses.push(poolInfosQueryResult.data.stakedTokenAddress);
+
+        data[poolIndex] = {
+          poolInfos: poolInfosQueryResult.data,
+          userInfos: userInfoQueryResult.data,
+          userPendingRewardWei: userPendingRewardQueryResult.data,
+        };
+      }
+    }
+
+    return [data, tokenAddresses];
+  }, [JSON.stringify(poolQueryResults), xvsVaultPoolsCount]);
 
   // Fetch pool balances
   const poolBalanceQueryResults = useGetXvsVaultPoolBalances({
@@ -98,9 +101,13 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   );
 
   // Index results by pool ID
-  const poolBalances = indexBy(
-    (_item, index) => `${index}`,
-    poolBalanceQueryResults.map(poolBalanceQueryResult => poolBalanceQueryResult.data),
+  const poolBalances = useMemo(
+    () =>
+      indexBy(
+        (_item, index) => `${index}`,
+        poolBalanceQueryResults.map(poolBalanceQueryResult => poolBalanceQueryResult.data),
+      ),
+    [JSON.stringify(poolBalanceQueryResults)],
   );
 
   const isLoading =
