@@ -5,6 +5,7 @@ import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/v2/wallets/
 import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.svg';
 import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
 import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
+import { ReactComponent as BraveWalletLogo } from 'assets/img/v2/wallets/braveWalletLogo.svg';
 import { Connector } from 'clients/web3';
 import { BaseWallet, Wallet } from './types';
 
@@ -35,6 +36,11 @@ export const WALLETS: Wallet[] = [
     name: 'Binance Chain Wallet',
     Logo: BinanceChainWalletLogo,
     connector: Connector.BinanceChainWallet,
+  },
+  {
+    name: 'Brave',
+    Logo: BraveWalletLogo,
+    connector: Connector.BraveWallet,
   },
 ];
 
