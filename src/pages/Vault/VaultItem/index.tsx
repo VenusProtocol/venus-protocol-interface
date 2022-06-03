@@ -84,6 +84,7 @@ export const VaultItem = ({
       <div css={styles.header}>
         <div css={styles.title}>
           <Icon css={styles.tokenIcon} name={tokenId} />
+
           <Typography variant="h4" css={styles.text}>
             {getToken(tokenId).symbol}
           </Typography>
@@ -91,12 +92,12 @@ export const VaultItem = ({
 
         {rewardWei?.isGreaterThan(0) && (
           <div css={styles.rewardWrapper}>
-            <Typography css={[styles.text, styles.textMobile14]}>
-              {t('vaultItem.reward')}
-            </Typography>
+            <Typography css={styles.text}>{t('vaultItem.reward')}</Typography>
+
             <Icon css={[styles.tokenIcon, styles.tokenIconReward]} name={rewardTokenId} />
+
             <Typography
-              css={[styles.text, styles.textRewardValue, styles.textMobile14]}
+              css={[styles.text, styles.textRewardValue]}
               variant="body1"
               color="textPrimary"
             >
@@ -106,6 +107,7 @@ export const VaultItem = ({
                 returnInReadableFormat: true,
               })}
             </Typography>
+
             <Button onClick={onClaim} variant="text" css={styles.buttonClaim}>
               {t('vaultItem.claimButton')}
             </Button>
@@ -113,9 +115,13 @@ export const VaultItem = ({
         )}
       </div>
 
-      <Typography css={styles.textMobile14}>{t('vaultItem.youAreStaking')}</Typography>
+      <Typography variant="small2" css={[styles.label, styles.stakingLabel]}>
+        {t('vaultItem.youAreStaking')}
+      </Typography>
+
       <Typography variant="h1" css={styles.textStakingValue}>
         <Icon css={[styles.tokenIcon, styles.tokenIconLarge]} name={tokenId} />
+
         {convertWeiToCoins({
           tokenId,
           valueWei: userStakedWei,
@@ -126,8 +132,11 @@ export const VaultItem = ({
       <ul css={styles.dataRow}>
         {dataListItems.map(({ title, value }) => (
           <li key={title} css={styles.valueWrapper}>
-            <Typography css={styles.textMobile14}>{title}</Typography>
-            <Typography variant="h4" css={[styles.textAligned, styles.textMobile14]}>
+            <Typography variant="small2" css={styles.label}>
+              {title}
+            </Typography>
+
+            <Typography variant="h4" css={styles.textAligned}>
               {value}
             </Typography>
           </li>
@@ -138,6 +147,7 @@ export const VaultItem = ({
         <Button onClick={onStake} css={styles.button} variant="primary">
           {t('vaultItem.stakeButton')}
         </Button>
+
         <Button onClick={onReward} css={styles.button} variant="secondary">
           {t('vaultItem.withdrawButton')}
         </Button>
