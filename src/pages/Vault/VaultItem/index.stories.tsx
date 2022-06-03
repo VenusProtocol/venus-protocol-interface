@@ -3,21 +3,21 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { VaultItemUi } from '.';
+import { VaultItem } from '.';
 
 export default {
-  title: 'Components/VaultItemUi',
-  component: VaultItemUi,
+  title: 'Components/VaultItem',
+  component: VaultItem,
   decorators: [withCenterStory({ width: 800 }), withThemeProvider],
   parameters: {
     backgrounds: {
       default: 'Default',
     },
   },
-} as ComponentMeta<typeof VaultItemUi>;
+} as ComponentMeta<typeof VaultItem>;
 
-export const VaultItemUiDefault = () => (
-  <VaultItemUi
+export const VaultItemDefault = () => (
+  <VaultItem
     tokenId="vai"
     rewardTokenId="xvs"
     rewardWei={new BigNumber('000900000000000000')}
@@ -31,8 +31,8 @@ export const VaultItemUiDefault = () => (
   />
 );
 
-export const VaultItemUiWithoutReward = () => (
-  <VaultItemUi
+export const VaultItemWithoutReward = () => (
+  <VaultItem
     tokenId="vrt"
     rewardTokenId="vrt"
     rewardWei={new BigNumber(0)}
