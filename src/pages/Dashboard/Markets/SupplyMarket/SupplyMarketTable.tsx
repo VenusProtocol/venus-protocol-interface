@@ -71,7 +71,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       {
         key: 'collateral',
         render: () =>
-          asset.collateralFactor.toNumber() ? (
+          asset.collateralFactor.toNumber() || asset.collateral ? (
             <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
           ) : (
             PLACEHOLDER_KEY
