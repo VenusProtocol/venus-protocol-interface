@@ -26,6 +26,7 @@ export const useStyles = () => {
     tokenIconLarge: css`
       width: ${theme.shape.iconSize.xLarge}px;
       height: ${theme.shape.iconSize.xLarge}px;
+      margin-right: ${theme.spacing(2)};
     `,
     tokenIconReward: css`
       margin-left: ${theme.spacing(1)};

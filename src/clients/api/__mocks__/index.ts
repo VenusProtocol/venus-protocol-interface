@@ -97,6 +97,10 @@ export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
 
+export const useGetUserMarketInfo = jest.fn();
+
+export const useGetVaults = jest.fn();
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
@@ -156,8 +160,6 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
-
-export const useGetUserMarketInfo = jest.fn();
 
 export const borrowVToken = jest.fn();
 export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, borrowVToken);
