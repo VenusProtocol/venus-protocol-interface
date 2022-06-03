@@ -4,8 +4,8 @@ import { unexpectedErrorPhrases } from './unexpectedErrorPhrases';
 
 export interface IVErrorParamMap {
   transaction: {
-    error: string;
-    info: string;
+    error: keyof typeof transactionErrorPhrases;
+    info: keyof typeof transactionErrorPhrases;
   };
   unexpected: undefined;
   interaction: { assetName: string };
