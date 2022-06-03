@@ -18,9 +18,9 @@ export default {
 
 export const VaultItemDefault = () => (
   <VaultItem
-    tokenId="vai"
+    stakedTokenId="vai"
     rewardTokenId="xvs"
-    rewardWei={new BigNumber('000900000000000000')}
+    userPendingRewardWei={new BigNumber('000900000000000000')}
     userStakedWei={new BigNumber('100000000000000000000')}
     stakingAprPercentage={2.39}
     dailyEmissionWei={new BigNumber('2120000000000000000')}
@@ -33,9 +33,9 @@ export const VaultItemDefault = () => (
 
 export const VaultItemWithoutReward = () => (
   <VaultItem
-    tokenId="vrt"
+    stakedTokenId="vrt"
     rewardTokenId="vrt"
-    rewardWei={new BigNumber(0)}
+    userPendingRewardWei={new BigNumber(0)}
     userStakedWei={new BigNumber('100000000000000000000')}
     stakingAprPercentage={2.39}
     dailyEmissionWei={new BigNumber('2120000000000000000')}

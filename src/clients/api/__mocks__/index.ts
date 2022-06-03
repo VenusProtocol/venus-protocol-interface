@@ -101,6 +101,10 @@ export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
 
+export const useGetUserMarketInfo = jest.fn();
+
+export const useGetVaults = jest.fn();
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
