@@ -236,9 +236,9 @@ export interface Vault {
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
   lockingPeriodMs: number;
-  stakeAprPercentage: number;
-  totalStakedAmountWei: BigNumber;
-  dailyEmissionAmountWei: BigNumber;
-  userStakedAmountWei?: BigNumber;
-  userPendingRewardAmountWei?: BigNumber;
+  stakingAprPercentage: number;
+  totalStakedWei: BigNumber;
+  dailyEmissionWei: BigNumber;
+  userStakedWei?: BigNumber;
+  userPendingRewardWei?: BigNumber;
 }
