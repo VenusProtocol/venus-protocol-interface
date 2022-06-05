@@ -128,6 +128,8 @@ export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithd
 
 export { default as useGetUserMarketInfo } from './queries/useGetUserMarketInfo';
 
+export { default as useGetTreasuryTotals } from './queries/useGetTreasuryTotals';
+
 export { default as getMarketHistory } from './queries/getMarketHistory';
 export * from './queries/getMarketHistory';
 export { default as useGetMarketHistory } from './queries/useGetMarketHistory';

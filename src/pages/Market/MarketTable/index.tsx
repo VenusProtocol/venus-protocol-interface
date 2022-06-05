@@ -25,7 +25,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
 
   const columns = useMemo(
     () => [
-      { key: 'market', label: t('market.columns.market'), orderable: false, align: 'left' },
+      { key: 'asset', label: t('market.columns.asset'), orderable: false, align: 'left' },
       {
         key: 'totalSupply',
         label: t('market.columns.totalSupply'),
@@ -58,7 +58,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
     () =>
       markets.map(market => [
         {
-          key: 'market',
+          key: 'asset',
           render: () => <Token tokenId={market.id as TokenId} css={styles.whiteText} />,
           value: market.id,
         },
@@ -67,11 +67,11 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
           render: () => (
             <LayeredValues
               topValue={formatCentsToReadableValue({
-                value: market.treasuryTotalSupplyUsdCents,
+                value: market.treasuryTotalSupplyCents,
                 shortenLargeValue: true,
               })}
               bottomValue={formatCoinsToReadableValue({
-                value: market.treasuryTotalSupplyUsdCents.div(market.tokenPrice.times(100)),
+                value: market.treasuryTotalSupplyCents.div(market.tokenPrice.times(100)),
                 tokenId: market.id as TokenId,
                 minimizeDecimals: true,
                 shortenLargeValue: true,
@@ -80,7 +80,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
             />
           ),
           align: 'right',
-          value: market.treasuryTotalSupplyUsdCents.toFixed(),
+          value: market.treasuryTotalSupplyCents.toFixed(),
         },
         {
           key: 'supplyApy',
@@ -98,11 +98,11 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
           render: () => (
             <LayeredValues
               topValue={formatCentsToReadableValue({
-                value: market.treasuryTotalBorrowsUsdCents,
+                value: market.treasuryTotalBorrowsCents,
                 shortenLargeValue: true,
               })}
               bottomValue={formatCoinsToReadableValue({
-                value: market.treasuryTotalBorrowsUsdCents.div(market.tokenPrice.times(100)),
+                value: market.treasuryTotalBorrowsCents.div(market.tokenPrice.times(100)),
                 tokenId: market.id as TokenId,
                 minimizeDecimals: true,
                 shortenLargeValue: true,
@@ -110,7 +110,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
               css={styles.noWrap}
             />
           ),
-          value: market.treasuryTotalBorrowsUsdCents.toFixed(),
+          value: market.treasuryTotalBorrowsCents.toFixed(),
           align: 'right',
         },
         {
