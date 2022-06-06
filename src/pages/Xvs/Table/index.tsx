@@ -122,10 +122,10 @@ const XvsTable: React.FC = () => {
     placeholderData: { markets: [], dailyVenus: undefined },
   });
   const { data: venusVaiVaultRate } = useGetVenusVaiVaultRate();
-  const { data: vaultVaiStaked } = useGetBalanceOf(
-    { tokenId: 'vai', accountAddress: getContractAddress('vaiVault') },
-    { enabled: !!account?.address },
-  );
+  const { data: vaultVaiStaked } = useGetBalanceOf({
+    tokenId: 'vai',
+    accountAddress: getContractAddress('vaiVault'),
+  });
   const xvsMarket = markets.find(ele => ele.underlyingSymbol === 'XVS');
   let vaiApy;
   if (venusVaiVaultRate && vaultVaiStaked) {
