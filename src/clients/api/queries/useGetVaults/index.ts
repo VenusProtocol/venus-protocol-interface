@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { Vault } from 'types';
 
 import useGetVestingVaults from './useGetVestingVaults';
+import useGetVaiVault from './useGetVaiVault';
 
 export interface UseGetVaultsOutput {
   isLoading: boolean;
@@ -12,11 +14,27 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
     accountAddress,
   });
 
-  // TODO: fetch non-vesting vaults (see https://app.clickup.com/t/2dfqc2m)
+  const { data: vaultVault, isLoading: isVaiVaultLoading } = useGetVaiVault({
+    accountAddress,
+  });
+
+  const data: Vault[] = useMemo(() => {
+    const allVaults = [...vestingVaults];
+
+    if (vaultVault) {
+      allVaults.push(vaultVault);
+    }
+
+    // TODO: add VRT vault
+
+    return allVaults;
+  }, [JSON.stringify(vestingVaults), vaultVault]);
+
+  const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading;
 
   return {
-    data: vestingVaults,
-    isLoading: isGetVestingVaultsLoading,
+    data,
+    isLoading,
   };
 };
 
