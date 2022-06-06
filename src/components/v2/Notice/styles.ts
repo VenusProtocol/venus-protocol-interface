@@ -66,7 +66,7 @@ export const useStyles = () => {
     content: css`
       display: flex;
       flex-direction: column;
-      padding-left: ${theme.spacing(8)};
+      padding-left: ${theme.spacing(7)};
       word-break: break-word;
     `,
     title: css`

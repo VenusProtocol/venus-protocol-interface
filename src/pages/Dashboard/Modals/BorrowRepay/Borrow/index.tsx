@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 
 import { getToken } from 'utilities';
@@ -20,9 +19,9 @@ import {
   toast,
   FormikSubmitButton,
   FormikTokenTextField,
-  Icon,
   ConnectWallet,
   EnableToken,
+  NoticeWarning,
 } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
@@ -133,13 +132,10 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             />
 
             {+values.amount > +safeLimitTokens && (
-              <div css={styles.liquidationWarning}>
-                <Icon name="info" css={styles.liquidationWarningIcon} />
-
-                <Typography variant="small2" css={styles.whiteLabel}>
-                  {t('borrowRepayModal.borrow.highAmountWarning')}
-                </Typography>
-              </div>
+              <NoticeWarning
+                css={styles.liquidationWarning}
+                description={t('borrowRepayModal.borrow.highAmountWarning')}
+              />
             )}
           </div>
 

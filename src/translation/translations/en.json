@@ -43,7 +43,7 @@
         "distributionInfo": "Distribution APY",
         "title": "To borrow {{symbol}} to the Venus Protocol, you need to enable it first"
       },
-      "highAmountWarning": "You entered a high amount. There is a risk of liquidation",
+      "highAmountWarning": "You entered a high amount, which puts you at risk of liquidation",
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButton": "Borrow",
       "submitButtonDisabled": "Enter a valid amount to borrow",

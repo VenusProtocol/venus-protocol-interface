@@ -217,14 +217,15 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
 
-    let repayAmount = amountWei;
-    if (repayAmount.eq(convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }))) {
-      repayAmount = MAX_UINT256;
-    }
+    const isRepayingFullLoan = amountWei.eq(
+      convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }),
+    );
+    const repayAmountWei = isRepayingFullLoan && asset.id !== 'bnb' ? MAX_UINT256 : amountWei;
 
     const res = await repay({
-      amountWei: repayAmount,
+      amountWei: repayAmountWei,
       fromAccountAddress: account.address,
+      isRepayingFullLoan,
     });
 
     // Close modal on success
