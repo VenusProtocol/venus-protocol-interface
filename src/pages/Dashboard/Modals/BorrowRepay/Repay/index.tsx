@@ -117,9 +117,9 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
     }
   };
 
-  const shouldDisplayBnbFullRepaymentWarning = React.useCallback(
+  const shouldDisplayFullRepaymentWarning = React.useCallback(
     (repayAmountTokens: string) =>
-      asset.id === 'bnb' && repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
+      repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
     [asset.id, asset.borrowBalance.toFixed()],
   );
 
@@ -176,10 +176,10 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
               ))}
             </div>
 
-            {shouldDisplayBnbFullRepaymentWarning(values.amount) && (
+            {shouldDisplayFullRepaymentWarning(values.amount) && (
               <NoticeWarning
                 css={styles.notice}
-                description={t('borrowRepayModal.repay.bnbFullRepaymentWarning')}
+                description={t('borrowRepayModal.repay.fullRepaymentWarning')}
               />
             )}
           </div>

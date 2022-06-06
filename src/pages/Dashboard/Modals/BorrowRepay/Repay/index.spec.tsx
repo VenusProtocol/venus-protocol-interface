@@ -324,6 +324,11 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     // Press on max button
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
+    // Check notice is displayed
+    await waitFor(() =>
+      expect(getByText(en.borrowRepayModal.repay.fullRepaymentWarning)).toBeTruthy(),
+    );
+
     // Click on submit button
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
     fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
@@ -365,7 +370,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
     // Check notice is displayed
     await waitFor(() =>
-      expect(getByText(en.borrowRepayModal.repay.bnbFullRepaymentWarning)).toBeTruthy(),
+      expect(getByText(en.borrowRepayModal.repay.fullRepaymentWarning)).toBeTruthy(),
     );
 
     // Click on submit button
