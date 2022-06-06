@@ -91,10 +91,10 @@ export const Table = ({
     const rowIndex = columns.findIndex(column => column.key === orderBy);
     const newRows = [...data];
     newRows.sort((a, b) => {
-      if (+a[rowIndex].value < +b[rowIndex].value) {
+      if (+a[rowIndex]?.value < +b[rowIndex]?.value) {
         return orderDirection === 'asc' ? -1 : 1;
       }
-      if (+a[rowIndex].value > +b[rowIndex].value) {
+      if (+a[rowIndex]?.value > +b[rowIndex]?.value) {
         return orderDirection === 'asc' ? 1 : -1;
       }
       return 0;

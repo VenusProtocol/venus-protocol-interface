@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import { Table, Token, TableProps } from 'components';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
@@ -42,7 +42,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token symbol={asset.symbol as TokenId} />,
+        render: () => <Token tokenId={asset.id} />,
         value: asset.id,
         align: 'left',
       },

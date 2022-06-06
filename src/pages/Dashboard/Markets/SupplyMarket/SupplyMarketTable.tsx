@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilities/common';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import { Table, TableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
 import { useStyles as useSharedStyles } from '../styles';
@@ -47,7 +47,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token symbol={asset.symbol as TokenId} />,
+        render: () => <Token tokenId={asset.id} />,
         value: asset.id,
         align: 'left',
       },
