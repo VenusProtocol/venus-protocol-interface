@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { EllipseText, Icon, Table, TableProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import { useTranslation } from 'translation';
@@ -57,7 +58,10 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
       render: () => (
         <>
           <div css={[styles.whiteText, styles.table, styles.typeCol]}>
-            <Icon name={getTokenIdFromVAddress(txn.vTokenAddress) as TokenId} css={styles.icon} />
+            <Icon
+              name={getTokenIdFromVAddress(txn.vTokenAddress || XVS_TOKEN_ADDRESS) as TokenId}
+              css={styles.icon}
+            />
             <Typography variant="small2" color="textPrimary">
               {txn.event}
             </Typography>

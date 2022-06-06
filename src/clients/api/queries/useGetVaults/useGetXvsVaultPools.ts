@@ -10,7 +10,7 @@ import {
   getXvsVaultUserInfo,
   IGetXvsVaultUserInfoOutput,
 } from 'clients/api';
-import { XVS_TOKEN_ADDRESS } from './constants';
+import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 
 export interface IUseGetXvsVaultPoolsInput {
   poolsCount: number;
