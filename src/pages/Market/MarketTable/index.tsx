@@ -57,7 +57,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
   const rows: TableProps['data'] = markets.map(market => [
     {
       key: 'market',
-      render: () => <Token tokenId={market.id as TokenId} />,
+      render: () => <Token tokenId={market.id as TokenId} css={styles.whiteText} />,
       value: market.id,
     },
     {
@@ -151,7 +151,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
       cardColumns={cardColumns}
       data={rows}
       initialOrder={{
-        orderBy: 'asset',
+        orderBy: 'totalSupply',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}

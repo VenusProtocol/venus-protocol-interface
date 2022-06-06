@@ -29,11 +29,11 @@ export interface IMarketDetailsUiProps {
   interestRateChartData: IInterestRateChartProps['data'];
   totalBorrowBalanceCents?: number;
   totalSupplyBalanceCents?: number;
-  borrowApyPercentage?: BigNumber;
-  supplyApyPercentage?: BigNumber;
+  borrowApyPercentage?: number;
+  supplyApyPercentage?: number;
   borrowDistributionApyPercentage?: number;
   supplyDistributionApyPercentage?: number;
-  tokenPriceDollars?: number;
+  tokenPriceDollars?: string;
   marketLiquidityTokens?: BigNumber;
   supplierCount?: number;
   borrowerCount?: number;

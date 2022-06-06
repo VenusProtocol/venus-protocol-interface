@@ -55,18 +55,18 @@ export const Default = () => (
   <MarketDetailsUi
     vTokenId="bnb"
     totalBorrowBalanceCents={100000000}
-    borrowApyPercentage={new BigNumber(2.24)}
+    borrowApyPercentage={2.24}
     borrowDistributionApyPercentage={1.1}
     totalSupplyBalanceCents={100000000000}
-    supplyApyPercentage={new BigNumber(4.56)}
+    supplyApyPercentage={4.56}
     supplyDistributionApyPercentage={0.45}
     currentUtilizationRate={46}
-    tokenPriceDollars={1.1415}
+    tokenPriceDollars="1.14"
     marketLiquidityTokens={new BigNumber(100000000)}
     supplierCount={1234}
     borrowerCount={76}
-    borrowCapCents={8129632.86}
-    dailyInterestsCents={1232.12}
+    borrowCapCents={812963286}
+    dailyInterestsCents={123212}
     reserveTokens={new BigNumber(100000)}
     reserveFactor={20}
     collateralFactor={70}

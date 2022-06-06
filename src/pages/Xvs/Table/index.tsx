@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import {
   useGetUserMarketInfo,
@@ -28,13 +27,12 @@ interface IXvsTableProps {
 }
 
 const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
-  const history = useHistory();
   const { t } = useTranslation();
   const styles = useStyles();
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('xvs.columns.asset'), orderable: false, align: 'left' },
+      { key: 'market', label: t('xvs.columns.market'), orderable: false, align: 'left' },
       { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true, align: 'right' },
       {
         key: 'supplyXvsApy',
@@ -52,13 +50,10 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
     [],
   );
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
-    history.push(`/market/${row[0].value}`);
-  };
   // Format assets to rows
   const rows: TableProps['data'] = assets.map(asset => [
     {
-      key: 'asset',
+      key: 'market',
       render: () => <Token tokenId={asset.id} />,
       value: asset.id,
       align: 'left',
@@ -104,11 +99,10 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'asset',
+        orderBy: 'xvsPerDay',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
-      rowOnClick={rowOnClick}
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}

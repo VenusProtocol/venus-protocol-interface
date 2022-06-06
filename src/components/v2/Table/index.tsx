@@ -126,6 +126,7 @@ export const Table = ({
                 <TableRow
                   hover
                   key={`${rowKey}-table`}
+                  css={styles.getTableRow({ clickable: !!rowOnClick })}
                   onClick={
                     rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
                   }
@@ -135,7 +136,7 @@ export const Table = ({
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
                     return (
                       <TableCell
-                        css={styles.cellWrapper}
+                        css={styles.getCellWrapper({ containsLink: !!getRowHref })}
                         key={`${rowKey}-${key}-table`}
                         title={cellTitle}
                         align={align}

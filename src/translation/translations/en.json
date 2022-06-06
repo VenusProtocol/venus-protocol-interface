@@ -185,9 +185,9 @@
   "market": {
     "availableLiquidity": "Available Liquidity",
     "columns": {
-      "asset": "Asset",
       "borrowApy": "Borrow APY",
       "liquidity": "Liquidity",
+      "market": "Currency",
       "price": "Price",
       "supplyApy": "Supply APY",
       "totalBorrow": "Total Borrow",
@@ -228,7 +228,7 @@
         "reserveFactorLabel": "Reserve factor",
         "reserveTokensLabel": "Reserves",
         "supplierCountLabel": "# of suppliers",
-        "unlimitedBorrowCap": "Unlimited"
+        "unlimitedBorrowCap": "Uncapped"
       },
       "title": "Market info"
     },
@@ -550,8 +550,8 @@
   },
   "xvs": {
     "columns": {
-      "asset": "Asset",
       "borrowXvsApy": "Borrow XVS APY",
+      "market": "Market",
       "supplyXvsApy": "Supply XVS APY",
       "xvsPerDay": "XVS Per Day"
     },
