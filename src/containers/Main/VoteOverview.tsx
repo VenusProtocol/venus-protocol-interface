@@ -17,7 +17,10 @@ import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import { uid } from 'react-uid';
 import { ProposalInfo as ProposalInfoType } from 'types';
-import { useTokenContract, useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import {
+  useXvsVaultProxyContract,
+  useGovernorBravoDelegateContract,
+} from 'clients/contracts/hooks';
 import { AuthContext } from 'context/AuthContext';
 
 const VoteOverviewWrapper = styled.div`
@@ -105,14 +108,16 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
   const [isPossibleExcuted, setIsPossibleExcuted] = useState(false);
   const [executeEta, setExecuteEta] = useState('');
   const { account } = useContext(AuthContext);
-  const xvsTokenContract = useTokenContract('xvs');
+  const xvsVaultProxyContract = useXvsVaultProxyContract();
   const governorBravoContract = useGovernorBravoDelegateContract();
 
   const updateBalance = useCallback(async () => {
     if (proposalInfo.id && proposalInfo.proposer) {
       const threshold = await governorBravoContract.methods.proposalThreshold().call();
       setProposalThreshold(+Web3.utils.fromWei(threshold, 'ether'));
-      const weight = await xvsTokenContract.methods.getCurrentVotes(proposalInfo.proposer).call();
+      const weight = await xvsVaultProxyContract.methods
+        .getCurrentVotes(proposalInfo.proposer)
+        .call();
       setProposerVotingWeight(+Web3.utils.fromWei(weight, 'ether'));
     }
   }, [proposalInfo]);
@@ -310,6 +315,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                   <SecondaryButton
                     disabled={
                       !account ||
+                      account.address.toLowerCase() !== proposalInfo.proposer?.toLowerCase() ||
                       isCancelLoading ||
                       proposerVotingWeight < proposalThreshold ||
                       cancelStatus === 'success'
