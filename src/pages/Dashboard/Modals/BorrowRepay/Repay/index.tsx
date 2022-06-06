@@ -23,7 +23,6 @@ import {
   TertiaryButton,
   NoticeWarning,
 } from 'components';
-import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
@@ -234,10 +233,9 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     const isRepayingFullLoan = amountWei.eq(
       convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }),
     );
-    const repayAmountWei = isRepayingFullLoan && asset.id !== 'bnb' ? MAX_UINT256 : amountWei;
 
     const res = await repay({
-      amountWei: repayAmountWei,
+      amountWei,
       fromAccountAddress: account.address,
       isRepayingFullLoan,
     });

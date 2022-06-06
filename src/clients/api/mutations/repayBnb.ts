@@ -16,6 +16,7 @@ export interface IRepayBnbInput {
 export type RepayBnbOutput = TransactionReceipt;
 
 export const REPAYMENT_BNB_BUFFER_PERCENTAGE = 0.001;
+const VBNB_ADDRESS = getVBepToken('bnb').address;
 
 const repayBnb = async ({
   web3,
@@ -24,7 +25,6 @@ const repayBnb = async ({
   isRepayingFullLoan = false,
 }: IRepayBnbInput): Promise<RepayBnbOutput> => {
   let resp: TransactionReceipt;
-  const vBnbAddress = getVBepToken('bnb').address;
 
   // If we're repaying a full loan, we need to call the Maximillion contract to
   // do so. If we partially repay a loan, we need to send the BNB amount to
@@ -34,7 +34,7 @@ const repayBnb = async ({
     const amountWithBuffer = amountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
 
     resp = await maximillionContract.methods
-      .repayBehalfExplicit(fromAccountAddress, vBnbAddress)
+      .repayBehalfExplicit(fromAccountAddress, VBNB_ADDRESS)
       .send({
         from: fromAccountAddress,
         value: amountWithBuffer.toFixed(0),
@@ -45,7 +45,7 @@ const repayBnb = async ({
 
     resp = await web3.eth.sendTransaction({
       from: fromAccountAddress,
-      to: vBnbAddress,
+      to: VBNB_ADDRESS,
       value: amountWei.toFixed(),
       data: contractData,
     });

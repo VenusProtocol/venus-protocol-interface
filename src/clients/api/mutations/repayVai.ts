@@ -6,7 +6,6 @@ export interface IRepayVaiInput {
   vaiControllerContract: VaiUnitroller;
   fromAccountAddress: string;
   amountWei: string;
-  isRepayingFullLoan?: boolean;
 }
 
 export type IRepayVaiOutput = TransactionReceipt;
