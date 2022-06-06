@@ -58,7 +58,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
   // Format assets to rows
   const rows: TableProps['data'] = assets.map(asset => [
     {
-      key: 'asset',
+      key: 'market',
       render: () => <Token tokenId={asset.id} />,
       value: asset.id,
       align: 'left',
@@ -104,7 +104,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'asset',
+        orderBy: 'xvsPerDay',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
