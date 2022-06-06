@@ -185,9 +185,9 @@
   "market": {
     "availableLiquidity": "Available Liquidity",
     "columns": {
-      "asset": "Asset",
       "borrowApy": "Borrow APY",
       "liquidity": "Liquidity",
+      "market": "Currency",
       "price": "Price",
       "supplyApy": "Supply APY",
       "totalBorrow": "Total Borrow",
