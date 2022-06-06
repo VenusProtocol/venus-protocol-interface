@@ -14,7 +14,6 @@ import Dashboard from 'pages/Dashboard';
 import Faucet from 'containers/Main/Faucet';
 import VoteV1 from 'containers/Main/Vote';
 import Vote from 'pages/Vote';
-import XVSV1 from 'containers/Main/XVS';
 import Xvs from 'pages/Xvs';
 import Market from 'pages/Market';
 import Vault from 'pages/Vault';
@@ -56,11 +55,7 @@ const App = () => (
                               path={Path.VOTE}
                               component={process.env.REACT_APP_RUN_V2 ? Vote : VoteV1}
                             />
-                            <Route
-                              exact
-                              path={Path.XVS}
-                              component={process.env.REACT_APP_RUN_V2 ? Xvs : XVSV1}
-                            />
+                            <Route exact path={Path.XVS} component={Xvs} />
                             <Route exact path={Path.MARKET} component={Market} />
                             <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
                             <Route
