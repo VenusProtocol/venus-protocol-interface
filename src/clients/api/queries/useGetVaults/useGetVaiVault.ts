@@ -1,6 +1,6 @@
 import { Vault } from 'types';
 
-import { useGetBalanceOf } from 'clients/api';
+import { useGetBalanceOf, useGetVenusVaiVaultRate } from 'clients/api';
 import { VAI_TOKEN_ID, VAI_VAULT_ADDRESS } from './constants';
 
 export interface UseGetVaiVaultOutput {
@@ -19,18 +19,24 @@ export interface UseGetVaiVaultOutput {
 // }
 
 const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
-  const { data: totalVaiStakedWei } = useGetBalanceOf({
+  const { data: totalVaiStakedWei, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf({
     accountAddress: VAI_VAULT_ADDRESS,
     tokenId: VAI_TOKEN_ID,
   });
 
+  const { data: venusVaiVaultRate, isLoading: isGetVenusVaiVaultRateLoading } =
+    useGetVenusVaiVaultRate();
+
   console.log(accountAddress);
 
   console.log(totalVaiStakedWei?.toFixed());
+  console.log(venusVaiVaultRate?.toFixed());
+
+  const isLoading = isGetTotalVaiStakedWeiLoading || isGetVenusVaiVaultRateLoading;
 
   return {
     data: undefined,
-    isLoading: false,
+    isLoading,
   };
 };
 

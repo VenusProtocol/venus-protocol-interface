@@ -33,8 +33,8 @@ const useGetXvsVaultPoolBalances = ({
           }),
         queryKey: [
           FunctionKey.GET_BALANCE_OF,
-          stakedTokenAddress,
           XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+          stakedTokenAddress,
         ],
         enabled: !!tokenContract,
       };

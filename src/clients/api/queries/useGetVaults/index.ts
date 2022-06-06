@@ -14,21 +14,21 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
     accountAddress,
   });
 
-  const { data: vaultVault, isLoading: isVaiVaultLoading } = useGetVaiVault({
+  const { data: vaiVault, isLoading: isVaiVaultLoading } = useGetVaiVault({
     accountAddress,
   });
 
   const data: Vault[] = useMemo(() => {
     const allVaults = [...vestingVaults];
 
-    if (vaultVault) {
-      allVaults.push(vaultVault);
+    if (vaiVault) {
+      allVaults.push(vaiVault);
     }
 
     // TODO: add VRT vault
 
     return allVaults;
-  }, [JSON.stringify(vestingVaults), vaultVault]);
+  }, [JSON.stringify(vestingVaults), vaiVault]);
 
   const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading;
 
