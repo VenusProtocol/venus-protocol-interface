@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
 
-import { Spinner } from 'components';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { AuthContext } from 'context/AuthContext';
 import { useGetVaults } from 'clients/api';
 import { Vault } from 'types';
@@ -16,7 +16,7 @@ export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
   const styles = useStyles();
 
   if (vaults.length === 0) {
-    return <Spinner />;
+    return <LoadingSpinner />;
   }
 
   return (
