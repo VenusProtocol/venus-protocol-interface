@@ -130,9 +130,23 @@ export const useStyles = () => {
         color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
     `,
-    cellWrapper: css`
+    getCellWrapper: ({ containsLink }: { containsLink: boolean }) => css`
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: ${containsLink ? 0 : theme.spacing(4)};
+
+      > a {
+        display: block;
+        padding: ${theme.spacing(4)};
+      }
+
+      :first-of-type > a {
+        padding-left: 0;
+      }
+
+      :last-of-type > a {
+        padding-right: 0;
+      }
     `,
     cellInner: css`
       text-overflow: ellipsis;
