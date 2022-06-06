@@ -231,7 +231,6 @@ export interface ITransactionResponse {
 }
 
 export interface Vault {
-  poolIndex: number;
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
   lockingPeriodMs: number;

@@ -161,7 +161,6 @@ const useGetVestingVaults = ({
           stakingAprPercentage
         ) {
           const vault: Vault = {
-            poolIndex,
             rewardTokenId: XVS_TOKEN_ID,
             stakedTokenId,
             lockingPeriodMs,

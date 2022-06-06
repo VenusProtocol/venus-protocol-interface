@@ -4,7 +4,6 @@ import { Vault } from 'types';
 
 export const vaults: Vault[] = [
   {
-    poolIndex: 0,
     rewardTokenId: 'xvs',
     stakedTokenId: 'vai',
     lockingPeriodMs: 300000,
@@ -13,7 +12,6 @@ export const vaults: Vault[] = [
     stakingAprPercentage: 12665.060240963856,
   },
   {
-    poolIndex: 1,
     rewardTokenId: 'xvs',
     stakedTokenId: 'xvs',
     lockingPeriodMs: 300000,
