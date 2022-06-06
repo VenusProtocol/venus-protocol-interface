@@ -17,6 +17,7 @@ import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import xvsTokenAbi from 'constants/contracts/abis/xvsToken.json';
 import venusLensAbi from 'constants/contracts/abis/venusLens.json';
 import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDelegate.json';
+import maximillionAbi from 'constants/contracts/abis/maximillion.json';
 import xvsVestingAbi from 'constants/contracts/abis/xvsVesting.json';
 import vrtConverterAbi from 'constants/contracts/abis/vrtConverter.json';
 import vrtTokenAbi from 'constants/contracts/abis/vrtToken.json';
@@ -32,6 +33,7 @@ import {
   XvsVaultStore,
   VenusLens,
   GovernorBravoDelegate,
+  Maximillion,
   XvsVesting,
   VrtVault,
   VrtConverter,
@@ -147,6 +149,13 @@ export const getGovernorBravoDelegateContract = (web3: Web3) =>
     getContractAddress('governorBravoDelegator'),
     web3,
   ) as unknown as GovernorBravoDelegate;
+
+export const getMaximillionContract = (web3: Web3) =>
+  getContract(
+    maximillionAbi as AbiItem[],
+    getContractAddress('maximillion'),
+    web3,
+  ) as unknown as Maximillion;
 
 // VRT conversion
 export const getXvsVestingProxyContract = (web3: Web3) =>

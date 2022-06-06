@@ -21,8 +21,8 @@ import {
   EnableToken,
   LabeledInlineContent,
   TertiaryButton,
+  NoticeWarning,
 } from 'components';
-import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
@@ -117,6 +117,12 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
     }
   };
 
+  const shouldDisplayBnbFullRepaymentWarning = React.useCallback(
+    (repayAmountTokens: string) =>
+      asset.id === 'bnb' && repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
+    [asset.id, asset.borrowBalance.toFixed()],
+  );
+
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
@@ -169,6 +175,13 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
                 </TertiaryButton>
               ))}
             </div>
+
+            {shouldDisplayBnbFullRepaymentWarning(values.amount) && (
+              <NoticeWarning
+                css={styles.notice}
+                description={t('borrowRepayModal.repay.bnbFullRepaymentWarning')}
+              />
+            )}
           </div>
 
           <AccountData
@@ -217,14 +230,14 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
 
-    let repayAmount = amountWei;
-    if (repayAmount.eq(convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }))) {
-      repayAmount = MAX_UINT256;
-    }
+    const isRepayingFullLoan = amountWei.eq(
+      convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }),
+    );
 
     const res = await repay({
-      amountWei: repayAmount,
+      amountWei,
       fromAccountAddress: account.address,
+      isRepayingFullLoan,
     });
 
     // Close modal on success
