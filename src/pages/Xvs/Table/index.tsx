@@ -32,7 +32,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('xvs.columns.asset'), orderable: false, align: 'left' },
+      { key: 'market', label: t('xvs.columns.market'), orderable: false, align: 'left' },
       { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true, align: 'right' },
       {
         key: 'supplyXvsApy',
