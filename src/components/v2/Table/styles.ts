@@ -40,6 +40,12 @@ export const useStyles = () => {
     delimiterMobile: css`
       margin: ${theme.spacing(4)};
     `,
+    getTableRow: ({ clickable }: { clickable: boolean }) => css`
+      ${clickable &&
+      css`
+        cursor: pointer;
+      `}
+    `,
     rowWrapperMobile: css`
       display: grid;
       grid-template-rows: 1fr;
@@ -70,10 +76,6 @@ export const useStyles = () => {
         flex-direction: row;
         font-size: ${theme.spacing(3.5)};
         text-transform: none;
-      }
-
-      .MuiTableRow-root {
-        cursor: pointer;
       }
 
       .MuiTableCell-root:first-of-type {

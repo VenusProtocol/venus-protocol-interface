@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import {
   useGetUserMarketInfo,
@@ -28,7 +27,6 @@ interface IXvsTableProps {
 }
 
 const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
-  const history = useHistory();
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -52,9 +50,6 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
     [],
   );
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
-    history.push(`/market/${row[0].value}`);
-  };
   // Format assets to rows
   const rows: TableProps['data'] = assets.map(asset => [
     {
@@ -108,7 +103,6 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
-      rowOnClick={rowOnClick}
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}

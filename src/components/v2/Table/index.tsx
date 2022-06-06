@@ -126,6 +126,7 @@ export const Table = ({
                 <TableRow
                   hover
                   key={`${rowKey}-table`}
+                  css={styles.getTableRow({ clickable: !!rowOnClick })}
                   onClick={
                     rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
                   }
