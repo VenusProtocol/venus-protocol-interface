@@ -228,7 +228,7 @@
         "reserveFactorLabel": "Reserve factor",
         "reserveTokensLabel": "Reserves",
         "supplierCountLabel": "# of suppliers",
-        "unlimitedBorrowCap": "Unlimited"
+        "unlimitedBorrowCap": "Uncapped"
       },
       "title": "Market info"
     },
