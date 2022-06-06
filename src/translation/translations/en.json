@@ -54,6 +54,7 @@
     },
     "borrowTabTitle": "Borrow",
     "repay": {
+      "bnbFullRepaymentWarning": "The transaction value will be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",
       "enableToken": {

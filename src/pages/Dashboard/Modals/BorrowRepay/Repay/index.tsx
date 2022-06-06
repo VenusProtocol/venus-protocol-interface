@@ -21,6 +21,7 @@ import {
   EnableToken,
   LabeledInlineContent,
   TertiaryButton,
+  NoticeWarning,
 } from 'components';
 import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
@@ -117,6 +118,12 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
     }
   };
 
+  const shouldDisplayBnbFullRepaymentWarning = React.useCallback(
+    (repayAmountTokens: string) =>
+      asset.id === 'bnb' && repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
+    [asset.id, asset.borrowBalance.toFixed()],
+  );
+
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
@@ -169,6 +176,13 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
                 </TertiaryButton>
               ))}
             </div>
+
+            {shouldDisplayBnbFullRepaymentWarning(values.amount) && (
+              <NoticeWarning
+                css={styles.notice}
+                description={t('borrowRepayModal.repay.bnbFullRepaymentWarning')}
+              />
+            )}
           </div>
 
           <AccountData

@@ -26,7 +26,6 @@ import {
 import { useTranslation } from 'translation';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
-import { useStyles as useBorrowStyles } from './styles';
 
 export interface IBorrowFormProps {
   asset: Asset;
@@ -50,11 +49,6 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   const { t, Trans } = useTranslation();
 
   const sharedStyles = useStyles();
-  const borrowStyles = useBorrowStyles();
-  const styles = {
-    ...sharedStyles,
-    ...borrowStyles,
-  };
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
@@ -106,7 +100,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, dirty, isValid, errors }) => (
         <>
-          <div css={[styles.getRow({ isLast: true })]}>
+          <div css={[sharedStyles.getRow({ isLast: true })]}>
             <FormikTokenTextField
               name="amount"
               tokenId={asset.id}
@@ -124,7 +118,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
                 <Trans
                   i18nKey="borrowRepayModal.borrow.borrowableAmount"
                   components={{
-                    White: <span css={styles.whiteLabel} />,
+                    White: <span css={sharedStyles.whiteLabel} />,
                   }}
                   values={{ amount: readableTokenBorrowableAmount }}
                 />
@@ -133,7 +127,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
 
             {+values.amount > +safeLimitTokens && (
               <NoticeWarning
-                css={styles.liquidationWarning}
+                css={sharedStyles.notice}
                 description={t('borrowRepayModal.borrow.highAmountWarning')}
               />
             )}

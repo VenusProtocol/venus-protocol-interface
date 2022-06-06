@@ -24,6 +24,10 @@ export const useStyles = () => {
       display: flex;
       justify-content: space-between;
     `,
+    notice: css`
+      margin-top: ${theme.spacing(3)};
+      padding: ${theme.spacing(4)};
+    `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
       margin-bottom: ${theme.spacing(isLast ? 8 : 3)};
 
