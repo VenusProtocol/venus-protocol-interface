@@ -36,7 +36,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
 
   const columns = useMemo(
     () => [
-      { key: 'market', label: t('xvs.columns.market'), orderable: false, align: 'left' },
+      { key: 'asset', label: t('xvs.columns.asset'), orderable: false, align: 'left' },
       { key: 'xvsPerDay', label: t('xvs.columns.xvsPerDay'), orderable: true, align: 'right' },
       {
         key: 'supplyXvsApy',
@@ -57,7 +57,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
   // Format assets to rows
   const rows: TableProps['data'] = assets.map(asset => [
     {
-      key: 'market',
+      key: 'asset',
       render: () => <Token tokenId={asset.id} />,
       value: asset.id,
       align: 'left',
