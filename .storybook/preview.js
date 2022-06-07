@@ -87,9 +87,10 @@ export const parameters = {
             );
           },
         ),
-        rest.post('https://data-seed-prebsc-1-s1.binance.org:8545/', mockRpcProviderResponse),
-        rest.post('https://data-seed-prebsc-2-s1.binance.org:8545/', mockRpcProviderResponse),
-        rest.post('https://data-seed-prebsc-1-s2.binance.org:8545/', mockRpcProviderResponse),
+        rest.post(
+          'https://speedy-nodes-nyc.moralis.io/6c1fe2e962cdccfe0e93dcb3/bsc/testnet',
+          mockRpcProviderResponse,
+        ),
       ],
     },
   },

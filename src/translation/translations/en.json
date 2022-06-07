@@ -54,7 +54,6 @@
     },
     "borrowTabTitle": "Borrow",
     "repay": {
-      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "connectWalletMessage": "Please connect your wallet to repay",
       "currentlyBorrowing": "Currently borrowing",
       "enableToken": {
@@ -62,6 +61,7 @@
         "distributionInfo": "Distribution APY",
         "title": "To repay {{symbol}} to the Venus Protocol, you need to enable it first"
       },
+      "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "rightMaxButtonLabel": "MAX",
       "submitButton": "Repay",
       "submitButtonDisabled": "Enter a valid amount to repay",
@@ -186,9 +186,9 @@
   "market": {
     "availableLiquidity": "Available Liquidity",
     "columns": {
+      "asset": "Asset",
       "borrowApy": "Borrow APY",
       "liquidity": "Liquidity",
-      "asset": "Asset",
       "price": "Price",
       "supplyApy": "Supply APY",
       "totalBorrow": "Total Borrow",
@@ -551,8 +551,8 @@
   },
   "xvs": {
     "columns": {
+      "asset": "asset",
       "borrowXvsApy": "Borrow XVS APY",
-      "market": "Market",
       "supplyXvsApy": "Supply XVS APY",
       "xvsPerDay": "XVS Per Day"
     },
