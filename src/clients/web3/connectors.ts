@@ -24,6 +24,7 @@ const coinbaseWalletConnector = new WalletLinkConnector({
 
 export const connectorsByName = {
   [Connector.MetaMask]: injectedConnector,
+  [Connector.BraveWallet]: injectedConnector,
   [Connector.WalletConnect]: walletConnectConnector,
   [Connector.CoinbaseWallet]: coinbaseWalletConnector,
   [Connector.TrustWallet]: injectedConnector,

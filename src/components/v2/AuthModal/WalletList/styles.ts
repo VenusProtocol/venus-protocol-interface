@@ -29,7 +29,7 @@ export const useStyles = () => {
       `}
     `,
     walletLogo: css`
-      width: 48px;
+      width: ${theme.spacing(12)};
       margin-right: ${theme.spacing(4)};
       flex-shrink: 0;
     `,
@@ -39,8 +39,8 @@ export const useStyles = () => {
       margin-right: ${theme.spacing(4)};
     `,
     chevronRightIcon: css`
-      width: 24px;
-      height: 24px;
+      width: ${theme.spacing(6)};
+      height: ${theme.spacing(6)};
       color: ${theme.palette.text.primary};
     `,
     comingSoonText: css`
