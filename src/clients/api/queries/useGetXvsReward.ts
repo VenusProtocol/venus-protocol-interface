@@ -8,14 +8,14 @@ type Options = QueryObserverOptions<
   Error,
   GetXvsRewardOutput,
   GetXvsRewardOutput,
-  FunctionKey.GET_XVS_REWARD
+  [FunctionKey.GET_XVS_REWARD, string]
 >;
 
 const useGetXvsReward = (accountAddress: string | undefined, options?: Options) => {
   const lensContract = useVenusLensContract();
 
   return useQuery(
-    FunctionKey.GET_XVS_REWARD,
+    [FunctionKey.GET_XVS_REWARD, accountAddress],
     () =>
       getXvsReward({
         lensContract,

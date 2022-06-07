@@ -54,96 +54,102 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
   }, [columns]);
 
   // Format markets to rows
-  const rows: TableProps['data'] = markets.map(market => [
-    {
-      key: 'market',
-      render: () => <Token tokenId={market.id as TokenId} css={styles.whiteText} />,
-      value: market.id,
-    },
-    {
-      key: 'totalSupply',
-      render: () => (
-        <LayeredValues
-          topValue={formatCentsToReadableValue({
-            value: market.treasuryTotalSupplyUsdCents,
-            shortenLargeValue: true,
-          })}
-          bottomValue={formatCoinsToReadableValue({
-            value: market.treasuryTotalSupplyUsdCents.div(market.tokenPrice.times(100)),
-            tokenId: market.id as TokenId,
-            minimizeDecimals: true,
-          })}
-          css={styles.noWrap}
-        />
-      ),
-      align: 'right',
-      value: market.treasuryTotalSupplyUsdCents.toFixed(),
-    },
-    {
-      key: 'supplyApy',
-      render: () => (
-        <LayeredValues
-          topValue={formatToReadablePercentage(market.supplyApy.plus(market.supplyVenusApy))}
-          bottomValue={formatToReadablePercentage(market.supplyVenusApy)}
-        />
-      ),
-      value: market.supplyApy.plus(market.supplyVenusApy).toFixed(),
-      align: 'right',
-    },
-    {
-      key: 'totalBorrows',
-      render: () => (
-        <LayeredValues
-          topValue={formatCentsToReadableValue({
-            value: market.treasuryTotalBorrowsUsdCents,
-            shortenLargeValue: true,
-          })}
-          bottomValue={formatCoinsToReadableValue({
-            value: market.treasuryTotalBorrowsUsdCents.div(market.tokenPrice.times(100)),
-            tokenId: market.id as TokenId,
-            minimizeDecimals: true,
-          })}
-          css={styles.noWrap}
-        />
-      ),
-      value: market.treasuryTotalBorrowsUsdCents.toFixed(),
-      align: 'right',
-    },
-    {
-      key: 'borrowApy',
-      render: () => (
-        <LayeredValues
-          topValue={formatToReadablePercentage(market.borrowApy.plus(market.borrowVenusApy))}
-          bottomValue={formatToReadablePercentage(market.borrowVenusApy)}
-        />
-      ),
-      value: market.borrowApy.plus(market.borrowVenusApy).toFixed(),
-      align: 'right',
-    },
-    {
-      key: 'liquidity',
-      render: () => (
-        <Typography variant="small1" css={styles.whiteText}>
-          {formatCentsToReadableValue({
-            value: market.liquidity.multipliedBy(100),
-            shortenLargeValue: true,
-          })}
-        </Typography>
-      ),
-      value: market.liquidity.toFixed(),
-      align: 'right',
-    },
-    {
-      key: 'price',
-      render: () => (
-        <Typography variant="small1" css={styles.whiteText}>
-          {formatCentsToReadableValue({ value: market.tokenPrice.multipliedBy(100) })}
-        </Typography>
-      ),
-      align: 'right',
-      value: market.tokenPrice.toFixed(),
-    },
-  ]);
+  const rows: TableProps['data'] = useMemo(
+    () =>
+      markets.map(market => [
+        {
+          key: 'market',
+          render: () => <Token tokenId={market.id as TokenId} css={styles.whiteText} />,
+          value: market.id,
+        },
+        {
+          key: 'totalSupply',
+          render: () => (
+            <LayeredValues
+              topValue={formatCentsToReadableValue({
+                value: market.treasuryTotalSupplyUsdCents,
+                shortenLargeValue: true,
+              })}
+              bottomValue={formatCoinsToReadableValue({
+                value: market.treasuryTotalSupplyUsdCents.div(market.tokenPrice.times(100)),
+                tokenId: market.id as TokenId,
+                minimizeDecimals: true,
+                shortenLargeValue: true,
+              })}
+              css={styles.noWrap}
+            />
+          ),
+          align: 'right',
+          value: market.treasuryTotalSupplyUsdCents.toFixed(),
+        },
+        {
+          key: 'supplyApy',
+          render: () => (
+            <LayeredValues
+              topValue={formatToReadablePercentage(market.supplyApy.plus(market.supplyVenusApy))}
+              bottomValue={formatToReadablePercentage(market.supplyVenusApy)}
+            />
+          ),
+          value: market.supplyApy.plus(market.supplyVenusApy).toFixed(),
+          align: 'right',
+        },
+        {
+          key: 'totalBorrows',
+          render: () => (
+            <LayeredValues
+              topValue={formatCentsToReadableValue({
+                value: market.treasuryTotalBorrowsUsdCents,
+                shortenLargeValue: true,
+              })}
+              bottomValue={formatCoinsToReadableValue({
+                value: market.treasuryTotalBorrowsUsdCents.div(market.tokenPrice.times(100)),
+                tokenId: market.id as TokenId,
+                minimizeDecimals: true,
+                shortenLargeValue: true,
+              })}
+              css={styles.noWrap}
+            />
+          ),
+          value: market.treasuryTotalBorrowsUsdCents.toFixed(),
+          align: 'right',
+        },
+        {
+          key: 'borrowApy',
+          render: () => (
+            <LayeredValues
+              topValue={formatToReadablePercentage(market.borrowApy.plus(market.borrowVenusApy))}
+              bottomValue={formatToReadablePercentage(market.borrowVenusApy)}
+            />
+          ),
+          value: market.borrowApy.plus(market.borrowVenusApy).toFixed(),
+          align: 'right',
+        },
+        {
+          key: 'liquidity',
+          render: () => (
+            <Typography variant="small1" css={styles.whiteText}>
+              {formatCentsToReadableValue({
+                value: market.liquidity.multipliedBy(100),
+                shortenLargeValue: true,
+              })}
+            </Typography>
+          ),
+          value: market.liquidity.toFixed(),
+          align: 'right',
+        },
+        {
+          key: 'price',
+          render: () => (
+            <Typography variant="small1" css={styles.whiteText}>
+              {formatCentsToReadableValue({ value: market.tokenPrice.multipliedBy(100) })}
+            </Typography>
+          ),
+          align: 'right',
+          value: market.tokenPrice.toFixed(),
+        },
+      ]),
+    [JSON.stringify(markets)],
+  );
 
   return (
     <Table
