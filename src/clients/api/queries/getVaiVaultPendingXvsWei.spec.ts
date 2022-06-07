@@ -2,9 +2,9 @@ import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 import { VaiVault } from 'types/contracts';
-import getVaiVaultPendingXvs from './getVaiVaultPendingXvs';
+import getVaiVaultPendingXvsWei from './getVaiVaultPendingXvsWei';
 
-describe('api/queries/getVaiVaultPendingXvs', () => {
+describe('api/queries/getVaiVaultPendingXvsWei', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -17,12 +17,12 @@ describe('api/queries/getVaiVaultPendingXvs', () => {
     } as unknown as VaiVault;
 
     try {
-      await getVaiVaultPendingXvs({
+      await getVaiVaultPendingXvsWei({
         vaiVaultContract: fakeContract,
         accountAddress: fakeAddress,
       });
 
-      throw new Error('getVaiVaultPendingXvs should have thrown an error but did not');
+      throw new Error('getVaiVaultPendingXvsWei should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -41,7 +41,7 @@ describe('api/queries/getVaiVaultPendingXvs', () => {
       },
     } as unknown as VaiVault;
 
-    const response = await getVaiVaultPendingXvs({
+    const response = await getVaiVaultPendingXvsWei({
       vaiVaultContract: fakeContract,
       accountAddress: fakeAddress,
     });

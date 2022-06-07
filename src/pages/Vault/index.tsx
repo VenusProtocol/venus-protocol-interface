@@ -10,15 +10,16 @@ import { useStyles } from './styles';
 
 export interface IVaultUi {
   vaults: Vault[];
+  isInitialLoading: boolean;
 }
 
 const generateVaultKey = (vault: Vault) =>
   `vault-${vault.stakedTokenId}-${vault.rewardTokenId}-${vault.lockingPeriodMs || 0}`;
 
-export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
+export const VaultUi: React.FC<IVaultUi> = ({ vaults, isInitialLoading }) => {
   const styles = useStyles();
 
-  if (vaults.length === 0) {
+  if (isInitialLoading || vaults.length === 0) {
     return <LoadingSpinner />;
   }
 
@@ -42,11 +43,11 @@ export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
 
 const VaultPage: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { data: vaults } = useGetVaults({
+  const { data: vaults, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress: account?.address,
   });
 
-  return <VaultUi vaults={vaults} />;
+  return <VaultUi vaults={vaults} isInitialLoading={isGetVaultsLoading} />;
 };
 
 export default VaultPage;

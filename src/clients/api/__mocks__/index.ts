@@ -96,15 +96,19 @@ export const useGetXvsVaultTotalAllocationPoints = () =>
 
 export const getXvsVaultPendingRewardWei = jest.fn();
 
+export const getXvsVaultUserInfo = jest.fn();
+
+export const useGetUserMarketInfo = jest.fn();
+
 export const useGetVaults = jest.fn();
 
 export const getVaiVaultUserInfo = jest.fn();
 export const useGetVaiVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);
 
-export const getVaiVaultPendingXvs = jest.fn();
-export const useGetVaiVaultPendingXvs = () =>
-  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvs);
+export const getVaiVaultPendingXvsWei = jest.fn();
+export const useGetVaiVaultPendingXvsWei = () =>
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvsWei);
 
 // Mutations
 export const approveToken = jest.fn();

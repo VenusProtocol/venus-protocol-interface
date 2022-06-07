@@ -1,20 +1,20 @@
 import BigNumber from 'bignumber.js';
 import { VaiVault } from 'types/contracts';
 
-export interface IGetVaiVaultPendingXvsInput {
+export interface IGetVaiVaultPendingXvsWeiInput {
   vaiVaultContract: VaiVault;
   accountAddress: string;
 }
 
-export type GetVaiVaultPendingXvsOutput = BigNumber;
+export type GetVaiVaultPendingXvsWeiOutput = BigNumber;
 
-const getVaiVaultPendingXvs = async ({
+const getVaiVaultPendingXvsWei = async ({
   vaiVaultContract,
   accountAddress,
-}: IGetVaiVaultPendingXvsInput): Promise<GetVaiVaultPendingXvsOutput> => {
+}: IGetVaiVaultPendingXvsWeiInput): Promise<GetVaiVaultPendingXvsWeiOutput> => {
   const res = await vaiVaultContract.methods.pendingXVS(accountAddress).call();
 
   return new BigNumber(res);
 };
 
-export default getVaiVaultPendingXvs;
+export default getVaiVaultPendingXvsWei;

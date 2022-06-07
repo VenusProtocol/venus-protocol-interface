@@ -177,9 +177,9 @@ export * from './queries/getXvsVaultUserInfo';
 
 export { default as useGetVaults } from './queries/useGetVaults';
 
-export { default as getVaiVaultPendingXvs } from './queries/getVaiVaultPendingXvs';
-export * from './queries/getVaiVaultPendingXvs';
-export { default as useGetVaiVaultPendingXvs } from './queries/useGetVaiVaultPendingXvs';
+export { default as getVaiVaultPendingXvsWei } from './queries/getVaiVaultPendingXvsWei';
+export * from './queries/getVaiVaultPendingXvsWei';
+export { default as useGetVaiVaultPendingXvsWei } from './queries/useGetVaiVaultPendingXvsWei';
 
 export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo';

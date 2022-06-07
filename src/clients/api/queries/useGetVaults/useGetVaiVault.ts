@@ -4,7 +4,13 @@ import BigNumber from 'bignumber.js';
 import { Vault } from 'types';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { convertWeiToCoins } from 'utilities/common';
-import { useGetBalanceOf, useGetVenusVaiVaultDailyRateWei, useGetMarkets } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useGetVenusVaiVaultDailyRateWei,
+  useGetMarkets,
+  useGetVaiVaultUserInfo,
+  useGetVaiVaultPendingXvsWei,
+} from 'clients/api';
 import { VAI_TOKEN_ID, VAI_VAULT_ADDRESS, XVS_TOKEN_ID } from './constants';
 
 export interface UseGetVaiVaultOutput {
@@ -18,8 +24,25 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     tokenId: VAI_TOKEN_ID,
   });
 
-  // TODO: fetch user data
-  console.log(accountAddress);
+  const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
+    useGetVaiVaultUserInfo(
+      {
+        accountAddress: accountAddress || '',
+      },
+      {
+        enabled: !!accountAddress,
+      },
+    );
+
+  const { data: vaiVaultPendingXvsWei, isLoading: isGetVaiVaultPendingXvsWeiLoading } =
+    useGetVaiVaultPendingXvsWei(
+      {
+        accountAddress: accountAddress || '',
+      },
+      {
+        enabled: !!accountAddress,
+      },
+    );
 
   const { data: venusVaiVaultDailyRateWei, isLoading: isGetVenusVaiVaultDailyRateWeiLoading } =
     useGetVenusVaiVaultDailyRateWei();
@@ -56,17 +79,23 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       dailyEmissionWei: venusVaiVaultDailyRateWei,
       totalStakedWei: totalVaiStakedWei,
       stakingAprPercentage,
-      //   userStakedWei,
-      //   userPendingRewardWei,
+      userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
+      userPendingRewardWei: vaiVaultPendingXvsWei,
     };
   }, [
     totalVaiStakedWei?.toFixed(),
     venusVaiVaultDailyRateWei?.toFixed(),
     xvsPriceDollars?.toFixed(),
+    JSON.stringify(vaiVaultUserInfo),
+    vaiVaultPendingXvsWei?.toFixed(),
   ]);
 
   const isLoading =
-    isGetTotalVaiStakedWeiLoading || isGetVenusVaiVaultDailyRateWeiLoading || isGetMarketsLoading;
+    isGetTotalVaiStakedWeiLoading ||
+    isGetVenusVaiVaultDailyRateWeiLoading ||
+    isGetMarketsLoading ||
+    isGetVaiVaultUserInfoLoading ||
+    isGetVaiVaultPendingXvsWeiLoading;
 
   return {
     data,

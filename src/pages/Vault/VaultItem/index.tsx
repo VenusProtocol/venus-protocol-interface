@@ -91,6 +91,7 @@ export const VaultItem = ({
               tokenId: stakedTokenId,
               returnInReadableFormat: true,
               minimizeDecimals: true,
+              shortenLargeValue: true,
             })}
           </>
         ),
