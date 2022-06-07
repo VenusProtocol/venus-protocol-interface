@@ -123,6 +123,9 @@ export const styles = ({
       font-weight: 600;
       color: inherit;
     `,
+    link: css`
+      font-weight: 600;
+    `,
   };
 };
 

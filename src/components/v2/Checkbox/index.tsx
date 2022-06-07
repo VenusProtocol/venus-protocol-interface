@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import MuiCheckbox from '@mui/material/Checkbox';
-import { Icon } from 'components';
+import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
 export interface ICheckboxProps {

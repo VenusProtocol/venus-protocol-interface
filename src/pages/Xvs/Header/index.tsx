@@ -2,7 +2,11 @@
 import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { useGetVenusVaiVaultRate, useGetBalanceOf, useGetUserMarketInfo } from 'clients/api';
+import {
+  useGetVenusVaiVaultDailyRateWei,
+  useGetBalanceOf,
+  useGetUserMarketInfo,
+} from 'clients/api';
 import { EllipseText, Icon, LabeledProgressBar } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import copy from 'copy-to-clipboard';
@@ -18,16 +22,16 @@ interface IHeaderProps {
 
 interface IHeaderContainerProps {
   remainingDistributionWei: BigNumber;
-  dailyVenus: BigNumber;
-  venusVaiVaultRate: BigNumber;
+  dailyVenusWei: BigNumber;
+  venusVaiVaultDailyRateWei: BigNumber;
   totalXvsDistributedWei: BigNumber;
 }
 
 export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   className,
   remainingDistributionWei,
-  dailyVenus,
-  venusVaiVaultRate,
+  dailyVenusWei,
+  venusVaiVaultDailyRateWei,
   totalXvsDistributedWei,
 }) => {
   const styles = useStyles();
@@ -36,16 +40,24 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   const { t } = useTranslation();
 
   const readableDailyDistribution = useMemo(() => {
-    const dailyDistribution = dailyVenus
-      .div(new BigNumber(10).pow(getToken('xvs').decimals))
-      .plus(venusVaiVaultRate);
+    const dailyVenusTokens = convertWeiToCoins({
+      valueWei: dailyVenusWei,
+      tokenId: 'xvs',
+    });
+
+    const venusVaiVaultDailyRateTokens = convertWeiToCoins({
+      valueWei: venusVaiVaultDailyRateWei,
+      tokenId: 'xvs',
+    });
+
+    const dailyDistribution = dailyVenusTokens.plus(venusVaiVaultDailyRateTokens);
 
     return formatCoinsToReadableValue({
       value: dailyDistribution,
       tokenId: 'xvs',
       minimizeDecimals: true,
     });
-  }, [dailyVenus.toFixed(), venusVaiVaultRate]);
+  }, [dailyVenusWei.toFixed(), venusVaiVaultDailyRateWei.toFixed()]);
 
   const readableRemainingDistribution = useMemo(
     () =>
@@ -69,6 +81,7 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
         <div css={styles.xvsIconContainer}>
           <Icon name="xvs" size={styles.iconSize} />
         </div>
+
         <Typography
           className="ellipse-text"
           href={generateBscScanUrl('xvs')}
@@ -78,10 +91,12 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
           component="a"
           css={[styles.whiteText, styles.addressText]}
         />
+
         <div css={styles.copyIconContainer}>
           <Icon name="copy" onClick={copyAddress} css={styles.copyIcon} size={styles.iconSizeXl} />
         </div>
       </EllipseText>
+
       <div css={styles.slider}>
         <LabeledProgressBar
           css={styles.progressBar}
@@ -102,9 +117,9 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
 
 const Header: React.FC<IHeaderProps> = ({ className }) => {
   const { account } = useContext(AuthContext);
-  const { data: venusVAIVaultRate } = useGetVenusVaiVaultRate();
+  const { data: venusVaiVaultDailyRateWei } = useGetVenusVaiVaultDailyRateWei();
   const {
-    data: { dailyVenus, totalXvsDistributedWei },
+    data: { dailyVenusWei, totalXvsDistributedWei },
   } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
@@ -116,9 +131,9 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
   return (
     <HeaderUi
       remainingDistributionWei={xvsRemainingDistribution || new BigNumber(0)}
-      venusVaiVaultRate={venusVAIVaultRate || new BigNumber(0)}
+      venusVaiVaultDailyRateWei={venusVaiVaultDailyRateWei || new BigNumber(0)}
       className={className}
-      dailyVenus={dailyVenus}
+      dailyVenusWei={dailyVenusWei}
       totalXvsDistributedWei={totalXvsDistributedWei}
     />
   );

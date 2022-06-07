@@ -40,6 +40,12 @@ export const useStyles = () => {
     delimiterMobile: css`
       margin: ${theme.spacing(4)};
     `,
+    getTableRow: ({ clickable }: { clickable: boolean }) => css`
+      ${clickable &&
+      css`
+        cursor: pointer;
+      `}
+    `,
     rowWrapperMobile: css`
       display: grid;
       grid-template-rows: 1fr;
@@ -47,7 +53,6 @@ export const useStyles = () => {
     cellMobile: css`
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       padding-left: ${theme.spacing(4)};
       padding-right: ${theme.spacing(4)};
     `,
@@ -71,10 +76,6 @@ export const useStyles = () => {
         flex-direction: row;
         font-size: ${theme.spacing(3.5)};
         text-transform: none;
-      }
-
-      .MuiTableRow-root {
-        cursor: pointer;
       }
 
       .MuiTableCell-root:first-of-type {
@@ -131,9 +132,23 @@ export const useStyles = () => {
         color: ${active ? theme.palette.interactive.success : theme.palette.text.primary};
       }
     `,
-    cellWrapper: css`
+    getCellWrapper: ({ containsLink }: { containsLink: boolean }) => css`
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: ${containsLink ? 0 : theme.spacing(4)};
+
+      > a {
+        display: block;
+        padding: ${theme.spacing(4)};
+      }
+
+      :first-of-type > a {
+        padding-left: 0;
+      }
+
+      :last-of-type > a {
+        padding-right: 0;
+      }
     `,
     cellInner: css`
       text-overflow: ellipsis;

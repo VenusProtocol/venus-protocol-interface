@@ -73,7 +73,6 @@ function Vault() {
         const [poolInfo, rewardPerBlock, totalAllocPoints] = await Promise.all([
           xvsVaultContract.methods.poolInfos(param.rewardToken, param.pid).call(),
           xvsVaultContract.methods.rewardTokenAmountsPerBlock(param.rewardToken).call(),
-
           xvsVaultContract.methods.totalAllocPoints(param.rewardToken).call(),
         ]);
 
@@ -104,6 +103,7 @@ function Vault() {
         const rewardPerBlockOfPool = new BigNumber(rewardPerBlock)
           .multipliedBy(poolInfo.allocPoint)
           .div(totalAllocPoints);
+
         const blockPerDay = 86400 / 3; // per 3 seconds for a block
         const dailyEmission = new BigNumber(rewardPerBlockOfPool).multipliedBy(blockPerDay);
 

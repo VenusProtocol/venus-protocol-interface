@@ -19,7 +19,7 @@ describe('pages/MarketDetails', () => {
     (getMarketHistory as jest.Mock).mockImplementation(() => marketSnapshots);
     (getMarkets as jest.Mock).mockImplementation(() => ({
       markets,
-      dailyVenus: new BigNumber(0),
+      dailyVenusWei: new BigNumber(0),
     }));
     (getVTokenApySimulations as jest.Mock).mockImplementation(() => vTokenApySimulations);
   });

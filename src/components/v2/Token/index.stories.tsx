@@ -10,4 +10,4 @@ export default {
   decorators: [withCenterStory({ width: 100 })],
 } as ComponentMeta<typeof Token>;
 
-export const Default = () => <Token symbol="xvs" />;
+export const Default = () => <Token tokenId="xvs" />;

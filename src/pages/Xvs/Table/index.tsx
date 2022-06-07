@@ -1,20 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext, useMemo } from 'react';
-import BigNumber from 'bignumber.js';
-import { useHistory } from 'react-router-dom';
+
 import { Typography } from '@mui/material';
 import {
   useGetUserMarketInfo,
-  useGetVenusVaiVaultRate,
+  useGetVenusVaiVaultDailyRateWei,
   useGetBalanceOf,
-  useGetMarkets,
 } from 'clients/api';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { Token, Table, TableProps } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
-import { getContractAddress, getToken } from 'utilities';
-import { formatToReadablePercentage, formatCoinsToReadableValue } from 'utilities/common';
+import { Asset } from 'types';
+import { getContractAddress } from 'utilities';
+import {
+  formatToReadablePercentage,
+  formatCoinsToReadableValue,
+  convertWeiToCoins,
+} from 'utilities/common';
 import { useStyles } from '../styles';
 
 type TableAsset = Pick<Asset, 'id' | 'symbol'> & {
@@ -28,7 +31,6 @@ interface IXvsTableProps {
 }
 
 const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
-  const history = useHistory();
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -52,14 +54,11 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
     [],
   );
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
-    history.push(`/market/${row[0].value}`);
-  };
   // Format assets to rows
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token symbol={asset.symbol as TokenId} />,
+      render: () => <Token tokenId={asset.id} />,
       value: asset.id,
       align: 'left',
     },
@@ -104,11 +103,10 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'asset',
+        orderBy: 'xvsPerDay',
         orderDirection: 'desc',
       }}
       rowKeyIndex={0}
-      rowOnClick={rowOnClick}
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}
@@ -124,35 +122,48 @@ const XvsTable: React.FC = () => {
   } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
-  const { data: { markets } = { markets: [] } } = useGetMarkets({
-    placeholderData: { markets: [], dailyVenus: undefined },
+
+  const { data: venusVaiVaultDailyRateWei } = useGetVenusVaiVaultDailyRateWei();
+
+  const { data: vaultVaiStakedWei } = useGetBalanceOf({
+    tokenId: 'vai',
+    accountAddress: getContractAddress('vaiVault'),
   });
-  const { data: venusVaiVaultRate } = useGetVenusVaiVaultRate();
-  const { data: vaultVaiStaked } = useGetBalanceOf(
-    { tokenId: 'vai', accountAddress: getContractAddress('vaiVault') },
-    { enabled: !!account?.address },
-  );
-  const xvsMarket = markets.find(ele => ele.underlyingSymbol === 'XVS');
-  let vaiApy;
-  if (venusVaiVaultRate && vaultVaiStaked) {
-    vaiApy = venusVaiVaultRate
-      .times(xvsMarket ? xvsMarket.tokenPrice : 0)
-      .times(365 * 100)
-      .div(vaultVaiStaked?.div(new BigNumber(10).pow(getToken('vai').decimals)));
-  }
 
-  const updatedAssets: TableAsset[] = [
-    ...assets,
-    {
-      id: 'vai',
-      symbol: 'VAI',
-      xvsPerDay: venusVaiVaultRate,
-      xvsSupplyApy: vaiApy,
-      xvsBorrowApy: undefined,
-    },
-  ];
+  const assetsWithVai = useMemo(() => {
+    const allAssets: TableAsset[] = [...assets];
+    const xvsAsset = assets.find(asset => asset.id === 'xvs');
 
-  return <XvsTableUi assets={updatedAssets} />;
+    if (venusVaiVaultDailyRateWei && vaultVaiStakedWei && xvsAsset) {
+      const venusVaiVaultDailyRateTokens = convertWeiToCoins({
+        valueWei: venusVaiVaultDailyRateWei,
+        tokenId: 'xvs',
+      });
+
+      const vaultVaiStakedTokens = convertWeiToCoins({
+        valueWei: vaultVaiStakedWei,
+        tokenId: 'vai',
+      });
+
+      const vaiApy = venusVaiVaultDailyRateTokens
+        .times(xvsAsset.tokenPrice)
+        .times(DAYS_PER_YEAR)
+        .times(100)
+        .div(vaultVaiStakedTokens);
+
+      allAssets.unshift({
+        id: 'vai',
+        symbol: 'VAI',
+        xvsPerDay: venusVaiVaultDailyRateTokens,
+        xvsSupplyApy: vaiApy,
+        xvsBorrowApy: undefined,
+      });
+    }
+
+    return allAssets;
+  }, [JSON.stringify(assets), venusVaiVaultDailyRateWei?.toFixed(), vaultVaiStakedWei?.toFixed()]);
+
+  return <XvsTableUi assets={assetsWithVai} />;
 };
 
 export default XvsTable;

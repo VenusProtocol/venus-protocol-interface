@@ -286,6 +286,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     expect(repayNonBnbVToken).toHaveBeenCalledWith({
       amountWei: expectedAmountWei,
       fromAccountAddress: fakeAccountAddress,
+      isRepayingFullLoan: false,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
@@ -301,7 +302,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     });
   });
 
-  it('lets user close position with max uint256', async () => {
+  it('lets user repay full loan that is not in BNB', async () => {
     (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText } = renderComponent(
@@ -323,14 +324,65 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     // Press on max button
     fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
 
+    // Check notice is displayed
+    await waitFor(() =>
+      expect(getByText(en.borrowRepayModal.repay.fullRepaymentWarning)).toBeTruthy(),
+    );
+
     // Click on submit button
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
     fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
 
     await waitFor(() => expect(repayNonBnbVToken).toHaveBeenCalledTimes(1));
     expect(repayNonBnbVToken).toHaveBeenCalledWith({
-      amountWei: MAX_UINT256,
+      amountWei: fakeAsset.borrowBalance.multipliedBy(1e18), // Convert borrow balance to wei
       fromAccountAddress: fakeAccountAddress,
+      isRepayingFullLoan: true,
+    });
+  });
+
+  it('lets user repay full loan that is in BNB', async () => {
+    (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+
+    const fakeBnbAsset: Asset = {
+      ...fakeAsset,
+      id: 'bnb',
+    };
+
+    const { getByText } = renderComponent(
+      <Repay asset={fakeBnbAsset} onClose={jest.fn()} isXvsEnabled />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
+
+    expect(
+      getByText(en.borrowRepayModal.repay.submitButtonDisabled).closest('button'),
+    ).toBeDisabled();
+
+    // Press on max button
+    fireEvent.click(getByText(en.borrowRepayModal.repay.rightMaxButtonLabel));
+
+    // Check notice is displayed
+    await waitFor(() =>
+      expect(getByText(en.borrowRepayModal.repay.fullRepaymentWarning)).toBeTruthy(),
+    );
+
+    // Click on submit button
+    await waitFor(() => getByText(en.borrowRepayModal.repay.submitButton));
+    fireEvent.click(getByText(en.borrowRepayModal.repay.submitButton));
+
+    await waitFor(() => expect(repayNonBnbVToken).toHaveBeenCalledTimes(1));
+
+    expect(repayNonBnbVToken).toHaveBeenCalledWith({
+      amountWei: fakeBnbAsset.borrowBalance.multipliedBy(1e18), // Convert borrow balance to wei
+      fromAccountAddress: fakeAccountAddress,
+      isRepayingFullLoan: true,
     });
   });
 });

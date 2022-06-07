@@ -117,9 +117,9 @@ export { default as getVrtConversionRatio } from './queries/getVrtConversionRati
 export * from './queries/getVrtConversionRatio';
 export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversionRatio';
 
-export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultRate';
-export * from './queries/getVenusVaiVaultRate';
-export { default as useGetVenusVaiVaultRate } from './queries/useGetVenusVaiVaultRate';
+export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultDailyRateWei';
+export * from './queries/getVenusVaiVaultDailyRateWei';
+export { default as useGetVenusVaiVaultDailyRateWei } from './queries/useGetVenusVaiVaultDailyRateWei';
 
 export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';
@@ -127,6 +127,8 @@ export * from './queries/getXvsWithdrawableAmount';
 export { default as useGetXvsWithdrawableAmount } from './queries/useGetXvsWithdrawableAmount';
 
 export { default as useGetUserMarketInfo } from './queries/useGetUserMarketInfo';
+
+export { default as useGetTreasuryTotals } from './queries/useGetTreasuryTotals';
 
 export { default as getMarketHistory } from './queries/getMarketHistory';
 export * from './queries/getMarketHistory';
@@ -149,3 +151,30 @@ export * from './queries/getVTokenBorrowRate';
 
 export { default as getVTokenSupplyRate } from './queries/getVTokenSupplyRate';
 export * from './queries/getVTokenSupplyRate';
+
+export { default as getTransactions } from './queries/getTransactions';
+export * from './queries/getTransactions';
+export { default as useGetTransactions } from './queries/useGetTransactions';
+
+export { default as getXvsVaultPoolsCount } from './queries/getXvsVaultPoolsCount';
+export * from './queries/getXvsVaultPoolsCount';
+export { default as useGetXvsVaultPoolsCount } from './queries/useGetXvsVaultPoolsCount';
+
+export { default as getXvsVaultPoolInfos } from './queries/getXvsVaultPoolInfos';
+export * from './queries/getXvsVaultPoolInfos';
+
+export { default as getXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock';
+export * from './queries/getXvsVaultRewardWeiPerBlock';
+export { default as useGetXvsVaultRewardWeiPerBlock } from './queries/useGetXvsVaultRewardWeiPerBlock';
+
+export { default as getXvsVaultPendingRewardWei } from './queries/getXvsVaultPendingRewardWei';
+export * from './queries/getXvsVaultPendingRewardWei';
+
+export { default as getXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints';
+export * from './queries/getXvsVaultTotalAllocationPoints';
+export { default as useGetXvsVaultTotalAllocationPoints } from './queries/useGetXvsVaultTotalAllocationPoints';
+
+export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
+export * from './queries/getXvsVaultUserInfo';
+
+export { default as useGetVaults } from './queries/useGetVaults';

@@ -13,9 +13,6 @@ import GovernanceResponse from '../src/__mocks__/api/governance.json';
 import VoteReponse from '../src/__mocks__/api/vote.json';
 import TransactionResponse from '../src/__mocks__/api/transactions.json';
 import vaiControllerResponses from '../src/__mocks__/contracts/vaiController.json';
-import { init as initTranslationLibrary } from '../src/translation';
-
-initTranslationLibrary();
 
 initialize({
   onUnhandledRequest: 'bypass',
@@ -90,9 +87,10 @@ export const parameters = {
             );
           },
         ),
-        rest.post('https://data-seed-prebsc-1-s1.binance.org:8545/', mockRpcProviderResponse),
-        rest.post('https://data-seed-prebsc-2-s1.binance.org:8545/', mockRpcProviderResponse),
-        rest.post('https://data-seed-prebsc-1-s2.binance.org:8545/', mockRpcProviderResponse),
+        rest.post(
+          'https://speedy-nodes-nyc.moralis.io/6c1fe2e962cdccfe0e93dcb3/bsc/testnet',
+          mockRpcProviderResponse,
+        ),
       ],
     },
   },

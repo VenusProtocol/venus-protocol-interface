@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
-import { IGetMarketsOutput } from 'clients/api/queries/getMarkets';
-import { TREASURY_ADDRESS } from 'config';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import { indexBy, convertCoinsToWei } from 'utilities/common';
@@ -20,12 +18,8 @@ export interface IData {
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
-  treasuryTotalSupplyUsdBalanceCents: BigNumber;
-  treasuryTotalAvailableLiquidityUsdBalanceCents: BigNumber;
-  treasuryTotalBorrowUsdBalanceCents: BigNumber;
-  treasuryTotalUsdBalanceCents: BigNumber;
   totalXvsDistributedWei: BigNumber;
-  dailyVenus: BigNumber;
+  dailyVenusWei: BigNumber;
 }
 
 export interface UseGetUserMarketInfoOutput {
@@ -49,13 +43,13 @@ const useGetUserMarketInfo = ({
   const {
     data: getMarketsData = {
       markets: [],
-      dailyVenus: new BigNumber(0),
+      dailyVenusWei: new BigNumber(0),
     },
     isLoading: isGetMarketsLoading,
   } = useGetMarkets({
     placeholderData: {
       markets: [],
-      dailyVenus: new BigNumber(0),
+      dailyVenusWei: new BigNumber(0),
     },
   });
 
@@ -63,14 +57,14 @@ const useGetUserMarketInfo = ({
     () =>
       indexBy(
         (item: Market) => item.underlyingSymbol.toLowerCase(), // index by symbol of underlying token
-        getMarketsData.markets as IGetMarketsOutput['markets'],
+        getMarketsData.markets,
       ),
     [getMarketsData?.markets],
   );
 
   const { data: assetsInAccount = [], isLoading: isGetAssetsInAccountLoading } =
     useGetAssetsInAccount(
-      { account: accountAddress },
+      { account: accountAddress || '' },
       { enabled: !!accountAddress, placeholderData: [] },
     );
 
@@ -89,31 +83,8 @@ const useGetUserMarketInfo = ({
     [JSON.stringify(vTokenBalancesAccount)],
   );
 
-  const { data: vTokenBalancesTreasury = [], isLoading: isGetVTokenBalancesTreasuryLoading } =
-    useGetVTokenBalancesAll(
-      {
-        account: TREASURY_ADDRESS,
-        vTokenAddresses,
-      },
-      {
-        placeholderData: [],
-      },
-    );
-
-  const treasuryBalances = useMemo(
-    () =>
-      indexBy(
-        (item: IGetVTokenBalancesAllOutput[number]) => item.vToken.toLowerCase(), // index by vToken address
-        vTokenBalancesTreasury,
-      ),
-    [JSON.stringify(vTokenBalancesTreasury)],
-  );
-
   const isLoading =
-    isGetMarketsLoading ||
-    isGetAssetsInAccountLoading ||
-    isGetVTokenBalancesAccountLoading ||
-    isGetVTokenBalancesTreasuryLoading;
+    isGetMarketsLoading || isGetAssetsInAccountLoading || isGetVTokenBalancesAccountLoading;
 
   const data = useMemo(() => {
     const {
@@ -121,10 +92,6 @@ const useGetUserMarketInfo = ({
       userTotalBorrowBalanceCents,
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
-      treasuryTotalUsdBalanceCents,
-      treasuryTotalSupplyUsdBalanceCents,
-      treasuryTotalBorrowUsdBalanceCents,
-      treasuryTotalAvailableLiquidityUsdBalanceCents,
       totalXvsDistributedWei,
     } = Object.values(TOKENS).reduce(
       (acc, item, index) => {
@@ -144,11 +111,6 @@ const useGetUserMarketInfo = ({
         const collateral = (assetsInAccount || [])
           .map((address: string) => address.toLowerCase())
           .includes(vtokenAddress);
-
-        let treasuryBalance = new BigNumber(0);
-        if (treasuryBalances && treasuryBalances[vtokenAddress]) {
-          treasuryBalance = toDecimalAmount(treasuryBalances[vtokenAddress].tokenBalance);
-        }
 
         let walletBalance = new BigNumber(0);
         let supplyBalance = new BigNumber(0);
@@ -180,11 +142,10 @@ const useGetUserMarketInfo = ({
           tokenPrice: new BigNumber(market?.tokenPrice || 0),
           liquidity: new BigNumber(market?.liquidity || 0),
           borrowCaps: new BigNumber(market?.borrowCaps || 0),
-          treasuryTotalBorrowsUsdCents: new BigNumber(market?.totalBorrowsUsd || 0).times(100),
-          treasuryTotalSupplyUsdCents: new BigNumber(market?.totalSupplyUsd || 0).times(100),
+          treasuryTotalBorrowsCents: new BigNumber(market?.totalBorrowsUsd || 0).times(100),
+          treasuryTotalSupplyCents: new BigNumber(market?.totalSupplyUsd || 0).times(100),
           treasuryTotalSupply: new BigNumber(market?.totalSupply || 0),
           treasuryTotalBorrows: new BigNumber(market?.totalBorrows2 || 0),
-          treasuryBalance,
           walletBalance,
           supplyBalance,
           borrowBalance,
@@ -196,26 +157,11 @@ const useGetUserMarketInfo = ({
         };
 
         // user totals
-        const borrowBalanceUsdCents = asset.borrowBalance.times(asset.tokenPrice).times(100);
-        const supplyBalanceUsdCents = asset.supplyBalance.times(asset.tokenPrice).times(100);
-        acc.userTotalBorrowBalanceCents =
-          acc.userTotalBorrowBalanceCents.plus(borrowBalanceUsdCents);
-        acc.userTotalSupplyBalanceCents =
-          acc.userTotalSupplyBalanceCents.plus(supplyBalanceUsdCents);
+        const borrowBalanceCents = asset.borrowBalance.times(asset.tokenPrice).times(100);
+        const supplyBalanceCents = asset.supplyBalance.times(asset.tokenPrice).times(100);
+        acc.userTotalBorrowBalanceCents = acc.userTotalBorrowBalanceCents.plus(borrowBalanceCents);
+        acc.userTotalSupplyBalanceCents = acc.userTotalSupplyBalanceCents.plus(supplyBalanceCents);
 
-        // treasury totals
-        acc.treasuryTotalUsdBalanceCents = acc.treasuryTotalUsdBalanceCents.plus(
-          asset.treasuryBalance.multipliedBy(asset.tokenPrice).times(100),
-        );
-        acc.treasuryTotalSupplyUsdBalanceCents = acc.treasuryTotalSupplyUsdBalanceCents.plus(
-          asset.treasuryTotalSupplyUsdCents,
-        );
-        acc.treasuryTotalBorrowUsdBalanceCents = acc.treasuryTotalBorrowUsdBalanceCents.plus(
-          asset.treasuryTotalBorrowsUsdCents,
-        );
-        acc.treasuryTotalAvailableLiquidityUsdBalanceCents =
-          acc.treasuryTotalAvailableLiquidityUsdBalanceCents.plus(asset.liquidity.times(100));
-        // total distributed Xvs
         acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
           new BigNumber(market?.totalDistributed || 0).times(
             new BigNumber(10).pow(getToken('xvs').decimals),
@@ -241,10 +187,6 @@ const useGetUserMarketInfo = ({
         userTotalBorrowBalanceCents: new BigNumber(0),
         userTotalBorrowLimitCents: new BigNumber(0),
         userTotalSupplyBalanceCents: new BigNumber(0),
-        treasuryTotalBorrowUsdBalanceCents: new BigNumber(0),
-        treasuryTotalUsdBalanceCents: new BigNumber(0),
-        treasuryTotalSupplyUsdBalanceCents: new BigNumber(0),
-        treasuryTotalAvailableLiquidityUsdBalanceCents: new BigNumber(0),
         totalXvsDistributedWei: new BigNumber(0),
       },
     );
@@ -273,17 +215,12 @@ const useGetUserMarketInfo = ({
       userTotalBorrowBalanceCents: userTotalBorrowBalanceWithUserMintedVai,
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
-      treasuryTotalAvailableLiquidityUsdBalanceCents,
-      treasuryTotalUsdBalanceCents,
-      treasuryTotalBorrowUsdBalanceCents,
-      treasuryTotalSupplyUsdBalanceCents,
-      dailyVenus: getMarketsData.dailyVenus || new BigNumber(0),
+      dailyVenusWei: getMarketsData.dailyVenusWei || new BigNumber(0),
       totalXvsDistributedWei,
     };
   }, [
     JSON.stringify(marketsMap),
     JSON.stringify(assetsInAccount),
-    JSON.stringify(treasuryBalances),
     JSON.stringify(vTokenBalances),
     JSON.stringify(getMarketsData),
   ]);

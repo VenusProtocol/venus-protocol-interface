@@ -2,9 +2,8 @@
 import React, { useState } from 'react';
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-
 import { Asset, VTokenId } from 'types';
-import { UiError } from 'utilities/errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { toast, switchAriaLabel, Delimiter, TableProps } from 'components';
 import { useWeb3 } from 'clients/web3';
 import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
@@ -47,9 +46,9 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
     try {
       await toggleAssetCollateral(asset);
     } catch (e) {
-      if (e instanceof UiError) {
+      if (e instanceof VError) {
         toast.error({
-          message: `${e.title} ${e.description}`,
+          message: formatVErrorToReadableString(e),
         });
       }
     }
@@ -126,28 +125,30 @@ const SupplyMarket: React.FC<
 
   const toggleAssetCollateral = async (asset: Asset) => {
     if (!accountAddress) {
-      throw new UiError(
-        t('markets.errors.accountError.title'),
-        t('markets.errors.accountError.description'),
-      );
-    }
-
-    if (!asset || !asset.borrowBalance.isZero()) {
-      throw new UiError(
-        t('markets.errors.collateralRequired.title'),
-        t('markets.errors.collateralRequired.description'),
-      );
-    }
-
-    if (!asset.collateral) {
+      throw new VError({
+        type: 'interaction',
+        code: t('markets.errors.accountError'),
+      });
+    } else if (!asset || !asset.borrowBalance.isZero()) {
+      throw new VError({
+        type: 'interaction',
+        code: 'collateralRequired',
+      });
+    } else if (!asset.collateral) {
       try {
         setConfirmCollateral(asset);
         await enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress });
       } catch (error) {
-        throw new UiError(
-          t('markets.errors.collateralEnableError.title'),
-          t('markets.errors.collateralEnableError.description', { assetName: asset.symbol }),
-        );
+        if (error instanceof VError) {
+          throw error;
+        }
+        throw new VError({
+          type: 'interaction',
+          code: 'collateralEnableError',
+          data: {
+            assetName: asset.symbol,
+          },
+        });
       }
 
       return;
@@ -169,10 +170,14 @@ const SupplyMarket: React.FC<
         vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf),
       });
     } catch (error) {
-      throw new UiError(
-        t('markets.errors.collateralDisableError.title'),
-        t('markets.errors.collateralDisableError.description', { assetName: asset.symbol }),
-      );
+      if (error instanceof VError) {
+        throw error;
+      }
+      throw new VError({
+        type: 'interaction',
+        code: 'collateralDisableError',
+        data: { assetName: asset.symbol },
+      });
     }
 
     if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
@@ -180,16 +185,22 @@ const SupplyMarket: React.FC<
         setConfirmCollateral(asset);
         await exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress });
       } catch (error) {
-        throw new UiError(
-          t('markets.errors.collateralDisableError.title'),
-          t('markets.errors.collateralDisableError.description', { assetName: asset.symbol }),
-        );
+        if (error instanceof VError) {
+          throw error;
+        }
+        throw new VError({
+          type: 'interaction',
+          code: 'collateralDisableError',
+          data: {
+            assetName: asset.symbol,
+          },
+        });
       }
     } else {
-      throw new UiError(
-        t('markets.errors.collateralRequired.title'),
-        t('markets.errors.collateralRequired.description'),
-      );
+      throw new VError({
+        type: 'interaction',
+        code: 'collateralRequired',
+      });
     }
   };
 

@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 
 import { getToken } from 'utilities';
@@ -14,24 +13,19 @@ import {
   convertCoinsToWei,
 } from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { TransactionError, UiError } from 'utilities/errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
   toast,
   FormikSubmitButton,
   FormikTokenTextField,
-  Icon,
   ConnectWallet,
   EnableToken,
+  NoticeWarning,
 } from 'components';
 import { useTranslation } from 'translation';
-import {
-  TokenTransactionErrorsError,
-  TokenTransactionErrorsFailureInfo,
-} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
-import { useStyles as useBorrowStyles } from './styles';
 
 export interface IBorrowFormProps {
   asset: Asset;
@@ -55,11 +49,6 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   const { t, Trans } = useTranslation();
 
   const sharedStyles = useStyles();
-  const borrowStyles = useBorrowStyles();
-  const styles = {
-    ...sharedStyles,
-    ...borrowStyles,
-  };
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
@@ -97,7 +86,13 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
         });
       }
     } catch (error) {
-      toast.error({ message: (error as UiError).message });
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
     }
   };
 
@@ -105,7 +100,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, dirty, isValid, errors }) => (
         <>
-          <div css={[styles.getRow({ isLast: true })]}>
+          <div css={[sharedStyles.getRow({ isLast: true })]}>
             <FormikTokenTextField
               name="amount"
               tokenId={asset.id}
@@ -123,7 +118,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
                 <Trans
                   i18nKey="borrowRepayModal.borrow.borrowableAmount"
                   components={{
-                    White: <span css={styles.whiteLabel} />,
+                    White: <span css={sharedStyles.whiteLabel} />,
                   }}
                   values={{ amount: readableTokenBorrowableAmount }}
                 />
@@ -131,13 +126,10 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             />
 
             {+values.amount > +safeLimitTokens && (
-              <div css={styles.liquidationWarning}>
-                <Icon name="info" css={styles.liquidationWarningIcon} />
-
-                <Typography variant="small2" css={styles.whiteLabel}>
-                  {t('borrowRepayModal.borrow.highAmountWarning')}
-                </Typography>
-              </div>
+              <NoticeWarning
+                css={sharedStyles.notice}
+                description={t('borrowRepayModal.borrow.highAmountWarning')}
+              />
             )}
           </div>
 
@@ -183,26 +175,15 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
-      throw new UiError(t('errors.walletNotConnected'));
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
-    try {
-      const res = await borrow({
-        amountWei,
-        fromAccountAddress: account.address,
-      });
-      // Close modal on success
-      onClose();
-      return res.transactionHash;
-    } catch (err) {
-      if (err instanceof TransactionError) {
-        throw new UiError(
-          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
-          TokenTransactionErrorsFailureInfo[
-            err.info as keyof typeof TokenTransactionErrorsFailureInfo
-          ],
-        );
-      }
-    }
+    const res = await borrow({
+      amountWei,
+      fromAccountAddress: account.address,
+    });
+    // Close modal on success
+    onClose();
+    return res.transactionHash;
   };
 
   // Calculate maximum and safe maximum amount of coins user can borrow

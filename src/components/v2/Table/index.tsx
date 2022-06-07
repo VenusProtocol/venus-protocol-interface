@@ -91,10 +91,10 @@ export const Table = ({
     const rowIndex = columns.findIndex(column => column.key === orderBy);
     const newRows = [...data];
     newRows.sort((a, b) => {
-      if (+a[rowIndex].value < +b[rowIndex].value) {
+      if (+a[rowIndex]?.value < +b[rowIndex]?.value) {
         return orderDirection === 'asc' ? -1 : 1;
       }
-      if (+a[rowIndex].value > +b[rowIndex].value) {
+      if (+a[rowIndex]?.value > +b[rowIndex]?.value) {
         return orderDirection === 'asc' ? 1 : -1;
       }
       return 0;
@@ -126,6 +126,7 @@ export const Table = ({
                 <TableRow
                   hover
                   key={`${rowKey}-table`}
+                  css={styles.getTableRow({ clickable: !!rowOnClick })}
                   onClick={
                     rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
                   }
@@ -135,7 +136,7 @@ export const Table = ({
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
                     return (
                       <TableCell
-                        css={styles.cellWrapper}
+                        css={styles.getCellWrapper({ containsLink: !!getRowHref })}
                         key={`${rowKey}-${key}-table`}
                         title={cellTitle}
                         align={align}

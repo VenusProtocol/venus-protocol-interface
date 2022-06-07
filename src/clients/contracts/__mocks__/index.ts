@@ -44,3 +44,5 @@ export const useVrtConverterProxyContract = () => getVrtConverterProxyContract;
 
 export const getVrtVaultProxyContract = jest.fn();
 export const useVrtVaultProxyContract = () => getVrtVaultProxyContract;
+
+export const getMaximillionContract = jest.fn();

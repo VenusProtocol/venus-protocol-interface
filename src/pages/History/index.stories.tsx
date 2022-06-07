@@ -1,6 +1,9 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+import noop from 'noop-ts';
+import transactions from '__mocks__/models/transactions';
 import { HistoryUi } from '.';
+import { ALL_VALUE } from './Filters';
 
 export default {
   title: 'Pages/History',
@@ -12,4 +15,12 @@ export default {
   },
 } as ComponentMeta<typeof HistoryUi>;
 
-export const Default = () => <HistoryUi />;
+export const Default = () => (
+  <HistoryUi
+    eventType={ALL_VALUE}
+    setEventType={noop}
+    showOnlyMyTxns={false}
+    setShowOnlyMyTxns={noop}
+    transactions={transactions}
+  />
+);

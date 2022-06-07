@@ -29,8 +29,8 @@ export interface Asset {
   treasuryBalance: BigNumber;
   vimg: string | undefined;
   vsymbol: string;
-  treasuryTotalBorrowsUsdCents: BigNumber;
-  treasuryTotalSupplyUsdCents: BigNumber;
+  treasuryTotalBorrowsCents: BigNumber;
+  treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;
   treasuryTotalBorrows: BigNumber;
   xvsPerDay: BigNumber;
@@ -129,27 +129,28 @@ export interface VoteTransaction {
 }
 
 export interface Market {
+  id: string;
   address: string;
-  borrowApy: number;
+  borrowApy: BigNumber;
   borrowCaps: string;
   borrowRatePerBlock: string;
-  borrowVenusApy: string;
+  borrowVenusApy: BigNumber;
   borrowerCount: number;
   borrowerDailyVenus: string;
   cash: string;
   collateralFactor: string;
   exchangeRate: string;
   lastCalculatedBlockNumber: number;
-  liquidity: string;
+  liquidity: BigNumber;
   name: string;
   reserveFactor: string;
   supplierCount: number;
   supplierDailyVenus: string;
-  supplyApy: string;
+  supplyApy: BigNumber;
   supplyRatePerBlock: string;
-  supplyVenusApy: string;
+  supplyVenusApy: BigNumber;
   symbol: string;
-  tokenPrice: string;
+  tokenPrice: BigNumber;
   totalBorrows: string;
   totalBorrows2: string;
   totalBorrowsUsd: string;
@@ -167,6 +168,8 @@ export interface Market {
   venusBorrowIndex: string;
   venusSpeeds: string;
   venusSupplyIndex: string;
+  treasuryTotalBorrowsCents: BigNumber;
+  treasuryTotalSupplyCents: BigNumber;
 }
 
 export interface MarketSnapshot {
@@ -206,12 +209,18 @@ export type TransactionEvent =
   | 'ProposalExecuted'
   | 'ProposalCanceled';
 
-export interface Transaction {
-  amount: BigNumber;
+export enum TransactionCategory {
+  vtoken = 'vtoken',
+  vai = 'vai',
+  vote = 'vote',
+}
+
+export interface ITransactionResponse {
+  amount: number;
   blockNumber: number;
-  category: 'vtoken' | 'vai' | 'vote';
-  createdAt: Date;
-  event: TransactionEvent;
+  category: string;
+  createdAt: string;
+  event: string;
   from: string;
   id: number;
   timestamp: string | null;
@@ -219,4 +228,16 @@ export interface Transaction {
   transactionHash: string;
   updatedAt: string;
   vTokenAddress: string;
+}
+
+export interface Vault {
+  poolIndex: number;
+  stakedTokenId: TokenId;
+  rewardTokenId: TokenId;
+  lockingPeriodMs: number;
+  stakeAprPercentage: number;
+  totalStakedAmountWei: BigNumber;
+  dailyEmissionAmountWei: BigNumber;
+  userStakedAmountWei?: BigNumber;
+  userPendingRewardAmountWei?: BigNumber;
 }

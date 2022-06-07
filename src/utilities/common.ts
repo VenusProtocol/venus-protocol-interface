@@ -96,26 +96,6 @@ export const getBigNumber = (value?: BigNumber | string | number): BigNumber => 
   return new BigNumber(value);
 };
 
-export const currencyFormatter = (labelValue: $TSFixMe) => {
-  let suffix = '';
-  let unit = 1;
-  const abs = Math.abs(Number(labelValue));
-  if (abs >= 1.0e9) {
-    // Nine Zeroes for Billions
-    suffix = 'B';
-    unit = 1.0e9;
-  } else if (abs >= 1.0e6) {
-    // Six Zeroes for Millions
-    suffix = 'M';
-    unit = 1.0e6;
-  } else if (abs >= 1.0e3) {
-    // Three Zeroes for Thousands
-    suffix = 'K';
-    unit = 1.0e3;
-  }
-  return `$${commaFormat(new BigNumber(`${abs / unit}`).dp(2, 1).toNumber())}${suffix}`;
-};
-
 export const formatCommaThousandsPeriodDecimal = commaNumber.bindWith(',', '.');
 export const format = (bigNumber: BigNumber, dp = 2) =>
   formatCommaThousandsPeriodDecimal(bigNumber.dp(dp, 1).toString(10));
@@ -178,19 +158,23 @@ export const formatCoinsToReadableValue = ({
   )}${symbolPlacement}`;
 };
 
-type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
+export interface IConvertWeiToCoinsInput<T extends boolean | undefined = false> {
+  valueWei: BigNumber;
+  tokenId: TokenId;
+  returnInReadableFormat?: T;
+  minimizeDecimals?: boolean;
+  addSymbol?: boolean;
+}
+
+export type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
 
 export function convertWeiToCoins<T extends boolean | undefined = false>({
   valueWei,
   tokenId,
   returnInReadableFormat = false,
   minimizeDecimals = false,
-}: {
-  valueWei: BigNumber;
-  tokenId: TokenId;
-  returnInReadableFormat?: T;
-  minimizeDecimals?: boolean;
-}): ConvertWeiToCoinsOutput<T> {
+  addSymbol = true,
+}: IConvertWeiToCoinsInput<T>): ConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
   const valueCoins = valueWei
     .dividedBy(new BigNumber(10).pow(tokenDecimals))
@@ -198,7 +182,7 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
 
   return (
     returnInReadableFormat
-      ? formatCoinsToReadableValue({ value: valueCoins, tokenId, minimizeDecimals })
+      ? formatCoinsToReadableValue({ value: valueCoins, tokenId, minimizeDecimals, addSymbol })
       : valueCoins
   ) as ConvertWeiToCoinsOutput<T>;
 }
@@ -261,9 +245,9 @@ export const formatToReadablePercentage = (value: number | string | BigNumber | 
  * @returns An object with the keys derived as indexFn(array item)
  */
 
-export const indexBy = <V>(indexFn: (v: V) => string, arr: V[]) =>
-  arr.reduce((result: Record<string, V>, item: V) => {
-    result[indexFn(item)] = item;
+export const indexBy = <V>(indexFn: (v: V, index: number) => string, arr: V[]) =>
+  arr.reduce((result: Record<string, V>, item: V, index) => {
+    result[indexFn(item, index)] = item;
     return result;
   }, {});
 

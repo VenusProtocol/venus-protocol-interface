@@ -7,15 +7,11 @@ import { ToastContainer } from 'react-toastify';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
-import { init as initTranslationLibrary } from 'translation';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
 import { VaiContext, IVaiContextValue } from 'context/VaiContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
 import BigNumber from 'bignumber.js';
-
-// Initialize internationalization library
-initTranslationLibrary();
 
 const renderComponent = (
   children: React.ReactElement | (() => React.ReactElement),

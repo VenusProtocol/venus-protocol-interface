@@ -52,7 +52,7 @@ export const useStyles = () => {
       }
     `,
     typeCol: css`
-      display: inline-flex;
+      display: flex;
       flex-direction: row;
       align-items: center;
     `,

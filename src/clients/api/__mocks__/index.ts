@@ -72,8 +72,34 @@ export const getVTokenSupplyRate = jest.fn();
 export const getVTokenBorrowRate = jest.fn();
 
 export const getVenusVaiVaultRate = jest.fn();
-export const useGetVenusVaiVaultRate = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_RATE, getVenusVaiVaultRate);
+export const useGetVenusVaiVaultDailyRateWei = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultRate);
+
+export const getTransactions = jest.fn();
+export const useGetTransactions = () =>
+  useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions);
+
+export const getXvsVaultPoolsCount = jest.fn();
+export const useGetXvsVaultPoolsCount = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolsCount);
+
+export const getXvsVaultPoolInfos = jest.fn();
+
+export const getXvsVaultRewardWeiPerBlock = jest.fn();
+export const useGetXvsVaultRewardWeiPerBlock = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_REWARD_WEI_PER_BLOCK, getXvsVaultRewardWeiPerBlock);
+
+export const getXvsVaultTotalAllocationPoints = jest.fn();
+export const useGetXvsVaultTotalAllocationPoints = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, getXvsVaultTotalAllocationPoints);
+
+export const getXvsVaultPendingRewardWei = jest.fn();
+
+export const getXvsVaultUserInfo = jest.fn();
+
+export const useGetTreasuryTotals = jest.fn();
+
+export const useGetUserMarketInfo = jest.fn();
 
 // Mutations
 export const approveToken = jest.fn();
@@ -134,8 +160,6 @@ export const useRedeem = () => useMutation(FunctionKey.REDEEM, redeem);
 
 export const redeemUnderlying = jest.fn();
 export const useRedeemUnderlying = () => useMutation(FunctionKey.REDEEM, redeemUnderlying);
-
-export const useGetUserMarketInfo = jest.fn();
 
 export const borrowVToken = jest.fn();
 export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, borrowVToken);

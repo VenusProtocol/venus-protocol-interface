@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withCenterStory } from 'stories/decorators';
-import { PrimaryButton, SecondaryButton, TertiaryButton, TextButton, Button } from '.';
+import { withCenterStory, withRouter } from 'stories/decorators';
+import { PrimaryButton, SecondaryButton, TertiaryButton, TextButton, Button, LinkButton } from '.';
 
 export default {
   title: 'Components/Button',
@@ -31,6 +31,15 @@ export const Disabled = () => (
     Disabled
   </PrimaryButton>
 );
+
+export const Link = () => (
+  <LinkButton onClick={console.log} to="/">
+    Link
+  </LinkButton>
+);
+Link.story = {
+  decorators: [withRouter],
+};
 
 export const Loading = () => (
   <PrimaryButton onClick={console.log} loading>

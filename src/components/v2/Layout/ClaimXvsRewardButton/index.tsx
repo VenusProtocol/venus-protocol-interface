@@ -7,12 +7,9 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { convertWeiToCoins } from 'utilities/common';
-import { UiError, TransactionError } from 'utilities/errors';
-import {
-  ComptrollerTransactionErrorsError,
-  ComptrollerTransactionErrorsFailureInfo,
-} from 'translation/transactionErrors';
+import { VError } from 'errors';
+import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
 import { toast } from '../../Toast';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
@@ -37,7 +34,14 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  if (!amountWei || amountWei.isEqualTo(0)) {
+  const readableAmount = useConvertToReadableCoinString({
+    valueWei: amountWei,
+    tokenId: XVS_SYMBOL,
+    minimizeDecimals: true,
+  });
+
+  // Check readable amount isn't 0 (since we strip out decimals)
+  if (!amountWei || readableAmount.split(' ')[0] === '0') {
     return null;
   }
 
@@ -57,17 +61,15 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
         });
       }
     } catch (error) {
+      let { message } = error as Error;
+      if (error instanceof VError && error.type === 'transactions') {
+        message = transactionErrorPhrases[error.message as keyof typeof transactionErrorPhrases];
+      }
       toast.error({
-        message: (error as UiError).message,
+        message,
       });
     }
   };
-
-  const readableAmount = convertWeiToCoins({
-    valueWei: amountWei,
-    tokenId: XVS_SYMBOL,
-    returnInReadableFormat: true,
-  });
 
   return (
     <SecondaryButton
@@ -92,31 +94,18 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
   const { account } = useContext(AuthContext);
   const { data: xvsRewardWei } = useGetXvsReward(account?.address);
-  const { t } = useTranslation();
 
   const { mutateAsync: claimXvsReward, isLoading: isClaimXvsRewardLoading } = useClaimXvsReward();
 
   const handleClaim = async () => {
     if (!account?.address) {
-      throw new UiError(t('errors.walletNotConnected'));
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
-    try {
-      const res = await claimXvsReward({
-        fromAccountAddress: account.address,
-      });
-      return res.transactionHash;
-    } catch (err) {
-      if (err instanceof TransactionError) {
-        throw new UiError(
-          ComptrollerTransactionErrorsError[
-            err.error as keyof typeof ComptrollerTransactionErrorsError
-          ],
-          ComptrollerTransactionErrorsFailureInfo[
-            err.info as keyof typeof ComptrollerTransactionErrorsFailureInfo
-          ],
-        );
-      }
-    }
+
+    const res = await claimXvsReward({
+      fromAccountAddress: account.address,
+    });
+    return res.transactionHash;
   };
 
   return (

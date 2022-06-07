@@ -88,9 +88,11 @@ export const SHAPE = {
     large: SPACING * 6,
   } as any, // our custom types seem to clash with the default MUI types
   iconSize: {
+    small: SPACING * 3,
     medium: SPACING * 4,
     large: SPACING * 5,
     xLarge: SPACING * 6,
+    xxLarge: SPACING * 10,
   },
   footerHeight: '56px',
   bannerHeight: '56px',
@@ -106,6 +108,7 @@ export default createTheme({
   typography: {
     fontFamily: FONTS.primary,
     color: PALETTE.text.primary,
+    lineHeight: 1.5,
     h1: {
       fontSize: '2.5rem',
       fontWeight: 600,
@@ -121,6 +124,7 @@ export default createTheme({
     h4: {
       fontSize: '1.25rem',
       fontWeight: 600,
+      lineHeight: '1.875rem',
     },
     body1: {
       fontSize: '1rem',

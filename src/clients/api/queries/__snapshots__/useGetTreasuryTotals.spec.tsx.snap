@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api/queries/useGetTreasuryTotals calculates totals correctly 1`] = `
+Object {
+  "treasuryTotalAvailableLiquidityBalanceCents": "0",
+  "treasuryTotalBalanceCents": "0",
+  "treasuryTotalBorrowBalanceCents": "0",
+  "treasuryTotalSupplyBalanceCents": "0",
+}
+`;
+
+exports[`api/queries/useGetTreasuryTotals calculates totals correctly 2`] = `
+Object {
+  "treasuryTotalAvailableLiquidityBalanceCents": "1.009809011837545745832691419939998914208345e+26",
+  "treasuryTotalBalanceCents": "674400084735.474642509783918968428126",
+  "treasuryTotalBorrowBalanceCents": "96353494737.5285250075709627",
+  "treasuryTotalSupplyBalanceCents": "1.009799010007167653539335004292596943090604e+26",
+}
+`;

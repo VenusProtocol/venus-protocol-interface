@@ -5,6 +5,7 @@ export type { Bep20 } from "./Bep20";
 export type { Comptroller } from "./Comptroller";
 export type { GovernorBravoDelegate } from "./GovernorBravoDelegate";
 export type { InterestModel } from "./InterestModel";
+export type { Maximillion } from "./Maximillion";
 export type { Oracle } from "./Oracle";
 export type { VBep20 } from "./VBep20";
 export type { VBnbToken } from "./VBnbToken";

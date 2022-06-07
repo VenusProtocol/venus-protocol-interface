@@ -1,6 +1,6 @@
 {
   "name": "venus",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "engines": {
     "node": ">=16.x.x"
@@ -55,6 +55,7 @@
     "noop-ts": "^1.0.3",
     "react": "^16.9.6",
     "react-copy-to-clipboard": "^5.0.2",
+    "react-countdown": "^2.3.2",
     "react-dom": "npm:@hot-loader/react-dom@^17.0.1",
     "react-i18next": "^11.16.5",
     "react-markdown": "^4.3.1",

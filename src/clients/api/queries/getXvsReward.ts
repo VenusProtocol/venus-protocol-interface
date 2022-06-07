@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { getContractAddress, getToken } from 'utilities';
-import { VBEP_TOKEN_DECIMALS } from 'constants/tokens';
+import { getContractAddress } from 'utilities';
 import { VenusLens } from 'types/contracts';
 
 export interface IGetXvsRewardInput {
@@ -17,14 +16,7 @@ const getXvsReward = async ({
   const pendingVenus = await lensContract.methods
     .pendingVenus(accountAddress, getContractAddress('comptroller'))
     .call();
-
-  const totalXvsEarned = new BigNumber(pendingVenus).dividedBy(1e18).dp(VBEP_TOKEN_DECIMALS, 1);
-
-  // Calculate and return total XVS reward
-  const xvsDecimals = getToken('xvs').decimals;
-  const xvsRewardWei = totalXvsEarned.multipliedBy(new BigNumber(10).pow(xvsDecimals));
-
-  return xvsRewardWei;
+  return new BigNumber(pendingVenus);
 };
 
 export default getXvsReward;

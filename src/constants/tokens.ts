@@ -378,7 +378,7 @@ export const TOKENS = isOnTestnet
       },
       cake: {
         id: 'cake',
-        symbol: 'Cake',
+        symbol: 'CAKE',
         decimals: 18,
         address: TOKEN_ADDRESSES.cake[56],
         asset: cake,

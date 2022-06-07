@@ -13,7 +13,7 @@ type Options = QueryObserverOptions<
   Error,
   GetVTokenBalanceOfOutput,
   GetVTokenBalanceOfOutput,
-  [FunctionKey.GET_V_TOKEN_BALANCE, VTokenId]
+  [FunctionKey.GET_V_TOKEN_BALANCE, string, VTokenId]
 >;
 
 const useGetVTokenBalanceOf = (
@@ -22,7 +22,7 @@ const useGetVTokenBalanceOf = (
 ) => {
   const tokenContract = useVTokenContract(vTokenId as VTokenId);
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCE, vTokenId],
+    [FunctionKey.GET_V_TOKEN_BALANCE, account, vTokenId],
     () => getVTokenBalanceOf({ tokenContract, account }),
     options,
   );

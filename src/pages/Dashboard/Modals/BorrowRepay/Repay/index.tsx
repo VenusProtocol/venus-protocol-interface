@@ -11,7 +11,7 @@ import {
   formatToReadablePercentage,
 } from 'utilities/common';
 import { useRepayVToken } from 'clients/api';
-import { UiError, TransactionError } from 'utilities/errors';
+import { VError, formatVErrorToReadableString } from 'errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
   toast,
@@ -21,13 +21,9 @@ import {
   EnableToken,
   LabeledInlineContent,
   TertiaryButton,
+  NoticeWarning,
 } from 'components';
-import MAX_UINT256 from 'constants/maxUint256';
 import { useTranslation } from 'translation';
-import {
-  TokenTransactionErrorsError,
-  TokenTransactionErrorsFailureInfo,
-} from 'translation/transactionErrors';
 import { useStyles } from '../../styles';
 import { useStyles as useRepayStyles } from './styles';
 import AccountData from '../AccountData';
@@ -111,9 +107,21 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
         });
       }
     } catch (error) {
-      toast.error({ message: (error as UiError).message });
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
     }
   };
+
+  const shouldDisplayFullRepaymentWarning = React.useCallback(
+    (repayAmountTokens: string) =>
+      repayAmountTokens !== '0' && asset.borrowBalance.eq(repayAmountTokens),
+    [asset.id, asset.borrowBalance.toFixed()],
+  );
 
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
@@ -167,6 +175,13 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
                 </TertiaryButton>
               ))}
             </div>
+
+            {shouldDisplayFullRepaymentWarning(values.amount) && (
+              <NoticeWarning
+                css={styles.notice}
+                description={t('borrowRepayModal.repay.fullRepaymentWarning')}
+              />
+            )}
           </div>
 
           <AccountData
@@ -212,34 +227,23 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   const handleRepay: IRepayFormProps['repay'] = async amountWei => {
     if (!account?.address) {
-      throw new UiError(t('errors.walletNotConnected'));
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
 
-    let repayAmount = amountWei;
-    if (repayAmount.eq(convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }))) {
-      repayAmount = MAX_UINT256;
-    }
+    const isRepayingFullLoan = amountWei.eq(
+      convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }),
+    );
 
-    try {
-      const res = await repay({
-        amountWei: repayAmount,
-        fromAccountAddress: account.address,
-      });
+    const res = await repay({
+      amountWei,
+      fromAccountAddress: account.address,
+      isRepayingFullLoan,
+    });
 
-      // Close modal on success
-      onClose();
+    // Close modal on success
+    onClose();
 
-      return res.transactionHash;
-    } catch (err) {
-      if (err instanceof TransactionError) {
-        throw new UiError(
-          TokenTransactionErrorsError[err.error as keyof typeof TokenTransactionErrorsError],
-          TokenTransactionErrorsFailureInfo[
-            err.info as keyof typeof TokenTransactionErrorsFailureInfo
-          ],
-        );
-      }
-    }
+    return res.transactionHash;
   };
 
   return (

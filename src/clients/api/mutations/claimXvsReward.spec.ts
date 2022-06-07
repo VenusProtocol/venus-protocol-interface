@@ -1,18 +1,16 @@
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import address from '__mocks__/models/address';
-import { Comptroller, VenusLens } from 'types/contracts';
+import { Comptroller } from 'types/contracts';
 import { VBEP_TOKENS } from 'constants/tokens';
 import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { TransactionError } from 'utilities/errors';
+import { VError } from 'errors';
 import getVTokenBalancesAll from '../queries/getVTokenBalancesAll';
 import claimXvsReward from './claimXvsReward';
 
 jest.mock('../queries/getVTokenBalancesAll');
-
-const fakeVenusLensContract = {} as unknown as VenusLens;
 
 describe('api/mutation/claimXvsReward', () => {
   test('throws an error when request fails', async () => {
@@ -31,7 +29,6 @@ describe('api/mutation/claimXvsReward', () => {
     try {
       await claimXvsReward({
         comptrollerContract: fakeContract,
-        venusLensContract: fakeVenusLensContract,
         fromAccountAddress: address,
       });
 
@@ -89,17 +86,17 @@ describe('api/mutation/claimXvsReward', () => {
     try {
       await claimXvsReward({
         comptrollerContract: fakeContract,
-        venusLensContract: fakeVenusLensContract,
         fromAccountAddress: address,
       });
 
       throw new Error('claimXvsReward should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot(`[Error: ${ComptrollerErrorReporterError[1]}]`);
-      expect(error).toBeInstanceOf(TransactionError);
-      if (error instanceof TransactionError) {
-        expect(error.error).toBe(ComptrollerErrorReporterError[1]);
-        expect(error.info).toBe(ComptrollerErrorReporterFailureInfo[1]);
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('transaction');
+        expect(error.data.error).toBe(ComptrollerErrorReporterError[1]);
+        expect(error.data.info).toBe(ComptrollerErrorReporterFailureInfo[1]);
       }
     }
   });
@@ -145,16 +142,14 @@ describe('api/mutation/claimXvsReward', () => {
 
     const response = await claimXvsReward({
       comptrollerContract: fakeContract,
-      venusLensContract: fakeVenusLensContract,
       fromAccountAddress: address,
     });
 
     expect(response).toBe(fakeTransactionReceipt);
     expect(claimVenusMock).toHaveBeenCalledTimes(1);
 
-    // Only tokens for which borrowBalanceCurrent or/and balanceOfUnderlying
-    // is/are positive should be sent in the claim
-    const expectedVTokenAddresses = [VBEP_TOKENS.btcb.address, VBEP_TOKENS.bnb.address];
+    // @TODO [VEN-198] Currently claiming all address until the pendingVenus function is updated with pending rewards
+    const expectedVTokenAddresses = Object.values(VBEP_TOKENS).map(vToken => vToken.address);
     expect(claimVenusMock).toHaveBeenCalledWith(address, expectedVTokenAddresses);
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: address });
