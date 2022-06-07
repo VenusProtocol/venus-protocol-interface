@@ -101,8 +101,6 @@ export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
 
-export const useGetUserMarketInfo = jest.fn();
-
 export const useGetVaults = jest.fn();
 
 // Mutations
