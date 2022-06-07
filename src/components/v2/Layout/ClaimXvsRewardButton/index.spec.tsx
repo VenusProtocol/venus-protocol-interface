@@ -12,7 +12,7 @@ import ClaimXvsRewardButton, { TEST_ID } from '.';
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-describe('pages/Dashboard/MintRepayVai', () => {
+describe('pages/Dashboard/ClaimXvsRewardButton', () => {
   it('renders without crashing', () => {
     renderComponent(<ClaimXvsRewardButton />);
   });
@@ -35,7 +35,7 @@ describe('pages/Dashboard/MintRepayVai', () => {
 
   it('renders correct XVS reward when user are connected and have claimable XVS reward', async () => {
     (getXvsReward as jest.Mock).mockImplementationOnce(
-      async () => new BigNumber('10000000000000000000000'),
+      async () => new BigNumber('10000000000000000'),
     );
 
     const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
@@ -47,11 +47,11 @@ describe('pages/Dashboard/MintRepayVai', () => {
     });
 
     await waitFor(() => expect(getByTestId(TEST_ID)));
-    expect(getByTestId(TEST_ID).textContent).toContain('10,000 XVS');
+    expect(getByTestId(TEST_ID).textContent).toContain('0.01 XVS');
   });
 
   it('it claims XVS reward on click and displays successful transaction modal on success', async () => {
-    const fakeXvsReward = new BigNumber('10000000000000000000000');
+    const fakeXvsReward = new BigNumber('10000000000000000');
 
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     (getXvsReward as jest.Mock).mockImplementationOnce(async () => fakeXvsReward);

@@ -7,8 +7,8 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { convertWeiToCoins } from 'utilities/common';
 import { VError } from 'errors';
+import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
 import { toast } from '../../Toast';
 import { Icon } from '../../Icon';
@@ -34,7 +34,14 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  if (!amountWei || amountWei.isEqualTo(0)) {
+  const readableAmount = useConvertToReadableCoinString({
+    valueWei: amountWei,
+    tokenId: XVS_SYMBOL,
+    minimizeDecimals: true,
+  });
+
+  // Check readable amount isn't 0 (since we strip out decimals)
+  if (!amountWei || readableAmount.split(' ')[0] === '0') {
     return null;
   }
 
@@ -63,12 +70,6 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
       });
     }
   };
-
-  const readableAmount = convertWeiToCoins({
-    valueWei: amountWei,
-    tokenId: XVS_SYMBOL,
-    returnInReadableFormat: true,
-  });
 
   return (
     <SecondaryButton
