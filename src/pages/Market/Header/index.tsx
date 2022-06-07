@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
+import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { useGetUserMarketInfo } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import { useGetTreasuryTotals } from 'clients/api';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities/common';
 import { useStyles } from '../styles';
@@ -64,25 +63,22 @@ export const HeaderUi: React.FC<IHeaderProps> = ({
 };
 
 const Header = () => {
-  const { account } = useContext(AuthContext);
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
     data: {
-      treasuryTotalSupplyUsdBalanceCents,
-      treasuryTotalBorrowUsdBalanceCents,
-      treasuryTotalAvailableLiquidityUsdBalanceCents,
-      treasuryTotalUsdBalanceCents,
+      treasuryTotalSupplyBalanceCents,
+      treasuryTotalBorrowBalanceCents,
+      treasuryTotalAvailableLiquidityBalanceCents,
+      treasuryTotalBalanceCents,
     },
-  } = useGetUserMarketInfo({
-    accountAddress: account?.address,
-  });
+  } = useGetTreasuryTotals();
 
   return (
     <HeaderUi
-      totalSupplyCents={treasuryTotalSupplyUsdBalanceCents}
-      totalBorrowCents={treasuryTotalBorrowUsdBalanceCents}
-      availableLiquidityCents={treasuryTotalAvailableLiquidityUsdBalanceCents}
-      totalTreasuryCents={treasuryTotalUsdBalanceCents}
+      totalSupplyCents={treasuryTotalSupplyBalanceCents}
+      totalBorrowCents={treasuryTotalBorrowBalanceCents}
+      availableLiquidityCents={treasuryTotalAvailableLiquidityBalanceCents}
+      totalTreasuryCents={treasuryTotalBalanceCents}
     />
   );
 };

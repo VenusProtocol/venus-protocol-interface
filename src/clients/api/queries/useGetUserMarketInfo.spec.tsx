@@ -33,10 +33,6 @@ describe('api/queries/useGetUserMarketInfo', () => {
       userTotalBorrowBalanceCents: new BigNumber(0),
       userTotalBorrowLimitCents: new BigNumber(0),
       userTotalSupplyBalanceCents: new BigNumber(0),
-      treasuryTotalBorrowUsdBalanceCents: new BigNumber(0),
-      treasuryTotalUsdBalanceCents: new BigNumber(0),
-      treasuryTotalSupplyUsdBalanceCents: new BigNumber(0),
-      treasuryTotalAvailableLiquidityUsdBalanceCents: new BigNumber(0),
       totalXvsDistributedWei: new BigNumber(0),
       dailyVenusWei: new BigNumber(0),
     };
