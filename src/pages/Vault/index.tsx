@@ -12,6 +12,9 @@ export interface IVaultUi {
   vaults: Vault[];
 }
 
+const generateVaultKey = (vault: Vault) =>
+  `vault-${vault.stakedTokenId}-${vault.rewardTokenId}-${vault.lockingPeriodMs || 0}`;
+
 export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
   const styles = useStyles();
 
@@ -24,7 +27,7 @@ export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
       {vaults.map(vault => (
         <VaultItem
           {...vault}
-          key={`vault-${vault.stakedTokenId}-${vault.rewardTokenId}`}
+          key={generateVaultKey(vault)}
           // TODO: add callbacks (see https://app.clickup.com/t/2dfqc8g,
           // https://app.clickup.com/t/2dfqca0,
           // https://app.clickup.com/t/2dfqcb3)
