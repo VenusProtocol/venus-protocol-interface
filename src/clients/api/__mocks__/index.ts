@@ -43,7 +43,7 @@ export const getAllowance = jest.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = jest.fn();
-export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getBalanceOf);
+export const useGetBalanceOf = () => useQuery(FunctionKey.GET_BALANCE_OF, getBalanceOf);
 
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
@@ -72,9 +72,9 @@ export const getVTokenSupplyRate = jest.fn();
 
 export const getVTokenBorrowRate = jest.fn();
 
-export const getVenusVaiVaultRate = jest.fn();
+export const getVenusVaiVaultDailyRateWei = jest.fn();
 export const useGetVenusVaiVaultDailyRateWei = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultRate);
+  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultDailyRateWei);
 
 export const getTransactions = jest.fn();
 export const useGetTransactions = () =>

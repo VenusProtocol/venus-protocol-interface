@@ -1,8 +1,9 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
-import getVaiVaultPendingXvsWei, {
+import {
+  getVaiVaultPendingXvsWei,
   IGetVaiVaultPendingXvsWeiInput,
   GetVaiVaultPendingXvsWeiOutput,
-} from 'clients/api/queries/getVaiVaultPendingXvsWei';
+} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
 
