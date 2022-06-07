@@ -9,6 +9,7 @@ export interface UseGetVaultsOutput {
   data: Vault[];
 }
 
+// TODO: fetch non-vesting vaults (see https://app.clickup.com/t/2dfqc2m)
 const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVaultsOutput => {
   const { data: vestingVaults, isLoading: isGetVestingVaultsLoading } = useGetVestingVaults({
     accountAddress,

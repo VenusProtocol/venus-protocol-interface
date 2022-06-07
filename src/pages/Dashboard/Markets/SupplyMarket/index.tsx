@@ -139,6 +139,9 @@ const SupplyMarket: React.FC<
         setConfirmCollateral(asset);
         await enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress });
       } catch (error) {
+        if (error instanceof VError) {
+          throw error;
+        }
         throw new VError({
           type: 'interaction',
           code: 'collateralEnableError',
@@ -167,6 +170,9 @@ const SupplyMarket: React.FC<
         vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf),
       });
     } catch (error) {
+      if (error instanceof VError) {
+        throw error;
+      }
       throw new VError({
         type: 'interaction',
         code: 'collateralDisableError',
@@ -179,6 +185,9 @@ const SupplyMarket: React.FC<
         setConfirmCollateral(asset);
         await exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress });
       } catch (error) {
+        if (error instanceof VError) {
+          throw error;
+        }
         throw new VError({
           type: 'interaction',
           code: 'collateralDisableError',

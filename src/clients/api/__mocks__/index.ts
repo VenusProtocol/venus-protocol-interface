@@ -84,6 +84,8 @@ export const getXvsVaultPoolsCount = jest.fn();
 export const useGetXvsVaultPoolsCount = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolsCount);
 
+export const useGetTreasuryTotals = jest.fn();
+
 export const getXvsVaultPoolInfos = jest.fn();
 
 export const getXvsVaultRewardWeiPerBlock = jest.fn();

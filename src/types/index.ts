@@ -29,8 +29,8 @@ export interface Asset {
   treasuryBalance: BigNumber;
   vimg: string | undefined;
   vsymbol: string;
-  treasuryTotalBorrowsUsdCents: BigNumber;
-  treasuryTotalSupplyUsdCents: BigNumber;
+  treasuryTotalBorrowsCents: BigNumber;
+  treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;
   treasuryTotalBorrows: BigNumber;
   xvsPerDay: BigNumber;
@@ -168,8 +168,8 @@ export interface Market {
   venusBorrowIndex: string;
   venusSpeeds: string;
   venusSupplyIndex: string;
-  treasuryTotalBorrowsUsdCents: BigNumber;
-  treasuryTotalSupplyUsdCents: BigNumber;
+  treasuryTotalBorrowsCents: BigNumber;
+  treasuryTotalSupplyCents: BigNumber;
 }
 
 export interface MarketSnapshot {
