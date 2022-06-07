@@ -6,7 +6,9 @@ import { VError, ErrorCodes, IVErrorParamMap, IVErrorPhraseMap } from './VError'
 export const formatVErrorToReadableString = (error: VError<ErrorCodes>) => {
   let phrase = unexpectedErrorPhrases.somethingWentWrong;
   if (error.type === 'transaction') {
-    phrase = transactionErrorPhrases[error.message as IVErrorPhraseMap['transaction']];
+    const message = transactionErrorPhrases[error.message as IVErrorPhraseMap['transaction']];
+    const info = transactionErrorPhrases[(error.data as IVErrorParamMap['transaction']).info];
+    phrase = `${message} - ${info}`;
   } else if (error.type === 'unexpected') {
     phrase = unexpectedErrorPhrases[error.message as IVErrorPhraseMap['unexpected']];
   } else if (error.type === 'interaction') {

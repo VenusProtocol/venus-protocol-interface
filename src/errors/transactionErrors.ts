@@ -24,10 +24,10 @@ const checkForTransactionError = (
     const { error, info } = receipt.events?.Failure.returnValues;
     throw new VError({
       type: 'transaction',
-      code: errorEnum[info] as IVErrorPhraseMap['transaction'],
+      code: errorEnum[error] as IVErrorPhraseMap['transaction'],
       data: {
-        error: errorEnum[error],
-        info: infoEnum[info],
+        error: errorEnum[error] as IVErrorPhraseMap['transaction'],
+        info: infoEnum[info] as IVErrorPhraseMap['transaction'],
       },
     });
   }
