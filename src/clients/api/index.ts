@@ -176,3 +176,11 @@ export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
 
 export { default as useGetVaults } from './queries/useGetVaults';
+
+export { default as getVaiVaultPendingXvs } from './queries/getVaiVaultPendingXvs';
+export * from './queries/getVaiVaultPendingXvs';
+export { default as useGetVaiVaultPendingXvs } from './queries/useGetVaiVaultPendingXvs';
+
+export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
+export * from './queries/getVaiVaultUserInfo';
+export { default as useGetVaiVaultUserInfo } from './queries/useGetVaiVaultUserInfo';

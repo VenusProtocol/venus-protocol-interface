@@ -1,5 +1,6 @@
 import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
 
+import fakeAddress from '__mocks__/models/address';
 import FunctionKey from 'constants/functionKey';
 
 // Queries
@@ -96,6 +97,14 @@ export const useGetXvsVaultTotalAllocationPoints = () =>
 export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const useGetVaults = jest.fn();
+
+export const getVaiVaultUserInfo = jest.fn();
+export const useGetVaiVaultUserInfo = () =>
+  useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);
+
+export const getVaiVaultPendingXvs = jest.fn();
+export const useGetVaiVaultPendingXvs = () =>
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvs);
 
 // Mutations
 export const approveToken = jest.fn();
