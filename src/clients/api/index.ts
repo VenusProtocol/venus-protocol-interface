@@ -117,9 +117,9 @@ export { default as getVrtConversionRatio } from './queries/getVrtConversionRati
 export * from './queries/getVrtConversionRatio';
 export { default as useGetVrtConversionRatio } from './queries/useGetVrtConversionRatio';
 
-export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultRate';
-export * from './queries/getVenusVaiVaultRate';
-export { default as useGetVenusVaiVaultRate } from './queries/useGetVenusVaiVaultRate';
+export { default as getVenusVaiVaultRate } from './queries/getVenusVaiVaultDailyRateWei';
+export * from './queries/getVenusVaiVaultDailyRateWei';
+export { default as useGetVenusVaiVaultDailyRateWei } from './queries/useGetVenusVaiVaultDailyRateWei';
 
 export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';

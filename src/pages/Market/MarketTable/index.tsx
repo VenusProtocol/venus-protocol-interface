@@ -170,8 +170,8 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
 };
 
 const MarketTable = () => {
-  const { data: { markets } = { markets: [], dailyVenus: undefined } } = useGetMarkets({
-    placeholderData: { markets: [], dailyVenus: undefined },
+  const { data: { markets } = { markets: [], dailyVenusWei: undefined } } = useGetMarkets({
+    placeholderData: { markets: [], dailyVenusWei: undefined },
     refetchInterval: 10 * 1000, // Refetch the data every 10 seconds
   });
   return <MarketTableUi markets={markets} getRowHref={row => `/market/${row[0].value}`} />;
