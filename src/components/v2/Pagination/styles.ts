@@ -8,7 +8,7 @@ export const useStyles = () => {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin-top: ${theme.spacing(4)};
+      margin: ${theme.spacing(5)} 0;
       ${theme.breakpoints.down('sm')} {
         flex-wrap: wrap;
         justify-content: center;

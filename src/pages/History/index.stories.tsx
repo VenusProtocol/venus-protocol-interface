@@ -22,5 +22,10 @@ export const Default = () => (
     showOnlyMyTxns={false}
     setShowOnlyMyTxns={noop}
     transactions={transactions}
+    walletConnected
+    isFetching={false}
+    limit={20}
+    total={60}
+    setCurrentPage={noop}
   />
 );

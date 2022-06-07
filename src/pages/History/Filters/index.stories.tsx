@@ -19,5 +19,6 @@ export const Default = () => (
     setEventType={noop}
     showOnlyMyTxns={false}
     setShowOnlyMyTxns={noop}
+    walletConnected
   />
 );

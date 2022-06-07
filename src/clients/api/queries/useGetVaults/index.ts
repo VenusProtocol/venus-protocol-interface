@@ -14,7 +14,7 @@ import {
   GetXvsVaultPendingRewardWeiOutput,
   IGetXvsVaultUserInfoOutput,
 } from 'clients/api';
-import { XVS_TOKEN_ADDRESS, XVS_TOKEN_ID } from './constants';
+import { XVS_TOKEN_ADDRESS, XVS_TOKEN_ID } from 'constants/xvs';
 import useGetXvsVaultPools from './useGetXvsVaultPools';
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
 

@@ -158,6 +158,7 @@
     "reservesReduced": "Reserves Reduced",
     "transfer": "Transfer",
     "type": "Type",
+    "typeColon": "Type:",
     "voteCast": "Vote Cast",
     "withdraw": "Withdraw"
   },

@@ -13,6 +13,7 @@ export interface IFilterProps {
   setEventType: (eventType: TransactionEvent | typeof ALL_VALUE) => void;
   showOnlyMyTxns: boolean;
   setShowOnlyMyTxns: (showOnlyMyTxns: boolean) => void;
+  walletConnected: boolean;
 }
 
 export const Filters: React.FC<IFilterProps> = ({
@@ -20,6 +21,7 @@ export const Filters: React.FC<IFilterProps> = ({
   setEventType,
   showOnlyMyTxns,
   setShowOnlyMyTxns,
+  walletConnected,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -46,17 +48,26 @@ export const Filters: React.FC<IFilterProps> = ({
   return (
     <Paper css={styles.root}>
       <div css={styles.myTransactions}>
-        <Checkbox onChange={e => setShowOnlyMyTxns(e.target.checked)} value={showOnlyMyTxns} />
-        <Typography variant="small2">{t('history.myTransactions')}</Typography>
+        {walletConnected && (
+          <>
+            <Checkbox onChange={e => setShowOnlyMyTxns(e.target.checked)} value={showOnlyMyTxns} />
+            <Typography variant="small2">{t('history.myTransactions')}</Typography>
+          </>
+        )}
       </div>
-      <Select
-        options={selectOptions}
-        value={eventType}
-        onChange={e => setEventType(e.target.value as TransactionEvent | typeof ALL_VALUE)}
-        ariaLabel={t('history.type')}
-        title={t('history.type')}
-        css={styles.select}
-      />
+      <div>
+        <Typography css={styles.typeSelectLabel} variant="small2">
+          {t('history.typeColon')}
+        </Typography>
+        <Select
+          options={selectOptions}
+          value={eventType}
+          onChange={e => setEventType(e.target.value as TransactionEvent | typeof ALL_VALUE)}
+          ariaLabel={t('history.type')}
+          title={t('history.type')}
+          css={styles.select}
+        />
+      </div>
     </Paper>
   );
 };

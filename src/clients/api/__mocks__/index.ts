@@ -76,8 +76,9 @@ export const useGetVenusVaiVaultDailyRateWei = () =>
   useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultRate);
 
 export const getTransactions = jest.fn();
-export const useGetTransactions = () =>
-  useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions);
+export const useGetTransactions = jest.fn(() =>
+  useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions),
+);
 
 export const getXvsVaultPoolsCount = jest.fn();
 export const useGetXvsVaultPoolsCount = () =>

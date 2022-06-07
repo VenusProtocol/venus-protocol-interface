@@ -4,7 +4,7 @@ import { useTranslation } from 'translation';
 type IPaginationProps = {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
-  initialPageNumber?: number;
+  initialPageIndex?: number;
   itemsPerPageCount?: number;
 };
 
@@ -13,12 +13,10 @@ const PAGES_TO_SHOW_COUNT = 4;
 export function usePagination({
   itemsCount,
   onChange,
-  initialPageNumber = 1,
+  initialPageIndex = 0,
   itemsPerPageCount = 10,
 }: IPaginationProps) {
   const { t } = useTranslation();
-
-  const initialPageIndex = initialPageNumber - 1;
 
   const [activePageIndex, setActivePageIndex] = useState(initialPageIndex);
   const [pagesCount, setPagesCount] = useState(0);

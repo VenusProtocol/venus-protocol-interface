@@ -14,6 +14,10 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetTransactions = (params: IGetTransactionsInput, options?: Options) =>
-  useQuery([FunctionKey.GET_TRANSACTIONS, params], () => getTransactions(params), options);
+  useQuery([FunctionKey.GET_TRANSACTIONS, params], () => getTransactions(params), {
+    ...options,
+    keepPreviousData: true,
+    placeholderData: { limit: 0, page: 0, total: 0, transactions: [] },
+  });
 
 export default useGetTransactions;

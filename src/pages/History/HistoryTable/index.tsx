@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { EllipseText, Icon, Table, TableProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
 import { formatCoinsToReadableValue } from 'utilities/common';
 import { useTranslation } from 'translation';
@@ -12,9 +13,10 @@ import { useStyles } from './styles';
 
 export interface IHistoryTableProps {
   transactions: Transaction[];
+  isFetching: boolean;
 }
 
-export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) => {
+export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isFetching }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -56,7 +58,10 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
       render: () => (
         <>
           <div css={[styles.whiteText, styles.table, styles.typeCol]}>
-            <Icon name={getTokenIdFromVAddress(txn.vTokenAddress) as TokenId} css={styles.icon} />
+            <Icon
+              name={getTokenIdFromVAddress(txn.vTokenAddress || XVS_TOKEN_ADDRESS) as TokenId}
+              css={styles.icon}
+            />
             <Typography variant="small2" color="textPrimary">
               {txn.event}
             </Typography>
@@ -78,7 +83,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
     {
       key: 'txnHash',
       render: () => (
-        <EllipseText css={styles.txnHash} text={txn.transactionHash}>
+        <EllipseText text={txn.transactionHash} minChars={6}>
           <Typography
             className="ellipse-text"
             component="a"
@@ -106,7 +111,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
     {
       key: 'from',
       render: () => (
-        <EllipseText css={styles.txnHash} text={txn.from}>
+        <EllipseText text={txn.from} minChars={6}>
           <Typography
             className="ellipse-text"
             component="a"
@@ -125,7 +130,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
       key: 'to',
       render: () =>
         txn.to ? (
-          <EllipseText css={styles.txnHash} text={txn.to}>
+          <EllipseText text={txn.to} minChars={6}>
             <Typography
               className="ellipse-text"
               component="a"
@@ -182,12 +187,13 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions }) =
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}
+      isFetching={isFetching}
     />
   );
 };
 
-const HistoryTable: React.FC<IHistoryTableProps> = ({ transactions }) => (
-  <HistoryTableUi transactions={transactions} />
+const HistoryTable: React.FC<IHistoryTableProps> = ({ transactions, isFetching }) => (
+  <HistoryTableUi transactions={transactions} isFetching={isFetching} />
 );
 
 export default HistoryTable;

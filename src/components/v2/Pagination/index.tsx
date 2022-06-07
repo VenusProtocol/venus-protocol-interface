@@ -24,7 +24,7 @@ const PaginationButton: React.FC<IPaginationButtonProps> = ({ className, onClick
 interface IPaginationProps {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
-  initialPageNumber?: number;
+  initialPageIndex?: number;
   itemsPerPageCount?: number;
   className?: string;
 }
@@ -32,7 +32,7 @@ interface IPaginationProps {
 export const Pagination = ({
   itemsCount,
   onChange,
-  initialPageNumber,
+  initialPageIndex,
   itemsPerPageCount,
   className,
 }: IPaginationProps) => {
@@ -47,7 +47,7 @@ export const Pagination = ({
   } = usePagination({
     itemsCount,
     onChange,
-    initialPageNumber,
+    initialPageIndex,
     itemsPerPageCount,
   });
 
