@@ -1,6 +1,8 @@
+import { Comptroller } from 'types/contracts';
+
 export interface IGetAssetsInAccountInput {
-  comptrollerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
-  account: string | undefined | null;
+  comptrollerContract: Comptroller;
+  account: string;
 }
 
 export type GetAssetsInAccountOutput = string[];

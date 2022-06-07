@@ -70,7 +70,7 @@ const useGetUserMarketInfo = ({
 
   const { data: assetsInAccount = [], isLoading: isGetAssetsInAccountLoading } =
     useGetAssetsInAccount(
-      { account: accountAddress },
+      { account: accountAddress || '' },
       { enabled: !!accountAddress, placeholderData: [] },
     );
 

@@ -12,7 +12,7 @@ type Options = QueryObserverOptions<
   Error,
   GetAssetsInAccountOutput,
   GetAssetsInAccountOutput,
-  FunctionKey.GET_ASSETS_IN_ACCOUNT
+  [FunctionKey.GET_ASSETS_IN_ACCOUNT, string]
 >;
 
 const useGetAssetsInAccount = (
@@ -21,7 +21,7 @@ const useGetAssetsInAccount = (
 ) => {
   const comptrollerContract = useComptrollerContract();
   return useQuery(
-    FunctionKey.GET_ASSETS_IN_ACCOUNT,
+    [FunctionKey.GET_ASSETS_IN_ACCOUNT, account],
     () => getAssetsInAccount({ comptrollerContract, account }),
     options,
   );

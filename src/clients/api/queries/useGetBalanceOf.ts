@@ -23,7 +23,7 @@ const useGetBalanceOf = (
   const tokenContract = useTokenContract(tokenId);
 
   return useQuery(
-    [FunctionKey.GET_BALANCE_OF, tokenId, accountAddress],
+    [FunctionKey.GET_BALANCE_OF, accountAddress, tokenId],
     () => getBalanceOf({ tokenContract, accountAddress }),
     options,
   );

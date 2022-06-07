@@ -69,6 +69,7 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
         <div css={styles.xvsIconContainer}>
           <Icon name="xvs" size={styles.iconSize} />
         </div>
+
         <Typography
           className="ellipse-text"
           href={generateBscScanUrl('xvs')}
@@ -78,10 +79,12 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
           component="a"
           css={[styles.whiteText, styles.addressText]}
         />
+
         <div css={styles.copyIconContainer}>
           <Icon name="copy" onClick={copyAddress} css={styles.copyIcon} size={styles.iconSizeXl} />
         </div>
       </EllipseText>
+
       <div css={styles.slider}>
         <LabeledProgressBar
           css={styles.progressBar}

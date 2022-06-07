@@ -27,8 +27,8 @@ const useGetAllowance = (
   const tokenContract = useTokenContract(tokenId);
 
   return useQuery(
-    [FunctionKey.GET_TOKEN_ALLOWANCE, tokenId, spenderAddress],
-    () => getAllowance({ tokenContract, accountAddress, spenderAddress }),
+    [FunctionKey.GET_TOKEN_ALLOWANCE, spenderAddress, tokenId],
+    () => getAllowance({ tokenContract, spenderAddress, accountAddress }),
     options,
   );
 };
