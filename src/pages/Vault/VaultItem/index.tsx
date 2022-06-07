@@ -10,8 +10,7 @@ import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString
 import { convertWeiToCoins, formatToReadablePercentage } from 'utilities/common';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { Icon } from '../../../components/v2/Icon';
-import { Button } from '../../../components/v2/Button';
+import { Icon, Button } from 'components';
 import { useStyles } from './styles';
 
 export const SYMBOL_TEST_ID = 'vault-item-symbol';
