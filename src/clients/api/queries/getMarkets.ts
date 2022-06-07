@@ -12,7 +12,7 @@ export interface IGetMarketsResponse {
 
 export interface IGetMarketsOutput {
   markets: Market[];
-  dailyVenus: BigNumber | undefined;
+  dailyVenusWei: BigNumber | undefined;
 }
 
 const getMarkets = async (): Promise<IGetMarketsOutput> => {
@@ -24,9 +24,9 @@ const getMarkets = async (): Promise<IGetMarketsOutput> => {
     throw new Error(response.message);
   }
   let markets: Market[] = [];
-  let dailyVenus;
+  let dailyVenusWei;
   if (response && response.data && response.data.data) {
-    dailyVenus = new BigNumber(response.data.data.dailyVenus);
+    dailyVenusWei = new BigNumber(response.data.data.dailyVenus);
     markets = Object.keys(VBEP_TOKENS).reduce<Market[]>((acc: Market[], curr: string) => {
       const activeMarket = response.data?.data.markets.find(
         (market: Market) => market.underlyingSymbol.toLowerCase() === curr.toLowerCase(),
@@ -49,7 +49,7 @@ const getMarkets = async (): Promise<IGetMarketsOutput> => {
       return acc;
     }, []);
   }
-  return { markets, dailyVenus };
+  return { markets, dailyVenusWei };
 };
 
 export default getMarkets;

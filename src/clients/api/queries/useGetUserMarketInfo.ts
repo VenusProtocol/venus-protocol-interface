@@ -25,7 +25,7 @@ export interface IData {
   treasuryTotalBorrowUsdBalanceCents: BigNumber;
   treasuryTotalUsdBalanceCents: BigNumber;
   totalXvsDistributedWei: BigNumber;
-  dailyVenus: BigNumber;
+  dailyVenusWei: BigNumber;
 }
 
 export interface UseGetUserMarketInfoOutput {
@@ -49,13 +49,13 @@ const useGetUserMarketInfo = ({
   const {
     data: getMarketsData = {
       markets: [],
-      dailyVenus: new BigNumber(0),
+      dailyVenusWei: new BigNumber(0),
     },
     isLoading: isGetMarketsLoading,
   } = useGetMarkets({
     placeholderData: {
       markets: [],
-      dailyVenus: new BigNumber(0),
+      dailyVenusWei: new BigNumber(0),
     },
   });
 
@@ -277,7 +277,7 @@ const useGetUserMarketInfo = ({
       treasuryTotalUsdBalanceCents,
       treasuryTotalBorrowUsdBalanceCents,
       treasuryTotalSupplyUsdBalanceCents,
-      dailyVenus: getMarketsData.dailyVenus || new BigNumber(0),
+      dailyVenusWei: getMarketsData.dailyVenusWei || new BigNumber(0),
       totalXvsDistributedWei,
     };
   }, [

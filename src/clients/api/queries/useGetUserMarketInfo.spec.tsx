@@ -38,7 +38,7 @@ describe('api/queries/useGetUserMarketInfo', () => {
       treasuryTotalSupplyUsdBalanceCents: new BigNumber(0),
       treasuryTotalAvailableLiquidityUsdBalanceCents: new BigNumber(0),
       totalXvsDistributedWei: new BigNumber(0),
-      dailyVenus: new BigNumber(0),
+      dailyVenusWei: new BigNumber(0),
     };
 
     const CallMarketContext = () => {
