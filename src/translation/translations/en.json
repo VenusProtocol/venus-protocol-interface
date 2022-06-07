@@ -170,6 +170,7 @@
     }
   },
   "layout": {
+    "banner": "UST and LUNA are being deprecated, please ensure they are disabled as collateral. Failure to disable them will result in lost access to the protocol after deprecation.",
     "menuItems": {
       "convertVrt": "Convert VRT",
       "convertVrtTitle": "Convert VRT to XVS",
