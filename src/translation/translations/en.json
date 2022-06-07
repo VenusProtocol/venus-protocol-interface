@@ -188,7 +188,7 @@
     "columns": {
       "borrowApy": "Borrow APY",
       "liquidity": "Liquidity",
-      "market": "Asset",
+      "asset": "Asset",
       "price": "Price",
       "supplyApy": "Supply APY",
       "totalBorrow": "Total Borrow",
