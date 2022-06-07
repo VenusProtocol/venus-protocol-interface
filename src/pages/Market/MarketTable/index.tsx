@@ -25,7 +25,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
 
   const columns = useMemo(
     () => [
-      { key: 'market', label: t('market.columns.market'), orderable: false, align: 'left' },
+      { key: 'asset', label: t('market.columns.asset'), orderable: false, align: 'left' },
       {
         key: 'totalSupply',
         label: t('market.columns.totalSupply'),
@@ -58,7 +58,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
     () =>
       markets.map(market => [
         {
-          key: 'market',
+          key: 'asset',
           render: () => <Token tokenId={market.id as TokenId} css={styles.whiteText} />,
           value: market.id,
         },
