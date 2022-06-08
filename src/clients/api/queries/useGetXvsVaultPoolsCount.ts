@@ -3,7 +3,7 @@ import getXvsVaultPoolsCount, {
   GetXvsVaultPoolsCountOutput,
 } from 'clients/api/queries/getXvsVaultPoolsCount';
 import FunctionKey from 'constants/functionKey';
-import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 
 type Options = QueryObserverOptions<
   GetXvsVaultPoolsCountOutput,
@@ -14,7 +14,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsVaultPoolsCount = (options?: Options) => {
-  const xvsVaultContract = useXvsVaultContract();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   return useQuery(
     FunctionKey.GET_XVS_VAULT_POOLS_COUNT,
