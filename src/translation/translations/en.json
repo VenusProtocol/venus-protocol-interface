@@ -567,7 +567,7 @@
   },
   "xvs": {
     "columns": {
-      "asset": "Asset",
+      "asset": "asset",
       "borrowXvsApy": "Borrow XVS APY",
       "supplyXvsApy": "Supply XVS APY",
       "xvsPerDay": "XVS Per Day"

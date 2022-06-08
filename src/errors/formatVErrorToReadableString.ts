@@ -22,5 +22,5 @@ export const formatVErrorToReadableString = (error: VError<ErrorCodes>) => {
       phrase = translationPhrase;
     }
   }
-  return phrase;
+  return phrase || unexpectedErrorPhrases.somethingWentWrong;
 };

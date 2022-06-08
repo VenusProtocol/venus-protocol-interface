@@ -1,11 +1,19 @@
 import { css } from '@emotion/react';
-import { useTheme } from '@mui/material';
+import { alpha, useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    banner: css`
+    container: css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: ${theme.spacing(4, 10, 0)};
+      padding: ${theme.spacing(3, 4)};
+      border-radius: ${theme.shape.borderRadius.verySmall}px;
+      border: 1px solid ${theme.palette.interactive.warning};
+      background-color: ${alpha(theme.palette.interactive.warning as string, 0.1)};
+
       ${theme.breakpoints.down('lg')} {
         margin: ${theme.spacing(6, 6, 0)};
       }
@@ -13,9 +21,20 @@ export const useStyles = () => {
         margin: ${theme.spacing(4, 4, 0)};
       }
     `,
-    bannerLink: css`
+    content: css`
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+    `,
+    text: css`
       color: ${theme.palette.text.primary};
-      text-decoration: underline;
+    `,
+    icon: css`
+      flex-shrink: 0;
+      color: ${theme.palette.interactive.warning};
+      margin-right: ${theme.spacing(2)};
+      width: ${theme.spacing(6)};
+      height: ${theme.spacing(6)};
     `,
   };
 };

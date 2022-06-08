@@ -13,7 +13,6 @@ import {
   getHypotheticalAccountLiquidity,
   getVTokenBalanceOf,
 } from 'clients/api';
-import { useTranslation } from 'translation';
 import { SupplyWithdrawModal } from '../../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import SupplyMarketTable from './SupplyMarketTable';
@@ -113,7 +112,6 @@ const SupplyMarket: React.FC<
   const comptrollerContract = useComptrollerContract();
 
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
-  const { t } = useTranslation();
 
   const { mutateAsync: enterMarkets } = useEnterMarkets({
     onSettled: () => setConfirmCollateral(undefined),
@@ -127,7 +125,7 @@ const SupplyMarket: React.FC<
     if (!accountAddress) {
       throw new VError({
         type: 'interaction',
-        code: t('markets.errors.accountError'),
+        code: 'accountError',
       });
     } else if (!asset || !asset.borrowBalance.isZero()) {
       throw new VError({
