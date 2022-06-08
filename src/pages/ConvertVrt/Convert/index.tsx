@@ -16,9 +16,10 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VError } from 'errors/VError';
 import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
-import { VRT_ID, XVS_ID, VRT_DECIMAL } from '../constants';
+import { VRT_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 
 export interface IConvertProps {
@@ -42,7 +43,7 @@ const Convert: React.FC<IConvertProps> = ({
 
   const readableXvsAvailable = useConvertToReadableCoinString({
     valueWei: xvsToVrtConversionRatio && userVrtBalanceWei?.times(xvsToVrtConversionRatio),
-    tokenId: XVS_ID,
+    tokenId: XVS_TOKEN_ID,
   });
 
   const readableUserVrtBalance = useMemo(() => {
@@ -101,12 +102,12 @@ const Convert: React.FC<IConvertProps> = ({
               })}
             </Typography>
             <Icon name="arrowShaft" css={styles.successModalArrow} />
-            <Icon name={XVS_ID} css={styles.successModalToken} />
+            <Icon name={XVS_TOKEN_ID} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {xvsAmountWei &&
                 convertWeiToCoins({
                   valueWei: xvsAmountWei,
-                  tokenId: XVS_ID,
+                  tokenId: XVS_TOKEN_ID,
                   returnInReadableFormat: true,
                 })}
             </Typography>
@@ -174,7 +175,7 @@ const Convert: React.FC<IConvertProps> = ({
                       {t('convertVrt.youWillReceive')}
                     </Typography>
                     <TokenTextField
-                      tokenId={XVS_ID}
+                      tokenId={XVS_TOKEN_ID}
                       name="xvs"
                       css={styles.input}
                       description={t('convertVrt.vrtEqualsXvs', {

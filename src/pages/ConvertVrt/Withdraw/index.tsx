@@ -6,7 +6,7 @@ import { ConnectWallet, Icon, PrimaryButton, toast } from 'components';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { useTranslation } from 'translation';
-import { XVS_ID } from '../constants';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { useStyles } from '../styles';
 
 export interface IWithdrawProps {
@@ -25,7 +25,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
   const readableXvsAvailable = useConvertToReadableCoinString({
     valueWei: xvsWithdrawableAmount,
-    tokenId: XVS_ID,
+    tokenId: XVS_TOKEN_ID,
   });
   const onSubmit = async () => {
     try {
@@ -35,7 +35,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
         transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
-            <Icon name={XVS_ID} css={styles.successModalToken} />
+            <Icon name={XVS_TOKEN_ID} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {readableXvsAvailable}
             </Typography>
