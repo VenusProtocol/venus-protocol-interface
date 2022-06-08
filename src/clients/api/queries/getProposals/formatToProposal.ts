@@ -36,9 +36,9 @@ const formatToProposal = ({
   const cancelDate = typeof cancelTimestamp === 'number' ? new Date(cancelTimestamp) : undefined;
 
   return {
-    abstainedVotesWei: new BigNumber(abstainedVotes),
+    abstainedVotesWei: new BigNumber(abstainedVotes || 0),
     actions,
-    againstVotesWei: new BigNumber(againstVotes),
+    againstVotesWei: new BigNumber(againstVotes || 0),
     blockNumber,
     cancelTimestamp: cancelTimestamp ?? undefined,
     createdAt,
@@ -47,7 +47,7 @@ const formatToProposal = ({
     endBlock,
     endTimestamp: endTimestamp ?? undefined,
     executedTimestamp,
-    forVotesWei: new BigNumber(forVotes),
+    forVotesWei: new BigNumber(forVotes || 0),
     id,
     proposer,
     queuedTimestamp,

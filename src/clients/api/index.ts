@@ -69,6 +69,10 @@ export { default as withdrawXvs } from './mutations/withdrawXvs';
 export * from './mutations/withdrawXvs';
 export { default as useWithdrawXvs } from './mutations/useWithdrawXvs';
 
+export { default as setVoteDelegate } from './mutations/setVoteDelegate';
+export * from './mutations/setVoteDelegate';
+export { default as useSetVoteDelegate } from './mutations/useSetVoteDelegate';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
@@ -202,3 +206,9 @@ export { default as useGetVaiVaultPendingXvsWei } from './queries/useGetVaiVault
 export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo';
 export { default as useGetVaiVaultUserInfo } from './queries/useGetVaiVaultUserInfo';
+
+export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVestingVaults';
+
+export { default as getVoteDelegateAddress } from './queries/getVoteDelegateAddress';
+export * from './queries/getVoteDelegateAddress';
+export { default as useGetVoteDelegateAddress } from './queries/useGetVoteDelegateAddress';

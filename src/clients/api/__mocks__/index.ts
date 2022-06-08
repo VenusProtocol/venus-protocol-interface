@@ -122,6 +122,12 @@ export const getVaiVaultPendingXvsWei = jest.fn();
 export const useGetVaiVaultPendingXvsWei = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvsWei);
 
+export const useGetVestingVaults = jest.fn();
+
+export const getVoteDelegateAddress = jest.fn();
+export const useGetVoteDelegateAddress = () =>
+  useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
@@ -188,3 +194,7 @@ export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, bor
 export const withdrawXvs = jest.fn();
 export const useWithdrawXvs = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.WITHDRAW_XVS, approveVrt, options);
+
+export const setVoteDelegate = jest.fn();
+export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.SET_VOTE_DELEGATE, setVoteDelegate, options);
