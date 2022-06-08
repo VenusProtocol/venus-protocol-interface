@@ -107,6 +107,9 @@ export const useGetUserMarketInfo = jest.fn();
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
+export const getVoteReceipt = jest.fn();
+export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
