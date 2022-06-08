@@ -30,6 +30,7 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
     `,
     icon: css`
+      flex-shrink: 0;
       color: ${theme.palette.interactive.warning};
       margin-right: ${theme.spacing(2)};
       width: ${theme.spacing(6)};
