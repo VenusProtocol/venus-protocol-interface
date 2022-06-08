@@ -95,14 +95,18 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
           return null;
         }
         return (
-          <div key={id} css={styles.bar}>
-            <LabeledProgressBar
-              greyLeftText={label}
-              whiteRightText={value}
-              {...defaultProgressbarProps}
-              {...progressBarProps}
-            />
-          </div>
+          <React.Fragment key={id}>
+            <div css={styles.voteRow}>
+              <Typography variant="small2" color="textSecondary">
+                {label}
+              </Typography>
+
+              <Typography variant="small2" color="textPrimary">
+                {value}
+              </Typography>
+            </div>
+            <ProgressBar {...defaultProgressbarProps} {...progressBarProps} />
+          </React.Fragment>
         );
       })}
     </div>
