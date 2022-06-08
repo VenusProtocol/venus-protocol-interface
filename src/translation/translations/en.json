@@ -518,6 +518,8 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
+    "abstain": "Abstain",
+    "against": "Against",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",
@@ -526,6 +528,7 @@
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
+    "for": "For",
     "governanceProposals": "Governance proposals",
     "pasteYourAddress": "Paste your address",
     "pleasePayAttention": "Please pay attention",

@@ -19,6 +19,7 @@ import Market from 'pages/Market';
 import Vault from 'pages/Vault';
 import VaultV1 from 'containers/Main/Vault';
 import VoteOverview from 'containers/Main/VoteOverview';
+import Proposal from 'pages/Proposal';
 import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
@@ -75,7 +76,11 @@ const App = () => (
                               path={Path.VOTE_LEADER_BOARD}
                               component={VoterLeaderboard}
                             />
-                            <Route exact path={Path.VOTE_PROPOSAL} component={VoteOverview} />
+                            <Route
+                              exact
+                              path={Path.VOTE_PROPOSAL_DETAILS}
+                              component={process.env.REACT_APP_RUN_V2 ? Proposal : VoteOverview}
+                            />
                             <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
                             <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
                             {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
