@@ -17,7 +17,8 @@ import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { VError } from 'errors/VError';
 import { useTranslation } from 'translation';
 import { convertWeiToCoins } from 'utilities/common';
-import { VRT_ID, XVS_ID } from './constants';
+import { XVS_TOKEN_ID } from 'constants/xvs';
+import { VRT_ID } from './constants';
 import Withdraw, { IWithdrawProps } from './Withdraw';
 import Convert, { IConvertProps } from './Convert';
 import { useStyles } from './styles';
@@ -115,7 +116,7 @@ const ConvertVrt = () => {
     if (vrtConversionRatio) {
       return convertWeiToCoins({
         valueWei: new BigNumber(vrtConversionRatio),
-        tokenId: XVS_ID,
+        tokenId: XVS_TOKEN_ID,
       });
     }
     return undefined;

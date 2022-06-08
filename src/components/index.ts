@@ -9,6 +9,7 @@ export * from './v2/Delimiter';
 export * from './v2/EllipseText';
 export * from './v2/EnableToken';
 export * from './v2/Form';
+export * from './v2/GovernanceProposal';
 export * from './v2/Icon';
 export * from './v2/LabeledInlineContent';
 export * from './v2/LayeredValues';
