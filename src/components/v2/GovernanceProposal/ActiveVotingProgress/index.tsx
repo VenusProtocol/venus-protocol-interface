@@ -98,7 +98,7 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
         return (
           <React.Fragment key={id}>
             <div css={styles.voteRow}>
-              <Typography variant="small2" color="textPrimary">
+              <Typography variant="small2" color="textSecondary">
                 {label}
               </Typography>
 
