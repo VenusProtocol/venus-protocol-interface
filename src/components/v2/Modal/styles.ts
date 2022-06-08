@@ -39,6 +39,7 @@ export const useModalStyles = ({
       border-bottom: ${hasTitleComponent ? `1px solid ${theme.palette.secondary.light}` : 0};
       position: sticky;
       top: 0;
+      z-index: 10;
       background-color: ${hasTitleComponent ? theme.palette.background.paper : 'transparent'};
       margin-bottom: ${hasTitleComponent ? theme.spacing(10) : 0};
       display: flex;
