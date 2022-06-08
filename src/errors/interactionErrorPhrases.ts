@@ -6,4 +6,5 @@ export const interactionErrorPhrases = {
     t('markets.errors.collateralEnableError', args),
   collateralDisableError: (args: { assetName: string }) =>
     t('markets.errors.collateralDisableError', args),
+  accountError: t('markets.errors.accountError'),
 };
