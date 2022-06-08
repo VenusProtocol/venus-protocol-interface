@@ -11,7 +11,7 @@ export const useStyles = () => {
       row-gap: ${theme.spacing(8)};
       column-gap: ${theme.spacing(8)};
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xl')} {
         grid-template-columns: 1fr;
       }
     `,
