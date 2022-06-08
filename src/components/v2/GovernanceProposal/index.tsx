@@ -88,7 +88,7 @@ interface IGovernanceProposalProps {
   proposalNumber: number;
   proposalDescription: string;
   proposalState: ProposalState;
-  endDate?: Date;
+  endDate: Date;
   userVoteStatus?: UserVoteStatus;
   forVotesWei?: BigNumber;
   againstVotesWei?: BigNumber;
@@ -184,7 +184,7 @@ export const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
           </Typography>
 
           <div css={styles.cardFooter}>
-            {endDate && (
+            {endDate.getMilliseconds() > Date.now() && (
               <Typography variant="small2">
                 {t('voteProposalUi.activeUntil')}
                 <Typography css={styles.activeUntilDate} variant="small2" color="textPrimary">
