@@ -39,6 +39,7 @@ export { default as arrowShaft } from './arrowShaft';
 export { default as notice } from './notice';
 export { default as dots } from './dots';
 export { default as exclamation } from './exclamation';
+export { default as bubble } from './bubble';
 
 // Coin icons
 export { default as aave } from './coins/aave';
