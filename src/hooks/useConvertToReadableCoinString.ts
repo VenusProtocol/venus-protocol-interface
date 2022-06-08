@@ -17,7 +17,13 @@ const useConvertToReadableCoinString = (params: IUseConvertToReadableCoinStringI
             returnInReadableFormat: true,
           })
         : PLACEHOLDER_KEY,
-    [params.valueWei?.toFixed(), params.tokenId, params.minimizeDecimals],
+    [
+      params.valueWei?.toFixed(),
+      params.tokenId,
+      params.minimizeDecimals,
+      params.addSymbol,
+      params.shortenLargeValue,
+    ],
   );
 
 export default useConvertToReadableCoinString;

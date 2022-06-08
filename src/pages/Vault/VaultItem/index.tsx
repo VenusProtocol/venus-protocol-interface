@@ -52,12 +52,14 @@ export const VaultItem = ({
     valueWei: userPendingRewardWei,
     tokenId: rewardTokenId,
     minimizeDecimals: true,
+    addSymbol: false,
   });
 
   const readableUserStakedTokens = useConvertToReadableCoinString({
     tokenId: stakedTokenId,
     valueWei: userStakedWei || new BigNumber(0),
     minimizeDecimals: true,
+    addSymbol: false,
   });
 
   const dataListItems = useMemo(
@@ -76,6 +78,7 @@ export const VaultItem = ({
               tokenId: rewardTokenId,
               returnInReadableFormat: true,
               minimizeDecimals: true,
+              addSymbol: false,
             })}
           </>
         ),
@@ -90,6 +93,8 @@ export const VaultItem = ({
               tokenId: stakedTokenId,
               returnInReadableFormat: true,
               minimizeDecimals: true,
+              shortenLargeValue: true,
+              addSymbol: false,
             })}
           </>
         ),
