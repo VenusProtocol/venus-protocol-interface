@@ -3,7 +3,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Steps, Icon } from 'antd';
 import { Card } from 'components/Basic/Card';
-import { ProposalInfo } from 'types';
+import { ProposalInfo } from '../types';
 import { FORMAT_STRING } from '../../../utilities/time';
 
 const ProposalHistoryWrapper = styled.div`

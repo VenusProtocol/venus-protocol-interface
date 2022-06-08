@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Comptroller } from 'types/contracts';
-import { BLOCKS_PER_DAY } from 'constants/blocksPerDay';
+import { BLOCKS_PER_DAY } from 'constants/bsc';
 
 export interface IGetVenusVaiVaultDailyRateWeiInput {
   comptrollerContract: Comptroller;

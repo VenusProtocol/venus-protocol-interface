@@ -7,7 +7,7 @@ export interface IVErrorParamMap {
     error: keyof typeof transactionErrorPhrases;
     info: keyof typeof transactionErrorPhrases;
   };
-  unexpected: undefined;
+  unexpected: { message: string } | undefined;
   interaction: { assetName: string };
 }
 

@@ -8,7 +8,7 @@ import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
 import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
-import { Proposal as ProposalObject } from 'types';
+import { IDeprecatedProposal as ProposalObject } from '../Vote/types';
 import { Label } from './Label';
 import { useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
 import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';

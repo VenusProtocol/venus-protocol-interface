@@ -16,7 +16,7 @@ import ProposalHistory from 'components/Vote/VoteOverview/ProposalHistory';
 import { promisify } from 'utilities';
 import { Row, Column } from 'components/Basic/Style';
 import { uid } from 'react-uid';
-import { ProposalInfo as ProposalInfoType } from 'types';
+import { ProposalInfo as ProposalInfoType } from 'components/Vote/types';
 import {
   useXvsVaultProxyContract,
   useGovernorBravoDelegateContract,

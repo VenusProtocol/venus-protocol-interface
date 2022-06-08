@@ -146,6 +146,14 @@ export { default as getVTokenApySimulations } from './queries/getVTokenApySimula
 export * from './queries/getVTokenApySimulations';
 export { default as useGetVTokenApySimulations } from './queries/useGetVTokenApySimulations';
 
+export { default as getCurrentVotes } from './queries/getCurrentVotes';
+export * from './queries/getCurrentVotes';
+export { default as useGetCurrentVotes } from './queries/useGetCurrentVotes';
+
+export { default as getPendingXvs } from './queries/getPendingXvs';
+export * from './queries/getPendingXvs';
+export { default as useGetPendingXvs } from './queries/useGetPendingXvs';
+
 export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
 export * from './queries/getVTokenBorrowRate';
 
@@ -178,3 +186,11 @@ export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
 
 export { default as useGetVaults } from './queries/useGetVaults';
+
+export { default as getProposals } from './queries/getProposals';
+export * from './queries/getProposals';
+export { default as useGetProposals } from './queries/useGetProposals';
+
+export { default as getVoteReceipt } from './queries/getVoteReceipt';
+export * from './queries/getVoteReceipt';
+export { default as useGetVoteReceipt } from './queries/useGetVoteReceipt';

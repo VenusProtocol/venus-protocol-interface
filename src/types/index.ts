@@ -68,42 +68,44 @@ export interface Setting {
   vaiAPY?: number | string;
 }
 
-export interface Action {
-  title: string;
-}
-
 export type ProposalState =
   | 'Pending'
   | 'Active'
-  | 'Succeeded'
-  | 'Queued'
-  | 'Executed'
   | 'Canceled'
   | 'Defeated'
-  | 'Expired';
+  | 'Succeeded'
+  | 'Queued'
+  | 'Expired'
+  | 'Executed';
 
-export interface ProposalInfo {
-  id: string;
-  description: string;
-  actions: Action[];
-  startTimestamp?: number;
-  createdTimestamp?: number;
-  queuedTimestamp?: number;
-  executedTimestamp?: number;
-  endTimestamp?: number;
-  cancelTimestamp?: number;
-  updatedAt?: number;
-  state: ProposalState;
-  proposer: string;
+export interface IProposalAction {
+  data: string;
+  signature: string;
+  target: string;
+  title: string;
+  value: string;
 }
 
-export interface Proposal {
-  forVotes: number;
-  againstVotes: number;
-  description: string;
-  id: string;
-  state: string;
+export interface IProposal {
+  abstainedVotesWei: BigNumber;
+  actions: IProposalAction[];
+  againstVotesWei: BigNumber;
+  blockNumber: number;
+  cancelTimestamp: number | undefined;
   createdAt: string;
+  createdTimestamp: number;
+  description: string;
+  endBlock: number;
+  endTimestamp: number | undefined;
+  executedTimestamp: number;
+  forVotesWei: BigNumber;
+  id: number;
+  proposer: string;
+  queuedTimestamp: number;
+  startTimestamp: number;
+  state: ProposalState;
+  cancelDate: Date | undefined;
+  endDate: Date;
 }
 
 export interface IPool {
