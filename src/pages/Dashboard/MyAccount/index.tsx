@@ -18,6 +18,7 @@ interface IMyAccountProps {
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
+  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 const MyAccount: React.FC<IMyAccountProps> = ({
@@ -28,6 +29,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({
   userTotalBorrowLimitCents,
   userTotalBorrowBalanceCents,
   userTotalSupplyBalanceCents,
+  dailyXvsDistributionInterestsCents,
 }) => {
   const calculations: Pick<
     IMyAccountUiProps,
@@ -36,6 +38,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({
     const yearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets,
       isXvsEnabled,
+      dailyXvsDistributionInterestsCents,
     });
     const netApyPercentage =
       userTotalSupplyBalanceCents &&

@@ -3,13 +3,14 @@ import BigNumber from 'bignumber.js';
 
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
-import { indexBy, convertCoinsToWei } from 'utilities/common';
+import { indexBy, convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
 import { calculateCollateralValue, getVBepToken, getToken } from 'utilities';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import {
   useGetMarkets,
   useGetAssetsInAccount,
   useGetVTokenBalancesAll,
+  useGetVTokenDailyXvs,
   IGetVTokenBalancesAllOutput,
 } from 'clients/api';
 
@@ -20,6 +21,8 @@ export interface IData {
   userTotalSupplyBalanceCents: BigNumber;
   totalXvsDistributedWei: BigNumber;
   dailyVenusWei: BigNumber;
+  vTokenDailyXvsWei: BigNumber;
+  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 export interface UseGetUserMarketInfoOutput {
@@ -74,6 +77,11 @@ const useGetUserMarketInfo = ({
       { enabled: !!accountAddress, placeholderData: [] },
     );
 
+  const { data: vTokenDailyXvsWei, isLoading: isGetVTokenDailyXvsLoading } = useGetVTokenDailyXvs(
+    { account: accountAddress || '' },
+    { enabled: !!accountAddress },
+  );
+
   const vTokenBalances = useMemo(
     () =>
       indexBy(
@@ -84,6 +92,7 @@ const useGetUserMarketInfo = ({
   );
 
   const isLoading =
+    isGetVTokenDailyXvsLoading ||
     isGetMarketsLoading || isGetAssetsInAccountLoading || isGetVTokenBalancesAccountLoading;
 
   const data = useMemo(() => {
@@ -210,6 +219,15 @@ const useGetUserMarketInfo = ({
             .toFixed(),
     }));
 
+    let dailyXvsDistributionInterestsCents = new BigNumber(0);
+    const dailyXvsTokens = convertWeiToCoins({
+      valueWei: vTokenDailyXvsWei || new BigNumber(0),
+      tokenId: 'xvs',
+    });
+    const xvsAsset = assetList.find((a: Asset) => a.id === 'xvs');
+    const xvsPrice = xvsAsset.tokenPrice;
+    dailyXvsDistributionInterestsCents = dailyXvsTokens.multipliedBy(xvsPrice).times(100);
+
     return {
       assets: assetList,
       userTotalBorrowBalanceCents: userTotalBorrowBalanceWithUserMintedVai,
@@ -217,12 +235,15 @@ const useGetUserMarketInfo = ({
       userTotalSupplyBalanceCents,
       dailyVenusWei: getMarketsData.dailyVenusWei || new BigNumber(0),
       totalXvsDistributedWei,
+      vTokenDailyXvsWei: vTokenDailyXvsWei || new BigNumber(0),
+      dailyXvsDistributionInterestsCents,
     };
   }, [
     JSON.stringify(marketsMap),
     JSON.stringify(assetsInAccount),
     JSON.stringify(vTokenBalances),
     JSON.stringify(getMarketsData),
+    JSON.stringify(vTokenDailyXvsWei),
   ]);
 
   return {

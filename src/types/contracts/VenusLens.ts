@@ -36,6 +36,11 @@ export interface VenusLens extends BaseContract {
       account: string
     ): NonPayableTransactionObject<[string[], string, string]>;
 
+    getDailyXVS(
+      account: string,
+      comptrollerAddress: string
+    ): NonPayableTransactionObject<string>;
+
     getGovProposals(
       governor: string,
       proposalIds: (number | string | BN)[]
@@ -156,8 +161,6 @@ export interface VenusLens extends BaseContract {
     vTokenUnderlyingPriceAll(
       vTokens: string[]
     ): NonPayableTransactionObject<[string, string][]>;
-
-    vXvsTokenAddress(): NonPayableTransactionObject<string>;
   };
   events: {
     allEvents(options?: EventOptions, cb?: Callback<EventLog>): EventEmitter;

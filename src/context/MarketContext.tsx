@@ -105,6 +105,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
             await lens.methods.vTokenBalancesAll(vTokenAddresses, account.address).call(),
           );
           xvsBalance = getXvsBalance(balances);
+          // console.log(xvsBalance);
         }
 
         // Fetch treasury balances

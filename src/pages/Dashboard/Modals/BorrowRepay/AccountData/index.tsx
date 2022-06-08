@@ -23,12 +23,14 @@ export interface IAccountDataProps {
   asset: Asset;
   hypotheticalBorrowAmountTokens: number;
   isXvsEnabled: boolean;
+  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 const AccountData: React.FC<IAccountDataProps> = ({
   asset,
   hypotheticalBorrowAmountTokens,
   isXvsEnabled,
+  dailyXvsDistributionInterestsCents,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -80,6 +82,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
       const yearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: updatedAssets,
         isXvsEnabled,
+        dailyXvsDistributionInterestsCents,
       });
 
       return yearlyEarningsCents

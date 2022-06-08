@@ -45,6 +45,7 @@ interface ISupplyWithdrawFormUiProps {
   isTransactionLoading: boolean;
   isXvsEnabled: boolean;
   amountValue: string;
+  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
@@ -62,6 +63,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   isTransactionLoading,
   isXvsEnabled,
   amountValue,
+  dailyXvsDistributionInterestsCents,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -98,6 +100,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
     const yearlyEarningsCents = calculateYearlyEarningsForAssets({
       assets,
       isXvsEnabled,
+      dailyXvsDistributionInterestsCents,
     });
     const dailyEarningsCentsValue =
       yearlyEarningsCents && calculateDailyEarningsCents(yearlyEarningsCents);
@@ -113,6 +116,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
       const hypotheticalYearlyEarningsCents = calculateYearlyEarningsForAssets({
         assets: hypotheticalAssets,
         isXvsEnabled,
+        dailyXvsDistributionInterestsCents,
       });
       hypotheticalDailyEarningCentsValue =
         hypotheticalYearlyEarningsCents &&

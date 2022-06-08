@@ -17,6 +17,7 @@ interface IDashboardUiProps {
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
+  dailyXvsDistributionInterestsCents: BigNumber;
   assets: Asset[];
 }
 
@@ -26,6 +27,7 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
   userTotalBorrowLimitCents,
   userTotalBorrowBalanceCents,
   userTotalSupplyBalanceCents,
+  dailyXvsDistributionInterestsCents,
 }) => {
   const styles = useStyles();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
@@ -69,6 +71,7 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
           userTotalBorrowLimitCents={userTotalBorrowLimitCents}
           userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
           userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
+          dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
         />
 
         <MintRepayVai css={styles.column} />
@@ -82,6 +85,7 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
         supplyMarketAssets={supplyMarketAssets}
         borrowingAssets={borrowingAssets}
         borrowMarketAssets={borrowMarketAssets}
+        dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
       />
 
       {shouldShowLunaUstWarningModal && <LunaUstWarningModal onClose={closeLunaUstWarningModal} />}
@@ -98,6 +102,7 @@ const Dashboard: React.FC = () => {
       userTotalBorrowLimitCents,
       userTotalBorrowBalanceCents,
       userTotalSupplyBalanceCents,
+      dailyXvsDistributionInterestsCents,
     },
   } = useGetUserMarketInfo({
     accountAddress: account?.address || '',
@@ -110,6 +115,7 @@ const Dashboard: React.FC = () => {
       userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
       userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
+      dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
     />
   );
 };

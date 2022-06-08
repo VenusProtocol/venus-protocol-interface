@@ -35,6 +35,7 @@ export interface IBorrowFormProps {
   borrow: (amountWei: BigNumber) => Promise<string | undefined>;
   isBorrowLoading: boolean;
   isXvsEnabled: boolean;
+  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 export const BorrowForm: React.FC<IBorrowFormProps> = ({
@@ -45,6 +46,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   borrow,
   isXvsEnabled,
   isBorrowLoading,
+  dailyXvsDistributionInterestsCents,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -137,6 +139,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             hypotheticalBorrowAmountTokens={+values.amount}
             asset={asset}
             isXvsEnabled={isXvsEnabled}
+            dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
           />
 
           <FormikSubmitButton
@@ -164,7 +167,11 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
-    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+    data: {
+      userTotalBorrowBalanceCents,
+      userTotalBorrowLimitCents,
+      dailyXvsDistributionInterestsCents,
+    },
   } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
@@ -254,6 +261,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
             safeLimitTokens={safeLimitTokens}
             borrow={handleBorrow}
             isBorrowLoading={isBorrowLoading}
+            dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
           />
         </EnableToken>
       )}

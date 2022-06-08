@@ -189,6 +189,10 @@ export { default as useGetXvsVaultTotalAllocationPoints } from './queries/useGet
 export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
 
+export { default as getVTokenDailyXvs } from './queries/getVTokenDailyXvs';
+export * from './queries/getVTokenDailyXvs';
+export { default as useGetVTokenDailyXvs } from './queries/useGetVTokenDailyXvs';
+
 export { default as useGetVaults } from './queries/useGetVaults';
 
 export { default as getProposals } from './queries/getProposals';
