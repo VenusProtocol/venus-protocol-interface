@@ -62,7 +62,7 @@ export const Default = () => (
     supplyDistributionApyPercentage={0.45}
     currentUtilizationRate={46}
     tokenPriceDollars="1.14"
-    marketLiquidityTokens={new BigNumber(100000000)}
+    liquidityCents={new BigNumber(10000000000)}
     supplierCount={1234}
     borrowerCount={76}
     borrowCapCents={812963286}

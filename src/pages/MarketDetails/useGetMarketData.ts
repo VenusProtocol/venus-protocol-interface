@@ -31,7 +31,7 @@ const useGetMarketData = ({
     const borrowDistributionApyPercentage = assetMarket && +assetMarket.borrowVenusApy;
     const supplyDistributionApyPercentage = assetMarket && +assetMarket.supplyVenusApy;
     const tokenPriceDollars = assetMarket && assetMarket.tokenPrice.toFixed(2);
-    const marketLiquidityTokens = assetMarket && new BigNumber(assetMarket.liquidity);
+    const liquidityCents = assetMarket && new BigNumber(assetMarket.liquidity).multipliedBy(100);
     const supplierCount = assetMarket?.supplierCount;
     const borrowerCount = assetMarket?.borrowerCount;
     const borrowCapCents = assetMarket && +assetMarket.borrowCaps * +assetMarket.tokenPrice * 100;
@@ -109,7 +109,7 @@ const useGetMarketData = ({
       borrowDistributionApyPercentage,
       supplyDistributionApyPercentage,
       tokenPriceDollars,
-      marketLiquidityTokens,
+      liquidityCents,
       supplierCount,
       borrowerCount,
       borrowCapCents,

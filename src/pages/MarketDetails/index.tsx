@@ -34,7 +34,7 @@ export interface IMarketDetailsUiProps {
   borrowDistributionApyPercentage?: number;
   supplyDistributionApyPercentage?: number;
   tokenPriceDollars?: string;
-  marketLiquidityTokens?: BigNumber;
+  liquidityCents?: BigNumber;
   supplierCount?: number;
   borrowerCount?: number;
   borrowCapCents?: number;
@@ -57,7 +57,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
   supplyDistributionApyPercentage,
   currentUtilizationRate,
   tokenPriceDollars,
-  marketLiquidityTokens,
+  liquidityCents,
   supplierCount,
   borrowerCount,
   borrowCapCents,
@@ -149,10 +149,8 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
     {
       label: t('marketDetails.marketInfo.stats.marketLiquidityLabel'),
-      value: formatCoinsToReadableValue({
-        value: marketLiquidityTokens,
-        minimizeDecimals: true,
-        tokenId: vTokenId,
+      value: formatCentsToReadableValue({
+        value: liquidityCents,
       }),
     },
     {
