@@ -72,16 +72,15 @@ export interface Action {
   title: string;
 }
 
-enum ProposalState {
-  pending = 'Pending',
-  active = 'Active',
-  succeeded = 'Succeeded',
-  queued = 'Queued',
-  executed = 'Executed',
-  canceled = 'Canceled',
-  defeated = 'Defeated',
-  expired = 'Expired',
-}
+export type ProposalState =
+  | 'Pending'
+  | 'Active'
+  | 'Succeeded'
+  | 'Queued'
+  | 'Executed'
+  | 'Canceled'
+  | 'Defeated'
+  | 'Expired';
 
 export interface ProposalInfo {
   id: string;

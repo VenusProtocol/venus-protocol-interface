@@ -2,42 +2,40 @@
 import React, { useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
 import Typography from '@mui/material/Typography';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { useTranslation } from 'translation';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
-import { TokenId } from 'types';
 import { convertWeiToCoins } from 'utilities/common';
 import { ProgressBar } from '../../ProgressBar';
 import { useStyles } from '../styles';
 
 interface IActiveVotingProgressProps {
-  tokenId: TokenId;
   votedForWei?: BigNumber;
   votedAgainstWei?: BigNumber;
   abstainedWei?: BigNumber;
   votedTotalWei?: BigNumber;
 }
 
-const getValueString = (tokenId: TokenId, valueWei?: BigNumber) => {
+const getValueString = (valueWei?: BigNumber) => {
   // if !valueWei the progress row will not be rendered
   if (!valueWei) return undefined;
   return convertWeiToCoins({
     valueWei,
-    tokenId,
+    tokenId: XVS_TOKEN_ID,
     returnInReadableFormat: true,
   });
 };
 
-const getValueNumber = (tokenId: TokenId, valueWei?: BigNumber) => {
+const getValueNumber = (valueWei?: BigNumber) => {
   if (!valueWei) return 0;
   return +convertWeiToCoins({
     valueWei,
-    tokenId,
+    tokenId: XVS_TOKEN_ID,
     returnInReadableFormat: false,
   }).toFormat();
 };
 
 export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
-  tokenId,
   votedForWei,
   votedAgainstWei,
   abstainedWei,
@@ -46,7 +44,7 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const votedTotalCoins = getValueNumber(tokenId, votedTotalWei);
+  const votedTotalCoins = getValueNumber(votedTotalWei);
 
   const defaultProgressbarProps = {
     step: 0.0001,
@@ -61,30 +59,30 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
       {
         id: 'for',
         label: t('voteProposalUi.statusCard.for'),
-        value: getValueString(tokenId, votedForWei),
+        value: getValueString(votedForWei),
         progressBarProps: {
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelFor'),
-          value: getValueNumber(tokenId, votedForWei),
+          value: getValueNumber(votedForWei),
         },
       },
       {
         id: 'against',
         label: t('voteProposalUi.statusCard.against'),
-        value: getValueString(tokenId, votedAgainstWei),
+        value: getValueString(votedAgainstWei),
         progressBarProps: {
           successColor: PALETTE.interactive.error50,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAgainst'),
-          value: getValueNumber(tokenId, votedAgainstWei),
+          value: getValueNumber(votedAgainstWei),
         },
       },
       {
         id: 'abstain',
         label: t('voteProposalUi.statusCard.abstain'),
-        value: getValueString(tokenId, abstainedWei),
+        value: getValueString(abstainedWei),
         progressBarProps: {
           successColor: PALETTE.text.secondary,
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelAbstain'),
-          value: getValueNumber(tokenId, abstainedWei),
+          value: getValueNumber(abstainedWei),
         },
       },
     ],
