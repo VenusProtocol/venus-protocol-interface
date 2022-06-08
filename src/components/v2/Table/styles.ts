@@ -102,8 +102,6 @@ export const useStyles = () => {
       .MuiSvgIcon-root {
         display: block;
         margin-left: ${theme.spacing(2)};
-        transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-          transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         transform: rotate(0deg);
       }
       .MuiTableSortLabel-iconDirectionDesc {
