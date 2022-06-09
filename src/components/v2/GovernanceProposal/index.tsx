@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'translation';
 import { ProposalState } from 'types';
 import { Icon, IconName } from '../Icon';
-import { Spinner } from '../Spinner';
 import { ActiveVotingProgress } from './ActiveVotingProgress';
 import { useStyles } from './styles';
 
@@ -24,61 +23,70 @@ const StatusCard: React.FC<IStateCard> = ({ state }) => {
   const { t } = useTranslation();
 
   const statusContent: Record<
-    'Queued' | 'Pending' | 'Executed' | 'Canceled',
+    Exclude<ProposalState, 'Active'>,
     {
-      iconWrapperCss: SerializedStyles | SerializedStyles[];
+      iconWrapperCss: SerializedStyles;
       iconName: IconName;
-      iconCss: SerializedStyles | SerializedStyles[];
+      iconCss?: SerializedStyles;
       label: string;
     }
   > = useMemo(
     () => ({
       Queued: {
-        iconWrapperCss: [styles.iconWrapper, styles.iconDotsWrapper],
+        iconWrapperCss: styles.iconDotsWrapper,
         iconName: 'dots',
-        iconCss: styles.icon,
         label: t('voteProposalUi.statusCard.queued'),
       },
       Pending: {
-        iconWrapperCss: [styles.iconWrapper, styles.iconInfoWrapper],
-        iconName: 'exclamation',
-        iconCss: styles.icon,
-        label: t('voteProposalUi.statusCard.readyToExecute'),
+        iconWrapperCss: styles.iconDotsWrapper,
+        iconName: 'dots',
+        label: t('voteProposalUi.statusCard.pending'),
       },
       Executed: {
-        iconWrapperCss: [styles.iconWrapper, styles.iconMarkWrapper],
+        iconWrapperCss: styles.iconMarkWrapper,
         iconName: 'mark',
-        iconCss: [styles.icon, styles.iconCheck],
+        iconCss: styles.iconCheck,
         label: t('voteProposalUi.statusCard.executed'),
       },
-      Canceled: {
-        iconWrapperCss: [styles.iconWrapper, styles.iconCloseWrapper],
+      Defeated: {
+        iconWrapperCss: styles.iconCloseWrapper,
         iconName: 'close',
-        iconCss: styles.icon,
+        label: t('voteProposalUi.statusCard.defeated'),
+      },
+      Succeeded: {
+        iconWrapperCss: styles.iconInfoWrapper,
+        iconName: 'exclamation',
+        label: t('voteProposalUi.statusCard.readyToQueue'),
+      },
+      Expired: {
+        iconWrapperCss: styles.iconCloseWrapper,
+        iconName: 'close',
+        label: t('voteProposalUi.statusCard.expired'),
+      },
+      Canceled: {
+        iconWrapperCss: styles.iconCloseWrapper,
+        iconName: 'close',
         label: t('voteProposalUi.statusCard.cancelled'),
       },
     }),
     [],
   );
-
-  switch (state) {
-    case 'Queued':
-    case 'Pending':
-    case 'Executed':
-    case 'Canceled':
-      return (
-        <>
-          <div css={statusContent[state].iconWrapperCss}>
-            <Icon css={statusContent[state].iconCss} name={statusContent[state].iconName} />
-          </div>
-          <Typography css={styles.statusText} variant="body2">
-            {statusContent[state].label}
-          </Typography>
-        </>
-      );
-    default:
-      return <Spinner variant="small" />;
+  if (state !== 'Active') {
+    return (
+      <>
+        <div css={[styles.iconWrapper, statusContent[state].iconWrapperCss]}>
+          <Icon
+            css={[styles.icon, statusContent[state].iconCss]}
+            name={statusContent[state].iconName}
+          />
+        </div>
+        <Typography css={styles.statusText} variant="body2">
+          {statusContent[state].label}
+        </Typography>
+      </>
+    );
   }
+  return null;
 };
 
 type UserVoteStatus = 'votedFor' | 'votedAgainst' | 'abstained';
@@ -199,16 +207,15 @@ export const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
           </div>
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
-          {proposalState === 'Active' ? (
+          {proposalState === 'Active' && (
             <ActiveVotingProgress
               votedForWei={forVotesWei}
               votedAgainstWei={againstVotesWei}
               abstainedWei={abstainedVotesWei}
               votedTotalWei={votedTotalWei}
             />
-          ) : (
-            <StatusCard state={proposalState} />
           )}
+          <StatusCard state={proposalState} />
         </Grid>
       </Grid>
     </Paper>
