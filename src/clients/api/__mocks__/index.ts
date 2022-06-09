@@ -149,45 +149,6 @@ export const getVaiVaultPendingXvsWei = jest.fn();
 export const useGetVaiVaultPendingXvsWei = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, fakeAddress], getVaiVaultPendingXvsWei);
 
-export const useGetVestingVaults = jest.fn();
-
-export const getVoteDelegateAddress = jest.fn();
-export const useGetVoteDelegateAddress = () =>
-  useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
-
-export const getLatestProposalIdByProposer = jest.fn();
-export const useGetLatestProposalIdByProposer = () =>
-  useQuery(
-    [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, fakeAddress],
-    getLatestProposalIdByProposer,
-  );
-export const useGetActiveProposal = jest.fn();
-
-export const getVrtVaultInterestRatePerBlock = jest.fn();
-export const useGetVrtVaultInterestRatePerBlock = () =>
-  useQuery(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK, getVrtVaultInterestRatePerBlock);
-
-export const getVrtVaultUserInfo = jest.fn();
-export const useGetVrtVaultUserInfo = () =>
-  useQuery([FunctionKey.GET_VRT_VAULT_USER_INFO, fakeAddress], getVrtVaultUserInfo);
-
-export const getVrtVaultAccruedInterestWei = jest.fn();
-export const useGetVrtVaultAccruedInterestWei = () =>
-  useQuery(
-    [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI, fakeAddress],
-    getVrtVaultAccruedInterestWei,
-  );
-
-export const getVoterAccounts = jest.fn();
-export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);
-
-export const getProposalThreshold = jest.fn(() => new BigNumber('10000000000000000000000'));
-export const useGetProposalThreshold = () =>
-  useQuery(FunctionKey.GET_PROPOSAL_THRESHOLD, getProposalThreshold);
-
-export const getProposalState = jest.fn();
-export const useGetProposalState = () => useQuery(FunctionKey.GET_PROPOSAL_STATE, getProposalState);
-
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>

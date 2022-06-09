@@ -288,39 +288,3 @@ export { default as useGetVaiVaultPendingXvsWei } from './queries/useGetVaiVault
 export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo';
 export { default as useGetVaiVaultUserInfo } from './queries/useGetVaiVaultUserInfo';
-
-export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVestingVaults';
-
-export { default as getVoteDelegateAddress } from './queries/getVoteDelegateAddress';
-export * from './queries/getVoteDelegateAddress';
-export { default as useGetVoteDelegateAddress } from './queries/useGetVoteDelegateAddress';
-
-export { default as useHasActiveProposal } from './queries/useHasActiveProposal';
-
-export { default as getVrtVaultInterestRatePerBlock } from './queries/getVrtVaultInterestRatePerBlock';
-export * from './queries/getVrtVaultInterestRatePerBlock';
-export { default as useGetVrtVaultInterestRatePerBlock } from './queries/useGetVrtVaultInterestRatePerBlock';
-
-export { default as getVrtVaultUserInfo } from './queries/getVrtVaultUserInfo';
-export * from './queries/getVrtVaultUserInfo';
-export { default as useGetVrtVaultUserInfo } from './queries/useGetVrtVaultUserInfo';
-
-export { default as getVrtVaultAccruedInterestWei } from './queries/getVrtVaultAccruedInterestWei';
-export * from './queries/getVrtVaultAccruedInterestWei';
-export { default as useGetVrtVaultAccruedInterestWei } from './queries/useGetVrtVaultAccruedInterestWei';
-
-export { default as getVoterAccounts } from './queries/getVoterAccounts';
-export * from './queries/getVoterAccounts';
-export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGetVoterAccounts';
-
-export { default as getProposalThreshold } from './queries/getProposalThreshold';
-export * from './queries/getProposalThreshold';
-export { default as useGetProposalThreshold } from './queries/getProposalThreshold/useGetProposalThreshold';
-
-export { default as getProposalState } from './queries/getProposalState';
-export * from './queries/getProposalState';
-export { default as useGetProposalState } from './queries/useGetProposalState';
-
-export { default as getLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer';
-export * from './queries/getLatestProposalIdByProposer';
-export { default as useGetLatestProposalIdByProposer } from './queries/useGetLatestProposalIdByProposer';
