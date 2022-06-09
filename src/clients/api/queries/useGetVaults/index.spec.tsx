@@ -7,7 +7,7 @@ import renderComponent from 'testUtils/renderComponent';
 import fakeAddress from '__mocks__/models/address';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
-import compTrollerResponses from '__mocks__/contracts/compTroller';
+import compTrollerResponses from '__mocks__/contracts/comptroller';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';

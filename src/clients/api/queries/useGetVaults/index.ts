@@ -8,7 +8,6 @@ export interface UseGetVaultsOutput {
   data: Vault[];
 }
 
-// TODO: fetch non-vesting vaults (see https://app.clickup.com/t/2dfqc2m)
 const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVaultsOutput => {
   const { data: vestingVaults, isLoading: isGetVestingVaultsLoading } = useGetVestingVaults({
     accountAddress,
@@ -17,6 +16,8 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
   const { data: vaiVault, isLoading: isVaiVaultLoading } = useGetVaiVault({
     accountAddress,
   });
+
+  // TODO: fetch VRT vault
 
   const data: Vault[] = useMemo(() => {
     const allVaults = [...vestingVaults];
