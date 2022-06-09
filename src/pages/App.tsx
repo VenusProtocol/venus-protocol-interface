@@ -46,10 +46,27 @@ const App = () => (
 
                       <Route exact path={Path.HISTORY} component={History} />
 
-                      <Route exact path={Path.VOTE} component={Vote} />
-                      <Route exact path={Path.VOTE_LEADER_BOARD} component={VoterLeaderboard} />
-                      <Route exact path={Path.VOTE_ADDRESS} component={VoterDetails} />
-                      <Route exact path={Path.VOTE_PROPOSAL_DETAILS} component={Proposal} />
+                            <Route
+                              exact
+                              path={Path.VOTE}
+                              component={process.env.REACT_APP_RUN_V2 ? Vote : VoteV1}
+                            />
+                            <Route
+                              exact
+                              path={Path.VOTE_LEADER_BOARD}
+                              component={VoterLeaderboard}
+                            />
+                            <Route
+                              exact
+                              path={Path.VOTE_PROPOSAL_DETAILS}
+                              component={process.env.REACT_APP_RUN_V2 ? Proposal : VoteOverview}
+                            />
+                            <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
+                            <Route
+                              exact
+                              path={Path.VOTE_PROPOSAL_DETAILS}
+                              component={process.env.REACT_APP_RUN_V2 ? Proposal : VoteOverview}
+                            />
 
                       <Route exact path={Path.XVS} component={Xvs} />
 
