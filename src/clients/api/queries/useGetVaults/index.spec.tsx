@@ -5,6 +5,8 @@ import { waitFor } from '@testing-library/react';
 import { markets } from '__mocks__/models/markets';
 import renderComponent from 'testUtils/renderComponent';
 import fakeAddress from '__mocks__/models/address';
+import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import {
   getXvsVaultPoolsCount,
   getXvsVaultRewardWeiPerBlock,
@@ -46,11 +48,9 @@ describe('api/queries/useGetVaults', () => {
       lockingPeriodMs: 200000000,
     }));
 
-    (getXvsVaultUserInfo as jest.Mock).mockImplementation(() => ({
-      stakedAmountWei: new BigNumber('30000000000000'),
-      pendingWithdrawalsTotalAmountWei: new BigNumber('40000000000000'),
-      rewardDebtAmountWei: new BigNumber('1000000000000'),
-    }));
+    (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
+      formatToUserInfo(xvsVaultResponses.userInfos),
+    );
   });
 
   it('fetches and returns vaults correctly', async () => {

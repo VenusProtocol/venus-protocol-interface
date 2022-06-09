@@ -1,9 +1,8 @@
-import BigNumber from 'bignumber.js';
-
 import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
 import fakeAccountAddress from '__mocks__/models/address';
-import getXvsVaultUserInfo from './getXvsVaultUserInfo';
+import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import getXvsVaultUserInfo from '.';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 const fakePid = 1;
@@ -35,13 +34,7 @@ describe('api/queries/getXvsVaultUserInfo', () => {
   });
 
   test('returns user info related to XVS vault in correct format on success', async () => {
-    const fakeOutput = {
-      pendingWithdrawals: '1000000000000000000',
-      rewardDebt: '2000000000000000000',
-      amount: '3000000000000000000',
-    };
-
-    const callMock = jest.fn(async () => fakeOutput);
+    const callMock = jest.fn(async () => xvsVaultResponses.userInfos);
     const getUserInfoMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -62,10 +55,6 @@ describe('api/queries/getXvsVaultUserInfo', () => {
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(getUserInfoMock).toHaveBeenCalledTimes(1);
     expect(getUserInfoMock).toHaveBeenCalledWith(xvsTokenAddress, fakePid, fakeAccountAddress);
-    expect(response).toStrictEqual({
-      pendingWithdrawalsTotalAmountWei: new BigNumber(fakeOutput.pendingWithdrawals),
-      rewardDebtAmountWei: new BigNumber(fakeOutput.rewardDebt),
-      stakedAmountWei: new BigNumber(fakeOutput.amount),
-    });
+    expect(response).toMatchSnapshot();
   });
 });
