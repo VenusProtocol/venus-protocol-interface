@@ -1,10 +1,10 @@
 import { XvsVault } from 'types/contracts';
 
 const xvsVaultResponses: {
-  userInfos: Awaited<ReturnType<ReturnType<XvsVault['methods']['getUserInfo']>['call']>>;
+  userInfo: Awaited<ReturnType<ReturnType<XvsVault['methods']['getUserInfo']>['call']>>;
   poolInfo: Awaited<ReturnType<ReturnType<XvsVault['methods']['poolInfos']>['call']>>;
 } = {
-  userInfos: {
+  userInfo: {
     pendingWithdrawals: '1000000000000000000',
     rewardDebt: '2000000000000000000',
     amount: '3000000000000000000',

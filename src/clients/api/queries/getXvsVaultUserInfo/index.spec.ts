@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -34,7 +35,7 @@ describe('api/queries/getXvsVaultUserInfo', () => {
   });
 
   test('returns user info related to XVS vault in correct format on success', async () => {
-    const callMock = jest.fn(async () => xvsVaultResponses.userInfos);
+    const callMock = jest.fn(async () => xvsVaultResponses.userInfo);
     const getUserInfoMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -56,5 +57,8 @@ describe('api/queries/getXvsVaultUserInfo', () => {
     expect(getUserInfoMock).toHaveBeenCalledTimes(1);
     expect(getUserInfoMock).toHaveBeenCalledWith(xvsTokenAddress, fakePid, fakeAccountAddress);
     expect(response).toMatchSnapshot();
+    expect(response.pendingWithdrawalsTotalAmountWei instanceof BigNumber).toBeTruthy();
+    expect(response.rewardDebtAmountWei instanceof BigNumber).toBeTruthy();
+    expect(response.stakedAmountWei instanceof BigNumber).toBeTruthy();
   });
 });

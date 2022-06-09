@@ -53,13 +53,13 @@ Array [
     "userStakedWei": "3000000000000000000",
   },
   Object {
-    "dailyEmissionWei": "4000000000",
+    "dailyEmissionWei": "5000000000",
     "rewardTokenId": "xvs",
     "stakedTokenId": "vai",
-    "stakingAprPercentage": 36500,
+    "stakingAprPercentage": 45625,
     "totalStakedWei": "4000000000",
     "userPendingRewardWei": "600000000",
-    "userStakedWei": "50000000",
+    "userStakedWei": "100000000000000",
   },
 ]
 `;

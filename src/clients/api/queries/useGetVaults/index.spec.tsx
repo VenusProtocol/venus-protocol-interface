@@ -6,8 +6,10 @@ import { markets } from '__mocks__/models/markets';
 import renderComponent from 'testUtils/renderComponent';
 import fakeAddress from '__mocks__/models/address';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
-import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
+import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
+import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import {
   getXvsVaultPoolsCount,
   getXvsVaultRewardWeiPerBlock,
@@ -33,20 +35,21 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultPendingRewardWei as jest.Mock).mockImplementation(() => new BigNumber('200000000'));
     (getBalanceOf as jest.Mock).mockImplementation(() => new BigNumber('4000000000'));
     (getVenusVaiVaultDailyRateWei as jest.Mock).mockImplementation(
-      () => new BigNumber('4000000000'),
+      () => new BigNumber('5000000000'),
     );
-    (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
-    (getVaiVaultUserInfo as jest.Mock).mockImplementation(() => ({
-      stakedVaiWei: new BigNumber('50000000'),
-    }));
     (getVaiVaultPendingXvsWei as jest.Mock).mockImplementation(() => new BigNumber('600000000'));
+    (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
+
+    (getVaiVaultUserInfo as jest.Mock).mockImplementation(() =>
+      formatToVaiVaultUserInfo(vaiVaultResponses.userInfo),
+    );
 
     (getXvsVaultPoolInfo as jest.Mock).mockImplementation(() =>
       formatToPoolInfo(xvsVaultResponses.poolInfo),
     );
 
     (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
-      formatToUserInfo(xvsVaultResponses.userInfos),
+      formatToXvsVaultUserInfo(xvsVaultResponses.userInfo),
     );
   });
 

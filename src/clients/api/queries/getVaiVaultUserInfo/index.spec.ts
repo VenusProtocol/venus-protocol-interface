@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-
 import fakeAddress from '__mocks__/models/address';
+import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import { VaiVault } from 'types/contracts';
-import getVaiVaultUserInfo from './getVaiVaultUserInfo';
+import getVaiVaultUserInfo from '.';
 
 describe('api/queries/getVaiVaultUserInfo', () => {
   test('throws an error when request fails', async () => {
@@ -29,13 +29,7 @@ describe('api/queries/getVaiVaultUserInfo', () => {
   });
 
   test('returns the user info in the correct format', async () => {
-    const fakeStakedVaiWei = new BigNumber('1000000000000000000000000000');
-    const callMock = jest.fn(async () => ({
-      amount: '1000',
-      rewardDebt: '2000',
-      0: fakeStakedVaiWei,
-      1: '4000',
-    }));
+    const callMock = jest.fn(async () => vaiVaultResponses.userInfo);
     const userInfoMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -53,8 +47,7 @@ describe('api/queries/getVaiVaultUserInfo', () => {
 
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(userInfoMock).toHaveBeenCalledTimes(1);
-    expect(response).toStrictEqual({
-      stakedVaiWei: fakeStakedVaiWei,
-    });
+    expect(response).toMatchSnapshot();
+    expect(response.stakedVaiWei instanceof BigNumber).toBeTruthy();
   });
 });

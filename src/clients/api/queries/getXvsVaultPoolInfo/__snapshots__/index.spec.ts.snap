@@ -6,6 +6,6 @@ Object {
   "allocationPoint": 10,
   "lastRewardBlock": 100000,
   "lockingPeriodMs": 200000,
-  "stakedTokenAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+  "stakedTokenAddress": "0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144",
 }
 `;

@@ -2,16 +2,16 @@ import { useQuery, QueryObserverOptions } from 'react-query';
 import {
   getVaiVaultUserInfo,
   IGetVaiVaultUserInfoInput,
-  GetVaiVaultUserInfoOutput,
+  IGetVaiVaultUserInfoOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
 
 type Options = QueryObserverOptions<
-  GetVaiVaultUserInfoOutput,
+  IGetVaiVaultUserInfoOutput,
   Error,
-  GetVaiVaultUserInfoOutput,
-  GetVaiVaultUserInfoOutput,
+  IGetVaiVaultUserInfoOutput,
+  IGetVaiVaultUserInfoOutput,
   [FunctionKey.GET_VAI_VAULT_USER_INFO, string]
 >;
 

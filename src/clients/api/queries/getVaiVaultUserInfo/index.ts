@@ -1,19 +1,13 @@
 import BigNumber from 'bignumber.js';
-import { VaiVault } from 'types/contracts';
 
-export interface IGetVaiVaultUserInfoInput {
-  vaiVaultContract: VaiVault;
-  accountAddress: string;
-}
+import { IGetVaiVaultUserInfoInput, IGetVaiVaultUserInfoOutput } from './types';
 
-export type GetVaiVaultUserInfoOutput = {
-  stakedVaiWei: BigNumber;
-};
+export * from './types';
 
 const getVaiVaultUserInfo = async ({
   vaiVaultContract,
   accountAddress,
-}: IGetVaiVaultUserInfoInput): Promise<GetVaiVaultUserInfoOutput> => {
+}: IGetVaiVaultUserInfoInput): Promise<IGetVaiVaultUserInfoOutput> => {
   const res = await vaiVaultContract.methods.userInfo(accountAddress).call();
 
   return {

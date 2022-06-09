@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { XvsVault } from 'types/contracts';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import getXvsVaultPoolInfo from '.';
@@ -52,5 +53,6 @@ describe('api/queries/getXvsVaultPoolInfo', () => {
     expect(poolInfosMock).toHaveBeenCalledTimes(1);
     expect(poolInfosMock).toHaveBeenCalledWith(fakeTokenAddress, fakePid);
     expect(response).toMatchSnapshot();
+    expect(response.accRewardPerShare instanceof BigNumber).toBeTruthy();
   });
 });
