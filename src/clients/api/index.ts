@@ -206,9 +206,3 @@ export { default as useGetVaiVaultPendingXvsWei } from './queries/useGetVaiVault
 export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo';
 export { default as useGetVaiVaultUserInfo } from './queries/useGetVaiVaultUserInfo';
-
-export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVestingVaults';
-
-export { default as getVoteDelegateAddress } from './queries/getVoteDelegateAddress';
-export * from './queries/getVoteDelegateAddress';
-export { default as useGetVoteDelegateAddress } from './queries/useGetVoteDelegateAddress';
