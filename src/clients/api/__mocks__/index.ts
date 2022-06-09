@@ -102,6 +102,15 @@ export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
 
+export const getCurrentVotes = jest.fn();
+export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
+
+export const getProposals = jest.fn();
+export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
+
+export const getVoteReceipt = jest.fn();
+export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
+
 export const useGetVaults = jest.fn();
 
 // Mutations
