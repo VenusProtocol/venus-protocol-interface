@@ -3,6 +3,14 @@ import { XvsVault } from 'types/contracts';
 const xvsVaultResponses: {
   userInfo: Awaited<ReturnType<ReturnType<XvsVault['methods']['getUserInfo']>['call']>>;
   poolInfo: Awaited<ReturnType<ReturnType<XvsVault['methods']['poolInfos']>['call']>>;
+  poolLength: Awaited<ReturnType<ReturnType<XvsVault['methods']['poolLength']>['call']>>;
+  totalAllocPoints: Awaited<
+    ReturnType<ReturnType<XvsVault['methods']['totalAllocPoints']>['call']>
+  >;
+  rewardTokenAmountsPerBlock: Awaited<
+    ReturnType<ReturnType<XvsVault['methods']['rewardTokenAmountsPerBlock']>['call']>
+  >;
+  pendingReward: Awaited<ReturnType<ReturnType<XvsVault['methods']['pendingReward']>['call']>>;
 } = {
   userInfo: {
     pendingWithdrawals: '1000000000000000000',
@@ -24,6 +32,10 @@ const xvsVaultResponses: {
     3: '123871680',
     4: '200',
   },
+  poolLength: '5',
+  totalAllocPoints: '100',
+  rewardTokenAmountsPerBlock: '10000000',
+  pendingReward: '200000000',
 };
 
 export default xvsVaultResponses;
