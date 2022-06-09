@@ -164,6 +164,7 @@ export interface IConvertWeiToCoinsInput<T extends boolean | undefined = false> 
   returnInReadableFormat?: T;
   minimizeDecimals?: boolean;
   addSymbol?: boolean;
+  shortenLargeValue?: boolean;
 }
 
 export type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
@@ -174,6 +175,7 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
   returnInReadableFormat = false,
   minimizeDecimals = false,
   addSymbol = true,
+  shortenLargeValue = false,
 }: IConvertWeiToCoinsInput<T>): ConvertWeiToCoinsOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
   const valueCoins = valueWei
@@ -182,7 +184,13 @@ export function convertWeiToCoins<T extends boolean | undefined = false>({
 
   return (
     returnInReadableFormat
-      ? formatCoinsToReadableValue({ value: valueCoins, tokenId, minimizeDecimals, addSymbol })
+      ? formatCoinsToReadableValue({
+          value: valueCoins,
+          tokenId,
+          minimizeDecimals,
+          addSymbol,
+          shortenLargeValue,
+        })
       : valueCoins
   ) as ConvertWeiToCoinsOutput<T>;
 }

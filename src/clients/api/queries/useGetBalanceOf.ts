@@ -1,9 +1,6 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 
-import getBalanceOf, {
-  IGetBalanceOfInput,
-  GetBalanceOfOutput,
-} from 'clients/api/queries/getBalanceOf';
+import { getBalanceOf, IGetBalanceOfInput, GetBalanceOfOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
 import { TokenId } from 'types';

@@ -5,7 +5,7 @@ import { getTokenContractByAddress } from 'clients/contracts';
 import { getBalanceOf, GetBalanceOfOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { Bep20 } from 'types/contracts';
-import { XVS_VAULT_PROXY_CONTRACT_ADDRESS } from 'constants/xvs';
+import { XVS_VAULT_PROXY_CONTRACT_ADDRESS } from '../constants';
 
 export interface UseGetXvsVaultPoolBalancesInput {
   stakedTokenAddresses: (string | undefined)[];
@@ -33,8 +33,8 @@ const useGetXvsVaultPoolBalances = ({
           }),
         queryKey: [
           FunctionKey.GET_BALANCE_OF,
-          stakedTokenAddress,
           XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+          stakedTokenAddress,
         ],
         enabled: !!tokenContract,
       };

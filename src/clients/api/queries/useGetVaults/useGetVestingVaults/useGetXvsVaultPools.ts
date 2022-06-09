@@ -3,8 +3,8 @@ import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 import FunctionKey from 'constants/functionKey';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import {
-  getXvsVaultPoolInfos,
-  GetXvsVaultPoolInfosOutput,
+  getXvsVaultPoolInfo,
+  IGetXvsVaultPoolInfoOutput,
   getXvsVaultPendingRewardWei,
   GetXvsVaultPendingRewardWeiOutput,
   getXvsVaultUserInfo,
@@ -18,7 +18,7 @@ export interface IUseGetXvsVaultPoolsInput {
 }
 
 export type UseGetXvsVaultPoolsOutput = UseQueryResult<
-  GetXvsVaultPoolInfosOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
+  IGetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
 >[];
 
 const useGetXvsVaultPools = ({
@@ -28,14 +28,14 @@ const useGetXvsVaultPools = ({
   const xvsVaultContract = useXvsVaultProxyContract();
 
   const poolQueries: UseQueryOptions<
-    GetXvsVaultPoolInfosOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
+    IGetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
   >[] = [];
 
   // Fetch pool infos
   for (let poolIndex = 0; poolIndex < poolsCount; poolIndex++) {
     poolQueries.push({
       queryFn: () =>
-        getXvsVaultPoolInfos({
+        getXvsVaultPoolInfo({
           xvsVaultContract,
           tokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
@@ -51,7 +51,12 @@ const useGetXvsVaultPools = ({
           poolIndex,
           accountAddress: accountAddress || '',
         }),
-      queryKey: [FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI, XVS_TOKEN_ADDRESS, poolIndex],
+      queryKey: [
+        FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
+        accountAddress,
+        XVS_TOKEN_ADDRESS,
+        poolIndex,
+      ],
       enabled: !!accountAddress,
     });
 
@@ -63,7 +68,7 @@ const useGetXvsVaultPools = ({
           poolIndex,
           accountAddress: accountAddress || '',
         }),
-      queryKey: [FunctionKey.GET_XVS_VAULT_USER_INFO, XVS_TOKEN_ADDRESS, poolIndex],
+      queryKey: [FunctionKey.GET_XVS_VAULT_USER_INFO, accountAddress, XVS_TOKEN_ADDRESS, poolIndex],
       enabled: !!accountAddress,
     });
   }

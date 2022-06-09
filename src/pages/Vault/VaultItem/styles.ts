@@ -26,17 +26,24 @@ export const useStyles = () => {
     tokenIconLarge: css`
       width: ${theme.shape.iconSize.xLarge}px;
       height: ${theme.shape.iconSize.xLarge}px;
+      margin-right: ${theme.spacing(2)};
     `,
     tokenIconReward: css`
       margin-left: ${theme.spacing(1)};
     `,
+    label: css`
+      display: block;
+      margin-bottom: ${theme.spacing(1)};
+
+      ${theme.breakpoints.down('sm')} {
+        margin-bottom: 0;
+      }
+    `,
+    stakingLabel: css`
+      margin-bottom: 0;
+    `,
     text: css`
       display: inline;
-    `,
-    textMobile14: css`
-      ${theme.breakpoints.down('sm')} {
-        font-size: ${theme.spacing(3.5)};
-      }
     `,
     textRewardValue: css`
       font-weight: 600;
@@ -52,10 +59,6 @@ export const useStyles = () => {
     rewardWrapper: css`
       display: flex;
       align-items: center;
-
-      ${theme.breakpoints.down('sm')} {
-        font-size: ${theme.spacing(3.5)};
-      }
     `,
     buttonClaim: css`
       padding: 0;
@@ -65,6 +68,7 @@ export const useStyles = () => {
       display: flex;
       padding-left: 0;
       margin-top: ${theme.spacing(6)};
+
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
       }
@@ -79,8 +83,8 @@ export const useStyles = () => {
 
       & + & {
         border-left: 1px solid ${theme.palette.interactive.delimiter};
-        margin-left: ${theme.spacing(8)};
-        padding-left: ${theme.spacing(8)};
+        margin-left: ${theme.spacing(6)};
+        padding-left: ${theme.spacing(6)};
 
         ${theme.breakpoints.down('sm')} {
           margin-left: 0;

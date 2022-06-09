@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { restService } from 'utilities';
 import { VBEP_TOKENS } from 'constants/tokens';
-import { Market } from 'types';
+import { Market, TokenId } from 'types';
 
 export interface IGetMarketsResponse {
   dailyVenus: number;
@@ -34,7 +34,7 @@ const getMarkets = async (): Promise<IGetMarketsOutput> => {
       if (activeMarket) {
         const formattedActiveMarket = {
           ...activeMarket,
-          id: activeMarket.underlyingSymbol.toLowerCase(),
+          id: activeMarket.underlyingSymbol.toLowerCase() as TokenId,
           tokenPrice: new BigNumber(activeMarket.tokenPrice),
           liquidity: new BigNumber(activeMarket.liquidity),
           borrowVenusApy: new BigNumber(activeMarket.borrowVenusApy),

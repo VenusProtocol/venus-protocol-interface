@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/Vault renders vault correctly 1`] = `"VAI"`;
+
+exports[`pages/Vault renders vault correctly 2`] = `"XVS"`;
+
+exports[`pages/Vault renders vault correctly 3`] = `"0"`;
+
+exports[`pages/Vault renders vault correctly 4`] = `"0"`;
+
+exports[`pages/Vault renders vault correctly 5`] = `"12665.06%"`;
+
+exports[`pages/Vault renders vault correctly 6`] = `"144"`;
+
+exports[`pages/Vault renders vault correctly 7`] = `"415.00"`;
+
+exports[`pages/Vault renders vault correctly 8`] = `"12.92%"`;
+
+exports[`pages/Vault renders vault correctly 9`] = `"144"`;
+
+exports[`pages/Vault renders vault correctly 10`] = `"400M"`;
