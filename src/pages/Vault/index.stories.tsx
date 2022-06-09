@@ -11,4 +11,6 @@ export default {
   decorators: [withRouter, withProvider],
 } as ComponentMeta<typeof VaultUi>;
 
-export const Default = () => <VaultUi vaults={vaults} />;
+export const Loading = () => <VaultUi vaults={vaults} isInitialLoading />;
+
+export const Default = () => <VaultUi vaults={vaults} isInitialLoading={false} />;

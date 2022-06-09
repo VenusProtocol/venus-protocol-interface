@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
 
-import { Spinner } from 'components';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { AuthContext } from 'context/AuthContext';
 import { useGetVaults } from 'clients/api';
 import { Vault } from 'types';
@@ -10,13 +10,17 @@ import { useStyles } from './styles';
 
 export interface IVaultUi {
   vaults: Vault[];
+  isInitialLoading: boolean;
 }
 
-export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
+const generateVaultKey = (vault: Vault) =>
+  `vault-${vault.stakedTokenId}-${vault.rewardTokenId}-${vault.lockingPeriodMs || 0}`;
+
+export const VaultUi: React.FC<IVaultUi> = ({ vaults, isInitialLoading }) => {
   const styles = useStyles();
 
-  if (vaults.length === 0) {
-    return <Spinner />;
+  if (isInitialLoading || vaults.length === 0) {
+    return <LoadingSpinner />;
   }
 
   return (
@@ -24,7 +28,7 @@ export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
       {vaults.map(vault => (
         <VaultItem
           {...vault}
-          key={`vault-${vault.poolIndex}`}
+          key={generateVaultKey(vault)}
           // TODO: add callbacks (see https://app.clickup.com/t/2dfqc8g,
           // https://app.clickup.com/t/2dfqca0,
           // https://app.clickup.com/t/2dfqcb3)
@@ -39,11 +43,11 @@ export const VaultUi: React.FC<IVaultUi> = ({ vaults }) => {
 
 const VaultPage: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { data: vaults } = useGetVaults({
+  const { data: vaults, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress: account?.address,
   });
 
-  return <VaultUi vaults={vaults} />;
+  return <VaultUi vaults={vaults} isInitialLoading={isGetVaultsLoading} />;
 };
 
 export default VaultPage;

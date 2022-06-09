@@ -5,7 +5,6 @@ Array [
   Object {
     "dailyEmissionWei": "28800000000",
     "lockingPeriodMs": 200000000,
-    "poolIndex": 0,
     "rewardTokenId": "xvs",
     "stakedTokenId": "sxp",
     "stakingAprPercentage": 262800,
@@ -16,7 +15,6 @@ Array [
   Object {
     "dailyEmissionWei": "28800000000",
     "lockingPeriodMs": 200000000,
-    "poolIndex": 1,
     "rewardTokenId": "xvs",
     "stakedTokenId": "sxp",
     "stakingAprPercentage": 262800,
@@ -27,7 +25,6 @@ Array [
   Object {
     "dailyEmissionWei": "28800000000",
     "lockingPeriodMs": 200000000,
-    "poolIndex": 2,
     "rewardTokenId": "xvs",
     "stakedTokenId": "sxp",
     "stakingAprPercentage": 262800,
@@ -38,7 +35,6 @@ Array [
   Object {
     "dailyEmissionWei": "28800000000",
     "lockingPeriodMs": 200000000,
-    "poolIndex": 3,
     "rewardTokenId": "xvs",
     "stakedTokenId": "sxp",
     "stakingAprPercentage": 262800,
@@ -49,13 +45,21 @@ Array [
   Object {
     "dailyEmissionWei": "28800000000",
     "lockingPeriodMs": 200000000,
-    "poolIndex": 4,
     "rewardTokenId": "xvs",
     "stakedTokenId": "sxp",
     "stakingAprPercentage": 262800,
     "totalStakedWei": "4000000000",
     "userPendingRewardWei": "200000000",
     "userStakedWei": "30000000000000",
+  },
+  Object {
+    "dailyEmissionWei": "4000000000",
+    "rewardTokenId": "xvs",
+    "stakedTokenId": "vai",
+    "stakingAprPercentage": 36500,
+    "totalStakedWei": "4000000000",
+    "userPendingRewardWei": "600000000",
+    "userStakedWei": "50000000",
   },
 ]
 `;

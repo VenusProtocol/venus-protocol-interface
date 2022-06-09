@@ -2,6 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor } from '@testing-library/react';
 
+import { markets } from '__mocks__/models/markets';
 import renderComponent from 'testUtils/renderComponent';
 import fakeAddress from '__mocks__/models/address';
 import {
@@ -12,6 +13,10 @@ import {
   getXvsVaultPoolInfos,
   getXvsVaultUserInfo,
   getBalanceOf,
+  getVenusVaiVaultDailyRateWei,
+  getMarkets,
+  getVaiVaultUserInfo,
+  getVaiVaultPendingXvsWei,
 } from 'clients/api';
 import useGetVaults, { UseGetVaultsOutput } from '.';
 
@@ -20,10 +25,18 @@ jest.mock('clients/api');
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {
     (getXvsVaultPoolsCount as jest.Mock).mockImplementation(() => 5);
-    (getXvsVaultRewardWeiPerBlock as jest.Mock).mockImplementation(() => new BigNumber('10000000'));
     (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(() => 100);
+    (getXvsVaultRewardWeiPerBlock as jest.Mock).mockImplementation(() => new BigNumber('10000000'));
     (getXvsVaultPendingRewardWei as jest.Mock).mockImplementation(() => new BigNumber('200000000'));
-    (getBalanceOf as jest.Mock).mockImplementation(() => '4000000000');
+    (getBalanceOf as jest.Mock).mockImplementation(() => new BigNumber('4000000000'));
+    (getVenusVaiVaultDailyRateWei as jest.Mock).mockImplementation(
+      () => new BigNumber('4000000000'),
+    );
+    (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
+    (getVaiVaultUserInfo as jest.Mock).mockImplementation(() => ({
+      stakedVaiWei: new BigNumber('50000000'),
+    }));
+    (getVaiVaultPendingXvsWei as jest.Mock).mockImplementation(() => new BigNumber('600000000'));
 
     (getXvsVaultPoolInfos as jest.Mock).mockImplementation(() => ({
       stakedTokenAddress: '0x75107940Cf1121232C0559c747A986DEfbc69DA9',
@@ -42,9 +55,10 @@ describe('api/queries/useGetVaults', () => {
 
   it('fetches and returns vaults correctly', async () => {
     let data: UseGetVaultsOutput['data'] | undefined;
+    let isLoading = false;
 
     const GetVaultsWrapper = () => {
-      ({ data } = useGetVaults({ accountAddress: fakeAddress }));
+      ({ data, isLoading } = useGetVaults({ accountAddress: fakeAddress }));
       return <div />;
     };
 
@@ -52,7 +66,7 @@ describe('api/queries/useGetVaults', () => {
       authContextValue: { account: { address: fakeAddress } },
     });
 
-    await waitFor(() => expect(data && data.length > 0).toBe(true));
+    await waitFor(() => expect(!isLoading && data && data.length > 0).toBe(true));
     expect(data).toMatchSnapshot();
   });
 });

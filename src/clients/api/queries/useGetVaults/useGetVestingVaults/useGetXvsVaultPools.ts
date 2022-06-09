@@ -10,7 +10,7 @@ import {
   getXvsVaultUserInfo,
   IGetXvsVaultUserInfoOutput,
 } from 'clients/api';
-import { XVS_TOKEN_ADDRESS } from './constants';
+import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 
 export interface IUseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -51,7 +51,12 @@ const useGetXvsVaultPools = ({
           poolIndex,
           accountAddress: accountAddress || '',
         }),
-      queryKey: [FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI, XVS_TOKEN_ADDRESS, poolIndex],
+      queryKey: [
+        FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
+        accountAddress,
+        XVS_TOKEN_ADDRESS,
+        poolIndex,
+      ],
       enabled: !!accountAddress,
     });
 
@@ -63,7 +68,7 @@ const useGetXvsVaultPools = ({
           poolIndex,
           accountAddress: accountAddress || '',
         }),
-      queryKey: [FunctionKey.GET_XVS_VAULT_USER_INFO, XVS_TOKEN_ADDRESS, poolIndex],
+      queryKey: [FunctionKey.GET_XVS_VAULT_USER_INFO, accountAddress, XVS_TOKEN_ADDRESS, poolIndex],
       enabled: !!accountAddress,
     });
   }

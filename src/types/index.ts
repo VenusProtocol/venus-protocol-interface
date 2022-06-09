@@ -130,7 +130,7 @@ export interface VoteTransaction {
 }
 
 export interface Market {
-  id: string;
+  id: TokenId;
   address: string;
   borrowApy: BigNumber;
   borrowCaps: string;
@@ -232,13 +232,12 @@ export interface ITransactionResponse {
 }
 
 export interface Vault {
-  poolIndex: number;
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
-  lockingPeriodMs: number;
   stakingAprPercentage: number;
   totalStakedWei: BigNumber;
   dailyEmissionWei: BigNumber;
+  lockingPeriodMs?: number;
   userStakedWei?: BigNumber;
   userPendingRewardWei?: BigNumber;
 }
