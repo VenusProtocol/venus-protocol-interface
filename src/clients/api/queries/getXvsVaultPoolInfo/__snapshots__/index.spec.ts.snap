@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api/queries/getXvsVaultPoolInfo returns the pool infos on success 1`] = `
+Object {
+  "accRewardPerShare": "123871680",
+  "allocationPoint": 10,
+  "lastRewardBlock": 100000,
+  "lockingPeriodMs": 200000,
+  "stakedTokenAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+}
+`;

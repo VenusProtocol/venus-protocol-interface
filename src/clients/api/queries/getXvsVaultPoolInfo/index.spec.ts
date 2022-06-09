@@ -1,11 +1,11 @@
 import { XvsVault } from 'types/contracts';
-import BigNumber from 'bignumber.js';
-import getXvsVaultPoolInfos from './getXvsVaultPoolInfos';
+import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import getXvsVaultPoolInfo from '.';
 
 const fakeTokenAddress = '0x0';
 const fakePid = 0;
 
-describe('api/queries/getXvsVaultPoolInfos', () => {
+describe('api/queries/getXvsVaultPoolInfo', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -18,28 +18,20 @@ describe('api/queries/getXvsVaultPoolInfos', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultPoolInfos({
+      await getXvsVaultPoolInfo({
         xvsVaultContract: fakeContract,
         tokenAddress: fakeTokenAddress,
         poolIndex: fakePid,
       });
 
-      throw new Error('getXvsVaultPoolInfos should have thrown an error but did not');
+      throw new Error('getXvsVaultPoolInfo should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
   });
 
   test('returns the pool infos on success', async () => {
-    const fakeOutput: ReturnType<XvsVault['methods']['poolInfos']['call']> = {
-      token: fakeTokenAddress,
-      allocPoint: '10',
-      lastRewardBlock: '100000',
-      accRewardPerShare: '123871680',
-      lockPeriod: '200',
-    };
-
-    const callMock = jest.fn(async () => fakeOutput);
+    const callMock = jest.fn(async () => xvsVaultResponses.poolInfo);
     const poolInfosMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -50,7 +42,7 @@ describe('api/queries/getXvsVaultPoolInfos', () => {
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultPoolInfos({
+    const response = await getXvsVaultPoolInfo({
       xvsVaultContract: fakeContract,
       tokenAddress: fakeTokenAddress,
       poolIndex: fakePid,
@@ -59,12 +51,6 @@ describe('api/queries/getXvsVaultPoolInfos', () => {
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(poolInfosMock).toHaveBeenCalledTimes(1);
     expect(poolInfosMock).toHaveBeenCalledWith(fakeTokenAddress, fakePid);
-    expect(response).toStrictEqual({
-      stakedTokenAddress: fakeTokenAddress,
-      allocationPoint: 10,
-      lastRewardBlock: 100000,
-      accRewardPerShare: new BigNumber('123871680'),
-      lockingPeriodMs: 200000,
-    });
+    expect(response).toMatchSnapshot();
   });
 });

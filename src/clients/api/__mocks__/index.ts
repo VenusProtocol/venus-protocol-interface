@@ -89,7 +89,7 @@ export const useGetTreasuryTotals = jest.fn();
 
 export const useGetUserMarketInfo = jest.fn();
 
-export const getXvsVaultPoolInfos = jest.fn();
+export const getXvsVaultPoolInfo = jest.fn();
 
 export const getXvsVaultRewardWeiPerBlock = jest.fn();
 export const useGetXvsVaultRewardWeiPerBlock = () =>

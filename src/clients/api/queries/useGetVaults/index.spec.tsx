@@ -6,13 +6,14 @@ import { markets } from '__mocks__/models/markets';
 import renderComponent from 'testUtils/renderComponent';
 import fakeAddress from '__mocks__/models/address';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import {
   getXvsVaultPoolsCount,
   getXvsVaultRewardWeiPerBlock,
   getXvsVaultTotalAllocationPoints,
   getXvsVaultPendingRewardWei,
-  getXvsVaultPoolInfos,
+  getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
   getBalanceOf,
   getVenusVaiVaultDailyRateWei,
@@ -40,13 +41,9 @@ describe('api/queries/useGetVaults', () => {
     }));
     (getVaiVaultPendingXvsWei as jest.Mock).mockImplementation(() => new BigNumber('600000000'));
 
-    (getXvsVaultPoolInfos as jest.Mock).mockImplementation(() => ({
-      stakedTokenAddress: '0x75107940Cf1121232C0559c747A986DEfbc69DA9',
-      allocationPoint: 10,
-      lastRewardBlock: 12938791667,
-      accRewardPerShare: new BigNumber('1000000'),
-      lockingPeriodMs: 200000000,
-    }));
+    (getXvsVaultPoolInfo as jest.Mock).mockImplementation(() =>
+      formatToPoolInfo(xvsVaultResponses.poolInfo),
+    );
 
     (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
       formatToUserInfo(xvsVaultResponses.userInfos),

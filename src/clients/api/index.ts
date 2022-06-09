@@ -168,8 +168,8 @@ export { default as getXvsVaultPoolsCount } from './queries/getXvsVaultPoolsCoun
 export * from './queries/getXvsVaultPoolsCount';
 export { default as useGetXvsVaultPoolsCount } from './queries/useGetXvsVaultPoolsCount';
 
-export { default as getXvsVaultPoolInfos } from './queries/getXvsVaultPoolInfos';
-export * from './queries/getXvsVaultPoolInfos';
+export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
+export * from './queries/getXvsVaultPoolInfo';
 
 export { default as getXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock';
 export * from './queries/getXvsVaultRewardWeiPerBlock';

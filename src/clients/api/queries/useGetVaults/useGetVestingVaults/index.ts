@@ -10,7 +10,7 @@ import {
   useGetXvsVaultPoolsCount,
   useGetXvsVaultTotalAllocationPoints,
   useGetXvsVaultRewardWeiPerBlock,
-  GetXvsVaultPoolInfosOutput,
+  IGetXvsVaultPoolInfoOutput,
   GetXvsVaultPendingRewardWeiOutput,
   IGetXvsVaultUserInfoOutput,
 } from 'clients/api';
@@ -55,7 +55,7 @@ const useGetVestingVaults = ({
   const [poolData, stakedTokenAddresses] = useMemo(() => {
     const data: {
       [poolIndex: string]: {
-        poolInfos: GetXvsVaultPoolInfosOutput;
+        poolInfos: IGetXvsVaultPoolInfoOutput;
         userPendingRewardWei?: GetXvsVaultPendingRewardWeiOutput;
         userInfos?: IGetXvsVaultUserInfoOutput;
       };
@@ -71,7 +71,7 @@ const useGetVestingVaults = ({
 
       const poolInfosQueryResult = poolQueryResults[
         poolQueryResultStartIndex
-      ] as UseQueryResult<GetXvsVaultPoolInfosOutput>;
+      ] as UseQueryResult<IGetXvsVaultPoolInfoOutput>;
 
       const userPendingRewardQueryResult = poolQueryResults[
         poolQueryResultStartIndex + 1

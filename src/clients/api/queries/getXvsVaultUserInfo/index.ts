@@ -3,7 +3,7 @@ import formatToUserInfo from './formatToUserInfo';
 
 export * from './types';
 
-const GetXvsVaultUserInfo = async ({
+const getXvsVaultUserInfo = async ({
   xvsVaultContract,
   tokenAddress,
   poolIndex,
@@ -16,4 +16,4 @@ const GetXvsVaultUserInfo = async ({
   return formatToUserInfo(res);
 };
 
-export default GetXvsVaultUserInfo;
+export default getXvsVaultUserInfo;
