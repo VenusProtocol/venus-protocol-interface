@@ -72,6 +72,11 @@ const App = () => (
                               path={Path.VOTE_LEADER_BOARD}
                               component={VoterLeaderboard}
                             />
+                            <Route
+                              exact
+                              path={Path.VOTE_PROPOSAL_DETAILS}
+                              component={process.env.REACT_APP_RUN_V2 ? Proposal : VoteOverview}
+                            />
                             <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
                             <Route
                               exact
