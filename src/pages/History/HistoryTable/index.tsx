@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { EllipseText, Icon, Table, TableProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
 import { convertWeiToCoins } from 'utilities/common';
 import { useTranslation } from 'translation';

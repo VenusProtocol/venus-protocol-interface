@@ -36,7 +36,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
       walletConnected={walletConnected}
     />
     <HistoryTable transactions={transactions} isLoading={isLoading} />
-    {total && (
+    {total ? (
       <Pagination
         itemsCount={total}
         onChange={(nextIndex: number) => {
@@ -45,7 +45,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
         }}
         itemsPerPageCount={limit || 20}
       />
-    )}
+    ) : null}
   </div>
 );
 
