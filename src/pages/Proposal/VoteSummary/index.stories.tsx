@@ -3,11 +3,10 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
-import VoteSummary from './index';
+import { VoteSummary } from './index';
 
 export default {
-  title: 'Pages/Proposal/Components/VoteSummary',
+  title: 'Pages/Proposal/VoteSummary',
   component: VoteSummary,
   decorators: [withThemeProvider, withCenterStory({ width: 500 })],
   parameters: {
@@ -21,92 +20,72 @@ const votes = [
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c2976',
     voteWeightWei: new BigNumber('1000'),
-    reason: 'comment text from storybook',
-    support: 'FOR' as const,
+    comment: 'comment text from storybook',
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297s',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297q',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74b2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41dea391b74c2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de23d1b74c2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de23a1b74c2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b7qc2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2v91b74c2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41dn2391b74c2977',
     voteWeightWei: new BigNumber('1271'),
-    support: 'FOR' as const,
   },
 ];
 
 export const VoteFor = () => (
   <VoteSummary
-    label="For"
-    votedValueWei={new BigNumber('100000000000000000')}
+    votedForWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
-    voters={votes}
-    progressBarColor={PALETTE.interactive.success50}
-    votingEnabled
-    openVoteModal={noop}
+    votesFrom={votes}
+    onClick={noop}
   />
 );
 
 export const VoteAgainst = () => (
   <VoteSummary
-    label="Against"
-    votedValueWei={new BigNumber('100000000000000000')}
+    votedAgainstWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
-    voters={votes}
-    progressBarColor={PALETTE.interactive.error50}
-    votingEnabled
-    openVoteModal={noop}
+    votesFrom={votes}
+    onClick={noop}
   />
 );
 
-export const Abstain = () => (
+export const Empty = () => (
   <VoteSummary
-    label="Abstain"
-    votedValueWei={new BigNumber('0')}
+    votedForWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
-    progressBarColor={PALETTE.text.secondary}
-    votingEnabled
-    openVoteModal={noop}
+    onClick={noop}
   />
 );

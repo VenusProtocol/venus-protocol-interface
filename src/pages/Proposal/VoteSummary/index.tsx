@@ -1,120 +1,105 @@
 /** @jsxImportSource @emotion/react */
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Path from 'constants/path';
-import { convertWeiToTokens } from 'utilities';
+
+import { formatCoinsToReadableValue } from 'utilities/common';
+import { generateBscScanUrl } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
-import {
-  Button,
-  Icon,
-  LabeledInlineContent,
-  EllipseAddress,
-  Tooltip,
-  LabeledProgressBar,
-} from 'components';
-import { IVoter } from 'types';
+import { ActiveVotingProgress } from '../../../components/v2/GovernanceProposal/ActiveVotingProgress';
+import { Button } from '../../../components/v2/Button';
+import { Icon } from '../../../components/v2/Icon';
+import { LabeledInlineContent } from '../../../components/v2/LabeledInlineContent';
+import EllipseText from '../../../components/v2/EllipseText';
+import { Tooltip } from '../../../components/v2/Tooltip';
+
 import { useStyles } from './styles';
 
+type VoteFrom = {
+  address: string;
+  voteWeightWei: BigNumber;
+  comment?: string;
+};
+
 interface IVoteSummaryProps {
-  label: string;
-  progressBarColor: string;
-  votedValueWei?: BigNumber;
-  votedTotalWei?: BigNumber;
-  voters?: IVoter['result'];
   className?: string;
-  votingEnabled: boolean;
-  openVoteModal: () => void;
-  testId?: string;
+  votesFrom?: VoteFrom[];
+  votedForWei?: BigNumber;
+  votedAgainstWei?: BigNumber;
+  abstainedWei?: BigNumber;
+  votedTotalWei?: BigNumber;
+  onClick: () => void;
+  isDisabled?: boolean;
 }
 
-const VoteSummary = ({
-  openVoteModal,
-  label,
-  progressBarColor,
-  votedTotalWei = new BigNumber(0),
-  votedValueWei = new BigNumber(0),
-  voters = [],
+export const VoteSummary = ({
   className,
-  votingEnabled,
-  testId,
+  votesFrom = [],
+  votedForWei,
+  votedAgainstWei,
+  abstainedWei,
+  votedTotalWei,
+  onClick,
+  isDisabled,
 }: IVoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const getVoteWeight = useCallback(
-    (voteWeightWei: BigNumber) =>
-      convertWeiToTokens({
-        valueWei: voteWeightWei,
-        tokenId: XVS_TOKEN_ID,
-        shortenLargeValue: true,
-        addSymbol: false,
-        returnInReadableFormat: true,
-      }),
-    [],
-  );
+  const getVoteWeight = (voteWeightWei: BigNumber) =>
+    useMemo(
+      () =>
+        formatCoinsToReadableValue({
+          value: voteWeightWei,
+          tokenId: XVS_TOKEN_ID,
+          shortenLargeValue: true,
+          addSymbol: false,
+        }),
+      [],
+    );
 
   return (
-    <Paper css={styles.root} className={className} data-testid={testId}>
-      <div css={styles.topSection}>
-        <div css={styles.labeledProgressBarContainer}>
-          <LabeledProgressBar
-            greyLeftText={label}
-            whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
-            value={votedValueWei.toNumber()}
-            min={0}
-            // If there are no votes set a fallback to zero the progressbar
-            max={votedTotalWei.toNumber() || 100}
-            step={1}
-            ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
-            successColor={progressBarColor}
-          />
-        </div>
+    <Paper css={styles.root} className={className}>
+      <ActiveVotingProgress
+        votedForWei={votedForWei}
+        votedAgainstWei={votedAgainstWei}
+        abstainedWei={abstainedWei}
+        votedTotalWei={votedTotalWei}
+      />
+      <Button css={styles.button} onClick={onClick} disabled={isDisabled}>
+        {votedForWei && t('vote.for')}
+        {votedAgainstWei && t('vote.against')}
+        {abstainedWei && t('vote.abstain')}
+      </Button>
 
-        <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
-          {label}
-        </Button>
-      </div>
-
-      <LabeledInlineContent label={t('voteSummary.addresses', { count: voters.length })}>
+      <LabeledInlineContent label={t('voteSummary.addresses', { length: votesFrom.length })}>
         <Typography>{t('voteSummary.votes')}</Typography>
       </LabeledInlineContent>
 
       <ul css={styles.votesWrapper}>
-        {voters.map(({ address, voteWeightWei, reason }) => (
+        {votesFrom.map(({ address, voteWeightWei, comment }) => (
           <li key={address} css={styles.voteFrom}>
-            <div css={styles.address}>
-              <Link
-                to={Path.VOTE_ADDRESS.replace(':address', address)}
+            <EllipseText css={styles.address} text={address}>
+              <Typography
+                className="ellipse-text"
+                href={generateBscScanUrl('xvs')}
+                target="_blank"
+                rel="noreferrer"
+                variant="body1"
+                component="a"
                 css={[styles.blueText, styles.addressText]}
-              >
-                <EllipseAddress address={address} />
-              </Link>
-
-              {reason && (
-                <Tooltip title={reason}>
+              />
+              {comment && (
+                <Tooltip title={comment}>
                   <Icon name="bubble" />
                 </Tooltip>
               )}
-            </div>
-
-            <Typography color="text.primary">
-              {convertWeiToTokens({
-                valueWei: voteWeightWei,
-                tokenId: XVS_TOKEN_ID,
-                shortenLargeValue: true,
-                addSymbol: false,
-                returnInReadableFormat: true,
-              })}
-            </Typography>
+            </EllipseText>
+            <Typography color="text.primary">{getVoteWeight(voteWeightWei)}</Typography>
           </li>
         ))}
       </ul>
     </Paper>
   );
 };
-
-export default VoteSummary;

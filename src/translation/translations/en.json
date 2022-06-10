@@ -712,9 +712,6 @@
     "walletConnect": "WalletConnect"
   },
   "voteSummary": {
-    "for": "For",
-    "against": "Against",
-    "abstain": "Abstain",
     "addresses": "{{length}} addresses",
     "votes": "Votes"
   },
