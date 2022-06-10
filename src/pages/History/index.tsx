@@ -40,7 +40,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
       <Pagination
         itemsCount={total}
         onChange={(nextIndex: number) => {
-          setCurrentPage(nextIndex + 1);
+          setCurrentPage(nextIndex);
           window.scrollTo(0, 0);
         }}
         itemsPerPageCount={limit || 20}
@@ -52,7 +52,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
 const History: React.FC = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
   const { data: { transactions, total, limit } = { transactions: [] }, isLoading } =
