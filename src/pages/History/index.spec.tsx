@@ -28,10 +28,13 @@ describe('pages/History', () => {
   });
 
   it('renders spinner when fetching', async () => {
-    (useGetTransactions as jest.Mock).mockImplementation(() => ({
-      data: undefined,
-      isFetching: true,
-    }));
+    (useGetTransactions as jest.Mock).mockImplementation(() => {
+      setTimeout(() => {}, 5000);
+      return {
+        data: undefined,
+        isLoading: true,
+      };
+    });
     const { getByTestId } = renderComponent(<History />);
     getByTestId(TEST_IDS.spinner);
   });
