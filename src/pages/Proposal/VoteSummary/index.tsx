@@ -8,12 +8,8 @@ import { formatCoinsToReadableValue } from 'utilities/common';
 import { generateBscScanUrl } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
-import { ActiveVotingProgress } from '../../../components/v2/GovernanceProposal/ActiveVotingProgress';
-import { Button } from '../../../components/v2/Button';
-import { Icon } from '../../../components/v2/Icon';
-import { LabeledInlineContent } from '../../../components/v2/LabeledInlineContent';
-import EllipseText from '../../../components/v2/EllipseText';
-import { Tooltip } from '../../../components/v2/Tooltip';
+import { Button, Icon, LabeledInlineContent, EllipseText, Tooltip } from 'components';
+import { ActiveVotingProgress } from 'components/v2/GovernanceProposal/ActiveVotingProgress';
 
 import { useStyles } from './styles';
 
@@ -26,6 +22,7 @@ type VoteFrom = {
 interface IVoteSummaryProps {
   className?: string;
   votesFrom?: VoteFrom[];
+  // should be passed one of votedForWei/votedAgainstWei/abstainedWei with the votedTotalWei
   votedForWei?: BigNumber;
   votedAgainstWei?: BigNumber;
   abstainedWei?: BigNumber;
