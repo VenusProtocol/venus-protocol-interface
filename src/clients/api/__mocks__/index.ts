@@ -131,6 +131,14 @@ export const useGetVestingVaults = jest.fn();
 export const getVoteDelegateAddress = jest.fn();
 export const useGetVoteDelegateAddress = () =>
   useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
+  
+export const getLatestProposalIdByProposer = jest.fn();
+export const useGetLatestProposalIdByProposer = () =>
+  useQuery(
+    [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, fakeAddress],
+    getLatestProposalIdByProposer,
+  );
+export const useGetActiveProposal = jest.fn();
 
 // Mutations
 export const approveToken = jest.fn();

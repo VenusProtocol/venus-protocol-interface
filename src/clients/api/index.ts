@@ -216,3 +216,5 @@ export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVes
 export { default as getVoteDelegateAddress } from './queries/getVoteDelegateAddress';
 export * from './queries/getVoteDelegateAddress';
 export { default as useGetVoteDelegateAddress } from './queries/useGetVoteDelegateAddress';
+
+export { default as useHasActiveProposal } from './queries/useHasActiveProposal';
