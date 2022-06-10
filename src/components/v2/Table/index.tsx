@@ -118,49 +118,62 @@ export const Table = ({
           />
 
           {/* TODO: add error state */}
-
-          <TableBody>
-            {rows.map(row => {
-              const rowKey = row[rowKeyIndex].value.toString();
-
-              return (
-                <TableRow
-                  hover
-                  key={`${rowKey}-table`}
-                  css={styles.getTableRow({ clickable: !!rowOnClick })}
-                  onClick={
-                    rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
-                  }
-                >
-                  {row.map(({ key, render, align }: ITableRowProps) => {
-                    const cellContent = render();
-                    const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
-                    return (
-                      <TableCell
-                        css={styles.getCellWrapper({ containsLink: !!getRowHref })}
-                        key={`${rowKey}-${key}-table`}
-                        title={cellTitle}
-                        align={align}
-                      >
-                        {getRowHref ? <Link to={getRowHref(row)}>{cellContent}</Link> : cellContent}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
+          {isFetching ? (
+            <TableRow>
+              <TableCell colSpan={columns.length}>
+                <Spinner />
+              </TableCell>
+            </TableRow>
+          ) : (
+            <TableBody>
+              {rows.map(row => {
+                const rowKey = row[rowKeyIndex].value.toString();
+                return (
+                  <TableRow
+                    hover
+                    key={`${rowKey}-table`}
+                    css={styles.getTableRow({ clickable: !!rowOnClick })}
+                    onClick={
+                      rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
+                    }
+                  >
+                    {row.map(({ key, render, align }: ITableRowProps) => {
+                      const cellContent = render();
+                      const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+                      return (
+                        <TableCell
+                          css={styles.getCellWrapper({ containsLink: !!getRowHref })}
+                          key={`${rowKey}-${key}-table`}
+                          title={cellTitle}
+                          align={align}
+                        >
+                          {getRowHref ? (
+                            <Link to={getRowHref(row)}>{cellContent}</Link>
+                          ) : (
+                            cellContent
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          )}
         </TableMUI>
       </TableContainer>
-      {isFetching && <Spinner />}
-      <TableCards
-        rows={rows}
-        rowKeyIndex={rowKeyIndex}
-        rowOnClick={rowOnClick}
-        getRowHref={getRowHref}
-        columns={cardColumns || columns}
-        css={cardsCss}
-      />
+      {isFetching ? (
+        <Spinner css={cardsCss} />
+      ) : (
+        <TableCards
+          rows={rows}
+          rowKeyIndex={rowKeyIndex}
+          rowOnClick={rowOnClick}
+          getRowHref={getRowHref}
+          columns={cardColumns || columns}
+          css={cardsCss}
+        />
+      )}
     </Paper>
   );
 };
