@@ -4,9 +4,9 @@ import { BigNumber } from 'bignumber.js';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { useTranslation } from 'translation';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
-import { convertWeiToTokens } from 'utilities';
-import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
-import { useStyles } from './styles';
+import { convertWeiToCoins } from 'utilities/common';
+import { useStyles } from '../styles';
+import { LabeledProgressBar } from '../../ProgressBar/LabeledProgressBar';
 
 interface IActiveVotingProgressProps {
   votedForWei?: BigNumber;
@@ -96,16 +96,12 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
         }
         return (
           <React.Fragment key={id}>
-            <div css={styles.voteRow}>
-              <Typography variant="small2" color="textSecondary">
-                {label}
-              </Typography>
-
-              <Typography variant="small2" color="textPrimary">
-                {value}
-              </Typography>
-            </div>
-            <ProgressBar {...defaultProgressbarProps} {...progressBarProps} />
+            <LabeledProgressBar
+              greyLeftText={label}
+              whiteRightText={value}
+              {...defaultProgressbarProps}
+              {...progressBarProps}
+            />
           </React.Fragment>
         );
       })}
