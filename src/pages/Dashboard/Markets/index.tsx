@@ -19,7 +19,6 @@ export interface IMarketsProps {
   supplyMarketAssets: Asset[];
   borrowingAssets: Asset[];
   borrowMarketAssets: Asset[];
-  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 const Markets: React.FC<IMarketsProps> = ({
@@ -30,7 +29,6 @@ const Markets: React.FC<IMarketsProps> = ({
   supplyMarketAssets,
   borrowingAssets,
   borrowMarketAssets,
-  dailyXvsDistributionInterestsCents,
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
@@ -65,7 +63,6 @@ const Markets: React.FC<IMarketsProps> = ({
           borrowingAssets={borrowingAssets}
           borrowMarketAssets={borrowMarketAssets}
           userTotalBorrowLimitCents={userTotalBorrowLimitCents}
-          dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
         />
       ),
     },
@@ -101,7 +98,6 @@ const Markets: React.FC<IMarketsProps> = ({
           borrowingAssets={borrowingAssets}
           borrowMarketAssets={borrowMarketAssets}
           userTotalBorrowLimitCents={userTotalBorrowLimitCents}
-          dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
         />
       </div>
 

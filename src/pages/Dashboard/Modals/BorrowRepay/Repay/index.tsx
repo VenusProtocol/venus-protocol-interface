@@ -36,7 +36,6 @@ export interface IRepayFormProps {
   isRepayLoading: boolean;
   isXvsEnabled: boolean;
   limitTokens: string;
-  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 export const RepayForm: React.FC<IRepayFormProps> = ({
@@ -45,7 +44,6 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
   isRepayLoading,
   isXvsEnabled,
   limitTokens,
-  dailyXvsDistributionInterestsCents,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -190,7 +188,6 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
             hypotheticalBorrowAmountTokens={-values.amount}
             asset={asset}
             isXvsEnabled={isXvsEnabled}
-            dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
           />
 
           <PrimaryButton
@@ -213,15 +210,9 @@ export interface IRepayProps {
   asset: Asset;
   isXvsEnabled: boolean;
   onClose: () => void;
-  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
-const Repay: React.FC<IRepayProps> = ({
-  asset,
-  onClose,
-  isXvsEnabled,
-  dailyXvsDistributionInterestsCents,
-}) => {
+const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -280,7 +271,6 @@ const Repay: React.FC<IRepayProps> = ({
             isXvsEnabled={isXvsEnabled}
             isRepayLoading={isRepayLoading}
             limitTokens={limitTokens.toFixed()}
-            dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
           />
         </EnableToken>
       )}

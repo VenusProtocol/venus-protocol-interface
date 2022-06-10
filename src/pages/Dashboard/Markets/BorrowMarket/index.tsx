@@ -16,7 +16,6 @@ export interface IBorrowMarketUiProps {
   borrowingAssets: Asset[];
   isXvsEnabled: boolean;
   userTotalBorrowLimitCents: BigNumber;
-  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
@@ -25,7 +24,6 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   borrowMarketAssets,
   isXvsEnabled,
   userTotalBorrowLimitCents,
-  dailyXvsDistributionInterestsCents,
 }) => {
   const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
   const styles = useStyles();
@@ -71,7 +69,6 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
           asset={selectedAsset}
           onClose={() => setSelectedAssetId(undefined)}
           isXvsEnabled={isXvsEnabled}
-          dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
         />
       )}
     </>
@@ -84,7 +81,6 @@ const BorrowMarket: React.FC<IBorrowMarketUiProps> = ({
   borrowMarketAssets,
   borrowingAssets,
   userTotalBorrowLimitCents,
-  dailyXvsDistributionInterestsCents,
 }) => (
   <BorrowMarketUi
     className={className}
@@ -92,7 +88,6 @@ const BorrowMarket: React.FC<IBorrowMarketUiProps> = ({
     borrowMarketAssets={borrowMarketAssets}
     isXvsEnabled={isXvsEnabled}
     userTotalBorrowLimitCents={userTotalBorrowLimitCents}
-    dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
   />
 );
 

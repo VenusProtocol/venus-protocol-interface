@@ -22,6 +22,5 @@ export const Default = () => (
     borrowMarketAssets={assetData}
     isXvsEnabled={false}
     userTotalBorrowLimitCents={new BigNumber(11100)}
-    dailyXvsDistributionInterestsCents={new BigNumber(111111)}
   />
 );

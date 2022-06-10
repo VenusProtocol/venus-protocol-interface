@@ -17,31 +17,32 @@ import {
   Delimiter,
 } from 'components';
 import { useTranslation } from 'translation';
+import { useDailyXvs } from 'hooks/useDailyXvs';
 import { useStyles } from '../../styles';
 
 export interface IAccountDataProps {
   asset: Asset;
   hypotheticalBorrowAmountTokens: number;
   isXvsEnabled: boolean;
-  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 const AccountData: React.FC<IAccountDataProps> = ({
   asset,
   hypotheticalBorrowAmountTokens,
   isXvsEnabled,
-  dailyXvsDistributionInterestsCents,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
-
+  const accountAddress = account?.address;
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
   } = useGetUserMarketInfo({
-    accountAddress: account?.address,
+    accountAddress,
   });
+
+  const { dailyXvsDistributionInterestsCents } = useDailyXvs({ assets, accountAddress });
 
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0

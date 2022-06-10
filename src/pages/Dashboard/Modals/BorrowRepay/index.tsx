@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import BigNumber from 'bignumber.js';
 
 import { Asset } from 'types';
 import { isAssetEnabled } from 'utilities';
@@ -14,15 +13,9 @@ export interface IBorrowRepayProps {
   onClose: IModalProps['handleClose'];
   isXvsEnabled: boolean;
   asset: Asset;
-  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
-const BorrowRepay: React.FC<IBorrowRepayProps> = ({
-  onClose,
-  asset,
-  isXvsEnabled,
-  dailyXvsDistributionInterestsCents,
-}) => {
+const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset, isXvsEnabled }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -31,12 +24,7 @@ const BorrowRepay: React.FC<IBorrowRepayProps> = ({
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
         <div css={styles.container}>
-          <Repay
-            asset={asset}
-            onClose={onClose}
-            isXvsEnabled={isXvsEnabled}
-            dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
-          />
+          <Repay asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
         </div>
       ),
     },
