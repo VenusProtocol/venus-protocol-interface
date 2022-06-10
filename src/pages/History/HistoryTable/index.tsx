@@ -6,11 +6,11 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress, convertWeiToTokens } from 'utilities';
 import { useTranslation } from 'translation';
-import { ITransaction } from 'types';
+import { ITransaction, TokenId } from 'types';
 import { useStyles } from './styles';
 
 export interface IHistoryTableProps {
-  transactions: Transaction[];
+  transactions: ITransaction[];
   isLoading: boolean;
 }
 
@@ -43,35 +43,13 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isL
     return newColumns;
   }, [columns]);
 
-  const eventTranslationKeys = {
-    All: t('history.all'),
-    Mint: t('history.mint'),
-    Transfer: t('history.transfer'),
-    Borrow: t('history.borrow'),
-    RepayBorrow: t('history.repayBorrow'),
-    Redeem: t('history.redeem'),
-    Approval: t('history.approval'),
-    LiquidateBorrow: t('history.liquidateBorrow'),
-    ReservesAdded: t('history.reservesAdded'),
-    ReservesReduced: t('history.reservesReduced'),
-    MintVAI: t('history.mintVAI'),
-    Withdraw: t('history.withdraw'),
-    RepayVAI: t('history.repayVAI'),
-    Deposit: t('history.deposit'),
-    VoteCast: t('history.voteCast'),
-    ProposalCreated: t('history.proposalCreated'),
-    ProposalQueued: t('history.proposalQueued'),
-    ProposalExecuted: t('history.proposalExecuted'),
-    ProposalCanceled: t('history.proposalCanceled'),
-  };
-
-  // Format transactions to rows
+  // Format assets to rows
   const rows: TableProps['data'] = useMemo(
     () =>
       transactions.map(txn => {
-        const tokenId =
-          (txn.vTokenAddress && getTokenIdFromVAddress(txn.vTokenAddress)) || XVS_TOKEN_ID;
-
+        const tokenId = txn.vTokenAddress
+          ? (getTokenIdFromVAddress(txn.vTokenAddress) as TokenId)
+          : XVS_TOKEN_ID;
         return [
           {
             key: 'id',
@@ -100,7 +78,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isL
                 </div>
               </>
             ),
-            value: txn.event,
+            value: txn.vTokenAddress,
             align: 'left',
           },
           {
