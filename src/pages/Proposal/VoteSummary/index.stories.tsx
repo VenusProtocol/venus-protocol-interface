@@ -3,10 +3,10 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { VoteSummary } from '.';
+import { VoteSummary } from './index';
 
 export default {
-  title: 'Components/VoteSummary',
+  title: 'Pages/Proposal/VoteSummary',
   component: VoteSummary,
   decorators: [withThemeProvider, withCenterStory({ width: 500 })],
   parameters: {
@@ -24,6 +24,42 @@ const votes = [
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c2977',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297s',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297q',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74b2977',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41dea391b74c2977',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41de23d1b74c2977',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41de23a1b74c2977',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b7qc2977',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41de2v91b74c2977',
+    voteWeightWei: new BigNumber('1271'),
+  },
+  {
+    address: '0x33AAb7ED8C71C6910Fb4A9bc41dn2391b74c2977',
     voteWeightWei: new BigNumber('1271'),
   },
 ];

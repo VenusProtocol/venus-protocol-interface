@@ -15,6 +15,36 @@ export const useStyles = () => {
       margin-top: ${theme.spacing(8)};
       margin-bottom: ${theme.spacing(8)};
     `,
+    votesWrapper: css`
+      margin: 0;
+      padding-left: 0;
+      padding-right: ${theme.spacing(3)};
+      width: calc(100% + ${theme.spacing(3)});
+      max-height: ${theme.spacing(33)};
+      overflow: hidden;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: ${theme.spacing(1)};
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        border-radius: ${theme.spacing(1)};
+        background-color: ${theme.palette.background.default};
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background-color: ${theme.palette.text.secondary};
+        border-radius: ${theme.spacing(1)};
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: ${theme.palette.text.primary};
+      }
+    `,
     voteFrom: css`
       margin-top: ${theme.spacing(2)};
       width: 100%;
