@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext, useState } from 'react';
-import { Transaction } from 'models';
-import { TransactionEvent } from 'types';
+import { ITransaction, TransactionEvent } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { useGetTransactions } from 'clients/api';
 import { Pagination } from 'components';
@@ -9,7 +8,7 @@ import HistoryTable from './HistoryTable';
 import Filters, { ALL_VALUE, IFilterProps } from './Filters';
 
 interface IHistoryUiProps extends IFilterProps {
-  transactions: Transaction[];
+  transactions: ITransaction[];
   isLoading: boolean;
   total: number | undefined;
   limit: number | undefined;

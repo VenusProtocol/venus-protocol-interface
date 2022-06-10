@@ -1,5 +1,5 @@
-import { Transaction } from 'models';
-import { ITransactionResponse } from 'types';
+import { ITransactionResponse } from 'clients/api/queries/getTransactions/types';
+import formatTransaction from 'clients/api/queries/getTransactions/formatTransaction';
 
 export const transactionResponse: ITransactionResponse[] = [
   {
@@ -284,6 +284,6 @@ export const transactionResponse: ITransactionResponse[] = [
   },
 ];
 
-const transactions = transactionResponse.map(d => new Transaction(d));
+const transactions = transactionResponse.map(d => formatTransaction(d));
 
 export default transactions;
