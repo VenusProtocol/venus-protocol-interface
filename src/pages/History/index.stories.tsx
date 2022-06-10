@@ -23,7 +23,7 @@ export const Default = () => (
     setShowOnlyMyTxns={noop}
     transactions={transactions}
     walletConnected
-    isFetching={false}
+    isLoading={false}
     limit={20}
     total={60}
     setCurrentPage={noop}

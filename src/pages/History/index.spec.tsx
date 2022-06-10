@@ -32,7 +32,7 @@ describe('pages/History', () => {
       setTimeout(() => {}, 5000);
       return {
         data: undefined,
-        isFetching: true,
+        isLoading: true,
       };
     });
     const { getByTestId } = renderComponent(<History />);

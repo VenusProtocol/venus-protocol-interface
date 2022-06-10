@@ -37,7 +37,7 @@ export interface ITableBaseProps {
   cardsCss?: SerializedStyles;
   gridTemplateColumnsCards?: string;
   gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
-  isFetching?: boolean;
+  isLoading?: boolean;
 }
 
 interface ITableCardRowOnClickProps extends ITableBaseProps {
@@ -65,7 +65,7 @@ export const Table = ({
   className,
   tableCss,
   cardsCss,
-  isFetching,
+  isLoading,
 }: TableProps) => {
   const styles = useStyles();
 
@@ -152,7 +152,7 @@ export const Table = ({
           </TableBody>
         </TableMUI>
       </TableContainer>
-      {isFetching && <Spinner />}
+      {isLoading && <Spinner />}
       <TableCards
         rows={rows}
         rowKeyIndex={rowKeyIndex}
