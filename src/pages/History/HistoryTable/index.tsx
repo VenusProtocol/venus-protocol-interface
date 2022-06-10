@@ -11,10 +11,10 @@ import { useStyles } from './styles';
 
 export interface IHistoryTableProps {
   transactions: ITransaction[];
-  isLoading: boolean;
+  isFetching: boolean;
 }
 
-export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isLoading }) => {
+export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isFetching }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -189,13 +189,13 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isL
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}
-      isLoading={isLoading}
+      isFetching={isFetching}
     />
   );
 };
 
-const HistoryTable: React.FC<IHistoryTableProps> = ({ transactions, isLoading }) => (
-  <HistoryTableUi transactions={transactions} isLoading={isLoading} />
+const HistoryTable: React.FC<IHistoryTableProps> = ({ transactions, isFetching }) => (
+  <HistoryTableUi transactions={transactions} isFetching={isFetching} />
 );
 
 export default HistoryTable;
