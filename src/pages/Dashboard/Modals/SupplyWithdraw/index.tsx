@@ -93,7 +93,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
     calculateNewBalance,
     isTransactionLoading,
     onSubmit,
-    dailyXvsDistributionInterestsCents,
   }: {
     type: 'supply' | 'withdraw';
     message: string;
@@ -104,7 +103,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
     calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
     isTransactionLoading: boolean;
     onSubmit: IAmountFormProps['onSubmit'];
-    dailyXvsDistributionInterestsCents: BigNumber;
   }) => {
     const maxInput = React.useMemo(() => {
       let maxInputTokens = asset.walletBalance;
@@ -160,7 +158,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
                 calculateNewBalance={calculateNewBalance}
                 isTransactionLoading={isTransactionLoading}
                 isXvsEnabled={isXvsEnabled}
-                dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
               />
             </EnableToken>
           )}
@@ -182,7 +179,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         calculateNewBalance: (initial: BigNumber, amount: BigNumber) => initial.minus(amount),
         isTransactionLoading: isWithdrawLoading,
         onSubmit: onSubmitWithdraw,
-        dailyXvsDistributionInterestsCents: new BigNumber(0),
       }),
     },
   ];
@@ -201,7 +197,6 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
         calculateNewBalance: (initial: BigNumber, amount: BigNumber) => initial.plus(amount),
         isTransactionLoading: isSupplyLoading,
         onSubmit: onSubmitSupply,
-        dailyXvsDistributionInterestsCents: new BigNumber(0),
       }),
     });
   }

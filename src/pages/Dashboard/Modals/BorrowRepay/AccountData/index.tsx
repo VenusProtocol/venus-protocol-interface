@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
@@ -17,7 +17,7 @@ import {
   Delimiter,
 } from 'components';
 import { useTranslation } from 'translation';
-import { useDailyXvs } from 'hooks/useDailyXvs';
+import { useVTokenDailyXvs } from 'hooks/useVTokenDailyXvs';
 import { useStyles } from '../../styles';
 
 export interface IAccountDataProps {
@@ -33,8 +33,8 @@ const AccountData: React.FC<IAccountDataProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { account } = React.useContext(AuthContext);
-  const accountAddress = account?.address;
+  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
@@ -42,7 +42,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
     accountAddress,
   });
 
-  const { dailyXvsDistributionInterestsCents } = useDailyXvs({ assets, accountAddress });
+  const { dailyXvsDistributionInterestsCents } = useVTokenDailyXvs({ assets });
 
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0

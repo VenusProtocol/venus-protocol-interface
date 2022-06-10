@@ -44,12 +44,6 @@ export const markets: Market[] = [
     supplierCount: 898,
     treasuryTotalBorrowsCents: new BigNumber('266794650.7810822265519879'),
     treasuryTotalSupplyCents: new BigNumber('67985300.361066058614742'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'usdc',
@@ -93,12 +87,6 @@ export const markets: Market[] = [
     supplierCount: 638,
     treasuryTotalBorrowsCents: new BigNumber('0'),
     treasuryTotalSupplyCents: new BigNumber('0'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'usdt',
@@ -142,12 +130,6 @@ export const markets: Market[] = [
     supplierCount: 736,
     treasuryTotalBorrowsCents: new BigNumber('3046289448.42181674'),
     treasuryTotalSupplyCents: new BigNumber('100979901000715684290763834.0455919692236935'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'busd',
@@ -191,12 +173,6 @@ export const markets: Market[] = [
     supplierCount: 2235,
     treasuryTotalBorrowsCents: new BigNumber('83904467212.0883077362093449'),
     treasuryTotalSupplyCents: new BigNumber('1054705745790.4263761515589172'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'bnb',
@@ -240,12 +216,6 @@ export const markets: Market[] = [
     supplierCount: 1700,
     treasuryTotalBorrowsCents: new BigNumber('4644293442.7935753968443612'),
     treasuryTotalSupplyCents: new BigNumber('4644297417.0928637733777829'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'xvs',
@@ -289,12 +259,6 @@ export const markets: Market[] = [
     supplierCount: 326,
     treasuryTotalBorrowsCents: new BigNumber('30648883.7102836344256144'),
     treasuryTotalSupplyCents: new BigNumber('168090555.8345572668784761'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'btcb',
@@ -338,12 +302,6 @@ export const markets: Market[] = [
     supplierCount: 415,
     treasuryTotalBorrowsCents: new BigNumber('1232054135.626148384986397'),
     treasuryTotalSupplyCents: new BigNumber('3434747710.1218290503961459'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'eth',
@@ -387,12 +345,6 @@ export const markets: Market[] = [
     supplierCount: 211,
     treasuryTotalBorrowsCents: new BigNumber('1539590955.2987011849433085'),
     treasuryTotalSupplyCents: new BigNumber('2518082368.1866852001814986'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'ltc',
@@ -436,12 +388,6 @@ export const markets: Market[] = [
     supplierCount: 150,
     treasuryTotalBorrowsCents: new BigNumber('126638087.2195539757486425'),
     treasuryTotalSupplyCents: new BigNumber('1128847517.6948646438679408'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'xrp',
@@ -485,12 +431,6 @@ export const markets: Market[] = [
     supplierCount: 188,
     treasuryTotalBorrowsCents: new BigNumber('264952314.1081648148489552'),
     treasuryTotalSupplyCents: new BigNumber('967843280.1886978194664069'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'ada',
@@ -534,12 +474,6 @@ export const markets: Market[] = [
     supplierCount: 157,
     treasuryTotalBorrowsCents: new BigNumber('0'),
     treasuryTotalSupplyCents: new BigNumber('0'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'doge',
@@ -583,12 +517,6 @@ export const markets: Market[] = [
     supplierCount: 9,
     treasuryTotalBorrowsCents: new BigNumber('97985006.6629382882325'),
     treasuryTotalSupplyCents: new BigNumber('110639231.4638646474098287'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'matic',
@@ -632,12 +560,6 @@ export const markets: Market[] = [
     supplierCount: 152,
     treasuryTotalBorrowsCents: new BigNumber('10194525.2099292730251508'),
     treasuryTotalSupplyCents: new BigNumber('119815375.5117972192153777'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'cake',
@@ -681,12 +603,6 @@ export const markets: Market[] = [
     supplierCount: 195,
     treasuryTotalBorrowsCents: new BigNumber('1185227872.1560157262720313'),
     treasuryTotalSupplyCents: new BigNumber('2367908342.081922550654256'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'aave',
@@ -730,12 +646,6 @@ export const markets: Market[] = [
     supplierCount: 144,
     treasuryTotalBorrowsCents: new BigNumber('3314470.1306679919944071'),
     treasuryTotalSupplyCents: new BigNumber('423157352.5296656248989134'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'tusd',
@@ -779,12 +689,6 @@ export const markets: Market[] = [
     supplierCount: 138,
     treasuryTotalBorrowsCents: new BigNumber('827924.3179938772394707'),
     treasuryTotalSupplyCents: new BigNumber('10131052736.4547509365152667'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'trx',
@@ -828,12 +732,6 @@ export const markets: Market[] = [
     supplierCount: 133,
     treasuryTotalBorrowsCents: new BigNumber('205808.2101085432106229'),
     treasuryTotalSupplyCents: new BigNumber('273319087.8001371190191733'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'ust',
@@ -877,12 +775,6 @@ export const markets: Market[] = [
     supplierCount: 5,
     treasuryTotalBorrowsCents: new BigNumber('10000.7932372130381683'),
     treasuryTotalSupplyCents: new BigNumber('1500100.6345896630306407'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
   {
     id: 'luna',
@@ -926,11 +818,5 @@ export const markets: Market[] = [
     supplierCount: 3,
     treasuryTotalBorrowsCents: new BigNumber('0'),
     treasuryTotalSupplyCents: new BigNumber('137500'),
-
-    // underlyingDecimals: 0,
-    venusBorrowSpeed: '10',
-    venusSupplySpeed: '10',
-    dailySupplyXvs: '10',
-    dailyBorrowXvs: '10',
   },
 ];

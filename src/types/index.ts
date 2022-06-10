@@ -171,12 +171,6 @@ export interface Market {
   venusSupplyIndex: string;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
-
-  // underlyingDecimals: number;
-  venusBorrowSpeed: string;
-  venusSupplySpeed: string;
-  dailySupplyXvs: string;
-  dailyBorrowXvs: string;
 }
 
 export interface MarketSnapshot {

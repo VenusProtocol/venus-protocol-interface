@@ -28,6 +28,7 @@ import {
   calculateDailyEarningsCents,
   calculateCollateralValue,
 } from 'utilities';
+import { useVTokenDailyXvs } from 'hooks/useVTokenDailyXvs';
 import { useStyles } from '../styles';
 
 interface ISupplyWithdrawFormUiProps {
@@ -45,7 +46,6 @@ interface ISupplyWithdrawFormUiProps {
   isTransactionLoading: boolean;
   isXvsEnabled: boolean;
   amountValue: string;
-  dailyXvsDistributionInterestsCents: BigNumber;
 }
 
 export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
@@ -63,7 +63,6 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   isTransactionLoading,
   isXvsEnabled,
   amountValue,
-  dailyXvsDistributionInterestsCents,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -74,6 +73,10 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   const hypotheticalTokenSupplyBalance = amountValue
     ? calculateNewBalance(asset.supplyBalance, amount)
     : undefined;
+
+  const { dailyXvsDistributionInterestsCents } = useVTokenDailyXvs({
+    assets,
+  });
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);

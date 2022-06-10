@@ -8,7 +8,7 @@ import {
   calculateYearlyEarningsForAssets,
 } from 'utilities';
 import { Asset } from 'types';
-import { useDailyXvs } from 'hooks/useDailyXvs';
+import { useVTokenDailyXvs } from 'hooks/useVTokenDailyXvs';
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
 interface IMyAccountProps {
@@ -19,7 +19,6 @@ interface IMyAccountProps {
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalSupplyBalanceCents: BigNumber;
-  accountAddress?: string;
 }
 
 const MyAccount: React.FC<IMyAccountProps> = ({
@@ -30,11 +29,9 @@ const MyAccount: React.FC<IMyAccountProps> = ({
   userTotalBorrowLimitCents,
   userTotalBorrowBalanceCents,
   userTotalSupplyBalanceCents,
-  accountAddress,
 }) => {
-  const { dailyXvsDistributionInterestsCents } = useDailyXvs({
+  const { dailyXvsDistributionInterestsCents } = useVTokenDailyXvs({
     assets,
-    accountAddress,
   });
 
   const calculations: Pick<

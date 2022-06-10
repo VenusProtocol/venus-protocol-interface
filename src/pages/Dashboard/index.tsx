@@ -69,7 +69,6 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
           userTotalBorrowLimitCents={userTotalBorrowLimitCents}
           userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
           userTotalSupplyBalanceCents={userTotalSupplyBalanceCents}
-          accountAddress={accountAddress}
         />
 
         <MintRepayVai css={styles.column} />
