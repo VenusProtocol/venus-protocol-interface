@@ -121,8 +121,9 @@
     "enableButtonLabel": "Enable"
   },
   "errors": {
+    "genericApi": "Something went wrong",
     "somethingWentWrong": "Something went wrong",
-    "undefinedAccountErrorMessage": "account undefined",
+    "undefinedAccountErrorMessage": "Account undefined",
     "walletNotConnected": "Wallet not connected"
   },
   "footer": {
@@ -518,8 +519,6 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
-    "abstain": "Abstain",
-    "against": "Against",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",
@@ -528,7 +527,6 @@
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
-    "for": "For",
     "governanceProposals": "Governance proposals",
     "pasteYourAddress": "Paste your address",
     "pleasePayAttention": "Please pay attention",
@@ -567,6 +565,15 @@
       "votedAgainst": "Voted against",
       "votedFor": "Voted for"
     }
+  },
+  "wallets": {
+    "binanceChainWallet": "Binance Chain Wallet",
+    "braveWallet": "Brave Wallet",
+    "coinbaseWallet": "Coinbase Wallet",
+    "ledger": "Ledger",
+    "metamask": "MetaMask",
+    "trustWallet": "Trust Wallet",
+    "walletConnect": "WalletConnect"
   },
   "xvs": {
     "columns": {

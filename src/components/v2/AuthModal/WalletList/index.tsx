@@ -6,7 +6,7 @@ import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3';
 import { VENUS_TERMS_OF_SERVICE_URL, isOnTestnet } from 'config';
 import { Icon } from '../../Icon';
-import { WALLETS, UPCOMING_WALLETS } from '../constants';
+import { WALLETS, UPCOMING_WALLETS, INTEGRATED_WALLETS } from '../constants';
 import { useStyles } from './styles';
 
 export interface IWalletListProps {
@@ -37,6 +37,24 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
           </button>
         ),
       )}
+
+      {INTEGRATED_WALLETS.map(({ name, Logo, linkUrl }) => (
+        <a
+          css={styles.getListItem({ isActionable: true })}
+          key={`wallet-${name}`}
+          href={linkUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Logo css={styles.walletLogo} />
+
+          <Typography css={styles.walletName} component="span">
+            {name}
+          </Typography>
+
+          <Icon name="chevronRight" css={[styles.chevronRightIcon]} />
+        </a>
+      ))}
 
       <div css={styles.divider} />
 
