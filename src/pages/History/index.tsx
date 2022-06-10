@@ -9,7 +9,7 @@ import Filters, { ALL_VALUE, IFilterProps } from './Filters';
 
 interface IHistoryUiProps extends IFilterProps {
   transactions: ITransaction[];
-  isLoading: boolean;
+  isFetching: boolean;
   total: number | undefined;
   limit: number | undefined;
   setCurrentPage: (page: number) => void;
@@ -22,7 +22,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
   setShowOnlyMyTxns,
   transactions,
   walletConnected,
-  isLoading,
+  isFetching,
   total,
   limit,
   setCurrentPage,
@@ -35,7 +35,7 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
       setShowOnlyMyTxns={setShowOnlyMyTxns}
       walletConnected={walletConnected}
     />
-    <HistoryTable transactions={transactions} isLoading={isLoading} />
+    <HistoryTable transactions={transactions} isFetching={isFetching} />
     {total ? (
       <Pagination
         itemsCount={total}
@@ -55,7 +55,7 @@ const History: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
-  const { data: { transactions, total, limit } = { transactions: [] }, isLoading } =
+  const { data: { transactions, total, limit } = { transactions: [] }, isFetching } =
     useGetTransactions({
       page: currentPage,
       address: showOnlyMyTxns ? accountAddress : undefined,
@@ -70,7 +70,7 @@ const History: React.FC = () => {
       setShowOnlyMyTxns={setShowOnlyMyTxns}
       transactions={transactions}
       walletConnected={!!accountAddress}
-      isLoading={isLoading}
+      isFetching={isFetching}
       total={total}
       limit={limit}
       setCurrentPage={setCurrentPage}
