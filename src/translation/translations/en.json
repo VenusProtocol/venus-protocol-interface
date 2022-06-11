@@ -559,8 +559,6 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
-    "abstain": "Abstain",
-    "against": "Against",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",
@@ -569,7 +567,6 @@
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
-    "for": "For",
     "governanceProposals": "Governance proposals",
     "pages": {
       "actions": "3 of 3 Actions",
@@ -701,12 +698,6 @@
     "binanceChainWallet": "Binance Chain Wallet",
     "braveWallet": "Brave Wallet",
     "coinbaseWallet": "Coinbase Wallet",
-    "errors": {
-      "authorizeAccess": "You need to authorize access to your account",
-      "noProvider": "If you are connecting an external wallet, make sure you have a provider such as MetaMask or compatible wallet such as Brave",
-      "unsupportedWallet": "Unable to connect. Make sure your selection matches your desired wallet."
-    },
-    "infinityWallet": "Infinity Wallet",
     "ledger": "Ledger",
     "metamask": "MetaMask",
     "trustWallet": "Trust Wallet",
