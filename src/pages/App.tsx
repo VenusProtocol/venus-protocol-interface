@@ -51,19 +51,9 @@ const App = () => (
                           <ResetScrollOnRouteChange />
                           <Switch>
                             <Route exact path={Path.DASHBOARD} component={Dashboard} />
-                            <Route
-                              exact
-                              path={Path.VOTE}
-                              component={process.env.REACT_APP_RUN_V2 ? Vote : VoteV1}
-                            />
-                            <Route exact path={Path.XVS} component={Xvs} />
+
                             <Route exact path={Path.MARKET} component={Market} />
                             <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
-                            <Route
-                              exact
-                              path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
-                              component={process.env.REACT_APP_RUN_V2 ? History : TransactionV1}
-                            />
 
                             <Route
                               exact
@@ -73,17 +63,33 @@ const App = () => (
 
                             <Route
                               exact
+                              path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
+                              component={process.env.REACT_APP_RUN_V2 ? History : TransactionV1}
+                            />
+
+                            <Route
+                              exact
+                              path={Path.VOTE}
+                              component={process.env.REACT_APP_RUN_V2 ? Vote : VoteV1}
+                            />
+                            <Route
+                              exact
                               path={Path.VOTE_LEADER_BOARD}
                               component={VoterLeaderboard}
                             />
+                            <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
                             <Route
                               exact
                               path={Path.VOTE_PROPOSAL_DETAILS}
                               component={process.env.REACT_APP_RUN_V2 ? Proposal : VoteOverview}
                             />
-                            <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
+
+                            <Route exact path={Path.XVS} component={Xvs} />
+
                             <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
+
                             {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
+
                             <Redirect to={Path.DASHBOARD} />
                           </Switch>
                         </Layout>
