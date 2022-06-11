@@ -6,49 +6,54 @@ import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.s
 import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
 import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
 import { ReactComponent as BraveWalletLogo } from 'assets/img/v2/wallets/braveWalletLogo.svg';
+import { t } from 'translation';
 import { Connector } from 'clients/web3';
-import { BaseWallet, Wallet } from './types';
+import { BaseWallet, Wallet, IntegratedWallet } from './types';
 
 export const WALLETS: Wallet[] = [
   {
-    name: 'MetaMask',
+    name: t('wallets.metamask'),
     Logo: MetaMaskLogo,
     connector: Connector.MetaMask,
   },
   {
-    name: 'Coinbase Wallet',
+    name: t('wallets.coinbaseWallet'),
     Logo: CoinbaseWalletLogo,
     connector: Connector.CoinbaseWallet,
     mainnetOnly: true,
   },
   {
-    name: 'Trust Wallet',
+    name: t('wallets.trustWallet'),
     Logo: TrustWalletLogo,
     connector: Connector.TrustWallet,
   },
   {
-    name: 'WalletConnect',
+    name: t('wallets.walletConnect'),
     Logo: WalletConnectLogo,
     connector: Connector.WalletConnect,
     mainnetOnly: true,
   },
   {
-    name: 'Binance Chain Wallet',
+    name: t('wallets.binanceChainWallet'),
     Logo: BinanceChainWalletLogo,
     connector: Connector.BinanceChainWallet,
   },
   {
-    name: 'Brave',
+    name: t('wallets.braveWallet'),
     Logo: BraveWalletLogo,
     connector: Connector.BraveWallet,
   },
 ];
 
-export const UPCOMING_WALLETS: BaseWallet[] = [
+export const INTEGRATED_WALLETS: IntegratedWallet[] = [
   {
-    name: 'Ledger',
+    name: t('wallets.ledger'),
     Logo: LedgerLogo,
+    linkUrl: 'https://www.ledger.com/academy/security/the-safest-way-to-use-metamask',
   },
+];
+
+export const UPCOMING_WALLETS: BaseWallet[] = [
   {
     name: 'SafePal',
     Logo: SafePalLogo,
