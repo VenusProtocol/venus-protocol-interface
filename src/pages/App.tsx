@@ -60,7 +60,11 @@ const App = () => (
                               component={process.env.REACT_APP_RUN_V2 ? Vault : VaultV1}
                             />
 
-                            <Route exact path={Path.HISTORY} component={History} />
+                            <Route
+                              exact
+                              path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
+                              component={process.env.REACT_APP_RUN_V2 ? History : TransactionV1}
+                            />
 
                             <Route
                               exact
@@ -71,11 +75,6 @@ const App = () => (
                               exact
                               path={Path.VOTE_LEADER_BOARD}
                               component={VoterLeaderboard}
-                            />
-                            <Route
-                              exact
-                              path={Path.VOTE_PROPOSAL_DETAILS}
-                              component={process.env.REACT_APP_RUN_V2 ? Proposal : VoteOverview}
                             />
                             <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
                             <Route
