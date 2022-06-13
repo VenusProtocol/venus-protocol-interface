@@ -12,10 +12,11 @@ export const FormikTextField = ({
   displayableErrorCodes = [],
   ...rest
 }: IFormikTextField) => {
-  const [{ value, onBlur }, { error }, { setValue }] = useField(name);
+  const [{ value, onBlur }, { error }, { setValue, setTouched }] = useField(name);
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     const val = e.target.value;
     setValue(val);
+    setTouched(true);
   };
   return (
     <TextField
