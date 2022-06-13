@@ -13,10 +13,11 @@ export const FormikTextField = ({
   onBlur,
   ...rest
 }: IFormikTextField) => {
-  const [{ value, onBlur: formikOnBlur }, { error, touched }, { setValue }] = useField(name);
+  const [{ value, onBlur }, { error }, { setValue, setTouched }] = useField(name);
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     const val = e.target.value;
     setValue(val);
+    setTouched(true);
   };
 
   const handleBlur: React.FocusEventHandler<HTMLInputElement> = e => {
