@@ -574,6 +574,11 @@
     "binanceChainWallet": "Binance Chain Wallet",
     "braveWallet": "Brave Wallet",
     "coinbaseWallet": "Coinbase Wallet",
+    "errors": {
+      "authorizeAccess": "You need to authorize access to your account",
+      "noProvider": "If you are connecting an external wallet, make sure you have a provider such as Metamask or compatible wallet such as Brave",
+      "unsupportedWallet": "Unable to connect. Make sure your selection matches your desired wallet."
+    },
     "ledger": "Ledger",
     "metamask": "MetaMask",
     "trustWallet": "Trust Wallet",

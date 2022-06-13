@@ -11,6 +11,7 @@ import {
 } from '@web3-react/walletconnect-connector';
 import { toast } from 'components/v2/Toast';
 import { LS_KEY_CONNECTED_CONNECTOR } from 'config';
+import { useTranslation } from 'translation';
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
@@ -25,6 +26,8 @@ const getConnectedConnector = (): Connector | undefined => {
 };
 
 const useAuth = () => {
+  const { t } = useTranslation();
+
   const { activate, deactivate, account } = useWeb3React();
 
   const [connectedConnector, setConnectedConnector] = useState(getConnectedConnector());
@@ -37,7 +40,7 @@ const useAuth = () => {
         // an incorrect connectorID was passed to this function)
 
         toast.error({
-          message: 'An internal error occurred: unsupported wallet. Please try again later',
+          message: t('wallets.errors.unsupportedWallet'),
         });
         return;
       }
@@ -75,14 +78,14 @@ const useAuth = () => {
           error instanceof UserRejectedRequestErrorInjected ||
           error instanceof UserRejectedRequestErrorWalletConnect
         ) {
-          errorMessage = 'You need to authorize access to your account';
+          errorMessage = t('wallets.errors.authorizeAccess');
         } else if (
           error instanceof NoEthereumProviderError ||
           error instanceof NoBscProviderError
         ) {
           // TODO: log error to Sentry
 
-          errorMessage = 'An internal error occurred: no provider found. Please try again later';
+          errorMessage = t('wallets.errors.noProvider');
         } else {
           errorMessage = (error as Error).message;
         }
