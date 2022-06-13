@@ -19,10 +19,15 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
   createProposal,
 }) => {
   const styles = useStyles();
-  console.log(styles);
+
   const { t } = useTranslation();
   return (
-    <Modal isOpened={isOpen} handleClose={handleClose} title={t('vote.createProposal')}>
+    <Modal
+      isOpened={isOpen}
+      handleClose={handleClose}
+      title={t('vote.createProposal')}
+      css={styles.modal}
+    >
       <Formik
         initialValues={{ actions: [{ address: '', signature: '' }], description: '' }}
         validationSchema={proposalSchema}
@@ -44,7 +49,7 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
               css={styles.sectionSpacing}
               hasError={!!errors.description && touched.description}
             />
-            <FormikSubmitButton enabledLabel={t('vote.createProposalForm.create')} />
+            <FormikSubmitButton enabledLabel={t('vote.createProposalForm.create')} fullWidth />
           </Form>
         )}
       </Formik>
