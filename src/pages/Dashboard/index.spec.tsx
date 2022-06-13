@@ -1,9 +1,11 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { within } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 import { assetData } from '__mocks__/models/asset';
 import renderComponent from 'testUtils/renderComponent';
 import { useGetUserMarketInfo } from 'clients/api';
+import { Asset } from 'types';
 import en from 'translation/translations/en.json';
 import Dashboard from '.';
 
@@ -48,4 +50,32 @@ describe('pages/Dashboard', () => {
     expect(within(nonSuppliedTable as HTMLTableSectionElement).queryByText('SXP')).toBeNull();
     expect(within(nonSuppliedTable as HTMLTableSectionElement).queryByText('USDC')).toBeNull();
   });
+
+  it.each(['ust', 'luna'])(
+    'displays warning modal if %s is enabled as collateral',
+    async tokenId => {
+      const customAssets: Asset[] = [
+        ...assetData,
+        {
+          ...assetData[0],
+          id: tokenId as Asset['id'],
+          collateral: true,
+        },
+      ];
+
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: customAssets,
+          userTotalBorrowLimitCents: new BigNumber('111'),
+          userTotalBorrowBalanceCents: new BigNumber('91'),
+          userTotalSupplyBalanceCents: new BigNumber('910'),
+        },
+        isLoading: false,
+      }));
+
+      const { getByText } = renderComponent(<Dashboard />);
+
+      await waitFor(() => expect(getByText(en.dashboard.lunaUstWarningModal.title)));
+    },
+  );
 });
