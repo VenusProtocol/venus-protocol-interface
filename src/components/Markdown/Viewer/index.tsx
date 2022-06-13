@@ -4,23 +4,13 @@ import ReactMarkdown from '@uiw/react-markdown-preview';
 import previewOptions from '../previewOptions';
 import { useStyles } from './styles';
 
-export interface IMarkdownViewerProps {
+export interface IMarkdownProps {
   content: string;
-  className?: string;
 }
 
-const Markdown: React.FC<IMarkdownViewerProps> = ({ content, className }) => {
+const Markdown: React.FC<IMarkdownProps> = ({ content }) => {
   const styles = useStyles();
-
-  return (
-    <ReactMarkdown
-      className={className}
-      source={content}
-      css={styles.preview}
-      {...previewOptions}
-      linkTarget="_blank"
-    />
-  );
+  return <ReactMarkdown source={content} css={styles.preview} {...previewOptions} />;
 };
 
 export default Markdown;

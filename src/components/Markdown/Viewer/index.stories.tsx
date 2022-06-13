@@ -9,6 +9,4 @@ export default {
   decorators: [withCenterStory({ width: 250 }), withOnChange(e => e.target.checked)],
 } as ComponentMeta<typeof MarkdownViewer>;
 
-export const Default = () => (
-  <MarkdownViewer content="This markdown has an image but it isn't allowed ![alt text](https://cdn.mos.cms.futurecdn.net/RifjtkFLBEFgzkZqWEh69P-1024-80.jpg)" />
-);
+export const Default = () => <MarkdownViewer content="Content" />;

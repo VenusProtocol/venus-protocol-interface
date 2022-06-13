@@ -1,20 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Typography } from '@mui/material';
+
 import MdEditor, { commands } from '@uiw/react-md-editor';
 import previewOptions from '../previewOptions';
-import { useStyles } from './styles';
-import './styles-overrides.scss';
+import './styles.scss';
 
-export interface IMarkdownEditorProps {
+export interface IMarkdownProps {
   value: string;
   onChange: (text: string | undefined) => void;
-  name: string;
-  placeholder: string;
-  hasError?: boolean;
-  className?: string;
-  label?: string;
-  onBlur: (e: React.FocusEvent<HTMLTextAreaElement, Element>) => void;
 }
 const allowedCommands = [
   commands.title1,
@@ -27,46 +20,15 @@ const allowedCommands = [
   commands.italic,
 ];
 
-const MarkdownEditor: React.FC<IMarkdownEditorProps> = ({
-  value,
-  onChange,
-  name,
-  placeholder,
-  hasError,
-  className,
-  label,
-  onBlur,
-}) => {
-  const styles = useStyles();
-  return (
-    <>
-      {!!label && (
-        <Typography
-          variant="small1"
-          component="label"
-          css={styles.getLabel(hasError)}
-          htmlFor={name}
-        >
-          {label}
-        </Typography>
-      )}
-      <MdEditor
-        className={className}
-        value={value}
-        onChange={onChange}
-        commands={allowedCommands}
-        previewOptions={previewOptions}
-        textareaProps={{
-          placeholder,
-          name,
-          id: name,
-          onBlur,
-        }}
-        placeholder={placeholder}
-        css={styles.hasError(hasError)}
-      />
-    </>
-  );
-};
+const MarkdownEditor: React.FC<IMarkdownProps> = ({ value, onChange }) => (
+  <MdEditor
+    value={value}
+    onChange={onChange}
+    commands={allowedCommands}
+    previewOptions={{
+      rehypePlugins: [[rehypeSanitize]],
+    }}
+  />
+);
 
 export default MarkdownEditor;
