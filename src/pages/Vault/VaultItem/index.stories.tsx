@@ -6,7 +6,7 @@ import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { VaultItemUi } from '.';
 
 export default {
-  title: 'Components/VaultItem',
+  title: 'Pages/Vault/VaultItem',
   component: VaultItem,
   decorators: [withCenterStory({ width: 800 }), withThemeProvider],
   parameters: {
