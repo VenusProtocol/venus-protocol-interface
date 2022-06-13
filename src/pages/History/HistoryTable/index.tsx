@@ -6,7 +6,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress, convertWeiToTokens } from 'utilities';
 import { useTranslation } from 'translation';
-import { ITransaction, TokenId } from 'types';
+import { ITransaction } from 'types';
 import { useStyles } from './styles';
 
 export interface IHistoryTableProps {
