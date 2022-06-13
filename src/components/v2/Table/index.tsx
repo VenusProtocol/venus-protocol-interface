@@ -108,6 +108,9 @@ export const Table = ({
   return (
     <Paper css={styles.root} className={className}>
       {title && <h4 css={styles.title}>{title}</h4>}
+
+      {isFetching && <Spinner css={styles.loader} />}
+
       <TableContainer css={tableCss}>
         <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
           <Head
@@ -162,18 +165,15 @@ export const Table = ({
           )}
         </TableMUI>
       </TableContainer>
-      {isFetching ? (
-        <Spinner css={cardsCss} />
-      ) : (
-        <TableCards
-          rows={rows}
-          rowKeyIndex={rowKeyIndex}
-          rowOnClick={rowOnClick}
-          getRowHref={getRowHref}
-          columns={cardColumns || columns}
-          css={cardsCss}
-        />
-      )}
+
+      <TableCards
+        rows={rows}
+        rowKeyIndex={rowKeyIndex}
+        rowOnClick={rowOnClick}
+        getRowHref={getRowHref}
+        columns={cardColumns || columns}
+        css={cardsCss}
+      />
     </Paper>
   );
 };
