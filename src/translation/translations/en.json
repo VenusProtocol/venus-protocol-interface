@@ -542,6 +542,15 @@
     "against": "Against",
     "createProposal": "+ Create proposal",
     "delegate": "Delegate",
+    "createProposalForm": {
+      "action": "Action",
+      "addOneMoreAction": "+ Add one more action",
+      "address": "Address",
+      "create": "Create",
+      "addDescription": "Add Description",
+      
+      "signature": "Signature"
+    },
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",
