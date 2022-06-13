@@ -11,10 +11,7 @@ export const useStyles = () => {
       ${theme.breakpoints.down('xxl')} {
         padding: 0;
         background-color: transparent;
-      }
-
-      ${theme.breakpoints.down('lg')} {
-        margin-bottom: 0;
+        margin-bottom: ${theme.spacing(6)};
       }
     `,
     row: css`
