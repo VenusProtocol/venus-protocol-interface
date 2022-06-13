@@ -35,6 +35,8 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@types/comma-number": "^2.1.0",
+    "@uiw/react-markdown-preview": "^4.0.17",
+    "@uiw/react-md-editor": "^3.14.3",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.13",
