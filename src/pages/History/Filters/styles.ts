@@ -18,6 +18,9 @@ export const useStyles = () => {
         padding: 0;
       }
     `,
+    checkbox: css`
+      margin-right: ${theme.spacing(2)};
+    `,
     myTransactions: css`
       display: flex;
       flex-direction: row;

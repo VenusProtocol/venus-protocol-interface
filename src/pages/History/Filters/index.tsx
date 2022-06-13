@@ -50,7 +50,11 @@ export const Filters: React.FC<IFilterProps> = ({
       <div css={styles.myTransactions}>
         {walletConnected && (
           <>
-            <Checkbox onChange={e => setShowOnlyMyTxns(e.target.checked)} value={showOnlyMyTxns} />
+            <Checkbox
+              onChange={e => setShowOnlyMyTxns(e.target.checked)}
+              value={showOnlyMyTxns}
+              css={styles.checkbox}
+            />
             <Typography variant="small2">{t('history.myTransactions')}</Typography>
           </>
         )}
