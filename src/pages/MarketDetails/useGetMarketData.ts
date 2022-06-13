@@ -7,6 +7,9 @@ import { convertWeiToCoins } from 'utilities/common';
 import { VTOKEN_DECIMALS } from 'config';
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
 
+// Percentages returned by smart contracts use 18 decimals
+const SMART_CONTRACT_PERCENTAGE_DECIMALS = 18;
+
 const useGetMarketData = ({
   vTokenId,
   vTokenAddress,
@@ -54,20 +57,16 @@ const useGetMarketData = ({
 
     const reserveFactor =
       assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.reserveFactor),
-        tokenId: vTokenId,
-      })
+      new BigNumber(assetMarket.reserveFactor)
+        .dividedBy(new BigNumber(10).pow(SMART_CONTRACT_PERCENTAGE_DECIMALS))
         // Convert to percentage
         .multipliedBy(100)
         .toNumber();
 
     const collateralFactor =
       assetMarket &&
-      convertWeiToCoins({
-        valueWei: new BigNumber(assetMarket.collateralFactor),
-        tokenId: vTokenId,
-      })
+      new BigNumber(assetMarket.collateralFactor)
+        .dividedBy(new BigNumber(10).pow(SMART_CONTRACT_PERCENTAGE_DECIMALS))
         // Convert to percentage
         .multipliedBy(100)
         .toNumber();
