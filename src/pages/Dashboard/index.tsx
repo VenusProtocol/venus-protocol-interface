@@ -7,7 +7,9 @@ import { Asset } from 'types';
 
 import MyAccount from './MyAccount';
 import MintRepayVai from './MintRepayVai';
+import { LunaUstWarningModal } from './Modals';
 import Markets from './Markets';
+import useLunaUstWarningModal from './useLunaUstWarningModal';
 import { useStyles } from './styles';
 
 interface IDashboardUiProps {
@@ -27,6 +29,8 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 }) => {
   const styles = useStyles();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
+  const [shouldShowLunaUstWarningModal, closeLunaUstWarningModal] = useLunaUstWarningModal(assets);
+
   const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
     useMemo(() => {
       const sortedAssets = assets.reduce(
@@ -79,6 +83,8 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
         borrowingAssets={borrowingAssets}
         borrowMarketAssets={borrowMarketAssets}
       />
+
+      {shouldShowLunaUstWarningModal && <LunaUstWarningModal onClose={closeLunaUstWarningModal} />}
     </>
   );
 };
