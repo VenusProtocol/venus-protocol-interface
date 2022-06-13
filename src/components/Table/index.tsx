@@ -172,18 +172,15 @@ export const Table = ({
           )}
         </TableMUI>
       </TableContainer>
-      {isFetching ? (
-        <Spinner css={cardsCss} />
-      ) : (
-        <TableCards
-          rows={rows}
-          rowKeyIndex={rowKeyIndex}
-          rowOnClick={rowOnClick}
-          getRowHref={getRowHref}
-          columns={cardColumns || columns}
-          css={cardsCss}
-        />
-      )}
+
+      <TableCards
+        rows={rows}
+        rowKeyIndex={rowKeyIndex}
+        rowOnClick={rowOnClick}
+        getRowHref={getRowHref}
+        columns={cardColumns || columns}
+        css={cardsCss}
+      />
     </Paper>
   );
 };
