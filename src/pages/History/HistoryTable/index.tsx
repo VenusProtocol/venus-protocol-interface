@@ -43,13 +43,13 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
     return newColumns;
   }, [columns]);
 
-  // Format assets to rows
+  // Format transactions to rows
   const rows: TableProps['data'] = useMemo(
     () =>
       transactions.map(txn => {
-        const tokenId = txn.vTokenAddress
-          ? (getTokenIdFromVAddress(txn.vTokenAddress) as TokenId)
-          : XVS_TOKEN_ID;
+        const tokenId =
+          (txn.vTokenAddress && getTokenIdFromVAddress(txn.vTokenAddress)) || XVS_TOKEN_ID;
+
         return [
           {
             key: 'id',
