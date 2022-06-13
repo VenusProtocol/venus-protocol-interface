@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withOnChange } from 'stories/decorators';
-import { MarkdownViewer } from '.';
+import MarkdownViewer from '.';
 
 export default {
   title: 'Components/Markdown/Viewer',
