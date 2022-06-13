@@ -28,7 +28,6 @@ const ActionAccordion: React.FC<IActionAccordion> = ({
     (actionIdx: number) => (event: React.SyntheticEvent, newExpandedIdx: boolean) => {
       setExpanded(newExpandedIdx ? actionIdx : undefined);
     };
-  console.log({ errors, actions });
 
   return (
     <div>
@@ -41,9 +40,11 @@ const ActionAccordion: React.FC<IActionAccordion> = ({
               if (actions.length < 2) {
                 return (
                   <>
-                    <Typography>{t('vote.createProposalForm.action')}</Typography>
+                    <Typography color="textPrimary" css={styles.formBottomMargin}>
+                      {t('vote.createProposalForm.action')}
+                    </Typography>
                     <FormikTextField
-                      name="actions.0.address"
+                      name={`actions.${idx}.address`}
                       placeholder={t('vote.createProposalForm.address')}
                       maxLength={42}
                       css={styles.formBottomMargin}
@@ -52,7 +53,7 @@ const ActionAccordion: React.FC<IActionAccordion> = ({
                       }
                     />
                     <FormikTextField
-                      name="actions.0.signature"
+                      name={`actions.${idx}.signature`}
                       placeholder={t('vote.createProposalForm.signature')}
                       hasError={
                         !!(errors && errors[idx]?.signature) && touched && touched[idx]?.signature
@@ -62,20 +63,28 @@ const ActionAccordion: React.FC<IActionAccordion> = ({
                 );
               }
               return (
-                <Accordion key={key} expanded={expandedIdx === idx} onChange={handleChange(idx)}>
-                  <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                    {expandedIdx === idx ? (
-                      <Icon name="arrowDown" css={styles.invertArrow} />
-                    ) : (
-                      <Icon name="arrowDown" />
-                    )}
-                    <Typography>{action.signature}</Typography>
-                    <button onClick={() => remove(idx)} type="button">
+                <Accordion
+                  key={key}
+                  expanded={expandedIdx === idx}
+                  onChange={handleChange(idx)}
+                  css={styles.accordionRoot}
+                >
+                  <AccordionSummary
+                    aria-controls={`panel${idx}-content`}
+                    id={`panel${idx}-header`}
+                    css={styles.accordionSummary}
+                  >
+                    <div css={styles.accordionLeft}>
+                      <Icon name="arrowDown" css={styles.arrow(expandedIdx === idx)} />
+                      <Typography color="textPrimary">
+                        {action.signature || t('vote.createProposalForm.action')}
+                      </Typography>
+                    </div>
+                    <button onClick={() => remove(idx)} type="button" css={styles.iconButton}>
                       <Icon name="close" />
                     </button>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Typography>{t('vote.createProposalForm.action')}</Typography>
                     <FormikTextField
                       name={`actions.${idx}.address`}
                       placeholder={t('vote.createProposalForm.address')}
@@ -99,9 +108,10 @@ const ActionAccordion: React.FC<IActionAccordion> = ({
             <SecondaryButton
               onClick={() => {
                 push({});
-                setExpanded((expandedIdx || 0) + 1);
+                setExpanded(actions.length || 0);
               }}
               fullWidth
+              css={styles.addOneMore}
               disabled={!!errors}
             >
               {t('vote.createProposalForm.addOneMoreAction')}
