@@ -5,6 +5,8 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     root: css`
+      padding: 0;
+
       svg {
         height: ${theme.spacing(6)};
         width: ${theme.spacing(6)};

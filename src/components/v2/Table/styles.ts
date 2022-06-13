@@ -23,7 +23,10 @@ export const useStyles = () => {
       }
     `,
     tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
-      margin-top: ${theme.spacing(6)};
+      &:not(:first-of-type) {
+        margin-top: ${theme.spacing(6)};
+      }
+
       padding: ${theme.spacing(4, 0)};
       ${clickable &&
       `
@@ -65,6 +68,9 @@ export const useStyles = () => {
       overflow: hidden;
       text-overflow: ellipsis;
       font-weight: 400;
+    `,
+    loader: css`
+      margin-bottom: ${theme.spacing(6)};
     `,
     table: ({ minWidth }: { minWidth: string }) => css`
       min-width: ${minWidth};

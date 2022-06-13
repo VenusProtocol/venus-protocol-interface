@@ -7,7 +7,7 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
 import { convertWeiToCoins } from 'utilities/common';
 import { useTranslation } from 'translation';
-import { ITransaction, TokenId } from 'types';
+import { ITransaction } from 'types';
 import { useStyles } from './styles';
 
 export interface IHistoryTableProps {
@@ -44,13 +44,13 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
     return newColumns;
   }, [columns]);
 
-  // Format assets to rows
+  // Format transactions to rows
   const rows: TableProps['data'] = useMemo(
     () =>
       transactions.map(txn => {
-        const tokenId = txn.vTokenAddress
-          ? (getTokenIdFromVAddress(txn.vTokenAddress) as TokenId)
-          : XVS_TOKEN_ID;
+        const tokenId =
+          (txn.vTokenAddress && getTokenIdFromVAddress(txn.vTokenAddress)) || XVS_TOKEN_ID;
+
         return [
           {
             key: 'id',

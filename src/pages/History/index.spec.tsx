@@ -24,17 +24,14 @@ describe('pages/History', () => {
   it('fetches transaction on mount', async () => {
     renderComponent(<History />);
     expect(useGetTransactions).toBeCalledTimes(1);
-    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: undefined, page: 1 });
+    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: undefined, page: 0 });
   });
 
   it('renders spinner when fetching', async () => {
-    (useGetTransactions as jest.Mock).mockImplementation(() => {
-      setTimeout(() => {}, 5000);
-      return {
-        data: undefined,
-        isFetching: true,
-      };
-    });
+    (useGetTransactions as jest.Mock).mockImplementation(() => ({
+      data: undefined,
+      isFetching: true,
+    }));
     const { getByTestId } = renderComponent(<History />);
     getByTestId(SPINNER_TEST_ID);
   });
@@ -48,7 +45,7 @@ describe('pages/History', () => {
       },
     });
     expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: 'Mint', page: 1 });
+    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: 'Mint', page: 0 });
   });
 
   it('rerequests when toggling addressFilter', async () => {
@@ -58,7 +55,7 @@ describe('pages/History', () => {
     const myAddressCheckbox = getByRole('checkbox');
     fireEvent.click(myAddressCheckbox);
     expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ address: fakeAddress, event: undefined, page: 1 });
+    expect(useGetTransactions).toBeCalledWith({ address: fakeAddress, event: undefined, page: 0 });
   });
 
   it('address filter is hidden with no wallet connected', async () => {
@@ -72,6 +69,6 @@ describe('pages/History', () => {
     const pageTwoButton = getByText('2');
     fireEvent.click(pageTwoButton);
     expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: undefined, page: 2 });
+    expect(useGetTransactions).toBeCalledWith({ address: undefined, event: undefined, page: 1 });
   });
 });

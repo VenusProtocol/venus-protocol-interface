@@ -108,6 +108,9 @@ export const Table = ({
   return (
     <Paper css={styles.root} className={className}>
       {title && <h4 css={styles.title}>{title}</h4>}
+
+      {isFetching && <Spinner css={styles.loader} />}
+
       <TableContainer css={tableCss}>
         <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
           <Head
@@ -117,63 +120,47 @@ export const Table = ({
             onRequestOrder={onRequestOrder}
           />
 
-          {/* TODO: add error state */}
-          {isFetching ? (
-            <TableRow>
-              <TableCell colSpan={columns.length}>
-                <Spinner />
-              </TableCell>
-            </TableRow>
-          ) : (
-            <TableBody>
-              {rows.map(row => {
-                const rowKey = row[rowKeyIndex].value.toString();
-                return (
-                  <TableRow
-                    hover
-                    key={`${rowKey}-table`}
-                    css={styles.getTableRow({ clickable: !!rowOnClick })}
-                    onClick={
-                      rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
-                    }
-                  >
-                    {row.map(({ key, render, align }: ITableRowProps) => {
-                      const cellContent = render();
-                      const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
-                      return (
-                        <TableCell
-                          css={styles.getCellWrapper({ containsLink: !!getRowHref })}
-                          key={`${rowKey}-${key}-table`}
-                          title={cellTitle}
-                          align={align}
-                        >
-                          {getRowHref ? (
-                            <Link to={getRowHref(row)}>{cellContent}</Link>
-                          ) : (
-                            cellContent
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          )}
+          <TableBody>
+            {rows.map(row => {
+              const rowKey = row[rowKeyIndex].value.toString();
+              return (
+                <TableRow
+                  hover
+                  key={`${rowKey}-table`}
+                  css={styles.getTableRow({ clickable: !!rowOnClick })}
+                  onClick={
+                    rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
+                  }
+                >
+                  {row.map(({ key, render, align }: ITableRowProps) => {
+                    const cellContent = render();
+                    const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+                    return (
+                      <TableCell
+                        css={styles.getCellWrapper({ containsLink: !!getRowHref })}
+                        key={`${rowKey}-${key}-table`}
+                        title={cellTitle}
+                        align={align}
+                      >
+                        {getRowHref ? <Link to={getRowHref(row)}>{cellContent}</Link> : cellContent}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
         </TableMUI>
       </TableContainer>
-      {isFetching ? (
-        <Spinner css={cardsCss} />
-      ) : (
-        <TableCards
-          rows={rows}
-          rowKeyIndex={rowKeyIndex}
-          rowOnClick={rowOnClick}
-          getRowHref={getRowHref}
-          columns={cardColumns || columns}
-          css={cardsCss}
-        />
-      )}
+
+      <TableCards
+        rows={rows}
+        rowKeyIndex={rowKeyIndex}
+        rowOnClick={rowOnClick}
+        getRowHref={getRowHref}
+        columns={cardColumns || columns}
+        css={cardsCss}
+      />
     </Paper>
   );
 };
