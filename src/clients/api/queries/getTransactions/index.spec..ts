@@ -1,8 +1,7 @@
-import { Transaction } from 'models';
 import { restService } from 'utilities/restService';
 import { transactionResponse } from '__mocks__/models/transactions';
 import fakeAddress from '__mocks__/models/address';
-import getTransactions from './getTransactions';
+import getTransactions from '.';
 
 jest.mock('utilities/restService');
 
@@ -38,7 +37,9 @@ describe('api/queries/getMarkets', () => {
       address: fakeAddress,
       sort: 'asc',
     });
+
     expect(transactions).toHaveLength(20);
+
     expect(restService).toBeCalledWith({
       endpoint: '/transactions',
       method: 'GET',
@@ -50,9 +51,8 @@ describe('api/queries/getMarkets', () => {
         sort: 'asc',
       },
     });
-    transactions.forEach(txn => {
-      expect(txn).toBeInstanceOf(Transaction);
-    });
+
+    expect(transactions).toMatchSnapshot();
   });
 
   test('Gets called with correct default arguments', async () => {
@@ -62,7 +62,9 @@ describe('api/queries/getMarkets', () => {
     }));
 
     const { transactions } = await getTransactions({});
+
     expect(transactions).toHaveLength(20);
+
     expect(restService).toBeCalledWith({
       endpoint: '/transactions',
       method: 'GET',
@@ -74,8 +76,7 @@ describe('api/queries/getMarkets', () => {
         sort: 'desc',
       },
     });
-    transactions.forEach(txn => {
-      expect(txn).toBeInstanceOf(Transaction);
-    });
+
+    expect(transactions).toMatchSnapshot();
   });
 });

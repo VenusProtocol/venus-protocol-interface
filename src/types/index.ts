@@ -216,18 +216,18 @@ export enum TransactionCategory {
   vote = 'vote',
 }
 
-export interface ITransactionResponse {
-  amount: number;
-  blockNumber: number;
-  category: string;
-  createdAt: string;
-  event: string;
-  from: string;
+export interface ITransaction {
   id: number;
-  timestamp: string | null;
+  amountWei: BigNumber;
+  blockNumber: number;
+  category: TransactionCategory;
+  createdAt: Date;
+  event: TransactionEvent;
+  from: string;
   to: string;
+  timestamp: string | null;
   transactionHash: string;
-  updatedAt: string;
+  updatedAt: Date;
   vTokenAddress: string;
 }
 

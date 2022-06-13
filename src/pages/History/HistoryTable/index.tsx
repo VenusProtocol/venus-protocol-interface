@@ -3,16 +3,15 @@ import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { EllipseText, Icon, Table, TableProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
-import { formatCoinsToReadableValue } from 'utilities/common';
+import { convertWeiToCoins } from 'utilities/common';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
-import { Transaction } from 'models';
+import { ITransaction, TokenId } from 'types';
 import { useStyles } from './styles';
 
 export interface IHistoryTableProps {
-  transactions: Transaction[];
+  transactions: ITransaction[];
   isFetching: boolean;
 }
 
@@ -46,133 +45,140 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
   }, [columns]);
 
   // Format assets to rows
-  const rows: TableProps['data'] = transactions.map(txn => [
-    {
-      key: 'id',
-      render: () => <Typography variant="small2">{txn.id}</Typography>,
-      value: txn.id,
-      align: 'left',
-    },
-    {
-      key: 'type',
-      render: () => (
-        <>
-          <div css={[styles.whiteText, styles.table, styles.typeCol]}>
-            <Icon
-              name={getTokenIdFromVAddress(txn.vTokenAddress || XVS_TOKEN_ADDRESS) as TokenId}
-              css={styles.icon}
-            />
-            <Typography variant="small2" color="textPrimary">
-              {txn.event}
-            </Typography>
-          </div>
-          <div css={[styles.cards, styles.cardTitle]}>
-            <div css={styles.typeCol}>
-              <Icon name={getTokenIdFromVAddress(txn.vTokenAddress) as TokenId} css={styles.icon} />
+  const rows: TableProps['data'] = useMemo(
+    () =>
+      transactions.map(txn => {
+        const tokenId = txn.vTokenAddress
+          ? (getTokenIdFromVAddress(txn.vTokenAddress) as TokenId)
+          : XVS_TOKEN_ID;
+        return [
+          {
+            key: 'id',
+            render: () => <Typography variant="small2">{txn.id}</Typography>,
+            value: txn.id,
+            align: 'left',
+          },
+          {
+            key: 'type',
+            render: () => (
+              <>
+                <div css={[styles.whiteText, styles.table, styles.typeCol]}>
+                  <Icon name={tokenId} css={styles.icon} />
+                  <Typography variant="small2" color="textPrimary">
+                    {txn.event}
+                  </Typography>
+                </div>
+                <div css={[styles.cards, styles.cardTitle]}>
+                  <div css={styles.typeCol}>
+                    <Icon name={tokenId} css={styles.icon} />
+                    <Typography variant="small2" color="textPrimary">
+                      {txn.event}
+                    </Typography>
+                  </div>
+                  <Typography variant="small2">{txn.id}</Typography>
+                </div>
+              </>
+            ),
+            value: txn.vTokenAddress,
+            align: 'left',
+          },
+          {
+            key: 'txnHash',
+            render: () => (
+              <EllipseText text={txn.transactionHash} minChars={6}>
+                <Typography
+                  className="ellipse-text"
+                  component="a"
+                  href={generateBscScanUrl(txn.transactionHash, 'tx')}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="small2"
+                  css={styles.txnHashText}
+                />
+              </EllipseText>
+            ),
+            value: txn.transactionHash,
+            align: 'left',
+          },
+          {
+            key: 'block',
+            render: () => (
               <Typography variant="small2" color="textPrimary">
-                {txn.event}
+                {txn.blockNumber}
               </Typography>
-            </div>
-            <Typography variant="small2">{txn.id}</Typography>
-          </div>
-        </>
-      ),
-      value: txn.vTokenAddress,
-      align: 'left',
-    },
-    {
-      key: 'txnHash',
-      render: () => (
-        <EllipseText text={txn.transactionHash} minChars={6}>
-          <Typography
-            className="ellipse-text"
-            component="a"
-            href={generateBscScanUrl(txn.transactionHash, 'tx')}
-            target="_blank"
-            rel="noreferrer"
-            variant="small2"
-            css={styles.txnHashText}
-          />
-        </EllipseText>
-      ),
-      value: txn.transactionHash,
-      align: 'left',
-    },
-    {
-      key: 'block',
-      render: () => (
-        <Typography variant="small2" color="textPrimary">
-          {txn.blockNumber}
-        </Typography>
-      ),
-      value: txn.blockNumber,
-      align: 'left',
-    },
-    {
-      key: 'from',
-      render: () => (
-        <EllipseText text={txn.from} minChars={6}>
-          <Typography
-            className="ellipse-text"
-            component="a"
-            href={generateBscScanUrl(txn.from, 'address')}
-            target="_blank"
-            rel="noreferrer"
-            variant="small2"
-            css={styles.txnHashText}
-          />
-        </EllipseText>
-      ),
-      value: txn.from,
-      align: 'left',
-    },
-    {
-      key: 'to',
-      render: () =>
-        txn.to ? (
-          <EllipseText text={txn.to} minChars={6}>
-            <Typography
-              className="ellipse-text"
-              component="a"
-              href={generateBscScanUrl(txn.to, 'address')}
-              target="_blank"
-              rel="noreferrer"
-              variant="small2"
-              css={styles.txnHashText}
-            />
-          </EllipseText>
-        ) : (
-          PLACEHOLDER_KEY
-        ),
-      value: txn.to,
-      align: 'left',
-    },
-    {
-      key: 'amount',
-      render: () => (
-        <Typography variant="small2" css={styles.whiteText}>
-          {formatCoinsToReadableValue({
-            value: txn.amount,
-            tokenId: getTokenIdFromVAddress(txn.vTokenAddress) as TokenId,
-            minimizeDecimals: true,
-            addSymbol: false,
-          })}
-        </Typography>
-      ),
-      value: txn.amount.toFixed(),
-      align: 'right',
-    },
-    {
-      key: 'created',
-      render: () => (
-        <Typography variant="small2" css={styles.whiteText}>
-          {t('history.createdAt', { date: txn.createdAt })}
-        </Typography>
-      ),
-      value: txn.createdAt.getTime(),
-      align: 'right',
-    },
-  ]);
+            ),
+            value: txn.blockNumber,
+            align: 'left',
+          },
+          {
+            key: 'from',
+            render: () => (
+              <EllipseText text={txn.from} minChars={6}>
+                <Typography
+                  className="ellipse-text"
+                  component="a"
+                  href={generateBscScanUrl(txn.from, 'address')}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="small2"
+                  css={styles.txnHashText}
+                />
+              </EllipseText>
+            ),
+            value: txn.from,
+            align: 'left',
+          },
+          {
+            key: 'to',
+            render: () =>
+              txn.to ? (
+                <EllipseText text={txn.to} minChars={6}>
+                  <Typography
+                    className="ellipse-text"
+                    component="a"
+                    href={generateBscScanUrl(txn.to, 'address')}
+                    target="_blank"
+                    rel="noreferrer"
+                    variant="small2"
+                    css={styles.txnHashText}
+                  />
+                </EllipseText>
+              ) : (
+                PLACEHOLDER_KEY
+              ),
+            value: txn.to,
+            align: 'left',
+          },
+          {
+            key: 'amount',
+            render: () => (
+              <Typography variant="small2" css={styles.whiteText}>
+                {convertWeiToCoins({
+                  valueWei: txn.amountWei,
+                  tokenId,
+                  returnInReadableFormat: true,
+                  minimizeDecimals: true,
+                  addSymbol: false,
+                })}
+              </Typography>
+            ),
+            value: txn.amountWei.toFixed(),
+            align: 'right',
+          },
+          {
+            key: 'created',
+            render: () => (
+              <Typography variant="small2" css={styles.whiteText}>
+                {t('history.createdAt', { date: txn.createdAt })}
+              </Typography>
+            ),
+            value: txn.createdAt.getTime(),
+            align: 'right',
+          },
+        ];
+      }),
+    [JSON.stringify(transactions)],
+  );
 
   return (
     <Table

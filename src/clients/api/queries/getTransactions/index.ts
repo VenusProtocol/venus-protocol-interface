@@ -1,6 +1,7 @@
 import { restService } from 'utilities';
-import { ITransactionResponse, TransactionEvent } from 'types';
-import { Transaction } from 'models';
+import { ITransaction, TransactionEvent } from 'types';
+import { ITransactionResponse } from './types';
+import formatTransaction from './formatTransaction';
 
 export interface IGetTransactionsInput {
   page?: number;
@@ -29,11 +30,11 @@ export interface IGetTransactionsOutput {
   limit: number;
   page: number;
   total: number;
-  transactions: Transaction[];
+  transactions: ITransaction[];
 }
 
 const getTransactions = async ({
-  page = 1,
+  page = 0,
   event,
   address,
   order = 'blockNumber',
@@ -48,6 +49,7 @@ const getTransactions = async ({
       address,
       order,
       sort,
+      version: 'v2',
     },
   });
   const payload = response.data?.data;
@@ -60,7 +62,7 @@ const getTransactions = async ({
     throw new Error('Unexpected error retrieving transactions');
   }
   const { limit, page: payloadPage, total } = payload;
-  const transactions = payload.result.map(data => new Transaction(data));
+  const transactions = payload.result.map(data => formatTransaction(data));
   return { limit, page: payloadPage, total, transactions };
 };
 
