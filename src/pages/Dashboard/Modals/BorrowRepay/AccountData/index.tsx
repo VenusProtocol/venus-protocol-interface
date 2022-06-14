@@ -17,7 +17,7 @@ import {
   Delimiter,
 } from 'components';
 import { useTranslation } from 'translation';
-import { useVTokenDailyXvs } from 'hooks/useVTokenDailyXvs';
+import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 import { useStyles } from '../../styles';
 
 export interface IAccountDataProps {
@@ -42,7 +42,8 @@ const AccountData: React.FC<IAccountDataProps> = ({
     accountAddress,
   });
 
-  const { dailyXvsDistributionInterestsCents } = useVTokenDailyXvs({ assets });
+  // TODO: handle loading state
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei({ assets });
 
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
@@ -80,15 +81,15 @@ const AccountData: React.FC<IAccountDataProps> = ({
             : assetData.borrowBalance,
       }));
 
-      const yearlyEarningsCents = calculateYearlyEarningsForAssets({
-        assets: updatedAssets,
-        isXvsEnabled,
-        dailyXvsDistributionInterestsCents,
-      });
+      const yearlyEarningsCents =
+        dailyXvsDistributionInterestsCents &&
+        calculateYearlyEarningsForAssets({
+          assets: updatedAssets,
+          isXvsEnabled,
+          dailyXvsDistributionInterestsCents,
+        });
 
-      return yearlyEarningsCents
-        ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
-        : new BigNumber(0);
+      return yearlyEarningsCents && calculateDailyEarningsCentsUtil(yearlyEarningsCents);
     },
     [JSON.stringify(assets)],
   );
@@ -166,7 +167,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
         css={styles.bottomRow}
       >
         <ValueUpdate
-          original={dailyEarningsCents.toNumber()}
+          original={dailyEarningsCents?.toNumber()}
           update={hypotheticalDailyEarningsCents?.toNumber()}
         />
       </LabeledInlineContent>

@@ -8,7 +8,7 @@ import {
   calculateYearlyEarningsForAssets,
 } from 'utilities';
 import { Asset } from 'types';
-import { useVTokenDailyXvs } from 'hooks/useVTokenDailyXvs';
+import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
 interface IMyAccountProps {
@@ -30,7 +30,8 @@ const MyAccount: React.FC<IMyAccountProps> = ({
   userTotalBorrowBalanceCents,
   userTotalSupplyBalanceCents,
 }) => {
-  const { dailyXvsDistributionInterestsCents } = useVTokenDailyXvs({
+  // TODO: handle loading state
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei({
     assets,
   });
 
@@ -38,11 +39,13 @@ const MyAccount: React.FC<IMyAccountProps> = ({
     IMyAccountUiProps,
     'netApyPercentage' | 'dailyEarningsCents' | 'supplyBalanceCents' | 'borrowLimitCents'
   > = React.useMemo(() => {
-    const yearlyEarningsCents = calculateYearlyEarningsForAssets({
-      assets,
-      isXvsEnabled,
-      dailyXvsDistributionInterestsCents,
-    });
+    const yearlyEarningsCents =
+      dailyXvsDistributionInterestsCents &&
+      calculateYearlyEarningsForAssets({
+        assets,
+        isXvsEnabled,
+        dailyXvsDistributionInterestsCents,
+      });
     const netApyPercentage =
       userTotalSupplyBalanceCents &&
       yearlyEarningsCents &&

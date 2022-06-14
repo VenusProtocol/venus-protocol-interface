@@ -1,29 +1,29 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 
-import getVTokenDailyXvsWei, {
-  IGetVTokenDailyXvsWeiInput,
-  IGetVTokenDailyXvsWeiOutput,
-} from 'clients/api/queries/getVTokenDailyXvsWei';
+import getDailyXvsWei, {
+  IGetDailyXvsWeiInput,
+  IGetDailyXvsWeiOutput,
+} from 'clients/api/queries/getDailyXvsWei';
 import { useVenusLensContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  IGetVTokenDailyXvsWeiOutput,
+  IGetDailyXvsWeiOutput,
   Error,
-  IGetVTokenDailyXvsWeiOutput,
-  IGetVTokenDailyXvsWeiOutput,
+  IGetDailyXvsWeiOutput,
+  IGetDailyXvsWeiOutput,
   [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, string]
 >;
 
-const useGetVTokenDailyXvsWei = (
-  { accountAddress }: Omit<IGetVTokenDailyXvsWeiInput, 'venusLensContract'>,
+const useGetDailyXvsWei = (
+  { accountAddress }: Omit<IGetDailyXvsWeiInput, 'venusLensContract'>,
   options?: Options,
 ) => {
   const venusLensContract = useVenusLensContract();
   return useQuery(
     [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, accountAddress],
-    () => getVTokenDailyXvsWei({ accountAddress, venusLensContract }),
+    () => getDailyXvsWei({ accountAddress, venusLensContract }),
     options,
   );
 };
-export default useGetVTokenDailyXvsWei;
+export default useGetDailyXvsWei;
