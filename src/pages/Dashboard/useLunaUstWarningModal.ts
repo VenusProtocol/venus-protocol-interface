@@ -1,20 +1,22 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Asset } from 'types';
 
 const SESSION_STORAGE_KEY = 'has-seen-modal-this-session';
 
 const useLunaUstWarningModal = (assets: Asset[]): [boolean, () => void] => {
-  const hasDeprecatedCollateral = useMemo(
-    () => assets.some(asset => (asset.id === 'luna' || asset.id === 'ust') && asset.collateral),
-    [JSON.stringify(assets)],
-  );
+  const [shouldShowModal, setShouldShowModal] = useState(false);
 
-  const hasSeenModalThisSession = !!sessionStorage.getItem(SESSION_STORAGE_KEY);
+  useEffect(() => {
+    const hasDeprecatedCollateralEnabled = assets.some(
+      asset => (asset.id === 'luna' || asset.id === 'ust') && asset.collateral,
+    );
+    const hasSeenModalThisSession = !!sessionStorage.getItem(SESSION_STORAGE_KEY);
 
-  const [shouldShowModal, setShouldShowModal] = useState(
-    !!hasDeprecatedCollateral && !hasSeenModalThisSession,
-  );
+    if (hasDeprecatedCollateralEnabled && !hasSeenModalThisSession && !shouldShowModal) {
+      setShouldShowModal(true);
+    }
+  }, [JSON.stringify(assets)]);
 
   const closeModal = () => {
     // Mark modal as seen in session storage
