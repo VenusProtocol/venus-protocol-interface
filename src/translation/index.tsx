@@ -30,7 +30,7 @@ const init = () => {
           if (format === 'distanceToNow') {
             return formatDistanceToNowStrict(value, { locale });
           }
-          return formatDate(value, format || '', { locale });
+          return formatDate(value, 'dd MMM yyyy HH:mm a', { locale });
         }
         return value;
       },

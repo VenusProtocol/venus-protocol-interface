@@ -91,21 +91,18 @@ export interface IProposal {
   actions: IProposalAction[];
   againstVotesWei: BigNumber;
   blockNumber: number;
-  cancelTimestamp: number | undefined;
-  createdAt: string;
-  createdTimestamp: number;
+  createdDate: Date;
   description: string;
   endBlock: number;
-  endTimestamp: number | undefined;
-  executedTimestamp: number;
+  endDate: Date;
+  executedDate: Date | undefined;
   forVotesWei: BigNumber;
   id: number;
   proposer: string;
-  queuedTimestamp: number;
-  startTimestamp: number;
+  queuedDate: Date | undefined;
+  startDate: Date | undefined;
   state: ProposalState;
   cancelDate: Date | undefined;
-  endDate: Date;
 }
 
 export interface IPool {
