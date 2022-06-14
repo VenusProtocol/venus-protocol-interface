@@ -75,9 +75,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
     : undefined;
 
   // TODO: handle loading state
-  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei({
-    assets,
-  });
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
 
   const hypotheticalBorrowLimitCents = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);

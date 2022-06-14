@@ -31,9 +31,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({
   userTotalSupplyBalanceCents,
 }) => {
   // TODO: handle loading state
-  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei({
-    assets,
-  });
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
 
   const calculations: Pick<
     IMyAccountUiProps,

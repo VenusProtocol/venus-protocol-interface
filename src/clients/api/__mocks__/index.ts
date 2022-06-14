@@ -109,8 +109,9 @@ export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, 
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
-export const getDailyXvs = jest.fn();
-export const useGetDailyXvs = () => useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvs);
+export const getDailyXvsWei = jest.fn();
+export const useGetDailyXvsWei = () =>
+  useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
 
 export const getVoteReceipt = jest.fn();
 export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);

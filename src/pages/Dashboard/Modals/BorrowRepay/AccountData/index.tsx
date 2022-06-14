@@ -43,7 +43,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
   });
 
   // TODO: handle loading state
-  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei({ assets });
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
 
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
