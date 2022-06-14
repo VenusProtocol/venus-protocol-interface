@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { AuthContext } from 'context/AuthContext';
 import { useGetUserMarketInfo } from 'clients/api';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { Asset } from 'types';
 
 import MyAccount from './MyAccount';
@@ -35,16 +36,16 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
     useMemo(() => {
       const sortedAssets = assets.reduce(
         (acc, curr) => {
-          if (curr.supplyBalance.isZero()) {
-            acc.supplyMarketAssets.push(curr);
-          } else {
+          if (curr.supplyBalance.isGreaterThan(0)) {
             acc.suppliedAssets.push(curr);
+          } else {
+            acc.supplyMarketAssets.push(curr);
           }
 
-          if (curr.borrowBalance.isZero()) {
-            acc.borrowMarketAssets.push(curr);
-          } else {
+          if (curr.borrowBalance.isGreaterThan(0)) {
             acc.borrowingAssets.push(curr);
+          } else if (curr.id !== XVS_TOKEN_ID) {
+            acc.borrowMarketAssets.push(curr);
           }
           return acc;
         },
