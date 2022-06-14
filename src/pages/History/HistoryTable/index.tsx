@@ -79,7 +79,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
                 </div>
               </>
             ),
-            value: txn.vTokenAddress,
+            value: txn.event,
             align: 'left',
           },
           {

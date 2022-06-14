@@ -94,10 +94,17 @@ export const Table = ({
     const rowIndex = columns.findIndex(column => column.key === orderBy);
     const newRows = [...data];
     newRows.sort((a, b) => {
-      if (+a[rowIndex]?.value < +b[rowIndex]?.value) {
+      const formattedValueA = Number.isNaN(+a[rowIndex]?.value)
+        ? a[rowIndex]?.value
+        : +a[rowIndex]?.value;
+      const formattedValueB = Number.isNaN(+b[rowIndex]?.value)
+        ? b[rowIndex]?.value
+        : +b[rowIndex]?.value;
+
+      if (formattedValueA < formattedValueB) {
         return orderDirection === 'asc' ? -1 : 1;
       }
-      if (+a[rowIndex]?.value > +b[rowIndex]?.value) {
+      if (formattedValueA > formattedValueB) {
         return orderDirection === 'asc' ? 1 : -1;
       }
       return 0;
