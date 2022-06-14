@@ -44,11 +44,7 @@ const App = () => (
 
                       <Route exact path={Path.VAULT} component={Vault} />
 
-                            <Route
-                              exact
-                              path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
-                              component={History}
-                            />
+                            <Route exact path={Path.HISTORY} component={History} />
 
                             <Route
                               exact
