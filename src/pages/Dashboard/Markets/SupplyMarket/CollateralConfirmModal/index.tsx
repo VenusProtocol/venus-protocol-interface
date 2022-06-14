@@ -19,8 +19,8 @@ export const CollateralConfirmModal: React.FC<IConfirmCollateralModalProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
   const title = asset?.collateral
-    ? t('markets.collateralConfirmModal.disable')
-    : t('markets.collateralConfirmModal.enable');
+    ? t('markets.collateralConfirmModal.disable', { asset: asset?.symbol })
+    : t('markets.collateralConfirmModal.enable', { asset: asset?.symbol });
 
   return (
     <Modal className="venus-modal" isOpened={!!asset} handleClose={handleClose} title={title}>

@@ -254,8 +254,8 @@
     "borrowMarketTableTitle": "Borrow market",
     "collateralConfirmModal": {
       "confirmText": "Confirm the transaction",
-      "disable": "Disable as collateral",
-      "enable": "Enable as collateral"
+      "disable": "Disable {{asset}} as collateral",
+      "enable": "Enable {{asset}} as collateral"
     },
     "columns": {
       "apy": "APY",
