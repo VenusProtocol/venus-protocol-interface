@@ -57,6 +57,7 @@ enum FunctionKey {
   REPAY_BNB = 'REPAY_BNB',
   BORROW_V_TOKEN = 'BORROW_V_TOKEN',
   WITHDRAW_XVS = 'WITHDRAW_XVS',
+  CREATE_PROPOSAL = 'CREATE_PROPOSAL',
 }
 
 export default FunctionKey;
