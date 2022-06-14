@@ -27,9 +27,10 @@ export const useDailyXvsWei = () => {
       });
 
     return {
-      dailyXvsDistributionInterestsCents: dailyXvsTokens
-        ?.multipliedBy(xvsPriceDollars || new BigNumber(0))
-        .times(100),
+      dailyXvsDistributionInterestsCents:
+        accountAddress && xvsPriceDollars
+          ? dailyXvsTokens?.multipliedBy(xvsPriceDollars).times(100)
+          : new BigNumber(0),
     };
   }, [JSON.stringify(dailyXvsWei), JSON.stringify(getMarketsData?.markets), accountAddress]);
 
