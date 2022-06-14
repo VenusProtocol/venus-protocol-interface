@@ -50,6 +50,8 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
         const tokenId =
           (txn.vTokenAddress && getTokenIdFromVAddress(txn.vTokenAddress)) || XVS_TOKEN_ID;
 
+        console.log(txn.event);
+
         return [
           {
             key: 'id',
@@ -78,7 +80,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
                 </div>
               </>
             ),
-            value: txn.vTokenAddress,
+            value: txn.event,
             align: 'left',
           },
           {
