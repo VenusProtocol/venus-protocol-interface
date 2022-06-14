@@ -523,6 +523,8 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
+    "createProposal": "+ Create proposal",
+    "delegate": "Delegate",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",

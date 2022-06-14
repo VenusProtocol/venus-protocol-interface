@@ -122,6 +122,12 @@ export const getVaiVaultPendingXvsWei = jest.fn();
 export const useGetVaiVaultPendingXvsWei = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvsWei);
 
+export const useGetVestingVaults = jest.fn();
+
+export const getVoteDelegateAddress = jest.fn();
+export const useGetVoteDelegateAddress = () =>
+  useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
