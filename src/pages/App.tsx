@@ -63,7 +63,7 @@ const App = () => (
                             <Route
                               exact
                               path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
-                              component={process.env.REACT_APP_RUN_V2 ? History : TransactionV1}
+                              component={History}
                             />
 
                             <Route
