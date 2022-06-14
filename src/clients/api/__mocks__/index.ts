@@ -142,7 +142,7 @@ export const useGetVestingVaults = jest.fn();
 export const getVoteDelegateAddress = jest.fn();
 export const useGetVoteDelegateAddress = () =>
   useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
-  
+
 export const getLatestProposalIdByProposer = jest.fn();
 export const useGetLatestProposalIdByProposer = () =>
   useQuery(
@@ -233,59 +233,3 @@ export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
 export const createProposal = jest.fn();
 export const useCreateProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
-
-export const cancelProposal = jest.fn(async () => transactionReceipt);
-export const useCancelProposal = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CANCEL_PROPOSAL, cancelProposal, options);
-
-export const executeProposal = jest.fn(async () => transactionReceipt);
-export const useExecuteProposal = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.EXECUTE_PROPOSAL, executeProposal, options);
-
-export const queueProposal = jest.fn(async () => transactionReceipt);
-export const useQueueProposal = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
-
-export const stakeInXvsVault = jest.fn();
-export const useStakeInXvsVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_IN_XVS_VAULT, stakeInXvsVault, options);
-
-export const stakeInVaiVault = jest.fn();
-export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_IN_VAI_VAULT, stakeInVaiVault, options);
-
-export const stakeInVrtVault = jest.fn();
-export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
-
-export const castVote = jest.fn();
-export const useCastVote = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CAST_VOTE, castVote, options);
-
-export const castVoteWithReason = jest.fn();
-export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.CAST_VOTE_WITH_REASON, castVoteWithReason, options);
-
-export const withdrawFromVaiVault = jest.fn();
-export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.WITHDRAW_FROM_VAI_VAULT, withdrawFromVaiVault, options);
-
-export const withdrawFromVrtVault = jest.fn();
-export const useWithdrawFromVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.WITHDRAW_FROM_VRT_VAULT, withdrawFromVrtVault, options);
-
-export const requestWithdrawalFromXvsVault = jest.fn();
-export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
-  useMutation(
-    FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
-    requestWithdrawalFromXvsVault,
-    options,
-  );
-
-export const executeWithdrawalFromXvsVault = jest.fn();
-export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
-  useMutation(
-    FunctionKey.EXECUTE_WITHDRAWAL_FROM_XVS_VAULT,
-    executeWithdrawalFromXvsVault,
-    options,
-  );
