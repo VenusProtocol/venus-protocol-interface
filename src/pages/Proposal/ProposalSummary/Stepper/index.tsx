@@ -130,7 +130,9 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
                   step.completedIcon()
                 ) : (
                   <span css={[styles.iconContainer, styles.numberIconContainer]}>
-                    <Typography variant="small2">{idx + 1}</Typography>
+                    <Typography variant="tiny" color="textSecondary">
+                      {idx + 1}
+                    </Typography>
                   </span>
                 )}
                 <Typography variant="small1" css={styles.labelText({ completed })}>

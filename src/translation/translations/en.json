@@ -581,7 +581,9 @@
       "readyToQueue": "Ready to queue",
       "succeed": "Succeed",
       "succeeded": "Succeeded",
-      "timestamp": "{{date, format}}"
+      "dateAndTime": "{{date,}}",
+      "dateOnly": "{{date, dd MMM yyyy}}",
+      "timeOnly": "{{date, HH:mm a}}"
     },
     "voteStatus": {
       "abstained": "Abstained",
