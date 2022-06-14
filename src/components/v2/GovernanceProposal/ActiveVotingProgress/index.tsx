@@ -57,7 +57,7 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
     () => [
       {
         id: 'for',
-        label: t('voteProposalUi.statusCard.for'),
+        label: t('vote.for'),
         value: getValueString(votedForWei),
         progressBarProps: {
           ariaLabel: t('voteProposalUi.statusCard.ariaLabelFor'),
@@ -66,7 +66,7 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
       },
       {
         id: 'against',
-        label: t('voteProposalUi.statusCard.against'),
+        label: t('vote.against'),
         value: getValueString(votedAgainstWei),
         progressBarProps: {
           successColor: PALETTE.interactive.error50,
@@ -76,7 +76,7 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
       },
       {
         id: 'abstain',
-        label: t('voteProposalUi.statusCard.abstain'),
+        label: t('vote.abstain'),
         value: getValueString(abstainedWei),
         progressBarProps: {
           successColor: PALETTE.text.secondary,
