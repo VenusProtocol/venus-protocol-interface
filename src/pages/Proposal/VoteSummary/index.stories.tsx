@@ -66,7 +66,8 @@ const votes = [
 
 export const VoteFor = () => (
   <VoteSummary
-    votedForWei={new BigNumber('100000000000000000')}
+    voteType="for"
+    votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
     votesFrom={votes}
     onClick={noop}
@@ -75,7 +76,8 @@ export const VoteFor = () => (
 
 export const VoteAgainst = () => (
   <VoteSummary
-    votedAgainstWei={new BigNumber('100000000000000000')}
+    voteType="against"
+    votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
     votesFrom={votes}
     onClick={noop}
@@ -84,7 +86,8 @@ export const VoteAgainst = () => (
 
 export const Empty = () => (
   <VoteSummary
-    votedForWei={new BigNumber('100000000000000000')}
+    voteType="for"
+    votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
     onClick={noop}
   />

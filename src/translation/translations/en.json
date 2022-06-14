@@ -522,6 +522,9 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
+    "abstain": "Abstain",
+    "against": "Against",
+    "for": "For",
     "createProposal": "+ Create proposal",
     "delegate": "Delegate",
     "delegateAddress": "Delegate address",
