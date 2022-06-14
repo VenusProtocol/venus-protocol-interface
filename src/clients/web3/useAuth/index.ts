@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { NoBscProviderError } from '@binance-chain/bsc-connector';
+import { openInfinityWallet } from '@infinitywallet/infinity-connector';
 import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
@@ -10,11 +11,13 @@ import {
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
 import { toast } from 'components/v2/Toast';
-import { LS_KEY_CONNECTED_CONNECTOR } from 'config';
+import { LS_KEY_CONNECTED_CONNECTOR, CHAIN_ID } from 'config';
 import { useTranslation } from 'translation';
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
+
+const isRunningInInfinityWalletApp = () => window.ethereum && window.ethereum?.isInfinityWallet;
 
 const getConnectedConnector = (): Connector | undefined => {
   const lsConnectedConnector = window.localStorage.getItem(LS_KEY_CONNECTED_CONNECTOR);
@@ -34,6 +37,13 @@ const useAuth = () => {
 
   const login = useCallback(
     async (connectorID: Connector) => {
+      // If user are attempting to connect their Infinity wallet but the dApp
+      // isn't currently running in the Infinity Wallet app, open it
+      if (connectorID === Connector.InfinityWallet && !isRunningInInfinityWalletApp()) {
+        openInfinityWallet(window.location.href, CHAIN_ID);
+        return;
+      }
+
       const connector = connectorsByName[connectorID];
       if (!connector) {
         // TODO: log error to Sentry (this case should never happen, as it means
