@@ -73,6 +73,10 @@ export { default as setVoteDelegate } from './mutations/setVoteDelegate';
 export * from './mutations/setVoteDelegate';
 export { default as useSetVoteDelegate } from './mutations/useSetVoteDelegate';
 
+export { default as createProposal } from './mutations/createProposal';
+export * from './mutations/createProposal';
+export { default as useCreateProposal } from './mutations/useCreateProposal';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';

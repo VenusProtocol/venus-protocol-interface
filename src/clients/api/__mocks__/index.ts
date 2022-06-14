@@ -131,7 +131,7 @@ export const useGetVestingVaults = jest.fn();
 export const getVoteDelegateAddress = jest.fn();
 export const useGetVoteDelegateAddress = () =>
   useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
-  
+
 export const getLatestProposalIdByProposer = jest.fn();
 export const useGetLatestProposalIdByProposer = () =>
   useQuery(
@@ -210,3 +210,7 @@ export const useWithdrawXvs = (options?: MutationObserverOptions) =>
 export const setVoteDelegate = jest.fn();
 export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SET_VOTE_DELEGATE, setVoteDelegate, options);
+
+export const createProposal = jest.fn();
+export const useCreateProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
