@@ -24,7 +24,6 @@ import ProposerDetail from 'containers/Main/ProposerDetail';
 import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
 import MarketDetails from 'pages/MarketDetails';
-import TransactionV1 from 'containers/Main/Transaction';
 import History from 'pages/History';
 import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
@@ -64,7 +63,7 @@ const App = () => (
                             <Route
                               exact
                               path={process.env.REACT_APP_RUN_V2 ? Path.HISTORY : Path.TRANSACTION}
-                              component={process.env.REACT_APP_RUN_V2 ? History : TransactionV1}
+                              component={History}
                             />
 
                             <Route
