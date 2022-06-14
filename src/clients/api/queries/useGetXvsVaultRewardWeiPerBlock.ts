@@ -4,7 +4,7 @@ import getXvsVaultRewardWeiPerBlock, {
   GetXvsVaultRewardWeiPerBlockOutput,
 } from 'clients/api/queries/getXvsVaultRewardWeiPerBlock';
 import FunctionKey from 'constants/functionKey';
-import { useXvsVaultContract } from 'clients/contracts/hooks';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 
 type Options = QueryObserverOptions<
   GetXvsVaultRewardWeiPerBlockOutput,
@@ -18,7 +18,7 @@ const useGetXvsVaultRewardWeiPerBlock = (
   { tokenAddress }: Omit<IGetXvsVaultRewardWeiPerBlockInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
-  const xvsVaultContract = useXvsVaultContract();
+  const xvsVaultContract = useXvsVaultProxyContract();
 
   return useQuery(
     [FunctionKey.GET_XVS_VAULT_REWARD_WEI_PER_BLOCK, tokenAddress],

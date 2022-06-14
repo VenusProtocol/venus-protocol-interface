@@ -11,12 +11,14 @@ export const useStyles = () => {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
       padding-bottom: 0;
+
       ${theme.breakpoints.down('xl')} {
         background-color: transparent;
-      }
-      ${theme.breakpoints.down('sm')} {
         padding: 0;
       }
+    `,
+    checkbox: css`
+      margin-right: ${theme.spacing(2)};
     `,
     myTransactions: css`
       display: flex;

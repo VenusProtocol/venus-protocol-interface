@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext, useState } from 'react';
-import { Transaction } from 'models';
-import { TransactionEvent } from 'types';
+import { ITransaction, TransactionEvent } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { useGetTransactions } from 'clients/api';
 import { Pagination } from 'components';
@@ -9,7 +8,7 @@ import HistoryTable from './HistoryTable';
 import Filters, { ALL_VALUE, IFilterProps } from './Filters';
 
 interface IHistoryUiProps extends IFilterProps {
-  transactions: Transaction[];
+  transactions: ITransaction[];
   isFetching: boolean;
   total: number | undefined;
   limit: number | undefined;
@@ -37,23 +36,23 @@ export const HistoryUi: React.FC<IHistoryUiProps> = ({
       walletConnected={walletConnected}
     />
     <HistoryTable transactions={transactions} isFetching={isFetching} />
-    {total && (
+    {total ? (
       <Pagination
         itemsCount={total}
         onChange={(nextIndex: number) => {
-          setCurrentPage(nextIndex + 1);
+          setCurrentPage(nextIndex);
           window.scrollTo(0, 0);
         }}
         itemsPerPageCount={limit || 20}
       />
-    )}
+    ) : null}
   </div>
 );
 
 const History: React.FC = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
   const { data: { transactions, total, limit } = { transactions: [] }, isFetching } =

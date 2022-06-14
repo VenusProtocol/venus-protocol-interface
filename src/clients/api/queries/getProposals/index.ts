@@ -6,9 +6,11 @@ import { IGetProposalsInput, IProposalApiResponse, IGetProposalsOutput } from '.
 export * from './types';
 
 const getProposals = async ({
-  offset = 0,
+  page = 0,
   limit = 5,
 }: IGetProposalsInput): Promise<IGetProposalsOutput> => {
+  const offset = page * limit;
+
   const response = await restService<IProposalApiResponse>({
     endpoint: '/proposals',
     method: 'GET',
@@ -20,19 +22,19 @@ const getProposals = async ({
   if ('result' in response && response.result === 'error') {
     throw new VError({
       type: 'unexpected',
-      code: 'genericApi',
+      code: 'somethingWentWrong',
       data: { message: response.message },
     });
   }
 
   if (!payload) {
-    throw new VError({ type: 'unexpected', code: 'genericApi' });
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  const { page, limit: payloadLimit, total } = payload;
+  const { limit: payloadLimit, total, offset: payloadOffset } = payload;
   const proposals = payload.result.map(p => formatToProposal(p));
 
-  return { proposals, page, limit: payloadLimit, total };
+  return { proposals, limit: payloadLimit, total, offset: payloadOffset };
 };
 
 export default getProposals;

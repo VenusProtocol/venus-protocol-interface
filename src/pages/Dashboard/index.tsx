@@ -3,11 +3,14 @@ import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { AuthContext } from 'context/AuthContext';
 import { useGetUserMarketInfo } from 'clients/api';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { Asset } from 'types';
 
 import MyAccount from './MyAccount';
 import MintRepayVai from './MintRepayVai';
+import { LunaUstWarningModal } from './Modals';
 import Markets from './Markets';
+import useLunaUstWarningModal from './useLunaUstWarningModal';
 import { useStyles } from './styles';
 
 interface IDashboardUiProps {
@@ -27,20 +30,22 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
 }) => {
   const styles = useStyles();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
+  const [shouldShowLunaUstWarningModal, closeLunaUstWarningModal] = useLunaUstWarningModal(assets);
+
   const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
     useMemo(() => {
       const sortedAssets = assets.reduce(
         (acc, curr) => {
-          if (curr.supplyBalance.isZero()) {
-            acc.supplyMarketAssets.push(curr);
-          } else {
+          if (curr.supplyBalance.isGreaterThan(0)) {
             acc.suppliedAssets.push(curr);
+          } else {
+            acc.supplyMarketAssets.push(curr);
           }
 
-          if (curr.borrowBalance.isZero()) {
-            acc.borrowMarketAssets.push(curr);
-          } else {
+          if (curr.borrowBalance.isGreaterThan(0)) {
             acc.borrowingAssets.push(curr);
+          } else if (curr.id !== XVS_TOKEN_ID) {
+            acc.borrowMarketAssets.push(curr);
           }
           return acc;
         },
@@ -79,6 +84,8 @@ const DashboardUi: React.FC<IDashboardUiProps> = ({
         borrowingAssets={borrowingAssets}
         borrowMarketAssets={borrowMarketAssets}
       />
+
+      {shouldShowLunaUstWarningModal && <LunaUstWarningModal onClose={closeLunaUstWarningModal} />}
     </>
   );
 };

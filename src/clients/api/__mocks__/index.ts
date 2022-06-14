@@ -1,5 +1,6 @@
 import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
 
+import fakeAddress from '__mocks__/models/address';
 import FunctionKey from 'constants/functionKey';
 
 // Queries
@@ -42,7 +43,7 @@ export const getAllowance = jest.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = jest.fn();
-export const useGetBalanceOf = () => useMutation(FunctionKey.GET_BALANCE_OF, getBalanceOf);
+export const useGetBalanceOf = () => useQuery(FunctionKey.GET_BALANCE_OF, getBalanceOf);
 
 export const getVrtConversionEndTime = jest.fn();
 export const useGetVrtConversionEndTime = () =>
@@ -71,9 +72,9 @@ export const getVTokenSupplyRate = jest.fn();
 
 export const getVTokenBorrowRate = jest.fn();
 
-export const getVenusVaiVaultRate = jest.fn();
+export const getVenusVaiVaultDailyRateWei = jest.fn();
 export const useGetVenusVaiVaultDailyRateWei = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultRate);
+  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultDailyRateWei);
 
 export const getTransactions = jest.fn();
 export const useGetTransactions = jest.fn(() =>
@@ -84,7 +85,11 @@ export const getXvsVaultPoolsCount = jest.fn();
 export const useGetXvsVaultPoolsCount = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolsCount);
 
-export const getXvsVaultPoolInfos = jest.fn();
+export const useGetTreasuryTotals = jest.fn();
+
+export const useGetUserMarketInfo = jest.fn();
+
+export const getXvsVaultPoolInfo = jest.fn();
 
 export const getXvsVaultRewardWeiPerBlock = jest.fn();
 export const useGetXvsVaultRewardWeiPerBlock = () =>
@@ -97,18 +102,31 @@ export const useGetXvsVaultTotalAllocationPoints = () =>
 export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
+
 export const getCurrentVotes = jest.fn();
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
-
-export const useGetTreasuryTotals = jest.fn();
-
-export const useGetUserMarketInfo = jest.fn();
 
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
 export const getVoteReceipt = jest.fn();
 export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
+
+export const useGetVaults = jest.fn();
+
+export const getVaiVaultUserInfo = jest.fn();
+export const useGetVaiVaultUserInfo = () =>
+  useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);
+
+export const getVaiVaultPendingXvsWei = jest.fn();
+export const useGetVaiVaultPendingXvsWei = () =>
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvsWei);
+
+export const useGetVestingVaults = jest.fn();
+
+export const getVoteDelegateAddress = jest.fn();
+export const useGetVoteDelegateAddress = () =>
+  useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
 
 // Mutations
 export const approveToken = jest.fn();
@@ -176,3 +194,7 @@ export const useBorrowVToken = () => useMutation(FunctionKey.BORROW_V_TOKEN, bor
 export const withdrawXvs = jest.fn();
 export const useWithdrawXvs = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.WITHDRAW_XVS, approveVrt, options);
+
+export const setVoteDelegate = jest.fn();
+export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.SET_VOTE_DELEGATE, setVoteDelegate, options);

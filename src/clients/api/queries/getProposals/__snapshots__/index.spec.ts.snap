@@ -3,7 +3,7 @@
 exports[`api/queries/getProposals Gets called with correct default arguments 1`] = `
 Object {
   "limit": 5,
-  "page": undefined,
+  "offset": 0,
   "proposals": Array [
     Object {
       "abstainedVotesWei": "0",
@@ -157,7 +157,7 @@ Object {
 exports[`api/queries/getProposals returns transaction models 1`] = `
 Object {
   "limit": 5,
-  "page": undefined,
+  "offset": 0,
   "proposals": Array [
     Object {
       "abstainedVotesWei": "0",

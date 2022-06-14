@@ -13,6 +13,7 @@ export const useStyles = ({
   const theme = useTheme();
   return {
     slider: css`
+      z-index: 0;
       display: block;
       color: ${over ? theme.palette.interactive.error50 : successColor};
       background-color: ${theme.palette.background.default};

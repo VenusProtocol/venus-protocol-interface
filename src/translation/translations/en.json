@@ -111,6 +111,10 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
+    "lunaUstWarningModal": {
+      "content": "UST and LUNA are being deprecated, please ensure they are disabled as collateral. Failure to disable them will result in lost access to the protocol after deprecation.",
+      "title": "⚠️ WARNING ⚠️"
+    },
     "markets": {
       "tabBorrow": "Borrow",
       "tabSupply": "Supply",
@@ -121,8 +125,9 @@
     "enableButtonLabel": "Enable"
   },
   "errors": {
+    "genericApi": "Something went wrong",
     "somethingWentWrong": "Something went wrong",
-    "undefinedAccountErrorMessage": "account undefined",
+    "undefinedAccountErrorMessage": "Account undefined",
     "walletNotConnected": "Wallet not connected"
   },
   "footer": {
@@ -249,8 +254,8 @@
     "borrowMarketTableTitle": "Borrow market",
     "collateralConfirmModal": {
       "confirmText": "Confirm the transaction",
-      "disable": "Disable as collateral",
-      "enable": "Enable as collateral"
+      "disable": "Disable {{asset}} as collateral",
+      "enable": "Enable {{asset}} as collateral"
     },
     "columns": {
       "apy": "APY",
@@ -312,8 +317,8 @@
     "title": "My account"
   },
   "pagination": {
-    "itemOf": "item {{currentPageLastIndex}} out of {{itemsCount}}",
-    "itemsOf": "items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
+    "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
+    "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
   "supplyWithdraw": {
     "borrowLimit": "Borrow limit",
@@ -507,7 +512,7 @@
       "rightMaxButtonLabel": "MAX"
     }
   },
-  "vaultItemUi": {
+  "vaultItem": {
     "claimButton": "Claim",
     "dailyEmission": "Daily Emission",
     "reward": "Reward:",
@@ -518,6 +523,8 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
+    "createProposal": "+ Create proposal",
+    "delegate": "Delegate",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",
@@ -529,11 +536,19 @@
     "governanceProposals": "Governance proposals",
     "pasteYourAddress": "Paste your address",
     "pleasePayAttention": "Please pay attention",
+    "redelegate": "Redelegate",
+    "redelegateVoting": "Redelegate voting",
+    "requiredVotingPower": "You need to have 300k voting power to create a proposal",
+    "successfulDelegationModal": {
+      "message": "You successfully delegated",
+      "title": "Your delegation was successful"
+    },
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
-    "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support"
+    "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
+    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",
@@ -553,10 +568,13 @@
       "ariaLabelAgainst": "votes against",
       "ariaLabelFor": "votes for",
       "cancelled": "Cancelled",
+      "defeated": "Defeated",
       "executed": "Executed",
+      "expired": "Expired",
       "for": "For",
+      "pending": "Pending",
       "queued": "Queue",
-      "readyToExecute": "Ready to execute"
+      "readyToQueue": "Ready to queue"
     },
     "voteStatus": {
       "abstained": "Abstained",
@@ -565,9 +583,23 @@
       "votedFor": "Voted for"
     }
   },
+  "wallets": {
+    "binanceChainWallet": "Binance Chain Wallet",
+    "braveWallet": "Brave Wallet",
+    "coinbaseWallet": "Coinbase Wallet",
+    "errors": {
+      "authorizeAccess": "You need to authorize access to your account",
+      "noProvider": "If you are connecting an external wallet, make sure you have a provider such as MetaMask or compatible wallet such as Brave",
+      "unsupportedWallet": "Unable to connect. Make sure your selection matches your desired wallet."
+    },
+    "ledger": "Ledger",
+    "metamask": "MetaMask",
+    "trustWallet": "Trust Wallet",
+    "walletConnect": "WalletConnect"
+  },
   "xvs": {
     "columns": {
-      "asset": "asset",
+      "asset": "Asset",
       "borrowXvsApy": "Borrow XVS APY",
       "supplyXvsApy": "Supply XVS APY",
       "xvsPerDay": "XVS Per Day"

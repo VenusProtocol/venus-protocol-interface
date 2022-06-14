@@ -130,7 +130,7 @@ export interface VoteTransaction {
 }
 
 export interface Market {
-  id: string;
+  id: TokenId;
   address: string;
   borrowApy: BigNumber;
   borrowCaps: string;
@@ -216,29 +216,28 @@ export enum TransactionCategory {
   vote = 'vote',
 }
 
-export interface ITransactionResponse {
-  amount: number;
-  blockNumber: number;
-  category: string;
-  createdAt: string;
-  event: string;
-  from: string;
+export interface ITransaction {
   id: number;
-  timestamp: string | null;
+  amountWei: BigNumber;
+  blockNumber: number;
+  category: TransactionCategory;
+  createdAt: Date;
+  event: TransactionEvent;
+  from: string;
   to: string;
+  timestamp: string | null;
   transactionHash: string;
-  updatedAt: string;
+  updatedAt: Date;
   vTokenAddress: string;
 }
 
 export interface Vault {
-  poolIndex: number;
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
-  lockingPeriodMs: number;
-  stakeAprPercentage: number;
-  totalStakedAmountWei: BigNumber;
-  dailyEmissionAmountWei: BigNumber;
-  userStakedAmountWei?: BigNumber;
-  userPendingRewardAmountWei?: BigNumber;
+  stakingAprPercentage: number;
+  totalStakedWei: BigNumber;
+  dailyEmissionWei: BigNumber;
+  lockingPeriodMs?: number;
+  userStakedWei?: BigNumber;
+  userPendingRewardWei?: BigNumber;
 }

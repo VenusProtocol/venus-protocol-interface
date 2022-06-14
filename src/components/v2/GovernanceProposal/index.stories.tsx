@@ -29,15 +29,15 @@ export const Queued = () => (
     proposalNumber={58}
     proposalDescription="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
     proposalState="Queued"
-    endDate={new Date(Date.now() + 3650000)}
+    endDate={new Date()}
   />
 );
-export const ReadyToExecute = () => (
+export const Pending = () => (
   <GovernanceProposal
     proposalNumber={58}
     proposalDescription="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Pending"
-    endDate={new Date(Date.now() + 3650000)}
+    endDate={new Date()}
   />
 );
 export const Executed = () => (
@@ -45,7 +45,7 @@ export const Executed = () => (
     proposalNumber={58}
     proposalDescription="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Executed"
-    endDate={new Date(Date.now() + 3650000)}
+    endDate={new Date()}
   />
 );
 export const Cancelled = () => (
@@ -53,6 +53,33 @@ export const Cancelled = () => (
     proposalNumber={58}
     proposalDescription="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Canceled"
+    endDate={new Date(Date.now())}
+  />
+);
+
+export const Defeated = () => (
+  <GovernanceProposal
+    proposalNumber={58}
+    proposalDescription="Buy back and burn and Tokenomic contribution finished soon"
+    proposalState="Defeated"
+    endDate={new Date(Date.now())}
+  />
+);
+
+export const Succeeded = () => (
+  <GovernanceProposal
+    proposalNumber={58}
+    proposalDescription="Buy back and burn and Tokenomic contribution finished soon"
+    proposalState="Succeeded"
+    endDate={new Date(Date.now())}
+  />
+);
+
+export const Expired = () => (
+  <GovernanceProposal
+    proposalNumber={58}
+    proposalDescription="Buy back and burn and Tokenomic contribution finished soon"
+    proposalState="Expired"
     endDate={new Date(Date.now())}
   />
 );

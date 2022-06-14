@@ -5,16 +5,13 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     headerRoot: css`
-      margin-bottom: ${theme.spacing(6)};
+      margin-bottom: ${theme.spacing(8)};
       padding: ${theme.spacing(4)} 0 ${theme.spacing(4)} ${theme.spacing(6)};
 
       ${theme.breakpoints.down('xxl')} {
         padding: 0;
         background-color: transparent;
-      }
-
-      ${theme.breakpoints.down('lg')} {
-        margin-bottom: 0;
+        margin-bottom: ${theme.spacing(6)};
       }
     `,
     row: css`

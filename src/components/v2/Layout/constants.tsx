@@ -10,20 +10,6 @@ export const menuItems: IMenuItem[] = [
     icon: 'dashboard',
   },
   {
-    href: '/vote',
-    // Translation key: do not remove this comment
-    // t('layout.menuItems.vote')
-    i18nKey: 'layout.menuItems.vote',
-    icon: 'vote',
-  },
-  {
-    href: '/xvs',
-    // Translation key: do not remove this comment
-    // t('layout.menuItems.xvs')
-    i18nKey: 'layout.menuItems.xvs',
-    icon: 'xvsOutlined',
-  },
-  {
     href: '/market',
     // Translation key: do not remove this comment
     // t('layout.menuItems.market')
@@ -38,19 +24,27 @@ export const menuItems: IMenuItem[] = [
     icon: 'vault',
   },
   {
-    href: process.env.REACT_APP_RUN_V2 ? '/history' : '/transaction',
+    href: '/history',
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
     i18nKey: 'layout.menuItems.history',
     icon: 'history',
   },
   {
-    href: 'https://prdt.finance/XVS',
+    href: '/vote',
     // Translation key: do not remove this comment
-    // t('layout.menuItems.xvsPrediction')
-    i18nKey: 'layout.menuItems.xvsPrediction',
-    icon: 'xvsPrediction',
+    // t('layout.menuItems.vote')
+    i18nKey: 'layout.menuItems.vote',
+    icon: 'vote',
   },
+  {
+    href: '/xvs',
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.xvs')
+    i18nKey: 'layout.menuItems.xvs',
+    icon: 'xvsOutlined',
+  },
+
   {
     href: '/convert-vrt',
     // Translation key: do not remove this comment
@@ -59,6 +53,14 @@ export const menuItems: IMenuItem[] = [
     i18nKey: 'layout.menuItems.convertVrt',
     i18nTitleKey: 'layout.menuItems.convertVrtTitle',
     icon: 'convert',
+  },
+
+  {
+    href: 'https://prdt.finance/XVS',
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.xvsPrediction')
+    i18nKey: 'layout.menuItems.xvsPrediction',
+    icon: 'xvsPrediction',
   },
 ];
 

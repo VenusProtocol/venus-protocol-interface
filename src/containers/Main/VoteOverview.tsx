@@ -315,7 +315,6 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
                   <SecondaryButton
                     disabled={
                       !account ||
-                      account.address.toLowerCase() !== proposalInfo.proposer?.toLowerCase() ||
                       isCancelLoading ||
                       proposerVotingWeight < proposalThreshold ||
                       cancelStatus === 'success'

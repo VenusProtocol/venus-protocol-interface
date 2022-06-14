@@ -94,10 +94,17 @@ export const Table = ({
     const rowIndex = columns.findIndex(column => column.key === orderBy);
     const newRows = [...data];
     newRows.sort((a, b) => {
-      if (+a[rowIndex]?.value < +b[rowIndex]?.value) {
+      const formattedValueA = Number.isNaN(+a[rowIndex]?.value)
+        ? a[rowIndex]?.value
+        : +a[rowIndex]?.value;
+      const formattedValueB = Number.isNaN(+b[rowIndex]?.value)
+        ? b[rowIndex]?.value
+        : +b[rowIndex]?.value;
+
+      if (formattedValueA < formattedValueB) {
         return orderDirection === 'asc' ? -1 : 1;
       }
-      if (+a[rowIndex]?.value > +b[rowIndex]?.value) {
+      if (formattedValueA > formattedValueB) {
         return orderDirection === 'asc' ? 1 : -1;
       }
       return 0;
@@ -108,6 +115,9 @@ export const Table = ({
   return (
     <Paper css={styles.root} className={className}>
       {title && <h4 css={styles.title}>{title}</h4>}
+
+      {isFetching && <Spinner css={styles.loader} />}
+
       <TableContainer css={tableCss}>
         <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
           <Head
@@ -117,12 +127,9 @@ export const Table = ({
             onRequestOrder={onRequestOrder}
           />
 
-          {/* TODO: add error state */}
-
           <TableBody>
             {rows.map(row => {
               const rowKey = row[rowKeyIndex].value.toString();
-
               return (
                 <TableRow
                   hover
@@ -152,7 +159,7 @@ export const Table = ({
           </TableBody>
         </TableMUI>
       </TableContainer>
-      {isFetching && <Spinner />}
+
       <TableCards
         rows={rows}
         rowKeyIndex={rowKeyIndex}
