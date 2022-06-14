@@ -19,8 +19,8 @@
     "extract-translation-keys": "i18next",
     "generate-contract-types": "typechain --target=web3-v1 --out-dir=src/types/contracts 'src/constants/contracts/abis/*.json'",
     "postinstall": "yarn generate-contract-types",
-    "storybook": "STORYBOOK=true start-storybook -p 6006 -s public",
-    "build-storybook": "STORYBOOK=true build-storybook -s public",
+    "storybook": "STORYBOOK=true start-storybook -p 6006",
+    "build-storybook": "STORYBOOK=true IS_BUILDING_STORYBOOK=true build-storybook",
     "loki": "loki update --reactUri file:./storybook-static",
     "regression": "reg-suit run"
   },
