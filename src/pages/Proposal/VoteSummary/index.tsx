@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import React from 'react';
 import { BigNumber } from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -19,55 +19,40 @@ type VoteFrom = {
   comment?: string;
 };
 
+type VoteType = 'for' | 'against' | 'abstain';
+
 interface IVoteSummaryProps {
-  className?: string;
-  votesFrom?: VoteFrom[];
-  // should be passed one of votedForWei/votedAgainstWei/abstainedWei with the votedTotalWei
-  votedForWei?: BigNumber;
-  votedAgainstWei?: BigNumber;
-  abstainedWei?: BigNumber;
-  votedTotalWei?: BigNumber;
   onClick: () => void;
+  voteType: VoteType;
+  votedValueWei?: BigNumber;
+  votedTotalWei?: BigNumber;
+  votesFrom?: VoteFrom[];
+  className?: string;
   isDisabled?: boolean;
 }
 
 export const VoteSummary = ({
-  className,
-  votesFrom = [],
-  votedForWei,
-  votedAgainstWei,
-  abstainedWei,
-  votedTotalWei,
   onClick,
+  voteType,
+  votedTotalWei = new BigNumber(0),
+  votedValueWei = new BigNumber(0),
+  votesFrom = [],
+  className,
   isDisabled,
 }: IVoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const getVoteWeight = (voteWeightWei: BigNumber) =>
-    useMemo(
-      () =>
-        formatCoinsToReadableValue({
-          value: voteWeightWei,
-          tokenId: XVS_TOKEN_ID,
-          shortenLargeValue: true,
-          addSymbol: false,
-        }),
-      [],
-    );
-
   return (
     <Paper css={styles.root} className={className}>
       <ActiveVotingProgress
-        votedForWei={votedForWei}
-        votedAgainstWei={votedAgainstWei}
-        abstainedWei={abstainedWei}
+        votedForWei={voteType === 'for' ? votedValueWei : undefined}
+        votedAgainstWei={voteType === 'against' ? votedValueWei : undefined}
+        abstainedWei={voteType === 'abstain' ? votedValueWei : undefined}
         votedTotalWei={votedTotalWei}
       />
       <Button css={styles.button} onClick={onClick} disabled={isDisabled}>
-        {votedForWei && t('vote.for')}
-        {votedAgainstWei && t('vote.against')}
-        {abstainedWei && t('vote.abstain')}
+        {t(`vote.${voteType}`)}
       </Button>
 
       <LabeledInlineContent label={t('voteSummary.addresses', { length: votesFrom.length })}>
@@ -93,7 +78,14 @@ export const VoteSummary = ({
                 </Tooltip>
               )}
             </EllipseText>
-            <Typography color="text.primary">{getVoteWeight(voteWeightWei)}</Typography>
+            <Typography color="text.primary">
+              {formatCoinsToReadableValue({
+                value: voteWeightWei,
+                tokenId: XVS_TOKEN_ID,
+                shortenLargeValue: true,
+                addSymbol: false,
+              })}
+            </Typography>
           </li>
         ))}
       </ul>
