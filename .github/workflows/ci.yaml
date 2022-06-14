@@ -5,6 +5,7 @@ on: [push]
 env:
   REACT_APP_CHAIN_ID: 97
   FAST_REFRESH: false
+  IS_CI_ENV: true
 
 jobs:
   typecheck:
@@ -48,7 +49,7 @@ jobs:
         run: yarn lint-styles
 
   storybooks:
-    runs-on: [self-hosted,fe]
+    runs-on: [self-hosted, fe]
     container:
       image: node:14.15.1-buster
     steps:
@@ -97,7 +98,9 @@ jobs:
         run: yarn
 
       - name: Run tests
-        run: yarn test --ci --json --coverage --testLocationInResults --outputFile=./coverage/report.json
+        run:
+          yarn test --ci --json --coverage --testLocationInResults
+          --outputFile=./coverage/report.json
 
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
