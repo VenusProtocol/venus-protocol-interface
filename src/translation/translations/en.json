@@ -317,8 +317,8 @@
     "title": "My account"
   },
   "pagination": {
-    "itemOf": "item {{currentPageLastIndex}} out of {{itemsCount}}",
-    "itemsOf": "items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
+    "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
+    "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
   "supplyWithdraw": {
     "borrowLimit": "Borrow limit",
@@ -523,6 +523,8 @@
     "youAreStaking": "You are staking"
   },
   "vote": {
+    "createProposal": "+ Create proposal",
+    "delegate": "Delegate",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",
@@ -534,11 +536,19 @@
     "governanceProposals": "Governance proposals",
     "pasteYourAddress": "Paste your address",
     "pleasePayAttention": "Please pay attention",
+    "redelegate": "Redelegate",
+    "redelegateVoting": "Redelegate voting",
+    "requiredVotingPower": "You need to have 300k voting power to create a proposal",
+    "successfulDelegationModal": {
+      "message": "You successfully delegated",
+      "title": "Your delegation was successful"
+    },
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
-    "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support"
+    "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
+    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",
@@ -558,10 +568,13 @@
       "ariaLabelAgainst": "votes against",
       "ariaLabelFor": "votes for",
       "cancelled": "Cancelled",
+      "defeated": "Defeated",
       "executed": "Executed",
+      "expired": "Expired",
       "for": "For",
+      "pending": "Pending",
       "queued": "Queue",
-      "readyToExecute": "Ready to execute"
+      "readyToQueue": "Ready to queue"
     },
     "voteStatus": {
       "abstained": "Abstained",

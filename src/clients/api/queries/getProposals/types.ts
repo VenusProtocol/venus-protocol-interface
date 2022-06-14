@@ -2,11 +2,11 @@ import { IProposal } from 'types';
 
 export interface IGetProposalsInput {
   limit?: number;
-  offset?: number;
+  page?: number;
 }
 
 export interface IProposalApiResponse {
-  page: number;
+  offset: number;
   result: {
     abstainedVotes: string;
     actions: {
@@ -67,7 +67,7 @@ export interface IProposalApiResponse {
 }
 
 export interface IGetProposalsOutput {
-  page: number;
+  offset: number;
   proposals: IProposal[];
   limit: number;
   total: number;

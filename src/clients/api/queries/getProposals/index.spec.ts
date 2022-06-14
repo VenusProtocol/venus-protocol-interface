@@ -23,8 +23,8 @@ describe('api/queries/getProposals', () => {
       expect(error).toBeInstanceOf(VError);
       if (error instanceof VError) {
         expect(error.type).toBe('unexpected');
-        expect(error.code).toBe('genericApi');
-        expect(error.message).toBe('genericApi');
+        expect(error.code).toBe('somethingWentWrong');
+        expect(error.message).toBe('somethingWentWrong');
         expect(error.data.message).toBe(fakeErrorMessage);
       }
     }
@@ -38,7 +38,7 @@ describe('api/queries/getProposals', () => {
 
     const response = await getProposals({
       limit: 10,
-      offset: 20,
+      page: 2,
     });
 
     expect(restService).toBeCalledWith({

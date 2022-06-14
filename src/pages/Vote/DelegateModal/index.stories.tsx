@@ -12,5 +12,12 @@ export default {
 } as ComponentMeta<typeof DelegateModal>;
 
 export const Default = () => (
-  <DelegateModal isOpen onClose={noop} currentUserAccountAddress={fakeAddress} />
+  <DelegateModal
+    isOpen
+    onClose={noop}
+    currentUserAccountAddress={fakeAddress}
+    setVoteDelegation={noop}
+    previouslyDelegated={false}
+    isVoteDelegationLoading={false}
+  />
 );
