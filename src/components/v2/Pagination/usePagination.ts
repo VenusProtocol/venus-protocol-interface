@@ -24,7 +24,7 @@ export function usePagination({
   /* calculating items per page count */
   useEffect(() => {
     setPagesCount(Math.ceil(itemsCount / itemsPerPageCount));
-  }, [itemsPerPageCount]);
+  }, [itemsPerPageCount, itemsCount]);
 
   const isLastPage = activePageIndex === pagesCount - 1;
   const currentPageFirstIndex = activePageIndex * itemsPerPageCount;
