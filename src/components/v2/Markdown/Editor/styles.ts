@@ -14,5 +14,11 @@ export const useStyles = () => {
         }
       `};
     `,
+    getLabel: (hasError: boolean | undefined) => css`
+      display: block;
+      margin-bottom: ${theme.spacing(1)};
+
+      color: ${hasError ? theme.palette.error.main : theme.palette.text.primary};
+    `,
   };
 };
