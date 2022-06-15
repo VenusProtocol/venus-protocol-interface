@@ -4,13 +4,17 @@ import { BLOCK_VALIDATION_RATE_IN_SECONDS } from 'constants/bsc';
 import { IProposal } from 'types';
 import { IProposalApiResponse } from './types';
 
+const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
+  const inMilliseconds = timestampInSeconds * 1000;
+  return new Date(inMilliseconds);
+};
+
 const formatToProposal = ({
   abstainedVotes,
   actions,
   againstVotes,
   blockNumber,
   cancelTimestamp,
-  createdAt,
   createdTimestamp,
   description,
   endBlock,
@@ -23,7 +27,7 @@ const formatToProposal = ({
   startTimestamp,
   state,
 }: IProposalApiResponse['result'][number]): IProposal => {
-  let endDate = typeof endTimestamp === 'number' ? new Date(endTimestamp) : undefined;
+  let endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
 
   if (!endDate) {
     const blocksLeft = endBlock - blockNumber;
@@ -33,28 +37,23 @@ const formatToProposal = ({
     endDate = now;
   }
 
-  const cancelDate = typeof cancelTimestamp === 'number' ? new Date(cancelTimestamp) : undefined;
-
   return {
     abstainedVotesWei: new BigNumber(abstainedVotes || 0),
     actions,
     againstVotesWei: new BigNumber(againstVotes || 0),
     blockNumber,
-    cancelTimestamp: cancelTimestamp ?? undefined,
-    createdAt,
-    createdTimestamp,
+    cancelDate: cancelTimestamp ? createDateFromSecondsTimestamp(cancelTimestamp) : undefined,
+    createdDate: createDateFromSecondsTimestamp(createdTimestamp),
     description,
     endBlock,
-    endTimestamp: endTimestamp ?? undefined,
-    executedTimestamp,
+    endDate,
+    executedDate: createDateFromSecondsTimestamp(executedTimestamp),
     forVotesWei: new BigNumber(forVotes || 0),
     id,
     proposer,
-    queuedTimestamp,
-    startTimestamp,
+    queuedDate: createDateFromSecondsTimestamp(queuedTimestamp),
+    startDate: createDateFromSecondsTimestamp(startTimestamp),
     state,
-    cancelDate,
-    endDate,
   };
 };
 
