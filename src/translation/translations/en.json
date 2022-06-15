@@ -603,10 +603,7 @@
     "votingWeight": "Voting weight",
     "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
     "youDelegatedTo": "You delegated your locked tokens to {{delegate}}",
-    "yourProposalwasCreatedSuccessfully": "Your proposal was created successfully",
-    "youSuccessfullyVotedAbstained": "You successfully abstained from voting on the proposal",
-    "youSuccessfullyVotedAgainstTheProposal": "You successfully voted against the proposal",
-    "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
+    "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}"
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM HH:mm }}</Date>",
