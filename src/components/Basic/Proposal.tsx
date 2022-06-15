@@ -8,10 +8,10 @@ import moment from 'moment';
 import dashImg from 'assets/img/dash.png';
 import closeImg from 'assets/img/close.png';
 import { Row, Column } from 'components/Basic/Style';
+import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import { FORMAT_STRING, getRemainingTime } from 'utilities/time';
 import { IDeprecatedProposal as ProposalObject } from '../Vote/types';
 import { Label } from './Label';
-import { useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';
-import { FORMAT_STRING, getRemainingTime } from '../../utilities/time';
 
 const ProposalWrapper = styled.div`
   width: 100%;
@@ -265,7 +265,7 @@ function Proposal({ address, proposal, votingWeight, history }: Props) {
   return (
     <ProposalWrapper className="flex flex-column pointer">
       <div className="title" onClick={goToProposal}>
-        <ReactMarkdown source={getTitle(proposal.description.split('\n'))} />
+        <ReactMarkdown>{getTitle(proposal.description.split('\n'))}</ReactMarkdown>
       </div>
       <Row className="detail" onClick={goToProposal}>
         <Column xs="12" sm="9">
