@@ -541,15 +541,16 @@
     "abstain": "Abstain",
     "against": "Against",
     "createProposal": "+ Create proposal",
-    "delegate": "Delegate",
     "createProposalForm": {
       "action": "Action",
+      "addDescription": "Add Description",
       "addOneMoreAction": "+ Add one more action",
       "address": "Address",
       "create": "Create",
-      "addDescription": "Add Description",
-      "signature": "Signature"
+      "signature": "Signature",
+      "title": "Title"
     },
+    "delegate": "Delegate",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
     "delegateVoting": "Delegate voting",

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Formik, Form, FormikErrors } from 'formik';
-import { Modal, FormikSubmitButton, MarkdownEditor } from 'components';
+import { Modal, FormikSubmitButton, FormikTextField, MarkdownEditor } from 'components';
 import { useTranslation } from 'translation';
 import ActionAccordion from './ActionAccordion';
 import proposalSchema from './proposalSchema';
@@ -46,10 +46,14 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
           <Form>
             <ActionAccordion
               actions={actions}
-              touchedActions={touched.actions}
               errorsActions={
                 errors.actions as FormikErrors<{ address: string; signature: string }>[] | undefined
               }
+            />
+            <FormikTextField
+              name="title"
+              placeholder={t('vote.createProposalForm.title')}
+              css={styles.formBottomMargin}
             />
             <MarkdownEditor
               name="description"
