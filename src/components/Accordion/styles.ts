@@ -20,7 +20,7 @@ export const useStyles = () => {
     `,
     accordionRoot: css`
       padding: 0;
-      margin-bottom: ${theme.spacing(3)};
+      margin-bottom: ${theme.spacing(7)};
       ::before {
         display: none;
       }
@@ -32,8 +32,6 @@ export const useStyles = () => {
       display: flex;
       flex-direction: row;
       min-height: 0 !important;
-      padding: 0 !important;
-
       > div {
         margin: 0 !important;
         justify-content: space-between;

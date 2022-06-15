@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { FieldArray } from 'formik';
+import { ethers } from 'ethers';
+import type { FunctionFragment } from '@ethersproject/abi';
 import { FormikTextField } from 'components';
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from './styles';
@@ -11,38 +13,37 @@ interface ICallDataFieldsProps {
 }
 
 const parseSignature = (func: string) => {
-  // First match everything inside the function argument parens.
-  const args = func.match(/.*?\(([^)]*)\)/) || [func, ''];
-  // Split the arguments string into an array comma delimited.
-  return args[1].split(',').reduce((acc, curr) => {
-    // Ensure no inline comments are parsed and trim the whitespace.
-    curr.replace(/\/\*.*\*\//, '').trim();
-    if (curr) {
-      acc.push(curr);
-      return acc;
-    }
-    return acc;
-  }, [] as string[]);
+  let funcInputs: FunctionFragment['inputs'] = [];
+  try {
+    const fragment = ethers.utils.FunctionFragment.from(func);
+    funcInputs = fragment.inputs;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+  }
+  return funcInputs;
 };
 
 const CallDataFields: React.FC<ICallDataFieldsProps> = ({ signature, actionIndex }) => {
   const styles = useStyles();
-  const callDataTypes: string[] = parseSignature(signature || '');
+  const callDataTypes = parseSignature(signature || '');
 
   return (
     <FieldArray
       name="callData"
       render={() =>
-        callDataTypes.map((type, idx) => (
-          <>
+        callDataTypes.map((param, idx) => {
+          const name = `actions.${actionIndex}.callData.${idx}`;
+          return (
             <FormikTextField
-              name={`actions.${actionIndex}.callData.${idx}`}
+              key={name}
+              name={name}
+              data-testid={name}
               css={[styles.formBottomMargin, styles.addTopMargin(idx === 0)]}
-              placeholder={type}
+              placeholder={param.type}
               displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
             />
-          </>
-        ))
+          );
+        })
       }
     />
   );

@@ -5,12 +5,12 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     modal: css`
-      > div {
+      > div:first-of-type {
         margin-bottom: ${theme.spacing(8)};
       }
     `,
     formBottomMargin: css`
-      margin-bottom: ${theme.spacing(2)};
+      margin-bottom: ${theme.spacing(6)};
     `,
     sectionSpacing: css`
       margin-bottom: ${theme.spacing(10)};

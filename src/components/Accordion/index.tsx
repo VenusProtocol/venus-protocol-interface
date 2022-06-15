@@ -14,7 +14,7 @@ export interface IAccordionProps {
   onChange: (index: number | undefined) => void;
   id: number;
   title: string;
-  rightAdornment?: React.ReactElement;
+  leftAction?: React.ReactElement;
 }
 
 export const Accordion: React.FC<IAccordionProps> = ({
@@ -23,7 +23,7 @@ export const Accordion: React.FC<IAccordionProps> = ({
   onChange,
   id,
   title,
-  rightAdornment,
+  leftAction,
   children,
 }) => {
   const styles = useStyles();
@@ -46,9 +46,9 @@ export const Accordion: React.FC<IAccordionProps> = ({
       >
         <div css={styles.accordionLeft}>
           <Icon name="arrowDown" css={styles.arrow(expanded)} />
-          <Typography color={expanded ? 'textPrimary' : 'textSecondary'}>{title}</Typography>
+          <Typography color="textPrimary">{title}</Typography>
         </div>
-        {rightAdornment || <div />}
+        {leftAction || <div />}
       </AccordionSummary>
       <AccordionDetails css={styles.content}>{children}</AccordionDetails>
     </MuiAccordion>
