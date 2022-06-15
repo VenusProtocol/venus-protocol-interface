@@ -1,17 +1,5 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_vXvsTokenAddress",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "BLOCKS_PER_DAY",
@@ -67,6 +55,32 @@
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "comptrollerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getDailyXVS",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -591,12 +605,12 @@
           },
           {
             "internalType": "uint256",
-            "name": "dailySupplyVenus",
+            "name": "dailySupplyXvs",
             "type": "uint256"
           },
           {
             "internalType": "uint256",
-            "name": "dailyBorrowVenus",
+            "name": "dailyBorrowXvs",
             "type": "uint256"
           }
         ],
@@ -704,12 +718,12 @@
           },
           {
             "internalType": "uint256",
-            "name": "dailySupplyVenus",
+            "name": "dailySupplyXvs",
             "type": "uint256"
           },
           {
             "internalType": "uint256",
-            "name": "dailyBorrowVenus",
+            "name": "dailyBorrowXvs",
             "type": "uint256"
           }
         ],
@@ -782,21 +796,6 @@
         "internalType": "struct VenusLens.VTokenUnderlyingPrice[]",
         "name": "",
         "type": "tuple[]"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "vXvsTokenAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "payable": false,

@@ -1,5 +1,6 @@
 import { Asset } from 'types';
 import BigNumber from 'bignumber.js';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 
 /**
  * Takes an asset, a supply balance (in wei of that asset) and a borrow balance (in wei of that asset)
@@ -13,10 +14,12 @@ export const calculateYearlyEarningsCents = ({
   asset,
   isXvsEnabled,
   yearlyEarningsCents = new BigNumber(0),
+  dailyXvsDistributionInterestsCents,
 }: {
   asset: Asset;
   isXvsEnabled: boolean;
   yearlyEarningsCents?: BigNumber;
+  dailyXvsDistributionInterestsCents: BigNumber;
 }) => {
   const assetBorrowBalanceCents = asset.borrowBalance
     .multipliedBy(asset.tokenPrice)
@@ -39,16 +42,9 @@ export const calculateYearlyEarningsCents = ({
   );
   // Add XVS distribution earnings if enabled
   if (isXvsEnabled) {
-    const supplyDistributionYearlyEarnings = assetSupplyBalanceCents.multipliedBy(
-      asset.xvsSupplyApy.dividedBy(100),
-    );
-    const borrowDistributionYearlyEarnings = assetBorrowBalanceCents.multipliedBy(
-      asset.xvsBorrowApy.dividedBy(100),
-    );
-
-    totalYearlyEarningsCents = totalYearlyEarningsCents
-      .plus(supplyDistributionYearlyEarnings)
-      .plus(borrowDistributionYearlyEarnings);
+    const yearlyXvsDistributionInterestsCents =
+      dailyXvsDistributionInterestsCents.multipliedBy(DAYS_PER_YEAR);
+    totalYearlyEarningsCents = totalYearlyEarningsCents.plus(yearlyXvsDistributionInterestsCents);
   }
   return totalYearlyEarningsCents;
 };
@@ -64,9 +60,11 @@ export const calculateYearlyEarningsCents = ({
 export const calculateYearlyEarningsForAssets = ({
   assets,
   isXvsEnabled,
+  dailyXvsDistributionInterestsCents,
 }: {
   assets: Asset[];
   isXvsEnabled: boolean;
+  dailyXvsDistributionInterestsCents: BigNumber;
 }) => {
   // We use the yearly earnings to calculate the daily earnings the net APY
   let yearlyEarningsCents: BigNumber | undefined;
@@ -78,6 +76,7 @@ export const calculateYearlyEarningsForAssets = ({
       asset,
       isXvsEnabled,
       yearlyEarningsCents,
+      dailyXvsDistributionInterestsCents,
     });
     yearlyEarningsCents = assetYearlyEarningsCents;
   });

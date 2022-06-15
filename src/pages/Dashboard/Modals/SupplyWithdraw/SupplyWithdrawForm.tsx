@@ -28,6 +28,7 @@ import {
   calculateDailyEarningsCents,
   calculateCollateralValue,
 } from 'utilities';
+import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 import { useStyles } from '../styles';
 
 interface ISupplyWithdrawFormUiProps {
@@ -73,6 +74,9 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
     ? calculateNewBalance(asset.supplyBalance, amount)
     : undefined;
 
+  // TODO: handle loading state
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
+
   const hypotheticalBorrowLimitCents = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
     let updateBorrowLimitCents;
@@ -95,10 +99,13 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   const [dailyEarningsCents, hypotheticalDailyEarningCents] = useMemo(() => {
     let hypotheticalDailyEarningCentsValue;
     const hypotheticalAssets = [...assets];
-    const yearlyEarningsCents = calculateYearlyEarningsForAssets({
-      assets,
-      isXvsEnabled,
-    });
+    const yearlyEarningsCents =
+      dailyXvsDistributionInterestsCents &&
+      calculateYearlyEarningsForAssets({
+        assets,
+        isXvsEnabled,
+        dailyXvsDistributionInterestsCents,
+      });
     const dailyEarningsCentsValue =
       yearlyEarningsCents && calculateDailyEarningsCents(yearlyEarningsCents);
 
@@ -110,10 +117,13 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
       };
       const currentIndex = assets.findIndex(a => a.id === asset.id);
       hypotheticalAssets.splice(currentIndex, 1, hypotheticalAsset);
-      const hypotheticalYearlyEarningsCents = calculateYearlyEarningsForAssets({
-        assets: hypotheticalAssets,
-        isXvsEnabled,
-      });
+      const hypotheticalYearlyEarningsCents =
+        dailyXvsDistributionInterestsCents &&
+        calculateYearlyEarningsForAssets({
+          assets: hypotheticalAssets,
+          isXvsEnabled,
+          dailyXvsDistributionInterestsCents,
+        });
       hypotheticalDailyEarningCentsValue =
         hypotheticalYearlyEarningsCents &&
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
