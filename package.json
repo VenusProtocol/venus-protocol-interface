@@ -177,5 +177,10 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "react-markdown": "<rootDir>/node_modules/react-markdown/react-markdown.min.js"
+    }
   }
 }
