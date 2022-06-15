@@ -107,9 +107,11 @@ export interface DescriptionV1 {
 export interface IProposal {
   abstainedVotesWei: BigNumber;
   againstVotesWei: BigNumber;
-  createdDate: Date | undefined;
-  description: DescriptionV1 | DescriptionV2;
+  blockNumber: number;
+  createdDate: Date;
+  description: string;
   endBlock: number;
+  endDate: Date;
   executedDate: Date | undefined;
   forVotesWei: BigNumber;
   id: number;
@@ -118,33 +120,6 @@ export interface IProposal {
   startDate: Date | undefined;
   state: ProposalState;
   cancelDate: Date | undefined;
-  createdTxHash: string | undefined;
-  cancelTxHash: string | undefined;
-  endTxHash: string | undefined;
-  executedTxHash: string | undefined;
-  queuedTxHash: string | undefined;
-  startTxHash: string | undefined;
-  totalVotesWei: BigNumber;
-  actions: IProposalAction[];
-  blockNumber?: number;
-  endDate?: Date;
-}
-
-export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
-
-export interface IVoter {
-  result: {
-    address: string;
-    voteWeightWei: BigNumber;
-    reason?: string;
-    support: VoteSupport;
-  }[];
-  sumVotes: {
-    abstain: BigNumber;
-    against: BigNumber;
-    for: BigNumber;
-    total: BigNumber;
-  };
 }
 
 export interface IPool {
