@@ -16,5 +16,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   onChange: noop,
-  value: '# Default Example\n## Markdown\nIs the best',
+  value:
+    "# Default Example\n## Markdown\nIs the best\nThis markdown has an image but it isn't allowed ![alt text](https://cdn.mos.cms.futurecdn.net/RifjtkFLBEFgzkZqWEh69P-1024-80.jpg)",
 };
