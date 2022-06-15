@@ -49,7 +49,9 @@ function ProposalDetail({ proposalInfo }: ProposalDetailProps) {
           <Label size="14">
             {/**/}
             {(proposalInfo.actions || []).map((s: $TSFixMe) => (
-              <ReactMarkdown className="proposal-detail" source={s.title} key={uid(s)} />
+              <ReactMarkdown className="proposal-detail" key={uid(s)}>
+                {s.title}
+              </ReactMarkdown>
             ))}
           </Label>
         </div>
@@ -57,9 +59,11 @@ function ProposalDetail({ proposalInfo }: ProposalDetailProps) {
           <Label size="20" primary>
             Description
           </Label>
-          <Label size="16">
-            <ReactMarkdown source={proposalInfo.description} />
-          </Label>
+          {proposalInfo.description && (
+            <Label size="16">
+              <ReactMarkdown>{proposalInfo.description}</ReactMarkdown>
+            </Label>
+          )}
         </div>
       </ProposalDetailWrapper>
     </Card>
