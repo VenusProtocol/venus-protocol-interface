@@ -66,20 +66,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           progressBarColor={styles.abstainColor}
         />
       </div>
-
-      <Description description={proposal.description} actions={proposal.actions} />
-
-      {voteModalType !== undefined && (
-        <VoteModal
-          voteModalType={voteModalType}
-          handleClose={() => setVoteModalType(undefined)}
-          vote={async (voteReason?: string) =>
-            vote({ proposalId: proposal.id, voteType: voteModalType, voteReason })
-          }
-          readableVoteWeight={readableVoteWeight}
-          isVoteLoading={isVoteLoading}
-        />
-      )}
+      <Description descriptionMarkdown="TODO: pass description markdown prop here" />
     </div>
   );
 };
