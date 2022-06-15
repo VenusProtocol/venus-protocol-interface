@@ -9,10 +9,5 @@ export default {
 } as ComponentMeta<typeof CreateProposalModal>;
 
 export const Default = () => (
-  <CreateProposalModal
-    isOpen
-    handleClose={noop}
-    createProposal={noop}
-    isCreateProposalLoading={false}
-  />
+  <CreateProposalModal isOpen handleClose={noop} createProposal={noop} />
 );

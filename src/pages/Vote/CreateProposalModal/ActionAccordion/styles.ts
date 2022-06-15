@@ -4,21 +4,40 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    accordion: css`
-      :last-of-type {
-        margin-bottom: 0;
-      }
-      .MuiAccordionDetails-root {
-        :last-of-type {
-          margin-bottom: 0;
-        }
-      }
+    arrow: (inverted: boolean) => css`
+      margin-right: ${theme.spacing(4.5)};
+      ${inverted && 'transform: rotate(180deg)'};
     `,
     iconButton: css`
       cursor: pointer;
       background-color: transparent;
       border: 0;
       display: flex;
+      align-items: center;
+    `,
+    accordionRoot: css`
+      padding: 0;
+      margin-bottom: ${theme.spacing(7)};
+      ::before {
+        display: none;
+      }
+      &.Mui-expanded {
+        margin: 0;
+      }
+    `,
+    accordionSummary: css`
+      display: flex;
+      flex-direction: row;
+      min-height: 0 !important;
+      > div {
+        margin: 0 !important;
+        justify-content: space-between;
+      }
+      margin: 0;
+    `,
+    accordionLeft: css`
+      display: flex;
+      flex-direction: row;
       align-items: center;
     `,
     formTopMargin: css`
@@ -28,15 +47,10 @@ export const useStyles = () => {
       margin-bottom: ${theme.spacing(2)};
     `,
     addOneMore: css`
-      margin: ${theme.spacing(10)} 0;
+      margin: ${theme.spacing(8)} 0;
     `,
     addTopMargin: (add: boolean) => css`
       ${add && `margin-top: ${theme.spacing(2)}`};
-    `,
-    closeIcon: css`
-      height: ${theme.spacing(3)};
-      width: ${theme.spacing(3)};
-      margin: -${theme.spacing(1.5)};
     `,
   };
 };
