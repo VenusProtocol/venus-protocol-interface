@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 import { VoteSummary } from './index';
 
 export default {
@@ -66,29 +67,32 @@ const votes = [
 
 export const VoteFor = () => (
   <VoteSummary
-    voteType="for"
+    label="For"
     votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
     votesFrom={votes}
     onClick={noop}
+    progressBarColor={PALETTE.interactive.success50}
   />
 );
 
 export const VoteAgainst = () => (
   <VoteSummary
-    voteType="against"
+    label="Against"
     votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
     votesFrom={votes}
     onClick={noop}
+    progressBarColor={PALETTE.interactive.error50}
   />
 );
 
-export const Empty = () => (
+export const Abstain = () => (
   <VoteSummary
-    voteType="for"
-    votedValueWei={new BigNumber('100000000000000000')}
+    label="Abstain"
+    votedValueWei={new BigNumber('0')}
     votedTotalWei={new BigNumber('200000000000000000')}
     onClick={noop}
+    progressBarColor={PALETTE.text.secondary}
   />
 );
