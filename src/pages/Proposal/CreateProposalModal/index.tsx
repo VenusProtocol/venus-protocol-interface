@@ -29,12 +29,20 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
       css={styles.modal}
     >
       <Formik
-        initialValues={{ actions: [{ address: '', signature: '' }], description: '' }}
+        initialValues={{ actions: [{ address: '', signature: '', callData: [] }], description: '' }}
         validationSchema={proposalSchema}
+        // @todo validate form inputs
         onSubmit={createProposal}
         validateOnChange
+        validateOnMount
       >
-        {({ values: { actions }, errors, touched }) => (
+        {({
+          values: { actions, description },
+          errors,
+          touched,
+          setFieldValue,
+          setFieldTouched,
+        }) => (
           <Form>
             <ActionAccordion
               actions={actions}
@@ -43,11 +51,16 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
                 errors.actions as FormikErrors<{ address: string; signature: string }>[] | undefined
               }
             />
-            <FormikTextField
+            <MarkdownEditor
               name="description"
               placeholder={t('vote.createProposalForm.addDescription')}
               css={styles.sectionSpacing}
               hasError={!!errors.description && touched.description}
+              onChange={(value: string | undefined) => {
+                setFieldTouched('description', true);
+                setFieldValue('description', value);
+              }}
+              value={description}
             />
             <FormikSubmitButton enabledLabel={t('vote.createProposalForm.create')} fullWidth />
           </Form>

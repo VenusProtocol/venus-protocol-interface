@@ -49,5 +49,8 @@ export const useStyles = () => {
     addOneMore: css`
       margin: ${theme.spacing(8)} 0;
     `,
+    addTopMargin: (add: boolean) => css`
+      ${add && `margin-top: ${theme.spacing(2)}`};
+    `,
   };
 };

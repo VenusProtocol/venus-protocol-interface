@@ -9,6 +9,9 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(8)};
       }
     `,
+    formBottomMargin: css`
+      margin-bottom: ${theme.spacing(2)};
+    `,
     sectionSpacing: css`
       margin-bottom: ${theme.spacing(10)};
     `,
