@@ -2,6 +2,7 @@ import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { BscConnector } from '@binance-chain/bsc-connector';
+import { InfinityWalletConnector } from '@infinitywallet/infinity-connector';
 
 import { RPC_URL, CHAIN_ID, BscChainId } from 'config';
 import { Connector } from './types';
@@ -22,6 +23,10 @@ const coinbaseWalletConnector = new WalletLinkConnector({
   appName: 'Venus',
 });
 
+const infinityWalletConnector = new InfinityWalletConnector({
+  supportedChainIds: [BscChainId.MAINNET],
+});
+
 export const connectorsByName = {
   [Connector.MetaMask]: injectedConnector,
   [Connector.BraveWallet]: injectedConnector,
@@ -29,4 +34,5 @@ export const connectorsByName = {
   [Connector.CoinbaseWallet]: coinbaseWalletConnector,
   [Connector.TrustWallet]: injectedConnector,
   [Connector.BinanceChainWallet]: binanceChainWalletConnector,
+  [Connector.InfinityWallet]: infinityWalletConnector,
 };
