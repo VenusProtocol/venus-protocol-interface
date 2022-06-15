@@ -6,6 +6,7 @@ import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.s
 import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
 import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
 import { ReactComponent as BraveWalletLogo } from 'assets/img/v2/wallets/braveWalletLogo.svg';
+import { ReactComponent as InfinityWalletLogo } from 'assets/img/v2/wallets/infinityWalletLogo.svg';
 import { t } from 'translation';
 import { Connector } from 'clients/web3';
 import { BaseWallet, Wallet, IntegratedWallet } from './types';
@@ -42,6 +43,12 @@ export const WALLETS: Wallet[] = [
     name: t('wallets.braveWallet'),
     Logo: BraveWalletLogo,
     connector: Connector.BraveWallet,
+  },
+  {
+    name: t('wallets.infinityWallet'),
+    Logo: InfinityWalletLogo,
+    connector: Connector.InfinityWallet,
+    mainnetOnly: true,
   },
 ];
 
