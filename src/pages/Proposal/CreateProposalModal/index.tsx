@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Formik, Form, FormikErrors } from 'formik';
-import { Modal, FormikSubmitButton, FormikTextField } from 'components';
+import { Modal, FormikSubmitButton, MarkdownEditor } from 'components';
 import { useTranslation } from 'translation';
 import ActionAccordion from './ActionAccordion';
 import proposalSchema from './proposalSchema';

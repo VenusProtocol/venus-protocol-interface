@@ -3,11 +3,16 @@ import React from 'react';
 
 import MdEditor, { commands } from '@uiw/react-md-editor';
 import previewOptions from '../previewOptions';
-import './styles.scss';
+import { useStyles } from './styles';
+import './styles-overrides.scss';
 
 export interface IMarkdownProps {
   value: string;
   onChange: (text: string | undefined) => void;
+  name: string;
+  placeholder: string;
+  hasError?: boolean;
+  className?: string;
 }
 const allowedCommands = [
   commands.title1,
@@ -29,7 +34,6 @@ const MarkdownEditor: React.FC<IMarkdownProps> = ({
   className,
 }) => {
   const styles = useStyles();
-
   return (
     <MdEditor
       className={className}
