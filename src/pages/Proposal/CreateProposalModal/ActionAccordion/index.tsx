@@ -1,25 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { FieldArray, FormikErrors, FormikTouched } from 'formik';
+import { FieldArray, FormikErrors } from 'formik';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { Typography } from '@mui/material';
 import { Icon, FormikTextField, SecondaryButton } from 'components';
 import { useTranslation } from 'translation';
+import { ErrorCode } from '../proposalSchema';
+import CallDataFields from './CallDataFields';
 import { useStyles } from './styles';
 
 interface IActionAccordion {
   actions: { address: string; signature: string }[];
-  errorsActions: FormikErrors<{ address: string; signature: string }>[] | undefined;
-  touchedActions: FormikTouched<{ address: boolean; signature: boolean }>[] | undefined;
+  errorsActions:
+    | FormikErrors<{ address: string; signature: string; callData: string[] }>[]
+    | undefined;
 }
 
-const ActionAccordion: React.FC<IActionAccordion> = ({
-  actions,
-  errorsActions: errors,
-  touchedActions: touched,
-}) => {
+const ActionAccordion: React.FC<IActionAccordion> = ({ actions, errorsActions: errors }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [expandedIdx, setExpanded] = React.useState<number | undefined>(undefined);
@@ -48,17 +47,17 @@ const ActionAccordion: React.FC<IActionAccordion> = ({
                       placeholder={t('vote.createProposalForm.address')}
                       maxLength={42}
                       css={styles.formBottomMargin}
-                      hasError={
-                        !!(errors && errors[idx]?.address) && touched && touched[idx]?.address
-                      }
+                      displayableErrorCodes={[
+                        ErrorCode.VALUE_REQUIRED,
+                        ErrorCode.ACTION_ADDRESS_NOT_VALID,
+                      ]}
                     />
                     <FormikTextField
                       name={`actions.${idx}.signature`}
                       placeholder={t('vote.createProposalForm.signature')}
-                      hasError={
-                        !!(errors && errors[idx]?.signature) && touched && touched[idx]?.signature
-                      }
+                      displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
                     />
+                    <CallDataFields signature={action.signature} actionIndex={idx} />
                   </>
                 );
               }
@@ -90,29 +89,29 @@ const ActionAccordion: React.FC<IActionAccordion> = ({
                       placeholder={t('vote.createProposalForm.address')}
                       maxLength={42}
                       css={[styles.formTopMargin, styles.formBottomMargin]}
-                      hasError={
-                        !!(errors && errors[idx]?.address) && touched && touched[idx]?.address
-                      }
+                      displayableErrorCodes={[
+                        ErrorCode.ACTION_ADDRESS_NOT_VALID,
+                        ErrorCode.VALUE_REQUIRED,
+                      ]}
                     />
                     <FormikTextField
                       name={`actions.${idx}.signature`}
                       placeholder={t('vote.createProposalForm.signature')}
-                      hasError={
-                        !!(errors && errors[idx]?.signature) && touched && touched[idx]?.signature
-                      }
+                      displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
                     />
+                    <CallDataFields signature={action.signature} actionIndex={idx} />
                   </AccordionDetails>
                 </Accordion>
               );
             })}
             <SecondaryButton
               onClick={() => {
-                push({});
+                push({ address: '', signature: '' });
                 setExpanded(actions.length || 0);
               }}
               fullWidth
               css={styles.addOneMore}
-              disabled={!!errors}
+              disabled={!!errors || actions.length === 10}
             >
               {t('vote.createProposalForm.addOneMoreAction')}
             </SecondaryButton>
