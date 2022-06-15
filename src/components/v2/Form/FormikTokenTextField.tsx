@@ -18,6 +18,7 @@ export const FormikTokenTextField = ({
   };
   return (
     <TokenTextField
+      name={name}
       value={value}
       onChange={onChange}
       onBlur={onBlur}

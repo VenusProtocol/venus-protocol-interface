@@ -37,7 +37,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
         <Typography variant="h4">{t('vote.governanceProposals')}</Typography>
         <div css={styles.createProposal}>
           <TextButton onClick={() => setShowCreateProposalModal(true)} css={styles.marginless}>
-            {t('vote.createProposal')}
+            {t('vote.createProposalPlus')}
           </TextButton>
           <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIcon}>
             <Icon name="info" />
@@ -81,11 +81,13 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
           itemsPerPageCount={limit}
         />
       )}
-      <CreateProposalModal
-        isOpen={showCreateProposalModal}
-        handleClose={() => setShowCreateProposalModal(false)}
-        createProposal={createProposal}
-      />
+      {showCreateProposalModal && (
+        <CreateProposalModal
+          isOpen={showCreateProposalModal}
+          handleClose={() => setShowCreateProposalModal(false)}
+          createProposal={createProposal}
+        />
+      )}
     </div>
   );
 };

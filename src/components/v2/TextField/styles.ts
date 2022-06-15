@@ -9,7 +9,7 @@ export const useStyles = () => {
       display: block;
       margin-bottom: ${theme.spacing(1)};
 
-      ${hasError && `color: ${theme.palette.error.main};`};
+      color: ${hasError ? theme.palette.error.main : theme.palette.text.primary};
     `,
     getInputContainer: ({
       hasError,
