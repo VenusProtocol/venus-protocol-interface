@@ -2,7 +2,7 @@
 import React from 'react';
 import Votes from './Votes';
 import ProposalSummary from './ProposalSummary';
-import Description from './Description';
+import { Description } from './Description';
 import { useStyles } from './styles';
 
 export const Vote: React.FC = () => {
@@ -15,7 +15,7 @@ export const Vote: React.FC = () => {
         <Votes css={[styles.votes, styles.middleVote]} />
         <Votes css={styles.vote} />
       </div>
-      <Description />
+      <Description descriptionMarkdown="TODO: pass description markdown prop here" />
     </div>
   );
 };
