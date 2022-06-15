@@ -172,17 +172,9 @@
     "workerDirectory": "public"
   },
   "jest": {
-    "transformIgnorePatterns": [
-      "/node_modules/?!(react-markdown)"
-    ],
+    "transformIgnorePatterns": ["/node_modules/?!(react-markdown)"],
     "moduleNameMapper": {
       "^.+\\.css$": "<rootDir>/src/__mocks__/CSSStub.js"
-    },
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{ts,tsx}",
-      "!<rootDir>/src/**/*.stories.tsx"
-    ],
-    "resetMocks": false,
-    "clearMocks": true
+    }
   }
 }
