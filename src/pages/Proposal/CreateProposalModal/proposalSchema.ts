@@ -5,8 +5,10 @@ export type FormValues = yup.InferType<typeof proposalSchema>;
 
 export enum ErrorCode {
   ACTION_ADDRESS_NOT_VALID = 'ACTION_ADDRESS_NOT_VALID', // value must be a valid address
+  VALUE_REQUIRED = 'VALUE_REQUIRED', // value must be a valid address
 }
 
+// 10 max of ten actions
 const proposalSchema = yup.object({
   actions: yup
     .array()
@@ -18,11 +20,13 @@ const proposalSchema = yup.object({
           .test('isPositive', ErrorCode.ACTION_ADDRESS_NOT_VALID, value =>
             web3.utils.isAddress(value as string),
           ),
-        signature: yup.string().required(),
+        signature: yup.string().required(ErrorCode.VALUE_REQUIRED),
+        callData: yup.array().of(yup.string().required(ErrorCode.VALUE_REQUIRED)),
       }),
     )
-    .required(),
-  description: yup.string().required(),
+    .required(ErrorCode.VALUE_REQUIRED)
+    .max(10),
+  description: yup.string().required(ErrorCode.VALUE_REQUIRED),
 });
 
 export default proposalSchema;

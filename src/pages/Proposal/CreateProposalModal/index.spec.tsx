@@ -8,7 +8,7 @@ import CreateProposalModal from '.';
 
 jest.mock('clients/api');
 
-const fakeSignature = 'Comptroller._setAbc(0x12341234, 234324)';
+const fakeSignature = 'Comptroller._setAbc(string, bool)';
 
 describe('pages/Proposal/CreateProposalModal', () => {
   it('renders open without crashing', async () => {
@@ -122,5 +122,57 @@ describe('pages/Proposal/CreateProposalModal', () => {
       fireEvent.click(addActionButton);
       await waitFor(() => getByText(fakeSignature).closest('p'));
     });
+  });
+
+  it('Adds calldata fields with correctly formatted signature', async () => {
+    const { getAllByPlaceholderText, getByPlaceholderText } = renderComponent(
+      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+    );
+
+    const addressInputs = await waitFor(() =>
+      getAllByPlaceholderText(en.vote.createProposalForm.address),
+    );
+    const signatureInputs = await waitFor(() =>
+      getAllByPlaceholderText(en.vote.createProposalForm.signature),
+    );
+    fireEvent.change(addressInputs[0], { target: { value: fakeAddress } });
+    fireEvent.change(signatureInputs[0], { target: { value: fakeSignature } });
+    // fake Signature should add an input with a bool placeholder and on with a string placeholder
+    getByPlaceholderText('string');
+    getByPlaceholderText('bool');
+  });
+
+  it('Limits to 10 actions', async () => {
+    const { getAllByPlaceholderText, getByText } = renderComponent(
+      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+    );
+
+    const addActionButton = getByText(en.vote.createProposalForm.addOneMoreAction).closest(
+      'button',
+    ) as HTMLButtonElement;
+
+    let addressInputs = await waitFor(() =>
+      getAllByPlaceholderText(en.vote.createProposalForm.address),
+    );
+    let signatureInputs = await waitFor(() =>
+      getAllByPlaceholderText(en.vote.createProposalForm.signature),
+    );
+    Array(10).forEach(async (value, idx) => {
+      fireEvent.change(addressInputs[0], { target: { value: fakeAddress } });
+      fireEvent.change(signatureInputs[0], { target: { value: fakeSignature } });
+
+      fireEvent.click(addActionButton);
+
+      addressInputs = await waitFor(() =>
+        getAllByPlaceholderText(en.vote.createProposalForm.address),
+      );
+      signatureInputs = await waitFor(() =>
+        getAllByPlaceholderText(en.vote.createProposalForm.signature),
+      );
+      expect(addressInputs.length).toBe(idx + 1);
+      expect(signatureInputs.length).toBe(idx + 1);
+    });
+
+    await waitFor(() => expect(addActionButton).toBeDisabled());
   });
 });

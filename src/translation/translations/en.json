@@ -565,7 +565,6 @@
       "address": "Address",
       "create": "Create",
       "addDescription": "Add Description",
-      
       "signature": "Signature"
     },
     "delegateAddress": "Delegate address",

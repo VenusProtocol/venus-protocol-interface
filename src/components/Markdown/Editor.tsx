@@ -20,13 +20,31 @@ const allowedCommands = [
   commands.italic,
 ];
 
-const MarkdownEditor: React.FC<IMarkdownProps> = ({ value, onChange }) => (
-  <MdEditor
-    value={value}
-    onChange={onChange}
-    commands={allowedCommands}
-    previewOptions={previewOptions}
-  />
-);
+const MarkdownEditor: React.FC<IMarkdownProps> = ({
+  value,
+  onChange,
+  name,
+  placeholder,
+  hasError,
+  className,
+}) => {
+  const styles = useStyles();
+
+  return (
+    <MdEditor
+      className={className}
+      value={value}
+      onChange={onChange}
+      commands={allowedCommands}
+      previewOptions={previewOptions}
+      textareaProps={{
+        placeholder,
+        name,
+      }}
+      placeholder={placeholder}
+      css={styles.hasError(hasError)}
+    />
+  );
+};
 
 export default MarkdownEditor;
