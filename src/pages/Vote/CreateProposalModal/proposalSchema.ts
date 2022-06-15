@@ -8,7 +8,6 @@ export enum ErrorCode {
   VALUE_REQUIRED = 'VALUE_REQUIRED', // value must be a valid address
 }
 
-// 10 max of ten actions
 const proposalSchema = yup.object({
   actions: yup
     .array()
@@ -28,6 +27,9 @@ const proposalSchema = yup.object({
     .max(10),
   title: yup.string().required(ErrorCode.VALUE_REQUIRED),
   description: yup.string().required(ErrorCode.VALUE_REQUIRED),
+  forDescription: yup.string().required(ErrorCode.VALUE_REQUIRED),
+  againstDescription: yup.string().required(ErrorCode.VALUE_REQUIRED),
+  abstainDescription: yup.string().required(ErrorCode.VALUE_REQUIRED),
 });
 
 export default proposalSchema;

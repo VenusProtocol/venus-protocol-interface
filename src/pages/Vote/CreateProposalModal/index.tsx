@@ -4,13 +4,13 @@ import { Formik, Form, FormikErrors } from 'formik';
 import { Modal, FormikSubmitButton, FormikTextField, MarkdownEditor } from 'components';
 import { useTranslation } from 'translation';
 import ActionAccordion from './ActionAccordion';
-import proposalSchema from './proposalSchema';
+import proposalSchema, { FormValues, ErrorCode } from './proposalSchema';
 import { useStyles } from './styles';
 
 interface ICreateProposal {
   isOpen: boolean;
   handleClose: () => void;
-  createProposal: () => void;
+  createProposal: (data: FormValues) => void;
 }
 
 export const CreateProposal: React.FC<ICreateProposal> = ({
@@ -29,7 +29,14 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
       css={styles.modal}
     >
       <Formik
-        initialValues={{ actions: [{ address: '', signature: '', callData: [] }], description: '' }}
+        initialValues={{
+          actions: [{ address: '', signature: '', callData: [] }],
+          description: '',
+          forDescription: '',
+          againstDescription: '',
+          abstainDescription: '',
+          title: '',
+        }}
         validationSchema={proposalSchema}
         // @todo validate form inputs
         onSubmit={createProposal}
@@ -44,16 +51,17 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
           setFieldTouched,
         }) => (
           <Form>
+            <FormikTextField
+              name="title"
+              placeholder={t('vote.createProposalForm.title')}
+              css={styles.formBottomMargin}
+              displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
+            />
             <ActionAccordion
               actions={actions}
               errorsActions={
                 errors.actions as FormikErrors<{ address: string; signature: string }>[] | undefined
               }
-            />
-            <FormikTextField
-              name="title"
-              placeholder={t('vote.createProposalForm.title')}
-              css={styles.formBottomMargin}
             />
             <MarkdownEditor
               name="description"
