@@ -44,7 +44,6 @@ const MyAccount: React.FC<IMyAccountProps> = ({
         isXvsEnabled,
         dailyXvsDistributionInterestsCents,
       });
-
     const netApyPercentage =
       userTotalSupplyBalanceCents &&
       yearlyEarningsCents &&

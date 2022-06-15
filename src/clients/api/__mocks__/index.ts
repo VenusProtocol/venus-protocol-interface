@@ -120,21 +120,9 @@ export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, 
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
-export const getProposal = jest.fn(() => proposals[0]);
-export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
-
 export const getDailyXvsWei = jest.fn();
 export const useGetDailyXvsWei = () =>
   useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
-
-export const getVoters = jest.fn(() => voters);
-export const useGetVoters = jest.fn(() => useQuery(FunctionKey.GET_VOTERS, getVoters));
-
-export const getVoterHistory = jest.fn();
-export const useGetVoterHistory = () => useQuery(FunctionKey.GET_VOTER_HISTORY, getVoterHistory);
-
-export const getVoterDetails = jest.fn();
-export const useGetVoterDetails = () => useQuery(FunctionKey.GET_VOTER_DETAILS, getVoterDetails);
 
 export const getVoteReceipt = jest.fn();
 export const useGetVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);

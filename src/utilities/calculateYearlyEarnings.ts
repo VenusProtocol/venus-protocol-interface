@@ -1,9 +1,25 @@
 import BigNumber from 'bignumber.js';
-
-import { Asset } from 'types';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 
-export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => {
+/**
+ * Takes an asset, a supply balance (in wei of that asset) and a borrow balance (in wei of that asset)
+ * and returns the resulting daily earnings (in dollar cents, rounded to the cent)
+ * Daily Earnings calculation
+ *
+ * @param {asset: Asset, supplyBalance: BigNumber, borrowBalance: BigNumber } argument
+ * @returns BigNumber of daily earnings (in dollar cents, rounded to the cent)
+ */
+export const calculateYearlyEarningsCents = ({
+  asset,
+  isXvsEnabled,
+  yearlyEarningsCents = new BigNumber(0),
+  dailyXvsDistributionInterestsCents,
+}: {
+  asset: Asset;
+  isXvsEnabled: boolean;
+  yearlyEarningsCents?: BigNumber;
+  dailyXvsDistributionInterestsCents: BigNumber;
+}) => {
   const assetBorrowBalanceCents = asset.borrowBalance
     .multipliedBy(asset.tokenPrice)
     .multipliedBy(100);
@@ -20,7 +36,16 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
     asset.borrowApy.dividedBy(100),
   );
 
-  return supplyYearlyEarningsCents.plus(borrowYearlyInterestsCents);
+  let totalYearlyEarningsCents = yearlyEarningsCents.plus(
+    supplyYearlyEarningsCents.plus(borrowYearlyInterestsCents),
+  );
+  // Add XVS distribution earnings if enabled
+  if (isXvsEnabled) {
+    const yearlyXvsDistributionInterestsCents =
+      dailyXvsDistributionInterestsCents.multipliedBy(DAYS_PER_YEAR);
+    totalYearlyEarningsCents = totalYearlyEarningsCents.plus(yearlyXvsDistributionInterestsCents);
+  }
+  return totalYearlyEarningsCents;
 };
 
 export const calculateYearlyEarningsForAssets = ({
@@ -42,6 +67,9 @@ export const calculateYearlyEarningsForAssets = ({
 
     const assetYearlyEarningsCents = calculateYearlyEarningsForAsset({
       asset,
+      isXvsEnabled,
+      yearlyEarningsCents,
+      dailyXvsDistributionInterestsCents,
     });
 
     yearlyEarningsCents = yearlyEarningsCents.plus(assetYearlyEarningsCents);
