@@ -25,9 +25,7 @@ const MarkdownEditor: React.FC<IMarkdownProps> = ({ value, onChange }) => (
     value={value}
     onChange={onChange}
     commands={allowedCommands}
-    previewOptions={{
-      rehypePlugins: [[rehypeSanitize]],
-    }}
+    previewOptions={previewOptions}
   />
 );
 
