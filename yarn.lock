@@ -1776,9 +1776,9 @@
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
 "@infinitywallet/infinity-connector@^1.0.5":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@infinitywallet/infinity-connector/-/infinity-connector-1.0.6.tgz#a25fde7c013f6f8bec34ff338d334f8efcc07708"
-  integrity sha512-yk7hNaHVOdJvZ31m0d3rN2yUH3Kw5FdhX/zCNFv9mKQwq2pllfrAhAooJsE1zUd6TXfU7G4fir9EZWY0MKB4NA==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@infinitywallet/infinity-connector/-/infinity-connector-1.0.5.tgz#1d75b0b3ece41ffca2f4edd5c7ee8e786f7c19fb"
+  integrity sha512-KCiDHNQUbJeopmTlplx28eQ6RaWzFHrqlBtM3AY5OWbNHu42XY2SlmGdrzb6wOHLvcmt0VIyXEbQiuk471svIg==
   dependencies:
     "@web3-react/abstract-connector" "^6.0.7"
     "@web3-react/types" "^6.0.7"

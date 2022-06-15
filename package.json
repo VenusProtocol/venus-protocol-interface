@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
-    "@emotion/react": "^11.9.3",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@infinitywallet/infinity-connector": "^1.0.5",
     "@lottiefiles/react-lottie-player": "^3.4.5",
     "@mui/material": "^5.4.2",
