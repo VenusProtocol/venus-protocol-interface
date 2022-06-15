@@ -4,7 +4,7 @@ import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
-import { VoteSummary } from './index';
+import VoteSummary from './index';
 
 export default {
   title: 'Pages/Proposal/VoteSummary',

@@ -41,6 +41,9 @@ export const useStyles = () => {
         margin-right: 0;
       }
     `,
+    middleVote: css`
+      margin: 0 ${theme.spacing(8)};
+    `,
     successColor: theme.palette.interactive.success,
     againstColor: theme.palette.interactive.error,
     abstainColor: theme.palette.text.secondary,

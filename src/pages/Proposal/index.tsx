@@ -1,18 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useState, useMemo } from 'react';
-import { BigNumber } from 'bignumber.js';
-import { useParams } from 'react-router-dom';
-import type { TransactionReceipt } from 'web3-core';
+import React from 'react';
+import BigNumber from 'bignumber.js';
 import { useTranslation } from 'translation';
-import { useGetProposal, useGetVoters, useGetCurrentVotes, useGetVoteReceipt } from 'clients/api';
-import useVote, { UseVoteParams } from 'hooks/useVote';
-import { Spinner } from 'components';
-import { IProposal, IVoter } from 'types';
-import { convertWeiToTokens } from 'utilities';
-import { AuthContext } from 'context/AuthContext';
-import TEST_IDS from './testIds';
 import VoteSummary from './VoteSummary';
-import VoteModal from './VoteModal';
 import ProposalSummary from './ProposalSummary';
 import { Description } from './Description';
 import { useStyles } from './styles';
@@ -40,29 +30,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
-
-  // Summing contract totals because there is a delay getting the totals from the server
-  const totalVotesWei = useMemo(
-    () =>
-      forVoters.sumVotes.for.plus(
-        againstVoters.sumVotes.against.plus(abstainVoters.sumVotes.abstain),
-      ),
-    [
-      forVoters.sumVotes.for.toFixed(),
-      againstVoters.sumVotes.against.toFixed(),
-      abstainVoters.sumVotes.abstain.toFixed(),
-    ],
-  );
-
-  if (!proposal) {
-    return (
-      <div css={[styles.root, styles.spinner]}>
-        <Spinner />
-      </div>
-    );
-  }
-
   return (
     <div css={styles.root}>
       <ProposalSummary css={styles.summary} proposal={proposal} />
@@ -71,37 +38,29 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         <VoteSummary
           css={styles.vote}
           label={t('vote.for')}
-          votedValueWei={forVoters.sumVotes.for}
-          votedTotalWei={totalVotesWei}
-          voters={forVoters.result}
-          openVoteModal={() => setVoteModalType(1)}
+          votedValueWei={new BigNumber('100000000000000000')}
+          votedTotalWei={new BigNumber('200000000000000000')}
+          votesFrom={[]}
+          onClick={() => {}}
           progressBarColor={styles.successColor}
-          votingEnabled={votingEnabled}
-          testId={TEST_IDS.voteSummary.for}
         />
-
         <VoteSummary
-          css={styles.vote}
+          css={[styles.vote, styles.middleVote]}
           label={t('vote.against')}
-          votedValueWei={againstVoters.sumVotes.against}
-          votedTotalWei={totalVotesWei}
-          voters={againstVoters.result}
-          openVoteModal={() => setVoteModalType(0)}
+          votedValueWei={new BigNumber('100000000000000000')}
+          votedTotalWei={new BigNumber('200000000000000000')}
+          votesFrom={[]}
+          onClick={() => {}}
           progressBarColor={styles.againstColor}
-          votingEnabled={votingEnabled}
-          testId={TEST_IDS.voteSummary.against}
         />
-
         <VoteSummary
           css={styles.vote}
           label={t('vote.abstain')}
-          votedValueWei={abstainVoters.sumVotes.abstain}
-          votedTotalWei={totalVotesWei}
-          voters={abstainVoters.result}
-          openVoteModal={() => setVoteModalType(2)}
+          votedValueWei={new BigNumber('100000000000000000')}
+          votedTotalWei={new BigNumber('200000000000000000')}
+          votesFrom={[]}
+          onClick={() => {}}
           progressBarColor={styles.abstainColor}
-          votingEnabled={votingEnabled}
-          testId={TEST_IDS.voteSummary.abstain}
         />
       </div>
 
