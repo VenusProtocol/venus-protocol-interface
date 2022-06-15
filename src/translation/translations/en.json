@@ -550,7 +550,8 @@
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
     "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
-    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}"
+    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}",
+    "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",
