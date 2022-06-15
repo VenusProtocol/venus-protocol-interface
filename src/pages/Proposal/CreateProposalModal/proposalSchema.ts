@@ -26,6 +26,7 @@ const proposalSchema = yup.object({
     )
     .required(ErrorCode.VALUE_REQUIRED)
     .max(10),
+  title: yup.string().required(ErrorCode.VALUE_REQUIRED),
   description: yup.string().required(ErrorCode.VALUE_REQUIRED),
 });
 
