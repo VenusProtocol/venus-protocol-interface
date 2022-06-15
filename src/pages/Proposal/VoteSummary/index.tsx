@@ -36,7 +36,7 @@ interface IVoteSummaryProps {
   isDisabled?: boolean;
 }
 
-export const VoteSummary = ({
+const VoteSummary = ({
   onClick,
   label,
   progressBarColor,
@@ -113,3 +113,5 @@ export const VoteSummary = ({
     </Paper>
   );
 };
+
+export default VoteSummary;
