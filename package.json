@@ -185,7 +185,8 @@
       "/node_modules/?!(react-markdown)"
     ],
     "moduleNameMapper": {
-      "^.+\\.css$": "<rootDir>/src/__mocks__/CSSStub.js"
+      "^.+\\.css$": "<rootDir>/src/__mocks__/CSSStub.js",
+      "react-markdown": "<rootDir>/node_modules/react-markdown/react-markdown.min.js"
     }
   }
 }
