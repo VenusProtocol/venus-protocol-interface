@@ -616,7 +616,7 @@
     "proposalState": {
       "active": "Active"
     },
-    "que": "Que",
+    "queue": "Queue",
     "statusCard": {
       "active": "Active",
       "ariaLabelAbstain": "votes abstain",

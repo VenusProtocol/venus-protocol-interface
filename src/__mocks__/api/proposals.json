@@ -26,7 +26,7 @@
       "createdTxHash": null,
       "description": "set new price oracle",
       "endBlock": 19788034,
-      "endTimestamp": null,
+      "endTimestamp": 1653923952,
       "endTxHash": null,
       "eta": 1654004880,
       "executed": true,
