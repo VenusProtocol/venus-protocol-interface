@@ -44,6 +44,9 @@ Defeated.args = {
   endDate: new Date(1654000009000),
   queuedDate: undefined,
 };
+// .args = {
+//   proposal: { ...proposals[0], state: 'Defeated', executedDate: undefined, queuedDate: undefined },
+// };
 
 export const Succeeded = Template.bind({});
 Succeeded.args = {
@@ -55,6 +58,9 @@ Succeeded.args = {
   endDate: new Date(1654000009000),
   queuedDate: undefined,
 };
+// .args = {
+//   proposal: { ...proposals[0], state: 'Succeeded', executedDate: undefined, queuedDate: undefined },
+// };
 
 export const Canceled = Template.bind({});
 Canceled.args = {
@@ -66,6 +72,15 @@ Canceled.args = {
   endDate: new Date(1654000009000),
   queuedDate: undefined,
 };
+// .args = {
+//   proposal: {
+//     ...proposals[0],
+//     state: 'Canceled',
+//     cancelDate: new Date(1654005000700),
+//     executedDate: undefined,
+//     queuedDate: undefined,
+//   },
+// };
 
 export const Expired = Template.bind({});
 Expired.args = {
@@ -77,6 +92,9 @@ Expired.args = {
   endDate: new Date(1654000009000),
   queuedDate: undefined,
 };
+// .args = {
+//   proposal: { ...proposals[0], state: 'Expired', executedDate: undefined, queuedDate: undefined },
+// };
 
 export const Queued = Template.bind({});
 Queued.args = {
@@ -88,6 +106,9 @@ Queued.args = {
   endDate: new Date(1654000009000),
   queuedDate: undefined,
 };
+// .args = {
+//   proposal: { ...proposals[0], state: 'Queued', executedDate: undefined },
+// };
 
 export const Executed = Template.bind({});
 Executed.args = {
@@ -99,3 +120,6 @@ Executed.args = {
   endDate: new Date(1654000009000),
   queuedDate: undefined,
 };
+// .args = {
+//   proposal: { ...proposals[0], state: 'Executed' },
+// };
