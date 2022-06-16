@@ -315,6 +315,14 @@
     "supplyBalance": "Supply balance",
     "title": "My account"
   },
+  "nonVestingVaultStakeModal": {
+    "availableTokensLabel": "Available {{tokenSymbol}}",
+    "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
+    "enableTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to enable it first",
+    "submitButtonDisabledLabel": "Enter a valid amount to stake",
+    "submitButtonLabel": "Stake",
+    "title": "Stake {{tokenSymbol}}"
+  },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
