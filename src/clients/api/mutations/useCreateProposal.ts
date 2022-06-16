@@ -19,9 +19,7 @@ const useCreateProposal = (
         governorBravoContract,
         ...params,
       }),
-    {
-      ...options,
-    },
+    options,
   );
 };
 

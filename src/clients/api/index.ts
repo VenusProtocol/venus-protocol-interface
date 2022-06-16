@@ -73,6 +73,18 @@ export { default as createProposal } from './mutations/createProposal';
 export * from './mutations/createProposal';
 export { default as useCreateProposal } from './mutations/useCreateProposal';
 
+export { default as cancelProposal } from './mutations/cancelProposal';
+export * from './mutations/cancelProposal';
+export { default as useCancelProposal } from './mutations/useCancelProposal';
+
+export { default as executeProposal } from './mutations/executeProposal';
+export * from './mutations/executeProposal';
+export { default as useExectueProposal } from './mutations/useExecuteProposal';
+
+export { default as queueProposal } from './mutations/queueProposal';
+export * from './mutations/queueProposal';
+export { default as useQueueProposal } from './mutations/useQueueProposal';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
