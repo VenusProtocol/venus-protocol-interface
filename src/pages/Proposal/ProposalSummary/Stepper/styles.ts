@@ -59,7 +59,7 @@ export const useStyles = () => {
       }
     `,
     dateDefault: css`
-      align-self: flex-end;
+      align-self: center;
       color: ${theme.palette.text.secondary};
       ${theme.breakpoints.down('lg')} {
         display: none;
