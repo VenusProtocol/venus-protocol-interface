@@ -15,7 +15,7 @@ export default {
 
 export const Active = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Active"
     forVotesWei={new BigNumber('500000000000000000')}
@@ -26,7 +26,7 @@ export const Active = () => (
 );
 export const Queued = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
     proposalState="Queued"
     endDate={new Date()}
@@ -34,7 +34,7 @@ export const Queued = () => (
 );
 export const Pending = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Pending"
     endDate={new Date()}
@@ -42,7 +42,7 @@ export const Pending = () => (
 );
 export const Executed = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Executed"
     endDate={new Date()}
@@ -50,7 +50,7 @@ export const Executed = () => (
 );
 export const Cancelled = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Canceled"
     endDate={new Date(Date.now())}
@@ -59,7 +59,7 @@ export const Cancelled = () => (
 
 export const Defeated = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Defeated"
     endDate={new Date(Date.now())}
@@ -68,7 +68,7 @@ export const Defeated = () => (
 
 export const Succeeded = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Succeeded"
     endDate={new Date(Date.now())}
@@ -77,7 +77,7 @@ export const Succeeded = () => (
 
 export const Expired = () => (
   <GovernanceProposal
-    proposalId={58}
+    proposalNumber={58}
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Expired"
     endDate={new Date(Date.now())}
