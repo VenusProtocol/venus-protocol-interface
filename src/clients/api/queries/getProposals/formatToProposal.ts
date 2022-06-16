@@ -26,8 +26,17 @@ const formatToProposal = ({
   queuedTimestamp,
   startTimestamp,
   state,
+  createdTxHash,
 }: IProposalApiResponse['result'][number]): IProposal => {
   let endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
+
+  let descriptionObj = { version: 'v1' as const, title: '', description: '' };
+  try {
+    descriptionObj = JSON.parse(description);
+  } catch (err) {
+    const [title, descriptionText] = description.split('\n')[0];
+    descriptionObj = { version: 'v1' as const, title, description: descriptionText };
+  }
 
   if (!endDate) {
     const blocksLeft = endBlock - blockNumber;
@@ -44,7 +53,7 @@ const formatToProposal = ({
     blockNumber,
     cancelDate: cancelTimestamp ? createDateFromSecondsTimestamp(cancelTimestamp) : undefined,
     createdDate: createDateFromSecondsTimestamp(createdTimestamp),
-    description,
+    description: descriptionObj,
     endBlock,
     endDate,
     executedDate: createDateFromSecondsTimestamp(executedTimestamp),
@@ -54,6 +63,7 @@ const formatToProposal = ({
     queuedDate: createDateFromSecondsTimestamp(queuedTimestamp),
     startDate: createDateFromSecondsTimestamp(startTimestamp),
     state,
+    createdTxHash,
   };
 };
 
