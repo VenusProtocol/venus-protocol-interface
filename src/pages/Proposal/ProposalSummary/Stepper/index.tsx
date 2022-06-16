@@ -8,7 +8,7 @@ import { useStyles } from './styles';
 
 export interface IStepperProps {
   className?: string;
-  createdDate: Date;
+  createdDate: Date | undefined;
   startDate: Date | undefined;
   cancelDate: Date | undefined;
   queuedDate: Date | undefined;
