@@ -124,7 +124,7 @@ export const useGetVaiVaultUserInfo = () =>
 
 export const getVaiVaultPendingXvsWei = jest.fn();
 export const useGetVaiVaultPendingXvsWei = () =>
-  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvsWei);
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, fakeAddress], getVaiVaultPendingXvsWei);
 
 export const useGetVestingVaults = jest.fn();
 
@@ -176,6 +176,18 @@ export const useExitMarket = (options?: MutationObserverOptions) =>
 export const claimXvsReward = jest.fn();
 export const useClaimXvsReward = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward, options);
+
+export const claimVaiVaultReward = jest.fn();
+export const useClaimVaiVaultReward = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_VAI_VAULT_REWARD, claimVaiVaultReward, options);
+
+export const claimXvsVaultReward = jest.fn();
+export const useClaimXvsVaultReward = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_XVS_VAULT_REWARD, claimXvsVaultReward, options);
+
+export const claimVrtVaultReward = jest.fn();
+export const useClaimVrtVaultReward = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_VRT_VAULT_REWARD, claimVrtVaultReward, options);
 
 export const repayBnb = jest.fn();
 export const useRepayBnb = () => useMutation(FunctionKey.REPAY_BNB, repayBnb);

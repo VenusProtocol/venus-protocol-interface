@@ -89,6 +89,18 @@ export { default as queueProposal } from './mutations/queueProposal';
 export * from './mutations/queueProposal';
 export { default as useQueueProposal } from './mutations/useQueueProposal';
 
+export { default as claimVaiVaultReward } from './mutations/claimVaiVaultReward';
+export * from './mutations/claimVaiVaultReward';
+export { default as useClaimVaiVaultReward } from './mutations/useClaimVaiVaultReward';
+
+export { default as claimVrtVaultReward } from './mutations/claimVrtVaultReward';
+export * from './mutations/claimVrtVaultReward';
+export { default as useClaimVrtVaultReward } from './mutations/useClaimVrtVaultReward';
+
+export { default as claimXvsVaultReward } from './mutations/claimXvsVaultReward';
+export * from './mutations/claimXvsVaultReward';
+export { default as useClaimXvsVaultReward } from './mutations/useClaimXvsVaultReward';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
