@@ -4,8 +4,8 @@ import {
   ComptrollerErrorReporterFailureInfo,
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
-  VAIControllerErrorReporterError,
-  VAIControllerErrorReporterFailureInfo,
+  VaiControllerErrorReporterError,
+  VaiControllerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
 
 export const transactionErrorPhrases: Record<
@@ -13,8 +13,8 @@ export const transactionErrorPhrases: Record<
   | keyof typeof ComptrollerErrorReporterFailureInfo
   | keyof typeof TokenErrorReporterError
   | keyof typeof TokenErrorReporterFailureInfo
-  | keyof typeof VAIControllerErrorReporterError
-  | keyof typeof VAIControllerErrorReporterFailureInfo,
+  | keyof typeof VaiControllerErrorReporterError
+  | keyof typeof VaiControllerErrorReporterFailureInfo,
   string
 > = {
   NO_ERROR: t('transactionErrors.noError'),

@@ -166,7 +166,7 @@ export enum TokenErrorReporterFailureInfo {
   REDEEM_FEE_CALCULATION_FAILED,
 }
 
-export enum VAIControllerErrorReporterError {
+export enum VaiControllerErrorReporterError {
   NO_ERROR,
   UNAUTHORIZED,
   REJECTION,
@@ -176,7 +176,7 @@ export enum VAIControllerErrorReporterError {
   INSUFFICIENT_BALANCE_FOR_VAI,
 }
 
-export enum VAIControllerErrorReporterFailureInfo {
+export enum VaiControllerErrorReporterFailureInfo {
   SET_PENDING_ADMIN_OWNER_CHECK,
   SET_PENDING_IMPLEMENTATION_OWNER_CHECK,
   SET_COMPTROLLER_OWNER_CHECK,
@@ -201,4 +201,28 @@ export enum VAIControllerErrorReporterFailureInfo {
   VAI_LIQUIDATE_SEIZE_TOO_MUCH,
   MINT_FEE_CALCULATION_FAILED,
   SET_TREASURY_OWNER_CHECK,
+}
+
+export enum VaiVaultErrorReporterError {
+  NO_ERROR,
+  UNAUTHORIZED,
+}
+
+export enum VaiVaultErrorReporterInfo {
+  ACCEPT_ADMIN_PENDING_ADMIN_CHECK,
+  ACCEPT_PENDING_IMPLEMENTATION_ADDRESS_CHECK,
+  SET_PENDING_ADMIN_OWNER_CHECK,
+  SET_PENDING_IMPLEMENTATION_OWNER_CHECK,
+}
+
+export enum XvsVaultProxyErrorReporterError {
+  NO_ERROR,
+  UNAUTHORIZED,
+}
+
+export enum XvsVaultProxyErrorReporterInfo {
+  ACCEPT_ADMIN_PENDING_ADMIN_CHECK,
+  ACCEPT_PENDING_IMPLEMENTATION_ADDRESS_CHECK,
+  SET_PENDING_ADMIN_OWNER_CHECK,
+  SET_PENDING_IMPLEMENTATION_OWNER_CHECK,
 }
