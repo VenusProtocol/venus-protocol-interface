@@ -16,13 +16,7 @@ export interface IBscLinkProps {
   text?: string;
 }
 
-export const BscLink: React.FC<IBscLinkProps> = ({
-  hash,
-  className,
-  urlType,
-  text,
-  ellipseBreakpoint,
-}) => {
+export const BscLink: React.FC<IBscLinkProps> = ({ hash, className, urlType, text }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -48,8 +42,7 @@ export const BscLink: React.FC<IBscLinkProps> = ({
         variant="small1"
         css={styles.text}
       >
-        {content}
-
+        {text || t('bscLink.content')}
         <Icon name="open" css={styles.icon} />
       </Typography>
     </div>
