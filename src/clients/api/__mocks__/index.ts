@@ -214,3 +214,15 @@ export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
 export const createProposal = jest.fn();
 export const useCreateProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
+
+export const cancelProposal = jest.fn();
+export const useCancelProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CANCEL_PROPOSAL, cancelProposal, options);
+
+export const executeProposal = jest.fn();
+export const useExecuteProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.EXECUTE_PROPOSAL, executeProposal, options);
+
+export const queueProposal = jest.fn();
+export const useQueueProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);

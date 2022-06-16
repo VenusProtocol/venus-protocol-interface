@@ -1,21 +1,21 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 
-import { createProposal, ICreateProposalInput, CreateProposalOutput } from 'clients/api';
+import { cancelProposal, ICancelProposalInput, CancelProposalOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 
-const useCreateProposal = (
+const useCancelProposal = (
   options?: MutationObserverOptions<
-    CreateProposalOutput,
+    CancelProposalOutput,
     Error,
-    Omit<ICreateProposalInput, 'governorBravoContract'>
+    Omit<ICancelProposalInput, 'governorBravoContract'>
   >,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
   return useMutation(
-    FunctionKey.CREATE_PROPOSAL,
+    FunctionKey.CANCEL_PROPOSAL,
     params =>
-      createProposal({
+      cancelProposal({
         governorBravoContract,
         ...params,
       }),
@@ -23,4 +23,4 @@ const useCreateProposal = (
   );
 };
 
-export default useCreateProposal;
+export default useCancelProposal;
