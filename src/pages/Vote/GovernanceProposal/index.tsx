@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
 import { ProposalState } from 'types';
-import { Icon, IconName } from '../Icon';
+import { ActiveChip, Chip, Icon, IconName } from 'components';
 import { ActiveVotingProgress } from './ActiveVotingProgress';
 import { useStyles } from './styles';
 
@@ -103,7 +103,7 @@ interface IGovernanceProposalProps {
   abstainedVotesWei?: BigNumber;
 }
 
-export const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
+const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
   className,
   proposalNumber,
   proposalDescription,
@@ -165,22 +165,10 @@ export const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
       <Grid container>
         <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
           <div css={styles.cardHeader}>
-            <div css={styles.cardBadges}>
-              <Typography
-                variant="small2"
-                color="textPrimary"
-                css={[styles.cardBadgeItem, styles.cardBadgeNumber]}
-              >
-                #{proposalNumber}
-              </Typography>
+            <div>
+              <Chip text={`#${proposalNumber}`} />
               {proposalState === 'Active' && (
-                <Typography
-                  variant="small2"
-                  color="textPrimary"
-                  css={[styles.cardBadgeItem, styles.cardBadgeActive]}
-                >
-                  {t('voteProposalUi.proposalStatus.active')}
-                </Typography>
+                <ActiveChip text={t('voteProposalUi.proposalStatus.active')} />
               )}
             </div>
 
@@ -221,3 +209,5 @@ export const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
     </Paper>
   );
 };
+
+export default GovernanceProposal;

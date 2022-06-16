@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 import { useTranslation } from 'translation';
 import { useGetProposals } from 'clients/api';
-import { GovernanceProposal, Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
+import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
 import { IProposal } from 'types';
+import GovernanceProposal from '../GovernanceProposal';
 import { useStyles } from './styles';
 
 interface IGovernanceUiProps {
