@@ -14,7 +14,6 @@ const Template: Story<ITransactionFormProps> = args => <TransactionForm {...args
 
 export const Default = Template.bind({});
 Default.args = {
-  title: 'Stake VAI',
   tokenId: 'vai',
   availableTokensWei: new BigNumber('193871256231321312312'),
   availableTokensLabel: 'Available VAI',
@@ -24,7 +23,6 @@ Default.args = {
 
 export const WithLockingPeriod = Template.bind({});
 WithLockingPeriod.args = {
-  title: 'Stake XVS',
   tokenId: 'xvs',
   availableTokensWei: new BigNumber('193871256231321312312'),
   availableTokensLabel: 'Available reward',

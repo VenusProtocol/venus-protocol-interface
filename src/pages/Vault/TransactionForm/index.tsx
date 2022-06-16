@@ -13,7 +13,6 @@ import { useStyles } from './styles';
 
 export interface ITransactionFormProps {
   tokenId: TokenId;
-  title: string;
   submitButtonLabel: string;
   submitButtonDisabledLabel: string;
   onSubmit: IAmountFormProps['onSubmit'];
