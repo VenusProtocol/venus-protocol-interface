@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import { Paper } from '@mui/material';
-
 import Typography from '@mui/material/Typography';
+import Markdown from 'components/v2/Markdown/Viewer';
 import { useStyles } from './styles';
 
 interface IDescriptionSummary {
@@ -18,7 +17,7 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
       <Typography variant="h4" color="textSecondary">
         Description
       </Typography>
-      <ReactMarkdown>{descriptionMarkdown}</ReactMarkdown>
+      <Markdown css={styles.markdown} content={descriptionMarkdown} />
     </Paper>
   );
 };
