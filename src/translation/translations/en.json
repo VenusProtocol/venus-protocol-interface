@@ -561,7 +561,7 @@
       "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
       "minutesIncluded": "{{minutes}}m : {{seconds}}s"
     },
-    "proposalStatus": {
+    "proposalState": {
       "active": "Active"
     },
     "statusCard": {
