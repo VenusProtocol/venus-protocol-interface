@@ -10,8 +10,13 @@ import {
 import { EllipseText, Icon, LabeledProgressBar } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import copy from 'copy-to-clipboard';
-import { getToken, generateBscScanUrl, getContractAddress } from 'utilities';
-import { convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
+import {
+  getToken,
+  generateBscScanUrl,
+  getContractAddress,
+  convertWeiToCoins,
+  formatCoinsToReadableValue,
+} from 'utilities';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
 import { MINTED_XVS_WEI } from '../constants';

@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 import { Icon, IconName } from 'components';
-import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities';
 import { TokenId } from 'types';
 
 interface CardHeaderProps {

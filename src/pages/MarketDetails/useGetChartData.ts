@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { IApyChartProps } from 'components';
 import { IVBepToken } from 'types';
-import { formatPercentage } from 'utilities/common';
+import { formatPercentage } from 'utilities';
 import { useGetMarketHistory } from 'clients/api';
 
 const useGetChartData = ({ vTokenId }: { vTokenId: IVBepToken['id'] }) => {

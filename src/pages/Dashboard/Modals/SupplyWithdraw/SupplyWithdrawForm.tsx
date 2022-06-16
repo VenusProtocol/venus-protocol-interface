@@ -22,8 +22,6 @@ import {
   format,
   convertCoinsToWei,
   formatCoinsToReadableValue,
-} from 'utilities/common';
-import {
   calculateYearlyEarningsForAssets,
   calculateDailyEarningsCents,
   calculateCollateralValue,

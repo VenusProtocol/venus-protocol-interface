@@ -5,7 +5,7 @@ import {
   formatCoinsToReadableValue,
   formatToReadablePercentage,
   formatCentsToReadableValue,
-} from 'utilities/common';
+} from 'utilities';
 import { Asset } from 'types';
 import { Table, TableProps, Token, Toggle, LayeredValues } from 'components';
 import { useTranslation } from 'translation';

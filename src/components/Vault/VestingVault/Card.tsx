@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import BigNumber from 'bignumber.js';
 
-import { getToken } from 'utilities';
+import { getToken, formatCommaThousandsPeriodDecimal, format } from 'utilities';
 import { Icon, IconName } from 'components';
-import { formatCommaThousandsPeriodDecimal, format } from 'utilities/common';
 import { TokenId } from 'types';
 import VaultCardContent from './CardContent';
 import { VaultCardWrapper } from '../styles';

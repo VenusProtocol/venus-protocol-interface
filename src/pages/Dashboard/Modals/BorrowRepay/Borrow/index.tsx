@@ -2,16 +2,16 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { getToken } from 'utilities';
+import {
+  getToken,
+  formatToReadablePercentage,
+  formatCoinsToReadableValue,
+  convertCoinsToWei,
+} from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import {
-  formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  convertCoinsToWei,
-} from 'utilities/common';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';

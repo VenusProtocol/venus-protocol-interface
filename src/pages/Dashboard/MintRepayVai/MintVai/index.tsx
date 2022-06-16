@@ -5,7 +5,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {

@@ -14,8 +14,7 @@ import {
   useTokenContract,
   useVaiVaultContract,
 } from 'clients/contracts/hooks';
-import { getContractAddress } from 'utilities';
-import { convertWeiToCoins } from 'utilities/common';
+import { getContractAddress, convertWeiToCoins } from 'utilities';
 import { AuthContext } from 'context/AuthContext';
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';

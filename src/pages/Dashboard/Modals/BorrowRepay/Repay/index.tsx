@@ -9,7 +9,7 @@ import {
   convertCoinsToWei,
   formatCoinsToReadableValue,
   formatToReadablePercentage,
-} from 'utilities/common';
+} from 'utilities';
 import { useRepayVToken } from 'clients/api';
 import { VError, formatVErrorToReadableString } from 'errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
