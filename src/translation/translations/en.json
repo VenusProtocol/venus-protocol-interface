@@ -74,7 +74,7 @@
     "repayTabTitle": "Repay"
   },
   "bscLink": {
-    "content": "View on bscscan.com<Icon/>"
+    "content": "View on bscscan.com"
   },
   "claimXvsRewardButton": {
     "successfulTransactionModal": {
@@ -557,14 +557,18 @@
   "voteProposalUi": {
     "activeUntil": "Active until:",
     "activeUntilDate": "{{ date, dd MMM HH:mm }}",
+    "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
       "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
       "minutesIncluded": "{{minutes}}m : {{seconds}}s"
     },
+    "execute": "Execute",
+    "proposalHistory": "Proposal History",
     "proposalState": {
       "active": "Active"
     },
+    "que": "Que",
     "statusCard": {
       "active": "Active",
       "ariaLabelAbstain": "votes abstain",

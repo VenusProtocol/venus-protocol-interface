@@ -2,6 +2,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { useTranslation } from 'translation';
+import proposals from '__mocks__/models/proposals';
 import VoteSummary from './VoteSummary';
 import ProposalSummary from './ProposalSummary';
 import Description from './Description';
@@ -12,7 +13,7 @@ export const Vote: React.FC = () => {
   const { t } = useTranslation();
   return (
     <div css={styles.root}>
-      <ProposalSummary css={styles.summary} />
+      <ProposalSummary css={styles.summary} proposal={proposals[0]} />
       <div css={styles.votes}>
         <VoteSummary
           css={styles.vote}
