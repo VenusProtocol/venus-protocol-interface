@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Vault } from 'types';
 import useGetVestingVaults from './useGetVestingVaults';
 import useGetVaiVault from './useGetVaiVault';
+import useGetVrtVault from './useGetVrtVault';
 
 export interface UseGetVaultsOutput {
   isLoading: boolean;
@@ -17,7 +18,9 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
     accountAddress,
   });
 
-  // TODO: fetch VRT vault
+  const { data: vrtVault, isLoading: isVrtVaultLoading } = useGetVrtVault({
+    accountAddress,
+  });
 
   const data: Vault[] = useMemo(() => {
     const allVaults = [...vestingVaults];
@@ -26,12 +29,14 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
       allVaults.push(vaiVault);
     }
 
-    // TODO: add VRT vault
+    if (vrtVault) {
+      allVaults.push(vrtVault);
+    }
 
     return allVaults;
   }, [JSON.stringify(vestingVaults), vaiVault]);
 
-  const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading;
+  const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading || isVrtVaultLoading;
 
   return {
     data,
