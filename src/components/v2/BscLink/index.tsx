@@ -11,10 +11,11 @@ export interface IBscLinkProps {
   hash: string;
   urlType?: UrlType;
   className?: string;
+  text?: string;
 }
 
-export const BscLink: React.FC<IBscLinkProps> = ({ hash, className, urlType }) => {
-  const { Trans } = useTranslation();
+export const BscLink: React.FC<IBscLinkProps> = ({ hash, className, urlType, text }) => {
+  const { t } = useTranslation();
   const styles = useStyles();
 
   return (
@@ -27,12 +28,8 @@ export const BscLink: React.FC<IBscLinkProps> = ({ hash, className, urlType }) =
         variant="small1"
         css={styles.text}
       >
-        <Trans
-          i18nKey="bscLink.content"
-          components={{
-            Icon: <Icon name="open" css={styles.icon} />,
-          }}
-        />
+        {text || t('bscLink.content')}
+        <Icon name="open" css={styles.icon} />
       </Typography>
     </div>
   );
