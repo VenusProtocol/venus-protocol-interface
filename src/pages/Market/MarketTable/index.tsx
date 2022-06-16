@@ -9,8 +9,8 @@ import {
   formatTokensToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-} from 'utilities/common';
-import { convertPercentageFromSmartContract } from 'utilities';
+    convertPercentageFromSmartContract,
+} from 'utilities';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 

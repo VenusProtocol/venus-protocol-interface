@@ -15,7 +15,7 @@ import {
 import { Tabs, Spinner } from 'components';
 import { VError } from 'errors/VError';
 import { useTranslation } from 'translation';
-import { convertWeiToTokens } from 'utilities';
+import { convertWeiToCoins } from 'utilities';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VRT_ID } from './constants';
 import Withdraw, { IWithdrawProps } from './Withdraw';

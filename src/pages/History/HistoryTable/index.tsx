@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { EllipseAddress, Icon, Table, TableProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { XVS_TOKEN_ID } from 'constants/xvs';
-import { generateBscScanUrl, getTokenIdFromVAddress, convertWeiToTokens } from 'utilities';
+import { generateBscScanUrl, getTokenIdFromVAddress, convertWeiToCoins } from 'utilities';
 import { useTranslation } from 'translation';
 import { ITransaction } from 'types';
 import { useStyles } from './styles';

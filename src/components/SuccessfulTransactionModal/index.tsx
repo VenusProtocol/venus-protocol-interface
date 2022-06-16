@@ -3,7 +3,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 
-import { convertWeiToTokens } from 'utilities';
+import { convertWeiToCoins } from 'utilities';
 import { TokenId } from 'types';
 import { BscLink } from '../BscLink';
 import { Icon, IconName } from '../Icon';

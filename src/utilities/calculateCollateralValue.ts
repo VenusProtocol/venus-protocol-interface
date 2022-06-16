@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
-import { convertWeiToTokens } from 'utilities';
+import { convertWeiToCoins } from 'utilities';
 
 const calculateCollateralValue = ({
   tokenId,

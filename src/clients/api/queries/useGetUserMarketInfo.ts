@@ -5,7 +5,7 @@ import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import {
   indexBy,
-  convertTokensToWei,
+  convertCoinsToWei,
   calculateCollateralValue,
   getVBepToken,
   getToken,

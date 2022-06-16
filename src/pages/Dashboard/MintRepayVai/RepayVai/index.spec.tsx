@@ -7,7 +7,7 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { repayVai, useGetUserMarketInfo, getAllowance } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import MAX_UINT256 from 'constants/maxUint256';
-import { formatTokensToReadableValue } from 'utilities';
+import { formatCoinsToReadableValue } from 'utilities';
 import renderComponent from 'testUtils/renderComponent';
 import { assetData } from '__mocks__/models/asset';
 import fakeAccountAddress from '__mocks__/models/address';

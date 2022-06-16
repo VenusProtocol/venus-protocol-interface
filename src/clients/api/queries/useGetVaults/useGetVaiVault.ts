@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { Vault, TokenId } from 'types';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { convertWeiToTokens, getContractAddress } from 'utilities';
+import { convertWeiToCoins } from 'utilities';
 import {
   useGetBalanceOf,
   useGetVenusVaiVaultDailyRateWei,

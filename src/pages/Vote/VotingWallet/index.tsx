@@ -16,8 +16,7 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { convertWeiToTokens } from 'utilities';
-import TEST_IDS from '../testIds';
+import { convertWeiToCoins } from 'utilities';
 import DelegateModal from '../DelegateModal';
 import { useStyles } from './styles';
 

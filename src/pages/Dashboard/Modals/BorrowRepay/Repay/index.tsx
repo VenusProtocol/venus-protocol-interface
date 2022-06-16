@@ -9,7 +9,6 @@ import {
   convertTokensToWei,
   formatTokensToReadableValue,
   formatToReadablePercentage,
-  getVBepToken,
 } from 'utilities';
 import { useRepayVToken } from 'clients/api';
 import TEST_IDS from 'constants/testIds';

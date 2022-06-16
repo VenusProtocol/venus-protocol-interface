@@ -18,12 +18,7 @@ import {
   useGetVTokenBalanceOf,
   useGetUserMarketInfo,
 } from 'clients/api';
-import {
-  isAssetEnabled,
-  formatToReadablePercentage,
-  convertTokensToWei,
-  getVBepToken,
-} from 'utilities';
+import { isAssetEnabled, formatToReadablePercentage, convertCoinsToWei } from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';

@@ -15,8 +15,8 @@ import { Asset } from 'types';
 import {
   getContractAddress,
   formatToReadablePercentage,
-  formatTokensToReadableValue,
-  convertWeiToTokens,
+  formatCoinsToReadableValue,
+  convertWeiToCoins,
 } from 'utilities';
 import { useStyles } from '../styles';
 

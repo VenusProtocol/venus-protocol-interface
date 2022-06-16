@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
-import { VError } from 'errors';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
   FormikSubmitButton,

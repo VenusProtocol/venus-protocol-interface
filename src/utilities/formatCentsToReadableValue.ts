@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { shortenTokensWithSuffix } from 'utilities';
+import {
+  formatCommaThousandsPeriodDecimal,
+  shortenNumberWithSuffix,
+  convertCentsToDollars,
+} from 'utilities';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 const formatCentsToReadableValue = ({
@@ -13,14 +17,15 @@ const formatCentsToReadableValue = ({
     return PLACEHOLDER_KEY;
   }
 
-  const wrappedValueDollars = new BigNumber(value).dividedBy(100);
-
   if (!shortenLargeValue) {
-    return `$${wrappedValueDollars.toFormat(2)}`;
+    return `$${formatCommaThousandsPeriodDecimal(
+      convertCentsToDollars(typeof value === 'number' ? value : value.toNumber()),
+    )}`;
   }
 
   // Shorten value
-  const shortenedValue = shortenTokensWithSuffix(wrappedValueDollars);
+  const wrappedValueDollars = new BigNumber(value).dividedBy(100);
+  const shortenedValue = shortenNumberWithSuffix(wrappedValueDollars);
   return `$${shortenedValue}`;
 };
 

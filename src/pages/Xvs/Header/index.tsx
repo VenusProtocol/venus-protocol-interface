@@ -9,13 +9,13 @@ import {
 } from 'clients/api';
 import { Icon, LabeledProgressBar, EllipseAddress } from 'components';
 import { AuthContext } from 'context/AuthContext';
-import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import copy from 'copy-to-clipboard';
 import {
   getToken,
   generateBscScanUrl,
   getContractAddress,
-  convertWeiToTokens,
-  formatTokensToReadableValue,
+  convertWeiToCoins,
+  formatCoinsToReadableValue,
 } from 'utilities';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';

@@ -4,8 +4,7 @@ import { BigNumber } from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import { formatCoinsToReadableValue } from 'utilities/common';
-import { generateBscScanUrl } from 'utilities';
+import { formatCoinsToReadableValue, generateBscScanUrl } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import {

@@ -19,8 +19,9 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
-  convertTokensToWei,
-  formatTokensToReadableValue,
+  format,
+  convertCoinsToWei,
+  formatCoinsToReadableValue,
   calculateYearlyEarningsForAssets,
   calculateDailyEarningsCents,
   calculateCollateralValue,

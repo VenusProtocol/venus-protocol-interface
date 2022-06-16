@@ -9,18 +9,13 @@ import {
   getVBepToken,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  formatTokensToReadableValue,
+  formatCoinsToReadableValue,
+  formatCommaThousandsPeriodDecimal,
 } from 'utilities';
-import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
-import {
-  ApyChart,
-  IApyChartProps,
-  InterestRateChart,
-  IInterestRateChartProps,
-  Spinner,
-} from 'components';
+import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
+import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import Path from 'constants/path';
 import { useGetVTokenApySimulations } from 'clients/api';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';

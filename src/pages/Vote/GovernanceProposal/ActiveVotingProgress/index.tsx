@@ -5,7 +5,7 @@ import { LabeledProgressBar } from 'components';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { useTranslation } from 'translation';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins } from 'utilities';
 import { useStyles } from '../styles';
 
 interface IActiveVotingProgressProps {
