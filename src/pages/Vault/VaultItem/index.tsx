@@ -7,9 +7,8 @@ import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import { convertWeiToCoins, formatToReadablePercentage } from 'utilities/common';
+import { convertWeiToCoins, formatToReadablePercentage, getToken } from 'utilities';
 import { TokenId } from 'types';
-import { getToken } from 'utilities';
 import { Icon, Button } from 'components';
 import { useStyles } from './styles';
 

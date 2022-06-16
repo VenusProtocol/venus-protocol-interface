@@ -5,9 +5,15 @@ import { TREASURY_ADDRESS } from 'config';
 import { useWeb3 } from 'clients/web3';
 import { Asset, Market } from 'types';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
-import { getVBepToken, getToken, calculateCollateralValue } from 'utilities';
+import {
+  getVBepToken,
+  getToken,
+  calculateCollateralValue,
+  indexBy,
+  notNull,
+  convertCoinsToWei,
+} from 'utilities';
 import { fetchMarkets } from 'utilities/api';
-import { indexBy, notNull, convertCoinsToWei } from 'utilities/common';
 import useRefresh from 'hooks/useRefresh';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';

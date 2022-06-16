@@ -18,7 +18,7 @@ import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VError } from 'errors/VError';
-import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities';
 import { VRT_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 

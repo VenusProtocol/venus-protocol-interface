@@ -4,7 +4,7 @@ import { Progress, Icon } from 'antd';
 import styled from 'styled-components';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Card } from 'components/Basic/Card';
-import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities';
 
 const HoldingWrapper = styled.div`
   width: 100%;

@@ -4,7 +4,7 @@ import { useGetMarkets, useGetVTokenBalancesAll, IGetVTokenBalancesAllOutput } f
 import { TREASURY_ADDRESS } from 'config';
 import { VBEP_TOKENS } from 'constants/tokens';
 import { Market } from 'types';
-import { indexBy } from 'utilities/common';
+import { indexBy } from 'utilities';
 
 export interface IData {
   treasuryTotalSupplyBalanceCents: BigNumber;

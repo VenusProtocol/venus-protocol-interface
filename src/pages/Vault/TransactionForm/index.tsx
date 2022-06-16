@@ -6,7 +6,7 @@ import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent } from '
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { TokenId } from 'types';
 import { useTranslation } from 'translation';
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins } from 'utilities';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { useStyles } from './styles';
 

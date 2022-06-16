@@ -16,7 +16,7 @@ import { Tabs } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { VError } from 'errors/VError';
 import { useTranslation } from 'translation';
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins } from 'utilities';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VRT_ID } from './constants';
 import Withdraw, { IWithdrawProps } from './Withdraw';

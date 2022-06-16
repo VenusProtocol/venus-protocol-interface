@@ -7,7 +7,7 @@ import { PrimaryButton } from 'components';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import { encodeParameters, getArgs } from 'utilities/common';
+import { encodeParameters, getArgs } from 'utilities';
 import closeImg from 'assets/img/close.png';
 import { uid } from 'react-uid';
 import { useGovernorBravoDelegateContract } from '../../clients/contracts/hooks';

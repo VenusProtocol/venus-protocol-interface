@@ -2,7 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import { formatCentsToReadableValue } from 'utilities/common';
+import { formatCentsToReadableValue } from 'utilities';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 

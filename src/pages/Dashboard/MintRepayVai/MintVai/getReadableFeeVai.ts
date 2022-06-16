@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToCoins } from 'utilities';
 import { VAI_ID } from '../constants';
 
 const getReadableFeeVai = ({

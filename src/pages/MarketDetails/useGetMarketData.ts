@@ -2,8 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { IVBepToken } from 'types';
-import { getToken, convertPercentageFromSmartContract } from 'utilities';
-import { convertWeiToCoins } from 'utilities/common';
+import { getToken, convertWeiToCoins, convertPercentageFromSmartContract } from 'utilities';
 import { VTOKEN_DECIMALS } from 'config';
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
 

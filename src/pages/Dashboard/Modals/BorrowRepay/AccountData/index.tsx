@@ -6,7 +6,7 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { useGetUserMarketInfo } from 'clients/api';
-import { formatToReadablePercentage } from 'utilities/common';
+import { formatToReadablePercentage } from 'utilities';
 import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
 import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
 import calculatePercentage from 'utilities/calculatePercentage';

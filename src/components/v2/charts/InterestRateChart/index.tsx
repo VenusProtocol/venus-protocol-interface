@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 import { useTranslation } from 'translation';
-import { formatToReadablePercentage } from 'utilities/common';
+import { formatToReadablePercentage } from 'utilities';
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
