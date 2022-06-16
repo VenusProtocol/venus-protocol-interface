@@ -4,8 +4,7 @@ import { UseQueryResult } from 'react-query';
 import { Vault } from 'types';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { getTokenByAddress } from 'utilities';
-import { indexBy } from 'utilities/common';
+import { getTokenByAddress, indexBy } from 'utilities';
 import {
   useGetXvsVaultPoolsCount,
   useGetXvsVaultTotalAllocationPoints,

@@ -18,14 +18,13 @@ import {
   useGetVTokenBalanceOf,
   useGetUserMarketInfo,
 } from 'clients/api';
-import { isAssetEnabled } from 'utilities';
+import { isAssetEnabled, formatToReadablePercentage, convertCoinsToWei } from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import { formatToReadablePercentage, convertCoinsToWei } from 'utilities/common';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 

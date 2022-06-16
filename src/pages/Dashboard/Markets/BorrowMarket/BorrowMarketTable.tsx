@@ -7,7 +7,7 @@ import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-} from 'utilities/common';
+} from 'utilities';
 import { useStyles } from './styles';
 import { useStyles as useSharedStyles } from '../styles';
 

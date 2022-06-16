@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Web3 from 'web3';
 import { Card } from 'components/Basic/Card';
-import { format } from 'utilities/common';
+import { format } from 'utilities';
 import { Icon, Tooltip } from 'antd';
 import { uid } from 'react-uid';
 

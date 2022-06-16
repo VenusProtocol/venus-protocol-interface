@@ -5,8 +5,7 @@ import BigNumber from 'bignumber.js';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 import { connectAccount } from 'core';
-import { format } from 'utilities/common';
-import { promisify } from 'utilities';
+import { format, promisify } from 'utilities';
 import { uid } from 'react-uid';
 
 const LeaderboardWrapper = styled.div`

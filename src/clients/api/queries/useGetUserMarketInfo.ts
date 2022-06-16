@@ -3,8 +3,13 @@ import BigNumber from 'bignumber.js';
 
 import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
-import { indexBy, convertCoinsToWei } from 'utilities/common';
-import { calculateCollateralValue, getVBepToken, getToken } from 'utilities';
+import {
+  indexBy,
+  convertCoinsToWei,
+  calculateCollateralValue,
+  getVBepToken,
+  getToken,
+} from 'utilities';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
 import {
   useGetMarkets,

@@ -5,11 +5,10 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import moment from 'moment';
-import { format } from 'utilities/common';
+import { format, generateBscScanUrl } from 'utilities';
 import { Card } from 'components/Basic/Card';
 import { uid } from 'react-uid';
 import { VoteTransaction } from 'types';
-import { generateBscScanUrl } from 'utilities';
 
 const TransactionsWrapper = styled.div`
   width: 100%;

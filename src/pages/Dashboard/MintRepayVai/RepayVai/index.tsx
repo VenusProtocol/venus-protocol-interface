@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { TokenId } from 'types';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities/common';
+import { convertCoinsToWei, convertWeiToCoins } from 'utilities';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';

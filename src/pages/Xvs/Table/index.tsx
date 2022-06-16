@@ -12,12 +12,12 @@ import { Token, Table, TableProps } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
-import { getContractAddress } from 'utilities';
 import {
+  getContractAddress,
   formatToReadablePercentage,
   formatCoinsToReadableValue,
   convertWeiToCoins,
-} from 'utilities/common';
+} from 'utilities';
 import { useStyles } from '../styles';
 
 type TableAsset = Pick<Asset, 'id' | 'symbol'> & {

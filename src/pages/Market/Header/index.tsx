@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
 import { useGetTreasuryTotals } from 'clients/api';
 import { useTranslation } from 'translation';
-import { formatCentsToReadableValue } from 'utilities/common';
+import { formatCentsToReadableValue } from 'utilities';
 import { useStyles } from '../styles';
 
 interface IHeaderProps {
