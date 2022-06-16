@@ -10,5 +10,9 @@ export const useStyles = () => {
         color: ${theme.palette.text.primary};
       }
     `,
+
+    markdown: css`
+      background-color: ${theme.palette.background.paper};
+    `,
   };
 };

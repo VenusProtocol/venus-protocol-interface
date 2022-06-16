@@ -6,11 +6,19 @@ import { useStyles } from './styles';
 
 export interface IMarkdownViewerProps {
   content: string;
+  className?: string;
 }
 
-const Markdown: React.FC<IMarkdownViewerProps> = ({ content }) => {
+const Markdown: React.FC<IMarkdownViewerProps> = ({ content, className }) => {
   const styles = useStyles();
-  return <ReactMarkdown source={content} css={styles.preview} {...previewOptions} />;
+  return (
+    <ReactMarkdown
+      className={className}
+      source={content}
+      css={styles.preview}
+      {...previewOptions}
+    />
+  );
 };
 
 export default Markdown;
