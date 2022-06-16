@@ -27,7 +27,7 @@ export const AuthModal: React.FC<IAuthModalProps> = ({
   return (
     <Modal
       className="venus-modal"
-      isOpened={isOpen}
+      isOpen={isOpen}
       handleClose={onClose}
       noHorizontalPadding={!account}
       title={

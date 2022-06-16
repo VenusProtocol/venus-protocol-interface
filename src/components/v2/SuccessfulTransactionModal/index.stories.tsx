@@ -15,7 +15,7 @@ export default {
 
 export const InModal = () => (
   <SuccessfulTransactionModal
-    isOpened
+    isOpen
     handleClose={noop}
     title="Your borrow was successful"
     content="You successfully borrowed"
@@ -29,7 +29,7 @@ export const InModal = () => (
 
 export const WithChildrenNoMessageModal = () => (
   <SuccessfulTransactionModal
-    isOpened
+    isOpen
     handleClose={noop}
     title="Your borrow was successful"
     transactionHash="0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63"
