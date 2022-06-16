@@ -14,6 +14,9 @@ export const useStyles = () => {
     votes: css`
       display: flex;
       margin-bottom: ${theme.spacing(8)};
+      ${theme.breakpoints.down('sm')} {
+        flex-direction: column;
+      }
     `,
     vote: css`
       display: flex;
@@ -22,6 +25,9 @@ export const useStyles = () => {
     `,
     middleVote: css`
       margin: 0 ${theme.spacing(8)};
+      ${theme.breakpoints.down('sm')} {
+        margin: ${theme.spacing(4)} 0;
+      }
     `,
     successColor: theme.palette.interactive.success,
     againstColor: theme.palette.interactive.error,

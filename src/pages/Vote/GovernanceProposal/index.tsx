@@ -153,18 +153,7 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
             {proposalTitle}
           </Typography>
 
-          <div css={styles.cardFooter}>
-            {endDate.getMilliseconds() > Date.now() && (
-              <Typography variant="small2">
-                {t('voteProposalUi.activeUntil')}
-                <Typography css={styles.activeUntilDate} variant="small2" color="textPrimary">
-                  {t('voteProposalUi.activeUntilDate', { date: endDate })}
-                </Typography>
-              </Typography>
-            )}
-
-            <Countdown date={endDate} />
-          </div>
+          <Countdown date={endDate} css={styles.countdown} />
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
           {proposalState === 'Active' && (

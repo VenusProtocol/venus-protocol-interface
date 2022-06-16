@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import ReactCountdown from 'react-countdown';
 import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
@@ -6,9 +7,10 @@ import { useTranslation } from 'translation';
 
 interface ICoundownProps {
   date: Date;
+  className?: string;
 }
 
-export const Countdown: React.FC<ICoundownProps> = ({ date }) => {
+export const Countdown: React.FC<ICoundownProps> = ({ date, className }) => {
   const { t } = useTranslation();
   const countdownRenderer = ({
     days,
@@ -33,9 +35,20 @@ export const Countdown: React.FC<ICoundownProps> = ({ date }) => {
     }
     return t('voteProposalUi.countdownFormat.minutesIncluded', { seconds });
   };
+
   return (
-    <Typography color="textPrimary" variant="small2">
-      <ReactCountdown date={date} renderer={countdownRenderer} />
-    </Typography>
+    <div className={className}>
+      {date.getTime() > Date.now() && (
+        <Typography variant="small2">
+          {t('voteProposalUi.activeUntil')}&nbsp;
+          <Typography variant="small2" color="textPrimary">
+            {t('voteProposalUi.activeUntilDate', { date })}
+          </Typography>
+        </Typography>
+      )}
+      <Typography color="textPrimary" variant="small2">
+        <ReactCountdown date={date} renderer={countdownRenderer} />
+      </Typography>
+    </div>
   );
 };
