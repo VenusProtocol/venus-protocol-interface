@@ -92,7 +92,23 @@ export interface IProposal {
   againstVotesWei: BigNumber;
   blockNumber: number;
   createdDate: Date;
-  description: string;
+  description:
+    | {
+        version: 'v2';
+        title: string;
+        description: string;
+        forDescription: string;
+        againstDescription: string;
+        abstainDescription: string;
+      }
+    | {
+        version: 'v1';
+        title: string;
+        description: string;
+        forDescription?: undefined;
+        againstDescription?: undefined;
+        abstainDescription?: undefined;
+      };
   endBlock: number;
   endDate: Date;
   executedDate: Date | undefined;
@@ -103,6 +119,7 @@ export interface IProposal {
   startDate: Date | undefined;
   state: ProposalState;
   cancelDate: Date | undefined;
+  createdTxHash: string;
 }
 
 export interface IPool {
