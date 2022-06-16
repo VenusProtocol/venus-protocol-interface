@@ -5,6 +5,7 @@ export * from './v2/Button';
 export * from './v2/BscLink';
 export * from './v2/Checkbox';
 export * from './v2/Chip';
+export * from './v2/Countdown';
 export * from './v2/ConnectWallet';
 export * from './v2/Delimiter';
 export * from './v2/EllipseText';

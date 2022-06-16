@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
-import Countdown from 'react-countdown';
-import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
 import { SerializedStyles } from '@emotion/react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -10,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
 import { ProposalState } from 'types';
-import { ActiveChip, Chip, Icon, IconName } from 'components';
+import { ActiveChip, Chip, Countdown, Icon, IconName } from 'components';
 import { ActiveVotingProgress } from './ActiveVotingProgress';
 import { useStyles } from './styles';
 
@@ -130,30 +128,6 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
     }
   }, [userVoteStatus]);
 
-  const countdownRenderer = ({
-    days,
-    hours,
-    minutes,
-    seconds,
-    completed,
-  }: CountdownRenderProps) => {
-    if (completed) {
-      // Render a completed state
-      return null;
-    }
-    // Render a countdown
-    if (days) {
-      return t('voteProposalUi.countdownFormat.daysIncluded', { days, hours, minutes, seconds });
-    }
-    if (hours) {
-      return t('voteProposalUi.countdownFormat.hoursIncluded', { hours, minutes, seconds });
-    }
-    if (minutes) {
-      return t('voteProposalUi.countdownFormat.minutesIncluded', { minutes, seconds });
-    }
-    return t('voteProposalUi.countdownFormat.minutesIncluded', { seconds });
-  };
-
   const votedTotalWei = BigNumber.sum.apply(null, [
     forVotesWei || 0,
     againstVotesWei || 0,
@@ -168,7 +142,7 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
             <div>
               <Chip text={`#${proposalNumber}`} />
               {proposalState === 'Active' && (
-                <ActiveChip text={t('voteProposalUi.proposalStatus.active')} />
+                <ActiveChip text={t('voteProposalUi.proposalState.active')} />
               )}
             </div>
 
@@ -189,9 +163,7 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
               </Typography>
             )}
 
-            <Typography color="textPrimary" variant="small2">
-              <Countdown date={endDate} renderer={countdownRenderer} />
-            </Typography>
+            <Countdown date={endDate} />
           </div>
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
