@@ -7,13 +7,21 @@ export const useStyles = () => {
     root: css`
       display: flex;
       flex-direction: row;
+      padding: 0;
+      ${theme.breakpoints.down('lg')} {
+        flex-direction: column;
+      }
     `,
     leftSection: css`
       display: flex;
       flex-direction: column;
       flex: 3;
-      border-right: ${theme.spacing(0.25)} solid ${theme.palette.text.secondary};
-      padding-right: ${theme.spacing(6)};
+      border-right: ${theme.spacing(0.25)} solid ${theme.palette.secondary.light};
+      padding: ${theme.spacing(6)};
+
+      ${theme.breakpoints.down('lg')} {
+        border-right: none;
+      }
     `,
     topRow: css`
       display: flex;
@@ -26,6 +34,11 @@ export const useStyles = () => {
       flex: 1;
       flex-direction: column;
       margin-left: ${theme.spacing(6)};
+      padding: ${theme.spacing(6)};
+      ${theme.breakpoints.down('lg')} {
+        border-top: ${theme.spacing(0.25)} solid ${theme.palette.secondary.light};
+        margin-left: 0;
+      }
     `,
     chipSpace: css`
       padding-right: ${theme.spacing(2)};
@@ -41,6 +54,22 @@ export const useStyles = () => {
     `,
     rightTitle: css`
       margin-bottom: ${theme.spacing(6)};
+    `,
+    updateProposalButton: css`
+      min-width: ${theme.spacing(58)};
+      ${theme.breakpoints.down('sm')} {
+        width: 100%;
+      }
+    `,
+    countdown: css`
+      > :first-child {
+        padding-right: ${theme.spacing(3)};
+        border-right: 1px solid ${theme.palette.secondary.light};
+      }
+
+      > :last-child {
+        padding-left: ${theme.spacing(3)};
+      }
     `,
   };
 };

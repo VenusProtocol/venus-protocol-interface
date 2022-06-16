@@ -15,47 +15,70 @@ interface IProposalSummaryUiProps {
 interface IProposalSummaryContainerProps {
   cancelProposal: () => void;
   executeProposal: () => void;
-  queProposal: () => void;
+  queueProposal: () => void;
 }
 
 export const ProposalSummaryUi: React.FC<
   IProposalSummaryUiProps & IProposalSummaryContainerProps
-> = ({ className, proposal, cancelProposal, queProposal, executeProposal }) => {
+> = ({ className, proposal, cancelProposal, queueProposal, executeProposal }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const {
-    createdTxHash,
     state,
     id,
     description: { title },
     createdDate,
+    createdTxHash,
     startDate,
+    startTxHash,
     cancelDate,
+    cancelTxHash,
     queuedDate,
+    queuedTxHash,
     executedDate,
+    executedTxHash,
+    endTxHash,
     endDate,
   } = proposal;
-  let updateButton = null;
+
+  let updateProposalButton;
+  let transactionHash = startTxHash;
   switch (state) {
     case 'Active':
-      updateButton = (
-        <SecondaryButton onClick={cancelProposal}>{t('voteProposalUi.cancel')}</SecondaryButton>
+      updateProposalButton = (
+        <SecondaryButton onClick={cancelProposal} css={styles.updateProposalButton}>
+          {t('voteProposalUi.cancel')}
+        </SecondaryButton>
       );
+      transactionHash = createdTxHash;
+      break;
+    case 'Canceled':
+      transactionHash = cancelTxHash;
       break;
     case 'Succeeded':
-      updateButton = <PrimaryButton onClick={queProposal}>{t('voteProposalUi.que')}</PrimaryButton>;
-      break;
-    case 'Queued':
-      updateButton = (
-        <PrimaryButton onClick={executeProposal}>{t('voteProposalUi.execute')}</PrimaryButton>
+      updateProposalButton = (
+        <PrimaryButton onClick={queueProposal} css={styles.updateProposalButton}>
+          {t('voteProposalUi.queue')}
+        </PrimaryButton>
       );
       break;
-    default:
-      updateButton = null;
+    case 'Queued':
+      updateProposalButton = (
+        <PrimaryButton onClick={executeProposal} css={styles.updateProposalButton}>
+          {t('voteProposalUi.execute')}
+        </PrimaryButton>
+      );
+      transactionHash = queuedTxHash;
+      break;
+    case 'Defeated':
+      transactionHash = endTxHash;
+      break;
+    case 'Executed':
+      transactionHash = executedTxHash;
+      break;
+    // no default
   }
-  // Cancel secondary while active
-  // Queue while Succeed primary
-  // execute while que primary
+
   return (
     <Paper css={styles.root} className={className}>
       <div css={styles.leftSection}>
@@ -64,17 +87,18 @@ export const ProposalSummaryUi: React.FC<
             <Chip text={`#${id}`} css={styles.chipSpace} />
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
-          <Countdown date={endDate} />
+          <Countdown date={endDate} css={styles.countdown} />
         </div>
         <div css={styles.content}>
           <div>
             <Typography variant="h3" css={styles.title}>
               {title}
             </Typography>
-            {/* Hash per state? */}
-            <BscLink text={createdTxHash} urlType="tx" hash={createdTxHash} />
+            {transactionHash && (
+              <BscLink text={createdTxHash} urlType="tx" hash={transactionHash} />
+            )}
           </div>
-          <div>{updateButton}</div>
+          <div>{updateProposalButton}</div>
         </div>
       </div>
       <div css={styles.rightSection}>
@@ -96,13 +120,13 @@ export const ProposalSummaryUi: React.FC<
 const ProposalSummary: React.FC<IProposalSummaryUiProps> = props => {
   const cancelProposal = () => {};
   const executeProposal = () => {};
-  const queProposal = () => {};
+  const queueProposal = () => {};
   return (
     <ProposalSummaryUi
       {...props}
       cancelProposal={cancelProposal}
       executeProposal={executeProposal}
-      queProposal={queProposal}
+      queueProposal={queueProposal}
     />
   );
 };

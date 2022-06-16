@@ -18,8 +18,8 @@ export const Vote: React.FC = () => {
         <VoteSummary
           css={styles.vote}
           label={t('vote.for')}
-          votedValueWei={new BigNumber('100000000000000000')}
-          votedTotalWei={new BigNumber('200000000000000000')}
+          votedValueWei={new BigNumber('10000000000000')}
+          votedTotalWei={new BigNumber('200000000000000')}
           votesFrom={[]}
           onClick={() => {}}
           progressBarColor={styles.successColor}
@@ -27,8 +27,8 @@ export const Vote: React.FC = () => {
         <VoteSummary
           css={[styles.vote, styles.middleVote]}
           label={t('vote.against')}
-          votedValueWei={new BigNumber('100000000000000000')}
-          votedTotalWei={new BigNumber('200000000000000000')}
+          votedValueWei={new BigNumber('1000000000000')}
+          votedTotalWei={new BigNumber('2000000000000')}
           votesFrom={[]}
           onClick={() => {}}
           progressBarColor={styles.againstColor}
@@ -36,8 +36,8 @@ export const Vote: React.FC = () => {
         <VoteSummary
           css={styles.vote}
           label={t('vote.abstain')}
-          votedValueWei={new BigNumber('100000000000000000')}
-          votedTotalWei={new BigNumber('200000000000000000')}
+          votedValueWei={new BigNumber('10000000000000')}
+          votedTotalWei={new BigNumber('20000000000000')}
           votesFrom={[]}
           onClick={() => {}}
           progressBarColor={styles.abstainColor}
