@@ -3,8 +3,7 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 import { css } from '@emotion/react';
 import { TokenId } from 'types';
-import { getToken } from 'utilities';
-import { formatToReadablePercentage } from 'utilities/common';
+import { getToken, formatToReadablePercentage } from 'utilities';
 import { Icon } from '../Icon';
 import { Toggle } from '../Toggle';
 

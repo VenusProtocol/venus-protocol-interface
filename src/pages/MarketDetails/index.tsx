@@ -4,15 +4,16 @@ import BigNumber from 'bignumber.js';
 import { RouteComponentProps, Redirect } from 'react-router-dom';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { getToken, getVBepToken } from 'utilities';
-import { VTokenId } from 'types';
-import { useTranslation } from 'translation';
 import {
+  getToken,
+  getVBepToken,
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatCoinsToReadableValue,
   formatCommaThousandsPeriodDecimal,
-} from 'utilities/common';
+} from 'utilities';
+import { VTokenId } from 'types';
+import { useTranslation } from 'translation';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import Path from 'constants/path';

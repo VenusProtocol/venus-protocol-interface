@@ -2,7 +2,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
+import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 import { useTranslation } from 'translation';
 import { IToggleProps, Toggle, Icon, Tooltip, BorrowLimitUsedAccountHealth } from 'components';
 import Paper from '@mui/material/Paper';

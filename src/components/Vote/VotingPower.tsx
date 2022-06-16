@@ -7,7 +7,7 @@ import { Card } from 'components/Basic/Card';
 import { Row, Column } from 'components/Basic/Style';
 import DelegationTypeModal from 'components/Basic/DelegationTypeModal';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { formatCommaThousandsPeriodDecimal } from 'utilities/common';
+import { formatCommaThousandsPeriodDecimal } from 'utilities';
 import { AuthContext } from 'context/AuthContext';
 
 const VotingPowerWrapper = styled.div`

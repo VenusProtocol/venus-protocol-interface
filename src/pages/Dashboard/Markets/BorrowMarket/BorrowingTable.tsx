@@ -9,8 +9,8 @@ import {
   formatCoinsToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-} from 'utilities/common';
-import calculatePercentage from 'utilities/calculatePercentage';
+  calculatePercentage,
+} from 'utilities';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
