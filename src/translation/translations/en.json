@@ -74,7 +74,7 @@
     "repayTabTitle": "Repay"
   },
   "bscLink": {
-    "content": "View on bscscan.com<Icon/>"
+    "content": "View on bscscan.com"
   },
   "claimXvsRewardButton": {
     "successfulTransactionModal": {
@@ -524,7 +524,6 @@
   "vote": {
     "abstain": "Abstain",
     "against": "Against",
-    "for": "For",
     "createProposal": "+ Create proposal",
     "delegate": "Delegate",
     "delegateAddress": "Delegate address",
@@ -535,6 +534,7 @@
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
+    "for": "For",
     "governanceProposals": "Governance proposals",
     "pasteYourAddress": "Paste your address",
     "pleasePayAttention": "Please pay attention",
@@ -545,48 +545,48 @@
       "message": "You successfully delegated",
       "title": "Your delegation was successful"
     },
+    "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
     "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
-    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}",
-    "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}"
+    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",
     "activeUntilDate": "{{ date, dd MMM HH:mm }}",
+    "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
       "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
       "minutesIncluded": "{{minutes}}m : {{seconds}}s"
     },
+    "execute": "Execute",
+    "proposalHistory": "Proposal History",
     "proposalState": {
       "active": "Active"
     },
+    "que": "Que",
     "statusCard": {
-      "abstain": "Abstain",
       "active": "Active",
-      "against": "Against",
       "ariaLabelAbstain": "votes abstain",
       "ariaLabelAgainst": "votes against",
       "ariaLabelFor": "votes for",
       "canceled": "Canceled",
       "cancelled": "Cancelled",
       "created": "Created",
+      "dateAndTime": "{{date,}}",
+      "dateOnly": "{{date, dd MMM yyyy}}",
       "defeated": "Defeated",
       "execute": "Execute",
       "executed": "Executed",
       "expired": "Expired",
-      "for": "For",
       "pending": "Pending",
       "queue": "Queue",
       "queued": "Queue",
       "readyToQueue": "Ready to queue",
       "succeed": "Succeed",
-      "succeeded": "Succeeded",
-      "dateAndTime": "{{date,}}",
-      "dateOnly": "{{date, dd MMM yyyy}}",
       "timeOnly": "{{date, HH:mm a}}"
     },
     "voteStatus": {
@@ -595,6 +595,10 @@
       "votedAgainst": "Voted against",
       "votedFor": "Voted for"
     }
+  },
+  "voteSummary": {
+    "addresses": "{{length}} addresses",
+    "votes": "Votes"
   },
   "wallets": {
     "binanceChainWallet": "Binance Chain Wallet",
@@ -610,10 +614,6 @@
     "metamask": "MetaMask",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
-  },
-  "voteSummary": {
-    "addresses": "{{length}} addresses",
-    "votes": "Votes"
   },
   "xvs": {
     "columns": {
