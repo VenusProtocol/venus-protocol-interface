@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
+import { LabeledProgressBar } from 'components';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { useTranslation } from 'translation';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 import { convertWeiToCoins } from 'utilities/common';
 import { useStyles } from '../styles';
-import { LabeledProgressBar } from '../../ProgressBar/LabeledProgressBar';
 
 interface IActiveVotingProgressProps {
   votedForWei?: BigNumber;

@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { alpha, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
@@ -30,22 +30,6 @@ export const useStyles = () => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    `,
-    cardBadges: css`
-      /* TODO */
-    `,
-    cardBadgeItem: css`
-      padding: ${theme.spacing(1, 3)};
-      background-color: ${theme.palette.secondary.light};
-      border-radius: ${theme.shape.borderRadius.small}px;
-      margin-right: ${theme.spacing(2)};
-    `,
-    cardBadgeNumber: css`
-      /* TODO */
-    `,
-    cardBadgeActive: css`
-      background-color: ${alpha(theme.palette.interactive.success as string, 0.1)};
-      color: ${theme.palette.interactive.success};
     `,
     cardTitle: css`
       margin-top: ${theme.spacing(5)};

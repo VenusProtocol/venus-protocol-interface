@@ -1,7 +1,7 @@
 import React from 'react';
 import { BigNumber } from 'bignumber.js';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { GovernanceProposal } from '.';
+import GovernanceProposal from '.';
 
 export default {
   title: 'Components/GovernanceProposal',
