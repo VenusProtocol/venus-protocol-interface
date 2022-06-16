@@ -92,7 +92,7 @@ type UserVoteStatus = 'votedFor' | 'votedAgainst' | 'abstained';
 interface IGovernanceProposalProps {
   className?: string;
   proposalNumber: number;
-  proposalDescription: string;
+  proposalTitle: string;
   proposalState: ProposalState;
   endDate: Date;
   userVoteStatus?: UserVoteStatus;
@@ -104,7 +104,7 @@ interface IGovernanceProposalProps {
 const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
   className,
   proposalNumber,
-  proposalDescription,
+  proposalTitle,
   proposalState,
   endDate,
   userVoteStatus,
@@ -150,7 +150,7 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
           </div>
 
           <Typography variant="h4" css={styles.cardTitle}>
-            {proposalDescription}
+            {proposalTitle}
           </Typography>
 
           <div css={styles.cardFooter}>
