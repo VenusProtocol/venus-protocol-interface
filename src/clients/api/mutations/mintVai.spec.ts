@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import {
-  VAIControllerErrorReporterError,
-  VAIControllerErrorReporterFailureInfo,
+  VaiControllerErrorReporterError,
+  VaiControllerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
 import { VError } from 'errors';
 import mintVai from './mintVai';
@@ -58,12 +58,12 @@ describe('api/mutation/mintVai', () => {
 
       throw new Error('mintVai should have thrown an error but did not');
     } catch (error) {
-      expect(error).toMatchInlineSnapshot(`[Error: ${VAIControllerErrorReporterError[2]}]`);
+      expect(error).toMatchInlineSnapshot(`[Error: ${VaiControllerErrorReporterError[2]}]`);
       expect(error).toBeInstanceOf(VError);
       if (error instanceof VError) {
         expect(error.type).toBe('transaction');
-        expect(error.data.error).toBe(VAIControllerErrorReporterError[2]);
-        expect(error.data.info).toBe(VAIControllerErrorReporterFailureInfo[2]);
+        expect(error.data.error).toBe(VaiControllerErrorReporterError[2]);
+        expect(error.data.info).toBe(VaiControllerErrorReporterFailureInfo[2]);
       }
     }
   });
