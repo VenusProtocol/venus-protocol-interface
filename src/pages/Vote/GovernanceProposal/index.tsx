@@ -1,27 +1,21 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
+import Countdown from 'react-countdown';
+import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
 import { SerializedStyles } from '@emotion/react';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import { useGetVoteReceipt } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
-import { ProposalState, VoteSupport } from 'types';
-import {
-  ActiveVotingProgress,
-  ActiveChip,
-  Countdown,
-  Icon,
-  IconName,
-  ProposalCard,
-} from 'components';
-import Path from 'constants/path';
-import TEST_IDS from '../testIds';
+import { ProposalState } from 'types';
+import { ActiveChip, Chip, Icon, IconName } from 'components';
+import { ActiveVotingProgress } from './ActiveVotingProgress';
 import { useStyles } from './styles';
 
 interface IStateCard {
-  state: ProposalState | undefined;
+  state: ProposalState;
 }
 
 const StatusCard: React.FC<IStateCard> = ({ state }) => {
@@ -77,7 +71,7 @@ const StatusCard: React.FC<IStateCard> = ({ state }) => {
     }),
     [],
   );
-  if (state !== 'Active' && state) {
+  if (state !== 'Active') {
     return (
       <>
         <div css={[styles.iconWrapper, statusContent[state].iconWrapperCss]}>
@@ -95,22 +89,24 @@ const StatusCard: React.FC<IStateCard> = ({ state }) => {
   return null;
 };
 
+type UserVoteStatus = 'votedFor' | 'votedAgainst' | 'abstained';
+
 interface IGovernanceProposalProps {
   className?: string;
-  proposalId: number;
-  proposalTitle: string;
+  proposalNumber: number;
+  proposalDescription: string;
   proposalState: ProposalState;
-  endDate: Date | undefined;
-  userVoteStatus?: VoteSupport;
+  endDate: Date;
+  userVoteStatus?: UserVoteStatus;
   forVotesWei?: BigNumber;
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
 }
 
-const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
+const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
   className,
-  proposalId,
-  proposalTitle,
+  proposalNumber,
+  proposalDescription,
   proposalState,
   endDate,
   userVoteStatus,
@@ -119,20 +115,44 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
   abstainedVotesWei,
 }) => {
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const voteStatusText = useMemo(() => {
     switch (userVoteStatus) {
-      case 'FOR':
+      case 'votedFor':
         return t('voteProposalUi.voteStatus.votedFor');
-      case 'AGAINST':
+      case 'votedAgainst':
         return t('voteProposalUi.voteStatus.votedAgainst');
-      case 'ABSTAIN':
+      case 'abstained':
         return t('voteProposalUi.voteStatus.abstained');
       default:
         return t('voteProposalUi.voteStatus.notVoted');
     }
   }, [userVoteStatus]);
+
+  const countdownRenderer = ({
+    days,
+    hours,
+    minutes,
+    seconds,
+    completed,
+  }: CountdownRenderProps) => {
+    if (completed) {
+      // Render a completed state
+      return null;
+    }
+    // Render a countdown
+    if (days) {
+      return t('voteProposalUi.countdownFormat.daysIncluded', { days, hours, minutes, seconds });
+    }
+    if (hours) {
+      return t('voteProposalUi.countdownFormat.hoursIncluded', { hours, minutes, seconds });
+    }
+    if (minutes) {
+      return t('voteProposalUi.countdownFormat.minutesIncluded', { minutes, seconds });
+    }
+    return t('voteProposalUi.countdownFormat.minutesIncluded', { seconds });
+  };
 
   const votedTotalWei = BigNumber.sum.apply(null, [
     forVotesWei || 0,
@@ -141,71 +161,52 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
   ]);
 
   return (
-    <ProposalCard
-      className={className}
-      linkTo={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalId.toString())}
-      proposalNumber={proposalId}
-      headerRightItem={
-        proposalState === 'Active' ? (
-          <ActiveChip text={t('voteProposalUi.proposalState.active')} />
-        ) : undefined
-      }
-      headerLeftItem={<Typography variant="small2">{voteStatusText}</Typography>}
-      title={proposalTitle}
-      contentRightItem={
-        proposalState === 'Active' ? (
-          <ActiveVotingProgress
-            votedForWei={forVotesWei}
-            votedAgainstWei={againstVotesWei}
-            abstainedWei={abstainedVotesWei}
-            votedTotalWei={votedTotalWei}
-          />
-        ) : (
-          <StatusCard state={proposalState} />
-        )
-      }
-      footer={
-        endDate && proposalState === 'Active' ? (
-          <div css={styles.timestamp}>
-            <Typography variant="small2">
-              <Trans
-                i18nKey="voteProposalUi.activeUntilDate"
-                components={{
-                  Date: <Typography variant="small2" color="textPrimary" />,
-                }}
-                values={{
-                  date: endDate,
-                }}
-              />
-            </Typography>
+    <Paper className={className} css={styles.root}>
+      <Grid container>
+        <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
+          <div css={styles.cardHeader}>
+            <div>
+              <Chip text={`#${proposalNumber}`} />
+              {proposalState === 'Active' && (
+                <ActiveChip text={t('voteProposalUi.proposalStatus.active')} />
+              )}
+            </div>
 
-            <Countdown date={endDate} />
+            <Typography variant="small2">{voteStatusText}</Typography>
           </div>
-        ) : undefined
-      }
-      data-testid={TEST_IDS.governance.governanceProposal(proposalId.toString())}
-    />
-  );
-};
 
-const GovernanceProposal: React.FC<Omit<IGovernanceProposalProps, 'userVoteStatus'>> = ({
-  proposalId,
-  ...props
-}) => {
-  const { account } = useContext(AuthContext);
-  const accountAddress = account?.address;
+          <Typography variant="h4" css={styles.cardTitle}>
+            {proposalDescription}
+          </Typography>
 
-  const { data: userVoteReceipt } = useGetVoteReceipt(
-    { proposalId, accountAddress },
-    { enabled: !!accountAddress },
-  );
+          <div css={styles.cardFooter}>
+            {endDate.getMilliseconds() > Date.now() && (
+              <Typography variant="small2">
+                {t('voteProposalUi.activeUntil')}
+                <Typography css={styles.activeUntilDate} variant="small2" color="textPrimary">
+                  {t('voteProposalUi.activeUntilDate', { date: endDate })}
+                </Typography>
+              </Typography>
+            )}
 
-  return (
-    <GovernanceProposalUi
-      userVoteStatus={userVoteReceipt?.voteSupport}
-      proposalId={proposalId}
-      {...props}
-    />
+            <Typography color="textPrimary" variant="small2">
+              <Countdown date={endDate} renderer={countdownRenderer} />
+            </Typography>
+          </div>
+        </Grid>
+        <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
+          {proposalState === 'Active' && (
+            <ActiveVotingProgress
+              votedForWei={forVotesWei}
+              votedAgainstWei={againstVotesWei}
+              abstainedWei={abstainedVotesWei}
+              votedTotalWei={votedTotalWei}
+            />
+          )}
+          <StatusCard state={proposalState} />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 

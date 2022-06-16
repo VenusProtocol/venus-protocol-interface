@@ -2,21 +2,11 @@
 import React, { useState } from 'react';
 import type { TransactionReceipt } from 'web3-core';
 import { Typography } from '@mui/material';
-import { AuthContext } from 'context/AuthContext';
-import {
-  useGetProposals,
-  useCreateProposal,
-  ICreateProposalInput,
-  useGetCurrentVotes,
-  useGetLatestProposalIdByProposer,
-  useGetProposalState,
-} from 'clients/api';
-import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
-import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
-import { IProposal } from 'types';
 import { useTranslation } from 'translation';
+import { useGetProposals } from 'clients/api';
+import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
+import { IProposal } from 'types';
 import GovernanceProposal from '../GovernanceProposal';
-import CreateProposalModal from '../CreateProposalModal';
 import { useStyles } from './styles';
 
 interface IGovernanceUiProps {
