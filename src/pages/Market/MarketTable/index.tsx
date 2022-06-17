@@ -9,8 +9,8 @@ import {
   formatTokensToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  convertPercentageFromSmartContract,
-} from 'utilities';
+} from 'utilities/common';
+import { convertPercentageFromSmartContract } from 'utilities';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
@@ -146,7 +146,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
         {
           key: 'collateralFactor',
           render: () => (
-            <Typography variant="small1" css={localStyles.whiteText}>
+            <Typography variant="small1" css={styles.whiteText}>
               {formatToReadablePercentage(
                 convertPercentageFromSmartContract(market.collateralFactor),
               )}

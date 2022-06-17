@@ -561,7 +561,6 @@
   "vote": {
     "abstain": "Abstain",
     "against": "Against",
-    "for": "For",
     "createProposal": "+ Create proposal",
     "delegate": "Delegate",
     "delegateAddress": "Delegate address",
@@ -572,6 +571,7 @@
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
+    "for": "For",
     "governanceProposals": "Governance proposals",
     "pages": {
       "actions": "3 of 3 Actions",
@@ -590,9 +590,6 @@
       "title": "Your delegation was successful"
     },
     "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
-    "theProposalWasCancelled": "The proposal was cancelled",
-    "theProposalWasExecuted": "The proposal was executed",
-    "theProposalWasQueued": "The proposal was queued",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "voteAbstain": "Vote abstain",
@@ -602,8 +599,7 @@
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
     "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
-    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}",
-    "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}"
+    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}"
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM HH:mm }}</Date>",
@@ -619,15 +615,15 @@
     },
     "queue": "Queue",
     "statusCard": {
-      "abstain": "Abstain",
       "active": "Active",
-      "against": "Against",
       "ariaLabelAbstain": "votes abstain",
       "ariaLabelAgainst": "votes against",
       "ariaLabelFor": "votes for",
       "canceled": "Canceled",
       "cancelled": "Cancelled",
       "created": "Created",
+      "dateAndTime": "{{date,}}",
+      "dateOnly": "{{date, dd MMM yyyy}}",
       "defeated": "Defeated",
       "execute": "Execute",
       "executed": "Executed",
@@ -637,9 +633,6 @@
       "queued": "Queue",
       "readyToQueue": "Ready to queue",
       "succeed": "Succeed",
-      "succeeded": "Succeeded",
-      "dateAndTime": "{{date,}}",
-      "dateOnly": "{{date, dd MMM yyyy}}",
       "timeOnly": "{{date, HH:mm a}}"
     },
     "voteStatus": {
@@ -680,9 +673,7 @@
     }
   },
   "voteSummary": {
-    "addresses_zero": "{{count}} address",
-    "addresses_one": "{{count}} address",
-    "addresses_other": "{{count}} addresses",
+    "addresses": "{{length}} addresses",
     "votes": "Votes"
   },
   "wallets": {
@@ -699,10 +690,6 @@
     "metamask": "MetaMask",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
-  },
-  "voteSummary": {
-    "addresses": "{{length}} addresses",
-    "votes": "Votes"
   },
   "xvs": {
     "columns": {
