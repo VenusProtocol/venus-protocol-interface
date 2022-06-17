@@ -6,8 +6,6 @@ import { waitFor, fireEvent } from '@testing-library/react';
 import renderComponent from 'testUtils/renderComponent';
 import TransactionForm, { ITransactionFormProps } from '.';
 
-jest.mock('clients/api');
-
 const baseProps: ITransactionFormProps = {
   tokenId: 'xvs',
   submitButtonLabel: 'Fake submit button label',

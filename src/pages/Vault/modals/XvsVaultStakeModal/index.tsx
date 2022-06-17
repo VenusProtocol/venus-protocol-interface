@@ -6,12 +6,9 @@ import { getToken } from 'utilities';
 import { useTranslation } from 'translation';
 import ActionModal, { IActionModalProps } from '../ActionModal';
 
-export type NonVestingVaultStakeModalProps = Pick<IActionModalProps, 'tokenId' | 'handleClose'>;
+export type XvsVaultStakeModalProps = Pick<IActionModalProps, 'tokenId' | 'handleClose'>;
 
-const NonVestingVaultStakeModal: React.FC<NonVestingVaultStakeModalProps> = ({
-  tokenId,
-  handleClose,
-}) => {
+const XvsVaultStakeModal: React.FC<XvsVaultStakeModalProps> = ({ tokenId, handleClose }) => {
   const { t } = useTranslation();
   const tokenSymbol = getToken(tokenId).symbol;
 
@@ -23,21 +20,21 @@ const NonVestingVaultStakeModal: React.FC<NonVestingVaultStakeModalProps> = ({
 
   return (
     <ActionModal
-      title={t('nonVestingVaultStakeModal.title', { tokenSymbol })}
+      title={t('XvsVaultStakeModal.title', { tokenSymbol })}
       tokenId={tokenId}
       handleClose={handleClose}
       availableTokensWei={availableTokensWei}
       isInitialLoading={isInitialLoading}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
-      connectWalletMessage={t('nonVestingVaultStakeModal.connectWalletMessage', { tokenSymbol })}
+      connectWalletMessage={t('XvsVaultStakeModal.connectWalletMessage', { tokenSymbol })}
       tokenNeedsToBeEnabled
-      enableTokenMessage={t('nonVestingVaultStakeModal.enableTokenMessage', { tokenSymbol })}
-      availableTokensLabel={t('nonVestingVaultStakeModal.availableTokensLabel', { tokenSymbol })}
-      submitButtonLabel={t('nonVestingVaultStakeModal.submitButtonLabel')}
-      submitButtonDisabledLabel={t('nonVestingVaultStakeModal.submitButtonDisabledLabel')}
+      enableTokenMessage={t('XvsVaultStakeModal.enableTokenMessage', { tokenSymbol })}
+      availableTokensLabel={t('XvsVaultStakeModal.availableTokensLabel', { tokenSymbol })}
+      submitButtonLabel={t('XvsVaultStakeModal.submitButtonLabel')}
+      submitButtonDisabledLabel={t('XvsVaultStakeModal.submitButtonDisabledLabel')}
     />
   );
 };
 
-export default NonVestingVaultStakeModal;
+export default XvsVaultStakeModal;

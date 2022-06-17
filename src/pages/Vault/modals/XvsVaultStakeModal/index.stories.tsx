@@ -3,17 +3,15 @@ import noop from 'noop-ts';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
-import NonVestingVaultStakeModal, { NonVestingVaultStakeModalProps } from '.';
+import XvsVaultStakeModal, { XvsVaultStakeModalProps } from '.';
 
 export default {
-  title: 'Pages/Vault/modals/NonVestingVaultStakeModal',
-  component: NonVestingVaultStakeModal,
+  title: 'Pages/Vault/modals/XvsVaultStakeModal',
+  component: XvsVaultStakeModal,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof NonVestingVaultStakeModal>;
+} as ComponentMeta<typeof XvsVaultStakeModal>;
 
-const Template: Story<NonVestingVaultStakeModalProps> = args => (
-  <NonVestingVaultStakeModal {...args} />
-);
+const Template: Story<XvsVaultStakeModalProps> = args => <XvsVaultStakeModal {...args} />;
 
 const authContext = {
   login: noop,

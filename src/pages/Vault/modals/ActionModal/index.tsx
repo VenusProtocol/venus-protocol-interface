@@ -22,23 +22,23 @@ const ActionModal: React.FC<IActionModalProps> = ({
   enableTokenMessage,
   ...otherTransactionFormProps
 }) => {
-  const renderTransactionFormDom = () => {
-    const transactionFormDom = <TransactionForm tokenId={tokenId} {...otherTransactionFormProps} />;
-
-    return tokenNeedsToBeEnabled && !!enableTokenMessage ? (
+  const transactionFormDom = <TransactionForm tokenId={tokenId} {...otherTransactionFormProps} />;
+  const content =
+    tokenNeedsToBeEnabled && !!enableTokenMessage ? (
       <EnableToken title={enableTokenMessage} vTokenId={tokenId}>
         {transactionFormDom}
       </EnableToken>
     ) : (
       transactionFormDom
     );
-  };
 
   return (
     <Modal isOpen title={title} handleClose={handleClose}>
-      <ConnectWallet message={connectWalletMessage}>
-        {isInitialLoading ? <Spinner /> : renderTransactionFormDom()}
-      </ConnectWallet>
+      {isInitialLoading ? (
+        <Spinner />
+      ) : (
+        <ConnectWallet message={connectWalletMessage}>{content}</ConnectWallet>
+      )}
     </Modal>
   );
 };

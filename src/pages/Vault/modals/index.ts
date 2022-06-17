@@ -1,1 +1,1 @@
-export { default as NonVestingVaultStakeModal } from './NonVestingVaultStakeModal';
+export { default as XvsVaultStakeModal } from './XvsVaultStakeModal';
