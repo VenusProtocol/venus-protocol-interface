@@ -164,7 +164,8 @@
     "type": "Type",
     "typeColon": "Type:",
     "voteCast": "Vote Cast",
-    "withdraw": "Withdraw"
+    "withdraw": "Withdraw",
+    "description": "Description"
   },
   "interestRateChart": {
     "currentUtilizationRateLabelValue": "Current ({{percentage}})",
