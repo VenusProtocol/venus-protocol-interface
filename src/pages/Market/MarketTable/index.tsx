@@ -10,6 +10,7 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
 } from 'utilities/common';
+import { convertPercentageFromSmartContract } from 'utilities';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
@@ -41,6 +42,12 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
       },
       { key: 'borrowApy', label: t('market.columns.borrowApy'), orderable: true, align: 'right' },
       { key: 'liquidity', label: t('market.columns.liquidity'), orderable: true, align: 'right' },
+      {
+        key: 'collateralFactor',
+        label: t('market.columns.collateralFactor'),
+        orderable: true,
+        align: 'right',
+      },
       { key: 'price', label: t('market.columns.price'), orderable: true, align: 'right' },
     ],
     [],
@@ -135,6 +142,18 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
             </Typography>
           ),
           value: market.liquidity.toFixed(),
+          align: 'right',
+        },
+        {
+          key: 'collateralFactor',
+          render: () => (
+            <Typography variant="small1" css={styles.whiteText}>
+              {formatToReadablePercentage(
+                convertPercentageFromSmartContract(market.collateralFactor),
+              )}
+            </Typography>
+          ),
+          value: market.collateralFactor,
           align: 'right',
         },
         {
