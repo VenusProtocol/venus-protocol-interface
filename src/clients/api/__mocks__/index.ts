@@ -140,6 +140,21 @@ export const useGetLatestProposalIdByProposer = () =>
   );
 export const useGetActiveProposal = jest.fn();
 
+export const getVrtVaultInterestRatePerBlock = jest.fn();
+export const useGetVrtVaultInterestRatePerBlock = () =>
+  useQuery(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK, getVrtVaultInterestRatePerBlock);
+
+export const getVrtVaultUserInfo = jest.fn();
+export const useGetVrtVaultUserInfo = () =>
+  useQuery([FunctionKey.GET_VRT_VAULT_USER_INFO, fakeAddress], getVrtVaultUserInfo);
+
+export const getVrtVaultAccruedInterestWei = jest.fn();
+export const useGetVrtVaultAccruedInterestWei = () =>
+  useQuery(
+    [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI, fakeAddress],
+    getVrtVaultAccruedInterestWei,
+  );
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
