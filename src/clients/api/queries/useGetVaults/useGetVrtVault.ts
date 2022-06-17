@@ -77,7 +77,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   }, [
     vrtVaultInterestRatePerBlock?.toFixed(),
     totalVrtStakedWei?.toFixed(),
-    JSON.stringify(vrtVaultUserInfo),
+    vrtVaultUserInfo,
     userPendingVrtRewardWei?.toFixed(),
   ]);
 

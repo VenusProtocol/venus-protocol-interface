@@ -60,9 +60,9 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       return undefined;
     }
 
-    const stakingAprPercentage = convertWeiToTokens({
+    const stakingAprPercentage = convertWeiToCoins({
       valueWei: vaiVaultDailyRateWei,
-      tokenId: TOKENS.xvs.id as TokenId,
+      tokenId: XVS_TOKEN_ID,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
       .multipliedBy(DAYS_PER_YEAR)
@@ -76,8 +76,8 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .toNumber();
 
     return {
-      rewardTokenId: TOKENS.xvs.id as TokenId,
-      stakedTokenId: TOKENS.vai.id as TokenId,
+      rewardTokenId: XVS_TOKEN_ID,
+      stakedTokenId: VAI_TOKEN_ID,
       dailyEmissionWei: vaiVaultDailyRateWei,
       totalStakedWei: totalVaiStakedWei,
       stakingAprPercentage,

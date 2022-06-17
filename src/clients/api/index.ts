@@ -264,3 +264,15 @@ export * from './queries/getVoteDelegateAddress';
 export { default as useGetVoteDelegateAddress } from './queries/useGetVoteDelegateAddress';
 
 export { default as useHasActiveProposal } from './queries/useHasActiveProposal';
+
+export { default as getVrtVaultInterestRatePerBlock } from './queries/getVrtVaultInterestRatePerBlock';
+export * from './queries/getVrtVaultInterestRatePerBlock';
+export { default as useGetVrtVaultInterestRatePerBlock } from './queries/useGetVrtVaultInterestRatePerBlock';
+
+export { default as getVrtVaultUserInfo } from './queries/getVrtVaultUserInfo';
+export * from './queries/getVrtVaultUserInfo';
+export { default as useGetVrtVaultUserInfo } from './queries/useGetVrtVaultUserInfo';
+
+export { default as getVrtVaultAccruedInterestWei } from './queries/getVrtVaultAccruedInterestWei';
+export * from './queries/getVrtVaultAccruedInterestWei';
+export { default as useGetVrtVaultAccruedInterestWei } from './queries/useGetVrtVaultAccruedInterestWei';

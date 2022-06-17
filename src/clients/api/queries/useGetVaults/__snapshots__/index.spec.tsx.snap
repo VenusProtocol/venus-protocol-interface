@@ -75,5 +75,14 @@ Array [
     "userPendingRewardWei": "800000000000000",
     "userStakedWei": "100000000000000",
   },
+  Object {
+    "dailyEmissionWei": "1036800000",
+    "rewardTokenId": "vrt",
+    "stakedTokenId": "vrt",
+    "stakingAprPercentage": 9460.8,
+    "totalStakedWei": "4000000000",
+    "userPendingRewardWei": "800000000000000",
+    "userStakedWei": "100000000000000",
+  },
 ]
 `;
