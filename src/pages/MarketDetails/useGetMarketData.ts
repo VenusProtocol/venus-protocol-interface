@@ -2,13 +2,10 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { IVBepToken } from 'types';
-import { getToken } from 'utilities';
+import { getToken, convertPercentageFromSmartContract } from 'utilities';
 import { convertWeiToCoins } from 'utilities/common';
 import { VTOKEN_DECIMALS } from 'config';
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
-
-// Percentages returned by smart contracts use 18 decimals
-const SMART_CONTRACT_PERCENTAGE_DECIMALS = 18;
 
 const useGetMarketData = ({
   vTokenId,
@@ -56,20 +53,10 @@ const useGetMarketData = ({
         .toNumber();
 
     const reserveFactor =
-      assetMarket &&
-      new BigNumber(assetMarket.reserveFactor)
-        .dividedBy(new BigNumber(10).pow(SMART_CONTRACT_PERCENTAGE_DECIMALS))
-        // Convert to percentage
-        .multipliedBy(100)
-        .toNumber();
+      assetMarket && convertPercentageFromSmartContract(assetMarket.reserveFactor);
 
     const collateralFactor =
-      assetMarket &&
-      new BigNumber(assetMarket.collateralFactor)
-        .dividedBy(new BigNumber(10).pow(SMART_CONTRACT_PERCENTAGE_DECIMALS))
-        // Convert to percentage
-        .multipliedBy(100)
-        .toNumber();
+      assetMarket && convertPercentageFromSmartContract(assetMarket.collateralFactor);
 
     const reserveTokens =
       assetMarket &&
