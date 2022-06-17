@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import { TokenId } from 'types';
 import { TypographyVariant } from 'theme/MuiThemeProvider/muiTheme';
-import getToken from 'utilities/getToken';
+import { getToken } from 'utilities';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
