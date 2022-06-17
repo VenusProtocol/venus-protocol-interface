@@ -91,7 +91,7 @@ export interface IProposal {
   actions: IProposalAction[];
   againstVotesWei: BigNumber;
   blockNumber: number;
-  createdDate: Date;
+  createdDate: Date | undefined;
   description:
     | {
         version: 'v2';
@@ -119,7 +119,12 @@ export interface IProposal {
   startDate: Date | undefined;
   state: ProposalState;
   cancelDate: Date | undefined;
-  createdTxHash: string;
+  createdTxHash: string | undefined;
+  cancelTxHash: string | undefined;
+  endTxHash: string | undefined;
+  executedTxHash: string | undefined;
+  queuedTxHash: string | undefined;
+  startTxHash: string | undefined;
 }
 
 export interface IPool {

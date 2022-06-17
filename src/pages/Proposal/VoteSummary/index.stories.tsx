@@ -7,7 +7,7 @@ import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 import VoteSummary from './index';
 
 export default {
-  title: 'Pages/Proposal/VoteSummary',
+  title: 'Pages/Proposal/Components/VoteSummary',
   component: VoteSummary,
   decorators: [withThemeProvider, withCenterStory({ width: 500 })],
   parameters: {

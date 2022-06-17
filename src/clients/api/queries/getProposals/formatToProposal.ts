@@ -27,6 +27,11 @@ const formatToProposal = ({
   startTimestamp,
   state,
   createdTxHash,
+  cancelTxHash,
+  endTxHash,
+  executedTxHash,
+  queuedTxHash,
+  startTxHash,
 }: IProposalApiResponse['result'][number]): IProposal => {
   let endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
 
@@ -52,18 +57,23 @@ const formatToProposal = ({
     againstVotesWei: new BigNumber(againstVotes || 0),
     blockNumber,
     cancelDate: cancelTimestamp ? createDateFromSecondsTimestamp(cancelTimestamp) : undefined,
-    createdDate: createDateFromSecondsTimestamp(createdTimestamp),
+    createdDate: createdTimestamp ? createDateFromSecondsTimestamp(createdTimestamp) : undefined,
     description: descriptionObj,
     endBlock,
     endDate,
-    executedDate: createDateFromSecondsTimestamp(executedTimestamp),
+    executedDate: executedTimestamp ? createDateFromSecondsTimestamp(executedTimestamp) : undefined,
     forVotesWei: new BigNumber(forVotes || 0),
     id,
     proposer,
-    queuedDate: createDateFromSecondsTimestamp(queuedTimestamp),
+    queuedDate: queuedTimestamp ? createDateFromSecondsTimestamp(queuedTimestamp) : undefined,
     startDate: createDateFromSecondsTimestamp(startTimestamp),
     state,
-    createdTxHash,
+    createdTxHash: createdTxHash ?? undefined,
+    cancelTxHash: cancelTxHash ?? undefined,
+    endTxHash: endTxHash ?? undefined,
+    executedTxHash: executedTxHash ?? undefined,
+    queuedTxHash: queuedTxHash ?? undefined,
+    startTxHash: startTxHash ?? undefined,
   };
 };
 

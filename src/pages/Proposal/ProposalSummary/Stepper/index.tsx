@@ -3,12 +3,18 @@ import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { Icon } from 'components';
 import { useTranslation } from 'translation';
-import { IProposal, ProposalState } from 'types';
+import { ProposalState } from 'types';
 import { useStyles } from './styles';
 
 export interface IStepperProps {
   className?: string;
-  proposal: IProposal;
+  createdDate: Date | undefined;
+  startDate: Date | undefined;
+  cancelDate: Date | undefined;
+  queuedDate: Date | undefined;
+  executedDate: Date | undefined;
+  endDate: Date;
+  state: ProposalState;
 }
 
 const getActiveStepIndex = (proposalState: ProposalState) => {
@@ -29,7 +35,16 @@ const getActiveStepIndex = (proposalState: ProposalState) => {
   }
 };
 
-const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
+const Stepper: React.FC<IStepperProps> = ({
+  className,
+  createdDate,
+  startDate,
+  cancelDate,
+  queuedDate,
+  executedDate,
+  endDate,
+  state,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -37,7 +52,7 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
     () => [
       {
         getLabel: () => t('voteProposalUi.statusCard.created'),
-        getTimestamp: () => proposal.createdDate,
+        getTimestamp: () => createdDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
             <Icon name="mark" css={styles.markIcon} />
@@ -46,7 +61,7 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
       },
       {
         getLabel: () => t('voteProposalUi.statusCard.active'),
-        getTimestamp: () => proposal.startDate,
+        getTimestamp: () => startDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
             <Icon name="mark" css={styles.markIcon} />
@@ -55,7 +70,7 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
       },
       {
         getLabel: () => {
-          switch (proposal.state) {
+          switch (state) {
             case 'Canceled':
               return t('voteProposalUi.statusCard.canceled');
             case 'Defeated':
@@ -67,22 +82,18 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
           }
         },
         getTimestamp: () => {
-          if (proposal.state === 'Canceled') {
-            return proposal.cancelDate;
+          if (state === 'Canceled') {
+            return cancelDate;
           }
 
-          if (proposal.state === 'Pending' || proposal.state === 'Active') {
+          if (state === 'Pending' || state === 'Active') {
             return undefined;
           }
 
-          return proposal.endDate;
+          return endDate;
         },
         completedIcon: () => {
-          if (
-            proposal.state === 'Canceled' ||
-            proposal.state === 'Defeated' ||
-            proposal.state === 'Expired'
-          ) {
+          if (state === 'Canceled' || state === 'Defeated' || state === 'Expired') {
             return (
               <span css={[styles.iconContainer, styles.errorIconContainer]}>
                 <Icon name="close" css={styles.closeIcon} />
@@ -98,7 +109,7 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
       },
       {
         getLabel: () => t('voteProposalUi.statusCard.queue'),
-        getTimestamp: () => proposal.queuedDate,
+        getTimestamp: () => queuedDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
             <Icon name="mark" css={styles.markIcon} />
@@ -107,7 +118,7 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
       },
       {
         getLabel: () => t('voteProposalUi.statusCard.execute'),
-        getTimestamp: () => proposal.executedDate,
+        getTimestamp: () => executedDate,
         completedIcon: () => (
           <span css={[styles.iconContainer, styles.markIconContainer]}>
             <Icon name="mark" css={styles.markIcon} />
@@ -115,9 +126,9 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
         ),
       },
     ],
-    [JSON.stringify(proposal)],
+    [createdDate, startDate, cancelDate, queuedDate, executedDate, state],
   );
-  const activeStepIndex = getActiveStepIndex(proposal.state);
+  const activeStepIndex = getActiveStepIndex(state);
   return (
     <div className={className} css={styles.root}>
       {steps.map((step, idx) => {
@@ -146,10 +157,13 @@ const Stepper: React.FC<IStepperProps> = ({ className, proposal }) => {
                   )}
                 </Typography>
               </div>
-              <Typography variant="tiny" css={styles.dateDefault}>
-                {step.getTimestamp() &&
-                  t('voteProposalUi.statusCard.dateAndTime', { date: step.getTimestamp() })}
-              </Typography>
+              {step.getTimestamp() && (
+                <Typography variant="tiny" css={styles.dateDefault}>
+                  {t('voteProposalUi.statusCard.dateOnly', { date: step.getTimestamp() })}
+
+                  {t('voteProposalUi.statusCard.timeOnly', { date: step.getTimestamp() })}
+                </Typography>
+              )}
             </div>
             {idx + 1 !== steps.length && <div css={styles.connector} />}
           </>
