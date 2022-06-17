@@ -24,22 +24,11 @@ export const VaultUi: React.FC<IVaultUi> = ({ vaults, isInitialLoading }) => {
   }
 
   return (
-    <>
-      <div css={styles.container}>
-        {vaults.map(vault => (
-          <VaultItem
-            {...vault}
-            key={generateVaultKey(vault)}
-            // TODO: add callbacks (see https://app.clickup.com/t/2dfqc8g,
-            // https://app.clickup.com/t/2dfqca0,
-            // https://app.clickup.com/t/2dfqcb3)
-            onClaim={() => {}}
-            onReward={() => {}}
-            onStake={() => {}}
-          />
-        ))}
-      </div>
-    </>
+    <div css={styles.container}>
+      {vaults.map(vault => (
+        <VaultItem {...vault} key={generateVaultKey(vault)} />
+      ))}
+    </div>
   );
 };
 

@@ -315,7 +315,7 @@
     "supplyBalance": "Supply balance",
     "title": "My account"
   },
-  "XvsVaultStakeModal": {
+  "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
     "enableTokenMessage": "To stake {{tokenSymbol}} to this vault, you need to enable it first",

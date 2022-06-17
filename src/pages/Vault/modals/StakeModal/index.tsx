@@ -6,9 +6,9 @@ import { getToken } from 'utilities';
 import { useTranslation } from 'translation';
 import ActionModal, { IActionModalProps } from '../ActionModal';
 
-export type XvsVaultStakeModalProps = Pick<IActionModalProps, 'tokenId' | 'handleClose'>;
+export type StakeModalProps = Pick<IActionModalProps, 'tokenId' | 'handleClose'>;
 
-const XvsVaultStakeModal: React.FC<XvsVaultStakeModalProps> = ({ tokenId, handleClose }) => {
+const StakeModal: React.FC<StakeModalProps> = ({ tokenId, handleClose }) => {
   const { t } = useTranslation();
   const tokenSymbol = getToken(tokenId).symbol;
 
@@ -20,21 +20,21 @@ const XvsVaultStakeModal: React.FC<XvsVaultStakeModalProps> = ({ tokenId, handle
 
   return (
     <ActionModal
-      title={t('XvsVaultStakeModal.title', { tokenSymbol })}
+      title={t('stakeModal.title', { tokenSymbol })}
       tokenId={tokenId}
       handleClose={handleClose}
       availableTokensWei={availableTokensWei}
       isInitialLoading={isInitialLoading}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
-      connectWalletMessage={t('XvsVaultStakeModal.connectWalletMessage', { tokenSymbol })}
+      connectWalletMessage={t('stakeModal.connectWalletMessage', { tokenSymbol })}
       tokenNeedsToBeEnabled
-      enableTokenMessage={t('XvsVaultStakeModal.enableTokenMessage', { tokenSymbol })}
-      availableTokensLabel={t('XvsVaultStakeModal.availableTokensLabel', { tokenSymbol })}
-      submitButtonLabel={t('XvsVaultStakeModal.submitButtonLabel')}
-      submitButtonDisabledLabel={t('XvsVaultStakeModal.submitButtonDisabledLabel')}
+      enableTokenMessage={t('stakeModal.enableTokenMessage', { tokenSymbol })}
+      availableTokensLabel={t('stakeModal.availableTokensLabel', { tokenSymbol })}
+      submitButtonLabel={t('stakeModal.submitButtonLabel')}
+      submitButtonDisabledLabel={t('stakeModal.submitButtonDisabledLabel')}
     />
   );
 };
 
-export default XvsVaultStakeModal;
+export default StakeModal;
