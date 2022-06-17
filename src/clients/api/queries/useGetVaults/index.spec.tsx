@@ -7,10 +7,12 @@ import renderComponent from 'testUtils/renderComponent';
 import fakeAddress from '__mocks__/models/address';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
+import vrtVaultResponses from '__mocks__/contracts/vrtVault';
 import compTrollerResponses from '__mocks__/contracts/comptroller';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
+import formatToVrtVaultUserInfo from 'clients/api/queries/getVrtVaultUserInfo/formatToUserInfo';
 import {
   getXvsVaultPoolsCount,
   getXvsVaultRewardWeiPerBlock,
@@ -23,6 +25,9 @@ import {
   getMarkets,
   getVaiVaultUserInfo,
   getVaiVaultPendingXvsWei,
+  getVrtVaultAccruedInterestWei,
+  getVrtVaultInterestRatePerBlock,
+  getVrtVaultUserInfo,
 } from 'clients/api';
 import useGetVaults, { UseGetVaultsOutput } from '.';
 
@@ -46,7 +51,12 @@ describe('api/queries/useGetVaults', () => {
     (getVenusVaiVaultDailyRateWei as jest.Mock).mockImplementation(
       () => new BigNumber(compTrollerResponses.venusVAIVaultRate),
     );
-
+    (getVrtVaultAccruedInterestWei as jest.Mock).mockImplementation(
+      () => new BigNumber(vrtVaultResponses.getAccruedInterest),
+    );
+    (getVrtVaultInterestRatePerBlock as jest.Mock).mockImplementation(
+      () => new BigNumber(vrtVaultResponses.interestRatePerBlock),
+    );
     (getBalanceOf as jest.Mock).mockImplementation(() => new BigNumber('4000000000'));
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
 
@@ -60,6 +70,10 @@ describe('api/queries/useGetVaults', () => {
 
     (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
       formatToXvsVaultUserInfo(xvsVaultResponses.userInfo),
+    );
+
+    (getVrtVaultUserInfo as jest.Mock).mockImplementation(() =>
+      formatToVrtVaultUserInfo(vrtVaultResponses.userInfo),
     );
   });
 

@@ -35,7 +35,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       },
     );
 
-  const { data: vaiVaultPendingXvsWei, isLoading: isGetVaiVaultPendingXvsWeiLoading } =
+  const { data: userPendingVaiRewardWei, isLoading: isGetUserPendingVaiRewardWeiLoading } =
     useGetVaiVaultPendingXvsWei(
       {
         accountAddress: accountAddress || '',
@@ -45,7 +45,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       },
     );
 
-  const { data: venusVaiVaultDailyRateWei, isLoading: isGetVenusVaiVaultDailyRateWeiLoading } =
+  const { data: vaiVaultDailyRateWei, isLoading: isGetVaiVaultDailyRateWeiLoading } =
     useGetVenusVaiVaultDailyRateWei();
 
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
@@ -55,12 +55,12 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedWei || !venusVaiVaultDailyRateWei || !xvsPriceDollars) {
+    if (!totalVaiStakedWei || !vaiVaultDailyRateWei || !xvsPriceDollars) {
       return undefined;
     }
 
     const stakingAprPercentage = convertWeiToCoins({
-      valueWei: venusVaiVaultDailyRateWei,
+      valueWei: vaiVaultDailyRateWei,
       tokenId: XVS_TOKEN_ID,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
@@ -77,26 +77,26 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     return {
       rewardTokenId: XVS_TOKEN_ID,
       stakedTokenId: VAI_TOKEN_ID,
-      dailyEmissionWei: venusVaiVaultDailyRateWei,
+      dailyEmissionWei: vaiVaultDailyRateWei,
       totalStakedWei: totalVaiStakedWei,
       stakingAprPercentage,
       userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
-      userPendingRewardWei: vaiVaultPendingXvsWei,
+      userPendingRewardWei: userPendingVaiRewardWei,
     };
   }, [
     totalVaiStakedWei?.toFixed(),
-    venusVaiVaultDailyRateWei?.toFixed(),
+    vaiVaultDailyRateWei?.toFixed(),
     xvsPriceDollars?.toFixed(),
     JSON.stringify(vaiVaultUserInfo),
-    vaiVaultPendingXvsWei?.toFixed(),
+    userPendingVaiRewardWei?.toFixed(),
   ]);
 
   const isLoading =
     isGetTotalVaiStakedWeiLoading ||
-    isGetVenusVaiVaultDailyRateWeiLoading ||
+    isGetVaiVaultDailyRateWeiLoading ||
     isGetMarketsLoading ||
     isGetVaiVaultUserInfoLoading ||
-    isGetVaiVaultPendingXvsWeiLoading;
+    isGetUserPendingVaiRewardWeiLoading;
 
   return {
     data,
