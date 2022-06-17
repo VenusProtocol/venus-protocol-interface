@@ -1,5 +1,7 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
+import { getToken } from 'utilities';
+import { TokenId } from 'types';
 import {
   queryClient,
   stakeWeiInXvsVault,
@@ -7,7 +9,7 @@ import {
   StakeWeiInXvsVaultOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+import { XVS_TOKEN_ADDRESS, XVS_VAULT_PROXY_CONTRACT_ADDRESS } from 'constants/xvs';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
@@ -16,7 +18,10 @@ type Options = MutationObserverOptions<
   Omit<IStakeWeiInXvsVaultInput, 'xvsVaultContract'>
 >;
 
-const useStakeWeiInXvsVault = (options?: Options) => {
+const useStakeWeiInXvsVault = (
+  { stakedTokenId }: { stakedTokenId: TokenId },
+  options?: Options,
+) => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
@@ -31,7 +36,43 @@ const useStakeWeiInXvsVault = (options?: Options) => {
       onSuccess: async (...onSuccessParams) => {
         const { fromAccountAddress, poolIndex } = onSuccessParams[1];
 
-        queryClient.resetQueries([
+        // Invalidate staked token amount
+        queryClient.invalidateQueries([
+          FunctionKey.GET_XVS_VAULT_USER_INFO,
+          fromAccountAddress,
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
+        ]);
+
+        // Invalidate user balance
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          fromAccountAddress,
+          stakedTokenId,
+        ]);
+
+        // Invalidate vault data
+        const stakedTokenAddress = getToken(stakedTokenId).address;
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+          stakedTokenAddress,
+        ]);
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_XVS_VAULT_POOL_INFOS,
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
+        ]);
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
+          fromAccountAddress,
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
+        ]);
+
+        queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
           fromAccountAddress,
           XVS_TOKEN_ADDRESS,

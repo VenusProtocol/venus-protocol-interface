@@ -3,7 +3,7 @@ import noop from 'noop-ts';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
-import StakeModal, { StakeModalProps } from '.';
+import StakeModal, { IStakeModalProps } from '.';
 
 export default {
   title: 'Pages/Vault/modals/StakeModal',
@@ -11,7 +11,7 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof StakeModal>;
 
-const Template: Story<StakeModalProps> = args => <StakeModal {...args} />;
+const Template: Story<IStakeModalProps> = args => <StakeModal {...args} />;
 
 const authContext = {
   login: noop,
@@ -25,27 +25,31 @@ const authContext = {
 
 export const Default = Template.bind({});
 Default.args = {
-  tokenId: 'vai',
+  stakedTokenId: 'vai',
+  rewardTokenId: 'xvs',
   handleClose: noop,
 };
 Default.decorators = [withAuthContext(authContext), withEnabledToken('vai')];
 
 export const WithoutConnectedAccount = Template.bind({});
 WithoutConnectedAccount.args = {
-  tokenId: 'vai',
+  stakedTokenId: 'vai',
+  rewardTokenId: 'xvs',
   handleClose: noop,
 };
 
 export const WithDisabledToken = Template.bind({});
 WithDisabledToken.args = {
-  tokenId: 'vai',
+  stakedTokenId: 'vai',
+  rewardTokenId: 'xvs',
   handleClose: noop,
 };
 WithDisabledToken.decorators = [withAuthContext(authContext)];
 
 export const WithIsInitialLoading = Template.bind({});
 WithIsInitialLoading.args = {
-  tokenId: 'vai',
+  stakedTokenId: 'vai',
+  rewardTokenId: 'xvs',
   handleClose: noop,
 };
 WithIsInitialLoading.decorators = [withAuthContext(authContext), withEnabledToken('vai')];

@@ -26,6 +26,7 @@ export interface IVaultItemUiProps {
   onStake: () => void;
   onWithdraw: () => void;
   closeActiveModal: () => void;
+  poolIndex?: number;
   activeModal?: ActiveModal;
   userPendingRewardWei?: BigNumber;
   userStakedWei?: BigNumber;
@@ -44,6 +45,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   onStake,
   onWithdraw,
   activeModal,
+  poolIndex,
   closeActiveModal,
   className,
 }) => {
@@ -193,7 +195,12 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
       </Paper>
 
       {activeModal === 'stake' && (
-        <StakeModal tokenId={stakedTokenId} handleClose={closeActiveModal} />
+        <StakeModal
+          stakedTokenId={stakedTokenId}
+          rewardTokenId={rewardTokenId}
+          handleClose={closeActiveModal}
+          poolIndex={poolIndex}
+        />
       )}
 
       {/* TODO: add other modals (see VEN-251) */}

@@ -26,6 +26,8 @@ const baseProps: IActionModalProps = {
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeEnabled: true,
   enableTokenMessage: 'Fake enable token message',
+  successfulTransactionTitle: 'Fake successful transaction modal title',
+  successfulTransactionDescription: 'Fake successful transaction modal description',
 };
 
 describe('pages/Vault/ActionModal', () => {

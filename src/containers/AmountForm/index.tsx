@@ -2,13 +2,14 @@
 import React from 'react';
 import { Formik, Form, FormikProps, FormikConfig, FormikHelpers } from 'formik';
 
+import useIsMounted from 'hooks/useIsMounted';
 import getValidationSchema, { FormValues } from './validationSchema';
 
 export * from './validationSchema';
 
 export interface IAmountFormProps
   extends Omit<FormikConfig<FormValues>, 'onSubmit' | 'initialValues'> {
-  onSubmit: (value: string) => Promise<void> | void;
+  onSubmit: (value: string) => Promise<unknown>;
   children: (formProps: FormikProps<FormValues>) => React.ReactNode;
   initialAmount?: FormikConfig<FormValues>['initialValues']['amount'];
   maxAmount?: FormikConfig<FormValues>['initialValues']['amount'];
@@ -22,9 +23,14 @@ export const AmountForm: React.FC<IAmountFormProps> = ({
   initialAmount = '',
   maxAmount,
 }) => {
+  const isMounted = useIsMounted();
+
   const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (values.amount) {
       await onSubmit(values.amount.trim());
+    }
+
+    if (values.amount && isMounted()) {
       resetForm();
     }
   };
