@@ -182,10 +182,6 @@ export { default as getCurrentVotes } from './queries/getCurrentVotes';
 export * from './queries/getCurrentVotes';
 export { default as useGetCurrentVotes } from './queries/useGetCurrentVotes';
 
-export { default as getPendingXvs } from './queries/getPendingXvs';
-export * from './queries/getPendingXvs';
-export { default as useGetPendingXvs } from './queries/useGetPendingXvs';
-
 export { default as getVTokenBorrowRate } from './queries/getVTokenBorrowRate';
 export * from './queries/getVTokenBorrowRate';
 
@@ -246,3 +242,15 @@ export * from './queries/getVoteDelegateAddress';
 export { default as useGetVoteDelegateAddress } from './queries/useGetVoteDelegateAddress';
 
 export { default as useHasActiveProposal } from './queries/useHasActiveProposal';
+
+export { default as getVrtVaultInterestRatePerBlock } from './queries/getVrtVaultInterestRatePerBlock';
+export * from './queries/getVrtVaultInterestRatePerBlock';
+export { default as useGetVrtVaultInterestRatePerBlock } from './queries/useGetVrtVaultInterestRatePerBlock';
+
+export { default as getVrtVaultUserInfo } from './queries/getVrtVaultUserInfo';
+export * from './queries/getVrtVaultUserInfo';
+export { default as useGetVrtVaultUserInfo } from './queries/useGetVrtVaultUserInfo';
+
+export { default as getVrtVaultAccruedInterestWei } from './queries/getVrtVaultAccruedInterestWei';
+export * from './queries/getVrtVaultAccruedInterestWei';
+export { default as useGetVrtVaultAccruedInterestWei } from './queries/useGetVrtVaultAccruedInterestWei';
