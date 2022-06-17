@@ -79,6 +79,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
           />
 
           <LabeledInlineContent
+            data-testid="available-tokens-text"
             iconName={tokenId}
             label={availableTokensLabel}
             css={styles.getRow({ isLast: !readableLockingPeriod })}
@@ -88,6 +89,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
 
           {readableLockingPeriod && (
             <LabeledInlineContent
+              data-testid="locking-period-text"
               label={t('vault.transactionForm.lockingPeriod.label')}
               css={styles.getRow({ isLast: true })}
             >

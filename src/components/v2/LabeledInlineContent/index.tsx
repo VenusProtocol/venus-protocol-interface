@@ -5,23 +5,22 @@ import Typography from '@mui/material/Typography';
 import { Icon, IconName } from '../Icon';
 import { useStyles } from './styles';
 
-export interface ILabeledInlineContentProps {
+export interface ILabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
   iconName?: IconName;
-  className?: string;
   children: React.ReactNode;
 }
 
 export const LabeledInlineContent = ({
   label,
   iconName,
-  className,
   children,
+  ...otherContainerProps
 }: ILabeledInlineContentProps) => {
   const styles = useStyles();
 
   return (
-    <div css={styles.container} className={className}>
+    <div css={styles.container} {...otherContainerProps}>
       <div css={styles.column}>
         {iconName && <Icon name={iconName} css={styles.icon} />}
 
