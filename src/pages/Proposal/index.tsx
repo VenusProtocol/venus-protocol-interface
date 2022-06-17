@@ -66,7 +66,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           progressBarColor={styles.abstainColor}
         />
       </div>
-      <Description descriptionMarkdown="TODO: pass description markdown prop here" />
+      <Description description="TODO: pass description markdown prop here" />
     </div>
   );
 };
