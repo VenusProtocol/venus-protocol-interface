@@ -249,3 +249,7 @@ export const useExecuteProposal = (options?: MutationObserverOptions) =>
 export const queueProposal = jest.fn();
 export const useQueueProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
+
+export const stakeWeiInXvsVault = jest.fn();
+export const useStakeWeiInXvsVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_WEI_IN_XVS_VAULT, stakeWeiInXvsVault, options);

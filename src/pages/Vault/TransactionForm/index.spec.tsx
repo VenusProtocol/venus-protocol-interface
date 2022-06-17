@@ -6,7 +6,11 @@ import { waitFor, fireEvent } from '@testing-library/react';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
-import TransactionForm, { ITransactionFormProps } from '.';
+import TransactionForm, {
+  ITransactionFormProps,
+  AVAILABLE_TOKEN_TEXT_TEST_ID,
+  LOCKING_PERIOD_TEXT_TEST_ID,
+} from '.';
 
 jest.mock('hooks/useSuccessfulTransactionModal');
 
@@ -31,8 +35,8 @@ describe('pages/Vault/TransactionForm', () => {
   it('displays available tokens and locking period correctly', async () => {
     const { getByTestId } = renderComponent(<TransactionForm {...baseProps} />);
 
-    expect(getByTestId('available-tokens-text').textContent).toMatchSnapshot();
-    expect(getByTestId('locking-period-text').textContent).toMatchSnapshot();
+    expect(getByTestId(AVAILABLE_TOKEN_TEXT_TEST_ID).textContent).toMatchSnapshot();
+    expect(getByTestId(LOCKING_PERIOD_TEXT_TEST_ID).textContent).toMatchSnapshot();
   });
 
   it('disables submit button if no amount is provided', async () => {

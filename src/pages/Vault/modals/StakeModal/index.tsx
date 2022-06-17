@@ -26,16 +26,15 @@ const StakeModal: React.FC<IStakeModalProps> = ({
   const { account } = useContext(AuthContext);
   const stakedTokenSymbol = getToken(stakedTokenId).symbol;
 
-  const { data: availableTokensWei = new BigNumber(0), isLoading: isGetWalletBalanceWeiLoading } =
-    useGetBalanceOf(
-      {
-        accountAddress: account?.address || '',
-        tokenId: stakedTokenId,
-      },
-      {
-        enabled: !!account?.address,
-      },
-    );
+  const { data: availableTokensWei, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
+    {
+      accountAddress: account?.address || '',
+      tokenId: stakedTokenId,
+    },
+    {
+      enabled: !!account?.address,
+    },
+  );
 
   const { stake, isLoading: isStakeLoading } = useStakeWeiInVault({
     stakedTokenId,
@@ -63,7 +62,7 @@ const StakeModal: React.FC<IStakeModalProps> = ({
       title={t('stakeModal.title', { tokenSymbol: stakedTokenSymbol })}
       tokenId={stakedTokenId}
       handleClose={handleClose}
-      availableTokensWei={availableTokensWei}
+      availableTokensWei={availableTokensWei || new BigNumber(0)}
       isInitialLoading={isGetWalletBalanceWeiLoading}
       onSubmit={handleStake}
       isSubmitting={isStakeLoading}

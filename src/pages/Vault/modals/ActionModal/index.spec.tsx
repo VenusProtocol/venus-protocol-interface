@@ -30,7 +30,7 @@ const baseProps: IActionModalProps = {
   successfulTransactionDescription: 'Fake successful transaction modal description',
 };
 
-describe('pages/Vault/ActionModal', () => {
+describe('pages/Vault/modals/ActionModal', () => {
   it('renders without crashing', async () => {
     renderComponent(<ActionModal {...baseProps} />);
   });

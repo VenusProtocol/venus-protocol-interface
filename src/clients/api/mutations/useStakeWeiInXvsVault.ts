@@ -25,7 +25,7 @@ const useStakeWeiInXvsVault = (
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
-    FunctionKey.CLAIM_XVS_VAULT_REWARD,
+    FunctionKey.STAKE_WEI_IN_XVS_VAULT,
     (params: Omit<IStakeWeiInXvsVaultInput, 'xvsVaultContract'>) =>
       stakeWeiInXvsVault({
         xvsVaultContract,
