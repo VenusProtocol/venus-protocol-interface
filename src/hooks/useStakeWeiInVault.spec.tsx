@@ -2,57 +2,95 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
-import { stakeWeiInXvsVault } from 'clients/api';
+import { TokenId } from 'types';
+import { TOKENS } from 'constants/tokens';
+import { stakeWeiInXvsVault, stakeWeiInVaiVault } from 'clients/api';
 import fakeAccountAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
 import useStakeWeiInVault from './useStakeWeiInVault';
 
 jest.mock('clients/api');
 
-const fakeStakedTokenId = 'vai';
-const fakeRewardTokenId = 'xvs';
 const fakeAmountWei = new BigNumber('10000000000000000');
-const fakePoolIndex = 6;
-
-const xvsVaultButtonLabel = 'Stake in XVS vault';
-
-const TestComponent: React.FC = () => {
-  const { stake } = useStakeWeiInVault({
-    stakedTokenId: fakeStakedTokenId,
-  });
-
-  return (
-    <>
-      <button
-        onClick={() =>
-          stake({
-            rewardTokenId: fakeRewardTokenId,
-            amountWei: fakeAmountWei,
-            accountAddress: fakeAccountAddress,
-            poolIndex: fakePoolIndex,
-          })
-        }
-        type="button"
-      >
-        {xvsVaultButtonLabel}
-      </button>
-    </>
-  );
-};
+const fakeStakeButtonLabel = 'Stake';
 
 describe('hooks/useStakeWeiInVault', () => {
-  it('calls stakeWeiInXvsVault with correct parameters when calling stake with a poolIndex', async () => {
+  it('calls stakeWeiInXvsVault with correct parameters when calling stake a poolIndex', async () => {
+    const fakePoolIndex = 6;
+
+    const TestComponent: React.FC = () => {
+      const { stake } = useStakeWeiInVault({
+        stakedTokenId: TOKENS.vai.id as TokenId,
+      });
+
+      return (
+        <>
+          <button
+            onClick={() =>
+              stake({
+                rewardTokenId: TOKENS.xvs.id as TokenId,
+                amountWei: fakeAmountWei,
+                accountAddress: fakeAccountAddress,
+                poolIndex: fakePoolIndex,
+              })
+            }
+            type="button"
+          >
+            {fakeStakeButtonLabel}
+          </button>
+        </>
+      );
+    };
+
     const { getByText } = renderComponent(<TestComponent />);
 
     // Click on XVS vault button
-    fireEvent.click(getByText(xvsVaultButtonLabel));
+    fireEvent.click(getByText(fakeStakeButtonLabel));
 
     await waitFor(() => expect(stakeWeiInXvsVault).toHaveBeenCalledTimes(1));
     expect(stakeWeiInXvsVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
       fromAccountAddress: fakeAccountAddress,
       poolIndex: fakePoolIndex,
-      rewardTokenAddress: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff', // XVS token address
+      rewardTokenAddress: TOKENS.xvs.address,
     });
   });
+
+  it('calls stakeWeiInVaiVault with correct parameters when calling stake without a poolIndex and stakedTokenId equal to "vai"', async () => {
+    const TestComponent: React.FC = () => {
+      const { stake } = useStakeWeiInVault({
+        stakedTokenId: TOKENS.vai.id as TokenId,
+      });
+
+      return (
+        <>
+          <button
+            onClick={() =>
+              stake({
+                rewardTokenId: TOKENS.xvs.id as TokenId,
+                amountWei: fakeAmountWei,
+                accountAddress: fakeAccountAddress,
+              })
+            }
+            type="button"
+          >
+            {fakeStakeButtonLabel}
+          </button>
+        </>
+      );
+    };
+
+    const { getByText } = renderComponent(<TestComponent />);
+
+    // Click on VAI vault button
+    fireEvent.click(getByText(fakeStakeButtonLabel));
+
+    await waitFor(() => expect(stakeWeiInVaiVault).toHaveBeenCalledTimes(1));
+    expect(stakeWeiInVaiVault).toHaveBeenCalledWith({
+      amountWei: fakeAmountWei,
+      fromAccountAddress: fakeAccountAddress,
+    });
+  });
+
+  // TODO: add tests for stakeWeiInVaiVault and stakeWeiInVrtVault
 });

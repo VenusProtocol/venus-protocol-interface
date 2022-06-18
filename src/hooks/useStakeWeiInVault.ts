@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { useStakeWeiInXvsVault } from 'clients/api';
+import { useStakeWeiInXvsVault, useStakeWeiInVaiVault } from 'clients/api';
 
 export interface IUseStakeWeiInVaultInput {
   stakedTokenId: TokenId;
@@ -17,10 +17,14 @@ interface IStakeInput {
 }
 
 const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
+  // TODO: handle errors
   const { mutateAsync: stakeWeiInXvsVault, isLoading: isStakeWeiInXvsVaultLoading } =
     useStakeWeiInXvsVault({ stakedTokenId });
 
-  const isLoading = isStakeWeiInXvsVaultLoading;
+  const { mutateAsync: stakeWeiInVaiVault, isLoading: isStakeWeiInVaiVaultLoading } =
+    useStakeWeiInVaiVault();
+
+  const isLoading = isStakeWeiInXvsVaultLoading || isStakeWeiInVaiVaultLoading;
 
   const stake = async ({ rewardTokenId, amountWei, accountAddress, poolIndex }: IStakeInput) => {
     if (typeof poolIndex === 'number') {
@@ -34,7 +38,14 @@ const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
       });
     }
 
-    // TODO: handle other mutations
+    if (stakedTokenId === 'vai') {
+      return stakeWeiInVaiVault({
+        fromAccountAddress: accountAddress,
+        amountWei,
+      });
+    }
+
+    // TODO: handle staking in VRT vault
 
     // DEV ONLY
     return fakeTransactionReceipt;

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
-import { Vault } from 'types';
+import { Vault, TokenId } from 'types';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { convertWeiToCoins } from 'utilities';
 import {
@@ -11,8 +11,8 @@ import {
   useGetVaiVaultUserInfo,
   useGetVaiVaultPendingXvsWei,
 } from 'clients/api';
-import { XVS_TOKEN_ID } from 'constants/xvs';
-import { VAI_TOKEN_ID, VAI_VAULT_ADDRESS } from './constants';
+import { TOKENS } from 'constants/tokens';
+import { VAI_VAULT_ADDRESS } from './constants';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
@@ -22,7 +22,7 @@ export interface UseGetVaiVaultOutput {
 const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
   const { data: totalVaiStakedWei, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf({
     accountAddress: VAI_VAULT_ADDRESS,
-    tokenId: VAI_TOKEN_ID,
+    tokenId: TOKENS.vai.id as TokenId,
   });
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
@@ -50,7 +50,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
 
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
   const xvsPriceDollars: BigNumber | undefined = useMemo(
-    () => (getMarketsData?.markets || []).find(market => market.id === XVS_TOKEN_ID)?.tokenPrice,
+    () => (getMarketsData?.markets || []).find(market => market.id === TOKENS.xvs.id)?.tokenPrice,
     [JSON.stringify(getMarketsData?.markets)],
   );
 
@@ -61,22 +61,22 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
 
     const stakingAprPercentage = convertWeiToCoins({
       valueWei: vaiVaultDailyRateWei,
-      tokenId: XVS_TOKEN_ID,
+      tokenId: TOKENS.xvs.id as TokenId,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
       .multipliedBy(DAYS_PER_YEAR)
       .dividedBy(
         convertWeiToCoins({
           valueWei: totalVaiStakedWei,
-          tokenId: VAI_TOKEN_ID,
+          tokenId: TOKENS.vai.id as TokenId,
         }),
       )
       .multipliedBy(100)
       .toNumber();
 
     return {
-      rewardTokenId: XVS_TOKEN_ID,
-      stakedTokenId: VAI_TOKEN_ID,
+      rewardTokenId: TOKENS.xvs.id as TokenId,
+      stakedTokenId: TOKENS.vai.id as TokenId,
       dailyEmissionWei: vaiVaultDailyRateWei,
       totalStakedWei: totalVaiStakedWei,
       stakingAprPercentage,

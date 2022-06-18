@@ -1,6 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { TokenId } from 'types';
 import {
   queryClient,
   stakeWeiInVaiVault,
@@ -9,6 +8,7 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { VAI_VAULT_ADDRESS } from 'constants/vai';
+import { TOKENS } from 'constants/tokens';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
@@ -17,14 +17,11 @@ type Options = MutationObserverOptions<
   Omit<IStakeWeiInVaiVaultInput, 'vaiVaultContract'>
 >;
 
-const useStakeWeiInVaiVault = (
-  { stakedTokenId }: { stakedTokenId: TokenId },
-  options?: Options,
-) => {
+const useStakeWeiInVaiVault = (options?: Options) => {
   const vaiVaultContract = useVaiVaultContract();
 
   return useMutation(
-    FunctionKey.STAKE_WEI_IN_XVS_VAULT,
+    FunctionKey.STAKE_WEI_IN_VAI_VAULT,
     (params: Omit<IStakeWeiInVaiVaultInput, 'vaiVaultContract'>) =>
       stakeWeiInVaiVault({
         vaiVaultContract,
@@ -42,7 +39,7 @@ const useStakeWeiInVaiVault = (
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           fromAccountAddress,
-          stakedTokenId,
+          TOKENS.vai.id,
         ]);
 
         // Invalidate cached vault data
@@ -50,7 +47,7 @@ const useStakeWeiInVaiVault = (
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           VAI_VAULT_ADDRESS,
-          stakedTokenId,
+          TOKENS.vai.id,
         ]);
 
         queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI);
