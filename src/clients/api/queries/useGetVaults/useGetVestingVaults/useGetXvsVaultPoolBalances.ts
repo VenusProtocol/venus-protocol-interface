@@ -3,6 +3,7 @@ import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 import { useWeb3 } from 'clients/web3';
 import { getTokenContractByAddress } from 'clients/contracts';
 import { getBalanceOf, GetBalanceOfOutput } from 'clients/api';
+import { getTokenByAddress } from 'utilities';
 import FunctionKey from 'constants/functionKey';
 import { Bep20 } from 'types/contracts';
 import { XVS_VAULT_PROXY_CONTRACT_ADDRESS } from '../constants';
@@ -25,17 +26,17 @@ const useGetXvsVaultPoolBalances = ({
         ? getTokenContractByAddress(stakedTokenAddress, web3)
         : undefined;
 
+      const stakedTokenId = stakedTokenAddress
+        ? getTokenByAddress(stakedTokenAddress)?.id
+        : undefined;
+
       return {
         queryFn: () =>
           getBalanceOf({
             tokenContract: tokenContract || ({} as Bep20),
             accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
           }),
-        queryKey: [
-          FunctionKey.GET_BALANCE_OF,
-          XVS_VAULT_PROXY_CONTRACT_ADDRESS,
-          stakedTokenAddress,
-        ],
+        queryKey: [FunctionKey.GET_BALANCE_OF, XVS_VAULT_PROXY_CONTRACT_ADDRESS, stakedTokenId],
         enabled: !!tokenContract,
       };
     },

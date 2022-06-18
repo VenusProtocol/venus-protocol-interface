@@ -1,6 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { getToken } from 'utilities';
 import { TokenId } from 'types';
 import {
   queryClient,
@@ -36,7 +35,7 @@ const useStakeWeiInXvsVault = (
       onSuccess: async (...onSuccessParams) => {
         const { fromAccountAddress, poolIndex } = onSuccessParams[1];
 
-        // Invalidate staked token amount
+        // Invalidate cached staked token amount
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
           fromAccountAddress,
@@ -44,19 +43,18 @@ const useStakeWeiInXvsVault = (
           poolIndex,
         ]);
 
-        // Invalidate user balance
+        // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           fromAccountAddress,
           stakedTokenId,
         ]);
 
-        // Invalidate vault data
-        const stakedTokenAddress = getToken(stakedTokenId).address;
+        // Invalidate cached vault data
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           XVS_VAULT_PROXY_CONTRACT_ADDRESS,
-          stakedTokenAddress,
+          stakedTokenId,
         ]);
 
         queryClient.invalidateQueries([
