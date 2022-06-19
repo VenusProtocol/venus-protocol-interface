@@ -3,10 +3,11 @@ import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 import { useWeb3 } from 'clients/web3';
 import { getTokenContractByAddress } from 'clients/contracts';
 import { getBalanceOf, GetBalanceOfOutput } from 'clients/api';
-import { getTokenByAddress } from 'utilities';
+import { getTokenByAddress, getContractAddress } from 'utilities';
 import FunctionKey from 'constants/functionKey';
 import { Bep20 } from 'types/contracts';
-import { XVS_VAULT_PROXY_CONTRACT_ADDRESS } from '../constants';
+
+const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 
 export interface UseGetXvsVaultPoolBalancesInput {
   stakedTokenAddresses: (string | undefined)[];

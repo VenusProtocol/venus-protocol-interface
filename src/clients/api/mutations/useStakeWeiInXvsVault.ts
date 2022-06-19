@@ -8,8 +8,11 @@ import {
   StakeWeiInXvsVaultOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { XVS_TOKEN_ADDRESS, XVS_VAULT_PROXY_CONTRACT_ADDRESS } from 'constants/xvs';
+import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+import { getContractAddress } from 'utilities';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+
+const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 
 type Options = MutationObserverOptions<
   StakeWeiInXvsVaultOutput,

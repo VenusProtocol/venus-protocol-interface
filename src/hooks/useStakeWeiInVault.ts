@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { useStakeWeiInXvsVault, useStakeWeiInVaiVault } from 'clients/api';
+import { VError } from 'errors';
+import { useTranslation } from 'translation';
+import { useStakeWeiInXvsVault, useStakeWeiInVaiVault, useStakeWeiInVrtVault } from 'clients/api';
 
 export interface IUseStakeWeiInVaultInput {
   stakedTokenId: TokenId;
@@ -17,13 +18,19 @@ interface IStakeInput {
 }
 
 const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
+  const { t } = useTranslation();
+
   const { mutateAsync: stakeWeiInXvsVault, isLoading: isStakeWeiInXvsVaultLoading } =
     useStakeWeiInXvsVault({ stakedTokenId });
 
   const { mutateAsync: stakeWeiInVaiVault, isLoading: isStakeWeiInVaiVaultLoading } =
     useStakeWeiInVaiVault();
 
-  const isLoading = isStakeWeiInXvsVaultLoading || isStakeWeiInVaiVaultLoading;
+  const { mutateAsync: stakeWeiInVrtVault, isLoading: isStakeWeiInVrtVaultLoading } =
+    useStakeWeiInVrtVault();
+
+  const isLoading =
+    isStakeWeiInXvsVaultLoading || isStakeWeiInVaiVaultLoading || isStakeWeiInVrtVaultLoading;
 
   const stake = async ({ rewardTokenId, amountWei, accountAddress, poolIndex }: IStakeInput) => {
     if (typeof poolIndex === 'number') {
@@ -44,11 +51,19 @@ const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
       });
     }
 
-    // TODO: handle staking in VRT vault
+    if (stakedTokenId === 'vrt') {
+      return stakeWeiInVrtVault({
+        fromAccountAddress: accountAddress,
+        amountWei,
+      });
+    }
 
-    // DEV ONLY
-    return fakeTransactionReceipt;
-    // END DEV ONLY
+    // This cose should never be reached, but just in case we throw a generic
+    // internal error
+    throw new VError({
+      type: 'unexpected',
+      code: t('errors.somethingWentWrong'),
+    });
   };
 
   return {

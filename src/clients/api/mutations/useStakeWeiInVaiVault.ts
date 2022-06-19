@@ -7,9 +7,11 @@ import {
   StakeWeiInVaiVaultOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { VAI_VAULT_ADDRESS } from 'constants/vai';
 import { TOKENS } from 'constants/tokens';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
+
+const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
 type Options = MutationObserverOptions<
   StakeWeiInVaiVaultOutput,

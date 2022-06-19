@@ -11,8 +11,10 @@ import {
   useGetVaiVaultUserInfo,
   useGetVaiVaultPendingXvsWei,
 } from 'clients/api';
+import { getContractAddress } from 'utilities';
 import { TOKENS } from 'constants/tokens';
-import { VAI_VAULT_ADDRESS } from './constants';
+
+const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
