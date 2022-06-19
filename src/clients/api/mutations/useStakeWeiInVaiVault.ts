@@ -32,7 +32,7 @@ const useStakeWeiInVaiVault = (options?: Options) => {
       onSuccess: async (...onSuccessParams) => {
         const { fromAccountAddress } = onSuccessParams[1];
 
-        // Invalidate cached staked token amount
+        // Invalidate cached user info, including pending reward
         queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, fromAccountAddress]);
 
         // Invalidate cached user balance
@@ -43,7 +43,6 @@ const useStakeWeiInVaiVault = (options?: Options) => {
         ]);
 
         // Invalidate cached vault data
-        // const stakedTokenAddress = getToken(stakedTokenId).address;
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           VAI_VAULT_ADDRESS,

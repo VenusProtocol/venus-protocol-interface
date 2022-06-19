@@ -17,7 +17,6 @@ interface IStakeInput {
 }
 
 const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
-  // TODO: handle errors
   const { mutateAsync: stakeWeiInXvsVault, isLoading: isStakeWeiInXvsVaultLoading } =
     useStakeWeiInXvsVault({ stakedTokenId });
 

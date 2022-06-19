@@ -105,6 +105,10 @@ export { default as stakeWeiInVaiVault } from './mutations/stakeWeiInVaiVault';
 export * from './mutations/stakeWeiInVaiVault';
 export { default as useStakeWeiInVaiVault } from './mutations/useStakeWeiInVaiVault';
 
+export { default as stakeWeiInVrtVault } from './mutations/stakeWeiInVrtVault';
+export * from './mutations/stakeWeiInVrtVault';
+export { default as useStakeWeiInVrtVault } from './mutations/useStakeWeiInVrtVault';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';

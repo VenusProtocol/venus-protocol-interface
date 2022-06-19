@@ -35,9 +35,17 @@ const useStakeWeiInXvsVault = (
       onSuccess: async (...onSuccessParams) => {
         const { fromAccountAddress, poolIndex } = onSuccessParams[1];
 
-        // Invalidate cached staked token amount
+        // Invalidate cached user info
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
+          fromAccountAddress,
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
+        ]);
+
+        // Invalidate cached user pending reward
+        queryClient.invalidateQueries([
+          FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
           fromAccountAddress,
           XVS_TOKEN_ADDRESS,
           poolIndex,
@@ -59,20 +67,6 @@ const useStakeWeiInXvsVault = (
 
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          XVS_TOKEN_ADDRESS,
-          poolIndex,
-        ]);
-
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
-          fromAccountAddress,
-          XVS_TOKEN_ADDRESS,
-          poolIndex,
-        ]);
-
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_USER_INFO,
-          fromAccountAddress,
           XVS_TOKEN_ADDRESS,
           poolIndex,
         ]);
