@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { put, call, fork, all, take } from 'redux-saga/effects';
+import { call, fork, all, take } from 'redux-saga/effects';
 
 import {
   GET_MARKET_HISTORY_REQUEST,
   GET_PROPOSALS_REQUEST,
-  GET_FAUCET_REQUEST,
   GET_GOVERNANCE_VENUS_REQUEST,
   GET_PROPOSAL_BY_ID_REQUEST,
   GET_VOTERS_REQUEST,
@@ -12,7 +11,6 @@ import {
   GET_VOTER_HISTORY_REQUEST,
   GET_VOTER_ACCOUNTS_REQUEST,
   GET_TRANSACTION_HISTORY_REQUEST,
-  accountActionCreators,
 } from 'core/modules/account/actions';
 
 import { restService } from 'utilities';
@@ -64,31 +62,6 @@ export function* asyncGetProposalsRequest({ payload, resolve, reject }: $TSFixMe
       params: {},
     });
     if (response.status === 200) {
-      resolve(response.data);
-    } else {
-      reject(response);
-    }
-  } catch (e) {
-    reject(e);
-  }
-}
-
-export function* asyncGetFaucetRequest({ payload, resolve, reject }: $TSFixMe) {
-  const { address, asset, amountType } = payload;
-
-  try {
-    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
-    const response = yield call(restService, {
-      endpoint: '/faucet',
-      method: 'POST',
-      params: {
-        address,
-        asset,
-        amountType,
-      },
-    });
-    if (response.status === 200) {
-      yield put(accountActionCreators.getFromFaucetSuccess());
       resolve(response.data);
     } else {
       reject(response);
@@ -237,13 +210,6 @@ export function* watchGetProposalsRequest() {
     yield* asyncGetProposalsRequest(action);
   }
 }
-export function* watchGetFaucetRequest() {
-  while (true) {
-    // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
-    const action = yield take(GET_FAUCET_REQUEST);
-    yield* asyncGetFaucetRequest(action);
-  }
-}
 export function* watchGetProposalByIdRequest() {
   while (true) {
     // @ts-expect-error ts-migrate(7057) FIXME: 'yield' expression implicitly results in an 'any' ... Remove this comment to see the full error message
@@ -291,7 +257,6 @@ export default function* saga() {
   yield all([
     fork(watchGetMarketHistoryRequest),
     fork(watchGetGovernanceVenusRequest),
-    fork(watchGetFaucetRequest),
     fork(watchGetProposalsRequest),
     fork(watchGetProposalByIdRequest),
     fork(watchGetVotersRequest),
