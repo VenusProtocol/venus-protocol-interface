@@ -12,6 +12,7 @@ import {
   TokenTextField,
   toast,
 } from 'components';
+import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
@@ -167,7 +168,7 @@ const Convert: React.FC<IConvertProps> = ({
                           : undefined
                       }
                       displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
-                      data-testid="vrt-token-text-field"
+                      data-testid={TEST_IDS.convertVrt.vrtTokenTextField}
                     />
                   </div>
                   <div css={styles.inputSection}>
@@ -184,7 +185,7 @@ const Convert: React.FC<IConvertProps> = ({
                       disabled
                       value={xvsValue || ''}
                       onChange={noop}
-                      data-testid="xvs-token-text-field"
+                      data-testid={TEST_IDS.convertVrt.xvsTokenTextField}
                     />
                   </div>
                   <FormikSubmitButton

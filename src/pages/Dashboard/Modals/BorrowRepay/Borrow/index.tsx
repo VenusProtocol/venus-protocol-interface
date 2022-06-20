@@ -9,6 +9,7 @@ import {
   convertCoinsToWei,
 } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import TEST_IDS from 'constants/testIds';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
@@ -111,7 +112,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
                 }),
                 valueOnClick: safeLimitTokens,
               }}
-              data-testid="token-text-field"
+              data-testid={TEST_IDS.borrowModal.tokenTextField}
               // Only display error state if amount is higher than borrow limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
               description={

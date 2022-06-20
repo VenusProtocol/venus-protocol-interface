@@ -4,6 +4,7 @@ import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import { markets } from '__mocks__/models/markets';
+import TEST_IDS from 'constants/testIds';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { getMarkets, getMarketHistory, getVTokenApySimulations } from 'clients/api';
@@ -61,13 +62,13 @@ describe('pages/MarketDetails', () => {
 
     // Check supply info displays correctly
     await waitFor(() =>
-      expect(getByTestId('market-details-supply-info').textContent).toMatchSnapshot(),
+      expect(getByTestId(TEST_IDS.marketDetails.supplyInfo).textContent).toMatchSnapshot(),
     );
     // Check borrow info displays correctly
-    expect(getByTestId('market-details-borrow-info').textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.marketDetails.borrowInfo).textContent).toMatchSnapshot();
     // Check interest rate model displays correctly
-    expect(getByTestId('market-details-interest-rate-model').textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.marketDetails.interestRateModel).textContent).toMatchSnapshot();
     // Check market info displays correctly
-    expect(getByTestId('market-details-market-info').textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.marketDetails.marketInfo).textContent).toMatchSnapshot();
   });
 });

@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'translation';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { convertWeiToCoins, formatToReadablePercentage, getToken } from 'utilities';
+import TEST_IDS from 'constants/testIds';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
 import { useStyles } from './styles';
@@ -114,7 +115,7 @@ export const VaultItem = ({
         <div css={styles.title}>
           <Icon css={styles.tokenIcon} name={stakedTokenId} />
 
-          <Typography variant="h4" css={styles.text} data-testid={SYMBOL_TEST_ID}>
+          <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.vault.vaultItem.symbol}>
             {getToken(stakedTokenId).symbol}
           </Typography>
         </div>
@@ -129,7 +130,7 @@ export const VaultItem = ({
               css={[styles.text, styles.textRewardValue]}
               variant="body1"
               color="textPrimary"
-              data-testid={USER_PENDING_REWARD_TOKENS_TEST_ID}
+              data-testid={TEST_IDS.vault.vaultItem.userPendingRewardTokens}
             >
               {readableUserPendingRewardTokens}
             </Typography>
@@ -148,7 +149,7 @@ export const VaultItem = ({
       <Typography
         variant="h1"
         css={styles.textStakingValue}
-        data-testid={USER_STAKED_TOKENS_TEST_ID}
+        data-testid={TEST_IDS.vault.vaultItem.userStakedTokens}
       >
         <Icon css={[styles.tokenIconLarge]} name={stakedTokenId} />
 
@@ -162,7 +163,11 @@ export const VaultItem = ({
               {title}
             </Typography>
 
-            <Typography variant="h4" css={styles.textAligned} data-testid={DATA_LIST_ITEM_TEST_ID}>
+            <Typography
+              variant="h4"
+              css={styles.textAligned}
+              data-testid={TEST_IDS.vault.vaultItem.dataListItem}
+            >
               {value}
             </Typography>
           </li>
