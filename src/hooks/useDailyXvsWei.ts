@@ -6,10 +6,10 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AuthContext } from 'context/AuthContext';
 
 export const useDailyXvsWei = () => {
-  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
+  const { account } = useContext(AuthContext);
   const { data: dailyXvsWei, isLoading: isGetDailyXvsLoading } = useGetDailyXvsWei(
-    { accountAddress: accountAddress || '' },
-    { enabled: !!accountAddress },
+    { accountAddress: account?.address || '' },
+    { enabled: !!account?.address },
   );
 
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
@@ -28,11 +28,11 @@ export const useDailyXvsWei = () => {
 
     return {
       dailyXvsDistributionInterestsCents:
-        accountAddress && xvsPriceDollars
+        account?.address && xvsPriceDollars
           ? dailyXvsTokens?.multipliedBy(xvsPriceDollars).times(100)
           : new BigNumber(0),
     };
-  }, [JSON.stringify(dailyXvsWei), JSON.stringify(getMarketsData?.markets), accountAddress]);
+  }, [JSON.stringify(dailyXvsWei), JSON.stringify(getMarketsData?.markets), account?.address]);
 
   return {
     isLoading: isGetDailyXvsLoading || isGetMarketsLoading,
