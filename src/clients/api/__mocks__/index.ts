@@ -168,10 +168,6 @@ export const convertVrt = jest.fn();
 export const useConvertVrt = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CONVERT_VRT, approveVrt, options);
 
-export const requestFaucetFunds = jest.fn();
-export const useRequestFaucetFunds = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.REQUEST_FAUCET_FUNDS, requestFaucetFunds, options);
-
 export const mintVai = jest.fn();
 export const useMintVai = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.MINT_VAI, mintVai, options);
