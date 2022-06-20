@@ -12,6 +12,7 @@ import {
   formatCoinsToReadableValue,
   formatCommaThousandsPeriodDecimal,
 } from 'utilities';
+import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
@@ -252,7 +253,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     <div css={styles.container}>
       <div css={[styles.column, styles.graphsColumn]}>
         <Card
-          testId="market-details-supply-info"
+          testId={TEST_IDS.marketDetails.supplyInfo}
           title={t('marketDetails.supplyInfo.title')}
           css={styles.graphCard}
           stats={supplyInfoStats}
@@ -264,7 +265,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          testId="market-details-borrow-info"
+          testId={TEST_IDS.marketDetails.borrowInfo}
           title={t('marketDetails.borrowInfo.title')}
           css={styles.graphCard}
           stats={borrowInfoStats}
@@ -276,7 +277,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          testId="market-details-interest-rate-model"
+          testId={TEST_IDS.marketDetails.interestRateModel}
           title={t('marketDetails.interestRateModel.title')}
           css={styles.graphCard}
           legends={interestRateModelLegends}
@@ -291,7 +292,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       </div>
 
       <div css={[styles.column, styles.statsColumn]}>
-        <MarketInfo stats={marketInfoStats} testId="market-details-market-info" />
+        <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketDetails.marketInfo} />
       </div>
     </div>
   );

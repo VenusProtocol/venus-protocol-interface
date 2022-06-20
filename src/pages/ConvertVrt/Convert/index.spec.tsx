@@ -8,6 +8,7 @@ import MAX_UINT256 from 'constants/maxUint256';
 import { AuthContext } from 'context/AuthContext';
 import fakeAccountAddress from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
+import TEST_IDS from 'constants/testIds';
 import { useGetUserMarketInfo, getAllowance } from 'clients/api';
 import en from 'translation/translations/en.json';
 import Convert from '.';
@@ -61,8 +62,8 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId('vrt-token-text-field'));
-    const tokenTextInput = getByTestId('vrt-token-text-field');
+    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    const tokenTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField);
     act(() => {
       fireEvent.change(tokenTextInput, { target: { value: ONE } });
     });
@@ -92,8 +93,8 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId('vrt-token-text-field'));
-    const tokenTextInput = getByTestId('vrt-token-text-field');
+    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    const tokenTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField);
     act(() => {
       fireEvent.change(tokenTextInput, { target: { value: ONE } });
     });
@@ -125,7 +126,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId('vrt-token-text-field'));
+    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
     expect(submitButton).toBeDisabled();
   });
@@ -154,7 +155,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId('vrt-token-text-field'));
+    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
     expect(submitButton).toBeDisabled();
   });
@@ -185,12 +186,12 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId('vrt-token-text-field'));
-    const vrtTextInput = getByTestId('vrt-token-text-field');
+    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    const vrtTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField);
     act(() => {
       fireEvent.change(vrtTextInput, { target: { value: ONE } });
     });
-    const xvsTextInput = getByTestId('xvs-token-text-field') as HTMLInputElement;
+    const xvsTextInput = getByTestId(TEST_IDS.convertVrt.xvsTokenTextField) as HTMLInputElement;
     expect(xvsTextInput.value).toBe(new BigNumber(ONE).times(xvsToVrtConversionRatio).toFixed());
   });
 
@@ -221,7 +222,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
     await act(async () => {
       await waitFor(() => fireEvent.change(vrtTextInput, { target: { value: ONE } }));
     });
@@ -266,13 +267,13 @@ describe('pages/ConvertVRT/Convert', () => {
       </AuthContext.Provider>,
     );
 
-    await waitFor(() => getByTestId('vrt-token-text-field'));
+    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
 
     const maxButton = getByText(en.convertVrt.max.toUpperCase());
     act(async () => {
       await waitFor(() => fireEvent.click(maxButton));
     });
-    const vrtTextInput = getByTestId('vrt-token-text-field') as HTMLInputElement;
+    const vrtTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField) as HTMLInputElement;
     expect(vrtTextInput.value).toBe(
       userVrtBalanceWei.dividedBy(new BigNumber(10).pow(18).toFixed()).toFixed(),
     );
@@ -304,7 +305,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
     await act(async () => {
       await waitFor(() =>
         fireEvent.change(vrtTextInput, {
@@ -344,7 +345,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
     await act(async () => {
       await waitFor(() =>
         fireEvent.change(vrtTextInput, {
@@ -384,7 +385,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId('vrt-token-text-field'));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
     await act(async () => {
       await waitFor(() => fireEvent.change(vrtTextInput, { target: { value: '0' } }));
     });
