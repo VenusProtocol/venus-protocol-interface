@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import { VError } from 'errors';
-import { useTranslation } from 'translation';
 import { useStakeWeiInXvsVault, useStakeWeiInVaiVault, useStakeWeiInVrtVault } from 'clients/api';
 
 export interface IUseStakeWeiInVaultInput {
@@ -18,8 +17,6 @@ interface IStakeInput {
 }
 
 const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
-  const { t } = useTranslation();
-
   const { mutateAsync: stakeWeiInXvsVault, isLoading: isStakeWeiInXvsVaultLoading } =
     useStakeWeiInXvsVault({ stakedTokenId });
 
@@ -62,7 +59,7 @@ const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
     // internal error
     throw new VError({
       type: 'unexpected',
-      code: t('errors.somethingWentWrong'),
+      code: 'somethingWentWrong',
     });
   };
 

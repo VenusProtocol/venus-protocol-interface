@@ -93,7 +93,7 @@ const ConvertVrt = () => {
 
   const handleConvertVrt = async (amount: string) => {
     if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
     const res = await convertVrt({
       amountWei: amount,
@@ -104,7 +104,7 @@ const ConvertVrt = () => {
 
   const handleWithdrawXvs = async () => {
     if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
     const res = await withdrawXvs({
       accountAddress,
