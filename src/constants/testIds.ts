@@ -16,19 +16,12 @@ const TEST_IDS = {
   vault: {
     transactionForm: {
       tokenTextField: 'vault-transaction-form-token-text-field',
-      availableTokens: 'vault-transaction-form-available-tokens',
-      lockingPeriod: 'vault-transaction-form-locking-period',
     },
     vaultItem: {
       symbol: 'vault-vault-item-symbol',
       userPendingRewardTokens: 'vault-vault-item-user-pending-reward-tokens',
       userStakedTokens: 'vault-vault-item-user-staked-tokens',
       dataListItem: 'vault-vault-item-data-list-item',
-      withdrawFromVestingVaultModal: {
-        withdrawalRequestListItem:
-          'vault-vault-item-withdraw-from-vesting-vault-modal-withdrawal-request-list-item',
-        availableTokens: 'vault-vault-item-withdraw-from-vesting-vault-modal-available-tokens',
-      },
     },
   },
   marketDetails: {

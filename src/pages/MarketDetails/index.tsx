@@ -12,6 +12,7 @@ import {
   formatCoinsToReadableValue,
   formatCommaThousandsPeriodDecimal,
 } from 'utilities';
+import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
