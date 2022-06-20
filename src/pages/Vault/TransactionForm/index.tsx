@@ -7,6 +7,7 @@ import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { TokenId } from 'types';
 import { useTranslation } from 'translation';
 import { convertWeiToCoins } from 'utilities';
+import TEST_IDS from 'constants/testIds';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { useStyles } from './styles';
 
@@ -74,7 +75,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
               valueOnClick: stringifiedAvailableTokens,
             }}
             max={stringifiedAvailableTokens}
-            data-testid="token-text-field"
+            data-testid={TEST_IDS.vault.transactionForm}
             css={styles.tokenTextField}
           />
 

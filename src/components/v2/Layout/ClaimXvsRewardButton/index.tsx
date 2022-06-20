@@ -10,14 +10,13 @@ import { TokenId } from 'types';
 import { VError } from 'errors';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
 import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
+import TEST_IDS from 'constants/testIds';
 import { toast } from '../../Toast';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
 
 const XVS_SYMBOL = 'xvs';
-
-export const TEST_ID = 'claim-xvs-reward-button';
 
 export interface IClaimXvsRewardButton extends Omit<IButtonProps, 'onClick'> {
   onClaim: () => Promise<string | undefined>;
@@ -73,7 +72,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
   return (
     <SecondaryButton
-      data-testid={TEST_ID}
+      data-testid={TEST_IDS.layout.claimXvsRewardButton}
       css={styles.button}
       onClick={handleClick}
       {...otherProps}
