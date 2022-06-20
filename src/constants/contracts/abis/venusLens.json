@@ -18,7 +18,7 @@
     "constant": true,
     "inputs": [
       {
-        "internalType": "contract LensInterface",
+        "internalType": "contract ComptrollerInterface",
         "name": "comptroller",
         "type": "address"
       },
@@ -324,7 +324,7 @@
         "type": "address"
       },
       {
-        "internalType": "contract LensInterface",
+        "internalType": "contract ComptrollerInterface",
         "name": "comptroller",
         "type": "address"
       },
@@ -377,7 +377,7 @@
         "type": "address"
       },
       {
-        "internalType": "contract Comptroller",
+        "internalType": "contract ComptrollerInterface",
         "name": "comptroller",
         "type": "address"
       }
