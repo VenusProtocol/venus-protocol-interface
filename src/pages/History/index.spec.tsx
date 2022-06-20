@@ -4,7 +4,7 @@ import renderComponent from 'testUtils/renderComponent';
 import { useGetTransactions } from 'clients/api';
 import transactions from '__mocks__/models/transactions';
 import fakeAddress from '__mocks__/models/address';
-import { SPINNER_TEST_ID } from 'components';
+import TEST_IDS from 'constants/testIds';
 import History from '.';
 
 jest.mock('clients/api');
@@ -33,7 +33,7 @@ describe('pages/History', () => {
       isFetching: true,
     }));
     const { getByTestId } = renderComponent(<History />);
-    getByTestId(SPINNER_TEST_ID);
+    getByTestId(TEST_IDS.spinner);
   });
 
   it('rerequests when toggling event filter', async () => {

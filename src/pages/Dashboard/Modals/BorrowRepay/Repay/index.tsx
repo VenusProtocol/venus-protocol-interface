@@ -11,6 +11,7 @@ import {
   formatToReadablePercentage,
 } from 'utilities';
 import { useRepayVToken } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
 import { VError, formatVErrorToReadableString } from 'errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
@@ -146,7 +147,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
                 label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
                 valueOnClick: limitTokens,
               }}
-              data-testid="token-text-field"
+              data-testid={TEST_IDS.repayModal.tokenTextField}
               // Only display error state if amount is higher than limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
               description={
