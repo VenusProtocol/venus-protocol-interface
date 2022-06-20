@@ -305,7 +305,7 @@
   },
   "myAccount": {
     "apyWithXvs": "APY with XVS",
-    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APY in calculations",
+    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APR in calculations",
     "borrowBalance": "Borrow balance",
     "dailyEarnings": "Daily earnings",
     "includingMintedVai": "Including minted VAI",
