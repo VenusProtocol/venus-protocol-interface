@@ -14,9 +14,6 @@ import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString
 import TEST_IDS from 'constants/testIds';
 import { useStyles } from './styles';
 
-export const AVAILABLE_TOKEN_TEXT_TEST_ID = 'available-tokens-text';
-export const LOCKING_PERIOD_TEXT_TEST_ID = 'locking-period-text';
-
 export interface ITransactionFormProps {
   tokenId: TokenId;
   submitButtonLabel: string;
@@ -119,12 +116,12 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
               valueOnClick: stringifiedAvailableTokens,
             }}
             max={stringifiedAvailableTokens}
-            data-testid={TEST_IDS.vault.transactionForm}
+            data-testid={TEST_IDS.vault.transactionForm.tokenTextField}
             css={styles.tokenTextField}
           />
 
           <LabeledInlineContent
-            data-testid={AVAILABLE_TOKEN_TEXT_TEST_ID}
+            data-testid={TEST_IDS.vault.transactionForm.availableTokens}
             iconName={tokenId}
             label={availableTokensLabel}
             css={styles.getRow({ isLast: !readableLockingPeriod })}
@@ -134,7 +131,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
 
           {readableLockingPeriod && (
             <LabeledInlineContent
-              data-testid={LOCKING_PERIOD_TEXT_TEST_ID}
+              data-testid={TEST_IDS.vault.transactionForm.lockingPeriod}
               label={t('vault.transactionForm.lockingPeriod.label')}
               css={styles.getRow({ isLast: true })}
             >

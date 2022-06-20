@@ -4,8 +4,8 @@ import noop from 'noop-ts';
 import { waitFor } from '@testing-library/react';
 
 import MAX_UINT256 from 'constants/maxUint256';
+import TEST_IDS from 'constants/testIds';
 import fakeAccountAddress from '__mocks__/models/address';
-import { SPINNER_TEST_ID } from 'components';
 import { getAllowance } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import ActionModal, { IActionModalProps } from '.';
@@ -42,7 +42,7 @@ describe('pages/Vault/modals/ActionModal', () => {
     };
     const { getByTestId } = renderComponent(<ActionModal {...customProps} />);
 
-    await waitFor(() => getByTestId(SPINNER_TEST_ID));
+    await waitFor(() => getByTestId(TEST_IDS.spinner));
   });
 
   it('prompts user to connect their wallet if they have not done so already', async () => {
