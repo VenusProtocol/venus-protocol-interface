@@ -1,4 +1,4 @@
-import { restService } from 'utilities/restService';
+import { restService } from 'utilities';
 import { transactionResponse } from '__mocks__/models/transactions';
 import fakeAddress from '__mocks__/models/address';
 import getTransactions from '.';

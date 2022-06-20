@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { Vault, TokenId } from 'types';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { convertWeiToCoins } from 'utilities';
+import { convertWeiToCoins, getContractAddress } from 'utilities';
 import {
   useGetBalanceOf,
   useGetVenusVaiVaultDailyRateWei,
@@ -11,7 +11,6 @@ import {
   useGetVaiVaultUserInfo,
   useGetVaiVaultPendingXvsWei,
 } from 'clients/api';
-import { getContractAddress } from 'utilities';
 import { TOKENS } from 'constants/tokens';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');

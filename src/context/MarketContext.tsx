@@ -5,6 +5,7 @@ import { TREASURY_ADDRESS } from 'config';
 import { useWeb3 } from 'clients/web3';
 import { Asset, Market } from 'types';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
+import { IGetMarketsResponse } from 'clients/api/queries/getMarkets';
 import {
   getVBepToken,
   getToken,
@@ -12,8 +13,8 @@ import {
   indexBy,
   notNull,
   convertCoinsToWei,
+  restService,
 } from 'utilities';
-import { fetchMarkets } from 'utilities/api';
 import useRefresh from 'hooks/useRefresh';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
@@ -31,6 +32,12 @@ const MarketContext = React.createContext({
 
 // This context provide a way for all the components to share the market data, thus avoid
 // duplicated requests
+
+const fetchMarkets = async () =>
+  restService<IGetMarketsResponse>({
+    endpoint: '/governance/venus',
+    method: 'GET',
+  });
 
 const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [markets, setMarkets] = useState<$TSFixMe[]>([]);
