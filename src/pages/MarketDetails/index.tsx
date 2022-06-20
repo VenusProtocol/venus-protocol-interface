@@ -155,9 +155,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       {
         label: t('marketDetails.marketInfo.stats.priceLabel'),
         value:
-          tokenPriceDollars === undefined
-            ? PLACEHOLDER_KEY
-            : `$${tokenPriceDollars.dp(2).toFormat()}`,
+          tokenPriceDollars === undefined ? PLACEHOLDER_KEY : `$${tokenPriceDollars.toFormat(2)}`,
       },
       {
         label: t('marketDetails.marketInfo.stats.marketLiquidityLabel'),

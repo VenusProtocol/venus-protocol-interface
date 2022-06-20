@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { shortenNumberWithSuffix } from './shortenNumberWithSuffix';
+import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 import { getToken } from './getToken';
 
 export const formatCoinsToReadableValue = ({
@@ -38,7 +38,7 @@ export const formatCoinsToReadableValue = ({
   }
 
   if (shortenLargeValue) {
-    return `${shortenNumberWithSuffix(value)}${symbolPlacement}`;
+    return `${shortenTokensWithSuffix(value)}${symbolPlacement}`;
   }
 
   return `${value.dp(decimalPlaces).toFormat()}${symbolPlacement}`;

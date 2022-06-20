@@ -25,7 +25,7 @@ export { default as getArgs } from './getArgs';
 export { default as getBigNumber } from './getBigNumber';
 export { default as formatCommaThousandsPeriodDecimal } from './formatCommaThousandsPeriodDecimal';
 export { default as format } from './format';
-export { default as shortenNumberWithSuffix } from './shortenNumberWithSuffix';
+export { default as shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatToReadablePercentage } from './formatToReadablePercentage';
 export { default as formatPercentage } from './formatPercentage';
