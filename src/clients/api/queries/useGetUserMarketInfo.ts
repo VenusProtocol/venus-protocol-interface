@@ -5,7 +5,7 @@ import { useVaiUser } from 'hooks/useVaiUser';
 import { Asset, Market } from 'types';
 import {
   indexBy,
-  convertCoinsToWei,
+  convertTokensToWei,
   calculateCollateralValue,
   getVBepToken,
   getToken,
@@ -177,7 +177,7 @@ const useGetUserMarketInfo = ({
         if (asset.collateral) {
           acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
             calculateCollateralValue({
-              amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
+              amountWei: convertTokensToWei({ value: asset.supplyBalance, tokenId: asset.id }),
               tokenId: asset.id,
               tokenPriceTokens: asset.tokenPrice,
               collateralFactor: asset.collateralFactor,

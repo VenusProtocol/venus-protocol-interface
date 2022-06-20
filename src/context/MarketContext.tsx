@@ -12,7 +12,7 @@ import {
   calculateCollateralValue,
   indexBy,
   notNull,
-  convertCoinsToWei,
+  convertTokensToWei,
   restService,
 } from 'utilities';
 import useRefresh from 'hooks/useRefresh';
@@ -216,7 +216,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           if (asset.collateral) {
             return acc.plus(
               calculateCollateralValue({
-                amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
+                amountWei: convertTokensToWei({ value: asset.supplyBalance, tokenId: asset.id }),
                 tokenId: asset.id,
                 tokenPriceTokens: asset.tokenPrice,
                 collateralFactor: asset.collateralFactor,

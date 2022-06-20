@@ -3,7 +3,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 
-import { convertWeiToCoins } from 'utilities';
+import { convertWeiToTokens } from 'utilities';
 import { TokenId } from 'types';
 import { BscLink } from '../BscLink';
 import { Icon, IconName } from '../Icon';
@@ -50,7 +50,7 @@ export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalPro
               <Icon name={amount.tokenId as IconName} css={styles.amountTokenIcon} />
 
               <Typography variant="small1" component="span">
-                {convertWeiToCoins({
+                {convertWeiToTokens({
                   valueWei: amount.valueWei,
                   tokenId: amount.tokenId,
                   returnInReadableFormat: true,

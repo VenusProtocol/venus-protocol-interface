@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Icon } from 'antd';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { Card } from 'components/Basic/Card';
-import coinImg from 'assets/img/coins/xvs.svg';
+import coinImg from 'assets/img/tokens/xvs.svg';
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 import { generateBscScanUrl, formatCommaThousandsPeriodDecimal } from 'utilities';

@@ -5,8 +5,8 @@ import BigNumber from 'bignumber.js';
 import {
   getToken,
   formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  convertCoinsToWei,
+  formatTokensToReadableValue,
+  convertTokensToWei,
 } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import TEST_IDS from 'constants/testIds';
@@ -55,7 +55,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
 
   const readableTokenBorrowableAmount = React.useMemo(
     () =>
-      formatCoinsToReadableValue({
+      formatTokensToReadableValue({
         value: new BigNumber(limitTokens),
         tokenId: asset.id,
       }),
@@ -65,7 +65,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
 
-    const amountWei = convertCoinsToWei({
+    const amountWei = convertTokensToWei({
       value: formattedAmountTokens,
       tokenId: asset.id,
     });
@@ -187,7 +187,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     return res.transactionHash;
   };
 
-  // Calculate maximum and safe maximum amount of coins user can borrow
+  // Calculate maximum and safe maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
     // Return 0 values if borrow limit has been reached
     if (userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
@@ -198,8 +198,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       .minus(userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
-    const maxCoins = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
-      // Convert dollars to coins
+    const maxTokens = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
+      // Convert dollars to tokens
       .dividedBy(asset.tokenPrice);
 
     const safeBorrowLimitCents = userTotalBorrowLimitCents.multipliedBy(
@@ -210,8 +210,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       // Convert cents to dollars
       .dividedBy(100);
 
-    const safeMaxCoins = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
-      ? // Convert dollars to coins
+    const safeMaxTokens = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
+      ? // Convert dollars to tokens
         marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
       : new BigNumber(0);
 
@@ -219,7 +219,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     const formatValue = (value: BigNumber) =>
       value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toFixed();
 
-    return [formatValue(maxCoins), formatValue(safeMaxCoins)];
+    return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
     asset.id,
     asset.tokenPrice,

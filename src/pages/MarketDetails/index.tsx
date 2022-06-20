@@ -9,7 +9,7 @@ import {
   getVBepToken,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  formatCoinsToReadableValue,
+  formatTokensToReadableValue,
 } from 'utilities';
 import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';
@@ -188,7 +188,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       },
       {
         label: t('marketDetails.marketInfo.stats.reserveTokensLabel'),
-        value: formatCoinsToReadableValue({
+        value: formatTokensToReadableValue({
           value: reserveTokens,
           minimizeDecimals: true,
           tokenId: vTokenId,
@@ -206,7 +206,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         label: t('marketDetails.marketInfo.stats.mintedTokensLabel', {
           vTokenSymbol: vToken.symbol,
         }),
-        value: formatCoinsToReadableValue({
+        value: formatTokensToReadableValue({
           value: mintedTokens,
           minimizeDecimals: true,
           addSymbol: false,

@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
-  formatCoinsToReadableValue,
+  formatTokensToReadableValue,
   formatToReadablePercentage,
   formatCentsToReadableValue,
 } from 'utilities';
@@ -68,7 +68,7 @@ export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
           topValue={formatCentsToReadableValue({
             value: asset.supplyBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
           })}
-          bottomValue={formatCoinsToReadableValue({
+          bottomValue={formatTokensToReadableValue({
             value: asset.supplyBalance,
             tokenId: asset.id,
             minimizeDecimals: true,

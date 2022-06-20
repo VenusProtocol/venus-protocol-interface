@@ -4,7 +4,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 import { getToken } from './getToken';
 
-export const formatCoinsToReadableValue = ({
+export const formatTokensToReadableValue = ({
   value,
   tokenId,
   minimizeDecimals = false,
@@ -44,4 +44,4 @@ export const formatCoinsToReadableValue = ({
   return `${value.dp(decimalPlaces).toFormat()}${symbolPlacement}`;
 };
 
-export default formatCoinsToReadableValue;
+export default formatTokensToReadableValue;

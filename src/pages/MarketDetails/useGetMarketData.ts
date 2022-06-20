@@ -2,7 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { IVBepToken } from 'types';
-import { getToken, convertWeiToCoins, convertPercentageFromSmartContract } from 'utilities';
+import { getToken, convertWeiToTokens, convertPercentageFromSmartContract } from 'utilities';
 import { VTOKEN_DECIMALS } from 'config';
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
 
@@ -39,7 +39,7 @@ const useGetMarketData = ({
 
     const dailyInterestsCents =
       assetMarket &&
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: new BigNumber(assetMarket.supplierDailyVenus).plus(
           new BigNumber(assetMarket.borrowerDailyVenus),
         ),
@@ -59,7 +59,7 @@ const useGetMarketData = ({
 
     const reserveTokens =
       assetMarket &&
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: new BigNumber(assetMarket.totalReserves),
         tokenId: vTokenId,
       });
@@ -74,7 +74,7 @@ const useGetMarketData = ({
 
     let currentUtilizationRate: number | undefined;
     if (vTokenCashWei && assetMarket && reserveTokens) {
-      const vTokenCashTokens = convertWeiToCoins({
+      const vTokenCashTokens = convertWeiToTokens({
         valueWei: vTokenCashWei,
         tokenId: vTokenId,
       });

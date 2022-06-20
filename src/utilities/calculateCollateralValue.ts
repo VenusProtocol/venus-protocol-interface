@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
-import { convertWeiToCoins } from 'utilities';
+import { convertWeiToTokens } from 'utilities';
 
 const calculateCollateralValue = ({
   tokenId,
@@ -13,7 +13,7 @@ const calculateCollateralValue = ({
   collateralFactor: Asset['collateralFactor'];
   amountWei: BigNumber;
 }) => {
-  const collateralValue = convertWeiToCoins({ valueWei: amountWei, tokenId })
+  const collateralValue = convertWeiToTokens({ valueWei: amountWei, tokenId })
     .times(tokenPriceTokens)
     .times(collateralFactor);
   return collateralValue;

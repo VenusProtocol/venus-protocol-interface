@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
 import { useGetDailyXvsWei, useGetMarkets } from 'clients/api';
-import { convertWeiToCoins } from 'utilities';
+import { convertWeiToTokens } from 'utilities';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AuthContext } from 'context/AuthContext';
 
@@ -21,7 +21,7 @@ export const useDailyXvsWei = () => {
   const { dailyXvsDistributionInterestsCents } = useMemo(() => {
     const dailyXvsTokens =
       dailyXvsWei &&
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: dailyXvsWei,
         tokenId: XVS_TOKEN_ID,
       });
