@@ -8,6 +8,7 @@ import { AuthProvider } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { Layout, ResetScrollOnRouteChange } from 'components';
 import Dashboard from 'pages/Dashboard';
+import VoteV1 from 'containers/Main/Vote';
 import Vote from 'pages/Vote';
 import Xvs from 'pages/Xvs';
 import Market from 'pages/Market';
@@ -65,19 +66,20 @@ const App = () => (
 
                       <Route exact path={Path.XVS} component={Xvs} />
 
-                      <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
-
-                      <Redirect to={Path.DASHBOARD} />
-                    </Switch>
-                  </Layout>
-                </BrowserRouter>
-              </SuccessfulTransactionModalProvider>
-            </VaiContextProvider>
-          </AuthProvider>
-        </RefreshContextProvider>
-      </MuiThemeProvider>
-    </QueryClientProvider>
-  </Web3Wrapper>
+                            <Redirect to={Path.DASHBOARD} />
+                          </Switch>
+                        </Layout>
+                      </BrowserRouter>
+                    </SuccessfulTransactionModalProvider>
+                  </MarketContextProvider>
+                </VaiContextProvider>
+              </AuthProvider>
+            </RefreshContextProvider>
+          </MuiThemeProvider>
+        </Provider>
+      </QueryClientProvider>
+    </Web3Wrapper>
+  </Theme>
 );
 
 export default App;
