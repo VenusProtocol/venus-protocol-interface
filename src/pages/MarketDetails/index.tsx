@@ -10,7 +10,6 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatCoinsToReadableValue,
-  formatCommaThousandsPeriodDecimal,
 } from 'utilities';
 import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';
@@ -36,7 +35,7 @@ export interface IMarketDetailsUiProps {
   supplyApyPercentage?: BigNumber;
   borrowDistributionApyPercentage?: number;
   supplyDistributionApyPercentage?: number;
-  tokenPriceDollars?: string;
+  tokenPriceDollars?: BigNumber;
   liquidityCents?: BigNumber;
   supplierCount?: number;
   borrowerCount?: number;
@@ -158,7 +157,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         value:
           tokenPriceDollars === undefined
             ? PLACEHOLDER_KEY
-            : `$${formatCommaThousandsPeriodDecimal(tokenPriceDollars)}`,
+            : `$${tokenPriceDollars.dp(2).toFormat()}`,
       },
       {
         label: t('marketDetails.marketInfo.stats.marketLiquidityLabel'),

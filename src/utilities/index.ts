@@ -30,7 +30,6 @@ export { default as formatCentsToReadableValue } from './formatCentsToReadableVa
 export { default as formatToReadablePercentage } from './formatToReadablePercentage';
 export { default as formatPercentage } from './formatPercentage';
 export { default as convertCoinsToWei } from './convertCoinsToWei';
-export { default as convertCentsToDollars } from './convertCentsToDollars';
 export { default as indexBy } from './indexBy';
 export { default as notNull } from './notNull';
 export { default as notUndefined } from './notUndefined';

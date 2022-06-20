@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatCommaThousandsPeriodDecimal } from './formatCommaThousandsPeriodDecimal';
 import { shortenNumberWithSuffix } from './shortenNumberWithSuffix';
 import { getToken } from './getToken';
 
@@ -42,9 +41,7 @@ export const formatCoinsToReadableValue = ({
     return `${shortenNumberWithSuffix(value)}${symbolPlacement}`;
   }
 
-  return `${formatCommaThousandsPeriodDecimal(
-    value.dp(decimalPlaces).toFixed(),
-  )}${symbolPlacement}`;
+  return `${value.dp(decimalPlaces).toFormat()}${symbolPlacement}`;
 };
 
 export default formatCoinsToReadableValue;

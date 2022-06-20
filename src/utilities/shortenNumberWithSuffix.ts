@@ -7,11 +7,11 @@ export const shortenNumberWithSuffix = (value: BigNumber) => {
 
   let shortenedValue = value.toFixed(2);
   if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
-    shortenedValue = `${value.dividedBy(ONE_BILLION).dp(2).toFixed()}B`;
+    shortenedValue = `${value.dividedBy(ONE_BILLION).dp(2).toFormat()}B`;
   } else if (value.isGreaterThanOrEqualTo(ONE_MILLION)) {
-    shortenedValue = `${value.dividedBy(ONE_MILLION).dp(2).toFixed()}M`;
+    shortenedValue = `${value.dividedBy(ONE_MILLION).dp(2).toFormat()}M`;
   } else if (value.isGreaterThanOrEqualTo(ONE_THOUSAND)) {
-    shortenedValue = `${value.dividedBy(ONE_THOUSAND).dp(2).toFixed()}K`;
+    shortenedValue = `${value.dividedBy(ONE_THOUSAND).dp(2).toFormat()}K`;
   }
   return shortenedValue;
 };
