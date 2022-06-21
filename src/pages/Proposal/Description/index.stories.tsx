@@ -6,7 +6,7 @@ import { Description } from '.';
 export default {
   title: 'Pages/Proposal/Description',
   component: Description,
-  decorators: [withRouter, withCenterStory({ width: 500 })],
+  decorators: [withRouter, withCenterStory({ width: 1000 })],
   parameters: {
     backgrounds: {
       default: 'Default',
