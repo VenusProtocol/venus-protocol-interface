@@ -4,6 +4,11 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
+    accordion: css`
+      :last-of-type {
+        margin-bottom: 0px;
+      }
+    `,
     iconButton: css`
       cursor: pointer;
       background-color: transparent;
@@ -22,6 +27,10 @@ export const useStyles = () => {
     `,
     addTopMargin: (add: boolean) => css`
       ${add && `margin-top: ${theme.spacing(2)}`};
+    `,
+    closeIcon: css`
+      height: ${theme.spacing(3)};
+      width: ${theme.spacing(3)};
     `,
   };
 };

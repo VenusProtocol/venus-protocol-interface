@@ -31,6 +31,7 @@ export const useStyles = () => {
     `,
     signature: css`
       color: ${theme.palette.text.secondary};
+      overflow: scroll;
       > span {
         color: ${theme.palette.interactive.success};
       }
