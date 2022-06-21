@@ -30,10 +30,13 @@ export const useStyles = () => {
       }
     `,
     signature: css`
-      color: ${theme.palette.text.secondary};
-      overflow: scroll;
-      > span {
+      color: ${theme.palette.text.primary};
+      overflow-wrap: break-word;
+      > a {
         color: ${theme.palette.interactive.success};
+        :hover {
+          color: ${theme.palette.interactive.success50};
+        }
       }
     `,
   };
