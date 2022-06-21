@@ -19,7 +19,7 @@ describe('pages/Vault', () => {
     renderComponent(<Vault />);
   });
 
-  it('renders vault correctly', async () => {
+  it('renders vaults correctly', async () => {
     const { queryAllByTestId } = renderComponent(<Vault />);
 
     const symbolsElements = queryAllByTestId(TEST_IDS.vault.vaultItem.symbol);

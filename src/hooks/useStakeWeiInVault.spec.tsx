@@ -44,7 +44,7 @@ describe('hooks/useStakeWeiInVault', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on XVS vault button
+    // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
     await waitFor(() => expect(stakeWeiInXvsVault).toHaveBeenCalledTimes(1));
@@ -82,7 +82,7 @@ describe('hooks/useStakeWeiInVault', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on VAI vault button
+    // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
     await waitFor(() => expect(stakeWeiInVaiVault).toHaveBeenCalledTimes(1));
@@ -118,7 +118,7 @@ describe('hooks/useStakeWeiInVault', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on VAI vault button
+    // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
     await waitFor(() => expect(stakeWeiInVrtVault).toHaveBeenCalledTimes(1));
