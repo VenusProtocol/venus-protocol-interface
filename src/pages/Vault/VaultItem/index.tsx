@@ -185,6 +185,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
                 variant="text"
                 css={styles.buttonClaim}
                 loading={isClaimRewardLoading}
+                data-testid={TEST_IDS.vault.vaultItem.claimRewardButton}
               >
                 {t('vaultItem.claimButton')}
               </Button>
@@ -249,17 +250,22 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   );
 };
 
-const VaultItem: React.FC<
-  Omit<
-    IVaultItemUiProps,
-    | 'onClaimReward'
-    | 'onStake'
-    | 'onWithdraw'
-    | 'closeActiveModal'
-    | 'activeModal'
-    | 'isClaimRewardLoading'
-  >
-> = ({ stakedTokenId, rewardTokenId, poolIndex, ...vaultItemUiProps }) => {
+export type VaultItemProps = Omit<
+  IVaultItemUiProps,
+  | 'onClaimReward'
+  | 'onStake'
+  | 'onWithdraw'
+  | 'closeActiveModal'
+  | 'activeModal'
+  | 'isClaimRewardLoading'
+>;
+
+const VaultItem: React.FC<VaultItemProps> = ({
+  stakedTokenId,
+  rewardTokenId,
+  poolIndex,
+  ...vaultItemUiProps
+}) => {
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
   const onStake = () => setActiveModal('stake');
   const onWithdraw = () => setActiveModal('withdraw');
