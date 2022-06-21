@@ -4,7 +4,7 @@ import { BigNumber } from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import { formatTokensToReadableValue, generateBscScanUrl } from 'utilities';
+import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import {
@@ -15,14 +15,9 @@ import {
   Tooltip,
   LabeledProgressBar,
 } from 'components';
+import { IVoter } from 'types';
 
 import { useStyles } from './styles';
-
-type VoteFrom = {
-  address: string;
-  voteWeightWei: BigNumber;
-  comment?: string;
-};
 
 interface IVoteSummaryProps {
   onClick: () => void;
@@ -30,7 +25,7 @@ interface IVoteSummaryProps {
   progressBarColor: string;
   votedValueWei?: BigNumber;
   votedTotalWei?: BigNumber;
-  votesFrom?: VoteFrom[];
+  voters?: IVoter['result'];
   className?: string;
   isDisabled?: boolean;
 }
@@ -41,7 +36,7 @@ const VoteSummary = ({
   progressBarColor,
   votedTotalWei = new BigNumber(0),
   votedValueWei = new BigNumber(0),
-  votesFrom = [],
+  voters = [],
   className,
   isDisabled,
 }: IVoteSummaryProps) => {
@@ -50,11 +45,12 @@ const VoteSummary = ({
 
   const getVoteWeight = useCallback(
     (voteWeightWei: BigNumber) =>
-      formatTokensToReadableValue({
-        value: voteWeightWei,
+      convertWeiToTokens({
+        valueWei: voteWeightWei,
         tokenId: XVS_TOKEN_ID,
         shortenLargeValue: true,
         addSymbol: false,
+        returnInReadableFormat: true,
       }),
     [],
   );
@@ -75,12 +71,12 @@ const VoteSummary = ({
         {label}
       </Button>
 
-      <LabeledInlineContent label={t('voteSummary.addresses', { length: votesFrom.length })}>
+      <LabeledInlineContent label={t('voteSummary.addresses', { length: voters.length })}>
         <Typography>{t('voteSummary.votes')}</Typography>
       </LabeledInlineContent>
 
       <ul css={styles.votesWrapper}>
-        {votesFrom.map(({ address, voteWeightWei, comment }) => (
+        {voters.map(({ address, voteWeightWei, reason }) => (
           <li key={address} css={styles.voteFrom}>
             <EllipseText css={styles.address} text={address}>
               <Typography
@@ -92,18 +88,19 @@ const VoteSummary = ({
                 component="a"
                 css={[styles.blueText, styles.addressText]}
               />
-              {comment && (
-                <Tooltip title={comment}>
+              {reason && (
+                <Tooltip title={reason}>
                   <Icon name="bubble" />
                 </Tooltip>
               )}
             </EllipseText>
             <Typography color="text.primary">
-              {formatTokensToReadableValue({
-                value: voteWeightWei,
+              {convertWeiToTokens({
+                valueWei: voteWeightWei,
                 tokenId: XVS_TOKEN_ID,
                 shortenLargeValue: true,
                 addSymbol: false,
+                returnInReadableFormat: true,
               })}
             </Typography>
           </li>

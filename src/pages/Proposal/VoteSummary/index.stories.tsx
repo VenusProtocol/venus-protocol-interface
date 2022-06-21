@@ -21,47 +21,58 @@ const votes = [
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c2976',
     voteWeightWei: new BigNumber('1000'),
-    comment: 'comment text from storybook',
+    reason: 'comment text from storybook',
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297s',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74c297q',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b74b2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41dea391b74c2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de23d1b74c2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de23a1b74c2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2391b7qc2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41de2v91b74c2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
   {
     address: '0x33AAb7ED8C71C6910Fb4A9bc41dn2391b74c2977',
     voteWeightWei: new BigNumber('1271'),
+    support: 'FOR' as const,
   },
 ];
 
@@ -70,7 +81,7 @@ export const VoteFor = () => (
     label="For"
     votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
-    votesFrom={votes}
+    voters={votes}
     onClick={noop}
     progressBarColor={PALETTE.interactive.success50}
   />
@@ -81,7 +92,7 @@ export const VoteAgainst = () => (
     label="Against"
     votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
-    votesFrom={votes}
+    voters={votes}
     onClick={noop}
     progressBarColor={PALETTE.interactive.error50}
   />
