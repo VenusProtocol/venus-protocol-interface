@@ -116,6 +116,9 @@ export const getDailyXvsWei = jest.fn();
 export const useGetDailyXvsWei = () =>
   useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
 
+export const getVoters = jest.fn();
+export const useGetVoters = () => useQuery(FunctionKey.GET_VOTERS, getVoters);
+
 export const getVoteReceipt = jest.fn();
 export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
 
