@@ -34,7 +34,7 @@ const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVa
     }
 
     return allVaults;
-  }, [JSON.stringify(vestingVaults), vaiVault]);
+  }, [JSON.stringify(vestingVaults), JSON.stringify(vaiVault), JSON.stringify(vrtVault)]);
 
   const isLoading = isGetVestingVaultsLoading || isVaiVaultLoading || isVrtVaultLoading;
 

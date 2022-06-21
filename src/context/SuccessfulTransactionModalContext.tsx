@@ -23,7 +23,7 @@ export const SuccessfulTransactionModalContext =
   });
 
 export const SuccessfulTransactionModalProvider: React.FC = ({ children }) => {
-  const [isOpened, setIsOpened] = React.useState(false);
+  const [isOpen, setIsOpened] = React.useState(false);
   const [modalProps, setModalProps] = React.useState<
     OpenSuccessfulTransactionModalInput | undefined
   >();
@@ -41,7 +41,7 @@ export const SuccessfulTransactionModalProvider: React.FC = ({ children }) => {
       // Don't reset modal props if modal has been reopened since (can happen if
       // openSuccessfulTransactionModal is called within less than 500ms after
       // closeSuccessfulTransactionModal was called)
-      if (!isOpened) {
+      if (!isOpen) {
         setModalProps(undefined);
       }
     }, 500);
@@ -56,7 +56,7 @@ export const SuccessfulTransactionModalProvider: React.FC = ({ children }) => {
     >
       {modalProps && (
         <SuccessfulTransactionModal
-          isOpened={isOpened}
+          isOpen={isOpen}
           handleClose={closeSuccessfulTransactionModal}
           {...modalProps}
         />

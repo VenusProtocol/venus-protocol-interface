@@ -27,13 +27,13 @@ export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalPro
   content,
   amount,
   transactionHash,
-  isOpened,
+  isOpen,
   handleClose,
 }) => {
   const styles = useStyles();
 
   return (
-    <Modal isOpened={isOpened} handleClose={handleClose}>
+    <Modal isOpen={isOpen} handleClose={handleClose}>
       <div className={className} css={styles.container}>
         <Icon name="check" css={styles.headerIcon} />
 
