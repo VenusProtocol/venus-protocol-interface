@@ -1,15 +1,17 @@
 // VaultItemUi
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { VError } from 'errors';
-import { TOKENS } from 'constants/tokens';
+import { VError, formatVErrorToReadableString } from 'errors';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import { toast } from 'components/v2/Toast';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
+import useClaimVaultReward from 'hooks/useClaimVaultReward';
 import TEST_IDS from 'constants/testIds';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
@@ -18,7 +20,9 @@ import { Icon, Button } from 'components';
 import { StakeModal } from '../modals';
 import { useStyles } from './styles';
 
-type ActiveModal = 'stake' | 'withdraw' | 'claimReward';
+// TODO: add tests
+
+type ActiveModal = 'stake' | 'withdraw';
 
 export interface IVaultItemUiProps {
   stakedTokenId: TokenId;
@@ -26,10 +30,11 @@ export interface IVaultItemUiProps {
   stakingAprPercentage: number;
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;
-  onClaimReward: () => void;
+  onClaimReward: () => Promise<TransactionReceipt>;
   onStake: () => void;
   onWithdraw: () => void;
   closeActiveModal: () => void;
+  isClaimRewardLoading: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
   userPendingRewardWei?: BigNumber;
@@ -50,11 +55,38 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   onWithdraw,
   activeModal,
   poolIndex,
+  isClaimRewardLoading,
   closeActiveModal,
   className,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const handleClaimReward = async () => {
+    try {
+      // Send request to claim reward
+      const res = await onClaimReward();
+
+      // Display successful transaction modal
+      if (res) {
+        openSuccessfulTransactionModal({
+          title: t('vaultItem.successfulTransactionModal.title'),
+          content: t('vaultItem.successfulTransactionModal.description'),
+          transactionHash: res.transactionHash,
+        });
+      }
+    } catch (error) {
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
+    }
+  };
 
   const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
     valueWei: userPendingRewardWei,
@@ -148,7 +180,12 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
                 {readableUserPendingRewardTokens}
               </Typography>
 
-              <Button onClick={onClaimReward} variant="text" css={styles.buttonClaim}>
+              <Button
+                onClick={handleClaimReward}
+                variant="text"
+                css={styles.buttonClaim}
+                loading={isClaimRewardLoading}
+              >
                 {t('vaultItem.claimButton')}
               </Button>
             </div>
@@ -215,23 +252,43 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
 const VaultItem: React.FC<
   Omit<
     IVaultItemUiProps,
-    'onClaimReward' | 'onStake' | 'onWithdraw' | 'closeActiveModal' | 'activeModal'
+    | 'onClaimReward'
+    | 'onStake'
+    | 'onWithdraw'
+    | 'closeActiveModal'
+    | 'activeModal'
+    | 'isClaimRewardLoading'
   >
-> = vaultItemUiProps => {
+> = ({ stakedTokenId, rewardTokenId, poolIndex, ...vaultItemUiProps }) => {
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
-
-  const onClaimReward = () => setActiveModal('claimReward');
   const onStake = () => setActiveModal('stake');
   const onWithdraw = () => setActiveModal('withdraw');
   const closeActiveModal = () => setActiveModal(undefined);
 
+  const { account } = useContext(AuthContext);
+
+  const { claimReward, isLoading: isClaimRewardLoading } = useClaimVaultReward();
+  const onClaimReward = () =>
+    claimReward({
+      stakedTokenId,
+      rewardTokenId,
+      poolIndex,
+      // account.address has to exist at this point since users are prompted to
+      // connect their wallet before they're able to stake
+      accountAddress: account?.address || '',
+    });
+
   return (
     <VaultItemUi
       onClaimReward={onClaimReward}
+      isClaimRewardLoading={isClaimRewardLoading}
       onStake={onStake}
       onWithdraw={onWithdraw}
       activeModal={activeModal}
       closeActiveModal={closeActiveModal}
+      stakedTokenId={stakedTokenId}
+      rewardTokenId={rewardTokenId}
+      poolIndex={poolIndex}
       {...vaultItemUiProps}
     />
   );

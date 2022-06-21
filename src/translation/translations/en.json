@@ -546,13 +546,9 @@
     "reward": "Reward:",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
-    "successfulClaimRewardTransactionModal": {
+    "successfulTransactionModal": {
       "description": "You successfully claimed your reward",
       "title": "Your claim was successful"
-    },
-    "successfulWithdrawVrtTransactionModal": {
-      "description": "You successfully withdrew your VRT tokens",
-      "title": "Your withdrawal was successful"
     },
     "totalStaked": "Total Staked",
     "withdrawButton": "Withdraw",
@@ -625,7 +621,6 @@
       "canceled": "Canceled",
       "cancelled": "Cancelled",
       "created": "Created",
-      "dateAndTime": "{{date,}}",
       "dateOnly": "{{date, dd MMM yyyy}}",
       "defeated": "Defeated",
       "execute": "Execute",
