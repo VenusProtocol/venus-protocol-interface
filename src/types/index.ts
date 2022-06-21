@@ -128,6 +128,23 @@ export interface IProposal {
   totalVotesWei: BigNumber;
 }
 
+export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN';
+
+export interface IVoter {
+  result: {
+    address: string;
+    voteWeightWei: BigNumber;
+    reason?: string;
+    support: VoteSupport;
+  }[];
+  sumVotes: {
+    abstain: BigNumber;
+    against: BigNumber;
+    for: BigNumber;
+    total: BigNumber;
+  };
+}
+
 export interface IPool {
   poolId: BigNumber;
   stakedToken: TokenId;
