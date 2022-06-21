@@ -4,7 +4,7 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import { TokenId } from 'types';
 import { TOKENS } from 'constants/tokens';
-import { stakeWeiInXvsVault, stakeWeiInVaiVault } from 'clients/api';
+import { stakeWeiInXvsVault, stakeWeiInVaiVault, stakeWeiInVrtVault } from 'clients/api';
 import fakeAccountAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
 import useStakeWeiInVault from './useStakeWeiInVault';
@@ -44,7 +44,7 @@ describe('hooks/useStakeWeiInVault', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on XVS vault button
+    // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
     await waitFor(() => expect(stakeWeiInXvsVault).toHaveBeenCalledTimes(1));
@@ -56,7 +56,7 @@ describe('hooks/useStakeWeiInVault', () => {
     });
   });
 
-  it('calls stakeWeiInVaiVault with correct parameters when calling stake without a poolIndex and stakedTokenId equal to "vai"', async () => {
+  it('calls stakeWeiInVaiVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vai"', async () => {
     const TestComponent: React.FC = () => {
       const { stake } = useStakeWeiInVault({
         stakedTokenId: TOKENS.vai.id as TokenId,
@@ -82,7 +82,7 @@ describe('hooks/useStakeWeiInVault', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on VAI vault button
+    // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
     await waitFor(() => expect(stakeWeiInVaiVault).toHaveBeenCalledTimes(1));
@@ -92,5 +92,39 @@ describe('hooks/useStakeWeiInVault', () => {
     });
   });
 
-  // TODO: add tests for stakeWeiInVaiVault and stakeWeiInVrtVault
+  it('calls stakeWeiInVrtVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vrt"', async () => {
+    const TestComponent: React.FC = () => {
+      const { stake } = useStakeWeiInVault({
+        stakedTokenId: TOKENS.vrt.id as TokenId,
+      });
+
+      return (
+        <>
+          <button
+            onClick={() =>
+              stake({
+                rewardTokenId: TOKENS.xvs.id as TokenId,
+                amountWei: fakeAmountWei,
+                accountAddress: fakeAccountAddress,
+              })
+            }
+            type="button"
+          >
+            {fakeStakeButtonLabel}
+          </button>
+        </>
+      );
+    };
+
+    const { getByText } = renderComponent(<TestComponent />);
+
+    // Click on stake button
+    fireEvent.click(getByText(fakeStakeButtonLabel));
+
+    await waitFor(() => expect(stakeWeiInVrtVault).toHaveBeenCalledTimes(1));
+    expect(stakeWeiInVrtVault).toHaveBeenCalledWith({
+      amountWei: fakeAmountWei,
+      fromAccountAddress: fakeAccountAddress,
+    });
+  });
 });
