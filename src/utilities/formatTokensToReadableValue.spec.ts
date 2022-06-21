@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { formatCoinsToReadableValue } from 'utilities';
+import { formatTokensToReadableValue } from 'utilities';
 
-describe('utilities/formatCoinsToReadableValue', () => {
+describe('utilities/formatTokensToReadableValue', () => {
   test('formats longhand value correctly', () => {
-    const value = formatCoinsToReadableValue({
+    const value = formatTokensToReadableValue({
       value: new BigNumber(100000.12333334),
       tokenId: 'busd',
     });
@@ -11,7 +11,7 @@ describe('utilities/formatCoinsToReadableValue', () => {
   });
 
   test('formats shorthand value correctly great than 1', () => {
-    const value = formatCoinsToReadableValue({
+    const value = formatTokensToReadableValue({
       value: new BigNumber(1000.1234),
       tokenId: 'eth',
       minimizeDecimals: true,
@@ -20,7 +20,7 @@ describe('utilities/formatCoinsToReadableValue', () => {
   });
 
   test('formats shorthand value correctly less than 1', () => {
-    const value = formatCoinsToReadableValue({
+    const value = formatTokensToReadableValue({
       value: new BigNumber(0.1234),
       tokenId: 'ada',
       minimizeDecimals: true,
@@ -30,7 +30,7 @@ describe('utilities/formatCoinsToReadableValue', () => {
 
   test('removes trailing zeros', () => {
     const trailingZeroNumber = new BigNumber(0.0000005);
-    const value = formatCoinsToReadableValue({
+    const value = formatTokensToReadableValue({
       value: trailingZeroNumber,
       tokenId: 'ada',
       minimizeDecimals: true,

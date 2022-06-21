@@ -14,7 +14,7 @@ export const IconDefault = () => {
   const svgs = require.context('./icons', true, /\.tsx$/);
   const svgFileNames = svgs
     .keys()
-    .map(path => path.replace('./', '').replace('coins/', '').replace('.tsx', '')) as IconName[];
+    .map(path => path.replace('./', '').replace('tokens/', '').replace('.tsx', '')) as IconName[];
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>

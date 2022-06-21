@@ -15,8 +15,8 @@ import { Asset } from 'types';
 import {
   getContractAddress,
   formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  convertWeiToCoins,
+  formatTokensToReadableValue,
+  convertWeiToTokens,
 } from 'utilities';
 import { useStyles } from '../styles';
 
@@ -66,7 +66,7 @@ const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
       key: 'xvsPerDay',
       render: () => (
         <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-          {formatCoinsToReadableValue({
+          {formatTokensToReadableValue({
             value: asset.xvsPerDay,
             tokenId: 'xvs',
             minimizeDecimals: true,
@@ -135,12 +135,12 @@ const XvsTable: React.FC = () => {
     const xvsAsset = assets.find(asset => asset.id === 'xvs');
 
     if (venusVaiVaultDailyRateWei && vaultVaiStakedWei && xvsAsset) {
-      const venusVaiVaultDailyRateTokens = convertWeiToCoins({
+      const venusVaiVaultDailyRateTokens = convertWeiToTokens({
         valueWei: venusVaiVaultDailyRateWei,
         tokenId: 'xvs',
       });
 
-      const vaultVaiStakedTokens = convertWeiToCoins({
+      const vaultVaiStakedTokens = convertWeiToTokens({
         valueWei: vaultVaiStakedWei,
         tokenId: 'vai',
       });

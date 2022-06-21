@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { TokenId } from 'types';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -20,7 +20,7 @@ import {
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
 import { useTranslation } from 'translation';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 
@@ -49,11 +49,11 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
         ? BigNumber.minimum(userBalanceWei, userMintedWei)
         : new BigNumber(0);
 
-    return convertWeiToCoins({ valueWei: limitWei, tokenId: VAI_ID }).toFixed();
+    return convertWeiToTokens({ valueWei: limitWei, tokenId: VAI_ID }).toFixed();
   }, [userBalanceWei?.toFixed(), userMintedWei?.toFixed()]);
 
   // Convert minted wei into VAI
-  const readableRepayableVai = useConvertToReadableCoinString({
+  const readableRepayableVai = useConvertWeiToReadableTokenString({
     valueWei: userMintedWei,
     tokenId: VAI_ID,
   });
@@ -61,7 +61,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
-    const amountWei = convertCoinsToWei({
+    const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
       tokenId: VAI_ID,
     });
@@ -144,13 +144,13 @@ const RepayVai: React.FC = () => {
 
   // Convert minted VAI balance into wei of VAI
   const userMintedWei = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiMinted, tokenId: VAI_ID }),
+    () => convertTokensToWei({ value: userVaiMinted, tokenId: VAI_ID }),
     [userVaiMinted.toFixed()],
   );
 
   // Convert user VAI balance into wei of VAI
   const userBalanceWei = React.useMemo(
-    () => convertCoinsToWei({ value: userVaiBalance, tokenId: VAI_ID }),
+    () => convertTokensToWei({ value: userVaiBalance, tokenId: VAI_ID }),
     [userVaiBalance.toFixed()],
   );
 

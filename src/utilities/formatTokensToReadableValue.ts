@@ -1,11 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatCommaThousandsPeriodDecimal } from './formatCommaThousandsPeriodDecimal';
-import { shortenNumberWithSuffix } from './shortenNumberWithSuffix';
+import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 import { getToken } from './getToken';
 
-export const formatCoinsToReadableValue = ({
+export const formatTokensToReadableValue = ({
   value,
   tokenId,
   minimizeDecimals = false,
@@ -39,12 +38,10 @@ export const formatCoinsToReadableValue = ({
   }
 
   if (shortenLargeValue) {
-    return `${shortenNumberWithSuffix(value)}${symbolPlacement}`;
+    return `${shortenTokensWithSuffix(value)}${symbolPlacement}`;
   }
 
-  return `${formatCommaThousandsPeriodDecimal(
-    value.dp(decimalPlaces).toFixed(),
-  )}${symbolPlacement}`;
+  return `${value.dp(decimalPlaces).toFormat()}${symbolPlacement}`;
 };
 
-export default formatCoinsToReadableValue;
+export default formatTokensToReadableValue;

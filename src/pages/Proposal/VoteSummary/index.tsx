@@ -4,7 +4,7 @@ import { BigNumber } from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import { formatCoinsToReadableValue, generateBscScanUrl } from 'utilities';
+import { formatTokensToReadableValue, generateBscScanUrl } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import {
@@ -50,7 +50,7 @@ const VoteSummary = ({
 
   const getVoteWeight = useCallback(
     (voteWeightWei: BigNumber) =>
-      formatCoinsToReadableValue({
+      formatTokensToReadableValue({
         value: voteWeightWei,
         tokenId: XVS_TOKEN_ID,
         shortenLargeValue: true,
@@ -99,7 +99,7 @@ const VoteSummary = ({
               )}
             </EllipseText>
             <Typography color="text.primary">
-              {formatCoinsToReadableValue({
+              {formatTokensToReadableValue({
                 value: voteWeightWei,
                 tokenId: XVS_TOKEN_ID,
                 shortenLargeValue: true,

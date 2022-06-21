@@ -5,7 +5,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
@@ -21,7 +21,7 @@ import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
@@ -46,12 +46,12 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const limitTokens = useMemo(
-    () => (limitWei ? convertWeiToCoins({ valueWei: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
+    () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
     [limitWei?.toFixed()],
   );
 
   // Convert limit into VAI
-  const readableVaiLimit = useConvertToReadableCoinString({
+  const readableVaiLimit = useConvertWeiToReadableTokenString({
     valueWei: limitWei,
     tokenId: VAI_ID,
   });
@@ -74,7 +74,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   );
 
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
-    const amountWei = convertCoinsToWei({
+    const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
       tokenId: VAI_ID,
     });
@@ -168,7 +168,7 @@ const MintVai: React.FC = () => {
 
   // Convert limit into wei of VAI
   const limitWei = React.useMemo(
-    () => convertCoinsToWei({ value: mintableVai, tokenId: VAI_ID }),
+    () => convertTokensToWei({ value: mintableVai, tokenId: VAI_ID }),
     [mintableVai.toFixed()],
   );
 
