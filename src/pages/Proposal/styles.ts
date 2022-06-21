@@ -8,6 +8,9 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
     `,
+    spinner: css`
+      height: 100%;
+    `,
     summary: css`
       margin-bottom: ${theme.spacing(8)};
     `,

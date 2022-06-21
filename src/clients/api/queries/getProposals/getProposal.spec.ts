@@ -1,11 +1,11 @@
 import { restService } from 'utilities';
 import proposalResponse from '__mocks__/api/proposals.json';
 import { VError } from 'errors';
-import getProposals from '.';
+import getProposal from './getProposal';
 
 jest.mock('utilities/restService');
 
-describe('api/queries/getProposals', () => {
+describe('api/queries/getProposal', () => {
   test('throws an error when request fails', async () => {
     const fakeErrorMessage = 'Fake error message';
 
@@ -16,9 +16,9 @@ describe('api/queries/getProposals', () => {
     }));
 
     try {
-      await getProposals({});
+      await getProposal({ id: 0 });
 
-      throw new Error('getProposals should have thrown an error but did not');
+      throw new Error('getProposal should have thrown an error but did not');
     } catch (error) {
       expect(error).toBeInstanceOf(VError);
       if (error instanceof VError) {
@@ -30,44 +30,19 @@ describe('api/queries/getProposals', () => {
     }
   });
 
-  test('returns formatted proposals', async () => {
+  test('returns proposal', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: { data: proposalResponse, limit: 20, offset: 20 },
+      data: { data: proposalResponse.result[0] },
     }));
 
-    const response = await getProposals({
-      limit: 10,
-      page: 2,
+    const response = await getProposal({
+      id: 1,
     });
 
     expect(restService).toBeCalledWith({
-      endpoint: '/proposals',
+      endpoint: '/proposals/1',
       method: 'GET',
-      params: {
-        limit: 10,
-        offset: 20,
-      },
-    });
-
-    expect(response).toMatchSnapshot();
-  });
-
-  test('Gets called with correct default arguments', async () => {
-    (restService as jest.Mock).mockImplementationOnce(async () => ({
-      status: 200,
-      data: { data: proposalResponse },
-    }));
-
-    const response = await getProposals({});
-
-    expect(restService).toBeCalledWith({
-      endpoint: '/proposals',
-      method: 'GET',
-      params: {
-        limit: 5,
-        offset: 0,
-      },
     });
 
     expect(response).toMatchSnapshot();
