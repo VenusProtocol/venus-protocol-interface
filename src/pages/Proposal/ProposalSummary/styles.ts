@@ -62,7 +62,7 @@ export const useStyles = () => {
       }
     `,
     countdown: css`
-      > :first-child {
+      > :first-of-type {
         padding-right: ${theme.spacing(3)};
         border-right: 1px solid ${theme.palette.secondary.light};
       }
