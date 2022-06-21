@@ -6,8 +6,8 @@ import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import {
-  convertCoinsToWei,
-  formatCoinsToReadableValue,
+  convertTokensToWei,
+  formatTokensToReadableValue,
   formatToReadablePercentage,
 } from 'utilities';
 import { useRepayVToken } from 'clients/api';
@@ -68,7 +68,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
 
   const readableTokenBorrowBalance = React.useMemo(
     () =>
-      formatCoinsToReadableValue({
+      formatTokensToReadableValue({
         value: asset.borrowBalance,
         tokenId: asset.id,
       }),
@@ -77,7 +77,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
 
   const readableTokenWalletBalance = React.useMemo(
     () =>
-      formatCoinsToReadableValue({
+      formatTokensToReadableValue({
         value: asset.walletBalance,
         tokenId: asset.id,
       }),
@@ -87,7 +87,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
 
-    const amountWei = convertCoinsToWei({
+    const amountWei = convertTokensToWei({
       value: formattedAmountTokens,
       tokenId: asset.id,
     });
@@ -232,7 +232,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     }
 
     const isRepayingFullLoan = amountWei.eq(
-      convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }),
+      convertTokensToWei({ value: asset.borrowBalance, tokenId: asset.id }),
     );
 
     const res = await repay({

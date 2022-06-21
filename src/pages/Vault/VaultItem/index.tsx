@@ -6,9 +6,9 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import { convertWeiToCoins, formatToReadablePercentage, getToken } from 'utilities';
 import TEST_IDS from 'constants/testIds';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
 import { StakeModal } from '../modals';
@@ -52,14 +52,14 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const readableUserPendingRewardTokens = useConvertToReadableCoinString({
+  const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
     valueWei: userPendingRewardWei,
     tokenId: rewardTokenId,
     minimizeDecimals: true,
     addSymbol: false,
   });
 
-  const readableUserStakedTokens = useConvertToReadableCoinString({
+  const readableUserStakedTokens = useConvertWeiToReadableTokenString({
     tokenId: stakedTokenId,
     valueWei: userStakedWei || new BigNumber(0),
     minimizeDecimals: true,
@@ -77,7 +77,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         value: (
           <>
             <Icon css={styles.tokenIcon} name={rewardTokenId} />
-            {convertWeiToCoins({
+            {convertWeiToTokens({
               valueWei: dailyEmissionWei,
               tokenId: rewardTokenId,
               returnInReadableFormat: true,
@@ -92,7 +92,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         value: (
           <>
             <Icon css={styles.tokenIcon} name={stakedTokenId} />
-            {convertWeiToCoins({
+            {convertWeiToTokens({
               valueWei: totalStakedWei,
               tokenId: stakedTokenId,
               returnInReadableFormat: true,

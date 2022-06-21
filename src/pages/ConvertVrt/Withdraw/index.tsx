@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
 import { ConnectWallet, Icon, PrimaryButton, toast } from 'components';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { useStyles } from '../styles';
@@ -23,7 +23,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-  const readableXvsAvailable = useConvertToReadableCoinString({
+  const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsWithdrawableAmount,
     tokenId: XVS_TOKEN_ID,
   });

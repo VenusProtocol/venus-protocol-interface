@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
 import { getToken } from './getToken';
-import { formatCoinsToReadableValue } from './formatCoinsToReadableValue';
+import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 
-export interface IConvertWeiToCoinsInput<T extends boolean | undefined = false> {
+export interface IConvertWeiToTokensInput<T extends boolean | undefined = false> {
   valueWei: BigNumber;
   tokenId: TokenId;
   returnInReadableFormat?: T;
@@ -12,32 +12,32 @@ export interface IConvertWeiToCoinsInput<T extends boolean | undefined = false> 
   shortenLargeValue?: boolean;
 }
 
-export type ConvertWeiToCoinsOutput<T> = T extends true ? string : BigNumber;
+export type ConvertWeiToTokensOutput<T> = T extends true ? string : BigNumber;
 
-export function convertWeiToCoins<T extends boolean | undefined = false>({
+export function convertWeiToTokens<T extends boolean | undefined = false>({
   valueWei,
   tokenId,
   returnInReadableFormat = false,
   minimizeDecimals = false,
   addSymbol = true,
   shortenLargeValue = false,
-}: IConvertWeiToCoinsInput<T>): ConvertWeiToCoinsOutput<T> {
+}: IConvertWeiToTokensInput<T>): ConvertWeiToTokensOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
-  const valueCoins = valueWei
+  const valueTokens = valueWei
     .dividedBy(new BigNumber(10).pow(tokenDecimals))
     .decimalPlaces(tokenDecimals);
 
   return (
     returnInReadableFormat
-      ? formatCoinsToReadableValue({
-          value: valueCoins,
+      ? formatTokensToReadableValue({
+          value: valueTokens,
           tokenId,
           minimizeDecimals,
           addSymbol,
           shortenLargeValue,
         })
-      : valueCoins
-  ) as ConvertWeiToCoinsOutput<T>;
+      : valueTokens
+  ) as ConvertWeiToTokensOutput<T>;
 }
 
-export default convertWeiToCoins;
+export default convertWeiToTokens;

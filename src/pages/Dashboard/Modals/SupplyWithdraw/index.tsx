@@ -18,7 +18,7 @@ import {
   useGetVTokenBalanceOf,
   useGetUserMarketInfo,
 } from 'clients/api';
-import { isAssetEnabled, formatToReadablePercentage, convertCoinsToWei } from 'utilities';
+import { isAssetEnabled, formatToReadablePercentage, convertTokensToWei } from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';
@@ -251,7 +251,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
       content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
-        valueWei: convertCoinsToWei({ value: new BigNumber(value), tokenId: asset.id }),
+        valueWei: convertTokensToWei({ value: new BigNumber(value), tokenId: asset.id }),
         tokenId: asset.id,
       },
       transactionHash: res.transactionHash,
@@ -279,7 +279,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
         content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
         amount: {
-          valueWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
+          valueWei: convertTokensToWei({ value: amount, tokenId: asset.id }),
           tokenId: asset.id,
         },
         transactionHash,

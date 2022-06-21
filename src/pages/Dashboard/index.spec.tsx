@@ -31,7 +31,7 @@ describe('pages/Dashboard', () => {
     // one
     const suppliedTable = getAllByLabelText(en.markets.suppliedTableTitle)[0];
     expect(suppliedTable).toBeTruthy();
-    // Supplied coins in mock data include usdc and sxp
+    // Supplied tokens in mock data include usdc and sxp
     within(suppliedTable as HTMLTableSectionElement).getByText('SXP');
     within(suppliedTable as HTMLTableSectionElement).getByText('USDC');
     expect(within(suppliedTable as HTMLTableSectionElement).queryByText('BUSD')).toBeNull();
@@ -44,7 +44,7 @@ describe('pages/Dashboard', () => {
     // ("display: none"), so we get all the matching elements and use the first
     // one
     const nonSuppliedTable = getAllByLabelText(en.markets.supplyMarketTableTitle)[0];
-    // Supplied coins in mock data include busd and usdt
+    // Supplied tokens in mock data include busd and usdt
     within(nonSuppliedTable as HTMLTableSectionElement).getByText('BUSD');
     within(nonSuppliedTable as HTMLTableSectionElement).getByText('USDT');
     expect(within(nonSuppliedTable as HTMLTableSectionElement).queryByText('SXP')).toBeNull();
