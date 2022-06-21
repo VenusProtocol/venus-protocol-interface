@@ -52,9 +52,10 @@ const ActionAccordion: React.FC = () => {
                   title={action.signature || t('vote.createProposalForm.action')}
                   leftAction={
                     <button onClick={() => remove(idx)} type="button" css={styles.iconButton}>
-                      <Icon name="close" />
+                      <Icon name="close" css={styles.closeIcon} />
                     </button>
                   }
+                  css={styles.accordion}
                 >
                   <FormikTextField
                     name={`actions.${idx}.address`}

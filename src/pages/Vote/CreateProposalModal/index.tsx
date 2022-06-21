@@ -94,7 +94,7 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
   );
 
   const buttonText =
-    currentStep === steps.length - 1
+    currentStep === steps.length - 2
       ? t('vote.createProposalForm.confirm')
       : t('vote.createProposalForm.nextStep');
 

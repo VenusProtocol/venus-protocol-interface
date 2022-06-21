@@ -64,6 +64,7 @@ export const useModalStyles = ({
       transform: rotate(180deg);
       height: ${theme.shape.iconSize.xLarge}px;
       width: ${theme.shape.iconSize.xLarge}px;
+      color: ${theme.palette.text.primary};
     `,
     titleComponent: css`
       align-self: center;
