@@ -6,7 +6,12 @@ export const useStyles = () => {
   return {
     accordion: css`
       :last-of-type {
-        margin-bottom: 0px;
+        margin-bottom: 0;
+      }
+      .MuiAccordionDetails-root {
+        :last-of-type {
+          margin-bottom: 0;
+        }
       }
     `,
     iconButton: css`
@@ -31,6 +36,7 @@ export const useStyles = () => {
     closeIcon: css`
       height: ${theme.spacing(3)};
       width: ${theme.spacing(3)};
+      margin: -${theme.spacing(1.5)};
     `,
   };
 };
