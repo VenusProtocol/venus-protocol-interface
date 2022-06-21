@@ -231,6 +231,10 @@ export { default as getProposals } from './queries/getProposals';
 export * from './queries/getProposals';
 export { default as useGetProposals } from './queries/useGetProposals';
 
+export { default as getProposal } from './queries/getProposals/getProposal';
+export * from './queries/getProposals/getProposal';
+export { default as useGetProposal } from './queries/useGetProposal';
+
 export { default as getVoteReceipt } from './queries/getVoteReceipt';
 export * from './queries/getVoteReceipt';
 export { default as useGetVoteReceipt } from './queries/useGetVoteReceipt';

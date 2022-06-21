@@ -32,7 +32,7 @@ const formatToProposal = ({
   executedTxHash,
   queuedTxHash,
   startTxHash,
-}: IProposalApiResponse['result'][number]): IProposal => {
+}: IProposalApiResponse): IProposal => {
   let endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
 
   let descriptionObj = { version: 'v1' as const, title: '', description: '' };
@@ -50,11 +50,14 @@ const formatToProposal = ({
     now.setSeconds(now.getSeconds() + secondsUntilEnd);
     endDate = now;
   }
+  const abstainedVotesWei = new BigNumber(abstainedVotes || 0);
+  const againstVotesWei = new BigNumber(againstVotes || 0);
+  const forVotesWei = new BigNumber(forVotes || 0);
 
   return {
-    abstainedVotesWei: new BigNumber(abstainedVotes || 0),
+    abstainedVotesWei,
     actions,
-    againstVotesWei: new BigNumber(againstVotes || 0),
+    againstVotesWei,
     blockNumber,
     cancelDate: cancelTimestamp ? createDateFromSecondsTimestamp(cancelTimestamp) : undefined,
     createdDate: createdTimestamp ? createDateFromSecondsTimestamp(createdTimestamp) : undefined,
@@ -62,7 +65,7 @@ const formatToProposal = ({
     endBlock,
     endDate,
     executedDate: executedTimestamp ? createDateFromSecondsTimestamp(executedTimestamp) : undefined,
-    forVotesWei: new BigNumber(forVotes || 0),
+    forVotesWei,
     id,
     proposer,
     queuedDate: queuedTimestamp ? createDateFromSecondsTimestamp(queuedTimestamp) : undefined,
@@ -74,6 +77,7 @@ const formatToProposal = ({
     executedTxHash: executedTxHash ?? undefined,
     queuedTxHash: queuedTxHash ?? undefined,
     startTxHash: startTxHash ?? undefined,
+    totalVotesWei: abstainedVotesWei.plus(againstVotesWei).plus(forVotesWei),
   };
 };
 

@@ -25,6 +25,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
   return (
     <div css={styles.root}>
       <div css={[styles.header, styles.bottomSpace]}>
