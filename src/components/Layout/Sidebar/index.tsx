@@ -7,6 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import { useLocation } from 'react-router-dom';
+import { useUID } from 'react-uid';
 
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
@@ -25,6 +26,7 @@ export const SidebarUi: React.FC = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { pathname } = useLocation();
+  const logoKey = pathname || useUID();
 
   const openMenu = (event: React.MouseEvent) => {
     setAnchorEl(event.currentTarget);
@@ -69,7 +71,7 @@ export const SidebarUi: React.FC = () => {
 
       <div css={styles.mobileMenuBox}>
         <div css={styles.flexRow}>
-          <Icon name="logoMobile" key={pathname} css={styles.mobileLogo} />
+          <Icon name="logoMobile" key={logoKey} css={styles.mobileLogo} />
 
           <ConnectButton small fullWidth css={styles.mobileConnectButton} />
 
@@ -92,7 +94,7 @@ export const SidebarUi: React.FC = () => {
           anchorPosition={{ top: 0, left: 0 }}
         >
           <div css={[styles.flexRow, styles.doublePadding]}>
-            <Icon name="logoMobile" key={pathname} css={styles.mobileLogo} />
+            <Icon name="logoMobile" key={logoKey} css={styles.mobileLogo} />
 
             <ConnectButton small fullWidth css={styles.mobileConnectButton} />
 
