@@ -30,7 +30,6 @@ const proposalSchema = yup.object({
         // @TODO add specific validation and errors for specific types
         callData: yup
           .array()
-          .required(ErrorCode.VALUE_REQUIRED)
           .of(yup.string().min(1))
           .test({
             name: 'min',
@@ -41,7 +40,8 @@ const proposalSchema = yup.object({
               const filteredValue = value?.filter(v => !!v);
               return !!(filteredValue && filteredValue.length >= min);
             },
-          }),
+          })
+          .required(ErrorCode.VALUE_REQUIRED),
       }),
     )
     .required(ErrorCode.VALUE_REQUIRED)
