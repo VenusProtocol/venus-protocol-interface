@@ -239,6 +239,10 @@ export { default as getVoteReceipt } from './queries/getVoteReceipt';
 export * from './queries/getVoteReceipt';
 export { default as useGetVoteReceipt } from './queries/useGetVoteReceipt';
 
+export { default as getVoters } from './queries/getVoters';
+export * from './queries/getVoters';
+export { default as useGetVoters } from './queries/useGetVoters';
+
 export { default as getVaiVaultPendingXvsWei } from './queries/getVaiVaultPendingXvsWei';
 export * from './queries/getVaiVaultPendingXvsWei';
 export { default as useGetVaiVaultPendingXvsWei } from './queries/useGetVaiVaultPendingXvsWei';
