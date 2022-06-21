@@ -1,6 +1,6 @@
 import { GovernorBravoDelegate } from 'types/contracts';
 import fakeAddress from '__mocks__/models/address';
-import createProposal from './createProposal';
+import createProposal from '.';
 
 describe('api/mutation/createProposal', () => {
   test('throws an error when request fails', async () => {
@@ -19,7 +19,6 @@ describe('api/mutation/createProposal', () => {
         governorBravoContract: fakeContract,
         accountAddress: '0x32asdf',
         targets: ['0x32asdf'],
-        values: [],
         signatures: ['signature()'],
         callDatas: ['callData'],
         description: 'Description',
@@ -52,7 +51,6 @@ describe('api/mutation/createProposal', () => {
       governorBravoContract: fakeContract,
       accountAddress: fakeAddress,
       targets: fakeTargets,
-      values: [],
       signatures: fakeSignatures,
       callDatas: ['callData'],
       description: fakeDescription,
@@ -62,7 +60,7 @@ describe('api/mutation/createProposal', () => {
     expect(createProposalMock).toHaveBeenCalledTimes(1);
     expect(createProposalMock).toHaveBeenCalledWith(
       fakeTargets,
-      [],
+      [0],
       fakeSignatures,
       fakeCallDatas,
       fakeDescription,

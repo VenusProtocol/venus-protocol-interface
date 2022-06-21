@@ -7,7 +7,10 @@ import {
   FormikTextField,
   FormikMarkdownEditor,
   PrimaryButton,
+  toast,
 } from 'components';
+import { ICreateProposalInput } from 'clients/api';
+import formatProposalPayload from 'pages/Vote/CreateProposalModal/formatProposalPayload';
 import { useTranslation } from 'translation';
 import ActionAccordion from './ActionAccordion';
 import ProposalPreview from './ProposalPreview';
@@ -17,13 +20,15 @@ import { useStyles } from './styles';
 interface ICreateProposal {
   isOpen: boolean;
   handleClose: () => void;
-  createProposal: (data: FormValues) => void;
+  createProposal: (data: Omit<ICreateProposalInput, 'accountAddress'>) => void;
+  isCreateProposalLoading: boolean;
 }
 
 export const CreateProposal: React.FC<ICreateProposal> = ({
   isOpen,
   handleClose,
   createProposal,
+  isCreateProposalLoading,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -100,6 +105,17 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
 
   const CurrentFields = steps[currentStep].Component;
 
+  const handleCreateProposal = async (formValues: FormValues) => {
+    const payload = formatProposalPayload(formValues);
+    try {
+      await createProposal(payload);
+      handleClose();
+    } catch (error) {
+      const { message } = error as Error;
+      toast.error({ message });
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -118,7 +134,7 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
           title: '',
         }}
         validationSchema={proposalSchema}
-        onSubmit={createProposal}
+        onSubmit={handleCreateProposal}
         validateOnBlur
         validateOnMount
       >
@@ -146,7 +162,11 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
             <Form>
               <CurrentFields />
               {currentStep === steps.length - 1 ? (
-                <FormikSubmitButton enabledLabel={t('vote.createProposalForm.create')} fullWidth />
+                <FormikSubmitButton
+                  enabledLabel={t('vote.createProposalForm.create')}
+                  fullWidth
+                  loading={isCreateProposalLoading}
+                />
               ) : (
                 <PrimaryButton
                   fullWidth

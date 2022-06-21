@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import { Typography } from '@mui/material';
-import { useTranslation } from 'translation';
-import { useGetProposals } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
+import { useGetProposals, useCreateProposal, ICreateProposalInput } from 'clients/api';
 import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
 import { IProposal } from 'types';
+import { useTranslation } from 'translation';
 import GovernanceProposal from '../GovernanceProposal';
 import CreateProposalModal from '../CreateProposalModal';
-import { FormValues } from '../CreateProposalModal/proposalSchema';
 import { useStyles } from './styles';
 
 interface IGovernanceUiProps {
@@ -16,7 +16,8 @@ interface IGovernanceUiProps {
   total: number | undefined;
   limit: number;
   setCurrentPage: (page: number) => void;
-  createProposal: (data: FormValues) => void;
+  createProposal: (payload: Omit<ICreateProposalInput, 'accountAddress'>) => void;
+  isCreateProposalLoading: boolean;
 }
 
 export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
@@ -26,6 +27,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
   limit,
   setCurrentPage,
   createProposal,
+  isCreateProposalLoading,
 }) => {
   const [showCreateProposalModal, setShowCreateProposalModal] = useState(false);
   const { t } = useTranslation();
@@ -86,6 +88,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
           isOpen={showCreateProposalModal}
           handleClose={() => setShowCreateProposalModal(false)}
           createProposal={createProposal}
+          isCreateProposalLoading={isCreateProposalLoading}
         />
       )}
     </div>
@@ -93,12 +96,12 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
 };
 
 const Governance: React.FC = () => {
+  const { account } = React.useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(0);
   const { data: { proposals, total, limit = 5 } = { proposals: [] }, isLoading } = useGetProposals({
     page: currentPage,
   });
-
-  const createProposal = () => {};
+  const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
   return (
     <GovernanceUi
@@ -107,7 +110,10 @@ const Governance: React.FC = () => {
       total={total}
       limit={limit}
       setCurrentPage={setCurrentPage}
-      createProposal={createProposal}
+      createProposal={payload =>
+        createProposal({ ...payload, accountAddress: account?.address || '' })
+      }
+      isCreateProposalLoading={isCreateProposalLoading}
     />
   );
 };
