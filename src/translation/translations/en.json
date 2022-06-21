@@ -174,8 +174,7 @@
     "type": "Type",
     "typeColon": "Type:",
     "voteCast": "Vote Cast",
-    "withdraw": "Withdraw",
-    "description": "Description"
+    "withdraw": "Withdraw"
   },
   "interactive": {
     "copy": {
@@ -659,36 +658,7 @@
       "votedAgainst": "Voted against",
       "votedFor": "Voted for"
     },
-    "votingOptions": "Voting options"
-  },
-  "voterDetail": {
-    "actions": "Actions",
-    "amount": "Amount",
-    "delegated": "Delegated",
-    "delegatingTo": "Delegating to",
-    "holding": "Holding",
-    "readableSent": "{{date, distanceToNow}} ago",
-    "receivedXvs": "Received XVS",
-    "sent": "Sent",
-    "sentXvs": "Sent XVS",
-    "transactions": "Transactions",
-    "undelegated": "Undelegated",
-    "venusBalance": "Venus balance",
-    "viewAll": "View all",
-    "votedAbstain": "Voted abstain",
-    "votedAgainst": "Voted against",
-    "votedFor": "Voted for",
-    "votes": "Votes",
-    "votingHistory": "Voting history"
-  },
-  "voterLeaderboard": {
-    "addressesByVotingWeight": "Addresses by Voting Weight",
-    "columns": {
-      "proposalsVoted": "Proposals Voted",
-      "rank": "Rank",
-      "votes": "Votes",
-      "voteWeight": "Vote Weight"
-    }
+    "description": "Description"
   },
   "voteSummary": {
     "addresses": "{{length}} addresses",
