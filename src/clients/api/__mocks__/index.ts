@@ -120,6 +120,9 @@ export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, 
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
+export const getProposal = jest.fn();
+export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
+
 export const getDailyXvsWei = jest.fn();
 export const useGetDailyXvsWei = () =>
   useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);

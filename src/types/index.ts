@@ -142,6 +142,7 @@ export interface IProposal {
   executedTxHash: string | undefined;
   queuedTxHash: string | undefined;
   startTxHash: string | undefined;
+  totalVotesWei: BigNumber;
 }
 
 export interface IPool {
