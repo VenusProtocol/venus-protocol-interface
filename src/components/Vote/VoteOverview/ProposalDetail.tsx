@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import { Card } from 'components/Basic/Card';
 import { Label } from 'components/Basic/Label';
-import { uid } from 'react-uid';
 import { ProposalInfo } from '../types';
 
 const ProposalDetailWrapper = styled.div`
@@ -47,9 +46,8 @@ function ProposalDetail({ proposalInfo }: ProposalDetailProps) {
             Operation
           </Label>
           <Label size="14">
-            {/**/}
             {(proposalInfo.actions || []).map((s: $TSFixMe) => (
-              <ReactMarkdown className="proposal-detail" key={uid(s)}>
+              <ReactMarkdown className="proposal-detail" key={JSON.stringify(proposalInfo)}>
                 {s.title}
               </ReactMarkdown>
             ))}
