@@ -529,6 +529,10 @@
     "reward": "Reward:",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
+    "successfulTransactionModal": {
+      "description": "You successfully claimed your reward",
+      "title": "Your claim was successful"
+    },
     "totalStaked": "Total Staked",
     "withdrawButton": "Withdraw",
     "youAreStaking": "You are staking"
@@ -588,7 +592,6 @@
       "canceled": "Canceled",
       "cancelled": "Cancelled",
       "created": "Created",
-      "dateAndTime": "{{date,}}",
       "dateOnly": "{{date, dd MMM yyyy}}",
       "defeated": "Defeated",
       "execute": "Execute",
