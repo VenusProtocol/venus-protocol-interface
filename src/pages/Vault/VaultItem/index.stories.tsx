@@ -29,6 +29,7 @@ export const Default = () => (
     onStake={noop}
     onWithdraw={noop}
     closeActiveModal={noop}
+    isClaimRewardLoading={false}
   />
 );
 
@@ -45,5 +46,6 @@ export const WithPendingReward = () => (
     onStake={noop}
     onWithdraw={noop}
     closeActiveModal={noop}
+    isClaimRewardLoading={false}
   />
 );
