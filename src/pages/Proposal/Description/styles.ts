@@ -1,10 +1,13 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
+import { FONTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {
   const theme = useTheme();
   return {
     root: css`
+      padding-bottom: ${theme.spacing(8)};
+
       /* add custom styles for specific markdown elements if needed */
       p {
         color: ${theme.palette.text.primary};
@@ -12,7 +15,10 @@ export const useStyles = () => {
     `,
 
     markdown: css`
+      margin-top: ${theme.spacing(2)};
       background-color: ${theme.palette.background.paper};
+      font-family: ${FONTS.primary};
+      max-width: ${theme.spacing(200)};
     `,
   };
 };
