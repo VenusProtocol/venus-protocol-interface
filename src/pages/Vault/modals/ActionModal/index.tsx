@@ -8,7 +8,6 @@ export interface IActionModalProps extends Pick<IModalProps, 'handleClose'>, ITr
   title: IModalProps['title'];
   isInitialLoading: boolean;
   connectWalletMessage: string;
-  spenderAddress?: string;
   tokenNeedsToBeEnabled?: boolean;
   enableTokenMessage?: string;
 }
@@ -16,7 +15,6 @@ export interface IActionModalProps extends Pick<IModalProps, 'handleClose'>, ITr
 const ActionModal: React.FC<IActionModalProps> = ({
   handleClose,
   tokenId,
-  spenderAddress,
   isInitialLoading,
   title,
   connectWalletMessage,
@@ -26,8 +24,8 @@ const ActionModal: React.FC<IActionModalProps> = ({
 }) => {
   const transactionFormDom = <TransactionForm tokenId={tokenId} {...otherTransactionFormProps} />;
   const content =
-    tokenNeedsToBeEnabled && !!enableTokenMessage && !!spenderAddress ? (
-      <EnableToken title={enableTokenMessage} vTokenId={tokenId} spenderAddress={spenderAddress}>
+    tokenNeedsToBeEnabled && !!enableTokenMessage ? (
+      <EnableToken title={enableTokenMessage} vTokenId={tokenId}>
         {transactionFormDom}
       </EnableToken>
     ) : (

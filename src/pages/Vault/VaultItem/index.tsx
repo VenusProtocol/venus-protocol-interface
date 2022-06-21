@@ -1,6 +1,6 @@
 // VaultItemUi
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState, useContext } from 'react';
+import React, { useMemo, useState } from 'react';
 import BigNumber from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -15,10 +15,10 @@ import { convertWeiToCoins, formatToReadablePercentage, getToken } from 'utiliti
 import TEST_IDS from 'constants/testIds';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
-import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
+import { StakeModal } from '../modals';
 import { useStyles } from './styles';
 
-type ActiveModal = 'stake' | 'withdraw';
+type ActiveModal = 'stake' | 'withdraw' | 'claimReward';
 
 export interface IVaultItemUiProps {
   stakedTokenId: TokenId;
@@ -26,12 +26,10 @@ export interface IVaultItemUiProps {
   stakingAprPercentage: number;
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;
-  onClaimReward: () => Promise<TransactionReceipt>;
+  onClaimReward: () => void;
   onStake: () => void;
-  onWithdraw: () => Promise<TransactionReceipt | void>;
+  onWithdraw: () => void;
   closeActiveModal: () => void;
-  isClaimRewardLoading: boolean;
-  isWithdrawLoading?: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
   userPendingRewardWei?: BigNumber;
@@ -52,8 +50,6 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   onWithdraw,
   activeModal,
   poolIndex,
-  isClaimRewardLoading,
-  isWithdrawLoading,
   closeActiveModal,
   className,
 }) => {
@@ -144,76 +140,122 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   );
 
   return (
-    <Paper css={styles.container} className={className}>
-      <div css={styles.header}>
-        <div css={styles.title}>
-          <Icon css={styles.tokenIcon} name={stakedTokenId} />
-
-          <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.vault.vaultItem.symbol}>
-            {getToken(stakedTokenId).symbol}
-          </Typography>
-        </div>
-
-        {userPendingRewardWei?.isGreaterThan(0) && (
-          <div css={styles.rewardWrapper}>
-            <Typography css={styles.text}>{t('vaultItem.reward')}</Typography>
-
-            <Icon css={[styles.tokenIcon, styles.tokenIconReward]} name={rewardTokenId} />
+    <>
+      <Paper css={styles.container} className={className}>
+        <div css={styles.header}>
+          <div css={styles.title}>
+            <Icon css={styles.tokenIcon} name={stakedTokenId} />
 
             <Typography
-              css={[styles.text, styles.textRewardValue]}
-              variant="body1"
-              color="textPrimary"
-              data-testid={TEST_IDS.vault.vaultItem.userPendingRewardTokens}
+              variant="h4"
+              css={styles.text}
+              data-testid={TEST_IDS.vault.vaultItem.symbol}
             >
               {getToken(stakedTokenId).symbol}
             </Typography>
           </div>
-        )}
-      </div>
 
-      <Typography variant="small2" css={[styles.label, styles.stakingLabel]}>
-        {t('vaultItem.youAreStaking')}
-      </Typography>
+          {userPendingRewardWei?.isGreaterThan(0) && (
+            <div css={styles.rewardWrapper}>
+              <Typography css={styles.text}>{t('vaultItem.reward')}</Typography>
 
-      <Typography
-        variant="h1"
-        css={styles.textStakingValue}
-        data-testid={TEST_IDS.vault.vaultItem.userStakedTokens}
-      >
-        <Icon css={[styles.tokenIconLarge]} name={stakedTokenId} />
+              <Icon css={[styles.tokenIcon, styles.tokenIconWithdraw]} name={rewardTokenId} />
 
-        {readableUserStakedTokens}
-      </Typography>
+              <Typography
+                css={[styles.text, styles.textRewardValue]}
+                variant="body1"
+                color="textPrimary"
+                data-testid={TEST_IDS.vault.vaultItem.userPendingRewardTokens}
+              >
+                {readableUserPendingRewardTokens}
+              </Typography>
 
-      <ul css={styles.dataRow}>
-        {dataListItems.map(({ title, value }) => (
-          <li key={title} css={styles.valueWrapper}>
-            <Typography variant="small2" css={styles.label}>
-              {title}
-            </Typography>
+              <Button onClick={onClaimReward} variant="text" css={styles.buttonClaim}>
+                {t('vaultItem.claimButton')}
+              </Button>
+            </div>
+          )}
+        </div>
 
-            <Typography
-              variant="h4"
-              css={styles.textAligned}
-              data-testid={TEST_IDS.vault.vaultItem.dataListItem}
-            >
-              {value}
-            </Typography>
-          </li>
-        ))}
-      </ul>
+        <Typography variant="small2" css={[styles.label, styles.stakingLabel]}>
+          {t('vaultItem.youAreStaking')}
+        </Typography>
 
-      <div css={styles.buttonsWrapper}>
-        <Button onClick={onStake} css={styles.button} variant="primary">
-          {t('vaultItem.stakeButton')}
-        </Button>
+        <Typography
+          variant="h1"
+          css={styles.textStakingValue}
+          data-testid={TEST_IDS.vault.vaultItem.userStakedTokens}
+        >
+          <Icon css={[styles.tokenIconLarge]} name={stakedTokenId} />
 
-        <Button onClick={onReward} css={styles.button} variant="secondary">
-          {t('vaultItem.withdrawButton')}
-        </Button>
-      </div>
-    </Paper>
+          {readableUserStakedTokens}
+        </Typography>
+
+        <ul css={styles.dataRow}>
+          {dataListItems.map(({ title, value }) => (
+            <li key={title} css={styles.valueWrapper}>
+              <Typography variant="small2" css={styles.label}>
+                {title}
+              </Typography>
+
+              <Typography
+                variant="h4"
+                css={styles.textAligned}
+                data-testid={TEST_IDS.vault.vaultItem.dataListItem}
+              >
+                {value}
+              </Typography>
+            </li>
+          ))}
+        </ul>
+
+        <div css={styles.buttonsWrapper}>
+          <Button onClick={onStake} css={styles.button} variant="primary">
+            {t('vaultItem.stakeButton')}
+          </Button>
+
+          <Button onClick={onWithdraw} css={styles.button} variant="secondary">
+            {t('vaultItem.withdrawButton')}
+          </Button>
+        </div>
+      </Paper>
+
+      {activeModal === 'stake' && (
+        <StakeModal
+          stakedTokenId={stakedTokenId}
+          rewardTokenId={rewardTokenId}
+          handleClose={closeActiveModal}
+          poolIndex={poolIndex}
+        />
+      )}
+
+      {/* TODO: add other modals (see VEN-251) */}
+    </>
+  );
+};
+
+const VaultItem: React.FC<
+  Omit<
+    IVaultItemUiProps,
+    'onClaimReward' | 'onStake' | 'onWithdraw' | 'closeActiveModal' | 'activeModal'
+  >
+> = vaultItemUiProps => {
+  const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
+
+  const onClaimReward = () => setActiveModal('claimReward');
+  const onStake = () => setActiveModal('stake');
+  const onWithdraw = () => setActiveModal('withdraw');
+  const closeActiveModal = () => setActiveModal(undefined);
+
+  return (
+    <VaultItemUi
+      onClaimReward={onClaimReward}
+      onStake={onStake}
+      onWithdraw={onWithdraw}
+      activeModal={activeModal}
+      closeActiveModal={closeActiveModal}
+      {...vaultItemUiProps}
+    />
   );
 };
 

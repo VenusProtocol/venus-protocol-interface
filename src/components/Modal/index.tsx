@@ -19,7 +19,7 @@ export const Modal: React.FC<IModalProps> = ({
   className,
   children,
   handleClose,
-  handleBackAction,
+  handleBackAction = undefined,
   isOpen,
   title,
   noHorizontalPadding,

@@ -2,8 +2,6 @@ import React from 'react';
 import noop from 'noop-ts';
 import BigNumber from 'bignumber.js';
 
-import fakeAddress from '__mocks__/models/address';
-import { getContractAddress } from 'utilities';
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
 import ActionModal, { IActionModalProps } from '.';
@@ -22,7 +20,7 @@ const authContext = {
   openAuthModal: noop,
   closeAuthModal: noop,
   account: {
-    address: fakeAddress,
+    address: '0x0000000000000000000000000000000000000000',
   },
 };
 
@@ -40,14 +38,7 @@ Default.args = {
   submitButtonDisabledLabel: 'Enter a valid amount to stake',
   connectWalletMessage: 'Please connect your wallet to stake',
 };
-Default.decorators = [
-  withAuthContext(authContext),
-  withEnabledToken({
-    tokenId: 'vai',
-    accountAddress: fakeAddress,
-    spenderAddress: getContractAddress('vaiUnitroller'),
-  }),
-];
+Default.decorators = [withAuthContext(authContext), withEnabledToken('vai')];
 
 export const WithoutConnectedAccount = Template.bind({});
 WithoutConnectedAccount.args = {
@@ -96,11 +87,4 @@ WithIsInitialLoading.args = {
   submitButtonDisabledLabel: 'Enter a valid amount to stake',
   connectWalletMessage: 'Please connect your wallet to stake',
 };
-WithIsInitialLoading.decorators = [
-  withAuthContext(authContext),
-  withEnabledToken({
-    tokenId: 'vai',
-    accountAddress: fakeAddress,
-    spenderAddress: getContractAddress('vaiUnitroller'),
-  }),
-];
+WithIsInitialLoading.decorators = [withAuthContext(authContext), withEnabledToken('vai')];

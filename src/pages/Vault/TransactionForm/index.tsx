@@ -3,13 +3,15 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent } from 'components';
+import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent, toast } from 'components';
 import { AmountForm } from 'containers/AmountForm';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { TokenId } from 'types';
 import { useTranslation } from 'translation';
-import { convertWeiToCoins } from 'utilities';
-import TEST_IDS from 'constants/testIds';
+import { convertWeiToCoins, convertCoinsToWei } from 'utilities';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import TEST_IDS from 'constants/testIds';
 import { useStyles } from './styles';
 
 export interface ITransactionFormProps {
@@ -40,7 +42,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const handleTransactionMutation = useHandleTransactionMutation();
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const stringifiedAvailableTokens = React.useMemo(
     () =>
@@ -69,23 +71,36 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
   }, [lockingPeriodMs?.toFixed()]);
 
   const handleSubmit = async (amountTokens: string) => {
-    const amountWei = convertTokensToWei({
-      value: new BigNumber(amountTokens),
-      tokenId,
-    });
+    try {
+      const amountWei = convertCoinsToWei({
+        value: new BigNumber(amountTokens),
+        tokenId,
+      });
 
-    return handleTransactionMutation({
-      mutate: () => onSubmit(amountWei),
-      successTransactionModalProps: transactionReceipt => ({
-        title: successfulTransactionTitle,
-        content: successfulTransactionDescription,
-        amount: {
-          valueWei: amountWei,
-          tokenId,
-        },
-        transactionHash: transactionReceipt.transactionHash,
-      }),
-    });
+      // Submit form
+      const res = await onSubmit(amountWei);
+
+      // Display successful transaction modal
+      if (res) {
+        openSuccessfulTransactionModal({
+          title: successfulTransactionTitle,
+          content: successfulTransactionDescription,
+          amount: {
+            valueWei: amountWei,
+            tokenId,
+          },
+          transactionHash: res.transactionHash,
+        });
+      }
+    } catch (error) {
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({
+        message,
+      });
+    }
   };
 
   return (
@@ -101,7 +116,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
               valueOnClick: stringifiedAvailableTokens,
             }}
             max={stringifiedAvailableTokens}
-            data-testid={TEST_IDS.vault.transactionForm}
+            data-testid={TEST_IDS.vault.transactionForm.tokenTextField}
             css={styles.tokenTextField}
           />
 

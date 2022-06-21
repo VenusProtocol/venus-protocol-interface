@@ -5,7 +5,6 @@ import { waitFor } from '@testing-library/react';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import TEST_IDS from 'constants/testIds';
-import mainContractAddresses from 'constants/contracts/addresses/main.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import { getAllowance } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
@@ -27,7 +26,6 @@ const baseProps: IActionModalProps = {
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeEnabled: true,
   enableTokenMessage: 'Fake enable token message',
-  spenderAddress: mainContractAddresses.xvsVaultProxy[97],
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
 };

@@ -8,12 +8,12 @@ import MAX_UINT256 from 'constants/maxUint256';
 import fakeAccountAddress from '__mocks__/models/address';
 import { getBalanceOf, getAllowance } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
-import useStakeInVault from 'hooks/useStakeInVault';
+import useStakeWeiInVault from 'hooks/useStakeWeiInVault';
 import en from 'translation/translations/en.json';
 import StakeModal, { IStakeModalProps } from '.';
 
 jest.mock('clients/api');
-jest.mock('hooks/useStakeInVault');
+jest.mock('hooks/useStakeWeiInVault');
 
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
@@ -57,11 +57,7 @@ describe('pages/Vault/modals/StakeModal', () => {
       handleClose: jest.fn(),
     };
 
-    const { stake } = useStakeInVault({
-      stakedTokenId: customProps.stakedTokenId,
-      rewardTokenId: customProps.rewardTokenId,
-      poolIndex: customProps.poolIndex,
-    });
+    const { stake } = useStakeWeiInVault({ stakedTokenId: customProps.stakedTokenId });
 
     const { getByTestId, getByText } = renderComponent(<StakeModal {...customProps} />, {
       authContextValue: {
@@ -94,6 +90,8 @@ describe('pages/Vault/modals/StakeModal', () => {
     expect(stake).toHaveBeenCalledWith({
       accountAddress: fakeAccountAddress,
       amountWei: fakeStakedWei,
+      poolIndex: customProps.poolIndex,
+      rewardTokenId: customProps.rewardTokenId,
     });
 
     await waitFor(() => expect(customProps.handleClose).toHaveBeenCalledTimes(1));

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { Vault, TokenId } from 'types';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { convertWeiToCoins } from 'utilities';
+import { convertWeiToCoins, getContractAddress } from 'utilities';
 import {
   useGetBalanceOf,
   useGetVenusVaiVaultDailyRateWei,
@@ -62,7 +62,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
 
     const stakingAprPercentage = convertWeiToCoins({
       valueWei: vaiVaultDailyRateWei,
-      tokenId: XVS_TOKEN_ID,
+      tokenId: TOKENS.xvs.id as TokenId,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
       .multipliedBy(DAYS_PER_YEAR)
@@ -76,8 +76,8 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .toNumber();
 
     return {
-      rewardTokenId: XVS_TOKEN_ID,
-      stakedTokenId: VAI_TOKEN_ID,
+      rewardTokenId: TOKENS.xvs.id as TokenId,
+      stakedTokenId: TOKENS.vai.id as TokenId,
       dailyEmissionWei: vaiVaultDailyRateWei,
       totalStakedWei: totalVaiStakedWei,
       stakingAprPercentage,

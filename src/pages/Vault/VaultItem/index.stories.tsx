@@ -7,7 +7,7 @@ import { VaultItemUi } from '.';
 
 export default {
   title: 'Pages/Vault/VaultItem',
-  component: VaultItem,
+  component: VaultItemUi,
   decorators: [withCenterStory({ width: 800 }), withThemeProvider],
   parameters: {
     backgrounds: {
@@ -29,7 +29,6 @@ export const Default = () => (
     onStake={noop}
     onWithdraw={noop}
     closeActiveModal={noop}
-    isClaimRewardLoading={false}
   />
 );
 
@@ -46,6 +45,5 @@ export const WithPendingReward = () => (
     onStake={noop}
     onWithdraw={noop}
     closeActiveModal={noop}
-    isClaimRewardLoading={false}
   />
 );
