@@ -97,6 +97,18 @@ export { default as claimXvsVaultReward } from './mutations/claimXvsVaultReward'
 export * from './mutations/claimXvsVaultReward';
 export { default as useClaimXvsVaultReward } from './mutations/useClaimXvsVaultReward';
 
+export { default as stakeWeiInXvsVault } from './mutations/stakeWeiInXvsVault';
+export * from './mutations/stakeWeiInXvsVault';
+export { default as useStakeWeiInXvsVault } from './mutations/useStakeWeiInXvsVault';
+
+export { default as stakeWeiInVaiVault } from './mutations/stakeWeiInVaiVault';
+export * from './mutations/stakeWeiInVaiVault';
+export { default as useStakeWeiInVaiVault } from './mutations/useStakeWeiInVaiVault';
+
+export { default as stakeWeiInVrtVault } from './mutations/stakeWeiInVrtVault';
+export * from './mutations/stakeWeiInVrtVault';
+export { default as useStakeWeiInVrtVault } from './mutations/useStakeWeiInVrtVault';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';

@@ -49,7 +49,7 @@ const DelegateModal: React.FC<IDelegateModalProps> = ({
 
   return (
     <Modal
-      isOpened={isOpen}
+      isOpen={isOpen}
       handleClose={onClose}
       title={previouslyDelegated ? t('vote.redelegateVoting') : t('vote.delegateVoting')}
     >

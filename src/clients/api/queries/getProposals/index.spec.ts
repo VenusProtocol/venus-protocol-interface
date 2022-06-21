@@ -1,4 +1,4 @@
-import { restService } from 'utilities/restService';
+import { restService } from 'utilities';
 import proposalResponse from '__mocks__/api/proposals.json';
 import { VError } from 'errors';
 import getProposals from '.';

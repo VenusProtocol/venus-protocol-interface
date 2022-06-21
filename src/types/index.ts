@@ -259,4 +259,5 @@ export interface Vault {
   lockingPeriodMs?: number;
   userStakedWei?: BigNumber;
   userPendingRewardWei?: BigNumber;
+  poolIndex?: number;
 }

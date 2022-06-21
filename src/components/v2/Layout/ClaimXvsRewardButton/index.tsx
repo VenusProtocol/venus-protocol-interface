@@ -19,13 +19,13 @@ import { useStyles } from './styles';
 const XVS_SYMBOL = 'xvs';
 
 export interface IClaimXvsRewardButton extends Omit<IButtonProps, 'onClick'> {
-  onClaim: () => Promise<string | undefined>;
+  onClaimReward: () => Promise<string | undefined>;
   amountWei?: BigNumber;
 }
 
 export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   amountWei,
-  onClaim,
+  onClaimReward,
   ...otherProps
 }) => {
   const { t, Trans } = useTranslation();
@@ -46,7 +46,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
   const handleClick = async () => {
     try {
-      const transactionHash = await onClaim();
+      const transactionHash = await onClaimReward();
       if (transactionHash) {
         // Display successful transaction modal
         openSuccessfulTransactionModal({
@@ -111,7 +111,7 @@ export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
     <ClaimXvsRewardButtonUi
       amountWei={xvsRewardWei}
       loading={isClaimXvsRewardLoading}
-      onClaim={handleClaim}
+      onClaimReward={handleClaim}
       {...props}
     />
   );

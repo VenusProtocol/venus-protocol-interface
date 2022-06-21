@@ -1,4 +1,4 @@
-import { restService } from 'utilities/restService';
+import { restService } from 'utilities';
 import { MarketSnapshot } from 'types';
 import getMarketHistory from './getMarketHistory';
 

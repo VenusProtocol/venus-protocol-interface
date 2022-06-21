@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useTranslation } from 'translation';
 import { AuthContext } from 'context/AuthContext';
-import { truncateAddress } from 'utilities/truncateAddress';
+import { truncateAddress } from 'utilities';
 import { SecondaryButton, IButtonProps } from '../../Button';
 
 export interface IConnectButton extends IButtonProps {
