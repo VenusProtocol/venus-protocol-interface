@@ -1,6 +1,6 @@
 import { restService } from 'utilities';
 import { VError } from 'errors';
-import formatToVoters from './formatToVoters';
+import formatToVoter from './formatToVoter';
 import { IGetVotersInput, IGetVotersApiResponse, GetVotersOutput } from './types';
 
 export * from './types';
@@ -36,7 +36,7 @@ const getVoters = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  return formatToVoters(payload);
+  return formatToVoter(payload);
 };
 
 export default getVoters;
