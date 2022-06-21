@@ -8,7 +8,7 @@ import { useModalStyles } from './styles';
 
 export interface IModalProps extends Omit<ModalProps, 'title' | 'open'> {
   className?: string;
-  isOpened: boolean;
+  isOpen: boolean;
   handleClose: () => void;
   handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
@@ -20,7 +20,7 @@ export const Modal: React.FC<IModalProps> = ({
   children,
   handleClose,
   handleBackAction = undefined,
-  isOpened,
+  isOpen,
   title,
   noHorizontalPadding,
   ...otherModalProps
@@ -28,7 +28,7 @@ export const Modal: React.FC<IModalProps> = ({
   const s = useModalStyles({ hasTitleComponent: Boolean(title), noHorizontalPadding });
   return (
     <MUIModal
-      open={isOpened}
+      open={isOpen}
       onClose={handleClose}
       onBackdropClick={handleClose}
       closeAfterTransition
@@ -39,7 +39,7 @@ export const Modal: React.FC<IModalProps> = ({
       disablePortal={!!process.env.STORYBOOK}
       {...otherModalProps}
     >
-      <Fade in={isOpened}>
+      <Fade in={isOpen}>
         <div css={s.box} className={className}>
           <div css={s.titleWrapper}>
             {!!handleBackAction && (

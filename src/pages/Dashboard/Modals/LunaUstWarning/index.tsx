@@ -15,7 +15,7 @@ const LunaUstWarningModal: React.FC<ILunaUstWarningModalProps> = ({ onClose }) =
   const { t } = useTranslation();
 
   return (
-    <Modal isOpened title={t('dashboard.lunaUstWarningModal.title')} handleClose={onClose}>
+    <Modal isOpen title={t('dashboard.lunaUstWarningModal.title')} handleClose={onClose}>
       <Typography css={styles.text}>{t('dashboard.lunaUstWarningModal.content')}</Typography>
     </Modal>
   );

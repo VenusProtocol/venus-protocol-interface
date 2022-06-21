@@ -23,7 +23,7 @@ export const CollateralConfirmModal: React.FC<IConfirmCollateralModalProps> = ({
     : t('markets.collateralConfirmModal.enable', { asset: asset?.symbol });
 
   return (
-    <Modal className="venus-modal" isOpened={!!asset} handleClose={handleClose} title={title}>
+    <Modal className="venus-modal" isOpen={!!asset} handleClose={handleClose} title={title}>
       <section css={styles.collateralModalContainer}>
         <LogoWithText className="logo" />
         <Icon className="voting-spinner" name="loading" size="28px" css={styles.loadingIcon} />

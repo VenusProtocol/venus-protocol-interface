@@ -31,14 +31,14 @@ const ModalContentScrollable = () => (
 export const ModalDefault = Template.bind({});
 ModalDefault.args = {
   handleClose: console.log,
-  isOpened: true,
+  isOpen: true,
   children: <ModalContent />,
 };
 
 export const ModalWithTitle = Template.bind({});
 ModalWithTitle.args = {
   handleClose: console.log,
-  isOpened: true,
+  isOpen: true,
   children: <ModalContent />,
   title: <>Title component</>,
 };
@@ -46,7 +46,7 @@ ModalWithTitle.args = {
 export const ModalWithBackButton = Template.bind({});
 ModalWithBackButton.args = {
   handleClose: console.log,
-  isOpened: true,
+  isOpen: true,
   children: <ModalContent />,
   title: <>Title component</>,
   handleBackAction: console.log,
@@ -55,7 +55,7 @@ ModalWithBackButton.args = {
 export const ModalWithNoHorizontalPadding = Template.bind({});
 ModalWithNoHorizontalPadding.args = {
   handleClose: console.log,
-  isOpened: true,
+  isOpen: true,
   children: <ModalContent />,
   title: <>Title component</>,
   noHorizontalPadding: true,
@@ -64,7 +64,7 @@ ModalWithNoHorizontalPadding.args = {
 export const ModalWithScrollAndTitle = Template.bind({});
 ModalWithScrollAndTitle.args = {
   handleClose: console.log,
-  isOpened: true,
+  isOpen: true,
   children: <ModalContentScrollable />,
   title: <>Title component</>,
 };
@@ -72,6 +72,6 @@ ModalWithScrollAndTitle.args = {
 export const ModalWithScroll = Template.bind({});
 ModalWithScroll.args = {
   handleClose: console.log,
-  isOpened: true,
+  isOpen: true,
   children: <ModalContentScrollable />,
 };

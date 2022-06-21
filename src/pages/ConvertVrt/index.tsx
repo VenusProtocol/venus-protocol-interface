@@ -73,7 +73,6 @@ export const ConvertVrtUi = ({
 
 const ConvertVrt = () => {
   const { account } = useContext(AuthContext);
-  const { t } = useTranslation();
   const accountAddress = account?.address;
   const { data: vrtConversionEndTime } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatio } = useGetVrtConversionRatio();
@@ -93,7 +92,7 @@ const ConvertVrt = () => {
 
   const handleConvertVrt = async (amount: string) => {
     if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
     const res = await convertVrt({
       amountWei: amount,
@@ -104,7 +103,7 @@ const ConvertVrt = () => {
 
   const handleWithdrawXvs = async () => {
     if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
     const res = await withdrawXvs({
       accountAddress,

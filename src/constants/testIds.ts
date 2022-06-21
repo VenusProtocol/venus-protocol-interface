@@ -16,6 +16,8 @@ const TEST_IDS = {
   vault: {
     transactionForm: {
       tokenTextField: 'vault-transaction-form-token-text-field',
+      availableTokens: 'vault-transaction-form-available-tokens',
+      lockingPeriod: 'vault-transaction-form-locking-period',
     },
     vaultItem: {
       symbol: 'vault-vault-item-symbol',

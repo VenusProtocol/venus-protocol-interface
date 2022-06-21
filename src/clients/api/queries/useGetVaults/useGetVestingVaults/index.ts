@@ -168,6 +168,7 @@ const useGetVestingVaults = ({
             stakingAprPercentage,
             userStakedWei,
             userPendingRewardWei,
+            poolIndex,
           };
 
           return [...acc, vault];
