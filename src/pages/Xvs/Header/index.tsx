@@ -14,8 +14,8 @@ import {
   getToken,
   generateBscScanUrl,
   getContractAddress,
-  convertWeiToCoins,
-  formatCoinsToReadableValue,
+  convertWeiToTokens,
+  formatTokensToReadableValue,
 } from 'utilities';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
@@ -45,19 +45,19 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   const { t } = useTranslation();
 
   const readableDailyDistribution = useMemo(() => {
-    const dailyVenusTokens = convertWeiToCoins({
+    const dailyVenusTokens = convertWeiToTokens({
       valueWei: dailyVenusWei,
       tokenId: 'xvs',
     });
 
-    const venusVaiVaultDailyRateTokens = convertWeiToCoins({
+    const venusVaiVaultDailyRateTokens = convertWeiToTokens({
       valueWei: venusVaiVaultDailyRateWei,
       tokenId: 'xvs',
     });
 
     const dailyDistribution = dailyVenusTokens.plus(venusVaiVaultDailyRateTokens);
 
-    return formatCoinsToReadableValue({
+    return formatTokensToReadableValue({
       value: dailyDistribution,
       tokenId: 'xvs',
       minimizeDecimals: true,
@@ -66,7 +66,7 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
 
   const readableRemainingDistribution = useMemo(
     () =>
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: remainingDistributionWei,
         tokenId: 'xvs',
         returnInReadableFormat: true,

@@ -20,8 +20,8 @@ import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
   format,
-  convertCoinsToWei,
-  formatCoinsToReadableValue,
+  convertTokensToWei,
+  formatTokensToReadableValue,
   calculateYearlyEarningsForAssets,
   calculateDailyEarningsCents,
   calculateCollateralValue,
@@ -81,7 +81,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
 
     if (tokenPrice && validAmount) {
       const amountInCents = calculateCollateralValue({
-        amountWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
+        amountWei: convertTokensToWei({ value: amount, tokenId: asset.id }),
         tokenId: asset.id,
         tokenPriceTokens: asset.tokenPrice,
         collateralFactor: asset.collateralFactor,
@@ -205,7 +205,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
           original={asset.supplyBalance}
           update={hypotheticalTokenSupplyBalance}
           format={(value: BigNumber | undefined) =>
-            formatCoinsToReadableValue({
+            formatTokensToReadableValue({
               value,
               tokenId: asset.id,
               minimizeDecimals: true,

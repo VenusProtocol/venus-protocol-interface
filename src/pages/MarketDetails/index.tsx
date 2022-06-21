@@ -9,8 +9,7 @@ import {
   getVBepToken,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  formatCommaThousandsPeriodDecimal,
+  formatTokensToReadableValue,
 } from 'utilities';
 import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';
@@ -36,7 +35,7 @@ export interface IMarketDetailsUiProps {
   supplyApyPercentage?: BigNumber;
   borrowDistributionApyPercentage?: number;
   supplyDistributionApyPercentage?: number;
-  tokenPriceDollars?: string;
+  tokenPriceDollars?: BigNumber;
   liquidityCents?: BigNumber;
   supplierCount?: number;
   borrowerCount?: number;
@@ -156,9 +155,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       {
         label: t('marketDetails.marketInfo.stats.priceLabel'),
         value:
-          tokenPriceDollars === undefined
-            ? PLACEHOLDER_KEY
-            : `$${formatCommaThousandsPeriodDecimal(tokenPriceDollars)}`,
+          tokenPriceDollars === undefined ? PLACEHOLDER_KEY : `$${tokenPriceDollars.toFormat(2)}`,
       },
       {
         label: t('marketDetails.marketInfo.stats.marketLiquidityLabel'),
@@ -191,7 +188,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       },
       {
         label: t('marketDetails.marketInfo.stats.reserveTokensLabel'),
-        value: formatCoinsToReadableValue({
+        value: formatTokensToReadableValue({
           value: reserveTokens,
           minimizeDecimals: true,
           tokenId: vTokenId,
@@ -209,7 +206,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         label: t('marketDetails.marketInfo.stats.mintedTokensLabel', {
           vTokenSymbol: vToken.symbol,
         }),
-        value: formatCoinsToReadableValue({
+        value: formatTokensToReadableValue({
           value: mintedTokens,
           minimizeDecimals: true,
           addSymbol: false,

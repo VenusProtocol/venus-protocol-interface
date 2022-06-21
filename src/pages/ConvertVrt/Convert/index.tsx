@@ -15,11 +15,11 @@ import {
 import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VError } from 'errors/VError';
-import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
 import { VRT_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 
@@ -42,26 +42,26 @@ const Convert: React.FC<IConvertProps> = ({
   const { t, Trans } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const readableXvsAvailable = useConvertToReadableCoinString({
+  const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsToVrtConversionRatio && userVrtBalanceWei?.times(xvsToVrtConversionRatio),
     tokenId: XVS_TOKEN_ID,
   });
 
   const readableUserVrtBalance = useMemo(() => {
-    const userVrtBalanceCoins =
+    const userVrtBalanceTokens =
       userVrtBalanceWei &&
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: userVrtBalanceWei,
         tokenId: VRT_ID,
       });
 
-    return formatCoinsToReadableValue({
-      value: userVrtBalanceCoins,
+    return formatTokensToReadableValue({
+      value: userVrtBalanceTokens,
       tokenId: VRT_ID,
     });
   }, [userVrtBalanceWei?.toFixed()]);
 
-  useConvertToReadableCoinString({
+  useConvertWeiToReadableTokenString({
     valueWei: userVrtBalanceWei,
     tokenId: VRT_ID,
   });
@@ -76,7 +76,7 @@ const Convert: React.FC<IConvertProps> = ({
 
   const onSubmit = async (vrtAmount: string) => {
     try {
-      const vrtAmountWei = convertCoinsToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
+      const vrtAmountWei = convertTokensToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
       const transactionHash = await convertVrt(vrtAmountWei.toFixed());
       // Display successful transaction modal
       if (!xvsToVrtConversionRatio) {
@@ -96,7 +96,7 @@ const Convert: React.FC<IConvertProps> = ({
           <div css={styles.successModalConversionAmounts}>
             <Icon name={VRT_ID} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
-              {convertWeiToCoins({
+              {convertWeiToTokens({
                 valueWei: vrtAmountWei,
                 tokenId: VRT_ID,
                 returnInReadableFormat: true,
@@ -106,7 +106,7 @@ const Convert: React.FC<IConvertProps> = ({
             <Icon name={XVS_TOKEN_ID} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {xvsAmountWei &&
-                convertWeiToCoins({
+                convertWeiToTokens({
                   valueWei: xvsAmountWei,
                   tokenId: XVS_TOKEN_ID,
                   returnInReadableFormat: true,
@@ -122,7 +122,7 @@ const Convert: React.FC<IConvertProps> = ({
 
   const userVrtBalance =
     userVrtBalanceWei &&
-    convertWeiToCoins({ valueWei: userVrtBalanceWei, tokenId: VRT_ID }).toFixed();
+    convertWeiToTokens({ valueWei: userVrtBalanceWei, tokenId: VRT_ID }).toFixed();
 
   return (
     <div css={styles.root}>

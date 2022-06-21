@@ -6,7 +6,7 @@ import { useTranslation } from 'translation';
 import { Market, TokenId } from 'types';
 import { useGetMarkets } from 'clients/api';
 import {
-  formatCoinsToReadableValue,
+  formatTokensToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
   convertPercentageFromSmartContract,
@@ -77,7 +77,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
                 value: market.treasuryTotalSupplyCents,
                 shortenLargeValue: true,
               })}
-              bottomValue={formatCoinsToReadableValue({
+              bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalSupplyCents.div(market.tokenPrice.times(100)),
                 tokenId: market.id as TokenId,
                 minimizeDecimals: true,
@@ -108,7 +108,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
                 value: market.treasuryTotalBorrowsCents,
                 shortenLargeValue: true,
               })}
-              bottomValue={formatCoinsToReadableValue({
+              bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalBorrowsCents.div(market.tokenPrice.times(100)),
                 tokenId: market.id as TokenId,
                 minimizeDecimals: true,

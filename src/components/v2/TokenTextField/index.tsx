@@ -34,10 +34,10 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
   const tokenDecimals = getToken(tokenId).decimals;
 
   const step = React.useMemo(() => {
-    const tmpOneCoinInWei = new BigNumber(10).pow(tokenDecimals);
-    const tmpOneWeiInCoins = new BigNumber(1).dividedBy(tmpOneCoinInWei);
+    const tmpOneTokenInWei = new BigNumber(10).pow(tokenDecimals);
+    const tmpOneWeiInTokens = new BigNumber(1).dividedBy(tmpOneTokenInWei);
 
-    return tmpOneWeiInCoins.toFixed();
+    return tmpOneWeiInTokens.toFixed();
   }, [tokenId]);
 
   const setMaxValue = (newValue: string) => {
@@ -65,7 +65,7 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
       type="number"
       leftIconName={tokenId as IconName}
       rightAdornment={
-        rightMaxButton && onChange ? (
+        rightMaxButton ? (
           <TertiaryButton
             onClick={() => setMaxValue(rightMaxButton.valueOnClick)}
             small
