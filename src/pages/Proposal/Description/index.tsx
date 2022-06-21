@@ -18,7 +18,7 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
   return (
     <Paper css={styles.root} className={className}>
       <Typography variant="h4" color="textSecondary">
-        {t('history.description')}
+        {t('voteProposalUi.description')}
       </Typography>
       <Markdown css={styles.markdown} content={description} />
     </Paper>

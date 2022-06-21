@@ -164,8 +164,7 @@
     "type": "Type",
     "typeColon": "Type:",
     "voteCast": "Vote Cast",
-    "withdraw": "Withdraw",
-    "description": "Description"
+    "withdraw": "Withdraw"
   },
   "interestRateChart": {
     "currentUtilizationRateLabelValue": "Current ({{percentage}})",
@@ -635,7 +634,8 @@
       "notVoted": "Not voted",
       "votedAgainst": "Voted against",
       "votedFor": "Voted for"
-    }
+    },
+    "description": "Description"
   },
   "voteSummary": {
     "addresses": "{{length}} addresses",
