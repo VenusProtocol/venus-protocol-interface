@@ -14,8 +14,8 @@ import {
   getToken,
   generateBscScanUrl,
   getContractAddress,
-  convertWeiToCoins,
-  formatCoinsToReadableValue,
+  convertWeiToTokens,
+  formatTokensToReadableValue,
 } from 'utilities';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';

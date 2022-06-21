@@ -20,7 +20,7 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VError } from 'errors/VError';
-import { convertCoinsToWei, convertWeiToCoins, formatCoinsToReadableValue } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
 import { VRT_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 
@@ -80,7 +80,7 @@ const Convert: React.FC<IConvertProps> = ({
   const onSubmit = async (vrtAmount: string) => {
     try {
       const vrtAmountWei = convertTokensToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
-      const transactionReceipt = await convertVrt(vrtAmountWei.toFixed());
+      const transactionHash = await convertVrt(vrtAmountWei.toFixed());
       // Display successful transaction modal
       if (!xvsToVrtConversionRatio) {
         // This should never happen because the form is not rendered without successfully fetching this

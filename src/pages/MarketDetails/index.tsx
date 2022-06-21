@@ -9,8 +9,7 @@ import {
   getVBepToken,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  formatCommaThousandsPeriodDecimal,
+  formatTokensToReadableValue,
 } from 'utilities';
 import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';

@@ -5,7 +5,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { convertCoinsToWei, convertWeiToCoins } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
@@ -74,7 +74,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     [mintFeePercentage],
   );
 
-  const onSubmit: IAmountFormProps['onSubmit'] = amountTokens => {
+  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
       tokenId: VAI_ID,

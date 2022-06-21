@@ -2,10 +2,8 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import type { TransactionReceipt } from 'web3-core/types';
-
-import { ConnectWallet, Icon, PrimaryButton } from 'components';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+import { ConnectWallet, Icon, PrimaryButton, toast } from 'components';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
@@ -24,7 +22,7 @@ const Withdraw: React.FC<IWithdrawProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsWithdrawableAmount,
     tokenId: XVS_TOKEN_ID,

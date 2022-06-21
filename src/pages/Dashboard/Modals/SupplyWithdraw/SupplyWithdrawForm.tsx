@@ -20,8 +20,8 @@ import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
   format,
-  convertCoinsToWei,
-  formatCoinsToReadableValue,
+  convertTokensToWei,
+  formatTokensToReadableValue,
   calculateYearlyEarningsForAssets,
   calculateDailyEarningsCents,
   calculateCollateralValue,

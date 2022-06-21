@@ -5,7 +5,7 @@ import { LabeledProgressBar } from 'components';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { useTranslation } from 'translation';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
-import { convertWeiToCoins } from 'utilities';
+import { convertWeiToTokens } from 'utilities';
 import { useStyles } from '../styles';
 
 interface IActiveVotingProgressProps {
@@ -26,6 +26,15 @@ const getValueString = (valueWei?: BigNumber) => {
   });
 };
 
+const getValueNumber = (valueWei?: BigNumber) => {
+  if (!valueWei) return 0;
+  return +convertWeiToTokens({
+    valueWei,
+    tokenId: XVS_TOKEN_ID,
+    returnInReadableFormat: false,
+  }).toFormat();
+};
+
 export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
   votedForWei,
   votedAgainstWei,
@@ -35,10 +44,14 @@ export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const votedTotalTokens = getValueNumber(votedTotalWei);
+
   const defaultProgressbarProps = {
     step: 1,
     min: 0,
-    max: 100,
+
+    // || 1 is used for rendering an empty progressbar for case when votedTotalTokens is 0
+    max: votedTotalTokens || 1,
   };
 
   const activeProposalVotingData = useMemo(

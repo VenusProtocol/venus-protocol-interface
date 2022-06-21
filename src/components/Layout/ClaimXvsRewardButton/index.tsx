@@ -9,7 +9,7 @@ import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { VError } from 'errors';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
 import TEST_IDS from 'constants/testIds';
 import { toast } from '../../Toast';

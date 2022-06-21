@@ -8,9 +8,9 @@ import { AmountForm } from 'containers/AmountForm';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { TokenId } from 'types';
 import { useTranslation } from 'translation';
-import { convertWeiToCoins, convertCoinsToWei } from 'utilities';
+import { convertWeiToTokens, convertTokensToWei } from 'utilities';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import TEST_IDS from 'constants/testIds';
 import { useStyles } from './styles';
 
@@ -72,7 +72,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
 
   const handleSubmit = async (amountTokens: string) => {
     try {
-      const amountWei = convertCoinsToWei({
+      const amountWei = convertTokensToWei({
         value: new BigNumber(amountTokens),
         tokenId,
       });

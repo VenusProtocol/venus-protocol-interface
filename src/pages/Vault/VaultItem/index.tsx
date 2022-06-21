@@ -10,9 +10,9 @@ import { VError } from 'errors';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import { convertWeiToCoins, formatToReadablePercentage, getToken } from 'utilities';
 import TEST_IDS from 'constants/testIds';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
 import { StakeModal } from '../modals';
@@ -55,28 +55,6 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  const handleTransactionMutation = useHandleTransactionMutation();
-
-  const handleClaimReward = () =>
-    handleTransactionMutation({
-      mutate: onClaimReward,
-      successTransactionModalProps: transactionReceipt => ({
-        title: t('vaultItem.successfulClaimRewardTransactionModal.title'),
-        content: t('vaultItem.successfulClaimRewardTransactionModal.description'),
-        transactionHash: transactionReceipt.transactionHash,
-      }),
-    });
-
-  const handleWithdraw = () =>
-    handleTransactionMutation({
-      mutate: onWithdraw,
-      successTransactionModalProps: transactionReceipt => ({
-        title: t('vaultItem.successfulWithdrawVrtTransactionModal.title'),
-        content: t('vaultItem.successfulWithdrawVrtTransactionModal.description'),
-        transactionHash: transactionReceipt.transactionHash,
-      }),
-    });
 
   const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
     valueWei: userPendingRewardWei,

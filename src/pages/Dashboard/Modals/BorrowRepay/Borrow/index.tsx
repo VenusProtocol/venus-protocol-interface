@@ -6,8 +6,8 @@ import type { TransactionReceipt } from 'web3-core/types';
 import {
   getToken,
   formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  convertCoinsToWei,
+  formatTokensToReadableValue,
+  convertTokensToWei,
 } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import TEST_IDS from 'constants/testIds';

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { formatCoinsToReadableValue } from 'utilities';
+import { formatTokensToReadableValue } from 'utilities';
 
 describe('utilities/formatTokensToReadableValue', () => {
   test('formats longhand value correctly', () => {

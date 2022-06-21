@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilities';
+import { formatTokensToReadableValue, formatToReadablePercentage } from 'utilities';
 import { Asset } from 'types';
 import { Table, TableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';

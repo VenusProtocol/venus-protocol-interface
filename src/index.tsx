@@ -5,4 +5,13 @@ import App from 'pages/App';
 
 import 'assets/styles/index.scss';
 
+// Initialize BigNumber format
+BigNumber.config({
+  FORMAT: {
+    decimalSeparator: '.',
+    groupSize: 3,
+    groupSeparator: ',',
+  },
+});
+
 ReactDOM.render(<App />, document.getElementById('root'));
