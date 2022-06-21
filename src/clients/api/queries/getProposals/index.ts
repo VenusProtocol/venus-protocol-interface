@@ -1,7 +1,7 @@
 import { restService } from 'utilities';
 import { VError } from 'errors';
 import formatToProposal from './formatToProposal';
-import { IGetProposalsInput, IProposalApiResponse, IGetProposalsOutput } from './types';
+import { IGetProposalsInput, IProposalsApiResponse, IGetProposalsOutput } from './types';
 
 export * from './types';
 
@@ -11,7 +11,7 @@ const getProposals = async ({
 }: IGetProposalsInput): Promise<IGetProposalsOutput> => {
   const offset = page * limit;
 
-  const response = await restService<IProposalApiResponse>({
+  const response = await restService<IProposalsApiResponse>({
     endpoint: '/proposals',
     method: 'GET',
     params: { offset, limit },

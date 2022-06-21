@@ -1,12 +1,13 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withRouter } from 'stories/decorators';
-import Proposal from '.';
+import proposals from '__mocks__/models/proposals';
+import { ProposalUi } from '.';
 
 export default {
   title: 'Pages/Proposal',
-  component: Proposal,
+  component: ProposalUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof Proposal>;
+} as ComponentMeta<typeof ProposalUi>;
 
-export const Default = () => <Proposal />;
+export const Default = () => <ProposalUi proposal={proposals[0]} />;
