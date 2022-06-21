@@ -185,6 +185,7 @@ export const useStyles = () => {
         border: 0;
         box-shadow: none;
         padding: 0;
+        top: 0 !important;
       }
     `,
     mobileListItem: css`
@@ -246,6 +247,7 @@ export const useStyles = () => {
       border: none;
       display: flex;
       justify-content: center;
+      padding: 0;
     `,
     mobileConnectButton: css`
       margin-left: ${theme.spacing(8)};
