@@ -28,7 +28,7 @@ const useClaimVaiVaultReward = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        queryClient.resetQueries(FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI);
+        queryClient.invalidateQueries(FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
