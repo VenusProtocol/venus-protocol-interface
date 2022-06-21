@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Paper, Typography } from '@mui/material';
 import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } from 'components';
+import { AuthContext } from 'context/AuthContext';
+import { useCancelProposal, useQueueProposal, useExectueProposal } from 'clients/api';
 import { IProposal } from 'types';
 import { useTranslation } from 'translation';
 import Stepper from './Stepper';
@@ -16,11 +18,23 @@ interface IProposalSummaryContainerProps {
   cancelProposal: () => void;
   executeProposal: () => void;
   queueProposal: () => void;
+  isCancelProposalLoading: boolean;
+  isExecuteProposalLoading: boolean;
+  isQueueProposalLoading: boolean;
 }
 
 export const ProposalSummaryUi: React.FC<
   IProposalSummaryUiProps & IProposalSummaryContainerProps
-> = ({ className, proposal, cancelProposal, queueProposal, executeProposal }) => {
+> = ({
+  className,
+  proposal,
+  cancelProposal,
+  queueProposal,
+  executeProposal,
+  isCancelProposalLoading,
+  isExecuteProposalLoading,
+  isQueueProposalLoading,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const {
@@ -46,7 +60,11 @@ export const ProposalSummaryUi: React.FC<
   switch (state) {
     case 'Active':
       updateProposalButton = (
-        <SecondaryButton onClick={cancelProposal} css={styles.updateProposalButton}>
+        <SecondaryButton
+          onClick={cancelProposal}
+          css={styles.updateProposalButton}
+          loading={isCancelProposalLoading}
+        >
           {t('voteProposalUi.cancel')}
         </SecondaryButton>
       );
@@ -57,14 +75,22 @@ export const ProposalSummaryUi: React.FC<
       break;
     case 'Succeeded':
       updateProposalButton = (
-        <PrimaryButton onClick={queueProposal} css={styles.updateProposalButton}>
+        <PrimaryButton
+          onClick={queueProposal}
+          css={styles.updateProposalButton}
+          loading={isQueueProposalLoading}
+        >
           {t('voteProposalUi.queue')}
         </PrimaryButton>
       );
       break;
     case 'Queued':
       updateProposalButton = (
-        <PrimaryButton onClick={executeProposal} css={styles.updateProposalButton}>
+        <PrimaryButton
+          onClick={executeProposal}
+          css={styles.updateProposalButton}
+          loading={isExecuteProposalLoading}
+        >
           {t('voteProposalUi.execute')}
         </PrimaryButton>
       );
@@ -117,16 +143,30 @@ export const ProposalSummaryUi: React.FC<
   );
 };
 
-const ProposalSummary: React.FC<IProposalSummaryUiProps> = props => {
-  const cancelProposal = () => {};
-  const executeProposal = () => {};
-  const queueProposal = () => {};
+const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposal }) => {
+  const { account } = useContext(AuthContext);
+  const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
+  const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
+    useExectueProposal();
+  const { mutateAsync: queueProposal, isLoading: isQueueProposalLoading } = useQueueProposal();
+
+  const handleCancelProposal = () =>
+    cancelProposal({ proposalId: proposal.id, accountAddress: account?.address || '' });
+  const handleExecuteProposal = () =>
+    executeProposal({ proposalId: proposal.id, accountAddress: account?.address || '' });
+  const handleQueueProposal = () =>
+    queueProposal({ proposalId: proposal.id, accountAddress: account?.address || '' });
+
   return (
     <ProposalSummaryUi
-      {...props}
-      cancelProposal={cancelProposal}
-      executeProposal={executeProposal}
-      queueProposal={queueProposal}
+      className={className}
+      proposal={proposal}
+      cancelProposal={handleCancelProposal}
+      executeProposal={handleExecuteProposal}
+      queueProposal={handleQueueProposal}
+      isCancelProposalLoading={isCancelProposalLoading}
+      isExecuteProposalLoading={isExecuteProposalLoading}
+      isQueueProposalLoading={isQueueProposalLoading}
     />
   );
 };
