@@ -40,7 +40,7 @@ describe('hooks/useClaimVaultReward', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on claim reward button
+    // Click on XVS vault button
     fireEvent.click(getByText(fakeClaimRewardButtonLabel));
 
     await waitFor(() => expect(claimXvsVaultReward).toHaveBeenCalledTimes(1));
@@ -75,7 +75,7 @@ describe('hooks/useClaimVaultReward', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on claim reward button
+    // Click on VAI vault button
     fireEvent.click(getByText(fakeClaimRewardButtonLabel));
 
     await waitFor(() => expect(claimVaiVaultReward).toHaveBeenCalledTimes(1));
@@ -108,7 +108,7 @@ describe('hooks/useClaimVaultReward', () => {
 
     const { getByText } = renderComponent(<TestComponent />);
 
-    // Click on claim reward button
+    // Click on VAI vault button
     fireEvent.click(getByText(fakeClaimRewardButtonLabel));
 
     await waitFor(() => expect(claimVrtVaultReward).toHaveBeenCalledTimes(1));
