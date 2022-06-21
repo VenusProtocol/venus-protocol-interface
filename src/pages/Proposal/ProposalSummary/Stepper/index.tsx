@@ -134,8 +134,8 @@ const Stepper: React.FC<IStepperProps> = ({
       {steps.map((step, idx) => {
         const completed = activeStepIndex > idx;
         return (
-          <>
-            <div key={step.getLabel()} css={styles.step}>
+          <React.Fragment key={step.getLabel()}>
+            <div css={styles.step}>
               <div css={styles.labelAndIcon}>
                 {completed ? (
                   step.completedIcon()
@@ -166,7 +166,7 @@ const Stepper: React.FC<IStepperProps> = ({
               )}
             </div>
             {idx + 1 !== steps.length && <div css={styles.connector} />}
-          </>
+          </React.Fragment>
         );
       })}
     </div>
