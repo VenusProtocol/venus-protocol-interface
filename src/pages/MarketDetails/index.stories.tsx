@@ -65,7 +65,7 @@ export const Default = () => (
     liquidityCents={new BigNumber(10000000000)}
     supplierCount={1234}
     borrowerCount={76}
-    borrowCapCents={812963286}
+    borrowCapTokens={new BigNumber(812963286)}
     dailyInterestsCents={123212}
     reserveTokens={new BigNumber(100000)}
     reserveFactor={20}
