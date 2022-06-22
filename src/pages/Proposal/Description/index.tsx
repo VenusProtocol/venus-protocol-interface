@@ -4,14 +4,16 @@ import { Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Markdown from 'components/v2/Markdown/Viewer';
 import { useTranslation } from 'translation';
+import { DescriptionV1, DescriptionV2, IProposalAction } from 'types';
 import { useStyles } from './styles';
 
 interface IDescriptionSummary {
   className?: string;
-  description: string;
+  description: DescriptionV1 | DescriptionV2;
+  actions: IProposalAction[];
 }
 
-export const Description: React.FC<IDescriptionSummary> = ({ className, description }) => {
+export const Description: React.FC<IDescriptionSummary> = ({ className, description, actions }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -20,7 +22,31 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
       <Typography variant="h4" color="textSecondary">
         {t('voteProposalUi.description')}
       </Typography>
-      <Markdown css={styles.markdown} content={description} />
+      <Markdown css={styles.markdown} content={description.description} />
+      {description.version === 'v2' && (
+        <>
+          <Typography variant="h4" color="textSecondary" css={styles.section}>
+            {t('voteProposalUi.votingOptions')}
+          </Typography>
+          <ul>
+            <li>
+              {t('vote.for')} - {description.forDescription}
+            </li>
+            <li>
+              {t('vote.against')} - {description.againstDescription}
+            </li>
+            <li>
+              {t('vote.abstain')} - {description.abstainDescription}
+            </li>
+          </ul>
+        </>
+      )}
+      <Typography variant="h4" color="textSecondary" css={styles.section}>
+        {t('voteProposalUi.operation')}
+      </Typography>
+      {actions.map(({ title }) => (
+        <Markdown css={[styles.markdown, styles.actionTitle]} content={title} />
+      ))}
     </Paper>
   );
 };
