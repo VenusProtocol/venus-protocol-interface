@@ -13,11 +13,10 @@ import {
 import { toast } from 'components/v2/Toast';
 import { LS_KEY_CONNECTED_CONNECTOR, CHAIN_ID } from 'config';
 import { useTranslation } from 'translation';
+import { isRunningInInfinityWalletApp } from '../walletDetectionUtils';
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
-
-const isRunningInInfinityWalletApp = () => window.ethereum && window.ethereum?.isInfinityWallet;
 
 const getConnectedConnector = (): Connector | undefined => {
   const lsConnectedConnector = window.localStorage.getItem(LS_KEY_CONNECTED_CONNECTOR);
