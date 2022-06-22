@@ -109,23 +109,7 @@ export interface IProposal {
   againstVotesWei: BigNumber;
   blockNumber: number;
   createdDate: Date | undefined;
-  description:
-    | {
-        version: 'v2';
-        title: string;
-        description: string;
-        forDescription: string;
-        againstDescription: string;
-        abstainDescription: string;
-      }
-    | {
-        version: 'v1';
-        title: string;
-        description: string;
-        forDescription?: undefined;
-        againstDescription?: undefined;
-        abstainDescription?: undefined;
-      };
+  description: DescriptionV1 | DescriptionV2;
   endBlock: number;
   endDate: Date;
   executedDate: Date | undefined;

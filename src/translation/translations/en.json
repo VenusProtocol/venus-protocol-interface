@@ -573,7 +573,6 @@
       "nextStep": "Next step",
       "proposalName": "Proposal name",
       "signature": "Signature",
-      "unitroller": "Unitroller.",
       "votingOptions": "Voting options"
     },
     "createProposalPlus": "+ Create proposal",
@@ -626,7 +625,9 @@
       "minutesIncluded": "{{minutes}}m : {{seconds}}s",
       "secondsIncluded": "{{seconds}}s"
     },
+    "description": "Description",
     "execute": "Execute",
+    "operation": "Operation",
     "proposalHistory": "Proposal History",
     "proposalState": {
       "active": "Active"
@@ -658,7 +659,7 @@
       "votedAgainst": "Voted against",
       "votedFor": "Voted for"
     },
-    "description": "Description"
+    "votingOptions": "Voting options"
   },
   "voteSummary": {
     "addresses": "{{length}} addresses",
