@@ -20,5 +20,17 @@ export const useStyles = () => {
       font-family: ${FONTS.primary};
       max-width: ${theme.spacing(200)};
     `,
+    actionTitle: css`
+      a {
+        color: ${theme.palette.interactive.success};
+      }
+
+      :hover {
+        color: ${theme.palette.interactive.success50};
+      }
+    `,
+    section: css`
+      margin-top: ${theme.spacing(6)};
+    `,
   };
 };

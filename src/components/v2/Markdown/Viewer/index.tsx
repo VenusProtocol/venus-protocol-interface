@@ -17,6 +17,7 @@ const Markdown: React.FC<IMarkdownViewerProps> = ({ content, className }) => {
       source={content}
       css={styles.preview}
       {...previewOptions}
+      linkTarget="_blank"
     />
   );
 };
