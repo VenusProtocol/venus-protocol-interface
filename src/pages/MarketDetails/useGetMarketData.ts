@@ -33,7 +33,7 @@ const useGetMarketData = ({
     const liquidityCents = assetMarket && new BigNumber(assetMarket.liquidity).multipliedBy(100);
     const supplierCount = assetMarket?.supplierCount;
     const borrowerCount = assetMarket?.borrowerCount;
-    const borrowCapCents = assetMarket && +assetMarket.borrowCaps * +assetMarket.tokenPrice * 100;
+    const borrowCapTokens = assetMarket && new BigNumber(assetMarket.borrowCaps);
     const mintedTokens = assetMarket && new BigNumber(assetMarket.totalSupply2);
     const reserveFactorMantissa = assetMarket && new BigNumber(assetMarket.reserveFactor);
 
@@ -97,7 +97,7 @@ const useGetMarketData = ({
       liquidityCents,
       supplierCount,
       borrowerCount,
-      borrowCapCents,
+      borrowCapTokens,
       mintedTokens,
       dailyInterestsCents,
       reserveFactor,
