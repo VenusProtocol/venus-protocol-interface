@@ -12,6 +12,7 @@ import {
 import { ICreateProposalInput } from 'clients/api';
 import formatProposalPayload from 'pages/Vote/CreateProposalModal/formatProposalPayload';
 import { useTranslation } from 'translation';
+import { VError, formatVErrorToReadableString } from 'errors';
 import ActionAccordion from './ActionAccordion';
 import ProposalPreview from './ProposalPreview';
 import proposalSchema, { FormValues, ErrorCode } from './proposalSchema';
@@ -106,12 +107,15 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
   const CurrentFields = steps[currentStep].Component;
 
   const handleCreateProposal = async (formValues: FormValues) => {
-    const payload = formatProposalPayload(formValues);
     try {
+      const payload = formatProposalPayload(formValues);
       await createProposal(payload);
       handleClose();
     } catch (error) {
-      const { message } = error as Error;
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
       toast.error({ message });
     }
   };

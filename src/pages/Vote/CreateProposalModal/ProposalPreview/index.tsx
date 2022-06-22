@@ -17,7 +17,7 @@ const formatSignature = (action: FormValues['actions'][number]) => {
     }
     return action.callData[idx];
   });
-  return `${fragment.name}(${args.join(',')})`;
+  return `${fragment.name}(${args.join(', ')})`;
 };
 
 const ProposalPreview: React.FC = () => {

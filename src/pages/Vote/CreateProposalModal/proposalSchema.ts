@@ -1,11 +1,13 @@
 import * as yup from 'yup';
 import web3 from 'web3';
-import { parseFunctionSignature } from 'utilities';
+import { encodeParameters, parseFunctionSignature } from 'utilities';
+import formatIfArray from './formatIfArray';
 
 export enum ErrorCode {
   ACTION_ADDRESS_NOT_VALID = 'ACTION_ADDRESS_NOT_VALID', // value must be a valid address
   VALUE_REQUIRED = 'VALUE_REQUIRED', // value required
   SIGNATURE_NOT_VALID = 'SIGNATURE_NOT_VALID', // must be formated and arguments need to be valid solidity types
+  CALL_DATA_ARGUMENT_INVALID = 'CALL_DATA_ARGUMENT_INVALID,',
 }
 
 const proposalSchema = yup.object({
@@ -30,7 +32,33 @@ const proposalSchema = yup.object({
         // @TODO add specific validation and errors for specific types
         callData: yup
           .array()
-          .of(yup.string().min(1))
+          .of(
+            yup
+              .string()
+              .min(1)
+              .test({
+                name: 'validArguments',
+                message: ErrorCode.CALL_DATA_ARGUMENT_INVALID,
+                test(value) {
+                  let valid = true;
+                  try {
+                    const callDataTypes =
+                      // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
+                      parseFunctionSignature(this.options.from[0].value.signature)?.inputs.map(
+                        input => input.type,
+                      ) || [];
+                    encodeParameters(
+                      // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
+                      [callDataTypes[this.options.index]],
+                      [formatIfArray(value || '')],
+                    );
+                  } catch (error) {
+                    valid = false;
+                  }
+                  return valid;
+                },
+              }),
+          )
           .test({
             name: 'min',
             message: ErrorCode.VALUE_REQUIRED,

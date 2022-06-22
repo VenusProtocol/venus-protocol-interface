@@ -1,6 +1,6 @@
 import { ICreateProposalInput } from 'clients/api';
-import { encodeParameters, parseFunctionSignature } from 'utilities';
 import { FormValues } from './proposalSchema';
+import encodeCallData from './encodeCallData';
 
 export interface IV1Description {
   version: 'v1';
@@ -16,22 +16,6 @@ export interface IV2Description {
   againstDescription: string;
   abstainDescription: string;
 }
-
-/**
- *
- * @param value string
- * Check if the string starts and ends with brackets to format array
- */
-const formatIfArray = (value: string | number): string | number | string[] => {
-  const val = value.toString();
-  if (val?.slice(0, 1) === '[' && val.slice(val.length - 1, val.length) === ']') {
-    return val
-      .slice(1, -1)
-      .split(',')
-      .map(v => v.trim());
-  }
-  return value;
-};
 
 const formatProposalPayload = (data: FormValues) => {
   const payload: Omit<ICreateProposalInput, 'accountAddress'> = {
@@ -52,17 +36,7 @@ const formatProposalPayload = (data: FormValues) => {
     payload.targets.push(action.address);
     payload.signatures.push(action.signature);
     if (action.callData !== undefined) {
-      const processedCallData = action.callData.reduce((acc, curr) => {
-        if (curr !== undefined) {
-          acc.push(formatIfArray(curr));
-        }
-        return acc;
-      }, [] as (string | number | string[])[]);
-      const callDataTypes = parseFunctionSignature(action.signature)?.inputs.map(
-        input => input.type,
-      );
-      console.log(callDataTypes, processedCallData);
-      payload.callDatas.push(encodeParameters(callDataTypes || [], processedCallData));
+      payload.callDatas.push(encodeCallData(action.signature, action.callData));
     }
   });
 
