@@ -8,7 +8,7 @@ import { Spinner } from 'components';
 import { IProposal, IVoter } from 'types';
 import VoteSummary from './VoteSummary';
 import ProposalSummary from './ProposalSummary';
-import Description from './Description';
+import { Description } from './Description';
 import { useStyles } from './styles';
 
 interface ProposalUiProps {
@@ -66,7 +66,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           progressBarColor={styles.abstainColor}
         />
       </div>
-      <Description />
+      <Description description={proposal.description} actions={proposal.actions} />
     </div>
   );
 };

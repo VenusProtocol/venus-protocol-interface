@@ -86,29 +86,31 @@ export interface IProposalAction {
   value: string;
 }
 
+export interface DescriptionV2 {
+  version: 'v2';
+  title: string;
+  description: string;
+  forDescription: string;
+  againstDescription: string;
+  abstainDescription: string;
+}
+
+export interface DescriptionV1 {
+  version: 'v1';
+  title: string;
+  description: string;
+  forDescription?: undefined;
+  againstDescription?: undefined;
+  abstainDescription?: undefined;
+}
+
 export interface IProposal {
   abstainedVotesWei: BigNumber;
   actions: IProposalAction[];
   againstVotesWei: BigNumber;
   blockNumber: number;
   createdDate: Date | undefined;
-  description:
-    | {
-        version: 'v2';
-        title: string;
-        description: string;
-        forDescription: string;
-        againstDescription: string;
-        abstainDescription: string;
-      }
-    | {
-        version: 'v1';
-        title: string;
-        description: string;
-        forDescription?: undefined;
-        againstDescription?: undefined;
-        abstainDescription?: undefined;
-      };
+  description: DescriptionV1 | DescriptionV2;
   endBlock: number;
   endDate: Date;
   executedDate: Date | undefined;
