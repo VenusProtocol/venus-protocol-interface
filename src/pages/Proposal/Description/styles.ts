@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
-import { FONTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {
   const theme = useTheme();
@@ -17,7 +16,7 @@ export const useStyles = () => {
     markdown: css`
       margin-top: ${theme.spacing(2)};
       background-color: ${theme.palette.background.paper};
-      font-family: ${FONTS.primary};
+      font-family: ${theme.typography.fontFamily};
       max-width: ${theme.spacing(200)};
     `,
     actionTitle: css`
