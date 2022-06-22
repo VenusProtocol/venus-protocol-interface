@@ -1,11 +1,6 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 
-import {
-  queryClient,
-  createProposal,
-  ICreateProposalInput,
-  CreateProposalOutput,
-} from 'clients/api';
+import { createProposal, ICreateProposalInput, CreateProposalOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 
@@ -20,17 +15,7 @@ const useCreateProposal = (
         governorBravoContract,
         ...params,
       }),
-    {
-      ...options,
-      onSuccess: (...onSuccessParams) => {
-        // Invalidate first page on success
-        queryClient.invalidateQueries([FunctionKey.GET_PROPOSALS, { limit: 5, page: 0 }]);
-
-        if (options?.onSuccess) {
-          options.onSuccess(...onSuccessParams);
-        }
-      },
-    },
+    options,
   );
 };
 
