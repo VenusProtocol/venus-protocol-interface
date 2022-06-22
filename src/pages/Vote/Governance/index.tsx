@@ -6,6 +6,8 @@ import { useGetProposals } from 'clients/api';
 import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
 import { IProposal } from 'types';
 import GovernanceProposal from '../GovernanceProposal';
+import CreateProposalModal from '../CreateProposalModal';
+import { FormValues } from '../CreateProposalModal/proposalSchema';
 import { useStyles } from './styles';
 
 interface IGovernanceUiProps {
@@ -14,6 +16,7 @@ interface IGovernanceUiProps {
   total: number | undefined;
   limit: number;
   setCurrentPage: (page: number) => void;
+  createProposal: (data: FormValues) => void;
 }
 
 export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
@@ -22,7 +25,9 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
   total,
   limit,
   setCurrentPage,
+  createProposal,
 }) => {
+  const [showCreateProposalModal, setShowCreateProposalModal] = useState(false);
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -31,7 +36,9 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
       <div css={[styles.header, styles.bottomSpace]}>
         <Typography variant="h4">{t('vote.governanceProposals')}</Typography>
         <div css={styles.createProposal}>
-          <TextButton css={styles.marginless}>{t('vote.createProposal')}</TextButton>
+          <TextButton onClick={() => setShowCreateProposalModal(true)} css={styles.marginless}>
+            {t('vote.createProposalPlus')}
+          </TextButton>
           <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIcon}>
             <Icon name="info" />
           </Tooltip>
@@ -74,6 +81,13 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
           itemsPerPageCount={limit}
         />
       )}
+      {showCreateProposalModal && (
+        <CreateProposalModal
+          isOpen={showCreateProposalModal}
+          handleClose={() => setShowCreateProposalModal(false)}
+          createProposal={createProposal}
+        />
+      )}
     </div>
   );
 };
@@ -83,6 +97,9 @@ const Governance: React.FC = () => {
   const { data: { proposals, total, limit = 5 } = { proposals: [] }, isLoading } = useGetProposals({
     page: currentPage,
   });
+
+  const createProposal = () => {};
+
   return (
     <GovernanceUi
       proposals={proposals}
@@ -90,6 +107,7 @@ const Governance: React.FC = () => {
       total={total}
       limit={limit}
       setCurrentPage={setCurrentPage}
+      createProposal={createProposal}
     />
   );
 };
