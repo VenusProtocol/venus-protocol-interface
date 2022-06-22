@@ -62,7 +62,8 @@ const VoteSummary = ({
         whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
         value={votedValueWei.toNumber()}
         min={0}
-        max={votedTotalWei.toNumber()}
+        // If there are no votes set a fallback to zero the progressbar
+        max={votedTotalWei.toNumber() || 100}
         step={1}
         ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
         successColor={progressBarColor}
