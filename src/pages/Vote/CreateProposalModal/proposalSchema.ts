@@ -33,31 +33,28 @@ const proposalSchema = yup.object({
         callData: yup
           .array()
           .of(
-            yup
-              .string()
-              .min(1)
-              .test({
-                name: 'validArguments',
-                message: ErrorCode.CALL_DATA_ARGUMENT_INVALID,
-                test(value) {
-                  let valid = true;
-                  try {
-                    const callDataTypes =
-                      // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
-                      parseFunctionSignature(this.options.from[0].value.signature)?.inputs.map(
-                        input => input.type,
-                      ) || [];
-                    encodeParameters(
-                      // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
-                      [callDataTypes[this.options.index]],
-                      [formatIfArray(value || '')],
-                    );
-                  } catch (error) {
-                    valid = false;
-                  }
-                  return valid;
-                },
-              }),
+            yup.string().test({
+              name: 'validArguments',
+              message: ErrorCode.CALL_DATA_ARGUMENT_INVALID,
+              test(value) {
+                let valid = true;
+                try {
+                  const callDataTypes =
+                    // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
+                    parseFunctionSignature(this.options.from[0].value.signature)?.inputs.map(
+                      input => input.type,
+                    ) || [];
+                  encodeParameters(
+                    // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
+                    [callDataTypes[this.options.index]],
+                    [formatIfArray(value || '')],
+                  );
+                } catch (error) {
+                  valid = false;
+                }
+                return valid;
+              },
+            }),
           )
           .test({
             name: 'min',
