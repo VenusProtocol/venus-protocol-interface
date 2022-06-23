@@ -113,7 +113,7 @@ export const ProposalSummaryUi: React.FC<
             <Chip text={`#${id}`} css={styles.chipSpace} />
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
-          <Countdown date={endDate} css={styles.countdown} />
+          {state === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
         </div>
         <div css={styles.content}>
           <div>

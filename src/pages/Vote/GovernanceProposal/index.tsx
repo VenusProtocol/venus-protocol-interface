@@ -164,8 +164,7 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
           <Typography variant="h4" css={styles.cardTitle}>
             {proposalTitle}
           </Typography>
-
-          <Countdown date={endDate} css={styles.countdown} />
+          {proposalState === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
           {proposalState === 'Active' && (
