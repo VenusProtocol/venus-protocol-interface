@@ -3,9 +3,9 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { TokenId } from 'types';
 import {
   queryClient,
-  stakeWeiInXvsVault,
-  IStakeWeiInXvsVaultInput,
-  StakeWeiInXvsVaultOutput,
+  stakeInXvsVault,
+  IStakeInXvsVaultInput,
+  StakeInXvsVaultOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
@@ -15,21 +15,18 @@ import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 
 type Options = MutationObserverOptions<
-  StakeWeiInXvsVaultOutput,
+  StakeInXvsVaultOutput,
   Error,
-  Omit<IStakeWeiInXvsVaultInput, 'xvsVaultContract'>
+  Omit<IStakeInXvsVaultInput, 'xvsVaultContract'>
 >;
 
-const useStakeWeiInXvsVault = (
-  { stakedTokenId }: { stakedTokenId: TokenId },
-  options?: Options,
-) => {
+const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: TokenId }, options?: Options) => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
     FunctionKey.STAKE_WEI_IN_XVS_VAULT,
-    (params: Omit<IStakeWeiInXvsVaultInput, 'xvsVaultContract'>) =>
-      stakeWeiInXvsVault({
+    (params: Omit<IStakeInXvsVaultInput, 'xvsVaultContract'>) =>
+      stakeInXvsVault({
         xvsVaultContract,
         ...params,
       }),
@@ -82,4 +79,4 @@ const useStakeWeiInXvsVault = (
   );
 };
 
-export default useStakeWeiInXvsVault;
+export default useStakeInXvsVault;

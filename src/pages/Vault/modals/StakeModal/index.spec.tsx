@@ -8,12 +8,12 @@ import MAX_UINT256 from 'constants/maxUint256';
 import fakeAccountAddress from '__mocks__/models/address';
 import { getBalanceOf, getAllowance } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
-import useStakeWeiInVault from 'hooks/useStakeWeiInVault';
+import useStakeInVault from 'hooks/useStakeInVault';
 import en from 'translation/translations/en.json';
 import StakeModal, { IStakeModalProps } from '.';
 
 jest.mock('clients/api');
-jest.mock('hooks/useStakeWeiInVault');
+jest.mock('hooks/useStakeInVault');
 
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
@@ -57,7 +57,7 @@ describe('pages/Vault/modals/StakeModal', () => {
       handleClose: jest.fn(),
     };
 
-    const { stake } = useStakeWeiInVault({ stakedTokenId: customProps.stakedTokenId });
+    const { stake } = useStakeInVault({ stakedTokenId: customProps.stakedTokenId });
 
     const { getByTestId, getByText } = renderComponent(<StakeModal {...customProps} />, {
       authContextValue: {
