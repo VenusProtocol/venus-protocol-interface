@@ -2,30 +2,30 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
   queryClient,
-  stakeInVrtVault,
-  IStakeInVrtVaultInput,
-  StakeInVrtVaultOutput,
+  withdrawFromVrtVault,
+  IWithdrawFromVrtVaultInput,
+  WithdrawFromVrtVaultOutput,
 } from 'clients/api';
-import { getContractAddress } from 'utilities';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
 
 const VRT_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('vrtVaultProxy');
 
 type Options = MutationObserverOptions<
-  StakeInVrtVaultOutput,
+  WithdrawFromVrtVaultOutput,
   Error,
-  Omit<IStakeInVrtVaultInput, 'vrtVaultContract'>
+  Omit<IWithdrawFromVrtVaultInput, 'vrtVaultContract'>
 >;
 
-const useStakeInXvsVault = (options?: Options) => {
+const useWithdrawFromVrtVault = (options?: Options) => {
   const vrtVaultContract = useVrtVaultProxyContract();
 
   return useMutation(
-    FunctionKey.STAKE_WEI_IN_VRT_VAULT,
-    (params: Omit<IStakeInVrtVaultInput, 'vrtVaultContract'>) =>
-      stakeInVrtVault({
+    FunctionKey.WITHDRAW_FROM_VAI_VAULT,
+    (params: Omit<IWithdrawFromVrtVaultInput, 'vrtVaultContract'>) =>
+      withdrawFromVrtVault({
         vrtVaultContract,
         ...params,
       }),
@@ -34,7 +34,7 @@ const useStakeInXvsVault = (options?: Options) => {
       onSuccess: async (...onSuccessParams) => {
         const { fromAccountAddress } = onSuccessParams[1];
 
-        // Invalidate cached user info
+        // Invalidate cached user info, including staked amount
         queryClient.invalidateQueries([FunctionKey.GET_VRT_VAULT_USER_INFO, fromAccountAddress]);
 
         // Invalidate cached user pending reward
@@ -67,4 +67,4 @@ const useStakeInXvsVault = (options?: Options) => {
   );
 };
 
-export default useStakeInXvsVault;
+export default useWithdrawFromVrtVault;
