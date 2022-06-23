@@ -111,6 +111,14 @@ export { default as useStakeInVrtVault } from './mutations/useStakeInVrtVault';
 
 export * from './mutations/castVote';
 
+export { default as withdrawFromVaiVault } from './mutations/withdrawFromVaiVault';
+export * from './mutations/withdrawFromVaiVault';
+export { default as useWithdrawFromVaiVault } from './mutations/withdrawFromVaiVault/useWithdrawFromVaiVault';
+
+export { default as withdrawFromVrtVault } from './mutations/withdrawFromVrtVault';
+export * from './mutations/withdrawFromVrtVault';
+export { default as useWithdrawFromVrtVault } from './mutations/withdrawFromVrtVault/useWithdrawFromVrtVault';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
