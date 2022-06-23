@@ -591,6 +591,8 @@
     },
     "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
     "theProposalWasCancelled": "The proposal was cancelled",
+    "theProposalWasExecuted": "The proposal was executed",
+    "theProposalWasQueued": "The proposal was queued",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "voteAbstain": "Vote abstain",
