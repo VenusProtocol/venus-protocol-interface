@@ -18,7 +18,9 @@ export const Default = () => (
     forVoters={vote}
     againstVoters={vote}
     abstainVoters={vote}
+    votingEnabled
+    readableVoteWeight="123390000"
     vote={noop}
-    isWalletConnected
+    isVoteLoading={false}
   />
 );

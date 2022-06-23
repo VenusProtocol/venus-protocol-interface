@@ -539,7 +539,9 @@
   },
   "vote": {
     "abstain": "Abstain",
+    "addComment": "Add comment",
     "against": "Against",
+    "comment": "Comment",
     "createProposalForm": {
       "abstainOption": "Abstain option",
       "action": "Action",
@@ -591,11 +593,18 @@
     "theProposalWasCancelled": "The proposal was cancelled",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
+    "voteAbstain": "Vote abstain",
+    "voteAgainst": "Vote against",
+    "voteFor": "Vote for",
+    "votingPower": "Voting power",
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
     "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
     "youDelegatedTo": "You delegated your locked tokens to {{delegate}}",
-    "yourProposalwasCreatedSuccessfully": "Your proposal was created successfully"
+    "yourProposalwasCreatedSuccessfully": "Your proposal was created successfully",
+    "youSuccessfullyVotedAbstained": "You successfully abstained from voting on the proposal",
+    "youSuccessfullyVotedAgainstTheProposal": "You successfully voted against the proposal",
+    "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",

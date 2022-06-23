@@ -1,13 +1,13 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import getVoteReceipt, { IGetVoteReceiptOutput } from './getVoteReceipt';
+import getVoteReceipt, { GetVoteReceiptOutput } from './getVoteReceipt';
 
 type Options = QueryObserverOptions<
-  IGetVoteReceiptOutput,
+  GetVoteReceiptOutput,
   Error,
-  IGetVoteReceiptOutput,
-  IGetVoteReceiptOutput,
+  GetVoteReceiptOutput,
+  GetVoteReceiptOutput,
   [FunctionKey.GET_VOTE_RECEIPT, string, string]
 >;
 

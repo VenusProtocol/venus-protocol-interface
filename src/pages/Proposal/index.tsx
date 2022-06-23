@@ -1,13 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
 import { useParams } from 'react-router-dom';
+import type { TransactionReceipt } from 'web3-core';
 import { useTranslation } from 'translation';
-import { useGetProposal, useGetVoters, useVote, UseVoteParams } from 'clients/api';
+import {
+  useGetProposal,
+  useGetVoters,
+  useVote,
+  useGetCurrentVotes,
+  UseVoteParams,
+  useGetVoteReceipt,
+} from 'clients/api';
 import { Spinner } from 'components';
 import { IProposal, IVoter } from 'types';
+import { convertWeiToTokens } from 'utilities';
 import { AuthContext } from 'context/AuthContext';
 import VoteSummary from './VoteSummary';
+import VoteModal from './VoteModal';
 import ProposalSummary from './ProposalSummary';
 import { Description } from './Description';
 import { useStyles } from './styles';
@@ -17,8 +27,10 @@ interface ProposalUiProps {
   forVoters: IVoter;
   againstVoters: IVoter;
   abstainVoters: IVoter;
-  vote: (params: UseVoteParams) => void;
-  isWalletConnected: boolean;
+  vote: (params: UseVoteParams) => Promise<TransactionReceipt>;
+  votingEnabled: boolean;
+  readableVoteWeight: string;
+  isVoteLoading: boolean;
 }
 
 export const ProposalUi: React.FC<ProposalUiProps> = ({
@@ -27,10 +39,14 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   againstVoters,
   abstainVoters,
   vote,
-  isWalletConnected,
+  votingEnabled,
+  readableVoteWeight,
+  isVoteLoading,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
+
   if (!proposal) {
     return (
       <div css={[styles.root, styles.spinner]}>
@@ -47,47 +63,71 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           css={styles.vote}
           label={t('vote.for')}
           votedValueWei={forVoters.sumVotes.for}
-          votedTotalWei={forVoters.sumVotes.total}
+          votedTotalWei={proposal.totalVotesWei}
           voters={forVoters.result}
-          onClick={(voteReason?: string) =>
-            vote({ proposalId: proposal.id, voteType: 1, voteReason })
-          }
+          openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
-          isWalletConnected={isWalletConnected}
+          votingEnabled={votingEnabled}
         />
         <VoteSummary
           css={[styles.vote, styles.middleVote]}
           label={t('vote.against')}
           votedValueWei={againstVoters.sumVotes.against}
-          votedTotalWei={againstVoters.sumVotes.total}
+          votedTotalWei={proposal.totalVotesWei}
           voters={againstVoters.result}
-          onClick={(voteReason?: string) =>
-            vote({ proposalId: proposal.id, voteType: 0, voteReason })
-          }
+          openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
-          isWalletConnected={isWalletConnected}
+          votingEnabled={votingEnabled}
         />
         <VoteSummary
           css={styles.vote}
           label={t('vote.abstain')}
           votedValueWei={abstainVoters.sumVotes.abstain}
-          votedTotalWei={abstainVoters.sumVotes.total}
+          votedTotalWei={proposal.totalVotesWei}
           voters={abstainVoters.result}
-          onClick={(voteReason?: string) =>
-            vote({ proposalId: proposal.id, voteType: 2, voteReason })
-          }
+          openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
-          isWalletConnected={isWalletConnected}
+          votingEnabled={votingEnabled}
         />
       </div>
       <Description description={proposal.description} actions={proposal.actions} />
+      {voteModalType !== undefined && (
+        <VoteModal
+          voteModalType={voteModalType}
+          handleClose={() => setVoteModalType(undefined)}
+          vote={(voteReason?: string) =>
+            vote({ proposalId: proposal.id, voteType: voteModalType, voteReason })
+          }
+          readableVoteWeight={readableVoteWeight}
+          isVoteLoading={isVoteLoading}
+        />
+      )}
     </div>
   );
 };
 
 const Proposal = () => {
   const { account } = useContext(AuthContext);
-  const { id } = useParams<{ id: string | undefined }>();
+  const { id } = useParams<{ id: string }>();
+  const accountAddress = account?.address;
+  const { data: proposal } = useGetProposal({ id }, { enabled: !!id });
+
+  const { data: votingWeightWei = new BigNumber(0) } = useGetCurrentVotes(
+    { accountAddress: accountAddress || '' },
+    { enabled: !!accountAddress },
+  );
+
+  const readableVoteWeight = useMemo(
+    () =>
+      convertWeiToTokens({
+        valueWei: votingWeightWei,
+        tokenId: 'xvs',
+        returnInReadableFormat: true,
+        addSymbol: false,
+      }),
+    [votingWeightWei],
+  );
+
   const defaultValue = {
     result: [],
     sumVotes: {
@@ -97,8 +137,6 @@ const Proposal = () => {
       total: new BigNumber(0),
     },
   };
-
-  const { data: proposal } = useGetProposal({ id: id || '' }, { enabled: !!id });
   const { data: againstVoters = defaultValue } = useGetVoters(
     { id: id || '', filter: 0 },
     { enabled: !!id },
@@ -111,7 +149,12 @@ const Proposal = () => {
     { id: id || '', filter: 2 },
     { enabled: !!id },
   );
-  const { vote } = useVote({ accountAddress: account?.address || '' });
+
+  const { vote, isLoading } = useVote({ accountAddress: account?.address || '' });
+  const { data: voteCast } = useGetVoteReceipt(
+    { proposalId: parseInt(id, 10), accountAddress },
+    { enabled: !!accountAddress },
+  );
 
   return (
     <ProposalUi
@@ -120,7 +163,14 @@ const Proposal = () => {
       againstVoters={againstVoters}
       abstainVoters={abstainVoters}
       vote={vote}
-      isWalletConnected={!!account?.address}
+      votingEnabled={
+        !!accountAddress &&
+        proposal?.state === 'Active' &&
+        voteCast === undefined &&
+        votingWeightWei.isGreaterThan(0)
+      }
+      readableVoteWeight={readableVoteWeight}
+      isVoteLoading={isLoading}
     />
   );
 };

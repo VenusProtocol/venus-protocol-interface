@@ -16,29 +16,28 @@ import {
   LabeledProgressBar,
 } from 'components';
 import { IVoter } from 'types';
-
 import { useStyles } from './styles';
 
 interface IVoteSummaryProps {
-  onClick: (voteReason?: string) => void;
   label: string;
   progressBarColor: string;
   votedValueWei?: BigNumber;
   votedTotalWei?: BigNumber;
   voters?: IVoter['result'];
   className?: string;
-  isWalletConnected: boolean;
+  votingEnabled: boolean;
+  openVoteModal: () => void;
 }
 
 const VoteSummary = ({
-  onClick,
+  openVoteModal,
   label,
   progressBarColor,
   votedTotalWei = new BigNumber(0),
   votedValueWei = new BigNumber(0),
   voters = [],
   className,
-  isWalletConnected,
+  votingEnabled,
 }: IVoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -68,7 +67,7 @@ const VoteSummary = ({
         ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
         successColor={progressBarColor}
       />
-      <Button css={styles.button} onClick={onClick} disabled={!isWalletConnected}>
+      <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
         {label}
       </Button>
 
