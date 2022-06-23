@@ -23,11 +23,7 @@ const useStakeInVaiVault = (options?: Options) => {
   const vaiVaultContract = useVaiVaultContract();
 
   return useMutation(
-<<<<<<< HEAD
     FunctionKey.STAKE_IN_VAI_VAULT,
-=======
-    FunctionKey.STAKE__IN_VAI_VAULT,
->>>>>>> dcb6db4d (add executeWithdrawalFromXvsVault mutation function)
     (params: Omit<IStakeInVaiVaultInput, 'vaiVaultContract'>) =>
       stakeInVaiVault({
         vaiVaultContract,

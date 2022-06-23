@@ -529,9 +529,13 @@
     "reward": "Reward:",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
-    "successfulTransactionModal": {
+    "successfulClaimRewardTransactionModal": {
       "description": "You successfully claimed your reward",
       "title": "Your claim was successful"
+    },
+    "successfulWithdrawTransactionModal": {
+      "description": "You successfully withdrew",
+      "title": "Your withdrawal was successful"
     },
     "totalStaked": "Total Staked",
     "withdrawButton": "Withdraw",
