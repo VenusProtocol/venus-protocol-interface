@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
-import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
@@ -106,7 +105,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, ...rest }) =
   );
 
   const isTokenApproved =
-    vTokenId === 'bnb' || (!!tokenAllowance && new BigNumber(tokenAllowance).isGreaterThan(0));
+    vTokenId === 'bnb' || (!!tokenAllowance && tokenAllowance.isGreaterThan(0));
 
   const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
     tokenId: vTokenId,
