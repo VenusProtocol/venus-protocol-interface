@@ -133,12 +133,12 @@ export const useStyles = () => {
         ${theme.breakpoints.down('xxl')} {
           grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
           grid-template-rows: 1fr;
+          row-gap: ${theme.spacing(5)};
         }
 
         ${theme.breakpoints.down('md')} {
           grid-template-columns: 1fr 1fr 1fr;
           grid-template-rows: 1fr 1fr;
-          row-gap: ${theme.spacing(5)};
         }
       }
     `,
