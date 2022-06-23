@@ -263,6 +263,10 @@ export const stakeInXvsVault = jest.fn();
 export const useStakeInXvsVault = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.STAKE_IN_XVS_VAULT, stakeInXvsVault, options);
 
+export const stakeInVaiVault = jest.fn();
+export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_IN_VAI_VAULT, stakeInVaiVault, options);
+
 export const stakeInVrtVault = jest.fn();
 export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
