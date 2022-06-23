@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
+import type { TransactionReceipt } from 'web3-core';
 import { Paper, Typography } from '@mui/material';
 import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } from 'components';
 import { AuthContext } from 'context/AuthContext';
 import { useCancelProposal, useQueueProposal, useExectueProposal } from 'clients/api';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { IProposal } from 'types';
 import { useTranslation } from 'translation';
 import Stepper from './Stepper';
@@ -15,9 +17,9 @@ interface IProposalSummaryUiProps {
 }
 
 interface IProposalSummaryContainerProps {
-  cancelProposal: () => void;
-  executeProposal: () => void;
-  queueProposal: () => void;
+  cancelProposal: () => Promise<TransactionReceipt>;
+  executeProposal: () => Promise<TransactionReceipt>;
+  queueProposal: () => Promise<TransactionReceipt>;
   isCancelProposalLoading: boolean;
   isExecuteProposalLoading: boolean;
   isQueueProposalLoading: boolean;
@@ -37,6 +39,8 @@ export const ProposalSummaryUi: React.FC<
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
   const {
     state,
     id,
@@ -55,13 +59,23 @@ export const ProposalSummaryUi: React.FC<
     endDate,
   } = proposal;
 
+  const handleCancelProposal = async () => {
+    const transactionReceipt = await cancelProposal();
+    // Show success modal
+    openSuccessfulTransactionModal({
+      title: t('vote.theProposalWasCancelled'),
+      content: t('vote.pleaseAllowTimeForConfirmation'),
+      transactionHash: transactionReceipt.transactionHash,
+    });
+  };
+
   let updateProposalButton;
   let transactionHash = startTxHash;
   switch (state) {
     case 'Active':
       updateProposalButton = (
         <SecondaryButton
-          onClick={cancelProposal}
+          onClick={handleCancelProposal}
           css={styles.updateProposalButton}
           loading={isCancelProposalLoading}
         >

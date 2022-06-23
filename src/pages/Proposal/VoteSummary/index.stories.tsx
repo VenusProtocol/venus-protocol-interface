@@ -84,6 +84,7 @@ export const VoteFor = () => (
     voters={votes}
     onClick={noop}
     progressBarColor={PALETTE.interactive.success50}
+    isWalletConnected
   />
 );
 
@@ -95,6 +96,7 @@ export const VoteAgainst = () => (
     voters={votes}
     onClick={noop}
     progressBarColor={PALETTE.interactive.error50}
+    isWalletConnected
   />
 );
 
@@ -105,5 +107,6 @@ export const Abstain = () => (
     votedTotalWei={new BigNumber('200000000000000000')}
     onClick={noop}
     progressBarColor={PALETTE.text.secondary}
+    isWalletConnected
   />
 );

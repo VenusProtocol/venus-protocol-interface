@@ -64,7 +64,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -75,7 +75,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen={false}
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -86,7 +86,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -103,7 +103,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -122,7 +122,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -169,7 +169,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -226,7 +226,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -276,7 +276,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );
@@ -320,7 +320,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
       <CreateProposalModal
         isOpen
         handleClose={jest.fn()}
-        createProposal={jest.fn}
+        createProposal={jest.fn()}
         isCreateProposalLoading={false}
       />,
     );

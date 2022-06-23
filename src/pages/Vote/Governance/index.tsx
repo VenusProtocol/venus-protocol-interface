@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
+import type { TransactionReceipt } from 'web3-core';
 import { Typography } from '@mui/material';
 import { AuthContext } from 'context/AuthContext';
 import { useGetProposals, useCreateProposal, ICreateProposalInput } from 'clients/api';
@@ -16,7 +17,9 @@ interface IGovernanceUiProps {
   total: number | undefined;
   limit: number;
   setCurrentPage: (page: number) => void;
-  createProposal: (payload: Omit<ICreateProposalInput, 'accountAddress'>) => void;
+  createProposal: (
+    payload: Omit<ICreateProposalInput, 'accountAddress'>,
+  ) => Promise<TransactionReceipt>;
   isCreateProposalLoading: boolean;
 }
 

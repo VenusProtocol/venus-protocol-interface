@@ -1,4 +1,5 @@
 import React from 'react';
+import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { withRouter } from 'stories/decorators';
 import proposals from '__mocks__/models/proposals';
@@ -12,5 +13,12 @@ export default {
 } as ComponentMeta<typeof ProposalUi>;
 
 export const Default = () => (
-  <ProposalUi proposal={proposals[0]} forVoters={vote} againstVoters={vote} abstainVoters={vote} />
+  <ProposalUi
+    proposal={proposals[0]}
+    forVoters={vote}
+    againstVoters={vote}
+    abstainVoters={vote}
+    vote={noop}
+    isWalletConnected
+  />
 );

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useCallback, useMemo, useState } from 'react';
+import type { TransactionReceipt } from 'web3-core';
 import { Formik, Form } from 'formik';
 import {
   Modal,
@@ -10,6 +11,7 @@ import {
   toast,
 } from 'components';
 import { ICreateProposalInput } from 'clients/api';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import formatProposalPayload from 'pages/Vote/CreateProposalModal/formatProposalPayload';
 import { useTranslation } from 'translation';
 import { VError, formatVErrorToReadableString } from 'errors';
@@ -21,7 +23,9 @@ import { useStyles } from './styles';
 interface ICreateProposal {
   isOpen: boolean;
   handleClose: () => void;
-  createProposal: (data: Omit<ICreateProposalInput, 'accountAddress'>) => void;
+  createProposal: (
+    data: Omit<ICreateProposalInput, 'accountAddress'>,
+  ) => Promise<TransactionReceipt>;
   isCreateProposalLoading: boolean;
 }
 
@@ -33,6 +37,7 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -109,8 +114,13 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
   const handleCreateProposal = async (formValues: FormValues) => {
     try {
       const payload = formatProposalPayload(formValues);
-      await createProposal(payload);
+      const transactionReceipt = await createProposal(payload);
       handleClose();
+      openSuccessfulTransactionModal({
+        title: t('vote.yourProposalwasCreatedSuccessfully'),
+        content: t('vote.pleaseAllowTimeForConfirmation'),
+        transactionHash: transactionReceipt.transactionHash,
+      });
     } catch (error) {
       let { message } = error as Error;
       if (error instanceof VError) {

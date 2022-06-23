@@ -20,14 +20,13 @@ import { IVoter } from 'types';
 import { useStyles } from './styles';
 
 interface IVoteSummaryProps {
-  onClick: () => void;
+  onClick: (voteReason?: string) => void;
   label: string;
   progressBarColor: string;
   votedValueWei?: BigNumber;
   votedTotalWei?: BigNumber;
   voters?: IVoter['result'];
   className?: string;
-  vote: (voteReason?: string) => void;
   isWalletConnected: boolean;
 }
 
