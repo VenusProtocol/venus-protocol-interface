@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import { BigNumber } from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { useGetProposal, useGetVoters } from 'clients/api';
+import { useGetProposal, useGetVoters, useVote, UseVoteParams } from 'clients/api';
 import { Spinner } from 'components';
 import { IProposal, IVoter } from 'types';
+import { AuthContext } from 'context/AuthContext';
 import VoteSummary from './VoteSummary';
 import ProposalSummary from './ProposalSummary';
 import { Description } from './Description';
@@ -16,6 +17,8 @@ interface ProposalUiProps {
   forVoters: IVoter;
   againstVoters: IVoter;
   abstainVoters: IVoter;
+  vote: (params: UseVoteParams) => void;
+  isWalletConnected: boolean;
 }
 
 export const ProposalUi: React.FC<ProposalUiProps> = ({
@@ -23,6 +26,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   forVoters,
   againstVoters,
   abstainVoters,
+  vote,
+  isWalletConnected,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -44,8 +49,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votedValueWei={forVoters.sumVotes.for}
           votedTotalWei={forVoters.sumVotes.total}
           voters={forVoters.result}
-          onClick={() => {}}
+          onClick={(voteReason?: string) =>
+            vote({ proposalId: proposal.id, voteType: 1, voteReason })
+          }
           progressBarColor={styles.successColor}
+          isWalletConnected={isWalletConnected}
         />
         <VoteSummary
           css={[styles.vote, styles.middleVote]}
@@ -53,8 +61,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votedValueWei={againstVoters.sumVotes.against}
           votedTotalWei={againstVoters.sumVotes.total}
           voters={againstVoters.result}
-          onClick={() => {}}
+          onClick={(voteReason?: string) =>
+            vote({ proposalId: proposal.id, voteType: 0, voteReason })
+          }
           progressBarColor={styles.againstColor}
+          isWalletConnected={isWalletConnected}
         />
         <VoteSummary
           css={styles.vote}
@@ -62,8 +73,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votedValueWei={abstainVoters.sumVotes.abstain}
           votedTotalWei={abstainVoters.sumVotes.total}
           voters={abstainVoters.result}
-          onClick={() => {}}
+          onClick={(voteReason?: string) =>
+            vote({ proposalId: proposal.id, voteType: 2, voteReason })
+          }
           progressBarColor={styles.abstainColor}
+          isWalletConnected={isWalletConnected}
         />
       </div>
       <Description description={proposal.description} actions={proposal.actions} />
@@ -72,6 +86,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 };
 
 const Proposal = () => {
+  const { account } = useContext(AuthContext);
   const { id } = useParams<{ id: string | undefined }>();
   const defaultValue = {
     result: [],
@@ -82,6 +97,7 @@ const Proposal = () => {
       total: new BigNumber(0),
     },
   };
+
   const { data: proposal } = useGetProposal({ id: id || '' }, { enabled: !!id });
   const { data: againstVoters = defaultValue } = useGetVoters(
     { id: id || '', filter: 0 },
@@ -95,12 +111,16 @@ const Proposal = () => {
     { id: id || '', filter: 2 },
     { enabled: !!id },
   );
+  const { vote } = useVote({ accountAddress: account?.address || '' });
+
   return (
     <ProposalUi
       proposal={proposal}
       forVoters={forVoters}
       againstVoters={againstVoters}
       abstainVoters={abstainVoters}
+      vote={vote}
+      isWalletConnected={!!account?.address}
     />
   );
 };

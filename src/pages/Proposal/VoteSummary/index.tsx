@@ -27,7 +27,8 @@ interface IVoteSummaryProps {
   votedTotalWei?: BigNumber;
   voters?: IVoter['result'];
   className?: string;
-  isDisabled?: boolean;
+  vote: (voteReason?: string) => void;
+  isWalletConnected: boolean;
 }
 
 const VoteSummary = ({
@@ -38,7 +39,7 @@ const VoteSummary = ({
   votedValueWei = new BigNumber(0),
   voters = [],
   className,
-  isDisabled,
+  isWalletConnected,
 }: IVoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -68,7 +69,7 @@ const VoteSummary = ({
         ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
         successColor={progressBarColor}
       />
-      <Button css={styles.button} onClick={onClick} disabled={isDisabled}>
+      <Button css={styles.button} onClick={onClick} disabled={!isWalletConnected}>
         {label}
       </Button>
 
