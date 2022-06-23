@@ -117,6 +117,10 @@ export { default as withdrawFromVrtVault } from './mutations/withdrawFromVrtVaul
 export * from './mutations/withdrawFromVrtVault';
 export { default as useWithdrawFromVrtVault } from './mutations/withdrawFromVrtVault/useWithdrawFromVrtVault';
 
+export { default as requestWithdrawalFromXvsVault } from './mutations/requestWithdrawalFromXvsVault';
+export * from './mutations/requestWithdrawalFromXvsVault';
+export { default as useRequestWithdrawalFromXvsVault } from './mutations/requestWithdrawalFromXvsVault/useRequestWithdrawalFromXvsVault';
+
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
