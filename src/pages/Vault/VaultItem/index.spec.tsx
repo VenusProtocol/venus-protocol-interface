@@ -107,8 +107,8 @@ describe('pages/Vault/VaultItem', () => {
     await waitFor(() => expect(openSuccessfulTransactionModal).toHaveBeenCalledTimes(1));
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
-      content: en.vaultItem.successfulWithdrawTransactionModal.description,
-      title: en.vaultItem.successfulWithdrawTransactionModal.title,
+      content: en.vaultItem.successfulWithdrawVrtTransactionModal.description,
+      title: en.vaultItem.successfulWithdrawVrtTransactionModal.title,
     });
   });
 });

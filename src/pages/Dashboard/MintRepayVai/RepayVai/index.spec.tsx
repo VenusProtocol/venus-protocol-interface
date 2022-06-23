@@ -116,7 +116,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: 'xvs',
+        tokenId: 'vai',
         valueWei: fakeUserWeiMinted,
       },
       content: expect.any(String),
