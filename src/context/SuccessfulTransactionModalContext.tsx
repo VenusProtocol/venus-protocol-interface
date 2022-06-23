@@ -6,7 +6,7 @@ import {
   ISuccessfulTransactionModalProps,
 } from 'components/v2/SuccessfulTransactionModal';
 
-type OpenSuccessfulTransactionModalInput = Pick<
+export type OpenSuccessfulTransactionModalInput = Pick<
   ISuccessfulTransactionModalProps,
   'title' | 'content' | 'transactionHash' | 'amount'
 >;
