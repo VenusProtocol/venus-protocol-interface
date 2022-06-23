@@ -39,7 +39,7 @@ export interface IMarketDetailsUiProps {
   liquidityCents?: BigNumber;
   supplierCount?: number;
   borrowerCount?: number;
-  borrowCapCents?: number;
+  borrowCapTokens?: BigNumber;
   dailyInterestsCents?: number;
   reserveFactor?: number;
   collateralFactor?: number;
@@ -62,7 +62,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
   liquidityCents,
   supplierCount,
   borrowerCount,
-  borrowCapCents,
+  borrowCapTokens,
   dailyInterestsCents,
   reserveTokens,
   reserveFactor,
@@ -173,12 +173,12 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       },
       {
         label: t('marketDetails.marketInfo.stats.borrowCapLabel'),
-        value:
-          borrowCapCents === 0
-            ? t('marketDetails.marketInfo.stats.unlimitedBorrowCap')
-            : formatCentsToReadableValue({
-                value: borrowCapCents,
-              }),
+        value: borrowCapTokens?.isEqualTo(0)
+          ? t('marketDetails.marketInfo.stats.unlimitedBorrowCap')
+          : formatCoinsToReadableValue({
+              value: borrowCapTokens,
+              tokenId: vTokenId,
+            }),
       },
       {
         label: t('marketDetails.marketInfo.stats.dailyInterestsLabel'),
@@ -229,7 +229,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       liquidityCents?.toFixed(),
       supplierCount,
       borrowerCount,
-      borrowCapCents?.toFixed(),
+      borrowCapTokens?.toFixed(),
       dailyInterestsCents?.toFixed(),
       reserveTokens?.toFixed(),
       vTokenId,
