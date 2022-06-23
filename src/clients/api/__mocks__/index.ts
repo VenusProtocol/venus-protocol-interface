@@ -258,20 +258,36 @@ export const useQueueProposal = (options?: MutationObserverOptions) =>
 
 export const stakeInXvsVault = jest.fn();
 export const useStakeInXvsVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_WEI_IN_XVS_VAULT, stakeInXvsVault, options);
+  useMutation(FunctionKey.STAKE_IN_XVS_VAULT, stakeInXvsVault, options);
 
 export const stakeInVaiVault = jest.fn();
 export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_WEI_IN_VAI_VAULT, stakeInVaiVault, options);
+  useMutation(FunctionKey.STAKE_IN_VAI_VAULT, stakeInVaiVault, options);
 
 export const stakeInVrtVault = jest.fn();
 export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_WEI_IN_VRT_VAULT, stakeInVrtVault, options);
+  useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
 
 export const withdrawFromVaiVault = jest.fn();
 export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.WITHDRAW_FROM_VAI_VAULT, stakeInVrtVault, options);
+  useMutation(FunctionKey.WITHDRAW_FROM_VAI_VAULT, withdrawFromVaiVault, options);
 
 export const withdrawFromVrtVault = jest.fn();
 export const useWithdrawFromVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.WITHDRAW_FROM_VRT_VAULT, stakeInVrtVault, options);
+  useMutation(FunctionKey.WITHDRAW_FROM_VRT_VAULT, withdrawFromVrtVault, options);
+
+export const requestWithdrawalFromXvsVault = jest.fn();
+export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
+  useMutation(
+    FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
+    requestWithdrawalFromXvsVault,
+    options,
+  );
+
+export const executeWithdrawalFromXvsVault = jest.fn();
+export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
+  useMutation(
+    FunctionKey.EXECUTE_WITHDRAWAL_FROM_XVS_VAULT,
+    executeWithdrawalFromXvsVault,
+    options,
+  );

@@ -23,7 +23,7 @@ const useStakeInVaiVault = (options?: Options) => {
   const vaiVaultContract = useVaiVaultContract();
 
   return useMutation(
-    FunctionKey.STAKE_WEI_IN_VAI_VAULT,
+    FunctionKey.STAKE_IN_VAI_VAULT,
     (params: Omit<IStakeInVaiVaultInput, 'vaiVaultContract'>) =>
       stakeInVaiVault({
         vaiVaultContract,

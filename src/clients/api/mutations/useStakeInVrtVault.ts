@@ -23,7 +23,7 @@ const useStakeInXvsVault = (options?: Options) => {
   const vrtVaultContract = useVrtVaultProxyContract();
 
   return useMutation(
-    FunctionKey.STAKE_WEI_IN_VRT_VAULT,
+    FunctionKey.STAKE_IN_VRT_VAULT,
     (params: Omit<IStakeInVrtVaultInput, 'vrtVaultContract'>) =>
       stakeInVrtVault({
         vrtVaultContract,
