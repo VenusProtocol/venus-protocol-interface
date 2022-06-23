@@ -41,7 +41,7 @@ jest.mock('hooks/useSuccessfulTransactionModal');
 describe('pages/Dashboard/SupplyWithdrawUi', () => {
   beforeEach(() => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256.toFixed());
+    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [], // Not used in these tests

@@ -10,7 +10,7 @@ import { Web3Wrapper } from 'clients/web3';
 import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
-import setCachedTokenAllowanceToMax from 'clients/api/mutations/useApproveToken/setCachedTokenAllowanceToMax';
+import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
 import Theme from 'theme';
 // resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';

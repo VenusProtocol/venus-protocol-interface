@@ -1,5 +1,7 @@
+import BigNumber from 'bignumber.js';
+
 import { VrtToken } from 'types/contracts';
-import getAllowance, { GetAllowanceOutput } from './getAllowance';
+import getAllowance from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 const fakeSpenderAddress = '0x000000000000000000000000000000000sPeNdEr';
@@ -30,9 +32,9 @@ describe('api/queries/getAllowance', () => {
   });
 
   test('returns the Allowance on success', async () => {
-    const fakeOutput: GetAllowanceOutput = '0';
+    const fakeAllowanceWei = '10000';
 
-    const callMock = jest.fn(async () => fakeOutput);
+    const callMock = jest.fn(async () => fakeAllowanceWei);
     const vrtAllowanceMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -52,6 +54,7 @@ describe('api/queries/getAllowance', () => {
     expect(vrtAllowanceMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(vrtAllowanceMock).toHaveBeenCalledWith(fakeAccountAddress, fakeSpenderAddress);
-    expect(response).toBe(fakeOutput);
+    expect(response instanceof BigNumber).toBe(true);
+    expect(response.toFixed()).toBe(fakeAllowanceWei);
   });
 });

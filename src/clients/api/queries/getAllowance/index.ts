@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import { VrtToken, XvsToken, Bep20, VaiToken } from 'types/contracts';
 
 export interface IGetAllowanceInput {
@@ -6,13 +8,15 @@ export interface IGetAllowanceInput {
   spenderAddress: string;
 }
 
-export type GetAllowanceOutput = string;
+export type GetAllowanceOutput = BigNumber;
 
-const getVenusVaiState = ({
+const getVenusVaiState = async ({
   tokenContract,
   accountAddress,
   spenderAddress,
-}: IGetAllowanceInput): Promise<GetAllowanceOutput> =>
-  tokenContract.methods.allowance(accountAddress, spenderAddress).call();
+}: IGetAllowanceInput): Promise<GetAllowanceOutput> => {
+  const res = await tokenContract.methods.allowance(accountAddress, spenderAddress).call();
+  return new BigNumber(res);
+};
 
 export default getVenusVaiState;
