@@ -7,7 +7,7 @@ import { AuthContext } from 'context/AuthContext';
 import { getToken } from 'utilities';
 import { useTranslation } from 'translation';
 import { useGetBalanceOf } from 'clients/api';
-import useStakeWeiInVault from 'hooks/useStakeWeiInVault';
+import useStakeInVault from 'hooks/useStakeInVault';
 import ActionModal, { IActionModalProps } from '../ActionModal';
 
 export interface IStakeModalProps extends Pick<IActionModalProps, 'handleClose'> {
@@ -36,7 +36,7 @@ const StakeModal: React.FC<IStakeModalProps> = ({
     },
   );
 
-  const { stake, isLoading: isStakeLoading } = useStakeWeiInVault({
+  const { stake, isLoading: isStakeLoading } = useStakeInVault({
     stakedTokenId,
   });
 

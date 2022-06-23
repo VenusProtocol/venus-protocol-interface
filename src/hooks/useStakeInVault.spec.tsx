@@ -4,22 +4,22 @@ import { waitFor, fireEvent } from '@testing-library/react';
 
 import { TokenId } from 'types';
 import { TOKENS } from 'constants/tokens';
-import { stakeWeiInXvsVault, stakeWeiInVaiVault, stakeWeiInVrtVault } from 'clients/api';
+import { stakeInXvsVault, stakeInVaiVault, stakeInVrtVault } from 'clients/api';
 import fakeAccountAddress from '__mocks__/models/address';
 import renderComponent from 'testUtils/renderComponent';
-import useStakeWeiInVault from './useStakeWeiInVault';
+import useStakeInVault from './useStakeInVault';
 
 jest.mock('clients/api');
 
 const fakeAmountWei = new BigNumber('10000000000000000');
 const fakeStakeButtonLabel = 'Stake';
 
-describe('hooks/useStakeWeiInVault', () => {
-  it('calls stakeWeiInXvsVault with correct parameters when calling stake a poolIndex', async () => {
+describe('hooks/useStakeInVault', () => {
+  it('calls stakeInXvsVault with correct parameters when calling stake a poolIndex', async () => {
     const fakePoolIndex = 6;
 
     const TestComponent: React.FC = () => {
-      const { stake } = useStakeWeiInVault({
+      const { stake } = useStakeInVault({
         stakedTokenId: TOKENS.vai.id as TokenId,
       });
 
@@ -47,8 +47,8 @@ describe('hooks/useStakeWeiInVault', () => {
     // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
-    await waitFor(() => expect(stakeWeiInXvsVault).toHaveBeenCalledTimes(1));
-    expect(stakeWeiInXvsVault).toHaveBeenCalledWith({
+    await waitFor(() => expect(stakeInXvsVault).toHaveBeenCalledTimes(1));
+    expect(stakeInXvsVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
       fromAccountAddress: fakeAccountAddress,
       poolIndex: fakePoolIndex,
@@ -56,9 +56,9 @@ describe('hooks/useStakeWeiInVault', () => {
     });
   });
 
-  it('calls stakeWeiInVaiVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vai"', async () => {
+  it('calls stakeInVaiVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vai"', async () => {
     const TestComponent: React.FC = () => {
-      const { stake } = useStakeWeiInVault({
+      const { stake } = useStakeInVault({
         stakedTokenId: TOKENS.vai.id as TokenId,
       });
 
@@ -85,16 +85,16 @@ describe('hooks/useStakeWeiInVault', () => {
     // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
-    await waitFor(() => expect(stakeWeiInVaiVault).toHaveBeenCalledTimes(1));
-    expect(stakeWeiInVaiVault).toHaveBeenCalledWith({
+    await waitFor(() => expect(stakeInVaiVault).toHaveBeenCalledTimes(1));
+    expect(stakeInVaiVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
       fromAccountAddress: fakeAccountAddress,
     });
   });
 
-  it('calls stakeWeiInVrtVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vrt"', async () => {
+  it('calls stakeInVrtVault with correct parameters when calling stake without a poolIndex and stakedTokenId is equal to "vrt"', async () => {
     const TestComponent: React.FC = () => {
-      const { stake } = useStakeWeiInVault({
+      const { stake } = useStakeInVault({
         stakedTokenId: TOKENS.vrt.id as TokenId,
       });
 
@@ -121,8 +121,8 @@ describe('hooks/useStakeWeiInVault', () => {
     // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
-    await waitFor(() => expect(stakeWeiInVrtVault).toHaveBeenCalledTimes(1));
-    expect(stakeWeiInVrtVault).toHaveBeenCalledWith({
+    await waitFor(() => expect(stakeInVrtVault).toHaveBeenCalledTimes(1));
+    expect(stakeInVrtVault).toHaveBeenCalledWith({
       amountWei: fakeAmountWei,
       fromAccountAddress: fakeAccountAddress,
     });

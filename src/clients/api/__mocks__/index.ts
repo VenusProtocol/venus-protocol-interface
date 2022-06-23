@@ -256,14 +256,14 @@ export const queueProposal = jest.fn();
 export const useQueueProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
 
-export const stakeWeiInXvsVault = jest.fn();
-export const useStakeWeiInXvsVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_WEI_IN_XVS_VAULT, stakeWeiInXvsVault, options);
+export const stakeInXvsVault = jest.fn();
+export const useStakeInXvsVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_WEI_IN_XVS_VAULT, stakeInXvsVault, options);
 
-export const stakeWeiInVaiVault = jest.fn();
-export const useStakeWeiInVaiVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_WEI_IN_VAI_VAULT, stakeWeiInVaiVault, options);
+export const stakeInVaiVault = jest.fn();
+export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_WEI_IN_VAI_VAULT, stakeInVaiVault, options);
 
-export const stakeWeiInVrtVault = jest.fn();
-export const useStakeWeiInVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_WEI_IN_VRT_VAULT, stakeWeiInVrtVault, options);
+export const stakeInVrtVault = jest.fn();
+export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_WEI_IN_VRT_VAULT, stakeInVrtVault, options);

@@ -2,9 +2,9 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
   queryClient,
-  stakeWeiInVaiVault,
-  IStakeWeiInVaiVaultInput,
-  StakeWeiInVaiVaultOutput,
+  stakeInVaiVault,
+  IStakeInVaiVaultInput,
+  StakeInVaiVaultOutput,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
@@ -14,18 +14,18 @@ import { getContractAddress } from 'utilities';
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
 type Options = MutationObserverOptions<
-  StakeWeiInVaiVaultOutput,
+  StakeInVaiVaultOutput,
   Error,
-  Omit<IStakeWeiInVaiVaultInput, 'vaiVaultContract'>
+  Omit<IStakeInVaiVaultInput, 'vaiVaultContract'>
 >;
 
-const useStakeWeiInVaiVault = (options?: Options) => {
+const useStakeInVaiVault = (options?: Options) => {
   const vaiVaultContract = useVaiVaultContract();
 
   return useMutation(
     FunctionKey.STAKE_WEI_IN_VAI_VAULT,
-    (params: Omit<IStakeWeiInVaiVaultInput, 'vaiVaultContract'>) =>
-      stakeWeiInVaiVault({
+    (params: Omit<IStakeInVaiVaultInput, 'vaiVaultContract'>) =>
+      stakeInVaiVault({
         vaiVaultContract,
         ...params,
       }),
@@ -61,4 +61,4 @@ const useStakeWeiInVaiVault = (options?: Options) => {
   );
 };
 
-export default useStakeWeiInVaiVault;
+export default useStakeInVaiVault;
