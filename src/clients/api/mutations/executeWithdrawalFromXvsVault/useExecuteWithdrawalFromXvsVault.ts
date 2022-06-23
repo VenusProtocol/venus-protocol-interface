@@ -2,27 +2,34 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
   queryClient,
-  requestWithdrawalFromXvsVault,
-  IRequestWithdrawalFromXvsVaultInput,
-  RequestWithdrawalFromXvsVaultOutput,
+  executeWithdrawalFromXvsVault,
+  IExecuteWithdrawalFromXvsVaultInput,
+  ExecuteWithdrawalFromXvsVaultOutput,
 } from 'clients/api';
+import { TokenId } from 'types';
 import FunctionKey from 'constants/functionKey';
 import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { getContractAddress } from 'utilities';
+
+const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 
 type Options = MutationObserverOptions<
-  RequestWithdrawalFromXvsVaultOutput,
+  ExecuteWithdrawalFromXvsVaultOutput,
   Error,
-  Omit<IRequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>
+  Omit<IExecuteWithdrawalFromXvsVaultInput, 'xvsVaultContract'>
 >;
 
-const useRequestWithdrawalFromXvsVault = (options?: Options) => {
+const useExecuteWithdrawalFromXvsVault = (
+  { stakedTokenId }: { stakedTokenId: TokenId },
+  options?: Options,
+) => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
     FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
-    (params: Omit<IRequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>) =>
-      requestWithdrawalFromXvsVault({
+    (params: Omit<IExecuteWithdrawalFromXvsVaultInput, 'xvsVaultContract'>) =>
+      executeWithdrawalFromXvsVault({
         xvsVaultContract,
         ...params,
       }),
@@ -47,6 +54,26 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
           poolIndex,
         ]);
 
+        // Invalidate cached user balance
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          fromAccountAddress,
+          stakedTokenId,
+        ]);
+
+        // Invalidate cached vault data
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+          stakedTokenId,
+        ]);
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_XVS_VAULT_POOL_INFOS,
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
+        ]);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }
@@ -55,4 +82,4 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
   );
 };
 
-export default useRequestWithdrawalFromXvsVault;
+export default useExecuteWithdrawalFromXvsVault;
