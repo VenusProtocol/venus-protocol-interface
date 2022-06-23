@@ -69,6 +69,16 @@ export const ProposalSummaryUi: React.FC<
     });
   };
 
+  const handleQueueProposal = async () => {
+    const transactionReceipt = await queueProposal();
+    // Show success modal
+    openSuccessfulTransactionModal({
+      title: t('vote.theProposalWasQueued'),
+      content: t('vote.pleaseAllowTimeForConfirmation'),
+      transactionHash: transactionReceipt.transactionHash,
+    });
+  };
+
   let updateProposalButton;
   let transactionHash = startTxHash;
   switch (state) {
@@ -90,7 +100,7 @@ export const ProposalSummaryUi: React.FC<
     case 'Succeeded':
       updateProposalButton = (
         <PrimaryButton
-          onClick={queueProposal}
+          onClick={handleQueueProposal}
           css={styles.updateProposalButton}
           loading={isQueueProposalLoading}
         >
