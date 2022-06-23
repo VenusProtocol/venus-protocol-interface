@@ -64,7 +64,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
             <GovernanceProposal
               key={id}
               css={styles.bottomSpace}
-              proposalNumber={id}
+              proposalId={id}
               proposalTitle={description.title}
               proposalState={state}
               endDate={endDate}

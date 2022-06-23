@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { BigNumber } from 'bignumber.js';
 import { SerializedStyles } from '@emotion/react';
@@ -7,6 +7,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+import { useGetVoteReceipt } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { ProposalState } from 'types';
 import { ActiveChip, Chip, Countdown, Icon, IconName } from 'components';
@@ -89,23 +91,21 @@ const StatusCard: React.FC<IStateCard> = ({ state }) => {
   return null;
 };
 
-type UserVoteStatus = 'votedFor' | 'votedAgainst' | 'abstained';
-
 interface IGovernanceProposalProps {
   className?: string;
-  proposalNumber: number;
+  proposalId: number;
   proposalTitle: string;
   proposalState: ProposalState;
   endDate: Date;
-  userVoteStatus?: UserVoteStatus;
+  userVoteStatus: 'AGAINST' | 'FOR' | 'ABSTAIN' | undefined;
   forVotesWei?: BigNumber;
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
 }
 
-const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
+const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
   className,
-  proposalNumber,
+  proposalId,
   proposalTitle,
   proposalState,
   endDate,
@@ -118,12 +118,13 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
   const { t } = useTranslation();
 
   const voteStatusText = useMemo(() => {
+    console.log({ userVoteStatus });
     switch (userVoteStatus) {
-      case 'votedFor':
+      case 'FOR':
         return t('voteProposalUi.voteStatus.votedFor');
-      case 'votedAgainst':
+      case 'AGAINST':
         return t('voteProposalUi.voteStatus.votedAgainst');
-      case 'abstained':
+      case 'ABSTAIN':
         return t('voteProposalUi.voteStatus.abstained');
       default:
         return t('voteProposalUi.voteStatus.notVoted');
@@ -142,7 +143,7 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
       css={styles.root}
       component={({ children, ...props }) => (
         <div {...props}>
-          <Link to={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}>
+          <Link to={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalId.toString())}>
             {children}
           </Link>
         </div>
@@ -152,7 +153,7 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
         <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
           <div css={styles.cardHeader}>
             <div>
-              <Chip text={`#${proposalNumber}`} />
+              <Chip text={`#${proposalId}`} />
               {proposalState === 'Active' && (
                 <ActiveChip text={t('voteProposalUi.proposalState.active')} />
               )}
@@ -180,6 +181,19 @@ const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
       </Grid>
     </Paper>
   );
+};
+
+const GovernanceProposal: React.FC<Omit<IGovernanceProposalProps, 'userVoteStatus'>> = ({
+  proposalId,
+  ...props
+}) => {
+  const { account } = useContext(AuthContext);
+  const accountAddress = account?.address;
+  const { data: vote } = useGetVoteReceipt(
+    { proposalId, accountAddress },
+    { enabled: !!accountAddress },
+  );
+  return <GovernanceProposalUi userVoteStatus={vote} proposalId={proposalId} {...props} />;
 };
 
 export default GovernanceProposal;

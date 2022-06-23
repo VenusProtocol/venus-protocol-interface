@@ -1,6 +1,6 @@
 import fakeAddress from '__mocks__/models/address';
 import { GovernorBravoDelegate } from 'types/contracts';
-import getVoteReceipt from './getVoteReceipt';
+import getVoteReceipt from '.';
 
 describe('api/queries/getVoteReceipt', () => {
   test('throws an error when one of GovernorBravoDelegate contract call fails', async () => {
@@ -19,7 +19,7 @@ describe('api/queries/getVoteReceipt', () => {
     try {
       await getVoteReceipt({
         governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-        proposalId: '1234',
+        proposalId: 1234,
         accountAddress: fakeAddress,
       });
 
@@ -30,10 +30,7 @@ describe('api/queries/getVoteReceipt', () => {
   });
 
   test('returns object with hasVoted is false and vote undefined when no vote is returned', async () => {
-    const fakeOutput = {
-      hasVoted: false,
-      vote: undefined,
-    };
+    const fakeOutput = undefined;
 
     const governorBravoContract = {
       methods: {
@@ -49,17 +46,14 @@ describe('api/queries/getVoteReceipt', () => {
 
     const res = await getVoteReceipt({
       governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-      proposalId: '1234',
+      proposalId: 1234,
       accountAddress: fakeAddress,
     });
     expect(res).toStrictEqual(fakeOutput);
   });
 
   test('returns object with hasVoted is true and vote aginst when [true, "0"]', async () => {
-    const fakeOutput = {
-      hasVoted: true,
-      vote: 'against',
-    };
+    const fakeOutput = 'AGAINST';
 
     const governorBravoContract = {
       methods: {
@@ -75,17 +69,14 @@ describe('api/queries/getVoteReceipt', () => {
 
     const res = await getVoteReceipt({
       governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-      proposalId: '1234',
+      proposalId: 1234,
       accountAddress: fakeAddress,
     });
     expect(res).toStrictEqual(fakeOutput);
   });
 
   test('returns object with hasVoted is true and vote aginst when [true, "1"]', async () => {
-    const fakeOutput = {
-      hasVoted: true,
-      vote: 'for',
-    };
+    const fakeOutput = 'FOR';
 
     const governorBravoContract = {
       methods: {
@@ -101,17 +92,14 @@ describe('api/queries/getVoteReceipt', () => {
 
     const res = await getVoteReceipt({
       governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-      proposalId: '1234',
+      proposalId: 1234,
       accountAddress: fakeAddress,
     });
     expect(res).toStrictEqual(fakeOutput);
   });
 
   test('returns object with hasVoted is true and vote aginst when [true, "2"]', async () => {
-    const fakeOutput = {
-      hasVoted: true,
-      vote: 'abstain',
-    };
+    const fakeOutput = 'ABSTAIN';
 
     const governorBravoContract = {
       methods: {
@@ -127,7 +115,7 @@ describe('api/queries/getVoteReceipt', () => {
 
     const res = await getVoteReceipt({
       governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-      proposalId: '1234',
+      proposalId: 1234,
       accountAddress: fakeAddress,
     });
     expect(res).toStrictEqual(fakeOutput);

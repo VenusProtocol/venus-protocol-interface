@@ -12,7 +12,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVoteReceipt = (
-  { proposalId, accountAddress }: { proposalId: string; accountAddress: string | undefined },
+  { proposalId, accountAddress }: { proposalId: number; accountAddress: string | undefined },
   options?: Options,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
