@@ -280,3 +280,13 @@ export interface Vault {
   userPendingRewardWei?: BigNumber;
   poolIndex?: number;
 }
+
+export interface VoterAccount {
+  address: string;
+  createdAt: Date;
+  id: string;
+  proposalsVoted: number;
+  updatedAt: Date;
+  voteWeightPercent: number;
+  votesWei: BigNumber;
+}

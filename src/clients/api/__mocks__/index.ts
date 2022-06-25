@@ -172,6 +172,9 @@ export const useGetVrtVaultAccruedInterestWei = () =>
     getVrtVaultAccruedInterestWei,
   );
 
+export const getVoterAccounts = jest.fn();
+export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>

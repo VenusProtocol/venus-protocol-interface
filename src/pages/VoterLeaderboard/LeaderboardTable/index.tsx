@@ -3,15 +3,15 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { Typography } from '@mui/material';
-import { EllipseAddress, Table, TableProps } from 'components';
+import { EllipseText, Table, TableProps } from 'components';
 import Path from 'constants/path';
 import { useTranslation } from 'translation';
-import { IVoterAccount } from 'types';
+import { VoterAccount } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import { useStyles } from './styles';
 
 export interface ILeaderboardTableProps extends Pick<TableProps, 'getRowHref'> {
-  voterAccounts: IVoterAccount[];
+  voterAccounts: VoterAccount[];
   offset: number;
   isFetching: boolean;
 }
@@ -65,9 +65,12 @@ export const LeaderboardTable: React.FC<ILeaderboardTableProps> = ({
           render: () => (
             <Typography css={styles.inline} color="textPrimary" variant="small2">
               {idx + 1 + offset}
-              <Link to={Path.VOTE_ADDRESS.replace(':address', voter.address)} css={styles.address}>
-                <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
-              </Link>
+              <EllipseText css={styles.address} minChars={6} text={voter.address}>
+                <Link
+                  className="ellipse-text"
+                  to={Path.VOTE_ADDRESS.replace(':address', voter.address)}
+                />
+              </EllipseText>
             </Typography>
           ),
           value: idx + 1 + offset,

@@ -298,3 +298,7 @@ export { default as useGetVrtVaultUserInfo } from './queries/useGetVrtVaultUserI
 export { default as getVrtVaultAccruedInterestWei } from './queries/getVrtVaultAccruedInterestWei';
 export * from './queries/getVrtVaultAccruedInterestWei';
 export { default as useGetVrtVaultAccruedInterestWei } from './queries/useGetVrtVaultAccruedInterestWei';
+
+export { default as getVoterAccounts } from './queries/getVoterAccounts';
+export * from './queries/getVoterAccounts';
+export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGetVoterAccounts';

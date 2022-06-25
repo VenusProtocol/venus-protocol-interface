@@ -14,7 +14,8 @@ import Xvs from 'pages/Xvs';
 import Market from 'pages/Market';
 import Vault from 'pages/Vault';
 import Proposal from 'pages/Proposal';
-import VoterDetails from 'pages/VoterDetails';
+import ProposerDetail from 'containers/Main/ProposerDetail';
+import VoterLeaderboardV1 from 'containers/Main/VoterLeaderboard';
 import VoterLeaderboard from 'pages/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
 import MarketDetails from 'pages/MarketDetails';
@@ -55,7 +56,9 @@ const App = () => (
                             <Route
                               exact
                               path={Path.VOTE_LEADER_BOARD}
-                              component={VoterLeaderboard}
+                              component={
+                                process.env.REACT_APP_RUN_V2 ? VoterLeaderboard : VoterLeaderboardV1
+                              }
                             />
                             <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
                             <Route

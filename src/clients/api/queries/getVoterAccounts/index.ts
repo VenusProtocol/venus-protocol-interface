@@ -1,5 +1,4 @@
-import { IVoterAccount } from 'types';
-import { VError } from 'errors';
+import { VoterAccount } from 'types';
 import { restService } from 'utilities';
 import formatVoterAccountResponse from './formatVoterAccountResponse';
 import { IGetVoterAccountsResponse } from './types';
@@ -9,7 +8,7 @@ export interface IGetVoterAccountsInput {
 }
 
 export interface IGetVoterAccountsOutput {
-  voterAccounts: IVoterAccount[];
+  voterAccounts: VoterAccount[];
   limit: number;
   offset: number;
   total: number;
@@ -27,18 +26,13 @@ const getVoterAccounts = async ({
     },
   });
   const payload = response.data?.data;
-
-  // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { message: response.message },
-    });
+    // @todo Add specific api error handling
+    throw new Error(response.message);
   }
-
   if (!payload) {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingVoterAccounts' });
+    // @todo Add specific api error handling
+    throw new Error('Unexpected error retrieving voter accounts');
   }
 
   return formatVoterAccountResponse(payload);
