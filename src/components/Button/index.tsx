@@ -70,10 +70,9 @@ export const AnchorButton = ({
   variant = 'primary',
   fullWidth = false,
   small = false,
-  children,
   ...props
 }: IBaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-  const styles = useStyles({ fullWidth, variant, small });
+  const styles = useStyles({ fullWidth, variant, small, children });
   return (
     <a
       target="_blank"
