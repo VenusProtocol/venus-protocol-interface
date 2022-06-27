@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { ActiveChip, Chip } from '.';
+import { ActiveChip, BlueChip, ErrorChip, InactiveChip, Chip } from '.';
 
 export default {
   title: 'Components/Chip',
@@ -12,3 +12,9 @@ export default {
 export const Default = () => <Chip text="Some text" />;
 
 export const Active = () => <ActiveChip text="Some text" />;
+
+export const Inactive = () => <InactiveChip text="Some text" />;
+
+export const Blue = () => <BlueChip text="Some text" />;
+
+export const Error = () => <ErrorChip text="Some text" />;
