@@ -1,4 +1,5 @@
 export * from './v2/Accordion';
+export * from './v2/ActiveVotingProgress';
 export * from './v2/charts/ApyChart';
 export * from './v2/charts/InterestRateChart';
 export * from './v2/AuthModal';

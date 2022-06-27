@@ -10,7 +10,7 @@ export const useStyles = () => {
       width: 100%;
     `,
     bar: css`
-      :nth-of-type(2) {
+      :nth-child(2) {
         margin: ${theme.spacing(6)} 0;
       }
     `,

@@ -11,9 +11,8 @@ import { useGetVoteReceipt } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { ProposalState } from 'types';
-import { ActiveChip, Chip, Countdown, Icon, IconName } from 'components';
+import { ActiveVotingProgress, ActiveChip, Chip, Countdown, Icon, IconName } from 'components';
 import Path from 'constants/path';
-import { ActiveVotingProgress } from './ActiveVotingProgress';
 import { useStyles } from './styles';
 
 interface IStateCard {
