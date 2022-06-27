@@ -267,6 +267,14 @@ export { default as getVoters } from './queries/getVoters';
 export * from './queries/getVoters';
 export { default as useGetVoters } from './queries/useGetVoters';
 
+export { default as getVoterDetail } from './queries/getVoterDetail';
+export * from './queries/getVoterDetail';
+export { default as useGetVoterDetail } from './queries/getVoterDetail/useGetVoterDetail';
+
+export { default as getVoterHistory } from './queries/getVoterHistory';
+export * from './queries/getVoterHistory';
+export { default as useGetVoterHistory } from './queries/getVoterHistory/useGetVoterHistory';
+
 export { default as getVaiVaultPendingXvsWei } from './queries/getVaiVaultPendingXvsWei';
 export * from './queries/getVaiVaultPendingXvsWei';
 export { default as useGetVaiVaultPendingXvsWei } from './queries/useGetVaiVaultPendingXvsWei';
