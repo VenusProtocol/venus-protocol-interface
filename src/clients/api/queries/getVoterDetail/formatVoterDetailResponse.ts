@@ -11,7 +11,7 @@ const formatVoterResponse = (
   balanceWei: new BigNumber(balance),
   delegateCount,
   delegates,
-  delegating: delegates !== NULL_ADDRESS && delegates !== address.toLowerCase(),
+  delegating: delegates !== NULL_ADDRESS && delegates.toLowerCase() !== address.toLowerCase(),
   votesWei: new BigNumber(votes),
   voterTransactions: txs.map(
     ({
