@@ -330,6 +330,7 @@ export interface IVoterDetail {
   balanceWei: BigNumber;
   delegateCount: number;
   delegates: string;
+  delegating: boolean;
   votesWei: BigNumber;
   voterTransactions: VoteDetailTransaction[];
 }

@@ -665,6 +665,15 @@
     },
     "votingOptions": "Voting options"
   },
+  "voterDetail": {
+    "delegated": "Delegated",
+    "delegatingTo": "Delegating to",
+    "holding": "Holding",
+    "holdingProgressBar": "holding progress bar",
+    "undelegated": "Undelegated",
+    "venusBalance": "Venus balance",
+    "votes": "Votes"
+  },
   "voterLeaderboard": {
     "addressesByVotingWeight": "Addresses by Voting Weight",
     "columns": {
