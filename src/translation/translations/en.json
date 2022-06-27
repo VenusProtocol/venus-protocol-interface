@@ -676,12 +676,22 @@
     "votingOptions": "Voting options"
   },
   "voterDetail": {
+    "actions": "Actions",
+    "age": "Age",
+    "amount": "Amount",
     "delegated": "Delegated",
     "delegatingTo": "Delegating to",
     "holding": "Holding",
     "holdingProgressBar": "holding progress bar",
+    "lostVotes": "Lost Votes",
+    "readableAge": "{{age, distanceToNow}}",
+    "receivedVotes": "Received Votes",
+    "receivedXvs": "Received XVS",
+    "sentXvs": "Sent XVS",
+    "transactions": "Transactions",
     "undelegated": "Undelegated",
     "venusBalance": "Venus balance",
+    "viewAll": "View all",
     "votes": "Votes"
   },
   "voterLeaderboard": {

@@ -3,6 +3,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import { useGetVoterDetail } from 'clients/api';
+import { VoteDetailTransaction } from 'types';
 import Holding from './Holding';
 import Transactions from './Transactions';
 import History from './History';
@@ -13,6 +14,8 @@ interface VoterDetailUiProps {
   delegateCount: number | undefined;
   votesWei: BigNumber | undefined;
   delegating: boolean;
+  address: string;
+  voterTransactions: VoteDetailTransaction[] | undefined;
 }
 
 export const VoterDetailUi: React.FC<VoterDetailUiProps> = ({
@@ -20,6 +23,8 @@ export const VoterDetailUi: React.FC<VoterDetailUiProps> = ({
   delegateCount,
   votesWei,
   delegating,
+  address,
+  voterTransactions,
 }) => {
   const styles = useStyles();
   return (
@@ -32,7 +37,11 @@ export const VoterDetailUi: React.FC<VoterDetailUiProps> = ({
           votesWei={votesWei}
           delegating={delegating}
         />
-        <Transactions css={styles.topRowRight} />
+        <Transactions
+          css={styles.topRowRight}
+          address={address}
+          voterTransactions={voterTransactions}
+        />
       </div>
       <History />
     </div>
@@ -48,6 +57,8 @@ const VoterDetail = () => {
       delegateCount={voterDetail?.delegateCount}
       votesWei={voterDetail?.votesWei}
       delegating={!!voterDetail?.delegating}
+      address={address}
+      voterTransactions={voterDetail?.voterTransactions}
     />
   );
 };
