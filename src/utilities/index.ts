@@ -36,3 +36,4 @@ export { default as notUndefined } from './notUndefined';
 export { default as calculatePercentage } from './calculatePercentage';
 export { truncateAddress } from './truncateAddress';
 export { default as parseFunctionSignature } from './parseFunctionSignature';
+export { default as getSupportName } from './getSupportName';
