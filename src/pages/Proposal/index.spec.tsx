@@ -22,10 +22,9 @@ import en from 'translation/translations/en.json';
 import Proposal from '.';
 import TEST_IDS from './testIds';
 
+jest.mock('clients/api');
+
 describe('pages/Proposal', () => {
-  beforeAll(() => {
-    jest.mock('clients/api');
-  });
   it('renders without crashing', async () => {
     renderComponent(<Proposal />);
   });
