@@ -143,7 +143,7 @@ export { default as useGetXvsReward } from './queries/useGetXvsReward';
 
 export { default as getAllowance } from './queries/getAllowance';
 export * from './queries/getAllowance';
-export { default as useGetAllowance } from './queries/useGetAllowance';
+export { default as useGetAllowance } from './queries/getAllowance/useGetAllowance';
 
 export { default as getBalanceOf } from './queries/getBalanceOf';
 export * from './queries/getBalanceOf';

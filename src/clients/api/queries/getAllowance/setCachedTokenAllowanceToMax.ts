@@ -5,6 +5,7 @@ import { GetAllowanceOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { TokenId } from 'types';
 import { getTokenSpenderAddress } from 'utilities';
+import type { UseGetAllowanceQueryKey } from './useGetAllowance';
 
 const setCachedTokenAllowanceToMax = ({
   queryClient,
@@ -13,8 +14,15 @@ const setCachedTokenAllowanceToMax = ({
   queryClient: QueryClient;
   tokenId: TokenId;
 }) => {
-  const queryKey = [FunctionKey.GET_TOKEN_ALLOWANCE, tokenId, getTokenSpenderAddress(tokenId)];
-  queryClient.setQueryData<GetAllowanceOutput>(queryKey, `${MAX_UINT256.toFixed()}`);
+  const queryKey: UseGetAllowanceQueryKey = [
+    FunctionKey.GET_TOKEN_ALLOWANCE,
+    {
+      spenderAddress: getTokenSpenderAddress(tokenId),
+      tokenId,
+    },
+  ];
+
+  queryClient.setQueryData<GetAllowanceOutput>(queryKey, MAX_UINT256);
 };
 
 export default setCachedTokenAllowanceToMax;

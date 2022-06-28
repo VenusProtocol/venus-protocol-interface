@@ -8,27 +8,46 @@ import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
 import { TokenId } from 'types';
 
+export type UseGetAllowanceQueryKey = [
+  FunctionKey.GET_TOKEN_ALLOWANCE,
+  {
+    tokenId: TokenId;
+    spenderAddress: string;
+  },
+];
+
 type Options = QueryObserverOptions<
   GetAllowanceOutput,
   Error,
   GetAllowanceOutput,
   GetAllowanceOutput,
-  [FunctionKey.GET_TOKEN_ALLOWANCE, string, string]
+  UseGetAllowanceQueryKey
 >;
 
 const useGetAllowance = (
   {
-    accountAddress,
-    spenderAddress,
     tokenId,
+    spenderAddress,
+    accountAddress,
   }: Omit<IGetAllowanceInput, 'tokenContract'> & { tokenId: TokenId },
   options?: Options,
 ) => {
   const tokenContract = useTokenContract(tokenId);
 
   return useQuery(
-    [FunctionKey.GET_TOKEN_ALLOWANCE, spenderAddress, tokenId],
-    () => getAllowance({ tokenContract, spenderAddress, accountAddress }),
+    [
+      FunctionKey.GET_TOKEN_ALLOWANCE,
+      {
+        tokenId,
+        spenderAddress,
+      },
+    ],
+    () =>
+      getAllowance({
+        tokenContract,
+        spenderAddress,
+        accountAddress,
+      }),
     options,
   );
 };

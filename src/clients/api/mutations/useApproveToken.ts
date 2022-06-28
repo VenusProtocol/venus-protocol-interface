@@ -4,7 +4,7 @@ import { TokenId } from 'types';
 import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useTokenContract } from 'clients/contracts/hooks';
-import setCachedTokenAllowanceToMax from './setCachedTokenAllowanceToMax';
+import setCachedTokenAllowanceToMax from '../queries/getAllowance/setCachedTokenAllowanceToMax';
 
 const useApproveToken = (
   { tokenId }: { tokenId: TokenId },
