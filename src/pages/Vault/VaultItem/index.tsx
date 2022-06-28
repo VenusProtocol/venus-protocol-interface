@@ -17,7 +17,7 @@ import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilit
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
-import { StakeModal } from '../modals';
+import { StakeModal, WithdrawFromVaiVaultModal } from '../modals';
 import { useStyles } from './styles';
 
 type ActiveModal = 'stake' | 'withdraw';
@@ -245,7 +245,11 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         />
       )}
 
-      {/* TODO: add other modals (see VEN-251) */}
+      {activeModal === 'withdraw' && poolIndex === undefined && stakedTokenId === TOKENS.vai.id && (
+        <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
+      )}
+
+      {/* TODO: add withdraw modal for vesting vaults (see VEN-251) */}
     </>
   );
 };

@@ -686,6 +686,17 @@
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
   },
+  "withdrawFromVaiVaultModal": {
+    "availableTokensLabel": "Available {{tokenSymbol}}",
+    "connectWalletMessage": "Please connect your wallet to withdraw {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "Enter a valid amount to withdraw",
+    "submitButtonLabel": "Withdraw",
+    "successfulTransactionModal": {
+      "description": "You successful withdrew",
+      "title": "Your withdrawal was successful"
+    },
+    "title": "Withdraw {{tokenSymbol}}"
+  },
   "xvs": {
     "columns": {
       "asset": "Asset",

@@ -2,6 +2,6 @@
 
 exports[`api/queries/getVaiVaultUserInfo returns the user info in the correct format 1`] = `
 Object {
-  "stakedVaiWei": "100000000000000",
+  "stakedVaiWei": "1e+23",
 }
 `;
