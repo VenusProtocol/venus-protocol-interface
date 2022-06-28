@@ -36,7 +36,7 @@ export const useStyles = () => {
         grid-template-rows: 1fr;
         row-gap: 20px;
       }
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('sm')} {
         background-color: transparent;
       }
     `,
@@ -52,11 +52,40 @@ export const useStyles = () => {
     `,
     action: css`
       display: inline-flex;
+      align-items: center;
     `,
     anchorButton: css`
       ${theme.breakpoints.down('sm')} {
         margin: ${theme.spacing(4)} 0 0 0;
         background-color: transparent;
+      }
+    `,
+    icon: css`
+      border-radius: 50%;
+      width: ${theme.shape.iconSize.medium}px;
+      height: ${theme.shape.iconSize.medium}px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: ${theme.spacing(2.5)};
+      svg {
+        color: ${theme.palette.text.primary};
+        width: ${theme.spacing(2)};
+        height: ${theme.spacing(2)};
+      }
+    `,
+    for: css`
+      background-color: ${theme.palette.interactive.success};
+    `,
+    abstain: css`
+      background-color: ${theme.palette.text.secondary};
+    `,
+    against: css`
+      background-color: ${theme.palette.interactive.error};
+    `,
+    spinner: css`
+      ${theme.breakpoints.down('xl')} {
+        margin-bottom: ${theme.spacing(4)};
       }
     `,
   };

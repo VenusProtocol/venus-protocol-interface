@@ -1,24 +1,25 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import getVoteReceipt, { GetVoteReceiptOutput } from './getVoteReceipt';
+import getVoteReceipt, { IGetVoteReceiptOutput } from './getVoteReceipt';
 
 type Options = QueryObserverOptions<
-  GetVoteReceiptOutput,
+  IGetVoteReceiptOutput,
   Error,
-  GetVoteReceiptOutput,
-  GetVoteReceiptOutput,
-  [FunctionKey.GET_VOTE_RECEIPT, string, string]
+  IGetVoteReceiptOutput,
+  IGetVoteReceiptOutput,
+  [FunctionKey.GET_VOTE_RECEIPT, { proposalId: number; accountAddress: string | undefined }]
 >;
 
 const useGetVoteReceipt = (
-  { proposalId, accountAddress }: { proposalId: number; accountAddress: string | undefined },
+  params: { proposalId: number; accountAddress: string | undefined },
   options?: Options,
 ) => {
+  const { proposalId, accountAddress } = params;
   const governorBravoContract = useGovernorBravoDelegateContract();
 
   return useQuery(
-    [FunctionKey.GET_VOTE_RECEIPT, proposalId, accountAddress],
+    [FunctionKey.GET_VOTE_RECEIPT, params],
     () =>
       getVoteReceipt({
         governorBravoContract,

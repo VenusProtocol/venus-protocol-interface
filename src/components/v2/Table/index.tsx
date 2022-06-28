@@ -128,12 +128,12 @@ export const Table = ({
           />
 
           <TableBody>
-            {rows.map(row => {
-              const rowKey = row[rowKeyIndex].value.toString();
+            {rows.map((row, idx) => {
+              const rowKey = `${row[rowKeyIndex].value.toString()}-${idx}-table`;
               return (
                 <TableRow
                   hover
-                  key={`${rowKey}-table`}
+                  key={rowKey}
                   css={styles.getTableRow({ clickable: !!rowOnClick })}
                   onClick={
                     rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))

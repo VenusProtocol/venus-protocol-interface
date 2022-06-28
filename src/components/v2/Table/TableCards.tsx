@@ -26,8 +26,8 @@ const TableCards: React.FC<ITableCardProps> = ({
 
   return (
     <div className={className}>
-      {rows.map(row => {
-        const rowKey = row[rowKeyIndex].value.toString();
+      {rows.map((row, idx) => {
+        const rowKey = `${row[rowKeyIndex].value.toString()}-${idx}-cards`;
         const [titleColumn, ...otherColumns] = columns;
         const titleCell = row.find(cell => titleColumn.key === cell.key);
         return (

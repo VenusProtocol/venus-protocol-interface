@@ -10,7 +10,7 @@ const formatVoterResponse = (
 ): IVoterDetails => ({
   balanceWei: new BigNumber(balance),
   delegateCount,
-  delegates,
+  delegateAddress: delegates,
   delegating: delegates !== NULL_ADDRESS && delegates.toLowerCase() !== address.toLowerCase(),
   votesWei: new BigNumber(votes),
   voterTransactions: txs
@@ -27,23 +27,7 @@ const formatVoterResponse = (
         updatedAt,
         ...rest
       }) => {
-        if (type === 'vote' && 'support' in rest) {
-          return {
-            blockNumber,
-            blockTimestamp: new Date(blockTimestamp * 1000),
-            createdAt: new Date(createdAt),
-            from,
-            to,
-            transactionHash,
-            transactionIndex,
-            type,
-            support: getSupportName(rest.support),
-            updatedAt: new Date(updatedAt),
-            votesWei: new BigNumber(votes),
-          } as VoteDetailTransactionVote;
-        }
-        return {
-          amountWei: new BigNumber(rest.amount),
+        const voteBase = {
           blockNumber,
           blockTimestamp: new Date(blockTimestamp * 1000),
           createdAt: new Date(createdAt),
@@ -51,10 +35,23 @@ const formatVoterResponse = (
           to,
           transactionHash,
           transactionIndex,
-          type,
           updatedAt: new Date(updatedAt),
           votesWei: new BigNumber(votes),
-        } as VoteDetailTransactionTransfer;
+        };
+        if (type === 'vote' && 'support' in rest) {
+          const transactionVote: VoteDetailTransactionVote = {
+            ...voteBase,
+            type: 'vote',
+            support: getSupportName(rest.support),
+          };
+          return transactionVote;
+        }
+        const transactionTransfer: VoteDetailTransactionTransfer = {
+          ...voteBase,
+          type: 'transfer',
+          amountWei: new BigNumber(rest.amount),
+        };
+        return transactionTransfer;
       },
     )
     .slice(0, 3),

@@ -39,8 +39,8 @@ describe('api/queries/getVoterHistory', () => {
       endpoint: `/voters/history/${fakeAddress}`,
       method: 'GET',
       params: {
-        limit: 5,
-        offset: 10,
+        limit: 6,
+        offset: 12,
       },
     });
 
@@ -61,7 +61,7 @@ describe('api/queries/getVoterHistory', () => {
       endpoint: `/voters/history/${fakeAddress}`,
       method: 'GET',
       params: {
-        limit: 5,
+        limit: 6,
         offset: 0,
       },
     });

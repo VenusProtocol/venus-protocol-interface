@@ -18,6 +18,9 @@ export const useStyles = () => {
     `,
     table: css`
       display: initial;
+      .MuiTableCell-root:first-of-type {
+        overflow: visible;
+      }
 
       ${theme.breakpoints.down('xl')} {
         display: none;

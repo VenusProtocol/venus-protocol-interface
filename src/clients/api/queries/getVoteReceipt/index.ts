@@ -4,7 +4,7 @@ import { VoteSupport } from 'types';
 
 export interface IGetVoteReceiptInput {
   governorBravoContract: GovernorBravoDelegate;
-  proposalId: string;
+  proposalId: number;
   accountAddress: string;
 }
 

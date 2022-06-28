@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { uid } from 'react-uid';
 import { Paper, Typography } from '@mui/material';
 import { Icon, AnchorButton, Table, TableProps, Spinner } from 'components';
 import { useTranslation } from 'translation';
@@ -25,68 +24,103 @@ export const Transactions: React.FC<ITransactionsProps> = ({
   const columns = useMemo(
     () => [
       { key: 'action', label: t('voterDetail.actions'), orderable: false, align: 'left' },
-      { key: 'age', label: t('voterDetail.age'), orderable: false, align: 'left' },
+      { key: 'sent', label: t('voterDetail.sent'), orderable: false, align: 'left' },
       { key: 'amount', label: t('voterDetail.amount'), orderable: false, align: 'right' },
     ],
     [],
   );
 
-  const rows: TableProps['data'] = voterTransactions.map(voterTxs => {
-    // Transfer
-    let action = <></>;
-    let amountWei = new BigNumber(0);
-    if (voterTxs.type === 'transfer') {
-      action =
-        voterTxs.to.toLowerCase() === address.toLowerCase() ? (
-          <>
-            <Icon name="arrowShaft" css={styles.received} />
-            {t('voterDetail.receivedXvs')}
-          </>
-        ) : (
-          <>
-            <Icon name="arrowShaft" css={styles.sent} />
-            {t('voterDetail.sentXvs')}
-          </>
-        );
-      ({ amountWei } = voterTxs);
-    }
-    // Vote
-    if (voterTxs.type === 'vote') {
-      action = voterTxs.support ? t('voterDetail.receivedVotes') : t('voterDetail.lostVotes');
-      amountWei = voterTxs.votesWei;
-    }
+  const rows: TableProps['data'] = useMemo(
+    () =>
+      voterTransactions.map(voterTxs => {
+        // Transfer
+        let action = <></>;
+        let amountWei = new BigNumber(0);
+        if (voterTxs.type === 'transfer') {
+          action =
+            voterTxs.to.toLowerCase() === address.toLowerCase() ? (
+              <>
+                <Icon name="arrowShaft" css={styles.received} />
+                {t('voterDetail.receivedXvs')}
+              </>
+            ) : (
+              <>
+                <Icon name="arrowShaft" css={styles.sent} />
+                {t('voterDetail.sentXvs')}
+              </>
+            );
+          ({ amountWei } = voterTxs);
+        }
+        // Vote
+        if (voterTxs.type === 'vote') {
+          switch (voterTxs.support) {
+            case 'AGAINST':
+              action = (
+                <>
+                  <div css={[styles.icon, styles.against]}>
+                    <Icon name="close" />
+                  </div>
+                  {t('voterDetail.votedAgainst')}
+                </>
+              );
+              break;
+            case 'FOR':
+              action = (
+                <>
+                  <div css={[styles.icon, styles.for]}>
+                    <Icon name="mark" />
+                  </div>
+                  {t('voterDetail.votedFor')}
+                </>
+              );
+              break;
+            case 'ABSTAIN':
+              action = (
+                <>
+                  <div css={[styles.icon, styles.abstain]}>
+                    <Icon name="dots" />
+                  </div>
+                  {t('voterDetail.votedAbstain')}
+                </>
+              );
+            // no default
+          }
+          amountWei = voterTxs.votesWei;
+        }
 
-    return [
-      {
-        key: 'action',
-        render: () => (
-          <Typography css={styles.action} variant="small2" color="textPrimary">
-            {action}
-          </Typography>
-        ),
-        value: uid(action),
-        align: 'left',
-      },
-      {
-        key: 'age',
-        render: () => t('voterDetail.readableAge', { age: voterTxs.blockTimestamp }),
-        value: uid(voterTxs.blockTimestamp),
-        align: 'left',
-      },
-      {
-        key: 'amount',
-        render: () =>
-          convertWeiToTokens({
-            valueWei: amountWei,
-            tokenId: 'xvs',
-            minimizeDecimals: true,
-            returnInReadableFormat: true,
-          }),
-        value: uid(amountWei.toFixed()),
-        align: 'right',
-      },
-    ];
-  });
+        return [
+          {
+            key: 'action',
+            render: () => (
+              <Typography css={styles.action} variant="small2" color="textPrimary">
+                {action}
+              </Typography>
+            ),
+            value: voterTxs.type === 'vote' ? voterTxs.support : voterTxs.to,
+            align: 'left',
+          },
+          {
+            key: 'sent',
+            render: () => t('voterDetail.readableSent', { sent: voterTxs.blockTimestamp }),
+            value: voterTxs.blockTimestamp.toDateString(),
+            align: 'left',
+          },
+          {
+            key: 'amount',
+            render: () =>
+              convertWeiToTokens({
+                valueWei: amountWei,
+                tokenId: 'xvs',
+                minimizeDecimals: true,
+                returnInReadableFormat: true,
+              }),
+            value: amountWei.toFixed(),
+            align: 'right',
+          },
+        ];
+      }),
+    [JSON.stringify(voterTransactions)],
+  );
 
   return (
     <Paper css={styles.root} className={className}>
@@ -103,7 +137,7 @@ export const Transactions: React.FC<ITransactionsProps> = ({
           css={styles.cardContentGrid}
         />
       ) : (
-        <Spinner />
+        <Spinner css={styles.spinner} />
       )}
       <AnchorButton
         css={[styles.horizontalPadding, styles.anchorButton]}
