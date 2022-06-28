@@ -40,7 +40,10 @@ const CallDataFields: React.FC<ICallDataFieldsProps> = ({ signature, actionIndex
               data-testid={name}
               css={[styles.formBottomMargin, styles.addTopMargin(idx === 0)]}
               placeholder={param.type}
-              displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
+              displayableErrorCodes={[
+                ErrorCode.VALUE_REQUIRED,
+                ErrorCode.CALL_DATA_ARGUMENT_INVALID,
+              ]}
             />
           );
         })

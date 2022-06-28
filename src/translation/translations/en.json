@@ -556,7 +556,9 @@
   },
   "vote": {
     "abstain": "Abstain",
+    "addComment": "Add comment",
     "against": "Against",
+    "comment": "Comment",
     "createProposalForm": {
       "abstainOption": "Abstain option",
       "action": "Action",
@@ -573,6 +575,7 @@
       "nextStep": "Next step",
       "proposalName": "Proposal name",
       "signature": "Signature",
+      "submitError": "There was an error creating your proposal",
       "votingOptions": "Voting options"
     },
     "createProposalPlus": "+ Create proposal",
@@ -604,6 +607,9 @@
       "title": "Your delegation was successful"
     },
     "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
+    "theProposalWasCancelled": "The proposal was cancelled",
+    "theProposalWasExecuted": "The proposal was executed",
+    "theProposalWasQueued": "The proposal was queued",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
     "voteAbstain": "Vote abstain",
@@ -613,7 +619,11 @@
     "votingWallet": "Voting wallet",
     "votingWeight": "Voting weight",
     "youCanDelegateVotes": "You can delegate votes to yourself or somebody else. If you know the address you wish to delegate to, enter it below. If not, you can view the Delegate Leaderboard to find a political party you wish to support",
-    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}"
+    "youDelegatedTo": "You delegated your locked tokens to {{delegate}}",
+    "yourProposalwasCreatedSuccessfully": "Your proposal was created successfully",
+    "youSuccessfullyVotedAbstained": "You successfully abstained from voting on the proposal",
+    "youSuccessfullyVotedAgainstTheProposal": "You successfully voted against the proposal",
+    "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",

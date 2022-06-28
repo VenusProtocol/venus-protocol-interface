@@ -2,7 +2,7 @@
 import React from 'react';
 import { Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import Markdown from 'components/v2/Markdown/Viewer';
+import { MarkdownViewer } from 'components';
 import { useTranslation } from 'translation';
 import { DescriptionV1, DescriptionV2, IProposalAction } from 'types';
 import { useStyles } from './styles';
@@ -22,7 +22,7 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
       <Typography variant="h4" color="textSecondary">
         {t('voteProposalUi.description')}
       </Typography>
-      <Markdown css={styles.markdown} content={description.description} />
+      <MarkdownViewer css={styles.markdown} content={description.description} />
       {description.version === 'v2' && (
         <>
           <Typography variant="h4" color="textSecondary" css={styles.section}>
@@ -45,7 +45,7 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
         {t('voteProposalUi.operation')}
       </Typography>
       {actions.map(({ title }) => (
-        <Markdown css={[styles.markdown, styles.actionTitle]} content={title} />
+        <MarkdownViewer key={title} css={[styles.markdown, styles.actionTitle]} content={title} />
       ))}
     </Paper>
   );

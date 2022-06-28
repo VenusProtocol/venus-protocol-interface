@@ -5,11 +5,7 @@ import FunctionKey from 'constants/functionKey';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 
 const useCreateProposal = (
-  options?: MutationObserverOptions<
-    CreateProposalOutput,
-    Error,
-    Omit<ICreateProposalInput, 'governorBravoContract'>
-  >,
+  options?: MutationObserverOptions<CreateProposalOutput, Error, ICreateProposalInput>,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
   return useMutation(

@@ -1,8 +1,15 @@
 import { ethers } from 'ethers';
 
-const encodeParameters = (types: $TSFixMe, values: $TSFixMe) => {
+/**
+ *
+ * @param types - Array of solidity type
+ * @param values - Array of values associated with types by order
+ * @returns - encoded values for sending as part of a contract call
+ */
+const encodeParameters = (types: string[], values: (string | number | string[])[]) => {
   const abi = new ethers.utils.AbiCoder();
-  return abi.encode(types, values);
+  // values type on abi.encode is any
+  return abi.encode(types, values as any);
 };
 
 export default encodeParameters;

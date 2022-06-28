@@ -2,13 +2,19 @@
 import React, { useState } from 'react';
 import type { TransactionReceipt } from 'web3-core';
 import { Typography } from '@mui/material';
-import { useTranslation } from 'translation';
-import { useGetProposals } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
+import {
+  useGetProposals,
+  useCreateProposal,
+  ICreateProposalInput,
+  useGetCurrentVotes,
+} from 'clients/api';
 import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
+import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import { IProposal } from 'types';
+import { useTranslation } from 'translation';
 import GovernanceProposal from '../GovernanceProposal';
 import CreateProposalModal from '../CreateProposalModal';
-import { FormValues } from '../CreateProposalModal/proposalSchema';
 import { useStyles } from './styles';
 
 interface IGovernanceUiProps {
@@ -17,7 +23,11 @@ interface IGovernanceUiProps {
   total: number | undefined;
   limit: number;
   setCurrentPage: (page: number) => void;
-  createProposal: (data: FormValues) => void;
+  createProposal: (
+    payload: Omit<ICreateProposalInput, 'accountAddress'>,
+  ) => Promise<TransactionReceipt>;
+  isCreateProposalLoading: boolean;
+  canCreateProposal: boolean;
 }
 
 export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
@@ -27,6 +37,8 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
   limit,
   setCurrentPage,
   createProposal,
+  isCreateProposalLoading,
+  canCreateProposal,
 }) => {
   const [showCreateProposalModal, setShowCreateProposalModal] = useState(false);
   const { t } = useTranslation();
@@ -36,15 +48,16 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
     <div css={styles.root}>
       <div css={[styles.header, styles.bottomSpace]}>
         <Typography variant="h4">{t('vote.governanceProposals')}</Typography>
-
-        <div css={styles.createProposal}>
-          <TextButton onClick={() => setShowCreateProposalModal(true)} css={styles.marginless}>
-            {t('vote.createProposalPlus')}
-          </TextButton>
-          <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIcon}>
-            <Icon name="info" />
-          </Tooltip>
-        </div>
+        {canCreateProposal && (
+          <div css={styles.createProposal}>
+            <TextButton onClick={() => setShowCreateProposalModal(true)} css={styles.marginless}>
+              {t('vote.createProposalPlus')}
+            </TextButton>
+            <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIcon}>
+              <Icon name="info" />
+            </Tooltip>
+          </div>
+        )}
       </div>
 
       {isLoading && <Spinner css={styles.loader} />}
@@ -63,7 +76,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
             <GovernanceProposal
               key={id}
               css={styles.bottomSpace}
-              proposalNumber={id}
+              proposalId={id}
               proposalTitle={description.title}
               proposalState={state}
               endDate={endDate}
@@ -91,6 +104,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
           isOpen={showCreateProposalModal}
           handleClose={() => setShowCreateProposalModal(false)}
           createProposal={createProposal}
+          isCreateProposalLoading={isCreateProposalLoading}
         />
       )}
     </div>
@@ -108,9 +122,13 @@ const Governance: React.FC = () => {
   } = useGetProposals({
     page: currentPage,
   });
+  const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
-  const createProposal = () => {};
-
+  const { data: currentVotesWei } = useGetCurrentVotes(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+  const canCreateProposal = currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI);
   return (
     <GovernanceUi
       proposals={proposals}
@@ -118,7 +136,9 @@ const Governance: React.FC = () => {
       total={total}
       limit={limit}
       setCurrentPage={setCurrentPage}
-      createProposal={createProposal}
+      canCreateProposal={!!canCreateProposal}
+      createProposal={payload => createProposal({ ...payload, accountAddress })}
+      isCreateProposalLoading={isCreateProposalLoading}
     />
   );
 };

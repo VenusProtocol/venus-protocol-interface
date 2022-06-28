@@ -22,52 +22,10 @@ import en from 'translation/translations/en.json';
 import Proposal from '.';
 import TEST_IDS from './testIds';
 
-jest.mock('clients/api');
-jest.mock('hooks/useVote');
-
-const activeProposal = proposals[1];
-const cancelledProposal = proposals[3];
-const succeededProposal = proposals[4];
-const queuedProposal = proposals[5];
-
-const checkAllButtons = async (
-  getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement,
-  check: (element: HTMLElement) => void,
-) => {
-  const voteForButton = await waitFor(async () =>
-    within(getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
-  );
-  const voteAgainstButton = await waitFor(async () =>
-    within(getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
-  );
-  const voteAbstainButton = await waitFor(async () =>
-    within(getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
-  );
-
-  check(voteForButton);
-  check(voteAgainstButton);
-  check(voteAbstainButton);
-};
-
 describe('pages/Proposal', () => {
-  beforeEach(() => {
-    jest
-      .useFakeTimers('modern')
-      .setSystemTime(activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5));
-
-    (getVoteReceipt as jest.Mock).mockImplementation(() => ({
-      voteSupport: 'NOT_VOTED',
-    }));
-    (getProposal as jest.Mock).mockImplementation(() => activeProposal);
-
-    (useVote as jest.Mock).mockImplementation(() => ({
-      vote: jest.fn(),
-      isLoading: false,
-    }));
-
-    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber('100000000000000000'));
+  beforeAll(() => {
+    jest.mock('clients/api');
   });
-
   it('renders without crashing', async () => {
     renderComponent(<Proposal />);
   });

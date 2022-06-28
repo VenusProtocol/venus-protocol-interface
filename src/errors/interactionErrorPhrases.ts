@@ -8,7 +8,4 @@ export const interactionErrorPhrases = {
     t('markets.errors.collateralDisableError', args),
   accountError: t('markets.errors.accountError'),
   createProposalFailed: t('vote.createProposalForm.submitError'),
-  unsupportedWallet: t('wallets.errors.unsupportedWallet'),
-  authorizeAccess: t('wallets.errors.authorizeAccess'),
-  noProvider: t('wallets.errors.noProvider'),
 };

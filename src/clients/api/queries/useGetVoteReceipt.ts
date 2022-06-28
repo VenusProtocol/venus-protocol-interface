@@ -8,11 +8,11 @@ type Options = QueryObserverOptions<
   Error,
   GetVoteReceiptOutput,
   GetVoteReceiptOutput,
-  [FunctionKey.GET_VOTE_RECEIPT, { proposalId: number; accountAddress: string | undefined }]
+  [FunctionKey.GET_VOTE_RECEIPT, string, string]
 >;
 
 const useGetVoteReceipt = (
-  params: { proposalId: number; accountAddress: string | undefined },
+  { proposalId, accountAddress }: { proposalId: number; accountAddress: string | undefined },
   options?: Options,
 ) => {
   const { proposalId, accountAddress } = params;

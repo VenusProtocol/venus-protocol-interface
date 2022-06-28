@@ -13,5 +13,14 @@ export default {
 } as ComponentMeta<typeof ProposalUi>;
 
 export const Default = () => (
-  <ProposalUi proposal={proposals[0]} forVoters={vote} againstVoters={vote} abstainVoters={vote} />
+  <ProposalUi
+    proposal={proposals[0]}
+    forVoters={vote}
+    againstVoters={vote}
+    abstainVoters={vote}
+    votingEnabled
+    readableVoteWeight="123390000"
+    vote={noop}
+    isVoteLoading={false}
+  />
 );

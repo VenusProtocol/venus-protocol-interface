@@ -2,10 +2,10 @@
 import React from 'react';
 import type { TransactionReceipt } from 'web3-core';
 import { Formik, Form } from 'formik';
-import { Modal, FormikTextField, TextField, FormikSubmitButton } from 'components';
+import { Modal, FormikTextField, TextField, FormikSubmitButton, toast } from 'components';
 import { useTranslation } from 'translation';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import TEST_IDS from '../testIds';
+import { VError, formatVErrorToReadableString } from 'errors';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useStyles } from './styles';
 
 interface IVoteModal {
@@ -16,8 +16,6 @@ interface IVoteModal {
   isVoteLoading: boolean;
 }
 
-// TODO: add tests
-
 const VoteModal: React.FC<IVoteModal> = ({
   handleClose,
   vote,
@@ -27,7 +25,7 @@ const VoteModal: React.FC<IVoteModal> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const handleTransactionMutation = useHandleTransactionMutation();
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   let title: string;
   let successModalTitle: string;
@@ -48,20 +46,22 @@ const VoteModal: React.FC<IVoteModal> = ({
   }
 
   const handleOnSubmit = async ({ reason }: { reason: string }) => {
-    await handleTransactionMutation({
-      mutate: async () => {
-        const result = await vote(reason);
-        handleClose();
-        return result;
-      },
-      successTransactionModalProps: transactionReceipt => ({
+    try {
+      const transactionReceipt = await vote(reason);
+      handleClose();
+      openSuccessfulTransactionModal({
         title: successModalTitle,
         content: t('vote.pleaseAllowTimeForConfirmation'),
         transactionHash: transactionReceipt.transactionHash,
-      }),
-    });
+      });
+    } catch (error) {
+      let { message } = error as Error;
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+      toast.error({ message });
+    }
   };
-
   return (
     <Modal
       isOpen={voteModalType !== undefined}
@@ -74,8 +74,7 @@ const VoteModal: React.FC<IVoteModal> = ({
           <Form>
             <TextField
               label={t('vote.votingPower')}
-              name="votingPower"
-              id="votingPower"
+              name="reason"
               leftIconName="xvs"
               disabled
               value={readableVoteWeight}
@@ -84,16 +83,10 @@ const VoteModal: React.FC<IVoteModal> = ({
             <FormikTextField
               label={t('vote.comment')}
               name="reason"
-              id="reason"
               placeholder={t('vote.addComment')}
               css={styles.comment}
             />
-            <FormikSubmitButton
-              enabledLabel={title}
-              fullWidth
-              loading={isVoteLoading}
-              data-testid={TEST_IDS.voteModal.submitButton}
-            />
+            <FormikSubmitButton enabledLabel={title} fullWidth loading={isVoteLoading} />
           </Form>
         )}
       </Formik>

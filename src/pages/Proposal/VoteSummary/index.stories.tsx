@@ -82,8 +82,9 @@ export const VoteFor = () => (
     votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
     voters={votes}
-    onClick={noop}
     progressBarColor={PALETTE.interactive.success50}
+    votingEnabled
+    openVoteModal={noop}
   />
 );
 
@@ -93,8 +94,9 @@ export const VoteAgainst = () => (
     votedValueWei={new BigNumber('100000000000000000')}
     votedTotalWei={new BigNumber('200000000000000000')}
     voters={votes}
-    onClick={noop}
     progressBarColor={PALETTE.interactive.error50}
+    votingEnabled
+    openVoteModal={noop}
   />
 );
 
@@ -103,7 +105,8 @@ export const Abstain = () => (
     label="Abstain"
     votedValueWei={new BigNumber('0')}
     votedTotalWei={new BigNumber('200000000000000000')}
-    onClick={noop}
     progressBarColor={PALETTE.text.secondary}
+    votingEnabled
+    openVoteModal={noop}
   />
 );

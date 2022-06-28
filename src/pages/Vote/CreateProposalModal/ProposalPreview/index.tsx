@@ -3,6 +3,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { ethers } from 'ethers';
 import { useFormikContext } from 'formik';
+import { MarkdownViewer } from 'components';
 import { generateBscScanUrl } from 'utilities';
 import { useTranslation } from 'translation';
 import { FormValues } from '../proposalSchema';
@@ -17,7 +18,7 @@ const formatSignature = (action: FormValues['actions'][number]) => {
     }
     return action.callData[idx];
   });
-  return `${fragment.name}(${args.join(',')})`;
+  return `${fragment.name}(${args.join(', ')})`;
 };
 
 const ProposalPreview: React.FC = () => {
@@ -43,7 +44,7 @@ const ProposalPreview: React.FC = () => {
           {t('vote.createProposalForm.description')}
         </Typography>
         <Typography variant="body1" color="textPrimary">
-          {description}
+          <MarkdownViewer css={styles.markdown} content={description} />
         </Typography>
       </div>
       <div css={styles.section}>
