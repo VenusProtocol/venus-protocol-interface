@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { Delimiter, Icon } from 'components';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import { Delimiter, LabeledProgressBar, Icon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { TOKENS } from 'constants/tokens';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
+import { convertWeiToTokens } from 'utilities';
 import { useStyles } from './styles';
 
 interface IHoldingProps {
@@ -28,20 +26,29 @@ export const Holding: React.FC<IHoldingProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const readableVenusBalance = useConvertWeiToReadableTokenString({
-    valueWei: balanceWei,
-    tokenId: TOKENS.xvs.id as TokenId,
-    addSymbol: false,
-    minimizeDecimals: true,
-  });
+  const readableVenusBalance = useMemo(() => {
+    if (!balanceWei) {
+      return PLACEHOLDER_KEY;
+    }
+    return convertWeiToTokens({
+      valueWei: balanceWei,
+      tokenId: 'xvs',
+      addSymbol: false,
+      returnInReadableFormat: true,
+    });
+  }, [balanceWei]);
 
-  const readableVotes = useConvertWeiToReadableTokenString({
-    valueWei: votesWei,
-    tokenId: TOKENS.xvs.id as TokenId,
-    addSymbol: false,
-    minimizeDecimals: true,
-  });
-
+  const readableVotes = useMemo(() => {
+    if (!votesWei) {
+      return PLACEHOLDER_KEY;
+    }
+    return convertWeiToTokens({
+      valueWei: votesWei,
+      tokenId: 'xvs',
+      addSymbol: false,
+      returnInReadableFormat: true,
+    });
+  }, [votesWei]);
   return (
     <Paper css={styles.root} className={className}>
       <Typography variant="h4" css={styles.title}>
@@ -53,17 +60,22 @@ export const Holding: React.FC<IHoldingProps> = ({
       </Typography>
       <Delimiter css={styles.delimiter} />
       <Typography variant="small2">{t('voterDetail.votes')}</Typography>
-      <div css={styles.voteSection}>
-        <Typography variant="h4" css={styles.value}>
-          {readableVotes}
-        </Typography>
-        <div css={styles.delegateSection}>
-          <Icon name="person" />
-          <Typography variant="h4" color="textSecondary" css={styles.progressBarTitle}>
-            {delegateCount?.toString() || PLACEHOLDER_KEY}
-          </Typography>
-        </div>
-      </div>
+      <LabeledProgressBar
+        whiteLeftText={readableVotes}
+        greyRightText={
+          <>
+            <Icon name="person" />
+            <Typography component="span" css={styles.progressBarTitle}>
+              {delegateCount?.toString() || PLACEHOLDER_KEY}
+            </Typography>
+          </>
+        }
+        value={100}
+        step={1}
+        min={0}
+        max={100}
+        ariaLabel={t('voterDetail.holdingProgressBar')}
+      />
       <Delimiter css={styles.delimiter} />
       <Typography variant="small2">{t('voterDetail.delegatingTo')}</Typography>
       <Typography variant="h4" css={styles.value}>

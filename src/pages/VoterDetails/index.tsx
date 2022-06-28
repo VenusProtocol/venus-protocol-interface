@@ -69,10 +69,9 @@ const VoterDetails = () => {
   const { address } = useParams<{ address: string }>();
   const { data: voterDetails } = useGetVoterDetails({ address });
   const {
-    data: { voterHistory, total, limit } = { voterHistory: [], total: 0, limit: 16 },
+    data: { voterHistory, total, limit } = { voterHistory: undefined, total: 0, limit: 0 },
     isFetching,
   } = useGetVoterHistory({ address, page: currentHistoryPage });
-
   return (
     <VoterDetailsUi
       balanceWei={voterDetails?.balanceWei}

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { NULL_ADDRESS } from 'constants/address';
+import { getSupportName } from 'utilities';
 import { IVoterDetails, VoteDetailTransactionVote, VoteDetailTransactionTransfer } from 'types';
-import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 import { IGetVoterDetailsResponse } from './types';
 
 const formatVoterResponse = (
@@ -10,7 +10,7 @@ const formatVoterResponse = (
 ): IVoterDetails => ({
   balanceWei: new BigNumber(balance),
   delegateCount,
-  delegateAddress: delegates,
+  delegates,
   delegating: delegates !== NULL_ADDRESS && delegates.toLowerCase() !== address.toLowerCase(),
   votesWei: new BigNumber(votes),
   voterTransactions: txs
@@ -27,7 +27,23 @@ const formatVoterResponse = (
         updatedAt,
         ...rest
       }) => {
-        const voteBase = {
+        if (type === 'vote' && 'support' in rest) {
+          return {
+            blockNumber,
+            blockTimestamp: new Date(blockTimestamp * 1000),
+            createdAt: new Date(createdAt),
+            from,
+            to,
+            transactionHash,
+            transactionIndex,
+            type,
+            support: getSupportName(rest.support),
+            updatedAt: new Date(updatedAt),
+            votesWei: new BigNumber(votes),
+          } as VoteDetailTransactionVote;
+        }
+        return {
+          amountWei: new BigNumber(rest.amount),
           blockNumber,
           blockTimestamp: new Date(blockTimestamp * 1000),
           createdAt: new Date(createdAt),
@@ -35,23 +51,10 @@ const formatVoterResponse = (
           to,
           transactionHash,
           transactionIndex,
+          type,
           updatedAt: new Date(updatedAt),
           votesWei: new BigNumber(votes),
-        };
-        if (type === 'vote' && 'support' in rest) {
-          const transactionVote: VoteDetailTransactionVote = {
-            ...voteBase,
-            type: 'vote',
-            support: indexedVotingSupportNames[rest.support],
-          };
-          return transactionVote;
-        }
-        const transactionTransfer: VoteDetailTransactionTransfer = {
-          ...voteBase,
-          type: 'transfer',
-          amountWei: new BigNumber(rest.amount),
-        };
-        return transactionTransfer;
+        } as VoteDetailTransactionTransfer;
       },
     )
     .slice(0, 3),

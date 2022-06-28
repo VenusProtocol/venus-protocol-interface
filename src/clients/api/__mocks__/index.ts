@@ -133,8 +133,8 @@ export const useGetVoters = () => useQuery(FunctionKey.GET_VOTERS, getVoters);
 export const getVoterHistory = jest.fn();
 export const useGetVoterHistory = () => useQuery(FunctionKey.GET_VOTER_HISTORY, getVoterHistory);
 
-export const getVoterDetail = jest.fn();
-export const useGetVoterDetail = () => useQuery(FunctionKey.GET_VOTER_DETAIL, getVoterDetail);
+export const getVoterDetails = jest.fn();
+export const useGetVoterDetails = () => useQuery(FunctionKey.GET_VOTER_DETAILS, getVoterDetails);
 
 export const getVoteReceipt = jest.fn();
 export const useGetVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);

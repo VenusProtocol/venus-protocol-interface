@@ -12,24 +12,14 @@ export const useStyles = () => {
     `,
     value: css`
       margin-top: ${theme.spacing(1)};
+      line-height: 1.25rem;
     `,
     delimiter: css`
-      margin: ${theme.spacing(6)} 0;
-    `,
-    voteSection: css`
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    `,
-    delegateSection: css`
-      display: inline-flex;
-      flex-direction: row;
-      align-items: center;
+      margin: ${theme.spacing(5)} 0;
     `,
     progressBarTitle: css`
       margin-left: ${theme.spacing(1)};
-      margin-top: ${theme.spacing(1)};
+      font-size: ${theme.typography.h4.fontSize};
     `,
   };
 };

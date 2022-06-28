@@ -1,5 +1,4 @@
 import { IVoterDetails } from 'types';
-import { VError } from 'errors';
 import { restService } from 'utilities';
 import formatVoterDetailsResponse from './formatVoterDetailsResponse';
 import { IGetVoterDetailsResponse } from './types';
@@ -18,17 +17,13 @@ const getVoterDetails = async ({
     method: 'GET',
   });
   const payload = response.data?.data;
-  // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { message: response.message },
-    });
+    // @todo Add specific api error handling
+    throw new Error(response.message);
   }
-
   if (!payload) {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingVoterDetails' });
+    // @todo Add specific api error handling
+    throw new Error('Unexpected error retrieving voter details');
   }
 
   return formatVoterDetailsResponse(payload, address);

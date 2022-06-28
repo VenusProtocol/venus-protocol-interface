@@ -8,7 +8,6 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
       padding: ${theme.spacing(6)} 0;
-
       ${theme.breakpoints.down('sm')} {
         background-color: transparent;
       }
@@ -17,7 +16,7 @@ export const useStyles = () => {
       margin: 0 ${theme.spacing(6)};
     `,
     table: css`
-      display: block;
+      display: initial;
 
       ${theme.breakpoints.down('sm')} {
         display: none;
@@ -25,22 +24,19 @@ export const useStyles = () => {
     `,
     cards: css`
       display: none;
-
       ${theme.breakpoints.down('sm')} {
-        display: block;
+        display: initial;
       }
     `,
     cardContentGrid: css`
-      padding-top: ${theme.spacing(4)};
-      padding-bottom: ${theme.spacing(4)};
-
+      padding-top: ${theme.spacing(2.5)};
+      padding-bottom: ${theme.spacing(8.5)};
       .table__table-cards__card-content {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr;
-        row-gap: ${theme.spacing(5)};
+        row-gap: 20px;
       }
-
-      ${theme.breakpoints.down('sm')} {
+      ${theme.breakpoints.down('md')} {
         background-color: transparent;
       }
     `,
@@ -56,41 +52,11 @@ export const useStyles = () => {
     `,
     action: css`
       display: inline-flex;
-      align-items: center;
     `,
     anchorButton: css`
       ${theme.breakpoints.down('sm')} {
         margin: ${theme.spacing(4)} 0 0 0;
         background-color: transparent;
-      }
-    `,
-    icon: css`
-      border-radius: 50%;
-      width: ${theme.shape.iconSize.medium}px;
-      height: ${theme.shape.iconSize.medium}px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: ${theme.spacing(2.5)};
-
-      svg {
-        color: ${theme.palette.text.primary};
-        width: ${theme.spacing(2)};
-        height: ${theme.spacing(2)};
-      }
-    `,
-    for: css`
-      background-color: ${theme.palette.interactive.success};
-    `,
-    abstain: css`
-      background-color: ${theme.palette.text.secondary};
-    `,
-    against: css`
-      background-color: ${theme.palette.interactive.error};
-    `,
-    spinner: css`
-      ${theme.breakpoints.down('xl')} {
-        margin-bottom: ${theme.spacing(4)};
       }
     `,
   };

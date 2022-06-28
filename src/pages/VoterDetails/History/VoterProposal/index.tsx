@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { BigNumber } from 'bignumber.js';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
@@ -11,12 +14,12 @@ import {
   ErrorChip,
   InactiveChip,
   BlueChip,
-  ProposalCard,
+  Chip,
 } from 'components';
 import Path from 'constants/path';
 import { useStyles } from './styles';
 
-interface IVoterProposalProps {
+interface IGovernanceProposalProps {
   className?: string;
   proposalNumber: number;
   proposalTitle: string;
@@ -32,7 +35,7 @@ interface IVoterProposalProps {
   executedDate: Date | undefined;
 }
 
-const VoterProposal: React.FC<IVoterProposalProps> = ({
+const GovernanceProposal: React.FC<IGovernanceProposalProps> = ({
   className,
   proposalNumber,
   proposalTitle,
@@ -49,7 +52,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  const voteChipText = useMemo(() => {
+  const voteChip = useMemo(() => {
     switch (userVoteStatus) {
       case 'FOR':
         return <ActiveChip text={t('voteProposalUi.voteStatus.votedFor')} />;
@@ -58,7 +61,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
       case 'ABSTAIN':
         return <InactiveChip text={t('voteProposalUi.voteStatus.abstained')} />;
       default:
-        return <Typography variant="small2">{t('voteProposalUi.voteStatus.notVoted')}</Typography>;
+        return t('voteProposalUi.voteStatus.notVoted');
     }
   }, [userVoteStatus]);
 
@@ -77,7 +80,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.activeTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <Typography color="textPrimary" />,
               }}
               values={{
                 date: createdDate,
@@ -92,7 +95,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.canceledTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <Typography color="textPrimary" />,
               }}
               values={{
                 date: cancelDate,
@@ -107,7 +110,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.succeededTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <Typography color="textPrimary" />,
               }}
               values={{
                 date: endDate,
@@ -122,7 +125,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.queuedTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <Typography color="textPrimary" />,
               }}
               values={{
                 date: queuedDate,
@@ -137,7 +140,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.defeatedTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <Typography color="textPrimary" />,
               }}
               values={{
                 date: endDate,
@@ -152,7 +155,7 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
             <Trans
               i18nKey="voteProposalUi.proposalState.executedTimestamp"
               components={{
-                Span: <Typography variant="small2" color="textPrimary" component="span" />,
+                Span: <Typography variant="small2" color="textPrimary" />,
               }}
               values={{
                 date: executedDate,
@@ -166,29 +169,47 @@ const VoterProposal: React.FC<IVoterProposalProps> = ({
   }, [proposalState]);
 
   return (
-    <ProposalCard
-      css={styles.root}
+    <Paper
       className={className}
-      linkTo={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}
-      proposalNumber={proposalNumber}
-      headerLeftItem={stateChip}
-      headerRightItem={voteChipText}
-      title={proposalTitle}
-      footer={
-        <Typography variant="small2" component="span">
-          {stateTimestamp}
-        </Typography>
-      }
-      contentRightItem={
-        <ActiveVotingProgress
-          votedForWei={forVotesWei}
-          votedAgainstWei={againstVotesWei}
-          abstainedWei={abstainedVotesWei}
-          votedTotalWei={votedTotalWei}
-        />
-      }
-    />
+      css={styles.root}
+      component={({ children, ...props }) => (
+        <div {...props}>
+          <Link to={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}>
+            {children}
+          </Link>
+        </div>
+      )}
+    >
+      <Grid container>
+        <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
+          <div css={styles.cardHeader}>
+            <div>
+              <Chip text={`#${proposalNumber}`} />
+              {stateChip}
+            </div>
+
+            {voteChip}
+          </div>
+
+          <Typography variant="h4" css={styles.cardTitle} color="textPrimary">
+            {proposalTitle}
+          </Typography>
+
+          <Typography variant="small2" component="span">
+            {stateTimestamp}
+          </Typography>
+        </Grid>
+        <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
+          <ActiveVotingProgress
+            votedForWei={forVotesWei}
+            votedAgainstWei={againstVotesWei}
+            abstainedWei={abstainedVotesWei}
+            votedTotalWei={votedTotalWei}
+          />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 
-export default VoterProposal;
+export default GovernanceProposal;
