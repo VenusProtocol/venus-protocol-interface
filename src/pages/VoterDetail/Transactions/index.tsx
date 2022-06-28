@@ -106,7 +106,7 @@ export const Transactions: React.FC<ITransactionsProps> = ({
         <Spinner />
       )}
       <AnchorButton
-        css={styles.horizontalPadding}
+        css={[styles.horizontalPadding, styles.anchorButton]}
         variant="secondary"
         href={generateBscScanUrl(address, 'address')}
       >
