@@ -654,6 +654,15 @@
     },
     "votingOptions": "Voting options"
   },
+  "voterLeaderboard": {
+    "addressesByVotingWeight": "Addresses by Voting Weight",
+    "columns": {
+      "proposalsVoted": "Proposals Voted",
+      "rank": "Rank",
+      "votes": "Votes",
+      "voteWeight": "Vote Weight"
+    }
+  },
   "voteSummary": {
     "addresses": "{{length}} addresses",
     "votes": "Votes"

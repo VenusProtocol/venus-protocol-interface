@@ -5,7 +5,7 @@ import getTransactions from '.';
 
 jest.mock('utilities/restService');
 
-describe('api/queries/getMarkets', () => {
+describe('api/queries/getTransactions', () => {
   test('throws an error when request fails', async () => {
     const fakeErrorMessage = 'Fake error message';
 
