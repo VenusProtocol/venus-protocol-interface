@@ -7,16 +7,16 @@ import { useStakeInXvsVault, useStakeInVaiVault, useStakeInVrtVault } from 'clie
 
 export interface IUseStakeInVaultInput {
   stakedTokenId: TokenId;
-  rewardTokenId: TokenId;
-  poolIndex?: number;
 }
 
 interface IStakeInput {
+  rewardTokenId: TokenId;
   amountWei: BigNumber;
   accountAddress: string;
+  poolIndex?: number;
 }
 
-const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: IUseStakeInVaultInput) => {
+const useStakeInVault = ({ stakedTokenId }: IUseStakeInVaultInput) => {
   const { mutateAsync: stakeInXvsVault, isLoading: isStakeInXvsVaultLoading } = useStakeInXvsVault({
     stakedTokenId,
   });
@@ -30,7 +30,7 @@ const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: IUseStakeI
   const isLoading =
     isStakeInXvsVaultLoading || isStakeInVaiVaultLoading || isStakeInVrtVaultLoading;
 
-  const stake = async ({ amountWei, accountAddress }: IStakeInput) => {
+  const stake = async ({ rewardTokenId, amountWei, accountAddress, poolIndex }: IStakeInput) => {
     if (typeof poolIndex === 'number') {
       const rewardTokenAddress = getToken(rewardTokenId).address;
 

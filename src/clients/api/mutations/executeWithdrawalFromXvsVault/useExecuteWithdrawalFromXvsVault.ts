@@ -41,23 +41,17 @@ const useExecuteWithdrawalFromXvsVault = (
         // Invalidate cached user info
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+          fromAccountAddress,
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
         ]);
 
         // Invalidate cached user pending reward
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
-          { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
-        ]);
-
-        // Invalidate cached user withdrawal requests
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
-          {
-            rewardTokenAddress: XVS_TOKEN_ADDRESS,
-            poolIndex,
-            accountAddress: fromAccountAddress,
-          },
+          fromAccountAddress,
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
         ]);
 
         // Invalidate cached user balance
@@ -76,7 +70,8 @@ const useExecuteWithdrawalFromXvsVault = (
 
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          { rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+          XVS_TOKEN_ADDRESS,
+          poolIndex,
         ]);
 
         if (options?.onSuccess) {
