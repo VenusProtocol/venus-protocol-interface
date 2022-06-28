@@ -644,7 +644,18 @@
     "operation": "Operation",
     "proposalHistory": "Proposal History",
     "proposalState": {
-      "active": "Active"
+      "active": "Active",
+      "canceled": "Canceled",
+      "defeated": "Defeated",
+      "executed": "Executed",
+      "queued": "Queued",
+      "succeeded": "Suceeded",
+      "activeTimestamp": "Active: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "Defeated: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executedTimestamp": "Executed: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "Suceeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
     "statusCard": {

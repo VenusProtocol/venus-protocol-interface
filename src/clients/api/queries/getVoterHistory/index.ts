@@ -23,8 +23,8 @@ const getVoterHistory = async ({
     endpoint: `/voters/history/${address}`,
     method: 'GET',
     params: {
-      limit: 5,
-      offset: page * 5,
+      limit: 6,
+      offset: page * 6,
     },
   });
   const payload = response.data?.data;

@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, { useCallback } from 'react';
 import { BigNumber } from 'bignumber.js';
+import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-
-import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
+import Path from 'constants/path';
+import { convertWeiToTokens } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import {
@@ -79,13 +80,9 @@ const VoteSummary = ({
         {voters.map(({ address, voteWeightWei, reason }) => (
           <li key={address} css={styles.voteFrom}>
             <EllipseText css={styles.address} text={address}>
-              <Typography
+              <Link
                 className="ellipse-text"
-                href={generateBscScanUrl('xvs')}
-                target="_blank"
-                rel="noreferrer"
-                variant="body1"
-                component="a"
+                to={Path.VOTE_ADDRESS.replace(':address', address)}
                 css={[styles.blueText, styles.addressText]}
               />
               {reason && (

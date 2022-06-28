@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import { uid } from 'react-uid';
 import { Paper, Typography } from '@mui/material';
-import { Icon, AnchorButton, Table, TableProps } from 'components';
+import { Icon, AnchorButton, Table, TableProps, Spinner } from 'components';
 import { useTranslation } from 'translation';
 import { generateBscScanUrl, convertWeiToTokens } from 'utilities';
 import { VoteDetailTransaction } from 'types';
@@ -93,14 +93,18 @@ export const Transactions: React.FC<ITransactionsProps> = ({
       <Typography css={styles.horizontalPadding} variant="h4">
         {t('voterDetail.transactions')}
       </Typography>
-      <Table
-        columns={columns}
-        data={rows}
-        rowKeyIndex={1}
-        tableCss={styles.table}
-        cardsCss={styles.cards}
-        css={styles.cardContentGrid}
-      />
+      {voterTransactions && voterTransactions.length ? (
+        <Table
+          columns={columns}
+          data={rows}
+          rowKeyIndex={1}
+          tableCss={styles.table}
+          cardsCss={styles.cards}
+          css={styles.cardContentGrid}
+        />
+      ) : (
+        <Spinner />
+      )}
       <AnchorButton
         css={styles.horizontalPadding}
         variant="secondary"
