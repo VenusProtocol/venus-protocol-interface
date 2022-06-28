@@ -8,6 +8,9 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
       padding: ${theme.spacing(6)} 0;
+      ${theme.breakpoints.down('sm')} {
+        background-color: transparent;
+      }
     `,
     horizontalPadding: css`
       margin: 0 ${theme.spacing(6)};
@@ -15,13 +18,13 @@ export const useStyles = () => {
     table: css`
       display: initial;
 
-      ${theme.breakpoints.down('xl')} {
+      ${theme.breakpoints.down('sm')} {
         display: none;
       }
     `,
     cards: css`
       display: none;
-      ${theme.breakpoints.down('xl')} {
+      ${theme.breakpoints.down('sm')} {
         display: initial;
       }
     `,
@@ -30,8 +33,11 @@ export const useStyles = () => {
       padding-bottom: ${theme.spacing(8.5)};
       .table__table-cards__card-content {
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: 1fr;
         row-gap: 20px;
+      }
+      ${theme.breakpoints.down('md')} {
+        background-color: transparent;
       }
     `,
     received: css`
@@ -46,6 +52,12 @@ export const useStyles = () => {
     `,
     action: css`
       display: inline-flex;
+    `,
+    anchorButton: css`
+      ${theme.breakpoints.down('sm')} {
+        margin: ${theme.spacing(4)} 0 0 0;
+        background-color: transparent;
+      }
     `,
   };
 };

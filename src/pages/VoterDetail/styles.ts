@@ -14,16 +14,29 @@ export const useStyles = () => {
       flex: 1;
       flex-direction: row;
       margin-bottom: ${theme.spacing(10)};
+      ${theme.breakpoints.down('lg')} {
+        flex-direction: column;
+      }
+      ${theme.breakpoints.down('sm')} {
+        margin-bottom: ${theme.spacing(4)};
+      }
     `,
     topRowLeft: css`
       display: flex;
       flex: 1;
       margin-right: ${theme.spacing(4)};
+      ${theme.breakpoints.down('lg')} {
+        margin-right: 0;
+      }
     `,
     topRowRight: css`
       display: flex;
       flex: 1;
       margin-left: ${theme.spacing(4)};
+      ${theme.breakpoints.down('lg')} {
+        margin-left: 0;
+        margin-top: ${theme.spacing(6)};
+      }
     `,
   };
 };

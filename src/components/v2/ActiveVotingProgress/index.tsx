@@ -22,6 +22,7 @@ const getValueString = (valueWei?: BigNumber) => {
     valueWei,
     tokenId: XVS_TOKEN_ID,
     returnInReadableFormat: true,
+    minimizeDecimals: true,
   });
 };
 
