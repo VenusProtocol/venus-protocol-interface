@@ -186,6 +186,8 @@
     ],
     "moduleNameMapper": {
       "^.+\\.css$": "<rootDir>/src/__mocks__/CSSStub.js"
-    }
+    },
+    "resetMocks": false,
+    "clearMocks": true
   }
 }

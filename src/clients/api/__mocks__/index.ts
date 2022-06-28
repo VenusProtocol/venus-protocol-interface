@@ -120,7 +120,7 @@ export const getVoters = jest.fn();
 export const useGetVoters = () => useQuery(FunctionKey.GET_VOTERS, getVoters);
 
 export const getVoteReceipt = jest.fn();
-export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
+export const useGetVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
 
 export const useGetVaults = jest.fn();
 
@@ -279,8 +279,6 @@ export const castVoteWithReason = jest.fn();
 export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CAST_VOTE_WITH_REASON, castVoteWithReason, options);
 
-export const useVote = jest.fn().mockReturnValue({ vote: jest.fn() });
-
 export const stakeInVrtVault = jest.fn();
 export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
@@ -308,3 +306,5 @@ export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptio
     executeWithdrawalFromXvsVault,
     options,
   );
+
+export const useVote = jest.fn(() => ({ vote: jest.fn() }));
