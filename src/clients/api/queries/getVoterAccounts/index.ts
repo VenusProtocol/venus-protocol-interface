@@ -1,4 +1,4 @@
-import { VoterAccount } from 'types';
+import { IVoterAccount } from 'types';
 import { restService } from 'utilities';
 import formatVoterAccountResponse from './formatVoterAccountResponse';
 import { IGetVoterAccountsResponse } from './types';
@@ -8,7 +8,7 @@ export interface IGetVoterAccountsInput {
 }
 
 export interface IGetVoterAccountsOutput {
-  voterAccounts: VoterAccount[];
+  voterAccounts: IVoterAccount[];
   limit: number;
   offset: number;
   total: number;

@@ -30,7 +30,10 @@ describe('api/queries/getVoteReceipt', () => {
   });
 
   test('returns object with hasVoted is false and vote undefined when no vote is returned', async () => {
-    const fakeOutput = undefined;
+    const fakeOutput = {
+      hasVoted: false,
+      vote: undefined,
+    };
 
     const governorBravoContract = {
       methods: {
@@ -53,7 +56,10 @@ describe('api/queries/getVoteReceipt', () => {
   });
 
   test('returns object with hasVoted is true and vote aginst when [true, "0"]', async () => {
-    const fakeOutput = 'AGAINST';
+    const fakeOutput = {
+      hasVoted: true,
+      vote: 'AGAINST',
+    };
 
     const governorBravoContract = {
       methods: {
@@ -76,7 +82,10 @@ describe('api/queries/getVoteReceipt', () => {
   });
 
   test('returns object with hasVoted is true and vote aginst when [true, "1"]', async () => {
-    const fakeOutput = 'FOR';
+    const fakeOutput = {
+      hasVoted: true,
+      vote: 'FOR',
+    };
 
     const governorBravoContract = {
       methods: {
@@ -99,7 +108,10 @@ describe('api/queries/getVoteReceipt', () => {
   });
 
   test('returns object with hasVoted is true and vote aginst when [true, "2"]', async () => {
-    const fakeOutput = 'ABSTAIN';
+    const fakeOutput = {
+      hasVoted: true,
+      vote: 'ABSTAIN',
+    };
 
     const governorBravoContract = {
       methods: {

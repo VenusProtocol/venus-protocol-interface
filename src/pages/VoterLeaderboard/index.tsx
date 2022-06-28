@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import { Pagination } from 'components';
 import { useGetVoterAccounts } from 'clients/api';
-import { VoterAccount } from 'types';
+import { IVoterAccount } from 'types';
 import LeaderboardTable from './LeaderboardTable';
 import { useStyles } from './styles';
 
 interface IVoterLeaderboardProps {
-  voterAccounts: VoterAccount[];
+  voterAccounts: IVoterAccount[];
   offset: number;
   total: number | undefined;
   limit: number | undefined;
@@ -44,7 +44,12 @@ export const VoterLeaderboardUi: React.FC<IVoterLeaderboardProps> = ({
 const VoterLeaderboard = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const {
-    data: { voterAccounts, offset, total, limit } = { voterAccounts: [], offset: 0 },
+    data: { voterAccounts, offset, total, limit } = {
+      voterAccounts: [],
+      offset: 0,
+      total: undefined,
+      limit: undefined,
+    },
     isFetching,
   } = useGetVoterAccounts({ page: currentPage });
   return (

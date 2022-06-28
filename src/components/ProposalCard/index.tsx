@@ -29,7 +29,6 @@ export const ProposalCard: React.FC<IProposalCardProps> = ({
   headerLeftItem,
   contentRightItem,
   footer,
-  ...containerProps
 }) => {
   const styles = useStyles();
   return (
@@ -41,7 +40,6 @@ export const ProposalCard: React.FC<IProposalCardProps> = ({
           <Link to={linkTo}>{children}</Link>
         </div>
       )}
-      {...containerProps}
     >
       <Grid container>
         <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>

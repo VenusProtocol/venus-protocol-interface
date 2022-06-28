@@ -328,7 +328,7 @@ export type VoteDetailTransaction = VoteDetailTransactionTransfer | VoteDetailTr
 export interface IVoterDetails {
   balanceWei: BigNumber;
   delegateCount: number;
-  delegates: string;
+  delegateAddress: string;
   delegating: boolean;
   votesWei: BigNumber;
   voterTransactions: VoteDetailTransaction[];

@@ -1,22 +1,26 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { BigNumber } from 'bignumber.js';
 import { SerializedStyles } from '@emotion/react';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { useGetVoteReceipt } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
-import { ActiveVotingProgress, ActiveChip, Chip, Countdown, Icon, IconName } from 'components';
+import {
+  ActiveVotingProgress,
+  ActiveChip,
+  Countdown,
+  Icon,
+  IconName,
+  ProposalCard,
+} from 'components';
 import Path from 'constants/path';
 import { useStyles } from './styles';
 
 interface IStateCard {
-  state: ProposalState;
+  state: ProposalState | undefined;
 }
 
 const StatusCard: React.FC<IStateCard> = ({ state }) => {
@@ -72,7 +76,7 @@ const StatusCard: React.FC<IStateCard> = ({ state }) => {
     }),
     [],
   );
-  if (state !== 'Active') {
+  if (state !== 'Active' && state) {
     return (
       <>
         <div css={[styles.iconWrapper, statusContent[state].iconWrapperCss]}>
@@ -136,49 +140,35 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
   ]);
 
   return (
-    <Paper
+    <ProposalCard
       className={className}
-      css={styles.root}
-      component={({ children, ...props }) => (
-        <div {...props}>
-          <Link to={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalId.toString())}>
-            {children}
-          </Link>
-        </div>
-      )}
-    >
-      <Grid container>
-        <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
-          <div css={styles.cardHeader}>
-            <div>
-              <Chip text={`#${proposalId}`} />
-              {proposalState === 'Active' && (
-                <ActiveChip text={t('voteProposalUi.proposalState.active')} />
-              )}
-            </div>
-
-            <Typography variant="small2">{voteStatusText}</Typography>
-          </div>
-
-          <Typography variant="h4" css={styles.cardTitle}>
-            {proposalTitle}
-          </Typography>
-
-          {endDate  && proposalState === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
-        </Grid>
-        <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
-          {proposalState === 'Active' && (
-            <ActiveVotingProgress
-              votedForWei={forVotesWei}
-              votedAgainstWei={againstVotesWei}
-              abstainedWei={abstainedVotesWei}
-              votedTotalWei={votedTotalWei}
-            />
-          )}
+      linkTo={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalId.toString())}
+      proposalNumber={proposalId}
+      headerRightItem={
+        proposalState === 'Active' ? (
+          <ActiveChip text={t('voteProposalUi.proposalState.active')} />
+        ) : undefined
+      }
+      headerLeftItem={<Typography variant="small2">{voteStatusText}</Typography>}
+      title={proposalTitle}
+      contentRightItem={
+        proposalState === 'Active' ? (
+          <ActiveVotingProgress
+            votedForWei={forVotesWei}
+            votedAgainstWei={againstVotesWei}
+            abstainedWei={abstainedVotesWei}
+            votedTotalWei={votedTotalWei}
+          />
+        ) : (
           <StatusCard state={proposalState} />
-        </Grid>
-      </Grid>
-    </Paper>
+        )
+      }
+      footer={
+        endDate && proposalState === 'Active' ? (
+          <Countdown date={endDate} css={styles.countdown} />
+        ) : undefined
+      }
+    />
   );
 };
 
@@ -188,7 +178,7 @@ const GovernanceProposal: React.FC<Omit<IGovernanceProposalProps, 'userVoteStatu
 }) => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
-  const { data: vote } = useGetVoteReceipt(
+  const { data: { vote } = { vote: undefined } } = useGetVoteReceipt(
     { proposalId, accountAddress },
     { enabled: !!accountAddress },
   );

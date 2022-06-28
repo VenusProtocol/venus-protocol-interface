@@ -18,7 +18,7 @@ interface IHistoryProps {
 
 export const History: React.FC<IHistoryProps> = ({
   className,
-  voterHistory,
+  voterHistory = [],
   setCurrentPage,
   total,
   limit,
@@ -29,43 +29,40 @@ export const History: React.FC<IHistoryProps> = ({
   return (
     <div className={className}>
       <Typography variant="h4">{t('voterDetail.votingHistory')}</Typography>
-      {voterHistory && !isFetching ? (
-        voterHistory.map(
-          ({
-            proposal: {
-              id,
-              description,
-              state,
-              endDate,
-              forVotesWei,
-              abstainedVotesWei,
-              againstVotesWei,
-              createdDate,
-              queuedDate,
-              cancelDate,
-              executedDate,
-            },
-            support,
-          }) => (
-            <VoterProposal
-              key={id}
-              proposalNumber={id}
-              proposalTitle={description.title}
-              proposalState={state}
-              forVotesWei={forVotesWei}
-              againstVotesWei={againstVotesWei}
-              abstainedVotesWei={abstainedVotesWei}
-              userVoteStatus={support}
-              createdDate={createdDate}
-              queuedDate={queuedDate}
-              cancelDate={cancelDate}
-              executedDate={executedDate}
-              endDate={endDate}
-            />
-          ),
-        )
-      ) : (
-        <Spinner />
+      {isFetching && <Spinner />}
+      {voterHistory.map(
+        ({
+          proposal: {
+            id,
+            description,
+            state,
+            endDate,
+            forVotesWei,
+            abstainedVotesWei,
+            againstVotesWei,
+            createdDate,
+            queuedDate,
+            cancelDate,
+            executedDate,
+          },
+          support,
+        }) => (
+          <VoterProposal
+            key={id}
+            proposalNumber={id}
+            proposalTitle={description.title}
+            proposalState={state}
+            forVotesWei={forVotesWei}
+            againstVotesWei={againstVotesWei}
+            abstainedVotesWei={abstainedVotesWei}
+            userVoteStatus={support}
+            createdDate={createdDate}
+            queuedDate={queuedDate}
+            cancelDate={cancelDate}
+            executedDate={executedDate}
+            endDate={endDate}
+          />
+        ),
       )}
       {total ? (
         <Pagination

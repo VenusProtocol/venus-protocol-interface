@@ -6,12 +6,12 @@ import { Typography } from '@mui/material';
 import { EllipseText, Table, TableProps } from 'components';
 import Path from 'constants/path';
 import { useTranslation } from 'translation';
-import { VoterAccount } from 'types';
+import { IVoterAccount } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 import { useStyles } from './styles';
 
 export interface ILeaderboardTableProps extends Pick<TableProps, 'getRowHref'> {
-  voterAccounts: VoterAccount[];
+  voterAccounts: IVoterAccount[];
   offset: number;
   isFetching: boolean;
 }
