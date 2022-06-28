@@ -9,7 +9,7 @@ import {
 } from 'clients/api';
 import { EllipseText, Icon, LabeledProgressBar } from 'components';
 import { AuthContext } from 'context/AuthContext';
-import copy from 'copy-to-clipboard';
+import useCopyToClipboard from 'hooks/useCopyToClipoard';
 import {
   getToken,
   generateBscScanUrl,
@@ -40,9 +40,11 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   totalXvsDistributedWei,
 }) => {
   const styles = useStyles();
-  const xvsAddress = getToken('xvs').address;
-  const copyAddress = () => copy(xvsAddress);
   const { t } = useTranslation();
+
+  const xvsAddress = getToken('xvs').address;
+  const copy = useCopyToClipboard(t('interactive.copy.xvsAddress'));
+  const copyAddress = () => copy(xvsAddress);
 
   const readableDailyDistribution = useMemo(() => {
     const dailyVenusTokens = convertWeiToTokens({

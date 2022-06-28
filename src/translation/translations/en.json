@@ -166,6 +166,13 @@
     "voteCast": "Vote Cast",
     "withdraw": "Withdraw"
   },
+  "interactive": {
+    "copy": {
+      "walletAddress": "Wallet address",
+      "xvsAddress": "XVS address"
+    },
+    "copyToClipboard": "{{name}} copied to clipboard"
+  },
   "interestRateChart": {
     "currentUtilizationRateLabelValue": "Current ({{percentage}})",
     "tooltipItemLabels": {
