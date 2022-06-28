@@ -29,7 +29,7 @@ const getActiveStepIndex = (proposalState: ProposalState) => {
     case 'Expired':
       return 3;
     case 'Queued':
-      return 3;
+      return 4;
     default:
       return 5;
   }

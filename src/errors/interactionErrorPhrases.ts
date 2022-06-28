@@ -7,4 +7,5 @@ export const interactionErrorPhrases = {
   collateralDisableError: (args: { assetName: string }) =>
     t('markets.errors.collateralDisableError', args),
   accountError: t('markets.errors.accountError'),
+  createProposalFailed: t('vote.createProposalForm.submitError'),
 };

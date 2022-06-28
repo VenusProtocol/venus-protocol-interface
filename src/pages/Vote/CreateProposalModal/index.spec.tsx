@@ -61,19 +61,34 @@ const completeSecondStep = async (
 describe('pages/Proposal/CreateProposalModal', () => {
   it('renders open without crashing', async () => {
     renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
   });
 
   it('renders closed without crashing', async () => {
     renderComponent(
-      <CreateProposalModal isOpen={false} handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen={false}
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
   });
 
   it('can enter title and description', async () => {
     const { getByPlaceholderText, getByText } = renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
@@ -85,7 +100,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Complete vote option descriptions', async () => {
     const { getByPlaceholderText, getByText } = renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
 
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
@@ -99,7 +119,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Action Acccordion adds more fields when clicking button', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
@@ -141,7 +166,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Adding action button is disabled while actions are invalid', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
@@ -193,7 +223,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Sets signature as accordion title', async () => {
     const { getByPlaceholderText, getByText, getByTestId } = renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
       'button',
@@ -238,7 +273,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Adds calldata fields with correctly formatted signature', async () => {
     const { getByText, getAllByPlaceholderText, getByPlaceholderText } = renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
 
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(
@@ -277,7 +317,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
   it('Limits to 10 actions', async () => {
     const { getAllByPlaceholderText, getByText, getByPlaceholderText } = renderComponent(
-      <CreateProposalModal isOpen handleClose={jest.fn()} createProposal={jest.fn} />,
+      <CreateProposalModal
+        isOpen
+        handleClose={jest.fn()}
+        createProposal={jest.fn()}
+        isCreateProposalLoading={false}
+      />,
     );
 
     const nextButton = getByText(en.vote.createProposalForm.nextStep).closest(

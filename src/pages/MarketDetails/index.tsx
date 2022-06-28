@@ -175,7 +175,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         label: t('marketDetails.marketInfo.stats.borrowCapLabel'),
         value: borrowCapTokens?.isEqualTo(0)
           ? t('marketDetails.marketInfo.stats.unlimitedBorrowCap')
-          : formatCoinsToReadableValue({
+          : formatTokensToReadableValue({
               value: borrowCapTokens,
               tokenId: vTokenId,
             }),

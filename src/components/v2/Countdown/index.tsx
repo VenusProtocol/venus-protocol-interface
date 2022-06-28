@@ -33,7 +33,7 @@ export const Countdown: React.FC<ICoundownProps> = ({ date, className }) => {
     if (minutes) {
       return t('voteProposalUi.countdownFormat.minutesIncluded', { minutes, seconds });
     }
-    return t('voteProposalUi.countdownFormat.minutesIncluded', { seconds });
+    return t('voteProposalUi.countdownFormat.secondsIncluded', { seconds });
   };
 
   return (

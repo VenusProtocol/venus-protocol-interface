@@ -16,29 +16,28 @@ import {
   LabeledProgressBar,
 } from 'components';
 import { IVoter } from 'types';
-
 import { useStyles } from './styles';
 
 interface IVoteSummaryProps {
-  onClick: () => void;
   label: string;
   progressBarColor: string;
   votedValueWei?: BigNumber;
   votedTotalWei?: BigNumber;
   voters?: IVoter['result'];
   className?: string;
-  isDisabled?: boolean;
+  votingEnabled: boolean;
+  openVoteModal: () => void;
 }
 
 const VoteSummary = ({
-  onClick,
+  openVoteModal,
   label,
   progressBarColor,
   votedTotalWei = new BigNumber(0),
   votedValueWei = new BigNumber(0),
   voters = [],
   className,
-  isDisabled,
+  votingEnabled,
 }: IVoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -62,12 +61,13 @@ const VoteSummary = ({
         whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
         value={votedValueWei.toNumber()}
         min={0}
-        max={votedTotalWei.toNumber()}
+        // If there are no votes set a fallback to zero the progressbar
+        max={votedTotalWei.toNumber() || 100}
         step={1}
         ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
         successColor={progressBarColor}
       />
-      <Button css={styles.button} onClick={onClick} disabled={isDisabled}>
+      <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
         {label}
       </Button>
 
