@@ -2,30 +2,30 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
   queryClient,
-  stakeWeiInVrtVault,
-  IStakeWeiInVrtVaultInput,
-  StakeWeiInVrtVaultOutput,
+  stakeInVrtVault,
+  IStakeInVrtVaultInput,
+  StakeInVrtVaultOutput,
 } from 'clients/api';
 import { getContractAddress } from 'utilities';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
 
-export const VRT_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('vrtVaultProxy');
+const VRT_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('vrtVaultProxy');
 
 type Options = MutationObserverOptions<
-  StakeWeiInVrtVaultOutput,
+  StakeInVrtVaultOutput,
   Error,
-  Omit<IStakeWeiInVrtVaultInput, 'vrtVaultContract'>
+  Omit<IStakeInVrtVaultInput, 'vrtVaultContract'>
 >;
 
-const useStakeWeiInVrtVault = (options?: Options) => {
+const useStakeInXvsVault = (options?: Options) => {
   const vrtVaultContract = useVrtVaultProxyContract();
 
   return useMutation(
-    FunctionKey.STAKE_WEI_IN_VRT_VAULT,
-    (params: Omit<IStakeWeiInVrtVaultInput, 'vrtVaultContract'>) =>
-      stakeWeiInVrtVault({
+    FunctionKey.STAKE_IN_VRT_VAULT,
+    (params: Omit<IStakeInVrtVaultInput, 'vrtVaultContract'>) =>
+      stakeInVrtVault({
         vrtVaultContract,
         ...params,
       }),
@@ -67,4 +67,4 @@ const useStakeWeiInVrtVault = (options?: Options) => {
   );
 };
 
-export default useStakeWeiInVrtVault;
+export default useStakeInXvsVault;

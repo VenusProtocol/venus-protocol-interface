@@ -5,14 +5,16 @@ import {
   VaiVaultErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
 import { VError } from 'errors';
-import { VaiVault } from 'types/contracts';
+import { XvsVault } from 'types/contracts';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import stakeWeiInVaiVault from './stakeWeiInVaiVault';
+import stakeInXvsVault from './stakeInXvsVault';
 
 const fakeAmountWei = new BigNumber('1000000000000');
 const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';
+const fakeRewardTokenAddress = '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47';
+const fakePoolIndex = 4;
 
-describe('api/mutation/stakeWeiInVaiVault', () => {
+describe('api/mutation/stakeInXvsVault', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -22,16 +24,18 @@ describe('api/mutation/stakeWeiInVaiVault', () => {
           },
         }),
       },
-    } as unknown as VaiVault;
+    } as unknown as XvsVault;
 
     try {
-      await stakeWeiInVaiVault({
-        vaiVaultContract: fakeContract,
+      await stakeInXvsVault({
+        xvsVaultContract: fakeContract,
         fromAccountAddress: fakeFromAccountsAddress,
+        rewardTokenAddress: fakeRewardTokenAddress,
         amountWei: fakeAmountWei,
+        poolIndex: fakePoolIndex,
       });
 
-      throw new Error('stakeWeiInVaiVault should have thrown an error but did not');
+      throw new Error('stakeInXvsVault should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -53,16 +57,18 @@ describe('api/mutation/stakeWeiInVaiVault', () => {
           }),
         }),
       },
-    } as unknown as VaiVault;
+    } as unknown as XvsVault;
 
     try {
-      await stakeWeiInVaiVault({
-        vaiVaultContract: fakeContract,
+      await stakeInXvsVault({
+        xvsVaultContract: fakeContract,
         fromAccountAddress: fakeFromAccountsAddress,
+        rewardTokenAddress: fakeRewardTokenAddress,
         amountWei: fakeAmountWei,
+        poolIndex: fakePoolIndex,
       });
 
-      throw new Error('stakeWeiInVaiVault should have thrown an error but did not');
+      throw new Error('stakeInXvsVault should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot(`[Error: ${VaiVaultErrorReporterError[1]}]`);
       expect(error).toBeInstanceOf(VError);
@@ -84,17 +90,23 @@ describe('api/mutation/stakeWeiInVaiVault', () => {
       methods: {
         deposit: depositMock,
       },
-    } as unknown as VaiVault;
+    } as unknown as XvsVault;
 
-    const response = await stakeWeiInVaiVault({
-      vaiVaultContract: fakeContract,
+    const response = await stakeInXvsVault({
+      xvsVaultContract: fakeContract,
       fromAccountAddress: fakeFromAccountsAddress,
+      rewardTokenAddress: fakeRewardTokenAddress,
       amountWei: fakeAmountWei,
+      poolIndex: fakePoolIndex,
     });
 
     expect(response).toBe(fakeTransactionReceipt);
     expect(depositMock).toHaveBeenCalledTimes(1);
-    expect(depositMock).toHaveBeenCalledWith(fakeAmountWei.toFixed());
+    expect(depositMock).toHaveBeenCalledWith(
+      fakeRewardTokenAddress,
+      fakePoolIndex,
+      fakeAmountWei.toFixed(),
+    );
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: fakeFromAccountsAddress });
   });

@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import { VError } from 'errors';
-import { useStakeWeiInXvsVault, useStakeWeiInVaiVault, useStakeWeiInVrtVault } from 'clients/api';
+import { useStakeInXvsVault, useStakeInVaiVault, useStakeInVrtVault } from 'clients/api';
 
-export interface IUseStakeWeiInVaultInput {
+export interface IUseStakeInVaultInput {
   stakedTokenId: TokenId;
 }
 
@@ -16,24 +16,25 @@ interface IStakeInput {
   poolIndex?: number;
 }
 
-const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
-  const { mutateAsync: stakeWeiInXvsVault, isLoading: isStakeWeiInXvsVaultLoading } =
-    useStakeWeiInXvsVault({ stakedTokenId });
+const useStakeInVault = ({ stakedTokenId }: IUseStakeInVaultInput) => {
+  const { mutateAsync: stakeInXvsVault, isLoading: isStakeInXvsVaultLoading } = useStakeInXvsVault({
+    stakedTokenId,
+  });
 
-  const { mutateAsync: stakeWeiInVaiVault, isLoading: isStakeWeiInVaiVaultLoading } =
-    useStakeWeiInVaiVault();
+  const { mutateAsync: stakeInVaiVault, isLoading: isStakeInVaiVaultLoading } =
+    useStakeInVaiVault();
 
-  const { mutateAsync: stakeWeiInVrtVault, isLoading: isStakeWeiInVrtVaultLoading } =
-    useStakeWeiInVrtVault();
+  const { mutateAsync: stakeInVrtVault, isLoading: isStakeInVrtVaultLoading } =
+    useStakeInVrtVault();
 
   const isLoading =
-    isStakeWeiInXvsVaultLoading || isStakeWeiInVaiVaultLoading || isStakeWeiInVrtVaultLoading;
+    isStakeInXvsVaultLoading || isStakeInVaiVaultLoading || isStakeInVrtVaultLoading;
 
   const stake = async ({ rewardTokenId, amountWei, accountAddress, poolIndex }: IStakeInput) => {
     if (typeof poolIndex === 'number') {
       const rewardTokenAddress = getToken(rewardTokenId).address;
 
-      return stakeWeiInXvsVault({
+      return stakeInXvsVault({
         poolIndex,
         fromAccountAddress: accountAddress,
         rewardTokenAddress,
@@ -42,14 +43,14 @@ const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
     }
 
     if (stakedTokenId === 'vai') {
-      return stakeWeiInVaiVault({
+      return stakeInVaiVault({
         fromAccountAddress: accountAddress,
         amountWei,
       });
     }
 
     if (stakedTokenId === 'vrt') {
-      return stakeWeiInVrtVault({
+      return stakeInVrtVault({
         fromAccountAddress: accountAddress,
         amountWei,
       });
@@ -69,4 +70,4 @@ const useStakeWeiInVault = ({ stakedTokenId }: IUseStakeWeiInVaultInput) => {
   };
 };
 
-export default useStakeWeiInVault;
+export default useStakeInVault;

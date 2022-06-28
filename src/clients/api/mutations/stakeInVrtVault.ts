@@ -3,19 +3,19 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VrtVault } from 'types/contracts';
 
-export interface IStakeWeiInVrtVaultInput {
+export interface IStakeInVrtVaultInput {
   vrtVaultContract: VrtVault;
   fromAccountAddress: string;
   amountWei: BigNumber;
 }
 
-export type StakeWeiInVrtVaultOutput = TransactionReceipt;
+export type StakeInVrtVaultOutput = TransactionReceipt;
 
-const stakeWeiInVrtVault = async ({
+const stakeInVrtVault = async ({
   vrtVaultContract,
   fromAccountAddress,
   amountWei,
-}: IStakeWeiInVrtVaultInput): Promise<StakeWeiInVrtVaultOutput> =>
+}: IStakeInVrtVaultInput): Promise<StakeInVrtVaultOutput> =>
   vrtVaultContract.methods.deposit(amountWei.toFixed()).send({ from: fromAccountAddress });
 
-export default stakeWeiInVrtVault;
+export default stakeInVrtVault;

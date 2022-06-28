@@ -97,19 +97,35 @@ export { default as claimXvsVaultReward } from './mutations/claimXvsVaultReward'
 export * from './mutations/claimXvsVaultReward';
 export { default as useClaimXvsVaultReward } from './mutations/useClaimXvsVaultReward';
 
-export { default as stakeWeiInXvsVault } from './mutations/stakeWeiInXvsVault';
-export * from './mutations/stakeWeiInXvsVault';
-export { default as useStakeWeiInXvsVault } from './mutations/useStakeWeiInXvsVault';
+export { default as stakeInXvsVault } from './mutations/stakeInXvsVault';
+export * from './mutations/stakeInXvsVault';
+export { default as useStakeInXvsVault } from './mutations/useStakeInXvsVault';
 
-export { default as stakeWeiInVaiVault } from './mutations/stakeWeiInVaiVault';
-export * from './mutations/stakeWeiInVaiVault';
-export { default as useStakeWeiInVaiVault } from './mutations/useStakeWeiInVaiVault';
+export { default as stakeInVaiVault } from './mutations/stakeInVaiVault';
+export * from './mutations/stakeInVaiVault';
+export { default as useStakeInVaiVault } from './mutations/useStakeInVaiVault';
 
-export { default as stakeWeiInVrtVault } from './mutations/stakeWeiInVrtVault';
-export * from './mutations/stakeWeiInVrtVault';
-export { default as useStakeWeiInVrtVault } from './mutations/useStakeWeiInVrtVault';
+export { default as stakeInVrtVault } from './mutations/stakeInVrtVault';
+export * from './mutations/stakeInVrtVault';
+export { default as useStakeInVrtVault } from './mutations/useStakeInVrtVault';
 
 export * from './mutations/castVote';
+
+export { default as withdrawFromVaiVault } from './mutations/withdrawFromVaiVault';
+export * from './mutations/withdrawFromVaiVault';
+export { default as useWithdrawFromVaiVault } from './mutations/withdrawFromVaiVault/useWithdrawFromVaiVault';
+
+export { default as withdrawFromVrtVault } from './mutations/withdrawFromVrtVault';
+export * from './mutations/withdrawFromVrtVault';
+export { default as useWithdrawFromVrtVault } from './mutations/withdrawFromVrtVault/useWithdrawFromVrtVault';
+
+export { default as requestWithdrawalFromXvsVault } from './mutations/requestWithdrawalFromXvsVault';
+export * from './mutations/requestWithdrawalFromXvsVault';
+export { default as useRequestWithdrawalFromXvsVault } from './mutations/requestWithdrawalFromXvsVault/useRequestWithdrawalFromXvsVault';
+
+export { default as executeWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault';
+export * from './mutations/executeWithdrawalFromXvsVault';
+export { default as useExecuteWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault/useExecuteWithdrawalFromXvsVault';
 
 // Queries
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
