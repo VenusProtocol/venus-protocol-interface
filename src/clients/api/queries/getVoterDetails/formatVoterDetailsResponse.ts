@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { NULL_ADDRESS } from 'constants/address';
 import { getSupportName } from 'utilities';
-import { IVoterDetail, VoteDetailTransactionVote, VoteDetailTransactionTransfer } from 'types';
-import { IGetVoterDetailResponse } from './types';
+import { IVoterDetails, VoteDetailTransactionVote, VoteDetailTransactionTransfer } from 'types';
+import { IGetVoterDetailsResponse } from './types';
 
 const formatVoterResponse = (
-  { balance, delegateCount, delegates, txs, votes }: IGetVoterDetailResponse,
+  { balance, delegateCount, delegates, txs, votes }: IGetVoterDetailsResponse,
   address: string,
-): IVoterDetail => ({
+): IVoterDetails => ({
   balanceWei: new BigNumber(balance),
   delegateCount,
   delegates,

@@ -3,24 +3,24 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { ComponentMeta } from '@storybook/react';
 import { NULL_ADDRESS } from 'constants/address';
-import voterDetail from '__mocks__/models/voterDetail';
+import voterDetails from '__mocks__/models/voterDetails';
 import voterHistory from '__mocks__/models/voterHistory';
 import { withRouter } from 'stories/decorators';
-import { VoterDetailUi } from '.';
+import { VoterDetailsUi } from '.';
 
 export default {
-  title: 'Pages/VoterDetail',
-  component: VoterDetailUi,
+  title: 'Pages/VoterDetails',
+  component: VoterDetailsUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof VoterDetailUi>;
+} as ComponentMeta<typeof VoterDetailsUi>;
 
 export const Default = () => (
-  <VoterDetailUi
+  <VoterDetailsUi
     balanceWei={new BigNumber(912512333)}
     delegateCount={12}
     votesWei={new BigNumber(912512333)}
     delegating
-    voterTransactions={voterDetail.voterTransactions}
+    voterTransactions={voterDetails.voterTransactions}
     address={NULL_ADDRESS}
     voterHistory={voterHistory.voterHistory}
     setCurrentHistoryPage={noop}

@@ -1,5 +1,5 @@
 import { restService } from 'utilities';
-import voterDetailResponse from '__mocks__/api/voterDetail.json';
+import voterDetailsResponse from '__mocks__/api/voterDetails.json';
 import fakeAddress from '__mocks__/models/address';
 import getVoterDetail from '.';
 
@@ -27,7 +27,7 @@ describe('api/queries/getVoterDetail', () => {
   test('returns  formatted voter details', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,
-      data: voterDetailResponse,
+      data: voterDetailsResponse,
     }));
 
     const response = await getVoterDetail({ address: fakeAddress });

@@ -2,14 +2,14 @@
 import React, { useState } from 'react';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
-import { useGetVoterDetail, useGetVoterHistory } from 'clients/api';
+import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
 import { VoteDetailTransaction, IVoterHistory } from 'types';
 import Holding from './Holding';
 import Transactions from './Transactions';
 import History from './History';
 import { useStyles } from './styles';
 
-interface VoterDetailUiProps {
+interface VoterDetailsUiProps {
   balanceWei: BigNumber | undefined;
   delegateCount: number | undefined;
   votesWei: BigNumber | undefined;
@@ -23,7 +23,7 @@ interface VoterDetailUiProps {
   isHistoryFetching: boolean;
 }
 
-export const VoterDetailUi: React.FC<VoterDetailUiProps> = ({
+export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
   balanceWei,
   delegateCount,
   votesWei,
@@ -64,23 +64,23 @@ export const VoterDetailUi: React.FC<VoterDetailUiProps> = ({
   );
 };
 
-const VoterDetail = () => {
+const VoterDetails = () => {
   const [currentHistoryPage, setCurrentHistoryPage] = useState(0);
   const { address } = useParams<{ address: string }>();
-  const { data: voterDetail } = useGetVoterDetail({ address });
+  const { data: voterDetails } = useGetVoterDetails({ address });
   const {
     data: { voterHistory, total, limit } = { voterHistory: undefined, total: 0, limit: 0 },
     isFetching,
   } = useGetVoterHistory({ address, page: currentHistoryPage });
   return (
-    <VoterDetailUi
-      balanceWei={voterDetail?.balanceWei}
-      delegateCount={voterDetail?.delegateCount}
+    <VoterDetailsUi
+      balanceWei={voterDetails?.balanceWei}
+      delegateCount={voterDetails?.delegateCount}
       voterHistory={voterHistory}
-      votesWei={voterDetail?.votesWei}
-      delegating={!!voterDetail?.delegating}
+      votesWei={voterDetails?.votesWei}
+      delegating={!!voterDetails?.delegating}
       address={address}
-      voterTransactions={voterDetail?.voterTransactions}
+      voterTransactions={voterDetails?.voterTransactions}
       setCurrentHistoryPage={setCurrentHistoryPage}
       total={total}
       limit={limit}
@@ -89,4 +89,4 @@ const VoterDetail = () => {
   );
 };
 
-export default VoterDetail;
+export default VoterDetails;
