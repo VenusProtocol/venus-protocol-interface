@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useGetVoteReceipt } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
-import { ProposalState } from 'types';
+import { ProposalState, VoteSupport } from 'types';
 import { ActiveVotingProgress, ActiveChip, Chip, Countdown, Icon, IconName } from 'components';
 import Path from 'constants/path';
 import { useStyles } from './styles';
@@ -95,8 +95,8 @@ interface IGovernanceProposalProps {
   proposalId: number;
   proposalTitle: string;
   proposalState: ProposalState;
-  endDate: Date;
-  userVoteStatus: 'AGAINST' | 'FOR' | 'ABSTAIN' | undefined;
+  endDate: Date | undefined;
+  userVoteStatus?: VoteSupport;
   forVotesWei?: BigNumber;
   againstVotesWei?: BigNumber;
   abstainedVotesWei?: BigNumber;
@@ -163,7 +163,8 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
           <Typography variant="h4" css={styles.cardTitle}>
             {proposalTitle}
           </Typography>
-          {proposalState === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
+
+          {endDate  && proposalState === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
         </Grid>
         <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
           {proposalState === 'Active' && (
