@@ -123,24 +123,5 @@ export const useStyles = () => {
         display: initial;
       }
     `,
-    cardContentGrid: css`
-      ${theme.breakpoints.down('xxl')} {
-        background-color: initial;
-        padding-top: 0;
-      }
-
-      .table__table-cards__card-content {
-        ${theme.breakpoints.down('xxl')} {
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-          grid-template-rows: 1fr;
-          row-gap: ${theme.spacing(5)};
-        }
-
-        ${theme.breakpoints.down('md')} {
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
-        }
-      }
-    `,
   };
 };
