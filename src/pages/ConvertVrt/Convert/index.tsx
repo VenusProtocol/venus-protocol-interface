@@ -80,7 +80,7 @@ const Convert: React.FC<IConvertProps> = ({
   const onSubmit = async (vrtAmount: string) => {
     try {
       const vrtAmountWei = convertTokensToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
-      const transactionHash = await convertVrt(vrtAmountWei.toFixed());
+      const transactionReceipt = await convertVrt(vrtAmountWei.toFixed());
       // Display successful transaction modal
       if (!xvsToVrtConversionRatio) {
         // This should never happen because the form is not rendered without successfully fetching this

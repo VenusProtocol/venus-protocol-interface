@@ -546,9 +546,13 @@
     "reward": "Reward:",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Staking APR",
-    "successfulTransactionModal": {
+    "successfulClaimRewardTransactionModal": {
       "description": "You successfully claimed your reward",
       "title": "Your claim was successful"
+    },
+    "successfulWithdrawVrtTransactionModal": {
+      "description": "You successfully withdrew your VRT tokens",
+      "title": "Your withdrawal was successful"
     },
     "totalStaked": "Total Staked",
     "withdrawButton": "Withdraw",
@@ -698,6 +702,17 @@
     "metamask": "MetaMask",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
+  },
+  "withdrawFromVaiVaultModal": {
+    "availableTokensLabel": "Available {{tokenSymbol}}",
+    "connectWalletMessage": "Please connect your wallet to withdraw {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "Enter a valid amount to withdraw",
+    "submitButtonLabel": "Withdraw",
+    "successfulTransactionModal": {
+      "description": "You successful withdrew",
+      "title": "Your withdrawal was successful"
+    },
+    "title": "Withdraw {{tokenSymbol}}"
   },
   "xvs": {
     "columns": {

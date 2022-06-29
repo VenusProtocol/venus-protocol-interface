@@ -3,9 +3,8 @@ import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
-import { TokenId } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';

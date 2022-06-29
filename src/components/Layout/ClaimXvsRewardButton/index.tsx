@@ -10,9 +10,7 @@ import { TokenId } from 'types';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { VError } from 'errors';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
 import TEST_IDS from 'constants/testIds';
-import { toast } from '../../Toast';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
@@ -20,7 +18,7 @@ import { useStyles } from './styles';
 const XVS_SYMBOL = 'xvs';
 
 export interface IClaimXvsRewardButton extends Omit<IButtonProps, 'onClick'> {
-  onClaimReward: () => Promise<string | undefined>;
+  onClaimReward: () => Promise<TransactionReceipt>;
   amountWei?: BigNumber;
 }
 
@@ -45,31 +43,19 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
     return null;
   }
 
-  const handleClick = async () => {
-    try {
-      const transactionHash = await onClaimReward();
-      if (transactionHash) {
-        // Display successful transaction modal
-        openSuccessfulTransactionModal({
-          title: t('claimXvsRewardButton.successfulTransactionModal.title'),
-          content: t('claimXvsRewardButton.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            tokenId: 'xvs' as TokenId,
-          },
-          transactionHash,
-        });
-      }
-    } catch (error) {
-      let { message } = error as Error;
-      if (error instanceof VError && error.type === 'transactions') {
-        message = transactionErrorPhrases[error.message as keyof typeof transactionErrorPhrases];
-      }
-      toast.error({
-        message,
-      });
-    }
-  };
+  const handleClick = () =>
+    handleTransactionMutation({
+      mutate: onClaimReward,
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('claimXvsRewardButton.successfulTransactionModal.title'),
+        content: t('claimXvsRewardButton.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: 'xvs' as TokenId,
+        },
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
 
   return (
     <SecondaryButton

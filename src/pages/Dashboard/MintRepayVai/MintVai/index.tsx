@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
   FormikSubmitButton,
@@ -74,7 +74,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     [mintFeePercentage],
   );
 
-  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+  const onSubmit: IAmountFormProps['onSubmit'] = amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
       tokenId: VAI_ID,

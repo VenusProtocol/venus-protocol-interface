@@ -13,9 +13,9 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import TEST_IDS from 'constants/testIds';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError } from 'errors';
 import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
   FormikSubmitButton,

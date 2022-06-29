@@ -278,9 +278,9 @@ export const stakeInVaiVault = jest.fn();
 export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.STAKE_IN_VAI_VAULT, stakeInVaiVault, options);
 
-export const stakeWeiInVrtVault = jest.fn();
-export const useStakeWeiInVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_WEI_IN_VRT_VAULT, stakeWeiInVrtVault, options);
+export const stakeInVrtVault = jest.fn();
+export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
 
 export const castVote = jest.fn();
 export const useCastVote = (options?: MutationObserverOptions) =>
@@ -289,10 +289,6 @@ export const useCastVote = (options?: MutationObserverOptions) =>
 export const castVoteWithReason = jest.fn();
 export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CAST_VOTE_WITH_REASON, castVoteWithReason, options);
-
-export const stakeInVrtVault = jest.fn();
-export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
 
 export const withdrawFromVaiVault = jest.fn();
 export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
