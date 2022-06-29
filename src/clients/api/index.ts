@@ -239,6 +239,7 @@ export { default as useGetXvsVaultTotalAllocationPoints } from './queries/useGet
 
 export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
+export { default as useGetXvsVaultUserInfo } from './queries/getXvsVaultUserInfo/useGetXvsVaultUserInfo';
 
 export { default as getXvsVaultWithdrawalRequests } from './queries/getXvsVaultWithdrawalRequests';
 export * from './queries/getXvsVaultWithdrawalRequests';

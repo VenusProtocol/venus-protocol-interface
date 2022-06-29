@@ -11,7 +11,10 @@ type Options = QueryObserverOptions<
   Error,
   GetXvsVaultWithdrawalRequestsOutput,
   GetXvsVaultWithdrawalRequestsOutput,
-  FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS
+  [
+    FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
+    Omit<GetXvsVaultWithdrawalRequestsInput, 'xvsVaultContract'>,
+  ]
 >;
 
 const useGetXvsVaultWithdrawalRequests = (
@@ -21,7 +24,7 @@ const useGetXvsVaultWithdrawalRequests = (
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useQuery(
-    FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
+    [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, params],
     () => getXvsVaultWithdrawalRequests({ xvsVaultContract, ...params }),
     options,
   );
