@@ -22,7 +22,6 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
-  const styles = { ...sharedStyles, ...localStyles };
 
   const columns = useMemo(
     () => [
@@ -66,7 +65,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
       markets.map(market => [
         {
           key: 'asset',
-          render: () => <Token tokenId={market.id as TokenId} css={styles.whiteText} />,
+          render: () => <Token tokenId={market.id as TokenId} css={localStyles.whiteText} />,
           value: market.id,
         },
         {
@@ -83,7 +82,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}
-              css={styles.noWrap}
+              css={localStyles.noWrap}
             />
           ),
           align: 'right',
@@ -114,7 +113,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}
-              css={styles.noWrap}
+              css={localStyles.noWrap}
             />
           ),
           value: market.treasuryTotalBorrowsCents.toFixed(),
@@ -134,7 +133,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
         {
           key: 'liquidity',
           render: () => (
-            <Typography variant="small1" css={styles.whiteText}>
+            <Typography variant="small1" css={localStyles.whiteText}>
               {formatCentsToReadableValue({
                 value: market.liquidity.multipliedBy(100),
                 shortenLargeValue: true,
@@ -147,7 +146,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
         {
           key: 'collateralFactor',
           render: () => (
-            <Typography variant="small1" css={styles.whiteText}>
+            <Typography variant="small1" css={localStyles.whiteText}>
               {formatToReadablePercentage(
                 convertPercentageFromSmartContract(market.collateralFactor),
               )}
@@ -159,7 +158,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
         {
           key: 'price',
           render: () => (
-            <Typography variant="small1" css={styles.whiteText}>
+            <Typography variant="small1" css={localStyles.whiteText}>
               {formatCentsToReadableValue({ value: market.tokenPrice.multipliedBy(100) })}
             </Typography>
           ),
@@ -183,7 +182,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
       getRowHref={getRowHref}
       tableCss={sharedStyles.table}
       cardsCss={sharedStyles.cards}
-      css={sharedStyles.cardContentGrid}
+      css={localStyles.cardContentGrid}
     />
   );
 };
