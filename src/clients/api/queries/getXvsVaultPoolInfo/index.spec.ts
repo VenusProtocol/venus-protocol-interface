@@ -21,7 +21,7 @@ describe('api/queries/getXvsVaultPoolInfo', () => {
     try {
       await getXvsVaultPoolInfo({
         xvsVaultContract: fakeContract,
-        tokenAddress: fakeTokenAddress,
+        rewardTokenAddress: fakeTokenAddress,
         poolIndex: fakePid,
       });
 
@@ -45,7 +45,7 @@ describe('api/queries/getXvsVaultPoolInfo', () => {
 
     const response = await getXvsVaultPoolInfo({
       xvsVaultContract: fakeContract,
-      tokenAddress: fakeTokenAddress,
+      rewardTokenAddress: fakeTokenAddress,
       poolIndex: fakePid,
     });
 

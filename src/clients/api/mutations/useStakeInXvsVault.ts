@@ -38,17 +38,13 @@ const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: TokenId }, optio
         // Invalidate cached user info
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
-          fromAccountAddress,
-          XVS_TOKEN_ADDRESS,
-          poolIndex,
+          { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
         ]);
 
         // Invalidate cached user pending reward
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
-          fromAccountAddress,
-          XVS_TOKEN_ADDRESS,
-          poolIndex,
+          { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
         ]);
 
         // Invalidate cached user balance
@@ -67,8 +63,7 @@ const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: TokenId }, optio
 
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          XVS_TOKEN_ADDRESS,
-          poolIndex,
+          { rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
         ]);
 
         if (options?.onSuccess) {

@@ -707,6 +707,13 @@
   "withdrawFromVestingVaultModalModal": {
     "requestWithdrawalTabTitle": "Request withdrawal",
     "title": "Withdraw {{tokenSymbol}}",
+    "withdrawTab": {
+      "availableTokensLabel": "Available {{tokenSymbol}}",
+      "submitButtonDisabledLabel": "Enter a valid amount to withdraw",
+      "submitButtonLabel": "Withdraw",
+      "successfulTransactionDescription": "You successfully withdrew",
+      "successfulTransactionTitle": "Your withdrawal was successful"
+    },
     "withdrawTabTitle": "Withdraw"
   },
   "xvs": {

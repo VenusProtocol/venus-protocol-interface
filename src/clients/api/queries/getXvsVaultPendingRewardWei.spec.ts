@@ -23,7 +23,7 @@ describe('api/queries/getXvsVaultPendingRewardWei', () => {
     try {
       await getXvsVaultPendingRewardWei({
         xvsVaultContract: fakeContract,
-        tokenAddress: xvsTokenAddress,
+        rewardTokenAddress: xvsTokenAddress,
         accountAddress: fakeAccountAddress,
         poolIndex: fakePid,
       });
@@ -50,7 +50,7 @@ describe('api/queries/getXvsVaultPendingRewardWei', () => {
 
     const response = await getXvsVaultPendingRewardWei({
       xvsVaultContract: fakeContract,
-      tokenAddress: xvsTokenAddress,
+      rewardTokenAddress: xvsTokenAddress,
       accountAddress: fakeAccountAddress,
       poolIndex: fakePid,
     });

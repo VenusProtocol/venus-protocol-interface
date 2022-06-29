@@ -17,7 +17,7 @@ import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilit
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
-import { StakeModal, WithdrawFromVaiVaultModal } from '../modals';
+import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
 
 type ActiveModal = 'stake' | 'withdraw';
@@ -249,7 +249,13 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
       )}
 
-      {/* TODO: add withdraw modal for vesting vaults (see VEN-251) */}
+      {activeModal === 'withdraw' && poolIndex !== undefined && (
+        <WithdrawFromVestingVaultModal
+          handleClose={closeActiveModal}
+          stakedTokenId={stakedTokenId}
+          poolIndex={poolIndex}
+        />
+      )}
     </>
   );
 };
@@ -274,10 +280,6 @@ const VaultItem: React.FC<VaultItemProps> = ({
   const { account } = useContext(AuthContext);
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
   const onStake = () => setActiveModal('stake');
-
-  if (typeof poolIndex === 'number') {
-    console.log(rewardTokenId, poolIndex, account?.address);
-  }
 
   const { mutateAsync: withdrawFromVrtVault, isLoading: isWithdrawFromVrtVault } =
     useWithdrawFromVrtVault();

@@ -4,7 +4,7 @@ import { XvsVault } from 'types/contracts';
 
 export interface IGetXvsVaultPoolInfoInput {
   xvsVaultContract: XvsVault;
-  tokenAddress: string;
+  rewardTokenAddress: string;
   poolIndex: number;
 }
 
