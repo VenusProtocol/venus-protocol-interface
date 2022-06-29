@@ -275,6 +275,10 @@ const VaultItem: React.FC<VaultItemProps> = ({
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
   const onStake = () => setActiveModal('stake');
 
+  if (typeof poolIndex === 'number') {
+    console.log(rewardTokenId, poolIndex, account?.address);
+  }
+
   const { mutateAsync: withdrawFromVrtVault, isLoading: isWithdrawFromVrtVault } =
     useWithdrawFromVrtVault();
 

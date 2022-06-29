@@ -47,7 +47,7 @@ const useGetXvsVaultPools = ({
       queryFn: () =>
         getXvsVaultPendingRewardWei({
           xvsVaultContract,
-          tokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
           accountAddress: accountAddress || '',
         }),
@@ -64,7 +64,7 @@ const useGetXvsVaultPools = ({
       queryFn: () =>
         getXvsVaultUserInfo({
           xvsVaultContract,
-          tokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
           accountAddress: accountAddress || '',
         }),

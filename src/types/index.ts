@@ -291,3 +291,8 @@ export interface VoterAccount {
   voteWeightPercent: number;
   votesWei: BigNumber;
 }
+
+export interface IWithdrawalRequest {
+  amountWei: BigNumber;
+  unlockedAt: Date;
+}

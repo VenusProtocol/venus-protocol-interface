@@ -99,6 +99,10 @@ export const getXvsVaultTotalAllocationPoints = jest.fn();
 export const useGetXvsVaultTotalAllocationPoints = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, getXvsVaultTotalAllocationPoints);
 
+export const getXvsVaultWithdrawalRequests = jest.fn();
+export const useGetXvsVaultWithdrawalRequests = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, getXvsVaultWithdrawalRequests);
+
 export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
