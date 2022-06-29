@@ -4,15 +4,16 @@ import BigNumber from 'bignumber.js';
 import { RouteComponentProps, Redirect } from 'react-router-dom';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { getToken, getVBepToken } from 'utilities';
-import { VTokenId } from 'types';
-import { useTranslation } from 'translation';
 import {
+  getToken,
+  getVBepToken,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  formatCommaThousandsPeriodDecimal,
-} from 'utilities/common';
+  formatTokensToReadableValue,
+} from 'utilities';
+import TEST_IDS from 'constants/testIds';
+import { VTokenId } from 'types';
+import { useTranslation } from 'translation';
 import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import Path from 'constants/path';
@@ -34,7 +35,7 @@ export interface IMarketDetailsUiProps {
   supplyApyPercentage?: BigNumber;
   borrowDistributionApyPercentage?: number;
   supplyDistributionApyPercentage?: number;
-  tokenPriceDollars?: string;
+  tokenPriceDollars?: BigNumber;
   liquidityCents?: BigNumber;
   supplierCount?: number;
   borrowerCount?: number;
@@ -154,9 +155,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       {
         label: t('marketDetails.marketInfo.stats.priceLabel'),
         value:
-          tokenPriceDollars === undefined
-            ? PLACEHOLDER_KEY
-            : `$${formatCommaThousandsPeriodDecimal(tokenPriceDollars)}`,
+          tokenPriceDollars === undefined ? PLACEHOLDER_KEY : `$${tokenPriceDollars.toFormat(2)}`,
       },
       {
         label: t('marketDetails.marketInfo.stats.marketLiquidityLabel'),
@@ -176,7 +175,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         label: t('marketDetails.marketInfo.stats.borrowCapLabel'),
         value: borrowCapTokens?.isEqualTo(0)
           ? t('marketDetails.marketInfo.stats.unlimitedBorrowCap')
-          : formatCoinsToReadableValue({
+          : formatTokensToReadableValue({
               value: borrowCapTokens,
               tokenId: vTokenId,
             }),
@@ -189,7 +188,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       },
       {
         label: t('marketDetails.marketInfo.stats.reserveTokensLabel'),
-        value: formatCoinsToReadableValue({
+        value: formatTokensToReadableValue({
           value: reserveTokens,
           minimizeDecimals: true,
           tokenId: vTokenId,
@@ -207,7 +206,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         label: t('marketDetails.marketInfo.stats.mintedTokensLabel', {
           vTokenSymbol: vToken.symbol,
         }),
-        value: formatCoinsToReadableValue({
+        value: formatTokensToReadableValue({
           value: mintedTokens,
           minimizeDecimals: true,
           addSymbol: false,
@@ -251,7 +250,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     <div css={styles.container}>
       <div css={[styles.column, styles.graphsColumn]}>
         <Card
-          testId="market-details-supply-info"
+          testId={TEST_IDS.marketDetails.supplyInfo}
           title={t('marketDetails.supplyInfo.title')}
           css={styles.graphCard}
           stats={supplyInfoStats}
@@ -263,7 +262,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          testId="market-details-borrow-info"
+          testId={TEST_IDS.marketDetails.borrowInfo}
           title={t('marketDetails.borrowInfo.title')}
           css={styles.graphCard}
           stats={borrowInfoStats}
@@ -275,7 +274,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          testId="market-details-interest-rate-model"
+          testId={TEST_IDS.marketDetails.interestRateModel}
           title={t('marketDetails.interestRateModel.title')}
           css={styles.graphCard}
           legends={interestRateModelLegends}
@@ -290,7 +289,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       </div>
 
       <div css={[styles.column, styles.statsColumn]}>
-        <MarketInfo stats={marketInfoStats} testId="market-details-market-info" />
+        <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketDetails.marketInfo} />
       </div>
     </div>
   );

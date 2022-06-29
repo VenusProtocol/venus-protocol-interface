@@ -9,9 +9,7 @@ import { AuthProvider } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { store } from 'core';
 import { Layout, ResetScrollOnRouteChange } from 'components';
-import { isOnTestnet } from 'config';
 import Dashboard from 'pages/Dashboard';
-import Faucet from 'containers/Main/Faucet';
 import VoteV1 from 'containers/Main/Vote';
 import Vote from 'pages/Vote';
 import Xvs from 'pages/Xvs';
@@ -21,7 +19,8 @@ import VaultV1 from 'containers/Main/Vault';
 import VoteOverview from 'containers/Main/VoteOverview';
 import Proposal from 'pages/Proposal';
 import ProposerDetail from 'containers/Main/ProposerDetail';
-import VoterLeaderboard from 'containers/Main/VoterLeaderboard';
+import VoterLeaderboardV1 from 'containers/Main/VoterLeaderboard';
+import VoterLeaderboard from 'pages/VoterLeaderboard';
 import ConvertVrt from 'pages/ConvertVrt';
 import MarketDetails from 'pages/MarketDetails';
 import History from 'pages/History';
@@ -70,7 +69,9 @@ const App = () => (
                             <Route
                               exact
                               path={Path.VOTE_LEADER_BOARD}
-                              component={VoterLeaderboard}
+                              component={
+                                process.env.REACT_APP_RUN_V2 ? VoterLeaderboard : VoterLeaderboardV1
+                              }
                             />
                             <Route exact path={Path.VOTE_ADDRESS} component={ProposerDetail} />
                             <Route
@@ -82,8 +83,6 @@ const App = () => (
                             <Route exact path={Path.XVS} component={Xvs} />
 
                             <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
-
-                            {isOnTestnet && <Route exact path={Path.FAUCET} component={Faucet} />}
 
                             <Redirect to={Path.DASHBOARD} />
                           </Switch>

@@ -4,8 +4,7 @@ import { Typography } from '@mui/material';
 import { EllipseText, Icon, Table, TableProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { XVS_TOKEN_ID } from 'constants/xvs';
-import { generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
-import { convertWeiToCoins } from 'utilities/common';
+import { generateBscScanUrl, getTokenIdFromVAddress, convertWeiToTokens } from 'utilities';
 import { useTranslation } from 'translation';
 import { ITransaction } from 'types';
 import { useStyles } from './styles';
@@ -153,7 +152,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
             key: 'amount',
             render: () => (
               <Typography variant="small2" css={styles.whiteText}>
-                {convertWeiToCoins({
+                {convertWeiToTokens({
                   valueWei: txn.amountWei,
                   tokenId,
                   returnInReadableFormat: true,

@@ -11,7 +11,7 @@ const addressValidationSchema = yup.object({
   address: yup
     .string()
     .required()
-    .test('isPositive', ErrorCode.NOT_VALID, value => web3.utils.isAddress(value as string)),
+    .test('isAddress', ErrorCode.NOT_VALID, value => web3.utils.isAddress(value as string)),
 });
 
 export default addressValidationSchema;

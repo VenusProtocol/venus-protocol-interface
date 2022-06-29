@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatCoinsToReadableValue, formatToReadablePercentage } from 'utilities/common';
+import { formatTokensToReadableValue, formatToReadablePercentage } from 'utilities';
 import { Asset } from 'types';
 import { Table, TableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
@@ -60,7 +60,7 @@ export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
       {
         key: 'wallet',
         render: () =>
-          formatCoinsToReadableValue({
+          formatTokensToReadableValue({
             value: asset.walletBalance,
             tokenId: asset.id,
             minimizeDecimals: true,

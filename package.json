@@ -1,6 +1,6 @@
 {
   "name": "venus",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": true,
   "engines": {
     "node": ">=16.x.x"
@@ -28,17 +28,19 @@
     "@binance-chain/bsc-connector": "^1.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@infinitywallet/infinity-connector": "^1.0.5",
     "@lottiefiles/react-lottie-player": "^3.4.5",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.4",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@types/comma-number": "^2.1.0",
+    "@uiw/react-markdown-preview": "^4.0.17",
+    "@uiw/react-md-editor": "^3.14.3",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.13",
     "@web3-react/walletlink-connector": "^6.2.13",
-    "animated-number-react": "^0.1.1",
     "antd": "^3.26.18",
     "bignumber.js": "^9.0.0",
     "comma-number": "^2.1.0",
@@ -73,7 +75,7 @@
     "redux-actions": "^2.3.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
-    "remarkable": "1.x",
+    "rehype-sanitize": "^5.0.1",
     "sass": "^1.49.7",
     "styled-components": "^4.4.1",
     "web3": "^1.7.1",
@@ -177,5 +179,15 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/?!(react-markdown)"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.css$": "<rootDir>/src/__mocks__/CSSStub.js"
+    },
+    "resetMocks": false,
+    "clearMocks": true
   }
 }

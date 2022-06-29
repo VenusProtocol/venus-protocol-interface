@@ -4,10 +4,10 @@ import { Table, Token, TableProps } from 'components';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
-  formatCoinsToReadableValue,
+  formatTokensToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-} from 'utilities/common';
+} from 'utilities';
 import { useStyles } from './styles';
 import { useStyles as useSharedStyles } from '../styles';
 
@@ -55,7 +55,7 @@ const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
       {
         key: 'wallet',
         render: () =>
-          formatCoinsToReadableValue({
+          formatTokensToReadableValue({
             value: asset.walletBalance,
             tokenId: asset.id,
             minimizeDecimals: true,

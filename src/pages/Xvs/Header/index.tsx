@@ -9,9 +9,14 @@ import {
 } from 'clients/api';
 import { EllipseText, Icon, LabeledProgressBar } from 'components';
 import { AuthContext } from 'context/AuthContext';
-import copy from 'copy-to-clipboard';
-import { getToken, generateBscScanUrl, getContractAddress } from 'utilities';
-import { convertWeiToCoins, formatCoinsToReadableValue } from 'utilities/common';
+import useCopyToClipboard from 'hooks/useCopyToClipoard';
+import {
+  getToken,
+  generateBscScanUrl,
+  getContractAddress,
+  convertWeiToTokens,
+  formatTokensToReadableValue,
+} from 'utilities';
 import { useTranslation } from 'translation';
 import { useStyles } from '../styles';
 import { MINTED_XVS_WEI } from '../constants';
@@ -35,24 +40,26 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   totalXvsDistributedWei,
 }) => {
   const styles = useStyles();
-  const xvsAddress = getToken('xvs').address;
-  const copyAddress = () => copy(xvsAddress);
   const { t } = useTranslation();
 
+  const xvsAddress = getToken('xvs').address;
+  const copy = useCopyToClipboard(t('interactive.copy.xvsAddress'));
+  const copyAddress = () => copy(xvsAddress);
+
   const readableDailyDistribution = useMemo(() => {
-    const dailyVenusTokens = convertWeiToCoins({
+    const dailyVenusTokens = convertWeiToTokens({
       valueWei: dailyVenusWei,
       tokenId: 'xvs',
     });
 
-    const venusVaiVaultDailyRateTokens = convertWeiToCoins({
+    const venusVaiVaultDailyRateTokens = convertWeiToTokens({
       valueWei: venusVaiVaultDailyRateWei,
       tokenId: 'xvs',
     });
 
     const dailyDistribution = dailyVenusTokens.plus(venusVaiVaultDailyRateTokens);
 
-    return formatCoinsToReadableValue({
+    return formatTokensToReadableValue({
       value: dailyDistribution,
       tokenId: 'xvs',
       minimizeDecimals: true,
@@ -61,7 +68,7 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
 
   const readableRemainingDistribution = useMemo(
     () =>
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: remainingDistributionWei,
         tokenId: 'xvs',
         returnInReadableFormat: true,

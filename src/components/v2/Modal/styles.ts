@@ -64,6 +64,7 @@ export const useModalStyles = ({
       transform: rotate(180deg);
       height: ${theme.shape.iconSize.xLarge}px;
       width: ${theme.shape.iconSize.xLarge}px;
+      color: ${theme.palette.text.primary};
     `,
     titleComponent: css`
       align-self: center;
@@ -73,6 +74,8 @@ export const useModalStyles = ({
       min-height: ${theme.shape.iconSize.xLarge}px;
       padding-left: ${theme.shape.iconSize.xLarge}px;
       padding-right: ${theme.shape.iconSize.xLarge}px;
+      font-size: ${theme.typography.h4.fontSize};
+      font-weight: ${theme.typography.h4.fontWeight};
     `,
     closeIcon: css`
       right: ${theme.spacing(6)};

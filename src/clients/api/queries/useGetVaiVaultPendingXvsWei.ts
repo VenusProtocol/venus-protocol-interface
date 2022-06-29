@@ -12,7 +12,7 @@ type Options = QueryObserverOptions<
   Error,
   GetVaiVaultPendingXvsWeiOutput,
   GetVaiVaultPendingXvsWeiOutput,
-  [FunctionKey.GET_VAI_VAULT_PENDING_XVS, string]
+  [FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, string]
 >;
 
 const useGetVaiVaultPendingXvsWei = (
@@ -22,7 +22,7 @@ const useGetVaiVaultPendingXvsWei = (
   const vaiVaultContract = useVaiVaultContract();
 
   return useQuery(
-    [FunctionKey.GET_VAI_VAULT_PENDING_XVS, accountAddress],
+    [FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, accountAddress],
     () => getVaiVaultPendingXvsWei({ vaiVaultContract, accountAddress }),
     options,
   );

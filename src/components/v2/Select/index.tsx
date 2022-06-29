@@ -70,7 +70,7 @@ export const Select: React.FC<ISelectProps> = ({
       onClose={handleClose}
       onOpen={handleOpen}
       className={className}
-      css={styles.root({ isOpened: isOpen })}
+      css={styles.root({ isOpen })}
       value={value}
       onChange={onChange}
       displayEmpty

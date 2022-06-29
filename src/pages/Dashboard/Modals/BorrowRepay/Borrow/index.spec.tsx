@@ -6,6 +6,7 @@ import { waitFor, fireEvent } from '@testing-library/react';
 import { assetData } from '__mocks__/models/asset';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
+import TEST_IDS from 'constants/testIds';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAccountAddress from '__mocks__/models/address';
 import { useGetUserMarketInfo, borrowVToken, getAllowance } from 'clients/api';
@@ -123,7 +124,9 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .toFixed();
 
     // Enter amount in input
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: incorrectValueTokens } });
+    fireEvent.change(getByTestId(TEST_IDS.borrowModal.tokenTextField), {
+      target: { value: incorrectValueTokens },
+    });
 
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
     expect(
@@ -161,7 +164,9 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .toFixed();
 
     // Enter amount in input
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: incorrectValueTokens } });
+    fireEvent.change(getByTestId(TEST_IDS.borrowModal.tokenTextField), {
+      target: { value: incorrectValueTokens },
+    });
 
     // Check submit button is still disabled
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
@@ -184,7 +189,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
     // Check input is empty
-    const input = getByTestId('token-text-field') as HTMLInputElement;
+    const input = getByTestId(TEST_IDS.borrowModal.tokenTextField) as HTMLInputElement;
     expect(input.value).toBe('');
 
     // Press on max button
@@ -229,7 +234,9 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
 
     // Enter amount in input
     const correctAmountTokens = 1;
-    fireEvent.change(getByTestId('token-text-field'), { target: { value: correctAmountTokens } });
+    fireEvent.change(getByTestId(TEST_IDS.borrowModal.tokenTextField), {
+      target: { value: correctAmountTokens },
+    });
 
     // Click on submit button
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButton));

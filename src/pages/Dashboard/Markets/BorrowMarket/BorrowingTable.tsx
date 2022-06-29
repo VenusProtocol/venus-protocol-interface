@@ -6,11 +6,11 @@ import { ProgressBar, Table, Token, TableProps, LayeredValues } from 'components
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
-  formatCoinsToReadableValue,
+  formatTokensToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-} from 'utilities/common';
-import calculatePercentage from 'utilities/calculatePercentage';
+  calculatePercentage,
+} from 'utilities';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
@@ -73,7 +73,7 @@ const BorrowingTable: React.FC<IBorrowingUiProps> = ({
             topValue={formatCentsToReadableValue({
               value: asset.borrowBalance.multipliedBy(asset.tokenPrice).multipliedBy(100),
             })}
-            bottomValue={formatCoinsToReadableValue({
+            bottomValue={formatTokensToReadableValue({
               value: asset.borrowBalance,
               tokenId: asset.id,
               minimizeDecimals: true,

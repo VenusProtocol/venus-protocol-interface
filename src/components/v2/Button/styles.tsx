@@ -20,6 +20,11 @@ export const styles = ({
         background-color: ${theme.palette.background.paper};
         border-color: ${theme.palette.button.medium};
 
+        :disabled {
+          background-color: ${theme.palette.secondary.light};
+          border-color: ${theme.palette.secondary.light};
+        }
+
         :hover:not(:disabled) {
           background-color: ${theme.palette.button.main};
           border-color: ${theme.palette.button.main};
@@ -36,6 +41,11 @@ export const styles = ({
       return css`
         background-color: ${theme.palette.secondary.light};
         border-color: ${theme.palette.secondary.light};
+
+        :disabled {
+          background-color: ${theme.palette.secondary.light};
+          border-color: ${theme.palette.secondary.light};
+        }
 
         :hover:not(:disabled) {
           background-color: ${theme.palette.text.secondary};
@@ -69,6 +79,11 @@ export const styles = ({
       background-color: ${theme.palette.button.main};
       border-color: ${theme.palette.button.main};
 
+      :disabled {
+        background-color: ${theme.palette.secondary.light};
+        border-color: ${theme.palette.secondary.light};
+      }
+
       :hover:not(:disabled) {
         background-color: ${theme.palette.button.medium};
         border-color: ${theme.palette.button.medium};
@@ -97,8 +112,6 @@ export const styles = ({
 
       :disabled {
         color: ${theme.palette.text.secondary};
-        background-color: ${theme.palette.secondary.light};
-        border-color: ${theme.palette.secondary.light};
       }
 
       ${!disabled &&

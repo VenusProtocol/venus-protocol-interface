@@ -1,22 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core/types';
 
-import { getToken } from 'utilities';
+import {
+  getToken,
+  formatToReadablePercentage,
+  formatTokensToReadableValue,
+  convertTokensToWei,
+} from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import TEST_IDS from 'constants/testIds';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import {
-  formatToReadablePercentage,
-  formatCoinsToReadableValue,
-  convertCoinsToWei,
-} from 'utilities/common';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError } from 'errors';
 import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
-  toast,
   FormikSubmitButton,
   FormikTokenTextField,
   ConnectWallet,
@@ -32,7 +33,7 @@ export interface IBorrowFormProps {
   limitTokens: string;
   safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
-  borrow: (amountWei: BigNumber) => Promise<string | undefined>;
+  borrow: (amountWei: BigNumber) => Promise<TransactionReceipt>;
   isBorrowLoading: boolean;
   isXvsEnabled: boolean;
 }
@@ -47,14 +48,13 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   isBorrowLoading,
 }) => {
   const { t, Trans } = useTranslation();
-
   const sharedStyles = useStyles();
 
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+  const handleTransactionMutation = useHandleTransactionMutation();
 
   const readableTokenBorrowableAmount = React.useMemo(
     () =>
-      formatCoinsToReadableValue({
+      formatTokensToReadableValue({
         value: new BigNumber(limitTokens),
         tokenId: asset.id,
       }),
@@ -64,36 +64,23 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
 
-    const amountWei = convertCoinsToWei({
+    const amountWei = convertTokensToWei({
       value: formattedAmountTokens,
       tokenId: asset.id,
     });
 
-    try {
-      // Send request to borrow tokens
-      const transactionHash = await borrow(amountWei);
-
-      // Display successful transaction modal
-      if (transactionHash) {
-        openSuccessfulTransactionModal({
-          title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
-          content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            tokenId: asset.id,
-          },
-          transactionHash,
-        });
-      }
-    } catch (error) {
-      let { message } = error as Error;
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-      toast.error({
-        message,
-      });
-    }
+    return handleTransactionMutation({
+      mutate: () => borrow(amountWei),
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
+        content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: asset.id,
+        },
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
   };
 
   return (
@@ -111,7 +98,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
                 }),
                 valueOnClick: safeLimitTokens,
               }}
-              data-testid="token-text-field"
+              data-testid={TEST_IDS.borrowModal.tokenTextField}
               // Only display error state if amount is higher than borrow limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
               description={
@@ -183,10 +170,10 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     });
     // Close modal on success
     onClose();
-    return res.transactionHash;
+    return res;
   };
 
-  // Calculate maximum and safe maximum amount of coins user can borrow
+  // Calculate maximum and safe maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens] = React.useMemo(() => {
     // Return 0 values if borrow limit has been reached
     if (userTotalBorrowBalanceCents.isGreaterThanOrEqualTo(userTotalBorrowLimitCents)) {
@@ -197,8 +184,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       .minus(userTotalBorrowBalanceCents)
       // Convert cents to dollars
       .dividedBy(100);
-    const maxCoins = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
-      // Convert dollars to coins
+    const maxTokens = BigNumber.minimum(asset.liquidity, marginWithBorrowLimitDollars)
+      // Convert dollars to tokens
       .dividedBy(asset.tokenPrice);
 
     const safeBorrowLimitCents = userTotalBorrowLimitCents.multipliedBy(
@@ -209,8 +196,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       // Convert cents to dollars
       .dividedBy(100);
 
-    const safeMaxCoins = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
-      ? // Convert dollars to coins
+    const safeMaxTokens = userTotalBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
+      ? // Convert dollars to tokens
         marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
       : new BigNumber(0);
 
@@ -218,7 +205,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     const formatValue = (value: BigNumber) =>
       value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toFixed();
 
-    return [formatValue(maxCoins), formatValue(safeMaxCoins)];
+    return [formatValue(maxTokens), formatValue(safeMaxTokens)];
   }, [
     asset.id,
     asset.tokenPrice,

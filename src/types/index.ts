@@ -86,26 +86,65 @@ export interface IProposalAction {
   value: string;
 }
 
+export interface DescriptionV2 {
+  version: 'v2';
+  title: string;
+  description: string;
+  forDescription: string;
+  againstDescription: string;
+  abstainDescription: string;
+}
+
+export interface DescriptionV1 {
+  version: 'v1';
+  title: string;
+  description: string;
+  forDescription?: undefined;
+  againstDescription?: undefined;
+  abstainDescription?: undefined;
+}
+
 export interface IProposal {
   abstainedVotesWei: BigNumber;
   actions: IProposalAction[];
   againstVotesWei: BigNumber;
   blockNumber: number;
-  cancelTimestamp: number | undefined;
-  createdAt: string;
-  createdTimestamp: number;
-  description: string;
+  createdDate: Date | undefined;
+  description: DescriptionV1 | DescriptionV2;
   endBlock: number;
-  endTimestamp: number | undefined;
-  executedTimestamp: number;
+  endDate: Date;
+  executedDate: Date | undefined;
   forVotesWei: BigNumber;
   id: number;
   proposer: string;
-  queuedTimestamp: number;
-  startTimestamp: number;
+  queuedDate: Date | undefined;
+  startDate: Date | undefined;
   state: ProposalState;
   cancelDate: Date | undefined;
-  endDate: Date;
+  createdTxHash: string | undefined;
+  cancelTxHash: string | undefined;
+  endTxHash: string | undefined;
+  executedTxHash: string | undefined;
+  queuedTxHash: string | undefined;
+  startTxHash: string | undefined;
+  totalVotesWei: BigNumber;
+}
+
+export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN';
+
+export interface IVoter {
+  result: {
+    address: string;
+    voteWeightWei: BigNumber;
+    reason?: string;
+    support: VoteSupport;
+  }[];
+  sumVotes: {
+    abstain: BigNumber;
+    against: BigNumber;
+    for: BigNumber;
+    total: BigNumber;
+  };
 }
 
 export interface IPool {
@@ -240,4 +279,15 @@ export interface Vault {
   lockingPeriodMs?: number;
   userStakedWei?: BigNumber;
   userPendingRewardWei?: BigNumber;
+  poolIndex?: number;
+}
+
+export interface VoterAccount {
+  address: string;
+  createdAt: Date;
+  id: string;
+  proposalsVoted: number;
+  updatedAt: Date;
+  voteWeightPercent: number;
+  votesWei: BigNumber;
 }

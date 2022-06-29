@@ -14,8 +14,7 @@ import {
   useTokenContract,
   useVaiVaultContract,
 } from 'clients/contracts/hooks';
-import { getContractAddress } from 'utilities';
-import { convertWeiToCoins } from 'utilities/common';
+import { getContractAddress, convertWeiToTokens } from 'utilities';
 import { AuthContext } from 'context/AuthContext';
 import CardContent from './CardContent';
 import CardHeader from './CardHeader';
@@ -53,7 +52,7 @@ function VaultCard() {
       }
 
       const venusVAIVaultRate = await compContract.methods.venusVAIVaultRate().call();
-      const formattedVenusVAIVaultRate = convertWeiToCoins({
+      const formattedVenusVAIVaultRate = convertWeiToTokens({
         valueWei: new BigNumber(venusVAIVaultRate),
         tokenId: 'vai',
       }).times(BLOCKS_PER_DAY);
@@ -93,7 +92,7 @@ function VaultCard() {
 
     // Total Vai Staked
     setTotalVaiStakedTokens(
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: new BigNumber(totalVaiStakedWei),
         tokenId: 'vai',
       }),

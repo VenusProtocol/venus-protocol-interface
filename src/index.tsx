@@ -1,11 +1,18 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import ReactDOM from 'react-dom';
 import App from 'pages/App';
-// import * as serviceWorker from 'serviceWorker';
 
 import 'antd/dist/antd.css';
 import 'assets/styles/index.scss';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Initialize BigNumber format
+BigNumber.config({
+  FORMAT: {
+    decimalSeparator: '.',
+    groupSize: 3,
+    groupSeparator: ',',
+  },
+});
 
-// serviceWorker.register();
+ReactDOM.render(<App />, document.getElementById('root'));

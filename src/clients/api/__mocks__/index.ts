@@ -109,8 +109,18 @@ export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, 
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
+export const getProposal = jest.fn();
+export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
+
+export const getDailyXvsWei = jest.fn();
+export const useGetDailyXvsWei = () =>
+  useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
+
+export const getVoters = jest.fn();
+export const useGetVoters = () => useQuery(FunctionKey.GET_VOTERS, getVoters);
+
 export const getVoteReceipt = jest.fn();
-export const useVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
+export const useGetVoteReceipt = () => useQuery(FunctionKey.GET_VOTE_RECEIPT, getVoteReceipt);
 
 export const useGetVaults = jest.fn();
 
@@ -120,13 +130,39 @@ export const useGetVaiVaultUserInfo = () =>
 
 export const getVaiVaultPendingXvsWei = jest.fn();
 export const useGetVaiVaultPendingXvsWei = () =>
-  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvsWei);
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, fakeAddress], getVaiVaultPendingXvsWei);
 
 export const useGetVestingVaults = jest.fn();
 
 export const getVoteDelegateAddress = jest.fn();
 export const useGetVoteDelegateAddress = () =>
   useQuery([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, fakeAddress], getVoteDelegateAddress);
+
+export const getLatestProposalIdByProposer = jest.fn();
+export const useGetLatestProposalIdByProposer = () =>
+  useQuery(
+    [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, fakeAddress],
+    getLatestProposalIdByProposer,
+  );
+export const useGetActiveProposal = jest.fn();
+
+export const getVrtVaultInterestRatePerBlock = jest.fn();
+export const useGetVrtVaultInterestRatePerBlock = () =>
+  useQuery(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK, getVrtVaultInterestRatePerBlock);
+
+export const getVrtVaultUserInfo = jest.fn();
+export const useGetVrtVaultUserInfo = () =>
+  useQuery([FunctionKey.GET_VRT_VAULT_USER_INFO, fakeAddress], getVrtVaultUserInfo);
+
+export const getVrtVaultAccruedInterestWei = jest.fn();
+export const useGetVrtVaultAccruedInterestWei = () =>
+  useQuery(
+    [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI, fakeAddress],
+    getVrtVaultAccruedInterestWei,
+  );
+
+export const getVoterAccounts = jest.fn();
+export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);
 
 // Mutations
 export const approveToken = jest.fn();
@@ -140,10 +176,6 @@ export const useApproveVrt = (options?: MutationObserverOptions) =>
 export const convertVrt = jest.fn();
 export const useConvertVrt = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CONVERT_VRT, approveVrt, options);
-
-export const requestFaucetFunds = jest.fn();
-export const useRequestFaucetFunds = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.REQUEST_FAUCET_FUNDS, requestFaucetFunds, options);
 
 export const mintVai = jest.fn();
 export const useMintVai = (options?: MutationObserverOptions) =>
@@ -164,6 +196,18 @@ export const useExitMarket = (options?: MutationObserverOptions) =>
 export const claimXvsReward = jest.fn();
 export const useClaimXvsReward = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_XVS_REWARD, claimXvsReward, options);
+
+export const claimVaiVaultReward = jest.fn();
+export const useClaimVaiVaultReward = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_VAI_VAULT_REWARD, claimVaiVaultReward, options);
+
+export const claimXvsVaultReward = jest.fn();
+export const useClaimXvsVaultReward = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_XVS_VAULT_REWARD, claimXvsVaultReward, options);
+
+export const claimVrtVaultReward = jest.fn();
+export const useClaimVrtVaultReward = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CLAIM_VRT_VAULT_REWARD, claimVrtVaultReward, options);
 
 export const repayBnb = jest.fn();
 export const useRepayBnb = () => useMutation(FunctionKey.REPAY_BNB, repayBnb);
@@ -198,3 +242,65 @@ export const useWithdrawXvs = (options?: MutationObserverOptions) =>
 export const setVoteDelegate = jest.fn();
 export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SET_VOTE_DELEGATE, setVoteDelegate, options);
+
+export const createProposal = jest.fn();
+export const useCreateProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
+
+export const cancelProposal = jest.fn();
+export const useCancelProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CANCEL_PROPOSAL, cancelProposal, options);
+
+export const executeProposal = jest.fn();
+export const useExecuteProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.EXECUTE_PROPOSAL, executeProposal, options);
+
+export const queueProposal = jest.fn();
+export const useQueueProposal = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
+
+export const stakeInXvsVault = jest.fn();
+export const useStakeInXvsVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_IN_XVS_VAULT, stakeInXvsVault, options);
+
+export const stakeInVaiVault = jest.fn();
+export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_IN_VAI_VAULT, stakeInVaiVault, options);
+
+export const stakeInVrtVault = jest.fn();
+export const useStakeInVrtVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.STAKE_IN_VRT_VAULT, stakeInVrtVault, options);
+
+export const castVote = jest.fn();
+export const useCastVote = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CAST_VOTE, castVote, options);
+
+export const castVoteWithReason = jest.fn();
+export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.CAST_VOTE_WITH_REASON, castVoteWithReason, options);
+
+export const withdrawFromVaiVault = jest.fn();
+export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.WITHDRAW_FROM_VAI_VAULT, withdrawFromVaiVault, options);
+
+export const withdrawFromVrtVault = jest.fn();
+export const useWithdrawFromVrtVault = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.WITHDRAW_FROM_VRT_VAULT, withdrawFromVrtVault, options);
+
+export const requestWithdrawalFromXvsVault = jest.fn();
+export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
+  useMutation(
+    FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
+    requestWithdrawalFromXvsVault,
+    options,
+  );
+
+export const executeWithdrawalFromXvsVault = jest.fn();
+export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
+  useMutation(
+    FunctionKey.EXECUTE_WITHDRAWAL_FROM_XVS_VAULT,
+    executeWithdrawalFromXvsVault,
+    options,
+  );
+
+export const useVote = jest.fn(() => ({ vote: jest.fn() }));

@@ -9,7 +9,6 @@ import Menu from '@mui/material/Menu';
 
 import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
 import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
-import { ReactComponent as LogoMobile } from 'assets/img/v2/venusLogoMobile.svg';
 import { useTranslation } from 'translation';
 import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
@@ -68,7 +67,7 @@ export const SidebarUi: React.FC = () => {
 
       <div css={styles.mobileMenuBox}>
         <div css={styles.flexRow}>
-          <LogoMobile css={styles.mobileLogo} />
+          <Icon name="logoMobile" css={styles.mobileLogo} />
 
           <ConnectButton small fullWidth css={styles.mobileConnectButton} />
 
@@ -91,7 +90,7 @@ export const SidebarUi: React.FC = () => {
           anchorPosition={{ top: 0, left: 0 }}
         >
           <div css={[styles.flexRow, styles.doublePadding]}>
-            <LogoMobile css={styles.mobileLogo} />
+            <Icon name="logoMobile" css={styles.mobileLogo} />
 
             <ConnectButton small fullWidth css={styles.mobileConnectButton} />
 

@@ -1,40 +1,38 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core/types';
 
 import { AuthContext } from 'context/AuthContext';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { VError } from 'errors';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
-import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
-import { toast } from '../../Toast';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import TEST_IDS from 'constants/testIds';
 import { Icon } from '../../Icon';
 import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
 
 const XVS_SYMBOL = 'xvs';
 
-export const TEST_ID = 'claim-xvs-reward-button';
-
 export interface IClaimXvsRewardButton extends Omit<IButtonProps, 'onClick'> {
-  onClaim: () => Promise<string | undefined>;
+  onClaimReward: () => Promise<TransactionReceipt>;
   amountWei?: BigNumber;
 }
 
 export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   amountWei,
-  onClaim,
+  onClaimReward,
   ...otherProps
 }) => {
   const { t, Trans } = useTranslation();
   const styles = useStyles();
 
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+  const handleTransactionMutation = useHandleTransactionMutation();
 
-  const readableAmount = useConvertToReadableCoinString({
+  const readableAmount = useConvertWeiToReadableTokenString({
     valueWei: amountWei,
     tokenId: XVS_SYMBOL,
     minimizeDecimals: true,
@@ -45,35 +43,23 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
     return null;
   }
 
-  const handleClick = async () => {
-    try {
-      const transactionHash = await onClaim();
-      if (transactionHash) {
-        // Display successful transaction modal
-        openSuccessfulTransactionModal({
-          title: t('claimXvsRewardButton.successfulTransactionModal.title'),
-          content: t('claimXvsRewardButton.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            tokenId: 'xvs' as TokenId,
-          },
-          transactionHash,
-        });
-      }
-    } catch (error) {
-      let { message } = error as Error;
-      if (error instanceof VError && error.type === 'transactions') {
-        message = transactionErrorPhrases[error.message as keyof typeof transactionErrorPhrases];
-      }
-      toast.error({
-        message,
-      });
-    }
-  };
+  const handleClick = () =>
+    handleTransactionMutation({
+      mutate: onClaimReward,
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('claimXvsRewardButton.successfulTransactionModal.title'),
+        content: t('claimXvsRewardButton.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: 'xvs' as TokenId,
+        },
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
 
   return (
     <SecondaryButton
-      data-testid={TEST_ID}
+      data-testid={TEST_IDS.layout.claimXvsRewardButton}
       css={styles.button}
       onClick={handleClick}
       {...otherProps}
@@ -102,17 +88,16 @@ export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
 
-    const res = await claimXvsReward({
+    return claimXvsReward({
       fromAccountAddress: account.address,
     });
-    return res.transactionHash;
   };
 
   return (
     <ClaimXvsRewardButtonUi
       amountWei={xvsRewardWei}
       loading={isClaimXvsRewardLoading}
-      onClaim={handleClaim}
+      onClaimReward={handleClaim}
       {...props}
     />
   );

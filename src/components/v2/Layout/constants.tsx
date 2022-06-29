@@ -1,4 +1,3 @@
-import { isOnTestnet } from 'config';
 import { IMenuItem } from './types';
 
 export const menuItems: IMenuItem[] = [
@@ -63,13 +62,3 @@ export const menuItems: IMenuItem[] = [
     icon: 'xvsPrediction',
   },
 ];
-
-if (isOnTestnet) {
-  menuItems.splice(menuItems.length, 0, {
-    href: '/faucet',
-    // Translation key: do not remove this comment
-    // t('layout.menuItems.faucet')
-    i18nKey: 'layout.menuItems.faucet',
-    icon: 'faucet',
-  });
-}

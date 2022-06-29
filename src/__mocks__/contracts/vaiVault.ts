@@ -5,9 +5,9 @@ const vaiVaultResponses: {
   pendingXVS: Awaited<ReturnType<ReturnType<VaiVault['methods']['pendingXVS']>['call']>>;
 } = {
   userInfo: {
-    amount: '100000000000000',
+    amount: '100000000000000000000000',
     rewardDebt: '2000',
-    0: '100000000000000',
+    0: '100000000000000000000000',
     1: '4000',
   },
   pendingXVS: '600000000',

@@ -2,8 +2,11 @@
 import React from 'react';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities/common';
-import calculatePercentage from 'utilities/calculatePercentage';
+import {
+  formatCentsToReadableValue,
+  formatToReadablePercentage,
+  calculatePercentage,
+} from 'utilities';
 import { useTranslation } from 'translation';
 import { Tooltip } from '../../Tooltip';
 import { Icon } from '../../Icon';

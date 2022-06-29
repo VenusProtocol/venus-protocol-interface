@@ -284,6 +284,7 @@ function VoteOverview({ getVoters, getProposalById, match }: Props) {
             ].map(data => {
               // @ts-expect-error ts-migrate(2339) FIXME: Property 'total' does not exist on type '{ sumVote... Remove this comment to see the full error message
               const { sumVotes, result, total } = data.votes;
+
               return (
                 <Column key={uid(data)} xs="12" md="12" lg="4">
                   <VoteCard

@@ -16,7 +16,7 @@ import { Tabs } from 'components';
 import LoadingSpinner from 'components/Basic/LoadingSpinner';
 import { VError } from 'errors/VError';
 import { useTranslation } from 'translation';
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToTokens } from 'utilities';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VRT_ID } from './constants';
 import Withdraw, { IWithdrawProps } from './Withdraw';
@@ -73,7 +73,6 @@ export const ConvertVrtUi = ({
 
 const ConvertVrt = () => {
   const { account } = useContext(AuthContext);
-  const { t } = useTranslation();
   const accountAddress = account?.address;
   const { data: vrtConversionEndTime } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatio } = useGetVrtConversionRatio();
@@ -93,28 +92,26 @@ const ConvertVrt = () => {
 
   const handleConvertVrt = async (amount: string) => {
     if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
-    const res = await convertVrt({
+    return convertVrt({
       amountWei: amount,
       accountAddress,
     });
-    return res.transactionHash;
   };
 
   const handleWithdrawXvs = async () => {
     if (!accountAddress) {
-      throw new VError({ type: 'unexpected', code: t('errors.walletNotConnected') });
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
-    const res = await withdrawXvs({
+    return withdrawXvs({
       accountAddress,
     });
-    return res.transactionHash;
   };
 
   const conversionRatio = useMemo(() => {
     if (vrtConversionRatio) {
-      return convertWeiToCoins({
+      return convertWeiToTokens({
         valueWei: new BigNumber(vrtConversionRatio),
         tokenId: XVS_TOKEN_ID,
       });

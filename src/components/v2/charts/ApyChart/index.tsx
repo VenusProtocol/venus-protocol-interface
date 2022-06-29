@@ -13,7 +13,7 @@ import {
 import { useUID } from 'react-uid';
 
 import { useTranslation } from 'translation';
-import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilities/common';
+import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilities';
 import formatToReadableDate from './formatToReadableDate';
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';

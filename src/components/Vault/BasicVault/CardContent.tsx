@@ -4,7 +4,7 @@ import { Row, Col, Icon } from 'antd';
 import BigNumber from 'bignumber.js';
 import NumberFormat from 'react-number-format';
 
-import { commaFormat } from 'utilities/common';
+import { commaFormat } from 'utilities';
 import { TokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { CardItemWrapper } from '../styles';

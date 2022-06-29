@@ -7,10 +7,10 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    root: ({ isOpened }: { isOpened: boolean }) => css`
+    root: ({ isOpen }: { isOpen: boolean }) => css`
       background-color: ${theme.palette.secondary.light};
       border-radius: ${theme.shape.borderRadius.small}px;
-      border: 1px solid ${isOpened ? theme.palette.interactive.primary : 'transparent'};
+      border: 1px solid ${isOpen ? theme.palette.interactive.primary : 'transparent'};
       width: 100%;
       > div {
         padding: ${theme.spacing(3, 4)};

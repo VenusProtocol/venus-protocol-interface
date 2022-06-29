@@ -16,7 +16,7 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { convertWeiToCoins } from 'utilities/common';
+import { convertWeiToTokens } from 'utilities';
 import DelegateModal from '../DelegateModal';
 import { useStyles } from './styles';
 
@@ -50,7 +50,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
 
   const readableXvsLocked = useMemo(
     () =>
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: userStakedWei,
         tokenId: 'xvs',
         returnInReadableFormat: true,
@@ -62,7 +62,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
 
   const readableVoteWeight = useMemo(
     () =>
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: votingWeightWei,
         tokenId: 'xvs',
         returnInReadableFormat: true,

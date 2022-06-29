@@ -1,21 +1,25 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core/types';
 
 import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent } from 'components';
-import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm } from 'containers/AmountForm';
 import { TokenId } from 'types';
 import { useTranslation } from 'translation';
-import { convertWeiToCoins } from 'utilities/common';
-import useConvertToReadableCoinString from 'hooks/useConvertToReadableCoinString';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+import { convertWeiToTokens, convertTokensToWei } from 'utilities';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import TEST_IDS from 'constants/testIds';
 import { useStyles } from './styles';
 
 export interface ITransactionFormProps {
   tokenId: TokenId;
-  title: string;
   submitButtonLabel: string;
   submitButtonDisabledLabel: string;
-  onSubmit: IAmountFormProps['onSubmit'];
+  successfulTransactionTitle: string;
+  successfulTransactionDescription: string;
+  onSubmit: (amountWei: BigNumber) => Promise<TransactionReceipt>;
   isSubmitting: boolean;
   availableTokensWei: BigNumber;
   availableTokensLabel: string;
@@ -28,6 +32,8 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
   availableTokensLabel,
   submitButtonLabel,
   submitButtonDisabledLabel,
+  successfulTransactionTitle,
+  successfulTransactionDescription,
   onSubmit,
   isSubmitting,
   lockingPeriodMs,
@@ -35,16 +41,18 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
+  const handleTransactionMutation = useHandleTransactionMutation();
+
   const stringifiedAvailableTokens = React.useMemo(
     () =>
-      convertWeiToCoins({
+      convertWeiToTokens({
         valueWei: availableTokensWei,
         tokenId,
       }).toFixed(),
     [availableTokensWei.toFixed()],
   );
 
-  const readableAvailableTokens = useConvertToReadableCoinString({
+  const readableAvailableTokens = useConvertWeiToReadableTokenString({
     valueWei: availableTokensWei,
     tokenId,
     minimizeDecimals: true,
@@ -61,8 +69,28 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
     return t('vault.transactionForm.lockingPeriod.duration', { date: unlockingDate });
   }, [lockingPeriodMs?.toFixed()]);
 
+  const handleSubmit = async (amountTokens: string) => {
+    const amountWei = convertTokensToWei({
+      value: new BigNumber(amountTokens),
+      tokenId,
+    });
+
+    return handleTransactionMutation({
+      mutate: () => onSubmit(amountWei),
+      successTransactionModalProps: transactionReceipt => ({
+        title: successfulTransactionTitle,
+        content: successfulTransactionDescription,
+        amount: {
+          valueWei: amountWei,
+          tokenId,
+        },
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
+  };
+
   return (
-    <AmountForm onSubmit={onSubmit} maxAmount={stringifiedAvailableTokens}>
+    <AmountForm onSubmit={handleSubmit} maxAmount={stringifiedAvailableTokens}>
       {({ dirty, isValid }) => (
         <>
           <FormikTokenTextField
@@ -74,11 +102,12 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
               valueOnClick: stringifiedAvailableTokens,
             }}
             max={stringifiedAvailableTokens}
-            data-testid="token-text-field"
+            data-testid={TEST_IDS.vault.transactionForm.tokenTextField}
             css={styles.tokenTextField}
           />
 
           <LabeledInlineContent
+            data-testid={TEST_IDS.vault.transactionForm.availableTokens}
             iconName={tokenId}
             label={availableTokensLabel}
             css={styles.getRow({ isLast: !readableLockingPeriod })}
@@ -88,6 +117,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
 
           {readableLockingPeriod && (
             <LabeledInlineContent
+              data-testid={TEST_IDS.vault.transactionForm.lockingPeriod}
               label={t('vault.transactionForm.lockingPeriod.label')}
               css={styles.getRow({ isLast: true })}
             >

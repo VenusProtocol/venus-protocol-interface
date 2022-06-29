@@ -18,14 +18,13 @@ import {
   useGetVTokenBalanceOf,
   useGetUserMarketInfo,
 } from 'clients/api';
-import { isAssetEnabled } from 'utilities';
+import { isAssetEnabled, formatToReadablePercentage, convertTokensToWei } from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import { formatToReadablePercentage, convertCoinsToWei } from 'utilities/common';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 import { useStyles } from '../styles';
 
@@ -203,7 +202,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
 
   return (
     <Modal
-      isOpened={!!assetId}
+      isOpen={!!assetId}
       handleClose={onClose}
       title={assetId ? <Token tokenId={assetId as TokenId} variant="h4" /> : undefined}
     >
@@ -252,7 +251,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
       content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
-        valueWei: convertCoinsToWei({ value: new BigNumber(value), tokenId: asset.id }),
+        valueWei: convertTokensToWei({ value: new BigNumber(value), tokenId: asset.id }),
         tokenId: asset.id,
       },
       transactionHash: res.transactionHash,
@@ -280,7 +279,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),
         content: t('supplyWithdraw.successfulWithdrawTransactionModal.message'),
         amount: {
-          valueWei: convertCoinsToWei({ value: amount, tokenId: asset.id }),
+          valueWei: convertTokensToWei({ value: amount, tokenId: asset.id }),
           tokenId: asset.id,
         },
         transactionHash,

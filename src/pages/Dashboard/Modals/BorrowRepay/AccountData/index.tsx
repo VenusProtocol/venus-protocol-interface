@@ -1,15 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { Asset } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { useGetUserMarketInfo } from 'clients/api';
-import { formatToReadablePercentage } from 'utilities/common';
-import calculateDailyEarningsCentsUtil from 'utilities/calculateDailyEarningsCents';
-import { calculateYearlyEarningsForAssets } from 'utilities/calculateYearlyEarnings';
-import calculatePercentage from 'utilities/calculatePercentage';
+import {
+  formatToReadablePercentage,
+  calculateYearlyEarningsForAssets,
+  calculatePercentage,
+  calculateDailyEarningsCents as calculateDailyEarningsCentsUtil,
+} from 'utilities';
+
 import {
   BorrowBalanceAccountHealth,
   LabeledInlineContent,
@@ -17,6 +20,7 @@ import {
   Delimiter,
 } from 'components';
 import { useTranslation } from 'translation';
+import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 import { useStyles } from '../../styles';
 
 export interface IAccountDataProps {
@@ -32,14 +36,17 @@ const AccountData: React.FC<IAccountDataProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { account } = React.useContext(AuthContext);
+  const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
   } = useGetUserMarketInfo({
-    accountAddress: account?.address,
+    accountAddress,
   });
+
+  // TODO: handle loading state
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
 
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
@@ -77,14 +84,15 @@ const AccountData: React.FC<IAccountDataProps> = ({
             : assetData.borrowBalance,
       }));
 
-      const yearlyEarningsCents = calculateYearlyEarningsForAssets({
-        assets: updatedAssets,
-        isXvsEnabled,
-      });
+      const yearlyEarningsCents =
+        dailyXvsDistributionInterestsCents &&
+        calculateYearlyEarningsForAssets({
+          assets: updatedAssets,
+          isXvsEnabled,
+          dailyXvsDistributionInterestsCents,
+        });
 
-      return yearlyEarningsCents
-        ? calculateDailyEarningsCentsUtil(yearlyEarningsCents)
-        : new BigNumber(0);
+      return yearlyEarningsCents && calculateDailyEarningsCentsUtil(yearlyEarningsCents);
     },
     [JSON.stringify(assets)],
   );
@@ -162,7 +170,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
         css={styles.bottomRow}
       >
         <ValueUpdate
-          original={dailyEarningsCents.toNumber()}
+          original={dailyEarningsCents?.toNumber()}
           update={hypotheticalDailyEarningsCents?.toNumber()}
         />
       </LabeledInlineContent>

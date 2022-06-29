@@ -1,4 +1,4 @@
-import { restService } from 'utilities/restService';
+import { restService } from 'utilities';
 import proposalResponse from '__mocks__/api/proposals.json';
 import { VError } from 'errors';
 import getProposals from '.';
@@ -30,7 +30,7 @@ describe('api/queries/getProposals', () => {
     }
   });
 
-  test('returns transaction models', async () => {
+  test('returns formatted proposals', async () => {
     (restService as jest.Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: { data: proposalResponse, limit: 20, offset: 20 },

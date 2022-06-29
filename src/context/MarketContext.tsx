@@ -5,9 +5,16 @@ import { TREASURY_ADDRESS } from 'config';
 import { useWeb3 } from 'clients/web3';
 import { Asset, Market } from 'types';
 import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
-import { getVBepToken, getToken, calculateCollateralValue } from 'utilities';
-import { fetchMarkets } from 'utilities/api';
-import { indexBy, notNull, convertCoinsToWei } from 'utilities/common';
+import { IGetMarketsResponse } from 'clients/api/queries/getMarkets';
+import {
+  getVBepToken,
+  getToken,
+  calculateCollateralValue,
+  indexBy,
+  notNull,
+  convertTokensToWei,
+  restService,
+} from 'utilities';
 import useRefresh from 'hooks/useRefresh';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useComptrollerContract, useVenusLensContract } from 'clients/contracts/hooks';
@@ -25,6 +32,12 @@ const MarketContext = React.createContext({
 
 // This context provide a way for all the components to share the market data, thus avoid
 // duplicated requests
+
+const fetchMarkets = async () =>
+  restService<IGetMarketsResponse>({
+    endpoint: '/governance/venus',
+    method: 'GET',
+  });
 
 const MarketContextProvider = ({ children }: $TSFixMe) => {
   const [markets, setMarkets] = useState<$TSFixMe[]>([]);
@@ -203,7 +216,7 @@ const MarketContextProvider = ({ children }: $TSFixMe) => {
           if (asset.collateral) {
             return acc.plus(
               calculateCollateralValue({
-                amountWei: convertCoinsToWei({ value: asset.supplyBalance, tokenId: asset.id }),
+                amountWei: convertTokensToWei({ value: asset.supplyBalance, tokenId: asset.id }),
                 tokenId: asset.id,
                 tokenPriceTokens: asset.tokenPrice,
                 collateralFactor: asset.collateralFactor,

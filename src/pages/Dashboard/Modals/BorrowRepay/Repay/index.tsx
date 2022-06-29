@@ -6,11 +6,12 @@ import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import {
-  convertCoinsToWei,
-  formatCoinsToReadableValue,
+  convertTokensToWei,
+  formatTokensToReadableValue,
   formatToReadablePercentage,
-} from 'utilities/common';
+} from 'utilities';
 import { useRepayVToken } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
 import { VError, formatVErrorToReadableString } from 'errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import {
@@ -67,7 +68,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
 
   const readableTokenBorrowBalance = React.useMemo(
     () =>
-      formatCoinsToReadableValue({
+      formatTokensToReadableValue({
         value: asset.borrowBalance,
         tokenId: asset.id,
       }),
@@ -76,7 +77,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
 
   const readableTokenWalletBalance = React.useMemo(
     () =>
-      formatCoinsToReadableValue({
+      formatTokensToReadableValue({
         value: asset.walletBalance,
         tokenId: asset.id,
       }),
@@ -86,7 +87,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
   const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
 
-    const amountWei = convertCoinsToWei({
+    const amountWei = convertTokensToWei({
       value: formattedAmountTokens,
       tokenId: asset.id,
     });
@@ -146,7 +147,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
                 label: t('borrowRepayModal.repay.rightMaxButtonLabel'),
                 valueOnClick: limitTokens,
               }}
-              data-testid="token-text-field"
+              data-testid={TEST_IDS.repayModal.tokenTextField}
               // Only display error state if amount is higher than limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
               description={
@@ -231,7 +232,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     }
 
     const isRepayingFullLoan = amountWei.eq(
-      convertCoinsToWei({ value: asset.borrowBalance, tokenId: asset.id }),
+      convertTokensToWei({ value: asset.borrowBalance, tokenId: asset.id }),
     );
 
     const res = await repay({
