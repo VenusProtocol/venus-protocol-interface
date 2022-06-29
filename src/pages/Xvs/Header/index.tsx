@@ -9,7 +9,7 @@ import {
 } from 'clients/api';
 import { Icon, LabeledProgressBar, EllipseAddress } from 'components';
 import { AuthContext } from 'context/AuthContext';
-import copy from 'copy-to-clipboard';
+import useCopyToClipboard from 'hooks/useCopyToClipoard';
 import {
   getToken,
   generateBscScanUrl,
