@@ -1,6 +1,6 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 import getXvsVaultWithdrawalRequests, {
-  IGetXvsVaultWithdrawalRequestsInput,
+  GetXvsVaultWithdrawalRequestsInput,
   GetXvsVaultWithdrawalRequestsOutput,
 } from 'clients/api/queries/getXvsVaultWithdrawalRequests';
 import FunctionKey from 'constants/functionKey';
@@ -15,7 +15,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsVaultWithdrawalRequests = (
-  params: Omit<IGetXvsVaultWithdrawalRequestsInput, 'xvsVaultContract'>,
+  params: Omit<GetXvsVaultWithdrawalRequestsInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
   const xvsVaultContract = useXvsVaultProxyContract();

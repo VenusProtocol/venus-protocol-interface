@@ -1,11 +1,11 @@
-import { IWithdrawalRequest } from 'types';
+import { WithdrawalRequest } from 'types';
 import { XvsVault } from 'types/contracts';
 
-export interface IGetXvsVaultWithdrawalRequestsInput {
+export interface GetXvsVaultWithdrawalRequestsInput {
   xvsVaultContract: XvsVault;
   rewardTokenAddress: string;
   poolIndex: number;
   accountAddress: string;
 }
 
-export type GetXvsVaultWithdrawalRequestsOutput = IWithdrawalRequest[];
+export type GetXvsVaultWithdrawalRequestsOutput = WithdrawalRequest[];

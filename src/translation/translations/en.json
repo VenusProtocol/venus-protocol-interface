@@ -704,6 +704,11 @@
     },
     "title": "Withdraw {{tokenSymbol}}"
   },
+  "withdrawFromVestingVaultModalModal": {
+    "requestWithdrawalTabTitle": "Request withdrawal",
+    "title": "Withdraw {{tokenSymbol}}",
+    "withdrawTabTitle": "Withdraw"
+  },
   "xvs": {
     "columns": {
       "asset": "Asset",
