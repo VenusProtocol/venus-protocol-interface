@@ -1,6 +1,7 @@
 import { useMutation, MutationObserverOptions } from 'react-query';
 
-import { convertVrt, IConvertVrtInput, ConvertVrtOutput } from 'clients/api';
+import { queryClient, convertVrt, IConvertVrtInput, ConvertVrtOutput } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import FunctionKey from 'constants/functionKey';
 import { useVrtConverterProxyContract } from 'clients/contracts/hooks';
 
@@ -21,6 +22,15 @@ const useConvertVrt = (
       }),
     {
       ...options,
+      onSuccess: async (...onSuccessParams) => {
+        const { accountAddress } = onSuccessParams[1];
+
+        queryClient.invalidateQueries([FunctionKey.GET_BALANCE_OF, accountAddress, TOKENS.vrt.id]);
+
+        if (options?.onSuccess) {
+          options.onSuccess(...onSuccessParams);
+        }
+      },
     },
   );
 };
