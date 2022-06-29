@@ -20,7 +20,6 @@ const TEST_IDS = {
       lockingPeriod: 'vault-transaction-form-locking-period',
     },
     vaultItem: {
-      claimRewardButton: 'vault-vault-item-claim-reward-button',
       symbol: 'vault-vault-item-symbol',
       userPendingRewardTokens: 'vault-vault-item-user-pending-reward-tokens',
       userStakedTokens: 'vault-vault-item-user-staked-tokens',

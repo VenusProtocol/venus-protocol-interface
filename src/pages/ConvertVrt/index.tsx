@@ -94,21 +94,19 @@ const ConvertVrt = () => {
     if (!accountAddress) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
-    const res = await convertVrt({
+    return convertVrt({
       amountWei: amount,
       accountAddress,
     });
-    return res.transactionHash;
   };
 
   const handleWithdrawXvs = async () => {
     if (!accountAddress) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
-    const res = await withdrawXvs({
+    return withdrawXvs({
       accountAddress,
     });
-    return res.transactionHash;
   };
 
   const conversionRatio = useMemo(() => {

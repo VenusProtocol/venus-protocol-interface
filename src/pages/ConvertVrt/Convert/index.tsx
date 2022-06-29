@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useCallback, useMemo } from 'react';
+import type { TransactionReceipt } from 'web3-core/types';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { Typography } from '@mui/material';
@@ -28,7 +29,7 @@ export interface IConvertProps {
   vrtConversionEndTime: Date | undefined;
   userVrtBalanceWei: BigNumber | undefined;
   convertVrtLoading: boolean;
-  convertVrt: (amount: string) => Promise<string>;
+  convertVrt: (amount: string) => Promise<TransactionReceipt>;
 }
 
 const Convert: React.FC<IConvertProps> = ({
@@ -77,7 +78,7 @@ const Convert: React.FC<IConvertProps> = ({
   const onSubmit = async (vrtAmount: string) => {
     try {
       const vrtAmountWei = convertTokensToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
-      const transactionHash = await convertVrt(vrtAmountWei.toFixed());
+      const transactionReceipt = await convertVrt(vrtAmountWei.toFixed());
       // Display successful transaction modal
       if (!xvsToVrtConversionRatio) {
         // This should never happen because the form is not rendered without successfully fetching this
@@ -91,7 +92,7 @@ const Convert: React.FC<IConvertProps> = ({
 
       openSuccessfulTransactionModal({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
-        transactionHash,
+        transactionHash: transactionReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
             <Icon name={VRT_ID} css={styles.successModalToken} />

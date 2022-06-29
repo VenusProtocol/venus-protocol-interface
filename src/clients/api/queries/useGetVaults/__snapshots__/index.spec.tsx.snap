@@ -64,7 +64,7 @@ Array [
     "stakingAprPercentage": 45625,
     "totalStakedWei": "4000000000",
     "userPendingRewardWei": "600000000",
-    "userStakedWei": "100000000000000",
+    "userStakedWei": "1e+23",
   },
   Object {
     "dailyEmissionWei": "1036800000",

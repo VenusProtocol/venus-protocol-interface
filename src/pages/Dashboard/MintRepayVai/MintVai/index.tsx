@@ -4,9 +4,9 @@ import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
   FormikSubmitButton,
@@ -14,12 +14,10 @@ import {
   LabeledInlineContent,
   FormikTokenTextField,
   ConnectWallet,
-  toast,
 } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { VAI_ID } from '../constants';
@@ -43,7 +41,8 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const handleTransactionMutation = useHandleTransactionMutation();
 
   const limitTokens = useMemo(
     () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
@@ -73,37 +72,24 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     [mintFeePercentage],
   );
 
-  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+  const onSubmit: IAmountFormProps['onSubmit'] = amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
       tokenId: VAI_ID,
     });
 
-    try {
-      // Send request to repay VAI
-      const res = await mintVai(amountWei);
-
-      // Display successful transaction modal
-      if (res) {
-        openSuccessfulTransactionModal({
-          title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
-          content: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            tokenId: 'xvs' as TokenId,
-          },
-          transactionHash: res.transactionHash,
-        });
-      }
-    } catch (error) {
-      let { message } = error as Error;
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-      toast.error({
-        message,
-      });
-    }
+    return handleTransactionMutation({
+      mutate: () => mintVai(amountWei),
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('mintRepayVai.mintVai.successfulTransactionModal.title'),
+        content: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: 'vai',
+        },
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
   };
 
   return (

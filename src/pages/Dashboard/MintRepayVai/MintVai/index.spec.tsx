@@ -2,6 +2,8 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { waitFor, fireEvent } from '@testing-library/react';
 
+import { TokenId } from 'types';
+import { TOKENS } from 'constants/tokens';
 import en from 'translation/translations/en.json';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { mintVai, getVaiTreasuryPercentage, useGetUserMarketInfo, getAllowance } from 'clients/api';
@@ -17,11 +19,11 @@ jest.mock('clients/api');
 jest.mock('components/v2/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
+const fakeVai = { ...assetData, id: TOKENS.vai.id as TokenId, symbol: TOKENS.vai.symbol };
 const fakeMintableVai = new BigNumber('1000');
 const formattedFakeUserVaiMinted = formatTokensToReadableValue({
   value: fakeMintableVai,
-  tokenId: 'vai',
+  tokenId: TOKENS.vai.id as TokenId,
 });
 const fakeVaiTreasuryPercentage = 7.19;
 
@@ -123,7 +125,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: 'xvs',
+        tokenId: TOKENS.vai.id as TokenId,
         valueWei: fakeWeiMinted,
       },
       content: expect.any(String),

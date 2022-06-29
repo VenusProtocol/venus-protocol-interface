@@ -3,19 +3,17 @@ import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
-import { TokenId } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import {
   ConnectWallet,
   EnableToken,
   FormikSubmitButton,
   LabeledInlineContent,
   FormikTokenTextField,
-  toast,
 } from 'components';
 import { useVaiUser } from 'hooks/useVaiUser';
 import { useRepayVai } from 'clients/api';
@@ -41,7 +39,8 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const handleTransactionMutation = useHandleTransactionMutation();
 
   const limitTokens = React.useMemo(() => {
     const limitWei =
@@ -66,31 +65,18 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
       tokenId: VAI_ID,
     });
 
-    try {
-      // Send request to repay VAI
-      const res = await repayVai(amountWei);
-
-      // Display successful transaction modal
-      if (res) {
-        openSuccessfulTransactionModal({
-          title: t('mintRepayVai.repayVai.successfulTransactionModal.title'),
-          content: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            tokenId: 'xvs' as TokenId,
-          },
-          transactionHash: res.transactionHash,
-        });
-      }
-    } catch (error) {
-      let { message } = error as Error;
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-      toast.error({
-        message,
-      });
-    }
+    return handleTransactionMutation({
+      mutate: () => repayVai(amountWei),
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('mintRepayVai.repayVai.successfulTransactionModal.title'),
+        content: t('mintRepayVai.repayVai.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: 'vai',
+        },
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
   };
 
   return (

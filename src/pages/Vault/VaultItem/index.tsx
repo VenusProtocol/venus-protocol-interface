@@ -6,21 +6,19 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { VError, formatVErrorToReadableString } from 'errors';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { toast } from 'components/v2/Toast';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
 import useClaimVaultReward from 'hooks/useClaimVaultReward';
+import { useWithdrawFromVrtVault } from 'clients/api';
 import TEST_IDS from 'constants/testIds';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
-import { StakeModal } from '../modals';
+import { StakeModal, WithdrawFromVaiVaultModal } from '../modals';
 import { useStyles } from './styles';
-
-// TODO: add tests
 
 type ActiveModal = 'stake' | 'withdraw';
 
@@ -32,9 +30,10 @@ export interface IVaultItemUiProps {
   totalStakedWei: BigNumber;
   onClaimReward: () => Promise<TransactionReceipt>;
   onStake: () => void;
-  onWithdraw: () => void;
+  onWithdraw: () => Promise<TransactionReceipt | void>;
   closeActiveModal: () => void;
   isClaimRewardLoading: boolean;
+  isWithdrawLoading?: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
   userPendingRewardWei?: BigNumber;
@@ -56,37 +55,34 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   activeModal,
   poolIndex,
   isClaimRewardLoading,
+  isWithdrawLoading,
   closeActiveModal,
   className,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+  const handleTransactionMutation = useHandleTransactionMutation();
 
-  const handleClaimReward = async () => {
-    try {
-      // Send request to claim reward
-      const res = await onClaimReward();
+  const handleClaimReward = () =>
+    handleTransactionMutation({
+      mutate: onClaimReward,
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('vaultItem.successfulClaimRewardTransactionModal.title'),
+        content: t('vaultItem.successfulClaimRewardTransactionModal.description'),
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
 
-      // Display successful transaction modal
-      if (res) {
-        openSuccessfulTransactionModal({
-          title: t('vaultItem.successfulTransactionModal.title'),
-          content: t('vaultItem.successfulTransactionModal.description'),
-          transactionHash: res.transactionHash,
-        });
-      }
-    } catch (error) {
-      let { message } = error as Error;
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-      toast.error({
-        message,
-      });
-    }
-  };
+  const handleWithdraw = () =>
+    handleTransactionMutation({
+      mutate: onWithdraw,
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('vaultItem.successfulWithdrawVrtTransactionModal.title'),
+        content: t('vaultItem.successfulWithdrawVrtTransactionModal.description'),
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
 
   const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
     valueWei: userPendingRewardWei,
@@ -185,7 +181,6 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
                 variant="text"
                 css={styles.buttonClaim}
                 loading={isClaimRewardLoading}
-                data-testid={TEST_IDS.vault.vaultItem.claimRewardButton}
               >
                 {t('vaultItem.claimButton')}
               </Button>
@@ -230,7 +225,12 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
             {t('vaultItem.stakeButton')}
           </Button>
 
-          <Button onClick={onWithdraw} css={styles.button} variant="secondary">
+          <Button
+            onClick={handleWithdraw}
+            css={styles.button}
+            variant="secondary"
+            loading={isWithdrawLoading}
+          >
             {t('vaultItem.withdrawButton')}
           </Button>
         </div>
@@ -245,7 +245,11 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         />
       )}
 
-      {/* TODO: add other modals (see VEN-251) */}
+      {activeModal === 'withdraw' && poolIndex === undefined && stakedTokenId === TOKENS.vai.id && (
+        <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
+      )}
+
+      {/* TODO: add withdraw modal for vesting vaults (see VEN-251) */}
     </>
   );
 };
@@ -258,6 +262,7 @@ export type VaultItemProps = Omit<
   | 'closeActiveModal'
   | 'activeModal'
   | 'isClaimRewardLoading'
+  | 'isWithdrawLoading'
 >;
 
 const VaultItem: React.FC<VaultItemProps> = ({
@@ -266,12 +271,30 @@ const VaultItem: React.FC<VaultItemProps> = ({
   poolIndex,
   ...vaultItemUiProps
 }) => {
+  const { account } = useContext(AuthContext);
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
   const onStake = () => setActiveModal('stake');
-  const onWithdraw = () => setActiveModal('withdraw');
-  const closeActiveModal = () => setActiveModal(undefined);
 
-  const { account } = useContext(AuthContext);
+  const { mutateAsync: withdrawFromVrtVault, isLoading: isWithdrawFromVrtVault } =
+    useWithdrawFromVrtVault();
+
+  const onWithdraw = async () => {
+    if (!account?.address) {
+      return;
+    }
+
+    if (stakedTokenId === TOKENS.vrt.id && typeof poolIndex !== 'number') {
+      // Users can only withdraw the totality of their staked tokens when
+      // withdrawing from the VRT vault
+      return withdrawFromVrtVault({
+        fromAccountAddress: account.address,
+      });
+    }
+
+    setActiveModal('withdraw');
+  };
+
+  const closeActiveModal = () => setActiveModal(undefined);
 
   const { claimReward, isLoading: isClaimRewardLoading } = useClaimVaultReward();
   const onClaimReward = () =>
@@ -295,6 +318,9 @@ const VaultItem: React.FC<VaultItemProps> = ({
       stakedTokenId={stakedTokenId}
       rewardTokenId={rewardTokenId}
       poolIndex={poolIndex}
+      // We only track the loading state of a withdrawal for the VRT vault,
+      // since all the other vaults handle that through a modal
+      isWithdrawLoading={isWithdrawFromVrtVault}
       {...vaultItemUiProps}
     />
   );

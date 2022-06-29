@@ -2,8 +2,10 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ConnectWallet, Icon, PrimaryButton, toast } from 'components';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import type { TransactionReceipt } from 'web3-core/types';
+
+import { ConnectWallet, Icon, PrimaryButton } from 'components';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
@@ -11,7 +13,7 @@ import { useStyles } from '../styles';
 
 export interface IWithdrawProps {
   xvsWithdrawableAmount: BigNumber | undefined;
-  withdrawXvs: () => Promise<string>;
+  withdrawXvs: () => Promise<TransactionReceipt>;
   withdrawXvsLoading: boolean;
 }
 
@@ -22,17 +24,20 @@ const Withdraw: React.FC<IWithdrawProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsWithdrawableAmount,
     tokenId: XVS_TOKEN_ID,
   });
-  const onSubmit = async () => {
-    try {
-      const transactionHash = await withdrawXvs();
-      openSuccessfulTransactionModal({
+
+  const handleTransactionMutation = useHandleTransactionMutation();
+
+  const onSubmit = () =>
+    handleTransactionMutation({
+      mutate: withdrawXvs,
+      successTransactionModalProps: transactionReceipt => ({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
-        transactionHash,
+        transactionHash: transactionReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
             <Icon name={XVS_TOKEN_ID} css={styles.successModalToken} />
@@ -41,11 +46,9 @@ const Withdraw: React.FC<IWithdrawProps> = ({
             </Typography>
           </div>
         ),
-      });
-    } catch (err) {
-      toast.error({ message: (err as Error).message });
-    }
-  };
+      }),
+    });
+
   return (
     <div css={styles.root}>
       <ConnectWallet message={t('convertVrt.connectWalletToWithdrawXvs')}>

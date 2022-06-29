@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import type { TransactionReceipt } from 'web3-core/types';
 
 import {
   getToken,
@@ -12,12 +13,11 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import TEST_IDS from 'constants/testIds';
 import { Asset, VTokenId } from 'types';
 import { AuthContext } from 'context/AuthContext';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { VError, formatVErrorToReadableString } from 'errors';
+import { VError } from 'errors';
 import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
 import {
-  toast,
   FormikSubmitButton,
   FormikTokenTextField,
   ConnectWallet,
@@ -33,7 +33,7 @@ export interface IBorrowFormProps {
   limitTokens: string;
   safeBorrowLimitPercentage: number;
   safeLimitTokens: string;
-  borrow: (amountWei: BigNumber) => Promise<string | undefined>;
+  borrow: (amountWei: BigNumber) => Promise<TransactionReceipt>;
   isBorrowLoading: boolean;
   isXvsEnabled: boolean;
 }
@@ -48,10 +48,9 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   isBorrowLoading,
 }) => {
   const { t, Trans } = useTranslation();
-
   const sharedStyles = useStyles();
 
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+  const handleTransactionMutation = useHandleTransactionMutation();
 
   const readableTokenBorrowableAmount = React.useMemo(
     () =>
@@ -70,31 +69,18 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
       tokenId: asset.id,
     });
 
-    try {
-      // Send request to borrow tokens
-      const transactionHash = await borrow(amountWei);
-
-      // Display successful transaction modal
-      if (transactionHash) {
-        openSuccessfulTransactionModal({
-          title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
-          content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
-          amount: {
-            valueWei: amountWei,
-            tokenId: asset.id,
-          },
-          transactionHash,
-        });
-      }
-    } catch (error) {
-      let { message } = error as Error;
-      if (error instanceof VError) {
-        message = formatVErrorToReadableString(error);
-      }
-      toast.error({
-        message,
-      });
-    }
+    return handleTransactionMutation({
+      mutate: () => borrow(amountWei),
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('borrowRepayModal.borrow.successfulTransactionModal.title'),
+        content: t('borrowRepayModal.borrow.successfulTransactionModal.message'),
+        amount: {
+          valueWei: amountWei,
+          tokenId: asset.id,
+        },
+        transactionHash: transactionReceipt.transactionHash,
+      }),
+    });
   };
 
   return (
@@ -184,7 +170,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     });
     // Close modal on success
     onClose();
-    return res.transactionHash;
+    return res;
   };
 
   // Calculate maximum and safe maximum amount of tokens user can borrow
