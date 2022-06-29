@@ -146,7 +146,7 @@ export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref
         {
           key: 'collateralFactor',
           render: () => (
-            <Typography variant="small1" css={styles.whiteText}>
+            <Typography variant="small1" css={localStyles.whiteText}>
               {formatToReadablePercentage(
                 convertPercentageFromSmartContract(market.collateralFactor),
               )}
