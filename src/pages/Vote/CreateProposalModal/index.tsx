@@ -151,6 +151,7 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
         onSubmit={handleCreateProposal}
         validateOnBlur
         validateOnMount
+        isInitialValid={false}
       >
         {({ errors }) => {
           const getErrorsByStep = useCallback(
