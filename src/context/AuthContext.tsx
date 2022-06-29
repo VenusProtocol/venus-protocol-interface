@@ -1,10 +1,10 @@
 import React from 'react';
 import noop from 'noop-ts';
-import copyToClipboard from 'copy-to-clipboard';
 
 import { Connector, useAuth } from 'clients/web3';
-import { toast } from 'components/v2/Toast';
+import useCopyToClipboard from 'hooks/useCopyToClipoard';
 import { AuthModal } from 'components/v2/AuthModal';
+import { useTranslation } from 'translation';
 
 export interface IAccount {
   address: string;
@@ -31,20 +31,16 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const { login, accountAddress, logOut, connectedConnector } = useAuth();
 
+  const { t } = useTranslation();
+
+  const copyWalletAddress = useCopyToClipboard(t('interactive.copy.walletAddress'));
+
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
 
   const handleLogin = (connector: Connector) => {
     login(connector);
     closeAuthModal();
-  };
-
-  const handleCopyAccountAddress = (accountAddressToCopy: string) => {
-    copyToClipboard(accountAddressToCopy);
-
-    toast.success({
-      message: 'Wallet address copied to clipboard',
-    });
   };
 
   const account = accountAddress
@@ -70,7 +66,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         account={account}
         onLogOut={logOut}
         onLogin={handleLogin}
-        onCopyAccountAddress={handleCopyAccountAddress}
+        onCopyAccountAddress={copyWalletAddress}
       />
 
       {children}
