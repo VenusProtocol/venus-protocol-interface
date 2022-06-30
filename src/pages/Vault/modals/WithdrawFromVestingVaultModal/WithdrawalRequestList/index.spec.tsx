@@ -16,6 +16,8 @@ const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList', () => {
   beforeEach(() => {
+    jest.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
+
     (getXvsVaultWithdrawalRequests as jest.Mock).mockImplementation(() =>
       xvsVaultResponses.getWithdrawalRequests.map(formatToWithdrawalRequest),
     );
