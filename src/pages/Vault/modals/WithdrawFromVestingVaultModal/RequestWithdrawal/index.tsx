@@ -30,6 +30,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   stakedTokenId,
   poolIndex,
   handleDisplayWithdrawalRequestList,
+  handleClose,
 }) => {
   const { account } = useContext(AuthContext);
   const stakedToken = getToken(stakedTokenId);
@@ -98,8 +99,8 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     isGetXvsVaultUserInfoLoading ||
     isGetXvsVaultUserWithdrawalRequestsLoading;
 
-  const handleSubmit: ITransactionFormProps['onSubmit'] = amountWei =>
-    requestWithdrawalFromXvsVault({
+  const handleSubmit: ITransactionFormProps['onSubmit'] = async amountWei => {
+    const res = await requestWithdrawalFromXvsVault({
       poolIndex,
       // account has to be defined at this stage since we don't display the form
       // if no account is connected
@@ -107,6 +108,12 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       rewardTokenAddress: TOKENS.xvs.address,
       amountWei,
     });
+
+    // Close modal
+    handleClose();
+
+    return res;
+  };
 
   return (
     <ConnectWallet

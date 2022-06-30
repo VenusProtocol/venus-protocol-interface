@@ -20,7 +20,7 @@ export interface WithdrawProps {
 
 // TODO: add tests
 
-const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
+const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClose }) => {
   const { account } = useContext(AuthContext);
   const stakedToken = getToken(stakedTokenId);
   const { t } = useTranslation();
@@ -62,14 +62,20 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
 
   const isInitialLoading = isGetXvsVaultUserWithdrawalRequestsLoading;
 
-  const handleSubmit = () =>
-    executeWithdrawalFromXvsVault({
+  const handleSubmit = async () => {
+    const res = await executeWithdrawalFromXvsVault({
       poolIndex,
       // account has to be defined at this stage since we don't display the form
       // if no account is connected
       fromAccountAddress: account?.address || '',
       rewardTokenAddress: TOKENS.xvs.address,
     });
+
+    // Close modal on success
+    handleClose();
+
+    return res;
+  };
 
   return (
     <ConnectWallet
