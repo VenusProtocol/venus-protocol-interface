@@ -64,6 +64,7 @@ const DelegateModal: React.FC<IDelegateModalProps> = ({
           }}
           onSubmit={({ address }) => onSubmit(address)}
           validationSchema={addressValidationSchema}
+          isInitialValid={false}
           validateOnMount
           validateOnChange
         >

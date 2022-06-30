@@ -14,8 +14,8 @@ export const FormikSubmitButton = ({
   disabled,
   ...rest
 }: Omit<IFormikSubmitButtonProps, 'type'>) => {
-  const { isValid, dirty } = useFormikContext();
-  const showDisableLabel = !isValid || !dirty; // loading disabled
+  const { isValid } = useFormikContext();
+  const showDisableLabel = !isValid;
   return (
     <Button variant={variant} {...rest} disabled={disabled || showDisableLabel} type="submit">
       {(showDisableLabel && disabledLabel) || enabledLabel}
