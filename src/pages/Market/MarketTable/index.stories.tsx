@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withRouter, withProvider } from 'stories/decorators';
+import { withRouter } from 'stories/decorators';
 import { markets } from '__mocks__/models/markets';
 import { MarketTableUi, IMarketTableProps } from '.';
 
 export default {
   title: 'Pages/Market/MarketTable',
   component: MarketTableUi,
-  decorators: [withRouter, withProvider],
+  decorators: [withRouter],
   parameters: {
     backgrounds: {
       default: 'White',

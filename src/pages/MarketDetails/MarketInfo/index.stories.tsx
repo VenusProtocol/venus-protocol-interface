@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withRouter, withProvider, withCenterStory } from 'stories/decorators';
+import { withRouter, withCenterStory } from 'stories/decorators';
 import MarketInfo, { IMarketInfoProps } from '.';
 
 export default {
   title: 'Pages/MarketDetail/MarketInfo',
   component: MarketInfo,
-  decorators: [withRouter, withProvider, withCenterStory({ width: 400 })],
+  decorators: [withRouter, withCenterStory({ width: 400 })],
   parameters: {
     backgrounds: {
       default: 'Primary',
