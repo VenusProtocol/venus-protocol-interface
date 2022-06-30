@@ -8,7 +8,7 @@ export { default as calculateNetApy } from './calculateNetApy';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
 export {
   calculateYearlyEarningsForAssets,
-  calculateYearlyEarningsCents,
+  calculateYearlyEarningsForAsset,
 } from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
 export * from './generateBscScanUrl';
