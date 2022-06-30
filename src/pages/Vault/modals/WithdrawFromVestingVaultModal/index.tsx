@@ -16,8 +16,6 @@ export interface WithdrawFromVestingVaultModalProps {
   poolIndex: number;
 }
 
-// TODO: add test to check it renders without crashing
-
 const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps> = ({
   handleClose,
   stakedTokenId,
