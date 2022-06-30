@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useContext } from 'react';
 
+import TEST_IDS from 'constants/testIds';
 import { TokenId } from 'types';
 import Typography from '@mui/material/Typography';
 import { AuthContext } from 'context/AuthContext';
@@ -14,8 +15,6 @@ import { useStyles } from './styles';
 export interface WithdrawalRequestListProps {
   poolIndex: number;
 }
-
-// TODO: add tests
 
 const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex }) => {
   const { account } = useContext(AuthContext);
@@ -60,6 +59,7 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
                 <LabeledInlineContent
                   css={styles.listItem}
                   iconName={TOKENS.xvs.id as TokenId}
+                  data-testid={TEST_IDS.vault.vaultItem.withdrawalRequestListItem}
                   key={`withdrawal-request-list-item-${xvsVaultUserWithdrawalRequest.unlockedAt.getTime()}`}
                   invertTextColors
                   label={convertWeiToTokens({

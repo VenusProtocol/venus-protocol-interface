@@ -719,7 +719,7 @@
     "requestWithdrawalTabTitle": "Request withdrawal",
     "title": "Withdraw {{tokenSymbol}}",
     "withdrawalRequestList": {
-      "emptyState": "You have no pending withdrawal requests",
+      "emptyState": "You have no active withdrawal requests",
       "enableToken": {
         "connectWalletMessage": "Please connect your wallet to see your withdrawal requests"
       },

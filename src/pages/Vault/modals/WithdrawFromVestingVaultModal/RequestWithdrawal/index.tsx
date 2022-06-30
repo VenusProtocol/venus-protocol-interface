@@ -74,7 +74,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       return new BigNumber(0);
     }
 
-    // Subtract sum of all pending withdrawal requests amounts to amount of
+    // Subtract sum of all active withdrawal requests amounts to amount of
     // tokens staked by user
     const pendingWithdrawalRequestsSum = xvsVaultUserWithdrawalRequests.reduce(
       (acc, xvsVaultUserWithdrawalRequest) => acc.plus(xvsVaultUserWithdrawalRequest.amountWei),

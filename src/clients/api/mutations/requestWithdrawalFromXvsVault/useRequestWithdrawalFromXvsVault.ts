@@ -43,7 +43,7 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
           { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
         ]);
 
-        // Invalidate cached user pending withdrawal requests
+        // Invalidate cached user withdrawal requests
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
           { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },

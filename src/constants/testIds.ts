@@ -24,6 +24,7 @@ const TEST_IDS = {
       userPendingRewardTokens: 'vault-vault-item-user-pending-reward-tokens',
       userStakedTokens: 'vault-vault-item-user-staked-tokens',
       dataListItem: 'vault-vault-item-data-list-item',
+      withdrawalRequestListItem: 'vault-vault-item-withdrawal-request-list-item',
     },
   },
   marketDetails: {
