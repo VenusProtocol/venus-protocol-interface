@@ -14,7 +14,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import RepayVai from '.';
 
 jest.mock('clients/api');
-jest.mock('components/v2/Toast');
+jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeUserVaiMinted = new BigNumber('1000000');
