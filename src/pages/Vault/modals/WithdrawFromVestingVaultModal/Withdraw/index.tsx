@@ -20,8 +20,6 @@ export interface WithdrawProps {
   handleClose: () => void;
 }
 
-// TODO: add tests
-
 const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClose }) => {
   const { account } = useContext(AuthContext);
   const { t } = useTranslation();

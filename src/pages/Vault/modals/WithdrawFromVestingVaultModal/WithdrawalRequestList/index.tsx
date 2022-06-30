@@ -39,8 +39,6 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
 
   const isInitialLoading = isGetXvsVaultUserWithdrawalRequestsLoading;
 
-  console.log(xvsVaultUserWithdrawalRequests);
-
   return (
     <ConnectWallet
       message={t(
