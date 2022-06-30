@@ -1,7 +1,10 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 import FunctionKey from 'constants/functionKey';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
-import getXvsVaultUserInfo, { IGetXvsVaultUserInfoInput, IGetXvsVaultUserInfoOutput } from '.';
+import getXvsVaultUserInfo, {
+  IGetXvsVaultUserInfoInput,
+  IGetXvsVaultUserInfoOutput,
+} from 'clients/api/queries/getXvsVaultUserInfo';
 
 type Options = QueryObserverOptions<
   IGetXvsVaultUserInfoOutput,
