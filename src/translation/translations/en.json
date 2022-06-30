@@ -713,7 +713,8 @@
       "submitButtonDisabledLabel": "Enter a valid amount to request",
       "submitButtonLabel": "Request withdrawal",
       "successfulTransactionDescription": "You successfully requested a withdrawal of",
-      "successfulTransactionTitle": "Your withdrawal request was successful"
+      "successfulTransactionTitle": "Your withdrawal request was successful",
+      "displayWithdrawalRequestListButton": "Withdrawal request list"
     },
     "requestWithdrawalTabTitle": "Request withdrawal",
     "title": "Withdraw {{tokenSymbol}}",

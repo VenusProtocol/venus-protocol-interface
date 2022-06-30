@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useState } from 'react';
 
 import { getToken } from 'utilities';
 import { TokenId } from 'types';
@@ -22,6 +22,18 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
   stakedTokenId,
   poolIndex,
 }) => {
+  const [initialActiveTabIndex, setInitialActiveTabIndex] = useState(0);
+  const [shouldDisplayWithdrawalRequestList, setShouldDisplayWithdrawalRequestList] =
+    useState(false);
+
+  const handleDisplayWithdrawalRequestList = () => {
+    // Display withdrawal request list
+    setShouldDisplayWithdrawalRequestList(true);
+    // Set initial active tab index to 1 so that if user clicks on modal back button
+    // they get redirect to the "Request withdrawal" tab
+    setInitialActiveTabIndex(1);
+  };
+
   const stakedToken = getToken(stakedTokenId);
   const { t } = useTranslation();
   const styles = useStyles();
@@ -43,6 +55,7 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
             stakedTokenId={stakedTokenId}
             poolIndex={poolIndex}
             handleClose={handleClose}
+            handleDisplayWithdrawalRequestList={handleDisplayWithdrawalRequestList}
           />
         </div>
       ),
@@ -55,9 +68,18 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
       title={t('withdrawFromVestingVaultModalModal.title', {
         tokenSymbol: stakedToken.symbol,
       })}
+      handleBackAction={
+        shouldDisplayWithdrawalRequestList
+          ? () => setShouldDisplayWithdrawalRequestList(false)
+          : undefined
+      }
       handleClose={handleClose}
     >
-      <Tabs tabsContent={tabsContent} />
+      {shouldDisplayWithdrawalRequestList ? (
+        <>{/* TODO: add request list */}</>
+      ) : (
+        <Tabs initialActiveTabIndex={initialActiveTabIndex} tabsContent={tabsContent} />
+      )}
     </Modal>
   );
 };

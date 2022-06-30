@@ -13,21 +13,28 @@ import {
   useRequestWithdrawalFromXvsVault,
   useGetXvsVaultWithdrawalRequests,
 } from 'clients/api';
-import { ConnectWallet, Spinner } from 'components';
+import { ConnectWallet, Spinner, TextButton } from 'components';
 import TransactionForm, { ITransactionFormProps } from '../../../TransactionForm';
+import { useStyles } from './styles';
 
 export interface RequestWithdrawalProps {
   stakedTokenId: TokenId;
   poolIndex: number;
   handleClose: () => void;
+  handleDisplayWithdrawalRequestList: () => void;
 }
 
 // TODO: add tests
 
-const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({ stakedTokenId, poolIndex }) => {
+const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
+  stakedTokenId,
+  poolIndex,
+  handleDisplayWithdrawalRequestList,
+}) => {
   const { account } = useContext(AuthContext);
   const stakedToken = getToken(stakedTokenId);
   const { t } = useTranslation();
+  const styles = useStyles();
 
   const {
     mutateAsync: requestWithdrawalFromXvsVault,
@@ -134,6 +141,15 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({ stakedTokenId, po
             onSubmit={handleSubmit}
             isSubmitting={isRequestingWithdrawalFromXvsVault}
           />
+
+          <TextButton
+            onClick={handleDisplayWithdrawalRequestList}
+            css={styles.displayWithdrawalRequestListButton}
+          >
+            {t(
+              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.displayWithdrawalRequestListButton',
+            )}
+          </TextButton>
         </>
       )}
     </ConnectWallet>
