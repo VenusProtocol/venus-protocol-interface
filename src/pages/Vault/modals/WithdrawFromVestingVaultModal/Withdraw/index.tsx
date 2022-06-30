@@ -8,7 +8,11 @@ import { TOKENS } from 'constants/tokens';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import { useTranslation } from 'translation';
-import { useGetXvsVaultPoolInfo, useGetXvsVaultWithdrawalRequests } from 'clients/api';
+import {
+  useGetXvsVaultPoolInfo,
+  useGetXvsVaultWithdrawalRequests,
+  useExecuteWithdrawalFromXvsVault,
+} from 'clients/api';
 import { ConnectWallet, Spinner } from 'components';
 import TransactionForm from '../../../TransactionForm';
 
@@ -62,11 +66,24 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
     );
   }, [JSON.stringify(xvsVaultUserWithdrawalRequests)]);
 
+  const {
+    mutateAsync: executeWithdrawalFromXvsVault,
+    isLoading: isExecutingWithdrawalFromXvsVault,
+  } = useExecuteWithdrawalFromXvsVault({
+    stakedTokenId,
+  });
+
   const isInitialLoading =
     isGetXvsVaultPoolInfoLoading || isGetXvsVaultUserWithdrawalRequestsLoading;
 
-  // TODO: call mutation
-  const handleSubmit = () => {};
+  const handleSubmit = () =>
+    executeWithdrawalFromXvsVault({
+      poolIndex,
+      // account has to be defined at this stage since we don't display the form
+      // if no account is connected
+      fromAccountAddress: account?.address || '',
+      rewardTokenAddress: TOKENS.xvs.address,
+    });
 
   return (
     <ConnectWallet
@@ -94,7 +111,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
           )}
           lockingPeriodMs={xvsVaultPoolInfo?.lockingPeriodMs}
           onSubmit={handleSubmit}
-          isSubmitting={false}
+          isSubmitting={isExecutingWithdrawalFromXvsVault}
         />
       )}
     </ConnectWallet>
