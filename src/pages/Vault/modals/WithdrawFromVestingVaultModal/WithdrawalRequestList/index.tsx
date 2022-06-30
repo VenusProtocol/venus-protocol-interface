@@ -39,6 +39,8 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
 
   const isInitialLoading = isGetXvsVaultUserWithdrawalRequestsLoading;
 
+  console.log(xvsVaultUserWithdrawalRequests);
+
   return (
     <ConnectWallet
       message={t(
@@ -59,7 +61,9 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
                 <LabeledInlineContent
                   css={styles.listItem}
                   iconName={TOKENS.xvs.id as TokenId}
-                  data-testid={TEST_IDS.vault.vaultItem.withdrawalRequestListItem}
+                  data-testid={
+                    TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.withdrawalRequestListItem
+                  }
                   key={`withdrawal-request-list-item-${xvsVaultUserWithdrawalRequest.unlockedAt.getTime()}`}
                   invertTextColors
                   label={convertWeiToTokens({

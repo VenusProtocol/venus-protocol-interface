@@ -47,9 +47,15 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
       },
     );
 
-    await waitFor(() => queryAllByTestId(TEST_IDS.vault.vaultItem.withdrawalRequestListItem));
+    await waitFor(() =>
+      queryAllByTestId(
+        TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.withdrawalRequestListItem,
+      ),
+    );
 
-    const listItems = queryAllByTestId(TEST_IDS.vault.vaultItem.withdrawalRequestListItem);
+    const listItems = queryAllByTestId(
+      TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.withdrawalRequestListItem,
+    );
     listItems.map(listItem => expect(listItem.textContent).toMatchSnapshot());
   });
 });

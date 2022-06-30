@@ -3,14 +3,16 @@ import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 import isBefore from 'date-fns/isBefore';
 
+import TEST_IDS from 'constants/testIds';
 import { AuthContext } from 'context/AuthContext';
 import { TOKENS } from 'constants/tokens';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { useTranslation } from 'translation';
 import { useGetXvsVaultWithdrawalRequests, useExecuteWithdrawalFromXvsVault } from 'clients/api';
-import { ConnectWallet, Spinner } from 'components';
-import TransactionForm from '../../../TransactionForm';
+import { ConnectWallet, Spinner, LabeledInlineContent, PrimaryButton } from 'components';
+import { useStyles } from './styles';
 
 export interface WithdrawProps {
   stakedTokenId: TokenId;
@@ -22,8 +24,9 @@ export interface WithdrawProps {
 
 const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClose }) => {
   const { account } = useContext(AuthContext);
-  const stakedToken = getToken(stakedTokenId);
   const { t } = useTranslation();
+  const styles = useStyles();
+  const stakedToken = getToken(stakedTokenId);
 
   const {
     data: xvsVaultUserWithdrawalRequests = [],
@@ -43,7 +46,6 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
   const withdrawableWei = useMemo(() => {
     const now = new Date();
 
-    // Sum up withdrawal requests that are unlocked
     return xvsVaultUserWithdrawalRequests.reduce(
       (acc, xvsVaultUserWithdrawalRequest) =>
         isBefore(xvsVaultUserWithdrawalRequest.unlockedAt, now)
@@ -52,6 +54,12 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
       new BigNumber(0),
     );
   }, [JSON.stringify(xvsVaultUserWithdrawalRequests)]);
+
+  const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
+    valueWei: withdrawableWei,
+    tokenId: stakedTokenId,
+    minimizeDecimals: true,
+  });
 
   const {
     mutateAsync: executeWithdrawalFromXvsVault,
@@ -84,29 +92,28 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
       {isInitialLoading || !xvsVaultUserWithdrawalRequests ? (
         <Spinner />
       ) : (
-        // TODO: refactor (the input is useless since the withdraw method
-        // doesn't accept an amount as parameter and always withdraws the full
-        // amount available
-        <TransactionForm
-          tokenId={stakedTokenId}
-          availableTokensLabel={t(
-            'withdrawFromVestingVaultModalModal.withdrawTab.availableTokensLabel',
-            { tokenSymbol: stakedToken.symbol },
-          )}
-          availableTokensWei={withdrawableWei}
-          submitButtonLabel={t('withdrawFromVestingVaultModalModal.withdrawTab.submitButtonLabel')}
-          submitButtonDisabledLabel={t(
-            'withdrawFromVestingVaultModalModal.withdrawTab.submitButtonDisabledLabel',
-          )}
-          successfulTransactionTitle={t(
-            'withdrawFromVestingVaultModalModal.withdrawTab.successfulTransactionTitle',
-          )}
-          successfulTransactionDescription={t(
-            'withdrawFromVestingVaultModalModal.withdrawTab.successfulTransactionDescription',
-          )}
-          onSubmit={handleSubmit}
-          isSubmitting={isExecutingWithdrawalFromXvsVault}
-        />
+        <>
+          <LabeledInlineContent
+            css={styles.content}
+            iconName={stakedTokenId}
+            data-testid={TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens}
+            label={t('withdrawFromVestingVaultModalModal.withdrawTab.availableTokens', {
+              tokenSymbol: stakedToken.symbol,
+            })}
+          >
+            {readableWithdrawableTokens}
+          </LabeledInlineContent>
+
+          <PrimaryButton
+            type="submit"
+            onClick={handleSubmit}
+            loading={isExecutingWithdrawalFromXvsVault}
+            disabled={withdrawableWei.isEqualTo(0)}
+            fullWidth
+          >
+            {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
+          </PrimaryButton>
+        </>
       )}
     </ConnectWallet>
   );

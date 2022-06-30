@@ -655,7 +655,7 @@
       "queued": "Queue",
       "readyToQueue": "Ready to queue",
       "succeed": "Succeed",
-      "timeOnly": "{{date, HH:mm a}}"
+      "timeOnly": "{{date, h:mm a}}"
     },
     "voteStatus": {
       "abstained": "Abstained",
@@ -723,18 +723,15 @@
       "enableToken": {
         "connectWalletMessage": "Please connect your wallet to see your withdrawal requests"
       },
-      "itemContent": "Locked until {{date, dd/mm/yy HH:mm a}}"
+      "itemContent": "Locked until {{date, dd.MM.yy h:mm a}}"
     },
     "withdrawalRequestListTitle": "Withdrawal request list",
     "withdrawTab": {
-      "availableTokensLabel": "Available {{tokenSymbol}}",
+      "availableTokens": "Available {{tokenSymbol}}",
       "enableToken": {
         "connectWalletMessage": "Please connect your wallet to withdraw"
       },
-      "submitButtonDisabledLabel": "Enter a valid amount to withdraw",
-      "submitButtonLabel": "Withdraw",
-      "successfulTransactionDescription": "You successfully withdrew",
-      "successfulTransactionTitle": "Your withdrawal was successful"
+      "submitButton": "Withdraw"
     },
     "withdrawTabTitle": "Withdraw"
   },

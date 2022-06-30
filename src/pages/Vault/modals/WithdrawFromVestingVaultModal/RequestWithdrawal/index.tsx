@@ -24,8 +24,6 @@ export interface RequestWithdrawalProps {
   handleDisplayWithdrawalRequestList: () => void;
 }
 
-// TODO: add tests
-
 const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   stakedTokenId,
   poolIndex,
