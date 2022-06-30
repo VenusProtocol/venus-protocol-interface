@@ -43,8 +43,6 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
-  console.log(availableTokensWei.toFixed());
-
   const stringifiedAvailableTokens = React.useMemo(
     () =>
       convertWeiToTokens({

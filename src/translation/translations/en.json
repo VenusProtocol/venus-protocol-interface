@@ -705,10 +705,23 @@
     "title": "Withdraw {{tokenSymbol}}"
   },
   "withdrawFromVestingVaultModalModal": {
+    "requestWithdrawalTab": {
+      "availableTokensLabel": "Requestable {{tokenSymbol}}",
+      "enableToken": {
+        "connectWalletMessage": "Please connect your wallet to withdraw"
+      },
+      "submitButtonDisabledLabel": "Enter a valid amount to request",
+      "submitButtonLabel": "Request withdrawal",
+      "successfulTransactionDescription": "You successfully requested a withdrawal of",
+      "successfulTransactionTitle": "Your withdrawal request was successful"
+    },
     "requestWithdrawalTabTitle": "Request withdrawal",
     "title": "Withdraw {{tokenSymbol}}",
     "withdrawTab": {
       "availableTokensLabel": "Available {{tokenSymbol}}",
+      "enableToken": {
+        "connectWalletMessage": "Please connect your wallet to withdraw"
+      },
       "submitButtonDisabledLabel": "Enter a valid amount to withdraw",
       "submitButtonLabel": "Withdraw",
       "successfulTransactionDescription": "You successfully withdrew",

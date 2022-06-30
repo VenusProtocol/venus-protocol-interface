@@ -8,17 +8,14 @@ import { TOKENS } from 'constants/tokens';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import { useTranslation } from 'translation';
-import {
-  useGetXvsVaultPoolInfo,
-  useGetXvsVaultWithdrawalRequests,
-  useExecuteWithdrawalFromXvsVault,
-} from 'clients/api';
+import { useGetXvsVaultWithdrawalRequests, useExecuteWithdrawalFromXvsVault } from 'clients/api';
 import { ConnectWallet, Spinner } from 'components';
 import TransactionForm from '../../../TransactionForm';
 
 export interface WithdrawProps {
   stakedTokenId: TokenId;
   poolIndex: number;
+  handleClose: () => void;
 }
 
 // TODO: add tests
@@ -28,19 +25,8 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
   const stakedToken = getToken(stakedTokenId);
   const { t } = useTranslation();
 
-  const { data: xvsVaultPoolInfo, isLoading: isGetXvsVaultPoolInfoLoading } =
-    useGetXvsVaultPoolInfo(
-      {
-        poolIndex,
-        rewardTokenAddress: TOKENS.xvs.address,
-      },
-      {
-        enabled: !!account?.address,
-      },
-    );
-
   const {
-    data: xvsVaultUserWithdrawalRequests,
+    data: xvsVaultUserWithdrawalRequests = [],
     isLoading: isGetXvsVaultUserWithdrawalRequestsLoading,
   } = useGetXvsVaultWithdrawalRequests(
     {
@@ -49,6 +35,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
       accountAddress: account?.address || '',
     },
     {
+      placeholderData: [],
       enabled: !!account?.address,
     },
   );
@@ -57,7 +44,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
     const now = new Date();
 
     // Sum up withdrawal requests that are unlocked
-    return (xvsVaultUserWithdrawalRequests || []).reduce(
+    return xvsVaultUserWithdrawalRequests.reduce(
       (acc, xvsVaultUserWithdrawalRequest) =>
         isBefore(xvsVaultUserWithdrawalRequest.unlockedAt, now)
           ? acc.plus(xvsVaultUserWithdrawalRequest.amountWei)
@@ -73,8 +60,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
     stakedTokenId,
   });
 
-  const isInitialLoading =
-    isGetXvsVaultPoolInfoLoading || isGetXvsVaultUserWithdrawalRequestsLoading;
+  const isInitialLoading = isGetXvsVaultUserWithdrawalRequestsLoading;
 
   const handleSubmit = () =>
     executeWithdrawalFromXvsVault({
@@ -89,9 +75,12 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
     <ConnectWallet
       message={t('withdrawFromVestingVaultModalModal.withdrawTab.enableToken.connectWalletMessage')}
     >
-      {isInitialLoading || !xvsVaultPoolInfo || !xvsVaultUserWithdrawalRequests ? (
+      {isInitialLoading || !xvsVaultUserWithdrawalRequests ? (
         <Spinner />
       ) : (
+        // TODO: refactor (the input is useless since the withdraw method
+        // doesn't accept an amount as parameter and always withdraws the full
+        // amount available
         <TransactionForm
           tokenId={stakedTokenId}
           availableTokensLabel={t(
@@ -109,7 +98,6 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex }) => {
           successfulTransactionDescription={t(
             'withdrawFromVestingVaultModalModal.withdrawTab.successfulTransactionDescription',
           )}
-          lockingPeriodMs={xvsVaultPoolInfo?.lockingPeriodMs}
           onSubmit={handleSubmit}
           isSubmitting={isExecutingWithdrawalFromXvsVault}
         />

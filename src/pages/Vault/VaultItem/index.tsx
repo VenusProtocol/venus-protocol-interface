@@ -285,19 +285,18 @@ const VaultItem: React.FC<VaultItemProps> = ({
     useWithdrawFromVrtVault();
 
   const onWithdraw = async () => {
-    if (!account?.address) {
-      return;
-    }
+    if (stakedTokenId !== TOKENS.vrt.id || typeof poolIndex === 'number') {
+      // Handle withdrawing from any vault except the VRT vault
+      setActiveModal('withdraw');
+    } else if (account?.address) {
+      // Handle withdrawing from VRT vault
 
-    if (stakedTokenId === TOKENS.vrt.id && typeof poolIndex !== 'number') {
       // Users can only withdraw the totality of their staked tokens when
       // withdrawing from the VRT vault
       return withdrawFromVrtVault({
         fromAccountAddress: account.address,
       });
     }
-
-    setActiveModal('withdraw');
   };
 
   const closeActiveModal = () => setActiveModal(undefined);

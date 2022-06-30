@@ -6,6 +6,7 @@ import { TokenId } from 'types';
 import { Tabs, Modal, IModalProps, TabContent } from 'components';
 import { useTranslation } from 'translation';
 import Withdraw from './Withdraw';
+import RequestWithdrawal from './RequestWithdrawal';
 import { useStyles } from './styles';
 
 export interface WithdrawFromVestingVaultModalProps {
@@ -30,13 +31,21 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
       title: t('withdrawFromVestingVaultModalModal.withdrawTabTitle'),
       content: (
         <div css={styles.tabContainer}>
-          <Withdraw stakedTokenId={stakedTokenId} poolIndex={poolIndex} />
+          <Withdraw stakedTokenId={stakedTokenId} poolIndex={poolIndex} handleClose={handleClose} />
         </div>
       ),
     },
     {
       title: t('withdrawFromVestingVaultModalModal.requestWithdrawalTabTitle'),
-      content: <div css={styles.tabContainer}>Request</div>,
+      content: (
+        <div css={styles.tabContainer}>
+          <RequestWithdrawal
+            stakedTokenId={stakedTokenId}
+            poolIndex={poolIndex}
+            handleClose={handleClose}
+          />
+        </div>
+      ),
     },
   ];
 
