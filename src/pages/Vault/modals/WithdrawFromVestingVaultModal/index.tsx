@@ -7,6 +7,7 @@ import { Tabs, Modal, IModalProps, TabContent } from 'components';
 import { useTranslation } from 'translation';
 import Withdraw from './Withdraw';
 import RequestWithdrawal from './RequestWithdrawal';
+import WithdrawalRequestList from './WithdrawalRequestList';
 import { useStyles } from './styles';
 
 export interface WithdrawFromVestingVaultModalProps {
@@ -65,9 +66,13 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
   return (
     <Modal
       isOpen
-      title={t('withdrawFromVestingVaultModalModal.title', {
-        tokenSymbol: stakedToken.symbol,
-      })}
+      title={
+        shouldDisplayWithdrawalRequestList
+          ? t('withdrawFromVestingVaultModalModal.withdrawalRequestListTitle')
+          : t('withdrawFromVestingVaultModalModal.title', {
+              tokenSymbol: stakedToken.symbol,
+            })
+      }
       handleBackAction={
         shouldDisplayWithdrawalRequestList
           ? () => setShouldDisplayWithdrawalRequestList(false)
@@ -76,7 +81,7 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
       handleClose={handleClose}
     >
       {shouldDisplayWithdrawalRequestList ? (
-        <>{/* TODO: add request list */}</>
+        <WithdrawalRequestList poolIndex={poolIndex} />
       ) : (
         <Tabs initialActiveTabIndex={initialActiveTabIndex} tabsContent={tabsContent} />
       )}

@@ -114,7 +114,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
         'withdrawFromVestingVaultModalModal.requestWithdrawalTab.enableToken.connectWalletMessage',
       )}
     >
-      {isInitialLoading || !xvsVaultPoolInfo || !xvsVaultUserInfo ? (
+      {isInitialLoading || !xvsVaultPoolInfo || !requestableWei ? (
         <Spinner />
       ) : (
         <>

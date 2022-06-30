@@ -7,13 +7,15 @@ import { useStyles } from './styles';
 
 export interface ILabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
-  iconName?: IconName;
   children: React.ReactNode;
+  invertTextColors?: boolean;
+  iconName?: IconName;
 }
 
 export const LabeledInlineContent = ({
   label,
   iconName,
+  invertTextColors = false,
   children,
   ...otherContainerProps
 }: ILabeledInlineContentProps) => {
@@ -24,12 +26,16 @@ export const LabeledInlineContent = ({
       <div css={styles.column}>
         {iconName && <Icon name={iconName} css={styles.icon} />}
 
-        <Typography component="span" css={styles.label} variant="body1">
+        <Typography component="span" css={styles.getLabel({ invertTextColors })} variant="body1">
           {label}
         </Typography>
       </div>
 
-      <Typography component="div" css={styles.column} variant="body1">
+      <Typography
+        component="div"
+        css={[styles.column, styles.getContent({ invertTextColors })]}
+        variant="body1"
+      >
         {children}
       </Typography>
     </div>
