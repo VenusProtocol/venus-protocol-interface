@@ -11,11 +11,7 @@ import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
-import Theme from 'theme';
-// resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989
-import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
-import mainTheme from 'theme/MuiThemeProvider/muiTheme';
-import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
+import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 export type DecoratorFunction = Parameters<typeof addDecorator>[0];
 
@@ -57,14 +53,9 @@ export const withVaiContextProvider: DecoratorFunction = Story => (
 );
 
 export const withThemeProvider: DecoratorFunction = Story => (
-  <Theme>
-    {/* resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989 */}
-    <EmotionThemeProvider theme={mainTheme}>
-      <MuiThemeProvider>
-        <Story />
-      </MuiThemeProvider>
-    </EmotionThemeProvider>
-  </Theme>
+  <MuiThemeProvider>
+    <Story />
+  </MuiThemeProvider>
 );
 
 export const withQueryClientProvider: DecoratorFunction = Story => {

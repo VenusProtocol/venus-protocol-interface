@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import ReactDOM from 'react-dom';
 import App from 'pages/App';
 
-import 'antd/dist/antd.css';
 import 'assets/styles/index.scss';
 
 // Initialize BigNumber format
