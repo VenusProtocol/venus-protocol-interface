@@ -6,11 +6,7 @@ export const useStyles = () => {
 
   return {
     displayWithdrawalRequestListButton: css`
-      margin: ${theme.spacing(
-        3,
-        'auto',
-        -3, // Compensate for the button's bottom padding
-      )};
+      margin: ${theme.spacing(3, 'auto', -3)};
     `,
   };
 };
