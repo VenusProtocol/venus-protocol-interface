@@ -1,4 +1,6 @@
+import { getContractAddress, getSupportName } from 'utilities';
 import { GovernorBravoDelegate } from 'types/contracts';
+import { VoteSupport } from 'types';
 
 export interface IGetVoteReceiptInput {
   governorBravoContract: GovernorBravoDelegate;
@@ -6,26 +8,22 @@ export interface IGetVoteReceiptInput {
   accountAddress: string;
 }
 
-// support value for voter (0 against, 1 for, 2 abstain)
-const VoteSupport = {
-  0: 'AGAINST',
-  1: 'FOR',
-  2: 'ABSTAIN',
-};
-
-export type GetVoteReceiptOutput = 'AGAINST' | 'FOR' | 'ABSTAIN' | undefined;
+export interface IGetVoteReceiptOutput {
+  hasVoted: boolean;
+  vote: VoteSupport;
+}
 
 const getVoteReceipt = async ({
   governorBravoContract,
-  proposalId,
   accountAddress,
-}: IGetVoteReceiptInput): Promise<GetVoteReceiptOutput> => {
+}: IGetVoteReceiptInput): Promise<IGetVoteReceiptOutput> => {
   const [hasVotes, support] = await governorBravoContract.methods
-    .getReceipt(proposalId, accountAddress)
+    .getReceipt(accountAddress, getContractAddress('comptroller'))
     .call();
-  return hasVotes
-    ? (VoteSupport[support as '0' | '1' | '2'] as 'AGAINST' | 'FOR' | 'ABSTAIN')
-    : undefined;
+  return {
+    hasVoted: hasVotes,
+    vote: getSupportName(parseInt(support, 10) as 0 | 1 | 2),
+  };
 };
 
 export default getVoteReceipt;

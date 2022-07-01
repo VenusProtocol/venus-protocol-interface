@@ -1,4 +1,5 @@
 export * from './v2/Accordion';
+export * from './v2/ActiveVotingProgress';
 export * from './v2/charts/ApyChart';
 export * from './v2/charts/InterestRateChart';
 export * from './v2/AuthModal';
@@ -23,6 +24,7 @@ export * from './v2/ProgressBar';
 export * from './v2/ProgressBar/AccountHealth';
 export * from './v2/ProgressBar/PercentageRepresentation';
 export * from './v2/ProgressBar/LabeledProgressBar';
+export * from './v2/ProposalCard';
 export * from './v2/ResetScrollOnRouteChange';
 export * from './v2/Select';
 export * from './v2/Spinner';

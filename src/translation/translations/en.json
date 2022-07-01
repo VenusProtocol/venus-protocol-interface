@@ -634,7 +634,18 @@
     "operation": "Operation",
     "proposalHistory": "Proposal History",
     "proposalState": {
-      "active": "Active"
+      "active": "Active",
+      "activeTimestamp": "Active: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "canceled": "Canceled",
+      "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeated": "Defeated",
+      "defeatedTimestamp": "Defeated: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executed": "Executed",
+      "executedTimestamp": "Executed: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "passed": "Passed",
+      "queued": "Queued",
+      "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
     "statusCard": {
@@ -664,6 +675,26 @@
       "votedFor": "Voted for"
     },
     "votingOptions": "Voting options"
+  },
+  "voterDetail": {
+    "actions": "Actions",
+    "amount": "Amount",
+    "delegated": "Delegated",
+    "delegatingTo": "Delegating to",
+    "holding": "Holding",
+    "readableSent": "{{date, distanceToNow}} ago",
+    "receivedXvs": "Received XVS",
+    "sent": "Sent",
+    "sentXvs": "Sent XVS",
+    "transactions": "Transactions",
+    "undelegated": "Undelegated",
+    "venusBalance": "Venus balance",
+    "viewAll": "View all",
+    "votedAbstain": "Voted abstain",
+    "votedAgainst": "Voted against",
+    "votedFor": "Voted for",
+    "votes": "Votes",
+    "votingHistory": "Voting history"
   },
   "voterLeaderboard": {
     "addressesByVotingWeight": "Addresses by Voting Weight",

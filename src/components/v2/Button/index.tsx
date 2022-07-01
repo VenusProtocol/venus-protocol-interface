@@ -65,3 +65,23 @@ export const LinkButton = ({
   const styles = useStyles({ fullWidth, variant, small });
   return <Link {...props} css={[styles.getButton({ disabled: false }), styles.link]} />;
 };
+
+export const AnchorButton = ({
+  variant = 'primary',
+  fullWidth = false,
+  small = false,
+  children,
+  ...props
+}: IBaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  const styles = useStyles({ fullWidth, variant, small });
+  return (
+    <a
+      target="_blank"
+      rel="noreferrer"
+      {...props}
+      css={[styles.getButton({ disabled: false }), styles.link]}
+    >
+      {children}
+    </a>
+  );
+};

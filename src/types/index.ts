@@ -282,7 +282,7 @@ export interface Vault {
   poolIndex?: number;
 }
 
-export interface VoterAccount {
+export interface IVoterAccount {
   address: string;
   createdAt: Date;
   id: string;
@@ -295,4 +295,60 @@ export interface VoterAccount {
 export interface LockedDeposit {
   amountWei: BigNumber;
   unlockedAt: Date;
+}
+
+export type VoteDetailTransactionTransfer = {
+  amountWei: BigNumber;
+  blockNumber: number;
+  blockTimestamp: Date;
+  createdAt: Date;
+  from: string;
+  to: string;
+  transactionHash: string;
+  transactionIndex: number;
+  type: 'transfer';
+  updatedAt: Date;
+};
+
+export type VoteDetailTransactionVote = {
+  votesWei: BigNumber;
+  blockNumber: number;
+  blockTimestamp: Date;
+  createdAt: Date;
+  from: string;
+  to: string;
+  transactionHash: string;
+  transactionIndex: number;
+  type: 'vote';
+  updatedAt: Date;
+  support: VoteSupport;
+};
+
+export type VoteDetailTransaction = VoteDetailTransactionTransfer | VoteDetailTransactionVote;
+
+export interface IVoterDetails {
+  balanceWei: BigNumber;
+  delegateCount: number;
+  delegateAddress: string;
+  delegating: boolean;
+  votesWei: BigNumber;
+  voterTransactions: VoteDetailTransaction[];
+}
+
+export type VoterHistory = Omit<IProposal, 'actions' | 'blockNumber' | 'endDate'> & {
+  endDate: Date | undefined;
+};
+
+export interface IVoterHistory {
+  address: string;
+  blockNumber: number;
+  blockTimestamp: number;
+  createdAt: Date;
+  hasVoted: boolean;
+  id: string;
+  proposal: VoterHistory;
+  reason: string | undefined;
+  support: 'AGAINST' | 'FOR' | 'ABSTAIN';
+  updatedAt: Date;
+  votesWei: BigNumber;
 }

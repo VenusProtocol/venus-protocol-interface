@@ -117,6 +117,7 @@ export const ProposalSummaryUi: React.FC<
           {t('voteProposalUi.queue')}
         </PrimaryButton>
       );
+      transactionHash = endTxHash;
       break;
     case 'Queued':
       updateProposalButton = (

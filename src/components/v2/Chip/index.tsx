@@ -32,3 +32,39 @@ export const ActiveChip: React.FC<IChipProps> = ({ text, ...props }) => {
     />
   );
 };
+
+export const InactiveChip: React.FC<IChipProps> = ({ text, ...props }) => {
+  const styles = useStyles();
+  return (
+    <Chip
+      text={text}
+      textColor={styles.inactive.textColor}
+      backgroundColor={styles.inactive.backgroundColor}
+      {...props}
+    />
+  );
+};
+
+export const BlueChip: React.FC<IChipProps> = ({ text, ...props }) => {
+  const styles = useStyles();
+  return (
+    <Chip
+      text={text}
+      textColor={styles.blue.textColor}
+      backgroundColor={styles.blue.backgroundColor}
+      {...props}
+    />
+  );
+};
+
+export const ErrorChip: React.FC<IChipProps> = ({ text, ...props }) => {
+  const styles = useStyles();
+  return (
+    <Chip
+      text={text}
+      textColor={styles.error.textColor}
+      backgroundColor={styles.error.backgroundColor}
+      {...props}
+    />
+  );
+};
