@@ -90,6 +90,8 @@ export const useGetTreasuryTotals = jest.fn();
 export const useGetUserMarketInfo = jest.fn();
 
 export const getXvsVaultPoolInfo = jest.fn();
+export const useGetXvsVaultPoolInfo = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_POOL_INFOS, getXvsVaultPoolInfo);
 
 export const getXvsVaultRewardWeiPerBlock = jest.fn();
 export const useGetXvsVaultRewardWeiPerBlock = () =>
@@ -99,9 +101,15 @@ export const getXvsVaultTotalAllocationPoints = jest.fn();
 export const useGetXvsVaultTotalAllocationPoints = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, getXvsVaultTotalAllocationPoints);
 
+export const getXvsVaultLockedDeposits = jest.fn();
+export const useGetXvsVaultLockedDeposits = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, getXvsVaultLockedDeposits);
+
 export const getXvsVaultPendingRewardWei = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
+export const useGetXvsVaultUserInfo = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo);
 
 export const getCurrentVotes = jest.fn();
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);

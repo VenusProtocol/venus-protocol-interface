@@ -224,6 +224,7 @@ export { default as useGetXvsVaultPoolsCount } from './queries/useGetXvsVaultPoo
 
 export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
 export * from './queries/getXvsVaultPoolInfo';
+export { default as useGetXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo/useGetXvsVaultPoolInfo';
 
 export { default as getXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock';
 export * from './queries/getXvsVaultRewardWeiPerBlock';
@@ -238,6 +239,11 @@ export { default as useGetXvsVaultTotalAllocationPoints } from './queries/useGet
 
 export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
+export { default as useGetXvsVaultUserInfo } from './queries/getXvsVaultUserInfo/useGetXvsVaultUserInfo';
+
+export { default as getXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits';
+export * from './queries/getXvsVaultLockedDeposits';
+export { default as useGetXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits/useGetXvsVaultLockedDeposits';
 
 export { default as getDailyXvsWei } from './queries/getDailyXvsWei';
 export * from './queries/getDailyXvsWei';

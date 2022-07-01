@@ -291,3 +291,8 @@ export interface VoterAccount {
   voteWeightPercent: number;
   votesWei: BigNumber;
 }
+
+export interface LockedDeposit {
+  amountWei: BigNumber;
+  unlockedAt: Date;
+}

@@ -5,10 +5,10 @@ export * from './types';
 
 const getXvsVaultPoolInfo = async ({
   xvsVaultContract,
-  tokenAddress,
+  rewardTokenAddress,
   poolIndex,
 }: IGetXvsVaultPoolInfoInput): Promise<IGetXvsVaultPoolInfoOutput> => {
-  const res = await xvsVaultContract.methods.poolInfos(tokenAddress, poolIndex).call();
+  const res = await xvsVaultContract.methods.poolInfos(rewardTokenAddress, poolIndex).call();
   return formatToPoolInfo(res);
 };
 

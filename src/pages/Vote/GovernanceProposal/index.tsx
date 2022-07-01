@@ -118,7 +118,6 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
   const { t } = useTranslation();
 
   const voteStatusText = useMemo(() => {
-    console.log({ userVoteStatus });
     switch (userVoteStatus) {
       case 'FOR':
         return t('voteProposalUi.voteStatus.votedFor');

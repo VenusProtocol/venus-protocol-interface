@@ -21,8 +21,11 @@ export const useStyles = () => {
       margin-top: -2px;
       margin-right: ${theme.spacing(2)};
     `,
-    label: css`
-      color: ${theme.palette.text.secondary};
+    getLabel: ({ invertTextColors }: { invertTextColors: boolean }) => css`
+      color: ${invertTextColors ? theme.palette.text.primary : theme.palette.text.secondary};
+    `,
+    getContent: ({ invertTextColors }: { invertTextColors: boolean }) => css`
+      color: ${invertTextColors ? theme.palette.text.secondary : theme.palette.text.primary};
     `,
   };
 };

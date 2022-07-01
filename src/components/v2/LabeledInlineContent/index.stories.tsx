@@ -18,3 +18,9 @@ export const WithIcon = () => (
     2000 VAI
   </LabeledInlineContent>
 );
+
+export const WithInvertedTextColors = () => (
+  <LabeledInlineContent label="Available VAI LIMIT" iconName="vai" invertTextColors>
+    2000 VAI
+  </LabeledInlineContent>
+);
