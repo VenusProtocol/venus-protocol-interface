@@ -682,7 +682,7 @@
     "delegated": "Delegated",
     "delegatingTo": "Delegating to",
     "holding": "Holding",
-    "readableSent": "{{age, distanceToNow}}",
+    "readableSent": "{{date, distanceToNow}} ago",
     "receivedXvs": "Received XVS",
     "sent": "Sent",
     "sentXvs": "Sent XVS",
