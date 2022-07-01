@@ -81,7 +81,7 @@ describe('pages/Vault/VaultItem', () => {
     });
   });
 
-  it('sends the correct request then displays a successful transaction modal on success when clicking on the withdraw button and stakedTokenId equals "vrt" and poolIndex is undefined', async () => {
+  it('sends the correct request then displays a successful transaction modal on success when clicking on the withdraw button of the VRT vesting vault', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
     (withdrawFromVrtVault as jest.Mock).mockImplementationOnce(() => fakeTransactionReceipt);
@@ -95,7 +95,7 @@ describe('pages/Vault/VaultItem', () => {
       authContextValue: { account: { address: fakeAddress } },
     });
 
-    // Click on claim reward button
+    // Click on withdraw button
     const withdrawButton = getByText(en.vaultItem.withdrawButton);
     fireEvent.click(withdrawButton);
 
