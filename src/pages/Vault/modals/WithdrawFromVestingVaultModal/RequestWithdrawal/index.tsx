@@ -17,81 +17,6 @@ import { ConnectWallet, Spinner, TextButton } from 'components';
 import TransactionForm, { ITransactionFormProps } from '../../../TransactionForm';
 import { useStyles } from './styles';
 
-export interface RequestWithdrawalUiProps {
-  stakedTokenId: TokenId;
-  isInitialLoading: boolean;
-  requestableWei: BigNumber;
-  onSubmitSuccess: () => void;
-  onSubmit: ITransactionFormProps['onSubmit'];
-  isSubmitting: boolean;
-  displayWithdrawalRequestList: () => void;
-  lockingPeriodMs: number | undefined;
-}
-
-export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
-  stakedTokenId,
-  isInitialLoading,
-  requestableWei,
-  lockingPeriodMs,
-  onSubmitSuccess,
-  onSubmit,
-  isSubmitting,
-  displayWithdrawalRequestList,
-}) => {
-  const stakedToken = getToken(stakedTokenId);
-  const { t } = useTranslation();
-  const styles = useStyles();
-
-  const handleSubmit: ITransactionFormProps['onSubmit'] = async amountWei => {
-    const res = await onSubmit(amountWei);
-    onSubmitSuccess();
-    return res;
-  };
-
-  return (
-    <>
-      {isInitialLoading || !lockingPeriodMs ? (
-        <Spinner />
-      ) : (
-        <>
-          <TransactionForm
-            tokenId={stakedTokenId}
-            availableTokensLabel={t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.availableTokensLabel',
-              { tokenSymbol: stakedToken.symbol },
-            )}
-            availableTokensWei={requestableWei}
-            submitButtonLabel={t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.submitButtonLabel',
-            )}
-            submitButtonDisabledLabel={t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.submitButtonDisabledLabel',
-            )}
-            successfulTransactionTitle={t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.successfulTransactionTitle',
-            )}
-            successfulTransactionDescription={t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.successfulTransactionDescription',
-            )}
-            lockingPeriodMs={lockingPeriodMs}
-            onSubmit={handleSubmit}
-            isSubmitting={isSubmitting}
-          />
-
-          <TextButton
-            onClick={displayWithdrawalRequestList}
-            css={styles.displayWithdrawalRequestListButton}
-          >
-            {t(
-              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.displayWithdrawalRequestListButton',
-            )}
-          </TextButton>
-        </>
-      )}
-    </>
-  );
-};
-
 export interface RequestWithdrawalProps {
   stakedTokenId: TokenId;
   poolIndex: number;
@@ -106,7 +31,9 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   handleClose,
 }) => {
   const { account } = useContext(AuthContext);
+  const stakedToken = getToken(stakedTokenId);
   const { t } = useTranslation();
+  const styles = useStyles();
 
   const {
     mutateAsync: requestWithdrawalFromXvsVault,
@@ -170,15 +97,21 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     isGetXvsVaultUserInfoLoading ||
     isGetXvsVaultUserLockedDepositsLoading;
 
-  const handleSubmit: ITransactionFormProps['onSubmit'] = async amountWei =>
-    requestWithdrawalFromXvsVault({
+  const handleSubmit: ITransactionFormProps['onSubmit'] = async amountWei => {
+    const res = await requestWithdrawalFromXvsVault({
       poolIndex,
-      // account is always defined at this stage since we don't display the form
+      // account has to be defined at this stage since we don't display the form
       // if no account is connected
       fromAccountAddress: account?.address || '',
       rewardTokenAddress: TOKENS.xvs.address,
       amountWei,
     });
+
+    // Close modal
+    handleClose();
+
+    return res;
+  };
 
   return (
     <ConnectWallet
@@ -186,16 +119,44 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
         'withdrawFromVestingVaultModalModal.requestWithdrawalTab.enableToken.connectWalletMessage',
       )}
     >
-      <RequestWithdrawalUi
-        stakedTokenId={stakedTokenId}
-        isInitialLoading={isInitialLoading}
-        requestableWei={requestableWei}
-        lockingPeriodMs={xvsVaultPoolInfo?.lockingPeriodMs}
-        onSubmitSuccess={handleClose}
-        onSubmit={handleSubmit}
-        isSubmitting={isRequestingWithdrawalFromXvsVault}
-        displayWithdrawalRequestList={handleDisplayWithdrawalRequestList}
-      />
+      {isInitialLoading || !xvsVaultPoolInfo ? (
+        <Spinner />
+      ) : (
+        <>
+          <TransactionForm
+            tokenId={stakedTokenId}
+            availableTokensLabel={t(
+              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.availableTokensLabel',
+              { tokenSymbol: stakedToken.symbol },
+            )}
+            availableTokensWei={requestableWei}
+            submitButtonLabel={t(
+              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.submitButtonLabel',
+            )}
+            submitButtonDisabledLabel={t(
+              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.submitButtonDisabledLabel',
+            )}
+            successfulTransactionTitle={t(
+              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.successfulTransactionTitle',
+            )}
+            successfulTransactionDescription={t(
+              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.successfulTransactionDescription',
+            )}
+            lockingPeriodMs={xvsVaultPoolInfo.lockingPeriodMs}
+            onSubmit={handleSubmit}
+            isSubmitting={isRequestingWithdrawalFromXvsVault}
+          />
+
+          <TextButton
+            onClick={handleDisplayWithdrawalRequestList}
+            css={styles.displayWithdrawalRequestListButton}
+          >
+            {t(
+              'withdrawFromVestingVaultModalModal.requestWithdrawalTab.displayWithdrawalRequestListButton',
+            )}
+          </TextButton>
+        </>
+      )}
     </ConnectWallet>
   );
 };

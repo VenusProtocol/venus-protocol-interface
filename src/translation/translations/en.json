@@ -665,7 +665,7 @@
       "queued": "Queue",
       "readyToQueue": "Ready to queue",
       "succeed": "Succeed",
-      "timeOnly": "{{date, HH:mm a}}"
+      "timeOnly": "{{date, h:mm a}}"
     },
     "voteStatus": {
       "abstained": "Abstained",
@@ -713,6 +713,37 @@
       "title": "Your withdrawal was successful"
     },
     "title": "Withdraw {{tokenSymbol}}"
+  },
+  "withdrawFromVestingVaultModalModal": {
+    "requestWithdrawalTab": {
+      "availableTokensLabel": "Requestable {{tokenSymbol}}",
+      "displayWithdrawalRequestListButton": "Withdrawal request list",
+      "enableToken": {
+        "connectWalletMessage": "Please connect your wallet to withdraw"
+      },
+      "submitButtonDisabledLabel": "Enter a valid amount to request",
+      "submitButtonLabel": "Request withdrawal",
+      "successfulTransactionDescription": "You successfully requested a withdrawal of",
+      "successfulTransactionTitle": "Your withdrawal request was successful"
+    },
+    "requestWithdrawalTabTitle": "Request withdrawal",
+    "title": "Withdraw {{tokenSymbol}}",
+    "withdrawalRequestList": {
+      "emptyState": "You have no active withdrawal requests",
+      "enableToken": {
+        "connectWalletMessage": "Please connect your wallet to see your withdrawal requests"
+      },
+      "itemContent": "Locked until {{date, dd.MM.yy h:mm a}}"
+    },
+    "withdrawalRequestListTitle": "Withdrawal request list",
+    "withdrawTab": {
+      "availableTokens": "Available {{tokenSymbol}}",
+      "enableToken": {
+        "connectWalletMessage": "Please connect your wallet to withdraw"
+      },
+      "submitButton": "Withdraw"
+    },
+    "withdrawTabTitle": "Withdraw"
   },
   "xvs": {
     "columns": {

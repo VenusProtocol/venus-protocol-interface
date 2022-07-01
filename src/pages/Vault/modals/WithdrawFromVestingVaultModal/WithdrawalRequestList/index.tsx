@@ -27,7 +27,11 @@ const WithdrawalRequestListUi: React.FC<WithdrawalRequestListUiProps> = ({
   const styles = useStyles();
 
   return (
-    <>
+    <ConnectWallet
+      message={t(
+        'withdrawFromVestingVaultModalModal.withdrawalRequestList.enableToken.connectWalletMessage',
+      )}
+    >
       {isInitialLoading || hasError ? (
         <Spinner />
       ) : (
@@ -62,7 +66,7 @@ const WithdrawalRequestListUi: React.FC<WithdrawalRequestListUiProps> = ({
           )}
         </>
       )}
-    </>
+    </ConnectWallet>
   );
 };
 
@@ -72,7 +76,6 @@ export interface WithdrawalRequestListProps {
 
 const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex }) => {
   const { account } = useContext(AuthContext);
-  const { t } = useTranslation();
 
   const {
     data: userLockedDeposits = [],
@@ -91,17 +94,11 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
   );
 
   return (
-    <ConnectWallet
-      message={t(
-        'withdrawFromVestingVaultModalModal.withdrawalRequestList.enableToken.connectWalletMessage',
-      )}
-    >
-      <WithdrawalRequestListUi
-        isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
-        userLockedDeposits={userLockedDeposits}
-        hasError={!!getXvsVaultUserLockedDepositsError}
-      />
-    </ConnectWallet>
+    <WithdrawalRequestListUi
+      isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
+      userLockedDeposits={userLockedDeposits}
+      hasError={!!getXvsVaultUserLockedDepositsError}
+    />
   );
 };
 

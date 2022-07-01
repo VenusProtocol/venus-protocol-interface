@@ -17,7 +17,7 @@ import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilit
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
-import { StakeModal, WithdrawFromVaiVaultModal } from '../modals';
+import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
 
 type ActiveModal = 'stake' | 'withdraw';
@@ -249,7 +249,13 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
       )}
 
-      {/* TODO: add withdraw modal for vesting vaults (see VEN-251) */}
+      {activeModal === 'withdraw' && poolIndex !== undefined && (
+        <WithdrawFromVestingVaultModal
+          handleClose={closeActiveModal}
+          stakedTokenId={stakedTokenId}
+          poolIndex={poolIndex}
+        />
+      )}
     </>
   );
 };
@@ -279,19 +285,18 @@ const VaultItem: React.FC<VaultItemProps> = ({
     useWithdrawFromVrtVault();
 
   const onWithdraw = async () => {
-    if (!account?.address) {
-      return;
-    }
+    if (stakedTokenId !== TOKENS.vrt.id || typeof poolIndex === 'number') {
+      // Handle withdrawing from any vault except the VRT vault
+      setActiveModal('withdraw');
+    } else if (account?.address) {
+      // Handle withdrawing from VRT vault
 
-    if (stakedTokenId === TOKENS.vrt.id && typeof poolIndex !== 'number') {
       // Users can only withdraw the totality of their staked tokens when
       // withdrawing from the VRT vault
       return withdrawFromVrtVault({
         fromAccountAddress: account.address,
       });
     }
-
-    setActiveModal('withdraw');
   };
 
   const closeActiveModal = () => setActiveModal(undefined);

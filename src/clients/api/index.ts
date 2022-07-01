@@ -249,10 +249,6 @@ export { default as getDailyXvsWei } from './queries/getDailyXvsWei';
 export * from './queries/getDailyXvsWei';
 export { default as useGetDailyXvsWei } from './queries/useGetDailyXvsWei';
 
-export { default as getDailyXvsWei } from './queries/getDailyXvsWei';
-export * from './queries/getDailyXvsWei';
-export { default as useGetDailyXvsWei } from './queries/useGetDailyXvsWei';
-
 export { default as useGetVaults } from './queries/useGetVaults';
 
 export { default as getProposals } from './queries/getProposals';

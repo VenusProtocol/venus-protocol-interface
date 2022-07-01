@@ -49,7 +49,9 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
   });
 
   return (
-    <>
+    <ConnectWallet
+      message={t('withdrawFromVestingVaultModalModal.withdrawTab.enableToken.connectWalletMessage')}
+    >
       {isInitialLoading || !withdrawableWei ? (
         <Spinner />
       ) : (
@@ -76,7 +78,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
           </PrimaryButton>
         </>
       )}
-    </>
+    </ConnectWallet>
   );
 };
 
@@ -87,7 +89,6 @@ export interface WithdrawProps {
 }
 
 const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClose }) => {
-  const { t } = useTranslation();
   const { account } = useContext(AuthContext);
 
   const {
@@ -127,25 +128,21 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
   const handleSubmit = () =>
     executeWithdrawalFromXvsVault({
       poolIndex,
-      // account is always defined at this stage since we don't display the form
+      // account has to be defined at this stage since we don't display the form
       // if no account is connected
       fromAccountAddress: account?.address || '',
       rewardTokenAddress: TOKENS.xvs.address,
     });
 
   return (
-    <ConnectWallet
-      message={t('withdrawFromVestingVaultModalModal.withdrawTab.enableToken.connectWalletMessage')}
-    >
-      <WithdrawUi
-        stakedTokenId={stakedTokenId}
-        isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
-        isSubmitting={isExecutingWithdrawalFromXvsVault}
-        withdrawableWei={withdrawableWei}
-        onSubmit={handleSubmit}
-        onSubmitSuccess={handleClose}
-      />
-    </ConnectWallet>
+    <WithdrawUi
+      stakedTokenId={stakedTokenId}
+      isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
+      isSubmitting={isExecutingWithdrawalFromXvsVault}
+      withdrawableWei={withdrawableWei}
+      onSubmit={handleSubmit}
+      onSubmitSuccess={handleClose}
+    />
   );
 };
 

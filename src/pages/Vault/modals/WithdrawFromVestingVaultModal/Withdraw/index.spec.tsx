@@ -20,7 +20,6 @@ const fakeStokedTokenId = TOKENS.vai.id as TokenId;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
     (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() =>
       xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     );
