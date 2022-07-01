@@ -101,7 +101,7 @@ export const Transactions: React.FC<ITransactionsProps> = ({
           },
           {
             key: 'sent',
-            render: () => t('voterDetail.readableSent', { sent: voterTxs.blockTimestamp }),
+            render: () => t('voterDetail.readableSent', { date: voterTxs.blockTimestamp }),
             value: voterTxs.blockTimestamp.toDateString(),
             align: 'left',
           },
