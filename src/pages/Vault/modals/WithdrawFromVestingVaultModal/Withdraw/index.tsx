@@ -14,6 +14,74 @@ import { useGetXvsVaultWithdrawalRequests, useExecuteWithdrawalFromXvsVault } fr
 import { ConnectWallet, Spinner, LabeledInlineContent, PrimaryButton } from 'components';
 import { useStyles } from './styles';
 
+export interface WithdrawUiProps {
+  stakedTokenId: TokenId;
+  isInitialLoading: boolean;
+  onSubmitSuccess: () => void;
+  onSubmit: () => Promise<unknown>;
+  isSubmitting: boolean;
+  withdrawableWei?: BigNumber;
+}
+
+const WithdrawUi: React.FC<WithdrawUiProps> = ({
+  stakedTokenId,
+  isInitialLoading,
+  onSubmit,
+  onSubmitSuccess,
+  isSubmitting,
+  withdrawableWei,
+}) => {
+  const { t } = useTranslation();
+  const styles = useStyles();
+
+  const handleSubmit = async () => {
+    await onSubmit();
+
+    onSubmitSuccess();
+  };
+
+  const stakedToken = getToken(stakedTokenId);
+
+  const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
+    valueWei: withdrawableWei,
+    tokenId: stakedTokenId,
+    minimizeDecimals: true,
+  });
+
+  return (
+    <ConnectWallet
+      message={t('withdrawFromVestingVaultModalModal.withdrawTab.enableToken.connectWalletMessage')}
+    >
+      {isInitialLoading || !withdrawableWei ? (
+        <Spinner />
+      ) : (
+        <>
+          <LabeledInlineContent
+            css={styles.content}
+            iconName={stakedTokenId}
+            data-testid={TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens}
+            label={t('withdrawFromVestingVaultModalModal.withdrawTab.availableTokens', {
+              tokenSymbol: stakedToken.symbol,
+            })}
+          >
+            {readableWithdrawableTokens}
+          </LabeledInlineContent>
+
+          <PrimaryButton
+            type="submit"
+            onClick={handleSubmit}
+            loading={isSubmitting}
+            disabled={withdrawableWei.isEqualTo(0)}
+            fullWidth
+          >
+            {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
+          </PrimaryButton>
+        </>
+      )}
+    </ConnectWallet>
+  );
+};
+
 export interface WithdrawProps {
   stakedTokenId: TokenId;
   poolIndex: number;
@@ -22,9 +90,6 @@ export interface WithdrawProps {
 
 const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClose }) => {
   const { account } = useContext(AuthContext);
-  const { t } = useTranslation();
-  const styles = useStyles();
-  const stakedToken = getToken(stakedTokenId);
 
   const {
     data: xvsVaultUserWithdrawalRequests = [],
@@ -53,12 +118,6 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
     );
   }, [JSON.stringify(xvsVaultUserWithdrawalRequests)]);
 
-  const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
-    valueWei: withdrawableWei,
-    tokenId: stakedTokenId,
-    minimizeDecimals: true,
-  });
-
   const {
     mutateAsync: executeWithdrawalFromXvsVault,
     isLoading: isExecutingWithdrawalFromXvsVault,
@@ -66,10 +125,8 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
     stakedTokenId,
   });
 
-  const isInitialLoading = isGetXvsVaultUserWithdrawalRequestsLoading;
-
-  const handleSubmit = async () => {
-    const res = await executeWithdrawalFromXvsVault({
+  const handleSubmit = () =>
+    executeWithdrawalFromXvsVault({
       poolIndex,
       // account has to be defined at this stage since we don't display the form
       // if no account is connected
@@ -77,43 +134,15 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
       rewardTokenAddress: TOKENS.xvs.address,
     });
 
-    // Close modal on success
-    handleClose();
-
-    return res;
-  };
-
   return (
-    <ConnectWallet
-      message={t('withdrawFromVestingVaultModalModal.withdrawTab.enableToken.connectWalletMessage')}
-    >
-      {isInitialLoading || !xvsVaultUserWithdrawalRequests ? (
-        <Spinner />
-      ) : (
-        <>
-          <LabeledInlineContent
-            css={styles.content}
-            iconName={stakedTokenId}
-            data-testid={TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens}
-            label={t('withdrawFromVestingVaultModalModal.withdrawTab.availableTokens', {
-              tokenSymbol: stakedToken.symbol,
-            })}
-          >
-            {readableWithdrawableTokens}
-          </LabeledInlineContent>
-
-          <PrimaryButton
-            type="submit"
-            onClick={handleSubmit}
-            loading={isExecutingWithdrawalFromXvsVault}
-            disabled={withdrawableWei.isEqualTo(0)}
-            fullWidth
-          >
-            {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
-          </PrimaryButton>
-        </>
-      )}
-    </ConnectWallet>
+    <WithdrawUi
+      stakedTokenId={stakedTokenId}
+      isInitialLoading={isGetXvsVaultUserWithdrawalRequestsLoading}
+      isSubmitting={isExecutingWithdrawalFromXvsVault}
+      withdrawableWei={withdrawableWei}
+      onSubmit={handleSubmit}
+      onSubmitSuccess={handleClose}
+    />
   );
 };
 
