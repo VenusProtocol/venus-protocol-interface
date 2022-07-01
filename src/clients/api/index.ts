@@ -241,9 +241,9 @@ export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
 export { default as useGetXvsVaultUserInfo } from './queries/getXvsVaultUserInfo/useGetXvsVaultUserInfo';
 
-export { default as getXvsVaultWithdrawalRequests } from './queries/getXvsVaultWithdrawalRequests';
-export * from './queries/getXvsVaultWithdrawalRequests';
-export { default as useGetXvsVaultWithdrawalRequests } from './queries/getXvsVaultWithdrawalRequests/useGetXvsVaultWithdrawalRequests';
+export { default as getXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits';
+export * from './queries/getXvsVaultLockedDeposits';
+export { default as useGetXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits/useGetXvsVaultLockedDeposits';
 
 export { default as getDailyXvsWei } from './queries/getDailyXvsWei';
 export * from './queries/getDailyXvsWei';

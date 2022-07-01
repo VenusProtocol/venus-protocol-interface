@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api/queries/getXvsVaultWithdrawalRequests returns withdrawal requests on success 1`] = `
+exports[`api/queries/getXvsVaultLockedDeposits returns withdrawal requests on success 1`] = `
 Array [
   Object {
     "amountWei": "1000000000000000000",

@@ -5,8 +5,8 @@ import TEST_IDS from 'constants/testIds';
 import fakeAddress from '__mocks__/models/address';
 import en from 'translation/translations/en.json';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
-import { getXvsVaultWithdrawalRequests } from 'clients/api';
-import formatToWithdrawalRequest from 'clients/api/queries/getXvsVaultWithdrawalRequests/formatToWithdrawalRequest';
+import { getXvsVaultLockedDeposits } from 'clients/api';
+import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import renderComponent from 'testUtils/renderComponent';
 import WithdrawalRequestList from '.';
 
@@ -18,8 +18,8 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   beforeEach(() => {
     jest.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
 
-    (getXvsVaultWithdrawalRequests as jest.Mock).mockImplementation(() =>
-      xvsVaultResponses.getWithdrawalRequests.map(formatToWithdrawalRequest),
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() =>
+      xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     );
   });
 
@@ -30,7 +30,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   });
 
   it('fetches withdrawal requests and displays empty state when none was returned', async () => {
-    (getXvsVaultWithdrawalRequests as jest.Mock).mockImplementation(() => []);
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => []);
 
     const { getByText } = renderComponent(<WithdrawalRequestList poolIndex={fakePoolIndex} />, {
       authContextValue: { account: { address: fakeAddress } },

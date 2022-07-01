@@ -12,12 +12,12 @@ import fakeAddress from '__mocks__/models/address';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import {
   getAllowance,
-  getXvsVaultWithdrawalRequests,
+  getXvsVaultLockedDeposits,
   getXvsVaultUserInfo,
   getXvsVaultPoolInfo,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
-import formatToWithdrawalRequest from 'clients/api/queries/getXvsVaultWithdrawalRequests/formatToWithdrawalRequest';
+import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import renderComponent from 'testUtils/renderComponent';
@@ -32,8 +32,8 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
-    (getXvsVaultWithdrawalRequests as jest.Mock).mockImplementation(() =>
-      xvsVaultResponses.getWithdrawalRequests.map(formatToWithdrawalRequest),
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() =>
+      xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     );
     (getXvsVaultUserInfo as jest.Mock).mockImplementation(() =>
       formatToUserInfo(xvsVaultResponses.userInfo),

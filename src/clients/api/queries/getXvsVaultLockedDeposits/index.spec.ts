@@ -2,12 +2,12 @@ import { XvsVault } from 'types/contracts';
 import { TOKENS } from 'constants/tokens';
 import fakeAccountAddress from '__mocks__/models/address';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
-import getXvsVaultWithdrawalRequests from '.';
+import getXvsVaultLockedDeposits from '.';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 const fakePid = 1;
 
-describe('api/queries/getXvsVaultWithdrawalRequests', () => {
+describe('api/queries/getXvsVaultLockedDeposits', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -20,14 +20,14 @@ describe('api/queries/getXvsVaultWithdrawalRequests', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultWithdrawalRequests({
+      await getXvsVaultLockedDeposits({
         xvsVaultContract: fakeContract,
         rewardTokenAddress: xvsTokenAddress,
         accountAddress: fakeAccountAddress,
         poolIndex: fakePid,
       });
 
-      throw new Error('getXvsVaultWithdrawalRequests should have thrown an error but did not');
+      throw new Error('getXvsVaultLockedDeposits should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -45,7 +45,7 @@ describe('api/queries/getXvsVaultWithdrawalRequests', () => {
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultWithdrawalRequests({
+    const response = await getXvsVaultLockedDeposits({
       xvsVaultContract: fakeContract,
       rewardTokenAddress: xvsTokenAddress,
       accountAddress: fakeAccountAddress,

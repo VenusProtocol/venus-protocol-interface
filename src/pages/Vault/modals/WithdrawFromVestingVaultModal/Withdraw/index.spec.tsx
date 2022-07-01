@@ -8,8 +8,8 @@ import en from 'translation/translations/en.json';
 import { TOKENS } from 'constants/tokens';
 import fakeAddress from '__mocks__/models/address';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
-import { getXvsVaultWithdrawalRequests, executeWithdrawalFromXvsVault } from 'clients/api';
-import formatToWithdrawalRequest from 'clients/api/queries/getXvsVaultWithdrawalRequests/formatToWithdrawalRequest';
+import { getXvsVaultLockedDeposits, executeWithdrawalFromXvsVault } from 'clients/api';
+import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import renderComponent from 'testUtils/renderComponent';
 import Withdraw from '.';
 
@@ -20,8 +20,8 @@ const fakeStokedTokenId = TOKENS.vai.id as TokenId;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
-    (getXvsVaultWithdrawalRequests as jest.Mock).mockImplementation(() =>
-      xvsVaultResponses.getWithdrawalRequests.map(formatToWithdrawalRequest),
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() =>
+      xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     );
   });
 
@@ -55,7 +55,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   });
 
   it('disables submit button when there is no tokens available', async () => {
-    (getXvsVaultWithdrawalRequests as jest.Mock).mockImplementation(() => []);
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => []);
 
     const { getByTestId, getByText } = renderComponent(
       <Withdraw poolIndex={fakePoolIndex} stakedTokenId={fakeStokedTokenId} handleClose={noop} />,

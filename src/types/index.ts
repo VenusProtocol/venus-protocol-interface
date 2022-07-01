@@ -292,7 +292,7 @@ export interface VoterAccount {
   votesWei: BigNumber;
 }
 
-export interface WithdrawalRequest {
+export interface LockedDeposit {
   amountWei: BigNumber;
   unlockedAt: Date;
 }

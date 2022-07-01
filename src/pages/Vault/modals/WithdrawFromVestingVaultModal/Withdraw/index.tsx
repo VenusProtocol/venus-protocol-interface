@@ -10,7 +10,7 @@ import { TokenId } from 'types';
 import { getToken } from 'utilities';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { useTranslation } from 'translation';
-import { useGetXvsVaultWithdrawalRequests, useExecuteWithdrawalFromXvsVault } from 'clients/api';
+import { useGetXvsVaultLockedDeposits, useExecuteWithdrawalFromXvsVault } from 'clients/api';
 import { ConnectWallet, Spinner, LabeledInlineContent, PrimaryButton } from 'components';
 import { useStyles } from './styles';
 
@@ -92,9 +92,9 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
   const { account } = useContext(AuthContext);
 
   const {
-    data: xvsVaultUserWithdrawalRequests = [],
-    isLoading: isGetXvsVaultUserWithdrawalRequestsLoading,
-  } = useGetXvsVaultWithdrawalRequests(
+    data: xvsVaultUserLockedDeposits = [],
+    isLoading: isGetXvsVaultUserLockedDepositsLoading,
+  } = useGetXvsVaultLockedDeposits(
     {
       poolIndex,
       rewardTokenAddress: TOKENS.xvs.address,
@@ -109,14 +109,14 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
   const withdrawableWei = useMemo(() => {
     const now = new Date();
 
-    return xvsVaultUserWithdrawalRequests.reduce(
-      (acc, xvsVaultUserWithdrawalRequest) =>
-        isBefore(xvsVaultUserWithdrawalRequest.unlockedAt, now)
-          ? acc.plus(xvsVaultUserWithdrawalRequest.amountWei)
+    return xvsVaultUserLockedDeposits.reduce(
+      (acc, xvsVaultUserLockedDeposit) =>
+        isBefore(xvsVaultUserLockedDeposit.unlockedAt, now)
+          ? acc.plus(xvsVaultUserLockedDeposit.amountWei)
           : acc,
       new BigNumber(0),
     );
-  }, [JSON.stringify(xvsVaultUserWithdrawalRequests)]);
+  }, [JSON.stringify(xvsVaultUserLockedDeposits)]);
 
   const {
     mutateAsync: executeWithdrawalFromXvsVault,
@@ -137,7 +137,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
   return (
     <WithdrawUi
       stakedTokenId={stakedTokenId}
-      isInitialLoading={isGetXvsVaultUserWithdrawalRequestsLoading}
+      isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
       isSubmitting={isExecutingWithdrawalFromXvsVault}
       withdrawableWei={withdrawableWei}
       onSubmit={handleSubmit}
