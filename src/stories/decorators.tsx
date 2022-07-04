@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { addDecorator, Story as StoryType } from '@storybook/react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
-import { Provider } from 'react-redux';
-import { store } from 'core/store';
 import Box from '@mui/material/Box';
 import { TokenId } from 'types';
 import { Web3Wrapper } from 'clients/web3';
@@ -19,12 +17,6 @@ export const withRouter: DecoratorFunction = Story => (
   <BrowserRouter>
     <Story />
   </BrowserRouter>
-);
-
-export const withProvider: DecoratorFunction = Story => (
-  <Provider store={store}>
-    <Story />
-  </Provider>
 );
 
 export const withWeb3Provider: DecoratorFunction = Story => (

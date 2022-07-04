@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
-import { withRouter, withProvider, withCenterStory } from 'stories/decorators';
+import { withRouter, withCenterStory } from 'stories/decorators';
 import { HeaderUi } from '.';
 
 export default {
   title: 'Pages/Market/Header',
   component: HeaderUi,
-  decorators: [withRouter, withProvider, withCenterStory({ width: '100%' })],
+  decorators: [withRouter, withCenterStory({ width: '100%' })],
   parameters: {
     backgrounds: {
       default: 'White',

@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider, withRouter, withProvider } from 'stories/decorators';
+import { withThemeProvider, withRouter } from 'stories/decorators';
 import { MemoryRouter, Route } from 'react-router';
 import { SidebarUi } from '.';
 
 export default {
   title: 'Components/Layout/Sidebar',
   component: SidebarUi,
-  decorators: [withThemeProvider, withRouter, withProvider],
+  decorators: [withThemeProvider, withRouter],
   parameters: {
     backgrounds: {
       default: 'Primary',

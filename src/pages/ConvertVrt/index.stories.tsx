@@ -2,7 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withAuthContext, withCenterStory, withRouter, withProvider } from 'stories/decorators';
+import { withAuthContext, withCenterStory, withRouter } from 'stories/decorators';
 import ConvertVRT, { ConvertVrtUi, ConvertVrtUiProps } from '.';
 import Withdraw from './Withdraw';
 import ConvertComp from './Convert';
@@ -10,7 +10,7 @@ import ConvertComp from './Convert';
 export default {
   title: 'Pages/ConvertVRT',
   component: ConvertVrtUi,
-  decorators: [withRouter, withProvider, withCenterStory({ width: '100vh' })],
+  decorators: [withRouter, withCenterStory({ width: '100vh' })],
   parameters: {
     backgrounds: {
       default: 'Primary',

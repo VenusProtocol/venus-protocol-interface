@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { IApyChartProps } from 'components';
 import { ComponentMeta } from '@storybook/react';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
-import { withRouter, withProvider } from 'stories/decorators';
+import { withRouter } from 'stories/decorators';
 import { MarketDetailsUi } from '.';
 
 const fakeApyChartData: IApyChartProps['data'] = [
@@ -48,7 +48,7 @@ const fakeApyChartData: IApyChartProps['data'] = [
 export default {
   title: 'Pages/MarketDetail',
   component: MarketDetailsUi,
-  decorators: [withRouter, withProvider],
+  decorators: [withRouter],
 } as ComponentMeta<typeof MarketDetailsUi>;
 
 export const Default = () => (
