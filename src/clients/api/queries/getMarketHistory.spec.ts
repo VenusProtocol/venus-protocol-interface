@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+import { VError } from 'errors';
 import { MarketSnapshot } from 'types';
 import getMarketHistory from './getMarketHistory';
 
