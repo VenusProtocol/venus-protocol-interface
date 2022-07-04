@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import type { TransactionReceipt } from 'web3-core/types';
 
+import { VError } from 'errors';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
@@ -286,17 +287,21 @@ const VaultItem: React.FC<VaultItemProps> = ({
 
   const onWithdraw = async () => {
     if (stakedTokenId !== TOKENS.vrt.id || typeof poolIndex === 'number') {
-      // Handle withdrawing from any vault except the VRT vault
+      // Handle withdrawing from any vault except the VRT non-vesting vault
       setActiveModal('withdraw');
-    } else if (account?.address) {
-      // Handle withdrawing from VRT vault
-
-      // Users can only withdraw the totality of their staked tokens when
-      // withdrawing from the VRT vault
-      return withdrawFromVrtVault({
-        fromAccountAddress: account.address,
-      });
+      return;
     }
+
+    // Handle withdrawing from VRT non-vesting vault
+    if (!account?.address) {
+      throw new VError({ type: 'interaction', code: 'accountError' });
+    }
+
+    // Users can only withdraw the totality of their staked tokens when
+    // withdrawing from the VRT non-vesting vault
+    return withdrawFromVrtVault({
+      fromAccountAddress: account.address,
+    });
   };
 
   const closeActiveModal = () => setActiveModal(undefined);
