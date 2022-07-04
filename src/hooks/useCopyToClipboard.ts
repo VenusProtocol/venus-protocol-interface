@@ -1,5 +1,5 @@
 import copyToClipboard from 'copy-to-clipboard';
-import { toast } from 'components/v2/Toast';
+import { toast } from 'components/Toast';
 import { useTranslation } from 'translation';
 
 const useCopyToClipboard = (name: string) => {

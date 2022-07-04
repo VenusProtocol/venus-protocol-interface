@@ -10,7 +10,7 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
-import { toast } from 'components/v2/Toast';
+import { toast } from 'components/Toast';
 import { LS_KEY_CONNECTED_CONNECTOR, CHAIN_ID } from 'config';
 import { useTranslation } from 'translation';
 import { connectorsByName } from '../connectors';
