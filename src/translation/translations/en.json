@@ -273,7 +273,7 @@
       "wallet": "Wallet"
     },
     "errors": {
-      "accountError": "Account Required - Please connect your wallet to set an asset as collateral.",
+      "accountError": "Account Required - Please connect your wallet.",
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
