@@ -18,6 +18,7 @@ const Title: React.FC = () => {
   const voterDetailMatch = useRouteMatch<{ address: string }>(Path.VOTE_ADDRESS);
   const marketDetailsMatch = useRouteMatch<{ vTokenId: VTokenId }>(Path.MARKET_DETAILS);
   const { t } = useTranslation();
+  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   // Handle special case of Market Details page
   if (marketDetailsMatch) {
@@ -32,8 +33,6 @@ const Title: React.FC = () => {
       </Link>
     );
   }
-
-  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   if (voterDetailMatch) {
     const { address } = voterDetailMatch.params;
