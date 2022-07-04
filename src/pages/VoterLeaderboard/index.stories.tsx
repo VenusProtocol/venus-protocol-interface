@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withRouter, withProvider } from 'stories/decorators';
+import { withRouter } from 'stories/decorators';
 import VoterLeaderboard from '.';
 
 export default {
   title: 'Pages/VoterLeaderboard',
   component: VoterLeaderboard,
-  decorators: [withRouter, withProvider],
+  decorators: [withRouter],
   parameters: {
     backgrounds: {
       default: 'White',
