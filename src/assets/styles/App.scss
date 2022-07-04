@@ -227,6 +227,7 @@ p {
 
 a {
   color: var(--color-text-secondary);
+  text-decoration: none;
 
   &:hover {
     color: var(--color-text-main);

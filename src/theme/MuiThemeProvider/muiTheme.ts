@@ -172,16 +172,6 @@ export default createTheme({
         },
       },
     },
-    MuiInputBase: {
-      styleOverrides: {
-        hiddenLabel: {
-          /* fix for andtd base styles override. TODO: can be deleted when global antd styles will be removed */
-          '& legend': {
-            display: 'none',
-          },
-        },
-      },
-    },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {

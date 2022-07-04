@@ -16,7 +16,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import RepayVai from '.';
 
 jest.mock('clients/api');
-jest.mock('components/v2/Toast');
+jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeVai = { ...assetData, id: TOKENS.vai.id as TokenId, symbol: TOKENS.vai.symbol };
