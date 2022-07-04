@@ -24,7 +24,7 @@ export const assetData: Asset[] = [
     walletBalance: new BigNumber('100'),
     supplyBalance: new BigNumber('90'),
     borrowBalance: new BigNumber('0'),
-    collateral: false,
+    collateral: true,
     percentOfLimit: '0',
     treasuryTotalBorrowsCents: new BigNumber('70925716.2839193373613181'),
     treasuryTotalSupplyCents: new BigNumber('278311516.880071415163614'),
