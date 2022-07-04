@@ -4,7 +4,7 @@ import noop from 'noop-ts';
 import {
   SuccessfulTransactionModal,
   ISuccessfulTransactionModalProps,
-} from 'components/v2/SuccessfulTransactionModal';
+} from 'components/SuccessfulTransactionModal';
 
 export type OpenSuccessfulTransactionModalInput = Pick<
   ISuccessfulTransactionModalProps,

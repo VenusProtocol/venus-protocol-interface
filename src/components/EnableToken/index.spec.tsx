@@ -8,7 +8,7 @@ import { assetData } from '__mocks__/models/asset';
 import EnableToken from '.';
 
 jest.mock('clients/api');
-jest.mock('components/v2/Toast');
+jest.mock('components/Toast');
 
 const fakeAsset = assetData[0];
 const fakeContent = 'Fake Content';

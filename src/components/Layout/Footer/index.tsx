@@ -13,7 +13,7 @@ import {
 import { generateBscScanUrl } from 'utilities';
 import { useBlock } from 'hooks/useBlock';
 import { useTranslation } from 'translation';
-import { Icon } from 'components/v2/Icon';
+import { Icon } from 'components/Icon';
 import { useStyles } from './styles';
 
 export interface IFooterProps {
