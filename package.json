@@ -49,7 +49,7 @@
     "moment": "^2.24.0",
     "noop-ts": "^1.0.3",
     "normalize.css": "^8.0.1",
-    "react": "^16.9.6",
+    "react": "^17.0.1",
     "react-countdown": "^2.3.2",
     "react-dom": "npm:@hot-loader/react-dom@^17.0.1",
     "react-i18next": "^11.16.5",
@@ -57,9 +57,9 @@
     "react-router": "^5.2.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "4.0.3",
-    "react-toastify": "^9.0.1",
+    "react-toastify": "9.0.1",
     "react-uid": "^2.3.1",
-    "recharts": "^2.1.9",
+    "recharts": "2.1.9",
     "rehype-sanitize": "^5.0.1",
     "sass": "^1.49.7",
     "web3": "^1.7.1",
@@ -78,8 +78,7 @@
     "@typechain/web3-v1": "^6.0.0",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",
-    "@types/markdown-it": "^12.2.3",
-    "@types/react-copy-to-clipboard": "^5.0.2",
+    "@types/react": "^17.0.01",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
     "@types/recharts": "^1.8.23",
@@ -136,7 +135,8 @@
     "//": "See https://github.com/facebook/create-react-app/issues/11773",
     "react-error-overlay": "6.0.9",
     "babel-loader": "8.1.0",
-    "**/@emotion/styled": "^11.0.0"
+    "**/@emotion/styled": "^11.0.0",
+    "@types/react": "^17.0.1"
   },
   "loki": {
     "configurations": {
