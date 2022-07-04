@@ -1,4 +1,5 @@
 import { restService, getVBepToken } from 'utilities';
+import { VError } from 'errors';
 import { VTokenId, MarketSnapshot } from 'types';
 
 export interface IGetMarketHistoryResponse {
@@ -32,8 +33,13 @@ const getMarketHistory = async ({
     method: 'GET',
   });
 
+  // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
-    throw new Error(response.message);
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: { message: response.message },
+    });
   }
 
   return response.data?.data.result || [];

@@ -1,5 +1,6 @@
 import { IVoterHistory } from 'types';
 import { restService } from 'utilities';
+import { VError } from 'errors';
 import formatVoterHistoryResponse from './formatVoterHistoryResponse';
 import { IGetVoterHistoryResponse } from './types';
 
@@ -28,13 +29,17 @@ const getVoterHistory = async ({
     },
   });
   const payload = response.data?.data;
+  // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
-    // @todo Add specific api error handling
-    throw new Error(response.message);
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: { message: response.message },
+    });
   }
+
   if (!payload) {
-    // @todo Add specific api error handling
-    throw new Error('Unexpected error retrieving voter history');
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingVoterHistory' });
   }
 
   return formatVoterHistoryResponse(payload);

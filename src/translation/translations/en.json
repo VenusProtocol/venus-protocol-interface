@@ -127,6 +127,10 @@
   },
   "errors": {
     "somethingWentWrong": "Something went wrong",
+    "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
+    "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
+    "somethingWentWrongRetrievingVoterDetails": "Something went wrong retrieving voter details",
+    "somethingWentWrongRetrievingVoterHistory": "Something went wrong retrieving voter history  ",
     "undefinedAccountErrorMessage": "Account undefined",
     "walletNotConnected": "Wallet not connected"
   },
