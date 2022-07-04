@@ -201,6 +201,17 @@ h4 {
   color: inherit;
 }
 
+// By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
+// margin for easier control within type scales as it avoids margin collapsing.
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
 h1 {
   font-size: 2.5rem;
   font-weight: 600;
