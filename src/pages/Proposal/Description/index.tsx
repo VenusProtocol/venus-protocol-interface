@@ -22,19 +22,24 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
       <Typography variant="h4" color="textSecondary">
         {t('voteProposalUi.description')}
       </Typography>
+
       <MarkdownViewer css={styles.markdown} content={description.description} />
+
       {description.version === 'v2' && (
         <>
           <Typography variant="h4" color="textSecondary" css={styles.section}>
             {t('voteProposalUi.votingOptions')}
           </Typography>
-          <ul>
+
+          <ul css={styles.votingOptionList}>
             <li>
               {t('vote.for')} - {description.forDescription}
             </li>
+
             <li>
               {t('vote.against')} - {description.againstDescription}
             </li>
+
             <li>
               {t('vote.abstain')} - {description.abstainDescription}
             </li>
@@ -44,6 +49,7 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
       <Typography variant="h4" color="textSecondary" css={styles.section}>
         {t('voteProposalUi.operation')}
       </Typography>
+
       {actions.map(({ title }) => (
         <MarkdownViewer key={title} css={[styles.markdown, styles.actionTitle]} content={title} />
       ))}

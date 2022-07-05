@@ -31,5 +31,10 @@ export const useStyles = () => {
     section: css`
       margin-top: ${theme.spacing(6)};
     `,
+    votingOptionList: css`
+      margin-top: ${theme.spacing(2)};
+      margin-bottom: 0;
+      padding-left: ${theme.spacing(6)};
+    `,
   };
 };

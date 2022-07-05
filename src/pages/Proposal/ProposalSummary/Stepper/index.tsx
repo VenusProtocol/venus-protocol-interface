@@ -159,8 +159,7 @@ const Stepper: React.FC<IStepperProps> = ({
               </div>
               {step.getTimestamp() && (
                 <Typography variant="tiny" css={styles.dateDefault}>
-                  {t('voteProposalUi.statusCard.dateOnly', { date: step.getTimestamp() })}
-
+                  {t('voteProposalUi.statusCard.dateOnly', { date: step.getTimestamp() })}{' '}
                   {t('voteProposalUi.statusCard.timeOnly', { date: step.getTimestamp() })}
                 </Typography>
               )}
