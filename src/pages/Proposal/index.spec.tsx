@@ -9,3 +9,5 @@ describe('pages/Proposal', () => {
     renderComponent(<Proposal />);
   });
 });
+
+// TODO: add tests

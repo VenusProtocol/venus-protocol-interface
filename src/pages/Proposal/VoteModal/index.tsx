@@ -16,6 +16,8 @@ interface IVoteModal {
   isVoteLoading: boolean;
 }
 
+// TODO: add tests
+
 const VoteModal: React.FC<IVoteModal> = ({
   handleClose,
   vote,
