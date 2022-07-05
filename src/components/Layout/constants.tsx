@@ -1,4 +1,4 @@
-import { IMenuItem } from './types';
+import { IMenuItem, Page } from './types';
 
 export const menuItems: IMenuItem[] = [
   {
@@ -6,6 +6,7 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.dashboard')
     i18nKey: 'layout.menuItems.dashboard',
+    i18nTitleKey: 'layout.menuItems.dashboard',
     icon: 'dashboard',
   },
   {
@@ -13,6 +14,7 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.market')
     i18nKey: 'layout.menuItems.market',
+    i18nTitleKey: 'layout.menuItems.market',
     icon: 'market',
   },
   {
@@ -20,6 +22,7 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.vault')
     i18nKey: 'layout.menuItems.vault',
+    i18nTitleKey: 'layout.menuItems.vault',
     icon: 'vault',
   },
   {
@@ -27,6 +30,7 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
     i18nKey: 'layout.menuItems.history',
+    i18nTitleKey: 'layout.menuItems.history',
     icon: 'history',
   },
   {
@@ -34,6 +38,7 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.vote')
     i18nKey: 'layout.menuItems.vote',
+    i18nTitleKey: 'layout.menuItems.vote',
     icon: 'vote',
   },
   {
@@ -41,9 +46,9 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvs')
     i18nKey: 'layout.menuItems.xvs',
+    i18nTitleKey: 'layout.menuItems.xvs',
     icon: 'xvsOutlined',
   },
-
   {
     href: '/convert-vrt',
     // Translation key: do not remove this comment
@@ -59,6 +64,17 @@ export const menuItems: IMenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvsPrediction')
     i18nKey: 'layout.menuItems.xvsPrediction',
+    i18nTitleKey: 'layout.menuItems.xvsPrediction',
     icon: 'xvsPrediction',
+  },
+];
+
+export const subPages: Page[] = [
+  {
+    href: '/vote/leaderboard',
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.voteLeaderboard')
+    i18nTitleKey: 'layout.menuItems.voteLeaderboard',
+    showHeaderBackButton: true,
   },
 ];
