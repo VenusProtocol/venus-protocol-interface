@@ -5,17 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    container: css`
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    `,
-    icon: css`
-      width: ${theme.spacing(6)};
-      height: ${theme.spacing(6)};
-      color: ${theme.palette.text.primary};
-      margin-right: ${theme.spacing(2)};
-    `,
     backButtonTokenIcon: css`
       width: ${theme.spacing(8)};
       height: ${theme.spacing(8)};

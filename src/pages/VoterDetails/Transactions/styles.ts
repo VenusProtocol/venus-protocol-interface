@@ -16,7 +16,7 @@ export const useStyles = () => {
       margin: 0 ${theme.spacing(6)};
     `,
     table: css`
-      display: initial;
+      display: block;
 
       ${theme.breakpoints.down('sm')} {
         display: none;
@@ -25,7 +25,7 @@ export const useStyles = () => {
     cards: css`
       display: none;
       ${theme.breakpoints.down('sm')} {
-        display: initial;
+        display: block;
       }
     `,
     cardContentGrid: css`

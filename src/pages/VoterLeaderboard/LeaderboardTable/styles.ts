@@ -17,7 +17,7 @@ export const useStyles = () => {
       }
     `,
     table: css`
-      display: initial;
+      display: block;
       .MuiTableCell-root:first-of-type {
         overflow: visible;
       }
@@ -30,7 +30,7 @@ export const useStyles = () => {
       display: none;
 
       ${theme.breakpoints.down('xl')} {
-        display: initial;
+        display: block;
       }
     `,
     cardContentGrid: css`

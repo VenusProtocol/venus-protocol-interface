@@ -201,6 +201,7 @@
       "market": "Market",
       "vault": "Vault",
       "vote": "Vote",
+      "voteLeaderboard": "Vote",
       "xvs": "XVS",
       "xvsPrediction": "XVS Prediction"
     }

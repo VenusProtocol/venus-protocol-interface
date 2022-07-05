@@ -1,4 +1,4 @@
-import { IMenuItem } from './types';
+import { IMenuItem, Page } from './types';
 
 export const menuItems: IMenuItem[] = [
   {
@@ -66,5 +66,15 @@ export const menuItems: IMenuItem[] = [
     i18nKey: 'layout.menuItems.xvsPrediction',
     i18nTitleKey: 'layout.menuItems.xvsPrediction',
     icon: 'xvsPrediction',
+  },
+];
+
+export const subPages: Page[] = [
+  {
+    href: '/vote/leaderboard',
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.voteLeaderboard')
+    i18nTitleKey: 'layout.menuItems.voteLeaderboard',
+    showHeaderBackButton: true,
   },
 ];

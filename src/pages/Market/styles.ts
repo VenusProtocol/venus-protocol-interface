@@ -120,7 +120,7 @@ export const useStyles = () => {
       display: none;
 
       ${theme.breakpoints.down('xxl')} {
-        display: initial;
+        display: block;
       }
     `,
   };
