@@ -89,7 +89,8 @@ const useAuth = () => {
           error instanceof NoBscProviderError
         ) {
           // TODO: log error
-          throw new VError({ type: 'interaction', code: 'noProvider' });
+
+          errorMessage = t('wallets.errors.noProvider');
         } else {
           errorMessage = (error as Error).message;
         }
