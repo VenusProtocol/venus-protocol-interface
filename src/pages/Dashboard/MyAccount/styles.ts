@@ -26,7 +26,7 @@ export const useMyAccountStyles = () => {
     tooltip: css`
       display: flex;
     `,
-    infoIcon: () => css`
+    infoIcon: css`
       cursor: help;
     `,
     toggle: css`

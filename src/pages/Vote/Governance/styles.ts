@@ -29,9 +29,12 @@ export const useStyles = () => {
       flex-direction: row;
       align-items: flex-end;
     `,
-    infoIcon: css`
+    infoIconWrapper: css`
       display: flex;
       align-self: center;
+    `,
+    infoIcon: css`
+      cursor: help;
     `,
     pagination: css`
       justify-content: flex-start;
