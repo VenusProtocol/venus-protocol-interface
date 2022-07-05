@@ -71,6 +71,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
       }),
     [votingWeightWei],
   );
+
   const previouslyDelegated = !!delegate;
   const userHasLockedXVS = userStakedWei.isGreaterThan(0);
   return (
@@ -159,6 +160,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
         previouslyDelegated={previouslyDelegated}
         setVoteDelegation={setVoteDelegation}
         isVoteDelegationLoading={isVoteDelegationLoading}
+        openAuthModal={openAuthModal}
       />
     </div>
   );
@@ -180,6 +182,7 @@ const VotingWallet: React.FC = () => {
   );
 
   const { data: vaults } = useGetVestingVaults({ accountAddress });
+
   const [xvsVault] = vaults.filter(v => v.stakedTokenId === XVS_TOKEN_ID);
   const userStakedWei = xvsVault?.userStakedWei || new BigNumber(0);
 
