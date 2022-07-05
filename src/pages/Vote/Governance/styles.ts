@@ -8,10 +8,14 @@ export const useStyles = () => {
       flex: 2;
       margin-right: ${theme.spacing(4)};
     `,
+    loader: css`
+      height: auto;
+      margin-bottom: ${theme.spacing(6)};
+    `,
     bottomSpace: css`
       margin-bottom: ${theme.spacing(6)};
     `,
-    marginless: css`
+    marginLess: css`
       padding: 0;
       margin-right: ${theme.spacing(2.5)};
     `,

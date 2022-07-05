@@ -52,7 +52,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
         <div css={styles.createProposal}>
           <TextButton
             onClick={() => setShowCreateProposalModal(true)}
-            css={styles.marginless}
+            css={styles.marginLess}
             disabled={!canCreateProposal}
           >
             {t('vote.createProposalPlus')}
@@ -64,7 +64,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
         </div>
       </div>
 
-      {isLoading && <Spinner />}
+      {isLoading && <Spinner css={styles.loader} />}
 
       <div>
         {proposals.map(
@@ -92,7 +92,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
         )}
       </div>
 
-      {total && (
+      {total && total > 0 && (
         <Pagination
           css={styles.pagination}
           itemsCount={total}
@@ -121,7 +121,10 @@ const Governance: React.FC = () => {
   const accountAddress = account?.address || '';
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { data: { proposals, total, limit = 5 } = { proposals: [] }, isLoading } = useGetProposals({
+  const {
+    data: { proposals, total, limit = 5 } = { proposals: [] },
+    isFetching: isGetProposalsFetching,
+  } = useGetProposals({
     page: currentPage,
   });
 
@@ -137,7 +140,7 @@ const Governance: React.FC = () => {
   return (
     <GovernanceUi
       proposals={proposals}
-      isLoading={isLoading}
+      isLoading={isGetProposalsFetching}
       total={total}
       limit={limit}
       setCurrentPage={setCurrentPage}

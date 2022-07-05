@@ -10,11 +10,11 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTERS, IGetVotersInput]
 >;
 
-const useGetProposals = (params: IGetVotersInput, options?: Options) =>
+const useGetVoters = (params: IGetVotersInput, options?: Options) =>
   // This endpoint is paginated so we keep the previous responses by default to create a more seamless paginating experience
   useQuery([FunctionKey.GET_VOTERS, params], () => getVoters(params), {
     keepPreviousData: true,
     ...options,
   });
 
-export default useGetProposals;
+export default useGetVoters;
