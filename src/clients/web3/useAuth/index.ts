@@ -46,7 +46,7 @@ const useAuth = () => {
 
       const connector = connectorsByName[connectorID];
       if (!connector) {
-        // TODO: log error to Sentry (this case should never happen, as it means
+        // TODO: log error (this case should never happen, as it means
         // an incorrect connectorID was passed to this function)
 
         toast.error({
@@ -93,7 +93,7 @@ const useAuth = () => {
           error instanceof NoEthereumProviderError ||
           error instanceof NoBscProviderError
         ) {
-          // TODO: log error to Sentry
+          // TODO: log error
 
           errorMessage = t('wallets.errors.noProvider');
         } else {
