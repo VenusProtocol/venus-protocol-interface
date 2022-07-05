@@ -166,7 +166,7 @@ const Proposal = () => {
       votingEnabled={
         !!accountAddress &&
         proposal?.state === 'Active' &&
-        voteCast === undefined &&
+        !voteCast?.hasVoted &&
         votingWeightWei.isGreaterThan(0)
       }
       readableVoteWeight={readableVoteWeight}
