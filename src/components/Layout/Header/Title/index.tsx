@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Typography } from '@mui/material';
-import { useRouteMatch, useLocation, Link } from 'react-router-dom';
+import { useRouteMatch, useLocation } from 'react-router-dom';
+
 import Path from 'constants/path';
 import { getToken } from 'utilities';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
@@ -9,7 +10,8 @@ import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
 import EllipseText from '../../../EllipseText';
 import { Icon } from '../../../Icon';
-import { menuItems } from '../../constants';
+import { menuItems, subPages } from '../../constants';
+import BackButton from './BackButton';
 import { useStyles } from './styles';
 
 const Title: React.FC = () => {
@@ -26,11 +28,10 @@ const Title: React.FC = () => {
     const token = getToken(vTokenId);
 
     return (
-      <Link to={Path.MARKET} css={styles.backButton}>
-        <Icon name="chevronLeft" css={styles.backButtonChevronIcon} />
+      <BackButton>
         <Icon name={vTokenId} css={styles.backButtonTokenIcon} />
         <h3 css={styles.backButtonTokenSymbol}>{token.symbol}</h3>
-      </Link>
+      </BackButton>
     );
   }
 
@@ -46,14 +47,19 @@ const Title: React.FC = () => {
     );
   }
 
-  const currentItem = menuItems.find(item => item.href === pathname);
-  const currentItemKey = currentItem?.i18nTitleKey || currentItem?.i18nKey;
+  const currentItem = [...menuItems, ...subPages].find(item => item.href === pathname);
 
-  if (!currentItemKey) {
+  if (!currentItem) {
     return null;
   }
 
-  return <h3>{t(currentItemKey)}</h3>;
+  const title = <h3>{t(currentItem.i18nTitleKey)}</h3>;
+
+  if (currentItem.showHeaderBackButton) {
+    return <BackButton>{title}</BackButton>;
+  }
+
+  return title;
 };
 
 export default Title;

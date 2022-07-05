@@ -1,8 +1,12 @@
 import { IconName } from '../Icon';
 
-export interface IMenuItem {
+export interface Page {
   href: string;
+  i18nTitleKey: string;
+  showHeaderBackButton?: boolean;
+}
+
+export interface IMenuItem extends Page {
   i18nKey: string;
-  i18nTitleKey?: string;
   icon: IconName;
 }
