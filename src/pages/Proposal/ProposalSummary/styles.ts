@@ -46,6 +46,9 @@ export const useStyles = () => {
     title: css`
       margin-bottom: ${theme.spacing(2)};
     `,
+    transactionLink: css`
+      margin-bottom: ${theme.spacing(8)};
+    `,
     content: css`
       display: flex;
       flex-direction: column;

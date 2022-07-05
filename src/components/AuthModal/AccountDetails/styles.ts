@@ -97,6 +97,10 @@ export const useStyles = () => {
     bscScanLinkContainer: css`
       margin-left: ${theme.spacing(16)};
       margin-bottom: ${theme.spacing(10)};
+
+      ${theme.breakpoints.down('md')} {
+        margin: 0 auto ${theme.spacing(8)};
+      }
     `,
   };
 };

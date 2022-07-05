@@ -18,10 +18,6 @@ export const useStyles = () => {
       :active > svg {
         color: ${theme.palette.button.dark};
       }
-
-      ${theme.breakpoints.down('md')} {
-        margin: 0 auto ${theme.spacing(8)};
-      }
     `,
     text: css`
       display: flex;

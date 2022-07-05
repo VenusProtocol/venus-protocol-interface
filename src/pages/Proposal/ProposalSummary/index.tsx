@@ -148,22 +148,33 @@ export const ProposalSummaryUi: React.FC<
             <Chip text={`#${id}`} css={styles.chipSpace} />
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
+
           {state === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
         </div>
+
         <div css={styles.content}>
           <div>
             <Typography variant="h3" css={styles.title}>
               {title}
             </Typography>
+
             {transactionHash && (
-              <BscLink text={createdTxHash} urlType="tx" hash={transactionHash} />
+              <BscLink
+                text={createdTxHash}
+                urlType="tx"
+                hash={transactionHash}
+                css={styles.transactionLink}
+              />
             )}
           </div>
+
           <div>{updateProposalButton}</div>
         </div>
       </div>
+
       <div css={styles.rightSection}>
         <Typography css={styles.rightTitle}>{t('voteProposalUi.proposalHistory')}</Typography>
+
         <Stepper
           createdDate={createdDate}
           startDate={startDate}
@@ -180,6 +191,7 @@ export const ProposalSummaryUi: React.FC<
 
 const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposal }) => {
   const { account } = useContext(AuthContext);
+
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
   const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
     useExectueProposal();
