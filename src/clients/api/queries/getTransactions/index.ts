@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+import { VError } from 'errors';
 import { ITransaction, TransactionEvent } from 'types';
 import { ITransactionResponse } from './types';
 import formatTransaction from './formatTransaction';
@@ -53,13 +54,17 @@ const getTransactions = async ({
     },
   });
   const payload = response.data?.data;
+  // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
-    // @todo Add specific api error handling
-    throw new Error(response.message);
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: { message: response.message },
+    });
   }
+
   if (!payload) {
-    // @todo Add specific api error handling
-    throw new Error('Unexpected error retrieving transactions');
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrongRetrievingTransactions' });
   }
   const { limit, page: payloadPage, total } = payload;
   const transactions = payload.result.map(data => formatTransaction(data));

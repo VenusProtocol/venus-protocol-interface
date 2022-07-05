@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+import { VError } from 'errors';
 import { MarketSnapshot } from 'types';
 import getMarketHistory from './getMarketHistory';
 
@@ -38,7 +39,11 @@ describe('api/queries/getMarketHistory', () => {
 
       throw new Error('getMarketHistory should have thrown an error but did not');
     } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('unexpected');
+        expect(error.data.message).toBe('Fake error message');
+      }
     }
   });
 

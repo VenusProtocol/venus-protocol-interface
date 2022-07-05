@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+import { VError } from 'errors';
 import { transactionResponse } from '__mocks__/models/transactions';
 import fakeAddress from '__mocks__/models/address';
 import getTransactions from '.';
@@ -20,7 +21,11 @@ describe('api/queries/getTransactions', () => {
 
       throw new Error('getTransactions should have thrown an error but did not');
     } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('unexpected');
+        expect(error.data.message).toBe('Fake error message');
+      }
     }
   });
 
@@ -49,6 +54,7 @@ describe('api/queries/getTransactions', () => {
         order: 'event',
         address: fakeAddress,
         sort: 'asc',
+        version: 'v2',
       },
     });
 
@@ -69,11 +75,12 @@ describe('api/queries/getTransactions', () => {
       endpoint: '/transactions',
       method: 'GET',
       params: {
-        page: 1,
+        page: 0,
         event: undefined,
         order: 'blockNumber',
         address: undefined,
         sort: 'desc',
+        version: 'v2',
       },
     });
 

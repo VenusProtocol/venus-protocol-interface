@@ -12,7 +12,7 @@ import {
 } from '@web3-react/walletconnect-connector';
 import { toast } from 'components/Toast';
 import { LS_KEY_CONNECTED_CONNECTOR, CHAIN_ID } from 'config';
-import { useTranslation } from 'translation';
+import { VError, formatVErrorToReadableString } from 'errors';
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';
@@ -29,8 +29,6 @@ const getConnectedConnector = (): Connector | undefined => {
 };
 
 const useAuth = () => {
-  const { t } = useTranslation();
-
   const { activate, deactivate, account } = useWeb3React();
 
   const [connectedConnector, setConnectedConnector] = useState(getConnectedConnector());
@@ -46,13 +44,10 @@ const useAuth = () => {
 
       const connector = connectorsByName[connectorID];
       if (!connector) {
-        // TODO: log error to Sentry (this case should never happen, as it means
+        // TODO: log error (this case should never happen, as it means
         // an incorrect connectorID was passed to this function)
 
-        toast.error({
-          message: t('wallets.errors.unsupportedWallet'),
-        });
-        return;
+        throw new VError({ type: 'interaction', code: 'unsupportedWallet' });
       }
 
       try {
@@ -88,14 +83,13 @@ const useAuth = () => {
           error instanceof UserRejectedRequestErrorInjected ||
           error instanceof UserRejectedRequestErrorWalletConnect
         ) {
-          errorMessage = t('wallets.errors.authorizeAccess');
+          throw new VError({ type: 'interaction', code: 'authorizeAccess' });
         } else if (
           error instanceof NoEthereumProviderError ||
           error instanceof NoBscProviderError
         ) {
-          // TODO: log error to Sentry
-
-          errorMessage = t('wallets.errors.noProvider');
+          // TODO: log error
+          throw new VError({ type: 'interaction', code: 'noProvider' });
         } else {
           errorMessage = (error as Error).message;
         }
@@ -105,6 +99,22 @@ const useAuth = () => {
     },
     [activate],
   );
+
+  const loginShowToast = async (connectorID: Connector) => {
+    try {
+      await login(connectorID);
+    } catch (error) {
+      let { message } = error as Error;
+
+      if (error instanceof VError) {
+        message = formatVErrorToReadableString(error);
+      }
+
+      toast.error({
+        message,
+      });
+    }
+  };
 
   const logOut = useCallback(() => {
     deactivate();
@@ -119,7 +129,7 @@ const useAuth = () => {
     setConnectedConnector(undefined);
   }, [deactivate]);
 
-  return { login, logOut, accountAddress: account, connectedConnector };
+  return { login: loginShowToast, logOut, accountAddress: account, connectedConnector };
 };
 
 export default useAuth;
