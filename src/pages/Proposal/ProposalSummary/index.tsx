@@ -38,7 +38,7 @@ export const ProposalSummaryUi: React.FC<
   isQueueProposalLoading,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const {
@@ -149,7 +149,22 @@ export const ProposalSummaryUi: React.FC<
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
 
-          {state === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
+          {state === 'Active' && (
+            <div>
+              <Typography variant="small2">
+                <Trans
+                  i18nKey="voteProposalUi.activeUntilDate"
+                  components={{
+                    Date: <Typography variant="small2" color="textPrimary" />,
+                  }}
+                  values={{
+                    date: endDate,
+                  }}
+                />
+              </Typography>{' '}
+              <Countdown date={endDate} css={styles.countdown} />
+            </div>
+          )}
         </div>
 
         <div css={styles.content}>

@@ -28,6 +28,7 @@ export const useStyles = () => {
       flex-direction: row;
       justify-content: space-between;
       margin-bottom: ${theme.spacing(6)};
+      align-items: center;
     `,
     rightSection: css`
       display: flex;
@@ -41,10 +42,19 @@ export const useStyles = () => {
       }
     `,
     chipSpace: css`
-      padding-right: ${theme.spacing(2)};
+      margin-right: ${theme.spacing(2)};
     `,
     title: css`
       margin-bottom: ${theme.spacing(2)};
+    `,
+    countdown: css`
+      margin-left: ${theme.spacing(3)};
+      padding-left: ${theme.spacing(3)};
+      border-left: ${theme.spacing(0.25)} solid ${theme.palette.secondary.light};
+
+      ${theme.breakpoints.down('sm')} {
+        display: none;
+      }
     `,
     transactionLink: css`
       margin-bottom: ${theme.spacing(8)};
@@ -62,16 +72,6 @@ export const useStyles = () => {
       min-width: ${theme.spacing(58)};
       ${theme.breakpoints.down('sm')} {
         width: 100%;
-      }
-    `,
-    countdown: css`
-      > :first-of-type {
-        padding-right: ${theme.spacing(3)};
-        border-right: 1px solid ${theme.palette.secondary.light};
-      }
-
-      > :last-child {
-        padding-left: ${theme.spacing(3)};
       }
     `,
   };

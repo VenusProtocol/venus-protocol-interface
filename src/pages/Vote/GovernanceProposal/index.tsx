@@ -118,7 +118,7 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
   abstainedVotesWei,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const voteStatusText = useMemo(() => {
     switch (userVoteStatus) {
@@ -165,7 +165,21 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
       }
       footer={
         endDate && proposalState === 'Active' ? (
-          <Countdown date={endDate} css={styles.countdown} />
+          <div css={styles.timestamp}>
+            <Typography variant="small2">
+              <Trans
+                i18nKey="voteProposalUi.activeUntilDate"
+                components={{
+                  Date: <Typography variant="small2" color="textPrimary" />,
+                }}
+                values={{
+                  date: endDate,
+                }}
+              />
+            </Typography>
+
+            <Countdown date={endDate} />
+          </div>
         ) : undefined
       }
     />

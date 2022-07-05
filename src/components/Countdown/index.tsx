@@ -37,18 +37,8 @@ export const Countdown: React.FC<ICoundownProps> = ({ date, className }) => {
   };
 
   return (
-    <div className={className}>
-      {date.getTime() > Date.now() && (
-        <Typography variant="small2">
-          {t('voteProposalUi.activeUntil')}&nbsp;
-          <Typography variant="small2" color="textPrimary">
-            {t('voteProposalUi.activeUntilDate', { date })}
-          </Typography>
-        </Typography>
-      )}
-      <Typography color="textPrimary" variant="small2">
-        <ReactCountdown date={date} renderer={countdownRenderer} />
-      </Typography>
-    </div>
+    <Typography color="textPrimary" variant="small2" className={className}>
+      <ReactCountdown date={date} renderer={countdownRenderer} />
+    </Typography>
   );
 };

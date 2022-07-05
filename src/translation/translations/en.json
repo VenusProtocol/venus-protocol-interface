@@ -630,7 +630,7 @@
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",
-    "activeUntilDate": "{{ date, dd MMM HH:mm }}",
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM HH:mm }}</Date>",
     "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
