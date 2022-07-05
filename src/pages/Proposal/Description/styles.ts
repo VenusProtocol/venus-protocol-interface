@@ -12,14 +12,18 @@ export const useStyles = () => {
         color: ${theme.palette.text.primary};
       }
     `,
-
+    content: css`
+      max-width: ${theme.spacing(200)};
+      width: 100%;
+    `,
     markdown: css`
       margin-top: ${theme.spacing(2)};
       background-color: ${theme.palette.background.paper};
       font-family: ${theme.typography.fontFamily};
-      max-width: ${theme.spacing(200)};
     `,
     actionTitle: css`
+      word-break: break-all;
+
       a {
         color: ${theme.palette.interactive.success};
       }
