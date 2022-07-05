@@ -124,7 +124,6 @@ export default createTheme({
     h4: {
       fontSize: '1.25rem',
       fontWeight: 600,
-      lineHeight: '1.875rem',
     },
     body1: {
       fontSize: '1rem',
