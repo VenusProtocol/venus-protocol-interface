@@ -19,12 +19,9 @@ export { default as convertPercentageFromSmartContract } from './convertPercenta
 
 export { default as formatTokensToReadableValue } from './formatTokensToReadableValue';
 export * from './convertWeiToTokens';
-export { default as commaFormat } from './commaFormat';
 export { default as encodeParameters } from './encodeParameters';
 export { default as getArgs } from './getArgs';
 export { default as getBigNumber } from './getBigNumber';
-export { default as formatCommaThousandsPeriodDecimal } from './formatCommaThousandsPeriodDecimal';
-export { default as format } from './format';
 export { default as shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatToReadablePercentage } from './formatToReadablePercentage';

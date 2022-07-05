@@ -19,7 +19,6 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
-  format,
   convertTokensToWei,
   formatTokensToReadableValue,
   calculateYearlyEarningsForAssets,
