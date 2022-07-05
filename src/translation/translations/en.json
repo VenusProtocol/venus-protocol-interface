@@ -361,9 +361,9 @@
     "supply": "Supply",
     "supplyApy": "Supply APY",
     "supplyBalance": "Supply Balance",
-    "walletBalance": "Wallet balance: <White>{{amount}} {{symbol}}</White>",
+    "walletBalance": "Wallet balance: <White>{{amount}}</White>",
     "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount: <White>{{amount}} {{symbol}}</White>"
+    "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
   },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",

@@ -19,7 +19,6 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import { Asset, TokenId } from 'types';
 import {
   getBigNumber,
-  format,
   convertTokensToWei,
   formatTokensToReadableValue,
   calculateYearlyEarningsForAssets,
@@ -157,7 +156,12 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
           components={{
             White: <span css={styles.whiteLabel} />,
           }}
-          values={{ amount: format(maxInput, asset.decimals), symbol: assetId?.toUpperCase() }}
+          values={{
+            amount: formatTokensToReadableValue({
+              value: maxInput,
+              tokenId: asset.id,
+            }),
+          }}
         />
       </Typography>
 

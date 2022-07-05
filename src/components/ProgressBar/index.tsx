@@ -1,5 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import type {
+  SliderUnstyledTrackSlotProps,
+  SliderUnstyledMarkSlotProps,
+} from '@mui/base/SliderUnstyled';
 import MaterialSlider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import { SliderTypeMap } from '@mui/material/Slider/Slider';
@@ -46,7 +50,10 @@ export const ProgressBar = ({
     successColor,
   });
 
-  const renderMark = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark']) => (
+  const renderMark = (
+    props?: NonNullable<SliderTypeMap['props']['componentsProps']>['mark'] &
+      SliderUnstyledMarkSlotProps,
+  ) => (
     <Box
       component="span"
       style={props?.style}
@@ -61,7 +68,10 @@ export const ProgressBar = ({
     </Box>
   );
 
-  const renderTrack = (props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track']) => {
+  const renderTrack = (
+    props?: NonNullable<SliderTypeMap['props']['componentsProps']>['track'] &
+      SliderUnstyledTrackSlotProps,
+  ) => {
     const primaryRail = (
       <Box
         style={props?.style}
