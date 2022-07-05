@@ -91,22 +91,22 @@ export const useStyles = () => {
     `,
     marketTable: css`
       h4 {
-        display: initial;
+        display: block;
         ${theme.breakpoints.down('lg')} {
           display: none;
         }
         ${theme.breakpoints.down('sm')} {
-          display: initial;
+          display: block;
         }
       }
     `,
     generalMarketTable: css`
       h4 {
-        display: initial;
+        display: block;
       }
     `,
     table: css`
-      display: initial;
+      display: block;
       ${theme.breakpoints.down('sm')} {
         display: none;
       }
@@ -114,7 +114,7 @@ export const useStyles = () => {
     cards: css`
       display: none;
       ${theme.breakpoints.down('sm')} {
-        display: initial;
+        display: block;
       }
     `,
   };

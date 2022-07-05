@@ -94,7 +94,7 @@ export const useStyles = () => {
       font-weight: 400;
     `,
     table: css`
-      display: initial;
+      display: block;
       ${theme.breakpoints.down('sm')} {
         display: none;
       }
@@ -102,7 +102,7 @@ export const useStyles = () => {
     cards: css`
       display: none;
       ${theme.breakpoints.down('sm')} {
-        display: initial;
+        display: block;
       }
     `,
     cardContentGrid: css`
