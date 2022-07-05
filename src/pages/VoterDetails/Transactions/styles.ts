@@ -8,6 +8,7 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
       padding: ${theme.spacing(6)} 0;
+
       ${theme.breakpoints.down('sm')} {
         background-color: transparent;
       }
@@ -24,18 +25,21 @@ export const useStyles = () => {
     `,
     cards: css`
       display: none;
+
       ${theme.breakpoints.down('sm')} {
         display: initial;
       }
     `,
     cardContentGrid: css`
-      padding-top: ${theme.spacing(2.5)};
-      padding-bottom: ${theme.spacing(8.5)};
+      padding-top: ${theme.spacing(4)};
+      padding-bottom: ${theme.spacing(4)};
+
       .table__table-cards__card-content {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr;
-        row-gap: 20px;
+        row-gap: ${theme.spacing(5)};
       }
+
       ${theme.breakpoints.down('sm')} {
         background-color: transparent;
       }
@@ -68,6 +72,7 @@ export const useStyles = () => {
       align-items: center;
       justify-content: center;
       margin-right: ${theme.spacing(2.5)};
+
       svg {
         color: ${theme.palette.text.primary};
         width: ${theme.spacing(2)};
