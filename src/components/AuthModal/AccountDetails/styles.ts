@@ -56,21 +56,7 @@ export const useStyles = () => {
     `,
     accountAddress: css`
       margin-right: ${theme.spacing(2)};
-      display: block;
       letter-spacing: -0.75px;
-
-      ${theme.breakpoints.down('md')} {
-        display: none;
-      }
-    `,
-    accountAddressMobile: css`
-      margin-right: ${theme.spacing(2)};
-      display: none;
-      letter-spacing: -0.75px;
-
-      ${theme.breakpoints.down('md')} {
-        display: block;
-      }
     `,
     copyButton: css`
       cursor: pointer;

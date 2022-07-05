@@ -8,6 +8,8 @@ interface IEllipseTextProps {
   minChars?: number;
 }
 
+// TODO: replace with Address component
+
 export const EllipseText: React.FC<IEllipseTextProps> = ({
   children,
   className,

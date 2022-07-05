@@ -56,16 +56,18 @@ export const useStyles = () => {
     `,
     address: css`
       flex: 1;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      justify-content: flex-start;
-      max-width: 50%;
     `,
     blueText: css`
       color: ${theme.palette.interactive.primary};
     `,
     addressText: css`
-      margin-right: ${theme.spacing(3)};
+      overflow: hidden;
+      margin-right: ${theme.spacing(2)};
+    `,
+    reasonIcon: css`
+      flex-shrink: 0;
     `,
   };
 };

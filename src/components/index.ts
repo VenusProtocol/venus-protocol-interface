@@ -1,3 +1,4 @@
+export * from './EllipseAddress';
 export * from './Accordion';
 export * from './ActiveVotingProgress';
 export * from './charts/ApyChart';

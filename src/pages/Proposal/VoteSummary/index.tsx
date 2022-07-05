@@ -12,7 +12,7 @@ import {
   Button,
   Icon,
   LabeledInlineContent,
-  EllipseText,
+  EllipseAddress,
   Tooltip,
   LabeledProgressBar,
 } from 'components';
@@ -79,18 +79,21 @@ const VoteSummary = ({
       <ul css={styles.votesWrapper}>
         {voters.map(({ address, voteWeightWei, reason }) => (
           <li key={address} css={styles.voteFrom}>
-            <EllipseText css={styles.address} text={address}>
+            <div css={styles.address}>
               <Link
-                className="ellipse-text"
                 to={Path.VOTE_ADDRESS.replace(':address', address)}
                 css={[styles.blueText, styles.addressText]}
-              />
+              >
+                <EllipseAddress address={address} />
+              </Link>
+
               {reason && (
                 <Tooltip title={reason}>
                   <Icon name="bubble" />
                 </Tooltip>
               )}
-            </EllipseText>
+            </div>
+
             <Typography color="text.primary">
               {convertWeiToTokens({
                 valueWei: voteWeightWei,

@@ -70,6 +70,7 @@ export const useStyles = () => {
     `,
     updateProposalButton: css`
       min-width: ${theme.spacing(58)};
+      margin-top: ${theme.spacing(8)};
       ${theme.breakpoints.down('sm')} {
         width: 100%;
       }
