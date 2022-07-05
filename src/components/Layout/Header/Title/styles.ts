@@ -28,6 +28,7 @@ export const useStyles = () => {
     `,
     icon: css`
       display: inline-flex;
+      cursor: pointer;
       color: ${theme.palette.interactive.primary};
       margin-left: ${theme.spacing(2)};
       height: ${theme.spacing(5.5)};

@@ -50,6 +50,7 @@ export const useStyles = () => {
     txnHashText: css`
       align-items: center;
       color: ${theme.palette.button.main};
+      padding: 0 !important;
 
       :hover {
         color: ${theme.palette.button.medium};

@@ -52,6 +52,10 @@ export const useStyles = () => {
         justify-content: flex-start;
       }
     `,
+    addressContainer: css`
+      display: flex;
+      align-items: center;
+    `,
     xvsIconContainer: css`
       height: ${theme.shape.iconSize.large}px;
       width: ${theme.shape.iconSize.large}px;

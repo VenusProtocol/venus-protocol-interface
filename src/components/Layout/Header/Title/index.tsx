@@ -8,7 +8,7 @@ import { getToken } from 'utilities';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
-import EllipseText from '../../../EllipseText';
+import EllipseAddress from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
 import { menuItems } from '../../constants';
 import BackButton from './BackButton';
@@ -41,12 +41,13 @@ const Title: React.FC = () => {
   if (voterDetailMatch) {
     const { address } = voterDetailMatch.params;
     return (
-      <EllipseText css={styles.address} text={address} minChars={6}>
-        <Typography variant="h3" color="textPrimary" className="ellipse-text">
-          {address}
+      <div css={styles.address}>
+        <Typography variant="h3" color="textPrimary">
+          <EllipseAddress address={address} />
         </Typography>
+
         <Icon name="copy" css={styles.icon} onClick={() => copyToClipboard(address)} />
-      </EllipseText>
+      </div>
     );
   }
 

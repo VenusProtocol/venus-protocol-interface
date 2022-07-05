@@ -5,6 +5,8 @@ import { truncateAddress } from 'utilities';
 import { Breakpoint } from './types';
 import { useStyles } from './styles';
 
+export * from './types';
+
 interface IAddressProps {
   address: string;
   ellipseBreakpoint?: Breakpoint;

@@ -179,6 +179,7 @@ export const ProposalSummaryUi: React.FC<
                 urlType="tx"
                 hash={transactionHash}
                 css={styles.transactionLink}
+                ellipseBreakpoint="xxl"
               />
             )}
           </div>
