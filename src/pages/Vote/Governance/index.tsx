@@ -48,16 +48,20 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
     <div css={styles.root}>
       <div css={[styles.header, styles.bottomSpace]}>
         <Typography variant="h4">{t('vote.governanceProposals')}</Typography>
-        {canCreateProposal && (
-          <div css={styles.createProposal}>
-            <TextButton onClick={() => setShowCreateProposalModal(true)} css={styles.marginless}>
-              {t('vote.createProposalPlus')}
-            </TextButton>
-            <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIcon}>
-              <Icon name="info" />
-            </Tooltip>
-          </div>
-        )}
+
+        <div css={styles.createProposal}>
+          <TextButton
+            onClick={() => setShowCreateProposalModal(true)}
+            css={styles.marginLess}
+            disabled={!canCreateProposal}
+          >
+            {t('vote.createProposalPlus')}
+          </TextButton>
+
+          <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIconWrapper}>
+            <Icon name="info" css={styles.infoIcon} />
+          </Tooltip>
+        </div>
       </div>
 
       {isLoading && <Spinner css={styles.loader} />}
@@ -88,7 +92,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
         )}
       </div>
 
-      {!!total && total > 0 && (
+      {total && total > 0 && (
         <Pagination
           css={styles.pagination}
           itemsCount={total}
@@ -99,6 +103,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
           itemsPerPageCount={limit}
         />
       )}
+
       {showCreateProposalModal && (
         <CreateProposalModal
           isOpen={showCreateProposalModal}
@@ -122,13 +127,16 @@ const Governance: React.FC = () => {
   } = useGetProposals({
     page: currentPage,
   });
+
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
   const { data: currentVotesWei } = useGetCurrentVotes(
     { accountAddress },
     { enabled: !!accountAddress },
   );
+
   const canCreateProposal = currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI);
+
   return (
     <GovernanceUi
       proposals={proposals}
