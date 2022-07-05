@@ -164,12 +164,14 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
 
           {userPendingRewardWei?.isGreaterThan(0) && (
             <div css={styles.rewardWrapper}>
-              <Typography css={styles.text}>{t('vaultItem.reward')}</Typography>
+              <Typography css={[styles.text, styles.textSmallMobile]}>
+                {t('vaultItem.reward')}
+              </Typography>
 
               <Icon css={[styles.tokenIcon, styles.tokenIconWithdraw]} name={rewardTokenId} />
 
               <Typography
-                css={[styles.text, styles.textRewardValue]}
+                css={[styles.text, styles.textRewardValue, styles.textSmallMobile]}
                 variant="body1"
                 color="textPrimary"
                 data-testid={TEST_IDS.vault.vaultItem.userPendingRewardTokens}
@@ -206,13 +208,13 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         <ul css={styles.dataRow}>
           {dataListItems.map(({ title, value }) => (
             <li key={title} css={styles.valueWrapper}>
-              <Typography variant="small2" css={styles.label}>
+              <Typography variant="small2" css={[styles.label, styles.textSmallMobile]}>
                 {title}
               </Typography>
 
               <Typography
                 variant="h4"
-                css={styles.textAligned}
+                css={[styles.textAligned, styles.textSmallMobile]}
                 data-testid={TEST_IDS.vault.vaultItem.dataListItem}
               >
                 {value}
