@@ -17,6 +17,7 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToTokens } from 'utilities';
+import TEST_IDS from '../testIds';
 import DelegateModal from '../DelegateModal';
 import { useStyles } from './styles';
 
@@ -82,7 +83,11 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
           <Typography variant="body2" css={styles.subtitle}>
             {t('vote.votingWeight')}
           </Typography>
-          <Typography variant="h3" css={styles.value}>
+          <Typography
+            variant="h3"
+            css={styles.value}
+            data-testid={TEST_IDS.votingWallet.votingWeightValue}
+          >
             {readableVoteWeight}
           </Typography>
         </div>
@@ -103,7 +108,11 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
           </div>
           <div css={styles.totalLockedValue}>
             <Icon name="xvs" css={styles.tokenIcon} />
-            <Typography variant="h3" css={styles.value}>
+            <Typography
+              variant="h3"
+              css={styles.value}
+              data-testid={TEST_IDS.votingWallet.totalLockedValue}
+            >
               {readableXvsLocked}
             </Typography>
           </div>
@@ -132,7 +141,13 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
           <Trans
             i18nKey="vote.depositYourTokens"
             components={{
-              Link: <Link to={PATHS.VAULT} css={styles.clickableText} />,
+              Link: (
+                <Link
+                  to={PATHS.VAULT}
+                  css={styles.clickableText}
+                  data-testid={TEST_IDS.votingWallet.depositYourTokens}
+                />
+              ),
             }}
           />
         </Typography>
@@ -147,6 +162,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
                   aria-pressed="false"
                   tabIndex={0}
                   onClick={() => setDelegateModelIsOpen(true)}
+                  data-testid={TEST_IDS.votingWallet.delegateYourVoting}
                 />
               ),
             }}

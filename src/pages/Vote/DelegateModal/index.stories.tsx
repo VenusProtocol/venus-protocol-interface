@@ -19,5 +19,6 @@ export const Default = () => (
     setVoteDelegation={noop}
     previouslyDelegated={false}
     isVoteDelegationLoading={false}
+    openAuthModal={noop}
   />
 );

@@ -92,7 +92,9 @@ const DelegateModal: React.FC<IDelegateModalProps> = ({
               {currentUserAccountAddress ? (
                 <FormikSubmitButton
                   fullWidth
-                  enabledLabel={previouslyDelegated ? t('vote.redelegate') : t('vote.delgateVotes')}
+                  enabledLabel={
+                    previouslyDelegated ? t('vote.redelegate') : t('vote.delegateVotes')
+                  }
                   css={styles.submitButton}
                   loading={isVoteDelegationLoading}
                 />
