@@ -11,6 +11,7 @@ export interface IMarkdownViewerProps {
 
 const Markdown: React.FC<IMarkdownViewerProps> = ({ content, className }) => {
   const styles = useStyles();
+
   return (
     <ReactMarkdown
       className={className}
