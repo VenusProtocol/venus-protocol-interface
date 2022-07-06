@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import Box from '@mui/material/Box';
 import { TokenId } from 'types';
 import { Web3Wrapper } from 'clients/web3';
-import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
@@ -23,12 +22,6 @@ export const withWeb3Provider: DecoratorFunction = Story => (
   <Web3Wrapper>
     <Story />
   </Web3Wrapper>
-);
-
-export const withMarketContext: DecoratorFunction = Story => (
-  <MarketContextProvider>
-    <Story />
-  </MarketContextProvider>
 );
 
 export const withAuthContext = (context: IAuthContextValue) => (Story: StoryType) =>
