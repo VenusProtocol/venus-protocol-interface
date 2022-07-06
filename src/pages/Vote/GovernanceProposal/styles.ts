@@ -5,11 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    countdown: css`
-      display: flex;
-      justify-content: space-between;
-    `,
-
     // /* StatusCard styles */
     statusText: css`
       color: ${theme.palette.text.primary};
@@ -59,6 +54,10 @@ export const useStyles = () => {
       background-color: ${theme.palette.interactive.success};
       border-radius: 50%;
       stroke-width: ${theme.spacing(0.5)};
+    `,
+    timestamp: css`
+      display: flex;
+      justify-content: space-between;
     `,
   };
 };

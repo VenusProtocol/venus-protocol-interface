@@ -17,8 +17,9 @@ export const useStyles = () => {
     votes: css`
       display: flex;
       margin-bottom: ${theme.spacing(8)};
-      ${theme.breakpoints.down('sm')} {
-        flex-direction: column;
+
+      ${theme.breakpoints.down('xl')} {
+        display: block;
       }
     `,
     vote: css`
@@ -38,12 +39,6 @@ export const useStyles = () => {
 
       :last-of-type {
         margin-right: 0;
-      }
-    `,
-    middleVote: css`
-      margin: 0 ${theme.spacing(8)};
-      ${theme.breakpoints.down('sm')} {
-        margin: ${theme.spacing(4)} 0;
       }
     `,
     successColor: theme.palette.interactive.success,

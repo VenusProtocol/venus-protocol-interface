@@ -10,7 +10,7 @@ export * from './Chip';
 export * from './Countdown';
 export * from './ConnectWallet';
 export * from './Delimiter';
-export * from './EllipseText';
+export * from './EllipseAddress';
 export * from './EnableToken';
 export * from './Form';
 export * from './Icon';

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { Typography } from '@mui/material';
-import { EllipseText, Table, TableProps } from 'components';
+import { EllipseAddress, Table, TableProps } from 'components';
 import Path from 'constants/path';
 import { useTranslation } from 'translation';
 import { IVoterAccount } from 'types';
@@ -65,12 +65,9 @@ export const LeaderboardTable: React.FC<ILeaderboardTableProps> = ({
           render: () => (
             <Typography css={styles.inline} color="textPrimary" variant="small2">
               {idx + 1 + offset}
-              <EllipseText css={styles.address} minChars={6} text={voter.address}>
-                <Link
-                  className="ellipse-text"
-                  to={Path.VOTE_ADDRESS.replace(':address', voter.address)}
-                />
-              </EllipseText>
+              <Link to={Path.VOTE_ADDRESS.replace(':address', voter.address)} css={styles.address}>
+                <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
+              </Link>
             </Typography>
           ),
           value: idx + 1 + offset,

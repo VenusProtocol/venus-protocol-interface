@@ -109,7 +109,13 @@ export { default as stakeInVrtVault } from './mutations/stakeInVrtVault';
 export * from './mutations/stakeInVrtVault';
 export { default as useStakeInVrtVault } from './mutations/useStakeInVrtVault';
 
-export * from './mutations/castVote';
+export { default as castVote } from './mutations/vote/castVote';
+export * from './mutations/vote/castVote';
+export { default as useCastVote } from './mutations/vote/useCastVote';
+
+export { default as castVoteWithReason } from './mutations/vote/castVoteWithReason';
+export * from './mutations/vote/castVoteWithReason';
+export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWithReason';
 
 export { default as withdrawFromVaiVault } from './mutations/withdrawFromVaiVault';
 export * from './mutations/withdrawFromVaiVault';

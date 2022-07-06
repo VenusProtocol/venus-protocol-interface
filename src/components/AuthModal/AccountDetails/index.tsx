@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3';
-import { truncateAddress } from 'utilities';
+import { EllipseAddress } from '../../EllipseAddress';
 import { BscLink } from '../../BscLink';
 import { Icon } from '../../Icon';
 import { SecondaryButton } from '../../Button';
