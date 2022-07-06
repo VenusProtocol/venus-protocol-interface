@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
-
+import transactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
 import voters from '__mocks__/models/voters';
@@ -268,15 +268,15 @@ export const createProposal = jest.fn();
 export const useCreateProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
 
-export const cancelProposal = jest.fn();
+export const cancelProposal = jest.fn(async () => transactionReceipt);
 export const useCancelProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CANCEL_PROPOSAL, cancelProposal, options);
 
-export const executeProposal = jest.fn();
+export const executeProposal = jest.fn(async () => transactionReceipt);
 export const useExecuteProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.EXECUTE_PROPOSAL, executeProposal, options);
 
-export const queueProposal = jest.fn();
+export const queueProposal = jest.fn(async () => transactionReceipt);
 export const useQueueProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
 

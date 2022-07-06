@@ -7,7 +7,16 @@ import renderComponent from 'testUtils/renderComponent';
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
 import voters from '__mocks__/models/voters';
-import { getProposal, getCurrentVotes, useGetVoters, getVoteReceipt } from 'clients/api';
+import {
+  getProposal,
+  getCurrentVotes,
+  useGetVoters,
+  getVoteReceipt,
+  cancelProposal,
+  queueProposal,
+  executeProposal,
+} from 'clients/api';
+import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import useVote from 'hooks/useVote';
 import en from 'translation/translations/en.json';
 import Proposal from '.';
@@ -17,6 +26,9 @@ jest.mock('clients/api');
 jest.mock('hooks/useVote');
 
 const activeProposal = proposals[1];
+const cancelledProposal = proposals[3];
+const succeededProposal = proposals[4];
+const queuedProposal = proposals[5];
 
 const checkAllButtons = async (
   getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement,
@@ -42,6 +54,8 @@ describe('pages/Proposal', () => {
       vote: jest.fn(),
       isLoading: false,
     }));
+
+    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber(100000000000000000));
   });
 
   it('renders without crashing', async () => {
@@ -54,8 +68,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when proposal is not active', async () => {
-    // Canceled proposal
-    (getProposal as jest.Mock).mockImplementationOnce(() => proposals[3]);
+    (getProposal as jest.Mock).mockImplementationOnce(() => cancelledProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         account: {
@@ -82,7 +95,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when voting Weight is 0', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => new BigNumber(0));
+    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber(0));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         account: {
@@ -169,7 +182,7 @@ describe('pages/Proposal', () => {
     act(() => {
       fireEvent.click(castButton);
     });
-    waitFor(() =>
+    await waitFor(() =>
       expect(vote).toBeCalledWith({ proposalId: 97, voteReason: comment, voteType: 0 }),
     );
   });
@@ -204,10 +217,12 @@ describe('pages/Proposal', () => {
     act(() => {
       fireEvent.click(castButton);
     });
-    waitFor(() => expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 2 }));
+    await waitFor(() =>
+      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 2 }),
+    );
   });
 
-  it('Lists votes cast', async () => {
+  it('lists votes cast', async () => {
     (useGetVoters as jest.Mock).mockImplementation(({ filter }: { filter: 0 | 1 | 2 }) => {
       const votersCopy = cloneDeep(voters);
       votersCopy.result = [votersCopy.result[filter]];
@@ -232,5 +247,83 @@ describe('pages/Proposal', () => {
       within(getByTestId(TEST_IDS.voteSummary.abstain)),
     );
     abstainVoteSummary.getByText(voters.result[2].address);
+  });
+
+  it('allows user with enough voting weight to cancel', async () => {
+    (getCurrentVotes as jest.Mock).mockImplementation(
+      () => new BigNumber(CREATE_PROPOSAL_THRESHOLD_WEI),
+    );
+    const { getByText } = renderComponent(<Proposal />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
+
+    const cancelButton = await waitFor(
+      async () => getByText(en.voteProposalUi.cancel).closest('button') as HTMLButtonElement,
+    );
+
+    act(() => {
+      fireEvent.click(cancelButton);
+    });
+    await waitFor(() => expect(cancelButton).toBeEnabled());
+    expect(cancelProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 97 });
+  });
+
+  it('user with not enough voting weight cannot cancel', async () => {
+    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber(0));
+    const { getByTestId } = renderComponent(<Proposal />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
+    const cancelButton = await waitFor(async () =>
+      getByTestId(TEST_IDS.proposalSummary.cancelButton),
+    );
+    expect(cancelButton).toBeDisabled();
+  });
+
+  it('user can queue succeeded proposal', async () => {
+    (getProposal as jest.Mock).mockImplementationOnce(() => succeededProposal);
+    const { getByTestId } = renderComponent(<Proposal />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
+    const queueButton = await waitFor(async () =>
+      getByTestId(TEST_IDS.proposalSummary.queueButton),
+    );
+    act(() => {
+      fireEvent.click(queueButton);
+    });
+    await waitFor(() =>
+      expect(queueProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 95 }),
+    );
+  });
+
+  it('user can execute queueded proposal', async () => {
+    (getProposal as jest.Mock).mockImplementationOnce(() => queuedProposal);
+    const { getByTestId } = renderComponent(<Proposal />, {
+      authContextValue: {
+        account: {
+          address: fakeAddress,
+        },
+      },
+    });
+    const executeButton = await waitFor(async () =>
+      getByTestId(TEST_IDS.proposalSummary.executeButton),
+    );
+    act(() => {
+      fireEvent.click(executeButton);
+    });
+    await waitFor(() =>
+      expect(executeProposal).toBeCalledWith({ accountAddress: fakeAddress, proposalId: 98 }),
+    );
   });
 });

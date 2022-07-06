@@ -14,6 +14,7 @@ import {
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { IProposal } from 'types';
 import { useTranslation } from 'translation';
+import TEST_IDS from '../testIds';
 import Stepper from './Stepper';
 import { useStyles } from './styles';
 
@@ -107,6 +108,7 @@ export const ProposalSummaryUi: React.FC<
           onClick={handleCancelProposal}
           css={styles.updateProposalButton}
           loading={isCancelProposalLoading}
+          data-testid={TEST_IDS.proposalSummary.cancelButton}
           disabled={!canCancelProposal}
         >
           {t('voteProposalUi.cancel')}
@@ -123,6 +125,7 @@ export const ProposalSummaryUi: React.FC<
           onClick={handleQueueProposal}
           css={styles.updateProposalButton}
           loading={isQueueProposalLoading}
+          data-testid={TEST_IDS.proposalSummary.queueButton}
         >
           {t('voteProposalUi.queue')}
         </PrimaryButton>
@@ -135,6 +138,7 @@ export const ProposalSummaryUi: React.FC<
           onClick={handleExecuteProposal}
           css={styles.updateProposalButton}
           loading={isExecuteProposalLoading}
+          data-testid={TEST_IDS.proposalSummary.executeButton}
         >
           {t('voteProposalUi.execute')}
         </PrimaryButton>
