@@ -44,7 +44,7 @@ const useGetUserMarketInfo = ({
 }: {
   accountAddress?: string;
 }): UseGetUserMarketInfoOutput => {
-  const { data: userMintedVaiWei, isLoading: isGetUserMintedVai } = useGetMintedVai(
+  const { data: userMintedVaiWei, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
     {
       accountAddress: accountAddress || '',
     },
@@ -100,7 +100,7 @@ const useGetUserMarketInfo = ({
     isGetMarketsLoading ||
     isGetAssetsInAccountLoading ||
     isGetVTokenBalancesAccountLoading ||
-    isGetUserMintedVai;
+    isGetUserMintedVaiLoading;
 
   const data = useMemo(() => {
     const {

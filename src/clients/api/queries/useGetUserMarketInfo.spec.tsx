@@ -12,13 +12,13 @@ import useGetUserMarketInfo, { UseGetUserMarketInfoOutput } from './useGetUserMa
 
 jest.mock('clients/api');
 
-const fakeUserVaiMinted = new BigNumber('10000000000000000');
+const fakeUserVaiMintedWei = new BigNumber('10000000000000000');
 
 describe('api/queries/useGetUserMarketInfo', () => {
   beforeEach(() => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
     (getAssetsInAccount as jest.Mock).mockImplementation(() => assetsInAccount);
-    (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMinted);
+    (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {
       if (account === fakeAddress) {
