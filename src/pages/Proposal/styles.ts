@@ -17,19 +17,28 @@ export const useStyles = () => {
     votes: css`
       display: flex;
       margin-bottom: ${theme.spacing(8)};
-      ${theme.breakpoints.down('sm')} {
-        flex-direction: column;
+
+      ${theme.breakpoints.down('xl')} {
+        display: block;
       }
     `,
     vote: css`
       display: flex;
       flex-direction: column;
       flex: 1;
-    `,
-    middleVote: css`
-      margin: 0 ${theme.spacing(8)};
-      ${theme.breakpoints.down('sm')} {
-        margin: ${theme.spacing(4)} 0;
+      margin-right: ${theme.spacing(8)};
+
+      ${theme.breakpoints.down('xl')} {
+        margin-right: 0;
+        margin-bottom: ${theme.spacing(4)};
+
+        :last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      :last-of-type {
+        margin-right: 0;
       }
     `,
     successColor: theme.palette.interactive.success,

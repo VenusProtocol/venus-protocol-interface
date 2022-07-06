@@ -57,20 +57,25 @@ const VoteSummary = ({
 
   return (
     <Paper css={styles.root} className={className}>
-      <LabeledProgressBar
-        greyLeftText={label}
-        whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
-        value={votedValueWei.toNumber()}
-        min={0}
-        // If there are no votes set a fallback to zero the progressbar
-        max={votedTotalWei.toNumber() || 100}
-        step={1}
-        ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
-        successColor={progressBarColor}
-      />
-      <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
-        {label}
-      </Button>
+      <div css={styles.topSection}>
+        <div css={styles.labeledProgressBarContainer}>
+          <LabeledProgressBar
+            greyLeftText={label}
+            whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
+            value={votedValueWei.toNumber()}
+            min={0}
+            // If there are no votes set a fallback to zero the progressbar
+            max={votedTotalWei.toNumber() || 100}
+            step={1}
+            ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
+            successColor={progressBarColor}
+          />
+        </div>
+
+        <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
+          {label}
+        </Button>
+      </div>
 
       <LabeledInlineContent label={t('voteSummary.addresses', { length: voters.length })}>
         <Typography>{t('voteSummary.votes')}</Typography>

@@ -51,6 +51,7 @@ export const LabeledProgressBar: React.FC<ILabeledProgressBar> = ({
           )}
         </div>
       </div>
+
       <ProgressBar {...progressBarProps} />
     </>
   );

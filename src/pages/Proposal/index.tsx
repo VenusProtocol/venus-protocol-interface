@@ -52,6 +52,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   return (
     <div css={styles.root}>
       <ProposalSummary css={styles.summary} proposal={proposal} />
+
       <div css={styles.votes}>
         <VoteSummary
           css={styles.vote}
@@ -63,8 +64,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           progressBarColor={styles.successColor}
           votingEnabled={votingEnabled}
         />
+
         <VoteSummary
-          css={[styles.vote, styles.middleVote]}
+          css={styles.vote}
           label={t('vote.against')}
           votedValueWei={againstVoters.sumVotes.against}
           votedTotalWei={proposal.totalVotesWei}
@@ -73,6 +75,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           progressBarColor={styles.againstColor}
           votingEnabled={votingEnabled}
         />
+
         <VoteSummary
           css={styles.vote}
           label={t('vote.abstain')}
@@ -84,7 +87,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votingEnabled={votingEnabled}
         />
       </div>
+
       <Description description={proposal.description} actions={proposal.actions} />
+
       {voteModalType !== undefined && (
         <VoteModal
           voteModalType={voteModalType}
