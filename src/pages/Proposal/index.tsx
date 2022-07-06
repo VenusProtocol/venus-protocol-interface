@@ -155,6 +155,12 @@ const Proposal = () => {
     { enabled: !!accountAddress },
   );
 
+  const votingEnabled =
+    !!accountAddress &&
+    proposal?.state === 'Active' &&
+    !voteCast?.hasVoted &&
+    votingWeightWei.isGreaterThan(0);
+
   return (
     <ProposalUi
       proposal={proposal}
@@ -162,12 +168,7 @@ const Proposal = () => {
       againstVoters={againstVoters}
       abstainVoters={abstainVoters}
       vote={vote}
-      votingEnabled={
-        !!accountAddress &&
-        proposal?.state === 'Active' &&
-        !voteCast?.hasVoted &&
-        votingWeightWei.isGreaterThan(0)
-      }
+      votingEnabled={votingEnabled}
       readableVoteWeight={readableVoteWeight}
       isVoteLoading={isLoading}
     />
