@@ -31,37 +31,35 @@ const App = () => (
         <RefreshContextProvider>
           <AuthProvider>
             <VaiContextProvider>
-              <MarketContextProvider>
-                <SuccessfulTransactionModalProvider>
-                  <BrowserRouter>
-                    <ToastContainer />
-                    <Layout>
-                      <ResetScrollOnRouteChange />
-                      <Switch>
-                        <Route exact path={Path.DASHBOARD} component={Dashboard} />
+              <SuccessfulTransactionModalProvider>
+                <BrowserRouter>
+                  <ToastContainer />
+                  <Layout>
+                    <ResetScrollOnRouteChange />
+                    <Switch>
+                      <Route exact path={Path.DASHBOARD} component={Dashboard} />
 
-                        <Route exact path={Path.MARKET} component={Market} />
-                        <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
+                      <Route exact path={Path.MARKET} component={Market} />
+                      <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
 
-                        <Route exact path={Path.VAULT} component={Vault} />
+                      <Route exact path={Path.VAULT} component={Vault} />
 
-                        <Route exact path={Path.HISTORY} component={History} />
+                      <Route exact path={Path.HISTORY} component={History} />
 
-                        <Route exact path={Path.VOTE} component={Vote} />
-                        <Route exact path={Path.VOTE_LEADER_BOARD} component={VoterLeaderboard} />
-                        <Route exact path={Path.VOTE_ADDRESS} component={VoterDetails} />
-                        <Route exact path={Path.VOTE_PROPOSAL_DETAILS} component={Proposal} />
+                      <Route exact path={Path.VOTE} component={Vote} />
+                      <Route exact path={Path.VOTE_LEADER_BOARD} component={VoterLeaderboard} />
+                      <Route exact path={Path.VOTE_ADDRESS} component={VoterDetails} />
+                      <Route exact path={Path.VOTE_PROPOSAL_DETAILS} component={Proposal} />
 
-                        <Route exact path={Path.XVS} component={Xvs} />
+                      <Route exact path={Path.XVS} component={Xvs} />
 
-                        <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
+                      <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
 
-                        <Redirect to={Path.DASHBOARD} />
-                      </Switch>
-                    </Layout>
-                  </BrowserRouter>
-                </SuccessfulTransactionModalProvider>
-              </MarketContextProvider>
+                      <Redirect to={Path.DASHBOARD} />
+                    </Switch>
+                  </Layout>
+                </BrowserRouter>
+              </SuccessfulTransactionModalProvider>
             </VaiContextProvider>
           </AuthProvider>
         </RefreshContextProvider>
