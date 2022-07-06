@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
 
 import fakeAddress from '__mocks__/models/address';
@@ -113,13 +114,13 @@ export const getXvsVaultUserInfo = jest.fn();
 export const useGetXvsVaultUserInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo);
 
-export const getCurrentVotes = jest.fn();
+export const getCurrentVotes = jest.fn(() => new BigNumber(100000000000000000));
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
 
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
-export const getProposal = jest.fn();
+export const getProposal = jest.fn(() => proposals[0]);
 export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
 
 export const getDailyXvsWei = jest.fn();
@@ -318,5 +319,3 @@ export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptio
     executeWithdrawalFromXvsVault,
     options,
   );
-
-export const useVote = jest.fn(() => ({ vote: jest.fn() }));

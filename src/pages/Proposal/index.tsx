@@ -10,6 +10,7 @@ import { Spinner } from 'components';
 import { IProposal, IVoter } from 'types';
 import { convertWeiToTokens } from 'utilities';
 import { AuthContext } from 'context/AuthContext';
+import TEST_IDS from './testIds';
 import VoteSummary from './VoteSummary';
 import VoteModal from './VoteModal';
 import ProposalSummary from './ProposalSummary';
@@ -63,6 +64,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
           votingEnabled={votingEnabled}
+          testId={TEST_IDS.voteSummary.for}
         />
 
         <VoteSummary
@@ -74,6 +76,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
           votingEnabled={votingEnabled}
+          testId={TEST_IDS.voteSummary.against}
         />
 
         <VoteSummary
@@ -85,6 +88,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
           votingEnabled={votingEnabled}
+          testId={TEST_IDS.voteSummary.abstain}
         />
       </div>
 
