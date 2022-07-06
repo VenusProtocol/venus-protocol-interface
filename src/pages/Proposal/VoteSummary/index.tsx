@@ -77,7 +77,7 @@ const VoteSummary = ({
         </Button>
       </div>
 
-      <LabeledInlineContent label={t('voteSummary.addresses', { length: voters.length })}>
+      <LabeledInlineContent label={t('voteSummary.addresses', { count: voters.length })}>
         <Typography>{t('voteSummary.votes')}</Typography>
       </LabeledInlineContent>
 

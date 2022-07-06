@@ -715,7 +715,9 @@
     }
   },
   "voteSummary": {
-    "addresses": "{{length}} addresses",
+    "addresses_zero": "{{count}} address",
+    "addresses_one": "{{count}} address",
+    "addresses_other": "{{count}} addresses",
     "votes": "Votes"
   },
   "wallets": {
