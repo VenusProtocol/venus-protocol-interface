@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core';
 import { Paper, Typography } from '@mui/material';
 import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } from 'components';
 import { AuthContext } from 'context/AuthContext';
-import { useCancelProposal, useQueueProposal, useExectueProposal } from 'clients/api';
+import { useCancelProposal, useQueueProposal, useExecuteProposal } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { IProposal } from 'types';
 import { useTranslation } from 'translation';
@@ -211,7 +211,7 @@ const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposa
 
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
   const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
-    useExectueProposal();
+    useExecuteProposal();
   const { mutateAsync: queueProposal, isLoading: isQueueProposalLoading } = useQueueProposal();
 
   const handleCancelProposal = () =>

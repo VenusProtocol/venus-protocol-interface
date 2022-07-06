@@ -79,7 +79,7 @@ export { default as useCancelProposal } from './mutations/useCancelProposal';
 
 export { default as executeProposal } from './mutations/executeProposal';
 export * from './mutations/executeProposal';
-export { default as useExectueProposal } from './mutations/useExecuteProposal';
+export { default as useExecuteProposal } from './mutations/useExecuteProposal';
 
 export { default as queueProposal } from './mutations/queueProposal';
 export * from './mutations/queueProposal';
