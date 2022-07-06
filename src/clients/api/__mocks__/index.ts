@@ -1,6 +1,8 @@
 import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
 
 import fakeAddress from '__mocks__/models/address';
+import proposals from '__mocks__/models/proposals';
+import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
 // Queries
@@ -124,8 +126,8 @@ export const getDailyXvsWei = jest.fn();
 export const useGetDailyXvsWei = () =>
   useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
 
-export const getVoters = jest.fn();
-export const useGetVoters = () => useQuery(FunctionKey.GET_VOTERS, getVoters);
+export const getVoters = jest.fn(() => voters);
+export const useGetVoters = jest.fn(() => useQuery(FunctionKey.GET_VOTERS, getVoters));
 
 export const getVoterHistory = jest.fn();
 export const useGetVoterHistory = () => useQuery(FunctionKey.GET_VOTER_HISTORY, getVoterHistory);
