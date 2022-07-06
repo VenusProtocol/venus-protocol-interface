@@ -161,7 +161,8 @@ export const ProposalSummaryUi: React.FC<
                     date: endDate,
                   }}
                 />
-              </Typography>{' '}
+              </Typography>
+              &nbsp;
               <Countdown date={endDate} css={styles.countdown} />
             </div>
           )}
