@@ -181,6 +181,10 @@ export const useGetVrtVaultAccruedInterestWei = () =>
 export const getVoterAccounts = jest.fn();
 export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);
 
+export const getProposalThreshold = jest.fn(() => new BigNumber('10000000000000000000000'));
+export const useGetProposalThreshold = () =>
+  useQuery(FunctionKey.GET_PROPOSAL_THRESHOLD, getProposalThreshold);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>

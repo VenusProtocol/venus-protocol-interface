@@ -312,3 +312,7 @@ export { default as useGetVrtVaultAccruedInterestWei } from './queries/useGetVrt
 export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';
 export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGetVoterAccounts';
+
+export { default as getProposalThreshold } from './queries/getProposalThreshold';
+export * from './queries/getProposalThreshold';
+export { default as useGetProposalThreshold } from './queries/getProposalThreshold/useGetProposalThreshold';

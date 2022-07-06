@@ -4,7 +4,13 @@ import type { TransactionReceipt } from 'web3-core';
 import { Paper, Typography } from '@mui/material';
 import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } from 'components';
 import { AuthContext } from 'context/AuthContext';
-import { useCancelProposal, useQueueProposal, useExecuteProposal } from 'clients/api';
+import {
+  useCancelProposal,
+  useQueueProposal,
+  useExecuteProposal,
+  useGetProposalThreshold,
+  useGetCurrentVotes,
+} from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { IProposal } from 'types';
 import { useTranslation } from 'translation';
@@ -23,6 +29,7 @@ interface IProposalSummaryContainerProps {
   isCancelProposalLoading: boolean;
   isExecuteProposalLoading: boolean;
   isQueueProposalLoading: boolean;
+  canCancelProposal: boolean;
 }
 
 export const ProposalSummaryUi: React.FC<
@@ -36,6 +43,7 @@ export const ProposalSummaryUi: React.FC<
   isCancelProposalLoading,
   isExecuteProposalLoading,
   isQueueProposalLoading,
+  canCancelProposal,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -91,6 +99,7 @@ export const ProposalSummaryUi: React.FC<
 
   let updateProposalButton;
   let transactionHash = startTxHash;
+
   switch (state) {
     case 'Active':
       updateProposalButton = (
@@ -98,6 +107,7 @@ export const ProposalSummaryUi: React.FC<
           onClick={handleCancelProposal}
           css={styles.updateProposalButton}
           loading={isCancelProposalLoading}
+          disabled={!canCancelProposal}
         >
           {t('voteProposalUi.cancel')}
         </SecondaryButton>
@@ -208,18 +218,26 @@ export const ProposalSummaryUi: React.FC<
 
 const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposal }) => {
   const { account } = useContext(AuthContext);
+  const accountAddress = account?.address || '';
 
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
   const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
     useExecuteProposal();
   const { mutateAsync: queueProposal, isLoading: isQueueProposalLoading } = useQueueProposal();
 
-  const handleCancelProposal = () =>
-    cancelProposal({ proposalId: proposal.id, accountAddress: account?.address || '' });
-  const handleExecuteProposal = () =>
-    executeProposal({ proposalId: proposal.id, accountAddress: account?.address || '' });
-  const handleQueueProposal = () =>
-    queueProposal({ proposalId: proposal.id, accountAddress: account?.address || '' });
+  const handleCancelProposal = () => cancelProposal({ proposalId: proposal.id, accountAddress });
+  const handleExecuteProposal = () => executeProposal({ proposalId: proposal.id, accountAddress });
+  const handleQueueProposal = () => queueProposal({ proposalId: proposal.id, accountAddress });
+
+  const { data: proposalThresholdWei } = useGetProposalThreshold();
+
+  const { data: currentVotesWei } = useGetCurrentVotes(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+
+  const canCancelProposal =
+    proposalThresholdWei && currentVotesWei?.isGreaterThanOrEqualTo(proposalThresholdWei);
 
   return (
     <ProposalSummaryUi
@@ -231,6 +249,7 @@ const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposa
       isCancelProposalLoading={isCancelProposalLoading}
       isExecuteProposalLoading={isExecuteProposalLoading}
       isQueueProposalLoading={isQueueProposalLoading}
+      canCancelProposal={!!canCancelProposal}
     />
   );
 };
