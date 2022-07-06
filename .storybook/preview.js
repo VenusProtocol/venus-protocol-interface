@@ -3,11 +3,7 @@ import { rest } from 'msw';
 import 'loki/configure-react';
 import '../src/assets/styles/index.scss';
 import { PALETTE } from '../src/theme/MuiThemeProvider/muiTheme';
-import {
-  withThemeProvider,
-  withQueryClientProvider,
-  withVaiContextProvider,
-} from '../src/stories/decorators';
+import { withThemeProvider, withQueryClientProvider } from '../src/stories/decorators';
 import GovernanceResponse from '../src/__mocks__/api/governance.json';
 import VotersReponse from '../src/__mocks__/api/voters.json';
 import TransactionResponse from '../src/__mocks__/api/transactions.json';
@@ -94,9 +90,4 @@ export const parameters = {
   },
 };
 
-export const decorators = [
-  mswDecorator,
-  withThemeProvider,
-  withQueryClientProvider,
-  withVaiContextProvider,
-];
+export const decorators = [mswDecorator, withThemeProvider, withQueryClientProvider];
