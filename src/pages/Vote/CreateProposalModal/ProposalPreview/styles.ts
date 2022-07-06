@@ -16,10 +16,12 @@ export const useStyles = () => {
     ul: css`
       padding-inline-start: ${theme.spacing(2)};
       list-style: none;
+
       > li {
         display: flex;
         align-items: center;
       }
+
       > li::before {
         content: '';
         width: ${theme.spacing(0.5)};
@@ -32,6 +34,7 @@ export const useStyles = () => {
     signature: css`
       color: ${theme.palette.text.primary};
       overflow-wrap: break-word;
+
       > a {
         color: ${theme.palette.interactive.success};
         :hover {
@@ -40,7 +43,6 @@ export const useStyles = () => {
       }
     `,
     markdown: css`
-      margin-top: ${theme.spacing(2)};
       background-color: ${theme.palette.background.paper};
       font-family: ${theme.typography.fontFamily};
       max-width: ${theme.spacing(200)};
