@@ -12,7 +12,7 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_MINTED_VAI, string]
 >;
 
-const useGetMintedVai = (accountAddress: string, options?: Options) => {
+const useGetMintedVai = ({ accountAddress }: { accountAddress: string }, options?: Options) => {
   const comptrollerContract = useComptrollerContract();
 
   return useQuery(

@@ -14,9 +14,9 @@ import {
   LabeledInlineContent,
   FormikTokenTextField,
   ConnectWallet,
+  Spinner,
 } from 'components';
-import { useVaiUser } from 'hooks/useVaiUser';
-import { useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
+import { useGetVaiTreasuryPercentage, useMintVai, useGetMintableVai } from 'clients/api';
 import { useTranslation } from 'translation';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
@@ -27,6 +27,7 @@ import getReadableFeeVai from './getReadableFeeVai';
 export interface IMintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
+  isInitialLoading: boolean;
   mintVai: (value: BigNumber) => Promise<TransactionReceipt | undefined>;
   limitWei?: BigNumber;
   mintFeePercentage?: number;
@@ -35,6 +36,7 @@ export interface IMintVaiUiProps {
 export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   disabled,
   limitWei,
+  isInitialLoading,
   mintFeePercentage,
   isMintVaiLoading,
   mintVai,
@@ -95,49 +97,53 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
   return (
     <ConnectWallet message={t('mintRepayVai.mintVai.connectWallet')}>
       <EnableToken title={t('mintRepayVai.mintVai.enableToken')} vTokenId={VAI_ID}>
-        <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
-          {({ values }) => (
-            <>
-              <div css={styles.ctaContainer}>
-                <FormikTokenTextField
-                  name="amount"
-                  css={styles.textField}
-                  tokenId={VAI_ID}
-                  max={limitTokens}
-                  disabled={disabled || isMintVaiLoading || !hasMintableVai}
-                  rightMaxButton={{
-                    label: t('mintRepayVai.mintVai.rightMaxButtonLabel'),
-                    valueOnClick: limitTokens,
-                  }}
+        {isInitialLoading ? (
+          <Spinner />
+        ) : (
+          <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
+            {({ values }) => (
+              <>
+                <div css={styles.ctaContainer}>
+                  <FormikTokenTextField
+                    name="amount"
+                    css={styles.textField}
+                    tokenId={VAI_ID}
+                    max={limitTokens}
+                    disabled={disabled || isMintVaiLoading || !hasMintableVai}
+                    rightMaxButton={{
+                      label: t('mintRepayVai.mintVai.rightMaxButtonLabel'),
+                      valueOnClick: limitTokens,
+                    }}
+                  />
+
+                  <LabeledInlineContent
+                    css={styles.getRow({ isLast: false })}
+                    iconName={VAI_ID}
+                    label={t('mintRepayVai.mintVai.vaiLimitLabel')}
+                  >
+                    {readableVaiLimit}
+                  </LabeledInlineContent>
+
+                  <LabeledInlineContent
+                    css={styles.getRow({ isLast: true })}
+                    iconName="fee"
+                    label={t('mintRepayVai.mintVai.mintFeeLabel')}
+                  >
+                    {getReadableMintFee(values.amount)}
+                  </LabeledInlineContent>
+                </div>
+
+                <FormikSubmitButton
+                  loading={isMintVaiLoading}
+                  disabled={disabled}
+                  fullWidth
+                  variant="secondary"
+                  enabledLabel={t('mintRepayVai.mintVai.btnMintVai')}
                 />
-
-                <LabeledInlineContent
-                  css={styles.getRow({ isLast: false })}
-                  iconName={VAI_ID}
-                  label={t('mintRepayVai.mintVai.vaiLimitLabel')}
-                >
-                  {readableVaiLimit}
-                </LabeledInlineContent>
-
-                <LabeledInlineContent
-                  css={styles.getRow({ isLast: true })}
-                  iconName="fee"
-                  label={t('mintRepayVai.mintVai.mintFeeLabel')}
-                >
-                  {getReadableMintFee(values.amount)}
-                </LabeledInlineContent>
-              </div>
-
-              <FormikSubmitButton
-                loading={isMintVaiLoading}
-                disabled={disabled}
-                fullWidth
-                variant="secondary"
-                enabledLabel={t('mintRepayVai.mintVai.btnMintVai')}
-              />
-            </>
-          )}
-        </AmountForm>
+              </>
+            )}
+          </AmountForm>
+        )}
       </EnableToken>
     </ConnectWallet>
   );
@@ -145,18 +151,21 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
 const MintVai: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const { mintableVai } = useVaiUser();
+
+  const { data: getUserMintableVaiWeiData, isLoading: isGetUserMintableVaiLoading } =
+    useGetMintableVai(
+      {
+        accountAddress: account?.address || '',
+      },
+      {
+        enabled: !!account?.address,
+      },
+    );
 
   const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
   const { mutateAsync: contractMintVai, isLoading: isMintVaiLoading } = useMintVai();
-
-  // Convert limit into wei of VAI
-  const limitWei = React.useMemo(
-    () => convertTokensToWei({ value: mintableVai, tokenId: VAI_ID }),
-    [mintableVai.toFixed()],
-  );
 
   const mintVai: IMintVaiUiProps['mintVai'] = async amountWei => {
     if (!account) {
@@ -173,7 +182,8 @@ const MintVai: React.FC = () => {
   return (
     <MintVaiUi
       disabled={!account || isGetVaiTreasuryPercentageLoading}
-      limitWei={limitWei}
+      limitWei={getUserMintableVaiWeiData?.mintableVaiWei}
+      isInitialLoading={isGetUserMintableVaiLoading}
       mintFeePercentage={vaiTreasuryPercentage}
       isMintVaiLoading={isMintVaiLoading}
       mintVai={mintVai}
