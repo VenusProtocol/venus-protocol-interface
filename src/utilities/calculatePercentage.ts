@@ -8,7 +8,7 @@ const calculatePercentage = ({ numerator, denominator }: ICalculatePercentageInp
     return 0;
   }
 
-  return Math.round((numerator * 100) / denominator);
+  return (numerator * 100) / denominator;
 };
 
 export default calculatePercentage;
