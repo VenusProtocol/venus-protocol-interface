@@ -137,6 +137,10 @@
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
   },
+  "header": {
+    "proposalDetailsTitle": "Overview",
+    "voteLeaderboardTitle": "Vote"
+  },
   "history": {
     "all": "All",
     "approval": "Approval",
@@ -196,7 +200,6 @@
       "market": "Market",
       "vault": "Vault",
       "vote": "Vote",
-      "voteLeaderboard": "Vote",
       "xvs": "XVS",
       "xvsPrediction": "XVS Prediction"
     }
@@ -627,7 +630,7 @@
   },
   "voteProposalUi": {
     "activeUntil": "Active until:",
-    "activeUntilDate": "{{ date, dd MMM HH:mm }}",
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM HH:mm }}</Date>",
     "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
@@ -712,7 +715,9 @@
     }
   },
   "voteSummary": {
-    "addresses": "{{length}} addresses",
+    "addresses_zero": "{{count}} address",
+    "addresses_one": "{{count}} address",
+    "addresses_other": "{{count}} addresses",
     "votes": "Votes"
   },
   "wallets": {

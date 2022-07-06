@@ -9,11 +9,10 @@ export const useStyles = () => {
     `,
     address: css`
       padding-left: ${theme.spacing(7)};
-      a {
-        color: ${theme.palette.interactive.primary};
-        :hover {
-          color: ${theme.palette.button.medium};
-        }
+      color: ${theme.palette.interactive.primary};
+
+      :hover {
+        color: ${theme.palette.button.medium};
       }
     `,
     table: css`

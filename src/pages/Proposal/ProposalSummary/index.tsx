@@ -38,7 +38,7 @@ export const ProposalSummaryUi: React.FC<
   isQueueProposalLoading,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
   const {
@@ -148,22 +148,50 @@ export const ProposalSummaryUi: React.FC<
             <Chip text={`#${id}`} css={styles.chipSpace} />
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
-          {state === 'Active' && <Countdown date={endDate} css={styles.countdown} />}
+
+          {state === 'Active' && (
+            <div>
+              <Typography variant="small2">
+                <Trans
+                  i18nKey="voteProposalUi.activeUntilDate"
+                  components={{
+                    Date: <Typography variant="small2" color="textPrimary" />,
+                  }}
+                  values={{
+                    date: endDate,
+                  }}
+                />
+              </Typography>
+              &nbsp;
+              <Countdown date={endDate} css={styles.countdown} />
+            </div>
+          )}
         </div>
+
         <div css={styles.content}>
           <div>
             <Typography variant="h3" css={styles.title}>
               {title}
             </Typography>
+
             {transactionHash && (
-              <BscLink text={createdTxHash} urlType="tx" hash={transactionHash} />
+              <BscLink
+                text={createdTxHash}
+                urlType="tx"
+                hash={transactionHash}
+                css={styles.transactionLink}
+                ellipseBreakpoint="xxl"
+              />
             )}
           </div>
+
           <div>{updateProposalButton}</div>
         </div>
       </div>
+
       <div css={styles.rightSection}>
         <Typography css={styles.rightTitle}>{t('voteProposalUi.proposalHistory')}</Typography>
+
         <Stepper
           createdDate={createdDate}
           startDate={startDate}
@@ -180,6 +208,7 @@ export const ProposalSummaryUi: React.FC<
 
 const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposal }) => {
   const { account } = useContext(AuthContext);
+
   const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
   const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
     useExectueProposal();

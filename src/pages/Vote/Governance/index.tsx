@@ -92,7 +92,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
         )}
       </div>
 
-      {total && total > 0 && (
+      {!!total && total > 0 && (
         <Pagination
           css={styles.pagination}
           itemsCount={total}

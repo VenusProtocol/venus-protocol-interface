@@ -10,10 +10,43 @@ export const useStyles = () => {
     inner: css`
       border-radius: ${theme.shape.borderRadius.medium}px;
     `,
+    topSection: css`
+      margin-bottom: ${theme.spacing(8)};
+
+      ${theme.breakpoints.down('xl')} {
+        display: flex;
+        align-items: center;
+        margin-bottom: ${theme.spacing(7)};
+      }
+
+      ${theme.breakpoints.down('sm')} {
+        display: block;
+        margin-bottom: ${theme.spacing(8)};
+      }
+    `,
+    labeledProgressBarContainer: css`
+      margin-bottom: ${theme.spacing(8)};
+
+      ${theme.breakpoints.down('xl')} {
+        flex: 2;
+        margin-right: ${theme.spacing(8)};
+        margin-bottom: 0;
+      }
+
+      ${theme.breakpoints.down('sm')} {
+        margin-right: 0;
+        margin-bottom: ${theme.spacing(8)};
+      }
+    `,
     button: css`
       width: 100%;
-      margin-top: ${theme.spacing(8)};
       margin-bottom: ${theme.spacing(8)};
+
+      ${theme.breakpoints.down('xl')} {
+        flex: 1;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     `,
     votesWrapper: css`
       margin: 0;
@@ -22,7 +55,7 @@ export const useStyles = () => {
       width: calc(100% + ${theme.spacing(3)});
       max-height: ${theme.spacing(33)};
       overflow: hidden;
-      overflow-y: scroll;
+      overflow-y: auto;
 
       &::-webkit-scrollbar {
         width: ${theme.spacing(1)};
@@ -56,16 +89,18 @@ export const useStyles = () => {
     `,
     address: css`
       flex: 1;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      justify-content: flex-start;
-      max-width: 50%;
     `,
     blueText: css`
       color: ${theme.palette.interactive.primary};
     `,
     addressText: css`
-      margin-right: ${theme.spacing(3)};
+      overflow: hidden;
+      margin-right: ${theme.spacing(2)};
+    `,
+    reasonIcon: css`
+      flex-shrink: 0;
     `,
   };
 };

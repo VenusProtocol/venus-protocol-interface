@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'translation';
 import { Connector } from 'clients/web3';
-import { truncateAddress } from 'utilities';
+import { EllipseAddress } from '../../EllipseAddress';
 import { BscLink } from '../../BscLink';
 import { Icon } from '../../Icon';
 import { SecondaryButton } from '../../Button';
@@ -27,7 +27,6 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const truncatedAccountAddress = truncateAddress(account.address);
 
   // Grab the wallet info. Note that we default to the first wallet in the list
   // if no match is found, but in reality that case should never happen
@@ -46,12 +45,7 @@ export const AccountDetails: React.FC<IAccountDetailsProps> = ({
 
           <div css={styles.accountAddressContainer}>
             <Typography component="span" css={styles.accountAddress}>
-              {account.address}
-            </Typography>
-
-            {/* Only displayed on mobile */}
-            <Typography component="span" css={styles.accountAddressMobile}>
-              {truncatedAccountAddress}
+              <EllipseAddress ellipseBreakpoint="md" address={account.address} />
             </Typography>
 
             <button

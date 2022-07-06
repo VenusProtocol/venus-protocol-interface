@@ -8,9 +8,9 @@ import { getToken } from 'utilities';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
-import EllipseText from '../../../EllipseText';
+import EllipseAddress from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
-import { menuItems, subPages } from '../../constants';
+import { menuItems } from '../../constants';
 import BackButton from './BackButton';
 import { useStyles } from './styles';
 
@@ -19,6 +19,8 @@ const Title: React.FC = () => {
   const { pathname } = useLocation();
   const voterDetailMatch = useRouteMatch<{ address: string }>(Path.VOTE_ADDRESS);
   const marketDetailsMatch = useRouteMatch<{ vTokenId: VTokenId }>(Path.MARKET_DETAILS);
+  const voteLeaderboardMatch = useRouteMatch(Path.VOTE_LEADER_BOARD);
+  const proposalDetailsMatch = useRouteMatch<{ id: string }>(Path.VOTE_PROPOSAL_DETAILS);
   const { t } = useTranslation();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
@@ -35,31 +37,35 @@ const Title: React.FC = () => {
     );
   }
 
+  // Handle special case of Voter Details page
   if (voterDetailMatch) {
     const { address } = voterDetailMatch.params;
     return (
-      <EllipseText css={styles.address} text={address} minChars={6}>
-        <Typography variant="h3" color="textPrimary" className="ellipse-text">
-          {address}
+      <div css={styles.address}>
+        <Typography variant="h3" color="textPrimary">
+          <EllipseAddress address={address} />
         </Typography>
+
         <Icon name="copy" css={styles.icon} onClick={() => copyToClipboard(address)} />
-      </EllipseText>
+      </div>
     );
   }
 
-  const currentItem = [...menuItems, ...subPages].find(item => item.href === pathname);
-
-  if (!currentItem) {
-    return null;
+  // Handle special case of Proposal Details and Vote Leaderboard pages
+  if (voteLeaderboardMatch || proposalDetailsMatch) {
+    return (
+      <BackButton>
+        <h3>
+          {voteLeaderboardMatch
+            ? t('header.voteLeaderboardTitle')
+            : t('header.proposalDetailsTitle')}
+        </h3>
+      </BackButton>
+    );
   }
 
-  const title = <h3>{t(currentItem.i18nTitleKey)}</h3>;
-
-  if (currentItem.showHeaderBackButton) {
-    return <BackButton>{title}</BackButton>;
-  }
-
-  return title;
+  const currentItem = menuItems.find(item => item.href === pathname);
+  return currentItem ? <h3>{t(currentItem.i18nTitleKey)}</h3> : null;
 };
 
 export default Title;

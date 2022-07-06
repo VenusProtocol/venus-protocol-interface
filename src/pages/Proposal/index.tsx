@@ -4,14 +4,8 @@ import { BigNumber } from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import type { TransactionReceipt } from 'web3-core';
 import { useTranslation } from 'translation';
-import {
-  useGetProposal,
-  useGetVoters,
-  useVote,
-  useGetCurrentVotes,
-  UseVoteParams,
-  useGetVoteReceipt,
-} from 'clients/api';
+import { useGetProposal, useGetVoters, useGetCurrentVotes, useGetVoteReceipt } from 'clients/api';
+import useVote, { UseVoteParams } from 'hooks/useVote';
 import { Spinner } from 'components';
 import { IProposal, IVoter } from 'types';
 import { convertWeiToTokens } from 'utilities';
@@ -58,6 +52,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   return (
     <div css={styles.root}>
       <ProposalSummary css={styles.summary} proposal={proposal} />
+
       <div css={styles.votes}>
         <VoteSummary
           css={styles.vote}
@@ -69,8 +64,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           progressBarColor={styles.successColor}
           votingEnabled={votingEnabled}
         />
+
         <VoteSummary
-          css={[styles.vote, styles.middleVote]}
+          css={styles.vote}
           label={t('vote.against')}
           votedValueWei={againstVoters.sumVotes.against}
           votedTotalWei={proposal.totalVotesWei}
@@ -79,6 +75,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           progressBarColor={styles.againstColor}
           votingEnabled={votingEnabled}
         />
+
         <VoteSummary
           css={styles.vote}
           label={t('vote.abstain')}
@@ -90,7 +87,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           votingEnabled={votingEnabled}
         />
       </div>
+
       <Description description={proposal.description} actions={proposal.actions} />
+
       {voteModalType !== undefined && (
         <VoteModal
           voteModalType={voteModalType}
@@ -166,7 +165,7 @@ const Proposal = () => {
       votingEnabled={
         !!accountAddress &&
         proposal?.state === 'Active' &&
-        voteCast === undefined &&
+        !voteCast?.hasVoted &&
         votingWeightWei.isGreaterThan(0)
       }
       readableVoteWeight={readableVoteWeight}
