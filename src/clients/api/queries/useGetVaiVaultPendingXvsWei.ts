@@ -6,7 +6,7 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
-import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 type Options = QueryObserverOptions<
   GetVaiVaultPendingXvsWeiOutput,
@@ -26,7 +26,7 @@ const useGetVaiVaultPendingXvsWei = (
     [FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, accountAddress],
     () => getVaiVaultPendingXvsWei({ vaiVaultContract, accountAddress }),
     {
-      refetchInterval: STANDARD_REFETCH_INTERVAL_MS,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       ...options,
     },
   );

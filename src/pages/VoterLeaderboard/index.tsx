@@ -24,9 +24,11 @@ export const VoterLeaderboardUi: React.FC<IVoterLeaderboardProps> = ({
   setCurrentPage,
 }) => {
   const styles = useStyles();
+
   return (
     <div css={styles.root}>
       <LeaderboardTable voterAccounts={voterAccounts} offset={offset} isFetching={isFetching} />
+
       {total && (
         <Pagination
           itemsCount={total}
@@ -52,6 +54,7 @@ const VoterLeaderboard = () => {
     },
     isFetching,
   } = useGetVoterAccounts({ page: currentPage });
+
   return (
     <VoterLeaderboardUi
       voterAccounts={voterAccounts}

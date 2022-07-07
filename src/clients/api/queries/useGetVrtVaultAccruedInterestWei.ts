@@ -4,7 +4,7 @@ import getXvsVaultRewardWeiPerBlock, {
   GetVrtVaultAccruedInterestWeiOutput,
 } from 'clients/api/queries/getVrtVaultAccruedInterestWei';
 import FunctionKey from 'constants/functionKey';
-import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
 
 type Options = QueryObserverOptions<
@@ -26,7 +26,7 @@ const useGetVrtVaultAccruedInterestWei = (
     () => getXvsVaultRewardWeiPerBlock({ accountAddress, vrtVaultContract }),
     {
       ...options,
-      refetchInterval: STANDARD_REFETCH_INTERVAL_MS,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
     },
   );
 };

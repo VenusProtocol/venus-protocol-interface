@@ -12,7 +12,7 @@ import {
   useGetVaiVaultPendingXvsWei,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
@@ -28,7 +28,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       tokenId: TOKENS.vai.id as TokenId,
     },
     {
-      refetchInterval: STANDARD_REFETCH_INTERVAL_MS,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
     },
   );
 

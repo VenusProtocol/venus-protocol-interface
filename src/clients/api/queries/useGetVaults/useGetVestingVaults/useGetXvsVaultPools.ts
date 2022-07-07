@@ -11,7 +11,7 @@ import {
   IGetXvsVaultUserInfoOutput,
 } from 'clients/api';
 import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
-import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 export interface IUseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -60,7 +60,7 @@ const useGetXvsVaultPools = ({
         { accountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
       ],
       enabled: !!accountAddress,
-      refetchInterval: STANDARD_REFETCH_INTERVAL_MS,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
     });
 
     poolQueries.push({

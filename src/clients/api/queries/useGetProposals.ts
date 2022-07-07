@@ -4,7 +4,7 @@ import getProposals, {
   IGetProposalsOutput,
 } from 'clients/api/queries/getProposals';
 import FunctionKey from 'constants/functionKey';
-import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
+import { BLOCK_TIME_MS } from 'constants/bsc';
 
 type Options = QueryObserverOptions<
   IGetProposalsOutput,
@@ -20,7 +20,7 @@ const useGetProposals = (params: IGetProposalsInput = {}, options?: Options) =>
   useQuery([FunctionKey.GET_PROPOSALS, params], () => getProposals(params), {
     keepPreviousData: true,
     placeholderData: { limit: 0, total: 0, offset: 0, proposals: [] },
-    refetchInterval: params.page === 0 ? STANDARD_REFETCH_INTERVAL_MS : undefined,
+    refetchInterval: params.page === 0 ? BLOCK_TIME_MS * 5 : undefined,
     ...options,
   });
 

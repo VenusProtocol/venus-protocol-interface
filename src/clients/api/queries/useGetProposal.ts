@@ -4,6 +4,7 @@ import getProposal from 'clients/api/queries/getProposals/getProposal';
 import { IGetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposals/types';
 import { IProposal } from 'types';
 import FunctionKey from 'constants/functionKey';
+import { BLOCK_TIME_MS } from 'constants/bsc';
 
 type Options = QueryObserverOptions<
   GetProposalOutput,
@@ -19,7 +20,7 @@ const refetchStates = ['Pending', 'Active', 'Succeeded', 'Queued'];
 const useGetProposal = (params: IGetProposalInput, options?: Omit<Options, 'refetchInterval'>) =>
   useQuery([FunctionKey.GET_PROPOSAL, params], () => getProposal(params), {
     onSuccess: (data: IProposal) => {
-      const refetchInterval = refetchStates.includes(data.state) ? 1500 : 0;
+      const refetchInterval = refetchStates.includes(data.state) ? BLOCK_TIME_MS : 0;
       queryClient.setQueryDefaults([FunctionKey.GET_PROPOSAL, params], {
         refetchInterval,
       });

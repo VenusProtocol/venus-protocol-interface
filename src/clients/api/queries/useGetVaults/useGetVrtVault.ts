@@ -11,7 +11,7 @@ import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { TOKENS } from 'constants/tokens';
 import { getContractAddress } from 'utilities';
-import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 export interface UseGetVrtVaultOutput {
   isLoading: boolean;
@@ -32,7 +32,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       tokenId: TOKENS.vrt.id as TokenId,
     },
     {
-      refetchInterval: STANDARD_REFETCH_INTERVAL_MS,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
     },
   );
 

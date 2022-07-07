@@ -4,7 +4,7 @@ import { useGetMarkets, useGetVTokenBalancesAll, IGetVTokenBalancesAllOutput } f
 import { TREASURY_ADDRESS } from 'config';
 import { VBEP_TOKENS } from 'constants/tokens';
 import { Market } from 'types';
-import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { indexBy } from 'utilities';
 
 export interface IData {
@@ -44,7 +44,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
       },
       {
         placeholderData: [],
-        refetchInterval: STANDARD_REFETCH_INTERVAL_MS,
+        refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       },
     );
 
