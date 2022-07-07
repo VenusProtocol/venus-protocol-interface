@@ -20,7 +20,7 @@ export const useStyles = () => {
       align-items: center;
 
       ${theme.breakpoints.down('sm')} {
-        :first-of-type {
+        &:first-of-type {
           margin-bottom: ${theme.spacing(1)};
         }
       }

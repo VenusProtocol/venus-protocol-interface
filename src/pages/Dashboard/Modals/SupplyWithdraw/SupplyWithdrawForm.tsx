@@ -24,6 +24,7 @@ import {
   calculateYearlyEarningsForAssets,
   calculateDailyEarningsCents,
   calculateCollateralValue,
+  getToken,
 } from 'utilities';
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 import { useStyles } from '../styles';
@@ -64,6 +65,9 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   const styles = useStyles();
   const { t, Trans } = useTranslation();
   const { id: assetId } = asset;
+
+  const token = getToken(assetId);
+
   const amount = new BigNumber(amountValue || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
 
@@ -201,7 +205,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
         <ValueUpdate original={dailyEarningsCents} update={hypotheticalDailyEarningCents} />
       </LabeledInlineContent>
       <LabeledInlineContent
-        label={t('supplyWithdraw.supplyBalance')}
+        label={t('supplyWithdraw.supplyBalance', { tokenSymbol: token.symbol })}
         css={styles.getRow({ isLast: true })}
         className="info-row"
       >
@@ -213,6 +217,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
               value,
               tokenId: asset.id,
               minimizeDecimals: true,
+              addSymbol: false,
             })
           }
         />
