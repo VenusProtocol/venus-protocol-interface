@@ -5,7 +5,7 @@ import getProposalState, {
 } from 'clients/api/queries/getProposalState';
 import { useGovernorBravoDelegateContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
-import { BLOCK_VALIDATION_RATE_IN_SECONDS } from 'constants/bsc';
+import { BLOCK_TIME_MS } from 'constants/bsc';
 
 type Options = QueryObserverOptions<
   GetProposalStateOutput,
@@ -24,7 +24,7 @@ const useGetProposalState = (
     [FunctionKey.GET_PROPOSAL_STATE, proposalId],
     () => getProposalState({ governorBravoContract, proposalId }),
     {
-      staleTime: BLOCK_VALIDATION_RATE_IN_SECONDS,
+      staleTime: BLOCK_TIME_MS,
       ...options,
     },
   );

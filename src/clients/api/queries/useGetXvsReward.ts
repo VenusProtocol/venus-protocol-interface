@@ -1,7 +1,7 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 import { useVenusLensContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import { BLOCK_VALIDATION_RATE_IN_SECONDS } from 'constants/bsc';
+import { BLOCK_TIME_MS } from 'constants/bsc';
 import getXvsReward, { IGetXvsRewardInput, GetXvsRewardOutput } from './getXvsReward';
 
 type Options = QueryObserverOptions<
@@ -26,7 +26,7 @@ const useGetXvsReward = (
         accountAddress,
       }),
     {
-      refetchInterval: BLOCK_VALIDATION_RATE_IN_SECONDS * 5 * 1000, // Refetch every 5 blocks
+      refetchInterval: BLOCK_TIME_MS * 3, // Refetch every 3 blocks
       ...options,
     },
   );
