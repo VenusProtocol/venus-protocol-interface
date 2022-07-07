@@ -28,6 +28,7 @@ interface IVoteSummaryProps {
   className?: string;
   votingEnabled: boolean;
   openVoteModal: () => void;
+  testId?: string;
 }
 
 const VoteSummary = ({
@@ -39,6 +40,7 @@ const VoteSummary = ({
   voters = [],
   className,
   votingEnabled,
+  testId,
 }: IVoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -56,7 +58,7 @@ const VoteSummary = ({
   );
 
   return (
-    <Paper css={styles.root} className={className}>
+    <Paper css={styles.root} className={className} data-testid={testId}>
       <div css={styles.topSection}>
         <div css={styles.labeledProgressBarContainer}>
           <LabeledProgressBar

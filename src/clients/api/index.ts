@@ -79,7 +79,7 @@ export { default as useCancelProposal } from './mutations/useCancelProposal';
 
 export { default as executeProposal } from './mutations/executeProposal';
 export * from './mutations/executeProposal';
-export { default as useExectueProposal } from './mutations/useExecuteProposal';
+export { default as useExecuteProposal } from './mutations/useExecuteProposal';
 
 export { default as queueProposal } from './mutations/queueProposal';
 export * from './mutations/queueProposal';
@@ -312,3 +312,7 @@ export { default as useGetVrtVaultAccruedInterestWei } from './queries/useGetVrt
 export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';
 export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGetVoterAccounts';
+
+export { default as getProposalThreshold } from './queries/getProposalThreshold';
+export * from './queries/getProposalThreshold';
+export { default as useGetProposalThreshold } from './queries/getProposalThreshold/useGetProposalThreshold';
