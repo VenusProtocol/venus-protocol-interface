@@ -51,11 +51,13 @@ export const useStyles = () => {
     tokenIcon: css`
       height: ${theme.spacing(6.5)};
       width: ${theme.spacing(6.5)};
+      margin-right: ${theme.spacing(3)};
     `,
     totalLockedValue: css`
       display: flex;
       flex-direction: row;
       padding-bottom: ${theme.spacing(2)};
+      align-items: center;
     `,
     totalLockedText: css`
       margin-right: ${theme.spacing(2)};
