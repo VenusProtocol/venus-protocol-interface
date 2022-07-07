@@ -1,5 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
+import { TOKENS } from 'constants/tokens';
 import { useWeb3 } from 'clients/web3';
 import { queryClient, repayBnb, IRepayBnbInput, RepayBnbOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -20,9 +21,8 @@ const useRepayNonBnbVToken = (options?: Options) => {
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
         queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
-        queryClient.invalidateQueries([FunctionKey.GET_V_TOKEN_BORROW_BALANCE, 'bnb']);
+        queryClient.invalidateQueries([FunctionKey.GET_V_TOKEN_BORROW_BALANCE, TOKENS.bnb.id]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

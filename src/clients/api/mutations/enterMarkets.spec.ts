@@ -21,7 +21,7 @@ describe('api/mutation/enterMarkets', () => {
       await enterMarkets({
         comptrollerContract: fakeContract,
         accountAddress: '0x32asdf',
-        vtokenAddresses: ['0x32asdf'],
+        vTokenAddresses: ['0x32asdf'],
       });
 
       throw new Error('enterMarkets should have thrown an error but did not');
@@ -52,7 +52,7 @@ describe('api/mutation/enterMarkets', () => {
       await enterMarkets({
         comptrollerContract: fakeContract,
         accountAddress: '0x32asdf',
-        vtokenAddresses: ['0x32asdf'],
+        vTokenAddresses: ['0x32asdf'],
       });
 
       throw new Error('enterMarkets should have thrown an error but did not');
@@ -69,7 +69,7 @@ describe('api/mutation/enterMarkets', () => {
 
   test('returns Receipt when request succeeds', async () => {
     const account = { address: '0x3d7598124C212d2121234cd36aFe1c685FbEd848' };
-    const vtokenAddresses = ['0x3d759121234cd36F8124C21aFe1c6852d2bEd848'];
+    const vTokenAddresses = ['0x3d759121234cd36F8124C21aFe1c6852d2bEd848'];
     const fakeTransactionReceipt = { events: {} };
     const sendMock = jest.fn(async () => fakeTransactionReceipt);
     const enterMarketsMock = jest.fn(() => ({
@@ -85,12 +85,12 @@ describe('api/mutation/enterMarkets', () => {
     const response = await enterMarkets({
       comptrollerContract: fakeContract,
       accountAddress: account.address,
-      vtokenAddresses,
+      vTokenAddresses,
     });
 
     expect(response).toBe(fakeTransactionReceipt);
     expect(enterMarketsMock).toHaveBeenCalledTimes(1);
-    expect(enterMarketsMock).toHaveBeenCalledWith(vtokenAddresses);
+    expect(enterMarketsMock).toHaveBeenCalledWith(vTokenAddresses);
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(sendMock).toHaveBeenCalledWith({ from: account.address });
   });

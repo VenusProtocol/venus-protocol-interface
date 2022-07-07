@@ -222,24 +222,30 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   } = useGetUserMarketInfo({
     accountAddress,
   });
+
   const { data: vTokenBalanceWei } = useGetVTokenBalanceOf(
-    { account: accountAddress, vTokenId: asset.id as VTokenId },
+    { accountAddress, vTokenId: asset.id as VTokenId },
     { enabled: !!accountAddress },
   );
+
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
     asset,
     account: accountAddress,
   });
+
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
-    assetId: asset?.id as VTokenId,
-    account: accountAddress,
+    vTokenId: asset?.id as VTokenId,
+    accountAddress,
   });
+
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
-      assetId: asset?.id as VTokenId,
-      account: accountAddress,
+      vTokenId: asset?.id as VTokenId,
+      accountAddress,
     });
+
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
+
   const onSubmitSupply: IAmountFormProps['onSubmit'] = async value => {
     const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
     const res = await supply({
@@ -262,8 +268,10 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     const amount = new BigNumber(value);
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;
+
     if (amountEqualsSupplyBalance && vTokenBalanceWei) {
       const res = await redeem({ amountWei: new BigNumber(vTokenBalanceWei) });
+
       ({ transactionHash } = res);
       // Display successful transaction modal
     } else {
@@ -273,7 +281,9 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       });
       ({ transactionHash } = res);
     }
+
     onClose();
+
     if (transactionHash) {
       openSuccessfulTransactionModal({
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),

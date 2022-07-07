@@ -15,6 +15,7 @@ const useSupply = (
   options?: MutationObserverOptions<SupplyNonBnbOutput, Error, SupplyNonBnbParams>,
 ) => {
   const tokenContract = useVTokenContract<VTokenId>(assetId);
+
   return useMutation(
     [FunctionKey.SUPPLY, assetId],
     params =>
@@ -27,6 +28,17 @@ const useSupply = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_V_TOKEN_BALANCE,
+          {
+            accountAddress: account,
+            vTokenId: assetId,
+          },
+        ]);
+        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
+        queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

@@ -12,6 +12,7 @@ const useExecuteProposal = (
   >,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
+
   return useMutation(
     FunctionKey.EXECUTE_PROPOSAL,
     params =>

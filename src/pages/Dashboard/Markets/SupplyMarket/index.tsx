@@ -117,7 +117,7 @@ const SupplyMarket: React.FC<
     onSettled: () => setConfirmCollateral(undefined),
   });
 
-  const { mutateAsync: exitMarkets } = useExitMarket({
+  const { mutateAsync: exitMarket } = useExitMarket({
     onSettled: () => setConfirmCollateral(undefined),
   });
 
@@ -135,7 +135,7 @@ const SupplyMarket: React.FC<
     } else if (!asset.collateral) {
       try {
         setConfirmCollateral(asset);
-        await enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress });
+        await enterMarkets({ vTokenAddresses: [asset.vtokenAddress], accountAddress });
       } catch (error) {
         if (error instanceof VError) {
           throw error;
@@ -157,8 +157,8 @@ const SupplyMarket: React.FC<
     let assetHypotheticalLiquidity;
     try {
       const vTokenBalanceOf = await getVTokenBalanceOf({
-        tokenContract: vTokenContract,
-        account: accountAddress,
+        vTokenContract,
+        accountAddress,
       });
 
       assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
@@ -181,7 +181,7 @@ const SupplyMarket: React.FC<
     if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
       try {
         setConfirmCollateral(asset);
-        await exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress });
+        await exitMarket({ vtokenAddress: asset.vtokenAddress, accountAddress });
       } catch (error) {
         if (error instanceof VError) {
           throw error;

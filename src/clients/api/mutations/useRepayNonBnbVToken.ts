@@ -33,7 +33,6 @@ const useRepayNonBnbVToken = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
         queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
         queryClient.invalidateQueries([FunctionKey.GET_V_TOKEN_BORROW_BALANCE, vTokenId]);
 
