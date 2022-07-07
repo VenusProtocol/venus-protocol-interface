@@ -17,6 +17,7 @@ import {
   ProposalCard,
 } from 'components';
 import Path from 'constants/path';
+import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 interface IStateCard {
@@ -182,6 +183,7 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
           </div>
         ) : undefined
       }
+      data-testid={TEST_IDS.governance.governanceProposal(proposalId.toString())}
     />
   );
 };

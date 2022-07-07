@@ -17,6 +17,7 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToTokens } from 'utilities';
+import TEST_IDS from '../testIds';
 import DelegateModal from '../DelegateModal';
 import { useStyles } from './styles';
 
