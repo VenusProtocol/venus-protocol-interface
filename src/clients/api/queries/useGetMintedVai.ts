@@ -1,6 +1,9 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 
-import getMintedVai, { GetMintedVaiOutput } from 'clients/api/queries/getMintedVai';
+import getMintedVai, {
+  GetMintedVaiOutput,
+  IGetMintedVaiInput,
+} from 'clients/api/queries/getMintedVai';
 import FunctionKey from 'constants/functionKey';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 
@@ -9,14 +12,17 @@ type Options = QueryObserverOptions<
   Error,
   GetMintedVaiOutput,
   GetMintedVaiOutput,
-  [FunctionKey.GET_MINTED_VAI, string]
+  FunctionKey.GET_MINTED_VAI
 >;
 
-const useGetMintedVai = ({ accountAddress }: { accountAddress: string }, options?: Options) => {
+const useGetMintedVai = (
+  { accountAddress }: Omit<IGetMintedVaiInput, 'comptrollerContract'>,
+  options?: Options,
+) => {
   const comptrollerContract = useComptrollerContract();
 
   return useQuery(
-    [FunctionKey.GET_MINTED_VAI, accountAddress],
+    FunctionKey.GET_MINTED_VAI,
     () => getMintedVai({ accountAddress, comptrollerContract }),
     options,
   );

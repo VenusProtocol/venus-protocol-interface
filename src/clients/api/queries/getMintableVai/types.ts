@@ -7,6 +7,6 @@ export interface GetMintableVaiInput {
   accountAddress: string;
 }
 
-export type GetMintableVaiOutput = {
+export interface GetMintableVaiOutput {
   mintableVaiWei: BigNumber;
-};
+}

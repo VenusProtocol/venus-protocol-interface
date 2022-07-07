@@ -28,7 +28,7 @@ describe('api/queries/getMintableVai', () => {
     }
   });
 
-  test('returns the user info in the correct format', async () => {
+  test('returns the mintable VAI in the correct format on success', async () => {
     const callMock = jest.fn(async () => vaiUnitrollerResponses.getMintableVAI);
     const getMintableVAIMock = jest.fn(() => ({
       call: callMock,

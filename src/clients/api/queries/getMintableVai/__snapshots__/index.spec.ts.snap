@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api/queries/getMintableVai returns the user info in the correct format 1`] = `
+exports[`api/queries/getMintableVai returns the mintable VAI in the correct format on success 1`] = `
 Object {
   "mintableVaiWei": "40000000000000000000",
 }
