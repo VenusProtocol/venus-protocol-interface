@@ -1,7 +1,8 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
 import { useVenusLensContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import getXvsReward, { GetXvsRewardOutput } from './getXvsReward';
+import { BLOCK_VALIDATION_RATE_IN_SECONDS } from 'constants/bsc';
+import getXvsReward, { IGetXvsRewardInput, GetXvsRewardOutput } from './getXvsReward';
 
 type Options = QueryObserverOptions<
   GetXvsRewardOutput,
@@ -11,7 +12,10 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_XVS_REWARD, string]
 >;
 
-const useGetXvsReward = (accountAddress: string | undefined, options?: Options) => {
+const useGetXvsReward = (
+  { accountAddress }: Omit<IGetXvsRewardInput, 'lensContract'>,
+  options?: Options,
+) => {
   const lensContract = useVenusLensContract();
 
   return useQuery(
@@ -19,13 +23,11 @@ const useGetXvsReward = (accountAddress: string | undefined, options?: Options) 
     () =>
       getXvsReward({
         lensContract,
-        accountAddress: accountAddress || '',
+        accountAddress,
       }),
     {
-      enabled:
-        (options?.enabled === undefined || options?.enabled) &&
-        // Check user have connected their wallet
-        accountAddress !== undefined,
+      refetchInterval: BLOCK_VALIDATION_RATE_IN_SECONDS * 5 * 1000, // Refetch every 5 blocks
+      ...options,
     },
   );
 };
