@@ -75,7 +75,7 @@ const formatToProposal = ({
 
   if (!endDate && blockNumber) {
     const blocksLeft = endBlock - blockNumber;
-    const secondsUntilEnd = (blocksLeft * BLOCK_TIME_MS) / 1000;
+    const secondsUntilEnd = blocksLeft * (BLOCK_TIME_MS / 1000);
     const now = new Date();
     now.setSeconds(now.getSeconds() + secondsUntilEnd);
     endDate = now;
