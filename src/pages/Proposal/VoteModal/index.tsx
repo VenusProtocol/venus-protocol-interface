@@ -6,6 +6,7 @@ import { Modal, FormikTextField, TextField, FormikSubmitButton, toast } from 'co
 import { useTranslation } from 'translation';
 import { VError, formatVErrorToReadableString } from 'errors';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 interface IVoteModal {
@@ -76,7 +77,8 @@ const VoteModal: React.FC<IVoteModal> = ({
           <Form>
             <TextField
               label={t('vote.votingPower')}
-              name="reason"
+              name="votingPower"
+              id="votingPower"
               leftIconName="xvs"
               disabled
               value={readableVoteWeight}
@@ -85,10 +87,16 @@ const VoteModal: React.FC<IVoteModal> = ({
             <FormikTextField
               label={t('vote.comment')}
               name="reason"
+              id="reason"
               placeholder={t('vote.addComment')}
               css={styles.comment}
             />
-            <FormikSubmitButton enabledLabel={title} fullWidth loading={isVoteLoading} />
+            <FormikSubmitButton
+              enabledLabel={title}
+              fullWidth
+              loading={isVoteLoading}
+              data-testid={TEST_IDS.voteModal.submitButton}
+            />
           </Form>
         )}
       </Formik>

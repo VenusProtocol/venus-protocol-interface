@@ -23,15 +23,48 @@ import Proposal from '.';
 import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
+jest.mock('hooks/useVote');
+
+const activeProposal = proposals[1];
+const cancelledProposal = proposals[3];
+const succeededProposal = proposals[4];
+const queuedProposal = proposals[5];
+
+const checkAllButtons = async (
+  getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement,
+  check: (element: HTMLElement) => void,
+) => {
+  [TEST_IDS.voteSummary.for, TEST_IDS.voteSummary.against, TEST_IDS.voteSummary.abstain].forEach(
+    async testId => {
+      const voteButton = await waitFor(async () => within(getByTestId(testId)).getByRole('button'));
+      check(voteButton);
+    },
+  );
+};
 
 describe('pages/Proposal', () => {
+  beforeEach(() => {
+    jest
+      .useFakeTimers('modern')
+      .setSystemTime(activeProposal.endDate.setMinutes(activeProposal.endDate.getMinutes() - 5));
+
+    (getProposal as jest.Mock).mockImplementation(() => activeProposal);
+
+    (useVote as jest.Mock).mockImplementation(() => ({
+      vote: jest.fn(),
+      isLoading: false,
+    }));
+
+    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber(100000000000000000));
+  });
+
   it('renders without crashing', async () => {
     renderComponent(<Proposal />);
   });
 
   it('vote buttons are disabled when wallet is not connected', async () => {
     const { getByTestId } = renderComponent(<Proposal />);
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+    checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
   });
 
   it('vote buttons are disabled when proposal is not active', async () => {
@@ -43,14 +76,14 @@ describe('pages/Proposal', () => {
         },
       },
     });
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+    checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
   });
 
   it('vote buttons are disabled when vote is cast', async () => {
-    (getVoteReceipt as jest.Mock).mockImplementation(() => ({
-      voteSupport: 'FOR',
+    (getVoteReceipt as jest.Mock).mockImplementationOnce(() => ({
+      hasVoted: true,
+      vote: 'for',
     }));
-
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         account: {
@@ -58,13 +91,11 @@ describe('pages/Proposal', () => {
         },
       },
     });
-
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+    checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
   });
 
-  it('vote buttons are disabled when voting weight is 0', async () => {
+  it('vote buttons are disabled when voting Weight is 0', async () => {
     (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber(0));
-
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         account: {
@@ -72,8 +103,7 @@ describe('pages/Proposal', () => {
         },
       },
     });
-
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+    checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
   });
 
   it('vote buttons are enabled when requirements are met', async () => {
@@ -84,8 +114,7 @@ describe('pages/Proposal', () => {
         },
       },
     });
-
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeEnabled());
+    checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeEnabled());
   });
 
   it('allows user to vote for', async () => {
@@ -126,7 +155,6 @@ describe('pages/Proposal', () => {
       vote,
       isLoading: false,
     }));
-
     const comment = 'Not a good idea';
     const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -154,7 +182,6 @@ describe('pages/Proposal', () => {
     act(() => {
       fireEvent.click(castButton);
     });
-
     await waitFor(() =>
       expect(vote).toBeCalledWith({ proposalId: 97, voteReason: comment, voteType: 0 }),
     );
@@ -280,7 +307,7 @@ describe('pages/Proposal', () => {
     );
   });
 
-  it('user can execute queued proposal', async () => {
+  it('user can execute queueded proposal', async () => {
     (getProposal as jest.Mock).mockImplementationOnce(() => queuedProposal);
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -300,5 +327,3 @@ describe('pages/Proposal', () => {
     );
   });
 });
-
-// TODO: add tests

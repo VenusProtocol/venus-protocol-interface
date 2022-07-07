@@ -120,15 +120,15 @@ export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, 
 export const getProposals = jest.fn();
 export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
 
-export const getProposal = jest.fn();
+export const getProposal = jest.fn(() => proposals[0]);
 export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
 
 export const getDailyXvsWei = jest.fn();
 export const useGetDailyXvsWei = () =>
   useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
 
-export const getVoters = jest.fn();
-export const useGetVoters = () => useQuery(FunctionKey.GET_VOTERS, getVoters);
+export const getVoters = jest.fn(() => voters);
+export const useGetVoters = jest.fn(() => useQuery(FunctionKey.GET_VOTERS, getVoters));
 
 export const getVoterHistory = jest.fn();
 export const useGetVoterHistory = () => useQuery(FunctionKey.GET_VOTER_HISTORY, getVoterHistory);
@@ -180,6 +180,10 @@ export const useGetVrtVaultAccruedInterestWei = () =>
 
 export const getVoterAccounts = jest.fn();
 export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);
+
+export const getProposalThreshold = jest.fn(() => new BigNumber('10000000000000000000000'));
+export const useGetProposalThreshold = () =>
+  useQuery(FunctionKey.GET_PROPOSAL_THRESHOLD, getProposalThreshold);
 
 // Mutations
 export const approveToken = jest.fn();
@@ -264,15 +268,15 @@ export const createProposal = jest.fn();
 export const useCreateProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CREATE_PROPOSAL, createProposal, options);
 
-export const cancelProposal = jest.fn();
+export const cancelProposal = jest.fn(async () => transactionReceipt);
 export const useCancelProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CANCEL_PROPOSAL, cancelProposal, options);
 
-export const executeProposal = jest.fn();
+export const executeProposal = jest.fn(async () => transactionReceipt);
 export const useExecuteProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.EXECUTE_PROPOSAL, executeProposal, options);
 
-export const queueProposal = jest.fn();
+export const queueProposal = jest.fn(async () => transactionReceipt);
 export const useQueueProposal = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.QUEUE_PROPOSAL, queueProposal, options);
 
@@ -319,5 +323,3 @@ export const useExecuteWithdrawalFromXvsVault = (options?: MutationObserverOptio
     executeWithdrawalFromXvsVault,
     options,
   );
-
-export const useVote = jest.fn(() => ({ vote: jest.fn() }));
