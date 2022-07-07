@@ -1,6 +1,8 @@
 import { useQuery, QueryObserverOptions } from 'react-query';
+
 import getMarkets, { IGetMarketsOutput } from 'clients/api/queries/getMarkets';
 import FunctionKey from 'constants/functionKey';
+import { STANDARD_REFETCH_INTERVAL_MS } from 'constants/standardRefetchInterval';
 
 type Options = QueryObserverOptions<
   IGetMarketsOutput,
@@ -10,6 +12,10 @@ type Options = QueryObserverOptions<
   FunctionKey.GET_MARKETS
 >;
 
-const useGetMarkets = (options?: Options) => useQuery(FunctionKey.GET_MARKETS, getMarkets, options);
+const useGetMarkets = (options?: Options) =>
+  useQuery(FunctionKey.GET_MARKETS, getMarkets, {
+    refetchInterval: STANDARD_REFETCH_INTERVAL_MS,
+    ...options,
+  });
 
 export default useGetMarkets;
