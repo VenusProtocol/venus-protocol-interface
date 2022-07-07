@@ -328,3 +328,7 @@ export { default as useGetLatestProposalIdByProposer } from './queries/useGetLat
 export { default as getMintableVai } from './queries/getMintableVai';
 export * from './queries/getMintableVai';
 export { default as useGetMintableVai } from './queries/getMintableVai/useGetMintableVai';
+
+export { default as getBlockNumber } from './queries/getBlockNumber';
+export * from './queries/getBlockNumber';
+export { default as useGetBlockNumber } from './queries/getBlockNumber/useGetBlockNumber';
