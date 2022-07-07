@@ -74,6 +74,7 @@ export const useStyles = () => {
       }
     `,
     icon: css`
+      flex-shrink: 0;
       margin-top: -2px;
       margin-right: ${theme.spacing(2)};
       width: ${theme.shape.iconSize.large}px;
