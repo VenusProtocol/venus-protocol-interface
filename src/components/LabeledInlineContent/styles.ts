@@ -10,11 +10,22 @@ export const useStyles = () => {
       align-items: center;
       justify-content: space-between;
       width: 100%;
+
+      ${theme.breakpoints.down('sm')} {
+        display: block;
+      }
     `,
     column: css`
       display: flex;
       align-items: center;
+
+      ${theme.breakpoints.down('sm')} {
+        :first-of-type {
+          margin-bottom: ${theme.spacing(1)};
+        }
+      }
     `,
+    iconColumn: css``,
     icon: css`
       width: ${theme.shape.iconSize.large}px;
       height: ${theme.shape.iconSize.large}px;
@@ -24,8 +35,19 @@ export const useStyles = () => {
     getLabel: ({ invertTextColors }: { invertTextColors: boolean }) => css`
       color: ${invertTextColors ? theme.palette.text.primary : theme.palette.text.secondary};
     `,
-    getContent: ({ invertTextColors }: { invertTextColors: boolean }) => css`
+    getContent: ({
+      invertTextColors,
+      hasIcon,
+    }: {
+      invertTextColors: boolean;
+      hasIcon: boolean;
+    }) => css`
       color: ${invertTextColors ? theme.palette.text.secondary : theme.palette.text.primary};
+
+      ${hasIcon &&
+      css`
+        margin-left: ${theme.spacing(7)};
+      `}
     `,
   };
 };

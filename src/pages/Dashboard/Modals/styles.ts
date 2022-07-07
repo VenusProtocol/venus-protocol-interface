@@ -35,15 +35,8 @@ export const useStyles = () => {
         margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
 
         span {
-          font-size: 0.875rem;
+          font-size: ${theme.typography.small1.fontSize};
         }
-      }
-    `,
-    bottomRow: css`
-      margin-bottom: ${theme.spacing(12)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(8)};
       }
     `,
   };

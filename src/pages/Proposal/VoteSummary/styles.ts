@@ -48,6 +48,10 @@ export const useStyles = () => {
         margin-bottom: 0;
       }
     `,
+    votesHeader: css`
+      display: flex;
+      justify-content: space-between;
+    `,
     votesWrapper: css`
       margin: 0;
       padding-left: 0;

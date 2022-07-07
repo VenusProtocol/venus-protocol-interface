@@ -202,7 +202,7 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
       </LabeledInlineContent>
       <LabeledInlineContent
         label={t('supplyWithdraw.supplyBalance')}
-        css={styles.bottomRow}
+        css={styles.getRow({ isLast: true })}
         className="info-row"
       >
         <ValueUpdate
