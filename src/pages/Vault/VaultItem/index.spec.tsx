@@ -51,6 +51,21 @@ describe('pages/Vault/VaultItem', () => {
     );
   });
 
+  it('hides withdraw button when displaying non-vesting VRT vault and userStakedWei is equal to 0', async () => {
+    const customBaseProps: VaultItemProps = {
+      ...baseProps,
+      stakedTokenId: TOKENS.vrt.id as TokenId,
+      userStakedWei: new BigNumber(0),
+    };
+
+    const { queryByText } = renderComponent(<VaultItem {...customBaseProps} />, {
+      authContextValue: { account: { address: fakeAddress } },
+    });
+
+    // Click on withdraw button
+    expect(queryByText(en.vaultItem.withdrawButton)).toBeNull();
+  });
+
   it('sends the correct request then displays a successful transaction modal on success when clicking on the claim reward button', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     const { claimReward } = useClaimVaultReward();

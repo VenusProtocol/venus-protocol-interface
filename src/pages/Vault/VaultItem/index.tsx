@@ -34,6 +34,7 @@ export interface IVaultItemUiProps {
   onWithdraw: () => Promise<TransactionReceipt | void>;
   closeActiveModal: () => void;
   isClaimRewardLoading: boolean;
+  canWithdraw?: boolean;
   isWithdrawLoading?: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
@@ -53,6 +54,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
   onClaimReward,
   onStake,
   onWithdraw,
+  canWithdraw = true,
   activeModal,
   poolIndex,
   isClaimRewardLoading,
@@ -228,14 +230,16 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
             {t('vaultItem.stakeButton')}
           </Button>
 
-          <Button
-            onClick={handleWithdraw}
-            css={styles.button}
-            variant="secondary"
-            loading={isWithdrawLoading}
-          >
-            {t('vaultItem.withdrawButton')}
-          </Button>
+          {canWithdraw && (
+            <Button
+              onClick={handleWithdraw}
+              css={styles.button}
+              variant="secondary"
+              loading={isWithdrawLoading}
+            >
+              {t('vaultItem.withdrawButton')}
+            </Button>
+          )}
         </div>
       </Paper>
 
@@ -330,6 +334,14 @@ const VaultItem: React.FC<VaultItemProps> = ({
       stakedTokenId={stakedTokenId}
       rewardTokenId={rewardTokenId}
       poolIndex={poolIndex}
+      // Hide withdraw button of non-vesting VRT vault when user doesn't have
+      // any tokens staked in it
+      canWithdraw={
+        stakedTokenId !== TOKENS.vrt.id ||
+        typeof poolIndex === 'number' ||
+        !vaultItemUiProps.userStakedWei ||
+        vaultItemUiProps.userStakedWei.isGreaterThan(0)
+      }
       // We only track the loading state of a withdrawal for the VRT vault,
       // since all the other vaults handle that through a modal
       isWithdrawLoading={isWithdrawFromVrtVault}
