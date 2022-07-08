@@ -43,6 +43,28 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
     return newColumns;
   }, [columns]);
 
+  const eventTranslationKeys = {
+    All: t('history.all'),
+    Mint: t('history.mint'),
+    Transfer: t('history.transfer'),
+    Borrow: t('history.borrow'),
+    RepayBorrow: t('history.repayBorrow'),
+    Redeem: t('history.redeem'),
+    Approval: t('history.approval'),
+    LiquidateBorrow: t('history.liquidateBorrow'),
+    ReservesAdded: t('history.reservesAdded'),
+    ReservesReduced: t('history.reservesReduced'),
+    MintVAI: t('history.mintVAI'),
+    Withdraw: t('history.withdraw'),
+    RepayVAI: t('history.repayVAI'),
+    Deposit: t('history.deposit'),
+    VoteCast: t('history.voteCast'),
+    ProposalCreated: t('history.proposalCreated'),
+    ProposalQueued: t('history.proposalQueued'),
+    ProposalExecuted: t('history.proposalExecuted'),
+    ProposalCanceled: t('history.proposalCanceled'),
+  };
+
   // Format transactions to rows
   const rows: TableProps['data'] = useMemo(
     () =>
