@@ -8,6 +8,8 @@ import {
   useCreateProposal,
   ICreateProposalInput,
   useGetCurrentVotes,
+  useGetLatestProposalIdByProposer,
+  useGetProposalState,
 } from 'clients/api';
 import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
@@ -135,7 +137,17 @@ const Governance: React.FC = () => {
     { enabled: !!accountAddress },
   );
 
-  const canCreateProposal = currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI);
+  const { data: latestProposal } = useGetLatestProposalIdByProposer({ accountAddress });
+  const { data: latestProposalState } = useGetProposalState(
+    { proposalId: latestProposal || '' },
+    { enabled: !!latestProposal },
+  );
+
+  // User has enough votingWeight to create proposal and doesn't currently have an active or pending proposal
+  const canCreateProposal =
+    currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
+    latestProposalState !== '0' &&
+    latestProposalState !== '1';
 
   return (
     <GovernanceUi

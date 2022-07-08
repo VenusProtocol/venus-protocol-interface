@@ -316,3 +316,11 @@ export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGe
 export { default as getProposalThreshold } from './queries/getProposalThreshold';
 export * from './queries/getProposalThreshold';
 export { default as useGetProposalThreshold } from './queries/getProposalThreshold/useGetProposalThreshold';
+
+export { default as getProposalState } from './queries/getProposalState';
+export * from './queries/getProposalState';
+export { default as useGetProposalState } from './queries/useGetProposalState';
+
+export { default as getLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer';
+export * from './queries/getLatestProposalIdByProposer';
+export { default as useGetLatestProposalIdByProposer } from './queries/useGetLatestProposalIdByProposer';
