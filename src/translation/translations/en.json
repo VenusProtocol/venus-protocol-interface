@@ -672,7 +672,7 @@
       "expired": "Expired",
       "pending": "Pending",
       "queue": "Queue",
-      "queued": "Queue",
+      "queued": "Queued",
       "readyToQueue": "Ready to queue",
       "succeed": "Succeed",
       "timeOnly": "{{date, h:mm a}}"
