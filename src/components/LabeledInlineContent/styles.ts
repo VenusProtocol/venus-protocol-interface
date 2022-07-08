@@ -25,7 +25,6 @@ export const useStyles = () => {
         }
       }
     `,
-    iconColumn: css``,
     icon: css`
       width: ${theme.shape.iconSize.large}px;
       height: ${theme.shape.iconSize.large}px;
