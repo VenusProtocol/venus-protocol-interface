@@ -42,6 +42,19 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   const { t } = useTranslation();
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
 
+  // Summing contract totals because there is a delay getting the totals from the server
+  const totalVotesWei = useMemo(
+    () =>
+      forVoters.sumVotes.for.plus(
+        againstVoters.sumVotes.against.plus(abstainVoters.sumVotes.abstain),
+      ),
+    [
+      forVoters.sumVotes.for.toFixed(),
+      againstVoters.sumVotes.against.toFixed(),
+      abstainVoters.sumVotes.abstain.toFixed(),
+    ],
+  );
+
   if (!proposal) {
     return (
       <div css={[styles.root, styles.spinner]}>
@@ -59,7 +72,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           css={styles.vote}
           label={t('vote.for')}
           votedValueWei={forVoters.sumVotes.for}
-          votedTotalWei={proposal.totalVotesWei}
+          votedTotalWei={totalVotesWei}
           voters={forVoters.result}
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
@@ -71,7 +84,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           css={styles.vote}
           label={t('vote.against')}
           votedValueWei={againstVoters.sumVotes.against}
-          votedTotalWei={proposal.totalVotesWei}
+          votedTotalWei={totalVotesWei}
           voters={againstVoters.result}
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
@@ -83,7 +96,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           css={styles.vote}
           label={t('vote.abstain')}
           votedValueWei={abstainVoters.sumVotes.abstain}
-          votedTotalWei={proposal.totalVotesWei}
+          votedTotalWei={totalVotesWei}
           voters={abstainVoters.result}
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
@@ -98,7 +111,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         <VoteModal
           voteModalType={voteModalType}
           handleClose={() => setVoteModalType(undefined)}
-          vote={(voteReason?: string) =>
+          vote={async (voteReason?: string) =>
             vote({ proposalId: proposal.id, voteType: voteModalType, voteReason })
           }
           readableVoteWeight={readableVoteWeight}

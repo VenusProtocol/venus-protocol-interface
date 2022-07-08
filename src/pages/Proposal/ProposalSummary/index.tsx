@@ -11,7 +11,7 @@ import {
   useGetProposalThreshold,
   useGetCurrentVotes,
 } from 'clients/api';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { IProposal } from 'types';
 import { useTranslation } from 'translation';
 import TEST_IDS from '../testIds';
@@ -48,7 +48,7 @@ export const ProposalSummaryUi: React.FC<
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+  const handleTransactionMutation = useHandleTransactionMutation();
 
   const {
     state,
@@ -69,32 +69,35 @@ export const ProposalSummaryUi: React.FC<
   } = proposal;
 
   const handleCancelProposal = async () => {
-    const transactionReceipt = await cancelProposal();
-    // Show success modal
-    openSuccessfulTransactionModal({
-      title: t('vote.theProposalWasCancelled'),
-      content: t('vote.pleaseAllowTimeForConfirmation'),
-      transactionHash: transactionReceipt.transactionHash,
+    await handleTransactionMutation({
+      mutate: cancelProposal,
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('vote.theProposalWasCancelled'),
+        content: t('vote.pleaseAllowTimeForConfirmation'),
+        transactionHash: transactionReceipt.transactionHash,
+      }),
     });
   };
 
   const handleQueueProposal = async () => {
-    const transactionReceipt = await queueProposal();
-    // Show success modal
-    openSuccessfulTransactionModal({
-      title: t('vote.theProposalWasQueued'),
-      content: t('vote.pleaseAllowTimeForConfirmation'),
-      transactionHash: transactionReceipt.transactionHash,
+    await handleTransactionMutation({
+      mutate: queueProposal,
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('vote.theProposalWasQueued'),
+        content: t('vote.pleaseAllowTimeForConfirmation'),
+        transactionHash: transactionReceipt.transactionHash,
+      }),
     });
   };
 
   const handleExecuteProposal = async () => {
-    const transactionReceipt = await executeProposal();
-    // Show success modal
-    openSuccessfulTransactionModal({
-      title: t('vote.theProposalWasExecuted'),
-      content: t('vote.pleaseAllowTimeForConfirmation'),
-      transactionHash: transactionReceipt.transactionHash,
+    await handleTransactionMutation({
+      mutate: executeProposal,
+      successTransactionModalProps: transactionReceipt => ({
+        title: t('vote.theProposalWasExecuted'),
+        content: t('vote.pleaseAllowTimeForConfirmation'),
+        transactionHash: transactionReceipt.transactionHash,
+      }),
     });
   };
 
