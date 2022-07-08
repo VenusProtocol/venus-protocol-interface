@@ -144,6 +144,7 @@
   "history": {
     "all": "All",
     "approval": "Approval",
+    "borrow": "Borrow",
     "columns": {
       "amount": "Amount",
       "block": "Block",
@@ -629,7 +630,6 @@
     "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
   },
   "voteProposalUi": {
-    "activeUntil": "Active until:",
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM HH:mm }}</Date>",
     "cancel": "Cancel",
     "countdownFormat": {
