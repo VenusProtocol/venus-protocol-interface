@@ -6,7 +6,14 @@ import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
 import { vaults } from '__mocks__/models/vaults';
 import proposals from '__mocks__/models/proposals';
-import { useGetVestingVaults, getCurrentVotes, setVoteDelegate, getProposals } from 'clients/api';
+import {
+  useGetVestingVaults,
+  getCurrentVotes,
+  setVoteDelegate,
+  getProposals,
+  getProposalState,
+  getLatestProposalIdByProposer,
+} from 'clients/api';
 import PATHS from 'constants/path';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import en from 'translation/translations/en.json';
@@ -31,6 +38,7 @@ describe('pages/Vote', () => {
       offset: 10,
     }));
     (setVoteDelegate as jest.Mock).mockImplementation(() => transactionReceipt);
+    (getLatestProposalIdByProposer as jest.Mock).mockImplementation(() => '1');
   });
 
   it('renders without crashing', async () => {
@@ -46,6 +54,28 @@ describe('pages/Vote', () => {
     });
 
     waitFor(() => getByText(en.vote.pages.proposalInformation));
+  });
+
+  it('create proposal is disabled if pending proposal', async () => {
+    (getCurrentVotes as jest.Mock).mockImplementationOnce(
+      () => new BigNumber(50000000000000000000),
+    );
+    (getProposalState as jest.Mock).mockImplementation(async () => '0');
+    const { getByText } = renderComponent(<Vote />);
+    const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
+
+    expect(createProposalButton).toBeDisabled();
+  });
+
+  it('create proposal is disabled if active proposal', async () => {
+    (getCurrentVotes as jest.Mock).mockImplementationOnce(
+      () => new BigNumber(50000000000000000000),
+    );
+    (getProposalState as jest.Mock).mockImplementation(async () => '1');
+    const { getByText } = renderComponent(<Vote />);
+    const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
+
+    expect(createProposalButton).toBeDisabled();
   });
 
   it('opens delegate modal when clicking text with connect wallet button when unauthenticated', async () => {

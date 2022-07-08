@@ -185,6 +185,9 @@ export const getProposalThreshold = jest.fn(() => new BigNumber('100000000000000
 export const useGetProposalThreshold = () =>
   useQuery(FunctionKey.GET_PROPOSAL_THRESHOLD, getProposalThreshold);
 
+export const getProposalState = jest.fn();
+export const useGetProposalState = () => useQuery(FunctionKey.GET_PROPOSAL_STATE, getProposalState);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
