@@ -39,8 +39,16 @@ const formatToProposal = ({
   try {
     descriptionObj = JSON.parse(description);
   } catch (err) {
-    const [title, descriptionText] = description.split('\n')[0];
-    descriptionObj = { version: 'v1' as const, title, description: descriptionText };
+    // Split description in half, delimited by the first instance of a break
+    // line symbol (\n). The first half corresponds to the title of the
+    // proposal, the second to the description
+    const [title, descriptionText] = description.split(/\n(.*)/s);
+
+    // Remove markdown characters from title since it's rendered as plain text
+    // on the front end
+    const plainTitle = title.replaceAll('*', '').replaceAll('#', '');
+
+    descriptionObj = { version: 'v1' as const, title: plainTitle, description: descriptionText };
   }
 
   if (!endDate) {
