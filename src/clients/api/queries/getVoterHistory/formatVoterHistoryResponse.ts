@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { VoterHistory } from 'types';
-import { getSupportName } from 'utilities';
+import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 import { IGetVoterHistoryResponse } from './types';
 
 const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
@@ -78,11 +78,10 @@ const formatVoterHistoryResponse = (data: IGetVoterHistoryResponse) => ({
     blockNumber: d.blockNumber,
     blockTimestamp: d.blockTimestamp,
     createdAt: new Date(d.createdAt),
-    hasVoted: d.hasVoted,
     id: d.id,
     proposal: formatToProposal(d.proposal),
     reason: d.reason ? d.reason : undefined,
-    support: getSupportName(d.support),
+    support: d.hasVoted ? indexedVotingSupportNames[d.support] : 'NOT_VOTED',
     updatedAt: new Date(d.updatedAt),
     votesWei: new BigNumber(d.votes),
   })),
