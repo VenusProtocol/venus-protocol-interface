@@ -107,11 +107,9 @@ export interface DescriptionV1 {
 export interface IProposal {
   abstainedVotesWei: BigNumber;
   againstVotesWei: BigNumber;
-  blockNumber: number;
   createdDate: Date | undefined;
   description: DescriptionV1 | DescriptionV2;
   endBlock: number;
-  endDate: Date;
   executedDate: Date | undefined;
   forVotesWei: BigNumber;
   id: number;
@@ -127,6 +125,9 @@ export interface IProposal {
   queuedTxHash: string | undefined;
   startTxHash: string | undefined;
   totalVotesWei: BigNumber;
+  actions: IProposalAction[];
+  blockNumber?: number;
+  endDate?: Date;
 }
 
 export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
@@ -334,17 +335,13 @@ export interface IVoterDetails {
   voterTransactions: VoteDetailTransaction[];
 }
 
-export type VoterHistory = Omit<IProposal, 'actions' | 'blockNumber' | 'endDate'> & {
-  endDate: Date | undefined;
-};
-
 export interface IVoterHistory {
   address: string;
   blockNumber: number;
   blockTimestamp: number;
   createdAt: Date;
   id: string;
-  proposal: VoterHistory;
+  proposal: IProposal;
   reason: string | undefined;
   support: VoteSupport;
   updatedAt: Date;

@@ -13,7 +13,7 @@ export interface IStepperProps {
   cancelDate: Date | undefined;
   queuedDate: Date | undefined;
   executedDate: Date | undefined;
-  endDate: Date;
+  endDate: Date | undefined;
   state: ProposalState;
 }
 

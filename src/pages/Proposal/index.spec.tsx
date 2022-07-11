@@ -53,7 +53,7 @@ describe('pages/Proposal', () => {
   beforeEach(() => {
     jest
       .useFakeTimers('modern')
-      .setSystemTime(activeProposal.endDate.setMinutes(activeProposal.endDate.getMinutes() - 5));
+      .setSystemTime(activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5));
 
     (getVoteReceipt as jest.Mock).mockImplementation(() => ({
       voteSupport: 'NOT_VOTED',
