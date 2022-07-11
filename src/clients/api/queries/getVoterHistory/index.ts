@@ -28,7 +28,9 @@ const getVoterHistory = async ({
       offset: page * 6,
     },
   });
+
   const payload = response.data?.data;
+
   // @todo Add specific api error handling
   if ('result' in response && response.result === 'error') {
     throw new VError({

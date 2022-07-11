@@ -166,7 +166,7 @@ export const ProposalSummaryUi: React.FC<
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
 
-          {state === 'Active' && (
+          {state === 'Active' && endDate && (
             <div>
               <Typography variant="small2">
                 <Trans

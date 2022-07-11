@@ -14,14 +14,22 @@ Object {
       "id": "b8e4e6c5-ff53-4351-9a6c-afb05443f78d",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "27014047767849131149",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T02:11:13.000Z,
         "createdTxHash": "0x0480b47caff0d35105c2a01254ca8d3bdfea6e20745b24cae28bedc59531962d",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+Due to recent VAI stabilization and market conditions, we have proposed VAI and USDC speed recalibration. This proposal update VAI Vault Rate and vUSDC Venus Speed.
+
+- VAI Vault Rate from 1250 XVS to 500 XVS daily
+- vUSDC Speed Rate from 1000 XVS to 1250 XVS daily
+
+This proposal begins efforts of setting daily XVS emission rate for VAI and vUSDC.
+",
+          "title": " VAI and USDC Speed Recalibration",
           "version": "v1",
         },
         "endBlock": 6833387,
@@ -52,14 +60,17 @@ Object {
       "id": "1f747159-e4e4-4b5c-9494-9cd408cf9647",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "1008475453184684811",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T03:58:41.000Z,
         "createdTxHash": "0x4735c0974124ae9b5379fdedee9d028773d98618f5c367d6fadc4c62c17d07b3",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first community driven buyback and burn of $3.5m in $XVS bought from Swipe Swap and Pancake Swap if approved and executed.
+",
+          "title": " VIP-16 Venus XVS Burn",
           "version": "v1",
         },
         "endBlock": 6835526,
@@ -90,14 +101,30 @@ Object {
       "id": "cf7b8e0a-6d5d-470b-8668-24c33275ebad",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "271645438287511902563",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-22T02:26:21.000Z,
         "createdTxHash": "0xfbcdf3d457342a72de78ea1aacbf45162d9027aa7f8a08f99abe44324963dd78",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+Venus Community has proposed proposal to support DOGE in Venus Protocol Markets and implements an updated contract that supports vDOGE.
+
+## Asset Details
+Name: Dogecoin
+Symbol: DOGE
+Type: Cross-chain pegged asset by Binance 
+Price: $0.3032
+Market Cap: $39,197,370,632
+Rank: 6
+
+## About Dogecoin
+Dogecoin (DOGE) is based on the popular \\"doge\\" Internet meme and features a Shiba Inu on its logo. The open-source digital currency was created by [Billy Markus](https://coinmarketcap.com/alexandria/article/dogecoin-a-stunning-surge-a-crushing-blow-a-surprise-comeback) from Portland, Oregon and Jackson Palmer from Sydney, Australia, and was forked from Litecoin in December 2013. Dogecoin's creators envisaged it as a fun, light-hearted cryptocurrency that would have greater appeal beyond the core Bitcoin audience, since it was based on a dog meme. Tesla CEO Elon Musk posted several tweets on social media that Dogecoin is his favorite coin.
+
+For more information please visit: https://coinmarketcap.com/currencies/dogecoin/
+",
+          "title": " VIP-17 Support vDOGE",
           "version": "v1",
         },
         "endBlock": 6861512,
@@ -128,14 +155,35 @@ Object {
       "id": "d59e6b24-9ffd-4359-860f-5fd052f7a133",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "2342202445218922408",
         "cancelDate": 2021-05-03T10:13:35.000Z,
         "cancelTxHash": "0xa8618ee1def3927ae23f142867e15f557720e83d1af0e9cde1aa732918637e79",
         "createdDate": 2021-04-28T13:57:04.000Z,
         "createdTxHash": "0x05c99ce72b579018456c6def6ca83c66989eec4468e93c21f9391d3cb58b3290",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+## Summary
+Increase the borrow factors from 60% to 80% for selected big caps and stable coins. While markets are highly volatile and market swings happen in both directions, these assets have sufficient liquidity, volume, and markets available for liquidators to be compensated for their work. There have been millions of liquidations properly executed on-chain by liquidators, thus, these changes do not pose a systematic risk. Rather, these changes improve Venus’s competitive advantage while still being over-collateralized.
+
+Update speed setting for Doge and Bitcoin Cash to 50 XVS daily.
+
+Proposal:
+- BTCB 60% to 80%
+- ETH 60% to 80%
+- BNB 60% to 80%
+- XVS 60% 80%
+- SXP 60% to 80%
+- USDT 60% to 80%
+- BUSD 60% to 80%
+- USDC 60% to 80%
+
+- Doge: Decrease speed setting from 119.99 to 50 XVS daily
+- BCH: Increase speed setting from 18.32 to 50 XVS daily
+
+By increasing the above asset collateral to 80%, which will allow users to utilize the higher borrow factors on their existing positions or receive more security for their open positions.
+",
+          "title": " VIP-18 Increase Qualifed Asset's Collateral Factor",
           "version": "v1",
         },
         "endBlock": 7046581,
@@ -166,14 +214,22 @@ Object {
       "id": "79c05c31-e6aa-412c-a340-eaf94cd6413f",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "6.00654038898943986646375e+23",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-28T14:40:25.000Z,
         "createdTxHash": "0x36868f584cdb8743de7ab1ecc05b42fd1ba794e5f387ea5f66232cbc619925be",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+Liquidators play a key role in securing the platform by performing liquidations when users have gone over their borrowing limit. This liquidation process guarantees that all assets borrowed by Venus are 100% backed by supplied collateral. So to ensure liquidators continue to secure the protocol during market volatility, propose increasing liquidator fee incentives from 10% to 15% for all assets.
+
+Proposal:
+Increase liquidator fee incentives from 10% to 15% for all assets
+
+FIL: Increase speed setting from 18.32 to 50 XVS daily
+",
+          "title": " VIP-19 Increase Liquidation Incentive Rate",
           "version": "v1",
         },
         "endBlock": 7047448,
@@ -214,14 +270,22 @@ Object {
       "id": "b8e4e6c5-ff53-4351-9a6c-afb05443f78d",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "27014047767849131149",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T02:11:13.000Z,
         "createdTxHash": "0x0480b47caff0d35105c2a01254ca8d3bdfea6e20745b24cae28bedc59531962d",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+Due to recent VAI stabilization and market conditions, we have proposed VAI and USDC speed recalibration. This proposal update VAI Vault Rate and vUSDC Venus Speed.
+
+- VAI Vault Rate from 1250 XVS to 500 XVS daily
+- vUSDC Speed Rate from 1000 XVS to 1250 XVS daily
+
+This proposal begins efforts of setting daily XVS emission rate for VAI and vUSDC.
+",
+          "title": " VAI and USDC Speed Recalibration",
           "version": "v1",
         },
         "endBlock": 6833387,
@@ -252,14 +316,17 @@ Object {
       "id": "1f747159-e4e4-4b5c-9494-9cd408cf9647",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "1008475453184684811",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-21T03:58:41.000Z,
         "createdTxHash": "0x4735c0974124ae9b5379fdedee9d028773d98618f5c367d6fadc4c62c17d07b3",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+In accordance to our v2 roadmap, VIP-16 proposes to initiate our very first community driven buyback and burn of $3.5m in $XVS bought from Swipe Swap and Pancake Swap if approved and executed.
+",
+          "title": " VIP-16 Venus XVS Burn",
           "version": "v1",
         },
         "endBlock": 6835526,
@@ -290,14 +357,30 @@ Object {
       "id": "cf7b8e0a-6d5d-470b-8668-24c33275ebad",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "271645438287511902563",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-22T02:26:21.000Z,
         "createdTxHash": "0xfbcdf3d457342a72de78ea1aacbf45162d9027aa7f8a08f99abe44324963dd78",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+Venus Community has proposed proposal to support DOGE in Venus Protocol Markets and implements an updated contract that supports vDOGE.
+
+## Asset Details
+Name: Dogecoin
+Symbol: DOGE
+Type: Cross-chain pegged asset by Binance 
+Price: $0.3032
+Market Cap: $39,197,370,632
+Rank: 6
+
+## About Dogecoin
+Dogecoin (DOGE) is based on the popular \\"doge\\" Internet meme and features a Shiba Inu on its logo. The open-source digital currency was created by [Billy Markus](https://coinmarketcap.com/alexandria/article/dogecoin-a-stunning-surge-a-crushing-blow-a-surprise-comeback) from Portland, Oregon and Jackson Palmer from Sydney, Australia, and was forked from Litecoin in December 2013. Dogecoin's creators envisaged it as a fun, light-hearted cryptocurrency that would have greater appeal beyond the core Bitcoin audience, since it was based on a dog meme. Tesla CEO Elon Musk posted several tweets on social media that Dogecoin is his favorite coin.
+
+For more information please visit: https://coinmarketcap.com/currencies/dogecoin/
+",
+          "title": " VIP-17 Support vDOGE",
           "version": "v1",
         },
         "endBlock": 6861512,
@@ -328,14 +411,35 @@ Object {
       "id": "d59e6b24-9ffd-4359-860f-5fd052f7a133",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "2342202445218922408",
         "cancelDate": 2021-05-03T10:13:35.000Z,
         "cancelTxHash": "0xa8618ee1def3927ae23f142867e15f557720e83d1af0e9cde1aa732918637e79",
         "createdDate": 2021-04-28T13:57:04.000Z,
         "createdTxHash": "0x05c99ce72b579018456c6def6ca83c66989eec4468e93c21f9391d3cb58b3290",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+## Summary
+Increase the borrow factors from 60% to 80% for selected big caps and stable coins. While markets are highly volatile and market swings happen in both directions, these assets have sufficient liquidity, volume, and markets available for liquidators to be compensated for their work. There have been millions of liquidations properly executed on-chain by liquidators, thus, these changes do not pose a systematic risk. Rather, these changes improve Venus’s competitive advantage while still being over-collateralized.
+
+Update speed setting for Doge and Bitcoin Cash to 50 XVS daily.
+
+Proposal:
+- BTCB 60% to 80%
+- ETH 60% to 80%
+- BNB 60% to 80%
+- XVS 60% 80%
+- SXP 60% to 80%
+- USDT 60% to 80%
+- BUSD 60% to 80%
+- USDC 60% to 80%
+
+- Doge: Decrease speed setting from 119.99 to 50 XVS daily
+- BCH: Increase speed setting from 18.32 to 50 XVS daily
+
+By increasing the above asset collateral to 80%, which will allow users to utilize the higher borrow factors on their existing positions or receive more security for their open positions.
+",
+          "title": " VIP-18 Increase Qualifed Asset's Collateral Factor",
           "version": "v1",
         },
         "endBlock": 7046581,
@@ -366,14 +470,22 @@ Object {
       "id": "79c05c31-e6aa-412c-a340-eaf94cd6413f",
       "proposal": Object {
         "abstainedVotesWei": "0",
+        "actions": Array [],
         "againstVotesWei": "6.00654038898943986646375e+23",
         "cancelDate": undefined,
         "cancelTxHash": undefined,
         "createdDate": 2021-04-28T14:40:25.000Z,
         "createdTxHash": "0x36868f584cdb8743de7ab1ecc05b42fd1ba794e5f387ea5f66232cbc619925be",
         "description": Object {
-          "description": " ",
-          "title": "#",
+          "description": "
+Liquidators play a key role in securing the platform by performing liquidations when users have gone over their borrowing limit. This liquidation process guarantees that all assets borrowed by Venus are 100% backed by supplied collateral. So to ensure liquidators continue to secure the protocol during market volatility, propose increasing liquidator fee incentives from 10% to 15% for all assets.
+
+Proposal:
+Increase liquidator fee incentives from 10% to 15% for all assets
+
+FIL: Increase speed setting from 18.32 to 50 XVS daily
+",
+          "title": " VIP-19 Increase Liquidation Incentive Rate",
           "version": "v1",
         },
         "endBlock": 7047448,

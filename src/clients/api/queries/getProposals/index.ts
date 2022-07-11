@@ -1,6 +1,5 @@
-import { restService } from 'utilities';
+import { restService, formatToProposal } from 'utilities';
 import { VError } from 'errors';
-import formatToProposal from './formatToProposal';
 import { IGetProposalsInput, IProposalsApiResponse, IGetProposalsOutput } from './types';
 
 export * from './types';
