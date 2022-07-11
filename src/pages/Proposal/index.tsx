@@ -4,18 +4,13 @@ import { BigNumber } from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import type { TransactionReceipt } from 'web3-core';
 import { useTranslation } from 'translation';
-import {
-  useGetProposal,
-  useGetVoters,
-  useVote,
-  useGetCurrentVotes,
-  UseVoteParams,
-  useGetVoteReceipt,
-} from 'clients/api';
+import { useGetProposal, useGetVoters, useGetCurrentVotes, useGetVoteReceipt } from 'clients/api';
+import useVote, { UseVoteParams } from 'hooks/useVote';
 import { Spinner } from 'components';
 import { IProposal, IVoter } from 'types';
 import { convertWeiToTokens } from 'utilities';
 import { AuthContext } from 'context/AuthContext';
+import TEST_IDS from './testIds';
 import VoteSummary from './VoteSummary';
 import VoteModal from './VoteModal';
 import ProposalSummary from './ProposalSummary';
@@ -47,6 +42,19 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   const { t } = useTranslation();
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
 
+  // Summing contract totals because there is a delay getting the totals from the server
+  const totalVotesWei = useMemo(
+    () =>
+      forVoters.sumVotes.for.plus(
+        againstVoters.sumVotes.against.plus(abstainVoters.sumVotes.abstain),
+      ),
+    [
+      forVoters.sumVotes.for.toFixed(),
+      againstVoters.sumVotes.against.toFixed(),
+      abstainVoters.sumVotes.abstain.toFixed(),
+    ],
+  );
+
   if (!proposal) {
     return (
       <div css={[styles.root, styles.spinner]}>
@@ -58,44 +66,52 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   return (
     <div css={styles.root}>
       <ProposalSummary css={styles.summary} proposal={proposal} />
+
       <div css={styles.votes}>
         <VoteSummary
           css={styles.vote}
           label={t('vote.for')}
           votedValueWei={forVoters.sumVotes.for}
-          votedTotalWei={proposal.totalVotesWei}
+          votedTotalWei={totalVotesWei}
           voters={forVoters.result}
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
           votingEnabled={votingEnabled}
+          testId={TEST_IDS.voteSummary.for}
         />
+
         <VoteSummary
-          css={[styles.vote, styles.middleVote]}
+          css={styles.vote}
           label={t('vote.against')}
           votedValueWei={againstVoters.sumVotes.against}
-          votedTotalWei={proposal.totalVotesWei}
+          votedTotalWei={totalVotesWei}
           voters={againstVoters.result}
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
           votingEnabled={votingEnabled}
+          testId={TEST_IDS.voteSummary.against}
         />
+
         <VoteSummary
           css={styles.vote}
           label={t('vote.abstain')}
           votedValueWei={abstainVoters.sumVotes.abstain}
-          votedTotalWei={proposal.totalVotesWei}
+          votedTotalWei={totalVotesWei}
           voters={abstainVoters.result}
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
           votingEnabled={votingEnabled}
+          testId={TEST_IDS.voteSummary.abstain}
         />
       </div>
+
       <Description description={proposal.description} actions={proposal.actions} />
+
       {voteModalType !== undefined && (
         <VoteModal
           voteModalType={voteModalType}
           handleClose={() => setVoteModalType(undefined)}
-          vote={(voteReason?: string) =>
+          vote={async (voteReason?: string) =>
             vote({ proposalId: proposal.id, voteType: voteModalType, voteReason })
           }
           readableVoteWeight={readableVoteWeight}
@@ -151,10 +167,16 @@ const Proposal = () => {
   );
 
   const { vote, isLoading } = useVote({ accountAddress: account?.address || '' });
-  const { data: voteCast } = useGetVoteReceipt(
+  const { data: userVoteReceipt } = useGetVoteReceipt(
     { proposalId: parseInt(id, 10), accountAddress },
     { enabled: !!accountAddress },
   );
+
+  const votingEnabled =
+    !!accountAddress &&
+    proposal?.state === 'Active' &&
+    userVoteReceipt?.voteSupport === 'NOT_VOTED' &&
+    votingWeightWei.isGreaterThan(0);
 
   return (
     <ProposalUi
@@ -163,12 +185,7 @@ const Proposal = () => {
       againstVoters={againstVoters}
       abstainVoters={abstainVoters}
       vote={vote}
-      votingEnabled={
-        !!accountAddress &&
-        proposal?.state === 'Active' &&
-        voteCast === undefined &&
-        votingWeightWei.isGreaterThan(0)
-      }
+      votingEnabled={votingEnabled}
       readableVoteWeight={readableVoteWeight}
       isVoteLoading={isLoading}
     />

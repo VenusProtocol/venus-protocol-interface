@@ -11,14 +11,17 @@ const xvsVaultResponses: {
     ReturnType<ReturnType<XvsVault['methods']['rewardTokenAmountsPerBlock']>['call']>
   >;
   pendingReward: Awaited<ReturnType<ReturnType<XvsVault['methods']['pendingReward']>['call']>>;
+  getWithdrawalRequests: Awaited<
+    ReturnType<ReturnType<XvsVault['methods']['getWithdrawalRequests']>['call']>
+  >;
 } = {
   userInfo: {
     pendingWithdrawals: '1000000000000000000',
     rewardDebt: '2000000000000000000',
-    amount: '3000000000000000000',
+    amount: '30000000000000000000',
     0: '1000000000000000000',
     1: '2000000000000000000',
-    2: '3000000000000000000',
+    2: '30000000000000000000',
   },
   poolInfo: {
     token: '0x4B7268FC7C727B88c5Fc127D41b491BfAe63e144',
@@ -36,6 +39,11 @@ const xvsVaultResponses: {
   totalAllocPoints: '100',
   rewardTokenAmountsPerBlock: '10000000',
   pendingReward: '200000000',
+  getWithdrawalRequests: [
+    ['1000000000000000000', '1656499404'],
+    ['2000000000000000000', '1656599404'],
+    ['3000000000000000000', '1656699404'],
+  ],
 };
 
 export default xvsVaultResponses;

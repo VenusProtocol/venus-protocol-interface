@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withRouter, withProvider, withCenterStory } from 'stories/decorators';
+import { withRouter, withCenterStory } from 'stories/decorators';
 import Card, { ICardProps } from '.';
 
 export default {
   title: 'Pages/MarketDetail/Card',
   component: Card,
-  decorators: [withRouter, withProvider, withCenterStory({ width: 600 })],
+  decorators: [withRouter, withCenterStory({ width: 600 })],
   parameters: {
     backgrounds: {
       default: 'Primary',

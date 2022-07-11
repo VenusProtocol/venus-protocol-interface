@@ -13,7 +13,7 @@ export interface IStepperProps {
   cancelDate: Date | undefined;
   queuedDate: Date | undefined;
   executedDate: Date | undefined;
-  endDate: Date;
+  endDate: Date | undefined;
   state: ProposalState;
 }
 
@@ -159,8 +159,7 @@ const Stepper: React.FC<IStepperProps> = ({
               </div>
               {step.getTimestamp() && (
                 <Typography variant="tiny" css={styles.dateDefault}>
-                  {t('voteProposalUi.statusCard.dateOnly', { date: step.getTimestamp() })}
-
+                  {t('voteProposalUi.statusCard.dateOnly', { date: step.getTimestamp() })}&nbsp;
                   {t('voteProposalUi.statusCard.timeOnly', { date: step.getTimestamp() })}
                 </Typography>
               )}

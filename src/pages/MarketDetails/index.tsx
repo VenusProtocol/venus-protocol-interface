@@ -14,8 +14,13 @@ import {
 import TEST_IDS from 'constants/testIds';
 import { VTokenId } from 'types';
 import { useTranslation } from 'translation';
-import { ApyChart, IApyChartProps, InterestRateChart, IInterestRateChartProps } from 'components';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import {
+  ApyChart,
+  IApyChartProps,
+  InterestRateChart,
+  IInterestRateChartProps,
+  Spinner,
+} from 'components';
 import Path from 'constants/path';
 import { useGetVTokenApySimulations } from 'clients/api';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
@@ -241,7 +246,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
   );
 
   if (!supplyChartData.length || !borrowChartData.length || !interestRateChartData.length) {
-    return <LoadingSpinner />;
+    return <Spinner />;
   }
 
   // @TODO: handle fetching errors

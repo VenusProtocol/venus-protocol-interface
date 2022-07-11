@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import type { TransactionReceipt } from 'web3-core/types';
 
+import { VError } from 'errors';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { useTranslation } from 'translation';
@@ -17,7 +18,7 @@ import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilit
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { TokenId } from 'types';
 import { Icon, Button } from 'components';
-import { StakeModal, WithdrawFromVaiVaultModal } from '../modals';
+import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
 
 type ActiveModal = 'stake' | 'withdraw';
@@ -163,12 +164,14 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
 
           {userPendingRewardWei?.isGreaterThan(0) && (
             <div css={styles.rewardWrapper}>
-              <Typography css={styles.text}>{t('vaultItem.reward')}</Typography>
+              <Typography css={[styles.text, styles.textSmallMobile]}>
+                {t('vaultItem.reward')}
+              </Typography>
 
               <Icon css={[styles.tokenIcon, styles.tokenIconWithdraw]} name={rewardTokenId} />
 
               <Typography
-                css={[styles.text, styles.textRewardValue]}
+                css={[styles.text, styles.textRewardValue, styles.textSmallMobile]}
                 variant="body1"
                 color="textPrimary"
                 data-testid={TEST_IDS.vault.vaultItem.userPendingRewardTokens}
@@ -205,13 +208,13 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         <ul css={styles.dataRow}>
           {dataListItems.map(({ title, value }) => (
             <li key={title} css={styles.valueWrapper}>
-              <Typography variant="small2" css={styles.label}>
+              <Typography variant="small2" css={[styles.label, styles.textSmallMobile]}>
                 {title}
               </Typography>
 
               <Typography
                 variant="h4"
-                css={styles.textAligned}
+                css={[styles.textAligned, styles.textSmallMobile]}
                 data-testid={TEST_IDS.vault.vaultItem.dataListItem}
               >
                 {value}
@@ -249,7 +252,13 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         <WithdrawFromVaiVaultModal handleClose={closeActiveModal} />
       )}
 
-      {/* TODO: add withdraw modal for vesting vaults (see VEN-251) */}
+      {activeModal === 'withdraw' && poolIndex !== undefined && (
+        <WithdrawFromVestingVaultModal
+          handleClose={closeActiveModal}
+          stakedTokenId={stakedTokenId}
+          poolIndex={poolIndex}
+        />
+      )}
     </>
   );
 };
@@ -279,19 +288,22 @@ const VaultItem: React.FC<VaultItemProps> = ({
     useWithdrawFromVrtVault();
 
   const onWithdraw = async () => {
-    if (!account?.address) {
+    if (stakedTokenId !== TOKENS.vrt.id || typeof poolIndex === 'number') {
+      // Handle withdrawing from any vault except the VRT non-vesting vault
+      setActiveModal('withdraw');
       return;
     }
 
-    if (stakedTokenId === TOKENS.vrt.id && typeof poolIndex !== 'number') {
-      // Users can only withdraw the totality of their staked tokens when
-      // withdrawing from the VRT vault
-      return withdrawFromVrtVault({
-        fromAccountAddress: account.address,
-      });
+    // Handle withdrawing from VRT non-vesting vault
+    if (!account?.address) {
+      throw new VError({ type: 'interaction', code: 'accountError' });
     }
 
-    setActiveModal('withdraw');
+    // Users can only withdraw the totality of their staked tokens when
+    // withdrawing from the VRT non-vesting vault
+    return withdrawFromVrtVault({
+      fromAccountAddress: account.address,
+    });
   };
 
   const closeActiveModal = () => setActiveModal(undefined);

@@ -2,20 +2,13 @@ import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { addDecorator, Story as StoryType } from '@storybook/react';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
-import { Provider } from 'react-redux';
-import { store } from 'core/store';
 import Box from '@mui/material/Box';
 import { TokenId } from 'types';
 import { Web3Wrapper } from 'clients/web3';
-import { MarketContextProvider } from 'context/MarketContext';
 import { VaiContextProvider } from 'context/VaiContext';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
-import Theme from 'theme';
-// resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989
-import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
-import mainTheme from 'theme/MuiThemeProvider/muiTheme';
-import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
+import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 export type DecoratorFunction = Parameters<typeof addDecorator>[0];
 
@@ -25,22 +18,10 @@ export const withRouter: DecoratorFunction = Story => (
   </BrowserRouter>
 );
 
-export const withProvider: DecoratorFunction = Story => (
-  <Provider store={store}>
-    <Story />
-  </Provider>
-);
-
 export const withWeb3Provider: DecoratorFunction = Story => (
   <Web3Wrapper>
     <Story />
   </Web3Wrapper>
-);
-
-export const withMarketContext: DecoratorFunction = Story => (
-  <MarketContextProvider>
-    <Story />
-  </MarketContextProvider>
 );
 
 export const withAuthContext = (context: IAuthContextValue) => (Story: StoryType) =>
@@ -57,14 +38,9 @@ export const withVaiContextProvider: DecoratorFunction = Story => (
 );
 
 export const withThemeProvider: DecoratorFunction = Story => (
-  <Theme>
-    {/* resolves mui theme issue in storybook https://github.com/mui/material-ui/issues/24282#issuecomment-952211989 */}
-    <EmotionThemeProvider theme={mainTheme}>
-      <MuiThemeProvider>
-        <Story />
-      </MuiThemeProvider>
-    </EmotionThemeProvider>
-  </Theme>
+  <MuiThemeProvider>
+    <Story />
+  </MuiThemeProvider>
 );
 
 export const withQueryClientProvider: DecoratorFunction = Story => {

@@ -8,7 +8,7 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
     `,
     table: css`
-      display: initial;
+      display: block;
 
       ${theme.breakpoints.down('xl')} {
         display: none;
@@ -17,7 +17,7 @@ export const useStyles = () => {
     cards: css`
       display: none;
       ${theme.breakpoints.down('xl')} {
-        display: initial;
+        display: block;
       }
     `,
     cardContentGrid: css`
@@ -50,6 +50,7 @@ export const useStyles = () => {
     txnHashText: css`
       align-items: center;
       color: ${theme.palette.button.main};
+      padding: 0 !important;
 
       :hover {
         color: ${theme.palette.button.medium};

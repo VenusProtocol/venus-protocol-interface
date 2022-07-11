@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+import { VError } from 'errors';
 import voterAccountsResponse from '__mocks__/api/voterAccounts.json';
 import getVoterAccounts from '.';
 
@@ -19,7 +20,11 @@ describe('api/queries/getVoterAccounts', () => {
 
       throw new Error('getVoterAccounts should have thrown an error but did not');
     } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
+      expect(error).toBeInstanceOf(VError);
+      if (error instanceof VError) {
+        expect(error.type).toBe('unexpected');
+        expect(error.data.message).toBe('Fake error message');
+      }
     }
   });
 

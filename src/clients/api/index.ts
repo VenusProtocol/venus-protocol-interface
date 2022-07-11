@@ -79,7 +79,7 @@ export { default as useCancelProposal } from './mutations/useCancelProposal';
 
 export { default as executeProposal } from './mutations/executeProposal';
 export * from './mutations/executeProposal';
-export { default as useExectueProposal } from './mutations/useExecuteProposal';
+export { default as useExecuteProposal } from './mutations/useExecuteProposal';
 
 export { default as queueProposal } from './mutations/queueProposal';
 export * from './mutations/queueProposal';
@@ -109,7 +109,13 @@ export { default as stakeInVrtVault } from './mutations/stakeInVrtVault';
 export * from './mutations/stakeInVrtVault';
 export { default as useStakeInVrtVault } from './mutations/useStakeInVrtVault';
 
-export * from './mutations/castVote';
+export { default as castVote } from './mutations/vote/castVote';
+export * from './mutations/vote/castVote';
+export { default as useCastVote } from './mutations/vote/useCastVote';
+
+export { default as castVoteWithReason } from './mutations/vote/castVoteWithReason';
+export * from './mutations/vote/castVoteWithReason';
+export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWithReason';
 
 export { default as withdrawFromVaiVault } from './mutations/withdrawFromVaiVault';
 export * from './mutations/withdrawFromVaiVault';
@@ -224,6 +230,7 @@ export { default as useGetXvsVaultPoolsCount } from './queries/useGetXvsVaultPoo
 
 export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
 export * from './queries/getXvsVaultPoolInfo';
+export { default as useGetXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo/useGetXvsVaultPoolInfo';
 
 export { default as getXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock';
 export * from './queries/getXvsVaultRewardWeiPerBlock';
@@ -238,6 +245,11 @@ export { default as useGetXvsVaultTotalAllocationPoints } from './queries/useGet
 
 export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
+export { default as useGetXvsVaultUserInfo } from './queries/getXvsVaultUserInfo/useGetXvsVaultUserInfo';
+
+export { default as getXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits';
+export * from './queries/getXvsVaultLockedDeposits';
+export { default as useGetXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits/useGetXvsVaultLockedDeposits';
 
 export { default as getDailyXvsWei } from './queries/getDailyXvsWei';
 export * from './queries/getDailyXvsWei';
@@ -260,6 +272,14 @@ export { default as useGetVoteReceipt } from './queries/useGetVoteReceipt';
 export { default as getVoters } from './queries/getVoters';
 export * from './queries/getVoters';
 export { default as useGetVoters } from './queries/useGetVoters';
+
+export { default as getVoterDetails } from './queries/getVoterDetails';
+export * from './queries/getVoterDetails';
+export { default as useGetVoterDetails } from './queries/getVoterDetails/useGetVoterDetails';
+
+export { default as getVoterHistory } from './queries/getVoterHistory';
+export * from './queries/getVoterHistory';
+export { default as useGetVoterHistory } from './queries/getVoterHistory/useGetVoterHistory';
 
 export { default as getVaiVaultPendingXvsWei } from './queries/getVaiVaultPendingXvsWei';
 export * from './queries/getVaiVaultPendingXvsWei';
@@ -292,3 +312,15 @@ export { default as useGetVrtVaultAccruedInterestWei } from './queries/useGetVrt
 export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';
 export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGetVoterAccounts';
+
+export { default as getProposalThreshold } from './queries/getProposalThreshold';
+export * from './queries/getProposalThreshold';
+export { default as useGetProposalThreshold } from './queries/getProposalThreshold/useGetProposalThreshold';
+
+export { default as getProposalState } from './queries/getProposalState';
+export * from './queries/getProposalState';
+export { default as useGetProposalState } from './queries/useGetProposalState';
+
+export { default as getLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer';
+export * from './queries/getLatestProposalIdByProposer';
+export { default as useGetLatestProposalIdByProposer } from './queries/useGetLatestProposalIdByProposer';

@@ -35,7 +35,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
-        assets: [], // Not used in these tests
+        assets: [...assetData, fakeAsset],
         userTotalBorrowLimitCents: fakeUserTotalBorrowLimitCents,
         userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceCents,
       },
@@ -92,6 +92,51 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     await waitFor(() =>
       getByText(`${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.symbol}`),
     );
+  });
+
+  it('displays warning message and disables form if user has not supplied and collateralize any tokens yet', async () => {
+    (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+      data: {
+        assets: [],
+        userTotalBorrowLimitCents: new BigNumber(0),
+        userTotalBorrowBalanceCents: new BigNumber(0),
+      },
+      isLoading: false,
+    }));
+
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      liquidity: new BigNumber(200),
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      {
+        authContextValue: {
+          account: {
+            address: fakeAccountAddress,
+          },
+        },
+      },
+    );
+    await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
+
+    expect(
+      getByText(en.borrowRepayModal.borrow.submitButtonDisabled).closest('button'),
+    ).toBeDisabled();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.borrowModal.tokenTextField).closest('input')).toBeDisabled();
+
+    // Check warning is displayed
+    expect(
+      getByText(
+        en.borrowRepayModal.borrow.noCollateralizedSuppliedAssetWarning.replace(
+          '{{tokenSymbol}}',
+          fakeAsset.symbol,
+        ),
+      ),
+    ).toBeTruthy();
   });
 
   it('disables submit button if an amount entered in input is higher than asset liquidity', async () => {

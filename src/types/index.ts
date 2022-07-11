@@ -106,13 +106,10 @@ export interface DescriptionV1 {
 
 export interface IProposal {
   abstainedVotesWei: BigNumber;
-  actions: IProposalAction[];
   againstVotesWei: BigNumber;
-  blockNumber: number;
   createdDate: Date | undefined;
   description: DescriptionV1 | DescriptionV2;
   endBlock: number;
-  endDate: Date;
   executedDate: Date | undefined;
   forVotesWei: BigNumber;
   id: number;
@@ -128,9 +125,12 @@ export interface IProposal {
   queuedTxHash: string | undefined;
   startTxHash: string | undefined;
   totalVotesWei: BigNumber;
+  actions: IProposalAction[];
+  blockNumber?: number;
+  endDate?: Date;
 }
 
-export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN';
+export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
 
 export interface IVoter {
   result: {
@@ -282,12 +282,68 @@ export interface Vault {
   poolIndex?: number;
 }
 
-export interface VoterAccount {
+export interface IVoterAccount {
   address: string;
   createdAt: Date;
   id: string;
   proposalsVoted: number;
   updatedAt: Date;
   voteWeightPercent: number;
+  votesWei: BigNumber;
+}
+
+export interface LockedDeposit {
+  amountWei: BigNumber;
+  unlockedAt: Date;
+}
+
+export type VoteDetailTransactionTransfer = {
+  amountWei: BigNumber;
+  blockNumber: number;
+  blockTimestamp: Date;
+  createdAt: Date;
+  from: string;
+  to: string;
+  transactionHash: string;
+  transactionIndex: number;
+  type: 'transfer';
+  updatedAt: Date;
+};
+
+export type VoteDetailTransactionVote = {
+  votesWei: BigNumber;
+  blockNumber: number;
+  blockTimestamp: Date;
+  createdAt: Date;
+  from: string;
+  to: string;
+  transactionHash: string;
+  transactionIndex: number;
+  type: 'vote';
+  updatedAt: Date;
+  support: VoteSupport;
+};
+
+export type VoteDetailTransaction = VoteDetailTransactionTransfer | VoteDetailTransactionVote;
+
+export interface IVoterDetails {
+  balanceWei: BigNumber;
+  delegateCount: number;
+  delegateAddress: string;
+  delegating: boolean;
+  votesWei: BigNumber;
+  voterTransactions: VoteDetailTransaction[];
+}
+
+export interface IVoterHistory {
+  address: string;
+  blockNumber: number;
+  blockTimestamp: number;
+  createdAt: Date;
+  id: string;
+  proposal: IProposal;
+  reason: string | undefined;
+  support: VoteSupport;
+  updatedAt: Date;
   votesWei: BigNumber;
 }

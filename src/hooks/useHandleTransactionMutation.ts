@@ -4,7 +4,7 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import useSuccessfulTransactionModal, {
   OpenSuccessfulTransactionModalInput,
 } from 'hooks/useSuccessfulTransactionModal';
-import { toast } from 'components/v2/Toast';
+import { toast } from 'components/Toast';
 
 export interface IHandleMutationInput {
   mutate: () => Promise<TransactionReceipt | void>;

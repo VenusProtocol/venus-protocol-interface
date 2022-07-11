@@ -1,17 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import React, { useCallback } from 'react';
 import { BigNumber } from 'bignumber.js';
+import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-
-import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
+import Path from 'constants/path';
+import { convertWeiToTokens } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import {
   Button,
   Icon,
   LabeledInlineContent,
-  EllipseText,
+  EllipseAddress,
   Tooltip,
   LabeledProgressBar,
 } from 'components';
@@ -27,6 +28,7 @@ interface IVoteSummaryProps {
   className?: string;
   votingEnabled: boolean;
   openVoteModal: () => void;
+  testId?: string;
 }
 
 const VoteSummary = ({
@@ -38,6 +40,7 @@ const VoteSummary = ({
   voters = [],
   className,
   votingEnabled,
+  testId,
 }: IVoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -55,45 +58,49 @@ const VoteSummary = ({
   );
 
   return (
-    <Paper css={styles.root} className={className}>
-      <LabeledProgressBar
-        greyLeftText={label}
-        whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
-        value={votedValueWei.toNumber()}
-        min={0}
-        // If there are no votes set a fallback to zero the progressbar
-        max={votedTotalWei.toNumber() || 100}
-        step={1}
-        ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
-        successColor={progressBarColor}
-      />
-      <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
-        {label}
-      </Button>
+    <Paper css={styles.root} className={className} data-testid={testId}>
+      <div css={styles.topSection}>
+        <div css={styles.labeledProgressBarContainer}>
+          <LabeledProgressBar
+            greyLeftText={label}
+            whiteRightText={getVoteWeight(votedValueWei || new BigNumber(0))}
+            value={votedValueWei.toNumber()}
+            min={0}
+            // If there are no votes set a fallback to zero the progressbar
+            max={votedTotalWei.toNumber() || 100}
+            step={1}
+            ariaLabel={t('vote.summaryProgressBar', { voteType: label })}
+            successColor={progressBarColor}
+          />
+        </div>
 
-      <LabeledInlineContent label={t('voteSummary.addresses', { length: voters.length })}>
+        <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
+          {label}
+        </Button>
+      </div>
+
+      <LabeledInlineContent label={t('voteSummary.addresses', { count: voters.length })}>
         <Typography>{t('voteSummary.votes')}</Typography>
       </LabeledInlineContent>
 
       <ul css={styles.votesWrapper}>
         {voters.map(({ address, voteWeightWei, reason }) => (
           <li key={address} css={styles.voteFrom}>
-            <EllipseText css={styles.address} text={address}>
-              <Typography
-                className="ellipse-text"
-                href={generateBscScanUrl('xvs')}
-                target="_blank"
-                rel="noreferrer"
-                variant="body1"
-                component="a"
+            <div css={styles.address}>
+              <Link
+                to={Path.VOTE_ADDRESS.replace(':address', address)}
                 css={[styles.blueText, styles.addressText]}
-              />
+              >
+                <EllipseAddress address={address} />
+              </Link>
+
               {reason && (
                 <Tooltip title={reason}>
                   <Icon name="bubble" />
                 </Tooltip>
               )}
-            </EllipseText>
+            </div>
+
             <Typography color="text.primary">
               {convertWeiToTokens({
                 valueWei: voteWeightWei,

@@ -1,7 +1,6 @@
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { rest } from 'msw';
 import 'loki/configure-react';
-import 'antd/dist/antd.css';
 import '../src/assets/styles/index.scss';
 import { PALETTE } from '../src/theme/MuiThemeProvider/muiTheme';
 import {
@@ -10,7 +9,7 @@ import {
   withVaiContextProvider,
 } from '../src/stories/decorators';
 import GovernanceResponse from '../src/__mocks__/api/governance.json';
-import VoteReponse from '../src/__mocks__/api/vote.json';
+import VotersReponse from '../src/__mocks__/api/voters.json';
 import TransactionResponse from '../src/__mocks__/api/transactions.json';
 import vaiControllerResponses from '../src/__mocks__/contracts/vaiController.json';
 
@@ -72,7 +71,7 @@ export const parameters = {
           return res(ctx.json(GovernanceResponse));
         }),
         rest.get('https://testnetapi.venus.io/api/proposals', (req, res, ctx) => {
-          return res(ctx.json(VoteReponse));
+          return res(ctx.json(VotersReponse));
         }),
         rest.get('https://testnetapi.venus.io/api/transactions?page=1', (req, res, ctx) => {
           return res(ctx.json(TransactionResponse));

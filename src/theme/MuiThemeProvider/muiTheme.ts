@@ -124,7 +124,6 @@ export default createTheme({
     h4: {
       fontSize: '1.25rem',
       fontWeight: 600,
-      lineHeight: '1.875rem',
     },
     body1: {
       fontSize: '1rem',
@@ -169,16 +168,6 @@ export default createTheme({
         paper: {
           padding: 0,
           borderRadius: 0,
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        hiddenLabel: {
-          /* fix for andtd base styles override. TODO: can be deleted when global antd styles will be removed */
-          '& legend': {
-            display: 'none',
-          },
         },
       },
     },

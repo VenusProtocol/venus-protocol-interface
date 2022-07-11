@@ -33,14 +33,14 @@ export const useStyles = () => {
     `,
     label: css`
       display: block;
-      margin-bottom: ${theme.spacing(1)};
+      margin-bottom: ${theme.spacing(2)};
 
       ${theme.breakpoints.down('sm')} {
         margin-bottom: 0;
       }
     `,
     stakingLabel: css`
-      margin-bottom: 0;
+      margin-bottom: ${theme.spacing(1)};
     `,
     text: css`
       display: inline;
@@ -56,6 +56,12 @@ export const useStyles = () => {
       display: inline-flex;
       align-items: center;
     `,
+    textSmallMobile: css`
+      ${theme.breakpoints.down('sm')} {
+        font-size: ${theme.typography.small2.fontSize};
+        font-size: ${theme.typography.small2.lineHeight};
+      }
+    `,
     rewardWrapper: css`
       display: flex;
       align-items: center;
@@ -70,16 +76,12 @@ export const useStyles = () => {
       margin-top: ${theme.spacing(6)};
 
       ${theme.breakpoints.down('sm')} {
+        margin-top: ${theme.spacing(4)};
         flex-direction: column;
       }
     `,
     valueWrapper: css`
       display: block;
-
-      ${theme.breakpoints.down('sm')} {
-        display: flex;
-        justify-content: space-between;
-      }
 
       & + & {
         border-left: 1px solid ${theme.palette.interactive.delimiter};
@@ -93,6 +95,12 @@ export const useStyles = () => {
           margin-top: ${theme.spacing(2)};
         }
       }
+
+      ${theme.breakpoints.down('sm')} {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     `,
     buttonsWrapper: css`
       display: flex;
@@ -101,7 +109,7 @@ export const useStyles = () => {
 
       ${theme.breakpoints.down('sm')} {
         flex-direction: column;
-        margin-top: ${theme.spacing(4)};
+        margin-top: ${theme.spacing(6)};
       }
     `,
     button: css`
@@ -109,7 +117,10 @@ export const useStyles = () => {
 
       ${theme.breakpoints.down('sm')} {
         width: 100%;
-        margin-top: ${theme.spacing(3)};
+
+        :not(:first-of-type) {
+          margin-top: ${theme.spacing(3)};
+        }
       }
     `,
   };

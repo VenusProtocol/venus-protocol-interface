@@ -110,7 +110,7 @@ export const useStyles = () => {
       }
     `,
     table: css`
-      display: initial;
+      display: block;
 
       ${theme.breakpoints.down('xxl')} {
         display: none;
@@ -120,7 +120,7 @@ export const useStyles = () => {
       display: none;
 
       ${theme.breakpoints.down('xxl')} {
-        display: initial;
+        display: block;
       }
     `,
   };

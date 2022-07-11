@@ -2,8 +2,8 @@ import React from 'react';
 import noop from 'noop-ts';
 
 import { Connector, useAuth } from 'clients/web3';
-import useCopyToClipboard from 'hooks/useCopyToClipoard';
-import { AuthModal } from 'components/v2/AuthModal';
+import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import { AuthModal } from 'components/AuthModal';
 import { useTranslation } from 'translation';
 
 export interface IAccount {

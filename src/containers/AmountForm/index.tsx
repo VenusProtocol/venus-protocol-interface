@@ -42,6 +42,7 @@ export const AmountForm: React.FC<IAmountFormProps> = ({
       }}
       onSubmit={handleSubmit}
       validationSchema={getValidationSchema(maxAmount)}
+      isInitialValid={false}
       validateOnMount
       validateOnChange
     >

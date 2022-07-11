@@ -12,8 +12,7 @@ import {
   useConvertVrt,
   useWithdrawXvs,
 } from 'clients/api';
-import { Tabs } from 'components';
-import LoadingSpinner from 'components/Basic/LoadingSpinner';
+import { Tabs, Spinner } from 'components';
 import { VError } from 'errors/VError';
 import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
@@ -133,7 +132,7 @@ const ConvertVrt = () => {
     );
   }
   // @TODO - Handle error state
-  return <LoadingSpinner />;
+  return <Spinner />;
 };
 
 export default ConvertVrt;

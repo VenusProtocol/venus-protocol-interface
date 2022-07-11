@@ -9,6 +9,7 @@ import {
   NoticeInfo,
   FormikSubmitButton,
   FormikTextField,
+  PrimaryButton,
   TextButton,
 } from 'components';
 import Path from 'constants/path';
@@ -23,6 +24,7 @@ interface IDelegateModalProps {
   setVoteDelegation: (address: string) => void;
   previouslyDelegated: boolean;
   isVoteDelegationLoading: boolean;
+  openAuthModal: () => void;
 }
 
 const DelegateModal: React.FC<IDelegateModalProps> = ({
@@ -32,6 +34,7 @@ const DelegateModal: React.FC<IDelegateModalProps> = ({
   setVoteDelegation,
   previouslyDelegated,
   isVoteDelegationLoading,
+  openAuthModal,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -64,6 +67,7 @@ const DelegateModal: React.FC<IDelegateModalProps> = ({
           }}
           onSubmit={({ address }) => onSubmit(address)}
           validationSchema={addressValidationSchema}
+          isInitialValid={false}
           validateOnMount
           validateOnChange
         >
@@ -74,6 +78,7 @@ const DelegateModal: React.FC<IDelegateModalProps> = ({
                 <TextButton
                   css={styles.inline}
                   onClick={() => setFieldValue('address', currentUserAccountAddress)}
+                  disabled={!currentUserAccountAddress}
                 >
                   {t('vote.pasteYourAddress')}
                 </TextButton>
@@ -82,13 +87,22 @@ const DelegateModal: React.FC<IDelegateModalProps> = ({
                 placeholder={t('vote.enterContactAddress')}
                 name="address"
                 maxLength={42}
+                disabled={!currentUserAccountAddress}
               />
-              <FormikSubmitButton
-                fullWidth
-                enabledLabel={previouslyDelegated ? t('vote.redelegate') : t('vote.delgateVotes')}
-                css={styles.submitButton}
-                loading={isVoteDelegationLoading}
-              />
+              {currentUserAccountAddress ? (
+                <FormikSubmitButton
+                  fullWidth
+                  enabledLabel={
+                    previouslyDelegated ? t('vote.redelegate') : t('vote.delegateVotes')
+                  }
+                  css={styles.submitButton}
+                  loading={isVoteDelegationLoading}
+                />
+              ) : (
+                <PrimaryButton onClick={openAuthModal} css={styles.submitButton} fullWidth>
+                  {t('connectWallet.connectButton')}
+                </PrimaryButton>
+              )}
             </Form>
           )}
         </Formik>

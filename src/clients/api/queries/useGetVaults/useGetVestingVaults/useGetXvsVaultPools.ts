@@ -37,25 +37,26 @@ const useGetXvsVaultPools = ({
       queryFn: () =>
         getXvsVaultPoolInfo({
           xvsVaultContract,
-          tokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
         }),
-      queryKey: [FunctionKey.GET_XVS_VAULT_POOL_INFOS, XVS_TOKEN_ADDRESS, poolIndex],
+      queryKey: [
+        FunctionKey.GET_XVS_VAULT_POOL_INFOS,
+        { rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+      ],
     });
 
     poolQueries.push({
       queryFn: () =>
         getXvsVaultPendingRewardWei({
           xvsVaultContract,
-          tokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
           accountAddress: accountAddress || '',
         }),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
-        accountAddress,
-        XVS_TOKEN_ADDRESS,
-        poolIndex,
+        { accountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
       ],
       enabled: !!accountAddress,
     });
@@ -64,11 +65,14 @@ const useGetXvsVaultPools = ({
       queryFn: () =>
         getXvsVaultUserInfo({
           xvsVaultContract,
-          tokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
           accountAddress: accountAddress || '',
         }),
-      queryKey: [FunctionKey.GET_XVS_VAULT_USER_INFO, accountAddress, XVS_TOKEN_ADDRESS, poolIndex],
+      queryKey: [
+        FunctionKey.GET_XVS_VAULT_USER_INFO,
+        { accountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+      ],
       enabled: !!accountAddress,
     });
   }

@@ -8,6 +8,8 @@ import {
   useCreateProposal,
   ICreateProposalInput,
   useGetCurrentVotes,
+  useGetLatestProposalIdByProposer,
+  useGetProposalState,
 } from 'clients/api';
 import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
@@ -48,18 +50,24 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
     <div css={styles.root}>
       <div css={[styles.header, styles.bottomSpace]}>
         <Typography variant="h4">{t('vote.governanceProposals')}</Typography>
-        {canCreateProposal && (
-          <div css={styles.createProposal}>
-            <TextButton onClick={() => setShowCreateProposalModal(true)} css={styles.marginless}>
-              {t('vote.createProposalPlus')}
-            </TextButton>
-            <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIcon}>
-              <Icon name="info" />
-            </Tooltip>
-          </div>
-        )}
+
+        <div css={styles.createProposal}>
+          <TextButton
+            onClick={() => setShowCreateProposalModal(true)}
+            css={styles.marginLess}
+            disabled={!canCreateProposal}
+          >
+            {t('vote.createProposalPlus')}
+          </TextButton>
+
+          <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIconWrapper}>
+            <Icon name="info" css={styles.infoIcon} />
+          </Tooltip>
+        </div>
       </div>
-      {isLoading && <Spinner />}
+
+      {isLoading && <Spinner css={styles.loader} />}
+
       <div>
         {proposals.map(
           ({
@@ -85,7 +93,8 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
           ),
         )}
       </div>
-      {total && (
+
+      {!!total && total > 0 && (
         <Pagination
           css={styles.pagination}
           itemsCount={total}
@@ -96,6 +105,7 @@ export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
           itemsPerPageCount={limit}
         />
       )}
+
       {showCreateProposalModal && (
         <CreateProposalModal
           isOpen={showCreateProposalModal}
@@ -112,20 +122,41 @@ const Governance: React.FC = () => {
   const { account } = React.useContext(AuthContext);
   const accountAddress = account?.address || '';
   const [currentPage, setCurrentPage] = useState(0);
-  const { data: { proposals, total, limit = 5 } = { proposals: [] }, isLoading } = useGetProposals({
+
+  const {
+    data: { proposals, total, limit = 5 } = { proposals: [] },
+    isFetching: isGetProposalsFetching,
+  } = useGetProposals({
     page: currentPage,
   });
+
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
   const { data: currentVotesWei } = useGetCurrentVotes(
     { accountAddress },
     { enabled: !!accountAddress },
   );
-  const canCreateProposal = currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI);
+
+  const { data: latestProposal } = useGetLatestProposalIdByProposer(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+
+  const { data: latestProposalState } = useGetProposalState(
+    { proposalId: latestProposal || '' },
+    { enabled: !!latestProposal },
+  );
+
+  // User has enough votingWeight to create proposal and doesn't currently have an active or pending proposal
+  const canCreateProposal =
+    currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
+    latestProposalState !== '0' &&
+    latestProposalState !== '1';
+
   return (
     <GovernanceUi
       proposals={proposals}
-      isLoading={isLoading}
+      isLoading={isGetProposalsFetching}
       total={total}
       limit={limit}
       setCurrentPage={setCurrentPage}

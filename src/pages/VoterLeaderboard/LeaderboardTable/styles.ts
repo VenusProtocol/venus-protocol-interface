@@ -9,15 +9,17 @@ export const useStyles = () => {
     `,
     address: css`
       padding-left: ${theme.spacing(7)};
-      a {
-        color: ${theme.palette.interactive.primary};
-        :hover {
-          color: ${theme.palette.button.medium};
-        }
+      color: ${theme.palette.interactive.primary};
+
+      :hover {
+        color: ${theme.palette.button.medium};
       }
     `,
     table: css`
-      display: initial;
+      display: block;
+      .MuiTableCell-root:first-of-type {
+        overflow: visible;
+      }
 
       ${theme.breakpoints.down('xl')} {
         display: none;
@@ -27,7 +29,7 @@ export const useStyles = () => {
       display: none;
 
       ${theme.breakpoints.down('xl')} {
-        display: initial;
+        display: block;
       }
     `,
     cardContentGrid: css`

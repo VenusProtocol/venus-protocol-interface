@@ -7,10 +7,9 @@ import { ToastContainer } from 'react-toastify';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
-import Theme from 'theme';
 import { RefreshContextProvider } from 'context/RefreshContext';
 import { VaiContext, IVaiContextValue } from 'context/VaiContext';
-import { MuiThemeProvider } from 'theme/MuiThemeProvider/MuiThemeProvider';
+import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 import BigNumber from 'bignumber.js';
 
 const renderComponent = (
@@ -48,32 +47,30 @@ const renderComponent = (
   };
 
   const renderRes = render(
-    <Theme>
-      <Web3Wrapper>
-        <QueryClientProvider client={queryClient}>
-          <MuiThemeProvider>
-            <AuthContext.Provider value={defaultAuthContextValues}>
-              <RefreshContextProvider>
-                <VaiContext.Provider value={defaultVaiContextValues}>
-                  <SuccessfulTransactionModalProvider>
-                    <BrowserRouter>
-                      <ToastContainer />
+    <Web3Wrapper>
+      <QueryClientProvider client={queryClient}>
+        <MuiThemeProvider>
+          <AuthContext.Provider value={defaultAuthContextValues}>
+            <RefreshContextProvider>
+              <VaiContext.Provider value={defaultVaiContextValues}>
+                <SuccessfulTransactionModalProvider>
+                  <BrowserRouter>
+                    <ToastContainer />
 
-                      <Switch>
-                        <Route
-                          path="/"
-                          component={typeof children === 'function' ? children : () => children}
-                        />
-                      </Switch>
-                    </BrowserRouter>
-                  </SuccessfulTransactionModalProvider>
-                </VaiContext.Provider>
-              </RefreshContextProvider>
-            </AuthContext.Provider>
-          </MuiThemeProvider>
-        </QueryClientProvider>
-      </Web3Wrapper>
-    </Theme>,
+                    <Switch>
+                      <Route
+                        path="/"
+                        component={typeof children === 'function' ? children : () => children}
+                      />
+                    </Switch>
+                  </BrowserRouter>
+                </SuccessfulTransactionModalProvider>
+              </VaiContext.Provider>
+            </RefreshContextProvider>
+          </AuthContext.Provider>
+        </MuiThemeProvider>
+      </QueryClientProvider>
+    </Web3Wrapper>,
   );
 
   return {

@@ -36,6 +36,7 @@ export interface IBorrowFormProps {
   borrow: (amountWei: BigNumber) => Promise<TransactionReceipt>;
   isBorrowLoading: boolean;
   isXvsEnabled: boolean;
+  hasUserCollateralizedSuppliedAssets: boolean;
 }
 
 export const BorrowForm: React.FC<IBorrowFormProps> = ({
@@ -46,6 +47,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   borrow,
   isXvsEnabled,
   isBorrowLoading,
+  hasUserCollateralizedSuppliedAssets,
 }) => {
   const { t, Trans } = useTranslation();
   const sharedStyles = useStyles();
@@ -91,7 +93,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
             <FormikTokenTextField
               name="amount"
               tokenId={asset.id}
-              disabled={isBorrowLoading}
+              disabled={isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
                   limitPercentage: safeBorrowLimitPercentage,
@@ -112,10 +114,16 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
               }
             />
 
-            {+values.amount > +safeLimitTokens && (
+            {(!hasUserCollateralizedSuppliedAssets || +values.amount > +safeLimitTokens) && (
               <NoticeWarning
                 css={sharedStyles.notice}
-                description={t('borrowRepayModal.borrow.highAmountWarning')}
+                description={
+                  +values.amount > +safeLimitTokens
+                    ? t('borrowRepayModal.borrow.highAmountWarning')
+                    : t('borrowRepayModal.borrow.noCollateralizedSuppliedAssetWarning', {
+                        tokenSymbol: asset.symbol,
+                      })
+                }
               />
             )}
           </div>
@@ -128,7 +136,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
 
           <FormikSubmitButton
             loading={isBorrowLoading}
-            disabled={!isValid || !dirty || isBorrowLoading}
+            disabled={!isValid || !dirty || isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
             fullWidth
             enabledLabel={t('borrowRepayModal.borrow.submitButton')}
             disabledLabel={t('borrowRepayModal.borrow.submitButtonDisabled')}
@@ -151,10 +159,16 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
-    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },
   } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
+
+  const hasUserCollateralizedSuppliedAssets = React.useMemo(
+    () =>
+      assets.some(userAsset => userAsset.collateral && userAsset.supplyBalance.isGreaterThan(0)),
+    [JSON.stringify(assets)],
+  );
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrowVToken({
     vTokenId: asset.id as VTokenId,
@@ -241,6 +255,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
             safeLimitTokens={safeLimitTokens}
             borrow={handleBorrow}
             isBorrowLoading={isBorrowLoading}
+            hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
           />
         </EnableToken>
       )}

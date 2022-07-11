@@ -1,0 +1,63 @@
+{
+  "data": {
+    "balance": "0",
+    "delegateCount": 1,
+    "delegates": "0x315deBE419d9f9aec19807609b396Ef33a9c44C0",
+    "txs": [
+      {
+        "amount": "2470334759651375154",
+        "blockNumber": 18051658,
+        "blockTimestamp": 1653308122,
+        "createdAt": "2022-05-23T12:15:31.000Z",
+        "from": "0x315debe419d9f9aec19807609b396ef33a9c44c0",
+        "id": "bd9f3e2a-9094-4a52-9e5b-eb5b0856b3b6",
+        "to": "0x7eb5d86fd78f3852a3e0e064f2842d45a3db6ea2",
+        "transactionHash": "0x1d6c5d29ba91dbe1e6150d2335bba9a2b99bf850b1c5255ed76e076bc8f0932c",
+        "transactionIndex": 19,
+        "type": "transfer",
+        "updatedAt": "2022-05-23T12:15:31.000Z"
+      },
+      {
+        "amount": "2470307000576804910",
+        "blockNumber": 18051572,
+        "blockTimestamp": 1653307864,
+        "createdAt": "2022-05-23T12:11:10.000Z",
+        "from": "0xfd36e2c2a6789db23113685031d7f16329158384",
+        "id": "d552fb27-3df2-4681-addc-a4ea17e65a8a",
+        "to": "0x315debe419d9f9aec19807609b396ef33a9c44c0",
+        "transactionHash": "0xb312250c6f5d4c288d79c9855dc7fceed8c5f10b4b8b1fec66130deadafa21ab",
+        "transactionIndex": 201,
+        "type": "transfer",
+        "updatedAt": "2022-05-23T12:11:30.000Z"
+      },
+      {
+        "amount": "3019084454051545384",
+        "blockNumber": 17824116,
+        "blockTimestamp": 1652619724,
+        "createdAt": "2022-05-15T13:02:30.000Z",
+        "from": "0x315debe419d9f9aec19807609b396ef33a9c44c0",
+        "id": "5bf2043a-3bfc-4e23-b43a-f7689d3b8d3d",
+        "to": "0x7eb5d86fd78f3852a3e0e064f2842d45a3db6ea2",
+        "transactionHash": "0x860625c320493e7f900017e4ff6d2700c5def8b81aaef16e0adcbcd2f9100b9a",
+        "transactionIndex": 85,
+        "type": "transfer",
+        "updatedAt": "2022-05-15T13:02:30.000Z"
+      },
+      {
+        "amount": "85354896669975801",
+        "blockNumber": 17824104,
+        "blockTimestamp": 1652619685,
+        "createdAt": "2022-05-15T13:01:40.000Z",
+        "from": "0xfd36e2c2a6789db23113685031d7f16329158384",
+        "id": "cc926164-6e64-4be0-b8b3-18c7c23a4ab8",
+        "to": "0x315debe419d9f9aec19807609b396ef33a9c44c0",
+        "transactionHash": "0x2dffbd3f586f3ecf7b6309a9a566c1a9f5da7cec97e6e466172ccb2d59452a70",
+        "transactionIndex": 131,
+        "type": "transfer",
+        "updatedAt": "2022-05-15T13:01:41.000Z"
+      }
+    ],
+    "votes": "0",
+    "status": true
+  }
+}

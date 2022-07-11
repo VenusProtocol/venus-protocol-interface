@@ -5,12 +5,12 @@ export * from './types';
 
 const getXvsVaultUserInfo = async ({
   xvsVaultContract,
-  tokenAddress,
+  rewardTokenAddress,
   poolIndex,
   accountAddress,
 }: IGetXvsVaultUserInfoInput): Promise<IGetXvsVaultUserInfoOutput> => {
   const res = await xvsVaultContract.methods
-    .getUserInfo(tokenAddress, poolIndex, accountAddress)
+    .getUserInfo(rewardTokenAddress, poolIndex, accountAddress)
     .call();
 
   return formatToUserInfo(res);

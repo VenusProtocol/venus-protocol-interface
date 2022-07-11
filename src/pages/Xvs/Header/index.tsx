@@ -7,9 +7,9 @@ import {
   useGetBalanceOf,
   useGetUserMarketInfo,
 } from 'clients/api';
-import { EllipseText, Icon, LabeledProgressBar } from 'components';
+import { Icon, LabeledProgressBar, EllipseAddress } from 'components';
 import { AuthContext } from 'context/AuthContext';
-import useCopyToClipboard from 'hooks/useCopyToClipoard';
+import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import {
   getToken,
   generateBscScanUrl,
@@ -84,25 +84,26 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
 
   return (
     <Paper className={className} css={styles.headerRoot}>
-      <EllipseText css={styles.address} text={xvsAddress}>
+      <div css={styles.addressContainer}>
         <div css={styles.xvsIconContainer}>
           <Icon name="xvs" size={styles.iconSize} />
         </div>
 
         <Typography
-          className="ellipse-text"
           href={generateBscScanUrl('xvs')}
           target="_blank"
           rel="noreferrer"
           variant="small2"
           component="a"
           css={[styles.whiteText, styles.addressText]}
-        />
+        >
+          <EllipseAddress address={xvsAddress} ellipseBreakpoint="xl" />
+        </Typography>
 
         <div css={styles.copyIconContainer}>
           <Icon name="copy" onClick={copyAddress} css={styles.copyIcon} size={styles.iconSizeXl} />
         </div>
-      </EllipseText>
+      </div>
 
       <div css={styles.slider}>
         <LabeledProgressBar

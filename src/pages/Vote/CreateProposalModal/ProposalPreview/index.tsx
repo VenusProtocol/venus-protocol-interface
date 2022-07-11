@@ -35,33 +35,40 @@ const ProposalPreview: React.FC = () => {
         <Typography variant="small1" css={styles.header}>
           {t('vote.createProposalForm.proposalName')}
         </Typography>
+
         <Typography variant="body1" color="textPrimary">
           {title}
         </Typography>
       </div>
+
       <div css={styles.section}>
         <Typography variant="small1" css={styles.header}>
           {t('vote.createProposalForm.description')}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
+
+        <Typography variant="body1" color="textPrimary" component="span">
           <MarkdownViewer css={styles.markdown} content={description} />
         </Typography>
       </div>
+
       <div css={styles.section}>
         <Typography variant="small1" css={styles.header}>
           {t('vote.createProposalForm.votingOptions')}
         </Typography>
+
         <ul css={styles.ul}>
           <li>
             <Typography variant="body1" color="textPrimary">
               {t('vote.for')} - {forDescription}
             </Typography>
           </li>
+
           <li>
             <Typography variant="body1" color="textPrimary">
               {t('vote.against')} - {againstDescription}
             </Typography>
           </li>
+
           <li>
             <Typography variant="body1" color="textPrimary">
               {t('vote.abstain')} - {abstainDescription}
@@ -69,10 +76,12 @@ const ProposalPreview: React.FC = () => {
           </li>
         </ul>
       </div>
+
       <div css={styles.section}>
         <Typography variant="small1" css={styles.header}>
           {t('vote.createProposalForm.actions')}
         </Typography>
+
         {actions.map(action => (
           <React.Fragment key={`${action.signature}-${action.address}`}>
             <Typography css={styles.signature}>
@@ -84,6 +93,7 @@ const ProposalPreview: React.FC = () => {
               >
                 {getContractName(action.address)}.
               </Typography>
+
               {formatSignature(action)}
             </Typography>
           </React.Fragment>

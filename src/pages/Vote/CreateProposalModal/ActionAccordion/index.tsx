@@ -50,10 +50,12 @@ const ActionAccordion: React.FC = () => {
                   expanded={expandedIdx === idx}
                   onChange={setExpanded}
                   title={action.signature || t('vote.createProposalForm.action')}
-                  leftAction={
-                    <button onClick={() => remove(idx)} type="button" css={styles.iconButton}>
-                      <Icon name="close" css={styles.closeIcon} />
-                    </button>
+                  rightAdornment={
+                    idx === 0 ? undefined : (
+                      <button onClick={() => remove(idx)} type="button" css={styles.iconButton}>
+                        <Icon name="close" css={styles.closeIcon} />
+                      </button>
+                    )
                   }
                   css={styles.accordion}
                 >

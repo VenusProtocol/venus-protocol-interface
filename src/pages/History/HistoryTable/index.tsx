@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
-import { EllipseText, Icon, Table, TableProps } from 'components';
+import { EllipseAddress, Icon, Table, TableProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { generateBscScanUrl, getTokenIdFromVAddress, convertWeiToTokens } from 'utilities';
@@ -43,6 +43,28 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
     return newColumns;
   }, [columns]);
 
+  const eventTranslationKeys = {
+    All: t('history.all'),
+    Mint: t('history.mint'),
+    Transfer: t('history.transfer'),
+    Borrow: t('history.borrow'),
+    RepayBorrow: t('history.repayBorrow'),
+    Redeem: t('history.redeem'),
+    Approval: t('history.approval'),
+    LiquidateBorrow: t('history.liquidateBorrow'),
+    ReservesAdded: t('history.reservesAdded'),
+    ReservesReduced: t('history.reservesReduced'),
+    MintVAI: t('history.mintVAI'),
+    Withdraw: t('history.withdraw'),
+    RepayVAI: t('history.repayVAI'),
+    Deposit: t('history.deposit'),
+    VoteCast: t('history.voteCast'),
+    ProposalCreated: t('history.proposalCreated'),
+    ProposalQueued: t('history.proposalQueued'),
+    ProposalExecuted: t('history.proposalExecuted'),
+    ProposalCanceled: t('history.proposalCanceled'),
+  };
+
   // Format transactions to rows
   const rows: TableProps['data'] = useMemo(
     () =>
@@ -64,7 +86,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
                 <div css={[styles.whiteText, styles.table, styles.typeCol]}>
                   <Icon name={tokenId} css={styles.icon} />
                   <Typography variant="small2" color="textPrimary">
-                    {txn.event}
+                    {eventTranslationKeys[txn.event]}
                   </Typography>
                 </div>
                 <div css={[styles.cards, styles.cardTitle]}>
@@ -84,17 +106,16 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
           {
             key: 'txnHash',
             render: () => (
-              <EllipseText text={txn.transactionHash} minChars={6}>
-                <Typography
-                  className="ellipse-text"
-                  component="a"
-                  href={generateBscScanUrl(txn.transactionHash, 'tx')}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="small2"
-                  css={styles.txnHashText}
-                />
-              </EllipseText>
+              <Typography
+                component="a"
+                href={generateBscScanUrl(txn.transactionHash, 'tx')}
+                target="_blank"
+                rel="noreferrer"
+                variant="small2"
+                css={styles.txnHashText}
+              >
+                <EllipseAddress address={txn.transactionHash} />
+              </Typography>
             ),
             value: txn.transactionHash,
             align: 'left',
@@ -112,17 +133,16 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
           {
             key: 'from',
             render: () => (
-              <EllipseText text={txn.from} minChars={6}>
-                <Typography
-                  className="ellipse-text"
-                  component="a"
-                  href={generateBscScanUrl(txn.from, 'address')}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="small2"
-                  css={styles.txnHashText}
-                />
-              </EllipseText>
+              <Typography
+                component="a"
+                href={generateBscScanUrl(txn.from, 'address')}
+                target="_blank"
+                rel="noreferrer"
+                variant="small2"
+                css={styles.txnHashText}
+              >
+                <EllipseAddress address={txn.from} />
+              </Typography>
             ),
             value: txn.from,
             align: 'left',
@@ -131,17 +151,16 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
             key: 'to',
             render: () =>
               txn.to ? (
-                <EllipseText text={txn.to} minChars={6}>
-                  <Typography
-                    className="ellipse-text"
-                    component="a"
-                    href={generateBscScanUrl(txn.to, 'address')}
-                    target="_blank"
-                    rel="noreferrer"
-                    variant="small2"
-                    css={styles.txnHashText}
-                  />
-                </EllipseText>
+                <Typography
+                  component="a"
+                  href={generateBscScanUrl(txn.to, 'address')}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="small2"
+                  css={styles.txnHashText}
+                >
+                  <EllipseAddress address={txn.to} />
+                </Typography>
               ) : (
                 PLACEHOLDER_KEY
               ),

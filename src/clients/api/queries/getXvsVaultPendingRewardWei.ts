@@ -4,7 +4,7 @@ import { XvsVault } from 'types/contracts';
 
 export interface GetXvsVaultPendingRewardWeiInput {
   xvsVaultContract: XvsVault;
-  tokenAddress: string;
+  rewardTokenAddress: string;
   poolIndex: number;
   accountAddress: string;
 }
@@ -13,12 +13,12 @@ export type GetXvsVaultPendingRewardWeiOutput = BigNumber;
 
 const getXvsVaultPendingRewardWei = async ({
   xvsVaultContract,
-  tokenAddress,
+  rewardTokenAddress,
   poolIndex,
   accountAddress,
 }: GetXvsVaultPendingRewardWeiInput): Promise<GetXvsVaultPendingRewardWeiOutput> => {
   const res = await xvsVaultContract.methods
-    .pendingReward(tokenAddress, poolIndex, accountAddress)
+    .pendingReward(rewardTokenAddress, poolIndex, accountAddress)
     .call();
   return new BigNumber(res);
 };
