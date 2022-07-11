@@ -130,7 +130,7 @@ export interface IProposal {
   totalVotesWei: BigNumber;
 }
 
-export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN';
+export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
 
 export interface IVoter {
   result: {
@@ -344,11 +344,10 @@ export interface IVoterHistory {
   blockNumber: number;
   blockTimestamp: number;
   createdAt: Date;
-  hasVoted: boolean;
   id: string;
   proposal: VoterHistory;
   reason: string | undefined;
-  support: 'AGAINST' | 'FOR' | 'ABSTAIN';
+  support: VoteSupport;
   updatedAt: Date;
   votesWei: BigNumber;
 }

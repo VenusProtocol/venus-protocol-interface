@@ -1,15 +1,15 @@
 import BigNumber from 'bignumber.js';
 import { IVoter } from 'types';
-import { getSupportName } from 'utilities';
+import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 
 import { IGetVotersApiResponse } from './types';
 
 const formatToVoter = (payload: IGetVotersApiResponse): IVoter => ({
-  result: payload.result.map(({ address, reason, votes, support }) => ({
+  result: payload.result.map(({ address, reason, votes, support, hasVoted }) => ({
     address,
     voteWeightWei: new BigNumber(votes),
     reason: reason ?? undefined,
-    support: getSupportName(support),
+    support: hasVoted ? indexedVotingSupportNames[support] : 'NOT_VOTED',
   })),
   sumVotes: {
     abstain: new BigNumber(payload.sumVotes.abstain),

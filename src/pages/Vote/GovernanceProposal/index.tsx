@@ -194,11 +194,19 @@ const GovernanceProposal: React.FC<Omit<IGovernanceProposalProps, 'userVoteStatu
 }) => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
-  const { data: { vote } = { vote: undefined } } = useGetVoteReceipt(
+
+  const { data: userVoteReceipt } = useGetVoteReceipt(
     { proposalId, accountAddress },
     { enabled: !!accountAddress },
   );
-  return <GovernanceProposalUi userVoteStatus={vote} proposalId={proposalId} {...props} />;
+
+  return (
+    <GovernanceProposalUi
+      userVoteStatus={userVoteReceipt?.voteSupport}
+      proposalId={proposalId}
+      {...props}
+    />
+  );
 };
 
 export default GovernanceProposal;

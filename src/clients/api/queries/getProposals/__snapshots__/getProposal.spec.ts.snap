@@ -19,8 +19,8 @@ Object {
   "createdDate": 2022-05-30T16:36:33.000Z,
   "createdTxHash": undefined,
   "description": Object {
-    "description": "e",
-    "title": "s",
+    "description": "Fake description",
+    "title": "Fake title",
     "version": "v1",
   },
   "endBlock": 19788034,
