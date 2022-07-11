@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { NULL_ADDRESS } from 'constants/address';
-import { getSupportName } from 'utilities';
 import { IVoterDetails, VoteDetailTransactionVote, VoteDetailTransactionTransfer } from 'types';
+import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 import { IGetVoterDetailsResponse } from './types';
 
 const formatVoterResponse = (
@@ -42,7 +42,7 @@ const formatVoterResponse = (
           const transactionVote: VoteDetailTransactionVote = {
             ...voteBase,
             type: 'vote',
-            support: getSupportName(rest.support),
+            support: indexedVotingSupportNames[rest.support],
           };
           return transactionVote;
         }

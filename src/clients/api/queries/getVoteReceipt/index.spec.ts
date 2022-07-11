@@ -29,12 +29,7 @@ describe('api/queries/getVoteReceipt', () => {
     }
   });
 
-  test('returns object with hasVoted is false and vote undefined when no vote is returned', async () => {
-    const fakeOutput = {
-      hasVoted: false,
-      vote: undefined,
-    };
-
+  test('returns NOT_VOTED when no vote is returned', async () => {
     const governorBravoContract = {
       methods: {
         getReceipt() {
@@ -52,84 +47,32 @@ describe('api/queries/getVoteReceipt', () => {
       proposalId: 1234,
       accountAddress: fakeAddress,
     });
-    expect(res).toStrictEqual(fakeOutput);
-  });
-
-  test('returns object with hasVoted is true and vote aginst when [true, "0"]', async () => {
-    const fakeOutput = {
-      hasVoted: true,
-      vote: 'AGAINST',
-    };
-
-    const governorBravoContract = {
-      methods: {
-        getReceipt() {
-          return {
-            call() {
-              return [true, '0'];
-            },
-          };
-        },
-      },
-    };
-
-    const res = await getVoteReceipt({
-      governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-      proposalId: 1234,
-      accountAddress: fakeAddress,
+    expect(res).toStrictEqual({
+      voteSupport: 'NOT_VOTED',
     });
-    expect(res).toStrictEqual(fakeOutput);
   });
 
-  test('returns object with hasVoted is true and vote aginst when [true, "1"]', async () => {
-    const fakeOutput = {
-      hasVoted: true,
-      vote: 'FOR',
-    };
-
-    const governorBravoContract = {
-      methods: {
-        getReceipt() {
-          return {
-            call() {
-              return [true, '1'];
-            },
-          };
+  test.each([0, 1, 2])(
+    'returns the correct string depending on what the contract call returns',
+    async fakeSupport => {
+      const governorBravoContract = {
+        methods: {
+          getReceipt() {
+            return {
+              call() {
+                return [true, fakeSupport];
+              },
+            };
+          },
         },
-      },
-    };
+      };
 
-    const res = await getVoteReceipt({
-      governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-      proposalId: 1234,
-      accountAddress: fakeAddress,
-    });
-    expect(res).toStrictEqual(fakeOutput);
-  });
-
-  test('returns object with hasVoted is true and vote aginst when [true, "2"]', async () => {
-    const fakeOutput = {
-      hasVoted: true,
-      vote: 'ABSTAIN',
-    };
-
-    const governorBravoContract = {
-      methods: {
-        getReceipt() {
-          return {
-            call() {
-              return [true, '2'];
-            },
-          };
-        },
-      },
-    };
-
-    const res = await getVoteReceipt({
-      governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
-      proposalId: 1234,
-      accountAddress: fakeAddress,
-    });
-    expect(res).toStrictEqual(fakeOutput);
-  });
+      const res = await getVoteReceipt({
+        governorBravoContract: governorBravoContract as unknown as GovernorBravoDelegate,
+        proposalId: 1234,
+        accountAddress: fakeAddress,
+      });
+      expect(res).toMatchSnapshot();
+    },
+  );
 });

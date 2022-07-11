@@ -137,7 +137,11 @@ const Governance: React.FC = () => {
     { enabled: !!accountAddress },
   );
 
-  const { data: latestProposal } = useGetLatestProposalIdByProposer({ accountAddress });
+  const { data: latestProposal } = useGetLatestProposalIdByProposer(
+    { accountAddress },
+    { enabled: !!accountAddress },
+  );
+
   const { data: latestProposalState } = useGetProposalState(
     { proposalId: latestProposal || '' },
     { enabled: !!latestProposal },

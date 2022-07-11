@@ -167,7 +167,7 @@ const Proposal = () => {
   );
 
   const { vote, isLoading } = useVote({ accountAddress: account?.address || '' });
-  const { data: voteCast } = useGetVoteReceipt(
+  const { data: userVoteReceipt } = useGetVoteReceipt(
     { proposalId: parseInt(id, 10), accountAddress },
     { enabled: !!accountAddress },
   );
@@ -175,7 +175,7 @@ const Proposal = () => {
   const votingEnabled =
     !!accountAddress &&
     proposal?.state === 'Active' &&
-    !voteCast?.hasVoted &&
+    userVoteReceipt?.voteSupport === 'NOT_VOTED' &&
     votingWeightWei.isGreaterThan(0);
 
   return (
