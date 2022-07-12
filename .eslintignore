@@ -4,4 +4,5 @@ public
 build
 storybook-static
 i18next-parser.config.js
+commitlint.config.js
 coverage
