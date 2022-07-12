@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
-import { useVaiUser } from 'hooks/useVaiUser';
-import { Asset, Market } from 'types';
+import { Asset, Market, TokenId } from 'types';
 import {
   indexBy,
   convertTokensToWei,
+  convertWeiToTokens,
   calculateCollateralValue,
   getVBepToken,
   getToken,
@@ -15,6 +15,7 @@ import {
   useGetMarkets,
   useGetAssetsInAccount,
   useGetVTokenBalancesAll,
+  useGetMintedVai,
   IGetVTokenBalancesAllOutput,
 } from 'clients/api';
 
@@ -43,7 +44,14 @@ const useGetUserMarketInfo = ({
 }: {
   accountAddress?: string;
 }): UseGetUserMarketInfoOutput => {
-  const { userVaiMinted } = useVaiUser();
+  const { data: userMintedVaiWei, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
+    {
+      accountAddress: accountAddress || '',
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
 
   const {
     data: getMarketsData = {
@@ -89,7 +97,10 @@ const useGetUserMarketInfo = ({
   );
 
   const isLoading =
-    isGetMarketsLoading || isGetAssetsInAccountLoading || isGetVTokenBalancesAccountLoading;
+    isGetMarketsLoading ||
+    isGetAssetsInAccountLoading ||
+    isGetVTokenBalancesAccountLoading ||
+    isGetUserMintedVaiLoading;
 
   const data = useMemo(() => {
     const {
@@ -199,7 +210,14 @@ const useGetUserMarketInfo = ({
     let assetList = assets;
 
     const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalanceCents.plus(
-      userVaiMinted.times(100),
+      userMintedVaiWei
+        ? convertWeiToTokens({
+            valueWei: userMintedVaiWei,
+            tokenId: TOKENS.vai.id as TokenId,
+          })
+            // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
+            .times(100)
+        : 0,
     );
 
     // percent of limit
@@ -224,6 +242,7 @@ const useGetUserMarketInfo = ({
       totalXvsDistributedWei,
     };
   }, [
+    userMintedVaiWei?.toFixed(),
     JSON.stringify(marketsMap),
     JSON.stringify(assetsInAccount),
     JSON.stringify(vTokenBalances),
