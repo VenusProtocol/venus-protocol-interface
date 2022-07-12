@@ -15,7 +15,7 @@ export const styles = () => {
         align-items: center;
 
         ${theme.breakpoints.down('sm')} {
-          flex-wrap: wrap;
+          display: block;
         }
       `}
     `,
@@ -26,8 +26,22 @@ export const styles = () => {
 
       ${theme.breakpoints.down('sm')} {
         width: 100%;
+        padding-right: 0;
         margin-bottom: ${theme.spacing(6)};
       }
+    `,
+    getButtonsContainer: ({ fullWidth }: { fullWidth: boolean }) => css`
+      display: flex;
+      align-items: center;
+
+      ${theme.breakpoints.down('sm')} {
+        width: 100%;
+      }
+
+      ${fullWidth &&
+      css`
+        width: 100%;
+      `}
     `,
     getButton: ({
       active,
@@ -43,6 +57,11 @@ export const styles = () => {
         background-color: ${theme.palette.secondary.light};
         border-color: ${theme.palette.secondary.light};
       }
+
+      ${fullWidth &&
+      css`
+        flex: 1;
+      `}
 
       ${!last &&
       css`
@@ -63,10 +82,9 @@ export const styles = () => {
         }
       `};
 
-      ${fullWidth &&
-      css`
+      ${theme.breakpoints.down('sm')} {
         flex: 1;
-      `}
+      }
     `,
   };
 };
