@@ -9,9 +9,9 @@ const checkAndFormatContractName = (
   addressJson: typeof contractAddresses | typeof tokenAddresses | typeof vBepTokensAddresses,
 ) => {
   const found = Object.entries(addressJson).find(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ([key, value]) => value[CHAIN_ID].toLowerCase() === target.toLowerCase(),
+    entry => entry[1][CHAIN_ID].toLowerCase() === target.toLowerCase(),
   );
+
   if (found) {
     const name = found[0];
     return `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
@@ -20,6 +20,7 @@ const checkAndFormatContractName = (
 
 const getContractName = (target: string) => {
   let contractName;
+
   if (web3.utils.isAddress(target)) {
     // Check main contracts
     contractName = checkAndFormatContractName(target, contractAddresses);
@@ -27,11 +28,13 @@ const getContractName = (target: string) => {
     if (!contractName) {
       contractName = checkAndFormatContractName(target, tokenAddresses);
     }
+
     if (!contractName) {
       // check v contracts
       contractName = checkAndFormatContractName(target, vBepTokensAddresses);
     }
   }
+
   return contractName || target;
 };
 

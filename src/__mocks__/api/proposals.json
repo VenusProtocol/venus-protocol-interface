@@ -7,7 +7,7 @@
       "actions": [
         {
           "data": "0x000000000000000000000000276425aff4214570b622a3502a62ffc52848df19",
-          "signature": "_setPriceOracle(address)",
+          "signature": "_setPriceOracle",
           "target": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
           "title": "[Unitroller](https://testnet.bscscan.com/address/0x94d1820b2D1c7c7452A163983Dc888CEC546b77D)._setPriceOracle(\"0x276425afF4214570b622A3502a62fFC52848dF19\")",
           "value": "0"

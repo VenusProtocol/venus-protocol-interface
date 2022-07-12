@@ -140,7 +140,7 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
     >
       <Formik
         initialValues={{
-          actions: [{ address: '', signature: '', callData: [] }],
+          actions: [{ target: '', signature: '', data: [] }],
           description: '',
           forDescription: '',
           againstDescription: '',

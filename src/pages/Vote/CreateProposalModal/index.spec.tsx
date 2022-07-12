@@ -150,11 +150,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const callDataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const callDataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
 
-      await fireEvent.change(callDataInput0, { target: { value: 'root' } });
-      await fireEvent.change(callDataInput1, { target: { value: 'false' } });
+      await fireEvent.change(dataInput0, { target: { value: 'root' } });
+      await fireEvent.change(dataInput1, { target: { value: 'false' } });
 
       await waitFor(() => expect(addActionButton).toBeEnabled());
       await waitFor(() => fireEvent.click(addActionButton));
@@ -197,11 +197,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const callDataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const callDataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
 
-      await fireEvent.change(callDataInput0, { target: { value: 'root' } });
-      await fireEvent.change(callDataInput1, { target: { value: 'false' } });
+      await fireEvent.change(dataInput0, { target: { value: 'root' } });
+      await fireEvent.change(dataInput1, { target: { value: 'false' } });
 
       await waitFor(() => fireEvent.click(addActionButton));
     });
@@ -256,11 +256,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       await fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       await fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const callDataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const callDataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
 
-      await fireEvent.change(callDataInput0, { target: { value: 'root' } });
-      await fireEvent.change(callDataInput1, { target: { value: 'false' } });
+      await fireEvent.change(dataInput0, { target: { value: 'root' } });
+      await fireEvent.change(dataInput1, { target: { value: 'false' } });
     });
 
     await waitFor(() => expect(addActionButton).toBeEnabled()); // failing
