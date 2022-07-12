@@ -29,7 +29,11 @@ export const RPC_URLS: {
     'https://bsc-dataseed1.defibit.io',
     'https://bsc-dataseed.binance.org',
   ],
-  [BscChainId.TESTNET]: ['https://bsc-testnet.nodereal.io/v1/f9777f42cc9243f0a766937df1c6a5f3'],
+  [BscChainId.TESTNET]: [
+    'https://data-seed-prebsc-1-s1.binance.org:8545/',
+    'https://data-seed-prebsc-2-s1.binance.org:8545/',
+    'https://data-seed-prebsc-1-s2.binance.org:8545/',
+  ],
 };
 
 export const RPC_URL = sample(RPC_URLS[CHAIN_ID]) as string;
