@@ -10,22 +10,13 @@ describe('utilities/formatTokensToReadableValue', () => {
     expect(value).toBe('100,000.12333334 BUSD');
   });
 
-  test('formats shorthand value correctly great than 1', () => {
+  test('formats shorthand value correctly', () => {
     const value = formatTokensToReadableValue({
-      value: new BigNumber(1000.1234),
-      tokenId: 'eth',
-      minimizeDecimals: true,
-    });
-    expect(value).toBe('1,000.12 ETH');
-  });
-
-  test('formats shorthand value correctly less than 1', () => {
-    const value = formatTokensToReadableValue({
-      value: new BigNumber(0.1234),
+      value: new BigNumber(0.1234567899999),
       tokenId: 'ada',
       minimizeDecimals: true,
     });
-    expect(value).toBe('0.1234 ADA');
+    expect(value).toBe('0.12345679 ADA');
   });
 
   test('removes trailing zeros', () => {

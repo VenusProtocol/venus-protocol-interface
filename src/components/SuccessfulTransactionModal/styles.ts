@@ -26,13 +26,21 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       margin-bottom: ${theme.spacing(10)};
+
+      ${theme.breakpoints.down('sm')} {
+        display: block;
+      }
     `,
     amountContainer: css`
       display: flex;
       align-items: center;
+      margin-left: ${theme.spacing(2)};
+
+      ${theme.breakpoints.down('sm')} {
+        margin-left: 0;
+      }
     `,
     amountTokenIcon: css`
-      margin-left: ${theme.spacing(2)};
       margin-right: ${theme.spacing(1)};
     `,
   };

@@ -167,7 +167,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.dailyEarnings')}
-        css={styles.bottomRow}
+        css={styles.getRow({ isLast: true })}
       >
         <ValueUpdate
           original={dailyEarningsCents?.toNumber()}
