@@ -12,17 +12,18 @@ type Options = QueryObserverOptions<
   Error,
   IGetDailyXvsWeiOutput,
   IGetDailyXvsWeiOutput,
-  [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, string]
+  [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, Omit<IGetDailyXvsWeiInput, 'venusLensContract'>]
 >;
 
 const useGetDailyXvsWei = (
-  { accountAddress }: Omit<IGetDailyXvsWeiInput, 'venusLensContract'>,
+  params: Omit<IGetDailyXvsWeiInput, 'venusLensContract'>,
   options?: Options,
 ) => {
   const venusLensContract = useVenusLensContract();
+
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, accountAddress],
-    () => getDailyXvsWei({ accountAddress, venusLensContract }),
+    [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, params],
+    () => getDailyXvsWei({ accountAddress: params.accountAddress, venusLensContract }),
     options,
   );
 };

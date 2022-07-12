@@ -6,7 +6,7 @@ import { VBep20 } from 'types/contracts';
 
 export interface IRedeemInput {
   tokenContract: VBep20;
-  account: string;
+  accountAddress: string;
   amountWei: BigNumber;
 }
 
@@ -14,10 +14,13 @@ export type RedeemOutput = TransactionReceipt;
 
 const redeem = async ({
   tokenContract,
-  account,
+  accountAddress,
   amountWei,
 }: IRedeemInput): Promise<RedeemOutput> => {
-  const resp = await tokenContract.methods.redeem(amountWei.toFixed()).send({ from: account });
+  const resp = await tokenContract.methods
+    .redeem(amountWei.toFixed())
+    .send({ from: accountAddress });
+
   return checkForTokenTransactionError(resp);
 };
 

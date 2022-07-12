@@ -25,7 +25,7 @@ describe('api/mutation/redeem', () => {
       await redeem({
         tokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+        accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
       throw new Error('redeem should have thrown an error but did not');
@@ -56,7 +56,7 @@ describe('api/mutation/redeem', () => {
       await redeem({
         tokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+        accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
       throw new Error('redeem should have thrown an error but did not');
@@ -88,7 +88,7 @@ describe('api/mutation/redeem', () => {
     const response = await redeem({
       tokenContract: fakeContract,
       amountWei: fakeAmount,
-      account: fakeFromAccountsAddress,
+      accountAddress: fakeFromAccountsAddress,
     });
 
     expect(response).toBe(fakeTransactionReceipt);

@@ -1,13 +1,16 @@
+import { VBep20, VBnbToken } from 'types/contracts';
+
 export interface IGetVTokenBalanceOfInput {
-  tokenContract: $TSFixMe; // @TODO: use contract type once defined (Typechain?)
-  account: string;
+  vTokenContract: VBep20 | VBnbToken;
+  accountAddress: string;
 }
 
 export type GetVTokenBalanceOfOutput = string;
 
 const getVTokenBalanceOf = async ({
-  tokenContract,
-  account,
+  vTokenContract,
+  accountAddress,
 }: IGetVTokenBalanceOfInput): Promise<GetVTokenBalanceOfOutput> =>
-  tokenContract.methods.balanceOf(account).call();
+  vTokenContract.methods.balanceOf(accountAddress).call();
+
 export default getVTokenBalanceOf;

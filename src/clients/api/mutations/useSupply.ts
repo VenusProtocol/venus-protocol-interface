@@ -34,7 +34,9 @@ const useSupply = (
     },
     options as OptionsSupplyNonBnb,
   );
+
   const useSupplyBnbResult = useSupplyBnb({ account }, options as OptionsSupplyBnb);
+
   return asset.id === 'bnb' ? useSupplyBnbResult : useSupplyNonBnbResult;
 };
 

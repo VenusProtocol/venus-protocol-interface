@@ -5,7 +5,7 @@ import getLatestProposalIdByProposer, {
 } from 'clients/api/queries/getLatestProposalIdByProposer';
 import { useGovernorBravoDelegateContract } from 'clients/contracts';
 import FunctionKey from 'constants/functionKey';
-import { BLOCK_VALIDATION_RATE_IN_SECONDS } from 'constants/bsc';
+import { BLOCK_TIME_MS } from 'constants/bsc';
 
 type Options = QueryObserverOptions<
   GetLatestProposalIdByProposerOutput,
@@ -24,7 +24,7 @@ const useGetLatestProposalIdByProposer = (
     [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, accountAddress],
     () => getLatestProposalIdByProposer({ governorBravoContract, accountAddress }),
     {
-      staleTime: BLOCK_VALIDATION_RATE_IN_SECONDS,
+      staleTime: BLOCK_TIME_MS,
       ...options,
     },
   );

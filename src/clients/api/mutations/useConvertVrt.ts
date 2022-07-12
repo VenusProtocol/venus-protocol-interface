@@ -26,6 +26,10 @@ const useConvertVrt = (
         const { accountAddress } = onSuccessParams[1];
 
         queryClient.invalidateQueries([FunctionKey.GET_BALANCE_OF, accountAddress, TOKENS.vrt.id]);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_V_TOKEN_BALANCE,
+          { accountAddress, tokenId: TOKENS.vrt.id },
+        ]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

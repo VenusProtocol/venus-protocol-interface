@@ -6,6 +6,7 @@ import { getBalanceOf, GetBalanceOfOutput } from 'clients/api';
 import { getTokenByAddress, getContractAddress } from 'utilities';
 import FunctionKey from 'constants/functionKey';
 import { Bep20 } from 'types/contracts';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 
@@ -39,6 +40,7 @@ const useGetXvsVaultPoolBalances = ({
           }),
         queryKey: [FunctionKey.GET_BALANCE_OF, XVS_VAULT_PROXY_CONTRACT_ADDRESS, stakedTokenId],
         enabled: !!tokenContract,
+        refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       };
     },
   );

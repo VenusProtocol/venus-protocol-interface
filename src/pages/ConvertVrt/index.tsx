@@ -36,6 +36,7 @@ export const ConvertVrtUi = ({
 }: ConvertVrtUiProps) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
   const tabsContent = [
     {
       title: t('convertVrt.convert'),
@@ -93,6 +94,7 @@ const ConvertVrt = () => {
     if (!accountAddress) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
+
     return convertVrt({
       amountWei: amount,
       accountAddress,
@@ -103,6 +105,7 @@ const ConvertVrt = () => {
     if (!accountAddress) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
+
     return withdrawXvs({
       accountAddress,
     });
@@ -115,8 +118,10 @@ const ConvertVrt = () => {
         tokenId: XVS_TOKEN_ID,
       });
     }
+
     return undefined;
   }, [vrtConversionRatio]);
+
   if (conversionRatio && vrtConversionEndTime) {
     return (
       <ConvertVrtUi
@@ -131,6 +136,7 @@ const ConvertVrt = () => {
       />
     );
   }
+
   // @TODO - Handle error state
   return <Spinner />;
 };

@@ -24,9 +24,9 @@ describe('api/mutation/redeemUnderlying', () => {
 
     try {
       await redeemUnderlying({
-        tokenContract: fakeContract,
+        vTokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: fakeAccountAddress,
+        accountAddress: fakeAccountAddress,
       });
 
       throw new Error('redeemUnderlying should have thrown an error but did not');
@@ -55,9 +55,9 @@ describe('api/mutation/redeemUnderlying', () => {
 
     try {
       await redeemUnderlying({
-        tokenContract: fakeContract,
+        vTokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: fakeAccountAddress,
+        accountAddress: fakeAccountAddress,
       });
 
       throw new Error('redeemUnderlying should have thrown an error but did not');
@@ -86,9 +86,9 @@ describe('api/mutation/redeemUnderlying', () => {
     } as unknown as VBep20;
 
     const response = await redeemUnderlying({
-      tokenContract: fakeContract,
+      vTokenContract: fakeContract,
       amountWei: fakeAmount,
-      account: fakeAccountAddress,
+      accountAddress: fakeAccountAddress,
     });
 
     expect(response).toBe(fakeTransactionReceipt);

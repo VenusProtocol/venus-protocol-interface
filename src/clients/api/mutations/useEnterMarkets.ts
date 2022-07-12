@@ -14,7 +14,6 @@ const useEnterMarkets = (
 ) => {
   const comptrollerContract = useComptrollerContract();
 
-  // @TODO: invalidate related queries on success
   return useMutation(
     FunctionKey.ENTER_MARKETS,
     (params: Omit<IEnterMarketsInput, 'comptrollerContract'>) =>
@@ -26,6 +25,7 @@ const useEnterMarkets = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

@@ -18,6 +18,7 @@ import {
   formatTokensToReadableValue,
   convertWeiToTokens,
 } from 'utilities';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { useStyles } from '../styles';
 
 type TableAsset = Pick<Asset, 'id' | 'symbol'> & {
@@ -125,10 +126,15 @@ const XvsTable: React.FC = () => {
 
   const { data: venusVaiVaultDailyRateWei } = useGetVenusVaiVaultDailyRateWei();
 
-  const { data: vaultVaiStakedWei } = useGetBalanceOf({
-    tokenId: 'vai',
-    accountAddress: getContractAddress('vaiVault'),
-  });
+  const { data: vaultVaiStakedWei } = useGetBalanceOf(
+    {
+      tokenId: 'vai',
+      accountAddress: getContractAddress('vaiVault'),
+    },
+    {
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    },
+  );
 
   const assetsWithVai = useMemo(() => {
     const allAssets: TableAsset[] = [...assets];
