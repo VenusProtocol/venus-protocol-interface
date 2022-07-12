@@ -7,6 +7,9 @@ import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
 // Queries
+export const getBlockNumber = jest.fn();
+export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
+
 export const getVaiTreasuryPercentage = jest.fn();
 export const useGetVaiTreasuryPercentage = () =>
   useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage);

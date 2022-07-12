@@ -26,6 +26,7 @@ const useExitMarket = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

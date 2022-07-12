@@ -79,7 +79,14 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
 export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
   const { account } = useContext(AuthContext);
-  const { data: xvsRewardWei } = useGetXvsReward(account?.address);
+  const { data: xvsRewardWei } = useGetXvsReward(
+    {
+      accountAddress: account?.address || '',
+    },
+    {
+      enabled: !!account?.address,
+    },
+  );
 
   const { mutateAsync: claimXvsReward, isLoading: isClaimXvsRewardLoading } = useClaimXvsReward();
 

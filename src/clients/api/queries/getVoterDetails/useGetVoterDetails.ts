@@ -4,6 +4,7 @@ import getVoterDetails, {
   GetVoterDetailsOutput,
 } from 'clients/api/queries/getVoterDetails';
 import FunctionKey from 'constants/functionKey';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 type Options = QueryObserverOptions<
   GetVoterDetailsOutput,
@@ -15,6 +16,9 @@ type Options = QueryObserverOptions<
 
 const useGetVoterDetails = (params: IGetVoterDetailsInput, options?: Options) =>
   // This endpoint is paginated so we keep the previous responses by default to create a more seamless paginating experience
-  useQuery([FunctionKey.GET_VOTER_DETAILS, params], () => getVoterDetails(params), options);
+  useQuery([FunctionKey.GET_VOTER_DETAILS, params], () => getVoterDetails(params), {
+    refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    ...options,
+  });
 
 export default useGetVoterDetails;

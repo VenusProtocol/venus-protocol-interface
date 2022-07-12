@@ -25,6 +25,7 @@ const useMintVai = (options?: Options) => {
       onSuccess: (...onSuccessParams) => {
         // Invalidate queries related to fetching the user minted VAI amount
         queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

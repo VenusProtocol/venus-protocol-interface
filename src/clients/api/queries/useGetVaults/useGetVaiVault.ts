@@ -12,6 +12,7 @@ import {
   useGetVaiVaultPendingXvsWei,
 } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
@@ -21,10 +22,15 @@ export interface UseGetVaiVaultOutput {
 }
 
 const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
-  const { data: totalVaiStakedWei, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf({
-    accountAddress: VAI_VAULT_ADDRESS,
-    tokenId: TOKENS.vai.id as TokenId,
-  });
+  const { data: totalVaiStakedWei, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
+    {
+      accountAddress: VAI_VAULT_ADDRESS,
+      tokenId: TOKENS.vai.id as TokenId,
+    },
+    {
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    },
+  );
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(

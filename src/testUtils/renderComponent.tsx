@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
-import { RefreshContextProvider } from 'context/RefreshContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 const renderComponent = (
@@ -41,20 +40,18 @@ const renderComponent = (
       <QueryClientProvider client={queryClient}>
         <MuiThemeProvider>
           <AuthContext.Provider value={defaultAuthContextValues}>
-            <RefreshContextProvider>
-              <SuccessfulTransactionModalProvider>
-                <BrowserRouter>
-                  <ToastContainer />
+            <SuccessfulTransactionModalProvider>
+              <BrowserRouter>
+                <ToastContainer />
 
-                  <Switch>
-                    <Route
-                      path="/"
-                      component={typeof children === 'function' ? children : () => children}
-                    />
-                  </Switch>
-                </BrowserRouter>
-              </SuccessfulTransactionModalProvider>
-            </RefreshContextProvider>
+                <Switch>
+                  <Route
+                    path="/"
+                    component={typeof children === 'function' ? children : () => children}
+                  />
+                </Switch>
+              </BrowserRouter>
+            </SuccessfulTransactionModalProvider>
           </AuthContext.Provider>
         </MuiThemeProvider>
       </QueryClientProvider>

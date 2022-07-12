@@ -4,6 +4,7 @@ import getXvsVaultRewardWeiPerBlock, {
   GetVrtVaultAccruedInterestWeiOutput,
 } from 'clients/api/queries/getVrtVaultAccruedInterestWei';
 import FunctionKey from 'constants/functionKey';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
 
 type Options = QueryObserverOptions<
@@ -23,7 +24,10 @@ const useGetVrtVaultAccruedInterestWei = (
   return useQuery(
     [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI, accountAddress],
     () => getXvsVaultRewardWeiPerBlock({ accountAddress, vrtVaultContract }),
-    options,
+    {
+      ...options,
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    },
   );
 };
 

@@ -10,34 +10,36 @@ import {
   VENUS_GITHUB_URL,
   ETHERSCAN_XVS_CONTRACT_ADDRESS,
 } from 'config';
+import { useGetBlockNumber } from 'clients/api';
 import { generateBscScanUrl } from 'utilities';
-import { useBlock } from 'hooks/useBlock';
 import { useTranslation } from 'translation';
 import { Icon } from 'components/Icon';
 import { useStyles } from './styles';
 
-export interface IFooterProps {
-  currentBlockNumber: number;
+export interface FooterUiProps {
+  currentBlockNumber: number | undefined;
 }
 
-export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
+export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   return (
     <div css={styles.container}>
-      <Typography
-        component="a"
-        variant="small2"
-        css={styles.blockInfo}
-        href={BASE_BSC_SCAN_URL}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {t('footer.latestNumber')}
-        <br css={styles.blockInfoMobileLineBreak} />
-        <span css={styles.blockInfoNumber}>{currentBlockNumber}</span>
-      </Typography>
+      {!!currentBlockNumber && (
+        <Typography
+          component="a"
+          variant="small2"
+          css={styles.blockInfo}
+          href={BASE_BSC_SCAN_URL}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t('footer.latestNumber')}
+          <br css={styles.blockInfoMobileLineBreak} />
+          <span css={styles.blockInfoNumber}>{currentBlockNumber}</span>
+        </Typography>
+      )}
 
       <div css={styles.links}>
         <a
@@ -69,9 +71,10 @@ export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
   );
 };
 
-const FooterContainer: React.FC = () => {
-  const currentBlockNumber = useBlock();
-  return <Footer currentBlockNumber={currentBlockNumber} />;
+const Footer: React.FC = () => {
+  const { data: getBlockNumberData } = useGetBlockNumber();
+
+  return <FooterUi currentBlockNumber={getBlockNumberData?.blockNumber} />;
 };
 
-export default FooterContainer;
+export default Footer;

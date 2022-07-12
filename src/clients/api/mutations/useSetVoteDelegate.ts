@@ -23,7 +23,9 @@ const useSetVoteDelegate = (
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_VOTE_DELEGATE_ADDRESS);
+        const { accountAddress } = onSuccessParams[1];
+
+        queryClient.invalidateQueries([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, { accountAddress }]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
