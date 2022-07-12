@@ -8,14 +8,7 @@ import Path from 'constants/path';
 import { convertWeiToTokens } from 'utilities';
 import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
-import {
-  Button,
-  Icon,
-  LabeledInlineContent,
-  EllipseAddress,
-  Tooltip,
-  LabeledProgressBar,
-} from 'components';
+import { Button, Icon, EllipseAddress, Tooltip, LabeledProgressBar } from 'components';
 import { IVoter } from 'types';
 import { useStyles } from './styles';
 
@@ -79,9 +72,10 @@ const VoteSummary = ({
         </Button>
       </div>
 
-      <LabeledInlineContent label={t('voteSummary.addresses', { count: voters.length })}>
+      <div css={styles.votesHeader}>
+        <Typography>{t('voteSummary.addresses', { count: voters.length })}</Typography>
         <Typography>{t('voteSummary.votes')}</Typography>
-      </LabeledInlineContent>
+      </div>
 
       <ul css={styles.votesWrapper}>
         {voters.map(({ address, voteWeightWei, reason }) => (

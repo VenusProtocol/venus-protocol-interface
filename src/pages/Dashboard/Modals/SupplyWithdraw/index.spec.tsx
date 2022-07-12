@@ -150,7 +150,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         },
       );
 
-      await waitFor(() => getByText(`1,000 ${fakeAsset.symbol.toUpperCase()}`));
+      await waitFor(() => getByText('1,000'));
     });
 
     it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {

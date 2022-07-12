@@ -33,7 +33,7 @@ export const LabeledInlineContent = ({
 
       <Typography
         component="div"
-        css={[styles.column, styles.getContent({ invertTextColors })]}
+        css={[styles.column, styles.getContent({ invertTextColors, hasIcon: !!iconName })]}
         variant="body1"
       >
         {children}
