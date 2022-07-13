@@ -29,10 +29,10 @@ const CallDataFields: React.FC<ICallDataFieldsProps> = ({ signature, actionIndex
 
   return (
     <FieldArray
-      name="callData"
+      name="data"
       render={() =>
         callDataTypes.map((param, idx) => {
-          const name = `actions.${actionIndex}.callData.${idx}`;
+          const name = `actions.${actionIndex}.data.${idx}`;
           return (
             <FormikTextField
               key={name}
