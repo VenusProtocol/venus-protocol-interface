@@ -243,8 +243,6 @@ const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposa
     { enabled: !!accountAddress },
   );
 
-  console.log(proposal);
-
   const canCancelProposal =
     proposalThresholdWei && currentVotesWei?.isGreaterThanOrEqualTo(proposalThresholdWei);
 
