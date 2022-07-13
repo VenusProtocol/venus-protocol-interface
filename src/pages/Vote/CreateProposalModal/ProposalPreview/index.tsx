@@ -1,25 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Typography } from '@mui/material';
-import { ethers } from 'ethers';
 import { useFormikContext } from 'formik';
-import { MarkdownViewer } from 'components';
-import { generateBscScanUrl } from 'utilities';
+import { ReadableActionSignature, MarkdownViewer } from 'components';
 import { useTranslation } from 'translation';
 import { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
-import getContractName from './getContractName';
-
-const formatSignature = (action: FormValues['actions'][number]) => {
-  const fragment = ethers.utils.FunctionFragment.from(action.signature || '');
-  const args = fragment.inputs.map((i, idx) => {
-    if (i.baseType === 'string') {
-      return `"${action.callData[idx]}"`;
-    }
-    return action.callData[idx];
-  });
-  return `${fragment.name}(${args.join(', ')})`;
-};
 
 const ProposalPreview: React.FC = () => {
   const styles = useStyles();
@@ -83,20 +69,7 @@ const ProposalPreview: React.FC = () => {
         </Typography>
 
         {actions.map(action => (
-          <React.Fragment key={`${action.signature}-${action.address}`}>
-            <Typography css={styles.signature}>
-              <Typography
-                component="a"
-                href={generateBscScanUrl(action.address, 'address')}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {getContractName(action.address)}.
-              </Typography>
-
-              {formatSignature(action)}
-            </Typography>
-          </React.Fragment>
+          <ReadableActionSignature action={action} />
         ))}
       </div>
     </div>

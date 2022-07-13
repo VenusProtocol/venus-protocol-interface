@@ -82,7 +82,6 @@ export interface IProposalAction {
   data: string;
   signature: string;
   target: string;
-  title: string;
   value: string;
 }
 

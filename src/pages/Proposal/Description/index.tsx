@@ -2,7 +2,7 @@
 import React from 'react';
 import { Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { MarkdownViewer } from 'components';
+import { MarkdownViewer, ReadableActionSignature } from 'components';
 import { useTranslation } from 'translation';
 import { DescriptionV1, DescriptionV2, IProposalAction } from 'types';
 import { useStyles } from './styles';
@@ -47,12 +47,13 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
             </ul>
           </>
         )}
+
         <Typography variant="h4" color="textSecondary" css={styles.section}>
           {t('voteProposalUi.operation')}
         </Typography>
 
-        {actions.map(({ title }) => (
-          <MarkdownViewer key={title} css={[styles.markdown, styles.actionTitle]} content={title} />
+        {actions.map(action => (
+          <ReadableActionSignature action={action} />
         ))}
       </div>
     </Paper>

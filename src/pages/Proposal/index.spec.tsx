@@ -25,6 +25,7 @@ import TEST_IDS from './testIds';
 jest.mock('clients/api');
 jest.mock('hooks/useVote');
 
+const incorrectAction = proposals[0];
 const activeProposal = proposals[1];
 const cancelledProposal = proposals[3];
 const succeededProposal = proposals[4];
@@ -69,6 +70,11 @@ describe('pages/Proposal', () => {
   });
 
   it('renders without crashing', async () => {
+    renderComponent(<Proposal />);
+  });
+
+  it('renders without crashing on', async () => {
+    (getProposal as jest.Mock).mockImplementation(() => incorrectAction);
     renderComponent(<Proposal />);
   });
 
