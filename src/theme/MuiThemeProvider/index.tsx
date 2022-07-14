@@ -3,7 +3,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import React, { ReactNode } from 'react';
 
 import 'assets/styles/normalize.scss';
-import 'assets/styles/normalize.scss';
 
 import mainTheme from './muiTheme';
 
