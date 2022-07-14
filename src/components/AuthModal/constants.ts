@@ -1,14 +1,16 @@
+import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/v2/wallets/binanceChainWalletLogo.svg';
+import { ReactComponent as BraveWalletLogo } from 'assets/img/v2/wallets/braveWalletLogo.svg';
+import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
+import { ReactComponent as InfinityWalletLogo } from 'assets/img/v2/wallets/infinityWalletLogo.svg';
+import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.svg';
 import { ReactComponent as MetaMaskLogo } from 'assets/img/v2/wallets/metaMaskLogo.svg';
+import { ReactComponent as OperaWalletLogo } from 'assets/img/v2/wallets/operaWalletLogo.svg';
+import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
 import { ReactComponent as TrustWalletLogo } from 'assets/img/v2/wallets/trustWalletLogo.svg';
 import { ReactComponent as WalletConnectLogo } from 'assets/img/v2/wallets/walletConnectLogo.svg';
-import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/v2/wallets/binanceChainWalletLogo.svg';
-import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.svg';
-import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
-import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
-import { ReactComponent as BraveWalletLogo } from 'assets/img/v2/wallets/braveWalletLogo.svg';
-import { ReactComponent as InfinityWalletLogo } from 'assets/img/v2/wallets/infinityWalletLogo.svg';
-import { t } from 'translation';
 import { Connector } from 'clients/web3';
+import { isRunningInOperaBrowser } from 'clients/web3/walletDetectionUtils';
+import { t } from 'translation';
 import { BaseWallet, Wallet, IntegratedWallet } from './types';
 
 export const WALLETS: Wallet[] = [
@@ -51,6 +53,16 @@ export const WALLETS: Wallet[] = [
     mainnetOnly: true,
   },
 ];
+
+// Add Opera Wallet to the top of the list if dApp is running in Opera
+if (isRunningInOperaBrowser()) {
+  WALLETS.unshift({
+    name: t('wallets.opera'),
+    Logo: OperaWalletLogo,
+    connector: Connector.OperaWallet,
+    mainnetOnly: true,
+  });
+}
 
 export const INTEGRATED_WALLETS: IntegratedWallet[] = [
   {
