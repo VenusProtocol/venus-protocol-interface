@@ -29,9 +29,7 @@ export const RPC_URLS: {
     'https://bsc-dataseed1.defibit.io',
     'https://bsc-dataseed.binance.org',
   ],
-  [BscChainId.TESTNET]: [
-    'https://speedy-nodes-nyc.moralis.io/6c1fe2e962cdccfe0e93dcb3/bsc/testnet',
-  ],
+  [BscChainId.TESTNET]: ['https://nd-455-325-283.p2pify.com/ebbd4659d49aea838496ce7f01531063'],
 };
 
 export const RPC_URL = sample(RPC_URLS[CHAIN_ID]) as string;
