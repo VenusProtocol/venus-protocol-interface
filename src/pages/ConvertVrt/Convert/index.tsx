@@ -20,7 +20,12 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { VError } from 'errors/VError';
-import { convertTokensToWei, convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
+import {
+  convertTokensToWei,
+  convertWeiToTokens,
+  formatTokensToReadableValue,
+  getContractAddress,
+} from 'utilities';
 import { VRT_ID, VRT_DECIMAL } from '../constants';
 import { useStyles } from '../styles';
 
@@ -31,6 +36,8 @@ export interface IConvertProps {
   convertVrtLoading: boolean;
   convertVrt: (amount: string) => Promise<TransactionReceipt>;
 }
+
+const vrtConverterProxyContractAddress = getContractAddress('vrtConverterProxy');
 
 const Convert: React.FC<IConvertProps> = ({
   xvsToVrtConversionRatio,
@@ -128,7 +135,11 @@ const Convert: React.FC<IConvertProps> = ({
   return (
     <div css={styles.root}>
       <ConnectWallet message={t('convertVrt.connectWalletToConvertVrtToXvs')}>
-        <EnableToken title={t('convertVrt.enableVrt')} vTokenId={VRT_ID}>
+        <EnableToken
+          title={t('convertVrt.enableVrt')}
+          vTokenId={VRT_ID}
+          spenderAddress={vrtConverterProxyContractAddress}
+        >
           <section css={styles.title}>
             <Typography variant="h3">{readableXvsAvailable}</Typography>
             <Typography variant="small2">{t('convertVrt.xvsAVailable')}</Typography>

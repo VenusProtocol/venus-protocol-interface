@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import type { TransactionReceipt } from 'web3-core';
 
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import { VError } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
@@ -21,6 +21,8 @@ import { useTranslation } from 'translation';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
+
+const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
 
 export interface IRepayVaiUiProps {
   disabled: boolean;
@@ -81,7 +83,11 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('mintRepayVai.repayVai.connectWallet')}>
-      <EnableToken title={t('mintRepayVai.repayVai.enableToken')} vTokenId={VAI_ID}>
+      <EnableToken
+        title={t('mintRepayVai.repayVai.enableToken')}
+        vTokenId={VAI_ID}
+        spenderAddress={vaiUnitrollerContractAddress}
+      >
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
           {() => (
             <>

@@ -18,7 +18,12 @@ import {
   useGetVTokenBalanceOf,
   useGetUserMarketInfo,
 } from 'clients/api';
-import { isAssetEnabled, formatToReadablePercentage, convertTokensToWei } from 'utilities';
+import {
+  isAssetEnabled,
+  formatToReadablePercentage,
+  convertTokensToWei,
+  getVBepToken,
+} from 'utilities';
 import { IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSupply from 'clients/api/mutations/useSupply';
@@ -66,6 +71,8 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
 
   const { id: assetId, symbol } = asset || {};
   const { t } = useTranslation();
+
+  const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
 
   const tokenInfo: ILabeledInlineContentProps[] = asset
     ? [
@@ -140,7 +147,12 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
       <div className={className} css={styles.container}>
         <ConnectWallet message={message}>
           {asset && (
-            <EnableToken vTokenId={asset.id} title={title} tokenInfo={tokenInfo}>
+            <EnableToken
+              vTokenId={asset.id}
+              spenderAddress={vBepTokenContractAddress}
+              title={title}
+              tokenInfo={tokenInfo}
+            >
               <SupplyWithdrawForm
                 key={`form-${type}`}
                 asset={asset}

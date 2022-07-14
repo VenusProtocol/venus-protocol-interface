@@ -9,6 +9,7 @@ import {
   convertTokensToWei,
   formatTokensToReadableValue,
   formatToReadablePercentage,
+  getVBepToken,
 } from 'utilities';
 import { useRepayVToken } from 'clients/api';
 import TEST_IDS from 'constants/testIds';
@@ -217,6 +218,8 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
+  const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
+
   const limitTokens = React.useMemo(
     () => BigNumber.min(asset.borrowBalance, asset.walletBalance),
     [asset.borrowBalance, asset.walletBalance],
@@ -252,6 +255,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
       {asset && (
         <EnableToken
           vTokenId={asset.id}
+          spenderAddress={vBepTokenContractAddress}
           title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {

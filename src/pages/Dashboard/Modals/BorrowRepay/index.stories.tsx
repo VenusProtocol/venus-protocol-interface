@@ -1,5 +1,8 @@
 import React from 'react';
 import noop from 'noop-ts';
+import fakeAddress from '__mocks__/models/address';
+import { getVBepToken } from 'utilities';
+import { VTokenId } from 'types';
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
 import { assetData } from '__mocks__/models/asset';
@@ -24,7 +27,7 @@ const context = {
   openAuthModal: noop,
   closeAuthModal: noop,
   account: {
-    address: '0x0000000000000000000000000000000000000000',
+    address: fakeAddress,
   },
 };
 
@@ -42,7 +45,14 @@ Disabled.args = {
 };
 
 export const Default = Template.bind({});
-Default.decorators = [withAuthContext(context), withEnabledToken(assetData[0].id)];
+Default.decorators = [
+  withAuthContext(context),
+  withEnabledToken({
+    tokenId: assetData[0].id,
+    accountAddress: fakeAddress,
+    spenderAddress: getVBepToken(assetData[0].id as VTokenId).address,
+  }),
+];
 Default.args = {
   asset: assetData[0],
   onClose: noop,

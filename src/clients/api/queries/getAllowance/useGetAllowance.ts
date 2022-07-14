@@ -13,6 +13,7 @@ export type UseGetAllowanceQueryKey = [
   {
     tokenId: TokenId;
     spenderAddress: string;
+    accountAddress: string;
   },
 ];
 
@@ -40,6 +41,7 @@ const useGetAllowance = (
       {
         tokenId,
         spenderAddress,
+        accountAddress,
       },
     ],
     () =>

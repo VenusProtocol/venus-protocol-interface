@@ -21,6 +21,8 @@ describe('hooks/useStakeInVault', () => {
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
         stakedTokenId: TOKENS.vai.id as TokenId,
+        rewardTokenId: TOKENS.xvs.id as TokenId,
+        poolIndex: fakePoolIndex,
       });
 
       return (
@@ -28,10 +30,8 @@ describe('hooks/useStakeInVault', () => {
           <button
             onClick={() =>
               stake({
-                rewardTokenId: TOKENS.xvs.id as TokenId,
                 amountWei: fakeAmountWei,
                 accountAddress: fakeAccountAddress,
-                poolIndex: fakePoolIndex,
               })
             }
             type="button"
@@ -60,6 +60,7 @@ describe('hooks/useStakeInVault', () => {
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
         stakedTokenId: TOKENS.vai.id as TokenId,
+        rewardTokenId: TOKENS.xvs.id as TokenId,
       });
 
       return (
@@ -67,7 +68,6 @@ describe('hooks/useStakeInVault', () => {
           <button
             onClick={() =>
               stake({
-                rewardTokenId: TOKENS.xvs.id as TokenId,
                 amountWei: fakeAmountWei,
                 accountAddress: fakeAccountAddress,
               })
@@ -96,6 +96,7 @@ describe('hooks/useStakeInVault', () => {
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
         stakedTokenId: TOKENS.vrt.id as TokenId,
+        rewardTokenId: TOKENS.xvs.id as TokenId,
       });
 
       return (
@@ -103,7 +104,6 @@ describe('hooks/useStakeInVault', () => {
           <button
             onClick={() =>
               stake({
-                rewardTokenId: TOKENS.xvs.id as TokenId,
                 amountWei: fakeAmountWei,
                 accountAddress: fakeAccountAddress,
               })

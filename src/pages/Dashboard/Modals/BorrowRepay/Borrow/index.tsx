@@ -8,6 +8,7 @@ import {
   formatToReadablePercentage,
   formatTokensToReadableValue,
   convertTokensToWei,
+  getVBepToken,
 } from 'utilities';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import TEST_IDS from 'constants/testIds';
@@ -157,6 +158,8 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
+  const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
+
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
     data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },
@@ -233,6 +236,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
       {asset && (
         <EnableToken
           vTokenId={asset.id}
+          spenderAddress={vBepTokenContractAddress}
           title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
           tokenInfo={[
             {
