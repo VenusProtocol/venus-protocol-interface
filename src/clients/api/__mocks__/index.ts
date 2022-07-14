@@ -194,6 +194,9 @@ export const useGetProposalThreshold = () =>
 export const getProposalState = jest.fn();
 export const useGetProposalState = () => useQuery(FunctionKey.GET_PROPOSAL_STATE, getProposalState);
 
+export const getProposalEta = jest.fn();
+export const useGetProposalEta = () => useQuery(FunctionKey.GET_PROPOSAL_ETA, getProposalEta);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>

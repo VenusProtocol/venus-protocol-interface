@@ -332,3 +332,7 @@ export { default as useGetMintableVai } from './queries/getMintableVai/useGetMin
 export { default as getBlockNumber } from './queries/getBlockNumber';
 export * from './queries/getBlockNumber';
 export { default as useGetBlockNumber } from './queries/getBlockNumber/useGetBlockNumber';
+
+export { default as getProposalEta } from './queries/getProposalEta';
+export * from './queries/getProposalEta';
+export { default as useGetProposalEta } from './queries/getProposalEta/useGetProposalEta';

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
+import isAfter from 'date-fns/isAfter';
 import type { TransactionReceipt } from 'web3-core';
 import { Paper, Typography } from '@mui/material';
 import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } from 'components';
@@ -10,6 +11,7 @@ import {
   useExecuteProposal,
   useGetProposalThreshold,
   useGetCurrentVotes,
+  useGetProposalEta,
 } from 'clients/api';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { IProposal } from 'types';
@@ -31,6 +33,7 @@ interface IProposalSummaryContainerProps {
   isExecuteProposalLoading: boolean;
   isQueueProposalLoading: boolean;
   canCancelProposal: boolean;
+  proposalEta?: Date;
 }
 
 export const ProposalSummaryUi: React.FC<
@@ -45,6 +48,7 @@ export const ProposalSummaryUi: React.FC<
   isExecuteProposalLoading,
   isQueueProposalLoading,
   canCancelProposal,
+  proposalEta,
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
@@ -103,6 +107,7 @@ export const ProposalSummaryUi: React.FC<
 
   let updateProposalButton;
   let transactionHash = startTxHash;
+  const isExecuteEtaInFuture = !!proposalEta && isAfter(proposalEta, new Date());
 
   switch (state) {
     case 'Active':
@@ -136,16 +141,19 @@ export const ProposalSummaryUi: React.FC<
       transactionHash = endTxHash;
       break;
     case 'Queued':
-      updateProposalButton = (
-        <PrimaryButton
-          onClick={handleExecuteProposal}
-          css={styles.updateProposalButton}
-          loading={isExecuteProposalLoading}
-          data-testid={TEST_IDS.proposalSummary.executeButton}
-        >
-          {t('voteProposalUi.execute')}
-        </PrimaryButton>
-      );
+      if (!isExecuteEtaInFuture) {
+        updateProposalButton = (
+          <PrimaryButton
+            onClick={handleExecuteProposal}
+            css={styles.updateProposalButton}
+            loading={isExecuteProposalLoading}
+            data-testid={TEST_IDS.proposalSummary.executeButton}
+          >
+            {t('voteProposalUi.execute')}
+          </PrimaryButton>
+        );
+      }
+
       transactionHash = queuedTxHash;
       break;
     case 'Defeated':
@@ -157,6 +165,26 @@ export const ProposalSummaryUi: React.FC<
     // no default
   }
 
+  const countdownData = useMemo(() => {
+    if (state === 'Active' && endDate) {
+      return {
+        date: endDate,
+        // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+        // t('voteProposalUi.activeUntilDate')
+        i18nKey: 'voteProposalUi.activeUntilDate',
+      };
+    }
+
+    if (state === 'Queued' && isExecuteEtaInFuture) {
+      return {
+        date: proposalEta,
+        // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+        // t('voteProposalUi.readyToExecuteAt')
+        i18nKey: 'voteProposalUi.readyToExecuteAt',
+      };
+    }
+  }, [state, endDate?.getTime(), proposalEta?.getTime()]);
+
   return (
     <Paper css={styles.root} className={className}>
       <div css={styles.leftSection}>
@@ -166,11 +194,11 @@ export const ProposalSummaryUi: React.FC<
             {state === 'Active' && <ActiveChip text={t('voteProposalUi.proposalState.active')} />}
           </div>
 
-          {state === 'Active' && endDate && (
+          {countdownData && (
             <div>
               <Typography variant="small2">
                 <Trans
-                  i18nKey="voteProposalUi.activeUntilDate"
+                  i18nKey={countdownData.i18nKey}
                   components={{
                     Date: <Typography variant="small2" color="textPrimary" />,
                   }}
@@ -180,7 +208,7 @@ export const ProposalSummaryUi: React.FC<
                 />
               </Typography>
               &nbsp;
-              <Countdown date={endDate} css={styles.countdown} />
+              <Countdown date={countdownData.date} css={styles.countdown} />
             </div>
           )}
         </div>
@@ -238,12 +266,14 @@ const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposa
 
   const { data: proposalThresholdWei } = useGetProposalThreshold();
 
+  const { data: getProposalEtaData } = useGetProposalEta({
+    proposalId: proposal.id,
+  });
+
   const { data: currentVotesWei } = useGetCurrentVotes(
     { accountAddress },
     { enabled: !!accountAddress },
   );
-
-  console.log(proposal);
 
   const canCancelProposal =
     proposalThresholdWei && currentVotesWei?.isGreaterThanOrEqualTo(proposalThresholdWei);
@@ -252,6 +282,7 @@ const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposa
     <ProposalSummaryUi
       className={className}
       proposal={proposal}
+      proposalEta={getProposalEtaData?.eta}
       cancelProposal={handleCancelProposal}
       executeProposal={handleExecuteProposal}
       queueProposal={handleQueueProposal}
