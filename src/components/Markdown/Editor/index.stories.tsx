@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
+import React from 'react';
+
 import { withCenterStory, withOnChange } from 'stories/decorators';
+
 import MarkdownEditor, { IMarkdownEditorProps } from '.';
 
 export default {

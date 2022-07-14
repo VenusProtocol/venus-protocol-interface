@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { ReactNode } from 'react';
 import Box from '@mui/material/Box';
+import React, { ReactNode } from 'react';
+
 import Footer from '../Footer';
 import { useStyles } from './styles';
 

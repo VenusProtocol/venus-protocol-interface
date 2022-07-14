@@ -3,7 +3,7 @@ import { InfinityWalletConnector } from '@infinitywallet/infinity-connector';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-import { RPC_URL, CHAIN_ID, BscChainId } from 'config';
+import { BscChainId, CHAIN_ID, RPC_URL } from 'config';
 
 import { Connector } from './types';
 

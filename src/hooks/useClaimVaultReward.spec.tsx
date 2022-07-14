@@ -1,11 +1,12 @@
+import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
-import { waitFor, fireEvent } from '@testing-library/react';
-
 import { TokenId } from 'types';
-import { TOKENS } from 'constants/tokens';
-import { claimXvsVaultReward, claimVaiVaultReward, claimVrtVaultReward } from 'clients/api';
+
 import fakeAccountAddress from '__mocks__/models/address';
+import { claimVaiVaultReward, claimVrtVaultReward, claimXvsVaultReward } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
+
 import useClaimVaultReward from './useClaimVaultReward';
 
 jest.mock('clients/api');

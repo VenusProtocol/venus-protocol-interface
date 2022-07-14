@@ -1,7 +1,8 @@
-import { restService } from 'utilities';
 import { VError } from 'errors';
+import { restService } from 'utilities';
+
 import formatToVoters from './formatToVoters';
-import { IGetVotersInput, IGetVotersApiResponse, GetVotersOutput } from './types';
+import { GetVotersOutput, IGetVotersApiResponse, IGetVotersInput } from './types';
 
 export * from './types';
 

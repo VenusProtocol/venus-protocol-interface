@@ -1,5 +1,6 @@
 import fakeAddress from '__mocks__/models/address';
 import { GovernorBravoDelegate } from 'types/contracts';
+
 import getLatestProposalIdByProposer from './getLatestProposalIdByProposer';
 
 describe('api/queries/getLatestProposalIdByProposer', () => {

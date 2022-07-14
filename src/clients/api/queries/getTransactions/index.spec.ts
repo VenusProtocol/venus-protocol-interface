@@ -1,7 +1,9 @@
-import { restService } from 'utilities';
 import { VError } from 'errors';
-import { transactionResponse } from '__mocks__/models/transactions';
+import { restService } from 'utilities';
+
 import fakeAddress from '__mocks__/models/address';
+import { transactionResponse } from '__mocks__/models/transactions';
+
 import getTransactions from '.';
 
 jest.mock('utilities/restService');

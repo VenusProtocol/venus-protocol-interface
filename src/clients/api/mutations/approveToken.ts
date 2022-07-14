@@ -1,7 +1,7 @@
 import type { TransactionReceipt } from 'web3-core';
 
-import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
 import ALLOWANCE_AMOUNT_WEI from 'constants/allowanceAmountWei';
+import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
 
 export interface IApproveTokenInput {
   tokenContract: Bep20 | VaiToken | VrtToken | XvsToken;

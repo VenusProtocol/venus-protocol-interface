@@ -1,7 +1,9 @@
-import { restService } from 'utilities';
 import { VError } from 'errors';
+import { restService } from 'utilities';
+
 import voterHistoryResponse from '__mocks__/api/voterHistory.json';
 import fakeAddress from '__mocks__/models/address';
+
 import getVoterHistory from '.';
 
 jest.mock('utilities/restService');

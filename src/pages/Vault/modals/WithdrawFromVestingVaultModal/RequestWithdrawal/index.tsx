@@ -1,19 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-
-import { AuthContext } from 'context/AuthContext';
-import { TOKENS } from 'constants/tokens';
+import { ConnectWallet, Spinner, TextButton } from 'components';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { useTranslation } from 'translation';
+
 import {
+  useGetXvsVaultLockedDeposits,
   useGetXvsVaultPoolInfo,
   useGetXvsVaultUserInfo,
   useRequestWithdrawalFromXvsVault,
-  useGetXvsVaultLockedDeposits,
 } from 'clients/api';
-import { ConnectWallet, Spinner, TextButton } from 'components';
+import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
+
 import TransactionForm, { ITransactionFormProps } from '../../../TransactionForm';
 import { useStyles } from './styles';
 

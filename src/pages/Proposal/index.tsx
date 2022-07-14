@@ -1,21 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useState, useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
-import { useParams } from 'react-router-dom';
-import type { TransactionReceipt } from 'web3-core';
-import { useTranslation } from 'translation';
-import { useGetProposal, useGetVoters, useGetCurrentVotes, useGetVoteReceipt } from 'clients/api';
-import useVote, { UseVoteParams } from 'hooks/useVote';
 import { Spinner } from 'components';
+import React, { useContext, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'translation';
 import { IProposal, IVoter } from 'types';
 import { convertWeiToTokens } from 'utilities';
+import type { TransactionReceipt } from 'web3-core';
+
+import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
-import TEST_IDS from './testIds';
-import VoteSummary from './VoteSummary';
-import VoteModal from './VoteModal';
-import ProposalSummary from './ProposalSummary';
+import useVote, { UseVoteParams } from 'hooks/useVote';
+
 import { Description } from './Description';
+import ProposalSummary from './ProposalSummary';
+import VoteModal from './VoteModal';
+import VoteSummary from './VoteSummary';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 interface ProposalUiProps {
   proposal: IProposal | undefined;

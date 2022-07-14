@@ -1,19 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import Typography from '@mui/material/Typography';
 import {
   BASE_BSC_SCAN_URL,
-  VENUS_MEDIUM_URL,
-  VENUS_DISCORD_URL,
-  VENUS_TWITTER_URL,
-  VENUS_GITHUB_URL,
   ETHERSCAN_XVS_CONTRACT_ADDRESS,
+  VENUS_DISCORD_URL,
+  VENUS_GITHUB_URL,
+  VENUS_MEDIUM_URL,
+  VENUS_TWITTER_URL,
 } from 'config';
-import { useGetBlockNumber } from 'clients/api';
-import { generateBscScanUrl } from 'utilities';
+import React from 'react';
 import { useTranslation } from 'translation';
+import { generateBscScanUrl } from 'utilities';
+
+import { useGetBlockNumber } from 'clients/api';
 import { Icon } from 'components/Icon';
+
 import { useStyles } from './styles';
 
 export interface FooterUiProps {

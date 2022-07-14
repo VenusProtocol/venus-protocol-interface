@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
-import { withRouter, withCenterStory } from 'stories/decorators';
+import React from 'react';
+
+import { withCenterStory, withRouter } from 'stories/decorators';
+
 import { HeaderUi } from '.';
 
 export default {

@@ -1,22 +1,23 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
+import React from 'react';
+import { formatTokensToReadableValue } from 'utilities';
 
-import en from 'translation/translations/en.json';
+import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
+  getAllowance,
+  getBalanceOf,
+  getMintedVai,
   repayVai,
   useGetUserMarketInfo,
-  getAllowance,
-  getMintedVai,
-  getBalanceOf,
 } from 'clients/api';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import MAX_UINT256 from 'constants/maxUint256';
-import { formatTokensToReadableValue } from 'utilities';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
-import { assetData } from '__mocks__/models/asset';
-import fakeAccountAddress from '__mocks__/models/address';
+import en from 'translation/translations/en.json';
+
 import RepayVai from '.';
 
 jest.mock('clients/api');

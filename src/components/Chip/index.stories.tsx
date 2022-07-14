@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
-import { ActiveChip, BlueChip, ErrorChip, InactiveChip, Chip } from '.';
+import React from 'react';
+
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
+import { ActiveChip, BlueChip, Chip, ErrorChip, InactiveChip } from '.';
 
 export default {
   title: 'Components/Chip',

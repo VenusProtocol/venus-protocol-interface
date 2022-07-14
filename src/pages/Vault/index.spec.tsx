@@ -1,8 +1,10 @@
 import React from 'react';
-import renderComponent from 'testUtils/renderComponent';
-import { useGetVaults } from 'clients/api';
+
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
+import { useGetVaults } from 'clients/api';
 import TEST_IDS from 'constants/testIds';
+import renderComponent from 'testUtils/renderComponent';
+
 import Vault from '.';
 
 jest.mock('clients/api');

@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { Typography } from '@mui/material';
 import { Pagination, Spinner } from 'components';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { IVoterHistory } from 'types';
+
 import VoterProposal from './VoterProposal';
 import { useStyles } from './styles';
 

@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { Typography } from '@mui/material';
+import React from 'react';
 import { IProposalAction } from 'types';
 import { generateBscScanUrl } from 'utilities';
+
 import { FormValues } from 'pages/Vote/CreateProposalModal/proposalSchema';
+
 import formatSignature from './formatSignature';
 import getContractName from './getContractName';
 import { useStyles } from './styles';

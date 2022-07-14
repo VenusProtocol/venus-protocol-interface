@@ -1,12 +1,14 @@
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { VError } from 'errors';
+
 import address from '__mocks__/models/address';
-import { Comptroller } from 'types/contracts';
-import { VBEP_TOKENS } from 'constants/tokens';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
+import { VBEP_TOKENS } from 'constants/tokens';
+import { Comptroller } from 'types/contracts';
+
 import getVTokenBalancesAll from '../queries/getVTokenBalancesAll';
 import claimXvsReward from './claimXvsReward';
 

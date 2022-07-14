@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { toast as toastify, ToastOptions } from 'react-toastify';
 import { GlobalStyles } from '@mui/material';
-
-import { Notice } from '../Notice';
-import { Icon } from '../Icon';
-import { Button } from '../Button';
-import { NoticeVariant } from '../Notice/types';
-
+import React from 'react';
+import { ToastOptions, toast as toastify } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+
+import { Button } from '../Button';
+import { Icon } from '../Icon';
+import { Notice } from '../Notice';
+import { NoticeVariant } from '../Notice/types';
 import { customToastGlobalStyles, useStyles } from './styles';
 
 interface IToastArgs {

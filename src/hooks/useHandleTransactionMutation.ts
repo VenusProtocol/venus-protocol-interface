@@ -1,10 +1,10 @@
+import { VError, formatVErrorToReadableString } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { VError, formatVErrorToReadableString } from 'errors';
+import { toast } from 'components/Toast';
 import useSuccessfulTransactionModal, {
   OpenSuccessfulTransactionModalInput,
 } from 'hooks/useSuccessfulTransactionModal';
-import { toast } from 'components/Toast';
 
 export interface IHandleMutationInput {
   mutate: () => Promise<TransactionReceipt | void>;

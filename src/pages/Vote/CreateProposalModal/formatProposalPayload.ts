@@ -1,6 +1,7 @@
 import { ICreateProposalInput } from 'clients/api';
-import { FormValues } from './proposalSchema';
+
 import encodeCallData from './encodeCallData';
+import { FormValues } from './proposalSchema';
 
 export interface IV1Description {
   version: 'v1';

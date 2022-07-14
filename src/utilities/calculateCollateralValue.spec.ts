@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
+
 import { assetData } from '__mocks__/models/asset';
+
 import calculateCollateralValue from './calculateCollateralValue';
 
 describe('utilities/calculateCollateralValue', () => {

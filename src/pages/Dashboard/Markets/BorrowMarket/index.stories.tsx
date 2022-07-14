@@ -1,8 +1,10 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
-import { withCenterStory } from 'stories/decorators';
+import BigNumber from 'bignumber.js';
+import React from 'react';
+
 import { assetData } from '__mocks__/models/asset';
+import { withCenterStory } from 'stories/decorators';
+
 import { BorrowMarketUi } from '.';
 
 export default {

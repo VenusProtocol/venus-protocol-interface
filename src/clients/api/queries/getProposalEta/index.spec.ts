@@ -1,5 +1,6 @@
-import { GovernorBravoDelegate } from 'types/contracts';
 import governorBravoDelegateResponses from '__mocks__/contracts/governanceBravoDelegate';
+import { GovernorBravoDelegate } from 'types/contracts';
+
 import getProposalEta from '.';
 
 const fakeProposalId = 123;

@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+
 import { withCenterStory, withRouter } from 'stories/decorators';
-import { PrimaryButton, SecondaryButton, TertiaryButton, TextButton, Button, LinkButton } from '.';
+
+import { Button, LinkButton, PrimaryButton, SecondaryButton, TertiaryButton, TextButton } from '.';
 
 export default {
   title: 'Components/Button',

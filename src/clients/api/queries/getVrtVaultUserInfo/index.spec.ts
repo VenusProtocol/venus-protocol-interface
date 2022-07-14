@@ -1,7 +1,9 @@
 import BigNumber from 'bignumber.js';
-import fakeAddress from '__mocks__/models/address';
+
 import vrtVaultResponses from '__mocks__/contracts/vrtVault';
+import fakeAddress from '__mocks__/models/address';
 import { VrtVault } from 'types/contracts';
+
 import getVrtVaultUserInfo from '.';
 
 describe('api/queries/getVrtVaultUserInfo', () => {

@@ -1,9 +1,11 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
+
 import {
   VaiControllerErrorReporterError,
   VaiControllerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
+
 import mintVai from './mintVai';
 
 describe('api/mutation/mintVai', () => {

@@ -1,9 +1,10 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
+import React from 'react';
 
-import { withCenterStory } from 'stories/decorators';
 import { Connector } from 'clients/web3';
+import { withCenterStory } from 'stories/decorators';
+
 import { AuthModal } from '.';
 
 export default {

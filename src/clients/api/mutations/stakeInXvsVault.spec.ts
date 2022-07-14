@@ -1,12 +1,13 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
 
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   VaiVaultErrorReporterError,
   VaiVaultErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
 import { XvsVault } from 'types/contracts';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+
 import stakeInXvsVault from './stakeInXvsVault';
 
 const fakeAmountWei = new BigNumber('1000000000000');

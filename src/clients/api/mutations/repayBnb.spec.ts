@@ -1,11 +1,12 @@
-import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
+import { getVBepToken } from 'utilities';
+import Web3 from 'web3';
 
 import fakeAddress from '__mocks__/models/address';
-import { getVBepToken } from 'utilities';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import { getVTokenContract, getMaximillionContract } from 'clients/contracts';
+import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 import { VBEP_TOKENS } from 'constants/tokens';
+
 import repayBnb, { REPAYMENT_BNB_BUFFER_PERCENTAGE } from './repayBnb';
 
 jest.mock('clients/contracts');

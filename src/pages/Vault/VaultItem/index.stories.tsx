@@ -1,8 +1,10 @@
-import React from 'react';
+import { ComponentMeta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
 import { VaultItemUi } from '.';
 
 export default {

@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { ComponentMeta, Story } from '@storybook/react';
 import { css } from '@emotion/react';
-import { withCenterStory, withOnChange } from 'stories/decorators';
+import { ComponentMeta, Story } from '@storybook/react';
 import { noop } from 'lodash';
+import React from 'react';
+
+import { withCenterStory, withOnChange } from 'stories/decorators';
+
 import { Checkbox, ICheckboxProps } from '.';
 
 export default {

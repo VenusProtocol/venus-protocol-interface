@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Switch from '@mui/material/Switch';
 import { SwitchBaseProps } from '@mui/material/internal/SwitchBase';
+import React from 'react';
 
 import { useStyles } from './styles';
 

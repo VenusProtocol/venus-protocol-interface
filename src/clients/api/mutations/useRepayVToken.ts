@@ -1,13 +1,13 @@
 import { MutationObserverOptions } from 'react-query';
-
 import { VTokenId } from 'types';
+
 import {
-  useRepayNonBnbVToken,
-  useRepayBnb,
+  IRepayBnbInput,
+  IRepayNonBnbVTokenInput,
   RepayBnbOutput,
   RepayNonBnbVTokenOutput,
-  IRepayNonBnbVTokenInput,
-  IRepayBnbInput,
+  useRepayBnb,
+  useRepayNonBnbVToken,
 } from 'clients/api';
 
 type Options = MutationObserverOptions<

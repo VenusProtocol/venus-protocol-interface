@@ -1,19 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
-import { BigNumber } from 'bignumber.js';
 import Typography from '@mui/material/Typography';
-
-import { useTranslation } from 'translation';
-import { ProposalState, VoteSupport } from 'types';
+import { BigNumber } from 'bignumber.js';
 import {
-  ActiveVotingProgress,
   ActiveChip,
+  ActiveVotingProgress,
+  BlueChip,
   ErrorChip,
   InactiveChip,
-  BlueChip,
   ProposalCard,
 } from 'components';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'translation';
+import { ProposalState, VoteSupport } from 'types';
+
 import Path from 'constants/path';
+
 import { useStyles } from './styles';
 
 interface IVoterProposalProps {

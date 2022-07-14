@@ -1,9 +1,9 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
-
+import { QueryObserverOptions, useQuery } from 'react-query';
 import { VTokenId } from 'types';
+
 import getVTokenCash, { GetVTokenCashOutput } from 'clients/api/queries/getVTokenCash';
-import FunctionKey from 'constants/functionKey';
 import { useVTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetVTokenCashOutput,

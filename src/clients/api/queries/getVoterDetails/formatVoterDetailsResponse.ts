@@ -1,7 +1,9 @@
 import BigNumber from 'bignumber.js';
+import { IVoterDetails, VoteDetailTransactionTransfer, VoteDetailTransactionVote } from 'types';
+
 import { NULL_ADDRESS } from 'constants/address';
-import { IVoterDetails, VoteDetailTransactionVote, VoteDetailTransactionTransfer } from 'types';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+
 import { IGetVoterDetailsResponse } from './types';
 
 const formatVoterResponse = (

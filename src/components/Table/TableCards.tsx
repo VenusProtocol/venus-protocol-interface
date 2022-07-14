@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import { Paper, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Typography } from '@mui/material';
+
 import { Delimiter } from '../Delimiter';
-import { ITableRowProps } from './types';
 import { useStyles } from './styles';
+import { ITableRowProps } from './types';
 
 interface ITableCardProps {
   rows: ITableRowProps[][];

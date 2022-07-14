@@ -1,12 +1,13 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import {
-  getVaiVaultPendingXvsWei,
-  IGetVaiVaultPendingXvsWeiInput,
   GetVaiVaultPendingXvsWeiOutput,
+  IGetVaiVaultPendingXvsWeiInput,
+  getVaiVaultPendingXvsWei,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetVaiVaultPendingXvsWeiOutput,

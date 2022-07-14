@@ -1,6 +1,8 @@
 import React from 'react';
-import renderComponent from 'testUtils/renderComponent';
+
 import voterAccounts from '__mocks__/models/voterAccounts';
+import renderComponent from 'testUtils/renderComponent';
+
 import Table from '.';
 
 describe('pages/VoterLeaderboard/Table', () => {

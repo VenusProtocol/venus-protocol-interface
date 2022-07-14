@@ -1,5 +1,6 @@
-import vBepTokens from 'constants/contracts/addresses/vBepTokens.json';
 import { TokenId } from 'types';
+
+import vBepTokens from 'constants/contracts/addresses/vBepTokens.json';
 
 const getTokenIdFromVAddress = (address: string) => {
   const token = Object.entries<{ [key: string]: string }>(vBepTokens).find(

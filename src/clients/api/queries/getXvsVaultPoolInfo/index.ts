@@ -1,5 +1,5 @@
-import { IGetXvsVaultPoolInfoInput, IGetXvsVaultPoolInfoOutput } from './types';
 import formatToPoolInfo from './formatToPoolInfo';
+import { IGetXvsVaultPoolInfoInput, IGetXvsVaultPoolInfoOutput } from './types';
 
 export * from './types';
 

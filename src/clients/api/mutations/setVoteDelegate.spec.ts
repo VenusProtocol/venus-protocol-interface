@@ -1,5 +1,6 @@
-import { XvsVault } from 'types/contracts';
 import fakeAddress from '__mocks__/models/address';
+import { XvsVault } from 'types/contracts';
+
 import setVoteDelegate from './setVoteDelegate';
 
 describe('api/mutation/setVoteDelegate', () => {

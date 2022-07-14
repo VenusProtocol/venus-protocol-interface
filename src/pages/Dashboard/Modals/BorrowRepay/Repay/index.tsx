@@ -1,33 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import BigNumber from 'bignumber.js';
-
-import { Asset, VTokenId } from 'types';
-import { AuthContext } from 'context/AuthContext';
-import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import {
-  convertTokensToWei,
-  formatTokensToReadableValue,
-  formatToReadablePercentage,
-} from 'utilities';
-import { useRepayVToken } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
-import { VError, formatVErrorToReadableString } from 'errors';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import {
-  toast,
-  PrimaryButton,
-  TokenTextField,
   ConnectWallet,
   EnableToken,
   LabeledInlineContent,
-  TertiaryButton,
   NoticeWarning,
+  PrimaryButton,
+  TertiaryButton,
+  TokenTextField,
+  toast,
 } from 'components';
+import { VError, formatVErrorToReadableString } from 'errors';
+import React from 'react';
 import { useTranslation } from 'translation';
+import { Asset, VTokenId } from 'types';
+import {
+  convertTokensToWei,
+  formatToReadablePercentage,
+  formatTokensToReadableValue,
+} from 'utilities';
+
+import { useRepayVToken } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
+import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+
 import { useStyles } from '../../styles';
-import { useStyles as useRepayStyles } from './styles';
 import AccountData from '../AccountData';
+import { useStyles as useRepayStyles } from './styles';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 

@@ -1,13 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useMemo } from 'react';
+import { Select as MuiSelect } from '@mui/material';
+import { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { MenuProps } from '@mui/material/Menu';
-import { Select as MuiSelect } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import React, { useMemo, useState } from 'react';
+
 import { useIsSmDown } from 'hooks/responsive';
-import { Icon } from '../Icon';
+
 import { TextButton } from '../Button';
+import { Icon } from '../Icon';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
 interface IOption {

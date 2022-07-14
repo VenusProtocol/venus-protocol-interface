@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
+import React from 'react';
+
 import transactions from '__mocks__/models/transactions';
+
 import { HistoryUi } from '.';
 import { ALL_VALUE } from './Filters';
 

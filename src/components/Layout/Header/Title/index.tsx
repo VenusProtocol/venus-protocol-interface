@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { Typography } from '@mui/material';
-import { useRouteMatch, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useLocation, useRouteMatch } from 'react-router-dom';
+import { useTranslation } from 'translation';
+import { VTokenId } from 'types';
+import { getToken } from 'utilities';
 
 import Path from 'constants/path';
-import { getToken } from 'utilities';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
-import { VTokenId } from 'types';
-import { useTranslation } from 'translation';
+
 import EllipseAddress from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
 import { menuItems } from '../../constants';

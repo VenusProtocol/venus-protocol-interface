@@ -1,11 +1,13 @@
-import React from 'react';
+import { ComponentMeta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { ComponentMeta } from '@storybook/react';
-import { NULL_ADDRESS } from 'constants/address';
+import React from 'react';
+
 import voterDetails from '__mocks__/models/voterDetails';
 import voterHistory from '__mocks__/models/voterHistory';
+import { NULL_ADDRESS } from 'constants/address';
 import { withRouter } from 'stories/decorators';
+
 import { VoterDetailsUi } from '.';
 
 export default {

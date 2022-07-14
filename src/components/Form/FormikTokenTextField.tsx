@@ -1,6 +1,7 @@
-import React from 'react';
 import { useField } from 'formik';
-import { TokenTextField, ITokenTextFieldProps } from '../TokenTextField';
+import React from 'react';
+
+import { ITokenTextFieldProps, TokenTextField } from '../TokenTextField';
 
 interface IFormikTokenTextField extends Omit<ITokenTextFieldProps, 'name' | 'onChange' | 'value'> {
   name: string;

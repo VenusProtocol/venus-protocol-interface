@@ -1,6 +1,8 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+
 import transactions from '__mocks__/models/transactions';
+
 import { HistoryTableUi } from '.';
 
 export default {

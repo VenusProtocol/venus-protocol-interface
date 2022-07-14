@@ -1,4 +1,5 @@
-import { set, isEmpty } from 'lodash';
+import { isEmpty, set } from 'lodash';
+
 import { API_ENDPOINT_URL } from '../config';
 
 interface IRestServiceInput {

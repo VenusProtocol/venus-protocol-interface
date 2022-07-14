@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { useTranslation } from 'translation';
 
 import { AuthContext } from 'context/AuthContext';
-import { useTranslation } from 'translation';
-import { NoticeInfo } from '../Notice';
+
 import { SecondaryButton } from '../Button';
+import { NoticeInfo } from '../Notice';
 import { useStyles } from './styles';
 
 export interface IPromptProps {

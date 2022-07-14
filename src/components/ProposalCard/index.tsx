@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import { VoteSupport } from 'types';
+
 import { Chip } from '../Chip';
 import { useStyles } from './styles';
 

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import ReactMarkdown from '@uiw/react-markdown-preview';
+import React from 'react';
+
 import previewOptions from '../previewOptions';
 import { useStyles } from './styles';
 

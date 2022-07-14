@@ -1,6 +1,8 @@
-import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
+import React from 'react';
+
 import { withRouter } from 'stories/decorators';
+
 import VoterLeaderboard from '.';
 
 export default {

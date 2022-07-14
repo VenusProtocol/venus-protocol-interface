@@ -1,25 +1,26 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { act, fireEvent, waitFor } from '@testing-library/react';
-
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import BigNumber from 'bignumber.js';
+import React from 'react';
+import { Asset, TokenId } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
+
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import MAX_UINT256 from 'constants/maxUint256';
-import renderComponent from 'testUtils/renderComponent';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
-  supplyNonBnb,
-  supplyBnb,
+  getAllowance,
+  getVTokenBalanceOf,
   redeem,
   redeemUnderlying,
-  getVTokenBalanceOf,
+  supplyBnb,
+  supplyNonBnb,
   useGetUserMarketInfo,
-  getAllowance,
 } from 'clients/api';
-import { Asset, TokenId } from 'types';
+import MAX_UINT256 from 'constants/maxUint256';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import SupplyWithdraw from '.';
 
 const asset = assetData[1];

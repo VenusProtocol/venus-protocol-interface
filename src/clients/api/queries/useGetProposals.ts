@@ -1,10 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getProposals, {
   IGetProposalsInput,
   IGetProposalsOutput,
 } from 'clients/api/queries/getProposals';
-import FunctionKey from 'constants/functionKey';
 import { BLOCK_TIME_MS } from 'constants/bsc';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   IGetProposalsOutput,

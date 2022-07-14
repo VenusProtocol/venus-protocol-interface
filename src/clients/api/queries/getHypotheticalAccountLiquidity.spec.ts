@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { Comptroller } from 'types/contracts';
+
 import getHypotheticalAccountLiquidity from './getHypotheticalAccountLiquidity';
 
 describe('api/queries/getHypotheticalAccountLiquidity', () => {

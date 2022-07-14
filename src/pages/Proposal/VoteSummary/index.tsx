@@ -1,15 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import React, { useCallback } from 'react';
-import { BigNumber } from 'bignumber.js';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Path from 'constants/path';
-import { convertWeiToTokens } from 'utilities';
+import { BigNumber } from 'bignumber.js';
+import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
+import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { XVS_TOKEN_ID } from 'constants/xvs';
-import { Button, Icon, EllipseAddress, Tooltip, LabeledProgressBar } from 'components';
 import { IVoter } from 'types';
+import { convertWeiToTokens } from 'utilities';
+
+import Path from 'constants/path';
+import { XVS_TOKEN_ID } from 'constants/xvs';
+
 import { useStyles } from './styles';
 
 interface IVoteSummaryProps {

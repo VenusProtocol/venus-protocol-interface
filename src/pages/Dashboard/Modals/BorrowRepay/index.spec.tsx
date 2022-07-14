@@ -1,13 +1,14 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { waitFor } from '@testing-library/react';
-
+import BigNumber from 'bignumber.js';
+import React from 'react';
 import { TokenId } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
+
+import { assetData } from '__mocks__/models/asset';
 import { useGetUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
-import { assetData } from '__mocks__/models/asset';
 import en from 'translation/translations/en.json';
+
 import BorrowRepay from '.';
 
 const asset = assetData[1];

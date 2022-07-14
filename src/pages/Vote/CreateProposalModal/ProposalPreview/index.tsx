@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { Typography } from '@mui/material';
+import { MarkdownViewer, ReadableActionSignature } from 'components';
 import { useFormikContext } from 'formik';
-import { ReadableActionSignature, MarkdownViewer } from 'components';
+import React from 'react';
 import { useTranslation } from 'translation';
+
 import { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
 

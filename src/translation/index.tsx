@@ -1,12 +1,12 @@
-import React from 'react';
-import { format as formatDate, isDate, formatDistanceToNowStrict } from 'date-fns';
+import { format as formatDate, formatDistanceToNowStrict, isDate } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import i18next, { TFunctionKeys } from 'i18next';
+import React from 'react';
 import {
-  initReactI18next,
-  useTranslation as useI18NextTranslation,
   Trans as I18NextTrans,
   TransProps as I18NextTransProps,
+  initReactI18next,
+  useTranslation as useI18NextTranslation,
 } from 'react-i18next';
 
 import EnLocales from './translations/en.json';

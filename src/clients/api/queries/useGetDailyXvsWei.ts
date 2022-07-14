@@ -1,4 +1,4 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getDailyXvsWei, {
   IGetDailyXvsWeiInput,

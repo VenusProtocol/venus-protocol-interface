@@ -1,8 +1,8 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
-import { getVenusVaiVaultDailyRateWei, GetVenusVaiVaultDailyRateWeiOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { GetVenusVaiVaultDailyRateWeiOutput, getVenusVaiVaultDailyRateWei } from 'clients/api';
 import { useComptrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetVenusVaiVaultDailyRateWeiOutput,

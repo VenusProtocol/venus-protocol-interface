@@ -1,13 +1,14 @@
-import React from 'react';
 import { waitFor } from '@testing-library/react';
+import React from 'react';
 
-import TEST_IDS from 'constants/testIds';
-import fakeAddress from '__mocks__/models/address';
-import en from 'translation/translations/en.json';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import fakeAddress from '__mocks__/models/address';
 import { getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
+import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
+import en from 'translation/translations/en.json';
+
 import WithdrawalRequestList from '.';
 
 jest.mock('clients/api');

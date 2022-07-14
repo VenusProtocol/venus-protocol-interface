@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
-
-import { TOKENS } from 'constants/tokens';
-import { TokenId } from 'types';
-import { AuthContext } from 'context/AuthContext';
-import { getToken } from 'utilities';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
+import { TokenId } from 'types';
+import { getToken } from 'utilities';
+
 import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
+
 import ActionModal, { IActionModalProps } from '../ActionModal';
 
 export type WithdrawFromVaiVaultModalProps = Pick<IActionModalProps, 'handleClose'>;

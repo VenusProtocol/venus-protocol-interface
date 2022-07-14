@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
+import { IModalProps, Modal, TabContent, Tabs } from 'components';
 import React, { useState } from 'react';
-
-import { getToken } from 'utilities';
-import { TokenId } from 'types';
-import { Tabs, Modal, IModalProps, TabContent } from 'components';
 import { useTranslation } from 'translation';
-import Withdraw from './Withdraw';
+import { TokenId } from 'types';
+import { getToken } from 'utilities';
+
 import RequestWithdrawal from './RequestWithdrawal';
+import Withdraw from './Withdraw';
 import WithdrawalRequestList from './WithdrawalRequestList';
 import { useStyles } from './styles';
 

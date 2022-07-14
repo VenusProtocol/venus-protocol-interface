@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { useWeb3Account } from 'clients/web3';
 
 import { injectedConnector } from './connectors';

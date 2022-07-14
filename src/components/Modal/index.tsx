@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React, { ReactElement } from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import { Button, Modal as MUIModal, ModalProps } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
+import React, { ReactElement } from 'react';
+
 import { Icon } from '../Icon';
 import { useModalStyles } from './styles';
 

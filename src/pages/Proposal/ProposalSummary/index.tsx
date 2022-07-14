@@ -1,21 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
-import isAfter from 'date-fns/isAfter';
-import type { TransactionReceipt } from 'web3-core';
 import { Paper, Typography } from '@mui/material';
 import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } from 'components';
-import { AuthContext } from 'context/AuthContext';
+import isAfter from 'date-fns/isAfter';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'translation';
+import { IProposal } from 'types';
+import type { TransactionReceipt } from 'web3-core';
+
 import {
   useCancelProposal,
-  useQueueProposal,
   useExecuteProposal,
-  useGetProposalThreshold,
   useGetCurrentVotes,
   useGetProposalEta,
+  useGetProposalThreshold,
+  useQueueProposal,
 } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import { IProposal } from 'types';
-import { useTranslation } from 'translation';
+
 import TEST_IDS from '../testIds';
 import Stepper from './Stepper';
 import { useStyles } from './styles';

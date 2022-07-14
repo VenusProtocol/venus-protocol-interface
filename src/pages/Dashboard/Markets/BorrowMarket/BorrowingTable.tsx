@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
-import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
-import { ProgressBar, Table, Token, TableProps, LayeredValues } from 'components';
+import BigNumber from 'bignumber.js';
+import { LayeredValues, ProgressBar, Table, TableProps, Token } from 'components';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
-  formatTokensToReadableValue,
+  calculatePercentage,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  calculatePercentage,
+  formatTokensToReadableValue,
 } from 'utilities';
+
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 

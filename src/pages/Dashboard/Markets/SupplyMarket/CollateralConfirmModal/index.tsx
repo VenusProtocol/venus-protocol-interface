@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { Icon, Modal, IModalProps } from 'components';
-import { Asset } from 'types';
-import { ReactComponent as LogoWithText } from 'assets/img/v2/venusLogoWithText.svg';
 import Typography from '@mui/material/Typography';
+import { IModalProps, Icon, Modal } from 'components';
+import React from 'react';
 import { useTranslation } from 'translation';
+import { Asset } from 'types';
+
+import { ReactComponent as LogoWithText } from 'assets/img/v2/venusLogoWithText.svg';
+
 import { useStyles } from './styles';
 
 export interface IConfirmCollateralModalProps {

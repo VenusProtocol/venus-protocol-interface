@@ -1,3 +1,5 @@
+import { t } from 'translation';
+
 import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/v2/wallets/binanceChainWalletLogo.svg';
 import { ReactComponent as BraveWalletLogo } from 'assets/img/v2/wallets/braveWalletLogo.svg';
 import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
@@ -10,8 +12,8 @@ import { ReactComponent as TrustWalletLogo } from 'assets/img/v2/wallets/trustWa
 import { ReactComponent as WalletConnectLogo } from 'assets/img/v2/wallets/walletConnectLogo.svg';
 import { Connector } from 'clients/web3';
 import { isRunningInOperaBrowser } from 'clients/web3/walletDetectionUtils';
-import { t } from 'translation';
-import { BaseWallet, Wallet, IntegratedWallet } from './types';
+
+import { BaseWallet, IntegratedWallet, Wallet } from './types';
 
 export const WALLETS: Wallet[] = [
   {

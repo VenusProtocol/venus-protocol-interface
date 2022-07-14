@@ -1,8 +1,8 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { queryClient, repayVai, IRepayVaiInput, IRepayVaiOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { IRepayVaiInput, IRepayVaiOutput, queryClient, repayVai } from 'clients/api';
 import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   IRepayVaiOutput,

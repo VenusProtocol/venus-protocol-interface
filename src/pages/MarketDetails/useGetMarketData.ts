@@ -1,9 +1,9 @@
-import React from 'react';
 import BigNumber from 'bignumber.js';
-
-import { IVBepToken } from 'types';
-import { getToken, convertWeiToTokens, convertPercentageFromSmartContract } from 'utilities';
 import { VTOKEN_DECIMALS } from 'config';
+import React from 'react';
+import { IVBepToken } from 'types';
+import { convertPercentageFromSmartContract, convertWeiToTokens, getToken } from 'utilities';
+
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
 
 const useGetMarketData = ({

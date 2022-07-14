@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider } from 'stories/decorators';
 import MUITypography from '@mui/material/Typography';
+import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+
+import { withThemeProvider } from 'stories/decorators';
 
 const Typography: React.FC = () => (
   <>

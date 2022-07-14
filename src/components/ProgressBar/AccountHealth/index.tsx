@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { useTranslation } from 'translation';
 import {
+  calculatePercentage,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  calculatePercentage,
 } from 'utilities';
-import { useTranslation } from 'translation';
-import { Tooltip } from '../../Tooltip';
+
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+
 import { Icon } from '../../Icon';
+import { Tooltip } from '../../Tooltip';
 import { LabeledProgressBar } from '../LabeledProgressBar';
 import { useStyles } from './styles';
 

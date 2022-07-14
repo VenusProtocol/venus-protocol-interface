@@ -1,7 +1,9 @@
-import React from 'react';
-import { ComponentMeta } from '@storybook/react';
-import { withCenterStory } from 'stories/decorators';
 import Typography from '@mui/material/Typography';
+import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+
+import { withCenterStory } from 'stories/decorators';
+
 import { Tooltip } from '.';
 
 export default {

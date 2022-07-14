@@ -1,22 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
-import { BigNumber } from 'bignumber.js';
 import { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
-
-import { useGetVoteReceipt } from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
-import { useTranslation } from 'translation';
-import { ProposalState, VoteSupport } from 'types';
+import { BigNumber } from 'bignumber.js';
 import {
-  ActiveVotingProgress,
   ActiveChip,
+  ActiveVotingProgress,
   Countdown,
   Icon,
   IconName,
   ProposalCard,
 } from 'components';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'translation';
+import { ProposalState, VoteSupport } from 'types';
+
+import { useGetVoteReceipt } from 'clients/api';
 import Path from 'constants/path';
+import { AuthContext } from 'context/AuthContext';
+
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 

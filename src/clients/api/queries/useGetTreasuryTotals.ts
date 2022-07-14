@@ -1,11 +1,12 @@
-import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { useGetMarkets, useGetVTokenBalancesAll, IGetVTokenBalancesAllOutput } from 'clients/api';
 import { TREASURY_ADDRESS } from 'config';
-import { VBEP_TOKENS } from 'constants/tokens';
+import { useMemo } from 'react';
 import { Market } from 'types';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { indexBy } from 'utilities';
+
+import { IGetVTokenBalancesAllOutput, useGetMarkets, useGetVTokenBalancesAll } from 'clients/api';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import { VBEP_TOKENS } from 'constants/tokens';
 
 export interface IData {
   treasuryTotalSupplyBalanceCents: BigNumber;

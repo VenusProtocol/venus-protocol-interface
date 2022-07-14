@@ -1,16 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
-import { Table, Token, TableProps, LayeredValues } from 'components';
+import { LayeredValues, Table, TableProps, Token } from 'components';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Market, TokenId } from 'types';
-import { useGetMarkets } from 'clients/api';
 import {
-  formatTokensToReadableValue,
+  convertPercentageFromSmartContract,
   formatCentsToReadableValue,
   formatToReadablePercentage,
-  convertPercentageFromSmartContract,
+  formatTokensToReadableValue,
 } from 'utilities';
+
+import { useGetMarkets } from 'clients/api';
+
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 

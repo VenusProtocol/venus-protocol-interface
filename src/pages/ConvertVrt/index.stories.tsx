@@ -1,11 +1,13 @@
-import React from 'react';
+import { ComponentMeta, Story } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { ComponentMeta, Story } from '@storybook/react';
+import React from 'react';
+
 import { withAuthContext, withCenterStory, withRouter } from 'stories/decorators';
+
 import ConvertVRT, { ConvertVrtUi, ConvertVrtUiProps } from '.';
-import Withdraw from './Withdraw';
 import ConvertComp from './Convert';
+import Withdraw from './Withdraw';
 
 export default {
   title: 'Pages/ConvertVRT',

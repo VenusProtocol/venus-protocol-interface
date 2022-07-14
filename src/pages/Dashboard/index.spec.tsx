@@ -1,12 +1,14 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { within } from '@testing-library/dom';
 import { waitFor } from '@testing-library/react';
-import { assetData } from '__mocks__/models/asset';
-import renderComponent from 'testUtils/renderComponent';
-import { useGetUserMarketInfo } from 'clients/api';
+import BigNumber from 'bignumber.js';
+import React from 'react';
 import { Asset } from 'types';
+
+import { assetData } from '__mocks__/models/asset';
+import { useGetUserMarketInfo } from 'clients/api';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import Dashboard from '.';
 
 jest.mock('clients/api');

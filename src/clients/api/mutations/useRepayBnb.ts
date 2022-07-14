@@ -1,9 +1,9 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { TOKENS } from 'constants/tokens';
+import { IRepayBnbInput, RepayBnbOutput, queryClient, repayBnb } from 'clients/api';
 import { useWeb3 } from 'clients/web3';
-import { queryClient, repayBnb, IRepayBnbInput, RepayBnbOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { TOKENS } from 'constants/tokens';
 
 type Options = MutationObserverOptions<RepayBnbOutput, Error, Omit<IRepayBnbInput, 'web3'>>;
 

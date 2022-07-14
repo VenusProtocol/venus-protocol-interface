@@ -1,10 +1,12 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
+
 import {
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
 import { VBep20 } from 'types/contracts';
+
 import supply from './supplyNonBnb';
 
 const fakeAmount = new BigNumber(1000000000000);

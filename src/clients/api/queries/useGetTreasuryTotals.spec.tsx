@@ -1,8 +1,10 @@
 import React from 'react';
-import renderComponent from 'testUtils/renderComponent';
+
 import { markets } from '__mocks__/models/markets';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
 import { getMarkets, useGetVTokenBalancesAll } from 'clients/api';
+import renderComponent from 'testUtils/renderComponent';
+
 import useGetTreasuryTotals, { UseGetTreasuryTotalsOutput } from './useGetTreasuryTotals';
 
 jest.mock('clients/api');

@@ -1,9 +1,10 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getVrtVaultInterestRatePerBlock, {
   GetVrtVaultInterestRatePerBlockOutput,
 } from 'clients/api/queries/getVrtVaultInterestRatePerBlock';
-import FunctionKey from 'constants/functionKey';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetVrtVaultInterestRatePerBlockOutput,

@@ -1,5 +1,6 @@
 import fakeAddress from '__mocks__/models/address';
 import { GovernorBravoDelegate } from 'types/contracts';
+
 import getVoteReceipt from '.';
 
 describe('api/queries/getVoteReceipt', () => {

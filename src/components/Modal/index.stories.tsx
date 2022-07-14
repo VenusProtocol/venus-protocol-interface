@@ -1,8 +1,10 @@
-import React from 'react';
-import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import Typography from '@mui/material/Typography';
-import { Modal, IModalProps } from '.';
+import { ComponentMeta, Story } from '@storybook/react';
+import React from 'react';
+
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
+import { IModalProps, Modal } from '.';
 
 export default {
   title: 'Components/Modal',

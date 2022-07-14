@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
-import { getToken } from './getToken';
+
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
+import { getToken } from './getToken';
 
 export interface IConvertWeiToTokensInput<T extends boolean | undefined = false> {
   valueWei: BigNumber;

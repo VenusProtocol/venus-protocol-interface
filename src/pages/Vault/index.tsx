@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
-
 import { Spinner } from 'components';
-import { AuthContext } from 'context/AuthContext';
-import { useGetVaults } from 'clients/api';
+import React, { useContext } from 'react';
 import { Vault } from 'types';
+
+import { useGetVaults } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
+
 import VaultItem from './VaultItem';
 import { useStyles } from './styles';
 

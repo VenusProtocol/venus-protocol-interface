@@ -1,6 +1,7 @@
-import { IVoterAccount } from 'types';
 import { VError } from 'errors';
+import { IVoterAccount } from 'types';
 import { restService } from 'utilities';
+
 import formatVoterAccountResponse from './formatVoterAccountResponse';
 import { IGetVoterAccountsResponse } from './types';
 

@@ -1,22 +1,22 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import BigNumber from 'bignumber.js';
+import React from 'react';
+import { useUID } from 'react-uid';
 import {
-  AreaChart,
-  Tooltip,
   Area,
+  AreaChart,
   CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  ResponsiveContainer,
 } from 'recharts';
-import { useUID } from 'react-uid';
-
 import { useTranslation } from 'translation';
-import { formatToReadablePercentage, formatCentsToReadableValue } from 'utilities';
-import formatToReadableDate from './formatToReadableDate';
+import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
+import formatToReadableDate from './formatToReadableDate';
 import { useStyles as useLocalStyles } from './styles';
 
 export interface IApyChartItem {

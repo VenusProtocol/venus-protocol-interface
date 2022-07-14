@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { XvsVault } from 'types/contracts';
-import { TOKENS } from 'constants/tokens';
 import fakeAccountAddress from '__mocks__/models/address';
+import { TOKENS } from 'constants/tokens';
+import { XvsVault } from 'types/contracts';
+
 import getXvsVaultPendingRewardWei from './getXvsVaultPendingRewardWei';
 
 const xvsTokenAddress = TOKENS.xvs.address;

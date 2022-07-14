@@ -1,8 +1,8 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
-import { BLOCK_TIME_MS } from 'constants/bsc';
-import { useWeb3 } from 'clients/web3';
 import { getBlockNumber } from 'clients/api/';
+import { useWeb3 } from 'clients/web3';
+import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
 
 interface GetBlockNumberOutput {

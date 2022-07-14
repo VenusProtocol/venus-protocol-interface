@@ -1,6 +1,7 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
+import React from 'react';
+
 import CreateProposalModal from '.';
 
 export default {

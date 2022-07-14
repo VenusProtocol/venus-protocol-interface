@@ -1,34 +1,35 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
+import React from 'react';
 
-import { markets } from '__mocks__/models/markets';
-import renderComponent from 'testUtils/renderComponent';
-import fakeAddress from '__mocks__/models/address';
-import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import compTrollerResponses from '__mocks__/contracts/comptroller';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import vrtVaultResponses from '__mocks__/contracts/vrtVault';
-import compTrollerResponses from '__mocks__/contracts/comptroller';
-import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
-import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
-import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
-import formatToVrtVaultUserInfo from 'clients/api/queries/getVrtVaultUserInfo/formatToUserInfo';
+import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import fakeAddress from '__mocks__/models/address';
+import { markets } from '__mocks__/models/markets';
 import {
-  getXvsVaultPoolsCount,
-  getXvsVaultRewardWeiPerBlock,
-  getXvsVaultTotalAllocationPoints,
-  getXvsVaultPendingRewardWei,
-  getXvsVaultPoolInfo,
-  getXvsVaultUserInfo,
   getBalanceOf,
-  getVenusVaiVaultDailyRateWei,
   getMarkets,
-  getVaiVaultUserInfo,
   getVaiVaultPendingXvsWei,
+  getVaiVaultUserInfo,
+  getVenusVaiVaultDailyRateWei,
   getVrtVaultAccruedInterestWei,
   getVrtVaultInterestRatePerBlock,
   getVrtVaultUserInfo,
+  getXvsVaultPendingRewardWei,
+  getXvsVaultPoolInfo,
+  getXvsVaultPoolsCount,
+  getXvsVaultRewardWeiPerBlock,
+  getXvsVaultTotalAllocationPoints,
+  getXvsVaultUserInfo,
 } from 'clients/api';
+import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
+import formatToVrtVaultUserInfo from 'clients/api/queries/getVrtVaultUserInfo/formatToUserInfo';
+import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
+import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
+import renderComponent from 'testUtils/renderComponent';
+
 import useGetVaults, { UseGetVaultsOutput } from '.';
 
 jest.mock('clients/api');

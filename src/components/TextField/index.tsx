@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React, { InputHTMLAttributes } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Icon, IconName } from '../Icon';
+import React, { InputHTMLAttributes } from 'react';
 
+import { Icon, IconName } from '../Icon';
 import { useStyles } from './styles';
 
 export interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {

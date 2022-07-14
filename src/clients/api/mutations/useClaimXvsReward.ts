@@ -1,13 +1,13 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
-  queryClient,
-  claimXvsReward,
-  IClaimXvsRewardInput,
   ClaimXvsRewardOutput,
+  IClaimXvsRewardInput,
+  claimXvsReward,
+  queryClient,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useComptrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   ClaimXvsRewardOutput,

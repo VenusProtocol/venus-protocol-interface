@@ -1,7 +1,9 @@
 import BigNumber from 'bignumber.js';
+import { TokenId, TransactionCategory, TransactionEvent } from 'types';
+import { convertTokensToWei, getTokenIdFromVAddress } from 'utilities';
+
 import { XVS_TOKEN_ID } from 'constants/xvs';
-import { TransactionCategory, TransactionEvent, TokenId } from 'types';
-import { getTokenIdFromVAddress, convertTokensToWei } from 'utilities';
+
 import { ITransactionResponse } from './types';
 
 const formatTransaction = ({

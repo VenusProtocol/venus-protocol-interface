@@ -1,11 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposalEta, {
   GetProposalEtaInput,
   GetProposalEtaOutput,
 } from 'clients/api/queries/getProposalEta';
-import FunctionKey from 'constants/functionKey';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetProposalEtaOutput,

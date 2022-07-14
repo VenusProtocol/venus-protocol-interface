@@ -1,5 +1,6 @@
-import { VaiVault } from 'types/contracts';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { VaiVault } from 'types/contracts';
+
 import claimVaiVaultReward from './claimVaiVaultReward';
 
 const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';

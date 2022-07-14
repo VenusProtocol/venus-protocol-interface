@@ -1,30 +1,31 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import BigNumber from 'bignumber.js';
-import type { TransactionReceipt } from 'web3-core/types';
-
 import {
-  getToken,
-  formatToReadablePercentage,
-  formatTokensToReadableValue,
-  convertTokensToWei,
-} from 'utilities';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
-import TEST_IDS from 'constants/testIds';
-import { Asset, VTokenId } from 'types';
-import { AuthContext } from 'context/AuthContext';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
-import { VError } from 'errors';
-import { useGetUserMarketInfo, useBorrowVToken } from 'clients/api';
-import {
-  FormikSubmitButton,
-  FormikTokenTextField,
   ConnectWallet,
   EnableToken,
+  FormikSubmitButton,
+  FormikTokenTextField,
   NoticeWarning,
 } from 'components';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import { VError } from 'errors';
+import React from 'react';
 import { useTranslation } from 'translation';
+import { Asset, VTokenId } from 'types';
+import {
+  convertTokensToWei,
+  formatToReadablePercentage,
+  formatTokensToReadableValue,
+  getToken,
+} from 'utilities';
+import type { TransactionReceipt } from 'web3-core/types';
+
+import { useBorrowVToken, useGetUserMarketInfo } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
+import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
 

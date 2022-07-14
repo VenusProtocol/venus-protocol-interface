@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Box from '@mui/material/Box';
+import React from 'react';
 import { useTranslation } from 'translation';
-import Sidebar from './Sidebar';
+
+import { Banner } from './Banner';
 import Header from './Header';
 import { PageContainer } from './PageContainer';
-import { Banner } from './Banner';
+import Sidebar from './Sidebar';
 import { useStyles } from './styles';
 
 export const Layout: React.FC = ({ children }) => {

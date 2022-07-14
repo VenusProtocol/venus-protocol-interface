@@ -1,17 +1,17 @@
 import { useMemo } from 'react';
-
-import { Vault, TokenId } from 'types';
-import {
-  useGetVrtVaultInterestRatePerBlock,
-  useGetBalanceOf,
-  useGetVrtVaultUserInfo,
-  useGetVrtVaultAccruedInterestWei,
-} from 'clients/api';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { BLOCKS_PER_DAY } from 'constants/bsc';
-import { TOKENS } from 'constants/tokens';
+import { TokenId, Vault } from 'types';
 import { getContractAddress } from 'utilities';
+
+import {
+  useGetBalanceOf,
+  useGetVrtVaultAccruedInterestWei,
+  useGetVrtVaultInterestRatePerBlock,
+  useGetVrtVaultUserInfo,
+} from 'clients/api';
+import { BLOCKS_PER_DAY } from 'constants/bsc';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import { TOKENS } from 'constants/tokens';
 
 export interface UseGetVrtVaultOutput {
   isLoading: boolean;

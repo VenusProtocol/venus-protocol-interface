@@ -1,14 +1,14 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
-  queryClient,
-  requestWithdrawalFromXvsVault,
   IRequestWithdrawalFromXvsVaultInput,
   RequestWithdrawalFromXvsVaultOutput,
+  queryClient,
+  requestWithdrawalFromXvsVault,
 } from 'clients/api';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
   RequestWithdrawalFromXvsVaultOutput,

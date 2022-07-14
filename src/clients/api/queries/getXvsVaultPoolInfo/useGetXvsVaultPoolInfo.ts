@@ -1,10 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
-import FunctionKey from 'constants/functionKey';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getXvsVaultPoolInfo, {
   IGetXvsVaultPoolInfoInput,
   IGetXvsVaultPoolInfoOutput,
 } from 'clients/api/queries/getXvsVaultPoolInfo';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   IGetXvsVaultPoolInfoOutput,

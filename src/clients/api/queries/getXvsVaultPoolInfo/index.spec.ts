@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { XvsVault } from 'types/contracts';
+
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import { XvsVault } from 'types/contracts';
+
 import getXvsVaultPoolInfo from '.';
 
 const fakeTokenAddress = '0x0';

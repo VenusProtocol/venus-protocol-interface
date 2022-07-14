@@ -1,13 +1,14 @@
-import React from 'react';
-import { waitFor, fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import React from 'react';
 
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import fakeAddress from '__mocks__/models/address';
-import renderComponent from 'testUtils/renderComponent';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { getXvsReward, claimXvsReward } from 'clients/api';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { claimXvsReward, getXvsReward } from 'clients/api';
 import TEST_IDS from 'constants/testIds';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import renderComponent from 'testUtils/renderComponent';
+
 import ClaimXvsRewardButton from '.';
 
 jest.mock('clients/api');

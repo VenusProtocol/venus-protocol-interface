@@ -1,4 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { Asset } from 'types';
+
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 
 /**

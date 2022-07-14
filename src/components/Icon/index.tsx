@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
 import { useTheme } from '@mui/material';
 import { uniqueId } from 'lodash';
+import React, { useRef } from 'react';
+
 import * as icons from './icons';
 
 export type IconName = keyof typeof icons;

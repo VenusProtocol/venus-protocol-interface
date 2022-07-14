@@ -1,9 +1,9 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
-
-import { getBalanceOf, IGetBalanceOfInput, GetBalanceOfOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { useTokenContract } from 'clients/contracts/hooks';
+import { QueryObserverOptions, useQuery } from 'react-query';
 import { TokenId } from 'types';
+
+import { GetBalanceOfOutput, IGetBalanceOfInput, getBalanceOf } from 'clients/api';
+import { useTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetBalanceOfOutput,

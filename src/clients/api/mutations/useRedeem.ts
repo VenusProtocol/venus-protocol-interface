@@ -1,11 +1,11 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
-import { VBep20 } from 'types/contracts';
+import { MutationObserverOptions, useMutation } from 'react-query';
 import { VTokenId } from 'types';
-import queryClient from 'clients/api/queryClient';
-import redeem, { IRedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
 
-import FunctionKey from 'constants/functionKey';
+import redeem, { IRedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
+import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
+import { VBep20 } from 'types/contracts';
 
 const useRedeem = (
   { vTokenId, accountAddress }: { vTokenId: VTokenId; accountAddress: string },

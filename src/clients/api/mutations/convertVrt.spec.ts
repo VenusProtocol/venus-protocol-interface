@@ -1,6 +1,7 @@
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import address from '__mocks__/models/address';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { VrtConverter } from 'types/contracts';
+
 import getVTokenBalancesAll from '../queries/getVTokenBalancesAll';
 import convertVrt from './convertVrt';
 

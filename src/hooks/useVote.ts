@@ -1,4 +1,4 @@
-import { useCastVoteWithReason, useCastVote, ICastVoteWithReasonInput } from 'clients/api';
+import { ICastVoteWithReasonInput, useCastVote, useCastVoteWithReason } from 'clients/api';
 
 export type UseVoteParams = Partial<ICastVoteWithReasonInput> &
   Omit<ICastVoteWithReasonInput, 'voteReason'>;

@@ -1,5 +1,5 @@
-import { GetMintableVaiInput, GetMintableVaiOutput } from './types';
 import formatToOutput from './formatToOutput';
+import { GetMintableVaiInput, GetMintableVaiOutput } from './types';
 
 export * from './types';
 

@@ -1,11 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getCurrentVotes, {
-  IGetCurrentVotesInput,
   GetCurrentVotesOutput,
+  IGetCurrentVotesInput,
 } from 'clients/api/queries/getCurrentVotes';
-import FunctionKey from 'constants/functionKey';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetCurrentVotesOutput,

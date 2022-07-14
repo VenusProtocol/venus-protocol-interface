@@ -1,23 +1,25 @@
 // VaultItemUi
+
 /** @jsxImportSource @emotion/react */
-import React, { useMemo, useState, useContext } from 'react';
-import BigNumber from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import BigNumber from 'bignumber.js';
+import { Button, Icon } from 'components';
+import { VError } from 'errors';
+import React, { useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'translation';
+import { TokenId } from 'types';
+import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { VError } from 'errors';
-import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
-import { useTranslation } from 'translation';
-import useClaimVaultReward from 'hooks/useClaimVaultReward';
 import { useWithdrawFromVrtVault } from 'clients/api';
 import TEST_IDS from 'constants/testIds';
+import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
+import useClaimVaultReward from 'hooks/useClaimVaultReward';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import { TokenId } from 'types';
-import { Icon, Button } from 'components';
+
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
 

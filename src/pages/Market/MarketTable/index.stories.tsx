@@ -1,8 +1,10 @@
-import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withRouter } from 'stories/decorators';
+import React from 'react';
+
 import { markets } from '__mocks__/models/markets';
-import { MarketTableUi, IMarketTableProps } from '.';
+import { withRouter } from 'stories/decorators';
+
+import { IMarketTableProps, MarketTableUi } from '.';
 
 export default {
   title: 'Pages/Market/MarketTable',

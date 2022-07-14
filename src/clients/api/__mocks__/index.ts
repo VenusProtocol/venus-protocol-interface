@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
-import transactionReceipt from '__mocks__/models/transactionReceipt';
+import { MutationObserverOptions, useMutation, useQuery } from 'react-query';
+
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
+import transactionReceipt from '__mocks__/models/transactionReceipt';
 import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 

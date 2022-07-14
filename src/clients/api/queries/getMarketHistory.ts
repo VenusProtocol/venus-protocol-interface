@@ -1,6 +1,6 @@
-import { restService, getVBepToken } from 'utilities';
 import { VError } from 'errors';
-import { VTokenId, MarketSnapshot } from 'types';
+import { MarketSnapshot, VTokenId } from 'types';
+import { getVBepToken, restService } from 'utilities';
 
 export interface IGetMarketHistoryResponse {
   limit: number;

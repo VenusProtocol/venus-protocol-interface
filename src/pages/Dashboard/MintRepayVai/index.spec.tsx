@@ -1,12 +1,13 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
+import React from 'react';
 
-import en from 'translation/translations/en.json';
+import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
 import { useGetUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
-import { assetData } from '__mocks__/models/asset';
-import fakeAccountAddress from '__mocks__/models/address';
+import en from 'translation/translations/en.json';
+
 import MintRepayVai from '.';
 
 jest.mock('clients/api');

@@ -1,13 +1,13 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
-  queryClient,
-  claimVrtVaultReward,
-  IClaimVrtVaultRewardInput,
   ClaimVrtVaultRewardOutput,
+  IClaimVrtVaultRewardInput,
+  claimVrtVaultReward,
+  queryClient,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   ClaimVrtVaultRewardOutput,
