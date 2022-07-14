@@ -1,6 +1,7 @@
-import type { TransactionReceipt } from 'web3-core';
-import { Comptroller } from 'types/contracts';
 import { checkForComptrollerTransactionError } from 'errors';
+import type { TransactionReceipt } from 'web3-core';
+
+import { Comptroller } from 'types/contracts';
 
 export interface IEnterMarketsInput {
   comptrollerContract: Comptroller;

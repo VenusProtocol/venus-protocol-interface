@@ -1,19 +1,20 @@
-import React from 'react';
-import noop from 'noop-ts';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
-
-import { assetData } from '__mocks__/models/asset';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import noop from 'noop-ts';
+import React from 'react';
 import { Asset } from 'types';
-import TEST_IDS from 'constants/testIds';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+
 import fakeAccountAddress from '__mocks__/models/address';
-import { useGetUserMarketInfo, borrowVToken, getAllowance } from 'clients/api';
+import { assetData } from '__mocks__/models/asset';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { borrowVToken, getAllowance, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import Borrow from '.';
 
 const fakeAsset: Asset = {

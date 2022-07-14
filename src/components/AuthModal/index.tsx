@@ -1,9 +1,9 @@
 import React from 'react';
-
 import { useTranslation } from 'translation';
-import { Modal, IModalProps } from '../Modal';
+
+import { IModalProps, Modal } from '../Modal';
 import { AccountDetails, IAccountDetailsProps } from './AccountDetails';
-import { WalletList, IWalletListProps } from './WalletList';
+import { IWalletListProps, WalletList } from './WalletList';
 
 export interface IAuthModalProps {
   isOpen: boolean;

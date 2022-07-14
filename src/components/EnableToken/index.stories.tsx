@@ -1,8 +1,10 @@
-import React from 'react';
-import { noop } from 'lodash';
-import { ComponentMeta } from '@storybook/react';
-import { withCenterStory } from 'stories/decorators';
 import Typography from '@mui/material/Typography';
+import { ComponentMeta } from '@storybook/react';
+import { noop } from 'lodash';
+import React from 'react';
+
+import { withCenterStory } from 'stories/decorators';
+
 import { EnableTokenUi } from '.';
 
 export default {

@@ -1,7 +1,8 @@
-import { unexpectedErrorPhrases } from 'errors/unexpectedErrorPhrases';
 import { interactionErrorPhrases } from 'errors/interactionErrorPhrases';
 import { transactionErrorPhrases } from 'errors/transactionErrorPhrases';
-import { VError, ErrorCodes, IVErrorParamMap, IVErrorPhraseMap } from './VError';
+import { unexpectedErrorPhrases } from 'errors/unexpectedErrorPhrases';
+
+import { ErrorCodes, IVErrorParamMap, IVErrorPhraseMap, VError } from './VError';
 
 export const formatVErrorToReadableString = (error: VError<ErrorCodes>) => {
   let phrase = unexpectedErrorPhrases.somethingWentWrong;

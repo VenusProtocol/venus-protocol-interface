@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
+import { Table, TableProps, Toggle, Token } from 'components';
 import React, { useMemo } from 'react';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { formatTokensToReadableValue, formatToReadablePercentage } from 'utilities';
-import { Asset } from 'types';
-import { Table, TableProps, Token, Toggle } from 'components';
 import { useTranslation } from 'translation';
+import { Asset } from 'types';
+import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
+
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 

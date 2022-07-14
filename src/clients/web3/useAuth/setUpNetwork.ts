@@ -1,4 +1,4 @@
-import { BASE_BSC_SCAN_URL, CHAIN_ID, BscChainId, RPC_URLS } from 'config';
+import { BASE_BSC_SCAN_URL, BscChainId, CHAIN_ID, RPC_URLS } from 'config';
 
 // Prompt the user to add BSC as a network, or switch to BSC if the wallet is on
 // a different network

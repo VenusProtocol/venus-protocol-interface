@@ -1,13 +1,13 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
-
+import { MutationObserverOptions, useMutation } from 'react-query';
 import { VTokenId } from 'types';
-import queryClient from 'clients/api/queryClient';
+
 import redeemUnderlying, {
   IRedeemUnderlyingInput,
   RedeemUnderlyingOutput,
 } from 'clients/api/mutations/redeemUnderlying';
-import FunctionKey from 'constants/functionKey';
+import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 const useRedeemUnderlying = (
   { vTokenId, accountAddress }: { vTokenId: VTokenId; accountAddress: string },

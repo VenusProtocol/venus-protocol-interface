@@ -1,8 +1,10 @@
-import React from 'react';
-import noop from 'noop-ts';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
+import noop from 'noop-ts';
+import React from 'react';
+
 import { assetData } from '__mocks__/models/asset';
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
 import BorrowRepay, { IBorrowRepayProps } from '.';
 
 export default {

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import BigNumber from 'bignumber.js';
-
+import React from 'react';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { IconName } from '../Icon';
+
 import { TertiaryButton } from '../Button';
-import { TextField, ITextFieldProps } from '../TextField';
+import { IconName } from '../Icon';
+import { ITextFieldProps, TextField } from '../TextField';
 
 // Note: although we display all the values in tokens (equivalent of ether for
 // the given token) to the user, the underlying values (maxWei, value) are

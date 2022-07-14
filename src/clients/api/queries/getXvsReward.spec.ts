@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 import { VenusLens } from 'types/contracts';
+
 import getXvsReward from './getXvsReward';
 
 describe('api/queries/getXvsReward', () => {

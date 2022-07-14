@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { VenusLens } from 'types/contracts';
 import { getContractAddress } from 'utilities';
+
+import { VenusLens } from 'types/contracts';
 
 export interface IGetDailyXvsWeiInput {
   venusLensContract: VenusLens;

@@ -1,8 +1,8 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { queryClient, mintVai, IMintVaiInput, MintVaiOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { IMintVaiInput, MintVaiOutput, mintVai, queryClient } from 'clients/api';
 import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   MintVaiOutput,

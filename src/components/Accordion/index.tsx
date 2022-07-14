@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { Typography } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { Icon } from '../Icon';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import React from 'react';
 
+import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
 export interface IAccordionProps {

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { VrtToken } from 'types/contracts';
+
 import getAllowance from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';

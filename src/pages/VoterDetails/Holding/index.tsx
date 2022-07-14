@@ -1,13 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { Delimiter, Icon } from 'components';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { TOKENS } from 'constants/tokens';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
+
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { TOKENS } from 'constants/tokens';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+
 import { useStyles } from './styles';
 
 interface IHoldingProps {

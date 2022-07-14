@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
+import { Pagination } from 'components';
 import React, { useContext, useState } from 'react';
 import { ITransaction, TransactionEvent } from 'types';
-import { AuthContext } from 'context/AuthContext';
+
 import { useGetTransactions } from 'clients/api';
-import { Pagination } from 'components';
-import HistoryTable from './HistoryTable';
+import { AuthContext } from 'context/AuthContext';
+
 import Filters, { ALL_VALUE, IFilterProps } from './Filters';
+import HistoryTable from './HistoryTable';
 
 interface IHistoryUiProps extends IFilterProps {
   transactions: ITransaction[];

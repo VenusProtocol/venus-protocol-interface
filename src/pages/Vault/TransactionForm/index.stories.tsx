@@ -1,7 +1,9 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { ComponentMeta, Story } from '@storybook/react';
+import BigNumber from 'bignumber.js';
+import React from 'react';
+
 import { withCenterStory } from 'stories/decorators';
+
 import TransactionForm, { ITransactionFormProps } from '.';
 
 export default {

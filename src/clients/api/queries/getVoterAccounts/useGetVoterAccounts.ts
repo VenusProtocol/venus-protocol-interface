@@ -1,6 +1,8 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
-import FunctionKey from 'constants/functionKey';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import FunctionKey from 'constants/functionKey';
+
 import getVoterAccounts, { IGetVoterAccountsInput, IGetVoterAccountsOutput } from '.';
 
 type Options = QueryObserverOptions<

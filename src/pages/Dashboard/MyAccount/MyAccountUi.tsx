@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import Typography from '@mui/material/Typography';
-
-import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
-import { useTranslation } from 'translation';
-import { IToggleProps, Toggle, Icon, Tooltip, BorrowLimitUsedAccountHealth } from 'components';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { BorrowLimitUsedAccountHealth, IToggleProps, Icon, Toggle, Tooltip } from 'components';
+import React from 'react';
+import { useTranslation } from 'translation';
+import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
+
 import { useMyAccountStyles as useStyles } from './styles';
 
 export interface IMyAccountUiProps {

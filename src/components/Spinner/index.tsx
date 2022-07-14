@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+
 import TEST_IDS from 'constants/testIds';
+
 import { Spinner as SpinnerAnimation } from '../LottieAnimation';
 import { useStyles } from './styles';
 

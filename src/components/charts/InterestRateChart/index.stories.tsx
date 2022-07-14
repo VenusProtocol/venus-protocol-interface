@@ -1,9 +1,9 @@
+import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import { ComponentMeta } from '@storybook/react';
-
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { InterestRateChart, IInterestRateItem } from '.';
+
+import { IInterestRateItem, InterestRateChart } from '.';
 
 const data: IInterestRateItem[] = [
   {

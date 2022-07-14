@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { restService } from 'utilities';
-import { VBEP_TOKENS } from 'constants/tokens';
 import { Market, TokenId } from 'types';
+import { restService } from 'utilities';
+
+import { VBEP_TOKENS } from 'constants/tokens';
 
 export interface IGetMarketsResponse {
   dailyVenus: number;

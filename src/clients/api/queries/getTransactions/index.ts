@@ -1,8 +1,9 @@
-import { restService } from 'utilities';
 import { VError } from 'errors';
 import { ITransaction, TransactionEvent } from 'types';
-import { ITransactionResponse } from './types';
+import { restService } from 'utilities';
+
 import formatTransaction from './formatTransaction';
+import { ITransactionResponse } from './types';
 
 export interface IGetTransactionsInput {
   page?: number;

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import type { TransactionReceipt } from 'web3-core';
 import { checkForTokenTransactionError } from 'errors';
+import type { TransactionReceipt } from 'web3-core';
 
 import { VBep20 } from 'types/contracts';
 

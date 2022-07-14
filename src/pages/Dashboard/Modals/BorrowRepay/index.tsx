@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import { IModalProps, Modal, TabContent, Tabs, Token } from 'components';
 import React from 'react';
-
+import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { isAssetEnabled } from 'utilities';
-import { Tabs, Modal, IModalProps, Token, TabContent } from 'components';
-import { useTranslation } from 'translation';
+
 import { useStyles } from '../styles';
 import Borrow from './Borrow';
 import Repay from './Repay';

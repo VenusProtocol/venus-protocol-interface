@@ -1,8 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
+
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
+
 import { getToken } from './getToken';
+import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 
 export const formatTokensToReadableValue = ({
   value,

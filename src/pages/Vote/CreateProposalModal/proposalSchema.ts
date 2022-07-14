@@ -1,6 +1,7 @@
-import * as yup from 'yup';
-import web3 from 'web3';
 import { encodeParameters, parseFunctionSignature } from 'utilities';
+import web3 from 'web3';
+import * as yup from 'yup';
+
 import formatIfArray from './formatIfArray';
 
 export enum ErrorCode {

@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
+import { checkForTokenTransactionError } from 'errors';
+import { VTokenId } from 'types';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import MAX_UINT256 from 'constants/maxUint256';
-import { VTokenId } from 'types';
 import { VTokenContract } from 'clients/contracts/types';
-import { checkForTokenTransactionError } from 'errors';
+import MAX_UINT256 from 'constants/maxUint256';
 
 export interface IRepayNonBnbVTokenInput {
   vTokenContract: VTokenContract<Exclude<VTokenId, 'bnb'>>;

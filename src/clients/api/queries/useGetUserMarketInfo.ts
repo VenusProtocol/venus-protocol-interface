@@ -1,23 +1,23 @@
-import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-
+import { useMemo } from 'react';
 import { Asset, Market, TokenId } from 'types';
 import {
-  indexBy,
+  calculateCollateralValue,
   convertTokensToWei,
   convertWeiToTokens,
-  calculateCollateralValue,
-  getVBepToken,
   getToken,
+  getVBepToken,
+  indexBy,
 } from 'utilities';
-import { VBEP_TOKENS, TOKENS } from 'constants/tokens';
+
 import {
-  useGetMarkets,
-  useGetAssetsInAccount,
-  useGetVTokenBalancesAll,
-  useGetMintedVai,
   IGetVTokenBalancesAllOutput,
+  useGetAssetsInAccount,
+  useGetMarkets,
+  useGetMintedVai,
+  useGetVTokenBalancesAll,
 } from 'clients/api';
+import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export interface IData {
   assets: Asset[];

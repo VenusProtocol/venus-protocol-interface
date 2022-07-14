@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import noop from 'noop-ts';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import noop from 'noop-ts';
+import React from 'react';
+
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
+
 import { Pagination } from '.';
 
 export default {

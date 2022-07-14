@@ -1,32 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import {
   ConnectWallet,
   EnableToken,
-  Tabs,
-  Modal,
-  IModalProps,
-  Token,
   ILabeledInlineContentProps,
+  IModalProps,
   IconName,
+  Modal,
   TabContent,
+  Tabs,
+  Token,
 } from 'components';
-import {
-  useRedeem,
-  useRedeemUnderlying,
-  useGetVTokenBalanceOf,
-  useGetUserMarketInfo,
-} from 'clients/api';
-import { isAssetEnabled, formatToReadablePercentage, convertTokensToWei } from 'utilities';
-import { IAmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
-import useSupply from 'clients/api/mutations/useSupply';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import SupplyWithdrawForm from './SupplyWithdrawForm';
+import { convertTokensToWei, formatToReadablePercentage, isAssetEnabled } from 'utilities';
+
+import {
+  useGetUserMarketInfo,
+  useGetVTokenBalanceOf,
+  useRedeem,
+  useRedeemUnderlying,
+} from 'clients/api';
+import useSupply from 'clients/api/mutations/useSupply';
+import { IAmountFormProps } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+
 import { useStyles } from '../styles';
+import SupplyWithdrawForm from './SupplyWithdrawForm';
 
 export interface ISupplyWithdrawUiProps {
   className?: string;

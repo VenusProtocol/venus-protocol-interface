@@ -1,8 +1,10 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import { useVenusLensContract } from 'clients/contracts/hooks';
-import FunctionKey from 'constants/functionKey';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
-import getXvsReward, { IGetXvsRewardInput, GetXvsRewardOutput } from './getXvsReward';
+import FunctionKey from 'constants/functionKey';
+
+import getXvsReward, { GetXvsRewardOutput, IGetXvsRewardInput } from './getXvsReward';
 
 type Options = QueryObserverOptions<
   GetXvsRewardOutput,

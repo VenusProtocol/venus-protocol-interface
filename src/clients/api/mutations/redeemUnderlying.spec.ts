@@ -1,11 +1,13 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
+
+import fakeAccountAddress from '__mocks__/models/address';
 import {
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
-import fakeAccountAddress from '__mocks__/models/address';
 import { VBep20 } from 'types/contracts';
+
 import redeemUnderlying from './redeemUnderlying';
 
 const fakeAmount = new BigNumber(10000000000000000);

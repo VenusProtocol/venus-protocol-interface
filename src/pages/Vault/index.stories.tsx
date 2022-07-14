@@ -1,8 +1,9 @@
+import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import { ComponentMeta } from '@storybook/react';
-import { withRouter } from 'stories/decorators';
 import { vaults } from '__mocks__/models/vaults';
+import { withRouter } from 'stories/decorators';
+
 import { VaultUi } from '.';
 
 export default {

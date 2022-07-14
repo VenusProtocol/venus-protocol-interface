@@ -1,9 +1,10 @@
-import React from 'react';
-import noop from 'noop-ts';
-import BigNumber from 'bignumber.js';
-
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
+import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
+import React from 'react';
+
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
 import ActionModal, { IActionModalProps } from '.';
 
 export default {

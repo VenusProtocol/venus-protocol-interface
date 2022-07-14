@@ -1,10 +1,11 @@
-import React from 'react';
-import noop from 'noop-ts';
-
-import BigNumber from 'bignumber.js';
 import { ComponentMeta } from '@storybook/react';
+import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
+import React from 'react';
 import { TokenId } from 'types';
+
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
 import { SuccessfulTransactionModal } from '.';
 
 export default {

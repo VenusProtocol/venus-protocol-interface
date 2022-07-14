@@ -1,7 +1,9 @@
 import BigNumber from 'bignumber.js';
-import fakeAddress from '__mocks__/models/address';
+
 import vaiUnitrollerResponses from '__mocks__/contracts/vaiUnitroller';
+import fakeAddress from '__mocks__/models/address';
 import { VaiUnitroller } from 'types/contracts';
+
 import getMintableVai from '.';
 
 describe('api/queries/getMintableVai', () => {

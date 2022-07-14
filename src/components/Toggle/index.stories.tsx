@@ -1,6 +1,8 @@
-import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withThemeProvider, withOnChange } from 'stories/decorators';
+import React from 'react';
+
+import { withCenterStory, withOnChange, withThemeProvider } from 'stories/decorators';
+
 import { Toggle } from '.';
 import type { IToggleProps } from '.';
 

@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
-
-import TEST_IDS from 'constants/testIds';
-import { TokenId, LockedDeposit } from 'types';
 import Typography from '@mui/material/Typography';
-import { AuthContext } from 'context/AuthContext';
-import { TOKENS } from 'constants/tokens';
+import { ConnectWallet, LabeledInlineContent, Spinner } from 'components';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { useGetXvsVaultLockedDeposits } from 'clients/api';
+import { LockedDeposit, TokenId } from 'types';
 import { convertWeiToTokens } from 'utilities';
-import { ConnectWallet, Spinner, LabeledInlineContent } from 'components';
+
+import { useGetXvsVaultLockedDeposits } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
+import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
+
 import { useStyles } from './styles';
 
 export interface WithdrawalRequestListUiProps {

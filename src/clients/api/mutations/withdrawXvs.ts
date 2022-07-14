@@ -1,4 +1,5 @@
 import type { TransactionReceipt } from 'web3-core/types';
+
 import { XvsVesting } from 'types/contracts';
 
 export interface IWithdrawXvsInput {

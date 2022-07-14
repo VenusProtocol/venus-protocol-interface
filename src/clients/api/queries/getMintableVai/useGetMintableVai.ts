@@ -1,10 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getMintableVai, {
   GetMintableVaiInput,
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
-import FunctionKey from 'constants/functionKey';
 import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetMintableVaiOutput,

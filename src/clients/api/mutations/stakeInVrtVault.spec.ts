@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { VrtVault } from 'types/contracts';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { VrtVault } from 'types/contracts';
+
 import stakeInVrtVault from './stakeInVrtVault';
 
 const fakeAmountWei = new BigNumber('1000000000000');

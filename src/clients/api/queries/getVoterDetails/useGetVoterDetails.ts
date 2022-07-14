@@ -1,10 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getVoterDetails, {
-  IGetVoterDetailsInput,
   GetVoterDetailsOutput,
+  IGetVoterDetailsInput,
 } from 'clients/api/queries/getVoterDetails';
-import FunctionKey from 'constants/functionKey';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetVoterDetailsOutput,

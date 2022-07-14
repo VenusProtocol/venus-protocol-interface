@@ -1,4 +1,5 @@
 import { VrtConverter } from 'types/contracts';
+
 import getVrtConversionEndTime, { GetVrtConversionEndTimeOutput } from './getVrtConversionEndTime';
 
 describe('api/queries/getVrtConversionEndTime', () => {

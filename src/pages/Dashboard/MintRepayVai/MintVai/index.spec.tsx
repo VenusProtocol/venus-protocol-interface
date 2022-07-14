@@ -1,26 +1,27 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
-
+import React from 'react';
 import { TokenId } from 'types';
-import { TOKENS } from 'constants/tokens';
-import en from 'translation/translations/en.json';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { formatTokensToReadableValue } from 'utilities';
+
 import vaiUnitrollerResponses from '__mocks__/contracts/vaiUnitroller';
+import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
-  mintVai,
-  getVaiTreasuryPercentage,
-  useGetUserMarketInfo,
   getAllowance,
   getMintableVai,
+  getVaiTreasuryPercentage,
+  mintVai,
+  useGetUserMarketInfo,
 } from 'clients/api';
 import formatToGetMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import { formatTokensToReadableValue } from 'utilities';
 import renderComponent from 'testUtils/renderComponent';
-import { assetData } from '__mocks__/models/asset';
-import fakeAccountAddress from '__mocks__/models/address';
+import en from 'translation/translations/en.json';
+
 import RepayVai from '.';
 
 jest.mock('clients/api');

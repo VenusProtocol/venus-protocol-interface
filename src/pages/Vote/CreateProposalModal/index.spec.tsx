@@ -1,9 +1,11 @@
+import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
-import { fireEvent, waitFor, Matcher, MatcherOptions } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import renderComponent from 'testUtils/renderComponent';
+
 import fakeAddress from '__mocks__/models/address';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import CreateProposalModal from '.';
 
 jest.mock('clients/api');

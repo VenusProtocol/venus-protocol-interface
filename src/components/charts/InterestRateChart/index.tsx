@@ -1,18 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import {
-  ResponsiveContainer,
-  YAxis,
-  XAxis,
   CartesianGrid,
-  LineChart,
   Line,
+  LineChart,
   ReferenceLine,
+  ResponsiveContainer,
   Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts';
-
 import { useTranslation } from 'translation';
 import { formatToReadablePercentage } from 'utilities';
+
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';

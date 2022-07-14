@@ -1,5 +1,6 @@
 import address from '__mocks__/models/address';
 import { GovernorBravoDelegate } from 'types/contracts';
+
 import castVote from './castVote';
 
 describe('api/mutation/castVote', () => {

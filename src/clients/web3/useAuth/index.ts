@@ -1,7 +1,6 @@
-import { useCallback, useState } from 'react';
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { NoBscProviderError } from '@binance-chain/bsc-connector';
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
@@ -10,9 +9,12 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
-import { toast } from 'components/Toast';
-import { LS_KEY_CONNECTED_CONNECTOR, CHAIN_ID } from 'config';
+import { CHAIN_ID, LS_KEY_CONNECTED_CONNECTOR } from 'config';
 import { VError, formatVErrorToReadableString } from 'errors';
+import { useCallback, useState } from 'react';
+
+import { toast } from 'components/Toast';
+
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
 import setupNetwork from './setUpNetwork';

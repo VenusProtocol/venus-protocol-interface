@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { Vault } from 'types';
-import useGetVestingVaults from './useGetVestingVaults';
+
 import useGetVaiVault from './useGetVaiVault';
+import useGetVestingVaults from './useGetVestingVaults';
 import useGetVrtVault from './useGetVrtVault';
 
 export interface UseGetVaultsOutput {

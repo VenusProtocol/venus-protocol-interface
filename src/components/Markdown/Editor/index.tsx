@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import { Typography } from '@mui/material';
 import MdEditor, { commands } from '@uiw/react-md-editor';
+import React from 'react';
+
 import previewOptions from '../previewOptions';
 import { useStyles } from './styles';
 import './styles-overrides.scss';

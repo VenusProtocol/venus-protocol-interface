@@ -1,7 +1,9 @@
-import React from 'react';
 import BigNumber from 'bignumber.js';
-import renderComponent from 'testUtils/renderComponent';
+import React from 'react';
+
 import { useGetUserMarketInfo } from 'clients/api';
+import renderComponent from 'testUtils/renderComponent';
+
 import Xvs from '.';
 
 jest.mock('clients/api');

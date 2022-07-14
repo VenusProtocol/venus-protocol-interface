@@ -1,25 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo, useCallback } from 'react';
 import BigNumber from 'bignumber.js';
-import type { TransactionReceipt } from 'web3-core';
-
-import { AuthContext } from 'context/AuthContext';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
-import { VError } from 'errors';
-import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
-  FormikSubmitButton,
-  EnableToken,
-  LabeledInlineContent,
-  FormikTokenTextField,
   ConnectWallet,
+  EnableToken,
+  FormikSubmitButton,
+  FormikTokenTextField,
+  LabeledInlineContent,
   Spinner,
 } from 'components';
-import { useGetVaiTreasuryPercentage, useMintVai, useGetMintableVai } from 'clients/api';
+import { VError } from 'errors';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import type { TransactionReceipt } from 'web3-core';
+
+import { useGetMintableVai, useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';

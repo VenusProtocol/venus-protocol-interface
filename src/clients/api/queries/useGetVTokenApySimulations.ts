@@ -1,15 +1,15 @@
 import BigNumber from 'bignumber.js';
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+import { VTokenId } from 'types';
 
-import { InterestModel } from 'types/contracts';
-import { useWeb3 } from 'clients/web3';
-import { getInterestModelContract } from 'clients/contracts/getters';
 import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
 } from 'clients/api/queries/getVTokenApySimulations';
 import useGetVTokenInterestRateModel from 'clients/api/queries/useGetVTokenInterestRateModel';
-import { VTokenId } from 'types';
+import { getInterestModelContract } from 'clients/contracts/getters';
+import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { InterestModel } from 'types/contracts';
 
 type Options = QueryObserverOptions<
   GetVTokenApySimulationsOutput,

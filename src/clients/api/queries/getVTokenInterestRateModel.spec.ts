@@ -1,4 +1,5 @@
 import { VBep20 } from 'types/contracts';
+
 import getInterestRateModel from './getVTokenInterestRateModel';
 
 describe('api/queries/getInterestRateModel', () => {

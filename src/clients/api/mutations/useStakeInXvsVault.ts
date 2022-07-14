@@ -1,16 +1,16 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-
 import { TokenId } from 'types';
+import { getContractAddress } from 'utilities';
+
 import {
-  queryClient,
-  stakeInXvsVault,
   IStakeInXvsVaultInput,
   StakeInXvsVaultOutput,
+  queryClient,
+  stakeInXvsVault,
 } from 'clients/api';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
-import { getContractAddress } from 'utilities';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 
 const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 

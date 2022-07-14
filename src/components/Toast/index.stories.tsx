@@ -1,6 +1,8 @@
 import React from 'react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
 import { ToastContainer } from 'react-toastify';
+
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
 import { toast } from '.';
 import { Button } from '../Button';
 

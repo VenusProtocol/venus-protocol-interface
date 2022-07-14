@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
+import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import { ComponentMeta } from '@storybook/react';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
 import { Table } from '.';
 import { columns, rows, useTableStyles } from './storiesUtils';
 

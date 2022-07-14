@@ -1,4 +1,5 @@
 import { GovernorBravoDelegate } from 'types/contracts';
+
 import getProposalState from './getProposalState';
 
 describe('api/queries/getProposalState', () => {

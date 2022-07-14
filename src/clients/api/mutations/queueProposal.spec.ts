@@ -1,5 +1,6 @@
-import { GovernorBravoDelegate } from 'types/contracts';
 import fakeAddress from '__mocks__/models/address';
+import { GovernorBravoDelegate } from 'types/contracts';
+
 import cancelProposal from './cancelProposal';
 
 describe('api/mutation/cancelProposal', () => {

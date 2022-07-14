@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { VrtVault } from 'types/contracts';
+
 import { IGetVrtVaultUserInfoOutput } from './types';
 
 const formatToUserInfo = ({

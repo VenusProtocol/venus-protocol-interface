@@ -1,9 +1,9 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-
-import { queryClient, borrowVToken, IBorrowVTokenInput, BorrowVTokenOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { VTokenId } from 'types';
+
+import { BorrowVTokenOutput, IBorrowVTokenInput, borrowVToken, queryClient } from 'clients/api';
 import { useVTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   BorrowVTokenOutput,

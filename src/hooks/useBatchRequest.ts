@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { useWeb3 } from 'clients/web3';
 
 export default () => {

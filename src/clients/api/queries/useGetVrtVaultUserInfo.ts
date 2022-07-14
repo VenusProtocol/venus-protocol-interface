@@ -1,11 +1,12 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import {
-  getVrtVaultUserInfo,
   IGetVrtVaultUserInfoInput,
   IGetVrtVaultUserInfoOutput,
+  getVrtVaultUserInfo,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   IGetVrtVaultUserInfoOutput,

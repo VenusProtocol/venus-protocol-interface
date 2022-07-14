@@ -1,5 +1,5 @@
-import { IGetVrtVaultUserInfoInput, IGetVrtVaultUserInfoOutput } from './types';
 import formatToUserInfo from './formatToUserInfo';
+import { IGetVrtVaultUserInfoInput, IGetVrtVaultUserInfoOutput } from './types';
 
 export * from './types';
 

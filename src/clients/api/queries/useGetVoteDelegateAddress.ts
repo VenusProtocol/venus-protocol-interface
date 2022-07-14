@@ -1,12 +1,12 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  getVoteDelegateAddress,
   GetVoteDelegateAddressOutput,
   IGetVoteDelegateAddressInput,
+  getVoteDelegateAddress,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetVoteDelegateAddressOutput,

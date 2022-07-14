@@ -1,4 +1,5 @@
 import { IToken } from 'types';
+
 import { TOKENS } from 'constants/tokens';
 
 const getTokenByAddress = (address: string) => {

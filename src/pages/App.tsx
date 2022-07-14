@@ -1,26 +1,27 @@
+import { Layout, ResetScrollOnRouteChange } from 'components';
 import React from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
+import 'assets/styles/App.scss';
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
+import Path from 'constants/path';
 import { AuthProvider } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
-import { Layout, ResetScrollOnRouteChange } from 'components';
+import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
-import Vote from 'pages/Vote';
-import Xvs from 'pages/Xvs';
+import History from 'pages/History';
 import Market from 'pages/Market';
-import Vault from 'pages/Vault';
+import MarketDetails from 'pages/MarketDetails';
 import Proposal from 'pages/Proposal';
+import Vault from 'pages/Vault';
+import Vote from 'pages/Vote';
 import VoterDetails from 'pages/VoterDetails';
 import VoterLeaderboard from 'pages/VoterLeaderboard';
-import ConvertVrt from 'pages/ConvertVrt';
-import MarketDetails from 'pages/MarketDetails';
-import History from 'pages/History';
+import Xvs from 'pages/Xvs';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
-import Path from 'constants/path';
-import 'assets/styles/App.scss';
 
 const App = () => (
   <Web3Wrapper>

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { VrtVault } from 'types/contracts';
 
 export interface IGetVrtVaultAccruedInterestWeiInput {

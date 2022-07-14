@@ -1,8 +1,9 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-
 import noop from 'noop-ts';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import React from 'react';
+
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
 import MyAccountUi from './MyAccountUi';
 
 export default {

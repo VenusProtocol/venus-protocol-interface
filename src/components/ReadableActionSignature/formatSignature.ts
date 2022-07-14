@@ -1,7 +1,8 @@
-import { ethers } from 'ethers';
 import type { Result } from '@ethersproject/abi';
-import { FormValues } from 'pages/Vote/CreateProposalModal/proposalSchema';
+import { ethers } from 'ethers';
 import { IProposalAction } from 'types';
+
+import { FormValues } from 'pages/Vote/CreateProposalModal/proposalSchema';
 
 const formatSignature = (action: FormValues['actions'][number] | IProposalAction) => {
   try {

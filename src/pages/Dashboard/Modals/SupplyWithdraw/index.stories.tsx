@@ -1,10 +1,12 @@
-import React from 'react';
+import { ComponentMeta, Story } from '@storybook/react';
 import { BigNumber } from 'bignumber.js';
 import noop from 'noop-ts';
-import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
+import React from 'react';
+
 import { assetData } from '__mocks__/models/asset';
-import { SupplyWithdrawUi, ISupplyWithdrawUiProps, ISupplyWithdrawProps } from '.';
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
+import { ISupplyWithdrawProps, ISupplyWithdrawUiProps, SupplyWithdrawUi } from '.';
 
 export default {
   title: 'Pages/Dashboard/Modals/SupplyWithdraw',

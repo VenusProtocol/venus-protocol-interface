@@ -1,10 +1,11 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
-
-import { IApyChartProps } from 'components';
 import { ComponentMeta } from '@storybook/react';
+import BigNumber from 'bignumber.js';
+import { IApyChartProps } from 'components';
+import React from 'react';
+
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { withRouter } from 'stories/decorators';
+
 import { MarketDetailsUi } from '.';
 
 const fakeApyChartData: IApyChartProps['data'] = [

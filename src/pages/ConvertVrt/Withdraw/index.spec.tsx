@@ -1,14 +1,16 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { fireEvent, waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
+import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { assetData } from '__mocks__/models/asset';
-import renderComponent from 'testUtils/renderComponent';
-import { AuthContext } from 'context/AuthContext';
+
 import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
 import { useGetUserMarketInfo } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import Withdraw from '.';
 
 jest.mock('clients/api');

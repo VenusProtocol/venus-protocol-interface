@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Typography from '@mui/material/Typography';
-
-import { useTranslation } from 'translation';
-import { Connector } from 'clients/web3';
 import { VENUS_TERMS_OF_SERVICE_URL, isOnTestnet } from 'config';
+import React from 'react';
+import { useTranslation } from 'translation';
+
+import { Connector } from 'clients/web3';
+
 import { Icon } from '../../Icon';
-import { WALLETS, UPCOMING_WALLETS, INTEGRATED_WALLETS } from '../constants';
+import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
 import { useStyles } from './styles';
 
 export interface IWalletListProps {

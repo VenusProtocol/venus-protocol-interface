@@ -1,14 +1,15 @@
-import React from 'react';
-import { createMemoryHistory } from 'history';
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { createMemoryHistory } from 'history';
+import React from 'react';
 
-import { markets } from '__mocks__/models/markets';
-import TEST_IDS from 'constants/testIds';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
+import { markets } from '__mocks__/models/markets';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
-import { getMarkets, getMarketHistory, getVTokenApySimulations } from 'clients/api';
+import { getMarketHistory, getMarkets, getVTokenApySimulations } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
+
 import MarketDetails from '.';
 
 const fakeVTokenId = 'aave';

@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
-import BigNumber from 'bignumber.js';
 import { Paper } from '@mui/material';
+import BigNumber from 'bignumber.js';
+import { Tabs } from 'components';
+import React, { useState } from 'react';
+import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
-import { Tabs } from 'components';
-import { useTranslation } from 'translation';
-import SupplyMarket from './SupplyMarket';
-import BorrowMarket from './BorrowMarket';
-import { useStyles as useLocalStyles } from './styles';
 import { useStyles as useSharedStyles } from '../styles';
+import BorrowMarket from './BorrowMarket';
+import SupplyMarket from './SupplyMarket';
+import { useStyles as useLocalStyles } from './styles';
 
 export interface IMarketsProps {
   isXvsEnabled: boolean;

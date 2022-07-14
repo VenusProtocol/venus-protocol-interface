@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { EllipseAddress, Icon, Table, TableProps } from 'components';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { XVS_TOKEN_ID } from 'constants/xvs';
-import { generateBscScanUrl, getTokenIdFromVAddress, convertWeiToTokens } from 'utilities';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ITransaction } from 'types';
+import { convertWeiToTokens, generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
+
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { XVS_TOKEN_ID } from 'constants/xvs';
+
 import { useStyles } from './styles';
 
 export interface IHistoryTableProps {

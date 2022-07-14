@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { VrtVault } from 'types/contracts';
 import vrtVaultResponses from '__mocks__/contracts/vrtVault';
+import { VrtVault } from 'types/contracts';
+
 import getVrtVaultInterestRatePerBlock from './getVrtVaultInterestRatePerBlock';
 
 describe('api/queries/getVrtVaultInterestRatePerBlock', () => {

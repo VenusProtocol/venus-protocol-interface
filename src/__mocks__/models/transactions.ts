@@ -1,5 +1,5 @@
-import { ITransactionResponse } from 'clients/api/queries/getTransactions/types';
 import formatTransaction from 'clients/api/queries/getTransactions/formatTransaction';
+import { ITransactionResponse } from 'clients/api/queries/getTransactions/types';
 
 export const transactionResponse: ITransactionResponse[] = [
   {

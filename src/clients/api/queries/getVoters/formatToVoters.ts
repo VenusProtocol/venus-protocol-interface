@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { IVoter } from 'types';
+
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 
 import { IGetVotersApiResponse } from './types';

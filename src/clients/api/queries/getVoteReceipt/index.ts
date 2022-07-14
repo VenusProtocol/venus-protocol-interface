@@ -1,6 +1,7 @@
-import { GovernorBravoDelegate } from 'types/contracts';
 import { VoteSupport } from 'types';
+
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface IGetVoteReceiptInput {
   governorBravoContract: GovernorBravoDelegate;

@@ -1,5 +1,6 @@
+import { IPlayerProps, Player } from '@lottiefiles/react-lottie-player';
 import React from 'react';
-import { Player, IPlayerProps } from '@lottiefiles/react-lottie-player';
+
 import * as files from './files';
 
 export type FileName = keyof typeof files;

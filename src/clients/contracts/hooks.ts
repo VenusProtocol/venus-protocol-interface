@@ -1,23 +1,24 @@
 import { useMemo } from 'react';
-
 import { TokenId, VTokenId } from 'types';
+
 import { useWeb3 } from 'clients/web3';
+
 import {
   getComptrollerContract,
+  getGovernorBravoDelegateContract,
   getInterestModelContract,
   getPriceOracleContract,
   getTokenContract,
+  getTokenContractByAddress,
+  getVTokenContract,
   getVaiUnitrollerContract,
   getVaiVaultContract,
-  getVTokenContract,
   getVenusLensContract,
-  getXvsVaultProxyContract,
-  getXvsVaultContract,
-  getTokenContractByAddress,
-  getGovernorBravoDelegateContract,
   getVrtConverterProxyContract,
-  getXvsVestingProxyContract,
   getVrtVaultProxyContract,
+  getXvsVaultContract,
+  getXvsVaultProxyContract,
+  getXvsVestingProxyContract,
 } from './getters';
 
 export const useTokenContract = <T extends TokenId>(name: T) => {

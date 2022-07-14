@@ -1,11 +1,12 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getProposalState, {
-  IGetProposalStateInput,
   GetProposalStateOutput,
+  IGetProposalStateInput,
 } from 'clients/api/queries/getProposalState';
 import { useGovernorBravoDelegateContract } from 'clients/contracts';
-import FunctionKey from 'constants/functionKey';
 import { BLOCK_TIME_MS } from 'constants/bsc';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetProposalStateOutput,

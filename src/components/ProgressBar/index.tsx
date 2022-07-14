@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import type {
-  SliderUnstyledTrackSlotProps,
   SliderUnstyledMarkSlotProps,
+  SliderUnstyledTrackSlotProps,
 } from '@mui/base/SliderUnstyled';
-import MaterialSlider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
+import MaterialSlider from '@mui/material/Slider';
 import { SliderTypeMap } from '@mui/material/Slider/Slider';
+import React from 'react';
 
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
-import { Tooltip, ITooltipProps } from '../Tooltip';
+
+import { ITooltipProps, Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
 
 export interface IProgressBarProps {

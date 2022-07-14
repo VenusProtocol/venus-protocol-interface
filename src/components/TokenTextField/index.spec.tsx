@@ -1,9 +1,10 @@
-import React from 'react';
-import noop from 'noop-ts';
-import BigNumber from 'bignumber.js';
 import { fireEvent } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
+import React from 'react';
 
 import renderComponent from 'testUtils/renderComponent';
+
 import { TokenTextField } from '.';
 
 const ONE_XVS = '1';

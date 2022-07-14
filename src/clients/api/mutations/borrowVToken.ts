@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
-import type { TransactionReceipt } from 'web3-core/types';
-
 import { checkForTokenTransactionError } from 'errors';
 import { VTokenId } from 'types';
+import type { TransactionReceipt } from 'web3-core/types';
+
 import { VTokenContract } from 'clients/contracts/types';
 
 export interface IBorrowVTokenInput {

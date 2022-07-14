@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
-import { Tabs } from 'components';
-import { useTranslation } from 'translation';
 import Paper from '@mui/material/Paper';
+import { Tabs } from 'components';
+import React from 'react';
+import { useTranslation } from 'translation';
+
 import MintVai from './MintVai';
 import RepayVai from './RepayVai';
 import { useStyles } from './styles';

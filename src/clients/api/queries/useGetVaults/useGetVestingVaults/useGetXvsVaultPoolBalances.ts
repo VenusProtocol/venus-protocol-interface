@@ -1,12 +1,12 @@
-import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
+import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
+import { getContractAddress, getTokenByAddress } from 'utilities';
 
-import { useWeb3 } from 'clients/web3';
+import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import { getTokenContractByAddress } from 'clients/contracts';
-import { getBalanceOf, GetBalanceOfOutput } from 'clients/api';
-import { getTokenByAddress, getContractAddress } from 'utilities';
+import { useWeb3 } from 'clients/web3';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { Bep20 } from 'types/contracts';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 
 const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 

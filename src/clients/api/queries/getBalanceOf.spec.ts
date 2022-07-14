@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
+
 import { VrtToken } from 'types/contracts';
+
 import getBalanceOf, { GetBalanceOfOutput } from './getBalanceOf';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';

@@ -1,32 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
-import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import {
-  toast,
-  FormikTokenTextField,
-  Delimiter,
-  LabeledInlineContent,
-  ILabeledInlineContentProps,
-  FormikSubmitButton,
   BorrowBalanceAccountHealth,
+  Delimiter,
+  FormikSubmitButton,
+  FormikTokenTextField,
+  ILabeledInlineContentProps,
+  LabeledInlineContent,
   ValueUpdate,
+  toast,
 } from 'components';
-import { AmountForm, IAmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
-import { useTranslation } from 'translation';
 import { VError, formatVErrorToReadableString } from 'errors';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'translation';
 import { Asset, TokenId } from 'types';
 import {
-  getBigNumber,
+  calculateCollateralValue,
+  calculateDailyEarningsCents,
+  calculateYearlyEarningsForAssets,
   convertTokensToWei,
   formatTokensToReadableValue,
-  calculateYearlyEarningsForAssets,
-  calculateDailyEarningsCents,
-  calculateCollateralValue,
+  getBigNumber,
   getToken,
 } from 'utilities';
+
+import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
+
 import { useStyles } from '../styles';
 
 interface ISupplyWithdrawFormUiProps {

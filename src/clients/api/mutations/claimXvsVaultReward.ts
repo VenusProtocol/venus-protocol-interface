@@ -1,6 +1,6 @@
+import { checkForXvsVaultProxyTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { checkForXvsVaultProxyTransactionError } from 'errors';
 import { XvsVault } from 'types/contracts';
 
 export interface IClaimXvsVaultRewardInput {

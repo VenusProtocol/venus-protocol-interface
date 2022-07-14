@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
+import React from 'react';
 import { formatCentsToReadableValue } from 'utilities';
+
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 

@@ -1,10 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getXvsVaultTotalAllocationPoints, {
-  IGetXvsVaultTotalAllocPointsInput,
   GetXvsVaultTotalAllocPointsOutput,
+  IGetXvsVaultTotalAllocPointsInput,
 } from 'clients/api/queries/getXvsVaultTotalAllocationPoints';
-import FunctionKey from 'constants/functionKey';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetXvsVaultTotalAllocPointsOutput,

@@ -1,26 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
-
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
-import { Asset } from 'types';
-import { AuthContext } from 'context/AuthContext';
-import { useGetUserMarketInfo } from 'clients/api';
-import {
-  formatToReadablePercentage,
-  calculateYearlyEarningsForAssets,
-  calculatePercentage,
-  calculateDailyEarningsCents as calculateDailyEarningsCentsUtil,
-} from 'utilities';
-
 import {
   BorrowBalanceAccountHealth,
+  Delimiter,
   LabeledInlineContent,
   ValueUpdate,
-  Delimiter,
 } from 'components';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
+import { Asset } from 'types';
+import {
+  calculateDailyEarningsCents as calculateDailyEarningsCentsUtil,
+  calculatePercentage,
+  calculateYearlyEarningsForAssets,
+  formatToReadablePercentage,
+} from 'utilities';
+
+import { useGetUserMarketInfo } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
+
 import { useStyles } from '../../styles';
 
 export interface IAccountDataProps {

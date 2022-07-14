@@ -1,13 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { cloneDeep } from 'lodash';
 import { Typography } from '@mui/material';
 import { EllipseAddress, Table, TableProps } from 'components';
-import Path from 'constants/path';
+import { cloneDeep } from 'lodash';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { IVoterAccount } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+
+import Path from 'constants/path';
+
 import { useStyles } from './styles';
 
 export interface ILeaderboardTableProps extends Pick<TableProps, 'getRowHref'> {

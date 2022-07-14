@@ -1,26 +1,28 @@
+import { fireEvent, waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
+import { cloneDeep } from 'lodash';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { waitFor, fireEvent } from '@testing-library/react';
-import renderComponent from 'testUtils/renderComponent';
+
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
+import proposals from '__mocks__/models/proposals';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
 import { vaults } from '__mocks__/models/vaults';
-import proposals from '__mocks__/models/proposals';
 import {
-  useGetVestingVaults,
   getCurrentVotes,
-  setVoteDelegate,
-  getProposals,
-  getProposalState,
   getLatestProposalIdByProposer,
+  getProposalState,
+  getProposals,
+  setVoteDelegate,
+  useGetVestingVaults,
 } from 'clients/api';
 import PATHS from 'constants/path';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
-import BigNumber from 'bignumber.js';
-import { cloneDeep } from 'lodash';
-import TEST_IDS from './testIds';
+
 import Vote from '.';
+import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');

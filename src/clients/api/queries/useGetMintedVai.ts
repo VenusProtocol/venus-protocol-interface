@@ -1,11 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getMintedVai, {
   GetMintedVaiOutput,
   IGetMintedVaiInput,
 } from 'clients/api/queries/getMintedVai';
-import FunctionKey from 'constants/functionKey';
 import { useComptrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetMintedVaiOutput,

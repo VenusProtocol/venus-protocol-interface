@@ -1,13 +1,14 @@
-import React from 'react';
+import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { waitFor } from '@testing-library/react';
+import React from 'react';
 
-import MAX_UINT256 from 'constants/maxUint256';
-import TEST_IDS from 'constants/testIds';
 import fakeAccountAddress from '__mocks__/models/address';
 import { getAllowance } from 'clients/api';
+import MAX_UINT256 from 'constants/maxUint256';
+import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
+
 import ActionModal, { IActionModalProps } from '.';
 
 jest.mock('clients/api');

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
 export interface User {

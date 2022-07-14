@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
+import { ConnectWallet, Icon, PrimaryButton } from 'components';
+import React from 'react';
+import { useTranslation } from 'translation';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import { ConnectWallet, Icon, PrimaryButton } from 'components';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import { useTranslation } from 'translation';
 import { XVS_TOKEN_ID } from 'constants/xvs';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+
 import { useStyles } from '../styles';
 
 export interface IWithdrawProps {

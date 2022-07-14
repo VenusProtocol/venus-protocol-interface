@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { alpha, useTheme } from '@mui/material';
+
 import { NoticeVariant } from './types';
 
 export const useStyles = () => {

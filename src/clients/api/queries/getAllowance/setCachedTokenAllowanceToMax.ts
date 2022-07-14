@@ -1,10 +1,11 @@
 import { QueryClient } from 'react-query';
-
-import MAX_UINT256 from 'constants/maxUint256';
-import { GetAllowanceOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { TokenId } from 'types';
 import { getTokenSpenderAddress } from 'utilities';
+
+import { GetAllowanceOutput } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import MAX_UINT256 from 'constants/maxUint256';
+
 import type { UseGetAllowanceQueryKey } from './useGetAllowance';
 
 const setCachedTokenAllowanceToMax = ({

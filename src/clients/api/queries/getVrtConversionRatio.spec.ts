@@ -1,4 +1,5 @@
 import { VrtConverter } from 'types/contracts';
+
 import getVrtConversionRatio, { GetVrtConversionRatioOutput } from './getVrtConversionRatio';
 
 describe('api/queries/getVrtConversionRatio', () => {

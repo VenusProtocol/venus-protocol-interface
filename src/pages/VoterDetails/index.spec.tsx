@@ -1,5 +1,7 @@
 import React from 'react';
+
 import renderComponent from 'testUtils/renderComponent';
+
 import VoterDetail from '.';
 
 describe('pages/VoterDetail', () => {

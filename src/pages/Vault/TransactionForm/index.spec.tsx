@@ -1,12 +1,13 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import { waitFor, fireEvent } from '@testing-library/react';
+import React from 'react';
 
-import TEST_IDS from 'constants/testIds';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
+
 import TransactionForm, { ITransactionFormProps } from '.';
 
 jest.mock('hooks/useSuccessfulTransactionModal');

@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
+import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'components';
+import { Form, Formik } from 'formik';
 import React from 'react';
-import type { TransactionReceipt } from 'web3-core';
-import { Formik, Form } from 'formik';
-import { Modal, FormikTextField, TextField, FormikSubmitButton } from 'components';
 import { useTranslation } from 'translation';
+import type { TransactionReceipt } from 'web3-core';
+
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 

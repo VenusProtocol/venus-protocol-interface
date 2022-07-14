@@ -1,17 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
+import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import isBefore from 'date-fns/isBefore';
-
-import TEST_IDS from 'constants/testIds';
-import { AuthContext } from 'context/AuthContext';
-import { TOKENS } from 'constants/tokens';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
+
+import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
+import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import { useTranslation } from 'translation';
-import { useGetXvsVaultLockedDeposits, useExecuteWithdrawalFromXvsVault } from 'clients/api';
-import { ConnectWallet, Spinner, LabeledInlineContent, PrimaryButton } from 'components';
+
 import { useStyles } from './styles';
 
 export interface WithdrawUiProps {

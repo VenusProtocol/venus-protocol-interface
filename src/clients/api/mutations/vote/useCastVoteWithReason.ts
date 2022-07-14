@@ -1,11 +1,13 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
+import { MutationObserverOptions, useMutation } from 'react-query';
+
+import { queryClient } from 'clients/api';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import { queryClient } from 'clients/api';
+
 import castVoteWithReason, {
+  CastVoteWithReasonOutput,
   HookParams,
   ICastVoteWithReasonInput,
-  CastVoteWithReasonOutput,
 } from './castVoteWithReason';
 
 export type CastVoteWithReasonParams = ICastVoteWithReasonInput;

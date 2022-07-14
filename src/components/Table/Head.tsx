@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import Box from '@mui/material/Box';
 import TableCell from '@mui/material/TableCell';
-import TableSortLabel from '@mui/material/TableSortLabel';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Box from '@mui/material/Box';
+import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
+import React from 'react';
+
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 

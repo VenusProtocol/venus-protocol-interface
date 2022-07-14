@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
+
 import { IGetXvsVaultUserInfoOutput } from './types';
 
 const formatToUserInfo = ({

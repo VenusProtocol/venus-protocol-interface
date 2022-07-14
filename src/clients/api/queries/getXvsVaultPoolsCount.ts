@@ -1,4 +1,5 @@
 import { getToken } from 'utilities';
+
 import { XvsVault } from 'types/contracts';
 
 export interface IGetXvsVaultPoolsCountInput {

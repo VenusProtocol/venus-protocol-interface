@@ -1,12 +1,12 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsWithdrawableAmount, {
   IGetXvsWithdrawableAmountInput,
   IGetXvsWithdrawableAmountOutput,
 } from 'clients/api/queries/getXvsWithdrawableAmount';
-import FunctionKey from 'constants/functionKey';
 import { useXvsVestingProxyContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   IGetXvsWithdrawableAmountOutput,

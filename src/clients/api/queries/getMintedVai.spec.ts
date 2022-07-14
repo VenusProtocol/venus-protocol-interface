@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import address from '__mocks__/models/address';
 import { Comptroller } from 'types/contracts';
+
 import getMintedVai from './getMintedVai';
 
 describe('api/queries/getMintedVai', () => {

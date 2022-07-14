@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { Icon } from 'components';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState } from 'types';
+
 import { useStyles } from './styles';
 
 export interface IStepperProps {

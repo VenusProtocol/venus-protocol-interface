@@ -1,23 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Asset, VTokenId } from 'types';
+import { Delimiter, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
-import { toast, switchAriaLabel, Delimiter, TableProps } from 'components';
-import { useWeb3 } from 'clients/web3';
-import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
+import React, { useState } from 'react';
+import { Asset, VTokenId } from 'types';
+
 import {
-  useExitMarket,
-  useEnterMarkets,
   getHypotheticalAccountLiquidity,
   getVTokenBalanceOf,
+  useEnterMarkets,
+  useExitMarket,
 } from 'clients/api';
+import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
+import { useWeb3 } from 'clients/web3';
+
 import { SupplyWithdrawModal } from '../../Modals';
-import { CollateralConfirmModal } from './CollateralConfirmModal';
-import SupplyMarketTable from './SupplyMarketTable';
-import SuppliedTable from './SuppliedTable';
 import { useStyles } from '../styles';
+import { CollateralConfirmModal } from './CollateralConfirmModal';
+import SuppliedTable from './SuppliedTable';
+import SupplyMarketTable from './SupplyMarketTable';
 
 interface ISupplyMarketProps {
   className?: string;

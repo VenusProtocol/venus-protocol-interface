@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-
 import { Vault } from 'types';
 
 export const vaults: Vault[] = [

@@ -1,18 +1,19 @@
-import React from 'react';
-import noop from 'noop-ts';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
-
+import noop from 'noop-ts';
+import React from 'react';
 import { Asset } from 'types';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import { useGetUserMarketInfo, repayNonBnbVToken, getAllowance } from 'clients/api';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { getAllowance, repayNonBnbVToken, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import Repay, { PRESET_PERCENTAGES } from '.';
 
 const fakeAsset: Asset = {

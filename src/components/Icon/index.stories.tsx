@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
+import React from 'react';
+
 import { withCenterStory } from 'stories/decorators';
-import { Icon, IconName, IIconProps } from '.';
+
+import { IIconProps, Icon, IconName } from '.';
 
 export default {
   title: 'Components/Icon',

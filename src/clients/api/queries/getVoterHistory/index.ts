@@ -1,6 +1,7 @@
+import { VError } from 'errors';
 import { IVoterHistory } from 'types';
 import { restService } from 'utilities';
-import { VError } from 'errors';
+
 import formatVoterHistoryResponse from './formatVoterHistoryResponse';
 import { IGetVoterHistoryResponse } from './types';
 

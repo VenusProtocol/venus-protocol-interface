@@ -1,12 +1,13 @@
-import React from 'react';
 import { waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
-
+import React from 'react';
 import { TokenId } from 'types';
-import en from 'translation/translations/en.json';
-import { TOKENS } from 'constants/tokens';
+
 import fakeAddress from '__mocks__/models/address';
+import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
+import en from 'translation/translations/en.json';
+
 import WithdrawFromVestingVaultModal from '.';
 
 jest.mock('clients/api');

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { VBep20 } from 'types/contracts';
+
 import getVTokenCash from './getVTokenCash';
 
 describe('api/queries/getVTokenCash', () => {

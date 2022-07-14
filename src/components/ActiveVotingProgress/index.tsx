@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
 import { BigNumber } from 'bignumber.js';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 import { convertWeiToTokens } from 'utilities';
+
+import { XVS_TOKEN_ID } from 'constants/xvs';
+import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
+
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
 import { useStyles } from './styles';
 

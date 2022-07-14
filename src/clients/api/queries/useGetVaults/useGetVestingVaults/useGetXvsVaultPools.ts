@@ -1,17 +1,17 @@
-import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
+import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
-import FunctionKey from 'constants/functionKey';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import {
-  getXvsVaultPoolInfo,
-  IGetXvsVaultPoolInfoOutput,
-  getXvsVaultPendingRewardWei,
   GetXvsVaultPendingRewardWeiOutput,
-  getXvsVaultUserInfo,
+  IGetXvsVaultPoolInfoOutput,
   IGetXvsVaultUserInfoOutput,
+  getXvsVaultPendingRewardWei,
+  getXvsVaultPoolInfo,
+  getXvsVaultUserInfo,
 } from 'clients/api';
-import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import FunctionKey from 'constants/functionKey';
+import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 
 export interface IUseGetXvsVaultPoolsInput {
   poolsCount: number;

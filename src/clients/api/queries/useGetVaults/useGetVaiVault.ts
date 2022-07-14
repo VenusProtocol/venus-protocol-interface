@@ -1,18 +1,18 @@
-import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-
-import { Vault, TokenId } from 'types';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { useMemo } from 'react';
+import { TokenId, Vault } from 'types';
 import { convertWeiToTokens, getContractAddress } from 'utilities';
+
 import {
   useGetBalanceOf,
-  useGetVenusVaiVaultDailyRateWei,
   useGetMarkets,
-  useGetVaiVaultUserInfo,
   useGetVaiVaultPendingXvsWei,
+  useGetVaiVaultUserInfo,
+  useGetVenusVaiVaultDailyRateWei,
 } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import { TOKENS } from 'constants/tokens';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 

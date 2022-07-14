@@ -1,8 +1,8 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
+import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { queueProposal, IQueueProposalInput, QueueProposalOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { IQueueProposalInput, QueueProposalOutput, queueProposal } from 'clients/api';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 const useQueueProposal = (
   options?: MutationObserverOptions<

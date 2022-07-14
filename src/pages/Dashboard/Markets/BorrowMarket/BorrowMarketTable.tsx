@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
+import { Table, TableProps, Token } from 'components';
 import React, { useMemo } from 'react';
-import { Table, Token, TableProps } from 'components';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
-  formatTokensToReadableValue,
   formatCentsToReadableValue,
   formatToReadablePercentage,
+  formatTokensToReadableValue,
 } from 'utilities';
-import { useStyles } from './styles';
+
 import { useStyles as useSharedStyles } from '../styles';
+import { useStyles } from './styles';
 
 export interface IBorrowMarketTableProps extends Pick<TableProps, 'rowOnClick'> {
   assets: Asset[];

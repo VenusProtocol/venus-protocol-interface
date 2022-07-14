@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { formatPercentage } from 'utilities';
+
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 const formatToReadablePercentage = (value: number | string | BigNumber | undefined) => {

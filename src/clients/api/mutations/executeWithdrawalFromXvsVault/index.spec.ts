@@ -1,10 +1,12 @@
+import { VError } from 'errors';
+
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   VaiVaultErrorReporterError,
   VaiVaultErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
 import { XvsVault } from 'types/contracts';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+
 import executeWithdrawalFromXvsVault from '.';
 
 const fakeFromAccountsAddress = '0x3d759121234cd36F8124C21aFe1c6852d2bEd848';

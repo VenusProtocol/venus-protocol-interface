@@ -1,5 +1,7 @@
-import { XvsVesting } from 'types/contracts';
 import BigNumber from 'bignumber.js';
+
+import { XvsVesting } from 'types/contracts';
+
 import getXvsWithdrawableAmount, {
   IGetXvsWithdrawableAmountOutput,
 } from './getXvsWithdrawableAmount';

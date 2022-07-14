@@ -1,13 +1,15 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { waitFor } from '@testing-library/react';
-import renderComponent from 'testUtils/renderComponent';
+import BigNumber from 'bignumber.js';
+import React from 'react';
+
+import fakeAddress from '__mocks__/models/address';
 import { assetsInAccount } from '__mocks__/models/assetsInAccount';
 import { markets } from '__mocks__/models/markets';
-import { vTokenBalancesAccount } from '__mocks__/models/vTokenBalancesAccount';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
-import fakeAddress from '__mocks__/models/address';
+import { vTokenBalancesAccount } from '__mocks__/models/vTokenBalancesAccount';
 import { getAssetsInAccount, getMarkets, getMintedVai, useGetVTokenBalancesAll } from 'clients/api';
+import renderComponent from 'testUtils/renderComponent';
+
 import useGetUserMarketInfo, { UseGetUserMarketInfoOutput } from './useGetUserMarketInfo';
 
 jest.mock('clients/api');

@@ -1,10 +1,10 @@
+import BigNumber from 'bignumber.js';
+import { checkForTokenTransactionError } from 'errors';
+import { getVBepToken } from 'utilities';
 import Web3 from 'web3';
 import type { TransactionReceipt } from 'web3-core/types';
-import BigNumber from 'bignumber.js';
 
-import { getVTokenContract, getMaximillionContract } from 'clients/contracts';
-import { getVBepToken } from 'utilities';
-import { checkForTokenTransactionError } from 'errors';
+import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 
 export interface IRepayBnbInput {
   web3: Web3;
