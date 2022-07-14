@@ -57,7 +57,11 @@ describe('pages/Vault/modals/StakeModal', () => {
       handleClose: jest.fn(),
     };
 
-    const { stake } = useStakeInVault({ stakedTokenId: customProps.stakedTokenId });
+    const { stake } = useStakeInVault({
+      stakedTokenId: customProps.stakedTokenId,
+      rewardTokenId: customProps.rewardTokenId,
+      poolIndex: customProps.poolIndex,
+    });
 
     const { getByTestId, getByText } = renderComponent(<StakeModal {...customProps} />, {
       authContextValue: {
@@ -90,8 +94,6 @@ describe('pages/Vault/modals/StakeModal', () => {
     expect(stake).toHaveBeenCalledWith({
       accountAddress: fakeAccountAddress,
       amountWei: fakeStakedWei,
-      poolIndex: customProps.poolIndex,
-      rewardTokenId: customProps.rewardTokenId,
     });
 
     await waitFor(() => expect(customProps.handleClose).toHaveBeenCalledTimes(1));

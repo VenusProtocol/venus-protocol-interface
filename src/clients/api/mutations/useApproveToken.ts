@@ -18,7 +18,7 @@ const useApproveToken = (
   const tokenContract = useTokenContract(tokenId);
 
   return useMutation(
-    FunctionKey.APPROVE_TOKEN,
+    [FunctionKey.APPROVE_TOKEN, { tokenId }],
     params =>
       approveToken({
         tokenContract,
@@ -27,7 +27,8 @@ const useApproveToken = (
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        setCachedTokenAllowanceToMax({ queryClient, tokenId });
+        const { spenderAddress, accountAddress } = onSuccessParams[1];
+        setCachedTokenAllowanceToMax({ queryClient, tokenId, spenderAddress, accountAddress });
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

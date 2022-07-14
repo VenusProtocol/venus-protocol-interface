@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'translation';
 import { AuthContext } from 'context/AuthContext';
 import { VTokenId } from 'types';
-import { getTokenSpenderAddress } from 'utilities';
 import { useApproveToken, useGetAllowance } from 'clients/api';
 import { Icon } from '../Icon';
 import { SecondaryButton } from '../Button';
@@ -83,15 +82,13 @@ export const EnableTokenUi: React.FC<IEnableTokenUiProps> = ({
   );
 };
 
-export type EnableTokenProps = Pick<
-  IEnableTokenUiProps,
-  'tokenInfo' | 'disabled' | 'title' | 'vTokenId'
->;
+export interface EnableTokenProps
+  extends Pick<IEnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'vTokenId'> {
+  spenderAddress: string;
+}
 
-export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, ...rest }) => {
+export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddress, ...rest }) => {
   const { account } = useContext(AuthContext);
-
-  const spenderAddress = getTokenSpenderAddress(vTokenId);
 
   const { data: tokenAllowance, isLoading: isGetAllowanceLoading } = useGetAllowance(
     {

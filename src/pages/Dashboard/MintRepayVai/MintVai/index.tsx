@@ -5,7 +5,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import { VError } from 'errors';
 import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
 import {
@@ -23,6 +23,8 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
+
+const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
 
 export interface IMintVaiUiProps {
   disabled: boolean;
@@ -94,7 +96,11 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('mintRepayVai.mintVai.connectWallet')}>
-      <EnableToken title={t('mintRepayVai.mintVai.enableToken')} vTokenId={VAI_ID}>
+      <EnableToken
+        title={t('mintRepayVai.mintVai.enableToken')}
+        vTokenId={VAI_ID}
+        spenderAddress={vaiUnitrollerContractAddress}
+      >
         <AmountForm onSubmit={onSubmit} css={styles.tabContentContainer}>
           {({ values }) => (
             <>

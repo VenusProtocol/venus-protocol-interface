@@ -1,6 +1,8 @@
 import React from 'react';
 import noop from 'noop-ts';
 
+import fakeAddress from '__mocks__/models/address';
+import { getVBepToken } from 'utilities';
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
 import WithdrawFromVestingVaultModal, { WithdrawFromVestingVaultModalProps } from '.';
@@ -21,7 +23,7 @@ const authContext = {
   openAuthModal: noop,
   closeAuthModal: noop,
   account: {
-    address: '0x0000000000000000000000000000000000000000',
+    address: fakeAddress,
   },
 };
 
@@ -30,4 +32,11 @@ Default.args = {
   handleClose: noop,
   stakedTokenId: 'xvs',
 };
-Default.decorators = [withAuthContext(authContext), withEnabledToken('xvs')];
+Default.decorators = [
+  withAuthContext(authContext),
+  withEnabledToken({
+    tokenId: 'xvs',
+    accountAddress: fakeAddress,
+    spenderAddress: getVBepToken('xvs').address,
+  }),
+];

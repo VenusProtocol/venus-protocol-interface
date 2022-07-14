@@ -14,7 +14,6 @@ export { default as calculateCollateralValue } from './calculateCollateralValue'
 export * from './generateBscScanUrl';
 export { default as getTokenIdFromVAddress } from './getTokenIdFromVAddress';
 export * from './featureFlags';
-export { default as getTokenSpenderAddress } from './getTokenSpenderAddress';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 
 export { default as formatTokensToReadableValue } from './formatTokensToReadableValue';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { waitFor } from '@testing-library/react';
 
+import fakeAddress from '__mocks__/models/address';
 import MAX_UINT256 from 'constants/maxUint256';
 import { getAllowance } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
@@ -20,7 +21,7 @@ describe('components/EnableToken', () => {
     const fakeEnableTitle = 'Enable token to proceed';
 
     const { getByText } = renderComponent(
-      <EnableToken vTokenId={fakeAsset.id} title={fakeEnableTitle}>
+      <EnableToken vTokenId={fakeAsset.id} title={fakeEnableTitle} spenderAddress={fakeAddress}>
         {fakeContent}
       </EnableToken>,
     );
@@ -32,7 +33,11 @@ describe('components/EnableToken', () => {
     (getAllowance as jest.Mock).mockImplementationOnce(() => MAX_UINT256);
 
     const { getByText } = renderComponent(
-      <EnableToken vTokenId={fakeAsset.id} title="Enable token to proceed">
+      <EnableToken
+        vTokenId={fakeAsset.id}
+        title="Enable token to proceed"
+        spenderAddress={fakeAddress}
+      >
         {fakeContent}
       </EnableToken>,
     );

@@ -1,7 +1,9 @@
 import React from 'react';
 import noop from 'noop-ts';
 
+import fakeAddress from '__mocks__/models/address';
 import { ComponentMeta, Story } from '@storybook/react';
+import { getContractAddress } from 'utilities';
 import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
 import MintRepayVai, { IMintRepayVaiProps } from '.';
 
@@ -24,7 +26,7 @@ const context = {
   openAuthModal: noop,
   closeAuthModal: noop,
   account: {
-    address: '0x0000000000000000000000000000000000000000',
+    address: fakeAddress,
   },
 };
 
@@ -34,4 +36,11 @@ export const Disabled = Template.bind({});
 Disabled.decorators = [withAuthContext(context)];
 
 export const Default = Template.bind({});
-Default.decorators = [withAuthContext(context), withEnabledToken('vai')];
+Default.decorators = [
+  withAuthContext(context),
+  withEnabledToken({
+    tokenId: 'vai',
+    accountAddress: fakeAddress,
+    spenderAddress: getContractAddress('vaiUnitroller'),
+  }),
+];

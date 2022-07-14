@@ -61,18 +61,28 @@ export const withQueryClientProvider: DecoratorFunction = Story => {
   );
 };
 
-export const withEnabledToken = (tokenId: TokenId) => (Story: StoryType) => {
-  const queryClient = useQueryClient();
+export const withEnabledToken =
+  ({
+    tokenId,
+    spenderAddress,
+    accountAddress,
+  }: {
+    tokenId: TokenId;
+    spenderAddress: string;
+    accountAddress: string;
+  }) =>
+  (Story: StoryType) => {
+    const queryClient = useQueryClient();
 
-  // Update cache to set token as enabled
-  setCachedTokenAllowanceToMax({ queryClient, tokenId });
+    // Update cache to set token as enabled
+    setCachedTokenAllowanceToMax({ queryClient, tokenId, spenderAddress, accountAddress });
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Story />
-    </QueryClientProvider>
-  );
-};
+    return (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    );
+  };
 
 export const withCenterStory: (props: {
   width?: number | string;

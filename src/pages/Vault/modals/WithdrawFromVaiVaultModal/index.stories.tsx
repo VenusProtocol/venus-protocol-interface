@@ -1,6 +1,8 @@
 import React from 'react';
 import noop from 'noop-ts';
 
+import fakeAddress from '__mocks__/models/address';
+import { getContractAddress } from 'utilities';
 import { ComponentMeta, Story } from '@storybook/react';
 import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
@@ -29,7 +31,14 @@ export const Default = Template.bind({});
 Default.args = {
   handleClose: noop,
 };
-Default.decorators = [withAuthContext(authContext), withEnabledToken('vai')];
+Default.decorators = [
+  withAuthContext(authContext),
+  withEnabledToken({
+    tokenId: 'vai',
+    accountAddress: fakeAddress,
+    spenderAddress: getContractAddress('vaiUnitroller'),
+  }),
+];
 
 export const WithoutConnectedAccount = Template.bind({});
 WithoutConnectedAccount.args = {
@@ -46,4 +55,11 @@ export const WithIsInitialLoading = Template.bind({});
 WithIsInitialLoading.args = {
   handleClose: noop,
 };
-WithIsInitialLoading.decorators = [withAuthContext(authContext), withEnabledToken('vai')];
+WithIsInitialLoading.decorators = [
+  withAuthContext(authContext),
+  withEnabledToken({
+    tokenId: 'vai',
+    accountAddress: fakeAddress,
+    spenderAddress: getContractAddress('vaiUnitroller'),
+  }),
+];
