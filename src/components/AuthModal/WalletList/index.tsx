@@ -1,13 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { VENUS_TERMS_OF_SERVICE_URL, isOnTestnet } from 'config';
+import config from 'config';
 import React from 'react';
 import { useTranslation } from 'translation';
 
 import { Connector } from 'clients/web3';
 
 import { Icon } from '../../Icon';
-import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
+import {
+  INTEGRATED_WALLETS,
+  UPCOMING_WALLETS,
+  VENUS_TERMS_OF_SERVICE_URL,
+  WALLETS,
+} from '../constants';
 import { useStyles } from './styles';
 
 export interface IWalletListProps {
@@ -20,7 +25,7 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
 
   return (
     <div css={styles.container}>
-      {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !isOnTestnet).map(
+      {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !config.isOnTestnet).map(
         ({ name, connector, Logo }) => (
           <button
             css={styles.getListItem({ isActionable: true })}

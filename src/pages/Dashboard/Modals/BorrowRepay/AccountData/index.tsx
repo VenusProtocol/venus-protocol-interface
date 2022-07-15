@@ -6,7 +6,6 @@ import {
   LabeledInlineContent,
   ValueUpdate,
 } from 'components';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -18,6 +17,7 @@ import {
 } from 'utilities';
 
 import { useGetUserMarketInfo } from 'clients/api';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AuthContext } from 'context/AuthContext';
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 

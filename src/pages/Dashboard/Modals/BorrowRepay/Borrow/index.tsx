@@ -7,7 +7,6 @@ import {
   FormikTokenTextField,
   NoticeWarning,
 } from 'components';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -22,6 +21,7 @@ import {
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useBorrowVToken, useGetUserMarketInfo } from 'clients/api';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import TEST_IDS from 'constants/testIds';
 import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';

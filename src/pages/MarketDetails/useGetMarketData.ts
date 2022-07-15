@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { VTOKEN_DECIMALS } from 'config';
 import React from 'react';
 import { IVBepToken } from 'types';
 import { convertPercentageFromSmartContract, convertWeiToTokens, getToken } from 'utilities';
 
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
+import { VTOKEN_DECIMALS } from 'constants/tokens';
 
 const useGetMarketData = ({
   vTokenId,

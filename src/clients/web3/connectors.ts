@@ -3,23 +3,24 @@ import { InfinityWalletConnector } from '@infinitywallet/infinity-connector';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-import { BscChainId, CHAIN_ID, RPC_URL } from 'config';
+import config from 'config';
+import { BscChainId } from 'types';
 
 import { Connector } from './types';
 
-export const injectedConnector = new InjectedConnector({ supportedChainIds: [CHAIN_ID] });
+export const injectedConnector = new InjectedConnector({ supportedChainIds: [config.chainId] });
 
 const walletConnectConnector = new WalletConnectConnector({
-  rpc: { [BscChainId.MAINNET]: RPC_URL },
+  rpc: { [BscChainId.MAINNET]: config.rpcUrl },
   chainId: BscChainId.MAINNET,
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
 });
 
-const binanceChainWalletConnector = new BscConnector({ supportedChainIds: [CHAIN_ID] });
+const binanceChainWalletConnector = new BscConnector({ supportedChainIds: [config.chainId] });
 
 const coinbaseWalletConnector = new WalletLinkConnector({
-  url: RPC_URL,
+  url: config.rpcUrl,
   appName: 'Venus',
 });
 

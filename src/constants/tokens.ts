@@ -1,4 +1,4 @@
-import { isOnTestnet } from 'config';
+import config from 'config';
 
 import aave from 'assets/img/tokens/aave.png';
 import ada from 'assets/img/tokens/ada.png';
@@ -56,7 +56,9 @@ import xvs from 'assets/img/tokens/xvs.svg';
 import TOKEN_ADDRESSES from './contracts/addresses/tokens.json';
 import VBEP_TOKEN_ADDRESSES from './contracts/addresses/vBepTokens.json';
 
-export const TOKENS = isOnTestnet
+export const VTOKEN_DECIMALS = 8;
+
+export const TOKENS = config.isOnTestnet
   ? {
       sxp: {
         id: 'sxp',
@@ -444,7 +446,7 @@ export const TOKENS = isOnTestnet
 
 export const VBEP_TOKEN_DECIMALS = 8;
 
-export const VBEP_TOKENS = isOnTestnet
+export const VBEP_TOKENS = config.isOnTestnet
   ? {
       sxp: {
         id: 'sxp',

@@ -1,6 +1,5 @@
+import config from 'config';
 import { isEmpty, set } from 'lodash';
-
-import { API_ENDPOINT_URL } from '../config';
 
 interface IRestServiceInput {
   endpoint: string;
@@ -37,7 +36,7 @@ export async function restService<D>({
     }
 > {
   const headers = {};
-  let path = `${API_ENDPOINT_URL}${endpoint}`;
+  let path = `${config.apiUrl}${endpoint}`;
 
   set(headers, 'Accept', 'application/json');
   set(headers, 'Content-Type', 'application/json');

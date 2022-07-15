@@ -9,11 +9,12 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
-import { CHAIN_ID, LS_KEY_CONNECTED_CONNECTOR } from 'config';
+import config from 'config';
 import { VError, formatVErrorToReadableString } from 'errors';
 import { useCallback, useState } from 'react';
 
 import { toast } from 'components/Toast';
+import { LS_KEY_CONNECTED_CONNECTOR } from 'constants/localStorageKeys';
 
 import { connectorsByName } from '../connectors';
 import { Connector } from '../types';
@@ -40,7 +41,7 @@ const useAuth = () => {
       // If user are attempting to connect their Infinity wallet but the dApp
       // isn't currently running in the Infinity Wallet app, open it
       if (connectorID === Connector.InfinityWallet && !isRunningInInfinityWalletApp()) {
-        openInfinityWallet(window.location.href, CHAIN_ID);
+        openInfinityWallet(window.location.href, config.chainId);
         return;
       }
 
