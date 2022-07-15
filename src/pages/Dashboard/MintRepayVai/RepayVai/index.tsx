@@ -12,7 +12,7 @@ import { VError } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
 import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
@@ -88,7 +88,11 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('mintRepayVai.repayVai.connectWallet')}>
-      <EnableToken title={t('mintRepayVai.repayVai.enableToken')} vTokenId={VAI_ID}>
+      <EnableToken
+        title={t('mintRepayVai.repayVai.enableToken')}
+        vTokenId={VAI_ID}
+        spenderAddress={vaiUnitrollerContractAddress}
+      >
         {isInitialLoading ? (
           <Spinner />
         ) : (

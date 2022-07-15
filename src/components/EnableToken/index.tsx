@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { VTokenId } from 'types';
-import { getTokenSpenderAddress } from 'utilities';
 
 import { useApproveToken, useGetAllowance } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';

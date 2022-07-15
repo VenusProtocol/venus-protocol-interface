@@ -17,6 +17,7 @@ import {
   formatToReadablePercentage,
   formatTokensToReadableValue,
   getToken,
+  getVBepToken,
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 

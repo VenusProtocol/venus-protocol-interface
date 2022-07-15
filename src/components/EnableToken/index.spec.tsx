@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import React from 'react';
 
+import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { getAllowance } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';

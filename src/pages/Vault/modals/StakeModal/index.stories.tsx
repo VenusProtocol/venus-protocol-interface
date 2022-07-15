@@ -1,7 +1,9 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
+import { getContractAddress } from 'utilities';
 
+import fakeAddress from '__mocks__/models/address';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
 import StakeModal, { IStakeModalProps } from '.';
@@ -20,7 +22,7 @@ const authContext = {
   openAuthModal: noop,
   closeAuthModal: noop,
   account: {
-    address: '0x0000000000000000000000000000000000000000',
+    address: fakeAddress,
   },
 };
 
@@ -30,7 +32,14 @@ Default.args = {
   rewardTokenId: 'xvs',
   handleClose: noop,
 };
-Default.decorators = [withAuthContext(authContext), withEnabledToken('vai')];
+Default.decorators = [
+  withAuthContext(authContext),
+  withEnabledToken({
+    tokenId: 'vai',
+    accountAddress: fakeAddress,
+    spenderAddress: getContractAddress('vaiUnitroller'),
+  }),
+];
 
 export const WithoutConnectedAccount = Template.bind({});
 WithoutConnectedAccount.args = {
@@ -53,4 +62,11 @@ WithIsInitialLoading.args = {
   rewardTokenId: 'xvs',
   handleClose: noop,
 };
-WithIsInitialLoading.decorators = [withAuthContext(authContext), withEnabledToken('vai')];
+WithIsInitialLoading.decorators = [
+  withAuthContext(authContext),
+  withEnabledToken({
+    tokenId: 'vai',
+    accountAddress: fakeAddress,
+    spenderAddress: getContractAddress('vaiUnitroller'),
+  }),
+];

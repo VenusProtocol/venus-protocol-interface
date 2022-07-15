@@ -1,6 +1,5 @@
 import { QueryClient } from 'react-query';
 import { TokenId } from 'types';
-import { getTokenSpenderAddress } from 'utilities';
 
 import { GetAllowanceOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';

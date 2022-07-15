@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { getContractAddress, getToken } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
@@ -27,6 +27,18 @@ const StakeModal: React.FC<IStakeModalProps> = ({
   const { account } = useContext(AuthContext);
   const stakedTokenSymbol = getToken(stakedTokenId).symbol;
 
+  const spenderAddress = React.useMemo(() => {
+    if (typeof poolIndex === 'number') {
+      return getContractAddress('xvsVaultProxy');
+    }
+
+    if (stakedTokenId === 'vai') {
+      return getContractAddress('vaiVault');
+    }
+
+    return getContractAddress('vrtVaultProxy');
+  }, [stakedTokenId, poolIndex]);
+
   const { data: availableTokensWei, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
@@ -39,6 +51,8 @@ const StakeModal: React.FC<IStakeModalProps> = ({
 
   const { stake, isLoading: isStakeLoading } = useStakeInVault({
     stakedTokenId,
+    rewardTokenId,
+    poolIndex,
   });
 
   const handleStake = async (amountWei: BigNumber) => {
@@ -48,8 +62,6 @@ const StakeModal: React.FC<IStakeModalProps> = ({
       // account.address has to exist at this point since users are prompted to
       // connect their wallet before they're able to stake
       accountAddress: account?.address || '',
-      rewardTokenId,
-      poolIndex,
     });
 
     // Close modal
@@ -72,6 +84,7 @@ const StakeModal: React.FC<IStakeModalProps> = ({
       })}
       tokenNeedsToBeEnabled
       enableTokenMessage={t('stakeModal.enableTokenMessage', { tokenSymbol: stakedTokenSymbol })}
+      spenderAddress={spenderAddress}
       availableTokensLabel={t('stakeModal.availableTokensLabel', {
         tokenSymbol: stakedTokenSymbol,
       })}

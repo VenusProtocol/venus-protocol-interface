@@ -18,6 +18,7 @@ import {
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
+  getVBepToken,
 } from 'utilities';
 
 import { useRepayVToken } from 'clients/api';

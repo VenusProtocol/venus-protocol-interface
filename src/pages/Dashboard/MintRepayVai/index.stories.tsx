@@ -1,7 +1,9 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
+import { getContractAddress } from 'utilities';
 
+import fakeAddress from '__mocks__/models/address';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
 import MintRepayVai, { IMintRepayVaiProps } from '.';

@@ -14,7 +14,12 @@ import {
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import { convertTokensToWei, formatToReadablePercentage, isAssetEnabled } from 'utilities';
+import {
+  convertTokensToWei,
+  formatToReadablePercentage,
+  getVBepToken,
+  isAssetEnabled,
+} from 'utilities';
 
 import {
   useGetUserMarketInfo,

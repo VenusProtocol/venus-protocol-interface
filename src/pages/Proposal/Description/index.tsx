@@ -48,7 +48,6 @@ export const Description: React.FC<IDescriptionSummary> = ({ className, descript
             </ul>
           </>
         )}
-
         <Typography variant="h4" color="textSecondary" css={styles.section}>
           {t('voteProposalUi.operation')}
         </Typography>

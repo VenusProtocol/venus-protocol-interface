@@ -11,7 +11,7 @@ import {
 import { VError } from 'errors';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { convertTokensToWei, convertWeiToTokens } from 'utilities';
+import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
 import { useGetMintableVai, useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
@@ -99,7 +99,11 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
 
   return (
     <ConnectWallet message={t('mintRepayVai.mintVai.connectWallet')}>
-      <EnableToken title={t('mintRepayVai.mintVai.enableToken')} vTokenId={VAI_ID}>
+      <EnableToken
+        title={t('mintRepayVai.mintVai.enableToken')}
+        vTokenId={VAI_ID}
+        spenderAddress={vaiUnitrollerContractAddress}
+      >
         {isInitialLoading ? (
           <Spinner />
         ) : (

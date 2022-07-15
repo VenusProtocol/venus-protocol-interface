@@ -13,7 +13,12 @@ import {
 import noop from 'noop-ts';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { convertTokensToWei, convertWeiToTokens, formatTokensToReadableValue } from 'utilities';
+import {
+  convertTokensToWei,
+  convertWeiToTokens,
+  formatTokensToReadableValue,
+  getContractAddress,
+} from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import TEST_IDS from 'constants/testIds';
