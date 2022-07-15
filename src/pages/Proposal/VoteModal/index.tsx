@@ -7,8 +7,8 @@ import type { TransactionReceipt } from 'web3-core';
 
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 interface IVoteModal {
   voteModalType: 0 | 1 | 2;
@@ -94,7 +94,7 @@ const VoteModal: React.FC<IVoteModal> = ({
               enabledLabel={title}
               fullWidth
               loading={isVoteLoading}
-              data-testid={TEST_IDS.voteModal.submitButton}
+              data-testid={TEST_IDS.submitButton}
             />
           </Form>
         )}

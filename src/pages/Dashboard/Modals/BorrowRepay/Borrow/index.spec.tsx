@@ -10,12 +10,12 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { borrowVToken, getAllowance, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Borrow from '.';
+import TEST_IDS from './testIds';
 
 const fakeAsset: Asset = {
   ...assetData[0],
@@ -127,7 +127,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     ).toBeDisabled();
 
     // Check input is disabled
-    expect(getByTestId(TEST_IDS.borrowModal.tokenTextField).closest('input')).toBeDisabled();
+    expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
 
     // Check warning is displayed
     expect(
@@ -170,7 +170,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .toFixed();
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.borrowModal.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: incorrectValueTokens },
     });
 
@@ -210,7 +210,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .toFixed();
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.borrowModal.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: incorrectValueTokens },
     });
 
@@ -235,7 +235,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     await waitFor(() => getByText(en.borrowRepayModal.borrow.submitButtonDisabled));
 
     // Check input is empty
-    const input = getByTestId(TEST_IDS.borrowModal.tokenTextField) as HTMLInputElement;
+    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
     expect(input.value).toBe('');
 
     // Press on max button
@@ -280,7 +280,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
 
     // Enter amount in input
     const correctAmountTokens = 1;
-    fireEvent.change(getByTestId(TEST_IDS.borrowModal.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: correctAmountTokens },
     });
 

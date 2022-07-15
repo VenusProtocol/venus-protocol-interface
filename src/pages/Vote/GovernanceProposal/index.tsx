@@ -18,8 +18,8 @@ import { useGetVoteReceipt } from 'clients/api';
 import Path from 'constants/path';
 import { AuthContext } from 'context/AuthContext';
 
-import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 interface IStateCard {
   state: ProposalState | undefined;
@@ -184,7 +184,7 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
           </div>
         ) : undefined
       }
-      data-testid={TEST_IDS.governance.governanceProposal(proposalId.toString())}
+      data-testid={TEST_IDS.governanceProposal(proposalId.toString())}
     />
   );
 };

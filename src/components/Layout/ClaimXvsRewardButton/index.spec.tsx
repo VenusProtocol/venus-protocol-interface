@@ -5,11 +5,11 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { claimXvsReward, getXvsReward } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 
 import ClaimXvsRewardButton from '.';
+import TEST_IDS from '../testIds';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
@@ -21,7 +21,7 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
 
   it('renders nothing if user have not connected any wallet', () => {
     const { queryAllByTestId } = renderComponent(<ClaimXvsRewardButton />);
-    expect(queryAllByTestId(TEST_IDS.layout.claimXvsRewardButton)).toHaveLength(0);
+    expect(queryAllByTestId(TEST_IDS.claimXvsRewardButton)).toHaveLength(0);
   });
 
   it('renders nothing if user have no claimable XVS reward', () => {
@@ -32,7 +32,7 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
         },
       },
     });
-    expect(queryAllByTestId(TEST_IDS.layout.claimXvsRewardButton)).toHaveLength(0);
+    expect(queryAllByTestId(TEST_IDS.claimXvsRewardButton)).toHaveLength(0);
   });
 
   it('renders correct XVS reward when user are connected and have claimable XVS reward', async () => {
@@ -48,8 +48,8 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
       },
     });
 
-    await waitFor(() => expect(getByTestId(TEST_IDS.layout.claimXvsRewardButton)));
-    expect(getByTestId(TEST_IDS.layout.claimXvsRewardButton).textContent).toContain('0.01 XVS');
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimXvsRewardButton)));
+    expect(getByTestId(TEST_IDS.claimXvsRewardButton).textContent).toContain('0.01 XVS');
   });
 
   it('it claims XVS reward on click and displays successful transaction modal on success', async () => {
@@ -67,10 +67,10 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
       },
     });
 
-    await waitFor(() => expect(getByTestId(TEST_IDS.layout.claimXvsRewardButton)));
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimXvsRewardButton)));
 
     // Trigger claim
-    fireEvent.click(getByTestId(TEST_IDS.layout.claimXvsRewardButton));
+    fireEvent.click(getByTestId(TEST_IDS.claimXvsRewardButton));
 
     // Check claimXvsReward was called and success toast was displayed
     await waitFor(() => expect(claimXvsReward).toHaveBeenCalledTimes(1));

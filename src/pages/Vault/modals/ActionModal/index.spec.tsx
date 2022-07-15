@@ -5,9 +5,9 @@ import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { getAllowance } from 'clients/api';
+import TEST_IDS from 'components/Spinner/testIds';
 import mainContractAddresses from 'constants/contracts/addresses/main.json';
 import MAX_UINT256 from 'constants/maxUint256';
-import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
 
 import ActionModal, { IActionModalProps } from '.';

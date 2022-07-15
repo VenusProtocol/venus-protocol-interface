@@ -18,9 +18,9 @@ import {
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import TEST_IDS from '../testIds';
 import Stepper from './Stepper';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 interface IProposalSummaryUiProps {
   className?: string;
@@ -118,7 +118,7 @@ export const ProposalSummaryUi: React.FC<
           onClick={handleCancelProposal}
           css={styles.updateProposalButton}
           loading={isCancelProposalLoading}
-          data-testid={TEST_IDS.proposalSummary.cancelButton}
+          data-testid={TEST_IDS.cancelButton}
           disabled={!canCancelProposal}
         >
           {t('voteProposalUi.cancel')}
@@ -135,7 +135,7 @@ export const ProposalSummaryUi: React.FC<
           onClick={handleQueueProposal}
           css={styles.updateProposalButton}
           loading={isQueueProposalLoading}
-          data-testid={TEST_IDS.proposalSummary.queueButton}
+          data-testid={TEST_IDS.queueButton}
         >
           {t('voteProposalUi.queue')}
         </PrimaryButton>
@@ -149,7 +149,7 @@ export const ProposalSummaryUi: React.FC<
             onClick={handleExecuteProposal}
             css={styles.updateProposalButton}
             loading={isExecuteProposalLoading}
-            data-testid={TEST_IDS.proposalSummary.executeButton}
+            data-testid={TEST_IDS.executeButton}
           >
             {t('voteProposalUi.execute')}
           </PrimaryButton>

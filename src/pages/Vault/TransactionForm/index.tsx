@@ -7,12 +7,12 @@ import { TokenId } from 'types';
 import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import TEST_IDS from 'constants/testIds';
 import { AmountForm } from 'containers/AmountForm';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 export interface ITransactionFormProps {
   tokenId: TokenId;
@@ -103,12 +103,12 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
               valueOnClick: stringifiedAvailableTokens,
             }}
             max={stringifiedAvailableTokens}
-            data-testid={TEST_IDS.vault.transactionForm.tokenTextField}
+            data-testid={TEST_IDS.tokenTextField}
             css={styles.tokenTextField}
           />
 
           <LabeledInlineContent
-            data-testid={TEST_IDS.vault.transactionForm.availableTokens}
+            data-testid={TEST_IDS.availableTokens}
             iconName={tokenId}
             label={availableTokensLabel}
             css={styles.getRow({ isLast: !readableLockingPeriod })}
@@ -118,7 +118,7 @@ const TransactionForm: React.FC<ITransactionFormProps> = ({
 
           {readableLockingPeriod && (
             <LabeledInlineContent
-              data-testid={TEST_IDS.vault.transactionForm.lockingPeriod}
+              data-testid={TEST_IDS.lockingPeriod}
               label={t('vault.transactionForm.lockingPeriod.label')}
               css={styles.getRow({ isLast: true })}
             >

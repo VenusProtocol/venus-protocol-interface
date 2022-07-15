@@ -7,13 +7,13 @@ import { TokenId } from 'types';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useClaimXvsReward, useGetXvsReward } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { IButtonProps, SecondaryButton } from '../../Button';
 import { Icon } from '../../Icon';
+import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 const XVS_SYMBOL = 'xvs';
@@ -60,7 +60,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
   return (
     <SecondaryButton
-      data-testid={TEST_IDS.layout.claimXvsRewardButton}
+      data-testid={TEST_IDS.claimXvsRewardButton}
       css={styles.button}
       onClick={handleClick}
       {...otherProps}
