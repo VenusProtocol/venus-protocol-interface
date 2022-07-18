@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { TREASURY_ADDRESS } from 'config';
+import config from 'config';
 import { useMemo } from 'react';
 import { Market } from 'types';
 import { indexBy } from 'utilities';
@@ -8,12 +8,24 @@ import { IGetVTokenBalancesAllOutput, useGetMarkets, useGetVTokenBalancesAll } f
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { VBEP_TOKENS } from 'constants/tokens';
 
+// Note: this is a temporary fix. Once we start refactoring this part we should
+// probably fetch the treasury address using the Comptroller contract
+const TREASURY_ADDRESSES = {
+  56: '0xF322942f644A996A617BD29c16bd7d231d9F35E9',
+  // When querying comptroller.treasuryAddress() we get an empty address back,
+  // so for now I've let it as it is
+  97: '0x0000000000000000000000000000000000000000',
+};
+
+export const treasuryAddress = TREASURY_ADDRESSES[config.chainId];
+
 export interface IData {
   treasuryTotalSupplyBalanceCents: BigNumber;
   treasuryTotalBorrowBalanceCents: BigNumber;
   treasuryTotalBalanceCents: BigNumber;
   treasuryTotalAvailableLiquidityBalanceCents: BigNumber;
 }
+
 export interface UseGetTreasuryTotalsOutput {
   isLoading: boolean;
   data: IData;
@@ -40,7 +52,7 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { data: vTokenBalancesTreasury = [], isLoading: isGetVTokenBalancesTreasuryLoading } =
     useGetVTokenBalancesAll(
       {
-        account: TREASURY_ADDRESS,
+        account: treasuryAddress,
         vTokenAddresses,
       },
       {

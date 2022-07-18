@@ -1,4 +1,4 @@
-import { BASE_BSC_SCAN_URL } from 'config';
+import config from 'config';
 import { TokenId } from 'types';
 
 import getToken from './getToken';
@@ -16,7 +16,7 @@ export const generateBscScanUrl = <T extends UrlType = 'address'>(
     suffix = getToken(identifier as TokenId).address;
   }
 
-  return `${BASE_BSC_SCAN_URL}/${safeUrlType}/${suffix}`;
+  return `${config.bscScanUrl}/${safeUrlType}/${suffix}`;
 };
 
 export default generateBscScanUrl;

@@ -11,7 +11,6 @@ import {
   ValueUpdate,
   toast,
 } from 'components';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -26,6 +25,7 @@ import {
   getToken,
 } from 'utilities';
 
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 
