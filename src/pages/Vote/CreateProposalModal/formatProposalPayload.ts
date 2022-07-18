@@ -1,6 +1,6 @@
 import { ICreateProposalInput } from 'clients/api';
-import { FormValues } from './proposalSchema';
 import encodeCallData from './encodeCallData';
+import { FormValues } from './proposalSchema';
 
 export interface IV1Description {
   version: 'v1';
@@ -27,8 +27,8 @@ const formatProposalPayload = (data: FormValues) => {
       title: data.title,
       description: data.description,
       forDescription: data.forDescription,
-      againstDescription: data.abstainDescription,
-      abstainDescription: data.againstDescription,
+      againstDescription: data.againstDescription,
+      abstainDescription: data.abstainDescription,
     }),
   };
 
