@@ -7,11 +7,14 @@ RUN apk add --update --no-cache python3 git openssh
 
 WORKDIR /usr/app
 
-COPY . .
-
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
+COPY package.json ./
+COPY yarn.lock ./
+
 RUN yarn
+
+COPY . .
 
 RUN cat .env || true && \
     yarn build
