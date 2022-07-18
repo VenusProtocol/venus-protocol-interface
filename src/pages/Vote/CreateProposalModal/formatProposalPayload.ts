@@ -28,8 +28,8 @@ const formatProposalPayload = (data: FormValues) => {
       title: data.title,
       description: data.description,
       forDescription: data.forDescription,
-      againstDescription: data.abstainDescription,
-      abstainDescription: data.againstDescription,
+      againstDescription: data.againstDescription,
+      abstainDescription: data.abstainDescription,
     }),
   };
 
