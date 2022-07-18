@@ -21,11 +21,11 @@
       "logOutButtonLabel": "Log out"
     },
     "title": {
-      "connectWallet": "Connect a wallet to start using Venus",
+      "connectWallet": "Connect a wallet",
       "yourWallet": "Your wallet"
     },
     "walletList": {
-      "comingSoon": "Coming soon",
+      "comingSoon": "Coming soon...",
       "termsOfServiceLink": "By connecting a wallet, you agree to Venus' <Anchor>Terms of Service</Anchor>"
     }
   },

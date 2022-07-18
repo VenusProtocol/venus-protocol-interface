@@ -6,7 +6,6 @@ import { useTranslation } from 'translation';
 
 import { Connector } from 'clients/web3';
 
-import { Icon } from '../../Icon';
 import {
   INTEGRATED_WALLETS,
   UPCOMING_WALLETS,
@@ -25,58 +24,50 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
 
   return (
     <div css={styles.container}>
-      {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !config.isOnTestnet).map(
-        ({ name, connector, Logo }) => (
-          <button
+      <div css={styles.walletList}>
+        {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !config.isOnTestnet).map(
+          ({ name, connector, Logo }) => (
+            <button
+              css={styles.getListItem({ isActionable: true })}
+              key={`wallet-${name}`}
+              type="button"
+              onClick={() => onLogin(connector)}
+            >
+              <Logo css={styles.walletLogo} />
+
+              <Typography variant="tiny" component="div">
+                {name}
+              </Typography>
+            </button>
+          ),
+        )}
+
+        {INTEGRATED_WALLETS.map(({ name, Logo, linkUrl }) => (
+          <a
             css={styles.getListItem({ isActionable: true })}
             key={`wallet-${name}`}
-            type="button"
-            onClick={() => onLogin(connector)}
+            href={linkUrl}
+            target="_blank"
+            rel="noreferrer"
           >
             <Logo css={styles.walletLogo} />
 
-            <Typography css={styles.walletName} component="span">
+            <Typography variant="tiny" component="div">
               {name}
             </Typography>
+          </a>
+        ))}
 
-            <Icon name="chevronRight" css={[styles.chevronRightIcon]} />
-          </button>
-        ),
-      )}
+        {UPCOMING_WALLETS.map(({ name, Logo }) => (
+          <div css={styles.getListItem({ isActionable: false })} key={`upcoming-wallet-${name}`}>
+            <Logo css={styles.walletLogo} />
 
-      {INTEGRATED_WALLETS.map(({ name, Logo, linkUrl }) => (
-        <a
-          css={styles.getListItem({ isActionable: true })}
-          key={`wallet-${name}`}
-          href={linkUrl}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Logo css={styles.walletLogo} />
-
-          <Typography css={styles.walletName} component="span">
-            {name}
-          </Typography>
-
-          <Icon name="chevronRight" css={[styles.chevronRightIcon]} />
-        </a>
-      ))}
-
-      <div css={styles.divider} />
-
-      {UPCOMING_WALLETS.map(({ name, Logo }) => (
-        <div css={styles.getListItem({ isActionable: false })} key={`upcoming-wallet-${name}`}>
-          <Logo css={styles.walletLogo} />
-
-          <Typography css={styles.walletName} component="span">
-            {name}
-          </Typography>
-
-          <Typography css={styles.comingSoonText} component="span">
-            {t('authModal.walletList.comingSoon')}
-          </Typography>
-        </div>
-      ))}
+            <Typography variant="tiny" css={styles.comingSoonText} component="div">
+              {t('authModal.walletList.comingSoon')}
+            </Typography>
+          </div>
+        ))}
+      </div>
 
       <div css={styles.footer}>
         <Typography variant="small2">

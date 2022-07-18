@@ -31,17 +31,6 @@ export const useStyles = () => {
         margin-right: ${theme.spacing(2)};
       }
     `,
-    signature: css`
-      color: ${theme.palette.text.primary};
-      overflow-wrap: break-word;
-
-      > a {
-        color: ${theme.palette.interactive.success};
-        :hover {
-          color: ${theme.palette.interactive.success50};
-        }
-      }
-    `,
     markdown: css`
       background-color: ${theme.palette.background.paper};
       font-family: ${theme.typography.fontFamily};

@@ -7,17 +7,34 @@ export const useStyles = () => {
   return {
     theme,
     container: css`
-      margin: ${theme.spacing(-2, 0)};
+      margin: ${theme.spacing(0, 10)};
+
+      ${theme.breakpoints.down('md')} {
+        margin: ${theme.spacing(-2, 4, 0)};
+      }
+    `,
+    walletList: css`
+      margin-bottom: ${theme.spacing(8)};
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-gap: ${theme.spacing(4)};
+      align-items: start;
+
+      ${theme.breakpoints.down('md')} {
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap: ${theme.spacing(2)};
+        column-gap: ${theme.spacing(0)};
+        margin-bottom: ${theme.spacing(4)};
+      }
     `,
     getListItem: ({ isActionable }: { isActionable: boolean }) => css`
-      width: 100%;
       background-color: transparent;
       box-shadow: none;
       border: 0;
-      padding: ${theme.spacing(4, 10)};
-      display: flex;
-      align-items: center;
+      border-radius: ${theme.shape.borderRadius.small}px;
+      padding: ${theme.spacing(2)};
       color: ${theme.palette.text.primary};
+      text-align: center;
 
       ${isActionable &&
       css`
@@ -30,32 +47,20 @@ export const useStyles = () => {
     `,
     walletLogo: css`
       width: ${theme.spacing(12)};
-      margin-right: ${theme.spacing(4)};
-      flex-shrink: 0;
-    `,
-    walletName: css`
-      flex: 1;
-      text-align: left;
-      margin-right: ${theme.spacing(4)};
-    `,
-    chevronRightIcon: css`
-      width: ${theme.spacing(6)};
-      height: ${theme.spacing(6)};
-      color: ${theme.palette.text.primary};
+      height: ${theme.spacing(12)};
+      margin: ${theme.spacing(0, 'auto', 1)};
+      display: block;
+
+      ${theme.breakpoints.down('md')} {
+        width: ${theme.spacing(10)};
+      }
     `,
     comingSoonText: css`
       color: ${theme.palette.text.secondary};
-      text-align: right;
-    `,
-    divider: css`
-      width: calc(100% - ${theme.spacing(20)});
-      height: 1px;
-      margin: ${theme.spacing(4, 'auto')};
-      background-color: ${theme.palette.secondary.light};
     `,
     footer: css`
       text-align: center;
-      padding: ${theme.spacing(4, 4, 0)};
+      padding: ${theme.spacing(0, 4)};
     `,
     footerLink: css`
       color: ${theme.palette.button.main};
