@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React, { ReactElement } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import React, { ReactElement } from 'react';
+
 import { Icon } from '../Icon';
-import { NoticeVariant } from './types';
 import { useStyles } from './styles';
+import { NoticeVariant } from './types';
 
 interface INoticeProps {
   className?: string;

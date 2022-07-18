@@ -1,23 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import React, { useCallback, useMemo, useState } from 'react';
-import type { TransactionReceipt } from 'web3-core';
-import { Formik, Form } from 'formik';
 import {
-  Modal,
+  FormikMarkdownEditor,
   FormikSubmitButton,
   FormikTextField,
-  FormikMarkdownEditor,
+  Modal,
   PrimaryButton,
   toast,
 } from 'components';
+import { VError, formatVErrorToReadableString } from 'errors';
+import { Form, Formik } from 'formik';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'translation';
+import type { TransactionReceipt } from 'web3-core';
+
 import { ICreateProposalInput } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import formatProposalPayload from 'pages/Vote/CreateProposalModal/formatProposalPayload';
-import { useTranslation } from 'translation';
-import { VError, formatVErrorToReadableString } from 'errors';
+
 import ActionAccordion from './ActionAccordion';
 import ProposalPreview from './ProposalPreview';
-import proposalSchema, { FormValues, ErrorCode } from './proposalSchema';
+import proposalSchema, { ErrorCode, FormValues } from './proposalSchema';
 import { useStyles } from './styles';
 
 interface ICreateProposal {
@@ -140,7 +142,7 @@ export const CreateProposal: React.FC<ICreateProposal> = ({
     >
       <Formik
         initialValues={{
-          actions: [{ address: '', signature: '', callData: [] }],
+          actions: [{ target: '', signature: '', data: [] }],
           description: '',
           forDescription: '',
           againstDescription: '',

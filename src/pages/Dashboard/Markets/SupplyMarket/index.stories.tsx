@@ -1,8 +1,10 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import noop from 'noop-ts';
-import { withCenterStory } from 'stories/decorators';
+import React from 'react';
+
 import { assetData } from '__mocks__/models/asset';
+import { withCenterStory } from 'stories/decorators';
+
 import { SupplyMarketUi } from '.';
 
 const asset = assetData[0];

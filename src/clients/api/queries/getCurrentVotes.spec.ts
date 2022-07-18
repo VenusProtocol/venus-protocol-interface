@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
+
 import { XvsVault } from 'types/contracts';
+
 import getCurrentVotes, { GetCurrentVotesOutput } from './getCurrentVotes';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';

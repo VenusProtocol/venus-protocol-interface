@@ -1,30 +1,33 @@
-import React from 'react';
+import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { cloneDeep } from 'lodash';
+import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { waitFor, fireEvent, within, Matcher, MatcherOptions } from '@testing-library/react';
-import renderComponent from 'testUtils/renderComponent';
+
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
 import voters from '__mocks__/models/voters';
 import {
-  getProposal,
-  getCurrentVotes,
-  useGetVoters,
-  getVoteReceipt,
   cancelProposal,
-  queueProposal,
   executeProposal,
+  getCurrentVotes,
+  getProposal,
+  getVoteReceipt,
+  queueProposal,
+  useGetVoters,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import useVote from 'hooks/useVote';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import Proposal from '.';
 import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 jest.mock('hooks/useVote');
 
+const incorrectAction = proposals[0];
 const activeProposal = proposals[1];
 const cancelledProposal = proposals[3];
 const succeededProposal = proposals[4];
@@ -69,6 +72,11 @@ describe('pages/Proposal', () => {
   });
 
   it('renders without crashing', async () => {
+    renderComponent(<Proposal />);
+  });
+
+  it('renders without crashing on', async () => {
+    (getProposal as jest.Mock).mockImplementation(() => incorrectAction);
     renderComponent(<Proposal />);
   });
 

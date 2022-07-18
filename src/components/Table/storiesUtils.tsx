@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { useTheme } from '@mui/material';
 import { css } from '@emotion/react';
+import { useTheme } from '@mui/material';
+import React from 'react';
 import { TokenId } from 'types';
-import { getToken, formatToReadablePercentage } from 'utilities';
+import { formatToReadablePercentage, getToken } from 'utilities';
+
 import { Icon } from '../Icon';
 import { Toggle } from '../Toggle';
 

@@ -1,8 +1,10 @@
-import React from 'react';
 import BigNumber from 'bignumber.js';
-import renderComponent from 'testUtils/renderComponent';
-import { useGetUserMarketInfo } from 'clients/api';
+import React from 'react';
+
 import { assetData } from '__mocks__/models/asset';
+import { useGetUserMarketInfo } from 'clients/api';
+import renderComponent from 'testUtils/renderComponent';
+
 import MarketTable from '.';
 
 jest.mock('clients/api');

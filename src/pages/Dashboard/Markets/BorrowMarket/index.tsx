@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { Paper } from '@mui/material';
-
+import BigNumber from 'bignumber.js';
 import { Delimiter } from 'components';
+import React from 'react';
 import { Asset, TokenId } from 'types';
+
 import BorrowRepayModal from 'pages/Dashboard/Modals/BorrowRepay';
+
+import { useStyles } from '../styles';
 import BorrowMarketTable, { IBorrowMarketTableProps } from './BorrowMarketTable';
 import BorrowingTable, { IBorrowingUiProps } from './BorrowingTable';
-import { useStyles } from '../styles';
 
 export interface IBorrowMarketUiProps {
   className?: string;

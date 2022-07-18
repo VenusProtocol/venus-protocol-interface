@@ -1,6 +1,8 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import React from 'react';
+
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
 import { Delimiter } from '.';
 
 export default {

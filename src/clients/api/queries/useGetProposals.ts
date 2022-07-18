@@ -1,8 +1,10 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getProposals, {
   IGetProposalsInput,
   IGetProposalsOutput,
 } from 'clients/api/queries/getProposals';
+import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
@@ -19,7 +21,7 @@ const useGetProposals = (params: IGetProposalsInput = {}, options?: Options) =>
   useQuery([FunctionKey.GET_PROPOSALS, params], () => getProposals(params), {
     keepPreviousData: true,
     placeholderData: { limit: 0, total: 0, offset: 0, proposals: [] },
-    refetchInterval: params.page === 0 ? 15000 : undefined,
+    refetchInterval: params.page === 0 ? BLOCK_TIME_MS * 5 : undefined,
     ...options,
   });
 

@@ -1,22 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
-import type { TransactionReceipt } from 'web3-core';
 import { Typography } from '@mui/material';
-import { AuthContext } from 'context/AuthContext';
+import { Icon, Pagination, Spinner, TextButton, Tooltip } from 'components';
+import React, { useState } from 'react';
+import { useTranslation } from 'translation';
+import { IProposal } from 'types';
+import type { TransactionReceipt } from 'web3-core';
+
 import {
-  useGetProposals,
-  useCreateProposal,
   ICreateProposalInput,
+  useCreateProposal,
   useGetCurrentVotes,
   useGetLatestProposalIdByProposer,
   useGetProposalState,
+  useGetProposals,
 } from 'clients/api';
-import { Icon, Spinner, TextButton, Tooltip, Pagination } from 'components';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
-import { IProposal } from 'types';
-import { useTranslation } from 'translation';
-import GovernanceProposal from '../GovernanceProposal';
+import { AuthContext } from 'context/AuthContext';
+
 import CreateProposalModal from '../CreateProposalModal';
+import GovernanceProposal from '../GovernanceProposal';
 import { useStyles } from './styles';
 
 interface IGovernanceUiProps {

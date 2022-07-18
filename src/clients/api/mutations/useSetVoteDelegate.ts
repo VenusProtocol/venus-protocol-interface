@@ -1,9 +1,9 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
+import { MutationObserverOptions, useMutation } from 'react-query';
 
+import { ISetVoteDelegateInput, SetVoteDelegateOutput, setVoteDelegate } from 'clients/api';
 import queryClient from 'clients/api/queryClient';
-import { setVoteDelegate, ISetVoteDelegateInput, SetVoteDelegateOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 const useSetVoteDelegate = (
   options?: MutationObserverOptions<
@@ -23,7 +23,9 @@ const useSetVoteDelegate = (
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_VOTE_DELEGATE_ADDRESS);
+        const { accountAddress } = onSuccessParams[1];
+
+        queryClient.invalidateQueries([FunctionKey.GET_VOTE_DELEGATE_ADDRESS, { accountAddress }]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

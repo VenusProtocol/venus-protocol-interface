@@ -1,12 +1,16 @@
 import BigNumber from 'bignumber.js';
-import { useQuery, useMutation, MutationObserverOptions } from 'react-query';
-import transactionReceipt from '__mocks__/models/transactionReceipt';
+import { MutationObserverOptions, useMutation, useQuery } from 'react-query';
+
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
+import transactionReceipt from '__mocks__/models/transactionReceipt';
 import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
 // Queries
+export const getBlockNumber = jest.fn();
+export const useGetBlockNumber = () => useQuery(FunctionKey.GET_BLOCK_NUMBER, getBlockNumber);
+
 export const getVaiTreasuryPercentage = jest.fn();
 export const useGetVaiTreasuryPercentage = () =>
   useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage);
@@ -30,6 +34,9 @@ export const useGetVTokenBalancesAll = jest.fn(() =>
 
 export const getMintedVai = jest.fn();
 export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
+
+export const getMintableVai = jest.fn();
+export const useGetMintableVai = () => useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai);
 
 export const getXvsReward = jest.fn();
 export const useGetXvsReward = () => useQuery(FunctionKey.GET_XVS_REWARD, getXvsReward);
@@ -187,6 +194,9 @@ export const useGetProposalThreshold = () =>
 
 export const getProposalState = jest.fn();
 export const useGetProposalState = () => useQuery(FunctionKey.GET_PROPOSAL_STATE, getProposalState);
+
+export const getProposalEta = jest.fn();
+export const useGetProposalEta = () => useQuery(FunctionKey.GET_PROPOSAL_ETA, getProposalEta);
 
 // Mutations
 export const approveToken = jest.fn();

@@ -1,18 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
-import type { TransactionReceipt } from 'web3-core/types';
-
-import { AuthContext } from 'context/AuthContext';
-import { useGetXvsReward, useClaimXvsReward } from 'clients/api';
+import { VError } from 'errors';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
-import { VError } from 'errors';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import type { TransactionReceipt } from 'web3-core/types';
+
+import { useClaimXvsReward, useGetXvsReward } from 'clients/api';
 import TEST_IDS from 'constants/testIds';
+import { AuthContext } from 'context/AuthContext';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
+
+import { IButtonProps, SecondaryButton } from '../../Button';
 import { Icon } from '../../Icon';
-import { SecondaryButton, IButtonProps } from '../../Button';
 import { useStyles } from './styles';
 
 const XVS_SYMBOL = 'xvs';
@@ -79,7 +80,14 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
 
 export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
   const { account } = useContext(AuthContext);
-  const { data: xvsRewardWei } = useGetXvsReward(account?.address);
+  const { data: xvsRewardWei } = useGetXvsReward(
+    {
+      accountAddress: account?.address || '',
+    },
+    {
+      enabled: !!account?.address,
+    },
+  );
 
   const { mutateAsync: claimXvsReward, isLoading: isClaimXvsRewardLoading } = useClaimXvsReward();
 

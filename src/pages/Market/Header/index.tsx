@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { useGetTreasuryTotals } from 'clients/api';
+import BigNumber from 'bignumber.js';
+import React from 'react';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities';
+
+import { useGetTreasuryTotals } from 'clients/api';
+
 import { useStyles } from '../styles';
 
 interface IHeaderProps {

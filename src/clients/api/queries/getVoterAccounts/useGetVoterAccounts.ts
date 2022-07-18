@@ -1,5 +1,8 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
+
 import getVoterAccounts, { IGetVoterAccountsInput, IGetVoterAccountsOutput } from '.';
 
 type Options = QueryObserverOptions<
@@ -14,6 +17,7 @@ const useGetVoterAccounts = (params: IGetVoterAccountsInput = {}, options?: Opti
   // This endpoint is paginated so we keep the previous responses by default to create a more seamless paginating experience
   useQuery([FunctionKey.GET_VOTER_ACCOUNTS, params], () => getVoterAccounts(params), {
     keepPreviousData: true,
+    refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
     ...options,
   });
 

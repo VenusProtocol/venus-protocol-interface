@@ -1,33 +1,46 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
-
-import en from 'translation/translations/en.json';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { repayVai, useGetUserMarketInfo, getAllowance } from 'clients/api';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
-import MAX_UINT256 from 'constants/maxUint256';
+import React from 'react';
 import { formatTokensToReadableValue } from 'utilities';
-import renderComponent from 'testUtils/renderComponent';
-import { assetData } from '__mocks__/models/asset';
+
 import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import {
+  getAllowance,
+  getBalanceOf,
+  getMintedVai,
+  repayVai,
+  useGetUserMarketInfo,
+} from 'clients/api';
+import MAX_UINT256 from 'constants/maxUint256';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import renderComponent from 'testUtils/renderComponent';
+import en from 'translation/translations/en.json';
+
 import RepayVai from '.';
 
 jest.mock('clients/api');
 jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeUserVaiMinted = new BigNumber('1000000');
+const fakeUserVaiBalanceWei = new BigNumber(0);
+
+const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
+const fakeUserVaiMintedTokens = fakeUserVaiMintedWei.dividedBy(1e18);
 const formattedFakeUserVaiMinted = formatTokensToReadableValue({
-  value: fakeUserVaiMinted,
+  value: fakeUserVaiMintedTokens,
   tokenId: 'vai',
 });
+
 const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
+    (getBalanceOf as jest.Mock).mockImplementation(() => fakeUserVaiBalanceWei);
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [...assetData, fakeVai],
@@ -55,12 +68,6 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
           address: fakeAccountAddress,
         },
       },
-      vaiContextValue: {
-        userVaiEnabled: true,
-        userVaiMinted: fakeUserVaiMinted,
-        mintableVai: new BigNumber(0),
-        userVaiBalance: new BigNumber(0),
-      },
     });
     await waitFor(() => getByText(en.mintRepayVai.repayVai.btnRepayVai));
 
@@ -71,8 +78,9 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('lets user repay their VAI balance', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     (repayVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
+    (getBalanceOf as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
 
-    const fakeUserVaiBalance = fakeUserVaiMinted;
+    const fakeInput = fakeUserVaiMintedWei.dividedBy(1e18);
 
     const { getByText, getByPlaceholderText } = renderComponent(() => <RepayVai />, {
       authContextValue: {
@@ -80,21 +88,15 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
           address: fakeAccountAddress,
         },
       },
-      vaiContextValue: {
-        userVaiEnabled: true,
-        mintableVai: new BigNumber(0),
-        userVaiMinted: fakeUserVaiMinted,
-        userVaiBalance: fakeUserVaiBalance,
-      },
     });
     await waitFor(() => getByText(en.mintRepayVai.repayVai.btnRepayVai));
 
     // Input amount
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    fireEvent.change(tokenTextFieldInput, { target: { value: fakeUserVaiMinted.toFixed() } });
+    fireEvent.change(tokenTextFieldInput, { target: { value: fakeInput.toFixed() } });
 
     // Check input value updated correctly
-    expect(tokenTextFieldInput.value).toBe(fakeUserVaiMinted.toFixed());
+    expect(tokenTextFieldInput.value).toBe(fakeInput.toFixed());
 
     // Submit repayment request
     const submitButton = getByText(en.mintRepayVai.repayVai.btnRepayVai).closest(
@@ -105,7 +107,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
 
     // Check repayVai was called correctly
     await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
-    const fakeUserWeiMinted = fakeUserVaiMinted.multipliedBy(new BigNumber(10).pow(18));
+    const fakeUserWeiMinted = fakeInput.multipliedBy(new BigNumber(10).pow(18));
     expect(repayVai).toHaveBeenCalledWith({
       fromAccountAddress: fakeAccountAddress,
       amountWei: fakeUserWeiMinted.toFixed(),

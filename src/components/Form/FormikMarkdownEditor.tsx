@@ -1,6 +1,7 @@
-import React from 'react';
 import { useField } from 'formik';
-import { MarkdownEditor, IMarkdownEditorProps } from '../Markdown';
+import React from 'react';
+
+import { IMarkdownEditorProps, MarkdownEditor } from '../Markdown';
 
 interface IFormikMarkdownEditorProps
   extends Omit<IMarkdownEditorProps, 'name' | 'onChange' | 'value' | 'onBlur'> {

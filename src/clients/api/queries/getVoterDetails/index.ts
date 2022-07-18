@@ -1,6 +1,7 @@
-import { IVoterDetails } from 'types';
 import { VError } from 'errors';
+import { IVoterDetails } from 'types';
 import { restService } from 'utilities';
+
 import formatVoterDetailsResponse from './formatVoterDetailsResponse';
 import { IGetVoterDetailsResponse } from './types';
 

@@ -1,12 +1,13 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
-
+import React from 'react';
 import { TokenId } from 'types';
-import { TOKENS } from 'constants/tokens';
-import { stakeInXvsVault, stakeInVaiVault, stakeInVrtVault } from 'clients/api';
+
 import fakeAccountAddress from '__mocks__/models/address';
+import { stakeInVaiVault, stakeInVrtVault, stakeInXvsVault } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
+
 import useStakeInVault from './useStakeInVault';
 
 jest.mock('clients/api');

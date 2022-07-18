@@ -1,33 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import BigNumber from 'bignumber.js';
-import { RouteComponentProps, Redirect } from 'react-router-dom';
-
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import {
-  getToken,
-  getVBepToken,
-  formatCentsToReadableValue,
-  formatToReadablePercentage,
-  formatTokensToReadableValue,
-} from 'utilities';
-import TEST_IDS from 'constants/testIds';
-import { VTokenId } from 'types';
-import { useTranslation } from 'translation';
 import {
   ApyChart,
   IApyChartProps,
-  InterestRateChart,
   IInterestRateChartProps,
+  InterestRateChart,
   Spinner,
 } from 'components';
-import Path from 'constants/path';
+import React from 'react';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { useTranslation } from 'translation';
+import { VTokenId } from 'types';
+import {
+  formatCentsToReadableValue,
+  formatToReadablePercentage,
+  formatTokensToReadableValue,
+  getToken,
+  getVBepToken,
+} from 'utilities';
+
 import { useGetVTokenApySimulations } from 'clients/api';
+import Path from 'constants/path';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import TEST_IDS from 'constants/testIds';
+
+import Card, { ICardProps } from './Card';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
+import { useStyles } from './styles';
 import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
-import Card, { ICardProps } from './Card';
-import { useStyles } from './styles';
 
 export interface IMarketDetailsUiProps {
   vTokenId: VTokenId;

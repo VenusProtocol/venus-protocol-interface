@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
 import { Pagination } from 'components';
-import { useGetVoterAccounts } from 'clients/api';
+import React, { useState } from 'react';
 import { IVoterAccount } from 'types';
+
+import { useGetVoterAccounts } from 'clients/api';
+
 import LeaderboardTable from './LeaderboardTable';
 import { useStyles } from './styles';
 
@@ -24,9 +26,11 @@ export const VoterLeaderboardUi: React.FC<IVoterLeaderboardProps> = ({
   setCurrentPage,
 }) => {
   const styles = useStyles();
+
   return (
     <div css={styles.root}>
       <LeaderboardTable voterAccounts={voterAccounts} offset={offset} isFetching={isFetching} />
+
       {total && (
         <Pagination
           itemsCount={total}
@@ -52,6 +56,7 @@ const VoterLeaderboard = () => {
     },
     isFetching,
   } = useGetVoterAccounts({ page: currentPage });
+
   return (
     <VoterLeaderboardUi
       voterAccounts={voterAccounts}

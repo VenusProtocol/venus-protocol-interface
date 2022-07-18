@@ -1,10 +1,11 @@
-import React from 'react';
+import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
+import React from 'react';
+import { getVBepToken } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
-import { getVBepToken } from 'utilities';
-import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
 import WithdrawFromVestingVaultModal, { WithdrawFromVestingVaultModalProps } from '.';
 
 export default {

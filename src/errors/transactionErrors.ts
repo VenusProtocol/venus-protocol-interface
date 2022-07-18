@@ -1,4 +1,5 @@
 import type { TransactionReceipt } from 'web3-core';
+
 import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
@@ -11,7 +12,8 @@ import {
   XvsVaultProxyErrorReporterError,
   XvsVaultProxyErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
-import { VError, IVErrorPhraseMap } from './VError';
+
+import { IVErrorPhraseMap, VError } from './VError';
 
 const checkForTransactionError = (
   receipt: TransactionReceipt,

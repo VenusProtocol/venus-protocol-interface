@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
-import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { Icon, AnchorButton, Table, TableProps, Spinner } from 'components';
+import BigNumber from 'bignumber.js';
+import { AnchorButton, Icon, Spinner, Table, TableProps } from 'components';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { generateBscScanUrl, convertWeiToTokens } from 'utilities';
 import { VoteDetailTransaction } from 'types';
+import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
+
 import { useStyles } from './styles';
 
 interface ITransactionsProps {

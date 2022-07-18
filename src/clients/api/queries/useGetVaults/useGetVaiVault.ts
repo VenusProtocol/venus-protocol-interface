@@ -1,16 +1,17 @@
-import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-
-import { Vault, TokenId } from 'types';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { useMemo } from 'react';
+import { TokenId, Vault } from 'types';
 import { convertWeiToTokens, getContractAddress } from 'utilities';
+
 import {
   useGetBalanceOf,
-  useGetVenusVaiVaultDailyRateWei,
   useGetMarkets,
-  useGetVaiVaultUserInfo,
   useGetVaiVaultPendingXvsWei,
+  useGetVaiVaultUserInfo,
+  useGetVenusVaiVaultDailyRateWei,
 } from 'clients/api';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { TOKENS } from 'constants/tokens';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
@@ -21,10 +22,15 @@ export interface UseGetVaiVaultOutput {
 }
 
 const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
-  const { data: totalVaiStakedWei, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf({
-    accountAddress: VAI_VAULT_ADDRESS,
-    tokenId: TOKENS.vai.id as TokenId,
-  });
+  const { data: totalVaiStakedWei, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
+    {
+      accountAddress: VAI_VAULT_ADDRESS,
+      tokenId: TOKENS.vai.id as TokenId,
+    },
+    {
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    },
+  );
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(

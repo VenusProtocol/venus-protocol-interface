@@ -1,13 +1,15 @@
-import React from 'react';
+import { ComponentMeta, Story } from '@storybook/react';
 import { BigNumber } from 'bignumber.js';
 import noop from 'noop-ts';
-import fakeAddress from '__mocks__/models/address';
-import { getVBepToken } from 'utilities';
+import React from 'react';
 import { VTokenId } from 'types';
-import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
+import { getVBepToken } from 'utilities';
+
+import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import { SupplyWithdrawUi, ISupplyWithdrawUiProps, ISupplyWithdrawProps } from '.';
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
+import { ISupplyWithdrawProps, ISupplyWithdrawUiProps, SupplyWithdrawUi } from '.';
 
 export default {
   title: 'Pages/Dashboard/Modals/SupplyWithdraw',

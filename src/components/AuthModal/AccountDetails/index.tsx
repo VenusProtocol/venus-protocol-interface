@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Typography from '@mui/material/Typography';
-
+import React from 'react';
 import { useTranslation } from 'translation';
+
 import { Connector } from 'clients/web3';
-import { EllipseAddress } from '../../EllipseAddress';
+
 import { BscLink } from '../../BscLink';
-import { Icon } from '../../Icon';
 import { SecondaryButton } from '../../Button';
+import { EllipseAddress } from '../../EllipseAddress';
+import { Icon } from '../../Icon';
 import { WALLETS } from '../constants';
 import { useStyles } from './styles';
 

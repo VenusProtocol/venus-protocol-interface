@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Typography from '@mui/material/Typography';
-
+import React from 'react';
 import { TokenId } from 'types';
-import { TypographyVariant } from 'theme/MuiThemeProvider/muiTheme';
 import { getToken } from 'utilities';
+
+import { TypographyVariant } from 'theme/MuiThemeProvider/muiTheme';
+
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 

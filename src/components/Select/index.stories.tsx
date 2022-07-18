@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
+import React from 'react';
+
 import { withCenterStory, withOnChange } from 'stories/decorators';
-import { Select, ISelectProps } from '.';
+
+import { ISelectProps, Select } from '.';
 
 export default {
   title: 'Components/Select',

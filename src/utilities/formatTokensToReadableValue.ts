@@ -1,8 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { TokenId } from 'types';
+
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
+
 import { getToken } from './getToken';
+import { shortenTokensWithSuffix } from './shortenTokensWithSuffix';
 
 export const formatTokensToReadableValue = ({
   value,
@@ -23,9 +25,7 @@ export const formatTokensToReadableValue = ({
 
   let decimalPlaces;
   if (minimizeDecimals) {
-    // If value is greater than 1, use 2 decimal places, otherwise use 8
-    // see (https://app.clickup.com/24381231/v/dc/q81tf-9288/q81tf-1128)
-    decimalPlaces = value.gt(1) ? 2 : 8;
+    decimalPlaces = 8;
   } else {
     const token = getToken(tokenId);
     decimalPlaces = token.decimals;

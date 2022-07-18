@@ -1,4 +1,5 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+import { VTokenId } from 'types';
 
 import getVTokenBalanceOf, {
   GetVTokenBalanceOfOutput,
@@ -6,24 +7,25 @@ import getVTokenBalanceOf, {
 } from 'clients/api/queries/getVTokenBalanceOf';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import { VTokenId } from 'types';
+
+interface TrimmedParams extends Omit<IGetVTokenBalanceOfInput, 'vTokenContract'> {
+  vTokenId: VTokenId;
+}
 
 type Options = QueryObserverOptions<
   GetVTokenBalanceOfOutput,
   Error,
   GetVTokenBalanceOfOutput,
   GetVTokenBalanceOfOutput,
-  [FunctionKey.GET_V_TOKEN_BALANCE, string, VTokenId]
+  [FunctionKey.GET_V_TOKEN_BALANCE, TrimmedParams]
 >;
 
-const useGetVTokenBalanceOf = (
-  { account, vTokenId }: Omit<IGetVTokenBalanceOfInput, 'tokenContract'> & { vTokenId: VTokenId },
-  options?: Options,
-) => {
-  const tokenContract = useVTokenContract(vTokenId as VTokenId);
+const useGetVTokenBalanceOf = ({ accountAddress, vTokenId }: TrimmedParams, options?: Options) => {
+  const vTokenContract = useVTokenContract(vTokenId as VTokenId);
+
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCE, account, vTokenId],
-    () => getVTokenBalanceOf({ tokenContract, account }),
+    [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress, vTokenId }],
+    () => getVTokenBalanceOf({ vTokenContract, accountAddress }),
     options,
   );
 };

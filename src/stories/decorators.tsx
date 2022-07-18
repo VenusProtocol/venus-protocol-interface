@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { addDecorator, Story as StoryType } from '@storybook/react';
-import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import Box from '@mui/material/Box';
+import { Story as StoryType, addDecorator } from '@storybook/react';
+import React, { useState } from 'react';
+import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
+import { BrowserRouter } from 'react-router-dom';
 import { TokenId } from 'types';
-import { Web3Wrapper } from 'clients/web3';
-import { VaiContextProvider } from 'context/VaiContext';
-import { AuthContext, IAuthContextValue } from 'context/AuthContext';
+
 import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
+import { Web3Wrapper } from 'clients/web3';
+import { AuthContext, IAuthContextValue } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 export type DecoratorFunction = Parameters<typeof addDecorator>[0];
@@ -30,12 +30,6 @@ export const withAuthContext = (context: IAuthContextValue) => (Story: StoryType
       <Story />
     </AuthContext.Provider>
   );
-
-export const withVaiContextProvider: DecoratorFunction = Story => (
-  <VaiContextProvider>
-    <Story />
-  </VaiContextProvider>
-);
 
 export const withThemeProvider: DecoratorFunction = Story => (
   <MuiThemeProvider>

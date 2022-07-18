@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { InterestModel } from 'types/contracts';
+
 import getVTokenBorrowRate from './getVTokenBorrowRate';
 
 const fakeAmountWei = new BigNumber('100');

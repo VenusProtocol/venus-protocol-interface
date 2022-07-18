@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import Typography from '@mui/material/Typography';
-
-import { convertWeiToTokens } from 'utilities';
+import BigNumber from 'bignumber.js';
+import React from 'react';
 import { TokenId } from 'types';
+import { convertWeiToTokens } from 'utilities';
+
 import { BscLink } from '../BscLink';
 import { Icon, IconName } from '../Icon';
 import { IModalProps, Modal } from '../Modal';

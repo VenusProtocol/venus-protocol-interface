@@ -75,6 +75,7 @@
     "@stylelint/postcss-css-in-js": "0.37.2",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/react-hooks": "^8.0.1",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@typechain/web3-v1": "^6.0.0",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { IConvertWeiToTokensInput, convertWeiToTokens } from 'utilities';
 
-import { convertWeiToTokens, IConvertWeiToTokensInput } from 'utilities';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
 export interface IUseConvertWeiToReadableTokenStringInput
   extends Omit<IConvertWeiToTokensInput, 'valueWei' | 'returnInReadableFormat'> {

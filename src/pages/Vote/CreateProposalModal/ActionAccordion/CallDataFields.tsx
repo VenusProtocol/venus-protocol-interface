@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { FieldArray } from 'formik';
-import { ethers } from 'ethers';
 import type { FunctionFragment } from '@ethersproject/abi';
 import { FormikTextField } from 'components';
+import { ethers } from 'ethers';
+import { FieldArray } from 'formik';
+import React from 'react';
+
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from './styles';
 
@@ -29,10 +30,10 @@ const CallDataFields: React.FC<ICallDataFieldsProps> = ({ signature, actionIndex
 
   return (
     <FieldArray
-      name="callData"
+      name="data"
       render={() =>
         callDataTypes.map((param, idx) => {
-          const name = `actions.${actionIndex}.callData.${idx}`;
+          const name = `actions.${actionIndex}.data.${idx}`;
           return (
             <FormikTextField
               key={name}

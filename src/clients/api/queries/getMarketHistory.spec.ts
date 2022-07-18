@@ -1,6 +1,7 @@
-import { restService } from 'utilities';
 import { VError } from 'errors';
 import { MarketSnapshot } from 'types';
+import { restService } from 'utilities';
+
 import getMarketHistory from './getMarketHistory';
 
 jest.mock('utilities/restService');

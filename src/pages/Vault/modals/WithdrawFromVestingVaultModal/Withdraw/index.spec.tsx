@@ -1,16 +1,17 @@
-import React from 'react';
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
-
-import TEST_IDS from 'constants/testIds';
+import React from 'react';
 import { TokenId } from 'types';
-import en from 'translation/translations/en.json';
-import { TOKENS } from 'constants/tokens';
-import fakeAddress from '__mocks__/models/address';
+
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
-import { getXvsVaultLockedDeposits, executeWithdrawalFromXvsVault } from 'clients/api';
+import fakeAddress from '__mocks__/models/address';
+import { executeWithdrawalFromXvsVault, getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
+import TEST_IDS from 'constants/testIds';
+import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
+import en from 'translation/translations/en.json';
+
 import Withdraw from '.';
 
 jest.mock('clients/api');

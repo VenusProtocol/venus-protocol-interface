@@ -1,23 +1,26 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { waitFor } from '@testing-library/react';
-import renderComponent from 'testUtils/renderComponent';
+import BigNumber from 'bignumber.js';
+import React from 'react';
+
+import fakeAddress from '__mocks__/models/address';
 import { assetsInAccount } from '__mocks__/models/assetsInAccount';
 import { markets } from '__mocks__/models/markets';
-import { vTokenBalancesAccount } from '__mocks__/models/vTokenBalancesAccount';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
-import fakeAddress from '__mocks__/models/address';
-import { getAssetsInAccount, getMarkets, useGetVTokenBalancesAll } from 'clients/api';
+import { vTokenBalancesAccount } from '__mocks__/models/vTokenBalancesAccount';
+import { getAssetsInAccount, getMarkets, getMintedVai, useGetVTokenBalancesAll } from 'clients/api';
+import renderComponent from 'testUtils/renderComponent';
+
 import useGetUserMarketInfo, { UseGetUserMarketInfoOutput } from './useGetUserMarketInfo';
 
 jest.mock('clients/api');
 
-const fakeUserVaiMinted = new BigNumber('1000000');
+const fakeUserVaiMintedWei = new BigNumber('10000000000000000');
 
 describe('api/queries/useGetUserMarketInfo', () => {
   beforeEach(() => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
     (getAssetsInAccount as jest.Mock).mockImplementation(() => assetsInAccount);
+    (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {
       if (account === fakeAddress) {
@@ -44,12 +47,6 @@ describe('api/queries/useGetUserMarketInfo', () => {
 
     renderComponent(<CallMarketContext />, {
       authContextValue: { account: { address: fakeAddress } },
-      vaiContextValue: {
-        userVaiEnabled: true,
-        userVaiMinted: fakeUserVaiMinted,
-        mintableVai: new BigNumber(0),
-        userVaiBalance: new BigNumber(0),
-      },
     });
 
     await waitFor(() => expect(data.assets.length > 0).toBe(true));

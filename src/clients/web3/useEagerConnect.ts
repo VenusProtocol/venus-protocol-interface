@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { LS_KEY_CONNECTED_CONNECTOR } from 'config';
+import { useEffect, useState } from 'react';
+
 import { useWeb3Account } from 'clients/web3';
 
-import { LS_KEY_CONNECTED_CONNECTOR } from 'config';
 import { injectedConnector } from './connectors';
 
 const useEagerConnect = () => {

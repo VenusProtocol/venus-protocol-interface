@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import calculateDailyEarningsCents from './calculateDailyEarningsCents';
 
 describe('utilities/calculateDailyEarningsCentss', () => {

@@ -1,8 +1,9 @@
-import React from 'react';
-import noop from 'noop-ts';
-
 import { ComponentMeta } from '@storybook/react';
+import noop from 'noop-ts';
+import React from 'react';
+
 import { withCenterStory } from 'stories/decorators';
+
 import { Prompt as PromptUi } from '.';
 
 export default {

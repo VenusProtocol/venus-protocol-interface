@@ -1,23 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
-
 import { Typography } from '@mui/material';
-import {
-  useGetUserMarketInfo,
-  useGetVenusVaiVaultDailyRateWei,
-  useGetBalanceOf,
-} from 'clients/api';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { Token, Table, TableProps } from 'components';
-import { AuthContext } from 'context/AuthContext';
+import { Table, TableProps, Token } from 'components';
+import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import {
-  getContractAddress,
+  convertWeiToTokens,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  convertWeiToTokens,
+  getContractAddress,
 } from 'utilities';
+
+import {
+  useGetBalanceOf,
+  useGetUserMarketInfo,
+  useGetVenusVaiVaultDailyRateWei,
+} from 'clients/api';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import { AuthContext } from 'context/AuthContext';
+
 import { useStyles } from '../styles';
 
 type TableAsset = Pick<Asset, 'id' | 'symbol'> & {
@@ -125,10 +127,15 @@ const XvsTable: React.FC = () => {
 
   const { data: venusVaiVaultDailyRateWei } = useGetVenusVaiVaultDailyRateWei();
 
-  const { data: vaultVaiStakedWei } = useGetBalanceOf({
-    tokenId: 'vai',
-    accountAddress: getContractAddress('vaiVault'),
-  });
+  const { data: vaultVaiStakedWei } = useGetBalanceOf(
+    {
+      tokenId: 'vai',
+      accountAddress: getContractAddress('vaiVault'),
+    },
+    {
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    },
+  );
 
   const assetsWithVai = useMemo(() => {
     const allAssets: TableAsset[] = [...assets];

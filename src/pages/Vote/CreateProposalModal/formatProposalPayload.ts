@@ -1,4 +1,5 @@
 import { ICreateProposalInput } from 'clients/api';
+
 import encodeCallData from './encodeCallData';
 import { FormValues } from './proposalSchema';
 
@@ -33,10 +34,10 @@ const formatProposalPayload = (data: FormValues) => {
   };
 
   data.actions.forEach(action => {
-    payload.targets.push(action.address);
+    payload.targets.push(action.target);
     payload.signatures.push(action.signature);
-    if (action.callData !== undefined) {
-      payload.callDatas.push(encodeCallData(action.signature, action.callData));
+    if (action.data !== undefined) {
+      payload.callDatas.push(encodeCallData(action.signature, action.data));
     }
   });
 

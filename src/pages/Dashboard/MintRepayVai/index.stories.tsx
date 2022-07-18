@@ -1,10 +1,11 @@
-import React from 'react';
+import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
+import React from 'react';
+import { getContractAddress } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
-import { ComponentMeta, Story } from '@storybook/react';
-import { getContractAddress } from 'utilities';
-import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
 import MintRepayVai, { IMintRepayVaiProps } from '.';
 
 export default {

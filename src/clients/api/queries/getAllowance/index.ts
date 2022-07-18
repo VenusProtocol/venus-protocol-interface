@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { VrtToken, XvsToken, Bep20, VaiToken } from 'types/contracts';
+import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
 
 export interface IGetAllowanceInput {
   tokenContract: VrtToken | XvsToken | Bep20 | VaiToken;

@@ -1,11 +1,12 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import {
-  getVaiVaultUserInfo,
   IGetVaiVaultUserInfoInput,
   IGetVaiVaultUserInfoOutput,
+  getVaiVaultUserInfo,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   IGetVaiVaultUserInfoOutput,

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { XvsVault } from 'types/contracts';
 
 export interface IGetCurrentVotesInput {

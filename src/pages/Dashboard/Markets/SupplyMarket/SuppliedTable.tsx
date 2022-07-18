@@ -1,16 +1,18 @@
 /** @jsxImportSource @emotion/react */
+import { LayeredValues, Table, TableProps, Toggle, Token } from 'components';
 import React, { useMemo } from 'react';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import {
-  formatTokensToReadableValue,
-  formatToReadablePercentage,
-  formatCentsToReadableValue,
-} from 'utilities';
-import { Asset } from 'types';
-import { Table, TableProps, Token, Toggle, LayeredValues } from 'components';
 import { useTranslation } from 'translation';
-import { useStyles } from './styles';
+import { Asset } from 'types';
+import {
+  formatCentsToReadableValue,
+  formatToReadablePercentage,
+  formatTokensToReadableValue,
+} from 'utilities';
+
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+
 import { useStyles as useSharedStyles } from '../styles';
+import { useStyles } from './styles';
 
 export interface ISuppliedTableUiProps {
   assets: Asset[];

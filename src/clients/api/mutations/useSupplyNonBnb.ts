@@ -1,11 +1,11 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
-import { VBep20 } from 'types/contracts';
+import { MutationObserverOptions, useMutation } from 'react-query';
 import { VTokenId } from 'types';
-import queryClient from 'clients/api/queryClient';
-import supply, { ISupplyNonBnbInput, SupplyNonBnbOutput } from 'clients/api/mutations/supplyNonBnb';
 
-import FunctionKey from 'constants/functionKey';
+import supply, { ISupplyNonBnbInput, SupplyNonBnbOutput } from 'clients/api/mutations/supplyNonBnb';
+import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
+import { VBep20 } from 'types/contracts';
 
 export type SupplyNonBnbParams = Omit<ISupplyNonBnbInput, 'tokenContract' | 'account'>;
 
@@ -15,6 +15,7 @@ const useSupply = (
   options?: MutationObserverOptions<SupplyNonBnbOutput, Error, SupplyNonBnbParams>,
 ) => {
   const tokenContract = useVTokenContract<VTokenId>(assetId);
+
   return useMutation(
     [FunctionKey.SUPPLY, assetId],
     params =>
@@ -27,6 +28,17 @@ const useSupply = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_V_TOKEN_BALANCE,
+          {
+            accountAddress: account,
+            vTokenId: assetId,
+          },
+        ]);
+        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
+        queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

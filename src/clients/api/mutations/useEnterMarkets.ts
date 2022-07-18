@@ -1,8 +1,8 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
+import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { queryClient, enterMarkets, IEnterMarketsInput, EnterMarketsOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { EnterMarketsOutput, IEnterMarketsInput, enterMarkets, queryClient } from 'clients/api';
 import { useComptrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 const useEnterMarkets = (
   options?: MutationObserverOptions<
@@ -14,7 +14,6 @@ const useEnterMarkets = (
 ) => {
   const comptrollerContract = useComptrollerContract();
 
-  // @TODO: invalidate related queries on success
   return useMutation(
     FunctionKey.ENTER_MARKETS,
     (params: Omit<IEnterMarketsInput, 'comptrollerContract'>) =>
@@ -26,6 +25,7 @@ const useEnterMarkets = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

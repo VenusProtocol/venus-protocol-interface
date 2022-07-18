@@ -1,15 +1,16 @@
-import React from 'react';
-import noop from 'noop-ts';
-import { waitFor, fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
+import React from 'react';
 
-import TEST_IDS from 'constants/testIds';
-import MAX_UINT256 from 'constants/maxUint256';
 import fakeAccountAddress from '__mocks__/models/address';
-import { getBalanceOf, getAllowance } from 'clients/api';
-import renderComponent from 'testUtils/renderComponent';
+import { getAllowance, getBalanceOf } from 'clients/api';
+import MAX_UINT256 from 'constants/maxUint256';
+import TEST_IDS from 'constants/testIds';
 import useStakeInVault from 'hooks/useStakeInVault';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import StakeModal, { IStakeModalProps } from '.';
 
 jest.mock('clients/api');

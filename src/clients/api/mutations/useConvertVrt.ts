@@ -1,9 +1,9 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
+import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { queryClient, convertVrt, IConvertVrtInput, ConvertVrtOutput } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
-import FunctionKey from 'constants/functionKey';
+import { ConvertVrtOutput, IConvertVrtInput, convertVrt, queryClient } from 'clients/api';
 import { useVrtConverterProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
+import { TOKENS } from 'constants/tokens';
 
 const useConvertVrt = (
   options?: MutationObserverOptions<
@@ -26,6 +26,10 @@ const useConvertVrt = (
         const { accountAddress } = onSuccessParams[1];
 
         queryClient.invalidateQueries([FunctionKey.GET_BALANCE_OF, accountAddress, TOKENS.vrt.id]);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_V_TOKEN_BALANCE,
+          { accountAddress, tokenId: TOKENS.vrt.id },
+        ]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

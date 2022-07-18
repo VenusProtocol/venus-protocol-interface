@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { VrtVault } from 'types/contracts';
-import fakeAccountAddress from '__mocks__/models/address';
 import vrtVaultResponses from '__mocks__/contracts/vrtVault';
+import fakeAccountAddress from '__mocks__/models/address';
+import { VrtVault } from 'types/contracts';
+
 import getVrtVaultAccruedInterestWei from './getVrtVaultAccruedInterestWei';
 
 describe('api/queries/getVrtVaultAccruedInterestWei', () => {

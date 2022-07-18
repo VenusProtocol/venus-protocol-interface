@@ -1,5 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
+
 import { withRouter } from 'stories/decorators';
+
 import Dashboard from '.';
 
 export default {

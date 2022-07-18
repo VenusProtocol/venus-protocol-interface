@@ -1,4 +1,5 @@
 import { encodeParameters, parseFunctionSignature } from 'utilities';
+
 import formatIfArray from './formatIfArray';
 
 const encodeCallData = (signature: string, callData: (string | undefined)[]) => {

@@ -1,21 +1,22 @@
 import { useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
-
 import { Vault } from 'types';
+import { getTokenByAddress, indexBy } from 'utilities';
+
+import {
+  GetXvsVaultPendingRewardWeiOutput,
+  IGetXvsVaultPoolInfoOutput,
+  IGetXvsVaultUserInfoOutput,
+  useGetXvsVaultPoolsCount,
+  useGetXvsVaultRewardWeiPerBlock,
+  useGetXvsVaultTotalAllocationPoints,
+} from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { getTokenByAddress, indexBy } from 'utilities';
-import {
-  useGetXvsVaultPoolsCount,
-  useGetXvsVaultTotalAllocationPoints,
-  useGetXvsVaultRewardWeiPerBlock,
-  IGetXvsVaultPoolInfoOutput,
-  GetXvsVaultPendingRewardWeiOutput,
-  IGetXvsVaultUserInfoOutput,
-} from 'clients/api';
 import { XVS_TOKEN_ADDRESS, XVS_TOKEN_ID } from 'constants/xvs';
-import useGetXvsVaultPools from './useGetXvsVaultPools';
+
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
+import useGetXvsVaultPools from './useGetXvsVaultPools';
 
 export interface UseGetVestingVaultsOutput {
   isLoading: boolean;

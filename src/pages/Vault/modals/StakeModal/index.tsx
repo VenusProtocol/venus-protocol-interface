@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
-
-import { TokenId } from 'types';
-import { AuthContext } from 'context/AuthContext';
-import { getToken, getContractAddress } from 'utilities';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
+import { TokenId } from 'types';
+import { getContractAddress, getToken } from 'utilities';
+
 import { useGetBalanceOf } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
 import useStakeInVault from 'hooks/useStakeInVault';
+
 import ActionModal, { IActionModalProps } from '../ActionModal';
 
 export interface IStakeModalProps extends Pick<IActionModalProps, 'handleClose'> {

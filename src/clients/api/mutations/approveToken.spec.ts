@@ -1,6 +1,7 @@
 import transactionReceipt from '__mocks__/models/transactionReceipt';
-import { Bep20 } from 'types/contracts';
 import MAX_UINT256 from 'constants/maxUint256';
+import { Bep20 } from 'types/contracts';
+
 import approveToken from './approveToken';
 
 const fakeAccountAddress = '0x3d7598124C212d2121234cd36aFe1c685FbEd848';

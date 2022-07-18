@@ -1,23 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Asset, VTokenId } from 'types';
+import { Delimiter, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
-import { toast, switchAriaLabel, Delimiter, TableProps } from 'components';
-import { useWeb3 } from 'clients/web3';
-import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
+import React, { useState } from 'react';
+import { Asset, VTokenId } from 'types';
+
 import {
-  useExitMarket,
-  useEnterMarkets,
   getHypotheticalAccountLiquidity,
   getVTokenBalanceOf,
+  useEnterMarkets,
+  useExitMarket,
 } from 'clients/api';
+import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
+import { useWeb3 } from 'clients/web3';
+
 import { SupplyWithdrawModal } from '../../Modals';
-import { CollateralConfirmModal } from './CollateralConfirmModal';
-import SupplyMarketTable from './SupplyMarketTable';
-import SuppliedTable from './SuppliedTable';
 import { useStyles } from '../styles';
+import { CollateralConfirmModal } from './CollateralConfirmModal';
+import SuppliedTable from './SuppliedTable';
+import SupplyMarketTable from './SupplyMarketTable';
 
 interface ISupplyMarketProps {
   className?: string;
@@ -117,7 +119,7 @@ const SupplyMarket: React.FC<
     onSettled: () => setConfirmCollateral(undefined),
   });
 
-  const { mutateAsync: exitMarkets } = useExitMarket({
+  const { mutateAsync: exitMarket } = useExitMarket({
     onSettled: () => setConfirmCollateral(undefined),
   });
 
@@ -135,7 +137,7 @@ const SupplyMarket: React.FC<
     } else if (!asset.collateral) {
       try {
         setConfirmCollateral(asset);
-        await enterMarkets({ vtokenAddresses: [asset.vtokenAddress], accountAddress });
+        await enterMarkets({ vTokenAddresses: [asset.vtokenAddress], accountAddress });
       } catch (error) {
         if (error instanceof VError) {
           throw error;
@@ -157,8 +159,8 @@ const SupplyMarket: React.FC<
     let assetHypotheticalLiquidity;
     try {
       const vTokenBalanceOf = await getVTokenBalanceOf({
-        tokenContract: vTokenContract,
-        account: accountAddress,
+        vTokenContract,
+        accountAddress,
       });
 
       assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
@@ -181,7 +183,7 @@ const SupplyMarket: React.FC<
     if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
       try {
         setConfirmCollateral(asset);
-        await exitMarkets({ vtokenAddress: asset.vtokenAddress, accountAddress });
+        await exitMarket({ vtokenAddress: asset.vtokenAddress, accountAddress });
       } catch (error) {
         if (error instanceof VError) {
           throw error;

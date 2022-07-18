@@ -1,10 +1,12 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
+
 import {
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
 import { VBep20 } from 'types/contracts';
+
 import redeem from './redeem';
 
 const fakeAmount = new BigNumber(10000000000000000);
@@ -25,7 +27,7 @@ describe('api/mutation/redeem', () => {
       await redeem({
         tokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+        accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
       throw new Error('redeem should have thrown an error but did not');
@@ -56,7 +58,7 @@ describe('api/mutation/redeem', () => {
       await redeem({
         tokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
+        accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
       });
 
       throw new Error('redeem should have thrown an error but did not');
@@ -88,7 +90,7 @@ describe('api/mutation/redeem', () => {
     const response = await redeem({
       tokenContract: fakeContract,
       amountWei: fakeAmount,
-      account: fakeFromAccountsAddress,
+      accountAddress: fakeFromAccountsAddress,
     });
 
     expect(response).toBe(fakeTransactionReceipt);

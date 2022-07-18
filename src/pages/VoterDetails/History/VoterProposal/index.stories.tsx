@@ -1,6 +1,8 @@
-import React from 'react';
 import { BigNumber } from 'bignumber.js';
-import { withThemeProvider, withCenterStory } from 'stories/decorators';
+import React from 'react';
+
+import { withCenterStory, withThemeProvider } from 'stories/decorators';
+
 import VoteProposal from '.';
 
 export default {

@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import { Accordion, FormikTextField, Icon, SecondaryButton } from 'components';
 import { ethers } from 'ethers';
 import { FieldArray, useField } from 'formik';
-import { Icon, FormikTextField, SecondaryButton, Accordion } from 'components';
+import React from 'react';
 import { useTranslation } from 'translation';
+
 import { ErrorCode } from '../proposalSchema';
 import CallDataFields from './CallDataFields';
 import { useStyles } from './styles';
@@ -14,19 +15,19 @@ const ActionAccordion: React.FC = () => {
   const [expandedIdx, setExpanded] = React.useState<number | undefined>(0);
 
   const [{ value: actions }, { error: errors }, { setValue }] =
-    useField<{ address: string; signature: string; callData: string[] }[]>('actions');
+    useField<{ target: string; signature: string; data: string[] }[]>('actions');
 
   const handleBlurSignature: React.FocusEventHandler<HTMLInputElement> = () => {
     const actionsCopy = [...actions];
     if (expandedIdx !== undefined) {
       const actionCopy = actionsCopy[expandedIdx];
-      const { signature, callData } = actionCopy;
+      const { signature, data } = actionCopy;
       // When we blur the signature, clean up extra fields
-      if (callData) {
+      if (data) {
         try {
           const fragment = ethers.utils.FunctionFragment.from(signature || '');
           const numberOfInputs = fragment.inputs.length;
-          actionsCopy[expandedIdx].callData = callData.slice(0, numberOfInputs);
+          actionsCopy[expandedIdx].data = data.slice(0, numberOfInputs);
           setValue(actionsCopy);
         } catch (err) {
           // eslint-disable-next-line no-console
@@ -60,7 +61,7 @@ const ActionAccordion: React.FC = () => {
                   css={styles.accordion}
                 >
                   <FormikTextField
-                    name={`actions.${idx}.address`}
+                    name={`actions.${idx}.target`}
                     data-testid={`actions.${idx}.address`}
                     placeholder={t('vote.createProposalForm.address')}
                     maxLength={42}

@@ -1,10 +1,11 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getXvsVaultRewardWeiPerBlock, {
-  IGetXvsVaultRewardWeiPerBlockInput,
   GetXvsVaultRewardWeiPerBlockOutput,
+  IGetXvsVaultRewardWeiPerBlockInput,
 } from 'clients/api/queries/getXvsVaultRewardWeiPerBlock';
-import FunctionKey from 'constants/functionKey';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetXvsVaultRewardWeiPerBlockOutput,

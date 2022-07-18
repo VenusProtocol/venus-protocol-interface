@@ -1,9 +1,9 @@
-import React from 'react';
 import BigNumber from 'bignumber.js';
-
 import { IApyChartProps } from 'components';
+import React from 'react';
 import { IVBepToken } from 'types';
 import { formatPercentage } from 'utilities';
+
 import { useGetMarketHistory } from 'clients/api';
 
 const useGetChartData = ({ vTokenId }: { vTokenId: IVBepToken['id'] }) => {

@@ -1,14 +1,14 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { VTokenId } from 'types';
 
 import {
-  queryClient,
-  repayNonBnbVToken,
   IRepayNonBnbVTokenInput,
   RepayBnbOutput,
+  queryClient,
+  repayNonBnbVToken,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { VTokenId } from 'types';
 import { useVTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   RepayBnbOutput,
@@ -32,10 +32,14 @@ const useRepayNonBnbVToken = (
     {
       ...options,
       onSuccess: (...onSuccessParams) => {
+        const { fromAccountAddress } = onSuccessParams[1];
+
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
         queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
-        queryClient.invalidateQueries([FunctionKey.GET_V_TOKEN_BORROW_BALANCE, vTokenId]);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_V_TOKEN_BORROW_BALANCE,
+          { accountAddress: fromAccountAddress, vTokenId },
+        ]);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
 
 import address from '__mocks__/models/address';
 import { VTokenContract } from 'clients/contracts/types';
@@ -6,7 +7,7 @@ import {
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
+
 import borrowVToken from './borrowVToken';
 
 describe('api/mutation/borrowVToken', () => {

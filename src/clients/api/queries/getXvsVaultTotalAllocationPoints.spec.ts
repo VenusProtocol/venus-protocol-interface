@@ -1,4 +1,5 @@
 import { XvsVault } from 'types/contracts';
+
 import getXvsVaultTotalAllocationPoints from './getXvsVaultTotalAllocationPoints';
 
 const fakeTokenAddress = '0x0';

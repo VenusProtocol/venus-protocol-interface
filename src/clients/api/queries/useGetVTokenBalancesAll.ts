@@ -1,4 +1,4 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getVTokenBalancesAll, {
   IGetVTokenBalancesAllInput,
@@ -12,7 +12,7 @@ type Options = QueryObserverOptions<
   Error,
   IGetVTokenBalancesAllOutput,
   IGetVTokenBalancesAllOutput,
-  [FunctionKey.GET_V_TOKEN_BALANCES_ALL, string]
+  [FunctionKey.GET_V_TOKEN_BALANCES_ALL, Omit<IGetVTokenBalancesAllInput, 'venusLensContract'>]
 >;
 
 const useGetVTokenBalancesAll = (
@@ -21,7 +21,7 @@ const useGetVTokenBalancesAll = (
 ) => {
   const venusLensContract = useVenusLensContract();
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCES_ALL, account],
+    [FunctionKey.GET_V_TOKEN_BALANCES_ALL, { account, vTokenAddresses }],
     () => getVTokenBalancesAll({ venusLensContract, account, vTokenAddresses }),
     options,
   );

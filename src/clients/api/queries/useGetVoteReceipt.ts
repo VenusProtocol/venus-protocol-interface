@@ -1,6 +1,8 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
+
 import getVoteReceipt, { GetVoteReceiptOutput } from './getVoteReceipt';
 
 type Options = QueryObserverOptions<

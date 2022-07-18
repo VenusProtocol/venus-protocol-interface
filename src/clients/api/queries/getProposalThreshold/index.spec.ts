@@ -1,5 +1,7 @@
 import BigNumber from 'bignumber.js';
+
 import { GovernorBravoDelegate } from 'types/contracts';
+
 import getProposalThreshold, { GetProposalThresholdOutput } from '.';
 
 describe('api/queries/getProposalThreshold', () => {

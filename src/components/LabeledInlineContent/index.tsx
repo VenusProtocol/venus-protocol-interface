@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Typography from '@mui/material/Typography';
+import React from 'react';
 
 import { Icon, IconName } from '../Icon';
 import { useStyles } from './styles';
@@ -33,7 +33,7 @@ export const LabeledInlineContent = ({
 
       <Typography
         component="div"
-        css={[styles.column, styles.getContent({ invertTextColors })]}
+        css={[styles.column, styles.getContent({ invertTextColors, hasIcon: !!iconName })]}
         variant="body1"
       >
         {children}

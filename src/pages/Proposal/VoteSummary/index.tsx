@@ -1,22 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import React, { useCallback } from 'react';
-import { BigNumber } from 'bignumber.js';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Path from 'constants/path';
-import { convertWeiToTokens } from 'utilities';
+import { BigNumber } from 'bignumber.js';
+import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
+import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { XVS_TOKEN_ID } from 'constants/xvs';
-import {
-  Button,
-  Icon,
-  LabeledInlineContent,
-  EllipseAddress,
-  Tooltip,
-  LabeledProgressBar,
-} from 'components';
 import { IVoter } from 'types';
+import { convertWeiToTokens } from 'utilities';
+
+import Path from 'constants/path';
+import { XVS_TOKEN_ID } from 'constants/xvs';
+
 import { useStyles } from './styles';
 
 interface IVoteSummaryProps {
@@ -79,9 +74,10 @@ const VoteSummary = ({
         </Button>
       </div>
 
-      <LabeledInlineContent label={t('voteSummary.addresses', { count: voters.length })}>
+      <div css={styles.votesHeader}>
+        <Typography>{t('voteSummary.addresses', { count: voters.length })}</Typography>
         <Typography>{t('voteSummary.votes')}</Typography>
-      </LabeledInlineContent>
+      </div>
 
       <ul css={styles.votesWrapper}>
         {voters.map(({ address, voteWeightWei, reason }) => (

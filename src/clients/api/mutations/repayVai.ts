@@ -1,6 +1,7 @@
-import type { TransactionReceipt } from 'web3-core';
-import { VaiUnitroller } from 'types/contracts';
 import { checkForVaiControllerTransactionError } from 'errors';
+import type { TransactionReceipt } from 'web3-core';
+
+import { VaiUnitroller } from 'types/contracts';
 
 export interface IRepayVaiInput {
   vaiControllerContract: VaiUnitroller;

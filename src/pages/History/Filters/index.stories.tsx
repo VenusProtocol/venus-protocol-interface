@@ -1,6 +1,7 @@
-import React from 'react';
-import noop from 'lodash';
 import { ComponentMeta } from '@storybook/react';
+import noop from 'lodash';
+import React from 'react';
+
 import Filters, { ALL_VALUE } from '.';
 
 export default {

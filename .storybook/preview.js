@@ -3,15 +3,10 @@ import { rest } from 'msw';
 import 'loki/configure-react';
 import '../src/assets/styles/index.scss';
 import { PALETTE } from '../src/theme/MuiThemeProvider/muiTheme';
-import {
-  withThemeProvider,
-  withQueryClientProvider,
-  withVaiContextProvider,
-} from '../src/stories/decorators';
+import { withThemeProvider, withQueryClientProvider } from '../src/stories/decorators';
 import GovernanceResponse from '../src/__mocks__/api/governance.json';
 import VotersReponse from '../src/__mocks__/api/voters.json';
 import TransactionResponse from '../src/__mocks__/api/transactions.json';
-import vaiControllerResponses from '../src/__mocks__/contracts/vaiController.json';
 
 initialize({
   onUnhandledRequest: 'bypass',
@@ -28,7 +23,7 @@ const mockRpcProviderResponse = (req, res, ctx) => {
     response = {
       jsonrpc: req.body.jsonrpc,
       id: req.body.id,
-      result: vaiControllerResponses.treasuryPercent,
+      result: '0x00000000000000000000000000000000000000000000000000005af3107a4000',
     };
   }
 
@@ -95,9 +90,4 @@ export const parameters = {
   },
 };
 
-export const decorators = [
-  mswDecorator,
-  withThemeProvider,
-  withQueryClientProvider,
-  withVaiContextProvider,
-];
+export const decorators = [mswDecorator, withThemeProvider, withQueryClientProvider];

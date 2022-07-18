@@ -1,43 +1,46 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import Typography from '@mui/material/Typography';
 import {
   BASE_BSC_SCAN_URL,
-  VENUS_MEDIUM_URL,
-  VENUS_DISCORD_URL,
-  VENUS_TWITTER_URL,
-  VENUS_GITHUB_URL,
   ETHERSCAN_XVS_CONTRACT_ADDRESS,
+  VENUS_DISCORD_URL,
+  VENUS_GITHUB_URL,
+  VENUS_MEDIUM_URL,
+  VENUS_TWITTER_URL,
 } from 'config';
-import { generateBscScanUrl } from 'utilities';
-import { useBlock } from 'hooks/useBlock';
+import React from 'react';
 import { useTranslation } from 'translation';
+import { generateBscScanUrl } from 'utilities';
+
+import { useGetBlockNumber } from 'clients/api';
 import { Icon } from 'components/Icon';
+
 import { useStyles } from './styles';
 
-export interface IFooterProps {
-  currentBlockNumber: number;
+export interface FooterUiProps {
+  currentBlockNumber: number | undefined;
 }
 
-export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
+export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   return (
     <div css={styles.container}>
-      <Typography
-        component="a"
-        variant="small2"
-        css={styles.blockInfo}
-        href={BASE_BSC_SCAN_URL}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {t('footer.latestNumber')}
-        <br css={styles.blockInfoMobileLineBreak} />
-        <span css={styles.blockInfoNumber}>{currentBlockNumber}</span>
-      </Typography>
+      {!!currentBlockNumber && (
+        <Typography
+          component="a"
+          variant="small2"
+          css={styles.blockInfo}
+          href={BASE_BSC_SCAN_URL}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t('footer.latestNumber')}
+          <br css={styles.blockInfoMobileLineBreak} />
+          <span css={styles.blockInfoNumber}>{currentBlockNumber}</span>
+        </Typography>
+      )}
 
       <div css={styles.links}>
         <a
@@ -69,9 +72,10 @@ export const Footer: React.FC<IFooterProps> = ({ currentBlockNumber }) => {
   );
 };
 
-const FooterContainer: React.FC = () => {
-  const currentBlockNumber = useBlock();
-  return <Footer currentBlockNumber={currentBlockNumber} />;
+const Footer: React.FC = () => {
+  const { data: getBlockNumberData } = useGetBlockNumber();
+
+  return <FooterUi currentBlockNumber={getBlockNumberData?.blockNumber} />;
 };
 
-export default FooterContainer;
+export default Footer;

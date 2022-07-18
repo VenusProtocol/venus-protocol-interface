@@ -48,20 +48,24 @@ export const Tabs = ({
             <h4>{componentTitle}</h4>
           </div>
         )}
-        {tabsContent.map(({ title }, index) => (
-          <TertiaryButton
-            key={title}
-            onClick={() => handleChange(index)}
-            css={styles.getButton({
-              active: index === activeTabIndex,
-              last: index === tabsContent.length - 1,
-              fullWidth: !componentTitle,
-            })}
-          >
-            {title}
-          </TertiaryButton>
-        ))}
+
+        <div css={styles.getButtonsContainer({ fullWidth: !componentTitle })}>
+          {tabsContent.map(({ title }, index) => (
+            <TertiaryButton
+              key={title}
+              onClick={() => handleChange(index)}
+              css={styles.getButton({
+                active: index === activeTabIndex,
+                last: index === tabsContent.length - 1,
+                fullWidth: !componentTitle,
+              })}
+            >
+              {title}
+            </TertiaryButton>
+          ))}
+        </div>
       </div>
+
       {tabsContent[activeTabIndex].content}
     </>
   );

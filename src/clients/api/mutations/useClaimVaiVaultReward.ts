@@ -1,13 +1,13 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
-  queryClient,
-  claimVaiVaultReward,
-  IClaimVaiVaultRewardInput,
   ClaimVaiVaultRewardOutput,
+  IClaimVaiVaultRewardInput,
+  claimVaiVaultReward,
+  queryClient,
 } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   ClaimVaiVaultRewardOutput,

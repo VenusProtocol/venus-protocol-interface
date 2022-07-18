@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
-import { renderHook, act } from '@testing-library/react-hooks';
-import { waitFor } from '@testing-library/react';
-import renderComponent from 'testUtils/renderComponent';
-import { toast } from 'components';
 import { NoBscProviderError } from '@binance-chain/bsc-connector';
+import { waitFor } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { useWeb3React } from '@web3-react/core';
 import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector';
 import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector';
+import { toast } from 'components';
+import React, { useEffect } from 'react';
+
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import useAuth from '.';
 import setupNetwork from './setUpNetwork';
 

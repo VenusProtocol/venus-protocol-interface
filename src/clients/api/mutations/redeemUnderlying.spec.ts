@@ -1,11 +1,13 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'errors';
+
+import fakeAccountAddress from '__mocks__/models/address';
 import {
   TokenErrorReporterError,
   TokenErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
-import fakeAccountAddress from '__mocks__/models/address';
 import { VBep20 } from 'types/contracts';
+
 import redeemUnderlying from './redeemUnderlying';
 
 const fakeAmount = new BigNumber(10000000000000000);
@@ -24,9 +26,9 @@ describe('api/mutation/redeemUnderlying', () => {
 
     try {
       await redeemUnderlying({
-        tokenContract: fakeContract,
+        vTokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: fakeAccountAddress,
+        accountAddress: fakeAccountAddress,
       });
 
       throw new Error('redeemUnderlying should have thrown an error but did not');
@@ -55,9 +57,9 @@ describe('api/mutation/redeemUnderlying', () => {
 
     try {
       await redeemUnderlying({
-        tokenContract: fakeContract,
+        vTokenContract: fakeContract,
         amountWei: fakeAmount,
-        account: fakeAccountAddress,
+        accountAddress: fakeAccountAddress,
       });
 
       throw new Error('redeemUnderlying should have thrown an error but did not');
@@ -86,9 +88,9 @@ describe('api/mutation/redeemUnderlying', () => {
     } as unknown as VBep20;
 
     const response = await redeemUnderlying({
-      tokenContract: fakeContract,
+      vTokenContract: fakeContract,
       amountWei: fakeAmount,
-      account: fakeAccountAddress,
+      accountAddress: fakeAccountAddress,
     });
 
     expect(response).toBe(fakeTransactionReceipt);

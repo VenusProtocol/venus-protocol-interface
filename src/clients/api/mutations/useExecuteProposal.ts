@@ -1,8 +1,8 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
+import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { executeProposal, IExecuteProposalInput, ExecuteProposalOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { ExecuteProposalOutput, IExecuteProposalInput, executeProposal } from 'clients/api';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 const useExecuteProposal = (
   options?: MutationObserverOptions<
@@ -12,6 +12,7 @@ const useExecuteProposal = (
   >,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();
+
   return useMutation(
     FunctionKey.EXECUTE_PROPOSAL,
     params =>

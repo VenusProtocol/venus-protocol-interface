@@ -1,5 +1,6 @@
-import React from 'react';
 import { useFormikContext } from 'formik';
+import React from 'react';
+
 import { Button, IButtonProps } from '../Button';
 
 interface IFormikSubmitButtonProps extends IButtonProps {

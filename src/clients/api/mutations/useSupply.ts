@@ -1,14 +1,15 @@
 import { MutationObserverOptions } from 'react-query';
 import { Asset, VTokenId } from 'types';
+
 import {
-  useSupplyNonBnb,
-  useSupplyBnb,
-  ISupplyNonBnbInput,
   ISupplyBnbInput,
+  ISupplyNonBnbInput,
   SupplyBnbOutput,
   SupplyBnbParams,
   SupplyNonBnbOutput,
   SupplyNonBnbParams,
+  useSupplyBnb,
+  useSupplyNonBnb,
 } from 'clients/api';
 
 interface IUseSupplyArgs {
@@ -34,7 +35,9 @@ const useSupply = (
     },
     options as OptionsSupplyNonBnb,
   );
+
   const useSupplyBnbResult = useSupplyBnb({ account }, options as OptionsSupplyBnb);
+
   return asset.id === 'bnb' ? useSupplyBnbResult : useSupplyNonBnbResult;
 };
 

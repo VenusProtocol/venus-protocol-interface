@@ -1,10 +1,10 @@
-import React from 'react';
 import noop from 'noop-ts';
+import React from 'react';
+import { useTranslation } from 'translation';
 
 import { Connector, useAuth } from 'clients/web3';
-import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { AuthModal } from 'components/AuthModal';
-import { useTranslation } from 'translation';
+import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 export interface IAccount {
   address: string;

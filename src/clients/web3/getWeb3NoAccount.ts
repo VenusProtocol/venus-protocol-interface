@@ -1,6 +1,5 @@
-import Web3 from 'web3';
-
 import { RPC_URL } from 'config';
+import Web3 from 'web3';
 
 // @todo: we will get the "No 'Access-Control-Allow-Origin' header is present on the requested resource"
 // error on the frontend in testnet when the wallet is unconnected, because the bsc official testnet endpoints

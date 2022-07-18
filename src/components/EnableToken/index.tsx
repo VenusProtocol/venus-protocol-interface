@@ -1,17 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
 import Typography from '@mui/material/Typography';
-
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { AuthContext } from 'context/AuthContext';
 import { VTokenId } from 'types';
+
 import { useApproveToken, useGetAllowance } from 'clients/api';
-import { Icon } from '../Icon';
+import { AuthContext } from 'context/AuthContext';
+
 import { SecondaryButton } from '../Button';
-import useStyles from './styles';
 import { Delimiter } from '../Delimiter';
-import { LabeledInlineContent, ILabeledInlineContentProps } from '../LabeledInlineContent';
+import { Icon } from '../Icon';
+import { ILabeledInlineContentProps, LabeledInlineContent } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
+import useStyles from './styles';
 
 export interface IEnableTokenUiProps {
   vTokenId: VTokenId | 'vai' | 'vrt';

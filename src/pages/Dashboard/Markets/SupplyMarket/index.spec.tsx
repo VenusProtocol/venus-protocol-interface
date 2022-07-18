@@ -1,12 +1,14 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
 import { fireEvent, waitFor } from '@testing-library/react';
-import { assetData } from '__mocks__/models/asset';
-import fakeAccountAddress from '__mocks__/models/address';
-import renderComponent from 'testUtils/renderComponent';
-import { enterMarkets, useGetUserMarketInfo } from 'clients/api';
+import BigNumber from 'bignumber.js';
 import { switchAriaLabel } from 'components';
+import React from 'react';
+
+import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
+import { enterMarkets, useGetUserMarketInfo } from 'clients/api';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import SupplyMarket from '.';
 
 jest.mock('clients/api');

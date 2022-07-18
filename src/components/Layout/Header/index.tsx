@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import AppBar from '@mui/material/AppBar';
+import React from 'react';
 
-import { Toolbar } from '../Toolbar';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
 import ConnectButton from '../ConnectButton';
+import { Toolbar } from '../Toolbar';
 import Title from './Title';
 import { useStyles } from './styles';
 

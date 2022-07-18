@@ -1,15 +1,15 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { getContractAddress } from 'utilities';
 
 import {
-  queryClient,
-  withdrawFromVrtVault,
   IWithdrawFromVrtVaultInput,
   WithdrawFromVrtVaultOutput,
+  queryClient,
+  withdrawFromVrtVault,
 } from 'clients/api';
+import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
-import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
-import { getContractAddress } from 'utilities';
 
 const VRT_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('vrtVaultProxy');
 

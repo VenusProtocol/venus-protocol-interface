@@ -1,25 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
-import BigNumber from 'bignumber.js';
 import Paper from '@mui/material/Paper';
+import BigNumber from 'bignumber.js';
+import { Spinner, Tabs } from 'components';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'translation';
+import { convertWeiToTokens } from 'utilities';
 
-import { AuthContext } from 'context/AuthContext';
 import {
+  useConvertVrt,
   useGetBalanceOf,
   useGetVrtConversionEndTime,
   useGetVrtConversionRatio,
   useGetXvsWithdrawableAmount,
-  useConvertVrt,
   useWithdrawXvs,
 } from 'clients/api';
-import { Tabs, Spinner } from 'components';
-import { VError } from 'errors/VError';
-import { useTranslation } from 'translation';
-import { convertWeiToTokens } from 'utilities';
 import { XVS_TOKEN_ID } from 'constants/xvs';
-import { VRT_ID } from './constants';
-import Withdraw, { IWithdrawProps } from './Withdraw';
+import { AuthContext } from 'context/AuthContext';
+import { VError } from 'errors/VError';
+
 import Convert, { IConvertProps } from './Convert';
+import Withdraw, { IWithdrawProps } from './Withdraw';
+import { VRT_ID } from './constants';
 import { useStyles } from './styles';
 
 export type ConvertVrtUiProps = IConvertProps & IWithdrawProps;
@@ -36,6 +37,7 @@ export const ConvertVrtUi = ({
 }: ConvertVrtUiProps) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
   const tabsContent = [
     {
       title: t('convertVrt.convert'),
@@ -93,6 +95,7 @@ const ConvertVrt = () => {
     if (!accountAddress) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
+
     return convertVrt({
       amountWei: amount,
       accountAddress,
@@ -103,6 +106,7 @@ const ConvertVrt = () => {
     if (!accountAddress) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }
+
     return withdrawXvs({
       accountAddress,
     });
@@ -115,8 +119,10 @@ const ConvertVrt = () => {
         tokenId: XVS_TOKEN_ID,
       });
     }
+
     return undefined;
   }, [vrtConversionRatio]);
+
   if (conversionRatio && vrtConversionEndTime) {
     return (
       <ConvertVrtUi
@@ -131,6 +137,7 @@ const ConvertVrt = () => {
       />
     );
   }
+
   // @TODO - Handle error state
   return <Spinner />;
 };

@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import address from '__mocks__/models/address';
 import { VBep20 } from 'types/contracts';
+
 import getVTokenBorrowBalance from './getVTokenBorrowBalance';
 
 describe('api/queries/getVTokenBorrowBalance', () => {

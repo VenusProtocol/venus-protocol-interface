@@ -1,8 +1,10 @@
+import { VError } from 'errors';
+
 import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
 } from 'constants/contracts/errorReporter';
-import { VError } from 'errors';
+
 import exitMarket from './exitMarket';
 
 describe('api/mutation/exitMarket', () => {

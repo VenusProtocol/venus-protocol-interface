@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 import { VaiVault } from 'types/contracts';
+
 import getVaiVaultPendingXvsWei from './getVaiVaultPendingXvsWei';
 
 describe('api/queries/getVaiVaultPendingXvsWei', () => {

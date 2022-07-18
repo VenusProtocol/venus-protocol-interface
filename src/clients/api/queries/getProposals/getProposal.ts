@@ -1,6 +1,7 @@
-import { restService, formatToProposal } from 'utilities';
 import { VError } from 'errors';
-import { IGetProposalInput, IProposalApiResponse, GetProposalOutput } from './types';
+import { formatToProposal, restService } from 'utilities';
+
+import { GetProposalOutput, IGetProposalInput, IProposalApiResponse } from './types';
 
 const getProposal = async ({ id }: IGetProposalInput): Promise<GetProposalOutput> => {
   const response = await restService<IProposalApiResponse>({

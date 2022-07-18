@@ -1,6 +1,8 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+
 import { withRouter } from 'stories/decorators';
+
 import { PageContainer } from '.';
 
 export default {

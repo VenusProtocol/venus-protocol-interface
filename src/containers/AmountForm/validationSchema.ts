@@ -1,5 +1,5 @@
-import * as yup from 'yup';
 import BigNumber from 'bignumber.js';
+import * as yup from 'yup';
 
 export type FormValues = yup.InferType<ReturnType<typeof getValidationSchema>>;
 

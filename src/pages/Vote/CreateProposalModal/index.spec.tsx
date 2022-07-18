@@ -1,9 +1,11 @@
+import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
-import { fireEvent, waitFor, Matcher, MatcherOptions } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import renderComponent from 'testUtils/renderComponent';
+
 import fakeAddress from '__mocks__/models/address';
+import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import CreateProposalModal from '.';
 
 jest.mock('clients/api');
@@ -150,11 +152,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const callDataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const callDataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
 
-      await fireEvent.change(callDataInput0, { target: { value: 'root' } });
-      await fireEvent.change(callDataInput1, { target: { value: 'false' } });
+      await fireEvent.change(dataInput0, { target: { value: 'root' } });
+      await fireEvent.change(dataInput1, { target: { value: 'false' } });
 
       await waitFor(() => expect(addActionButton).toBeEnabled());
       await waitFor(() => fireEvent.click(addActionButton));
@@ -197,11 +199,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const callDataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const callDataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
 
-      await fireEvent.change(callDataInput0, { target: { value: 'root' } });
-      await fireEvent.change(callDataInput1, { target: { value: 'false' } });
+      await fireEvent.change(dataInput0, { target: { value: 'root' } });
+      await fireEvent.change(dataInput1, { target: { value: 'false' } });
 
       await waitFor(() => fireEvent.click(addActionButton));
     });
@@ -256,11 +258,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       await fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       await fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const callDataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
-      const callDataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
 
-      await fireEvent.change(callDataInput0, { target: { value: 'root' } });
-      await fireEvent.change(callDataInput1, { target: { value: 'false' } });
+      await fireEvent.change(dataInput0, { target: { value: 'root' } });
+      await fireEvent.change(dataInput1, { target: { value: 'false' } });
     });
 
     await waitFor(() => expect(addActionButton).toBeEnabled()); // failing

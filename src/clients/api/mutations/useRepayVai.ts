@@ -1,8 +1,8 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { queryClient, repayVai, IRepayVaiInput, IRepayVaiOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { IRepayVaiInput, IRepayVaiOutput, queryClient, repayVai } from 'clients/api';
 import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   IRepayVaiOutput,
@@ -25,6 +25,7 @@ const useRepayVai = (options?: Options) => {
       onSuccess: (...onSuccessParams) => {
         // Invalidate queries related to fetching the user minted VAI amount
         queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

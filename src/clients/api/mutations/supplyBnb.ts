@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
+import { checkForTokenTransactionError } from 'errors';
+import { getVBepToken } from 'utilities';
 import Web3 from 'web3';
 import type { TransactionReceipt } from 'web3-core';
 
 import { VBnbToken } from 'types/contracts';
-import { getVBepToken } from 'utilities';
-import { checkForTokenTransactionError } from 'errors';
 
 export interface ISupplyBnbInput {
   tokenContract: VBnbToken;

@@ -1,6 +1,7 @@
-import * as yup from 'yup';
-import web3 from 'web3';
 import { encodeParameters, parseFunctionSignature } from 'utilities';
+import web3 from 'web3';
+import * as yup from 'yup';
+
 import formatIfArray from './formatIfArray';
 
 export enum ErrorCode {
@@ -15,7 +16,7 @@ const proposalSchema = yup.object({
     .array()
     .of(
       yup.object({
-        address: yup
+        target: yup
           .string()
           .required()
           .test('isAddress', ErrorCode.ACTION_ADDRESS_NOT_VALID, value =>
@@ -30,7 +31,7 @@ const proposalSchema = yup.object({
           )
           .required(),
         // @TODO add specific validation and errors for specific types
-        callData: yup
+        data: yup
           .array()
           .of(
             yup.string().test({
@@ -39,14 +40,14 @@ const proposalSchema = yup.object({
               test(value) {
                 let valid = true;
                 try {
-                  const callDataTypes =
+                  const dataTypes =
                     // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
                     parseFunctionSignature(this.options.from[0].value.signature)?.inputs.map(
                       input => input.type,
                     ) || [];
                   encodeParameters(
                     // @ts-expect-error The yup type doesn't show this value exists but it does @TODO extend type
-                    [callDataTypes[this.options.index]],
+                    [dataTypes[this.options.index]],
                     [formatIfArray(value || '')],
                   );
                 } catch (error) {

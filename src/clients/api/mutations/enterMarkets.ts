@@ -1,11 +1,12 @@
-import type { TransactionReceipt } from 'web3-core';
-import { Comptroller } from 'types/contracts';
 import { checkForComptrollerTransactionError } from 'errors';
+import type { TransactionReceipt } from 'web3-core';
+
+import { Comptroller } from 'types/contracts';
 
 export interface IEnterMarketsInput {
   comptrollerContract: Comptroller;
   accountAddress?: string;
-  vtokenAddresses: string[];
+  vTokenAddresses: string[];
 }
 
 export type EnterMarketsOutput = TransactionReceipt;
@@ -13,10 +14,10 @@ export type EnterMarketsOutput = TransactionReceipt;
 const enterMarkets = async ({
   comptrollerContract,
   accountAddress,
-  vtokenAddresses,
+  vTokenAddresses,
 }: IEnterMarketsInput): Promise<EnterMarketsOutput> => {
   const resp = await comptrollerContract.methods
-    .enterMarkets(vtokenAddresses)
+    .enterMarkets(vTokenAddresses)
     .send({ from: accountAddress });
   return checkForComptrollerTransactionError(resp);
 };

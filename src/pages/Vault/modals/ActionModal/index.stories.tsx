@@ -1,11 +1,12 @@
-import React from 'react';
-import noop from 'noop-ts';
+import { ComponentMeta, Story } from '@storybook/react';
 import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
+import React from 'react';
+import { getContractAddress } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
-import { getContractAddress } from 'utilities';
-import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withEnabledToken, withAuthContext } from 'stories/decorators';
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
 import ActionModal, { IActionModalProps } from '.';
 
 export default {

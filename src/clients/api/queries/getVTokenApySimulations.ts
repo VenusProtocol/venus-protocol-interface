@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { InterestModel } from 'types/contracts';
+
 import getVTokenBorrowRate from './getVTokenBorrowRate';
 import getVTokenSupplyRate from './getVTokenSupplyRate';
 

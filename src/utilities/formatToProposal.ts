@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-
-import { BLOCK_VALIDATION_RATE_IN_SECONDS } from 'constants/bsc';
 import { IProposal } from 'types';
+
+import { BLOCK_TIME_MS } from 'constants/bsc';
 
 interface FormatToProposalInput {
   abstainedVotes: string;
@@ -75,7 +75,7 @@ const formatToProposal = ({
 
   if (!endDate && blockNumber) {
     const blocksLeft = endBlock - blockNumber;
-    const secondsUntilEnd = blocksLeft * BLOCK_VALIDATION_RATE_IN_SECONDS;
+    const secondsUntilEnd = blocksLeft * (BLOCK_TIME_MS / 1000);
     const now = new Date();
     now.setSeconds(now.getSeconds() + secondsUntilEnd);
     endDate = now;

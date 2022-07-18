@@ -1,7 +1,9 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
-import { withThemeProvider, withRouter } from 'stories/decorators';
+
+import { withRouter, withThemeProvider } from 'stories/decorators';
+
 import Header from '.';
 
 export default {

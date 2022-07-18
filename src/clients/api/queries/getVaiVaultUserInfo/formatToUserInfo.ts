@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { VaiVault } from 'types/contracts';
+
 import { IGetVaiVaultUserInfoOutput } from './types';
 
 const formatToUserInfo = ({

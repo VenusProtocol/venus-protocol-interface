@@ -1,24 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo, useState } from 'react';
-import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import {
-  useGetVestingVaults,
-  useGetCurrentVotes,
-  useGetVoteDelegateAddress,
-  useSetVoteDelegate,
-} from 'clients/api';
-import { AuthContext } from 'context/AuthContext';
+import BigNumber from 'bignumber.js';
 import { Delimiter, Icon, LinkButton, PrimaryButton, Tooltip } from 'components';
-import PATHS from 'constants/path';
-import { XVS_TOKEN_ID } from 'constants/xvs';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import React, { useContext, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToTokens } from 'utilities';
-import TEST_IDS from '../testIds';
+
+import {
+  useGetCurrentVotes,
+  useGetVestingVaults,
+  useGetVoteDelegateAddress,
+  useSetVoteDelegate,
+} from 'clients/api';
+import PATHS from 'constants/path';
+import { XVS_TOKEN_ID } from 'constants/xvs';
+import { AuthContext } from 'context/AuthContext';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+
 import DelegateModal from '../DelegateModal';
+import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 interface IVotingWalletUiProps {

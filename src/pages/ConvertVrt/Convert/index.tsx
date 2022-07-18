@@ -1,32 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React, { useCallback, useMemo } from 'react';
-import type { TransactionReceipt } from 'web3-core/types';
-import BigNumber from 'bignumber.js';
-import noop from 'noop-ts';
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import {
-  FormikTokenTextField,
-  FormikSubmitButton,
   ConnectWallet,
   EnableToken,
+  FormikSubmitButton,
+  FormikTokenTextField,
   Icon,
   TokenTextField,
   toast,
 } from 'components';
-import TEST_IDS from 'constants/testIds';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import noop from 'noop-ts';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
-import { AmountForm, ErrorCode } from 'containers/AmountForm';
-import { XVS_TOKEN_ID } from 'constants/xvs';
-import { VError } from 'errors/VError';
 import {
   convertTokensToWei,
   convertWeiToTokens,
   formatTokensToReadableValue,
   getContractAddress,
 } from 'utilities';
-import { VRT_ID, VRT_DECIMAL } from '../constants';
+import type { TransactionReceipt } from 'web3-core/types';
+
+import TEST_IDS from 'constants/testIds';
+import { XVS_TOKEN_ID } from 'constants/xvs';
+import { AmountForm, ErrorCode } from 'containers/AmountForm';
+import { VError } from 'errors/VError';
+import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+
+import { VRT_DECIMAL, VRT_ID } from '../constants';
 import { useStyles } from '../styles';
 
 export interface IConvertProps {

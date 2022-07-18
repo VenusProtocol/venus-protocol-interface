@@ -1,7 +1,8 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
 import getMarketHistory, {
-  IGetMarketHistoryInput,
   GetMarketHistoryOutput,
+  IGetMarketHistoryInput,
 } from 'clients/api/queries/getMarketHistory';
 import FunctionKey from 'constants/functionKey';
 

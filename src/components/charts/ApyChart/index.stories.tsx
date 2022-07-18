@@ -1,10 +1,10 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
-
 import { ComponentMeta } from '@storybook/react';
+import BigNumber from 'bignumber.js';
+import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
-import { ApyChart, SupplyApyChart, BorrowApyChart, IApyChartItem } from '.';
+
+import { ApyChart, BorrowApyChart, IApyChartItem, SupplyApyChart } from '.';
 
 const data: IApyChartItem[] = [
   {

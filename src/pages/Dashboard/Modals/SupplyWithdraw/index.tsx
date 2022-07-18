@@ -1,37 +1,39 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from 'react';
 import BigNumber from 'bignumber.js';
 import {
   ConnectWallet,
   EnableToken,
-  Tabs,
-  Modal,
-  IModalProps,
-  Token,
   ILabeledInlineContentProps,
+  IModalProps,
   IconName,
+  Modal,
   TabContent,
+  Tabs,
+  Token,
 } from 'components';
-import {
-  useRedeem,
-  useRedeemUnderlying,
-  useGetVTokenBalanceOf,
-  useGetUserMarketInfo,
-} from 'clients/api';
-import {
-  isAssetEnabled,
-  formatToReadablePercentage,
-  convertTokensToWei,
-  getVBepToken,
-} from 'utilities';
-import { IAmountFormProps } from 'containers/AmountForm';
-import { AuthContext } from 'context/AuthContext';
-import useSupply from 'clients/api/mutations/useSupply';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, TokenId, VTokenId } from 'types';
-import SupplyWithdrawForm from './SupplyWithdrawForm';
+import {
+  convertTokensToWei,
+  formatToReadablePercentage,
+  getVBepToken,
+  isAssetEnabled,
+} from 'utilities';
+
+import {
+  useGetUserMarketInfo,
+  useGetVTokenBalanceOf,
+  useRedeem,
+  useRedeemUnderlying,
+} from 'clients/api';
+import useSupply from 'clients/api/mutations/useSupply';
+import { IAmountFormProps } from 'containers/AmountForm';
+import { AuthContext } from 'context/AuthContext';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+
 import { useStyles } from '../styles';
+import SupplyWithdrawForm from './SupplyWithdrawForm';
 
 export interface ISupplyWithdrawUiProps {
   className?: string;
@@ -234,24 +236,30 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
   } = useGetUserMarketInfo({
     accountAddress,
   });
+
   const { data: vTokenBalanceWei } = useGetVTokenBalanceOf(
-    { account: accountAddress, vTokenId: asset.id as VTokenId },
+    { accountAddress, vTokenId: asset.id as VTokenId },
     { enabled: !!accountAddress },
   );
+
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
     asset,
     account: accountAddress,
   });
+
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
-    assetId: asset?.id as VTokenId,
-    account: accountAddress,
+    vTokenId: asset?.id as VTokenId,
+    accountAddress,
   });
+
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
     useRedeemUnderlying({
-      assetId: asset?.id as VTokenId,
-      account: accountAddress,
+      vTokenId: asset?.id as VTokenId,
+      accountAddress,
     });
+
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
+
   const onSubmitSupply: IAmountFormProps['onSubmit'] = async value => {
     const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
     const res = await supply({
@@ -274,8 +282,10 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     const amount = new BigNumber(value);
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;
+
     if (amountEqualsSupplyBalance && vTokenBalanceWei) {
       const res = await redeem({ amountWei: new BigNumber(vTokenBalanceWei) });
+
       ({ transactionHash } = res);
       // Display successful transaction modal
     } else {
@@ -285,7 +295,9 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
       });
       ({ transactionHash } = res);
     }
+
     onClose();
+
     if (transactionHash) {
       openSuccessfulTransactionModal({
         title: t('supplyWithdraw.successfulWithdrawTransactionModal.title'),

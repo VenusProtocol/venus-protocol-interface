@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { Comptroller } from 'types/contracts';
 
 export interface IGetMintedVaiInput {

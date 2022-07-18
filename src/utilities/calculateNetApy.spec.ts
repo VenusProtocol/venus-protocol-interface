@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import calculateNetApy from './calculateNetApy';
 
 describe('utilities/calculateNetApy', () => {

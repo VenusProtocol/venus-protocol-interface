@@ -1,10 +1,12 @@
-import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import renderComponent from 'testUtils/renderComponent';
-import { useGetTransactions } from 'clients/api';
-import transactions from '__mocks__/models/transactions';
+import React from 'react';
+
 import fakeAddress from '__mocks__/models/address';
+import transactions from '__mocks__/models/transactions';
+import { useGetTransactions } from 'clients/api';
 import TEST_IDS from 'constants/testIds';
+import renderComponent from 'testUtils/renderComponent';
+
 import History from '.';
 
 jest.mock('clients/api');

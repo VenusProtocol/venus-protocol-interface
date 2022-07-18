@@ -1,10 +1,10 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getVrtConversionEndTime, {
   GetVrtConversionEndTimeOutput,
 } from 'clients/api/queries/getVrtConversionEndTime';
-import FunctionKey from 'constants/functionKey';
 import { useVrtConverterProxyContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
   GetVrtConversionEndTimeOutput,

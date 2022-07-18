@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
 import BigNumber from 'bignumber.js';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { IVoterHistory, VoteDetailTransaction } from 'types';
+
 import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
-import { VoteDetailTransaction, IVoterHistory } from 'types';
+
+import History from './History';
 import Holding from './Holding';
 import Transactions from './Transactions';
-import History from './History';
 import { useStyles } from './styles';
 
 interface VoterDetailsUiProps {

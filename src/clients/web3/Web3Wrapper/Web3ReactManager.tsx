@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useWeb3Account } from 'clients/web3';
 
 import useEagerConnect from '../useEagerConnect';

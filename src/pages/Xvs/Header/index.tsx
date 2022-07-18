@@ -1,25 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext, useMemo } from 'react';
-import BigNumber from 'bignumber.js';
 import { Paper, Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
+import { EllipseAddress, Icon, LabeledProgressBar } from 'components';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'translation';
 import {
-  useGetVenusVaiVaultDailyRateWei,
-  useGetBalanceOf,
-  useGetUserMarketInfo,
-} from 'clients/api';
-import { Icon, LabeledProgressBar, EllipseAddress } from 'components';
-import { AuthContext } from 'context/AuthContext';
-import useCopyToClipboard from 'hooks/useCopyToClipboard';
-import {
-  getToken,
-  generateBscScanUrl,
-  getContractAddress,
   convertWeiToTokens,
   formatTokensToReadableValue,
+  generateBscScanUrl,
+  getContractAddress,
+  getToken,
 } from 'utilities';
-import { useTranslation } from 'translation';
-import { useStyles } from '../styles';
+
+import {
+  useGetBalanceOf,
+  useGetUserMarketInfo,
+  useGetVenusVaiVaultDailyRateWei,
+} from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
+import useCopyToClipboard from 'hooks/useCopyToClipboard';
+
 import { MINTED_XVS_WEI } from '../constants';
+import { useStyles } from '../styles';
 
 interface IHeaderProps {
   className?: string;

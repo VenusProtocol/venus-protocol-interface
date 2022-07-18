@@ -1,8 +1,8 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
+import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { queryClient, exitMarket, IExitMarketInput, ExitMarketOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+import { ExitMarketOutput, IExitMarketInput, exitMarket, queryClient } from 'clients/api';
 import { useComptrollerContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
 
 const useExitMarket = (
   // @TODO: use custom error type (see https://app.clickup.com/t/2rvwhnt)
@@ -26,6 +26,7 @@ const useExitMarket = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

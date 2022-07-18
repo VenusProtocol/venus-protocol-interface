@@ -1,8 +1,9 @@
+import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 import { State } from 'react-powerplug';
-import { ComponentMeta } from '@storybook/react';
 
 import { withCenterStory } from 'stories/decorators';
+
 import { TokenTextField } from '.';
 
 export default {

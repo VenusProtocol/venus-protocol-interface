@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { ConnectWallet, EnableToken, IModalProps, Modal, Spinner } from 'components';
 import React from 'react';
 
-import { Modal, IModalProps, Spinner, EnableToken, ConnectWallet } from 'components';
 import TransactionForm, { ITransactionFormProps } from '../../TransactionForm';
 
 export interface IActionModalProps extends Pick<IModalProps, 'handleClose'>, ITransactionFormProps {

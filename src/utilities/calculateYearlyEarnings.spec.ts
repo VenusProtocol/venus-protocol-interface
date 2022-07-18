@@ -1,9 +1,11 @@
-import { Asset } from 'types';
-import { assetData as assets } from '__mocks__/models/asset';
 import BigNumber from 'bignumber.js';
+import { Asset } from 'types';
+
+import { assetData as assets } from '__mocks__/models/asset';
+
 import {
-  calculateYearlyEarningsForAssets,
   calculateYearlyEarningsForAsset,
+  calculateYearlyEarningsForAssets,
 } from './calculateYearlyEarnings';
 
 describe('utilities/calculateYearlyEarnings', () => {

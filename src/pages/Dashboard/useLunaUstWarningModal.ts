@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { Asset } from 'types';
 
 const SESSION_STORAGE_KEY = 'has-seen-modal-this-session';

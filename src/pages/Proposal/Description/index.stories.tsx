@@ -1,6 +1,8 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+
 import { withCenterStory, withRouter } from 'stories/decorators';
+
 import { Description } from '.';
 
 export default {

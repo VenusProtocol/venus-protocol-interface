@@ -6,4 +6,5 @@ export enum Connector {
   BinanceChainWallet = 'BinanceChainWallet',
   BraveWallet = 'BraveWallet',
   InfinityWallet = 'InfinityWallet',
+  OperaWallet = 'OperaWallet',
 }

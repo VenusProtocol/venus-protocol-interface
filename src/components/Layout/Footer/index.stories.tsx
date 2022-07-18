@@ -1,10 +1,11 @@
-import React from 'react';
 import { ComponentMeta } from '@storybook/react';
-import { Footer } from '.';
+import React from 'react';
+
+import { FooterUi } from '.';
 
 export default {
   title: 'Components/Layout/Footer',
-  component: Footer,
-} as ComponentMeta<typeof Footer>;
+  component: FooterUi,
+} as ComponentMeta<typeof FooterUi>;
 
-export const FooterDefault = () => <Footer currentBlockNumber={14378407} />;
+export const FooterDefault = () => <FooterUi currentBlockNumber={14378407} />;

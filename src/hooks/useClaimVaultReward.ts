@@ -1,10 +1,11 @@
+import { VError } from 'errors';
 import { TokenId } from 'types';
 import { getToken } from 'utilities';
-import { VError } from 'errors';
+
 import {
-  useClaimXvsVaultReward,
   useClaimVaiVaultReward,
   useClaimVrtVaultReward,
+  useClaimXvsVaultReward,
 } from 'clients/api';
 
 interface IStakeInput {

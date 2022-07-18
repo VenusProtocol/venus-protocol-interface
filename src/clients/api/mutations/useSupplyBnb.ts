@@ -1,10 +1,11 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
-import { VBnbToken } from 'types/contracts';
-import queryClient from 'clients/api/queryClient';
+import { MutationObserverOptions, useMutation } from 'react-query';
+
 import supplyBnb, { ISupplyBnbInput, SupplyBnbOutput } from 'clients/api/mutations/supplyBnb';
-import { useWeb3 } from 'clients/web3';
+import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
+import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
+import { VBnbToken } from 'types/contracts';
 
 export type SupplyBnbParams = Omit<ISupplyBnbInput, 'tokenContract' | 'account' | 'web3'>;
 
@@ -28,6 +29,17 @@ const useSupplyBnb = (
       ...options,
       onSuccess: (...onSuccessParams) => {
         queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+        queryClient.invalidateQueries([
+          FunctionKey.GET_V_TOKEN_BALANCE,
+          {
+            accountAddress: account,
+            vTokenId: 'bnb',
+          },
+        ]);
+        queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
+        queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI);
+
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
         }

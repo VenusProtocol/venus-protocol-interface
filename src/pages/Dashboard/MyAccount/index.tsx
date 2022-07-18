@@ -1,14 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
-import React from 'react';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
+import React from 'react';
+import { Asset } from 'types';
 import {
-  calculateNetApy,
   calculateDailyEarningsCents,
+  calculateNetApy,
   calculateYearlyEarningsForAssets,
 } from 'utilities';
-import { Asset } from 'types';
+
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
+
 import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
 
 interface IMyAccountProps {
@@ -44,7 +46,6 @@ const MyAccount: React.FC<IMyAccountProps> = ({
         isXvsEnabled,
         dailyXvsDistributionInterestsCents,
       });
-
     const netApyPercentage =
       userTotalSupplyBalanceCents &&
       yearlyEarningsCents &&

@@ -1,11 +1,13 @@
-import React from 'react';
-import noop from 'noop-ts';
-import fakeAddress from '__mocks__/models/address';
-import { getVBepToken } from 'utilities';
-import { VTokenId } from 'types';
 import { ComponentMeta, Story } from '@storybook/react';
-import { withCenterStory, withAuthContext, withEnabledToken } from 'stories/decorators';
+import noop from 'noop-ts';
+import React from 'react';
+import { VTokenId } from 'types';
+import { getVBepToken } from 'utilities';
+
+import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
+
 import BorrowRepay, { IBorrowRepayProps } from '.';
 
 export default {

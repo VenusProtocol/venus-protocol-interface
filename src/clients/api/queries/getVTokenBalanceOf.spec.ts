@@ -1,3 +1,5 @@
+import { VBep20 } from 'types/contracts';
+
 import getVTokenBalance from './getVTokenBalanceOf';
 
 describe('api/queries/getVTokenBalance', () => {
@@ -10,12 +12,12 @@ describe('api/queries/getVTokenBalance', () => {
           },
         }),
       },
-    } as any;
+    } as unknown as VBep20;
 
     try {
       await getVTokenBalance({
-        tokenContract: fakeContract,
-        account: '0x23da',
+        vTokenContract: fakeContract,
+        accountAddress: '0x23da',
       });
 
       throw new Error('getVTokenBalance should have thrown an error but did not');

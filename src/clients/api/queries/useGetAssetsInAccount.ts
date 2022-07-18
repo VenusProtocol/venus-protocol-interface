@@ -1,4 +1,4 @@
-import { useQuery, QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getAssetsInAccount, {
   GetAssetsInAccountOutput,
@@ -12,7 +12,7 @@ type Options = QueryObserverOptions<
   Error,
   GetAssetsInAccountOutput,
   GetAssetsInAccountOutput,
-  [FunctionKey.GET_ASSETS_IN_ACCOUNT, string]
+  [FunctionKey.GET_ASSETS_IN_ACCOUNT, Omit<IGetAssetsInAccountInput, 'comptrollerContract'>]
 >;
 
 const useGetAssetsInAccount = (
@@ -20,8 +20,9 @@ const useGetAssetsInAccount = (
   options?: Options,
 ) => {
   const comptrollerContract = useComptrollerContract();
+
   return useQuery(
-    [FunctionKey.GET_ASSETS_IN_ACCOUNT, account],
+    [FunctionKey.GET_ASSETS_IN_ACCOUNT, { account }],
     () => getAssetsInAccount({ comptrollerContract, account }),
     options,
   );

@@ -1,14 +1,14 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
-  queryClient,
-  claimXvsVaultReward,
-  IClaimXvsVaultRewardInput,
   ClaimXvsVaultRewardOutput,
+  IClaimXvsVaultRewardInput,
+  claimXvsVaultReward,
+  queryClient,
 } from 'clients/api';
+import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
-import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 
 type Options = MutationObserverOptions<
   ClaimXvsVaultRewardOutput,

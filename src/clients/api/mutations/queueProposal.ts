@@ -1,4 +1,5 @@
 import type { TransactionReceipt } from 'web3-core';
+
 import { GovernorBravoDelegate } from 'types/contracts';
 
 export interface IQueueProposalInput {

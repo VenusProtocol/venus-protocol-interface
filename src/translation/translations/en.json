@@ -369,7 +369,7 @@
     },
     "supply": "Supply",
     "supplyApy": "Supply APY",
-    "supplyBalance": "Supply Balance",
+    "supplyBalance": "Supply Balance ({{ tokenSymbol }})",
     "walletBalance": "Wallet balance: <White>{{amount}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
@@ -586,9 +586,9 @@
     "delegate": "Delegate",
     "delegateAddress": "Delegate address",
     "delegateLeaderboard": "Delegate leaderboard",
+    "delegateVotes": "Delegate votes",
     "delegateVoting": "Delegate voting",
     "delegateYourVoting": "2. <Anchor>Delegate your voting power</Anchor> to yourself or somebody else",
-    "delegateVotes": "Delegate votes",
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
@@ -657,6 +657,7 @@
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
+    "readyToExecuteAt": "Ready to execute at",
     "statusCard": {
       "active": "Active",
       "ariaLabelAbstain": "votes abstain",
@@ -732,6 +733,7 @@
     "infinityWallet": "Infinity Wallet",
     "ledger": "Ledger",
     "metamask": "MetaMask",
+    "opera": "Opera Wallet",
     "trustWallet": "Trust Wallet",
     "walletConnect": "WalletConnect"
   },

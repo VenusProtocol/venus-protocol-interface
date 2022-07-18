@@ -1,8 +1,8 @@
+import { checkForComptrollerTransactionError } from 'errors';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { VBEP_TOKENS } from 'constants/tokens';
 import { Comptroller } from 'types/contracts';
-import { checkForComptrollerTransactionError } from 'errors';
 
 export interface IClaimXvsRewardInput {
   comptrollerContract: Comptroller;

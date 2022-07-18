@@ -1,18 +1,27 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
-
+import React from 'react';
 import { TokenId } from 'types';
-import { TOKENS } from 'constants/tokens';
-import en from 'translation/translations/en.json';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { mintVai, getVaiTreasuryPercentage, useGetUserMarketInfo, getAllowance } from 'clients/api';
-import MAX_UINT256 from 'constants/maxUint256';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import { formatTokensToReadableValue } from 'utilities';
-import renderComponent from 'testUtils/renderComponent';
-import { assetData } from '__mocks__/models/asset';
+
+import vaiUnitrollerResponses from '__mocks__/contracts/vaiUnitroller';
 import fakeAccountAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import {
+  getAllowance,
+  getMintableVai,
+  getVaiTreasuryPercentage,
+  mintVai,
+  useGetUserMarketInfo,
+} from 'clients/api';
+import formatToGetMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
+import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import renderComponent from 'testUtils/renderComponent';
+import en from 'translation/translations/en.json';
+
 import RepayVai from '.';
 
 jest.mock('clients/api');
@@ -20,9 +29,14 @@ jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 const fakeVai = { ...assetData, id: TOKENS.vai.id as TokenId, symbol: TOKENS.vai.symbol };
-const fakeMintableVai = new BigNumber('1000');
-const formattedFakeUserVaiMinted = formatTokensToReadableValue({
-  value: fakeMintableVai,
+
+const fakeGetMintableVaiOutput = formatToGetMintableVaiOutput(
+  vaiUnitrollerResponses.getMintableVAI,
+);
+
+const fakeMintableVaiTokens = fakeGetMintableVaiOutput.mintableVaiWei.dividedBy(1e18);
+const formattedFakeMintableVai = formatTokensToReadableValue({
+  value: fakeMintableVaiTokens,
   tokenId: TOKENS.vai.id as TokenId,
 });
 const fakeVaiTreasuryPercentage = 7.19;
@@ -31,6 +45,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getMintableVai as jest.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [...assetData, fakeVai],
@@ -62,16 +77,10 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
           address: fakeAccountAddress,
         },
       },
-      vaiContextValue: {
-        userVaiEnabled: true,
-        userVaiMinted: new BigNumber(0),
-        mintableVai: fakeMintableVai,
-        userVaiBalance: new BigNumber(0),
-      },
     });
 
     // Check available VAI limit displays correctly
-    await waitFor(() => getByText(formattedFakeUserVaiMinted));
+    await waitFor(() => getByText(formattedFakeMintableVai));
     // Check mint fee displays correctly
     await waitFor(() => getByText(`0 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
   });
@@ -86,12 +95,6 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
           address: fakeAccountAddress,
         },
       },
-      vaiContextValue: {
-        userVaiEnabled: true,
-        mintableVai: fakeMintableVai,
-        userVaiMinted: new BigNumber(0),
-        userVaiBalance: new BigNumber(0),
-      },
     });
     await waitFor(() => getByText(en.mintRepayVai.mintVai.btnMintVai));
 
@@ -103,7 +106,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
 
     // Check input value updated to max amount of mintable VAI
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeMintableVai.toFixed()));
+    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeMintableVaiTokens.toFixed()));
 
     // Submit repayment request
     const submitButton = getByText(en.mintRepayVai.mintVai.btnMintVai).closest(
@@ -114,7 +117,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
 
     // Check mintVai was called correctly
     await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
-    const fakeWeiMinted = fakeMintableVai.multipliedBy(new BigNumber(10).pow(18));
+    const fakeWeiMinted = fakeMintableVaiTokens.multipliedBy(1e18);
     expect(mintVai).toHaveBeenCalledWith({
       fromAccountAddress: fakeAccountAddress,
       amountWei: fakeWeiMinted,

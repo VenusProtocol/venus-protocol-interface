@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { formatToProposal } from 'utilities';
+
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+
 import { IGetVoterHistoryResponse } from './types';
 
 const formatVoterHistoryResponse = (data: IGetVoterHistoryResponse) => ({

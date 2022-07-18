@@ -1,5 +1,6 @@
 import { BASE_BSC_SCAN_URL } from 'config';
 import { TokenId } from 'types';
+
 import getToken from './getToken';
 
 export type UrlType = 'address' | 'token' | 'tx';

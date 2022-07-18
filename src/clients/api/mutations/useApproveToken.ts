@@ -1,9 +1,10 @@
-import { useMutation, MutationObserverOptions } from 'react-query';
-
+import { MutationObserverOptions, useMutation } from 'react-query';
 import { TokenId } from 'types';
-import { queryClient, approveToken, IApproveTokenInput, ApproveTokenOutput } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
+
+import { ApproveTokenOutput, IApproveTokenInput, approveToken, queryClient } from 'clients/api';
 import { useTokenContract } from 'clients/contracts/hooks';
+import FunctionKey from 'constants/functionKey';
+
 import setCachedTokenAllowanceToMax from '../queries/getAllowance/setCachedTokenAllowanceToMax';
 
 const useApproveToken = (

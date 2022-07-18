@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import Typography from '@mui/material/Typography';
-
+import React from 'react';
 import { useTranslation } from 'translation';
-import { generateBscScanUrl, UrlType } from 'utilities';
-import { EllipseAddress, Breakpoint } from '../EllipseAddress';
+import { UrlType, generateBscScanUrl } from 'utilities';
+
+import { Breakpoint, EllipseAddress } from '../EllipseAddress';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 

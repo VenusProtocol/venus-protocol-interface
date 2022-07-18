@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-
 import { LabeledInlineContent } from 'components';
+import React from 'react';
 import { useTranslation } from 'translation';
-import { IStat } from '../types';
+
 import Card from '../Card';
+import { IStat } from '../types';
 import { useStyles } from './styles';
 
 export interface IMarketInfoProps {

@@ -1,17 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { AuthContext } from 'context/AuthContext';
-import { useGetUserMarketInfo } from 'clients/api';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import React, { useMemo } from 'react';
 import { Asset } from 'types';
 
-import MyAccount from './MyAccount';
+import { useGetUserMarketInfo } from 'clients/api';
+import { XVS_TOKEN_ID } from 'constants/xvs';
+import { AuthContext } from 'context/AuthContext';
+
+import Markets from './Markets';
 import MintRepayVai from './MintRepayVai';
 import { LunaUstWarningModal } from './Modals';
-import Markets from './Markets';
-import useLunaUstWarningModal from './useLunaUstWarningModal';
+import MyAccount from './MyAccount';
 import { useStyles } from './styles';
+import useLunaUstWarningModal from './useLunaUstWarningModal';
 
 interface IDashboardUiProps {
   accountAddress: string;

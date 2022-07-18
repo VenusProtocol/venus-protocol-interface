@@ -1,4 +1,5 @@
 import { restService } from 'utilities';
+
 import getMarkets from './getMarkets';
 
 jest.mock('utilities/restService');

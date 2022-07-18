@@ -324,3 +324,15 @@ export { default as useGetProposalState } from './queries/useGetProposalState';
 export { default as getLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer';
 export * from './queries/getLatestProposalIdByProposer';
 export { default as useGetLatestProposalIdByProposer } from './queries/useGetLatestProposalIdByProposer';
+
+export { default as getMintableVai } from './queries/getMintableVai';
+export * from './queries/getMintableVai';
+export { default as useGetMintableVai } from './queries/getMintableVai/useGetMintableVai';
+
+export { default as getBlockNumber } from './queries/getBlockNumber';
+export * from './queries/getBlockNumber';
+export { default as useGetBlockNumber } from './queries/getBlockNumber/useGetBlockNumber';
+
+export { default as getProposalEta } from './queries/getProposalEta';
+export * from './queries/getProposalEta';
+export { default as useGetProposalEta } from './queries/getProposalEta/useGetProposalEta';

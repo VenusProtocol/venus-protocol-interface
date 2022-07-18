@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import MAX_UINT256 from 'constants/maxUint256';
-import { VTokenContract } from 'clients/contracts/types';
 import fakeAddress from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
+import { VTokenContract } from 'clients/contracts/types';
+import MAX_UINT256 from 'constants/maxUint256';
+
 import repayNonBnbVToken from './repayNonBnbVToken';
 
 describe('api/mutation/repayNonBnbVToken', () => {

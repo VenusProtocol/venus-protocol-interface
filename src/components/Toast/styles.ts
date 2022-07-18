@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
+
 import { FONTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {

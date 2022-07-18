@@ -1,26 +1,27 @@
-import React from 'react';
-import { act, waitFor, fireEvent } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-
-import TEST_IDS from 'constants/testIds';
-import MAX_UINT256 from 'constants/maxUint256';
+import React from 'react';
 import { TokenId } from 'types';
-import en from 'translation/translations/en.json';
-import { TOKENS } from 'constants/tokens';
-import fakeAddress from '__mocks__/models/address';
+
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
+import fakeAddress from '__mocks__/models/address';
 import {
   getAllowance,
   getXvsVaultLockedDeposits,
-  getXvsVaultUserInfo,
   getXvsVaultPoolInfo,
+  getXvsVaultUserInfo,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
+import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
+import MAX_UINT256 from 'constants/maxUint256';
+import TEST_IDS from 'constants/testIds';
+import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
+import en from 'translation/translations/en.json';
+
 import RequestWithdrawal from '.';
 
 jest.mock('clients/api');

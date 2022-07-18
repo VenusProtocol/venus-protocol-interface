@@ -1,5 +1,5 @@
-import * as yup from 'yup';
 import web3 from 'web3';
+import * as yup from 'yup';
 
 export type FormValues = yup.InferType<typeof addressValidationSchema>;
 

@@ -1,17 +1,18 @@
-import React from 'react';
-import noop from 'noop-ts';
-import { waitFor, fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import noop from 'noop-ts';
+import React from 'react';
 
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
-import TEST_IDS from 'constants/testIds';
-import MAX_UINT256 from 'constants/maxUint256';
 import fakeAccountAddress from '__mocks__/models/address';
-import { getVaiVaultUserInfo, getAllowance, withdrawFromVaiVault } from 'clients/api';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { getAllowance, getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
+import MAX_UINT256 from 'constants/maxUint256';
+import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
+
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
 
 jest.mock('clients/api');

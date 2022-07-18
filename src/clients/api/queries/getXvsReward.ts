@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { getContractAddress } from 'utilities';
+
 import { VenusLens } from 'types/contracts';
 
 export interface IGetXvsRewardInput {

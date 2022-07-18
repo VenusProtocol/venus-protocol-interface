@@ -1,18 +1,19 @@
-import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { waitFor, fireEvent } from '@testing-library/react';
-
+import React from 'react';
 import { TokenId } from 'types';
-import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import { TOKENS } from 'constants/tokens';
-import TEST_IDS from 'constants/testIds';
-import renderComponent from 'testUtils/renderComponent';
-import { vaults as fakeVaults } from '__mocks__/models/vaults';
-import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+
 import fakeAddress from '__mocks__/models/address';
-import en from 'translation/translations/en.json';
-import useClaimVaultReward from 'hooks/useClaimVaultReward';
+import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import { withdrawFromVrtVault } from 'clients/api';
+import TEST_IDS from 'constants/testIds';
+import { TOKENS } from 'constants/tokens';
+import useClaimVaultReward from 'hooks/useClaimVaultReward';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
+import renderComponent from 'testUtils/renderComponent';
+import en from 'translation/translations/en.json';
+
 import VaultItem, { VaultItemProps } from '.';
 
 jest.mock('clients/api');
@@ -49,6 +50,21 @@ describe('pages/Vault/VaultItem', () => {
     dataListItemElements.map(dataListItemElement =>
       expect(dataListItemElement.textContent).toMatchSnapshot(),
     );
+  });
+
+  it('hides withdraw button when displaying non-vesting VRT vault and userStakedWei is equal to 0', async () => {
+    const customBaseProps: VaultItemProps = {
+      ...baseProps,
+      stakedTokenId: TOKENS.vrt.id as TokenId,
+      userStakedWei: new BigNumber(0),
+    };
+
+    const { queryByText } = renderComponent(<VaultItem {...customBaseProps} />, {
+      authContextValue: { account: { address: fakeAddress } },
+    });
+
+    // Click on withdraw button
+    expect(queryByText(en.vaultItem.withdrawButton)).toBeNull();
   });
 
   it('sends the correct request then displays a successful transaction modal on success when clicking on the claim reward button', async () => {

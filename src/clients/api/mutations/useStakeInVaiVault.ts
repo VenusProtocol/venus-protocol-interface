@@ -1,15 +1,15 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
+import { getContractAddress } from 'utilities';
 
 import {
-  queryClient,
-  stakeInVaiVault,
   IStakeInVaiVaultInput,
   StakeInVaiVaultOutput,
+  queryClient,
+  stakeInVaiVault,
 } from 'clients/api';
+import { useVaiVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
-import { useVaiVaultContract } from 'clients/contracts/hooks';
-import { getContractAddress } from 'utilities';
 
 const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 
