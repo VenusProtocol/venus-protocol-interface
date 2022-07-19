@@ -2,6 +2,11 @@ import BigNumber from 'bignumber.js';
 
 import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
+export enum BscChainId {
+  'MAINNET' = 56,
+  'TESTNET' = 97,
+}
+
 export interface User {
   Token: string;
 }

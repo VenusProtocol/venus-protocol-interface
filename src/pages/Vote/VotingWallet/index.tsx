@@ -20,8 +20,8 @@ import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import DelegateModal from '../DelegateModal';
-import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 interface IVotingWalletUiProps {
   votingWeightWei: BigNumber;
@@ -85,11 +85,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
           <Typography variant="body2" css={styles.subtitle}>
             {t('vote.votingWeight')}
           </Typography>
-          <Typography
-            variant="h3"
-            css={styles.value}
-            data-testid={TEST_IDS.votingWallet.votingWeightValue}
-          >
+          <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.votingWeightValue}>
             {readableVoteWeight}
           </Typography>
         </div>
@@ -110,11 +106,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
           </div>
           <div css={styles.totalLockedValue}>
             <Icon name="xvs" css={styles.tokenIcon} />
-            <Typography
-              variant="h3"
-              css={styles.value}
-              data-testid={TEST_IDS.votingWallet.totalLockedValue}
-            >
+            <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.totalLockedValue}>
               {readableXvsLocked}
             </Typography>
           </div>
@@ -147,7 +139,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
                 <Link
                   to={PATHS.VAULT}
                   css={styles.clickableText}
-                  data-testid={TEST_IDS.votingWallet.depositYourTokens}
+                  data-testid={TEST_IDS.depositYourTokens}
                 />
               ),
             }}
@@ -164,7 +156,7 @@ export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
                   aria-pressed="false"
                   tabIndex={0}
                   onClick={() => setDelegateModelIsOpen(true)}
-                  data-testid={TEST_IDS.votingWallet.delegateYourVoting}
+                  data-testid={TEST_IDS.delegateYourVoting}
                 />
               ),
             }}

@@ -7,11 +7,11 @@ import { LockedDeposit, TokenId } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 export interface WithdrawalRequestListUiProps {
   isInitialLoading: boolean;
@@ -43,9 +43,7 @@ const WithdrawalRequestListUi: React.FC<WithdrawalRequestListUiProps> = ({
                 <LabeledInlineContent
                   css={styles.listItem}
                   iconName={TOKENS.xvs.id as TokenId}
-                  data-testid={
-                    TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.withdrawalRequestListItem
-                  }
+                  data-testid={TEST_IDS.withdrawalRequestListItem}
                   key={`withdrawal-request-list-item-${userLockedDeposit.unlockedAt.getTime()}`}
                   invertTextColors
                   label={convertWeiToTokens({

@@ -1,4 +1,4 @@
-import { CHAIN_ID } from 'config';
+import config from 'config';
 import web3 from 'web3';
 
 import contractAddresses from 'constants/contracts/addresses/main.json';
@@ -10,7 +10,7 @@ const checkAndFormatContractName = (
   addressJson: typeof contractAddresses | typeof tokenAddresses | typeof vBepTokensAddresses,
 ) => {
   const found = Object.entries(addressJson).find(
-    entry => entry[1][CHAIN_ID].toLowerCase() === target.toLowerCase(),
+    entry => entry[1][config.chainId].toLowerCase() === target.toLowerCase(),
   );
 
   if (found) {

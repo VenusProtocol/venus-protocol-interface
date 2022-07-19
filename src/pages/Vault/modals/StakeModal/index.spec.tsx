@@ -6,12 +6,12 @@ import React from 'react';
 import fakeAccountAddress from '__mocks__/models/address';
 import { getAllowance, getBalanceOf } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import TEST_IDS from 'constants/testIds';
 import useStakeInVault from 'hooks/useStakeInVault';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import StakeModal, { IStakeModalProps } from '.';
+import TEST_IDS from '../../TransactionForm/testIds';
 
 jest.mock('clients/api');
 jest.mock('hooks/useStakeInVault');
@@ -46,9 +46,7 @@ describe('pages/Vault/modals/StakeModal', () => {
     });
 
     await waitFor(() =>
-      expect(
-        getByTestId(TEST_IDS.vault.transactionForm.availableTokens).textContent,
-      ).toMatchSnapshot(),
+      expect(getByTestId(TEST_IDS.availableTokens).textContent).toMatchSnapshot(),
     );
   });
 
@@ -72,12 +70,12 @@ describe('pages/Vault/modals/StakeModal', () => {
       },
     });
 
-    await waitFor(() => getByTestId(TEST_IDS.vault.transactionForm.tokenTextField));
+    await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
 
     const fakeValueTokens = '100';
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.vault.transactionForm.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: fakeValueTokens },
     });
 

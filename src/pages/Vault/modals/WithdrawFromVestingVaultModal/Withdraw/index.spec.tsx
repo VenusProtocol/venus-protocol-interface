@@ -7,12 +7,12 @@ import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { executeWithdrawalFromXvsVault, getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import TEST_IDS from 'constants/testIds';
 import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Withdraw from '.';
+import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 
@@ -46,14 +46,9 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
       },
     );
 
-    await waitFor(() =>
-      getByTestId(TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens),
-    );
+    await waitFor(() => getByTestId(TEST_IDS.availableTokens));
 
-    expect(
-      getByTestId(TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens)
-        .textContent,
-    ).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.availableTokens).textContent).toMatchSnapshot();
   });
 
   it('disables submit button when there is no tokens available', async () => {
@@ -66,9 +61,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
       },
     );
 
-    await waitFor(() =>
-      getByTestId(TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens),
-    );
+    await waitFor(() => getByTestId(TEST_IDS.availableTokens));
 
     const submitButton = getByText(
       en.withdrawFromVestingVaultModalModal.withdrawTab.submitButton,
@@ -90,9 +83,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
       },
     );
 
-    await waitFor(() =>
-      getByTestId(TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens),
-    );
+    await waitFor(() => getByTestId(TEST_IDS.availableTokens));
 
     const submitButton = getByText(
       en.withdrawFromVestingVaultModalModal.withdrawTab.submitButton,

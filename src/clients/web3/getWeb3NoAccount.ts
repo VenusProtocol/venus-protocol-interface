@@ -1,4 +1,4 @@
-import { RPC_URL } from 'config';
+import config from 'config';
 import Web3 from 'web3';
 
 // @todo: we will get the "No 'Access-Control-Allow-Origin' header is present on the requested resource"
@@ -6,7 +6,7 @@ import Web3 from 'web3';
 // don't support CORS request right now, and we didn't find any working testnet endpoints for
 // HTTPProvider or WebSocketProvider neither.
 const getWeb3NoAccount = () => {
-  const httpProvider = new Web3.providers.HttpProvider(RPC_URL, {
+  const httpProvider = new Web3.providers.HttpProvider(config.rpcUrl, {
     timeout: 10000,
   });
   const web3NoAccount = new Web3(httpProvider);

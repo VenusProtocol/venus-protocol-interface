@@ -7,7 +7,6 @@ import {
   FormikTokenTextField,
   NoticeWarning,
 } from 'components';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'config';
 import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
@@ -22,13 +21,14 @@ import {
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useBorrowVToken, useGetUserMarketInfo } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
+import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
+import TEST_IDS from './testIds';
 
 export interface IBorrowFormProps {
   asset: Asset;
@@ -102,7 +102,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
                 }),
                 valueOnClick: safeLimitTokens,
               }}
-              data-testid={TEST_IDS.borrowModal.tokenTextField}
+              data-testid={TEST_IDS.tokenTextField}
               // Only display error state if amount is higher than borrow limit
               hasError={errors.amount === ErrorCode.HIGHER_THAN_MAX}
               description={

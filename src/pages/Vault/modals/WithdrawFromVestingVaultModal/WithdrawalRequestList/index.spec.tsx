@@ -5,11 +5,11 @@ import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import WithdrawalRequestList from '.';
+import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 
@@ -50,15 +50,9 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
       },
     );
 
-    await waitFor(() =>
-      queryAllByTestId(
-        TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.withdrawalRequestListItem,
-      ),
-    );
+    await waitFor(() => queryAllByTestId(TEST_IDS.withdrawalRequestListItem));
 
-    const listItems = queryAllByTestId(
-      TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.withdrawalRequestListItem,
-    );
+    const listItems = queryAllByTestId(TEST_IDS.withdrawalRequestListItem);
     listItems.map(listItem => expect(listItem.textContent).toMatchSnapshot());
   });
 });

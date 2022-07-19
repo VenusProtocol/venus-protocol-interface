@@ -6,7 +6,7 @@ export const useStyles = () => {
   return {
     signature: css`
       color: ${theme.palette.text.primary};
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
 
       > a {
         color: ${theme.palette.interactive.success};

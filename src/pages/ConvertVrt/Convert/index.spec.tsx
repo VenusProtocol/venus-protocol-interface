@@ -8,12 +8,12 @@ import { assetData } from '__mocks__/models/asset';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import TEST_IDS from 'constants/testIds';
 import { AuthContext } from 'context/AuthContext';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Convert from '.';
+import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 
@@ -64,8 +64,8 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
-    const tokenTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField);
+    await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
+    const tokenTextInput = getByTestId(TEST_IDS.vrtTokenTextField);
     act(() => {
       fireEvent.change(tokenTextInput, { target: { value: ONE } });
     });
@@ -95,8 +95,8 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
-    const tokenTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField);
+    await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
+    const tokenTextInput = getByTestId(TEST_IDS.vrtTokenTextField);
     act(() => {
       fireEvent.change(tokenTextInput, { target: { value: ONE } });
     });
@@ -128,7 +128,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
     expect(submitButton).toBeDisabled();
   });
@@ -157,7 +157,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
     const submitButton = getByText(en.convertVrt.convertVrtToXvs).closest('button');
     expect(submitButton).toBeDisabled();
   });
@@ -188,12 +188,12 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
-    const vrtTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField);
+    await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
+    const vrtTextInput = getByTestId(TEST_IDS.vrtTokenTextField);
     act(() => {
       fireEvent.change(vrtTextInput, { target: { value: ONE } });
     });
-    const xvsTextInput = getByTestId(TEST_IDS.convertVrt.xvsTokenTextField) as HTMLInputElement;
+    const xvsTextInput = getByTestId(TEST_IDS.xvsTokenTextField) as HTMLInputElement;
     expect(xvsTextInput.value).toBe(new BigNumber(ONE).times(xvsToVrtConversionRatio).toFixed());
   });
 
@@ -224,7 +224,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
     await act(async () => {
       await waitFor(() => fireEvent.change(vrtTextInput, { target: { value: ONE } }));
     });
@@ -269,13 +269,13 @@ describe('pages/ConvertVRT/Convert', () => {
       </AuthContext.Provider>,
     );
 
-    await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
 
     const maxButton = getByText(en.convertVrt.max.toUpperCase());
     act(async () => {
       await waitFor(() => fireEvent.click(maxButton));
     });
-    const vrtTextInput = getByTestId(TEST_IDS.convertVrt.vrtTokenTextField) as HTMLInputElement;
+    const vrtTextInput = getByTestId(TEST_IDS.vrtTokenTextField) as HTMLInputElement;
     expect(vrtTextInput.value).toBe(
       userVrtBalanceWei.dividedBy(new BigNumber(10).pow(18).toFixed()).toFixed(),
     );
@@ -307,7 +307,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
     await act(async () => {
       await waitFor(() =>
         fireEvent.change(vrtTextInput, {
@@ -347,7 +347,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
     await act(async () => {
       await waitFor(() =>
         fireEvent.change(vrtTextInput, {
@@ -387,7 +387,7 @@ describe('pages/ConvertVRT/Convert', () => {
         />
       </AuthContext.Provider>,
     );
-    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.convertVrt.vrtTokenTextField));
+    const vrtTextInput = await waitFor(() => getByTestId(TEST_IDS.vrtTokenTextField));
     await act(async () => {
       await waitFor(() => fireEvent.change(vrtTextInput, { target: { value: '0' } }));
     });

@@ -8,12 +8,12 @@ import { TokenId } from 'types';
 import { getToken } from 'utilities';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 export interface WithdrawUiProps {
   stakedTokenId: TokenId;
@@ -58,7 +58,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
           <LabeledInlineContent
             css={styles.content}
             iconName={stakedTokenId}
-            data-testid={TEST_IDS.vault.vaultItem.withdrawFromVestingVaultModal.availableTokens}
+            data-testid={TEST_IDS.availableTokens}
             label={t('withdrawFromVestingVaultModalModal.withdrawTab.availableTokens', {
               tokenSymbol: stakedToken.symbol,
             })}

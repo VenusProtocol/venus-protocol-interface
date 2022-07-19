@@ -22,7 +22,8 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Vote from '.';
-import TEST_IDS from './testIds';
+import GOVERNANCE_PROPOSAL_TEST_IDS from './GovernanceProposal/testIds';
+import VOTING_WALLET_TEST_IDS from './VotingWallet/testIds';
 
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
@@ -82,7 +83,7 @@ describe('pages/Vote', () => {
 
   it('opens delegate modal when clicking text with connect wallet button when unauthenticated', async () => {
     const { getByText, getAllByText, getByTestId } = renderComponent(<Vote />);
-    const delgateVoteText = getByTestId(TEST_IDS.votingWallet.delegateYourVoting);
+    const delgateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
     act(() => {
       fireEvent.click(delgateVoteText);
@@ -100,7 +101,7 @@ describe('pages/Vote', () => {
         },
       },
     });
-    const delgateVoteText = getByTestId(TEST_IDS.votingWallet.delegateYourVoting);
+    const delgateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
     act(() => {
       fireEvent.click(delgateVoteText);
@@ -112,7 +113,7 @@ describe('pages/Vote', () => {
 
   it('can navigate to vault when clicking deposit tokens', async () => {
     const { getByTestId } = renderComponent(<Vote />);
-    const deposityYourTokensText = getByTestId(TEST_IDS.votingWallet.depositYourTokens);
+    const deposityYourTokensText = getByTestId(VOTING_WALLET_TEST_IDS.depositYourTokens);
 
     expect(deposityYourTokensText).toHaveAttribute('href', PATHS.VAULT);
   });
@@ -142,8 +143,8 @@ describe('pages/Vote', () => {
     });
     const depositXvsButton = getByText(en.vote.depositXvs);
 
-    expect(getByTestId(TEST_IDS.votingWallet.votingWeightValue)).toHaveTextContent('0');
-    expect(getByTestId(TEST_IDS.votingWallet.totalLockedValue)).toHaveTextContent('0');
+    expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('0');
+    expect(getByTestId(VOTING_WALLET_TEST_IDS.totalLockedValue)).toHaveTextContent('0');
     expect(depositXvsButton).toHaveAttribute('href', PATHS.VAULT);
   });
 
@@ -168,13 +169,13 @@ describe('pages/Vote', () => {
     });
 
     waitFor(() =>
-      expect(getByTestId(TEST_IDS.votingWallet.votingWeightValue)).toHaveTextContent('50'),
+      expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('50'),
     );
     waitFor(() =>
-      expect(getByTestId(TEST_IDS.votingWallet.totalLockedValue)).toHaveTextContent('10'),
+      expect(getByTestId(VOTING_WALLET_TEST_IDS.totalLockedValue)).toHaveTextContent('10'),
     );
 
-    const delgateVoteText = getByTestId(TEST_IDS.votingWallet.delegateYourVoting);
+    const delgateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
     act(() => {
       fireEvent.click(delgateVoteText);
@@ -213,7 +214,7 @@ describe('pages/Vote', () => {
         },
       },
     });
-    const delgateVoteText = getByTestId(TEST_IDS.votingWallet.delegateYourVoting);
+    const delgateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
 
     act(() => {
       fireEvent.click(delgateVoteText);
@@ -243,7 +244,7 @@ describe('pages/Vote', () => {
     const { getAllByTestId } = renderComponent(<Vote />);
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>
-      getAllByTestId(TEST_IDS.governance.governanceProposal('98')),
+      getAllByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal('98')),
     );
 
     expect(firstProposalAnchor[0].firstChild).toHaveAttribute(

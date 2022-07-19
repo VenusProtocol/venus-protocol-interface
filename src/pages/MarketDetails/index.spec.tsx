@@ -7,10 +7,10 @@ import { marketSnapshots } from '__mocks__/models/marketSnapshots';
 import { markets } from '__mocks__/models/markets';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { getMarketHistory, getMarkets, getVTokenApySimulations } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
 
 import MarketDetails from '.';
+import TEST_IDS from './testIds';
 
 const fakeVTokenId = 'aave';
 
@@ -62,14 +62,12 @@ describe('pages/MarketDetails', () => {
     );
 
     // Check supply info displays correctly
-    await waitFor(() =>
-      expect(getByTestId(TEST_IDS.marketDetails.supplyInfo).textContent).toMatchSnapshot(),
-    );
+    await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot());
     // Check borrow info displays correctly
-    expect(getByTestId(TEST_IDS.marketDetails.borrowInfo).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
     // Check interest rate model displays correctly
-    expect(getByTestId(TEST_IDS.marketDetails.interestRateModel).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot();
     // Check market info displays correctly
-    expect(getByTestId(TEST_IDS.marketDetails.marketInfo).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.marketInfo).textContent).toMatchSnapshot();
   });
 });

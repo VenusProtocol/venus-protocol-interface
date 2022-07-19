@@ -22,11 +22,11 @@ import {
 import { useGetVTokenApySimulations } from 'clients/api';
 import Path from 'constants/path';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import TEST_IDS from 'constants/testIds';
 
 import Card, { ICardProps } from './Card';
 import MarketInfo, { IMarketInfoProps } from './MarketInfo';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
@@ -256,7 +256,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     <div css={styles.container}>
       <div css={[styles.column, styles.graphsColumn]}>
         <Card
-          testId={TEST_IDS.marketDetails.supplyInfo}
+          testId={TEST_IDS.supplyInfo}
           title={t('marketDetails.supplyInfo.title')}
           css={styles.graphCard}
           stats={supplyInfoStats}
@@ -268,7 +268,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          testId={TEST_IDS.marketDetails.borrowInfo}
+          testId={TEST_IDS.borrowInfo}
           title={t('marketDetails.borrowInfo.title')}
           css={styles.graphCard}
           stats={borrowInfoStats}
@@ -280,7 +280,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
         </Card>
 
         <Card
-          testId={TEST_IDS.marketDetails.interestRateModel}
+          testId={TEST_IDS.interestRateModel}
           title={t('marketDetails.interestRateModel.title')}
           css={styles.graphCard}
           legends={interestRateModelLegends}
@@ -295,7 +295,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
       </div>
 
       <div css={[styles.column, styles.statsColumn]}>
-        <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketDetails.marketInfo} />
+        <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketInfo} />
       </div>
     </div>
   );

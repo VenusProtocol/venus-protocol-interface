@@ -1,20 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import {
-  BASE_BSC_SCAN_URL,
-  ETHERSCAN_XVS_CONTRACT_ADDRESS,
-  VENUS_DISCORD_URL,
-  VENUS_GITHUB_URL,
-  VENUS_MEDIUM_URL,
-  VENUS_TWITTER_URL,
-} from 'config';
+import config from 'config';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { BscChainId } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
 import { useGetBlockNumber } from 'clients/api';
 import { Icon } from 'components/Icon';
+import tokenAddresses from 'constants/contracts/addresses/tokens.json';
 
+import {
+  VENUS_DISCORD_URL,
+  VENUS_GITHUB_URL,
+  VENUS_MEDIUM_URL,
+  VENUS_TWITTER_URL,
+} from './constants';
 import { useStyles } from './styles';
 
 export interface FooterUiProps {
@@ -32,7 +33,7 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
           component="a"
           variant="small2"
           css={styles.blockInfo}
-          href={BASE_BSC_SCAN_URL}
+          href={config.bscScanUrl}
           target="_blank"
           rel="noreferrer"
         >
@@ -45,7 +46,7 @@ export const FooterUi: React.FC<FooterUiProps> = ({ currentBlockNumber }) => {
       <div css={styles.links}>
         <a
           css={styles.link}
-          href={generateBscScanUrl(ETHERSCAN_XVS_CONTRACT_ADDRESS)}
+          href={generateBscScanUrl(tokenAddresses.xvs[BscChainId.MAINNET])}
           target="_blank"
           rel="noreferrer"
         >
