@@ -657,7 +657,7 @@
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
-    "readyToExecuteAt": "Ready to execute at",
+    "timeUntilExecutable": "Time until executable",
     "statusCard": {
       "active": "Active",
       "ariaLabelAbstain": "votes abstain",

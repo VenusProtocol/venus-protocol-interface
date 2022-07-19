@@ -181,8 +181,8 @@ export const ProposalSummaryUi: React.FC<
       return {
         date: proposalEta,
         // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
-        // t('voteProposalUi.readyToExecuteAt')
-        i18nKey: 'voteProposalUi.readyToExecuteAt',
+        // t('voteProposalUi.timeUntilExecutable')
+        i18nKey: 'voteProposalUi.timeUntilExecutable',
       };
     }
   }, [state, endDate?.getTime(), proposalEta?.getTime()]);
@@ -198,7 +198,7 @@ export const ProposalSummaryUi: React.FC<
 
           {countdownData && (
             <div>
-              <Typography variant="small2">
+              <Typography variant="small2" css={styles.countdownLabel}>
                 <Trans
                   i18nKey={countdownData.i18nKey}
                   components={{

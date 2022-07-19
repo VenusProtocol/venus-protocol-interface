@@ -47,13 +47,18 @@ export const useStyles = () => {
     title: css`
       margin-bottom: ${theme.spacing(2)};
     `,
+    countdownLabel: css`
+      ${theme.breakpoints.down('sm')} {
+        display: none;
+      }
+    `,
     countdown: css`
       margin-left: ${theme.spacing(3)};
       padding-left: ${theme.spacing(3)};
       border-left: ${theme.spacing(0.25)} solid ${theme.palette.secondary.light};
 
       ${theme.breakpoints.down('sm')} {
-        display: none;
+        border-left: 0;
       }
     `,
     transactionLink: css`
