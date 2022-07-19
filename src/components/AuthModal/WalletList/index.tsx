@@ -6,7 +6,6 @@ import { useTranslation } from 'translation';
 
 import { Connector } from 'clients/web3';
 
-import { Icon } from '../../Icon';
 import {
   INTEGRATED_WALLETS,
   UPCOMING_WALLETS,
@@ -25,9 +24,26 @@ export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
 
   return (
     <div css={styles.container}>
-      {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !config.isOnTestnet).map(
-        ({ name, connector, Logo }) => (
-          <button
+      <div css={styles.walletList}>
+        {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !config.isOnTestnet).map(
+          ({ name, connector, Logo }) => (
+            <button
+              css={styles.getListItem({ isActionable: true })}
+              key={`wallet-${name}`}
+              type="button"
+              onClick={() => onLogin(connector)}
+            >
+              <Logo css={styles.walletLogo} />
+
+              <Typography variant="tiny" component="div">
+                {name}
+              </Typography>
+            </button>
+          ),
+        )}
+
+        {INTEGRATED_WALLETS.map(({ name, Logo, linkUrl }) => (
+          <a
             css={styles.getListItem({ isActionable: true })}
             key={`wallet-${name}`}
             href={linkUrl}
