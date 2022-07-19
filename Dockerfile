@@ -11,6 +11,8 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 
 COPY package.json ./
 COPY yarn.lock ./
+COPY src/constants/contracts/abis ./src/constants/contracts/abis
+COPY patches ./patches
 
 RUN yarn
 
