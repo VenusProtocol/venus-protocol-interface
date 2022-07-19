@@ -9,12 +9,12 @@ import { assetData } from '__mocks__/models/asset';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, repayNonBnbVToken, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
-import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Repay, { PRESET_PERCENTAGES } from '.';
+import TEST_IDS from './testIds';
 
 const fakeAsset: Asset = {
   ...assetData[0],
@@ -93,7 +93,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     const incorrectValueTokens = customFakeAsset.walletBalance.plus(1).toFixed();
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.repayModal.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: incorrectValueTokens },
     });
 
@@ -124,7 +124,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     const incorrectValueTokens = fakeAsset.borrowBalance.plus(1).toFixed();
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.repayModal.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: incorrectValueTokens },
     });
 
@@ -155,7 +155,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
 
     // Check input is empty
-    const input = getByTestId(TEST_IDS.repayModal.tokenTextField) as HTMLInputElement;
+    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
     expect(input.value).toBe('');
 
     // Press on max button
@@ -189,7 +189,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
 
     // Check input is empty
-    const input = getByTestId(TEST_IDS.repayModal.tokenTextField) as HTMLInputElement;
+    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
     expect(input.value).toBe('');
 
     // Press on max button
@@ -223,7 +223,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     await waitFor(() => getByText(en.borrowRepayModal.repay.submitButtonDisabled));
 
     // Check input is empty
-    const input = getByTestId(TEST_IDS.repayModal.tokenTextField) as HTMLInputElement;
+    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
     expect(input.value).toBe('');
 
     for (let i = 0; i < PRESET_PERCENTAGES.length; i++) {
@@ -272,7 +272,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     const correctAmountTokens = 1;
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.repayModal.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: correctAmountTokens },
     });
 

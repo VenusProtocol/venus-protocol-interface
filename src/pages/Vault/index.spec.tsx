@@ -2,10 +2,10 @@ import React from 'react';
 
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import { useGetVaults } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
 
 import Vault from '.';
+import TEST_IDS from './VaultItem/testIds';
 
 jest.mock('clients/api');
 
@@ -24,12 +24,10 @@ describe('pages/Vault', () => {
   it('renders vaults correctly', async () => {
     const { queryAllByTestId } = renderComponent(<Vault />);
 
-    const symbolsElements = queryAllByTestId(TEST_IDS.vault.vaultItem.symbol);
-    const userPendingRewardTokensElements = queryAllByTestId(
-      TEST_IDS.vault.vaultItem.userPendingRewardTokens,
-    );
-    const userStakedTokensElements = queryAllByTestId(TEST_IDS.vault.vaultItem.userStakedTokens);
-    const dataListItemElements = queryAllByTestId(TEST_IDS.vault.vaultItem.dataListItem);
+    const symbolsElements = queryAllByTestId(TEST_IDS.symbol);
+    const userPendingRewardTokensElements = queryAllByTestId(TEST_IDS.userPendingRewardTokens);
+    const userStakedTokensElements = queryAllByTestId(TEST_IDS.userStakedTokens);
+    const dataListItemElements = queryAllByTestId(TEST_IDS.dataListItem);
 
     symbolsElements.map(symbolsElement => expect(symbolsElement.textContent).toMatchSnapshot());
     userPendingRewardTokensElements.map(userPendingRewardTokensElement =>

@@ -21,7 +21,6 @@ import {
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
-import TEST_IDS from 'constants/testIds';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { VError } from 'errors/VError';
@@ -30,6 +29,7 @@ import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { VRT_DECIMAL, VRT_ID } from '../constants';
 import { useStyles } from '../styles';
+import TEST_IDS from './testIds';
 
 export interface IConvertProps {
   xvsToVrtConversionRatio: BigNumber | undefined;
@@ -182,7 +182,7 @@ const Convert: React.FC<IConvertProps> = ({
                           : undefined
                       }
                       displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
-                      data-testid={TEST_IDS.convertVrt.vrtTokenTextField}
+                      data-testid={TEST_IDS.vrtTokenTextField}
                     />
                   </div>
                   <div css={styles.inputSection}>
@@ -199,7 +199,7 @@ const Convert: React.FC<IConvertProps> = ({
                       disabled
                       value={xvsValue || ''}
                       onChange={noop}
-                      data-testid={TEST_IDS.convertVrt.xvsTokenTextField}
+                      data-testid={TEST_IDS.xvsTokenTextField}
                     />
                   </div>
                   <FormikSubmitButton

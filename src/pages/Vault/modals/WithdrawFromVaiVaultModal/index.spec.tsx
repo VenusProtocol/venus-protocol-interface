@@ -9,11 +9,11 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import MAX_UINT256 from 'constants/maxUint256';
-import TEST_IDS from 'constants/testIds';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
+import TEST_IDS from '../../TransactionForm/testIds';
 
 jest.mock('clients/api');
 
@@ -44,9 +44,7 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
     });
 
     await waitFor(() =>
-      expect(
-        getByTestId(TEST_IDS.vault.transactionForm.availableTokens).textContent,
-      ).toMatchSnapshot(),
+      expect(getByTestId(TEST_IDS.availableTokens).textContent).toMatchSnapshot(),
     );
   });
 
@@ -69,12 +67,12 @@ describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
       },
     );
 
-    await waitFor(() => getByTestId(TEST_IDS.vault.transactionForm.tokenTextField));
+    await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
 
     const fakeValueTokens = '100';
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.vault.transactionForm.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: fakeValueTokens },
     });
 

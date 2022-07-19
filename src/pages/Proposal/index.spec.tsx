@@ -22,6 +22,8 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import Proposal from '.';
+import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';
+import VOTE_MODAL_TEST_IDS from './VoteModal/testIds';
 import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
@@ -163,7 +165,7 @@ describe('pages/Proposal', () => {
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.1');
 
-    const castButton = await waitFor(async () => getByTestId(TEST_IDS.voteModal.submitButton));
+    const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();
     act(() => {
       fireEvent.click(castButton);
@@ -200,7 +202,7 @@ describe('pages/Proposal', () => {
     const commentInput = await waitFor(async () => getByLabelText(en.vote.comment));
     fireEvent.change(commentInput, { target: { value: comment } });
 
-    const castButton = await waitFor(async () => getByTestId(TEST_IDS.voteModal.submitButton));
+    const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();
     act(() => {
       fireEvent.click(castButton);
@@ -236,7 +238,7 @@ describe('pages/Proposal', () => {
     const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.1');
 
-    const castButton = await waitFor(async () => getByTestId(TEST_IDS.voteModal.submitButton));
+    const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
     expect(castButton).toBeEnabled();
     act(() => {
       fireEvent.click(castButton);
@@ -306,7 +308,7 @@ describe('pages/Proposal', () => {
       },
     });
     const cancelButton = await waitFor(async () =>
-      getByTestId(TEST_IDS.proposalSummary.cancelButton),
+      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
     );
     expect(cancelButton).toBeDisabled();
   });
@@ -321,7 +323,7 @@ describe('pages/Proposal', () => {
       },
     });
     const queueButton = await waitFor(async () =>
-      getByTestId(TEST_IDS.proposalSummary.queueButton),
+      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.queueButton),
     );
     act(() => {
       fireEvent.click(queueButton);
@@ -341,7 +343,7 @@ describe('pages/Proposal', () => {
       },
     });
     const executeButton = await waitFor(async () =>
-      getByTestId(TEST_IDS.proposalSummary.executeButton),
+      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.executeButton),
     );
     act(() => {
       fireEvent.click(executeButton);

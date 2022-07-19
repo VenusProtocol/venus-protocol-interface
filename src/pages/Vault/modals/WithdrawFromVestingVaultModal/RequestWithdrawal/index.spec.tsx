@@ -17,12 +17,12 @@ import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import MAX_UINT256 from 'constants/maxUint256';
-import TEST_IDS from 'constants/testIds';
 import { TOKENS } from 'constants/tokens';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import RequestWithdrawal from '.';
+import TEST_IDS from '../../../TransactionForm/testIds';
 
 jest.mock('clients/api');
 
@@ -57,7 +57,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
       },
     );
 
-    await waitFor(() => getByTestId(TEST_IDS.vault.transactionForm.availableTokens));
+    await waitFor(() => getByTestId(TEST_IDS.availableTokens));
   });
 
   it('fetches staked tokens and locking period and displays them correctly', async () => {
@@ -73,12 +73,10 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
       },
     );
 
-    await waitFor(() => getByTestId(TEST_IDS.vault.transactionForm.availableTokens));
+    await waitFor(() => getByTestId(TEST_IDS.availableTokens));
 
-    expect(
-      getByTestId(TEST_IDS.vault.transactionForm.availableTokens).textContent,
-    ).toMatchSnapshot();
-    expect(getByTestId(TEST_IDS.vault.transactionForm.lockingPeriod).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.availableTokens).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.lockingPeriod).textContent).toMatchSnapshot();
   });
 
   it('calls handleDisplayWithdrawalRequestList callback when clicking on "Withdrawal request list" button', async () => {
@@ -128,13 +126,13 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', (
       },
     );
 
-    await waitFor(() => getByTestId(TEST_IDS.vault.transactionForm.availableTokens));
+    await waitFor(() => getByTestId(TEST_IDS.availableTokens));
 
     const fakeValueTokens = '10';
 
     // Enter amount in input
     act(() => {
-      fireEvent.change(getByTestId(TEST_IDS.vault.transactionForm.tokenTextField), {
+      fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
         target: { value: fakeValueTokens },
       });
     });

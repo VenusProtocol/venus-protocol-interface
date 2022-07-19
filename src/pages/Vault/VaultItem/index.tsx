@@ -13,7 +13,6 @@ import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilit
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useWithdrawFromVrtVault } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useClaimVaultReward from 'hooks/useClaimVaultReward';
@@ -22,6 +21,7 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 type ActiveModal = 'stake' | 'withdraw';
 
@@ -157,11 +157,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
           <div css={styles.title}>
             <Icon css={styles.tokenIcon} name={stakedTokenId} />
 
-            <Typography
-              variant="h4"
-              css={styles.text}
-              data-testid={TEST_IDS.vault.vaultItem.symbol}
-            >
+            <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.symbol}>
               {getToken(stakedTokenId).symbol}
             </Typography>
           </div>
@@ -178,7 +174,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
                 css={[styles.text, styles.textRewardValue, styles.textSmallMobile]}
                 variant="body1"
                 color="textPrimary"
-                data-testid={TEST_IDS.vault.vaultItem.userPendingRewardTokens}
+                data-testid={TEST_IDS.userPendingRewardTokens}
               >
                 {readableUserPendingRewardTokens}
               </Typography>
@@ -202,7 +198,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
         <Typography
           variant="h1"
           css={styles.textStakingValue}
-          data-testid={TEST_IDS.vault.vaultItem.userStakedTokens}
+          data-testid={TEST_IDS.userStakedTokens}
         >
           <Icon css={[styles.tokenIconLarge]} name={stakedTokenId} />
 
@@ -219,7 +215,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
               <Typography
                 variant="h4"
                 css={[styles.textAligned, styles.textSmallMobile]}
-                data-testid={TEST_IDS.vault.vaultItem.dataListItem}
+                data-testid={TEST_IDS.dataListItem}
               >
                 {value}
               </Typography>

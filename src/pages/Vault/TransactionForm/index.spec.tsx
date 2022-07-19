@@ -4,11 +4,11 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
-import TEST_IDS from 'constants/testIds';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 
 import TransactionForm, { ITransactionFormProps } from '.';
+import TEST_IDS from './testIds';
 
 jest.mock('hooks/useSuccessfulTransactionModal');
 
@@ -33,10 +33,8 @@ describe('pages/Vault/TransactionForm', () => {
   it('displays available tokens and locking period correctly', async () => {
     const { getByTestId } = renderComponent(<TransactionForm {...baseProps} />);
 
-    expect(
-      getByTestId(TEST_IDS.vault.transactionForm.availableTokens).textContent,
-    ).toMatchSnapshot();
-    expect(getByTestId(TEST_IDS.vault.transactionForm.lockingPeriod).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.availableTokens).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.lockingPeriod).textContent).toMatchSnapshot();
   });
 
   it('disables submit button if no amount is provided', async () => {
@@ -61,7 +59,7 @@ describe('pages/Vault/TransactionForm', () => {
     const fakeValueTokens = '100';
 
     // Enter amount in input
-    fireEvent.change(getByTestId(TEST_IDS.vault.transactionForm.tokenTextField), {
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: fakeValueTokens },
     });
 

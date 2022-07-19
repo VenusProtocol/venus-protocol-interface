@@ -7,7 +7,6 @@ import fakeAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import { withdrawFromVrtVault } from 'clients/api';
-import TEST_IDS from 'constants/testIds';
 import { TOKENS } from 'constants/tokens';
 import useClaimVaultReward from 'hooks/useClaimVaultReward';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -15,6 +14,7 @@ import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
 import VaultItem, { VaultItemProps } from '.';
+import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 jest.mock('hooks/useClaimVaultReward');
@@ -36,12 +36,10 @@ describe('pages/Vault/VaultItem', () => {
   it('renders vault correctly', async () => {
     const { getByTestId, getAllByTestId } = renderComponent(<VaultItem {...baseProps} />);
 
-    const symbolElement = getByTestId(TEST_IDS.vault.vaultItem.symbol);
-    const userPendingRewardTokensElement = getByTestId(
-      TEST_IDS.vault.vaultItem.userPendingRewardTokens,
-    );
-    const userStakedTokensElement = getByTestId(TEST_IDS.vault.vaultItem.userStakedTokens);
-    const dataListItemElements = getAllByTestId(TEST_IDS.vault.vaultItem.dataListItem);
+    const symbolElement = getByTestId(TEST_IDS.symbol);
+    const userPendingRewardTokensElement = getByTestId(TEST_IDS.userPendingRewardTokens);
+    const userStakedTokensElement = getByTestId(TEST_IDS.userStakedTokens);
+    const dataListItemElements = getAllByTestId(TEST_IDS.dataListItem);
 
     expect(symbolElement.textContent).toMatchSnapshot();
     expect(userPendingRewardTokensElement.textContent).toMatchSnapshot();
