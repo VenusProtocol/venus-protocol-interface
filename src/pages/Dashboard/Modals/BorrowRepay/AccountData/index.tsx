@@ -156,7 +156,7 @@ const AccountData: React.FC<IAccountDataProps> = ({
       </LabeledInlineContent>
 
       <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.distributionAPy')}
+        label={t('borrowRepayModal.borrow.distributionApy')}
         iconName="xvs"
         css={styles.getRow({ isLast: true })}
       >
