@@ -1,7 +1,7 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { TokenId } from 'types';
 
-import { ApproveTokenOutput, IApproveTokenInput, approveToken, queryClient } from 'clients/api';
+import { ApproveTokenInput, ApproveTokenOutput, approveToken, queryClient } from 'clients/api';
 import { useTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
@@ -13,7 +13,7 @@ const useApproveToken = (
   options?: MutationObserverOptions<
     ApproveTokenOutput,
     Error,
-    Omit<IApproveTokenInput, 'tokenContract'>
+    Omit<ApproveTokenInput, 'tokenContract'>
   >,
 ) => {
   const tokenContract = useTokenContract(tokenId);

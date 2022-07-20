@@ -3,23 +3,23 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 
-import { IStat } from '../types';
+import { Stat } from '../types';
 import { useStyles } from './styles';
 
-export interface ILegend {
+export interface Legend {
   label: string;
   color: string;
 }
 
-export interface ICardProps {
+export interface CardProps {
   title: string;
-  legends?: ILegend[];
-  stats?: IStat[];
+  legends?: Legend[];
+  stats?: Stat[];
   className?: string;
   testId?: string;
 }
 
-const Card: React.FC<ICardProps> = ({
+const Card: React.FC<CardProps> = ({
   children,
   title,
   legends = [],

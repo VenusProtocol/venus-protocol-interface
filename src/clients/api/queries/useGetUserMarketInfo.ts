@@ -19,7 +19,7 @@ import {
 } from 'clients/api';
 import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
 
-export interface IData {
+export interface Data {
   assets: Asset[];
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
@@ -30,7 +30,7 @@ export interface IData {
 
 export interface UseGetUserMarketInfoOutput {
   isLoading: boolean;
-  data: IData;
+  data: Data;
 }
 
 const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(

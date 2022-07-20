@@ -2,7 +2,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { XvsVault } from 'types/contracts';
 
-export interface ISetVoteDelegateInput {
+export interface SetVoteDelegateInput {
   xvsVaultContract: XvsVault;
   accountAddress: string;
   delegateAddress: string;
@@ -14,7 +14,7 @@ const setVoteDelegate = async ({
   xvsVaultContract,
   accountAddress,
   delegateAddress,
-}: ISetVoteDelegateInput) =>
+}: SetVoteDelegateInput) =>
   xvsVaultContract.methods.delegate(delegateAddress).send({ from: accountAddress });
 
 export default setVoteDelegate;

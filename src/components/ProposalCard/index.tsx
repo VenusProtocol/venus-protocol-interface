@@ -9,7 +9,7 @@ import { VoteSupport } from 'types';
 import { Chip } from '../Chip';
 import { useStyles } from './styles';
 
-interface IProposalCardProps {
+interface ProposalCardProps {
   className?: string;
   linkTo: string;
   proposalNumber: number;
@@ -21,7 +21,7 @@ interface IProposalCardProps {
   footer?: React.ReactElement;
 }
 
-export const ProposalCard: React.FC<IProposalCardProps> = ({
+export const ProposalCard: React.FC<ProposalCardProps> = ({
   className,
   linkTo,
   proposalNumber,

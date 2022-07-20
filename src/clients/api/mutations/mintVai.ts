@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VaiUnitroller } from 'types/contracts';
 
-export interface IMintVaiInput {
+export interface MintVaiInput {
   vaiControllerContract: VaiUnitroller;
   fromAccountAddress: string;
   amountWei: BigNumber;
@@ -16,7 +16,7 @@ const mintVai = async ({
   vaiControllerContract,
   fromAccountAddress,
   amountWei,
-}: IMintVaiInput): Promise<MintVaiOutput> => {
+}: MintVaiInput): Promise<MintVaiOutput> => {
   const resp = await vaiControllerContract.methods
     .mintVAI(amountWei.toFixed())
     .send({ from: fromAccountAddress });

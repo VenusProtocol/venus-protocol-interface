@@ -4,7 +4,7 @@ import { convertTokensToWei, getTokenIdFromVAddress } from 'utilities';
 
 import { XVS_TOKEN_ID } from 'constants/xvs';
 
-import { ITransactionResponse } from './types';
+import { TransactionResponse } from './types';
 
 const formatTransaction = ({
   amount,
@@ -14,7 +14,7 @@ const formatTransaction = ({
   event,
   vTokenAddress,
   ...rest
-}: ITransactionResponse) => {
+}: TransactionResponse) => {
   const tokenId = vTokenAddress ? (getTokenIdFromVAddress(vTokenAddress) as TokenId) : XVS_TOKEN_ID;
   return {
     ...rest,

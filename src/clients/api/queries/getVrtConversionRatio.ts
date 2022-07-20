@@ -1,6 +1,6 @@
 import { VrtConverter } from 'types/contracts';
 
-export interface IvrtConversionRatioInput {
+export interface VrtConversionRatioInput {
   vrtConverterContract: VrtConverter;
 }
 
@@ -8,7 +8,7 @@ export type GetVrtConversionRatioOutput = string;
 
 const getVrtConversionRatio = ({
   vrtConverterContract,
-}: IvrtConversionRatioInput): Promise<GetVrtConversionRatioOutput> =>
+}: VrtConversionRatioInput): Promise<GetVrtConversionRatioOutput> =>
   vrtConverterContract.methods.conversionRatio().call();
 
 export default getVrtConversionRatio;

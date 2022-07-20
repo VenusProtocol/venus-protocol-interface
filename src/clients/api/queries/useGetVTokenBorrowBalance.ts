@@ -2,13 +2,13 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { VTokenId } from 'types';
 
 import getVTokenBorrowBalance, {
+  GetVTokenBorrowBalanceInput,
   GetVTokenBorrowBalanceOutput,
-  IGetVTokenBorrowBalanceInput,
 } from 'clients/api/queries/getVTokenBorrowBalance';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
-interface TrimmedParams extends Omit<IGetVTokenBorrowBalanceInput, 'vTokenContract'> {
+interface TrimmedParams extends Omit<GetVTokenBorrowBalanceInput, 'vTokenContract'> {
   vTokenId: VTokenId;
 }
 

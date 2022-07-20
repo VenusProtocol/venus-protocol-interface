@@ -8,14 +8,14 @@ import { SecondaryButton } from '../Button';
 import { NoticeInfo } from '../Notice';
 import { useStyles } from './styles';
 
-export interface IPromptProps {
+export interface PromptProps {
   message: string;
   openAuthModal: () => void;
   className?: string;
   connected: boolean;
 }
 
-export const Prompt: React.FC<IPromptProps> = ({
+export const Prompt: React.FC<PromptProps> = ({
   message,
   openAuthModal,
   className,
@@ -40,7 +40,7 @@ export const Prompt: React.FC<IPromptProps> = ({
   );
 };
 
-export const ConnectWallet: React.FC<Omit<IPromptProps, 'connected' | 'openAuthModal'>> = props => {
+export const ConnectWallet: React.FC<Omit<PromptProps, 'connected' | 'openAuthModal'>> = props => {
   const { account, openAuthModal } = React.useContext(AuthContext);
   return <Prompt {...props} openAuthModal={openAuthModal} connected={!!account} />;
 };

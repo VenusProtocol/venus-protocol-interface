@@ -6,7 +6,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
 
-export interface IRepayBnbInput {
+export interface RepayBnbInput {
   web3: Web3;
   fromAccountAddress: string;
   amountWei: BigNumber;
@@ -23,7 +23,7 @@ const repayBnb = async ({
   fromAccountAddress,
   amountWei,
   isRepayingFullLoan = false,
-}: IRepayBnbInput): Promise<RepayBnbOutput> => {
+}: RepayBnbInput): Promise<RepayBnbOutput> => {
   let resp: TransactionReceipt;
 
   // If we're repaying a full loan, we need to call the Maximillion contract to

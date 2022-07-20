@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VaiVault } from 'types/contracts';
 
-export interface IWithdrawFromVaiVaultInput {
+export interface WithdrawFromVaiVaultInput {
   vaiVaultContract: VaiVault;
   fromAccountAddress: string;
   amountWei: BigNumber;
@@ -16,7 +16,7 @@ const withdrawFromVaiVault = async ({
   vaiVaultContract,
   fromAccountAddress,
   amountWei,
-}: IWithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> => {
+}: WithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> => {
   const res = await vaiVaultContract.methods
     .withdraw(amountWei.toFixed())
     .send({ from: fromAccountAddress });

@@ -1,13 +1,13 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { IMintVaiInput, MintVaiOutput, mintVai, queryClient } from 'clients/api';
+import { MintVaiInput, MintVaiOutput, mintVai, queryClient } from 'clients/api';
 import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   MintVaiOutput,
   Error,
-  Omit<IMintVaiInput, 'vaiControllerContract'>
+  Omit<MintVaiInput, 'vaiControllerContract'>
 >;
 
 const useMintVai = (options?: Options) => {
@@ -15,7 +15,7 @@ const useMintVai = (options?: Options) => {
 
   return useMutation(
     FunctionKey.MINT_VAI,
-    (params: Omit<IMintVaiInput, 'vaiControllerContract'>) =>
+    (params: Omit<MintVaiInput, 'vaiControllerContract'>) =>
       mintVai({
         vaiControllerContract,
         ...params,

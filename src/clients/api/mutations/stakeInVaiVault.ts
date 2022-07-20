@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VaiVault } from 'types/contracts';
 
-export interface IStakeInVaiVaultInput {
+export interface StakeInVaiVaultInput {
   vaiVaultContract: VaiVault;
   fromAccountAddress: string;
   amountWei: BigNumber;
@@ -16,7 +16,7 @@ const stakeInVaiVault = async ({
   vaiVaultContract,
   fromAccountAddress,
   amountWei,
-}: IStakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> => {
+}: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> => {
   const resp = await vaiVaultContract.methods
     .deposit(amountWei.toFixed())
     .send({ from: fromAccountAddress });

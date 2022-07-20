@@ -19,7 +19,7 @@ import Path from 'constants/path';
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';
 
-interface IDelegateModalProps {
+interface DelegateModalProps {
   onClose: () => void;
   isOpen: boolean;
   currentUserAccountAddress: string | undefined;
@@ -29,7 +29,7 @@ interface IDelegateModalProps {
   openAuthModal: () => void;
 }
 
-const DelegateModal: React.FC<IDelegateModalProps> = ({
+const DelegateModal: React.FC<DelegateModalProps> = ({
   onClose,
   isOpen,
   currentUserAccountAddress,

@@ -4,7 +4,7 @@ import React from 'react';
 import { markets } from '__mocks__/models/markets';
 import { withRouter } from 'stories/decorators';
 
-import { IMarketTableProps, MarketTableUi } from '.';
+import { MarketTableProps, MarketTableUi } from '.';
 
 export default {
   title: 'Pages/Market/MarketTable',
@@ -17,7 +17,7 @@ export default {
   },
 } as ComponentMeta<typeof MarketTableUi>;
 
-const Template: Story<IMarketTableProps> = args => <MarketTableUi {...args} />;
+const Template: Story<MarketTableProps> = args => <MarketTableUi {...args} />;
 
 export const Primary = Template.bind({});
 

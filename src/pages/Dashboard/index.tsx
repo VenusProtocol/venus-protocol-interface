@@ -14,7 +14,7 @@ import MyAccount from './MyAccount';
 import { useStyles } from './styles';
 import useLunaUstWarningModal from './useLunaUstWarningModal';
 
-interface IDashboardUiProps {
+interface DashboardUiProps {
   accountAddress: string;
   userTotalBorrowLimitCents: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
@@ -22,7 +22,7 @@ interface IDashboardUiProps {
   assets: Asset[];
 }
 
-const DashboardUi: React.FC<IDashboardUiProps> = ({
+const DashboardUi: React.FC<DashboardUiProps> = ({
   accountAddress,
   assets,
   userTotalBorrowLimitCents,

@@ -8,7 +8,7 @@ import React from 'react';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-export interface IAccordionProps {
+export interface AccordionProps {
   className?: string;
   expanded: boolean;
   onChange: (index: number | undefined) => void;
@@ -17,7 +17,7 @@ export interface IAccordionProps {
   rightAdornment?: React.ReactElement;
 }
 
-export const Accordion: React.FC<IAccordionProps> = ({
+export const Accordion: React.FC<AccordionProps> = ({
   className,
   expanded,
   onChange,

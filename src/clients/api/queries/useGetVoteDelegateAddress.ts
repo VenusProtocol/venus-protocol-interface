@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import {
+  GetVoteDelegateAddressInput,
   GetVoteDelegateAddressOutput,
-  IGetVoteDelegateAddressInput,
   getVoteDelegateAddress,
 } from 'clients/api';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
@@ -13,11 +13,11 @@ type Options = QueryObserverOptions<
   Error,
   GetVoteDelegateAddressOutput,
   GetVoteDelegateAddressOutput,
-  [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, Omit<IGetVoteDelegateAddressInput, 'xvsVaultContract'>]
+  [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>]
 >;
 
 const useGetVoteDelegateAddress = (
-  { accountAddress }: Omit<IGetVoteDelegateAddressInput, 'xvsVaultContract'>,
+  { accountAddress }: Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
   const xvsVaultContract = useXvsVaultProxyContract();

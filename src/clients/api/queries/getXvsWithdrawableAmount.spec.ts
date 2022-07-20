@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { XvsVesting } from 'types/contracts';
 
 import getXvsWithdrawableAmount, {
-  IGetXvsWithdrawableAmountOutput,
+  GetXvsWithdrawableAmountOutput,
 } from './getXvsWithdrawableAmount';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
@@ -33,7 +33,7 @@ describe('api/queries/getXvsBalance', () => {
   });
 
   test('returns the withdrawable amount on success', async () => {
-    const fakeOutput: IGetXvsWithdrawableAmountOutput = {
+    const fakeOutput: GetXvsWithdrawableAmountOutput = {
       totalWithdrawableAmount: new BigNumber('500000'),
       totalVestedAmount: new BigNumber('1000'),
       totalWithdrawnAmount: new BigNumber('0'),

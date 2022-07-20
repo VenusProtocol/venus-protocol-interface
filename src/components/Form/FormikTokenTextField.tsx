@@ -1,9 +1,10 @@
 import { useField } from 'formik';
 import React from 'react';
 
-import { ITokenTextFieldProps, TokenTextField } from '../TokenTextField';
+import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 
-interface IFormikTokenTextField extends Omit<ITokenTextFieldProps, 'name' | 'onChange' | 'value'> {
+interface FormikTokenTextFieldProps
+  extends Omit<TokenTextFieldProps, 'name' | 'onChange' | 'value'> {
   name: string;
   displayableErrorCodes?: string[];
 }
@@ -12,7 +13,7 @@ export const FormikTokenTextField = ({
   name,
   displayableErrorCodes = [],
   ...rest
-}: IFormikTokenTextField) => {
+}: FormikTokenTextFieldProps) => {
   const [{ value, onBlur }, { error }, { setValue }] = useField(name);
   const onChange = (val: string) => {
     setValue(val);

@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VBep20, VBnbToken } from 'types/contracts';
 
-export interface IRedeemUnderlyingInput {
+export interface RedeemUnderlyingInput {
   vTokenContract: VBep20 | VBnbToken;
   accountAddress: string;
   amountWei: BigNumber;
@@ -16,7 +16,7 @@ const redeemUnderlying = async ({
   vTokenContract,
   accountAddress,
   amountWei,
-}: IRedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> => {
+}: RedeemUnderlyingInput): Promise<RedeemUnderlyingOutput> => {
   const resp = await vTokenContract.methods
     .redeemUnderlying(amountWei.toFixed())
     .send({ from: accountAddress });

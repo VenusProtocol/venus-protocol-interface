@@ -2,7 +2,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
-export interface ICreateProposalInput {
+export interface CreateProposalInput {
   accountAddress: string;
   targets: string[];
   signatures: string[];
@@ -19,7 +19,7 @@ const createProposal = async ({
   signatures,
   callDatas,
   description,
-}: ICreateProposalInput & {
+}: CreateProposalInput & {
   governorBravoContract: GovernorBravoDelegate;
 }): Promise<CreateProposalOutput> => {
   const resp = await governorBravoContract.methods

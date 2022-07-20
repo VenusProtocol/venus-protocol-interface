@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
 
-import { IGetXvsVaultPoolInfoOutput } from './types';
+import { GetXvsVaultPoolInfoOutput } from './types';
 
 const formatToUserInfo = ({
   token,
@@ -12,7 +12,7 @@ const formatToUserInfo = ({
   lockPeriod,
 }: Awaited<
   ReturnType<ReturnType<XvsVault['methods']['poolInfos']>['call']>
->): IGetXvsVaultPoolInfoOutput => ({
+>): GetXvsVaultPoolInfoOutput => ({
   stakedTokenAddress: token,
   allocationPoint: +allocPoint,
   lastRewardBlock: +lastRewardBlock,

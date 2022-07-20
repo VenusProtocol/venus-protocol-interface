@@ -5,7 +5,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VTokenContract } from 'clients/contracts/types';
 
-export interface IBorrowVTokenInput {
+export interface BorrowVTokenInput {
   vTokenContract: VTokenContract<VTokenId>;
   fromAccountAddress: string;
   amountWei: BigNumber;
@@ -17,7 +17,7 @@ const borrowVToken = async ({
   vTokenContract,
   fromAccountAddress,
   amountWei,
-}: IBorrowVTokenInput): Promise<BorrowVTokenOutput> => {
+}: BorrowVTokenInput): Promise<BorrowVTokenOutput> => {
   const resp = await vTokenContract.methods
     .borrow(amountWei.toFixed())
     .send({ from: fromAccountAddress });

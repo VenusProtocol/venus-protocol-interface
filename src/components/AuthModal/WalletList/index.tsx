@@ -14,11 +14,11 @@ import {
 } from '../constants';
 import { useStyles } from './styles';
 
-export interface IWalletListProps {
+export interface WalletListProps {
   onLogin: (connector: Connector) => void;
 }
 
-export const WalletList: React.FC<IWalletListProps> = ({ onLogin }) => {
+export const WalletList: React.FC<WalletListProps> = ({ onLogin }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
 

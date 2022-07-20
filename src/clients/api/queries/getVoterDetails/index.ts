@@ -1,20 +1,20 @@
 import { VError } from 'errors';
-import { IVoterDetails } from 'types';
+import { VoterDetails } from 'types';
 import { restService } from 'utilities';
 
 import formatVoterDetailsResponse from './formatVoterDetailsResponse';
-import { IGetVoterDetailsResponse } from './types';
+import { GetVoterDetailsResponse } from './types';
 
-export interface IGetVoterDetailsInput {
+export interface GetVoterDetailsInput {
   address: string;
 }
 
-export type GetVoterDetailsOutput = IVoterDetails;
+export type GetVoterDetailsOutput = VoterDetails;
 
 const getVoterDetails = async ({
   address,
-}: IGetVoterDetailsInput): Promise<GetVoterDetailsOutput> => {
-  const response = await restService<IGetVoterDetailsResponse>({
+}: GetVoterDetailsInput): Promise<GetVoterDetailsOutput> => {
+  const response = await restService<GetVoterDetailsResponse>({
     endpoint: `/voters/accounts/${address}`,
     method: 'GET',
   });

@@ -9,13 +9,13 @@ import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 
 import { useStyles } from './styles';
 
-interface ITransactionsProps {
+interface TransactionsProps {
   className?: string;
   address: string;
   voterTransactions: VoteDetailTransaction[] | undefined;
 }
 
-export const Transactions: React.FC<ITransactionsProps> = ({
+export const Transactions: React.FC<TransactionsProps> = ({
   className,
   address,
   voterTransactions = [],

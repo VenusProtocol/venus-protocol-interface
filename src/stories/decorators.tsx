@@ -7,7 +7,7 @@ import { TokenId } from 'types';
 
 import setCachedTokenAllowanceToMax from 'clients/api/queries/getAllowance/setCachedTokenAllowanceToMax';
 import { Web3Wrapper } from 'clients/web3';
-import { AuthContext, IAuthContextValue } from 'context/AuthContext';
+import { AuthContext, AuthContextValue } from 'context/AuthContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 export type DecoratorFunction = Parameters<typeof addDecorator>[0];
@@ -24,7 +24,7 @@ export const withWeb3Provider: DecoratorFunction = Story => (
   </Web3Wrapper>
 );
 
-export const withAuthContext = (context: IAuthContextValue) => (Story: StoryType) =>
+export const withAuthContext = (context: AuthContextValue) => (Story: StoryType) =>
   (
     <AuthContext.Provider value={context}>
       <Story />

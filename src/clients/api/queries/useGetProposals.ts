@@ -1,21 +1,21 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposals, {
-  IGetProposalsInput,
-  IGetProposalsOutput,
+  GetProposalsInput,
+  GetProposalsOutput,
 } from 'clients/api/queries/getProposals';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  IGetProposalsOutput,
+  GetProposalsOutput,
   Error,
-  IGetProposalsOutput,
-  IGetProposalsOutput,
-  [FunctionKey.GET_PROPOSALS, IGetProposalsInput]
+  GetProposalsOutput,
+  GetProposalsOutput,
+  [FunctionKey.GET_PROPOSALS, GetProposalsInput]
 >;
 
-const useGetProposals = (params: IGetProposalsInput = {}, options?: Options) =>
+const useGetProposals = (params: GetProposalsInput = {}, options?: Options) =>
   // This endpoint is paginated so we keep the previous responses by default to
   // create a more seamless paginating experience
   useQuery([FunctionKey.GET_PROPOSALS, params], () => getProposals(params), {

@@ -19,19 +19,19 @@ import { useStyles as useSharedStyles } from '../styles';
 import formatToReadableDate from './formatToReadableDate';
 import { useStyles as useLocalStyles } from './styles';
 
-export interface IApyChartItem {
+export interface ApyChartItem {
   apyPercentage: number;
   timestampMs: number;
   balanceCents: BigNumber;
 }
 
-export interface IApyChartProps {
-  data: IApyChartItem[];
+export interface ApyChartProps {
+  data: ApyChartItem[];
   type: 'supply' | 'borrow';
   className?: string;
 }
 
-export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) => {
+export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => {
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
 
@@ -92,7 +92,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                           ? t('apyChart.tooltipItemLabels.supplyApy')
                           : t('apyChart.tooltipItemLabels.borrowApy'),
                       value: formatToReadablePercentage(
-                        (payload[0].payload as IApyChartItem).apyPercentage,
+                        (payload[0].payload as ApyChartItem).apyPercentage,
                       ),
                     },
                     {
@@ -101,7 +101,7 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
                           ? t('apyChart.tooltipItemLabels.totalSupply')
                           : t('apyChart.tooltipItemLabels.totalBorrow'),
                       value: formatCentsToReadableValue({
-                        value: (payload[0].payload as IApyChartItem).balanceCents,
+                        value: (payload[0].payload as ApyChartItem).balanceCents,
                       }),
                     },
                   ]}
@@ -124,9 +124,9 @@ export const ApyChart: React.FC<IApyChartProps> = ({ className, data, type }) =>
   );
 };
 
-export const SupplyApyChart: React.FC<Omit<IApyChartProps, 'type'>> = props => (
+export const SupplyApyChart: React.FC<Omit<ApyChartProps, 'type'>> = props => (
   <ApyChart type="supply" {...props} />
 );
-export const BorrowApyChart: React.FC<Omit<IApyChartProps, 'type'>> = props => (
+export const BorrowApyChart: React.FC<Omit<ApyChartProps, 'type'>> = props => (
   <ApyChart type="borrow" {...props} />
 );

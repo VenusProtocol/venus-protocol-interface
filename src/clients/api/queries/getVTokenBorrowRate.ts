@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { InterestModel } from 'types/contracts';
 
-export interface IGetVTokenBorrowRateInput {
+export interface GetVTokenBorrowRateInput {
   interestModelContract: InterestModel;
   cashAmountWei: BigNumber;
   borrowsAmountWei: BigNumber;
@@ -16,7 +16,7 @@ const getVTokenBorrowRate = async ({
   cashAmountWei,
   borrowsAmountWei,
   reservesAmountWei,
-}: IGetVTokenBorrowRateInput): Promise<IGetVTokenBorrowRateOutput> => {
+}: GetVTokenBorrowRateInput): Promise<IGetVTokenBorrowRateOutput> => {
   const borrowRate = await interestModelContract.methods
     .getBorrowRate(cashAmountWei.toFixed(), borrowsAmountWei.toFixed(), reservesAmountWei.toFixed())
     .call();

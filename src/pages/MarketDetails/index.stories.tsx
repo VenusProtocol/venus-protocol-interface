@@ -1,6 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
-import { IApyChartProps } from 'components';
+import { ApyChartProps } from 'components';
 import React from 'react';
 
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
@@ -8,7 +8,7 @@ import { withRouter } from 'stories/decorators';
 
 import { MarketDetailsUi } from '.';
 
-const fakeApyChartData: IApyChartProps['data'] = [
+const fakeApyChartData: ApyChartProps['data'] = [
   {
     apyPercentage: 40,
     timestampMs: new Date('2022-05-03T10:59:44.330Z').getTime(),

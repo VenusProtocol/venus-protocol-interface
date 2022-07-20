@@ -2,17 +2,17 @@ import { MutationObserverOptions } from 'react-query';
 import { Asset, VTokenId } from 'types';
 
 import {
-  ISupplyBnbInput,
-  ISupplyNonBnbInput,
+  SupplyBnbInput,
   SupplyBnbOutput,
   SupplyBnbParams,
+  SupplyNonBnbInput,
   SupplyNonBnbOutput,
   SupplyNonBnbParams,
   useSupplyBnb,
   useSupplyNonBnb,
 } from 'clients/api';
 
-interface IUseSupplyArgs {
+interface UseSupplyArgs {
   asset: Asset;
   account: string;
 }
@@ -21,11 +21,11 @@ type OptionsSupplyBnb = MutationObserverOptions<SupplyBnbOutput, Error, SupplyBn
 type OptionsSupplyNonBnb = MutationObserverOptions<SupplyNonBnbOutput, Error, SupplyNonBnbParams>;
 
 export type UseSupplyParams =
-  | Omit<ISupplyNonBnbInput, 'tokenContract' | 'assetId' | 'account'>
-  | Omit<ISupplyBnbInput, 'tokenContract' | 'assetId' | 'account'>;
+  | Omit<SupplyNonBnbInput, 'tokenContract' | 'assetId' | 'account'>
+  | Omit<SupplyBnbInput, 'tokenContract' | 'assetId' | 'account'>;
 
 const useSupply = (
-  { asset, account }: IUseSupplyArgs,
+  { asset, account }: UseSupplyArgs,
   options?: OptionsSupplyBnb | OptionsSupplyNonBnb,
 ) => {
   const useSupplyNonBnbResult = useSupplyNonBnb(

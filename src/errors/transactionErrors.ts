@@ -13,7 +13,7 @@ import {
   XvsVaultProxyErrorReporterInfo,
 } from 'constants/contracts/errorReporter';
 
-import { IVErrorPhraseMap, VError } from './VError';
+import { VError, VErrorPhraseMap } from './VError';
 
 const checkForTransactionError = (
   receipt: TransactionReceipt,
@@ -34,10 +34,10 @@ const checkForTransactionError = (
     const { error, info } = receipt.events?.Failure.returnValues;
     throw new VError({
       type: 'transaction',
-      code: errorEnum[error] as IVErrorPhraseMap['transaction'],
+      code: errorEnum[error] as VErrorPhraseMap['transaction'],
       data: {
-        error: errorEnum[error] as IVErrorPhraseMap['transaction'],
-        info: infoEnum[info] as IVErrorPhraseMap['transaction'],
+        error: errorEnum[error] as VErrorPhraseMap['transaction'],
+        info: infoEnum[info] as VErrorPhraseMap['transaction'],
       },
     });
   }

@@ -5,7 +5,7 @@ import React from 'react';
 import { Icon, IconName } from '../Icon';
 import { useStyles } from './styles';
 
-export interface ILabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
   children: React.ReactNode;
   invertTextColors?: boolean;
@@ -18,7 +18,7 @@ export const LabeledInlineContent = ({
   invertTextColors = false,
   children,
   ...otherContainerProps
-}: ILabeledInlineContentProps) => {
+}: LabeledInlineContentProps) => {
   const styles = useStyles();
 
   return (

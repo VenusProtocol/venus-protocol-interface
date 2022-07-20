@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
 
-import Card, { ICardProps } from '.';
+import Card, { CardProps } from '.';
 
 export default {
   title: 'Pages/MarketDetail/Card',
@@ -18,7 +18,7 @@ export default {
 
 export const Default = () => <Card title="Card title">Children</Card>;
 
-const legends: ICardProps['legends'] = [
+const legends: CardProps['legends'] = [
   {
     label: 'Borrow APY',
     color: 'red',
@@ -35,7 +35,7 @@ export const WithLegends = () => (
   </Card>
 );
 
-const stats: ICardProps['stats'] = [
+const stats: CardProps['stats'] = [
   {
     label: 'Total supply',
     value: '24M',

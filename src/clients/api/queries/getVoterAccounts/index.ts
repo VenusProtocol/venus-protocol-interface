@@ -1,16 +1,16 @@
 import { VError } from 'errors';
-import { IVoterAccount } from 'types';
+import { VoterAccount } from 'types';
 import { restService } from 'utilities';
 
 import formatVoterAccountResponse from './formatVoterAccountResponse';
-import { IGetVoterAccountsResponse } from './types';
+import { GetVoterAccountsResponse } from './types';
 
-export interface IGetVoterAccountsInput {
+export interface GetVoterAccountsInput {
   page?: number;
 }
 
-export interface IGetVoterAccountsOutput {
-  voterAccounts: IVoterAccount[];
+export interface GetVoterAccountsOutput {
+  voterAccounts: VoterAccount[];
   limit: number;
   offset: number;
   total: number;
@@ -18,8 +18,8 @@ export interface IGetVoterAccountsOutput {
 
 const getVoterAccounts = async ({
   page = 0,
-}: IGetVoterAccountsInput): Promise<IGetVoterAccountsOutput> => {
-  const response = await restService<IGetVoterAccountsResponse>({
+}: GetVoterAccountsInput): Promise<GetVoterAccountsOutput> => {
+  const response = await restService<GetVoterAccountsResponse>({
     endpoint: '/voters/accounts',
     method: 'GET',
     params: {

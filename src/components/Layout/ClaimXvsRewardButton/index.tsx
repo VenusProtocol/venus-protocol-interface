@@ -11,19 +11,19 @@ import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { IButtonProps, SecondaryButton } from '../../Button';
+import { ButtonProps, SecondaryButton } from '../../Button';
 import { Icon } from '../../Icon';
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 const XVS_SYMBOL = 'xvs';
 
-export interface IClaimXvsRewardButton extends Omit<IButtonProps, 'onClick'> {
+export interface ClaimXvsRewardButtonProps extends Omit<ButtonProps, 'onClick'> {
   onClaimReward: () => Promise<TransactionReceipt>;
   amountWei?: BigNumber;
 }
 
-export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
+export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
   amountWei,
   onClaimReward,
   ...otherProps
@@ -78,7 +78,7 @@ export const ClaimXvsRewardButtonUi: React.FC<IClaimXvsRewardButton> = ({
   );
 };
 
-export const ClaimXvsRewardButton: React.FC<IButtonProps> = props => {
+export const ClaimXvsRewardButton: React.FC<ButtonProps> = props => {
   const { account } = useContext(AuthContext);
   const { data: xvsRewardWei } = useGetXvsReward(
     {

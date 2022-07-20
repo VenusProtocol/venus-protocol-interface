@@ -14,14 +14,14 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 
-export interface ISuppliedTableUiProps {
+export interface SuppliedTableUiProps {
   assets: Asset[];
   isXvsEnabled: boolean;
   rowOnClick: (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => void;
   collateralOnChange: (asset: Asset) => void;
 }
 
-export const SuppliedTable: React.FC<ISuppliedTableUiProps> = ({
+export const SuppliedTable: React.FC<SuppliedTableUiProps> = ({
   assets,
   isXvsEnabled,
   collateralOnChange,

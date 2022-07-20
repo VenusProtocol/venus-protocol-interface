@@ -4,7 +4,7 @@ import React from 'react';
 
 import { withCenterStory, withOnChange } from 'stories/decorators';
 
-import MarkdownEditor, { IMarkdownEditorProps } from '.';
+import MarkdownEditor, { MarkdownEditorProps } from '.';
 
 export default {
   title: 'Components/Markdown/Editor',
@@ -12,7 +12,7 @@ export default {
   decorators: [withCenterStory({ width: 600 }), withOnChange(string => string)],
 } as ComponentMeta<typeof MarkdownEditor>;
 
-const Template: Story<IMarkdownEditorProps> = (args: IMarkdownEditorProps) => (
+const Template: Story<MarkdownEditorProps> = (args: MarkdownEditorProps) => (
   <MarkdownEditor {...args} />
 );
 

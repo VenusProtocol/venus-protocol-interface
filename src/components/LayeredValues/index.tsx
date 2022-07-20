@@ -4,13 +4,13 @@ import React from 'react';
 
 import { useStyles } from './styles';
 
-export interface ILayeredValuesProps {
+export interface LayeredValuesProps {
   topValue: string | number;
   bottomValue: string | number;
   className?: string;
 }
 
-export const LayeredValues: React.FC<ILayeredValuesProps> = ({
+export const LayeredValues: React.FC<LayeredValuesProps> = ({
   topValue,
   bottomValue,
   className,

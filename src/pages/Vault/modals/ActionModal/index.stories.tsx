@@ -7,7 +7,7 @@ import { getContractAddress } from 'utilities';
 import fakeAddress from '__mocks__/models/address';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
-import ActionModal, { IActionModalProps } from '.';
+import ActionModal, { ActionModalProps } from '.';
 
 export default {
   title: 'Pages/Vault/modals/ActionModal',
@@ -15,7 +15,7 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof ActionModal>;
 
-const Template: Story<IActionModalProps> = args => <ActionModal {...args} />;
+const Template: Story<ActionModalProps> = args => <ActionModal {...args} />;
 
 const authContext = {
   login: noop,

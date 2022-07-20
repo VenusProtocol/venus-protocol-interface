@@ -1,8 +1,8 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
+  ClaimXvsRewardInput,
   ClaimXvsRewardOutput,
-  IClaimXvsRewardInput,
   claimXvsReward,
   queryClient,
 } from 'clients/api';
@@ -12,7 +12,7 @@ import FunctionKey from 'constants/functionKey';
 type Options = MutationObserverOptions<
   ClaimXvsRewardOutput,
   Error,
-  Omit<IClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>
+  Omit<ClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>
 >;
 
 const useClaimXvsReward = (options?: Options) => {
@@ -20,7 +20,7 @@ const useClaimXvsReward = (options?: Options) => {
 
   return useMutation(
     FunctionKey.CLAIM_XVS_REWARD,
-    (params: Omit<IClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>) =>
+    (params: Omit<ClaimXvsRewardInput, 'comptrollerContract' | 'venusLensContract'>) =>
       claimXvsReward({
         comptrollerContract,
         ...params,

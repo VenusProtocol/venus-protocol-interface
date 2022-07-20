@@ -1,5 +1,5 @@
 import formatToUserInfo from './formatToUserInfo';
-import { IGetXvsVaultUserInfoInput, IGetXvsVaultUserInfoOutput } from './types';
+import { GetXvsVaultUserInfoInput, GetXvsVaultUserInfoOutput } from './types';
 
 export * from './types';
 
@@ -8,7 +8,7 @@ const getXvsVaultUserInfo = async ({
   rewardTokenAddress,
   poolIndex,
   accountAddress,
-}: IGetXvsVaultUserInfoInput): Promise<IGetXvsVaultUserInfoOutput> => {
+}: GetXvsVaultUserInfoInput): Promise<GetXvsVaultUserInfoOutput> => {
   const res = await xvsVaultContract.methods
     .getUserInfo(rewardTokenAddress, poolIndex, accountAddress)
     .call();

@@ -3,11 +3,11 @@ import React from 'react';
 
 import { useDelimiterStyles as useStyles } from './styles';
 
-interface IDelimiterProps {
+interface DelimiterProps {
   className?: string;
 }
 
-export const Delimiter = ({ className }: IDelimiterProps) => {
+export const Delimiter = ({ className }: DelimiterProps) => {
   const styles = useStyles();
   return <hr css={styles.root} className={className} />;
 };

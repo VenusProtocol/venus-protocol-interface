@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import React from 'react';
-import { IProposalAction } from 'types';
+import { ProposalAction } from 'types';
 import { generateBscScanUrl } from 'utilities';
 
 import { FormValues } from 'pages/Vote/CreateProposalModal/proposalSchema';
@@ -10,12 +10,12 @@ import formatSignature from './formatSignature';
 import getContractName from './getContractName';
 import { useStyles } from './styles';
 
-interface IReadableActionSignatureProps {
-  action: FormValues['actions'][number] | IProposalAction;
+interface ReadableActionSignatureProps {
+  action: FormValues['actions'][number] | ProposalAction;
   className?: string;
 }
 
-export const ReadableActionSignature: React.FC<IReadableActionSignatureProps> = ({
+export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = ({
   action,
   className,
 }) => {

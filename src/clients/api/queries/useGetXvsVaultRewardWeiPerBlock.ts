@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultRewardWeiPerBlock, {
+  GetXvsVaultRewardWeiPerBlockInput,
   GetXvsVaultRewardWeiPerBlockOutput,
-  IGetXvsVaultRewardWeiPerBlockInput,
 } from 'clients/api/queries/getXvsVaultRewardWeiPerBlock';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
@@ -16,7 +16,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsVaultRewardWeiPerBlock = (
-  { tokenAddress }: Omit<IGetXvsVaultRewardWeiPerBlockInput, 'xvsVaultContract'>,
+  { tokenAddress }: Omit<GetXvsVaultRewardWeiPerBlockInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
   const xvsVaultContract = useXvsVaultProxyContract();

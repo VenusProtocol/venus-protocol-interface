@@ -1,11 +1,11 @@
 import { VError } from 'errors';
-import { ITransaction, TransactionEvent } from 'types';
+import { Transaction, TransactionEvent } from 'types';
 import { restService } from 'utilities';
 
 import formatTransaction from './formatTransaction';
-import { ITransactionResponse } from './types';
+import { TransactionResponse } from './types';
 
-export interface IGetTransactionsInput {
+export interface GetTransactionsInput {
   page?: number;
   event?: TransactionEvent;
   address?: string;
@@ -21,18 +21,18 @@ export interface IGetTransactionsInput {
     | 'createdAt';
 }
 
-export interface IGetTransactionsResponse {
+export interface GetTransactionsResponse {
   limit: number;
   page: number;
   total: number;
-  result: ITransactionResponse[];
+  result: TransactionResponse[];
 }
 
-export interface IGetTransactionsOutput {
+export interface GetTransactionsOutput {
   limit: number;
   page: number;
   total: number;
-  transactions: ITransaction[];
+  transactions: Transaction[];
 }
 
 const getTransactions = async ({
@@ -41,8 +41,8 @@ const getTransactions = async ({
   address,
   order = 'blockNumber',
   sort = 'desc',
-}: IGetTransactionsInput): Promise<IGetTransactionsOutput> => {
-  const response = await restService<IGetTransactionsResponse>({
+}: GetTransactionsInput): Promise<GetTransactionsOutput> => {
+  const response = await restService<GetTransactionsResponse>({
     endpoint: '/transactions',
     method: 'GET',
     params: {

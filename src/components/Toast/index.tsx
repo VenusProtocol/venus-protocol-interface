@@ -10,17 +10,17 @@ import { Notice } from '../Notice';
 import { NoticeVariant } from '../Notice/types';
 import { customToastGlobalStyles, useStyles } from './styles';
 
-interface IToastArgs {
+interface ToastArgs {
   message: string;
 }
-interface IToastProps extends IToastArgs {
+interface ToastProps extends ToastArgs {
   type: NoticeVariant;
 }
-interface ICloseButtonProps {
+interface CloseButtonProps {
   closeToast: () => void;
 }
 
-const CloseButton: React.FC<ICloseButtonProps> = ({ closeToast }) => {
+const CloseButton: React.FC<CloseButtonProps> = ({ closeToast }) => {
   const classes = useStyles();
   return (
     <Button css={classes.btnClose} onClick={closeToast} variant="text">
@@ -29,7 +29,7 @@ const CloseButton: React.FC<ICloseButtonProps> = ({ closeToast }) => {
   );
 };
 
-const ToastComponent: React.FC<IToastProps> = ({ message, type = 'info' }) => {
+const ToastComponent: React.FC<ToastProps> = ({ message, type = 'info' }) => {
   const classes = useStyles();
   return (
     <>
@@ -50,22 +50,22 @@ const defaultOptions: ToastOptions = {
   closeButton: CloseButton as ToastOptions['closeButton'],
 };
 
-export const toast = ({ message, type = 'info' }: IToastProps, options?: ToastOptions) =>
+export const toast = ({ message, type = 'info' }: ToastProps, options?: ToastOptions) =>
   toastify(<ToastComponent message={message} type={type} />, {
     ...defaultOptions,
     ...options,
   });
 
-toast.info = (content: IToastArgs, options?: ToastOptions) =>
+toast.info = (content: ToastArgs, options?: ToastOptions) =>
   toast({ ...content, type: 'info' }, options);
 
-toast.error = (content: IToastArgs, options?: ToastOptions) =>
+toast.error = (content: ToastArgs, options?: ToastOptions) =>
   toast({ ...content, type: 'error' }, options);
 
-toast.success = (content: IToastArgs, options?: ToastOptions) =>
+toast.success = (content: ToastArgs, options?: ToastOptions) =>
   toast({ ...content, type: 'success' }, options);
 
-toast.warning = (content: IToastArgs, options?: ToastOptions) =>
+toast.warning = (content: ToastArgs, options?: ToastOptions) =>
   toast({ ...content, type: 'warning' }, options);
 
 toast.update = toastify.update;

@@ -21,11 +21,11 @@ import { AuthContext } from 'context/AuthContext';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-interface IStateCard {
+interface StateCard {
   state: ProposalState | undefined;
 }
 
-const StatusCard: React.FC<IStateCard> = ({ state }) => {
+const StatusCard: React.FC<StateCard> = ({ state }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -96,7 +96,7 @@ const StatusCard: React.FC<IStateCard> = ({ state }) => {
   return null;
 };
 
-interface IGovernanceProposalProps {
+interface GovernanceProposalProps {
   className?: string;
   proposalId: number;
   proposalTitle: string;
@@ -108,7 +108,7 @@ interface IGovernanceProposalProps {
   abstainedVotesWei?: BigNumber;
 }
 
-const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
+const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   className,
   proposalId,
   proposalTitle,
@@ -189,7 +189,7 @@ const GovernanceProposalUi: React.FC<IGovernanceProposalProps> = ({
   );
 };
 
-const GovernanceProposal: React.FC<Omit<IGovernanceProposalProps, 'userVoteStatus'>> = ({
+const GovernanceProposal: React.FC<Omit<GovernanceProposalProps, 'userVoteStatus'>> = ({
   proposalId,
   ...props
 }) => {

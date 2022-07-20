@@ -4,9 +4,9 @@ import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import { ApyChart, BorrowApyChart, IApyChartItem, SupplyApyChart } from '.';
+import { ApyChart, ApyChartItem, BorrowApyChart, SupplyApyChart } from '.';
 
-const data: IApyChartItem[] = [
+const data: ApyChartItem[] = [
   {
     apyPercentage: 40,
     timestampMs: new Date('2022-05-03T10:59:44.330Z').getTime(),

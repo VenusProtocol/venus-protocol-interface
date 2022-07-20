@@ -1,10 +1,10 @@
 import { useField } from 'formik';
 import React from 'react';
 
-import { IMarkdownEditorProps, MarkdownEditor } from '../Markdown';
+import { MarkdownEditor, MarkdownEditorProps } from '../Markdown';
 
-interface IFormikMarkdownEditorProps
-  extends Omit<IMarkdownEditorProps, 'name' | 'onChange' | 'value' | 'onBlur'> {
+interface FormikMarkdownEditorProps
+  extends Omit<MarkdownEditorProps, 'name' | 'onChange' | 'value' | 'onBlur'> {
   name: string;
   displayableErrorCodes?: string[];
 }
@@ -13,7 +13,7 @@ export const FormikMarkdownEditor = ({
   name,
   displayableErrorCodes = [],
   ...rest
-}: IFormikMarkdownEditorProps) => {
+}: FormikMarkdownEditorProps) => {
   const [{ value, onBlur }, { error, touched }, { setValue }] = useField(name);
   const onChange = (val: string | undefined) => {
     setValue(val);

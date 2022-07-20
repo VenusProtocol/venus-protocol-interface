@@ -8,7 +8,7 @@ import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
-import BorrowRepay, { IBorrowRepayProps } from '.';
+import BorrowRepay, { BorrowRepayProps } from '.';
 
 export default {
   title: 'Pages/Dashboard/Modals/BorrowRepay',
@@ -21,7 +21,7 @@ export default {
   },
 } as ComponentMeta<typeof BorrowRepay>;
 
-const Template: Story<IBorrowRepayProps> = args => <BorrowRepay {...args} />;
+const Template: Story<BorrowRepayProps> = args => <BorrowRepay {...args} />;
 
 const context = {
   login: noop,

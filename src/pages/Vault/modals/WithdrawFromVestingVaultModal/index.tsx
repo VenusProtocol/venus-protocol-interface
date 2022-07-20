@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { IModalProps, Modal, TabContent, Tabs } from 'components';
+import { Modal, ModalProps, TabContent, Tabs } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
@@ -11,7 +11,7 @@ import WithdrawalRequestList from './WithdrawalRequestList';
 import { useStyles } from './styles';
 
 export interface WithdrawFromVestingVaultModalProps {
-  handleClose: IModalProps['handleClose'];
+  handleClose: ModalProps['handleClose'];
   stakedTokenId: TokenId;
   poolIndex: number;
 }

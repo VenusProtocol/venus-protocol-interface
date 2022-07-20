@@ -10,7 +10,7 @@ import getVTokenSupplyRate from './getVTokenSupplyRate';
 
 const REFERENCE_AMOUNT_WEI = 1e4;
 
-export interface IGetVTokenInterestRatesInput {
+export interface GetVTokenInterestRatesInput {
   interestModelContract: InterestModel;
   reserveFactorMantissa: BigNumber;
 }
@@ -26,7 +26,7 @@ export type GetVTokenApySimulationsOutput = VTokenApySnapshot[];
 const getVTokenApySimulations = async ({
   interestModelContract,
   reserveFactorMantissa,
-}: IGetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
+}: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
   const promises: Promise<VTokenApySnapshot>[] = [];
 
   for (let u = 1; u <= 100; u++) {

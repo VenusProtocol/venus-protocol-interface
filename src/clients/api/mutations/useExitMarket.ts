@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { ExitMarketOutput, IExitMarketInput, exitMarket, queryClient } from 'clients/api';
+import { ExitMarketInput, ExitMarketOutput, exitMarket, queryClient } from 'clients/api';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
@@ -9,7 +9,7 @@ const useExitMarket = (
   options?: MutationObserverOptions<
     ExitMarketOutput,
     Error,
-    Omit<IExitMarketInput, 'comptrollerContract'>
+    Omit<ExitMarketInput, 'comptrollerContract'>
   >,
 ) => {
   const comptrollerContract = useComptrollerContract();
@@ -17,7 +17,7 @@ const useExitMarket = (
   // @TODO: invalidate related queries on success
   return useMutation(
     FunctionKey.EXIT_MARKET,
-    (params: Omit<IExitMarketInput, 'comptrollerContract'>) =>
+    (params: Omit<ExitMarketInput, 'comptrollerContract'>) =>
       exitMarket({
         comptrollerContract,
         ...params,

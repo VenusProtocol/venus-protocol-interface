@@ -8,10 +8,10 @@ import { Asset, TokenId } from 'types';
 import BorrowRepayModal from 'pages/Dashboard/Modals/BorrowRepay';
 
 import { useStyles } from '../styles';
-import BorrowMarketTable, { IBorrowMarketTableProps } from './BorrowMarketTable';
-import BorrowingTable, { IBorrowingUiProps } from './BorrowingTable';
+import BorrowMarketTable, { BorrowMarketTableProps } from './BorrowMarketTable';
+import BorrowingTable, { BorrowingUiProps } from './BorrowingTable';
 
-export interface IBorrowMarketUiProps {
+export interface BorrowMarketUiProps {
   className?: string;
   borrowMarketAssets: Asset[];
   borrowingAssets: Asset[];
@@ -19,7 +19,7 @@ export interface IBorrowMarketUiProps {
   userTotalBorrowLimitCents: BigNumber;
 }
 
-export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
+export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
   className,
   borrowingAssets,
   borrowMarketAssets,
@@ -29,7 +29,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
   const styles = useStyles();
 
-  const rowOnClick: IBorrowMarketTableProps['rowOnClick'] | IBorrowingUiProps['rowOnClick'] = (
+  const rowOnClick: BorrowMarketTableProps['rowOnClick'] | BorrowingUiProps['rowOnClick'] = (
     _e,
     row,
   ) => {
@@ -76,7 +76,7 @@ export const BorrowMarketUi: React.FC<IBorrowMarketUiProps> = ({
   );
 };
 
-const BorrowMarket: React.FC<IBorrowMarketUiProps> = ({
+const BorrowMarket: React.FC<BorrowMarketUiProps> = ({
   className,
   isXvsEnabled,
   borrowMarketAssets,

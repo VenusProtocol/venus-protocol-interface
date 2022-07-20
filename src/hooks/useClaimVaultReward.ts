@@ -8,7 +8,7 @@ import {
   useClaimXvsVaultReward,
 } from 'clients/api';
 
-interface IStakeInput {
+interface StakeInput {
   rewardTokenId: TokenId;
   stakedTokenId: TokenId;
   accountAddress: string;
@@ -32,7 +32,7 @@ const useClaimVaultReward = () => {
     stakedTokenId,
     accountAddress,
     poolIndex,
-  }: IStakeInput) => {
+  }: StakeInput) => {
     if (typeof poolIndex === 'number') {
       const rewardTokenAddress = getToken(rewardTokenId).address;
 

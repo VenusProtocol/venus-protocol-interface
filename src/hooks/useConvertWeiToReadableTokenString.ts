@@ -1,19 +1,19 @@
 import { useMemo } from 'react';
-import { IConvertWeiToTokensInput, convertWeiToTokens } from 'utilities';
+import { ConvertWeiToTokensInput, convertWeiToTokens } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-export interface IUseConvertWeiToReadableTokenStringInput
-  extends Omit<IConvertWeiToTokensInput, 'valueWei' | 'returnInReadableFormat'> {
-  valueWei: IConvertWeiToTokensInput['valueWei'] | undefined;
+export interface UseConvertWeiToReadableTokenStringInput
+  extends Omit<ConvertWeiToTokensInput, 'valueWei' | 'returnInReadableFormat'> {
+  valueWei: ConvertWeiToTokensInput['valueWei'] | undefined;
 }
 
-const useConvertWeiToReadableTokenString = (params: IUseConvertWeiToReadableTokenStringInput) =>
+const useConvertWeiToReadableTokenString = (params: UseConvertWeiToReadableTokenStringInput) =>
   useMemo(
     () =>
       params.valueWei
         ? convertWeiToTokens({
-            ...(params as IConvertWeiToTokensInput),
+            ...(params as ConvertWeiToTokensInput),
             returnInReadableFormat: true,
           })
         : PLACEHOLDER_KEY,

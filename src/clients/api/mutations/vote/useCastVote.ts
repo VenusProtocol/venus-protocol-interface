@@ -4,9 +4,9 @@ import { queryClient } from 'clients/api';
 import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
-import castVote, { CastVoteOutput, ICastVoteInput } from './castVote';
+import castVote, { CastVoteInput, CastVoteOutput } from './castVote';
 
-export type CastVoteParams = Omit<ICastVoteInput, 'governorBravoContract' | 'fromAccountAddress'>;
+export type CastVoteParams = Omit<CastVoteInput, 'governorBravoContract' | 'fromAccountAddress'>;
 
 const useCastVote = (
   { fromAccountAddress }: { fromAccountAddress: string },

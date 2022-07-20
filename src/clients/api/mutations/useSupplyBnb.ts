@@ -1,13 +1,13 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import supplyBnb, { ISupplyBnbInput, SupplyBnbOutput } from 'clients/api/mutations/supplyBnb';
+import supplyBnb, { SupplyBnbInput, SupplyBnbOutput } from 'clients/api/mutations/supplyBnb';
 import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 import { VBnbToken } from 'types/contracts';
 
-export type SupplyBnbParams = Omit<ISupplyBnbInput, 'tokenContract' | 'account' | 'web3'>;
+export type SupplyBnbParams = Omit<SupplyBnbInput, 'tokenContract' | 'account' | 'web3'>;
 
 const useSupplyBnb = (
   { account }: { account: string },

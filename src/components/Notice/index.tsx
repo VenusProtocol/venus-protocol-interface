@@ -7,7 +7,7 @@ import { Icon } from '../Icon';
 import { useStyles } from './styles';
 import { NoticeVariant } from './types';
 
-interface INoticeProps {
+interface NoticeProps {
   className?: string;
   title?: string | ReactElement;
   description: string | ReactElement;
@@ -30,7 +30,7 @@ const getNoticeIconName = (
   }
 };
 
-export const Notice = ({ className, title, description, variant = 'info' }: INoticeProps) => {
+export const Notice = ({ className, title, description, variant = 'info' }: NoticeProps) => {
   const styles = useStyles();
 
   return (
@@ -59,7 +59,7 @@ export const Notice = ({ className, title, description, variant = 'info' }: INot
   );
 };
 
-export const NoticeInfo = (props: INoticeProps) => <Notice variant="info" {...props} />;
-export const NoticeError = (props: INoticeProps) => <Notice variant="error" {...props} />;
-export const NoticeWarning = (props: INoticeProps) => <Notice variant="warning" {...props} />;
-export const NoticeSuccess = (props: INoticeProps) => <Notice variant="success" {...props} />;
+export const NoticeInfo = (props: NoticeProps) => <Notice variant="info" {...props} />;
+export const NoticeError = (props: NoticeProps) => <Notice variant="error" {...props} />;
+export const NoticeWarning = (props: NoticeProps) => <Notice variant="warning" {...props} />;
+export const NoticeSuccess = (props: NoticeProps) => <Notice variant="success" {...props} />;

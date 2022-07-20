@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
 
-export interface IGetXvsVaultRewardWeiPerBlockInput {
+export interface GetXvsVaultRewardWeiPerBlockInput {
   xvsVaultContract: XvsVault;
   tokenAddress: string;
 }
@@ -12,7 +12,7 @@ export type GetXvsVaultRewardWeiPerBlockOutput = BigNumber;
 const getXvsVaultRewardWeiPerBlock = async ({
   xvsVaultContract,
   tokenAddress,
-}: IGetXvsVaultRewardWeiPerBlockInput): Promise<GetXvsVaultRewardWeiPerBlockOutput> => {
+}: GetXvsVaultRewardWeiPerBlockInput): Promise<GetXvsVaultRewardWeiPerBlockOutput> => {
   const res = await xvsVaultContract.methods.rewardTokenAmountsPerBlock(tokenAddress).call();
   return new BigNumber(res);
 };

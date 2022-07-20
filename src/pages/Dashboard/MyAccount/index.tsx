@@ -11,9 +11,9 @@ import {
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 
-import MyAccountUi, { IMyAccountUiProps } from './MyAccountUi';
+import MyAccountUi, { MyAccountUiProps } from './MyAccountUi';
 
-interface IMyAccountProps {
+interface MyAccountProps {
   className?: string;
   isXvsEnabled: boolean;
   setIsXvsEnabled: (value: boolean) => void;
@@ -23,7 +23,7 @@ interface IMyAccountProps {
   userTotalSupplyBalanceCents: BigNumber;
 }
 
-const MyAccount: React.FC<IMyAccountProps> = ({
+const MyAccount: React.FC<MyAccountProps> = ({
   className,
   assets,
   isXvsEnabled,
@@ -36,7 +36,7 @@ const MyAccount: React.FC<IMyAccountProps> = ({
   const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
 
   const calculations: Pick<
-    IMyAccountUiProps,
+    MyAccountUiProps,
     'netApyPercentage' | 'dailyEarningsCents' | 'supplyBalanceCents' | 'borrowLimitCents'
   > = React.useMemo(() => {
     const yearlyEarningsCents =

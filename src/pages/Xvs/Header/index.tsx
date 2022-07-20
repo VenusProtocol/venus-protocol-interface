@@ -23,18 +23,18 @@ import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { MINTED_XVS_WEI } from '../constants';
 import { useStyles } from '../styles';
 
-interface IHeaderProps {
+interface HeaderProps {
   className?: string;
 }
 
-interface IHeaderContainerProps {
+interface HeaderContainerProps {
   remainingDistributionWei: BigNumber;
   dailyVenusWei: BigNumber;
   venusVaiVaultDailyRateWei: BigNumber;
   totalXvsDistributedWei: BigNumber;
 }
 
-export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
+export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   className,
   remainingDistributionWei,
   dailyVenusWei,
@@ -125,7 +125,7 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   );
 };
 
-const Header: React.FC<IHeaderProps> = ({ className }) => {
+const Header: React.FC<HeaderProps> = ({ className }) => {
   const { account } = useContext(AuthContext);
   const { data: venusVaiVaultDailyRateWei } = useGetVenusVaiVaultDailyRateWei();
   const {

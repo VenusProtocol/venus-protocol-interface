@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { IModalProps, Modal, TabContent, Tabs, Token } from 'components';
+import { Modal, ModalProps, TabContent, Tabs, Token } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -9,13 +9,13 @@ import { useStyles } from '../styles';
 import Borrow from './Borrow';
 import Repay from './Repay';
 
-export interface IBorrowRepayProps {
-  onClose: IModalProps['handleClose'];
+export interface BorrowRepayProps {
+  onClose: ModalProps['handleClose'];
   isXvsEnabled: boolean;
   asset: Asset;
 }
 
-const BorrowRepay: React.FC<IBorrowRepayProps> = ({ onClose, asset, isXvsEnabled }) => {
+const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 

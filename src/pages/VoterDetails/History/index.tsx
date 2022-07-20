@@ -3,21 +3,21 @@ import { Typography } from '@mui/material';
 import { Pagination, Spinner } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { IVoterHistory } from 'types';
+import { VoterHistory } from 'types';
 
 import VoterProposal from './VoterProposal';
 import { useStyles } from './styles';
 
-interface IHistoryProps {
+interface HistoryProps {
   className?: string;
-  voterHistory: IVoterHistory[] | undefined;
+  voterHistory: VoterHistory[] | undefined;
   setCurrentPage: (page: number) => void;
   total: number;
   limit: number;
   isFetching: boolean;
 }
 
-export const History: React.FC<IHistoryProps> = ({
+export const History: React.FC<HistoryProps> = ({
   className,
   voterHistory = [],
   setCurrentPage,

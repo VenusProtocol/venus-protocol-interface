@@ -16,11 +16,11 @@ import { useGetMarkets } from 'clients/api';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
-export interface IMarketTableProps extends Pick<TableProps, 'getRowHref'> {
+export interface MarketTableProps extends Pick<TableProps, 'getRowHref'> {
   markets: Market[];
 }
 
-export const MarketTableUi: React.FC<IMarketTableProps> = ({ markets, getRowHref }) => {
+export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();

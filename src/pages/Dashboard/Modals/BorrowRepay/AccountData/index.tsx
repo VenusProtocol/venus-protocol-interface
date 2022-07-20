@@ -23,13 +23,13 @@ import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 
 import { useStyles } from '../../styles';
 
-export interface IAccountDataProps {
+export interface AccountDataProps {
   asset: Asset;
   hypotheticalBorrowAmountTokens: number;
   isXvsEnabled: boolean;
 }
 
-const AccountData: React.FC<IAccountDataProps> = ({
+const AccountData: React.FC<AccountDataProps> = ({
   asset,
   hypotheticalBorrowAmountTokens,
   isXvsEnabled,

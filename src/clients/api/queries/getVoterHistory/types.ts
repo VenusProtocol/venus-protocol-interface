@@ -1,6 +1,6 @@
-import { IProposalApiResponse } from '../getProposals';
+import { ProposalApiResponse } from '../getProposals';
 
-export interface IGetVoterHistoryResponse {
+export interface GetVoterHistoryResponse {
   limit: number;
   offset: number;
   total: number;
@@ -11,7 +11,7 @@ export interface IGetVoterHistoryResponse {
     createdAt: string;
     hasVoted: boolean;
     id: string;
-    proposal: Omit<IProposalApiResponse, 'actions' | 'blockNumber'>;
+    proposal: Omit<ProposalApiResponse, 'actions' | 'blockNumber'>;
     proposalId: number;
     reason: null | string;
     support: 0 | 1 | 2;

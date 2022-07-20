@@ -2,7 +2,7 @@ import { interactionErrorPhrases } from './interactionErrorPhrases';
 import { transactionErrorPhrases } from './transactionErrorPhrases';
 import { unexpectedErrorPhrases } from './unexpectedErrorPhrases';
 
-export interface IVErrorParamMap {
+export interface VErrorParamMap {
   transaction: {
     error: keyof typeof transactionErrorPhrases;
     info: keyof typeof transactionErrorPhrases;
@@ -11,20 +11,20 @@ export interface IVErrorParamMap {
   interaction: { assetName: string };
 }
 
-export interface IVErrorPhraseMap {
+export interface VErrorPhraseMap {
   transaction: keyof typeof transactionErrorPhrases;
   unexpected: keyof typeof unexpectedErrorPhrases;
   interaction: keyof typeof interactionErrorPhrases;
 }
 
-export type ErrorCodes = keyof IVErrorParamMap;
+export type ErrorCodes = keyof VErrorParamMap;
 
 export class VError<E extends ErrorCodes> extends Error {
-  data: IVErrorParamMap[E] | undefined;
+  data: VErrorParamMap[E] | undefined;
 
   type: E;
 
-  code: IVErrorPhraseMap[E];
+  code: VErrorPhraseMap[E];
 
   constructor({
     type,
@@ -32,8 +32,8 @@ export class VError<E extends ErrorCodes> extends Error {
     data,
   }: {
     type: E;
-    code: IVErrorPhraseMap[E];
-    data?: IVErrorParamMap[E];
+    code: VErrorPhraseMap[E];
+    data?: VErrorParamMap[E];
   }) {
     super(code);
     this.type = type;

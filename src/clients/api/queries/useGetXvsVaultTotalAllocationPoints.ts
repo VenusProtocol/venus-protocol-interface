@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultTotalAllocationPoints, {
+  GetXvsVaultTotalAllocPointsInput,
   GetXvsVaultTotalAllocPointsOutput,
-  IGetXvsVaultTotalAllocPointsInput,
 } from 'clients/api/queries/getXvsVaultTotalAllocationPoints';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
@@ -16,7 +16,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsVaultTotalAllocationPoints = (
-  { tokenAddress }: Omit<IGetXvsVaultTotalAllocPointsInput, 'xvsVaultContract'>,
+  { tokenAddress }: Omit<GetXvsVaultTotalAllocPointsInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
   const xvsVaultContract = useXvsVaultProxyContract();
