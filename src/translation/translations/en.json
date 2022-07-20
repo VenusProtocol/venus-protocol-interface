@@ -37,7 +37,7 @@
       "borrowLimitUsed": "Borrow limit used",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "dailyEarnings": "Daily earnings",
-      "distributionAPy": "Distribution APY",
+      "distributionApy": "Distribution APY",
       "enableToken": {
         "borrowInfo": "Borrow APY",
         "distributionInfo": "Distribution APY",
