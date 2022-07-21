@@ -3,111 +3,111 @@ export { default as queryClient } from './queryClient';
 // Mutations
 export { default as mintVai } from './mutations/mintVai';
 export * from './mutations/mintVai';
-export { default as useMintVai } from './mutations/useMintVai';
+export { default as useMintVai } from './mutations/mintVai/useMintVai';
 
 export { default as repayVai } from './mutations/repayVai';
 export * from './mutations/repayVai';
-export { default as useRepayVai } from './mutations/useRepayVai';
+export { default as useRepayVai } from './mutations/repayVai/useRepayVai';
 
 export { default as enterMarkets } from './mutations/enterMarkets';
 export * from './mutations/enterMarkets';
-export { default as useEnterMarkets } from './mutations/useEnterMarkets';
+export { default as useEnterMarkets } from './mutations/enterMarkets/useEnterMarkets';
 
 export { default as exitMarket } from './mutations/exitMarket';
 export * from './mutations/exitMarket';
-export { default as useExitMarket } from './mutations/useExitMarket';
+export { default as useExitMarket } from './mutations/exitMarket/useExitMarket';
 
 export { default as approveToken } from './mutations/approveToken';
 export * from './mutations/approveToken';
-export { default as useApproveToken } from './mutations/useApproveToken';
+export { default as useApproveToken } from './mutations/approveToken/useApproveToken';
 
 export { default as convertVrt } from './mutations/convertVrt';
 export * from './mutations/convertVrt';
-export { default as useConvertVrt } from './mutations/useConvertVrt';
+export { default as useConvertVrt } from './mutations/convertVrt/useConvertVrt';
 
 export { default as supplyNonBnb } from './mutations/supplyNonBnb';
 export * from './mutations/supplyNonBnb';
-export { default as useSupplyNonBnb } from './mutations/useSupplyNonBnb';
-export * from './mutations/useSupplyNonBnb';
+export { default as useSupplyNonBnb } from './mutations/supplyNonBnb/useSupplyNonBnb';
+export * from './mutations/supplyNonBnb/useSupplyNonBnb';
 
 export { default as supplyBnb } from './mutations/supplyBnb';
 export * from './mutations/supplyBnb';
-export { default as useSupplyBnb } from './mutations/useSupplyBnb';
-export * from './mutations/useSupplyBnb';
+export { default as useSupplyBnb } from './mutations/supplyBnb/useSupplyBnb';
+export * from './mutations/supplyBnb/useSupplyBnb';
 
 export { default as redeem } from './mutations/redeem';
 export * from './mutations/redeem';
-export { default as useRedeem } from './mutations/useRedeem';
+export { default as useRedeem } from './mutations/redeem/useRedeem';
 
 export { default as repayNonBnbVToken } from './mutations/repayNonBnbVToken';
 export * from './mutations/repayNonBnbVToken';
-export { default as useRepayNonBnbVToken } from './mutations/useRepayNonBnbVToken';
+export { default as useRepayNonBnbVToken } from './mutations/repayNonBnbVToken/useRepayNonBnbVToken';
 
 export { default as repayBnb } from './mutations/repayBnb';
 export * from './mutations/repayBnb';
-export { default as useRepayBnb } from './mutations/useRepayBnb';
+export { default as useRepayBnb } from './mutations/repayBnb/useRepayBnb';
 
 export { default as redeemUnderlying } from './mutations/redeemUnderlying';
 export * from './mutations/redeemUnderlying';
-export { default as useRedeemUnderlying } from './mutations/useRedeemUnderlying';
+export { default as useRedeemUnderlying } from './mutations/redeemUnderlying/useRedeemUnderlying';
 
 export { default as claimXvsReward } from './mutations/claimXvsReward';
 export * from './mutations/claimXvsReward';
-export { default as useClaimXvsReward } from './mutations/useClaimXvsReward';
+export { default as useClaimXvsReward } from './mutations/claimXvsReward/useClaimXvsReward';
 
 export { default as borrowVToken } from './mutations/borrowVToken';
 export * from './mutations/borrowVToken';
-export { default as useBorrowVToken } from './mutations/useBorrowVToken';
+export { default as useBorrowVToken } from './mutations/borrowVToken/useBorrowVToken';
 
 export { default as useRepayVToken } from './mutations/useRepayVToken';
 
 export { default as withdrawXvs } from './mutations/withdrawXvs';
 export * from './mutations/withdrawXvs';
-export { default as useWithdrawXvs } from './mutations/useWithdrawXvs';
+export { default as useWithdrawXvs } from './mutations/withdrawXvs/useWithdrawXvs';
 
 export { default as setVoteDelegate } from './mutations/setVoteDelegate';
 export * from './mutations/setVoteDelegate';
-export { default as useSetVoteDelegate } from './mutations/useSetVoteDelegate';
+export { default as useSetVoteDelegate } from './mutations/setVoteDelegate/useSetVoteDelegate';
 
 export { default as createProposal } from './mutations/createProposal';
 export * from './mutations/createProposal';
-export { default as useCreateProposal } from './mutations/useCreateProposal';
+export { default as useCreateProposal } from './mutations/createProposal/useCreateProposal';
 
 export { default as cancelProposal } from './mutations/cancelProposal';
 export * from './mutations/cancelProposal';
-export { default as useCancelProposal } from './mutations/useCancelProposal';
+export { default as useCancelProposal } from './mutations/cancelProposal/useCancelProposal';
 
 export { default as executeProposal } from './mutations/executeProposal';
 export * from './mutations/executeProposal';
-export { default as useExecuteProposal } from './mutations/useExecuteProposal';
+export { default as useExecuteProposal } from './mutations/executeProposal/useExecuteProposal';
 
 export { default as queueProposal } from './mutations/queueProposal';
 export * from './mutations/queueProposal';
-export { default as useQueueProposal } from './mutations/useQueueProposal';
+export { default as useQueueProposal } from './mutations/queueProposal/useQueueProposal';
 
 export { default as claimVaiVaultReward } from './mutations/claimVaiVaultReward';
 export * from './mutations/claimVaiVaultReward';
-export { default as useClaimVaiVaultReward } from './mutations/useClaimVaiVaultReward';
+export { default as useClaimVaiVaultReward } from './mutations/claimVaiVaultReward/useClaimVaiVaultReward';
 
 export { default as claimVrtVaultReward } from './mutations/claimVrtVaultReward';
 export * from './mutations/claimVrtVaultReward';
-export { default as useClaimVrtVaultReward } from './mutations/useClaimVrtVaultReward';
+export { default as useClaimVrtVaultReward } from './mutations/claimVrtVaultReward/useClaimVrtVaultReward';
 
 export { default as claimXvsVaultReward } from './mutations/claimXvsVaultReward';
 export * from './mutations/claimXvsVaultReward';
-export { default as useClaimXvsVaultReward } from './mutations/useClaimXvsVaultReward';
+export { default as useClaimXvsVaultReward } from './mutations/claimXvsVaultReward/useClaimXvsVaultReward';
 
 export { default as stakeInXvsVault } from './mutations/stakeInXvsVault';
 export * from './mutations/stakeInXvsVault';
-export { default as useStakeInXvsVault } from './mutations/useStakeInXvsVault';
+export { default as useStakeInXvsVault } from './mutations/stakeInXvsVault/useStakeInXvsVault';
 
 export { default as stakeInVaiVault } from './mutations/stakeInVaiVault';
 export * from './mutations/stakeInVaiVault';
-export { default as useStakeInVaiVault } from './mutations/useStakeInVaiVault';
+export { default as useStakeInVaiVault } from './mutations/stakeInVaiVault/useStakeInVaiVault';
 
 export { default as stakeInVrtVault } from './mutations/stakeInVrtVault';
 export * from './mutations/stakeInVrtVault';
-export { default as useStakeInVrtVault } from './mutations/useStakeInVrtVault';
+export { default as useStakeInVrtVault } from './mutations/stakeInVrtVault/useStakeInVrtVault';
 
 export { default as castVote } from './mutations/vote/castVote';
 export * from './mutations/vote/castVote';
