@@ -37,4 +37,5 @@ export const connectorsByName = {
   [Connector.BinanceChainWallet]: binanceChainWalletConnector,
   [Connector.InfinityWallet]: infinityWalletConnector,
   [Connector.OperaWallet]: injectedConnector,
+  [Connector.BitKeep]: injectedConnector,
 };
