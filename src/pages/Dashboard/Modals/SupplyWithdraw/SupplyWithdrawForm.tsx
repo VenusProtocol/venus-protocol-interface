@@ -27,7 +27,7 @@ import {
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
-import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
+import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 
 import { useStyles } from '../styles';
 

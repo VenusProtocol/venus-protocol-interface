@@ -7,11 +7,7 @@ import { formatPercentage } from 'utilities';
 import { useGetMarketHistory } from 'clients/api';
 
 const useGetChartData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
-  const {
-    data: marketSnapshotsData = {
-      marketSnapshots: [],
-    },
-  } = useGetMarketHistory({
+  const { data: marketSnapshots = [] } = useGetMarketHistory({
     vTokenId,
   });
 

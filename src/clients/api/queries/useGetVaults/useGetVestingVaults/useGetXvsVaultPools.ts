@@ -1,10 +1,10 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import {
-  GetXvsVaultPendingRewardOutput,
+  GetXvsVaultPendingRewardWeiOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
-  getXvsVaultPendingReward,
+  getXvsVaultPendingRewardWei,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
 } from 'clients/api';
@@ -19,7 +19,7 @@ export interface UseGetXvsVaultPoolsInput {
 }
 
 export type UseGetXvsVaultPoolsOutput = UseQueryResult<
-  GetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardOutput | GetXvsVaultUserInfoOutput
+  GetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardWeiOutput | GetXvsVaultUserInfoOutput
 >[];
 
 const useGetXvsVaultPools = ({
@@ -29,7 +29,7 @@ const useGetXvsVaultPools = ({
   const xvsVaultContract = useXvsVaultProxyContract();
 
   const poolQueries: UseQueryOptions<
-    GetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardOutput | GetXvsVaultUserInfoOutput
+    GetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardWeiOutput | GetXvsVaultUserInfoOutput
   >[] = [];
 
   // Fetch pool infos

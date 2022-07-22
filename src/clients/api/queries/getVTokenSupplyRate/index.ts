@@ -21,7 +21,7 @@ const getVTokenSupplyRate = async ({
   reservesAmountWei,
   reserveFactorMantissa,
 }: GetVTokenSupplyRateInput): Promise<IGetVTokenSupplyRateOutput> => {
-  const res = await interestModelContract.methods
+  const supplyRate = await interestModelContract.methods
     .getSupplyRate(
       cashAmountWei.toFixed(),
       borrowsAmountWei.toFixed(),

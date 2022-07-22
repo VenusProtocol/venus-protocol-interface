@@ -16,7 +16,7 @@ const getXvsReward = async ({
   lensContract,
   accountAddress,
 }: GetXvsRewardInput): Promise<GetXvsRewardOutput> => {
-  const res = await lensContract.methods
+  const pendingVenus = await lensContract.methods
     .pendingVenus(accountAddress, getContractAddress('comptroller'))
     .call();
 

@@ -16,7 +16,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetAssetsInAccount = (
-  { accountAddress }: Omit<GetAssetsInAccountInput, 'comptrollerContract'>,
+  { account }: Omit<GetAssetsInAccountInput, 'comptrollerContract'>,
   options?: Options,
 ) => {
   const comptrollerContract = useComptrollerContract();
