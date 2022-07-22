@@ -1,5 +1,3 @@
-import BigNumber from 'bignumber.js';
-
 import { VBep20, VBnbToken } from 'types/contracts';
 
 export interface GetVTokenBalanceOfInput {
@@ -7,19 +5,12 @@ export interface GetVTokenBalanceOfInput {
   accountAddress: string;
 }
 
-export type GetVTokenBalanceOfOutput = {
-  balanceWei: BigNumber;
-};
+export type GetVTokenBalanceOfOutput = string;
 
 const getVTokenBalanceOf = async ({
   vTokenContract,
   accountAddress,
-}: GetVTokenBalanceOfInput): Promise<GetVTokenBalanceOfOutput> => {
-  const res = await vTokenContract.methods.balanceOf(accountAddress).call();
-
-  return {
-    balanceWei: new BigNumber(res),
-  };
-};
+}: GetVTokenBalanceOfInput): Promise<GetVTokenBalanceOfOutput> =>
+  vTokenContract.methods.balanceOf(accountAddress).call();
 
 export default getVTokenBalanceOf;

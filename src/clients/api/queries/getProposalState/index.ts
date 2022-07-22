@@ -5,17 +5,12 @@ export interface GetProposalStateInput {
   proposalId: string;
 }
 
-export type GetProposalStateOutput = {
-  state: string;
-};
+export type GetProposalStateOutput = string;
 
 const getProposalState = async ({
   governorBravoContract,
   proposalId,
-}: GetProposalStateInput): Promise<GetProposalStateOutput> => {
-  const state = await governorBravoContract.methods.state(proposalId).call();
-
-  return { state };
-};
+}: GetProposalStateInput): Promise<GetProposalStateOutput> =>
+  governorBravoContract.methods.state(proposalId).call();
 
 export default getProposalState;
