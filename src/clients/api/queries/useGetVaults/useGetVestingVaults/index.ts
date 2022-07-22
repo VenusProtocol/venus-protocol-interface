@@ -4,11 +4,11 @@ import { Vault } from 'types';
 import { getTokenByAddress, indexBy } from 'utilities';
 
 import {
-  GetXvsVaultPendingRewardOutput,
+  GetXvsVaultPendingRewardWeiOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
-  useGetXvsVaultPoolCount,
-  useGetXvsVaultRewardPerBlock,
+  useGetXvsVaultPoolsCount,
+  useGetXvsVaultRewardWeiPerBlock,
   useGetXvsVaultTotalAllocationPoints,
 } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
@@ -58,7 +58,7 @@ const useGetVestingVaults = ({
     const data: {
       [poolIndex: string]: {
         poolInfos: GetXvsVaultPoolInfoOutput;
-        userPendingReward?: GetXvsVaultPendingRewardOutput;
+        userPendingRewardWei?: GetXvsVaultPendingRewardWeiOutput;
         userInfos?: GetXvsVaultUserInfoOutput;
       };
     } = {};

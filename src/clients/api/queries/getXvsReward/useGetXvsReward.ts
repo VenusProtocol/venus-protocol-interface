@@ -4,7 +4,7 @@ import { useVenusLensContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
-import getXvsReward, { GetXvsRewardInput, GetXvsRewardOutput } from '.';
+import getXvsReward, { GetXvsRewardInput, GetXvsRewardOutput } from './getXvsReward';
 
 type Options = QueryObserverOptions<
   GetXvsRewardOutput,

@@ -19,7 +19,7 @@ const getVTokenBorrowRate = async ({
   borrowsAmountWei,
   reservesAmountWei,
 }: GetVTokenBorrowRateInput): Promise<IGetVTokenBorrowRateOutput> => {
-  const res = await interestModelContract.methods
+  const borrowRate = await interestModelContract.methods
     .getBorrowRate(cashAmountWei.toFixed(), borrowsAmountWei.toFixed(), reservesAmountWei.toFixed())
     .call();
 

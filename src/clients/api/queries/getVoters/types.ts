@@ -1,4 +1,4 @@
-import { VotersDetails } from 'types';
+import { Voter } from 'types';
 
 export interface GetVotersInput {
   id: string | number;
@@ -30,4 +30,4 @@ export interface GetVotersApiResponse {
   total: number;
 }
 
-export type GetVotersOutput = VotersDetails;
+export type GetVotersOutput = Voter;

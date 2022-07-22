@@ -2,7 +2,9 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVesting } from 'types/contracts';
 
-import getXvsWithdrawableAmount, { GetXvsWithdrawableAmountOutput } from '.';
+import getXvsWithdrawableAmount, {
+  GetXvsWithdrawableAmountOutput,
+} from './getXvsWithdrawableAmount';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 

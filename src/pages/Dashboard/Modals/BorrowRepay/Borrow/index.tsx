@@ -22,7 +22,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { useBorrowVToken, useGetUserMarketInfo } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
