@@ -1,16 +1,16 @@
 import { t } from 'translation';
 
-import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/wallets/binanceChainWalletLogo.svg';
-import { ReactComponent as BitKeepLogo } from 'assets/img/wallets/bitKeepLogo.svg';
-import { ReactComponent as BraveWalletLogo } from 'assets/img/wallets/braveWalletLogo.svg';
-import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/wallets/coinbaseWalletLogo.svg';
-import { ReactComponent as InfinityWalletLogo } from 'assets/img/wallets/infinityWalletLogo.svg';
-import { ReactComponent as LedgerLogo } from 'assets/img/wallets/ledgerLogo.svg';
-import { ReactComponent as MetaMaskLogo } from 'assets/img/wallets/metaMaskLogo.svg';
-import { ReactComponent as OperaWalletLogo } from 'assets/img/wallets/operaWalletLogo.svg';
-import { ReactComponent as SafePalLogo } from 'assets/img/wallets/safePalLogo.svg';
-import { ReactComponent as TrustWalletLogo } from 'assets/img/wallets/trustWalletLogo.svg';
-import { ReactComponent as WalletConnectLogo } from 'assets/img/wallets/walletConnectLogo.svg';
+import { ReactComponent as BinanceChainWalletLogo } from 'assets/img/v2/wallets/binanceChainWalletLogo.svg';
+import { ReactComponent as BitKeepLogo } from 'assets/img/v2/wallets/bitKeepLogo.svg';
+import { ReactComponent as BraveWalletLogo } from 'assets/img/v2/wallets/braveWalletLogo.svg';
+import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/v2/wallets/coinbaseWalletLogo.svg';
+import { ReactComponent as InfinityWalletLogo } from 'assets/img/v2/wallets/infinityWalletLogo.svg';
+import { ReactComponent as LedgerLogo } from 'assets/img/v2/wallets/ledgerLogo.svg';
+import { ReactComponent as MetaMaskLogo } from 'assets/img/v2/wallets/metaMaskLogo.svg';
+import { ReactComponent as OperaWalletLogo } from 'assets/img/v2/wallets/operaWalletLogo.svg';
+import { ReactComponent as SafePalLogo } from 'assets/img/v2/wallets/safePalLogo.svg';
+import { ReactComponent as TrustWalletLogo } from 'assets/img/v2/wallets/trustWalletLogo.svg';
+import { ReactComponent as WalletConnectLogo } from 'assets/img/v2/wallets/walletConnectLogo.svg';
 import { Connector } from 'clients/web3';
 import { isRunningInOperaBrowser } from 'clients/web3/walletDetectionUtils';
 
