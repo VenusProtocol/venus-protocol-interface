@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
-import { ReactComponent as LogoWithText } from 'assets/img/v2/venusLogoWithText.svg';
+import { ReactComponent as LogoWithText } from 'assets/img/venusLogoWithText.svg';
 
 import { useStyles } from './styles';
 
