@@ -10,10 +10,10 @@ import React from 'react';
 
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
-import { ITooltipProps, Tooltip } from '../Tooltip';
+import { Tooltip, TooltipProps } from '../Tooltip';
 import { useStyles } from './styles';
 
-export interface IProgressBarProps {
+export interface ProgressBarProps {
   value: number;
   secondaryValue?: number;
   mark?: number;
@@ -21,10 +21,10 @@ export interface IProgressBarProps {
   ariaLabel: string;
   min: number;
   max: number;
-  trackTooltip?: ITooltipProps['title'];
-  markTooltip?: ITooltipProps['title'];
+  trackTooltip?: TooltipProps['title'];
+  markTooltip?: TooltipProps['title'];
   className?: string;
-  tooltipPlacement?: ITooltipProps['placement'];
+  tooltipPlacement?: TooltipProps['placement'];
   successColor?: string;
 }
 
@@ -41,7 +41,7 @@ export const ProgressBar = ({
   className,
   tooltipPlacement = 'top',
   successColor = PALETTE.interactive.success,
-}: IProgressBarProps) => {
+}: ProgressBarProps) => {
   const safeValue = value < max ? value : max;
 
   const marks = mark ? [{ value: mark }] : undefined;

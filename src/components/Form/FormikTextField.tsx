@@ -1,9 +1,9 @@
 import { useField } from 'formik';
 import React from 'react';
 
-import { ITextFieldProps, TextField } from '../TextField';
+import { TextField, TextFieldProps } from '../TextField';
 
-interface IFormikTextField extends Omit<ITextFieldProps, 'name' | 'onChange' | 'value'> {
+interface FormikTextFieldProps extends Omit<TextFieldProps, 'name' | 'onChange' | 'value'> {
   name: string;
   displayableErrorCodes?: string[];
 }
@@ -13,7 +13,7 @@ export const FormikTextField = ({
   displayableErrorCodes = [],
   onBlur,
   ...rest
-}: IFormikTextField) => {
+}: FormikTextFieldProps) => {
   const [{ value, onBlur: formikOnBlur }, { error, touched }, { setValue }] = useField(name);
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     const val = e.target.value;

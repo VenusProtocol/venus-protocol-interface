@@ -6,13 +6,13 @@ import { getToken } from 'utilities';
 
 import { TertiaryButton } from '../Button';
 import { IconName } from '../Icon';
-import { ITextFieldProps, TextField } from '../TextField';
+import { TextField, TextFieldProps } from '../TextField';
 
 // Note: although we display all the values in tokens (equivalent of ether for
 // the given token) to the user, the underlying values (maxWei, value) are
 // expressed in wei to make them easier to use with contracts
-export interface ITokenTextFieldProps
-  extends Omit<ITextFieldProps, 'onChange' | 'value' | 'max' | 'min'> {
+export interface TokenTextFieldProps
+  extends Omit<TextFieldProps, 'onChange' | 'value' | 'max' | 'min'> {
   tokenId: TokenId;
   value: string;
   onChange: (newValue: string) => void;
@@ -23,7 +23,7 @@ export interface ITokenTextFieldProps
   max?: string;
 }
 
-export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
+export const TokenTextField: React.FC<TokenTextFieldProps> = ({
   tokenId,
   rightMaxButton,
   onChange,
@@ -46,7 +46,7 @@ export const TokenTextField: React.FC<ITokenTextFieldProps> = ({
     }
   };
 
-  const handleChange: ITextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
+  const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
     // Forbid values with more decimals than the token provided supports
     const valueDecimals = value.includes('.') ? value.split('.')[1].length : 0;
 

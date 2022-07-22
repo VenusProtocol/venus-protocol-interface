@@ -1,15 +1,15 @@
-import { ICreateProposalInput } from 'clients/api';
+import { CreateProposalInput } from 'clients/api';
 
 import encodeCallData from './encodeCallData';
 import { FormValues } from './proposalSchema';
 
-export interface IV1Description {
+export interface V1Description {
   version: 'v1';
   title: string;
   description: string;
 }
 
-export interface IV2Description {
+export interface V2Description {
   version: 'v2';
   title: string;
   description: string;
@@ -19,7 +19,7 @@ export interface IV2Description {
 }
 
 const formatProposalPayload = (data: FormValues) => {
-  const payload: Omit<ICreateProposalInput, 'accountAddress'> = {
+  const payload: Omit<CreateProposalInput, 'accountAddress'> = {
     targets: [],
     signatures: [],
     callDatas: [],

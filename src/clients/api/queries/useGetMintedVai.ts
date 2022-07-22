@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getMintedVai, {
+  GetMintedVaiInput,
   GetMintedVaiOutput,
-  IGetMintedVaiInput,
 } from 'clients/api/queries/getMintedVai';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
@@ -16,7 +16,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetMintedVai = (
-  { accountAddress }: Omit<IGetMintedVaiInput, 'comptrollerContract'>,
+  { accountAddress }: Omit<GetMintedVaiInput, 'comptrollerContract'>,
   options?: Options,
 ) => {
   const comptrollerContract = useComptrollerContract();

@@ -28,11 +28,11 @@ type TableAsset = Pick<Asset, 'id' | 'symbol'> & {
   xvsBorrowApy: Asset['xvsBorrowApy'] | undefined;
 };
 
-interface IXvsTableProps {
+interface XvsTableProps {
   assets: TableAsset[];
 }
 
-const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
+const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 

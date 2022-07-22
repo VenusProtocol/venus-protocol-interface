@@ -1,7 +1,7 @@
 import { NULL_ADDRESS } from 'constants/address';
 import { XvsVault } from 'types/contracts';
 
-export interface IGetVoteDelegateAddressInput {
+export interface GetVoteDelegateAddressInput {
   xvsVaultContract: XvsVault;
   accountAddress: string;
 }
@@ -16,7 +16,7 @@ export type GetVoteDelegateAddressOutput = string | undefined;
 const getVoteDelegateAddress = async ({
   xvsVaultContract,
   accountAddress,
-}: IGetVoteDelegateAddressInput): Promise<GetVoteDelegateAddressOutput> => {
+}: GetVoteDelegateAddressInput): Promise<GetVoteDelegateAddressOutput> => {
   const resp = await xvsVaultContract.methods.delegates(accountAddress).call();
   return resp !== NULL_ADDRESS ? resp : undefined;
 };

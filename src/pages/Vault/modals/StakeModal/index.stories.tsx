@@ -6,7 +6,7 @@ import { getContractAddress } from 'utilities';
 import fakeAddress from '__mocks__/models/address';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
-import StakeModal, { IStakeModalProps } from '.';
+import StakeModal, { StakeModalProps } from '.';
 
 export default {
   title: 'Pages/Vault/modals/StakeModal',
@@ -14,7 +14,7 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof StakeModal>;
 
-const Template: Story<IStakeModalProps> = args => <StakeModal {...args} />;
+const Template: Story<StakeModalProps> = args => <StakeModal {...args} />;
 
 const authContext = {
   login: noop,

@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { Comptroller } from 'types/contracts';
 
-export interface IGetHypotheticalAccountLiquidityInput {
+export interface GetHypotheticalAccountLiquidityInput {
   comptrollerContract: Comptroller;
   accountAddress: string;
   vTokenAddress: string;
@@ -18,7 +18,7 @@ const getHypotheticalAccountLiquidity = ({
   vTokenAddress,
   vTokenBalanceOfWei,
   vTokenBorrowAmountWei = new BigNumber(0),
-}: IGetHypotheticalAccountLiquidityInput): Promise<GetHypotheticalAccountLiquidityOutput> =>
+}: GetHypotheticalAccountLiquidityInput): Promise<GetHypotheticalAccountLiquidityOutput> =>
   comptrollerContract.methods
     .getHypotheticalAccountLiquidity(
       accountAddress.toLowerCase(),

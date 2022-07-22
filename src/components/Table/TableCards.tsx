@@ -5,17 +5,18 @@ import { Link } from 'react-router-dom';
 
 import { Delimiter } from '../Delimiter';
 import { useStyles } from './styles';
-import { ITableRowProps } from './types';
+import { TableRowProps } from './types';
 
-interface ITableCardProps {
-  rows: ITableRowProps[][];
+interface TableCardProps {
+  rows: TableRowProps[][];
   rowKeyIndex: number;
   columns: { key: string; label: string; orderable: boolean }[];
   className?: string;
-  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
-  getRowHref?: (row: ITableRowProps[]) => string;
+  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
+  getRowHref?: (row: TableRowProps[]) => string;
 }
-const TableCards: React.FC<ITableCardProps> = ({
+
+const TableCards: React.FC<TableCardProps> = ({
   rows,
   rowKeyIndex,
   rowOnClick,

@@ -8,11 +8,11 @@ import MintVai from './MintVai';
 import RepayVai from './RepayVai';
 import { useStyles } from './styles';
 
-export interface IMintRepayVaiProps {
+export interface MintRepayVaiProps {
   className?: string;
 }
 
-const MintRepayVai: React.FC<IMintRepayVaiProps> = ({ className }) => {
+const MintRepayVai: React.FC<MintRepayVaiProps> = ({ className }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 

@@ -1,7 +1,7 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VTokenId } from 'types';
 
-import redeem, { IRedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
+import redeem, { RedeemInput, RedeemOutput } from 'clients/api/mutations/redeem';
 import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
@@ -13,7 +13,7 @@ const useRedeem = (
   options?: MutationObserverOptions<
     RedeemOutput,
     Error,
-    Omit<IRedeemInput, 'tokenContract' | 'accountAddress'>
+    Omit<RedeemInput, 'tokenContract' | 'accountAddress'>
   >,
 ) => {
   const tokenContract = useVTokenContract(vTokenId);

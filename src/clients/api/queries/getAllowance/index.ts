@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { Bep20, VaiToken, VrtToken, XvsToken } from 'types/contracts';
 
-export interface IGetAllowanceInput {
+export interface GetAllowanceInput {
   tokenContract: VrtToken | XvsToken | Bep20 | VaiToken;
   accountAddress: string;
   spenderAddress: string;
@@ -14,7 +14,7 @@ const getVenusVaiState = async ({
   tokenContract,
   accountAddress,
   spenderAddress,
-}: IGetAllowanceInput): Promise<GetAllowanceOutput> => {
+}: GetAllowanceInput): Promise<GetAllowanceOutput> => {
   const res = await tokenContract.methods.allowance(accountAddress, spenderAddress).call();
   return new BigNumber(res);
 };

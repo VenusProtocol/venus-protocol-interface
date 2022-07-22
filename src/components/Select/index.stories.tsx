@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withCenterStory, withOnChange } from 'stories/decorators';
 
-import { ISelectProps, Select } from '.';
+import { Select, SelectProps } from '.';
 
 export default {
   title: 'Components/Select',
@@ -16,7 +16,7 @@ export default {
   },
 } as ComponentMeta<typeof Select>;
 
-const Template: Story<ISelectProps> = (args: ISelectProps) => <Select {...args} />;
+const Template: Story<SelectProps> = (args: SelectProps) => <Select {...args} />;
 
 const options = Array.from(Array(5).keys()).map(i => ({
   value: `value${i}`,

@@ -3,17 +3,17 @@ import Typography from '@mui/material/Typography';
 import React, { ReactElement } from 'react';
 
 import { Button } from '../Button';
-import { IIconProps, Icon } from '../Icon';
+import { Icon, IconProps } from '../Icon';
 import { useStyles } from './styles';
 import { usePagination } from './usePagination';
 
-interface IPaginationButtonProps {
+interface PaginationButtonProps {
   className?: string;
   onClick: () => void;
   children: number | ReactElement;
 }
 
-const PaginationButton: React.FC<IPaginationButtonProps> = ({ className, onClick, children }) => {
+const PaginationButton: React.FC<PaginationButtonProps> = ({ className, onClick, children }) => {
   const styles = useStyles();
   return (
     <Button variant="text" css={styles.button} className={className} onClick={onClick}>
@@ -22,7 +22,7 @@ const PaginationButton: React.FC<IPaginationButtonProps> = ({ className, onClick
   );
 };
 
-interface IPaginationProps {
+interface PaginationProps {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
   initialPageIndex?: number;
@@ -36,7 +36,7 @@ export const Pagination = ({
   initialPageIndex,
   itemsPerPageCount,
   className,
-}: IPaginationProps) => {
+}: PaginationProps) => {
   const {
     pagesCount,
     activePageIndex,
@@ -58,7 +58,7 @@ export const Pagination = ({
     return null;
   }
 
-  const iconProps: IIconProps = { name: 'arrowRight', color: 'inherit' };
+  const iconProps: IconProps = { name: 'arrowRight', color: 'inherit' };
 
   return (
     <div className={className} css={styles.root}>

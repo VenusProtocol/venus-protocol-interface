@@ -8,7 +8,7 @@ import getValidationSchema, { FormValues } from './validationSchema';
 
 export * from './validationSchema';
 
-export interface IAmountFormProps
+export interface AmountFormProps
   extends Omit<FormikConfig<FormValues>, 'onSubmit' | 'initialValues'> {
   onSubmit: (value: string) => Promise<unknown>;
   children: (formProps: FormikProps<FormValues>) => React.ReactNode;
@@ -17,7 +17,7 @@ export interface IAmountFormProps
   className?: string;
 }
 
-export const AmountForm: React.FC<IAmountFormProps> = ({
+export const AmountForm: React.FC<AmountFormProps> = ({
   children,
   onSubmit,
   className,

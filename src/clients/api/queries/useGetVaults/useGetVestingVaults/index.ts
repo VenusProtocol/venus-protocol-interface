@@ -5,8 +5,8 @@ import { getTokenByAddress, indexBy } from 'utilities';
 
 import {
   GetXvsVaultPendingRewardWeiOutput,
-  IGetXvsVaultPoolInfoOutput,
-  IGetXvsVaultUserInfoOutput,
+  GetXvsVaultPoolInfoOutput,
+  GetXvsVaultUserInfoOutput,
   useGetXvsVaultPoolsCount,
   useGetXvsVaultRewardWeiPerBlock,
   useGetXvsVaultTotalAllocationPoints,
@@ -55,9 +55,9 @@ const useGetVestingVaults = ({
   const [poolData, stakedTokenAddresses] = useMemo(() => {
     const data: {
       [poolIndex: string]: {
-        poolInfos: IGetXvsVaultPoolInfoOutput;
+        poolInfos: GetXvsVaultPoolInfoOutput;
         userPendingRewardWei?: GetXvsVaultPendingRewardWeiOutput;
-        userInfos?: IGetXvsVaultUserInfoOutput;
+        userInfos?: GetXvsVaultUserInfoOutput;
       };
     } = {};
 
@@ -71,7 +71,7 @@ const useGetVestingVaults = ({
 
       const poolInfosQueryResult = poolQueryResults[
         poolQueryResultStartIndex
-      ] as UseQueryResult<IGetXvsVaultPoolInfoOutput>;
+      ] as UseQueryResult<GetXvsVaultPoolInfoOutput>;
 
       const userPendingRewardQueryResult = poolQueryResults[
         poolQueryResultStartIndex + 1
@@ -79,7 +79,7 @@ const useGetVestingVaults = ({
 
       const userInfoQueryResult = poolQueryResults[
         poolQueryResultStartIndex + 2
-      ] as UseQueryResult<IGetXvsVaultUserInfoOutput>;
+      ] as UseQueryResult<GetXvsVaultUserInfoOutput>;
 
       if (poolInfosQueryResult?.data) {
         tokenAddresses.push(poolInfosQueryResult.data.stakedTokenAddress);

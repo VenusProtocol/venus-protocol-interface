@@ -13,7 +13,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import type { TransactionReceipt } from 'web3-core';
 
-import { ICreateProposalInput } from 'clients/api';
+import { CreateProposalInput } from 'clients/api';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import formatProposalPayload from 'pages/Vote/CreateProposalModal/formatProposalPayload';
 
@@ -22,16 +22,16 @@ import ProposalPreview from './ProposalPreview';
 import proposalSchema, { ErrorCode, FormValues } from './proposalSchema';
 import { useStyles } from './styles';
 
-interface ICreateProposal {
+interface CreateProposalProps {
   isOpen: boolean;
   handleClose: () => void;
   createProposal: (
-    data: Omit<ICreateProposalInput, 'accountAddress'>,
+    data: Omit<CreateProposalInput, 'accountAddress'>,
   ) => Promise<TransactionReceipt>;
   isCreateProposalLoading: boolean;
 }
 
-export const CreateProposal: React.FC<ICreateProposal> = ({
+export const CreateProposal: React.FC<CreateProposalProps> = ({
   isOpen,
   handleClose,
   createProposal,

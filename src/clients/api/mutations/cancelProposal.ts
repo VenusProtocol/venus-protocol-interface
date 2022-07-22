@@ -2,7 +2,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
-export interface ICancelProposalInput {
+export interface CancelProposalInput {
   governorBravoContract: GovernorBravoDelegate;
   accountAddress: string;
   proposalId: number;
@@ -14,7 +14,7 @@ const cancelProposal = async ({
   governorBravoContract,
   accountAddress,
   proposalId,
-}: ICancelProposalInput): Promise<CancelProposalOutput> =>
+}: CancelProposalInput): Promise<CancelProposalOutput> =>
   governorBravoContract.methods.cancel(proposalId).send({ from: accountAddress });
 
 export default cancelProposal;

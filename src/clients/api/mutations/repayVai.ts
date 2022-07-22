@@ -3,7 +3,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VaiUnitroller } from 'types/contracts';
 
-export interface IRepayVaiInput {
+export interface RepayVaiInput {
   vaiControllerContract: VaiUnitroller;
   fromAccountAddress: string;
   amountWei: string;
@@ -15,7 +15,7 @@ const repayVai = async ({
   vaiControllerContract,
   fromAccountAddress,
   amountWei,
-}: IRepayVaiInput): Promise<IRepayVaiOutput> => {
+}: RepayVaiInput): Promise<IRepayVaiOutput> => {
   const resp = await vaiControllerContract.methods
     .repayVAI(amountWei)
     .send({ from: fromAccountAddress });

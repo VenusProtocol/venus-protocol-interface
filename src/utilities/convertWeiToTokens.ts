@@ -4,7 +4,7 @@ import { TokenId } from 'types';
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 import { getToken } from './getToken';
 
-export interface IConvertWeiToTokensInput<T extends boolean | undefined = false> {
+export interface ConvertWeiToTokensInput<T extends boolean | undefined = false> {
   valueWei: BigNumber;
   tokenId: TokenId;
   returnInReadableFormat?: T;
@@ -22,7 +22,7 @@ export function convertWeiToTokens<T extends boolean | undefined = false>({
   minimizeDecimals = false,
   addSymbol = true,
   shortenLargeValue = false,
-}: IConvertWeiToTokensInput<T>): ConvertWeiToTokensOutput<T> {
+}: ConvertWeiToTokensInput<T>): ConvertWeiToTokensOutput<T> {
   const tokenDecimals = getToken(tokenId).decimals;
   const valueTokens = valueWei
     .dividedBy(new BigNumber(10).pow(tokenDecimals))

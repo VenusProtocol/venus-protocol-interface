@@ -3,9 +3,9 @@ import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import { IInterestRateItem, InterestRateChart } from '.';
+import { InterestRateChart, InterestRateItem } from '.';
 
-const data: IInterestRateItem[] = [
+const data: InterestRateItem[] = [
   {
     borrowApyPercentage: 0.04,
     supplyApyPercentage: 0,

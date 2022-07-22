@@ -6,7 +6,7 @@ import { getContractAddress } from 'utilities';
 import fakeAddress from '__mocks__/models/address';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
-import MintRepayVai, { IMintRepayVaiProps } from '.';
+import MintRepayVai, { MintRepayVaiProps } from '.';
 
 export default {
   title: 'Pages/Dashboard/MintRepayVai',
@@ -19,7 +19,7 @@ export default {
   },
 } as ComponentMeta<typeof MintRepayVai>;
 
-const Template: Story<IMintRepayVaiProps> = props => <MintRepayVai {...props} />;
+const Template: Story<MintRepayVaiProps> = props => <MintRepayVai {...props} />;
 
 const context = {
   login: noop,

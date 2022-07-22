@@ -2,13 +2,13 @@ import BigNumber from 'bignumber.js';
 
 import { VrtVault } from 'types/contracts';
 
-import { IGetVrtVaultUserInfoOutput } from './types';
+import { GetVrtVaultUserInfoOutput } from './types';
 
 const formatToUserInfo = ({
   totalPrincipalAmount,
 }: Awaited<
   ReturnType<ReturnType<VrtVault['methods']['userInfo']>['call']>
->): IGetVrtVaultUserInfoOutput => ({
+>): GetVrtVaultUserInfoOutput => ({
   stakedVrtWei: new BigNumber(totalPrincipalAmount),
 });
 

@@ -1,21 +1,21 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getTransactions, {
-  IGetTransactionsInput,
-  IGetTransactionsOutput,
+  GetTransactionsInput,
+  GetTransactionsOutput,
 } from 'clients/api/queries/getTransactions';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  IGetTransactionsOutput,
+  GetTransactionsOutput,
   Error,
-  IGetTransactionsOutput,
-  IGetTransactionsOutput,
-  [FunctionKey.GET_TRANSACTIONS, IGetTransactionsInput]
+  GetTransactionsOutput,
+  GetTransactionsOutput,
+  [FunctionKey.GET_TRANSACTIONS, GetTransactionsInput]
 >;
 
-const useGetTransactions = (params: IGetTransactionsInput, options?: Options) =>
+const useGetTransactions = (params: GetTransactionsInput, options?: Options) =>
   useQuery([FunctionKey.GET_TRANSACTIONS, params], () => getTransactions(params), {
     keepPreviousData: true,
     placeholderData: { limit: 0, page: 0, total: 0, transactions: [] },

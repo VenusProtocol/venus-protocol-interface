@@ -2,7 +2,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
-export interface ICastVoteInput {
+export interface CastVoteInput {
   governorBravoContract: GovernorBravoDelegate;
   fromAccountAddress: string;
   proposalId: number;
@@ -16,7 +16,7 @@ const castVote = async ({
   fromAccountAddress,
   proposalId,
   voteType,
-}: ICastVoteInput): Promise<CastVoteOutput> =>
+}: CastVoteInput): Promise<CastVoteOutput> =>
   governorBravoContract.methods.castVote(proposalId, voteType).send({ from: fromAccountAddress });
 
 export default castVote;

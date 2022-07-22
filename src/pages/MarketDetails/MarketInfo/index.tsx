@@ -4,15 +4,15 @@ import React from 'react';
 import { useTranslation } from 'translation';
 
 import Card from '../Card';
-import { IStat } from '../types';
+import { Stat } from '../types';
 import { useStyles } from './styles';
 
-export interface IMarketInfoProps {
-  stats: IStat[];
+export interface MarketInfoProps {
+  stats: Stat[];
   testId?: string;
 }
 
-const MarketInfo: React.FC<IMarketInfoProps> = ({ stats, testId }) => {
+const MarketInfo: React.FC<MarketInfoProps> = ({ stats, testId }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 

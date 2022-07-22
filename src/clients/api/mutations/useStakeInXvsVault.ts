@@ -3,7 +3,7 @@ import { TokenId } from 'types';
 import { getContractAddress } from 'utilities';
 
 import {
-  IStakeInXvsVaultInput,
+  StakeInXvsVaultInput,
   StakeInXvsVaultOutput,
   queryClient,
   stakeInXvsVault,
@@ -17,7 +17,7 @@ const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 type Options = MutationObserverOptions<
   StakeInXvsVaultOutput,
   Error,
-  Omit<IStakeInXvsVaultInput, 'xvsVaultContract'>
+  Omit<StakeInXvsVaultInput, 'xvsVaultContract'>
 >;
 
 const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: TokenId }, options?: Options) => {
@@ -25,7 +25,7 @@ const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: TokenId }, optio
 
   return useMutation(
     FunctionKey.STAKE_IN_XVS_VAULT,
-    (params: Omit<IStakeInXvsVaultInput, 'xvsVaultContract'>) =>
+    (params: Omit<StakeInXvsVaultInput, 'xvsVaultContract'>) =>
       stakeInXvsVault({
         xvsVaultContract,
         ...params,

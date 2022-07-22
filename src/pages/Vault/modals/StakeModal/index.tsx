@@ -9,15 +9,15 @@ import { useGetBalanceOf } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import useStakeInVault from 'hooks/useStakeInVault';
 
-import ActionModal, { IActionModalProps } from '../ActionModal';
+import ActionModal, { ActionModalProps } from '../ActionModal';
 
-export interface IStakeModalProps extends Pick<IActionModalProps, 'handleClose'> {
+export interface StakeModalProps extends Pick<ActionModalProps, 'handleClose'> {
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
   poolIndex?: number;
 }
 
-const StakeModal: React.FC<IStakeModalProps> = ({
+const StakeModal: React.FC<StakeModalProps> = ({
   stakedTokenId,
   rewardTokenId,
   poolIndex,

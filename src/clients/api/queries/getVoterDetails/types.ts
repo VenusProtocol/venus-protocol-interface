@@ -1,4 +1,4 @@
-export interface IGetVoterDetailsResponse {
+export interface GetVoterDetailsResponse {
   balance: string;
   delegateCount: number;
   delegates: string;

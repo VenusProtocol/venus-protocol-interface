@@ -4,7 +4,7 @@ import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
 
-import TransactionForm, { ITransactionFormProps } from '.';
+import TransactionForm, { TransactionFormProps } from '.';
 
 export default {
   title: 'Pages/Vault/TransactionForm',
@@ -12,7 +12,7 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof TransactionForm>;
 
-const Template: Story<ITransactionFormProps> = args => <TransactionForm {...args} />;
+const Template: Story<TransactionFormProps> = args => <TransactionForm {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

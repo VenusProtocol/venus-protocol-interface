@@ -1,11 +1,11 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { IRepayBnbInput, RepayBnbOutput, queryClient, repayBnb } from 'clients/api';
+import { RepayBnbInput, RepayBnbOutput, queryClient, repayBnb } from 'clients/api';
 import { useWeb3 } from 'clients/web3';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
 
-type Options = MutationObserverOptions<RepayBnbOutput, Error, Omit<IRepayBnbInput, 'web3'>>;
+type Options = MutationObserverOptions<RepayBnbOutput, Error, Omit<RepayBnbInput, 'web3'>>;
 
 const useRepayNonBnbVToken = (options?: Options) => {
   const web3 = useWeb3();

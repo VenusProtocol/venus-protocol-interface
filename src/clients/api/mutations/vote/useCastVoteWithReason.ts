@@ -5,12 +5,12 @@ import { useGovernorBravoDelegateContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 import castVoteWithReason, {
+  CastVoteWithReasonInput,
   CastVoteWithReasonOutput,
   HookParams,
-  ICastVoteWithReasonInput,
 } from './castVoteWithReason';
 
-export type CastVoteWithReasonParams = ICastVoteWithReasonInput;
+export type CastVoteWithReasonParams = CastVoteWithReasonInput;
 
 const useCastVoteWithReason = (
   { fromAccountAddress }: Pick<HookParams, 'fromAccountAddress'>,

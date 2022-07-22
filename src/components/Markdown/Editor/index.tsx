@@ -7,7 +7,7 @@ import previewOptions from '../previewOptions';
 import { useStyles } from './styles';
 import './styles-overrides.scss';
 
-export interface IMarkdownEditorProps {
+export interface MarkdownEditorProps {
   value: string;
   onChange: (text: string | undefined) => void;
   name: string;
@@ -28,7 +28,7 @@ const allowedCommands = [
   commands.italic,
 ];
 
-const MarkdownEditor: React.FC<IMarkdownEditorProps> = ({
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
   value,
   onChange,
   name,

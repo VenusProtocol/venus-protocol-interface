@@ -1,9 +1,9 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 
-import { Button, IButtonProps } from '../Button';
+import { Button, ButtonProps } from '../Button';
 
-interface IFormikSubmitButtonProps extends IButtonProps {
+interface FormikSubmitButtonProps extends ButtonProps {
   disabledLabel?: string;
   enabledLabel: string;
 }
@@ -14,7 +14,7 @@ export const FormikSubmitButton = ({
   variant = 'primary',
   disabled,
   ...rest
-}: Omit<IFormikSubmitButtonProps, 'type'>) => {
+}: Omit<FormikSubmitButtonProps, 'type'>) => {
   const { isValid } = useFormikContext();
   const showDisableLabel = !isValid;
   return (

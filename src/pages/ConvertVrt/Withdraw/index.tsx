@@ -12,13 +12,13 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from '../styles';
 
-export interface IWithdrawProps {
+export interface WithdrawProps {
   xvsWithdrawableAmount: BigNumber | undefined;
   withdrawXvs: () => Promise<TransactionReceipt>;
   withdrawXvsLoading: boolean;
 }
 
-const Withdraw: React.FC<IWithdrawProps> = ({
+const Withdraw: React.FC<WithdrawProps> = ({
   xvsWithdrawableAmount,
   withdrawXvs,
   withdrawXvsLoading,

@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { ConnectWallet, EnableToken, IModalProps, Modal, Spinner } from 'components';
+import { ConnectWallet, EnableToken, Modal, ModalProps, Spinner } from 'components';
 import React from 'react';
 
-import TransactionForm, { ITransactionFormProps } from '../../TransactionForm';
+import TransactionForm, { TransactionFormProps } from '../../TransactionForm';
 
-export interface IActionModalProps extends Pick<IModalProps, 'handleClose'>, ITransactionFormProps {
-  title: IModalProps['title'];
+export interface ActionModalProps extends Pick<ModalProps, 'handleClose'>, TransactionFormProps {
+  title: ModalProps['title'];
   isInitialLoading: boolean;
   connectWalletMessage: string;
   spenderAddress?: string;
@@ -13,7 +13,7 @@ export interface IActionModalProps extends Pick<IModalProps, 'handleClose'>, ITr
   enableTokenMessage?: string;
 }
 
-const ActionModal: React.FC<IActionModalProps> = ({
+const ActionModal: React.FC<ActionModalProps> = ({
   handleClose,
   tokenId,
   spenderAddress,

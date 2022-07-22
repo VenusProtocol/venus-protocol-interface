@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import {
+  GetVaiVaultPendingXvsWeiInput,
   GetVaiVaultPendingXvsWeiOutput,
-  IGetVaiVaultPendingXvsWeiInput,
   getVaiVaultPendingXvsWei,
 } from 'clients/api';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
@@ -18,7 +18,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVaiVaultPendingXvsWei = (
-  { accountAddress }: Omit<IGetVaiVaultPendingXvsWeiInput, 'vaiVaultContract'>,
+  { accountAddress }: Omit<GetVaiVaultPendingXvsWeiInput, 'vaiVaultContract'>,
   options?: Options,
 ) => {
   const vaiVaultContract = useVaiVaultContract();

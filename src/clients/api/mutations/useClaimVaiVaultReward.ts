@@ -1,8 +1,8 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
+  ClaimVaiVaultRewardInput,
   ClaimVaiVaultRewardOutput,
-  IClaimVaiVaultRewardInput,
   claimVaiVaultReward,
   queryClient,
 } from 'clients/api';
@@ -12,7 +12,7 @@ import FunctionKey from 'constants/functionKey';
 type Options = MutationObserverOptions<
   ClaimVaiVaultRewardOutput,
   Error,
-  Omit<IClaimVaiVaultRewardInput, 'vaiVaultContract'>
+  Omit<ClaimVaiVaultRewardInput, 'vaiVaultContract'>
 >;
 
 const useClaimVaiVaultReward = (options?: Options) => {
@@ -20,7 +20,7 @@ const useClaimVaiVaultReward = (options?: Options) => {
 
   return useMutation(
     FunctionKey.CLAIM_VAI_VAULT_REWARD,
-    (params: Omit<IClaimVaiVaultRewardInput, 'vaiVaultContract'>) =>
+    (params: Omit<ClaimVaiVaultRewardInput, 'vaiVaultContract'>) =>
       claimVaiVaultReward({
         vaiVaultContract,
         ...params,

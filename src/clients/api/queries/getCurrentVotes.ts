@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
 
-export interface IGetCurrentVotesInput {
+export interface GetCurrentVotesInput {
   xvsVaultContract: XvsVault;
   accountAddress: string;
 }
@@ -12,7 +12,7 @@ export type GetCurrentVotesOutput = BigNumber;
 const getCurrentVotes = async ({
   xvsVaultContract,
   accountAddress,
-}: IGetCurrentVotesInput): Promise<GetCurrentVotesOutput> => {
+}: GetCurrentVotesInput): Promise<GetCurrentVotesOutput> => {
   const resp = await xvsVaultContract.methods.getCurrentVotes(accountAddress).call();
   return new BigNumber(resp);
 };

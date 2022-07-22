@@ -3,8 +3,8 @@ import { TokenId } from 'types';
 import { getContractAddress } from 'utilities';
 
 import {
+  ExecuteWithdrawalFromXvsVaultInput,
   ExecuteWithdrawalFromXvsVaultOutput,
-  IExecuteWithdrawalFromXvsVaultInput,
   executeWithdrawalFromXvsVault,
   queryClient,
 } from 'clients/api';
@@ -17,7 +17,7 @@ const XVS_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('xvsVaultProxy');
 type Options = MutationObserverOptions<
   ExecuteWithdrawalFromXvsVaultOutput,
   Error,
-  Omit<IExecuteWithdrawalFromXvsVaultInput, 'xvsVaultContract'>
+  Omit<ExecuteWithdrawalFromXvsVaultInput, 'xvsVaultContract'>
 >;
 
 const useExecuteWithdrawalFromXvsVault = (
@@ -28,7 +28,7 @@ const useExecuteWithdrawalFromXvsVault = (
 
   return useMutation(
     FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
-    (params: Omit<IExecuteWithdrawalFromXvsVaultInput, 'xvsVaultContract'>) =>
+    (params: Omit<ExecuteWithdrawalFromXvsVaultInput, 'xvsVaultContract'>) =>
       executeWithdrawalFromXvsVault({
         xvsVaultContract,
         ...params,

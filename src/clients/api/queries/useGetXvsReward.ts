@@ -4,7 +4,7 @@ import { useVenusLensContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
-import getXvsReward, { GetXvsRewardOutput, IGetXvsRewardInput } from './getXvsReward';
+import getXvsReward, { GetXvsRewardInput, GetXvsRewardOutput } from './getXvsReward';
 
 type Options = QueryObserverOptions<
   GetXvsRewardOutput,
@@ -15,7 +15,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetXvsReward = (
-  { accountAddress }: Omit<IGetXvsRewardInput, 'lensContract'>,
+  { accountAddress }: Omit<GetXvsRewardInput, 'lensContract'>,
   options?: Options,
 ) => {
   const lensContract = useVenusLensContract();

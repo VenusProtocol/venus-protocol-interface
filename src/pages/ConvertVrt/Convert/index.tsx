@@ -31,7 +31,7 @@ import { VRT_DECIMAL, VRT_ID } from '../constants';
 import { useStyles } from '../styles';
 import TEST_IDS from './testIds';
 
-export interface IConvertProps {
+export interface ConvertProps {
   xvsToVrtConversionRatio: BigNumber | undefined;
   vrtConversionEndTime: Date | undefined;
   userVrtBalanceWei: BigNumber | undefined;
@@ -41,7 +41,7 @@ export interface IConvertProps {
 
 const vrtConverterProxyContractAddress = getContractAddress('vrtConverterProxy');
 
-const Convert: React.FC<IConvertProps> = ({
+const Convert: React.FC<ConvertProps> = ({
   xvsToVrtConversionRatio,
   vrtConversionEndTime,
   userVrtBalanceWei,

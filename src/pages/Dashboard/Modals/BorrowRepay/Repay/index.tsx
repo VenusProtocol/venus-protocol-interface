@@ -22,7 +22,7 @@ import {
 } from 'utilities';
 
 import { useRepayVToken } from 'clients/api';
-import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -33,7 +33,7 @@ import TEST_IDS from './testIds';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
-export interface IRepayFormProps {
+export interface RepayFormProps {
   asset: Asset;
   repay: (amountWei: BigNumber) => Promise<string | undefined>;
   isRepayLoading: boolean;
@@ -41,7 +41,7 @@ export interface IRepayFormProps {
   limitTokens: string;
 }
 
-export const RepayForm: React.FC<IRepayFormProps> = ({
+export const RepayForm: React.FC<RepayFormProps> = ({
   asset,
   repay,
   isRepayLoading,
@@ -86,7 +86,7 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
     [asset.walletBalance.toFixed(), asset.id],
   );
 
-  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+  const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
 
     const amountWei = convertTokensToWei({
@@ -209,13 +209,13 @@ export const RepayForm: React.FC<IRepayFormProps> = ({
   );
 };
 
-export interface IRepayProps {
+export interface RepayProps {
   asset: Asset;
   isXvsEnabled: boolean;
   onClose: () => void;
 }
 
-const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
+const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -230,7 +230,7 @@ const Repay: React.FC<IRepayProps> = ({ asset, onClose, isXvsEnabled }) => {
     vTokenId: asset.id as VTokenId,
   });
 
-  const handleRepay: IRepayFormProps['repay'] = async amountWei => {
+  const handleRepay: RepayFormProps['repay'] = async amountWei => {
     if (!account?.address) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }

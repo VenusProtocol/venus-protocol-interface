@@ -7,15 +7,15 @@ import { Spinner } from '../Spinner';
 import useStyles from './styles';
 import { Variant } from './types';
 
-export interface IBaseButtonProps {
+export interface BaseButtonProps {
   fullWidth?: boolean;
   small?: boolean;
   variant?: Variant;
 }
 
-export interface IButtonProps
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    IBaseButtonProps {
+    BaseButtonProps {
   loading?: boolean;
 }
 
@@ -28,7 +28,7 @@ export const Button = ({
   variant = 'primary',
   children,
   ...otherProps
-}: IButtonProps) => {
+}: ButtonProps) => {
   const styles = useStyles({ fullWidth, variant, small });
 
   return (
@@ -52,16 +52,16 @@ export const Button = ({
   );
 };
 
-export const PrimaryButton = (props: IButtonProps) => <Button variant="primary" {...props} />;
-export const SecondaryButton = (props: IButtonProps) => <Button variant="secondary" {...props} />;
-export const TertiaryButton = (props: IButtonProps) => <Button variant="tertiary" {...props} />;
-export const TextButton = (props: IButtonProps) => <Button variant="text" {...props} />;
+export const PrimaryButton = (props: ButtonProps) => <Button variant="primary" {...props} />;
+export const SecondaryButton = (props: ButtonProps) => <Button variant="secondary" {...props} />;
+export const TertiaryButton = (props: ButtonProps) => <Button variant="tertiary" {...props} />;
+export const TextButton = (props: ButtonProps) => <Button variant="text" {...props} />;
 export const LinkButton = ({
   variant = 'primary',
   fullWidth = false,
   small = false,
   ...props
-}: LinkProps & IBaseButtonProps) => {
+}: LinkProps & BaseButtonProps) => {
   const styles = useStyles({ fullWidth, variant, small });
   return <Link {...props} css={[styles.getButton({ disabled: false }), styles.link]} />;
 };
@@ -72,7 +72,7 @@ export const AnchorButton = ({
   small = false,
   children,
   ...props
-}: IBaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+}: BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const styles = useStyles({ fullWidth, variant, small });
   return (
     <a

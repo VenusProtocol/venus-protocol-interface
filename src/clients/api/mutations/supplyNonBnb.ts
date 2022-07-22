@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VBep20 } from 'types/contracts';
 
-export interface ISupplyNonBnbInput {
+export interface SupplyNonBnbInput {
   tokenContract: VBep20;
   account: string;
   amountWei: BigNumber;
@@ -16,7 +16,7 @@ const supplyNonBnb = async ({
   tokenContract,
   account,
   amountWei,
-}: ISupplyNonBnbInput): Promise<SupplyNonBnbOutput> => {
+}: SupplyNonBnbInput): Promise<SupplyNonBnbOutput> => {
   const resp = await tokenContract.methods.mint(amountWei.toFixed()).send({ from: account });
   return checkForTokenTransactionError(resp);
 };

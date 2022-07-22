@@ -22,7 +22,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { useBorrowVToken, useGetUserMarketInfo } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -30,7 +30,7 @@ import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
 import TEST_IDS from './testIds';
 
-export interface IBorrowFormProps {
+export interface BorrowFormProps {
   asset: Asset;
   limitTokens: string;
   safeBorrowLimitPercentage: number;
@@ -41,7 +41,7 @@ export interface IBorrowFormProps {
   hasUserCollateralizedSuppliedAssets: boolean;
 }
 
-export const BorrowForm: React.FC<IBorrowFormProps> = ({
+export const BorrowForm: React.FC<BorrowFormProps> = ({
   asset,
   limitTokens,
   safeBorrowLimitPercentage,
@@ -65,7 +65,7 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
     [limitTokens],
   );
 
-  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+  const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
     const formattedAmountTokens = new BigNumber(amountTokens);
 
     const amountWei = convertTokensToWei({
@@ -149,13 +149,13 @@ export const BorrowForm: React.FC<IBorrowFormProps> = ({
   );
 };
 
-export interface IBorrowProps {
+export interface BorrowProps {
   asset: Asset;
   isXvsEnabled: boolean;
   onClose: () => void;
 }
 
-const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
+const Borrow: React.FC<BorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -178,7 +178,7 @@ const Borrow: React.FC<IBorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
     vTokenId: asset.id as VTokenId,
   });
 
-  const handleBorrow: IBorrowFormProps['borrow'] = async amountWei => {
+  const handleBorrow: BorrowFormProps['borrow'] = async amountWei => {
     if (!account?.address) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
     }

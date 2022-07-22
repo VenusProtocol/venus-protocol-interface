@@ -12,12 +12,12 @@ import {
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 
-export interface IBorrowMarketTableProps extends Pick<TableProps, 'rowOnClick'> {
+export interface BorrowMarketTableProps extends Pick<TableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
 }
 
-const BorrowMarketTable: React.FC<IBorrowMarketTableProps> = ({
+const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   assets,
   isXvsEnabled,
   rowOnClick,

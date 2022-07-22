@@ -1,20 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'translation';
 
-import { IModalProps, Modal } from '../Modal';
-import { AccountDetails, IAccountDetailsProps } from './AccountDetails';
-import { IWalletListProps, WalletList } from './WalletList';
+import { Modal, ModalProps } from '../Modal';
+import { AccountDetails, AccountDetailsProps } from './AccountDetails';
+import { WalletList, WalletListProps } from './WalletList';
 
-export interface IAuthModalProps {
+export interface AuthModalProps {
   isOpen: boolean;
-  onClose: IModalProps['handleClose'];
-  onLogin: IWalletListProps['onLogin'];
-  onLogOut: IAccountDetailsProps['onLogOut'];
-  onCopyAccountAddress: IAccountDetailsProps['onCopyAccountAddress'];
-  account?: IAccountDetailsProps['account'];
+  onClose: ModalProps['handleClose'];
+  onLogin: WalletListProps['onLogin'];
+  onLogOut: AccountDetailsProps['onLogOut'];
+  onCopyAccountAddress: AccountDetailsProps['onCopyAccountAddress'];
+  account?: AccountDetailsProps['account'];
 }
 
-export const AuthModal: React.FC<IAuthModalProps> = ({
+export const AuthModal: React.FC<AuthModalProps> = ({
   isOpen,
   onClose,
   onLogin,

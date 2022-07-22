@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
 
-type IPaginationProps = {
+type PaginationProps = {
   itemsCount: number;
   onChange: (newPageIndex: number) => void;
   initialPageIndex?: number;
@@ -15,7 +15,7 @@ export function usePagination({
   onChange,
   initialPageIndex = 0,
   itemsPerPageCount = 10,
-}: IPaginationProps) {
+}: PaginationProps) {
   const { t } = useTranslation();
 
   const [activePageIndex, setActivePageIndex] = useState(initialPageIndex);

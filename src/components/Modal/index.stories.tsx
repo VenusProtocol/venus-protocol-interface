@@ -4,7 +4,7 @@ import React from 'react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import { IModalProps, Modal } from '.';
+import { Modal, ModalProps } from '.';
 
 export default {
   title: 'Components/Modal',
@@ -12,7 +12,7 @@ export default {
   decorators: [withCenterStory({ width: 600 }), withThemeProvider],
 } as ComponentMeta<typeof Modal>;
 
-const Template: Story<IModalProps> = (args: IModalProps) => <Modal {...args} />;
+const Template: Story<ModalProps> = (args: ModalProps) => <Modal {...args} />;
 const ModalContent = () => (
   <>
     <Typography variant="h6" component="h2">

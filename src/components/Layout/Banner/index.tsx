@@ -5,12 +5,12 @@ import React from 'react';
 import { Icon } from '../../Icon';
 import { useStyles } from './styles';
 
-export interface IBannerProps {
+export interface BannerProps {
   showBanner: boolean;
   bannerText: string;
 }
 
-export const Banner: React.FC<IBannerProps> = ({ showBanner, bannerText }) => {
+export const Banner: React.FC<BannerProps> = ({ showBanner, bannerText }) => {
   const styles = useStyles();
 
   if (showBanner) {

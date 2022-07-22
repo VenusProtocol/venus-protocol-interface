@@ -2,7 +2,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { VrtConverter } from 'types/contracts';
 
-export interface IConvertVrtInput {
+export interface ConvertVrtInput {
   vrtConverterContract: VrtConverter;
   amountWei: string;
   accountAddress: string;
@@ -14,7 +14,7 @@ const convertVrt = async ({
   vrtConverterContract,
   amountWei,
   accountAddress,
-}: IConvertVrtInput): Promise<ConvertVrtOutput> =>
+}: ConvertVrtInput): Promise<ConvertVrtOutput> =>
   vrtConverterContract.methods.convert(amountWei).send({
     from: accountAddress,
   });

@@ -4,7 +4,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VBep20 } from 'types/contracts';
 
-export interface IRedeemInput {
+export interface RedeemInput {
   tokenContract: VBep20;
   accountAddress: string;
   amountWei: BigNumber;
@@ -16,7 +16,7 @@ const redeem = async ({
   tokenContract,
   accountAddress,
   amountWei,
-}: IRedeemInput): Promise<RedeemOutput> => {
+}: RedeemInput): Promise<RedeemOutput> => {
   const resp = await tokenContract.methods
     .redeem(amountWei.toFixed())
     .send({ from: accountAddress });

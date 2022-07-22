@@ -25,7 +25,7 @@ import TEST_IDS from './testIds';
 
 type ActiveModal = 'stake' | 'withdraw';
 
-export interface IVaultItemUiProps {
+export interface VaultItemUiProps {
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
   stakingAprPercentage: number;
@@ -45,7 +45,7 @@ export interface IVaultItemUiProps {
   className?: string;
 }
 
-export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
+export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   stakedTokenId,
   rewardTokenId,
   userPendingRewardWei,
@@ -266,7 +266,7 @@ export const VaultItemUi: React.FC<IVaultItemUiProps> = ({
 };
 
 export type VaultItemProps = Omit<
-  IVaultItemUiProps,
+  VaultItemUiProps,
   | 'onClaimReward'
   | 'onStake'
   | 'onWithdraw'

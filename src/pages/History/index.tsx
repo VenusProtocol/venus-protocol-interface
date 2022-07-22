@@ -1,23 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
 import React, { useContext, useState } from 'react';
-import { ITransaction, TransactionEvent } from 'types';
+import { Transaction, TransactionEvent } from 'types';
 
 import { useGetTransactions } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 
-import Filters, { ALL_VALUE, IFilterProps } from './Filters';
+import Filters, { ALL_VALUE, FilterProps } from './Filters';
 import HistoryTable from './HistoryTable';
 
-interface IHistoryUiProps extends IFilterProps {
-  transactions: ITransaction[];
+interface HistoryUiProps extends FilterProps {
+  transactions: Transaction[];
   isFetching: boolean;
   total: number | undefined;
   limit: number | undefined;
   setCurrentPage: (page: number) => void;
 }
 
-export const HistoryUi: React.FC<IHistoryUiProps> = ({
+export const HistoryUi: React.FC<HistoryUiProps> = ({
   eventType,
   setEventType,
   showOnlyMyTxns,

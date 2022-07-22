@@ -12,21 +12,21 @@ import { TextButton } from '../Button';
 import { Icon } from '../Icon';
 import { SELECTED_MENU_ITEM_CLASSNAME, useStyles } from './styles';
 
-interface IOption {
+interface Option {
   value: string;
   label: string;
 }
 
-export interface ISelectProps {
+export interface SelectProps {
   className?: string;
-  options: IOption[];
+  options: Option[];
   value: string | undefined;
   onChange: (e: SelectChangeEvent) => void;
   ariaLabel: string;
   title: string;
 }
 
-export const Select: React.FC<ISelectProps> = ({
+export const Select: React.FC<SelectProps> = ({
   className,
   options,
   value,

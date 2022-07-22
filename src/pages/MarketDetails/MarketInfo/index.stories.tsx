@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withCenterStory, withRouter } from 'stories/decorators';
 
-import MarketInfo, { IMarketInfoProps } from '.';
+import MarketInfo, { MarketInfoProps } from '.';
 
 export default {
   title: 'Pages/MarketDetail/MarketInfo',
@@ -16,7 +16,7 @@ export default {
   },
 } as ComponentMeta<typeof MarketInfo>;
 
-const stats: IMarketInfoProps['stats'] = [
+const stats: MarketInfoProps['stats'] = [
   {
     label: 'Fake stat 1',
     value: '100%',

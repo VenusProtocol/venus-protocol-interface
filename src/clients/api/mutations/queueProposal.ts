@@ -2,7 +2,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
-export interface IQueueProposalInput {
+export interface QueueProposalInput {
   governorBravoContract: GovernorBravoDelegate;
   accountAddress: string;
   proposalId: number;
@@ -14,7 +14,7 @@ const queueProposal = async ({
   governorBravoContract,
   accountAddress,
   proposalId,
-}: IQueueProposalInput): Promise<QueueProposalOutput> =>
+}: QueueProposalInput): Promise<QueueProposalOutput> =>
   governorBravoContract.methods.queue(proposalId).send({ from: accountAddress });
 
 export default queueProposal;

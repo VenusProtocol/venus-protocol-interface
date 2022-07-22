@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { EnterMarketsOutput, IEnterMarketsInput, enterMarkets, queryClient } from 'clients/api';
+import { EnterMarketsInput, EnterMarketsOutput, enterMarkets, queryClient } from 'clients/api';
 import { useComptrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
@@ -9,14 +9,14 @@ const useEnterMarkets = (
     EnterMarketsOutput,
     // @TODO: use custom error type (see https://app.clickup.com/t/2rvwhnt)
     Error,
-    Omit<IEnterMarketsInput, 'comptrollerContract'>
+    Omit<EnterMarketsInput, 'comptrollerContract'>
   >,
 ) => {
   const comptrollerContract = useComptrollerContract();
 
   return useMutation(
     FunctionKey.ENTER_MARKETS,
-    (params: Omit<IEnterMarketsInput, 'comptrollerContract'>) =>
+    (params: Omit<EnterMarketsInput, 'comptrollerContract'>) =>
       enterMarkets({
         comptrollerContract,
         ...params,

@@ -10,7 +10,7 @@ import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
 import { useStyles } from './styles';
 
-interface IActiveVotingProgressProps {
+interface ActiveVotingProgressProps {
   votedForWei?: BigNumber;
   votedAgainstWei?: BigNumber;
   abstainedWei?: BigNumber;
@@ -28,7 +28,7 @@ const getValueString = (valueWei?: BigNumber) => {
   });
 };
 
-export const ActiveVotingProgress: React.FC<IActiveVotingProgressProps> = ({
+export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   votedForWei,
   votedAgainstWei,
   abstainedWei,

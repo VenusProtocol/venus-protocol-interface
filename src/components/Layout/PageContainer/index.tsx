@@ -5,11 +5,11 @@ import React, { ReactNode } from 'react';
 import Footer from '../Footer';
 import { useStyles } from './styles';
 
-interface IPageContainerProps {
+interface PageContainerProps {
   children: ReactNode;
 }
 
-export const PageContainer = ({ children }: IPageContainerProps) => {
+export const PageContainer = ({ children }: PageContainerProps) => {
   const styles = useStyles();
   return (
     <>

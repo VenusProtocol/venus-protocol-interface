@@ -4,7 +4,7 @@ import React from 'react';
 import proposals from '__mocks__/models/proposals';
 import { withCenterStory } from 'stories/decorators';
 
-import Stepper, { IStepperProps } from '.';
+import Stepper, { StepperProps } from '.';
 
 export default {
   title: 'Pages/Proposal/Components/Stepper',
@@ -12,7 +12,7 @@ export default {
   decorators: [withCenterStory({ width: 400 })],
 } as ComponentMeta<typeof Stepper>;
 
-const Template: Story<IStepperProps> = (args: IStepperProps) => <Stepper {...args} />;
+const Template: Story<StepperProps> = (args: StepperProps) => <Stepper {...args} />;
 
 export const Pending = Template.bind({});
 Pending.args = {

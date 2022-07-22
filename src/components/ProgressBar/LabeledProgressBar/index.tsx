@@ -2,10 +2,10 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 
-import { IProgressBarProps, ProgressBar } from '..';
+import { ProgressBar, ProgressBarProps } from '..';
 import { useStyles } from './styles';
 
-interface ILabeledProgressBar extends IProgressBarProps {
+interface LabeledProgressBarProps extends ProgressBarProps {
   greyLeftText?: string;
   whiteLeftText?: string | React.ReactElement;
   greyRightText?: string | React.ReactElement;
@@ -13,7 +13,7 @@ interface ILabeledProgressBar extends IProgressBarProps {
   className?: string;
 }
 
-export const LabeledProgressBar: React.FC<ILabeledProgressBar> = ({
+export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
   greyRightText,
   whiteRightText,
   greyLeftText,

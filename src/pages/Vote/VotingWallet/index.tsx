@@ -23,7 +23,7 @@ import DelegateModal from '../DelegateModal';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-interface IVotingWalletUiProps {
+interface VotingWalletUiProps {
   votingWeightWei: BigNumber;
   openAuthModal: () => void;
   userStakedWei: BigNumber;
@@ -36,7 +36,7 @@ interface IVotingWalletUiProps {
   setDelegateModelIsOpen: (open: boolean) => void;
 }
 
-export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
+export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   votingWeightWei,
   userStakedWei,
   connectedWallet,

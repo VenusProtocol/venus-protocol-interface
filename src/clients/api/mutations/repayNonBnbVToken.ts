@@ -6,7 +6,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 import { VTokenContract } from 'clients/contracts/types';
 import MAX_UINT256 from 'constants/maxUint256';
 
-export interface IRepayNonBnbVTokenInput {
+export interface RepayNonBnbVTokenInput {
   vTokenContract: VTokenContract<Exclude<VTokenId, 'bnb'>>;
   fromAccountAddress: string;
   amountWei: BigNumber;
@@ -20,7 +20,7 @@ const repayNonBnbVToken = async ({
   fromAccountAddress,
   amountWei,
   isRepayingFullLoan = false,
-}: IRepayNonBnbVTokenInput): Promise<RepayNonBnbVTokenOutput> => {
+}: RepayNonBnbVTokenInput): Promise<RepayNonBnbVTokenOutput> => {
   const resp = await vTokenContract.methods
     .repayBorrow(isRepayingFullLoan ? MAX_UINT256.toFixed() : amountWei.toFixed())
     .send({ from: fromAccountAddress });

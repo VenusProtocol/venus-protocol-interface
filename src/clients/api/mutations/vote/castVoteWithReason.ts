@@ -7,7 +7,7 @@ export interface HookParams {
   fromAccountAddress: string;
 }
 
-export interface ICastVoteWithReasonInput {
+export interface CastVoteWithReasonInput {
   proposalId: number;
   voteType: 0 | 1 | 2;
   voteReason: string;
@@ -21,7 +21,7 @@ const castVoteWithReason = async ({
   proposalId,
   voteType,
   voteReason,
-}: ICastVoteWithReasonInput & HookParams): Promise<CastVoteWithReasonOutput> =>
+}: CastVoteWithReasonInput & HookParams): Promise<CastVoteWithReasonOutput> =>
   governorBravoContract.methods
     .castVoteWithReason(proposalId, voteType, voteReason)
     .send({ from: fromAccountAddress });

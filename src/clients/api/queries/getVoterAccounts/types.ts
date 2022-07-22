@@ -1,4 +1,4 @@
-export interface IGetVoterAccountsResponse {
+export interface GetVoterAccountsResponse {
   limit: number;
   offset: number;
   total: number;

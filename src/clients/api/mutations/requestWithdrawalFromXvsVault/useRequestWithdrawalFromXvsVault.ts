@@ -1,7 +1,7 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
-  IRequestWithdrawalFromXvsVaultInput,
+  RequestWithdrawalFromXvsVaultInput,
   RequestWithdrawalFromXvsVaultOutput,
   queryClient,
   requestWithdrawalFromXvsVault,
@@ -13,7 +13,7 @@ import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 type Options = MutationObserverOptions<
   RequestWithdrawalFromXvsVaultOutput,
   Error,
-  Omit<IRequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>
+  Omit<RequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>
 >;
 
 const useRequestWithdrawalFromXvsVault = (options?: Options) => {
@@ -21,7 +21,7 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
 
   return useMutation(
     FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
-    (params: Omit<IRequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>) =>
+    (params: Omit<RequestWithdrawalFromXvsVaultInput, 'xvsVaultContract'>) =>
       requestWithdrawalFromXvsVault({
         xvsVaultContract,
         ...params,
