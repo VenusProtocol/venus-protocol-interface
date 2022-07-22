@@ -1,6 +1,6 @@
 import { VrtConverter } from 'types/contracts';
 
-import getVrtConversionRatio from '.';
+import getVrtConversionRatio, { GetVrtConversionRatioOutput } from '.';
 
 describe('api/queries/getVrtConversionRatio', () => {
   test('throws an error when request fails', async () => {

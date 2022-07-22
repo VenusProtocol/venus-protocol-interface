@@ -4,18 +4,11 @@ export interface GetVTokenInterestRateModelInput {
   vTokenContract: VBep20 | VBnbToken;
 }
 
-export type GetVTokenInterestRateModelOutput = {
-  contractAddress: string;
-};
+export type GetVTokenInterestRateModelOutput = string;
 
 const getVTokenInterestRateModel = async ({
   vTokenContract,
-}: GetVTokenInterestRateModelInput): Promise<GetVTokenInterestRateModelOutput> => {
-  const contractAddress = await vTokenContract.methods.interestRateModel().call();
-
-  return {
-    contractAddress,
-  };
-};
+}: GetVTokenInterestRateModelInput): Promise<GetVTokenInterestRateModelOutput> =>
+  vTokenContract.methods.interestRateModel().call();
 
 export default getVTokenInterestRateModel;

@@ -1,7 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import { VaiUnitroller } from 'types/contracts';
-
 import getVaiTreasuryPercentage from '.';
 
 describe('api/queries/getVaiTreasuryPercentage', () => {

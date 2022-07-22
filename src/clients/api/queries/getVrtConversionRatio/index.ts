@@ -4,16 +4,11 @@ export interface VrtConversionRatioInput {
   vrtConverterContract: VrtConverter;
 }
 
-export type GetVrtConversionRatioOutput = {
-  conversionRatio: string;
-};
+export type GetVrtConversionRatioOutput = string;
 
-const getVrtConversionRatio = async ({
+const getVrtConversionRatio = ({
   vrtConverterContract,
-}: VrtConversionRatioInput): Promise<GetVrtConversionRatioOutput> => {
-  const conversionRatio = await vrtConverterContract.methods.conversionRatio().call();
-
-  return { conversionRatio };
-};
+}: VrtConversionRatioInput): Promise<GetVrtConversionRatioOutput> =>
+  vrtConverterContract.methods.conversionRatio().call();
 
 export default getVrtConversionRatio;
