@@ -7,7 +7,7 @@ import { ProposalState } from 'types';
 
 import { useStyles } from './styles';
 
-export interface IStepperProps {
+export interface StepperProps {
   className?: string;
   createdDate: Date | undefined;
   startDate: Date | undefined;
@@ -36,7 +36,7 @@ const getActiveStepIndex = (proposalState: ProposalState) => {
   }
 };
 
-const Stepper: React.FC<IStepperProps> = ({
+const Stepper: React.FC<StepperProps> = ({
   className,
   createdDate,
   startDate,

@@ -1,10 +1,10 @@
 import { VError } from 'errors';
 import { formatToProposal, restService } from 'utilities';
 
-import { GetProposalOutput, IGetProposalInput, IProposalApiResponse } from './types';
+import { GetProposalInput, GetProposalOutput, ProposalApiResponse } from './types';
 
-const getProposal = async ({ id }: IGetProposalInput): Promise<GetProposalOutput> => {
-  const response = await restService<IProposalApiResponse>({
+const getProposal = async ({ id }: GetProposalInput): Promise<GetProposalOutput> => {
+  const response = await restService<ProposalApiResponse>({
     endpoint: `/proposals/${id}`,
     method: 'GET',
   });

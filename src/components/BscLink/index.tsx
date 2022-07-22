@@ -8,7 +8,7 @@ import { Breakpoint, EllipseAddress } from '../EllipseAddress';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-export interface IBscLinkProps {
+export interface BscLinkProps {
   hash: string;
   ellipseBreakpoint?: Breakpoint;
   urlType?: UrlType;
@@ -16,7 +16,7 @@ export interface IBscLinkProps {
   text?: string;
 }
 
-export const BscLink: React.FC<IBscLinkProps> = ({
+export const BscLink: React.FC<BscLinkProps> = ({
   hash,
   className,
   urlType,

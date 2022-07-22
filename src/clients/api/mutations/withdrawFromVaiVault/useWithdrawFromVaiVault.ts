@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { getContractAddress } from 'utilities';
 
 import {
-  IWithdrawFromVaiVaultInput,
+  WithdrawFromVaiVaultInput,
   WithdrawFromVaiVaultOutput,
   queryClient,
   withdrawFromVaiVault,
@@ -16,7 +16,7 @@ const VAI_VAULT_ADDRESS = getContractAddress('vaiVault');
 type Options = MutationObserverOptions<
   WithdrawFromVaiVaultOutput,
   Error,
-  Omit<IWithdrawFromVaiVaultInput, 'vaiVaultContract'>
+  Omit<WithdrawFromVaiVaultInput, 'vaiVaultContract'>
 >;
 
 const useWithdrawFromVaiVault = (options?: Options) => {
@@ -24,7 +24,7 @@ const useWithdrawFromVaiVault = (options?: Options) => {
 
   return useMutation(
     FunctionKey.WITHDRAW_FROM_VAI_VAULT,
-    (params: Omit<IWithdrawFromVaiVaultInput, 'vaiVaultContract'>) =>
+    (params: Omit<WithdrawFromVaiVaultInput, 'vaiVaultContract'>) =>
       withdrawFromVaiVault({
         vaiVaultContract,
         ...params,

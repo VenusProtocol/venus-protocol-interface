@@ -9,7 +9,7 @@ import { useStyles } from './styles';
 
 export const ALL_VALUE = 'All';
 
-export interface IFilterProps {
+export interface FilterProps {
   eventType: TransactionEvent | typeof ALL_VALUE;
   setEventType: (eventType: TransactionEvent | typeof ALL_VALUE) => void;
   showOnlyMyTxns: boolean;
@@ -17,7 +17,7 @@ export interface IFilterProps {
   walletConnected: boolean;
 }
 
-export const Filters: React.FC<IFilterProps> = ({
+export const Filters: React.FC<FilterProps> = ({
   eventType,
   setEventType,
   showOnlyMyTxns,

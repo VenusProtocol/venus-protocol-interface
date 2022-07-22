@@ -6,7 +6,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { VBnbToken } from 'types/contracts';
 
-export interface ISupplyBnbInput {
+export interface SupplyBnbInput {
   tokenContract: VBnbToken;
   web3: Web3;
   account: string;
@@ -22,7 +22,7 @@ const supplyBnb = async ({
   tokenContract,
   account,
   amountWei,
-}: ISupplyBnbInput): Promise<SupplyBnbOutput> => {
+}: SupplyBnbInput): Promise<SupplyBnbOutput> => {
   const contractData = tokenContract.methods.mint().encodeABI();
   const tx = {
     from: account,

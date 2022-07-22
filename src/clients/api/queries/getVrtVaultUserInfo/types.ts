@@ -2,11 +2,11 @@ import BigNumber from 'bignumber.js';
 
 import { VrtVault } from 'types/contracts';
 
-export interface IGetVrtVaultUserInfoInput {
+export interface GetVrtVaultUserInfoInput {
   vrtVaultContract: VrtVault;
   accountAddress: string;
 }
 
-export interface IGetVrtVaultUserInfoOutput {
+export interface GetVrtVaultUserInfoOutput {
   stakedVrtWei: BigNumber;
 }

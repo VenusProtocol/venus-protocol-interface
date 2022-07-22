@@ -19,7 +19,7 @@ const TREASURY_ADDRESSES = {
 
 export const treasuryAddress = TREASURY_ADDRESSES[config.chainId];
 
-export interface IData {
+export interface Data {
   treasuryTotalSupplyBalanceCents: BigNumber;
   treasuryTotalBorrowBalanceCents: BigNumber;
   treasuryTotalBalanceCents: BigNumber;
@@ -28,7 +28,7 @@ export interface IData {
 
 export interface UseGetTreasuryTotalsOutput {
   isLoading: boolean;
-  data: IData;
+  data: Data;
 }
 
 const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(

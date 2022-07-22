@@ -10,7 +10,7 @@ import useStakeInVault from 'hooks/useStakeInVault';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
 
-import StakeModal, { IStakeModalProps } from '.';
+import StakeModal, { StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
 jest.mock('clients/api');
@@ -18,7 +18,7 @@ jest.mock('hooks/useStakeInVault');
 
 const fakeBalanceWei = new BigNumber('100000000000000000000000');
 
-const baseProps: IStakeModalProps = {
+const baseProps: StakeModalProps = {
   stakedTokenId: 'vai',
   rewardTokenId: 'xvs',
   poolIndex: 6,
@@ -51,7 +51,7 @@ describe('pages/Vault/modals/StakeModal', () => {
   });
 
   it('calls stake function then calls handleClose callback on success', async () => {
-    const customProps: IStakeModalProps = {
+    const customProps: StakeModalProps = {
       ...baseProps,
       handleClose: jest.fn(),
     };

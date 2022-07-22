@@ -4,7 +4,7 @@ import { Spinner } from 'components';
 import React, { useContext, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { IProposal, IVoter } from 'types';
+import { Proposal as ProposalType, Voter } from 'types';
 import { convertWeiToTokens } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -20,10 +20,10 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 interface ProposalUiProps {
-  proposal: IProposal | undefined;
-  forVoters: IVoter;
-  againstVoters: IVoter;
-  abstainVoters: IVoter;
+  proposal: ProposalType | undefined;
+  forVoters: Voter;
+  againstVoters: Voter;
+  abstainVoters: Voter;
   vote: (params: UseVoteParams) => Promise<TransactionReceipt>;
   votingEnabled: boolean;
   readableVoteWeight: string;

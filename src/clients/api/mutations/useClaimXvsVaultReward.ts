@@ -1,8 +1,8 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import {
+  ClaimXvsVaultRewardInput,
   ClaimXvsVaultRewardOutput,
-  IClaimXvsVaultRewardInput,
   claimXvsVaultReward,
   queryClient,
 } from 'clients/api';
@@ -13,7 +13,7 @@ import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 type Options = MutationObserverOptions<
   ClaimXvsVaultRewardOutput,
   Error,
-  Omit<IClaimXvsVaultRewardInput, 'xvsVaultContract'>
+  Omit<ClaimXvsVaultRewardInput, 'xvsVaultContract'>
 >;
 
 const useClaimXvsVaultReward = (options?: Options) => {
@@ -21,7 +21,7 @@ const useClaimXvsVaultReward = (options?: Options) => {
 
   return useMutation(
     FunctionKey.CLAIM_XVS_VAULT_REWARD,
-    (params: Omit<IClaimXvsVaultRewardInput, 'xvsVaultContract'>) =>
+    (params: Omit<ClaimXvsVaultRewardInput, 'xvsVaultContract'>) =>
       claimXvsVaultReward({
         xvsVaultContract,
         ...params,

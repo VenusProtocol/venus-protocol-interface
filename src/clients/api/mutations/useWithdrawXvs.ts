@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { IWithdrawXvsInput, WithdrawXvsOutput, withdrawXvs } from 'clients/api';
+import { WithdrawXvsInput, WithdrawXvsOutput, withdrawXvs } from 'clients/api';
 import queryClient from 'clients/api/queryClient';
 import { useXvsVestingProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
@@ -9,7 +9,7 @@ const useWithdrawXvs = (
   options?: MutationObserverOptions<
     WithdrawXvsOutput,
     Error,
-    Omit<IWithdrawXvsInput, 'xvsVestingContract'>
+    Omit<WithdrawXvsInput, 'xvsVestingContract'>
   >,
 ) => {
   const xvsVestingContract = useXvsVestingProxyContract();

@@ -14,7 +14,7 @@ import { Tooltip } from '../../Tooltip';
 import { LabeledProgressBar } from '../LabeledProgressBar';
 import { useStyles } from './styles';
 
-export interface IAccountHealthProps {
+export interface AccountHealthProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeBorrowLimitPercentage: number;
@@ -23,7 +23,7 @@ export interface IAccountHealthProps {
   className?: string;
 }
 
-export const AccountHealth: React.FC<IAccountHealthProps> = ({
+export const AccountHealth: React.FC<AccountHealthProps> = ({
   className,
   borrowBalanceCents,
   borrowLimitCents,
@@ -134,10 +134,10 @@ export const AccountHealth: React.FC<IAccountHealthProps> = ({
   );
 };
 
-export const BorrowBalanceAccountHealth = (props: IAccountHealthProps) => (
+export const BorrowBalanceAccountHealth = (props: AccountHealthProps) => (
   <AccountHealth variant="borrowBalance" {...props} />
 );
 
-export const BorrowLimitUsedAccountHealth = (props: IAccountHealthProps) => (
+export const BorrowLimitUsedAccountHealth = (props: AccountHealthProps) => (
   <AccountHealth variant="borrowLimitUsed" {...props} />
 );

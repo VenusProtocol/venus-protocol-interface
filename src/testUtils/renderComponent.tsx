@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { Web3Wrapper } from 'clients/web3';
-import { AuthContext, IAuthContextValue } from 'context/AuthContext';
+import { AuthContext, AuthContextValue } from 'context/AuthContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
@@ -14,7 +14,7 @@ const renderComponent = (
   {
     authContextValue = {},
   }: {
-    authContextValue?: Partial<IAuthContextValue>;
+    authContextValue?: Partial<AuthContextValue>;
   } = {},
 ) => {
   const queryClient = new QueryClient({

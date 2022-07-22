@@ -10,7 +10,7 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-interface IVoteModal {
+interface VoteModalProps {
   voteModalType: 0 | 1 | 2;
   handleClose: () => void;
   vote: (voteReason: string) => Promise<TransactionReceipt>;
@@ -20,7 +20,7 @@ interface IVoteModal {
 
 // TODO: add tests
 
-const VoteModal: React.FC<IVoteModal> = ({
+const VoteModal: React.FC<VoteModalProps> = ({
   handleClose,
   vote,
   readableVoteWeight,

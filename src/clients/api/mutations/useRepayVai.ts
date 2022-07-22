@@ -1,13 +1,13 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { IRepayVaiInput, IRepayVaiOutput, queryClient, repayVai } from 'clients/api';
+import { IRepayVaiOutput, RepayVaiInput, queryClient, repayVai } from 'clients/api';
 import { useVaiUnitrollerContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = MutationObserverOptions<
   IRepayVaiOutput,
   Error,
-  Omit<IRepayVaiInput, 'vaiControllerContract'>
+  Omit<RepayVaiInput, 'vaiControllerContract'>
 >;
 
 const useRepayVai = (options?: Options) => {
@@ -15,7 +15,7 @@ const useRepayVai = (options?: Options) => {
 
   return useMutation(
     FunctionKey.REPAY_VAI,
-    (params: Omit<IRepayVaiInput, 'vaiControllerContract'>) =>
+    (params: Omit<RepayVaiInput, 'vaiControllerContract'>) =>
       repayVai({
         vaiControllerContract,
         ...params,

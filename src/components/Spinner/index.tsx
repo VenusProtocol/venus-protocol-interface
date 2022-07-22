@@ -5,13 +5,13 @@ import { Spinner as SpinnerAnimation } from '../LottieAnimation';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-interface ISpinnerProps {
+interface SpinnerProps {
   variant?: 'large' | 'small';
   autoplay?: boolean;
   className?: string;
 }
 
-export const Spinner: React.FC<ISpinnerProps> = ({
+export const Spinner: React.FC<SpinnerProps> = ({
   variant = 'large',
   autoplay = true,
   className,

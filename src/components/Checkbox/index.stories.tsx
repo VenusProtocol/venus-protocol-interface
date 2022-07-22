@@ -6,7 +6,7 @@ import React from 'react';
 
 import { withCenterStory, withOnChange } from 'stories/decorators';
 
-import { Checkbox, ICheckboxProps } from '.';
+import { Checkbox, CheckboxProps } from '.';
 
 export default {
   title: 'Components/Checkbox',
@@ -19,7 +19,7 @@ export default {
   },
 } as ComponentMeta<typeof Checkbox>;
 
-const Template: Story<ICheckboxProps> = (args: ICheckboxProps) => <Checkbox {...args} />;
+const Template: Story<CheckboxProps> = (args: CheckboxProps) => <Checkbox {...args} />;
 
 export const Checked = Template.bind({});
 Checked.args = {
@@ -33,7 +33,7 @@ UnChecked.args = {
   value: false,
 };
 
-export const SmallChecked = (args: ICheckboxProps) => (
+export const SmallChecked = (args: CheckboxProps) => (
   <Checkbox
     {...args}
     css={css`

@@ -2,13 +2,13 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
 
-export interface IGetXvsVaultPoolInfoInput {
+export interface GetXvsVaultPoolInfoInput {
   xvsVaultContract: XvsVault;
   rewardTokenAddress: string;
   poolIndex: number;
 }
 
-export interface IGetXvsVaultPoolInfoOutput {
+export interface GetXvsVaultPoolInfoOutput {
   stakedTokenAddress: string;
   allocationPoint: number;
   lastRewardBlock: number;

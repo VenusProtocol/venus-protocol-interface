@@ -1,6 +1,6 @@
-import { IMenuItem } from './types';
+import { MenuItem } from './types';
 
-export const menuItems: IMenuItem[] = [
+export const menuItems: MenuItem[] = [
   {
     href: '/dashboard',
     // Translation key: do not remove this comment

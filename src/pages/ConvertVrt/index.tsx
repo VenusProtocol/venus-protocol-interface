@@ -18,12 +18,12 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AuthContext } from 'context/AuthContext';
 import { VError } from 'errors/VError';
 
-import Convert, { IConvertProps } from './Convert';
-import Withdraw, { IWithdrawProps } from './Withdraw';
+import Convert, { ConvertProps } from './Convert';
+import Withdraw, { WithdrawProps } from './Withdraw';
 import { VRT_ID } from './constants';
 import { useStyles } from './styles';
 
-export type ConvertVrtUiProps = IConvertProps & IWithdrawProps;
+export type ConvertVrtUiProps = ConvertProps & WithdrawProps;
 
 export const ConvertVrtUi = ({
   xvsToVrtConversionRatio,

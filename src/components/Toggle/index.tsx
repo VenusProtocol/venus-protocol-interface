@@ -5,7 +5,7 @@ import React from 'react';
 
 import { useStyles } from './styles';
 
-export interface IToggleProps {
+export interface ToggleProps {
   onChange: SwitchBaseProps['onChange'];
   value: boolean;
   className?: string;
@@ -13,7 +13,7 @@ export interface IToggleProps {
 export const switchAriaLabel = 'Switch';
 const label = { inputProps: { 'aria-label': switchAriaLabel } };
 
-export const Toggle = ({ onChange, value, className }: IToggleProps) => {
+export const Toggle = ({ onChange, value, className }: ToggleProps) => {
   const styles = useStyles();
   return (
     <Switch

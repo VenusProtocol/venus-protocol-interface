@@ -3,7 +3,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { Comptroller } from 'types/contracts';
 
-export interface IEnterMarketsInput {
+export interface EnterMarketsInput {
   comptrollerContract: Comptroller;
   accountAddress?: string;
   vTokenAddresses: string[];
@@ -15,7 +15,7 @@ const enterMarkets = async ({
   comptrollerContract,
   accountAddress,
   vTokenAddresses,
-}: IEnterMarketsInput): Promise<EnterMarketsOutput> => {
+}: EnterMarketsInput): Promise<EnterMarketsOutput> => {
   const resp = await comptrollerContract.methods
     .enterMarkets(vTokenAddresses)
     .send({ from: accountAddress });

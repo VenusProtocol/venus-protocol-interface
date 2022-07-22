@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getDailyXvsWei, {
-  IGetDailyXvsWeiInput,
+  GetDailyXvsWeiInput,
   IGetDailyXvsWeiOutput,
 } from 'clients/api/queries/getDailyXvsWei';
 import { useVenusLensContract } from 'clients/contracts/hooks';
@@ -12,11 +12,11 @@ type Options = QueryObserverOptions<
   Error,
   IGetDailyXvsWeiOutput,
   IGetDailyXvsWeiOutput,
-  [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, Omit<IGetDailyXvsWeiInput, 'venusLensContract'>]
+  [FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, Omit<GetDailyXvsWeiInput, 'venusLensContract'>]
 >;
 
 const useGetDailyXvsWei = (
-  params: Omit<IGetDailyXvsWeiInput, 'venusLensContract'>,
+  params: Omit<GetDailyXvsWeiInput, 'venusLensContract'>,
   options?: Options,
 ) => {
   const venusLensContract = useVenusLensContract();

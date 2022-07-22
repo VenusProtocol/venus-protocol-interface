@@ -12,7 +12,7 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 
 import { useStyles } from './styles';
 
-interface IHoldingProps {
+interface HoldingProps {
   className?: string;
   balanceWei: BigNumber | undefined;
   delegateCount: number | undefined;
@@ -20,7 +20,7 @@ interface IHoldingProps {
   delegating: boolean;
 }
 
-export const Holding: React.FC<IHoldingProps> = ({
+export const Holding: React.FC<HoldingProps> = ({
   className,
   balanceWei,
   delegateCount,

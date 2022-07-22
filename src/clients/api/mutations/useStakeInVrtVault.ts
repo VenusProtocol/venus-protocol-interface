@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { getContractAddress } from 'utilities';
 
 import {
-  IStakeInVrtVaultInput,
+  StakeInVrtVaultInput,
   StakeInVrtVaultOutput,
   queryClient,
   stakeInVrtVault,
@@ -16,7 +16,7 @@ const VRT_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('vrtVaultProxy');
 type Options = MutationObserverOptions<
   StakeInVrtVaultOutput,
   Error,
-  Omit<IStakeInVrtVaultInput, 'vrtVaultContract'>
+  Omit<StakeInVrtVaultInput, 'vrtVaultContract'>
 >;
 
 const useStakeInXvsVault = (options?: Options) => {
@@ -24,7 +24,7 @@ const useStakeInXvsVault = (options?: Options) => {
 
   return useMutation(
     FunctionKey.STAKE_IN_VRT_VAULT,
-    (params: Omit<IStakeInVrtVaultInput, 'vrtVaultContract'>) =>
+    (params: Omit<StakeInVrtVaultInput, 'vrtVaultContract'>) =>
       stakeInVrtVault({
         vrtVaultContract,
         ...params,

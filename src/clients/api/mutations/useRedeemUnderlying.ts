@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { VTokenId } from 'types';
 
 import redeemUnderlying, {
-  IRedeemUnderlyingInput,
+  RedeemUnderlyingInput,
   RedeemUnderlyingOutput,
 } from 'clients/api/mutations/redeemUnderlying';
 import queryClient from 'clients/api/queryClient';
@@ -15,7 +15,7 @@ const useRedeemUnderlying = (
   options?: MutationObserverOptions<
     RedeemUnderlyingOutput,
     Error,
-    Omit<IRedeemUnderlyingInput, 'vTokenContract' | 'accountAddress'>
+    Omit<RedeemUnderlyingInput, 'vTokenContract' | 'accountAddress'>
   >,
 ) => {
   const vTokenContract = useVTokenContract(vTokenId);

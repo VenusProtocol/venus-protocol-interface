@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 import { TokenId } from 'types';
 
-import { GetBalanceOfOutput, IGetBalanceOfInput, getBalanceOf } from 'clients/api';
+import { GetBalanceOfInput, GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import { useTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
@@ -14,7 +14,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetBalanceOf = (
-  { accountAddress, tokenId }: Omit<IGetBalanceOfInput, 'tokenContract'> & { tokenId: TokenId },
+  { accountAddress, tokenId }: Omit<GetBalanceOfInput, 'tokenContract'> & { tokenId: TokenId },
   options?: Options,
 ) => {
   const tokenContract = useTokenContract(tokenId);

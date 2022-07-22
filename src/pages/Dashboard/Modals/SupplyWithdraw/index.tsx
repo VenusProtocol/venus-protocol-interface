@@ -3,10 +3,10 @@ import BigNumber from 'bignumber.js';
 import {
   ConnectWallet,
   EnableToken,
-  ILabeledInlineContentProps,
-  IModalProps,
   IconName,
+  LabeledInlineContentProps,
   Modal,
+  ModalProps,
   TabContent,
   Tabs,
   Token,
@@ -28,26 +28,26 @@ import {
   useRedeemUnderlying,
 } from 'clients/api';
 import useSupply from 'clients/api/mutations/useSupply';
-import { IAmountFormProps } from 'containers/AmountForm';
+import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles } from '../styles';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
 
-export interface ISupplyWithdrawUiProps {
+export interface SupplyWithdrawUiProps {
   className?: string;
-  onClose: IModalProps['handleClose'];
+  onClose: ModalProps['handleClose'];
   asset: Asset;
   assets: Asset[];
   isXvsEnabled: boolean;
 }
 
-export interface ISupplyWithdrawProps {
+export interface SupplyWithdrawProps {
   userTotalBorrowBalanceCents: BigNumber;
   userTotalBorrowLimitCents: BigNumber;
-  onSubmitSupply: IAmountFormProps['onSubmit'];
-  onSubmitWithdraw: IAmountFormProps['onSubmit'];
+  onSubmitSupply: AmountFormProps['onSubmit'];
+  onSubmitWithdraw: AmountFormProps['onSubmit'];
   isSupplyLoading: boolean;
   isWithdrawLoading: boolean;
 }
@@ -56,7 +56,7 @@ export interface ISupplyWithdrawProps {
  * The fade effect on this component results in that it is still rendered after the asset has been set to undefined
  * when closing the modal.
  */
-export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdrawProps> = ({
+export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawProps> = ({
   className,
   onClose,
   asset,
@@ -76,7 +76,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
 
   const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
 
-  const tokenInfo: ILabeledInlineContentProps[] = asset
+  const tokenInfo: LabeledInlineContentProps[] = asset
     ? [
         {
           label: t('supplyWithdraw.supplyApy'),
@@ -110,7 +110,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
     disabledButtonKey: string;
     calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
     isTransactionLoading: boolean;
-    onSubmit: IAmountFormProps['onSubmit'];
+    onSubmit: AmountFormProps['onSubmit'];
   }) => {
     const maxInput = React.useMemo(() => {
       let maxInputTokens = asset.walletBalance;
@@ -225,7 +225,7 @@ export const SupplyWithdrawUi: React.FC<ISupplyWithdrawUiProps & ISupplyWithdraw
   );
 };
 
-const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
+const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
   const { asset, assets, isXvsEnabled, onClose, ...rest } = props;
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
@@ -260,7 +260,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
 
-  const onSubmitSupply: IAmountFormProps['onSubmit'] = async value => {
+  const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
     const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
     const res = await supply({
       amountWei: supplyAmount,
@@ -278,7 +278,7 @@ const SupplyWithdrawModal: React.FC<ISupplyWithdrawUiProps> = props => {
     });
   };
 
-  const onSubmitWithdraw: IAmountFormProps['onSubmit'] = async value => {
+  const onSubmitWithdraw: AmountFormProps['onSubmit'] = async value => {
     const amount = new BigNumber(value);
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;

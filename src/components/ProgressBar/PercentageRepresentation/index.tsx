@@ -3,10 +3,10 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { formatToReadablePercentage } from 'utilities';
 
-import { IProgressBarProps, ProgressBar } from '..';
+import { ProgressBar, ProgressBarProps } from '..';
 import { useStyles } from './styles';
 
-export const PercentageRepresentation: React.FC<Pick<IProgressBarProps, 'value' | 'className'>> = ({
+export const PercentageRepresentation: React.FC<Pick<ProgressBarProps, 'value' | 'className'>> = ({
   value,
   className,
 }) => {

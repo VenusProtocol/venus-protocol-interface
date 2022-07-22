@@ -1,14 +1,14 @@
 import { Global } from '@emotion/react';
-import MuiTooltip, { TooltipProps } from '@mui/material/Tooltip';
+import MuiTooltip, { TooltipProps as MUITooltipProps } from '@mui/material/Tooltip';
 import React from 'react';
 
 import { useStyles } from './styles';
 
-export interface ITooltipProps extends TooltipProps {
+export interface TooltipProps extends MUITooltipProps {
   title: string | React.ReactElement;
 }
 
-export const Tooltip = ({ children, placement = 'top', ...rest }: ITooltipProps) => {
+export const Tooltip = ({ children, placement = 'top', ...rest }: TooltipProps) => {
   const styles = useStyles();
 
   return (

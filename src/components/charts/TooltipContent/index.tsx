@@ -4,16 +4,16 @@ import React from 'react';
 
 import { useStyles } from './styles';
 
-export interface ITooltipItem {
+export interface TooltipItem {
   label: string;
   value: string | number;
 }
 
-export interface ITooltipContentProps {
-  items: ITooltipItem[];
+export interface TooltipContentProps {
+  items: TooltipItem[];
 }
 
-const TooltipContent: React.FC<ITooltipContentProps> = ({ items }) => {
+const TooltipContent: React.FC<TooltipContentProps> = ({ items }) => {
   const styles = useStyles();
 
   return (

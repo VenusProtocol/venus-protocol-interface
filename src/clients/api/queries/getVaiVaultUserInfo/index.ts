@@ -1,12 +1,12 @@
 import formatToUserInfo from './formatToUserInfo';
-import { IGetVaiVaultUserInfoInput, IGetVaiVaultUserInfoOutput } from './types';
+import { GetVaiVaultUserInfoInput, GetVaiVaultUserInfoOutput } from './types';
 
 export * from './types';
 
 const getVaiVaultUserInfo = async ({
   vaiVaultContract,
   accountAddress,
-}: IGetVaiVaultUserInfoInput): Promise<IGetVaiVaultUserInfoOutput> => {
+}: GetVaiVaultUserInfoInput): Promise<GetVaiVaultUserInfoOutput> => {
   const res = await vaiVaultContract.methods.userInfo(accountAddress).call();
   return formatToUserInfo(res);
 };

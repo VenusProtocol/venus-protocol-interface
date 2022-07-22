@@ -7,7 +7,7 @@ import { Breakpoint } from './types';
 
 export * from './types';
 
-interface IAddressProps {
+interface AddressProps {
   address: string;
   ellipseBreakpoint?: Breakpoint;
   className?: string;
@@ -15,7 +15,7 @@ interface IAddressProps {
 
 // TODO: add story
 
-export const EllipseAddress: React.FC<IAddressProps> = ({
+export const EllipseAddress: React.FC<AddressProps> = ({
   className,
   address,
   ellipseBreakpoint,

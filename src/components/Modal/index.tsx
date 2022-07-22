@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Modal as MUIModal, ModalProps } from '@mui/material';
+import { Button, Modal as MUIModal, ModalProps as MUIModalProps } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
 import React, { ReactElement } from 'react';
@@ -7,7 +7,7 @@ import React, { ReactElement } from 'react';
 import { Icon } from '../Icon';
 import { useModalStyles } from './styles';
 
-export interface IModalProps extends Omit<ModalProps, 'title' | 'open'> {
+export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open'> {
   className?: string;
   isOpen: boolean;
   handleClose: () => void;
@@ -16,7 +16,7 @@ export interface IModalProps extends Omit<ModalProps, 'title' | 'open'> {
   noHorizontalPadding?: boolean;
 }
 
-export const Modal: React.FC<IModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
   className,
   children,
   handleClose,

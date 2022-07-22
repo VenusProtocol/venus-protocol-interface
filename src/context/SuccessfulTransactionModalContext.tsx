@@ -2,22 +2,22 @@ import noop from 'noop-ts';
 import React from 'react';
 
 import {
-  ISuccessfulTransactionModalProps,
   SuccessfulTransactionModal,
+  SuccessfulTransactionModalProps,
 } from 'components/SuccessfulTransactionModal';
 
 export type OpenSuccessfulTransactionModalInput = Pick<
-  ISuccessfulTransactionModalProps,
+  SuccessfulTransactionModalProps,
   'title' | 'content' | 'transactionHash' | 'amount'
 >;
 
-export interface ISuccessfulTransactionModalValue {
+export interface SuccessfulTransactionModalValue {
   openSuccessfulTransactionModal: (params: OpenSuccessfulTransactionModalInput) => void;
   closeSuccessfulTransactionModal: () => void;
 }
 
 export const SuccessfulTransactionModalContext =
-  React.createContext<ISuccessfulTransactionModalValue>({
+  React.createContext<SuccessfulTransactionModalValue>({
     openSuccessfulTransactionModal: noop,
     closeSuccessfulTransactionModal: noop,
   });

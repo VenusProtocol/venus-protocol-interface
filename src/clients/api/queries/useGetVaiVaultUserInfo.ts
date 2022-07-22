@@ -1,23 +1,23 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  IGetVaiVaultUserInfoInput,
-  IGetVaiVaultUserInfoOutput,
+  GetVaiVaultUserInfoInput,
+  GetVaiVaultUserInfoOutput,
   getVaiVaultUserInfo,
 } from 'clients/api';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  IGetVaiVaultUserInfoOutput,
+  GetVaiVaultUserInfoOutput,
   Error,
-  IGetVaiVaultUserInfoOutput,
-  IGetVaiVaultUserInfoOutput,
+  GetVaiVaultUserInfoOutput,
+  GetVaiVaultUserInfoOutput,
   [FunctionKey.GET_VAI_VAULT_USER_INFO, string]
 >;
 
 const useGetVaiVaultUserInfo = (
-  { accountAddress }: Omit<IGetVaiVaultUserInfoInput, 'vaiVaultContract'>,
+  { accountAddress }: Omit<GetVaiVaultUserInfoInput, 'vaiVaultContract'>,
   options?: Options,
 ) => {
   const vaiVaultContract = useVaiVaultContract();

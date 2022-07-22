@@ -1,7 +1,7 @@
 import formatTransaction from 'clients/api/queries/getTransactions/formatTransaction';
-import { ITransactionResponse } from 'clients/api/queries/getTransactions/types';
+import { TransactionResponse } from 'clients/api/queries/getTransactions/types';
 
-export const transactionResponse: ITransactionResponse[] = [
+export const transactionResponse: TransactionResponse[] = [
   {
     amount: 0,
     blockNumber: 19636734,

@@ -6,20 +6,20 @@ import { Connector, useAuth } from 'clients/web3';
 import { AuthModal } from 'components/AuthModal';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
-export interface IAccount {
+export interface Account {
   address: string;
   connector?: Connector;
 }
 
-export interface IAuthContextValue {
+export interface AuthContextValue {
   login: (connector: Connector) => Promise<void>;
   logOut: () => void;
   openAuthModal: () => void;
   closeAuthModal: () => void;
-  account?: IAccount;
+  account?: Account;
 }
 
-export const AuthContext = React.createContext<IAuthContextValue>({
+export const AuthContext = React.createContext<AuthContextValue>({
   login: noop,
   logOut: noop,
   openAuthModal: noop,

@@ -1,15 +1,15 @@
-import { IProposal } from 'types';
+import { Proposal } from 'types';
 
-export interface IGetProposalsInput {
+export interface GetProposalsInput {
   limit?: number;
   page?: number;
 }
 
-export interface IGetProposalInput {
+export interface GetProposalInput {
   id: number | string;
 }
 
-export interface IProposalApiResponse {
+export interface ProposalApiResponse {
   abstainedVotes: string;
   actions: {
     data: string;
@@ -65,18 +65,18 @@ export interface IProposalApiResponse {
   voterCount: number | null;
 }
 
-export interface IProposalsApiResponse {
+export interface ProposalsApiResponse {
   offset: number;
-  result: IProposalApiResponse[];
+  result: ProposalApiResponse[];
   limit: number;
   total: number;
 }
 
-export interface IGetProposalsOutput {
+export interface GetProposalsOutput {
   offset: number;
-  proposals: IProposal[];
+  proposals: Proposal[];
   limit: number;
   total: number;
 }
 
-export type GetProposalOutput = IProposal;
+export type GetProposalOutput = Proposal;

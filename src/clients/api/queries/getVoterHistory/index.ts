@@ -1,17 +1,17 @@
 import { VError } from 'errors';
-import { IVoterHistory } from 'types';
+import { VoterHistory } from 'types';
 import { restService } from 'utilities';
 
 import formatVoterHistoryResponse from './formatVoterHistoryResponse';
-import { IGetVoterHistoryResponse } from './types';
+import { GetVoterHistoryResponse } from './types';
 
-export interface IGetVoterHistoryInput {
+export interface GetVoterHistoryInput {
   page?: number;
   address: string;
 }
 
-export interface IGetVoterHistoryOutput {
-  voterHistory: IVoterHistory[];
+export interface GetVoterHistoryOutput {
+  voterHistory: VoterHistory[];
   limit: number;
   offset: number;
   total: number;
@@ -20,8 +20,8 @@ export interface IGetVoterHistoryOutput {
 const getVoterHistory = async ({
   page = 0,
   address,
-}: IGetVoterHistoryInput): Promise<IGetVoterHistoryOutput> => {
-  const response = await restService<IGetVoterHistoryResponse>({
+}: GetVoterHistoryInput): Promise<GetVoterHistoryOutput> => {
+  const response = await restService<GetVoterHistoryResponse>({
     endpoint: `/voters/history/${address}`,
     method: 'GET',
     params: {

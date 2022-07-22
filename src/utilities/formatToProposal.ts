@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { IProposal } from 'types';
+import { Proposal } from 'types';
 
 import { BLOCK_TIME_MS } from 'constants/bsc';
 
@@ -70,7 +70,7 @@ const formatToProposal = ({
   startTxHash,
   actions,
   blockNumber,
-}: FormatToProposalInput): IProposal => {
+}: FormatToProposalInput): Proposal => {
   let endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
 
   if (!endDate && blockNumber) {
@@ -101,7 +101,7 @@ const formatToProposal = ({
   const againstVotesWei = new BigNumber(againstVotes || 0);
   const forVotesWei = new BigNumber(forVotes || 0);
 
-  const proposal: IProposal = {
+  const proposal: Proposal = {
     abstainedVotesWei,
     againstVotesWei,
     cancelDate: cancelTimestamp ? createDateFromSecondsTimestamp(cancelTimestamp) : undefined,

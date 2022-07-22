@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
 
-import { IIconProps, Icon, IconName } from '.';
+import { Icon, IconName, IconProps } from '.';
 
 export default {
   title: 'Components/Icon',
@@ -37,7 +37,7 @@ export const IconDefault = () => {
   );
 };
 
-const IconWithCustomColorAndSizeTemplate: Story<IIconProps> = args => <Icon {...args} />;
+const IconWithCustomColorAndSizeTemplate: Story<IconProps> = args => <Icon {...args} />;
 
 export const IconWithCustomColorAndSize = IconWithCustomColorAndSizeTemplate.bind({});
 IconWithCustomColorAndSize.args = {

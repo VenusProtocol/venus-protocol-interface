@@ -1,7 +1,7 @@
 import config from 'config';
 import { isEmpty, set } from 'lodash';
 
-interface IRestServiceInput {
+interface RestServiceInput {
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   token?: string | null;
@@ -23,7 +23,7 @@ export async function restService<D>({
   method,
   params,
   token = null,
-}: IRestServiceInput): Promise<
+}: RestServiceInput): Promise<
   | {
       status: number;
       data: { data: D; status: boolean } | undefined;

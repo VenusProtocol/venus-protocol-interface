@@ -10,11 +10,11 @@ import mainContractAddresses from 'constants/contracts/addresses/main.json';
 import MAX_UINT256 from 'constants/maxUint256';
 import renderComponent from 'testUtils/renderComponent';
 
-import ActionModal, { IActionModalProps } from '.';
+import ActionModal, { ActionModalProps } from '.';
 
 jest.mock('clients/api');
 
-const baseProps: IActionModalProps = {
+const baseProps: ActionModalProps = {
   title: 'Fake title',
   isInitialLoading: false,
   connectWalletMessage: 'Fake connect wallet message',
@@ -39,7 +39,7 @@ describe('pages/Vault/modals/ActionModal', () => {
   });
 
   it('displays spinner if isInitialLoading is true', async () => {
-    const customProps: IActionModalProps = {
+    const customProps: ActionModalProps = {
       ...baseProps,
       isInitialLoading: true,
     };

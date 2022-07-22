@@ -2,7 +2,7 @@ import { VError } from 'errors';
 import { restService } from 'utilities';
 
 import formatToVoters from './formatToVoters';
-import { GetVotersOutput, IGetVotersApiResponse, IGetVotersInput } from './types';
+import { GetVotersApiResponse, GetVotersInput, GetVotersOutput } from './types';
 
 export * from './types';
 
@@ -11,8 +11,8 @@ const getVoters = async ({
   filter,
   limit,
   offset,
-}: IGetVotersInput): Promise<GetVotersOutput> => {
-  const response = await restService<IGetVotersApiResponse>({
+}: GetVotersInput): Promise<GetVotersOutput> => {
+  const response = await restService<GetVotersApiResponse>({
     endpoint: `/voters/${id}`,
     method: 'GET',
     params: {

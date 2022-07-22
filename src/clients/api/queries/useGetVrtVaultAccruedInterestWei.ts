@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultRewardWeiPerBlock, {
+  GetVrtVaultAccruedInterestWeiInput,
   GetVrtVaultAccruedInterestWeiOutput,
-  IGetVrtVaultAccruedInterestWeiInput,
 } from 'clients/api/queries/getVrtVaultAccruedInterestWei';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
@@ -17,7 +17,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVrtVaultAccruedInterestWei = (
-  { accountAddress }: Omit<IGetVrtVaultAccruedInterestWeiInput, 'vrtVaultContract'>,
+  { accountAddress }: Omit<GetVrtVaultAccruedInterestWeiInput, 'vrtVaultContract'>,
   options?: Options,
 ) => {
   const vrtVaultContract = useVrtVaultProxyContract();

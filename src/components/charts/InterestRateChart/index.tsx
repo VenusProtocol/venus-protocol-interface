@@ -17,19 +17,19 @@ import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
-export interface IInterestRateItem {
+export interface InterestRateItem {
   utilizationRate: number;
   borrowApyPercentage: number;
   supplyApyPercentage: number;
 }
 
-export interface IInterestRateChartProps {
-  data: IInterestRateItem[];
+export interface InterestRateChartProps {
+  data: InterestRateItem[];
   currentUtilizationRate?: number;
   className?: string;
 }
 
-export const InterestRateChart: React.FC<IInterestRateChartProps> = ({
+export const InterestRateChart: React.FC<InterestRateChartProps> = ({
   className,
   currentUtilizationRate,
   data,
@@ -73,19 +73,19 @@ export const InterestRateChart: React.FC<IInterestRateChartProps> = ({
                     {
                       label: t('interestRateChart.tooltipItemLabels.utilizationRate'),
                       value: formatToReadablePercentage(
-                        (payload[0].payload as IInterestRateItem).utilizationRate,
+                        (payload[0].payload as InterestRateItem).utilizationRate,
                       ),
                     },
                     {
                       label: t('interestRateChart.tooltipItemLabels.borrowApy'),
                       value: formatToReadablePercentage(
-                        (payload[0].payload as IInterestRateItem).borrowApyPercentage,
+                        (payload[0].payload as InterestRateItem).borrowApyPercentage,
                       ),
                     },
                     {
                       label: t('interestRateChart.tooltipItemLabels.supplyApy'),
                       value: formatToReadablePercentage(
-                        (payload[0].payload as IInterestRateItem).supplyApyPercentage,
+                        (payload[0].payload as InterestRateItem).supplyApyPercentage,
                       ),
                     },
                   ]}

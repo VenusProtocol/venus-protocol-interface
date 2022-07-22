@@ -10,22 +10,22 @@ import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton } from '../Button';
 import { Delimiter } from '../Delimiter';
 import { Icon } from '../Icon';
-import { ILabeledInlineContentProps, LabeledInlineContent } from '../LabeledInlineContent';
+import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
 import useStyles from './styles';
 
-export interface IEnableTokenUiProps {
+export interface EnableTokenUiProps {
   vTokenId: VTokenId | 'vai' | 'vrt';
   title: string | React.ReactElement;
   isTokenEnabled: boolean;
   enableToken: () => void;
   isInitialLoading?: boolean;
   isEnableTokenLoading?: boolean;
-  tokenInfo?: ILabeledInlineContentProps[];
+  tokenInfo?: LabeledInlineContentProps[];
   disabled?: boolean;
 }
 
-export const EnableTokenUi: React.FC<IEnableTokenUiProps> = ({
+export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
   vTokenId,
   title,
   tokenInfo = [],
@@ -84,7 +84,7 @@ export const EnableTokenUi: React.FC<IEnableTokenUiProps> = ({
 };
 
 export interface EnableTokenProps
-  extends Pick<IEnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'vTokenId'> {
+  extends Pick<EnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'vTokenId'> {
   spenderAddress: string;
 }
 

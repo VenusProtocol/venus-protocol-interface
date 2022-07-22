@@ -12,7 +12,7 @@ import { Icon } from '../../Icon';
 import { WALLETS } from '../constants';
 import { useStyles } from './styles';
 
-export interface IAccountDetailsProps {
+export interface AccountDetailsProps {
   onLogOut: () => void;
   onCopyAccountAddress: (accountAddress: string) => void;
   account: {
@@ -21,7 +21,7 @@ export interface IAccountDetailsProps {
   };
 }
 
-export const AccountDetails: React.FC<IAccountDetailsProps> = ({
+export const AccountDetails: React.FC<AccountDetailsProps> = ({
   onLogOut,
   onCopyAccountAddress,
   account,

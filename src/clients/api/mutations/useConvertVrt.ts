@@ -1,6 +1,6 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 
-import { ConvertVrtOutput, IConvertVrtInput, convertVrt, queryClient } from 'clients/api';
+import { ConvertVrtInput, ConvertVrtOutput, convertVrt, queryClient } from 'clients/api';
 import { useVrtConverterProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { TOKENS } from 'constants/tokens';
@@ -9,7 +9,7 @@ const useConvertVrt = (
   options?: MutationObserverOptions<
     ConvertVrtOutput,
     Error,
-    Omit<IConvertVrtInput, 'vrtConverterContract'>
+    Omit<ConvertVrtInput, 'vrtConverterContract'>
   >,
 ) => {
   const vrtConverterContract = useVrtConverterProxyContract();

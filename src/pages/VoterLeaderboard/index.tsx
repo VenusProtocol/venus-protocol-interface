@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
 import React, { useState } from 'react';
-import { IVoterAccount } from 'types';
+import { VoterAccount } from 'types';
 
 import { useGetVoterAccounts } from 'clients/api';
 
 import LeaderboardTable from './LeaderboardTable';
 import { useStyles } from './styles';
 
-interface IVoterLeaderboardProps {
-  voterAccounts: IVoterAccount[];
+interface VoterLeaderboardProps {
+  voterAccounts: VoterAccount[];
   offset: number;
   total: number | undefined;
   limit: number | undefined;
@@ -17,7 +17,7 @@ interface IVoterLeaderboardProps {
   setCurrentPage: (page: number) => void;
 }
 
-export const VoterLeaderboardUi: React.FC<IVoterLeaderboardProps> = ({
+export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
   voterAccounts,
   offset,
   total,

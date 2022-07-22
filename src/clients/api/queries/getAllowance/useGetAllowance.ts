@@ -2,8 +2,8 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { TokenId } from 'types';
 
 import getAllowance, {
+  GetAllowanceInput,
   GetAllowanceOutput,
-  IGetAllowanceInput,
 } from 'clients/api/queries/getAllowance';
 import { useTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
@@ -30,7 +30,7 @@ const useGetAllowance = (
     tokenId,
     spenderAddress,
     accountAddress,
-  }: Omit<IGetAllowanceInput, 'tokenContract'> & { tokenId: TokenId },
+  }: Omit<GetAllowanceInput, 'tokenContract'> & { tokenId: TokenId },
   options?: Options,
 ) => {
   const tokenContract = useTokenContract(tokenId);

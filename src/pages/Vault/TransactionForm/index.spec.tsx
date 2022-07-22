@@ -7,12 +7,12 @@ import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 
-import TransactionForm, { ITransactionFormProps } from '.';
+import TransactionForm, { TransactionFormProps } from '.';
 import TEST_IDS from './testIds';
 
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const baseProps: ITransactionFormProps = {
+const baseProps: TransactionFormProps = {
   tokenId: 'xvs',
   submitButtonLabel: 'Fake submit button label',
   submitButtonDisabledLabel: 'Fake submit button disabled label',
@@ -48,7 +48,7 @@ describe('pages/Vault/TransactionForm', () => {
   it('calls onSubmit callback on submit and displays successful transaction modal', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     const onSubmitMock = jest.fn(async () => fakeTransactionReceipt);
-    const customProps: ITransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
+    const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
     const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />);
 

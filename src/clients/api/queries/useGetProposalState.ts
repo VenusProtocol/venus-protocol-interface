@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposalState, {
+  GetProposalStateInput,
   GetProposalStateOutput,
-  IGetProposalStateInput,
 } from 'clients/api/queries/getProposalState';
 import { useGovernorBravoDelegateContract } from 'clients/contracts';
 import { BLOCK_TIME_MS } from 'constants/bsc';
@@ -17,7 +17,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalState = (
-  { proposalId }: Omit<IGetProposalStateInput, 'governorBravoContract'>,
+  { proposalId }: Omit<GetProposalStateInput, 'governorBravoContract'>,
   options?: Options,
 ) => {
   const governorBravoContract = useGovernorBravoDelegateContract();

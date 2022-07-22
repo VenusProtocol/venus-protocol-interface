@@ -10,14 +10,14 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 
-export interface ISupplyMarketTableUiProps {
+export interface SupplyMarketTableUiProps {
   assets: Asset[];
   isXvsEnabled: boolean;
   rowOnClick: (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => void;
   collateralOnChange: (asset: Asset) => void;
 }
 
-export const SupplyMarketTable: React.FC<ISupplyMarketTableUiProps> = ({
+export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
   assets,
   isXvsEnabled,
   collateralOnChange,

@@ -1,13 +1,13 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
 import { VTokenId } from 'types';
 
-import supply, { ISupplyNonBnbInput, SupplyNonBnbOutput } from 'clients/api/mutations/supplyNonBnb';
+import supply, { SupplyNonBnbInput, SupplyNonBnbOutput } from 'clients/api/mutations/supplyNonBnb';
 import queryClient from 'clients/api/queryClient';
 import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 import { VBep20 } from 'types/contracts';
 
-export type SupplyNonBnbParams = Omit<ISupplyNonBnbInput, 'tokenContract' | 'account'>;
+export type SupplyNonBnbParams = Omit<SupplyNonBnbInput, 'tokenContract' | 'account'>;
 
 const useSupply = (
   { assetId, account }: { assetId: VTokenId; account: string },

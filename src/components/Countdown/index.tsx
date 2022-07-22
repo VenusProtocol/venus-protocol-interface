@@ -5,12 +5,12 @@ import ReactCountdown from 'react-countdown';
 import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
 import { useTranslation } from 'translation';
 
-interface ICoundownProps {
+interface CountdownProps {
   date: Date;
   className?: string;
 }
 
-export const Countdown: React.FC<ICoundownProps> = ({ date, className }) => {
+export const Countdown: React.FC<CountdownProps> = ({ date, className }) => {
   const { t } = useTranslation();
   const countdownRenderer = ({
     days,

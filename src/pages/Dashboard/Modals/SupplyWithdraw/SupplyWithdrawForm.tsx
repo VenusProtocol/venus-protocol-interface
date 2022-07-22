@@ -6,8 +6,8 @@ import {
   Delimiter,
   FormikSubmitButton,
   FormikTokenTextField,
-  ILabeledInlineContentProps,
   LabeledInlineContent,
+  LabeledInlineContentProps,
   ValueUpdate,
   toast,
 } from 'components';
@@ -26,16 +26,16 @@ import {
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { AmountForm, ErrorCode, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
 
 import { useStyles } from '../styles';
 
-interface ISupplyWithdrawFormUiProps {
+interface SupplyWithdrawFormUiProps {
   asset: Asset;
   assets: Asset[];
   type: 'supply' | 'withdraw';
-  tokenInfo: ILabeledInlineContentProps[];
+  tokenInfo: LabeledInlineContentProps[];
   maxInput: BigNumber;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalBorrowLimitCents: BigNumber;
@@ -48,7 +48,7 @@ interface ISupplyWithdrawFormUiProps {
   amountValue: string;
 }
 
-export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
+export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   asset,
   type,
   tokenInfo,
@@ -235,16 +235,16 @@ export const SupplyWithdrawContent: React.FC<ISupplyWithdrawFormUiProps> = ({
   );
 };
 
-interface ISupplyWithdrawFormProps extends Omit<ISupplyWithdrawFormUiProps, 'amountValue'> {
-  onSubmit: IAmountFormProps['onSubmit'];
+interface SupplyWithdrawFormProps extends Omit<SupplyWithdrawFormUiProps, 'amountValue'> {
+  onSubmit: AmountFormProps['onSubmit'];
 }
 
-const SupplyWithdrawForm: React.FC<ISupplyWithdrawFormProps> = ({
+const SupplyWithdrawForm: React.FC<SupplyWithdrawFormProps> = ({
   onSubmit,
   maxInput,
   ...props
 }) => {
-  const onSubmitHandleError: IAmountFormProps['onSubmit'] = async (value: string) => {
+  const onSubmitHandleError: AmountFormProps['onSubmit'] = async (value: string) => {
     try {
       await onSubmit(value);
     } catch (error) {

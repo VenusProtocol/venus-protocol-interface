@@ -2,15 +2,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { IMenuItem } from '../../types';
+import { MenuItem } from '../../types';
 
-export interface ILinkProps {
-  href: IMenuItem['href'];
+export interface LinkProps {
+  href: MenuItem['href'];
   onClick?: () => void;
   isMobile?: boolean;
 }
 
-export const Link: React.FC<ILinkProps> = ({ children, onClick, href, isMobile = false }) => {
+export const Link: React.FC<LinkProps> = ({ children, onClick, href, isMobile = false }) => {
   if (href[0] === '/') {
     const activeClassName = isMobile ? 'active-mobile-menu-item' : 'active-menu-item';
 

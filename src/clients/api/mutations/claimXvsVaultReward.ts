@@ -3,7 +3,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
 
-export interface IClaimXvsVaultRewardInput {
+export interface ClaimXvsVaultRewardInput {
   xvsVaultContract: XvsVault;
   fromAccountAddress: string;
   rewardTokenAddress: string;
@@ -17,7 +17,7 @@ const claimXvsVaultReward = async ({
   fromAccountAddress,
   rewardTokenAddress,
   poolIndex,
-}: IClaimXvsVaultRewardInput): Promise<ClaimXvsVaultRewardOutput> => {
+}: ClaimXvsVaultRewardInput): Promise<ClaimXvsVaultRewardOutput> => {
   const resp = await xvsVaultContract.methods
     .deposit(rewardTokenAddress, poolIndex, 0)
     .send({ from: fromAccountAddress });
