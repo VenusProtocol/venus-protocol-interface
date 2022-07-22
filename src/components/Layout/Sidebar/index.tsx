@@ -8,8 +8,8 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 
-import { ReactComponent as LogoNoText } from 'assets/img/v2/venusLogoPure.svg';
-import { ReactComponent as LogoDesktop } from 'assets/img/v2/venusLogoWithText.svg';
+import { ReactComponent as LogoNoText } from 'assets/img/venusLogoPure.svg';
+import { ReactComponent as LogoDesktop } from 'assets/img/venusLogoWithText.svg';
 
 import { Icon } from '../../Icon';
 import ClaimXvsRewardButton from '../ClaimXvsRewardButton';
