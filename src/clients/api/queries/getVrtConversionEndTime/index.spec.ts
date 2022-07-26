@@ -1,6 +1,6 @@
 import { VrtConverter } from 'types/contracts';
 
-import getVrtConversionEndTime, { GetVrtConversionEndTimeOutput } from '.';
+import getVrtConversionEndTime from '.';
 
 describe('api/queries/getVrtConversionEndTime', () => {
   test('throws an error when request fails', async () => {
