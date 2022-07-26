@@ -69,9 +69,9 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   });
 
   it('displays the correct available VAI limit and mint fee', async () => {
-    (getVaiTreasuryPercentage as jest.Mock).mockImplementationOnce(
-      async () => fakeVaiTreasuryPercentage,
-    );
+    (getVaiTreasuryPercentage as jest.Mock).mockImplementationOnce(async () => ({
+      percentage: fakeVaiTreasuryPercentage,
+    }));
 
     const { getByText } = renderComponent(() => <RepayVai />, {
       authContextValue: {

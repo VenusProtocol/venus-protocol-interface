@@ -4,7 +4,9 @@ export interface GetVaiTreasuryPercentageInput {
   vaiControllerContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
 }
 
-export type GetVaiTreasuryPercentageOutput = number;
+export type GetVaiTreasuryPercentageOutput = {
+  percentage: number;
+};
 
 const getVaiTreasuryPercentage = async ({
   vaiControllerContract,
@@ -15,7 +17,9 @@ const getVaiTreasuryPercentage = async ({
     .div(1e18)
     .toNumber();
 
-  return formattedTreasuryPercentage;
+  return {
+    percentage: formattedTreasuryPercentage,
+  };
 };
 
 export default getVaiTreasuryPercentage;

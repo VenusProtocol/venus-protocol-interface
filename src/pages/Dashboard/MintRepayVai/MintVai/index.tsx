@@ -169,7 +169,7 @@ const MintVai: React.FC = () => {
       },
     );
 
-  const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
+  const { data: vaiTreasuryPercentageData, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
   const { mutateAsync: contractMintVai, isLoading: isMintVaiLoading } = useMintVai();
@@ -191,7 +191,7 @@ const MintVai: React.FC = () => {
       disabled={!account || isGetVaiTreasuryPercentageLoading}
       limitWei={getUserMintableVaiWeiData?.mintableVaiWei}
       isInitialLoading={isGetUserMintableVaiLoading}
-      mintFeePercentage={vaiTreasuryPercentage}
+      mintFeePercentage={vaiTreasuryPercentageData?.percentage}
       isMintVaiLoading={isMintVaiLoading}
       mintVai={mintVai}
     />
