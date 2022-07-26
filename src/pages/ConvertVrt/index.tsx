@@ -76,7 +76,7 @@ const ConvertVrt = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
-  const { data: vrtConversionRatio } = useGetVrtConversionRatio();
+  const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
   const { data: userVrtBalanceData } = useGetBalanceOf(
     { accountAddress: accountAddress || '', tokenId: VRT_ID },
     { enabled: !!accountAddress },
@@ -113,15 +113,15 @@ const ConvertVrt = () => {
   };
 
   const conversionRatio = useMemo(() => {
-    if (vrtConversionRatio) {
+    if (vrtConversionRatioData?.conversionRatio) {
       return convertWeiToTokens({
-        valueWei: new BigNumber(vrtConversionRatio),
+        valueWei: new BigNumber(vrtConversionRatioData.conversionRatio),
         tokenId: XVS_TOKEN_ID,
       });
     }
 
     return undefined;
-  }, [vrtConversionRatio]);
+  }, [vrtConversionRatioData?.conversionRatio]);
 
   if (conversionRatio && vrtConversionEndTimeData?.conversionEndTime) {
     return (
