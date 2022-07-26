@@ -28,7 +28,7 @@ describe('api/queries/getVTokenCash', () => {
   });
 
   test('returns the cash value associated to the passed token, in the correct format', async () => {
-    const fakeCashWei = new BigNumber('1000000000000000000000000000');
+    const fakeCashWei = '1000000000000000000000000000';
     const callMock = jest.fn(async () => fakeCashWei);
     const getCashMock = jest.fn(() => ({
       call: callMock,
@@ -46,7 +46,8 @@ describe('api/queries/getVTokenCash', () => {
 
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(getCashMock).toHaveBeenCalledTimes(1);
-    expect(response instanceof BigNumber).toBe(true);
-    expect(response.toFixed()).toBe(fakeCashWei.toFixed());
+    expect(response).toEqual({
+      cashWei: new BigNumber(fakeCashWei),
+    });
   });
 });
