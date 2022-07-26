@@ -31,7 +31,7 @@ describe('api/queries/getBalanceOf', () => {
   });
 
   test('returns the balance on success', async () => {
-    const fakeBalanceWei = '1000';
+    const fakeOutput: GetBalanceOfOutput = new BigNumber('0');
 
     const callMock = jest.fn(async () => fakeBalanceWei);
     const getBalanceOfMock = jest.fn(() => ({

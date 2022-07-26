@@ -31,7 +31,7 @@ describe('pages/Vault/modals/StakeModal', () => {
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
-    (getBalanceOf as jest.Mock).mockImplementation(() => ({ balanceWei: fakeBalanceWei }));
+    (getBalanceOf as jest.Mock).mockImplementation(() => fakeBalanceWei);
   });
 
   it('renders without crashing', async () => {
