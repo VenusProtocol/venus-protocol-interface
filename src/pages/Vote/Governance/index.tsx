@@ -139,14 +139,14 @@ const Governance: React.FC = () => {
     { enabled: !!accountAddress },
   );
 
-  const { data: latestProposal } = useGetLatestProposalIdByProposer(
+  const { data: latestProposalData } = useGetLatestProposalIdByProposer(
     { accountAddress },
     { enabled: !!accountAddress },
   );
 
   const { data: latestProposalState } = useGetProposalState(
-    { proposalId: latestProposal || '' },
-    { enabled: !!latestProposal },
+    { proposalId: latestProposalData?.proposalId || '' },
+    { enabled: !!latestProposalData?.proposalId },
   );
 
   // User has enough votingWeight to create proposal and doesn't currently have an active or pending proposal
