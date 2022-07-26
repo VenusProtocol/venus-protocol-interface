@@ -53,7 +53,7 @@ const getVTokenApySimulations = async ({
         .times(100)
         .toNumber();
 
-      const supplyRate = await getVTokenSupplyRate({
+      const { supplyRateWei } = await getVTokenSupplyRate({
         interestModelContract,
         cashAmountWei: new BigNumber(1 / utilizationRate - 1).times(REFERENCE_AMOUNT_WEI).dp(0),
         borrowsAmountWei: new BigNumber(REFERENCE_AMOUNT_WEI),
@@ -61,10 +61,7 @@ const getVTokenApySimulations = async ({
         reserveFactorMantissa,
       });
 
-      const supplyBase = new BigNumber(supplyRate)
-        .div(COMPOUND_MANTISSA)
-        .times(BLOCKS_PER_DAY)
-        .plus(1);
+      const supplyBase = supplyRateWei.div(COMPOUND_MANTISSA).times(BLOCKS_PER_DAY).plus(1);
 
       const supplyApyPercentage = supplyBase
         .pow(DAYS_PER_YEAR - 1)
