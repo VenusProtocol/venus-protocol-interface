@@ -36,9 +36,9 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
   });
 
   it('renders correct XVS reward when user are connected and have claimable XVS reward', async () => {
-    (getXvsReward as jest.Mock).mockImplementationOnce(
-      async () => new BigNumber('10000000000000000'),
-    );
+    (getXvsReward as jest.Mock).mockImplementationOnce(async () => ({
+      xvsRewardWei: new BigNumber('10000000000000000'),
+    }));
 
     const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
       authContextValue: {
@@ -56,7 +56,9 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
     const fakeXvsReward = new BigNumber('10000000000000000');
 
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
-    (getXvsReward as jest.Mock).mockImplementationOnce(async () => fakeXvsReward);
+    (getXvsReward as jest.Mock).mockImplementationOnce(async () => ({
+      xvsRewardWei: fakeXvsReward,
+    }));
     (claimXvsReward as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByTestId } = renderComponent(() => <ClaimXvsRewardButton />, {
