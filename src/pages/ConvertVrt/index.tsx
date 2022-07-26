@@ -77,7 +77,7 @@ const ConvertVrt = () => {
   const accountAddress = account?.address;
   const { data: vrtConversionEndTime } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatio } = useGetVrtConversionRatio();
-  const { data: userVrtBalanceWei } = useGetBalanceOf(
+  const { data: userVrtBalanceData } = useGetBalanceOf(
     { accountAddress: accountAddress || '', tokenId: VRT_ID },
     { enabled: !!accountAddress },
   );
@@ -127,7 +127,7 @@ const ConvertVrt = () => {
     return (
       <ConvertVrtUi
         xvsToVrtConversionRatio={conversionRatio}
-        userVrtBalanceWei={userVrtBalanceWei}
+        userVrtBalanceWei={userVrtBalanceData?.balanceWei}
         vrtConversionEndTime={vrtConversionEndTime}
         convertVrtLoading={convertVrtLoading}
         convertVrt={handleConvertVrt}

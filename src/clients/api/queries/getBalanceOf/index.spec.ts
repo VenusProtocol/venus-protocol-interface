@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { VrtToken } from 'types/contracts';
 
-import getBalanceOf, { GetBalanceOfOutput } from '.';
+import getBalanceOf from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
@@ -31,9 +31,9 @@ describe('api/queries/getBalanceOf', () => {
   });
 
   test('returns the balance on success', async () => {
-    const fakeOutput: GetBalanceOfOutput = new BigNumber('0');
+    const fakeBalanceWei = '1000';
 
-    const callMock = jest.fn(async () => fakeOutput);
+    const callMock = jest.fn(async () => fakeBalanceWei);
     const getBalanceOfMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -52,6 +52,8 @@ describe('api/queries/getBalanceOf', () => {
     expect(getBalanceOfMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(getBalanceOfMock).toHaveBeenCalledWith(fakeAccountAddress);
-    expect(response).toStrictEqual(fakeOutput);
+    expect(response).toEqual({
+      balanceWei: new BigNumber(fakeBalanceWei),
+    });
   });
 });

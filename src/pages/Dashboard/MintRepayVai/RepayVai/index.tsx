@@ -140,7 +140,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
 const RepayVai: React.FC = () => {
   const { account } = useContext(AuthContext);
 
-  const { data: userVaiBalanceWei, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
+  const { data: userVaiBalanceData, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
       tokenId: TOKENS.vai.id as TokenId,
@@ -179,7 +179,7 @@ const RepayVai: React.FC = () => {
     <RepayVaiUi
       disabled={!account}
       isInitialLoading={isInitialLoading}
-      userBalanceWei={userVaiBalanceWei}
+      userBalanceWei={userVaiBalanceData?.balanceWei}
       userMintedWei={userMintedVaiWei}
       isRepayVaiLoading={isRepayVaiLoading}
       repayVai={repayVai}

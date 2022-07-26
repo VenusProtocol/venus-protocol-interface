@@ -124,7 +124,7 @@ const useGetVestingVaults = ({
   const data: Vault[] = useMemo(
     () =>
       Array.from({ length: xvsVaultPoolsCount }).reduce<Vault[]>((acc, _item, poolIndex) => {
-        const totalStakedWei = poolBalances[poolIndex];
+        const totalStakedWeiData = poolBalances[poolIndex];
         const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
         const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
         const userPendingRewardWei = poolData[poolIndex]?.userPendingRewardWei;
@@ -146,10 +146,10 @@ const useGetVestingVaults = ({
 
         const stakingAprPercentage =
           dailyEmissionWei &&
-          totalStakedWei &&
+          totalStakedWeiData &&
           dailyEmissionWei
             .multipliedBy(DAYS_PER_YEAR)
-            .div(totalStakedWei)
+            .div(totalStakedWeiData.balanceWei)
             .multipliedBy(100)
             .toNumber();
 
@@ -157,7 +157,7 @@ const useGetVestingVaults = ({
           stakedTokenId &&
           lockingPeriodMs &&
           dailyEmissionWei &&
-          totalStakedWei &&
+          totalStakedWeiData &&
           stakingAprPercentage
         ) {
           const vault: Vault = {
@@ -165,7 +165,7 @@ const useGetVestingVaults = ({
             stakedTokenId,
             lockingPeriodMs,
             dailyEmissionWei,
-            totalStakedWei,
+            totalStakedWei: totalStakedWeiData.balanceWei,
             stakingAprPercentage,
             userStakedWei,
             userPendingRewardWei,

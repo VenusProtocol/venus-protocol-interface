@@ -39,7 +39,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
     return getContractAddress('vrtVaultProxy');
   }, [stakedTokenId, poolIndex]);
 
-  const { data: availableTokensWei, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
+  const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
       tokenId: stakedTokenId,
@@ -75,7 +75,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
       title={t('stakeModal.title', { tokenSymbol: stakedTokenSymbol })}
       tokenId={stakedTokenId}
       handleClose={handleClose}
-      availableTokensWei={availableTokensWei || new BigNumber(0)}
+      availableTokensWei={availableTokensData?.balanceWei || new BigNumber(0)}
       isInitialLoading={isGetWalletBalanceWeiLoading}
       onSubmit={handleStake}
       isSubmitting={isStakeLoading}
