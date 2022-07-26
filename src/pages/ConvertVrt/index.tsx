@@ -76,7 +76,7 @@ const ConvertVrt = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
-  const { data: vrtConversionRatio } = useGetVrtConversionRatio();
+  const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
   const { data: userVrtBalanceData } = useGetBalanceOf(
     { accountAddress: accountAddress || '', tokenId: VRT_ID },
     { enabled: !!accountAddress },
