@@ -26,8 +26,8 @@ describe('api/queries/getInterestRateModel', () => {
   });
 
   test('returns the address of the interest rate model associated to the contract of the V token passed', async () => {
-    const fakeInterestRateModel = '0x0';
-    const callMock = jest.fn(async () => fakeInterestRateModel);
+    const fakeContractAddress = '0x0';
+    const callMock = jest.fn(async () => fakeContractAddress);
     const interestRateModelMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -44,6 +44,8 @@ describe('api/queries/getInterestRateModel', () => {
 
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(interestRateModelMock).toHaveBeenCalledTimes(1);
-    expect(response).toBe(fakeInterestRateModel);
+    expect(response).toEqual({
+      contractAddress: fakeContractAddress,
+    });
   });
 });
