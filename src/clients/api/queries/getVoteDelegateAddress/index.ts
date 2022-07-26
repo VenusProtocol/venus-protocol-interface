@@ -6,7 +6,9 @@ export interface GetVoteDelegateAddressInput {
   accountAddress: string;
 }
 
-export type GetVoteDelegateAddressOutput = string | undefined;
+export type GetVoteDelegateAddressOutput = {
+  delegateAddress: string | undefined;
+};
 
 /**
  *
@@ -18,7 +20,10 @@ const getVoteDelegateAddress = async ({
   accountAddress,
 }: GetVoteDelegateAddressInput): Promise<GetVoteDelegateAddressOutput> => {
   const resp = await xvsVaultContract.methods.delegates(accountAddress).call();
-  return resp !== NULL_ADDRESS ? resp : undefined;
+
+  return {
+    delegateAddress: resp !== NULL_ADDRESS ? resp : undefined,
+  };
 };
 
 export default getVoteDelegateAddress;

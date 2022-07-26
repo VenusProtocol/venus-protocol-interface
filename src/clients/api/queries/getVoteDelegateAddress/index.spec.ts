@@ -47,7 +47,9 @@ describe('api/queries/getVoteDelegateAddress', () => {
       xvsVaultContract: xvsVaultContract as unknown as XvsVault,
       accountAddress: fakeAddress,
     });
-    expect(res).toStrictEqual(undefined);
+    expect(res).toStrictEqual({
+      delegateAddress: undefined,
+    });
   });
 
   test('returns address when not null address is returned', async () => {
@@ -67,6 +69,8 @@ describe('api/queries/getVoteDelegateAddress', () => {
       xvsVaultContract: xvsVaultContract as unknown as XvsVault,
       accountAddress: fakeAddress,
     });
-    expect(res).toStrictEqual(fakeAddress);
+    expect(res).toStrictEqual({
+      delegateAddress: fakeAddress,
+    });
   });
 });
