@@ -4,9 +4,9 @@ import vrtVaultResponses from '__mocks__/contracts/vrtVault';
 import fakeAccountAddress from '__mocks__/models/address';
 import { VrtVault } from 'types/contracts';
 
-import getVrtVaultAccruedInterestWei from '.';
+import getVrtVaultAccruedInterest from '.';
 
-describe('api/queries/getVrtVaultAccruedInterestWei', () => {
+describe('api/queries/getVrtVaultAccruedInterest', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -19,7 +19,7 @@ describe('api/queries/getVrtVaultAccruedInterestWei', () => {
     } as unknown as VrtVault;
 
     try {
-      await getVrtVaultAccruedInterestWei({
+      await getVrtVaultAccruedInterest({
         vrtVaultContract: fakeContract,
         accountAddress: fakeAccountAddress,
       });
@@ -42,14 +42,15 @@ describe('api/queries/getVrtVaultAccruedInterestWei', () => {
       },
     } as unknown as VrtVault;
 
-    const response = await getVrtVaultAccruedInterestWei({
+    const response = await getVrtVaultAccruedInterest({
       vrtVaultContract: fakeContract,
       accountAddress: fakeAccountAddress,
     });
 
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(getAccruedInterestMock).toHaveBeenCalledTimes(1);
-    expect(response instanceof BigNumber).toBe(true);
-    expect(response.toFixed()).toStrictEqual(vrtVaultResponses.getAccruedInterest);
+    expect(response).toEqual({
+      accruedInterestWei: new BigNumber(vrtVaultResponses.getAccruedInterest),
+    });
   });
 });

@@ -1,29 +1,29 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultRewardWeiPerBlock, {
-  GetVrtVaultAccruedInterestWeiInput,
-  GetVrtVaultAccruedInterestWeiOutput,
-} from 'clients/api/queries/getVrtVaultAccruedInterestWei';
+  GetVrtVaultAccruedInterestInput,
+  GetVrtVaultAccruedInterestOutput,
+} from 'clients/api/queries/getVrtVaultAccruedInterest';
 import { useVrtVaultProxyContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  GetVrtVaultAccruedInterestWeiOutput,
+  GetVrtVaultAccruedInterestOutput,
   Error,
-  GetVrtVaultAccruedInterestWeiOutput,
-  GetVrtVaultAccruedInterestWeiOutput,
-  [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI, string]
+  GetVrtVaultAccruedInterestOutput,
+  GetVrtVaultAccruedInterestOutput,
+  [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST, string]
 >;
 
-const useGetVrtVaultAccruedInterestWei = (
-  { accountAddress }: Omit<GetVrtVaultAccruedInterestWeiInput, 'vrtVaultContract'>,
+const useGetVrtVaultAccruedInterest = (
+  { accountAddress }: Omit<GetVrtVaultAccruedInterestInput, 'vrtVaultContract'>,
   options?: Options,
 ) => {
   const vrtVaultContract = useVrtVaultProxyContract();
 
   return useQuery(
-    [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI, accountAddress],
+    [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST, accountAddress],
     () => getXvsVaultRewardWeiPerBlock({ accountAddress, vrtVaultContract }),
     {
       ...options,
@@ -32,4 +32,4 @@ const useGetVrtVaultAccruedInterestWei = (
   );
 };
 
-export default useGetVrtVaultAccruedInterestWei;
+export default useGetVrtVaultAccruedInterest;

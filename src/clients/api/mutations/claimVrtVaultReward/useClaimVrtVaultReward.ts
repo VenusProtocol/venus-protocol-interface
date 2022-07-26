@@ -28,7 +28,7 @@ const useClaimVrtVaultReward = (options?: Options) => {
     {
       ...options,
       onSuccess: async (...onSuccessParams) => {
-        queryClient.invalidateQueries(FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI);
+        queryClient.invalidateQueries(FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
