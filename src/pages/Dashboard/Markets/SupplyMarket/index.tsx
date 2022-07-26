@@ -167,7 +167,7 @@ const SupplyMarket: React.FC<
         comptrollerContract,
         accountAddress,
         vTokenAddress: asset.vtokenAddress,
-        vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf),
+        vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
       });
     } catch (error) {
       if (error instanceof VError) {

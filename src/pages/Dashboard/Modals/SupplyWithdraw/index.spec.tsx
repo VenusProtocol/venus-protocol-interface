@@ -357,7 +357,9 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     });
 
     it('redeem is called when full amount is withdrawn', async () => {
-      (getVTokenBalanceOf as jest.Mock).mockImplementationOnce(async () => fakeGetVTokenBalance);
+      (getVTokenBalanceOf as jest.Mock).mockImplementationOnce(async () => ({
+        balanceWei: fakeGetVTokenBalance,
+      }));
       const { getByText } = renderComponent(
         () => <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />,
         {
