@@ -281,9 +281,9 @@ export { default as getVoterHistory } from './queries/getVoterHistory';
 export * from './queries/getVoterHistory';
 export { default as useGetVoterHistory } from './queries/getVoterHistory/useGetVoterHistory';
 
-export { default as getVaiVaultPendingXvsWei } from './queries/getVaiVaultPendingXvsWei';
-export * from './queries/getVaiVaultPendingXvsWei';
-export { default as useGetVaiVaultPendingXvsWei } from './queries/getVaiVaultPendingXvsWei/useGetVaiVaultPendingXvsWei';
+export { default as getVaiVaultPendingXvs } from './queries/getVaiVaultPendingXvs';
+export * from './queries/getVaiVaultPendingXvs';
+export { default as useGetVaiVaultPendingXvs } from './queries/getVaiVaultPendingXvs/useGetVaiVaultPendingXvs';
 
 export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo';
