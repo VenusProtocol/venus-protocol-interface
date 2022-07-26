@@ -41,7 +41,7 @@ const useRedeemUnderlying = (
         ]);
         queryClient.invalidateQueries(FunctionKey.GET_ASSETS_IN_ACCOUNT);
         queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
-        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI);
+        queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_DAILY_XVS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

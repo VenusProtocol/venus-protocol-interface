@@ -251,9 +251,9 @@ export { default as getXvsVaultLockedDeposits } from './queries/getXvsVaultLocke
 export * from './queries/getXvsVaultLockedDeposits';
 export { default as useGetXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits/useGetXvsVaultLockedDeposits';
 
-export { default as getDailyXvsWei } from './queries/getDailyXvsWei';
-export * from './queries/getDailyXvsWei';
-export { default as useGetDailyXvsWei } from './queries/getDailyXvsWei/useGetDailyXvsWei';
+export { default as getDailyXvs } from './queries/getDailyXvs';
+export * from './queries/getDailyXvs';
+export { default as useGetDailyXvs } from './queries/getDailyXvs/useGetDailyXvs';
 
 export { default as useGetVaults } from './queries/useGetVaults';
 
