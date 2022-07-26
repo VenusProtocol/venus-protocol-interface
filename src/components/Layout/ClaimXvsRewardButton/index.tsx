@@ -80,7 +80,7 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
 
 export const ClaimXvsRewardButton: React.FC<ButtonProps> = props => {
   const { account } = useContext(AuthContext);
-  const { data: xvsRewardWei } = useGetXvsReward(
+  const { data: xvsRewardData } = useGetXvsReward(
     {
       accountAddress: account?.address || '',
     },
@@ -103,7 +103,7 @@ export const ClaimXvsRewardButton: React.FC<ButtonProps> = props => {
 
   return (
     <ClaimXvsRewardButtonUi
-      amountWei={xvsRewardWei}
+      amountWei={xvsRewardData?.xvsRewardWei}
       loading={isClaimXvsRewardLoading}
       onClaimReward={handleClaim}
       {...props}

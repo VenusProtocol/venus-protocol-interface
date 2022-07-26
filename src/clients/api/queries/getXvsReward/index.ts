@@ -8,16 +8,21 @@ export interface GetXvsRewardInput {
   accountAddress: string;
 }
 
-export type GetXvsRewardOutput = BigNumber;
+export type GetXvsRewardOutput = {
+  xvsRewardWei: BigNumber;
+};
 
 const getXvsReward = async ({
   lensContract,
   accountAddress,
 }: GetXvsRewardInput): Promise<GetXvsRewardOutput> => {
-  const pendingVenus = await lensContract.methods
+  const res = await lensContract.methods
     .pendingVenus(accountAddress, getContractAddress('comptroller'))
     .call();
-  return new BigNumber(pendingVenus);
+
+  return {
+    xvsRewardWei: new BigNumber(res),
+  };
 };
 
 export default getXvsReward;

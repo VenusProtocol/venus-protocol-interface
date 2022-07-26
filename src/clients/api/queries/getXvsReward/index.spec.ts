@@ -51,7 +51,8 @@ describe('api/queries/getXvsReward', () => {
       accountAddress: fakeAddress,
     });
 
-    expect(res instanceof BigNumber).toBe(true);
-    expect(res).toStrictEqual(new BigNumber(fakeOutput));
+    expect(res).toEqual({
+      xvsRewardWei: new BigNumber(fakeOutput),
+    });
   });
 });
