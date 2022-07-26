@@ -92,7 +92,9 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
   const { account } = useContext(AuthContext);
 
   const {
-    data: xvsVaultUserLockedDeposits = [],
+    data: xvsVaultUserLockedDepositsData = {
+      lockedDeposits: [],
+    },
     isLoading: isGetXvsVaultUserLockedDepositsLoading,
   } = useGetXvsVaultLockedDeposits(
     {
@@ -101,7 +103,9 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
       accountAddress: account?.address || '',
     },
     {
-      placeholderData: [],
+      placeholderData: {
+        lockedDeposits: [],
+      },
       enabled: !!account?.address,
     },
   );
@@ -109,14 +113,14 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedTokenId, poolIndex, handleClo
   const withdrawableWei = useMemo(() => {
     const now = new Date();
 
-    return xvsVaultUserLockedDeposits.reduce(
+    return xvsVaultUserLockedDepositsData.lockedDeposits.reduce(
       (acc, xvsVaultUserLockedDeposit) =>
         isBefore(xvsVaultUserLockedDeposit.unlockedAt, now)
           ? acc.plus(xvsVaultUserLockedDeposit.amountWei)
           : acc,
       new BigNumber(0),
     );
-  }, [JSON.stringify(xvsVaultUserLockedDeposits)]);
+  }, [JSON.stringify(xvsVaultUserLockedDepositsData.lockedDeposits)]);
 
   const {
     mutateAsync: executeWithdrawalFromXvsVault,

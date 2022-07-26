@@ -19,9 +19,9 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   beforeEach(() => {
     jest.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
 
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() =>
-      xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
-    );
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+      lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+    }));
   });
 
   it('renders without crashing', async () => {
@@ -31,7 +31,9 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   });
 
   it('fetches withdrawal requests and displays empty state when none was returned', async () => {
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => []);
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+      lockedDeposits: [],
+    }));
 
     const { getByText } = renderComponent(<WithdrawalRequestList poolIndex={fakePoolIndex} />, {
       authContextValue: { account: { address: fakeAddress } },

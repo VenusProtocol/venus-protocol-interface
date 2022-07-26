@@ -115,7 +115,9 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   } = useRequestWithdrawalFromXvsVault();
 
   const {
-    data: xvsVaultUserLockedDeposits = [],
+    data: xvsVaultUserLockedDepositsData = {
+      lockedDeposits: [],
+    },
     isLoading: isGetXvsVaultUserLockedDepositsLoading,
   } = useGetXvsVaultLockedDeposits(
     {
@@ -124,7 +126,9 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       accountAddress: account?.address || '',
     },
     {
-      placeholderData: [],
+      placeholderData: {
+        lockedDeposits: [],
+      },
       enabled: !!account?.address,
     },
   );
@@ -148,12 +152,15 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
 
     // Subtract sum of all active withdrawal requests amounts to amount of
     // tokens staked by user
-    const pendingLockedDepositsSum = xvsVaultUserLockedDeposits.reduce(
+    const pendingLockedDepositsSum = xvsVaultUserLockedDepositsData.lockedDeposits.reduce(
       (acc, xvsVaultUserLockedDeposit) => acc.plus(xvsVaultUserLockedDeposit.amountWei),
       new BigNumber(0),
     );
     return xvsVaultUserInfo.stakedAmountWei.minus(pendingLockedDepositsSum);
-  }, [JSON.stringify(xvsVaultUserLockedDeposits), JSON.stringify(xvsVaultUserInfo)]);
+  }, [
+    JSON.stringify(xvsVaultUserLockedDepositsData.lockedDeposits),
+    JSON.stringify(xvsVaultUserInfo),
+  ]);
 
   const { data: xvsVaultPoolInfo, isLoading: isGetXvsVaultPoolInfoLoading } =
     useGetXvsVaultPoolInfo(

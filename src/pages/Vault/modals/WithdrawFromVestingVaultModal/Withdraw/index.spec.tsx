@@ -22,9 +22,9 @@ const fakeStokedTokenId = TOKENS.vai.id as TokenId;
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
     jest.useFakeTimers('modern').setSystemTime(new Date(1656603774626));
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() =>
-      xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
-    );
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+      lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+    }));
   });
 
   it('renders without crashing', async () => {
@@ -52,7 +52,9 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   });
 
   it('disables submit button when there is no tokens available', async () => {
-    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => []);
+    (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() => ({
+      lockedDeposits: [],
+    }));
 
     const { getByTestId, getByText } = renderComponent(
       <Withdraw poolIndex={fakePoolIndex} stakedTokenId={fakeStokedTokenId} handleClose={noop} />,
