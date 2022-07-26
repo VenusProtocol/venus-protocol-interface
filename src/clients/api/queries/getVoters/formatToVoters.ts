@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { Voter } from 'types';
+import { VotersDetails } from 'types';
 
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 
 import { GetVotersApiResponse } from './types';
 
-const formatToVoter = (payload: GetVotersApiResponse): Voter => ({
+const formatToVoter = (payload: GetVotersApiResponse): VotersDetails => ({
   result: payload.result.map(({ address, reason, votes, support, hasVoted }) => ({
     address,
     voteWeightWei: new BigNumber(votes),
