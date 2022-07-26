@@ -14,7 +14,7 @@ import {
   getVaiVaultPendingXvs,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRate,
-  getVrtVaultAccruedInterest,
+  getVrtVaultAccruedInterestWei,
   getVrtVaultInterestRatePerBlock,
   getVrtVaultUserInfo,
   getXvsVaultPendingReward,
@@ -49,9 +49,9 @@ describe('api/queries/useGetVaults', () => {
     (getVaiVaultPendingXvs as jest.Mock).mockImplementation(() => ({
       pendingXvsWei: new BigNumber(vaiVaultResponses.pendingXVS),
     }));
-    (getVenusVaiVaultDailyRateWei as jest.Mock).mockImplementation(
-      () => new BigNumber(compTrollerResponses.venusVAIVaultRate),
-    );
+    (getVenusVaiVaultDailyRate as jest.Mock).mockImplementation(() => ({
+      dailyRateWei: new BigNumber(compTrollerResponses.venusVAIVaultRate),
+    }));
     (getVrtVaultAccruedInterestWei as jest.Mock).mockImplementation(
       () => new BigNumber(vrtVaultResponses.getAccruedInterest),
     );

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { Comptroller } from 'types/contracts';
 
-import getVenusVaiVaultDailyRateWei, { GetVenusVaiVaultDailyRateWeiOutput } from '.';
+import getVenusVaiVaultDailyRate from '.';
 
 describe('api/queries/getVenusVaiVaultDailyRate', () => {
   test('throws an error when request fails', async () => {
