@@ -127,63 +127,60 @@ const useGetVestingVaults = ({
   // Format query results into Vaults
   const data: Vault[] = useMemo(
     () =>
-      Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<Vault[]>(
-        (acc, _item, poolIndex) => {
-          const totalStakedWeiData = poolBalances[poolIndex];
-          const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
-          const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
-          const userPendingRewardWei = poolData[poolIndex]?.userPendingReward?.pendingXvsReward;
+      Array.from({ length: xvsVaultPoolsCount }).reduce<Vault[]>((acc, _item, poolIndex) => {
+        const totalStakedWeiData = poolBalances[poolIndex];
+        const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
+        const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
+        const userPendingRewardWei = poolData[poolIndex]?.userPendingRewardWei;
 
-          const stakedTokenId =
-            poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
-            getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress)?.id;
+        const stakedTokenId =
+          poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
+          getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress)?.id;
 
-          const poolRewardWeiPerBlock =
-            xvsVaultRewardWeiPerBlock?.rewardPerBlockWei &&
-            xvsVaultTotalAllocationPointsData?.totalAllocationPoints &&
-            poolData[poolIndex]?.poolInfos.allocationPoint &&
-            xvsVaultRewardWeiPerBlock.rewardPerBlockWei
-              .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
-              .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints);
+        const poolRewardWeiPerBlock =
+          xvsVaultRewardWeiPerBlock &&
+          xvsVaultTotalAllocationPoints &&
+          poolData[poolIndex]?.poolInfos.allocationPoint &&
+          xvsVaultRewardWeiPerBlock
+            .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
+            .div(xvsVaultTotalAllocationPoints);
 
-          const dailyEmissionWei =
-            poolRewardWeiPerBlock && poolRewardWeiPerBlock.multipliedBy(BLOCKS_PER_DAY);
+        const dailyEmissionWei =
+          poolRewardWeiPerBlock && poolRewardWeiPerBlock.multipliedBy(BLOCKS_PER_DAY);
 
-          const stakingAprPercentage =
-            dailyEmissionWei &&
-            totalStakedWeiData &&
-            dailyEmissionWei
-              .multipliedBy(DAYS_PER_YEAR)
-              .div(totalStakedWeiData.balanceWei)
-              .multipliedBy(100)
-              .toNumber();
+        const stakingAprPercentage =
+          dailyEmissionWei &&
+          totalStakedWeiData &&
+          dailyEmissionWei
+            .multipliedBy(DAYS_PER_YEAR)
+            .div(totalStakedWeiData.balanceWei)
+            .multipliedBy(100)
+            .toNumber();
 
-          if (
-            stakedTokenId &&
-            lockingPeriodMs &&
-            dailyEmissionWei &&
-            totalStakedWeiData &&
-            stakingAprPercentage
-          ) {
-            const vault: Vault = {
-              rewardTokenId: XVS_TOKEN_ID,
-              stakedTokenId,
-              lockingPeriodMs,
-              dailyEmissionWei,
-              totalStakedWei: totalStakedWeiData.balanceWei,
-              stakingAprPercentage,
-              userStakedWei,
-              userPendingRewardWei,
-              poolIndex,
-            };
+        if (
+          stakedTokenId &&
+          lockingPeriodMs &&
+          dailyEmissionWei &&
+          totalStakedWeiData &&
+          stakingAprPercentage
+        ) {
+          const vault: Vault = {
+            rewardTokenId: XVS_TOKEN_ID,
+            stakedTokenId,
+            lockingPeriodMs,
+            dailyEmissionWei,
+            totalStakedWei: totalStakedWeiData.balanceWei,
+            stakingAprPercentage,
+            userStakedWei,
+            userPendingRewardWei,
+            poolIndex,
+          };
 
-            return [...acc, vault];
-          }
+          return [...acc, vault];
+        }
 
-          return acc;
-        },
-        [],
-      ),
+        return acc;
+      }, []),
     [
       xvsVaultPoolCountData.poolCount,
       JSON.stringify(poolData),

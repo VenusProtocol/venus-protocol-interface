@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
     <HeaderUi
       remainingDistributionWei={xvsRemainingDistributionData?.balanceWei || new BigNumber(0)}
-      venusVaiVaultDailyRateWei={venusVaiVaultDailyRateData?.dailyRateWei || new BigNumber(0)}
+      venusVaiVaultDailyRateWei={venusVaiVaultDailyRateWei || new BigNumber(0)}
       className={className}
       dailyVenusWei={dailyVenusWei}
       totalXvsDistributedWei={totalXvsDistributedWei}
