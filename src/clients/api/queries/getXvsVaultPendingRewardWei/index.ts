@@ -23,9 +23,7 @@ const getXvsVaultPendingReward = async ({
     .pendingReward(rewardTokenAddress, poolIndex, accountAddress)
     .call();
 
-  return {
-    pendingXvsReward: new BigNumber(res),
-  };
+  return new BigNumber(res);
 };
 
 export default getXvsVaultPendingReward;
