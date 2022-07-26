@@ -186,7 +186,7 @@ const VotingWallet: React.FC = () => {
     { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
-  const { data: delegate } = useGetVoteDelegateAddress(
+  const { data: delegateData } = useGetVoteDelegateAddress(
     { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
@@ -221,7 +221,7 @@ const VotingWallet: React.FC = () => {
       currentUserAccountAddress={accountAddress}
       votingWeightWei={currentVotesData?.votesWei || new BigNumber(0)}
       userStakedWei={userStakedWei}
-      delegate={delegate}
+      delegate={delegateData?.delegateAddress}
       setVoteDelegation={(delegateAddress: string) =>
         setVoteDelegation({ delegateAddress, accountAddress: accountAddress || '' })
       }
