@@ -25,7 +25,9 @@ describe('pages/MarketDetails', () => {
       markets,
       dailyVenusWei: new BigNumber(0),
     }));
-    (getVTokenApySimulations as jest.Mock).mockImplementation(() => vTokenApySimulations);
+    (getVTokenApySimulations as jest.Mock).mockImplementation(() => ({
+      apySimulations: vTokenApySimulations,
+    }));
   });
 
   it('renders without crashing', () => {

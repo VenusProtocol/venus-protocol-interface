@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-// import address from '__mocks__/models/address';
 import { InterestModel } from 'types/contracts';
 
 import getVTokenApySimulations from '.';

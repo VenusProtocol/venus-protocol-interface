@@ -21,7 +21,9 @@ export interface VTokenApySnapshot {
   supplyApyPercentage: number;
 }
 
-export type GetVTokenApySimulationsOutput = VTokenApySnapshot[];
+export type GetVTokenApySimulationsOutput = {
+  apySimulations: VTokenApySnapshot[];
+};
 
 const getVTokenApySimulations = async ({
   interestModelContract,
@@ -77,8 +79,8 @@ const getVTokenApySimulations = async ({
     promises.push(getRates());
   }
 
-  const res = await Promise.all(promises);
-  return res;
+  const apySimulations = await Promise.all(promises);
+  return { apySimulations };
 };
 
 export default getVTokenApySimulations;

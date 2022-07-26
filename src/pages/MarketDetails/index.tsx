@@ -324,7 +324,11 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     vTokenId,
   });
 
-  const { data: interestRateChartData = [] } = useGetVTokenApySimulations({
+  const {
+    data: interestRateChartData = {
+      apySimulations: [],
+    },
+  } = useGetVTokenApySimulations({
     vTokenId,
     reserveFactorMantissa,
   });
@@ -334,7 +338,7 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
       vTokenId={vTokenId}
       {...marketData}
       {...chartData}
-      interestRateChartData={interestRateChartData}
+      interestRateChartData={interestRateChartData.apySimulations}
     />
   );
 };
