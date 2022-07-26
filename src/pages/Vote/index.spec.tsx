@@ -67,7 +67,7 @@ describe('pages/Vote', () => {
     (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
       votesWei: new BigNumber('50000000000000000000'),
     }));
-    (getProposalState as jest.Mock).mockImplementation(async () => '0');
+    (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '0' }));
     const { getByText } = renderComponent(<Vote />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
@@ -78,7 +78,7 @@ describe('pages/Vote', () => {
     (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
       votesWei: new BigNumber('50000000000000000000'),
     }));
-    (getProposalState as jest.Mock).mockImplementation(async () => '1');
+    (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '1' }));
     const { getByText } = renderComponent(<Vote />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
