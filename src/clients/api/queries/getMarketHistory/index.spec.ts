@@ -58,8 +58,9 @@ describe('api/queries/getMarketHistory', () => {
       vTokenId: 'aave',
     });
 
-    expect(response).toHaveLength(1);
-    expect(response[0]).toBe(marketSnapshot);
+    expect(response).toEqual({
+      marketSnapshots: [marketSnapshot],
+    });
   });
 
   test('calls correct endpoint when passing limit and type params', async () => {

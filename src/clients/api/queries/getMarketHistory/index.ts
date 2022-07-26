@@ -14,7 +14,9 @@ export interface GetMarketHistoryInput {
   type?: string;
 }
 
-export type GetMarketHistoryOutput = MarketSnapshot[];
+export type GetMarketHistoryOutput = {
+  marketSnapshots: MarketSnapshot[];
+};
 
 const getMarketHistory = async ({
   vTokenId,
@@ -42,7 +44,9 @@ const getMarketHistory = async ({
     });
   }
 
-  return response.data?.data.result || [];
+  return {
+    marketSnapshots: response.data?.data.result || [],
+  };
 };
 
 export default getMarketHistory;
