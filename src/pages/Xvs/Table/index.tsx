@@ -137,7 +137,7 @@ const XvsTable: React.FC = () => {
     const allAssets: TableAsset[] = [...assets];
     const xvsAsset = assets.find(asset => asset.id === 'xvs');
 
-    if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
+    if (venusVaiVaultDailyRateWei && vaultVaiStakedData && xvsAsset) {
       const venusVaiVaultDailyRateTokens = convertWeiToTokens({
         valueWei: venusVaiVaultDailyRateData.dailyRateWei,
         tokenId: 'xvs',
@@ -166,7 +166,7 @@ const XvsTable: React.FC = () => {
     return allAssets;
   }, [
     JSON.stringify(assets),
-    venusVaiVaultDailyRateData?.dailyRateWei.toFixed(),
+    venusVaiVaultDailyRateWei?.toFixed(),
     vaultVaiStakedData?.balanceWei.toFixed(),
   ]);
 

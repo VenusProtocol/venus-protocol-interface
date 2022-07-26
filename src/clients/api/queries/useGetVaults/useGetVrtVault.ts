@@ -57,7 +57,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!vrtVaultInterestRatePerBlockData?.interestRatePerBlockWei || !totalVrtStakedData) {
+    if (!vrtVaultInterestRatePerBlock || !totalVrtStakedData) {
       return undefined;
     }
 
@@ -81,7 +81,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       userPendingRewardWei: userPendingVrtRewardData?.accruedInterestWei,
     };
   }, [
-    vrtVaultInterestRatePerBlockData?.interestRatePerBlockWei.toFixed(),
+    vrtVaultInterestRatePerBlock?.toFixed(),
     totalVrtStakedData?.balanceWei.toFixed(),
     JSON.stringify(vrtVaultUserInfo),
     userPendingVrtRewardData?.accruedInterestWei.toFixed(),

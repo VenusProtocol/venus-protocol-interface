@@ -42,7 +42,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
       allowanceWei: MAX_UINT256,
     }));
     (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
-    (getBalanceOf as jest.Mock).mockImplementation(() => fakeUserVaiBalanceWei);
+    (getBalanceOf as jest.Mock).mockImplementation(() => ({ balanceWei: fakeUserVaiBalanceWei }));
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [...assetData, fakeVai],

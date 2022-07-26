@@ -62,7 +62,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceDollars) {
+    if (!totalVaiStakedData || !vaiVaultDailyRateWei || !xvsPriceDollars) {
       return undefined;
     }
 
@@ -84,7 +84,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     return {
       rewardTokenId: TOKENS.xvs.id as TokenId,
       stakedTokenId: TOKENS.vai.id as TokenId,
-      dailyEmissionWei: vaiVaultDailyRateData.dailyRateWei,
+      dailyEmissionWei: vaiVaultDailyRateWei,
       totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,
       userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
@@ -92,7 +92,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     };
   }, [
     totalVaiStakedData?.balanceWei.toFixed(),
-    vaiVaultDailyRateData?.dailyRateWei.toFixed(),
+    vaiVaultDailyRateWei?.toFixed(),
     xvsPriceDollars?.toFixed(),
     JSON.stringify(vaiVaultUserInfo),
     userPendingVaiRewardData?.pendingXvsWei.toFixed(),
