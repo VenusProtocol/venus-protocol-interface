@@ -55,9 +55,9 @@ describe('api/queries/useGetVaults', () => {
     (getVrtVaultAccruedInterest as jest.Mock).mockImplementation(() => ({
       accruedInterestWei: new BigNumber(vrtVaultResponses.getAccruedInterest),
     }));
-    (getVrtVaultInterestRatePerBlock as jest.Mock).mockImplementation(
-      () => new BigNumber(vrtVaultResponses.interestRatePerBlock),
-    );
+    (getVrtVaultInterestRatePerBlock as jest.Mock).mockImplementation(() => ({
+      interestRatePerBlockWei: new BigNumber(vrtVaultResponses.interestRatePerBlock),
+    }));
     (getBalanceOf as jest.Mock).mockImplementation(() => ({
       balanceWei: new BigNumber('4000000000'),
     }));
