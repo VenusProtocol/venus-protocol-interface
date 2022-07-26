@@ -150,7 +150,7 @@ const RepayVai: React.FC = () => {
     },
   );
 
-  const { data: userMintedVaiWei, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
+  const { data: userMintedVaiData, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
     {
       accountAddress: account?.address || '',
     },
@@ -180,7 +180,7 @@ const RepayVai: React.FC = () => {
       disabled={!account}
       isInitialLoading={isInitialLoading}
       userBalanceWei={userVaiBalanceData?.balanceWei}
-      userMintedWei={userMintedVaiWei}
+      userMintedWei={userMintedVaiData?.mintedVaiWei}
       isRepayVaiLoading={isRepayVaiLoading}
       repayVai={repayVai}
     />
