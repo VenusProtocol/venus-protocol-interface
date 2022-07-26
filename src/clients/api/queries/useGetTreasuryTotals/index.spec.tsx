@@ -14,7 +14,9 @@ describe('api/queries/useGetTreasuryTotals', () => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(() => ({
-      data: vTokenBalanceTreasury,
+      data: {
+        balances: vTokenBalanceTreasury,
+      },
     }));
   });
 

@@ -90,17 +90,19 @@ const useGetUserMarketInfo = ({
     },
   );
 
-  const { data: vTokenBalancesAccount = [], isLoading: isGetVTokenBalancesAccountLoading } =
-    useGetVTokenBalancesAll(
-      { account: accountAddress || '', vTokenAddresses },
-      { enabled: !!accountAddress, placeholderData: [] },
-    );
+  const {
+    data: vTokenBalancesAccount = { balances: [] },
+    isLoading: isGetVTokenBalancesAccountLoading,
+  } = useGetVTokenBalancesAll(
+    { account: accountAddress || '', vTokenAddresses },
+    { enabled: !!accountAddress, placeholderData: { balances: [] } },
+  );
 
   const vTokenBalances = useMemo(
     () =>
       indexBy(
-        (item: IGetVTokenBalancesAllOutput[number]) => item.vToken.toLowerCase(), // index by vToken address
-        vTokenBalancesAccount,
+        (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
+        vTokenBalancesAccount.balances,
       ),
     [JSON.stringify(vTokenBalancesAccount)],
   );

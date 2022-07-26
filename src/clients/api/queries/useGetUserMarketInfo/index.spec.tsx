@@ -28,9 +28,9 @@ describe('api/queries/useGetUserMarketInfo', () => {
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {
       if (account === fakeAddress) {
-        return { data: vTokenBalancesAccount };
+        return { data: { balances: vTokenBalancesAccount } };
       }
-      return { data: vTokenBalanceTreasury };
+      return { data: { balances: vTokenBalanceTreasury } };
     });
   });
 

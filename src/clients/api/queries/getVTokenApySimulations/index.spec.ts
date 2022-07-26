@@ -35,7 +35,7 @@ describe('api/queries/getVTokenApySimulations', () => {
     }
   });
 
-  test('returns the XVS amount currently borrowed by the account provided, in the correct format', async () => {
+  test('returns the APY simulations in the correct format on success', async () => {
     const fakeBorrowRate = '10000000000';
     const fakeSupplyRate = '20000000000';
 
