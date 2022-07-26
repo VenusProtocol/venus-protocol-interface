@@ -12,6 +12,7 @@ import {
   executeProposal,
   getCurrentVotes,
   getProposal,
+  getProposalThreshold,
   getVoteReceipt,
   queueProposal,
   useGetVoters,
@@ -64,6 +65,10 @@ describe('pages/Proposal', () => {
       voteSupport: 'NOT_VOTED',
     }));
     (getProposal as jest.Mock).mockImplementation(() => activeProposal);
+
+    (getProposalThreshold as jest.Mock).mockImplementation(() => ({
+      thresholdWei: CREATE_PROPOSAL_THRESHOLD_WEI,
+    }));
 
     (useVote as jest.Mock).mockImplementation(() => ({
       vote: jest.fn(),

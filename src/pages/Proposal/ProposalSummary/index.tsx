@@ -266,7 +266,7 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   const handleExecuteProposal = () => executeProposal({ proposalId: proposal.id, accountAddress });
   const handleQueueProposal = () => queueProposal({ proposalId: proposal.id, accountAddress });
 
-  const { data: proposalThresholdWei } = useGetProposalThreshold();
+  const { data: proposalThresholdData } = useGetProposalThreshold();
 
   const { data: getProposalEtaData } = useGetProposalEta({
     proposalId: proposal.id,
@@ -278,7 +278,8 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   );
 
   const canCancelProposal =
-    proposalThresholdWei && currentVotesData?.votesWei.isGreaterThanOrEqualTo(proposalThresholdWei);
+    proposalThresholdData?.thresholdWei &&
+    currentVotesData?.votesWei.isGreaterThanOrEqualTo(proposalThresholdData?.thresholdWei);
 
   return (
     <ProposalSummaryUi

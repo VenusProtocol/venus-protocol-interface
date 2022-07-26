@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { GovernorBravoDelegate } from 'types/contracts';
 
-import getProposalThreshold, { GetProposalThresholdOutput } from '.';
+import getProposalThreshold from '.';
 
 describe('api/queries/getProposalThreshold', () => {
   test('throws an error when request fails', async () => {
@@ -28,7 +28,7 @@ describe('api/queries/getProposalThreshold', () => {
   });
 
   test('returns proposal threshold on success', async () => {
-    const fakeOutput: GetProposalThresholdOutput = new BigNumber('1000');
+    const fakeOutput = '1000';
 
     const callMock = jest.fn(async () => fakeOutput);
     const proposalThresholdMock = jest.fn(() => ({
@@ -47,6 +47,8 @@ describe('api/queries/getProposalThreshold', () => {
 
     expect(proposalThresholdMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
-    expect(response).toStrictEqual(fakeOutput);
+    expect(response).toEqual({
+      thresholdWei: new BigNumber(fakeOutput),
+    });
   });
 });
