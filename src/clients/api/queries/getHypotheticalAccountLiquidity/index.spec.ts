@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import compTrollerResponses from '__mocks__/contracts/comptroller';
 import { Comptroller } from 'types/contracts';
 
 import getHypotheticalAccountLiquidity from '.';
@@ -35,7 +36,7 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
     const fakeContract = {
       methods: {
         getHypotheticalAccountLiquidity: () => ({
-          call: async () => ({ 0: '3', 1: '4', 2: '5' }),
+          call: async () => compTrollerResponses.getHypotheticalAccountLiquidity,
         }),
       },
     } as unknown as Comptroller;
@@ -47,6 +48,6 @@ describe('api/queries/getHypotheticalAccountLiquidity', () => {
       vTokenBalanceOfWei: new BigNumber(0),
       vTokenBorrowAmountWei: new BigNumber(0),
     });
-    expect(response).toStrictEqual({ 0: '3', 1: '4', 2: '5' });
+    expect(response).toStrictEqual(compTrollerResponses.getHypotheticalAccountLiquidity);
   });
 });

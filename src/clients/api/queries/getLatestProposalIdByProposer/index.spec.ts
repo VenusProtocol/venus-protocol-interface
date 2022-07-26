@@ -40,6 +40,8 @@ describe('api/queries/getLatestProposalIdByProposer', () => {
       governorBravoContract: fakeContract,
       accountAddress: fakeAddress,
     });
-    expect(response).toStrictEqual('1');
+    expect(response).toStrictEqual({
+      proposalId: '1',
+    });
   });
 });
