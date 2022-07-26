@@ -22,7 +22,7 @@ const vrtVaultProxyAddress = getContractAddress('vrtVaultProxy');
 
 const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGetVrtVaultOutput => {
   const {
-    data: vrtVaultInterestRatePerBlock,
+    data: vrtVaultInterestRatePerBlockData,
     isLoading: isGetVrtVaultInterestRatePerBlockLoading,
   } = useGetVrtVaultInterestRatePerBlock();
 
@@ -57,11 +57,11 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!vrtVaultInterestRatePerBlock || !totalVrtStakedData) {
+    if (!vrtVaultInterestRatePerBlockData?.interestRatePerBlockWei || !totalVrtStakedData) {
       return undefined;
     }
 
-    const vrtVaultDailyInterestRate = vrtVaultInterestRatePerBlock
+    const vrtVaultDailyInterestRate = vrtVaultInterestRatePerBlockData.interestRatePerBlockWei
       .multipliedBy(BLOCKS_PER_DAY)
       .dividedBy(1e18); // Percentages are expressed with 18 decimals in smart contracts
 
@@ -81,7 +81,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       userPendingRewardWei: userPendingVrtRewardData?.accruedInterestWei,
     };
   }, [
-    vrtVaultInterestRatePerBlock?.toFixed(),
+    vrtVaultInterestRatePerBlockData?.interestRatePerBlockWei.toFixed(),
     totalVrtStakedData?.balanceWei.toFixed(),
     JSON.stringify(vrtVaultUserInfo),
     userPendingVrtRewardData?.accruedInterestWei.toFixed(),

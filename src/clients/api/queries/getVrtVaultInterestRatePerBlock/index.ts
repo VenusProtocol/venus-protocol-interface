@@ -6,13 +6,18 @@ export interface GetVrtVaultInterestRatePerBlockInput {
   vrtVaultContract: VrtVault;
 }
 
-export type GetVrtVaultInterestRatePerBlockOutput = BigNumber;
+export type GetVrtVaultInterestRatePerBlockOutput = {
+  interestRatePerBlockWei: BigNumber;
+};
 
 const getVrtVaultInterestRatePerBlock = async ({
   vrtVaultContract,
 }: GetVrtVaultInterestRatePerBlockInput): Promise<GetVrtVaultInterestRatePerBlockOutput> => {
   const res = await vrtVaultContract.methods.interestRatePerBlock().call();
-  return new BigNumber(res);
+
+  return {
+    interestRatePerBlockWei: new BigNumber(res),
+  };
 };
 
 export default getVrtVaultInterestRatePerBlock;
