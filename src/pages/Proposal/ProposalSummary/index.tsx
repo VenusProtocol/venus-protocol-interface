@@ -278,8 +278,7 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   );
 
   const canCancelProposal =
-    proposalThresholdData?.thresholdWei &&
-    currentVotesData?.votesWei.isGreaterThanOrEqualTo(proposalThresholdData?.thresholdWei);
+    proposalThresholdWei && currentVotesData?.votesWei.isGreaterThanOrEqualTo(proposalThresholdWei);
 
   return (
     <ProposalSummaryUi
