@@ -137,7 +137,7 @@ export interface Proposal {
 
 export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
 
-export interface Voter {
+export interface VotersDetails {
   result: {
     address: string;
     voteWeightWei: BigNumber;
