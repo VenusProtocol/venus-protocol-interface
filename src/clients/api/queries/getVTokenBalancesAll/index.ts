@@ -1,5 +1,7 @@
+import { VenusLens } from 'types/contracts';
+
 export interface GetVTokenBalancesAllInput {
-  venusLensContract: $TSFixMe; // @TODO: use contract type (through Typechain?)
+  venusLensContract: VenusLens;
   account: string;
   vTokenAddresses: string[];
 }
@@ -22,20 +24,22 @@ interface GetVTokenBalanceOutput {
   vToken: string;
 }
 
-export type IGetVTokenBalancesAllOutput = GetVTokenBalanceOutput[];
+export type IGetVTokenBalancesAllOutput = {
+  balances: GetVTokenBalanceOutput[];
+};
 
 const getVTokenBalancesAll = async ({
   venusLensContract,
   vTokenAddresses,
   account,
 }: GetVTokenBalancesAllInput): Promise<IGetVTokenBalancesAllOutput> => {
-  let response = await venusLensContract.methods
+  const response = await venusLensContract.methods
     .vTokenBalancesAll(vTokenAddresses, account?.toLowerCase())
     .call();
 
-  // This is original returned as an array with these properties
-  // but at some point the properties are getting lost
-  response = response.map((item: GetVTokenBalancesAllResponse) => ({
+  // This is original returned as an array with these properties but at some
+  // point the properties are getting removed from the type
+  const balances = (response as unknown as GetVTokenBalancesAllResponse[]).map(item => ({
     balanceOf: item.balanceOf,
     balanceOfUnderlying: item.balanceOfUnderlying,
     borrowBalanceCurrent: item.borrowBalanceCurrent,
