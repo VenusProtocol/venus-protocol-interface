@@ -19,7 +19,9 @@ const fakeUserVaiMintedWei = new BigNumber('10000000000000000');
 describe('api/queries/useGetUserMarketInfo', () => {
   beforeEach(() => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
-    (getAssetsInAccount as jest.Mock).mockImplementation(() => assetsInAccount);
+    (getAssetsInAccount as jest.Mock).mockImplementation(() => ({
+      tokenAddresses: assetsInAccount,
+    }));
     (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {

@@ -2,15 +2,22 @@ import { Comptroller } from 'types/contracts';
 
 export interface GetAssetsInAccountInput {
   comptrollerContract: Comptroller;
-  account: string;
+  accountAddress: string;
 }
 
-export type GetAssetsInAccountOutput = string[];
+export type GetAssetsInAccountOutput = {
+  tokenAddresses: string[];
+};
 
-const getAssetsInAccount = ({
+const getAssetsInAccount = async ({
   comptrollerContract,
-  account,
-}: GetAssetsInAccountInput): Promise<GetAssetsInAccountOutput> =>
-  comptrollerContract.methods.getAssetsIn(account?.toLowerCase()).call();
+  accountAddress,
+}: GetAssetsInAccountInput): Promise<GetAssetsInAccountOutput> => {
+  const tokenAddresses = await comptrollerContract.methods.getAssetsIn(accountAddress).call();
+
+  return {
+    tokenAddresses,
+  };
+};
 
 export default getAssetsInAccount;
