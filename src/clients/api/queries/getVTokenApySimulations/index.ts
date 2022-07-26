@@ -35,14 +35,17 @@ const getVTokenApySimulations = async ({
     const utilizationRate = u / 100;
 
     const getRates = async () => {
-      const borrowRate = await getVTokenBorrowRate({
+      const borrowRateData = await getVTokenBorrowRate({
         interestModelContract,
         cashAmountWei: new BigNumber(1 / utilizationRate - 1).times(REFERENCE_AMOUNT_WEI).dp(0),
         borrowsAmountWei: new BigNumber(REFERENCE_AMOUNT_WEI),
         reservesAmountWei: new BigNumber(0),
       });
 
-      const borrowBase = borrowRate.div(COMPOUND_MANTISSA).times(BLOCKS_PER_DAY).plus(1);
+      const borrowBase = borrowRateData.borrowRate
+        .div(COMPOUND_MANTISSA)
+        .times(BLOCKS_PER_DAY)
+        .plus(1);
 
       const borrowApyPercentage = borrowBase
         .pow(DAYS_PER_YEAR - 1)
