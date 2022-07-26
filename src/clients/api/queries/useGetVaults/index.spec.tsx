@@ -11,7 +11,7 @@ import { markets } from '__mocks__/models/markets';
 import {
   getBalanceOf,
   getMarkets,
-  getVaiVaultPendingXvsWei,
+  getVaiVaultPendingXvs,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRateWei,
   getVrtVaultAccruedInterestWei,
@@ -46,9 +46,9 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultPendingRewardWei as jest.Mock).mockImplementation(
       () => new BigNumber(xvsVaultResponses.pendingReward),
     );
-    (getVaiVaultPendingXvsWei as jest.Mock).mockImplementation(
-      () => new BigNumber(vaiVaultResponses.pendingXVS),
-    );
+    (getVaiVaultPendingXvs as jest.Mock).mockImplementation(() => ({
+      pendingXvsWei: new BigNumber(vaiVaultResponses.pendingXVS),
+    }));
     (getVenusVaiVaultDailyRateWei as jest.Mock).mockImplementation(
       () => new BigNumber(compTrollerResponses.venusVAIVaultRate),
     );

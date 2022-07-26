@@ -6,7 +6,7 @@ import { convertWeiToTokens, getContractAddress } from 'utilities';
 import {
   useGetBalanceOf,
   useGetMarkets,
-  useGetVaiVaultPendingXvsWei,
+  useGetVaiVaultPendingXvs,
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRateWei,
 } from 'clients/api';
@@ -42,8 +42,8 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       },
     );
 
-  const { data: userPendingVaiRewardWei, isLoading: isGetUserPendingVaiRewardWeiLoading } =
-    useGetVaiVaultPendingXvsWei(
+  const { data: userPendingVaiRewardData, isLoading: isGetUserPendingVaiRewardWeiLoading } =
+    useGetVaiVaultPendingXvs(
       {
         accountAddress: accountAddress || '',
       },
@@ -88,14 +88,14 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,
       userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
-      userPendingRewardWei: userPendingVaiRewardWei,
+      userPendingRewardWei: userPendingVaiRewardData?.pendingXvsWei,
     };
   }, [
     totalVaiStakedData?.balanceWei.toFixed(),
     vaiVaultDailyRateWei?.toFixed(),
     xvsPriceDollars?.toFixed(),
     JSON.stringify(vaiVaultUserInfo),
-    userPendingVaiRewardWei?.toFixed(),
+    userPendingVaiRewardData?.pendingXvsWei.toFixed(),
   ]);
 
   const isLoading =

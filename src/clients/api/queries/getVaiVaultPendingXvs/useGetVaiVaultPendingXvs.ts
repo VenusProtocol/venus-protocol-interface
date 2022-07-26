@@ -1,31 +1,31 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  GetVaiVaultPendingXvsWeiInput,
-  GetVaiVaultPendingXvsWeiOutput,
-  getVaiVaultPendingXvsWei,
+  GetVaiVaultPendingXvsInput,
+  GetVaiVaultPendingXvsOutput,
+  getVaiVaultPendingXvs,
 } from 'clients/api';
 import { useVaiVaultContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  GetVaiVaultPendingXvsWeiOutput,
+  GetVaiVaultPendingXvsOutput,
   Error,
-  GetVaiVaultPendingXvsWeiOutput,
-  GetVaiVaultPendingXvsWeiOutput,
+  GetVaiVaultPendingXvsOutput,
+  GetVaiVaultPendingXvsOutput,
   [FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, string]
 >;
 
-const useGetVaiVaultPendingXvsWei = (
-  { accountAddress }: Omit<GetVaiVaultPendingXvsWeiInput, 'vaiVaultContract'>,
+const useGetVaiVaultPendingXvs = (
+  { accountAddress }: Omit<GetVaiVaultPendingXvsInput, 'vaiVaultContract'>,
   options?: Options,
 ) => {
   const vaiVaultContract = useVaiVaultContract();
 
   return useQuery(
     [FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, accountAddress],
-    () => getVaiVaultPendingXvsWei({ vaiVaultContract, accountAddress }),
+    () => getVaiVaultPendingXvs({ vaiVaultContract, accountAddress }),
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
       ...options,
@@ -33,4 +33,4 @@ const useGetVaiVaultPendingXvsWei = (
   );
 };
 
-export default useGetVaiVaultPendingXvsWei;
+export default useGetVaiVaultPendingXvs;
