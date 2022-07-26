@@ -24,9 +24,9 @@ const useGetVTokenApySimulations = (
   options?: Options,
 ) => {
   const web3 = useWeb3();
-  const { data: interestRateModelContractAddress } = useGetVTokenInterestRateModel({ vTokenId });
-  const interestModelContract = interestRateModelContractAddress
-    ? getInterestModelContract(interestRateModelContractAddress, web3)
+  const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vTokenId });
+  const interestModelContract = interestRateModelData?.contractAddress
+    ? getInterestModelContract(interestRateModelData.contractAddress, web3)
     : undefined;
 
   return useQuery(
@@ -40,7 +40,7 @@ const useGetVTokenApySimulations = (
       ...options,
       enabled:
         (options?.enabled === undefined || options?.enabled) &&
-        interestRateModelContractAddress !== undefined &&
+        interestRateModelData?.contractAddress !== undefined &&
         reserveFactorMantissa !== undefined,
     },
   );
