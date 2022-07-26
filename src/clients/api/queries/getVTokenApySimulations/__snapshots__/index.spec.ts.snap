@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api/queries/getVTokenApySimulations returns the XVS amount currently borrowed by the account provided, in the correct format 1`] = `
+exports[`api/queries/getVTokenApySimulations returns the APY simulations in the correct format on success 1`] = `
 Object {
   "apySimulations": Array [
     Object {
