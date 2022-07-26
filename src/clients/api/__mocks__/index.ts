@@ -130,9 +130,8 @@ export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProp
 export const getProposal = jest.fn(() => proposals[0]);
 export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
 
-export const getDailyXvsWei = jest.fn();
-export const useGetDailyXvsWei = () =>
-  useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
+export const getDailyXvs = jest.fn();
+export const useGetDailyXvs = () => useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS, getDailyXvs);
 
 export const getVoters = jest.fn(() => voters);
 export const useGetVoters = jest.fn(() => useQuery(FunctionKey.GET_VOTERS, getVoters));

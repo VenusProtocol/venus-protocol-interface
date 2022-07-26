@@ -2,13 +2,13 @@ import { BigNumber } from 'bignumber.js';
 import { useContext, useMemo } from 'react';
 import { convertWeiToTokens } from 'utilities';
 
-import { useGetDailyXvsWei, useGetMarkets } from 'clients/api';
+import { useGetDailyXvs, useGetMarkets } from 'clients/api';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AuthContext } from 'context/AuthContext';
 
-export const useDailyXvsWei = () => {
+const useDailyXvsDistributionInterests = () => {
   const { account } = useContext(AuthContext);
-  const { data: dailyXvsWei, isLoading: isGetDailyXvsLoading } = useGetDailyXvsWei(
+  const { data: getDailyXvsData, isLoading: isGetDailyXvsLoading } = useGetDailyXvs(
     { accountAddress: account?.address || '' },
     { enabled: !!account?.address },
   );
@@ -21,9 +21,9 @@ export const useDailyXvsWei = () => {
 
   const { dailyXvsDistributionInterestsCents } = useMemo(() => {
     const dailyXvsTokens =
-      dailyXvsWei &&
+      getDailyXvsData &&
       convertWeiToTokens({
-        valueWei: dailyXvsWei,
+        valueWei: getDailyXvsData.dailyXvsWei,
         tokenId: XVS_TOKEN_ID,
       });
 
@@ -33,10 +33,16 @@ export const useDailyXvsWei = () => {
           ? dailyXvsTokens?.multipliedBy(xvsPriceDollars).times(100)
           : new BigNumber(0),
     };
-  }, [JSON.stringify(dailyXvsWei), JSON.stringify(getMarketsData?.markets), account?.address]);
+  }, [
+    JSON.stringify(getDailyXvsData?.dailyXvsWei),
+    JSON.stringify(getMarketsData?.markets),
+    account?.address,
+  ]);
 
   return {
     isLoading: isGetDailyXvsLoading || isGetMarketsLoading,
     dailyXvsDistributionInterestsCents,
   };
 };
+
+export default useDailyXvsDistributionInterests;

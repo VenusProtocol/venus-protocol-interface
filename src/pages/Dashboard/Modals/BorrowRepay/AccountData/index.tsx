@@ -19,7 +19,7 @@ import {
 import { useGetUserMarketInfo } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AuthContext } from 'context/AuthContext';
-import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
+import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
 
 import { useStyles } from '../../styles';
 
@@ -46,7 +46,7 @@ const AccountData: React.FC<AccountDataProps> = ({
   });
 
   // TODO: handle loading state
-  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsDistributionInterests();
 
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0

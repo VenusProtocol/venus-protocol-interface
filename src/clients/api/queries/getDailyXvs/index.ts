@@ -3,22 +3,28 @@ import { getContractAddress } from 'utilities';
 
 import { VenusLens } from 'types/contracts';
 
-export interface GetDailyXvsWeiInput {
+export interface GetDailyXvsInput {
   venusLensContract: VenusLens;
   accountAddress: string;
 }
 
-export type IGetDailyXvsWeiOutput = BigNumber;
+export type IGetDailyXvsOutput = {
+  dailyXvsWei: BigNumber;
+};
 
 const comptrollerAddress = getContractAddress('comptroller');
-const getDailyXvsWei = async ({
+
+const getDailyXvs = async ({
   venusLensContract,
   accountAddress,
-}: GetDailyXvsWeiInput): Promise<IGetDailyXvsWeiOutput> => {
+}: GetDailyXvsInput): Promise<IGetDailyXvsOutput> => {
   const response = await venusLensContract.methods
     .getDailyXVS(accountAddress, comptrollerAddress)
     .call();
-  return new BigNumber(response);
+
+  return {
+    dailyXvsWei: new BigNumber(response),
+  };
 };
 
-export default getDailyXvsWei;
+export default getDailyXvs;

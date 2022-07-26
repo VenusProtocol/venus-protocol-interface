@@ -9,7 +9,7 @@ import {
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { useDailyXvsWei } from 'hooks/useDailyXvsWei';
+import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
 
 import MyAccountUi, { MyAccountUiProps } from './MyAccountUi';
 
@@ -33,7 +33,7 @@ const MyAccount: React.FC<MyAccountProps> = ({
   userTotalSupplyBalanceCents,
 }) => {
   // TODO: handle loading state
-  const { dailyXvsDistributionInterestsCents } = useDailyXvsWei();
+  const { dailyXvsDistributionInterestsCents } = useDailyXvsDistributionInterests();
 
   const calculations: Pick<
     MyAccountUiProps,
