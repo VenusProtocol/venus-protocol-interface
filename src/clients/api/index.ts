@@ -303,9 +303,9 @@ export { default as getVrtVaultUserInfo } from './queries/getVrtVaultUserInfo';
 export * from './queries/getVrtVaultUserInfo';
 export { default as useGetVrtVaultUserInfo } from './queries/getVrtVaultUserInfo/useGetVrtVaultUserInfo';
 
-export { default as getVrtVaultAccruedInterestWei } from './queries/getVrtVaultAccruedInterestWei';
-export * from './queries/getVrtVaultAccruedInterestWei';
-export { default as useGetVrtVaultAccruedInterestWei } from './queries/getVrtVaultAccruedInterestWei/useGetVrtVaultAccruedInterestWei';
+export { default as getVrtVaultAccruedInterest } from './queries/getVrtVaultAccruedInterest';
+export * from './queries/getVrtVaultAccruedInterest';
+export { default as useGetVrtVaultAccruedInterest } from './queries/getVrtVaultAccruedInterest/useGetVrtVaultAccruedInterest';
 
 export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';

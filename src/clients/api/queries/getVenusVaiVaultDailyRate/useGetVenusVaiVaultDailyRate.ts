@@ -9,14 +9,14 @@ type Options = QueryObserverOptions<
   Error,
   GetVenusVaiVaultDailyRateOutput,
   GetVenusVaiVaultDailyRateOutput,
-  FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI
+  FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE
 >;
 
 const useGetVenusVaiVaultDailyRate = (options?: Options) => {
   const comptrollerContract = useComptrollerContract();
 
   return useQuery(
-    FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI,
+    FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE,
     () => getVenusVaiVaultDailyRate({ comptrollerContract }),
     options,
   );

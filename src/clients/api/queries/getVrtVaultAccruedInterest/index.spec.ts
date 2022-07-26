@@ -4,7 +4,7 @@ import vrtVaultResponses from '__mocks__/contracts/vrtVault';
 import fakeAccountAddress from '__mocks__/models/address';
 import { VrtVault } from 'types/contracts';
 
-import getVrtVaultAccruedInterestWei from '.';
+import getVrtVaultAccruedInterest from '.';
 
 describe('api/queries/getVrtVaultAccruedInterest', () => {
   test('throws an error when request fails', async () => {
