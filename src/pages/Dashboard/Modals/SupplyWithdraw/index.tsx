@@ -237,7 +237,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
     accountAddress,
   });
 
-  const { data: vTokenBalanceWei } = useGetVTokenBalanceOf(
+  const { data: vTokenBalanceData } = useGetVTokenBalanceOf(
     { accountAddress, vTokenId: asset.id as VTokenId },
     { enabled: !!accountAddress },
   );
@@ -283,8 +283,8 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;
 
-    if (amountEqualsSupplyBalance && vTokenBalanceWei) {
-      const res = await redeem({ amountWei: new BigNumber(vTokenBalanceWei) });
+    if (amountEqualsSupplyBalance && vTokenBalanceData?.balanceWei) {
+      const res = await redeem({ amountWei: new BigNumber(vTokenBalanceData.balanceWei) });
 
       ({ transactionHash } = res);
       // Display successful transaction modal
