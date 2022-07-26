@@ -35,7 +35,7 @@ describe('api/queries/getVTokenSupplyRate', () => {
   });
 
   test('returns the borrow rate of the interest model passed, in the correct format', async () => {
-    const fakeSupplyRateWei = new BigNumber('1000000000000000000000000000');
+    const fakeSupplyRateWei = '1000000000000000000000000000';
     const callMock = jest.fn(async () => fakeSupplyRateWei);
     const getSupplyRateMock = jest.fn(() => ({
       call: callMock,
@@ -57,6 +57,8 @@ describe('api/queries/getVTokenSupplyRate', () => {
 
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(getSupplyRateMock).toHaveBeenCalledTimes(1);
-    expect(response.toFixed()).toBe(fakeSupplyRateWei.toFixed());
+    expect(response).toEqual({
+      supplyRateWei: new BigNumber(fakeSupplyRateWei),
+    });
   });
 });
