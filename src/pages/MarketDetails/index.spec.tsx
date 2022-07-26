@@ -18,7 +18,9 @@ jest.mock('clients/api');
 
 describe('pages/MarketDetails', () => {
   beforeEach(() => {
-    (getMarketHistory as jest.Mock).mockImplementation(() => marketSnapshots);
+    (getMarketHistory as jest.Mock).mockImplementation(() => ({
+      marketSnapshots,
+    }));
     (getMarkets as jest.Mock).mockImplementation(() => ({
       markets,
       dailyVenusWei: new BigNumber(0),

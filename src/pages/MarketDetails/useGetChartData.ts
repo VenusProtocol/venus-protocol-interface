@@ -7,7 +7,11 @@ import { formatPercentage } from 'utilities';
 import { useGetMarketHistory } from 'clients/api';
 
 const useGetChartData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
-  const { data: marketSnapshots = [] } = useGetMarketHistory({
+  const {
+    data: marketSnapshotsData = {
+      marketSnapshots: [],
+    },
+  } = useGetMarketHistory({
     vTokenId,
   });
 
@@ -15,7 +19,7 @@ const useGetChartData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
     const supplyChartData: ApyChartProps['data'] = [];
     const borrowChartData: ApyChartProps['data'] = [];
 
-    [...marketSnapshots]
+    [...marketSnapshotsData.marketSnapshots]
       // Snapshots are returned from earliest to oldest, so we reverse them to
       // pass them to the charts in the right order
       .reverse()
@@ -43,7 +47,7 @@ const useGetChartData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
       supplyChartData,
       borrowChartData,
     };
-  }, [JSON.stringify(marketSnapshots)]);
+  }, [JSON.stringify(marketSnapshotsData?.marketSnapshots)]);
 };
 
 export default useGetChartData;
