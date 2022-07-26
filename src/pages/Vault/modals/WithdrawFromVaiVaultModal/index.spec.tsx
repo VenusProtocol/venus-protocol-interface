@@ -26,7 +26,9 @@ const baseProps: WithdrawFromVaiVaultModalProps = {
 describe('pages/Vault/modals/WithdrawFromVaiVaultModal', () => {
   beforeEach(() => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
     (getVaiVaultUserInfo as jest.Mock).mockImplementation(() => fakeVaiVaultUserInfo);
   });
 

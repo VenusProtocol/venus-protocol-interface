@@ -91,7 +91,7 @@ export interface EnableTokenProps
 export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddress, ...rest }) => {
   const { account } = useContext(AuthContext);
 
-  const { data: tokenAllowance, isLoading: isGetAllowanceLoading } = useGetAllowance(
+  const { data: getTokenAllowanceData, isLoading: isGetAllowanceLoading } = useGetAllowance(
     {
       accountAddress: account?.address || '',
       spenderAddress,
@@ -103,7 +103,8 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddre
   );
 
   const isTokenApproved =
-    vTokenId === 'bnb' || (!!tokenAllowance && tokenAllowance.isGreaterThan(0));
+    vTokenId === 'bnb' ||
+    (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
 
   const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
     tokenId: vTokenId,

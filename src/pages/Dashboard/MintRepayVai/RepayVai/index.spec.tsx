@@ -38,7 +38,9 @@ const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
     (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
     (getBalanceOf as jest.Mock).mockImplementation(() => fakeUserVaiBalanceWei);
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({

@@ -27,7 +27,9 @@ const setCachedTokenAllowanceToMax = ({
     },
   ];
 
-  queryClient.setQueryData<GetAllowanceOutput>(queryKey, MAX_UINT256);
+  queryClient.setQueryData<GetAllowanceOutput>(queryKey, {
+    allowanceWei: MAX_UINT256,
+  });
 };
 
 export default setCachedTokenAllowanceToMax;

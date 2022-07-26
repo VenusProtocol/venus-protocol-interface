@@ -8,15 +8,20 @@ export interface GetAllowanceInput {
   spenderAddress: string;
 }
 
-export type GetAllowanceOutput = BigNumber;
+export type GetAllowanceOutput = {
+  allowanceWei: BigNumber;
+};
 
-const getVenusVaiState = async ({
+const getAllowance = async ({
   tokenContract,
   accountAddress,
   spenderAddress,
 }: GetAllowanceInput): Promise<GetAllowanceOutput> => {
   const res = await tokenContract.methods.allowance(accountAddress, spenderAddress).call();
-  return new BigNumber(res);
+
+  return {
+    allowanceWei: new BigNumber(res),
+  };
 };
 
-export default getVenusVaiState;
+export default getAllowance;

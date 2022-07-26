@@ -56,7 +56,9 @@ describe('pages/Vault/modals/ActionModal', () => {
 
   it('prompts user who connected their wallet to enable token if they have not done so already', async () => {
     // Mark token as disabled
-    (getAllowance as jest.Mock).mockImplementation(() => 0);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: new BigNumber(0),
+    }));
 
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {
@@ -71,7 +73,9 @@ describe('pages/Vault/modals/ActionModal', () => {
 
   it('displays transaction form if user have connected their wallet and enabled token', async () => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
 
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {

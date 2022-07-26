@@ -32,7 +32,9 @@ const fakePoolIndex = 6;
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', () => {
   beforeEach(() => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
     (getXvsVaultLockedDeposits as jest.Mock).mockImplementation(() =>
       xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     );
