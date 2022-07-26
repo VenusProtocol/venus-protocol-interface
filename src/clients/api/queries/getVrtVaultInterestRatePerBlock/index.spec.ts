@@ -47,7 +47,8 @@ describe('api/queries/getVrtVaultInterestRatePerBlock', () => {
     expect(interestRatePerBlockMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledWith();
-    expect(response instanceof BigNumber).toBe(true);
-    expect(response.toFixed()).toEqual(vrtVaultResponses.interestRatePerBlock);
+    expect(response).toEqual({
+      interestRatePerBlockWei: new BigNumber(vrtVaultResponses.interestRatePerBlock),
+    });
   });
 });
