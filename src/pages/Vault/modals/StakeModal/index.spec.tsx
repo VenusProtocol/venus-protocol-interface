@@ -28,7 +28,9 @@ const baseProps: StakeModalProps = {
 describe('pages/Vault/modals/StakeModal', () => {
   beforeEach(() => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
     (getBalanceOf as jest.Mock).mockImplementation(() => fakeBalanceWei);
   });
 

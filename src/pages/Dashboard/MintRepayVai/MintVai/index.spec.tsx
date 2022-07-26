@@ -44,7 +44,9 @@ const fakeVaiTreasuryPercentage = 7.19;
 describe('pages/Dashboard/MintRepayVai/MintVai', () => {
   beforeEach(() => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
     (getMintableVai as jest.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
