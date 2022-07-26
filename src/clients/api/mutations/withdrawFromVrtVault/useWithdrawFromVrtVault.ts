@@ -39,7 +39,7 @@ const useWithdrawFromVrtVault = (options?: Options) => {
 
         // Invalidate cached user pending reward
         queryClient.invalidateQueries([
-          FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI,
+          FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST,
           fromAccountAddress,
         ]);
 
@@ -57,7 +57,7 @@ const useWithdrawFromVrtVault = (options?: Options) => {
           TOKENS.vrt.id,
         ]);
 
-        queryClient.invalidateQueries(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK);
+        queryClient.invalidateQueries(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_PER_BLOCK);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

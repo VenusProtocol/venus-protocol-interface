@@ -11,14 +11,14 @@ type Options = QueryObserverOptions<
   Error,
   GetVrtVaultInterestRatePerBlockOutput,
   GetVrtVaultInterestRatePerBlockOutput,
-  FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK
+  FunctionKey.GET_VRT_VAULT_INTEREST_RATE_PER_BLOCK
 >;
 
 const useGetVrtVaultInterestRatePerBlock = (options?: Options) => {
   const vrtVaultContract = useVrtVaultProxyContract();
 
   return useQuery(
-    FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK,
+    FunctionKey.GET_VRT_VAULT_INTEREST_RATE_PER_BLOCK,
     () => getVrtVaultInterestRatePerBlock({ vrtVaultContract }),
     options,
   );

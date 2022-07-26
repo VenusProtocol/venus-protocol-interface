@@ -51,7 +51,7 @@ const useWithdrawFromVaiVault = (options?: Options) => {
           TOKENS.vai.id,
         ]);
 
-        queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI);
+        queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);
