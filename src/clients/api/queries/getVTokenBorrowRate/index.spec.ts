@@ -54,6 +54,8 @@ describe('api/queries/getVTokenBorrowRate', () => {
 
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(getBorrowRateMock).toHaveBeenCalledTimes(1);
-    expect(response.toFixed()).toBe(fakeBorrowRateWei.toFixed());
+    expect(response).toEqual({
+      borrowRate: new BigNumber(fakeBorrowRateWei),
+    });
   });
 });

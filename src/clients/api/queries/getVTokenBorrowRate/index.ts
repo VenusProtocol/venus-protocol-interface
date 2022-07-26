@@ -9,7 +9,9 @@ export interface GetVTokenBorrowRateInput {
   reservesAmountWei: BigNumber;
 }
 
-export type IGetVTokenBorrowRateOutput = BigNumber;
+export type IGetVTokenBorrowRateOutput = {
+  borrowRate: BigNumber;
+};
 
 const getVTokenBorrowRate = async ({
   interestModelContract,
@@ -17,10 +19,13 @@ const getVTokenBorrowRate = async ({
   borrowsAmountWei,
   reservesAmountWei,
 }: GetVTokenBorrowRateInput): Promise<IGetVTokenBorrowRateOutput> => {
-  const borrowRate = await interestModelContract.methods
+  const res = await interestModelContract.methods
     .getBorrowRate(cashAmountWei.toFixed(), borrowsAmountWei.toFixed(), reservesAmountWei.toFixed())
     .call();
-  return new BigNumber(borrowRate);
+
+  return {
+    borrowRate: new BigNumber(res),
+  };
 };
 
 export default getVTokenBorrowRate;
