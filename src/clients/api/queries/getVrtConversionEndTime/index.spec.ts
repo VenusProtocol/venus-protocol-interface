@@ -1,6 +1,6 @@
 import { VrtConverter } from 'types/contracts';
 
-import getVrtConversionEndTime, { GetVrtConversionEndTimeOutput } from '.';
+import getVrtConversionEndTime from '.';
 
 describe('api/queries/getVrtConversionEndTime', () => {
   test('throws an error when request fails', async () => {
@@ -26,8 +26,8 @@ describe('api/queries/getVrtConversionEndTime', () => {
   });
 
   test('returns the conversion end time on success', async () => {
-    const fakeOutput: GetVrtConversionEndTimeOutput = new Date(1678859525000);
-    const callMock = jest.fn(async () => 1678859525);
+    const fakeOutput = 1678859525000;
+    const callMock = jest.fn(async () => fakeOutput);
     const vrtConversionEndtimeMock = jest.fn(() => ({
       call: callMock,
     }));
@@ -45,6 +45,8 @@ describe('api/queries/getVrtConversionEndTime', () => {
     expect(vrtConversionEndtimeMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledWith();
-    expect(response).toStrictEqual(fakeOutput);
+    expect(response).toEqual({
+      conversionEndTime: new Date(fakeOutput * 1000),
+    });
   });
 });
