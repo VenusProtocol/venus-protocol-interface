@@ -75,11 +75,20 @@ const useGetUserMarketInfo = ({
     [getMarketsData?.markets],
   );
 
-  const { data: assetsInAccount = [], isLoading: isGetAssetsInAccountLoading } =
-    useGetAssetsInAccount(
-      { account: accountAddress || '' },
-      { enabled: !!accountAddress, placeholderData: [] },
-    );
+  const {
+    data: assetsInAccount = {
+      tokenAddresses: [],
+    },
+    isLoading: isGetAssetsInAccountLoading,
+  } = useGetAssetsInAccount(
+    { accountAddress: accountAddress || '' },
+    {
+      enabled: !!accountAddress,
+      placeholderData: {
+        tokenAddresses: [],
+      },
+    },
+  );
 
   const { data: vTokenBalancesAccount = [], isLoading: isGetVTokenBalancesAccountLoading } =
     useGetVTokenBalancesAll(
@@ -124,7 +133,7 @@ const useGetUserMarketInfo = ({
 
         const market = marketsMap[item.id];
         const vtokenAddress = vBepToken.address.toLowerCase();
-        const collateral = (assetsInAccount || [])
+        const collateral = (assetsInAccount.tokenAddresses || [])
           .map((address: string) => address.toLowerCase())
           .includes(vtokenAddress);
 
