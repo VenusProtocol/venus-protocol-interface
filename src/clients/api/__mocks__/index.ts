@@ -82,9 +82,9 @@ export const getVTokenSupplyRate = jest.fn();
 
 export const getVTokenBorrowRate = jest.fn();
 
-export const getVenusVaiVaultDailyRateWei = jest.fn();
-export const useGetVenusVaiVaultDailyRateWei = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultDailyRateWei);
+export const getVenusVaiVaultDailyRate = jest.fn();
+export const useGetVenusVaiVaultDailyRate = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultDailyRate);
 
 export const getTransactions = jest.fn();
 export const useGetTransactions = jest.fn(() =>

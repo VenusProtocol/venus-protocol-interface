@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { Comptroller } from 'types/contracts';
 
-import getVenusVaiVaultDailyRateWei, { GetVenusVaiVaultDailyRateWeiOutput } from '.';
+import getVenusVaiVaultDailyRate from '.';
 
-describe('api/queries/getVenusVaiVaultDailyRateWei', () => {
+describe('api/queries/getVenusVaiVaultDailyRate', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -18,7 +18,7 @@ describe('api/queries/getVenusVaiVaultDailyRateWei', () => {
     } as unknown as Comptroller;
 
     try {
-      await getVenusVaiVaultDailyRateWei({
+      await getVenusVaiVaultDailyRate({
         comptrollerContract: fakeContract,
       });
 
@@ -29,7 +29,7 @@ describe('api/queries/getVenusVaiVaultDailyRateWei', () => {
   });
 
   test('returns the vault rate state on success', async () => {
-    const fakeOutput: GetVenusVaiVaultDailyRateWeiOutput = new BigNumber(1000);
+    const fakeOutput = '1000';
 
     const callMock = jest.fn(async () => fakeOutput);
     const venusVaiVaultRateMock = jest.fn(() => ({
@@ -42,12 +42,14 @@ describe('api/queries/getVenusVaiVaultDailyRateWei', () => {
       },
     } as unknown as Comptroller;
 
-    const response = await getVenusVaiVaultDailyRateWei({
+    const response = await getVenusVaiVaultDailyRate({
       comptrollerContract: fakeContract,
     });
 
     expect(venusVaiVaultRateMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
-    expect(response.toFixed()).toBe(fakeOutput.times(BLOCKS_PER_DAY).toFixed());
+    expect(response).toEqual({
+      dailyRateWei: new BigNumber(fakeOutput).times(BLOCKS_PER_DAY),
+    });
   });
 });

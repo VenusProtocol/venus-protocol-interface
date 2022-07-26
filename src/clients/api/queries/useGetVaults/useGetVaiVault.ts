@@ -8,7 +8,7 @@ import {
   useGetMarkets,
   useGetVaiVaultPendingXvs,
   useGetVaiVaultUserInfo,
-  useGetVenusVaiVaultDailyRateWei,
+  useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
@@ -52,8 +52,8 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       },
     );
 
-  const { data: vaiVaultDailyRateWei, isLoading: isGetVaiVaultDailyRateWeiLoading } =
-    useGetVenusVaiVaultDailyRateWei();
+  const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateWeiLoading } =
+    useGetVenusVaiVaultDailyRate();
 
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
   const xvsPriceDollars: BigNumber | undefined = useMemo(
@@ -62,12 +62,12 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedData || !vaiVaultDailyRateWei || !xvsPriceDollars) {
+    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceDollars) {
       return undefined;
     }
 
     const stakingAprPercentage = convertWeiToTokens({
-      valueWei: vaiVaultDailyRateWei,
+      valueWei: vaiVaultDailyRateData.dailyRateWei,
       tokenId: TOKENS.xvs.id as TokenId,
     })
       .multipliedBy(xvsPriceDollars) // We assume 1 VAI = 1 dollar
@@ -84,7 +84,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     return {
       rewardTokenId: TOKENS.xvs.id as TokenId,
       stakedTokenId: TOKENS.vai.id as TokenId,
-      dailyEmissionWei: vaiVaultDailyRateWei,
+      dailyEmissionWei: vaiVaultDailyRateData.dailyRateWei,
       totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,
       userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
@@ -92,7 +92,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     };
   }, [
     totalVaiStakedData?.balanceWei.toFixed(),
-    vaiVaultDailyRateWei?.toFixed(),
+    vaiVaultDailyRateData?.dailyRateWei.toFixed(),
     xvsPriceDollars?.toFixed(),
     JSON.stringify(vaiVaultUserInfo),
     userPendingVaiRewardData?.pendingXvsWei.toFixed(),
