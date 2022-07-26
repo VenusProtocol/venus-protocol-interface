@@ -1,6 +1,6 @@
 import { VrtConverter } from 'types/contracts';
 
-import getVrtConversionRatio, { GetVrtConversionRatioOutput } from '.';
+import getVrtConversionRatio from '.';
 
 describe('api/queries/getVrtConversionRatio', () => {
   test('throws an error when request fails', async () => {
@@ -26,7 +26,7 @@ describe('api/queries/getVrtConversionRatio', () => {
   });
 
   test('returns the conversion ratio on success', async () => {
-    const fakeOutput: GetVrtConversionRatioOutput = '0.5';
+    const fakeOutput = '0.5';
 
     const callMock = jest.fn(async () => fakeOutput);
     const vrtConversionRatioMock = jest.fn(() => ({
@@ -46,6 +46,8 @@ describe('api/queries/getVrtConversionRatio', () => {
     expect(vrtConversionRatioMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledWith();
-    expect(response).toBe(fakeOutput);
+    expect(response).toEqual({
+      conversionRatio: fakeOutput,
+    });
   });
 });
