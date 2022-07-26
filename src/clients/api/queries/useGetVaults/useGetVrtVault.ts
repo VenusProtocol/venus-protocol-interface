@@ -26,7 +26,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     isLoading: isGetVrtVaultInterestRatePerBlockLoading,
   } = useGetVrtVaultInterestRatePerBlock();
 
-  const { data: totalVrtStakedWei, isLoading: isGetTotalVrtStakedWeiLoading } = useGetBalanceOf(
+  const { data: totalVrtStakedData, isLoading: isGetTotalVrtStakedWeiLoading } = useGetBalanceOf(
     {
       accountAddress: vrtVaultProxyAddress,
       tokenId: TOKENS.vrt.id as TokenId,
@@ -57,7 +57,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
     );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!vrtVaultInterestRatePerBlock || !totalVrtStakedWei) {
+    if (!vrtVaultInterestRatePerBlock || !totalVrtStakedData) {
       return undefined;
     }
 
@@ -65,7 +65,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .multipliedBy(BLOCKS_PER_DAY)
       .dividedBy(1e18); // Percentages are expressed with 18 decimals in smart contracts
 
-    const dailyEmissionWei = vrtVaultDailyInterestRate.multipliedBy(totalVrtStakedWei);
+    const dailyEmissionWei = vrtVaultDailyInterestRate.multipliedBy(totalVrtStakedData.balanceWei);
     const stakingAprPercentage = vrtVaultDailyInterestRate
       .multipliedBy(100)
       .multipliedBy(DAYS_PER_YEAR)
@@ -75,14 +75,14 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       rewardTokenId: TOKENS.vrt.id as TokenId,
       stakedTokenId: TOKENS.vrt.id as TokenId,
       dailyEmissionWei,
-      totalStakedWei: totalVrtStakedWei,
+      totalStakedWei: totalVrtStakedData.balanceWei,
       stakingAprPercentage,
       userStakedWei: vrtVaultUserInfo?.stakedVrtWei,
       userPendingRewardWei: userPendingVrtRewardWei,
     };
   }, [
     vrtVaultInterestRatePerBlock?.toFixed(),
-    totalVrtStakedWei?.toFixed(),
+    totalVrtStakedData?.balanceWei.toFixed(),
     JSON.stringify(vrtVaultUserInfo),
     userPendingVrtRewardWei?.toFixed(),
   ]);

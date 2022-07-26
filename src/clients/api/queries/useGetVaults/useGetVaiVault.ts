@@ -22,7 +22,7 @@ export interface UseGetVaiVaultOutput {
 }
 
 const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
-  const { data: totalVaiStakedWei, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
+  const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedWeiLoading } = useGetBalanceOf(
     {
       accountAddress: VAI_VAULT_ADDRESS,
       tokenId: TOKENS.vai.id as TokenId,
@@ -62,7 +62,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedWei || !vaiVaultDailyRateWei || !xvsPriceDollars) {
+    if (!totalVaiStakedData || !vaiVaultDailyRateWei || !xvsPriceDollars) {
       return undefined;
     }
 
@@ -74,7 +74,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .multipliedBy(DAYS_PER_YEAR)
       .dividedBy(
         convertWeiToTokens({
-          valueWei: totalVaiStakedWei,
+          valueWei: totalVaiStakedData.balanceWei,
           tokenId: TOKENS.vai.id as TokenId,
         }),
       )
@@ -85,13 +85,13 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       rewardTokenId: TOKENS.xvs.id as TokenId,
       stakedTokenId: TOKENS.vai.id as TokenId,
       dailyEmissionWei: vaiVaultDailyRateWei,
-      totalStakedWei: totalVaiStakedWei,
+      totalStakedWei: totalVaiStakedData.balanceWei,
       stakingAprPercentage,
       userStakedWei: vaiVaultUserInfo?.stakedVaiWei,
       userPendingRewardWei: userPendingVaiRewardWei,
     };
   }, [
-    totalVaiStakedWei?.toFixed(),
+    totalVaiStakedData?.balanceWei.toFixed(),
     vaiVaultDailyRateWei?.toFixed(),
     xvsPriceDollars?.toFixed(),
     JSON.stringify(vaiVaultUserInfo),

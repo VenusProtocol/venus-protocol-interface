@@ -7,14 +7,19 @@ export interface GetBalanceOfInput {
   accountAddress: string;
 }
 
-export type GetBalanceOfOutput = BigNumber;
+export type GetBalanceOfOutput = {
+  balanceWei: BigNumber;
+};
 
 const getBalanceOf = async ({
   tokenContract,
   accountAddress,
 }: GetBalanceOfInput): Promise<GetBalanceOfOutput> => {
   const resp = await tokenContract.methods.balanceOf(accountAddress).call();
-  return new BigNumber(resp);
+
+  return {
+    balanceWei: new BigNumber(resp),
+  };
 };
 
 export default getBalanceOf;

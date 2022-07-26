@@ -133,14 +133,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
-  const { data: xvsRemainingDistribution } = useGetBalanceOf({
+  const { data: xvsRemainingDistributionData } = useGetBalanceOf({
     tokenId: 'xvs',
     accountAddress: getContractAddress('comptroller'),
   });
 
   return (
     <HeaderUi
-      remainingDistributionWei={xvsRemainingDistribution || new BigNumber(0)}
+      remainingDistributionWei={xvsRemainingDistributionData?.balanceWei || new BigNumber(0)}
       venusVaiVaultDailyRateWei={venusVaiVaultDailyRateWei || new BigNumber(0)}
       className={className}
       dailyVenusWei={dailyVenusWei}
