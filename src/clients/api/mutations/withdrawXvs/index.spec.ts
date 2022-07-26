@@ -9,7 +9,7 @@ jest.mock('../../queries/getVTokenBalancesAll');
 
 describe('api/mutation/withdrawXvs', () => {
   test('throws an error when request fails', async () => {
-    (getVTokenBalancesAll as jest.Mock).mockImplementationOnce(async () => []);
+    (getVTokenBalancesAll as jest.Mock).mockImplementationOnce(async () => ({ balances: [] }));
 
     const fakeContract = {
       methods: {

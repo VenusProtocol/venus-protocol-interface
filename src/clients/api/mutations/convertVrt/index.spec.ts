@@ -11,7 +11,7 @@ const fakeAmount = '10000';
 
 describe('api/mutation/convertVrt', () => {
   test('throws an error when request fails', async () => {
-    (getVTokenBalancesAll as jest.Mock).mockImplementationOnce(async () => []);
+    (getVTokenBalancesAll as jest.Mock).mockImplementationOnce(async () => ({ balances: [] }));
 
     const fakeContract = {
       methods: {

@@ -49,23 +49,25 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
     },
   });
 
-  const { data: vTokenBalancesTreasury = [], isLoading: isGetVTokenBalancesTreasuryLoading } =
-    useGetVTokenBalancesAll(
-      {
-        account: treasuryAddress,
-        vTokenAddresses,
-      },
-      {
-        placeholderData: [],
-        refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
-      },
-    );
+  const {
+    data: vTokenBalancesTreasury = { balances: [] },
+    isLoading: isGetVTokenBalancesTreasuryLoading,
+  } = useGetVTokenBalancesAll(
+    {
+      account: treasuryAddress,
+      vTokenAddresses,
+    },
+    {
+      placeholderData: { balances: [] },
+      refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
+    },
+  );
 
   const treasuryBalances = useMemo(
     () =>
       indexBy(
-        (item: IGetVTokenBalancesAllOutput[number]) => item.vToken.toLowerCase(), // index by vToken address
-        vTokenBalancesTreasury,
+        (item: IGetVTokenBalancesAllOutput['balances'][number]) => item.vToken.toLowerCase(), // index by vToken address
+        vTokenBalancesTreasury.balances,
       ),
     [JSON.stringify(vTokenBalancesTreasury)],
   );
