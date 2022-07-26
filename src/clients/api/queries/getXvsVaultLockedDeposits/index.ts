@@ -13,7 +13,9 @@ const getXvsVaultLockedDeposits = async ({
     .getWithdrawalRequests(rewardTokenAddress, poolIndex, accountAddress)
     .call();
 
-  return res.map(formatToLockedDeposit);
+  return {
+    lockedDeposits: res.map(formatToLockedDeposit),
+  };
 };
 
 export default getXvsVaultLockedDeposits;

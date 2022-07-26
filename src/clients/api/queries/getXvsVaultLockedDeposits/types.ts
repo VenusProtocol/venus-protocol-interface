@@ -9,4 +9,6 @@ export interface GetXvsVaultLockedDepositsInput {
   accountAddress: string;
 }
 
-export type GetXvsVaultLockedDepositsOutput = LockedDeposit[];
+export type GetXvsVaultLockedDepositsOutput = {
+  lockedDeposits: LockedDeposit[];
+};

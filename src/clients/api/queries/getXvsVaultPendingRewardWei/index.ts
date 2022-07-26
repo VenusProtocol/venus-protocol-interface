@@ -20,6 +20,7 @@ const getXvsVaultPendingRewardWei = async ({
   const res = await xvsVaultContract.methods
     .pendingReward(rewardTokenAddress, poolIndex, accountAddress)
     .call();
+
   return new BigNumber(res);
 };
 
