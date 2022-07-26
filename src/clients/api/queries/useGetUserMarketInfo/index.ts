@@ -44,7 +44,7 @@ const useGetUserMarketInfo = ({
 }: {
   accountAddress?: string;
 }): UseGetUserMarketInfoOutput => {
-  const { data: userMintedVaiWei, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
+  const { data: userMintedVaiData, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
     {
       accountAddress: accountAddress || '',
     },
@@ -219,9 +219,9 @@ const useGetUserMarketInfo = ({
     let assetList = assets;
 
     const userTotalBorrowBalanceWithUserMintedVai = userTotalBorrowBalanceCents.plus(
-      userMintedVaiWei
+      userMintedVaiData
         ? convertWeiToTokens({
-            valueWei: userMintedVaiWei,
+            valueWei: userMintedVaiData.mintedVaiWei,
             tokenId: TOKENS.vai.id as TokenId,
           })
             // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
@@ -251,7 +251,7 @@ const useGetUserMarketInfo = ({
       totalXvsDistributedWei,
     };
   }, [
-    userMintedVaiWei?.toFixed(),
+    userMintedVaiData?.mintedVaiWei.toFixed(),
     JSON.stringify(marketsMap),
     JSON.stringify(assetsInAccount),
     JSON.stringify(vTokenBalances),
