@@ -134,7 +134,7 @@ const Governance: React.FC = () => {
 
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
-  const { data: currentVotesWei } = useGetCurrentVotes(
+  const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress },
     { enabled: !!accountAddress },
   );
@@ -151,7 +151,7 @@ const Governance: React.FC = () => {
 
   // User has enough votingWeight to create proposal and doesn't currently have an active or pending proposal
   const canCreateProposal =
-    currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
+    currentVotesData?.votesWei.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
     latestProposalState !== '0' &&
     latestProposalState !== '1';
 

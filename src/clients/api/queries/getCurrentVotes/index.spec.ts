@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { XvsVault } from 'types/contracts';
 
-import getCurrentVotes, { GetCurrentVotesOutput } from '.';
+import getCurrentVotes from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
@@ -31,7 +31,7 @@ describe('api/queries/getCurrentVotes', () => {
   });
 
   test('returns current votes on success', async () => {
-    const fakeOutput: GetCurrentVotesOutput = new BigNumber('0');
+    const fakeOutput = '1000';
 
     const callMock = jest.fn(async () => fakeOutput);
     const getCurrentVotesMock = jest.fn(() => ({
@@ -52,6 +52,8 @@ describe('api/queries/getCurrentVotes', () => {
     expect(getCurrentVotesMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(getCurrentVotesMock).toHaveBeenCalledWith(fakeAccountAddress);
-    expect(response).toStrictEqual(fakeOutput);
+    expect(response).toEqual({
+      votesWei: new BigNumber(fakeOutput),
+    });
   });
 });

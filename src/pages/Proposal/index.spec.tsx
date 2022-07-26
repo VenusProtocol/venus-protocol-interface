@@ -70,7 +70,9 @@ describe('pages/Proposal', () => {
       isLoading: false,
     }));
 
-    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber('100000000000000000'));
+    (getCurrentVotes as jest.Mock).mockImplementation(() => ({
+      votesWei: new BigNumber('100000000000000000'),
+    }));
   });
 
   it('renders without crashing', async () => {
@@ -116,7 +118,7 @@ describe('pages/Proposal', () => {
   });
 
   it('vote buttons are disabled when voting weight is 0', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber(0));
+    (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
@@ -276,9 +278,9 @@ describe('pages/Proposal', () => {
   });
 
   it('allows user with enough voting weight to cancel', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementation(
-      () => new BigNumber(CREATE_PROPOSAL_THRESHOLD_WEI),
-    );
+    (getCurrentVotes as jest.Mock).mockImplementation(() => ({
+      votesWei: new BigNumber(CREATE_PROPOSAL_THRESHOLD_WEI),
+    }));
     const { getByText } = renderComponent(<Proposal />, {
       authContextValue: {
         account: {
@@ -299,7 +301,7 @@ describe('pages/Proposal', () => {
   });
 
   it('user with not enough voting weight cannot cancel', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementation(() => new BigNumber(0));
+    (getCurrentVotes as jest.Mock).mockImplementation(() => ({ votesWei: new BigNumber(0) }));
     const { getByTestId } = renderComponent(<Proposal />, {
       authContextValue: {
         account: {
