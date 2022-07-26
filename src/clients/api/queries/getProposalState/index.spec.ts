@@ -26,11 +26,13 @@ describe('api/queries/getProposalState', () => {
     }
   });
 
-  test('returns state for proposal', async () => {
+  test('returns state of proposal', async () => {
+    const fakeState = '1';
+
     const fakeContract = {
       methods: {
         state: () => ({
-          call: async () => '1',
+          call: async () => fakeState,
         }),
       },
     } as unknown as GovernorBravoDelegate;
@@ -39,6 +41,8 @@ describe('api/queries/getProposalState', () => {
       governorBravoContract: fakeContract,
       proposalId: '1',
     });
-    expect(response).toStrictEqual('1');
+    expect(response).toEqual({
+      state: fakeState,
+    });
   });
 });
