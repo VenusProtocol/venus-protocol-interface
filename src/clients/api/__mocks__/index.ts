@@ -151,9 +151,9 @@ export const getVaiVaultUserInfo = jest.fn();
 export const useGetVaiVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);
 
-export const getVaiVaultPendingXvsWei = jest.fn();
-export const useGetVaiVaultPendingXvsWei = () =>
-  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, fakeAddress], getVaiVaultPendingXvsWei);
+export const getVaiVaultPendingXvs = jest.fn();
+export const useGetVaiVaultPendingXvs = () =>
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, fakeAddress], getVaiVaultPendingXvs);
 
 export const useGetVestingVaults = jest.fn();
 
