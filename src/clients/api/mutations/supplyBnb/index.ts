@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { getVBepToken } from 'utilities';
 import Web3 from 'web3';
 import type { TransactionReceipt } from 'web3-core';
 
+import { VBEP_TOKENS } from 'constants/tokens';
 import { VBnbToken } from 'types/contracts';
 
 export interface SupplyBnbInput {
@@ -12,8 +12,6 @@ export interface SupplyBnbInput {
   account: string;
   amountWei: BigNumber;
 }
-
-const vBnbAddress = getVBepToken('bnb').address;
 
 export type SupplyBnbOutput = TransactionReceipt;
 
@@ -26,7 +24,7 @@ const supplyBnb = async ({
   const contractData = tokenContract.methods.mint().encodeABI();
   const tx = {
     from: account,
-    to: vBnbAddress,
+    to: VBEP_TOKENS.bnb.address,
     value: amountWei.toFixed(),
     data: contractData,
   };
