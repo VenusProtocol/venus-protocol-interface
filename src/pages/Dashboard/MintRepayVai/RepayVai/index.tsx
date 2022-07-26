@@ -180,7 +180,7 @@ const RepayVai: React.FC = () => {
       disabled={!account}
       isInitialLoading={isInitialLoading}
       userBalanceWei={userVaiBalanceData?.balanceWei}
-      userMintedWei={userMintedVaiWei}
+      userMintedWei={userMintedVaiData?.mintedVaiWei}
       isRepayVaiLoading={isRepayVaiLoading}
       repayVai={repayVai}
     />

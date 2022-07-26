@@ -22,7 +22,9 @@ describe('api/queries/useGetUserMarketInfo', () => {
     (getAssetsInAccount as jest.Mock).mockImplementation(() => ({
       tokenAddresses: assetsInAccount,
     }));
-    (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
+    (getMintedVai as jest.Mock).mockImplementation(() => ({
+      mintedVaiWei: fakeUserVaiMintedWei,
+    }));
 
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(({ account }) => {
       if (account === fakeAddress) {
