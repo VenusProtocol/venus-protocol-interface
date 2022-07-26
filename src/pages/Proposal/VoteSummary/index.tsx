@@ -6,7 +6,7 @@ import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'compo
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Voter } from 'types';
+import { VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import Path from 'constants/path';
@@ -19,7 +19,7 @@ interface VoteSummaryProps {
   progressBarColor: string;
   votedValueWei?: BigNumber;
   votedTotalWei?: BigNumber;
-  voters?: Voter['result'];
+  voters?: VotersDetails['result'];
   className?: string;
   votingEnabled: boolean;
   openVoteModal: () => void;
