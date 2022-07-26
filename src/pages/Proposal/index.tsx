@@ -130,20 +130,21 @@ const Proposal = () => {
   const accountAddress = account?.address;
   const { data: proposal } = useGetProposal({ id }, { enabled: !!id });
 
-  const { data: votingWeightWei = new BigNumber(0) } = useGetCurrentVotes(
-    { accountAddress: accountAddress || '' },
-    { enabled: !!accountAddress },
-  );
+  const {
+    data: votingWeightData = {
+      votesWei: new BigNumber(0),
+    },
+  } = useGetCurrentVotes({ accountAddress: accountAddress || '' }, { enabled: !!accountAddress });
 
   const readableVoteWeight = useMemo(
     () =>
       convertWeiToTokens({
-        valueWei: votingWeightWei,
+        valueWei: votingWeightData.votesWei,
         tokenId: 'xvs',
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightWei],
+    [votingWeightData?.votesWei.toFixed()],
   );
 
   const defaultValue = {
@@ -178,7 +179,7 @@ const Proposal = () => {
     !!accountAddress &&
     proposal?.state === 'Active' &&
     userVoteReceipt?.voteSupport === 'NOT_VOTED' &&
-    votingWeightWei.isGreaterThan(0);
+    votingWeightData.votesWei.isGreaterThan(0);
 
   return (
     <ProposalUi

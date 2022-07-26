@@ -182,7 +182,7 @@ const VotingWallet: React.FC = () => {
   const { account: { address: accountAddress } = { address: undefined }, openAuthModal } =
     useContext(AuthContext);
 
-  const { data: currentVotesWei } = useGetCurrentVotes(
+  const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
@@ -219,7 +219,7 @@ const VotingWallet: React.FC = () => {
       connectedWallet={!!accountAddress}
       openAuthModal={openAuthModal}
       currentUserAccountAddress={accountAddress}
-      votingWeightWei={currentVotesWei || new BigNumber(0)}
+      votingWeightWei={currentVotesData?.votesWei || new BigNumber(0)}
       userStakedWei={userStakedWei}
       delegate={delegate}
       setVoteDelegation={(delegateAddress: string) =>
