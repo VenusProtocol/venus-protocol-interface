@@ -88,6 +88,7 @@ const VoteModal: React.FC<VoteModalProps> = ({
               name="reason"
               id="reason"
               placeholder={t('vote.addComment')}
+              maxLength={256}
               css={styles.comment}
             />
             <FormikSubmitButton
