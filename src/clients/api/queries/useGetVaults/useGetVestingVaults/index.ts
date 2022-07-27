@@ -140,11 +140,11 @@ const useGetVestingVaults = ({
 
           const poolRewardWeiPerBlock =
             xvsVaultRewardWeiPerBlock?.rewardPerBlockWei &&
-            xvsVaultTotalAllocationPoints &&
+            xvsVaultTotalAllocationPointsData?.totalAllocationPoints &&
             poolData[poolIndex]?.poolInfos.allocationPoint &&
             xvsVaultRewardWeiPerBlock.rewardPerBlockWei
               .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
-              .div(xvsVaultTotalAllocationPoints);
+              .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints);
 
           const dailyEmissionWei =
             poolRewardWeiPerBlock && poolRewardWeiPerBlock.multipliedBy(BLOCKS_PER_DAY);
@@ -189,7 +189,7 @@ const useGetVestingVaults = ({
       JSON.stringify(poolData),
       JSON.stringify(poolBalances),
       xvsVaultRewardWeiPerBlock?.rewardPerBlockWei.toFixed(),
-      xvsVaultTotalAllocationPoints,
+      xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
     ],
   );
 

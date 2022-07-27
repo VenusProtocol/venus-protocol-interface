@@ -39,9 +39,9 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultPoolCount as jest.Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,
     }));
-    (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(
-      () => xvsVaultResponses.totalAllocPoints,
-    );
+    (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(() => ({
+      totalAllocationPoints: xvsVaultResponses.totalAllocPoints,
+    }));
     (getXvsVaultRewardPerBlock as jest.Mock).mockImplementation(() => ({
       rewardPerBlockWei: new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock),
     }));
