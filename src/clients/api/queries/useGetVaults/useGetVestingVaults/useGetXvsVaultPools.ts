@@ -56,7 +56,7 @@ const useGetXvsVaultPools = ({
           accountAddress: accountAddress || '',
         }),
       queryKey: [
-        FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
+        FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
         { accountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
       ],
       enabled: !!accountAddress,

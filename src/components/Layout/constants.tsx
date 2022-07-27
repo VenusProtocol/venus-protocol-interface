@@ -2,7 +2,7 @@ import { MenuItem } from './types';
 
 export const menuItems: MenuItem[] = [
   {
-    href: '/dashboard',
+    href: '/',
     // Translation key: do not remove this comment
     // t('layout.menuItems.dashboard')
     i18nKey: 'layout.menuItems.dashboard',
