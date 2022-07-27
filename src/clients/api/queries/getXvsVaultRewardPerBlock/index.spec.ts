@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { TOKENS } from 'constants/tokens';
 import { XvsVault } from 'types/contracts';
 
-import getXvsVaultRewardWeiPerBlock from '.';
+import getXvsVaultRewardPerBlock from '.';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 

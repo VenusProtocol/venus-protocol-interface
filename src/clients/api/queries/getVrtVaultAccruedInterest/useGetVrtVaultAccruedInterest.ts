@@ -1,6 +1,6 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
-import getXvsVaultRewardWeiPerBlock, {
+import getVrtVaultAccruedInterest, {
   GetVrtVaultAccruedInterestInput,
   GetVrtVaultAccruedInterestOutput,
 } from 'clients/api/queries/getVrtVaultAccruedInterest';
@@ -24,7 +24,7 @@ const useGetVrtVaultAccruedInterest = (
 
   return useQuery(
     [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST, accountAddress],
-    () => getXvsVaultRewardWeiPerBlock({ accountAddress, vrtVaultContract }),
+    () => getVrtVaultAccruedInterest({ accountAddress, vrtVaultContract }),
     {
       ...options,
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
