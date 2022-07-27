@@ -18,8 +18,9 @@ import {
   getVrtVaultInterestRatePerBlock,
   getVrtVaultUserInfo,
   getXvsVaultPendingReward,
+  getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
-  getXvsVaultRewardPerBlock,
+  getXvsVaultRewardWeiPerBlock,
   getXvsVaultTotalAllocationPoints,
   getXvsVaultUserInfo,
 } from 'clients/api';
@@ -35,7 +36,9 @@ jest.mock('clients/api');
 
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {
-    (getXvsVaultPoolsCount as jest.Mock).mockImplementation(() => xvsVaultResponses.poolLength);
+    (getXvsVaultPoolCount as jest.Mock).mockImplementation(() => ({
+      poolCount: xvsVaultResponses.poolLength,
+    }));
     (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(
       () => xvsVaultResponses.totalAllocPoints,
     );
