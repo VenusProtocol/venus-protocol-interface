@@ -3,11 +3,11 @@ import BigNumber from 'bignumber.js';
 import { TOKENS } from 'constants/tokens';
 import { XvsVault } from 'types/contracts';
 
-import getXvsVaultRewardWeiPerBlock from '.';
+import getXvsVaultRewardPerBlock from '.';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 
-describe('api/queries/getXvsVaultRewardWeiPerBlock', () => {
+describe('api/queries/getXvsVaultRewardPerBlock', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -20,12 +20,12 @@ describe('api/queries/getXvsVaultRewardWeiPerBlock', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultRewardWeiPerBlock({
+      await getXvsVaultRewardPerBlock({
         xvsVaultContract: fakeContract,
         tokenAddress: xvsTokenAddress,
       });
 
-      throw new Error('getXvsVaultRewardWeiPerBlock should have thrown an error but did not');
+      throw new Error('getXvsVaultRewardPerBlock should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
@@ -45,7 +45,7 @@ describe('api/queries/getXvsVaultRewardWeiPerBlock', () => {
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultRewardWeiPerBlock({
+    const response = await getXvsVaultRewardPerBlock({
       xvsVaultContract: fakeContract,
       tokenAddress: xvsTokenAddress,
     });
@@ -53,6 +53,8 @@ describe('api/queries/getXvsVaultRewardWeiPerBlock', () => {
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledTimes(1);
     expect(rewardTokenAmountsPerBlockMock).toHaveBeenCalledWith(xvsTokenAddress);
-    expect(response).toStrictEqual(new BigNumber(fakeOutput));
+    expect(response).toEqual({
+      rewardPerBlockWei: new BigNumber(fakeOutput),
+    });
   });
 });

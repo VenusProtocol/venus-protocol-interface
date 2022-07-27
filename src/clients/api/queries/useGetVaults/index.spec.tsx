@@ -20,7 +20,7 @@ import {
   getXvsVaultPendingReward,
   getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
-  getXvsVaultRewardWeiPerBlock,
+  getXvsVaultRewardPerBlock,
   getXvsVaultTotalAllocationPoints,
   getXvsVaultUserInfo,
 } from 'clients/api';
@@ -42,9 +42,9 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(
       () => xvsVaultResponses.totalAllocPoints,
     );
-    (getXvsVaultRewardWeiPerBlock as jest.Mock).mockImplementation(
-      () => new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock),
-    );
+    (getXvsVaultRewardPerBlock as jest.Mock).mockImplementation(() => ({
+      rewardPerBlockWei: new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock),
+    }));
     (getXvsVaultPendingReward as jest.Mock).mockImplementation(() => ({
       pendingXvsReward: new BigNumber(xvsVaultResponses.pendingReward),
     }));
