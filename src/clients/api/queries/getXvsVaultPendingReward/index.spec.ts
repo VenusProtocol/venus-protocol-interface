@@ -4,7 +4,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { TOKENS } from 'constants/tokens';
 import { XvsVault } from 'types/contracts';
 
-import getXvsVaultPendingRewardWei from '.';
+import getXvsVaultPendingReward from '.';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 const fakePid = 1;
