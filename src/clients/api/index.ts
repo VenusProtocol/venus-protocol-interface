@@ -232,9 +232,9 @@ export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
 export * from './queries/getXvsVaultPoolInfo';
 export { default as useGetXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo/useGetXvsVaultPoolInfo';
 
-export { default as getXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock';
-export * from './queries/getXvsVaultRewardWeiPerBlock';
-export { default as useGetXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock/useGetXvsVaultRewardWeiPerBlock';
+export { default as getXvsVaultRewardPerBlock } from './queries/getXvsVaultRewardPerBlock';
+export * from './queries/getXvsVaultRewardPerBlock';
+export { default as useGetXvsVaultRewardPerBlock } from './queries/getXvsVaultRewardPerBlock/useGetXvsVaultRewardPerBlock';
 
 export { default as getXvsVaultPendingReward } from './queries/getXvsVaultPendingReward';
 export * from './queries/getXvsVaultPendingReward';

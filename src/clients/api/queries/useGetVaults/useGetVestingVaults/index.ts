@@ -8,7 +8,7 @@ import {
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
   useGetXvsVaultPoolCount,
-  useGetXvsVaultRewardWeiPerBlock,
+  useGetXvsVaultRewardPerBlock,
   useGetXvsVaultTotalAllocationPoints,
 } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
@@ -119,7 +119,7 @@ const useGetVestingVaults = ({
 
   const isLoading =
     isGetXvsVaultPoolCountLoading ||
-    isGetXvsVaultRewardWeiPerBlockLoading ||
+    isGetXvsVaultRewardPerBlockLoading ||
     isGetXvsVaultTotalAllocationPointsLoading ||
     arePoolQueriesLoading ||
     arePoolBalanceQueriesLoading;
@@ -139,10 +139,10 @@ const useGetVestingVaults = ({
             getTokenByAddress(poolData[poolIndex]?.poolInfos.stakedTokenAddress)?.id;
 
           const poolRewardWeiPerBlock =
-            xvsVaultRewardWeiPerBlock &&
+            xvsVaultRewardWeiPerBlock?.rewardPerBlockWei &&
             xvsVaultTotalAllocationPoints &&
             poolData[poolIndex]?.poolInfos.allocationPoint &&
-            xvsVaultRewardWeiPerBlock
+            xvsVaultRewardWeiPerBlock.rewardPerBlockWei
               .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
               .div(xvsVaultTotalAllocationPoints);
 
@@ -189,7 +189,7 @@ const useGetVestingVaults = ({
       JSON.stringify(poolData),
       JSON.stringify(poolBalances),
       xvsVaultRewardWeiPerBlock?.rewardPerBlockWei.toFixed(),
-      xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
+      xvsVaultTotalAllocationPoints,
     ],
   );
 
