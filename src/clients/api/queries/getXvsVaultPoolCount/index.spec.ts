@@ -1,7 +1,7 @@
 import { TOKENS } from 'constants/tokens';
 import { XvsVault } from 'types/contracts';
 
-import getXvsVaultPoolsCount, { GetXvsVaultPoolsCountOutput } from '.';
+import getXvsVaultPoolCount from '.';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 
