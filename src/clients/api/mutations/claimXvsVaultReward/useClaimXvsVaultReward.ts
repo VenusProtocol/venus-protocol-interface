@@ -32,7 +32,7 @@ const useClaimXvsVaultReward = (options?: Options) => {
         const { fromAccountAddress, poolIndex } = onSuccessParams[1];
 
         queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
+          FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
           { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
         ]);
 

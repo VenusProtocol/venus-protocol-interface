@@ -46,7 +46,7 @@ const useExecuteWithdrawalFromXvsVault = (
 
         // Invalidate cached user pending reward
         queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
+          FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
           { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
         ]);
 
