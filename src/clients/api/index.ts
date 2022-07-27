@@ -224,9 +224,9 @@ export { default as getTransactions } from './queries/getTransactions';
 export * from './queries/getTransactions';
 export { default as useGetTransactions } from './queries/getTransactions/useGetTransactions';
 
-export { default as getXvsVaultPoolsCount } from './queries/getXvsVaultPoolsCount';
-export * from './queries/getXvsVaultPoolsCount';
-export { default as useGetXvsVaultPoolsCount } from './queries/getXvsVaultPoolsCount/useGetXvsVaultPoolsCount';
+export { default as getXvsVaultPoolCount } from './queries/getXvsVaultPoolCount';
+export * from './queries/getXvsVaultPoolCount';
+export { default as useGetXvsVaultPoolCount } from './queries/getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 
 export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
 export * from './queries/getXvsVaultPoolInfo';

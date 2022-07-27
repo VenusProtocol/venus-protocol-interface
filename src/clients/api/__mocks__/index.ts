@@ -91,9 +91,9 @@ export const useGetTransactions = jest.fn(() =>
   useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions),
 );
 
-export const getXvsVaultPoolsCount = jest.fn();
-export const useGetXvsVaultPoolsCount = () =>
-  useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolsCount);
+export const getXvsVaultPoolCount = jest.fn();
+export const useGetXvsVaultPoolCount = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolCount);
 
 export const useGetTreasuryTotals = jest.fn();
 

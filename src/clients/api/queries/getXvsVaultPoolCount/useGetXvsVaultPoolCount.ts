@@ -1,27 +1,27 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
-import getXvsVaultPoolsCount, {
-  GetXvsVaultPoolsCountOutput,
-} from 'clients/api/queries/getXvsVaultPoolsCount';
+import getXvsVaultPoolCount, {
+  GetXvsVaultPoolCountOutput,
+} from 'clients/api/queries/getXvsVaultPoolCount';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  GetXvsVaultPoolsCountOutput,
+  GetXvsVaultPoolCountOutput,
   Error,
-  GetXvsVaultPoolsCountOutput,
-  GetXvsVaultPoolsCountOutput,
+  GetXvsVaultPoolCountOutput,
+  GetXvsVaultPoolCountOutput,
   FunctionKey.GET_XVS_VAULT_POOLS_COUNT
 >;
 
-const useGetXvsVaultPoolsCount = (options?: Options) => {
+const useGetXvsVaultPoolCount = (options?: Options) => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useQuery(
     FunctionKey.GET_XVS_VAULT_POOLS_COUNT,
-    () => getXvsVaultPoolsCount({ xvsVaultContract }),
+    () => getXvsVaultPoolCount({ xvsVaultContract }),
     options,
   );
 };
 
-export default useGetXvsVaultPoolsCount;
+export default useGetXvsVaultPoolCount;
