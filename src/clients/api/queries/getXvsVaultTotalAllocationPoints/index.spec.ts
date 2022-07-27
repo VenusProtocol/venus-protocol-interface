@@ -50,6 +50,8 @@ describe('api/queries/getXvsVaultTotalAllocationPoints', () => {
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(totalAllocPointsMock).toHaveBeenCalledTimes(1);
     expect(totalAllocPointsMock).toHaveBeenCalledWith(fakeTokenAddress);
-    expect(response).toStrictEqual(+fakeOutput);
+    expect(response).toEqual({
+      totalAllocationPoints: +fakeOutput,
+    });
   });
 });

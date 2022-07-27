@@ -5,14 +5,19 @@ export interface GetXvsVaultTotalAllocPointsInput {
   tokenAddress: string;
 }
 
-export type GetXvsVaultTotalAllocPointsOutput = number;
+export type GetXvsVaultTotalAllocPointsOutput = {
+  totalAllocationPoints: number;
+};
 
 const getXvsVaultTotalAllocationPoints = async ({
   xvsVaultContract,
   tokenAddress,
 }: GetXvsVaultTotalAllocPointsInput): Promise<GetXvsVaultTotalAllocPointsOutput> => {
   const res = await xvsVaultContract.methods.totalAllocPoints(tokenAddress).call();
-  return +res;
+
+  return {
+    totalAllocationPoints: +res,
+  };
 };
 
 export default getXvsVaultTotalAllocationPoints;
