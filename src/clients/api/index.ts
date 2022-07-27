@@ -236,8 +236,8 @@ export { default as getXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRe
 export * from './queries/getXvsVaultRewardWeiPerBlock';
 export { default as useGetXvsVaultRewardWeiPerBlock } from './queries/getXvsVaultRewardWeiPerBlock/useGetXvsVaultRewardWeiPerBlock';
 
-export { default as getXvsVaultPendingRewardWei } from './queries/getXvsVaultPendingRewardWei';
-export * from './queries/getXvsVaultPendingRewardWei';
+export { default as getXvsVaultPendingReward } from './queries/getXvsVaultPendingReward';
+export * from './queries/getXvsVaultPendingReward';
 
 export { default as getXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints';
 export * from './queries/getXvsVaultTotalAllocationPoints';

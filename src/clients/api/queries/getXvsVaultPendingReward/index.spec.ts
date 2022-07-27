@@ -4,12 +4,12 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { TOKENS } from 'constants/tokens';
 import { XvsVault } from 'types/contracts';
 
-import getXvsVaultPendingRewardWei from '.';
+import getXvsVaultPendingReward from '.';
 
 const xvsTokenAddress = TOKENS.xvs.address;
 const fakePid = 1;
 
-describe('api/queries/getXvsVaultPendingRewardWei', () => {
+describe('api/queries/getXvsVaultPendingReward', () => {
   test('throws an error when request fails', async () => {
     const fakeContract = {
       methods: {
@@ -22,7 +22,7 @@ describe('api/queries/getXvsVaultPendingRewardWei', () => {
     } as unknown as XvsVault;
 
     try {
-      await getXvsVaultPendingRewardWei({
+      await getXvsVaultPendingReward({
         xvsVaultContract: fakeContract,
         rewardTokenAddress: xvsTokenAddress,
         accountAddress: fakeAccountAddress,
@@ -49,7 +49,7 @@ describe('api/queries/getXvsVaultPendingRewardWei', () => {
       },
     } as unknown as XvsVault;
 
-    const response = await getXvsVaultPendingRewardWei({
+    const response = await getXvsVaultPendingReward({
       xvsVaultContract: fakeContract,
       rewardTokenAddress: xvsTokenAddress,
       accountAddress: fakeAccountAddress,
@@ -59,6 +59,8 @@ describe('api/queries/getXvsVaultPendingRewardWei', () => {
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(pendingRewardMock).toHaveBeenCalledTimes(1);
     expect(pendingRewardMock).toHaveBeenCalledWith(xvsTokenAddress, fakePid, fakeAccountAddress);
-    expect(response).toStrictEqual(new BigNumber(fakeOutput));
+    expect(response).toEqual({
+      pendingXvsReward: new BigNumber(fakeOutput),
+    });
   });
 });

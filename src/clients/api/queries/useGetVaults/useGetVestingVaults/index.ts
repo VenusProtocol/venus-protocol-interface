@@ -4,7 +4,7 @@ import { Vault } from 'types';
 import { getTokenByAddress, indexBy } from 'utilities';
 
 import {
-  GetXvsVaultPendingRewardWeiOutput,
+  GetXvsVaultPendingRewardOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
   useGetXvsVaultPoolsCount,
@@ -56,7 +56,7 @@ const useGetVestingVaults = ({
     const data: {
       [poolIndex: string]: {
         poolInfos: GetXvsVaultPoolInfoOutput;
-        userPendingRewardWei?: GetXvsVaultPendingRewardWeiOutput;
+        userPendingReward?: GetXvsVaultPendingRewardOutput;
         userInfos?: GetXvsVaultUserInfoOutput;
       };
     } = {};
@@ -75,7 +75,7 @@ const useGetVestingVaults = ({
 
       const userPendingRewardQueryResult = poolQueryResults[
         poolQueryResultStartIndex + 1
-      ] as UseQueryResult<GetXvsVaultPendingRewardWeiOutput>;
+      ] as UseQueryResult<GetXvsVaultPendingRewardOutput>;
 
       const userInfoQueryResult = poolQueryResults[
         poolQueryResultStartIndex + 2
@@ -87,7 +87,7 @@ const useGetVestingVaults = ({
         data[poolIndex] = {
           poolInfos: poolInfosQueryResult.data,
           userInfos: userInfoQueryResult.data,
-          userPendingRewardWei: userPendingRewardQueryResult.data,
+          userPendingReward: userPendingRewardQueryResult.data,
         };
       }
     }
@@ -127,7 +127,7 @@ const useGetVestingVaults = ({
         const totalStakedWeiData = poolBalances[poolIndex];
         const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
         const userStakedWei = poolData[poolIndex]?.userInfos?.stakedAmountWei;
-        const userPendingRewardWei = poolData[poolIndex]?.userPendingRewardWei;
+        const userPendingRewardWei = poolData[poolIndex]?.userPendingReward?.pendingXvsReward;
 
         const stakedTokenId =
           poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
