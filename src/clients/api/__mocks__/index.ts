@@ -115,7 +115,7 @@ export const getXvsVaultLockedDeposits = jest.fn();
 export const useGetXvsVaultLockedDeposits = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, getXvsVaultLockedDeposits);
 
-export const getXvsVaultPendingRewardWei = jest.fn();
+export const getXvsVaultPendingReward = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
 export const useGetXvsVaultUserInfo = () =>
