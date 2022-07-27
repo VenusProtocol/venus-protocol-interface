@@ -103,9 +103,9 @@ export const getXvsVaultPoolInfo = jest.fn();
 export const useGetXvsVaultPoolInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOL_INFOS, getXvsVaultPoolInfo);
 
-export const getXvsVaultRewardWeiPerBlock = jest.fn();
-export const useGetXvsVaultRewardWeiPerBlock = () =>
-  useQuery(FunctionKey.GET_XVS_VAULT_REWARD_WEI_PER_BLOCK, getXvsVaultRewardWeiPerBlock);
+export const getXvsVaultRewardPerBlock = jest.fn();
+export const useGetXvsVaultRewardPerBlock = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, getXvsVaultRewardPerBlock);
 
 export const getXvsVaultTotalAllocationPoints = jest.fn();
 export const useGetXvsVaultTotalAllocationPoints = () =>
