@@ -34,7 +34,7 @@ const App = () => (
               <Layout>
                 <ResetScrollOnRouteChange />
                 <Switch>
-                  <Route exact path={Path.DASHBOARD} component={Dashboard} />
+                  <Route exact path={Path.ROOT} component={Dashboard} />
 
                   <Route exact path={Path.MARKET} component={Market} />
                   <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
@@ -52,7 +52,7 @@ const App = () => (
 
                   <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
 
-                  <Redirect to={Path.DASHBOARD} />
+                  <Redirect to={Path.ROOT} />
                 </Switch>
               </Layout>
             </BrowserRouter>
