@@ -14,7 +14,7 @@ type Options = QueryObserverOptions<
   Error,
   GetVaiVaultPendingXvsOutput,
   GetVaiVaultPendingXvsOutput,
-  [FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, string]
+  [FunctionKey.GET_VAI_VAULT_PENDING_XVS, string]
 >;
 
 const useGetVaiVaultPendingXvs = (
@@ -24,7 +24,7 @@ const useGetVaiVaultPendingXvs = (
   const vaiVaultContract = useVaiVaultContract();
 
   return useQuery(
-    [FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, accountAddress],
+    [FunctionKey.GET_VAI_VAULT_PENDING_XVS, accountAddress],
     () => getVaiVaultPendingXvs({ vaiVaultContract, accountAddress }),
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
