@@ -18,7 +18,6 @@ import {
   getVrtVaultInterestRatePerBlock,
   getVrtVaultUserInfo,
   getXvsVaultPendingReward,
-  getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
   getXvsVaultRewardPerBlock,
   getXvsVaultTotalAllocationPoints,
@@ -43,9 +42,9 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultRewardWeiPerBlock as jest.Mock).mockImplementation(
       () => new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock),
     );
-    (getXvsVaultPendingRewardWei as jest.Mock).mockImplementation(
-      () => new BigNumber(xvsVaultResponses.pendingReward),
-    );
+    (getXvsVaultPendingReward as jest.Mock).mockImplementation(() => ({
+      pendingXvsReward: new BigNumber(xvsVaultResponses.pendingReward),
+    }));
     (getVaiVaultPendingXvs as jest.Mock).mockImplementation(() => ({
       pendingXvsWei: new BigNumber(vaiVaultResponses.pendingXVS),
     }));
