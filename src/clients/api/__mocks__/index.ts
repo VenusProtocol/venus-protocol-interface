@@ -153,7 +153,7 @@ export const useGetVaiVaultUserInfo = () =>
 
 export const getVaiVaultPendingXvs = jest.fn();
 export const useGetVaiVaultPendingXvs = () =>
-  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, fakeAddress], getVaiVaultPendingXvs);
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvs);
 
 export const useGetVestingVaults = jest.fn();
 
