@@ -9,13 +9,13 @@ import { TypographyVariant } from 'theme/MuiThemeProvider/muiTheme';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-export interface ITokenProps {
+export interface TokenProps {
   className?: string;
   tokenId: TokenId;
   variant?: TypographyVariant;
 }
 
-export const Token: React.FC<ITokenProps> = ({ className, tokenId, variant }) => {
+export const Token: React.FC<TokenProps> = ({ className, tokenId, variant }) => {
   const styles = useStyles();
   const { id, symbol } = getToken(tokenId);
 

@@ -1,0 +1,508 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api/queries/getVTokenApySimulations returns the APY simulations in the correct format on success 1`] = `
+Object {
+  "apySimulations": Array [
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 1,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 2,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 3,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 4,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 5,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 6,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 7.000000000000001,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 8,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 9,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 10,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 11,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 12,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 13,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 14.000000000000002,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 15,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 16,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 17,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 18,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 19,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 20,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 21,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 22,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 23,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 24,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 25,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 26,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 27,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 28.000000000000004,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 28.999999999999996,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 30,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 31,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 32,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 33,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 34,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 35,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 36,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 37,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 38,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 39,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 40,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 41,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 42,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 43,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 44,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 45,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 46,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 47,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 48,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 49,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 50,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 51,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 52,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 53,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 54,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 55.00000000000001,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 56.00000000000001,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 56.99999999999999,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 57.99999999999999,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 59,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 60,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 61,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 62,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 63,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 64,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 65,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 66,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 67,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 68,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 69,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 70,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 71,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 72,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 73,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 74,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 75,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 76,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 77,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 78,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 79,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 80,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 81,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 82,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 83,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 84,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 85,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 86,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 87,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 88,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 89,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 90,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 91,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 92,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 93,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 94,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 95,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 96,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 97,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 98,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 99,
+    },
+    Object {
+      "borrowApyPercentage": 11.050726573367838,
+      "supplyApyPercentage": 23.31891761466374,
+      "utilizationRate": 100,
+    },
+  ],
+}
+`;

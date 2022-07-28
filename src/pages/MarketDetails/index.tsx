@@ -2,9 +2,9 @@
 import BigNumber from 'bignumber.js';
 import {
   ApyChart,
-  IApyChartProps,
-  IInterestRateChartProps,
+  ApyChartProps,
   InterestRateChart,
+  InterestRateChartProps,
   Spinner,
 } from 'components';
 import React from 'react';
@@ -23,18 +23,18 @@ import { useGetVTokenApySimulations } from 'clients/api';
 import Path from 'constants/path';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import Card, { ICardProps } from './Card';
-import MarketInfo, { IMarketInfoProps } from './MarketInfo';
+import Card, { CardProps } from './Card';
+import MarketInfo, { MarketInfoProps } from './MarketInfo';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
-export interface IMarketDetailsUiProps {
+export interface MarketDetailsUiProps {
   vTokenId: VTokenId;
-  supplyChartData: IApyChartProps['data'];
-  borrowChartData: IApyChartProps['data'];
-  interestRateChartData: IInterestRateChartProps['data'];
+  supplyChartData: ApyChartProps['data'];
+  borrowChartData: ApyChartProps['data'];
+  interestRateChartData: InterestRateChartProps['data'];
   totalBorrowBalanceCents?: number;
   totalSupplyBalanceCents?: number;
   borrowApyPercentage?: BigNumber;
@@ -55,7 +55,7 @@ export interface IMarketDetailsUiProps {
   currentUtilizationRate?: number;
 }
 
-export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
+export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   vTokenId,
   totalBorrowBalanceCents,
   borrowApyPercentage,
@@ -85,7 +85,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
   const token = getToken(vTokenId);
   const vToken = getVBepToken(vTokenId);
 
-  const supplyInfoStats: ICardProps['stats'] = React.useMemo(
+  const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
       {
         label: t('marketDetails.supplyInfo.stats.totalSupply'),
@@ -106,14 +106,14 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     [totalSupplyBalanceCents?.toFixed(), supplyApyPercentage, supplyDistributionApyPercentage],
   );
 
-  const supplyInfoLegends: ICardProps['legends'] = [
+  const supplyInfoLegends: CardProps['legends'] = [
     {
       label: t('marketDetails.legends.supplyApy'),
       color: styles.legendColors.supplyApy,
     },
   ];
 
-  const borrowInfoStats: ICardProps['stats'] = React.useMemo(
+  const borrowInfoStats: CardProps['stats'] = React.useMemo(
     () => [
       {
         label: t('marketDetails.borrowInfo.stats.totalBorrow'),
@@ -134,14 +134,14 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     [totalBorrowBalanceCents?.toFixed(), borrowApyPercentage, borrowDistributionApyPercentage],
   );
 
-  const borrowInfoLegends: ICardProps['legends'] = [
+  const borrowInfoLegends: CardProps['legends'] = [
     {
       label: t('marketDetails.legends.borrowApy'),
       color: styles.legendColors.borrowApy,
     },
   ];
 
-  const interestRateModelLegends: ICardProps['legends'] = [
+  const interestRateModelLegends: CardProps['legends'] = [
     {
       label: t('marketDetails.legends.utilizationRate'),
       color: styles.legendColors.utilizationRate,
@@ -156,7 +156,7 @@ export const MarketDetailsUi: React.FC<IMarketDetailsUiProps> = ({
     },
   ];
 
-  const marketInfoStats: IMarketInfoProps['stats'] = React.useMemo(
+  const marketInfoStats: MarketInfoProps['stats'] = React.useMemo(
     () => [
       {
         label: t('marketDetails.marketInfo.stats.priceLabel'),
@@ -324,7 +324,11 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     vTokenId,
   });
 
-  const { data: interestRateChartData = [] } = useGetVTokenApySimulations({
+  const {
+    data: interestRateChartData = {
+      apySimulations: [],
+    },
+  } = useGetVTokenApySimulations({
     vTokenId,
     reserveFactorMantissa,
   });
@@ -334,7 +338,7 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
       vTokenId={vTokenId}
       {...marketData}
       {...chartData}
-      interestRateChartData={interestRateChartData}
+      interestRateChartData={interestRateChartData.apySimulations}
     />
   );
 };

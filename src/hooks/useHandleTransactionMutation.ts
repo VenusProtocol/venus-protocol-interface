@@ -6,7 +6,7 @@ import useSuccessfulTransactionModal, {
   OpenSuccessfulTransactionModalInput,
 } from 'hooks/useSuccessfulTransactionModal';
 
-export interface IHandleMutationInput {
+export interface HandleMutationInput {
   mutate: () => Promise<TransactionReceipt | void>;
   successTransactionModalProps: (
     transactionReceipt: TransactionReceipt,
@@ -16,7 +16,7 @@ export interface IHandleMutationInput {
 const useHandleTransactionMutation = () => {
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
-  const handleMutation = async ({ mutate, successTransactionModalProps }: IHandleMutationInput) => {
+  const handleMutation = async ({ mutate, successTransactionModalProps }: HandleMutationInput) => {
     try {
       // Send request
       const transactionReceipt = await mutate();

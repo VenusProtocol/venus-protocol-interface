@@ -82,18 +82,18 @@ export const getVTokenSupplyRate = jest.fn();
 
 export const getVTokenBorrowRate = jest.fn();
 
-export const getVenusVaiVaultDailyRateWei = jest.fn();
-export const useGetVenusVaiVaultDailyRateWei = () =>
-  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE_WEI, getVenusVaiVaultDailyRateWei);
+export const getVenusVaiVaultDailyRate = jest.fn();
+export const useGetVenusVaiVaultDailyRate = () =>
+  useQuery(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE, getVenusVaiVaultDailyRate);
 
 export const getTransactions = jest.fn();
 export const useGetTransactions = jest.fn(() =>
   useQuery([FunctionKey.GET_TRANSACTIONS, {}], getTransactions),
 );
 
-export const getXvsVaultPoolsCount = jest.fn();
-export const useGetXvsVaultPoolsCount = () =>
-  useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolsCount);
+export const getXvsVaultPoolCount = jest.fn();
+export const useGetXvsVaultPoolCount = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolCount);
 
 export const useGetTreasuryTotals = jest.fn();
 
@@ -103,9 +103,9 @@ export const getXvsVaultPoolInfo = jest.fn();
 export const useGetXvsVaultPoolInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOL_INFOS, getXvsVaultPoolInfo);
 
-export const getXvsVaultRewardWeiPerBlock = jest.fn();
-export const useGetXvsVaultRewardWeiPerBlock = () =>
-  useQuery(FunctionKey.GET_XVS_VAULT_REWARD_WEI_PER_BLOCK, getXvsVaultRewardWeiPerBlock);
+export const getXvsVaultRewardPerBlock = jest.fn();
+export const useGetXvsVaultRewardPerBlock = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, getXvsVaultRewardPerBlock);
 
 export const getXvsVaultTotalAllocationPoints = jest.fn();
 export const useGetXvsVaultTotalAllocationPoints = () =>
@@ -115,7 +115,7 @@ export const getXvsVaultLockedDeposits = jest.fn();
 export const useGetXvsVaultLockedDeposits = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, getXvsVaultLockedDeposits);
 
-export const getXvsVaultPendingRewardWei = jest.fn();
+export const getXvsVaultPendingReward = jest.fn();
 
 export const getXvsVaultUserInfo = jest.fn();
 export const useGetXvsVaultUserInfo = () =>
@@ -130,9 +130,8 @@ export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProp
 export const getProposal = jest.fn(() => proposals[0]);
 export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);
 
-export const getDailyXvsWei = jest.fn();
-export const useGetDailyXvsWei = () =>
-  useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS_WEI, getDailyXvsWei);
+export const getDailyXvs = jest.fn();
+export const useGetDailyXvs = () => useQuery(FunctionKey.GET_V_TOKEN_DAILY_XVS, getDailyXvs);
 
 export const getVoters = jest.fn(() => voters);
 export const useGetVoters = jest.fn(() => useQuery(FunctionKey.GET_VOTERS, getVoters));
@@ -152,9 +151,9 @@ export const getVaiVaultUserInfo = jest.fn();
 export const useGetVaiVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);
 
-export const getVaiVaultPendingXvsWei = jest.fn();
-export const useGetVaiVaultPendingXvsWei = () =>
-  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS_WEI, fakeAddress], getVaiVaultPendingXvsWei);
+export const getVaiVaultPendingXvs = jest.fn();
+export const useGetVaiVaultPendingXvs = () =>
+  useQuery([FunctionKey.GET_VAI_VAULT_PENDING_XVS, fakeAddress], getVaiVaultPendingXvs);
 
 export const useGetVestingVaults = jest.fn();
 
@@ -172,18 +171,15 @@ export const useGetActiveProposal = jest.fn();
 
 export const getVrtVaultInterestRatePerBlock = jest.fn();
 export const useGetVrtVaultInterestRatePerBlock = () =>
-  useQuery(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK, getVrtVaultInterestRatePerBlock);
+  useQuery(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_PER_BLOCK, getVrtVaultInterestRatePerBlock);
 
 export const getVrtVaultUserInfo = jest.fn();
 export const useGetVrtVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VRT_VAULT_USER_INFO, fakeAddress], getVrtVaultUserInfo);
 
-export const getVrtVaultAccruedInterestWei = jest.fn();
-export const useGetVrtVaultAccruedInterestWei = () =>
-  useQuery(
-    [FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI, fakeAddress],
-    getVrtVaultAccruedInterestWei,
-  );
+export const getVrtVaultAccruedInterest = jest.fn();
+export const useGetVrtVaultAccruedInterest = () =>
+  useQuery([FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST, fakeAddress], getVrtVaultAccruedInterest);
 
 export const getVoterAccounts = jest.fn();
 export const useGetVoterAccounts = () => useQuery(FunctionKey.GET_VOTER_ACCOUNTS, getVoterAccounts);

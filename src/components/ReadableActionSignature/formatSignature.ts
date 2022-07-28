@@ -1,10 +1,10 @@
 import type { Result } from '@ethersproject/abi';
 import { ethers } from 'ethers';
-import { IProposalAction } from 'types';
+import { ProposalAction } from 'types';
 
 import { FormValues } from 'pages/Vote/CreateProposalModal/proposalSchema';
 
-const formatSignature = (action: FormValues['actions'][number] | IProposalAction) => {
+const formatSignature = (action: FormValues['actions'][number] | ProposalAction) => {
   try {
     const fragment = ethers.utils.FunctionFragment.from(action.signature || '');
     let args: Result = [];

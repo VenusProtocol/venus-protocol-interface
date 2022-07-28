@@ -1,4 +1,4 @@
-export interface ITransactionResponse {
+export interface TransactionResponse {
   amount: number;
   blockNumber: number;
   category: string;

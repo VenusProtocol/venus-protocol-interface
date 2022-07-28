@@ -1,5 +1,5 @@
 import formatToPoolInfo from './formatToPoolInfo';
-import { IGetXvsVaultPoolInfoInput, IGetXvsVaultPoolInfoOutput } from './types';
+import { GetXvsVaultPoolInfoInput, GetXvsVaultPoolInfoOutput } from './types';
 
 export * from './types';
 
@@ -7,7 +7,7 @@ const getXvsVaultPoolInfo = async ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
-}: IGetXvsVaultPoolInfoInput): Promise<IGetXvsVaultPoolInfoOutput> => {
+}: GetXvsVaultPoolInfoInput): Promise<GetXvsVaultPoolInfoOutput> => {
   const res = await xvsVaultContract.methods.poolInfos(rewardTokenAddress, poolIndex).call();
   return formatToPoolInfo(res);
 };

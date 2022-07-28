@@ -18,12 +18,16 @@ jest.mock('clients/api');
 
 describe('pages/MarketDetails', () => {
   beforeEach(() => {
-    (getMarketHistory as jest.Mock).mockImplementation(() => marketSnapshots);
+    (getMarketHistory as jest.Mock).mockImplementation(() => ({
+      marketSnapshots,
+    }));
     (getMarkets as jest.Mock).mockImplementation(() => ({
       markets,
       dailyVenusWei: new BigNumber(0),
     }));
-    (getVTokenApySimulations as jest.Mock).mockImplementation(() => vTokenApySimulations);
+    (getVTokenApySimulations as jest.Mock).mockImplementation(() => ({
+      apySimulations: vTokenApySimulations,
+    }));
   });
 
   it('renders without crashing', () => {

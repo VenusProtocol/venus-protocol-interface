@@ -1,22 +1,22 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultPoolInfo, {
-  IGetXvsVaultPoolInfoInput,
-  IGetXvsVaultPoolInfoOutput,
+  GetXvsVaultPoolInfoInput,
+  GetXvsVaultPoolInfoOutput,
 } from 'clients/api/queries/getXvsVaultPoolInfo';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 type Options = QueryObserverOptions<
-  IGetXvsVaultPoolInfoOutput,
+  GetXvsVaultPoolInfoOutput,
   Error,
-  IGetXvsVaultPoolInfoOutput,
-  IGetXvsVaultPoolInfoOutput,
-  [FunctionKey.GET_XVS_VAULT_POOL_INFOS, Omit<IGetXvsVaultPoolInfoInput, 'xvsVaultContract'>]
+  GetXvsVaultPoolInfoOutput,
+  GetXvsVaultPoolInfoOutput,
+  [FunctionKey.GET_XVS_VAULT_POOL_INFOS, Omit<GetXvsVaultPoolInfoInput, 'xvsVaultContract'>]
 >;
 
 const useGetXvsVaultPoolInfo = (
-  params: Omit<IGetXvsVaultPoolInfoInput, 'xvsVaultContract'>,
+  params: Omit<GetXvsVaultPoolInfoInput, 'xvsVaultContract'>,
   options?: Options,
 ) => {
   const xvsVaultContract = useXvsVaultProxyContract();

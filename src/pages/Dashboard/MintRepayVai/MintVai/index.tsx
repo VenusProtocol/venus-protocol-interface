@@ -16,7 +16,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { useGetMintableVai, useGetVaiTreasuryPercentage, useMintVai } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -27,7 +27,7 @@ import getReadableFeeVai from './getReadableFeeVai';
 
 const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
 
-export interface IMintVaiUiProps {
+export interface MintVaiUiProps {
   disabled: boolean;
   isMintVaiLoading: boolean;
   isInitialLoading: boolean;
@@ -36,7 +36,7 @@ export interface IMintVaiUiProps {
   mintFeePercentage?: number;
 }
 
-export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
+export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   disabled,
   limitWei,
   isInitialLoading,
@@ -77,7 +77,7 @@ export const MintVaiUi: React.FC<IMintVaiUiProps> = ({
     [mintFeePercentage],
   );
 
-  const onSubmit: IAmountFormProps['onSubmit'] = amountTokens => {
+  const onSubmit: AmountFormProps['onSubmit'] = amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
       tokenId: VAI_ID,
@@ -169,12 +169,12 @@ const MintVai: React.FC = () => {
       },
     );
 
-  const { data: vaiTreasuryPercentage, isLoading: isGetVaiTreasuryPercentageLoading } =
+  const { data: vaiTreasuryPercentageData, isLoading: isGetVaiTreasuryPercentageLoading } =
     useGetVaiTreasuryPercentage();
 
   const { mutateAsync: contractMintVai, isLoading: isMintVaiLoading } = useMintVai();
 
-  const mintVai: IMintVaiUiProps['mintVai'] = async amountWei => {
+  const mintVai: MintVaiUiProps['mintVai'] = async amountWei => {
     if (!account) {
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
@@ -191,7 +191,7 @@ const MintVai: React.FC = () => {
       disabled={!account || isGetVaiTreasuryPercentageLoading}
       limitWei={getUserMintableVaiWeiData?.mintableVaiWei}
       isInitialLoading={isGetUserMintableVaiLoading}
-      mintFeePercentage={vaiTreasuryPercentage}
+      mintFeePercentage={vaiTreasuryPercentageData?.percentage}
       isMintVaiLoading={isMintVaiLoading}
       mintVai={mintVai}
     />

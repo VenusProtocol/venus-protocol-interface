@@ -7,7 +7,7 @@ import { formatCentsToReadableValue } from 'utilities';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-export interface IValueUpdateProps<T> {
+export interface ValueUpdateProps<T> {
   original: T;
   update: T;
   format?: (value: T) => string;
@@ -24,7 +24,7 @@ export function ValueUpdate<T>({
       value: value instanceof BigNumber || typeof value === 'number' ? value : undefined,
     }),
   positiveDirection = 'asc',
-}: React.PropsWithChildren<IValueUpdateProps<T>>) {
+}: React.PropsWithChildren<ValueUpdateProps<T>>) {
   let isImprovement = false;
   if (typeof original === 'number' && typeof update === 'number') {
     isImprovement = positiveDirection === 'asc' ? update >= original : update <= original;

@@ -5,13 +5,13 @@ import React from 'react';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-export interface ICheckboxProps {
+export interface CheckboxProps {
   value: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 }
 
-export const Checkbox = ({ value, onChange, className }: ICheckboxProps) => {
+export const Checkbox = ({ value, onChange, className }: CheckboxProps) => {
   const styles = useStyles();
   return (
     <MuiCheckbox

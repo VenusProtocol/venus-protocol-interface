@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import fakeAddress from '__mocks__/models/address';
@@ -17,7 +18,9 @@ const fakeContent = 'Fake Content';
 
 describe('components/EnableToken', () => {
   it('asks the user to enable token if not enabled', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => 0);
+    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
+      allowanceWei: new BigNumber(0),
+    }));
 
     const fakeEnableTitle = 'Enable token to proceed';
 
@@ -31,7 +34,9 @@ describe('components/EnableToken', () => {
   });
 
   it('renders content when token is enabled', async () => {
-    (getAllowance as jest.Mock).mockImplementationOnce(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementationOnce(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
 
     const { getByText } = renderComponent(
       <EnableToken

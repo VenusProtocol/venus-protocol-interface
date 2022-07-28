@@ -3,11 +3,11 @@ import { Typography } from '@mui/material';
 import { Icon, Pagination, Spinner, TextButton, Tooltip } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
-import { IProposal } from 'types';
+import { Proposal } from 'types';
 import type { TransactionReceipt } from 'web3-core';
 
 import {
-  ICreateProposalInput,
+  CreateProposalInput,
   useCreateProposal,
   useGetCurrentVotes,
   useGetLatestProposalIdByProposer,
@@ -21,20 +21,20 @@ import CreateProposalModal from '../CreateProposalModal';
 import GovernanceProposal from '../GovernanceProposal';
 import { useStyles } from './styles';
 
-interface IGovernanceUiProps {
-  proposals: IProposal[];
+interface GovernanceUiProps {
+  proposals: Proposal[];
   isLoading: boolean;
   total: number | undefined;
   limit: number;
   setCurrentPage: (page: number) => void;
   createProposal: (
-    payload: Omit<ICreateProposalInput, 'accountAddress'>,
+    payload: Omit<CreateProposalInput, 'accountAddress'>,
   ) => Promise<TransactionReceipt>;
   isCreateProposalLoading: boolean;
   canCreateProposal: boolean;
 }
 
-export const GovernanceUi: React.FC<IGovernanceUiProps> = ({
+export const GovernanceUi: React.FC<GovernanceUiProps> = ({
   proposals,
   isLoading,
   total,
@@ -134,26 +134,26 @@ const Governance: React.FC = () => {
 
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
-  const { data: currentVotesWei } = useGetCurrentVotes(
+  const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress },
     { enabled: !!accountAddress },
   );
 
-  const { data: latestProposal } = useGetLatestProposalIdByProposer(
+  const { data: latestProposalData } = useGetLatestProposalIdByProposer(
     { accountAddress },
     { enabled: !!accountAddress },
   );
 
-  const { data: latestProposalState } = useGetProposalState(
-    { proposalId: latestProposal || '' },
-    { enabled: !!latestProposal },
+  const { data: latestProposalStateData } = useGetProposalState(
+    { proposalId: latestProposalData?.proposalId || '' },
+    { enabled: !!latestProposalData?.proposalId },
   );
 
   // User has enough votingWeight to create proposal and doesn't currently have an active or pending proposal
   const canCreateProposal =
-    currentVotesWei?.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
-    latestProposalState !== '0' &&
-    latestProposalState !== '1';
+    currentVotesData?.votesWei.isGreaterThanOrEqualTo(CREATE_PROPOSAL_THRESHOLD_WEI) &&
+    latestProposalStateData?.state !== '0' &&
+    latestProposalStateData?.state !== '1';
 
   return (
     <GovernanceUi

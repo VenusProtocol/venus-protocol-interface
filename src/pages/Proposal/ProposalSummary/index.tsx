@@ -4,7 +4,7 @@ import { ActiveChip, BscLink, Chip, Countdown, PrimaryButton, SecondaryButton } 
 import isAfter from 'date-fns/isAfter';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { IProposal } from 'types';
+import { Proposal } from 'types';
 import type { TransactionReceipt } from 'web3-core';
 
 import {
@@ -22,12 +22,12 @@ import Stepper from './Stepper';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-interface IProposalSummaryUiProps {
+interface ProposalSummaryUiProps {
   className?: string;
-  proposal: IProposal;
+  proposal: Proposal;
 }
 
-interface IProposalSummaryContainerProps {
+interface ProposalSummaryContainerProps {
   cancelProposal: () => Promise<TransactionReceipt>;
   executeProposal: () => Promise<TransactionReceipt>;
   queueProposal: () => Promise<TransactionReceipt>;
@@ -39,7 +39,7 @@ interface IProposalSummaryContainerProps {
 }
 
 export const ProposalSummaryUi: React.FC<
-  IProposalSummaryUiProps & IProposalSummaryContainerProps
+  ProposalSummaryUiProps & ProposalSummaryContainerProps
 > = ({
   className,
   proposal,
@@ -253,7 +253,7 @@ export const ProposalSummaryUi: React.FC<
   );
 };
 
-const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposal }) => {
+const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal }) => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address || '';
 
@@ -266,19 +266,20 @@ const ProposalSummary: React.FC<IProposalSummaryUiProps> = ({ className, proposa
   const handleExecuteProposal = () => executeProposal({ proposalId: proposal.id, accountAddress });
   const handleQueueProposal = () => queueProposal({ proposalId: proposal.id, accountAddress });
 
-  const { data: proposalThresholdWei } = useGetProposalThreshold();
+  const { data: proposalThresholdData } = useGetProposalThreshold();
 
   const { data: getProposalEtaData } = useGetProposalEta({
     proposalId: proposal.id,
   });
 
-  const { data: currentVotesWei } = useGetCurrentVotes(
+  const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress },
     { enabled: !!accountAddress },
   );
 
   const canCancelProposal =
-    proposalThresholdWei && currentVotesWei?.isGreaterThanOrEqualTo(proposalThresholdWei);
+    proposalThresholdData?.thresholdWei &&
+    currentVotesData?.votesWei.isGreaterThanOrEqualTo(proposalThresholdData?.thresholdWei);
 
   return (
     <ProposalSummaryUi

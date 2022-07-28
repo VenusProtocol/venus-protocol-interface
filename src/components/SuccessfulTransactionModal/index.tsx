@@ -7,10 +7,10 @@ import { convertWeiToTokens } from 'utilities';
 
 import { BscLink } from '../BscLink';
 import { Icon, IconName } from '../Icon';
-import { IModalProps, Modal } from '../Modal';
+import { Modal, ModalProps } from '../Modal';
 import { useStyles } from './styles';
 
-export interface ISuccessfulTransactionModalProps extends Omit<IModalProps, 'children'> {
+export interface SuccessfulTransactionModalProps extends Omit<ModalProps, 'children'> {
   title: string;
   content?: string | React.ReactElement;
   transactionHash: string;
@@ -21,7 +21,7 @@ export interface ISuccessfulTransactionModalProps extends Omit<IModalProps, 'chi
   className?: string;
 }
 
-export const SuccessfulTransactionModal: React.FC<ISuccessfulTransactionModalProps> = ({
+export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProps> = ({
   className,
   title,
   content,

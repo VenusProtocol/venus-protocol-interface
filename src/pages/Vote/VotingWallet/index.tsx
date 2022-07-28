@@ -23,7 +23,7 @@ import DelegateModal from '../DelegateModal';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-interface IVotingWalletUiProps {
+interface VotingWalletUiProps {
   votingWeightWei: BigNumber;
   openAuthModal: () => void;
   userStakedWei: BigNumber;
@@ -36,7 +36,7 @@ interface IVotingWalletUiProps {
   setDelegateModelIsOpen: (open: boolean) => void;
 }
 
-export const VotingWalletUi: React.FC<IVotingWalletUiProps> = ({
+export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   votingWeightWei,
   userStakedWei,
   connectedWallet,
@@ -182,11 +182,11 @@ const VotingWallet: React.FC = () => {
   const { account: { address: accountAddress } = { address: undefined }, openAuthModal } =
     useContext(AuthContext);
 
-  const { data: currentVotesWei } = useGetCurrentVotes(
+  const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
-  const { data: delegate } = useGetVoteDelegateAddress(
+  const { data: delegateData } = useGetVoteDelegateAddress(
     { accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
@@ -219,9 +219,9 @@ const VotingWallet: React.FC = () => {
       connectedWallet={!!accountAddress}
       openAuthModal={openAuthModal}
       currentUserAccountAddress={accountAddress}
-      votingWeightWei={currentVotesWei || new BigNumber(0)}
+      votingWeightWei={currentVotesData?.votesWei || new BigNumber(0)}
       userStakedWei={userStakedWei}
-      delegate={delegate}
+      delegate={delegateData?.delegateAddress}
       setVoteDelegation={(delegateAddress: string) =>
         setVoteDelegation({ delegateAddress, accountAddress: accountAddress || '' })
       }

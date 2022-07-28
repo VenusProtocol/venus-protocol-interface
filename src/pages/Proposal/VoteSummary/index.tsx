@@ -6,7 +6,7 @@ import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'compo
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { IVoter } from 'types';
+import { VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import Path from 'constants/path';
@@ -14,12 +14,12 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 
 import { useStyles } from './styles';
 
-interface IVoteSummaryProps {
+interface VoteSummaryProps {
   label: string;
   progressBarColor: string;
   votedValueWei?: BigNumber;
   votedTotalWei?: BigNumber;
-  voters?: IVoter['result'];
+  voters?: VotersDetails['result'];
   className?: string;
   votingEnabled: boolean;
   openVoteModal: () => void;
@@ -36,7 +36,7 @@ const VoteSummary = ({
   className,
   votingEnabled,
   testId,
-}: IVoteSummaryProps) => {
+}: VoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
 

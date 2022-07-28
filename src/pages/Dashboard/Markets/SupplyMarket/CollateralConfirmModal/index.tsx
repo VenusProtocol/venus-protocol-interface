@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { IModalProps, Icon, Modal } from 'components';
+import { Icon, Modal, ModalProps } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
-import { ReactComponent as LogoWithText } from 'assets/img/v2/venusLogoWithText.svg';
+import { ReactComponent as LogoWithText } from 'assets/img/venusLogoWithText.svg';
 
 import { useStyles } from './styles';
 
-export interface IConfirmCollateralModalProps {
+export interface ConfirmCollateralModalProps {
   asset: Asset | undefined;
-  handleClose: IModalProps['handleClose'];
+  handleClose: ModalProps['handleClose'];
 }
 // @TODO: Match designs when they are complete
-export const CollateralConfirmModal: React.FC<IConfirmCollateralModalProps> = ({
+export const CollateralConfirmModal: React.FC<ConfirmCollateralModalProps> = ({
   asset,
   handleClose,
 }) => {

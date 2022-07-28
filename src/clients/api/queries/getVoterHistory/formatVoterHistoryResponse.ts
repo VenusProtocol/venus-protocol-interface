@@ -3,9 +3,9 @@ import { formatToProposal } from 'utilities';
 
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 
-import { IGetVoterHistoryResponse } from './types';
+import { GetVoterHistoryResponse } from './types';
 
-const formatVoterHistoryResponse = (data: IGetVoterHistoryResponse) => ({
+const formatVoterHistoryResponse = (data: GetVoterHistoryResponse) => ({
   limit: data.limit,
   offset: data.offset,
   total: data.total,

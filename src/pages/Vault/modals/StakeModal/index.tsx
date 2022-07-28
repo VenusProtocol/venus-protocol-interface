@@ -9,15 +9,15 @@ import { useGetBalanceOf } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import useStakeInVault from 'hooks/useStakeInVault';
 
-import ActionModal, { IActionModalProps } from '../ActionModal';
+import ActionModal, { ActionModalProps } from '../ActionModal';
 
-export interface IStakeModalProps extends Pick<IActionModalProps, 'handleClose'> {
+export interface StakeModalProps extends Pick<ActionModalProps, 'handleClose'> {
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
   poolIndex?: number;
 }
 
-const StakeModal: React.FC<IStakeModalProps> = ({
+const StakeModal: React.FC<StakeModalProps> = ({
   stakedTokenId,
   rewardTokenId,
   poolIndex,
@@ -39,7 +39,7 @@ const StakeModal: React.FC<IStakeModalProps> = ({
     return getContractAddress('vrtVaultProxy');
   }, [stakedTokenId, poolIndex]);
 
-  const { data: availableTokensWei, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
+  const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
       tokenId: stakedTokenId,
@@ -75,7 +75,7 @@ const StakeModal: React.FC<IStakeModalProps> = ({
       title={t('stakeModal.title', { tokenSymbol: stakedTokenSymbol })}
       tokenId={stakedTokenId}
       handleClose={handleClose}
-      availableTokensWei={availableTokensWei || new BigNumber(0)}
+      availableTokensWei={availableTokensData?.balanceWei || new BigNumber(0)}
       isInitialLoading={isGetWalletBalanceWeiLoading}
       onSubmit={handleStake}
       isSubmitting={isStakeLoading}

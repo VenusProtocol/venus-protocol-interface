@@ -15,7 +15,7 @@ import {
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
-import TransactionForm, { ITransactionFormProps } from '../../../TransactionForm';
+import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
 import { useStyles } from './styles';
 
 export interface RequestWithdrawalUiProps {
@@ -23,7 +23,7 @@ export interface RequestWithdrawalUiProps {
   isInitialLoading: boolean;
   requestableWei: BigNumber;
   onSubmitSuccess: () => void;
-  onSubmit: ITransactionFormProps['onSubmit'];
+  onSubmit: TransactionFormProps['onSubmit'];
   isSubmitting: boolean;
   displayWithdrawalRequestList: () => void;
   lockingPeriodMs: number | undefined;
@@ -43,7 +43,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const handleSubmit: ITransactionFormProps['onSubmit'] = async amountWei => {
+  const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei => {
     const res = await onSubmit(amountWei);
     onSubmitSuccess();
     return res;
@@ -115,7 +115,9 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
   } = useRequestWithdrawalFromXvsVault();
 
   const {
-    data: xvsVaultUserLockedDeposits = [],
+    data: xvsVaultUserLockedDepositsData = {
+      lockedDeposits: [],
+    },
     isLoading: isGetXvsVaultUserLockedDepositsLoading,
   } = useGetXvsVaultLockedDeposits(
     {
@@ -124,7 +126,9 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       accountAddress: account?.address || '',
     },
     {
-      placeholderData: [],
+      placeholderData: {
+        lockedDeposits: [],
+      },
       enabled: !!account?.address,
     },
   );
@@ -148,12 +152,15 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
 
     // Subtract sum of all active withdrawal requests amounts to amount of
     // tokens staked by user
-    const pendingLockedDepositsSum = xvsVaultUserLockedDeposits.reduce(
+    const pendingLockedDepositsSum = xvsVaultUserLockedDepositsData.lockedDeposits.reduce(
       (acc, xvsVaultUserLockedDeposit) => acc.plus(xvsVaultUserLockedDeposit.amountWei),
       new BigNumber(0),
     );
     return xvsVaultUserInfo.stakedAmountWei.minus(pendingLockedDepositsSum);
-  }, [JSON.stringify(xvsVaultUserLockedDeposits), JSON.stringify(xvsVaultUserInfo)]);
+  }, [
+    JSON.stringify(xvsVaultUserLockedDepositsData.lockedDeposits),
+    JSON.stringify(xvsVaultUserInfo),
+  ]);
 
   const { data: xvsVaultPoolInfo, isLoading: isGetXvsVaultPoolInfoLoading } =
     useGetXvsVaultPoolInfo(
@@ -171,7 +178,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     isGetXvsVaultUserInfoLoading ||
     isGetXvsVaultUserLockedDepositsLoading;
 
-  const handleSubmit: ITransactionFormProps['onSubmit'] = async amountWei =>
+  const handleSubmit: TransactionFormProps['onSubmit'] = async amountWei =>
     requestWithdrawalFromXvsVault({
       poolIndex,
       // account is always defined at this stage since we don't display the form

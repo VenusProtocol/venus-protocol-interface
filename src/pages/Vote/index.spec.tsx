@@ -42,6 +42,10 @@ describe('pages/Vote', () => {
     }));
     (setVoteDelegate as jest.Mock).mockImplementation(() => transactionReceipt);
     (getLatestProposalIdByProposer as jest.Mock).mockImplementation(() => '1');
+
+    (getCurrentVotes as jest.Mock).mockImplementation(() => ({
+      votesWei: new BigNumber(0),
+    }));
   });
 
   it('renders without crashing', async () => {
@@ -60,10 +64,10 @@ describe('pages/Vote', () => {
   });
 
   it('create proposal is disabled if pending proposal', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(
-      () => new BigNumber(50000000000000000000),
-    );
-    (getProposalState as jest.Mock).mockImplementation(async () => '0');
+    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
+      votesWei: new BigNumber('50000000000000000000'),
+    }));
+    (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '0' }));
     const { getByText } = renderComponent(<Vote />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
@@ -71,10 +75,10 @@ describe('pages/Vote', () => {
   });
 
   it('create proposal is disabled if active proposal', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(
-      () => new BigNumber(50000000000000000000),
-    );
-    (getProposalState as jest.Mock).mockImplementation(async () => '1');
+    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
+      votesWei: new BigNumber('50000000000000000000'),
+    }));
+    (getProposalState as jest.Mock).mockImplementation(async () => ({ state: '1' }));
     const { getByText } = renderComponent(<Vote />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
@@ -119,7 +123,7 @@ describe('pages/Vote', () => {
   });
 
   it('prompts user to connect Wallet', async () => {
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => new BigNumber(0));
+    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
 
     const { getByText } = renderComponent(<Vote />);
     getByText(en.connectWallet.connectButton);
@@ -128,7 +132,7 @@ describe('pages/Vote', () => {
   it('prompts user to deposit XVS', async () => {
     const vaultsCopy = cloneDeep(vaults);
     vaultsCopy[1].userStakedWei = new BigNumber(0);
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => new BigNumber(0));
+    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({ votesWei: new BigNumber(0) }));
     (useGetVestingVaults as jest.Mock).mockImplementationOnce(() => ({
       data: vaultsCopy,
       isLoading: false,
@@ -151,10 +155,12 @@ describe('pages/Vote', () => {
   it('successfully delegates to other address', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     const vaultsCopy = cloneDeep(vaults);
-    vaultsCopy[1].userStakedWei = new BigNumber(10000000000000000000);
-    (getCurrentVotes as jest.Mock).mockImplementationOnce(
-      () => new BigNumber(50000000000000000000),
-    );
+    vaultsCopy[1].userStakedWei = new BigNumber('10000000000000000000');
+
+    (getCurrentVotes as jest.Mock).mockImplementationOnce(() => ({
+      votesWei: new BigNumber('50000000000000000000'),
+    }));
+
     (useGetVestingVaults as jest.Mock).mockImplementationOnce(() => ({
       data: vaultsCopy,
       isLoading: false,
@@ -240,7 +246,7 @@ describe('pages/Vote', () => {
     );
   });
 
-  it('proposals navigate to detail', async () => {
+  it('proposals navigate to details', async () => {
     const { getAllByTestId } = renderComponent(<Vote />);
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>

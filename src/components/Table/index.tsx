@@ -14,16 +14,16 @@ import Head from './Head';
 import TableCards from './TableCards';
 import { useStyles } from './styles';
 
-export interface ITableRowProps {
+export interface TableRowProps {
   key: string | number;
   render: () => React.ReactNode | string;
   value: string | number | boolean;
   align?: 'left' | 'center' | 'right';
 }
 
-export interface ITableBaseProps {
+export interface TableBaseProps {
   title?: string;
-  data: ITableRowProps[][];
+  data: TableRowProps[][];
   columns: { key: string; label: string; orderable: boolean }[];
   cardColumns?: { key: string; label: string; orderable: boolean }[];
   rowKeyIndex: number;
@@ -32,7 +32,7 @@ export interface ITableBaseProps {
     orderBy: string;
     orderDirection: 'asc' | 'desc';
   };
-  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
+  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
   className?: string;
   tableCss?: SerializedStyles;
   cardsCss?: SerializedStyles;
@@ -41,17 +41,17 @@ export interface ITableBaseProps {
   isFetching?: boolean;
 }
 
-interface ITableCardRowOnClickProps extends ITableBaseProps {
-  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: ITableRowProps[]) => void;
+interface TableCardRowOnClickProps extends TableBaseProps {
+  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
   getRowHref?: undefined;
 }
 
-interface ITableCardHrefProps extends ITableBaseProps {
+interface TableCardHrefProps extends TableBaseProps {
   rowOnClick?: undefined;
-  getRowHref?: (row: ITableRowProps[]) => string;
+  getRowHref?: (row: TableRowProps[]) => string;
 }
 
-export type TableProps = ITableCardRowOnClickProps | ITableCardHrefProps;
+export type TableProps = TableCardRowOnClickProps | TableCardHrefProps;
 
 export const Table = ({
   columns,
@@ -140,7 +140,7 @@ export const Table = ({
                     rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
                   }
                 >
-                  {row.map(({ key, render, align }: ITableRowProps) => {
+                  {row.map(({ key, render, align }: TableRowProps) => {
                     const cellContent = render();
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
                     return (

@@ -14,7 +14,7 @@ describe('pages/Market', () => {
   beforeEach(() => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(() => ({
-      data: vTokenBalanceTreasury,
+      data: { balances: vTokenBalanceTreasury },
     }));
     (useGetTreasuryTotals as jest.Mock).mockImplementation(() => ({
       data: {

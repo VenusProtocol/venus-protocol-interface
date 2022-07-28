@@ -5,20 +5,20 @@ import { cloneDeep } from 'lodash';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { IVoterAccount } from 'types';
+import { VoterAccount } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import Path from 'constants/path';
 
 import { useStyles } from './styles';
 
-export interface ILeaderboardTableProps extends Pick<TableProps, 'getRowHref'> {
-  voterAccounts: IVoterAccount[];
+export interface LeaderboardTableProps extends Pick<TableProps, 'getRowHref'> {
+  voterAccounts: VoterAccount[];
   offset: number;
   isFetching: boolean;
 }
 
-export const LeaderboardTable: React.FC<ILeaderboardTableProps> = ({
+export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   voterAccounts,
   offset,
   isFetching,

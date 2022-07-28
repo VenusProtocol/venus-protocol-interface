@@ -2,7 +2,7 @@ import { MutationObserverOptions, useMutation } from 'react-query';
 import { getContractAddress } from 'utilities';
 
 import {
-  IWithdrawFromVrtVaultInput,
+  WithdrawFromVrtVaultInput,
   WithdrawFromVrtVaultOutput,
   queryClient,
   withdrawFromVrtVault,
@@ -16,7 +16,7 @@ const VRT_VAULT_PROXY_CONTRACT_ADDRESS = getContractAddress('vrtVaultProxy');
 type Options = MutationObserverOptions<
   WithdrawFromVrtVaultOutput,
   Error,
-  Omit<IWithdrawFromVrtVaultInput, 'vrtVaultContract'>
+  Omit<WithdrawFromVrtVaultInput, 'vrtVaultContract'>
 >;
 
 const useWithdrawFromVrtVault = (options?: Options) => {
@@ -24,7 +24,7 @@ const useWithdrawFromVrtVault = (options?: Options) => {
 
   return useMutation(
     FunctionKey.WITHDRAW_FROM_VAI_VAULT,
-    (params: Omit<IWithdrawFromVrtVaultInput, 'vrtVaultContract'>) =>
+    (params: Omit<WithdrawFromVrtVaultInput, 'vrtVaultContract'>) =>
       withdrawFromVrtVault({
         vrtVaultContract,
         ...params,
@@ -39,7 +39,7 @@ const useWithdrawFromVrtVault = (options?: Options) => {
 
         // Invalidate cached user pending reward
         queryClient.invalidateQueries([
-          FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST_WEI,
+          FunctionKey.GET_VRT_VAULT_ACCRUED_INTEREST,
           fromAccountAddress,
         ]);
 
@@ -57,7 +57,7 @@ const useWithdrawFromVrtVault = (options?: Options) => {
           TOKENS.vrt.id,
         ]);
 
-        queryClient.invalidateQueries(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_WEI_PER_BLOCK);
+        queryClient.invalidateQueries(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_PER_BLOCK);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

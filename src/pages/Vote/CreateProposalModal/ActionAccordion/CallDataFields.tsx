@@ -8,7 +8,7 @@ import React from 'react';
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from './styles';
 
-interface ICallDataFieldsProps {
+interface CallDataFieldsProps {
   signature: string;
   actionIndex: number;
 }
@@ -24,7 +24,7 @@ const parseSignature = (func: string) => {
   return funcInputs;
 };
 
-const CallDataFields: React.FC<ICallDataFieldsProps> = ({ signature, actionIndex }) => {
+const CallDataFields: React.FC<CallDataFieldsProps> = ({ signature, actionIndex }) => {
   const styles = useStyles();
   const callDataTypes = parseSignature(signature || '');
 

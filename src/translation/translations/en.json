@@ -37,7 +37,7 @@
       "borrowLimitUsed": "Borrow limit used",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "dailyEarnings": "Daily earnings",
-      "distributionAPy": "Distribution APY",
+      "distributionApy": "Distribution APY",
       "enableToken": {
         "borrowInfo": "Borrow APY",
         "distributionInfo": "Distribution APY",
@@ -657,7 +657,6 @@
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
     "queue": "Queue",
-    "timeUntilExecutable": "Time until executable",
     "statusCard": {
       "active": "Active",
       "ariaLabelAbstain": "votes abstain",
@@ -678,6 +677,7 @@
       "succeed": "Succeed",
       "timeOnly": "{{date, h:mm a}}"
     },
+    "timeUntilExecutable": "Time until executable",
     "voteStatus": {
       "abstained": "Abstained",
       "notVoted": "Not voted",
@@ -723,6 +723,7 @@
   },
   "wallets": {
     "binanceChainWallet": "Binance Chain Wallet",
+    "bitKeep": "BitKeep",
     "braveWallet": "Brave Wallet",
     "coinbaseWallet": "Coinbase Wallet",
     "errors": {

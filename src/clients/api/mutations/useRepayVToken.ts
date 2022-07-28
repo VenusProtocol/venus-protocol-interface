@@ -2,9 +2,9 @@ import { MutationObserverOptions } from 'react-query';
 import { VTokenId } from 'types';
 
 import {
-  IRepayBnbInput,
-  IRepayNonBnbVTokenInput,
+  RepayBnbInput,
   RepayBnbOutput,
+  RepayNonBnbVTokenInput,
   RepayNonBnbVTokenOutput,
   useRepayBnb,
   useRepayNonBnbVToken,
@@ -13,7 +13,7 @@ import {
 type Options = MutationObserverOptions<
   RepayBnbOutput | RepayNonBnbVTokenOutput,
   Error,
-  Omit<IRepayNonBnbVTokenInput, 'vTokenContract'> | Omit<IRepayBnbInput, 'web3'>
+  Omit<RepayNonBnbVTokenInput, 'vTokenContract'> | Omit<RepayBnbInput, 'web3'>
 >;
 
 const useRepayVToken = ({ vTokenId }: { vTokenId: VTokenId }, options?: Options) => {

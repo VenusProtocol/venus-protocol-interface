@@ -4,14 +4,14 @@ import React from 'react';
 
 import { useStyles } from './styles';
 
-interface IChipProps {
+interface ChipProps {
   className?: string;
   text: string;
   backgroundColor?: string;
   textColor?: string;
 }
 
-export const Chip = ({ className, text, backgroundColor, textColor }: IChipProps) => {
+export const Chip = ({ className, text, backgroundColor, textColor }: ChipProps) => {
   const styles = useStyles();
   return (
     <div className={className} css={styles.root({ backgroundColor, textColor })}>
@@ -22,7 +22,7 @@ export const Chip = ({ className, text, backgroundColor, textColor }: IChipProps
   );
 };
 
-export const ActiveChip: React.FC<IChipProps> = ({ text, ...props }) => {
+export const ActiveChip: React.FC<ChipProps> = ({ text, ...props }) => {
   const styles = useStyles();
   return (
     <Chip
@@ -34,7 +34,7 @@ export const ActiveChip: React.FC<IChipProps> = ({ text, ...props }) => {
   );
 };
 
-export const InactiveChip: React.FC<IChipProps> = ({ text, ...props }) => {
+export const InactiveChip: React.FC<ChipProps> = ({ text, ...props }) => {
   const styles = useStyles();
   return (
     <Chip
@@ -46,7 +46,7 @@ export const InactiveChip: React.FC<IChipProps> = ({ text, ...props }) => {
   );
 };
 
-export const BlueChip: React.FC<IChipProps> = ({ text, ...props }) => {
+export const BlueChip: React.FC<ChipProps> = ({ text, ...props }) => {
   const styles = useStyles();
   return (
     <Chip
@@ -58,7 +58,7 @@ export const BlueChip: React.FC<IChipProps> = ({ text, ...props }) => {
   );
 };
 
-export const ErrorChip: React.FC<IChipProps> = ({ text, ...props }) => {
+export const ErrorChip: React.FC<ChipProps> = ({ text, ...props }) => {
   const styles = useStyles();
   return (
     <Chip

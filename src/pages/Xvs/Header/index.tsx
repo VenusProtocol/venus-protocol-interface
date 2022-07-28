@@ -12,29 +12,25 @@ import {
   getToken,
 } from 'utilities';
 
-import {
-  useGetBalanceOf,
-  useGetUserMarketInfo,
-  useGetVenusVaiVaultDailyRateWei,
-} from 'clients/api';
+import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
 import { MINTED_XVS_WEI } from '../constants';
 import { useStyles } from '../styles';
 
-interface IHeaderProps {
+interface HeaderProps {
   className?: string;
 }
 
-interface IHeaderContainerProps {
+interface HeaderContainerProps {
   remainingDistributionWei: BigNumber;
   dailyVenusWei: BigNumber;
   venusVaiVaultDailyRateWei: BigNumber;
   totalXvsDistributedWei: BigNumber;
 }
 
-export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
+export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   className,
   remainingDistributionWei,
   dailyVenusWei,
@@ -125,23 +121,23 @@ export const HeaderUi: React.FC<IHeaderProps & IHeaderContainerProps> = ({
   );
 };
 
-const Header: React.FC<IHeaderProps> = ({ className }) => {
+const Header: React.FC<HeaderProps> = ({ className }) => {
   const { account } = useContext(AuthContext);
-  const { data: venusVaiVaultDailyRateWei } = useGetVenusVaiVaultDailyRateWei();
+  const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
   const {
     data: { dailyVenusWei, totalXvsDistributedWei },
   } = useGetUserMarketInfo({
     accountAddress: account?.address,
   });
-  const { data: xvsRemainingDistribution } = useGetBalanceOf({
+  const { data: xvsRemainingDistributionData } = useGetBalanceOf({
     tokenId: 'xvs',
     accountAddress: getContractAddress('comptroller'),
   });
 
   return (
     <HeaderUi
-      remainingDistributionWei={xvsRemainingDistribution || new BigNumber(0)}
-      venusVaiVaultDailyRateWei={venusVaiVaultDailyRateWei || new BigNumber(0)}
+      remainingDistributionWei={xvsRemainingDistributionData?.balanceWei || new BigNumber(0)}
+      venusVaiVaultDailyRateWei={venusVaiVaultDailyRateData?.dailyRateWei || new BigNumber(0)}
       className={className}
       dailyVenusWei={dailyVenusWei}
       totalXvsDistributedWei={totalXvsDistributedWei}

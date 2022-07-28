@@ -38,9 +38,13 @@ const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
-    (getMintedVai as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
-    (getBalanceOf as jest.Mock).mockImplementation(() => fakeUserVaiBalanceWei);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
+    (getMintedVai as jest.Mock).mockImplementation(() => ({
+      mintedVaiWei: fakeUserVaiMintedWei,
+    }));
+    (getBalanceOf as jest.Mock).mockImplementation(() => ({ balanceWei: fakeUserVaiBalanceWei }));
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
         assets: [...assetData, fakeVai],
@@ -78,7 +82,9 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   it('lets user repay their VAI balance', async () => {
     const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
     (repayVai as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
-    (getBalanceOf as jest.Mock).mockImplementation(() => fakeUserVaiMintedWei);
+    (getBalanceOf as jest.Mock).mockImplementation(async () => ({
+      balanceWei: fakeUserVaiMintedWei,
+    }));
 
     const fakeInput = fakeUserVaiMintedWei.dividedBy(1e18);
 

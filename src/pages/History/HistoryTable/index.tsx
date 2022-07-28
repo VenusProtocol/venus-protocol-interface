@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { EllipseAddress, Icon, Table, TableProps } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { ITransaction } from 'types';
+import { Transaction } from 'types';
 import { convertWeiToTokens, generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -11,12 +11,12 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 
 import { useStyles } from './styles';
 
-export interface IHistoryTableProps {
-  transactions: ITransaction[];
+export interface HistoryTableProps {
+  transactions: Transaction[];
   isFetching: boolean;
 }
 
-export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isFetching }) => {
+export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFetching }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -218,7 +218,7 @@ export const HistoryTableUi: React.FC<IHistoryTableProps> = ({ transactions, isF
   );
 };
 
-const HistoryTable: React.FC<IHistoryTableProps> = ({ transactions, isFetching }) => (
+const HistoryTable: React.FC<HistoryTableProps> = ({ transactions, isFetching }) => (
   <HistoryTableUi transactions={transactions} isFetching={isFetching} />
 );
 

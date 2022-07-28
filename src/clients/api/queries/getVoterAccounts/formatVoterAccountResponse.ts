@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { IGetVoterAccountsResponse } from './types';
+import { GetVoterAccountsResponse } from './types';
 
-const formatVoterResponse = (data: IGetVoterAccountsResponse) => ({
+const formatVoterResponse = (data: GetVoterAccountsResponse) => ({
   limit: data.limit,
   offset: data.offset,
   total: data.total,

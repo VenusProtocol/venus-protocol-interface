@@ -9,9 +9,9 @@ import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
-import ActionModal, { IActionModalProps } from '../ActionModal';
+import ActionModal, { ActionModalProps } from '../ActionModal';
 
-export type WithdrawFromVaiVaultModalProps = Pick<IActionModalProps, 'handleClose'>;
+export type WithdrawFromVaiVaultModalProps = Pick<ActionModalProps, 'handleClose'>;
 
 const VAI_ID = TOKENS.vai.id as TokenId;
 

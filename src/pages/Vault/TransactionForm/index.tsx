@@ -14,7 +14,7 @@ import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-export interface ITransactionFormProps {
+export interface TransactionFormProps {
   tokenId: TokenId;
   submitButtonLabel: string;
   submitButtonDisabledLabel: string;
@@ -27,7 +27,7 @@ export interface ITransactionFormProps {
   lockingPeriodMs?: number;
 }
 
-const TransactionForm: React.FC<ITransactionFormProps> = ({
+const TransactionForm: React.FC<TransactionFormProps> = ({
   tokenId,
   availableTokensWei,
   availableTokensLabel,

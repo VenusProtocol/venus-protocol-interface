@@ -9,7 +9,7 @@ import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import { withAuthContext, withCenterStory, withEnabledToken } from 'stories/decorators';
 
-import { ISupplyWithdrawProps, ISupplyWithdrawUiProps, SupplyWithdrawUi } from '.';
+import { SupplyWithdrawProps, SupplyWithdrawUi, SupplyWithdrawUiProps } from '.';
 
 export default {
   title: 'Pages/Dashboard/Modals/SupplyWithdraw',
@@ -22,7 +22,7 @@ export default {
   },
 } as ComponentMeta<typeof SupplyWithdrawUi>;
 
-const Template: Story<ISupplyWithdrawUiProps & ISupplyWithdrawProps> = args => (
+const Template: Story<SupplyWithdrawUiProps & SupplyWithdrawProps> = args => (
   <SupplyWithdrawUi {...args} />
 );
 

@@ -74,7 +74,9 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
   const { t } = useTranslation();
 
   const {
-    data: userLockedDeposits = [],
+    data: userLockedDepositsData = {
+      lockedDeposits: [],
+    },
     isLoading: isGetXvsVaultUserLockedDepositsLoading,
     error: getXvsVaultUserLockedDepositsError,
   } = useGetXvsVaultLockedDeposits(
@@ -84,7 +86,9 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
       accountAddress: account?.address || '',
     },
     {
-      placeholderData: [],
+      placeholderData: {
+        lockedDeposits: [],
+      },
       enabled: !!account?.address,
     },
   );
@@ -97,7 +101,7 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
     >
       <WithdrawalRequestListUi
         isInitialLoading={isGetXvsVaultUserLockedDepositsLoading}
-        userLockedDeposits={userLockedDeposits}
+        userLockedDeposits={userLockedDepositsData.lockedDeposits}
         hasError={!!getXvsVaultUserLockedDepositsError}
       />
     </ConnectWallet>

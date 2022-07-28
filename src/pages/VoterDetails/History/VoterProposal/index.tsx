@@ -17,7 +17,7 @@ import Path from 'constants/path';
 
 import { useStyles } from './styles';
 
-interface IVoterProposalProps {
+interface VoterProposalProps {
   className?: string;
   proposalNumber: number;
   proposalTitle: string;
@@ -33,7 +33,7 @@ interface IVoterProposalProps {
   executedDate: Date | undefined;
 }
 
-const VoterProposal: React.FC<IVoterProposalProps> = ({
+const VoterProposal: React.FC<VoterProposalProps> = ({
   className,
   proposalNumber,
   proposalTitle,

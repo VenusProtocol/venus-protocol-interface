@@ -6,7 +6,7 @@ import React, { InputHTMLAttributes } from 'react';
 import { Icon, IconName } from '../Icon';
 import { useStyles } from './styles';
 
-export interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
   description?: string | React.ReactElement;
@@ -15,7 +15,7 @@ export interface ITextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   rightAdornment?: React.ReactElement;
 }
 
-export const TextField: React.FC<ITextFieldProps> = ({
+export const TextField: React.FC<TextFieldProps> = ({
   className,
   label,
   description,

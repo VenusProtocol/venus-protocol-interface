@@ -1,6 +1,6 @@
 import { IconName } from '../Icon';
 
-export interface IMenuItem {
+export interface MenuItem {
   href: string;
   icon: IconName;
   i18nKey: string;

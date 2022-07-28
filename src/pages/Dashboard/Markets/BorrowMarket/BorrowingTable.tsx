@@ -15,13 +15,13 @@ import {
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
-export interface IBorrowingUiProps extends Pick<TableProps, 'rowOnClick'> {
+export interface BorrowingUiProps extends Pick<TableProps, 'rowOnClick'> {
   assets: Asset[];
   isXvsEnabled: boolean;
   userTotalBorrowLimitCents: BigNumber;
 }
 
-const BorrowingTable: React.FC<IBorrowingUiProps> = ({
+const BorrowingTable: React.FC<BorrowingUiProps> = ({
   assets,
   isXvsEnabled,
   userTotalBorrowLimitCents,

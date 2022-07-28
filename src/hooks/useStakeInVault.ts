@@ -5,18 +5,18 @@ import { getToken } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInVrtVault, useStakeInXvsVault } from 'clients/api';
 
-export interface IUseStakeInVaultInput {
+export interface UseStakeInVaultInput {
   stakedTokenId: TokenId;
   rewardTokenId: TokenId;
   poolIndex?: number;
 }
 
-interface IStakeInput {
+interface StakeInput {
   amountWei: BigNumber;
   accountAddress: string;
 }
 
-const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: IUseStakeInVaultInput) => {
+const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: UseStakeInVaultInput) => {
   const { mutateAsync: stakeInXvsVault, isLoading: isStakeInXvsVaultLoading } = useStakeInXvsVault({
     stakedTokenId,
   });
@@ -30,7 +30,7 @@ const useStakeInVault = ({ stakedTokenId, rewardTokenId, poolIndex }: IUseStakeI
   const isLoading =
     isStakeInXvsVaultLoading || isStakeInVaiVaultLoading || isStakeInVrtVaultLoading;
 
-  const stake = async ({ amountWei, accountAddress }: IStakeInput) => {
+  const stake = async ({ amountWei, accountAddress }: StakeInput) => {
     if (typeof poolIndex === 'number') {
       const rewardTokenAddress = getToken(rewardTokenId).address;
 

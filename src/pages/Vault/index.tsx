@@ -9,7 +9,7 @@ import { AuthContext } from 'context/AuthContext';
 import VaultItem from './VaultItem';
 import { useStyles } from './styles';
 
-export interface IVaultUi {
+export interface VaultUiProps {
   vaults: Vault[];
   isInitialLoading: boolean;
 }
@@ -17,7 +17,7 @@ export interface IVaultUi {
 const generateVaultKey = (vault: Vault) =>
   `vault-${vault.stakedTokenId}-${vault.rewardTokenId}-${vault.lockingPeriodMs || 0}`;
 
-export const VaultUi: React.FC<IVaultUi> = ({ vaults, isInitialLoading }) => {
+export const VaultUi: React.FC<VaultUiProps> = ({ vaults, isInitialLoading }) => {
   const styles = useStyles();
 
   if (isInitialLoading || vaults.length === 0) {

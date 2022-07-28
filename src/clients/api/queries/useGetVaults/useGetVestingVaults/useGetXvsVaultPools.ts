@@ -1,10 +1,10 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import {
-  GetXvsVaultPendingRewardWeiOutput,
-  IGetXvsVaultPoolInfoOutput,
-  IGetXvsVaultUserInfoOutput,
-  getXvsVaultPendingRewardWei,
+  GetXvsVaultPendingRewardOutput,
+  GetXvsVaultPoolInfoOutput,
+  GetXvsVaultUserInfoOutput,
+  getXvsVaultPendingReward,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
 } from 'clients/api';
@@ -13,23 +13,23 @@ import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
 
-export interface IUseGetXvsVaultPoolsInput {
+export interface UseGetXvsVaultPoolsInput {
   poolsCount: number;
   accountAddress?: string;
 }
 
 export type UseGetXvsVaultPoolsOutput = UseQueryResult<
-  IGetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
+  GetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardOutput | GetXvsVaultUserInfoOutput
 >[];
 
 const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
-}: IUseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
+}: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
   const poolQueries: UseQueryOptions<
-    IGetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardWeiOutput | IGetXvsVaultUserInfoOutput
+    GetXvsVaultPoolInfoOutput | GetXvsVaultPendingRewardOutput | GetXvsVaultUserInfoOutput
   >[] = [];
 
   // Fetch pool infos
@@ -49,14 +49,14 @@ const useGetXvsVaultPools = ({
 
     poolQueries.push({
       queryFn: () =>
-        getXvsVaultPendingRewardWei({
+        getXvsVaultPendingReward({
           xvsVaultContract,
           rewardTokenAddress: XVS_TOKEN_ADDRESS,
           poolIndex,
           accountAddress: accountAddress || '',
         }),
       queryKey: [
-        FunctionKey.GET_XVS_VAULT_PENDING_REWARD_WEI,
+        FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
         { accountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
       ],
       enabled: !!accountAddress,

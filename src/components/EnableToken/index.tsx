@@ -10,22 +10,22 @@ import { AuthContext } from 'context/AuthContext';
 import { SecondaryButton } from '../Button';
 import { Delimiter } from '../Delimiter';
 import { Icon } from '../Icon';
-import { ILabeledInlineContentProps, LabeledInlineContent } from '../LabeledInlineContent';
+import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
 import useStyles from './styles';
 
-export interface IEnableTokenUiProps {
+export interface EnableTokenUiProps {
   vTokenId: VTokenId | 'vai' | 'vrt';
   title: string | React.ReactElement;
   isTokenEnabled: boolean;
   enableToken: () => void;
   isInitialLoading?: boolean;
   isEnableTokenLoading?: boolean;
-  tokenInfo?: ILabeledInlineContentProps[];
+  tokenInfo?: LabeledInlineContentProps[];
   disabled?: boolean;
 }
 
-export const EnableTokenUi: React.FC<IEnableTokenUiProps> = ({
+export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
   vTokenId,
   title,
   tokenInfo = [],
@@ -84,14 +84,14 @@ export const EnableTokenUi: React.FC<IEnableTokenUiProps> = ({
 };
 
 export interface EnableTokenProps
-  extends Pick<IEnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'vTokenId'> {
+  extends Pick<EnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'vTokenId'> {
   spenderAddress: string;
 }
 
 export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddress, ...rest }) => {
   const { account } = useContext(AuthContext);
 
-  const { data: tokenAllowance, isLoading: isGetAllowanceLoading } = useGetAllowance(
+  const { data: getTokenAllowanceData, isLoading: isGetAllowanceLoading } = useGetAllowance(
     {
       accountAddress: account?.address || '',
       spenderAddress,
@@ -103,7 +103,8 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddre
   );
 
   const isTokenApproved =
-    vTokenId === 'bnb' || (!!tokenAllowance && tokenAllowance.isGreaterThan(0));
+    vTokenId === 'bnb' ||
+    (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
 
   const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
     tokenId: vTokenId,

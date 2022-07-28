@@ -4,7 +4,7 @@ import { Spinner } from 'components';
 import React, { useContext, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { IProposal, IVoter } from 'types';
+import { Proposal as ProposalType, VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -20,10 +20,10 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 interface ProposalUiProps {
-  proposal: IProposal | undefined;
-  forVoters: IVoter;
-  againstVoters: IVoter;
-  abstainVoters: IVoter;
+  proposal: ProposalType | undefined;
+  forVoters: VotersDetails;
+  againstVoters: VotersDetails;
+  abstainVoters: VotersDetails;
   vote: (params: UseVoteParams) => Promise<TransactionReceipt>;
   votingEnabled: boolean;
   readableVoteWeight: string;
@@ -130,20 +130,21 @@ const Proposal = () => {
   const accountAddress = account?.address;
   const { data: proposal } = useGetProposal({ id }, { enabled: !!id });
 
-  const { data: votingWeightWei = new BigNumber(0) } = useGetCurrentVotes(
-    { accountAddress: accountAddress || '' },
-    { enabled: !!accountAddress },
-  );
+  const {
+    data: votingWeightData = {
+      votesWei: new BigNumber(0),
+    },
+  } = useGetCurrentVotes({ accountAddress: accountAddress || '' }, { enabled: !!accountAddress });
 
   const readableVoteWeight = useMemo(
     () =>
       convertWeiToTokens({
-        valueWei: votingWeightWei,
+        valueWei: votingWeightData.votesWei,
         tokenId: 'xvs',
         returnInReadableFormat: true,
         addSymbol: false,
       }),
-    [votingWeightWei],
+    [votingWeightData?.votesWei.toFixed()],
   );
 
   const defaultValue = {
@@ -178,7 +179,7 @@ const Proposal = () => {
     !!accountAddress &&
     proposal?.state === 'Active' &&
     userVoteReceipt?.voteSupport === 'NOT_VOTED' &&
-    votingWeightWei.isGreaterThan(0);
+    votingWeightData.votesWei.isGreaterThan(0);
 
   return (
     <ProposalUi

@@ -4,7 +4,7 @@ import React from 'react';
 import { withCenterStory, withOnChange, withThemeProvider } from 'stories/decorators';
 
 import { Toggle } from '.';
-import type { IToggleProps } from '.';
+import type { ToggleProps } from '.';
 
 export default {
   title: 'Components/Toggle',
@@ -16,7 +16,7 @@ export default {
   ],
 } as ComponentMeta<typeof Toggle>;
 
-const Template: Story<IToggleProps> = (args: IToggleProps) => <Toggle {...args} />;
+const Template: Story<ToggleProps> = (args: ToggleProps) => <Toggle {...args} />;
 
 export const ToggleOn = Template.bind({});
 ToggleOn.args = {

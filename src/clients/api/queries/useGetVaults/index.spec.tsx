@@ -11,16 +11,16 @@ import { markets } from '__mocks__/models/markets';
 import {
   getBalanceOf,
   getMarkets,
-  getVaiVaultPendingXvsWei,
+  getVaiVaultPendingXvs,
   getVaiVaultUserInfo,
-  getVenusVaiVaultDailyRateWei,
-  getVrtVaultAccruedInterestWei,
+  getVenusVaiVaultDailyRate,
+  getVrtVaultAccruedInterest,
   getVrtVaultInterestRatePerBlock,
   getVrtVaultUserInfo,
-  getXvsVaultPendingRewardWei,
+  getXvsVaultPendingReward,
+  getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
-  getXvsVaultPoolsCount,
-  getXvsVaultRewardWeiPerBlock,
+  getXvsVaultRewardPerBlock,
   getXvsVaultTotalAllocationPoints,
   getXvsVaultUserInfo,
 } from 'clients/api';
@@ -36,29 +36,33 @@ jest.mock('clients/api');
 
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {
-    (getXvsVaultPoolsCount as jest.Mock).mockImplementation(() => xvsVaultResponses.poolLength);
-    (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(
-      () => xvsVaultResponses.totalAllocPoints,
-    );
-    (getXvsVaultRewardWeiPerBlock as jest.Mock).mockImplementation(
-      () => new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock),
-    );
-    (getXvsVaultPendingRewardWei as jest.Mock).mockImplementation(
-      () => new BigNumber(xvsVaultResponses.pendingReward),
-    );
-    (getVaiVaultPendingXvsWei as jest.Mock).mockImplementation(
-      () => new BigNumber(vaiVaultResponses.pendingXVS),
-    );
-    (getVenusVaiVaultDailyRateWei as jest.Mock).mockImplementation(
-      () => new BigNumber(compTrollerResponses.venusVAIVaultRate),
-    );
-    (getVrtVaultAccruedInterestWei as jest.Mock).mockImplementation(
-      () => new BigNumber(vrtVaultResponses.getAccruedInterest),
-    );
-    (getVrtVaultInterestRatePerBlock as jest.Mock).mockImplementation(
-      () => new BigNumber(vrtVaultResponses.interestRatePerBlock),
-    );
-    (getBalanceOf as jest.Mock).mockImplementation(() => new BigNumber('4000000000'));
+    (getXvsVaultPoolCount as jest.Mock).mockImplementation(() => ({
+      poolCount: xvsVaultResponses.poolLength,
+    }));
+    (getXvsVaultTotalAllocationPoints as jest.Mock).mockImplementation(() => ({
+      totalAllocationPoints: xvsVaultResponses.totalAllocPoints,
+    }));
+    (getXvsVaultRewardPerBlock as jest.Mock).mockImplementation(() => ({
+      rewardPerBlockWei: new BigNumber(xvsVaultResponses.rewardTokenAmountsPerBlock),
+    }));
+    (getXvsVaultPendingReward as jest.Mock).mockImplementation(() => ({
+      pendingXvsReward: new BigNumber(xvsVaultResponses.pendingReward),
+    }));
+    (getVaiVaultPendingXvs as jest.Mock).mockImplementation(() => ({
+      pendingXvsWei: new BigNumber(vaiVaultResponses.pendingXVS),
+    }));
+    (getVenusVaiVaultDailyRate as jest.Mock).mockImplementation(() => ({
+      dailyRateWei: new BigNumber(compTrollerResponses.venusVAIVaultRate),
+    }));
+    (getVrtVaultAccruedInterest as jest.Mock).mockImplementation(() => ({
+      accruedInterestWei: new BigNumber(vrtVaultResponses.getAccruedInterest),
+    }));
+    (getVrtVaultInterestRatePerBlock as jest.Mock).mockImplementation(() => ({
+      interestRatePerBlockWei: new BigNumber(vrtVaultResponses.interestRatePerBlock),
+    }));
+    (getBalanceOf as jest.Mock).mockImplementation(() => ({
+      balanceWei: new BigNumber('4000000000'),
+    }));
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
 
     (getVaiVaultUserInfo as jest.Mock).mockImplementation(() =>

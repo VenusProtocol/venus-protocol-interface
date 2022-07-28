@@ -1,7 +1,7 @@
-import { ICastVoteWithReasonInput, useCastVote, useCastVoteWithReason } from 'clients/api';
+import { CastVoteWithReasonInput, useCastVote, useCastVoteWithReason } from 'clients/api';
 
-export type UseVoteParams = Partial<ICastVoteWithReasonInput> &
-  Omit<ICastVoteWithReasonInput, 'voteReason'>;
+export type UseVoteParams = Partial<CastVoteWithReasonInput> &
+  Omit<CastVoteWithReasonInput, 'voteReason'>;
 
 const useVote = ({ accountAddress }: { accountAddress: string }) => {
   const { mutateAsync: castVote, isLoading: isCastVoteLoading } = useCastVote({

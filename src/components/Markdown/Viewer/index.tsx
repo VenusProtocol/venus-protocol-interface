@@ -5,12 +5,12 @@ import React from 'react';
 import previewOptions from '../previewOptions';
 import { useStyles } from './styles';
 
-export interface IMarkdownViewerProps {
+export interface MarkdownViewerProps {
   content: string;
   className?: string;
 }
 
-const Markdown: React.FC<IMarkdownViewerProps> = ({ content, className }) => {
+const Markdown: React.FC<MarkdownViewerProps> = ({ content, className }) => {
   const styles = useStyles();
 
   return (

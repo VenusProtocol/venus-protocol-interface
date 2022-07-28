@@ -1,21 +1,25 @@
 import BigNumber from 'bignumber.js';
-import { IApyChartProps } from 'components';
+import { ApyChartProps } from 'components';
 import React from 'react';
-import { IVBepToken } from 'types';
+import { VBepToken } from 'types';
 import { formatPercentage } from 'utilities';
 
 import { useGetMarketHistory } from 'clients/api';
 
-const useGetChartData = ({ vTokenId }: { vTokenId: IVBepToken['id'] }) => {
-  const { data: marketSnapshots = [] } = useGetMarketHistory({
+const useGetChartData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
+  const {
+    data: marketSnapshotsData = {
+      marketSnapshots: [],
+    },
+  } = useGetMarketHistory({
     vTokenId,
   });
 
   return React.useMemo(() => {
-    const supplyChartData: IApyChartProps['data'] = [];
-    const borrowChartData: IApyChartProps['data'] = [];
+    const supplyChartData: ApyChartProps['data'] = [];
+    const borrowChartData: ApyChartProps['data'] = [];
 
-    [...marketSnapshots]
+    [...marketSnapshotsData.marketSnapshots]
       // Snapshots are returned from earliest to oldest, so we reverse them to
       // pass them to the charts in the right order
       .reverse()
@@ -43,7 +47,7 @@ const useGetChartData = ({ vTokenId }: { vTokenId: IVBepToken['id'] }) => {
       supplyChartData,
       borrowChartData,
     };
-  }, [JSON.stringify(marketSnapshots)]);
+  }, [JSON.stringify(marketSnapshotsData?.marketSnapshots)]);
 };
 
 export default useGetChartData;

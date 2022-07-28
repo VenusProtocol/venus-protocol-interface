@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { BorrowLimitUsedAccountHealth, IToggleProps, Icon, Toggle, Tooltip } from 'components';
+import { BorrowLimitUsedAccountHealth, Icon, Toggle, ToggleProps, Tooltip } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { useMyAccountStyles as useStyles } from './styles';
 
-export interface IMyAccountUiProps {
+export interface MyAccountUiProps {
   netApyPercentage: number | undefined;
   dailyEarningsCents: number | undefined;
   supplyBalanceCents: number | undefined;
@@ -30,11 +30,11 @@ export const MyAccountUi = ({
   isXvsEnabled,
   onXvsToggle,
   className,
-}: IMyAccountUiProps) => {
+}: MyAccountUiProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const handleXvsToggleChange: IToggleProps['onChange'] = (_event, checked) => onXvsToggle(checked);
+  const handleXvsToggleChange: ToggleProps['onChange'] = (_event, checked) => onXvsToggle(checked);
 
   const safeBorrowLimitCents =
     typeof borrowLimitCents === 'number'

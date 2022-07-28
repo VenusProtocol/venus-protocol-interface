@@ -10,11 +10,11 @@ import mainContractAddresses from 'constants/contracts/addresses/main.json';
 import MAX_UINT256 from 'constants/maxUint256';
 import renderComponent from 'testUtils/renderComponent';
 
-import ActionModal, { IActionModalProps } from '.';
+import ActionModal, { ActionModalProps } from '.';
 
 jest.mock('clients/api');
 
-const baseProps: IActionModalProps = {
+const baseProps: ActionModalProps = {
   title: 'Fake title',
   isInitialLoading: false,
   connectWalletMessage: 'Fake connect wallet message',
@@ -39,7 +39,7 @@ describe('pages/Vault/modals/ActionModal', () => {
   });
 
   it('displays spinner if isInitialLoading is true', async () => {
-    const customProps: IActionModalProps = {
+    const customProps: ActionModalProps = {
       ...baseProps,
       isInitialLoading: true,
     };
@@ -56,7 +56,9 @@ describe('pages/Vault/modals/ActionModal', () => {
 
   it('prompts user who connected their wallet to enable token if they have not done so already', async () => {
     // Mark token as disabled
-    (getAllowance as jest.Mock).mockImplementation(() => 0);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: new BigNumber(0),
+    }));
 
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {
@@ -71,7 +73,9 @@ describe('pages/Vault/modals/ActionModal', () => {
 
   it('displays transaction form if user have connected their wallet and enabled token', async () => {
     // Mark token as enabled
-    (getAllowance as jest.Mock).mockImplementation(() => MAX_UINT256);
+    (getAllowance as jest.Mock).mockImplementation(() => ({
+      allowanceWei: MAX_UINT256,
+    }));
 
     const { getByText } = renderComponent(<ActionModal {...baseProps} />, {
       authContextValue: {

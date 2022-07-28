@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { IModalProps, Modal } from 'components';
+import { Modal, ModalProps } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 
 import { useStyles } from './styles';
 
-export interface ILunaUstWarningModalProps {
-  onClose: IModalProps['handleClose'];
+export interface LunaUstWarningModalProps {
+  onClose: ModalProps['handleClose'];
 }
 
-const LunaUstWarningModal: React.FC<ILunaUstWarningModalProps> = ({ onClose }) => {
+const LunaUstWarningModal: React.FC<LunaUstWarningModalProps> = ({ onClose }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 

@@ -1,6 +1,6 @@
-import { IVoter } from 'types';
+import { VotersDetails } from 'types';
 
-export interface IGetVotersInput {
+export interface GetVotersInput {
   id: string | number;
   // 0 - "for" votes, 1 – "against" votes, 2 – "abstain" votes
   filter?: 0 | 1 | 2;
@@ -8,7 +8,7 @@ export interface IGetVotersInput {
   offset?: number;
 }
 
-export interface IVoterResult {
+export interface VoterResult {
   address: string;
   blockNumber: number;
   blockTimestamp: number;
@@ -23,11 +23,11 @@ export interface IVoterResult {
   votes2: string;
 }
 
-export interface IGetVotersApiResponse {
+export interface GetVotersApiResponse {
   limit: number;
-  result: IVoterResult[];
+  result: VoterResult[];
   sumVotes: { for: string; against: string; abstain: string; total: string };
   total: number;
 }
 
-export type GetVotersOutput = IVoter;
+export type GetVotersOutput = VotersDetails;

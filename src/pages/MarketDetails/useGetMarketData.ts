@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { IVBepToken } from 'types';
+import { VBepToken } from 'types';
 import { convertPercentageFromSmartContract, convertWeiToTokens, getToken } from 'utilities';
 
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
@@ -10,10 +10,10 @@ const useGetMarketData = ({
   vTokenId,
   vTokenAddress,
 }: {
-  vTokenId: IVBepToken['id'];
-  vTokenAddress: IVBepToken['address'];
+  vTokenId: VBepToken['id'];
+  vTokenAddress: VBepToken['address'];
 }) => {
-  const { data: vTokenCashWei } = useGetVTokenCash({
+  const { data: vTokenCashData } = useGetVTokenCash({
     vTokenId,
   });
 
@@ -73,9 +73,9 @@ const useGetMarketData = ({
       );
 
     let currentUtilizationRate: number | undefined;
-    if (vTokenCashWei && assetMarket && reserveTokens) {
+    if (vTokenCashData?.cashWei && assetMarket && reserveTokens) {
       const vTokenCashTokens = convertWeiToTokens({
-        valueWei: vTokenCashWei,
+        valueWei: vTokenCashData.cashWei,
         tokenId: vTokenId,
       });
 
@@ -107,7 +107,7 @@ const useGetMarketData = ({
       currentUtilizationRate,
       reserveFactorMantissa,
     };
-  }, [JSON.stringify(assetMarket), vTokenCashWei?.toFixed()]);
+  }, [JSON.stringify(assetMarket), vTokenCashData?.cashWei.toFixed()]);
 };
 
 export default useGetMarketData;

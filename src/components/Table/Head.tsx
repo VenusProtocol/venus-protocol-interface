@@ -10,14 +10,14 @@ import React from 'react';
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
-interface IColProps {
+interface ColProps {
   key: string;
   label: string;
   orderable: boolean;
   align?: 'left' | 'center' | 'right';
 }
 
-interface IHeadProps<C extends IColProps[]> {
+interface HeadProps<C extends ColProps[]> {
   columns: C;
   orderBy: string | undefined;
   orderDirection: 'asc' | 'desc' | undefined;
@@ -25,13 +25,13 @@ interface IHeadProps<C extends IColProps[]> {
   className?: string;
 }
 
-function Head<C extends IColProps[]>({
+function Head<C extends ColProps[]>({
   columns,
   orderBy,
   orderDirection,
   onRequestOrder,
   className,
-}: IHeadProps<C>) {
+}: HeadProps<C>) {
   const styles = useStyles();
   return (
     <TableHead>

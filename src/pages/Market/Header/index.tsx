@@ -9,14 +9,14 @@ import { useGetTreasuryTotals } from 'clients/api';
 
 import { useStyles } from '../styles';
 
-interface IHeaderProps {
+interface HeaderProps {
   totalSupplyCents: BigNumber;
   totalBorrowCents: BigNumber;
   availableLiquidityCents: BigNumber;
   totalTreasuryCents: BigNumber;
 }
 
-export const HeaderUi: React.FC<IHeaderProps> = ({
+export const HeaderUi: React.FC<HeaderProps> = ({
   totalSupplyCents,
   totalBorrowCents,
   availableLiquidityCents,

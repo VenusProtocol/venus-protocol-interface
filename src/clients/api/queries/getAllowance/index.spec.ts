@@ -32,7 +32,7 @@ describe('api/queries/getAllowance', () => {
     }
   });
 
-  test('returns the Allowance on success', async () => {
+  test('returns the allowance on success', async () => {
     const fakeAllowanceWei = '10000';
 
     const callMock = jest.fn(async () => fakeAllowanceWei);
@@ -55,7 +55,9 @@ describe('api/queries/getAllowance', () => {
     expect(vrtAllowanceMock).toHaveBeenCalledTimes(1);
     expect(callMock).toHaveBeenCalledTimes(1);
     expect(vrtAllowanceMock).toHaveBeenCalledWith(fakeAccountAddress, fakeSpenderAddress);
-    expect(response instanceof BigNumber).toBe(true);
-    expect(response.toFixed()).toBe(fakeAllowanceWei);
+    expect(response.allowanceWei instanceof BigNumber).toBe(true);
+    expect(response).toEqual({
+      allowanceWei: new BigNumber(fakeAllowanceWei),
+    });
   });
 });

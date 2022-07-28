@@ -45,7 +45,7 @@ export interface Asset {
 export type TokenId = keyof typeof TOKENS;
 export type VTokenId = keyof typeof VBEP_TOKENS;
 
-export interface IToken {
+export interface Token {
   id: TokenId;
   symbol: Uppercase<TokenId>;
   decimals: number;
@@ -54,7 +54,7 @@ export interface IToken {
   vasset: string;
 }
 
-export interface IVBepToken {
+export interface VBepToken {
   id: VTokenId;
   symbol: `v${Uppercase<VTokenId>}`;
   address: string | '';
@@ -84,7 +84,7 @@ export type ProposalState =
   | 'Expired'
   | 'Executed';
 
-export interface IProposalAction {
+export interface ProposalAction {
   data: string;
   signature: string;
   target: string;
@@ -109,7 +109,7 @@ export interface DescriptionV1 {
   abstainDescription?: undefined;
 }
 
-export interface IProposal {
+export interface Proposal {
   abstainedVotesWei: BigNumber;
   againstVotesWei: BigNumber;
   createdDate: Date | undefined;
@@ -130,14 +130,14 @@ export interface IProposal {
   queuedTxHash: string | undefined;
   startTxHash: string | undefined;
   totalVotesWei: BigNumber;
-  actions: IProposalAction[];
+  actions: ProposalAction[];
   blockNumber?: number;
   endDate?: Date;
 }
 
 export type VoteSupport = 'FOR' | 'AGAINST' | 'ABSTAIN' | 'NOT_VOTED';
 
-export interface IVoter {
+export interface VotersDetails {
   result: {
     address: string;
     voteWeightWei: BigNumber;
@@ -152,7 +152,7 @@ export interface IVoter {
   };
 }
 
-export interface IPool {
+export interface Pool {
   poolId: BigNumber;
   stakedToken: TokenId;
   rewardToken: TokenId;
@@ -260,7 +260,7 @@ export enum TransactionCategory {
   vote = 'vote',
 }
 
-export interface ITransaction {
+export interface Transaction {
   id: number;
   amountWei: BigNumber;
   blockNumber: number;
@@ -287,7 +287,7 @@ export interface Vault {
   poolIndex?: number;
 }
 
-export interface IVoterAccount {
+export interface VoterAccount {
   address: string;
   createdAt: Date;
   id: string;
@@ -331,7 +331,7 @@ export type VoteDetailTransactionVote = {
 
 export type VoteDetailTransaction = VoteDetailTransactionTransfer | VoteDetailTransactionVote;
 
-export interface IVoterDetails {
+export interface VoterDetails {
   balanceWei: BigNumber;
   delegateCount: number;
   delegateAddress: string;
@@ -340,13 +340,13 @@ export interface IVoterDetails {
   voterTransactions: VoteDetailTransaction[];
 }
 
-export interface IVoterHistory {
+export interface VoterHistory {
   address: string;
   blockNumber: number;
   blockTimestamp: number;
   createdAt: Date;
   id: string;
-  proposal: IProposal;
+  proposal: Proposal;
   reason: string | undefined;
   support: VoteSupport;
   updatedAt: Date;

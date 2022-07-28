@@ -11,11 +11,7 @@ import {
   getContractAddress,
 } from 'utilities';
 
-import {
-  useGetBalanceOf,
-  useGetUserMarketInfo,
-  useGetVenusVaiVaultDailyRateWei,
-} from 'clients/api';
+import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import { AuthContext } from 'context/AuthContext';
@@ -28,11 +24,11 @@ type TableAsset = Pick<Asset, 'id' | 'symbol'> & {
   xvsBorrowApy: Asset['xvsBorrowApy'] | undefined;
 };
 
-interface IXvsTableProps {
+interface XvsTableProps {
   assets: TableAsset[];
 }
 
-const XvsTableUi: React.FC<IXvsTableProps> = ({ assets }) => {
+const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -125,9 +121,9 @@ const XvsTable: React.FC = () => {
     accountAddress: account?.address,
   });
 
-  const { data: venusVaiVaultDailyRateWei } = useGetVenusVaiVaultDailyRateWei();
+  const { data: venusVaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
 
-  const { data: vaultVaiStakedWei } = useGetBalanceOf(
+  const { data: vaultVaiStakedData } = useGetBalanceOf(
     {
       tokenId: 'vai',
       accountAddress: getContractAddress('vaiVault'),
@@ -141,14 +137,14 @@ const XvsTable: React.FC = () => {
     const allAssets: TableAsset[] = [...assets];
     const xvsAsset = assets.find(asset => asset.id === 'xvs');
 
-    if (venusVaiVaultDailyRateWei && vaultVaiStakedWei && xvsAsset) {
+    if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
       const venusVaiVaultDailyRateTokens = convertWeiToTokens({
-        valueWei: venusVaiVaultDailyRateWei,
+        valueWei: venusVaiVaultDailyRateData.dailyRateWei,
         tokenId: 'xvs',
       });
 
       const vaultVaiStakedTokens = convertWeiToTokens({
-        valueWei: vaultVaiStakedWei,
+        valueWei: vaultVaiStakedData.balanceWei,
         tokenId: 'vai',
       });
 
@@ -168,7 +164,11 @@ const XvsTable: React.FC = () => {
     }
 
     return allAssets;
-  }, [JSON.stringify(assets), venusVaiVaultDailyRateWei?.toFixed(), vaultVaiStakedWei?.toFixed()]);
+  }, [
+    JSON.stringify(assets),
+    venusVaiVaultDailyRateData?.dailyRateWei.toFixed(),
+    vaultVaiStakedData?.balanceWei.toFixed(),
+  ]);
 
   return <XvsTableUi assets={assetsWithVai} />;
 };

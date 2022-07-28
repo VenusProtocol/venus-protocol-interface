@@ -3,7 +3,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { XvsVault } from 'types/contracts';
 
-export interface IExecuteWithdrawalFromXvsVaultInput {
+export interface ExecuteWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;
   fromAccountAddress: string;
   rewardTokenAddress: string;
@@ -17,7 +17,7 @@ const executeWithdrawalFromXvsVault = async ({
   fromAccountAddress,
   rewardTokenAddress,
   poolIndex,
-}: IExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> => {
+}: ExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> => {
   const res = await xvsVaultContract.methods
     .executeWithdrawal(rewardTokenAddress, poolIndex)
     .send({ from: fromAccountAddress });

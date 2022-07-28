@@ -3,7 +3,7 @@ import { VoteSupport } from 'types';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 import { GovernorBravoDelegate } from 'types/contracts';
 
-export interface IGetVoteReceiptInput {
+export interface GetVoteReceiptInput {
   governorBravoContract: GovernorBravoDelegate;
   proposalId: number;
   accountAddress: string;
@@ -17,7 +17,7 @@ const getVoteReceipt = async ({
   proposalId,
   governorBravoContract,
   accountAddress,
-}: IGetVoteReceiptInput): Promise<GetVoteReceiptOutput> => {
+}: GetVoteReceiptInput): Promise<GetVoteReceiptOutput> => {
   const [hasVotes, support] = await governorBravoContract.methods
     .getReceipt(proposalId, accountAddress)
     .call();

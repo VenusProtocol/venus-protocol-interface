@@ -17,7 +17,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
-import { AmountForm, IAmountFormProps } from 'containers/AmountForm';
+import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -27,7 +27,7 @@ import { useStyles } from '../styles';
 
 const vaiUnitrollerContractAddress = getContractAddress('vaiUnitroller');
 
-export interface IRepayVaiUiProps {
+export interface RepayVaiUiProps {
   disabled: boolean;
   isRepayVaiLoading: boolean;
   repayVai: (amountWei: BigNumber) => Promise<TransactionReceipt | undefined>;
@@ -36,7 +36,7 @@ export interface IRepayVaiUiProps {
   userMintedWei?: BigNumber;
 }
 
-export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
+export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
   disabled,
   userBalanceWei,
   userMintedWei,
@@ -66,7 +66,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 
   const hasRepayableVai = userMintedWei?.isGreaterThan(0) || false;
 
-  const onSubmit: IAmountFormProps['onSubmit'] = async amountTokens => {
+  const onSubmit: AmountFormProps['onSubmit'] = async amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
       tokenId: VAI_ID,
@@ -140,7 +140,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
 const RepayVai: React.FC = () => {
   const { account } = useContext(AuthContext);
 
-  const { data: userVaiBalanceWei, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
+  const { data: userVaiBalanceData, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
       tokenId: TOKENS.vai.id as TokenId,
@@ -150,7 +150,7 @@ const RepayVai: React.FC = () => {
     },
   );
 
-  const { data: userMintedVaiWei, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
+  const { data: userMintedVaiData, isLoading: isGetUserMintedVaiLoading } = useGetMintedVai(
     {
       accountAddress: account?.address || '',
     },
@@ -163,7 +163,7 @@ const RepayVai: React.FC = () => {
 
   const { mutateAsync: contractRepayVai, isLoading: isRepayVaiLoading } = useRepayVai();
 
-  const repayVai: IRepayVaiUiProps['repayVai'] = async amountWei => {
+  const repayVai: RepayVaiUiProps['repayVai'] = async amountWei => {
     if (!account) {
       // This error should never happen, since the form inside the UI component
       // is disabled if there's no logged in account
@@ -179,8 +179,8 @@ const RepayVai: React.FC = () => {
     <RepayVaiUi
       disabled={!account}
       isInitialLoading={isInitialLoading}
-      userBalanceWei={userVaiBalanceWei}
-      userMintedWei={userMintedVaiWei}
+      userBalanceWei={userVaiBalanceData?.balanceWei}
+      userMintedWei={userMintedVaiData?.mintedVaiWei}
       isRepayVaiLoading={isRepayVaiLoading}
       repayVai={repayVai}
     />

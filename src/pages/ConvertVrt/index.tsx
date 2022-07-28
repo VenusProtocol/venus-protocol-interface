@@ -18,12 +18,12 @@ import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AuthContext } from 'context/AuthContext';
 import { VError } from 'errors/VError';
 
-import Convert, { IConvertProps } from './Convert';
-import Withdraw, { IWithdrawProps } from './Withdraw';
+import Convert, { ConvertProps } from './Convert';
+import Withdraw, { WithdrawProps } from './Withdraw';
 import { VRT_ID } from './constants';
 import { useStyles } from './styles';
 
-export type ConvertVrtUiProps = IConvertProps & IWithdrawProps;
+export type ConvertVrtUiProps = ConvertProps & WithdrawProps;
 
 export const ConvertVrtUi = ({
   xvsToVrtConversionRatio,
@@ -75,9 +75,9 @@ export const ConvertVrtUi = ({
 const ConvertVrt = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address;
-  const { data: vrtConversionEndTime } = useGetVrtConversionEndTime();
-  const { data: vrtConversionRatio } = useGetVrtConversionRatio();
-  const { data: userVrtBalanceWei } = useGetBalanceOf(
+  const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
+  const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
+  const { data: userVrtBalanceData } = useGetBalanceOf(
     { accountAddress: accountAddress || '', tokenId: VRT_ID },
     { enabled: !!accountAddress },
   );
@@ -113,22 +113,22 @@ const ConvertVrt = () => {
   };
 
   const conversionRatio = useMemo(() => {
-    if (vrtConversionRatio) {
+    if (vrtConversionRatioData?.conversionRatio) {
       return convertWeiToTokens({
-        valueWei: new BigNumber(vrtConversionRatio),
+        valueWei: new BigNumber(vrtConversionRatioData.conversionRatio),
         tokenId: XVS_TOKEN_ID,
       });
     }
 
     return undefined;
-  }, [vrtConversionRatio]);
+  }, [vrtConversionRatioData?.conversionRatio]);
 
-  if (conversionRatio && vrtConversionEndTime) {
+  if (conversionRatio && vrtConversionEndTimeData?.conversionEndTime) {
     return (
       <ConvertVrtUi
         xvsToVrtConversionRatio={conversionRatio}
-        userVrtBalanceWei={userVrtBalanceWei}
-        vrtConversionEndTime={vrtConversionEndTime}
+        userVrtBalanceWei={userVrtBalanceData?.balanceWei}
+        vrtConversionEndTime={vrtConversionEndTimeData.conversionEndTime}
         convertVrtLoading={convertVrtLoading}
         convertVrt={handleConvertVrt}
         withdrawXvs={handleWithdrawXvs}

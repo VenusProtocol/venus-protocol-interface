@@ -5,13 +5,16 @@ import { truncateAddress } from 'utilities';
 
 import { AuthContext } from 'context/AuthContext';
 
-import { IButtonProps, SecondaryButton } from '../../Button';
+import { ButtonProps, SecondaryButton } from '../../Button';
 
-export interface IConnectButton extends IButtonProps {
+export interface ConnectButtonProps extends ButtonProps {
   accountAddress?: string;
 }
 
-export const ConnectButtonUi: React.FC<IConnectButton> = ({ accountAddress, ...otherProps }) => {
+export const ConnectButtonUi: React.FC<ConnectButtonProps> = ({
+  accountAddress,
+  ...otherProps
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -21,7 +24,7 @@ export const ConnectButtonUi: React.FC<IConnectButton> = ({ accountAddress, ...o
   );
 };
 
-export const ConnectButton: React.FC<IButtonProps> = props => {
+export const ConnectButton: React.FC<ButtonProps> = props => {
   const { account, openAuthModal } = React.useContext(AuthContext);
   return (
     <ConnectButtonUi

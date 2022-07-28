@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IVoterHistory, VoteDetailTransaction } from 'types';
+import { VoteDetailTransaction, VoterHistory } from 'types';
 
 import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
 
@@ -18,7 +18,7 @@ interface VoterDetailsUiProps {
   delegating: boolean;
   address: string;
   voterTransactions: VoteDetailTransaction[] | undefined;
-  voterHistory: IVoterHistory[] | undefined;
+  voterHistory: VoterHistory[] | undefined;
   setCurrentHistoryPage: (page: number) => void;
   total: number;
   limit: number;

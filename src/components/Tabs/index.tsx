@@ -9,7 +9,7 @@ export type TabContent = {
   content: ReactElement;
 };
 
-export interface ITabsProps {
+export interface TabsProps {
   tabsContent: TabContent[];
   componentTitle?: string;
   initialActiveTabIndex?: number;
@@ -23,7 +23,7 @@ export const Tabs = ({
   onTabChange,
   className,
   componentTitle,
-}: ITabsProps) => {
+}: TabsProps) => {
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
 

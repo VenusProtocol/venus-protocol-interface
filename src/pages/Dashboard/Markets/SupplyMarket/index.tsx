@@ -21,7 +21,7 @@ import { CollateralConfirmModal } from './CollateralConfirmModal';
 import SuppliedTable from './SuppliedTable';
 import SupplyMarketTable from './SupplyMarketTable';
 
-interface ISupplyMarketProps {
+interface SupplyMarketProps {
   className?: string;
   isXvsEnabled: boolean;
   suppliedAssets: Asset[];
@@ -31,7 +31,7 @@ interface ISupplyMarketProps {
   setConfirmCollateral: (asset: Asset | undefined) => void;
 }
 
-export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
+export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   className,
   isXvsEnabled,
   supplyMarketAssets,
@@ -105,7 +105,7 @@ export const SupplyMarketUi: React.FC<ISupplyMarketProps> = ({
 };
 
 const SupplyMarket: React.FC<
-  Pick<ISupplyMarketProps, 'isXvsEnabled' | 'supplyMarketAssets' | 'suppliedAssets'> & {
+  Pick<SupplyMarketProps, 'isXvsEnabled' | 'supplyMarketAssets' | 'suppliedAssets'> & {
     className?: string;
     accountAddress: string;
   }
@@ -167,7 +167,7 @@ const SupplyMarket: React.FC<
         comptrollerContract,
         accountAddress,
         vTokenAddress: asset.vtokenAddress,
-        vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf),
+        vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
       });
     } catch (error) {
       if (error instanceof VError) {

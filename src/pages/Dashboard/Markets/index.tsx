@@ -11,7 +11,7 @@ import BorrowMarket from './BorrowMarket';
 import SupplyMarket from './SupplyMarket';
 import { useStyles as useLocalStyles } from './styles';
 
-export interface IMarketsProps {
+export interface MarketsProps {
   isXvsEnabled: boolean;
   accountAddress: string;
   userTotalBorrowLimitCents: BigNumber;
@@ -21,7 +21,7 @@ export interface IMarketsProps {
   borrowMarketAssets: Asset[];
 }
 
-const Markets: React.FC<IMarketsProps> = ({
+const Markets: React.FC<MarketsProps> = ({
   isXvsEnabled,
   accountAddress,
   userTotalBorrowLimitCents,
