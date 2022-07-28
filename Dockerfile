@@ -35,8 +35,10 @@ RUN mkdir -p /build/{statics,ipfs}
 COPY --from=builder /usr/app/build /build/statics
 COPY --from=builder /usr/app/ipfs /build/ipfs
 
-RUN aws s3 cp /build/statics s3://${S3_BUCKET_NAME}/ --recursive && \
-    aws s3 cp /build/ipfs s3://${S3_IPFS_BUCKET_NAME}/ --recursive
+RUN aws s3 cp /build/statics s3://${S3_BUCKET_NAME}/ --recursive
+
+RUN if [ -z "$S3_IPFS_BUCKET_NAME" ]; then aws s3 cp /build/ipfs s3://${S3_IPFS_BUCKET_NAME}/ --recursive; fi
+    
 
 #----- Build docker image ----
 
