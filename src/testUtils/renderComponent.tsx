@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { Web3Wrapper } from 'clients/web3';
@@ -41,7 +41,7 @@ const renderComponent = (
         <MuiThemeProvider>
           <AuthContext.Provider value={defaultAuthContextValues}>
             <SuccessfulTransactionModalProvider>
-              <BrowserRouter>
+              <HashRouter>
                 <ToastContainer />
 
                 <Switch>
@@ -50,7 +50,7 @@ const renderComponent = (
                     component={typeof children === 'function' ? children : () => children}
                   />
                 </Switch>
-              </BrowserRouter>
+              </HashRouter>
             </SuccessfulTransactionModalProvider>
           </AuthContext.Provider>
         </MuiThemeProvider>
