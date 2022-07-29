@@ -15,6 +15,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 import { useWithdrawFromVrtVault } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useClaimVaultReward from 'hooks/useClaimVaultReward';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
@@ -31,7 +32,7 @@ export interface VaultItemUiProps {
   stakingAprPercentage: number;
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;
-  onClaimReward: () => Promise<TransactionReceipt>;
+  onClaimReward: () => Promise<TransactionReceipt | void>;
   onStake: () => void;
   onWithdraw: () => Promise<TransactionReceipt | void>;
   closeActiveModal: () => void;
@@ -283,13 +284,32 @@ const VaultItem: React.FC<VaultItemProps> = ({
   ...vaultItemUiProps
 }) => {
   const { account } = useContext(AuthContext);
+
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
+
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
-  const onStake = () => setActiveModal('stake');
+  const onStake = () => {
+    // Block action is user has LUNA or UST enabled as collateral
+    if (hasLunaOrUstCollateralEnabled) {
+      openLunaUstWarningModal();
+      return;
+    }
+
+    setActiveModal('stake');
+  };
 
   const { mutateAsync: withdrawFromVrtVault, isLoading: isWithdrawFromVrtVault } =
     useWithdrawFromVrtVault();
 
   const onWithdraw = async () => {
+    // Block action is user has LUNA or UST enabled as collateral
+    if (hasLunaOrUstCollateralEnabled) {
+      openLunaUstWarningModal();
+      return;
+    }
+
     if (stakedTokenId !== TOKENS.vrt.id || typeof poolIndex === 'number') {
       // Handle withdrawing from any vault except the VRT non-vesting vault
       setActiveModal('withdraw');
@@ -311,8 +331,14 @@ const VaultItem: React.FC<VaultItemProps> = ({
   const closeActiveModal = () => setActiveModal(undefined);
 
   const { claimReward, isLoading: isClaimRewardLoading } = useClaimVaultReward();
-  const onClaimReward = () =>
-    claimReward({
+  const onClaimReward = async () => {
+    // Block action is user has LUNA or UST enabled as collateral
+    if (hasLunaOrUstCollateralEnabled) {
+      openLunaUstWarningModal();
+      return;
+    }
+
+    return claimReward({
       stakedTokenId,
       rewardTokenId,
       poolIndex,
@@ -320,6 +346,7 @@ const VaultItem: React.FC<VaultItemProps> = ({
       // connect their wallet before they're able to stake
       accountAddress: account?.address || '',
     });
+  };
 
   return (
     <VaultItemUi
