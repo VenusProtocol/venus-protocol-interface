@@ -41,7 +41,7 @@ export const SidebarUi: React.FC = () => {
             <LogoNoText css={styles.logoClosed} />
           </Toolbar>
 
-          <List css={styles.list}>
+          <List>
             {menuItems.map(menuItem => (
               <ListItemButton
                 key={menuItem.i18nKey}
@@ -100,7 +100,7 @@ export const SidebarUi: React.FC = () => {
             </button>
           </div>
 
-          <List css={styles.list}>
+          <List>
             {menuItems.map(({ href, icon, i18nKey }) => (
               <ListItemButton
                 key={i18nKey}
