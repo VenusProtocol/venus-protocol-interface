@@ -18,10 +18,10 @@ import { useStyles } from './styles';
 const Title: React.FC = () => {
   const styles = useStyles();
   const { pathname } = useLocation();
-  const voterDetailMatch = useRouteMatch<{ address: string }>(Path.VOTE_ADDRESS);
+  const voterDetailMatch = useRouteMatch<{ address: string }>(Path.GOVERNANCE_ADDRESS);
   const marketDetailsMatch = useRouteMatch<{ vTokenId: VTokenId }>(Path.MARKET_DETAILS);
-  const voteLeaderboardMatch = useRouteMatch(Path.VOTE_LEADER_BOARD);
-  const proposalDetailsMatch = useRouteMatch<{ id: string }>(Path.VOTE_PROPOSAL_DETAILS);
+  const voteLeaderboardMatch = useRouteMatch(Path.GOVERNANCE_LEADER_BOARD);
+  const proposalDetailsMatch = useRouteMatch<{ id: string }>(Path.GOVERNANCE_PROPOSAL_DETAILS);
   const { t } = useTranslation();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 

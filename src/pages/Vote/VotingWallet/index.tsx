@@ -80,21 +80,26 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
   return (
     <div css={styles.root}>
       <Typography variant="h4">{t('vote.votingWallet')}</Typography>
+
       <Paper css={styles.votingWalletPaper}>
         <div css={styles.votingWeightContainer}>
           <Typography variant="body2" css={styles.subtitle}>
             {t('vote.votingWeight')}
           </Typography>
+
           <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.votingWeightValue}>
             {readableVoteWeight}
           </Typography>
         </div>
+
         <Delimiter css={styles.delimiter} />
+
         <div css={styles.totalLockedContainer}>
           <div css={styles.totalLockedTitle}>
             <Typography variant="body2" css={[styles.subtitle, styles.totalLockedText]}>
               {t('vote.totalLocked')}
             </Typography>
+
             {previouslyDelegated && (
               <Tooltip
                 title={t('vote.youDelegatedTo', { delegate })}
@@ -104,40 +109,47 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
               </Tooltip>
             )}
           </div>
+
           <div css={styles.totalLockedValue}>
             <Icon name="xvs" css={styles.tokenIcon} />
+
             <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.totalLockedValue}>
               {readableXvsLocked}
             </Typography>
           </div>
         </div>
+
         {!connectedWallet && (
           <PrimaryButton css={styles.actionButton} onClick={openAuthModal}>
             {t('connectWallet.connectButton')}
           </PrimaryButton>
         )}
+
         {connectedWallet && !userHasLockedXVS && (
-          <LinkButton css={styles.actionButton} to={PATHS.VAULT}>
+          <LinkButton css={styles.actionButton} to={PATHS.VAULTS}>
             {t('vote.depositXvs')}
           </LinkButton>
         )}
+
         {connectedWallet && userHasLockedXVS && (
           <PrimaryButton css={styles.actionButton} onClick={() => setDelegateModelIsOpen(true)}>
             {previouslyDelegated ? t('vote.redelegate') : t('vote.delegate')}
           </PrimaryButton>
         )}
       </Paper>
+
       <Paper css={[styles.votingWalletPaper, styles.voteSection]}>
         <Typography variant="body2" color="textPrimary" css={styles.toVote}>
           {t('vote.toVoteYouShould')}
         </Typography>
+
         <Typography variant="small2" color="textPrimary" css={styles.depositTokens}>
           <Trans
             i18nKey="vote.depositYourTokens"
             components={{
               Link: (
                 <Link
-                  to={PATHS.VAULT}
+                  to={PATHS.VAULTS}
                   css={styles.clickableText}
                   data-testid={TEST_IDS.depositYourTokens}
                 />
@@ -145,6 +157,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
             }}
           />
         </Typography>
+
         <Typography variant="small2" color="textPrimary">
           <Trans
             i18nKey="vote.delegateYourVoting"
@@ -163,6 +176,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           />
         </Typography>
       </Paper>
+
       <DelegateModal
         onClose={() => setDelegateModelIsOpen(false)}
         isOpen={delegateModelIsOpen}

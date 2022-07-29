@@ -1,8 +1,10 @@
+import Path from 'constants/path';
+
 import { MenuItem } from './types';
 
 export const menuItems: MenuItem[] = [
   {
-    href: '/',
+    href: Path.ROOT,
     // Translation key: do not remove this comment
     // t('layout.menuItems.dashboard')
     i18nKey: 'layout.menuItems.dashboard',
@@ -10,23 +12,23 @@ export const menuItems: MenuItem[] = [
     icon: 'dashboard',
   },
   {
-    href: '/market',
+    href: Path.MARKETS,
     // Translation key: do not remove this comment
-    // t('layout.menuItems.market')
-    i18nKey: 'layout.menuItems.market',
-    i18nTitleKey: 'layout.menuItems.market',
+    // t('layout.menuItems.markets')
+    i18nKey: 'layout.menuItems.markets',
+    i18nTitleKey: 'layout.menuItems.markets',
     icon: 'market',
   },
   {
-    href: '/vault',
+    href: Path.VAULTS,
     // Translation key: do not remove this comment
-    // t('layout.menuItems.vault')
-    i18nKey: 'layout.menuItems.vault',
-    i18nTitleKey: 'layout.menuItems.vault',
+    // t('layout.menuItems.vaults')
+    i18nKey: 'layout.menuItems.vaults',
+    i18nTitleKey: 'layout.menuItems.vaults',
     icon: 'vault',
   },
   {
-    href: '/history',
+    href: Path.HISTORY,
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
     i18nKey: 'layout.menuItems.history',
@@ -34,15 +36,15 @@ export const menuItems: MenuItem[] = [
     icon: 'history',
   },
   {
-    href: '/vote',
+    href: Path.GOVERNANCE,
     // Translation key: do not remove this comment
-    // t('layout.menuItems.vote')
-    i18nKey: 'layout.menuItems.vote',
-    i18nTitleKey: 'layout.menuItems.vote',
+    // t('layout.menuItems.governance')
+    i18nKey: 'layout.menuItems.governance',
+    i18nTitleKey: 'layout.menuItems.governance',
     icon: 'vote',
   },
   {
-    href: '/xvs',
+    href: Path.XVS,
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvs')
     i18nKey: 'layout.menuItems.xvs',
@@ -50,7 +52,7 @@ export const menuItems: MenuItem[] = [
     icon: 'xvsOutlined',
   },
   {
-    href: '/convert-vrt',
+    href: Path.CONVERT_VRT,
     // Translation key: do not remove this comment
     // t('layout.menuItems.convertVrt')
     // t('layout.menuItems.convertVrtTitle')

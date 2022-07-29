@@ -36,17 +36,17 @@ const App = () => (
                 <Switch>
                   <Route exact path={Path.ROOT} component={Dashboard} />
 
-                  <Route exact path={Path.MARKET} component={Market} />
+                  <Route exact path={Path.MARKETS} component={Market} />
                   <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
 
-                  <Route exact path={Path.VAULT} component={Vault} />
+                  <Route exact path={Path.VAULTS} component={Vault} />
 
                   <Route exact path={Path.HISTORY} component={History} />
 
-                  <Route exact path={Path.VOTE} component={Vote} />
-                  <Route exact path={Path.VOTE_LEADER_BOARD} component={VoterLeaderboard} />
-                  <Route exact path={Path.VOTE_ADDRESS} component={VoterDetails} />
-                  <Route exact path={Path.VOTE_PROPOSAL_DETAILS} component={Proposal} />
+                  <Route exact path={Path.GOVERNANCE} component={Vote} />
+                  <Route exact path={Path.GOVERNANCE_LEADER_BOARD} component={VoterLeaderboard} />
+                  <Route exact path={Path.GOVERNANCE_ADDRESS} component={VoterDetails} />
+                  <Route exact path={Path.GOVERNANCE_PROPOSAL_DETAILS} component={Proposal} />
 
                   <Route exact path={Path.XVS} component={Xvs} />
 

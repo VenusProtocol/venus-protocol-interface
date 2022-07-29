@@ -1,14 +1,14 @@
 enum Path {
   ROOT = '/',
   XVS = '/xvs',
-  MARKET = '/market',
+  MARKETS = '/markets',
   MARKET_DETAILS = '/market/:vTokenId',
   HISTORY = '/history',
-  VAULT = '/vault',
-  VOTE = '/vote',
-  VOTE_LEADER_BOARD = '/vote/leaderboard',
-  VOTE_PROPOSAL_DETAILS = '/vote/proposal/:id',
-  VOTE_ADDRESS = '/vote/address/:address',
+  VAULTS = '/vaults',
+  GOVERNANCE = '/governance',
+  GOVERNANCE_LEADER_BOARD = '/governance/leaderboard',
+  GOVERNANCE_PROPOSAL_DETAILS = '/governance/proposal/:id',
+  GOVERNANCE_ADDRESS = '/governance/address/:address',
   CONVERT_VRT = '/convert-vrt',
 }
 
