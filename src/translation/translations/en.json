@@ -201,10 +201,9 @@
     }
   },
   "lunaUstWarningModal": {
+    "closeButtonLabel": "Got it",
     "content": "LUNA and UST have been deprecated, please disable them as collateral to get access to the Venus protocol again.",
-    "lunaToggleLabel": "LUNA as collateral",
-    "title": "Please disable LUNA and UST as collateral",
-    "ustToggleLabel": "UST as collateral"
+    "title": "Please disable LUNA and UST as collateral"
   },
   "market": {
     "availableLiquidity": "Available Liquidity",

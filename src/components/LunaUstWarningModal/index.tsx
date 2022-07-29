@@ -3,9 +3,9 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
 
+import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Modal, ModalProps } from '../Modal';
-import { Toggle } from '../Toggle';
 import { useStyles } from './styles';
 
 export interface LunaUstWarningModalProps {
@@ -27,25 +27,9 @@ export const LunaUstWarningModal: React.FC<LunaUstWarningModalProps> = ({ onClos
 
         <Typography css={styles.message}>{t('lunaUstWarningModal.content')}</Typography>
 
-        <div>
-          <div css={styles.toggleItem}>
-            {/* TODO: wire up */}
-            <Toggle css={styles.toggle} value={true} onChange={() => {}} />
-
-            <Typography color="text.primary" variant="small1" component="span">
-              {t('lunaUstWarningModal.lunaToggleLabel')}
-            </Typography>
-          </div>
-
-          <div css={styles.toggleItem}>
-            {/* TODO: wire up */}
-            <Toggle css={styles.toggle} value={true} onChange={() => {}} />
-
-            <Typography color="text.primary" variant="small1" component="span">
-              {t('lunaUstWarningModal.ustToggleLabel')}
-            </Typography>
-          </div>
-        </div>
+        <Button onClick={onClose} variant="secondary" fullWidth>
+          {t('lunaUstWarningModal.closeButtonLabel')}
+        </Button>
       </>
     </Modal>
   );

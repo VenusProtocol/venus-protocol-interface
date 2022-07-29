@@ -19,12 +19,5 @@ export const useStyles = () => {
     message: css`
       margin-bottom: ${theme.spacing(10)};
     `,
-    toggleItem: css`
-      display: inline-block;
-      margin-right: ${theme.spacing(8)};
-    `,
-    toggle: css`
-      margin-right: ${theme.spacing(2)};
-    `,
   };
 };
