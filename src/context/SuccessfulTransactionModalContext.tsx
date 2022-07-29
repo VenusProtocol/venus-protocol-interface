@@ -11,13 +11,13 @@ export type OpenSuccessfulTransactionModalInput = Pick<
   'title' | 'content' | 'transactionHash' | 'amount'
 >;
 
-export interface SuccessfulTransactionModalValue {
+export interface SuccessfulTransactionModalContextValue {
   openSuccessfulTransactionModal: (params: OpenSuccessfulTransactionModalInput) => void;
   closeSuccessfulTransactionModal: () => void;
 }
 
 export const SuccessfulTransactionModalContext =
-  React.createContext<SuccessfulTransactionModalValue>({
+  React.createContext<SuccessfulTransactionModalContextValue>({
     openSuccessfulTransactionModal: noop,
     closeSuccessfulTransactionModal: noop,
   });

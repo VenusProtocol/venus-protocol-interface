@@ -112,10 +112,6 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
-    "lunaUstWarningModal": {
-      "content": "UST and LUNA are being deprecated, please ensure they are disabled as collateral. Failure to disable them will result in lost access to the protocol after deprecation.",
-      "title": "⚠️ WARNING ⚠️"
-    },
     "markets": {
       "tabBorrow": "Borrow",
       "tabSupply": "Supply",
@@ -192,7 +188,6 @@
     }
   },
   "layout": {
-    "banner": "UST and LUNA are being deprecated, please ensure they are disabled as collateral. Failure to disable them will result in lost access to the protocol after deprecation.",
     "menuItems": {
       "convertVrt": "Convert VRT",
       "convertVrtTitle": "Convert VRT to XVS",
@@ -204,6 +199,12 @@
       "xvs": "XVS",
       "xvsPrediction": "XVS Prediction"
     }
+  },
+  "lunaUstWarningModal": {
+    "content": "LUNA and UST have been deprecated, please disable them as collateral to get access to the Venus protocol again.",
+    "lunaToggleLabel": "LUNA as collateral",
+    "title": "Please disable LUNA and UST as collateral",
+    "ustToggleLabel": "UST as collateral"
   },
   "market": {
     "availableLiquidity": "Available Liquidity",

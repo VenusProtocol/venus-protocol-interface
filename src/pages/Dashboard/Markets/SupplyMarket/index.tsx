@@ -3,7 +3,7 @@ import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Delimiter, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Asset, VTokenId } from 'types';
 
 import {
@@ -14,6 +14,8 @@ import {
 } from 'clients/api';
 import { getVTokenContract, useComptrollerContract } from 'clients/contracts';
 import { useWeb3 } from 'clients/web3';
+import { TOKENS } from 'constants/tokens';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
 import { SupplyWithdrawModal } from '../../Modals';
 import { useStyles } from '../styles';
@@ -29,6 +31,8 @@ interface SupplyMarketProps {
   toggleAssetCollateral: (a: Asset) => Promise<void>;
   confirmCollateral: Asset | undefined;
   setConfirmCollateral: (asset: Asset | undefined) => void;
+  hasLunaOrUstCollateralEnabled: boolean;
+  openLunaUstWarningModal: () => void;
 }
 
 export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
@@ -36,6 +40,8 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   isXvsEnabled,
   supplyMarketAssets,
   suppliedAssets,
+  hasLunaOrUstCollateralEnabled,
+  openLunaUstWarningModal,
   toggleAssetCollateral,
   confirmCollateral,
   setConfirmCollateral,
@@ -56,8 +62,17 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   };
 
   const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
+    const assetId = row[0].value as VTokenId;
+
+    // Block action and show warning modal if user has LUNA or UST enabled as
+    // collateral and is attempting to open the supply modal of other assets
+    if (hasLunaOrUstCollateralEnabled && assetId !== TOKENS.luna.id && assetId !== TOKENS.ust.id) {
+      openLunaUstWarningModal();
+      return;
+    }
+
     if ((e.target as HTMLElement).ariaLabel !== switchAriaLabel) {
-      setSelectedAssetId(row[0].value as VTokenId);
+      setSelectedAssetId(assetId);
     }
   };
 
@@ -115,6 +130,10 @@ const SupplyMarket: React.FC<
 
   const [confirmCollateral, setConfirmCollateral] = useState<Asset | undefined>(undefined);
 
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
+
   const { mutateAsync: enterMarkets } = useEnterMarkets({
     onSettled: () => setConfirmCollateral(undefined),
   });
@@ -129,79 +148,96 @@ const SupplyMarket: React.FC<
         type: 'interaction',
         code: 'accountError',
       });
-    } else if (!asset || !asset.borrowBalance.isZero()) {
+    }
+
+    if (!asset || !asset.borrowBalance.isZero()) {
       throw new VError({
         type: 'interaction',
         code: 'collateralRequired',
       });
-    } else if (!asset.collateral) {
+    }
+
+    if (asset.collateral && !hasLunaOrUstCollateralEnabled) {
+      const vTokenContract = getVTokenContract(asset.id as VTokenId, web3);
+
+      let assetHypotheticalLiquidity;
       try {
-        setConfirmCollateral(asset);
-        await enterMarkets({ vTokenAddresses: [asset.vtokenAddress], accountAddress });
+        const vTokenBalanceOf = await getVTokenBalanceOf({
+          vTokenContract,
+          accountAddress,
+        });
+
+        assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
+          comptrollerContract,
+          accountAddress,
+          vTokenAddress: asset.vtokenAddress,
+          vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
+        });
       } catch (error) {
         if (error instanceof VError) {
           throw error;
         }
+
         throw new VError({
           type: 'interaction',
-          code: 'collateralEnableError',
-          data: {
-            assetName: asset.symbol,
-          },
+          code: 'collateralDisableError',
+          data: { assetName: asset.symbol },
         });
+      }
+
+      if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
+        try {
+          setConfirmCollateral(asset);
+          await exitMarket({ vtokenAddress: asset.vtokenAddress, accountAddress });
+        } catch (error) {
+          if (error instanceof VError) {
+            throw error;
+          }
+
+          throw new VError({
+            type: 'interaction',
+            code: 'collateralDisableError',
+            data: {
+              assetName: asset.symbol,
+            },
+          });
+        }
       }
 
       return;
     }
 
-    const vTokenContract = getVTokenContract(asset.id as VTokenId, web3);
+    // Only allow users to disable LUNA or UST as collateral if they have either
+    // of these tokens enabled as collateral
+    if (
+      hasLunaOrUstCollateralEnabled &&
+      asset.id !== TOKENS.luna.id &&
+      asset.id !== TOKENS.ust.id
+    ) {
+      openLunaUstWarningModal();
+      return;
+    }
 
-    let assetHypotheticalLiquidity;
     try {
-      const vTokenBalanceOf = await getVTokenBalanceOf({
-        vTokenContract,
-        accountAddress,
-      });
-
-      assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
-        comptrollerContract,
-        accountAddress,
-        vTokenAddress: asset.vtokenAddress,
-        vTokenBalanceOfWei: new BigNumber(vTokenBalanceOf.balanceWei),
-      });
+      setConfirmCollateral(asset);
+      await enterMarkets({ vTokenAddresses: [asset.vtokenAddress], accountAddress });
     } catch (error) {
       if (error instanceof VError) {
         throw error;
       }
       throw new VError({
         type: 'interaction',
-        code: 'collateralDisableError',
-        data: { assetName: asset.symbol },
+        code: 'collateralEnableError',
+        data: {
+          assetName: asset.symbol,
+        },
       });
     }
 
-    if (+assetHypotheticalLiquidity['1'] > 0 || +assetHypotheticalLiquidity['2'] === 0) {
-      try {
-        setConfirmCollateral(asset);
-        await exitMarket({ vtokenAddress: asset.vtokenAddress, accountAddress });
-      } catch (error) {
-        if (error instanceof VError) {
-          throw error;
-        }
-        throw new VError({
-          type: 'interaction',
-          code: 'collateralDisableError',
-          data: {
-            assetName: asset.symbol,
-          },
-        });
-      }
-    } else {
-      throw new VError({
-        type: 'interaction',
-        code: 'collateralRequired',
-      });
-    }
+    throw new VError({
+      type: 'interaction',
+      code: 'collateralRequired',
+    });
   };
 
   return (
@@ -213,6 +249,8 @@ const SupplyMarket: React.FC<
       toggleAssetCollateral={toggleAssetCollateral}
       confirmCollateral={confirmCollateral}
       setConfirmCollateral={setConfirmCollateral}
+      hasLunaOrUstCollateralEnabled={hasLunaOrUstCollateralEnabled}
+      openLunaUstWarningModal={openLunaUstWarningModal}
     />
   );
 };

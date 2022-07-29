@@ -19,6 +19,7 @@ import { useGetBalanceOf, useGetMintedVai, useRepayVai } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
 import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -140,6 +141,10 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
 const RepayVai: React.FC = () => {
   const { account } = useContext(AuthContext);
 
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
+
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
@@ -169,6 +174,12 @@ const RepayVai: React.FC = () => {
       // is disabled if there's no logged in account
       throw new VError({ type: 'unexpected', code: 'undefinedAccountErrorMessage' });
     }
+
+    if (hasLunaOrUstCollateralEnabled) {
+      openLunaUstWarningModal();
+      return;
+    }
+
     return contractRepayVai({
       fromAccountAddress: account.address,
       amountWei: amountWei.toFixed(),

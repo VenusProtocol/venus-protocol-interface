@@ -9,6 +9,7 @@ import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import Path from 'constants/path';
 import { AuthProvider } from 'context/AuthContext';
+import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
@@ -29,33 +30,35 @@ const App = () => (
       <MuiThemeProvider>
         <AuthProvider>
           <SuccessfulTransactionModalProvider>
-            <BrowserRouter>
-              <ToastContainer />
-              <Layout>
-                <ResetScrollOnRouteChange />
-                <Switch>
-                  <Route exact path={Path.ROOT} component={Dashboard} />
+            <DisableLunaUstWarningProvider>
+              <BrowserRouter>
+                <ToastContainer />
+                <Layout>
+                  <Switch>
+                    <Route exact path={Path.MARKETS} component={Market} />
+                    <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
 
-                  <Route exact path={Path.MARKETS} component={Market} />
-                  <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
+                    <Route exact path={Path.VAULTS} component={Vault} />
 
-                  <Route exact path={Path.VAULTS} component={Vault} />
+                    <Route exact path={Path.MARKETS} component={Market} />
+                    <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
 
-                  <Route exact path={Path.HISTORY} component={History} />
+                    <Route exact path={Path.GOVERNANCE} component={Vote} />
+                    <Route exact path={Path.GOVERNANCE_LEADER_BOARD} component={VoterLeaderboard} />
+                    <Route exact path={Path.GOVERNANCE_ADDRESS} component={VoterDetails} />
+                    <Route exact path={Path.GOVERNANCE_PROPOSAL_DETAILS} component={Proposal} />
 
-                  <Route exact path={Path.GOVERNANCE} component={Vote} />
-                  <Route exact path={Path.GOVERNANCE_LEADER_BOARD} component={VoterLeaderboard} />
-                  <Route exact path={Path.GOVERNANCE_ADDRESS} component={VoterDetails} />
-                  <Route exact path={Path.GOVERNANCE_PROPOSAL_DETAILS} component={Proposal} />
+                    <Route exact path={Path.HISTORY} component={History} />
 
-                  <Route exact path={Path.XVS} component={Xvs} />
+                    <Route exact path={Path.XVS} component={Xvs} />
 
-                  <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
+                    <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
 
-                  <Redirect to={Path.ROOT} />
-                </Switch>
-              </Layout>
-            </BrowserRouter>
+                    <Redirect to={Path.ROOT} />
+                  </Switch>
+                </Layout>
+              </BrowserRouter>
+            </DisableLunaUstWarningProvider>
           </SuccessfulTransactionModalProvider>
         </AuthProvider>
       </MuiThemeProvider>
