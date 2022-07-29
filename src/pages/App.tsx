@@ -14,10 +14,10 @@ import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactio
 import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
 import History from 'pages/History';
-import Market from 'pages/Market';
+import Markets from 'pages/Market';
 import MarketDetails from 'pages/MarketDetails';
 import Proposal from 'pages/Proposal';
-import Vault from 'pages/Vault';
+import Vaults from 'pages/Vault';
 import Vote from 'pages/Vote';
 import VoterDetails from 'pages/VoterDetails';
 import VoterLeaderboard from 'pages/VoterLeaderboard';
@@ -34,21 +34,22 @@ const App = () => (
               <BrowserRouter>
                 <ToastContainer />
                 <Layout>
+                  <ResetScrollOnRouteChange />
+
                   <Switch>
-                    <Route exact path={Path.MARKETS} component={Market} />
+                    <Route exact path={Path.ROOT} component={Dashboard} />
+
+                    <Route exact path={Path.MARKETS} component={Markets} />
                     <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
 
-                    <Route exact path={Path.VAULTS} component={Vault} />
+                    <Route exact path={Path.VAULTS} component={Vaults} />
 
-                    <Route exact path={Path.MARKETS} component={Market} />
-                    <Route exact path={Path.MARKET_DETAILS} component={MarketDetails} />
+                    <Route exact path={Path.HISTORY} component={History} />
 
                     <Route exact path={Path.GOVERNANCE} component={Vote} />
                     <Route exact path={Path.GOVERNANCE_LEADER_BOARD} component={VoterLeaderboard} />
                     <Route exact path={Path.GOVERNANCE_ADDRESS} component={VoterDetails} />
                     <Route exact path={Path.GOVERNANCE_PROPOSAL_DETAILS} component={Proposal} />
-
-                    <Route exact path={Path.HISTORY} component={History} />
 
                     <Route exact path={Path.XVS} component={Xvs} />
 

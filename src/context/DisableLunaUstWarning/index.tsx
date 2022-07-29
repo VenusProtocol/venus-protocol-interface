@@ -1,8 +1,8 @@
-import { LunaUstWarningModal } from 'components';
 import noop from 'noop-ts';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import { useGetUserMarketInfo } from 'clients/api';
+import { LunaUstWarningModal } from 'components/LunaUstWarningModal';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 

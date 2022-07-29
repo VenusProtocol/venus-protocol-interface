@@ -175,6 +175,7 @@ const RepayVai: React.FC = () => {
       throw new VError({ type: 'unexpected', code: 'undefinedAccountErrorMessage' });
     }
 
+    // Block action is user has LUNA or UST enabled as collateral
     if (hasLunaOrUstCollateralEnabled) {
       openLunaUstWarningModal();
       return;
