@@ -67,7 +67,10 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
           render: () => (
             <Typography css={styles.inline} color="textPrimary" variant="small2">
               {idx + 1 + offset}
-              <Link to={Path.VOTE_ADDRESS.replace(':address', voter.address)} css={styles.address}>
+              <Link
+                to={Path.GOVERNANCE_ADDRESS.replace(':address', voter.address)}
+                css={styles.address}
+              >
                 <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
               </Link>
             </Typography>

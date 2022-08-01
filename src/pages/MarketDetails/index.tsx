@@ -312,7 +312,7 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
 
   // Redirect to market page if vTokenId passed through route params is invalid
   if (!vToken) {
-    return <Redirect to={Path.MARKET} />;
+    return <Redirect to={Path.MARKETS} />;
   }
 
   const { reserveFactorMantissa, ...marketData } = useGetMarketData({

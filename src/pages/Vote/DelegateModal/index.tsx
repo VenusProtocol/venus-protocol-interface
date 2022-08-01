@@ -108,7 +108,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
             </Form>
           )}
         </Formik>
-        <Link css={styles.link} to={Path.VOTE_LEADER_BOARD}>
+        <Link css={styles.link} to={Path.GOVERNANCE_LEADER_BOARD}>
           {t('vote.delegateLeaderboard')}
         </Link>
       </>
