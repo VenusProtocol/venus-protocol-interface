@@ -29,6 +29,8 @@ export const Default = () => (
     toggleAssetCollateral={noop}
     confirmCollateral={undefined}
     setConfirmCollateral={noop}
+    hasLunaOrUstCollateralEnabled={false}
+    openLunaUstWarningModal={noop}
   />
 );
 
@@ -40,5 +42,7 @@ export const LoadingModal = () => (
     toggleAssetCollateral={noop}
     confirmCollateral={asset}
     setConfirmCollateral={noop}
+    hasLunaOrUstCollateralEnabled={false}
+    openLunaUstWarningModal={noop}
   />
 );

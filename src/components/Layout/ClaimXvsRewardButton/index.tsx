@@ -8,6 +8,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { useClaimXvsReward, useGetXvsReward } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -19,7 +20,7 @@ import { useStyles } from './styles';
 const XVS_SYMBOL = 'xvs';
 
 export interface ClaimXvsRewardButtonProps extends Omit<ButtonProps, 'onClick'> {
-  onClaimReward: () => Promise<TransactionReceipt>;
+  onClaimReward: () => Promise<TransactionReceipt | void>;
   amountWei?: BigNumber;
 }
 
@@ -80,6 +81,11 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
 
 export const ClaimXvsRewardButton: React.FC<ButtonProps> = props => {
   const { account } = useContext(AuthContext);
+
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
+
   const { data: xvsRewardData } = useGetXvsReward(
     {
       accountAddress: account?.address || '',
@@ -94,6 +100,12 @@ export const ClaimXvsRewardButton: React.FC<ButtonProps> = props => {
   const handleClaim = async () => {
     if (!account?.address) {
       throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
+    }
+
+    // Block action is user has LUNA or UST enabled as collateral
+    if (hasLunaOrUstCollateralEnabled) {
+      openLunaUstWarningModal();
+      return;
     }
 
     return claimXvsReward({

@@ -2,9 +2,11 @@
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Delimiter } from 'components';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Asset, TokenId } from 'types';
 
+import { TOKENS } from 'constants/tokens';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import BorrowRepayModal from 'pages/Dashboard/Modals/BorrowRepay';
 
 import { useStyles } from '../styles';
@@ -17,6 +19,8 @@ export interface BorrowMarketUiProps {
   borrowingAssets: Asset[];
   isXvsEnabled: boolean;
   userTotalBorrowLimitCents: BigNumber;
+  hasLunaOrUstCollateralEnabled: boolean;
+  openLunaUstWarningModal: () => void;
 }
 
 export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
@@ -25,6 +29,8 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
   borrowMarketAssets,
   isXvsEnabled,
   userTotalBorrowLimitCents,
+  hasLunaOrUstCollateralEnabled,
+  openLunaUstWarningModal,
 }) => {
   const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
   const styles = useStyles();
@@ -33,6 +39,15 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
     _e,
     row,
   ) => {
+    const assetId = row[0].value as TokenId;
+
+    // Block action and show warning modal if user has LUNA or UST enabled as
+    // collateral and is attempting to open the borrow modal of other assets
+    if (hasLunaOrUstCollateralEnabled && assetId !== TOKENS.luna.id && assetId !== TOKENS.ust.id) {
+      openLunaUstWarningModal();
+      return;
+    }
+
     setSelectedAssetId(row[0].value as TokenId);
   };
 
@@ -76,20 +91,30 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
   );
 };
 
-const BorrowMarket: React.FC<BorrowMarketUiProps> = ({
+const BorrowMarket: React.FC<
+  Omit<BorrowMarketUiProps, 'hasLunaOrUstCollateralEnabled' | 'openLunaUstWarningModal'>
+> = ({
   className,
   isXvsEnabled,
   borrowMarketAssets,
   borrowingAssets,
   userTotalBorrowLimitCents,
-}) => (
-  <BorrowMarketUi
-    className={className}
-    borrowingAssets={borrowingAssets}
-    borrowMarketAssets={borrowMarketAssets}
-    isXvsEnabled={isXvsEnabled}
-    userTotalBorrowLimitCents={userTotalBorrowLimitCents}
-  />
-);
+}) => {
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
+
+  return (
+    <BorrowMarketUi
+      className={className}
+      borrowingAssets={borrowingAssets}
+      borrowMarketAssets={borrowMarketAssets}
+      isXvsEnabled={isXvsEnabled}
+      userTotalBorrowLimitCents={userTotalBorrowLimitCents}
+      hasLunaOrUstCollateralEnabled={hasLunaOrUstCollateralEnabled}
+      openLunaUstWarningModal={openLunaUstWarningModal}
+    />
+  );
+};
 
 export default BorrowMarket;
