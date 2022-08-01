@@ -51,7 +51,7 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
   return (
     <div css={styles.root}>
       <div css={[styles.header, styles.bottomSpace]}>
-        <Typography variant="h4">{t('vote.governanceProposals')}</Typography>
+        <Typography variant="h4">{t('vote.proposals')}</Typography>
 
         <div css={styles.createProposal}>
           <TextButton

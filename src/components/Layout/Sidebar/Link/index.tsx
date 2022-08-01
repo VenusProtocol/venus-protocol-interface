@@ -15,7 +15,7 @@ export const Link: React.FC<LinkProps> = ({ children, onClick, href, isMobile = 
     const activeClassName = isMobile ? 'active-mobile-menu-item' : 'active-menu-item';
 
     return (
-      <NavLink to={href} onClick={onClick} activeClassName={activeClassName}>
+      <NavLink to={href} exact={href === '/'} onClick={onClick} activeClassName={activeClassName}>
         {children}
       </NavLink>
     );

@@ -51,14 +51,6 @@ export const useStyles = () => {
         padding-right: 0 !important;
       }
     `,
-    list: css`
-      .activeMenuItem {
-        color: ${theme.palette.text.primary};
-        svg {
-          color: ${theme.palette.text.primary};
-        }
-      }
-    `,
     listItem: css`
       transition: color 0.3s;
       color: ${theme.palette.text.secondary};
@@ -103,6 +95,7 @@ export const useStyles = () => {
           left: 0;
           top: 0;
           bottom: 0;
+
           ${theme.breakpoints.down('lg')} {
             display: none;
           }

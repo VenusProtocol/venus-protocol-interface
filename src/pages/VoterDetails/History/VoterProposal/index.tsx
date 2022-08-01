@@ -170,7 +170,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
     <ProposalCard
       css={styles.root}
       className={className}
-      linkTo={Path.VOTE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}
+      linkTo={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}
       proposalNumber={proposalNumber}
       headerLeftItem={stateChip}
       headerRightItem={voteChipText}
