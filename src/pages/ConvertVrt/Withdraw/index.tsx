@@ -2,11 +2,12 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { ConnectWallet, Icon, PrimaryButton } from 'components';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { XVS_TOKEN_ID } from 'constants/xvs';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
@@ -26,6 +27,10 @@ const Withdraw: React.FC<WithdrawProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
+
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsWithdrawableAmount,
     tokenId: XVS_TOKEN_ID,
@@ -33,8 +38,14 @@ const Withdraw: React.FC<WithdrawProps> = ({
 
   const handleTransactionMutation = useHandleTransactionMutation();
 
-  const onSubmit = () =>
-    handleTransactionMutation({
+  const onSubmit = () => {
+    // Block action is user has LUNA or UST enabled as collateral
+    if (hasLunaOrUstCollateralEnabled) {
+      openLunaUstWarningModal();
+      return;
+    }
+
+    return handleTransactionMutation({
       mutate: withdrawXvs,
       successTransactionModalProps: transactionReceipt => ({
         title: t('convertVrt.successfulConvertTransactionModal.title'),
@@ -49,6 +60,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
         ),
       }),
     });
+  };
 
   return (
     <div css={styles.root}>

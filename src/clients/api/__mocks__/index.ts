@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { MutationObserverOptions, useMutation, useQuery } from 'react-query';
 
 import fakeAddress from '__mocks__/models/address';
+import { assetData } from '__mocks__/models/asset';
 import proposals from '__mocks__/models/proposals';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
 import voters from '__mocks__/models/voters';
@@ -97,7 +98,12 @@ export const useGetXvsVaultPoolCount = () =>
 
 export const useGetTreasuryTotals = jest.fn();
 
-export const useGetUserMarketInfo = jest.fn();
+export const useGetUserMarketInfo = jest.fn(() => ({
+  isLoading: false,
+  data: {
+    assets: assetData,
+  },
+}));
 
 export const getXvsVaultPoolInfo = jest.fn();
 export const useGetXvsVaultPoolInfo = () =>

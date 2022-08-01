@@ -11,7 +11,7 @@ import {
   toast,
 } from 'components';
 import noop from 'noop-ts';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import {
   convertTokensToWei,
@@ -23,6 +23,7 @@ import type { TransactionReceipt } from 'web3-core/types';
 
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import { VError } from 'errors/VError';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -51,6 +52,10 @@ const Convert: React.FC<ConvertProps> = ({
   const styles = useStyles();
   const { t, Trans } = useTranslation();
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
 
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsToVrtConversionRatio && userVrtBalanceWei?.times(xvsToVrtConversionRatio),
@@ -85,6 +90,12 @@ const Convert: React.FC<ConvertProps> = ({
   );
 
   const onSubmit = async (vrtAmount: string) => {
+    // Block action is user has LUNA or UST enabled as collateral
+    if (hasLunaOrUstCollateralEnabled) {
+      openLunaUstWarningModal();
+      return;
+    }
+
     try {
       const vrtAmountWei = convertTokensToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
       const transactionReceipt = await convertVrt(vrtAmountWei.toFixed());
