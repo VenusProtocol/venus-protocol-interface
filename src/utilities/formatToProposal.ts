@@ -82,6 +82,12 @@ const formatToProposal = ({
   }
 
   let descriptionObj = { version: 'v1' as const, title: '', description: '' };
+
+  // HOTFIX: format proposal 68 to fix break-lines
+  if (id === 68) {
+    description = description.replace(/\n/g, '\\n');
+  }
+
   try {
     descriptionObj = JSON.parse(description);
   } catch (err) {
