@@ -207,17 +207,6 @@ const SupplyMarket: React.FC<
       return;
     }
 
-    // Only allow users to disable LUNA or UST as collateral if they have either
-    // of these tokens enabled as collateral
-    if (
-      hasLunaOrUstCollateralEnabled &&
-      asset.id !== TOKENS.luna.id &&
-      asset.id !== TOKENS.ust.id
-    ) {
-      openLunaUstWarningModal();
-      return;
-    }
-
     try {
       setConfirmCollateral(asset);
       await enterMarkets({ vTokenAddresses: [asset.vtokenAddress], accountAddress });
