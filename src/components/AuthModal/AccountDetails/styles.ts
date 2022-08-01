@@ -25,6 +25,7 @@ export const useStyles = () => {
     `,
     walletLogo: css`
       width: ${theme.spacing(12)};
+      height: auto;
       margin-right: ${theme.spacing(4)};
       flex-shrink: 0;
 
