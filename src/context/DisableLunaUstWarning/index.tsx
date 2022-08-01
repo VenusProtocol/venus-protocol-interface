@@ -8,14 +8,14 @@ import { AuthContext } from 'context/AuthContext';
 
 export interface DisableLunaUstWarningContextValue {
   hasLunaOrUstCollateralEnabled: boolean;
-  shouldShowLunaUstWarningModal: boolean;
+  isLunaUstWarningModalOpen: boolean;
   openLunaUstWarningModal: () => void;
   closeLunaUstWarningModal: () => void;
 }
 
 export const DisableLunaUstWarningContext = React.createContext<DisableLunaUstWarningContextValue>({
   hasLunaOrUstCollateralEnabled: false,
-  shouldShowLunaUstWarningModal: false,
+  isLunaUstWarningModalOpen: false,
   openLunaUstWarningModal: noop,
   closeLunaUstWarningModal: noop,
 });
@@ -29,7 +29,7 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
     accountAddress,
   });
 
-  const [shouldShowLunaUstWarningModal, setShouldShowModal] = useState(false);
+  const [isLunaUstWarningModalOpen, setIsLunaUstWarningModalOpen] = useState(false);
 
   const hasLunaOrUstCollateralEnabled = useMemo(
     () =>
@@ -40,11 +40,11 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
   );
 
   useEffect(() => {
-    setShouldShowModal(hasLunaOrUstCollateralEnabled);
+    setIsLunaUstWarningModalOpen(hasLunaOrUstCollateralEnabled);
   }, [hasLunaOrUstCollateralEnabled]);
 
-  const openLunaUstWarningModal = () => setShouldShowModal(true);
-  const closeLunaUstWarningModal = () => setShouldShowModal(false);
+  const openLunaUstWarningModal = () => setIsLunaUstWarningModalOpen(true);
+  const closeLunaUstWarningModal = () => setIsLunaUstWarningModalOpen(false);
 
   return (
     <DisableLunaUstWarningContext.Provider
@@ -52,13 +52,11 @@ export const DisableLunaUstWarningProvider: React.FC = ({ children }) => {
         openLunaUstWarningModal,
         closeLunaUstWarningModal,
         hasLunaOrUstCollateralEnabled,
-        shouldShowLunaUstWarningModal,
+        isLunaUstWarningModalOpen,
       }}
     >
       <>
-        {shouldShowLunaUstWarningModal && (
-          <LunaUstWarningModal onClose={closeLunaUstWarningModal} />
-        )}
+        {isLunaUstWarningModalOpen && <LunaUstWarningModal onClose={closeLunaUstWarningModal} />}
 
         {children}
       </>
