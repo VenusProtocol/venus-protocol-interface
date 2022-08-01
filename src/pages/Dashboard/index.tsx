@@ -9,10 +9,8 @@ import { AuthContext } from 'context/AuthContext';
 
 import Markets from './Markets';
 import MintRepayVai from './MintRepayVai';
-import { LunaUstWarningModal } from './Modals';
 import MyAccount from './MyAccount';
 import { useStyles } from './styles';
-import useLunaUstWarningModal from './useLunaUstWarningModal';
 
 interface DashboardUiProps {
   accountAddress: string;
@@ -31,7 +29,6 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 }) => {
   const styles = useStyles();
   const [isXvsEnabled, setIsXvsEnabled] = React.useState(true);
-  const [shouldShowLunaUstWarningModal, closeLunaUstWarningModal] = useLunaUstWarningModal(assets);
 
   const { suppliedAssets, supplyMarketAssets, borrowingAssets, borrowMarketAssets } =
     useMemo(() => {
@@ -85,8 +82,6 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         borrowingAssets={borrowingAssets}
         borrowMarketAssets={borrowMarketAssets}
       />
-
-      {shouldShowLunaUstWarningModal && <LunaUstWarningModal onClose={closeLunaUstWarningModal} />}
     </>
   );
 };
