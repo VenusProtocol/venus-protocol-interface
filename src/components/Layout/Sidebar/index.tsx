@@ -28,12 +28,14 @@ export const SidebarUi: React.FC = () => {
   const openMenu = (event: React.MouseEvent) => {
     setAnchorEl(event.currentTarget);
   };
+
   const closeMenu = () => {
     setAnchorEl(null);
   };
 
   return (
     <>
+      {/* Desktop and tablet menu */}
       <Drawer variant="permanent" css={styles.drawer}>
         <div css={styles.drawerContent}>
           <Toolbar css={styles.toolbar}>
@@ -41,7 +43,7 @@ export const SidebarUi: React.FC = () => {
             <LogoNoText css={styles.logoClosed} />
           </Toolbar>
 
-          <List css={styles.list}>
+          <List>
             {menuItems.map(menuItem => (
               <ListItemButton
                 key={menuItem.i18nKey}
@@ -66,6 +68,7 @@ export const SidebarUi: React.FC = () => {
         </div>
       </Drawer>
 
+      {/* Mobile menu */}
       <div css={styles.mobileMenuBox}>
         <div css={styles.flexRow}>
           <Icon name="logoMobile" css={styles.mobileLogo} />
@@ -100,7 +103,7 @@ export const SidebarUi: React.FC = () => {
             </button>
           </div>
 
-          <List css={styles.list}>
+          <List>
             {menuItems.map(({ href, icon, i18nKey }) => (
               <ListItemButton
                 key={i18nKey}
