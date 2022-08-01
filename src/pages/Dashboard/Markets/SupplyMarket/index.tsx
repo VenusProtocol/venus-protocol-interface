@@ -143,6 +143,18 @@ const SupplyMarket: React.FC<
   });
 
   const toggleAssetCollateral = async (asset: Asset) => {
+    // Prevent action if user has UST or LUNA enabled as collateral while trying
+    // to enable/disable a different token. Note that a warning modal will
+    // automatically display thanks to the on click logic applied to each row
+    // (see rowOnClick function above)
+    if (
+      hasLunaOrUstCollateralEnabled &&
+      asset.id !== TOKENS.ust.id &&
+      asset.id !== TOKENS.luna.id
+    ) {
+      return;
+    }
+
     if (!accountAddress) {
       throw new VError({
         type: 'interaction',
@@ -157,7 +169,7 @@ const SupplyMarket: React.FC<
       });
     }
 
-    if (asset.collateral && !hasLunaOrUstCollateralEnabled) {
+    if (asset.collateral) {
       const vTokenContract = getVTokenContract(asset.id as VTokenId, web3);
 
       let assetHypotheticalLiquidity;
