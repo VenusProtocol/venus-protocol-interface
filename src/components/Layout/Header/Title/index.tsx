@@ -1,14 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { VTokenId } from 'types';
 import { getToken } from 'utilities';
 
+import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import Path from 'constants/path';
+import { AuthContext } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
+import { TertiaryButton } from '../../../Button';
 import EllipseAddress from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
 import { menuItems } from '../../constants';
@@ -18,6 +21,8 @@ import { useStyles } from './styles';
 const Title: React.FC = () => {
   const styles = useStyles();
   const { pathname } = useLocation();
+  const { account } = useContext(AuthContext);
+
   const voterDetailMatch = useRouteMatch<{ address: string }>(Path.GOVERNANCE_ADDRESS);
   const marketDetailsMatch = useRouteMatch<{ vTokenId: VTokenId }>(Path.MARKET_DETAILS);
   const voteLeaderboardMatch = useRouteMatch(Path.GOVERNANCE_LEADER_BOARD);
@@ -30,11 +35,21 @@ const Title: React.FC = () => {
     const { vTokenId } = marketDetailsMatch.params;
     const token = getToken(vTokenId);
 
+    const onAddTokenToWallet = () => addTokenToWallet(vTokenId);
+
     return (
-      <BackButton>
-        <Icon name={vTokenId} css={styles.backButtonTokenIcon} />
-        <h3 css={styles.backButtonTokenSymbol}>{token.symbol}</h3>
-      </BackButton>
+      <div css={styles.marketDetailsLeftColumn}>
+        <BackButton>
+          <Icon name={vTokenId} css={styles.backButtonTokenIcon} />
+          <h3 css={styles.backButtonTokenSymbol}>{token.symbol}</h3>
+        </BackButton>
+
+        {!!account && (
+          <TertiaryButton css={styles.marketDetailsAddTokenButton} onClick={onAddTokenToWallet}>
+            <Icon name="wallet" css={styles.marketDetailsWalletIcon} />
+          </TertiaryButton>
+        )}
+      </div>
     );
   }
 
