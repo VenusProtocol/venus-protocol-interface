@@ -1,26 +1,20 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { VBepToken } from 'types';
+import { TokenId, VBepToken } from 'types';
 import { convertPercentageFromSmartContract, convertWeiToTokens, getToken } from 'utilities';
 
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
-import { VTOKEN_DECIMALS } from 'constants/tokens';
+import { BLOCKS_PER_DAY } from 'constants/bsc';
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
+import { TOKENS, VTOKEN_DECIMALS } from 'constants/tokens';
 
-const useGetMarketData = ({
-  vTokenId,
-  vTokenAddress,
-}: {
-  vTokenId: VBepToken['id'];
-  vTokenAddress: VBepToken['address'];
-}) => {
+const useGetMarketData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
   const { data: vTokenCashData } = useGetVTokenCash({
     vTokenId,
   });
 
   const { data: getMarketData } = useGetMarkets();
-  const assetMarket = (getMarketData?.markets || []).find(
-    market => market.address.toLowerCase() === vTokenAddress.toLowerCase(),
-  );
+  const assetMarket = (getMarketData?.markets || []).find(market => market.id === vTokenId);
 
   return React.useMemo(() => {
     const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
@@ -37,19 +31,42 @@ const useGetMarketData = ({
     const mintedTokens = assetMarket && new BigNumber(assetMarket.totalSupply2);
     const reserveFactorMantissa = assetMarket && new BigNumber(assetMarket.reserveFactor);
 
-    const dailyInterestsCents =
+    const dailyDistributionXvs =
       assetMarket &&
       convertWeiToTokens({
         valueWei: new BigNumber(assetMarket.supplierDailyVenus).plus(
-          new BigNumber(assetMarket.borrowerDailyVenus),
+          assetMarket.borrowerDailyVenus,
         ),
-        tokenId: 'xvs',
-      })
-        // Convert XVS to dollars
-        .multipliedBy(assetMarket.tokenPrice)
+        tokenId: TOKENS.xvs.id as TokenId,
+      });
+
+    const formattedSupplyRatePerBlock =
+      assetMarket &&
+      new BigNumber(assetMarket.supplyRatePerBlock).dividedBy(COMPOUND_MANTISSA).toNumber();
+
+    const formattedBorrowRatePerBlock =
+      assetMarket &&
+      new BigNumber(assetMarket.borrowRatePerBlock).dividedBy(COMPOUND_MANTISSA).toNumber();
+
+    // Calculate daily interests for suppliers and borrowers. Note that we don't
+    // use BigNumber to calculate these values, as this would slow down
+    // calculation a lot while the end result doesn't need to be extremely
+    // precise
+    const dailySupplyingInterestsCents =
+      assetMarket &&
+      formattedSupplyRatePerBlock &&
+      // prettier-ignore
+      +assetMarket.totalSupplyUsd * (((1 + formattedSupplyRatePerBlock) ** BLOCKS_PER_DAY) - 1) *
+      // Convert to cents
+      100;
+
+    const dailyBorrowingInterestsCents =
+      assetMarket &&
+      formattedBorrowRatePerBlock &&
+      // prettier-ignore
+      +assetMarket.totalBorrowsUsd * (((1 + formattedBorrowRatePerBlock) ** BLOCKS_PER_DAY) - 1)
         // Convert to cents
-        .multipliedBy(100)
-        .toNumber();
+        * 100;
 
     const reserveFactor =
       assetMarket && convertPercentageFromSmartContract(assetMarket.reserveFactor);
@@ -99,7 +116,9 @@ const useGetMarketData = ({
       borrowerCount,
       borrowCapTokens,
       mintedTokens,
-      dailyInterestsCents,
+      dailyDistributionXvs,
+      dailySupplyingInterestsCents,
+      dailyBorrowingInterestsCents,
       reserveFactor,
       collateralFactor,
       reserveTokens,

@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { VTokenId } from 'types';
+import { TokenId, VTokenId } from 'types';
 import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -22,6 +22,7 @@ import {
 import { useGetVTokenApySimulations } from 'clients/api';
 import Path from 'constants/path';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { TOKENS } from 'constants/tokens';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
@@ -46,7 +47,9 @@ export interface MarketDetailsUiProps {
   supplierCount?: number;
   borrowerCount?: number;
   borrowCapTokens?: BigNumber;
-  dailyInterestsCents?: number;
+  dailyDistributionXvs?: BigNumber;
+  dailySupplyingInterestsCents?: number;
+  dailyBorrowingInterestsCents?: number;
   reserveFactor?: number;
   collateralFactor?: number;
   mintedTokens?: BigNumber;
@@ -69,7 +72,9 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   supplierCount,
   borrowerCount,
   borrowCapTokens,
-  dailyInterestsCents,
+  dailyDistributionXvs,
+  dailySupplyingInterestsCents,
+  dailyBorrowingInterestsCents,
   reserveTokens,
   reserveFactor,
   collateralFactor,
@@ -183,13 +188,29 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           ? t('marketDetails.marketInfo.stats.unlimitedBorrowCap')
           : formatTokensToReadableValue({
               value: borrowCapTokens,
+              minimizeDecimals: true,
               tokenId: vTokenId,
             }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.dailyInterestsLabel'),
+        label: t('marketDetails.marketInfo.stats.dailySupplyingInterestsLabel'),
         value: formatCentsToReadableValue({
-          value: dailyInterestsCents,
+          value: dailySupplyingInterestsCents,
+        }),
+      },
+      {
+        label: t('marketDetails.marketInfo.stats.dailyBorrowingInterestsLabel'),
+        value: formatCentsToReadableValue({
+          value: dailyBorrowingInterestsCents,
+        }),
+      },
+      {
+        label: t('marketDetails.marketInfo.stats.dailyDistributionXvs'),
+        value: formatTokensToReadableValue({
+          value: dailyDistributionXvs,
+          minimizeDecimals: true,
+          addSymbol: false,
+          tokenId: TOKENS.xvs.id as TokenId,
         }),
       },
       {
@@ -236,7 +257,9 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
       supplierCount,
       borrowerCount,
       borrowCapTokens?.toFixed(),
-      dailyInterestsCents?.toFixed(),
+      dailySupplyingInterestsCents,
+      dailyBorrowingInterestsCents,
+      dailyDistributionXvs?.toFixed(),
       reserveTokens?.toFixed(),
       vTokenId,
       reserveFactor?.toFixed(),
@@ -317,7 +340,6 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
 
   const { reserveFactorMantissa, ...marketData } = useGetMarketData({
     vTokenId,
-    vTokenAddress: vToken.address,
   });
 
   const chartData = useGetChartData({
