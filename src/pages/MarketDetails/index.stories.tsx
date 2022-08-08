@@ -67,7 +67,9 @@ export const Default = () => (
     supplierCount={1234}
     borrowerCount={76}
     borrowCapTokens={new BigNumber(812963286)}
-    dailyInterestsCents={123212}
+    dailyBorrowingInterestsCents={123212}
+    dailySupplyingInterestsCents={123212}
+    dailyDistributionXvs={new BigNumber(812963286)}
     reserveTokens={new BigNumber(100000)}
     reserveFactor={20}
     collateralFactor={70}
