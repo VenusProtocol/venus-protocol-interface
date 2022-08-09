@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Delimiter, TableProps, switchAriaLabel, toast } from 'components';
+import { TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useState } from 'react';
 import { Asset, VTokenId } from 'types';
@@ -20,13 +20,11 @@ import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import { SupplyWithdrawModal } from '../../Modals';
 import { useStyles } from '../styles';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
-import SuppliedTable from './SuppliedTable';
 import SupplyMarketTable from './SupplyMarketTable';
 
 interface SupplyMarketProps {
   className?: string;
   isXvsEnabled: boolean;
-  suppliedAssets: Asset[];
   supplyMarketAssets: Asset[];
   toggleAssetCollateral: (a: Asset) => Promise<void>;
   confirmCollateral: Asset | undefined;
@@ -39,7 +37,6 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   className,
   isXvsEnabled,
   supplyMarketAssets,
-  suppliedAssets,
   hasLunaOrUstCollateralEnabled,
   openLunaUstWarningModal,
   toggleAssetCollateral,
@@ -77,54 +74,44 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   };
 
   const selectedAsset = React.useMemo(
-    () =>
-      [...supplyMarketAssets, ...suppliedAssets].find(
-        marketAsset => marketAsset.id === selectedAssetId,
-      ),
-    [selectedAssetId, JSON.stringify(supplyMarketAssets), JSON.stringify(suppliedAssets)],
+    () => supplyMarketAssets.find(marketAsset => marketAsset.id === selectedAssetId),
+    [selectedAssetId, JSON.stringify(supplyMarketAssets)],
   );
 
   return (
-    <Paper className={className} css={styles.tableContainer}>
-      {suppliedAssets.length > 0 && (
-        <>
-          <SuppliedTable
+    <>
+      <Paper className={className} css={styles.tableContainer}>
+        <SupplyMarketTable
+          isXvsEnabled={isXvsEnabled}
+          assets={supplyMarketAssets}
+          rowOnClick={rowOnClick}
+          collateralOnChange={collateralOnChange}
+        />
+
+        {selectedAsset && (
+          <SupplyWithdrawModal
+            asset={selectedAsset}
+            assets={supplyMarketAssets}
             isXvsEnabled={isXvsEnabled}
-            assets={suppliedAssets}
-            rowOnClick={rowOnClick}
-            collateralOnChange={collateralOnChange}
+            onClose={() => setSelectedAssetId(undefined)}
           />
-          <Delimiter css={styles.delimiter} />
-        </>
-      )}
-      <SupplyMarketTable
-        isXvsEnabled={isXvsEnabled}
-        assets={supplyMarketAssets}
-        rowOnClick={rowOnClick}
-        collateralOnChange={collateralOnChange}
-      />
+        )}
+      </Paper>
+
       <CollateralConfirmModal
         asset={confirmCollateral}
         handleClose={() => setConfirmCollateral(undefined)}
       />
-      {selectedAsset && (
-        <SupplyWithdrawModal
-          asset={selectedAsset}
-          assets={[...suppliedAssets, ...supplyMarketAssets]}
-          isXvsEnabled={isXvsEnabled}
-          onClose={() => setSelectedAssetId(undefined)}
-        />
-      )}
-    </Paper>
+    </>
   );
 };
 
 const SupplyMarket: React.FC<
-  Pick<SupplyMarketProps, 'isXvsEnabled' | 'supplyMarketAssets' | 'suppliedAssets'> & {
+  Pick<SupplyMarketProps, 'isXvsEnabled' | 'supplyMarketAssets'> & {
     className?: string;
     accountAddress: string;
   }
-> = ({ className, isXvsEnabled, supplyMarketAssets, suppliedAssets, accountAddress }) => {
+> = ({ className, isXvsEnabled, supplyMarketAssets, accountAddress }) => {
   const web3 = useWeb3();
   const comptrollerContract = useComptrollerContract();
 
@@ -244,7 +231,6 @@ const SupplyMarket: React.FC<
   return (
     <SupplyMarketUi
       className={className}
-      suppliedAssets={suppliedAssets}
       supplyMarketAssets={supplyMarketAssets}
       isXvsEnabled={isXvsEnabled}
       toggleAssetCollateral={toggleAssetCollateral}
