@@ -17,6 +17,8 @@ interface DashboardUiProps {
 
 const DashboardUi: React.FC<DashboardUiProps> = ({ accountAddress, assets }) => (
   <>
+    <HigherRiskTokensNotice />
+
     <Markets
       isXvsEnabled
       accountAddress={accountAddress}
