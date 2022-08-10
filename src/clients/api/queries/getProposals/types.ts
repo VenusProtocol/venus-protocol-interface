@@ -12,15 +12,12 @@ export interface GetProposalInput {
 export interface ProposalApiResponse {
   abstainedVotes: string;
   actions: {
-    data: string;
+    callData: string;
     signature: string;
     target: string;
-    title: string;
     value: string;
   }[];
   againstVotes: string;
-  blockNumber: number;
-  calldatas: string[];
   cancelBlock: number | null;
   cancelTimestamp: number | null;
   cancelTxHash: string | null;
@@ -45,7 +42,6 @@ export interface ProposalApiResponse {
   queuedBlock: number | null;
   queuedTimestamp: number | null;
   queuedTxHash: string | null;
-  signatures: string[];
   startBlock: number;
   startTimestamp: number;
   startTxHash: string | null;
@@ -59,9 +55,7 @@ export interface ProposalApiResponse {
     | 'Expired'
     | 'Executed';
   // JSON
-  targets: string[];
   updatedAt: string;
-  values: string[];
   voterCount: number | null;
 }
 

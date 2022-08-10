@@ -7,6 +7,7 @@ const getProposal = async ({ id }: GetProposalInput): Promise<GetProposalOutput>
   const response = await restService<ProposalApiResponse>({
     endpoint: `/proposals/${id}`,
     method: 'GET',
+    params: { version: 'v2' },
   });
 
   const payload = response.data?.data;

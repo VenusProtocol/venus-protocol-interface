@@ -22,6 +22,7 @@ export const useStyles = () => {
     `,
     textButton: css`
       display: inline-flex;
+
       span {
         align-items: center;
       }
@@ -33,9 +34,31 @@ export const useStyles = () => {
       margin-left: ${theme.spacing(2)};
       height: ${theme.spacing(5.5)};
       width: auto;
+
       :hover {
         color: ${theme.palette.button.medium};
       }
+    `,
+    marketDetailsLeftColumn: css`
+      display: flex;
+      align-items: center;
+    `,
+    marketDetailsAddTokenButton: css`
+      margin-left: ${theme.spacing(4)};
+      padding: ${theme.spacing(1)};
+      color: ${theme.palette.interactive.primary};
+      background-color: ${theme.palette.background.paper};
+      border-color: ${theme.palette.background.paper};
+
+      :hover {
+        color: ${theme.palette.text.primary};
+      }
+    `,
+    marketDetailsWalletIcon: css`
+      width: ${theme.spacing(5)};
+      height: ${theme.spacing(5)};
+      margin-left: 1px;
+      color: inherit;
     `,
   };
 };

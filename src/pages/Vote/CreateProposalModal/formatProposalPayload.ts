@@ -36,8 +36,9 @@ const formatProposalPayload = (data: FormValues) => {
   data.actions.forEach(action => {
     payload.targets.push(action.target);
     payload.signatures.push(action.signature);
-    if (action.data !== undefined) {
-      payload.callDatas.push(encodeCallData(action.signature, action.data));
+
+    if (action.callData !== undefined) {
+      payload.callDatas.push(encodeCallData(action.signature, action.callData));
     }
   });
 

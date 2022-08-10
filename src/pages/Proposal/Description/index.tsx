@@ -53,7 +53,10 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
         </Typography>
 
         {actions.map(action => (
-          <ReadableActionSignature action={action} />
+          <ReadableActionSignature
+            key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
+            action={action}
+          />
         ))}
       </div>
     </Paper>

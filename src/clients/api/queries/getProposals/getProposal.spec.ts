@@ -45,6 +45,9 @@ describe('api/queries/getProposal', () => {
     expect(restService).toBeCalledWith({
       endpoint: '/proposals/1',
       method: 'GET',
+      params: {
+        version: 'v2',
+      },
     });
 
     expect(response).toMatchSnapshot();

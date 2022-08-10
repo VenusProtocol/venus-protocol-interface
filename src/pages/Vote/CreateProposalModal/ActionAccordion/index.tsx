@@ -15,19 +15,21 @@ const ActionAccordion: React.FC = () => {
   const [expandedIdx, setExpanded] = React.useState<number | undefined>(0);
 
   const [{ value: actions }, { error: errors }, { setValue }] =
-    useField<{ target: string; signature: string; data: string[] }[]>('actions');
+    useField<{ target: string; signature: string; callData: string[] }[]>('actions');
 
   const handleBlurSignature: React.FocusEventHandler<HTMLInputElement> = () => {
     const actionsCopy = [...actions];
+
     if (expandedIdx !== undefined) {
       const actionCopy = actionsCopy[expandedIdx];
-      const { signature, data } = actionCopy;
+      const { signature, callData } = actionCopy;
+
       // When we blur the signature, clean up extra fields
-      if (data) {
+      if (callData) {
         try {
           const fragment = ethers.utils.FunctionFragment.from(signature || '');
           const numberOfInputs = fragment.inputs.length;
-          actionsCopy[expandedIdx].data = data.slice(0, numberOfInputs);
+          actionsCopy[expandedIdx].callData = callData.slice(0, numberOfInputs);
           setValue(actionsCopy);
         } catch (err) {
           // eslint-disable-next-line no-console
@@ -44,6 +46,7 @@ const ActionAccordion: React.FC = () => {
           <>
             {actions.map((action, idx) => {
               const key = `action-item${idx}`;
+
               return (
                 <Accordion
                   key={key}
@@ -72,6 +75,7 @@ const ActionAccordion: React.FC = () => {
                     ]}
                     label={t('vote.createProposalForm.address')}
                   />
+
                   <FormikTextField
                     name={`actions.${idx}.signature`}
                     data-testid={`actions.${idx}.signature`}
@@ -83,10 +87,12 @@ const ActionAccordion: React.FC = () => {
                     label={t('vote.createProposalForm.signature')}
                     onBlur={handleBlurSignature}
                   />
+
                   <CallDataFields signature={action.signature} actionIndex={idx} />
                 </Accordion>
               );
             })}
+
             <SecondaryButton
               onClick={() => {
                 push({ address: '', signature: '' });

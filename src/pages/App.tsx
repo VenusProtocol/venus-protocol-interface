@@ -1,7 +1,7 @@
 import { Layout, ResetScrollOnRouteChange } from 'components';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import 'assets/styles/App.scss';
@@ -31,7 +31,7 @@ const App = () => (
         <AuthProvider>
           <SuccessfulTransactionModalProvider>
             <DisableLunaUstWarningProvider>
-              <BrowserRouter>
+              <HashRouter>
                 <ToastContainer />
                 <Layout>
                   <ResetScrollOnRouteChange />
@@ -58,7 +58,7 @@ const App = () => (
                     <Redirect to={Path.ROOT} />
                   </Switch>
                 </Layout>
-              </BrowserRouter>
+              </HashRouter>
             </DisableLunaUstWarningProvider>
           </SuccessfulTransactionModalProvider>
         </AuthProvider>
