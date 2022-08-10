@@ -35,19 +35,15 @@ const descriptionV2 = {
 
 const actions = [
   {
-    data: '',
+    callData: '',
     signature: '',
     target: '',
-    title:
-      '[Unitroller.](https://bscscan.com/address/0x70f657164e5b75689b64b7fd1fa275f334f28e18)assumeOwnership("0x0000000000000000000000000000000000000000")',
     value: '',
   },
   {
-    data: '',
+    callData: '',
     signature: '',
     target: '',
-    title:
-      '[Unitroller.](https://bscscan.com/address/0x70f657164e5b75689b64b7fd1fa275f334f28e18)setRate(0.04)',
     value: '',
   },
 ];

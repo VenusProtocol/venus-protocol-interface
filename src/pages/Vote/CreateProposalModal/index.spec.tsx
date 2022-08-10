@@ -35,8 +35,8 @@ const completeFirstStep = async (
   );
 
   act(async () => {
-    await fireEvent.change(proposalNameInput, { target: { value: fakeName } });
-    await fireEvent.change(descriptionInput, { target: { value: fakeDescription } });
+    fireEvent.change(proposalNameInput, { target: { value: fakeName } });
+    fireEvent.change(descriptionInput, { target: { value: fakeDescription } });
   });
 };
 
@@ -152,11 +152,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
-      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
-      await fireEvent.change(dataInput0, { target: { value: 'root' } });
-      await fireEvent.change(dataInput1, { target: { value: 'false' } });
+      fireEvent.change(dataInput0, { target: { value: 'root' } });
+      fireEvent.change(dataInput1, { target: { value: 'false' } });
 
       await waitFor(() => expect(addActionButton).toBeEnabled());
       await waitFor(() => fireEvent.click(addActionButton));
@@ -199,11 +199,11 @@ describe('pages/Proposal/CreateProposalModal', () => {
       fireEvent.change(addressInput0, { target: { value: fakeAddress } });
       fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
-      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
-      await fireEvent.change(dataInput0, { target: { value: 'root' } });
-      await fireEvent.change(dataInput1, { target: { value: 'false' } });
+      fireEvent.change(dataInput0, { target: { value: 'root' } });
+      fireEvent.change(dataInput1, { target: { value: 'false' } });
 
       await waitFor(() => fireEvent.click(addActionButton));
     });
@@ -255,14 +255,14 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const signatureInput0 = await waitFor(() => getByTestId('actions.0.signature'));
 
     await act(async () => {
-      await fireEvent.change(addressInput0, { target: { value: fakeAddress } });
-      await fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
+      fireEvent.change(addressInput0, { target: { value: fakeAddress } });
+      fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
 
-      const dataInput0 = await waitFor(() => getByTestId('actions.0.data.0'));
-      const dataInput1 = await waitFor(() => getByTestId('actions.0.data.1'));
+      const dataInput0 = await waitFor(() => getByTestId('actions.0.callData.0'));
+      const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
-      await fireEvent.change(dataInput0, { target: { value: 'root' } });
-      await fireEvent.change(dataInput1, { target: { value: 'false' } });
+      fireEvent.change(dataInput0, { target: { value: 'root' } });
+      fireEvent.change(dataInput1, { target: { value: 'false' } });
     });
 
     await waitFor(() => expect(addActionButton).toBeEnabled()); // failing
@@ -273,7 +273,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
     });
   });
 
-  it('Adds calldata fields with correctly formatted signature', async () => {
+  it('Adds callData fields with correctly formatted signature', async () => {
     const { getByText, getAllByPlaceholderText, getByPlaceholderText } = renderComponent(
       <CreateProposalModal
         isOpen

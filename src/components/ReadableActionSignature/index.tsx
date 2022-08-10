@@ -20,6 +20,7 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
   className,
 }) => {
   const styles = useStyles();
+
   return (
     <Typography
       css={styles.signature}

@@ -85,7 +85,7 @@ export type ProposalState =
   | 'Executed';
 
 export interface ProposalAction {
-  data: string;
+  callData: string;
   signature: string;
   target: string;
   value: string;

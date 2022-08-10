@@ -56,6 +56,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
               css={styles.formBottomMargin}
               displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
             />
+
             <FormikMarkdownEditor
               name="description"
               placeholder={t('vote.createProposalForm.addDescription')}
@@ -77,6 +78,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
               css={styles.formBottomMargin}
               displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
             />
+
             <FormikTextField
               name="againstDescription"
               placeholder={t('vote.createProposalForm.againstOption')}
@@ -84,6 +86,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
               css={styles.formBottomMargin}
               displayableErrorCodes={[ErrorCode.VALUE_REQUIRED]}
             />
+
             <FormikTextField
               name="abstainDescription"
               placeholder={t('vote.createProposalForm.abstainOption')}
@@ -117,7 +120,9 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
     try {
       const payload = formatProposalPayload(formValues);
       const transactionReceipt = await createProposal(payload);
+
       handleClose();
+
       openSuccessfulTransactionModal({
         title: t('vote.yourProposalwasCreatedSuccessfully'),
         content: t('vote.pleaseAllowTimeForConfirmation'),
@@ -125,9 +130,11 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
       });
     } catch (error) {
       let { message } = error as Error;
+
       if (error instanceof VError) {
         message = formatVErrorToReadableString(error);
       }
+
       toast.error({ message });
     }
   };
@@ -142,7 +149,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
     >
       <Formik
         initialValues={{
-          actions: [{ target: '', signature: '', data: [] }],
+          actions: [{ target: '', signature: '', callData: [] }],
           description: '',
           forDescription: '',
           againstDescription: '',
@@ -175,9 +182,11 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
             },
             [currentStep, JSON.stringify(errors)],
           );
+
           return (
             <Form>
               <CurrentFields />
+
               {currentStep === steps.length - 1 ? (
                 <FormikSubmitButton
                   enabledLabel={t('vote.createProposalForm.create')}

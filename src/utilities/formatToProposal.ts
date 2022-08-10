@@ -1,8 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Proposal } from 'types';
 
-import { BLOCK_TIME_MS } from 'constants/bsc';
-
 interface FormatToProposalInput {
   abstainedVotes: string;
   againstVotes: string;
@@ -33,13 +31,11 @@ interface FormatToProposalInput {
   queuedTxHash: string | null;
   startTxHash: string | null;
   actions?: {
-    data: string;
+    callData: string;
     signature: string;
     target: string;
-    title: string;
     value: string;
   }[];
-  blockNumber?: number;
 }
 
 const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
@@ -69,19 +65,17 @@ const formatToProposal = ({
   queuedTxHash,
   startTxHash,
   actions,
-  blockNumber,
 }: FormatToProposalInput): Proposal => {
-  let endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
+  const endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
 
-  if (!endDate && blockNumber) {
-    const blocksLeft = endBlock - blockNumber;
-    const secondsUntilEnd = blocksLeft * (BLOCK_TIME_MS / 1000);
-    const now = new Date();
-    now.setSeconds(now.getSeconds() + secondsUntilEnd);
-    endDate = now;
-  }
-
-  let descriptionObj = { version: 'v1' as const, title: '', description: '' };
+  let descriptionObj: Proposal['description'] = {
+    version: 'v2',
+    title: '',
+    description: '',
+    forDescription: '',
+    againstDescription: '',
+    abstainDescription: '',
+  };
 
   try {
     descriptionObj = JSON.parse(description);
@@ -95,7 +89,7 @@ const formatToProposal = ({
     // on the front end
     const plainTitle = title.replaceAll('*', '').replaceAll('#', '');
 
-    descriptionObj = { version: 'v1' as const, title: plainTitle, description: descriptionText };
+    descriptionObj = { version: 'v1', title: plainTitle, description: descriptionText };
   }
 
   const abstainedVotesWei = new BigNumber(abstainedVotes || 0);
@@ -126,10 +120,6 @@ const formatToProposal = ({
     totalVotesWei: abstainedVotesWei.plus(againstVotesWei).plus(forVotesWei),
     actions: actions || [],
   };
-
-  if (blockNumber) {
-    proposal.blockNumber = blockNumber;
-  }
 
   return proposal;
 };

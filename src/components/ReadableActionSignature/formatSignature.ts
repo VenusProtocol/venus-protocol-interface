@@ -9,17 +9,17 @@ const formatSignature = (action: FormValues['actions'][number] | ProposalAction)
     const fragment = ethers.utils.FunctionFragment.from(action.signature || '');
     let args: Result = [];
 
-    if (Array.isArray(action.data)) {
+    if (Array.isArray(action.callData)) {
       args = fragment.inputs.map((i, idx) => {
         if (i.baseType === 'string' || i.baseType === 'address') {
-          return `"${action.data[idx]}"`;
+          return `"${action.callData[idx]}"`;
         }
-        return action.data[idx];
+        return action.callData[idx];
       });
     } else {
       const unformattedArgs = ethers.utils.defaultAbiCoder.decode(
         fragment.inputs.map(input => input.baseType),
-        action.data,
+        action.callData,
       );
       args = fragment.inputs.map((i, idx) => {
         if (i.baseType === 'string' || i.baseType === 'address') {
@@ -31,7 +31,7 @@ const formatSignature = (action: FormValues['actions'][number] | ProposalAction)
 
     return `.${fragment.name}(${args.join(', ')})`;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 
   return '';

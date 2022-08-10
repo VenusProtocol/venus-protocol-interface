@@ -31,7 +31,7 @@ const proposalSchema = yup.object({
           )
           .required(),
         // @TODO add specific validation and errors for specific types
-        data: yup
+        callData: yup
           .array()
           .of(
             yup.string().test({

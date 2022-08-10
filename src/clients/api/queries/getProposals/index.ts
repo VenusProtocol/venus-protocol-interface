@@ -14,7 +14,7 @@ const getProposals = async ({
   const response = await restService<ProposalsApiResponse>({
     endpoint: '/proposals',
     method: 'GET',
-    params: { offset, limit },
+    params: { offset, limit, version: 'v2' },
   });
   const payload = response.data?.data;
 

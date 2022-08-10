@@ -49,6 +49,7 @@ describe('api/queries/getProposals', () => {
       params: {
         limit: 10,
         offset: 20,
+        version: 'v2',
       },
     });
 
@@ -69,6 +70,7 @@ describe('api/queries/getProposals', () => {
       params: {
         limit: 5,
         offset: 0,
+        version: 'v2',
       },
     });
 
