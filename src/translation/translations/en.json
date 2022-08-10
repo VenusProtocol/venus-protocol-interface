@@ -112,10 +112,13 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
+    "higherRiskTokensNotice": {
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
+      "title": "What are higher risk tokens?"
+    },
     "markets": {
       "tabBorrow": "Borrow",
-      "tabSupply": "Supply",
-      "title": "Markets"
+      "tabSupply": "Supply"
     }
   },
   "enableToken": {
@@ -268,7 +271,6 @@
     }
   },
   "markets": {
-    "borrowingTableTitle": "Borrowing",
     "borrowMarketTableTitle": "Borrow market",
     "collateralConfirmModal": {
       "confirmText": "Confirm the transaction",
@@ -278,10 +280,8 @@
     "columns": {
       "apy": "APY",
       "asset": "Asset",
-      "balance": "Balance",
       "collateral": "Collateral",
       "liquidity": "Liquidity",
-      "percentOfLimit": "% of Limit",
       "wallet": "Wallet"
     },
     "errors": {
@@ -290,49 +290,10 @@
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
     },
-    "suppliedTableTitle": "Supplied",
     "supplyMarketTableTitle": "Supply market"
   },
-  "mintRepayVai": {
-    "mintVai": {
-      "btnMintVai": "Mint VAI",
-      "connectWallet": "Please connect your wallet to mint VAI",
-      "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
-      "mintFeeLabel": "Mint fee",
-      "rightMaxButtonLabel": "SAFE MAX",
-      "successfulTransactionModal": {
-        "message": "You successfully minted",
-        "title": "Your mint was successful"
-      },
-      "vaiLimitLabel": "Available VAI limit"
-    },
-    "repayVai": {
-      "btnRepayVai": "Repay VAI",
-      "connectWallet": "Please connect your wallet to repay VAI",
-      "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
-      "repayVaiBalance": "Repay VAI balance",
-      "rightMaxButtonLabel": "MAX",
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
-      }
-    },
-    "tabMint": "Mint VAI",
-    "tabRepay": "Repay VAI",
-    "title": "Mint/Repay VAI"
-  },
   "myAccount": {
-    "apyWithXvs": "APY with XVS",
-    "apyWithXvsTooltip": "Choose whether to include the XVS distribution APR in calculations",
-    "borrowBalance": "Borrow balance",
-    "dailyEarnings": "Daily earnings",
-    "includingMintedVai": "Including minted VAI",
-    "netApy": "Net APY",
-    "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-    "safeLimit": "Your safe limit:",
-    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe.",
-    "supplyBalance": "Supply balance",
-    "title": "My account"
+    "includingMintedVai": "Including minted VAI"
   },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",

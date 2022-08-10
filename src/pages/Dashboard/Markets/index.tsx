@@ -57,7 +57,7 @@ const Markets: React.FC<MarketsProps> = ({
   ];
 
   return (
-    <Paper css={styles.desktopViewContainer}>
+    <Paper>
       <Tabs css={styles.tabsHeader} tabsContent={tabsContent} />
     </Paper>
   );

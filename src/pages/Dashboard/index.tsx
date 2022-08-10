@@ -6,6 +6,7 @@ import { Asset } from 'types';
 import { useGetUserMarketInfo } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 
+import HigherRiskTokensNotice from './HigherRiskTokensNotice';
 import Markets from './Markets';
 
 interface DashboardUiProps {
@@ -16,6 +17,8 @@ interface DashboardUiProps {
 
 const DashboardUi: React.FC<DashboardUiProps> = ({ accountAddress, assets }) => (
   <>
+    <HigherRiskTokensNotice />
+
     <Markets
       isXvsEnabled
       accountAddress={accountAddress}
