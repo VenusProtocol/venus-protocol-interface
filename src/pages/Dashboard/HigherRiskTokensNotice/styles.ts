@@ -12,12 +12,21 @@ export const useStyles = () => {
     content: css`
       display: flex;
       align-items: center;
+
+      ${theme.breakpoints.down('md')} {
+        display: block;
+      }
     `,
     icon: css`
       width: ${theme.spacing(19)};
       height: auto;
       margin-right: ${theme.spacing(6)};
       flex-shrink: 0;
+
+      ${theme.breakpoints.down('md')} {
+        display: block;
+        margin: 0 auto ${theme.spacing(4)};
+      }
     `,
     textContainer: css`
       max-width: ${theme.spacing(175)};

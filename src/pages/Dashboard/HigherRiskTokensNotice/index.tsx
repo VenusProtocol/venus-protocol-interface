@@ -5,6 +5,8 @@ import { Icon } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 
+import { LS_KEY_HIDE_HIGHER_RISK_TOKENS_NOTICE } from 'constants/localStorageKeys';
+
 import { useStyles } from './styles';
 
 export interface HigherRiskTokensNoticeUiProps {
@@ -14,10 +16,15 @@ export interface HigherRiskTokensNoticeUiProps {
 
 export const HigherRiskTokensNoticeUi: React.FC<HigherRiskTokensNoticeUiProps> = ({
   onHide,
+  isVisible,
   ...containerProps
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <Paper css={styles.container} {...containerProps}>
@@ -41,9 +48,14 @@ export const HigherRiskTokensNoticeUi: React.FC<HigherRiskTokensNoticeUiProps> =
 };
 
 const HigherRiskTokensNotice: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(
+    !window.localStorage.getItem(LS_KEY_HIDE_HIGHER_RISK_TOKENS_NOTICE),
+  );
 
-  const handleHide = () => setIsVisible(false);
+  const handleHide = () => {
+    setIsVisible(false);
+    window.localStorage.setItem(LS_KEY_HIDE_HIGHER_RISK_TOKENS_NOTICE, 'true');
+  };
 
   return <HigherRiskTokensNoticeUi isVisible={isVisible} onHide={handleHide} />;
 };
