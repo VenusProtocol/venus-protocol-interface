@@ -245,7 +245,7 @@
         "collateralFactorLabel": "Collateral factor",
         "dailyBorrowingInterestsLabel": "Daily borrowing interests",
         "dailyDistributionXvs": "Daily XVS distributed",
-        "dailySupplyingInterestsLabel": "Daily distribution interests",
+        "dailySupplyingInterestsLabel": "Daily supplying interests",
         "exchangeRateLabel": "Exchange rate",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
         "marketLiquidityLabel": "Market liquidity",
