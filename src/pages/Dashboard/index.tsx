@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Icon, Toggle, Tooltip } from 'components';
-import React, { useContext, useState } from 'react';
+import { Icon, TextField, Toggle, Tooltip } from 'components';
+import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
@@ -19,6 +19,8 @@ interface DashboardUiProps {
   userTotalBorrowLimitCents: BigNumber;
   areHigherRiskTokensDisplayed: boolean;
   onHigherRiskTokensToggleChange: (newValue: boolean) => void;
+  searchValue: string;
+  onSearchInputChange: (newValue: string) => void;
   assets: Asset[];
 }
 
@@ -27,9 +29,14 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   assets,
   areHigherRiskTokensDisplayed,
   onHigherRiskTokensToggleChange,
+  searchValue,
+  onSearchInputChange,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
+    onSearchInputChange(changeEvent.currentTarget.value);
 
   return (
     <>
@@ -38,26 +45,35 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       <div css={styles.header}>
         <div>{/* TODO: add tabs here */}</div>
 
-        {/* TODO: add search input */}
+        <div css={styles.rightColumn}>
+          <div css={styles.toggleContainer}>
+            <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
+              <Icon css={styles.infoIcon} name="info" />
+            </Tooltip>
 
-        <div css={styles.toggleContainer}>
-          <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
-            <Icon css={styles.infoIcon} name="info" />
-          </Tooltip>
+            <Typography
+              color="text.primary"
+              variant="small1"
+              component="span"
+              css={styles.toggleLabel}
+            >
+              {t('dashboard.riskyTokensToggleLabel')}
+            </Typography>
 
-          <Typography
-            color="text.primary"
-            variant="small1"
-            component="span"
-            css={styles.toggleLabel}
-          >
-            {t('dashboard.riskyTokensToggleLabel')}
-          </Typography>
+            <Toggle
+              css={styles.toggle}
+              value={areHigherRiskTokensDisplayed}
+              onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+            />
+          </div>
 
-          <Toggle
-            css={styles.toggle}
-            value={areHigherRiskTokensDisplayed}
-            onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+          <TextField
+            css={styles.searchTextField}
+            isSmall
+            value={searchValue}
+            onChange={handleSearchInputChange}
+            placeholder={t('dashboard.searchInput.placeholder')}
+            leftIconName="magnifier"
           />
         </div>
       </div>
@@ -77,6 +93,7 @@ const Dashboard: React.FC = () => {
   const { account } = useContext(AuthContext);
   const accountAddress = account?.address || '';
 
+  const [searchValue, setSearchValue] = useState('');
   const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
 
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
@@ -93,6 +110,8 @@ const Dashboard: React.FC = () => {
       userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       areHigherRiskTokensDisplayed={areHigherRiskTokensDisplayed}
       onHigherRiskTokensToggleChange={setAreHigherRiskTokensDisplayed}
+      searchValue={searchValue}
+      onSearchInputChange={setSearchValue}
     />
   );
 };

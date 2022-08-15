@@ -7,12 +7,18 @@ export const useStyles = () => {
   return {
     header: css`
       display: flex;
+      align-items: center;
       justify-content: space-between;
       margin-bottom: ${theme.spacing(6)};
+    `,
+    rightColumn: css`
+      display: flex;
+      align-items: center;
     `,
     toggleContainer: css`
       display: flex;
       align-items: center;
+      margin-right: ${theme.spacing(8)};
     `,
     toggleLabel: css`
       margin-left: ${theme.spacing(2)};
@@ -32,6 +38,9 @@ export const useStyles = () => {
       .MuiSwitch-track {
         background-color: ${theme.palette.secondary.light};
       }
+    `,
+    searchTextField: css`
+      min-width: ${theme.spacing(75)};
     `,
   };
 };
