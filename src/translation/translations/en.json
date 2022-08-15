@@ -119,7 +119,9 @@
     "markets": {
       "tabBorrow": "Borrow",
       "tabSupply": "Supply"
-    }
+    },
+    "riskyTokensToggleLabel": "Display higher risk tokens",
+    "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation."
   },
   "enableToken": {
     "enableButtonLabel": "Enable"
