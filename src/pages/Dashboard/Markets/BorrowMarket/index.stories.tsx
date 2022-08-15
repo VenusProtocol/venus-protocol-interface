@@ -1,5 +1,4 @@
 import { ComponentMeta } from '@storybook/react';
-import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
@@ -21,10 +20,8 @@ export default {
 
 export const Default = () => (
   <BorrowMarketUi
-    borrowingAssets={assetData}
     borrowMarketAssets={assetData}
     isXvsEnabled={false}
-    userTotalBorrowLimitCents={new BigNumber(11100)}
     hasLunaOrUstCollateralEnabled={false}
     openLunaUstWarningModal={noop}
   />

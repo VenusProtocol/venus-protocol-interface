@@ -5,32 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    desktopViewContainer: css`
-      ${theme.breakpoints.down('lg')} {
-        display: none;
-      }
-    `,
-    tabletViewContainer: css`
-      display: none;
-      padding: 0;
-
-      ${theme.breakpoints.down('lg')} {
-        display: block;
-      }
-
-      ${theme.breakpoints.down('sm')} {
-        display: none;
-      }
-    `,
-    mobileViewContainer: css`
-      display: none;
-      background-color: transparent;
-      padding: 0;
-
-      ${theme.breakpoints.down('sm')} {
-        display: block;
-      }
-    `,
     market: css`
       padding-top: 0;
     `,
