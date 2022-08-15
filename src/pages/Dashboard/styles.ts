@@ -6,39 +6,31 @@ export const useStyles = () => {
 
   return {
     header: css`
-      margin-bottom: ${theme.spacing(6)};
-    `,
-    headerBottomRow: css`
       display: flex;
-      align-items: center;
       justify-content: space-between;
-
-      ${theme.breakpoints.down('md')} {
-        display: block;
-      }
+      margin-bottom: ${theme.spacing(6)};
     `,
-    rightColumn: css`
+    toggleContainer: css`
       display: flex;
       align-items: center;
     `,
-    tabletButtonGroup: css`
-      margin-bottom: ${theme.spacing(6)};
+    toggleLabel: css`
+      margin-left: ${theme.spacing(2)};
     `,
-    tabletSearchTextField: css`
-      width: 100%;
-      margin-bottom: ${theme.spacing(6)};
-    `,
-    desktopSearchTextField: css`
-      margin-left: ${theme.spacing(8)};
-      min-width: ${theme.spacing(75)};
-    `,
-    mobileSelect: css`
-      width: ${theme.spacing(56)};
+    tooltip: css`
       display: flex;
-      align-items: center;
+    `,
+    infoIcon: css`
+      cursor: help;
+    `,
+    toggle: css`
+      margin-left: ${theme.spacing(2)};
 
-      ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(6)};
+      /* TODO: update thumb color when unchecked */
+      & .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track,
+      .Mui-checked + .MuiSwitch-track,
+      .MuiSwitch-track {
+        background-color: ${theme.palette.secondary.light};
       }
     `,
   };
