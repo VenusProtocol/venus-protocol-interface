@@ -53,17 +53,31 @@ export const useStyles = () => {
     leftIcon: css`
       margin-right: ${theme.spacing(2)};
     `,
-    getInput: ({ hasRightAdornment }: { hasRightAdornment: boolean }) => css`
+    getInput: ({
+      hasRightAdornment,
+      isSmall,
+    }: {
+      hasRightAdornment: boolean;
+      isSmall: boolean;
+    }) => css`
       background-color: transparent;
       flex: 1;
       font-weight: 600;
       line-height: ${theme.spacing(6)};
-      height: ${theme.spacing(10)};
       padding-top: 2px; /* Vertically align input content */
       border: 0;
       width: 100%;
+      height: ${theme.spacing(isSmall ? 7 : 10)};
 
-      ${hasRightAdornment && `margin-right: ${theme.spacing(1)}`};
+      ${isSmall &&
+      css`
+        font-size: ${theme.typography.small2.fontSize};
+      `}
+
+      ${hasRightAdornment &&
+      css`
+        margin-right: ${theme.spacing(1)};
+      `};
 
       &:focus {
         outline: 0;
