@@ -3,8 +3,8 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
+
   return {
-    theme,
     getLabel: ({ hasError }: { hasError: boolean }) => css`
       display: block;
       margin-bottom: ${theme.spacing(1)};
@@ -33,7 +33,7 @@ export const useStyles = () => {
         align-items: center;
         padding: ${theme.spacing(2, 2, 2, 4)};
         border-radius: ${theme.spacing(3)};
-        border: ${theme.spacing(0.5)} solid ${borderColor};
+        border: 1px solid ${borderColor};
         background-color: ${disabled
           ? theme.palette.background.paper
           : theme.palette.background.default};
@@ -50,8 +50,10 @@ export const useStyles = () => {
         }
       `;
     },
-    leftIcon: css`
+    getLeftIcon: ({ isSmall }: { isSmall: boolean }) => css`
       margin-right: ${theme.spacing(2)};
+      width: ${theme.spacing(isSmall ? 5 : 6)};
+      height: ${theme.spacing(isSmall ? 5 : 6)};
     `,
     getInput: ({
       hasRightAdornment,

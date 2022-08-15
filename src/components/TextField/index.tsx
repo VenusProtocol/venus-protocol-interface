@@ -63,9 +63,7 @@ export const TextField: React.FC<TextFieldProps> = ({
       )}
 
       <Box css={styles.getInputContainer({ hasError, disabled })}>
-        {!!leftIconName && (
-          <Icon name={leftIconName} size={styles.theme.spacing(6)} css={styles.leftIcon} />
-        )}
+        {!!leftIconName && <Icon name={leftIconName} css={styles.getLeftIcon({ isSmall })} />}
 
         <input
           css={styles.getInput({ hasRightAdornment: !!rightAdornment, isSmall })}
