@@ -17,15 +17,23 @@ export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {
   const { t } = useTranslation();
 
   const getText = () => {
-    if (variant === 'low') {
+    if (variant === 'MINIMAL') {
+      return t('riskLevel.minimal');
+    }
+
+    if (variant === 'LOW') {
       return t('riskLevel.low');
     }
 
-    if (variant === 'medium') {
+    if (variant === 'MEDIUM') {
       return t('riskLevel.medium');
     }
 
-    return t('riskLevel.high');
+    if (variant === 'HIGH') {
+      return t('riskLevel.high');
+    }
+
+    return t('riskLevel.veryHigh');
   };
 
   return (
@@ -41,12 +49,22 @@ export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {
   );
 };
 
+export const RiskLevelMinimal: React.FC<Omit<RiskLevelProps, 'variant'>> = props => (
+  <RiskLevel variant="MINIMAL" {...props} />
+);
+
 export const RiskLevelLow: React.FC<Omit<RiskLevelProps, 'variant'>> = props => (
-  <RiskLevel variant="low" {...props} />
+  <RiskLevel variant="LOW" {...props} />
 );
+
 export const RiskLevelMedium: React.FC<Omit<RiskLevelProps, 'variant'>> = props => (
-  <RiskLevel variant="medium" {...props} />
+  <RiskLevel variant="MEDIUM" {...props} />
 );
+
 export const RiskLevelHigh: React.FC<Omit<RiskLevelProps, 'variant'>> = props => (
-  <RiskLevel variant="high" {...props} />
+  <RiskLevel variant="HIGH" {...props} />
+);
+
+export const RiskLevelVeryHigh: React.FC<Omit<RiskLevelProps, 'variant'>> = props => (
+  <RiskLevel variant="VERY_HIGH" {...props} />
 );

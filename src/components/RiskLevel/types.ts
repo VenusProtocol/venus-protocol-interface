@@ -1,1 +1,1 @@
-export type RiskLevelVariant = 'low' | 'medium' | 'high';
+export type RiskLevelVariant = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
