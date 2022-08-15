@@ -342,7 +342,9 @@
     "high": "High risk",
     "low": "Low risk",
     "medium": "Medium risk",
-    "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation."
+    "minimal": "Minimal risk",
+    "tooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
+    "veryHigh": "Very high risk"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
