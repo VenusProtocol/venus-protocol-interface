@@ -11,6 +11,8 @@ export default {
   decorators: [withThemeProvider, withCenterStory({ width: 500 })],
 } as ComponentMeta<typeof RiskLevel>;
 
-export const Low = () => <RiskLevel variant="low" />;
-export const Medium = () => <RiskLevel variant="medium" />;
-export const High = () => <RiskLevel variant="high" />;
+export const Minimal = () => <RiskLevel variant="MINIMAL" />;
+export const Low = () => <RiskLevel variant="LOW" />;
+export const Medium = () => <RiskLevel variant="MEDIUM" />;
+export const High = () => <RiskLevel variant="HIGH" />;
+export const VeryHigh = () => <RiskLevel variant="VERY_HIGH" />;
