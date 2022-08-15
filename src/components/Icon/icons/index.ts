@@ -41,6 +41,7 @@ export { default as exclamation } from './exclamation';
 export { default as bubble } from './bubble';
 export { default as logoMobile } from './logoMobile';
 export { default as person } from './person';
+export { default as gauge } from './gauge';
 
 // Token icons
 export { default as aave } from './tokens/aave';
