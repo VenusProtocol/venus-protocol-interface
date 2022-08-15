@@ -13,6 +13,7 @@ export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   hasError?: boolean;
   leftIconName?: IconName;
   rightAdornment?: React.ReactElement;
+  isSmall?: boolean;
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -27,9 +28,11 @@ export const TextField: React.FC<TextFieldProps> = ({
   min,
   type,
   disabled,
+  isSmall = false,
   ...inputProps
 }) => {
   const styles = useStyles();
+
   const handleChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = e => {
     let safeValue = e.currentTarget.value;
     if (type === 'number' && safeValue.startsWith('.')) {
@@ -65,7 +68,7 @@ export const TextField: React.FC<TextFieldProps> = ({
         )}
 
         <input
-          css={styles.getInput({ hasRightAdornment: !!rightAdornment })}
+          css={styles.getInput({ hasRightAdornment: !!rightAdornment, isSmall })}
           max={max}
           min={min}
           onChange={handleChange}
