@@ -4,11 +4,11 @@ import { Theme, useTheme } from '@mui/material';
 import { RiskLevelVariant } from './types';
 
 const getColor = ({ variant, theme }: { variant: RiskLevelVariant; theme: Theme }) => {
-  if (variant === 'low') {
+  if (variant === 'MINIMAL' || variant === 'LOW') {
     return theme.palette.interactive.success;
   }
 
-  if (variant === 'medium') {
+  if (variant === 'MEDIUM') {
     return theme.palette.interactive.warning;
   }
 
