@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
@@ -18,7 +17,6 @@ import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
 import { SupplyWithdrawModal } from '../../Modals';
-import { useStyles } from '../styles';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import SupplyMarketTable from './SupplyMarketTable';
 
@@ -34,7 +32,6 @@ interface SupplyMarketProps {
 }
 
 export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
-  className,
   isXvsEnabled,
   supplyMarketAssets,
   hasLunaOrUstCollateralEnabled,
@@ -44,7 +41,6 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   setConfirmCollateral,
 }) => {
   const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
-  const styles = useStyles();
 
   const collateralOnChange = async (asset: Asset) => {
     try {
@@ -80,23 +76,21 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
 
   return (
     <>
-      <Paper className={className} css={styles.tableContainer}>
-        <SupplyMarketTable
-          isXvsEnabled={isXvsEnabled}
-          assets={supplyMarketAssets}
-          rowOnClick={rowOnClick}
-          collateralOnChange={collateralOnChange}
-        />
+      <SupplyMarketTable
+        isXvsEnabled={isXvsEnabled}
+        assets={supplyMarketAssets}
+        rowOnClick={rowOnClick}
+        collateralOnChange={collateralOnChange}
+      />
 
-        {selectedAsset && (
-          <SupplyWithdrawModal
-            asset={selectedAsset}
-            assets={supplyMarketAssets}
-            isXvsEnabled={isXvsEnabled}
-            onClose={() => setSelectedAssetId(undefined)}
-          />
-        )}
-      </Paper>
+      {selectedAsset && (
+        <SupplyWithdrawModal
+          asset={selectedAsset}
+          assets={supplyMarketAssets}
+          isXvsEnabled={isXvsEnabled}
+          onClose={() => setSelectedAssetId(undefined)}
+        />
+      )}
 
       <CollateralConfirmModal
         asset={confirmCollateral}

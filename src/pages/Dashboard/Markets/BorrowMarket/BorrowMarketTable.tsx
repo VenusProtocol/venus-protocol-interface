@@ -79,7 +79,6 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 
   return (
     <Table
-      title={t('markets.borrowMarketTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{

@@ -86,7 +86,6 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
 
   return (
     <Table
-      title={t('markets.supplyMarketTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{

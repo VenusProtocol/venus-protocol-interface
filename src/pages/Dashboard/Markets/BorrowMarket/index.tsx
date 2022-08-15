@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Paper } from '@mui/material';
 import React, { useContext } from 'react';
 import { Asset, TokenId } from 'types';
 
@@ -7,7 +6,6 @@ import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import BorrowRepayModal from 'pages/Dashboard/Modals/BorrowRepay';
 
-import { useStyles } from '../styles';
 import BorrowMarketTable, { BorrowMarketTableProps } from './BorrowMarketTable';
 
 export interface BorrowMarketUiProps {
@@ -19,14 +17,12 @@ export interface BorrowMarketUiProps {
 }
 
 export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
-  className,
   borrowMarketAssets,
   isXvsEnabled,
   hasLunaOrUstCollateralEnabled,
   openLunaUstWarningModal,
 }) => {
   const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
-  const styles = useStyles();
 
   const rowOnClick: BorrowMarketTableProps['rowOnClick'] = (_e, row) => {
     const assetId = row[0].value as TokenId;
@@ -48,13 +44,11 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
 
   return (
     <>
-      <Paper className={className} css={styles.tableContainer}>
-        <BorrowMarketTable
-          assets={borrowMarketAssets}
-          isXvsEnabled={isXvsEnabled}
-          rowOnClick={rowOnClick}
-        />
-      </Paper>
+      <BorrowMarketTable
+        assets={borrowMarketAssets}
+        isXvsEnabled={isXvsEnabled}
+        rowOnClick={rowOnClick}
+      />
 
       {selectedAsset && (
         <BorrowRepayModal

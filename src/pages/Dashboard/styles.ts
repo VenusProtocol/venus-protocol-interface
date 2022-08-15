@@ -18,7 +18,6 @@ export const useStyles = () => {
     toggleContainer: css`
       display: flex;
       align-items: center;
-      margin-right: ${theme.spacing(8)};
     `,
     toggleLabel: css`
       margin-left: ${theme.spacing(2)};

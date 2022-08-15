@@ -5,8 +5,8 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    market: css`
-      padding-top: 0;
+    container: css`
+      padding: 0;
     `,
     tabsHeader: css`
       padding-left: ${theme.spacing(6)};
@@ -64,6 +64,8 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
     `,
     marketTable: css`
+      padding: 0;
+
       h4 {
         display: block;
         ${theme.breakpoints.down('lg')} {

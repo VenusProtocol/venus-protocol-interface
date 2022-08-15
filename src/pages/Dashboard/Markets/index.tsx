@@ -36,7 +36,6 @@ const Markets: React.FC<MarketsProps> = ({
       title: t('dashboard.markets.tabSupply'),
       content: (
         <SupplyMarket
-          css={styles.market}
           isXvsEnabled={isXvsEnabled}
           supplyMarketAssets={supplyMarketAssets}
           accountAddress={accountAddress}
@@ -46,18 +45,12 @@ const Markets: React.FC<MarketsProps> = ({
     {
       name: t('markets.borrowMarketTableTitle'),
       title: t('dashboard.markets.tabBorrow'),
-      content: (
-        <BorrowMarket
-          css={styles.market}
-          isXvsEnabled={isXvsEnabled}
-          borrowMarketAssets={borrowMarketAssets}
-        />
-      ),
+      content: <BorrowMarket isXvsEnabled={isXvsEnabled} borrowMarketAssets={borrowMarketAssets} />,
     },
   ];
 
   return (
-    <Paper>
+    <Paper css={styles.container}>
       <Tabs css={styles.tabsHeader} tabsContent={tabsContent} />
     </Paper>
   );
