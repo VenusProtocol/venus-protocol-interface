@@ -18,7 +18,7 @@ export const useStyles = () => {
       hasError: boolean;
       disabled: boolean | undefined;
     }) => {
-      let borderColor: undefined | string = 'transparent';
+      let borderColor: undefined | string = theme.palette.secondary.light;
 
       if (hasError) {
         borderColor = theme.palette.interactive.error;
@@ -27,6 +27,7 @@ export const useStyles = () => {
       if (disabled) {
         borderColor = theme.palette.secondary.light;
       }
+
       return css`
         display: flex;
         align-items: center;
@@ -36,6 +37,12 @@ export const useStyles = () => {
         background-color: ${disabled
           ? theme.palette.background.paper
           : theme.palette.background.default};
+        transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+        &:hover {
+          border-color: ${theme.palette.text.secondary};
+        }
+
         &:focus-within {
           border-color: ${hasError
             ? theme.palette.interactive.error
