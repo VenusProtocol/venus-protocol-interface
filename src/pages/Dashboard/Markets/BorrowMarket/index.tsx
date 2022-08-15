@@ -17,7 +17,7 @@ export interface BorrowMarketUiProps {
 }
 
 export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
-  assets,
+  borrowMarketAssets,
   isXvsEnabled,
   hasLunaOrUstCollateralEnabled,
   openLunaUstWarningModal,
@@ -44,7 +44,11 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
 
   return (
     <>
-      <BorrowMarketTable assets={assets} isXvsEnabled={isXvsEnabled} rowOnClick={rowOnClick} />
+      <BorrowMarketTable
+        assets={borrowMarketAssets}
+        isXvsEnabled={isXvsEnabled}
+        rowOnClick={rowOnClick}
+      />
 
       {selectedAsset && (
         <BorrowRepayModal

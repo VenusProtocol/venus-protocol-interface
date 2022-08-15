@@ -43,37 +43,33 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       <HigherRiskTokensNotice />
 
       <div css={styles.header}>
-        <div>{/* TODO: add tabs here */}</div>
+        <TextField
+          css={styles.searchTextField}
+          isSmall
+          value={searchValue}
+          onChange={handleSearchInputChange}
+          placeholder={t('dashboard.searchInput.placeholder')}
+          leftIconName="magnifier"
+        />
 
-        <div css={styles.rightColumn}>
-          <div css={styles.toggleContainer}>
-            <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
-              <Icon css={styles.infoIcon} name="info" />
-            </Tooltip>
+        <div css={styles.toggleContainer}>
+          <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
+            <Icon css={styles.infoIcon} name="info" />
+          </Tooltip>
 
-            <Typography
-              color="text.primary"
-              variant="small1"
-              component="span"
-              css={styles.toggleLabel}
-            >
-              {t('dashboard.riskyTokensToggleLabel')}
-            </Typography>
+          <Typography
+            color="text.primary"
+            variant="small1"
+            component="span"
+            css={styles.toggleLabel}
+          >
+            {t('dashboard.riskyTokensToggleLabel')}
+          </Typography>
 
-            <Toggle
-              css={styles.toggle}
-              value={areHigherRiskTokensDisplayed}
-              onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
-            />
-          </div>
-
-          <TextField
-            css={styles.searchTextField}
-            isSmall
-            value={searchValue}
-            onChange={handleSearchInputChange}
-            placeholder={t('dashboard.searchInput.placeholder')}
-            leftIconName="magnifier"
+          <Toggle
+            css={styles.toggle}
+            value={areHigherRiskTokensDisplayed}
+            onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
           />
         </div>
       </div>
