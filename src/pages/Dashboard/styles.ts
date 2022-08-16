@@ -61,7 +61,7 @@ export const useStyles = () => {
       margin-right: ${theme.spacing(3)};
     `,
     mobileSelect: css`
-      min-width: ${theme.spacing(41)};
+      width: ${theme.spacing(41)};
     `,
   };
 };
