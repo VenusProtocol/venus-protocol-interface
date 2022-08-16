@@ -22,7 +22,7 @@ export const useStyles = () => {
       right: ${theme.spacing(4)};
       width: ${theme.spacing(3)};
       transition: transform 0.3s;
-      transform: rotate(${isMenuOpened ? '180deg' : '0'});
+      transform: rotate(${isMenuOpened ? '0' : '180deg'});
     `,
     menuItem: css`
       display: flex;

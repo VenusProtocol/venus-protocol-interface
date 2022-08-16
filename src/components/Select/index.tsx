@@ -90,6 +90,7 @@ export const Select: React.FC<SelectProps> = ({
           <Icon name="close" />
         </TextButton>
       </div>
+
       {options.map(({ value: v, label }) => (
         <MenuItem
           disableRipple

@@ -48,5 +48,20 @@ export const useStyles = () => {
       margin-left: ${theme.spacing(8)};
       min-width: ${theme.spacing(75)};
     `,
+    mobileSelectContainer: css`
+      display: flex;
+      align-items: center;
+
+      ${theme.breakpoints.down('md')} {
+        margin-bottom: ${theme.spacing(6)};
+      }
+    `,
+    mobileSelectLabel: css`
+      flex-shrink: 0;
+      margin-right: ${theme.spacing(3)};
+    `,
+    mobileSelect: css`
+      min-width: ${theme.spacing(41)};
+    `,
   };
 };
