@@ -18,6 +18,7 @@ export const useStyles = () => {
     toggleContainer: css`
       display: flex;
       align-items: center;
+      margin-right: ${theme.spacing(8)};
     `,
     toggleLabel: css`
       margin-left: ${theme.spacing(2)};
@@ -30,13 +31,6 @@ export const useStyles = () => {
     `,
     toggle: css`
       margin-left: ${theme.spacing(2)};
-
-      /* TODO: update thumb color when unchecked */
-      & .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track,
-      .Mui-checked + .MuiSwitch-track,
-      .MuiSwitch-track {
-        background-color: ${theme.palette.secondary.light};
-      }
     `,
     searchTextField: css`
       min-width: ${theme.spacing(75)};

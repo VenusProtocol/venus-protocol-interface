@@ -16,14 +16,14 @@ import { useWeb3 } from 'clients/web3';
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
-import { SupplyWithdrawModal } from '../../Modals';
+import { SupplyWithdrawModal } from '../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import SupplyMarketTable from './SupplyMarketTable';
 
 interface SupplyMarketProps {
   className?: string;
   isXvsEnabled: boolean;
-  supplyMarketAssets: Asset[];
+  assets: Asset[];
   toggleAssetCollateral: (a: Asset) => Promise<void>;
   confirmCollateral: Asset | undefined;
   setConfirmCollateral: (asset: Asset | undefined) => void;
@@ -33,7 +33,7 @@ interface SupplyMarketProps {
 
 export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   isXvsEnabled,
-  supplyMarketAssets,
+  assets,
   hasLunaOrUstCollateralEnabled,
   openLunaUstWarningModal,
   toggleAssetCollateral,
@@ -70,15 +70,15 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
   };
 
   const selectedAsset = React.useMemo(
-    () => supplyMarketAssets.find(marketAsset => marketAsset.id === selectedAssetId),
-    [selectedAssetId, JSON.stringify(supplyMarketAssets)],
+    () => assets.find(marketAsset => marketAsset.id === selectedAssetId),
+    [selectedAssetId, JSON.stringify(assets)],
   );
 
   return (
     <>
       <SupplyMarketTable
         isXvsEnabled={isXvsEnabled}
-        assets={supplyMarketAssets}
+        assets={assets}
         rowOnClick={rowOnClick}
         collateralOnChange={collateralOnChange}
       />
@@ -86,7 +86,7 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
       {selectedAsset && (
         <SupplyWithdrawModal
           asset={selectedAsset}
-          assets={supplyMarketAssets}
+          assets={assets}
           isXvsEnabled={isXvsEnabled}
           onClose={() => setSelectedAssetId(undefined)}
         />
@@ -101,11 +101,11 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
 };
 
 const SupplyMarket: React.FC<
-  Pick<SupplyMarketProps, 'isXvsEnabled' | 'supplyMarketAssets'> & {
+  Pick<SupplyMarketProps, 'isXvsEnabled' | 'assets'> & {
     className?: string;
     accountAddress: string;
   }
-> = ({ className, isXvsEnabled, supplyMarketAssets, accountAddress }) => {
+> = ({ className, isXvsEnabled, assets, accountAddress }) => {
   const web3 = useWeb3();
   const comptrollerContract = useComptrollerContract();
 
@@ -225,7 +225,7 @@ const SupplyMarket: React.FC<
   return (
     <SupplyMarketUi
       className={className}
-      supplyMarketAssets={supplyMarketAssets}
+      assets={assets}
       isXvsEnabled={isXvsEnabled}
       toggleAssetCollateral={toggleAssetCollateral}
       confirmCollateral={confirmCollateral}

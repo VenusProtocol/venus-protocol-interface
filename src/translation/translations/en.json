@@ -112,6 +112,7 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
+    "borrowMarketTabTitle": "Borrow market",
     "higherRiskTokensNotice": {
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
       "title": "What are higher risk tokens?"
@@ -124,7 +125,8 @@
     "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "searchInput": {
       "placeholder": "Search asset or market"
-    }
+    },
+    "supplyMarketTabTitle": "Supply market"
   },
   "enableToken": {
     "enableButtonLabel": "Enable"
@@ -294,8 +296,7 @@
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
-    },
-    "supplyMarketTableTitle": "Supply market"
+    }
   },
   "myAccount": {
     "includingMintedVai": "Including minted VAI"

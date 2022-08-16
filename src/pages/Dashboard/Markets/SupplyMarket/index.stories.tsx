@@ -23,7 +23,7 @@ export default {
 
 export const Default = () => (
   <SupplyMarketUi
-    supplyMarketAssets={assetData}
+    assets={assetData}
     isXvsEnabled={false}
     toggleAssetCollateral={noop}
     confirmCollateral={undefined}
@@ -35,7 +35,7 @@ export const Default = () => (
 
 export const LoadingModal = () => (
   <SupplyMarketUi
-    supplyMarketAssets={assetData}
+    assets={assetData}
     isXvsEnabled={false}
     toggleAssetCollateral={noop}
     confirmCollateral={asset}

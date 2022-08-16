@@ -4,20 +4,20 @@ import { Asset, TokenId } from 'types';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import BorrowRepayModal from 'pages/Dashboard/Modals/BorrowRepay';
+import BorrowRepayModal from 'pages/Dashboard/Markets/Modals/BorrowRepay';
 
 import BorrowMarketTable, { BorrowMarketTableProps } from './BorrowMarketTable';
 
 export interface BorrowMarketUiProps {
   className?: string;
-  borrowMarketAssets: Asset[];
+  assets: Asset[];
   isXvsEnabled: boolean;
   hasLunaOrUstCollateralEnabled: boolean;
   openLunaUstWarningModal: () => void;
 }
 
 export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
-  borrowMarketAssets,
+  assets,
   isXvsEnabled,
   hasLunaOrUstCollateralEnabled,
   openLunaUstWarningModal,
@@ -38,17 +38,13 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
   };
 
   const selectedAsset = React.useMemo(
-    () => borrowMarketAssets.find(marketAsset => marketAsset.id === selectedAssetId),
-    [selectedAssetId, JSON.stringify(borrowMarketAssets)],
+    () => assets.find(marketAsset => marketAsset.id === selectedAssetId),
+    [selectedAssetId, JSON.stringify(assets)],
   );
 
   return (
     <>
-      <BorrowMarketTable
-        assets={borrowMarketAssets}
-        isXvsEnabled={isXvsEnabled}
-        rowOnClick={rowOnClick}
-      />
+      <BorrowMarketTable assets={assets} isXvsEnabled={isXvsEnabled} rowOnClick={rowOnClick} />
 
       {selectedAsset && (
         <BorrowRepayModal
@@ -63,7 +59,7 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
 
 const BorrowMarket: React.FC<
   Omit<BorrowMarketUiProps, 'hasLunaOrUstCollateralEnabled' | 'openLunaUstWarningModal'>
-> = ({ className, isXvsEnabled, borrowMarketAssets }) => {
+> = ({ className, isXvsEnabled, assets }) => {
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,
   );
@@ -71,7 +67,7 @@ const BorrowMarket: React.FC<
   return (
     <BorrowMarketUi
       className={className}
-      borrowMarketAssets={borrowMarketAssets}
+      assets={assets}
       isXvsEnabled={isXvsEnabled}
       hasLunaOrUstCollateralEnabled={hasLunaOrUstCollateralEnabled}
       openLunaUstWarningModal={openLunaUstWarningModal}

@@ -24,11 +24,7 @@ describe('pages/SupplyMarket', () => {
 
   it('renders without crashing', async () => {
     renderComponent(
-      <SupplyMarket
-        isXvsEnabled
-        supplyMarketAssets={assetData}
-        accountAddress={fakeAccountAddress}
-      />,
+      <SupplyMarket isXvsEnabled assets={assetData} accountAddress={fakeAccountAddress} />,
     );
   });
 });
