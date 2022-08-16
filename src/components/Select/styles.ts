@@ -13,6 +13,9 @@ export const useStyles = () => {
       border-radius: ${theme.shape.borderRadius.small}px;
       border: 1px solid ${isOpen ? theme.palette.interactive.primary : 'transparent'};
       width: 100%;
+      font-size: ${theme.typography.small2.fontSize};
+      font-weight: ${theme.typography.small2.fontWeight};
+
       > div {
         padding: ${theme.spacing(3, 4)};
       }
@@ -29,6 +32,8 @@ export const useStyles = () => {
       align-items: center;
       justify-content: space-between;
       color: ${theme.palette.text.primary};
+      font-size: ${theme.typography.small2.fontSize};
+      font-weight: ${theme.typography.small2.fontWeight};
 
       &:active,
       &:hover,

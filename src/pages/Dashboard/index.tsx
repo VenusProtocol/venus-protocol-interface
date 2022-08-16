@@ -75,7 +75,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
         <div css={styles.headerBottomRow}>
           <div css={[styles.mobileSelectContainer, showXlDownCss]}>
-            <Typography css={styles.mobileSelectLabel}>
+            <Typography css={styles.mobileSelectLabel} variant="small1">
               {t('dashboard.mobileSelect.label')}
             </Typography>
 
