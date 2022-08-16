@@ -37,6 +37,9 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   const styles = useStyles();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
+  const showXlDownCss = useShowXlDownCss();
+  const hideXlDownCss = useHideXlDownCss();
+
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
 
@@ -45,43 +48,68 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       <HigherRiskTokensNotice />
 
       <div css={styles.header}>
+        <TextField
+          css={[styles.tabletSearchTextField, showXlDownCss]}
+          isSmall
+          value={searchValue}
+          onChange={handleSearchInputChange}
+          placeholder={t('dashboard.searchInput.placeholder')}
+          leftIconName="magnifier"
+        />
+
         <ButtonGroup
+          css={[styles.tabletButtonGroup, showXlDownCss]}
+          fullWidth
           buttonLabels={[t('dashboard.supplyMarketTabTitle'), t('dashboard.borrowMarketTabTitle')]}
           activeButtonIndex={activeTabIndex}
           onButtonClick={setActiveTabIndex}
         />
 
-        <div css={styles.rightColumn}>
-          <div css={styles.toggleContainer}>
-            <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
-              <Icon css={styles.infoIcon} name="info" />
-            </Tooltip>
+        <div css={styles.headerBottomRow}>
+          {/* TODO: add sorting dropdown */}
 
-            <Typography
-              color="text.primary"
-              variant="small1"
-              component="span"
-              css={styles.toggleLabel}
-            >
-              {t('dashboard.riskyTokensToggleLabel')}
-            </Typography>
+          <ButtonGroup
+            css={hideXlDownCss}
+            buttonLabels={[
+              t('dashboard.supplyMarketTabTitle'),
+              t('dashboard.borrowMarketTabTitle'),
+            ]}
+            activeButtonIndex={activeTabIndex}
+            onButtonClick={setActiveTabIndex}
+          />
 
-            <Toggle
-              css={styles.toggle}
-              isLight
-              value={areHigherRiskTokensDisplayed}
-              onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+          <div css={styles.rightColumn}>
+            <div css={styles.toggleContainer}>
+              <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
+                <Icon css={styles.infoIcon} name="info" />
+              </Tooltip>
+
+              <Typography
+                color="text.primary"
+                variant="small1"
+                component="span"
+                css={styles.toggleLabel}
+              >
+                {t('dashboard.riskyTokensToggleLabel')}
+              </Typography>
+
+              <Toggle
+                css={styles.toggle}
+                isLight
+                value={areHigherRiskTokensDisplayed}
+                onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+              />
+            </div>
+
+            <TextField
+              css={[styles.desktopSearchTextField, hideXlDownCss]}
+              isSmall
+              value={searchValue}
+              onChange={handleSearchInputChange}
+              placeholder={t('dashboard.searchInput.placeholder')}
+              leftIconName="magnifier"
             />
           </div>
-
-          <TextField
-            css={styles.searchTextField}
-            isSmall
-            value={searchValue}
-            onChange={handleSearchInputChange}
-            placeholder={t('dashboard.searchInput.placeholder')}
-            leftIconName="magnifier"
-          />
         </div>
       </div>
 

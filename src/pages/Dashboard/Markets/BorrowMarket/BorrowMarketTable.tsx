@@ -92,8 +92,8 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      tableCss={hideLgDownCss}
-      cardsCss={showLgDownCss}
+      tableCss={sharedStyles.table}
+      cardsCss={sharedStyles.cards}
       css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );

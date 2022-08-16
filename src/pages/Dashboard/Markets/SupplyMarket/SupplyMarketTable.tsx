@@ -97,8 +97,8 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      tableCss={hideLgDownCss}
-      cardsCss={showLgDownCss}
+      tableCss={sharedStyles.table}
+      cardsCss={sharedStyles.cards}
       css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );

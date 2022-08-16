@@ -6,10 +6,16 @@ export const useStyles = () => {
 
   return {
     header: css`
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    headerBottomRow: css`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: ${theme.spacing(6)};
+
+      ${theme.breakpoints.down('md')} {
+        display: block;
+      }
     `,
     rightColumn: css`
       display: flex;
@@ -18,7 +24,6 @@ export const useStyles = () => {
     toggleContainer: css`
       display: flex;
       align-items: center;
-      margin-right: ${theme.spacing(8)};
     `,
     toggleLabel: css`
       margin-left: ${theme.spacing(2)};
@@ -32,7 +37,15 @@ export const useStyles = () => {
     toggle: css`
       margin-left: ${theme.spacing(2)};
     `,
-    searchTextField: css`
+    tabletButtonGroup: css`
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    tabletSearchTextField: css`
+      width: 100%;
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    desktopSearchTextField: css`
+      margin-left: ${theme.spacing(8)};
       min-width: ${theme.spacing(75)};
     `,
   };

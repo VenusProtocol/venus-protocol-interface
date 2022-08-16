@@ -5,21 +5,6 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    tableContainer: css`
-      width: 100%;
-      padding: 0;
-
-      ${theme.breakpoints.down('sm')} {
-        background-color: transparent;
-      }
-    `,
-    delimiter: css`
-      margin: ${theme.spacing(6)};
-
-      ${theme.breakpoints.down('sm')} {
-        display: none;
-      }
-    `,
     balance: css`
       display: flex;
       flex-direction: column;
@@ -46,34 +31,21 @@ export const useStyles = () => {
     marketTable: css`
       padding: 0;
 
-      h4 {
-        display: block;
-
-        ${theme.breakpoints.down('lg')} {
-          display: none;
-        }
-
-        ${theme.breakpoints.down('sm')} {
-          display: block;
-        }
-      }
-    `,
-    generalMarketTable: css`
-      h4 {
-        display: block;
+      ${theme.breakpoints.down('lg')} {
+        background-color: transparent;
       }
     `,
     table: css`
       display: block;
 
-      ${theme.breakpoints.down('sm')} {
+      ${theme.breakpoints.down('lg')} {
         display: none;
       }
     `,
     cards: css`
       display: none;
 
-      ${theme.breakpoints.down('sm')} {
+      ${theme.breakpoints.down('lg')} {
         display: block;
       }
     `,
