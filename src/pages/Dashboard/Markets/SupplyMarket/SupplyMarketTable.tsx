@@ -96,7 +96,7 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
       rowKeyIndex={0}
       tableCss={sharedStyles.table}
       cardsCss={sharedStyles.cards}
-      css={[sharedStyles.marketTable, sharedStyles.generalMarketTable, styles.cardContentGrid]}
+      css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );
 };
