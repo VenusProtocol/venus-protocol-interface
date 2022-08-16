@@ -125,7 +125,8 @@
     "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "searchInput": {
       "placeholder": "Search asset or market"
-    }
+    },
+    "supplyMarketTabTitle": "Supply market"
   },
   "enableToken": {
     "enableButtonLabel": "Enable"
@@ -292,11 +293,6 @@
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
-    },
-    "mobileSelect": {
-      "ariaLabelFor": "sort by",
-      "label": "Sort by:",
-      "title": "Sort by"
     }
   },
   "myAccount": {

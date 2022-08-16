@@ -12,41 +12,23 @@ export interface ToggleProps {
   value: boolean;
   className?: string;
   isLight?: boolean;
-  label?: string;
-  tooltip?: string;
 }
 
 export const switchAriaLabel = 'Switch';
 const otherSwitchProps = { inputProps: { 'aria-label': switchAriaLabel } };
 
-export const Toggle = ({
-  onChange,
-  value,
-  className,
-  isLight = false,
-  label,
-  tooltip,
-}: ToggleProps) => {
-  const styles = useStyles();
+export const Toggle = ({ onChange, value, className, isLight = false }: ToggleProps) => {
+  const getStyles = useStyles();
 
   return (
-    <div css={styles.container} className={className}>
-      {!!tooltip && <InfoIcon css={styles.infoIcon} tooltip={tooltip} />}
-
-      {!!label && (
-        <Typography color="text.primary" variant="small1" component="span" css={styles.label}>
-          {label}
-        </Typography>
-      )}
-
-      <Switch
-        css={styles.getSwitch({ isLight })}
-        focusVisibleClassName=".Mui-focusVisible"
-        disableRipple
-        onChange={onChange}
-        checked={value}
-        {...otherSwitchProps}
-      />
-    </div>
+    <Switch
+      className={className}
+      css={getStyles({ isLight })}
+      focusVisibleClassName=".Mui-focusVisible"
+      disableRipple
+      onChange={onChange}
+      checked={value}
+      {...label}
+    />
   );
 };

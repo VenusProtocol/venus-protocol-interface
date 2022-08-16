@@ -27,10 +27,6 @@ export const styles = () => {
       last: boolean;
       fullWidth: boolean;
     }) => css`
-      span {
-        font-size: ${theme.typography.small2.fontSize};
-      }
-
       :hover:not(:disabled),
       :active:not(:disabled) {
         background-color: ${theme.palette.secondary.light};

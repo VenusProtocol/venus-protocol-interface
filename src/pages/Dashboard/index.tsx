@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Icon, TextField, Toggle, Tooltip } from 'components';
+import { ButtonGroup, Icon, TextField, Toggle, Tooltip } from 'components';
 import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -11,7 +11,8 @@ import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import HigherRiskTokensNotice from './HigherRiskTokensNotice';
-import Markets from './Markets';
+import BorrowMarket from './Markets/BorrowMarket';
+import SupplyMarket from './Markets/SupplyMarket';
 import { useStyles } from './styles';
 
 interface DashboardUiProps {
@@ -34,6 +35,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
@@ -43,44 +45,53 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       <HigherRiskTokensNotice />
 
       <div css={styles.header}>
-        <TextField
-          css={styles.searchTextField}
-          isSmall
-          value={searchValue}
-          onChange={handleSearchInputChange}
-          placeholder={t('dashboard.searchInput.placeholder')}
-          leftIconName="magnifier"
+        <ButtonGroup
+          buttonLabels={[t('dashboard.supplyMarketTabTitle'), t('dashboard.borrowMarketTabTitle')]}
+          activeButtonIndex={activeTabIndex}
+          onButtonClick={setActiveTabIndex}
         />
 
-        <div css={styles.toggleContainer}>
-          <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
-            <Icon css={styles.infoIcon} name="info" />
-          </Tooltip>
+        <div css={styles.rightColumn}>
+          <div css={styles.toggleContainer}>
+            <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
+              <Icon css={styles.infoIcon} name="info" />
+            </Tooltip>
 
-          <Typography
-            color="text.primary"
-            variant="small1"
-            component="span"
-            css={styles.toggleLabel}
-          >
-            {t('dashboard.riskyTokensToggleLabel')}
-          </Typography>
+            <Typography
+              color="text.primary"
+              variant="small1"
+              component="span"
+              css={styles.toggleLabel}
+            >
+              {t('dashboard.riskyTokensToggleLabel')}
+            </Typography>
 
-          <Toggle
-            css={styles.toggle}
-            value={areHigherRiskTokensDisplayed}
-            onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+            <Toggle
+              css={styles.toggle}
+              isLight
+              value={areHigherRiskTokensDisplayed}
+              onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+            />
+          </div>
+
+          <TextField
+            css={styles.searchTextField}
+            isSmall
+            value={searchValue}
+            onChange={handleSearchInputChange}
+            placeholder={t('dashboard.searchInput.placeholder')}
+            leftIconName="magnifier"
           />
         </div>
       </div>
 
-      <Markets
-        isXvsEnabled
-        accountAddress={accountAddress}
-        // TODO: refactor to pass just one assets prop
-        supplyMarketAssets={assets}
-        borrowMarketAssets={assets}
-      />
+      {activeTabIndex === 0 ? (
+        // TODO: get isXvsEnabled from context
+        <SupplyMarket isXvsEnabled accountAddress={accountAddress} assets={assets} />
+      ) : (
+        // TODO: get isXvsEnabled from context
+        <BorrowMarket isXvsEnabled assets={assets} />
+      )}
     </>
   );
 };

@@ -28,10 +28,3 @@ WithIsLight.args = {
   onChange: console.log,
   isLight: true,
 };
-
-export const WithTooltipAndLabel = Template.bind({});
-WithTooltipAndLabel.args = {
-  onChange: console.log,
-  tooltip: 'Fake tooltip',
-  label: 'Include XVS distribution APR',
-};

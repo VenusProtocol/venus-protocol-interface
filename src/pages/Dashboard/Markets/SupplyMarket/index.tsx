@@ -16,7 +16,7 @@ import { useWeb3 } from 'clients/web3';
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 
-import { SupplyWithdrawModal } from '../../Modals';
+import { SupplyWithdrawModal } from '../Modals';
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 import SupplyMarketTable from './SupplyMarketTable';
 
@@ -78,7 +78,7 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
     <>
       <SupplyMarketTable
         isXvsEnabled={isXvsEnabled}
-        assets={supplyMarketAssets}
+        assets={assets}
         rowOnClick={rowOnClick}
         collateralOnChange={collateralOnChange}
       />
@@ -86,7 +86,7 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
       {selectedAsset && (
         <SupplyWithdrawModal
           asset={selectedAsset}
-          assets={supplyMarketAssets}
+          assets={assets}
           isXvsEnabled={isXvsEnabled}
           onClose={() => setSelectedAssetId(undefined)}
         />
