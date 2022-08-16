@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { ButtonGroup, Icon, TextField, Toggle, Tooltip } from 'components';
+import { ButtonGroup, Icon, Select, TextField, Toggle, Tooltip } from 'components';
 import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -40,6 +40,14 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
 
+  // TODO: add all options
+  const mobileSelectOptions = [
+    {
+      value: 'riskLevel',
+      label: 'Risk level',
+    },
+  ];
+
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchInputChange(changeEvent.currentTarget.value);
 
@@ -66,7 +74,21 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         />
 
         <div css={styles.headerBottomRow}>
-          {/* TODO: add sorting dropdown */}
+          <div css={[styles.mobileSelectContainer, showXlDownCss]}>
+            <Typography css={styles.mobileSelectLabel}>
+              {t('dashboard.mobileSelect.label')}
+            </Typography>
+
+            <Select
+              css={styles.mobileSelect}
+              title={t('dashboard.mobileSelect.title')}
+              // TODO: wire up
+              value={mobileSelectOptions[0].value}
+              onChange={console.log}
+              options={mobileSelectOptions}
+              ariaLabel={t('dashboard.mobileSelect.ariaLabelFor')}
+            />
+          </div>
 
           <ButtonGroup
             css={hideXlDownCss}
@@ -115,9 +137,11 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
       {activeTabIndex === 0 ? (
         // TODO: get isXvsEnabled from context
+        // TODO: handle sorting on mobile
         <SupplyMarket isXvsEnabled accountAddress={accountAddress} assets={assets} />
       ) : (
         // TODO: get isXvsEnabled from context
+        // TODO: handle sorting on mobile
         <BorrowMarket isXvsEnabled assets={assets} />
       )}
     </>

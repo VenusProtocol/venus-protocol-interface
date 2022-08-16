@@ -117,9 +117,10 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
       "title": "What are higher risk tokens?"
     },
-    "markets": {
-      "tabBorrow": "Borrow market",
-      "tabSupply": "Supply market"
+    "mobileSelect": {
+      "ariaLabelFor": "sort by",
+      "label": "Sort by:",
+      "title": "Sort by"
     },
     "riskyTokensToggleLabel": "Display higher risk tokens",
     "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
