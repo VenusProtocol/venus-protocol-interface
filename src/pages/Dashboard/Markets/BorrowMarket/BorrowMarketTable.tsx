@@ -79,7 +79,6 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 
   return (
     <Table
-      title={t('markets.borrowMarketTableTitle')}
       columns={columns}
       data={rows}
       initialOrder={{
@@ -90,7 +89,7 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       rowOnClick={rowOnClick}
       tableCss={sharedStyles.table}
       cardsCss={sharedStyles.cards}
-      css={[sharedStyles.marketTable, sharedStyles.generalMarketTable, styles.cardContentGrid]}
+      css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );
 };

@@ -22,6 +22,6 @@ describe('pages/SupplyMarket', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(<BorrowMarket isXvsEnabled borrowMarketAssets={[]} />);
+    renderComponent(<BorrowMarket isXvsEnabled assets={[]} />);
   });
 });
