@@ -284,16 +284,23 @@
     },
     "columns": {
       "apy": "APY",
+      "apyLtv": "APY / LTV",
       "asset": "Asset",
       "collateral": "Collateral",
       "liquidity": "Liquidity",
-      "wallet": "Wallet"
+      "market": "Market",
+      "riskLevel": "Risk level"
     },
     "errors": {
       "accountError": "Account Required - Please connect your wallet.",
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
+    },
+    "mobileSelect": {
+      "ariaLabelFor": "sort by",
+      "label": "Sort by:",
+      "title": "Sort by"
     }
   },
   "myAccount": {

@@ -26,6 +26,7 @@ export const useStyles = () => {
       cursor: help;
     `,
     getDot: ({ variant }: { variant: RiskLevelVariant }) => css`
+      flex-shrink: 0;
       width: ${theme.spacing(1)};
       height: ${theme.spacing(1)};
       border-radius: ${theme.spacing(1)};

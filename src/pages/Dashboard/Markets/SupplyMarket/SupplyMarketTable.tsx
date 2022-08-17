@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableProps, Toggle, Token } from 'components';
+import { Typography } from '@mui/material';
+import { LayeredValues, RiskLevel, Table, TableProps, Toggle, Token } from 'components';
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
-import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
+import { formatToReadablePercentage } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useHideLgDownCss, useShowLgDownCss } from 'hooks/responsive';
 
 import { useStyles as useSharedStyles } from '../styles';
-import { useStyles } from './styles';
 
 export interface SupplyMarketTableUiProps {
   assets: Asset[];
@@ -25,7 +26,6 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
   const sharedStyles = useSharedStyles();
 
   const showLgDownCss = useShowLgDownCss();
@@ -33,9 +33,10 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('markets.columns.asset'), orderable: false, align: 'left' },
-      { key: 'apy', label: t('markets.columns.apy'), orderable: true, align: 'right' },
-      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true, align: 'right' },
+      { key: 'asset', label: t('markets.columns.asset'), orderable: true, align: 'left' },
+      { key: 'apyLtv', label: t('markets.columns.apyLtv'), orderable: true, align: 'right' },
+      { key: 'market', label: t('markets.columns.market'), orderable: true, align: 'right' },
+      { key: 'riskLevel', label: t('markets.columns.riskLevel'), orderable: true, align: 'right' },
       {
         key: 'collateral',
         label: t('markets.columns.collateral'),
@@ -47,59 +48,79 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
   );
 
   // Format assets to rows
-  const rows: TableProps['data'] = assets.map(asset => {
-    const supplyApy = isXvsEnabled ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
+  const rows: TableProps['data'] = useMemo(
+    () =>
+      assets.map(asset => {
+        const supplyApy = isXvsEnabled ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
+        const ltv = +asset.collateralFactor * 100;
 
-    return [
-      {
-        key: 'asset',
-        render: () => <Token tokenId={asset.id} />,
-        value: asset.id,
-      },
-      {
-        key: 'apy',
-        render: () => formatToReadablePercentage(supplyApy),
-        value: supplyApy.toNumber(),
-        align: 'right',
-      },
-      {
-        key: 'wallet',
-        render: () =>
-          formatTokensToReadableValue({
-            value: asset.walletBalance,
-            tokenId: asset.id,
-            minimizeDecimals: true,
-          }),
-        value: asset.walletBalance.toFixed(),
-        align: 'right',
-      },
-      {
-        key: 'collateral',
-        render: () =>
-          asset.collateralFactor.toNumber() || asset.collateral ? (
-            <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
-          ) : (
-            PLACEHOLDER_KEY
-          ),
-        value: asset.collateral,
-        align: 'right',
-      },
-    ];
-  });
+        return [
+          {
+            key: 'asset',
+            render: () => <Token tokenId={asset.id} />,
+            value: asset.id,
+            align: 'left',
+          },
+          {
+            key: 'apyLtv',
+            render: () => (
+              <LayeredValues
+                topValue={formatToReadablePercentage(supplyApy)}
+                bottomValue={formatToReadablePercentage(ltv)}
+              />
+            ),
+            value: supplyApy.toNumber(),
+            align: 'right',
+          },
+          {
+            key: 'market',
+            // TODO: map out markets once wired up
+            render: () => (
+              <div>
+                <Link to="/market/xvs" css={sharedStyles.marketLink}>
+                  <Typography variant="small2">Venus</Typography>
+                </Link>
+              </div>
+            ),
+            value: 'venus',
+            align: 'right',
+          },
+          {
+            key: 'riskLevel',
+            // TODO: map out risk levels once wired up
+            render: () => <RiskLevel variant="MINIMAL" />,
+            value: 'minimal',
+            align: 'right',
+          },
+          {
+            key: 'collateral',
+            render: () =>
+              asset.collateralFactor.toNumber() || asset.collateral ? (
+                <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
+              ) : (
+                PLACEHOLDER_KEY
+              ),
+            value: asset.collateral,
+            align: 'right',
+          },
+        ];
+      }),
+    [JSON.stringify(assets)],
+  );
 
   return (
     <Table
       columns={columns}
       data={rows}
       initialOrder={{
-        orderBy: 'apy',
+        orderBy: 'apyLtv',
         orderDirection: 'desc',
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      tableCss={sharedStyles.table}
-      cardsCss={sharedStyles.cards}
-      css={[sharedStyles.marketTable, styles.cardContentGrid]}
+      tableCss={hideLgDownCss}
+      cardsCss={showLgDownCss}
+      css={[sharedStyles.marketTable, sharedStyles.cardContentGrid]}
     />
   );
 };

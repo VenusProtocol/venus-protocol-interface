@@ -76,22 +76,41 @@ export const Select: React.FC<SelectProps> = ({
         </Typography>
       )}
 
-        <TextButton css={styles.closeMenuButton} onClick={handleClose}>
-          <Icon name="close" />
-        </TextButton>
-      </div>
+      <MuiSelect
+        open={isOpen}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        css={styles.select({ isOpen })}
+        value={value}
+        onChange={onChange}
+        displayEmpty
+        inputProps={{ 'aria-label': ariaLabel }}
+        IconComponent={() => (
+          <Icon css={styles.getArrowIcon({ isMenuOpened: isOpen })} name="arrowDown" />
+        )}
+        MenuProps={menuProps}
+        autoWidth={isSmDown}
+      >
+        <div css={styles.mobileHeader}>
+          <Typography variant="h4">{title}</Typography>
 
-      {options.map(({ value: v, label }) => (
-        <MenuItem
-          disableRipple
-          css={styles.menuItem}
-          key={v}
-          classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
-          value={v}
-        >
-          {label}
-        </MenuItem>
-      ))}
-    </MuiSelect>
+          <TextButton css={styles.closeMenuButton} onClick={handleClose}>
+            <Icon name="close" />
+          </TextButton>
+        </div>
+
+        {options.map(({ value: v, label: optionLabel }) => (
+          <MenuItem
+            disableRipple
+            css={styles.menuItem}
+            key={v}
+            classes={{ selected: SELECTED_MENU_ITEM_CLASSNAME }}
+            value={v}
+          >
+            {optionLabel}
+          </MenuItem>
+        ))}
+      </MuiSelect>
+    </div>
   );
 };
