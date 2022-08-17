@@ -74,21 +74,16 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         />
 
         <div css={styles.headerBottomRow}>
-          <div css={[styles.mobileSelectContainer, showXlDownCss]}>
-            <Typography css={styles.mobileSelectLabel} variant="small1">
-              {t('dashboard.mobileSelect.label')}
-            </Typography>
-
-            <Select
-              css={styles.mobileSelect}
-              title={t('dashboard.mobileSelect.title')}
-              // TODO: wire up
-              value={mobileSelectOptions[0].value}
-              onChange={console.log}
-              options={mobileSelectOptions}
-              ariaLabel={t('dashboard.mobileSelect.ariaLabelFor')}
-            />
-          </div>
+          <Select
+            css={[styles.mobileSelect, showXlDownCss]}
+            label={t('dashboard.mobileSelect.label')}
+            title={t('dashboard.mobileSelect.title')}
+            // TODO: wire up
+            value={mobileSelectOptions[0].value}
+            onChange={console.log}
+            options={mobileSelectOptions}
+            ariaLabel={t('dashboard.mobileSelect.ariaLabelFor')}
+          />
 
           <ButtonGroup
             css={hideXlDownCss}
