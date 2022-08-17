@@ -12,6 +12,14 @@ export const menuItems: MenuItem[] = [
     icon: 'dashboard',
   },
   {
+    href: Path.ACCOUNT,
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.account')
+    i18nKey: 'layout.menuItems.account',
+    i18nTitleKey: 'layout.menuItems.account',
+    icon: 'wallet',
+  },
+  {
     href: Path.MARKETS,
     // Translation key: do not remove this comment
     // t('layout.menuItems.markets')
