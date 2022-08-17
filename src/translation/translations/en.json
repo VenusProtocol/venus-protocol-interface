@@ -200,6 +200,7 @@
   },
   "layout": {
     "menuItems": {
+      "account": "Account",
       "convertVrt": "Convert VRT",
       "convertVrtTitle": "Convert VRT to XVS",
       "dashboard": "Dashboard",
