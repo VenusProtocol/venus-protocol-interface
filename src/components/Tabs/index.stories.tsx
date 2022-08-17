@@ -18,8 +18,6 @@ const tabsContent = [
 
 export const Default = () => <Tabs tabsContent={tabsContent} />;
 
-export const WithTitle = () => <Tabs componentTitle="Title" tabsContent={tabsContent} />;
-
 export const WithInitialSecondTabActive = () => (
-  <Tabs initialActiveTabIndex={1} componentTitle="Title" tabsContent={tabsContent} />
+  <Tabs initialActiveTabIndex={1} tabsContent={tabsContent} />
 );

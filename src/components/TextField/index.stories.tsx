@@ -20,6 +20,8 @@ export const WithDescription = () => (
   <TextField description="This is a fake description" placeholder="0.0" type="number" min={0} />
 );
 
+export const WithIsSmall = () => <TextField placeholder="0.0" type="number" min={0} isSmall />;
+
 export const WithLeftIcon = () => (
   <TextField leftIconName="xvs" placeholder="0.0" type="number" min={0} />
 );

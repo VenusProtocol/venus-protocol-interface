@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
+
   return {
     cardContentGrid: css`
       .table__table-cards__card-content {
