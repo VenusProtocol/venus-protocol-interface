@@ -9,7 +9,7 @@ export const useStyles = () => {
 
   return {
     container: css`
-      display: inline-flex;
+      display: flex;
       align-items: center;
     `,
     label: css`
