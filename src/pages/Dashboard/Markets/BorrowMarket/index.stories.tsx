@@ -20,7 +20,7 @@ export default {
 
 export const Default = () => (
   <BorrowMarketUi
-    borrowMarketAssets={assetData}
+    assets={assetData}
     isXvsEnabled={false}
     hasLunaOrUstCollateralEnabled={false}
     openLunaUstWarningModal={noop}

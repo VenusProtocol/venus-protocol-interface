@@ -18,14 +18,13 @@ export default {
 
 const Template: Story<ToggleProps> = (args: ToggleProps) => <Toggle {...args} />;
 
-export const ToggleOn = Template.bind({});
-ToggleOn.args = {
+export const Default = Template.bind({});
+Default.args = {
   onChange: console.log,
-  value: true,
 };
 
-export const ToggleOff = Template.bind({});
-ToggleOff.args = {
+export const WithIsLight = Template.bind({});
+WithIsLight.args = {
   onChange: console.log,
-  value: false,
+  isLight: true,
 };
