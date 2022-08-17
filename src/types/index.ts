@@ -152,18 +152,6 @@ export interface VotersDetails {
   };
 }
 
-export interface Pool {
-  poolId: BigNumber;
-  stakedToken: TokenId;
-  rewardToken: TokenId;
-  userStakedAmount: BigNumber;
-  pendingReward: BigNumber;
-  lockPeriodSecond: BigNumber;
-  apr: BigNumber;
-  totalStaked: BigNumber;
-  dailyEmission: BigNumber;
-}
-
 export interface VoteTransaction {
   support: boolean;
   type: 'vote';

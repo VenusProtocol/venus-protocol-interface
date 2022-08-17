@@ -13,6 +13,9 @@ export const useStyles = () => {
       border-radius: ${theme.shape.borderRadius.small}px;
       border: 1px solid ${isOpen ? theme.palette.interactive.primary : 'transparent'};
       width: 100%;
+      font-size: ${theme.typography.small2.fontSize};
+      font-weight: ${theme.typography.small2.fontWeight};
+
       > div {
         padding: ${theme.spacing(3, 4)};
       }
@@ -22,13 +25,15 @@ export const useStyles = () => {
       right: ${theme.spacing(4)};
       width: ${theme.spacing(3)};
       transition: transform 0.3s;
-      transform: rotate(${isMenuOpened ? '180deg' : '0'});
+      transform: rotate(${isMenuOpened ? '0' : '180deg'});
     `,
     menuItem: css`
       display: flex;
       align-items: center;
       justify-content: space-between;
       color: ${theme.palette.text.primary};
+      font-size: ${theme.typography.small2.fontSize};
+      font-weight: ${theme.typography.small2.fontWeight};
 
       &:active,
       &:hover,
