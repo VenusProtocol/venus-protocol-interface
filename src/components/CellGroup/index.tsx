@@ -2,35 +2,47 @@
 import { Paper, Typography } from '@mui/material';
 import React from 'react';
 
+import { InfoIcon } from '../InfoIcon';
 import { useStyles } from './styles';
 
 export interface Cell {
   label: string;
   value: string | number;
+  tooltip?: string;
   color?: string;
 }
 
 export interface NumberCellGroupProps {
   cells: Cell[];
-  tooltip?: string;
+  smallValues?: boolean;
   title?: string;
+  className?: string;
 }
 
-export const CellGroup: React.FC<NumberCellGroupProps> = ({ cells, title }) => {
+export const CellGroup: React.FC<NumberCellGroupProps> = ({
+  cells,
+  title,
+  smallValues = false,
+  className,
+}) => {
   const styles = useStyles();
 
   return (
-    <Paper css={styles.container}>
+    <Paper css={styles.container} className={className}>
       {!!title && <h4 css={styles.title}>{title}</h4>}
 
       <div css={styles.cellContainer}>
-        {cells.map(({ label, value }) => (
+        {cells.map(({ label, value, tooltip, color }) => (
           <div css={styles.cell}>
-            <Typography variant="body2" css={styles.label} component="div">
-              {label}
-            </Typography>
+            <div css={styles.labelContainer}>
+              <Typography variant="body2" css={styles.label}>
+                {label}
+              </Typography>
 
-            <Typography variant="h3" css={styles.value}>
+              {!!tooltip && <InfoIcon tooltip={tooltip} css={styles.labelInfoIcon} />}
+            </div>
+
+            <Typography variant={smallValues ? 'h4' : 'h3'} css={styles.getValue({ color })}>
               {value}
             </Typography>
           </div>

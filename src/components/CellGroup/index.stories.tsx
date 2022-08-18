@@ -20,10 +20,12 @@ const cells: Cell[] = [
   {
     label: 'Total supply',
     value: '$1,000,000',
+    tooltip: 'This is a fake tooltip',
   },
   {
     label: 'Total borrow',
     value: '$1,000',
+    color: 'green',
   },
   {
     label: 'Available Liquidity',
@@ -38,3 +40,5 @@ const cells: Cell[] = [
 export const Default = () => <CellGroup cells={cells} />;
 
 export const WithTitle = () => <CellGroup cells={cells} title="Summary" />;
+
+export const WithSmallValues = () => <CellGroup cells={cells} smallValues />;

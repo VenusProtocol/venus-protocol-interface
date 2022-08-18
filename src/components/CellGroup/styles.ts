@@ -5,7 +5,7 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     container: css`
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xxl')} {
         padding: 0;
         background-color: transparent;
       }
@@ -17,10 +17,14 @@ export const useStyles = () => {
       display: flex;
       flex-wrap: wrap;
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xxl')} {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: ${theme.spacing(2)};
+      }
+
+      ${theme.breakpoints.down('md')} {
+        grid-template-columns: 1fr;
       }
     `,
     cell: css`
@@ -39,7 +43,7 @@ export const useStyles = () => {
         border-right: 1px solid ${theme.palette.interactive.delimiter};
       }
 
-      ${theme.breakpoints.down('lg')} {
+      ${theme.breakpoints.down('xxl')} {
         border-radius: ${theme.spacing(4)};
         padding: ${theme.spacing(4)};
         background-color: ${theme.palette.background.paper};
@@ -57,21 +61,23 @@ export const useStyles = () => {
         }
       }
     `,
+    labelContainer: css`
+      display: flex;
+      align-items: center;
+      margin-bottom: ${theme.spacing(1)};
+    `,
     label: css`
       color: ${theme.palette.text.secondary};
-      margin-bottom: ${theme.spacing(1)};
 
-      ${theme.breakpoints.down('xl')} {
+      ${theme.breakpoints.down('xxl')} {
         font-size: ${theme.typography.small1.fontSize};
       }
     `,
-    value: css`
-      ${theme.breakpoints.down('xl')} {
-        font-size: ${theme.typography.body2.fontSize};
-        font-weight: ${theme.typography.body2.fontWeight};
-        letter-spacing: ${theme.typography.body2.letterSpacing};
-        color: ${theme.palette.text.primary};
-      }
+    labelInfoIcon: css`
+      margin-left: ${theme.spacing(2)};
+    `,
+    getValue: ({ color }: { color?: string }) => css`
+      color: ${color || theme.palette.text.primary};
     `,
   };
 };

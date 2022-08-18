@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { Cell, CellGroup } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetTreasuryTotals } from 'clients/api';
 
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 interface HeaderProps {
   totalSupplyCents: BigNumber;
@@ -24,44 +24,27 @@ export const HeaderUi: React.FC<HeaderProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  return (
-    <Paper css={styles.headerRoot}>
-      <div css={styles.row}>
-        <Paper css={styles.box}>
-          <Typography variant="small1" css={styles.title}>
-            {t('market.totalSupply')}
-          </Typography>
-          <Typography variant="h3" css={styles.value}>
-            {formatCentsToReadableValue({ value: totalSupplyCents })}
-          </Typography>
-        </Paper>
-        <Paper css={styles.box}>
-          <Typography variant="small1" css={styles.title}>
-            {t('market.totalBorrow')}
-          </Typography>
-          <Typography variant="h3" css={styles.value}>
-            {formatCentsToReadableValue({ value: totalBorrowCents })}
-          </Typography>
-        </Paper>
-        <Paper css={styles.box}>
-          <Typography variant="small1" css={styles.title}>
-            {t('market.availableLiquidity')}
-          </Typography>
-          <Typography variant="h3" css={styles.value}>
-            {formatCentsToReadableValue({ value: availableLiquidityCents })}
-          </Typography>
-        </Paper>
-        <Paper css={styles.box}>
-          <Typography variant="small1" css={styles.title}>
-            {t('market.totalTreasury')}
-          </Typography>
-          <Typography variant="h3" css={styles.value}>
-            {formatCentsToReadableValue({ value: totalTreasuryCents })}
-          </Typography>
-        </Paper>
-      </div>
-    </Paper>
-  );
+
+  const cells: Cell[] = [
+    {
+      label: t('market.totalSupply'),
+      value: formatCentsToReadableValue({ value: totalSupplyCents }),
+    },
+    {
+      label: t('market.totalBorrow'),
+      value: formatCentsToReadableValue({ value: totalBorrowCents }),
+    },
+    {
+      label: t('market.availableLiquidity'),
+      value: formatCentsToReadableValue({ value: availableLiquidityCents }),
+    },
+    {
+      label: t('market.totalTreasury'),
+      value: formatCentsToReadableValue({ value: totalTreasuryCents }),
+    },
+  ];
+
+  return <CellGroup css={styles.cellGroup} cells={cells} />;
 };
 
 const Header = () => {

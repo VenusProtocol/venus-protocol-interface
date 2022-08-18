@@ -11,4 +11,4 @@ export default {
   decorators: [withCenterStory({ width: 100 })],
 } as ComponentMeta<typeof InfoIcon>;
 
-export const Default = () => <InfoIcon tooltip="This is fake tooltip" />;
+export const Default = () => <InfoIcon tooltip="This is a fake tooltip" />;

@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 export const useStyles = () => ({
   container: css`
-    display: flex;
+    display: inline-flex;
   `,
   icon: css`
     cursor: help;
