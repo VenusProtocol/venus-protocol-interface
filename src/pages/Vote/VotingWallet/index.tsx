@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Delimiter, Icon, LinkButton, PrimaryButton, Tooltip } from 'components';
+import { Delimiter, Icon, InfoIcon, LinkButton, PrimaryButton } from 'components';
 import React, { useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -101,12 +101,10 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
             </Typography>
 
             {previouslyDelegated && (
-              <Tooltip
-                title={t('vote.youDelegatedTo', { delegate })}
+              <InfoIcon
+                tooltip={t('vote.youDelegatedTo', { delegate })}
                 css={[styles.infoIcon, styles.subtitle]}
-              >
-                <Icon name="info" />
-              </Tooltip>
+              />
             )}
           </div>
 

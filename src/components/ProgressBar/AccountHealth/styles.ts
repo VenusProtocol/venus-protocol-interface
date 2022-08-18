@@ -9,12 +9,7 @@ export const useStyles = () => {
       align-items: center;
     `,
     tooltip: css`
-      align-items: center;
-      display: inline-flex;
       margin-left: ${theme.spacing(2)};
-    `,
-    infoIcon: css`
-      cursor: help;
     `,
   };
 };

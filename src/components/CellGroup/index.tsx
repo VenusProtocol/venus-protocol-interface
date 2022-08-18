@@ -12,6 +12,7 @@ export interface Cell {
 
 export interface NumberCellGroupProps {
   cells: Cell[];
+  tooltip?: string;
   title?: string;
 }
 
