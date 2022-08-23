@@ -13,12 +13,8 @@ export const useStyles = () => {
     label: css`
       margin-right: ${theme.spacing(2)};
     `,
-    tooltip: css`
-      margin-right: ${theme.spacing(2)};
-      display: flex;
-    `,
     infoIcon: css`
-      cursor: help;
+      margin-right: ${theme.spacing(2)};
     `,
     getSwitch: ({ isLight }: { isLight: boolean }) => css`
       flex-shrink: 0;
