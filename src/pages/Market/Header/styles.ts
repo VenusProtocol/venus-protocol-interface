@@ -3,13 +3,14 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
+
   return {
-    textWithTooltip: css`
-      display: inline-flex;
-      align-items: center;
-    `,
-    tooltip: css`
-      margin-left: ${theme.spacing(2)};
+    cellGroup: css`
+      margin-bottom: ${theme.spacing(8)};
+
+      ${theme.breakpoints.down('xxl')} {
+        margin-bottom: ${theme.spacing(6)};
+      }
     `,
   };
 };
