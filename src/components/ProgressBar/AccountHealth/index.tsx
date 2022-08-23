@@ -9,8 +9,7 @@ import {
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import { Icon } from '../../Icon';
-import { Tooltip } from '../../Tooltip';
+import { InfoIcon } from '../../InfoIcon';
 import { LabeledProgressBar } from '../LabeledProgressBar';
 import { useStyles } from './styles';
 
@@ -82,9 +81,7 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
             {variant === 'borrowBalance'
               ? readableBorrowBalance
               : readableBorrowLimitUsedPercentage}
-            <Tooltip css={styles.tooltip} title={t('myAccount.includingMintedVai')}>
-              <Icon css={styles.infoIcon} name="info" />
-            </Tooltip>
+            <InfoIcon css={styles.tooltip} tooltip={t('myAccount.includingMintedVai')} />
           </span>
         }
         greyRightText={

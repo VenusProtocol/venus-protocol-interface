@@ -4,8 +4,7 @@ import Switch from '@mui/material/Switch';
 import { SwitchBaseProps } from '@mui/material/internal/SwitchBase';
 import React from 'react';
 
-import { Icon } from '../Icon';
-import { Tooltip } from '../Tooltip';
+import { InfoIcon } from '../InfoIcon';
 import { useStyles } from './styles';
 
 export interface ToggleProps {
@@ -32,11 +31,7 @@ export const Toggle = ({
 
   return (
     <div css={styles.container} className={className}>
-      {!!tooltip && (
-        <Tooltip css={styles.tooltip} title={tooltip}>
-          <Icon css={styles.infoIcon} name="info" />
-        </Tooltip>
-      )}
+      {!!tooltip && <InfoIcon css={styles.infoIcon} tooltip={tooltip} />}
 
       {!!label && (
         <Typography color="text.primary" variant="small1" component="span" css={styles.label}>
