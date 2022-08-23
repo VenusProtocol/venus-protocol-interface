@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { ButtonGroup, Icon, Select, TextField, Toggle, Tooltip } from 'components';
+import { ButtonGroup, Select, TextField, Toggle } from 'components';
 import React, { InputHTMLAttributes, useContext, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -74,21 +73,16 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         />
 
         <div css={styles.headerBottomRow}>
-          <div css={[styles.mobileSelectContainer, showXlDownCss]}>
-            <Typography css={styles.mobileSelectLabel} variant="small1">
-              {t('dashboard.mobileSelect.label')}
-            </Typography>
-
-            <Select
-              css={styles.mobileSelect}
-              title={t('dashboard.mobileSelect.title')}
-              // TODO: wire up
-              value={mobileSelectOptions[0].value}
-              onChange={console.log}
-              options={mobileSelectOptions}
-              ariaLabel={t('dashboard.mobileSelect.ariaLabelFor')}
-            />
-          </div>
+          <Select
+            css={[styles.mobileSelect, showXlDownCss]}
+            label={t('dashboard.mobileSelect.label')}
+            title={t('dashboard.mobileSelect.title')}
+            // TODO: wire up
+            value={mobileSelectOptions[0].value}
+            onChange={console.log}
+            options={mobileSelectOptions}
+            ariaLabel={t('dashboard.mobileSelect.ariaLabelFor')}
+          />
 
           <ButtonGroup
             css={hideXlDownCss}
@@ -101,27 +95,13 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           />
 
           <div css={styles.rightColumn}>
-            <div css={styles.toggleContainer}>
-              <Tooltip css={styles.tooltip} title={t('dashboard.riskyTokensToggleTooltip')}>
-                <Icon css={styles.infoIcon} name="info" />
-              </Tooltip>
-
-              <Typography
-                color="text.primary"
-                variant="small1"
-                component="span"
-                css={styles.toggleLabel}
-              >
-                {t('dashboard.riskyTokensToggleLabel')}
-              </Typography>
-
-              <Toggle
-                css={styles.toggle}
-                isLight
-                value={areHigherRiskTokensDisplayed}
-                onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
-              />
-            </div>
+            <Toggle
+              tooltip={t('dashboard.riskyTokensToggleTooltip')}
+              label={t('dashboard.riskyTokensToggleLabel')}
+              isLight
+              value={areHigherRiskTokensDisplayed}
+              onChange={event => onHigherRiskTokensToggleChange(event.currentTarget.checked)}
+            />
 
             <TextField
               css={[styles.desktopSearchTextField, hideXlDownCss]}

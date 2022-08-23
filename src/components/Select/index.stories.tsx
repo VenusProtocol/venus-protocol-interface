@@ -31,3 +31,13 @@ Default.args = {
   ariaLabel: 'select',
   title: 'Select option',
 };
+
+export const WithLabel = Template.bind({});
+WithLabel.args = {
+  options,
+  onChange: console.log,
+  value: 'value1',
+  ariaLabel: 'select',
+  title: 'Select option',
+  label: 'Filter by:',
+};

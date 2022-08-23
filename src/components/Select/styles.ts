@@ -8,7 +8,16 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    root: ({ isOpen }: { isOpen: boolean }) => css`
+    container: css`
+      display: inline-flex;
+      align-items: center;
+    `,
+    label: css`
+      flex-shrink: 0;
+      margin-right: ${theme.spacing(3)};
+    `,
+    select: ({ isOpen }: { isOpen: boolean }) => css`
+      flex: 1;
       background-color: ${theme.palette.secondary.light};
       border-radius: ${theme.shape.borderRadius.small}px;
       border: 1px solid ${isOpen ? theme.palette.interactive.primary : 'transparent'};
