@@ -37,7 +37,9 @@ export const HistoryUi: React.FC<HistoryUiProps> = ({
       setShowOnlyMyTxns={setShowOnlyMyTxns}
       walletConnected={walletConnected}
     />
+
     <HistoryTable transactions={transactions} isFetching={isFetching} />
+
     {total ? (
       <Pagination
         itemsCount={total}

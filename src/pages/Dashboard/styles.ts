@@ -21,22 +21,6 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
     `,
-    toggleContainer: css`
-      display: flex;
-      align-items: center;
-    `,
-    toggleLabel: css`
-      margin-left: ${theme.spacing(2)};
-    `,
-    tooltip: css`
-      display: flex;
-    `,
-    infoIcon: css`
-      cursor: help;
-    `,
-    toggle: css`
-      margin-left: ${theme.spacing(2)};
-    `,
     tabletButtonGroup: css`
       margin-bottom: ${theme.spacing(6)};
     `,
@@ -48,20 +32,14 @@ export const useStyles = () => {
       margin-left: ${theme.spacing(8)};
       min-width: ${theme.spacing(75)};
     `,
-    mobileSelectContainer: css`
+    mobileSelect: css`
+      width: ${theme.spacing(56)};
       display: flex;
       align-items: center;
 
       ${theme.breakpoints.down('md')} {
         margin-bottom: ${theme.spacing(6)};
       }
-    `,
-    mobileSelectLabel: css`
-      flex-shrink: 0;
-      margin-right: ${theme.spacing(3)};
-    `,
-    mobileSelect: css`
-      width: ${theme.spacing(41)};
     `,
   };
 };
