@@ -12,19 +12,28 @@ import { useStyles } from './styles';
 export interface TokenProps {
   className?: string;
   tokenId: TokenId;
+  displaySymbol?: boolean;
   variant?: TypographyVariant;
 }
 
-export const Token: React.FC<TokenProps> = ({ className, tokenId, variant }) => {
+export const Token: React.FC<TokenProps> = ({
+  className,
+  tokenId,
+  displaySymbol = true,
+  variant,
+}) => {
   const styles = useStyles();
   const { id, symbol } = getToken(tokenId);
 
   return (
     <div className={className} css={styles.container}>
       <Icon name={id} css={styles.icon} />
-      <Typography component="span" variant={variant}>
-        {symbol}
-      </Typography>
+
+      {displaySymbol && (
+        <Typography component="span" variant={variant}>
+          {symbol}
+        </Typography>
+      )}
     </div>
   );
 };
