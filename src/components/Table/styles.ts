@@ -59,15 +59,14 @@ export const useStyles = () => {
       padding-left: ${theme.spacing(4)};
       padding-right: ${theme.spacing(4)};
     `,
-    columnLabelMobile: css`
-      font-size: ${theme.spacing(3)};
-      font-weight: 400;
+    cellTitleMobile: css`
+      color: ${theme.palette.text.secondary};
     `,
     cellValueMobile: css`
       padding-top: ${theme.spacing(2)};
       overflow: hidden;
       text-overflow: ellipsis;
-      font-weight: 400;
+      color: ${theme.palette.text.primary};
     `,
     loader: css`
       margin-bottom: ${theme.spacing(6)};
@@ -142,6 +141,7 @@ export const useStyles = () => {
       padding: ${containsLink ? 0 : theme.spacing(4)};
 
       > a {
+        color: inherit;
         display: block;
         padding: ${theme.spacing(4)};
       }

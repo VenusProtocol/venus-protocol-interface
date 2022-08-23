@@ -54,10 +54,13 @@ const TableCards: React.FC<TableCardProps> = ({
                 const currentCell = row.find(cell => column.key === cell.key);
                 return (
                   <div key={`${rowKey}-${currentCell?.key}`} css={styles.cellMobile}>
-                    <Typography variant="body2" css={styles.columnLabelMobile}>
+                    <Typography variant="tiny" css={styles.cellTitleMobile}>
                       {column?.label}
                     </Typography>
-                    <div css={styles.cellValueMobile}>{currentCell?.render()}</div>
+
+                    <Typography variant="small2" css={styles.cellValueMobile}>
+                      {currentCell?.render()}
+                    </Typography>
                   </div>
                 );
               })}

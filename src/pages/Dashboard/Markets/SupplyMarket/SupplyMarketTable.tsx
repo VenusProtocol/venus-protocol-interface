@@ -51,7 +51,6 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
         key: 'asset',
         render: () => <Token tokenId={asset.id} />,
         value: asset.id,
-        align: 'left',
       },
       {
         key: 'apy',

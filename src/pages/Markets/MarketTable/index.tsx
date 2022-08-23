@@ -1,15 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import { LayeredValues, Table, TableProps, Token } from 'components';
+import { RiskLevel, Table, TableProps, TokenGroup } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Market, TokenId } from 'types';
-import {
-  convertPercentageFromSmartContract,
-  formatCentsToReadableValue,
-  formatToReadablePercentage,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
 
@@ -27,29 +21,22 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('market.columns.asset'), orderable: false, align: 'left' },
+      { key: 'assets', label: t('market.columns.assets'), orderable: false },
+      { key: 'market', label: t('market.columns.market'), orderable: true, align: 'right' },
+      { key: 'riskLevel', label: t('market.columns.riskLevel'), orderable: true, align: 'right' },
       {
         key: 'totalSupply',
         label: t('market.columns.totalSupply'),
         orderable: true,
         align: 'right',
       },
-      { key: 'supplyApy', label: t('market.columns.supplyApy'), orderable: true, align: 'right' },
       {
-        key: 'totalBorrows',
+        key: 'totalBorrow',
         label: t('market.columns.totalBorrow'),
         orderable: true,
         align: 'right',
       },
-      { key: 'borrowApy', label: t('market.columns.borrowApy'), orderable: true, align: 'right' },
       { key: 'liquidity', label: t('market.columns.liquidity'), orderable: true, align: 'right' },
-      {
-        key: 'collateralFactor',
-        label: t('market.columns.collateralFactor'),
-        orderable: true,
-        align: 'right',
-      },
-      { key: 'price', label: t('market.columns.price'), orderable: true, align: 'right' },
     ],
     [],
   );
@@ -67,105 +54,53 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
       markets.map(market => [
         {
           key: 'asset',
-          render: () => <Token tokenId={market.id as TokenId} css={localStyles.whiteText} />,
+          render: () => (
+            // TODO: wire up
+            <TokenGroup tokenIds={['usdt', 'eth', 'usdc', 'xrp', 'bnb', 'aave']} limit={4} />
+          ),
           value: market.id,
         },
         {
+          key: 'market',
+          render: () => 'Venus', // TODO: wire up
+          value: market.id,
+          align: 'right',
+        },
+        {
+          key: 'riskLevel',
+          render: () => <RiskLevel variant="MINIMAL" />, // TODO: wire up
+          value: market.id,
+          align: 'right',
+        },
+        {
           key: 'totalSupply',
-          render: () => (
-            <LayeredValues
-              topValue={formatCentsToReadableValue({
-                value: market.treasuryTotalSupplyCents,
-                shortenLargeValue: true,
-              })}
-              bottomValue={formatTokensToReadableValue({
-                value: market.treasuryTotalSupplyCents.div(market.tokenPrice.times(100)),
-                tokenId: market.id as TokenId,
-                minimizeDecimals: true,
-                shortenLargeValue: true,
-              })}
-              css={localStyles.noWrap}
-            />
-          ),
+          render: () =>
+            formatCentsToReadableValue({
+              value: market.treasuryTotalSupplyCents,
+              shortenLargeValue: true,
+            }),
           align: 'right',
           value: market.treasuryTotalSupplyCents.toFixed(),
         },
         {
-          key: 'supplyApy',
-          render: () => (
-            <LayeredValues
-              topValue={formatToReadablePercentage(market.supplyApy.plus(market.supplyVenusApy))}
-              bottomValue={formatToReadablePercentage(market.supplyVenusApy)}
-            />
-          ),
-          value: market.supplyApy.plus(market.supplyVenusApy).toFixed(),
-          align: 'right',
-        },
-        {
-          key: 'totalBorrows',
-          render: () => (
-            <LayeredValues
-              topValue={formatCentsToReadableValue({
-                value: market.treasuryTotalBorrowsCents,
-                shortenLargeValue: true,
-              })}
-              bottomValue={formatTokensToReadableValue({
-                value: market.treasuryTotalBorrowsCents.div(market.tokenPrice.times(100)),
-                tokenId: market.id as TokenId,
-                minimizeDecimals: true,
-                shortenLargeValue: true,
-              })}
-              css={localStyles.noWrap}
-            />
-          ),
+          key: 'totalBorrow',
+          render: () =>
+            formatCentsToReadableValue({
+              value: market.treasuryTotalBorrowsCents,
+              shortenLargeValue: true,
+            }),
           value: market.treasuryTotalBorrowsCents.toFixed(),
           align: 'right',
         },
         {
-          key: 'borrowApy',
-          render: () => (
-            <LayeredValues
-              topValue={formatToReadablePercentage(market.borrowApy.plus(market.borrowVenusApy))}
-              bottomValue={formatToReadablePercentage(market.borrowVenusApy)}
-            />
-          ),
-          value: market.borrowApy.plus(market.borrowVenusApy).toFixed(),
-          align: 'right',
-        },
-        {
           key: 'liquidity',
-          render: () => (
-            <Typography variant="small1" css={localStyles.whiteText}>
-              {formatCentsToReadableValue({
-                value: market.liquidity.multipliedBy(100),
-                shortenLargeValue: true,
-              })}
-            </Typography>
-          ),
+          render: () =>
+            formatCentsToReadableValue({
+              value: market.liquidity.multipliedBy(100),
+              shortenLargeValue: true,
+            }),
           value: market.liquidity.toFixed(),
           align: 'right',
-        },
-        {
-          key: 'collateralFactor',
-          render: () => (
-            <Typography variant="small1" css={localStyles.whiteText}>
-              {formatToReadablePercentage(
-                convertPercentageFromSmartContract(market.collateralFactor),
-              )}
-            </Typography>
-          ),
-          value: market.collateralFactor,
-          align: 'right',
-        },
-        {
-          key: 'price',
-          render: () => (
-            <Typography variant="small1" css={localStyles.whiteText}>
-              {formatCentsToReadableValue({ value: market.tokenPrice.multipliedBy(100) })}
-            </Typography>
-          ),
-          align: 'right',
-          value: market.tokenPrice.toFixed(),
         },
       ]),
     [JSON.stringify(markets)],
@@ -190,9 +125,12 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
 };
 
 const MarketTable = () => {
+  // TODO: fetch isolated lending markets
+
   const { data: { markets } = { markets: [], dailyVenusWei: undefined } } = useGetMarkets({
     placeholderData: { markets: [], dailyVenusWei: undefined },
   });
+
   return <MarketTableUi markets={markets} getRowHref={row => `/market/${row[0].value}`} />;
 };
 
