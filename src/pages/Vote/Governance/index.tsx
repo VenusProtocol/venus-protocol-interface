@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Icon, Pagination, Spinner, TextButton, Tooltip } from 'components';
+import { InfoIcon, Pagination, Spinner, TextButton } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Proposal } from 'types';
@@ -62,9 +62,7 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
             {t('vote.createProposalPlus')}
           </TextButton>
 
-          <Tooltip title={t('vote.requiredVotingPower')} css={styles.infoIconWrapper}>
-            <Icon name="info" css={styles.infoIcon} />
-          </Tooltip>
+          <InfoIcon tooltip={t('vote.requiredVotingPower')} css={styles.infoIconWrapper} />
         </div>
       </div>
 
