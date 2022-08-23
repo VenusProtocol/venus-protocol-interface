@@ -12,3 +12,5 @@ export default {
 } as ComponentMeta<typeof Token>;
 
 export const Default = () => <Token tokenId="xvs" />;
+
+export const WithoutSymbol = () => <Token tokenId="xvs" displaySymbol={false} />;
