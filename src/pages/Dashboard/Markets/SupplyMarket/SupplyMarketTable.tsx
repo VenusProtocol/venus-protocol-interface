@@ -6,6 +6,7 @@ import { Asset } from 'types';
 import { formatToReadablePercentage, formatTokensToReadableValue } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { useHideLgDownCss, useShowLgDownCss } from 'hooks/responsive';
 
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
@@ -26,6 +27,9 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const sharedStyles = useSharedStyles();
+
+  const showLgDownCss = useShowLgDownCss();
+  const hideLgDownCss = useHideLgDownCss();
 
   const columns = useMemo(
     () => [
@@ -93,8 +97,8 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
       }}
       rowOnClick={rowOnClick}
       rowKeyIndex={0}
-      tableCss={sharedStyles.table}
-      cardsCss={sharedStyles.cards}
+      tableCss={hideLgDownCss}
+      cardsCss={showLgDownCss}
       css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );

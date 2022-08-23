@@ -6,8 +6,8 @@ import { Market } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
+import { useHideXxlDownCss, useShowXxlDownCss } from 'hooks/responsive';
 
-import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
 export interface MarketTableProps extends Pick<TableProps, 'getRowHref'> {
@@ -16,8 +16,10 @@ export interface MarketTableProps extends Pick<TableProps, 'getRowHref'> {
 
 export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref }) => {
   const { t } = useTranslation();
-  const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
+
+  const showXxlDownCss = useShowXxlDownCss();
+  const hideXxlDownCss = useHideXxlDownCss();
 
   const columns = useMemo(
     () => [
@@ -109,8 +111,8 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
       }}
       rowKeyIndex={0}
       getRowHref={getRowHref}
-      tableCss={sharedStyles.table}
-      cardsCss={sharedStyles.cards}
+      tableCss={hideXxlDownCss}
+      cardsCss={showXxlDownCss}
       css={localStyles.cardContentGrid}
     />
   );
