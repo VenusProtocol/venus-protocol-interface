@@ -10,7 +10,7 @@ export default {
   title: 'Components/Toggle',
   component: Toggle,
   decorators: [
-    withCenterStory({ width: 200 }),
+    withCenterStory({ width: 400 }),
     withThemeProvider,
     withOnChange(e => e.target.checked),
   ],
@@ -27,4 +27,11 @@ export const WithIsLight = Template.bind({});
 WithIsLight.args = {
   onChange: console.log,
   isLight: true,
+};
+
+export const WithTooltipAndLabel = Template.bind({});
+WithTooltipAndLabel.args = {
+  onChange: console.log,
+  tooltip: 'Fake tooltip',
+  label: 'Include XVS distribution APR',
 };
