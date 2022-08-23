@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { RiskLevel, Table, TableProps, TokenGroup } from 'components';
+import { RiskLevel, Select, Table, TableProps, TokenGroup } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Market } from 'types';
@@ -8,18 +8,26 @@ import { formatCentsToReadableValue } from 'utilities';
 import { useGetMarkets } from 'clients/api';
 import { useHideXxlDownCss, useShowXxlDownCss } from 'hooks/responsive';
 
-import { useStyles as useLocalStyles } from './styles';
+import { useStyles } from './styles';
 
-export interface MarketTableProps extends Pick<TableProps, 'getRowHref'> {
+export interface MarketTableProps {
   markets: Market[];
 }
 
-export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref }) => {
+export const MarketTableUi: React.FC<MarketTableProps> = ({ markets }) => {
   const { t } = useTranslation();
-  const localStyles = useLocalStyles();
+  const styles = useStyles();
 
   const showXxlDownCss = useShowXxlDownCss();
   const hideXxlDownCss = useHideXxlDownCss();
+
+  // TODO: add all options
+  const mobileSelectOptions = [
+    {
+      value: 'riskLevel',
+      label: 'Risk level',
+    },
+  ];
 
   const columns = useMemo(
     () => [
@@ -102,19 +110,32 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
   );
 
   return (
-    <Table
-      columns={columns}
-      data={rows}
-      initialOrder={{
-        orderBy: 'asset',
-        orderDirection: 'desc',
-      }}
-      rowKeyIndex={0}
-      getRowHref={getRowHref}
-      tableCss={hideXxlDownCss}
-      cardsCss={showXxlDownCss}
-      css={localStyles.cardContentGrid}
-    />
+    <>
+      <Select
+        css={[styles.mobileSelect, showXxlDownCss]}
+        label={t('markets.mobileSelect.label')}
+        title={t('markets.mobileSelect.title')}
+        // TODO: wire up
+        value={mobileSelectOptions[0].value}
+        onChange={console.log}
+        options={mobileSelectOptions}
+        ariaLabel={t('markets.mobileSelect.ariaLabelFor')}
+      />
+
+      <Table
+        columns={columns}
+        data={rows}
+        initialOrder={{
+          orderBy: 'asset',
+          orderDirection: 'desc',
+        }}
+        rowKeyIndex={0}
+        getRowHref={row => `/market/${row[0].value}`}
+        tableCss={hideXxlDownCss}
+        cardsCss={showXxlDownCss}
+        css={styles.cardContentGrid}
+      />
+    </>
   );
 };
 
@@ -125,7 +146,7 @@ const MarketTable = () => {
     placeholderData: { markets: [], dailyVenusWei: undefined },
   });
 
-  return <MarketTableUi markets={markets} getRowHref={row => `/market/${row[0].value}`} />;
+  return <MarketTableUi markets={markets} />;
 };
 
 export default MarketTable;

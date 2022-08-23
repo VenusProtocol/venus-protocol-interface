@@ -4,6 +4,10 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
+    mobileSelect: css`
+      margin-bottom: ${theme.spacing(6)};
+      width: ${theme.spacing(56)};
+    `,
     noWrap: css`
       > span {
         white-space: nowrap;
