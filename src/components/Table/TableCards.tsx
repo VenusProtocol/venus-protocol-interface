@@ -32,6 +32,7 @@ const TableCards: React.FC<TableCardProps> = ({
         const rowKey = `${row[rowKeyIndex].value.toString()}-${idx}-cards`;
         const [titleColumn, ...otherColumns] = columns;
         const titleCell = row.find(cell => titleColumn.key === cell.key);
+
         return (
           <Paper
             key={rowKey}

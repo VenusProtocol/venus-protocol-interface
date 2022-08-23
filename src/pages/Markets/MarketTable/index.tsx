@@ -2,7 +2,7 @@
 import { RiskLevel, Table, TableProps, TokenGroup } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Market, TokenId } from 'types';
+import { Market } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
@@ -41,35 +41,28 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
     [],
   );
 
-  const cardColumns = useMemo(() => {
-    const newColumns = [...columns];
-    const [liquidityCol] = newColumns.splice(5, 1);
-    newColumns.splice(3, 0, liquidityCol);
-    return newColumns;
-  }, [columns]);
-
   // Format markets to rows
   const rows: TableProps['data'] = useMemo(
     () =>
       markets.map(market => [
         {
-          key: 'asset',
+          key: 'assets',
           render: () => (
             // TODO: wire up
             <TokenGroup tokenIds={['usdt', 'eth', 'usdc', 'xrp', 'bnb', 'aave']} limit={4} />
           ),
-          value: market.id,
+          value: ['usdt', 'eth', 'usdc', 'xrp', 'bnb', 'aave'].join('-'), // TODO: wire up
         },
         {
           key: 'market',
           render: () => 'Venus', // TODO: wire up
-          value: market.id,
+          value: 'Venus', // TODO: wire up
           align: 'right',
         },
         {
           key: 'riskLevel',
           render: () => <RiskLevel variant="MINIMAL" />, // TODO: wire up
-          value: market.id,
+          value: 'MINIMAL', // TODO: wire up
           align: 'right',
         },
         {
@@ -109,7 +102,6 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
   return (
     <Table
       columns={columns}
-      cardColumns={cardColumns}
       data={rows}
       initialOrder={{
         orderBy: 'asset',

@@ -84,14 +84,6 @@ export const useStyles = () => {
         }
       }
     `,
-    title: css`
-      display: block;
-      margin-bottom: ${theme.spacing(1)};
-
-      ${theme.breakpoints.down('xl')} {
-        font-size: 0.75rem;
-      }
-    `,
     value: css`
       ${theme.breakpoints.down('xl')} {
         font-size: ${theme.typography.body2.fontSize};
