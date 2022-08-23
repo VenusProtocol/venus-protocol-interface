@@ -51,7 +51,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
             // TODO: wire up
             <TokenGroup tokenIds={['usdt', 'eth', 'usdc', 'xrp', 'bnb', 'aave']} limit={4} />
           ),
-          value: ['usdt', 'eth', 'usdc', 'xrp', 'bnb', 'aave'].join('-'), // TODO: wire up
+          value: market.id, // TODO: wire up
         },
         {
           key: 'market',
