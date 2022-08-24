@@ -13,6 +13,7 @@ export const useIsSmDown = () => useBreakpointDown('sm');
 export const useIsMdDown = () => useBreakpointDown('md');
 export const useIsLgDown = () => useBreakpointDown('lg');
 export const useIsXlDown = () => useBreakpointDown('xl');
+export const useIsXxlDown = () => useBreakpointDown('xxl');
 
 export const useBreakpointHideDown = (breakpoint: Breakpoint) => {
   const theme = useTheme();
@@ -29,6 +30,7 @@ export const useHideSmDownCss = () => useBreakpointHideDown('sm');
 export const useHideMdDownCss = () => useBreakpointHideDown('md');
 export const useHideLgDownCss = () => useBreakpointHideDown('lg');
 export const useHideXlDownCss = () => useBreakpointHideDown('xl');
+export const useHideXxlDownCss = () => useBreakpointHideDown('xxl');
 
 export const useBreakpointShowDown = (breakpoint: Breakpoint) => {
   const theme = useTheme();
@@ -45,3 +47,4 @@ export const useShowSmDownCss = () => useBreakpointShowDown('sm');
 export const useShowMdDownCss = () => useBreakpointShowDown('md');
 export const useShowLgDownCss = () => useBreakpointShowDown('lg');
 export const useShowXlDownCss = () => useBreakpointShowDown('xl');
+export const useShowXxlDownCss = () => useBreakpointShowDown('xxl');

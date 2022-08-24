@@ -41,7 +41,7 @@ export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {
       <div css={styles.content}>
         <div css={styles.getDot({ variant })} />
 
-        <Typography css={styles.getText({ variant })} component="span">
+        <Typography css={styles.getText({ variant })} component="span" variant="small2">
           {getText()}
         </Typography>
       </div>
