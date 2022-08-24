@@ -20,7 +20,7 @@ export const useStyles = () => {
 
   return {
     content: css`
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: help;

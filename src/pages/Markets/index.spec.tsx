@@ -6,11 +6,11 @@ import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
 import { getMarkets, useGetTreasuryTotals, useGetVTokenBalancesAll } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
-import Market from '.';
+import Markets from '.';
 
 jest.mock('clients/api');
 
-describe('pages/Market', () => {
+describe('pages/Markets', () => {
   beforeEach(() => {
     (getMarkets as jest.Mock).mockImplementation(() => ({ markets }));
     (useGetVTokenBalancesAll as jest.Mock).mockImplementation(() => ({
@@ -28,6 +28,6 @@ describe('pages/Market', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(<Market />);
+    renderComponent(<Markets />);
   });
 });
