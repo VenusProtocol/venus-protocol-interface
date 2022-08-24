@@ -20,7 +20,12 @@ export const TokenGroup: React.FC<TokenGroupProps> = ({ className, tokenIds, lim
   return (
     <div css={styles.container} className={className}>
       {filteredTokenIds.map(tokenId => (
-        <Token css={styles.token} tokenId={tokenId} displaySymbol={false} />
+        <Token
+          css={styles.token}
+          tokenId={tokenId}
+          displaySymbol={false}
+          key={`token-group-item-${tokenId}`}
+        />
       ))}
 
       {limit > 0 && tokenIds.length > limit && (
