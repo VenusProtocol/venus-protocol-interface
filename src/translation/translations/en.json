@@ -230,7 +230,7 @@
     "totalSupply": "Total Supply",
     "totalTreasury": "Total Treasury"
   },
-  "marketDetails": {
+  "asset": {
     "borrowInfo": {
       "stats": {
         "apy": "APY",

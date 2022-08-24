@@ -24,29 +24,29 @@ const Title: React.FC = () => {
   const { account } = useContext(AuthContext);
 
   const voterDetailMatch = useRouteMatch<{ address: string }>(Path.GOVERNANCE_ADDRESS);
-  const marketDetailsMatch = useRouteMatch<{ vTokenId: VTokenId }>(Path.MARKET_DETAILS);
+  const assetMatch = useRouteMatch<{ vTokenId: VTokenId; marketId: string }>(Path.ASSET);
   const voteLeaderboardMatch = useRouteMatch(Path.GOVERNANCE_LEADER_BOARD);
   const proposalDetailsMatch = useRouteMatch<{ id: string }>(Path.GOVERNANCE_PROPOSAL_DETAILS);
   const { t } = useTranslation();
   const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   // Handle special case of Market Details page
-  if (marketDetailsMatch) {
-    const { vTokenId } = marketDetailsMatch.params;
+  if (assetMatch) {
+    const { vTokenId } = assetMatch.params;
     const token = getToken(vTokenId);
 
     const onAddTokenToWallet = () => addTokenToWallet(vTokenId);
 
     return (
-      <div css={styles.marketDetailsLeftColumn}>
+      <div css={styles.assetLeftColumn}>
         <BackButton>
           <Icon name={vTokenId} css={styles.backButtonTokenIcon} />
           <h3 css={styles.backButtonTokenSymbol}>{token.symbol}</h3>
         </BackButton>
 
         {!!account && (
-          <TertiaryButton css={styles.marketDetailsAddTokenButton} onClick={onAddTokenToWallet}>
-            <Icon name="wallet" css={styles.marketDetailsWalletIcon} />
+          <TertiaryButton css={styles.assetAddTokenButton} onClick={onAddTokenToWallet}>
+            <Icon name="wallet" css={styles.assetWalletIcon} />
           </TertiaryButton>
         )}
       </div>
