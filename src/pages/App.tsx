@@ -14,8 +14,8 @@ import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactio
 import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
 import History from 'pages/History';
-import Markets from 'pages/Market';
 import MarketDetails from 'pages/MarketDetails';
+import Markets from 'pages/Markets';
 import Proposal from 'pages/Proposal';
 import Vaults from 'pages/Vault';
 import Vote from 'pages/Vote';

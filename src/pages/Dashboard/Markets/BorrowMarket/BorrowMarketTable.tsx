@@ -9,6 +9,8 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { useHideLgDownCss, useShowLgDownCss } from 'hooks/responsive';
+
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles } from './styles';
 
@@ -25,6 +27,9 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   const sharedStyles = useSharedStyles();
+
+  const showLgDownCss = useShowLgDownCss();
+  const hideLgDownCss = useHideLgDownCss();
 
   const columns = useMemo(
     () => [
@@ -87,8 +92,8 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       }}
       rowKeyIndex={0}
       rowOnClick={rowOnClick}
-      tableCss={sharedStyles.table}
-      cardsCss={sharedStyles.cards}
+      tableCss={hideLgDownCss}
+      cardsCss={showLgDownCss}
       css={[sharedStyles.marketTable, styles.cardContentGrid]}
     />
   );
