@@ -15,6 +15,7 @@ import Asset from 'pages/Asset';
 import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
 import History from 'pages/History';
+import Market from 'pages/Market';
 import Markets from 'pages/Markets';
 import Proposal from 'pages/Proposal';
 import Vaults from 'pages/Vault';
@@ -40,6 +41,7 @@ const App = () => (
                     <Route exact path={Path.ROOT} component={Dashboard} />
 
                     <Route exact path={Path.MARKETS} component={Markets} />
+                    <Route exact path={Path.MARKET} component={Market} />
                     <Route exact path={Path.ASSET} component={Asset} />
 
                     <Route exact path={Path.VAULTS} component={Vaults} />
