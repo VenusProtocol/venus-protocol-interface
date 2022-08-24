@@ -4,13 +4,13 @@ import React from 'react';
 import Header from './Header';
 import MarketTable from './MarketTable';
 
-const MarketUi: React.FC = () => (
+const MarketsUi: React.FC = () => (
   <div>
     <Header />
     <MarketTable />
   </div>
 );
 
-const Market: React.FC = () => <MarketUi />;
+const Markets: React.FC = () => <MarketsUi />;
 
-export default Market;
+export default Markets;

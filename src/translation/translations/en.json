@@ -219,14 +219,12 @@
   "market": {
     "availableLiquidity": "Available Liquidity",
     "columns": {
-      "asset": "Asset",
-      "borrowApy": "Borrow APY",
-      "collateralFactor": "Collateral F.",
+      "assets": "Assets",
       "liquidity": "Liquidity",
-      "price": "Price",
-      "supplyApy": "Supply APY",
-      "totalBorrow": "Total Borrow",
-      "totalSupply": "Total Supply"
+      "market": "Market",
+      "riskLevel": "Risk level",
+      "totalBorrow": "Total borrow",
+      "totalSupply": "Total supply"
     },
     "totalBorrow": "Total Borrow",
     "totalSupply": "Total Supply",
@@ -296,6 +294,11 @@
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
+    },
+    "mobileSelect": {
+      "ariaLabelFor": "sort by",
+      "label": "Sort by:",
+      "title": "Sort by"
     }
   },
   "myAccount": {
