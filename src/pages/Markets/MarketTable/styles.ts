@@ -4,8 +4,9 @@ import { useTheme } from '@mui/material';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    whiteText: css`
-      color: ${theme.palette.text.primary};
+    mobileSelect: css`
+      margin-bottom: ${theme.spacing(6)};
+      width: ${theme.spacing(56)};
     `,
     noWrap: css`
       > span {
@@ -26,8 +27,7 @@ export const useStyles = () => {
         }
 
         ${theme.breakpoints.down('md')} {
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
+          grid-template-columns: 1fr 1fr;
         }
       }
     `,
