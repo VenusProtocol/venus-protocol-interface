@@ -9,14 +9,14 @@ import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { getMarketHistory, getMarkets, getVTokenApySimulations } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
-import MarketDetails from '.';
+import Asset from '.';
 import TEST_IDS from './testIds';
 
 const fakeVTokenId = 'aave';
 
 jest.mock('clients/api');
 
-describe('pages/MarketDetails', () => {
+describe('pages/Asset', () => {
   beforeEach(() => {
     (getMarketHistory as jest.Mock).mockImplementation(() => ({
       marketSnapshots,
@@ -33,7 +33,7 @@ describe('pages/MarketDetails', () => {
   it('renders without crashing', () => {
     const fakeHistory = createMemoryHistory();
     renderComponent(
-      <MarketDetails
+      <Asset
         history={fakeHistory}
         location="/"
         match={{
@@ -51,7 +51,7 @@ describe('pages/MarketDetails', () => {
   it('fetches market details and displays them correctly', async () => {
     const fakeHistory = createMemoryHistory();
     const { getByTestId } = renderComponent(
-      <MarketDetails
+      <Asset
         history={fakeHistory}
         location="/"
         match={{
