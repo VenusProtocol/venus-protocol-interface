@@ -42,6 +42,7 @@ export * from './Token';
 export * from './TokenTextField';
 export * from './Tooltip';
 export * from './ValueUpdate';
+export * from './RiskLevel';
 export * from './Markdown';
 export * from './InfoIcon';
 export * from './CellGroup';
