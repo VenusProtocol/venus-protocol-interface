@@ -6,7 +6,7 @@ import React from 'react';
 import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { withRouter } from 'stories/decorators';
 
-import { MarketDetailsUi } from '.';
+import { AssetUi } from '.';
 
 const fakeApyChartData: ApyChartProps['data'] = [
   {
@@ -48,12 +48,12 @@ const fakeApyChartData: ApyChartProps['data'] = [
 
 export default {
   title: 'Pages/MarketDetail',
-  component: MarketDetailsUi,
+  component: AssetUi,
   decorators: [withRouter],
-} as ComponentMeta<typeof MarketDetailsUi>;
+} as ComponentMeta<typeof AssetUi>;
 
 export const Default = () => (
-  <MarketDetailsUi
+  <AssetUi
     vTokenId="bnb"
     totalBorrowBalanceCents={100000000}
     borrowApyPercentage={new BigNumber(2.24)}

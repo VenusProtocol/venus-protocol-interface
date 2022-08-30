@@ -31,7 +31,7 @@ import TEST_IDS from './testIds';
 import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
-export interface MarketDetailsUiProps {
+export interface AssetUiProps {
   vTokenId: VTokenId;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
@@ -58,7 +58,7 @@ export interface MarketDetailsUiProps {
   currentUtilizationRate?: number;
 }
 
-export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
+export const AssetUi: React.FC<AssetUiProps> = ({
   vTokenId,
   totalBorrowBalanceCents,
   borrowApyPercentage,
@@ -93,18 +93,18 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
       {
-        label: t('marketDetails.supplyInfo.stats.totalSupply'),
+        label: t('asset.supplyInfo.stats.totalSupply'),
         value: formatCentsToReadableValue({
           value: totalSupplyBalanceCents,
           shortenLargeValue: true,
         }),
       },
       {
-        label: t('marketDetails.supplyInfo.stats.apy'),
+        label: t('asset.supplyInfo.stats.apy'),
         value: formatToReadablePercentage(supplyApyPercentage),
       },
       {
-        label: t('marketDetails.supplyInfo.stats.distributionApy'),
+        label: t('asset.supplyInfo.stats.distributionApy'),
         value: formatToReadablePercentage(supplyDistributionApyPercentage),
       },
     ],
@@ -113,7 +113,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
 
   const supplyInfoLegends: CardProps['legends'] = [
     {
-      label: t('marketDetails.legends.supplyApy'),
+      label: t('asset.legends.supplyApy'),
       color: styles.legendColors.supplyApy,
     },
   ];
@@ -121,18 +121,18 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   const borrowInfoStats: CardProps['stats'] = React.useMemo(
     () => [
       {
-        label: t('marketDetails.borrowInfo.stats.totalBorrow'),
+        label: t('asset.borrowInfo.stats.totalBorrow'),
         value: formatCentsToReadableValue({
           value: totalBorrowBalanceCents,
           shortenLargeValue: true,
         }),
       },
       {
-        label: t('marketDetails.borrowInfo.stats.apy'),
+        label: t('asset.borrowInfo.stats.apy'),
         value: formatToReadablePercentage(borrowApyPercentage),
       },
       {
-        label: t('marketDetails.borrowInfo.stats.distributionApy'),
+        label: t('asset.borrowInfo.stats.distributionApy'),
         value: formatToReadablePercentage(borrowDistributionApyPercentage),
       },
     ],
@@ -141,22 +141,22 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
 
   const borrowInfoLegends: CardProps['legends'] = [
     {
-      label: t('marketDetails.legends.borrowApy'),
+      label: t('asset.legends.borrowApy'),
       color: styles.legendColors.borrowApy,
     },
   ];
 
   const interestRateModelLegends: CardProps['legends'] = [
     {
-      label: t('marketDetails.legends.utilizationRate'),
+      label: t('asset.legends.utilizationRate'),
       color: styles.legendColors.utilizationRate,
     },
     {
-      label: t('marketDetails.legends.borrowApy'),
+      label: t('asset.legends.borrowApy'),
       color: styles.legendColors.borrowApy,
     },
     {
-      label: t('marketDetails.legends.supplyApy'),
+      label: t('asset.legends.supplyApy'),
       color: styles.legendColors.supplyApy,
     },
   ];
@@ -164,28 +164,28 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   const marketInfoStats: MarketInfoProps['stats'] = React.useMemo(
     () => [
       {
-        label: t('marketDetails.marketInfo.stats.priceLabel'),
+        label: t('asset.marketInfo.stats.priceLabel'),
         value:
           tokenPriceDollars === undefined ? PLACEHOLDER_KEY : `$${tokenPriceDollars.toFormat(2)}`,
       },
       {
-        label: t('marketDetails.marketInfo.stats.marketLiquidityLabel'),
+        label: t('asset.marketInfo.stats.marketLiquidityLabel'),
         value: formatCentsToReadableValue({
           value: liquidityCents,
         }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.supplierCountLabel'),
+        label: t('asset.marketInfo.stats.supplierCountLabel'),
         value: supplierCount ?? '-',
       },
       {
-        label: t('marketDetails.marketInfo.stats.borrowerCountLabel'),
+        label: t('asset.marketInfo.stats.borrowerCountLabel'),
         value: borrowerCount ?? '-',
       },
       {
-        label: t('marketDetails.marketInfo.stats.borrowCapLabel'),
+        label: t('asset.marketInfo.stats.borrowCapLabel'),
         value: borrowCapTokens?.isEqualTo(0)
-          ? t('marketDetails.marketInfo.stats.unlimitedBorrowCap')
+          ? t('asset.marketInfo.stats.unlimitedBorrowCap')
           : formatTokensToReadableValue({
               value: borrowCapTokens,
               minimizeDecimals: true,
@@ -193,19 +193,19 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
             }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.dailySupplyingInterestsLabel'),
+        label: t('asset.marketInfo.stats.dailySupplyingInterestsLabel'),
         value: formatCentsToReadableValue({
           value: dailySupplyingInterestsCents,
         }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.dailyBorrowingInterestsLabel'),
+        label: t('asset.marketInfo.stats.dailyBorrowingInterestsLabel'),
         value: formatCentsToReadableValue({
           value: dailyBorrowingInterestsCents,
         }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.dailyDistributionXvs'),
+        label: t('asset.marketInfo.stats.dailyDistributionXvs'),
         value: formatTokensToReadableValue({
           value: dailyDistributionXvs,
           minimizeDecimals: true,
@@ -214,7 +214,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
         }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.reserveTokensLabel'),
+        label: t('asset.marketInfo.stats.reserveTokensLabel'),
         value: formatTokensToReadableValue({
           value: reserveTokens,
           minimizeDecimals: true,
@@ -222,15 +222,15 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
         }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.reserveFactorLabel'),
+        label: t('asset.marketInfo.stats.reserveFactorLabel'),
         value: formatToReadablePercentage(reserveFactor),
       },
       {
-        label: t('marketDetails.marketInfo.stats.collateralFactorLabel'),
+        label: t('asset.marketInfo.stats.collateralFactorLabel'),
         value: formatToReadablePercentage(collateralFactor),
       },
       {
-        label: t('marketDetails.marketInfo.stats.mintedTokensLabel', {
+        label: t('asset.marketInfo.stats.mintedTokensLabel', {
           vTokenSymbol: vToken.symbol,
         }),
         value: formatTokensToReadableValue({
@@ -241,9 +241,9 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
         }),
       },
       {
-        label: t('marketDetails.marketInfo.stats.exchangeRateLabel'),
+        label: t('asset.marketInfo.stats.exchangeRateLabel'),
         value: exchangeRateVTokens
-          ? t('marketDetails.marketInfo.stats.exchangeRateValue', {
+          ? t('asset.marketInfo.stats.exchangeRateValue', {
               tokenSymbol: token.symbol,
               vTokenSymbol: vToken.symbol,
               rate: exchangeRateVTokens.dp(6).toFixed(),
@@ -280,7 +280,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
       <div css={[styles.column, styles.graphsColumn]}>
         <Card
           testId={TEST_IDS.supplyInfo}
-          title={t('marketDetails.supplyInfo.title')}
+          title={t('asset.supplyInfo.title')}
           css={styles.graphCard}
           stats={supplyInfoStats}
           legends={supplyInfoLegends}
@@ -292,7 +292,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
 
         <Card
           testId={TEST_IDS.borrowInfo}
-          title={t('marketDetails.borrowInfo.title')}
+          title={t('asset.borrowInfo.title')}
           css={styles.graphCard}
           stats={borrowInfoStats}
           legends={borrowInfoLegends}
@@ -304,7 +304,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
 
         <Card
           testId={TEST_IDS.interestRateModel}
-          title={t('marketDetails.interestRateModel.title')}
+          title={t('asset.interestRateModel.title')}
           css={styles.graphCard}
           legends={interestRateModelLegends}
         >
@@ -324,9 +324,9 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   );
 };
 
-export type MarketDetailsProps = RouteComponentProps<{ vTokenId: VTokenId }>;
+export type AssetProps = RouteComponentProps<{ vTokenId: VTokenId }>;
 
-const MarketDetails: React.FC<MarketDetailsProps> = ({
+const Asset: React.FC<AssetProps> = ({
   match: {
     params: { vTokenId },
   },
@@ -356,7 +356,7 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
   });
 
   return (
-    <MarketDetailsUi
+    <AssetUi
       vTokenId={vTokenId}
       {...marketData}
       {...chartData}
@@ -365,4 +365,4 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
   );
 };
 
-export default MarketDetails;
+export default Asset;
