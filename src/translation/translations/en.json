@@ -284,10 +284,12 @@
     },
     "columns": {
       "apy": "APY",
+      "apyLtv": "APY / LTV",
       "asset": "Asset",
       "collateral": "Collateral",
       "liquidity": "Liquidity",
-      "wallet": "Wallet"
+      "market": "Market",
+      "riskLevel": "Risk level"
     },
     "errors": {
       "accountError": "Account Required - Please connect your wallet.",

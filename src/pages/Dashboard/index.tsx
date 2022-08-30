@@ -135,8 +135,6 @@ const Dashboard: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
 
-  // TODO: fetch isolated lending markets
-
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
     data: { assets, userTotalBorrowLimitCents },

@@ -1,18 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableProps, Token } from 'components';
+import { Typography } from '@mui/material';
+import { RiskLevel, Table, TableProps, Token } from 'components';
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatToReadablePercentage,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { useHideLgDownCss, useShowLgDownCss } from 'hooks/responsive';
 
 import { useStyles as useSharedStyles } from '../styles';
-import { useStyles } from './styles';
 
 export interface BorrowMarketTableProps extends Pick<TableProps, 'rowOnClick'> {
   assets: Asset[];
@@ -25,7 +22,6 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   rowOnClick,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
   const sharedStyles = useSharedStyles();
 
   const showLgDownCss = useShowLgDownCss();
@@ -33,9 +29,10 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 
   const columns = useMemo(
     () => [
-      { key: 'asset', label: t('markets.columns.asset'), orderable: false, align: 'left' },
+      { key: 'asset', label: t('markets.columns.asset'), orderable: true, align: 'left' },
       { key: 'apy', label: t('markets.columns.apy'), orderable: true, align: 'right' },
-      { key: 'wallet', label: t('markets.columns.wallet'), orderable: true, align: 'right' },
+      { key: 'market', label: t('markets.columns.market'), orderable: true, align: 'right' },
+      { key: 'riskLevel', label: t('markets.columns.riskLevel'), orderable: true, align: 'right' },
       { key: 'liquidity', label: t('markets.columns.liquidity'), orderable: true, align: 'right' },
     ],
     [],
@@ -59,14 +56,23 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
         align: 'right',
       },
       {
-        key: 'wallet',
-        render: () =>
-          formatTokensToReadableValue({
-            value: asset.walletBalance,
-            tokenId: asset.id,
-            minimizeDecimals: true,
-          }),
-        value: asset.walletBalance.toFixed(),
+        key: 'market',
+        // TODO: map out markets once wired up
+        render: () => (
+          <div>
+            <Link to="/market/xvs" css={sharedStyles.marketLink}>
+              <Typography variant="small2">Venus</Typography>
+            </Link>
+          </div>
+        ),
+        value: 'venus',
+        align: 'right',
+      },
+      {
+        key: 'riskLevel',
+        // TODO: map out risk levels once wired up
+        render: () => <RiskLevel variant="MINIMAL" />,
+        value: 'minimal',
         align: 'right',
       },
       {
@@ -94,7 +100,7 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       rowOnClick={rowOnClick}
       tableCss={hideLgDownCss}
       cardsCss={showLgDownCss}
-      css={[sharedStyles.marketTable, styles.cardContentGrid]}
+      css={[sharedStyles.marketTable, sharedStyles.cardContentGrid]}
     />
   );
 };
