@@ -17,7 +17,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ stats, testId }) => {
   const styles = useStyles();
 
   return (
-    <Card title={t('marketDetails.marketInfo.title')} testId={testId}>
+    <Card title={t('asset.marketInfo.title')} testId={testId}>
       <ul css={styles.itemList}>
         {stats.map(stat => (
           <li css={styles.item} key={`market-info-stat-${stat.label}`}>

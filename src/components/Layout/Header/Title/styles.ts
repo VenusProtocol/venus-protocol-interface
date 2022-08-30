@@ -39,11 +39,11 @@ export const useStyles = () => {
         color: ${theme.palette.button.medium};
       }
     `,
-    marketDetailsLeftColumn: css`
+    assetLeftColumn: css`
       display: flex;
       align-items: center;
     `,
-    marketDetailsAddTokenButton: css`
+    assetAddTokenButton: css`
       margin-left: ${theme.spacing(4)};
       padding: ${theme.spacing(1)};
       color: ${theme.palette.interactive.primary};
@@ -54,7 +54,7 @@ export const useStyles = () => {
         color: ${theme.palette.text.primary};
       }
     `,
-    marketDetailsWalletIcon: css`
+    assetWalletIcon: css`
       width: ${theme.spacing(5)};
       height: ${theme.spacing(5)};
       margin-left: 1px;
