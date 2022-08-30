@@ -34,8 +34,6 @@ export const useStyles = () => {
     `,
     mobileSelect: css`
       width: ${theme.spacing(56)};
-      display: flex;
-      align-items: center;
 
       ${theme.breakpoints.down('md')} {
         margin-bottom: ${theme.spacing(6)};
