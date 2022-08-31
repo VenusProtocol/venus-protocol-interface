@@ -1,10 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableCardRowOnClickProps, TableRowProps, toast } from 'components';
+import {
+  Table,
+  TableCardRowOnClickProps,
+  TableProps,
+  TableRowProps,
+  switchAriaLabel,
+  toast,
+} from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, VTokenId } from 'types';
 
+import { TOKENS } from 'constants/tokens';
+import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
+import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useCollateral from 'hooks/useCollateral';
 
 import generateRow from './generateRow';
@@ -41,7 +51,14 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
+  const { borrowRepayModalDom, openBorrowRepayModal } = useBorrowRepayModal({
+    isXvsEnabled,
+  });
   const { collateralModalDom, toggleCollateral } = useCollateral();
+
+  const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
+    DisableLunaUstWarningContext,
+  );
 
   const handleCollateralChange = async (assetToUpdate: Asset) => {
     try {
@@ -93,7 +110,30 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     [JSON.stringify(assets), JSON.stringify(columns)],
   );
 
-  // TODO: add row on click function to open supply or borrow modal
+  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
+    const assetId = row[0].value as VTokenId;
+
+    // Block action and show warning modal if user has LUNA or UST enabled as
+    // collateral and is attempting to open the supply modal of other assets
+    if (hasLunaOrUstCollateralEnabled && assetId !== TOKENS.luna.id && assetId !== TOKENS.ust.id) {
+      e.preventDefault();
+      e.stopPropagation();
+      openLunaUstWarningModal();
+      return;
+    }
+
+    // Do nothing if user clicked on switch (the switch element will handle the
+    // click event)
+    if ((e.target as HTMLElement).ariaLabel === switchAriaLabel) {
+      return;
+    }
+
+    if (marketType === 'borrow') {
+      openBorrowRepayModal(assetId);
+    }
+
+    // TODO: open supply/withdraw modal
+  };
 
   return (
     <>
@@ -102,10 +142,13 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         data={data}
         css={styles.cardContentGrid}
         rowKeyExtractor={rowKeyExtractor}
+        rowOnClick={rowOnClick}
         {...otherTableProps}
       />
 
       {collateralModalDom}
+
+      {borrowRepayModalDom}
     </>
   );
 };

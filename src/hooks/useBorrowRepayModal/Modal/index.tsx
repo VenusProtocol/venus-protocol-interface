@@ -5,19 +5,41 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { isAssetEnabled } from 'utilities';
 
-import { useStyles } from '../styles';
+import { useGetUserMarketInfo } from 'clients/api';
+import { AuthContext } from 'context/AuthContext';
+
 import Borrow from './Borrow';
 import Repay from './Repay';
+import { useStyles } from './styles';
 
 export interface BorrowRepayProps {
   onClose: ModalProps['handleClose'];
   isXvsEnabled: boolean;
-  asset: Asset;
+  assetId: Asset['id'];
 }
 
-const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled }) => {
+const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, isXvsEnabled }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const { account } = React.useContext(AuthContext);
+
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  const {
+    data: { assets },
+  } = useGetUserMarketInfo({
+    accountAddress: account?.address,
+  });
+
+  const asset = React.useMemo(
+    () => assets.find(marketAsset => marketAsset.id === assetId),
+    [assetId, JSON.stringify(assets)],
+  );
+
+  // Hide modal while loading
+  if (!asset) {
+    // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+    return null;
+  }
 
   const tabsContent: TabContent[] = [
     {
@@ -42,7 +64,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
   }
 
   return (
-    <Modal isOpen title={<Token tokenId={asset.id} variant="h4" />} handleClose={onClose}>
+    <Modal isOpen title={<Token tokenId={assetId} variant="h4" />} handleClose={onClose}>
       <Tabs tabsContent={tabsContent} />
     </Modal>
   );

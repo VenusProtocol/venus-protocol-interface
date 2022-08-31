@@ -21,7 +21,7 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentag
 import { AuthContext } from 'context/AuthContext';
 import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
 
-import { useStyles } from '../../styles';
+import { useStyles as useSharedStyles } from '../styles';
 
 export interface AccountDataProps {
   asset: Asset;
@@ -35,7 +35,7 @@ const AccountData: React.FC<AccountDataProps> = ({
   isXvsEnabled,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
@@ -94,10 +94,10 @@ const AccountData: React.FC<AccountDataProps> = ({
 
       return yearlyEarningsCents && calculateDailyEarningsCentsUtil(yearlyEarningsCents);
     },
-    [JSON.stringify(assets)],
+    [JSON.stringify(assets), dailyXvsDistributionInterestsCents?.toNumber()],
   );
 
-  const dailyEarningsCents = React.useMemo(() => calculateDailyEarningsCents(new BigNumber(0)), []);
+  const dailyEarningsCents = calculateDailyEarningsCents(new BigNumber(0));
   const hypotheticalDailyEarningsCents =
     hypotheticalBorrowAmountTokens !== 0
       ? calculateDailyEarningsCents(new BigNumber(hypotheticalBorrowAmountTokens))
@@ -119,12 +119,12 @@ const AccountData: React.FC<AccountDataProps> = ({
         borrowLimitCents={userTotalBorrowLimitCents.toNumber()}
         hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-        css={styles.getRow({ isLast: true })}
+        css={sharedStyles.getRow({ isLast: true })}
       />
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowLimitUsed')}
-        css={styles.getRow({ isLast: false })}
+        css={sharedStyles.getRow({ isLast: false })}
       >
         <ValueUpdate
           original={borrowLimitUsedPercentage}
@@ -136,7 +136,7 @@ const AccountData: React.FC<AccountDataProps> = ({
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowBalance')}
-        css={styles.getRow({ isLast: true })}
+        css={sharedStyles.getRow({ isLast: true })}
       >
         <ValueUpdate
           original={userTotalBorrowBalanceCents.toNumber()}
@@ -145,12 +145,12 @@ const AccountData: React.FC<AccountDataProps> = ({
         />
       </LabeledInlineContent>
 
-      <Delimiter css={styles.getRow({ isLast: true })} />
+      <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowAPy')}
         iconName={asset.id}
-        css={styles.getRow({ isLast: false })}
+        css={sharedStyles.getRow({ isLast: false })}
       >
         {readableBorrowApy}
       </LabeledInlineContent>
@@ -158,16 +158,16 @@ const AccountData: React.FC<AccountDataProps> = ({
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.distributionApy')}
         iconName="xvs"
-        css={styles.getRow({ isLast: true })}
+        css={sharedStyles.getRow({ isLast: true })}
       >
         {readableDistributionApy}
       </LabeledInlineContent>
 
-      <Delimiter css={styles.getRow({ isLast: true })} />
+      <Delimiter css={sharedStyles.getRow({ isLast: true })} />
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.dailyEarnings')}
-        css={styles.getRow({ isLast: true })}
+        css={sharedStyles.getRow({ isLast: true })}
       >
         <ValueUpdate
           original={dailyEarningsCents?.toNumber()}

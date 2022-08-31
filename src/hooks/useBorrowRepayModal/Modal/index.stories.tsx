@@ -35,14 +35,14 @@ const context = {
 
 export const Disconnected = Template.bind({});
 Disconnected.args = {
-  asset: assetData[0],
+  assetId: assetData[0].id,
   onClose: noop,
 };
 
 export const Disabled = Template.bind({});
 Disabled.decorators = [withAuthContext(context)];
 Disabled.args = {
-  asset: assetData[0],
+  assetId: assetData[0].id,
   onClose: noop,
 };
 
@@ -56,6 +56,6 @@ Default.decorators = [
   }),
 ];
 Default.args = {
-  asset: assetData[0],
+  assetId: assetData[0].id,
   onClose: noop,
 };

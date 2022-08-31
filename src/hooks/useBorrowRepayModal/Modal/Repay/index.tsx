@@ -26,9 +26,9 @@ import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
-import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
-import { useStyles as useRepayStyles } from './styles';
+import { useStyles as useSharedStyles } from '../styles';
+import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
@@ -50,12 +50,8 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 }) => {
   const { t, Trans } = useTranslation();
 
-  const sharedStyles = useStyles();
-  const repayStyles = useRepayStyles();
-  const styles = {
-    ...sharedStyles,
-    ...repayStyles,
-  };
+  const sharedStyles = useSharedStyles();
+  const styles = useStyles();
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
@@ -131,13 +127,13 @@ export const RepayForm: React.FC<RepayFormProps> = ({
       {({ values, setFieldValue, handleBlur, dirty, isValid, errors }) => (
         <>
           <LabeledInlineContent
-            css={styles.getRow({ isLast: true })}
+            css={sharedStyles.getRow({ isLast: true })}
             label={t('borrowRepayModal.repay.currentlyBorrowing')}
           >
             {readableTokenBorrowBalance}
           </LabeledInlineContent>
 
-          <div css={[styles.getRow({ isLast: false })]}>
+          <div css={[sharedStyles.getRow({ isLast: false })]}>
             <TokenTextField
               name="amount"
               tokenId={asset.id}
@@ -156,7 +152,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
                 <Trans
                   i18nKey="borrowRepayModal.repay.walletBalance"
                   components={{
-                    White: <span css={styles.whiteLabel} />,
+                    White: <span css={sharedStyles.whiteLabel} />,
                   }}
                   values={{ balance: readableTokenWalletBalance }}
                 />
@@ -164,7 +160,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
             />
           </div>
 
-          <div css={[styles.getRow({ isLast: true })]}>
+          <div css={[sharedStyles.getRow({ isLast: true })]}>
             <div css={styles.selectButtonsContainer}>
               {PRESET_PERCENTAGES.map(percentage => (
                 <TertiaryButton
@@ -181,7 +177,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
             {shouldDisplayFullRepaymentWarning(values.amount) && (
               <NoticeWarning
-                css={styles.notice}
+                css={sharedStyles.notice}
                 description={t('borrowRepayModal.repay.fullRepaymentWarning')}
               />
             )}
@@ -253,33 +249,31 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   return (
     <ConnectWallet message={t('borrowRepayModal.repay.connectWalletMessage')}>
-      {asset && (
-        <EnableToken
-          vTokenId={asset.id}
-          spenderAddress={vBepTokenContractAddress}
-          title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.symbol })}
-          tokenInfo={[
-            {
-              label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
-              iconName: asset.id,
-              children: formatToReadablePercentage(asset.borrowApy),
-            },
-            {
-              label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
-              iconName: 'xvs',
-              children: formatToReadablePercentage(asset.xvsBorrowApy),
-            },
-          ]}
-        >
-          <RepayForm
-            asset={asset}
-            repay={handleRepay}
-            isXvsEnabled={isXvsEnabled}
-            isRepayLoading={isRepayLoading}
-            limitTokens={limitTokens.toFixed()}
-          />
-        </EnableToken>
-      )}
+      <EnableToken
+        vTokenId={asset.id}
+        spenderAddress={vBepTokenContractAddress}
+        title={t('borrowRepayModal.repay.enableToken.title', { symbol: asset.symbol })}
+        tokenInfo={[
+          {
+            label: t('borrowRepayModal.repay.enableToken.borrowInfo'),
+            iconName: asset.id,
+            children: formatToReadablePercentage(asset.borrowApy),
+          },
+          {
+            label: t('borrowRepayModal.repay.enableToken.distributionInfo'),
+            iconName: 'xvs',
+            children: formatToReadablePercentage(asset.xvsBorrowApy),
+          },
+        ]}
+      >
+        <RepayForm
+          asset={asset}
+          repay={handleRepay}
+          isXvsEnabled={isXvsEnabled}
+          isRepayLoading={isRepayLoading}
+          limitTokens={limitTokens.toFixed()}
+        />
+      </EnableToken>
     </ConnectWallet>
   );
 };

@@ -26,8 +26,8 @@ import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { useStyles } from '../../styles';
 import AccountData from '../AccountData';
+import { useStyles } from '../styles';
 import TEST_IDS from './testIds';
 
 export interface BorrowFormProps {
@@ -234,36 +234,34 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   return (
     <ConnectWallet message={t('borrowRepayModal.borrow.connectWalletMessage')}>
-      {asset && (
-        <EnableToken
-          vTokenId={asset.id}
-          spenderAddress={vBepTokenContractAddress}
-          title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
-          tokenInfo={[
-            {
-              label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
-              iconName: asset.id,
-              children: formatToReadablePercentage(asset.borrowApy),
-            },
-            {
-              label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
-              iconName: 'xvs',
-              children: formatToReadablePercentage(asset.xvsBorrowApy),
-            },
-          ]}
-        >
-          <BorrowForm
-            asset={asset}
-            isXvsEnabled={isXvsEnabled}
-            limitTokens={limitTokens}
-            safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-            safeLimitTokens={safeLimitTokens}
-            borrow={handleBorrow}
-            isBorrowLoading={isBorrowLoading}
-            hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
-          />
-        </EnableToken>
-      )}
+      <EnableToken
+        vTokenId={asset.id}
+        spenderAddress={vBepTokenContractAddress}
+        title={t('borrowRepayModal.borrow.enableToken.title', { symbol: asset.symbol })}
+        tokenInfo={[
+          {
+            label: t('borrowRepayModal.borrow.enableToken.borrowInfo'),
+            iconName: asset.id,
+            children: formatToReadablePercentage(asset.borrowApy),
+          },
+          {
+            label: t('borrowRepayModal.borrow.enableToken.distributionInfo'),
+            iconName: 'xvs',
+            children: formatToReadablePercentage(asset.xvsBorrowApy),
+          },
+        ]}
+      >
+        <BorrowForm
+          asset={asset}
+          isXvsEnabled={isXvsEnabled}
+          limitTokens={limitTokens}
+          safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+          safeLimitTokens={safeLimitTokens}
+          borrow={handleBorrow}
+          isBorrowLoading={isBorrowLoading}
+          hasUserCollateralizedSuppliedAssets={hasUserCollateralizedSuppliedAssets}
+        />
+      </EnableToken>
     </ConnectWallet>
   );
 };

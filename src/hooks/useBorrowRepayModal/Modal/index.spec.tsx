@@ -29,19 +29,14 @@ describe('pages/Dashboard/BorrowRepayModal', () => {
 
   it('renders without crashing', async () => {
     const { getByText } = renderComponent(
-      <BorrowRepay onClose={jest.fn()} asset={asset} isXvsEnabled />,
+      <BorrowRepay onClose={jest.fn()} assetId={asset.id} isXvsEnabled />,
     );
     await waitFor(() => expect(getByText(en.borrowRepayModal.borrowTabTitle)));
   });
 
   it.each(DISABLED_TOKENS)('does not display borrow tab when asset is %s', async tokenId => {
-    const fakeAsset = {
-      ...asset,
-      id: tokenId as TokenId,
-    };
-
     const { queryByText } = renderComponent(() => (
-      <BorrowRepay onClose={jest.fn()} asset={fakeAsset} isXvsEnabled />
+      <BorrowRepay onClose={jest.fn()} assetId={tokenId as TokenId} isXvsEnabled />
     ));
 
     await waitFor(() => expect(queryByText(en.borrowRepayModal.borrowTabTitle)).toBeNull());

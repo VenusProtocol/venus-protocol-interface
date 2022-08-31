@@ -4,7 +4,7 @@ import { Asset, TokenId } from 'types';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
-import BorrowRepayModal from 'pages/Dashboard/Markets/Modals/BorrowRepay';
+import BorrowRepayModal from 'hooks/useBorrowRepayModal/Modal';
 
 import BorrowMarketTable, { BorrowMarketTableProps } from './BorrowMarketTable';
 
@@ -37,18 +37,13 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
     setSelectedAssetId(row[0].value as TokenId);
   };
 
-  const selectedAsset = React.useMemo(
-    () => assets.find(marketAsset => marketAsset.id === selectedAssetId),
-    [selectedAssetId, JSON.stringify(assets)],
-  );
-
   return (
     <>
       <BorrowMarketTable assets={assets} isXvsEnabled={isXvsEnabled} rowOnClick={rowOnClick} />
 
-      {selectedAsset && (
+      {selectedAssetId && (
         <BorrowRepayModal
-          asset={selectedAsset}
+          assetId={selectedAssetId}
           onClose={() => setSelectedAssetId(undefined)}
           isXvsEnabled={isXvsEnabled}
         />
