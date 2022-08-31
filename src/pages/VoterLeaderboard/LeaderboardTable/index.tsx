@@ -128,7 +128,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         orderBy: 'rank',
         orderDirection: 'asc',
       }}
-      rowKeyIndex={0}
+      rowKeyExtractor={row => `${row[0].value}`}
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}

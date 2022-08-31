@@ -9,7 +9,7 @@ import { TableRowProps } from './types';
 
 interface TableCardProps {
   rows: TableRowProps[][];
-  rowKeyIndex: number;
+  rowKeyExtractor: (row: TableRowProps[]) => string;
   columns: { key: string; label: string; orderable: boolean }[];
   className?: string;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
@@ -18,7 +18,7 @@ interface TableCardProps {
 
 const TableCards: React.FC<TableCardProps> = ({
   rows,
-  rowKeyIndex,
+  rowKeyExtractor,
   rowOnClick,
   getRowHref,
   columns,
@@ -28,8 +28,8 @@ const TableCards: React.FC<TableCardProps> = ({
 
   return (
     <div className={className}>
-      {rows.map((row, idx) => {
-        const rowKey = `${row[rowKeyIndex].value.toString()}-${idx}-cards`;
+      {rows.map(row => {
+        const rowKey = rowKeyExtractor(row);
         const [titleColumn, ...otherColumns] = columns;
         const titleCell = row.find(cell => titleColumn.key === cell.key);
 

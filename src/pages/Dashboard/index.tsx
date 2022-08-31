@@ -6,16 +6,14 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
 import { useGetUserMarketInfo } from 'clients/api';
+import { MarketTable } from 'containers/MarketTable';
 import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import HigherRiskTokensNotice from './HigherRiskTokensNotice';
-import BorrowMarket from './Markets/BorrowMarket';
-import SupplyMarket from './Markets/SupplyMarket';
 import { useStyles } from './styles';
 
 interface DashboardUiProps {
-  accountAddress: string;
   userTotalBorrowLimitCents: BigNumber;
   areHigherRiskTokensDisplayed: boolean;
   onHigherRiskTokensToggleChange: (newValue: boolean) => void;
@@ -25,7 +23,6 @@ interface DashboardUiProps {
 }
 
 const DashboardUi: React.FC<DashboardUiProps> = ({
-  accountAddress,
   assets,
   areHigherRiskTokensDisplayed,
   onHigherRiskTokensToggleChange,
@@ -118,11 +115,21 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       {activeTabIndex === 0 ? (
         // TODO: get isXvsEnabled from context
         // TODO: handle sorting on mobile
-        <SupplyMarket isXvsEnabled accountAddress={accountAddress} assets={assets} />
+        <MarketTable
+          assets={assets}
+          isXvsEnabled
+          marketType="supply"
+          columns={['asset', 'supplyApyLtv', 'market', 'riskLevel', 'collateral']}
+        />
       ) : (
         // TODO: get isXvsEnabled from context
         // TODO: handle sorting on mobile
-        <BorrowMarket isXvsEnabled assets={assets} />
+        <MarketTable
+          assets={assets}
+          isXvsEnabled
+          marketType="borrow"
+          columns={['asset', 'borrowApy', 'market', 'riskLevel', 'liquidity']}
+        />
       )}
     </>
   );
@@ -144,7 +151,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <DashboardUi
-      accountAddress={accountAddress}
       assets={assets}
       userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       areHigherRiskTokensDisplayed={areHigherRiskTokensDisplayed}

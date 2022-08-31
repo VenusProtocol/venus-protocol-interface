@@ -132,7 +132,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         <Table
           columns={columns}
           data={rows}
-          rowKeyIndex={1}
+          rowKeyExtractor={row => `${row[1].value}`}
           tableCss={styles.table}
           cardsCss={styles.cards}
           css={styles.cardContentGrid}

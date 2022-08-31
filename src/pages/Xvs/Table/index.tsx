@@ -104,7 +104,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
         orderBy: 'xvsPerDay',
         orderDirection: 'desc',
       }}
-      rowKeyIndex={0}
+      rowKeyExtractor={row => `${row[0].value}`}
       tableCss={styles.table}
       cardsCss={styles.cards}
       css={styles.cardContentGrid}

@@ -24,9 +24,9 @@ export interface TableRowProps {
 export interface TableBaseProps {
   title?: string;
   data: TableRowProps[][];
+  rowKeyExtractor: (row: TableRowProps[]) => string;
   columns: { key: string; label: string; orderable: boolean }[];
   cardColumns?: { key: string; label: string; orderable: boolean }[];
-  rowKeyIndex: number;
   minWidth?: string;
   initialOrder?: {
     orderBy: string;
@@ -41,12 +41,12 @@ export interface TableBaseProps {
   isFetching?: boolean;
 }
 
-interface TableCardRowOnClickProps extends TableBaseProps {
+export interface TableCardRowOnClickProps extends TableBaseProps {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
   getRowHref?: undefined;
 }
 
-interface TableCardHrefProps extends TableBaseProps {
+export interface TableCardHrefProps extends TableBaseProps {
   rowOnClick?: undefined;
   getRowHref?: (row: TableRowProps[]) => string;
 }
@@ -62,7 +62,7 @@ export const Table = ({
   initialOrder,
   rowOnClick,
   getRowHref,
-  rowKeyIndex,
+  rowKeyExtractor,
   className,
   tableCss,
   cardsCss,
@@ -129,8 +129,9 @@ export const Table = ({
           />
 
           <TableBody>
-            {rows.map((row, idx) => {
-              const rowKey = `${row[rowKeyIndex].value.toString()}-${idx}-table`;
+            {rows.map(row => {
+              const rowKey = rowKeyExtractor(row);
+
               return (
                 <TableRow
                   hover
@@ -143,10 +144,11 @@ export const Table = ({
                   {row.map(({ key, render, align }: TableRowProps) => {
                     const cellContent = render();
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+
                     return (
                       <TableCell
                         css={styles.getCellWrapper({ containsLink: !!getRowHref })}
-                        key={`${rowKey}-${key}-table`}
+                        key={`${rowKey}-${key}`}
                         title={cellTitle}
                         align={align}
                       >
@@ -163,7 +165,7 @@ export const Table = ({
 
       <TableCards
         rows={rows}
-        rowKeyIndex={rowKeyIndex}
+        rowKeyExtractor={rowKeyExtractor}
         rowOnClick={rowOnClick}
         getRowHref={getRowHref}
         columns={cardColumns || columns}

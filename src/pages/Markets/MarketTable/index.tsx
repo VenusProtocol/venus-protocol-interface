@@ -130,7 +130,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets }) => {
           orderBy: 'asset',
           orderDirection: 'desc',
         }}
-        rowKeyIndex={0}
+        rowKeyExtractor={row => `${row[0].value}`}
         getRowHref={() => Path.MARKET.replace(':marketId', 'FAKE_MARKET_ID')} // TODO: wire up
         tableCss={hideXxlDownCss}
         cardsCss={showXxlDownCss}

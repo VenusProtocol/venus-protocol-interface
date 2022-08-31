@@ -96,7 +96,7 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
         orderBy: 'apy',
         orderDirection: 'desc',
       }}
-      rowKeyIndex={0}
+      rowKeyExtractor={row => `${row[0].value}`}
       rowOnClick={rowOnClick}
       tableCss={hideLgDownCss}
       cardsCss={showLgDownCss}
