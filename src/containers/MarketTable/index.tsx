@@ -1,8 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableCardRowOnClickProps, TableRowProps } from 'components';
+import { Table, TableCardRowOnClickProps, TableRowProps, toast } from 'components';
+import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
+
+import useCollateral from 'hooks/useCollateral';
 
 import generateRow from './generateRow';
 import { useStyles } from './styles';
@@ -38,6 +41,20 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
+  const { collateralModalDom, toggleCollateral } = useCollateral();
+
+  const handleCollateralChange = async (assetToUpdate: Asset) => {
+    try {
+      await toggleCollateral(assetToUpdate);
+    } catch (e) {
+      if (e instanceof VError) {
+        toast.error({
+          message: formatVErrorToReadableString(e),
+        });
+      }
+    }
+  };
+
   const rowKeyExtractor = (row: TableRowProps[]) => {
     // Generate key using data that's unique to the row (asset and market)
     let key = `${row.find(cell => cell.key === 'asset')?.value || ''}`;
@@ -69,9 +86,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
           asset,
           isXvsEnabled,
           columns,
-          // TODO: render collateral modal and pass function to generateRow to
-          // enable/disable asset as collateral
-          collateralOnChange: () => {},
+          collateralOnChange: handleCollateralChange,
           marketLinkCss: styles.marketLink,
         }),
       ),
@@ -80,15 +95,17 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   // TODO: add row on click function to open supply or borrow modal
 
-  // TODO: handle responsiveness
-
   return (
-    <Table
-      columns={headColumns}
-      data={data}
-      css={styles.cardContentGrid}
-      rowKeyExtractor={rowKeyExtractor}
-      {...otherTableProps}
-    />
+    <>
+      <Table
+        columns={headColumns}
+        data={data}
+        css={styles.cardContentGrid}
+        rowKeyExtractor={rowKeyExtractor}
+        {...otherTableProps}
+      />
+
+      {collateralModalDom}
+    </>
   );
 };

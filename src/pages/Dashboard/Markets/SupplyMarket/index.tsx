@@ -60,6 +60,8 @@ export const SupplyMarketUi: React.FC<SupplyMarketProps> = ({
     // Block action and show warning modal if user has LUNA or UST enabled as
     // collateral and is attempting to open the supply modal of other assets
     if (hasLunaOrUstCollateralEnabled && assetId !== TOKENS.luna.id && assetId !== TOKENS.ust.id) {
+      e.preventDefault();
+      e.stopPropagation();
       openLunaUstWarningModal();
       return;
     }
