@@ -39,15 +39,16 @@ const fakeUserTotalBorrowBalanceDollars = new BigNumber(10);
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-describe('pages/Dashboard/SupplyWithdrawUi', () => {
+describe('hooks/useSupplyWithdrawModal', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({
       allowanceWei: MAX_UINT256,
     }));
+
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
-        assets: [], // Not used in these tests
+        assets: assetData,
         userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
         userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
       },
@@ -56,14 +57,12 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(() => (
-      <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />
-    ));
+    renderComponent(() => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />);
   });
 
   it('asks the user to connect if wallet is not connected', async () => {
     const { getByText } = renderComponent(() => (
-      <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
+      <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />
     ));
 
     const connectTextSupply = getByText(en.supplyWithdraw.connectWalletToSupply);
@@ -76,9 +75,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => (
-        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
-      ),
+      () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />,
       {
         authContextValue: {
           account: {
@@ -97,21 +94,34 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   describe('Supply form', () => {
+    beforeEach(() => {
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: [fakeAsset],
+          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        },
+        isLoading: false,
+      }));
+    });
+
     it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async tokenId => {
       const customFakeAsset = {
         ...fakeAsset,
         id: tokenId as TokenId,
       };
 
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: [customFakeAsset],
+          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        },
+        isLoading: false,
+      }));
+
       const { queryByText } = renderComponent(
-        () => (
-          <SupplyWithdraw
-            onClose={jest.fn()}
-            asset={customFakeAsset}
-            isXvsEnabled
-            assets={[customFakeAsset]}
-          />
-        ),
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={customFakeAsset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -126,7 +136,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
     it('displays correct token wallet balance', async () => {
       const { getByText } = renderComponent(
-        <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />,
+        <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -141,9 +151,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
     it('displays correct token supply balance', async () => {
       const { getByText } = renderComponent(
-        () => (
-          <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
-        ),
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -162,15 +170,17 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         walletBalance: new BigNumber(1),
       };
 
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: [customFakeAsset],
+          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        },
+        isLoading: false,
+      }));
+
       const { getByText } = renderComponent(
-        () => (
-          <SupplyWithdraw
-            onClose={jest.fn()}
-            asset={customFakeAsset}
-            isXvsEnabled
-            assets={[customFakeAsset]}
-          />
-        ),
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={customFakeAsset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -199,9 +209,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
     it('submit is disabled with no amount', async () => {
       const { getByText } = renderComponent(
-        () => (
-          <SupplyWithdraw onClose={jest.fn()} asset={fakeAsset} isXvsEnabled assets={[fakeAsset]} />
-        ),
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -228,20 +236,22 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         walletBalance: new BigNumber('11'),
       };
 
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: [customFakeAsset],
+          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        },
+        isLoading: false,
+      }));
+
       const onCloseMock = jest.fn();
       const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
       (supplyBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       renderComponent(
-        () => (
-          <SupplyWithdraw
-            onClose={onCloseMock}
-            asset={customFakeAsset}
-            isXvsEnabled
-            assets={[fakeAsset]}
-          />
-        ),
+        () => <SupplyWithdraw onClose={onCloseMock} assetId={customFakeAsset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -288,20 +298,22 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         walletBalance: new BigNumber('11'),
       };
 
+      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
+        data: {
+          assets: [customFakeAsset],
+          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
+          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
+        },
+        isLoading: false,
+      }));
+
       const onCloseMock = jest.fn();
       const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
 
       (supplyNonBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       const { getByText } = renderComponent(
-        () => (
-          <SupplyWithdraw
-            onClose={onCloseMock}
-            asset={customFakeAsset}
-            isXvsEnabled
-            assets={[fakeAsset]}
-          />
-        ),
+        () => <SupplyWithdraw onClose={onCloseMock} assetId={customFakeAsset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -345,23 +357,12 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   describe('Withdraw form', () => {
-    beforeEach(() => {
-      (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
-        data: {
-          assets: [], // Not used in these tests
-          userTotalBorrowLimitCents: fakeUserTotalBorrowLimitDollars,
-          userTotalBorrowBalanceCents: fakeUserTotalBorrowBalanceDollars,
-        },
-        isLoading: false,
-      }));
-    });
-
     it('redeem is called when full amount is withdrawn', async () => {
       (getVTokenBalanceOf as jest.Mock).mockImplementationOnce(async () => ({
         balanceWei: fakeGetVTokenBalance,
       }));
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {
@@ -387,7 +388,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
 
     it('redeemUnderlying is called when partial amount is withdrawn', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} asset={asset} isXvsEnabled assets={assetData} />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />,
         {
           authContextValue: {
             account: {

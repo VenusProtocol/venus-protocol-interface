@@ -16,6 +16,7 @@ import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useCollateral from 'hooks/useCollateral';
+import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 
 import generateRow from './generateRow';
 import { useStyles } from './styles';
@@ -54,6 +55,11 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { borrowRepayModalDom, openBorrowRepayModal } = useBorrowRepayModal({
     isXvsEnabled,
   });
+
+  const { supplyWithdrawModalDom, openSupplyWithdrawModal } = useSupplyWithdrawModal({
+    isXvsEnabled,
+  });
+
   const { collateralModalDom, toggleCollateral } = useCollateral();
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
@@ -130,9 +136,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
     if (marketType === 'borrow') {
       openBorrowRepayModal(assetId);
+    } else {
+      openSupplyWithdrawModal(assetId);
     }
-
-    // TODO: open supply/withdraw modal
   };
 
   return (
@@ -147,8 +153,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       />
 
       {collateralModalDom}
-
       {borrowRepayModalDom}
+      {supplyWithdrawModalDom}
     </>
   );
 };

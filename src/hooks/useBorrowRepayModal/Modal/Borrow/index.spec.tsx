@@ -30,7 +30,7 @@ const fakeUserTotalBorrowBalanceCents = new BigNumber(1000);
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
+describe('hooks/useBorrowRepayModal/Borrow', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({

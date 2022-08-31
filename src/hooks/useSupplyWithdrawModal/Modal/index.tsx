@@ -32,18 +32,21 @@ import { AmountFormProps } from 'containers/AmountForm';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
-import { useStyles } from '../styles';
 import SupplyWithdrawForm from './SupplyWithdrawForm';
+import { useStyles } from './styles';
 
-export interface SupplyWithdrawUiProps {
+export interface SupplyWithdrawProps {
+  onClose: ModalProps['handleClose'];
+  isXvsEnabled: boolean;
+  assetId: Asset['id'];
+}
+
+export interface SupplyWithdrawUiProps extends Omit<SupplyWithdrawProps, 'assetId'> {
   className?: string;
   onClose: ModalProps['handleClose'];
   asset: Asset;
   assets: Asset[];
   isXvsEnabled: boolean;
-}
-
-export interface SupplyWithdrawProps {
   userTotalBorrowBalanceCents: BigNumber;
   userTotalBorrowLimitCents: BigNumber;
   onSubmitSupply: AmountFormProps['onSubmit'];
@@ -56,7 +59,7 @@ export interface SupplyWithdrawProps {
  * The fade effect on this component results in that it is still rendered after the asset has been set to undefined
  * when closing the modal.
  */
-export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawProps> = ({
+export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   className,
   onClose,
   asset,
@@ -225,25 +228,31 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
   );
 };
 
-const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
-  const { asset, assets, isXvsEnabled, onClose, ...rest } = props;
+const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnabled, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
-  const { t } = useTranslation();
-  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
-    data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
+    data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
   } = useGetUserMarketInfo({
     accountAddress,
   });
 
+  const asset = React.useMemo(
+    () => assets.find(marketAsset => marketAsset.id === assetId),
+    [assetId, JSON.stringify(assets)],
+  );
+
+  const { t } = useTranslation();
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
   const { data: vTokenBalanceData } = useGetVTokenBalanceOf(
-    { accountAddress, vTokenId: asset.id as VTokenId },
+    { accountAddress, vTokenId: assetId as VTokenId },
     { enabled: !!accountAddress },
   );
 
   const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
-    asset,
+    assetId,
     account: accountAddress,
   });
 
@@ -259,6 +268,12 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
     });
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
+
+  // Hide modal while loading
+  if (!asset) {
+    // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+    return null;
+  }
 
   const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
     const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
@@ -312,9 +327,9 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
   };
   return (
     <SupplyWithdrawUi
-      {...rest}
       onClose={onClose}
       asset={asset}
+      assets={assets}
       userTotalBorrowBalanceCents={userTotalBorrowBalanceCents}
       userTotalBorrowLimitCents={userTotalBorrowLimitCents}
       onSubmitSupply={onSubmitSupply}
@@ -322,7 +337,6 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       isSupplyLoading={isSupplyLoading}
       isWithdrawLoading={isWithdrawLoading}
       isXvsEnabled={isXvsEnabled}
-      assets={assets}
     />
   );
 };

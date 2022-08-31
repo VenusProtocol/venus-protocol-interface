@@ -26,7 +26,7 @@ const fakeAsset: Asset = {
 jest.mock('clients/api');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
+describe('hooks/useBorrowRepayModal/Repay', () => {
   beforeEach(() => {
     // Mark token as enabled
     (getAllowance as jest.Mock).mockImplementation(() => ({

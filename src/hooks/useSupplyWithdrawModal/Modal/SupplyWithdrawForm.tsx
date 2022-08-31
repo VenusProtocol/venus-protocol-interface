@@ -29,7 +29,7 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentag
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
 import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
 
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 interface SupplyWithdrawFormUiProps {
   asset: Asset;

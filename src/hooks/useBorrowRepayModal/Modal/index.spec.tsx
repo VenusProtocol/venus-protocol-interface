@@ -15,7 +15,7 @@ const asset = assetData[1];
 
 jest.mock('clients/api');
 
-describe('pages/Dashboard/BorrowRepayModal', () => {
+describe('hooks/useBorrowRepayModal', () => {
   beforeEach(() => {
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {

@@ -7,6 +7,7 @@ export const useStyles = () => {
   return {
     container: css`
       margin-top: ${theme.spacing(10)};
+
       ${theme.breakpoints.down('md')} {
         margin-top: ${theme.spacing(8)};
       }
@@ -14,15 +15,11 @@ export const useStyles = () => {
     input: css`
       margin-bottom: ${theme.spacing(1)};
     `,
-    greyLabel: css`
-      color: ${theme.palette.text.secondary};
-    `,
     whiteLabel: css`
       color: ${theme.palette.text.primary};
     `,
-    totalAndLimit: css`
-      display: flex;
-      justify-content: space-between;
+    greyLabel: css`
+      color: ${theme.palette.text.secondary};
     `,
     notice: css`
       margin-top: ${theme.spacing(3)};
