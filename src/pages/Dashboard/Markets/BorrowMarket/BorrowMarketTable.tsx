@@ -7,8 +7,6 @@ import { useTranslation } from 'translation';
 import { Asset } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
-import { useHideLgDownCss, useShowLgDownCss } from 'hooks/responsive';
-
 import { useStyles as useSharedStyles } from '../styles';
 
 export interface BorrowMarketTableProps extends Pick<TableProps, 'rowOnClick'> {
@@ -23,9 +21,6 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
-
-  const showLgDownCss = useShowLgDownCss();
-  const hideLgDownCss = useHideLgDownCss();
 
   const columns = useMemo(
     () => [
@@ -98,8 +93,7 @@ const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       }}
       rowKeyExtractor={row => `${row[0].value}`}
       rowOnClick={rowOnClick}
-      tableCss={hideLgDownCss}
-      cardsCss={showLgDownCss}
+      breakpoint="lg"
       css={[sharedStyles.marketTable, sharedStyles.cardContentGrid]}
     />
   );

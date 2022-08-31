@@ -27,8 +27,7 @@ export const TableDefault = () => {
       title="Market Data"
       minWidth="650px"
       rowKeyExtractor={row => `${row[0].value}`}
-      tableCss={styles.tableCss}
-      cardsCss={styles.cardsCss}
+      breakpoint="lg"
       css={styles.table}
     />
   );
@@ -47,8 +46,7 @@ export const WithInitialOrderDefault = () => {
         orderDirection: 'desc',
       }}
       rowKeyExtractor={row => `${row[0].value}`}
-      tableCss={styles.tableCss}
-      cardsCss={styles.cardsCss}
+      breakpoint="lg"
       css={styles.table}
     />
   );
@@ -63,8 +61,7 @@ export const WithCustomColumnsWidth = () => {
       title="Market Data"
       rowKeyExtractor={row => `${row[0].value}`}
       gridTemplateColumnsCards="100px 1fr 1fr 140px"
-      tableCss={styles.tableCss}
-      cardsCss={styles.cardsCss}
+      breakpoint="lg"
       css={styles.table}
     />
   );
@@ -79,8 +76,7 @@ export const WithMultipleRows = () => {
       title="Market Data"
       minWidth="650px"
       rowKeyExtractor={row => `${row[0].value}`}
-      tableCss={styles.tableCss}
-      cardsCss={styles.cardsCss}
+      breakpoint="lg"
       css={[styles.table, styles.cardContentGrid]}
     />
   );

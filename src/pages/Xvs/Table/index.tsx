@@ -105,8 +105,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
         orderDirection: 'desc',
       }}
       rowKeyExtractor={row => `${row[0].value}`}
-      tableCss={styles.table}
-      cardsCss={styles.cards}
+      breakpoint="sm"
       css={styles.cardContentGrid}
     />
   );

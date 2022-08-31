@@ -119,6 +119,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           assets={assets}
           isXvsEnabled
           marketType="supply"
+          breakpoint="lg"
           columns={['asset', 'supplyApyLtv', 'market', 'riskLevel', 'collateral']}
         />
       ) : (
@@ -128,6 +129,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           assets={assets}
           isXvsEnabled
           marketType="borrow"
+          breakpoint="lg"
           columns={['asset', 'borrowApy', 'market', 'riskLevel', 'liquidity']}
         />
       )}

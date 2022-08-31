@@ -4,8 +4,6 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
-import { useHideLgDownCss, useShowLgDownCss } from 'hooks/responsive';
-
 import generateRow from './generateRow';
 import { useStyles } from './styles';
 import { ColumnName } from './types';
@@ -21,7 +19,8 @@ import { ColumnName } from './types';
 // t('marketTable.columns.liquidity')
 
 export interface MarketTableProps
-  extends Partial<Omit<TableCardRowOnClickProps, 'columns' | 'rowKeyIndex'>> {
+  extends Partial<Omit<TableCardRowOnClickProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
+    Pick<TableCardRowOnClickProps, 'breakpoint'> {
   assets: Asset[];
   isXvsEnabled: boolean;
   marketType: 'supply' | 'borrow';
@@ -38,8 +37,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const showLgDownCss = useShowLgDownCss();
-  const hideLgDownCss = useHideLgDownCss();
 
   const rowKeyExtractor = (row: TableRowProps[]) => {
     // Generate key using data that's unique to the row (asset and market)
@@ -89,8 +86,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     <Table
       columns={headColumns}
       data={data}
-      tableCss={hideLgDownCss}
-      cardsCss={showLgDownCss}
       css={styles.cardContentGrid}
       rowKeyExtractor={rowKeyExtractor}
       {...otherTableProps}

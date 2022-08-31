@@ -129,8 +129,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         orderDirection: 'asc',
       }}
       rowKeyExtractor={row => `${row[0].value}`}
-      tableCss={styles.table}
-      cardsCss={styles.cards}
+      breakpoint="xl"
       css={styles.cardContentGrid}
     />
   );
