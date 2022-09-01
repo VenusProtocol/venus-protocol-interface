@@ -7,6 +7,7 @@ import {
   LabeledInlineContentProps,
   Modal,
   ModalProps,
+  Spinner,
   TabContent,
   Tabs,
   Token,
@@ -44,7 +45,6 @@ export interface SupplyWithdrawProps {
 export interface SupplyWithdrawUiProps extends Omit<SupplyWithdrawProps, 'assetId'> {
   className?: string;
   onClose: ModalProps['handleClose'];
-  asset: Asset;
   assets: Asset[];
   isXvsEnabled: boolean;
   userTotalBorrowBalanceCents: BigNumber;
@@ -53,6 +53,7 @@ export interface SupplyWithdrawUiProps extends Omit<SupplyWithdrawProps, 'assetI
   onSubmitWithdraw: AmountFormProps['onSubmit'];
   isSupplyLoading: boolean;
   isWithdrawLoading: boolean;
+  asset?: Asset;
 }
 
 /**
@@ -76,8 +77,6 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 
   const { id: assetId, symbol } = asset || {};
   const { t } = useTranslation();
-
-  const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
 
   const tokenInfo: LabeledInlineContentProps[] = asset
     ? [
@@ -115,6 +114,10 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
     isTransactionLoading: boolean;
     onSubmit: AmountFormProps['onSubmit'];
   }) => {
+    if (!asset) {
+      return <></>;
+    }
+
     const maxInput = React.useMemo(() => {
       let maxInputTokens = asset.walletBalance;
 
@@ -151,10 +154,10 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
     return (
       <div className={className} css={styles.container}>
         <ConnectWallet message={message}>
-          {asset && (
+          {asset ? (
             <EnableToken
               vTokenId={asset.id}
-              spenderAddress={vBepTokenContractAddress}
+              spenderAddress={getVBepToken(asset.id as VTokenId).address}
               title={title}
               tokenInfo={tokenInfo}
             >
@@ -176,6 +179,8 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
                 isXvsEnabled={isXvsEnabled}
               />
             </EnableToken>
+          ) : (
+            <Spinner />
           )}
         </ConnectWallet>
       </div>
@@ -200,7 +205,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   ];
 
   // Prevent user from being able to supply UST or LUNA
-  if (isAssetEnabled(assetId)) {
+  if (assetId && isAssetEnabled(assetId)) {
     tabsContent.unshift({
       title: t('supplyWithdraw.supply'),
       content: renderTabContent({
@@ -269,13 +274,11 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnab
 
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
 
-  // Hide modal while loading
-  if (!asset) {
-    // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
-    return null;
-  }
-
   const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
+    if (!asset) {
+      return;
+    }
+
     const supplyAmount = new BigNumber(value).times(new BigNumber(10).pow(asset.decimals || 18));
     const res = await supply({
       amountWei: supplyAmount,
@@ -294,6 +297,10 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnab
   };
 
   const onSubmitWithdraw: AmountFormProps['onSubmit'] = async value => {
+    if (!asset) {
+      return;
+    }
+
     const amount = new BigNumber(value);
     const amountEqualsSupplyBalance = amount.eq(asset.supplyBalance);
     let transactionHash;

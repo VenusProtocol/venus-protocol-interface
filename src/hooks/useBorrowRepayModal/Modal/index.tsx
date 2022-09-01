@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, TabContent, Tabs, Token } from 'components';
+import { Modal, ModalProps, Spinner, TabContent, Tabs, Token } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -35,29 +35,31 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, isXvsEnable
     [assetId, JSON.stringify(assets)],
   );
 
-  // Hide modal while loading
-  if (!asset) {
-    // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
-    return null;
-  }
-
   const tabsContent: TabContent[] = [
     {
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
         <div css={styles.container}>
-          <Repay asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
+          {asset ? (
+            <Repay asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
+          ) : (
+            <Spinner />
+          )}
         </div>
       ),
     },
   ];
 
-  if (isAssetEnabled(asset.id)) {
+  if (asset && isAssetEnabled(asset.id)) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
         <div css={styles.container}>
-          <Borrow asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
+          {asset ? (
+            <Borrow asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
+          ) : (
+            <Spinner />
+          )}
         </div>
       ),
     });
