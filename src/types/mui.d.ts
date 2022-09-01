@@ -53,7 +53,6 @@ declare module '@mui/material/styles' {
       xxLarge: number;
     };
     footerHeight: string;
-    bannerHeight: string;
     drawerWidthDesktop: string;
     drawerWidthTablet: string;
   }
