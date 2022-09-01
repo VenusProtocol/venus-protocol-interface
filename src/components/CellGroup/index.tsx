@@ -12,14 +12,14 @@ export interface Cell {
   color?: string;
 }
 
-export interface NumberCellGroupProps {
+export interface CellGroupProps {
   cells: Cell[];
   smallValues?: boolean;
   title?: string;
   className?: string;
 }
 
-export const CellGroup: React.FC<NumberCellGroupProps> = ({
+export const CellGroup: React.FC<CellGroupProps> = ({
   cells,
   title,
   smallValues = false,

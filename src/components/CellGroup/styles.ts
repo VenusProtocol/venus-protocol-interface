@@ -5,7 +5,7 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     container: css`
-      ${theme.breakpoints.down('xxl')} {
+      ${theme.breakpoints.down('xl')} {
         padding: 0;
         background-color: transparent;
       }
@@ -17,7 +17,7 @@ export const useStyles = () => {
       display: flex;
       flex-wrap: wrap;
 
-      ${theme.breakpoints.down('xxl')} {
+      ${theme.breakpoints.down('xl')} {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: ${theme.spacing(2)};
@@ -43,7 +43,7 @@ export const useStyles = () => {
         border-right: 1px solid ${theme.palette.interactive.delimiter};
       }
 
-      ${theme.breakpoints.down('xxl')} {
+      ${theme.breakpoints.down('xl')} {
         border-radius: ${theme.spacing(4)};
         padding: ${theme.spacing(4)};
         background-color: ${theme.palette.background.paper};
@@ -69,7 +69,7 @@ export const useStyles = () => {
     label: css`
       color: ${theme.palette.text.secondary};
 
-      ${theme.breakpoints.down('xxl')} {
+      ${theme.breakpoints.down('xl')} {
         font-size: ${theme.typography.small1.fontSize};
       }
     `,
