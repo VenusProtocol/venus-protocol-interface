@@ -231,7 +231,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnabled, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
-  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
   } = useGetUserMarketInfo({
@@ -271,7 +271,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnab
 
   // Hide modal while loading
   if (!asset) {
-    // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+    // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
     return null;
   }
 

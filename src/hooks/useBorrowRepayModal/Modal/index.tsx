@@ -23,7 +23,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, isXvsEnable
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
 
-  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
   const {
     data: { assets },
   } = useGetUserMarketInfo({
@@ -37,7 +37,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, isXvsEnable
 
   // Hide modal while loading
   if (!asset) {
-    // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+    // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
     return null;
   }
 
