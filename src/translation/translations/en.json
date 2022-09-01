@@ -1,4 +1,14 @@
 {
+  "account": {
+    "accountSummary": {
+      "dailyEarnings": "Daily Earnings",
+      "netApy": "Net APY",
+      "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+      "title": "Account summary",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    }
+  },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
     "borrowLimitTooltip": "Current borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
@@ -14,6 +24,52 @@
       "supplyApy": "Supply APY",
       "totalBorrow": "Total borrow",
       "totalSupply": "Total supply"
+    }
+  },
+  "asset": {
+    "borrowInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalBorrow": "Total borrow"
+      },
+      "title": "Borrow info"
+    },
+    "interestRateModel": {
+      "title": "Interest Rate Model"
+    },
+    "legends": {
+      "borrowApy": "Borrow APY",
+      "supplyApy": "Supply APY",
+      "utilizationRate": "Utilization rate"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowCapLabel": "Borrow cap",
+        "borrowerCountLabel": "# of borrowers",
+        "collateralFactorLabel": "Collateral factor",
+        "dailyBorrowingInterestsLabel": "Daily borrowing interests",
+        "dailyDistributionXvs": "Daily XVS distributed",
+        "dailySupplyingInterestsLabel": "Daily supplying interests",
+        "exchangeRateLabel": "Exchange rate",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "marketLiquidityLabel": "Market liquidity",
+        "mintedTokensLabel": "{{vTokenSymbol}} minted",
+        "priceLabel": "Price",
+        "reserveFactorLabel": "Reserve factor",
+        "reserveTokensLabel": "Reserves",
+        "supplierCountLabel": "# of suppliers",
+        "unlimitedBorrowCap": "Uncapped"
+      },
+      "title": "Market info"
+    },
+    "supplyInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalSupply": "Total supply"
+      },
+      "title": "Supply info"
     }
   },
   "authModal": {
@@ -230,52 +286,6 @@
     "totalBorrow": "Total Borrow",
     "totalSupply": "Total Supply",
     "totalTreasury": "Total Treasury"
-  },
-  "asset": {
-    "borrowInfo": {
-      "stats": {
-        "apy": "APY",
-        "distributionApy": "Distribution APY",
-        "totalBorrow": "Total borrow"
-      },
-      "title": "Borrow info"
-    },
-    "interestRateModel": {
-      "title": "Interest Rate Model"
-    },
-    "legends": {
-      "borrowApy": "Borrow APY",
-      "supplyApy": "Supply APY",
-      "utilizationRate": "Utilization rate"
-    },
-    "marketInfo": {
-      "stats": {
-        "borrowCapLabel": "Borrow cap",
-        "borrowerCountLabel": "# of borrowers",
-        "collateralFactorLabel": "Collateral factor",
-        "dailyBorrowingInterestsLabel": "Daily borrowing interests",
-        "dailyDistributionXvs": "Daily XVS distributed",
-        "dailySupplyingInterestsLabel": "Daily supplying interests",
-        "exchangeRateLabel": "Exchange rate",
-        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "marketLiquidityLabel": "Market liquidity",
-        "mintedTokensLabel": "{{vTokenSymbol}} minted",
-        "priceLabel": "Price",
-        "reserveFactorLabel": "Reserve factor",
-        "reserveTokensLabel": "Reserves",
-        "supplierCountLabel": "# of suppliers",
-        "unlimitedBorrowCap": "Uncapped"
-      },
-      "title": "Market info"
-    },
-    "supplyInfo": {
-      "stats": {
-        "apy": "APY",
-        "distributionApy": "Distribution APY",
-        "totalSupply": "Total supply"
-      },
-      "title": "Supply info"
-    }
   },
   "markets": {
     "collateralConfirmModal": {
