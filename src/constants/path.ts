@@ -1,5 +1,6 @@
 enum Path {
   ROOT = '/',
+  ACCOUNT = '/account',
   XVS = '/xvs',
   MARKETS = '/markets',
   MARKET = '/market/:marketId',

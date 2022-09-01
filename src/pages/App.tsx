@@ -11,6 +11,7 @@ import Path from 'constants/path';
 import { AuthProvider } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
+import Account from 'pages/Account';
 import Asset from 'pages/Asset';
 import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
@@ -34,11 +35,14 @@ const App = () => (
             <DisableLunaUstWarningProvider>
               <BrowserRouter>
                 <ToastContainer />
+
                 <Layout>
                   <ResetScrollOnRouteChange />
 
                   <Switch>
                     <Route exact path={Path.ROOT} component={Dashboard} />
+
+                    <Route exact path={Path.ACCOUNT} component={Account} />
 
                     <Route exact path={Path.MARKETS} component={Markets} />
                     <Route exact path={Path.MARKET} component={Market} />
