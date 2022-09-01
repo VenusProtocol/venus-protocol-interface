@@ -277,6 +277,7 @@
   },
   "market": {
     "availableLiquidity": "Available Liquidity",
+    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
     "columns": {
       "assets": "Assets",
       "liquidity": "Liquidity",
@@ -284,6 +285,12 @@
       "riskLevel": "Risk level",
       "totalBorrow": "Total borrow",
       "totalSupply": "Total supply"
+    },
+    "header": {
+      "assetsLabel": "Assets",
+      "availableLiquidityLabel": "Available Liquidity",
+      "totalBorrowLabel": "Total Borrow",
+      "totalSupplyLabel": "Total Supply"
     },
     "totalBorrow": "Total Borrow",
     "totalSupply": "Total Supply",
