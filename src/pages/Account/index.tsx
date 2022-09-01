@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Cell, CellGroup } from 'components';
+import { Cell, CellGroup, Toggle } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
@@ -12,6 +12,8 @@ export interface AccountUiProps {
   dailyEarningsCents: number;
   totalSupplyCents: number;
   totalBorrowCents: number;
+  isXvsIncluded: boolean;
+  onIncludeXvsToggleChange: (newValue: boolean) => void;
 }
 
 export const AccountUi: React.FC<AccountUiProps> = ({
@@ -19,6 +21,8 @@ export const AccountUi: React.FC<AccountUiProps> = ({
   dailyEarningsCents,
   totalSupplyCents,
   totalBorrowCents,
+  isXvsIncluded,
+  onIncludeXvsToggleChange,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -48,9 +52,18 @@ export const AccountUi: React.FC<AccountUiProps> = ({
     <>
       <div css={styles.section}>
         <div css={styles.sectionTitle}>
-          <Typography variant="h3">{t('account.accountSummary.title')}</Typography>
+          <Typography variant="h3" css={styles.sectionTitleText}>
+            {t('account.accountSummary.title')}
+          </Typography>
 
-          {/* TODO: add XVS toggle */}
+          <Toggle
+            css={styles.sectionTitleToggle}
+            tooltip={t('account.accountSummary.includeXvsToggleTooltip')}
+            label={t('account.accountSummary.includeXvsToggleLabel')}
+            isLight
+            value={isXvsIncluded}
+            onChange={event => onIncludeXvsToggleChange(event.currentTarget.checked)}
+          />
         </div>
 
         <CellGroup cells={cells} />
@@ -65,6 +78,9 @@ const Account: React.FC = () => {
   const dailyEarningsCents = 100000;
   const totalSupplyCents = 100000000;
   const totalBorrowCents = 10000000;
+  // TODO: wire to context (see https://jira.toolsfdg.net/browse/VEN-490)
+  const isXvsIncluded = true;
+  const onIncludeXvsToggleChange = () => {};
 
   return (
     <AccountUi
@@ -72,6 +88,8 @@ const Account: React.FC = () => {
       dailyEarningsCents={dailyEarningsCents}
       totalSupplyCents={totalSupplyCents}
       totalBorrowCents={totalBorrowCents}
+      isXvsIncluded={isXvsIncluded}
+      onIncludeXvsToggleChange={onIncludeXvsToggleChange}
     />
   );
 };

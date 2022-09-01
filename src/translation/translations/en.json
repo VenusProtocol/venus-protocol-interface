@@ -2,6 +2,8 @@
   "account": {
     "accountSummary": {
       "dailyEarnings": "Daily Earnings",
+      "includeXvsToggleLabel": "Include XVS distribution APR",
+      "includeXvsToggleTooltip": "Choose whether to include the XVS distribution APR in calculations",
       "netApy": "Net APY",
       "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
       "title": "Account summary",
