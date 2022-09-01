@@ -95,7 +95,6 @@ export const SHAPE = {
     xxLarge: SPACING * 10,
   },
   footerHeight: '56px',
-  bannerHeight: '56px',
   drawerWidthDesktop: '224px',
   drawerWidthTablet: '80px',
 };
