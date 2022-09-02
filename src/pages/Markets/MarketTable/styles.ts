@@ -17,6 +17,7 @@ export const useStyles = () => {
       ${theme.breakpoints.down('xxl')} {
         background-color: initial;
         padding-top: 0;
+        padding-bottom: 0;
       }
 
       .table__table-cards__card-content {

@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { SerializedStyles } from '@emotion/react';
 import Paper from '@mui/material/Paper';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
 import { Spinner } from '../Spinner';
 import Head from './Head';
@@ -24,9 +25,10 @@ export interface TableRowProps {
 export interface TableBaseProps {
   title?: string;
   data: TableRowProps[][];
+  rowKeyExtractor: (row: TableRowProps[]) => string;
+  breakpoint: keyof typeof BREAKPOINTS['values'];
   columns: { key: string; label: string; orderable: boolean }[];
   cardColumns?: { key: string; label: string; orderable: boolean }[];
-  rowKeyIndex: number;
   minWidth?: string;
   initialOrder?: {
     orderBy: string;
@@ -34,19 +36,17 @@ export interface TableBaseProps {
   };
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
   className?: string;
-  tableCss?: SerializedStyles;
-  cardsCss?: SerializedStyles;
   gridTemplateColumnsCards?: string;
   gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
   isFetching?: boolean;
 }
 
-interface TableCardRowOnClickProps extends TableBaseProps {
+export interface TableCardRowOnClickProps extends TableBaseProps {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
   getRowHref?: undefined;
 }
 
-interface TableCardHrefProps extends TableBaseProps {
+export interface TableCardHrefProps extends TableBaseProps {
   rowOnClick?: undefined;
   getRowHref?: (row: TableRowProps[]) => string;
 }
@@ -62,10 +62,9 @@ export const Table = ({
   initialOrder,
   rowOnClick,
   getRowHref,
-  rowKeyIndex,
+  rowKeyExtractor,
   className,
-  tableCss,
-  cardsCss,
+  breakpoint,
   isFetching,
 }: TableProps) => {
   const styles = useStyles();
@@ -114,12 +113,12 @@ export const Table = ({
   }, [data, orderBy, orderDirection]);
 
   return (
-    <Paper css={styles.root} className={className}>
-      {title && <h4 css={styles.title}>{title}</h4>}
+    <Paper css={styles.getRoot({ breakpoint })} className={className}>
+      {title && <h4 css={styles.getTitle({ breakpoint })}>{title}</h4>}
 
       {isFetching && <Spinner css={styles.loader} />}
 
-      <TableContainer css={tableCss}>
+      <TableContainer css={styles.getTableContainer({ breakpoint })}>
         <TableMUI css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
           <Head
             columns={columns}
@@ -129,8 +128,9 @@ export const Table = ({
           />
 
           <TableBody>
-            {rows.map((row, idx) => {
-              const rowKey = `${row[rowKeyIndex].value.toString()}-${idx}-table`;
+            {rows.map(row => {
+              const rowKey = rowKeyExtractor(row);
+
               return (
                 <TableRow
                   hover
@@ -143,10 +143,11 @@ export const Table = ({
                   {row.map(({ key, render, align }: TableRowProps) => {
                     const cellContent = render();
                     const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+
                     return (
                       <TableCell
                         css={styles.getCellWrapper({ containsLink: !!getRowHref })}
-                        key={`${rowKey}-${key}-table`}
+                        key={`${rowKey}-${key}`}
                         title={cellTitle}
                         align={align}
                       >
@@ -163,11 +164,11 @@ export const Table = ({
 
       <TableCards
         rows={rows}
-        rowKeyIndex={rowKeyIndex}
+        rowKeyExtractor={rowKeyExtractor}
         rowOnClick={rowOnClick}
         getRowHref={getRowHref}
         columns={cardColumns || columns}
-        css={cardsCss}
+        breakpoint={breakpoint}
       />
     </Paper>
   );

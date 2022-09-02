@@ -323,6 +323,18 @@
       "title": "Sort by"
     }
   },
+  "marketTable": {
+    "columns": {
+      "asset": "Asset",
+      "borrowApy": "APY",
+      "collateral": "Collateral",
+      "liquidity": "Liquidity",
+      "market": "Market",
+      "riskLevel": "Risk level",
+      "supplyApyLtv": "APY / LTV",
+      "walletBalance": "Wallet"
+    }
+  },
   "myAccount": {
     "includingMintedVai": "Including minted VAI"
   },
