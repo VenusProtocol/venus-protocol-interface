@@ -29,6 +29,7 @@
     }
   },
   "asset": {
+    "borrowButtonLabel": "Borrow",
     "borrowInfo": {
       "stats": {
         "apy": "APY",
@@ -65,6 +66,7 @@
       },
       "title": "Market info"
     },
+    "supplyButtonLabel": "Supply",
     "supplyInfo": {
       "stats": {
         "apy": "APY",
@@ -301,15 +303,6 @@
       "confirmText": "Confirm the transaction",
       "disable": "Disable {{asset}} as collateral",
       "enable": "Enable {{asset}} as collateral"
-    },
-    "columns": {
-      "apy": "APY",
-      "apyLtv": "APY / LTV",
-      "asset": "Asset",
-      "collateral": "Collateral",
-      "liquidity": "Liquidity",
-      "market": "Market",
-      "riskLevel": "Risk level"
     },
     "errors": {
       "accountError": "Account Required - Please connect your wallet.",
