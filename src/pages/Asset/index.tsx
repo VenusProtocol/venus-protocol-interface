@@ -93,9 +93,9 @@ export const AssetUi: React.FC<AssetUiProps> = ({
   const token = getToken(vTokenId);
   const vToken = getVBepToken(vTokenId);
 
-  // TODO: grab isXvsEnabled from context (see https://jira.toolsfdg.net/browse/VEN-531)
+  // TODO: grab isXvsEnabled from context (see VEN-531)
   const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal({ isXvsEnabled: true });
-  // TODO: grab isXvsEnabled from context (see https://jira.toolsfdg.net/browse/VEN-531)
+  // TODO: grab isXvsEnabled from context (see VEN-531)
   const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal({
     isXvsEnabled: true,
   });

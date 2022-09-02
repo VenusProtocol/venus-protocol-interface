@@ -38,7 +38,7 @@ const AccountData: React.FC<AccountDataProps> = ({
   const sharedStyles = useSharedStyles();
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
-  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
+  // TODO: handle loading state (see VEN-591)
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
   } = useGetUserMarketInfo({

@@ -113,7 +113,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
 
 const XvsTable: React.FC = () => {
   const { account } = useContext(AuthContext);
-  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
+  // TODO: handle loading state (see VEN-591)
   const {
     data: { assets },
   } = useGetUserMarketInfo({

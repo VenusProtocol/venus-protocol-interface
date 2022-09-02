@@ -73,12 +73,12 @@ export const AccountUi: React.FC<AccountUiProps> = ({
 };
 
 const Account: React.FC = () => {
-  // TODO: fetch (see https://jira.toolsfdg.net/browse/VEN-548)
+  // TODO: fetch (see VEN-548)
   const netApyPercentage = 13.4;
   const dailyEarningsCents = 100000;
   const totalSupplyCents = 100000000;
   const totalBorrowCents = 10000000;
-  // TODO: wire to context (see https://jira.toolsfdg.net/browse/VEN-490)
+  // TODO: wire to context (see VEN-490)
   const isXvsIncluded = true;
   const onIncludeXvsToggleChange = () => {};
 
