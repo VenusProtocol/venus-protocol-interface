@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import {
   ApyChart,
   ApyChartProps,
+  Button,
   InterestRateChart,
   InterestRateChartProps,
   Spinner,
@@ -23,6 +24,8 @@ import { useGetVTokenApySimulations } from 'clients/api';
 import Path from 'constants/path';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
+import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
+import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
@@ -89,6 +92,13 @@ export const AssetUi: React.FC<AssetUiProps> = ({
 
   const token = getToken(vTokenId);
   const vToken = getVBepToken(vTokenId);
+
+  // TODO: grab isXvsEnabled from context (see https://jira.toolsfdg.net/browse/VEN-531)
+  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal({ isXvsEnabled: true });
+  // TODO: grab isXvsEnabled from context (see https://jira.toolsfdg.net/browse/VEN-531)
+  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal({
+    isXvsEnabled: true,
+  });
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
@@ -276,51 +286,76 @@ export const AssetUi: React.FC<AssetUiProps> = ({
   // @TODO: handle fetching errors
 
   return (
-    <div css={styles.container}>
-      <div css={[styles.column, styles.graphsColumn]}>
-        <Card
-          testId={TEST_IDS.supplyInfo}
-          title={t('asset.supplyInfo.title')}
-          css={styles.graphCard}
-          stats={supplyInfoStats}
-          legends={supplyInfoLegends}
-        >
-          <div css={styles.apyChart}>
-            <ApyChart data={supplyChartData} type="supply" />
-          </div>
-        </Card>
+    <>
+      <div css={styles.container}>
+        <div css={[styles.column, styles.graphsColumn]}>
+          <Card
+            testId={TEST_IDS.supplyInfo}
+            title={t('asset.supplyInfo.title')}
+            css={styles.graphCard}
+            stats={supplyInfoStats}
+            legends={supplyInfoLegends}
+          >
+            <div css={styles.apyChart}>
+              <ApyChart data={supplyChartData} type="supply" />
+            </div>
+          </Card>
 
-        <Card
-          testId={TEST_IDS.borrowInfo}
-          title={t('asset.borrowInfo.title')}
-          css={styles.graphCard}
-          stats={borrowInfoStats}
-          legends={borrowInfoLegends}
-        >
-          <div css={styles.apyChart}>
-            <ApyChart data={borrowChartData} type="borrow" />
-          </div>
-        </Card>
+          <Card
+            testId={TEST_IDS.borrowInfo}
+            title={t('asset.borrowInfo.title')}
+            css={styles.graphCard}
+            stats={borrowInfoStats}
+            legends={borrowInfoLegends}
+          >
+            <div css={styles.apyChart}>
+              <ApyChart data={borrowChartData} type="borrow" />
+            </div>
+          </Card>
 
-        <Card
-          testId={TEST_IDS.interestRateModel}
-          title={t('asset.interestRateModel.title')}
-          css={styles.graphCard}
-          legends={interestRateModelLegends}
-        >
-          <div css={styles.apyChart}>
-            <InterestRateChart
-              data={interestRateChartData}
-              currentUtilizationRate={currentUtilizationRate}
-            />
+          <Card
+            testId={TEST_IDS.interestRateModel}
+            title={t('asset.interestRateModel.title')}
+            css={styles.graphCard}
+            legends={interestRateModelLegends}
+          >
+            <div css={styles.apyChart}>
+              <InterestRateChart
+                data={interestRateChartData}
+                currentUtilizationRate={currentUtilizationRate}
+              />
+            </div>
+          </Card>
+        </div>
+
+        <div css={[styles.column, styles.statsColumn]}>
+          <div css={styles.statsColumnButtonContainer}>
+            <Button
+              type="button"
+              fullWidth
+              css={styles.statsColumnButton}
+              onClick={() => openSupplyWithdrawModal(vTokenId)}
+            >
+              {t('asset.supplyButtonLabel')}
+            </Button>
+
+            <Button
+              type="button"
+              fullWidth
+              css={styles.statsColumnButton}
+              onClick={() => openBorrowRepayModal(vTokenId)}
+            >
+              {t('asset.borrowButtonLabel')}
+            </Button>
           </div>
-        </Card>
+
+          <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketInfo} />
+        </div>
       </div>
 
-      <div css={[styles.column, styles.statsColumn]}>
-        <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketInfo} />
-      </div>
-    </div>
+      <BorrowRepayModal />
+      <SupplyWithdrawModal />
+    </>
   );
 };
 
