@@ -8,7 +8,6 @@ import { ReactComponent as InfinityWalletLogo } from 'assets/img/wallets/infinit
 import { ReactComponent as LedgerLogo } from 'assets/img/wallets/ledgerLogo.svg';
 import { ReactComponent as MetaMaskLogo } from 'assets/img/wallets/metaMaskLogo.svg';
 import { ReactComponent as OperaWalletLogo } from 'assets/img/wallets/operaWalletLogo.svg';
-import { ReactComponent as SafePalLogo } from 'assets/img/wallets/safePalLogo.svg';
 import { ReactComponent as TrustWalletLogo } from 'assets/img/wallets/trustWalletLogo.svg';
 import { ReactComponent as WalletConnectLogo } from 'assets/img/wallets/walletConnectLogo.svg';
 import { Connector } from 'clients/web3';
@@ -83,9 +82,4 @@ export const INTEGRATED_WALLETS: IntegratedWallet[] = [
   },
 ];
 
-export const UPCOMING_WALLETS: BaseWallet[] = [
-  {
-    name: 'SafePal',
-    Logo: SafePalLogo,
-  },
-];
+export const UPCOMING_WALLETS: BaseWallet[] = [];
