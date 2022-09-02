@@ -144,7 +144,7 @@ const Dashboard: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [areHigherRiskTokensDisplayed, setAreHigherRiskTokensDisplayed] = useState(false);
 
-  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
+  // TODO: handle loading state (see VEN-591)
   const {
     data: { assets, userTotalBorrowLimitCents },
   } = useGetUserMarketInfo({
