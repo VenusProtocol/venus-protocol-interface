@@ -128,13 +128,13 @@ export const Transactions: React.FC<TransactionsProps> = ({
       <Typography css={styles.horizontalPadding} variant="h4">
         {t('voterDetail.transactions')}
       </Typography>
+
       {voterTransactions && voterTransactions.length ? (
         <Table
           columns={columns}
           data={rows}
-          rowKeyIndex={1}
-          tableCss={styles.table}
-          cardsCss={styles.cards}
+          rowKeyExtractor={row => `${row[1].value}`}
+          breakpoint="sm"
           css={styles.cardContentGrid}
         />
       ) : (

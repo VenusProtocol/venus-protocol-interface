@@ -8,6 +8,7 @@ import { convertWeiToTokens, generateBscScanUrl, getTokenIdFromVAddress } from '
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { XVS_TOKEN_ID } from 'constants/xvs';
+import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
 
@@ -19,6 +20,9 @@ export interface HistoryTableProps {
 export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFetching }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  const showXlDownCss = useShowXlDownCss();
+  const hideXlDownCss = useHideXlDownCss();
 
   const columns = useMemo(
     () => [
@@ -85,13 +89,14 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
             key: 'type',
             render: () => (
               <>
-                <div css={[styles.whiteText, styles.table, styles.typeCol]}>
+                <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
                   <Icon name={tokenId} css={styles.icon} />
                   <Typography variant="small2" color="textPrimary">
                     {eventTranslationKeys[txn.event]}
                   </Typography>
                 </div>
-                <div css={[styles.cards, styles.cardTitle]}>
+
+                <div css={[styles.cardTitle, showXlDownCss]}>
                   <div css={styles.typeCol}>
                     <Icon name={tokenId} css={styles.icon} />
                     <Typography variant="small2" color="textPrimary">
@@ -209,9 +214,8 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         orderBy: 'created',
         orderDirection: 'desc',
       }}
-      rowKeyIndex={0}
-      tableCss={styles.table}
-      cardsCss={styles.cards}
+      rowKeyExtractor={row => `${row[0].value}`}
+      breakpoint="xl"
       css={styles.cardContentGrid}
       isFetching={isFetching}
     />
