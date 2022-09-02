@@ -3,14 +3,17 @@ import { Paper, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+
 import { Delimiter } from '../Delimiter';
 import { useStyles } from './styles';
 import { TableRowProps } from './types';
 
 interface TableCardProps {
   rows: TableRowProps[][];
-  rowKeyIndex: number;
+  rowKeyExtractor: (row: TableRowProps[]) => string;
   columns: { key: string; label: string; orderable: boolean }[];
+  breakpoint: keyof typeof BREAKPOINTS['values'];
   className?: string;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
   getRowHref?: (row: TableRowProps[]) => string;
@@ -18,18 +21,18 @@ interface TableCardProps {
 
 const TableCards: React.FC<TableCardProps> = ({
   rows,
-  rowKeyIndex,
+  rowKeyExtractor,
   rowOnClick,
   getRowHref,
+  breakpoint,
   columns,
-  className,
 }) => {
   const styles = useStyles();
 
   return (
-    <div className={className}>
-      {rows.map((row, idx) => {
-        const rowKey = `${row[rowKeyIndex].value.toString()}-${idx}-cards`;
+    <div css={styles.getCardsContainer({ breakpoint })}>
+      {rows.map(row => {
+        const rowKey = rowKeyExtractor(row);
         const [titleColumn, ...otherColumns] = columns;
         const titleCell = row.find(cell => titleColumn.key === cell.key);
 

@@ -1,33 +1,51 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
+import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    root: css`
+    getRoot: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) => css`
       overflow: hidden;
       padding-left: 0;
       padding-right: 0;
 
-      ${theme.breakpoints.down('sm')} {
+      ${theme.breakpoints.down(breakpoint)} {
         background-color: transparent;
-        padding-top: ${theme.spacing(2)};
-        padding-bottom: ${theme.spacing(2)};
+        padding-top: 0;
+        padding-bottom: 0;
       }
     `,
-    title: css`
+    getTitle: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) => css`
       margin-bottom: ${theme.spacing(4)};
       padding: ${theme.spacing(0, 6)};
-      ${theme.breakpoints.down('sm')} {
+
+      ${theme.breakpoints.down(breakpoint)} {
         padding: 0;
       }
     `,
+    getTableContainer: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) =>
+      css`
+        ${theme.breakpoints.down(breakpoint)} {
+          display: none;
+        }
+      `,
+    getCardsContainer: ({ breakpoint }: { breakpoint: keyof typeof BREAKPOINTS['values'] }) =>
+      css`
+        display: none;
+
+        ${theme.breakpoints.down(breakpoint)} {
+          display: block;
+        }
+      `,
     tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
-      &:not(:first-of-type) {
-        margin-top: ${theme.spacing(6)};
+      &:not(:last-of-type) {
+        margin-bottom: ${theme.spacing(6)};
       }
 
       padding: ${theme.spacing(4, 0)};
+
       ${clickable &&
       `
         cursor: pointer;

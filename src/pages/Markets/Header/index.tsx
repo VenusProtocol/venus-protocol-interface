@@ -48,7 +48,7 @@ export const HeaderUi: React.FC<HeaderProps> = ({
 };
 
 const Header = () => {
-  // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
+  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
   const {
     data: {
       treasuryTotalSupplyBalanceCents,

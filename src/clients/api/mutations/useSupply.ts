@@ -13,7 +13,7 @@ import {
 } from 'clients/api';
 
 interface UseSupplyArgs {
-  asset: Asset;
+  assetId: Asset['id'];
   account: string;
 }
 
@@ -25,12 +25,12 @@ export type UseSupplyParams =
   | Omit<SupplyBnbInput, 'tokenContract' | 'assetId' | 'account'>;
 
 const useSupply = (
-  { asset, account }: UseSupplyArgs,
+  { assetId, account }: UseSupplyArgs,
   options?: OptionsSupplyBnb | OptionsSupplyNonBnb,
 ) => {
   const useSupplyNonBnbResult = useSupplyNonBnb(
     {
-      assetId: asset?.id as VTokenId,
+      assetId: assetId as VTokenId,
       account,
     },
     options as OptionsSupplyNonBnb,
@@ -38,7 +38,7 @@ const useSupply = (
 
   const useSupplyBnbResult = useSupplyBnb({ account }, options as OptionsSupplyBnb);
 
-  return asset.id === 'bnb' ? useSupplyBnbResult : useSupplyNonBnbResult;
+  return assetId === 'bnb' ? useSupplyBnbResult : useSupplyNonBnbResult;
 };
 
 export default useSupply;
