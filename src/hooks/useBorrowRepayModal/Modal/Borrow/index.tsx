@@ -161,7 +161,6 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
 
   const vBepTokenContractAddress = getVBepToken(asset.id as VTokenId).address;
 
-  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
   const {
     data: { userTotalBorrowBalanceCents, userTotalBorrowLimitCents, assets },
   } = useGetUserMarketInfo({

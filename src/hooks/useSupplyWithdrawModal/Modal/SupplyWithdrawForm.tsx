@@ -77,7 +77,6 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     ? calculateNewBalance(asset.supplyBalance, amount)
     : undefined;
 
-  // TODO: handle loading state
   const { dailyXvsDistributionInterestsCents } = useDailyXvsDistributionInterests();
 
   const hypotheticalBorrowLimitCents = useMemo(() => {

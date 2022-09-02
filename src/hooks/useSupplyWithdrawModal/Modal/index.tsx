@@ -236,7 +236,6 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
 const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnabled, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
-  // TODO: handle loading state (see https://jira.toolsfdg.net/browse/VEN-591)
   const {
     data: { assets, userTotalBorrowBalanceCents, userTotalBorrowLimitCents },
   } = useGetUserMarketInfo({
