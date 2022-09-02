@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Asset } from 'types';
 
 import Modal from './Modal';
@@ -11,16 +11,24 @@ const useBorrowRepayModal = ({
 }) => {
   const [selectedAssetId, setSelectedAssetId] = useState<undefined | Asset['id']>();
 
-  return {
-    openBorrowRepayModal: (assetId: Asset['id']) => setSelectedAssetId(assetId),
-    closeBorrowRepayModal: () => setSelectedAssetId(undefined),
-    borrowRepayModalDom: selectedAssetId ? (
+  const BorrowRepayModal: React.FC = useCallback(() => {
+    if (!selectedAssetId) {
+      return <></>;
+    }
+
+    return (
       <Modal
         assetId={selectedAssetId}
         onClose={() => setSelectedAssetId(undefined)}
         isXvsEnabled={isXvsEnabled}
       />
-    ) : null,
+    );
+  }, [selectedAssetId]);
+
+  return {
+    openBorrowRepayModal: (assetId: Asset['id']) => setSelectedAssetId(assetId),
+    closeBorrowRepayModal: () => setSelectedAssetId(undefined),
+    BorrowRepayModal,
   };
 };
 

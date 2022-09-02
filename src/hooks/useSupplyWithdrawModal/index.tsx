@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Asset } from 'types';
 
 import Modal from './Modal';
@@ -11,16 +11,24 @@ const useSupplyWithdrawModal = ({
 }) => {
   const [selectedAssetId, setSelectedAssetId] = useState<undefined | Asset['id']>();
 
-  return {
-    openSupplyWithdrawModal: (assetId: Asset['id']) => setSelectedAssetId(assetId),
-    closeSupplyWithdrawModal: () => setSelectedAssetId(undefined),
-    supplyWithdrawModalDom: selectedAssetId ? (
+  const SupplyWithdrawModal: React.FC = useCallback(() => {
+    if (!selectedAssetId) {
+      return <></>;
+    }
+
+    return (
       <Modal
         assetId={selectedAssetId}
         onClose={() => setSelectedAssetId(undefined)}
         isXvsEnabled={isXvsEnabled}
       />
-    ) : null,
+    );
+  }, [selectedAssetId]);
+
+  return {
+    openSupplyWithdrawModal: (assetId: Asset['id']) => setSelectedAssetId(assetId),
+    closeSupplyWithdrawModal: () => setSelectedAssetId(undefined),
+    SupplyWithdrawModal,
   };
 };
 

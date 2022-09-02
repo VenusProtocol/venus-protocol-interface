@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Asset, VTokenId } from 'types';
 
 import {
@@ -114,14 +114,19 @@ const useCollateral = () => {
     }
   };
 
-  return {
-    toggleCollateral,
-    collateralModalDom: (
+  const CollateralModal: React.FC = useCallback(
+    () => (
       <CollateralConfirmModal
         asset={selectedAsset}
         handleClose={() => setSelectedAsset(undefined)}
       />
     ),
+    [selectedAsset],
+  );
+
+  return {
+    toggleCollateral,
+    CollateralModal,
   };
 };
 

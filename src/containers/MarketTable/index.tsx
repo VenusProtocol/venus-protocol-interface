@@ -52,15 +52,15 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const { borrowRepayModalDom, openBorrowRepayModal } = useBorrowRepayModal({
+  const { BorrowRepayModal, openBorrowRepayModal } = useBorrowRepayModal({
     isXvsEnabled,
   });
 
-  const { supplyWithdrawModalDom, openSupplyWithdrawModal } = useSupplyWithdrawModal({
+  const { SupplyWithdrawModal, openSupplyWithdrawModal } = useSupplyWithdrawModal({
     isXvsEnabled,
   });
 
-  const { collateralModalDom, toggleCollateral } = useCollateral();
+  const { CollateralModal, toggleCollateral } = useCollateral();
 
   const { hasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useContext(
     DisableLunaUstWarningContext,
@@ -152,9 +152,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         {...otherTableProps}
       />
 
-      {collateralModalDom}
-      {borrowRepayModalDom}
-      {supplyWithdrawModalDom}
+      <CollateralModal />
+      <BorrowRepayModal />
+      <SupplyWithdrawModal />
     </>
   );
 };
