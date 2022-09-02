@@ -96,7 +96,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 };
 
 const Market: React.FC = () => {
-  // TODO: fetch actual values (see https://jira.toolsfdg.net/browse/VEN-546)
+  // TODO: fetch actual values (see VEN-546)
   const assets = assetData;
   const isIsolatedLendingMarket = true;
   const totalSupplyCents = 1000000000;
