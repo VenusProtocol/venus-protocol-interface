@@ -23,7 +23,7 @@ const createProposal = async ({
   governorBravoContract: GovernorBravoDelegate;
 }): Promise<CreateProposalOutput> => {
   const resp = await governorBravoContract.methods
-    .propose(targets, [0], signatures, callDatas, description)
+    .propose(targets, Array(signatures.length).fill(0), signatures, callDatas, description)
     .send({ from: accountAddress });
   return resp;
 };

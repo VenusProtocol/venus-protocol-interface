@@ -61,7 +61,7 @@ describe('api/mutation/createProposal', () => {
     expect(createProposalMock).toHaveBeenCalledTimes(1);
     expect(createProposalMock).toHaveBeenCalledWith(
       fakeTargets,
-      [0],
+      Array(fakeSignatures.length).fill(0),
       fakeSignatures,
       fakeCallDatas,
       fakeDescription,
