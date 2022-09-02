@@ -37,6 +37,23 @@ export const useStyles = () => {
     statsColumn: css`
       flex: 1;
     `,
+    statsColumnButtonContainer: css`
+      display: flex;
+      align-items: center;
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    statsColumnButton: css`
+      margin-left: ${theme.spacing(3)};
+      margin-right: ${theme.spacing(3)};
+
+      :first-of-type {
+        margin-left: 0;
+      }
+
+      :last-of-type {
+        margin-right: 0;
+      }
+    `,
     graphCard: css`
       :not(:last-of-type) {
         margin-bottom: ${theme.spacing(6)};
