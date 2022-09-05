@@ -24,7 +24,7 @@ export const useStyles = () => {
 
       ${theme.breakpoints.down('md')} {
         display: block;
-        margin-bottom: ${theme.spacing(8)};
+        margin-bottom: ${theme.spacing(4)};
       }
     `,
     tabletHeaderTitle: css`
@@ -34,6 +34,8 @@ export const useStyles = () => {
     `,
     tabletHeaderButtonGroup: css`
       ${theme.breakpoints.down('md')} {
+        margin-bottom: ${theme.spacing(8)};
+
         > button {
           flex: 1;
         }
@@ -46,6 +48,9 @@ export const useStyles = () => {
       ${theme.breakpoints.down('md')} {
         margin: 0;
       }
+    `,
+    mobileSelect: css`
+      width: ${theme.spacing(56)};
     `,
   };
 };

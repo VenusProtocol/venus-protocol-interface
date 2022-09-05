@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import { ButtonGroup } from 'components';
+import { ButtonGroup, Select, TableRowProps } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
+import Path from 'constants/path';
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
-import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
+import { useHideXlDownCss, useShowMdDownCss, useShowXlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
 
@@ -22,6 +23,11 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
 
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
+  const showMdDownCss = useShowMdDownCss();
+
+  const getRowHref = (row: TableRowProps[]) =>
+    Path.ASSET.replace(':marketId', 'FAKE_MARKET_ID') // TODO: wire up
+      .replace(':vTokenId', `${row[0].value}`);
 
   const marketTableProps: {
     supply: MarketTableProps;
@@ -38,6 +44,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
         orderBy: 'supplyApyLtv',
         orderDirection: 'desc',
       },
+      getRowHref,
     },
     borrow: {
       assets,
@@ -50,8 +57,17 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
         orderBy: 'borrowApy',
         orderDirection: 'desc',
       },
+      getRowHref,
     },
   };
+
+  // TODO: add all options
+  const mobileSelectOptions = [
+    {
+      value: 'riskLevel',
+      label: 'Risk level',
+    },
+  ];
 
   return (
     <>
@@ -76,6 +92,17 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
             ]}
             activeButtonIndex={activeTabIndex}
             onButtonClick={setActiveTabIndex}
+          />
+
+          <Select
+            css={[styles.mobileSelect, showMdDownCss]}
+            label={t('market.tables.mobileSelect.label')}
+            title={t('market.tables.mobileSelect.title')}
+            // TODO: wire up
+            value={mobileSelectOptions[0].value}
+            onChange={console.log}
+            options={mobileSelectOptions}
+            ariaLabel={t('market.tables.mobileSelect.ariaLabelFor')}
           />
         </div>
 

@@ -1,12 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import {
-  Table,
-  TableCardRowOnClickProps,
-  TableProps,
-  TableRowProps,
-  switchAriaLabel,
-  toast,
-} from 'components';
+import { Table, TableProps, TableRowProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -33,8 +26,8 @@ import { ColumnName } from './types';
 // t('marketTable.columns.liquidity')
 
 export interface MarketTableProps
-  extends Partial<Omit<TableCardRowOnClickProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
-    Pick<TableCardRowOnClickProps, 'breakpoint'> {
+  extends Partial<Omit<TableProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
+    Pick<TableProps, 'breakpoint'> {
   assets: Asset[];
   isXvsEnabled: boolean;
   marketType: 'supply' | 'borrow';
@@ -102,7 +95,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   );
 
   // Format assets to rows
-  const data: TableCardRowOnClickProps['data'] = useMemo(
+  const data: TableProps['data'] = useMemo(
     () =>
       assets.map(asset =>
         generateRow({

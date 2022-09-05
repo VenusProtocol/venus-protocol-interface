@@ -296,6 +296,11 @@
     },
     "tables": {
       "borrowTableTitle": "Borrow market",
+      "mobileSelect": {
+        "ariaLabelFor": "sort by",
+        "label": "Sort by:",
+        "title": "Sort by"
+      },
       "supplyTableTitle": "Supply market",
       "tabletBorrowMarketTabTitle": "Borrow market",
       "tabletSupplyMarketTabTitle": "Supply market",
