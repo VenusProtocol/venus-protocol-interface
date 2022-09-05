@@ -38,6 +38,10 @@ export const useStyles = () => {
       ${theme.breakpoints.down('xxl')} {
         margin-bottom: ${theme.spacing(6)};
       }
+
+      ${theme.breakpoints.down('md')} {
+        margin-bottom: ${theme.spacing(8)};
+      }
     `,
     bannerContent: css`
       display: flex;
@@ -61,11 +65,6 @@ export const useStyles = () => {
       margin-right: ${theme.spacing(2)};
       width: ${theme.spacing(6)};
       height: ${theme.spacing(6)};
-    `,
-    desktopTableContainer: css`
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: ${theme.spacing(8)};
     `,
   };
 };

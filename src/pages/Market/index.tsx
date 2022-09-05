@@ -7,8 +7,8 @@ import { Asset } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { assetData } from '__mocks__/models/asset';
-import { MarketTable } from 'containers/MarketTable';
 
+import Tables from './Tables';
 import { useStyles } from './styles';
 
 export interface MarketUiProps {
@@ -93,36 +93,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
         </div>
       )}
 
-      {/* Desktop tables */}
-      <div css={styles.desktopTableContainer}>
-        <MarketTable
-          title={t('market.supplyTableTitle')}
-          assets={assets}
-          // TODO: get isXvsEnabled from context
-          isXvsEnabled
-          marketType="supply"
-          breakpoint="xl"
-          columns={['asset', 'supplyApyLtv', 'walletBalance', 'collateral']}
-          initialOrder={{
-            orderBy: 'supplyApyLtv',
-            orderDirection: 'desc',
-          }}
-        />
-
-        <MarketTable
-          title={t('market.borrowTableTitle')}
-          assets={assets}
-          // TODO: get isXvsEnabled from context
-          isXvsEnabled
-          marketType="borrow"
-          breakpoint="xl"
-          columns={['asset', 'borrowApy', 'walletBalance', 'liquidity']}
-          initialOrder={{
-            orderBy: 'borrowApy',
-            orderDirection: 'desc',
-          }}
-        />
-      </div>
+      <Tables assets={assets} />
     </>
   );
 };
