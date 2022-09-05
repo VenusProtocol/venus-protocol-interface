@@ -62,5 +62,10 @@ export const useStyles = () => {
       width: ${theme.spacing(6)};
       height: ${theme.spacing(6)};
     `,
+    desktopTableContainer: css`
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: ${theme.spacing(8)};
+    `,
   };
 };
