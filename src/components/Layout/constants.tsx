@@ -17,8 +17,9 @@ export const menuItems: MenuItem[] = [
     // t('layout.menuItems.account')
     i18nKey: 'layout.menuItems.account',
     i18nTitleKey: 'layout.menuItems.account',
-    icon: 'wallet',
+    icon: 'person',
   },
+
   {
     href: Path.MARKETS,
     // Translation key: do not remove this comment
