@@ -294,6 +294,13 @@
       "totalBorrowLabel": "Total Borrow",
       "totalSupplyLabel": "Total Supply"
     },
+    "tables": {
+      "mobileSelect": {
+        "ariaLabelFor": "sort by",
+        "label": "Sort by:",
+        "title": "Sort by"
+      }
+    },
     "totalBorrow": "Total Borrow",
     "totalSupply": "Total Supply",
     "totalTreasury": "Total Treasury"
@@ -321,10 +328,14 @@
       "asset": "Asset",
       "borrowApy": "APY",
       "collateral": "Collateral",
+      "labeledBorrowApy": "Borrow APY",
+      "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
       "market": "Market",
       "riskLevel": "Risk level",
       "supplyApyLtv": "APY / LTV",
+      "treasuryTotalBorrow": "Total borrow",
+      "treasuryTotalSupply": "Total supply",
       "walletBalance": "Wallet"
     }
   },

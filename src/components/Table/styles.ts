@@ -62,6 +62,8 @@ export const useStyles = () => {
       margin: ${theme.spacing(4)};
     `,
     getTableRow: ({ clickable }: { clickable: boolean }) => css`
+      height: ${theme.spacing(14)};
+
       ${clickable &&
       css`
         cursor: pointer;
@@ -154,14 +156,15 @@ export const useStyles = () => {
       }
     `,
     getCellWrapper: ({ containsLink }: { containsLink: boolean }) => css`
+      height: 1px;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: ${containsLink ? 0 : theme.spacing(4)};
+      padding: ${containsLink ? 0 : theme.spacing(0, 4)};
 
       > a {
         color: inherit;
         display: block;
-        padding: ${theme.spacing(4)};
+        padding: ${containsLink ? theme.spacing(0, 4) : 0};
       }
 
       :first-of-type > a {
