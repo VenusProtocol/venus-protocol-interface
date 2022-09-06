@@ -1,12 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import {
-  Table,
-  TableCardRowOnClickProps,
-  TableProps,
-  TableRowProps,
-  switchAriaLabel,
-  toast,
-} from 'components';
+import { Table, TableProps, TableRowProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
@@ -25,20 +18,24 @@ import { ColumnName } from './types';
 // Translation keys: do not remove this comment
 // t('marketTable.columns.asset')
 // t('marketTable.columns.supplyApyLtv')
+// t('marketTable.columns.labeledSupplyApyLtv')
 // t('marketTable.columns.borrowApy')
+// t('marketTable.columns.labeledBorrowApy')
 // t('marketTable.columns.market')
 // t('marketTable.columns.riskLevel')
 // t('marketTable.columns.collateral')
+// t('marketTable.columns.treasuryTotalBorrow')
+// t('marketTable.columns.treasuryTotalSupply')
 // t('marketTable.columns.walletBalance')
 // t('marketTable.columns.liquidity')
 
 export interface MarketTableProps
-  extends Partial<Omit<TableCardRowOnClickProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
-    Pick<TableCardRowOnClickProps, 'breakpoint'> {
+  extends Partial<Omit<TableProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
+    Pick<TableProps, 'breakpoint'> {
   assets: Asset[];
   isXvsEnabled: boolean;
-  marketType: 'supply' | 'borrow';
   columns: ColumnName[];
+  marketType?: 'supply' | 'borrow';
   className?: string;
 }
 
@@ -47,6 +44,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   marketType,
   isXvsEnabled,
   columns,
+  getRowHref,
   ...otherTableProps
 }) => {
   const { t } = useTranslation();
@@ -102,7 +100,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   );
 
   // Format assets to rows
-  const data: TableCardRowOnClickProps['data'] = useMemo(
+  const data: TableProps['data'] = useMemo(
     () =>
       assets.map(asset =>
         generateRow({
@@ -148,7 +146,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         data={data}
         css={styles.cardContentGrid}
         rowKeyExtractor={rowKeyExtractor}
-        rowOnClick={rowOnClick}
+        rowOnClick={getRowHref ? undefined : rowOnClick}
+        getRowHref={getRowHref}
         {...otherTableProps}
       />
 

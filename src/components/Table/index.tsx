@@ -22,7 +22,7 @@ export interface TableRowProps {
   align?: 'left' | 'center' | 'right';
 }
 
-export interface TableBaseProps {
+export interface TableProps {
   title?: string;
   data: TableRowProps[][];
   rowKeyExtractor: (row: TableRowProps[]) => string;
@@ -34,24 +34,13 @@ export interface TableBaseProps {
     orderBy: string;
     orderDirection: 'asc' | 'desc';
   };
-  rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
   className?: string;
   gridTemplateColumnsCards?: string;
   gridTemplateRowsMobile?: string /* used for mobile view if table has to display more than 1 row */;
   isFetching?: boolean;
-}
-
-export interface TableCardRowOnClickProps extends TableBaseProps {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: TableRowProps[]) => void;
-  getRowHref?: undefined;
-}
-
-export interface TableCardHrefProps extends TableBaseProps {
-  rowOnClick?: undefined;
   getRowHref?: (row: TableRowProps[]) => string;
 }
-
-export type TableProps = TableCardRowOnClickProps | TableCardHrefProps;
 
 export const Table = ({
   columns,
@@ -137,7 +126,9 @@ export const Table = ({
                   key={rowKey}
                   css={styles.getTableRow({ clickable: !!rowOnClick })}
                   onClick={
-                    rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))
+                    !getRowHref && rowOnClick
+                      ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
+                      : undefined
                   }
                 >
                   {row.map(({ key, render, align }: TableRowProps) => {

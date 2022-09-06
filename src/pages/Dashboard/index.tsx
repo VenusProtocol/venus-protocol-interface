@@ -121,6 +121,10 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           marketType="supply"
           breakpoint="lg"
           columns={['asset', 'supplyApyLtv', 'market', 'riskLevel', 'collateral']}
+          initialOrder={{
+            orderBy: 'supplyApyLtv',
+            orderDirection: 'desc',
+          }}
         />
       ) : (
         // TODO: get isXvsEnabled from context
@@ -131,6 +135,10 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           marketType="borrow"
           breakpoint="lg"
           columns={['asset', 'borrowApy', 'market', 'riskLevel', 'liquidity']}
+          initialOrder={{
+            orderBy: 'borrowApy',
+            orderDirection: 'desc',
+          }}
         />
       )}
     </>

@@ -126,7 +126,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets }) => {
         columns={columns}
         data={rows}
         initialOrder={{
-          orderBy: 'asset',
+          orderBy: 'liquidity',
           orderDirection: 'desc',
         }}
         rowKeyExtractor={row => `${row[0].value}`}
