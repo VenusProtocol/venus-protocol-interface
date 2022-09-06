@@ -18,8 +18,9 @@ import { ColumnName } from './types';
 // Translation keys: do not remove this comment
 // t('marketTable.columns.asset')
 // t('marketTable.columns.supplyApyLtv')
+// t('marketTable.columns.labeledSupplyApyLtv')
 // t('marketTable.columns.borrowApy')
-// t('marketTable.columns.borrowApy')
+// t('marketTable.columns.labeledBorrowApy')
 // t('marketTable.columns.market')
 // t('marketTable.columns.riskLevel')
 // t('marketTable.columns.collateral')

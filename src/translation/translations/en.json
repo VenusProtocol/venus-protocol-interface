@@ -328,6 +328,8 @@
       "asset": "Asset",
       "borrowApy": "APY",
       "collateral": "Collateral",
+      "labeledBorrowApy": "Borrow APY",
+      "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
       "market": "Market",
       "riskLevel": "Risk level",

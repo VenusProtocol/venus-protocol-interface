@@ -55,9 +55,9 @@ export const Table: React.FC<TableProps> = ({ assets }) => {
         columns={[
           'asset',
           'treasuryTotalSupply',
-          'supplyApyLtv',
+          'labeledSupplyApyLtv',
           'treasuryTotalBorrow',
-          'borrowApy',
+          'labeledBorrowApy',
           'liquidity',
         ]}
         initialOrder={{
