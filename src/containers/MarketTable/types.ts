@@ -6,4 +6,6 @@ export type ColumnName =
   | 'riskLevel'
   | 'collateral'
   | 'walletBalance'
+  | 'treasuryTotalBorrow'
+  | 'treasuryTotalSupply'
   | 'liquidity';

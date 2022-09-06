@@ -34,14 +34,6 @@ export const useStyles = () => {
       border: 1px solid ${theme.palette.interactive.warning};
       background-color: ${alpha(theme.palette.interactive.warning as string, 0.1)};
       margin-bottom: ${theme.spacing(8)};
-
-      ${theme.breakpoints.down('xxl')} {
-        margin-bottom: ${theme.spacing(6)};
-      }
-
-      ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(8)};
-      }
     `,
     bannerContent: css`
       display: flex;

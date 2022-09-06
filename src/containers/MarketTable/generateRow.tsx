@@ -93,6 +93,20 @@ const generateRow = ({
           minimizeDecimals: true,
         });
       row.value = asset.walletBalance.toFixed();
+    } else if (column === 'treasuryTotalBorrow') {
+      row.render = () =>
+        formatCentsToReadableValue({
+          value: asset.treasuryTotalBorrowsCents,
+          shortenLargeValue: true,
+        });
+      row.value = asset.treasuryTotalBorrowsCents.toFixed();
+    } else if (column === 'treasuryTotalSupply') {
+      row.render = () =>
+        formatCentsToReadableValue({
+          value: asset.treasuryTotalSupplyCents,
+          shortenLargeValue: true,
+        });
+      row.value = asset.treasuryTotalSupplyCents.toFixed();
     }
 
     return row;

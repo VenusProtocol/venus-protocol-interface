@@ -19,9 +19,12 @@ import { ColumnName } from './types';
 // t('marketTable.columns.asset')
 // t('marketTable.columns.supplyApyLtv')
 // t('marketTable.columns.borrowApy')
+// t('marketTable.columns.borrowApy')
 // t('marketTable.columns.market')
 // t('marketTable.columns.riskLevel')
 // t('marketTable.columns.collateral')
+// t('marketTable.columns.treasuryTotalBorrow')
+// t('marketTable.columns.treasuryTotalSupply')
 // t('marketTable.columns.walletBalance')
 // t('marketTable.columns.liquidity')
 
@@ -30,8 +33,8 @@ export interface MarketTableProps
     Pick<TableProps, 'breakpoint'> {
   assets: Asset[];
   isXvsEnabled: boolean;
-  marketType: 'supply' | 'borrow';
   columns: ColumnName[];
+  marketType?: 'supply' | 'borrow';
   className?: string;
 }
 
@@ -40,6 +43,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   marketType,
   isXvsEnabled,
   columns,
+  getRowHref,
   ...otherTableProps
 }) => {
   const { t } = useTranslation();
@@ -141,7 +145,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         data={data}
         css={styles.cardContentGrid}
         rowKeyExtractor={rowKeyExtractor}
-        rowOnClick={rowOnClick}
+        rowOnClick={getRowHref ? undefined : rowOnClick}
+        getRowHref={getRowHref}
         {...otherTableProps}
       />
 
