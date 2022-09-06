@@ -8,6 +8,7 @@ import { formatCentsToReadableValue } from 'utilities';
 
 import { assetData } from '__mocks__/models/asset';
 
+import Table from './Table';
 import { useStyles } from './styles';
 
 export interface MarketUiProps {
@@ -91,6 +92,8 @@ export const MarketUi: React.FC<MarketUiProps> = ({
           </div>
         </div>
       )}
+
+      <Table assets={assets} />
     </>
   );
 };

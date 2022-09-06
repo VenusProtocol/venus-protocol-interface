@@ -9,7 +9,7 @@ import MarketTable from '.';
 
 jest.mock('clients/api');
 
-describe('pages/Market/MarketTable', () => {
+describe('pages/Markets/MarketTable', () => {
   beforeEach(() => {
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
