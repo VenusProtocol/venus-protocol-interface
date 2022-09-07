@@ -83,7 +83,7 @@ export const SuppliedTable: React.FC<SuppliedTableUiProps> = ({
     {
       key: 'collateral',
       render: () =>
-        asset.collateralFactor.toNumber() ? (
+        asset.collateralFactor.toNumber() || asset.collateral ? (
           <Toggle onChange={() => collateralOnChange(asset)} value={asset.collateral} />
         ) : (
           PLACEHOLDER_KEY
