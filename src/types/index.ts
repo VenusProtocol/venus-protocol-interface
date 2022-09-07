@@ -340,3 +340,5 @@ export interface VoterHistory {
   updatedAt: Date;
   votesWei: BigNumber;
 }
+
+export type MarketRiskLevel = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
