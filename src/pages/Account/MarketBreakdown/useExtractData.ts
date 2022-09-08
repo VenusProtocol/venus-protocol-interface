@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Asset } from 'types';
@@ -25,6 +26,7 @@ const useExtractData = ({
   useMemo(() => {
     const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = assets.reduce(
       (acc, asset) => ({
+        ...acc,
         totalBorrowCents: acc.totalBorrowCents.plus(
           asset.borrowBalance.times(asset.tokenPrice).times(100),
         ),
