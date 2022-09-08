@@ -47,7 +47,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />);
+    renderComponent(<Borrow asset={fakeAsset} onClose={noop} includeXvs />);
   });
 
   it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
@@ -57,7 +57,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     };
 
     const { getByText } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -82,7 +82,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     };
 
     const { getByText } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -113,7 +113,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -149,7 +149,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Borrow asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -184,7 +184,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
   it('disables submit button if amount to borrow requested would make user borrow balance go higher than their borrow limit', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />,
+      <Borrow asset={fakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -225,7 +225,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
 
   it('updates input value correctly when pressing on max button', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={fakeAsset} onClose={noop} isXvsEnabled />,
+      <Borrow asset={fakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -265,7 +265,7 @@ describe('hooks/useBorrowRepayModal/Borrow', () => {
     (borrowVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Borrow asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />,
+      <Borrow asset={fakeAsset} onClose={onCloseMock} includeXvs />,
       {
         authContextValue: {
           account: {

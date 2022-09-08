@@ -43,11 +43,11 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay asset={fakeAsset} onClose={noop} isXvsEnabled />);
+    renderComponent(<Repay asset={fakeAsset} onClose={noop} includeXvs />);
   });
 
   it('displays correct token borrow balance', async () => {
-    const { getByText } = renderComponent(<Repay asset={fakeAsset} onClose={noop} isXvsEnabled />, {
+    const { getByText } = renderComponent(<Repay asset={fakeAsset} onClose={noop} includeXvs />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -59,7 +59,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
   });
 
   it('displays correct token wallet balance', async () => {
-    const { getByText } = renderComponent(<Repay asset={fakeAsset} onClose={noop} isXvsEnabled />, {
+    const { getByText } = renderComponent(<Repay asset={fakeAsset} onClose={noop} includeXvs />, {
       authContextValue: {
         account: {
           address: fakeAccountAddress,
@@ -77,7 +77,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -108,7 +108,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} onClose={noop} isXvsEnabled />,
+      <Repay asset={fakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -145,7 +145,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -179,7 +179,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -213,7 +213,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} onClose={noop} isXvsEnabled />,
+      <Repay asset={customFakeAsset} onClose={noop} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -256,7 +256,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} onClose={onCloseMock} isXvsEnabled />,
+      <Repay asset={fakeAsset} onClose={onCloseMock} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -310,7 +310,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     (repayNonBnbVToken as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
     const { getByText } = renderComponent(
-      <Repay asset={fakeAsset} onClose={jest.fn()} isXvsEnabled />,
+      <Repay asset={fakeAsset} onClose={jest.fn()} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -354,7 +354,7 @@ describe('hooks/useBorrowRepayModal/Repay', () => {
     };
 
     const { getByText } = renderComponent(
-      <Repay asset={fakeBnbAsset} onClose={jest.fn()} isXvsEnabled />,
+      <Repay asset={fakeBnbAsset} onClose={jest.fn()} includeXvs />,
       {
         authContextValue: {
           account: {

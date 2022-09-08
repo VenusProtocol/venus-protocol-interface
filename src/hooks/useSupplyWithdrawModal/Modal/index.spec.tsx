@@ -57,12 +57,12 @@ describe('hooks/useSupplyWithdrawModal', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(() => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />);
+    renderComponent(() => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} includeXvs />);
   });
 
   it('asks the user to connect if wallet is not connected', async () => {
     const { getByText } = renderComponent(() => (
-      <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />
+      <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} includeXvs />
     ));
 
     const connectTextSupply = getByText(en.supplyWithdraw.connectWalletToSupply);
@@ -75,7 +75,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
   it('submit is disabled with no amount', async () => {
     const { getByText } = renderComponent(
-      () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />,
+      () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} includeXvs />,
       {
         authContextValue: {
           account: {
@@ -121,7 +121,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       }));
 
       const { queryByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} assetId={customFakeAsset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={customFakeAsset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -136,7 +136,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('displays correct token wallet balance', async () => {
       const { getByText } = renderComponent(
-        <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} isXvsEnabled />,
+        <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -151,7 +151,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('displays correct token supply balance', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -180,7 +180,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       }));
 
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} assetId={customFakeAsset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={customFakeAsset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -209,7 +209,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('submit is disabled with no amount', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={fakeAsset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -251,7 +251,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       (supplyBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       renderComponent(
-        () => <SupplyWithdraw onClose={onCloseMock} assetId={customFakeAsset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={onCloseMock} assetId={customFakeAsset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -313,7 +313,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
       (supplyNonBnb as jest.Mock).mockImplementationOnce(async () => fakeTransactionReceipt);
 
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={onCloseMock} assetId={customFakeAsset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={onCloseMock} assetId={customFakeAsset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -362,7 +362,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
         balanceWei: fakeGetVTokenBalance,
       }));
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} includeXvs />,
         {
           authContextValue: {
             account: {
@@ -388,7 +388,7 @@ describe('hooks/useSupplyWithdrawModal', () => {
 
     it('redeemUnderlying is called when partial amount is withdrawn', async () => {
       const { getByText } = renderComponent(
-        () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} isXvsEnabled />,
+        () => <SupplyWithdraw onClose={jest.fn()} assetId={asset.id} includeXvs />,
         {
           authContextValue: {
             account: {

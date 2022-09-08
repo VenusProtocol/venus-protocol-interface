@@ -26,13 +26,13 @@ import { useStyles as useSharedStyles } from '../styles';
 export interface AccountDataProps {
   asset: Asset;
   hypotheticalBorrowAmountTokens: number;
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
 }
 
 const AccountData: React.FC<AccountDataProps> = ({
   asset,
   hypotheticalBorrowAmountTokens,
-  isXvsEnabled,
+  includeXvs,
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
@@ -88,7 +88,7 @@ const AccountData: React.FC<AccountDataProps> = ({
         dailyXvsDistributionInterestsCents &&
         calculateYearlyEarningsForAssets({
           assets: updatedAssets,
-          isXvsEnabled,
+          includeXvs,
           dailyXvsDistributionInterestsCents,
         });
 
