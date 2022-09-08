@@ -18,6 +18,7 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentag
 
 import Tables from './Tables';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 import useExtractData from './useExtractData';
 
 export interface MarketBreakdownProps {
@@ -87,7 +88,7 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
         <RiskLevel variant={riskLevel} />
       </div>
 
-      <Paper css={styles.statsContainer}>
+      <Paper css={styles.statsContainer} data-testid={TEST_IDS.stats}>
         <CellGroup smallValues cells={cells} css={styles.cellGroup} />
 
         <div css={styles.accountHealth}>

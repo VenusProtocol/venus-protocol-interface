@@ -14,6 +14,7 @@ import {
   useShowXlDownCss,
 } from 'hooks/responsive';
 
+import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 export interface TablesProps {
@@ -68,7 +69,7 @@ export const Tables: React.FC<TablesProps> = ({ assets, isXvsEnabled }) => {
   ];
 
   return (
-    <>
+    <div data-testid={TEST_IDS.tables}>
       {/* Desktop view */}
       <div css={[styles.desktopContainer, hideXlDownCss]}>
         <MarketTable
@@ -117,7 +118,7 @@ export const Tables: React.FC<TablesProps> = ({ assets, isXvsEnabled }) => {
           <MarketTable {...marketTableProps.borrow} css={styles.tabletMarketTable} />
         )}
       </Paper>
-    </>
+    </div>
   );
 };
 
