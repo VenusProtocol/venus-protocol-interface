@@ -32,5 +32,8 @@ export const useStyles = () => {
     inlineValue: css`
       color: ${theme.palette.text.primary};
     `,
+    leftColumn: css`
+      margin-right: ${theme.spacing(6)};
+    `,
   };
 };

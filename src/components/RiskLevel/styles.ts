@@ -1,9 +1,8 @@
 import { css } from '@emotion/react';
 import { Theme, useTheme } from '@mui/material';
+import { MarketRiskLevel } from 'types';
 
-import { RiskLevelVariant } from './types';
-
-const getColor = ({ variant, theme }: { variant: RiskLevelVariant; theme: Theme }) => {
+const getColor = ({ variant, theme }: { variant: MarketRiskLevel; theme: Theme }) => {
   if (variant === 'MINIMAL' || variant === 'LOW') {
     return theme.palette.interactive.success;
   }
@@ -19,13 +18,16 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    content: css`
+    container: css`
       display: inline-flex;
+    `,
+    content: css`
+      display: flex;
       align-items: center;
       justify-content: center;
       cursor: help;
     `,
-    getDot: ({ variant }: { variant: RiskLevelVariant }) => css`
+    getDot: ({ variant }: { variant: MarketRiskLevel }) => css`
       flex-shrink: 0;
       width: ${theme.spacing(1)};
       height: ${theme.spacing(1)};
@@ -33,7 +35,7 @@ export const useStyles = () => {
       background-color: ${getColor({ variant, theme })};
       margin-right: ${theme.spacing(1)};
     `,
-    getText: ({ variant }: { variant: RiskLevelVariant }) => css`
+    getText: ({ variant }: { variant: MarketRiskLevel }) => css`
       color: ${getColor({ variant, theme })};
       text-decoration: underline dotted ${getColor({ variant, theme })} 1px;
     `,

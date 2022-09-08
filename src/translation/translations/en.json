@@ -9,6 +9,27 @@
       "title": "Account summary",
       "totalBorrow": "Total Borrow",
       "totalSupply": "Total Supply"
+    },
+    "marketBreakdown": {
+      "cellGroup": {
+        "dailyEarnings": "Daily Earnings",
+        "netApy": "Net APY",
+        "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
+        "totalBorrow": "Total Borrow",
+        "totalSupply": "Total Supply"
+      },
+      "tables": {
+        "borrowTableTitle": "Borrowed assets",
+        "mobileSelect": {
+          "ariaLabelFor": "sort by",
+          "label": "Sort by:",
+          "title": "Sort by"
+        },
+        "supplyTableTitle": "Supplied assets",
+        "tabletBorrowMarketTabTitle": "Borrow",
+        "tabletSupplyMarketTabTitle": "Supplied",
+        "tabletTitle": "Assets"
+      }
     }
   },
   "accountHealth": {
@@ -327,20 +348,24 @@
     "columns": {
       "asset": "Asset",
       "borrowApy": "APY",
+      "borrowBalance": "Balance",
       "collateral": "Collateral",
       "labeledBorrowApy": "Borrow APY",
       "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
       "market": "Market",
+      "percentOfLimit": "% of limit",
       "riskLevel": "Risk level",
       "supplyApyLtv": "APY / LTV",
+      "supplyBalance": "Balance",
       "treasuryTotalBorrow": "Total borrow",
       "treasuryTotalSupply": "Total supply",
       "walletBalance": "Wallet"
     }
   },
   "myAccount": {
-    "includingMintedVai": "Including minted VAI"
+    "safeLimit": "Your safe limit:",
+    "safeLimitTooltip": "{{safeBorrowLimitPercentage}}% of your borrow limit. We consider borrowing above this threshold unsafe."
   },
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",

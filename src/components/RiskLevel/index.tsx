@@ -2,14 +2,14 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { MarketRiskLevel } from 'types';
 
 import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
-import { RiskLevelVariant } from './types';
 
 interface RiskLevelProps {
   className?: string;
-  variant: RiskLevelVariant;
+  variant: MarketRiskLevel;
 }
 
 export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {
@@ -37,7 +37,7 @@ export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {
   };
 
   return (
-    <Tooltip title={t('riskLevel.tooltip')} {...containerProps}>
+    <Tooltip title={t('riskLevel.tooltip')} css={styles.container} {...containerProps}>
       <div css={styles.content}>
         <div css={styles.getDot({ variant })} />
 

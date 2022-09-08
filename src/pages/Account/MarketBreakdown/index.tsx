@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import {
   BorrowLimitUsedAccountHealth,
   Cell,
@@ -17,44 +18,51 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentag
 
 import Tables from './Tables';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
+import useExtractData from './useExtractData';
 
 export interface MarketBreakdownProps {
   marketName: string;
   riskLevel: MarketRiskLevel;
+  isXvsEnabled: boolean;
   assets: Asset[];
+  dailyXvsDistributionInterestsCents?: BigNumber;
   className?: string;
 }
+
+// TODO: add tests
 
 export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
   marketName,
   assets,
+  isXvsEnabled,
   riskLevel,
+  dailyXvsDistributionInterestsCents,
   className,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
-  // TODO: calculate using assets
-  const netApyPercentage = 0.14;
-  const dailyEarningsCents = 1298736123;
-  const totalSupplyCents = 123127386;
-  const totalBorrowCents = 98712;
-  const borrowLimitCents = 219271;
-
-  const safeBorrowLimitCents = Math.floor((borrowLimitCents * SAFE_BORROW_LIMIT_PERCENTAGE) / 100);
-  const readableSafeBorrowLimit = formatCentsToReadableValue({
-    value: safeBorrowLimitCents,
+  const {
+    totalSupplyCents,
+    totalBorrowCents,
+    borrowLimitCents,
+    readableSafeBorrowLimit,
+    safeBorrowLimitPercentage,
+    dailyEarningsCents,
+    netApyPercentage,
+  } = useExtractData({
+    assets,
+    isXvsEnabled,
+    dailyXvsDistributionInterestsCents,
   });
-  const safeBorrowLimitPercentage = formatToReadablePercentage(
-    (safeBorrowLimitCents * 100) / borrowLimitCents,
-  );
 
   const cells: Cell[] = [
     {
       label: t('account.marketBreakdown.cellGroup.netApy'),
       value: formatToReadablePercentage(netApyPercentage),
       tooltip: t('account.marketBreakdown.cellGroup.netApyTooltip'),
-      color: styles.getNetApyColor({ netApyPercentage }),
+      color: styles.getNetApyColor({ netApyPercentage: netApyPercentage || 0 }),
     },
     {
       label: t('account.marketBreakdown.cellGroup.dailyEarnings'),
@@ -80,14 +88,14 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
         <RiskLevel variant={riskLevel} />
       </div>
 
-      <Paper css={styles.statsContainer}>
+      <Paper css={styles.statsContainer} data-testid={TEST_IDS.stats}>
         <CellGroup smallValues cells={cells} css={styles.cellGroup} />
 
         <div css={styles.accountHealth}>
           <BorrowLimitUsedAccountHealth
             variant="borrowLimitUsed"
-            borrowBalanceCents={totalBorrowCents}
-            borrowLimitCents={borrowLimitCents}
+            borrowBalanceCents={totalBorrowCents.toNumber()}
+            borrowLimitCents={borrowLimitCents.toNumber()}
             safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
             css={styles.accountHealthProgressBar}
           />
@@ -118,7 +126,7 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
         </div>
       </Paper>
 
-      <Tables assets={assets} />
+      <Tables assets={assets} isXvsEnabled={isXvsEnabled} />
     </div>
   );
 };
