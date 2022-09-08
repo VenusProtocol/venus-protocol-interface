@@ -23,12 +23,12 @@ export const CellGroup: React.FC<CellGroupProps> = ({
   cells,
   title,
   smallValues = false,
-  className,
+  ...containerProps
 }) => {
   const styles = useStyles();
 
   return (
-    <Paper css={styles.container} className={className}>
+    <Paper css={styles.container} {...containerProps}>
       {!!title && <h4 css={styles.title}>{title}</h4>}
 
       <div css={styles.cellContainer}>

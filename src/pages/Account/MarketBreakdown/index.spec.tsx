@@ -24,7 +24,7 @@ describe('pages/Account/MarketBreakdown', () => {
 
   it.each([true, false])(
     'displays stats and tables correctly when isXvsEnabled is %s',
-    async isXvsEnabled => {
+    isXvsEnabled => {
       const { getByTestId } = renderComponent(
         <MarketBreakdown {...baseProps} isXvsEnabled={isXvsEnabled} />,
       );

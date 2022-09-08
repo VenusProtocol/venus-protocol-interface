@@ -6,6 +6,7 @@ import { useTranslation } from 'translation';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 export interface AccountUiProps {
   netApyPercentage: number;
@@ -66,7 +67,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({
           />
         </div>
 
-        <CellGroup cells={cells} />
+        <CellGroup cells={cells} data-testid={TEST_IDS.stats} />
       </div>
     </>
   );
