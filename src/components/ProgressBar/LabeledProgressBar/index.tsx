@@ -25,12 +25,13 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
   return (
     <>
       <div className={className} css={styles.topProgressBarLegend}>
-        <div css={styles.inlineContainer}>
+        <div css={[styles.inlineContainer, styles.leftColumn]}>
           {greyLeftText && (
             <Typography component="span" variant="small2" css={styles.inlineLabel}>
               {greyLeftText}
             </Typography>
           )}
+
           {whiteLeftText && (
             <Typography component="span" variant="small1" css={styles.inlineValue}>
               {whiteLeftText}

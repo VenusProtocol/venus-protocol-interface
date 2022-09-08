@@ -35,7 +35,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
         {cells.map(({ label, value, tooltip, color }) => (
           <div css={styles.cell} key={`cell-group-item-${label}`}>
             <div css={styles.labelContainer}>
-              <Typography variant="body2" css={styles.label}>
+              <Typography variant={smallValues ? 'small2' : 'body2'} css={styles.label}>
                 {label}
               </Typography>
 

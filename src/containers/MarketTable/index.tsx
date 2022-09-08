@@ -11,9 +11,9 @@ import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useCollateral from 'hooks/useCollateral';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 
-import generateRow from './generateRow';
 import { useStyles } from './styles';
 import { ColumnName } from './types';
+import useGenerateData from './useGenerateData';
 
 // Translation keys: do not remove this comment
 // t('marketTable.columns.asset')
@@ -22,11 +22,14 @@ import { ColumnName } from './types';
 // t('marketTable.columns.borrowApy')
 // t('marketTable.columns.labeledBorrowApy')
 // t('marketTable.columns.market')
+// t('marketTable.columns.supplyBalance')
+// t('marketTable.columns.borrowBalance')
 // t('marketTable.columns.riskLevel')
 // t('marketTable.columns.collateral')
 // t('marketTable.columns.treasuryTotalBorrow')
 // t('marketTable.columns.treasuryTotalSupply')
 // t('marketTable.columns.walletBalance')
+// t('marketTable.columns.percentOfLimit')
 // t('marketTable.columns.liquidity')
 
 export interface MarketTableProps
@@ -99,20 +102,12 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     [JSON.stringify(columns)],
   );
 
-  // Format assets to rows
-  const data: TableProps['data'] = useMemo(
-    () =>
-      assets.map(asset =>
-        generateRow({
-          asset,
-          isXvsEnabled,
-          columns,
-          collateralOnChange: handleCollateralChange,
-          marketLinkCss: styles.marketLink,
-        }),
-      ),
-    [JSON.stringify(assets), JSON.stringify(columns)],
-  );
+  const data = useGenerateData({
+    assets,
+    isXvsEnabled,
+    columns,
+    collateralOnChange: handleCollateralChange,
+  });
 
   const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: TableProps['data'][number]) => {
     const assetId = row[0].value as VTokenId;

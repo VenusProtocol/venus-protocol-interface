@@ -30,5 +30,20 @@ export const useStyles = () => {
         }
       }
     `,
+    percentOfLimit: css`
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      > :first-of-type {
+        margin-right: ${theme.spacing(2)};
+      }
+    `,
+    percentOfLimitProgressBar: css`
+      width: ${theme.spacing(13)};
+    `,
+    white: css`
+      color: ${theme.palette.text.primary};
+    `,
   };
 };

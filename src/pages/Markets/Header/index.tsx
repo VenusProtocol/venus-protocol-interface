@@ -44,7 +44,7 @@ export const HeaderUi: React.FC<HeaderProps> = ({
     },
   ];
 
-  return <CellGroup css={styles.cellGroup} cells={cells} smallValues />;
+  return <CellGroup css={styles.cellGroup} cells={cells} />;
 };
 
 const Header = () => {

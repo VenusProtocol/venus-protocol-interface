@@ -14,13 +14,15 @@ import {
   useShowXlDownCss,
 } from 'hooks/responsive';
 
+import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
 export interface TablesProps {
   assets: Asset[];
+  isXvsEnabled: boolean;
 }
 
-export const Tables: React.FC<TablesProps> = ({ assets }) => {
+export const Tables: React.FC<TablesProps> = ({ assets, isXvsEnabled }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -36,8 +38,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
   } = {
     supply: {
       assets,
-      // TODO: get isXvsEnabled from context
-      isXvsEnabled: true,
+      isXvsEnabled,
       marketType: 'supply',
       breakpoint: 'md',
       columns: ['asset', 'supplyApyLtv', 'supplyBalance', 'collateral'],
@@ -48,8 +49,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
     },
     borrow: {
       assets,
-      // TODO: get isXvsEnabled from context
-      isXvsEnabled: true,
+      isXvsEnabled,
       marketType: 'borrow',
       breakpoint: 'md',
       columns: ['asset', 'borrowApy', 'borrowBalance', 'percentOfLimit'],
@@ -69,7 +69,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
   ];
 
   return (
-    <>
+    <div data-testid={TEST_IDS.tables}>
       {/* Desktop view */}
       <div css={[styles.desktopContainer, hideXlDownCss]}>
         <MarketTable
@@ -118,7 +118,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
           <MarketTable {...marketTableProps.borrow} css={styles.tabletMarketTable} />
         )}
       </Paper>
-    </>
+    </div>
   );
 };
 
