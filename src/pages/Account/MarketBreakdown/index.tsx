@@ -18,7 +18,6 @@ import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentag
 
 import Tables from './Tables';
 import { useStyles } from './styles';
-import TEST_IDS from './testIds';
 import useExtractData from './useExtractData';
 
 export interface MarketBreakdownProps {
