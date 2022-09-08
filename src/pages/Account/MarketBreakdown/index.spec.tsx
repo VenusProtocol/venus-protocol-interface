@@ -23,8 +23,8 @@ describe('pages/Account/MarketBreakdown', () => {
   });
 
   it.each([true, false])(
-    'displays stats and tables correctly when isXvsEnabled is %s',
-    isXvsEnabled => {
+    'displays stats and tables correctly when includeXvs is %s',
+    includeXvs => {
       const { getByTestId } = renderComponent(
         <MarketBreakdown {...baseProps} includeXvs={includeXvs} />,
       );
