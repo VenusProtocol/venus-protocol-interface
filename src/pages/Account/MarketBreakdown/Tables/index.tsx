@@ -18,9 +18,10 @@ import { useStyles } from './styles';
 
 export interface TablesProps {
   assets: Asset[];
+  isXvsEnabled: boolean;
 }
 
-export const Tables: React.FC<TablesProps> = ({ assets }) => {
+export const Tables: React.FC<TablesProps> = ({ assets, isXvsEnabled }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -36,8 +37,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
   } = {
     supply: {
       assets,
-      // TODO: get isXvsEnabled from context
-      isXvsEnabled: true,
+      isXvsEnabled,
       marketType: 'supply',
       breakpoint: 'md',
       columns: ['asset', 'supplyApyLtv', 'supplyBalance', 'collateral'],
@@ -48,8 +48,7 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
     },
     borrow: {
       assets,
-      // TODO: get isXvsEnabled from context
-      isXvsEnabled: true,
+      isXvsEnabled,
       marketType: 'borrow',
       breakpoint: 'md',
       columns: ['asset', 'borrowApy', 'borrowBalance', 'percentOfLimit'],
