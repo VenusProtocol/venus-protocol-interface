@@ -13,13 +13,6 @@ import MarketBreakdown from './MarketBreakdown';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-export interface Market {
-  name: string;
-  riskLevel: MarketRiskLevel;
-  assets: Asset[];
-  dailyXvsDistributionInterestsCents?: BigNumber;
-}
-
 export interface AccountUiProps {
   markets: Market[];
   netApyPercentage: number;
