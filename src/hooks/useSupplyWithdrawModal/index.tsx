@@ -1,14 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Asset } from 'types';
+
+import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import Modal from './Modal';
 
-const useSupplyWithdrawModal = ({
-  // TODO: get from context
-  includeXvs,
-}: {
-  includeXvs: boolean;
-}) => {
+const useSupplyWithdrawModal = () => {
+  const { includeXvs } = useContext(IncludeXvsContext);
   const [selectedAssetId, setSelectedAssetId] = useState<undefined | Asset['id']>();
 
   const SupplyWithdrawModal: React.FC = useCallback(() => {

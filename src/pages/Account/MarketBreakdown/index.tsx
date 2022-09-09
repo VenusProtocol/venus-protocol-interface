@@ -124,7 +124,7 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
         </div>
       </Paper>
 
-      <Tables assets={assets} includeXvs={includeXvs} />
+      <Tables assets={assets} />
     </div>
   );
 };

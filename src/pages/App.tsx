@@ -10,6 +10,7 @@ import { Web3Wrapper } from 'clients/web3';
 import Path from 'constants/path';
 import { AuthProvider } from 'context/AuthContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
+import { IncludeXvsProvider } from 'context/IncludeXvsContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import Account from 'pages/Account';
 import Asset from 'pages/Asset';
@@ -32,40 +33,46 @@ const App = () => (
       <MuiThemeProvider>
         <AuthProvider>
           <SuccessfulTransactionModalProvider>
-            <DisableLunaUstWarningProvider>
-              <BrowserRouter>
-                <ToastContainer />
+            <IncludeXvsProvider>
+              <DisableLunaUstWarningProvider>
+                <BrowserRouter>
+                  <ToastContainer />
 
-                <Layout>
-                  <ResetScrollOnRouteChange />
+                  <Layout>
+                    <ResetScrollOnRouteChange />
 
-                  <Switch>
-                    <Route exact path={Path.ROOT} component={Dashboard} />
+                    <Switch>
+                      <Route exact path={Path.ROOT} component={Dashboard} />
 
-                    <Route exact path={Path.ACCOUNT} component={Account} />
+                      <Route exact path={Path.ACCOUNT} component={Account} />
 
-                    <Route exact path={Path.MARKETS} component={Markets} />
-                    <Route exact path={Path.MARKET} component={Market} />
-                    <Route exact path={Path.ASSET} component={Asset} />
+                      <Route exact path={Path.MARKETS} component={Markets} />
+                      <Route exact path={Path.MARKET} component={Market} />
+                      <Route exact path={Path.ASSET} component={Asset} />
 
-                    <Route exact path={Path.VAULTS} component={Vaults} />
+                      <Route exact path={Path.VAULTS} component={Vaults} />
 
-                    <Route exact path={Path.HISTORY} component={History} />
+                      <Route exact path={Path.HISTORY} component={History} />
 
-                    <Route exact path={Path.GOVERNANCE} component={Vote} />
-                    <Route exact path={Path.GOVERNANCE_LEADER_BOARD} component={VoterLeaderboard} />
-                    <Route exact path={Path.GOVERNANCE_ADDRESS} component={VoterDetails} />
-                    <Route exact path={Path.GOVERNANCE_PROPOSAL_DETAILS} component={Proposal} />
+                      <Route exact path={Path.GOVERNANCE} component={Vote} />
+                      <Route
+                        exact
+                        path={Path.GOVERNANCE_LEADER_BOARD}
+                        component={VoterLeaderboard}
+                      />
+                      <Route exact path={Path.GOVERNANCE_ADDRESS} component={VoterDetails} />
+                      <Route exact path={Path.GOVERNANCE_PROPOSAL_DETAILS} component={Proposal} />
 
-                    <Route exact path={Path.XVS} component={Xvs} />
+                      <Route exact path={Path.XVS} component={Xvs} />
 
-                    <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
+                      <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
 
-                    <Redirect to={Path.ROOT} />
-                  </Switch>
-                </Layout>
-              </BrowserRouter>
-            </DisableLunaUstWarningProvider>
+                      <Redirect to={Path.ROOT} />
+                    </Switch>
+                  </Layout>
+                </BrowserRouter>
+              </DisableLunaUstWarningProvider>
+            </IncludeXvsProvider>
           </SuccessfulTransactionModalProvider>
         </AuthProvider>
       </MuiThemeProvider>

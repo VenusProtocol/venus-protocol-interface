@@ -2,12 +2,13 @@
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Toggle } from 'components';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, MarketRiskLevel } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { assetData } from '__mocks__/models/asset';
+import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import MarketBreakdown from './MarketBreakdown';
 import { useStyles } from './styles';
@@ -99,14 +100,13 @@ export const AccountUi: React.FC<AccountUiProps> = ({
 };
 
 const Account: React.FC = () => {
+  const { includeXvs, setIncludeXvs } = useContext(IncludeXvsContext);
+
   // TODO: fetch (see VEN-548)
   const netApyPercentage = 13.4;
   const dailyEarningsCents = 100000;
   const totalSupplyCents = 100000000;
   const totalBorrowCents = 10000000;
-  // TODO: wire to context (see VEN-490)
-  const includeXvs = true;
-  const onIncludeXvsToggleChange = () => {};
 
   const markets: Market[] = [
     {
@@ -135,7 +135,7 @@ const Account: React.FC = () => {
       totalSupplyCents={totalSupplyCents}
       totalBorrowCents={totalBorrowCents}
       includeXvs={includeXvs}
-      onIncludeXvsToggleChange={onIncludeXvsToggleChange}
+      onIncludeXvsToggleChange={setIncludeXvs}
       markets={markets}
     />
   );
