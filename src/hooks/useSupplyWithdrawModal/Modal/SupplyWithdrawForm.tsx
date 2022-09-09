@@ -44,7 +44,7 @@ interface SupplyWithdrawFormUiProps {
   disabledButtonKey: string;
   calculateNewBalance: (initial: BigNumber, amount: BigNumber) => BigNumber;
   isTransactionLoading: boolean;
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   amountValue: string;
 }
 
@@ -61,7 +61,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   disabledButtonKey,
   calculateNewBalance,
   isTransactionLoading,
-  isXvsEnabled,
+  includeXvs,
   amountValue,
 }) => {
   const styles = useStyles();
@@ -105,7 +105,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
       dailyXvsDistributionInterestsCents &&
       calculateYearlyEarningsForAssets({
         assets,
-        isXvsEnabled,
+        includeXvs,
         dailyXvsDistributionInterestsCents,
       });
     const dailyEarningsCentsValue =
@@ -123,7 +123,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         dailyXvsDistributionInterestsCents &&
         calculateYearlyEarningsForAssets({
           assets: hypotheticalAssets,
-          isXvsEnabled,
+          includeXvs,
           dailyXvsDistributionInterestsCents,
         });
       hypotheticalDailyEarningCentsValue =
@@ -131,7 +131,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
     }
     return [dailyEarningsCentsValue, hypotheticalDailyEarningCentsValue];
-  }, [amount, asset.id, isXvsEnabled, JSON.stringify(assets)]);
+  }, [amount, asset.id, includeXvs, JSON.stringify(assets)]);
 
   // Prevent users from supplying LUNA tokens. This is a temporary hotfix
   // following the crash of the LUNA token

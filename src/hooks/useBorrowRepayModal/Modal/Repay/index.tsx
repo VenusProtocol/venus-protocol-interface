@@ -37,7 +37,7 @@ export interface RepayFormProps {
   asset: Asset;
   repay: (amountWei: BigNumber) => Promise<string | undefined>;
   isRepayLoading: boolean;
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   limitTokens: string;
 }
 
@@ -45,7 +45,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
   asset,
   repay,
   isRepayLoading,
-  isXvsEnabled,
+  includeXvs,
   limitTokens,
 }) => {
   const { t, Trans } = useTranslation();
@@ -186,7 +186,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
           <AccountData
             hypotheticalBorrowAmountTokens={-values.amount}
             asset={asset}
-            isXvsEnabled={isXvsEnabled}
+            includeXvs={includeXvs}
           />
 
           <PrimaryButton
@@ -207,11 +207,11 @@ export const RepayForm: React.FC<RepayFormProps> = ({
 
 export interface RepayProps {
   asset: Asset;
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   onClose: () => void;
 }
 
-const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
+const Repay: React.FC<RepayProps> = ({ asset, onClose, includeXvs }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
@@ -269,7 +269,7 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
         <RepayForm
           asset={asset}
           repay={handleRepay}
-          isXvsEnabled={isXvsEnabled}
+          includeXvs={includeXvs}
           isRepayLoading={isRepayLoading}
           limitTokens={limitTokens.toFixed()}
         />

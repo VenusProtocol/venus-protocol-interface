@@ -31,12 +31,12 @@ import { ColumnName } from './types';
 const useGenerateData = ({
   assets,
   columns,
-  isXvsEnabled,
+  includeXvs,
   collateralOnChange,
 }: {
   assets: Asset[];
   columns: ColumnName[];
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   collateralOnChange: (asset: Asset) => void;
 }) => {
   const { t } = useTranslation();
@@ -85,12 +85,12 @@ const useGenerateData = ({
         row.render = () => <Token tokenId={asset.id} />;
         row.value = asset.id;
       } else if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-        const borrowApy = isXvsEnabled ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
+        const borrowApy = includeXvs ? asset.xvsBorrowApy.plus(asset.borrowApy) : asset.borrowApy;
 
         row.render = () => formatToReadablePercentage(borrowApy);
         row.value = borrowApy.toNumber();
       } else if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-        const supplyApy = isXvsEnabled ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
+        const supplyApy = includeXvs ? asset.xvsSupplyApy.plus(asset.supplyApy) : asset.supplyApy;
         const ltv = +asset.collateralFactor * 100;
 
         row.render = () => (

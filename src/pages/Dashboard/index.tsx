@@ -113,11 +113,11 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       </div>
 
       {activeTabIndex === 0 ? (
-        // TODO: get isXvsEnabled from context
+        // TODO: get includeXvs from context
         // TODO: handle sorting on mobile
         <MarketTable
           assets={assets}
-          isXvsEnabled
+          includeXvs
           marketType="supply"
           breakpoint="lg"
           columns={['asset', 'supplyApyLtv', 'market', 'riskLevel', 'collateral']}
@@ -127,11 +127,11 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           }}
         />
       ) : (
-        // TODO: get isXvsEnabled from context
+        // TODO: get includeXvs from context
         // TODO: handle sorting on mobile
         <MarketTable
           assets={assets}
-          isXvsEnabled
+          includeXvs
           marketType="borrow"
           breakpoint="lg"
           columns={['asset', 'borrowApy', 'market', 'riskLevel', 'liquidity']}

@@ -5,9 +5,9 @@ import Modal from './Modal';
 
 const useBorrowRepayModal = ({
   // TODO: get from context
-  isXvsEnabled,
+  includeXvs,
 }: {
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
 }) => {
   const [selectedAssetId, setSelectedAssetId] = useState<undefined | Asset['id']>();
 
@@ -20,7 +20,7 @@ const useBorrowRepayModal = ({
       <Modal
         assetId={selectedAssetId}
         onClose={() => setSelectedAssetId(undefined)}
-        isXvsEnabled={isXvsEnabled}
+        includeXvs={includeXvs}
       />
     );
   }, [selectedAssetId]);

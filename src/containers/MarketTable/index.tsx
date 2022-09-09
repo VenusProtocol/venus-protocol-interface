@@ -36,7 +36,7 @@ export interface MarketTableProps
   extends Partial<Omit<TableProps, 'columns' | 'rowKeyIndex' | 'breakpoint'>>,
     Pick<TableProps, 'breakpoint'> {
   assets: Asset[];
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   columns: ColumnName[];
   marketType?: 'supply' | 'borrow';
   className?: string;
@@ -45,7 +45,7 @@ export interface MarketTableProps
 export const MarketTable: React.FC<MarketTableProps> = ({
   assets,
   marketType,
-  isXvsEnabled,
+  includeXvs,
   columns,
   getRowHref,
   ...otherTableProps
@@ -54,11 +54,11 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const styles = useStyles();
 
   const { BorrowRepayModal, openBorrowRepayModal } = useBorrowRepayModal({
-    isXvsEnabled,
+    includeXvs,
   });
 
   const { SupplyWithdrawModal, openSupplyWithdrawModal } = useSupplyWithdrawModal({
-    isXvsEnabled,
+    includeXvs,
   });
 
   const { CollateralModal, toggleCollateral } = useCollateral();
@@ -104,7 +104,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const data = useGenerateData({
     assets,
-    isXvsEnabled,
+    includeXvs,
     columns,
     collateralOnChange: handleCollateralChange,
   });

@@ -14,11 +14,11 @@ import { useStyles } from './styles';
 
 export interface BorrowRepayProps {
   onClose: ModalProps['handleClose'];
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   assetId: Asset['id'];
 }
 
-const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, isXvsEnabled }) => {
+const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, includeXvs }) => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { account } = React.useContext(AuthContext);
@@ -39,11 +39,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, isXvsEnable
       title: t('borrowRepayModal.repayTabTitle'),
       content: (
         <div css={styles.container}>
-          {asset ? (
-            <Repay asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
-          ) : (
-            <Spinner />
-          )}
+          {asset ? <Repay asset={asset} onClose={onClose} includeXvs={includeXvs} /> : <Spinner />}
         </div>
       ),
     },
@@ -54,11 +50,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, assetId, isXvsEnable
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
         <div css={styles.container}>
-          {asset ? (
-            <Borrow asset={asset} onClose={onClose} isXvsEnabled={isXvsEnabled} />
-          ) : (
-            <Spinner />
-          )}
+          {asset ? <Borrow asset={asset} onClose={onClose} includeXvs={includeXvs} /> : <Spinner />}
         </div>
       ),
     });

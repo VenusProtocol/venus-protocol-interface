@@ -25,6 +25,6 @@ export const Default = () => (
     dailyXvsDistributionInterestsCents={new BigNumber(19)}
     riskLevel="MINIMAL"
     marketName="Venus"
-    isXvsEnabled
+    includeXvs
   />
 );

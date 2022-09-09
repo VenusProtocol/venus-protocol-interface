@@ -1,18 +1,32 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Toggle } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
+import { Asset, MarketRiskLevel } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
+import { assetData } from '__mocks__/models/asset';
+
+import MarketBreakdown from './MarketBreakdown';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
+
+export interface Market {
+  name: string;
+  riskLevel: MarketRiskLevel;
+  assets: Asset[];
+  dailyXvsDistributionInterestsCents?: BigNumber;
+}
 
 export interface AccountUiProps {
+  markets: Market[];
   netApyPercentage: number;
   dailyEarningsCents: number;
   totalSupplyCents: number;
   totalBorrowCents: number;
-  isXvsIncluded: boolean;
+  includeXvs: boolean;
   onIncludeXvsToggleChange: (newValue: boolean) => void;
 }
 
@@ -21,7 +35,8 @@ export const AccountUi: React.FC<AccountUiProps> = ({
   dailyEarningsCents,
   totalSupplyCents,
   totalBorrowCents,
-  isXvsIncluded,
+  includeXvs,
+  markets,
   onIncludeXvsToggleChange,
 }) => {
   const { t } = useTranslation();
@@ -61,13 +76,24 @@ export const AccountUi: React.FC<AccountUiProps> = ({
             tooltip={t('account.accountSummary.includeXvsToggleTooltip')}
             label={t('account.accountSummary.includeXvsToggleLabel')}
             isLight
-            value={isXvsIncluded}
+            value={includeXvs}
             onChange={event => onIncludeXvsToggleChange(event.currentTarget.checked)}
           />
         </div>
 
-        <CellGroup cells={cells} />
+        <CellGroup cells={cells} data-testid={TEST_IDS.stats} />
       </div>
+
+      {markets.map(({ assets, name, riskLevel, dailyXvsDistributionInterestsCents }) => (
+        <MarketBreakdown
+          css={styles.section}
+          assets={assets}
+          marketName={name}
+          riskLevel={riskLevel}
+          dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
+          includeXvs={includeXvs}
+        />
+      ))}
     </>
   );
 };
@@ -79,8 +105,28 @@ const Account: React.FC = () => {
   const totalSupplyCents = 100000000;
   const totalBorrowCents = 10000000;
   // TODO: wire to context (see VEN-490)
-  const isXvsIncluded = true;
+  const includeXvs = true;
   const onIncludeXvsToggleChange = () => {};
+
+  const markets: Market[] = [
+    {
+      assets: assetData,
+      name: 'Venus',
+      riskLevel: 'MINIMAL',
+      dailyXvsDistributionInterestsCents: new BigNumber(1000),
+    },
+    {
+      assets: assetData,
+      name: 'Metaverse',
+      riskLevel: 'VERY_HIGH',
+    },
+    {
+      assets: assetData,
+      name: 'Gaming',
+      riskLevel: 'MEDIUM',
+      dailyXvsDistributionInterestsCents: new BigNumber(10),
+    },
+  ];
 
   return (
     <AccountUi
@@ -88,8 +134,9 @@ const Account: React.FC = () => {
       dailyEarningsCents={dailyEarningsCents}
       totalSupplyCents={totalSupplyCents}
       totalBorrowCents={totalBorrowCents}
-      isXvsIncluded={isXvsIncluded}
+      includeXvs={includeXvs}
       onIncludeXvsToggleChange={onIncludeXvsToggleChange}
+      markets={markets}
     />
   );
 };
