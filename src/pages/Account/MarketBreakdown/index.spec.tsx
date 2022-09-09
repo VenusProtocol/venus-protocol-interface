@@ -11,7 +11,7 @@ jest.mock('clients/api');
 
 const baseProps: MarketBreakdownProps = {
   assets: assetData,
-  isXvsEnabled: true,
+  includeXvs: true,
   marketName: 'Fake market name',
   riskLevel: 'VERY_HIGH',
   dailyXvsDistributionInterestsCents: new BigNumber(19),
@@ -23,10 +23,10 @@ describe('pages/Account/MarketBreakdown', () => {
   });
 
   it.each([true, false])(
-    'displays stats and tables correctly when isXvsEnabled is %s',
-    async isXvsEnabled => {
+    'displays stats and tables correctly when includeXvs is %s',
+    includeXvs => {
       const { getByTestId } = renderComponent(
-        <MarketBreakdown {...baseProps} isXvsEnabled={isXvsEnabled} />,
+        <MarketBreakdown {...baseProps} includeXvs={includeXvs} />,
       );
 
       expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();

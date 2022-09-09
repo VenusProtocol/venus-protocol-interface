@@ -20,7 +20,7 @@ describe('utilities/calculateYearlyEarnings', () => {
   test('calculates yearly Earnings for array of assets', () => {
     const earnings = calculateYearlyEarningsForAssets({
       assets: assets as Asset[],
-      isXvsEnabled: false,
+      includeXvs: false,
       dailyXvsDistributionInterestsCents: new BigNumber('1'),
     });
     expect(earnings?.toFixed()).toMatchInlineSnapshot('"-6.8460208090305522483859"');
@@ -29,7 +29,7 @@ describe('utilities/calculateYearlyEarnings', () => {
   test('calculates yearly Earnings for array of assets, including XVS distribution', () => {
     const earnings = calculateYearlyEarningsForAssets({
       assets: assets as Asset[],
-      isXvsEnabled: true,
+      includeXvs: true,
       dailyXvsDistributionInterestsCents: new BigNumber('1'),
     });
 

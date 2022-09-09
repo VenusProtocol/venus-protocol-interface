@@ -25,11 +25,11 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
 
 export const calculateYearlyEarningsForAssets = ({
   assets,
-  isXvsEnabled,
+  includeXvs,
   dailyXvsDistributionInterestsCents,
 }: {
   assets: Asset[];
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   dailyXvsDistributionInterestsCents?: BigNumber;
 }) => {
   // We use the yearly earnings to calculate the daily earnings the net APY
@@ -47,7 +47,7 @@ export const calculateYearlyEarningsForAssets = ({
     yearlyEarningsCents = yearlyEarningsCents.plus(assetYearlyEarningsCents);
   });
 
-  if (yearlyEarningsCents && isXvsEnabled && dailyXvsDistributionInterestsCents) {
+  if (yearlyEarningsCents && includeXvs && dailyXvsDistributionInterestsCents) {
     const yearlyXvsDistributionInterestsCents =
       dailyXvsDistributionInterestsCents.multipliedBy(DAYS_PER_YEAR);
 

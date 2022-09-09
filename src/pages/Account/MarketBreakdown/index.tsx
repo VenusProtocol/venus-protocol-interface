@@ -24,18 +24,16 @@ import useExtractData from './useExtractData';
 export interface MarketBreakdownProps {
   marketName: string;
   riskLevel: MarketRiskLevel;
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   assets: Asset[];
   dailyXvsDistributionInterestsCents?: BigNumber;
   className?: string;
 }
 
-// TODO: add tests
-
 export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
   marketName,
   assets,
-  isXvsEnabled,
+  includeXvs,
   riskLevel,
   dailyXvsDistributionInterestsCents,
   className,
@@ -53,7 +51,7 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
     netApyPercentage,
   } = useExtractData({
     assets,
-    isXvsEnabled,
+    includeXvs,
     dailyXvsDistributionInterestsCents,
   });
 
@@ -81,7 +79,7 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
   return (
     <div className={className}>
       <div css={styles.title}>
-        <Typography css={styles.marketName} variant="h4">
+        <Typography css={styles.marketName} variant="h3">
           {marketName}
         </Typography>
 
@@ -126,7 +124,7 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
         </div>
       </Paper>
 
-      <Tables assets={assets} isXvsEnabled={isXvsEnabled} />
+      <Tables assets={assets} includeXvs={includeXvs} />
     </div>
   );
 };

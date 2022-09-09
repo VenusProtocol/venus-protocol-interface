@@ -38,7 +38,7 @@ import { useStyles } from './styles';
 
 export interface SupplyWithdrawProps {
   onClose: ModalProps['handleClose'];
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   assetId: Asset['id'];
 }
 
@@ -46,7 +46,7 @@ export interface SupplyWithdrawUiProps extends Omit<SupplyWithdrawProps, 'assetI
   className?: string;
   onClose: ModalProps['handleClose'];
   assets: Asset[];
-  isXvsEnabled: boolean;
+  includeXvs: boolean;
   userTotalBorrowBalanceCents: BigNumber;
   userTotalBorrowLimitCents: BigNumber;
   onSubmitSupply: AmountFormProps['onSubmit'];
@@ -67,7 +67,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   assets,
   userTotalBorrowBalanceCents,
   userTotalBorrowLimitCents,
-  isXvsEnabled,
+  includeXvs,
   onSubmitSupply,
   onSubmitWithdraw,
   isSupplyLoading,
@@ -176,7 +176,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
                 maxInput={maxInput}
                 calculateNewBalance={calculateNewBalance}
                 isTransactionLoading={isTransactionLoading}
-                isXvsEnabled={isXvsEnabled}
+                includeXvs={includeXvs}
               />
             </EnableToken>
           ) : (
@@ -233,7 +233,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps> = ({
   );
 };
 
-const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnabled, onClose }) => {
+const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, includeXvs, onClose }) => {
   const { account: { address: accountAddress = '' } = {} } = useContext(AuthContext);
 
   const {
@@ -342,7 +342,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawProps> = ({ assetId, isXvsEnab
       onSubmitWithdraw={onSubmitWithdraw}
       isSupplyLoading={isSupplyLoading}
       isWithdrawLoading={isWithdrawLoading}
-      isXvsEnabled={isXvsEnabled}
+      includeXvs={includeXvs}
     />
   );
 };
