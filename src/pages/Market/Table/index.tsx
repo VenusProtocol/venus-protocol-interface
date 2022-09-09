@@ -49,8 +49,8 @@ export const Table: React.FC<TableProps> = ({ assets }) => {
       <MarketTable
         getRowHref={getRowHref}
         assets={assets}
-        // TODO: get isXvsEnabled from context
-        isXvsEnabled
+        // TODO: get includeXvs from context
+        includeXvs
         breakpoint="xl"
         columns={[
           'asset',

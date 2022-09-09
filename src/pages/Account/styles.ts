@@ -6,10 +6,14 @@ export const useStyles = () => {
 
   return {
     section: css`
-      margin-bottom: ${theme.spacing(14)};
+      :not(:last-child) {
+        margin-bottom: ${theme.spacing(14)};
+      }
 
       ${theme.breakpoints.down('lg')} {
-        margin-bottom: ${theme.spacing(10)};
+        :not(:last-child) {
+          margin-bottom: ${theme.spacing(10)};
+        }
       }
     `,
     sectionTitle: css`
