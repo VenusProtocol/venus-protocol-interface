@@ -103,7 +103,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
           {
             key: 'sent',
             render: () => t('voterDetail.readableSent', { date: voterTxs.blockTimestamp }),
-            value: voterTxs.blockTimestamp.toDateString(),
+            value: voterTxs.createdAt.getTime(),
             align: 'left',
           },
           {
@@ -133,7 +133,9 @@ export const Transactions: React.FC<TransactionsProps> = ({
         <Table
           columns={columns}
           data={rows}
-          rowKeyExtractor={row => `${row[1].value}`}
+          rowKeyExtractor={row =>
+            row.reduce((acc, cell) => `${acc}-${cell.value}`, 'voter-transaction')
+          }
           breakpoint="sm"
           css={styles.cardContentGrid}
         />
