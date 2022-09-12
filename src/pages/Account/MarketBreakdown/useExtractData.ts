@@ -86,6 +86,6 @@ const useExtractData = ({
       totalSupplyCents,
       borrowLimitCents,
     };
-  }, [JSON.stringify(assets), dailyXvsDistributionInterestsCents?.toFixed()]);
+  }, [JSON.stringify(assets), dailyXvsDistributionInterestsCents?.toFixed(), includeXvs]);
 
 export default useExtractData;

@@ -10,7 +10,7 @@ import {
   Toggle,
   Token,
 } from 'components';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -24,6 +24,7 @@ import {
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
 import { useStyles } from './styles';
 import { ColumnName } from './types';
@@ -31,16 +32,16 @@ import { ColumnName } from './types';
 const useGenerateData = ({
   assets,
   columns,
-  includeXvs,
   collateralOnChange,
 }: {
   assets: Asset[];
   columns: ColumnName[];
-  includeXvs: boolean;
   collateralOnChange: (asset: Asset) => void;
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  const { includeXvs } = useContext(IncludeXvsContext);
 
   // Calculate borrow limit of user if percentOfLimit column needs to be
   // rendered
