@@ -46,9 +46,9 @@ const App = () => (
 
                       <Route exact path={Path.ACCOUNT} component={Account} />
 
-                      <Route exact path={Path.MARKETS} component={Markets} />
-                      <Route exact path={Path.MARKET} component={Market} />
-                      <Route exact path={Path.ASSET} component={Asset} />
+                    <Route exact path={Path.MARKETS} component={Markets} />
+                    <Route exact path={Path.MARKET} component={Market} />
+                    <Route exact path={Path.MARKET_ASSET} component={Asset} />
 
                       <Route exact path={Path.VAULTS} component={Vaults} />
 

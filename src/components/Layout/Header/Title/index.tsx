@@ -24,7 +24,7 @@ const Title: React.FC = () => {
   const { account } = useContext(AuthContext);
 
   const voterDetailMatch = useRouteMatch<{ address: string }>(Path.GOVERNANCE_ADDRESS);
-  const assetMatch = useRouteMatch<{ vTokenId: VTokenId; marketId: string }>(Path.ASSET);
+  const assetMatch = useRouteMatch<{ vTokenId: VTokenId; marketId: string }>(Path.MARKET_ASSET);
   const voteLeaderboardMatch = useRouteMatch(Path.GOVERNANCE_LEADER_BOARD);
   const proposalDetailsMatch = useRouteMatch<{ id: string }>(Path.GOVERNANCE_PROPOSAL_DETAILS);
   const { t } = useTranslation();
