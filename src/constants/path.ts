@@ -4,7 +4,7 @@ enum Path {
   XVS = '/xvs',
   MARKETS = '/markets',
   MARKET = '/markets/:marketId',
-  MARKET_ASSET = '/markets/:marketId/asset/:vTokenId',
+  MARKET_ASSET = '/markets/:marketId/:vTokenId',
   HISTORY = '/history',
   VAULTS = '/vaults',
   GOVERNANCE = '/governance',
