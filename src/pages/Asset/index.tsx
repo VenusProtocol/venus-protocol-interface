@@ -93,12 +93,8 @@ export const AssetUi: React.FC<AssetUiProps> = ({
   const token = getToken(vTokenId);
   const vToken = getVBepToken(vTokenId);
 
-  // TODO: grab includeXvs from context (see VEN-531)
-  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal({ includeXvs: true });
-  // TODO: grab includeXvs from context (see VEN-531)
-  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal({
-    includeXvs: true,
-  });
+  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal();
+  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal();
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
