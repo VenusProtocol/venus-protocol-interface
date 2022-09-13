@@ -13,6 +13,7 @@ import Asset from '.';
 import TEST_IDS from './testIds';
 
 const fakeVTokenId = 'aave';
+const fakeMarketId = 'fake-market-id';
 
 jest.mock('clients/api');
 
@@ -39,6 +40,7 @@ describe('pages/Asset', () => {
         match={{
           params: {
             vTokenId: fakeVTokenId,
+            marketId: fakeMarketId,
           },
           isExact: true,
           path: '/:vTokenId',
@@ -57,6 +59,7 @@ describe('pages/Asset', () => {
         match={{
           params: {
             vTokenId: fakeVTokenId,
+            marketId: fakeMarketId,
           },
           isExact: true,
           path: '/:vTokenId',

@@ -8,7 +8,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.dashboard')
     i18nKey: 'layout.menuItems.dashboard',
-    i18nTitleKey: 'layout.menuItems.dashboard',
     icon: 'dashboard',
   },
   {
@@ -16,7 +15,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.account')
     i18nKey: 'layout.menuItems.account',
-    i18nTitleKey: 'layout.menuItems.account',
     icon: 'person',
   },
 
@@ -25,7 +23,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.markets')
     i18nKey: 'layout.menuItems.markets',
-    i18nTitleKey: 'layout.menuItems.markets',
     icon: 'market',
   },
   {
@@ -33,7 +30,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.vaults')
     i18nKey: 'layout.menuItems.vaults',
-    i18nTitleKey: 'layout.menuItems.vaults',
     icon: 'vault',
   },
   {
@@ -41,7 +37,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
     i18nKey: 'layout.menuItems.history',
-    i18nTitleKey: 'layout.menuItems.history',
     icon: 'history',
   },
   {
@@ -49,7 +44,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.governance')
     i18nKey: 'layout.menuItems.governance',
-    i18nTitleKey: 'layout.menuItems.governance',
     icon: 'vote',
   },
   {
@@ -57,7 +51,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvs')
     i18nKey: 'layout.menuItems.xvs',
-    i18nTitleKey: 'layout.menuItems.xvs',
     icon: 'xvsOutlined',
   },
   {
@@ -66,7 +59,6 @@ export const menuItems: MenuItem[] = [
     // t('layout.menuItems.convertVrt')
     // t('layout.menuItems.convertVrtTitle')
     i18nKey: 'layout.menuItems.convertVrt',
-    i18nTitleKey: 'layout.menuItems.convertVrtTitle',
     icon: 'convert',
   },
 
@@ -75,7 +67,6 @@ export const menuItems: MenuItem[] = [
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvsPrediction')
     i18nKey: 'layout.menuItems.xvsPrediction',
-    i18nTitleKey: 'layout.menuItems.xvsPrediction',
     icon: 'xvsPrediction',
   },
 ];

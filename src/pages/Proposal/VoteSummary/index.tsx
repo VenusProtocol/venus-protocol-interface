@@ -84,7 +84,7 @@ const VoteSummary = ({
           <li key={address} css={styles.voteFrom}>
             <div css={styles.address}>
               <Link
-                to={Path.GOVERNANCE_ADDRESS.replace(':address', address)}
+                to={Path.GOVERNANCE_VOTER_DETAILS.replace(':address', address)}
                 css={[styles.blueText, styles.addressText]}
               >
                 <EllipseAddress address={address} />

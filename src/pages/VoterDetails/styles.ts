@@ -9,6 +9,22 @@ export const useStyles = () => {
       flex: 1;
       flex-direction: column;
     `,
+    breadcrumbNavigationAddress: css`
+      display: inline-flex;
+      align-items: center;
+    `,
+    breadcrumbNavigationCopyIcon: css`
+      cursor: pointer;
+      display: inline-flex;
+      color: ${theme.palette.interactive.primary};
+      margin-left: ${theme.spacing(2)};
+      height: ${theme.spacing(5.5)};
+      width: auto;
+
+      :hover {
+        color: ${theme.palette.button.medium};
+      }
+    `,
     top: css`
       display: flex;
       flex: 1;

@@ -225,10 +225,6 @@
   "footer": {
     "latestNumber": "Latest Block:\u00a0"
   },
-  "header": {
-    "proposalDetailsTitle": "Overview",
-    "voteLeaderboardTitle": "Vote"
-  },
   "history": {
     "all": "All",
     "approval": "Approval",
@@ -370,6 +366,9 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
+  },
+  "proposal": {
+    "title": "Proposal #{{proposalId}}"
   },
   "riskLevel": {
     "high": "High risk",
@@ -756,7 +755,8 @@
       "rank": "Rank",
       "votes": "Votes",
       "voteWeight": "Vote Weight"
-    }
+    },
+    "title": "Leaderboard"
   },
   "voteSummary": {
     "addresses_zero": "{{count}} address",

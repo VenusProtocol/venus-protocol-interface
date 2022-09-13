@@ -7,11 +7,13 @@ import { Asset } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { assetData } from '__mocks__/models/asset';
+import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 
 import Table from './Table';
 import { useStyles } from './styles';
 
 export interface MarketUiProps {
+  marketName: string;
   assets: Asset[];
   isIsolatedLendingMarket: boolean;
   totalSupplyCents: number;
@@ -20,6 +22,7 @@ export interface MarketUiProps {
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
+  marketName,
   assets,
   isIsolatedLendingMarket,
   totalSupplyCents,
@@ -28,6 +31,16 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
+
+  useUpdateBreadcrumbNavigation(
+    currentPathNodes =>
+      currentPathNodes.concat([
+        {
+          dom: marketName,
+        },
+      ]),
+    [],
+  );
 
   const cells: Cell[] = useMemo(
     () => [
@@ -100,6 +113,7 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 
 const Market: React.FC = () => {
   // TODO: fetch actual values (see VEN-546)
+  const marketName = 'Venus';
   const assets = assetData;
   const isIsolatedLendingMarket = true;
   const totalSupplyCents = 1000000000;
@@ -109,6 +123,7 @@ const Market: React.FC = () => {
 
   return (
     <MarketUi
+      marketName={marketName}
       assets={assets}
       isIsolatedLendingMarket={isIsolatedLendingMarket}
       totalSupplyCents={totalSupplyCents}

@@ -87,6 +87,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({
 
       {markets.map(({ assets, name, riskLevel, dailyXvsDistributionInterestsCents }) => (
         <MarketBreakdown
+          key={`market-breakdown-${name}`}
           css={styles.section}
           assets={assets}
           marketName={name}

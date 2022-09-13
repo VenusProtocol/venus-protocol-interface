@@ -73,5 +73,26 @@ export const useStyles = () => {
     apyChart: css`
       margin-right: ${theme.spacing(-2.5)};
     `,
+    breadcrumbNavigationTokenSymbol: css`
+      display: inline-flex;
+      align-items: center;
+    `,
+    breadcrumbNavigationAddTokenButton: css`
+      margin-left: ${theme.spacing(4)};
+      padding: ${theme.spacing(1)};
+      color: ${theme.palette.interactive.primary};
+      background-color: ${theme.palette.background.paper};
+      border-color: ${theme.palette.background.paper};
+
+      :hover {
+        color: ${theme.palette.text.primary};
+      }
+    `,
+    breadcrumbNavigationWalletIcon: css`
+      width: ${theme.spacing(5)};
+      height: ${theme.spacing(5)};
+      margin-left: 1px;
+      color: inherit;
+    `,
   };
 };
