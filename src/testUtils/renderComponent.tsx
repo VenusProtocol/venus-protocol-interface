@@ -44,20 +44,22 @@ const renderComponent = (
         <MuiThemeProvider>
           <AuthContext.Provider value={defaultAuthContextValues}>
             <SuccessfulTransactionModalProvider>
-              <DisableLunaUstWarningProvider>
-                <BrowserRouter>
-                  <BreadcrumbNavigationProvider>
-                    <ToastContainer />
+              <IncludeXvsProvider>
+                <DisableLunaUstWarningProvider>
+                  <BrowserRouter>
+                    <BreadcrumbNavigationProvider>
+                      <ToastContainer />
 
-                    <Switch>
-                      <Route
-                        path="/"
-                        component={typeof children === 'function' ? children : () => children}
-                      />
-                    </Switch>
-                  </BreadcrumbNavigationProvider>
-                </BrowserRouter>
-              </DisableLunaUstWarningProvider>
+                      <Switch>
+                        <Route
+                          path="/"
+                          component={typeof children === 'function' ? children : () => children}
+                        />
+                      </Switch>
+                    </BreadcrumbNavigationProvider>
+                  </BrowserRouter>
+                </DisableLunaUstWarningProvider>
+              </IncludeXvsProvider>
             </SuccessfulTransactionModalProvider>
           </AuthContext.Provider>
         </MuiThemeProvider>

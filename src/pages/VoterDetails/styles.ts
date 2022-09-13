@@ -10,15 +10,12 @@ export const useStyles = () => {
       flex-direction: column;
     `,
     breadcrumbNavigationAddress: css`
-      flex: 1;
       display: inline-flex;
       align-items: center;
-      justify-content: flex-start;
-      max-width: ${theme.spacing(50)};
     `,
     breadcrumbNavigationCopyIcon: css`
-      display: inline-flex;
       cursor: pointer;
+      display: inline-flex;
       color: ${theme.palette.interactive.primary};
       margin-left: ${theme.spacing(2)};
       height: ${theme.spacing(5.5)};

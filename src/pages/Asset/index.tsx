@@ -4,11 +4,13 @@ import {
   ApyChart,
   ApyChartProps,
   Button,
+  Icon,
   InterestRateChart,
   InterestRateChartProps,
   Spinner,
+  TertiaryButton,
 } from 'components';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { TokenId, VTokenId } from 'types';
@@ -21,9 +23,11 @@ import {
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
+import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import Path from 'constants/path';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
 import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
@@ -36,6 +40,7 @@ import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
 export interface AssetUiProps {
+  isUserConnected: boolean;
   marketId: string;
   marketName: string;
   vTokenId: VTokenId;
@@ -65,6 +70,7 @@ export interface AssetUiProps {
 }
 
 export const AssetUi: React.FC<AssetUiProps> = ({
+  isUserConnected,
   marketId,
   marketName,
   vTokenId,
@@ -106,19 +112,27 @@ export const AssetUi: React.FC<AssetUiProps> = ({
           dom: marketName,
         },
         {
-          // TODO: add icon to add token to wallet if user is connected
-          dom: token.symbol,
+          dom: (
+            <div css={styles.breadcrumbNavigationTokenSymbol}>
+              <span>{token.symbol}</span>
+
+              {isUserConnected && (
+                <TertiaryButton
+                  css={styles.breadcrumbNavigationAddTokenButton}
+                  onClick={() => addTokenToWallet(vTokenId)}
+                >
+                  <Icon name="wallet" css={styles.breadcrumbNavigationWalletIcon} />
+                </TertiaryButton>
+              )}
+            </div>
+          ),
         },
       ]),
-    [marketName],
+    [marketName, token.symbol, vTokenId, isUserConnected],
   );
 
-  // TODO: grab includeXvs from context (see VEN-531)
-  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal({ includeXvs: true });
-  // TODO: grab includeXvs from context (see VEN-531)
-  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal({
-    includeXvs: true,
-  });
+  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal();
+  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal();
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
@@ -386,6 +400,7 @@ const Asset: React.FC<AssetProps> = ({
     params: { vTokenId, marketId },
   },
 }) => {
+  const { account } = useContext(AuthContext);
   const vToken = getVBepToken(vTokenId);
 
   // TODO: fetch actual values (see VEN-546)
@@ -415,6 +430,7 @@ const Asset: React.FC<AssetProps> = ({
 
   return (
     <AssetUi
+      isUserConnected={!!account}
       marketId={marketId}
       marketName={marketName}
       vTokenId={vTokenId}

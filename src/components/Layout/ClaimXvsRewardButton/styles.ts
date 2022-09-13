@@ -6,6 +6,7 @@ export const useStyles = () => {
 
   return {
     button: css`
+      white-space: nowrap;
       border-color: ${theme.palette.background.paper};
 
       > span {
