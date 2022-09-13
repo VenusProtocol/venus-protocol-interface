@@ -9,7 +9,7 @@ export const useStyles = () => {
       flex: 1;
       flex-direction: row;
       height: 100vh;
-      ${theme.breakpoints.down('md')} {
+      ${theme.breakpoints.down('lg')} {
         flex-direction: column;
       }
     `,

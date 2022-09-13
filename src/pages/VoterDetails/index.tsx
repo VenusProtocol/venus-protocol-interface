@@ -1,10 +1,16 @@
 /** @jsxImportSource @emotion/react */
+import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { EllipseAddress, Icon } from 'components';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'translation';
 import { VoteDetailTransaction, VoterHistory } from 'types';
 
 import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
+import Path from 'constants/path';
+import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 
 import History from './History';
 import Holding from './Holding';
@@ -38,7 +44,36 @@ export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
   limit,
   isHistoryFetching,
 }) => {
+  const { t } = useTranslation();
   const styles = useStyles();
+  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
+
+  useUpdateBreadcrumbNavigation(
+    currentPathNodes =>
+      currentPathNodes.concat([
+        {
+          href: Path.GOVERNANCE_LEADER_BOARD,
+          dom: t('voterLeaderboard.title'),
+        },
+        {
+          dom: (
+            <div css={styles.breadcrumbNavigationAddress}>
+              <Typography variant="h3" color="textPrimary">
+                <EllipseAddress address={address} />
+              </Typography>
+
+              <Icon
+                name="copy"
+                css={styles.breadcrumbNavigationCopyIcon}
+                onClick={() => copyToClipboard(address)}
+              />
+            </div>
+          ),
+        },
+      ]),
+    [],
+  );
+
   return (
     <div css={styles.root}>
       <div css={styles.top}>
@@ -49,12 +84,14 @@ export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
           votesWei={votesWei}
           delegating={delegating}
         />
+
         <Transactions
           css={styles.topRowRight}
           address={address}
           voterTransactions={voterTransactions}
         />
       </div>
+
       <History
         total={total}
         voterHistory={voterHistory}

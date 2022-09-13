@@ -21,7 +21,7 @@ export const Table: React.FC<TableProps> = ({ assets }) => {
   const showMdDownCss = useShowMdDownCss();
 
   const getRowHref = (row: TableRowProps[]) =>
-    Path.ASSET.replace(':marketId', 'FAKE_MARKET_ID') // TODO: wire up
+    Path.MARKET_ASSET.replace(':marketId', 'FAKE_MARKET_ID') // TODO: wire up
       .replace(':vTokenId', `${row[0].value}`);
 
   // TODO: add all options
