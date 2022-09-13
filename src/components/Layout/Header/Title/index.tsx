@@ -1,13 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import { BreadcrumbNavigationContext } from 'context/BreadcrumbNavigationContext';
 
-const Title: React.FC = () => {
-  const { pathNodes } = useContext(BreadcrumbNavigationContext);
+import { useStyles } from './styles';
 
-  console.log(pathNodes);
+const Title: React.FC = () => {
+  const styles = useStyles();
+  const { pathNodes } = useContext(BreadcrumbNavigationContext);
 
   if (pathNodes.length === 0) {
     return null;
@@ -16,7 +18,14 @@ const Title: React.FC = () => {
   return (
     <Typography component="h1" variant="h3">
       {pathNodes.map((pathNode, index) =>
-        index === pathNodes.length - 1 ? pathNode.dom : `/${pathNode.dom}`,
+        pathNodes.length > 0 && index < pathNodes.length - 1 ? (
+          <>
+            <Link to={pathNode.href}>{pathNode.dom}</Link>
+            <span css={styles.separator}>/</span>
+          </>
+        ) : (
+          pathNode.dom
+        ),
       )}
     </Typography>
   );
