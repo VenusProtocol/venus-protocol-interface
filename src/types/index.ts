@@ -1,13 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { IconName } from 'components';
 
 import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
-
-export interface MenuItem {
-  href: string;
-  icon: IconName;
-  i18nKey: string;
-}
 
 export enum BscChainId {
   'MAINNET' = 56,
