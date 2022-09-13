@@ -10,7 +10,7 @@ enum Path {
   GOVERNANCE = '/governance',
   GOVERNANCE_LEADER_BOARD = '/governance/leaderboard',
   GOVERNANCE_PROPOSAL_DETAILS = '/governance/proposal/:id',
-  GOVERNANCE_ADDRESS = '/governance/address/:address',
+  GOVERNANCE_VOTER_DETAILS = '/governance/voter/:address',
   CONVERT_VRT = '/convert-vrt',
 }
 

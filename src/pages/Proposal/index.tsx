@@ -10,6 +10,7 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
+import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';
@@ -42,6 +43,23 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  useUpdateBreadcrumbNavigation(
+    currentPathNodes => {
+      // Return current path nodes if proposal hasn't been fetched yet
+      if (!proposal?.id) {
+        return currentPathNodes;
+      }
+
+      return currentPathNodes.concat([
+        {
+          dom: t('proposal.title', { proposalId: proposal.id }),
+        },
+      ]);
+    },
+    [proposal?.id],
+  );
+
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
 
   // Summing contract totals because there is a delay getting the totals from the server

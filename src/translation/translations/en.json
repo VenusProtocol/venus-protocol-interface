@@ -367,6 +367,9 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
+  "proposal": {
+    "title": "Proposal #{{proposalId}}"
+  },
   "riskLevel": {
     "high": "High risk",
     "low": "Low risk",

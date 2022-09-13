@@ -61,7 +61,7 @@ const App = () => (
                         path={Path.GOVERNANCE_LEADER_BOARD}
                         component={VoterLeaderboard}
                       />
-                      <Route exact path={Path.GOVERNANCE_ADDRESS} component={VoterDetails} />
+                      <Route exact path={Path.GOVERNANCE_VOTER_DETAILS} component={VoterDetails} />
                       <Route exact path={Path.GOVERNANCE_PROPOSAL_DETAILS} component={Proposal} />
 
                       <Route exact path={Path.XVS} component={Xvs} />

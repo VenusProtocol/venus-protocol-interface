@@ -26,6 +26,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
+import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
@@ -35,6 +36,8 @@ import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
 export interface AssetUiProps {
+  marketId: string;
+  marketName: string;
   vTokenId: VTokenId;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
@@ -62,6 +65,8 @@ export interface AssetUiProps {
 }
 
 export const AssetUi: React.FC<AssetUiProps> = ({
+  marketId,
+  marketName,
   vTokenId,
   totalBorrowBalanceCents,
   borrowApyPercentage,
@@ -93,8 +98,27 @@ export const AssetUi: React.FC<AssetUiProps> = ({
   const token = getToken(vTokenId);
   const vToken = getVBepToken(vTokenId);
 
-  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal();
-  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal();
+  useUpdateBreadcrumbNavigation(
+    currentPathNodes =>
+      currentPathNodes.concat([
+        {
+          href: Path.MARKET.replace(':marketId', marketId),
+          dom: marketName,
+        },
+        {
+          // TODO: add icon to add token to wallet if user is connected
+          dom: token.symbol,
+        },
+      ]),
+    [marketName],
+  );
+
+  // TODO: grab includeXvs from context (see VEN-531)
+  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal({ includeXvs: true });
+  // TODO: grab includeXvs from context (see VEN-531)
+  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal({
+    includeXvs: true,
+  });
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
@@ -355,14 +379,17 @@ export const AssetUi: React.FC<AssetUiProps> = ({
   );
 };
 
-export type AssetProps = RouteComponentProps<{ vTokenId: VTokenId }>;
+export type AssetProps = RouteComponentProps<{ vTokenId: VTokenId; marketId: string }>;
 
 const Asset: React.FC<AssetProps> = ({
   match: {
-    params: { vTokenId },
+    params: { vTokenId, marketId },
   },
 }) => {
   const vToken = getVBepToken(vTokenId);
+
+  // TODO: fetch actual values (see VEN-546)
+  const marketName = 'Venus';
 
   // Redirect to market page if vTokenId passed through route params is invalid
   if (!vToken) {
@@ -388,6 +415,8 @@ const Asset: React.FC<AssetProps> = ({
 
   return (
     <AssetUi
+      marketId={marketId}
+      marketName={marketName}
       vTokenId={vTokenId}
       {...marketData}
       {...chartData}
