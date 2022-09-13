@@ -9,6 +9,7 @@ import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
 import Path from 'constants/path';
 import { AuthProvider } from 'context/AuthContext';
+import { BreadcrumbNavigationProvider } from 'context/BreadcrumbNavigationContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
 import { IncludeXvsProvider } from 'context/IncludeXvsContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
@@ -33,9 +34,9 @@ const App = () => (
       <MuiThemeProvider>
         <AuthProvider>
           <SuccessfulTransactionModalProvider>
-            <IncludeXvsProvider>
-              <DisableLunaUstWarningProvider>
-                <BrowserRouter>
+            <DisableLunaUstWarningProvider>
+              <BrowserRouter>
+                <BreadcrumbNavigationProvider>
                   <ToastContainer />
 
                   <Layout>
@@ -46,9 +47,9 @@ const App = () => (
 
                       <Route exact path={Path.ACCOUNT} component={Account} />
 
-                    <Route exact path={Path.MARKETS} component={Markets} />
-                    <Route exact path={Path.MARKET} component={Market} />
-                    <Route exact path={Path.MARKET_ASSET} component={Asset} />
+                      <Route exact path={Path.MARKETS} component={Markets} />
+                      <Route exact path={Path.MARKET} component={Market} />
+                      <Route exact path={Path.MARKET_ASSET} component={Asset} />
 
                       <Route exact path={Path.VAULTS} component={Vaults} />
 
@@ -70,9 +71,9 @@ const App = () => (
                       <Redirect to={Path.ROOT} />
                     </Switch>
                   </Layout>
-                </BrowserRouter>
-              </DisableLunaUstWarningProvider>
-            </IncludeXvsProvider>
+                </BreadcrumbNavigationProvider>
+              </BrowserRouter>
+            </DisableLunaUstWarningProvider>
           </SuccessfulTransactionModalProvider>
         </AuthProvider>
       </MuiThemeProvider>
