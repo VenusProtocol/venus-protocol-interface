@@ -167,6 +167,7 @@ export interface Market {
   borrowApy: BigNumber;
   borrowCaps: string;
   borrowRatePerBlock: string;
+  borrowVenusApr: BigNumber;
   borrowVenusApy: BigNumber;
   borrowerCount: number;
   borrowerDailyVenus: string;
@@ -182,6 +183,7 @@ export interface Market {
   supplyApy: BigNumber;
   supplyRatePerBlock: string;
   supplyVenusApy: BigNumber;
+  supplyVenusApr: BigNumber;
   symbol: string;
   tokenPrice: BigNumber;
   totalBorrows: string;
