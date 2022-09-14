@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
 import { Cell, CellGroup, Toggle } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
@@ -18,7 +17,6 @@ export interface Market {
   name: string;
   riskLevel: MarketRiskLevel;
   assets: Asset[];
-  dailyXvsDistributionInterestsCents?: BigNumber;
 }
 
 export interface AccountUiProps {
@@ -85,14 +83,13 @@ export const AccountUi: React.FC<AccountUiProps> = ({
         <CellGroup cells={cells} data-testid={TEST_IDS.stats} />
       </div>
 
-      {markets.map(({ assets, name, riskLevel, dailyXvsDistributionInterestsCents }) => (
+      {markets.map(({ assets, name, riskLevel }) => (
         <MarketBreakdown
           key={`market-breakdown-${name}`}
           css={styles.section}
           assets={assets}
           marketName={name}
           riskLevel={riskLevel}
-          dailyXvsDistributionInterestsCents={dailyXvsDistributionInterestsCents}
           includeXvs={includeXvs}
         />
       ))}
@@ -114,7 +111,6 @@ const Account: React.FC = () => {
       assets: assetData,
       name: 'Venus',
       riskLevel: 'MINIMAL',
-      dailyXvsDistributionInterestsCents: new BigNumber(1000),
     },
     {
       assets: assetData,
@@ -125,7 +121,6 @@ const Account: React.FC = () => {
       assets: assetData,
       name: 'Gaming',
       riskLevel: 'MEDIUM',
-      dailyXvsDistributionInterestsCents: new BigNumber(10),
     },
   ];
 

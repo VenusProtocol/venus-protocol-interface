@@ -21,10 +21,12 @@ export interface Asset {
   vtokenAddress: string;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
+  xvsBorrowApr: BigNumber;
   img: string;
   borrowCaps: BigNumber;
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
+  xvsSupplyApr: BigNumber;
   supplyApy: BigNumber;
   collateralFactor: BigNumber;
   collateral: boolean;

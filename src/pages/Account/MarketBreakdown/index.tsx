@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
 import {
   BorrowLimitUsedAccountHealth,
   Cell,
@@ -26,7 +25,6 @@ export interface MarketBreakdownProps {
   riskLevel: MarketRiskLevel;
   includeXvs: boolean;
   assets: Asset[];
-  dailyXvsDistributionInterestsCents?: BigNumber;
   className?: string;
 }
 
@@ -35,7 +33,6 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
   assets,
   includeXvs,
   riskLevel,
-  dailyXvsDistributionInterestsCents,
   className,
 }) => {
   const { t } = useTranslation();
@@ -52,7 +49,6 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
   } = useExtractData({
     assets,
     includeXvs,
-    dailyXvsDistributionInterestsCents,
   });
 
   const cells: Cell[] = [

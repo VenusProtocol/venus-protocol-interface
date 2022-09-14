@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
@@ -14,7 +13,6 @@ const baseProps: MarketBreakdownProps = {
   includeXvs: true,
   marketName: 'Fake market name',
   riskLevel: 'VERY_HIGH',
-  dailyXvsDistributionInterestsCents: new BigNumber(19),
 };
 
 describe('pages/Account/MarketBreakdown', () => {
