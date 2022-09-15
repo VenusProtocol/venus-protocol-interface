@@ -115,6 +115,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       {activeTabIndex === 0 ? (
         // TODO: handle sorting on mobile
         <MarketTable
+          key="dashboard-supply-market-table"
           assets={assets}
           marketType="supply"
           breakpoint="lg"
@@ -127,6 +128,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
       ) : (
         // TODO: handle sorting on mobile
         <MarketTable
+          key="dashboard-borrow-market-table"
           assets={assets}
           marketType="borrow"
           breakpoint="lg"

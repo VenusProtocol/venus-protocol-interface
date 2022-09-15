@@ -1,5 +1,4 @@
 import { ComponentMeta } from '@storybook/react';
-import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import { assetData } from '__mocks__/models/asset';
@@ -20,11 +19,5 @@ export default {
 } as ComponentMeta<typeof MarketBreakdown>;
 
 export const Default = () => (
-  <MarketBreakdown
-    assets={assetData}
-    dailyXvsDistributionInterestsCents={new BigNumber(19)}
-    riskLevel="MINIMAL"
-    marketName="Venus"
-    includeXvs
-  />
+  <MarketBreakdown assets={assetData} riskLevel="MINIMAL" marketName="Venus" includeXvs />
 );

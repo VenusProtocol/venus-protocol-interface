@@ -21,10 +21,12 @@ export interface Asset {
   vtokenAddress: string;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
+  xvsBorrowApr: BigNumber;
   img: string;
   borrowCaps: BigNumber;
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
+  xvsSupplyApr: BigNumber;
   supplyApy: BigNumber;
   collateralFactor: BigNumber;
   collateral: boolean;
@@ -167,6 +169,7 @@ export interface Market {
   borrowApy: BigNumber;
   borrowCaps: string;
   borrowRatePerBlock: string;
+  borrowVenusApr: BigNumber;
   borrowVenusApy: BigNumber;
   borrowerCount: number;
   borrowerDailyVenus: string;
@@ -182,6 +185,7 @@ export interface Market {
   supplyApy: BigNumber;
   supplyRatePerBlock: string;
   supplyVenusApy: BigNumber;
+  supplyVenusApr: BigNumber;
   symbol: string;
   tokenPrice: BigNumber;
   totalBorrows: string;
