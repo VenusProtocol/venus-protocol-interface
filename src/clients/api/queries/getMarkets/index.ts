@@ -31,27 +31,32 @@ const getMarkets = async (): Promise<GetMarketsOutput> => {
   if (response && response.data && response.data.data) {
     dailyVenusWei = new BigNumber(response.data.data.dailyVenus);
 
-    markets = response.data?.data.markets
-      // Filter out unlisted tokens
-      .filter(market =>
+    markets = response.data?.data.markets.reduce<Market[]>(
+      (acc, market) =>
+        // Only return listed tokens
         Object.keys(VBEP_TOKENS).some(
           vBepToken => vBepToken.toLowerCase() === market.underlyingSymbol.toLowerCase(),
-        ),
-      )
-      .map(market => ({
-        ...market,
-        id: market.underlyingSymbol.toLowerCase() as TokenId,
-        tokenPrice: new BigNumber(market.tokenPrice),
-        liquidity: new BigNumber(market.liquidity),
-        borrowVenusApr: new BigNumber(market.borrowVenusApr),
-        borrowVenusApy: new BigNumber(market.borrowVenusApy),
-        borrowApy: new BigNumber(market.borrowApy),
-        supplyVenusApr: new BigNumber(market.supplyVenusApr),
-        supplyVenusApy: new BigNumber(market.supplyVenusApy),
-        supplyApy: new BigNumber(market.supplyApy),
-        treasuryTotalBorrowsCents: new BigNumber(market.totalBorrowsUsd).times(100),
-        treasuryTotalSupplyCents: new BigNumber(market.totalSupplyUsd).times(100),
-      }));
+        )
+          ? [
+              ...acc,
+              {
+                ...market,
+                id: market.underlyingSymbol.toLowerCase() as TokenId,
+                tokenPrice: new BigNumber(market.tokenPrice),
+                liquidity: new BigNumber(market.liquidity),
+                borrowVenusApr: new BigNumber(market.borrowVenusApr),
+                borrowVenusApy: new BigNumber(market.borrowVenusApy),
+                borrowApy: new BigNumber(market.borrowApy),
+                supplyVenusApr: new BigNumber(market.supplyVenusApr),
+                supplyVenusApy: new BigNumber(market.supplyVenusApy),
+                supplyApy: new BigNumber(market.supplyApy),
+                treasuryTotalBorrowsCents: new BigNumber(market.totalBorrowsUsd).times(100),
+                treasuryTotalSupplyCents: new BigNumber(market.totalSupplyUsd).times(100),
+              },
+            ]
+          : acc,
+      [],
+    );
   }
 
   return { markets, dailyVenusWei };
