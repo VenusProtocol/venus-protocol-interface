@@ -19,7 +19,6 @@ import {
 import { useGetUserMarketInfo } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AuthContext } from 'context/AuthContext';
-import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
 
 import { useStyles as useSharedStyles } from '../styles';
 
@@ -44,9 +43,6 @@ const AccountData: React.FC<AccountDataProps> = ({
   } = useGetUserMarketInfo({
     accountAddress,
   });
-
-  // TODO: handle loading state
-  const { dailyXvsDistributionInterestsCents } = useDailyXvsDistributionInterests();
 
   const hypotheticalTotalBorrowBalanceCents =
     hypotheticalBorrowAmountTokens !== 0
@@ -84,17 +80,14 @@ const AccountData: React.FC<AccountDataProps> = ({
             : assetData.borrowBalance,
       }));
 
-      const yearlyEarningsCents =
-        dailyXvsDistributionInterestsCents &&
-        calculateYearlyEarningsForAssets({
-          assets: updatedAssets,
-          includeXvs,
-          dailyXvsDistributionInterestsCents,
-        });
+      const yearlyEarningsCents = calculateYearlyEarningsForAssets({
+        assets: updatedAssets,
+        includeXvs,
+      });
 
       return yearlyEarningsCents && calculateDailyEarningsCentsUtil(yearlyEarningsCents);
     },
-    [JSON.stringify(assets), dailyXvsDistributionInterestsCents?.toNumber()],
+    [JSON.stringify(assets)],
   );
 
   const dailyEarningsCents = calculateDailyEarningsCents(new BigNumber(0));

@@ -27,7 +27,6 @@ import {
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AmountForm, AmountFormProps, ErrorCode } from 'containers/AmountForm';
-import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
 
 import { useStyles } from './styles';
 
@@ -77,8 +76,6 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     ? calculateNewBalance(asset.supplyBalance, amount)
     : undefined;
 
-  const { dailyXvsDistributionInterestsCents } = useDailyXvsDistributionInterests();
-
   const hypotheticalBorrowLimitCents = useMemo(() => {
     const tokenPrice = getBigNumber(asset?.tokenPrice);
     let updateBorrowLimitCents;
@@ -101,13 +98,12 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   const [dailyEarningsCents, hypotheticalDailyEarningCents] = useMemo(() => {
     let hypotheticalDailyEarningCentsValue;
     const hypotheticalAssets = [...assets];
-    const yearlyEarningsCents =
-      dailyXvsDistributionInterestsCents &&
-      calculateYearlyEarningsForAssets({
-        assets,
-        includeXvs,
-        dailyXvsDistributionInterestsCents,
-      });
+
+    const yearlyEarningsCents = calculateYearlyEarningsForAssets({
+      assets,
+      includeXvs,
+    });
+
     const dailyEarningsCentsValue =
       yearlyEarningsCents && calculateDailyEarningsCents(yearlyEarningsCents);
 
@@ -117,15 +113,15 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         ...asset,
         supplyBalance: calculateNewBalance(asset.supplyBalance, amount),
       };
+
       const currentIndex = assets.findIndex(a => a.id === asset.id);
       hypotheticalAssets.splice(currentIndex, 1, hypotheticalAsset);
-      const hypotheticalYearlyEarningsCents =
-        dailyXvsDistributionInterestsCents &&
-        calculateYearlyEarningsForAssets({
-          assets: hypotheticalAssets,
-          includeXvs,
-          dailyXvsDistributionInterestsCents,
-        });
+
+      const hypotheticalYearlyEarningsCents = calculateYearlyEarningsForAssets({
+        assets: hypotheticalAssets,
+        includeXvs,
+      });
+
       hypotheticalDailyEarningCentsValue =
         hypotheticalYearlyEarningsCents &&
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
