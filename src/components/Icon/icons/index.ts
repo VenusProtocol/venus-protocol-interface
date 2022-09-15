@@ -43,6 +43,7 @@ export { default as logoMobile } from './logoMobile';
 export { default as person } from './person';
 export { default as gauge } from './gauge';
 export { default as magnifier } from './magnifier';
+export { default as vaiOutline } from './vaiOutline';
 
 // Token icons
 export { default as aave } from './tokens/aave';

@@ -61,7 +61,13 @@ export const menuItems: MenuItem[] = [
     i18nKey: 'layout.menuItems.convertVrt',
     icon: 'convert',
   },
-
+  {
+    href: Path.VAI,
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.vai')
+    i18nKey: 'layout.menuItems.vai',
+    icon: 'vaiOutline',
+  },
   {
     href: 'https://prdt.finance/XVS',
     // Translation key: do not remove this comment
