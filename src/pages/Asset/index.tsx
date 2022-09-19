@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import {
   ApyChart,
@@ -7,6 +8,7 @@ import {
   Icon,
   InterestRateChart,
   InterestRateChartProps,
+  SecondaryButton,
   Spinner,
   TertiaryButton,
 } from 'components';
@@ -28,6 +30,7 @@ import Path from 'constants/path';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
+import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
@@ -103,6 +106,9 @@ export const AssetUi: React.FC<AssetUiProps> = ({
 
   const token = getToken(vTokenId);
   const vToken = getVBepToken(vTokenId);
+
+  const hideXlDownCss = useHideXlDownCss();
+  const showXlDownCss = useShowXlDownCss();
 
   useUpdateBreadcrumbNavigation(
     currentPathNodes =>
@@ -319,9 +325,31 @@ export const AssetUi: React.FC<AssetUiProps> = ({
 
   // @TODO: handle fetching errors
 
+  const buttonsDom = (
+    <>
+      <Button
+        fullWidth
+        css={styles.statsColumnButton}
+        onClick={() => openSupplyWithdrawModal(vTokenId)}
+      >
+        {t('asset.supplyButtonLabel')}
+      </Button>
+
+      <SecondaryButton
+        fullWidth
+        css={styles.statsColumnButton}
+        onClick={() => openBorrowRepayModal(vTokenId)}
+      >
+        {t('asset.borrowButtonLabel')}
+      </SecondaryButton>
+    </>
+  );
+
   return (
     <>
       <div css={styles.container}>
+        <Paper css={[styles.statsColumnButtonContainer, showXlDownCss]}>{buttonsDom}</Paper>
+
         <div css={[styles.column, styles.graphsColumn]}>
           <Card
             testId={TEST_IDS.supplyInfo}
@@ -363,25 +391,7 @@ export const AssetUi: React.FC<AssetUiProps> = ({
         </div>
 
         <div css={[styles.column, styles.statsColumn]}>
-          <div css={styles.statsColumnButtonContainer}>
-            <Button
-              type="button"
-              fullWidth
-              css={styles.statsColumnButton}
-              onClick={() => openSupplyWithdrawModal(vTokenId)}
-            >
-              {t('asset.supplyButtonLabel')}
-            </Button>
-
-            <Button
-              type="button"
-              fullWidth
-              css={styles.statsColumnButton}
-              onClick={() => openBorrowRepayModal(vTokenId)}
-            >
-              {t('asset.borrowButtonLabel')}
-            </Button>
-          </div>
+          <Paper css={[styles.statsColumnButtonContainer, hideXlDownCss]}>{buttonsDom}</Paper>
 
           <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketInfo} />
         </div>
