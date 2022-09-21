@@ -12,6 +12,7 @@ enum Path {
   GOVERNANCE_PROPOSAL_DETAILS = '/governance/proposal/:id',
   GOVERNANCE_VOTER_DETAILS = '/governance/voter/:address',
   CONVERT_VRT = '/convert-vrt',
+  VAI = '/vai',
 }
 
 export default Path;

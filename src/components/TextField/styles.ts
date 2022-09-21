@@ -39,9 +39,12 @@ export const useStyles = () => {
           : theme.palette.background.default};
         transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
-        &:hover {
-          border-color: ${theme.palette.text.secondary};
-        }
+        ${!disabled &&
+        css`
+          &:hover {
+            border-color: ${theme.palette.text.secondary};
+          }
+        `}
 
         &:focus-within {
           border-color: ${hasError
