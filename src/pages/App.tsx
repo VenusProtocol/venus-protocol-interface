@@ -21,6 +21,7 @@ import History from 'pages/History';
 import Market from 'pages/Market';
 import Markets from 'pages/Markets';
 import Proposal from 'pages/Proposal';
+import Vai from 'pages/Vai';
 import Vaults from 'pages/Vault';
 import Vote from 'pages/Vote';
 import VoterDetails from 'pages/VoterDetails';
@@ -72,6 +73,8 @@ const App = () => (
                         <Route exact path={Path.XVS} component={Xvs} />
 
                         <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
+
+                        <Route exact path={Path.VAI} component={Vai} />
 
                         <Redirect to={Path.ROOT} />
                       </Switch>
