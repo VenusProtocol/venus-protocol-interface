@@ -13,7 +13,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
 
-import Path from 'constants/path';
+import { paths } from 'constants/routing';
 
 import { useStyles } from './styles';
 
@@ -170,7 +170,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
     <ProposalCard
       css={styles.root}
       className={className}
-      linkTo={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', proposalNumber.toString())}
+      linkTo={paths.governanceProposal.replace(':id', proposalNumber.toString())}
       proposalNumber={proposalNumber}
       headerLeftItem={stateChip}
       headerRightItem={voteChipText}

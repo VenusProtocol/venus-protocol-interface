@@ -1,17 +1,17 @@
-import Path from 'constants/path';
+import { paths } from 'constants/routing';
 
 import { MenuItem } from './types';
 
 export const menuItems: MenuItem[] = [
   {
-    href: Path.ROOT,
+    href: paths.dashboard,
     // Translation key: do not remove this comment
     // t('layout.menuItems.dashboard')
     i18nKey: 'layout.menuItems.dashboard',
     icon: 'dashboard',
   },
   {
-    href: Path.ACCOUNT,
+    href: paths.account,
     // Translation key: do not remove this comment
     // t('layout.menuItems.account')
     i18nKey: 'layout.menuItems.account',
@@ -19,42 +19,42 @@ export const menuItems: MenuItem[] = [
   },
 
   {
-    href: Path.MARKETS,
+    href: paths.markets,
     // Translation key: do not remove this comment
     // t('layout.menuItems.markets')
     i18nKey: 'layout.menuItems.markets',
     icon: 'market',
   },
   {
-    href: Path.VAULTS,
+    href: paths.vaults,
     // Translation key: do not remove this comment
     // t('layout.menuItems.vaults')
     i18nKey: 'layout.menuItems.vaults',
     icon: 'vault',
   },
   {
-    href: Path.HISTORY,
+    href: paths.history,
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
     i18nKey: 'layout.menuItems.history',
     icon: 'history',
   },
   {
-    href: Path.GOVERNANCE,
+    href: paths.governance,
     // Translation key: do not remove this comment
     // t('layout.menuItems.governance')
     i18nKey: 'layout.menuItems.governance',
     icon: 'vote',
   },
   {
-    href: Path.XVS,
+    href: paths.xvs,
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvs')
     i18nKey: 'layout.menuItems.xvs',
     icon: 'xvsOutlined',
   },
   {
-    href: Path.CONVERT_VRT,
+    href: paths.convertVrt,
     // Translation key: do not remove this comment
     // t('layout.menuItems.convertVrt')
     // t('layout.menuItems.convertVrtTitle')
@@ -62,7 +62,7 @@ export const menuItems: MenuItem[] = [
     icon: 'convert',
   },
   {
-    href: Path.VAI,
+    href: paths.vai,
     // Translation key: do not remove this comment
     // t('layout.menuItems.vai')
     i18nKey: 'layout.menuItems.vai',

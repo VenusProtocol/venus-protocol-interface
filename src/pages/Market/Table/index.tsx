@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
 
-import Path from 'constants/path';
+import { paths } from 'constants/routing';
 import { MarketTable } from 'containers/MarketTable';
 import { useShowMdDownCss } from 'hooks/responsive';
 
@@ -21,7 +21,8 @@ export const Table: React.FC<TableProps> = ({ assets }) => {
   const showMdDownCss = useShowMdDownCss();
 
   const getRowHref = (row: TableRowProps[]) =>
-    Path.MARKET_ASSET.replace(':marketId', 'FAKE_MARKET_ID') // TODO: wire up
+    paths.marketAsset
+      .replace(':marketId', 'FAKE_MARKET_ID') // TODO: wire up
       .replace(':vTokenId', `${row[0].value}`);
 
   // TODO: add all options

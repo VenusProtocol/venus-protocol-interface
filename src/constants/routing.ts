@@ -1,0 +1,33 @@
+enum Node {
+  ROOT = '/',
+  ACCOUNT = '/account',
+  XVS = '/xvs',
+  MARKETS = '/markets',
+  MARKET = '/market/:marketId',
+  ASSET = '/asset/:vTokenId',
+  HISTORY = '/history',
+  VAULTS = '/vaults',
+  GOVERNANCE = '/governance',
+  LEADER_BOARD = '/leaderboard',
+  PROPOSAL = '/proposal/:id',
+  VOTER = '/voter/:address',
+  CONVERT_VRT = '/convert-vrt',
+  VAI = '/vai',
+}
+
+export const paths = {
+  dashboard: Node.ROOT,
+  account: Node.ACCOUNT,
+  xvs: Node.XVS,
+  markets: Node.MARKETS,
+  market: Node.MARKETS + Node.MARKET,
+  marketAsset: Node.MARKETS + Node.MARKET + Node.ASSET,
+  governance: Node.GOVERNANCE,
+  governanceProposal: Node.GOVERNANCE + Node.PROPOSAL,
+  governanceLeaderBoard: Node.GOVERNANCE + Node.LEADER_BOARD,
+  governanceVoter: Node.GOVERNANCE + Node.LEADER_BOARD + Node.VOTER,
+  history: Node.HISTORY,
+  convertVrt: Node.CONVERT_VRT,
+  vaults: Node.VAULTS,
+  vai: Node.VAI,
+};

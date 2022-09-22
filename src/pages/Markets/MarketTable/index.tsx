@@ -6,7 +6,7 @@ import { Market } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
-import Path from 'constants/path';
+import { paths } from 'constants/routing';
 import { useShowXxlDownCss } from 'hooks/responsive';
 
 import { useStyles } from './styles';
@@ -130,7 +130,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets }) => {
           orderDirection: 'desc',
         }}
         rowKeyExtractor={row => `${row[0].value}`}
-        getRowHref={() => Path.MARKET.replace(':marketId', 'FAKE_MARKET_ID')} // TODO: wire up
+        getRowHref={() => paths.market.replace(':marketId', 'FAKE_MARKET_ID')} // TODO: wire up
         breakpoint="xxl"
         css={styles.cardContentGrid}
       />

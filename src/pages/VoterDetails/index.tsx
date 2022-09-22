@@ -8,7 +8,7 @@ import { useTranslation } from 'translation';
 import { VoteDetailTransaction, VoterHistory } from 'types';
 
 import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
-import Path from 'constants/path';
+import { paths } from 'constants/routing';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 
@@ -52,7 +52,7 @@ export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
     currentPathNodes =>
       currentPathNodes.concat([
         {
-          href: Path.GOVERNANCE_LEADER_BOARD,
+          href: paths.governanceLeaderBoard,
           dom: t('voterLeaderboard.title'),
         },
         {

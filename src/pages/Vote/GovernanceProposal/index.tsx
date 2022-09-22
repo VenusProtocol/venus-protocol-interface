@@ -15,7 +15,7 @@ import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
 
 import { useGetVoteReceipt } from 'clients/api';
-import Path from 'constants/path';
+import { paths } from 'constants/routing';
 import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
@@ -144,7 +144,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   return (
     <ProposalCard
       className={className}
-      linkTo={Path.GOVERNANCE_PROPOSAL_DETAILS.replace(':id', proposalId.toString())}
+      linkTo={paths.governanceProposal.replace(':id', proposalId.toString())}
       proposalNumber={proposalId}
       headerRightItem={
         proposalState === 'Active' ? (

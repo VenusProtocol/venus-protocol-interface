@@ -8,7 +8,7 @@ import { useTranslation } from 'translation';
 import { VoterAccount } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
-import Path from 'constants/path';
+import { paths } from 'constants/routing';
 
 import { useStyles } from './styles';
 
@@ -68,7 +68,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
             <Typography css={styles.inline} color="textPrimary" variant="small2">
               {idx + 1 + offset}
               <Link
-                to={Path.GOVERNANCE_VOTER_DETAILS.replace(':address', voter.address)}
+                to={paths.governanceVoter.replace(':address', voter.address)}
                 css={styles.address}
               >
                 <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
