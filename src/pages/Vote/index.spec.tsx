@@ -16,7 +16,7 @@ import {
   setVoteDelegate,
   useGetVestingVaults,
 } from 'clients/api';
-import { paths } from 'constants/routing';
+import { routes } from 'constants/routing';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -119,7 +119,7 @@ describe('pages/Vote', () => {
     const { getByTestId } = renderComponent(<Vote />);
     const deposityYourTokensText = getByTestId(VOTING_WALLET_TEST_IDS.depositYourTokens);
 
-    expect(deposityYourTokensText).toHaveAttribute('href', paths.vaults);
+    expect(deposityYourTokensText).toHaveAttribute('href', routes.vaults.path);
   });
 
   it('prompts user to connect Wallet', async () => {
@@ -149,7 +149,7 @@ describe('pages/Vote', () => {
 
     expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('0');
     expect(getByTestId(VOTING_WALLET_TEST_IDS.totalLockedValue)).toHaveTextContent('0');
-    expect(depositXvsButton).toHaveAttribute('href', paths.vaults);
+    expect(depositXvsButton).toHaveAttribute('href', routes.vaults.path);
   });
 
   it('successfully delegates to other address', async () => {
@@ -255,7 +255,7 @@ describe('pages/Vote', () => {
 
     expect(firstProposalAnchor[0].firstChild).toHaveAttribute(
       'href',
-      paths.governanceProposal.replace(':id', '98'),
+      routes.governanceProposal.path.replace(':id', '98'),
     );
   });
 });

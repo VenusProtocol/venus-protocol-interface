@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'assets/styles/App.scss';
 import { queryClient } from 'clients/api';
 import { Web3Wrapper } from 'clients/web3';
-import { paths } from 'constants/routing';
+import { routes } from 'constants/routing';
 import { AuthProvider } from 'context/AuthContext';
 import { BreadcrumbNavigationProvider } from 'context/BreadcrumbNavigationContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
@@ -45,34 +45,34 @@ const App = () => (
                       <ResetScrollOnRouteChange />
 
                       <Switch>
-                        <Route exact path={paths.dashboard} component={Dashboard} />
+                        <Route exact path={routes.dashboard.path} component={Dashboard} />
 
-                        <Route exact path={paths.account} component={Account} />
+                        <Route exact path={routes.account.path} component={Account} />
 
-                        <Route exact path={paths.markets} component={Markets} />
-                        <Route exact path={paths.market} component={Market} />
-                        <Route exact path={paths.marketAsset} component={Asset} />
+                        <Route exact path={routes.markets.path} component={Markets} />
+                        <Route exact path={routes.market.path} component={Market} />
+                        <Route exact path={routes.marketAsset.path} component={Asset} />
 
-                        <Route exact path={paths.vaults} component={Vaults} />
+                        <Route exact path={routes.vaults.path} component={Vaults} />
 
-                        <Route exact path={paths.history} component={History} />
+                        <Route exact path={routes.history.path} component={History} />
 
-                        <Route exact path={paths.governance} component={Vote} />
+                        <Route exact path={routes.governance.path} component={Vote} />
                         <Route
                           exact
-                          path={paths.governanceLeaderBoard}
+                          path={routes.governanceLeaderBoard.path}
                           component={VoterLeaderboard}
                         />
-                        <Route exact path={paths.governanceVoter} component={VoterDetails} />
-                        <Route exact path={paths.governanceProposal} component={Proposal} />
+                        <Route exact path={routes.governanceVoter.path} component={VoterDetails} />
+                        <Route exact path={routes.governanceProposal.path} component={Proposal} />
 
-                        <Route exact path={paths.xvs} component={Xvs} />
+                        <Route exact path={routes.xvs.path} component={Xvs} />
 
-                        <Route exact path={paths.convertVrt} component={ConvertVrt} />
+                        <Route exact path={routes.convertVrt.path} component={ConvertVrt} />
 
-                        <Route exact path={paths.vai} component={Vai} />
+                        <Route exact path={routes.vai.path} component={Vai} />
 
-                        <Redirect to={paths.dashboard} />
+                        <Redirect to={routes.dashboard.path} />
                       </Switch>
                     </Layout>
                   </BreadcrumbNavigationProvider>

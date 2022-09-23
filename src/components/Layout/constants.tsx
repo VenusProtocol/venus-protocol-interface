@@ -1,17 +1,17 @@
-import { paths } from 'constants/routing';
+import { routes } from 'constants/routing';
 
 import { MenuItem } from './types';
 
 export const menuItems: MenuItem[] = [
   {
-    href: paths.dashboard,
+    href: routes.dashboard.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.dashboard')
     i18nKey: 'layout.menuItems.dashboard',
     icon: 'dashboard',
   },
   {
-    href: paths.account,
+    href: routes.account.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.account')
     i18nKey: 'layout.menuItems.account',
@@ -19,42 +19,42 @@ export const menuItems: MenuItem[] = [
   },
 
   {
-    href: paths.markets,
+    href: routes.markets.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.markets')
     i18nKey: 'layout.menuItems.markets',
     icon: 'market',
   },
   {
-    href: paths.vaults,
+    href: routes.vaults.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.vaults')
     i18nKey: 'layout.menuItems.vaults',
     icon: 'vault',
   },
   {
-    href: paths.history,
+    href: routes.history.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.history')
     i18nKey: 'layout.menuItems.history',
     icon: 'history',
   },
   {
-    href: paths.governance,
+    href: routes.governance.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.governance')
     i18nKey: 'layout.menuItems.governance',
     icon: 'vote',
   },
   {
-    href: paths.xvs,
+    href: routes.xvs.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.xvs')
     i18nKey: 'layout.menuItems.xvs',
     icon: 'xvsOutlined',
   },
   {
-    href: paths.convertVrt,
+    href: routes.convertVrt.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.convertVrt')
     // t('layout.menuItems.convertVrtTitle')
@@ -62,7 +62,7 @@ export const menuItems: MenuItem[] = [
     icon: 'convert',
   },
   {
-    href: paths.vai,
+    href: routes.vai.path,
     // Translation key: do not remove this comment
     // t('layout.menuItems.vai')
     i18nKey: 'layout.menuItems.vai',

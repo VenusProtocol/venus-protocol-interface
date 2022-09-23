@@ -27,7 +27,7 @@ import {
 import { useGetVTokenApySimulations } from 'clients/api';
 import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { paths } from 'constants/routing';
+import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
@@ -114,7 +114,7 @@ export const AssetUi: React.FC<AssetUiProps> = ({
     currentPathNodes =>
       currentPathNodes.concat([
         {
-          href: paths.marketAsset.replace(':marketId', marketId),
+          href: routes.market.path.replace(':marketId', marketId),
           dom: marketName,
         },
         {
@@ -416,9 +416,9 @@ const Asset: React.FC<AssetProps> = ({
   // TODO: fetch actual values (see VEN-546)
   const marketName = 'Venus';
 
-  // Redirect to market page if vTokenId passed through route params is invalid
+  // Redirect to markets page if vTokenId passed through route params is invalid
   if (!vToken) {
-    return <Redirect to={paths.markets} />;
+    return <Redirect to={routes.markets.path} />;
   }
 
   const { reserveFactorMantissa, ...marketData } = useGetMarketData({

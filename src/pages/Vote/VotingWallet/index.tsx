@@ -14,7 +14,7 @@ import {
   useGetVoteDelegateAddress,
   useSetVoteDelegate,
 } from 'clients/api';
-import { paths } from 'constants/routing';
+import { routes } from 'constants/routing';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
@@ -124,7 +124,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         )}
 
         {connectedWallet && !userHasLockedXVS && (
-          <LinkButton css={styles.actionButton} to={paths.vaults}>
+          <LinkButton css={styles.actionButton} to={routes.vaults}>
             {t('vote.depositXvs')}
           </LinkButton>
         )}
@@ -147,7 +147,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
             components={{
               Link: (
                 <Link
-                  to={paths.vaults}
+                  to={routes.vaults}
                   css={styles.clickableText}
                   data-testid={TEST_IDS.depositYourTokens}
                 />
