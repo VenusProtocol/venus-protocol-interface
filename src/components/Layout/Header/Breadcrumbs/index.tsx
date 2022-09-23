@@ -18,7 +18,7 @@ import { useStyles } from './styles';
 
 export interface PathNode {
   dom: React.ReactNode;
-  href?: string;
+  href: string;
 }
 
 const Breadcrumbs: React.FC = () => {
@@ -93,20 +93,22 @@ const Breadcrumbs: React.FC = () => {
         case Subdirectory.ASSET: {
           const token = getToken(params.vTokenId as TokenId);
 
-          dom = (
-            <div css={styles.tokenSymbol}>
-              <span>{token.symbol}</span>
+          if (token) {
+            dom = (
+              <div css={styles.tokenSymbol}>
+                <span>{token.symbol}</span>
 
-              {!!account && (
-                <TertiaryButton
-                  css={styles.addTokenButton}
-                  onClick={() => addTokenToWallet(params.vTokenId as TokenId)}
-                >
-                  <Icon name="wallet" css={styles.walletIcon} />
-                </TertiaryButton>
-              )}
-            </div>
-          );
+                {!!account && (
+                  <TertiaryButton
+                    css={styles.addTokenButton}
+                    onClick={() => addTokenToWallet(params.vTokenId as TokenId)}
+                  >
+                    <Icon name="wallet" css={styles.walletIcon} />
+                  </TertiaryButton>
+                )}
+              </div>
+            );
+          }
           break;
         }
         case Subdirectory.GOVERNANCE:
@@ -166,16 +168,18 @@ const Breadcrumbs: React.FC = () => {
 
   return (
     <Typography component="h1" variant="h3">
-      {pathNodes.map((pathNode, index) =>
-        pathNodes.length > 0 && index < pathNodes.length - 1 ? (
-          <>
-            <Link to={pathNode.href}>{pathNode.dom}</Link>
-            <span css={styles.separator}>/</span>
-          </>
-        ) : (
-          pathNode.dom
-        ),
-      )}
+      {pathNodes.map((pathNode, index) => (
+        <span key={`layout-header-breadcrumb-${pathNode.href}`}>
+          {pathNodes.length > 0 && index < pathNodes.length - 1 ? (
+            <>
+              <Link to={pathNode.href}>{pathNode.dom}</Link>
+              <span css={styles.separator}>/</span>
+            </>
+          ) : (
+            pathNode.dom
+          )}
+        </span>
+      ))}
     </Typography>
   );
 };

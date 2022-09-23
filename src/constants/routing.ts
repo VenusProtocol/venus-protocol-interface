@@ -15,7 +15,7 @@ export enum Subdirectory {
   VAI = '/vai',
 }
 
-export const routeSubdirectories = {
+const routeSubdirectories = {
   dashboard: [Subdirectory.DASHBOARD],
   account: [Subdirectory.ACCOUNT],
   xvs: [Subdirectory.XVS],
