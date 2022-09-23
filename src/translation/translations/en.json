@@ -163,6 +163,7 @@
     "history": "History",
     "leaderboard": "Leaderboard",
     "markets": "Markets",
+    "proposal": "Proposal #{{proposalId}}",
     "vai": "VAI",
     "vaults": "Vaults",
     "xvs": "XVS"

@@ -1,11 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'translation';
+import { TokenId } from 'types';
+import { getToken } from 'utilities';
 
+import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import { Subdirectory, routes } from 'constants/routing';
+import { AuthContext } from 'context/AuthContext';
+import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
+import { TertiaryButton } from '../../../Button';
+import { EllipseAddress } from '../../../EllipseAddress';
+import { Icon } from '../../../Icon';
 import { useStyles } from './styles';
 
 export interface PathNode {
@@ -16,7 +24,9 @@ export interface PathNode {
 const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const { account } = useContext(AuthContext);
   const styles = useStyles();
+  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   const pathNodes = useMemo(() => {
     // Get active route
@@ -77,19 +87,51 @@ const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.markets');
           break;
         case Subdirectory.MARKET:
-          dom = <></>;
+          // TODO: fetch actual value (see VEN-546)
+          dom = <>FAKE_MARKET_ID</>;
           break;
-        case Subdirectory.ASSET:
-          dom = <></>;
+        case Subdirectory.ASSET: {
+          const token = getToken(params.vTokenId as TokenId);
+
+          dom = (
+            <div css={styles.tokenSymbol}>
+              <span>{token.symbol}</span>
+
+              {!!account && (
+                <TertiaryButton
+                  css={styles.addTokenButton}
+                  onClick={() => addTokenToWallet(params.vTokenId as TokenId)}
+                >
+                  <Icon name="wallet" css={styles.walletIcon} />
+                </TertiaryButton>
+              )}
+            </div>
+          );
           break;
+        }
         case Subdirectory.GOVERNANCE:
           dom = t('breadcrumbs.governance');
+          break;
+        case Subdirectory.PROPOSAL:
+          dom = t('breadcrumbs.proposal', { proposalId: params.proposalId });
           break;
         case Subdirectory.LEADER_BOARD:
           dom = t('breadcrumbs.leaderboard');
           break;
         case Subdirectory.VOTER:
-          dom = <></>;
+          dom = (
+            <div css={styles.address}>
+              <Typography variant="h3" color="textPrimary">
+                <EllipseAddress address={params.address} />
+              </Typography>
+
+              <Icon
+                name="copy"
+                css={styles.copyIcon}
+                onClick={() => copyToClipboard(params.address)}
+              />
+            </div>
+          );
           break;
         case Subdirectory.VAULTS:
           dom = t('breadcrumbs.vaults');
@@ -120,7 +162,7 @@ const Breadcrumbs: React.FC = () => {
           ]
         : acc;
     }, []);
-  }, [pathname, t]);
+  }, [pathname, t, !!account]);
 
   return (
     <Typography component="h1" variant="h3">

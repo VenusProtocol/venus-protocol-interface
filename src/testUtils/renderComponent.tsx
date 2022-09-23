@@ -6,7 +6,6 @@ import { ToastContainer } from 'react-toastify';
 
 import { Web3Wrapper } from 'clients/web3';
 import { AuthContext, AuthContextValue } from 'context/AuthContext';
-import { BreadcrumbNavigationProvider } from 'context/BreadcrumbNavigationContext';
 import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
 import { IncludeXvsProvider } from 'context/IncludeXvsContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
@@ -47,16 +46,14 @@ const renderComponent = (
               <IncludeXvsProvider>
                 <DisableLunaUstWarningProvider>
                   <BrowserRouter>
-                    <BreadcrumbNavigationProvider>
-                      <ToastContainer />
+                    <ToastContainer />
 
-                      <Switch>
-                        <Route
-                          path="/"
-                          component={typeof children === 'function' ? children : () => children}
-                        />
-                      </Switch>
-                    </BreadcrumbNavigationProvider>
+                    <Switch>
+                      <Route
+                        path="/"
+                        component={typeof children === 'function' ? children : () => children}
+                      />
+                    </Switch>
                   </BrowserRouter>
                 </DisableLunaUstWarningProvider>
               </IncludeXvsProvider>

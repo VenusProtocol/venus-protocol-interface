@@ -255,7 +255,7 @@ describe('pages/Vote', () => {
 
     expect(firstProposalAnchor[0].firstChild).toHaveAttribute(
       'href',
-      routes.governanceProposal.path.replace(':id', '98'),
+      routes.governanceProposal.path.replace(':proposalId', '98'),
     );
   });
 });

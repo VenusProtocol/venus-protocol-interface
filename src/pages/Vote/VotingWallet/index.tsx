@@ -124,7 +124,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         )}
 
         {connectedWallet && !userHasLockedXVS && (
-          <LinkButton css={styles.actionButton} to={routes.vaults}>
+          <LinkButton css={styles.actionButton} to={routes.vaults.path}>
             {t('vote.depositXvs')}
           </LinkButton>
         )}
@@ -147,7 +147,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
             components={{
               Link: (
                 <Link
-                  to={routes.vaults}
+                  to={routes.vaults.path}
                   css={styles.clickableText}
                   data-testid={TEST_IDS.depositYourTokens}
                 />

@@ -144,7 +144,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   return (
     <ProposalCard
       className={className}
-      linkTo={routes.governanceProposal.path.replace(':id', proposalId.toString())}
+      linkTo={routes.governanceProposal.path.replace(':proposalId', proposalId.toString())}
       proposalNumber={proposalId}
       headerRightItem={
         proposalState === 'Active' ? (

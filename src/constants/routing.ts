@@ -9,7 +9,7 @@ export enum Subdirectory {
   VAULTS = '/vaults',
   GOVERNANCE = '/governance',
   LEADER_BOARD = '/leaderboard',
-  PROPOSAL = '/proposal/:id',
+  PROPOSAL = '/proposal/:proposalId',
   VOTER = '/voter/:address',
   CONVERT_VRT = '/convert-vrt',
   VAI = '/vai',
