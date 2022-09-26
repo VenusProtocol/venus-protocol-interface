@@ -1,23 +1,21 @@
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import { withCenterStory } from 'stories/decorators';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
-import MarketBreakdown from '.';
+import PoolBreakdown from '.';
 
 export default {
-  title: 'Pages/Account/MarketBreakdown',
-  component: MarketBreakdown,
+  title: 'Pages/Account/PoolBreakdown',
+  component: PoolBreakdown,
   decorators: [withCenterStory({ width: 1200 })],
   parameters: {
     backgrounds: {
       default: PALETTE.background.default,
     },
   },
-} as ComponentMeta<typeof MarketBreakdown>;
+} as ComponentMeta<typeof PoolBreakdown>;
 
-export const Default = () => (
-  <MarketBreakdown assets={assetData} riskLevel="MINIMAL" marketName="Venus" includeXvs />
-);
+export const Default = () => <PoolBreakdown pool={poolData[0]} includeXvs />;

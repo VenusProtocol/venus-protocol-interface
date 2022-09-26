@@ -11,6 +11,55 @@ export interface User {
   Token: string;
 }
 
+export type TokenId = keyof typeof TOKENS;
+export type VTokenId = keyof typeof VBEP_TOKENS;
+
+export interface Market {
+  id: TokenId;
+  address: string;
+  borrowApy: BigNumber;
+  borrowCaps: string;
+  borrowRatePerBlock: string;
+  borrowVenusApr: BigNumber;
+  borrowVenusApy: BigNumber;
+  borrowerCount: number;
+  borrowerDailyVenus: string;
+  cash: string;
+  collateralFactor: string;
+  exchangeRate: string;
+  lastCalculatedBlockNumber: number;
+  liquidity: BigNumber;
+  name: string;
+  reserveFactor: string;
+  supplierCount: number;
+  supplierDailyVenus: string;
+  supplyApy: BigNumber;
+  supplyRatePerBlock: string;
+  supplyVenusApy: BigNumber;
+  supplyVenusApr: BigNumber;
+  symbol: string;
+  tokenPrice: BigNumber;
+  totalBorrows: string;
+  totalBorrows2: string;
+  totalBorrowsUsd: string;
+  totalDistributed: string;
+  totalDistributed2: string;
+  totalReserves: string;
+  totalSupply: string;
+  totalSupply2: string;
+  totalSupplyUsd: string;
+  underlyingAddress: string;
+  underlyingDecimal: number;
+  underlyingName: string;
+  underlyingPrice: string;
+  underlyingSymbol: string;
+  venusBorrowIndex: string;
+  venusSpeeds: string;
+  venusSupplyIndex: string;
+  treasuryTotalBorrowsCents: BigNumber;
+  treasuryTotalSupplyCents: BigNumber;
+}
+
 export interface Asset {
   id: TokenId;
   tokenPrice: BigNumber;
@@ -43,9 +92,6 @@ export interface Asset {
   treasuryTotalBorrows: BigNumber;
   xvsPerDay: BigNumber;
 }
-
-export type TokenId = keyof typeof TOKENS;
-export type VTokenId = keyof typeof VBEP_TOKENS;
 
 export interface Token {
   id: TokenId;
@@ -161,52 +207,6 @@ export interface VoteTransaction {
   amount: string;
   to: string;
   votes: string;
-}
-
-export interface Market {
-  id: TokenId;
-  address: string;
-  borrowApy: BigNumber;
-  borrowCaps: string;
-  borrowRatePerBlock: string;
-  borrowVenusApr: BigNumber;
-  borrowVenusApy: BigNumber;
-  borrowerCount: number;
-  borrowerDailyVenus: string;
-  cash: string;
-  collateralFactor: string;
-  exchangeRate: string;
-  lastCalculatedBlockNumber: number;
-  liquidity: BigNumber;
-  name: string;
-  reserveFactor: string;
-  supplierCount: number;
-  supplierDailyVenus: string;
-  supplyApy: BigNumber;
-  supplyRatePerBlock: string;
-  supplyVenusApy: BigNumber;
-  supplyVenusApr: BigNumber;
-  symbol: string;
-  tokenPrice: BigNumber;
-  totalBorrows: string;
-  totalBorrows2: string;
-  totalBorrowsUsd: string;
-  totalDistributed: string;
-  totalDistributed2: string;
-  totalReserves: string;
-  totalSupply: string;
-  totalSupply2: string;
-  totalSupplyUsd: string;
-  underlyingAddress: string;
-  underlyingDecimal: number;
-  underlyingName: string;
-  underlyingPrice: string;
-  underlyingSymbol: string;
-  venusBorrowIndex: string;
-  venusSpeeds: string;
-  venusSupplyIndex: string;
-  treasuryTotalBorrowsCents: BigNumber;
-  treasuryTotalSupplyCents: BigNumber;
 }
 
 export interface MarketSnapshot {
@@ -345,4 +345,13 @@ export interface VoterHistory {
   votesWei: BigNumber;
 }
 
-export type MarketRiskLevel = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+export type PoolRiskLevel = 'MINIMAL' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+
+export interface Pool {
+  id: string;
+  name: string;
+  riskLevel: PoolRiskLevel;
+  assets: Asset[];
+  description: string;
+  isIsolated: boolean;
+}

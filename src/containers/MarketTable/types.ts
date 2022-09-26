@@ -4,7 +4,7 @@ export type ColumnName =
   | 'labeledSupplyApyLtv'
   | 'borrowApy'
   | 'labeledBorrowApy'
-  | 'market'
+  | 'pool'
   | 'riskLevel'
   | 'collateral'
   | 'walletBalance'

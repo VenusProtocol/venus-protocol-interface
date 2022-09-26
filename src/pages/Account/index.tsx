@@ -3,24 +3,18 @@ import { Typography } from '@mui/material';
 import { Cell, CellGroup, Toggle } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, MarketRiskLevel } from 'types';
+import { Pool } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
-import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import { IncludeXvsContext } from 'context/IncludeXvsContext';
 
-import MarketBreakdown from './MarketBreakdown';
+import PoolBreakdown from './PoolBreakdown';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
-export interface Market {
-  name: string;
-  riskLevel: MarketRiskLevel;
-  assets: Asset[];
-}
-
 export interface AccountUiProps {
-  markets: Market[];
+  pools: Pool[];
   netApyPercentage: number;
   dailyEarningsCents: number;
   totalSupplyCents: number;
@@ -35,7 +29,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({
   totalSupplyCents,
   totalBorrowCents,
   includeXvs,
-  markets,
+  pools,
   onIncludeXvsToggleChange,
 }) => {
   const { t } = useTranslation();
@@ -83,13 +77,11 @@ export const AccountUi: React.FC<AccountUiProps> = ({
         <CellGroup cells={cells} data-testid={TEST_IDS.stats} />
       </div>
 
-      {markets.map(({ assets, name, riskLevel }) => (
-        <MarketBreakdown
-          key={`market-breakdown-${name}`}
+      {pools.map(pool => (
+        <PoolBreakdown
+          key={`pool-breakdown-${pool.name}`}
           css={styles.section}
-          assets={assets}
-          marketName={name}
-          riskLevel={riskLevel}
+          pool={pool}
           includeXvs={includeXvs}
         />
       ))}
@@ -106,24 +98,6 @@ const Account: React.FC = () => {
   const totalSupplyCents = 100000000;
   const totalBorrowCents = 10000000;
 
-  const markets: Market[] = [
-    {
-      assets: assetData,
-      name: 'Venus',
-      riskLevel: 'MINIMAL',
-    },
-    {
-      assets: assetData,
-      name: 'Metaverse',
-      riskLevel: 'VERY_HIGH',
-    },
-    {
-      assets: assetData,
-      name: 'Gaming',
-      riskLevel: 'MEDIUM',
-    },
-  ];
-
   return (
     <AccountUi
       netApyPercentage={netApyPercentage}
@@ -132,7 +106,7 @@ const Account: React.FC = () => {
       totalBorrowCents={totalBorrowCents}
       includeXvs={includeXvs}
       onIncludeXvsToggleChange={setIncludeXvs}
-      markets={markets}
+      pools={poolData}
     />
   );
 };

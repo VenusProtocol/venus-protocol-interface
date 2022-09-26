@@ -21,7 +21,7 @@ import useGenerateData from './useGenerateData';
 // t('marketTable.columns.labeledSupplyApyLtv')
 // t('marketTable.columns.borrowApy')
 // t('marketTable.columns.labeledBorrowApy')
-// t('marketTable.columns.market')
+// t('marketTable.columns.pool')
 // t('marketTable.columns.supplyBalance')
 // t('marketTable.columns.borrowBalance')
 // t('marketTable.columns.riskLevel')

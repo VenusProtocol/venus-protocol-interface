@@ -5,11 +5,11 @@ import { assetData } from '__mocks__/models/asset';
 import { useGetUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 
-import MarketTable from '.';
+import PoolTable from '.';
 
 jest.mock('clients/api');
 
-describe('pages/Markets/MarketTable', () => {
+describe('pages/Pools/PoolTable', () => {
   beforeEach(() => {
     (useGetUserMarketInfo as jest.Mock).mockImplementation(() => ({
       data: {
@@ -23,6 +23,6 @@ describe('pages/Markets/MarketTable', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(<MarketTable />);
+    renderComponent(<PoolTable />);
   });
 });

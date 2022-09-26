@@ -14,11 +14,11 @@ exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the 
 
 exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 7`] = `"History"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 8`] = `"Markets"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 8`] = `"Pools"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 9`] = `"Markets/FAKE_MARKET_ID"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 9`] = `"Pools/Fake pool name"`;
 
-exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 10`] = `"Markets/FAKE_MARKET_ID"`;
+exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 10`] = `"Pools/Fake pool name"`;
 
 exports[`component/Layout/Header/Breadcrumbs outputs the right DOM based on the current path 11`] = `"XVS"`;
 

@@ -2,7 +2,7 @@
 import { Select, TableRowProps } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Pool } from 'types';
 
 import { routes } from 'constants/routing';
 import { MarketTable } from 'containers/MarketTable';
@@ -11,19 +11,17 @@ import { useShowMdDownCss } from 'hooks/responsive';
 import { useStyles } from './styles';
 
 export interface TableProps {
-  assets: Asset[];
+  pool: Pool;
 }
 
-export const Table: React.FC<TableProps> = ({ assets }) => {
+export const Table: React.FC<TableProps> = ({ pool }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   const showMdDownCss = useShowMdDownCss();
 
   const getRowHref = (row: TableRowProps[]) =>
-    routes.marketAsset.path
-      .replace(':marketId', 'FAKE_MARKET_ID') // TODO: wire up
-      .replace(':vTokenId', `${row[0].value}`);
+    routes.market.path.replace(':poolId', pool.id).replace(':vTokenId', `${row[0].value}`);
 
   // TODO: add all options
   const mobileSelectOptions = [
@@ -49,7 +47,7 @@ export const Table: React.FC<TableProps> = ({ assets }) => {
 
       <MarketTable
         getRowHref={getRowHref}
-        assets={assets}
+        assets={pool.assets}
         breakpoint="xl"
         columns={[
           'asset',
