@@ -1,118 +1,407 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import { Cell, CellGroup, Icon } from 'components';
-import React, { useMemo } from 'react';
+import { Paper } from '@mui/material';
+import BigNumber from 'bignumber.js';
+import {
+  ApyChart,
+  ApyChartProps,
+  Button,
+  InterestRateChart,
+  InterestRateChartProps,
+  SecondaryButton,
+  Spinner,
+} from 'components';
+import React from 'react';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
+import { TokenId, VTokenId } from 'types';
+import {
+  formatCentsToReadableValue,
+  formatToReadablePercentage,
+  formatTokensToReadableValue,
+  getToken,
+  getVBepToken,
+} from 'utilities';
 
-import { assetData } from '__mocks__/models/asset';
+import { useGetVTokenApySimulations } from 'clients/api';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { routes } from 'constants/routing';
+import { TOKENS } from 'constants/tokens';
+import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
+import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
+import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
 
-import Table from './Table';
+import Card, { CardProps } from './Card';
+import MarketInfo, { MarketInfoProps } from './MarketInfo';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
+import useGetChartData from './useGetChartData';
+import useGetMarketData from './useGetMarketData';
 
 export interface MarketUiProps {
-  assets: Asset[];
-  isIsolatedLendingMarket: boolean;
-  totalSupplyCents: number;
-  totalBorrowCents: number;
-  description: string;
+  vTokenId: VTokenId;
+  supplyChartData: ApyChartProps['data'];
+  borrowChartData: ApyChartProps['data'];
+  interestRateChartData: InterestRateChartProps['data'];
+  totalBorrowBalanceCents?: number;
+  totalSupplyBalanceCents?: number;
+  borrowApyPercentage?: BigNumber;
+  supplyApyPercentage?: BigNumber;
+  borrowDistributionApyPercentage?: number;
+  supplyDistributionApyPercentage?: number;
+  tokenPriceDollars?: BigNumber;
+  liquidityCents?: BigNumber;
+  supplierCount?: number;
+  borrowerCount?: number;
+  borrowCapTokens?: BigNumber;
+  dailyDistributionXvs?: BigNumber;
+  dailySupplyingInterestsCents?: number;
+  dailyBorrowingInterestsCents?: number;
+  reserveFactor?: number;
+  collateralFactor?: number;
+  mintedTokens?: BigNumber;
+  reserveTokens?: BigNumber;
+  exchangeRateVTokens?: BigNumber;
+  currentUtilizationRate?: number;
 }
 
 export const MarketUi: React.FC<MarketUiProps> = ({
-  assets,
-  isIsolatedLendingMarket,
-  totalSupplyCents,
-  totalBorrowCents,
-  description,
+  vTokenId,
+  totalBorrowBalanceCents,
+  borrowApyPercentage,
+  borrowDistributionApyPercentage,
+  totalSupplyBalanceCents,
+  supplyApyPercentage,
+  supplyDistributionApyPercentage,
+  currentUtilizationRate,
+  tokenPriceDollars,
+  liquidityCents,
+  supplierCount,
+  borrowerCount,
+  borrowCapTokens,
+  dailyDistributionXvs,
+  dailySupplyingInterestsCents,
+  dailyBorrowingInterestsCents,
+  reserveTokens,
+  reserveFactor,
+  collateralFactor,
+  mintedTokens,
+  exchangeRateVTokens,
+  supplyChartData,
+  borrowChartData,
+  interestRateChartData,
 }) => {
+  const { t } = useTranslation();
   const styles = useStyles();
-  const { t, Trans } = useTranslation();
 
-  const cells: Cell[] = useMemo(
+  const token = getToken(vTokenId);
+  const vToken = getVBepToken(vTokenId);
+
+  const hideXlDownCss = useHideXlDownCss();
+  const showXlDownCss = useShowXlDownCss();
+
+  const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal();
+  const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal();
+
+  const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
       {
-        label: t('market.header.totalSupplyLabel'),
+        label: t('market.supplyInfo.stats.totalSupply'),
         value: formatCentsToReadableValue({
-          value: totalSupplyCents,
+          value: totalSupplyBalanceCents,
+          shortenLargeValue: true,
         }),
       },
       {
-        label: t('market.header.totalBorrowLabel'),
-        value: formatCentsToReadableValue({
-          value: totalBorrowCents,
-        }),
+        label: t('market.supplyInfo.stats.apy'),
+        value: formatToReadablePercentage(supplyApyPercentage),
       },
       {
-        label: t('market.header.availableLiquidityLabel'),
-        value: formatCentsToReadableValue({
-          value: totalSupplyCents - totalBorrowCents,
-        }),
-      },
-      {
-        label: t('market.header.assetsLabel'),
-        value: assets.length,
+        label: t('market.supplyInfo.stats.distributionApy'),
+        value: formatToReadablePercentage(supplyDistributionApyPercentage),
       },
     ],
-    [totalSupplyCents, totalBorrowCents, assets.length],
+    [totalSupplyBalanceCents?.toFixed(), supplyApyPercentage, supplyDistributionApyPercentage],
+  );
+
+  const supplyInfoLegends: CardProps['legends'] = [
+    {
+      label: t('market.legends.supplyApy'),
+      color: styles.legendColors.supplyApy,
+    },
+  ];
+
+  const borrowInfoStats: CardProps['stats'] = React.useMemo(
+    () => [
+      {
+        label: t('market.borrowInfo.stats.totalBorrow'),
+        value: formatCentsToReadableValue({
+          value: totalBorrowBalanceCents,
+          shortenLargeValue: true,
+        }),
+      },
+      {
+        label: t('market.borrowInfo.stats.apy'),
+        value: formatToReadablePercentage(borrowApyPercentage),
+      },
+      {
+        label: t('market.borrowInfo.stats.distributionApy'),
+        value: formatToReadablePercentage(borrowDistributionApyPercentage),
+      },
+    ],
+    [totalBorrowBalanceCents?.toFixed(), borrowApyPercentage, borrowDistributionApyPercentage],
+  );
+
+  const borrowInfoLegends: CardProps['legends'] = [
+    {
+      label: t('market.legends.borrowApy'),
+      color: styles.legendColors.borrowApy,
+    },
+  ];
+
+  const interestRateModelLegends: CardProps['legends'] = [
+    {
+      label: t('market.legends.utilizationRate'),
+      color: styles.legendColors.utilizationRate,
+    },
+    {
+      label: t('market.legends.borrowApy'),
+      color: styles.legendColors.borrowApy,
+    },
+    {
+      label: t('market.legends.supplyApy'),
+      color: styles.legendColors.supplyApy,
+    },
+  ];
+
+  const marketInfoStats: MarketInfoProps['stats'] = React.useMemo(
+    () => [
+      {
+        label: t('market.marketInfo.stats.priceLabel'),
+        value:
+          tokenPriceDollars === undefined ? PLACEHOLDER_KEY : `$${tokenPriceDollars.toFormat(2)}`,
+      },
+      {
+        label: t('market.marketInfo.stats.marketLiquidityLabel'),
+        value: formatCentsToReadableValue({
+          value: liquidityCents,
+        }),
+      },
+      {
+        label: t('market.marketInfo.stats.supplierCountLabel'),
+        value: supplierCount ?? '-',
+      },
+      {
+        label: t('market.marketInfo.stats.borrowerCountLabel'),
+        value: borrowerCount ?? '-',
+      },
+      {
+        label: t('market.marketInfo.stats.borrowCapLabel'),
+        value: borrowCapTokens?.isEqualTo(0)
+          ? t('market.marketInfo.stats.unlimitedBorrowCap')
+          : formatTokensToReadableValue({
+              value: borrowCapTokens,
+              minimizeDecimals: true,
+              tokenId: vTokenId,
+            }),
+      },
+      {
+        label: t('market.marketInfo.stats.dailySupplyingInterestsLabel'),
+        value: formatCentsToReadableValue({
+          value: dailySupplyingInterestsCents,
+        }),
+      },
+      {
+        label: t('market.marketInfo.stats.dailyBorrowingInterestsLabel'),
+        value: formatCentsToReadableValue({
+          value: dailyBorrowingInterestsCents,
+        }),
+      },
+      {
+        label: t('market.marketInfo.stats.dailyDistributionXvs'),
+        value: formatTokensToReadableValue({
+          value: dailyDistributionXvs,
+          minimizeDecimals: true,
+          addSymbol: false,
+          tokenId: TOKENS.xvs.id as TokenId,
+        }),
+      },
+      {
+        label: t('market.marketInfo.stats.reserveTokensLabel'),
+        value: formatTokensToReadableValue({
+          value: reserveTokens,
+          minimizeDecimals: true,
+          tokenId: vTokenId,
+        }),
+      },
+      {
+        label: t('market.marketInfo.stats.reserveFactorLabel'),
+        value: formatToReadablePercentage(reserveFactor),
+      },
+      {
+        label: t('market.marketInfo.stats.collateralFactorLabel'),
+        value: formatToReadablePercentage(collateralFactor),
+      },
+      {
+        label: t('market.marketInfo.stats.mintedTokensLabel', {
+          vTokenSymbol: vToken.symbol,
+        }),
+        value: formatTokensToReadableValue({
+          value: mintedTokens,
+          minimizeDecimals: true,
+          addSymbol: false,
+          tokenId: vTokenId,
+        }),
+      },
+      {
+        label: t('market.marketInfo.stats.exchangeRateLabel'),
+        value: exchangeRateVTokens
+          ? t('market.marketInfo.stats.exchangeRateValue', {
+              tokenSymbol: token.symbol,
+              vTokenSymbol: vToken.symbol,
+              rate: exchangeRateVTokens.dp(6).toFixed(),
+            })
+          : PLACEHOLDER_KEY,
+      },
+    ],
+    [
+      tokenPriceDollars,
+      liquidityCents?.toFixed(),
+      supplierCount,
+      borrowerCount,
+      borrowCapTokens?.toFixed(),
+      dailySupplyingInterestsCents,
+      dailyBorrowingInterestsCents,
+      dailyDistributionXvs?.toFixed(),
+      reserveTokens?.toFixed(),
+      vTokenId,
+      reserveFactor?.toFixed(),
+      collateralFactor?.toFixed(),
+      mintedTokens?.toFixed(),
+      exchangeRateVTokens?.toFixed(),
+    ],
+  );
+
+  if (!supplyChartData.length || !borrowChartData.length || !interestRateChartData.length) {
+    return <Spinner />;
+  }
+
+  // @TODO: handle fetching errors
+
+  const buttonsDom = (
+    <>
+      <Button
+        fullWidth
+        css={styles.statsColumnButton}
+        onClick={() => openSupplyWithdrawModal(vTokenId)}
+      >
+        {t('market.supplyButtonLabel')}
+      </Button>
+
+      <SecondaryButton
+        fullWidth
+        css={styles.statsColumnButton}
+        onClick={() => openBorrowRepayModal(vTokenId)}
+      >
+        {t('market.borrowButtonLabel')}
+      </SecondaryButton>
+    </>
   );
 
   return (
     <>
-      <div css={styles.header}>
-        <Typography variant="small2" component="div" css={styles.headerDescription}>
-          {description}
-        </Typography>
+      <div css={styles.container}>
+        <Paper css={[styles.statsColumnButtonContainer, showXlDownCss]}>{buttonsDom}</Paper>
 
-        <CellGroup cells={cells} />
+        <div css={[styles.column, styles.graphsColumn]}>
+          <Card
+            testId={TEST_IDS.supplyInfo}
+            title={t('market.supplyInfo.title')}
+            css={styles.graphCard}
+            stats={supplyInfoStats}
+            legends={supplyInfoLegends}
+          >
+            <div css={styles.apyChart}>
+              <ApyChart data={supplyChartData} type="supply" />
+            </div>
+          </Card>
+
+          <Card
+            testId={TEST_IDS.borrowInfo}
+            title={t('market.borrowInfo.title')}
+            css={styles.graphCard}
+            stats={borrowInfoStats}
+            legends={borrowInfoLegends}
+          >
+            <div css={styles.apyChart}>
+              <ApyChart data={borrowChartData} type="borrow" />
+            </div>
+          </Card>
+
+          <Card
+            testId={TEST_IDS.interestRateModel}
+            title={t('market.interestRateModel.title')}
+            css={styles.graphCard}
+            legends={interestRateModelLegends}
+          >
+            <div css={styles.apyChart}>
+              <InterestRateChart
+                data={interestRateChartData}
+                currentUtilizationRate={currentUtilizationRate}
+              />
+            </div>
+          </Card>
+        </div>
+
+        <div css={[styles.column, styles.statsColumn]}>
+          <Paper css={[styles.statsColumnButtonContainer, hideXlDownCss]}>{buttonsDom}</Paper>
+
+          <MarketInfo stats={marketInfoStats} testId={TEST_IDS.marketInfo} />
+        </div>
       </div>
 
-      {isIsolatedLendingMarket && (
-        <div css={styles.banner}>
-          <div css={styles.bannerContent}>
-            <Icon name="attention" css={styles.bannerIcon} />
-
-            <Typography variant="small2" css={styles.bannerText}>
-              <Trans
-                i18nKey="market.bannerText"
-                components={{
-                  Link: (
-                    <Typography
-                      variant="small2"
-                      component="a"
-                      // TODO: add href
-                      href="TBD"
-                      target="_blank"
-                      rel="noreferrer"
-                    />
-                  ),
-                }}
-              />
-            </Typography>
-          </div>
-        </div>
-      )}
-
-      <Table assets={assets} />
+      <BorrowRepayModal />
+      <SupplyWithdrawModal />
     </>
   );
 };
 
-const Market: React.FC = () => {
-  const assets = assetData;
-  const isIsolatedLendingMarket = true;
-  const totalSupplyCents = 1000000000;
-  const totalBorrowCents = 100000000;
-  const description =
-    'The Metaverse pool offers increased LTV to allow  a leveraged SOL position up to 10x. Higher leverage comes at the cost of increased liquidation risk so proceed with caution.';
+export type MarketProps = RouteComponentProps<{ vTokenId: VTokenId; poolId: string }>;
+
+const Market: React.FC<MarketProps> = ({
+  match: {
+    params: { vTokenId },
+  },
+}) => {
+  const vToken = getVBepToken(vTokenId);
+
+  // Redirect to markets page if vTokenId passed through route params is invalid
+  if (!vToken) {
+    return <Redirect to={routes.pools.path} />;
+  }
+
+  const { reserveFactorMantissa, ...marketData } = useGetMarketData({
+    vTokenId,
+  });
+
+  const chartData = useGetChartData({
+    vTokenId,
+  });
+
+  const {
+    data: interestRateChartData = {
+      apySimulations: [],
+    },
+  } = useGetVTokenApySimulations({
+    vTokenId,
+    reserveFactorMantissa,
+  });
 
   return (
     <MarketUi
-      assets={assets}
-      isIsolatedLendingMarket={isIsolatedLendingMarket}
-      totalSupplyCents={totalSupplyCents}
-      totalBorrowCents={totalBorrowCents}
-      description={description}
+      vTokenId={vTokenId}
+      {...marketData}
+      {...chartData}
+      interestRateChartData={interestRateChartData.apySimulations}
     />
   );
 };

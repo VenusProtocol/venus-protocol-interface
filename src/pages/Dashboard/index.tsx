@@ -64,7 +64,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
         <ButtonGroup
           css={[styles.tabletButtonGroup, showXlDownCss]}
           fullWidth
-          buttonLabels={[t('dashboard.supplyMarketTabTitle'), t('dashboard.borrowMarketTabTitle')]}
+          buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
           activeButtonIndex={activeTabIndex}
           onButtonClick={setActiveTabIndex}
         />
@@ -83,10 +83,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
           <ButtonGroup
             css={hideXlDownCss}
-            buttonLabels={[
-              t('dashboard.supplyMarketTabTitle'),
-              t('dashboard.borrowMarketTabTitle'),
-            ]}
+            buttonLabels={[t('dashboard.supplyTabTitle'), t('dashboard.borrowTabTitle')]}
             activeButtonIndex={activeTabIndex}
             onButtonClick={setActiveTabIndex}
           />
@@ -119,7 +116,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           assets={assets}
           marketType="supply"
           breakpoint="lg"
-          columns={['asset', 'supplyApyLtv', 'market', 'riskLevel', 'collateral']}
+          columns={['asset', 'supplyApyLtv', 'pool', 'riskLevel', 'collateral']}
           initialOrder={{
             orderBy: 'supplyApyLtv',
             orderDirection: 'desc',
@@ -132,7 +129,7 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
           assets={assets}
           marketType="borrow"
           breakpoint="lg"
-          columns={['asset', 'borrowApy', 'market', 'riskLevel', 'liquidity']}
+          columns={['asset', 'borrowApy', 'pool', 'riskLevel', 'liquidity']}
           initialOrder={{
             orderBy: 'borrowApy',
             orderDirection: 'desc',

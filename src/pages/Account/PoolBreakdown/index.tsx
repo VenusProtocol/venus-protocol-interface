@@ -10,7 +10,7 @@ import {
 } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, MarketRiskLevel } from 'types';
+import { Pool } from 'types';
 import { formatCentsToReadableValue, formatToReadablePercentage } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -20,21 +20,13 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useExtractData from './useExtractData';
 
-export interface MarketBreakdownProps {
-  marketName: string;
-  riskLevel: MarketRiskLevel;
+export interface PoolBreakdownProps {
+  pool: Pool;
   includeXvs: boolean;
-  assets: Asset[];
   className?: string;
 }
 
-export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
-  marketName,
-  assets,
-  includeXvs,
-  riskLevel,
-  className,
-}) => {
+export const PoolBreakdown: React.FC<PoolBreakdownProps> = ({ pool, includeXvs, className }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -47,7 +39,7 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
     dailyEarningsCents,
     netApyPercentage,
   } = useExtractData({
-    assets,
+    assets: pool.assets,
     includeXvs,
   });
 
@@ -76,10 +68,10 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
     <div className={className}>
       <div css={styles.title}>
         <Typography css={styles.marketName} variant="h3">
-          {marketName}
+          {pool.name}
         </Typography>
 
-        <RiskLevel variant={riskLevel} />
+        <RiskLevel variant={pool.riskLevel} />
       </div>
 
       <Paper css={styles.statsContainer} data-testid={TEST_IDS.stats}>
@@ -120,9 +112,9 @@ export const MarketBreakdown: React.FC<MarketBreakdownProps> = ({
         </div>
       </Paper>
 
-      <Tables assets={assets} />
+      <Tables assets={pool.assets} />
     </div>
   );
 };
 
-export default MarketBreakdown;
+export default PoolBreakdown;
