@@ -14,7 +14,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
 
-import Path from 'constants/path';
+import { routes } from 'constants/routing';
 
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';
@@ -108,7 +108,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
             </Form>
           )}
         </Formik>
-        <Link css={styles.link} to={Path.GOVERNANCE_LEADER_BOARD}>
+        <Link css={styles.link} to={routes.governanceLeaderBoard.path}>
           {t('vote.delegateLeaderboard')}
         </Link>
       </>

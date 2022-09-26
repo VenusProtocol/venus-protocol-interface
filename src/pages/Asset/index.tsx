@@ -5,14 +5,12 @@ import {
   ApyChart,
   ApyChartProps,
   Button,
-  Icon,
   InterestRateChart,
   InterestRateChartProps,
   SecondaryButton,
   Spinner,
-  TertiaryButton,
 } from 'components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { TokenId, VTokenId } from 'types';
@@ -25,15 +23,12 @@ import {
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
-import addTokenToWallet from 'clients/web3/addTokenToWallet';
-import Path from 'constants/path';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { routes } from 'constants/routing';
 import { TOKENS } from 'constants/tokens';
-import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import useBorrowRepayModal from 'hooks/useBorrowRepayModal';
 import useSupplyWithdrawModal from 'hooks/useSupplyWithdrawModal';
-import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 
 import Card, { CardProps } from './Card';
 import MarketInfo, { MarketInfoProps } from './MarketInfo';
@@ -43,9 +38,6 @@ import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
 export interface AssetUiProps {
-  isUserConnected: boolean;
-  marketId: string;
-  marketName: string;
   vTokenId: VTokenId;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
@@ -73,9 +65,6 @@ export interface AssetUiProps {
 }
 
 export const AssetUi: React.FC<AssetUiProps> = ({
-  isUserConnected,
-  marketId,
-  marketName,
   vTokenId,
   totalBorrowBalanceCents,
   borrowApyPercentage,
@@ -109,33 +98,6 @@ export const AssetUi: React.FC<AssetUiProps> = ({
 
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
-
-  useUpdateBreadcrumbNavigation(
-    currentPathNodes =>
-      currentPathNodes.concat([
-        {
-          href: Path.MARKET.replace(':marketId', marketId),
-          dom: marketName,
-        },
-        {
-          dom: (
-            <div css={styles.breadcrumbNavigationTokenSymbol}>
-              <span>{token.symbol}</span>
-
-              {isUserConnected && (
-                <TertiaryButton
-                  css={styles.breadcrumbNavigationAddTokenButton}
-                  onClick={() => addTokenToWallet(vTokenId)}
-                >
-                  <Icon name="wallet" css={styles.breadcrumbNavigationWalletIcon} />
-                </TertiaryButton>
-              )}
-            </div>
-          ),
-        },
-      ]),
-    [marketName, token.symbol, vTokenId, isUserConnected],
-  );
 
   const { openBorrowRepayModal, BorrowRepayModal } = useBorrowRepayModal();
   const { openSupplyWithdrawModal, SupplyWithdrawModal } = useSupplyWithdrawModal();
@@ -407,18 +369,14 @@ export type AssetProps = RouteComponentProps<{ vTokenId: VTokenId; marketId: str
 
 const Asset: React.FC<AssetProps> = ({
   match: {
-    params: { vTokenId, marketId },
+    params: { vTokenId },
   },
 }) => {
-  const { account } = useContext(AuthContext);
   const vToken = getVBepToken(vTokenId);
 
-  // TODO: fetch actual values (see VEN-546)
-  const marketName = 'Venus';
-
-  // Redirect to market page if vTokenId passed through route params is invalid
+  // Redirect to markets page if vTokenId passed through route params is invalid
   if (!vToken) {
-    return <Redirect to={Path.MARKETS} />;
+    return <Redirect to={routes.markets.path} />;
   }
 
   const { reserveFactorMantissa, ...marketData } = useGetMarketData({
@@ -440,9 +398,6 @@ const Asset: React.FC<AssetProps> = ({
 
   return (
     <AssetUi
-      isUserConnected={!!account}
-      marketId={marketId}
-      marketName={marketName}
       vTokenId={vTokenId}
       {...marketData}
       {...chartData}

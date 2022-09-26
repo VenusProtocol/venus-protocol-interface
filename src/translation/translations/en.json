@@ -155,6 +155,19 @@
     },
     "repayTabTitle": "Repay"
   },
+  "breadcrumbs": {
+    "account": "Account",
+    "convertVrt": "Convert VRT",
+    "dashboard": "Dashboard",
+    "governance": "Governance",
+    "history": "History",
+    "leaderboard": "Leaderboard",
+    "markets": "Markets",
+    "proposal": "Proposal #{{proposalId}}",
+    "vai": "VAI",
+    "vaults": "Vaults",
+    "xvs": "XVS"
+  },
   "bscLink": {
     "content": "View on bscscan.com"
   },
@@ -359,35 +372,6 @@
       "treasuryTotalSupply": "Total supply",
       "walletBalance": "Wallet"
     }
-  },
-  "vai": {
-    "mintVai": {
-      "submitButtonLabel": "Mint",
-      "submitButtonDisabledLabel": "Enter a valid amount to mint",
-      "connectWallet": "Please connect your wallet to mint VAI",
-      "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
-      "mintFeeLabel": "Mint fee",
-      "rightMaxButtonLabel": "SAFE MAX",
-      "successfulTransactionModal": {
-        "message": "You successfully minted",
-        "title": "Your mint was successful"
-      },
-      "vaiLimitLabel": "Available VAI limit"
-    },
-    "repayVai": {
-      "submitButtonLabel": "Repay",
-      "submitButtonDisabledLabel": "Enter a valid amount to repay",
-      "connectWallet": "Please connect your wallet to repay VAI",
-      "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
-      "repayVaiBalance": "Repay VAI balance",
-      "rightMaxButtonLabel": "MAX",
-      "successfulTransactionModal": {
-        "message": "You successfully repaid",
-        "title": "Your repayment was successful"
-      }
-    },
-    "tabMint": "Mint",
-    "tabRepay": "Repay"
   },
   "myAccount": {
     "safeLimit": "Your safe limit:",
@@ -602,6 +586,35 @@
     "vaiLiquidateSeizeTooMuch": "VAI Liquidate Seize Too Much",
     "vaiMintExchangeCalculationFailed": "VAI Mint Exchange Calculation Failed",
     "vaiMintRejection": "VAI Mint Rejected"
+  },
+  "vai": {
+    "mintVai": {
+      "connectWallet": "Please connect your wallet to mint VAI",
+      "enableToken": "To mint VAI with the Venus Protocol, you need to enable it first",
+      "mintFeeLabel": "Mint fee",
+      "rightMaxButtonLabel": "SAFE MAX",
+      "submitButtonDisabledLabel": "Enter a valid amount to mint",
+      "submitButtonLabel": "Mint",
+      "successfulTransactionModal": {
+        "message": "You successfully minted",
+        "title": "Your mint was successful"
+      },
+      "vaiLimitLabel": "Available VAI limit"
+    },
+    "repayVai": {
+      "connectWallet": "Please connect your wallet to repay VAI",
+      "enableToken": "To repay VAI to the Venus Protocol, you need to enable it first",
+      "repayVaiBalance": "Repay VAI balance",
+      "rightMaxButtonLabel": "MAX",
+      "submitButtonDisabledLabel": "Enter a valid amount to repay",
+      "submitButtonLabel": "Repay",
+      "successfulTransactionModal": {
+        "message": "You successfully repaid",
+        "title": "Your repayment was successful"
+      }
+    },
+    "tabMint": "Mint",
+    "tabRepay": "Repay"
   },
   "vault": {
     "transactionForm": {

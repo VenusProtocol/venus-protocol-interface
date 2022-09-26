@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Pagination } from 'components';
 import React, { useState } from 'react';
-import { useTranslation } from 'translation';
 import { VoterAccount } from 'types';
 
 import { useGetVoterAccounts } from 'clients/api';
-import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 
 import LeaderboardTable from './LeaderboardTable';
 import { useStyles } from './styles';
@@ -28,17 +26,6 @@ export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
   setCurrentPage,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
-
-  useUpdateBreadcrumbNavigation(
-    currentPathNodes =>
-      currentPathNodes.concat([
-        {
-          dom: t('voterLeaderboard.title'),
-        },
-      ]),
-    [],
-  );
 
   return (
     <div css={styles.root}>
