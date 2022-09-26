@@ -16,11 +16,9 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     routes.governanceProposal.path.replace(':proposalId', 'FAKE_PROPOSAL_ID'),
     routes.governanceVoter.path.replace(':address', 'FAKE_VOTER_ADDRESS'),
     routes.history.path,
-    routes.markets.path,
-    routes.market.path.replace(':marketId', 'FAKE_MARKET_ID'),
-    routes.marketAsset.path
-      .replace(':marketId', 'FAKE_MARKET_ID')
-      .replace(':vTokenId', 'FAKE_V_TOKEN_ID'),
+    routes.pools.path,
+    routes.pool.path.replace(':poolId', 'FAKE_MARKET_ID'),
+    routes.market.path.replace(':poolId', 'FAKE_MARKET_ID').replace(':vTokenId', 'FAKE_V_TOKEN_ID'),
     routes.xvs.path,
     routes.vai.path,
     routes.vaults.path,

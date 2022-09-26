@@ -26,8 +26,8 @@
           "title": "Sort by"
         },
         "supplyTableTitle": "Supplied assets",
-        "tabletBorrowMarketTabTitle": "Borrow",
-        "tabletSupplyMarketTabTitle": "Supplied",
+        "tabletborrowTabTitle": "Borrow",
+        "tabletsupplyTabTitle": "Supplied",
         "tabletTitle": "Assets"
       }
     }
@@ -50,51 +50,8 @@
     }
   },
   "asset": {
-    "borrowButtonLabel": "Borrow",
-    "borrowInfo": {
-      "stats": {
-        "apy": "APY",
-        "distributionApy": "Distribution APY",
-        "totalBorrow": "Total borrow"
-      },
-      "title": "Borrow info"
-    },
-    "interestRateModel": {
-      "title": "Interest Rate Model"
-    },
-    "legends": {
-      "borrowApy": "Borrow APY",
-      "supplyApy": "Supply APY",
-      "utilizationRate": "Utilization rate"
-    },
     "marketInfo": {
-      "stats": {
-        "borrowCapLabel": "Borrow cap",
-        "borrowerCountLabel": "# of borrowers",
-        "collateralFactorLabel": "Collateral factor",
-        "dailyBorrowingInterestsLabel": "Daily borrowing interests",
-        "dailyDistributionXvs": "Daily XVS distributed",
-        "dailySupplyingInterestsLabel": "Daily supplying interests",
-        "exchangeRateLabel": "Exchange rate",
-        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "marketLiquidityLabel": "Market liquidity",
-        "mintedTokensLabel": "{{vTokenSymbol}} minted",
-        "priceLabel": "Price",
-        "reserveFactorLabel": "Reserve factor",
-        "reserveTokensLabel": "Reserves",
-        "supplierCountLabel": "# of suppliers",
-        "unlimitedBorrowCap": "Uncapped"
-      },
       "title": "Market info"
-    },
-    "supplyButtonLabel": "Supply",
-    "supplyInfo": {
-      "stats": {
-        "apy": "APY",
-        "distributionApy": "Distribution APY",
-        "totalSupply": "Total supply"
-      },
-      "title": "Supply info"
     }
   },
   "authModal": {
@@ -162,7 +119,7 @@
     "governance": "Governance",
     "history": "History",
     "leaderboard": "Leaderboard",
-    "markets": "Markets",
+    "pools": "Pools",
     "proposal": "Proposal #{{proposalId}}",
     "vai": "VAI",
     "vaults": "Vaults",
@@ -206,7 +163,7 @@
     "youWillReceive": "You will receive"
   },
   "dashboard": {
-    "borrowMarketTabTitle": "Borrow market",
+    "borrowTabTitle": "Borrow",
     "higherRiskTokensNotice": {
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
       "title": "What are higher risk tokens?"
@@ -219,9 +176,9 @@
     "riskyTokensToggleLabel": "Display higher risk tokens",
     "riskyTokensToggleTooltip": "Risk level is determined by the tokens of a pool. High risk tokens have less liquidity depth and higher volatility meaning it may be harder to avoid liquidation.",
     "searchInput": {
-      "placeholder": "Search asset or market"
+      "placeholder": "Search pool or asset"
     },
-    "supplyMarketTabTitle": "Supply market"
+    "supplyTabTitle": "Supply"
   },
   "enableToken": {
     "enableButtonLabel": "Enable"
@@ -296,7 +253,7 @@
       "dashboard": "Dashboard",
       "governance": "Governance",
       "history": "History",
-      "markets": "Markets",
+      "pools": "Pools",
       "vai": "VAI",
       "vaults": "Vaults",
       "xvs": "XVS",
@@ -310,20 +267,50 @@
   },
   "market": {
     "availableLiquidity": "Available Liquidity",
-    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
-    "columns": {
-      "assets": "Assets",
-      "liquidity": "Liquidity",
-      "market": "Market",
-      "riskLevel": "Risk level",
-      "totalBorrow": "Total borrow",
-      "totalSupply": "Total supply"
+    "borrowButtonLabel": "Borrow",
+    "borrowInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalBorrow": "Total borrow"
+      },
+      "title": "Borrow info"
     },
-    "header": {
-      "assetsLabel": "Assets",
-      "availableLiquidityLabel": "Available Liquidity",
-      "totalBorrowLabel": "Total Borrow",
-      "totalSupplyLabel": "Total Supply"
+    "interestRateModel": {
+      "title": "Interest Rate Model"
+    },
+    "legends": {
+      "borrowApy": "Borrow APY",
+      "supplyApy": "Supply APY",
+      "utilizationRate": "Utilization rate"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowCapLabel": "Borrow cap",
+        "borrowerCountLabel": "# of borrowers",
+        "collateralFactorLabel": "Collateral factor",
+        "dailyBorrowingInterestsLabel": "Daily borrowing interests",
+        "dailyDistributionXvs": "Daily XVS distributed",
+        "dailySupplyingInterestsLabel": "Daily supplying interests",
+        "exchangeRateLabel": "Exchange rate",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "marketLiquidityLabel": "Market liquidity",
+        "mintedTokensLabel": "{{vTokenSymbol}} minted",
+        "priceLabel": "Price",
+        "reserveFactorLabel": "Reserve factor",
+        "reserveTokensLabel": "Reserves",
+        "supplierCountLabel": "# of suppliers",
+        "unlimitedBorrowCap": "Uncapped"
+      }
+    },
+    "supplyButtonLabel": "Supply",
+    "supplyInfo": {
+      "stats": {
+        "apy": "APY",
+        "distributionApy": "Distribution APY",
+        "totalSupply": "Total supply"
+      },
+      "title": "Supply info"
     },
     "tables": {
       "mobileSelect": {
@@ -363,8 +350,8 @@
       "labeledBorrowApy": "Borrow APY",
       "labeledSupplyApyLtv": "Supply APY / LTV",
       "liquidity": "Liquidity",
-      "market": "Market",
       "percentOfLimit": "% of limit",
+      "pool": "Pool",
       "riskLevel": "Risk level",
       "supplyApyLtv": "APY / LTV",
       "supplyBalance": "Balance",
@@ -381,8 +368,26 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
-  "proposal": {
-    "title": "Proposal #{{proposalId}}"
+  "pool": {
+    "bannerText": "You are currently looking at an isolated lending market. Supplying tokens to an isolated lending market will increase your borrow limit for this market only, effectively enabling you to borrow tokens from this market only. See <Link>our FAQ</Link> to learn more.",
+    "header": {
+      "assetsLabel": "Assets",
+      "availableLiquidityLabel": "Available Liquidity",
+      "totalBorrowLabel": "Total Borrow",
+      "totalSupplyLabel": "Total Supply"
+    }
+  },
+  "pools": {
+    "poolTable": {
+      "columns": {
+        "assets": "Assets",
+        "liquidity": "Liquidity",
+        "pool": "Pool",
+        "riskLevel": "Risk level",
+        "totalBorrow": "Total borrow",
+        "totalSupply": "Total supply"
+      }
+    }
   },
   "riskLevel": {
     "high": "High risk",
@@ -798,8 +803,7 @@
       "rank": "Rank",
       "votes": "Votes",
       "voteWeight": "Vote Weight"
-    },
-    "title": "Leaderboard"
+    }
   },
   "voteSummary": {
     "addresses_zero": "{{count}} address",

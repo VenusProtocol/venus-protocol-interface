@@ -59,14 +59,11 @@ const Breadcrumbs: React.FC = () => {
 
       // Update href
       switch (subdirectory) {
-        case Subdirectory.MARKET:
-          href += Subdirectory.MARKET.replace(':marketId', params.marketId);
+        case Subdirectory.POOL:
+          href += Subdirectory.POOL.replace(':poolId', params.poolId);
           break;
-        case Subdirectory.ASSET:
-          href += Subdirectory.ASSET.replace(':marketId', params.marketId).replace(
-            ':vTokenId',
-            params.vTokenId,
-          );
+        case Subdirectory.MARKET:
+          href += Subdirectory.MARKET.replace(':vTokenId', params.vTokenId);
           break;
         case Subdirectory.VOTER:
           href += Subdirectory.VOTER.replace(':address', params.address);
@@ -83,14 +80,14 @@ const Breadcrumbs: React.FC = () => {
         case Subdirectory.ACCOUNT:
           dom = t('breadcrumbs.account');
           break;
-        case Subdirectory.MARKETS:
-          dom = t('breadcrumbs.markets');
+        case Subdirectory.POOLS:
+          dom = t('breadcrumbs.pools');
           break;
-        case Subdirectory.MARKET:
+        case Subdirectory.POOL:
           // TODO: fetch actual value (see VEN-546)
-          dom = <>FAKE_MARKET_ID</>;
+          dom = <>Fake pool name</>;
           break;
-        case Subdirectory.ASSET: {
+        case Subdirectory.MARKET: {
           const token = getToken(params.vTokenId as TokenId);
 
           if (token) {

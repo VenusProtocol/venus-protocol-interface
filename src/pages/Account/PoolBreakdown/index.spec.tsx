@@ -1,30 +1,28 @@
 import React from 'react';
 
-import { assetData } from '__mocks__/models/asset';
+import { poolData } from '__mocks__/models/pools';
 import renderComponent from 'testUtils/renderComponent';
 
-import MarketBreakdown, { MarketBreakdownProps } from '.';
+import PoolBreakdown, { PoolBreakdownProps } from '.';
 import TEST_IDS from './testIds';
 
 jest.mock('clients/api');
 
-const baseProps: MarketBreakdownProps = {
-  assets: assetData,
+const baseProps: PoolBreakdownProps = {
+  pool: poolData[0],
   includeXvs: true,
-  marketName: 'Fake market name',
-  riskLevel: 'VERY_HIGH',
 };
 
-describe('pages/Account/MarketBreakdown', () => {
+describe('pages/Account/PoolBreakdown', () => {
   it('renders without crashing', () => {
-    renderComponent(<MarketBreakdown {...baseProps} />);
+    renderComponent(<PoolBreakdown {...baseProps} />);
   });
 
   it.each([true, false])(
     'displays stats and tables correctly when includeXvs is %s',
     includeXvs => {
       const { getByTestId } = renderComponent(
-        <MarketBreakdown {...baseProps} includeXvs={includeXvs} />,
+        <PoolBreakdown {...baseProps} includeXvs={includeXvs} />,
       );
 
       expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();

@@ -2,14 +2,14 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { MarketRiskLevel } from 'types';
+import { PoolRiskLevel } from 'types';
 
 import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
 
 interface RiskLevelProps {
   className?: string;
-  variant: MarketRiskLevel;
+  variant: PoolRiskLevel;
 }
 
 export const RiskLevel = ({ variant, ...containerProps }: RiskLevelProps) => {

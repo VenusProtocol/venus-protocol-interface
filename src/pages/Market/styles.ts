@@ -1,62 +1,77 @@
 import { css } from '@emotion/react';
-import { alpha, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    header: css`
-      margin-bottom: ${theme.spacing(8)};
+    container: css`
       display: flex;
-      align-items: center;
 
-      ${theme.breakpoints.down('xxl')} {
-        margin-bottom: ${theme.spacing(6)};
+      ${theme.breakpoints.down('xl')} {
         display: block;
       }
     `,
-    headerDescription: css`
-      margin-right: ${theme.spacing(6)};
-      color: ${theme.palette.text.primary};
+    column: css`
+      :not(:first-of-type) {
+        margin-left: ${theme.spacing(4)};
+      }
+
+      :not(:last-of-type) {
+        margin-right: ${theme.spacing(4)};
+      }
+
+      ${theme.breakpoints.down('xl')} {
+        :not(:first-of-type) {
+          margin-left: 0;
+        }
+
+        :not(:last-of-type) {
+          margin-right: 0;
+        }
+      }
+    `,
+    graphsColumn: css`
+      flex: 2;
+    `,
+    statsColumn: css`
       flex: 1;
+    `,
+    statsColumnButtonContainer: css`
+      display: flex;
+      align-items: center;
+      margin-bottom: ${theme.spacing(6)};
+    `,
+    statsColumnButton: css`
+      margin-left: ${theme.spacing(3)};
+      margin-right: ${theme.spacing(3)};
 
-      ${theme.breakpoints.down('xxl')} {
+      :first-of-type {
+        margin-left: 0;
+      }
+
+      :last-of-type {
+        margin-right: 0;
+      }
+    `,
+    graphCard: css`
+      :not(:last-of-type) {
         margin-bottom: ${theme.spacing(6)};
-        display: block;
-      }
-    `,
-    banner: css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: ${theme.spacing(6)};
-      border-radius: ${theme.shape.borderRadius.small}px;
-      border: 1px solid ${theme.palette.interactive.warning};
-      background-color: ${alpha(theme.palette.interactive.warning as string, 0.1)};
-      margin-bottom: ${theme.spacing(8)};
-    `,
-    bannerContent: css`
-      display: flex;
-      align-items: center;
-      margin: 0 auto;
-    `,
-    bannerText: css`
-      color: ${theme.palette.text.primary};
-
-      a {
-        color: ${theme.palette.interactive.primary};
       }
 
-      a:hover {
-        text-decoration: underline;
+      ${theme.breakpoints.down('xl')} {
+        :last-of-type {
+          margin-bottom: ${theme.spacing(6)};
+        }
       }
     `,
-    bannerIcon: css`
-      flex-shrink: 0;
-      color: ${theme.palette.interactive.warning};
-      margin-right: ${theme.spacing(2)};
-      width: ${theme.spacing(6)};
-      height: ${theme.spacing(6)};
+    legendColors: {
+      supplyApy: theme.palette.interactive.success,
+      borrowApy: theme.palette.interactive.error,
+      utilizationRate: theme.palette.interactive.primary,
+    },
+    apyChart: css`
+      margin-right: ${theme.spacing(-2.5)};
     `,
   };
 };

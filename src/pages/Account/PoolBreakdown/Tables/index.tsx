@@ -90,8 +90,8 @@ export const Tables: React.FC<TablesProps> = ({ assets }) => {
           <ButtonGroup
             css={styles.tabletHeaderButtonGroup}
             buttonLabels={[
-              t('account.marketBreakdown.tables.tabletSupplyMarketTabTitle'),
-              t('account.marketBreakdown.tables.tabletBorrowMarketTabTitle'),
+              t('account.marketBreakdown.tables.tabletsupplyTabTitle'),
+              t('account.marketBreakdown.tables.tabletborrowTabTitle'),
             ]}
             activeButtonIndex={activeTabIndex}
             onButtonClick={setActiveTabIndex}

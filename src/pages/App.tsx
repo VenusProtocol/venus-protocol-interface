@@ -13,12 +13,12 @@ import { DisableLunaUstWarningProvider } from 'context/DisableLunaUstWarning';
 import { IncludeXvsProvider } from 'context/IncludeXvsContext';
 import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactionModalContext';
 import Account from 'pages/Account';
-import Asset from 'pages/Asset';
 import ConvertVrt from 'pages/ConvertVrt';
 import Dashboard from 'pages/Dashboard';
 import History from 'pages/History';
 import Market from 'pages/Market';
-import Markets from 'pages/Markets';
+import Pool from 'pages/Pool';
+import Pools from 'pages/Pools';
 import Proposal from 'pages/Proposal';
 import Vai from 'pages/Vai';
 import Vaults from 'pages/Vault';
@@ -47,9 +47,9 @@ const App = () => (
 
                       <Route exact path={routes.account.path} component={Account} />
 
-                      <Route exact path={routes.markets.path} component={Markets} />
+                      <Route exact path={routes.pools.path} component={Pools} />
+                      <Route exact path={routes.pool.path} component={Pool} />
                       <Route exact path={routes.market.path} component={Market} />
-                      <Route exact path={routes.marketAsset.path} component={Asset} />
 
                       <Route exact path={routes.vaults.path} component={Vaults} />
 

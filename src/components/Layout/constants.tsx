@@ -19,10 +19,10 @@ export const menuItems: MenuItem[] = [
   },
 
   {
-    href: routes.markets.path,
+    href: routes.pools.path,
     // Translation key: do not remove this comment
-    // t('layout.menuItems.markets')
-    i18nKey: 'layout.menuItems.markets',
+    // t('layout.menuItems.pools')
+    i18nKey: 'layout.menuItems.pools',
     icon: 'market',
   },
   {

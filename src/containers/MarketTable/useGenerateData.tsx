@@ -118,11 +118,12 @@ const useGenerateData = ({
             shortenLargeValue: true,
           });
         row.value = asset.liquidity.toNumber();
-      } else if (column === 'market') {
+      } else if (column === 'pool') {
         row.render = () => (
           <div>
+            {/* TODO: get link from asset (see VEN-546) */}
             <Link to="/market/xvs" css={styles.marketLink}>
-              {/* TODO: get from asset */}
+              {/* TODO: get name from asset (see VEN-546) */}
               <Typography variant="small2">Venus</Typography>
             </Link>
           </div>
@@ -130,9 +131,9 @@ const useGenerateData = ({
 
         row.value = 'venus'; // TODO: get from asset
       } else if (column === 'riskLevel') {
-        // TODO: get from asset
+        // TODO: get from asset (see VEN-546)
         row.render = () => <RiskLevel variant="MINIMAL" />;
-        // TODO: get from asset
+        // TODO: get from asset (see VEN-546)
         row.value = 'MINIMAL';
       } else if (column === 'walletBalance') {
         row.render = () =>
