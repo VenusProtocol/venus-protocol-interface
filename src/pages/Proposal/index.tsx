@@ -10,7 +10,6 @@ import type { TransactionReceipt } from 'web3-core';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt, useGetVoters } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
-import useUpdateBreadcrumbNavigation from 'hooks/useUpdateBreadcrumbNavigation';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 
 import { Description } from './Description';
@@ -43,22 +42,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  useUpdateBreadcrumbNavigation(
-    currentPathNodes => {
-      // Return current path nodes if proposal hasn't been fetched yet
-      if (!proposal?.id) {
-        return currentPathNodes;
-      }
-
-      return currentPathNodes.concat([
-        {
-          dom: t('proposal.title', { proposalId: proposal.id }),
-        },
-      ]);
-    },
-    [proposal?.id],
-  );
 
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
 
@@ -144,9 +127,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 
 const Proposal = () => {
   const { account } = useContext(AuthContext);
-  const { id } = useParams<{ id: string }>();
+  const { proposalId } = useParams<{ proposalId: string }>();
   const accountAddress = account?.address;
-  const { data: proposal } = useGetProposal({ id }, { enabled: !!id });
+  const { data: proposal } = useGetProposal({ id: proposalId }, { enabled: !!proposalId });
 
   const {
     data: votingWeightData = {
@@ -175,21 +158,21 @@ const Proposal = () => {
     },
   };
   const { data: againstVoters = defaultValue } = useGetVoters(
-    { id: id || '', filter: 0 },
-    { enabled: !!id },
+    { id: proposalId || '', filter: 0 },
+    { enabled: !!proposalId },
   );
   const { data: forVoters = defaultValue } = useGetVoters(
-    { id: id || '', filter: 1 },
-    { enabled: !!id },
+    { id: proposalId || '', filter: 1 },
+    { enabled: !!proposalId },
   );
   const { data: abstainVoters = defaultValue } = useGetVoters(
-    { id: id || '', filter: 2 },
-    { enabled: !!id },
+    { id: proposalId || '', filter: 2 },
+    { enabled: !!proposalId },
   );
 
   const { vote, isLoading } = useVote({ accountAddress: account?.address || '' });
   const { data: userVoteReceipt } = useGetVoteReceipt(
-    { proposalId: parseInt(id, 10), accountAddress },
+    { proposalId: parseInt(proposalId, 10), accountAddress },
     { enabled: !!accountAddress },
   );
 

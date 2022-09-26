@@ -54,9 +54,6 @@ export default {
 
 export const Default = () => (
   <AssetUi
-    isUserConnected
-    marketId="FAKE_MARKET_ID"
-    marketName="Venus"
     vTokenId="bnb"
     totalBorrowBalanceCents={100000000}
     borrowApyPercentage={new BigNumber(2.24)}
