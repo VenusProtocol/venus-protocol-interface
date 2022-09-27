@@ -6,6 +6,7 @@ import { getToken } from 'utilities';
 
 import { poolData } from '__mocks__/models/pools';
 
+import { TextButton } from '../Button';
 import { Notice } from '../Notice';
 import { useStyles } from './styles';
 
@@ -31,17 +32,28 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
     tokenSymbol: token.symbol,
   };
 
+  const handleShowMarkets = () => {
+    // TODO: display market table
+  };
+
   return (
     <Notice
       css={styles.notice}
       variant="warning"
       description={
         <>
-          <span>
+          <div css={styles.description}>
             {type === 'borrow'
-              ? t('isolatedAssetWarning.borrowDescription', translationArgs)
+              ? // TODO: add text for borrow description
+                t('isolatedAssetWarning.borrowDescription', translationArgs)
               : t('isolatedAssetWarning.supplyDescription', translationArgs)}
-          </span>
+          </div>
+
+          <TextButton css={styles.showMarketsButton} onClick={handleShowMarkets} small>
+            {t('isolatedAssetWarning.showMarketsButtonLabel', {
+              poolName: pool.name,
+            })}
+          </TextButton>
         </>
       }
     />
