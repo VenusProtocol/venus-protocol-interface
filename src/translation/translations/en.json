@@ -245,6 +245,10 @@
       "utilizationRate": "Utilization rate"
     }
   },
+  "isolatedAssetWarning": {
+    "borrowDescription": "TBD",
+    "supplyDescription": "You are looking at an isolated token. By supplying USDT to the Venus friends market, you will be able to borrow other tokens from this pool only."
+  },
   "layout": {
     "menuItems": {
       "account": "Account",
