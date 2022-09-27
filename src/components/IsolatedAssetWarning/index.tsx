@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'translation';
 import { Asset, Pool } from 'types';
 import { getToken } from 'utilities';
@@ -8,9 +8,9 @@ import { poolData } from '__mocks__/models/pools';
 
 import { TextButton } from '../Button';
 import { Notice } from '../Notice';
+import AssetTable from './AssetTable';
 import { useStyles } from './styles';
-
-type WarningType = 'borrow' | 'supply';
+import { WarningType } from './types';
 
 export interface IsolatedAssetWarningUiProps {
   assetId: Asset['id'];
@@ -23,6 +23,7 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
   assetId,
   type,
 }) => {
+  const [showAssets, setShowAssets] = useState(false);
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -32,31 +33,36 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
     tokenSymbol: token.symbol,
   };
 
-  const handleShowMarkets = () => {
-    // TODO: display market table
-  };
+  const handleShowAssets = () => setShowAssets(true);
+  const handleHideAssets = () => setShowAssets(false);
 
   return (
-    <Notice
-      css={styles.notice}
-      variant="warning"
-      description={
-        <>
-          <div css={styles.description}>
-            {type === 'borrow'
-              ? // TODO: add text for borrow description
-                t('isolatedAssetWarning.borrowDescription', translationArgs)
-              : t('isolatedAssetWarning.supplyDescription', translationArgs)}
-          </div>
+    <div css={styles.container}>
+      <Notice
+        css={styles.notice}
+        variant="warning"
+        description={
+          <>
+            <div css={styles.description}>
+              {type === 'borrow'
+                ? // TODO: add text for borrow description
+                  t('isolatedAssetWarning.borrowDescription', translationArgs)
+                : t('isolatedAssetWarning.supplyDescription', translationArgs)}
+            </div>
 
-          <TextButton css={styles.showMarketsButton} onClick={handleShowMarkets} small>
-            {t('isolatedAssetWarning.showMarketsButtonLabel', {
-              poolName: pool.name,
-            })}
-          </TextButton>
-        </>
-      }
-    />
+            <TextButton css={styles.inlineButton} onClick={handleShowAssets} small>
+              {t('isolatedAssetWarning.showMarketsButtonLabel', {
+                poolName: pool.name,
+              })}
+            </TextButton>
+          </>
+        }
+      />
+
+      {showAssets && (
+        <AssetTable assets={pool.assets} type={type} onHideAssetsButtonClick={handleHideAssets} />
+      )}
+    </div>
   );
 };
 

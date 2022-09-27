@@ -86,7 +86,7 @@ export const Select: React.FC<SelectProps> = ({
         displayEmpty
         inputProps={{ 'aria-label': ariaLabel }}
         IconComponent={() => (
-          <Icon css={styles.getArrowIcon({ isMenuOpened: isOpen })} name="arrowDown" />
+          <Icon css={styles.getArrowIcon({ isMenuOpened: isOpen })} name="arrowUp" />
         )}
         MenuProps={menuProps}
         autoWidth={isSmDown}

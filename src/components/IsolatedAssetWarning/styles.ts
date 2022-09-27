@@ -5,6 +5,9 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
+    container: css`
+      position: relative;
+    `,
     notice: css`
       padding: ${theme.spacing(3)};
       border-radius: ${theme.spacing(3)};
@@ -13,7 +16,7 @@ export const useStyles = () => {
     description: css`
       margin-bottom: ${theme.spacing(2)};
     `,
-    showMarketsButton: css`
+    inlineButton: css`
       padding: 0;
 
       > span {
