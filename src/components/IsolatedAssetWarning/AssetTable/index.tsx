@@ -11,6 +11,7 @@ import { Token } from '../../Token';
 import { useStyles as useParentStyles } from '../styles';
 import { WarningType } from '../types';
 import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 
 export interface AssetTableProps {
   type: WarningType;
@@ -47,32 +48,31 @@ export const AssetTable: React.FC<AssetTableProps> = ({
         ))}
       </div>
 
-      <div css={styles.dataRowList}>
+      <div css={styles.dataRowList} data-testid={TEST_IDS.assetTable}>
         {sortedAssets.map(asset => (
-          <>
-            <div css={[styles.row, styles.dataRow]}>
-              <div css={styles.cell}>
-                <Token tokenId={asset.id} displaySymbol variant="small2" />
-              </div>
-
-              <div css={styles.cell}>
-                <Typography variant="small2">
-                  {formatToReadablePercentage(
-                    type === 'borrow' ? asset.borrowApy : asset.supplyApy,
-                  )}
-                </Typography>
-              </div>
-
-              <div css={styles.cell}>
-                <Typography variant="small2">
-                  {formatCentsToReadableValue({
-                    value: asset.treasuryTotalBorrowsCents,
-                    shortenLargeValue: true,
-                  })}
-                </Typography>
-              </div>
+          <div
+            css={[styles.row, styles.dataRow]}
+            key={`isolated-asset-warning-asset-table-data-row-${asset.id}`}
+          >
+            <div css={styles.cell}>
+              <Token tokenId={asset.id} displaySymbol variant="small2" />
             </div>
-          </>
+
+            <div css={styles.cell}>
+              <Typography variant="small2">
+                {formatToReadablePercentage(type === 'borrow' ? asset.borrowApy : asset.supplyApy)}
+              </Typography>
+            </div>
+
+            <div css={styles.cell}>
+              <Typography variant="small2">
+                {formatCentsToReadableValue({
+                  value: asset.treasuryTotalBorrowsCents,
+                  shortenLargeValue: true,
+                })}
+              </Typography>
+            </div>
+          </div>
         ))}
       </div>
 
