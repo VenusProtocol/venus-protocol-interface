@@ -5,6 +5,7 @@ import {
   EnableToken,
   FormikSubmitButton,
   FormikTokenTextField,
+  IsolatedAssetWarning,
   NoticeWarning,
 } from 'components';
 import { VError } from 'errors';
@@ -87,10 +88,23 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
     });
   };
 
+  // TODO: fetch actual value (see VEN-546)
+  const isIsolatedAsset = true;
+
   return (
     <AmountForm onSubmit={onSubmit} maxAmount={limitTokens}>
       {({ values, dirty, isValid, errors }) => (
         <>
+          {isIsolatedAsset && (
+            // TODO: fetch actual values (see VEN-546)
+            <IsolatedAssetWarning
+              poolId="FAKE-POOL-ID"
+              assetId={asset.id}
+              type="borrow"
+              css={sharedStyles.isolatedAssetWarning}
+            />
+          )}
+
           <div css={[sharedStyles.getRow({ isLast: true })]}>
             <FormikTokenTextField
               name="amount"

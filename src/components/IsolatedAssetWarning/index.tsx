@@ -16,12 +16,14 @@ export interface IsolatedAssetWarningUiProps {
   assetId: Asset['id'];
   pool: Pool;
   type: WarningType;
+  className?: string;
 }
 
 export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
   pool,
   assetId,
   type,
+  className,
 }) => {
   const [showAssets, setShowAssets] = useState(false);
   const styles = useStyles();
@@ -37,7 +39,7 @@ export const IsolatedAssetWarningUi: React.FC<IsolatedAssetWarningUiProps> = ({
   const handleHideAssets = () => setShowAssets(false);
 
   return (
-    <div css={styles.container}>
+    <div css={styles.container} className={className}>
       <Notice
         css={styles.notice}
         variant="warning"
@@ -70,14 +72,19 @@ export interface IsolatedAssetWarningProps {
   assetId: Asset['id'];
   poolId: Pool['id'];
   type: WarningType;
+  className?: string;
 }
 
-export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({ assetId, type }) => {
+export const IsolatedAssetWarning: React.FC<IsolatedAssetWarningProps> = ({
+  assetId,
+  type,
+  className,
+}) => {
   // TODO: fetch actual value (see VEN-546)
 
   const pool = poolData[0];
 
-  return <IsolatedAssetWarningUi assetId={assetId} pool={pool} type={type} />;
+  return <IsolatedAssetWarningUi assetId={assetId} pool={pool} type={type} className={className} />;
 };
 
 export default IsolatedAssetWarning;

@@ -6,6 +6,7 @@ import {
   Delimiter,
   FormikSubmitButton,
   FormikTokenTextField,
+  IsolatedAssetWarning,
   LabeledInlineContent,
   LabeledInlineContentProps,
   ValueUpdate,
@@ -133,8 +134,21 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
   // following the crash of the LUNA token
   const isSupplyingLuna = type === 'supply' && asset.id === 'luna';
 
+  // TODO: fetch actual value (see VEN-546)
+  const isIsolatedAsset = true;
+
   return (
     <>
+      {type === 'supply' && isIsolatedAsset && (
+        // TODO: fetch actual values (see VEN-546)
+        <IsolatedAssetWarning
+          poolId="FAKE-POOL-ID"
+          assetId={assetId}
+          type="supply"
+          css={styles.isolatedAssetWarning}
+        />
+      )}
+
       <FormikTokenTextField
         name="amount"
         tokenId={assetId as TokenId}
