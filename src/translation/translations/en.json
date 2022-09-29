@@ -245,6 +245,18 @@
       "utilizationRate": "Utilization rate"
     }
   },
+  "isolatedAssetWarning": {
+    "assetTable": {
+      "assetColumnTitle": "Asset",
+      "borrowApyColumnTitle": "Borrow APY",
+      "liquidityColumnTitle": "Liquidity",
+      "supplyApyColumnTitle": "Supply APY"
+    },
+    "borrowDescription": "TBD",
+    "hideAssetsButtonLabel": "Hide assets",
+    "showMarketsButtonLabel": "Show tokens from the {{poolName}} pool",
+    "supplyDescription": "You are looking at an isolated token. By supplying {{tokenSymbol}} to the {{poolName}} pool, you will be able to borrow tokens from this pool only."
+  },
   "layout": {
     "menuItems": {
       "account": "Account",
