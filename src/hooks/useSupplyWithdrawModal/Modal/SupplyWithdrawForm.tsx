@@ -161,6 +161,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         // Only display error state if amount is higher than borrow limit
         displayableErrorCodes={[ErrorCode.HIGHER_THAN_MAX]}
       />
+
       <Typography
         component="div"
         variant="small2"
@@ -201,23 +202,8 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
       />
 
       <LabeledInlineContent
-        label={t('supplyWithdraw.borrowLimit')}
-        css={styles.getRow({ isLast: true })}
-        className="info-row"
-      >
-        <ValueUpdate original={userTotalBorrowLimitCents} update={hypotheticalBorrowLimitCents} />
-      </LabeledInlineContent>
-      <Delimiter css={styles.getRow({ isLast: true })} />
-      <LabeledInlineContent
-        label={t('supplyWithdraw.dailyEarnings')}
-        css={styles.getRow({ isLast: false })}
-        className="info-row"
-      >
-        <ValueUpdate original={dailyEarningsCents} update={hypotheticalDailyEarningCents} />
-      </LabeledInlineContent>
-      <LabeledInlineContent
         label={t('supplyWithdraw.supplyBalance', { tokenSymbol: token.symbol })}
-        css={styles.getRow({ isLast: true })}
+        css={styles.getRow({ isLast: false })}
         className="info-row"
       >
         <ValueUpdate
@@ -233,6 +219,23 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
           }
         />
       </LabeledInlineContent>
+
+      <LabeledInlineContent
+        label={t('supplyWithdraw.borrowLimit')}
+        css={styles.getRow({ isLast: false })}
+        className="info-row"
+      >
+        <ValueUpdate original={userTotalBorrowLimitCents} update={hypotheticalBorrowLimitCents} />
+      </LabeledInlineContent>
+
+      <LabeledInlineContent
+        label={t('supplyWithdraw.dailyEarnings')}
+        css={styles.getRow({ isLast: true })}
+        className="info-row"
+      >
+        <ValueUpdate original={dailyEarningsCents} update={hypotheticalDailyEarningCents} />
+      </LabeledInlineContent>
+
       <FormikSubmitButton
         fullWidth
         disabled={!validAmount || isSupplyingLuna}
