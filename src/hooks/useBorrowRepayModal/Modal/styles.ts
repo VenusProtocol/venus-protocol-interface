@@ -30,5 +30,8 @@ export const useStyles = () => {
         }
       }
     `,
+    isolatedAssetWarning: css`
+      margin-bottom: ${theme.spacing(6)};
+    `,
   };
 };

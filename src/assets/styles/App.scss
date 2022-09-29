@@ -1,28 +1,27 @@
 @import './Global.scss';
 
-body {
-  /* width */
+* {
   &::-webkit-scrollbar {
-    width: 2px;
-    height: 5px;
+    width: 4px;
   }
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background: #f6f6f6;
+    border-radius: 4px;
+    background-color: var(--color-bg-main);
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: gray;
+    background-color: var(--color-text-secondary);
+    border-radius: 4px;
   }
 
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background-color: var(--color-text-primary);
   }
 }
-
 
 input {
   color: inherit;

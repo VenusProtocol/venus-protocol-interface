@@ -47,3 +47,4 @@ export * from './Markdown';
 export * from './InfoIcon';
 export * from './CellGroup';
 export * from './TokenGroup';
+export * from './IsolatedAssetWarning';
