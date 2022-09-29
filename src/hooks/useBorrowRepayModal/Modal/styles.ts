@@ -20,11 +20,9 @@ export const useStyles = () => {
       padding: ${theme.spacing(4)};
     `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
-      margin-bottom: ${theme.spacing(isLast ? 8 : 3)};
+      margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
 
       ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
-
         span {
           font-size: ${theme.typography.small1.fontSize};
         }
