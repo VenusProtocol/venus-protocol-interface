@@ -107,39 +107,6 @@ const AccountData: React.FC<AccountDataProps> = ({
 
   return (
     <>
-      <BorrowBalanceAccountHealth
-        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
-        borrowLimitCents={userTotalBorrowLimitCents.toNumber()}
-        hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}
-        safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-        css={sharedStyles.getRow({ isLast: true })}
-      />
-
-      <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.borrowLimitUsed')}
-        css={sharedStyles.getRow({ isLast: false })}
-      >
-        <ValueUpdate
-          original={borrowLimitUsedPercentage}
-          update={hypotheticalBorrowLimitUsedPercentage}
-          positiveDirection="desc"
-          format={formatToReadablePercentage}
-        />
-      </LabeledInlineContent>
-
-      <LabeledInlineContent
-        label={t('borrowRepayModal.borrow.borrowBalance')}
-        css={sharedStyles.getRow({ isLast: true })}
-      >
-        <ValueUpdate
-          original={userTotalBorrowBalanceCents.toNumber()}
-          update={hypotheticalTotalBorrowBalanceCents?.toNumber()}
-          positiveDirection="desc"
-        />
-      </LabeledInlineContent>
-
-      <Delimiter css={sharedStyles.getRow({ isLast: true })} />
-
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowAPy')}
         iconName={asset.id}
@@ -157,6 +124,37 @@ const AccountData: React.FC<AccountDataProps> = ({
       </LabeledInlineContent>
 
       <Delimiter css={sharedStyles.getRow({ isLast: true })} />
+
+      <BorrowBalanceAccountHealth
+        borrowBalanceCents={userTotalBorrowBalanceCents.toNumber()}
+        borrowLimitCents={userTotalBorrowLimitCents.toNumber()}
+        hypotheticalBorrowBalanceCents={hypotheticalTotalBorrowBalanceCents?.toNumber()}
+        safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
+        css={sharedStyles.getRow({ isLast: true })}
+      />
+
+      <LabeledInlineContent
+        label={t('borrowRepayModal.borrow.borrowBalance')}
+        css={sharedStyles.getRow({ isLast: false })}
+      >
+        <ValueUpdate
+          original={userTotalBorrowBalanceCents.toNumber()}
+          update={hypotheticalTotalBorrowBalanceCents?.toNumber()}
+          positiveDirection="desc"
+        />
+      </LabeledInlineContent>
+
+      <LabeledInlineContent
+        label={t('borrowRepayModal.borrow.borrowLimitUsed')}
+        css={sharedStyles.getRow({ isLast: false })}
+      >
+        <ValueUpdate
+          original={borrowLimitUsedPercentage}
+          update={hypotheticalBorrowLimitUsedPercentage}
+          positiveDirection="desc"
+          format={formatToReadablePercentage}
+        />
+      </LabeledInlineContent>
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.dailyEarnings')}
