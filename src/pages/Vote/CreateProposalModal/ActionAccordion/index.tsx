@@ -100,7 +100,7 @@ const ActionAccordion: React.FC = () => {
               }}
               fullWidth
               css={styles.addOneMore}
-              disabled={!!errors || actions.length === 10}
+              disabled={!!errors || actions.length >= 30}
             >
               {t('vote.createProposalForm.addOneMoreAction')}
             </SecondaryButton>
