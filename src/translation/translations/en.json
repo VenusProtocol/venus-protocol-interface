@@ -164,6 +164,11 @@
   },
   "dashboard": {
     "borrowTabTitle": "Borrow",
+    "connectWalletBanner": {
+      "buttonLabel": "Connect wallet",
+      "description": "Please connect your wallet to see your supplies, borrowings, and open positions.",
+      "title": "Connect your wallet"
+    },
     "higherRiskTokensNotice": {
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ",
       "title": "What are higher risk tokens?"

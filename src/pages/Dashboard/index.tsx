@@ -10,6 +10,7 @@ import { MarketTable } from 'containers/MarketTable';
 import { AuthContext } from 'context/AuthContext';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 
+import ConnectWalletBanner from './ConnectWalletBanner';
 import HigherRiskTokensNotice from './HigherRiskTokensNotice';
 import { useStyles } from './styles';
 
@@ -49,6 +50,8 @@ const DashboardUi: React.FC<DashboardUiProps> = ({
 
   return (
     <>
+      <ConnectWalletBanner />
+
       <HigherRiskTokensNotice />
 
       <div css={styles.header}>
