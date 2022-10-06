@@ -38,7 +38,7 @@ export const ConnectWalletBannerUi: React.FC<ConnectWalletBannerUiProps> = ({
           {t('dashboard.connectWalletBanner.description')}
         </Typography>
 
-        <PrimaryButton onClick={openAuthModal}>
+        <PrimaryButton css={styles.button} onClick={openAuthModal}>
           {t('dashboard.connectWalletBanner.buttonLabel')}
         </PrimaryButton>
       </div>
