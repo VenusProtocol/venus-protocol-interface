@@ -1,11 +1,16 @@
 import { useEffect, useMemo } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-export type UseUrlPaginationParams = Pick<RouteComponentProps, 'location' | 'history'>;
+export type UseUrlPaginationInput = Pick<RouteComponentProps, 'location' | 'history'>;
+
+export type UseUrlPaginationOutput = {
+  currentPage: number;
+  setCurrentPage: (newPageIndex: number) => void;
+};
 
 export const PAGE_PARAM_NAME = 'page';
 
-const useUrlPagination = ({ location, history }: UseUrlPaginationParams) => {
+const useUrlPagination = ({ location, history }: UseUrlPaginationInput): UseUrlPaginationOutput => {
   const { search } = location;
 
   useEffect(() => {

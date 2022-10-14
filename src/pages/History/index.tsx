@@ -50,7 +50,7 @@ export const HistoryUi: React.FC<HistoryUiProps> = ({
 
 export type HistoryPageProps = RouteComponentProps;
 
-const History: React.FC<HistoryPageProps> = ({ history, location }) => {
+const History: React.FC<RouteComponentProps> = ({ history, location }) => {
   const { currentPage, setCurrentPage } = useUrlPagination({
     history,
     location,

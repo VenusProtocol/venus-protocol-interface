@@ -16,6 +16,7 @@ import {
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_WEI from 'constants/createProposalThresholdWei';
 import { AuthContext } from 'context/AuthContext';
+import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 
 import CreateProposalModal from '../CreateProposalModal';
 import GovernanceProposal from '../GovernanceProposal';
@@ -118,10 +119,11 @@ export const GovernanceUi: React.FC<GovernanceUiProps> = ({
   );
 };
 
-const Governance: React.FC = () => {
+export type GovernancePageProps = UseUrlPaginationOutput;
+
+const Governance: React.FC<GovernancePageProps> = ({ currentPage, setCurrentPage }) => {
   const { account } = React.useContext(AuthContext);
   const accountAddress = account?.address || '';
-  const [currentPage, setCurrentPage] = useState(0);
 
   const {
     data: { proposals, total, limit = 5 } = { proposals: [] },
