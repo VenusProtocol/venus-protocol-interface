@@ -406,6 +406,15 @@
       }
     }
   },
+  "proposalCard": {
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "canceled": "Canceled: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "defeated": "Defeated: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "executed": "Executed: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "expired": "Expired: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "queued": "Queued: <Date>{{ date, dd MMM h:mm a }}</Date>",
+    "succeeded": "Succeeded: <Date>{{ date, dd MMM h:mm a }}</Date>"
+  },
   "riskLevel": {
     "high": "High risk",
     "low": "Low risk",
@@ -737,7 +746,7 @@
     "youSuccessfullyVotedForTheProposal": "You successfully voted for the proposal"
   },
   "voteProposalUi": {
-    "activeUntilDate": "Active until: <Date>{{ date, dd MMM HH:mm }}</Date>",
+    "activeUntilDate": "Active until: <Date>{{ date, dd MMM h:mm a }}</Date>",
     "cancel": "Cancel",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
@@ -751,17 +760,11 @@
     "proposalHistory": "Proposal History",
     "proposalState": {
       "active": "Active",
-      "activeTimestamp": "Active: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "canceled": "Canceled",
-      "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "defeated": "Defeated",
-      "defeatedTimestamp": "Defeated: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "executed": "Executed",
-      "executedTimestamp": "Executed: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "passed": "Passed",
-      "queued": "Queued",
-      "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
+      "queued": "Queued"
     },
     "queue": "Queue",
     "statusCard": {

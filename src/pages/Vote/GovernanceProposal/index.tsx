@@ -2,14 +2,7 @@
 import { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import {
-  ActiveChip,
-  ActiveVotingProgress,
-  Countdown,
-  Icon,
-  IconName,
-  ProposalCard,
-} from 'components';
+import { ActiveChip, ActiveVotingProgress, Icon, IconName, ProposalCard } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { ProposalState, VoteSupport } from 'types';
@@ -101,7 +94,10 @@ interface GovernanceProposalProps {
   proposalId: number;
   proposalTitle: string;
   proposalState: ProposalState;
-  endDate: Date | undefined;
+  endDate?: Date;
+  cancelDate?: Date;
+  queuedDate?: Date;
+  executedDate?: Date;
   userVoteStatus?: VoteSupport;
   forVotesWei?: BigNumber;
   againstVotesWei?: BigNumber;
@@ -114,13 +110,15 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   proposalTitle,
   proposalState,
   endDate,
+  cancelDate,
+  queuedDate,
+  executedDate,
   userVoteStatus,
   forVotesWei,
   againstVotesWei,
   abstainedVotesWei,
 }) => {
-  const styles = useStyles();
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
 
   const voteStatusText = useMemo(() => {
     switch (userVoteStatus) {
@@ -165,26 +163,12 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
           <StatusCard state={proposalState} />
         )
       }
-      footer={
-        endDate && proposalState === 'Active' ? (
-          <div css={styles.timestamp}>
-            <Typography variant="small2">
-              <Trans
-                i18nKey="voteProposalUi.activeUntilDate"
-                components={{
-                  Date: <Typography variant="small2" color="textPrimary" />,
-                }}
-                values={{
-                  date: endDate,
-                }}
-              />
-            </Typography>
-
-            <Countdown date={endDate} />
-          </div>
-        ) : undefined
-      }
       data-testid={TEST_IDS.governanceProposal(proposalId.toString())}
+      proposalState={proposalState}
+      endDate={endDate}
+      cancelDate={cancelDate}
+      queuedDate={queuedDate}
+      executedDate={executedDate}
     />
   );
 };

@@ -24,7 +24,6 @@ export const Active = () => (
     againstVotesWei={new BigNumber('2000000000000000000')}
     abstainedVotesWei={new BigNumber('0')}
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
@@ -36,7 +35,6 @@ export const Queued = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon with very very very very very very very very very very very very very very very very long text example"
     proposalState="Queued"
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
@@ -48,7 +46,6 @@ export const Pending = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Pending"
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
@@ -60,7 +57,6 @@ export const Executed = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Executed"
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
@@ -72,7 +68,6 @@ export const Cancelled = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Canceled"
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
@@ -85,7 +80,6 @@ export const Defeated = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Defeated"
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
@@ -98,7 +92,6 @@ export const Succeeded = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Succeeded"
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
@@ -111,7 +104,6 @@ export const Expired = () => (
     proposalTitle="Buy back and burn and Tokenomic contribution finished soon"
     proposalState="Expired"
     endDate={new Date(1678859525000)}
-    createdDate={new Date(1678859525000)}
     cancelDate={undefined}
     queuedDate={new Date(1678899525000)}
     executedDate={new Date(1698859525000)}
