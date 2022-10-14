@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { RouteComponentProps, useParams } from 'react-router-dom';
 import { VoteDetailTransaction, VoterHistory } from 'types';
 
 import { useGetVoterDetails, useGetVoterHistory } from 'clients/api';
+import useUrlPagination from 'hooks/useUrlPagination';
 
 import History from './History';
 import Holding from './Holding';
@@ -19,7 +20,7 @@ interface VoterDetailsUiProps {
   address: string;
   voterTransactions: VoteDetailTransaction[] | undefined;
   voterHistory: VoterHistory[] | undefined;
-  setCurrentHistoryPage: (page: number) => void;
+  setCurrentPage: (page: number) => void;
   total: number;
   limit: number;
   isHistoryFetching: boolean;
@@ -33,7 +34,7 @@ export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
   address,
   voterTransactions,
   voterHistory,
-  setCurrentHistoryPage,
+  setCurrentPage,
   total,
   limit,
   isHistoryFetching,
@@ -61,7 +62,7 @@ export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
       <History
         total={total}
         voterHistory={voterHistory}
-        setCurrentPage={setCurrentHistoryPage}
+        setCurrentPage={setCurrentPage}
         limit={limit}
         isFetching={isHistoryFetching}
       />
@@ -69,14 +70,17 @@ export const VoterDetailsUi: React.FC<VoterDetailsUiProps> = ({
   );
 };
 
-const VoterDetails = () => {
-  const [currentHistoryPage, setCurrentHistoryPage] = useState(0);
+export type VoterDetailsPageProps = RouteComponentProps;
+
+const VoterDetails: React.FC<VoterDetailsPageProps> = ({ history, location }) => {
+  const { currentPage, setCurrentPage } = useUrlPagination({ history, location });
+
   const { address } = useParams<{ address: string }>();
   const { data: voterDetails } = useGetVoterDetails({ address });
   const {
     data: { voterHistory, total, limit } = { voterHistory: [], total: 0, limit: 16 },
     isFetching,
-  } = useGetVoterHistory({ address, page: currentHistoryPage });
+  } = useGetVoterHistory({ address, page: currentPage });
 
   return (
     <VoterDetailsUi
@@ -87,7 +91,7 @@ const VoterDetails = () => {
       delegating={!!voterDetails?.delegating}
       address={address}
       voterTransactions={voterDetails?.voterTransactions}
-      setCurrentHistoryPage={setCurrentHistoryPage}
+      setCurrentPage={setCurrentPage}
       total={total}
       limit={limit}
       isHistoryFetching={isFetching}

@@ -12,7 +12,7 @@ import { SuccessfulTransactionModalProvider } from 'context/SuccessfulTransactio
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 const renderComponent = (
-  children: React.ReactElement | (() => React.ReactElement),
+  children: React.ComponentType<any> | React.ReactElement | (() => React.ReactElement),
   {
     authContextValue = {},
   }: {

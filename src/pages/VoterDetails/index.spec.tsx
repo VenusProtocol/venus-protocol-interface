@@ -1,8 +1,6 @@
-import React from 'react';
-
 import renderComponent from 'testUtils/renderComponent';
 
-import VoterDetail from '.';
+import VoterDetails from '.';
 
 describe('pages/VoterDetail', () => {
   beforeAll(() => {
@@ -10,6 +8,6 @@ describe('pages/VoterDetail', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(<VoterDetail />);
+    renderComponent(VoterDetails);
   });
 });
