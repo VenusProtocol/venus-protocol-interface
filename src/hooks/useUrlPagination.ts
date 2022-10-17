@@ -21,7 +21,7 @@ const useUrlPagination = ({ location, history }: UseUrlPaginationInput): UseUrlP
       // Note: although the pagination starts from 0, we make it start from 1 in the
       // URL to make it more user-friendly. This is something we need to account for
       // when updating the page search param
-      searchParams.append(PAGE_PARAM_NAME, '1');
+      searchParams.set(PAGE_PARAM_NAME, '1');
       history.replace(`${location.pathname}?${searchParams.toString()}`);
     }
 
