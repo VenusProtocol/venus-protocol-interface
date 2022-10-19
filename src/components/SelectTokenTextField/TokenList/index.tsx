@@ -1,25 +1,22 @@
 /** @jsxImportSource @emotion/react */
+import { Typography } from '@mui/material';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { TokenId } from 'types';
+import { convertWeiToTokens } from 'utilities';
 
 import { TextField } from '../../TextField';
-import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
+import { Token } from '../../Token';
 import { useStyles as useParentStyles } from '../styles';
-import { getTokenListItemTestId } from '../testIdGetters';
+import { TokenBalance } from '../types';
 import { useStyles } from './styles';
 
 export interface TokenListProps {
-  tokens: Token[];
-  onTokenClick: (token: Token) => void;
-  'data-testid'?: string;
+  tokenBalances: TokenBalance[];
+  onTokenClick: (tokenId: TokenId) => void;
 }
 
-export const TokenList: React.FC<TokenListProps> = ({
-  tokens,
-  onTokenClick,
-  'data-testid': testId,
-}) => {
+export const TokenList: React.FC<TokenListProps> = ({ tokenBalances, onTokenClick }) => {
   const { t } = useTranslation();
   const parentStyles = useParentStyles();
   const styles = useStyles();
@@ -29,50 +26,50 @@ export const TokenList: React.FC<TokenListProps> = ({
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = event =>
     setSearchValue(event.currentTarget.value);
 
-  // Sort tokens alphabetically by their symbols
-  const sortedTokens = useMemo(
-    () => [...tokens].sort((a, b) => a.symbol.localeCompare(b.symbol)) as Token[],
-    [tokens],
+  // Sort token balances alphabetically
+  const sortedTokenBalances = useMemo(
+    () => [...tokenBalances].sort((a, b) => a.tokenId.localeCompare(b.tokenId)),
+    [JSON.stringify(tokenBalances)],
   );
 
-  // Filter tokens based on search
-  const filteredTokens = useMemo(() => {
+  // Filter token balances based on search
+  const filteredTokenBalances = useMemo(() => {
     if (!searchValue) {
-      return sortedTokens;
+      return sortedTokenBalances;
     }
 
-    return sortedTokens.filter(token =>
-      token.symbol.toLowerCase().includes(searchValue.toLowerCase()),
+    return sortedTokenBalances.filter(tokenBalance =>
+      tokenBalance.tokenId.toLowerCase().includes(searchValue.toLowerCase()),
     );
-  }, [sortedTokens, searchValue]);
+  }, [JSON.stringify(sortedTokenBalances), searchValue]);
 
   return (
     <div css={styles.container}>
       <TextField
         css={styles.searchField}
         isSmall
-        autoFocus
         value={searchValue}
         onChange={handleSearchInputChange}
         placeholder={t('selectTokenTextField.searchInput.placeholder')}
-        leftIconSrc="magnifier"
+        leftIconName="magnifier"
       />
 
       <div css={styles.list}>
-        {filteredTokens.map(token => (
+        {filteredTokenBalances.map(({ tokenId, balanceWei }) => (
           <div
             css={styles.item}
-            onClick={() => onTokenClick(token)}
-            key={`select-token-text-field-item-${token.symbol}`}
-            data-testid={
-              !!testId &&
-              getTokenListItemTestId({
-                parentTestId: testId,
-                tokenAddress: token.address,
-              })
-            }
+            onClick={() => onTokenClick(tokenId)}
+            key={`select-token-text-field-item-${tokenId}`}
           >
-            <TokenIconWithSymbol css={parentStyles.token} token={token} />
+            <Token css={parentStyles.token} tokenId={tokenId} />
+
+            <Typography variant="small2">
+              {convertWeiToTokens({
+                valueWei: balanceWei,
+                tokenId,
+                returnInReadableFormat: true,
+              })}
+            </Typography>
           </div>
         ))}
       </div>

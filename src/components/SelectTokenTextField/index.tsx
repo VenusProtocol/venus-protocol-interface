@@ -1,110 +1,72 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
-import { useTranslation } from 'translation';
-import { Token } from 'types';
-
-import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
+import { TokenId } from 'types';
 
 import { PrimaryButton } from '../Button';
 import { Icon } from '../Icon';
-import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
+import { Token } from '../Token';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
-import { getTokenSelectButtonTestId, getTokenTextFieldTestId } from './testIdGetters';
+import { TokenBalance } from './types';
+
+export * from './types';
 
 export interface SelectTokenTextFieldProps
-  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'token'> {
-  selectedToken: Token;
-  tokens: Token[];
-  onChangeSelectedToken: (token: Token) => void;
-  userTokenBalanceWei?: BigNumber;
-  'data-testid'?: string;
+  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max'> {
+  tokenBalances: TokenBalance[];
+  onChangeSelectedToken: (tokenId: TokenId) => void;
 }
 
 export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
-  selectedToken,
+  tokenId,
   disabled,
-  tokens,
+  tokenBalances,
   onChangeSelectedToken,
   className,
-  userTokenBalanceWei,
-  value,
-  'data-testid': testId,
   ...otherTokenTextFieldProps
 }) => {
   const styles = useStyles();
-  const { Trans } = useTranslation();
   const [isTokenListShown, setIsTokenListShown] = useState(false);
 
   const handleButtonClick = () => setIsTokenListShown(isShowing => !isShowing);
 
-  const handleChangeSelectedToken = (newSelectedToken: Token) => {
+  const handleChangeSelectedToken = (selectedTokenId: TokenId) => {
     setIsTokenListShown(false);
-    onChangeSelectedToken(newSelectedToken);
+    onChangeSelectedToken(selectedTokenId);
   };
 
-  const readableTokenWalletBalance = useConvertWeiToReadableTokenString({
-    valueWei: userTokenBalanceWei,
-    token: selectedToken,
-  });
-
   return (
-    <div className={className}>
-      <div css={styles.tokenTextFieldContainer}>
-        <TokenTextField
-          token={selectedToken}
-          disabled={disabled}
-          displayTokenIcon={false}
-          value={value}
-          rightAdornment={
-            <>
-              <PrimaryButton
-                onClick={handleButtonClick}
-                small
-                css={styles.getButton({ isTokenListShown })}
-                disabled={disabled}
-                data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
-              >
-                <TokenIconWithSymbol token={selectedToken} css={styles.token} />
+    <div css={styles.container} className={className}>
+      <TokenTextField
+        tokenId={tokenId}
+        disabled={disabled}
+        displayTokenIcon={false}
+        rightAdornment={
+          <>
+            <PrimaryButton
+              onClick={handleButtonClick}
+              small
+              css={styles.getButton({ isTokenListShown })}
+              disabled={disabled}
+            >
+              <Token tokenId={tokenId} css={styles.token} />
 
-                <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
-              </PrimaryButton>
-            </>
-          }
-          data-testid={!!testId && getTokenTextFieldTestId({ parentTestId: testId })}
-          {...otherTokenTextFieldProps}
-        />
+              <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
+            </PrimaryButton>
+          </>
+        }
+        {...otherTokenTextFieldProps}
+      />
 
-        <div
-          css={styles.getBackdrop({ isTokenListShown })}
-          onClick={() => setIsTokenListShown(false)}
-        />
+      <div
+        css={styles.getBackdrop({ isTokenListShown })}
+        onClick={() => setIsTokenListShown(false)}
+      />
 
-        <div css={styles.tokenListContainer}>
-          {isTokenListShown && (
-            <TokenList
-              tokens={tokens}
-              data-testid={testId}
-              onTokenClick={handleChangeSelectedToken}
-            />
-          )}
-        </div>
-      </div>
-
-      <Typography component="div" variant="small2" css={styles.greyLabel}>
-        <Trans
-          i18nKey="selectTokenTextField.walletBalance"
-          components={{
-            White: <span css={styles.whiteLabel} />,
-          }}
-          values={{
-            balance: readableTokenWalletBalance,
-          }}
-        />
-      </Typography>
+      {isTokenListShown && (
+        <TokenList tokenBalances={tokenBalances} onTokenClick={handleChangeSelectedToken} />
+      )}
     </div>
   );
 };
