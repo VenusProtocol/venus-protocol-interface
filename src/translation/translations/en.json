@@ -195,6 +195,7 @@
       "governance": "Governance",
       "history": "History",
       "markets": "Markets",
+      "swap": "Swap",
       "vaults": "Vaults",
       "xvs": "XVS",
       "xvsPrediction": "XVS Prediction"
@@ -342,6 +343,9 @@
     "searchInput": {
       "placeholder": "Search asset"
     }
+  },
+  "sidebar": {
+    "newBadge": "NEW"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",

@@ -17,6 +17,7 @@ import History from 'pages/History';
 import Markets from 'pages/Market';
 import MarketDetails from 'pages/MarketDetails';
 import Proposal from 'pages/Proposal';
+import Swap from 'pages/Swap';
 import Vaults from 'pages/Vault';
 import Vote from 'pages/Vote';
 import VoterDetails from 'pages/VoterDetails';
@@ -54,6 +55,8 @@ const App = () => (
                     <Route exact path={Path.XVS} component={Xvs} />
 
                     <Route exact path={Path.CONVERT_VRT} component={ConvertVrt} />
+
+                    <Route exact path={Path.SWAP} component={Swap} />
 
                     <Redirect to={Path.ROOT} />
                   </Switch>
