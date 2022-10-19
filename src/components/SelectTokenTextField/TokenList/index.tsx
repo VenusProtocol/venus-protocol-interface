@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
 import { convertWeiToTokens } from 'utilities';
@@ -26,6 +26,23 @@ export const TokenList: React.FC<TokenListProps> = ({ tokenBalances, onTokenClic
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = event =>
     setSearchValue(event.currentTarget.value);
 
+  // Sort token balances alphabetically
+  const sortedTokenBalances = useMemo(
+    () => [...tokenBalances].sort((a, b) => a.tokenId.localeCompare(b.tokenId)),
+    [JSON.stringify(tokenBalances)],
+  );
+
+  // Filter token balances based on search
+  const filteredTokenBalances = useMemo(() => {
+    if (!searchValue) {
+      return sortedTokenBalances;
+    }
+
+    return sortedTokenBalances.filter(tokenBalance =>
+      tokenBalance.tokenId.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+  }, [JSON.stringify(sortedTokenBalances), searchValue]);
+
   return (
     <div css={styles.container}>
       <TextField
@@ -38,7 +55,7 @@ export const TokenList: React.FC<TokenListProps> = ({ tokenBalances, onTokenClic
       />
 
       <div css={styles.list}>
-        {tokenBalances.map(({ tokenId, balanceWei }) => (
+        {filteredTokenBalances.map(({ tokenId, balanceWei }) => (
           <div
             css={styles.item}
             onClick={() => onTokenClick(tokenId)}
