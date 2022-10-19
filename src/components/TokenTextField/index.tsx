@@ -20,6 +20,7 @@ export interface TokenTextFieldProps
     label: string;
     valueOnClick: string;
   };
+  displayTokenIcon?: boolean;
   max?: string;
 }
 
@@ -29,6 +30,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
   onChange,
   disabled,
   max,
+  displayTokenIcon = true,
   ...otherProps
 }) => {
   const tokenDecimals = getToken(tokenId).decimals;
@@ -63,7 +65,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
       step={step}
       onChange={handleChange}
       type="number"
-      leftIconName={tokenId as IconName}
+      leftIconName={displayTokenIcon ? (tokenId as IconName) : undefined}
       rightAdornment={
         rightMaxButton ? (
           <TertiaryButton

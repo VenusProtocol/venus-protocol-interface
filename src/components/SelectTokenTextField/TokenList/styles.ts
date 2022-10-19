@@ -1,0 +1,43 @@
+import { css } from '@emotion/react';
+import { useTheme } from '@mui/material';
+
+const ITEM_HEIGHT_RATIO = 10;
+
+export const useStyles = () => {
+  const theme = useTheme();
+
+  return {
+    container: css`
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      right: 0;
+      top: ${theme.spacing(17)};
+      background-color: ${theme.palette.background.default};
+      border-radius: ${theme.spacing(3)};
+    `,
+    searchField: css`
+      margin: ${theme.spacing(4, 4, 3)};
+
+      > div {
+        background-color: ${theme.palette.secondary.main};
+      }
+    `,
+    list: css`
+      max-height: ${theme.spacing(ITEM_HEIGHT_RATIO * 6)};
+      overflow-y: auto;
+    `,
+    item: css`
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: ${theme.spacing(ITEM_HEIGHT_RATIO)};
+      padding: ${theme.spacing(0, 3)};
+
+      :hover {
+        background-color: ${theme.palette.secondary.light};
+      }
+    `,
+  };
+};
