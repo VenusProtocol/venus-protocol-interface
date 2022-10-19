@@ -3,12 +3,11 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { State } from 'react-powerplug';
-import { Token } from 'types';
+import { TokenId } from 'types';
 
-import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
-import { SelectTokenTextField } from '.';
+import { SelectTokenTextField, TokenBalance } from '.';
 
 export default {
   title: 'Components/SelectTokenTextField',
@@ -16,41 +15,55 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof SelectTokenTextField>;
 
-const tokens = [
-  TESTNET_PANCAKE_SWAP_TOKENS.busd,
-  TESTNET_PANCAKE_SWAP_TOKENS.cake,
-  TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
+const fakeTokenBalances: TokenBalance[] = [
+  {
+    tokenId: 'usdt',
+    balanceWei: new BigNumber('10000000000'),
+  },
+  {
+    tokenId: 'xvs',
+    balanceWei: new BigNumber('0'),
+  },
+  {
+    tokenId: 'bnb',
+    balanceWei: new BigNumber('1000000000000'),
+  },
+  {
+    tokenId: 'usdc',
+    balanceWei: new BigNumber('10000000000'),
+  },
+  {
+    tokenId: 'vrt',
+    balanceWei: new BigNumber('0'),
+  },
+  {
+    tokenId: 'vai',
+    balanceWei: new BigNumber('1000000000000000'),
+  },
+  {
+    tokenId: 'ltc',
+    balanceWei: new BigNumber('0'),
+  },
+  {
+    tokenId: 'btcb',
+    balanceWei: new BigNumber('0'),
+  },
 ];
 
-const initialData: { value: string; token: Token } = {
+const initialData: { value: string; tokenId: TokenId } = {
   value: '',
-  token: tokens[0],
+  tokenId: fakeTokenBalances[0].tokenId,
 };
 
 export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <SelectTokenTextField
-        selectedToken={state.token}
+        tokenId={state.tokenId}
         value={state.value}
         onChange={value => setState({ value })}
-        onChangeSelectedToken={token => setState({ token })}
-        tokens={tokens}
-      />
-    )}
-  </State>
-);
-
-export const WithUserTokenBalance = () => (
-  <State initial={initialData}>
-    {({ state, setState }) => (
-      <SelectTokenTextField
-        selectedToken={state.token}
-        userTokenBalanceWei={new BigNumber('10000000000000')}
-        value={state.value}
-        onChange={value => setState({ value })}
-        onChangeSelectedToken={token => setState({ token })}
-        tokens={tokens}
+        onChangeSelectedToken={tokenId => setState({ tokenId })}
+        tokenBalances={fakeTokenBalances}
       />
     )}
   </State>
@@ -58,11 +71,12 @@ export const WithUserTokenBalance = () => (
 
 export const Disabled = () => (
   <SelectTokenTextField
-    selectedToken={tokens[0]}
+    tokenId={fakeTokenBalances[0].tokenId}
     value=""
     onChange={noop}
-    onChangeSelectedToken={noop}
-    tokens={tokens}
+    // TODO: wire up
+    onChangeSelectedToken={console.log}
+    tokenBalances={fakeTokenBalances}
     disabled
   />
 );

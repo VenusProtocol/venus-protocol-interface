@@ -342,11 +342,7 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Search asset"
-    },
-    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
-  },
-  "sidebar": {
-    "newBadge": "NEW"
+    }
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",

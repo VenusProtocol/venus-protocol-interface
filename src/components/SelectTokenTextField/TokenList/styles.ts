@@ -12,14 +12,12 @@ export const useStyles = () => {
       z-index: 2;
       left: 0;
       right: 0;
-      top: ${theme.spacing(2)};
-      border-radius: ${theme.spacing(3)};
+      top: ${theme.spacing(17)};
       background-color: ${theme.palette.background.default};
-      box-shadow: 0 4px 15px 0 rgba(22, 23, 30, 0.8);
-      overflow: hidden;
+      border-radius: ${theme.spacing(3)};
     `,
     searchField: css`
-      margin: ${theme.spacing(3, 3, 2)};
+      margin: ${theme.spacing(4, 4, 3)};
 
       > div {
         background-color: ${theme.palette.secondary.main};
