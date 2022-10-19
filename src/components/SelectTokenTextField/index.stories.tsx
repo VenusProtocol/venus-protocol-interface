@@ -13,11 +13,6 @@ export default {
   title: 'Components/SelectTokenTextField',
   component: SelectTokenTextField,
   decorators: [withCenterStory({ width: 600 })],
-  parameters: {
-    backgrounds: {
-      // default: 'background.default',
-    },
-  },
 } as ComponentMeta<typeof SelectTokenTextField>;
 
 const fakeTokenBalances: TokenBalance[] = [
