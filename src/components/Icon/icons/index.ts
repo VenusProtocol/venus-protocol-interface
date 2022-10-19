@@ -10,7 +10,7 @@ export { default as vault } from './vault';
 export { default as vote } from './vote';
 export { default as countdown } from './countdown';
 export { default as loading } from './loading';
-export { default as arrowDown } from './arrowDown';
+export { default as arrowUp } from './arrowUp';
 export { default as checkboxBorder } from './checkboxBorder';
 export { default as checked } from './checked';
 export { default as chevronRight } from './chevronRight';
@@ -41,6 +41,7 @@ export { default as exclamation } from './exclamation';
 export { default as bubble } from './bubble';
 export { default as logoMobile } from './logoMobile';
 export { default as person } from './person';
+export { default as magnifier } from './magnifier';
 
 // Token icons
 export { default as aave } from './tokens/aave';
