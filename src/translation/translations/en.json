@@ -344,6 +344,9 @@
       "placeholder": "Search asset"
     }
   },
+  "sidebar": {
+    "newBadge": "NEW"
+  },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to stake {{tokenSymbol}}",
