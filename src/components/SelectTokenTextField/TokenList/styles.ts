@@ -13,8 +13,9 @@ export const useStyles = () => {
       left: 0;
       right: 0;
       top: ${theme.spacing(17)};
-      background-color: ${theme.palette.background.default};
       border-radius: ${theme.spacing(3)};
+      background-color: ${theme.palette.background.default};
+      box-shadow: 0px 4px 15px 0px rgba(22, 23, 30, 0.8);
     `,
     searchField: css`
       margin: ${theme.spacing(4, 4, 3)};

@@ -10,21 +10,20 @@ export const useStyles = () => {
       margin-bottom: ${theme.spacing(1)};
     `,
     getBackdrop: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
-      ${!isTokenListShown &&
-      css`
-        display: none;
-      `}
-
+      display: none;
       position: fixed;
       z-index: 1;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
+
+      ${isTokenListShown &&
+      css`
+        display: block;
+      `}
     `,
     getButton: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
-      z-index: 2;
-
       :not(:disabled) {
         background-color: ${theme.palette.secondary.light};
         border-color: ${theme.palette.secondary.light};
@@ -38,6 +37,8 @@ export const useStyles = () => {
 
       ${isTokenListShown &&
       css`
+        z-index: 2;
+
         :hover:not(:disabled),
         :not(:disabled) {
           border-color: ${theme.palette.interactive.primary};
@@ -60,7 +61,7 @@ export const useStyles = () => {
       width: ${theme.spacing(2)};
       transform: rotate(${isTokenListShown ? '0' : '180deg'});
       color: inherit;
-      margin-left: ${theme.spacing(2)};
+      margin-left: ${theme.spacing(3)};
       transition: color 0.3s;
 
       ${isTokenListShown &&

@@ -1,17 +1,22 @@
 /** @jsxImportSource @emotion/react */
-// import BigNumber from 'bignumber.js';
 import Paper from '@mui/material/Paper';
 import { SelectTokenTextField } from 'components';
-import { Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { TokenId } from 'types';
 
 import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
-import getValidationSchema, { FormValues } from './validationSchema';
 
 const tokenIds = Object.keys(TOKENS) as TokenId[];
+
+interface FormValues {
+  fromTokenId: string;
+  fromTokenAmount: string;
+  toTokenId: string;
+  toTokenAmount: string;
+  direction: 'exactAmountIn' | 'exactAmountOut';
+}
 
 const initialFormValues: FormValues = {
   fromTokenId: 'bnb',
@@ -24,70 +29,61 @@ const initialFormValues: FormValues = {
 const SwapUi: React.FC = () => {
   const styles = useStyles();
 
-  const handleSubmit = async (values: FormValues) => {
-    // TODO: handle submission
-    console.log(values);
-  };
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
   return (
     <Paper css={styles.container}>
-      <Formik
-        initialValues={initialFormValues}
-        onSubmit={handleSubmit}
-        validationSchema={getValidationSchema({
-          // TODO: fetch user token balance
-          fromTokenMaxAmount: '10000000',
-        })}
-        isInitialValid={false}
-        validateOnMount
-        validateOnChange
-      >
-        {({ values, setFieldValue }) => (
-          <>
-            <SelectTokenTextField
-              name="fromTokenAmount"
-              selectedTokenId={values.fromTokenId as TokenId}
-              value={values.fromTokenAmount}
-              onChange={amount => {
-                setFieldValue('fromTokenAmount', amount);
-                // Update swap direction
-                setFieldValue('direction', 'exactAmountIn');
-              }}
-              onChangeSelectedTokenId={tokenId => {
-                // Invert fromTokenId and toTokenId if selected token ID is equal
-                // to toTokenId
-                if (tokenId === values.toTokenId) {
-                  setFieldValue('toTokenId', values.fromTokenId);
-                }
+      <SelectTokenTextField
+        name="fromTokenAmount"
+        selectedTokenId={formValues.fromTokenId as TokenId}
+        value={formValues.fromTokenAmount}
+        onChange={amount =>
+          setFormValues(currentFormValues => ({
+            ...currentFormValues,
+            fromTokenAmount: amount,
+            direction: 'exactAmountIn',
+          }))
+        }
+        onChangeSelectedTokenId={tokenId =>
+          setFormValues(currentFormValues => ({
+            ...currentFormValues,
+            fromTokenId: tokenId,
+            // Invert toTokenId and fromTokenId if selected token ID is equal to
+            // toTokenId
+            toTokenId:
+              tokenId === formValues.toTokenId
+                ? currentFormValues.fromTokenId
+                : currentFormValues.toTokenId,
+          }))
+        }
+        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.fromTokenId)}
+      />
 
-                setFieldValue('fromTokenId', tokenId);
-              }}
-              tokenIds={tokenIds.filter(tokenId => tokenId !== values.fromTokenId)}
-            />
-
-            <SelectTokenTextField
-              name="toTokenAmount"
-              selectedTokenId={values.toTokenId as TokenId}
-              value={values.toTokenAmount}
-              onChange={amount => {
-                setFieldValue('toTokenAmount', amount);
-                // Update swap direction
-                setFieldValue('direction', 'exactAmountOut');
-              }}
-              onChangeSelectedTokenId={tokenId => {
-                // Invert fromTokenId and toTokenId if selected token ID is equal
-                // to fromTokenId
-                if (tokenId === values.fromTokenId) {
-                  setFieldValue('fromTokenId', values.toTokenId);
-                }
-
-                setFieldValue('toTokenId', tokenId);
-              }}
-              tokenIds={tokenIds.filter(tokenId => tokenId !== values.toTokenId)}
-            />
-          </>
-        )}
-      </Formik>
+      <SelectTokenTextField
+        name="toTokenAmount"
+        selectedTokenId={formValues.toTokenId as TokenId}
+        value={formValues.toTokenAmount}
+        onChange={amount =>
+          setFormValues(currentFormValues => ({
+            ...currentFormValues,
+            toTokenAmount: amount,
+            direction: 'exactAmountOut',
+          }))
+        }
+        onChangeSelectedTokenId={tokenId =>
+          setFormValues(currentFormValues => ({
+            ...currentFormValues,
+            toTokenId: tokenId,
+            // Invert fromTokenId and toTokenId if selected token ID is equal
+            // to fromTokenId
+            fromTokenId:
+              tokenId === formValues.fromTokenId
+                ? currentFormValues.toTokenId
+                : currentFormValues.fromTokenId,
+          }))
+        }
+        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.toTokenId)}
+      />
     </Paper>
   );
 };
