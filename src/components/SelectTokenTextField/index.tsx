@@ -15,18 +15,16 @@ import TokenList from './TokenList';
 import { useStyles } from './styles';
 
 export interface SelectTokenTextFieldProps
-  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'tokenId'> {
-  selectedTokenId: TokenId;
+  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max'> {
   tokenIds: TokenId[];
-  onChangeSelectedTokenId: (tokenId: TokenId) => void;
-  userTokenBalanceWei?: BigNumber;
+  onChangeSelectedToken: (tokenId: TokenId) => void;
 }
 
 export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   selectedTokenId,
   disabled,
   tokenIds,
-  onChangeSelectedTokenId,
+  onChangeSelectedToken,
   className,
   userTokenBalanceWei,
   value,
@@ -85,17 +83,9 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
         </div>
       </div>
 
-      <Typography component="div" variant="small2" css={styles.greyLabel}>
-        <Trans
-          i18nKey="selectTokenTextField.walletBalance"
-          components={{
-            White: <span css={styles.whiteLabel} />,
-          }}
-          values={{
-            balance: readableTokenWalletBalance,
-          }}
-        />
-      </Typography>
+      {isTokenListShown && (
+        <TokenList tokenIds={tokenIds} onTokenClick={handleChangeSelectedToken} />
+      )}
     </div>
   );
 };

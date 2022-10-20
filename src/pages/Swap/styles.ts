@@ -16,26 +16,5 @@ export const useStyles = () => {
         margin-top: ${theme.spacing(0)};
       }
     `,
-    selectTokenTextField: css`
-      margin-bottom: ${theme.spacing(8)};
-    `,
-    switchButton: css`
-      margin: ${theme.spacing(0, 'auto', 4)};
-      padding: ${theme.spacing(1)};
-    `,
-    switchButtonIcon: css`
-      width: ${theme.spacing(6)};
-      height: ${theme.spacing(6)};
-      transform: rotate(90deg);
-      color: ${theme.palette.interactive.primary};
-    `,
-    swapInfoRow: css`
-      :not(:last-of-type) {
-        margin-bottom: ${theme.spacing(3)};
-      }
-    `,
-    submitButton: css`
-      margin-top: ${theme.spacing(8)};
-    `,
   };
 };

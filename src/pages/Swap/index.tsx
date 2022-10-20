@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
-import {
-  Icon,
-  LabeledInlineContent,
-  PrimaryButton,
-  SelectTokenTextField,
-  TertiaryButton,
-} from 'components';
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'translation';
-import { Token, TokenId } from 'types';
-import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
+import React from 'react';
 
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { TOKENS } from 'constants/tokens';
+import { useStyles } from './styles';
+
+const SwapUi: React.FC = () => {
+  const styles = useStyles();
+
+  return (
+    <Paper css={styles.container}>
+      <></>
+    </Paper>
+  );
+};
 
 import { useStyles } from './styles';
 import { Swap, SwapDirection } from './types';
