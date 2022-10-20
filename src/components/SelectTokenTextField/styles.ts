@@ -6,8 +6,10 @@ export const useStyles = () => {
 
   return {
     tokenTextFieldContainer: css`
-      position: relative;
       margin-bottom: ${theme.spacing(1)};
+    `,
+    tokenListContainer: css`
+      position: relative;
     `,
     getBackdrop: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
       display: none;
@@ -35,6 +37,11 @@ export const useStyles = () => {
         border-color: ${theme.palette.text.secondary};
       }
 
+      > span {
+        display: flex;
+        align-items: center;
+      }
+
       ${isTokenListShown &&
       css`
         z-index: 2;
@@ -44,11 +51,6 @@ export const useStyles = () => {
           border-color: ${theme.palette.interactive.primary};
         }
       `}
-
-      > span {
-        display: flex;
-        align-items: center;
-      }
     `,
     token: css`
       > span {
