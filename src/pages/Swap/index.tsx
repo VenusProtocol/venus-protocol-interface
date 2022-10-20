@@ -1,21 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
-import BigNumber from 'bignumber.js';
-import {
-  Icon,
-  LabeledInlineContent,
-  PrimaryButton,
-  SelectTokenTextField,
-  TertiaryButton,
-} from 'components';
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'translation';
-import { Token, TokenId } from 'types';
-import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
+import React from 'react';
 
-import { useGetBalanceOf } from 'clients/api';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { AuthContext } from 'context/AuthContext';
+import { useStyles } from './styles';
+
+const SwapUi: React.FC = () => {
+  const styles = useStyles();
+
+  return (
+    <Paper css={styles.container}>
+      <></>
+    </Paper>
+  );
+};
 
 import { useStyles } from './styles';
 import { PANCAKE_SWAP_TOKENS } from './tokenList';
