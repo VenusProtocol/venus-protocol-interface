@@ -386,6 +386,14 @@
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
   },
+  "swapPage": {
+    "fromTokenAmountField": {
+      "label": "From"
+    },
+    "toTokenAmountField": {
+      "label": "To"
+    }
+  },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",
     "acceptPendingImplementationAddressCheck": "Accept Pending Implementation Address Check",
