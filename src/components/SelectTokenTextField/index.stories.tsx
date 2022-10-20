@@ -8,13 +8,13 @@ import { Token } from 'types';
 import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
-import { SelectTokenTextFieldUi } from '.';
+import { SelectTokenTextField } from '.';
 
 export default {
   title: 'Components/SelectTokenTextField',
-  component: SelectTokenTextFieldUi,
+  component: SelectTokenTextField,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof SelectTokenTextFieldUi>;
+} as ComponentMeta<typeof SelectTokenTextField>;
 
 const tokens = [
   TESTNET_PANCAKE_SWAP_TOKENS.busd,
@@ -30,11 +30,11 @@ const initialData: { value: string; token: Token } = {
 export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
-      <SelectTokenTextFieldUi
+      <SelectTokenTextField
         selectedTokenId={state.tokenId}
         value={state.value}
         onChange={value => setState({ value })}
-        onChangeSelectedToken={tokenId => setState({ tokenId })}
+        onChangeSelectedTokenId={tokenId => setState({ tokenId })}
         tokenIds={tokenIds}
       />
     )}
@@ -44,12 +44,12 @@ export const Default = () => (
 export const WithUserTokenBalance = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
-      <SelectTokenTextFieldUi
+      <SelectTokenTextField
         selectedTokenId={state.tokenId}
         userTokenBalanceWei={new BigNumber('10000000000000')}
         value={state.value}
         onChange={value => setState({ value })}
-        onChangeSelectedToken={tokenId => setState({ tokenId })}
+        onChangeSelectedTokenId={tokenId => setState({ tokenId })}
         tokenIds={tokenIds}
       />
     )}
@@ -57,11 +57,11 @@ export const WithUserTokenBalance = () => (
 );
 
 export const Disabled = () => (
-  <SelectTokenTextFieldUi
+  <SelectTokenTextField
     selectedTokenId={tokenIds[0]}
     value=""
     onChange={noop}
-    onChangeSelectedToken={noop}
+    onChangeSelectedTokenId={noop}
     tokenIds={tokenIds}
     disabled
   />

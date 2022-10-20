@@ -14,19 +14,19 @@ import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
 
-export interface SelectTokenTextFieldUiProps
+export interface SelectTokenTextFieldProps
   extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'tokenId'> {
   selectedTokenId: TokenId;
   tokenIds: TokenId[];
-  onChangeSelectedToken: (tokenId: TokenId) => void;
+  onChangeSelectedTokenId: (tokenId: TokenId) => void;
   userTokenBalanceWei?: BigNumber;
 }
 
-export const SelectTokenTextFieldUi: React.FC<SelectTokenTextFieldUiProps> = ({
+export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   selectedTokenId,
   disabled,
   tokenIds,
-  onChangeSelectedToken,
+  onChangeSelectedTokenId,
   className,
   userTokenBalanceWei,
   value,
@@ -40,7 +40,7 @@ export const SelectTokenTextFieldUi: React.FC<SelectTokenTextFieldUiProps> = ({
 
   const handleChangeSelectedToken = (newSelectedToken: Token) => {
     setIsTokenListShown(false);
-    onChangeSelectedToken(newSelectedTokenId);
+    onChangeSelectedTokenId(newSelectedTokenId);
   };
 
   const readableTokenWalletBalance = useConvertWeiToReadableTokenString({
@@ -95,23 +95,5 @@ export const SelectTokenTextFieldUi: React.FC<SelectTokenTextFieldUiProps> = ({
         />
       </Typography>
     </div>
-  );
-};
-
-export type SelectTokenTextFieldProps = SelectTokenTextFieldUiProps;
-
-export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
-  selectedTokenId,
-  ...otherProps
-}) => {
-  // TODO: fetch
-  const userTokenBalanceWei = new BigNumber('100000000000000');
-
-  return (
-    <SelectTokenTextFieldUi
-      selectedTokenId={selectedTokenId}
-      userTokenBalanceWei={userTokenBalanceWei}
-      {...otherProps}
-    />
   );
 };
