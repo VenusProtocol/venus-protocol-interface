@@ -1,4 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
+import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { State } from 'react-powerplug';
@@ -7,13 +8,13 @@ import { Token } from 'types';
 import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
-import { SelectTokenTextField } from '.';
+import { SelectTokenTextFieldUi } from '.';
 
 export default {
   title: 'Components/SelectTokenTextField',
-  component: SelectTokenTextField,
+  component: SelectTokenTextFieldUi,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof SelectTokenTextField>;
+} as ComponentMeta<typeof SelectTokenTextFieldUi>;
 
 const tokens = [
   TESTNET_PANCAKE_SWAP_TOKENS.busd,
@@ -29,8 +30,23 @@ const initialData: { value: string; token: Token } = {
 export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
-      <SelectTokenTextField
-        selectedToken={state.token}
+      <SelectTokenTextFieldUi
+        selectedTokenId={state.tokenId}
+        value={state.value}
+        onChange={value => setState({ value })}
+        onChangeSelectedToken={tokenId => setState({ tokenId })}
+        tokenIds={tokenIds}
+      />
+    )}
+  </State>
+);
+
+export const WithUserTokenBalance = () => (
+  <State initial={initialData}>
+    {({ state, setState }) => (
+      <SelectTokenTextFieldUi
+        selectedTokenId={state.tokenId}
+        userTokenBalanceWei={new BigNumber('10000000000000')}
         value={state.value}
         onChange={value => setState({ value })}
         onChangeSelectedToken={tokenId => setState({ tokenId })}
@@ -41,8 +57,8 @@ export const Default = () => (
 );
 
 export const Disabled = () => (
-  <SelectTokenTextField
-    tokenId={tokenIds[0]}
+  <SelectTokenTextFieldUi
+    selectedTokenId={tokenIds[0]}
     value=""
     onChange={noop}
     onChangeSelectedToken={noop}
