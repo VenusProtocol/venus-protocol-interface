@@ -78,9 +78,11 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
           onClick={() => setIsTokenListShown(false)}
         />
 
-        {isTokenListShown && (
-          <TokenList tokenIds={tokenIds} onTokenClick={handleChangeSelectedToken} />
-        )}
+        <div css={styles.tokenListContainer}>
+          {isTokenListShown && (
+            <TokenList tokenIds={tokenIds} onTokenClick={handleChangeSelectedToken} />
+          )}
+        </div>
       </div>
 
       <Typography component="div" variant="small2" css={styles.greyLabel}>
