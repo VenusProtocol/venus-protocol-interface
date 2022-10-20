@@ -1,22 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { convertWeiToTokens } from 'utilities';
 
 import { TextField } from '../../TextField';
 import { Token } from '../../Token';
 import { useStyles as useParentStyles } from '../styles';
-import { TokenBalance } from '../types';
 import { useStyles } from './styles';
 
 export interface TokenListProps {
-  tokenBalances: TokenBalance[];
+  tokenIds: TokenId[];
   onTokenClick: (tokenId: TokenId) => void;
 }
 
-export const TokenList: React.FC<TokenListProps> = ({ tokenBalances, onTokenClick }) => {
+export const TokenList: React.FC<TokenListProps> = ({ tokenIds, onTokenClick }) => {
   const { t } = useTranslation();
   const parentStyles = useParentStyles();
   const styles = useStyles();
@@ -27,27 +24,28 @@ export const TokenList: React.FC<TokenListProps> = ({ tokenBalances, onTokenClic
     setSearchValue(event.currentTarget.value);
 
   // Sort token balances alphabetically
-  const sortedTokenBalances = useMemo(
-    () => [...tokenBalances].sort((a, b) => a.tokenId.localeCompare(b.tokenId)),
-    [JSON.stringify(tokenBalances)],
+  const sortedTokenIds = useMemo(
+    () => [...tokenIds].sort((a, b) => a.localeCompare(b)) as TokenId[],
+    [JSON.stringify(tokenIds)],
   );
 
   // Filter token balances based on search
-  const filteredTokenBalances = useMemo(() => {
+  const filteredTokenIds = useMemo(() => {
     if (!searchValue) {
-      return sortedTokenBalances;
+      return sortedTokenIds;
     }
 
-    return sortedTokenBalances.filter(tokenBalance =>
-      tokenBalance.tokenId.toLowerCase().includes(searchValue.toLowerCase()),
+    return sortedTokenIds.filter(tokenId =>
+      tokenId.toLowerCase().includes(searchValue.toLowerCase()),
     );
-  }, [JSON.stringify(sortedTokenBalances), searchValue]);
+  }, [JSON.stringify(sortedTokenIds), searchValue]);
 
   return (
     <div css={styles.container}>
       <TextField
         css={styles.searchField}
         isSmall
+        autoFocus
         value={searchValue}
         onChange={handleSearchInputChange}
         placeholder={t('selectTokenTextField.searchInput.placeholder')}
@@ -55,21 +53,13 @@ export const TokenList: React.FC<TokenListProps> = ({ tokenBalances, onTokenClic
       />
 
       <div css={styles.list}>
-        {filteredTokenBalances.map(({ tokenId, balanceWei }) => (
+        {filteredTokenIds.map(tokenId => (
           <div
             css={styles.item}
             onClick={() => onTokenClick(tokenId)}
             key={`select-token-text-field-item-${tokenId}`}
           >
             <Token css={parentStyles.token} tokenId={tokenId} />
-
-            <Typography variant="small2">
-              {convertWeiToTokens({
-                valueWei: balanceWei,
-                tokenId,
-                returnInReadableFormat: true,
-              })}
-            </Typography>
           </div>
         ))}
       </div>

@@ -8,20 +8,17 @@ import { Token } from '../Token';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
-import { TokenBalance } from './types';
-
-export * from './types';
 
 export interface SelectTokenTextFieldProps
   extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max'> {
-  tokenBalances: TokenBalance[];
+  tokenIds: TokenId[];
   onChangeSelectedToken: (tokenId: TokenId) => void;
 }
 
 export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   tokenId,
   disabled,
-  tokenBalances,
+  tokenIds,
   onChangeSelectedToken,
   className,
   ...otherTokenTextFieldProps
@@ -65,7 +62,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
       />
 
       {isTokenListShown && (
-        <TokenList tokenBalances={tokenBalances} onTokenClick={handleChangeSelectedToken} />
+        <TokenList tokenIds={tokenIds} onTokenClick={handleChangeSelectedToken} />
       )}
     </div>
   );
