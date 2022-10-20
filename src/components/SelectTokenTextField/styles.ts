@@ -5,8 +5,9 @@ export const useStyles = () => {
   const theme = useTheme();
 
   return {
-    container: css`
+    tokenTextFieldContainer: css`
       position: relative;
+      margin-bottom: ${theme.spacing(1)};
     `,
     getBackdrop: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
       ${!isTokenListShown &&
@@ -66,6 +67,12 @@ export const useStyles = () => {
       css`
         color: ${theme.palette.interactive.primary};
       `}
+    `,
+    greyLabel: css`
+      color: ${theme.palette.text.secondary};
+    `,
+    whiteLabel: css`
+      color: ${theme.palette.text.primary};
     `,
   };
 };
