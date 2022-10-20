@@ -6,8 +6,10 @@ export const useStyles = () => {
 
   return {
     tokenTextFieldContainer: css`
-      position: relative;
       margin-bottom: ${theme.spacing(1)};
+    `,
+    tokenListContainer: css`
+      position: relative;
     `,
     getBackdrop: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
       display: none;
