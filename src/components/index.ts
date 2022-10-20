@@ -41,3 +41,4 @@ export * from './TokenTextField';
 export * from './Tooltip';
 export * from './ValueUpdate';
 export * from './Markdown';
+export * from './SelectTokenTextField';

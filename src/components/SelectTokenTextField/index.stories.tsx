@@ -7,13 +7,13 @@ import { TokenId } from 'types';
 
 import { withCenterStory } from 'stories/decorators';
 
-import { SelectTokenTextFieldUi } from '.';
+import { SelectTokenTextField } from '.';
 
 export default {
   title: 'Components/SelectTokenTextField',
-  component: SelectTokenTextFieldUi,
+  component: SelectTokenTextField,
   decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof SelectTokenTextFieldUi>;
+} as ComponentMeta<typeof SelectTokenTextField>;
 
 const tokenIds: TokenId[] = ['usdt', 'xvs', 'bnb', 'usdc', 'vrt', 'vai', 'ltc', 'btcb'];
 
@@ -25,11 +25,11 @@ const initialData: { value: string; tokenId: TokenId } = {
 export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
-      <SelectTokenTextFieldUi
+      <SelectTokenTextField
         selectedTokenId={state.tokenId}
         value={state.value}
         onChange={value => setState({ value })}
-        onChangeSelectedToken={tokenId => setState({ tokenId })}
+        onChangeSelectedTokenId={tokenId => setState({ tokenId })}
         tokenIds={tokenIds}
       />
     )}
@@ -39,12 +39,12 @@ export const Default = () => (
 export const WithUserTokenBalance = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
-      <SelectTokenTextFieldUi
+      <SelectTokenTextField
         selectedTokenId={state.tokenId}
         userTokenBalanceWei={new BigNumber('10000000000000')}
         value={state.value}
         onChange={value => setState({ value })}
-        onChangeSelectedToken={tokenId => setState({ tokenId })}
+        onChangeSelectedTokenId={tokenId => setState({ tokenId })}
         tokenIds={tokenIds}
       />
     )}
@@ -52,11 +52,11 @@ export const WithUserTokenBalance = () => (
 );
 
 export const Disabled = () => (
-  <SelectTokenTextFieldUi
+  <SelectTokenTextField
     selectedTokenId={tokenIds[0]}
     value=""
     onChange={noop}
-    onChangeSelectedToken={noop}
+    onChangeSelectedTokenId={noop}
     tokenIds={tokenIds}
     disabled
   />
