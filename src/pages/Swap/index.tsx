@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
-import BigNumber from 'bignumber.js';
 import {
   Icon,
   LabeledInlineContent,
@@ -8,15 +7,10 @@ import {
   SelectTokenTextField,
   TertiaryButton,
 } from 'components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import {
-  convertWeiToTokens,
-  formatToReadablePercentage,
-  formatTokensToReadableValue,
-  getToken,
-} from 'utilities';
+import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
@@ -32,17 +26,17 @@ const readableSlippageTolerancePercentage = formatToReadablePercentage(
 
 interface FormValues {
   fromTokenId: string;
-  fromTokenAmount: string;
+  fromTokenAmountTokens: string;
   toTokenId: string;
-  toTokenAmount: string;
+  toTokenAmountTokens: string;
   direction: 'exactAmountIn' | 'exactAmountOut';
 }
 
 const initialFormValues: FormValues = {
   fromTokenId: 'bnb',
-  fromTokenAmount: '',
+  fromTokenAmountTokens: '',
   toTokenId: 'xvs',
-  toTokenAmount: '',
+  toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
 
@@ -58,18 +52,49 @@ const SwapUi: React.FC = () => {
   const swapInfo = useGetSwapInfo({
     fromToken,
     toToken,
-    fromTokenAmountTokens: formValues.fromTokenAmount,
-    toTokenAmountTokens: formValues.toTokenAmount,
+    fromTokenAmountTokens: formValues.fromTokenAmountTokens,
+    toTokenAmountTokens: formValues.toTokenAmountTokens,
     direction: formValues.direction,
   });
+
+  useEffect(() => {
+    // Reinitialize form values if swap becomes invalid
+    if (!swapInfo) {
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        fromTokenAmountTokens: '',
+        toTokenAmountTokens: '',
+      }));
+    }
+
+    if (swapInfo?.direction === 'exactAmountIn') {
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        toTokenAmountTokens: convertWeiToTokens({
+          valueWei: swapInfo.expectedToTokenAmountReceivedWei,
+          tokenId: swapInfo.toToken.id,
+        }).toFixed(),
+      }));
+    }
+
+    if (swapInfo?.direction === 'exactAmountOut') {
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        fromTokenAmountTokens: convertWeiToTokens({
+          valueWei: swapInfo.expectedFromTokenAmountSoldWei,
+          tokenId: swapInfo.fromToken.id,
+        }).toFixed(),
+      }));
+    }
+  }, [swapInfo]);
 
   const switchTokens = () =>
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       fromTokenId: currentFormValues.toTokenId,
-      fromTokenAmount: currentFormValues.toTokenAmount,
+      fromTokenAmountTokens: currentFormValues.toTokenAmountTokens,
       toTokenId: currentFormValues.fromTokenId,
-      toTokenAmount: currentFormValues.fromTokenAmount,
+      toTokenAmountTokens: currentFormValues.fromTokenAmountTokens,
       direction:
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
     }));
@@ -77,14 +102,13 @@ const SwapUi: React.FC = () => {
   return (
     <Paper css={styles.container}>
       <SelectTokenTextField
-        name="fromTokenAmount"
         label={t('swapPage.fromTokenAmountField.label')}
         selectedTokenId={formValues.fromTokenId as TokenId}
-        value={formValues.fromTokenAmount}
+        value={formValues.fromTokenAmountTokens}
         onChange={amount =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
-            fromTokenAmount: amount,
+            fromTokenAmountTokens: amount,
             direction: 'exactAmountIn',
           }))
         }
@@ -109,14 +133,13 @@ const SwapUi: React.FC = () => {
       </TertiaryButton>
 
       <SelectTokenTextField
-        name="toTokenAmount"
         label={t('swapPage.toTokenAmountField.label')}
         selectedTokenId={formValues.toTokenId as TokenId}
-        value={formValues.toTokenAmount}
+        value={formValues.toTokenAmountTokens}
         onChange={amount =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
-            toTokenAmount: amount,
+            toTokenAmountTokens: amount,
             direction: 'exactAmountOut',
           }))
         }
@@ -179,13 +202,21 @@ const SwapUi: React.FC = () => {
       <PrimaryButton fullWidth disabled={!swapInfo} css={styles.submitButton}>
         {swapInfo
           ? t('swapPage.submitButton.enabledLabel', {
-              fromTokenAmount: formatTokensToReadableValue({
-                value: new BigNumber(formValues.fromTokenAmount),
-                tokenId: formValues.fromTokenId as TokenId,
+              fromTokenAmount: convertWeiToTokens({
+                valueWei:
+                  swapInfo.direction === 'exactAmountIn'
+                    ? swapInfo.fromTokenAmountSoldWei
+                    : swapInfo.maximumFromTokenAmountSoldWei,
+                tokenId: swapInfo.fromToken.id,
+                returnInReadableFormat: true,
               }),
-              toTokenAmount: formatTokensToReadableValue({
-                value: new BigNumber(formValues.toTokenAmount),
-                tokenId: formValues.toTokenId as TokenId,
+              toTokenAmount: convertWeiToTokens({
+                valueWei:
+                  swapInfo.direction === 'exactAmountIn'
+                    ? swapInfo.minimumToTokenAmountReceivedWei
+                    : swapInfo.toTokenAmountReceivedWei,
+                tokenId: swapInfo.toToken.id,
+                returnInReadableFormat: true,
               }),
             })
           : t('swapPage.submitButton.disabledLabel')}
