@@ -3,17 +3,37 @@ import { useMemo } from 'react';
 import { Token } from 'types';
 import { convertTokensToWei } from 'utilities';
 
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-
-import { Swap, SwapDirection } from '../types';
+// TODO: move to global constants
+export const SLIPPAGE_TOLERANCE_PERCENTAGE = 0.5;
 
 export interface UseGetSwapInfoInput {
   fromToken: Token;
   toToken: Token;
-  direction: SwapDirection;
+  direction: 'exactAmountIn' | 'exactAmountOut';
   fromTokenAmountTokens?: string;
   toTokenAmountTokens?: string;
 }
+
+interface SwapBase {
+  fromToken: Token;
+  toToken: Token;
+  exchangeRate: BigNumber;
+  direction: 'exactAmountIn' | 'exactAmountOut';
+}
+
+export interface ExactAmountInSwap extends SwapBase {
+  fromTokenAmountSoldWei: BigNumber;
+  minimumToTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountIn';
+}
+
+export interface ExactAmountOutSwap extends SwapBase {
+  maximumFromTokenAmountSoldWei: BigNumber;
+  toTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountOut';
+}
+
+export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
 
 const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
   useMemo(() => {
@@ -40,7 +60,6 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
           value: new BigNumber(input.fromTokenAmountTokens),
           tokenId: input.fromToken.id,
         }),
-        expectedToTokenAmountReceivedWei,
         minimumToTokenAmountReceivedWei,
         direction: 'exactAmountIn',
       };
@@ -58,7 +77,6 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
         fromToken: input.fromToken,
         toToken: input.toToken,
         exchangeRate,
-        expectedFromTokenAmountSoldWei,
         maximumFromTokenAmountSoldWei,
         toTokenAmountReceivedWei: convertTokensToWei({
           value: new BigNumber(input.toTokenAmountTokens),
