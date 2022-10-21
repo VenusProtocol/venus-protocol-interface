@@ -394,6 +394,9 @@
     "fromTokenAmountField": {
       "label": "From"
     },
+    "maximumSold": {
+      "label": "Maximum sold"
+    },
     "minimumReceived": {
       "label": "Minimum received"
     },
