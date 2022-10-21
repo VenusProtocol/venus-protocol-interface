@@ -10,21 +10,41 @@ import config from 'config';
 import { useMemo } from 'react';
 import { convertTokensToWei } from 'utilities';
 
-import { useGetPancakeSwapPairs } from 'clients/api';
+// TODO: move to global constants
+export const SLIPPAGE_TOLERANCE_PERCENTAGE = 0.5;
 
-import formatToSwap from './formatToSwap';
-import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
-import useGetTokenCombinations from './useGetTokenCombinations';
+export interface UseGetSwapInfoInput {
+  fromToken: Token;
+  toToken: Token;
+  direction: 'exactAmountIn' | 'exactAmountOut';
+  fromTokenAmountTokens?: string;
+  toTokenAmountTokens?: string;
+}
 
-const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
-  // Determine all possible token combination based on input tokens
-  const tokenCombinations = useGetTokenCombinations({
-    fromToken: input.fromToken,
-    toToken: input.toToken,
-  });
+interface SwapBase {
+  fromToken: Token;
+  toToken: Token;
+  exchangeRate: BigNumber;
+  direction: 'exactAmountIn' | 'exactAmountOut';
+}
 
-  // Fetch pair data
-  const { data: getPancakeSwapPairsData } = useGetPancakeSwapPairs({ tokenCombinations });
+export interface ExactAmountInSwap extends SwapBase {
+  fromTokenAmountSoldWei: BigNumber;
+  minimumToTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountIn';
+}
+
+export interface ExactAmountOutSwap extends SwapBase {
+  maximumFromTokenAmountSoldWei: BigNumber;
+  toTokenAmountReceivedWei: BigNumber;
+  direction: 'exactAmountOut';
+}
+
+export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
+
+const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
+  useMemo(() => {
+    // TODO: define pairs based on fromToken and toToken and fetch their data
 
   // Find the best trade based on pairs
   return useMemo(() => {
@@ -52,23 +72,17 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
         fromTokenAmountWei.toFixed(),
       );
 
-      const currencyOut = new PSToken(
-        config.chainId,
-        input.toToken.address,
-        input.toToken.decimals,
-        input.toToken.symbol,
-      );
-
-      // Find best trade
-      [trade] = PSTrade.bestTradeExactIn(
-        getPancakeSwapPairsData?.pairs,
-        currencyAmountIn,
-        currencyOut,
-        {
-          maxHops: 3,
-          maxNumResults: 1,
-        },
-      );
+      return {
+        fromToken: input.fromToken,
+        toToken: input.toToken,
+        exchangeRate,
+        fromTokenAmountSoldWei: convertTokensToWei({
+          value: new BigNumber(input.fromTokenAmountTokens),
+          tokenId: input.fromToken.id,
+        }),
+        minimumToTokenAmountReceivedWei,
+        direction: 'exactAmountIn',
+      };
     }
 
     // Handle "exactAmountOut" direction (sell as few fromTokens as possible for
@@ -100,16 +114,17 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
         toTokenAmountWei.toFixed(),
       );
 
-      // Find best trade
-      [trade] = PSTrade.bestTradeExactOut(
-        getPancakeSwapPairsData?.pairs,
-        currencyIn,
-        currencyAmountOut,
-        {
-          maxHops: 3,
-          maxNumResults: 1,
-        },
-      );
+      return {
+        fromToken: input.fromToken,
+        toToken: input.toToken,
+        exchangeRate,
+        maximumFromTokenAmountSoldWei,
+        toTokenAmountReceivedWei: convertTokensToWei({
+          value: new BigNumber(input.toTokenAmountTokens),
+          tokenId: input.toToken.id,
+        }),
+        direction: 'exactAmountOut',
+      };
     }
 
     return (

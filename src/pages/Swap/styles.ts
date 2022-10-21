@@ -29,13 +29,13 @@ export const useStyles = () => {
       transform: rotate(90deg);
       color: ${theme.palette.interactive.primary};
     `,
-    swapInfo: css`
-      margin-bottom: ${theme.spacing(8)};
-    `,
     swapInfoRow: css`
       :not(:last-of-type) {
         margin-bottom: ${theme.spacing(3)};
       }
+    `,
+    submitButton: css`
+      margin-top: ${theme.spacing(8)};
     `,
   };
 };
