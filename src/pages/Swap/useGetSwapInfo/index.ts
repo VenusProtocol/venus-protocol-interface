@@ -30,11 +30,13 @@ interface SwapBase {
 
 export interface ExactAmountInSwap extends SwapBase {
   fromTokenAmountSoldWei: BigNumber;
+  expectedToTokenAmountReceivedWei: BigNumber;
   minimumToTokenAmountReceivedWei: BigNumber;
   direction: 'exactAmountIn';
 }
 
 export interface ExactAmountOutSwap extends SwapBase {
+  expectedFromTokenAmountSoldWei: BigNumber;
   maximumFromTokenAmountSoldWei: BigNumber;
   toTokenAmountReceivedWei: BigNumber;
   direction: 'exactAmountOut';
@@ -80,6 +82,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
           value: new BigNumber(input.fromTokenAmountTokens),
           tokenId: input.fromToken.id,
         }),
+        expectedToTokenAmountReceivedWei,
         minimumToTokenAmountReceivedWei,
         direction: 'exactAmountIn',
       };
@@ -118,6 +121,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
         fromToken: input.fromToken,
         toToken: input.toToken,
         exchangeRate,
+        expectedFromTokenAmountSoldWei,
         maximumFromTokenAmountSoldWei,
         toTokenAmountReceivedWei: convertTokensToWei({
           value: new BigNumber(input.toTokenAmountTokens),
