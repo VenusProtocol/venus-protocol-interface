@@ -137,6 +137,10 @@ export const useStyles = () => {
       align-items: center;
       padding: ${theme.spacing(0, 1)};
       margin-left: ${theme.spacing(3)};
+
+      ${theme.breakpoints.down('lg')} {
+        display: none;
+      }
     `,
     listItemNewBadgeText: css`
       font-weight: ${theme.typography.fontWeightBold};
