@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
+import BigNumber from 'bignumber.js';
 import {
   Icon,
   LabeledInlineContent,
@@ -12,8 +13,10 @@ import { useTranslation } from 'translation';
 import { Token, TokenId } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
+import { useGetBalanceOf } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 import { Swap, SwapDirection } from './types';
