@@ -1,13 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { Token } from 'types';
 
-export type SwapDirection = 'exactAmountIn' | 'exactAmountOut';
-
 interface SwapBase {
   fromToken: Token;
   toToken: Token;
   exchangeRate: BigNumber;
-  direction: SwapDirection;
+  direction: 'exactAmountIn' | 'exactAmountOut';
 }
 
 export interface ExactAmountInSwap extends SwapBase {
