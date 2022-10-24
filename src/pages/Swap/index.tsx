@@ -9,12 +9,13 @@ import {
 } from 'components';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
+import { Token, TokenId } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
 import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
+import { Swap } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
 const tokenIds = Object.keys(TOKENS) as TokenId[];
@@ -25,37 +26,30 @@ const readableSlippageTolerancePercentage = formatToReadablePercentage(
 );
 
 interface FormValues {
-  fromTokenId: string;
+  fromToken: Token;
   fromTokenAmountTokens: string;
-  toTokenId: string;
+  toToken: Token;
   toTokenAmountTokens: string;
   direction: 'exactAmountIn' | 'exactAmountOut';
 }
 
 const initialFormValues: FormValues = {
-  fromTokenId: 'bnb',
+  fromToken: getToken('bnb'),
   fromTokenAmountTokens: '',
-  toTokenId: 'xvs',
+  toToken: getToken('xvs'),
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
 
-const SwapUi: React.FC = () => {
+export interface SwapPageUiProps {
+  formValues: FormValues;
+  setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
+  swapInfo?: Swap;
+}
+
+const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swapInfo }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-
-  const fromToken = getToken(formValues.fromTokenId as TokenId);
-  const toToken = getToken(formValues.toTokenId as TokenId);
-
-  const swapInfo = useGetSwapInfo({
-    fromToken,
-    toToken,
-    fromTokenAmountTokens: formValues.fromTokenAmountTokens,
-    toTokenAmountTokens: formValues.toTokenAmountTokens,
-    direction: formValues.direction,
-  });
 
   useEffect(() => {
     // Reinitialize form values if swap becomes invalid
@@ -91,9 +85,9 @@ const SwapUi: React.FC = () => {
   const switchTokens = () =>
     setFormValues(currentFormValues => ({
       ...currentFormValues,
-      fromTokenId: currentFormValues.toTokenId,
+      fromToken: currentFormValues.toToken,
       fromTokenAmountTokens: currentFormValues.toTokenAmountTokens,
-      toTokenId: currentFormValues.fromTokenId,
+      toToken: currentFormValues.fromToken,
       toTokenAmountTokens: currentFormValues.fromTokenAmountTokens,
       direction:
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
@@ -103,7 +97,7 @@ const SwapUi: React.FC = () => {
     <Paper css={styles.container}>
       <SelectTokenTextField
         label={t('swapPage.fromTokenAmountField.label')}
-        selectedTokenId={formValues.fromTokenId as TokenId}
+        selectedTokenId={formValues.fromToken.id}
         value={formValues.fromTokenAmountTokens}
         onChange={amount =>
           setFormValues(currentFormValues => ({
@@ -115,16 +109,16 @@ const SwapUi: React.FC = () => {
         onChangeSelectedTokenId={tokenId =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
-            fromTokenId: tokenId,
+            fromToken: getToken(tokenId),
             // Invert toTokenId and fromTokenId if selected token ID is equal to
             // toTokenId
-            toTokenId:
-              tokenId === formValues.toTokenId
-                ? currentFormValues.fromTokenId
-                : currentFormValues.toTokenId,
+            toToken:
+              tokenId === formValues.toToken.id
+                ? currentFormValues.fromToken
+                : currentFormValues.toToken,
           }))
         }
-        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.fromTokenId)}
+        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.fromToken.id)}
         css={styles.selectTokenTextField}
       />
 
@@ -134,7 +128,7 @@ const SwapUi: React.FC = () => {
 
       <SelectTokenTextField
         label={t('swapPage.toTokenAmountField.label')}
-        selectedTokenId={formValues.toTokenId as TokenId}
+        selectedTokenId={formValues.toToken.id}
         value={formValues.toTokenAmountTokens}
         onChange={amount =>
           setFormValues(currentFormValues => ({
@@ -146,16 +140,16 @@ const SwapUi: React.FC = () => {
         onChangeSelectedTokenId={tokenId =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
-            toTokenId: tokenId,
+            toToken: getToken(tokenId),
             // Invert fromTokenId and toTokenId if selected token ID is equal
             // to fromTokenId
-            fromTokenId:
-              tokenId === formValues.fromTokenId
-                ? currentFormValues.toTokenId
-                : currentFormValues.fromTokenId,
+            fromToken:
+              tokenId === formValues.fromToken.id
+                ? currentFormValues.toToken
+                : currentFormValues.fromToken,
           }))
         }
-        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.toTokenId)}
+        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.toToken.id)}
         css={styles.selectTokenTextField}
       />
 
@@ -163,8 +157,8 @@ const SwapUi: React.FC = () => {
         <>
           <LabeledInlineContent label={t('swapPage.exchangeRate.label')} css={styles.swapInfoRow}>
             {t('swapPage.exchangeRate.value', {
-              fromTokenSymbol: fromToken.symbol,
-              toTokenSymbol: toToken.symbol,
+              fromTokenSymbol: formValues.fromToken.symbol,
+              toTokenSymbol: formValues.toToken.symbol,
               rate: swapInfo.exchangeRate,
             })}
           </LabeledInlineContent>
@@ -225,6 +219,18 @@ const SwapUi: React.FC = () => {
   );
 };
 
-const Swap: React.FC = () => <SwapUi />;
+const SwapPage: React.FC = () => {
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
-export default Swap;
+  const swapInfo = useGetSwapInfo({
+    fromToken: formValues.fromToken,
+    fromTokenAmountTokens: formValues.fromTokenAmountTokens,
+    toToken: formValues.toToken,
+    toTokenAmountTokens: formValues.toTokenAmountTokens,
+    direction: formValues.direction,
+  });
+
+  return <SwapPageUi formValues={formValues} setFormValues={setFormValues} swapInfo={swapInfo} />;
+};
+
+export default SwapPage;

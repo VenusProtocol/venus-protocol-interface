@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { Token } from 'types';
 import { convertTokensToWei } from 'utilities';
 
+import { Swap } from '../types';
+
 // TODO: move to global constants
 export const SLIPPAGE_TOLERANCE_PERCENTAGE = 0.5;
 
@@ -13,29 +15,6 @@ export interface UseGetSwapInfoInput {
   fromTokenAmountTokens?: string;
   toTokenAmountTokens?: string;
 }
-
-interface SwapBase {
-  fromToken: Token;
-  toToken: Token;
-  exchangeRate: BigNumber;
-  direction: 'exactAmountIn' | 'exactAmountOut';
-}
-
-export interface ExactAmountInSwap extends SwapBase {
-  fromTokenAmountSoldWei: BigNumber;
-  expectedToTokenAmountReceivedWei: BigNumber;
-  minimumToTokenAmountReceivedWei: BigNumber;
-  direction: 'exactAmountIn';
-}
-
-export interface ExactAmountOutSwap extends SwapBase {
-  expectedFromTokenAmountSoldWei: BigNumber;
-  maximumFromTokenAmountSoldWei: BigNumber;
-  toTokenAmountReceivedWei: BigNumber;
-  direction: 'exactAmountOut';
-}
-
-export type Swap = ExactAmountInSwap | ExactAmountOutSwap;
 
 const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
   useMemo(() => {
