@@ -12,15 +12,15 @@ import { useTranslation } from 'translation';
 import { Token, TokenId } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
+import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
-import { Swap } from './types';
+import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
 const tokenIds = Object.keys(TOKENS) as TokenId[];
 
-const SLIPPAGE_TOLERANCE_PERCENTAGE = 0.5;
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 );
@@ -30,7 +30,7 @@ interface FormValues {
   fromTokenAmountTokens: string;
   toToken: Token;
   toTokenAmountTokens: string;
-  direction: 'exactAmountIn' | 'exactAmountOut';
+  direction: SwapDirection;
 }
 
 const initialFormValues: FormValues = {
