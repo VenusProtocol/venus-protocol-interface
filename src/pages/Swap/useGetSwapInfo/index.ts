@@ -3,15 +3,14 @@ import { useMemo } from 'react';
 import { Token } from 'types';
 import { convertTokensToWei } from 'utilities';
 
-import { Swap } from '../types';
+import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
-// TODO: move to global constants
-export const SLIPPAGE_TOLERANCE_PERCENTAGE = 0.5;
+import { Swap, SwapDirection } from '../types';
 
 export interface UseGetSwapInfoInput {
   fromToken: Token;
   toToken: Token;
-  direction: 'exactAmountIn' | 'exactAmountOut';
+  direction: SwapDirection;
   fromTokenAmountTokens?: string;
   toTokenAmountTokens?: string;
 }
