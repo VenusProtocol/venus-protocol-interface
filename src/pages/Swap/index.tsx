@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
+import BigNumber from 'bignumber.js';
 import {
   Icon,
   LabeledInlineContent,
@@ -12,8 +13,10 @@ import { useTranslation } from 'translation';
 import { Token, TokenId } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
+import { useGetBalanceOf } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
 import { Swap, SwapDirection } from './types';
@@ -44,10 +47,18 @@ const initialFormValues: FormValues = {
 export interface SwapPageUiProps {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
+  fromTokenUserBalanceWei?: BigNumber;
+  toTokenUserBalanceWei?: BigNumber;
   swapInfo?: Swap;
 }
 
-const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swapInfo }) => {
+const SwapPageUi: React.FC<SwapPageUiProps> = ({
+  formValues,
+  setFormValues,
+  swapInfo,
+  fromTokenUserBalanceWei,
+  toTokenUserBalanceWei,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -119,6 +130,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swap
           }))
         }
         tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.fromToken.id)}
+        userTokenBalanceWei={fromTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />
 
@@ -150,6 +162,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swap
           }))
         }
         tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.toToken.id)}
+        userTokenBalanceWei={toTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />
 
@@ -220,6 +233,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swap
 };
 
 const SwapPage: React.FC = () => {
+  const { account } = React.useContext(AuthContext);
+
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
   const swapInfo = useGetSwapInfo({
@@ -230,7 +245,29 @@ const SwapPage: React.FC = () => {
     direction: formValues.direction,
   });
 
-  return <SwapPageUi formValues={formValues} setFormValues={setFormValues} swapInfo={swapInfo} />;
+  const { data: fromTokenUserBalanceData } = useGetBalanceOf(
+    { accountAddress: account?.address || '', tokenId: formValues.fromToken.id },
+    {
+      enabled: !!account?.address,
+    },
+  );
+
+  const { data: toTokenUserBalanceData } = useGetBalanceOf(
+    { accountAddress: account?.address || '', tokenId: formValues.toToken.id },
+    {
+      enabled: !!account?.address,
+    },
+  );
+
+  return (
+    <SwapPageUi
+      formValues={formValues}
+      setFormValues={setFormValues}
+      swapInfo={swapInfo}
+      fromTokenUserBalanceWei={fromTokenUserBalanceData?.balanceWei}
+      toTokenUserBalanceWei={toTokenUserBalanceData?.balanceWei}
+    />
+  );
 };
 
 export default SwapPage;
