@@ -24,13 +24,15 @@ export interface UseGetSwapInfoInput {
 }
 
 const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined => {
-  // Determine all possible pairs based on input tokens
-  const tokenCombinations = useGetTokenCombinations({
-    fromToken: input.fromToken,
-    toToken: input.toToken,
-  });
+  console.log('rendered');
 
-  const pairs = useGetPairs(tokenCombinations);
+  // Determine all possible pairs based on input tokens
+  // const tokenCombinations = useGetTokenCombinations({
+  //   fromToken: input.fromToken,
+  //   toToken: input.toToken,
+  // });
+
+  // const pairs = useGetPairs([]);
 
   // TODO: fetch pair data
 
