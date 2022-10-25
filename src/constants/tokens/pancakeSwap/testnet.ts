@@ -1,6 +1,10 @@
 import { Token } from 'types';
 
-export const TESTNET_PANCAKE_SWAP_TOKENS = {
+// TODO: move to global file/merge with tokens (?) (see https://jira.toolsfdg.net/browse/VEN-712)
+
+// TODO: handle mainnet (check PancakeSwap's repository to get list of tokens
+// available on mainnet)
+const PANCAKE_SWAP_TOKENS = {
   cake: {
     id: 'cake',
     symbol: 'CAKE',
@@ -27,3 +31,7 @@ export const TESTNET_PANCAKE_SWAP_TOKENS = {
   } as Token,
   // TODO: add other tokens (BNB for example)
 };
+
+const tokenList = { ...PANCAKE_SWAP_TOKENS, ...TOKENS };
+
+export default tokenList;
