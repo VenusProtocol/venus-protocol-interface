@@ -342,7 +342,8 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Search asset"
-    }
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
   },
   "sidebar": {
     "newBadge": "NEW"
@@ -385,21 +386,7 @@
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
   },
-  "swap": {
-    "errors": {
-      "incorrectSwapInput": "Incorrect input provided for swap"
-    }
-  },
   "swapPage": {
-    "connectWalletToSwap": "Please connect your wallet to swap tokens",
-    "enablingStep": {
-      "enableTokenButton": {
-        "text": "Enable {{tokenSymbol}}",
-        "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
-      },
-      "step1": "Step 1",
-      "step2": "Step 2"
-    },
     "exchangeRate": {
       "label": "Exchange rate",
       "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
@@ -417,19 +404,8 @@
       "label": "Slippage tolerance"
     },
     "submitButton": {
-      "disabledLabels": {
-        "insufficientLiquidity": "Insufficient liquidity for this swap",
-        "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
-        "invalidFromTokenAmount": "Enter a valid amount to swap",
-        "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}",
-      "processing": "Processing"
-    },
-    "successfulConvertTransactionModal": {
-      "message": "You successfully swapped your tokens",
-      "title": "Your swap was successful"
+      "disabledLabel": "Enter a valid amount to swap",
+      "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}"
     },
     "toTokenAmountField": {
       "label": "To"
