@@ -4,7 +4,7 @@ import { TOKENS } from 'constants/tokens';
 
 // TODO: handle mainnet (check PancakeSwap's repository to get list of tokens
 // available on mainnet)
-export const PANCAKE_SWAP_TOKENS = {
+const PANCAKE_SWAP_TOKENS = {
   cake: {
     id: 'cake',
     symbol: 'CAKE',
@@ -31,6 +31,6 @@ export const PANCAKE_SWAP_TOKENS = {
   },
 };
 
-const tokenList = { ...TOKENS, ...PANCAKE_SWAP_TOKENS };
+const tokenList = { ...PANCAKE_SWAP_TOKENS, ...TOKENS };
 
 export default tokenList;

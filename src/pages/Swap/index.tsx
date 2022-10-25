@@ -15,14 +15,15 @@ import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilit
 
 import { useGetBalanceOf } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
+import tokenList from './tokenList';
 import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
-const tokenIds = Object.keys(TOKENS) as TokenId[];
+// TODO: fix (TokenId type is incorrect) (see https://jira.toolsfdg.net/browse/VEN-712)
+const tokenIds = Object.keys(tokenList) as TokenId[];
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -251,6 +252,7 @@ const SwapPage: React.FC = () => {
     direction: formValues.direction,
   });
 
+  // TODO: handle BNB (different contract
   const { data: fromTokenUserBalanceData } = useGetBalanceOf(
     { accountAddress: account?.address || '', tokenId: formValues.fromToken.id },
     {
