@@ -342,7 +342,8 @@
   "selectTokenTextField": {
     "searchInput": {
       "placeholder": "Search asset"
-    }
+    },
+    "walletBalance": "Wallet balance: <White>{{balance}}</White>"
   },
   "sidebar": {
     "newBadge": "NEW"
@@ -384,6 +385,31 @@
     "walletBalance": "Wallet balance: <White>{{amount}}</White>",
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
+  },
+  "swapPage": {
+    "exchangeRate": {
+      "label": "Exchange rate",
+      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+    },
+    "fromTokenAmountField": {
+      "label": "From"
+    },
+    "maximumSold": {
+      "label": "Maximum sold"
+    },
+    "minimumReceived": {
+      "label": "Minimum received"
+    },
+    "slippageTolerance": {
+      "label": "Slippage tolerance"
+    },
+    "submitButton": {
+      "disabledLabel": "Enter a valid amount to swap",
+      "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}"
+    },
+    "toTokenAmountField": {
+      "label": "To"
+    }
   },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",

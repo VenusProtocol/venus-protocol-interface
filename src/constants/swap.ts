@@ -1,0 +1,1 @@
+export const SLIPPAGE_TOLERANCE_PERCENTAGE = 0.5;
