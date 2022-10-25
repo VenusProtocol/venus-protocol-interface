@@ -1,155 +1,81 @@
-import {
-  Currency as PSCurrency,
-  CurrencyAmount as PSCurrencyAmount,
-  Token as PSToken,
-  Trade as PSTrade,
-  TradeType as PSTradeType,
-} from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
-import config from 'config';
 import { useMemo } from 'react';
+import { Token } from 'types';
 import { convertTokensToWei } from 'utilities';
 
-import { useGetPancakeSwapPairs } from 'clients/api';
+import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
-import formatToSwap from './formatToSwap';
-import { SwapError, UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
-import useGetTokenCombinations from './useGetTokenCombinations';
-import wrapToken from './wrapToken';
+import { Swap, SwapDirection } from '../types';
 
-export * from './types';
+export interface UseGetSwapInfoInput {
+  fromToken: Token;
+  toToken: Token;
+  direction: SwapDirection;
+  fromTokenAmountTokens?: string;
+  toTokenAmountTokens?: string;
+}
 
-const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
-  // Determine all possible token combinations based on input and base trade
-  // tokens
-  const tokenCombinations = useGetTokenCombinations({
-    fromToken: input.fromToken,
-    toToken: input.toToken,
-  });
+const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined =>
+  useMemo(() => {
+    // TODO: define pairs based on fromToken and toToken and fetch their data
 
-  // Fetch pair data
-  const { data: getPancakeSwapPairsData } = useGetPancakeSwapPairs({ tokenCombinations });
+    // TODO: determine best swap using pair data
 
-  // Find the best trade based on pairs
-  return useMemo(() => {
-    let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
-    let error: SwapError | undefined;
+    // TODO: get from fetched swap info or calculate using swap info
+    const exchangeRate = new BigNumber('1.126783');
 
-    const wrappedFromToken = wrapToken(input.fromToken);
-    const wrappedToToken = wrapToken(input.toToken);
+    if (input.direction === 'exactAmountIn' && !!input.fromTokenAmountTokens) {
+      // TODO: get from fetched swap info
+      const expectedToTokenAmountReceivedWei = new BigNumber('190287638578');
+      // Calculate minimum received accepted according to slippage
+      const minimumToTokenAmountReceivedWei = expectedToTokenAmountReceivedWei
+        .multipliedBy(1 - SLIPPAGE_TOLERANCE_PERCENTAGE / 100)
+        .dp(0);
 
-    // Return no trade if user is trying to wrap or unwrap BNB/wBNB
-    if (wrappedFromToken.address === wrappedToToken.address) {
       return {
-        swap: undefined,
-        error: 'WRAPPING_UNWRAPPING_UNSUPPORTED',
+        fromToken: input.fromToken,
+        toToken: input.toToken,
+        exchangeRate,
+        fromTokenAmountSoldWei: convertTokensToWei({
+          value: new BigNumber(input.fromTokenAmountTokens),
+          tokenId: input.fromToken.id,
+        }),
+        expectedToTokenAmountReceivedWei,
+        minimumToTokenAmountReceivedWei,
+        direction: 'exactAmountIn',
       };
     }
 
-    // Handle "exactAmountIn" direction (sell an exact amount of fromTokens for
-    // as many toTokens as possible)
-    if (
-      getPancakeSwapPairsData?.pairs &&
-      input.direction === 'exactAmountIn' &&
-      !!input.fromTokenAmountTokens
-    ) {
-      const fromTokenAmountWei = convertTokensToWei({
-        value: new BigNumber(input.fromTokenAmountTokens),
-        token: wrappedFromToken,
-      });
+    if (input.direction === 'exactAmountOut' && !!input.toTokenAmountTokens) {
+      // TODO: get from fetched swap info
+      const expectedFromTokenAmountSoldWei = new BigNumber('467312321');
+      // Calculate maximum sold accepted according to slippage
+      const maximumFromTokenAmountSoldWei = expectedFromTokenAmountSoldWei
+        .multipliedBy(1 + SLIPPAGE_TOLERANCE_PERCENTAGE / 100)
+        .dp(0);
 
-      const currencyAmountIn = PSCurrencyAmount.fromRawAmount(
-        new PSToken(
-          config.chainId,
-          wrappedFromToken.address,
-          wrappedFromToken.decimals,
-          wrappedFromToken.symbol,
-        ),
-        fromTokenAmountWei.toFixed(),
-      );
-
-      const currencyOut = new PSToken(
-        config.chainId,
-        wrappedToToken.address,
-        wrappedToToken.decimals,
-        wrappedToToken.symbol,
-      );
-
-      // Find best trade
-      [trade] = PSTrade.bestTradeExactIn(
-        getPancakeSwapPairsData?.pairs,
-        currencyAmountIn,
-        currencyOut,
-        {
-          maxHops: 3,
-          maxNumResults: 1,
-        },
-      );
-
-      error = trade ? undefined : 'INSUFFICIENT_LIQUIDITY';
+      return {
+        fromToken: input.fromToken,
+        toToken: input.toToken,
+        exchangeRate,
+        expectedFromTokenAmountSoldWei,
+        maximumFromTokenAmountSoldWei,
+        toTokenAmountReceivedWei: convertTokensToWei({
+          value: new BigNumber(input.toTokenAmountTokens),
+          tokenId: input.toToken.id,
+        }),
+        direction: 'exactAmountOut',
+      };
     }
 
-    // Handle "exactAmountOut" direction (sell as few fromTokens as possible for
-    // a fixed amount of toTokens)
-    if (
-      getPancakeSwapPairsData?.pairs &&
-      input.direction === 'exactAmountOut' &&
-      !!input.toTokenAmountTokens
-    ) {
-      const currencyIn = new PSToken(
-        config.chainId,
-        wrappedFromToken.address,
-        wrappedFromToken.decimals,
-        wrappedFromToken.symbol,
-      );
-
-      const toTokenAmountWei = convertTokensToWei({
-        value: new BigNumber(input.toTokenAmountTokens),
-        token: wrappedToToken,
-      });
-
-      const currencyAmountOut = PSCurrencyAmount.fromRawAmount(
-        new PSToken(
-          config.chainId,
-          wrappedToToken.address,
-          wrappedToToken.decimals,
-          wrappedToToken.symbol,
-        ),
-        toTokenAmountWei.toFixed(),
-      );
-
-      // Find best trade
-      [trade] = PSTrade.bestTradeExactOut(
-        getPancakeSwapPairsData?.pairs,
-        currencyIn,
-        currencyAmountOut,
-        {
-          maxHops: 3,
-          maxNumResults: 1,
-        },
-      );
-
-      error = trade ? undefined : 'INSUFFICIENT_LIQUIDITY';
-    }
-
-    const swap =
-      trade &&
-      formatToSwap({
-        input,
-        trade,
-      });
-
-    return {
-      swap,
-      error,
-    };
+    // Return undefined if a mandatory prop is missing
+    return undefined;
   }, [
-    getPancakeSwapPairsData?.pairs,
+    input.direction,
     input.fromToken,
-    input.toToken,
     input.fromTokenAmountTokens,
+    input.toToken,
     input.toTokenAmountTokens,
   ]);
-};
 
 export default useGetSwapInfo;
