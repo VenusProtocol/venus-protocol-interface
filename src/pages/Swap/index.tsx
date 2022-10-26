@@ -18,12 +18,12 @@ import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
-import tokenList from './tokenList';
+import { PANCAKE_SWAP_TOKENS } from './tokenList';
 import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
 // TODO: fix (TokenId type is incorrect) (see https://jira.toolsfdg.net/browse/VEN-712)
-const tokenIds = Object.keys(tokenList) as TokenId[];
+const tokenIds = Object.keys(PANCAKE_SWAP_TOKENS) as TokenId[];
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -38,11 +38,9 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-  // TODO: handle mainnet
-  fromToken: TESTNET_PANCAKE_SWAP_TOKENS.busd as Token,
+  fromToken: getToken('eth'),
   fromTokenAmountTokens: '',
-  // TODO: handle mainnet
-  toToken: TESTNET_PANCAKE_SWAP_TOKENS.cake as Token,
+  toToken: getToken('usdt'),
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
