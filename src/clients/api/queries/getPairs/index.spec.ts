@@ -1,8 +1,8 @@
 import { Multicall } from 'ethereum-multicall';
 
-import getPairReserves from '.';
+import getPairs from '.';
 
-describe('api/queries/getPairReserves', () => {
+describe('api/queries/getPairs', () => {
   test('throws an error when request fails', async () => {
     const multicall = {
       call: async () => {
@@ -11,12 +11,12 @@ describe('api/queries/getPairReserves', () => {
     } as unknown as Multicall;
 
     try {
-      await getPairReserves({
+      await getPairs({
         multicall,
         tokenCombinations: [],
       });
 
-      throw new Error('getPairReserves should have thrown an error but did not');
+      throw new Error('getPairs should have thrown an error but did not');
     } catch (error) {
       expect(error).toMatchInlineSnapshot('[Error: Fake error message]');
     }
