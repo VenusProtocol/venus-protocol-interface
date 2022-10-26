@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 import { Token } from 'types';
 import { convertTokensToWei } from 'utilities';
 
-import { useGetPairReserves } from 'clients/api';
+import { useGetPairs } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
 import { Swap, SwapDirection } from '../types';
@@ -31,14 +31,11 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined => {
     toToken: input.toToken,
   });
 
-  // TODO: optimize, currently triggers multiple calls for the same pairs
   // Fetch pair data
   // TODO: refresh request on every new block
-  const { data: getPairReservesData } = useGetPairReserves({ tokenCombinations });
+  const { data: getPairsData } = useGetPairs({ tokenCombinations });
 
-  console.log(getPairReservesData?.pairReserves);
-
-  // TODO: determine best swap using pair data
+  console.log(getPairsData?.pairs);
 
   return useMemo(() => {
     // TODO: get from fetched swap info or calculate using swap info

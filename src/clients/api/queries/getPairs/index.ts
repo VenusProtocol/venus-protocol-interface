@@ -3,15 +3,15 @@ import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 
 import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
 
-import formatToPairReserves from './formatToPairReserves';
-import { GetPairReservesInput, GetPairReservesOutput, PairAddress } from './types';
+import formatToPairs from './formatToPairs';
+import { GetPairsInput, GetPairsOutput, PairAddress } from './types';
 
 export * from './types';
 
-const getPairReserves = async ({
+const getPairs = async ({
   multicall,
   tokenCombinations,
-}: GetPairReservesInput): Promise<GetPairReservesOutput> => {
+}: GetPairsInput): Promise<GetPairsOutput> => {
   // Generate pair addresses from token combinations
   const pairAddresses: PairAddress[] = tokenCombinations.reduce((acc, [tokenA, tokenB]) => {
     try {
@@ -45,12 +45,12 @@ const getPairReserves = async ({
   // TODO: check why queries seem to get cached
   const reserveCallResults: ContractCallResults = await multicall.call(contractCallContext);
 
-  const formattedResult = formatToPairReserves({
+  const pairs = formatToPairs({
     pairAddresses,
     reserveCallResults,
   });
 
-  return formattedResult;
+  return { pairs };
 };
 
-export default getPairReserves;
+export default getPairs;
