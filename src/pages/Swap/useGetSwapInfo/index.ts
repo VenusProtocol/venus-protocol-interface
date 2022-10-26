@@ -33,6 +33,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined => {
 
   // TODO: optimize, currently triggers multiple calls for the same pairs
   // Fetch pair data
+  // TODO: refresh request on every new block
   const { data: getPairReservesData } = useGetPairReserves({ tokenCombinations });
 
   console.log(getPairReservesData?.pairReserves);

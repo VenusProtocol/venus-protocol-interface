@@ -4,7 +4,7 @@ import { TOKENS } from 'constants/tokens';
 
 // TODO: handle mainnet (check PancakeSwap's repository to get list of tokens
 // available on mainnet)
-const PANCAKE_SWAP_TOKENS = {
+export const PANCAKE_SWAP_TOKENS = {
   cake: {
     id: 'cake',
     symbol: 'CAKE',
@@ -28,6 +28,22 @@ const PANCAKE_SWAP_TOKENS = {
     address: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
     asset:
       'https://pancakeswap.finance/images/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c.png',
+  },
+  eth: {
+    id: 'eth',
+    symbol: 'ETH',
+    address: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
+    decimals: 18,
+    asset:
+      'https://tokens.pancakeswap.finance/images/0x2170Ed0880ac9A755fd29B2688956BD959F933F8.png',
+  },
+  usdt: {
+    id: 'usdt',
+    symbol: 'USDT',
+    address: '0x55d398326f99059fF775485246999027B3197955',
+    decimals: 18,
+    asset:
+      'https://tokens.pancakeswap.finance/images/0x55d398326f99059fF775485246999027B3197955.png',
   },
 };
 
