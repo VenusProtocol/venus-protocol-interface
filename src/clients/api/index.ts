@@ -334,3 +334,7 @@ export { default as useGetBlockNumber } from './queries/getBlockNumber/useGetBlo
 export { default as getProposalEta } from './queries/getProposalEta';
 export * from './queries/getProposalEta';
 export { default as useGetProposalEta } from './queries/getProposalEta/useGetProposalEta';
+
+export { default as getPairReserves } from './queries/getPairReserves';
+export * from './queries/getPairReserves';
+export { default as useGetPairReserves } from './queries/getPairReserves/useGetPairReserves';
