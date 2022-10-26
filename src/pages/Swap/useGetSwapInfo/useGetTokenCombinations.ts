@@ -26,8 +26,6 @@ const useGetTokenCombinations = ({
   toToken,
 }: UseGetTokenCombinationsInput): [PSToken, PSToken][] =>
   useMemo(() => {
-    console.log('CALLED');
-
     const psFromToken = new PSToken(97, fromToken.address, fromToken.decimals, fromToken.symbol);
     const psToToken = new PSToken(97, fromToken.address, fromToken.decimals, fromToken.symbol);
     // Convert tokens to PancakeSwap token instances
