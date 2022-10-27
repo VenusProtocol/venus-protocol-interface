@@ -15,6 +15,7 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PAIR_RESERVES, ...string[]]
 >;
 
+// TODO: rename to useGetPancakeSwapPairs
 const useGetPairs = (input: Omit<GetPairsInput, 'multicall'>, options?: Options) => {
   // TODO: import global multicall instance via hook (TODO: create useMulticall
   // hook)

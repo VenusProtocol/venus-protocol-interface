@@ -26,12 +26,14 @@ const useGetTokenCombinations = ({
   toToken,
 }: UseGetTokenCombinationsInput): [PSToken, PSToken][] =>
   useMemo(() => {
+    // TODO: handle mainnet
     const psFromToken = new PSToken(97, fromToken.address, fromToken.decimals, fromToken.symbol);
+    // TODO: handle mainnet
     const psToToken = new PSToken(97, fromToken.address, fromToken.decimals, fromToken.symbol);
     // Convert tokens to PancakeSwap token instances
-    // TODO: handle mainnet
     const baseTradeTokens = [
       ...BASE_TRADE_TOKENS.map(
+        // TODO: handle mainnet
         token => new PSToken(97, token.address, token.decimals, token.symbol),
       ),
       // Add input tokens

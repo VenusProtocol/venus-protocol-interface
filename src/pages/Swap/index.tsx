@@ -20,7 +20,7 @@ import { AuthContext } from 'context/AuthContext';
 import { useStyles } from './styles';
 import { PANCAKE_SWAP_TOKENS } from './tokenList';
 import { Swap, SwapDirection } from './types';
-import useGetSwapInfo from './useGetSwapInfo';
+import useFindBestSwap from './useFindBestSwap';
 
 // TODO: fix (TokenId type is incorrect) (see https://jira.toolsfdg.net/browse/VEN-712)
 const tokenIds = Object.keys(PANCAKE_SWAP_TOKENS) as TokenId[];
@@ -241,7 +241,7 @@ const SwapPage: React.FC = () => {
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
-  const swapInfo = useGetSwapInfo({
+  const swapInfo = useFindBestSwap({
     fromToken: formValues.fromToken,
     fromTokenAmountTokens: formValues.fromTokenAmountTokens,
     toToken: formValues.toToken,
