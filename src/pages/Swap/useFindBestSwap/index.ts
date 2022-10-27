@@ -6,6 +6,7 @@ import {
   TradeType as PSTradeType,
 } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
+import config from 'config';
 import { useMemo } from 'react';
 import { convertTokensToWei } from 'utilities';
 
@@ -42,14 +43,17 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
       });
 
       const currencyAmountIn = PSCurrencyAmount.fromRawAmount(
-        // TODO: handle mainnet
-        new PSToken(97, input.fromToken.address, input.fromToken.decimals, input.fromToken.symbol),
+        new PSToken(
+          config.chainId,
+          input.fromToken.address,
+          input.fromToken.decimals,
+          input.fromToken.symbol,
+        ),
         fromTokenAmountWei.toFixed(),
       );
 
       const currencyOut = new PSToken(
-        // TODO: handle mainnet
-        97,
+        config.chainId,
         input.toToken.address,
         input.toToken.decimals,
         input.toToken.symbol,
@@ -75,8 +79,7 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
       !!input.toTokenAmountTokens
     ) {
       const currencyIn = new PSToken(
-        // TODO: handle mainnet
-        97,
+        config.chainId,
         input.fromToken.address,
         input.fromToken.decimals,
         input.fromToken.symbol,
@@ -88,8 +91,12 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
       });
 
       const currencyAmountOut = PSCurrencyAmount.fromRawAmount(
-        // TODO: handle mainnet
-        new PSToken(97, input.toToken.address, input.toToken.decimals, input.toToken.symbol),
+        new PSToken(
+          config.chainId,
+          input.toToken.address,
+          input.toToken.decimals,
+          input.toToken.symbol,
+        ),
         toTokenAmountWei.toFixed(),
       );
 
