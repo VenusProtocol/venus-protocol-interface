@@ -42,7 +42,7 @@ const getPairs = async ({
     calls: [{ reference: 'getReserves', methodName: 'getReserves()', methodParameters: [] }],
   }));
 
-  // TODO: check why queries seem to get cached
+  // TODO: check why queries get cached
   const reserveCallResults: ContractCallResults = await multicall.call(contractCallContext);
 
   const pairs = formatToPairs({
