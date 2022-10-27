@@ -4,7 +4,7 @@ import { Multicall } from 'ethereum-multicall';
 
 export type TokenCombination = [PSToken, PSToken];
 
-export interface GetPairsInput {
+export interface GetPancakeSwapPairsInput {
   multicall: Multicall;
   tokenCombinations: TokenCombination[];
 }
@@ -19,6 +19,6 @@ export interface TokenReserve {
   reserveWei: BigNumber;
 }
 
-export type GetPairsOutput = {
+export type GetPancakeSwapPairsOutput = {
   pairs: PSPair[];
 };

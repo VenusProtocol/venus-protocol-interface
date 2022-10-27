@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { convertTokensToWei } from 'utilities';
 
-import { useGetPairs } from 'clients/api';
+import { useGetPancakeSwapPairs } from 'clients/api';
 
 import formatToSwap from './formatToSwap';
 import { UseFindBestSwapInput, UseFindBestSwapOutput } from './types';
@@ -23,7 +23,7 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
   });
 
   // Fetch pair data
-  const { data: getPairsData } = useGetPairs({ tokenCombinations });
+  const { data: getPancakeSwapPairsData } = useGetPancakeSwapPairs({ tokenCombinations });
 
   // Find the best trade based on pairs
   return useMemo(() => {
@@ -32,7 +32,7 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
     // Handle "exactAmountIn" direction (sell an exact amount of fromTokens for
     // as many toTokens as possible)
     if (
-      getPairsData?.pairs &&
+      getPancakeSwapPairsData?.pairs &&
       input.direction === 'exactAmountIn' &&
       !!input.fromTokenAmountTokens
     ) {
@@ -56,16 +56,21 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
       );
 
       // Find best trade
-      [trade] = PSTrade.bestTradeExactIn(getPairsData?.pairs, currencyAmountIn, currencyOut, {
-        maxHops: 3,
-        maxNumResults: 1,
-      });
+      [trade] = PSTrade.bestTradeExactIn(
+        getPancakeSwapPairsData?.pairs,
+        currencyAmountIn,
+        currencyOut,
+        {
+          maxHops: 3,
+          maxNumResults: 1,
+        },
+      );
     }
 
     // Handle "exactAmountOut" direction (sell as few fromTokens as possible for
     // a fixed amount of toTokens)
     if (
-      getPairsData?.pairs &&
+      getPancakeSwapPairsData?.pairs &&
       input.direction === 'exactAmountOut' &&
       !!input.toTokenAmountTokens
     ) {
@@ -89,10 +94,15 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
       );
 
       // Find best trade
-      [trade] = PSTrade.bestTradeExactOut(getPairsData?.pairs, currencyIn, currencyAmountOut, {
-        maxHops: 3,
-        maxNumResults: 1,
-      });
+      [trade] = PSTrade.bestTradeExactOut(
+        getPancakeSwapPairsData?.pairs,
+        currencyIn,
+        currencyAmountOut,
+        {
+          maxHops: 3,
+          maxNumResults: 1,
+        },
+      );
     }
 
     return (
@@ -102,7 +112,7 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
         trade,
       })
     );
-  }, [getPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
+  }, [getPancakeSwapPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
 };
 
 export default useFindBestSwap;

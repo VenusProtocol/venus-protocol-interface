@@ -4,14 +4,14 @@ import { ContractCallContext, ContractCallResults } from 'ethereum-multicall';
 import pancakeSwapPairAbi from 'constants/contracts/abis/pancakeSwapPair.json';
 
 import formatToPairs from './formatToPairs';
-import { GetPairsInput, GetPairsOutput, PairAddress } from './types';
+import { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
 
 export * from './types';
 
-const getPairs = async ({
+const getPancakeSwapPairs = async ({
   multicall,
   tokenCombinations,
-}: GetPairsInput): Promise<GetPairsOutput> => {
+}: GetPancakeSwapPairsInput): Promise<GetPancakeSwapPairsOutput> => {
   // Generate pair addresses from token combinations
   const pairAddresses: PairAddress[] = tokenCombinations.reduce((acc, [tokenA, tokenB]) => {
     try {
@@ -53,4 +53,4 @@ const getPairs = async ({
   return { pairs };
 };
 
-export default getPairs;
+export default getPancakeSwapPairs;
