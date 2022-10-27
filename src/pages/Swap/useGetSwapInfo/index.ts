@@ -1,3 +1,11 @@
+import {
+  Currency as PSCurrency,
+  CurrencyAmount as PSCurrencyAmount,
+  Percent as PSPercent,
+  Token as PSToken,
+  Trade as PSTrade,
+  TradeType as PSTradeType,
+} from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 import { Token } from 'types';
@@ -28,65 +36,63 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): Swap | undefined => {
   // TODO: refresh request on every new block
   const { data: getPairsData } = useGetPairs({ tokenCombinations });
 
-  console.log(getPairsData?.pairs);
-
+  // Find the best trade based on pairs
   return useMemo(() => {
-    // TODO: get from fetched swap info or calculate using swap info
-    const exchangeRate = new BigNumber('1.126783');
+    let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
 
-    if (input.direction === 'exactAmountIn' && !!input.fromTokenAmountTokens) {
-      // TODO: get from fetched swap info
-      const expectedToTokenAmountReceivedWei = new BigNumber('190287638578');
-      // Calculate minimum received accepted according to slippage
-      const minimumToTokenAmountReceivedWei = expectedToTokenAmountReceivedWei
-        .multipliedBy(1 - SLIPPAGE_TOLERANCE_PERCENTAGE / 100)
-        .dp(0);
+    if (getPairsData?.pairs && !!input.fromTokenAmountTokens) {
+      const fromTokenAmountWei = convertTokensToWei({
+        value: new BigNumber(input.fromTokenAmountTokens),
+        tokenId: input.fromToken.id,
+      });
 
-      return {
+      const currencyAmountIn = PSCurrencyAmount.fromRawAmount(
+        new PSToken(97, input.fromToken.address, input.fromToken.decimals, input.fromToken.symbol),
+        fromTokenAmountWei.toFixed(),
+      );
+
+      // TODO: handle mainnet
+      const currencyOut = new PSToken(
+        97,
+        input.toToken.address,
+        input.toToken.decimals,
+        input.toToken.symbol,
+      );
+
+      [trade] = PSTrade.bestTradeExactIn(getPairsData?.pairs, currencyAmountIn, currencyOut, {
+        maxHops: 3,
+        maxNumResults: 1,
+      });
+    }
+
+    // TODO: handle bestTradeExactOut case
+
+    if (trade) {
+      // Format trade to swap info
+      const slippagePercent = new PSPercent(`${SLIPPAGE_TOLERANCE_PERCENTAGE * 10}`, 1000);
+
+      const swap: Swap = {
         fromToken: input.fromToken,
         toToken: input.toToken,
-        exchangeRate,
         fromTokenAmountSoldWei: convertTokensToWei({
-          value: new BigNumber(input.fromTokenAmountTokens),
+          value: new BigNumber(trade.inputAmount.toFixed()),
           tokenId: input.fromToken.id,
         }),
-        expectedToTokenAmountReceivedWei,
-        minimumToTokenAmountReceivedWei,
+        expectedToTokenAmountReceivedWei: convertTokensToWei({
+          value: new BigNumber(trade.outputAmount.toFixed()),
+          tokenId: input.fromToken.id,
+        }),
+        minimumToTokenAmountReceivedWei: convertTokensToWei({
+          value: new BigNumber(trade.minimumAmountOut(slippagePercent).toFixed()),
+          tokenId: input.fromToken.id,
+        }),
+        exchangeRate: new BigNumber(trade.executionPrice.toFixed()),
         direction: 'exactAmountIn',
       };
+
+      return swap;
     }
-
-    if (input.direction === 'exactAmountOut' && !!input.toTokenAmountTokens) {
-      // TODO: get from fetched swap info
-      const expectedFromTokenAmountSoldWei = new BigNumber('467312321');
-      // Calculate maximum sold accepted according to slippage
-      const maximumFromTokenAmountSoldWei = expectedFromTokenAmountSoldWei
-        .multipliedBy(1 + SLIPPAGE_TOLERANCE_PERCENTAGE / 100)
-        .dp(0);
-
-      return {
-        fromToken: input.fromToken,
-        toToken: input.toToken,
-        exchangeRate,
-        expectedFromTokenAmountSoldWei,
-        maximumFromTokenAmountSoldWei,
-        toTokenAmountReceivedWei: convertTokensToWei({
-          value: new BigNumber(input.toTokenAmountTokens),
-          tokenId: input.toToken.id,
-        }),
-        direction: 'exactAmountOut',
-      };
-    }
-
-    // Return undefined if a mandatory prop is missing
-    return undefined;
-  }, [
-    input.direction,
-    input.fromToken,
-    input.toToken,
-    input.fromTokenAmountTokens,
-    input.toTokenAmountTokens,
-  ]);
+  }, [getPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
 };
 
 export default useGetSwapInfo;
