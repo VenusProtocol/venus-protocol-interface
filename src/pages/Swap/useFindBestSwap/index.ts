@@ -23,7 +23,6 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
   });
 
   // Fetch pair data
-  // TODO: refresh request on every new block
   const { data: getPairsData } = useGetPairs({ tokenCombinations });
 
   // Find the best trade based on pairs
