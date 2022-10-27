@@ -1,4 +1,5 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
+import config from 'config';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 import { Token } from 'types';
@@ -26,15 +27,22 @@ const useGetTokenCombinations = ({
   toToken,
 }: UseGetTokenCombinationsInput): [PSToken, PSToken][] =>
   useMemo(() => {
-    // TODO: handle mainnet
-    const psFromToken = new PSToken(97, fromToken.address, fromToken.decimals, fromToken.symbol);
-    // TODO: handle mainnet
-    const psToToken = new PSToken(97, fromToken.address, fromToken.decimals, fromToken.symbol);
+    const psFromToken = new PSToken(
+      config.chainId,
+      fromToken.address,
+      fromToken.decimals,
+      fromToken.symbol,
+    );
+    const psToToken = new PSToken(
+      config.chainId,
+      fromToken.address,
+      fromToken.decimals,
+      fromToken.symbol,
+    );
     // Convert tokens to PancakeSwap token instances
     const baseTradeTokens = [
       ...BASE_TRADE_TOKENS.map(
-        // TODO: handle mainnet
-        token => new PSToken(97, token.address, token.decimals, token.symbol),
+        token => new PSToken(config.chainId, token.address, token.decimals, token.symbol),
       ),
       // Add input tokens
       psFromToken,
