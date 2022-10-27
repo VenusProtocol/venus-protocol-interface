@@ -1,31 +1,19 @@
 import {
   Currency as PSCurrency,
   CurrencyAmount as PSCurrencyAmount,
-  Percent as PSPercent,
   Token as PSToken,
   Trade as PSTrade,
   TradeType as PSTradeType,
 } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Token } from 'types';
 import { convertTokensToWei } from 'utilities';
 
 import { useGetPairs } from 'clients/api';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 
-import { Swap, SwapDirection } from '../types';
+import formatToSwap from './formatToSwap';
+import { UseFindBestSwapInput, UseFindBestSwapOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
-
-export interface UseFindBestSwapInput {
-  fromToken: Token;
-  toToken: Token;
-  direction: SwapDirection;
-  fromTokenAmountTokens?: string;
-  toTokenAmountTokens?: string;
-}
-
-export type UseFindBestSwapOutput = Swap | undefined;
 
 const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => {
   // Determine all possible token combination based on input tokens
@@ -108,31 +96,13 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
       });
     }
 
-    if (trade) {
-      // Format trade to swap info
-      const slippagePercent = new PSPercent(`${SLIPPAGE_TOLERANCE_PERCENTAGE * 10}`, 1000);
-
-      const swap: Swap = {
-        fromToken: input.fromToken,
-        toToken: input.toToken,
-        fromTokenAmountSoldWei: convertTokensToWei({
-          value: new BigNumber(trade.inputAmount.toFixed()),
-          tokenId: input.fromToken.id,
-        }),
-        expectedToTokenAmountReceivedWei: convertTokensToWei({
-          value: new BigNumber(trade.outputAmount.toFixed()),
-          tokenId: input.fromToken.id,
-        }),
-        minimumToTokenAmountReceivedWei: convertTokensToWei({
-          value: new BigNumber(trade.minimumAmountOut(slippagePercent).toFixed()),
-          tokenId: input.fromToken.id,
-        }),
-        exchangeRate: new BigNumber(trade.executionPrice.toFixed()),
-        direction: 'exactAmountIn',
-      };
-
-      return swap;
-    }
+    return (
+      trade &&
+      formatToSwap({
+        input,
+        trade,
+      })
+    );
   }, [getPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
 };
 

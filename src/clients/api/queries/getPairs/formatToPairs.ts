@@ -20,15 +20,18 @@ const formatToPairs = ({
       return acc;
     }
 
+    // Sort tokens. Reserves returned from the smart contract are sorted by
+    // token address, so the first reserve value corresponds to the token for
+    // which the address sorts before the other token's address of the pair
+    const [token0, token1] = pairAddress.tokenCombination[0].sortsBefore(
+      pairAddress.tokenCombination[1],
+    )
+      ? [pairAddress.tokenCombination[0], pairAddress.tokenCombination[1]]
+      : [pairAddress.tokenCombination[1], pairAddress.tokenCombination[0]];
+
     const pair = new PSPair(
-      PSCurrencyAmount.fromRawAmount(
-        pairAddress.tokenCombination[0],
-        new BigNumber(reserveCallResult[0].hex).toFixed(),
-      ),
-      PSCurrencyAmount.fromRawAmount(
-        pairAddress.tokenCombination[1],
-        new BigNumber(reserveCallResult[1].hex).toFixed(),
-      ),
+      PSCurrencyAmount.fromRawAmount(token0, new BigNumber(reserveCallResult[0].hex).toFixed()),
+      PSCurrencyAmount.fromRawAmount(token1, new BigNumber(reserveCallResult[1].hex).toFixed()),
     );
 
     return [...acc, pair];

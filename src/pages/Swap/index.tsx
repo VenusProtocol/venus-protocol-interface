@@ -38,9 +38,9 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-  fromToken: getToken('eth'),
+  fromToken: getToken('busd'),
   fromTokenAmountTokens: '',
-  toToken: getToken('usdt'),
+  toToken: getToken('cake'),
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
@@ -63,16 +63,16 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    // Reinitialize form values if swap becomes invalid
-    if (!swapInfo) {
-      setFormValues(currentFormValues => ({
-        ...currentFormValues,
-        fromTokenAmountTokens: '',
-        toTokenAmountTokens: '',
-      }));
-    }
+  // TODO: reinitialize form values if swap becomes invalid
+  // if (!swapInfo) {
+  //   setFormValues(currentFormValues => ({
+  //     ...currentFormValues,
+  //     fromTokenAmountTokens: '',
+  //     toTokenAmountTokens: '',
+  //   }));
+  // }
 
+  useEffect(() => {
     if (swapInfo?.direction === 'exactAmountIn') {
       setFormValues(currentFormValues => ({
         ...currentFormValues,
@@ -98,9 +98,15 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       fromToken: currentFormValues.toToken,
-      fromTokenAmountTokens: currentFormValues.toTokenAmountTokens,
+      fromTokenAmountTokens:
+        currentFormValues.direction === 'exactAmountIn'
+          ? ''
+          : currentFormValues.toTokenAmountTokens,
       toToken: currentFormValues.fromToken,
-      toTokenAmountTokens: currentFormValues.fromTokenAmountTokens,
+      toTokenAmountTokens:
+        currentFormValues.direction === 'exactAmountIn'
+          ? currentFormValues.fromTokenAmountTokens
+          : '',
       direction:
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
     }));
