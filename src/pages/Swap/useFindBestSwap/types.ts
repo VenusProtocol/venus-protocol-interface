@@ -7,7 +7,7 @@ import { Token } from 'types';
 
 import { Swap, SwapDirection } from '../types';
 
-export interface UseGetSwapInfoInput {
+export interface UseFindBestSwapInput {
   fromToken: Token;
   toToken: Token;
   direction: SwapDirection;
@@ -15,10 +15,10 @@ export interface UseGetSwapInfoInput {
   toTokenAmountTokens?: string;
 }
 
-export type UseGetSwapInfoOutput = Swap | undefined;
+export type UseFindBestSwapOutput = Swap | undefined;
 
 export interface FormatToSwapInput {
-  input: UseGetSwapInfoInput;
+  input: UseFindBestSwapInput;
   trade: PSTrade<PSCurrency, PSCurrency, PSTradeType>;
 }
 

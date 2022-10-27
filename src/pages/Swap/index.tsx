@@ -38,9 +38,9 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-  fromToken: getToken('eth'),
+  fromToken: getToken('busd'),
   fromTokenAmountTokens: '',
-  toToken: getToken('usdt'),
+  toToken: getToken('cake'),
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
