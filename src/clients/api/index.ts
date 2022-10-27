@@ -335,6 +335,6 @@ export { default as getProposalEta } from './queries/getProposalEta';
 export * from './queries/getProposalEta';
 export { default as useGetProposalEta } from './queries/getProposalEta/useGetProposalEta';
 
-export { default as getPairs } from './queries/getPairs';
-export * from './queries/getPairs';
-export { default as useGetPairs } from './queries/getPairs/useGetPairs';
+export { default as getPancakeSwapPairs } from './queries/getPancakeSwapPairs';
+export * from './queries/getPancakeSwapPairs';
+export { default as useGetPancakeSwapPairs } from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';
