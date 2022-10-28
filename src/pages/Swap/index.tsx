@@ -252,7 +252,6 @@ const SwapPage: React.FC = () => {
     direction: formValues.direction,
   });
 
-  // TODO: handle BNB (different contract)
   const { data: fromTokenUserBalanceData } = useGetBalanceOf(
     { accountAddress: account?.address || '', tokenId: formValues.fromToken.id },
     {
