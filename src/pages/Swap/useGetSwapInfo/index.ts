@@ -13,10 +13,10 @@ import { convertTokensToWei } from 'utilities';
 import { useGetPancakeSwapPairs } from 'clients/api';
 
 import formatToSwap from './formatToSwap';
-import { UseFindBestSwapInput, UseFindBestSwapOutput } from './types';
+import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
 
-const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => {
+const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   // Determine all possible token combination based on input tokens
   const tokenCombinations = useGetTokenCombinations({
     fromToken: input.fromToken,
@@ -122,4 +122,4 @@ const useFindBestSwap = (input: UseFindBestSwapInput): UseFindBestSwapOutput => 
   }, [getPancakeSwapPairsData?.pairs, input.fromTokenAmountTokens, input.toTokenAmountTokens]);
 };
 
-export default useFindBestSwap;
+export default useGetSwapInfo;
