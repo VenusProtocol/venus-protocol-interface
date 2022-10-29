@@ -10,7 +10,7 @@ import {
 import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Token, VTokenId } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
@@ -95,7 +95,14 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
           <div css={[sharedStyles.getRow({ isLast: true })]}>
             <FormikTokenTextField
               name="amount"
-              token={asset.token}
+              // TODO: pass token prop from asset once refactored
+              token={{
+                id: asset.id,
+                symbol: asset.symbol as Token['symbol'],
+                address: asset.tokenAddress,
+                asset: asset.img,
+                decimals: asset.decimals,
+              }}
               disabled={isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {

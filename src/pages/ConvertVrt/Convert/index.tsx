@@ -24,6 +24,7 @@ import {
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { TOKENS } from 'constants/tokens';
+import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import { VError } from 'errors/VError';

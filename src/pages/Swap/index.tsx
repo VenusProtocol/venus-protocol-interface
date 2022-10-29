@@ -12,7 +12,7 @@ import _values from 'lodash/values';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
+import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
@@ -38,9 +38,9 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-  fromToken: getToken('busd'),
+  fromToken: PANCAKE_SWAP_TOKENS.busd as Token,
   fromTokenAmountTokens: '',
-  toToken: getToken('cake'),
+  toToken: PANCAKE_SWAP_TOKENS.cake as Token,
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
@@ -128,8 +128,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           setFormValues(currentFormValues => ({
             ...currentFormValues,
             fromToken: token,
-            // Invert toTokenId and fromTokenId if selected token ID is equal to
-            // toTokenId
+            // Invert toToken and fromToken if selected token is the same as
+            // toToken
             toToken:
               token.address === formValues.toToken.address
                 ? currentFormValues.fromToken
@@ -160,8 +160,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           setFormValues(currentFormValues => ({
             ...currentFormValues,
             toToken: token,
-            // Invert fromTokenId and toTokenId if selected token ID is equal
-            // to fromTokenId
+            // Invert fromToken and toToken if selected token is the same as
+            // fromToken
             fromToken:
               token.address === formValues.fromToken.address
                 ? currentFormValues.toToken

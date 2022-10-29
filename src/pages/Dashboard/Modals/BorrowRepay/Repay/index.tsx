@@ -13,7 +13,7 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Token, VTokenId } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
@@ -141,7 +141,14 @@ export const RepayForm: React.FC<RepayFormProps> = ({
           <div css={[styles.getRow({ isLast: false })]}>
             <TokenTextField
               name="amount"
-              token={asset.token}
+              // TODO: pass token prop from asset once refactored
+              token={{
+                id: asset.id,
+                symbol: asset.symbol as Token['symbol'],
+                address: asset.tokenAddress,
+                asset: asset.img,
+                decimals: asset.decimals,
+              }}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               disabled={isRepayLoading}

@@ -15,7 +15,7 @@ import TokenList from './TokenList';
 import { useStyles } from './styles';
 
 export interface SelectTokenTextFieldProps
-  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'tokenId'> {
+  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'token'> {
   selectedToken: Token;
   tokens: Token[];
   onChangeSelectedToken: (token: Token) => void;
@@ -52,8 +52,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
     <div className={className}>
       <div css={styles.tokenTextFieldContainer}>
         <TokenTextField
-          // TODO: change type to accept token instead of token ID
-          tokenId={selectedToken.id}
+          token={selectedToken}
           disabled={disabled}
           displayTokenIcon={false}
           value={value}
