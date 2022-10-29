@@ -1,36 +1,31 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { Token } from 'types';
+import { TokenId } from 'types';
+import { getToken } from 'utilities';
 
 import { TypographyVariant } from 'theme/MuiThemeProvider/muiTheme';
 
+import { Icon } from '../Icon';
 import { useStyles } from './styles';
 
 export interface TokenIconProps {
-  token: Token;
   className?: string;
+  tokenId: TokenId;
   variant?: TypographyVariant;
-  showSymbol?: boolean;
 }
 
-export const TokenIcon: React.FC<TokenIconProps> = ({
-  className,
-  token,
-  variant,
-  showSymbol = false,
-}) => {
+export const TokenIcon: React.FC<TokenIconProps> = ({ className, tokenId, variant }) => {
   const styles = useStyles();
+  const { id, symbol } = getToken(tokenId);
 
   return (
     <div className={className} css={styles.container}>
-      <img src={token.asset} css={styles.icon} alt={token.symbol} />
+      <Icon name={id} css={styles.icon} />
 
-      {showSymbol && (
-        <Typography component="span" variant={variant}>
-          {token.symbol}
-        </Typography>
-      )}
+      <Typography component="span" variant={variant}>
+        {symbol}
+      </Typography>
     </div>
   );
 };

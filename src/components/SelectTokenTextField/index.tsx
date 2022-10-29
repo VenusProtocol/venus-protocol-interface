@@ -16,17 +16,17 @@ import { useStyles } from './styles';
 
 export interface SelectTokenTextFieldProps
   extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'tokenId'> {
-  selectedTokenId: TokenId;
-  tokenIds: TokenId[];
-  onChangeSelectedTokenId: (tokenId: TokenId) => void;
+  selectedToken: Token;
+  tokens: Token[];
+  onChangeSelectedToken: (token: Token) => void;
   userTokenBalanceWei?: BigNumber;
 }
 
 export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
-  selectedTokenId,
+  selectedToken,
   disabled,
-  tokenIds,
-  onChangeSelectedTokenId,
+  tokens,
+  onChangeSelectedToken,
   className,
   userTokenBalanceWei,
   value,
@@ -40,19 +40,20 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
   const handleChangeSelectedToken = (newSelectedToken: Token) => {
     setIsTokenListShown(false);
-    onChangeSelectedTokenId(newSelectedTokenId);
+    onChangeSelectedToken(newSelectedToken);
   };
 
   const readableTokenWalletBalance = useConvertWeiToReadableTokenString({
     valueWei: userTokenBalanceWei,
-    token: selectedToken,
+    tokenId: selectedToken.id,
   });
 
   return (
     <div className={className}>
       <div css={styles.tokenTextFieldContainer}>
         <TokenTextField
-          token={selectedToken}
+          // TODO: change type to accept token instead of token ID
+          tokenId={selectedToken.id}
           disabled={disabled}
           displayTokenIcon={false}
           value={value}
@@ -64,7 +65,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 css={styles.getButton({ isTokenListShown })}
                 disabled={disabled}
               >
-                <TokenIcon token={selectedToken} css={styles.token} showSymbol />
+                <TokenIcon tokenId={selectedToken.id} css={styles.token} />
 
                 <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
               </PrimaryButton>
@@ -80,7 +81,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
         <div css={styles.tokenListContainer}>
           {isTokenListShown && (
-            <TokenList tokenIds={tokenIds} onTokenClick={handleChangeSelectedToken} />
+            <TokenList tokens={tokens} onTokenClick={handleChangeSelectedToken} />
           )}
         </div>
       </div>

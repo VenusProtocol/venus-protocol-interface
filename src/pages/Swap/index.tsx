@@ -8,9 +8,10 @@ import {
   SelectTokenTextField,
   TertiaryButton,
 } from 'components';
+import _values from 'lodash/values';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Token, TokenId } from 'types';
+import { Token } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
@@ -22,8 +23,7 @@ import { PANCAKE_SWAP_TOKENS } from './tokenList';
 import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
-// TODO: fix (TokenId type is incorrect) (see https://jira.toolsfdg.net/browse/VEN-712)
-const tokenIds = Object.keys(PANCAKE_SWAP_TOKENS) as TokenId[];
+const tokens = _values(PANCAKE_SWAP_TOKENS) as Token[];
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -128,8 +128,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           setFormValues(currentFormValues => ({
             ...currentFormValues,
             fromToken: token,
-            // Invert toToken and fromToken if selected token is the same as
-            // toToken
+            // Invert toTokenId and fromTokenId if selected token ID is equal to
+            // toTokenId
             toToken:
               token.address === formValues.toToken.address
                 ? currentFormValues.fromToken
@@ -160,8 +160,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           setFormValues(currentFormValues => ({
             ...currentFormValues,
             toToken: token,
-            // Invert fromToken and toToken if selected token is the same as
-            // fromToken
+            // Invert fromTokenId and toTokenId if selected token ID is equal
+            // to fromTokenId
             fromToken:
               token.address === formValues.fromToken.address
                 ? currentFormValues.toToken

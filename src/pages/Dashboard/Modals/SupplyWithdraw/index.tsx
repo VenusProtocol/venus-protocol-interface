@@ -218,7 +218,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
     <Modal
       isOpen={!!assetId}
       handleClose={onClose}
-      title={assetId ? <TokenIcon token={asset.token} variant="h4" showSymbol /> : undefined}
+      title={assetId ? <TokenIcon tokenId={assetId as TokenId} variant="h4" /> : undefined}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>

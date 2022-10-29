@@ -38,6 +38,14 @@ export interface Token {
   decimals: number;
   address: string | '';
   asset: string;
+  vasset?: string; // TODO: remove
+}
+
+export interface VBepToken {
+  id: VTokenId;
+  symbol: `v${Uppercase<VTokenId>}`;
+  address: string | '';
+  decimals: number;
 }
 
 export interface Setting {

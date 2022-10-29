@@ -50,8 +50,8 @@ export const SuppliedTable: React.FC<SuppliedTableUiProps> = ({
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <TokenIcon token={asset.token} showSymbol />,
-      value: asset.token.id,
+      render: () => <TokenIcon tokenId={asset.id} />,
+      value: asset.id,
       align: 'left',
     },
     {

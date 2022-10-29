@@ -68,9 +68,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
       markets.map(market => [
         {
           key: 'asset',
-          render: () => (
-            <TokenIcon token={unsafelyGetToken(market.id)} css={localStyles.whiteText} showSymbol />
-          ),
+          render: () => <TokenIcon tokenId={market.id as TokenId} css={localStyles.whiteText} />,
           value: market.id,
         },
         {
