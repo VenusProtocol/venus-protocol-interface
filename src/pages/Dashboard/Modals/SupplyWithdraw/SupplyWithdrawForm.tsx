@@ -14,7 +14,7 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import {
   calculateCollateralValue,
   calculateDailyEarningsCents,
@@ -142,7 +142,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     <>
       <FormikTokenTextField
         name="amount"
-        tokenId={assetId as TokenId}
+        token={token}
         disabled={isTransactionLoading || isSupplyingLuna}
         rightMaxButton={{
           label: t('supplyWithdraw.max').toUpperCase(),

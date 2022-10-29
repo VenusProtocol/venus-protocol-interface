@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { Token } from 'types';
 
 import { TertiaryButton } from '../Button';
 import { IconName } from '../Icon';
@@ -13,7 +12,7 @@ import { TextField, TextFieldProps } from '../TextField';
 // expressed in wei to make them easier to use with contracts
 export interface TokenTextFieldProps
   extends Omit<TextFieldProps, 'onChange' | 'value' | 'max' | 'min'> {
-  tokenId: TokenId;
+  token: Token;
   value: string;
   onChange: (newValue: string) => void;
   rightMaxButton?: {
@@ -25,7 +24,7 @@ export interface TokenTextFieldProps
 }
 
 export const TokenTextField: React.FC<TokenTextFieldProps> = ({
-  tokenId,
+  token,
   rightMaxButton,
   onChange,
   disabled,
@@ -33,14 +32,12 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
   displayTokenIcon = true,
   ...otherProps
 }) => {
-  const tokenDecimals = getToken(tokenId).decimals;
-
   const step = React.useMemo(() => {
-    const tmpOneTokenInWei = new BigNumber(10).pow(tokenDecimals);
+    const tmpOneTokenInWei = new BigNumber(10).pow(token.decimals);
     const tmpOneWeiInTokens = new BigNumber(1).dividedBy(tmpOneTokenInWei);
 
     return tmpOneWeiInTokens.toFixed();
-  }, [tokenId]);
+  }, [token.decimals]);
 
   const setMaxValue = (newValue: string) => {
     if (onChange) {
@@ -52,7 +49,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
     // Forbid values with more decimals than the token provided supports
     const valueDecimals = value.includes('.') ? value.split('.')[1].length : 0;
 
-    if (valueDecimals <= tokenDecimals) {
+    if (valueDecimals <= token.decimals) {
       onChange(value);
     }
   };
@@ -65,7 +62,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
       step={step}
       onChange={handleChange}
       type="number"
-      leftIconName={displayTokenIcon ? (tokenId as IconName) : undefined}
+      leftIconName={displayTokenIcon ? (token.id as IconName) : undefined}
       rightAdornment={
         rightMaxButton ? (
           <TertiaryButton

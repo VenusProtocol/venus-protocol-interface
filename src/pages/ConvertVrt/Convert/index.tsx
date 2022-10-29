@@ -13,6 +13,7 @@ import {
 import noop from 'noop-ts';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import {
   convertTokensToWei,
   convertWeiToTokens,
@@ -21,6 +22,7 @@ import {
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
+import { TOKENS } from 'constants/tokens';
 import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -170,7 +172,7 @@ const Convert: React.FC<ConvertProps> = ({
                       {t('convertVrt.convertVrt')}
                     </Typography>
                     <FormikTokenTextField
-                      tokenId={VRT_ID}
+                      token={TOKENS.vrt as Token}
                       name="amount"
                       css={styles.input}
                       description={
@@ -201,7 +203,7 @@ const Convert: React.FC<ConvertProps> = ({
                       {t('convertVrt.youWillReceive')}
                     </Typography>
                     <TokenTextField
-                      tokenId={XVS_TOKEN_ID}
+                      token={TOKENS.xvs as Token}
                       name="xvs"
                       css={styles.input}
                       description={t('convertVrt.vrtEqualsXvs', {

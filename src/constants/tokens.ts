@@ -58,6 +58,7 @@ import VBEP_TOKEN_ADDRESSES from './contracts/addresses/vBepTokens.json';
 
 export const VTOKEN_DECIMALS = 8;
 
+// TODO: update to give strict type
 export const TOKENS = config.isOnTestnet
   ? {
       sxp: {
