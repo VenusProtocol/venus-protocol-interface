@@ -1,19 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import React, { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
+import { Token } from 'types';
 
 import { TextField } from '../../TextField';
-import { Token } from '../../Token';
+import { TokenIcon } from '../../TokenIcon';
 import { useStyles as useParentStyles } from '../styles';
 import { useStyles } from './styles';
 
 export interface TokenListProps {
-  tokenIds: TokenId[];
-  onTokenClick: (tokenId: TokenId) => void;
+  tokens: Token[];
+  onTokenClick: (token: Token) => void;
 }
 
-export const TokenList: React.FC<TokenListProps> = ({ tokenIds, onTokenClick }) => {
+export const TokenList: React.FC<TokenListProps> = ({ tokens, onTokenClick }) => {
   const { t } = useTranslation();
   const parentStyles = useParentStyles();
   const styles = useStyles();
@@ -23,22 +23,22 @@ export const TokenList: React.FC<TokenListProps> = ({ tokenIds, onTokenClick }) 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = event =>
     setSearchValue(event.currentTarget.value);
 
-  // Sort token balances alphabetically
-  const sortedTokenIds = useMemo(
-    () => [...tokenIds].sort((a, b) => a.localeCompare(b)) as TokenId[],
-    [JSON.stringify(tokenIds)],
+  // Sort tokens alphabetically by their symbols
+  const sortedTokens = useMemo(
+    () => [...tokens].sort((a, b) => a.symbol.localeCompare(b.symbol)) as Token[],
+    [tokens],
   );
 
-  // Filter token balances based on search
-  const filteredTokenIds = useMemo(() => {
+  // Filter tokens based on search
+  const filteredTokens = useMemo(() => {
     if (!searchValue) {
-      return sortedTokenIds;
+      return sortedTokens;
     }
 
-    return sortedTokenIds.filter(tokenId =>
-      tokenId.toLowerCase().includes(searchValue.toLowerCase()),
+    return sortedTokens.filter(token =>
+      token.symbol.toLowerCase().includes(searchValue.toLowerCase()),
     );
-  }, [JSON.stringify(sortedTokenIds), searchValue]);
+  }, [sortedTokens, searchValue]);
 
   return (
     <div css={styles.container}>
@@ -53,13 +53,14 @@ export const TokenList: React.FC<TokenListProps> = ({ tokenIds, onTokenClick }) 
       />
 
       <div css={styles.list}>
-        {filteredTokenIds.map(tokenId => (
+        {filteredTokens.map(token => (
           <div
             css={styles.item}
-            onClick={() => onTokenClick(tokenId)}
-            key={`select-token-text-field-item-${tokenId}`}
+            onClick={() => onTokenClick(token)}
+            key={`select-token-text-field-item-${token.symbol}`}
           >
-            <Token css={parentStyles.token} tokenId={tokenId} />
+            {/* TODO: update type of TokenIcon to accept a token instead of a token ID */}
+            <TokenIcon css={parentStyles.token} tokenId={token.id} />
           </div>
         ))}
       </div>

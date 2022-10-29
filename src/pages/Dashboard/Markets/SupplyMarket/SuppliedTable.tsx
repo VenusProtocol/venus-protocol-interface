@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { LayeredValues, Table, TableProps, Toggle, Token } from 'components';
+import { LayeredValues, Table, TableProps, Toggle, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -50,7 +50,7 @@ export const SuppliedTable: React.FC<SuppliedTableUiProps> = ({
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <Token tokenId={asset.id} />,
+      render: () => <TokenIcon tokenId={asset.id} />,
       value: asset.id,
       align: 'left',
     },

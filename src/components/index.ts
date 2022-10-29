@@ -36,7 +36,7 @@ export * from './Tabs';
 export * from './TextField';
 export * from './Toast';
 export * from './Toggle';
-export * from './Token';
+export * from './TokenIcon';
 export * from './TokenTextField';
 export * from './Tooltip';
 export * from './ValueUpdate';

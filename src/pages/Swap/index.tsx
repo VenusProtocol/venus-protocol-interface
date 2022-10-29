@@ -8,9 +8,10 @@ import {
   SelectTokenTextField,
   TertiaryButton,
 } from 'components';
+import _values from 'lodash/values';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Token, TokenId } from 'types';
+import { Token } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
@@ -22,8 +23,7 @@ import { PANCAKE_SWAP_TOKENS } from './tokenList';
 import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
-// TODO: fix (TokenId type is incorrect) (see https://jira.toolsfdg.net/browse/VEN-712)
-const tokenIds = Object.keys(PANCAKE_SWAP_TOKENS) as TokenId[];
+const tokens = _values(PANCAKE_SWAP_TOKENS) as Token[];
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -115,7 +115,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     <Paper css={styles.container}>
       <SelectTokenTextField
         label={t('swapPage.fromTokenAmountField.label')}
-        selectedTokenId={formValues.fromToken.id}
+        selectedToken={formValues.fromToken}
         value={formValues.fromTokenAmountTokens}
         onChange={amount =>
           setFormValues(currentFormValues => ({
@@ -124,19 +124,19 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             direction: 'exactAmountIn',
           }))
         }
-        onChangeSelectedTokenId={tokenId =>
+        onChangeSelectedToken={token =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
-            fromToken: getToken(tokenId),
+            fromToken: token,
             // Invert toTokenId and fromTokenId if selected token ID is equal to
             // toTokenId
             toToken:
-              tokenId === formValues.toToken.id
+              token.address === formValues.toToken.address
                 ? currentFormValues.fromToken
                 : currentFormValues.toToken,
           }))
         }
-        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.fromToken.id)}
+        tokens={tokens.filter(token => token.address !== formValues.fromToken.address)}
         userTokenBalanceWei={fromTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />
@@ -147,7 +147,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
       <SelectTokenTextField
         label={t('swapPage.toTokenAmountField.label')}
-        selectedTokenId={formValues.toToken.id}
+        selectedToken={formValues.toToken}
         value={formValues.toTokenAmountTokens}
         onChange={amount =>
           setFormValues(currentFormValues => ({
@@ -156,19 +156,19 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
             direction: 'exactAmountOut',
           }))
         }
-        onChangeSelectedTokenId={tokenId =>
+        onChangeSelectedToken={token =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
-            toToken: getToken(tokenId),
+            toToken: token,
             // Invert fromTokenId and toTokenId if selected token ID is equal
             // to fromTokenId
             fromToken:
-              tokenId === formValues.fromToken.id
+              token.address === formValues.fromToken.address
                 ? currentFormValues.toToken
                 : currentFormValues.fromToken,
           }))
         }
-        tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.toToken.id)}
+        tokens={tokens.filter(token => token.address !== formValues.toToken.address)}
         userTokenBalanceWei={toTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Table, TableProps, Toggle, Token } from 'components';
+import { Table, TableProps, Toggle, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -49,7 +49,7 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <Token tokenId={asset.id} />,
+        render: () => <TokenIcon tokenId={asset.id} />,
         value: asset.id,
         align: 'left',
       },

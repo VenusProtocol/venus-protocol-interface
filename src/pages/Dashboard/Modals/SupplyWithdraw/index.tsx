@@ -9,7 +9,7 @@ import {
   ModalProps,
   TabContent,
   Tabs,
-  Token,
+  TokenIcon,
 } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
@@ -218,7 +218,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
     <Modal
       isOpen={!!assetId}
       handleClose={onClose}
-      title={assetId ? <Token tokenId={assetId as TokenId} variant="h4" /> : undefined}
+      title={assetId ? <TokenIcon tokenId={assetId as TokenId} variant="h4" /> : undefined}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>

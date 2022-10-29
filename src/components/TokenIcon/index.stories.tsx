@@ -3,12 +3,12 @@ import React from 'react';
 
 import { withCenterStory } from 'stories/decorators';
 
-import { Token } from '.';
+import { TokenIcon } from '.';
 
 export default {
-  title: 'Components/Token',
-  component: Token,
+  title: 'Components/TokenIcon',
+  component: TokenIcon,
   decorators: [withCenterStory({ width: 100 })],
-} as ComponentMeta<typeof Token>;
+} as ComponentMeta<typeof TokenIcon>;
 
-export const Default = () => <Token tokenId="xvs" />;
+export const Default = () => <TokenIcon tokenId="xvs" />;
