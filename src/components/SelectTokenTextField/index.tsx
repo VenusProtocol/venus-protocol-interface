@@ -45,7 +45,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
   const readableTokenWalletBalance = useConvertWeiToReadableTokenString({
     valueWei: userTokenBalanceWei,
-    tokenId: selectedToken.id,
+    token: selectedToken,
   });
 
   return (
@@ -64,7 +64,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 css={styles.getButton({ isTokenListShown })}
                 disabled={disabled}
               >
-                <TokenIcon tokenId={selectedToken.id} css={styles.token} />
+                <TokenIcon token={selectedToken} css={styles.token} />
 
                 <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
               </PrimaryButton>

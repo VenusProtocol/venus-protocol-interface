@@ -59,8 +59,7 @@ export const TokenList: React.FC<TokenListProps> = ({ tokens, onTokenClick }) =>
             onClick={() => onTokenClick(token)}
             key={`select-token-text-field-item-${token.symbol}`}
           >
-            {/* TODO: update type of TokenIcon to accept a token instead of a token ID */}
-            <TokenIcon css={parentStyles.token} tokenId={token.id} />
+            <TokenIcon css={parentStyles.token} token={token} />
           </div>
         ))}
       </div>

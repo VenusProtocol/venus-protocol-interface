@@ -5,8 +5,7 @@ import React from 'react';
 import { State } from 'react-powerplug';
 import { Token } from 'types';
 
-import { PANCAKE_SWAP_TOKENS } from '../../pages/Swap/tokenList';
-// eslint-disable-next-line import/order
+import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { SelectTokenTextField } from '.';

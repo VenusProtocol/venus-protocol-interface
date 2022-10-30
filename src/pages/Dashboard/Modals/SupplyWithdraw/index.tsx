@@ -74,7 +74,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
   const { id: assetId, symbol } = asset?.token || {};
   const { t } = useTranslation();
 
-  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
+  const vBepTokenContractAddress = getVBepToken(asset.token.id).address;
 
   const tokenInfo: LabeledInlineContentProps[] = asset
     ? [
@@ -218,7 +218,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
     <Modal
       isOpen={!!assetId}
       handleClose={onClose}
-      title={assetId ? <TokenIcon tokenId={assetId as TokenId} variant="h4" /> : undefined}
+      title={assetId ? <TokenIcon token={asset.token} variant="h4" /> : undefined}
     >
       <Tabs tabsContent={tabsContent} />
     </Modal>
@@ -261,7 +261,9 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
 
   const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
-    const supplyAmountWei = convertTokensToWei({ value: new BigNumber(value), token: asset.token });
+    const supplyAmount = new BigNumber(value).times(
+      new BigNumber(10).pow(asset.token.decimals || 18),
+    );
     const res = await supply({
       amountWei: supplyAmountWei,
     });
@@ -271,7 +273,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
       content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
-        valueWei: supplyAmountWei,
+        valueWei: convertTokensToWei({ value: new BigNumber(value), token: asset.token }),
         token: asset.token,
       },
       transactionHash: res.transactionHash,
@@ -289,11 +291,9 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       ({ transactionHash } = res);
       // Successful transaction modal will display
     } else {
-      const withdrawAmountWei = convertTokensToWei({
-        value: new BigNumber(value),
-        token: asset.token,
-      });
-
+      const withdrawAmount = amount
+        .times(new BigNumber(10).pow(asset.token.decimals))
+        .integerValue();
       const res = await redeemUnderlying({
         amountWei: withdrawAmountWei,
       });

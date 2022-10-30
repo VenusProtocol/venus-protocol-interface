@@ -57,8 +57,8 @@ const BorrowingTable: React.FC<BorrowingUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <TokenIcon tokenId={asset.id} />,
-        value: asset.id,
+        render: () => <TokenIcon token={asset.token} />,
+        value: asset.token.id,
         align: 'left',
       },
       {

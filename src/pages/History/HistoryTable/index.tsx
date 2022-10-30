@@ -4,12 +4,7 @@ import { EllipseAddress, Table, TableProps, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
-import {
-  convertWeiToTokens,
-  generateBscScanUrl,
-  getVTokenByAddress,
-  unsafelyGetToken,
-} from 'utilities';
+import { convertWeiToTokens, generateBscScanUrl, getToken, getVTokenByAddress } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
@@ -77,7 +72,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
     () =>
       transactions.map(txn => {
         const vToken = getVTokenByAddress(txn.vTokenAddress);
-        const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
+        const token = (vToken && getToken(vToken.id)) || TOKENS.xvs;
 
         return [
           {
@@ -91,14 +86,14 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
             render: () => (
               <>
                 <div css={[styles.whiteText, styles.table, styles.typeCol]}>
-                  <TokenIcon token={token} css={styles.icon} />
+                  <TokenIcon token={token} css={styles.icon} showSymbol={false} />
                   <Typography variant="small2" color="textPrimary">
                     {eventTranslationKeys[txn.event]}
                   </Typography>
                 </div>
                 <div css={[styles.cards, styles.cardTitle]}>
                   <div css={styles.typeCol}>
-                    <TokenIcon token={token} css={styles.icon} />
+                    <TokenIcon token={token} css={styles.icon} showSymbol={false} />
                     <Typography variant="small2" color="textPrimary">
                       {txn.event}
                     </Typography>

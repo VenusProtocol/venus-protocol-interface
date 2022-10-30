@@ -4,8 +4,8 @@ import { Token } from 'types';
 import {
   convertPercentageFromSmartContract,
   convertWeiToTokens,
-  unsafelyGetToken,
-  unsafelyGetVToken,
+  getToken,
+  getVBepToken,
 } from 'utilities';
 
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
@@ -22,7 +22,7 @@ const useGetMarketData = ({ vTokenId }: { vTokenId: Token['id'] }) => {
   const assetMarket = (getMarketData?.markets || []).find(market => market.id === vTokenId);
 
   return React.useMemo(() => {
-    const vToken = unsafelyGetVToken(vTokenId);
+    const vToken = getVBepToken(vTokenId);
     const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
     const totalSupplyBalanceCents = assetMarket && +assetMarket.totalSupplyUsd * 100;
     const borrowApyPercentage = assetMarket?.borrowApy;
@@ -91,7 +91,7 @@ const useGetMarketData = ({ vTokenId }: { vTokenId: Token['id'] }) => {
       assetMarket &&
       new BigNumber(1).div(
         new BigNumber(assetMarket.exchangeRate).div(
-          new BigNumber(10).pow(18 + unsafelyGetToken(vTokenId).decimals - vToken.decimals),
+          new BigNumber(10).pow(18 + getToken(vTokenId).decimals - vToken.decimals),
         ),
       );
 

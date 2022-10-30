@@ -58,8 +58,8 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <TokenIcon tokenId={asset.id} />,
-      value: asset.id,
+      render: () => <TokenIcon token={asset.token} />,
+      value: asset.token.id,
       align: 'left',
     },
     {

@@ -6,6 +6,7 @@ import { DISABLED_TOKENS } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   getAllowance,
@@ -101,7 +102,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async token => {
       const customFakeAsset = {
         ...fakeAsset,
-        token,
+        id: tokenId,
       };
 
       const { queryByText } = renderComponent(
@@ -223,7 +224,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        token: TOKENS.bnb,
+        token: TEST_TOKENS.bnb,
         walletBalance: new BigNumber('11'),
       };
 
@@ -281,7 +282,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        token: TOKENS.busd,
+        token: TEST_TOKENS.busd,
         walletBalance: new BigNumber('11'),
       };
 
@@ -410,7 +411,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(asset.token.decimals),
+        new BigNumber(10).pow(fakeAsset.token.decimals),
       );
 
       await waitFor(() =>

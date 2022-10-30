@@ -13,7 +13,7 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token, VTokenId } from 'types';
+import { Asset } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
@@ -141,14 +141,7 @@ export const RepayForm: React.FC<RepayFormProps> = ({
           <div css={[styles.getRow({ isLast: false })]}>
             <TokenTextField
               name="amount"
-              // TODO: pass token prop from asset once refactored
-              token={{
-                id: asset.id,
-                symbol: asset.symbol as Token['symbol'],
-                address: asset.tokenAddress,
-                asset: asset.img,
-                decimals: asset.decimals,
-              }}
+              token={asset.token}
               value={values.amount}
               onChange={amount => setFieldValue('amount', amount, true)}
               disabled={isRepayLoading}
@@ -227,7 +220,7 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
+  const vBepTokenContractAddress = getVBepToken(asset.token.id).address;
 
   const limitTokens = React.useMemo(
     () => BigNumber.min(asset.borrowBalance, asset.walletBalance),

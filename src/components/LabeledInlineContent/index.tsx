@@ -29,7 +29,7 @@ export const LabeledInlineContent = ({
         {typeof iconSrc === 'string' && <Icon name={iconSrc} css={styles.icon} />}
 
         {!!iconSrc && typeof iconSrc !== 'string' && (
-          <TokenIcon token={iconSrc} css={styles.icon} />
+          <TokenIcon token={iconSrc} css={styles.icon} showSymbol={false} />
         )}
 
         <Typography component="span" css={styles.getLabel({ invertTextColors })} variant="body1">

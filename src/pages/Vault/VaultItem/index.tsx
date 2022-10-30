@@ -89,8 +89,8 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
       }),
     });
 
-  const rewardToken = unsafelyGetToken(rewardTokenId);
-  const stakedToken = unsafelyGetToken(stakedTokenId);
+  const rewardToken = getToken(rewardTokenId);
+  const stakedToken = getToken(stakedTokenId);
 
   const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
     valueWei: userPendingRewardWei,
@@ -116,7 +116,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         title: t('vaultItem.dailyEmission'),
         value: (
           <>
-            <TokenIcon css={styles.tokenIcon} token={rewardToken} />
+            <TokenIcon css={styles.tokenIcon} token={rewardToken} showSymbol={false} />
             {convertWeiToTokens({
               valueWei: dailyEmissionWei,
               token: rewardToken,
@@ -131,7 +131,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         title: t('vaultItem.totalStaked'),
         value: (
           <>
-            <TokenIcon css={styles.tokenIcon} token={stakedToken} />
+            <TokenIcon css={styles.tokenIcon} token={stakedToken} showSymbol={false} />
             {convertWeiToTokens({
               valueWei: totalStakedWei,
               token: stakedToken,
@@ -158,7 +158,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
       <Paper css={styles.container} className={className}>
         <div css={styles.header}>
           <div css={styles.title}>
-            <TokenIcon css={styles.tokenIcon} token={stakedToken} />
+            <TokenIcon css={styles.tokenIcon} token={stakedToken} showSymbol={false} />
 
             <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.symbol}>
               {unsafelyGetToken(stakedTokenId).symbol}
@@ -171,7 +171,11 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
                 {t('vaultItem.reward')}
               </Typography>
 
-              <TokenIcon css={[styles.tokenIcon, styles.tokenIconWithdraw]} token={rewardToken} />
+              <TokenIcon
+                css={[styles.tokenIcon, styles.tokenIconWithdraw]}
+                token={rewardToken}
+                showSymbol={false}
+              />
 
               <Typography
                 css={[styles.text, styles.textRewardValue, styles.textSmallMobile]}
@@ -203,7 +207,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           css={styles.textStakingValue}
           data-testid={TEST_IDS.userStakedTokens}
         >
-          <TokenIcon css={[styles.tokenIconLarge]} token={stakedToken} />
+          <TokenIcon css={[styles.tokenIconLarge]} token={stakedToken} showSymbol={false} />
 
           {readableUserStakedTokens}
         </Typography>

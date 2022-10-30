@@ -2,8 +2,8 @@ import { BigNumber } from 'bignumber.js';
 import { useContext, useMemo } from 'react';
 import { convertWeiToTokens } from 'utilities';
 
+import TEST_TOKENS from '__mocks__/models/tokens';
 import { useGetDailyXvs, useGetMarkets } from 'clients/api';
-import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 const useDailyXvsDistributionInterests = () => {
@@ -15,7 +15,8 @@ const useDailyXvsDistributionInterests = () => {
 
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
   const xvsPriceDollars: BigNumber | undefined = useMemo(
-    () => (getMarketsData?.markets || []).find(market => market.id === TOKENS.xvs.id)?.tokenPrice,
+    () =>
+      (getMarketsData?.markets || []).find(market => market.id === TEST_TOKENS.xvs.id)?.tokenPrice,
     [JSON.stringify(getMarketsData?.markets)],
   );
 
@@ -24,7 +25,7 @@ const useDailyXvsDistributionInterests = () => {
       getDailyXvsData &&
       convertWeiToTokens({
         valueWei: getDailyXvsData.dailyXvsWei,
-        token: TOKENS.xvs,
+        token: TEST_TOKENS.xvs,
       });
 
     return {

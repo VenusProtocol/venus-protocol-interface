@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset, Token } from 'types';
+import { Asset, Market, Token } from 'types';
 import {
   calculateCollateralValue,
   convertTokensToWei,
@@ -111,10 +111,12 @@ const useGetUserMarketInfo = ({
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
       totalXvsDistributedWei,
-    } = (getMarketsData?.markets || []).reduce(
-      (acc, market) => {
-        const token = unsafelyGetToken(market.id);
-        const vBepToken = unsafelyGetVToken(token.id);
+    } = Object.values(TOKENS).reduce(
+      (acc, item) => {
+        const { assets: assetAcc } = acc;
+
+        const toDecimalAmount = (mantissa: string) =>
+          new BigNumber(mantissa).shiftedBy(-item.decimals);
 
         // Skip token if it isn't listed
         if (!token || !vBepToken) {
@@ -140,6 +142,14 @@ const useGetUserMarketInfo = ({
           supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
           borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
         }
+
+        const token: Token = {
+          id: item.id,
+          symbol: market?.underlyingSymbol || item.id.toUpperCase(),
+          decimals: item.decimals,
+          address: market?.underlyingAddress || '',
+          asset: item.asset,
+        };
 
         const asset = {
           token,

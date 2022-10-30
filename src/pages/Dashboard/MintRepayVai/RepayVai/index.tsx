@@ -11,7 +11,7 @@ import {
 import { VError } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { Token, TokenId } from 'types';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 

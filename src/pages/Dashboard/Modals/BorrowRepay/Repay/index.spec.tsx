@@ -6,6 +6,7 @@ import { Asset } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, repayNonBnbVToken, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
@@ -303,7 +304,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        token: fakeAsset.token,
+        tokenId: fakeAsset.token.id,
         valueWei: expectedAmountWei,
       },
       content: expect.any(String),
@@ -355,7 +356,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
     const fakeBnbAsset: Asset = {
       ...fakeAsset,
-      token: TOKENS.bnb,
+      token: TEST_TOKENS.bnb,
     };
 
     const { getByText } = renderComponent(

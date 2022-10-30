@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import { FormikSubmitButton, FormikTokenTextField, LabeledInlineContent } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
-import { convertTokensToWei, convertWeiToTokens, getToken } from 'utilities';
+import { Token } from 'types';
+import { convertTokensToWei, convertWeiToTokens } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { AmountForm } from 'containers/AmountForm';
@@ -96,7 +96,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         <>
           <FormikTokenTextField
             name="amount"
-            token={getToken(tokenId)}
+            token={token}
             disabled={isSubmitting}
             rightMaxButton={{
               label: t('vault.transactionForm.rightMaxButtonLabel'),

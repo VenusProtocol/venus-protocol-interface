@@ -138,7 +138,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     <>
       <FormikTokenTextField
         name="amount"
-        token={token}
+        token={asset.token}
         disabled={isTransactionLoading || isSupplyingLuna}
         rightMaxButton={{
           label: t('supplyWithdraw.max').toUpperCase(),

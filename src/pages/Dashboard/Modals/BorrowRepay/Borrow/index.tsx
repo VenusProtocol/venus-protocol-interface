@@ -10,7 +10,7 @@ import {
 import { VError } from 'errors';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { Asset, Token, VTokenId } from 'types';
+import { Asset } from 'types';
 import {
   convertTokensToWei,
   formatToReadablePercentage,
@@ -95,14 +95,7 @@ export const BorrowForm: React.FC<BorrowFormProps> = ({
           <div css={[sharedStyles.getRow({ isLast: true })]}>
             <FormikTokenTextField
               name="amount"
-              // TODO: pass token prop from asset once refactored
-              token={{
-                id: asset.id,
-                symbol: asset.symbol as Token['symbol'],
-                address: asset.tokenAddress,
-                asset: asset.img,
-                decimals: asset.decimals,
-              }}
+              token={asset.token}
               disabled={isBorrowLoading || !hasUserCollateralizedSuppliedAssets}
               rightMaxButton={{
                 label: t('borrowRepayModal.borrow.rightMaxButtonLabel', {
@@ -167,7 +160,7 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const vBepTokenContractAddress = unsafelyGetVToken(asset.token.id).address;
+  const vBepTokenContractAddress = getVBepToken(asset.token.id).address;
 
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
@@ -227,7 +220,7 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
         marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
       : new BigNumber(0);
 
-    const tokenDecimals = unsafelyGetToken(asset.token.id).decimals;
+    const tokenDecimals = getToken(asset.token.id).decimals;
     const formatValue = (value: BigNumber) =>
       value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toFixed();
 

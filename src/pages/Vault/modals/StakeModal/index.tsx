@@ -24,7 +24,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const { account } = useContext(AuthContext);
-  const stakedToken = unsafelyGetToken(stakedTokenId);
+  const stakedToken = getToken(stakedTokenId);
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {

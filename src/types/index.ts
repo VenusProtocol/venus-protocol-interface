@@ -24,7 +24,7 @@ export interface Asset {
   collateral: boolean;
   supplyBalance: BigNumber;
   percentOfLimit: string;
-  // treasuryBalance: BigNumber;
+  treasuryBalance: BigNumber;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;
@@ -32,20 +32,15 @@ export interface Asset {
   xvsPerDay: BigNumber;
 }
 
+export type TokenId = string;
+export type VTokenId = string;
+
 export interface Token {
-  id: string; // TODO: remove (related to https://jira.toolsfdg.net/browse/VEN-723)
-  symbol: Uppercase<string>;
+  id: TokenId; // TODO: remove
+  symbol: Uppercase<TokenId>;
   decimals: number;
   address: string | '';
   asset: string;
-  vasset?: string; // TODO: remove
-}
-
-export interface VBepToken {
-  id: VTokenId;
-  symbol: `v${Uppercase<VTokenId>}`;
-  address: string | '';
-  decimals: number;
 }
 
 export interface Setting {
