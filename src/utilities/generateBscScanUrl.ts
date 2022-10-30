@@ -13,7 +13,7 @@ export const generateBscScanUrl = <T extends UrlType = 'address'>(
 
   let suffix: string = identifier;
   if (safeUrlType === 'token') {
-    suffix = getToken(identifier as TokenId).address;
+    suffix = getToken(identifier).address;
   }
 
   return `${config.bscScanUrl}/${safeUrlType}/${suffix}`;

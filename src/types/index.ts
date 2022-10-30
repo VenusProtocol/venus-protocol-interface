@@ -1,7 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
-
 export enum BscChainId {
   'MAINNET' = 56,
   'TESTNET' = 97,
@@ -12,16 +10,12 @@ export interface User {
 }
 
 export interface Asset {
-  id: TokenId;
+  token: Token;
   tokenPrice: BigNumber;
-  symbol: string;
   borrowBalance: BigNumber;
-  decimals: number;
   walletBalance: BigNumber;
-  vtokenAddress: string;
   borrowApy: BigNumber;
   xvsBorrowApy: BigNumber;
-  img: string;
   borrowCaps: BigNumber;
   liquidity: BigNumber;
   xvsSupplyApy: BigNumber;
@@ -29,12 +23,8 @@ export interface Asset {
   collateralFactor: BigNumber;
   collateral: boolean;
   supplyBalance: BigNumber;
-  key: number;
   percentOfLimit: string;
-  tokenAddress: string;
   treasuryBalance: BigNumber;
-  vimg: string | undefined;
-  vsymbol: string;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;
@@ -42,23 +32,15 @@ export interface Asset {
   xvsPerDay: BigNumber;
 }
 
-export type TokenId = keyof typeof TOKENS;
-export type VTokenId = keyof typeof VBEP_TOKENS;
+export type TokenId = string;
+export type VTokenId = string;
 
 export interface Token {
-  id: TokenId;
+  id: TokenId; // TODO: remove
   symbol: Uppercase<TokenId>;
   decimals: number;
   address: string | '';
   asset: string;
-  vasset?: string; // TODO: remove
-}
-
-export interface VBepToken {
-  id: VTokenId;
-  symbol: `v${Uppercase<VTokenId>}`;
-  address: string | '';
-  decimals: number;
 }
 
 export interface Setting {

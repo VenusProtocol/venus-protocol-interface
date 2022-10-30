@@ -3,7 +3,7 @@ import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { Delimiter } from 'components';
 import React, { useContext } from 'react';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 
 import { TOKENS } from 'constants/tokens';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
@@ -32,14 +32,16 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
   hasLunaOrUstCollateralEnabled,
   openLunaUstWarningModal,
 }) => {
-  const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['id'] | undefined>(undefined);
+  const [selectedAssetId, setSelectedAssetId] = React.useState<Asset['token']['id'] | undefined>(
+    undefined,
+  );
   const styles = useStyles();
 
   const rowOnClick: BorrowMarketTableProps['rowOnClick'] | BorrowingUiProps['rowOnClick'] = (
     _e,
     row,
   ) => {
-    const assetId = row[0].value as TokenId;
+    const assetId = row[0].value as string;
 
     // Block action and show warning modal if user has LUNA or UST enabled as
     // collateral and is attempting to open the borrow modal of other assets
@@ -48,13 +50,13 @@ export const BorrowMarketUi: React.FC<BorrowMarketUiProps> = ({
       return;
     }
 
-    setSelectedAssetId(row[0].value as TokenId);
+    setSelectedAssetId(assetId);
   };
 
   const selectedAsset = React.useMemo(
     () =>
       [...borrowingAssets, ...borrowMarketAssets].find(
-        marketAsset => marketAsset.id === selectedAssetId,
+        marketAsset => marketAsset.token.id === selectedAssetId,
       ),
     [selectedAssetId, JSON.stringify(borrowingAssets), JSON.stringify(borrowMarketAssets)],
   );

@@ -14,6 +14,7 @@ import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { TertiaryButton } from '../../../Button';
 import EllipseAddress from '../../../EllipseAddress';
 import { Icon } from '../../../Icon';
+import { TokenIcon } from '../../../TokenIcon';
 import { menuItems } from '../../constants';
 import BackButton from './BackButton';
 import { useStyles } from './styles';
@@ -40,7 +41,7 @@ const Title: React.FC = () => {
     return (
       <div css={styles.marketDetailsLeftColumn}>
         <BackButton>
-          <Icon name={vTokenId} css={styles.backButtonTokenIcon} />
+          <TokenIcon token={token} css={styles.backButtonTokenIcon} />
           <h3 css={styles.backButtonTokenSymbol}>{token.symbol}</h3>
         </BackButton>
 

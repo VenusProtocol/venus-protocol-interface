@@ -16,10 +16,10 @@ import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
-import { PANCAKE_SWAP_TOKENS } from './tokenList';
 import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
@@ -78,7 +78,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         ...currentFormValues,
         toTokenAmountTokens: convertWeiToTokens({
           valueWei: swapInfo.expectedToTokenAmountReceivedWei,
-          tokenId: swapInfo.toToken.id,
+          token: swapInfo.toToken,
         }).toFixed(),
       }));
     }
@@ -88,7 +88,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         ...currentFormValues,
         fromTokenAmountTokens: convertWeiToTokens({
           valueWei: swapInfo.expectedFromTokenAmountSoldWei,
-          tokenId: swapInfo.fromToken.id,
+          token: swapInfo.fromToken,
         }).toFixed(),
       }));
     }
@@ -203,10 +203,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                 swapInfo.direction === 'exactAmountIn'
                   ? swapInfo.minimumToTokenAmountReceivedWei
                   : swapInfo.maximumFromTokenAmountSoldWei,
-              tokenId:
-                swapInfo.direction === 'exactAmountIn'
-                  ? swapInfo.toToken.id
-                  : swapInfo.fromToken.id,
+              token: swapInfo.direction === 'exactAmountIn' ? swapInfo.toToken : swapInfo.fromToken,
               returnInReadableFormat: true,
             })}
           </LabeledInlineContent>
@@ -221,7 +218,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                   swapInfo.direction === 'exactAmountIn'
                     ? swapInfo.fromTokenAmountSoldWei
                     : swapInfo.maximumFromTokenAmountSoldWei,
-                tokenId: swapInfo.fromToken.id,
+                token: swapInfo.fromToken,
                 returnInReadableFormat: true,
               }),
               toTokenAmount: convertWeiToTokens({
@@ -229,7 +226,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
                   swapInfo.direction === 'exactAmountIn'
                     ? swapInfo.minimumToTokenAmountReceivedWei
                     : swapInfo.toTokenAmountReceivedWei,
-                tokenId: swapInfo.toToken.id,
+                token: swapInfo.toToken,
                 returnInReadableFormat: true,
               }),
             })

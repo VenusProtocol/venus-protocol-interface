@@ -56,7 +56,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
       ) : (
         <>
           <TransactionForm
-            tokenId={stakedTokenId}
+            token={stakedToken}
             availableTokensLabel={t(
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.availableTokensLabel',
               { tokenSymbol: stakedToken.symbol },

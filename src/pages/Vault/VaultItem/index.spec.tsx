@@ -53,7 +53,7 @@ describe('pages/Vault/VaultItem', () => {
   it('hides withdraw button when displaying non-vesting VRT vault and userStakedWei is equal to 0', async () => {
     const customBaseProps: VaultItemProps = {
       ...baseProps,
-      stakedTokenId: TOKENS.vrt.id as TokenId,
+      stakedTokenId: TOKENS.vrt.id,
       userStakedWei: new BigNumber(0),
     };
 
@@ -102,7 +102,7 @@ describe('pages/Vault/VaultItem', () => {
 
     const customBaseProps: VaultItemProps = {
       ...baseProps,
-      stakedTokenId: TOKENS.vrt.id as TokenId,
+      stakedTokenId: TOKENS.vrt.id,
     };
 
     const { getByText } = renderComponent(<VaultItem {...customBaseProps} />, {

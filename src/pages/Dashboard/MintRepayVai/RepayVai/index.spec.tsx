@@ -1,10 +1,12 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { Asset } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   getAllowance,
@@ -30,10 +32,10 @@ const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const fakeUserVaiMintedTokens = fakeUserVaiMintedWei.dividedBy(1e18);
 const formattedFakeUserVaiMinted = formatTokensToReadableValue({
   value: fakeUserVaiMintedTokens,
-  tokenId: 'vai',
+  token: TEST_TOKENS.vai,
 });
 
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
+const fakeVai: Asset = { ...assetData[0], token: TEST_TOKENS.vai };
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
@@ -124,7 +126,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: 'vai',
+        token: TEST_TOKENS.vai,
         valueWei: fakeUserWeiMinted,
       },
       content: expect.any(String),

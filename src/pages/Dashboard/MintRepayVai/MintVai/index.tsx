@@ -23,7 +23,6 @@ import { AuthContext } from 'context/AuthContext';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
-import { VAI_ID } from '../constants';
 import { useStyles } from '../styles';
 import getReadableFeeVai from './getReadableFeeVai';
 
@@ -52,14 +51,15 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   const handleTransactionMutation = useHandleTransactionMutation();
 
   const limitTokens = useMemo(
-    () => (limitWei ? convertWeiToTokens({ valueWei: limitWei, tokenId: VAI_ID }).toFixed() : '0'),
+    () =>
+      limitWei ? convertWeiToTokens({ valueWei: limitWei, token: TOKENS.vai }).toFixed() : '0',
     [limitWei?.toFixed()],
   );
 
   // Convert limit into VAI
   const readableVaiLimit = useConvertWeiToReadableTokenString({
     valueWei: limitWei,
-    tokenId: VAI_ID,
+    token: TOKENS.vai,
   });
 
   const hasMintableVai = limitWei?.isGreaterThan(0) || false;
@@ -82,7 +82,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
   const onSubmit: AmountFormProps['onSubmit'] = amountTokens => {
     const amountWei = convertTokensToWei({
       value: new BigNumber(amountTokens),
-      tokenId: VAI_ID,
+      token: TOKENS.vai,
     });
 
     return handleTransactionMutation({
@@ -92,7 +92,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
         content: t('mintRepayVai.mintVai.successfulTransactionModal.message'),
         amount: {
           valueWei: amountWei,
-          tokenId: 'vai',
+          token: TOKENS.vai,
         },
         transactionHash: transactionReceipt.transactionHash,
       }),
@@ -103,7 +103,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
     <ConnectWallet message={t('mintRepayVai.mintVai.connectWallet')}>
       <EnableToken
         title={t('mintRepayVai.mintVai.enableToken')}
-        vTokenId={VAI_ID}
+        token={TOKENS.vai}
         spenderAddress={vaiUnitrollerContractAddress}
       >
         {isInitialLoading ? (
@@ -127,7 +127,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
                   <LabeledInlineContent
                     css={styles.getRow({ isLast: false })}
-                    iconName={VAI_ID}
+                    iconSrc={TOKENS.vai}
                     label={t('mintRepayVai.mintVai.vaiLimitLabel')}
                   >
                     {readableVaiLimit}
@@ -135,7 +135,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
 
                   <LabeledInlineContent
                     css={styles.getRow({ isLast: true })}
-                    iconName="fee"
+                    iconSrc="fee"
                     label={t('mintRepayVai.mintVai.mintFeeLabel')}
                   >
                     {getReadableMintFee(values.amount)}

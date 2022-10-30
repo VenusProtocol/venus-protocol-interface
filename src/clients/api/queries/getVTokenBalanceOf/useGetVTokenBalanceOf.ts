@@ -21,7 +21,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetVTokenBalanceOf = ({ accountAddress, vTokenId }: TrimmedParams, options?: Options) => {
-  const vTokenContract = useVTokenContract(vTokenId as VTokenId);
+  const vTokenContract = useVTokenContract(vTokenId);
 
   return useQuery(
     [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress, vTokenId }],

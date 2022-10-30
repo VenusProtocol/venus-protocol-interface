@@ -15,7 +15,7 @@ export interface ActionModalProps extends Pick<ModalProps, 'handleClose'>, Trans
 
 const ActionModal: React.FC<ActionModalProps> = ({
   handleClose,
-  tokenId,
+  token,
   spenderAddress,
   isInitialLoading,
   title,
@@ -24,10 +24,10 @@ const ActionModal: React.FC<ActionModalProps> = ({
   enableTokenMessage,
   ...otherTransactionFormProps
 }) => {
-  const transactionFormDom = <TransactionForm tokenId={tokenId} {...otherTransactionFormProps} />;
+  const transactionFormDom = <TransactionForm token={token} {...otherTransactionFormProps} />;
   const content =
     tokenNeedsToBeEnabled && !!enableTokenMessage && !!spenderAddress ? (
-      <EnableToken title={enableTokenMessage} vTokenId={tokenId} spenderAddress={spenderAddress}>
+      <EnableToken title={enableTokenMessage} token={token} spenderAddress={spenderAddress}>
         {transactionFormDom}
       </EnableToken>
     ) : (

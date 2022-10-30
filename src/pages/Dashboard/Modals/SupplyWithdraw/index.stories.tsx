@@ -2,7 +2,6 @@ import { ComponentMeta, Story } from '@storybook/react';
 import { BigNumber } from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
-import { VTokenId } from 'types';
 import { getVBepToken } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
@@ -65,9 +64,9 @@ export const Supply = Template.bind({});
 Supply.decorators = [
   withAuthContext(context),
   withEnabledToken({
-    tokenId: assetData[0].id,
+    tokenId: assetData[0].token.id,
     accountAddress: fakeAddress,
-    spenderAddress: getVBepToken(assetData[0].id as VTokenId).address,
+    spenderAddress: getVBepToken(assetData[0].token.id).address,
   }),
 ];
 Supply.args = {

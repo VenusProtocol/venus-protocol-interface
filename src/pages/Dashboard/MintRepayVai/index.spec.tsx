@@ -4,6 +4,7 @@ import React from 'react';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import TEST_TOKENS from '__mocks__/models/tokens';
 import { useGetUserMarketInfo } from 'clients/api';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -12,7 +13,7 @@ import MintRepayVai from '.';
 
 jest.mock('clients/api');
 
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
+const fakeVai = { ...assetData[0], token: TEST_TOKENS.vai };
 
 describe('pages/Dashboard/MintRepayVai', () => {
   beforeEach(() => {

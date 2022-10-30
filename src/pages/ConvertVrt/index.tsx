@@ -14,7 +14,7 @@ import {
   useGetXvsWithdrawableAmount,
   useWithdrawXvs,
 } from 'clients/api';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import { VError } from 'errors/VError';
 
@@ -116,7 +116,7 @@ const ConvertVrt = () => {
     if (vrtConversionRatioData?.conversionRatio) {
       return convertWeiToTokens({
         valueWei: new BigNumber(vrtConversionRatioData.conversionRatio),
-        tokenId: XVS_TOKEN_ID,
+        token: TOKENS.xvs,
       });
     }
 

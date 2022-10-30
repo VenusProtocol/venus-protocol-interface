@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { TokenId, VTokenId } from 'types';
+import { VTokenId } from 'types';
 import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -189,7 +189,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           : formatTokensToReadableValue({
               value: borrowCapTokens,
               minimizeDecimals: true,
-              tokenId: vTokenId,
+              token: vToken,
             }),
       },
       {
@@ -210,7 +210,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           value: dailyDistributionXvs,
           minimizeDecimals: true,
           addSymbol: false,
-          tokenId: TOKENS.xvs.id as TokenId,
+          token: TOKENS.xvs,
         }),
       },
       {
@@ -218,7 +218,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
         value: formatTokensToReadableValue({
           value: reserveTokens,
           minimizeDecimals: true,
-          tokenId: vTokenId,
+          token: vToken,
         }),
       },
       {
@@ -237,7 +237,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
           value: mintedTokens,
           minimizeDecimals: true,
           addSymbol: false,
-          tokenId: vTokenId,
+          token: vToken,
         }),
       },
       {

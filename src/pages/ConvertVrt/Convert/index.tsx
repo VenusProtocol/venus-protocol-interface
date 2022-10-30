@@ -61,7 +61,7 @@ const Convert: React.FC<ConvertProps> = ({
 
   const readableXvsAvailable = useConvertWeiToReadableTokenString({
     valueWei: xvsToVrtConversionRatio && userVrtBalanceWei?.times(xvsToVrtConversionRatio),
-    tokenId: XVS_TOKEN_ID,
+    token: TOKENS.xvs,
   });
 
   const readableUserVrtBalance = useMemo(() => {
@@ -69,18 +69,18 @@ const Convert: React.FC<ConvertProps> = ({
       userVrtBalanceWei &&
       convertWeiToTokens({
         valueWei: userVrtBalanceWei,
-        tokenId: VRT_ID,
+        token: TOKENS.vrt,
       });
 
     return formatTokensToReadableValue({
       value: userVrtBalanceTokens,
-      tokenId: VRT_ID,
+      token: TOKENS.vrt,
     });
   }, [userVrtBalanceWei?.toFixed()]);
 
   useConvertWeiToReadableTokenString({
     valueWei: userVrtBalanceWei,
-    tokenId: VRT_ID,
+    token: TOKENS.vrt,
   });
 
   const calculateXvsFromVrt = useCallback(
@@ -99,7 +99,10 @@ const Convert: React.FC<ConvertProps> = ({
     }
 
     try {
-      const vrtAmountWei = convertTokensToWei({ value: new BigNumber(vrtAmount), tokenId: VRT_ID });
+      const vrtAmountWei = convertTokensToWei({
+        value: new BigNumber(vrtAmount),
+        token: TOKENS.vrt,
+      });
       const transactionReceipt = await convertVrt(vrtAmountWei.toFixed());
       // Display successful transaction modal
       if (!xvsToVrtConversionRatio) {
@@ -121,7 +124,7 @@ const Convert: React.FC<ConvertProps> = ({
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {convertWeiToTokens({
                 valueWei: vrtAmountWei,
-                tokenId: VRT_ID,
+                token: TOKENS.vrt,
                 returnInReadableFormat: true,
               })}
             </Typography>
@@ -131,7 +134,7 @@ const Convert: React.FC<ConvertProps> = ({
               {xvsAmountWei &&
                 convertWeiToTokens({
                   valueWei: xvsAmountWei,
-                  tokenId: XVS_TOKEN_ID,
+                  token: TOKENS.xvs,
                   returnInReadableFormat: true,
                 })}
             </Typography>
@@ -145,14 +148,14 @@ const Convert: React.FC<ConvertProps> = ({
 
   const userVrtBalance =
     userVrtBalanceWei &&
-    convertWeiToTokens({ valueWei: userVrtBalanceWei, tokenId: VRT_ID }).toFixed();
+    convertWeiToTokens({ valueWei: userVrtBalanceWei, token: TOKENS.vrt }).toFixed();
 
   return (
     <div css={styles.root}>
       <ConnectWallet message={t('convertVrt.connectWalletToConvertVrtToXvs')}>
         <EnableToken
           title={t('convertVrt.enableVrt')}
-          vTokenId={VRT_ID}
+          token={TOKENS.vrt}
           spenderAddress={vrtConverterProxyContractAddress}
         >
           <section css={styles.title}>

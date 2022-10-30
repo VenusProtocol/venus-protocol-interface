@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import { ConnectWallet, LabeledInlineContent, Spinner } from 'components';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { LockedDeposit, TokenId } from 'types';
+import { LockedDeposit } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
@@ -42,13 +42,13 @@ const WithdrawalRequestListUi: React.FC<WithdrawalRequestListUiProps> = ({
               {userLockedDeposits.map(userLockedDeposit => (
                 <LabeledInlineContent
                   css={styles.listItem}
-                  iconName={TOKENS.xvs.id as TokenId}
+                  iconSrc={TOKENS.xvs}
                   data-testid={TEST_IDS.withdrawalRequestListItem}
                   key={`withdrawal-request-list-item-${userLockedDeposit.unlockedAt.getTime()}`}
                   invertTextColors
                   label={convertWeiToTokens({
                     valueWei: userLockedDeposit.amountWei,
-                    tokenId: TOKENS.xvs.id as TokenId,
+                    token: TOKENS.xvs,
                     returnInReadableFormat: true,
                   })}
                 >

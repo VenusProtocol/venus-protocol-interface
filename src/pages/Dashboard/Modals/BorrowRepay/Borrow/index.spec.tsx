@@ -72,7 +72,9 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .dividedBy(100);
     const borrowDeltaTokens = borrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
 
-    await waitFor(() => getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.symbol}`));
+    await waitFor(() =>
+      getByText(`${borrowDeltaTokens.toFixed()} ${customFakeAsset.token.symbol}`),
+    );
   });
 
   it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
@@ -93,7 +95,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     );
 
     await waitFor(() =>
-      getByText(`${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.symbol}`),
+      getByText(`${customFakeAsset.liquidity.toFixed()} ${customFakeAsset.token.symbol}`),
     );
   });
 
@@ -136,7 +138,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       getByText(
         en.borrowRepayModal.borrow.noCollateralizedSuppliedAssetWarning.replace(
           '{{tokenSymbol}}',
-          fakeAsset.symbol,
+          fakeAsset.token.symbol,
         ),
       ),
     ).toBeTruthy();
@@ -168,7 +170,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .dividedBy(customFakeAsset.tokenPrice)
       // Add one token more than the available liquidity
       .plus(1)
-      .dp(customFakeAsset.decimals, BigNumber.ROUND_DOWN)
+      .dp(customFakeAsset.token.decimals, BigNumber.ROUND_DOWN)
       .toFixed();
 
     // Enter amount in input
@@ -208,7 +210,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .dividedBy(fakeAsset.tokenPrice)
       // Add one token more than the maximum
       .plus(1)
-      .dp(fakeAsset.decimals, BigNumber.ROUND_DOWN)
+      .dp(fakeAsset.token.decimals, BigNumber.ROUND_DOWN)
       .toFixed();
 
     // Enter amount in input
@@ -250,7 +252,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
       .minus(fakeUserTotalBorrowBalanceCents)
       .dividedBy(100);
     const safeBorrowDeltaTokens = safeBorrowDeltaDollars.dividedBy(fakeAsset.tokenPrice);
-    const expectedInputValue = safeBorrowDeltaTokens.dp(fakeAsset.decimals).toFixed();
+    const expectedInputValue = safeBorrowDeltaTokens.dp(fakeAsset.token.decimals).toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
@@ -291,7 +293,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     fireEvent.click(getByText(en.borrowRepayModal.borrow.submitButton));
 
     const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.decimals),
+      new BigNumber(10).pow(fakeAsset.token.decimals),
     );
 
     await waitFor(() => expect(borrowVToken).toHaveBeenCalledTimes(1));
@@ -305,7 +307,7 @@ describe('pages/Dashboard/BorrowRepayModal/Borrow', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: fakeAsset.id,
+        token: fakeAsset.token,
         valueWei: expectedAmountWei,
       },
       content: expect.any(String),

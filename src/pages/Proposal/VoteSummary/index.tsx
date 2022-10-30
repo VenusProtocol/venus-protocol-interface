@@ -10,7 +10,7 @@ import { VotersDetails } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import Path from 'constants/path';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
 
@@ -44,7 +44,7 @@ const VoteSummary = ({
     (voteWeightWei: BigNumber) =>
       convertWeiToTokens({
         valueWei: voteWeightWei,
-        tokenId: XVS_TOKEN_ID,
+        token: TOKENS.xvs,
         shortenLargeValue: true,
         addSymbol: false,
         returnInReadableFormat: true,
@@ -100,7 +100,7 @@ const VoteSummary = ({
             <Typography color="text.primary">
               {convertWeiToTokens({
                 valueWei: voteWeightWei,
-                tokenId: XVS_TOKEN_ID,
+                token: TOKENS.xvs,
                 shortenLargeValue: true,
                 addSymbol: false,
                 returnInReadableFormat: true,

@@ -1,8 +1,8 @@
-import { Token, TokenId } from 'types';
+import { Token } from 'types';
 
-import tokenList from 'pages/Swap/tokenList';
+import { TOKENS } from 'constants/tokens';
 
-// TODO: fix (TokenId type is incorrect, tokenList should be imported from a global list) - (see https://jira.toolsfdg.net/browse/VEN-712)
-export const getToken = (id: TokenId) => tokenList[id] as Token;
+// TODO: remove (currently unsafe since it assumes ID passed is always correct
+export const getToken = (id: string) => TOKENS[id as keyof typeof TOKENS] as Token;
 
 export default getToken;

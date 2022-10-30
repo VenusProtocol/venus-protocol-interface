@@ -1,11 +1,12 @@
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   getAllowance,
@@ -100,7 +101,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async tokenId => {
       const customFakeAsset = {
         ...fakeAsset,
-        id: tokenId as TokenId,
+        id: tokenId,
       };
 
       const { queryByText } = renderComponent(
@@ -136,7 +137,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         },
       );
 
-      await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
+      await waitFor(() => getByText(`10,000,000 ${fakeAsset.token.symbol.toUpperCase()}`));
     });
 
     it('displays correct token supply balance', async () => {
@@ -222,9 +223,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        id: 'bnb' as TokenId,
-        symbol: 'BNB',
-        vsymbol: 'vBNB',
+        token: TEST_TOKENS.bnb,
         walletBalance: new BigNumber('11'),
       };
 
@@ -261,7 +260,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(customFakeAsset.decimals),
+        new BigNumber(10).pow(customFakeAsset.token.decimals),
       );
 
       await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
@@ -270,7 +269,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
           transactionHash: fakeTransactionReceipt.transactionHash,
           amount: {
-            tokenId: customFakeAsset.id,
+            token: customFakeAsset.token,
             valueWei: expectedAmountWei,
           },
           content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
@@ -282,9 +281,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        id: 'eth' as TokenId,
-        symbol: 'ETH',
-        vsymbol: 'vETH',
+        token: TEST_TOKENS.busd,
         walletBalance: new BigNumber('11'),
       };
 
@@ -323,7 +320,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(customFakeAsset.decimals),
+        new BigNumber(10).pow(customFakeAsset.token.decimals),
       );
 
       await waitFor(() =>
@@ -334,7 +331,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
           transactionHash: fakeTransactionReceipt.transactionHash,
           amount: {
-            tokenId: customFakeAsset.id,
+            token: customFakeAsset.token,
             valueWei: expectedAmountWei,
           },
           content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
@@ -413,7 +410,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(fakeAsset.decimals),
+        new BigNumber(10).pow(fakeAsset.token.decimals),
       );
 
       await waitFor(() =>

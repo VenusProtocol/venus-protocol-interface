@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { convertWeiToTokens } from 'utilities';
 
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
@@ -22,7 +22,7 @@ const getValueString = (valueWei?: BigNumber) => {
   if (!valueWei) return undefined;
   return convertWeiToTokens({
     valueWei,
-    tokenId: XVS_TOKEN_ID,
+    token: TOKENS.xvs,
     returnInReadableFormat: true,
     minimizeDecimals: true,
   });

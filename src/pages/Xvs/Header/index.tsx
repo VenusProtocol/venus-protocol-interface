@@ -13,6 +13,7 @@ import {
 } from 'utilities';
 
 import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 
@@ -47,19 +48,19 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   const readableDailyDistribution = useMemo(() => {
     const dailyVenusTokens = convertWeiToTokens({
       valueWei: dailyVenusWei,
-      tokenId: 'xvs',
+      token: TOKENS.xvs,
     });
 
     const venusVaiVaultDailyRateTokens = convertWeiToTokens({
       valueWei: venusVaiVaultDailyRateWei,
-      tokenId: 'xvs',
+      token: TOKENS.xvs,
     });
 
     const dailyDistribution = dailyVenusTokens.plus(venusVaiVaultDailyRateTokens);
 
     return formatTokensToReadableValue({
       value: dailyDistribution,
-      tokenId: 'xvs',
+      token: TOKENS.xvs,
       minimizeDecimals: true,
     });
   }, [dailyVenusWei.toFixed(), venusVaiVaultDailyRateWei.toFixed()]);
@@ -68,7 +69,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
     () =>
       convertWeiToTokens({
         valueWei: remainingDistributionWei,
-        tokenId: 'xvs',
+        token: TOKENS.xvs,
         returnInReadableFormat: true,
         minimizeDecimals: true,
       }),

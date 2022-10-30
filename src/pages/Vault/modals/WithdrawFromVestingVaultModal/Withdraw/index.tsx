@@ -45,7 +45,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
 
   const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
     valueWei: withdrawableWei,
-    tokenId: stakedTokenId,
+    token: stakedToken,
     minimizeDecimals: true,
   });
 
@@ -57,7 +57,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
         <>
           <LabeledInlineContent
             css={styles.content}
-            iconName={stakedTokenId}
+            iconSrc={stakedToken}
             data-testid={TEST_IDS.availableTokens}
             label={t('withdrawFromVestingVaultModalModal.withdrawTab.availableTokens', {
               tokenSymbol: stakedToken.symbol,

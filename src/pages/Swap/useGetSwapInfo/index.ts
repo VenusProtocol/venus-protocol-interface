@@ -39,7 +39,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     ) {
       const fromTokenAmountWei = convertTokensToWei({
         value: new BigNumber(input.fromTokenAmountTokens),
-        tokenId: input.fromToken.id,
+        token: input.fromToken,
       });
 
       const currencyAmountIn = PSCurrencyAmount.fromRawAmount(
@@ -87,7 +87,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
 
       const toTokenAmountWei = convertTokensToWei({
         value: new BigNumber(input.toTokenAmountTokens),
-        tokenId: input.toToken.id,
+        token: input.toToken,
       });
 
       const currencyAmountOut = PSCurrencyAmount.fromRawAmount(

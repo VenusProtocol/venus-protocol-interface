@@ -13,7 +13,7 @@ import WithdrawFromVestingVaultModal from '.';
 jest.mock('clients/api');
 
 const fakePoolIndex = 6;
-const fakeStokedTokenId = TOKENS.vai.id as TokenId;
+const fakeStokedTokenId = TOKENS.vai.id;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal', () => {
   it('renders without crashing', async () => {

@@ -30,7 +30,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
     },
   ];
 
-  if (isAssetEnabled(asset.id)) {
+  if (isAssetEnabled(asset.token.id)) {
     tabsContent.unshift({
       title: t('borrowRepayModal.borrowTabTitle'),
       content: (
@@ -42,7 +42,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
   }
 
   return (
-    <Modal isOpen title={<TokenIcon tokenId={asset.id} variant="h4" />} handleClose={onClose}>
+    <Modal isOpen title={<TokenIcon token={asset.token} variant="h4" />} handleClose={onClose}>
       <Tabs tabsContent={tabsContent} />
     </Modal>
   );

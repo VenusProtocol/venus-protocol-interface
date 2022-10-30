@@ -7,6 +7,8 @@ import { useTranslation } from 'translation';
 import { VoteDetailTransaction } from 'types';
 import { convertWeiToTokens, generateBscScanUrl } from 'utilities';
 
+import { TOKENS } from 'constants/tokens';
+
 import { useStyles } from './styles';
 
 interface TransactionsProps {
@@ -111,7 +113,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
             render: () =>
               convertWeiToTokens({
                 valueWei: amountWei,
-                tokenId: 'xvs',
+                token: TOKENS.xvs,
                 minimizeDecimals: true,
                 returnInReadableFormat: true,
               }),

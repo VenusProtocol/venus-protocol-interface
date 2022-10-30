@@ -26,7 +26,7 @@ import TEST_IDS from '../../../TransactionForm/testIds';
 
 jest.mock('clients/api');
 
-const fakeStakedTokenId = TOKENS.vai.id as TokenId;
+const fakeStakedTokenId = TOKENS.vai.id;
 const fakePoolIndex = 6;
 
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/RequestWithdrawal', () => {

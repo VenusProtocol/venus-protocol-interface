@@ -3,12 +3,13 @@ import { Typography } from '@mui/material';
 import { LayeredValues, Table, TableProps, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Market, TokenId } from 'types';
+import { Market } from 'types';
 import {
   convertPercentageFromSmartContract,
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
+  getToken,
 } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
@@ -67,7 +68,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
       markets.map(market => [
         {
           key: 'asset',
-          render: () => <TokenIcon tokenId={market.id as TokenId} css={localStyles.whiteText} />,
+          render: () => <TokenIcon token={getToken(market.id)} css={localStyles.whiteText} />,
           value: market.id,
         },
         {
@@ -80,7 +81,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
               })}
               bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalSupplyCents.div(market.tokenPrice.times(100)),
-                tokenId: market.id as TokenId,
+                token: getToken(market.id),
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}
@@ -111,7 +112,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
               })}
               bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalBorrowsCents.div(market.tokenPrice.times(100)),
-                tokenId: market.id as TokenId,
+                token: getToken(market.id),
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}

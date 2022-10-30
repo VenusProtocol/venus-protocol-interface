@@ -1,17 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { Asset } from 'types';
 
+import TEST_TOKENS from '__mocks__/models/tokens';
+
 export const assetData: Asset[] = [
   {
-    key: 0,
-    id: 'sxp',
-    img: '/static/media/sxp.78951004.png',
-    vimg: '/static/media/vsxp.b4a90bb0.png',
-    symbol: 'SXP',
-    decimals: 18,
-    tokenAddress: '0x47bead2563dcbf3bf2c9407fea4dc236faba485a',
-    vsymbol: 'vSXP',
-    vtokenAddress: '0x2ff3d0f6990a40261c66e1ff2017acbc282eb6d0',
+    token: TEST_TOKENS.sxp,
     supplyApy: new BigNumber('0.05225450324405023'),
     borrowApy: new BigNumber('-2.3062487835658776'),
     xvsSupplyApy: new BigNumber('0.11720675342484096'),
@@ -33,15 +27,7 @@ export const assetData: Asset[] = [
     xvsPerDay: new BigNumber('19999999'),
   },
   {
-    key: 1,
-    id: 'usdc',
-    img: '/static/media/usdc.93c65b88.png',
-    vimg: '/static/media/vusdc.ea4a1e03.png',
-    symbol: 'USDC',
-    decimals: 18,
-    tokenAddress: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
-    vsymbol: 'vUSDC',
-    vtokenAddress: '0xeca88125a5adbe82614ffc12d0db554e2e2867c8',
+    token: TEST_TOKENS.usdc,
     supplyApy: new BigNumber('3.887242555711379188'),
     borrowApy: new BigNumber('-5.361233028654066'),
     xvsSupplyApy: new BigNumber('1.353105649796123742'),
@@ -63,15 +49,7 @@ export const assetData: Asset[] = [
     xvsPerDay: new BigNumber('19999999'),
   },
   {
-    key: 2,
-    id: 'usdt',
-    img: '/static/media/usdt.ad15d58d.png',
-    vimg: '/static/media/vusdt.326a3d1c.png',
-    symbol: 'USDT',
-    decimals: 18,
-    tokenAddress: '0x55d398326f99059ff775485246999027b3197955',
-    vsymbol: 'vUSDT',
-    vtokenAddress: '0xfd5840cd36d94d7229439859c0112a4185bc0255',
+    token: TEST_TOKENS.usdt,
     supplyApy: new BigNumber('3.593608909332766999'),
     borrowApy: new BigNumber('-4.9748661428011145'),
     xvsSupplyApy: new BigNumber('0.421719501189155143'),
@@ -93,15 +71,7 @@ export const assetData: Asset[] = [
     xvsPerDay: new BigNumber('19999999'),
   },
   {
-    key: 3,
-    id: 'busd',
-    img: '/static/media/busd.e164e45f.png',
-    vimg: '/static/media/vbusd.a3f5790b.png',
-    symbol: 'BUSD',
-    decimals: 18,
-    tokenAddress: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
-    vsymbol: 'vBUSD',
-    vtokenAddress: '0x95c78222b3d6e262426483d42cfa53685a67ab9d',
+    token: TEST_TOKENS.busd,
     supplyApy: new BigNumber('2.886396363044176106'),
     borrowApy: new BigNumber('-4.050271277344538'),
     xvsSupplyApy: new BigNumber('0.678420831753642169'),

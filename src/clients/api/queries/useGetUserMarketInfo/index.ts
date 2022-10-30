@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset, Market, TokenId } from 'types';
+import { Asset, Market, Token } from 'types';
 import {
   calculateCollateralValue,
   convertTokensToWei,
@@ -121,7 +121,7 @@ const useGetUserMarketInfo = ({
       userTotalSupplyBalanceCents,
       totalXvsDistributedWei,
     } = Object.values(TOKENS).reduce(
-      (acc, item, index) => {
+      (acc, item) => {
         const { assets: assetAcc } = acc;
 
         const toDecimalAmount = (mantissa: string) =>
@@ -151,16 +151,16 @@ const useGetUserMarketInfo = ({
           borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
         }
 
-        const asset = {
-          key: index,
+        const token: Token = {
           id: item.id,
-          img: item.asset,
-          vimg: item.vasset,
           symbol: market?.underlyingSymbol || item.id.toUpperCase(),
           decimals: item.decimals,
-          tokenAddress: market?.underlyingAddress,
-          vsymbol: market?.symbol,
-          vtokenAddress,
+          address: market?.underlyingAddress || '',
+          asset: item.asset,
+        };
+
+        const asset = {
+          token,
           supplyApy: new BigNumber(market?.supplyApy || 0),
           borrowApy: new BigNumber(market?.borrowApy || 0),
           xvsSupplyApy: new BigNumber(market?.supplyVenusApy || 0),
@@ -199,8 +199,8 @@ const useGetUserMarketInfo = ({
         if (asset.collateral) {
           acc.userTotalBorrowLimitCents = acc.userTotalBorrowLimitCents.plus(
             calculateCollateralValue({
-              amountWei: convertTokensToWei({ value: asset.supplyBalance, tokenId: asset.id }),
-              tokenId: asset.id,
+              amountWei: convertTokensToWei({ value: asset.supplyBalance, token }),
+              token: asset.token,
               tokenPriceTokens: asset.tokenPrice,
               collateralFactor: asset.collateralFactor,
             }).times(100),
@@ -224,7 +224,7 @@ const useGetUserMarketInfo = ({
       userMintedVaiData
         ? convertWeiToTokens({
             valueWei: userMintedVaiData.mintedVaiWei,
-            tokenId: TOKENS.vai.id as TokenId,
+            token: TOKENS.vai as Token,
           })
             // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
             .times(100)

@@ -25,7 +25,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const { account } = useContext(AuthContext);
-  const stakedTokenSymbol = getToken(stakedTokenId).symbol;
+  const stakedToken = getToken(stakedTokenId);
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {
@@ -72,21 +72,21 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   return (
     <ActionModal
-      title={t('stakeModal.title', { tokenSymbol: stakedTokenSymbol })}
-      tokenId={stakedTokenId}
+      title={t('stakeModal.title', { tokenSymbol: stakedToken.symbol })}
+      token={stakedToken}
       handleClose={handleClose}
       availableTokensWei={availableTokensData?.balanceWei || new BigNumber(0)}
       isInitialLoading={isGetWalletBalanceWeiLoading}
       onSubmit={handleStake}
       isSubmitting={isStakeLoading}
       connectWalletMessage={t('stakeModal.connectWalletMessage', {
-        tokenSymbol: stakedTokenSymbol,
+        tokenSymbol: stakedToken.symbol,
       })}
       tokenNeedsToBeEnabled
-      enableTokenMessage={t('stakeModal.enableTokenMessage', { tokenSymbol: stakedTokenSymbol })}
+      enableTokenMessage={t('stakeModal.enableTokenMessage', { tokenSymbol: stakedToken.symbol })}
       spenderAddress={spenderAddress}
       availableTokensLabel={t('stakeModal.availableTokensLabel', {
-        tokenSymbol: stakedTokenSymbol,
+        tokenSymbol: stakedToken.symbol,
       })}
       submitButtonLabel={t('stakeModal.submitButtonLabel')}
       submitButtonDisabledLabel={t('stakeModal.submitButtonDisabledLabel')}

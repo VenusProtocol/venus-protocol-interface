@@ -49,8 +49,8 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <TokenIcon tokenId={asset.id} />,
-        value: asset.id,
+        render: () => <TokenIcon token={asset.token} />,
+        value: asset.token.id,
         align: 'left',
       },
       {
@@ -64,7 +64,7 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
         render: () =>
           formatTokensToReadableValue({
             value: asset.walletBalance,
-            tokenId: asset.id,
+            token: asset.token,
             minimizeDecimals: true,
           }),
         value: asset.walletBalance.toFixed(),

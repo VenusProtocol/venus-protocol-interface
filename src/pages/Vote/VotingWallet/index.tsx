@@ -5,7 +5,6 @@ import { Delimiter, Icon, LinkButton, PrimaryButton, Tooltip } from 'components'
 import React, { useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import {
@@ -15,7 +14,7 @@ import {
   useSetVoteDelegate,
 } from 'clients/api';
 import PATHS from 'constants/path';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
@@ -55,7 +54,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
     () =>
       convertWeiToTokens({
         valueWei: userStakedWei,
-        tokenId: 'xvs',
+        token: TOKENS.xvs,
         returnInReadableFormat: true,
         addSymbol: false,
         minimizeDecimals: true,
@@ -67,7 +66,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
     () =>
       convertWeiToTokens({
         valueWei: votingWeightWei,
-        tokenId: 'xvs',
+        token: TOKENS.xvs,
         returnInReadableFormat: true,
         addSymbol: false,
         minimizeDecimals: true,
@@ -207,7 +206,7 @@ const VotingWallet: React.FC = () => {
 
   const { data: vaults } = useGetVestingVaults({ accountAddress });
 
-  const [xvsVault] = vaults.filter(v => v.stakedTokenId === XVS_TOKEN_ID);
+  const [xvsVault] = vaults.filter(v => v.stakedTokenId === TOKENS.xvs.id);
   const userStakedWei = xvsVault?.userStakedWei || new BigNumber(0);
 
   const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
@@ -220,7 +219,7 @@ const VotingWallet: React.FC = () => {
           content: t('vote.successfulDelegationModal.message'),
           amount: {
             valueWei: userStakedWei,
-            tokenId: XVS_TOKEN_ID as TokenId,
+            token: TOKENS.xvs,
           },
           transactionHash: data.transactionHash,
         });

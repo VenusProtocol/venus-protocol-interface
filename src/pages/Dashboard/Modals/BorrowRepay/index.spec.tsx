@@ -37,7 +37,7 @@ describe('pages/Dashboard/BorrowRepayModal', () => {
   it.each(DISABLED_TOKENS)('does not display borrow tab when asset is %s', async tokenId => {
     const fakeAsset = {
       ...asset,
-      id: tokenId as TokenId,
+      id: tokenId,
     };
 
     const { queryByText } = renderComponent(() => (
