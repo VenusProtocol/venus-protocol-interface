@@ -15,8 +15,8 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  unsafelyGetToken,
-  unsafelyGetVToken,
+  unsafeGetToken,
+  unsafeGetVToken,
 } from 'utilities';
 
 import { useGetVTokenApySimulations } from 'clients/api';
@@ -87,8 +87,8 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const token = unsafelyGetToken(vTokenId);
-  const vToken = unsafelyGetVToken(vTokenId);
+  const token = unsafeGetToken(vTokenId);
+  const vToken = unsafeGetVToken(vTokenId);
 
   const supplyInfoStats: CardProps['stats'] = React.useMemo(
     () => [
@@ -331,7 +331,7 @@ const MarketDetails: React.FC<MarketDetailsProps> = ({
     params: { vTokenId },
   },
 }) => {
-  const vToken = unsafelyGetVToken(vTokenId);
+  const vToken = unsafeGetVToken(vTokenId);
 
   // Redirect to market page if vTokenId passed through route params is invalid
   if (!vToken) {

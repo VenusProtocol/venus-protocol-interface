@@ -2,7 +2,8 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 import React from 'react';
-import { formatToReadablePercentage, unsafelyGetToken } from 'utilities';
+import { TokenId } from 'types';
+import { formatToReadablePercentage, unsafeGetToken } from 'utilities';
 
 import { Icon } from '../Icon';
 import { Toggle } from '../Toggle';
@@ -73,7 +74,7 @@ const createData = (asset: string, apy: number, wallet: number, collateral: bool
       value: asset,
       render: () => (
         <div css={styles.asset}>
-          <img src={unsafelyGetToken(asset).asset} alt={asset} />
+          <img src={unsafeGetToken(asset).asset} alt={asset} />
           <span>{asset.toUpperCase()}</span>
         </div>
       ),

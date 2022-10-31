@@ -4,7 +4,8 @@ import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'com
 import isBefore from 'date-fns/isBefore';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { unsafelyGetToken } from 'utilities';
+import { TokenId } from 'types';
+import { unsafeGetToken } from 'utilities';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -40,7 +41,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
     onSubmitSuccess();
   };
 
-  const stakedToken = unsafelyGetToken(stakedTokenId);
+  const stakedToken = unsafeGetToken(stakedTokenId);
 
   const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
     valueWei: withdrawableWei,

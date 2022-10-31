@@ -3,7 +3,8 @@ import BigNumber from 'bignumber.js';
 import { ConnectWallet, Spinner, TextButton } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { unsafelyGetToken } from 'utilities';
+import { TokenId } from 'types';
+import { unsafeGetToken } from 'utilities';
 
 import {
   useGetXvsVaultLockedDeposits,
@@ -38,7 +39,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   isSubmitting,
   displayWithdrawalRequestList,
 }) => {
-  const stakedToken = unsafelyGetToken(stakedTokenId);
+  const stakedToken = unsafeGetToken(stakedTokenId);
   const { t } = useTranslation();
   const styles = useStyles();
 

@@ -1,6 +1,6 @@
 import { VError } from 'errors';
-import { MarketSnapshot } from 'types';
-import { restService, unsafelyGetVToken } from 'utilities';
+import { MarketSnapshot, VTokenId } from 'types';
+import { restService, unsafeGetVToken } from 'utilities';
 
 export interface GetMarketHistoryResponse {
   limit: number;
@@ -23,7 +23,7 @@ const getMarketHistory = async ({
   limit = 30,
   type = '1day',
 }: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
-  const tokenAddress = unsafelyGetVToken(vTokenId).address;
+  const tokenAddress = unsafeGetVToken(vTokenId).address;
 
   let endpoint = `/market_history/graph?asset=${tokenAddress}&type=${type}`;
   if (limit) {

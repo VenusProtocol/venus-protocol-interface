@@ -6,7 +6,6 @@ import { formatTokensToReadableValue } from 'utilities';
 import vaiUnitrollerResponses from '__mocks__/contracts/vaiUnitroller';
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   getAllowance,
@@ -17,6 +16,7 @@ import {
 } from 'clients/api';
 import formatToGetMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -27,7 +27,7 @@ jest.mock('clients/api');
 jest.mock('components/Toast');
 jest.mock('hooks/useSuccessfulTransactionModal');
 
-const fakeVai = { ...assetData[0], token: TEST_TOKENS.vai };
+const fakeVai = { ...assetData[0], token: TOKENS.vai };
 
 const fakeGetMintableVaiOutput = formatToGetMintableVaiOutput(
   vaiUnitrollerResponses.getMintableVAI,
@@ -36,7 +36,7 @@ const fakeGetMintableVaiOutput = formatToGetMintableVaiOutput(
 const fakeMintableVaiTokens = fakeGetMintableVaiOutput.mintableVaiWei.dividedBy(1e18);
 const formattedFakeMintableVai = formatTokensToReadableValue({
   value: fakeMintableVaiTokens,
-  token: TEST_TOKENS.vai,
+  token: TOKENS.vai,
 });
 const fakeVaiTreasuryPercentage = 7.19;
 
@@ -129,7 +129,7 @@ describe('pages/Dashboard/MintRepayVai/MintVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        token: TEST_TOKENS.vai,
+        token: TOKENS.vai,
         valueWei: fakeWeiMinted,
       },
       content: expect.any(String),

@@ -17,7 +17,7 @@ import {
   convertTokensToWei,
   formatToReadablePercentage,
   isAssetEnabled,
-  unsafelyGetVToken,
+  unsafeGetVToken,
 } from 'utilities';
 
 import {
@@ -74,7 +74,7 @@ export const SupplyWithdrawUi: React.FC<SupplyWithdrawUiProps & SupplyWithdrawPr
   const { id: assetId, symbol } = asset?.token || {};
   const { t } = useTranslation();
 
-  const vBepTokenContractAddress = getVBepToken(asset.token.id).address;
+  const vBepTokenContractAddress = unsafeGetVToken(asset.token.id).address;
 
   const tokenInfo: LabeledInlineContentProps[] = asset
     ? [

@@ -6,8 +6,7 @@ import {
   convertTokensToWei,
   convertWeiToTokens,
   indexBy,
-  unsafelyGetToken,
-  unsafelyGetVToken,
+  unsafeGetVToken,
 } from 'utilities';
 
 import {
@@ -118,8 +117,9 @@ const useGetUserMarketInfo = ({
         const toDecimalAmount = (mantissa: string) =>
           new BigNumber(mantissa).shiftedBy(-item.decimals);
 
-        // Skip token if it isn't listed
-        if (!token || !vBepToken) {
+        const vBepToken = unsafeGetVToken(item.id);
+        // if no corresponding vassets, skip
+        if (!vBepToken) {
           return acc;
         }
 

@@ -18,7 +18,7 @@ import {
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  unsafelyGetVToken,
+  unsafeGetVToken,
 } from 'utilities';
 
 import { useRepayVToken } from 'clients/api';
@@ -220,7 +220,7 @@ const Repay: React.FC<RepayProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const vBepTokenContractAddress = getVBepToken(asset.token.id).address;
+  const vBepTokenContractAddress = unsafeGetVToken(asset.token.id).address;
 
   const limitTokens = React.useMemo(
     () => BigNumber.min(asset.borrowBalance, asset.walletBalance),

@@ -5,7 +5,6 @@ import React from 'react';
 import { BscChainId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import TEST_TOKENS from '__mocks__/models/tokens';
 import { getAllowance } from 'clients/api';
 import TEST_IDS from 'components/Spinner/testIds';
 import mainContractAddresses from 'constants/contracts/addresses/main.json';
@@ -21,7 +20,7 @@ const baseProps: ActionModalProps = {
   title: 'Fake title',
   isInitialLoading: false,
   connectWalletMessage: 'Fake connect wallet message',
-  token: TEST_TOKENS.xvs,
+  token: TOKENS.xvs,
   submitButtonLabel: 'Fake submit button label',
   submitButtonDisabledLabel: 'fake submit button disabled label',
   handleClose: noop,

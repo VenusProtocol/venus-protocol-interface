@@ -2,7 +2,7 @@ import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 import { State } from 'react-powerplug';
 
-import TEST_TOKENS from '__mocks__/models/tokens';
+import { TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { TokenTextField } from '.';
@@ -24,7 +24,7 @@ export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TokenTextField
-        token={TEST_TOKENS.xvs}
+        token={TOKENS.xvs}
         value={state.value}
         onChange={value => setState({ value })}
       />
@@ -36,7 +36,7 @@ export const WithMaxTokens = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TokenTextField
-        token={TEST_TOKENS.xvs}
+        token={TOKENS.xvs}
         value={state.value}
         onChange={value => setState({ value })}
         max="10"
@@ -49,7 +49,7 @@ export const WithRightMaxButtonLabel = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <TokenTextField
-        token={TEST_TOKENS.xvs}
+        token={TOKENS.xvs}
         value={state.value}
         onChange={value => setState({ value })}
         max="10"

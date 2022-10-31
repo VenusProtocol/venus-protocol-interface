@@ -1,6 +1,6 @@
 import config from 'config';
 
-import unsafelyGetToken from './unsafelyGetToken';
+import unsafeGetToken from './unsafeGetToken';
 
 export type UrlType = 'address' | 'token' | 'tx';
 
@@ -12,7 +12,7 @@ export const generateBscScanUrl = <T extends UrlType = 'address'>(
 
   let suffix: string = identifier;
   if (safeUrlType === 'token') {
-    suffix = getToken(identifier).address;
+    suffix = unsafeGetToken(identifier).address;
   }
 
   return `${config.bscScanUrl}/${safeUrlType}/${suffix}`;
