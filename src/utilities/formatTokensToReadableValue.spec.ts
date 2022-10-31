@@ -7,7 +7,7 @@ describe('utilities/formatTokensToReadableValue', () => {
   test('formats longhand value correctly', () => {
     const value = formatTokensToReadableValue({
       value: new BigNumber(100000.12333334),
-      token: TEST_TOKENS.xvs,
+      token: TEST_TOKENS.busd,
     });
     expect(value).toBe('100,000.12333334 BUSD');
   });

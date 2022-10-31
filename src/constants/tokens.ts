@@ -88,6 +88,7 @@ export const PANCAKE_SWAP_TOKENS = {
 };
 
 // TODO: update to give strict type
+// TODO: update asset and remove vasset
 export const TOKENS = config.isOnTestnet
   ? {
       sxp: {

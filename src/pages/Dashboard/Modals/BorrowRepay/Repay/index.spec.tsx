@@ -304,7 +304,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: fakeAsset.token.id,
+        token: fakeAsset.token,
         valueWei: expectedAmountWei,
       },
       content: expect.any(String),

@@ -102,7 +102,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async token => {
       const customFakeAsset = {
         ...fakeAsset,
-        id: tokenId,
+        token,
       };
 
       const { queryByText } = renderComponent(
@@ -411,7 +411,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(fakeAsset.token.decimals),
+        new BigNumber(10).pow(asset.token.decimals),
       );
 
       await waitFor(() =>

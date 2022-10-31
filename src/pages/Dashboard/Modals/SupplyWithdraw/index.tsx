@@ -261,9 +261,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
   const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
 
   const onSubmitSupply: AmountFormProps['onSubmit'] = async value => {
-    const supplyAmount = new BigNumber(value).times(
-      new BigNumber(10).pow(asset.token.decimals || 18),
-    );
+    const supplyAmountWei = convertTokensToWei({ value: new BigNumber(value), token: asset.token });
     const res = await supply({
       amountWei: supplyAmountWei,
     });
@@ -273,7 +271,7 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       title: t('supplyWithdraw.successfulSupplyTransactionModal.title'),
       content: t('supplyWithdraw.successfulSupplyTransactionModal.message'),
       amount: {
-        valueWei: convertTokensToWei({ value: new BigNumber(value), token: asset.token }),
+        valueWei: supplyAmountWei,
         token: asset.token,
       },
       transactionHash: res.transactionHash,
@@ -291,9 +289,11 @@ const SupplyWithdrawModal: React.FC<SupplyWithdrawUiProps> = props => {
       ({ transactionHash } = res);
       // Successful transaction modal will display
     } else {
-      const withdrawAmount = amount
-        .times(new BigNumber(10).pow(asset.token.decimals))
-        .integerValue();
+      const withdrawAmountWei = convertTokensToWei({
+        value: new BigNumber(value),
+        token: asset.token,
+      });
+
       const res = await redeemUnderlying({
         amountWei: withdrawAmountWei,
       });

@@ -9,7 +9,7 @@ const getVTokenByAddress = (address: string) => {
     .filter(key => Object.prototype.hasOwnProperty.call(VBEP_TOKENS, key))
     .forEach(tokenId => {
       const currentToken = VBEP_TOKENS[tokenId as keyof typeof VBEP_TOKENS];
-      if (currentToken?.address === address) {
+      if (currentToken?.address.toLowerCase() === address.toLowerCase()) {
         token = currentToken as Token;
       }
     });
