@@ -42,7 +42,11 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
   }
 
   return (
-    <Modal isOpen title={<TokenIcon token={asset.token} variant="h4" />} handleClose={onClose}>
+    <Modal
+      isOpen
+      title={<TokenIcon token={asset.token} variant="h4" showSymbol />}
+      handleClose={onClose}
+    >
       <Tabs tabsContent={tabsContent} />
     </Modal>
   );

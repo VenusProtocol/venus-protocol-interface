@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { Delimiter, Icon, LinkButton, PrimaryButton, Tooltip } from 'components';
+import { Delimiter, Icon, LinkButton, PrimaryButton, TokenIcon, Tooltip } from 'components';
 import React, { useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'translation';
@@ -110,7 +110,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           </div>
 
           <div css={styles.totalLockedValue}>
-            <Icon name="xvs" css={styles.tokenIcon} />
+            <TokenIcon token={TOKENS.xvs} css={styles.tokenIcon} />
 
             <Typography variant="h3" css={styles.value} data-testid={TEST_IDS.totalLockedValue}>
               {readableXvsLocked}

@@ -49,7 +49,7 @@ export const TokenList: React.FC<TokenListProps> = ({ tokens, onTokenClick }) =>
         value={searchValue}
         onChange={handleSearchInputChange}
         placeholder={t('selectTokenTextField.searchInput.placeholder')}
-        leftIconName="magnifier"
+        leftIconSrc="magnifier"
       />
 
       <div css={styles.list}>
@@ -59,7 +59,7 @@ export const TokenList: React.FC<TokenListProps> = ({ tokens, onTokenClick }) =>
             onClick={() => onTokenClick(token)}
             key={`select-token-text-field-item-${token.symbol}`}
           >
-            <TokenIcon css={parentStyles.token} token={token} />
+            <TokenIcon css={parentStyles.token} token={token} showSymbol />
           </div>
         ))}
       </div>

@@ -18,7 +18,7 @@ export const TokenIcon: React.FC<TokenIconProps> = ({
   className,
   token,
   variant,
-  showSymbol = true, // TODO: default to false
+  showSymbol = false,
 }) => {
   const styles = useStyles();
 

@@ -4,7 +4,7 @@ import Web3 from 'web3';
 import fakeAddress from '__mocks__/models/address';
 import transactionReceipt from '__mocks__/models/transactionReceipt';
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
-import { TOKENS, VBEP_TOKENS } from 'constants/tokens';
+import { VBEP_TOKENS } from 'constants/tokens';
 
 import repayBnb, { REPAYMENT_BNB_BUFFER_PERCENTAGE } from '.';
 
@@ -64,7 +64,7 @@ describe('api/mutation/repayBnb', () => {
       expect(fakeWeb3.eth.sendTransaction).toHaveBeenCalledTimes(1);
       expect(fakeWeb3.eth.sendTransaction).toHaveBeenCalledWith({
         from: fakeAddress,
-        to: TOKENS.bnb.address,
+        to: VBEP_TOKENS.bnb.address,
         value: fakeAmountWei.toFixed(),
         data: fakeEncodedAbi,
       });
@@ -100,8 +100,6 @@ describe('api/mutation/repayBnb', () => {
     });
 
     test('returns transaction receipt when request succeeds', async () => {
-      const VBNB_TOKEN_ADDRESS = VBEP_TOKENS.bnb.address;
-
       const sendMock = jest.fn(async () => transactionReceipt);
       const repayBehalfExplicit = jest.fn(() => ({
         send: sendMock,
@@ -124,7 +122,7 @@ describe('api/mutation/repayBnb', () => {
 
       expect(response).toBe(transactionReceipt);
       expect(repayBehalfExplicit).toHaveBeenCalledTimes(1);
-      expect(repayBehalfExplicit).toHaveBeenCalledWith(fakeAddress, VBNB_TOKEN_ADDRESS);
+      expect(repayBehalfExplicit).toHaveBeenCalledWith(fakeAddress, VBEP_TOKENS.bnb.address);
       expect(sendMock).toHaveBeenCalledTimes(1);
       expect(sendMock).toHaveBeenCalledWith({
         from: fakeAddress,

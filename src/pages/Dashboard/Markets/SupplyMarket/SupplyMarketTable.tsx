@@ -49,7 +49,7 @@ export const SupplyMarketTable: React.FC<SupplyMarketTableUiProps> = ({
     return [
       {
         key: 'asset',
-        render: () => <TokenIcon token={asset.token} />,
+        render: () => <TokenIcon token={asset.token} showSymbol />,
         value: asset.token.id,
         align: 'left',
       },

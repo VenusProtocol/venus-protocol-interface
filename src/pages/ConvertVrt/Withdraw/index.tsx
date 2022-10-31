@@ -52,7 +52,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
         transactionHash: transactionReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
-            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} showSymbol={false} />
+            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} />
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {readableXvsAvailable}
             </Typography>

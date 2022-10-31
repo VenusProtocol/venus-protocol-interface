@@ -117,7 +117,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         title: t('vaultItem.dailyEmission'),
         value: (
           <>
-            <TokenIcon css={styles.tokenIcon} token={rewardToken} showSymbol={false} />
+            <TokenIcon css={styles.tokenIcon} token={rewardToken} />
             {convertWeiToTokens({
               valueWei: dailyEmissionWei,
               token: rewardToken,
@@ -132,7 +132,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         title: t('vaultItem.totalStaked'),
         value: (
           <>
-            <TokenIcon css={styles.tokenIcon} token={stakedToken} showSymbol={false} />
+            <TokenIcon css={styles.tokenIcon} token={stakedToken} />
             {convertWeiToTokens({
               valueWei: totalStakedWei,
               token: stakedToken,
@@ -159,7 +159,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
       <Paper css={styles.container} className={className}>
         <div css={styles.header}>
           <div css={styles.title}>
-            <TokenIcon css={styles.tokenIcon} token={stakedToken} showSymbol={false} />
+            <TokenIcon css={styles.tokenIcon} token={stakedToken} />
 
             <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.symbol}>
               {unsafeGetToken(stakedTokenId).symbol}
@@ -172,11 +172,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
                 {t('vaultItem.reward')}
               </Typography>
 
-              <TokenIcon
-                css={[styles.tokenIcon, styles.tokenIconWithdraw]}
-                token={rewardToken}
-                showSymbol={false}
-              />
+              <TokenIcon css={[styles.tokenIcon, styles.tokenIconWithdraw]} token={rewardToken} />
 
               <Typography
                 css={[styles.text, styles.textRewardValue, styles.textSmallMobile]}
@@ -208,7 +204,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           css={styles.textStakingValue}
           data-testid={TEST_IDS.userStakedTokens}
         >
-          <TokenIcon css={[styles.tokenIconLarge]} token={stakedToken} showSymbol={false} />
+          <TokenIcon css={[styles.tokenIconLarge]} token={stakedToken} />
 
           {readableUserStakedTokens}
         </Typography>

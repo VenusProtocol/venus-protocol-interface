@@ -91,14 +91,14 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
             render: () => (
               <>
                 <div css={[styles.whiteText, styles.table, styles.typeCol]}>
-                  <TokenIcon token={token} css={styles.icon} showSymbol={false} />
+                  <TokenIcon token={token} css={styles.icon} />
                   <Typography variant="small2" color="textPrimary">
                     {eventTranslationKeys[txn.event]}
                   </Typography>
                 </div>
                 <div css={[styles.cards, styles.cardTitle]}>
                   <div css={styles.typeCol}>
-                    <TokenIcon token={token} css={styles.icon} showSymbol={false} />
+                    <TokenIcon token={token} css={styles.icon} />
                     <Typography variant="small2" color="textPrimary">
                       {txn.event}
                     </Typography>

@@ -24,33 +24,8 @@ import tusd from 'assets/img/tokens/tusd.png';
 import usdc from 'assets/img/tokens/usdc.png';
 import usdt from 'assets/img/tokens/usdt.png';
 import ust from 'assets/img/tokens/ust.png';
-import vaave from 'assets/img/tokens/vaave.png';
-import vada from 'assets/img/tokens/vada.png';
 import vai from 'assets/img/tokens/vai.svg';
-import vbch from 'assets/img/tokens/vbch.png';
-import vbeth from 'assets/img/tokens/vbeth.png';
-import vbnb from 'assets/img/tokens/vbnb.png';
-import vbtc from 'assets/img/tokens/vbtc.png';
-import vbusd from 'assets/img/tokens/vbusd.png';
-import vcake from 'assets/img/tokens/vcake.png';
-import vdai from 'assets/img/tokens/vdai.png';
-import vdoge from 'assets/img/tokens/vdoge.png';
-import vdot from 'assets/img/tokens/vdot.png';
-import veth from 'assets/img/tokens/veth.png';
-import vfil from 'assets/img/tokens/vfil.png';
-import vlink from 'assets/img/tokens/vlink.png';
-import vltc from 'assets/img/tokens/vltc.png';
-import vluna from 'assets/img/tokens/vluna.png';
-import vmatic from 'assets/img/tokens/vmatic.png';
 import vrt from 'assets/img/tokens/vrt.svg';
-import vsxp from 'assets/img/tokens/vsxp.png';
-import vtrx from 'assets/img/tokens/vtrx.png';
-import vtusd from 'assets/img/tokens/vtusd.png';
-import vusdc from 'assets/img/tokens/vusdc.png';
-import vusdt from 'assets/img/tokens/vusdt.png';
-import vust from 'assets/img/tokens/vust.png';
-import vxrp from 'assets/img/tokens/vxrp.png';
-import vxvs from 'assets/img/tokens/vxvs.png';
 import xrp from 'assets/img/tokens/xrp.png';
 import xvs from 'assets/img/tokens/xvs.svg';
 
@@ -87,8 +62,6 @@ export const PANCAKE_SWAP_TOKENS = {
   // TODO: add other tokens
 };
 
-// TODO: update to give strict type
-// TODO: update asset and remove vasset
 export const TOKENS = config.isOnTestnet
   ? {
       sxp: {
@@ -97,7 +70,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.sxp[97],
         asset: sxp,
-        vasset: vsxp,
       } as Token,
       usdc: {
         id: 'usdc',
@@ -105,7 +77,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 6,
         address: TOKEN_ADDRESSES.usdc[97],
         asset: usdc,
-        vasset: vusdc,
       } as Token,
       usdt: {
         id: 'usdt',
@@ -113,7 +84,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 6,
         address: TOKEN_ADDRESSES.usdt[97],
         asset: usdt,
-        vasset: vusdt,
       } as Token,
       busd: {
         id: 'busd',
@@ -121,7 +91,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.busd[97],
         asset: busd,
-        vasset: vbusd,
       } as Token,
       bnb: {
         id: 'bnb',
@@ -129,7 +98,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.bnb[97],
         asset: bnb,
-        vasset: vbnb,
       } as Token,
       xvs: {
         id: 'xvs',
@@ -137,7 +105,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.xvs[97],
         asset: xvs,
-        vasset: vxvs,
       } as Token,
       btcb: {
         id: 'btcb',
@@ -145,7 +112,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.btcb[97],
         asset: btc,
-        vasset: vbtc,
       } as Token,
       eth: {
         id: 'eth',
@@ -153,7 +119,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.eth[97],
         asset: eth,
-        vasset: veth,
       } as Token,
       ltc: {
         id: 'ltc',
@@ -161,7 +126,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.ltc[97],
         asset: ltc,
-        vasset: vltc,
       } as Token,
       xrp: {
         id: 'xrp',
@@ -169,7 +133,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.xrp[97],
         asset: xrp,
-        vasset: vxrp,
       } as Token,
       ada: {
         id: 'ada',
@@ -177,7 +140,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.ada[97],
         asset: ada,
-        vasset: vada,
       } as Token,
       doge: {
         id: 'doge',
@@ -185,7 +147,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 8,
         address: TOKEN_ADDRESSES.doge[97],
         asset: doge,
-        vasset: vdoge,
       } as Token,
       matic: {
         id: 'matic',
@@ -193,7 +154,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.matic[97],
         asset: matic,
-        vasset: vmatic,
       } as Token,
       cake: {
         id: 'cake',
@@ -201,7 +161,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.cake[97],
         asset: cake,
-        vasset: vcake,
       } as Token,
       aave: {
         id: 'aave',
@@ -209,7 +168,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.aave[97],
         asset: aave,
-        vasset: vaave,
       } as Token,
       tusd: {
         id: 'tusd',
@@ -217,7 +175,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.tusd[97],
         asset: tusd,
-        vasset: vtusd,
       } as Token,
       trx: {
         id: 'trx',
@@ -225,7 +182,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.trx[97],
         asset: trx,
-        vasset: vtrx,
       } as Token,
       ust: {
         id: 'ust',
@@ -233,7 +189,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.ust[97],
         asset: ust,
-        vasset: vust,
       } as Token,
       luna: {
         id: 'luna',
@@ -241,7 +196,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 6,
         address: TOKEN_ADDRESSES.luna[97],
         asset: luna,
-        vasset: vluna,
       } as Token,
       vai: {
         id: 'vai',
@@ -265,7 +219,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.sxp[56],
         asset: sxp,
-        vasset: vsxp,
       } as Token,
       usdc: {
         id: 'usdc',
@@ -273,7 +226,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.usdc[56],
         asset: usdc,
-        vasset: vusdc,
       } as Token,
       usdt: {
         id: 'usdt',
@@ -281,7 +233,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.usdt[56],
         asset: usdt,
-        vasset: vusdt,
       } as Token,
       busd: {
         id: 'busd',
@@ -289,7 +240,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.busd[56],
         asset: busd,
-        vasset: vbusd,
       } as Token,
       bnb: {
         id: 'bnb',
@@ -297,7 +247,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: '',
         asset: bnb,
-        vasset: vbnb,
       } as Token,
       xvs: {
         id: 'xvs',
@@ -305,7 +254,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.xvs[56],
         asset: xvs,
-        vasset: vxvs,
       } as Token,
       btcb: {
         id: 'btcb',
@@ -313,7 +261,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.btcb[56],
         asset: btc,
-        vasset: vbtc,
       } as Token,
       eth: {
         id: 'eth',
@@ -321,7 +268,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.eth[56],
         asset: eth,
-        vasset: veth,
       } as Token,
       ltc: {
         id: 'ltc',
@@ -329,7 +275,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.ltc[56],
         asset: ltc,
-        vasset: vltc,
       } as Token,
       xrp: {
         id: 'xrp',
@@ -337,7 +282,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.xrp[56],
         asset: xrp,
-        vasset: vxrp,
       } as Token,
       bch: {
         id: 'bch',
@@ -345,7 +289,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.bch[56],
         asset: bch,
-        vasset: vbch,
       } as Token,
       dot: {
         id: 'dot',
@@ -353,7 +296,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.dot[56],
         asset: dot,
-        vasset: vdot,
       } as Token,
       link: {
         id: 'link',
@@ -361,7 +303,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.link[56],
         asset: link,
-        vasset: vlink,
       } as Token,
       dai: {
         id: 'dai',
@@ -369,7 +310,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.dai[56],
         asset: dai,
-        vasset: vdai,
       } as Token,
       fil: {
         id: 'fil',
@@ -377,7 +317,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.fil[56],
         asset: fil,
-        vasset: vfil,
       } as Token,
       beth: {
         id: 'beth',
@@ -385,7 +324,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.beth[56],
         asset: beth,
-        vasset: vbeth,
       } as Token,
       ada: {
         id: 'ada',
@@ -393,7 +331,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.ada[56],
         asset: ada,
-        vasset: vada,
       } as Token,
       doge: {
         id: 'doge',
@@ -401,7 +338,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 8,
         address: TOKEN_ADDRESSES.doge[56],
         asset: doge,
-        vasset: vdoge,
       } as Token,
       matic: {
         id: 'matic',
@@ -409,7 +345,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.matic[56],
         asset: matic,
-        vasset: vmatic,
       } as Token,
       cake: {
         id: 'cake',
@@ -417,7 +352,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.cake[56],
         asset: cake,
-        vasset: vcake,
       } as Token,
       aave: {
         id: 'aave',
@@ -425,7 +359,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.aave[56],
         asset: aave,
-        vasset: vaave,
       } as Token,
       tusd: {
         id: 'tusd',
@@ -433,7 +366,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.tusd[56],
         asset: tusd,
-        vasset: vtusd,
       } as Token,
       trx: {
         id: 'trx',
@@ -441,7 +373,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 18,
         address: TOKEN_ADDRESSES.trx[56],
         asset: trx,
-        vasset: vtrx,
       } as Token,
       vai: {
         id: 'vai',
@@ -463,7 +394,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 6,
         address: TOKEN_ADDRESSES.ust[56],
         asset: ust,
-        vasset: vust,
       } as Token,
       luna: {
         id: 'luna',
@@ -471,7 +401,6 @@ export const TOKENS = config.isOnTestnet
         decimals: 6,
         address: TOKEN_ADDRESSES.luna[56],
         asset: luna,
-        vasset: vluna,
       } as Token,
     };
 

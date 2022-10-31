@@ -4,7 +4,6 @@ import React from 'react';
 import { Token } from 'types';
 
 import { TertiaryButton } from '../Button';
-import { IconName } from '../Icon';
 import { TextField, TextFieldProps } from '../TextField';
 
 // Note: although we display all the values in tokens (equivalent of ether for
@@ -62,7 +61,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
       step={step}
       onChange={handleChange}
       type="number"
-      leftIconName={displayTokenIcon ? (token.id as IconName) : undefined}
+      leftIconSrc={displayTokenIcon ? token : undefined}
       rightAdornment={
         rightMaxButton ? (
           <TertiaryButton

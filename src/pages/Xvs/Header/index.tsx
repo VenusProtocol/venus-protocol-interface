@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { EllipseAddress, Icon, LabeledProgressBar } from 'components';
+import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import {
@@ -83,7 +83,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
     <Paper className={className} css={styles.headerRoot}>
       <div css={styles.addressContainer}>
         <div css={styles.xvsIconContainer}>
-          <Icon name="xvs" size={styles.iconSize} />
+          <TokenIcon token={TOKENS.xvs} css={styles.icon} />
         </div>
 
         <Typography

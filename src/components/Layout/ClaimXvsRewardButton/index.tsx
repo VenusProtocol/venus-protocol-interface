@@ -13,11 +13,9 @@ import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTok
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { ButtonProps, SecondaryButton } from '../../Button';
-import { Icon } from '../../Icon';
+import { TokenIcon } from '../../TokenIcon';
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
-
-const XVS_SYMBOL = 'xvs';
 
 export interface ClaimXvsRewardButtonProps extends Omit<ButtonProps, 'onClick'> {
   onClaimReward: () => Promise<TransactionReceipt | void>;
@@ -69,7 +67,7 @@ export const ClaimXvsRewardButtonUi: React.FC<ClaimXvsRewardButtonProps> = ({
       <Trans
         i18nKey="claimXvsRewardButton.title"
         components={{
-          Icon: <Icon css={styles.icon} name={XVS_SYMBOL} />,
+          Icon: <TokenIcon token={TOKENS.xvs} css={styles.icon} />,
         }}
         values={{
           amount: readableAmount,

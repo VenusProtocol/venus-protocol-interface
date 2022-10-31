@@ -30,7 +30,6 @@ import { VError } from 'errors/VError';
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
-import { VRT_DECIMAL, VRT_ID } from '../constants';
 import { useStyles } from '../styles';
 import TEST_IDS from './testIds';
 
@@ -120,7 +119,8 @@ const Convert: React.FC<ConvertProps> = ({
         transactionHash: transactionReceipt.transactionHash,
         content: (
           <div css={styles.successModalConversionAmounts}>
-            <Icon name={VRT_ID} css={styles.successModalToken} />
+            <TokenIcon token={TOKENS.vrt} css={styles.successModalToken} />
+
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {convertWeiToTokens({
                 valueWei: vrtAmountWei,
@@ -130,7 +130,7 @@ const Convert: React.FC<ConvertProps> = ({
             </Typography>
             <Icon name="arrowShaft" css={styles.successModalArrow} />
 
-            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} showSymbol={false} />
+            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} />
 
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {xvsAmountWei &&
@@ -168,7 +168,7 @@ const Convert: React.FC<ConvertProps> = ({
           <AmountForm onSubmit={onSubmit} maxAmount={userVrtBalance} css={styles.form}>
             {({ values }) => {
               const xvsValue = calculateXvsFromVrt(new BigNumber(values.amount))
-                ?.dp(VRT_DECIMAL)
+                ?.dp(TOKENS.vrt.decimals)
                 .toFixed();
               return (
                 <>

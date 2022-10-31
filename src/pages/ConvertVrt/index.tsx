@@ -20,7 +20,6 @@ import { VError } from 'errors/VError';
 
 import Convert, { ConvertProps } from './Convert';
 import Withdraw, { WithdrawProps } from './Withdraw';
-import { VRT_ID } from './constants';
 import { useStyles } from './styles';
 
 export type ConvertVrtUiProps = ConvertProps & WithdrawProps;
@@ -78,7 +77,7 @@ const ConvertVrt = () => {
   const { data: vrtConversionEndTimeData } = useGetVrtConversionEndTime();
   const { data: vrtConversionRatioData } = useGetVrtConversionRatio();
   const { data: userVrtBalanceData } = useGetBalanceOf(
-    { accountAddress: accountAddress || '', tokenId: VRT_ID },
+    { accountAddress: accountAddress || '', tokenId: TOKENS.vrt.id },
     { enabled: !!accountAddress },
   );
 
