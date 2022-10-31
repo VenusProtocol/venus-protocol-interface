@@ -200,6 +200,10 @@ export const useGetProposalState = () => useQuery(FunctionKey.GET_PROPOSAL_STATE
 export const getProposalEta = jest.fn();
 export const useGetProposalEta = () => useQuery(FunctionKey.GET_PROPOSAL_ETA, getProposalEta);
 
+export const getPancakeSwapPairs = jest.fn();
+export const useGetPancakeSwapPairs = () =>
+  useQuery(FunctionKey.GET_PANCAKE_SWAP_PAIRS, getPancakeSwapPairs);
+
 // Mutations
 export const approveToken = jest.fn();
 export const useApproveToken = (options?: MutationObserverOptions) =>
