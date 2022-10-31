@@ -3,9 +3,9 @@ import {
   Trade as PSTrade,
   TradeType as PSTradeType,
 } from '@pancakeswap/sdk/dist/index.js';
-import { Swap, SwapDirection, Token } from 'types';
+import { Token } from 'types';
 
-export type SwapError = 'INSUFFICIENT_LIQUIDITY' | 'WRAPPING_UNWRAPPING_UNSUPPORTED';
+import { Swap, SwapDirection } from '../types';
 
 export interface UseGetSwapInfoInput {
   fromToken: Token;
@@ -15,10 +15,7 @@ export interface UseGetSwapInfoInput {
   toTokenAmountTokens?: string;
 }
 
-export interface UseGetSwapInfoOutput {
-  swap: Swap | undefined;
-  error: SwapError | undefined;
-}
+export type UseGetSwapInfoOutput = Swap | undefined;
 
 export interface FormatToSwapInput {
   input: UseGetSwapInfoInput;

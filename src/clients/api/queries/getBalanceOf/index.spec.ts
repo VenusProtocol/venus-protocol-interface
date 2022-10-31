@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { TokenId } from 'types';
 import Web3 from 'web3';
 
 import { getTokenContract } from 'clients/contracts';
@@ -24,7 +25,7 @@ describe('api/queries/getBalanceOf', () => {
             },
           }),
         },
-      } as unknown as TokenContract<string>;
+      } as unknown as TokenContract<TokenId>;
 
       (getTokenContract as jest.Mock).mockImplementationOnce(() => fakeContract);
 
@@ -32,7 +33,7 @@ describe('api/queries/getBalanceOf', () => {
         await getBalanceOf({
           web3: fakeWeb3,
           accountAddress: fakeAccountAddress,
-          token: TOKENS.xvs,
+          tokenId: TOKENS.xvs.id as TokenId,
         });
 
         throw new Error('getBalanceOf should have thrown an error but did not');
@@ -53,14 +54,14 @@ describe('api/queries/getBalanceOf', () => {
         methods: {
           balanceOf: balanceOfMock,
         },
-      } as unknown as TokenContract<string>;
+      } as unknown as TokenContract<TokenId>;
 
       (getTokenContract as jest.Mock).mockImplementationOnce(() => fakeContract);
 
       const response = await getBalanceOf({
         web3: fakeWeb3,
         accountAddress: fakeAccountAddress,
-        token: TOKENS.xvs,
+        tokenId: TOKENS.xvs.id as TokenId,
       });
 
       expect(balanceOfMock).toHaveBeenCalledTimes(1);
@@ -86,7 +87,7 @@ describe('api/queries/getBalanceOf', () => {
         await getBalanceOf({
           web3: fakeWeb3,
           accountAddress: fakeAccountAddress,
-          token: TOKENS.bnb,
+          tokenId: TOKENS.bnb.id as TokenId,
         });
 
         throw new Error('getBalanceOf should have thrown an error but did not');
@@ -109,7 +110,7 @@ describe('api/queries/getBalanceOf', () => {
       const response = await getBalanceOf({
         web3: fakeWeb3,
         accountAddress: fakeAccountAddress,
-        token: TOKENS.bnb,
+        tokenId: TOKENS.bnb.id as TokenId,
       });
 
       expect(getBalanceMock).toHaveBeenCalledTimes(1);

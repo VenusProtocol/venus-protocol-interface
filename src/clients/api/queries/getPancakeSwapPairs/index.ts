@@ -15,14 +15,18 @@ const getPancakeSwapPairs = async ({
   // Generate pair addresses from token combinations
   const pairAddresses: PairAddress[] = tokenCombinations.reduce((acc, [tokenA, tokenB]) => {
     try {
-      const address = PSPair.getAddress(tokenA, tokenB);
+      if (tokenA && tokenB && !tokenA.equals(tokenB)) {
+        const address = PSPair.getAddress(tokenA, tokenB);
 
-      const pairAddress: PairAddress = {
-        tokenCombination: [tokenA, tokenB],
-        address,
-      };
+        const pairAddress: PairAddress = {
+          tokenCombination: [tokenA, tokenB],
+          address,
+        };
 
-      return [...acc, pairAddress];
+        return [...acc, pairAddress];
+      }
+
+      return acc;
     } catch {
       // PSPair.getAddress can error out, in which case we exclude the pair from
       // the list
@@ -38,6 +42,7 @@ const getPancakeSwapPairs = async ({
     calls: [{ reference: 'getReserves', methodName: 'getReserves()', methodParameters: [] }],
   }));
 
+  // TODO: check why queries get cached
   const reserveCallResults: ContractCallResults = await multicall.call(contractCallContext);
 
   const pairs = formatToPairs({
