@@ -1,11 +1,13 @@
 import BigNumber from 'bignumber.js';
+import _values from 'lodash/values';
 import { useMemo } from 'react';
-import { Asset, Market, Token } from 'types';
+import { Asset, Token } from 'types';
 import {
   calculateCollateralValue,
   convertTokensToWei,
   convertWeiToTokens,
   indexBy,
+  unsafeGetToken,
   unsafeGetVToken,
 } from 'utilities';
 
@@ -32,7 +34,9 @@ export interface UseGetUserMarketInfoOutput {
   data: Data;
 }
 
-const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
+// const tokens = _values(TOKENS);
+
+const vTokenAddresses = _values(VBEP_TOKENS).reduce(
   (acc, item) => (item.address ? [...acc, item.address] : acc),
   [] as string[],
 );
@@ -110,16 +114,13 @@ const useGetUserMarketInfo = ({
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
       totalXvsDistributedWei,
-    } = Object.values(TOKENS).reduce(
-      (acc, item) => {
-        const { assets: assetAcc } = acc;
+    } = (getMarketsData?.markets || []).reduce(
+      (acc, market) => {
+        const token = unsafeGetToken(market.id);
+        const vBepToken = unsafeGetVToken(token.id);
 
-        const toDecimalAmount = (mantissa: string) =>
-          new BigNumber(mantissa).shiftedBy(-item.decimals);
-
-        const vBepToken = unsafeGetVToken(item.id);
-        // if no corresponding VBep token, skip
-        if (!vBepToken) {
+        // Skip token if it isn't listed
+        if (!token || !vBepToken) {
           return acc;
         }
 
@@ -142,14 +143,6 @@ const useGetUserMarketInfo = ({
           supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
           borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
         }
-
-        const token: Token = {
-          id: item.id,
-          symbol: market?.underlyingSymbol || item.id.toUpperCase(),
-          decimals: item.decimals,
-          address: market?.underlyingAddress || '',
-          asset: item.asset,
-        };
 
         const asset = {
           token,

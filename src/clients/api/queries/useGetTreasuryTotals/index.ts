@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import config from 'config';
+import _values from 'lodash/values';
 import { useMemo } from 'react';
 import { Market } from 'types';
 import { indexBy } from 'utilities';
@@ -31,7 +32,7 @@ export interface UseGetTreasuryTotalsOutput {
   data: Data;
 }
 
-const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
+const vTokenAddresses = _values(VBEP_TOKENS).reduce(
   (acc, item) => (item.address ? [...acc, item.address] : acc),
   [] as string[],
 );
