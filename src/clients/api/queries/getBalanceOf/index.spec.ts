@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { TokenId } from 'types';
 import Web3 from 'web3';
 
 import { getTokenContract } from 'clients/contracts';
@@ -25,7 +24,7 @@ describe('api/queries/getBalanceOf', () => {
             },
           }),
         },
-      } as unknown as TokenContract<TokenId>;
+      } as unknown as TokenContract<string>;
 
       (getTokenContract as jest.Mock).mockImplementationOnce(() => fakeContract);
 
@@ -54,7 +53,7 @@ describe('api/queries/getBalanceOf', () => {
         methods: {
           balanceOf: balanceOfMock,
         },
-      } as unknown as TokenContract<TokenId>;
+      } as unknown as TokenContract<string>;
 
       (getTokenContract as jest.Mock).mockImplementationOnce(() => fakeContract);
 

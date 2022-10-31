@@ -3,7 +3,6 @@ import { Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { VTokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import addTokenToWallet from 'clients/web3/addTokenToWallet';
@@ -25,7 +24,7 @@ const Title: React.FC = () => {
   const { account } = useContext(AuthContext);
 
   const voterDetailMatch = useRouteMatch<{ address: string }>(Path.GOVERNANCE_ADDRESS);
-  const marketDetailsMatch = useRouteMatch<{ vTokenId: VTokenId }>(Path.MARKET_DETAILS);
+  const marketDetailsMatch = useRouteMatch<{ vTokenId: string }>(Path.MARKET_DETAILS);
   const voteLeaderboardMatch = useRouteMatch(Path.GOVERNANCE_LEADER_BOARD);
   const proposalDetailsMatch = useRouteMatch<{ id: string }>(Path.GOVERNANCE_PROPOSAL_DETAILS);
   const { t } = useTranslation();

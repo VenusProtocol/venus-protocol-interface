@@ -2,7 +2,6 @@
 import { Modal, ModalProps, TabContent, Tabs } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import RequestWithdrawal from './RequestWithdrawal';
@@ -12,7 +11,7 @@ import { useStyles } from './styles';
 
 export interface WithdrawFromVestingVaultModalProps {
   handleClose: ModalProps['handleClose'];
-  stakedTokenId: TokenId;
+  stakedTokenId: string;
   poolIndex: number;
 }
 

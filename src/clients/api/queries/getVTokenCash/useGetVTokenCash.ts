@@ -1,5 +1,4 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { VTokenId } from 'types';
 
 import getVTokenCash, { GetVTokenCashOutput } from 'clients/api/queries/getVTokenCash';
 import { useVTokenContract } from 'clients/contracts/hooks';
@@ -10,10 +9,10 @@ type Options = QueryObserverOptions<
   Error,
   GetVTokenCashOutput,
   GetVTokenCashOutput,
-  [FunctionKey.GET_V_TOKEN_CASH, VTokenId]
+  [FunctionKey.GET_V_TOKEN_CASH, string]
 >;
 
-const useGetVTokenCash = ({ vTokenId }: { vTokenId: VTokenId }, options?: Options) => {
+const useGetVTokenCash = ({ vTokenId }: { vTokenId: string }, options?: Options) => {
   const vTokenContract = useVTokenContract(vTokenId);
 
   return useQuery(

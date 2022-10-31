@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { QueryObserverOptions, useQuery } from 'react-query';
-import { VTokenId } from 'types';
 
 import getVTokenApySimulations, {
   GetVTokenApySimulationsOutput,
@@ -16,11 +15,11 @@ type Options = QueryObserverOptions<
   Error,
   GetVTokenApySimulationsOutput,
   GetVTokenApySimulationsOutput,
-  [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, VTokenId]
+  [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, string]
 >;
 
 const useGetVTokenApySimulations = (
-  { vTokenId, reserveFactorMantissa }: { vTokenId: VTokenId; reserveFactorMantissa?: BigNumber },
+  { vTokenId, reserveFactorMantissa }: { vTokenId: string; reserveFactorMantissa?: BigNumber },
   options?: Options,
 ) => {
   const web3 = useWeb3();

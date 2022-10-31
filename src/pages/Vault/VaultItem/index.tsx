@@ -8,7 +8,6 @@ import { Button, TokenIcon } from 'components';
 import { VError } from 'errors';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, unsafeGetToken } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
@@ -27,8 +26,8 @@ import TEST_IDS from './testIds';
 type ActiveModal = 'stake' | 'withdraw';
 
 export interface VaultItemUiProps {
-  stakedTokenId: TokenId;
-  rewardTokenId: TokenId;
+  stakedTokenId: string;
+  rewardTokenId: string;
   stakingAprPercentage: number;
   dailyEmissionWei: BigNumber;
   totalStakedWei: BigNumber;

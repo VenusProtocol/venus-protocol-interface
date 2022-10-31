@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { TokenId } from 'types';
 import Web3 from 'web3';
 
 import { getTokenContract } from 'clients/contracts';
@@ -7,7 +6,7 @@ import { getTokenContract } from 'clients/contracts';
 export interface GetBalanceOfInput {
   web3: Web3;
   accountAddress: string;
-  tokenId: TokenId;
+  tokenId: string;
 }
 
 export type GetBalanceOfOutput = {

@@ -1,13 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { VTokenId } from 'types';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { VTokenContract } from 'clients/contracts/types';
 import MAX_UINT256 from 'constants/maxUint256';
 
 export interface RepayNonBnbVTokenInput {
-  vTokenContract: VTokenContract<Exclude<VTokenId, 'bnb'>>;
+  vTokenContract: VTokenContract<Exclude<string, 'bnb'>>;
   fromAccountAddress: string;
   amountWei: BigNumber;
   isRepayingFullLoan?: boolean;

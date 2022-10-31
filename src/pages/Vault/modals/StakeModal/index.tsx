@@ -2,7 +2,6 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { getContractAddress, unsafeGetToken } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
@@ -12,8 +11,8 @@ import useStakeInVault from 'hooks/useStakeInVault';
 import ActionModal, { ActionModalProps } from '../ActionModal';
 
 export interface StakeModalProps extends Pick<ActionModalProps, 'handleClose'> {
-  stakedTokenId: TokenId;
-  rewardTokenId: TokenId;
+  stakedTokenId: string;
+  rewardTokenId: string;
   poolIndex?: number;
 }
 

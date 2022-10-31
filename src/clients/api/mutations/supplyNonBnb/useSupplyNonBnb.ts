@@ -1,5 +1,4 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { VTokenId } from 'types';
 
 import supply, { SupplyNonBnbInput, SupplyNonBnbOutput } from 'clients/api/mutations/supplyNonBnb';
 import queryClient from 'clients/api/queryClient';
@@ -10,11 +9,11 @@ import { VBep20 } from 'types/contracts';
 export type SupplyNonBnbParams = Omit<SupplyNonBnbInput, 'tokenContract' | 'account'>;
 
 const useSupply = (
-  { assetId, account }: { assetId: VTokenId; account: string },
+  { assetId, account }: { assetId: string; account: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<SupplyNonBnbOutput, Error, SupplyNonBnbParams>,
 ) => {
-  const tokenContract = useVTokenContract<VTokenId>(assetId);
+  const tokenContract = useVTokenContract<string>(assetId);
 
   return useMutation(
     [FunctionKey.SUPPLY, assetId],

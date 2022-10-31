@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { VTokenId } from 'types';
 import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
@@ -32,7 +31,7 @@ import useGetChartData from './useGetChartData';
 import useGetMarketData from './useGetMarketData';
 
 export interface MarketDetailsUiProps {
-  vTokenId: VTokenId;
+  vTokenId: string;
   supplyChartData: ApyChartProps['data'];
   borrowChartData: ApyChartProps['data'];
   interestRateChartData: InterestRateChartProps['data'];
@@ -324,7 +323,7 @@ export const MarketDetailsUi: React.FC<MarketDetailsUiProps> = ({
   );
 };
 
-export type MarketDetailsProps = RouteComponentProps<{ vTokenId: VTokenId }>;
+export type MarketDetailsProps = RouteComponentProps<{ vTokenId: string }>;
 
 const MarketDetails: React.FC<MarketDetailsProps> = ({
   match: {

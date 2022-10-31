@@ -4,7 +4,6 @@ import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'com
 import isBefore from 'date-fns/isBefore';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
@@ -16,7 +15,7 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 export interface WithdrawUiProps {
-  stakedTokenId: TokenId;
+  stakedTokenId: string;
   isInitialLoading: boolean;
   onSubmitSuccess: () => void;
   onSubmit: () => Promise<unknown>;
@@ -82,7 +81,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
 };
 
 export interface WithdrawProps {
-  stakedTokenId: TokenId;
+  stakedTokenId: string;
   poolIndex: number;
   handleClose: () => void;
 }

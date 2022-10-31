@@ -1,5 +1,4 @@
 import { VError } from 'errors';
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import {
@@ -9,8 +8,8 @@ import {
 } from 'clients/api';
 
 interface StakeInput {
-  rewardTokenId: TokenId;
-  stakedTokenId: TokenId;
+  rewardTokenId: string;
+  stakedTokenId: string;
   accountAddress: string;
   poolIndex?: number;
 }

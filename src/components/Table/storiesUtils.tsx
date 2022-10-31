@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 import React from 'react';
-import { TokenId } from 'types';
 import { formatToReadablePercentage, unsafeGetToken } from 'utilities';
 
 import { Icon } from '../Icon';
@@ -45,7 +44,7 @@ export const useTableStyles = () => {
     `,
   };
 };
-const createData = (asset: TokenId, apy: number, wallet: number, collateral: boolean) => {
+const createData = (asset: string, apy: number, wallet: number, collateral: boolean) => {
   const styles = {
     asset: css`
       display: flex;

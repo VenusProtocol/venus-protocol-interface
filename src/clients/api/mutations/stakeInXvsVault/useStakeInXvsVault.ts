@@ -1,5 +1,4 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { TokenId } from 'types';
 import { getContractAddress } from 'utilities';
 
 import {
@@ -20,7 +19,7 @@ type Options = MutationObserverOptions<
   Omit<StakeInXvsVaultInput, 'xvsVaultContract'>
 >;
 
-const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: TokenId }, options?: Options) => {
+const useStakeInXvsVault = ({ stakedTokenId }: { stakedTokenId: string }, options?: Options) => {
   const xvsVaultContract = useXvsVaultProxyContract();
 
   return useMutation(
