@@ -1,5 +1,5 @@
 import { TokenId, VTokenId } from 'types';
-import { getContractAddress, getToken, getVBepToken } from 'utilities';
+import { getContractAddress, unsafeGetToken, unsafeGetVToken } from 'utilities';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
@@ -48,7 +48,7 @@ const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance:
 };
 
 export const getTokenContract = <T extends TokenId>(tokenId: T, web3: Web3): TokenContract<T> => {
-  const tokenAddress = getToken(tokenId).address;
+  const tokenAddress = unsafeGetToken(tokenId).address;
 
   if (tokenId === 'xvs') {
     return getContract<TokenContract<T>>(xvsTokenAbi as AbiItem[], tokenAddress, web3);
@@ -72,7 +72,7 @@ export const getVTokenContract = <T extends VTokenId>(
   tokenId: T,
   web3: Web3,
 ): VTokenContract<T> => {
-  const vBepTokenAddress = getVBepToken(tokenId).address;
+  const vBepTokenAddress = unsafeGetVToken(tokenId).address;
 
   if (tokenId === 'bnb') {
     return getContract(

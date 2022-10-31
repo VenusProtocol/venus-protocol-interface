@@ -6,7 +6,6 @@ import { DISABLED_TOKENS } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   getAllowance,
@@ -18,6 +17,7 @@ import {
   useGetUserMarketInfo,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -223,7 +223,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        token: TEST_TOKENS.bnb,
+        token: TOKENS.bnb,
         walletBalance: new BigNumber('11'),
       };
 
@@ -281,7 +281,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        token: TEST_TOKENS.busd,
+        token: TOKENS.busd,
         walletBalance: new BigNumber('11'),
       };
 

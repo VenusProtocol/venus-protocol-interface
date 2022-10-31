@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { Delimiter, Icon } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';

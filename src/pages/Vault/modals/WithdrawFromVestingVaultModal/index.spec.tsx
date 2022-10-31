@@ -1,7 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import React from 'react';
-import { TokenId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import { TOKENS } from 'constants/tokens';

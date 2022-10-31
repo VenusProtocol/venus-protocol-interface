@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { TokenId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';

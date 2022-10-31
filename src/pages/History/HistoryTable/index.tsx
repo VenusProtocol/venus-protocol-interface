@@ -4,7 +4,12 @@ import { EllipseAddress, Table, TableProps, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
-import { convertWeiToTokens, generateBscScanUrl, getToken, getVTokenByAddress } from 'utilities';
+import {
+  convertWeiToTokens,
+  generateBscScanUrl,
+  getVTokenByAddress,
+  unsafeGetToken,
+} from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
@@ -72,7 +77,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
     () =>
       transactions.map(txn => {
         const vToken = getVTokenByAddress(txn.vTokenAddress);
-        const token = (vToken && getToken(vToken.id)) || TOKENS.xvs;
+        const token = (vToken && unsafeGetToken(vToken.id)) || TOKENS.xvs;
 
         return [
           {

@@ -5,7 +5,7 @@ import isBefore from 'date-fns/isBefore';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafeGetToken } from 'utilities';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { TOKENS } from 'constants/tokens';
@@ -41,7 +41,7 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
     onSubmitSuccess();
   };
 
-  const stakedToken = getToken(stakedTokenId);
+  const stakedToken = unsafeGetToken(stakedTokenId);
 
   const readableWithdrawableTokens = useConvertWeiToReadableTokenString({
     valueWei: withdrawableWei,

@@ -9,7 +9,7 @@ import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  getToken,
+  unsafeGetToken,
 } from 'utilities';
 
 import { useGetMarkets } from 'clients/api';
@@ -68,7 +68,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
       markets.map(market => [
         {
           key: 'asset',
-          render: () => <TokenIcon token={getToken(market.id)} css={localStyles.whiteText} />,
+          render: () => <TokenIcon token={unsafeGetToken(market.id)} css={localStyles.whiteText} />,
           value: market.id,
         },
         {
@@ -81,7 +81,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
               })}
               bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalSupplyCents.div(market.tokenPrice.times(100)),
-                token: getToken(market.id),
+                token: unsafeGetToken(market.id),
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}
@@ -112,7 +112,7 @@ export const MarketTableUi: React.FC<MarketTableProps> = ({ markets, getRowHref 
               })}
               bottomValue={formatTokensToReadableValue({
                 value: market.treasuryTotalBorrowsCents.div(market.tokenPrice.times(100)),
-                token: getToken(market.id),
+                token: unsafeGetToken(market.id),
                 minimizeDecimals: true,
                 shortenLargeValue: true,
               })}

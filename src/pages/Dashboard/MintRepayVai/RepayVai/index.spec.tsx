@@ -6,7 +6,6 @@ import { formatTokensToReadableValue } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import {
   getAllowance,
@@ -16,6 +15,7 @@ import {
   useGetUserMarketInfo,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -32,10 +32,10 @@ const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const fakeUserVaiMintedTokens = fakeUserVaiMintedWei.dividedBy(1e18);
 const formattedFakeUserVaiMinted = formatTokensToReadableValue({
   value: fakeUserVaiMintedTokens,
-  token: TEST_TOKENS.vai,
+  token: TOKENS.vai,
 });
 
-const fakeVai: Asset = { ...assetData[0], token: TEST_TOKENS.vai };
+const fakeVai: Asset = { ...assetData[0], token: TOKENS.vai };
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
@@ -126,7 +126,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        token: TEST_TOKENS.vai,
+        token: TOKENS.vai,
         valueWei: fakeUserWeiMinted,
       },
       content: expect.any(String),

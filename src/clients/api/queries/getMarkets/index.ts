@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Market, TokenId } from 'types';
+import { Market } from 'types';
 import { restService } from 'utilities';
 
 import { VBEP_TOKENS } from 'constants/tokens';

@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'translation';
 import { VTokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafeGetToken } from 'utilities';
 
 import addTokenToWallet from 'clients/web3/addTokenToWallet';
 import Path from 'constants/path';
@@ -34,7 +34,7 @@ const Title: React.FC = () => {
   // Handle special case of Market Details page
   if (marketDetailsMatch) {
     const { vTokenId } = marketDetailsMatch.params;
-    const token = getToken(vTokenId);
+    const token = unsafeGetToken(vTokenId);
 
     const onAddTokenToWallet = () => addTokenToWallet(vTokenId);
 

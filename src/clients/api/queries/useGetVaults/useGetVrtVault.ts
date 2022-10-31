@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { TokenId, Vault } from 'types';
+import { Vault } from 'types';
 import { getContractAddress } from 'utilities';
 
 import {

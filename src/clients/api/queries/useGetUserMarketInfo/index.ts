@@ -5,9 +5,8 @@ import {
   calculateCollateralValue,
   convertTokensToWei,
   convertWeiToTokens,
-  getToken,
-  getVBepToken,
   indexBy,
+  unsafeGetVToken,
 } from 'utilities';
 
 import {
@@ -127,7 +126,7 @@ const useGetUserMarketInfo = ({
         const toDecimalAmount = (mantissa: string) =>
           new BigNumber(mantissa).shiftedBy(-item.decimals);
 
-        const vBepToken = getVBepToken(item.id);
+        const vBepToken = unsafeGetVToken(item.id);
         // if no corresponding vassets, skip
         if (!vBepToken) {
           return acc;
@@ -180,7 +179,7 @@ const useGetUserMarketInfo = ({
           percentOfLimit,
           xvsPerDay: new BigNumber(market?.supplierDailyVenus || 0)
             .plus(new BigNumber(market?.borrowerDailyVenus || 0))
-            .div(new BigNumber(10).pow(getToken('xvs').decimals)),
+            .div(new BigNumber(10).pow(TOKENS.xvs.decimals)),
         };
 
         // user totals
@@ -191,7 +190,7 @@ const useGetUserMarketInfo = ({
 
         acc.totalXvsDistributedWei = acc.totalXvsDistributedWei.plus(
           new BigNumber(market?.totalDistributed || 0).times(
-            new BigNumber(10).pow(getToken('xvs').decimals),
+            new BigNumber(10).pow(TOKENS.xvs.decimals),
           ),
         );
 

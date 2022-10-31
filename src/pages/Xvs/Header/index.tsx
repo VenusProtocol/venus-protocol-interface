@@ -9,7 +9,6 @@ import {
   formatTokensToReadableValue,
   generateBscScanUrl,
   getContractAddress,
-  getToken,
 } from 'utilities';
 
 import { useGetBalanceOf, useGetUserMarketInfo, useGetVenusVaiVaultDailyRate } from 'clients/api';
@@ -41,9 +40,8 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const xvsAddress = getToken('xvs').address;
   const copy = useCopyToClipboard(t('interactive.copy.xvsAddress'));
-  const copyAddress = () => copy(xvsAddress);
+  const copyAddress = () => copy(TOKENS.xvs.address);
 
   const readableDailyDistribution = useMemo(() => {
     const dailyVenusTokens = convertWeiToTokens({
@@ -96,7 +94,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
           component="a"
           css={[styles.whiteText, styles.addressText]}
         >
-          <EllipseAddress address={xvsAddress} ellipseBreakpoint="xl" />
+          <EllipseAddress address={TOKENS.xvs.address} ellipseBreakpoint="xl" />
         </Typography>
 
         <div css={styles.copyIconContainer}>

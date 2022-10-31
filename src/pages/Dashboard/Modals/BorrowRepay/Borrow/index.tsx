@@ -15,8 +15,8 @@ import {
   convertTokensToWei,
   formatToReadablePercentage,
   formatTokensToReadableValue,
-  getToken,
-  getVBepToken,
+  unsafeGetToken,
+  unsafeGetVToken,
 } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
@@ -160,7 +160,7 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
   const { t } = useTranslation();
   const { account } = React.useContext(AuthContext);
 
-  const vBepTokenContractAddress = getVBepToken(asset.token.id).address;
+  const vBepTokenContractAddress = unsafeGetVToken(asset.token.id).address;
 
   // TODO: handle loading state (see https://app.clickup.com/t/2d4rcee)
   const {
@@ -220,7 +220,7 @@ const Borrow: React.FC<BorrowProps> = ({ asset, onClose, isXvsEnabled }) => {
         marginWithSafeBorrowLimitDollars.dividedBy(asset.tokenPrice)
       : new BigNumber(0);
 
-    const tokenDecimals = getToken(asset.token.id).decimals;
+    const tokenDecimals = unsafeGetToken(asset.token.id).decimals;
     const formatValue = (value: BigNumber) =>
       value.dp(tokenDecimals, BigNumber.ROUND_DOWN).toFixed();
 

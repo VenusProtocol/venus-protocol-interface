@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
-import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 
@@ -14,7 +14,7 @@ import TEST_IDS from './testIds';
 jest.mock('hooks/useSuccessfulTransactionModal');
 
 const baseProps: TransactionFormProps = {
-  token: TEST_TOKENS.xvs,
+  token: TOKENS.xvs,
   submitButtonLabel: 'Fake submit button label',
   submitButtonDisabledLabel: 'Fake submit button disabled label',
   onSubmit: noop,

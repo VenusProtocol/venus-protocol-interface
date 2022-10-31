@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { getContractAddress, getToken } from 'utilities';
+import { getContractAddress, unsafeGetToken } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
@@ -25,7 +25,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const { account } = useContext(AuthContext);
-  const stakedToken = getToken(stakedTokenId);
+  const stakedToken = unsafeGetToken(stakedTokenId);
 
   const spenderAddress = React.useMemo(() => {
     if (typeof poolIndex === 'number') {

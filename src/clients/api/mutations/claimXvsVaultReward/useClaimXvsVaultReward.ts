@@ -8,7 +8,7 @@ import {
 } from 'clients/api';
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
-import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 
 type Options = MutationObserverOptions<
   ClaimXvsVaultRewardOutput,
@@ -33,7 +33,7 @@ const useClaimXvsVaultReward = (options?: Options) => {
 
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
-          { accountAddress: fromAccountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+          { accountAddress: fromAccountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
         ]);
 
         if (options?.onSuccess) {

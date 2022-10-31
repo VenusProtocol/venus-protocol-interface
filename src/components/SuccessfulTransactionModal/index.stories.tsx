@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 
-import TEST_TOKENS from '__mocks__/models/tokens';
+import { TOKENS } from 'constants/tokens';
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
 import { SuccessfulTransactionModal } from '.';
@@ -23,7 +23,7 @@ export const InModal = () => (
     transactionHash="0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63"
     amount={{
       valueWei: new BigNumber('100000000000000000000'),
-      token: TEST_TOKENS.xvs,
+      token: TOKENS.xvs,
     }}
   />
 );

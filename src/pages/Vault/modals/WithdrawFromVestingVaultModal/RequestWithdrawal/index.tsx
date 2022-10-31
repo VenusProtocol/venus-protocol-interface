@@ -4,7 +4,7 @@ import { ConnectWallet, Spinner, TextButton } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafeGetToken } from 'utilities';
 
 import {
   useGetXvsVaultLockedDeposits,
@@ -39,7 +39,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   isSubmitting,
   displayWithdrawalRequestList,
 }) => {
-  const stakedToken = getToken(stakedTokenId);
+  const stakedToken = unsafeGetToken(stakedTokenId);
   const { t } = useTranslation();
   const styles = useStyles();
 

@@ -7,6 +7,7 @@ import {
   FormikSubmitButton,
   FormikTokenTextField,
   Icon,
+  TokenIcon,
   TokenTextField,
   toast,
 } from 'components';
@@ -23,7 +24,6 @@ import {
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { TOKENS } from 'constants/tokens';
-import { XVS_TOKEN_ID } from 'constants/xvs';
 import { AmountForm, ErrorCode } from 'containers/AmountForm';
 import { DisableLunaUstWarningContext } from 'context/DisableLunaUstWarning';
 import { VError } from 'errors/VError';
@@ -129,7 +129,9 @@ const Convert: React.FC<ConvertProps> = ({
               })}
             </Typography>
             <Icon name="arrowShaft" css={styles.successModalArrow} />
-            <Icon name={XVS_TOKEN_ID} css={styles.successModalToken} />
+
+            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} showSymbol={false} />
+
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {xvsAmountWei &&
                 convertWeiToTokens({

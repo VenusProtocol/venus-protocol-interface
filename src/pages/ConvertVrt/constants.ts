@@ -1,4 +1,4 @@
-import { getToken } from 'utilities';
+import { unsafeGetToken } from 'utilities';
 
 export const VRT_ID = 'vrt';
-export const VRT_DECIMAL = getToken(VRT_ID).decimals;
+export const VRT_DECIMAL = unsafeGetToken(VRT_ID).decimals;

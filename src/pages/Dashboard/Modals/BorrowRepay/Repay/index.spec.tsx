@@ -6,10 +6,10 @@ import { Asset } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import TEST_TOKENS from '__mocks__/models/tokens';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { getAllowance, repayNonBnbVToken, useGetUserMarketInfo } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -355,7 +355,7 @@ describe('pages/Dashboard/BorrowRepayModal/Repay', () => {
 
     const fakeBnbAsset: Asset = {
       ...fakeAsset,
-      token: TEST_TOKENS.bnb,
+      token: TOKENS.bnb,
     };
 
     const { getByText } = renderComponent(
