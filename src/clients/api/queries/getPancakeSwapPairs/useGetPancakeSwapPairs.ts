@@ -8,7 +8,7 @@ import { useMulticall } from 'clients/web3';
 import { BLOCK_TIME_MS } from 'constants/bsc';
 import FunctionKey from 'constants/functionKey';
 
-import generateTokenCombinationIds from './generateTokenCombinationIds';
+import generateTokenCombinationId from './generateTokenCombinationId';
 
 type Options = QueryObserverOptions<
   GetPancakeSwapPairsOutput,
@@ -25,7 +25,7 @@ const useGetPancakeSwapPairs = (
   const multicall = useMulticall();
 
   // Generate function key based on token combinations
-  const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);
+  const tokenCombinationIds = input.tokenCombinations.map(generateTokenCombinationId);
 
   return useQuery(
     [FunctionKey.GET_PANCAKE_SWAP_PAIRS, ...tokenCombinationIds],

@@ -19,20 +19,14 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetBalanceOf = (
-  { accountAddress, token }: Omit<GetBalanceOfInput, 'web3'>,
+  { accountAddress, tokenId }: Omit<GetBalanceOfInput, 'web3'> & { tokenId: TokenId },
   options?: Options,
 ) => {
   const web3 = useWeb3();
 
   return useQuery(
-    [
-      FunctionKey.GET_BALANCE_OF,
-      {
-        accountAddress,
-        tokenAddress: token.address,
-      },
-    ],
-    () => getBalanceOf({ web3, accountAddress, token }),
+    [FunctionKey.GET_BALANCE_OF, accountAddress, tokenId],
+    () => getBalanceOf({ web3, accountAddress, tokenId }),
     options,
   );
 };

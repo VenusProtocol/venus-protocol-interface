@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Paper from '@mui/material/Paper';
+import BigNumber from 'bignumber.js';
 import {
   Icon,
   LabeledInlineContent,
@@ -12,14 +13,17 @@ import { useTranslation } from 'translation';
 import { Token, TokenId } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage, getToken } from 'utilities';
 
+import { useGetBalanceOf } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { TOKENS } from 'constants/tokens';
+import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
+import { PANCAKE_SWAP_TOKENS } from './tokenList';
 import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
-const tokenIds = Object.keys(TOKENS) as TokenId[];
+// TODO: fix (TokenId type is incorrect) (see https://jira.toolsfdg.net/browse/VEN-712)
+const tokenIds = Object.keys(PANCAKE_SWAP_TOKENS) as TokenId[];
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -34,9 +38,9 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-  fromToken: getToken('bnb'),
+  fromToken: getToken('busd'),
   fromTokenAmountTokens: '',
-  toToken: getToken('xvs'),
+  toToken: getToken('cake'),
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };
@@ -44,23 +48,31 @@ const initialFormValues: FormValues = {
 export interface SwapPageUiProps {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
+  fromTokenUserBalanceWei?: BigNumber;
+  toTokenUserBalanceWei?: BigNumber;
   swapInfo?: Swap;
 }
 
-const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swapInfo }) => {
+const SwapPageUi: React.FC<SwapPageUiProps> = ({
+  formValues,
+  setFormValues,
+  swapInfo,
+  fromTokenUserBalanceWei,
+  toTokenUserBalanceWei,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    // Reinitialize form values if swap becomes invalid
-    if (!swapInfo) {
-      setFormValues(currentFormValues => ({
-        ...currentFormValues,
-        fromTokenAmountTokens: '',
-        toTokenAmountTokens: '',
-      }));
-    }
+  // TODO: reinitialize form values if swap becomes invalid
+  // if (!swapInfo) {
+  //   setFormValues(currentFormValues => ({
+  //     ...currentFormValues,
+  //     fromTokenAmountTokens: '',
+  //     toTokenAmountTokens: '',
+  //   }));
+  // }
 
+  useEffect(() => {
     if (swapInfo?.direction === 'exactAmountIn') {
       setFormValues(currentFormValues => ({
         ...currentFormValues,
@@ -86,9 +98,15 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swap
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       fromToken: currentFormValues.toToken,
-      fromTokenAmountTokens: currentFormValues.toTokenAmountTokens,
+      fromTokenAmountTokens:
+        currentFormValues.direction === 'exactAmountIn'
+          ? ''
+          : currentFormValues.toTokenAmountTokens,
       toToken: currentFormValues.fromToken,
-      toTokenAmountTokens: currentFormValues.fromTokenAmountTokens,
+      toTokenAmountTokens:
+        currentFormValues.direction === 'exactAmountIn'
+          ? currentFormValues.fromTokenAmountTokens
+          : '',
       direction:
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
     }));
@@ -119,6 +137,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swap
           }))
         }
         tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.fromToken.id)}
+        userTokenBalanceWei={fromTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />
 
@@ -150,6 +169,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swap
           }))
         }
         tokenIds={tokenIds.filter(tokenId => tokenId !== formValues.toToken.id)}
+        userTokenBalanceWei={toTokenUserBalanceWei}
         css={styles.selectTokenTextField}
       />
 
@@ -220,6 +240,8 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({ formValues, setFormValues, swap
 };
 
 const SwapPage: React.FC = () => {
+  const { account } = React.useContext(AuthContext);
+
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
   const swapInfo = useGetSwapInfo({
@@ -230,7 +252,29 @@ const SwapPage: React.FC = () => {
     direction: formValues.direction,
   });
 
-  return <SwapPageUi formValues={formValues} setFormValues={setFormValues} swapInfo={swapInfo} />;
+  const { data: fromTokenUserBalanceData } = useGetBalanceOf(
+    { accountAddress: account?.address || '', tokenId: formValues.fromToken.id },
+    {
+      enabled: !!account?.address,
+    },
+  );
+
+  const { data: toTokenUserBalanceData } = useGetBalanceOf(
+    { accountAddress: account?.address || '', tokenId: formValues.toToken.id },
+    {
+      enabled: !!account?.address,
+    },
+  );
+
+  return (
+    <SwapPageUi
+      formValues={formValues}
+      setFormValues={setFormValues}
+      swapInfo={swapInfo}
+      fromTokenUserBalanceWei={fromTokenUserBalanceData?.balanceWei}
+      toTokenUserBalanceWei={toTokenUserBalanceData?.balanceWei}
+    />
+  );
 };
 
 export default SwapPage;
