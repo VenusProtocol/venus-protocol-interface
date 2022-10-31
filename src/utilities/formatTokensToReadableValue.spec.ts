@@ -7,7 +7,7 @@ describe('utilities/formatTokensToReadableValue', () => {
   test('formats longhand value correctly', () => {
     const value = formatTokensToReadableValue({
       value: new BigNumber(100000.12333334),
-      token: TEST_TOKENS.xvs,
+      token: TEST_TOKENS.busd,
     });
     expect(value).toBe('100,000.12333334 BUSD');
   });
@@ -18,7 +18,7 @@ describe('utilities/formatTokensToReadableValue', () => {
       token: TEST_TOKENS.xvs,
       minimizeDecimals: true,
     });
-    expect(value).toBe('0.12345679 ADA');
+    expect(value).toBe('0.12345679 XVS');
   });
 
   test('removes trailing zeros', () => {
@@ -29,6 +29,6 @@ describe('utilities/formatTokensToReadableValue', () => {
       minimizeDecimals: true,
     });
     expect(trailingZeroNumber.toFixed(8)).toBe('0.00000050');
-    expect(value).toBe('0.0000005 ADA');
+    expect(value).toBe('0.0000005 XVS');
   });
 });
