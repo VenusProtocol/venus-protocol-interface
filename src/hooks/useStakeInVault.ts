@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { VError } from 'errors';
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import { useStakeInVaiVault, useStakeInVrtVault, useStakeInXvsVault } from 'clients/api';

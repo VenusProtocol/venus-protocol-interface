@@ -1,9 +1,8 @@
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import { isRunningInBinanceChainWallet } from './walletDetectionUtils';
 
-const addTokenToWallet = async (tokenId: TokenId) => {
+const addTokenToWallet = async (tokenId: string) => {
   const token = unsafeGetToken(tokenId);
   const isInBCW = isRunningInBinanceChainWallet();
 

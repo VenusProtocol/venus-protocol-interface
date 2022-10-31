@@ -2,7 +2,6 @@
 import { Modal, ModalProps, TabContent, Tabs } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import RequestWithdrawal from './RequestWithdrawal';

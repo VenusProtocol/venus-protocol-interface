@@ -4,7 +4,6 @@ import { ConnectWallet, LabeledInlineContent, PrimaryButton, Spinner } from 'com
 import isBefore from 'date-fns/isBefore';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';

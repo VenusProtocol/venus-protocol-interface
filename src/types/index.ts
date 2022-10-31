@@ -32,12 +32,9 @@ export interface Asset {
   xvsPerDay: BigNumber;
 }
 
-export type TokenId = string;
-export type VTokenId = string;
-
 export interface Token {
-  id: TokenId; // TODO: remove (related to https://jira.toolsfdg.net/browse/VEN-723)
-  symbol: Uppercase<TokenId>;
+  id: string; // TODO: remove (related to https://jira.toolsfdg.net/browse/VEN-723)
+  symbol: Uppercase<string>;
   decimals: number;
   address: string | '';
   asset: string;

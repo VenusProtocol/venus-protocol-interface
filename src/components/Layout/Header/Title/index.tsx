@@ -3,7 +3,6 @@ import { Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { VTokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import addTokenToWallet from 'clients/web3/addTokenToWallet';

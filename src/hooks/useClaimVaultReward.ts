@@ -1,5 +1,4 @@
 import { VError } from 'errors';
-import { TokenId } from 'types';
 import { unsafeGetToken } from 'utilities';
 
 import {

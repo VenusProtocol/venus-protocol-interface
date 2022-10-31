@@ -1,5 +1,5 @@
 import { VError } from 'errors';
-import { MarketSnapshot, VTokenId } from 'types';
+import { MarketSnapshot } from 'types';
 import { restService, unsafeGetVToken } from 'utilities';
 
 export interface GetMarketHistoryResponse {

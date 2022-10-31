@@ -2,7 +2,6 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 import { getContractAddress, unsafeGetToken } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';

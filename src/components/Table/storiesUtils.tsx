@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 import React from 'react';
-import { TokenId } from 'types';
 import { formatToReadablePercentage, unsafeGetToken } from 'utilities';
 
 import { Icon } from '../Icon';

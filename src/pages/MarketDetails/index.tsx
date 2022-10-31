@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'translation';
-import { VTokenId } from 'types';
 import {
   formatCentsToReadableValue,
   formatToReadablePercentage,
