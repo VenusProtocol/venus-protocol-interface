@@ -16,7 +16,7 @@ import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import { useGetBalanceOf } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { PANCAKE_SWAP_TOKENS, TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 import { useStyles } from './styles';
@@ -38,9 +38,11 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-  fromToken: PANCAKE_SWAP_TOKENS.busd as Token,
+  // TODO: handle mainnet
+  fromToken: TESTNET_PANCAKE_SWAP_TOKENS.busd as Token,
   fromTokenAmountTokens: '',
-  toToken: PANCAKE_SWAP_TOKENS.cake as Token,
+  // TODO: handle mainnet
+  toToken: TESTNET_PANCAKE_SWAP_TOKENS.cake as Token,
   toTokenAmountTokens: '',
   direction: 'exactAmountIn',
 };

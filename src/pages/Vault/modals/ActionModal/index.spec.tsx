@@ -2,6 +2,7 @@ import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
+import { BscChainId } from 'types';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { getAllowance } from 'clients/api';
@@ -29,7 +30,7 @@ const baseProps: ActionModalProps = {
   availableTokensLabel: 'Available XVS',
   tokenNeedsToBeEnabled: true,
   enableTokenMessage: 'Fake enable token message',
-  spenderAddress: mainContractAddresses.xvsVaultProxy[97],
+  spenderAddress: mainContractAddresses.xvsVaultProxy[BscChainId.TESTNET],
   successfulTransactionTitle: 'Fake successful transaction modal title',
   successfulTransactionDescription: 'Fake successful transaction modal description',
 };

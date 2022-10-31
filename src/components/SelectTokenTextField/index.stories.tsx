@@ -5,7 +5,7 @@ import React from 'react';
 import { State } from 'react-powerplug';
 import { Token } from 'types';
 
-import { PANCAKE_SWAP_TOKENS } from 'constants/tokens';
+import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { SelectTokenTextField } from '.';
@@ -17,9 +17,9 @@ export default {
 } as ComponentMeta<typeof SelectTokenTextField>;
 
 const tokens = [
-  PANCAKE_SWAP_TOKENS.busd,
-  PANCAKE_SWAP_TOKENS.cake,
-  PANCAKE_SWAP_TOKENS.wbnb,
+  TESTNET_PANCAKE_SWAP_TOKENS.busd,
+  TESTNET_PANCAKE_SWAP_TOKENS.cake,
+  TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
 ] as Token[];
 
 const initialData: { value: string; token: Token } = {

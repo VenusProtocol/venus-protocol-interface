@@ -1,11 +1,13 @@
 import BigNumber from 'bignumber.js';
+import _values from 'lodash/values';
 import { useMemo } from 'react';
-import { Asset, Market, Token } from 'types';
+import { Asset, Token } from 'types';
 import {
   calculateCollateralValue,
   convertTokensToWei,
   convertWeiToTokens,
   indexBy,
+  unsafeGetToken,
   unsafeGetVToken,
 } from 'utilities';
 
@@ -32,9 +34,11 @@ export interface UseGetUserMarketInfoOutput {
   data: Data;
 }
 
-const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(
+// const tokens = _values(TOKENS);
+
+const vTokenAddresses = _values(VBEP_TOKENS).reduce(
   (acc, item) => (item.address ? [...acc, item.address] : acc),
-  [],
+  [] as string[],
 );
 
 // TODO: decouple, this hook handles too many things (see https://app.clickup.com/t/2d4rfx6)
@@ -64,15 +68,6 @@ const useGetUserMarketInfo = ({
       dailyVenusWei: new BigNumber(0),
     },
   });
-
-  const marketsMap = useMemo(
-    () =>
-      indexBy(
-        (item: Market) => item.underlyingSymbol.toLowerCase(), // index by symbol of underlying token
-        getMarketsData.markets,
-      ),
-    [getMarketsData?.markets],
-  );
 
   const {
     data: assetsInAccount = {
@@ -119,20 +114,16 @@ const useGetUserMarketInfo = ({
       userTotalBorrowLimitCents,
       userTotalSupplyBalanceCents,
       totalXvsDistributedWei,
-    } = Object.values(TOKENS).reduce(
-      (acc, item) => {
-        const { assets: assetAcc } = acc;
+    } = (getMarketsData?.markets || []).reduce(
+      (acc, market) => {
+        const token = unsafeGetToken(market.id);
+        const vBepToken = unsafeGetVToken(token.id);
 
-        const toDecimalAmount = (mantissa: string) =>
-          new BigNumber(mantissa).shiftedBy(-item.decimals);
-
-        const vBepToken = unsafeGetVToken(item.id);
-        // if no corresponding VBep token, skip
-        if (!vBepToken) {
+        // Skip token if it isn't listed
+        if (!token || !vBepToken) {
           return acc;
         }
 
-        const market = marketsMap[item.id];
         const vtokenAddress = vBepToken.address.toLowerCase();
         const collateral = (assetsInAccount.tokenAddresses || [])
           .map((address: string) => address.toLowerCase())
@@ -145,18 +136,13 @@ const useGetUserMarketInfo = ({
 
         const wallet = vTokenBalances && vTokenBalances[vtokenAddress];
         if (accountAddress && wallet) {
+          const toDecimalAmount = (mantissa: string) =>
+            new BigNumber(mantissa).shiftedBy(-token.decimals);
+
           walletBalance = toDecimalAmount(wallet.tokenBalance);
           supplyBalance = toDecimalAmount(wallet.balanceOfUnderlying);
           borrowBalance = toDecimalAmount(wallet.borrowBalanceCurrent);
         }
-
-        const token: Token = {
-          id: item.id,
-          symbol: market?.underlyingSymbol || item.id.toUpperCase(),
-          decimals: item.decimals,
-          address: market?.underlyingAddress || '',
-          asset: item.asset,
-        };
 
         const asset = {
           token,
@@ -206,10 +192,10 @@ const useGetUserMarketInfo = ({
           );
         }
 
-        return { ...acc, assets: [...assetAcc, asset] };
+        return { ...acc, assets: [...acc.assets, asset] };
       },
       {
-        assets: [],
+        assets: [] as Asset[],
         userTotalBorrowBalanceCents: new BigNumber(0),
         userTotalBorrowLimitCents: new BigNumber(0),
         userTotalSupplyBalanceCents: new BigNumber(0),
@@ -253,7 +239,7 @@ const useGetUserMarketInfo = ({
     };
   }, [
     userMintedVaiData?.mintedVaiWei.toFixed(),
-    JSON.stringify(marketsMap),
+    JSON.stringify(getMarketsData?.markets),
     JSON.stringify(assetsInAccount),
     JSON.stringify(vTokenBalances),
     JSON.stringify(getMarketsData),

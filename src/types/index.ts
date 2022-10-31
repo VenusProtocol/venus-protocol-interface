@@ -24,7 +24,7 @@ export interface Asset {
   collateral: boolean;
   supplyBalance: BigNumber;
   percentOfLimit: string;
-  treasuryBalance: BigNumber;
+  // treasuryBalance: BigNumber;
   treasuryTotalBorrowsCents: BigNumber;
   treasuryTotalSupplyCents: BigNumber;
   treasuryTotalSupply: BigNumber;

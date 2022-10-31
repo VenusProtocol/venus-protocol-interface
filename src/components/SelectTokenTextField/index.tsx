@@ -64,7 +64,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 css={styles.getButton({ isTokenListShown })}
                 disabled={disabled}
               >
-                <TokenIcon token={selectedToken} css={styles.token} />
+                <TokenIcon token={selectedToken} css={styles.token} showSymbol />
 
                 <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
               </PrimaryButton>
