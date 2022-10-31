@@ -118,7 +118,7 @@ const useGetUserMarketInfo = ({
           new BigNumber(mantissa).shiftedBy(-item.decimals);
 
         const vBepToken = unsafeGetVToken(item.id);
-        // if no corresponding vassets, skip
+        // if no corresponding VBep token, skip
         if (!vBepToken) {
           return acc;
         }

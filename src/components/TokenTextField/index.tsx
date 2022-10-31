@@ -61,7 +61,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = ({
       step={step}
       onChange={handleChange}
       type="number"
-      leftIconName={displayTokenIcon ? (token.id as IconName) : undefined}
+      leftIconSrc={displayTokenIcon ? token : undefined}
       rightAdornment={
         rightMaxButton ? (
           <TertiaryButton

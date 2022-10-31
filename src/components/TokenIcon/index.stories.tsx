@@ -13,3 +13,5 @@ export default {
 } as ComponentMeta<typeof TokenIcon>;
 
 export const Default = () => <TokenIcon token={TOKENS.usdc} />;
+
+export const WithShowSymbol = () => <TokenIcon token={TOKENS.usdc} showSymbol />;

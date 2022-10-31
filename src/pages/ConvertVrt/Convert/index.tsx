@@ -130,7 +130,7 @@ const Convert: React.FC<ConvertProps> = ({
             </Typography>
             <Icon name="arrowShaft" css={styles.successModalArrow} />
 
-            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} showSymbol={false} />
+            <TokenIcon token={TOKENS.xvs} css={styles.successModalToken} />
 
             <Typography variant="small2" css={[styles.fontWeight600, styles.successMessage]}>
               {xvsAmountWei &&

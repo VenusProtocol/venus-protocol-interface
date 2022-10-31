@@ -36,7 +36,7 @@ export type TokenId = string;
 export type VTokenId = string;
 
 export interface Token {
-  id: TokenId; // TODO: remove
+  id: TokenId; // TODO: remove (related to https://jira.toolsfdg.net/browse/VEN-723)
   symbol: Uppercase<TokenId>;
   decimals: number;
   address: string | '';
