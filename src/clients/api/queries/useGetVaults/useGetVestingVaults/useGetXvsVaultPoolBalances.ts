@@ -1,5 +1,4 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
-import { TokenId } from 'types';
 import { getContractAddress, getTokenByAddress } from 'utilities';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
