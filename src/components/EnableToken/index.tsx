@@ -4,7 +4,6 @@ import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
-import type { TransactionReceipt } from 'web3-core/types';
 
 import { AuthContext } from 'context/AuthContext';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -13,7 +12,6 @@ import { SecondaryButton } from '../Button';
 import { Delimiter } from '../Delimiter';
 import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
-import { toast } from '../Toast';
 import { TokenIcon } from '../TokenIcon';
 import useStyles from './styles';
 
@@ -68,7 +66,7 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
         <Spinner />
       ) : (
         <>
-          <TokenIcon token={token} css={styles.mainLogo} />
+          <TokenIcon token={token} css={styles.mainLogo} showSymbol />
 
           <Typography component="h3" variant="h3" css={styles.mainText}>
             {title}
@@ -114,8 +112,29 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress,
     useTokenApproval({
       token,
       spenderAddress,
-      accountAddress: account?.address,
-    });
+      tokenId: token.id,
+    },
+    {
+      enabled: !!account?.address,
+    },
+  );
+
+  const isTokenApproved =
+    token.id === 'bnb' ||
+    (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
+
+  const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
+    tokenId: token.id,
+  });
+
+  const approveToken = () => {
+    if (account?.address) {
+      contractApproveToken({
+        accountAddress: account.address,
+        spenderAddress,
+      });
+    }
+  };
 
   return (
     <EnableTokenUi

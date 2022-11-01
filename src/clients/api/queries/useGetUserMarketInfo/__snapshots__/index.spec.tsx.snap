@@ -126,7 +126,6 @@ Object {
         "asset": "bnb.svg",
         "decimals": 18,
         "id": "bnb",
-        "isNative": true,
         "symbol": "BNB",
       },
       "tokenPrice": "294.99354795",

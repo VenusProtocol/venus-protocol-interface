@@ -11,6 +11,7 @@ import {
 import { VError } from 'errors';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -102,7 +103,7 @@ export const RepayVaiUi: React.FC<RepayVaiUiProps> = ({
                   <FormikTokenTextField
                     name="amount"
                     css={styles.textField}
-                    token={TOKENS.vai}
+                    token={TOKENS.vai as Token}
                     max={limitTokens}
                     disabled={disabled || isRepayVaiLoading || !hasRepayableVai}
                     rightMaxButton={{
@@ -146,7 +147,7 @@ const RepayVai: React.FC = () => {
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
-      token: TOKENS.vai,
+      tokenId: TOKENS.vai.id,
     },
     {
       enabled: !!account?.address,

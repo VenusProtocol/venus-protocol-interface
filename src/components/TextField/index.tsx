@@ -65,7 +65,13 @@ export const TextField: React.FC<TextFieldProps> = ({
       )}
 
       <Box css={styles.getInputContainer({ hasError, disabled })}>
-        {!!leftIconName && <Icon name={leftIconName} css={styles.getLeftIcon({ isSmall })} />}
+        {typeof leftIconSrc === 'string' && (
+          <Icon name={leftIconSrc} css={styles.getLeftIcon({ isSmall })} />
+        )}
+
+        {!!leftIconSrc && typeof leftIconSrc !== 'string' && (
+          <TokenIcon token={leftIconSrc} css={styles.getLeftIcon({ isSmall })} />
+        )}
 
         <input
           css={styles.getInput({ hasRightAdornment: !!rightAdornment, isSmall })}

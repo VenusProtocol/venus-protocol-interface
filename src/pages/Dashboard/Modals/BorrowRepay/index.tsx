@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
+import { Modal, ModalProps, TabContent, Tabs, TokenIcon } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
 import { Asset } from 'types';
@@ -44,7 +44,7 @@ const BorrowRepay: React.FC<BorrowRepayProps> = ({ onClose, asset, isXvsEnabled 
   return (
     <Modal
       isOpen
-      title={<TokenIconWithSymbol token={asset.token} variant="h4" />}
+      title={<TokenIcon token={asset.token} variant="h4" showSymbol />}
       handleClose={onClose}
     >
       <Tabs tabsContent={tabsContent} />

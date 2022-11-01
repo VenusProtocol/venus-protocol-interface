@@ -10,7 +10,7 @@ const getVTokenByAddress = (address: string) => {
     .forEach(tokenId => {
       const currentToken = VBEP_TOKENS[tokenId as keyof typeof VBEP_TOKENS];
       if (currentToken?.address.toLowerCase() === address.toLowerCase()) {
-        token = currentToken;
+        token = currentToken as Token;
       }
     });
 

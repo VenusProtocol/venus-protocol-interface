@@ -25,14 +25,6 @@ import xvs from 'assets/img/tokens/xvs.svg';
 import TOKEN_ADDRESSES from '../../contracts/addresses/tokens.json';
 
 export const TESTNET_TOKENS = {
-  bnb: {
-    id: 'bnb',
-    symbol: 'BNB',
-    decimals: 18,
-    address: TOKEN_ADDRESSES.bnb[BscChainId.TESTNET],
-    asset: bnb,
-    isNative: true,
-  } as Token,
   sxp: {
     id: 'sxp',
     symbol: 'SXP',
@@ -60,6 +52,13 @@ export const TESTNET_TOKENS = {
     decimals: 18,
     address: TOKEN_ADDRESSES.busd[BscChainId.TESTNET],
     asset: busd,
+  } as Token,
+  bnb: {
+    id: 'bnb',
+    symbol: 'BNB',
+    decimals: 18,
+    address: TOKEN_ADDRESSES.bnb[BscChainId.TESTNET],
+    asset: bnb,
   } as Token,
   xvs: {
     id: 'xvs',

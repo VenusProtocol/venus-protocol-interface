@@ -11,6 +11,7 @@ import {
 import { VError } from 'errors';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
+import { Token } from 'types';
 import { convertTokensToWei, convertWeiToTokens, getContractAddress } from 'utilities';
 import type { TransactionReceipt } from 'web3-core';
 
@@ -115,7 +116,7 @@ export const MintVaiUi: React.FC<MintVaiUiProps> = ({
                   <FormikTokenTextField
                     name="amount"
                     css={styles.textField}
-                    token={TOKENS.vai}
+                    token={TOKENS.vai as Token}
                     max={limitTokens}
                     disabled={disabled || isMintVaiLoading || !hasMintableVai}
                     rightMaxButton={{

@@ -29,7 +29,7 @@ const useGetVrtVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: totalVrtStakedData, isLoading: isGetTotalVrtStakedWeiLoading } = useGetBalanceOf(
     {
       accountAddress: vrtVaultProxyAddress,
-      token: TOKENS.vrt,
+      tokenId: TOKENS.vrt.id,
     },
     {
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
