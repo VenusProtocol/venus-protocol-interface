@@ -386,6 +386,11 @@
     "withdraw": "Withdraw",
     "withdrawableAmount": "Withdrawable amount: <White>{{amount}}</White>"
   },
+  "swap": {
+    "errors": {
+      "incorrectSwapInput": "Incorrect input provided for swap"
+    }
+  },
   "swapPage": {
     "exchangeRate": {
       "label": "Exchange rate",
@@ -408,7 +413,8 @@
       "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}"
     },
     "successfulConvertTransactionModal": {
-      "title": "TRANSLATION NEEDED"
+      "message": "You successfully swapped your tokens",
+      "title": "Your swap was successful"
     },
     "toTokenAmountField": {
       "label": "To"

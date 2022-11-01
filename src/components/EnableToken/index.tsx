@@ -103,7 +103,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress,
   );
 
   const isTokenApproved =
-    token.id === 'bnb' ||
+    token.isNative ||
     (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
 
   const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({

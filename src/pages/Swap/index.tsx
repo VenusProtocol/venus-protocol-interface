@@ -41,7 +41,7 @@ interface FormValues {
 
 const initialFormValues: FormValues = {
   // TODO: handle mainnet
-  fromToken: TESTNET_PANCAKE_SWAP_TOKENS.busd as Token,
+  fromToken: TESTNET_PANCAKE_SWAP_TOKENS.bnb as Token,
   fromTokenAmountTokens: '',
   // TODO: handle mainnet
   toToken: TESTNET_PANCAKE_SWAP_TOKENS.cake as Token,
@@ -122,7 +122,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         openSuccessfulTransactionModal({
           title: t('swapPage.successfulConvertTransactionModal.title'),
           transactionHash: transactionReceipt.transactionHash,
-          content: 'Successful swap', // TODO: design
+          content: t('swapPage.successfulConvertTransactionModal.message'),
         });
 
         // Reset form on success

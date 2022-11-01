@@ -24,12 +24,24 @@ const useSwapTokens = (options?: Options) => {
       ...options,
       onSuccess: (...onSuccessParams) => {
         const { fromAccountAddress, swap } = onSuccessParams[1];
-        // TODO: invalidate getBalanceOf query
+
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
-          fromAccountAddress,
-          swap.fromToken.id,
+          {
+            accountAddress: fromAccountAddress,
+            tokenAddress: swap.fromToken.address,
+          },
         ]);
+
+        queryClient.invalidateQueries([
+          FunctionKey.GET_BALANCE_OF,
+          {
+            accountAddress: fromAccountAddress,
+            tokenAddress: swap.toToken.address,
+          },
+        ]);
+
+        queryClient.invalidateQueries(FunctionKey.GET_MARKETS);
 
         if (options?.onSuccess) {
           options.onSuccess(...onSuccessParams);

@@ -3,7 +3,6 @@ import { Token } from 'types';
 import Web3 from 'web3';
 
 import { getTokenContract } from 'clients/contracts';
-import { TOKENS } from 'constants/tokens';
 
 export interface GetBalanceOfInput {
   web3: Web3;
@@ -22,7 +21,7 @@ const getBalanceOf = async ({
 }: GetBalanceOfInput): Promise<GetBalanceOfOutput> => {
   let balanceWei: BigNumber;
 
-  if (token.address === TOKENS.bnb.address) {
+  if (token.isNative) {
     const resp = await web3.eth.getBalance(accountAddress);
     balanceWei = new BigNumber(resp);
   } else {

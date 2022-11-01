@@ -46,15 +46,19 @@ const useWithdrawFromVrtVault = (options?: Options) => {
         // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
-          fromAccountAddress,
-          TOKENS.vrt.id,
+          {
+            accountAddress: fromAccountAddress,
+            tokenAddress: TOKENS.vrt.address,
+          },
         ]);
 
         // Invalidate cached vault data
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
-          VRT_VAULT_PROXY_CONTRACT_ADDRESS,
-          TOKENS.vrt.id,
+          {
+            accountAddress: VRT_VAULT_PROXY_CONTRACT_ADDRESS,
+            tokenAddress: TOKENS.vrt.address,
+          },
         ]);
 
         queryClient.invalidateQueries(FunctionKey.GET_VRT_VAULT_INTEREST_RATE_PER_BLOCK);

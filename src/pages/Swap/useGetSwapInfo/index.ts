@@ -15,6 +15,7 @@ import { useGetPancakeSwapPairs } from 'clients/api';
 import formatToSwap from './formatToSwap';
 import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
+import wrapToken from './wrapToken';
 
 const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   // Determine all possible token combination based on input tokens
@@ -30,6 +31,9 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   return useMemo(() => {
     let trade: PSTrade<PSCurrency, PSCurrency, PSTradeType> | undefined;
 
+    const wrappedFromToken = wrapToken(input.fromToken);
+    const wrappedToToken = wrapToken(input.toToken);
+
     // Handle "exactAmountIn" direction (sell an exact amount of fromTokens for
     // as many toTokens as possible)
     if (
@@ -39,24 +43,24 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     ) {
       const fromTokenAmountWei = convertTokensToWei({
         value: new BigNumber(input.fromTokenAmountTokens),
-        token: input.fromToken,
+        token: wrappedFromToken,
       });
 
       const currencyAmountIn = PSCurrencyAmount.fromRawAmount(
         new PSToken(
           config.chainId,
-          input.fromToken.address,
-          input.fromToken.decimals,
-          input.fromToken.symbol,
+          wrappedFromToken.address,
+          wrappedFromToken.decimals,
+          wrappedFromToken.symbol,
         ),
         fromTokenAmountWei.toFixed(),
       );
 
       const currencyOut = new PSToken(
         config.chainId,
-        input.toToken.address,
-        input.toToken.decimals,
-        input.toToken.symbol,
+        wrappedToToken.address,
+        wrappedToToken.decimals,
+        wrappedToToken.symbol,
       );
 
       // Find best trade
@@ -80,22 +84,22 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     ) {
       const currencyIn = new PSToken(
         config.chainId,
-        input.fromToken.address,
-        input.fromToken.decimals,
-        input.fromToken.symbol,
+        wrappedFromToken.address,
+        wrappedFromToken.decimals,
+        wrappedFromToken.symbol,
       );
 
       const toTokenAmountWei = convertTokensToWei({
         value: new BigNumber(input.toTokenAmountTokens),
-        token: input.toToken,
+        token: wrappedToToken,
       });
 
       const currencyAmountOut = PSCurrencyAmount.fromRawAmount(
         new PSToken(
           config.chainId,
-          input.toToken.address,
-          input.toToken.decimals,
-          input.toToken.symbol,
+          wrappedToToken.address,
+          wrappedToToken.decimals,
+          wrappedToToken.symbol,
         ),
         toTokenAmountWei.toFixed(),
       );

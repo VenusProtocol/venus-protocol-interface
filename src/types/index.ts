@@ -38,6 +38,7 @@ export interface Token {
   decimals: number;
   address: string | '';
   asset: string;
+  isNative?: boolean;
 }
 
 export interface Setting {

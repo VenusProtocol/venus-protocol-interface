@@ -10,7 +10,13 @@ type Options = QueryObserverOptions<
   Error,
   GetBalanceOfOutput,
   GetBalanceOfOutput,
-  [FunctionKey.GET_BALANCE_OF, string, string]
+  [
+    FunctionKey.GET_BALANCE_OF,
+    {
+      accountAddress: string;
+      tokenAddress: string;
+    },
+  ]
 >;
 
 const useGetBalanceOf = (
@@ -20,7 +26,13 @@ const useGetBalanceOf = (
   const web3 = useWeb3();
 
   return useQuery(
-    [FunctionKey.GET_BALANCE_OF, accountAddress, token.address],
+    [
+      FunctionKey.GET_BALANCE_OF,
+      {
+        accountAddress,
+        tokenAddress: token.address,
+      },
+    ],
     () => getBalanceOf({ web3, accountAddress, token }),
     options,
   );

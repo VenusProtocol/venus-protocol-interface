@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { getContractAddress } from 'utilities';
+import { getContractAddress, unsafelyGetToken } from 'utilities';
 
 import {
   ExecuteWithdrawalFromXvsVaultInput,
@@ -59,18 +59,24 @@ const useExecuteWithdrawalFromXvsVault = (
           },
         ]);
 
+        const stakedToken = unsafelyGetToken(stakedTokenId);
+
         // Invalidate cached user balance
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
-          fromAccountAddress,
-          stakedTokenId,
+          {
+            accountAddress: fromAccountAddress,
+            tokenAddress: stakedToken.address,
+          },
         ]);
 
         // Invalidate cached vault data
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
-          XVS_VAULT_PROXY_CONTRACT_ADDRESS,
-          stakedTokenId,
+          {
+            accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
+            tokenAddress: stakedToken.address,
+          },
         ]);
 
         queryClient.invalidateQueries([

@@ -6,6 +6,8 @@ import { Token } from 'types';
 
 import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 
+import wrapToken from './wrapToken';
+
 export interface UseGetTokenCombinationsInput {
   fromToken: Token;
   toToken: Token;
@@ -27,18 +29,23 @@ const useGetTokenCombinations = ({
   toToken,
 }: UseGetTokenCombinationsInput): [PSToken, PSToken][] =>
   useMemo(() => {
+    const wrappedFromToken = wrapToken(fromToken);
+    const wrappedToToken = wrapToken(toToken);
+
     const psFromToken = new PSToken(
       config.chainId,
-      fromToken.address,
-      fromToken.decimals,
-      fromToken.symbol,
+      wrappedFromToken.address,
+      wrappedFromToken.decimals,
+      wrappedFromToken.symbol,
     );
+
     const psToToken = new PSToken(
       config.chainId,
-      fromToken.address,
-      fromToken.decimals,
-      fromToken.symbol,
+      wrappedToToken.address,
+      wrappedToToken.decimals,
+      wrappedToToken.symbol,
     );
+
     // Convert tokens to PancakeSwap token instances
     const baseTradeTokens = [
       ...BASE_TRADE_TOKENS.map(
