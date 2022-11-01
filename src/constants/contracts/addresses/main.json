@@ -54,5 +54,9 @@
   "maximillion": {
     "56": "0x5efA1e46F4Fd738FF721F5AebC895b970F13E8A1",
     "97": "0xF3a34e06015e019D6154a0f1089f695B27122f50"
+  },
+  "pancakeRouter": {
+    "56": "",
+    "97": "0xd99d1c33f9fc3444f8101754abc46c52416550d1"
   }
 }

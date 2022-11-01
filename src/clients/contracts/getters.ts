@@ -9,6 +9,7 @@ import governorBravoDelegateAbi from 'constants/contracts/abis/governorBravoDele
 import interestModelAbi from 'constants/contracts/abis/interestModel.json';
 import maximillionAbi from 'constants/contracts/abis/maximillion.json';
 import oracleAbi from 'constants/contracts/abis/oracle.json';
+import pancakeRouterAbi from 'constants/contracts/abis/pancakeRouter.json';
 import vBep20Abi from 'constants/contracts/abis/vBep20.json';
 import vBnbTokenAbi from 'constants/contracts/abis/vBnbToken.json';
 import vaiTokenAbi from 'constants/contracts/abis/vaiToken.json';
@@ -29,6 +30,7 @@ import {
   InterestModel,
   Maximillion,
   Oracle,
+  PancakeRouter,
   VaiUnitroller,
   VaiVault,
   VenusLens,
@@ -176,3 +178,11 @@ export const getVrtVaultProxyContract = (web3: Web3) =>
     getContractAddress('vrtVaultProxy'),
     web3,
   ) as unknown as VrtVault;
+
+// PancakeSwap router
+export const getPancakeRouterContract = (web3: Web3) =>
+  getContract(
+    pancakeRouterAbi as AbiItem[],
+    getContractAddress('pancakeRouter'),
+    web3,
+  ) as unknown as PancakeRouter;

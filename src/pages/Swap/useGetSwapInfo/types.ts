@@ -3,9 +3,7 @@ import {
   Trade as PSTrade,
   TradeType as PSTradeType,
 } from '@pancakeswap/sdk/dist/index.js';
-import { Token } from 'types';
-
-import { Swap, SwapDirection } from '../types';
+import { Swap, SwapDirection, Token } from 'types';
 
 export interface UseGetSwapInfoInput {
   fromToken: Token;

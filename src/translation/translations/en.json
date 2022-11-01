@@ -407,6 +407,9 @@
       "disabledLabel": "Enter a valid amount to swap",
       "enabledLabel": "Swap {{fromTokenAmount}} for {{toTokenAmount}}"
     },
+    "successfulConvertTransactionModal": {
+      "title": "TRANSLATION NEEDED"
+    },
     "toTokenAmountField": {
       "label": "To"
     }

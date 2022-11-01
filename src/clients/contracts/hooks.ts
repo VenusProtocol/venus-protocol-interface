@@ -6,6 +6,7 @@ import {
   getComptrollerContract,
   getGovernorBravoDelegateContract,
   getInterestModelContract,
+  getPancakeRouterContract,
   getPriceOracleContract,
   getTokenContract,
   getTokenContractByAddress,
@@ -94,4 +95,9 @@ export const useXvsVestingProxyContract = () => {
 export const useVrtVaultProxyContract = () => {
   const web3 = useWeb3();
   return useMemo(() => getVrtVaultProxyContract(web3), [web3]);
+};
+
+export const usePancakeRouterContract = () => {
+  const web3 = useWeb3();
+  return useMemo(() => getPancakeRouterContract(web3), [web3]);
 };

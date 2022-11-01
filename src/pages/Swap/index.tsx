@@ -7,19 +7,22 @@ import {
   PrimaryButton,
   SelectTokenTextField,
   TertiaryButton,
+  toast,
 } from 'components';
+import { VError } from 'errors';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
-import { Token } from 'types';
+import { Swap, SwapDirection, Token } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
+import type { TransactionReceipt } from 'web3-core/types';
 
-import { useGetBalanceOf } from 'clients/api';
+import { useGetBalanceOf, useSwapTokens } from 'clients/api';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { PANCAKE_SWAP_TOKENS, TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
+import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 
 import { useStyles } from './styles';
-import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
 const tokens = Object.values(PANCAKE_SWAP_TOKENS) as Token[];
@@ -51,6 +54,8 @@ export interface SwapPageUiProps {
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   fromTokenUserBalanceWei?: BigNumber;
   toTokenUserBalanceWei?: BigNumber;
+  onSubmit: (swap: Swap) => Promise<TransactionReceipt>;
+  isSubmitting: boolean;
   swapInfo?: Swap;
 }
 
@@ -58,20 +63,17 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
   formValues,
   setFormValues,
   swapInfo,
+  onSubmit,
+  isSubmitting,
   fromTokenUserBalanceWei,
   toTokenUserBalanceWei,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const { openSuccessfulTransactionModal } = useSuccessfulTransactionModal();
+
   // TODO: reinitialize form values if swap becomes invalid
-  // if (!swapInfo) {
-  //   setFormValues(currentFormValues => ({
-  //     ...currentFormValues,
-  //     fromTokenAmountTokens: '',
-  //     toTokenAmountTokens: '',
-  //   }));
-  // }
 
   useEffect(() => {
     if (swapInfo?.direction === 'exactAmountIn') {
@@ -101,16 +103,39 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
       fromToken: currentFormValues.toToken,
       fromTokenAmountTokens:
         currentFormValues.direction === 'exactAmountIn'
-          ? ''
+          ? initialFormValues.toTokenAmountTokens
           : currentFormValues.toTokenAmountTokens,
       toToken: currentFormValues.fromToken,
       toTokenAmountTokens:
         currentFormValues.direction === 'exactAmountIn'
           ? currentFormValues.fromTokenAmountTokens
-          : '',
+          : initialFormValues.fromTokenAmountTokens,
       direction:
         currentFormValues.direction === 'exactAmountIn' ? 'exactAmountOut' : 'exactAmountIn',
     }));
+
+  const handleSubmit = async () => {
+    if (swapInfo) {
+      try {
+        const transactionReceipt = await onSubmit(swapInfo);
+
+        openSuccessfulTransactionModal({
+          title: t('swapPage.successfulConvertTransactionModal.title'),
+          transactionHash: transactionReceipt.transactionHash,
+          content: 'Successful swap', // TODO: design
+        });
+
+        // Reset form on success
+        setFormValues(currentFormValues => ({
+          ...currentFormValues,
+          fromTokenAmountTokens: initialFormValues.fromTokenAmountTokens,
+          toTokenAmountTokens: initialFormValues.toTokenAmountTokens,
+        }));
+      } catch (err) {
+        toast.error({ message: (err as Error).message });
+      }
+    }
+  };
 
   return (
     <Paper css={styles.container}>
@@ -118,6 +143,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         label={t('swapPage.fromTokenAmountField.label')}
         selectedToken={formValues.fromToken}
         value={formValues.fromTokenAmountTokens}
+        disabled={isSubmitting}
         onChange={amount =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
@@ -142,7 +168,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         css={styles.selectTokenTextField}
       />
 
-      <TertiaryButton css={styles.switchButton} onClick={switchTokens}>
+      <TertiaryButton css={styles.switchButton} onClick={switchTokens} disabled={isSubmitting}>
         <Icon name="convert" css={styles.switchButtonIcon} />
       </TertiaryButton>
 
@@ -150,6 +176,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         label={t('swapPage.toTokenAmountField.label')}
         selectedToken={formValues.toToken}
         value={formValues.toTokenAmountTokens}
+        disabled={isSubmitting}
         onChange={amount =>
           setFormValues(currentFormValues => ({
             ...currentFormValues,
@@ -211,7 +238,13 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         </>
       )}
 
-      <PrimaryButton fullWidth disabled={!swapInfo} css={styles.submitButton}>
+      <PrimaryButton
+        fullWidth
+        disabled={!swapInfo}
+        css={styles.submitButton}
+        onClick={handleSubmit}
+        loading={isSubmitting}
+      >
         {swapInfo
           ? t('swapPage.submitButton.enabledLabel', {
               fromTokenAmount: convertWeiToTokens({
@@ -264,6 +297,19 @@ const SwapPage: React.FC = () => {
     },
   );
 
+  const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens();
+
+  const onSwap = async (swap: Swap) => {
+    if (!account?.address) {
+      throw new VError({ type: 'unexpected', code: 'walletNotConnected' });
+    }
+
+    return swapTokens({
+      swap,
+      fromAccountAddress: account?.address,
+    });
+  };
+
   return (
     <SwapPageUi
       formValues={formValues}
@@ -271,6 +317,8 @@ const SwapPage: React.FC = () => {
       swapInfo={swapInfo}
       fromTokenUserBalanceWei={fromTokenUserBalanceData?.balanceWei}
       toTokenUserBalanceWei={toTokenUserBalanceData?.balanceWei}
+      onSubmit={onSwap}
+      isSubmitting={isSwapTokensLoading}
     />
   );
 };
