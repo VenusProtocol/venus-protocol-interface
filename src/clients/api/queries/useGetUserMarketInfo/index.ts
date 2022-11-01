@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import _values from 'lodash/values';
 import { useMemo } from 'react';
 import { Asset, Token } from 'types';
 import {
@@ -34,9 +33,7 @@ export interface UseGetUserMarketInfoOutput {
   data: Data;
 }
 
-// const tokens = _values(TOKENS);
-
-const vTokenAddresses = _values(VBEP_TOKENS).reduce(
+const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
   (acc, item) => (item.address ? [...acc, item.address] : acc),
   [] as string[],
 );
