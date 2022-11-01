@@ -127,7 +127,7 @@ const XvsTable: React.FC = () => {
 
   const { data: vaultVaiStakedData } = useGetBalanceOf(
     {
-      tokenId: 'vai',
+      token: TOKENS.vai,
       accountAddress: getContractAddress('vaiVault'),
     },
     {

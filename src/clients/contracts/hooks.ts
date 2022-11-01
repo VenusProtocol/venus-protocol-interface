@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Token } from 'types';
 
 import { useWeb3 } from 'clients/web3';
 
@@ -21,9 +22,9 @@ import {
   getXvsVestingProxyContract,
 } from './getters';
 
-export const useTokenContract = <T extends string>(name: T) => {
+export const useTokenContract = (token: Token) => {
   const web3 = useWeb3();
-  return useMemo(() => getTokenContract<T>(name, web3), [web3, name]);
+  return useMemo(() => getTokenContract(token, web3), [web3, token]);
 };
 
 export const useTokenContractByAddress = (address: string) => {

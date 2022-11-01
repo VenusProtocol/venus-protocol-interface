@@ -147,7 +147,7 @@ const RepayVai: React.FC = () => {
   const { data: userVaiBalanceData, isLoading: isGetUserVaiBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
-      tokenId: TOKENS.vai.id,
+      token: TOKENS.vai,
     },
     {
       enabled: !!account?.address,

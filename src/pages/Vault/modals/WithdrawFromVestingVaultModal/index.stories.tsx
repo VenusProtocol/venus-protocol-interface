@@ -36,7 +36,7 @@ Default.args = {
 Default.decorators = [
   withAuthContext(authContext),
   withEnabledToken({
-    tokenId: VBEP_TOKENS.xvs.id,
+    token: VBEP_TOKENS.xvs,
     accountAddress: fakeAddress,
     spenderAddress: VBEP_TOKENS.xvs.address,
   }),

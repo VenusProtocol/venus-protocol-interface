@@ -41,7 +41,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { data: availableTokensData, isLoading: isGetWalletBalanceWeiLoading } = useGetBalanceOf(
     {
       accountAddress: account?.address || '',
-      tokenId: stakedTokenId,
+      token: stakedToken,
     },
     {
       enabled: !!account?.address,

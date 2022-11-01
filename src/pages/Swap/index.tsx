@@ -284,14 +284,14 @@ const SwapPage: React.FC = () => {
   });
 
   const { data: fromTokenUserBalanceData } = useGetBalanceOf(
-    { accountAddress: account?.address || '', tokenId: formValues.fromToken.id },
+    { accountAddress: account?.address || '', token: formValues.fromToken },
     {
       enabled: !!account?.address,
     },
   );
 
   const { data: toTokenUserBalanceData } = useGetBalanceOf(
-    { accountAddress: account?.address || '', tokenId: formValues.toToken.id },
+    { accountAddress: account?.address || '', token: formValues.toToken },
     {
       enabled: !!account?.address,
     },

@@ -95,7 +95,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress,
     {
       accountAddress: account?.address || '',
       spenderAddress,
-      tokenId: token.id,
+      token,
     },
     {
       enabled: !!account?.address,
@@ -107,7 +107,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress,
     (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
 
   const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
-    tokenId: token.id,
+    token,
   });
 
   const approveToken = () => {

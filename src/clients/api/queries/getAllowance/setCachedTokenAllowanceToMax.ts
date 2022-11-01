@@ -1,4 +1,5 @@
 import { QueryClient } from 'react-query';
+import { Token } from 'types';
 
 import { GetAllowanceOutput } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -8,19 +9,19 @@ import type { UseGetAllowanceQueryKey } from './useGetAllowance';
 
 const setCachedTokenAllowanceToMax = ({
   queryClient,
-  tokenId,
+  token,
   spenderAddress,
   accountAddress,
 }: {
   queryClient: QueryClient;
-  tokenId: string;
+  token: Token;
   spenderAddress: string;
   accountAddress: string;
 }) => {
   const queryKey: UseGetAllowanceQueryKey = [
     FunctionKey.GET_TOKEN_ALLOWANCE,
     {
-      tokenId,
+      tokenAddress: token.address,
       spenderAddress,
       accountAddress,
     },
