@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { checkForTokenTransactionError } from 'errors';
-import { getVBepToken } from 'utilities';
 import Web3 from 'web3';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { getMaximillionContract, getVTokenContract } from 'clients/contracts';
+import { VBEP_TOKENS } from 'constants/tokens';
 
 export interface RepayBnbInput {
   web3: Web3;
@@ -16,7 +16,6 @@ export interface RepayBnbInput {
 export type RepayBnbOutput = TransactionReceipt;
 
 export const REPAYMENT_BNB_BUFFER_PERCENTAGE = 0.001;
-const VBNB_ADDRESS = getVBepToken('bnb').address;
 
 const repayBnb = async ({
   web3,
@@ -34,7 +33,7 @@ const repayBnb = async ({
     const amountWithBuffer = amountWei.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
 
     resp = await maximillionContract.methods
-      .repayBehalfExplicit(fromAccountAddress, VBNB_ADDRESS)
+      .repayBehalfExplicit(fromAccountAddress, VBEP_TOKENS.bnb.address)
       .send({
         from: fromAccountAddress,
         value: amountWithBuffer.toFixed(0),
@@ -45,7 +44,7 @@ const repayBnb = async ({
 
     resp = await web3.eth.sendTransaction({
       from: fromAccountAddress,
-      to: VBNB_ADDRESS,
+      to: VBEP_TOKENS.bnb.address,
       value: amountWei.toFixed(),
       data: contractData,
     });

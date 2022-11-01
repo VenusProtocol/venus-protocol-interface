@@ -1,7 +1,7 @@
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import { DISABLED_TOKENS } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -17,6 +17,7 @@ import {
   useGetUserMarketInfo,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -97,10 +98,10 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
   });
 
   describe('Supply form', () => {
-    it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async tokenId => {
+    it.each(DISABLED_TOKENS)('does not display supply tab when asset is %s', async token => {
       const customFakeAsset = {
         ...fakeAsset,
-        id: tokenId as TokenId,
+        token,
       };
 
       const { queryByText } = renderComponent(
@@ -136,7 +137,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         },
       );
 
-      await waitFor(() => getByText(`10,000,000 ${fakeAsset.symbol.toUpperCase()}`));
+      await waitFor(() => getByText(`10,000,000 ${fakeAsset.token.symbol.toUpperCase()}`));
     });
 
     it('displays correct token supply balance', async () => {
@@ -222,9 +223,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply BNB, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        id: 'bnb' as TokenId,
-        symbol: 'BNB',
-        vsymbol: 'vBNB',
+        token: TOKENS.bnb,
         walletBalance: new BigNumber('11'),
       };
 
@@ -261,7 +260,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(customFakeAsset.decimals),
+        new BigNumber(10).pow(customFakeAsset.token.decimals),
       );
 
       await waitFor(() => expect(supplyBnb).toHaveBeenCalledWith({ amountWei: expectedAmountWei }));
@@ -270,7 +269,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
           transactionHash: fakeTransactionReceipt.transactionHash,
           amount: {
-            tokenId: customFakeAsset.id,
+            token: customFakeAsset.token,
             valueWei: expectedAmountWei,
           },
           content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
@@ -282,9 +281,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
     it('lets user supply non-BNB tokens, then displays successful transaction modal and calls onClose callback on success', async () => {
       const customFakeAsset: Asset = {
         ...fakeAsset,
-        id: 'eth' as TokenId,
-        symbol: 'ETH',
-        vsymbol: 'vETH',
+        token: TOKENS.busd,
         walletBalance: new BigNumber('11'),
       };
 
@@ -323,7 +320,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(customFakeAsset.decimals),
+        new BigNumber(10).pow(customFakeAsset.token.decimals),
       );
 
       await waitFor(() =>
@@ -334,7 +331,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
         expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
           transactionHash: fakeTransactionReceipt.transactionHash,
           amount: {
-            tokenId: customFakeAsset.id,
+            token: customFakeAsset.token,
             valueWei: expectedAmountWei,
           },
           content: en.supplyWithdraw.successfulSupplyTransactionModal.message,
@@ -413,7 +410,7 @@ describe('pages/Dashboard/SupplyWithdrawUi', () => {
       fireEvent.click(submitButton);
 
       const expectedAmountWei = new BigNumber(correctAmountTokens).multipliedBy(
-        new BigNumber(10).pow(fakeAsset.decimals),
+        new BigNumber(10).pow(asset.token.decimals),
       );
 
       await waitFor(() =>

@@ -3,30 +3,30 @@ import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
+import { Token } from 'types';
 
 import useConvertWeiToReadableTokenString from 'hooks/useConvertWeiToReadableTokenString';
 
 import { PrimaryButton } from '../Button';
 import { Icon } from '../Icon';
-import { Token } from '../Token';
+import { TokenIcon } from '../TokenIcon';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
 
 export interface SelectTokenTextFieldProps
-  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'tokenId'> {
-  selectedTokenId: TokenId;
-  tokenIds: TokenId[];
-  onChangeSelectedTokenId: (tokenId: TokenId) => void;
+  extends Omit<TokenTextFieldProps, 'rightMaxButton' | 'max' | 'token'> {
+  selectedToken: Token;
+  tokens: Token[];
+  onChangeSelectedToken: (token: Token) => void;
   userTokenBalanceWei?: BigNumber;
 }
 
 export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
-  selectedTokenId,
+  selectedToken,
   disabled,
-  tokenIds,
-  onChangeSelectedTokenId,
+  tokens,
+  onChangeSelectedToken,
   className,
   userTokenBalanceWei,
   value,
@@ -38,21 +38,21 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
   const handleButtonClick = () => setIsTokenListShown(isShowing => !isShowing);
 
-  const handleChangeSelectedToken = (newSelectedTokenId: TokenId) => {
+  const handleChangeSelectedToken = (newSelectedToken: Token) => {
     setIsTokenListShown(false);
-    onChangeSelectedTokenId(newSelectedTokenId);
+    onChangeSelectedToken(newSelectedToken);
   };
 
   const readableTokenWalletBalance = useConvertWeiToReadableTokenString({
     valueWei: userTokenBalanceWei,
-    tokenId: selectedTokenId,
+    token: selectedToken,
   });
 
   return (
     <div className={className}>
       <div css={styles.tokenTextFieldContainer}>
         <TokenTextField
-          tokenId={selectedTokenId}
+          token={selectedToken}
           disabled={disabled}
           displayTokenIcon={false}
           value={value}
@@ -64,7 +64,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 css={styles.getButton({ isTokenListShown })}
                 disabled={disabled}
               >
-                <Token tokenId={selectedTokenId} css={styles.token} />
+                <TokenIcon token={selectedToken} css={styles.token} showSymbol />
 
                 <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
               </PrimaryButton>
@@ -80,7 +80,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
 
         <div css={styles.tokenListContainer}>
           {isTokenListShown && (
-            <TokenList tokenIds={tokenIds} onTokenClick={handleChangeSelectedToken} />
+            <TokenList tokens={tokens} onTokenClick={handleChangeSelectedToken} />
           )}
         </div>
       </div>

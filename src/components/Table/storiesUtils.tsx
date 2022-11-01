@@ -2,8 +2,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 import React from 'react';
-import { TokenId } from 'types';
-import { formatToReadablePercentage, getToken } from 'utilities';
+import { formatToReadablePercentage, unsafelyGetToken } from 'utilities';
 
 import { Icon } from '../Icon';
 import { Toggle } from '../Toggle';
@@ -45,7 +44,7 @@ export const useTableStyles = () => {
     `,
   };
 };
-const createData = (asset: TokenId, apy: number, wallet: number, collateral: boolean) => {
+const createData = (asset: string, apy: number, wallet: number, collateral: boolean) => {
   const styles = {
     asset: css`
       display: flex;
@@ -74,7 +73,7 @@ const createData = (asset: TokenId, apy: number, wallet: number, collateral: boo
       value: asset,
       render: () => (
         <div css={styles.asset}>
-          <img src={getToken(asset).asset} alt={asset} />
+          <img src={unsafelyGetToken(asset).asset} alt={asset} />
           <span>{asset.toUpperCase()}</span>
         </div>
       ),

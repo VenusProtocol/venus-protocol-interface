@@ -18,6 +18,7 @@ import {
 
 import { useGetUserMarketInfo } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 import useDailyXvsDistributionInterests from 'hooks/useDailyXvsDistributionInterests';
 
@@ -79,7 +80,7 @@ const AccountData: React.FC<AccountDataProps> = ({
       const updatedAssets = assets.map(assetData => ({
         ...assetData,
         borrowBalance:
-          assetData.id === asset.id
+          assetData.token.address === asset.token.address
             ? assetData.borrowBalance.plus(tokenAmount)
             : assetData.borrowBalance,
       }));
@@ -149,7 +150,7 @@ const AccountData: React.FC<AccountDataProps> = ({
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.borrowAPy')}
-        iconName={asset.id}
+        iconSrc={asset.token}
         css={styles.getRow({ isLast: false })}
       >
         {readableBorrowApy}
@@ -157,7 +158,7 @@ const AccountData: React.FC<AccountDataProps> = ({
 
       <LabeledInlineContent
         label={t('borrowRepayModal.borrow.distributionApy')}
-        iconName="xvs"
+        iconSrc={TOKENS.xvs}
         css={styles.getRow({ isLast: true })}
       >
         {readableDistributionApy}

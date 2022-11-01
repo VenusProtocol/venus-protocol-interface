@@ -3,7 +3,7 @@ import { useContext, useMemo } from 'react';
 import { convertWeiToTokens } from 'utilities';
 
 import { useGetDailyXvs, useGetMarkets } from 'clients/api';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 import { AuthContext } from 'context/AuthContext';
 
 const useDailyXvsDistributionInterests = () => {
@@ -15,7 +15,7 @@ const useDailyXvsDistributionInterests = () => {
 
   const { data: getMarketsData, isLoading: isGetMarketsLoading } = useGetMarkets();
   const xvsPriceDollars: BigNumber | undefined = useMemo(
-    () => (getMarketsData?.markets || []).find(market => market.id === XVS_TOKEN_ID)?.tokenPrice,
+    () => (getMarketsData?.markets || []).find(market => market.id === TOKENS.xvs.id)?.tokenPrice,
     [JSON.stringify(getMarketsData?.markets)],
   );
 
@@ -24,7 +24,7 @@ const useDailyXvsDistributionInterests = () => {
       getDailyXvsData &&
       convertWeiToTokens({
         valueWei: getDailyXvsData.dailyXvsWei,
-        tokenId: XVS_TOKEN_ID,
+        token: TOKENS.xvs,
       });
 
     return {

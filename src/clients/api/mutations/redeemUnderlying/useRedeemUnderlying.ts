@@ -1,5 +1,4 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { VTokenId } from 'types';
 
 import redeemUnderlying, {
   RedeemUnderlyingInput,
@@ -10,7 +9,7 @@ import { useVTokenContract } from 'clients/contracts/hooks';
 import FunctionKey from 'constants/functionKey';
 
 const useRedeemUnderlying = (
-  { vTokenId, accountAddress }: { vTokenId: VTokenId; accountAddress: string },
+  { vTokenId, accountAddress }: { vTokenId: string; accountAddress: string },
   // TODO: use custom error type https://app.clickup.com/t/2rvwhnt
   options?: MutationObserverOptions<
     RedeemUnderlyingOutput,

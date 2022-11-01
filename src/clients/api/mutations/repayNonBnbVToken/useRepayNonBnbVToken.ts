@@ -1,5 +1,4 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { VTokenId } from 'types';
 
 import {
   RepayBnbOutput,
@@ -17,7 +16,7 @@ type Options = MutationObserverOptions<
 >;
 
 const useRepayNonBnbVToken = (
-  { vTokenId }: { vTokenId: Exclude<VTokenId, 'bnb'> },
+  { vTokenId }: { vTokenId: Exclude<string, 'bnb'> },
   options?: Options,
 ) => {
   const vTokenContract = useVTokenContract(vTokenId);

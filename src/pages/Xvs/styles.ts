@@ -68,7 +68,10 @@ export const useStyles = () => {
         color: ${theme.palette.button.medium};
       }
     `,
-    iconSize: `${theme.shape.iconSize.large}px`,
+    icon: css`
+      width: ${theme.shape.iconSize.large}px;
+      height: ${theme.shape.iconSize.large}px;
+    `,
     iconSizeXl: `${theme.shape.iconSize.xLarge}px`,
     slider: css`
       justify-content: flex-end;

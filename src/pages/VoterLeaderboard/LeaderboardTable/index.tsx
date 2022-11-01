@@ -9,6 +9,7 @@ import { VoterAccount } from 'types';
 import { convertWeiToTokens, formatToReadablePercentage } from 'utilities';
 
 import Path from 'constants/path';
+import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
 
@@ -83,7 +84,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
             <Typography color="textPrimary" variant="small2">
               {convertWeiToTokens({
                 valueWei: voter.votesWei,
-                tokenId: 'xvs',
+                token: TOKENS.xvs,
                 returnInReadableFormat: true,
                 addSymbol: false,
                 minimizeDecimals: true,

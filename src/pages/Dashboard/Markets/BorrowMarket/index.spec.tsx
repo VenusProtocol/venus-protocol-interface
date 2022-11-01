@@ -32,7 +32,7 @@ describe('pages/SupplyMarket', () => {
         userTotalBorrowLimitCents={new BigNumber(100000)}
       />,
     );
-    const rowElement = getAllByText(assetData[2].symbol)[0];
+    const rowElement = getAllByText(assetData[2].token.symbol)[0];
     fireEvent.click(rowElement);
     const connectButton = getByText(en.borrowRepayModal.borrow.connectWalletMessage);
     expect(connectButton).toBeTruthy();

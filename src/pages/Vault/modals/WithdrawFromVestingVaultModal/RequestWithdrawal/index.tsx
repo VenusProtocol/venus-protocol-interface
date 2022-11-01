@@ -3,8 +3,7 @@ import BigNumber from 'bignumber.js';
 import { ConnectWallet, Spinner, TextButton } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
-import { getToken } from 'utilities';
+import { unsafelyGetToken } from 'utilities';
 
 import {
   useGetXvsVaultLockedDeposits,
@@ -19,7 +18,7 @@ import TransactionForm, { TransactionFormProps } from '../../../TransactionForm'
 import { useStyles } from './styles';
 
 export interface RequestWithdrawalUiProps {
-  stakedTokenId: TokenId;
+  stakedTokenId: string;
   isInitialLoading: boolean;
   requestableWei: BigNumber;
   onSubmitSuccess: () => void;
@@ -39,7 +38,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
   isSubmitting,
   displayWithdrawalRequestList,
 }) => {
-  const stakedToken = getToken(stakedTokenId);
+  const stakedToken = unsafelyGetToken(stakedTokenId);
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -56,7 +55,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
       ) : (
         <>
           <TransactionForm
-            tokenId={stakedTokenId}
+            token={stakedToken}
             availableTokensLabel={t(
               'withdrawFromVestingVaultModalModal.requestWithdrawalTab.availableTokensLabel',
               { tokenSymbol: stakedToken.symbol },
@@ -94,7 +93,7 @@ export const RequestWithdrawalUi: React.FC<RequestWithdrawalUiProps> = ({
 };
 
 export interface RequestWithdrawalProps {
-  stakedTokenId: TokenId;
+  stakedTokenId: string;
   poolIndex: number;
   handleClose: () => void;
   handleDisplayWithdrawalRequestList: () => void;

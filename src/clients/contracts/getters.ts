@@ -1,5 +1,4 @@
-import { TokenId, VTokenId } from 'types';
-import { getContractAddress, getToken, getVBepToken } from 'utilities';
+import { getContractAddress, unsafelyGetToken, unsafelyGetVToken } from 'utilities';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
@@ -47,8 +46,8 @@ const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance:
   return new web3.eth.Contract(abi, address) as unknown as T;
 };
 
-export const getTokenContract = <T extends TokenId>(tokenId: T, web3: Web3): TokenContract<T> => {
-  const tokenAddress = getToken(tokenId).address;
+export const getTokenContract = <T extends string>(tokenId: T, web3: Web3): TokenContract<T> => {
+  const tokenAddress = unsafelyGetToken(tokenId).address;
 
   if (tokenId === 'xvs') {
     return getContract<TokenContract<T>>(xvsTokenAbi as AbiItem[], tokenAddress, web3);
@@ -68,11 +67,8 @@ export const getTokenContract = <T extends TokenId>(tokenId: T, web3: Web3): Tok
 export const getTokenContractByAddress = (address: string, web3: Web3): Bep20 =>
   getContract(bep20Abi as AbiItem[], address, web3) as unknown as Bep20;
 
-export const getVTokenContract = <T extends VTokenId>(
-  tokenId: T,
-  web3: Web3,
-): VTokenContract<T> => {
-  const vBepTokenAddress = getVBepToken(tokenId).address;
+export const getVTokenContract = <T extends string>(tokenId: T, web3: Web3): VTokenContract<T> => {
+  const vBepTokenAddress = unsafelyGetVToken(tokenId).address;
 
   if (tokenId === 'bnb') {
     return getContract(

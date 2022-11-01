@@ -34,7 +34,7 @@ describe('pages/SupplyMarket', () => {
         accountAddress={fakeAccountAddress}
       />,
     );
-    const rowElement = getAllByText(assetData[2].symbol)[0];
+    const rowElement = getAllByText(assetData[2].token.symbol)[0];
     fireEvent.click(rowElement);
     const connectButton = getByText(en.supplyWithdraw.connectWalletToSupply);
     expect(connectButton).toBeTruthy();

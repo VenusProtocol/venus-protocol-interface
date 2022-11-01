@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslation } from 'translation';
 import type { TransactionReceipt } from 'web3-core';
 
+import { TOKENS } from 'constants/tokens';
 import useHandleTransactionMutation from 'hooks/useHandleTransactionMutation';
 
 import { useStyles } from './styles';
@@ -78,7 +79,7 @@ const VoteModal: React.FC<VoteModalProps> = ({
               label={t('vote.votingPower')}
               name="votingPower"
               id="votingPower"
-              leftIconName="xvs"
+              leftIconSrc={TOKENS.xvs}
               disabled
               value={readableVoteWeight}
               css={styles.votingPower}

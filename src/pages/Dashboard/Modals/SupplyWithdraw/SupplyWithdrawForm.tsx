@@ -14,7 +14,7 @@ import {
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset, TokenId } from 'types';
+import { Asset } from 'types';
 import {
   calculateCollateralValue,
   calculateDailyEarningsCents,
@@ -22,7 +22,6 @@ import {
   convertTokensToWei,
   formatTokensToReadableValue,
   getBigNumber,
-  getToken,
 } from 'utilities';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -66,9 +65,6 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t, Trans } = useTranslation();
-  const { id: assetId } = asset;
-
-  const token = getToken(assetId);
 
   const amount = new BigNumber(amountValue || 0);
   const validAmount = amount && !amount.isZero() && !amount.isNaN();
@@ -86,8 +82,8 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
 
     if (tokenPrice && validAmount) {
       const amountInCents = calculateCollateralValue({
-        amountWei: convertTokensToWei({ value: amount, tokenId: asset.id }),
-        tokenId: asset.id,
+        amountWei: convertTokensToWei({ value: amount, token: asset.token }),
+        token: asset.token,
         tokenPriceTokens: asset.tokenPrice,
         collateralFactor: asset.collateralFactor,
       }).times(100);
@@ -97,7 +93,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
     }
 
     return updateBorrowLimitCents;
-  }, [amount, asset?.id, userTotalBorrowBalanceCents, userTotalBorrowLimitCents]);
+  }, [amount, asset.token, userTotalBorrowBalanceCents, userTotalBorrowLimitCents]);
 
   const [dailyEarningsCents, hypotheticalDailyEarningCents] = useMemo(() => {
     let hypotheticalDailyEarningCentsValue;
@@ -118,7 +114,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         ...asset,
         supplyBalance: calculateNewBalance(asset.supplyBalance, amount),
       };
-      const currentIndex = assets.findIndex(a => a.id === asset.id);
+      const currentIndex = assets.findIndex(a => a.token.address === asset.token.address);
       hypotheticalAssets.splice(currentIndex, 1, hypotheticalAsset);
       const hypotheticalYearlyEarningsCents =
         dailyXvsDistributionInterestsCents &&
@@ -132,17 +128,17 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         calculateDailyEarningsCents(hypotheticalYearlyEarningsCents);
     }
     return [dailyEarningsCentsValue, hypotheticalDailyEarningCentsValue];
-  }, [amount, asset.id, isXvsEnabled, JSON.stringify(assets)]);
+  }, [amount, asset.token.address, isXvsEnabled, JSON.stringify(assets)]);
 
   // Prevent users from supplying LUNA tokens. This is a temporary hotfix
   // following the crash of the LUNA token
-  const isSupplyingLuna = type === 'supply' && asset.id === 'luna';
+  const isSupplyingLuna = type === 'supply' && asset.token.id === 'luna';
 
   return (
     <>
       <FormikTokenTextField
         name="amount"
-        tokenId={assetId as TokenId}
+        token={asset.token}
         disabled={isTransactionLoading || isSupplyingLuna}
         rightMaxButton={{
           label: t('supplyWithdraw.max').toUpperCase(),
@@ -165,7 +161,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
           values={{
             amount: formatTokensToReadableValue({
               value: maxInput,
-              tokenId: asset.id,
+              token: asset.token,
             }),
           }}
         />
@@ -207,7 +203,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
         <ValueUpdate original={dailyEarningsCents} update={hypotheticalDailyEarningCents} />
       </LabeledInlineContent>
       <LabeledInlineContent
-        label={t('supplyWithdraw.supplyBalance', { tokenSymbol: token.symbol })}
+        label={t('supplyWithdraw.supplyBalance', { tokenSymbol: asset.token.symbol })}
         css={styles.getRow({ isLast: true })}
         className="info-row"
       >
@@ -217,7 +213,7 @@ export const SupplyWithdrawContent: React.FC<SupplyWithdrawFormUiProps> = ({
           format={(value: BigNumber | undefined) =>
             formatTokensToReadableValue({
               value,
-              tokenId: asset.id,
+              token: asset.token,
               minimizeDecimals: true,
               addSymbol: false,
             })

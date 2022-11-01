@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import React from 'react';
 
+import { TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { LabeledInlineContent } from '.';
@@ -16,13 +17,19 @@ export const Default = () => (
 );
 
 export const WithIcon = () => (
-  <LabeledInlineContent label="Available VAI LIMIT" iconName="vai">
+  <LabeledInlineContent label="Available VAI LIMIT" iconSrc="magnifier">
+    2000 VAI
+  </LabeledInlineContent>
+);
+
+export const WithTokenIcon = () => (
+  <LabeledInlineContent label="Available VAI LIMIT" iconSrc={TOKENS.xvs}>
     2000 VAI
   </LabeledInlineContent>
 );
 
 export const WithInvertedTextColors = () => (
-  <LabeledInlineContent label="Available VAI LIMIT" iconName="vai" invertTextColors>
+  <LabeledInlineContent label="Available VAI LIMIT" iconSrc="magnifier" invertTextColors>
     2000 VAI
   </LabeledInlineContent>
 );

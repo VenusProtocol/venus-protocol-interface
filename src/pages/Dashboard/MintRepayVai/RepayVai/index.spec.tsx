@@ -1,6 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
+import { Asset } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -14,6 +15,7 @@ import {
   useGetUserMarketInfo,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 import en from 'translation/translations/en.json';
@@ -30,10 +32,10 @@ const fakeUserVaiMintedWei = new BigNumber('100000000000000000000');
 const fakeUserVaiMintedTokens = fakeUserVaiMintedWei.dividedBy(1e18);
 const formattedFakeUserVaiMinted = formatTokensToReadableValue({
   value: fakeUserVaiMintedTokens,
-  tokenId: 'vai',
+  token: TOKENS.vai,
 });
 
-const fakeVai = { ...assetData, id: 'vai', symbol: 'VAI' };
+const fakeVai: Asset = { ...assetData[0], token: TOKENS.vai };
 
 describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
   beforeEach(() => {
@@ -124,7 +126,7 @@ describe('pages/Dashboard/MintRepayVai/RepayVai', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: 'vai',
+        token: TOKENS.vai,
         valueWei: fakeUserWeiMinted,
       },
       content: expect.any(String),

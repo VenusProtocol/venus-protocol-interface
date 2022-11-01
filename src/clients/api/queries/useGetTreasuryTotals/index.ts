@@ -31,9 +31,9 @@ export interface UseGetTreasuryTotalsOutput {
   data: Data;
 }
 
-const vTokenAddresses: string[] = Object.values(VBEP_TOKENS).reduce(
+const vTokenAddresses = Object.values(VBEP_TOKENS).reduce(
   (acc, item) => (item.address ? [...acc, item.address] : acc),
-  [],
+  [] as string[],
 );
 
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {

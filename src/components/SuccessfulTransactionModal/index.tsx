@@ -2,12 +2,13 @@
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { TokenId } from 'types';
+import { Token } from 'types';
 import { convertWeiToTokens } from 'utilities';
 
 import { BscLink } from '../BscLink';
-import { Icon, IconName } from '../Icon';
+import { Icon } from '../Icon';
 import { Modal, ModalProps } from '../Modal';
+import { TokenIcon } from '../TokenIcon';
 import { useStyles } from './styles';
 
 export interface SuccessfulTransactionModalProps extends Omit<ModalProps, 'children'> {
@@ -15,7 +16,7 @@ export interface SuccessfulTransactionModalProps extends Omit<ModalProps, 'child
   content?: string | React.ReactElement;
   transactionHash: string;
   amount?: {
-    tokenId: TokenId;
+    token: Token;
     valueWei: BigNumber;
   };
   className?: string;
@@ -47,12 +48,12 @@ export const SuccessfulTransactionModal: React.FC<SuccessfulTransactionModalProp
           )}
           {amount && (
             <div css={styles.amountContainer}>
-              <Icon name={amount.tokenId as IconName} css={styles.amountTokenIcon} />
+              <TokenIcon token={amount.token} css={styles.amountTokenIcon} />
 
               <Typography variant="small1" component="span">
                 {convertWeiToTokens({
                   valueWei: amount.valueWei,
-                  tokenId: amount.tokenId,
+                  token: amount.token,
                   returnInReadableFormat: true,
                 })}
               </Typography>

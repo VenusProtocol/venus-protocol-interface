@@ -5,6 +5,7 @@ import React from 'react';
 import fakeAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
 import { claimXvsReward, getXvsReward } from 'clients/api';
+import { TOKENS } from 'constants/tokens';
 import useSuccessfulTransactionModal from 'hooks/useSuccessfulTransactionModal';
 import renderComponent from 'testUtils/renderComponent';
 
@@ -80,7 +81,7 @@ describe('pages/Dashboard/ClaimXvsRewardButton', () => {
     expect(openSuccessfulTransactionModal).toHaveBeenCalledWith({
       transactionHash: fakeTransactionReceipt.transactionHash,
       amount: {
-        tokenId: 'xvs',
+        token: TOKENS.xvs,
         valueWei: fakeXvsReward,
       },
       content: expect.any(String),

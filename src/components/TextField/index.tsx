@@ -2,8 +2,10 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import React, { InputHTMLAttributes } from 'react';
+import { Token } from 'types';
 
 import { Icon, IconName } from '../Icon';
+import { TokenIcon } from '../TokenIcon';
 import { useStyles } from './styles';
 
 export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -11,7 +13,7 @@ export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   description?: string | React.ReactElement;
   hasError?: boolean;
-  leftIconName?: IconName;
+  leftIconSrc?: IconName | Token;
   rightAdornment?: React.ReactElement;
   isSmall?: boolean;
 }
@@ -21,7 +23,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   label,
   description,
   hasError = false,
-  leftIconName,
+  leftIconSrc,
   rightAdornment,
   onChange,
   max,
@@ -63,7 +65,13 @@ export const TextField: React.FC<TextFieldProps> = ({
       )}
 
       <Box css={styles.getInputContainer({ hasError, disabled })}>
-        {!!leftIconName && <Icon name={leftIconName} css={styles.getLeftIcon({ isSmall })} />}
+        {typeof leftIconSrc === 'string' && (
+          <Icon name={leftIconSrc} css={styles.getLeftIcon({ isSmall })} />
+        )}
+
+        {!!leftIconSrc && typeof leftIconSrc !== 'string' && (
+          <TokenIcon token={leftIconSrc} css={styles.getLeftIcon({ isSmall })} />
+        )}
 
         <input
           css={styles.getInput({ hasRightAdornment: !!rightAdornment, isSmall })}

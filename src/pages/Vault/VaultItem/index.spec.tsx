@@ -1,7 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { TokenId } from 'types';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeTransactionReceipt from '__mocks__/models/transactionReceipt';
@@ -53,7 +52,7 @@ describe('pages/Vault/VaultItem', () => {
   it('hides withdraw button when displaying non-vesting VRT vault and userStakedWei is equal to 0', async () => {
     const customBaseProps: VaultItemProps = {
       ...baseProps,
-      stakedTokenId: TOKENS.vrt.id as TokenId,
+      stakedTokenId: TOKENS.vrt.id,
       userStakedWei: new BigNumber(0),
     };
 
@@ -102,7 +101,7 @@ describe('pages/Vault/VaultItem', () => {
 
     const customBaseProps: VaultItemProps = {
       ...baseProps,
-      stakedTokenId: TOKENS.vrt.id as TokenId,
+      stakedTokenId: TOKENS.vrt.id,
     };
 
     const { getByText } = renderComponent(<VaultItem {...customBaseProps} />, {

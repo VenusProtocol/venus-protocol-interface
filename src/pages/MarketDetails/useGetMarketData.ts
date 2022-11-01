@@ -1,14 +1,19 @@
 import BigNumber from 'bignumber.js';
 import React from 'react';
-import { TokenId, VBepToken } from 'types';
-import { convertPercentageFromSmartContract, convertWeiToTokens, getToken } from 'utilities';
+import { Token } from 'types';
+import {
+  convertPercentageFromSmartContract,
+  convertWeiToTokens,
+  unsafelyGetToken,
+  unsafelyGetVToken,
+} from 'utilities';
 
 import { useGetMarkets, useGetVTokenCash } from 'clients/api';
 import { BLOCKS_PER_DAY } from 'constants/bsc';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import { TOKENS, VTOKEN_DECIMALS } from 'constants/tokens';
+import { TOKENS } from 'constants/tokens';
 
-const useGetMarketData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
+const useGetMarketData = ({ vTokenId }: { vTokenId: Token['id'] }) => {
   const { data: vTokenCashData } = useGetVTokenCash({
     vTokenId,
   });
@@ -17,6 +22,7 @@ const useGetMarketData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
   const assetMarket = (getMarketData?.markets || []).find(market => market.id === vTokenId);
 
   return React.useMemo(() => {
+    const vToken = unsafelyGetVToken(vTokenId);
     const totalBorrowBalanceCents = assetMarket && +assetMarket.totalBorrowsUsd * 100;
     const totalSupplyBalanceCents = assetMarket && +assetMarket.totalSupplyUsd * 100;
     const borrowApyPercentage = assetMarket?.borrowApy;
@@ -37,7 +43,7 @@ const useGetMarketData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
         valueWei: new BigNumber(assetMarket.supplierDailyVenus).plus(
           assetMarket.borrowerDailyVenus,
         ),
-        tokenId: TOKENS.xvs.id as TokenId,
+        token: TOKENS.xvs,
       });
 
     const formattedSupplyRatePerBlock =
@@ -78,14 +84,14 @@ const useGetMarketData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
       assetMarket &&
       convertWeiToTokens({
         valueWei: new BigNumber(assetMarket.totalReserves),
-        tokenId: vTokenId,
+        token: vToken,
       });
 
     const exchangeRateVTokens =
       assetMarket &&
       new BigNumber(1).div(
         new BigNumber(assetMarket.exchangeRate).div(
-          new BigNumber(10).pow(18 + getToken(vTokenId).decimals - VTOKEN_DECIMALS),
+          new BigNumber(10).pow(18 + unsafelyGetToken(vTokenId).decimals - vToken.decimals),
         ),
       );
 
@@ -93,7 +99,7 @@ const useGetMarketData = ({ vTokenId }: { vTokenId: VBepToken['id'] }) => {
     if (vTokenCashData?.cashWei && assetMarket && reserveTokens) {
       const vTokenCashTokens = convertWeiToTokens({
         valueWei: vTokenCashData.cashWei,
-        tokenId: vTokenId,
+        token: vToken,
       });
 
       currentUtilizationRate = new BigNumber(assetMarket.totalBorrows2)

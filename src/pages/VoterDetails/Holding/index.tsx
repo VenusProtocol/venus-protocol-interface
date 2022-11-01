@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { Delimiter, Icon } from 'components';
 import React from 'react';
 import { useTranslation } from 'translation';
-import { TokenId } from 'types';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { TOKENS } from 'constants/tokens';
@@ -32,14 +31,14 @@ export const Holding: React.FC<HoldingProps> = ({
 
   const readableVenusBalance = useConvertWeiToReadableTokenString({
     valueWei: balanceWei,
-    tokenId: TOKENS.xvs.id as TokenId,
+    token: TOKENS.xvs,
     addSymbol: false,
     minimizeDecimals: true,
   });
 
   const readableVotes = useConvertWeiToReadableTokenString({
     valueWei: votesWei,
-    tokenId: TOKENS.xvs.id as TokenId,
+    token: TOKENS.xvs,
     addSymbol: false,
     minimizeDecimals: true,
   });

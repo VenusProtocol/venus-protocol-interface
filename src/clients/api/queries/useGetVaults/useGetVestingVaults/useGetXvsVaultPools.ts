@@ -11,7 +11,7 @@ import {
 import { useXvsVaultProxyContract } from 'clients/contracts/hooks';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
-import { XVS_TOKEN_ADDRESS } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 
 export interface UseGetXvsVaultPoolsInput {
   poolsCount: number;
@@ -38,12 +38,12 @@ const useGetXvsVaultPools = ({
       queryFn: () =>
         getXvsVaultPoolInfo({
           xvsVaultContract,
-          rewardTokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: TOKENS.xvs.address,
           poolIndex,
         }),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-        { rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+        { rewardTokenAddress: TOKENS.xvs.address, poolIndex },
       ],
     });
 
@@ -51,13 +51,13 @@ const useGetXvsVaultPools = ({
       queryFn: () =>
         getXvsVaultPendingReward({
           xvsVaultContract,
-          rewardTokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: TOKENS.xvs.address,
           poolIndex,
           accountAddress: accountAddress || '',
         }),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_PENDING_REWARD,
-        { accountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+        { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
       ],
       enabled: !!accountAddress,
       refetchInterval: DEFAULT_REFETCH_INTERVAL_MS,
@@ -67,13 +67,13 @@ const useGetXvsVaultPools = ({
       queryFn: () =>
         getXvsVaultUserInfo({
           xvsVaultContract,
-          rewardTokenAddress: XVS_TOKEN_ADDRESS,
+          rewardTokenAddress: TOKENS.xvs.address,
           poolIndex,
           accountAddress: accountAddress || '',
         }),
       queryKey: [
         FunctionKey.GET_XVS_VAULT_USER_INFO,
-        { accountAddress, rewardTokenAddress: XVS_TOKEN_ADDRESS, poolIndex },
+        { accountAddress, rewardTokenAddress: TOKENS.xvs.address, poolIndex },
       ],
       enabled: !!accountAddress,
     });

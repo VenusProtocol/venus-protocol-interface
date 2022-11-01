@@ -19,7 +19,7 @@ const useConvertWeiToReadableTokenString = (params: UseConvertWeiToReadableToken
         : PLACEHOLDER_KEY,
     [
       params.valueWei?.toFixed(),
-      params.tokenId,
+      params.token,
       params.minimizeDecimals,
       params.addSymbol,
       params.shortenLargeValue,

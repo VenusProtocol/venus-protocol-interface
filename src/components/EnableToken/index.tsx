@@ -2,20 +2,20 @@
 import Typography from '@mui/material/Typography';
 import React, { useContext } from 'react';
 import { useTranslation } from 'translation';
-import { VTokenId } from 'types';
+import { Token } from 'types';
 
 import { useApproveToken, useGetAllowance } from 'clients/api';
 import { AuthContext } from 'context/AuthContext';
 
 import { SecondaryButton } from '../Button';
 import { Delimiter } from '../Delimiter';
-import { Icon } from '../Icon';
 import { LabeledInlineContent, LabeledInlineContentProps } from '../LabeledInlineContent';
 import { Spinner } from '../Spinner';
+import { TokenIcon } from '../TokenIcon';
 import useStyles from './styles';
 
 export interface EnableTokenUiProps {
-  vTokenId: VTokenId | 'vai' | 'vrt';
+  token: Token;
   title: string | React.ReactElement;
   isTokenEnabled: boolean;
   enableToken: () => void;
@@ -26,7 +26,7 @@ export interface EnableTokenUiProps {
 }
 
 export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
-  vTokenId,
+  token,
   title,
   tokenInfo = [],
   children,
@@ -49,7 +49,7 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
         <Spinner />
       ) : (
         <>
-          <Icon name={vTokenId} css={styles.mainLogo} />
+          <TokenIcon token={token} css={styles.mainLogo} showSymbol />
 
           <Typography component="h3" variant="h3" css={styles.mainText}>
             {title}
@@ -84,18 +84,18 @@ export const EnableTokenUi: React.FC<EnableTokenUiProps> = ({
 };
 
 export interface EnableTokenProps
-  extends Pick<EnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'vTokenId'> {
+  extends Pick<EnableTokenUiProps, 'tokenInfo' | 'disabled' | 'title' | 'token'> {
   spenderAddress: string;
 }
 
-export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddress, ...rest }) => {
+export const EnableToken: React.FC<EnableTokenProps> = ({ token, spenderAddress, ...rest }) => {
   const { account } = useContext(AuthContext);
 
   const { data: getTokenAllowanceData, isLoading: isGetAllowanceLoading } = useGetAllowance(
     {
       accountAddress: account?.address || '',
       spenderAddress,
-      tokenId: vTokenId,
+      tokenId: token.id,
     },
     {
       enabled: !!account?.address,
@@ -103,11 +103,11 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddre
   );
 
   const isTokenApproved =
-    vTokenId === 'bnb' ||
+    token.id === 'bnb' ||
     (!!getTokenAllowanceData && getTokenAllowanceData.allowanceWei.isGreaterThan(0));
 
   const { mutate: contractApproveToken, isLoading: isApproveTokenLoading } = useApproveToken({
-    tokenId: vTokenId,
+    tokenId: token.id,
   });
 
   const approveToken = () => {
@@ -122,7 +122,7 @@ export const EnableToken: React.FC<EnableTokenProps> = ({ vTokenId, spenderAddre
   return (
     <EnableTokenUi
       {...rest}
-      vTokenId={vTokenId}
+      token={token}
       enableToken={approveToken}
       isTokenEnabled={isTokenApproved}
       isEnableTokenLoading={isApproveTokenLoading}

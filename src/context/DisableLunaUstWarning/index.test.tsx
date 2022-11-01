@@ -12,14 +12,14 @@ import en from 'translation/translations/en.json';
 jest.mock('clients/api');
 
 describe('context/DisableLunaUstWarning', () => {
-  it.each([TOKENS.ust.id, TOKENS.luna.id])(
+  it.each([TOKENS.ust, TOKENS.luna])(
     'displays warning modal if %s is enabled as collateral',
-    async tokenId => {
+    async token => {
       const customAssets: Asset[] = [
         ...assetData,
         {
           ...assetData[0],
-          id: tokenId as Asset['id'],
+          token,
           collateral: true,
         },
       ];

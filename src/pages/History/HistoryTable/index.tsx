@@ -1,13 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { EllipseAddress, Icon, Table, TableProps } from 'components';
+import { EllipseAddress, Table, TableProps, TokenIcon } from 'components';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'translation';
 import { Transaction } from 'types';
-import { convertWeiToTokens, generateBscScanUrl, getTokenIdFromVAddress } from 'utilities';
+import {
+  convertWeiToTokens,
+  generateBscScanUrl,
+  getVTokenByAddress,
+  unsafelyGetToken,
+} from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { XVS_TOKEN_ID } from 'constants/xvs';
+import { TOKENS } from 'constants/tokens';
 
 import { useStyles } from './styles';
 
@@ -71,8 +76,8 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const rows: TableProps['data'] = useMemo(
     () =>
       transactions.map(txn => {
-        const tokenId =
-          (txn.vTokenAddress && getTokenIdFromVAddress(txn.vTokenAddress)) || XVS_TOKEN_ID;
+        const vToken = getVTokenByAddress(txn.vTokenAddress);
+        const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
         return [
           {
@@ -86,14 +91,14 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
             render: () => (
               <>
                 <div css={[styles.whiteText, styles.table, styles.typeCol]}>
-                  <Icon name={tokenId} css={styles.icon} />
+                  <TokenIcon token={token} css={styles.icon} />
                   <Typography variant="small2" color="textPrimary">
                     {eventTranslationKeys[txn.event]}
                   </Typography>
                 </div>
                 <div css={[styles.cards, styles.cardTitle]}>
                   <div css={styles.typeCol}>
-                    <Icon name={tokenId} css={styles.icon} />
+                    <TokenIcon token={token} css={styles.icon} />
                     <Typography variant="small2" color="textPrimary">
                       {txn.event}
                     </Typography>
@@ -175,7 +180,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
               <Typography variant="small2" css={styles.whiteText}>
                 {convertWeiToTokens({
                   valueWei: txn.amountWei,
-                  tokenId,
+                  token,
                   returnInReadableFormat: true,
                   minimizeDecimals: true,
                   addSymbol: false,

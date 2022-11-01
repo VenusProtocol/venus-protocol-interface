@@ -3,8 +3,9 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import React from 'react';
 import { State } from 'react-powerplug';
-import { TokenId } from 'types';
+import { Token } from 'types';
 
+import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 import { withCenterStory } from 'stories/decorators';
 
 import { SelectTokenTextField } from '.';
@@ -15,22 +16,26 @@ export default {
   decorators: [withCenterStory({ width: 600 })],
 } as ComponentMeta<typeof SelectTokenTextField>;
 
-const tokenIds: TokenId[] = ['usdt', 'xvs', 'bnb', 'usdc', 'vrt', 'vai', 'ltc', 'btcb'];
+const tokens = [
+  TESTNET_PANCAKE_SWAP_TOKENS.busd,
+  TESTNET_PANCAKE_SWAP_TOKENS.cake,
+  TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
+] as Token[];
 
-const initialData: { value: string; tokenId: TokenId } = {
+const initialData: { value: string; token: Token } = {
   value: '',
-  tokenId: tokenIds[0],
+  token: tokens[0],
 };
 
 export const Default = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <SelectTokenTextField
-        selectedTokenId={state.tokenId}
+        selectedToken={state.token}
         value={state.value}
         onChange={value => setState({ value })}
-        onChangeSelectedTokenId={tokenId => setState({ tokenId })}
-        tokenIds={tokenIds}
+        onChangeSelectedToken={token => setState({ token })}
+        tokens={tokens}
       />
     )}
   </State>
@@ -40,12 +45,12 @@ export const WithUserTokenBalance = () => (
   <State initial={initialData}>
     {({ state, setState }) => (
       <SelectTokenTextField
-        selectedTokenId={state.tokenId}
+        selectedToken={state.token}
         userTokenBalanceWei={new BigNumber('10000000000000')}
         value={state.value}
         onChange={value => setState({ value })}
-        onChangeSelectedTokenId={tokenId => setState({ tokenId })}
-        tokenIds={tokenIds}
+        onChangeSelectedToken={token => setState({ token })}
+        tokens={tokens}
       />
     )}
   </State>
@@ -53,11 +58,11 @@ export const WithUserTokenBalance = () => (
 
 export const Disabled = () => (
   <SelectTokenTextField
-    selectedTokenId={tokenIds[0]}
+    selectedToken={tokens[0]}
     value=""
     onChange={noop}
-    onChangeSelectedTokenId={noop}
-    tokenIds={tokenIds}
+    onChangeSelectedToken={noop}
+    tokens={tokens}
     disabled
   />
 );

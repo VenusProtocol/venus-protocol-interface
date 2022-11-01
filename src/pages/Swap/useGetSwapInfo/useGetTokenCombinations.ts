@@ -4,7 +4,7 @@ import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 import { Token } from 'types';
 
-import tokenList from '../tokenList';
+import { TESTNET_PANCAKE_SWAP_TOKENS } from 'constants/tokens';
 
 export interface UseGetTokenCombinationsInput {
   fromToken: Token;
@@ -12,9 +12,15 @@ export interface UseGetTokenCombinationsInput {
 }
 
 // Define tokens to check trades against
-// TODO: move to global file/handle better (see https://jira.toolsfdg.net/browse/VEN-712)
-// TODO: handle mainnet
-const BASE_TRADE_TOKENS = [tokenList.wbnb, tokenList.busd, tokenList.cake];
+const BASE_TRADE_TOKENS = config.isOnTestnet
+  ? [
+      TESTNET_PANCAKE_SWAP_TOKENS.wbnb,
+      TESTNET_PANCAKE_SWAP_TOKENS.busd,
+      TESTNET_PANCAKE_SWAP_TOKENS.cake,
+    ]
+  : [
+      // TODO: add mainnet tokens
+    ];
 
 const useGetTokenCombinations = ({
   fromToken,
