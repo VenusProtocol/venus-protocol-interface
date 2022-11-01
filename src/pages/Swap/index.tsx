@@ -8,7 +8,6 @@ import {
   SelectTokenTextField,
   TertiaryButton,
 } from 'components';
-import _values from 'lodash/values';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'translation';
 import { Token } from 'types';
@@ -23,7 +22,7 @@ import { useStyles } from './styles';
 import { Swap, SwapDirection } from './types';
 import useGetSwapInfo from './useGetSwapInfo';
 
-const tokens = _values(PANCAKE_SWAP_TOKENS) as Token[];
+const tokens = Object.values(PANCAKE_SWAP_TOKENS) as Token[];
 
 const readableSlippageTolerancePercentage = formatToReadablePercentage(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
