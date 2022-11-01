@@ -5,7 +5,7 @@ import { Delimiter, TableProps, switchAriaLabel, toast } from 'components';
 import { VError, formatVErrorToReadableString } from 'errors';
 import React, { useContext, useState } from 'react';
 import { Asset } from 'types';
-import { unsafeGetVToken } from 'utilities';
+import { unsafelyGetVToken } from 'utilities';
 
 import {
   getHypotheticalAccountLiquidity,
@@ -172,7 +172,7 @@ const SupplyMarket: React.FC<
       });
     }
 
-    const vToken = unsafeGetVToken(asset.token.id);
+    const vToken = unsafelyGetVToken(asset.token.id);
 
     if (asset.collateral) {
       const vTokenContract = getVTokenContract(asset.token.id, web3);

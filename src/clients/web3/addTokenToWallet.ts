@@ -1,9 +1,9 @@
-import { unsafeGetToken } from 'utilities';
+import { unsafelyGetToken } from 'utilities';
 
 import { isRunningInBinanceChainWallet } from './walletDetectionUtils';
 
 const addTokenToWallet = async (tokenId: string) => {
-  const token = unsafeGetToken(tokenId);
+  const token = unsafelyGetToken(tokenId);
   const isInBCW = isRunningInBinanceChainWallet();
 
   return (isInBCW ? (window.BinanceChain as Record<string, string>) : window.ethereum)?.request({

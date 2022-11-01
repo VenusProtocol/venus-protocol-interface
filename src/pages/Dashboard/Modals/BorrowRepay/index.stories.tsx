@@ -1,7 +1,7 @@
 import { ComponentMeta, Story } from '@storybook/react';
 import noop from 'noop-ts';
 import React from 'react';
-import { unsafeGetVToken } from 'utilities';
+import { unsafelyGetVToken } from 'utilities';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -51,7 +51,7 @@ Default.decorators = [
   withEnabledToken({
     tokenId: assetData[0].token.id,
     accountAddress: fakeAddress,
-    spenderAddress: unsafeGetVToken(assetData[0].token.id).address,
+    spenderAddress: unsafelyGetVToken(assetData[0].token.id).address,
   }),
 ];
 Default.args = {
