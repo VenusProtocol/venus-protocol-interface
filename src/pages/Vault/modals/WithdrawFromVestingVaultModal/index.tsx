@@ -2,7 +2,7 @@
 import { Modal, ModalProps, TabContent, Tabs } from 'components';
 import React, { useState } from 'react';
 import { useTranslation } from 'translation';
-import { unsafeGetToken } from 'utilities';
+import { unsafelyGetToken } from 'utilities';
 
 import RequestWithdrawal from './RequestWithdrawal';
 import Withdraw from './Withdraw';
@@ -32,7 +32,7 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
     setInitialActiveTabIndex(1);
   };
 
-  const stakedToken = unsafeGetToken(stakedTokenId);
+  const stakedToken = unsafelyGetToken(stakedTokenId);
   const { t } = useTranslation();
   const styles = useStyles();
 

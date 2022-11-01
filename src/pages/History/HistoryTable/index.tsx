@@ -8,7 +8,7 @@ import {
   convertWeiToTokens,
   generateBscScanUrl,
   getVTokenByAddress,
-  unsafeGetToken,
+  unsafelyGetToken,
 } from 'utilities';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -77,7 +77,7 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
     () =>
       transactions.map(txn => {
         const vToken = getVTokenByAddress(txn.vTokenAddress);
-        const token = (vToken && unsafeGetToken(vToken.id)) || TOKENS.xvs;
+        const token = (vToken && unsafelyGetToken(vToken.id)) || TOKENS.xvs;
 
         return [
           {

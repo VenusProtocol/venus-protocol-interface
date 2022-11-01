@@ -1,7 +1,7 @@
 export { promisify } from './promisify';
 export { restService } from './restService';
-export { default as unsafeGetToken } from './unsafeGetToken';
-export { default as unsafeGetVToken } from './unsafeGetVToken';
+export { default as unsafelyGetToken } from './unsafelyGetToken';
+export { default as unsafelyGetVToken } from './unsafelyGetVToken';
 export { default as getVTokenByAddress } from './getVTokenByAddress';
 export { default as getTokenByAddress } from './getTokenByAddress';
 export { default as getContractAddress } from './getContractAddress';

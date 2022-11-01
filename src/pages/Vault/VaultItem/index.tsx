@@ -8,7 +8,7 @@ import { Button, TokenIcon } from 'components';
 import { VError } from 'errors';
 import React, { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'translation';
-import { convertWeiToTokens, formatToReadablePercentage, unsafeGetToken } from 'utilities';
+import { convertWeiToTokens, formatToReadablePercentage, unsafelyGetToken } from 'utilities';
 import type { TransactionReceipt } from 'web3-core/types';
 
 import { useWithdrawFromVrtVault } from 'clients/api';
@@ -89,8 +89,8 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
       }),
     });
 
-  const rewardToken = unsafeGetToken(rewardTokenId);
-  const stakedToken = unsafeGetToken(stakedTokenId);
+  const rewardToken = unsafelyGetToken(rewardTokenId);
+  const stakedToken = unsafelyGetToken(stakedTokenId);
 
   const readableUserPendingRewardTokens = useConvertWeiToReadableTokenString({
     valueWei: userPendingRewardWei,
@@ -161,7 +161,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
             <TokenIcon css={styles.tokenIcon} token={stakedToken} />
 
             <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.symbol}>
-              {unsafeGetToken(stakedTokenId).symbol}
+              {unsafelyGetToken(stakedTokenId).symbol}
             </Typography>
           </div>
 

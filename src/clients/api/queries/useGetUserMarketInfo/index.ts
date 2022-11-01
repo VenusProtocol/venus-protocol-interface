@@ -6,8 +6,8 @@ import {
   convertTokensToWei,
   convertWeiToTokens,
   indexBy,
-  unsafeGetToken,
-  unsafeGetVToken,
+  unsafelyGetToken,
+  unsafelyGetVToken,
 } from 'utilities';
 
 import {
@@ -113,8 +113,8 @@ const useGetUserMarketInfo = ({
       totalXvsDistributedWei,
     } = (getMarketsData?.markets || []).reduce(
       (acc, market) => {
-        const token = unsafeGetToken(market.id);
-        const vBepToken = unsafeGetVToken(token.id);
+        const token = unsafelyGetToken(market.id);
+        const vBepToken = unsafelyGetVToken(token.id);
 
         // Skip token if it isn't listed
         if (!token || !vBepToken) {
