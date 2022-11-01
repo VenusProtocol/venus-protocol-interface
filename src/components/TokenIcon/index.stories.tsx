@@ -56,3 +56,5 @@ export const Default = () => (
     </div>
   </>
 );
+
+export const ShowSymbol = () => <TokenIcon token={TOKENS.usdc} showSymbol />;

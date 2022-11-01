@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Asset } from 'types';
+import { Asset, Token } from 'types';
 import {
   calculateCollateralValue,
   convertTokensToWei,
@@ -206,7 +206,7 @@ const useGetUserMarketInfo = ({
       userMintedVaiData
         ? convertWeiToTokens({
             valueWei: userMintedVaiData.mintedVaiWei,
-            token: TOKENS.vai,
+            token: TOKENS.vai as Token,
           })
             // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
             .times(100)

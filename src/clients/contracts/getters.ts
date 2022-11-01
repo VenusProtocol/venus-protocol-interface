@@ -1,5 +1,4 @@
-import { Token } from 'types';
-import { getContractAddress, unsafelyGetVToken } from 'utilities';
+import { getContractAddress, unsafelyGetToken, unsafelyGetVToken } from 'utilities';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
@@ -50,9 +49,11 @@ const getContract = <T>(abi: AbiItem | AbiItem[], address: string, web3Instance:
   return new web3.eth.Contract(abi, address) as unknown as T;
 };
 
-export const getTokenContract = (token: Token, web3: Web3) => {
-  if (token.address === TOKENS.xvs.address) {
-    return getContract<TokenContract<'xvs'>>(xvsTokenAbi as AbiItem[], token.address, web3);
+export const getTokenContract = <T extends string>(tokenId: T, web3: Web3): TokenContract<T> => {
+  const tokenAddress = unsafelyGetToken(tokenId).address;
+
+  if (tokenId === 'xvs') {
+    return getContract<TokenContract<T>>(xvsTokenAbi as AbiItem[], tokenAddress, web3);
   }
 
   if (token.address === TOKENS.vai.address) {

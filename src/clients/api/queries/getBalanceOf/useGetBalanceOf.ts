@@ -19,7 +19,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetBalanceOf = (
-  { accountAddress, tokenId }: Omit<GetBalanceOfInput, 'web3'> & { tokenId: TokenId },
+  { accountAddress, tokenId }: Omit<GetBalanceOfInput, 'web3'> & { tokenId: string },
   options?: Options,
 ) => {
   const web3 = useWeb3();

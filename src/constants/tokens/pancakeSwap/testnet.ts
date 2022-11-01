@@ -1,16 +1,6 @@
 import { Token } from 'types';
 
-import bnb from 'assets/img/tokens/bnb.svg';
-
 export const TESTNET_PANCAKE_SWAP_TOKENS = {
-  bnb: {
-    id: 'bnb',
-    symbol: 'BNB',
-    decimals: 18,
-    address: '',
-    asset: bnb,
-    isNative: true,
-  } as Token,
   cake: {
     id: 'cake',
     symbol: 'CAKE',
@@ -35,4 +25,5 @@ export const TESTNET_PANCAKE_SWAP_TOKENS = {
     asset:
       'https://pancakeswap.finance/images/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c.svg',
   } as Token,
+  // TODO: add other tokens (BNB for example)
 };

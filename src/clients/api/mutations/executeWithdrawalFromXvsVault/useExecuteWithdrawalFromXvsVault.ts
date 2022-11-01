@@ -1,5 +1,5 @@
 import { MutationObserverOptions, useMutation } from 'react-query';
-import { getContractAddress, unsafelyGetToken } from 'utilities';
+import { getContractAddress } from 'utilities';
 
 import {
   ExecuteWithdrawalFromXvsVaultInput,

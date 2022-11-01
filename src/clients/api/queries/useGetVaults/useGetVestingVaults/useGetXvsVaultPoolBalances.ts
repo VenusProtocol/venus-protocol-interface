@@ -1,5 +1,4 @@
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
-import { TokenId } from 'types';
 import { getContractAddress, getTokenByAddress } from 'utilities';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
@@ -31,7 +30,7 @@ const useGetXvsVaultPoolBalances = ({
         queryFn: () =>
           getBalanceOf({
             web3,
-            tokenId: stakedTokenId as TokenId,
+            tokenId: stakedTokenId || '',
             accountAddress: XVS_VAULT_PROXY_CONTRACT_ADDRESS,
           }),
         queryKey: [FunctionKey.GET_BALANCE_OF, XVS_VAULT_PROXY_CONTRACT_ADDRESS, stakedTokenId],

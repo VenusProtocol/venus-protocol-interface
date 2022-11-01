@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { Table, TableProps, TokenIconWithSymbol } from 'components';
+import { Table, TableProps, TokenIcon } from 'components';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'translation';
-import { Asset } from 'types';
+import { Asset, Token } from 'types';
 import {
   convertWeiToTokens,
   formatToReadablePercentage,
@@ -58,7 +58,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
   const rows: TableProps['data'] = assets.map(asset => [
     {
       key: 'asset',
-      render: () => <TokenIconWithSymbol token={asset.token} />,
+      render: () => <TokenIcon token={asset.token} showSymbol />,
       value: asset.token.id,
       align: 'left',
     },
@@ -68,7 +68,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets }) => {
         <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
           {formatTokensToReadableValue({
             value: asset.xvsPerDay,
-            token: TOKENS.xvs,
+            token: TOKENS.xvs as Token,
             minimizeDecimals: true,
           })}
         </Typography>
@@ -142,12 +142,12 @@ const XvsTable: React.FC = () => {
     if (venusVaiVaultDailyRateData && vaultVaiStakedData && xvsAsset) {
       const venusVaiVaultDailyRateTokens = convertWeiToTokens({
         valueWei: venusVaiVaultDailyRateData.dailyRateWei,
-        token: TOKENS.xvs,
+        token: TOKENS.xvs as Token,
       });
 
       const vaultVaiStakedTokens = convertWeiToTokens({
         valueWei: vaultVaiStakedData.balanceWei,
-        token: TOKENS.vai,
+        token: TOKENS.vai as Token,
       });
 
       const vaiApy = venusVaiVaultDailyRateTokens

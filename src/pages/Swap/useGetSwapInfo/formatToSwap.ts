@@ -18,15 +18,15 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
       direction: 'exactAmountIn',
       fromTokenAmountSoldWei: convertTokensToWei({
         value: new BigNumber(trade.inputAmount.toFixed()),
-        tokenId: input.fromToken.id,
+        token: input.fromToken,
       }),
       expectedToTokenAmountReceivedWei: convertTokensToWei({
         value: new BigNumber(trade.outputAmount.toFixed()),
-        tokenId: input.fromToken.id,
+        token: input.fromToken,
       }),
       minimumToTokenAmountReceivedWei: convertTokensToWei({
         value: new BigNumber(trade.minimumAmountOut(slippagePercent).toFixed()),
-        tokenId: input.fromToken.id,
+        token: input.fromToken,
       }),
       exchangeRate: new BigNumber(trade.executionPrice.toFixed()),
     };
@@ -41,15 +41,15 @@ const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput =
     direction: 'exactAmountOut',
     expectedFromTokenAmountSoldWei: convertTokensToWei({
       value: new BigNumber(trade.inputAmount.toFixed()),
-      tokenId: input.fromToken.id,
+      token: input.fromToken,
     }),
     maximumFromTokenAmountSoldWei: convertTokensToWei({
       value: new BigNumber(trade.maximumAmountIn(slippagePercent).toFixed()),
-      tokenId: input.fromToken.id,
+      token: input.fromToken,
     }),
     toTokenAmountReceivedWei: convertTokensToWei({
       value: new BigNumber(trade.outputAmount.toFixed()),
-      tokenId: input.fromToken.id,
+      token: input.fromToken,
     }),
     exchangeRate: new BigNumber(trade.executionPrice.toFixed()),
   };
