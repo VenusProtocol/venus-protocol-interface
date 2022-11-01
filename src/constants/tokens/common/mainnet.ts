@@ -28,7 +28,6 @@ import vrt from 'assets/img/tokens/vrt.svg';
 import xrp from 'assets/img/tokens/xrp.svg';
 import xvs from 'assets/img/tokens/xvs.svg';
 
-
 import TOKEN_ADDRESSES from '../../contracts/addresses/tokens.json';
 
 export const MAINNET_TOKENS = {
